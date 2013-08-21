@@ -26,6 +26,7 @@
     
     time.text=userComment.time;
     [avatar setImageWithURL:[NSURL URLWithString:userComment.avatar]];
+    
     comment.text=userComment.comment;
     [comment setFrame:CGRectMake(45, 15, COMMENT_WIDTH+changedWidth, MAX(size.height, 21))];
     

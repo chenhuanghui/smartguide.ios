@@ -161,7 +161,7 @@
             pick.frame=rect;
             
             rect=imgvSwitch.frame;
-            rect.origin=CGPointMake(87, 119);
+            rect.origin=CGPointMake(87, 122);
             imgvSwitch.frame=rect;
             imgvSwitch.transform=CGAffineTransformMakeRotation(DEGREES_TO_RADIANS(0));
         } completion:^(BOOL finished) {
@@ -172,7 +172,7 @@
     else
     {
         CGRect rect=btnPromotion.frame;
-        rect.origin=CGPointMake(0, 119);
+        rect.origin=CGPointMake(0, 122);
         rect.size=CGSizeMake(84, 35);
         btnPromotion.frame=rect;
         
@@ -213,7 +213,7 @@
             btnPromotion.frame=rect;
             
             rect=imgvSwitch.frame;
-            rect.origin=CGPointMake(210, 119);
+            rect.origin=CGPointMake(210, 122);
             imgvSwitch.frame=rect;
             imgvSwitch.transform=CGAffineTransformMakeRotation(DEGREES_TO_RADIANS(180));
             
@@ -237,7 +237,7 @@
         btnPromotion.frame=rect;
         
         rect=imgvSwitch.frame;
-        rect.origin=CGPointMake(210, 119);
+        rect.origin=CGPointMake(210, 122);
         imgvSwitch.frame=rect;
         imgvSwitch.transform=CGAffineTransformMakeRotation(DEGREES_TO_RADIANS(180));
         
@@ -267,7 +267,7 @@
     rect.origin.x=btnLike.frame.origin.x+btnLike.frame.size.width+6;
     btnDislike.frame=rect;
     
-//    [self performSelector:@selector(testAlignButton) withObject:nil afterDelay:0.05f];
+    //    [self performSelector:@selector(testAlignButton) withObject:nil afterDelay:0.05f];
 }
 
 -(void) testAlignButton
@@ -320,10 +320,10 @@
         
         [imgvLogo setImageWithURL:[NSURL URLWithString:_shop.logo]];
         
-//      cover shop được set khi api shop detail được load
-//      [imgvCover setImageWithURL:[NSURL URLWithString:_shop.cover]];
+        //      cover shop được set khi api shop detail được load
+        //      [imgvCover setImageWithURL:[NSURL URLWithString:_shop.cover]];
         
-//        self.title=_shop.name;
+        //        self.title=_shop.name;
         lblName.text=[_shop.name uppercaseString];
         if(_shop.promotionDetail)
         {
@@ -671,12 +671,14 @@
         }
         else if([[viewContaint.subviews objectAtIndex:0] isKindOfClass:[ShopLocation class]])
         {
-                CGPoint location=[pan locationInView:shopLocation.mapContaint];
-                CGRect rect=shopLocation.mapContaint.frame;
-                rect.origin=CGPointZero;
-                
-                if(CGRectContainsPoint(rect, location))
-                    return false;
+            return true;
+            
+            CGPoint location=[pan locationInView:shopLocation.mapContaint];
+            CGRect rect=shopLocation.mapContaint.frame;
+            rect.origin=CGPointZero;
+            
+            if(CGRectContainsPoint(rect, location))
+                return false;
         }
         else if([[viewContaint.subviews objectAtIndex:0] isKindOfClass:[ShopComment class]])
         {
@@ -716,7 +718,7 @@
     
     rootView.layer.cornerRadius=8;
     rootView.layer.masksToBounds=true;
-
+    
     dispatch_async(dispatch_get_main_queue(), ^{
         
         _isLoadedViews=false;
@@ -748,7 +750,7 @@
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-
+    
     [self animationScore];
 }
 
@@ -906,7 +908,7 @@
     
     btnDislike.selected=false;
     btnLike.selected=true;
-
+    
     [self likeDislikeShop:LIKE];
 }
 - (IBAction)btnDislikeTouchUpInside:(id)sender {

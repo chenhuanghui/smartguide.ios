@@ -59,11 +59,7 @@
     lblSgp.text=[NSString stringWithFormat:@"%lld",_shop.promotionDetail.sgp.longLongValue];
     lblSP.text=[NSString stringWithFormat:@"%lld",_shop.promotionDetail.sp.longLongValue];
     
-    NSNumberFormatter *format=[[NSNumberFormatter alloc] init];
-    format.groupingSeparator=@".";
-    format.maximumFractionDigits=0;
-    
-    [lblCost setText:[NSString stringWithFormat:@"<cost>%@</cost><a>/1SGP</a>",[format stringFromNumber:_shop.promotionDetail.cost]]];
+    [lblCost setText:[NSString stringWithFormat:@"<cost>%@</cost><a>/1SGP</a>",[NSNumberFormatter moneyFromNSNumber:_shop.promotionDetail.cost]]];
     
     [tableRank reloadData];
 }

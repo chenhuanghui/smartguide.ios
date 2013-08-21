@@ -73,8 +73,8 @@
     if(_isDraggingCatalogueBlock)
         return true;
     
-    if(![[self currentVisibleViewController] allowDragPreviousView:panGesture])
-        return false;
+    if([[self visibleViewController] respondsToSelector:@selector(allowDragPreviousView:)])
+        return [[self currentVisibleViewController] allowDragPreviousView:panGesture];
     
     return true;
 }

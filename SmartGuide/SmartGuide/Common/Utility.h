@@ -165,3 +165,18 @@ bool isVailCLLocationCoordinate2D(CLLocationCoordinate2D location);
 -(void) removePlaceHolderText;
 
 @end
+
+@interface NSNumberFormatter(Utility)
+
++(NSNumberFormatter*) moneyFormat;
++(NSNumberFormatter*) numberFormat;
+
++(NSString*) moneyFromNSNumber:(NSNumber*) number;
+
+@end
+
+@interface NSMoneyFormat : NSNumberFormatter
+
++(NSMoneyFormat*) moneyFormat;
+
+@end

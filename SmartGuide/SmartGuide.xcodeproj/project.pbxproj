@@ -1623,7 +1623,6 @@
 		A9B807F5179FC25000C8E003 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		A9B807F7179FCCB600C8E003 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		A9B807FB179FCCE300C8E003 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
-		A9B80806179FCEA700C8E003 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = ../../../Documents/FacebookSDK/FacebookSDK.framework; sourceTree = "<group>"; };
 		A9B80808179FCEBD00C8E003 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		A9B8080A179FCECA00C8E003 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		A9B8080C179FD00100C8E003 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
@@ -2349,9 +2348,6 @@
 		A9819845178D02520009FCB6 = {
 			isa = PBXGroup;
 			children = (
-				A9A19D5E17C4088E000D0ECD /* MessageUI.framework */,
-				A9A19D5C17C40871000D0ECD /* StoreKit.framework */,
-				A9A19D5A17C40858000D0ECD /* Twitter.framework */,
 				A94088E117B3A78200205145 /* icon_app3_small.png */,
 				A9819857178D02530009FCB6 /* SmartGuide */,
 				A9819850178D02530009FCB6 /* Frameworks */,
@@ -2371,6 +2367,9 @@
 		A9819850178D02530009FCB6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A9A19D5E17C4088E000D0ECD /* MessageUI.framework */,
+				A9A19D5C17C40871000D0ECD /* StoreKit.framework */,
+				A9A19D5A17C40858000D0ECD /* Twitter.framework */,
 				A9B80841179FEAD900C8E003 /* libiconv.dylib */,
 				A9B8083F179FEAC900C8E003 /* CoreVideo.framework */,
 				A9B8083D179FEAC300C8E003 /* CoreMedia.framework */,
@@ -2379,7 +2378,6 @@
 				A9B8080A179FCECA00C8E003 /* AdSupport.framework */,
 				A9B80808179FCEBD00C8E003 /* Security.framework */,
 				A9B807FB179FCCE300C8E003 /* Accounts.framework */,
-				A9B80806179FCEA700C8E003 /* FacebookSDK.framework */,
 				A9B807F7179FCCB600C8E003 /* libsqlite3.dylib */,
 				A9B807F5179FC25000C8E003 /* libxml2.dylib */,
 				A9B807F3179FC1B900C8E003 /* libz.dylib */,

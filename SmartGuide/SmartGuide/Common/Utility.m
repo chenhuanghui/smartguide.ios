@@ -1058,3 +1058,53 @@ static const NSString *KEY_HIT_TEST_EDGE_INSETS = @"HitTestEdgeInsets";
 }
 
 @end
+
+@implementation NSNumberFormatter(Utility)
+
++(NSNumberFormatter *)moneyFormat
+{
+    return [NSMoneyFormat moneyFormat];
+}
+
++(NSNumberFormatter *)numberFormat
+{
+    NSNumberFormatter *num=[[NSNumberFormatter alloc] init];
+    num.maximumFractionDigits=0;
+    num.groupingSeparator=@".";
+    
+    return num;
+}
+
++(NSString *)moneyFromNSNumber:(NSNumber *)number
+{
+    return [[NSNumberFormatter moneyFormat] stringFromNumber:number];
+}
+
+@end
+
+@implementation NSMoneyFormat
+
+- (id)init
+{
+    self = [super init];
+    if (self) {
+        self.groupingSeparator=@".";
+        self.maximumFractionDigits=0;
+    }
+    return self;
+}
+
++(NSMoneyFormat *)moneyFormat
+{
+    return [[NSMoneyFormat alloc] init];
+}
+
+-(NSString *)stringFromNumber:(NSNumber *)number
+{
+    if(!number)
+        return @"0K vnđ";
+    
+    return [NSString stringWithFormat:@"%@K vnđ",[super stringFromNumber:@([number doubleValue]/1000)]];
+}
+
+@end

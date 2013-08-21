@@ -11,7 +11,7 @@
 #import "ShopDetailViewController.h"
 #import "TouchView.h"
 
-@interface ShopLocation : UIView<ShopViewHandle,TouchViewDelegate,MKMapViewDelegate>
+@interface ShopLocation : UIView<ShopViewHandle,TouchViewDelegate,MKMapViewDelegate,UIGestureRecognizerDelegate>
 {
     __weak IBOutlet TouchView *mapContaint;
     __weak Shop *_shop;

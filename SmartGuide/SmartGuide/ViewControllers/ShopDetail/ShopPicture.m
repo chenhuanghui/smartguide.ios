@@ -303,7 +303,7 @@
         rect.origin=[tableView convertPoint:rect.origin fromView:cell];
         rect.origin=[self convertPoint:rect.origin fromView:tableView];
         rect.origin=[self convertPoint:rect.origin toView:galleryView];
-        rect.origin.x+=18;
+//        rect.origin.x+=18;
         //rect.origin=[galleryView convertPoint:rect.origin toView:galleryView]; uncomment để lấy vị trí y
         rect.origin.y=344-20;
         [galleryView animationImage:cell.userImage startRect:rect];

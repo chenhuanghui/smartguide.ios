@@ -15,12 +15,14 @@
 @property(nonatomic, strong) id<MKAnnotation> source;
 @property(nonatomic, strong) id<MKAnnotation> destination;
 @property(nonatomic, retain) MKPolyline* routeLine;
+@property (nonatomic, strong) UITapGestureRecognizer *tap;
 
 @end
 
 @implementation ShopLocation
 @synthesize isProcessedData,handler;
 @synthesize source,destination,routeLine;
+@synthesize tap;
 
 -(ShopLocation *)initWithShop:(Shop *)shop
 {
@@ -30,11 +32,45 @@
     
     [self setShop:shop];
     
+    [self addGestureMap];
+    
     return self;
+}
+
+-(void) addGestureMap
+{
+    self.tap=[[UITapGestureRecognizer alloc] init];
+    self.tap.delegate=self;
+    [self.tap addTarget:self action:@selector(tap:)];
+    [[RootViewController shareInstance].panPrevious requireGestureRecognizerToFail:self.tap];
+//    [self.tap requireGestureRecognizerToFail:[RootViewController shareInstance].panPrevious];
+    
+    [mapContaint addGestureRecognizer:self.tap];
+}
+
+-(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
+{
+    return gestureRecognizer==self.tap || otherGestureRecognizer==self.tap;
+}
+
+-(void) tap:(UITapGestureRecognizer*) tapGes
+{
+    [self makeMapFullscreen];
+}
+
+-(void) removeGesture
+{
+    if(self.tap)
+    {
+        [mapContaint removeGestureRecognizer:self.tap];
+        self.tap=nil;
+    }
 }
 
 -(void) makeMapFullscreen
 {
+    [self removeGesture];
+    
     mapContaint.userInteractionEnabled=false;
     map.userInteractionEnabled=true;
     map.scrollEnabled=true;
@@ -69,7 +105,7 @@
 
 -(void) makeMapNormal
 {
-    NSLog(@"self %@",self);
+    [self addGestureMap];
     
     [UIView animateWithDuration:DURATION_SHOW_MAP animations:^{
 
@@ -98,7 +134,7 @@
 
 -(void)viewTouchBegan:(UIView *)touchView touches:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    [self makeMapFullscreen];
+//    [self makeMapFullscreen];
 }
 
 -(void)setShop:(Shop *)shop
