@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="2061" systemVersion="11E53" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="Ads" representedClassName="Ads" syncable="YES">
+        <attribute name="begin_date" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="end_date" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="idAds" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="image" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="image_url" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="City" representedClassName="City" syncable="YES">
+        <attribute name="idCity" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="Filter" representedClassName="Filter" syncable="YES">
+        <attribute name="distance" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="drink" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="education" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="entertaiment" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="fashion" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="food" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="health" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="idUser" optional="YES" attributeType="Integer 32" syncable="YES"/>
+        <attribute name="mostGetPoint" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="mostGetReward" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="mostLike" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="mostView" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="production" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="travel" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <relationship name="user" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="filter" inverseEntity="User" syncable="YES"/>
+    </entity>
+    <entity name="Group" representedClassName="Group" syncable="YES">
+        <attribute name="count" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="idGroup" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="PromotionDetail" representedClassName="PromotionDetail" syncable="YES">
+        <attribute name="cost" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="duration" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="idAwardType2" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="money" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="promotionType" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="sgp" optional="YES" attributeType="Integer 64" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="sp" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <relationship name="requires" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="PromotionRequire" inverseName="promotion" inverseEntity="PromotionRequire" syncable="YES"/>
+        <relationship name="shop" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Shop" inverseName="promotionDetail" inverseEntity="Shop" syncable="YES"/>
+    </entity>
+    <entity name="PromotionRequire" representedClassName="PromotionRequire" syncable="YES">
+        <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="idRequire" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="sgpRequired" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <relationship name="promotion" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="PromotionDetail" inverseName="requires" inverseEntity="PromotionDetail" syncable="YES"/>
+    </entity>
+    <entity name="Shop" representedClassName="Shop" syncable="YES">
+        <attribute name="address" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="contact" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="cover" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="desc" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="dislike" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="distance" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="gallery" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="idGroup" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="idShop" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="isNeedReloadData" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="like" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="like_status" optional="YES" attributeType="Integer 32" syncable="YES"/>
+        <attribute name="logo" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="love" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="numGetPromotion" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="numGetReward" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="numOfDislike" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="numOfLike" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="numOfVisit" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="promotionStatus" optional="YES" attributeType="Integer 32" syncable="YES"/>
+        <attribute name="shop_lat" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="shop_lng" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="updated_at" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="website" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="products" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ShopProduct" inverseName="shop" inverseEntity="ShopProduct" syncable="YES"/>
+        <relationship name="promotionDetail" optional="YES" minCount="1" maxCount="1" deletionRule="Cascade" destinationEntity="PromotionDetail" inverseName="shop" inverseEntity="PromotionDetail" syncable="YES"/>
+        <relationship name="shopGallery" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ShopGallery" inverseName="shop" inverseEntity="ShopGallery" syncable="YES"/>
+        <relationship name="shopUserComments" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ShopUserComment" inverseName="shop" inverseEntity="ShopUserComment" syncable="YES"/>
+        <relationship name="userGallery" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ShopUserGallery" inverseName="shop" inverseEntity="ShopUserGallery" syncable="YES"/>
+    </entity>
+    <entity name="ShopGallery" representedClassName="ShopGallery" syncable="YES">
+        <attribute name="idShop" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="image" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="shop" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Shop" inverseName="shopGallery" inverseEntity="Shop" syncable="YES"/>
+    </entity>
+    <entity name="ShopProduct" representedClassName="ShopProduct" syncable="YES">
+        <attribute name="cat_name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="desc" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="images" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="price" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="shop" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Shop" inverseName="products" inverseEntity="Shop" syncable="YES"/>
+    </entity>
+    <entity name="ShopUserComment" representedClassName="ShopUserComment" syncable="YES">
+        <attribute name="avatar" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="comment" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="idShop" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="time" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="user" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="shop" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Shop" inverseName="shopUserComments" inverseEntity="Shop" syncable="YES"/>
+    </entity>
+    <entity name="ShopUserGallery" representedClassName="ShopUserGallery" syncable="YES">
+        <attribute name="desc" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="idShop" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="image" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="shop" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Shop" inverseName="userGallery" inverseEntity="Shop" syncable="YES"/>
+    </entity>
+    <entity name="User" representedClassName="User" syncable="YES">
+        <attribute name="avatar" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="idUser" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="isConnectedFacebook" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="phone" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="filter" optional="YES" minCount="1" maxCount="1" deletionRule="Cascade" destinationEntity="Filter" inverseName="user" inverseEntity="Filter" syncable="YES"/>
+    </entity>
+    <entity name="Versions" representedClassName="Versions" syncable="YES">
+        <attribute name="version" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="versionType" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Ads" positionX="160" positionY="192" width="128" height="135"/>
+        <element name="City" positionX="214" positionY="108" width="128" height="75"/>
+        <element name="Filter" positionX="-288" positionY="357" width="128" height="270"/>
+        <element name="Group" positionX="45" positionY="99" width="128" height="90"/>
+        <element name="PromotionDetail" positionX="466" positionY="126" width="128" height="180"/>
+        <element name="PromotionRequire" positionX="432" positionY="369" width="128" height="105"/>
+        <element name="Shop" positionX="216" positionY="267" width="128" height="495"/>
+        <element name="ShopGallery" positionX="430" positionY="603" width="128" height="90"/>
+        <element name="ShopProduct" positionX="-0" positionY="399" width="128" height="135"/>
+        <element name="ShopUserComment" positionX="-29" positionY="594" width="128" height="135"/>
+        <element name="ShopUserGallery" positionX="-2" positionY="219" width="128" height="105"/>
+        <element name="User" positionX="-63" positionY="-27" width="128" height="120"/>
+        <element name="Versions" positionX="-342" positionY="144" width="128" height="75"/>
+    </elements>
+</model>

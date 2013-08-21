@@ -1,0 +1,1 @@
+[{"id":1,"name":"H\u1ed3 Ch\u00ed Minh","google_name":"Ho Chi Minh City"},{"id":3,"name":"Nha Trang","google_name":"Nha Trang City"},{"id":4,"name":"\u0110\u00e0 L\u1ea1t","google_name":"Da Lat City"}]

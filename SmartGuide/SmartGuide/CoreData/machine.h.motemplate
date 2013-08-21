@@ -1,0 +1,42 @@
+// DO NOT EDIT. This file is machine-generated and constantly overwritten.
+// Make changes to <$managedObjectClassName$>.h instead.
+
+#import <CoreData/CoreData.h>
+
+#define <$managedObjectClassName$>_ClassName @"<$managedObjectClassName$>"
+<$foreach Attribute noninheritedAttributes do$>
+<$if Attribute.hasDefinedAttributeType$>#define <$managedObjectClassName$>_<$Attribute.name.initialCapitalString$> @"<$Attribute.name$>"<$endif$><$endforeach do$>
+
+@class <$managedObjectClassName$>;
+<$foreach Relationship noninheritedRelationships do$>@class <$Relationship.destinationEntity.managedObjectClassName$>;
+<$endforeach do$>
+@interface _<$managedObjectClassName$> : <$customSuperentity$>
+
++(<$managedObjectClassName$>*) insert;
++(<$managedObjectClassName$>*) temporary;
++(NSArray*) query<$managedObjectClassName.initialCapitalString$>:(NSPredicate*) predicate;
++(<$managedObjectClassName$>*) query<$managedObjectClassName.initialCapitalString$>Object:(NSPredicate*) predicate;
++(NSArray*) allObjects;
+
+-(bool) save;
+
+<$foreach Attribute noninheritedAttributes do$>
+@property (nonatomic, retain) <$Attribute.objectAttributeType$> <$Attribute.name$>;<$endif$><$endforeach do$>
+
+#pragma mark Fetched property
+<$foreach FetchedProperty noninheritedFetchedProperties do$>
+@property (nonatomic, readonly) NSArray *<$FetchedProperty.name$>;<$endforeach do$>
+    
+#pragma mark Relationships
+<$foreach Relationship noninheritedRelationships do$>
+#pragma mark <$Relationship.name.initialCapitalString$><$if Relationship.isToMany$>
+- (NSSet*) <$Relationship.name$>;
+- (NSArray*) <$Relationship.name$>Objects;
+- (void) add<$Relationship.name.initialCapitalString$>:(NSSet*)value;
+- (void) remove<$Relationship.name.initialCapitalString$>:(NSSet*)value;
+- (void) add<$Relationship.name.initialCapitalString$>Object:(<$Relationship.destinationEntity.managedObjectClassName$>*)value;
+- (void) remove<$Relationship.name.initialCapitalString$>Object:(<$Relationship.destinationEntity.managedObjectClassName$>*)value;<$else$>
+@property (nonatomic, retain) <$Relationship.destinationEntity.managedObjectClassName$>* <$Relationship.name$>;<$endif$>
+<$endforeach do$>
+
+@end

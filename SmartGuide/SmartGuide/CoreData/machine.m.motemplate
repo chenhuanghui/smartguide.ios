@@ -1,0 +1,178 @@
+// DO NOT EDIT. This file is machine-generated and constantly overwritten.
+// Make changes to <$managedObjectClassName$>.m instead.
+
+#import "_<$managedObjectClassName$>.h"
+#import "<$managedObjectClassName$>.h"
+
+#import "DataManager.h"
+<$foreach Relationship noninheritedRelationships do$>#import "<$Relationship.destinationEntity.managedObjectClassName$>.h"
+<$endforeach do$>
+
+@implementation _<$managedObjectClassName$><$foreach FetchedProperty noninheritedFetchedProperties do$>
+@dynamic <$FetchedProperty.name$>;<$endforeach do$>
+<$foreach Relationship noninheritedRelationships do$>
+<$if Relationship.isToMany$>
+<$else$>
+@dynamic <$Relationship.name$>;
+<$endif$>
+<$endforeach do$>
+
++(<$managedObjectClassName$>*) insert
+{
+    return [NSEntityDescription insertNewObjectForEntityForName:@"<$managedObjectClassName$>" inManagedObjectContext:[DataManager shareInstance].managedObjectContext];
+}
+
++(<$managedObjectClassName$>*) temporary
+{
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"<$managedObjectClassName$>" inManagedObjectContext:[DataManager shareInstance].managedObjectContext];
+    return [[<$managedObjectClassName$> alloc] initWithEntity:entity insertIntoManagedObjectContext:nil];
+}
+
++(NSArray*) query<$managedObjectClassName.initialCapitalString$>:(NSPredicate*) predicate
+{
+    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"<$managedObjectClassName$>"];
+    
+    if(predicate)
+        [fetchRequest setPredicate:predicate];
+    
+    NSManagedObjectContext *context=[DataManager shareInstance].managedObjectContext;
+
+    NSError *error=nil;
+    NSArray *result=[context executeFetchRequest:fetchRequest error:&error];
+    
+    if(error)
+        NSLog(@"<$managedObjectClassName$> query error %@ predicate %@",error,predicate);
+    
+    return result?result:[NSArray array];
+}
+
++(<$managedObjectClassName$>*) query<$managedObjectClassName.initialCapitalString$>Object:(NSPredicate*) predicate
+{
+    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"<$managedObjectClassName$>"];
+    
+    if(predicate)
+        [fetchRequest setPredicate:predicate];
+    
+    NSManagedObjectContext *context=[DataManager shareInstance].managedObjectContext;
+
+    NSError *error=nil;
+    NSArray *result=[context executeFetchRequest:fetchRequest error:&error];
+    
+    if(error)
+        NSLog(@"<$managedObjectClassName$> query error %@ predicate %@",error,predicate);
+    
+    if(result && result.count>0)
+        return [result objectAtIndex:0];
+
+    return nil;
+}
+
++(NSArray*) allObjects
+{
+    NSArray *array=[_<$managedObjectClassName$> query<$managedObjectClassName.initialCapitalString$>:nil];
+    
+    if(array)
+        return array;
+    
+    return [NSArray array];
+}
+
+-(bool) save
+{
+    NSError *error=nil;
+    bool result = [self.managedObjectContext save:&error];
+    
+    if(error)
+        NSLog(@"<$managedObjectClassName$> save error %@",error);
+        
+    return result;
+}
+
+<$foreach Attribute noninheritedAttributes do$>
+<$if Attribute.hasDefinedAttributeType$>
+- (<$Attribute.objectAttributeType$>)<$Attribute.name$> {
+	[self willAccessValueForKey:@"<$Attribute.name$>"];
+	<$Attribute.objectAttributeType$> result = (<$Attribute.objectAttributeType$>)[self primitiveValueForKey:@"<$Attribute.name$>"];
+	[self didAccessValueForKey:@"<$Attribute.name$>"];
+	return result;
+}
+
+- (void)set<$Attribute.name.initialCapitalString$>:(<$Attribute.objectAttributeType$>)value {
+	[self willChangeValueForKey:@"<$Attribute.name$>"];
+	[self setPrimitiveValue:value forKey:@"<$Attribute.name$>"];
+	[self didChangeValueForKey:@"<$Attribute.name$>"];
+}<$endif$><$endforeach do$>
+
+#pragma mark Relationships
+    <$foreach Relationship noninheritedRelationships do$>
+#pragma mark <$Relationship.name.initialCapitalString$><$if Relationship.isToMany$>
+- (NSSet*)<$Relationship.name$> {
+	[self willAccessValueForKey:@"<$Relationship.name$>"];
+	NSSet *result = [self primitiveValueForKey:@"<$Relationship.name$>"];
+	[self didAccessValueForKey:@"<$Relationship.name$>"];
+	return result;
+}
+
+-(NSArray*) <$Relationship.name$>Objects
+{
+    NSSet *set=[self <$Relationship.name$>];
+    if(set)
+        return [set allObjects];
+    
+    return [NSArray array];
+}
+
+- (void)set<$Relationship.name.initialCapitalString$>:(NSSet*)value {
+	[self willChangeValueForKey:@"<$Relationship.name$>" withSetMutation:NSKeyValueSetSetMutation usingObjects:value];
+	[[self primitiveValueForKey:@"<$Relationship.name$>"] setSet:value];
+	[self didChangeValueForKey:@"<$Relationship.name$>" withSetMutation:NSKeyValueSetSetMutation usingObjects:value];
+}
+
+- (void)add<$Relationship.name.initialCapitalString$>:(NSSet*)value {
+	[self willChangeValueForKey:@"<$Relationship.name$>" withSetMutation:NSKeyValueUnionSetMutation usingObjects:value];
+	[[self primitiveValueForKey:@"<$Relationship.name$>"] unionSet:value];
+	[self didChangeValueForKey:@"<$Relationship.name$>" withSetMutation:NSKeyValueUnionSetMutation usingObjects:value];
+}
+
+-(void)remove<$Relationship.name.initialCapitalString$>:(NSSet*)value {
+
+    for(NSManagedObject *obj in value.allObjects)
+        [self.managedObjectContext deleteObject:obj];
+
+	[self willChangeValueForKey:@"<$Relationship.name$>" withSetMutation:NSKeyValueMinusSetMutation usingObjects:value];
+	[[self primitiveValueForKey:@"<$Relationship.name$>"] minusSet:value];
+	[self didChangeValueForKey:@"<$Relationship.name$>" withSetMutation:NSKeyValueMinusSetMutation usingObjects:value];
+}
+	
+- (void)add<$Relationship.name.initialCapitalString$>Object:(<$Relationship.destinationEntity.managedObjectClassName$>*)value {
+	NSSet *changedObjects = [[NSSet alloc] initWithObjects:&value count:1];
+	[self willChangeValueForKey:@"<$Relationship.name$>" withSetMutation:NSKeyValueUnionSetMutation usingObjects:changedObjects];
+	[[self primitiveValueForKey:@"<$Relationship.name$>"] addObject:value];
+	[self didChangeValueForKey:@"<$Relationship.name$>" withSetMutation:NSKeyValueUnionSetMutation usingObjects:changedObjects];
+}
+
+- (void)remove<$Relationship.name.initialCapitalString$>Object:(<$Relationship.destinationEntity.managedObjectClassName$>*)value {
+
+    [self.managedObjectContext deleteObject:value];
+
+	NSSet *changedObjects = [[NSSet alloc] initWithObjects:&value count:1];
+	[self willChangeValueForKey:@"<$Relationship.name$>" withSetMutation:NSKeyValueMinusSetMutation usingObjects:changedObjects];
+	[[self primitiveValueForKey:@"<$Relationship.name$>"] removeObject:value];
+	[self didChangeValueForKey:@"<$Relationship.name$>" withSetMutation:NSKeyValueMinusSetMutation usingObjects:changedObjects];
+}
+
+- (NSMutableSet*)<$Relationship.name$>Set {
+	[self willAccessValueForKey:@"<$Relationship.name$>"];
+	NSMutableSet *result = [self mutableSetValueForKey:@"<$Relationship.name$>"];
+	[self didAccessValueForKey:@"<$Relationship.name$>"];
+	return result;
+}<$else$>
+- (<$Relationship.destinationEntity.managedObjectClassName$>*)<$Relationship.name$> {
+	[self willAccessValueForKey:@"<$Relationship.name$>"];
+	<$Relationship.destinationEntity.managedObjectClassName$> *result = [self primitiveValueForKey:@"<$Relationship.name$>"];
+	[self didAccessValueForKey:@"<$Relationship.name$>"];
+	return result;
+}<$endif$>
+<$endforeach do$>
+
+@end
