@@ -308,7 +308,6 @@
         rect.origin.y=344-20;
         [galleryView animationImage:cell.userImage startRect:rect];
         [galleryView.table scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionNone animated:false];
-
     }
     else if(tableView==tableShopGallery)
     {

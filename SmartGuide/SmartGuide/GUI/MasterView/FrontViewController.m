@@ -509,6 +509,25 @@
     [self hideCatalogueBlock:animated onCompleted:nil];
 }
 
+-(void)hideCatalogueBlockForUserCollection
+{
+    _isHideCatalogueBlockForUserCollection=true;
+    _isShowedCatalogueBlock=false;
+    [self.catalogueBlock.view removeFromSuperview];
+}
+
+-(bool)isHidedCatalogBlockForUserCollection
+{
+    return _isHideCatalogueBlockForUserCollection;
+}
+
+-(void)showCatalogueBlockForUserCollection
+{
+    [self.view addSubview:self.catalogueBlock.view];
+    _isShowedCatalogueBlock=true;
+    _isHideCatalogueBlockForUserCollection=false;
+}
+
 -(void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated
 {
     ViewController *vc=(ViewController*)viewController;

@@ -17,12 +17,16 @@
 {
     bool _isShowedCatalogueBlock;
     bool _isDraggingCatalogueBlock;
+    bool _isHideCatalogueBlockForUserCollection;
 }
 
 -(void) setFrame:(CGRect) frame;
 
 -(void) showCatalogueBlock:(bool) animated;
 -(void) hideCatalogueBlock:(bool) animated;
+-(void) showCatalogueBlockForUserCollection;
+-(void) hideCatalogueBlockForUserCollection;
+-(bool) isHidedCatalogBlockForUserCollection;
 -(bool) isShowedCatalogueBlock;
 -(bool) isDraggingCatalogueBlock;
 -(ViewController *)currentVisibleViewController;

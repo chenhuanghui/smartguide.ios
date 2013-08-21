@@ -627,9 +627,8 @@ static RootViewController *_rootViewController;
     
     if([self isShowedUserCollection])
         [self hideUserCollection];
-    
-    if(![self.frontViewController isShowedCatalogueBlock])
-        [self.frontViewController showCatalogueBlock:false];
+//    if(![self.frontViewController isShowedCatalogueBlock])
+//        [self.frontViewController showCatalogueBlock:false];
 }
 
 - (void)navigationBarUserCollection:(UIButton *)sender
@@ -1239,7 +1238,7 @@ static RootViewController *_rootViewController;
             rect.origin.y=[UIScreen mainScreen].bounds.size.height-[SlideQRCodeViewController size].height-25;
             self.slideQRCode.view.frame=rect;
             
-            [self.slideQRCode.view alphaView].backgroundColor=COLOR_BACKGROUND_APP_ALPHA(1);
+//            [self.slideQRCode.view alphaView].backgroundColor=COLOR_BACKGROUND_APP_ALPHA(1);
             [self.view alphaView].backgroundColor=COLOR_BACKGROUND_APP_ALPHA(0);
             
         } completion:^(BOOL finished) {
@@ -1247,7 +1246,7 @@ static RootViewController *_rootViewController;
             [self.slideQRCode hideCamera];
             
             [self.view removeAlphaView];
-            [self.slideQRCode.view removeAlphaView];
+//            [self.slideQRCode.view removeAlphaView];
             
             if(onCompleted)
                 onCompleted(finished);
@@ -1271,20 +1270,15 @@ static RootViewController *_rootViewController;
     self.slideQRCode.btnSlide.enabled=false;
     self.slideQRCode.delegate=self.frontViewController.catalogueList;
     
-    AlphaView *alphaView=[self.view alphaView];
-    if(!alphaView)
-    {
-        alphaView=[self.view makeAlphaViewBelowView:self.slideQRCode.view];
-        alphaView.backgroundColor=COLOR_BACKGROUND_APP_ALPHA(0);
-    }
+    AlphaView *alphaView=[self.view alphaViewWithColor:COLOR_BACKGROUND_APP_ALPHA(0)];
     
-    alphaView=[self.slideQRCode.view alphaView];
-    
-    if(!alphaView)
-    {
-        alphaView=[self.slideQRCode.view makeAlphaView];
-        alphaView.backgroundColor=COLOR_BACKGROUND_APP_ALPHA(1);
-    }
+//    alphaView=[self.slideQRCode.view alphaView];
+//    
+//    if(!alphaView)
+//    {
+//        alphaView=[self.slideQRCode.view makeAlphaView];
+//        alphaView.backgroundColor=COLOR_BACKGROUND_APP_ALPHA(1);
+//    }
     
     if(animated)
     {
@@ -1293,7 +1287,7 @@ static RootViewController *_rootViewController;
             rect.origin.y=0;
             self.slideQRCode.view.frame=rect;
             
-            [self.slideQRCode.view alphaView].backgroundColor=COLOR_BACKGROUND_APP_ALPHA(0);
+//            [self.slideQRCode.view alphaView].backgroundColor=COLOR_BACKGROUND_APP_ALPHA(0);
             [self.view alphaView].backgroundColor=COLOR_BACKGROUND_APP_ALPHA(1);
             
         } completion:^(BOOL finished) {
@@ -1301,7 +1295,7 @@ static RootViewController *_rootViewController;
             if(onCompleted)
                 onCompleted(finished);
             
-            [self.slideQRCode.view removeAlphaView];
+//            [self.slideQRCode.view removeAlphaView];
             [self.slideQRCode showCamera];
             
             self.slideQRCode.btnSlide.enabled=true;
@@ -1696,6 +1690,9 @@ static RootViewController *_rootViewController;
             [self.frontViewController popViewControllerAnimated:false];
             self.frontViewController.view.center=CGPointMake(160, 249);
             
+            if([self.frontViewController isHidedCatalogBlockForUserCollection])
+                [self.frontViewController showCatalogueBlockForUserCollection];
+            
             if(onCompleted)
                 onCompleted(finished);
         }];
@@ -1748,10 +1745,10 @@ static RootViewController *_rootViewController;
     
     _isShowedDetailFromCollection=true;
     _isShowedUserCollection=false;
-    
+
     if([self.frontViewController isShowedCatalogueBlock])
     {
-        [self.frontViewController hideCatalogueBlock:false];
+        [self.frontViewController hideCatalogueBlockForUserCollection];
     }
     
     self.bannerAds.view.hidden=true;
