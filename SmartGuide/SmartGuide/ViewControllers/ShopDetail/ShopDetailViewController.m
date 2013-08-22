@@ -807,7 +807,7 @@
 
 -(NSArray *)disableRightNavigationItems
 {
-    return @[@(ITEM_LIST),@(ITEM_MAP),@(ITEM_FILTER),@(ITEM_COLLECTION)];
+    return @[@(ITEM_LIST),@(ITEM_MAP),@(ITEM_FILTER)];
 }
 
 -(void) movePickToPoint:(CGPoint) pnt

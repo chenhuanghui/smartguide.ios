@@ -153,12 +153,7 @@
     
     self.navigationController.view.frame=CGRectMake(0, 37, 320, 337);
     
-    //hardcode
-    //catalogueblock không được push vào navigation nên navigation button sẽ bị override bởi catalogue list
-    if([[RootViewController shareInstance].frontViewController currentVisibleViewController]!=self)
-    {
-        [[[RootViewController shareInstance].frontViewController currentVisibleViewController] viewWillAppear:true];
-    }        
+    [[RootViewController shareInstance].bannerAds animationHideShopDetail];
 }
 
 -(void) loadShopAtPage:(int) page
