@@ -21,7 +21,7 @@
 
 @end
 
-@interface ShopUserPose : UIView<ASIOperationPostDelegate,UITextViewDelegate>
+@interface ShopUserPose : UIView<ASIOperationPostDelegate,UITextViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 {
     __weak IBOutlet UIButton *btnBack;
     __weak IBOutlet UIButton *btnFace;
@@ -31,6 +31,8 @@
     __weak IBOutlet UIView *containView;
     
     __weak Shop *_shop;
+    
+    bool _isSharedFacebook;
 }
 
 -(void) setImage:(UIImage*) image shop:(Shop*) shop;

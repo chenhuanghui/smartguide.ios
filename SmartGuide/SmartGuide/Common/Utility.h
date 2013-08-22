@@ -30,6 +30,7 @@ bool isVailCLLocationCoordinate2D(CLLocationCoordinate2D location);
 +(NSString*) documentPath;
 +(int) idShopFromQRCode:(NSString*) qrCode;
 +(CGSize) scaleProportionallyFromSize:(CGSize) fSize toSize:(CGSize) tSize;
++(CGSize)scaleUserPoseFromSize:(CGSize)fSize toSize:(CGSize)tSize;
 +(CGPoint) centerRect:(CGRect) rect;
 
 @end

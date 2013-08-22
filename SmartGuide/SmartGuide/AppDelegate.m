@@ -54,6 +54,9 @@
     SHKSmartGuildeConfig *config=[[SHKSmartGuildeConfig alloc] init];
     [SHKConfiguration sharedInstanceWithConfigurator:config];
     
+    SHKFacebook *fb=[[SHKFacebook alloc] init];
+    [fb isAuthorized];
+    
     [AFHTTPRequestOperation addAcceptableContentTypes:[NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript", @"text/html", nil]];
     
     [RootViewController startWithWindow:self.window];

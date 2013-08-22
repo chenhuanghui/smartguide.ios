@@ -15,6 +15,10 @@
     __weak IBOutlet UITextView *lblAddress;
     __weak IBOutlet UILabel *lblContact;
     __weak IBOutlet UITextView *lblWebsite;
+    __weak IBOutlet UILabel *lblMieuTa;
+    __weak IBOutlet UILabel *lblDiaChi;
+    __weak IBOutlet UILabel *lblLienLac;
+    __weak IBOutlet UILabel *lblWeb;
 }
 
 -(ShopInfo*) initWithShop:(Shop*) shop;

@@ -199,10 +199,10 @@ bool isVailCLLocationCoordinate2D(CLLocationCoordinate2D location)
 {
     if(fSize.width>fSize.height)
     {
-    float oldWitdh=fSize.width;
-    float scaleFactor=tSize.width/oldWitdh;
-    
-    return CGSizeMake(oldWitdh*scaleFactor, fSize.height*scaleFactor);
+        float oldWitdh=fSize.width;
+        float scaleFactor=tSize.width/oldWitdh;
+        
+        return CGSizeMake(oldWitdh*scaleFactor, fSize.height*scaleFactor);
     }
     else
     {
@@ -211,6 +211,22 @@ bool isVailCLLocationCoordinate2D(CLLocationCoordinate2D location)
         
         return CGSizeMake(fSize.width*scaleFactor, oldHeight*scaleFactor);
     }
+}
+
++(CGSize)scaleUserPoseFromSize:(CGSize)fSize toSize:(CGSize)tSize
+{
+    if(fSize.width>fSize.height)
+    {
+        float oldHeight=fSize.height;
+        float scaleFactor=tSize.height/oldHeight;
+        
+        return CGSizeMake(fSize.width*scaleFactor, oldHeight*scaleFactor);
+    }
+    
+    float oldWitdh=fSize.width;
+    float scaleFactor=tSize.width/oldWitdh;
+    
+    return CGSizeMake(oldWitdh*scaleFactor, fSize.height*scaleFactor);
 }
 
 +(CGPoint)centerRect:(CGRect)rect
@@ -1034,7 +1050,7 @@ static const NSString *KEY_HIT_TEST_EDGE_INSETS = @"HitTestEdgeInsets";
     }
     
     NSString *placeHolderText=[NSString stringWithFormat:@"%@%@",space,str];
-
+    
     UITextView *placeholderLabel = [[UITextView alloc] initWithFrame:rect];
     [placeholderLabel setText:placeHolderText];
     // placeholderLabel is instance variable retained by view controller

@@ -163,4 +163,9 @@ static FacebookManager *_facebookManager=nil;
     return true;
 }
 
+-(BOOL)quiet
+{
+    return true;
+}
+
 @end

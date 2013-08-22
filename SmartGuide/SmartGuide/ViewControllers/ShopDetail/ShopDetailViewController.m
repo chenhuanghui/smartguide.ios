@@ -48,9 +48,9 @@
     
     self.title=@"CỬA HÀNG";
     
-    lblName.characterSpacing=1;
-    lblName.strokeColor=COLOR_BACKGROUND_APP;
-    lblName.strokeWidth=3;
+    lblName.strokeSize=2;
+    lblName.strokeColor=[UIColor blackColor];
+    lblName.strokePosition=THLabelStrokePositionOutside;
     
     blurCover.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"blur_cover.png"]];
 }
@@ -430,13 +430,14 @@
     
     ShopUserPose *userPose=[[ShopUserPose alloc] init];
     userPose.delegate=self;
-    [userPose setImage:img shop:_shop];
     
     rootView=[[RootViewController shareInstance] giveARootView];
     rootView.backgroundColor=[UIColor whiteColor];
     [rootView addSubview:userPose];
     
     [self dismissModalViewControllerAnimated:true];
+    
+    [userPose setImage:img shop:_shop];
 }
 
 -(void)shopUserPostCancelled:(ShopUserPose *)userPose

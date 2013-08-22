@@ -1043,20 +1043,20 @@ static RootViewController *_rootViewController;
                 [self.view insertSubview:alphaView belowSubview:self.slideQRCode.view];
             }
             
-            alphaView=(AlphaView*)[self.slideQRCode.view viewWithTag:ALPHA_TAG];
-            if(!alphaView)
-            {
-                rect=self.view.frame;
-                rect.origin=CGPointMake(0, self.slideQRCode.btnSlide.frame.origin.y+self.slideQRCode.btnSlide.frame.size.height);
-                alphaView=[[AlphaView alloc] initWithFrame:rect];
-                
-                if([self isShowedQRSlide])
-                    alphaView.backgroundColor=COLOR_BACKGROUND_APP_ALPHA(0);
-                else
-                    alphaView.backgroundColor=COLOR_BACKGROUND_APP_ALPHA(1);
-                
-                [self.slideQRCode.view addSubview:alphaView];
-            }
+//            alphaView=(AlphaView*)[self.slideQRCode.view viewWithTag:ALPHA_TAG];
+//            if(!alphaView)
+//            {
+//                rect=self.view.frame;
+//                rect.origin=CGPointMake(0, self.slideQRCode.btnSlide.frame.origin.y+self.slideQRCode.btnSlide.frame.size.height);
+//                alphaView=[[AlphaView alloc] initWithFrame:rect];
+//                
+//                if([self isShowedQRSlide])
+//                    alphaView.backgroundColor=COLOR_BACKGROUND_APP_ALPHA(0);
+//                else
+//                    alphaView.backgroundColor=COLOR_BACKGROUND_APP_ALPHA(1);
+//                
+//                [self.slideQRCode.view addSubview:alphaView];
+//            }
         }
             break;
             
@@ -1077,8 +1077,8 @@ static RootViewController *_rootViewController;
             
             alpha=([UIScreen mainScreen].bounds.size.height-self.slideQRCode.view.frame.origin.y)/[UIScreen mainScreen].bounds.size.height;
             
-            containtView=(AlphaView*)[self.slideQRCode.view viewWithTag:ALPHA_TAG];
-            containtView.backgroundColor=COLOR_BACKGROUND_APP_ALPHA(1-alpha);
+//            containtView=(AlphaView*)[self.slideQRCode.view viewWithTag:ALPHA_TAG];
+//            containtView.backgroundColor=COLOR_BACKGROUND_APP_ALPHA(1-alpha);
             
             rect=self.slideQRCode.view.frame;
             rect.origin.y+=delta;

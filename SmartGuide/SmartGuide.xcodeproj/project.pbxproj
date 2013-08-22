@@ -171,6 +171,8 @@
 		A920555417A277ED002E91D9 /* FilterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A920555217A277ED002E91D9 /* FilterViewController.xib */; };
 		A9208C5A17BC8D97002D631F /* TemplateCatalogueList.m in Sources */ = {isa = PBXBuildFile; fileRef = A9208C5917BC8D97002D631F /* TemplateCatalogueList.m */; };
 		A9208C5D17BC8DA8002D631F /* TemplateSearchShop.m in Sources */ = {isa = PBXBuildFile; fileRef = A9208C5C17BC8DA8002D631F /* TemplateSearchShop.m */; };
+		A920CAEC17C5222400D9E17C /* THLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = A920CADF17C5222400D9E17C /* THLabel.m */; };
+		A920CB1617C529F500D9E17C /* ShareKit.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A9A19E3117C40BDE000D0ECD /* ShareKit.bundle */; };
 		A920F18017A8F5CB00889655 /* ShopInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = A920F17F17A8F5CB00889655 /* ShopInfo.m */; };
 		A920F18317A8F5D800889655 /* ShopMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = A920F18217A8F5D800889655 /* ShopMenu.m */; };
 		A920F18617A8F60400889655 /* ShopPicture.m in Sources */ = {isa = PBXBuildFile; fileRef = A920F18517A8F60300889655 /* ShopPicture.m */; };
@@ -508,6 +510,8 @@
 		A9A505E7178EC5EF00F27E18 /* FTCoreTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A505E3178EC5EF00F27E18 /* FTCoreTextView.m */; };
 		A9A505E9178EC60300F27E18 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9A505E8178EC60300F27E18 /* CoreText.framework */; };
 		A9A7346217B13572002B2333 /* ShopUserPose.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A7346117B13571002B2333 /* ShopUserPose.m */; };
+		A9AE10F717C5B891004476F0 /* facebook_nonetick.png in Resources */ = {isa = PBXBuildFile; fileRef = A9AE10F517C5B891004476F0 /* facebook_nonetick.png */; };
+		A9AE10F817C5B891004476F0 /* facebook_nonetick@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A9AE10F617C5B891004476F0 /* facebook_nonetick@2x.png */; };
 		A9B807C4179FBD7B00C8E003 /* ASIAuthenticationDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = A9B80773179FBD7B00C8E003 /* ASIAuthenticationDialog.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		A9B807C5179FBD7B00C8E003 /* ASIDataCompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = A9B80776179FBD7B00C8E003 /* ASIDataCompressor.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		A9B807C6179FBD7B00C8E003 /* ASIDataDecompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = A9B80778179FBD7B00C8E003 /* ASIDataDecompressor.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -1101,6 +1105,8 @@
 		A9208C5917BC8D97002D631F /* TemplateCatalogueList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TemplateCatalogueList.m; sourceTree = "<group>"; };
 		A9208C5B17BC8DA8002D631F /* TemplateSearchShop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TemplateSearchShop.h; sourceTree = "<group>"; };
 		A9208C5C17BC8DA8002D631F /* TemplateSearchShop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TemplateSearchShop.m; sourceTree = "<group>"; };
+		A920CADE17C5222400D9E17C /* THLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = THLabel.h; sourceTree = "<group>"; };
+		A920CADF17C5222400D9E17C /* THLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = THLabel.m; sourceTree = "<group>"; };
 		A920F17E17A8F5CB00889655 /* ShopInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopInfo.h; sourceTree = "<group>"; };
 		A920F17F17A8F5CB00889655 /* ShopInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopInfo.m; sourceTree = "<group>"; };
 		A920F18117A8F5D800889655 /* ShopMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopMenu.h; sourceTree = "<group>"; };
@@ -1567,6 +1573,8 @@
 		A9A505E8178EC60300F27E18 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		A9A7346017B13570002B2333 /* ShopUserPose.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopUserPose.h; sourceTree = "<group>"; };
 		A9A7346117B13571002B2333 /* ShopUserPose.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopUserPose.m; sourceTree = "<group>"; };
+		A9AE10F517C5B891004476F0 /* facebook_nonetick.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = facebook_nonetick.png; sourceTree = "<group>"; };
+		A9AE10F617C5B891004476F0 /* facebook_nonetick@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "facebook_nonetick@2x.png"; sourceTree = "<group>"; };
 		A9B80772179FBD7B00C8E003 /* ASIAuthenticationDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIAuthenticationDialog.h; sourceTree = "<group>"; };
 		A9B80773179FBD7B00C8E003 /* ASIAuthenticationDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIAuthenticationDialog.m; sourceTree = "<group>"; };
 		A9B80774179FBD7B00C8E003 /* ASICacheDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASICacheDelegate.h; sourceTree = "<group>"; };
@@ -1937,6 +1945,15 @@
 				A9208C5C17BC8DA8002D631F /* TemplateSearchShop.m */,
 			);
 			path = SourceData;
+			sourceTree = "<group>";
+		};
+		A920CAC317C5222400D9E17C /* THLabel */ = {
+			isa = PBXGroup;
+			children = (
+				A920CADE17C5222400D9E17C /* THLabel.h */,
+				A920CADF17C5222400D9E17C /* THLabel.m */,
+			);
+			path = THLabel;
 			sourceTree = "<group>";
 		};
 		A920FE9717A67B0D00D8E6FE /* ZBarSDK */ = {
@@ -2482,6 +2499,7 @@
 		A98198A9178D3C740009FCB6 /* Controls */ = {
 			isa = PBXGroup;
 			children = (
+				A920CAC317C5222400D9E17C /* THLabel */,
 				A99089F0179940750025DC08 /* TableTemplate */,
 				A98198AA178D3C8C0009FCB6 /* Button.h */,
 				A98198AB178D3C8C0009FCB6 /* Button.m */,
@@ -2547,6 +2565,8 @@
 		A98198BE178D44FB0009FCB6 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				A9AE10F517C5B891004476F0 /* facebook_nonetick.png */,
+				A9AE10F617C5B891004476F0 /* facebook_nonetick@2x.png */,
 				A91CDAD717C2232A009EC919 /* button_share@2x.png */,
 				A91CDAD817C2232A009EC919 /* facebook_tick@2x.png */,
 				A91CDAD917C2232A009EC919 /* picture_thumb@2x.png */,
@@ -3602,6 +3622,7 @@
 			files = (
 				A981985C178D02530009FCB6 /* InfoPlist.strings in Resources */,
 				A9819864178D02530009FCB6 /* Default.png in Resources */,
+				A920CB1617C529F500D9E17C /* ShareKit.bundle in Resources */,
 				A9819866178D02530009FCB6 /* Default@2x.png in Resources */,
 				A9819868178D02530009FCB6 /* Default-568h@2x.png in Resources */,
 				A981988C178D38120009FCB6 /* CatalogueListCell.xib in Resources */,
@@ -3973,6 +3994,8 @@
 				A91CDAE017C2232A009EC919 /* facebook_tick.png in Resources */,
 				A91CDAE117C2232A009EC919 /* button_share.png in Resources */,
 				A91CDAE217C2232A009EC919 /* picture_thumb.png in Resources */,
+				A9AE10F717C5B891004476F0 /* facebook_nonetick.png in Resources */,
+				A9AE10F817C5B891004476F0 /* facebook_nonetick@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4184,6 +4207,7 @@
 				A90ED8C917C1C701003D2D93 /* ButtonImageRight.m in Sources */,
 				A90ED8CC17C1C711003D2D93 /* ButtonImageLeft.m in Sources */,
 				A9A19CCA17C406A5000D0ECD /* FacebookManager.m in Sources */,
+				A920CAEC17C5222400D9E17C /* THLabel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -9,9 +9,14 @@
 #import "ShopUserPose.h"
 #import "ActivityIndicator.h"
 #import "Utility.h"
-
+#import <QuartzCore/QuartzCore.h>
+#import "RootViewController.h"
+#import "FrontViewController.h"
 
 #define USER_POST_PLACEHOLDER @"Comment"
+
+#define UIIMAGE_FACEBOOK_TICK [UIImage imageNamed:@"facebook_tick.png"]
+#define UIIMAGE_FACEBOOK_NONE_TICK [UIImage imageNamed:@"facebook_nonetick.png"]
 
 @implementation ShopUserPose
 @synthesize delegate;
@@ -22,7 +27,7 @@
     if (self) {
         txt.text=@"";
         [txt setPlaceHolderText:USER_POST_PLACEHOLDER];
-        [[FacebookManager shareInstance] isAuthorized];
+        containView.layer.masksToBounds=true;
     }
     return self;
 }
@@ -41,13 +46,48 @@
 }
 
 - (IBAction)btnBackTouchUpInside:(id)sender {
+    UIImagePickerController *imagePicker=[[UIImagePickerController alloc] init];
+    imagePicker.modalPresentationStyle=UIModalPresentationCurrentContext;
+    
+    if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
+        imagePicker.sourceType=UIImagePickerControllerSourceTypeCamera;
+    else
+        imagePicker.sourceType=UIImagePickerControllerSourceTypePhotoLibrary;
+    
+    imagePicker.delegate=self;
+    
+    [[RootViewController shareInstance].frontViewController presentModalViewController:imagePicker animated:true];
+    
+    imgv.image=nil;
+}
+
+-(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
+{
+    picker.delegate=nil;
+    imgv.image=nil;
+    
+    [[RootViewController shareInstance].frontViewController dismissModalViewControllerAnimated:true];
+    
     [delegate shopUserPostCancelled:self];
+}
+
+-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    imgv.image=nil;
+    picker.delegate=nil;
+    UIImage *img=[info valueForKey:UIImagePickerControllerOriginalImage];
+    
+    [[RootViewController shareInstance].frontViewController dismissModalViewControllerAnimated:true];
+
+    [self setImage:img shop:_shop];
 }
 
 - (IBAction)btnFaceTouchUpInside:(id)sender {
     if([FacebookManager shareInstance].isLogined)
     {
-        [self performSelector:@selector(changeButtonState) withObject:nil afterDelay:0];
+        _isSharedFacebook=!_isSharedFacebook;
+        
+        [self settingShare];
     }
     else
     {
@@ -56,21 +96,18 @@
     }
 }
 
--(void) changeButtonState
-{
-    btnFace.highlighted=!btnFace.highlighted;
-}
-
 - (IBAction)btnSendTouchUpInside:(id)sender {
     [self uploadImage];
 }
 
 -(void)setImage:(UIImage *)image shop:(Shop *)shop
 {
-    imgv.image=image;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        imgv.image=image;
+    });
     
     CGRect rect=imgv.frame;
-    rect.size=[Utility scaleProportionallyFromSize:image.size toSize:rect.size];
+    rect.size= [Utility scaleUserPoseFromSize:image.size toSize:rect.size];
     
     imgv.frame=rect;
     imgv.center=CGPointMake(containView.frame.size.width/2, containView.frame.size.height/2);
@@ -92,6 +129,8 @@
 
 -(void) uploadImage
 {
+    [self endEditing:true];
+    
     int idUser=[DataManager shareInstance].currentUser.idUser.integerValue;
     ASIOperationUploadUserGallery *upload=[[ASIOperationUploadUserGallery alloc] initWithIDShop:_shop.idShop.integerValue userID:idUser desc:txt.text photo:UIImageJPEGRepresentation(imgv.image, 0)];
     upload.delegatePost=self;
@@ -100,7 +139,7 @@
     
     [self showLoadingWithTitle:nil];
     
-    if(!btnFace.highlighted)
+    if(_isSharedFacebook)
     {
         [[FacebookManager shareInstance] postImage:imgv.image text:txt.text identity:nil delegate:nil];
     }
@@ -134,13 +173,34 @@
 {
     if([[FacebookManager shareInstance] isLogined])
     {
-        btnFace.highlighted=false;
+        _isSharedFacebook=true;
         [btnSend setTitle:@"Share" forState:UIControlStateNormal];
     }
     else
     {
-        btnFace.highlighted=true;
-        [btnSend setTitle:@"Gữi" forState:UIControlStateNormal];
+        _isSharedFacebook=false;
+        [btnSend setTitle:@"Gửi" forState:UIControlStateNormal];
+    }
+    
+    [self settingShare];
+}
+
+-(void) settingShare
+{
+    if(_isSharedFacebook)
+    {
+        [btnFace setImage:UIIMAGE_FACEBOOK_TICK forState:UIControlStateNormal];
+        [btnFace setImage:UIIMAGE_FACEBOOK_TICK forState:UIControlStateHighlighted];
+        [btnFace setImage:UIIMAGE_FACEBOOK_NONE_TICK forState:UIControlStateSelected];
+        [btnSend setTitle:@"Share" forState:UIControlStateNormal];
+    }
+    else
+    {
+        [btnFace setImage:UIIMAGE_FACEBOOK_NONE_TICK forState:UIControlStateNormal];
+        [btnFace setImage:UIIMAGE_FACEBOOK_NONE_TICK forState:UIControlStateHighlighted];
+        [btnFace setImage:UIIMAGE_FACEBOOK_TICK forState:UIControlStateSelected];
+        
+        [btnSend setTitle:@"Gửi" forState:UIControlStateNormal];
     }
 }
 

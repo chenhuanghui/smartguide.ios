@@ -13,7 +13,7 @@
 #import "ASIOperationUploadUserGallery.h"
 #import "ASIOperationPromotionDetail.h"
 #import "ASIOperationLikeDislikeShop.h"
-#import "LabelStroke.h"
+#import "THLabel.h"
 #import "ButtonImageLeft.h"
 #import "ShopUserPose.h"
 
@@ -73,7 +73,7 @@ enum SHOP_DETAIL_MODE {
     __weak IBOutlet UIImageView *imgvSwitch;
     __weak IBOutlet UIButton *btnLike;
     __weak IBOutlet ButtonImageLeft *btnDislike;
-    __weak IBOutlet LabelStroke *lblName;
+    __weak IBOutlet THLabel *lblName;
     __weak IBOutlet UIButton *btnPromotion;
     __weak IBOutlet UIButton *btnInfo;
     __weak IBOutlet UIButton *btnMenu;

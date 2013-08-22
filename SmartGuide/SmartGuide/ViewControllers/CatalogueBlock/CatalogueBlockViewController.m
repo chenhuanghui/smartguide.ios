@@ -278,10 +278,10 @@
     {
         [[LocationManager shareInstance] checkLocationAuthorize];
         
-        if(![[LocationManager shareInstance] isAllowLocation] && ![Flags isFirstRunApp])
-        {
-            [AlertView showAlertOKWithTitle:nil withMessage:@"Setting to allow location" onOK:nil];
-        }
+//        if(![[LocationManager shareInstance] isAuthorizeLocation] && ![Flags isFirstRunApp])
+//        {
+//            [AlertView showAlertOKWithTitle:nil withMessage:@"Setting to allow location" onOK:nil];
+//        }
         
         [DataManager shareInstance].currentUser.location=CLLocationCoordinate2DMake(-1, -1);
         
