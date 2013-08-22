@@ -1269,17 +1269,7 @@ static RootViewController *_rootViewController;
     
     self.slideQRCode.btnSlide.enabled=false;
     self.slideQRCode.delegate=self.frontViewController.catalogueList;
-    
-    AlphaView *alphaView=[self.view alphaViewWithColor:COLOR_BACKGROUND_APP_ALPHA(0)];
-    
-//    alphaView=[self.slideQRCode.view alphaView];
-//    
-//    if(!alphaView)
-//    {
-//        alphaView=[self.slideQRCode.view makeAlphaView];
-//        alphaView.backgroundColor=COLOR_BACKGROUND_APP_ALPHA(1);
-//    }
-    
+
     if(animated)
     {
         [UIView animateWithDuration:DURATION_SHOW_SLIDE_QRCODE delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
@@ -1287,7 +1277,6 @@ static RootViewController *_rootViewController;
             rect.origin.y=0;
             self.slideQRCode.view.frame=rect;
             
-//            [self.slideQRCode.view alphaView].backgroundColor=COLOR_BACKGROUND_APP_ALPHA(0);
             [self.view alphaView].backgroundColor=COLOR_BACKGROUND_APP_ALPHA(1);
             
         } completion:^(BOOL finished) {
@@ -1295,7 +1284,6 @@ static RootViewController *_rootViewController;
             if(onCompleted)
                 onCompleted(finished);
             
-//            [self.slideQRCode.view removeAlphaView];
             [self.slideQRCode showCamera];
             
             self.slideQRCode.btnSlide.enabled=true;

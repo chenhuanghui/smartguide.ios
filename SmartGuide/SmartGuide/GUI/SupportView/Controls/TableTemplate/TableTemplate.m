@@ -8,13 +8,23 @@
 
 #import "TableTemplate.h"
 #import "LoadingCell.h"
+#import "Utility.h"
+
+@interface TableTemplate()
+
+@property (nonatomic, assign) CGPoint contentOffset;
+@property (nonatomic, assign) CGPoint lastContentOffset;
+
+@end
 
 @implementation TableTemplate
-@synthesize delegate,page,datasource;
+@synthesize delegate,page,datasource,lastContentOffset,isHoriTable,contentOffset,scrollDirection;
 
 -(TableTemplate *)initWithTableView:(UITableView *)tableView withDelegate:(id<TableTemplateDelegate>)_delegate
 {
     self=[super init];
+    
+    self.isHoriTable=false;
     
     self.datasource=[[NSMutableArray alloc] init];
     page=0;
@@ -34,6 +44,10 @@
         loadingCell=[delegate reuseIdentifierLoadingCell:self];
     
     [_tableView registerNib:[UINib nibWithNibName:loadingCell bundle:nil] forCellReuseIdentifier:loadingCell];
+    
+    _isAllowAutoScrollFullCell=false;
+    if([delegate respondsToSelector:@selector(tableTemplateAllowAutoScrollFullCell:)])
+        _isAllowAutoScrollFullCell=[delegate tableTemplateAllowAutoScrollFullCell:self];
     
     return self;
 }
@@ -157,8 +171,42 @@
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    if([self isRepondsSEL:@selector(scrollViewDidScroll:)])
-        [delegate scrollViewDidScroll:scrollView];
+    lastContentOffset=contentOffset;
+    contentOffset=scrollView.contentOffset;
+    
+    float a,a1=0;
+    
+    if(self.isHoriTable)
+    {
+        a=contentOffset.y;
+        a1=lastContentOffset.y;
+    }
+    else
+    {
+        a=contentOffset.x;
+        a1=lastContentOffset.x;
+    }
+    
+    if(a1>a)
+        scrollDirection=TABLE_DIRECTION_TO_TOP;
+    else
+        scrollDirection=TABLE_DIRECTION_TO_BOTTOM;
+}
+
+-(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    if(!_isAllowAutoScrollFullCell)
+        return;
+    
+    if(_tableView.indexPathsForVisibleRows.count<=1)
+        return;
+    
+    if(scrollDirection==TABLE_DIRECTION_TO_BOTTOM)
+    {
+        [_tableView scrollToRowAtIndexPath:[_tableView indexPathsForVisibleRows].lastObject atScrollPosition:UITableViewScrollPositionNone animated:true];
+    }
+    else if(scrollDirection==TABLE_DIRECTION_TO_TOP)
+        [_tableView scrollToRowAtIndexPath:[_tableView indexPathsForVisibleRows].firstObject atScrollPosition:UITableViewScrollPositionNone animated:true];
 }
 
 -(void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate

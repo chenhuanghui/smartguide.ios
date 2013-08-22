@@ -24,6 +24,9 @@
     templateShopGallery=[[TemplateShopGallery alloc] initWithTableView:tableShopGallery withDelegate:self];
     templateUserGallery=[[TemplateUserGallery alloc] initWithTableView:tableUserGallery withDelegate:self];
     
+    templateShopGallery.isHoriTable=true;
+    templateUserGallery.isHoriTable=true;
+    
     [tableUserGallery registerNib:[UINib nibWithNibName:[ShopPictureCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[ShopPictureCell reuseIdentifier]];
     [tableShopGallery registerNib:[UINib nibWithNibName:[ShopPictureCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[ShopPictureCell reuseIdentifier]];
     
@@ -38,6 +41,11 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userPosed:) name:NOTIFICATION_USER_POST_PICTURE object:nil];
     
     return self;
+}
+
+-(bool)tableTemplateAllowAutoScrollFullCell:(TableTemplate *)tableTemplate
+{
+    return true;
 }
 
 -(void) userPosed:(NSNotification*) notification

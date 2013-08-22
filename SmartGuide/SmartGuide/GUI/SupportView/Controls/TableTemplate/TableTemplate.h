@@ -8,6 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
+enum TABLE_DIRECTION {
+    TABLE_DIRECTION_TO_TOP = 0,//user scroll bot->top
+    TABLE_DIRECTION_TO_BOTTOM = 1,//user scroll top->bot
+    TABLE_DIRECTION_NONE = 2
+    };
+
 @class TableTemplate;
 
 @protocol TableTemplateDelegate <NSObject,UITableViewDataSource,UITableViewDelegate>
@@ -17,6 +23,8 @@
 @optional
 -(NSString*) reuseIdentifierLoadingCell:(TableTemplate*) tableTemplate;
 -(void) tableTemplateLoadNext:(TableTemplate*) tableTemplate wait:(bool*) isWait;
+-(bool) tableTemplateAllowAutoScrollFullCell:(TableTemplate*) tableTemplate;
+-(enum TABLE_DIRECTION) tableTemplateManualProcessDirectionWithVelocity:(CGPoint) velocity lastVelocity:(CGPoint) lastVelocity;
 
 @end
 
@@ -24,6 +32,7 @@
 {
     bool _isAllowLoadMore;
     bool _isLoadingMore;
+    bool _isAllowAutoScrollFullCell;
     
     __weak UITableView *_tableView;
     NSIndexPath *_indexPathLoadingCell;
@@ -41,5 +50,7 @@
 @property (nonatomic, assign) id<TableTemplateDelegate> delegate;
 @property (nonatomic, assign) int page;
 @property (nonatomic, strong) NSMutableArray *datasource;
+@property (nonatomic, readonly) int scrollDirection;
+@property (nonatomic, assign) bool isHoriTable;
 
 @end

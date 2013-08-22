@@ -1124,3 +1124,23 @@ static const NSString *KEY_HIT_TEST_EDGE_INSETS = @"HitTestEdgeInsets";
 }
 
 @end
+
+@implementation NSArray(Utility)
+
+-(id)firstObject
+{
+    if(self.count>0)
+        return [self objectAtIndex:0];
+    
+    return nil;
+}
+
+-(id)secondObject
+{
+    if(self.count>1)
+        return [self objectAtIndex:1];
+    
+    return [self firstObject];
+}
+
+@end

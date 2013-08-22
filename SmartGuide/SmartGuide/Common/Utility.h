@@ -181,3 +181,10 @@ bool isVailCLLocationCoordinate2D(CLLocationCoordinate2D location);
 +(NSMoneyFormat*) moneyFormat;
 
 @end
+
+@interface NSArray(Utility)
+
+-(id) firstObject;
+-(id) secondObject;//neu ko thi se chuyen ve firstObject
+
+@end
