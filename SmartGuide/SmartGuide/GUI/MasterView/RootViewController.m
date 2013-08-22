@@ -686,6 +686,7 @@ static RootViewController *_rootViewController;
     [UIView animateWithDuration:DURATION_SHOW_MAP animations:^{
         [bannerAds showMap];
     } completion:^(BOOL finished) {
+        [bannerAds addMap];
     }];
     
     directionObject.delegate=self;

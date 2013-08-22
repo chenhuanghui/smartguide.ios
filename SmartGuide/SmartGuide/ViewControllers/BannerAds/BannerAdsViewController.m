@@ -226,7 +226,6 @@
 
 -(void) showMap
 {
-    
     self.view.center=CGPointMake(pntSelf.x, pntSelf.y-height/2);
     
     CGRect rect=self.view.bounds;
@@ -282,7 +281,10 @@
             tableAds.center=pntGrid;
             borderMap.center=pntMap;
         } completion:^(BOOL finished) {
-            [self removeMap];
+            //finished fail khi map dang animation an nhung user lai click show map
+            
+            if(finished)
+                [self removeMap];
         }];
     }
     else
