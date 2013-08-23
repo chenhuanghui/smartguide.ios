@@ -303,6 +303,8 @@
     imgvLogo.image=nil;
     imgvCover.image=nil;
     
+    btnPromotion.enabled=true;
+    
     while (viewContaint.subviews.count>0) {
         [[viewContaint.subviews objectAtIndex:0] removeFromSuperview];
     }
@@ -338,6 +340,11 @@
                 [promotionDetailType2View setShop:_shop];
                 [viewContaint addSubview:promotionDetailType2View];
             }
+        }
+        else
+        {
+            btnPromotion.enabled=false;
+            [btnShop sendActionsForControlEvents:UIControlEventTouchUpInside];
         }
         
         [self requestShopDetail];
@@ -468,6 +475,12 @@
 
 -(void) animationView:(UIView*) newView direction:(enum SHOP_MENU_DIRECTION) direction onCompleted:(void(^)()) onCompleted
 {
+    if(viewContaint.subviews.count==0)
+    {
+        [viewContaint addSubview:newView];
+        return;
+    }
+    
     if([viewContaint.subviews objectAtIndex:0]==newView)
         return;
     UIView *currentView=[viewContaint.subviews objectAtIndex:0];

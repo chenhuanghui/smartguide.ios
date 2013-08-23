@@ -22,6 +22,7 @@
 #import "ShopDetailViewController.h"
 #import "TokenManager.h"
 #import "UserCollectionViewController.h"
+#import "LoadingScreenViewController.h"
 
 static RootViewController *_rootViewController;
 @interface RootViewController ()
@@ -35,6 +36,7 @@ static RootViewController *_rootViewController;
 @property (nonatomic, readonly) UIPanGestureRecognizer *panSetting;
 @property (nonatomic, readonly) CGPoint initialTouchSetting;
 @property (nonatomic, readonly) CGPoint previousTouchSetting;
+@property (nonatomic, strong) LoadingScreenViewController *loadingScreen;
 
 @end
 
@@ -47,6 +49,7 @@ static RootViewController *_rootViewController;
 @synthesize window;
 @synthesize notifications;
 @synthesize shopDetail;
+@synthesize loadingScreen;
 
 +(void)startWithWindow:(UIWindow *)window
 {
@@ -58,6 +61,8 @@ static RootViewController *_rootViewController;
     [window makeKeyAndVisible];
     
     [DataManager shareInstance].currentUser=[User userWithIDUser:[Flags lastIDUser]];
+    
+    [root createLoading];
     
     //Lần đầu đăng nhập, database model đổi->drop database(remove token)
     if([DataManager shareInstance].currentUser==nil)
@@ -74,6 +79,52 @@ static RootViewController *_rootViewController;
         {
             [root showMainWithPreviousViewController:nil];
         }
+    }
+    
+    [root showLoadingScreen];
+}
+
+-(void) createLoading
+{
+    self.loadingScreen=[[LoadingScreenViewController alloc] init];
+}
+
+-(void)showLoadingScreen
+{
+    CGPoint pnt=self.view.center;
+    pnt.x+=self.view.frame.size.width;
+    self.view.center=pnt;
+    
+    [self.window addSubview:self.loadingScreen.view];
+    pnt=self.loadingScreen.view.center;
+    pnt.y+=20;
+    self.loadingScreen.view.center=pnt;
+}
+
+-(void)removeLoadingScreen
+{
+    if(!self.loadingScreen)
+        return;
+    
+    [UIView animateWithDuration:DURATION_NAVIGATION_PUSH animations:^{
+        self.view.center=CGPointMake(160,250);
+        self.loadingScreen.view.center=CGPointMake(-self.loadingScreen.view.frame.size.width/2, self.loadingScreen.view.center.y);
+    } completion:^(BOOL finished) {
+        [self.loadingScreen.view removeFromSuperview];
+        self.loadingScreen=nil;
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_LOADING_SCREEN_FINISHED object:nil];
+    }];
+}
+
+-(void)setNeedRemoveLoadingScreen
+{
+    if(self.loadingScreen)
+    {
+        if([self.loadingScreen isAnimationFinished])
+            [self removeLoadingScreen];
+        else
+            self.loadingScreen.isNeedRemove=true;
     }
 }
 

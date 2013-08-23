@@ -37,6 +37,10 @@
 +(RootViewController*) shareInstance;
 -(RootViewController*) initWithWindow:(UIWindow*) window;
 
+-(void) showLoadingScreen;
+-(void) removeLoadingScreen;
+-(void) setNeedRemoveLoadingScreen;
+
 -(void) showQRSlide;
 -(void) hideQRSlide;
 -(bool) isShowedQRSlide;

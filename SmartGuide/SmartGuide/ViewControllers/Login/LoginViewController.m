@@ -12,6 +12,7 @@
 #import "GMGridViewLayoutStrategies.h"
 #import "Flags.h"
 #import "TokenManager.h"
+#import "RootViewController.h"
 
 @interface LoginViewController ()
 
@@ -31,28 +32,114 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+    
+    txt.rightViewMode=UITextFieldViewModeAlways;
+    
+    UIView *v=[[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 30)];
+    v.backgroundColor=[UIColor clearColor];
+    txt.rightView=v;
+    
+    [[RootViewController shareInstance] setNeedRemoveLoadingScreen];
+    
+    txt.text=@"(+84)";
     
     _isActived=false;
-    [self btnNumberTouchUpInside:btnClear];
-    
-//    lblPhone.text=@"01225372227";
-    
-//    if([[LocationManager shareInstance] isAllowLocation])
-//        [[LocationManager shareInstance] tryGetUserLocationInfo];
     
     [self flashLabel];
+    
+    return;
+    CGRect rect=imgvLogo.frame;
+    rect.origin.y=self.view.frame.size.height+rect.size.height;
+    imgvLogo.frame=rect;
+    
+    rect=smartguide.frame;
+    rect.origin.y=self.view.frame.size.height+rect.size.height;
+    smartguide.frame=rect;
+    
+    rect=km.frame;
+    rect.origin.y=self.view.frame.size.height+rect.size.height;
+    km.frame=rect;
+    
+    rect=lblInfo.frame;
+    rect.origin.y=self.view.frame.size.height+rect.size.height;
+    lblInfo.frame=rect;
+    
+    rect=txt.frame;
+    rect.origin.y=self.view.frame.size.height+rect.size.height;
+    txt.frame=rect;
+    
+    rect=btnDone.frame;
+    rect.origin.y=self.view.frame.size.height+rect.size.height;
+    btnDone.frame=rect;
 }
 
--(NSArray *)registerNotification1
+-(void)viewWillAppear:(BOOL)animated
 {
-    return @[NOTIFICATION_LOCATION_AVAILABLE,NOTIFICATION_LOCATION_CITY_AVAILABLE];
+    [super viewWillAppear:animated];
+    
+    
 }
 
--(void)receiveNotification1:(NSNotification *)notification
+-(NSArray *)registerNotification
 {
-    if([notification.name isEqualToString:NOTIFICATION_LOCATION_AVAILABLE])
-        [[LocationManager shareInstance] tryGetUserCityInfo];
+    return @[NOTIFICATION_LOADING_SCREEN_FINISHED];
+}
+
+-(void)receiveNotification:(NSNotification *)notification
+{
+    if([notification.name isEqualToString:NOTIFICATION_LOADING_SCREEN_FINISHED])
+    {
+        [txt becomeFirstResponder];
+        return;
+        self.view.userInteractionEnabled=false;
+        
+        CGRect rect=imgvLogo.frame;
+        rect.origin.y=self.view.frame.size.height+rect.size.height;
+        imgvLogo.frame=rect;
+        
+        rect=smartguide.frame;
+        rect.origin.y=self.view.frame.size.height+rect.size.height;
+        smartguide.frame=rect;
+        
+        rect=km.frame;
+        rect.origin.y=self.view.frame.size.height+rect.size.height;
+        km.frame=rect;
+        
+        rect=lblInfo.frame;
+        rect.origin.y=self.view.frame.size.height+rect.size.height;
+        lblInfo.frame=rect;
+        
+        rect=txt.frame;
+        rect.origin.y=self.view.frame.size.height+rect.size.height;
+        txt.frame=rect;
+        
+        rect=btnDone.frame;
+        rect.origin.y=self.view.frame.size.height+rect.size.height;
+        btnDone.frame=rect;
+        
+        [UIView animateWithDuration:1 animations:^{
+            imgvLogo.frame=CGRectMake(106, 15, 114, 100);
+        } completion:nil];
+        
+        [UIView animateWithDuration:1 delay:0.5f options:UIViewAnimationOptionCurveEaseInOut animations:^{
+            smartguide.frame=CGRectMake(116, 130, 95, 24);
+        } completion:^(BOOL finished) {
+        }];
+        
+        [UIView animateWithDuration:1 delay:1.5f options:UIViewAnimationOptionCurveEaseInOut animations:^{
+            km.frame=CGRectMake(53, 160, 221, 21);
+        } completion:^(BOOL finished) {
+            
+            [UIView animateWithDuration:1 animations:^{
+                lblInfo.frame=CGRectMake(0, 168, 320, 21);
+                txt.frame=CGRectMake(20, 189, 222, 50);
+                btnDone.frame=CGRectMake(246, 188, 48, 51);
+            } completion:^(BOOL finished) {
+                self.view.userInteractionEnabled=true;
+                [txt becomeFirstResponder];
+            }];
+        }];
+    }
 }
 
 -(void) flashLabel
@@ -68,46 +155,15 @@
     }];
 }
 
-- (IBAction)btnNumberTouchUpInside:(id)sender {
-    
-    UIButton *btn=(UIButton*)sender;
-    
-    switch (btn.tag) {
-        case 10://clear
-            if(_isActived)
-                lblPhone.text=@"";
-            else
-                lblPhone.text=@"(+84)";
-            break;
-            
-        case 11://done
-            if(_isActived)
-                [self login];
-            else
-                [self requestActiveCode];
-            break;
-            
-        default:
-            if(_isActived)
-            {
-                if(lblPhone.text.length==4)
-                    return;
-            }
-            
-            lblPhone.text=[lblPhone.text stringByAppendingString:btn.titleLabel.text];
-            break;
-    }
-}
-
 -(void) login
 {
-    if(lblPhone.text.length!=4)
+    if(txt.text.length!=4)
     {
         [AlertView showAlertOKWithTitle:nil withMessage:@"Mã xác thực không hợp lệ" onOK:nil];
         return;
     }
     
-    OperationVerifyActiveCode *operation=[[OperationVerifyActiveCode alloc] initWithPhone:_phone aciveCode:lblPhone.text];
+    OperationVerifyActiveCode *operation=[[OperationVerifyActiveCode alloc] initWithPhone:_phone aciveCode:txt.text];
     operation.delegate=self;
     
     [operation start];
@@ -117,7 +173,7 @@
 
 -(void) requestActiveCode
 {
-    NSString *phone=[NSString stringWithStringDefault:lblPhone.text];
+    NSString *phone=[NSString stringWithStringDefault:txt.text];
     phone=[phone stringByRemoveString:@"(",@")",@"+",nil];
     phone=[phone stringByTrimmingWhiteSpace];
     
@@ -127,17 +183,24 @@
         return;
     }
     
-    if([[phone substringToIndex:3] isEqualToString:@"840"])
-    {
-        phone=[phone stringByReplacingCharactersInRange:NSMakeRange(0, 3) withString:@"84"];
-    }
-    _phone=[[NSString alloc] initWithString:phone];
-    
-    OperationGetActionCode *operation=[[OperationGetActionCode alloc] initWithPhone:phone];
-    operation.delegate=self;
-    [operation start];
-    
-    [self.view showLoadingWithTitle:nil];
+    NSString *str=[NSString stringWithFormat:@"SmartGuide sẽ gữi tin nhắn kích hoạt đến %@. Bạn có muôn tiếp tục?",txt.text];
+    [AlertView showAlertOKCancelWithTitle:txt.text withMessage:str onOK:^{
+        NSString *strPhone=[NSString stringWithString:phone];
+        
+        if([[strPhone substringToIndex:3] isEqualToString:@"840"])
+        {
+            strPhone=[phone stringByReplacingCharactersInRange:NSMakeRange(0, 3) withString:@"84"];
+        }
+        _phone=[[NSString alloc] initWithString:strPhone];
+        
+        OperationGetActionCode *operation=[[OperationGetActionCode alloc] initWithPhone:strPhone];
+        operation.delegate=self;
+        [operation start];
+        
+        [self.view showLoadingWithTitle:nil];
+    } onCancel:^{
+        [txt becomeFirstResponder];
+    }];
 }
 
 -(void)operationURLFinished:(OperationURL *)operation
@@ -153,7 +216,7 @@
             _isActived=true;
             
             lblInfo.text=@"Nhập mã số xác nhận";
-            lblPhone.text=@"";
+            txt.text=@"";
             
             lblInfo.layer.shadowColor=[lblInfo.textColor CGColor];
             lblInfo.layer.shadowOffset=CGSizeMake(0, 0);
@@ -178,7 +241,7 @@
             
             [TokenManager shareInstance].phone=_phone;
             
-            OperationGetToken *getToken=[[OperationGetToken alloc] initWithPhone:_phone activeCode:lblPhone.text];
+            OperationGetToken *getToken=[[OperationGetToken alloc] initWithPhone:_phone activeCode:txt.text];
             getToken.delegate=self;
             
             [getToken start];
@@ -194,14 +257,18 @@
         
         [TokenManager shareInstance].accessToken=[[NSString alloc] initWithString:ope.accessToken];
         [TokenManager shareInstance].refreshTokenString=[[NSString alloc] initWithString:ope.refreshToken];
-        [TokenManager shareInstance].activeCode=lblPhone.text;
+        [TokenManager shareInstance].activeCode=txt.text;
         [Flags setLastIDUser:[DataManager shareInstance].currentUser.idUser.integerValue];
         
-        [self.view showLoadingWithTitle:nil];
+        [self.view endEditing:true];
         
-        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_LOGIN object:nil];
+        [[NSNotificationCenter defaultCenter] addObserverForName:UIKeyboardDidHideNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
+            
+            [[NSNotificationCenter defaultCenter] removeObserver:note];
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_LOGIN object:nil];
+        }];
     }
-    
 }
 
 -(void)operationURLFailed:(OperationURL *)operation
@@ -231,23 +298,34 @@
 
 - (void)viewDidUnload {
     imgvLogo = nil;
-    bgNumPad = nil;
-    btn1 = nil;
-    btn2 = nil;
-    btn3 = nil;
-    btn4 = nil;
-    btn5 = nil;
-    btn6 = nil;
-    btn7 = nil;
-    btn8 = nil;
-    btn9 = nil;
-    btnClear = nil;
-    btn0 = nil;
     btnDone = nil;
-    lblPhone = nil;
     lblInfo = nil;
+    smartguide = nil;
+    km = nil;
+    txt = nil;
     [super viewDidUnload];
 }
+
+- (IBAction)btnSendTouchUpInside:(id)sender {
+    
+    if([txt.text isContainString:@"(+84)"])
+        [self requestActiveCode];
+    else
+        [self login];
+}
+
+-(BOOL)textField1:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    if(!_isActived)
+    {
+        
+        
+        return textField.text.length!=@"(+84)".length;
+    }
+    
+    return true;
+}
+
 @end
 
 @implementation LoginView

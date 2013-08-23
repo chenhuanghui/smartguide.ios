@@ -12,6 +12,7 @@
 #import "UIImageView+AFNetworking.h"
 #import "FBSession.h"
 #import "FBAccessTokenData.h"
+#import "RootViewController.h"
 
 @interface FacebookMiningViewController ()
 
@@ -34,6 +35,7 @@
     // Do any additional setup after loading the view from its nib.
     
     [self.navigationController setNavigationBarHidden:true];
+    [[RootViewController shareInstance] setNeedRemoveLoadingScreen];
 }
 
 -(NSArray *)registerNotification

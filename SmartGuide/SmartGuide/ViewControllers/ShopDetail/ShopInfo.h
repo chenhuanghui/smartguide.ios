@@ -19,6 +19,8 @@
     __weak IBOutlet UILabel *lblDiaChi;
     __weak IBOutlet UILabel *lblLienLac;
     __weak IBOutlet UILabel *lblWeb;
+    
+    __weak Shop *_shop;
 }
 
 -(ShopInfo*) initWithShop:(Shop*) shop;

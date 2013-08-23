@@ -206,6 +206,8 @@
         
         if(delegate)
             [delegate catalogueListLoadShopFinished:self];
+        
+        [[RootViewController shareInstance] setNeedRemoveLoadingScreen];
     }
     else
     {

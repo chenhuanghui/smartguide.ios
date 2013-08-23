@@ -11,29 +11,18 @@
 #import "OperationVerifyActiveCode.h"
 #import "OperationGetToken.h"
 
-@interface LoginViewController : ViewController<UITextViewDelegate,OperationURLDelegate>
+@interface LoginViewController : ViewController<UITextFieldDelegate,OperationURLDelegate>
 {
     __weak IBOutlet UIImageView *imgvLogo;
-    __weak IBOutlet UIView *bgNumPad;
-    __weak IBOutlet UIButton *btn1;
-    __weak IBOutlet UIButton *btn2;
-    __weak IBOutlet UIButton *btn3;
-    __weak IBOutlet UIButton *btn4;
-    __weak IBOutlet UIButton *btn5;
-    __weak IBOutlet UIButton *btn6;
-    __weak IBOutlet UIButton *btn7;
-    __weak IBOutlet UIButton *btn8;
-    __weak IBOutlet UIButton *btn9;
-    __weak IBOutlet UIButton *btnClear;
-    __weak IBOutlet UIButton *btn0;
+    __weak IBOutlet UIImageView *smartguide;
+    __weak IBOutlet UIImageView *km;
     __weak IBOutlet UIButton *btnDone;
-    __weak IBOutlet UILabel *lblPhone;
     __weak IBOutlet UILabel *lblInfo;
+    __weak IBOutlet UITextField *txt;
+    
     bool _isActived;
     NSString *_phone;
 }
-
-- (IBAction)btnNumberTouchUpInside:(id)sender;
 
 @end
 

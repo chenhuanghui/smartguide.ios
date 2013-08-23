@@ -21,6 +21,11 @@
 
 -(void)setShop:(Shop *)shop
 {
+    if(_shop && _shop.idShop.integerValue==shop.idShop.integerValue)
+        return;
+    
+    _shop=shop;
+    
     lblDesc.text=@"";
     lblAddress.text=@"";
     lblContact.text=@"";

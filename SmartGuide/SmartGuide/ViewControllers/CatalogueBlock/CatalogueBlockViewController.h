@@ -9,6 +9,7 @@
 #import "ViewController.h"
 #import "ASIOperationCity.h"
 #import "ASIOperationGroupInCity.h"
+#import "LoadingScreenViewController.h"
 
 @interface CatalogueBlockViewController : ViewController<ASIOperationPostDelegate>
 {

@@ -83,6 +83,7 @@
 #define NOTIFICATION_SCORE_FINISHED @"animationScoreFinished"
 #define NOTIFICATION_FACEBOOK_LOGIN_SUCCESS @"facebookLoginedSuccess"
 #define NOTIFICATION_FACEBOOK_LOGIN_FAILED @"facebookLoginedFailed"
+#define NOTIFICATION_LOADING_SCREEN_FINISHED @"loadingScreenFinished"
 
 #define COLOR_BACKGROUND_APP_ALPHA(a) [UIColor colorWithRed:40.f/255 green:46.f/255 blue:58.f/255 alpha:a]
 #define COLOR_BACKGROUND_APP COLOR_BACKGROUND_APP_ALPHA(1)
