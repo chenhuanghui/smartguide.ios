@@ -54,6 +54,11 @@
     [tableShop scrollToRowAtIndexPath:templateList.lastSelectedRow atScrollPosition:UITableViewScrollPositionNone animated:false];
 }
 
+-(bool)tableTemplateAllowAutoScrollFullCell:(TableTemplate *)tableTemplate
+{
+    return true;
+}
+
 -(void)handleSearchResult:(NSString *)searchKey result:(NSArray *)array page:(int)page selectedShop:(Shop *)selectedShop selectedRow:(NSIndexPath *)lastSelectedRow
 {
     if(templateSearch)
@@ -85,6 +90,9 @@
             [delegate catalogueListLoadShopFinished:self];
         return;
     }
+    
+    templateList.group=_group;
+    templateList.city=_city;
     
     [self switchToModeList];
     

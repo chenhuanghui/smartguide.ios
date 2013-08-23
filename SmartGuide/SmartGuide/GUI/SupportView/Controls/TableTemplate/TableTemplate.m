@@ -19,6 +19,7 @@
 
 @implementation TableTemplate
 @synthesize delegate,page,datasource,lastContentOffset,isHoriTable,contentOffset,scrollDirection;
+@synthesize alignAutoCell;
 
 -(TableTemplate *)initWithTableView:(UITableView *)tableView withDelegate:(id<TableTemplateDelegate>)_delegate
 {
@@ -176,7 +177,7 @@
     
     float a,a1=0;
     
-    if(self.isHoriTable)
+    if(true)
     {
         a=contentOffset.y;
         a1=lastContentOffset.y;
@@ -203,10 +204,17 @@
     
     if(scrollDirection==TABLE_DIRECTION_TO_BOTTOM)
     {
-        [_tableView scrollToRowAtIndexPath:[_tableView indexPathsForVisibleRows].lastObject atScrollPosition:UITableViewScrollPositionNone animated:true];
+        CGRect rect=[_tableView rectForRowAtIndexPath:[_tableView indexPathsForVisibleRows].lastObject];
+        rect.origin.y-=self.alignAutoCell;
+        [_tableView scrollRectToVisible:rect animated:true];
+//        [_tableView scrollToRowAtIndexPath:[_tableView indexPathsForVisibleRows].lastObject atScrollPosition:UITableViewScrollPositionNone animated:true];
     }
     else if(scrollDirection==TABLE_DIRECTION_TO_TOP)
-        [_tableView scrollToRowAtIndexPath:[_tableView indexPathsForVisibleRows].firstObject atScrollPosition:UITableViewScrollPositionNone animated:true];
+    {
+        CGRect rect=[_tableView rectForRowAtIndexPath:[_tableView indexPathsForVisibleRows].firstObject];
+        rect.origin.y+=self.alignAutoCell;
+//        [_tableView scrollToRowAtIndexPath:[_tableView indexPathsForVisibleRows].firstObject atScrollPosition:UITableViewScrollPositionNone animated:true];
+    }
 }
 
 -(void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate

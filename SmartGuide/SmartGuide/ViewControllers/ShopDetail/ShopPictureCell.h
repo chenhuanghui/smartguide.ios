@@ -12,7 +12,7 @@
 {
     __weak IBOutlet UIImageView *picture;
     __weak IBOutlet UIView *imageContaint;
-    __weak IBOutlet UIView *animationView;
+    __weak IBOutlet UIImageView *animationView;
 }
 
 -(void) setURLString:(NSString*) url duration:(float) duration;

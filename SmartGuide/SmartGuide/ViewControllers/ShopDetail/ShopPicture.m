@@ -24,6 +24,9 @@
     templateShopGallery=[[TemplateShopGallery alloc] initWithTableView:tableShopGallery withDelegate:self];
     templateUserGallery=[[TemplateUserGallery alloc] initWithTableView:tableUserGallery withDelegate:self];
     
+    templateShopGallery.alignAutoCell=2;
+    templateUserGallery.alignAutoCell=2;
+    
     templateShopGallery.isHoriTable=true;
     templateUserGallery.isHoriTable=true;
     
@@ -81,7 +84,7 @@
     if(_isUserViewShopGallery)
         return templateShopGallery.datasource.count;
     else
-        return templateUserGallery.datasource.count;
+        return templateUserGallery.datasource.count-1;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -367,14 +370,13 @@
         return [self scrollTableUserGalleryToIndexPathAndGiveBackRect:_galleryView indexPath:indexPath];
 }
 
-int iii;
 -(NSString *)galleryViewDescriptionImage:(int)index
 {
     if(!_isUserViewShopGallery)
     {
         ShopUserGallery *ug=[templateUserGallery.datasource objectAtIndex:index];
         
-        return [NSString stringWithFormat:@"%@ %i",ug.desc,iii++];
+        return [NSString stringWithStringDefault:ug.desc];
     }
     
     return @"";
@@ -396,9 +398,12 @@ int iii;
 -(CGRect)scrollTableShopGalleryToIndexPathAndGiveBackRect:(GalleryView*) gl indexPath:(NSIndexPath *)indexPath
 {
     [templateShopGallery setTableView:tableShopGallery];
-    [tableShopGallery scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionNone animated:false];
     
     CGRect rect=[tableShopGallery rectForRowAtIndexPath:indexPath];
+    rect.origin.x+=2;
+    [tableShopGallery scrollRectToVisible:rect animated:true];
+    
+    rect=[tableShopGallery rectForRowAtIndexPath:indexPath];
     
     rect.size=[ShopPictureCell size];
     rect.origin=[tableShopGallery convertPoint:rect.origin fromView:[tableShopGallery cellForRowAtIndexPath:indexPath]];
@@ -412,9 +417,12 @@ int iii;
 -(CGRect)scrollTableUserGalleryToIndexPathAndGiveBackRect:(GalleryView*) gl indexPath:(NSIndexPath *)indexPath
 {
     [templateUserGallery setTableView:tableUserGallery];
-    [tableUserGallery scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionNone animated:false];
     
     CGRect rect=[tableUserGallery rectForRowAtIndexPath:indexPath];
+    rect.origin.x+=2;
+    [tableUserGallery scrollRectToVisible:rect animated:true];
+    
+    rect=[tableUserGallery rectForRowAtIndexPath:indexPath];
     
     rect.size=[ShopPictureCell size];
     rect.origin=[tableUserGallery convertPoint:rect.origin fromView:[tableUserGallery cellForRowAtIndexPath:indexPath]];

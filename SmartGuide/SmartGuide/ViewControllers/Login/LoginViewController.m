@@ -36,7 +36,7 @@
     _isActived=false;
     [self btnNumberTouchUpInside:btnClear];
     
-//    lblPhone.text=@"(84)01225372227";
+//    lblPhone.text=@"01225372227";
     
 //    if([[LocationManager shareInstance] isAllowLocation])
 //        [[LocationManager shareInstance] tryGetUserLocationInfo];

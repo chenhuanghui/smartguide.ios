@@ -318,7 +318,7 @@
         
         [self alignButtonLikeDislike];
         
-        [imgvLogo setImageWithURL:[NSURL URLWithString:_shop.logo]];
+        [imgvLogo setSmartGuideImageWithURL:[NSURL URLWithString:_shop.logo] placeHolderImage:UIIMAGE_LOADING_SHOP_LOGO success:nil failure:nil];
         
         //      cover shop được set khi api shop detail được load
         //      [imgvCover setImageWithURL:[NSURL URLWithString:_shop.cover]];
@@ -583,7 +583,7 @@
     {
         ASIOperationShopDetail *ope=(ASIOperationShopDetail*) operation;
         
-        [imgvCover setImageWithURL:[NSURL URLWithString:_shop.cover]];
+        [imgvCover setSmartGuideImageWithURL:[NSURL URLWithString:_shop.cover] placeHolderImage:UIIMAGE_LOADING_SHOP_COVER success:nil failure:nil];
         
         _shop=ope.shop;
         

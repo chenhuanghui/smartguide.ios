@@ -9,14 +9,17 @@
 #import "GalleryCell.h"
 #import "UIImageView+AFNetworking.h"
 #import "Utility.h"
+#import "Constant.h"
 
 @implementation GalleryCell
 
 -(void) setImageURL:(NSURL*) url
 {
-    imgv.image=nil;    
-    [imgv setImageWithURL:url onCompleted:^(id image) {
+    imgv.image=nil;
+    [imgv setImageWithLoading:url emptyImage:UIIMAGE_LOADING_SHOP_GALLERY success:^(UIImage *image) {
         [self setIMG:image];
+    } failure:^(UIImage *emptyImage) {
+        [self setIMG:emptyImage];
     }];
 }
 

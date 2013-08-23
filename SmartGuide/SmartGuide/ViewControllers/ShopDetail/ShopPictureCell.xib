@@ -58,7 +58,7 @@
 								<reference key="NSNextResponder" ref="437480113"/>
 								<int key="NSvFlags">292</int>
 								<array class="NSMutableArray" key="NSSubviews">
-									<object class="IBUIView" id="947107176">
+									<object class="IBUIImageView" id="107361288">
 										<reference key="NSNextResponder" ref="1051788974"/>
 										<int key="NSvFlags">292</int>
 										<string key="NSFrameSize">{81, 81}</string>
@@ -66,14 +66,12 @@
 										<reference key="NSWindow"/>
 										<reference key="NSNextKeyView" ref="272311539"/>
 										<string key="NSReuseIdentifierKey">_NS:9</string>
-										<object class="NSColor" key="IBUIBackgroundColor">
-											<int key="NSColorSpace">3</int>
-											<bytes key="NSWhite">MQA</bytes>
-											<object class="NSColorSpace" key="NSCustomColorSpace">
-												<int key="NSID">2</int>
-											</object>
-										</object>
+										<bool key="IBUIUserInteractionEnabled">NO</bool>
 										<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+										<object class="NSCustomResource" key="IBUIImage">
+											<string key="NSClassName">NSImage</string>
+											<string key="NSResourceName">ava_loading.png</string>
+										</object>
 									</object>
 									<object class="IBUIImageView" id="272311539">
 										<reference key="NSNextResponder" ref="1051788974"/>
@@ -90,7 +88,7 @@
 								<string key="NSFrame">{{2, 2}, {81, 81}}</string>
 								<reference key="NSSuperview" ref="437480113"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="947107176"/>
+								<reference key="NSNextKeyView" ref="107361288"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<object class="NSColor" key="IBUIBackgroundColor">
 									<int key="NSColorSpace">2</int>
@@ -150,9 +148,9 @@
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">animationView</string>
 						<reference key="source" ref="210056135"/>
-						<reference key="destination" ref="947107176"/>
+						<reference key="destination" ref="107361288"/>
 					</object>
-					<int key="connectionID">10</int>
+					<int key="connectionID">13</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -188,7 +186,7 @@
 						<reference key="object" ref="1051788974"/>
 						<array class="NSMutableArray" key="children">
 							<reference ref="272311539"/>
-							<reference ref="947107176"/>
+							<reference ref="107361288"/>
 						</array>
 						<reference key="parent" ref="210056135"/>
 					</object>
@@ -198,14 +196,14 @@
 						<reference key="parent" ref="1051788974"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">9</int>
-						<reference key="object" ref="947107176"/>
-						<reference key="parent" ref="1051788974"/>
-					</object>
-					<object class="IBObjectRecord">
 						<int key="objectID">11</int>
 						<reference key="object" ref="48225586"/>
 						<reference key="parent" ref="210056135"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">12</int>
+						<reference key="object" ref="107361288"/>
+						<reference key="parent" ref="1051788974"/>
 					</object>
 				</array>
 			</object>
@@ -214,17 +212,17 @@
 				<string key="-2.CustomClassName">UIResponder</string>
 				<string key="-2.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="11.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="12.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="3.CustomClassName">ShopPictureCell</string>
 				<string key="3.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="5.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="7.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-				<string key="9.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			</dictionary>
 			<dictionary class="NSMutableDictionary" key="unlocalizedProperties"/>
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">11</int>
+			<int key="maxID">13</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -232,14 +230,14 @@
 					<string key="className">ShopPictureCell</string>
 					<string key="superclassName">UITableViewCell</string>
 					<dictionary class="NSMutableDictionary" key="outlets">
-						<string key="animationView">UIView</string>
+						<string key="animationView">UIImageView</string>
 						<string key="imageContaint">UIView</string>
 						<string key="picture">UIImageView</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
 						<object class="IBToOneOutletInfo" key="animationView">
 							<string key="name">animationView</string>
-							<string key="candidateClassName">UIView</string>
+							<string key="candidateClassName">UIImageView</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="imageContaint">
 							<string key="name">imageContaint</string>
@@ -261,6 +259,10 @@
 		<string key="IBDocument.TargetRuntimeIdentifier">IBCocoaTouchFramework</string>
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
+		<object class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
+			<string key="NS.key.0">ava_loading.png</string>
+			<string key="NS.object.0">{60, 60}</string>
+		</object>
 		<string key="IBCocoaTouchPluginVersion">2083</string>
 	</data>
 </archive>

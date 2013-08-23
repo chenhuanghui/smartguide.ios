@@ -14,7 +14,9 @@
 #define FACEBOOK_APPID @"1391698407719065"
 #define FACEBOOK_GET_PROFILE(accessToken,fields) [NSString stringWithFormat:@"https://graph.facebook.com/me/?fields=%@&access_token=%@",fields,accessToken]
 #define CLIENT_ID @"1_orazuv2dl3k8ossssg8804o4kwksw8kwcskkk404w40gwcwws"
+//#define CLIENT_ID @"1_53obx9yqlcco80w8wkoowgccw44o0w0ook0okogwosg84wscg8"
 #define SECRET_ID @"4xvgf3r9dxs8k8g8o8k0gss0s0wc8so4g4wg40c8s44kgcwsks"
+//#define SECRET_ID @"t3p0k1rvstcgwcsggo8ossgcwo8cckso88sscgcsks8w0wsk8"
 
 //#define SERVER_API @"http://192.168.1.102/rb-smartguide/web/app.php/api"
 //#define SERVER_API @"http://192.168.1.5/app.php/api"
@@ -49,10 +51,14 @@
 #define API_VERIFY_ACTIVE_CODE(phone,activeCode) [NSString stringWithFormat:@"%@/user/check?phone=%@&code=%@",SERVER_IP,phone,activeCode]
 #define API_GET_TOKEN(phone,activeCode) [NSString stringWithFormat:@"%@/oauth/v2/token?grant_type=http://dev.smartguide.com/app_dev.php/grants/bingo&client_id=%@&client_secret=%@&phone=%@&code=%@",SERVER_IP,CLIENT_ID,SECRET_ID,phone,activeCode]
 
+#define UIIMAGE_LOADING_SHOP_LOGO [UIImage imageNamed:@"ava_loading.png"]
+#define UIIMAGE_LOADING_AVATAR [UIImage imageNamed:@"ava_default.png"]
+#define UIIMAGE_LOADING_AVATAR_COMMENT UIIMAGE_LOADING_AVATAR
+#define UIIMAGE_LOADING_SHOP_COVER [UIImage imageNamed:@"cover_loading.png"]
+#define UIIMAGE_LOADING_SHOP_GALLERY UIIMAGE_LOADING_SHOP_LOGO
+
 #define UIIMAGE_SHOP_PIN [UIImage imageNamed:@"pin.png"]
 #define UIIMAGE_USER_PIN [UIImage imageNamed:@"icon_pin.png"]
-#define UIIMAGE_IMAGE_EMPTY [UIImage imageNamed:@"no_image.png"]
-#define UIIMAGE_IMAGE_ERROR [UIImage imageNamed:@"image_error.png"]
 
 #define NOTIFICATION_LOGIN @"UserLogin"
 #define NOTIFICATION_LOGOUT @"UserLogout"

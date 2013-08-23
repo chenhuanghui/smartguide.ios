@@ -20,6 +20,15 @@
     if (self) {
         lblTitle.text=@"";
     }
+    
+    for(UIView *view in searchbar.subviews)
+    {
+        if([view isKindOfClass:[UITextField class]])
+        {
+            ((UITextField*)view).borderStyle=UITextBorderStyleRoundedRect;
+        }
+    }
+    
     return self;
 }
 
@@ -55,8 +64,10 @@
 {
     containButtons.hidden=true;
     
+    searchbar.placeholder=@"Quick search";
     searchbar.delegate=_delegate;
     searchbar.tintColor=COLOR_BACKGROUND_APP;
+    searchbar.backgroundColor=COLOR_BACKGROUND_APP;
     searchbar.hidden=false;
     [searchbar becomeFirstResponder];
 }

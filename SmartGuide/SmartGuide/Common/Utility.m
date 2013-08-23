@@ -197,6 +197,20 @@ bool isVailCLLocationCoordinate2D(CLLocationCoordinate2D location)
 
 +(CGSize)scaleProportionallyFromSize:(CGSize)fSize toSize:(CGSize)tSize
 {
+    if(fSize.width==fSize.height)
+    {
+        while (fSize.width<MIN(tSize.width, tSize.height)) {
+            fSize.width++;
+            fSize.height++;
+        }
+        return fSize;
+    }
+    
+    if(fSize.width>tSize.width&&fSize.height>tSize.height)
+    {
+        return [Utility scaleProportionallyFromSize:tSize toSize:fSize];
+    }
+    
     if(fSize.width>fSize.height)
     {
         float oldWitdh=fSize.width;

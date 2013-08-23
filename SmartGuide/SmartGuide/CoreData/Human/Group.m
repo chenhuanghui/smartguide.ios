@@ -57,7 +57,19 @@
 
 +(Group *)groupAll
 {
-    return [Group groupWithIDGroup:0];
+    Group *group=[Group groupWithIDGroup:0];
+    
+    if(!group)
+    {
+        Group *groupAll=[Group temporary];
+        groupAll.name=@"Tất cả";
+        groupAll.idGroup=@(0);
+        groupAll.count=0;
+        
+        return groupAll;
+    }
+    
+    return group;
 }
 
 -(NSString *)key

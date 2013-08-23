@@ -40,15 +40,15 @@ static FacebookManager *_facebookManager=nil;
         return;
     }
     
-    if(![DataManager shareInstance].currentUser.isConnectedFacebook.boolValue)
-    {
-        OperationFBGetProfile *getProfile=[[OperationFBGetProfile alloc] initWithAccessToken:[FBSession activeSession].accessTokenData.accessToken];
-        getProfile.delegate=self;
-        
-        [getProfile start];
-    }
-    else
-        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_FACEBOOK_LOGIN_SUCCESS object:nil];
+//    if(![DataManager shareInstance].currentUser.isConnectedFacebook.boolValue)
+//    {
+//        OperationFBGetProfile *getProfile=[[OperationFBGetProfile alloc] initWithAccessToken:[FBSession activeSession].accessTokenData.accessToken];
+//        getProfile.delegate=self;
+//        
+//        [getProfile start];
+//    }
+//    else
+    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_FACEBOOK_LOGIN_SUCCESS object:nil];
 }
 
 -(void)ASIOperaionPostFinished:(ASIOperationPost *)operation

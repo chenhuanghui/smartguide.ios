@@ -16,6 +16,9 @@
     __weak IBOutlet UIButton *btnSkip;
     __weak IBOutlet UIButton *btnFace;
     __weak IBOutlet UIImageView *imgvAvatar;
+    
+    ASIOperationFBProfile *postProfile;
+    OperationFBGetProfile *getProfile;
 }
 
 @end

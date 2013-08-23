@@ -14,6 +14,7 @@
 #import "PromotionDetail.h"
 #import "PromotionRequire.h"
 #import "Group.h"
+#import "Constant.h"
 
 @interface CatalogueListCell()
 
@@ -49,7 +50,7 @@
     bg.highlighted=data.selected;
     
     imgvLogo.image=nil;
-    [imgvLogo setImageWithURL:[NSURL URLWithString:data.logo]];
+    [imgvLogo setSmartGuideImageWithURL:[NSURL URLWithString:data.logo] placeHolderImage:UIIMAGE_LOADING_SHOP_LOGO success:nil failure:nil];
     
     lblShopName.text=[data.name uppercaseString];
     lblContent.text=data.desc;

@@ -61,7 +61,7 @@
             [self removeIndicator];
         
         if ([FBSession activeSession].accessTokenData.accessToken.length>0) {
-            OperationFBGetProfile *getProfile=[[OperationFBGetProfile alloc] initWithAccessToken:[FBSession activeSession].accessTokenData.accessToken];
+            getProfile=[[OperationFBGetProfile alloc] initWithAccessToken:[FBSession activeSession].accessTokenData.accessToken];
             getProfile.delegate=self;
             [getProfile start];
             
@@ -70,7 +70,7 @@
     }
     else if([notification.name isEqualToString:NOTIFICATION_FACEBOOK_LOGIN_SUCCESS])
     {
-        OperationFBGetProfile *getProfile=[[OperationFBGetProfile alloc] initWithAccessToken:[FBSession activeSession].accessTokenData.accessToken];
+        getProfile=[[OperationFBGetProfile alloc] initWithAccessToken:[FBSession activeSession].accessTokenData.accessToken];
         getProfile.delegate=self;
         [getProfile start];
         
@@ -93,20 +93,22 @@
 {
     if([operation isKindOfClass:[OperationFBGetProfile class]])
     {
-        OperationFBGetProfile *getProfile=(OperationFBGetProfile*)operation;
+        OperationFBGetProfile *ope=(OperationFBGetProfile*)operation;
         
-        FBProfile *profile = getProfile.profile;
+        FBProfile *profile = ope.profile;
         
         User *user=[User userWithIDUser:[DataManager shareInstance].currentUser.idUser.integerValue];
-        user.avatar=[NSString stringWithStringDefault:getProfile.profile.avatar];
+        user.avatar=[NSString stringWithStringDefault:ope.profile.avatar];
         
-        [imgvAvatar setImageWithURL:[NSURL URLWithString:user.avatar]];
+        [imgvAvatar setSmartGuideImageWithURL:[NSURL URLWithString:user.avatar] placeHolderImage:UIIMAGE_LOADING_AVATAR success:nil failure:nil];
         
         [[DataManager shareInstance] save];
         
         [DataManager shareInstance].currentUser=[User userWithIDUser:user.idUser.integerValue];
         
-        ASIOperationFBProfile *postProfile=[[ASIOperationFBProfile alloc] initWithFBProfile:profile];
+        getProfile=nil;
+        
+        postProfile=[[ASIOperationFBProfile alloc] initWithFBProfile:profile];
         postProfile.delegatePost=self;
         [postProfile startAsynchronous];
         
@@ -116,11 +118,13 @@
 
 -(void)ASIOperaionPostFinished:(ASIOperationPost *)operation
 {
+    postProfile=nil;
     [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_FACEBOOK_UPLOAD_PROFILE_FINISHED object:nil];
 }
 
 -(void)ASIOperaionPostFailed:(ASIOperationPost *)operation
 {
+    postProfile=nil;
     [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_FACEBOOK_UPLOAD_PROFILE_FINISHED object:nil];
 }
 

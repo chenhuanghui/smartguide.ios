@@ -11,6 +11,7 @@
 #import "RootViewController.h"
 #import "UserCollectionCell.h"
 #import "Shop.h"
+#import "UIImageView+AFNetworking.h"
 
 @interface UserCollectionViewController ()
 
@@ -91,7 +92,7 @@
     [table reloadData];
     _page=0;
     
-    [avatar setImageWithURL:[NSURL URLWithString:[DataManager shareInstance].currentUser.avatar]];
+    [avatar setSmartGuideImageWithURL:[NSURL URLWithString:[DataManager shareInstance].currentUser.avatar] placeHolderImage:UIIMAGE_LOADING_AVATAR success:nil failure:nil];
     
     [self loadCollectionAtPage:0];
     
@@ -171,6 +172,11 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return [UserCollectionCell size].height+10;
+}
+
+-(NSArray *)disableRightNavigationItems
+{
+    return @[@(ITEM_FILTER),@(ITEM_COLLECTION)];
 }
 
 @end

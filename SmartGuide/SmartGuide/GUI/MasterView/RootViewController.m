@@ -1029,7 +1029,7 @@ static RootViewController *_rootViewController;
             initialTouchSlide=[pan locationInView:self.view.window];
             previousTouchSlide=initialTouchSlide;
             
-            AlphaView *alphaView=(AlphaView*)[self.view viewWithTag:ALPHA_TAG];
+            AlphaView *alphaView=(AlphaView*)[self.view alphaView];
             if(!alphaView)
             {
                 rect=self.view.frame;
@@ -1234,6 +1234,8 @@ static RootViewController *_rootViewController;
     
     if(animated)
     {
+        [self.view alphaViewWithColor:COLOR_BACKGROUND_APP_ALPHA(1) belowView:self.slideQRCode.view];
+        
         [UIView animateWithDuration:DURATION_SHOW_SLIDE_QRCODE delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
             CGRect rect=self.slideQRCode.view.frame;
             rect.origin.y=[UIScreen mainScreen].bounds.size.height-[SlideQRCodeViewController size].height-25;
@@ -1273,6 +1275,8 @@ static RootViewController *_rootViewController;
 
     if(animated)
     {
+        [self.view alphaViewWithColor:COLOR_BACKGROUND_APP_ALPHA(0) belowView:self.slideQRCode.view];
+        
         [UIView animateWithDuration:DURATION_SHOW_SLIDE_QRCODE delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
             CGRect rect=self.slideQRCode.view.frame;
             rect.origin.y=0;

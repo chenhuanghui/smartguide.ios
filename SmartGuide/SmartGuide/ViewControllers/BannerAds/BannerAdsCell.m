@@ -9,6 +9,7 @@
 #import "BannerAdsCell.h"
 #import "UIImageView+AFNetworking.h"
 #import "Utility.h"
+#import "Constant.h"
 
 @implementation BannerAdsCell
 
@@ -17,13 +18,10 @@
     lblPage.text=[NSString stringWithFormat:@"%02i",page];
     
     imgv.image=nil;
-    [imgv setImageWithURL:[NSURL URLWithString:urlStr] onCompleted:^(id image) {
-        
-        if([image isKindOfClass:[UIImage class]])
-            imgv.image=image;
-        
+    [imgv setSmartGuideImageWithURL:[NSURL URLWithString:urlStr] placeHolderImage:UIIMAGE_LOADING_SHOP_COVER success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+        imgv.image=image;
         onCompleted();
-    }];
+    } failure:nil];
 }
 
 -(id)awakeAfterUsingCoder:(NSCoder *)aDecoder

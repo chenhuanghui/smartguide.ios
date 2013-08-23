@@ -28,7 +28,7 @@
     tableComments.frame=rect;
     
     _templateComment=[[TableTemplate alloc] initWithTableView:tableComments withDelegate:self];
-    [avatar setImageWithURL:[NSURL URLWithString:[DataManager shareInstance].currentUser.avatar]];
+    [avatar setSmartGuideImageWithURL:[NSURL URLWithString:[DataManager shareInstance].currentUser.avatar] placeHolderImage:UIIMAGE_LOADING_AVATAR_COMMENT success:nil failure:nil];
     
     rect=tableComments.frame;
     rect.origin=CGPointZero;

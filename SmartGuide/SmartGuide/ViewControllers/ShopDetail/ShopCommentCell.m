@@ -9,6 +9,7 @@
 #import "ShopCommentCell.h"
 #import "Utility.h"
 #import "UIImageView+AFNetworking.h"
+#import "Constant.h"
 
 #define COMMENT_FONT_SIZE 10
 #define COMMENT_WIDTH 275.f
@@ -25,7 +26,7 @@
     CGSize size = [userComment.comment sizeWithFont:[UIFont systemFontOfSize:COMMENT_FONT_SIZE] constrainedToSize:constraint lineBreakMode:UILineBreakModeWordWrap];
     
     time.text=userComment.time;
-    [avatar setImageWithURL:[NSURL URLWithString:userComment.avatar]];
+    [avatar setSmartGuideImageWithURL:[NSURL URLWithString:userComment.avatar] placeHolderImage:UIIMAGE_LOADING_AVATAR_COMMENT success:nil failure:nil];
     
     comment.text=userComment.comment;
     [comment setFrame:CGRectMake(45, 15, COMMENT_WIDTH+changedWidth, MAX(size.height, 21))];
