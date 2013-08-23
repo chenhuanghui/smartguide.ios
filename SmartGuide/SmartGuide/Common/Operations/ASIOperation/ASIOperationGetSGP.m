@@ -35,22 +35,25 @@
 {
     NSDictionary *dict=[json objectAtIndex:0];
     status=[dict integerForKey:@"status"];
-
     content=[dict objectForKey:@"content"];
-    shopName=[dict objectForKey:@"shop_name"];
-    SGP=[dict integerForKey:@"sgp"];
-    time=[dict objectForKey:@"time"];
-    totalSGP=[[dict objectForKey:@"total_sgp"] doubleValue];
     
-    Shop *shop=[Shop shopWithIDShop:_idShop];
-    
-    if(shop)
+    if(status==2)
     {
-        if(shop.promotionDetail && shop.promotionDetail.promotionType.integerValue==1)
+        shopName=[dict objectForKey:@"shop_name"];
+        SGP=[dict integerForKey:@"sgp"];
+        time=[dict objectForKey:@"time"];
+        totalSGP=[[dict objectForKey:@"total_sgp"] doubleValue];
+        
+        Shop *shop=[Shop shopWithIDShop:_idShop];
+        
+        if(shop)
         {
-            shop.promotionDetail.sgp=@(totalSGP);
-            
-            [[DataManager shareInstance] save];
+            if(shop.promotionDetail && shop.promotionDetail.promotionType.integerValue==1)
+            {
+                shop.promotionDetail.sgp=@(totalSGP);
+                
+                [[DataManager shareInstance] save];
+            }
         }
     }
 }

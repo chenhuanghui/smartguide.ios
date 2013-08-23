@@ -1337,10 +1337,10 @@ static RootViewController *_rootViewController;
             
         } completion:^(BOOL finished) {
             
+            [self.slideQRCode showCamera];
+            
             if(onCompleted)
                 onCompleted(finished);
-            
-            [self.slideQRCode showCamera];
             
             self.slideQRCode.btnSlide.enabled=true;
         }];

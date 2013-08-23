@@ -189,6 +189,7 @@
         }
         
         lblSgp.text=@"";
+        
         [lblSgp animationScoreWithDuration:DURATION_SCORE startValue:0 endValue:_shop.promotionDetail.sgp.longLongValue format:_scoreFormater];
         
         [[NSNotificationCenter defaultCenter] addObserverForName:NOTIFICATION_SCORE_FINISHED object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {

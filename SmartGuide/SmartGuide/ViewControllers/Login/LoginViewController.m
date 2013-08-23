@@ -183,7 +183,7 @@
         return;
     }
     
-    NSString *str=[NSString stringWithFormat:@"SmartGuide sẽ gữi tin nhắn kích hoạt đến %@. Bạn có muôn tiếp tục?",txt.text];
+    NSString *str=[NSString stringWithFormat:@"SmartGuide sẽ gửi tin nhắn xác nhận đến %@. Bạn có muốn tiếp tục?",txt.text];
     [AlertView showAlertOKCancelWithTitle:txt.text withMessage:str onOK:^{
         NSString *strPhone=[NSString stringWithString:phone];
         

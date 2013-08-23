@@ -234,7 +234,7 @@
 
     switch (mode) {
         case SCAN_GET_SGP:
-            [self getSGPWithCode:text];
+            [self getSGPWithCode:text idShop:[Utility idShopFromQRCode:text]];
             break;
             
         case SCAN_GET_AWARD_PROMOTION_1:
@@ -252,7 +252,7 @@
 -(void) getPromotion1Reward:(NSString*) code idReward:(int) _idReward
 {
     int idUser=[DataManager shareInstance].currentUser.idUser.integerValue;
-    ASIOperationSGPToReward *operation=[[ASIOperationSGPToReward alloc] initWithIDUser:idUser idRewward:_idReward code:qrCode.sourceCode];
+    ASIOperationSGPToReward *operation=[[ASIOperationSGPToReward alloc] initWithIDUser:idUser idRewward:_idReward code:code];
     operation.delegatePost=self;
     
     [operation startAsynchronous];
@@ -270,10 +270,10 @@
     [self.view showLoadingWithTitle:nil];
 }
 
--(void) getSGPWithCode:(NSString*) code
+-(void) getSGPWithCode:(NSString*) code idShop:(int) idShop;
 {
     int idUser=[DataManager shareInstance].currentUser.idUser.integerValue;
-    ASIOperationGetSGP *operation=[[ASIOperationGetSGP alloc] initWithUserID:idUser code:code idShop:qrCode.idShop];
+    ASIOperationGetSGP *operation=[[ASIOperationGetSGP alloc] initWithUserID:idUser code:code idShop:idShop];
     operation.delegatePost=self;
     
     [operation startAsynchronous];
@@ -281,19 +281,20 @@
 
 -(void)ASIOperaionPostFinished:(ASIOperationPost *)operation
 {
+    [qrView removeLoading];
+    btnSlide.enabled=true;
+    
+    lblChucMung.hidden=true;
+    lblNhanDuoc.hidden=true;
+    lblSGP.hidden=true;
+    lblError.hidden=true;
+    lblShop.hidden=true;
+    imgvRewardIcon.hidden=false;
+    rewardView.hidden=false;
+    
     if([operation isKindOfClass:[ASIOperationGetSGP class]])
     {
         ASIOperationGetSGP *ope=(ASIOperationGetSGP*) operation;
-        
-        [qrView removeLoading];
-        btnSlide.enabled=true;
-        
-        lblChucMung.hidden=true;
-        lblNhanDuoc.hidden=true;
-        lblSGP.hidden=true;
-        lblError.hidden=true;
-        lblShop.hidden=true;
-        imgvRewardIcon.hidden=false;
         
         if(ope.status==3)
         {
@@ -322,16 +323,6 @@
     }
     else if([operation isKindOfClass:[ASIOperationGetRewardPromotionType2 class]])
     {
-        [qrView removeLoading];
-        btnSlide.enabled=true;
-        
-        lblChucMung.hidden=true;
-        lblNhanDuoc.hidden=true;
-        lblSGP.hidden=true;
-        lblError.hidden=true;
-        lblShop.hidden=true;
-        imgvRewardIcon.hidden=false;
-        
         ASIOperationGetRewardPromotionType2 *ope=(ASIOperationGetRewardPromotionType2*) operation;
         
         if(ope.status==1)
@@ -369,19 +360,8 @@
     }
     else if([operation isKindOfClass:[ASIOperationSGPToReward class]])
     {
-        [self.view removeLoading];
-        
         ASIOperationSGPToReward *ope=(ASIOperationSGPToReward*) operation;
-        
-        btnSlide.enabled=true;
-        
-        lblChucMung.hidden=true;
-        lblNhanDuoc.hidden=true;
-        lblSGP.hidden=true;
-        lblError.hidden=true;
-        lblShop.hidden=true;
-        imgvRewardIcon.hidden=false;
-        
+
         if(ope.status==2)
         {
             lblChucMung.hidden=false;
@@ -424,6 +404,7 @@
     lblError.hidden=false;
     lblError.text=@"Lỗi đã xảy ra";
     imgvRewardIcon.highlighted=true;
+    rewardView.hidden=false;
 }
 
 - (IBAction)btnSlideTouchUpInside:(UIButton *)sender

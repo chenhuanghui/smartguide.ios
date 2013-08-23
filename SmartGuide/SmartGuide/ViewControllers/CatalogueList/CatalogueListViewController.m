@@ -162,6 +162,21 @@
     self.navigationController.view.frame=CGRectMake(0, 37, 320, 337);
     
     [[RootViewController shareInstance].bannerAds animationHideShopDetail];
+    
+    if(self.mode==LIST_SHOP)
+    {
+        if(templateList.selectedShop && [templateList.datasource containsObject:templateList.selectedShop])
+        {
+            [tableShop scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:[templateList.datasource indexOfObject:templateList.selectedShop] inSection:0] atScrollPosition:UITableViewScrollPositionNone animated:false];
+        }
+    }
+    else
+    {
+        if(templateSearch.selectedShop && [templateSearch.datasource containsObject:templateSearch.selectedShop])
+        {
+            [tableShop scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:[templateSearch.datasource indexOfObject:templateSearch.selectedShop] inSection:0] atScrollPosition:UITableViewScrollPositionNone animated:false];
+        }
+    }
 }
 
 -(void) loadShopAtPage:(int) page

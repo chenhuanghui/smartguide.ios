@@ -245,6 +245,7 @@
     map=[MapView shareInstance];
     map.delegate=self;
     map.showsUserLocation=true;
+
     CGRect rect=self.view.frame;
     rect.origin=CGPointZero;
     map.frame=rect;
