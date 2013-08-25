@@ -122,7 +122,7 @@
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
+    return 0;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -382,6 +382,11 @@
 -(NSArray *)rightNavigationItems
 {
     return @[@(ITEM_FILTER),@(ITEM_COLLECTION),@(ITEM_LIST)];
+}
+
+-(NSArray *)disableRightNavigationItems
+{
+    return @[@(ITEM_FILTER)];
 }
 
 -(DirectionObjectViewController*) direction

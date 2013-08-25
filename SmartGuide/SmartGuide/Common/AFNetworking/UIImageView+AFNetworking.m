@@ -201,6 +201,8 @@ static char kAFImageRequestOperationObjectKey;
 
 -(void)setImageWithLoading:(NSURL *)url emptyImage:(UIImage *)emptyImage success:(void (^)(UIImage *))success failure:(void (^)(UIImage *))failure
 {
+    [self removeLoading];
+    
     NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:url];
     [urlRequest addValue:@"image/*" forHTTPHeaderField:@"Accept"];
     
@@ -252,6 +254,8 @@ static char kAFImageRequestOperationObjectKey;
                  else
                      self.image=emptyImage;
                  [self removeLoading];
+                 
+                 [[AFImageCache af_sharedImageCache] cacheEmptyImage:emptyImage forRequest:urlRequest];
              }
          }];
         

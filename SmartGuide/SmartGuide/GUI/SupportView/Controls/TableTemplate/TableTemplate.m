@@ -75,7 +75,7 @@
 {
     if(_isAllowLoadMore)
     {
-        if(indexPath.row==[tableView numberOfRowsInSection:indexPath.section]-1)
+        if(indexPath.row==[self tableView:tableView numberOfRowsInSection:indexPath.section]-1)
         {
             if([self respondsToSelector:@selector(reuseIdentifierLoadingCell:)])
             {
@@ -192,6 +192,9 @@
         scrollDirection=TABLE_DIRECTION_TO_TOP;
     else
         scrollDirection=TABLE_DIRECTION_TO_BOTTOM;
+    
+    if([self isRepondsSEL:@selector(scrollViewDidScroll:)])
+        [delegate scrollViewDidScroll:scrollView];
 }
 
 -(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView

@@ -29,6 +29,7 @@
     {
         picture.frame=CGRectMake(0, -81, 81, 81);
         picture.hidden=true;
+        picture.image=nil;
         animationView.image=UIIMAGE_LOADING_SHOP_GALLERY;
         animationView.frame=CGRectMake(0, 0, 81, 81);
         animationView.hidden=false;

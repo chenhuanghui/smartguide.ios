@@ -37,7 +37,7 @@
     status=[dict integerForKey:@"status"];
     content=[dict objectForKey:@"content"];
     
-    if(status==2)
+    if(status==3)
     {
         shopName=[dict objectForKey:@"shop_name"];
         SGP=[dict integerForKey:@"sgp"];

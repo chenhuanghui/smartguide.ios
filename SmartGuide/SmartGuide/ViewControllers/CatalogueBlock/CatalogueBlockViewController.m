@@ -349,6 +349,11 @@
     return @[@(ITEM_FILTER),@(ITEM_COLLECTION),@(ITEM_MAP)];
 }
 
+-(NSArray *)disableRightNavigationItems
+{
+    return @[@(ITEM_FILTER)];
+}
+
 @end
 
 @implementation BlockView

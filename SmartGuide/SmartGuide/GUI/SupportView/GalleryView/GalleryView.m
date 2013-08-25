@@ -21,6 +21,7 @@
 
 @implementation GalleryView
 @synthesize delegate,_tap;
+@synthesize currentIndexPath;
 
 - (id)init
 {
@@ -209,17 +210,24 @@
     UIImageView *imgv=[[UIImageView alloc] initWithFrame:rect];
     imgv.image=image;
     imgv.backgroundColor=[UIColor clearColor];
+    imgv.contentMode=UIViewContentModeScaleAspectFit;
     
     [UIView animateWithDuration:DURATION_SHOW_USER_GALLERY_IMAGE animations:^{
-        CGSize size=[Utility scaleProportionallyFromSize:image.size toSize:[UIScreen mainScreen].bounds.size];
-        imgv.frame=CGRectMake(0, (self.frame.size.height-size.height)/2, size.width, size.height);
+//        CGSize size=[Utility scaleProportionallyFromSize:image.size toSize:[UIScreen mainScreen].bounds.size];
+        CGSize size=self.frame.size;
+        imgv.frame=CGRectMake(0, 0, size.width, size.height);
         
         txt.alpha=1;
         btn.alpha=1;
         bg.alpha=1;
         blurr.alpha=1;
     } completion:^(BOOL finished) {
+        [table reloadData];
         table.hidden=false;
+        
+        if(currentIndexPath)
+            [table scrollToRowAtIndexPath:currentIndexPath atScrollPosition:UITableViewScrollPositionNone animated:false];
+        
         [imgv removeFromSuperview];
     }];
     

@@ -46,7 +46,12 @@
     
     [templateList setTableView:tableShop];
     
-    self.title=templateList.group.name;
+    self.title=@"";
+    if(templateList.group.count==1)
+        self.title=((Group*)[templateList.group objectAtIndex:0]).name;
+    if(templateList.group.count>1)
+        self.title=@"Nhiều danh mục";
+    
     mode=LIST_SHOP;
     
     [tableShop reloadData];
@@ -56,7 +61,7 @@
 
 -(bool)tableTemplateAllowAutoScrollFullCell:(TableTemplate *)tableTemplate
 {
-    return true;
+    return false;
 }
 
 -(void)handleSearchResult:(NSString *)searchKey result:(NSArray *)array page:(int)page selectedShop:(Shop *)selectedShop selectedRow:(NSIndexPath *)lastSelectedRow
@@ -84,14 +89,18 @@
         return;
     }
     
-    if(_group!=nil && templateList.group.idGroup.integerValue==_group.idGroup.integerValue && _city!=nil && templateList.city.idCity.integerValue==_city.idCity.integerValue)
+    if(_group!=nil && _city!=nil && templateList.group.count==1)
     {
-        if(delegate)
-            [delegate catalogueListLoadShopFinished:self];
-        return;
+        if(_group.idGroup.integerValue==templateList.firstGroup.idGroup.integerValue && _city.idCity.integerValue==templateList.city.idCity.integerValue)
+        {
+            if(delegate)
+                [delegate catalogueListLoadShopFinished:self];
+            
+            return;
+        }
     }
     
-    templateList.group=_group;
+    templateList.group=[@[_group] mutableCopy];
     templateList.city=_city;
     
     [self switchToModeList];
@@ -99,8 +108,6 @@
     [self resetData];
     
     [tableShop setContentOffset:CGPointZero];
-    templateList.city=_city;
-    templateList.group=_group;
     
     templateList.lastSelectedRow=nil;
     templateList.selectedShop=nil;
@@ -109,6 +116,62 @@
     
     [self.view showLoadingWithTitle:nil];
     self.title=_group.name;
+}
+
+-(void)loadGroups:(NSArray *)group
+{
+    if(!templateList)
+    {
+        if(delegate)
+            [delegate catalogueListLoadShopFinished:self];
+        
+        return;
+    }
+ 
+    if(group.count==1)
+    {
+        [self loadGroup:group.firstObject city:templateList.city];
+        return;
+    }
+    
+    if(templateList.group.count==group.count)
+    {
+        bool hasDiff=false;
+        for(Group *g in group)
+        {
+            if(![templateList.group containsObject:g])
+            {
+                hasDiff=true;
+                break;
+            }
+        }
+        
+        if(hasDiff)
+        {
+            if(delegate && [delegate respondsToSelector:@selector(catalogueListLoadShopFinished:)])
+            {
+                [delegate catalogueListLoadShopFinished:self];
+            }
+            return;
+        }
+    }
+    
+    templateList.group=[group mutableCopy];
+    
+    [self switchToModeList];
+    
+    [self resetData];
+    
+    [tableShop setContentOffset:CGPointZero];
+    
+    templateList.lastSelectedRow=nil;
+    templateList.selectedShop=nil;
+    
+    [self loadShopAtPage:0];
+    
+    [self.view showLoadingWithTitle:nil];
+    self.title=@"Nhiều danh mục";
+
 }
 
 -(void)viewDidLoad
@@ -287,7 +350,7 @@
     else
     {
         templateSearch.selectedShop.selected=false;
-
+        
         if(templateSearch.lastSelectedRow)
             [((CatalogueListCell*)[tableView cellForRowAtIndexPath:templateSearch.lastSelectedRow]) refreshData];
         
@@ -349,7 +412,7 @@
         CGRect rect=self.navigationController.view.frame;
         rect.size.height+=[BannerAdsViewController size].height;
         self.navigationController.view.frame=rect;
-
+        
         [RootViewController shareInstance].shopDetail.view.frame=rect;
         
         [[RootViewController shareInstance].bannerAds prepareAnimationShowShopDetail];
@@ -397,13 +460,13 @@
 
 -(NSArray *)rightNavigationItems
 {
-    return @[@(ITEM_COLLECTION),@(ITEM_MAP)];
+    return @[@(ITEM_FILTER),@(ITEM_COLLECTION),@(ITEM_MAP)];
 }
 
 -(void)loadView
 {
     [super loadView];
-
+    
     dispatch_async(dispatch_get_main_queue(), ^{
         _isInitedShopDetail=false;
         [RootViewController shareInstance].shopDetail=[[ShopDetailViewController alloc] init];
@@ -433,16 +496,35 @@
 
 -(void) loadShopAtPage:(int) page
 {
-    if(self.group==nil || self.city==nil)
+    if(self.group==nil || self.city==nil || self.group.count==0)
         return;
     
     User *user=[DataManager shareInstance].currentUser;
     
+    NSString *ids=[[self.group valueForKey:Group_IdGroup] componentsJoinedByString:@","];
+    
+    for(Group *g in self.group)
+    {
+        if(g.idGroup.integerValue==0)
+        {
+            ids=@"1,2,3,4,5,6,7";
+            break;
+        }
+    }
+    
     int idCity=self.city.idCity.integerValue;
-    self.opeartionShopInGroup=[[ASIOperationShopInGroup alloc] initWithIDCity:idCity idUser:user.idUser.integerValue lat:user.location.latitude lon:user.location.longitude page:page sort:SORT_DISTANCE group:self.group,nil];
+    self.opeartionShopInGroup=[[ASIOperationShopInGroup alloc] initWithIDCity:idCity idUser:user.idUser.integerValue lat:user.location.latitude lon:user.location.longitude page:page sort:SORT_DISTANCE group:ids];
     self.opeartionShopInGroup.delegatePost=self;
     
     [self.opeartionShopInGroup startAsynchronous];
+}
+
+-(Group *)firstGroup
+{
+    if(self.group.count>0)
+        return self.group.firstObject;
+    
+    return nil;
 }
 
 -(void)reset

@@ -39,6 +39,7 @@ enum LIST_MODE {
 }
 
 -(void) loadGroup:(Group*) group city:(City*) city;
+-(void) loadGroups:(NSArray*) group;
 -(void) handleSearchResult:(NSString*) searchKey result:(NSArray*) array page:(int) page selectedShop:(Shop*) selectedShop selectedRow:(NSIndexPath*) lastSelectedRow;
 
 -(void) pushShopDetailWithShop:(Shop*) shop animated:(bool) animate;
@@ -66,7 +67,8 @@ enum LIST_MODE {
 
 @property (nonatomic, assign) Shop *selectedShop;
 @property (nonatomic, strong) NSIndexPath *lastSelectedRow;
-@property (nonatomic, strong) Group *group;
+@property (nonatomic, strong) NSMutableArray *group;
+@property (nonatomic, readonly) Group *firstGroup;
 @property (nonatomic, strong) City *city;
 @property (nonatomic, strong) ASIOperationShopInGroup *opeartionShopInGroup;
 @property (nonatomic, assign) CatalogueListViewController *catalogueList;

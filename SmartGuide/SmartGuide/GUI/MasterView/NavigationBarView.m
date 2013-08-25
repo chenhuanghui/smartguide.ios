@@ -232,4 +232,23 @@
     }
 }
 
+-(void)enableCancelButton
+{
+    for(id subview in [searchbar subviews])
+    {
+        if ([subview isKindOfClass:[UIButton class]]) {
+            [subview setEnabled:YES];
+        }
+    }
+}
+
+-(BOOL)endEditing:(BOOL)force
+{
+    bool endE=[super endEditing:force];
+    if(force)
+        [self enableCancelButton];
+    
+    return endE;
+}
+
 @end

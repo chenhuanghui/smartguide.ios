@@ -84,7 +84,7 @@
     if(_isUserViewShopGallery)
         return templateShopGallery.datasource.count;
     else
-        return templateUserGallery.datasource.count-1;
+        return templateUserGallery.datasource.count;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -134,7 +134,7 @@
 {
     if(tableView == tableUserGallery || tableView == tableShopGallery)
         return [ShopPictureCell size].height+8;
-
+    
     return [galleryView tableView:tableView heightForRowAtIndexPath:indexPath];
 }
 
@@ -221,7 +221,10 @@
     
     [tableShopGallery reloadData];
     [tableUserGallery reloadData];
-
+    
+    [tableShopGallery setContentOffset:CGPointZero];
+    [tableUserGallery setContentOffset:CGPointZero];
+    
     if(_operationUserGallery)
     {
         [_operationUserGallery cancel];
@@ -231,8 +234,8 @@
 
 -(void)cancel
 {
-//    if(_operationShopGallery)
-//        [_operationShopGallery cancel];
+    //    if(_operationShopGallery)
+    //        [_operationShopGallery cancel];
     
     if(_operationUserGallery)
     {
@@ -274,10 +277,10 @@
         
         [templateShopGallery endLoadNext];
         
-//        if(galleryView)
-//        {
-//            [galleryView.tablePicture reloadData];
-//        }
+        //        if(galleryView)
+        //        {
+        //            [galleryView.tablePicture reloadData];
+        //        }
     }
 }
 
@@ -314,11 +317,11 @@
         rect.origin=[tableView convertPoint:rect.origin fromView:cell];
         rect.origin=[self convertPoint:rect.origin fromView:tableView];
         rect.origin=[self convertPoint:rect.origin toView:galleryView];
-//        rect.origin.x+=18;
+        //        rect.origin.x+=18;
         //rect.origin=[galleryView convertPoint:rect.origin toView:galleryView]; uncomment để lấy vị trí y
         rect.origin.y=344-20;
+        galleryView.currentIndexPath=[indexPath copy];
         [galleryView animationImage:cell.userImage startRect:rect];
-        [galleryView.table scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionNone animated:false];
     }
     else if(tableView==tableShopGallery)
     {
@@ -330,7 +333,7 @@
         _isUserViewShopGallery=true;
         _rootView=[[RootViewController shareInstance] giveARootView];
         _rootView.backgroundColor=[UIColor clearColor];
-
+        
         galleryView=[[GalleryView alloc] init];
         galleryView.delegate=self;
         [templateShopGallery setTableView:galleryView.table];
@@ -341,11 +344,11 @@
         rect.origin=[tableView convertPoint:rect.origin fromView:cell];
         rect.origin=[self convertPoint:rect.origin fromView:tableView];
         rect.origin=[self convertPoint:rect.origin toView:galleryView];
-//        rect.origin.x+=18;
+        //        rect.origin.x+=18;
         //rect.origin=[galleryView convertPoint:rect.origin toView:galleryView]; uncomment để lấy vị trí y
         rect.origin.y=232-20;
+        galleryView.currentIndexPath=[indexPath copy];
         [galleryView animationImage:cell.userImage startRect:rect];
-        [galleryView.table scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionNone animated:false];
     }
 }
 
@@ -374,9 +377,12 @@
 {
     if(!_isUserViewShopGallery)
     {
-        ShopUserGallery *ug=[templateUserGallery.datasource objectAtIndex:index];
-        
-        return [NSString stringWithStringDefault:ug.desc];
+        if(templateUserGallery.datasource.count<index)
+        {
+            ShopUserGallery *ug=[templateUserGallery.datasource objectAtIndex:index];
+            
+            return [NSString stringWithStringDefault:ug.desc];
+        }
     }
     
     return @"";

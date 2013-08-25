@@ -10,6 +10,7 @@
 #import "ActivityIndicator.h"
 #import "CatalogueListCell.h"
 #import "Shop.h"
+#import "RootViewController.h"
 
 @interface SearchViewController ()
 
@@ -100,6 +101,11 @@
     [templateTable endLoadNext];
     
     _operation=nil;
+    
+    if(templateTable.datasource.count>0)
+    {
+        [[RootViewController shareInstance].navigationBarView endEditing:true];
+    }
 }
 
 -(void)ASIOperaionPostFailed:(ASIOperationPost *)operation
@@ -197,6 +203,12 @@
 -(NSIndexPath *)selectedRow
 {
     return _selectedRow;
+}
+
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    [[RootViewController shareInstance].navigationBarView endEditing:true];
+    [[RootViewController shareInstance].navigationBarView enableCancelButton];
 }
 
 @end

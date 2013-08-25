@@ -36,5 +36,6 @@
 -(void) animationImage:(UIImage*) image startRect:(CGRect) rect;
 
 @property (nonatomic, assign) id<GalleryViewDelegate> delegate;
+@property (nonatomic, strong) NSIndexPath *currentIndexPath;
 
 @end

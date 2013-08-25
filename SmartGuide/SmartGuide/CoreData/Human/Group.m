@@ -72,6 +72,46 @@
     return group;
 }
 
++(Group *)food
+{
+    return [Group groupWithIDGroup:1];
+}
+
+//+(Group *)food
+//{
+//    return [Group groupWithIDGroup:1];
+//}
+//
+//+(Group *)food
+//{
+//    return [Group groupWithIDGroup:1];
+//}
+//
+//+(Group *)food
+//{
+//    return [Group groupWithIDGroup:1];
+//}
+//
+//+(Group *)food
+//{
+//    return [Group groupWithIDGroup:1];
+//}
+//
+//+(Group *)food
+//{
+//    return [Group groupWithIDGroup:1];
+//}
+//
+//+(Group *)food
+//{
+//    return [Group groupWithIDGroup:1];
+//}
+//
+//+(Group *)food
+//{
+//    return [Group groupWithIDGroup:1];
+//}
+
 -(NSString *)key
 {
     if(self.idGroup.integerValue==0)

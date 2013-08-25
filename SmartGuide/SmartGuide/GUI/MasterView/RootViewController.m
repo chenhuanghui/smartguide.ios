@@ -774,7 +774,10 @@ static RootViewController *_rootViewController;
 
 -(void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
 {
-    [self.navigationBarView hideSearch];
+    [self searchView:searchViewController selectedShop:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
 }
 
 -(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
@@ -785,8 +788,7 @@ static RootViewController *_rootViewController;
 
 -(void)searchView:(SearchViewController *)searchView selectedShop:(Shop *)shop
 {
-    shop.selected=true;
-    
+    [searchViewController cancelSearch];
     [self.navigationBarView hideSearch];
     
     _isAnmationForSearch=true;
@@ -812,6 +814,19 @@ static RootViewController *_rootViewController;
     
     _isAnmationForSearch=false;
     
+    [UIView animateWithDuration:0.3f animations:^{
+        searchViewController.view.alpha=0;
+    } completion:^(BOOL finished) {
+        [searchViewController.view removeFromSuperview];
+        [searchViewController removeFromParentViewController];
+        searchViewController=nil;
+    }];
+    
+    if(!shop)
+        return;
+    
+    shop.selected=true;
+    
     [self.frontViewController.catalogueList handleSearchResult:searchView.searchText result:searchView.result page:searchView.page selectedShop:shop selectedRow:searchView.selectedRow];
     
     if([[self.frontViewController currentVisibleViewController] isKindOfClass:[ShopDetailViewController class]])
@@ -829,8 +844,9 @@ static RootViewController *_rootViewController;
 
 -(void) keyboardWillShow:(NSNotification*) notification
 {
-    float keyboardHeight=[[notification.userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size.height;
-    float duration=[[notification.userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
+    if(searchViewController)
+        return;
+    
     CGRect rect=CGRectZero;
     rect.origin.y=[NavigationBarView height];
     rect.size.width=self.view.frame.size.width;
@@ -850,28 +866,17 @@ static RootViewController *_rootViewController;
     [self.view addSubview:searchViewController.view];
     
     searchViewController.view.alpha=0;
-    [UIView animateWithDuration:duration animations:^{
+    [UIView animateWithDuration:0.3f	 animations:^{
         searchViewController.view.alpha=1;
         CGRect r=searchViewController.view.frame;
-        r.size.height=self.view.frame.size.height-[NavigationBarView height]-keyboardHeight;
+        r.size.height=self.view.frame.size.height-[NavigationBarView height];
         searchViewController.view.frame=r;
     }];
 }
 
 -(void) keyboardWillHide:(NSNotification*) notification
 {
-    float duration=[[notification.userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
-    
-    [UIView animateWithDuration:duration animations:^{
-        searchViewController.view.alpha=0;
-    } completion:^(BOOL finished) {
-        [searchViewController.view removeFromSuperview];
-        [searchViewController removeFromParentViewController];
-        searchViewController=nil;
-    }];
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
+
 }
 
 -(void)navigationBarSetting:(UIButton *)sender

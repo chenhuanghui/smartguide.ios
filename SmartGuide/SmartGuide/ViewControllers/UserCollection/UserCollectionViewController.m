@@ -176,7 +176,7 @@
 
 -(NSArray *)disableRightNavigationItems
 {
-    return @[@(ITEM_FILTER),@(ITEM_COLLECTION)];
+    return @[@(ITEM_FILTER)];
 }
 
 @end

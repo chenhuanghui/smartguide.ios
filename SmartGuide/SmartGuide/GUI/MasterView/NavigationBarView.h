@@ -54,6 +54,7 @@ enum NAVIGATIONBAR_ITEM {
 -(void) showSearchWithDelegate:(id<UISearchBarDelegate>) delegate;
 -(void) setSearchKeyword:(NSString*) key;
 -(void) hideSearch;
+-(void) enableCancelButton;
 
 -(void) showIconList;
 -(void) showIconMap;
