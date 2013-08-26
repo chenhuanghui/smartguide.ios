@@ -41,10 +41,10 @@
     [[RootViewController shareInstance] setNeedRemoveLoadingScreen];
     
     UILabel *lbl=[[UILabel alloc] initWithFrame:CGRectMake(0, 0, [@"  " sizeWithFont:txtAccount.font].width, 30)];
-    lbl.font=txt.font;
+    lbl.font=txtAccount.font;
     lbl.textColor=[UIColor grayColor];
     lbl.backgroundColor=[UIColor clearColor];
-    lbl.text=str;
+    lbl.text=@"  ";
     txtAccount.leftView=lbl;
     txtAccount.leftViewMode=UITextFieldViewModeAlways;
 }
