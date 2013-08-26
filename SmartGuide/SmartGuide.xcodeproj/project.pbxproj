@@ -183,6 +183,17 @@
 		A9208C5D17BC8DA8002D631F /* TemplateSearchShop.m in Sources */ = {isa = PBXBuildFile; fileRef = A9208C5C17BC8DA8002D631F /* TemplateSearchShop.m */; };
 		A920CAEC17C5222400D9E17C /* THLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = A920CADF17C5222400D9E17C /* THLabel.m */; };
 		A920CB1617C529F500D9E17C /* ShareKit.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A9A19E3117C40BDE000D0ECD /* ShareKit.bundle */; };
+		A920E1A017CBB8F2003FAA80 /* RewardCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A920E19F17CBB8F2003FAA80 /* RewardCell.m */; };
+		A920E1CB17CBB90C003FAA80 /* RewardCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A920E1CA17CBB90C003FAA80 /* RewardCell.xib */; };
+		A920E1CD17CBB981003FAA80 /* 130725-SGmockup102.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A920E1CC17CBB981003FAA80 /* 130725-SGmockup102.jpg */; };
+		A920E1D317CBBC59003FAA80 /* Reward.m in Sources */ = {isa = PBXBuildFile; fileRef = A920E1D217CBBC59003FAA80 /* Reward.m */; };
+		A920E1D617CBBC64003FAA80 /* _Reward.m in Sources */ = {isa = PBXBuildFile; fileRef = A920E1D517CBBC64003FAA80 /* _Reward.m */; };
+		A920E1D917CBBD13003FAA80 /* ASIOperationGetRewards.m in Sources */ = {isa = PBXBuildFile; fileRef = A920E1D817CBBD13003FAA80 /* ASIOperationGetRewards.m */; };
+		A920E1DC17CBBF6E003FAA80 /* ASIOperationGetFeedback.m in Sources */ = {isa = PBXBuildFile; fileRef = A920E1DB17CBBF6E003FAA80 /* ASIOperationGetFeedback.m */; };
+		A920E1E217CBC078003FAA80 /* Feedback.m in Sources */ = {isa = PBXBuildFile; fileRef = A920E1E117CBC078003FAA80 /* Feedback.m */; };
+		A920E1E517CBC083003FAA80 /* _Feedback.m in Sources */ = {isa = PBXBuildFile; fileRef = A920E1E417CBC083003FAA80 /* _Feedback.m */; };
+		A920E1E817CBD0B9003FAA80 /* ASIOperationSGToReward.m in Sources */ = {isa = PBXBuildFile; fileRef = A920E1E717CBD0B9003FAA80 /* ASIOperationSGToReward.m */; };
+		A920E1EB17CBD523003FAA80 /* ASIOperationGetSG.m in Sources */ = {isa = PBXBuildFile; fileRef = A920E1EA17CBD522003FAA80 /* ASIOperationGetSG.m */; };
 		A920F18017A8F5CB00889655 /* ShopInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = A920F17F17A8F5CB00889655 /* ShopInfo.m */; };
 		A920F18317A8F5D800889655 /* ShopMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = A920F18217A8F5D800889655 /* ShopMenu.m */; };
 		A920F18617A8F60400889655 /* ShopPicture.m in Sources */ = {isa = PBXBuildFile; fileRef = A920F18517A8F60300889655 /* ShopPicture.m */; };
@@ -1141,6 +1152,26 @@
 		A9208C5C17BC8DA8002D631F /* TemplateSearchShop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TemplateSearchShop.m; sourceTree = "<group>"; };
 		A920CADE17C5222400D9E17C /* THLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = THLabel.h; sourceTree = "<group>"; };
 		A920CADF17C5222400D9E17C /* THLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = THLabel.m; sourceTree = "<group>"; };
+		A920E19E17CBB8F2003FAA80 /* RewardCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RewardCell.h; sourceTree = "<group>"; };
+		A920E19F17CBB8F2003FAA80 /* RewardCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RewardCell.m; sourceTree = "<group>"; };
+		A920E1CA17CBB90C003FAA80 /* RewardCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RewardCell.xib; sourceTree = "<group>"; };
+		A920E1CC17CBB981003FAA80 /* 130725-SGmockup102.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "130725-SGmockup102.jpg"; sourceTree = "<group>"; };
+		A920E1D117CBBC59003FAA80 /* Reward.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reward.h; sourceTree = "<group>"; };
+		A920E1D217CBBC59003FAA80 /* Reward.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reward.m; sourceTree = "<group>"; };
+		A920E1D417CBBC64003FAA80 /* _Reward.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _Reward.h; sourceTree = "<group>"; };
+		A920E1D517CBBC64003FAA80 /* _Reward.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _Reward.m; sourceTree = "<group>"; };
+		A920E1D717CBBD13003FAA80 /* ASIOperationGetRewards.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIOperationGetRewards.h; sourceTree = "<group>"; };
+		A920E1D817CBBD13003FAA80 /* ASIOperationGetRewards.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIOperationGetRewards.m; sourceTree = "<group>"; };
+		A920E1DA17CBBF6E003FAA80 /* ASIOperationGetFeedback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIOperationGetFeedback.h; sourceTree = "<group>"; };
+		A920E1DB17CBBF6E003FAA80 /* ASIOperationGetFeedback.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIOperationGetFeedback.m; sourceTree = "<group>"; };
+		A920E1E017CBC078003FAA80 /* Feedback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Feedback.h; sourceTree = "<group>"; };
+		A920E1E117CBC078003FAA80 /* Feedback.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Feedback.m; sourceTree = "<group>"; };
+		A920E1E317CBC083003FAA80 /* _Feedback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _Feedback.h; sourceTree = "<group>"; };
+		A920E1E417CBC083003FAA80 /* _Feedback.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _Feedback.m; sourceTree = "<group>"; };
+		A920E1E617CBD0B9003FAA80 /* ASIOperationSGToReward.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIOperationSGToReward.h; sourceTree = "<group>"; };
+		A920E1E717CBD0B9003FAA80 /* ASIOperationSGToReward.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIOperationSGToReward.m; sourceTree = "<group>"; };
+		A920E1E917CBD522003FAA80 /* ASIOperationGetSG.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIOperationGetSG.h; sourceTree = "<group>"; };
+		A920E1EA17CBD522003FAA80 /* ASIOperationGetSG.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIOperationGetSG.m; sourceTree = "<group>"; };
 		A920F17E17A8F5CB00889655 /* ShopInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopInfo.h; sourceTree = "<group>"; };
 		A920F17F17A8F5CB00889655 /* ShopInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopInfo.m; sourceTree = "<group>"; };
 		A920F18117A8F5D800889655 /* ShopMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopMenu.h; sourceTree = "<group>"; };
@@ -1858,6 +1889,10 @@
 		A91A674A1797F65000BEB8C5 /* Human */ = {
 			isa = PBXGroup;
 			children = (
+				A920E1E017CBC078003FAA80 /* Feedback.h */,
+				A920E1E117CBC078003FAA80 /* Feedback.m */,
+				A920E1D117CBBC59003FAA80 /* Reward.h */,
+				A920E1D217CBBC59003FAA80 /* Reward.m */,
 				A94088DB17B3950A00205145 /* Ads.h */,
 				A94088DC17B3950A00205145 /* Ads.m */,
 				A9DCA90617AABCB200C56854 /* ShopUserComment.h */,
@@ -1891,6 +1926,10 @@
 		A91A674D1797F65000BEB8C5 /* Machine */ = {
 			isa = PBXGroup;
 			children = (
+				A920E1E317CBC083003FAA80 /* _Feedback.h */,
+				A920E1E417CBC083003FAA80 /* _Feedback.m */,
+				A920E1D417CBBC64003FAA80 /* _Reward.h */,
+				A920E1D517CBBC64003FAA80 /* _Reward.m */,
 				A94088DE17B3951300205145 /* _Ads.h */,
 				A94088DF17B3951300205145 /* _Ads.m */,
 				A9DCA90917AABCBA00C56854 /* _ShopUserComment.h */,
@@ -2124,6 +2163,14 @@
 				A9E5D2BF17B4D71700E537B0 /* ASIOperationLikeDislikeShop.m */,
 				A9271BC317B5DC8100987290 /* ASIOperationSearchShop.h */,
 				A9271BC417B5DC8100987290 /* ASIOperationSearchShop.m */,
+				A920E1D717CBBD13003FAA80 /* ASIOperationGetRewards.h */,
+				A920E1D817CBBD13003FAA80 /* ASIOperationGetRewards.m */,
+				A920E1DA17CBBF6E003FAA80 /* ASIOperationGetFeedback.h */,
+				A920E1DB17CBBF6E003FAA80 /* ASIOperationGetFeedback.m */,
+				A920E1E617CBD0B9003FAA80 /* ASIOperationSGToReward.h */,
+				A920E1E717CBD0B9003FAA80 /* ASIOperationSGToReward.m */,
+				A920E1E917CBD522003FAA80 /* ASIOperationGetSG.h */,
+				A920E1EA17CBD522003FAA80 /* ASIOperationGetSG.m */,
 			);
 			path = ASIOperation;
 			sourceTree = "<group>";
@@ -2359,6 +2406,9 @@
 				A92655BF17B250BD00BAE49A /* UserCollectionCell.h */,
 				A92655C017B250BD00BAE49A /* UserCollectionCell.m */,
 				A92655C217B250C700BAE49A /* UserCollectionCell.xib */,
+				A920E19E17CBB8F2003FAA80 /* RewardCell.h */,
+				A920E19F17CBB8F2003FAA80 /* RewardCell.m */,
+				A920E1CA17CBB90C003FAA80 /* RewardCell.xib */,
 			);
 			path = UserCollection;
 			sourceTree = "<group>";
@@ -2650,6 +2700,7 @@
 		A98198BE178D44FB0009FCB6 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				A920E1CC17CBB981003FAA80 /* 130725-SGmockup102.jpg */,
 				A91D7B6A17CA4A7A00BF4DA2 /* button_done.png */,
 				A91D7B6C17CA4A8800BF4DA2 /* button_done@2x.png */,
 				A91D7B6817CA49CE00BF4DA2 /* 130725-SGmockup1e.jpg */,
@@ -4116,6 +4167,8 @@
 				A91D7B6B17CA4A7A00BF4DA2 /* button_done.png in Resources */,
 				A91D7B6D17CA4A8800BF4DA2 /* button_done@2x.png in Resources */,
 				A92DDBFF17CB0BE7001FF6E6 /* ImageEditor.xib in Resources */,
+				A920E1CB17CBB90C003FAA80 /* RewardCell.xib in Resources */,
+				A920E1CD17CBB981003FAA80 /* 130725-SGmockup102.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4332,6 +4385,15 @@
 				A91D7B3E17CA41CE00BF4DA2 /* TextField.m in Sources */,
 				A92DDBFE17CB0BE7001FF6E6 /* ImageEditor.m in Sources */,
 				A92DDC0017CB0BE7001FF6E6 /* NLCropViewLayer.m in Sources */,
+				A920E1A017CBB8F2003FAA80 /* RewardCell.m in Sources */,
+				A920E1D317CBBC59003FAA80 /* Reward.m in Sources */,
+				A920E1D617CBBC64003FAA80 /* _Reward.m in Sources */,
+				A920E1D917CBBD13003FAA80 /* ASIOperationGetRewards.m in Sources */,
+				A920E1DC17CBBF6E003FAA80 /* ASIOperationGetFeedback.m in Sources */,
+				A920E1E217CBC078003FAA80 /* Feedback.m in Sources */,
+				A920E1E517CBC083003FAA80 /* _Feedback.m in Sources */,
+				A920E1E817CBD0B9003FAA80 /* ASIOperationSGToReward.m in Sources */,
+				A920E1EB17CBD523003FAA80 /* ASIOperationGetSG.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -39,12 +39,12 @@
     containView.backgroundColor=COLOR_BACKGROUND_APP;
     _settings=[[NSMutableArray alloc] init];
     
-    SettingCellData *cell=[[SettingCellData alloc] init];
-    cell.title=@"Nhận thông báo";
-    cell.icon=[UIImage imageNamed:@"icon_notice.png"];
-    [_settings addObject:cell];
+//    SettingCellData *cell=[[SettingCellData alloc] init];
+//    cell.title=@"Nhận thông báo";
+//    cell.icon=[UIImage imageNamed:@"icon_notice.png"];
+//    [_settings addObject:cell];
     
-    cell=[[SettingCellData alloc] init];
+    SettingCellData *cell=[[SettingCellData alloc] init];
     cell.title=@"Hướng dẫn sử dụng";
     cell.icon=[UIImage imageNamed:@"icon_shopmenu.png"];
     [_settings addObject:cell];

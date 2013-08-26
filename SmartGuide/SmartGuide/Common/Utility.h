@@ -173,6 +173,7 @@ bool isVailCLLocationCoordinate2D(CLLocationCoordinate2D location);
 +(NSNumberFormatter*) numberFormat;
 
 +(NSString*) moneyFromNSNumber:(NSNumber*) number;
++(NSString*) numberFromNSNumber:(NSNumber*) number;
 
 @end
 
@@ -186,5 +187,11 @@ bool isVailCLLocationCoordinate2D(CLLocationCoordinate2D location);
 
 -(id) firstObject;
 -(id) secondObject;//neu ko thi se chuyen ve firstObject
+
+@end
+
+@interface NSNumber(Utility)
+
++(id) numberWithObject:(id) obj;
 
 @end

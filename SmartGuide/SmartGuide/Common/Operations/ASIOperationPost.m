@@ -26,8 +26,7 @@
     _sourceURL=[_url copy];
     _url=[ASIOperationPost makeURL:_url accessToken:accessToken];
     self=[super initWithURL:_url];
-    
-//    [self setValidatesSecureCertificate:false];
+
     self.numberOfTimesToRetryOnTimeout=3;
     self.shouldContinueWhenAppEntersBackground=true;
     self.persistentConnectionTimeoutSeconds=60*5;

@@ -1110,6 +1110,14 @@ static const NSString *KEY_HIT_TEST_EDGE_INSETS = @"HitTestEdgeInsets";
     return [[NSNumberFormatter moneyFormat] stringFromNumber:number];
 }
 
++(NSString *)numberFromNSNumber:(NSNumber *)number
+{
+    if(!number)
+        return 0;
+    
+    return [[NSNumberFormatter numberFormat] stringFromNumber:number];
+}
+
 @end
 
 @implementation NSMoneyFormat
@@ -1155,6 +1163,20 @@ static const NSString *KEY_HIT_TEST_EDGE_INSETS = @"HitTestEdgeInsets";
         return [self objectAtIndex:1];
     
     return [self firstObject];
+}
+
+@end
+
+@implementation NSNumber(Utility)
+
++(id)numberWithObject:(id)obj
+{
+    if(obj==[NSNull null] || [obj isKindOfClass:[NSNull class]] || !obj)
+    {
+        return @(0);
+    }
+    
+    return obj;
 }
 
 @end

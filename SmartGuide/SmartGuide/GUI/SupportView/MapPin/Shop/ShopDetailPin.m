@@ -24,7 +24,7 @@
     if(name.length==0)
         return;
     
-    name=[NSString stringWithFormat:@"%@%@%@%@%@",name,name,name,name,name];
+//    name=[NSString stringWithFormat:@"%@%@%@%@%@",name,name,name,name,name];
     [lblShopName setTextAlignment:NSTextAlignmentCenter];
     [lblShopName setText:name];
     [lblShopName setTextColor:[UIColor whiteColor]];

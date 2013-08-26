@@ -30,7 +30,7 @@
 -(void)onCompletedWithJSON:(NSArray *)json
 {
     totalSP=0;
-    userCollection=[NSArray array];
+    userCollection=[NSMutableArray array];
     if([self isNullData:json])
     {
         return;
@@ -39,8 +39,6 @@
     NSDictionary *dict=[json objectAtIndex:0];
     
     totalSP=[dict integerForKey:@"score"];
-    
-    NSMutableArray *array=[NSMutableArray array];
     
     NSArray *collection=[dict objectForKey:@"collection"];
     
@@ -51,12 +49,10 @@
     {
         Shop *shop=[Shop makeShopWithDictionaryUserCollection:coll];
         
-        [array addObject:shop.idShop];
+        [userCollection addObject:shop];
     }
     
     [[DataManager shareInstance] save];
-    
-    userCollection=[Shop queryShop:[NSPredicate predicateWithFormat:@"%K IN %@",Shop_IdShop,array]];
 }
 
 @end
