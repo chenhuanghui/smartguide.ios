@@ -21,12 +21,6 @@ enum LIST_MODE {
 
 @class CatalogueListViewController,ShopDetailViewController,TemplateList,TemplateSearch,TableList;
 
-@protocol CatalogueListViewDelegate <NSObject>
-
--(void) catalogueListLoadShopFinished:(CatalogueListViewController*) catalogueListView;
-
-@end
-
 @interface CatalogueListViewController : ViewController<TableTemplateDelegate,ASIOperationPostDelegate,SlideQRCodeDelegate>
 {
     __weak IBOutlet TableList *tableShop;
@@ -38,8 +32,8 @@ enum LIST_MODE {
     bool _isInitedShopDetail;
 }
 
--(void) loadGroup:(Group*) group city:(City*) city;
--(void) loadGroups:(NSArray*) group;
+-(void) loadGroup:(Group*) group city:(City*) city sortType:(enum SORT_BY) sortBy;
+-(void) loadGroups:(NSArray*) group sortType:(enum SORT_BY) sortBy;
 -(void) handleSearchResult:(NSString*) searchKey result:(NSArray*) array page:(int) page selectedShop:(Shop*) selectedShop selectedRow:(NSIndexPath*) lastSelectedRow;
 
 -(void) pushShopDetailWithShop:(Shop*) shop animated:(bool) animate;
@@ -70,6 +64,7 @@ enum LIST_MODE {
 @property (nonatomic, strong) NSMutableArray *group;
 @property (nonatomic, readonly) Group *firstGroup;
 @property (nonatomic, strong) City *city;
+@property (nonatomic, assign) enum SORT_BY sortBy;
 @property (nonatomic, strong) ASIOperationShopInGroup *opeartionShopInGroup;
 @property (nonatomic, assign) CatalogueListViewController *catalogueList;
 

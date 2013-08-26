@@ -310,12 +310,12 @@
     //catalogueListLoadShopFinished handle delegate
     [catalogueList switchToModeList];
     catalogueList.delegate=self;
-    [catalogueList loadGroup:group city:[DataManager shareInstance].currentCity];
+    [catalogueList loadGroup:group city:[DataManager shareInstance].currentCity sortType:[DataManager shareInstance].currentUser.filter.sortBy];
 }
 
 -(void)catalogueBlockUpdated
 {
-    [catalogueList loadGroup:[Group groupAll] city:[DataManager shareInstance].currentCity];
+    [catalogueList loadGroup:[Group groupAll] city:[DataManager shareInstance].currentCity sortType:[DataManager shareInstance].currentUser.filter.sortBy];
 }
 
 -(void)catalogueListLoadShopFinished:(CatalogueListViewController *)catalogueListView

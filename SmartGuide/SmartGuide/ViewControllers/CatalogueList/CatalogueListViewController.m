@@ -79,7 +79,7 @@
     templateSearch.catalogueList=self;
 }
 
--(void)loadGroup:(Group *)_group city:(City *)_city
+-(void)loadGroup:(Group *)_group city:(City *)_city sortType:(enum SORT_BY)sortBy
 {
     if(!templateList)
     {
@@ -91,7 +91,7 @@
     
     if(_group!=nil && _city!=nil && templateList.group.count==1)
     {
-        if(_group.idGroup.integerValue==templateList.firstGroup.idGroup.integerValue && _city.idCity.integerValue==templateList.city.idCity.integerValue)
+        if(_group.idGroup.integerValue==templateList.firstGroup.idGroup.integerValue && _city.idCity.integerValue==templateList.city.idCity.integerValue && sortBy==templateList.sortBy)
         {
             if(delegate)
                 [delegate catalogueListLoadShopFinished:self];
@@ -118,7 +118,7 @@
     self.title=_group.name;
 }
 
--(void)loadGroups:(NSArray *)group
+-(void)loadGroups:(NSArray *)group sortType:(enum SORT_BY)sortBy
 {
     if(!templateList)
     {
@@ -130,11 +130,11 @@
  
     if(group.count==1)
     {
-        [self loadGroup:group.firstObject city:templateList.city];
+        [self loadGroup:group.firstObject city:templateList.city sortType:sortBy];
         return;
     }
     
-    if(templateList.group.count==group.count)
+    if(templateList.group.count==group.count && templateList.sortBy==sortBy)
     {
         bool hasDiff=false;
         for(Group *g in group)
@@ -146,7 +146,7 @@
             }
         }
         
-        if(hasDiff)
+        if(!hasDiff)
         {
             if(delegate && [delegate respondsToSelector:@selector(catalogueListLoadShopFinished:)])
             {
@@ -492,7 +492,16 @@
 @end
 
 @implementation TemplateList
-@synthesize lastSelectedRow,selectedShop,opeartionShopInGroup,catalogueList;
+@synthesize lastSelectedRow,selectedShop,opeartionShopInGroup,catalogueList,sortBy;
+
+-(TableTemplate *)initWithTableView:(UITableView *)tableView withDelegate:(id<TableTemplateDelegate>)delegate
+{
+    self=[super initWithTableView:tableView withDelegate:delegate];
+    
+    self.sortBy=[DataManager shareInstance].currentUser.filter.sortBy;
+    
+    return self;
+}
 
 -(void) loadShopAtPage:(int) page
 {
@@ -512,8 +521,10 @@
         }
     }
     
+    self.sortBy=[DataManager shareInstance].currentUser.filter.sortBy;
+    
     int idCity=self.city.idCity.integerValue;
-    self.opeartionShopInGroup=[[ASIOperationShopInGroup alloc] initWithIDCity:idCity idUser:user.idUser.integerValue lat:user.location.latitude lon:user.location.longitude page:page sort:SORT_DISTANCE group:ids];
+    self.opeartionShopInGroup=[[ASIOperationShopInGroup alloc] initWithIDCity:idCity idUser:user.idUser.integerValue lat:user.location.latitude lon:user.location.longitude page:page sort:sortBy group:ids];
     self.opeartionShopInGroup.delegatePost=self;
     
     [self.opeartionShopInGroup startAsynchronous];

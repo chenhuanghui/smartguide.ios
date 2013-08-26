@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import "Label.h"
+#import "Constant.h"
 
 @interface FilterButton : UIButton
 
@@ -19,7 +20,7 @@
 
 @end
 
-@interface FilterViewController : ViewController<UIGestureRecognizerDelegate>
+@interface FilterViewController : ViewController<UIGestureRecognizerDelegate,CatalogueListViewDelegate>
 {
     __weak IBOutlet Label *lblAllField;
     __weak IBOutlet UIView *food;

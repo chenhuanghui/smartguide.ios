@@ -11,6 +11,9 @@
 #import "Filter.h"
 #import "DataManager.h"
 #import "Constant.h"
+#import "RootViewController.h"
+#import "FrontViewController.h"
+#import "CatalogueListViewController.h"
 
 @interface FilterViewController ()
 
@@ -267,12 +270,49 @@
     bool hasChange=filter.hasChanges;
     
     [[DataManager shareInstance] save];
-    
-    if(hasChange)
-        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_FILTER_CHANGED object:nil];
-    
-    if(delegate && [delegate respondsToSelector:@selector(filterDone)])
-        [delegate filterDone];
+
+    if([[RootViewController shareInstance].frontViewController.currentVisibleViewController isKindOfClass:[CatalogueListViewController class]])
+    {
+        if(hasChange)
+        {
+            NSMutableArray *array=[NSMutableArray array];
+            if(filter.food.boolValue)
+                [array addObject:[Group food]];
+            if(filter.drink.boolValue)
+                [array addObject:[Group drink]];
+            if(filter.health.boolValue)
+                [array addObject:[Group health]];
+            if(filter.entertaiment.boolValue)
+                [array addObject:[Group entertaiment]];
+            if(filter.fashion.boolValue)
+                [array addObject:[Group fashion]];
+            if(filter.travel.boolValue)
+                [array addObject:[Group travel]];
+            if(filter.production.boolValue)
+                [array addObject:[Group production]];
+            if(filter.education.boolValue)
+                [array addObject:[Group education]];
+            
+            [self.view showLoadingWithTitle:nil];
+            
+            [RootViewController shareInstance].frontViewController.catalogueList.delegate=self;
+            [[RootViewController shareInstance].frontViewController.catalogueList loadGroups:array sortType:filter.sortBy];
+        }
+        else
+            [[RootViewController shareInstance] hideFilter];
+    }
+//    if(hasChange)
+//        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_FILTER_CHANGED object:nil];
+//    
+//    if(delegate && [delegate respondsToSelector:@selector(filterDone)])
+//        [delegate filterDone];
+}
+
+-(void)catalogueListLoadShopFinished:(CatalogueListViewController *)catalogueListView
+{
+    [self.view removeLoading];
+    [[RootViewController shareInstance] hideFilter];
+    catalogueListView.delegate=nil;
 }
 
 - (void)viewDidUnload {

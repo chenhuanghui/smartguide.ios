@@ -77,40 +77,40 @@
     return [Group groupWithIDGroup:1];
 }
 
-//+(Group *)food
-//{
-//    return [Group groupWithIDGroup:1];
-//}
-//
-//+(Group *)food
-//{
-//    return [Group groupWithIDGroup:1];
-//}
-//
-//+(Group *)food
-//{
-//    return [Group groupWithIDGroup:1];
-//}
-//
-//+(Group *)food
-//{
-//    return [Group groupWithIDGroup:1];
-//}
-//
-//+(Group *)food
-//{
-//    return [Group groupWithIDGroup:1];
-//}
-//
-//+(Group *)food
-//{
-//    return [Group groupWithIDGroup:1];
-//}
-//
-//+(Group *)food
-//{
-//    return [Group groupWithIDGroup:1];
-//}
++(Group *)drink
+{
+    return [Group groupWithIDGroup:2];
+}
+
++(Group *)health
+{
+    return [Group groupWithIDGroup:3];
+}
+
++(Group *)entertaiment
+{
+    return [Group groupWithIDGroup:4];
+}
+
++(Group *)fashion
+{
+    return [Group groupWithIDGroup:5];
+}
+
++(Group *)travel
+{
+    return [Group groupWithIDGroup:6];
+}
+
++(Group *)production
+{
+    return [Group groupWithIDGroup:7];
+}
+
++(Group *)education
+{
+    return [Group groupWithIDGroup:8];
+}
 
 -(NSString *)key
 {

@@ -148,17 +148,17 @@
         
         [promotion removeRequires:promotion.requires];
         
-        dicInner=[dicInner objectForKey:@"array_required"];
-        
-        for(NSDictionary *childDicInner in dicInner)
-        {
-            PromotionRequire *require=[PromotionRequire insert];
-            
-            require.idRequire=[childDicInner objectForKey:@"id"];
-            require.promotion=promotion;
-            require.sgpRequired=[childDicInner objectForKey:@"required"];
-            require.content=[NSString stringWithStringDefault:[childDicInner objectForKey:@"content"]];
-        }
+//        dicInner=[dicInner objectForKey:@"array_required"];
+//        
+//        for(NSDictionary *childDicInner in dicInner)
+//        {
+//            PromotionRequire *require=[PromotionRequire insert];
+//            
+//            require.idRequire=[childDicInner objectForKey:@"id"];
+//            require.promotion=promotion;
+//            require.sgpRequired=[childDicInner objectForKey:@"required"];
+//            require.content=[NSString stringWithStringDefault:[childDicInner objectForKey:@"content"]];
+//        }
     }
     else
     {

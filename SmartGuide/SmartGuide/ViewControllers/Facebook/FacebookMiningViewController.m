@@ -261,6 +261,16 @@
     [self.view addSubview:imgEditor];
 }
 
+-(void)imageEditorBack
+{
+    
+}
+
+-(void)imageEditorCroped:(UIImage *)image
+{
+    
+}
+
 -(BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     [self.view endEditing:true];

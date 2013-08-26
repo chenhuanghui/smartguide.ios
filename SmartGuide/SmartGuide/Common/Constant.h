@@ -134,3 +134,10 @@ enum LIKE_STATUS {
 -(void)navigationController:(UINavigationController*) navigationController presentModalViewController:(UIViewController*) viewController;
 
 @end
+
+@class CatalogueListViewController;
+@protocol CatalogueListViewDelegate <NSObject>
+
+-(void) catalogueListLoadShopFinished:(CatalogueListViewController*) catalogueListView;
+
+@end
