@@ -7,15 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "SDGroupCell.h"
 
 @class SettingCellData;
 
-@interface SettingCell : SDGroupCell
+@interface SettingCell : UITableViewCell
 {
     __weak IBOutlet UILabel *lblTitle;
     __weak IBOutlet UIImageView *icon;
-    __weak IBOutlet UITableView *table;
 }
 
 -(void) setData:(SettingCellData*) data;

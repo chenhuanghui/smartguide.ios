@@ -9,8 +9,9 @@
 #import "ViewController.h"
 #import "SDNestedTableViewController.h"
 #import "SwitchSetting.h"
+#import "FeedbackView.h"
 
-@interface SettingViewController : SDNestedTableViewController<UITableViewDataSource,UITableViewDelegate,SwitchSettingDelegate>
+@interface SettingViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,SwitchSettingDelegate,FeedbackViewDelegate>
 {
     NSMutableArray *_settings;
     __weak IBOutlet UIImageView *avatar;

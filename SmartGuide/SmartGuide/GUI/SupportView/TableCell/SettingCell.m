@@ -31,16 +31,6 @@
     return 32;
 }
 
-+(int)getHeight
-{
-    return 32;
-}
-
-+(int)getsubCellHeight
-{
-    return 32;
-}
-
 @end
 
 @implementation SettingCellData

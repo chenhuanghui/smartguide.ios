@@ -192,7 +192,7 @@
         return;
     }
     
-    [AlertView showWithTitle:txt.text withMessage:@"Mã kích hoạt SmartGuide sẽ được gửi đến số điện thoại trên. Chọn \"Đồng ý\" để tiếp tục hoặc \"Huỷ\" để thay đổi số điện thoại" withLeftTitle:@"Huỷ" withRightTitle:@"Đồng ý" onOK:^{
+    [AlertView showWithTitle:[((UILabel*)txt.leftView).text stringByAppendingFormat:@" %@", txt.text] withMessage:@"Mã kích hoạt SmartGuide sẽ được gửi đến số điện thoại trên. Chọn \"Đồng ý\" để tiếp tục hoặc \"Huỷ\" để thay đổi số điện thoại" withLeftTitle:@"Huỷ" withRightTitle:@"Đồng ý" onOK:^{
         [txt becomeFirstResponder];
     } onCancel:^{
         NSString *strPhone=[NSString stringWithString:phone];

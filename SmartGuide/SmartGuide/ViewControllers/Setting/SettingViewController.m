@@ -21,7 +21,6 @@
 @end
 
 @implementation SettingViewController
-@synthesize table;
 
 - (id)init
 {
@@ -116,34 +115,56 @@
     [avatar setSmartGuideImageWithURL:[NSURL URLWithString:[DataManager shareInstance].currentUser.avatar] placeHolderImage:UIIMAGE_LOADING_AVATAR success:nil failure:nil];
 }
 
--(SDGroupCell *)mainTable:(UITableView *)mainTable setItem:(SDGroupCell *)item forRowAtIndexPath:(NSIndexPath *)indexPath
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    SettingCell *cell=[mainTable dequeueReusableCellWithIdentifier:[SettingCell reuseIdentifier]];
+    return 1;
+}
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return _settings.count;
+}
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    SettingCell *cell=[tableView dequeueReusableCellWithIdentifier:[SettingCell reuseIdentifier]];
     
     [cell setData:[_settings objectAtIndex:indexPath.row]];
     
     return cell;
 }
 
--(void)mainTable:(UITableView *)mainTable itemDidChange:(SDGroupCell *)item
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    return [SettingCell height];
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    SettingCellData *data=[_settings objectAtIndex:indexPath.row];
     
+    if([data.title isEqualToString:@"Đánh giá SmartGuide"])
+    {
+        FeedbackView *fbv=[[FeedbackView alloc] init];
+        fbv.alpha=0;
+        fbv.center=CGPointMake([UIScreen mainScreen].bounds.size.width/2, [UIScreen mainScreen].bounds.size.height/2);
+        fbv.delegate=self;
+        
+        [self.view addSubview:fbv];
+        
+        [UIView animateWithDuration:0.2f animations:^{
+            fbv.alpha=1;
+        }];
+    }
 }
 
--(NSInteger)mainTable:(UITableView *)mainTable numberOfSubItemsforItem:(SDGroupCell *)item atIndexPath:(NSIndexPath *)indexPath
+-(void)feedbackViewBack:(FeedbackView *)feedbackView
 {
-    return _settings.count;
-}
-
--(NSInteger)mainTable:(UITableView *)mainTable numberOfItemsInSection:(NSInteger)section
-{
-    return _settings.count;
-}
-
--(SDSubCell *)item:(SDGroupCell *)item setSubItem:(SDSubCell *)subItem forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    subItem.itemText.text=@"XXX";
-    return subItem;
+    [UIView animateWithDuration:0.2f animations:^{
+        feedbackView.alpha=0;
+    } completion:^(BOOL finished) {
+        [feedbackView removeFromSuperview];
+    }];
 }
 
 - (void)viewDidUnload {
