@@ -3,7 +3,7 @@
 #import "Constant.h"
 
 @implementation User
-@synthesize phone,location,idCity,city;
+@synthesize location,idCity,city;
 
 -(id)initWithEntity:(NSEntityDescription *)entity insertIntoManagedObjectContext:(NSManagedObjectContext *)context
 {
@@ -12,11 +12,6 @@
     self.location=CLLocationCoordinate2DMake(-1, -1);
     
     return self;
-}
-
-+(User *)userWithPhone:(NSString *)phone
-{
-    return [User queryUserObject:[NSPredicate predicateWithFormat:@"%K LIKE %@",User_Phone,phone]];
 }
 
 +(User *)userWithIDUser:(int)idUser

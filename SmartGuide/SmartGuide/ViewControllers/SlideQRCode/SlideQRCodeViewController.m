@@ -81,6 +81,7 @@
 
 -(void)showCamera
 {
+    _isUserScanded=false;
     mode=SCAN_GET_SGP;
     
     [UIView animateWithDuration:0.2f animations:^{
@@ -113,6 +114,7 @@
 
 -(void)hideCamera
 {
+    _isUserScanded=false;
     self.idReward=-1;
     
     [UIView animateWithDuration:0.2f animations:^{
@@ -224,6 +226,8 @@
         }];
         return;
     }
+    
+    _isUserScanded=true;
     
     qrCodeView.delegate=nil;
     
@@ -409,6 +413,9 @@
 
 - (IBAction)btnSlideTouchUpInside:(UIButton *)sender
 {
+    if(_isUserScanded)
+        return;
+    
     btnSlide.enabled=false;
     
     if([[RootViewController shareInstance] isShowedQRSlide])
@@ -426,7 +433,17 @@
 }
 
 - (IBAction)btnCloseTouchUpInside:(UIButton *)sender {
-    [btnSlide sendActionsForControlEvents:UIControlEventTouchUpInside];
+    if([[RootViewController shareInstance] isShowedQRSlide])
+    {
+        [[RootViewController shareInstance] hideQRSlide:true onCompleted:^(BOOL finished) {
+            btnSlide.enabled=true;
+        }];
+    }
+}
+
+-(bool)isUserScanded
+{
+    return _isUserScanded;
 }
 
 @end

@@ -127,17 +127,17 @@
 	[self didChangeValueForKey:@"isConnectedFacebook"];
 }
 
-- (NSString*)phone {
-	[self willAccessValueForKey:@"phone"];
-	NSString* result = (NSString*)[self primitiveValueForKey:@"phone"];
-	[self didAccessValueForKey:@"phone"];
+- (NSString*)name {
+	[self willAccessValueForKey:@"name"];
+	NSString* result = (NSString*)[self primitiveValueForKey:@"name"];
+	[self didAccessValueForKey:@"name"];
 	return result;
 }
 
-- (void)setPhone:(NSString*)value {
-	[self willChangeValueForKey:@"phone"];
-	[self setPrimitiveValue:value forKey:@"phone"];
-	[self didChangeValueForKey:@"phone"];
+- (void)setName:(NSString*)value {
+	[self willChangeValueForKey:@"name"];
+	[self setPrimitiveValue:value forKey:@"name"];
+	[self didChangeValueForKey:@"name"];
 }
 
 #pragma mark Relationships

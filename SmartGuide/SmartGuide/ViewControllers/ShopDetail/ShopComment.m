@@ -311,13 +311,13 @@
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-    if(_isSendingComment)
+    if(_isSendingComment || [textField.text stringByRemoveString:@" ",nil].length==0)
         return false;
     
     int idUser=[DataManager shareInstance].currentUser.idUser.integerValue;
     int idShop=_shop.idShop.integerValue;
     
-    [avatar showLoadingWithTitle:nil];
+    [txtComment showLoadingWithTitle:nil];
     _isSendingComment=true;
     [ASIOperationPostComment postCommentWithIDUser:idUser idShop:idShop content:txtComment.text onCompleted:^(bool finished, ShopUserComment *comment) {
         if(finished)
@@ -331,7 +331,7 @@
             [tableComments reloadData];
         }
 
-        [avatar removeLoading];
+        [txtComment removeLoading];
         _isSendingComment=false;
     }];
     

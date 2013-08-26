@@ -5,7 +5,6 @@
 {
 }
 
-+(User*) userWithPhone:(NSString*) phone;
 +(User*) userWithIDUser:(int) idUser;
 -(enum SORT_BY) currentSort;
 

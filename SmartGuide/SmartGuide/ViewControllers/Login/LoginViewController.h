@@ -20,6 +20,7 @@
     __weak IBOutlet UILabel *lblInfo;
     __weak IBOutlet UITextField *txt;
     
+    
     bool _isActived;
     NSString *_phone;
 }

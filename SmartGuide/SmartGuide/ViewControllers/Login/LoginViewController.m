@@ -39,9 +39,16 @@
     v.backgroundColor=[UIColor clearColor];
     txt.rightView=v;
     
-    [[RootViewController shareInstance] setNeedRemoveLoadingScreen];
+    NSString *str=@"  (+84)";
+    UILabel *lbl=[[UILabel alloc] initWithFrame:CGRectMake(0, 0, [str sizeWithFont:txt.font].width, 30)];
+    lbl.font=txt.font;
+    lbl.textColor=[UIColor grayColor];
+    lbl.backgroundColor=[UIColor clearColor];
+    lbl.text=str;
+    txt.leftView=lbl;
+    txt.leftViewMode=UITextFieldViewModeAlways;
     
-    txt.text=@"(+84)";
+    [[RootViewController shareInstance] setNeedRemoveLoadingScreen];
     
     _isActived=false;
     
@@ -174,23 +181,31 @@
 -(void) requestActiveCode
 {
     NSString *phone=[NSString stringWithStringDefault:txt.text];
-    phone=[phone stringByRemoveString:@"(",@")",@"+",nil];
-    phone=[phone stringByTrimmingWhiteSpace];
-    
-    if([phone isEqualToString:@"84"])
+    if(phone.length==0)
     {
-        [AlertView showAlertOKWithTitle:nil withMessage:@"Nhập số điện thoại dzô" onOK:nil];
+        [AlertView showAlertOKWithTitle:nil withMessage:@"Vui lòng nhập số điện thoại" onOK:nil];
+        return;
+    }
+    else if(phone.length<10 || phone.length>11)
+    {
+        [AlertView showAlertOKWithTitle:nil withMessage:@"Số điện thoại không hợp lệ" onOK:nil];
         return;
     }
     
-    NSString *str=[NSString stringWithFormat:@"SmartGuide sẽ gửi tin nhắn xác nhận đến %@. Bạn có muốn tiếp tục?",txt.text];
-    [AlertView showAlertOKCancelWithTitle:txt.text withMessage:str onOK:^{
+    [AlertView showWithTitle:txt.text withMessage:@"Mã kích hoạt SmartGuide sẽ được gửi đến số điện thoại trên. Chọn \"Đồng ý\" để tiếp tục hoặc \"Huỷ\" để thay đổi số điện thoại" withLeftTitle:@"Huỷ" withRightTitle:@"Đồng ý" onOK:^{
+        [txt becomeFirstResponder];
+    } onCancel:^{
         NSString *strPhone=[NSString stringWithString:phone];
         
         if([[strPhone substringToIndex:3] isEqualToString:@"840"])
         {
             strPhone=[phone stringByReplacingCharactersInRange:NSMakeRange(0, 3) withString:@"84"];
         }
+        else if([strPhone substringWithRange:NSMakeRange(0, 1)])
+        {
+            strPhone=[phone stringByReplacingCharactersInRange:NSMakeRange(0, 1) withString:@"84"];
+        }
+        
         _phone=[[NSString alloc] initWithString:strPhone];
         
         OperationGetActionCode *operation=[[OperationGetActionCode alloc] initWithPhone:strPhone];
@@ -198,8 +213,6 @@
         [operation start];
         
         [self.view showLoadingWithTitle:nil];
-    } onCancel:^{
-        [txt becomeFirstResponder];
     }];
 }
 
@@ -217,6 +230,8 @@
             
             lblInfo.text=@"Nhập mã số xác nhận";
             txt.text=@"";
+            txt.leftView=nil;
+            txt.leftViewMode=UITextFieldViewModeNever;
             
             lblInfo.layer.shadowColor=[lblInfo.textColor CGColor];
             lblInfo.layer.shadowOffset=CGSizeMake(0, 0);
@@ -308,19 +323,27 @@
 
 - (IBAction)btnSendTouchUpInside:(id)sender {
     
-    if([txt.text isContainString:@"(+84)"])
+    if(txt.leftView)
         [self requestActiveCode];
     else
         [self login];
 }
 
--(BOOL)textField1:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+-(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
     if(!_isActived)
     {
-        
-        
-        return textField.text.length!=@"(+84)".length;
+        if(string.length>0)
+        {
+            BOOL valid;
+            NSCharacterSet *alphaNums = [NSCharacterSet decimalDigitCharacterSet];
+            NSCharacterSet *inStringSet = [NSCharacterSet characterSetWithCharactersInString:string];
+            valid = [alphaNums isSupersetOfSet:inStringSet];
+            if (!valid) // Not numeric
+            {
+                return false;
+            }
+        }
     }
     
     return true;

@@ -30,6 +30,11 @@
 
 -(void)onCompletedWithJSON:(NSArray *)json
 {
+    for(User *uc in [User allObjects])
+    {
+        [[DataManager shareInstance].managedObjectContext deleteObject:uc];
+    }
+    
     NSDictionary *dict=[json objectAtIndex:0];
     isSuccess=[[dict objectForKey:@"result"] boolValue];
     int idUser=[dict integerForKey:@"user_id"];
@@ -48,7 +53,7 @@
 
         user.isConnectedFacebook=@(isConnectedFB);
         user.avatar=[NSString stringWithStringDefault:avatar];
-        user.phone=[NSString stringWithString:_phone];
+        user.name=[NSString stringWithString:_phone];
         
         [[DataManager shareInstance] save];
         

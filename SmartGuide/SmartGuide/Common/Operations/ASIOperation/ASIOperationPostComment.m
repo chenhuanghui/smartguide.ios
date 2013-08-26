@@ -55,7 +55,7 @@
         comment=[ShopUserComment insert];
         comment.shop=shop;
         comment.idShop=shop.idShop;
-        comment.user=[DataManager shareInstance].currentUser.phone;
+        comment.user=[DataManager shareInstance].currentUser.name;
         comment.comment=[values objectAtIndex:2];
         comment.avatar=[NSString stringWithStringDefault:[DataManager shareInstance].currentUser.avatar];
         

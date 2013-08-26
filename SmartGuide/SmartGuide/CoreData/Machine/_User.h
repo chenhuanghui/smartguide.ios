@@ -8,7 +8,7 @@
 #define User_Avatar @"avatar"
 #define User_IdUser @"idUser"
 #define User_IsConnectedFacebook @"isConnectedFacebook"
-#define User_Phone @"phone"
+#define User_Name @"name"
 
 @class User;
 @class Filter;
@@ -27,7 +27,7 @@
 @property (nonatomic, retain) NSString* avatar;
 @property (nonatomic, retain) NSNumber* idUser;
 @property (nonatomic, retain) NSNumber* isConnectedFacebook;
-@property (nonatomic, retain) NSString* phone;
+@property (nonatomic, retain) NSString* name;
 
 #pragma mark Fetched property
 

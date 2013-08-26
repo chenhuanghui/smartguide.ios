@@ -26,7 +26,7 @@ enum SCAND_TYPE {
 
 @end
 
-@interface SlideQRCodeViewController : UIViewController<QRCodeDelegate,TouchViewDelegate,ASIOperationPostDelegate>
+@interface SlideQRCodeViewController : ViewController<QRCodeDelegate,TouchViewDelegate,ASIOperationPostDelegate>
 {
     __weak IBOutlet UIButton *btnSlide;
     __weak IBOutlet UILabel *lblSlide;
@@ -40,6 +40,8 @@ enum SCAND_TYPE {
     __weak IBOutlet UILabel *lblChucMung;
     __weak IBOutlet UILabel *lblNhanDuoc;
     __weak IBOutlet UILabel *lblShop;
+    
+    bool _isUserScanded;
 }
 
 -(UIButton*) btnSlide;
@@ -49,6 +51,8 @@ enum SCAND_TYPE {
 -(void) hideCamera;
 -(void) scanGetPromotion2WithIDAward:(int) idAward;
 -(void) scanGetAwardPromotion1WithIDAward:(int) idAward;
+
+-(bool) isUserScanded;
 
 @property (nonatomic, strong) NSMutableArray *qrCodes;
 @property (nonatomic, strong) QRCode *qrCode;
