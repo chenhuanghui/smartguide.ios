@@ -13,6 +13,8 @@
 #import "TableTemplate.h"
 #import "RootViewController.h"
 #import "SlideQRCodeViewController.h"
+#import "Flags.h"
+#import "TutorialView.h"
 
 enum LIST_MODE {
     LIST_SHOP = 0,
@@ -21,7 +23,7 @@ enum LIST_MODE {
 
 @class CatalogueListViewController,ShopDetailViewController,TemplateList,TemplateSearch,TableList;
 
-@interface CatalogueListViewController : ViewController<TableTemplateDelegate,ASIOperationPostDelegate,SlideQRCodeDelegate>
+@interface CatalogueListViewController : ViewController<TableTemplateDelegate,ASIOperationPostDelegate,SlideQRCodeDelegate,TutorialViewDelegate>
 {
     __weak IBOutlet TableList *tableShop;
     __weak IBOutlet UIButton *btnUp;
@@ -30,15 +32,18 @@ enum LIST_MODE {
     __weak IBOutlet UIView *blurBottom;
     
     bool _isInitedShopDetail;
+    bool _isNeedReload;
 }
 
--(void) loadGroup:(Group*) group city:(City*) city sortType:(enum SORT_BY) sortBy;
--(void) loadGroups:(NSArray*) group sortType:(enum SORT_BY) sortBy;
+-(void) reloadDataForChangedCity:(int) city;
+-(void) loadGroup:(Group*) group city:(int) city sortType:(enum SORT_BY) sortBy;
+-(void) loadGroups:(NSArray*) group sortType:(enum SORT_BY) sortBy city:(int) city;
 -(void) handleSearchResult:(NSString*) searchKey result:(NSArray*) array page:(int) page selectedShop:(Shop*) selectedShop selectedRow:(NSIndexPath*) lastSelectedRow;
 
 -(void) pushShopDetailWithShop:(Shop*) shop animated:(bool) animate;
 
 -(void) switchToModeList;
+-(void) setIsNeedReload;
 
 -(NSArray*) currentShops;
 
@@ -63,7 +68,7 @@ enum LIST_MODE {
 @property (nonatomic, strong) NSIndexPath *lastSelectedRow;
 @property (nonatomic, strong) NSMutableArray *group;
 @property (nonatomic, readonly) Group *firstGroup;
-@property (nonatomic, strong) City *city;
+@property (nonatomic, assign) int city;
 @property (nonatomic, assign) enum SORT_BY sortBy;
 @property (nonatomic, strong) ASIOperationShopInGroup *opeartionShopInGroup;
 @property (nonatomic, assign) CatalogueListViewController *catalogueList;

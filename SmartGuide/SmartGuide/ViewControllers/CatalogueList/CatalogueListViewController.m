@@ -79,22 +79,34 @@
     templateSearch.catalogueList=self;
 }
 
--(void)loadGroup:(Group *)_group city:(City *)_city sortType:(enum SORT_BY)sortBy
+-(void)reloadDataForChangedCity:(int)_city
 {
+    [self loadGroups:templateList.group sortType:templateList.sortBy city:_city];
+}
+
+-(void)loadGroup:(Group *)_group city:(int)_city sortType:(enum SORT_BY)sortBy
+{
+    _isNeedReload=false;
+    
     if(!templateList)
     {
         if(delegate)
             [delegate catalogueListLoadShopFinished:self];
         
+        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_CATALOGUE_LIST_FINISHED object:nil];
+        
         return;
     }
     
-    if(_group!=nil && _city!=nil && templateList.group.count==1)
+    if(_group!=nil  && templateList.group.count==1)
     {
-        if(_group.idGroup.integerValue==templateList.firstGroup.idGroup.integerValue && _city.idCity.integerValue==templateList.city.idCity.integerValue && sortBy==templateList.sortBy)
+        if(_group.idGroup.integerValue==templateList.firstGroup.idGroup.integerValue && _city==templateList.city && sortBy==templateList.sortBy)
         {
             if(delegate)
+            {
                 [delegate catalogueListLoadShopFinished:self];
+                [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_CATALOGUE_LIST_FINISHED object:nil];
+            }
             
             return;
         }
@@ -102,6 +114,7 @@
     
     templateList.group=[@[_group] mutableCopy];
     templateList.city=_city;
+    templateList.sortBy=sortBy;
     
     [self switchToModeList];
     
@@ -118,23 +131,27 @@
     self.title=_group.name;
 }
 
--(void)loadGroups:(NSArray *)group sortType:(enum SORT_BY)sortBy
+-(void)loadGroups:(NSArray *)group sortType:(enum SORT_BY)sortBy city:(int)city
 {
+    _isNeedReload=false;
+    
     if(!templateList)
     {
         if(delegate)
             [delegate catalogueListLoadShopFinished:self];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_CATALOGUE_LIST_FINISHED object:nil];
         
         return;
     }
  
     if(group.count==1)
     {
-        [self loadGroup:group.firstObject city:templateList.city sortType:sortBy];
+        [self loadGroup:group.firstObject city:city sortType:sortBy];
         return;
     }
     
-    if(templateList.group.count==group.count && templateList.sortBy==sortBy)
+    if(templateList.group.count==group.count && templateList.sortBy==sortBy && templateList.city==city)
     {
         bool hasDiff=false;
         for(Group *g in group)
@@ -151,12 +168,15 @@
             if(delegate && [delegate respondsToSelector:@selector(catalogueListLoadShopFinished:)])
             {
                 [delegate catalogueListLoadShopFinished:self];
+                [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_CATALOGUE_LIST_FINISHED object:nil];
             }
             return;
         }
     }
     
     templateList.group=[group mutableCopy];
+    templateList.city=city;
+    templateList.sortBy=sortBy;
     
     [self switchToModeList];
     
@@ -242,6 +262,16 @@
     }
 }
 
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    if(self.mode==LIST_SHOP && _isNeedReload)
+    {
+        [self reloadDataForChangedCity:[DataManager shareInstance].currentCity.idCity.integerValue];
+    }
+}
+
 -(void) loadShopAtPage:(int) page
 {
     [templateList loadShopAtPage:page];
@@ -284,6 +314,23 @@
         
         if(delegate)
             [delegate catalogueListLoadShopFinished:self];
+        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_CATALOGUE_LIST_FINISHED object:nil];
+        
+        if(![Flags isShowedTutorial])
+        {
+            [Flags setIsShowedTutorial:true];
+            
+            TutorialView *tutorial=[[TutorialView alloc] init];
+            tutorial.center=CGPointMake(320/2, 480/2);
+            tutorial.alpha=0;
+            tutorial.delegate=self;
+            
+            [self.view.window addSubview:tutorial];
+            
+            [UIView animateWithDuration:0.3f animations:^{
+                tutorial.alpha=1;
+            }];
+        }
         
         [[RootViewController shareInstance] setNeedRemoveLoadingScreen];
     }
@@ -294,13 +341,26 @@
     }
 }
 
+-(void)tutorialViewBack:(TutorialView *)tutorial
+{
+    tutorial.userInteractionEnabled=false;
+    [UIView animateWithDuration:0.3f animations:^{
+        tutorial.alpha=0;
+    } completion:^(BOOL finished) {
+        [tutorial removeFromSuperview];
+    }];
+}
+
 -(void)ASIOperaionPostFailed:(ASIOperationPost *)operation
 {
     [self removeIndicator];
     
     if(self.mode==LIST_SHOP)
+    {
         if(delegate)
             [delegate catalogueListLoadShopFinished:self];
+        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_CATALOGUE_LIST_FINISHED object:nil];
+    }
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -486,6 +546,11 @@
     return fabsf(pnt.x)>fabsf(pnt.y);
 }
 
+-(void)setIsNeedReload
+{
+    _isNeedReload=true;
+}
+
 @end
 
 @implementation CatalogueListView
@@ -505,7 +570,7 @@
 
 -(void) loadShopAtPage:(int) page
 {
-    if(self.group==nil || self.city==nil || self.group.count==0)
+    if(self.group==nil || self.group.count==0)
         return;
     
     User *user=[DataManager shareInstance].currentUser;
@@ -523,7 +588,7 @@
     
     self.sortBy=[DataManager shareInstance].currentUser.filter.sortBy;
     
-    int idCity=self.city.idCity.integerValue;
+    int idCity=self.city;
     self.opeartionShopInGroup=[[ASIOperationShopInGroup alloc] initWithIDCity:idCity idUser:user.idUser.integerValue lat:user.location.latitude lon:user.location.longitude page:page sort:sortBy group:ids];
     self.opeartionShopInGroup.delegatePost=self;
     

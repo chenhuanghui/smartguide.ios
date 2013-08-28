@@ -53,7 +53,7 @@
 
         user.isConnectedFacebook=@(isConnectedFB);
         user.avatar=[NSString stringWithStringDefault:avatar];
-        user.name=[NSString stringWithString:_phone];
+        user.name=[NSString stringWithStringDefault:[dict objectForKey:@"name"]];
         
         [[DataManager shareInstance] save];
         

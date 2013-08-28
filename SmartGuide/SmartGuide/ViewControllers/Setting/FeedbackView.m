@@ -50,12 +50,36 @@
 
 -(void) applyFeedback:(Feedback*) fb
 {
-    if(!txt.isEditing)
-    {
-        lblName.text=[NSString stringWithFormat:@"%@",fb.idUser];
-    }
+    [UIView animateWithDuration:0.15f animations:^{
+        lblName.alpha=0;
+        txt.alpha=0;
+    } completion:^(BOOL finished) {
+        if(!txt.isEditing)
+            lblName.text=[NSString stringWithFormat:@"%@",fb.idUser];
+        
+        txt.placeholder=[NSString stringWithFormat:@"\" %@ \"", fb.content];
+        
+        [UIView animateWithDuration:0.15f animations:^{
+            lblName.alpha=1;
+            txt.alpha=1;
+        } completion:^(BOOL finished) {
+            [self performSelector:@selector(applyRandomFeedBack) withObject:nil afterDelay:3];
+        }];
+    }];
+}
+
+-(BOOL)textFieldShouldBeginEditing:(UITextField *)textField
+{
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(applyRandomFeedBack) object:nil];
     
-    txt.placeholder=[NSString stringWithFormat:@"\" %@ \"", fb.content];
+    lblName.text=[DataManager shareInstance].currentUser.name;
+    
+    return true;
+}
+
+-(void) applyRandomFeedBack
+{
+    [self applyFeedback:[self randomFeedback]];
 }
 
 -(Feedback*) randomFeedback
@@ -87,6 +111,18 @@
         [feedback cancel];
         feedback=nil;
     }
+}
+
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    __block __weak id obj = [[NSNotificationCenter defaultCenter] addObserverForName:UIKeyboardWillHideNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
+       
+        [self applyFeedback:[self randomFeedback]];
+        
+        [[NSNotificationCenter defaultCenter] removeObserver:obj];
+    }];
+    
+    [self endEditing:true];
 }
 
 @end

@@ -310,12 +310,12 @@
     //catalogueListLoadShopFinished handle delegate
     [catalogueList switchToModeList];
     catalogueList.delegate=self;
-    [catalogueList loadGroup:group city:[DataManager shareInstance].currentCity sortType:[DataManager shareInstance].currentUser.filter.sortBy];
+    [catalogueList loadGroup:group city:[DataManager shareInstance].currentCity.idCity.integerValue sortType:[DataManager shareInstance].currentUser.filter.sortBy];
 }
 
 -(void)catalogueBlockUpdated
 {
-    [catalogueList loadGroup:[Group groupAll] city:[DataManager shareInstance].currentCity sortType:[DataManager shareInstance].currentUser.filter.sortBy];
+    [catalogueList loadGroup:[Group groupAll] city:[DataManager shareInstance].currentCity.idCity.integerValue sortType:[DataManager shareInstance].currentUser.filter.sortBy];
 }
 
 -(void)catalogueListLoadShopFinished:(CatalogueListViewController *)catalogueListView
@@ -424,6 +424,8 @@
             [self.catalogueBlock.view removeAlphaView];
             [self.visibleViewController.view removeAlphaView];
             
+            [self.catalogueBlock catalogueShowed];
+            
             if(completed)
                 completed(finished);
         }];
@@ -440,6 +442,8 @@
         
         [self.catalogueBlock.view removeAlphaView];
         [self.visibleViewController.view removeAlphaView];
+        
+        [self.catalogueBlock catalogueShowed];
     }
 }
 

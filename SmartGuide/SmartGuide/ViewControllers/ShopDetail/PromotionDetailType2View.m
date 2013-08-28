@@ -52,6 +52,7 @@
         
         [btnReward setTitle:[format stringFromNumber:shop.promotionDetail.money] forState:UIControlStateNormal];
         btnReward.tag=shop.promotionDetail.idAwardType2.integerValue;
+        lblDesc.text=shop.promotionDetail.desc;
     }
     else
         [self reset];

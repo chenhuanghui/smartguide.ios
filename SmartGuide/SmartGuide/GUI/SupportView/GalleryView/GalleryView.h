@@ -8,13 +8,15 @@
 
 #import <UIKit/UIKit.h>
 #import "GalleryCell.h"
+#import "GMGridView.h"
+#import "GridViewTemplate.h"
 
 @class GalleryView;
 
 @protocol GalleryViewDelegate <NSObject>
 
 -(void) galleryViewBack:(GalleryView*) galleryView;
--(CGRect) galleryViewFrameForAnimationHide:(GalleryView*) galleryView indexPath:(NSIndexPath*) indexPath;
+-(CGRect) galleryViewFrameForAnimationHide:(GalleryView*) galleryView index:(int) index;
 -(bool) galleryViewAllowDescription:(GalleryView*) galleryView;
 
 @optional
@@ -22,9 +24,10 @@
 
 @end
 
-@interface GalleryView : UIView<UITableViewDataSource,UITableViewDelegate,UIGestureRecognizerDelegate>
+@interface GalleryView : UIView<UIGestureRecognizerDelegate,GMGridViewActionDelegate,GMGridViewDataSource,UIScrollViewDelegate>
 {
-    __weak IBOutlet UITableView *table;
+    __weak IBOutlet GMGridView *grid;
+    
     __weak IBOutlet UIButton *btn;
     __weak IBOutlet UITextView *txt;
     __weak IBOutlet UIView *blurr;
@@ -32,10 +35,11 @@
     bool _isAllowDescription;
 }
 
--(UITableView*) table;
 -(void) animationImage:(UIImage*) image startRect:(CGRect) rect;
 
+-(GMGridView*) gridView;
+
 @property (nonatomic, assign) id<GalleryViewDelegate> delegate;
-@property (nonatomic, strong) NSIndexPath *currentIndexPath;
+@property (nonatomic, assign) int selectedIndex;
 
 @end

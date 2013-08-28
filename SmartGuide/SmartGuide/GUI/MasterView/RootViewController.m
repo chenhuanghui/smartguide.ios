@@ -32,8 +32,6 @@ static RootViewController *_rootViewController;
 @property (nonatomic, readonly) CGPoint previousTouchSlide;
 @property (nonatomic, readonly) CGPoint initialTouchPrevious;
 @property (nonatomic, readonly) CGPoint previousTouchPrevious;
-@property (nonatomic, readonly) UITapGestureRecognizer *tapSetting;
-@property (nonatomic, readonly) UIPanGestureRecognizer *panSetting;
 @property (nonatomic, readonly) CGPoint initialTouchSetting;
 @property (nonatomic, readonly) CGPoint previousTouchSetting;
 @property (nonatomic, strong) LoadingScreenViewController *loadingScreen;
@@ -176,7 +174,7 @@ static RootViewController *_rootViewController;
     
     [self.view addSubview:loginViewController.view];
     
-    __block NSNotification *notification=[[NSNotificationCenter defaultCenter] addObserverForName:NOTIFICATION_LOGIN object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
+    __block __weak id notification=[[NSNotificationCenter defaultCenter] addObserverForName:NOTIFICATION_LOGIN object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
         
         if([DataManager shareInstance].currentUser.isConnectedFacebook.boolValue)
             [self showMainWithPreviousViewController:loginViewController];
@@ -220,7 +218,7 @@ static RootViewController *_rootViewController;
         pnt.x=[UIScreen mainScreen].bounds.size.width/2;
         face.view.center=pnt;
     }
-    __block NSNotification *notiFace=[[NSNotificationCenter defaultCenter] addObserverForName:NOTIFICATION_FACEBOOK_UPLOAD_PROFILE_FINISHED object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
+    __block __weak id notiFace=[[NSNotificationCenter defaultCenter] addObserverForName:NOTIFICATION_FACEBOOK_UPLOAD_PROFILE_FINISHED object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
         
         [self showMainWithPreviousViewController:face];
         
@@ -479,6 +477,8 @@ static RootViewController *_rootViewController;
 {
     if(gestureRecognizer==self.tapSetting)
     {
+        if([self.settingViewController isShowOtherView])
+            return false;
         CGPoint pnt=[gestureRecognizer locationInView:self.settingViewController.view];
         if(!CGRectContainsPoint(self.settingViewController.view.frame, pnt))
             return true;
@@ -488,6 +488,9 @@ static RootViewController *_rootViewController;
     
     if(gestureRecognizer==self.panSetting)
     {
+        if([self.settingViewController isShowOtherView])
+            return false;
+        
         CGPoint pnt=[self.panSetting translationInView:self.panSetting.view];
         
         if(pnt.x>0)
@@ -616,6 +619,7 @@ static RootViewController *_rootViewController;
     self.view.userInteractionEnabled=true;
     
     [self.settingViewController.view alphaViewWithColor:COLOR_BACKGROUND_APP_ALPHA(0)];
+    [self.view alphaViewWithColor:COLOR_BACKGROUND_APP_ALPHA(1)];
     
     [UIView animateWithDuration:DURATION_SHOW_SETTING delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
         CGRect rect=self.view.frame;
@@ -650,11 +654,12 @@ static RootViewController *_rootViewController;
             panSetting=nil;
         }
         
+        //không sử dụng notification vì settingviewcontroller đã xử lý
         //user change city
-        if(_lastIDCity!=[DataManager shareInstance].currentCity.idCity.integerValue)
-        {
-            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_USER_CHANGED_CITY object:nil];
-        }
+//        if(_lastIDCity!=[DataManager shareInstance].currentCity.idCity.integerValue)
+//        {
+//            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_USER_CHANGED_CITY object:nil];
+//        }
         
         _lastIDCity=[DataManager shareInstance].currentCity.idCity.integerValue;
     }];
@@ -791,6 +796,9 @@ static RootViewController *_rootViewController;
 
 -(void)searchView:(SearchViewController *)searchView selectedShop:(Shop *)shop
 {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
+    
     [searchViewController cancelSearch];
     [self.navigationBarView hideSearch];
     

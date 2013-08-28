@@ -165,9 +165,9 @@
     
     [UIView animateWithDuration:duration animations:^{
         //vi tri x,y containComment được lấy khi bắt đầu animation scale (line 182)
-        containComment.frame=CGRectMake(17, 189, 285, 228);
-        tableComments.frame=CGRectMake(10, 0, 275, 181);
-        containInput.frame=CGRectMake(0, 181, 285, 47);
+        containComment.frame=CGRectMake(17, 189, 287, 228);
+        tableComments.frame=CGRectMake(10, 0, 279, 181);
+        containInput.frame=CGRectMake(0, 181, 287, 47);
         txtComment.frame=CGRectMake(10, 8, 220, 32);
         avatar.frame=CGRectMake(239, 5, 38, 38);
         arrow.frame=CGRectMake(229, 17, 8, 13);
@@ -317,11 +317,12 @@
     int idUser=[DataManager shareInstance].currentUser.idUser.integerValue;
     int idShop=_shop.idShop.integerValue;
     
-    [txtComment showLoadingWithTitle:nil];
+    [self.window showLoadingWithTitle:nil];
     _isSendingComment=true;
     [ASIOperationPostComment postCommentWithIDUser:idUser idShop:idShop content:txtComment.text onCompleted:^(bool finished, ShopUserComment *comment) {
         if(finished)
         {
+            [[FacebookManager shareInstance] postText:txtComment.text identity:nil delegate:nil];
             txtComment.text=@"";
             if(_comments.count==0)
                 [_comments addObject:comment];
@@ -331,7 +332,7 @@
             [tableComments reloadData];
         }
 
-        [txtComment removeLoading];
+        [self.window removeLoading];
         _isSendingComment=false;
     }];
     

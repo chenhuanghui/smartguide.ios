@@ -97,5 +97,7 @@
 @property (nonatomic, readonly) SearchViewController *searchViewController;
 
 @property (nonatomic, readonly) UIPanGestureRecognizer *panPrevious;
+@property (nonatomic, readonly) UITapGestureRecognizer *tapSetting;
+@property (nonatomic, readonly) UIPanGestureRecognizer *panSetting;
 
 @end

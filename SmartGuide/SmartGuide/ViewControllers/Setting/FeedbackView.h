@@ -18,7 +18,7 @@
 
 @end
 
-@interface FeedbackView : UIView<ASIOperationPostDelegate>
+@interface FeedbackView : UIView<ASIOperationPostDelegate,UITextFieldDelegate>
 {
     __weak IBOutlet UITextField *txt;
     __weak IBOutlet UILabel *lblName;

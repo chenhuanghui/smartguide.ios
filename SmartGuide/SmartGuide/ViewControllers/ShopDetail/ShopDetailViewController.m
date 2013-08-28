@@ -164,6 +164,9 @@
             rect.origin=CGPointMake(87, 122);
             imgvSwitch.frame=rect;
             imgvSwitch.transform=CGAffineTransformMakeRotation(DEGREES_TO_RADIANS(0));
+            
+            btnPromotion.titleLabel.font=[UIFont boldSystemFontOfSize:9];
+            btnShop.titleLabel.font=[UIFont boldSystemFontOfSize:10];
         } completion:^(BOOL finished) {
             _isAnimationMenu=false;
             btnShop.hidden=true;
@@ -191,6 +194,9 @@
         rect.origin=CGPointMake(87, 119);
         imgvSwitch.frame=rect;
         imgvSwitch.transform=CGAffineTransformMakeRotation(DEGREES_TO_RADIANS(0));
+        
+        btnPromotion.titleLabel.font=[UIFont boldSystemFontOfSize:9];
+        btnShop.titleLabel.font=[UIFont boldSystemFontOfSize:10];
     }
 }
 
@@ -226,6 +232,9 @@
             rect=pick.frame;
             rect.origin=CGPointMake(92, 148);
             pick.frame=rect;
+            
+            btnPromotion.titleLabel.font=[UIFont boldSystemFontOfSize:10];
+            btnShop.titleLabel.font=[UIFont boldSystemFontOfSize:9];
         } completion:^(BOOL finished) {
             _isAnimationMenu=false;
         }];
@@ -251,6 +260,9 @@
         
         btnShop.hidden=false;
         btnShop.alpha=1;
+        
+        btnPromotion.titleLabel.font=[UIFont boldSystemFontOfSize:10];
+        btnShop.titleLabel.font=[UIFont boldSystemFontOfSize:9];
     }
 }
 
@@ -460,6 +472,10 @@
         
         [btnGallery sendActionsForControlEvents:UIControlEventTouchUpInside];
         
+        [self removeUserPose:userPose];
+    }
+    else
+    {
         [self removeUserPose:userPose];
     }
 }

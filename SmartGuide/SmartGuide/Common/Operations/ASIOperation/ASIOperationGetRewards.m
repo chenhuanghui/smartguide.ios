@@ -10,14 +10,21 @@
 #import "Reward.h"
 
 @implementation ASIOperationGetRewards
-@synthesize rewards;
+@synthesize rewards,values;
 
--(ASIOperationGetRewards *)initGetRewards
+-(ASIOperationGetRewards *)initGetRewardsWithIDUser:(int)idUser
 {
     NSURL *_url=[NSURL URLWithString:SERVER_API_MAKE(API_GET_REWARDS)];
     self=[super initWithURL:_url];
     
+    values=@[@(idUser)];
+    
     return self;
+}
+
+-(NSArray *)keys
+{
+    return @[@"user_id"];
 }
 
 -(void)onCompletedWithJSON:(NSArray *)json

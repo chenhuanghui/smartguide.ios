@@ -14,6 +14,8 @@
 #import "TokenManager.h"
 #import "RootViewController.h"
 
+#define DURATION_RESET_SMS 30
+
 @interface LoginViewController ()
 
 @end
@@ -33,20 +35,10 @@
 {
     [super viewDidLoad];
     
-    txt.rightViewMode=UITextFieldViewModeAlways;
-    
-    UIView *v=[[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 30)];
-    v.backgroundColor=[UIColor clearColor];
-    txt.rightView=v;
-    
-    NSString *str=@"  (+84)";
-    UILabel *lbl=[[UILabel alloc] initWithFrame:CGRectMake(0, 0, [str sizeWithFont:txt.font].width, 30)];
-    lbl.font=txt.font;
-    lbl.textColor=[UIColor grayColor];
-    lbl.backgroundColor=[UIColor clearColor];
-    lbl.text=str;
-    txt.leftView=lbl;
-    txt.leftViewMode=UITextFieldViewModeAlways;
+    _inputPhone=@"";
+    lblCountdown.hidden=true;
+
+    [self switchToActiveCode];
     
     [[RootViewController shareInstance] setNeedRemoveLoadingScreen];
     
@@ -192,6 +184,8 @@
         return;
     }
     
+    _inputPhone=[[NSString alloc] initWithString:txt.text];
+    
     [AlertView showWithTitle:[((UILabel*)txt.leftView).text stringByAppendingFormat:@" %@", txt.text] withMessage:@"Mã kích hoạt SmartGuide sẽ được gửi đến số điện thoại trên. Chọn \"Đồng ý\" để tiếp tục hoặc \"Huỷ\" để thay đổi số điện thoại" withLeftTitle:@"Huỷ" withRightTitle:@"Đồng ý" onOK:^{
         [txt becomeFirstResponder];
     } onCancel:^{
@@ -201,7 +195,7 @@
         {
             strPhone=[phone stringByReplacingCharactersInRange:NSMakeRange(0, 3) withString:@"84"];
         }
-        else if([strPhone substringWithRange:NSMakeRange(0, 1)])
+        else if([[strPhone substringWithRange:NSMakeRange(0, 1)] isEqual:@"0"])
         {
             strPhone=[phone stringByReplacingCharactersInRange:NSMakeRange(0, 1) withString:@"84"];
         }
@@ -214,6 +208,49 @@
         
         [self.view showLoadingWithTitle:nil];
     }];
+}
+
+-(void) countdownSMS
+{
+    [UIView animateWithDuration:0.2f animations:^{
+        lblCountdown.alpha=0;
+    } completion:^(BOOL finished) {
+        lblCountdown.text=[NSString stringWithFormat:@"%i",_time--];
+        [UIView animateWithDuration:0.8f animations:^{
+            lblCountdown.alpha=1;
+        } completion:^(BOOL finished) {
+            if(_time==0)
+            {
+                [_timerSMS invalidate];
+                _timerSMS=nil;
+                
+                [self switchToActiveCode];
+            }
+        }];
+    }];
+}
+
+-(void) switchToActiveCode
+{
+    lblCountdown.hidden=false;
+    txt.text=_inputPhone;
+    lblInfo.textColor=[UIColor color255WithRed:59 green:72 blue:100 alpha:255];
+    lblInfo.text=@"Nhập số điện thoại của bạn";
+    
+    txt.rightViewMode=UITextFieldViewModeAlways;
+    
+    UIView *v=[[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 30)];
+    v.backgroundColor=[UIColor clearColor];
+    txt.rightView=v;
+    
+    NSString *str=@"  (+84)";
+    UILabel *lbl=[[UILabel alloc] initWithFrame:CGRectMake(0, 0, [str sizeWithFont:txt.font].width, 30)];
+    lbl.font=txt.font;
+    lbl.textColor=[UIColor grayColor];
+    lbl.backgroundColor=[UIColor clearColor];
+    lbl.text=str;
+    txt.leftView=lbl;
+    txt.leftViewMode=UITextFieldViewModeAlways;
 }
 
 -(void)operationURLFinished:(OperationURL *)operation
@@ -240,6 +277,12 @@
             } completion:^(BOOL finished) {
                 
             }];
+            
+            _time=DURATION_RESET_SMS;
+            lblCountdown.text=[NSString stringWithFormat:@"%i",_time];
+            lblCountdown.hidden=false;
+            _timerSMS=[NSTimer timerWithTimeInterval:1 target:self selector:@selector(countdownSMS) userInfo:nil repeats:true];
+            [[NSRunLoop currentRunLoop] addTimer:_timerSMS forMode:NSDefaultRunLoopMode];
         }
         else
         {
@@ -268,6 +311,13 @@
     }
     else
     {
+        if(_timerSMS)
+        {
+            [_timerSMS invalidate];
+            _timerSMS=nil;
+            lblCountdown.hidden=true;
+        }
+        
         OperationGetToken *ope=(OperationGetToken*) operation;
         
         [TokenManager shareInstance].accessToken=[[NSString alloc] initWithString:ope.accessToken];
@@ -277,9 +327,9 @@
         
         [self.view endEditing:true];
         
-        [[NSNotificationCenter defaultCenter] addObserverForName:UIKeyboardDidHideNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
+        __block __weak id obj = [[NSNotificationCenter defaultCenter] addObserverForName:UIKeyboardDidHideNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
             
-            [[NSNotificationCenter defaultCenter] removeObserver:note];
+            [[NSNotificationCenter defaultCenter] removeObserver:obj];
             
             [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_LOGIN object:nil];
         }];
@@ -318,6 +368,7 @@
     smartguide = nil;
     km = nil;
     txt = nil;
+    lblCountdown = nil;
     [super viewDidUnload];
 }
 

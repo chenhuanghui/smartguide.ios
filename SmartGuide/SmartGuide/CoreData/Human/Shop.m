@@ -38,6 +38,7 @@
 
 -(int)minRank
 {
+    return self.promotionDetail.min_score.integerValue;
     int rank=0;
     if(self.promotionDetail && [self.promotionDetail.promotionType integerValue]!=-1 && self.promotionDetail.requiresObjects.count>0)
     {
@@ -145,6 +146,7 @@
         promotion.duration=[NSString stringWithStringDefault:[dicInner objectForKey:@"duration"]];
         promotion.money=[dicInner objectForKey:@"money"];
         promotion.idAwardType2=[dicInner objectForKey:@"id"];
+        promotion.desc=[NSString stringWithStringDefault:[dicInner objectForKey:@"description"]];
         
         [promotion removeRequires:promotion.requires];
         

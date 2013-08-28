@@ -23,7 +23,7 @@
     
     values=@[@(idShop),@(idUser),d];
     
-    [self addData:image forKey:@"photo"];
+    [self addData:image withFileName:@"photo" andContentType:@"image/jpeg" forKey:@"photo"];
     imageData=[image copy];
     
     return self;

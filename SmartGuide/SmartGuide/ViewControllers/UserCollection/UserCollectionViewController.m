@@ -77,24 +77,30 @@
 - (IBAction)btnPointTouchUpInside:(id)sender {
     if(tableReward.hidden)
     {
+        [btnPoint setTitle:@"Cửa hàng" forState:UIControlStateNormal];
         tableReward.alpha=0;
         tableReward.hidden=false;
-        
+
         [UIView animateWithDuration:0.2f animations:^{
             tableReward.alpha=1;
             table.alpha=0;
+            blurBottom.frame=CGRectMake(blurBottom.frame.origin.x, blurBottom.frame.origin.y, tableReward.frame.size.width, blurBottom.frame.size.height);
+            blurTop.frame=CGRectMake(blurTop.frame.origin.x, blurTop.frame.origin.y, tableReward.frame.size.width, blurTop.frame.size.height);
         } completion:^(BOOL finished) {
             table.hidden=true;
         }];
     }
     else
     {
+        [btnPoint setTitle:@"Đổi điểm lấy quà" forState:UIControlStateNormal];
         table.alpha=0;
         table.hidden=false;
         
         [UIView animateWithDuration:0.2f animations:^{
             table.alpha=1;
             tableReward.alpha=0;
+            blurBottom.frame=CGRectMake(blurBottom.frame.origin.x, blurBottom.frame.origin.y, table.frame.size.width, blurBottom.frame.size.height);
+            blurTop.frame=CGRectMake(blurTop.frame.origin.x, blurTop.frame.origin.y, table.frame.size.width, blurTop.frame.size.height);
         } completion:^(BOOL finished) {
             tableReward.hidden=true;
         }];
@@ -129,6 +135,19 @@
 
 -(void)loadUserCollection
 {
+    [btnPoint setTitle:@"Đổi điểm lấy quà" forState:UIControlStateNormal];
+    table.alpha=0;
+    table.hidden=false;
+    
+    [UIView animateWithDuration:0.2f animations:^{
+        table.alpha=1;
+        tableReward.alpha=0;
+        blurBottom.frame=CGRectMake(blurBottom.frame.origin.x, blurBottom.frame.origin.y, table.frame.size.width, blurBottom.frame.size.height);
+        blurTop.frame=CGRectMake(blurTop.frame.origin.x, blurTop.frame.origin.y, table.frame.size.width, blurTop.frame.size.height);
+    } completion:^(BOOL finished) {
+        tableReward.hidden=true;
+    }];
+    
     if(_operation)
     {
         [_operation cancel];
@@ -165,7 +184,7 @@
         if(templateTable.page==0)
         {
             [tableReward showLoadingWithTitle:nil];
-            _getRewards=[[ASIOperationGetRewards alloc] initGetRewards];
+            _getRewards=[[ASIOperationGetRewards alloc] initGetRewardsWithIDUser:[DataManager shareInstance].currentUser.idUser.integerValue];
             _getRewards.delegatePost=self;
             
             [_getRewards startAsynchronous];
@@ -186,8 +205,9 @@
         numF.numberStyle=NSNumberFormatterNoStyle;
         [numF setMaximumFractionDigits:0];
         
-        lblPoint.text=[numF stringFromNumber:@(ope.totalSP)];
+        lblPoint.text=@"";
         _totalPoint=ope.totalSP;
+        [lblPoint animationScoreWithDuration:1 startValue:0 endValue:_totalPoint format:[NSNumberFormatter numberFormat]];
         
         [templateTable setAllowLoadMore:ope.userCollection.count==5];
         

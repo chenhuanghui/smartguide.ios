@@ -10,7 +10,7 @@
 
 @interface ASIOperationGetRewards : ASIOperationPost
 
--(ASIOperationGetRewards*) initGetRewards;
+-(ASIOperationGetRewards*) initGetRewardsWithIDUser:(int) idUser;
 
 @property (nonatomic, readonly) NSMutableArray *rewards;
 

@@ -26,6 +26,8 @@
 +(void) removeLastIDUser;
 +(int) userCity;
 +(void) setUserCity:(int) idCity;
++(bool) isShowedTutorial;
++(void) setIsShowedTutorial:(bool) isShowed;
 
 +(void) removeToken;
 

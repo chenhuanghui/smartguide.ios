@@ -42,8 +42,10 @@
     </entity>
     <entity name="PromotionDetail" representedClassName="PromotionDetail" syncable="YES">
         <attribute name="cost" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="desc" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="duration" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="idAwardType2" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="min_score" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="money" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="promotionType" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="sgp" optional="YES" attributeType="Integer 64" defaultValueString="0.0" syncable="YES"/>
@@ -136,10 +138,12 @@
     <elements>
         <element name="Ads" positionX="160" positionY="192" width="128" height="135"/>
         <element name="City" positionX="214" positionY="108" width="128" height="75"/>
+        <element name="Feedback" positionX="160" positionY="192" width="128" height="105"/>
         <element name="Filter" positionX="-288" positionY="357" width="128" height="270"/>
         <element name="Group" positionX="45" positionY="99" width="128" height="90"/>
-        <element name="PromotionDetail" positionX="466" positionY="126" width="128" height="180"/>
+        <element name="PromotionDetail" positionX="466" positionY="126" width="128" height="210"/>
         <element name="PromotionRequire" positionX="432" positionY="369" width="128" height="105"/>
+        <element name="Reward" positionX="160" positionY="192" width="128" height="105"/>
         <element name="Shop" positionX="216" positionY="267" width="128" height="495"/>
         <element name="ShopGallery" positionX="430" positionY="603" width="128" height="90"/>
         <element name="ShopProduct" positionX="-0" positionY="399" width="128" height="135"/>
@@ -147,7 +151,5 @@
         <element name="ShopUserGallery" positionX="-2" positionY="219" width="128" height="105"/>
         <element name="User" positionX="-63" positionY="-27" width="128" height="120"/>
         <element name="Versions" positionX="-342" positionY="144" width="128" height="75"/>
-        <element name="Reward" positionX="160" positionY="192" width="128" height="105"/>
-        <element name="Feedback" positionX="160" positionY="192" width="128" height="105"/>
     </elements>
 </model>

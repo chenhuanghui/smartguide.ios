@@ -26,7 +26,7 @@
     imgvReward.image=nil;
     lblPoint.text=[[NSNumberFormatter numberFromNSNumber:reward.score] stringByAppendingString:@" point"];
     lblRewardName.text=reward.content;
-    btn.enabled=totalPoint>=reward.score.integerValue;
+    btn.enabled=reward.status.boolValue;
     
     [lblRewardName scrollLabelIfNeeded];
 }

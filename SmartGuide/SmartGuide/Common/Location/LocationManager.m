@@ -50,7 +50,7 @@ static LocationManager *_locationManager=nil;
     if([self.locationManager respondsToSelector:@selector(purpose)])
     {
         //Remember set plist NSLocationUsageDescription
-        self.locationManager.purpose=@"Xin location";
+        self.locationManager.purpose=@"";
     }
     
     //trigger CatalogueBlockViewController detect city

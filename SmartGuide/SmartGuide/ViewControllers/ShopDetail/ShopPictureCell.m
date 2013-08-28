@@ -14,25 +14,38 @@
 
 @implementation ShopPictureCell
 
+- (id)init
+{
+    self = [[[NSBundle mainBundle] loadNibNamed:@"ShopPictureCell" owner:nil options:nil] objectAtIndex:0];
+    
+    imgvImage.layer.masksToBounds=true;
+    
+    return self;
+}
+
 -(void)setImage:(UIImage *)image duration:(float)duration
 {
-    animationView.image=nil;
-    animationView.hidden=true;
-    picture.hidden=false;
-    picture.frame=CGRectMake(0, 0, 81, 81);
-    picture.image=image;
+    imgvLoading.image=nil;
+    imgvLoading.hidden=true;
+    imgvImage.frame=CGRectMake(2, 2, 81, 81);
+    imgvImage.image=image;
+    imgvImage.hidden=false;
+}
+
+-(void) showEmptyImage
+{
+    imgvImage.hidden=true;
+    imgvImage.image=nil;
+    imgvLoading.image=UIIMAGE_LOADING_SHOP_GALLERY;
+    imgvLoading.frame=CGRectMake(2, 2, 81, 81);
+    imgvLoading.hidden=false;
 }
 
 -(void)setURLString:(NSString *)url duration:(float)duration
 {
     if(url.length==0)
     {
-        picture.frame=CGRectMake(0, -81, 81, 81);
-        picture.hidden=true;
-        picture.image=nil;
-        animationView.image=UIIMAGE_LOADING_SHOP_GALLERY;
-        animationView.frame=CGRectMake(0, 0, 81, 81);
-        animationView.hidden=false;
+        [self showEmptyImage];
         return;
     }
     
@@ -40,42 +53,37 @@
     
     if(img)
     {
-        animationView.image=nil;
-        animationView.hidden=true;
-        picture.frame=CGRectMake(0, 0, 81, 81);
-        picture.image=img;
+        imgvLoading.image=nil;
+        imgvLoading.hidden=true;
+        
+        imgvImage.frame=CGRectMake(2, 2, 81, 81);
+        imgvImage.image=img;
+        imgvImage.hidden=false;
     }
     else
     {
-        animationView.image=UIIMAGE_LOADING_SHOP_GALLERY;
-        animationView.hidden=false;
-        animationView.frame=CGRectMake(0, 0, 81, 81);
+        imgvLoading.image=UIIMAGE_LOADING_SHOP_GALLERY;
+        imgvLoading.hidden=false;
+        imgvLoading.frame=CGRectMake(2, 2, 81, 81);
         
-        CGRect rect=picture.frame;
-        rect.origin.y=-81;
-        picture.frame=rect;
+        imgvImage.frame=CGRectMake(2, -81, 81, 81);
+        imgvImage.hidden=false;
         
-        picture.hidden=false;
-        
-        [picture setSmartGuideImageWithURL:[NSURL URLWithString:url] placeHolderImage:UIIMAGE_LOADING_SHOP_GALLERY success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
-            animationView.frame=CGRectMake(0, 0, 81, 81);
-            CGRect rect=picture.frame;
-            rect.origin.y=-rect.size.height;
-            picture.frame=rect;
-            picture.image=image;
+        [imgvImage setSmartGuideImageWithURL:[NSURL URLWithString:url] placeHolderImage:UIIMAGE_LOADING_SHOP_GALLERY success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+
+            imgvImage.image=image;
             
             [UIView animateWithDuration:duration animations:^{
-                picture.frame=CGRectMake(0, 0, picture.frame.size.width, picture.frame.size.height);
-                animationView.frame=CGRectMake(0, animationView.frame.size.height/2, animationView.frame.size.width, animationView.frame.size.height);
+                imgvImage.frame=CGRectMake(2, 2, 81, 81);
+                imgvLoading.frame=CGRectMake(2, 81, 81, 81);
             } completion:^(BOOL finished) {
-                animationView.hidden=true;
-                animationView.image=nil;
+                imgvLoading.hidden=true;
+                imgvLoading.image=nil;
             }];
         } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *placeholderImage) {
-            picture.frame=CGRectMake(0, 0, picture.frame.size.width, picture.frame.size.height);
-            animationView.frame=CGRectMake(0, animationView.frame.size.height/2, animationView.frame.size.width, animationView.frame.size.height);
-            animationView.hidden=true;
-            animationView.image=nil;
+            imgvImage.frame=CGRectMake(2, 2, 81, 81);
+            imgvLoading.hidden=true;
+            imgvLoading.image=nil;
         }];
     }
 }
@@ -90,20 +98,9 @@
     return CGSizeMake(85, 85);
 }
 
--(id)awakeAfterUsingCoder:(NSCoder *)aDecoder
-{
-    self=[super awakeAfterUsingCoder:aDecoder];
-    
-    imageContaint.layer.masksToBounds=true;
-    animationView.layer.masksToBounds=true;
-    self.transform=CGAffineTransformMakeRotation(DEGREES_TO_RADIANS(45*2));
-    
-    return self;
-}
-
 -(UIImage *)userImage
 {
-    return picture.image;
+    return imgvImage.image;
 }
 
 +(CGSize)imageSize

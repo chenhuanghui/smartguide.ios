@@ -296,7 +296,7 @@
             [self.view showLoadingWithTitle:nil];
             
             [RootViewController shareInstance].frontViewController.catalogueList.delegate=self;
-            [[RootViewController shareInstance].frontViewController.catalogueList loadGroups:array sortType:filter.sortBy];
+            [[RootViewController shareInstance].frontViewController.catalogueList loadGroups:array sortType:filter.sortBy city:[DataManager shareInstance].currentCity.idCity.integerValue];
         }
         else
             [[RootViewController shareInstance] hideFilter];

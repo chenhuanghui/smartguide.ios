@@ -31,6 +31,7 @@
     self.shouldContinueWhenAppEntersBackground=true;
     self.persistentConnectionTimeoutSeconds=60*5;
     self.responseEncoding=NSUTF8StringEncoding;
+    [self setValidatesSecureCertificate:false];
 
     self.delegate=self;
     

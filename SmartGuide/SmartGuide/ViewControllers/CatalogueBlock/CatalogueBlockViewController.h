@@ -10,6 +10,7 @@
 #import "ASIOperationCity.h"
 #import "ASIOperationGroupInCity.h"
 #import "LoadingScreenViewController.h"
+#import "TutorialView.h"
 
 @interface CatalogueBlockViewController : ViewController<ASIOperationPostDelegate>
 {
@@ -25,9 +26,17 @@
     __weak IBOutlet UIView *groupProduction;
     __weak IBOutlet UIView *groupEducation;
     ASIOperationCity *operationCity;
+    
+    City *_city;
+    bool _isNeedLoad;
 }
 
 -(bool) isFinishedLoading;
+
+-(void) loadWithCity:(City*) city;
+
+-(void) setIsNeedLoad;
+-(void) catalogueShowed;
 
 @property (nonatomic, assign) id<CatalogueBlockViewDelegate> delegate;
 

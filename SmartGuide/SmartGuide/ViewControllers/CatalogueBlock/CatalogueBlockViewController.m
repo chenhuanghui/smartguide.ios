@@ -32,6 +32,11 @@
     return self;
 }
 
+-(void)loadWithCity:(City *)city
+{
+    [self loadGroup:@"changed city"];
+}
+
 -(NSArray*) groupViews
 {
     return @[groupAll,groupDrink,groupEducation,groupEntertaiment,groupFashion,groupFood,groupHealth,groupProduction,groupTravel];
@@ -54,7 +59,7 @@
     
     if([[LocationManager shareInstance] isAllowLocation])
     {
-        ActivityIndicator *activity=[self showIndicatoWithTitle:@"Đang lấy vị trí hiện tại" countdown:5];
+        ActivityIndicator *activity=[self showIndicatoWithTitle:nil countdown:5];
         activity.tagID=@(1);
     }
     else
@@ -216,6 +221,8 @@
 
         _isFinishedLoading=true;
         [self.view removeLoading];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_CATALOGUEBLOCK_FINISHED object:nil];
     }
     else if([operation isKindOfClass:[ASIOperationCity class]])
     {
@@ -243,12 +250,13 @@
     }
     else if([operation isKindOfClass:[ASIOperationGroupInCity class]])
     {
-        [self showIndicatoWithTitle:@"Lỗi, lấy lại dữ liệu sau 3s" countdown:3];
+        [self showIndicatoWithTitle:nil countdown:3];
         
         double delayInSeconds = 3.0;
         dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
         dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
             [self loadGroup:@"ASIOperaionPostFailed ASIOperationGroupInCity"];
+            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_CATALOGUEBLOCK_FINISHED object:nil];
         });
     }
 }
@@ -268,7 +276,7 @@
         
         if(![DataManager shareInstance].currentCity)
         {
-            [self showIndicatoWithTitle:@"Đang lấy thông tin thành phố" countdown:5].tagID=@(2);
+            [self showIndicatoWithTitle:nil countdown:5].tagID=@(2);
             [[LocationManager shareInstance] tryGetUserCityInfo];
         }
         else
@@ -352,6 +360,19 @@
 -(NSArray *)disableRightNavigationItems
 {
     return @[@(ITEM_FILTER)];
+}
+
+-(void)setIsNeedLoad
+{
+    _isNeedLoad=true;
+}
+
+-(void)catalogueShowed
+{
+    if(_isNeedLoad)
+    {
+        [self updateBlocks];
+    }
 }
 
 @end

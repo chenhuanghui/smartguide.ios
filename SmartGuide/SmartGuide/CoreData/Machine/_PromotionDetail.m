@@ -105,6 +105,19 @@
 	[self didChangeValueForKey:@"cost"];
 }
 
+- (NSString*)desc {
+	[self willAccessValueForKey:@"desc"];
+	NSString* result = (NSString*)[self primitiveValueForKey:@"desc"];
+	[self didAccessValueForKey:@"desc"];
+	return result;
+}
+
+- (void)setDesc:(NSString*)value {
+	[self willChangeValueForKey:@"desc"];
+	[self setPrimitiveValue:value forKey:@"desc"];
+	[self didChangeValueForKey:@"desc"];
+}
+
 - (NSString*)duration {
 	[self willAccessValueForKey:@"duration"];
 	NSString* result = (NSString*)[self primitiveValueForKey:@"duration"];
@@ -129,6 +142,19 @@
 	[self willChangeValueForKey:@"idAwardType2"];
 	[self setPrimitiveValue:value forKey:@"idAwardType2"];
 	[self didChangeValueForKey:@"idAwardType2"];
+}
+
+- (NSNumber*)min_score {
+	[self willAccessValueForKey:@"min_score"];
+	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"min_score"];
+	[self didAccessValueForKey:@"min_score"];
+	return result;
+}
+
+- (void)setMin_score:(NSNumber*)value {
+	[self willChangeValueForKey:@"min_score"];
+	[self setPrimitiveValue:value forKey:@"min_score"];
+	[self didChangeValueForKey:@"min_score"];
 }
 
 - (NSNumber*)money {

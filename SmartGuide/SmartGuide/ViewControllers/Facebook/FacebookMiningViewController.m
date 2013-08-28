@@ -40,13 +40,13 @@
     [self.navigationController setNavigationBarHidden:true];
     [[RootViewController shareInstance] setNeedRemoveLoadingScreen];
     
-    UILabel *lbl=[[UILabel alloc] initWithFrame:CGRectMake(0, 0, [@"  " sizeWithFont:txtAccount.font].width, 30)];
-    lbl.font=txtAccount.font;
-    lbl.textColor=[UIColor grayColor];
-    lbl.backgroundColor=[UIColor clearColor];
-    lbl.text=@"  ";
-    txtAccount.leftView=lbl;
-    txtAccount.leftViewMode=UITextFieldViewModeAlways;
+//    UILabel *lbl=[[UILabel alloc] initWithFrame:CGRectMake(0, 0, [@"  " sizeWithFont:txtAccount.font].width, 30)];
+//    lbl.font=txtAccount.font;
+//    lbl.textColor=[UIColor grayColor];
+//    lbl.backgroundColor=[UIColor clearColor];
+//    lbl.text=@"  ";
+//    txtAccount.leftView=lbl;
+//    txtAccount.leftViewMode=UITextFieldViewModeAlways;
 }
 
 -(NSArray *)registerNotification
@@ -54,12 +54,12 @@
     return @[UIApplicationDidBecomeActiveNotification,NOTIFICATION_FACEBOOK_LOGIN_SUCCESS,NOTIFICATION_FACEBOOK_LOGIN_FAILED];
 }
 
--(void)receiveNotification1:(NSNotification *)notification
+-(void)receiveNotification:(NSNotification *)notification
 {
     if([notification.name isEqualToString:UIApplicationDidBecomeActiveNotification])
     {
-        if(!btnSkip.hidden)
-            [self removeIndicator];
+//        if(!btnSkip.hidden)
+//            [self removeIndicator];
         
         if ([FBSession activeSession].accessTokenData.accessToken.length>0) {
             getProfile=[[OperationFBGetProfile alloc] initWithAccessToken:[FBSession activeSession].accessTokenData.accessToken];
@@ -101,7 +101,7 @@
         User *user=[User userWithIDUser:[DataManager shareInstance].currentUser.idUser.integerValue];
         user.avatar=[NSString stringWithStringDefault:ope.profile.avatar];
         
-        [imgvAvatar setSmartGuideImageWithURL:[NSURL URLWithString:user.avatar] placeHolderImage:UIIMAGE_LOADING_AVATAR success:nil failure:nil];
+//        [imgvAvatar setSmartGuideImageWithURL:[NSURL URLWithString:user.avatar] placeHolderImage:UIIMAGE_LOADING_AVATAR success:nil failure:nil];
         
         [[DataManager shareInstance] save];
         
@@ -139,28 +139,28 @@
 }
 
 - (void)viewDidUnload {
-    btnSkip = nil;
+//    btnSkip = nil;
     btnFace = nil;
-    imgvAvatar = nil;
-    infoView = nil;
+//    imgvAvatar = nil;
+//    infoView = nil;
     faceView = nil;
-    txtAccount = nil;
-    btnAvatar = nil;
+//    txtAccount = nil;
+//    btnAvatar = nil;
     [super viewDidUnload];
 }
 
 - (IBAction)skipTouchUpInside:(id)sender {
     
-    infoView.alpha=0;
-    infoView.hidden=false;
+//    infoView.alpha=0;
+//    infoView.hidden=false;
     
     [UIView animateWithDuration:0.5f animations:^{
         faceView.alpha=0;
-        infoView.alpha=1;
+//        infoView.alpha=1;
     } completion:^(BOOL finished) {
         faceView.hidden=true;
         
-        [txtAccount becomeFirstResponder];
+//        [txtAccount becomeFirstResponder];
     }];
     //    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_FACEBOOK_UPLOAD_PROFILE_FINISHED object:nil];
 }
@@ -170,25 +170,25 @@
 }
 
 - (IBAction)btnDoneTouchUpInside:(id)sender {
-    if([txtAccount.text stringByRemoveString:@" ",nil].length==0)
-    {
-        [AlertView showAlertOKWithTitle:nil withMessage:@"Vui lòng nhập tên tài khoản" onOK:^{
-            [txtAccount becomeFirstResponder];
-        }];
-        return;
-    }
-    
-    if(![btnAvatar imageForState:UIControlStateNormal])
-    {
-        [AlertView showAlertOKCancelWithTitle:nil withMessage:@"Nhấn \"Huỷ\" để chọn avatar. Nhấn \"Tiếp tục\" với avatar rỗng" onOK:^{
-            [btnAvatar sendActionsForControlEvents:UIControlEventTouchUpInside];
-        } onCancel:^{
-            [self uploadUserInfo];
-        }];
-        return;
-    }
-    
-    [self uploadUserInfo];
+//    if([txtAccount.text stringByRemoveString:@" ",nil].length==0)
+//    {
+//        [AlertView showAlertOKWithTitle:nil withMessage:@"Vui lòng nhập tên tài khoản" onOK:^{
+//            [txtAccount becomeFirstResponder];
+//        }];
+//        return;
+//    }
+//    
+//    if(![btnAvatar imageForState:UIControlStateNormal])
+//    {
+//        [AlertView showAlertOKCancelWithTitle:nil withMessage:@"Nhấn \"Huỷ\" để chọn avatar. Nhấn \"Tiếp tục\" với avatar rỗng" onOK:^{
+//            [btnAvatar sendActionsForControlEvents:UIControlEventTouchUpInside];
+//        } onCancel:^{
+//            [self uploadUserInfo];
+//        }];
+//        return;
+//    }
+//    
+//    [self uploadUserInfo];
 }
 
 -(void) uploadUserInfo
@@ -247,16 +247,16 @@
     
     [self presentModalViewController:imagePicker animated:true];
     
-    [btnAvatar setImage:nil forState:UIControlStateNormal];
+//    [btnAvatar setImage:nil forState:UIControlStateNormal];
 }
 
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
-    [btnAvatar setImage:[info valueForKey:UIImagePickerControllerOriginalImage] forState:UIControlStateNormal];
+//    [btnAvatar setImage:[info valueForKey:UIImagePickerControllerOriginalImage] forState:UIControlStateNormal];
     picker.delegate=nil;
     [picker dismissModalViewControllerAnimated:true];
     return;
-    [btnAvatar setImage:nil forState:UIControlStateNormal];
+//    [btnAvatar setImage:nil forState:UIControlStateNormal];
     
     UIImage *img=[info valueForKey:UIImagePickerControllerOriginalImage];
     imgEditor=[[ImageEditor alloc] initWithUIImage:img frame:self.view.frame];

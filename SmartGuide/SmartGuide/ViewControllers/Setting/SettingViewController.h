@@ -10,8 +10,12 @@
 #import "SDNestedTableViewController.h"
 #import "SwitchSetting.h"
 #import "FeedbackView.h"
+#import "TutorialView.h"
+#import "RootViewController.h"
+#import "FrontViewController.h"
+#import "ShopDetailViewController.h"
 
-@interface SettingViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,SwitchSettingDelegate,FeedbackViewDelegate>
+@interface SettingViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,SwitchSettingDelegate,FeedbackViewDelegate,TutorialViewDelegate>
 {
     NSMutableArray *_settings;
     __weak IBOutlet UIImageView *avatar;
@@ -23,8 +27,11 @@
     __weak IBOutlet UIView *containAvatar;
     __weak IBOutlet UILabel *lblCity;
     __weak IBOutlet UIView *containView;
+    
+    bool _isShowOtherView;
 }
 
 -(void) loadSetting;
+-(bool) isShowOtherView;
 
 @end

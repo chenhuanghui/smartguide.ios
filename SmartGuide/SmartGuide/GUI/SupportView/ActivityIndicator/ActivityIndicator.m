@@ -196,7 +196,9 @@
     }
 
     UILabel *lbl=(UILabel*)[self viewWithTag:3];
-    [lbl setText:[NSString stringWithFormat:@"%@ %i",_indicatorTitle,self.countdown]];
+    
+    if(_indicatorTitle && _indicatorTitle.length>0)
+        [lbl setText:[NSString stringWithFormat:@"%@ %i",_indicatorTitle,self.countdown]];
 }
 
 -(void) loopCountdown
@@ -208,7 +210,9 @@
     }
     
     UILabel *lbl=(UILabel*)[self viewWithTag:3];
-    [lbl setText:[NSString stringWithFormat:@"%@ %i",_indicatorTitle,self.countdown]];
+    
+    if(_indicatorTitle && _indicatorTitle.length>0)
+        [lbl setText:[NSString stringWithFormat:@"%@ %i",_indicatorTitle,self.countdown]];
     
     self.countdown--;
     

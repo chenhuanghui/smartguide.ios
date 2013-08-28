@@ -18,6 +18,7 @@
 #define FLAG_ACTIVE_CODE @"activeCode"
 #define FLAG_USER_CITY @"userCity"
 #define FLAG_FACEBOOK_TOKEN @"facebookToken"
+#define FLAG_IS_SHOWED_TUTORIAL @"isShowedTutorial"
 
 @implementation Flags
 
@@ -141,6 +142,21 @@
 +(void)setUserCity:(int)idCity
 {
     [[NSUserDefaults standardUserDefaults] setInteger:idCity forKey:FLAG_USER_CITY];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
++(bool)isShowedTutorial
+{
+    id obj = [[NSUserDefaults standardUserDefaults] objectForKey:FLAG_IS_SHOWED_TUTORIAL];
+    if(obj)
+        return [obj boolValue];
+    
+    return false;
+}
+
++(void)setIsShowedTutorial:(bool)isShowed
+{
+    [[NSUserDefaults standardUserDefaults] setBool:isShowed forKey:FLAG_IS_SHOWED_TUTORIAL];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 

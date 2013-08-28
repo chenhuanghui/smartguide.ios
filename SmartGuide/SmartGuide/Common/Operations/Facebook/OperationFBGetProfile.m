@@ -59,6 +59,7 @@
     
     dict=nil;
     
+    [DataManager shareInstance].currentUser.name=profile.name;
     [DataManager shareInstance].currentUser.avatar=profile.avatar;
     [[DataManager shareInstance] save];
     

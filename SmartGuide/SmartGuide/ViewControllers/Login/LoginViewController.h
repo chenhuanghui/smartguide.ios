@@ -23,6 +23,11 @@
     
     bool _isActived;
     NSString *_phone;
+    
+    NSString *_inputPhone;
+    NSTimer *_timerSMS;
+    __weak IBOutlet UILabel *lblCountdown;
+    int _time;
 }
 
 @end

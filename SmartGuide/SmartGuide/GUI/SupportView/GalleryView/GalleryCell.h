@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface GalleryCell : UITableViewCell
+@interface GalleryCell : UIView
 {
     __weak IBOutlet UIImageView *imgv;
     
@@ -18,6 +18,7 @@
 -(void) setIMG:(UIImage*) image;
 -(UIImageView*) imgv;
 
++(CGSize) size;
 +(NSString *)reuseIdentifier;
 
 @end

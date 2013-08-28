@@ -44,7 +44,7 @@
 							<object class="IBUITableView" id="953201480">
 								<reference key="NSNextResponder" ref="420475543"/>
 								<int key="NSvFlags">274</int>
-								<string key="NSFrame">{{10, 0}, {275, 181}}</string>
+								<string key="NSFrame">{{10, 0}, {279, 181}}</string>
 								<reference key="NSSuperview" ref="420475543"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="166665069"/>
@@ -133,7 +133,7 @@
 										<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 									</object>
 								</array>
-								<string key="NSFrame">{{0, 181}, {285, 47}}</string>
+								<string key="NSFrame">{{0, 181}, {287, 47}}</string>
 								<reference key="NSSuperview" ref="420475543"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="188707929"/>
@@ -145,7 +145,7 @@
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 							</object>
 						</array>
-						<string key="NSFrameSize">{285, 228}</string>
+						<string key="NSFrameSize">{287, 228}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="953201480"/>
@@ -157,7 +157,7 @@
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 					</object>
 				</array>
-				<string key="NSFrameSize">{285, 228}</string>
+				<string key="NSFrameSize">{287, 228}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="420475543"/>

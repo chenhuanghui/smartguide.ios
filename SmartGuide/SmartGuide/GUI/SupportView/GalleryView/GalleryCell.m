@@ -13,6 +13,15 @@
 
 @implementation GalleryCell
 
+- (id)init
+{
+    self = [[[NSBundle mainBundle] loadNibNamed:@"GalleryCell" owner:nil options:nil] objectAtIndex:0];
+    if (self) {
+        
+    }
+    return self;
+}
+
 -(void) setImageURL:(NSURL*) url
 {
     imgv.image=nil;
@@ -29,10 +38,7 @@
     
     if(![image isKindOfClass:[UIImage class]])
         return;
-    
-    CGSize size=[Utility scaleProportionallyFromSize:image.size toSize:CGSizeMake(self.frame.size.height, self.frame.size.width)];
-    imgv.frame=CGRectMake(0, 0, size.width, size.height);
-    imgv.center=CGPointMake(self.frame.size.height/2, self.frame.size.width/2);
+
     imgv.image=image;
 }
 
@@ -41,18 +47,14 @@
     return @"GalleryCell";
 }
 
--(id)awakeAfterUsingCoder:(NSCoder *)aDecoder
-{
-    self=[super awakeAfterUsingCoder:aDecoder];
-    
-    self.transform=CGAffineTransformMakeRotation(DEGREES_TO_RADIANS(45*2));
-    
-    return self;
-}
-
 -(UIImageView *)imgv
 {
     return imgv;
+}
+
++(CGSize)size
+{
+    return CGSizeMake(320, 460);
 }
 
 @end

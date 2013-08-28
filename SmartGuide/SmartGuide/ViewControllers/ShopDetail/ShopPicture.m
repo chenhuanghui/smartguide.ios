@@ -21,132 +21,135 @@
     
     [self setShop:shop];
     
-    templateShopGallery=[[TemplateShopGallery alloc] initWithTableView:tableShopGallery withDelegate:self];
-    templateUserGallery=[[TemplateUserGallery alloc] initWithTableView:tableUserGallery withDelegate:self];
+    gridShop.itemSpacing=8;
+    gridShop.centerGrid=false;
+    gridShop.style=GMGridViewStylePush;
+    gridShop.layoutStrategy=[GMGridViewLayoutStrategyFactory strategyFromType:GMGridViewLayoutHorizontal];
+    gridShop.layer.masksToBounds=true;
+    gridShop.minEdgeInsets=UIEdgeInsetsMake(0, 5, 0, 5);
     
-    templateShopGallery.alignAutoCell=2;
-    templateUserGallery.alignAutoCell=2;
+    gridUser.itemSpacing=8;
+    gridUser.centerGrid=false;
+    gridUser.style=GMGridViewStylePush;
+    gridUser.layoutStrategy=[GMGridViewLayoutStrategyFactory strategyFromType:GMGridViewLayoutHorizontal];
+    gridUser.layer.masksToBounds=true;
+    gridUser.minEdgeInsets=UIEdgeInsetsMake(0, 5, 0, 5);
     
-    templateShopGallery.isHoriTable=true;
-    templateUserGallery.isHoriTable=true;
-    
-    [tableUserGallery registerNib:[UINib nibWithNibName:[ShopPictureCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[ShopPictureCell reuseIdentifier]];
-    [tableShopGallery registerNib:[UINib nibWithNibName:[ShopPictureCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[ShopPictureCell reuseIdentifier]];
-    
-    CGRect rect=tableShopGallery.frame;
-    tableShopGallery.transform=CGAffineTransformMakeRotation(DEGREES_TO_RADIANS(45*6));
-    tableShopGallery.frame=rect;
-    
-    rect=tableUserGallery.frame;
-    tableUserGallery.transform=CGAffineTransformMakeRotation(DEGREES_TO_RADIANS(45*6));
-    tableUserGallery.frame=rect;
+    templateShop=[[GridViewTemplate alloc] initWithGridView:gridShop delegate:self];
+    templateUser=[[GridViewTemplate alloc] initWithGridView:gridUser delegate:self];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userPosed:) name:NOTIFICATION_USER_POST_PICTURE object:nil];
     
     return self;
 }
 
--(bool)tableTemplateAllowAutoScrollFullCell:(TableTemplate *)tableTemplate
+-(NSInteger)numberOfItemsInGMGridView:(GMGridView *)gridView
 {
-    return true;
+    return -1;
+}
+
+-(bool)gridViewTemplateAllowLoadMore:(GMGridView *)gridView
+{
+    return gridView==gridUser;
+}
+
+-(void)gridViewTemplateLoadNext:(GMGridView *)gridView needWait:(bool *)isWait
+{
+    *isWait=true;
+    
+    [self loadUserGalleryAtPage:templateUser.page+1];
+}
+
+-(GMGridViewCell *)GMGridView:(GMGridView *)gridView cellForItemAtIndex:(NSInteger)index
+{
+    if(gridView==gridUser)
+    {
+        GMGridViewCell *cell=[gridView dequeueReusableCellWithIdentifier:[ShopPictureCell reuseIdentifier]];
+        
+        if(!cell)
+        {
+            cell=[[GMGridViewCell alloc] init];
+            cell.reuseIdentifier=[ShopPictureCell reuseIdentifier];
+            cell.contentView=[[ShopPictureCell alloc] init];
+        }
+        
+        ShopPictureCell *picture=(ShopPictureCell*)cell.contentView;
+        ShopUserGallery *ug=[templateUser.datasource objectAtIndex:index];
+        
+        if(ug.imagePosed)
+            [picture setImage:ug.imagePosed duration:0.5f];
+        else
+            [picture setURLString:ug.image duration:0.5f];
+        
+        return cell;
+    }
+    else if(gridView==gridShop)
+    {
+        GMGridViewCell *cell=[gridView dequeueReusableCellWithIdentifier:[ShopPictureCell reuseIdentifier]];
+        
+        if(!cell)
+        {
+            cell=[[GMGridViewCell alloc] init];
+            cell.reuseIdentifier=[ShopPictureCell reuseIdentifier];
+            cell.contentView=[[ShopPictureCell alloc] init];
+        }
+        
+        ShopPictureCell *picture=(ShopPictureCell*)cell.contentView;
+        ShopGallery *sg=[templateShop.datasource objectAtIndex:index];
+
+        [picture setURLString:sg.image duration:0.5f];
+        
+        return cell;
+    }
+    else
+    {
+        GMGridViewCell *cell=[galleryView GMGridView:gridView cellForItemAtIndex:index];
+        GalleryCell *gallery=(GalleryCell*)cell.contentView;
+        
+        if(!_isUserViewShopGallery)
+        {
+            ShopUserGallery *ug=[templateUser.datasource objectAtIndex:index];
+            
+            if(ug.imagePosed)
+                [gallery setIMG:ug.imagePosed];
+            else
+                [gallery setImageURL:[NSURL URLWithString:ug.image]];
+        }
+        else
+        {
+            ShopGallery *sg=[templateShop.datasource objectAtIndex:index];
+            
+            [gallery setImageURL:[NSURL URLWithString:sg.image]];
+        }
+        
+        return cell;
+    }
 }
 
 -(void) userPosed:(NSNotification*) notification
 {
     if(_isTemporaryUserGallery)
     {
-        templateUserGallery.datasource=[NSMutableArray array];
+        templateUser.datasource=[[NSMutableArray alloc] init];
         _isTemporaryUserGallery=false;
     }
     
-    if(templateUserGallery.datasource.count>0)
+    if(templateUser.datasource.count>0)
     {
-        [templateUserGallery.datasource insertObject:notification.object atIndex:0];
+        [templateUser.datasource insertObject:notification.object atIndex:0];
     }
     else
-        [templateUserGallery.datasource addObject:notification.object];
+        [templateUser.datasource addObject:notification.object];
     
-    [tableUserGallery reloadData];
+    [gridUser reloadData];
 }
 
--(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+-(CGSize)GMGridView:(GMGridView *)gridView sizeForItemsInInterfaceOrientation:(UIInterfaceOrientation)orientation
 {
-    return 1;
-}
-
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    if(tableView==tableShopGallery)
-        return templateShopGallery.datasource.count;
-    else if(tableView==tableUserGallery)
-        return templateUserGallery.datasource.count;
+    if(gridView==gridUser || gridView==gridShop)
+        return [ShopPictureCell size];
     
-    if(_isUserViewShopGallery)
-        return templateShopGallery.datasource.count;
-    else
-        return templateUserGallery.datasource.count;
-}
-
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if(tableView==tableShopGallery)
-    {
-        ShopPictureCell *cell=[tableView dequeueReusableCellWithIdentifier:[ShopPictureCell reuseIdentifier]];
-        ShopGallery *sg=[templateShopGallery.datasource objectAtIndex:indexPath.row];
-        [cell setURLString:sg.image duration:0.5f];
-        
-        return cell;
-    }
-    else if(tableView==tableUserGallery)
-    {
-        ShopPictureCell *cell=[tableView dequeueReusableCellWithIdentifier:[ShopPictureCell reuseIdentifier]];
-        ShopUserGallery *sug=[templateUserGallery.datasource objectAtIndex:indexPath.row];
-        
-        if(sug.imagePosed)
-            [cell setImage:sug.imagePosed duration:0.5f];
-        else
-            [cell setURLString:sug.image duration:0.5f];
-        
-        return cell;
-    }
-    
-    
-    GalleryCell *cell=(GalleryCell*)[galleryView tableView:tableView cellForRowAtIndexPath:indexPath];
-    
-    if(_isUserViewShopGallery)
-    {
-        ShopGallery *sg=[templateShopGallery.datasource objectAtIndex:indexPath.row];
-        [cell setImageURL:[NSURL URLWithString:sg.image]];
-    }
-    else
-    {
-        ShopUserGallery *sug=[templateUserGallery.datasource objectAtIndex:indexPath.row];
-        if(sug.imagePosed)
-            [cell setIMG:sug.imagePosed];
-        else
-            [cell setImageURL:[NSURL URLWithString:sug.image]];
-    }
-    
-    return cell;
-}
-
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if(tableView == tableUserGallery || tableView == tableShopGallery)
-        return [ShopPictureCell size].height+8;
-    
-    return [galleryView tableView:tableView heightForRowAtIndexPath:indexPath];
-}
-
--(bool)tableTemplateAllowLoadMore:(TableTemplate *)tableTemplate
-{
-    return [tableTemplate isKindOfClass:[TemplateUserGallery class]];
-}
-
--(void)tableTemplateLoadNext:(TableTemplate *)tableTemplate wait:(bool *)isWait
-{
-    [self loadUserGalleryAtPage:tableTemplate.page+1];
-    *isWait=true;
+    return [galleryView GMGridView:gridShop sizeForItemsInInterfaceOrientation:orientation];
 }
 
 -(void)setShop:(Shop *)shop
@@ -158,45 +161,47 @@
 {
     [super willMoveToSuperview:newSuperview];
     
+    if(!newSuperview)
+        return;
+    
     if(isProcessedData)
     {
-        [tableUserGallery reloadData];
-        [tableShopGallery reloadData];
+        [gridUser reloadData];
+        [gridShop reloadData];
     }
-}
-
--(UITableView *)tableShopGallery
-{
-    return tableShopGallery;
-}
-
--(UITableView *)tableUserGallery
-{
-    return tableUserGallery;
+    else
+    {
+        [self showLoadingWithTitle:nil];
+    }
 }
 
 -(void)processFirstDataBackground:(NSMutableArray *)firstData
 {
-    templateUserGallery.page=0;
+    templateUser.page=0;
     
-    templateShopGallery.datasource=[[NSMutableArray alloc] initWithArray:[firstData objectAtIndex:0]];
-    templateUserGallery.datasource=[[NSMutableArray alloc] initWithArray:[firstData objectAtIndex:1]];
+    templateShop.datasource=[[NSMutableArray alloc] initWithArray:[firstData objectAtIndex:0]];
+    templateUser.datasource=[[NSMutableArray alloc] initWithArray:[firstData objectAtIndex:1]];
     
     _isTemporaryUserGallery=false;
-    if(templateUserGallery.datasource.count==0)
+    if(templateUser.datasource.count==0)
     {
-        [templateUserGallery.datasource addObjectsFromArray:@[[ShopUserGallery temporary],[ShopUserGallery temporary],[ShopUserGallery temporary]]];
+        [templateUser.datasource addObjectsFromArray:@[[ShopUserGallery temporary],[ShopUserGallery temporary],[ShopUserGallery temporary]]];
         _isTemporaryUserGallery=true;
     }
     
     _isTemporaryShopGallery=false;
-    if(templateShopGallery)
+    if(templateShop)
     {
-        [templateShopGallery.datasource addObjectsFromArray:@[[ShopGallery temporary],[ShopGallery temporary],[ShopGallery temporary]]];
+        [templateShop.datasource addObjectsFromArray:@[[ShopGallery temporary],[ShopGallery temporary],[ShopGallery temporary]]];
         _isTemporaryShopGallery=true;
     }
     
-    [templateUserGallery setAllowLoadMore:templateUserGallery.datasource.count==10];
+    templateUser.isAllowLoadMore=templateUser.datasource.count==10;
+    
+    [gridShop reloadData];
+    [gridUser reloadData];
+    
+    [self removeLoading];
     
     isProcessedData=true;
 }
@@ -214,16 +219,12 @@
 -(void)reset
 {
     _shop=nil;
+
+    [templateUser reset];
+    [templateShop reset];
     
-    templateUserGallery.page=0;
-    templateShopGallery.datasource=[NSMutableArray array];
-    templateUserGallery.datasource=[NSMutableArray array];
-    
-    [tableShopGallery reloadData];
-    [tableUserGallery reloadData];
-    
-    [tableShopGallery setContentOffset:CGPointZero];
-    [tableUserGallery setContentOffset:CGPointZero];
+    [gridShop setContentOffset:CGPointZero];
+    [gridUser setContentOffset:CGPointZero];
     
     if(_operationUserGallery)
     {
@@ -234,9 +235,6 @@
 
 -(void)cancel
 {
-    //    if(_operationShopGallery)
-    //        [_operationShopGallery cancel];
-    
     if(_operationUserGallery)
     {
         [_operationUserGallery cancel];
@@ -250,57 +248,33 @@
     
     if([operation isKindOfClass:[ASIOperationShopUserGallery class]])
     {
-        [tableUserGallery removeLoading];
-        
         ASIOperationShopUserGallery *operationUG=(ASIOperationShopUserGallery*)operation;
         
         if(operationUG.userGallerys.count>0)
         {
-            templateUserGallery.page++;
-            
-            [templateUserGallery.datasource addObjectsFromArray:operationUG.userGallerys];
+            templateUser.page++;
+            [templateUser.datasource addObjectsFromArray:operationUG.userGallerys];
         }
         
-        [templateUserGallery setAllowLoadMore:operationUG.userGallerys.count==10];
-        [templateUserGallery endLoadNext];
-    }
-    if([operation isKindOfClass:[ASIOperationShopGallery class]])
-    {
-        [tableShopGallery removeLoading];
-        
-        ASIOperationShopGallery *operationSG=(ASIOperationShopGallery*)operation;
-        
-        if(operationSG.shopGalleries.count>0)
-        {
-            [templateShopGallery.datasource addObjectsFromArray:operationSG.shopGalleries];
-        }
-        
-        [templateShopGallery endLoadNext];
-        
-        //        if(galleryView)
-        //        {
-        //            [galleryView.tablePicture reloadData];
-        //        }
+        templateUser.isAllowLoadMore=operationUG.userGallerys.count==10;
+        [templateUser endLoadNext];
     }
 }
 
 -(void)ASIOperaionPostFailed:(ASIOperationPost *)operation
 {
     isProcessedData=true;
-    
-    if([operation isKindOfClass:[ASIOperationShopGallery class]])
-        [tableShopGallery removeLoading];
-    else
-        [tableUserGallery removeLoading];
 }
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+-(void)GMGridView:(GMGridView *)gridView didTapOnItemAtIndex:(NSInteger)position
 {
-    if(tableView==tableUserGallery)
+    GMGridViewCell *cell=[gridView cellForItemAtIndex:position];
+    
+    if(gridView==gridUser)
     {
-        ShopPictureCell *cell=(ShopPictureCell*)[tableView cellForRowAtIndexPath:indexPath];
+        ShopPictureCell *picture=(ShopPictureCell*)cell.contentView;
         
-        if(![cell userImage])
+        if(!picture.userImage)
             return;
         
         _isUserViewShopGallery=false;
@@ -308,26 +282,27 @@
         _rootView.backgroundColor=[UIColor clearColor];
         
         galleryView=[[GalleryView alloc] init];
+        galleryView.selectedIndex=position;
         galleryView.delegate=self;
-        [templateUserGallery setTableView:galleryView.table];
+        
+        templateUser.gView=galleryView.gridView;
+        
         [_rootView addSubview:galleryView];
         
-        CGRect rect=[tableView rectForRowAtIndexPath:indexPath];
-        rect.size=[ShopPictureCell size];
-        rect.origin=[tableView convertPoint:rect.origin fromView:cell];
-        rect.origin=[self convertPoint:rect.origin fromView:tableView];
-        rect.origin=[self convertPoint:rect.origin toView:galleryView];
-        //        rect.origin.x+=18;
-        //rect.origin=[galleryView convertPoint:rect.origin toView:galleryView]; uncomment để lấy vị trí y
-        rect.origin.y=344-20;
-        galleryView.currentIndexPath=[indexPath copy];
-        [galleryView animationImage:cell.userImage startRect:rect];
-    }
-    else if(tableView==tableShopGallery)
-    {
-        ShopPictureCell *cell=(ShopPictureCell*)[tableView cellForRowAtIndexPath:indexPath];
+        CGRect rect=cell.frame;
+        rect.origin.x+=2;
+        rect.origin.y+=2;
         
-        if(![cell userImage])
+        rect=[gridView convertRect:rect toView:self];
+        rect=[self convertRect:rect toView:galleryView];
+        
+        [galleryView animationImage:picture.userImage startRect:rect];
+    }
+    else if(gridView==gridShop)
+    {
+        ShopPictureCell *picture=(ShopPictureCell*)cell.contentView;
+        
+        if(!picture.userImage)
             return;
         
         _isUserViewShopGallery=true;
@@ -335,57 +310,60 @@
         _rootView.backgroundColor=[UIColor clearColor];
         
         galleryView=[[GalleryView alloc] init];
+        galleryView.selectedIndex=position;
         galleryView.delegate=self;
-        [templateShopGallery setTableView:galleryView.table];
+        
+        templateShop.gView=galleryView.gridView;
+        
         [_rootView addSubview:galleryView];
         
-        CGRect rect=[tableView rectForRowAtIndexPath:indexPath];
-        rect.size=[ShopPictureCell size];
-        rect.origin=[tableView convertPoint:rect.origin fromView:cell];
-        rect.origin=[self convertPoint:rect.origin fromView:tableView];
-        rect.origin=[self convertPoint:rect.origin toView:galleryView];
-        //        rect.origin.x+=18;
-        //rect.origin=[galleryView convertPoint:rect.origin toView:galleryView]; uncomment để lấy vị trí y
-        rect.origin.y=232-20;
-        galleryView.currentIndexPath=[indexPath copy];
-        [galleryView animationImage:cell.userImage startRect:rect];
+        CGRect rect=cell.frame;
+        rect.origin.x+=2;
+        rect.origin.y+=2;
+        
+        rect=[gridView convertRect:rect toView:self];
+        rect=[self convertRect:rect toView:galleryView];
+        
+        [galleryView animationImage:picture.userImage startRect:rect];
     }
 }
 
 -(void)galleryViewBack:(GalleryView *)_galleryView
 {
+    templateUser.gView=gridUser;
+    templateShop.gView=gridShop;
+    
+    [gridUser scrollToObjectAtIndex:templateUser.selectedIndex atScrollPosition:GMGridViewScrollPositionNone animated:false];
+    [gridShop scrollToObjectAtIndex:templateShop.selectedIndex atScrollPosition:GMGridViewScrollPositionNone animated:false];
+    
     [galleryView removeFromSuperview];
     [[RootViewController shareInstance] removeRootView:_rootView];
     _rootView=nil;
     galleryView=nil;
-    
-    if(_isUserViewShopGallery)
-        [templateShopGallery setTableView:tableShopGallery];
-    else
-        [templateUserGallery setTableView:tableUserGallery];
 }
 
--(CGRect)galleryViewFrameForAnimationHide:(GalleryView *)_galleryView indexPath:(NSIndexPath *)indexPath
+-(CGRect)galleryViewFrameForAnimationHide:(GalleryView *)_galleryView index:(int)index
 {
     if(_isUserViewShopGallery)
-        return [self scrollTableShopGalleryToIndexPathAndGiveBackRect:_galleryView indexPath:indexPath];
-    else
-        return [self scrollTableUserGalleryToIndexPathAndGiveBackRect:_galleryView indexPath:indexPath];
-}
-
--(NSString *)galleryViewDescriptionImage:(int)index
-{
-    if(!_isUserViewShopGallery)
     {
-        if(templateUserGallery.datasource.count<index)
-        {
-            ShopUserGallery *ug=[templateUserGallery.datasource objectAtIndex:index];
-            
-            return [NSString stringWithStringDefault:ug.desc];
-        }
+        templateShop.selectedIndex=index;
+        
+        CGRect rect=[gridShop cellForItemAtIndex:index].frame;
+        rect=[gridShop convertRect:rect toView:self];
+        rect=[self convertRect:rect toView:galleryView];
+        
+        return rect;
     }
-    
-    return @"";
+    else
+    {
+        templateUser.selectedIndex=index;
+        
+        CGRect rect=[gridUser cellForItemAtIndex:index].frame;
+        rect=[gridUser convertRect:rect toView:self];
+        rect=[self convertRect:rect toView:galleryView];
+        
+        return rect;
+    }
 }
 
 -(bool)galleryViewAllowDescription:(GalleryView *)galleryView
@@ -400,51 +378,5 @@
         [galleryView scrollViewDidEndDecelerating:scrollView];
     }
 }
-
--(CGRect)scrollTableShopGalleryToIndexPathAndGiveBackRect:(GalleryView*) gl indexPath:(NSIndexPath *)indexPath
-{
-    [templateShopGallery setTableView:tableShopGallery];
-    
-    CGRect rect=[tableShopGallery rectForRowAtIndexPath:indexPath];
-    rect.origin.x+=2;
-    [tableShopGallery scrollRectToVisible:rect animated:true];
-    
-    rect=[tableShopGallery rectForRowAtIndexPath:indexPath];
-    
-    rect.size=[ShopPictureCell size];
-    rect.origin=[tableShopGallery convertPoint:rect.origin fromView:[tableShopGallery cellForRowAtIndexPath:indexPath]];
-    rect.origin=[self convertPoint:rect.origin fromView:tableShopGallery];
-    rect.origin=[self convertPoint:rect.origin toView:gl];
-    rect.origin.y=232-20;//lấy từ lúc bắt đầu animation
-    
-    return rect;
-}
-
--(CGRect)scrollTableUserGalleryToIndexPathAndGiveBackRect:(GalleryView*) gl indexPath:(NSIndexPath *)indexPath
-{
-    [templateUserGallery setTableView:tableUserGallery];
-    
-    CGRect rect=[tableUserGallery rectForRowAtIndexPath:indexPath];
-    rect.origin.x+=2;
-    [tableUserGallery scrollRectToVisible:rect animated:true];
-    
-    rect=[tableUserGallery rectForRowAtIndexPath:indexPath];
-    
-    rect.size=[ShopPictureCell size];
-    rect.origin=[tableUserGallery convertPoint:rect.origin fromView:[tableUserGallery cellForRowAtIndexPath:indexPath]];
-    rect.origin=[self convertPoint:rect.origin fromView:tableUserGallery];
-    rect.origin=[self convertPoint:rect.origin toView:gl];
-    rect.origin.y=344-20;//lấy từ lúc bắt đầu animation
-    
-    return rect;
-}
-
-@end
-
-@implementation TemplateUserGallery
-
-@end
-
-@implementation TemplateShopGallery
 
 @end

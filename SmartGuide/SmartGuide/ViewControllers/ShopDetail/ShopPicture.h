@@ -11,21 +11,21 @@
 #import "ASIOperationShopGallery.h"
 #import "ASIOperationShopUserGallery.h"
 #import "ShopDetailViewController.h"
-#import "TableTemplate.h"
+#import "GridViewTemplate.h"
 #import "GalleryView.h"
 
-@class ShopUserGalleryView,ShopGalleryView,TemplateShopGallery,TemplateUserGallery;
+@class ShopUserGalleryView,ShopGalleryView;
 
-@interface ShopPicture : UIView<ShopViewHandle,ASIOperationPostDelegate,TableTemplateDelegate,UITableViewDataSource,UITableViewDelegate,GalleryViewDelegate>
+@interface ShopPicture : UIView<ShopViewHandle,ASIOperationPostDelegate,GalleryViewDelegate,GridViewTemplate>
 {
     Shop *_shop;
-    __weak IBOutlet UITableView *tableShopGallery;
-    __weak IBOutlet UITableView *tableUserGallery;
-    
+    __weak IBOutlet GMGridView *gridShop;
+    __weak IBOutlet GMGridView *gridUser;
+    GridViewTemplate *templateShop;
+    GridViewTemplate *templateUser;
+
 //    ASIOperationShopGallery *_operationShopGallery;
     ASIOperationShopUserGallery *_operationUserGallery;
-    TemplateShopGallery *templateShopGallery;
-    TemplateUserGallery *templateUserGallery;
     
     bool _isTemporaryUserGallery;
     bool _isTemporaryShopGallery;
@@ -40,14 +40,5 @@
 
 -(ShopPicture*) initWithShop:(Shop*) shop;
 -(void)setShop:(Shop *)shop;
-
-@end
-
-@interface TemplateShopGallery : TableTemplate
-
-@end
-
-@interface TemplateUserGallery : TableTemplate
-
 
 @end

@@ -9,6 +9,7 @@
 #import "GalleryView.h"
 #import "Utility.h"
 #import "Constant.h"
+#import "GMGridViewLayoutStrategies.h"
 
 @interface GalleryView()
 {
@@ -21,7 +22,7 @@
 
 @implementation GalleryView
 @synthesize delegate,_tap;
-@synthesize currentIndexPath;
+@synthesize selectedIndex;
 
 - (id)init
 {
@@ -30,11 +31,12 @@
     bg.backgroundColor=[UIColor blackColor];;
     blurr.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"blur_gallery.png"]];
     
-    CGRect rect=table.frame;
-    table.transform=CGAffineTransformMakeRotation(DEGREES_TO_RADIANS(45*6));
-    table.frame=rect;
+    grid.itemSpacing=0;
+    grid.centerGrid=false;
+    grid.minEdgeInsets=UIEdgeInsetsMake(0, 0, 0, 0);
+    grid.style=GMGridViewStylePush;
+    grid.layoutStrategy=[GMGridViewLayoutStrategyFactory strategyFromType:GMGridViewLayoutHorizontalPagedLTR];
     
-    [table registerNib:[UINib nibWithNibName:[GalleryCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[GalleryCell reuseIdentifier]];
     
     self._tap=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)];
     _tap.numberOfTapsRequired=1;
@@ -51,6 +53,11 @@
         return false;
     
     return true;
+}
+
+-(NSInteger)numberOfItemsInGMGridView:(GMGridView *)gridView
+{
+    return 0;
 }
 
 -(void) tap:(UITapGestureRecognizer*) tap
@@ -114,16 +121,23 @@
     }];
 }
 
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+-(GMGridViewCell *)GMGridView:(GMGridView *)gridView cellForItemAtIndex:(NSInteger)index
 {
-    GalleryCell *cell=[tableView dequeueReusableCellWithIdentifier:[GalleryCell reuseIdentifier]];
+    GMGridViewCell *cell=[gridView dequeueReusableCellWithIdentifier:[GalleryCell reuseIdentifier]];
+    
+    if(!cell)
+    {
+        cell=[[GMGridViewCell alloc] init];
+        cell.reuseIdentifier=[GalleryCell reuseIdentifier];
+        cell.contentView=[[GalleryCell alloc] init];
+    }
     
     return cell;
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+-(CGSize)GMGridView:(GMGridView *)gridView sizeForItemsInInterfaceOrientation:(UIInterfaceOrientation)orientation
 {
-    return 320;
+    return [GalleryCell size];
 }
 
 -(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
@@ -131,52 +145,44 @@
     [self refreshDesc];
 }
 
+-(void)GMGridView:(GMGridView *)gridView didTapOnItemAtIndex:(NSInteger)position
+{
+    
+}
+
 -(void) refreshDesc
 {
     if(_isAllowDescription)
         if(delegate && [delegate respondsToSelector:@selector(galleryViewDescriptionImage:)])
         {
-            txt.text=[delegate galleryViewDescriptionImage:table.currentPageForHoriTable];
+            //            txt.text=[delegate galleryViewDescriptionImage:table.currentPageForHoriTable];
         }
 }
 
 - (IBAction)btnTouchUpInside:(id)sender {
+    int index=[grid.layoutStrategy itemPositionFromLocation:grid.contentOffset];
+    GMGridViewCell *cell=[grid cellForItemAtIndex:index];
+    GalleryCell *gallery=(GalleryCell*)cell.contentView;
     
-    if([table indexPathsForVisibleRows].count>0)
-    {
-        NSIndexPath *indexPath=[table.indexPathsForVisibleRows objectAtIndex:0];
-        UIImageView *imgvCell=[((GalleryCell*)[table cellForRowAtIndexPath:indexPath]) imgv];
-        UIImageView *imgv=[[UIImageView alloc] initWithImage:imgvCell.image];
-        imgv.frame=imgvCell.frame;
-        
-        [self addSubview:imgv];
-        table.hidden=true;
-        
-        if(imgv.image)
-        {
-            [UIView animateWithDuration:DURATION_SHOW_USER_GALLERY_IMAGE animations:^{
-                CGRect rect=[delegate galleryViewFrameForAnimationHide:self indexPath:indexPath];
-                imgv.frame=rect;
-                
-                txt.alpha=0.3f;
-                btn.alpha=0.3f;
-                blurr.alpha=0.3f;
-                bg.alpha=0;
-            } completion:^(BOOL finished) {
-                [imgv removeFromSuperview];
-                [delegate galleryViewBack:self];
-            }];
-        }
-        else
-            [delegate galleryViewBack:self];
-    }
-    else
+    UIImageView *imgv=[[UIImageView alloc] initWithImage:gallery.imgv.image];
+    imgv.contentMode=UIViewContentModeScaleAspectFit;
+    imgv.frame=CGRectMake(0, 0, grid.frame.size.width, grid.frame.size.height);
+    
+    [self addSubview:imgv];
+    
+    grid.hidden=true;
+    
+    [UIView animateWithDuration:DURATION_SHOW_USER_GALLERY_IMAGE animations:^{
+        CGRect rect=[delegate galleryViewFrameForAnimationHide:self index:index];
+        imgv.frame=rect;
+        txt.alpha=0.3f;
+        btn.alpha=0.3f;
+        blurr.alpha=0.3f;
+        bg.alpha=0;
+    } completion:^(BOOL finished) {
+        [imgv removeFromSuperview];
         [delegate galleryViewBack:self];
-}
-
--(UITableView *)table
-{
-    return table;
+    }];
 }
 
 -(void)willMoveToSuperview:(UIView *)newSuperview
@@ -184,24 +190,28 @@
     [super willMoveToSuperview:newSuperview];
     
     
-    if(delegate)
+    if(newSuperview)
     {
-        _isAllowDescription=[delegate galleryViewAllowDescription:self];
-        
-        if(!_isAllowDescription)
+        if(delegate)
         {
-            [blurr removeFromSuperview];
-            blurr=nil;
+            _isAllowDescription=[delegate galleryViewAllowDescription:self];
+            
+            if(!_isAllowDescription)
+            {
+                [blurr removeFromSuperview];
+                blurr=nil;
+            }
+            
         }
         
+        [self refreshDesc];
     }
-    
-    [self refreshDesc];
 }
 
 -(void)animationImage:(UIImage *)image startRect:(CGRect)rect
 {
-    table.hidden=true;
+    grid.hidden=true;
+    
     txt.alpha=0.f;
     btn.alpha=0.f;
     blurr.alpha=0.f;
@@ -212,9 +222,10 @@
     imgv.backgroundColor=[UIColor clearColor];
     imgv.contentMode=UIViewContentModeScaleAspectFit;
     
+    [self insertSubview:imgv aboveSubview:bg];
+    
     [UIView animateWithDuration:DURATION_SHOW_USER_GALLERY_IMAGE animations:^{
-//        CGSize size=[Utility scaleProportionallyFromSize:image.size toSize:[UIScreen mainScreen].bounds.size];
-        CGSize size=self.frame.size;
+        CGSize size=grid.frame.size;
         imgv.frame=CGRectMake(0, 0, size.width, size.height);
         
         txt.alpha=1;
@@ -222,16 +233,18 @@
         bg.alpha=1;
         blurr.alpha=1;
     } completion:^(BOOL finished) {
-        [table reloadData];
-        table.hidden=false;
+        [grid reloadData];
+        [grid scrollToObjectAtIndex:selectedIndex atScrollPosition:GMGridViewScrollPositionNone animated:false];
+        grid.hidden=false;
         
-        if(currentIndexPath)
-            [table scrollToRowAtIndexPath:currentIndexPath atScrollPosition:UITableViewScrollPositionNone animated:false];
-        
+        imgv.image=nil;
         [imgv removeFromSuperview];
     }];
-    
-    [self insertSubview:imgv aboveSubview:bg];
+}
+
+-(GMGridView *)gridView
+{
+    return grid;
 }
 
 @end
