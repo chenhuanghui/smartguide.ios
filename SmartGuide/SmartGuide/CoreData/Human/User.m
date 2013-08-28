@@ -1,6 +1,7 @@
 #import "User.h"
 #import "Filter.h"
 #import "Constant.h"
+#import "Flags.h"
 
 @implementation User
 @synthesize location,idCity,city;
@@ -16,7 +17,12 @@
 
 +(User *)userWithIDUser:(int)idUser
 {
-    return [User queryUserObject:[NSPredicate predicateWithFormat:@"%K == %i",User_IdUser,idUser]];
+    NSArray *arr=[User allObjects];
+    
+    if(arr.count>0)
+        return [arr objectAtIndex:0];
+    
+    return nil;
 }
 
 -(NSString *)title
@@ -46,6 +52,16 @@
     }
     
     return SORT_DISTANCE;
+}
+
+-(NSNumber *)idUser
+{
+    return @([Flags lastIDUser]);
+}
+
+-(void)setIdUser:(NSNumber *)num
+{
+    [Flags setLastIDUser:num.integerValue];
 }
 
 @end

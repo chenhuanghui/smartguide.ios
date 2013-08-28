@@ -48,7 +48,7 @@
         if(!user)
         {
             user=[User insert];
-            user.idUser=@(idUser);
+            [user setIdUser:@(idUser)];
         }
 
         user.isConnectedFacebook=@(isConnectedFB);

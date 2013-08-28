@@ -14,9 +14,7 @@
     </entity>
     <entity name="Feedback" representedClassName="Feedback" syncable="YES">
         <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="created_at" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="idFeedback" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="idUser" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="user" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="Filter" representedClassName="Filter" syncable="YES">
         <attribute name="distance" optional="YES" attributeType="Boolean" syncable="YES"/>
@@ -126,7 +124,6 @@
     </entity>
     <entity name="User" representedClassName="User" syncable="YES">
         <attribute name="avatar" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="idUser" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="isConnectedFacebook" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="filter" optional="YES" minCount="1" maxCount="1" deletionRule="Cascade" destinationEntity="Filter" inverseName="user" inverseEntity="Filter" syncable="YES"/>
@@ -138,7 +135,7 @@
     <elements>
         <element name="Ads" positionX="160" positionY="192" width="128" height="135"/>
         <element name="City" positionX="214" positionY="108" width="128" height="75"/>
-        <element name="Feedback" positionX="160" positionY="192" width="128" height="105"/>
+        <element name="Feedback" positionX="160" positionY="192" width="128" height="75"/>
         <element name="Filter" positionX="-288" positionY="357" width="128" height="270"/>
         <element name="Group" positionX="45" positionY="99" width="128" height="90"/>
         <element name="PromotionDetail" positionX="466" positionY="126" width="128" height="210"/>
@@ -149,7 +146,7 @@
         <element name="ShopProduct" positionX="-0" positionY="399" width="128" height="135"/>
         <element name="ShopUserComment" positionX="-29" positionY="594" width="128" height="135"/>
         <element name="ShopUserGallery" positionX="-2" positionY="219" width="128" height="105"/>
-        <element name="User" positionX="-63" positionY="-27" width="128" height="120"/>
+        <element name="User" positionX="-63" positionY="-27" width="128" height="105"/>
         <element name="Versions" positionX="-342" positionY="144" width="128" height="75"/>
     </elements>
 </model>

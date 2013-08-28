@@ -15,21 +15,22 @@
 #import "FrontViewController.h"
 #import "ShopDetailViewController.h"
 #import "IntroView.h"
+#import "ASIOperationGetTotalSP.h"
 
-@interface SettingViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,SwitchSettingDelegate,FeedbackViewDelegate,TutorialViewDelegate,IntroViewDelegate>
+@interface SettingViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,SwitchSettingDelegate,FeedbackViewDelegate,TutorialViewDelegate,IntroViewDelegate,ASIOperationPostDelegate>
 {
     NSMutableArray *_settings;
     __weak IBOutlet UIImageView *avatar;
-    __weak IBOutlet UILabel *lblPoint;
-    __weak IBOutlet UILabel *lblSGP;
+    __weak IBOutlet UILabel *lblSP;
     __weak IBOutlet SwitchSetting *switchLocation;
-    __weak IBOutlet UILabel *lblAddress;
     __weak IBOutlet UITableView *tableSetting;
     __weak IBOutlet UIView *containAvatar;
     __weak IBOutlet UILabel *lblCity;
     __weak IBOutlet UIView *containView;
+    __weak IBOutlet UILabel *lblName;
     
     bool _isShowOtherView;
+    ASIOperationGetTotalSP *getTotalSP;
 }
 
 -(void) loadSetting;

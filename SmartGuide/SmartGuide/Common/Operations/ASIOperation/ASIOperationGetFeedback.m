@@ -26,22 +26,27 @@
     for(Feedback *fb in [Feedback allObjects])
         [[DataManager shareInstance].managedObjectContext deleteObject:fb];
     
+    [[DataManager shareInstance] save];
+    
     feedbacks=[NSMutableArray array];
     if([self isNullData:json])
         return;
     
-    for(NSDictionary *dict in json)
-    {
-        Feedback *fb=[Feedback insert];
-        fb.idFeedback=[NSNumber numberWithObject:[dict objectForKey:@"id"]];
-        fb.idUser=[NSNumber numberWithObject:[dict objectForKey:@"user_id"]];
-        fb.content=[NSString stringWithStringDefault:[dict objectForKey:@"feedback"]];
-        fb.created_at=[NSString stringWithStringDefault:[dict objectForKey:@"created_at"]];
-        
-        [feedbacks addObject:fb];
-    }
+    int code=[[[json objectAtIndex:0] objectForKey:@"code"] integerValue];
     
-    [[DataManager shareInstance] save];
+    if(code==1)
+    {
+        for(NSDictionary *dict in [[json objectAtIndex:0] objectForKey:@"content"])
+        {
+            Feedback *fb=[Feedback insert];
+            fb.content=[NSString stringWithStringDefault:[dict objectForKey:@"feedback"]];
+            fb.user=[NSString stringWithStringDefault:[dict objectForKey:@"username"]];
+            
+            [feedbacks addObject:fb];
+        }
+        
+        [[DataManager shareInstance] save];
+    }
 }
 
 @end

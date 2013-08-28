@@ -38,6 +38,8 @@
     containView.backgroundColor=COLOR_BACKGROUND_APP;
     _settings=[[NSMutableArray alloc] init];
     
+    lblName.text=[DataManager shareInstance].currentUser.name;
+    
     //    SettingCellData *cell=[[SettingCellData alloc] init];
     //    cell.title=@"Nhận thông báo";
     //    cell.icon=[UIImage imageNamed:@"icon_notice.png"];
@@ -80,12 +82,38 @@
 -(void)loadSetting
 {
     lblCity.text=[DataManager shareInstance].currentCity.name;
+    lblName.text=[DataManager shareInstance].currentUser.name;
     
     [[LocationManager shareInstance] checkLocationAuthorize];
     
     switchLocation.delegate=nil;
     switchLocation.ON=[LocationManager shareInstance].isAllowLocation;
     switchLocation.delegate=self;
+    
+    lblSP.text=@"";
+    if(getTotalSP)
+    {
+        [getTotalSP cancel];
+        getTotalSP=nil;
+    }
+    
+    getTotalSP=[[ASIOperationGetTotalSP alloc] initWithIDUser:[DataManager shareInstance].currentUser.idUser.integerValue];
+    getTotalSP.delegatePost=self;
+    
+    [getTotalSP startAsynchronous];
+}
+
+-(void)ASIOperaionPostFinished:(ASIOperationPost *)operation
+{
+    ASIOperationGetTotalSP *ope=(ASIOperationGetTotalSP*)operation;
+    lblSP.text=[[NSNumberFormatter numberFromNSNumber:@(ope.totalSP)] stringByAppendingString:@" P"];
+    
+    getTotalSP=nil;
+}
+
+-(void)ASIOperaionPostFailed:(ASIOperationPost *)operation
+{
+    getTotalSP=nil;
 }
 
 -(void)switchChanged:(SwitchSetting *)sw
@@ -160,6 +188,8 @@
     }
     else if([data.title isEqualToString:@"Hướng dẫn sử dụng"])
     {
+        [Flurry trackUserClickTutorial];
+        
         _isShowOtherView=true;
         
         TutorialView *tutorial=[[TutorialView alloc] init];
@@ -207,7 +237,7 @@
 -(void)tutorialViewBack:(TutorialView *)tutorial
 {
     tutorial.userInteractionEnabled=false;
-    [UIView animateWithDuration:0.2f animations:^{
+    [UIView animateWithDuration:1.f animations:^{
         tutorial.alpha=0;
     } completion:^(BOOL finished) {
         tutorial.delegate=nil;
@@ -233,15 +263,13 @@
 - (void)viewDidUnload {
     tableSetting = nil;
     avatar = nil;
-    lblPoint = nil;
-    lblSGP = nil;
     switchLocation = nil;
     lblCity = nil;
-    lblAddress = nil;
     tableSetting = nil;
     containAvatar = nil;
     lblCity = nil;
     containView = nil;
+    lblName = nil;
     [super viewDidUnload];
 }
 

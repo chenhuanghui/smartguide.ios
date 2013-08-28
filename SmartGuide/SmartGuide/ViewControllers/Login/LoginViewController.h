@@ -27,6 +27,9 @@
     NSString *_inputPhone;
     NSTimer *_timerSMS;
     __weak IBOutlet UILabel *lblCountdown;
+    __weak IBOutlet UILabel *lblGiay;
+    __weak IBOutlet UILabel *lblResend;
+    __weak IBOutlet UIButton *btnResent;
     int _time;
 }
 

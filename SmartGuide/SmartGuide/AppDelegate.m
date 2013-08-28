@@ -13,6 +13,7 @@
 #import "SHKConfiguration.h"
 #import "DefaultSHKConfigurator.h"
 #import "SHKFacebook.h"
+#import "Flurry.h"
 
 @interface SHKSmartGuildeConfig : DefaultSHKConfigurator
 
@@ -50,6 +51,10 @@
     self.window = [[UIWindow alloc] initWithFrame:rect];
     // Override point for customization after application launch.
     //Setting AFHTTP
+    
+    [Flurry setAppVersion:@"0.0a"];
+    [Flurry startSession:@"SG974KP6KXTQ8P4ZRYHN" withOptions:launchOptions];
+    [Flurry setDebugLogEnabled:true];
     
     SHKSmartGuildeConfig *config=[[SHKSmartGuildeConfig alloc] init];
     [SHKConfiguration sharedInstanceWithConfigurator:config];

@@ -9,6 +9,7 @@
 #import "PromotionDetailType2View.h"
 #import "RootViewController.h"
 #import "SlideQRCodeViewController.h"
+#import "Utility.h"
 
 @implementation PromotionDetailType2View
 @synthesize handler;
@@ -45,12 +46,8 @@
     if(shop)
     {
         btnReward.hidden=false;
-        
-        NSNumberFormatter *format=[[NSNumberFormatter alloc] init];
-        format.groupingSeparator=@".";
-        format.maximumFractionDigits=0;
-        
-        [btnReward setTitle:[format stringFromNumber:shop.promotionDetail.money] forState:UIControlStateNormal];
+
+        [btnReward setTitle:[NSNumberFormatter moneyFromNSNumber:shop.promotionDetail.money] forState:UIControlStateNormal];
         btnReward.tag=shop.promotionDetail.idAwardType2.integerValue;
         lblDesc.text=shop.promotionDetail.desc;
     }

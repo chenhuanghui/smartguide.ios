@@ -12,7 +12,7 @@
 #import "Feedback.h"
 #import "ActivityIndicator.h"
 
-@class FeedbackView;
+@class FeedbackView,TextFieldFeedBack;
 
 @protocol FeedbackViewDelegate <NSObject>
 
@@ -20,16 +20,21 @@
 
 @end
 
-@interface FeedbackView : UIView<ASIOperationPostDelegate,UITextFieldDelegate>
+@interface FeedbackView : UIView<ASIOperationPostDelegate,UITextViewDelegate>
 {
-    __weak IBOutlet UITextField *txt;
+    __weak IBOutlet UITextView *txt;
     __weak IBOutlet UILabel *lblName;
     __weak IBOutlet UIButton *btnFeedback;
     NSMutableArray *_feedbacks;
     
+    bool _isEditing;
     ASIOperationGetFeedback *feedback;
 }
 
 @property (nonatomic, assign) id<FeedbackViewDelegate> delegate;
+
+@end
+
+@interface TextFieldFeedBack : UITextField
 
 @end

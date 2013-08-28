@@ -258,6 +258,7 @@
 		A9220AD317BCD51F00BA4E0B /* error@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A9220AD117BCD51F00BA4E0B /* error@2x.png */; };
 		A9220AD617BD164E00BA4E0B /* shop_arrowcomment.png in Resources */ = {isa = PBXBuildFile; fileRef = A9220AD417BD164E00BA4E0B /* shop_arrowcomment.png */; };
 		A9220AD717BD164E00BA4E0B /* shop_arrowcomment@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A9220AD517BD164E00BA4E0B /* shop_arrowcomment@2x.png */; };
+		A92221BB17CE041300B4E305 /* libFlurry_4.2.3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A92221BA17CE041300B4E305 /* libFlurry_4.2.3.a */; };
 		A922663217A1137D00BCFF7E /* ASIOperationPost.m in Sources */ = {isa = PBXBuildFile; fileRef = A922663117A1137D00BCFF7E /* ASIOperationPost.m */; };
 		A922663517A1197500BCFF7E /* ASIOperationFBProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = A922663417A1197500BCFF7E /* ASIOperationFBProfile.m */; };
 		A922AB5117A6E15700B78E12 /* BGBlurView.m in Sources */ = {isa = PBXBuildFile; fileRef = A922AB5017A6E15700B78E12 /* BGBlurView.m */; };
@@ -287,6 +288,9 @@
 		A9238A3017953A0B007D8DDB /* PointBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9238A2F17953A0B007D8DDB /* PointBar.xib */; };
 		A9238F1717C135DF00208FB0 /* button_back.png in Resources */ = {isa = PBXBuildFile; fileRef = A9238F1517C135DF00208FB0 /* button_back.png */; };
 		A9238F1817C135DF00208FB0 /* button_back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A9238F1617C135DF00208FB0 /* button_back@2x.png */; };
+		A924256417CE63230074269F /* button_danhgia@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A924256217CE63230074269F /* button_danhgia@2x.png */; };
+		A924256517CE63230074269F /* button_danhgia.png in Resources */ = {isa = PBXBuildFile; fileRef = A924256317CE63230074269F /* button_danhgia.png */; };
+		A924259117CE6E6E0074269F /* ASIOperationGetTotalSP.m in Sources */ = {isa = PBXBuildFile; fileRef = A924259017CE6E6E0074269F /* ASIOperationGetTotalSP.m */; };
 		A9242E1F17AA001B0049517F /* icon_cirle.png in Resources */ = {isa = PBXBuildFile; fileRef = A9242E1D17AA001B0049517F /* icon_cirle.png */; };
 		A9242E2017AA001B0049517F /* icon_cirle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A9242E1E17AA001B0049517F /* icon_cirle@2x.png */; };
 		A9243C2A17B9F9780077E8A0 /* LabelStroke.m in Sources */ = {isa = PBXBuildFile; fileRef = A9243C2917B9F9780077E8A0 /* LabelStroke.m */; };
@@ -1337,6 +1341,8 @@
 		A9220AD117BCD51F00BA4E0B /* error@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "error@2x.png"; sourceTree = "<group>"; };
 		A9220AD417BD164E00BA4E0B /* shop_arrowcomment.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shop_arrowcomment.png; sourceTree = "<group>"; };
 		A9220AD517BD164E00BA4E0B /* shop_arrowcomment@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shop_arrowcomment@2x.png"; sourceTree = "<group>"; };
+		A92221BA17CE041300B4E305 /* libFlurry_4.2.3.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurry_4.2.3.a; sourceTree = "<group>"; };
+		A92221BC17CE041F00B4E305 /* Flurry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flurry.h; sourceTree = "<group>"; };
 		A922663017A1137D00BCFF7E /* ASIOperationPost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIOperationPost.h; sourceTree = "<group>"; };
 		A922663117A1137D00BCFF7E /* ASIOperationPost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIOperationPost.m; sourceTree = "<group>"; };
 		A922663317A1197500BCFF7E /* ASIOperationFBProfile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIOperationFBProfile.h; sourceTree = "<group>"; };
@@ -1375,6 +1381,10 @@
 		A9238A2F17953A0B007D8DDB /* PointBar.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PointBar.xib; sourceTree = "<group>"; };
 		A9238F1517C135DF00208FB0 /* button_back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_back.png; sourceTree = "<group>"; };
 		A9238F1617C135DF00208FB0 /* button_back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_back@2x.png"; sourceTree = "<group>"; };
+		A924256217CE63230074269F /* button_danhgia@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_danhgia@2x.png"; sourceTree = "<group>"; };
+		A924256317CE63230074269F /* button_danhgia.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_danhgia.png; sourceTree = "<group>"; };
+		A924258F17CE6E6E0074269F /* ASIOperationGetTotalSP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIOperationGetTotalSP.h; sourceTree = "<group>"; };
+		A924259017CE6E6E0074269F /* ASIOperationGetTotalSP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIOperationGetTotalSP.m; sourceTree = "<group>"; };
 		A9242E1D17AA001B0049517F /* icon_cirle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_cirle.png; sourceTree = "<group>"; };
 		A9242E1E17AA001B0049517F /* icon_cirle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_cirle@2x.png"; sourceTree = "<group>"; };
 		A9243C2817B9F9780077E8A0 /* LabelStroke.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LabelStroke.h; sourceTree = "<group>"; };
@@ -1992,6 +2002,7 @@
 				A9819854178D02530009FCB6 /* Foundation.framework in Frameworks */,
 				A9819856178D02530009FCB6 /* CoreGraphics.framework in Frameworks */,
 				A920FEB517A67B0D00D8E6FE /* libzbar.a in Frameworks */,
+				A92221BB17CE041300B4E305 /* libFlurry_4.2.3.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2321,6 +2332,8 @@
 				A920E1EA17CBD522003FAA80 /* ASIOperationGetSG.m */,
 				A92376EE17CDA58300336FE2 /* ASIOperationPostFeedback.h */,
 				A92376EF17CDA58300336FE2 /* ASIOperationPostFeedback.m */,
+				A924258F17CE6E6E0074269F /* ASIOperationGetTotalSP.h */,
+				A924259017CE6E6E0074269F /* ASIOperationGetTotalSP.m */,
 			);
 			path = ASIOperation;
 			sourceTree = "<group>";
@@ -2674,6 +2687,8 @@
 		A9819850178D02530009FCB6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A92221BC17CE041F00B4E305 /* Flurry.h */,
+				A92221BA17CE041300B4E305 /* libFlurry_4.2.3.a */,
 				A9A19D5E17C4088E000D0ECD /* MessageUI.framework */,
 				A9A19D5C17C40871000D0ECD /* StoreKit.framework */,
 				A9A19D5A17C40858000D0ECD /* Twitter.framework */,
@@ -2860,6 +2875,8 @@
 		A98198BE178D44FB0009FCB6 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				A924256217CE63230074269F /* button_danhgia@2x.png */,
+				A924256317CE63230074269F /* button_danhgia.png */,
 				A923769E17CD9E5D00336FE2 /* intro_6@2x.png */,
 				A923769F17CD9E5D00336FE2 /* intro_5@2x.png */,
 				A92376A017CD9E5D00336FE2 /* intro_4@2x.png */,
@@ -4450,6 +4467,8 @@
 				A92376B417CD9E5D00336FE2 /* intro_2.png in Resources */,
 				A92376B517CD9E5D00336FE2 /* intro_1.png in Resources */,
 				A92376E317CD9EB100336FE2 /* IntroView.xib in Resources */,
+				A924256417CE63230074269F /* button_danhgia@2x.png in Resources */,
+				A924256517CE63230074269F /* button_danhgia.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4680,6 +4699,7 @@
 				A920BDEE17CCEC3300B38951 /* GridViewTemplate.m in Sources */,
 				A92376E117CD9E8100336FE2 /* IntroView.m in Sources */,
 				A92376F017CDA58300336FE2 /* ASIOperationPostFeedback.m in Sources */,
+				A924259117CE6E6E0074269F /* ASIOperationGetTotalSP.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4799,6 +4819,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/SmartGuide/Common/ZBarSDK\"",
+					"\"$(SRCROOT)\"",
 				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -4824,6 +4845,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/SmartGuide/Common/ZBarSDK\"",
+					"\"$(SRCROOT)\"",
 				);
 				OTHER_LDFLAGS = (
 					"-ObjC",

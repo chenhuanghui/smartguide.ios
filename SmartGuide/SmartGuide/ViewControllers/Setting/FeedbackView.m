@@ -7,6 +7,8 @@
 //
 
 #import "FeedbackView.h"
+#import "AlertView.h"
+#import "Utility.h"
 
 @implementation FeedbackView
 @synthesize delegate;
@@ -16,7 +18,7 @@
     self=[[[NSBundle mainBundle] loadNibNamed:@"FeedbackView" owner:nil options:nil] objectAtIndex:0];
     
     txt.text=@"";
-    txt.placeholder=@"";
+    [txt setPlaceHolderText:@"" textColor:[UIColor blackColor]];
     lblName.text=@"";
     
     [self loadFeedBack];
@@ -39,14 +41,27 @@
 }
 
 - (IBAction)btnFeedbackTouchUpInside:(id)sender {
-    if([txt.text stringByRemoveString:@" ",nil]>0)
+    if(_isEditing)
     {
+        if([txt.text stringByRemoveString:@" ",nil].length==0)
+        {
+            [AlertView showAlertOKWithTitle:nil withMessage:@"Vui lòng nhập nội dung đánh giá" onOK:^{
+                [txt becomeFirstResponder];
+            }];
+            return;
+        }
+        
         ASIOperationPostFeedback *post=[[ASIOperationPostFeedback alloc] initWithIDUser:[DataManager shareInstance].currentUser.idUser.integerValue content:txt.text];
         
         post.delegatePost=self;
         [post startAsynchronous];
         
         [self showLoadingWithTitle:nil];
+    }
+    else
+    {
+        [txt becomeFirstResponder];
+        [btnFeedback setTitle:@"Gữi" forState:UIControlStateNormal];
     }
 }
 
@@ -64,7 +79,7 @@
         
         _feedbacks=[[NSMutableArray alloc] initWithArray:fb.feedbacks];
         
-        [self applyFeedback:[self randomFeedback]];
+        [self performSelector:@selector(applyRandomFeedBack) withObject:nil afterDelay:0];
         
         feedback=nil;
     }
@@ -77,8 +92,6 @@
         
         [self removeLoading];
         
-        [self applyRandomFeedBack];
-        
         [self loadFeedBack];
     }
 }
@@ -86,14 +99,15 @@
 -(void) applyFeedback:(Feedback*) fb
 {
     txt.text=@"";
+    [btnFeedback setTitle:@"Đánh giá" forState:UIControlStateNormal];
     [UIView animateWithDuration:0.15f animations:^{
         lblName.alpha=0;
         txt.alpha=0;
     } completion:^(BOOL finished) {
-        if(!txt.isEditing)
-            lblName.text=[NSString stringWithFormat:@"%@",fb.idUser];
+        if(!_isEditing)
+            lblName.text=[NSString stringWithFormat:@"%@",fb.user];
         
-        txt.placeholder=[NSString stringWithFormat:@"\" %@ \"", fb.content];
+        [txt setPlaceHolderText:[NSString stringWithFormat:@"%@", fb.content]textColor:[UIColor blackColor]];
         
         [UIView animateWithDuration:0.15f animations:^{
             lblName.alpha=1;
@@ -104,12 +118,15 @@
     }];
 }
 
--(BOOL)textFieldShouldBeginEditing:(UITextField *)textField
+-(BOOL)textViewShouldBeginEditing:(UITextView *)textView
 {
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(applyRandomFeedBack) object:nil];
     
+    
     lblName.text=[DataManager shareInstance].currentUser.name;
     txt.text=@" ";
+    [btnFeedback setTitle:@"Gữi" forState:UIControlStateNormal];
+    _isEditing=true;
     
     return true;
 }
@@ -157,15 +174,45 @@
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    __block __weak id obj = [[NSNotificationCenter defaultCenter] addObserverForName:UIKeyboardWillHideNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
-       
-        [self applyFeedback:[self randomFeedback]];
-        
-        [[NSNotificationCenter defaultCenter] removeObserver:obj];
-    }];
-    
     txt.text=@"";
+    [txt removePlaceHolderText];
+    [txt resignFirstResponder];
     [self endEditing:true];
+}
+
+-(void)textViewDidEndEditing:(UITextView *)textView
+{
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(applyRandomFeedBack) object:nil];
+    _isEditing=false;
+    [self applyRandomFeedBack];
+}
+
+@end
+
+@implementation TextFieldFeedBack
+
+-(void)drawPlaceholderInRect:(CGRect)rect
+{
+    [[UIColor blackColor] setFill];
+    UIFont *fo = [UIFont italicSystemFontOfSize:17];
+    float width=[[self placeholder] sizeWithFont:fo].width;
+    rect.origin.x=rect.size.width/2-width/2;
+    [[self placeholder] drawInRect:rect withFont:fo];
+    
+    [@"\"" drawInRect:CGRectMake(rect.origin.x-15, rect.origin.y, rect.size.width, rect.size.height) withFont:[UIFont italicSystemFontOfSize:24]];
+    [@"\"" drawInRect:CGRectMake(rect.origin.x+width+5, rect.origin.y, rect.size.width, rect.size.height) withFont:[UIFont italicSystemFontOfSize:24]];
+}
+
+-(void)drawTextInRect:(CGRect)rect
+{
+    [[UIColor blackColor] setFill];
+    UIFont *fo = [UIFont italicSystemFontOfSize:17];
+    float width=[[self text] sizeWithFont:fo].width;
+    rect.origin.x=rect.size.width/2-width/2;
+    [[self text] drawInRect:rect withFont:fo];
+    
+    [@"\"" drawInRect:CGRectMake(rect.origin.x-15, rect.origin.y, rect.size.width, rect.size.height) withFont:[UIFont italicSystemFontOfSize:24]];
+    [@"\"" drawInRect:CGRectMake(rect.origin.x+width+5, rect.origin.y, rect.size.width, rect.size.height) withFont:[UIFont italicSystemFontOfSize:24]];
 }
 
 @end

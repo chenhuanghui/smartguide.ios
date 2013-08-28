@@ -6,6 +6,8 @@
 //  Copyright (c) 2013 Redbase. All rights reserved.
 //
 
+#import "Flurry.h"
+
 #define VELOCITY_SLIDE 800.f
 
 #define CLASS_NAME NSStringFromClass([self class])
@@ -51,6 +53,7 @@
 #define API_GET_FEEDBACK @"get_feedback"
 #define API_GET_SG @"score/get"
 #define API_POST_FEEDBACK @"feedback"
+#define API_GET_TOTAL_SP @"score/get"
 
 #define API_GET_ACTIVE_CODE(phone) [NSString stringWithFormat:@"%@/user/activation?phone=%@",SERVER_IP,phone]
 #define API_VERIFY_ACTIVE_CODE(phone,activeCode) [NSString stringWithFormat:@"%@/user/check?phone=%@&code=%@",SERVER_IP,phone,activeCode]

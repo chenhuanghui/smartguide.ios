@@ -96,43 +96,17 @@
 	[self didChangeValueForKey:@"content"];
 }
 
-- (NSString*)created_at {
-	[self willAccessValueForKey:@"created_at"];
-	NSString* result = (NSString*)[self primitiveValueForKey:@"created_at"];
-	[self didAccessValueForKey:@"created_at"];
+- (NSString*)user {
+	[self willAccessValueForKey:@"user"];
+	NSString* result = (NSString*)[self primitiveValueForKey:@"user"];
+	[self didAccessValueForKey:@"user"];
 	return result;
 }
 
-- (void)setCreated_at:(NSString*)value {
-	[self willChangeValueForKey:@"created_at"];
-	[self setPrimitiveValue:value forKey:@"created_at"];
-	[self didChangeValueForKey:@"created_at"];
-}
-
-- (NSNumber*)idFeedback {
-	[self willAccessValueForKey:@"idFeedback"];
-	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"idFeedback"];
-	[self didAccessValueForKey:@"idFeedback"];
-	return result;
-}
-
-- (void)setIdFeedback:(NSNumber*)value {
-	[self willChangeValueForKey:@"idFeedback"];
-	[self setPrimitiveValue:value forKey:@"idFeedback"];
-	[self didChangeValueForKey:@"idFeedback"];
-}
-
-- (NSNumber*)idUser {
-	[self willAccessValueForKey:@"idUser"];
-	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"idUser"];
-	[self didAccessValueForKey:@"idUser"];
-	return result;
-}
-
-- (void)setIdUser:(NSNumber*)value {
-	[self willChangeValueForKey:@"idUser"];
-	[self setPrimitiveValue:value forKey:@"idUser"];
-	[self didChangeValueForKey:@"idUser"];
+- (void)setUser:(NSString*)value {
+	[self willChangeValueForKey:@"user"];
+	[self setPrimitiveValue:value forKey:@"user"];
+	[self didChangeValueForKey:@"user"];
 }
 
 #pragma mark Relationships

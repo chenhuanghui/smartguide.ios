@@ -31,5 +31,6 @@
 }
 
 @property (nonatomic, assign) id<TutorialViewDelegate> delegate;
+@property (nonatomic, assign) bool isHideClose;
 
 @end

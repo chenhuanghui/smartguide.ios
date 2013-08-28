@@ -127,6 +127,11 @@
     
 }
 
+-(void)connection:(NSURLConnection *)connection didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
+{
+    
+}
+
 -(void) onFailure:(AFHTTPRequestOperation*) operation error:(NSError*) _error
 {
     [self notifyFailed:_error];

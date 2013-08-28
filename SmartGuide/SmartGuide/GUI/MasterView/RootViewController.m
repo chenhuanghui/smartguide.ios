@@ -790,6 +790,7 @@ static RootViewController *_rootViewController;
 
 -(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
+    [Flurry trackUserSearch:searchBar.text];
     [Flags setKeywordSearch:searchBar.text];
     [searchViewController search:searchBar.text];
 }

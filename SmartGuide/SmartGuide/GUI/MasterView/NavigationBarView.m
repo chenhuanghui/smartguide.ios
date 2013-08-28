@@ -10,6 +10,7 @@
 #import "Constant.h"
 #import "Flags.h"
 #import <QuartzCore/QuartzCore.h>
+#import "Utility.h"
 
 @implementation NavigationBarView
 @synthesize delegate;
@@ -34,21 +35,29 @@
 
 -(void)btnAvatarTouchUpInside:(UIButton *)sender
 {
+    [Flurry trackUserClickCollection];
+    
     [delegate navigationBarUserCollection:sender];
 }
 
 -(void)btnFilterTouchUpInside:(UIButton *)sender
 {
+    [Flurry trackUserClickFilter];
+    
     [delegate navigationBarFilter:sender];
 }
 
 -(void)btnMapTouchUpInside:(UIButton *)sender
 {
+    [Flurry trackUserClickMap];
+    
     [delegate navigationBarMap:sender];
 }
 
 -(void)btnSearchTouchUpInside:(UIButton *)sender
 {
+    [Flurry trackUserClickSearch];
+    
     [delegate navigationBarSearch:sender];
 }
 
@@ -64,7 +73,7 @@
 {
     containButtons.hidden=true;
     
-    searchbar.placeholder=@"Quick search";
+//    searchbar.placeholder=@"Quick search";
     searchbar.delegate=_delegate;
     searchbar.tintColor=COLOR_BACKGROUND_APP;
     searchbar.backgroundColor=COLOR_BACKGROUND_APP;

@@ -6,9 +6,7 @@
 #define Feedback_ClassName @"Feedback"
 
 #define Feedback_Content @"content"
-#define Feedback_Created_at @"created_at"
-#define Feedback_IdFeedback @"idFeedback"
-#define Feedback_IdUser @"idUser"
+#define Feedback_User @"user"
 
 @class Feedback;
 
@@ -24,9 +22,7 @@
 
 
 @property (nonatomic, retain) NSString* content;
-@property (nonatomic, retain) NSString* created_at;
-@property (nonatomic, retain) NSNumber* idFeedback;
-@property (nonatomic, retain) NSNumber* idUser;
+@property (nonatomic, retain) NSString* user;
 
 #pragma mark Fetched property
 

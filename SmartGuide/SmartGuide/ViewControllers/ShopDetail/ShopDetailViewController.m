@@ -343,7 +343,7 @@
         {
             if(_shop.promotionDetail.promotionType.integerValue==1)
             {
-                [self.promotionDetailType1View setShop:_shop];
+                [promotionDetailType1View setShop:_shop];
                 [promotionDetailType1View setNeedAnimationScore];
                 [viewContaint addSubview:promotionDetailType1View];
             }

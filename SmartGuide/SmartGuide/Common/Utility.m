@@ -1048,7 +1048,7 @@ static const NSString *KEY_HIT_TEST_EDGE_INSETS = @"HitTestEdgeInsets";
 
 @implementation UITextView(Utility)
 
--(void)setPlaceHolderText:(NSString *)str
+-(void)setPlaceHolderText:(NSString *)str textColor:(UIColor*) color
 {
     [self removePlaceHolderText];
     
@@ -1070,7 +1070,7 @@ static const NSString *KEY_HIT_TEST_EDGE_INSETS = @"HitTestEdgeInsets";
     // placeholderLabel is instance variable retained by view controller
     [placeholderLabel setBackgroundColor:[UIColor clearColor]];
     [placeholderLabel setFont:self.font];
-    [placeholderLabel setTextColor:[UIColor lightGrayColor]];
+    [placeholderLabel setTextColor:color];
     placeholderLabel.tag=112;
     placeholderLabel.userInteractionEnabled=false;
     placeholderLabel.editable=false;
@@ -1177,6 +1177,81 @@ static const NSString *KEY_HIT_TEST_EDGE_INSETS = @"HitTestEdgeInsets";
     }
     
     return obj;
+}
+
+@end
+
+@implementation Flurry(SmartGuide)
+
++(void)trackUserViewLogin
+{
+    [Flurry logEvent:@"View login"];
+}
+
++(void)trackUserClickRequestActiveCode
+{
+    [Flurry logEvent:@"Request code"];
+}
+
++(void)trackUserClickVerifyCode
+{
+    [Flurry logEvent:@"Verify code"];
+}
+
++(void)trackUserClickFacebook
+{
+    [Flurry logEvent:@"Facebook"];
+}
+
++(void)trackUserWaitFacebook
+{
+    [Flurry logEvent:@"WaitFacebook"];
+}
+
++(void) trackUserClickFilter
+{
+    [Flurry logEvent:@"Filter"];
+}
+
++(void)trackUserClickSearch
+{
+    [Flurry logEvent:@"Search"];
+}
+
++(void) trackUserClickMap
+{
+    [Flurry logEvent:@"Map"];
+}
+
++(void)trackUserClickCollection
+{
+    [Flurry logEvent:@"Collection"];
+}
+
++(void)trackUserHideAppWhenLogin
+{
+    [Flurry logEvent:@"Hide app login"];
+}
+
++(void)trackUserViewTutorialEnd
+{
+    [Flurry logEvent:@"TutorialEnd"];
+}
+
++(void)trackUserClickTutorial
+{
+    [Flurry logEvent:@"Tutorial"];
+}
+
++(void) trackUserSearch:(NSString*) key
+{
+    NSString *str=@"";
+    if(key!=nil)
+        str=key;
+    
+    NSDictionary *dict=[NSDictionary dictionaryWithObject:str forKey:@"key"];
+    
+    [Flurry logEvent:@"SearchKey" withParameters:dict];
 }
 
 @end

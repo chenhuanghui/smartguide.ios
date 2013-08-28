@@ -98,7 +98,7 @@
         
         ShopPictureCell *picture=(ShopPictureCell*)cell.contentView;
         ShopGallery *sg=[templateShop.datasource objectAtIndex:index];
-
+        
         [picture setURLString:sg.image duration:0.5f];
         
         return cell;
@@ -221,7 +221,7 @@
 -(void)reset
 {
     _shop=nil;
-
+    
     [templateUser reset];
     [templateShop reset];
     
@@ -233,6 +233,17 @@
         [_operationUserGallery cancel];
         _operationUserGallery=nil;
     }
+    
+    templateUser.page=0;
+    
+    templateUser.datasource=[[NSMutableArray alloc] init];
+    [templateUser.datasource addObjectsFromArray:@[[ShopUserGallery temporary],[ShopUserGallery temporary],[ShopUserGallery temporary]]];
+    _isTemporaryUserGallery=true;
+    
+    templateShop.datasource=[[NSMutableArray alloc] init];
+    [templateShop.datasource addObjectsFromArray:@[[ShopGallery temporary],[ShopGallery temporary],[ShopGallery temporary]]];
+    _isTemporaryShopGallery=true;
+    
 }
 
 -(void)cancel

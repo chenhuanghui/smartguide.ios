@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
 #import <MapKit/MapKit.h>
+#import "Flurry.h"
 
 #define DEGREES_TO_RADIANS(angle) ((angle) / 180.0 * M_PI)
 #define RANDOM(min,max) arc4random() % (max - min) + min
@@ -162,7 +163,7 @@ bool isVailCLLocationCoordinate2D(CLLocationCoordinate2D location);
 
 @interface UITextView(Utility)
 
--(void) setPlaceHolderText:(NSString*) str;
+-(void) setPlaceHolderText:(NSString*) str textColor:(UIColor*) color;
 -(void) removePlaceHolderText;
 
 @end
@@ -193,5 +194,23 @@ bool isVailCLLocationCoordinate2D(CLLocationCoordinate2D location);
 @interface NSNumber(Utility)
 
 +(id) numberWithObject:(id) obj;
+
+@end
+
+@interface Flurry(SmartGuide)
+
++(void) trackUserViewLogin;
++(void) trackUserClickRequestActiveCode;
++(void) trackUserClickVerifyCode;
++(void) trackUserClickFacebook;
++(void) trackUserWaitFacebook;
++(void) trackUserClickFilter;
++(void) trackUserClickSearch;
++(void) trackUserClickMap;
++(void) trackUserClickCollection;
++(void) trackUserHideAppWhenLogin;
++(void) trackUserViewTutorialEnd;
++(void) trackUserClickTutorial;
++(void) trackUserSearch:(NSString*) key;
 
 @end

@@ -26,7 +26,7 @@
     self = [[[NSBundle mainBundle] loadNibNamed:@"ShopUserPose" owner:nil options:nil] objectAtIndex:0];
     if (self) {
         txt.text=@"";
-        [txt setPlaceHolderText:USER_POST_PLACEHOLDER];
+        [txt setPlaceHolderText:USER_POST_PLACEHOLDER textColor:[UIColor lightTextColor]];
         containView.layer.masksToBounds=true;
     }
     return self;
@@ -104,14 +104,7 @@
 {
     CGRect rect=imgv.frame;
     rect.size= [Utility scaleUserPoseFromSize:image.size toSize:rect.size];
-    
-    UIGraphicsBeginImageContext(rect.size);
-    
-    [image drawInRect:CGRectMake(0, 0, rect.size.width, rect.size.height)];
-    
-    image=UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
+
     imgv.image=image;
     
     imgv.frame=rect;
@@ -132,16 +125,14 @@
     }
 }
 
--(void) uploadImage
+-(void) uploadImage	
 {
     [self endEditing:true];
     
     [self showLoadingWithTitle:nil];
     
-    [UIImagePNGRepresentation(imgv.image) writeToFile:[[Utility documentPath] stringByAppendingPathComponent:@"xxx.png"] atomically:true];
-    
     int idUser=[DataManager shareInstance].currentUser.idUser.integerValue;
-    ASIOperationUploadUserGallery *upload=[[ASIOperationUploadUserGallery alloc] initWithIDShop:_shop.idShop.integerValue userID:idUser desc:txt.text photo:UIImagePNGRepresentation(imgv.image)];
+    ASIOperationUploadUserGallery *upload=[[ASIOperationUploadUserGallery alloc] initWithIDShop:_shop.idShop.integerValue userID:idUser desc:txt.text photo:UIImageJPEGRepresentation(imgv.image, 0)];
     upload.delegatePost=self;
     
     [upload startAsynchronous];
@@ -174,7 +165,7 @@
     if(textView.text.length>0)
         [textView removePlaceHolderText];
     else
-        [textView setPlaceHolderText:USER_POST_PLACEHOLDER];
+        [textView setPlaceHolderText:USER_POST_PLACEHOLDER textColor:[UIColor lightTextColor]];
 }
 
 -(void) settingLayout

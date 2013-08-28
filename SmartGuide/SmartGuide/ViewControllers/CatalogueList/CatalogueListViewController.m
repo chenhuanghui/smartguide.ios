@@ -324,6 +324,7 @@
             tutorial.center=CGPointMake(320/2, 480/2);
             tutorial.alpha=0;
             tutorial.delegate=self;
+            tutorial.isHideClose=true;
             
             [self.view.window addSubview:tutorial];
             
@@ -344,7 +345,7 @@
 -(void)tutorialViewBack:(TutorialView *)tutorial
 {
     tutorial.userInteractionEnabled=false;
-    [UIView animateWithDuration:0.3f animations:^{
+    [UIView animateWithDuration:1.f animations:^{
         tutorial.alpha=0;
     } completion:^(BOOL finished) {
         [tutorial removeFromSuperview];

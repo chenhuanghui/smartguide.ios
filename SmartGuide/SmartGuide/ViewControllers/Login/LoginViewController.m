@@ -13,6 +13,7 @@
 #import "Flags.h"
 #import "TokenManager.h"
 #import "RootViewController.h"
+#import "Utility.h"
 
 #define DURATION_RESET_SMS 30
 
@@ -35,10 +36,12 @@
 {
     [super viewDidLoad];
     
+    [Flurry trackUserViewLogin];
+    
     _inputPhone=@"";
     lblCountdown.hidden=true;
     lblCountdown.text=@"";
-
+    
     [self switchToActiveCode];
     
     [[RootViewController shareInstance] setNeedRemoveLoadingScreen];
@@ -82,7 +85,7 @@
 
 -(NSArray *)registerNotification
 {
-    return @[NOTIFICATION_LOADING_SCREEN_FINISHED];
+    return @[NOTIFICATION_LOADING_SCREEN_FINISHED,UIApplicationWillResignActiveNotification];
 }
 
 -(void)receiveNotification:(NSNotification *)notification
@@ -140,6 +143,10 @@
             }];
         }];
     }
+    else if([notification.name isEqualToString:UIApplicationWillResignActiveNotification])
+    {
+        [Flurry trackUserHideAppWhenLogin];
+    }
 }
 
 -(void) flashLabel
@@ -157,6 +164,8 @@
 
 -(void) login
 {
+    [Flurry trackUserClickVerifyCode];
+    
     if(txt.text.length!=4)
     {
         [AlertView showAlertOKWithTitle:nil withMessage:@"Mã xác thực không hợp lệ" onOK:nil];
@@ -173,6 +182,8 @@
 
 -(void) requestActiveCode
 {
+    [Flurry trackUserClickRequestActiveCode];
+    
     NSString *phone=[NSString stringWithStringDefault:txt.text];
     if(phone.length==0)
     {
@@ -185,24 +196,25 @@
         return;
     }
     
-    _inputPhone=[[NSString alloc] initWithString:txt.text];
+    NSString *strPhone=[NSString stringWithString:phone];
     
+    if([[strPhone substringToIndex:3] isEqualToString:@"840"])
+    {
+        strPhone=[phone stringByReplacingCharactersInRange:NSMakeRange(0, 3) withString:@"84"];
+    }
+    else if([[strPhone substringWithRange:NSMakeRange(0, 1)] isEqual:@"0"])
+    {
+        strPhone=[phone stringByReplacingCharactersInRange:NSMakeRange(0, 1) withString:@"84"];
+    }
+    
+    
+    
+    _phone=[[NSString alloc] initWithString:strPhone];
+    _inputPhone=[[NSString alloc] initWithString:txt.text];
+
     [AlertView showWithTitle:[((UILabel*)txt.leftView).text stringByAppendingFormat:@" %@", txt.text] withMessage:@"Mã kích hoạt SmartGuide sẽ được gửi đến số điện thoại trên. Chọn \"Đồng ý\" để tiếp tục hoặc \"Huỷ\" để thay đổi số điện thoại" withLeftTitle:@"Huỷ" withRightTitle:@"Đồng ý" onOK:^{
         [txt becomeFirstResponder];
     } onCancel:^{
-        NSString *strPhone=[NSString stringWithString:phone];
-        
-        if([[strPhone substringToIndex:3] isEqualToString:@"840"])
-        {
-            strPhone=[phone stringByReplacingCharactersInRange:NSMakeRange(0, 3) withString:@"84"];
-        }
-        else if([[strPhone substringWithRange:NSMakeRange(0, 1)] isEqual:@"0"])
-        {
-            strPhone=[phone stringByReplacingCharactersInRange:NSMakeRange(0, 1) withString:@"84"];
-        }
-        
-        _phone=[[NSString alloc] initWithString:strPhone];
-        
         OperationGetActionCode *operation=[[OperationGetActionCode alloc] initWithPhone:strPhone];
         operation.delegate=self;
         [operation start];
@@ -213,12 +225,10 @@
 
 -(void) countdownSMS
 {
-    lblCountdown.hidden=false;
-    
     [UIView animateWithDuration:0.2f animations:^{
         lblCountdown.alpha=0;
     } completion:^(BOOL finished) {
-        lblCountdown.text=[NSString stringWithFormat:@"%i giây",_time--];
+        lblCountdown.text=[NSString stringWithFormat:@"%02i",_time--];
         [UIView animateWithDuration:0.8f animations:^{
             lblCountdown.alpha=1;
         } completion:^(BOOL finished) {
@@ -227,9 +237,27 @@
                 [_timerSMS invalidate];
                 _timerSMS=nil;
                 
-                [self switchToActiveCode];
+                [self showReset];
             }
         }];
+    }];
+}
+
+-(void) showReset
+{
+    lblResend.alpha=0;
+    lblResend.hidden=false;
+    btnResent.alpha=0;
+    btnResent.hidden=false;
+    
+    [UIView animateWithDuration:0.3f animations:^{
+        lblGiay.alpha=0;
+        lblCountdown.alpha=0;
+        lblResend.alpha=1;
+        btnResent.alpha=1;
+    } completion:^(BOOL finished) {
+        lblGiay.hidden=true;
+        lblCountdown.hidden=true;
     }];
 }
 
@@ -237,7 +265,9 @@
 {
     lblCountdown.hidden=true;
     lblCountdown.text=@"";
+    lblGiay.hidden=true;
     txt.text=_inputPhone;
+
     lblInfo.textColor=[UIColor color255WithRed:59 green:72 blue:100 alpha:255];
     lblInfo.text=@"Nhập số điện thoại của bạn";
     
@@ -267,6 +297,8 @@
         
         if(ope.isSuccess)
         {
+            [self.view endEditing:true];
+            
             _isActived=true;
             
             lblInfo.text=@"Nhập mã số xác nhận";
@@ -282,9 +314,23 @@
                 
             }];
             
-            _time=DURATION_RESET_SMS;
-            _timerSMS=[NSTimer timerWithTimeInterval:1 target:self selector:@selector(countdownSMS) userInfo:nil repeats:true];
-            [[NSRunLoop currentRunLoop] addTimer:_timerSMS forMode:NSDefaultRunLoopMode];
+            lblResend.hidden=true;
+            btnResent.hidden=true;
+           
+            lblCountdown.text=[NSString stringWithFormat:@"%02i",DURATION_RESET_SMS];
+            lblGiay.alpha=0;
+            lblCountdown.alpha=0;
+            lblGiay.hidden=false;
+            lblCountdown.hidden=false;
+            
+            [UIView animateWithDuration:0.3f delay:0.5f options:UIViewAnimationOptionCurveLinear animations:^{
+                lblGiay.alpha=1;
+                lblCountdown.alpha=1;
+            } completion:^(BOOL finished) {
+                _time=DURATION_RESET_SMS-1;
+                _timerSMS=[NSTimer timerWithTimeInterval:1 target:self selector:@selector(countdownSMS) userInfo:nil repeats:true];
+                [[NSRunLoop currentRunLoop] addTimer:_timerSMS forMode:NSDefaultRunLoopMode];
+            }];
         }
         else
         {
@@ -318,6 +364,7 @@
             [_timerSMS invalidate];
             _timerSMS=nil;
             lblCountdown.hidden=true;
+            lblGiay.hidden=true;
         }
         
         OperationGetToken *ope=(OperationGetToken*) operation;
@@ -371,6 +418,9 @@
     km = nil;
     txt = nil;
     lblCountdown = nil;
+    lblGiay = nil;
+    lblResend = nil;
+    btnResent = nil;
     [super viewDidUnload];
 }
 
@@ -400,6 +450,20 @@
     }
     
     return true;
+}
+
+- (IBAction)btnResendTouchUpInside:(id)sender {
+
+    NSString *str=[NSString stringWithFormat:@"(+84) %@",_inputPhone];
+    
+    [AlertView showWithTitle:str withMessage:@"Mã kích hoạt SmartGuide sẽ được gửi đến số điện thoại trên. Chọn \"Đồng ý\" để tiếp tục hoặc \"Huỷ\" để thay đổi số điện thoại" withLeftTitle:@"Huỷ" withRightTitle:@"Đồng ý" onOK:^{
+    } onCancel:^{
+        OperationGetActionCode *operation=[[OperationGetActionCode alloc] initWithPhone:_phone];
+        operation.delegate=self;
+        [operation start];
+        
+        [self.view showLoadingWithTitle:nil];
+    }];
 }
 
 @end

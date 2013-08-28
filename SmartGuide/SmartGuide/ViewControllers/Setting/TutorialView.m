@@ -7,9 +7,11 @@
 //
 
 #import "TutorialView.h"
+#import "Constant.h"
+#import "Utility.h"
 
 @implementation TutorialView
-@synthesize delegate;
+@synthesize delegate,isHideClose;
 
 -(id)init
 {
@@ -116,6 +118,16 @@
         
         [self addSubview:btn];
     }
+    else if(page==3)
+    {
+        btn=[UIButton buttonWithType:UIButtonTypeCustom];
+        [btn setTitle:@"" forState:UIControlStateNormal];
+        btn.frame=CGRectMake(54, 162, 215, 50);
+        
+        [btn addTarget:self action:@selector(btnTouchUpInside:) forControlEvents:UIControlEventTouchUpInside];
+        
+        [self addSubview:btn];
+    }
     else if(page==7)
     {
         btn=[UIButton buttonWithType:UIButtonTypeCustom];
@@ -126,11 +138,21 @@
         
         [self addSubview:btn];
     }
+    else if(page==9)
+    {
+        btn=[UIButton buttonWithType:UIButtonTypeCustom];
+        [btn setTitle:@"" forState:UIControlStateNormal];
+        btn.frame=CGRectMake(56, 297, 203, 44);
+        
+        [btn addTarget:self action:@selector(btnTouchUpInside:) forControlEvents:UIControlEventTouchUpInside];
+        
+        [self addSubview:btn];
+    }
     else if(page==12)
     {
         btn=[UIButton buttonWithType:UIButtonTypeCustom];
         [btn setTitle:@"" forState:UIControlStateNormal];
-        btn.frame=CGRectMake(78, 191, 66, 15);
+        btn.frame=CGRectMake(78, 191, 66, 44);
         
         [btn addTarget:self action:@selector(btnTouchUpInside:) forControlEvents:UIControlEventTouchUpInside];
         
@@ -141,22 +163,20 @@
 -(void) btnTouchUpInside:(UIButton*) button
 {
     if(_page==0)
-    {
         [self goPage:1];
-    }
+    else if(_page==3)
+        [self goPage:4];
     else if(_page==7)
-    {
         [self goPage:8];
-    }
+    else if(_page==9)
+        [self goPage:10];
     else if(_page==12)
-    {
         [self goPage:13];
-    }
 }
 
 -(NSArray*) pageAllowNext
 {
-    return @[@(1),@(2),@(3),@(4),@(5),@(6),@(8),@(9),@(10),@(11),@(13),@(14)];
+    return @[@(1),@(2),@(4),@(5),@(6),@(8),@(10),@(11),@(13),@(14)];
 }
 
 - (IBAction)btnNextTouchUpInside:(id)sender {
@@ -176,7 +196,19 @@
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     if(_page==_tutorials.count-1)
+    {
+        if(self.isHideClose)
+            [Flurry trackUserViewTutorialEnd];
+        
         [delegate tutorialViewBack:self];
+    }
+}
+
+-(void)setIsHideClose:(bool)_isHideClose
+{
+    isHideClose=_isHideClose;
+    
+    btnBack.hidden=isHideClose;
 }
 
 @end

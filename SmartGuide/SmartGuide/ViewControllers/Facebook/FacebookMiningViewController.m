@@ -62,31 +62,38 @@
 //            [self removeIndicator];
         
         if ([FBSession activeSession].accessTokenData.accessToken.length>0) {
+            
+            [Flurry trackUserWaitFacebook];
+            
             getProfile=[[OperationFBGetProfile alloc] initWithAccessToken:[FBSession activeSession].accessTokenData.accessToken];
             getProfile.delegate=self;
             [getProfile start];
             
-            [self showIndicatoWithTitle:@"Get profile"];
+            [self.view showLoadingWithTitle:nil];
         }
     }
     else if([notification.name isEqualToString:NOTIFICATION_FACEBOOK_LOGIN_SUCCESS])
     {
+        [Flurry trackUserWaitFacebook];
+        
         getProfile=[[OperationFBGetProfile alloc] initWithAccessToken:[FBSession activeSession].accessTokenData.accessToken];
         getProfile.delegate=self;
         [getProfile start];
         
-        [self showIndicatoWithTitle:@"Get profile"];
+        [self.view showLoadingWithTitle:nil];
     }
     else if([notification.name isEqualToString:NOTIFICATION_FACEBOOK_LOGIN_FAILED])
     {
-        [self removeIndicator];
+        [self.view removeLoading];
         [AlertView showAlertOKWithTitle:nil withMessage:@"Login facebook failed" onOK:nil];
     }
 }
 
 -(void) loginFacebook
 {
-    [self showIndicatoWithTitle:@"Wait facebook"];
+    [Flurry trackUserClickFacebook];
+    
+    [self.view showLoadingWithTitle:nil];
     [[FacebookManager shareInstance] login];
 }
 
@@ -131,7 +138,7 @@
 
 -(void)operationURLFailed:(OperationURL *)operation
 {
-    [self removeIndicator];
+    [self.view removeLoading];
     NSLog(@"%@ failed %@",CLASS_NAME,operation.error);
     [AlertView showAlertOKWithTitle:nil withMessage:[NSString stringWithFormat:@"%@",operation.error] onOK:nil];
     
