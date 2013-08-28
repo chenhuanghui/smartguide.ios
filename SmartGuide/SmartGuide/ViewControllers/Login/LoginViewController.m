@@ -37,6 +37,7 @@
     
     _inputPhone=@"";
     lblCountdown.hidden=true;
+    lblCountdown.text=@"";
 
     [self switchToActiveCode];
     
@@ -212,10 +213,12 @@
 
 -(void) countdownSMS
 {
+    lblCountdown.hidden=false;
+    
     [UIView animateWithDuration:0.2f animations:^{
         lblCountdown.alpha=0;
     } completion:^(BOOL finished) {
-        lblCountdown.text=[NSString stringWithFormat:@"%i",_time--];
+        lblCountdown.text=[NSString stringWithFormat:@"%i giây",_time--];
         [UIView animateWithDuration:0.8f animations:^{
             lblCountdown.alpha=1;
         } completion:^(BOOL finished) {
@@ -232,7 +235,8 @@
 
 -(void) switchToActiveCode
 {
-    lblCountdown.hidden=false;
+    lblCountdown.hidden=true;
+    lblCountdown.text=@"";
     txt.text=_inputPhone;
     lblInfo.textColor=[UIColor color255WithRed:59 green:72 blue:100 alpha:255];
     lblInfo.text=@"Nhập số điện thoại của bạn";
@@ -279,8 +283,6 @@
             }];
             
             _time=DURATION_RESET_SMS;
-            lblCountdown.text=[NSString stringWithFormat:@"%i",_time];
-            lblCountdown.hidden=false;
             _timerSMS=[NSTimer timerWithTimeInterval:1 target:self selector:@selector(countdownSMS) userInfo:nil repeats:true];
             [[NSRunLoop currentRunLoop] addTimer:_timerSMS forMode:NSDefaultRunLoopMode];
         }

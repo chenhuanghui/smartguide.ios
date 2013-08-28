@@ -9,6 +9,12 @@
 #import <Foundation/Foundation.h>
 #import "GMGridView.h"
 
+enum GRID_DIRECTION {
+    GRID_DIRECTION_TO_TOP = 0,//user scroll bot->top
+    GRID_DIRECTION_TO_BOTTOM = 1,//user scroll top->bot
+    GRID_DIRECTION_NONE = 2
+};
+
 @protocol GridViewTemplate <NSObject,GMGridViewActionDelegate,GMGridViewDataSource,UIScrollViewDelegate>
 
 -(bool) gridViewTemplateAllowLoadMore:(GMGridView*) gridView;
@@ -34,5 +40,6 @@
 @property (nonatomic, assign) GMGridView *gView;
 @property (nonatomic, assign) id<GridViewTemplate> delegate;
 @property (nonatomic, assign) int selectedIndex;
+@property (nonatomic, assign) bool isAutoFullCell;
 
 @end

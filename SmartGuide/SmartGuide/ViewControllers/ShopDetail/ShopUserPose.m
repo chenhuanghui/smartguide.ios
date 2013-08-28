@@ -102,12 +102,17 @@
 
 -(void)setImage:(UIImage *)image shop:(Shop *)shop
 {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        imgv.image=image;
-    });
-    
     CGRect rect=imgv.frame;
     rect.size= [Utility scaleUserPoseFromSize:image.size toSize:rect.size];
+    
+    UIGraphicsBeginImageContext(rect.size);
+    
+    [image drawInRect:CGRectMake(0, 0, rect.size.width, rect.size.height)];
+    
+    image=UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    imgv.image=image;
     
     imgv.frame=rect;
     imgv.center=CGPointMake(containView.frame.size.width/2, containView.frame.size.height/2);
@@ -131,13 +136,15 @@
 {
     [self endEditing:true];
     
+    [self showLoadingWithTitle:nil];
+    
+    [UIImagePNGRepresentation(imgv.image) writeToFile:[[Utility documentPath] stringByAppendingPathComponent:@"xxx.png"] atomically:true];
+    
     int idUser=[DataManager shareInstance].currentUser.idUser.integerValue;
-    ASIOperationUploadUserGallery *upload=[[ASIOperationUploadUserGallery alloc] initWithIDShop:_shop.idShop.integerValue userID:idUser desc:txt.text photo:UIImageJPEGRepresentation(imgv.image, 0)];
+    ASIOperationUploadUserGallery *upload=[[ASIOperationUploadUserGallery alloc] initWithIDShop:_shop.idShop.integerValue userID:idUser desc:txt.text photo:UIImagePNGRepresentation(imgv.image)];
     upload.delegatePost=self;
     
     [upload startAsynchronous];
-    
-    [self showLoadingWithTitle:nil];
     
     if(_isSharedFacebook)
     {
@@ -158,7 +165,8 @@
 {
     [self removeLoading];
     
-    [delegate shopUserPostFinished:self userGallery:nil];
+    [AlertView showAlertOKWithTitle:nil withMessage:@"Lỗi" onOK:nil];
+//    [delegate shopUserPostFinished:self userGallery:nil];
 }
 
 -(void)textViewDidChange:(UITextView *)textView

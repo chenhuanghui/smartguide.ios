@@ -112,6 +112,8 @@ typedef enum
 // Force the grid to update properties in an (probably) animated way.
 - (void)layoutSubviewsWithAnimation:(GMGridViewItemAnimation)animation;
 
+- (NSArray *)itemSubviews;
+
 @end
 
 

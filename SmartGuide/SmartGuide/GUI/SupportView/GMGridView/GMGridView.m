@@ -1245,7 +1245,7 @@ static const UIViewAnimationOptions kDefaultAnimationOptions = UIViewAnimationOp
 - (GMGridViewCell *)cellForItemAtIndex:(NSInteger)position
 {
     GMGridViewCell *view = nil;
-    
+        
     for (GMGridViewCell *v in [self itemSubviews]) 
     {
         if (v.tag == position + kTagOffset) 

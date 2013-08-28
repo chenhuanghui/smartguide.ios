@@ -37,6 +37,8 @@
     
     templateShop=[[GridViewTemplate alloc] initWithGridView:gridShop delegate:self];
     templateUser=[[GridViewTemplate alloc] initWithGridView:gridUser delegate:self];
+    templateShop.isAutoFullCell=true;
+    templateUser.isAutoFullCell=true;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userPosed:) name:NOTIFICATION_USER_POST_PICTURE object:nil];
     

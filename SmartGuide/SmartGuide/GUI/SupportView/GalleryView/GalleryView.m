@@ -164,13 +164,14 @@
     GMGridViewCell *cell=[grid cellForItemAtIndex:index];
     GalleryCell *gallery=(GalleryCell*)cell.contentView;
     
-    UIImageView *imgv=[[UIImageView alloc] initWithImage:gallery.imgv.image];
+    UIImage *img=gallery.imgv.image;
+    UIImageView *imgv=[[UIImageView alloc] initWithImage:img];
     imgv.contentMode=UIViewContentModeScaleAspectFit;
     imgv.frame=CGRectMake(0, 0, grid.frame.size.width, grid.frame.size.height);
     
     [self addSubview:imgv];
     
-    grid.hidden=true;
+    [grid removeFromSuperview];
     
     [UIView animateWithDuration:DURATION_SHOW_USER_GALLERY_IMAGE animations:^{
         CGRect rect=[delegate galleryViewFrameForAnimationHide:self index:index];
