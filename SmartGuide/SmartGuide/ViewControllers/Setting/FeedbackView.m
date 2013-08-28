@@ -19,15 +19,35 @@
     txt.placeholder=@"";
     lblName.text=@"";
     
-    feedback=[[ASIOperationGetFeedback alloc] initFeedback];
-    feedback.delegatePost=self;
-    
-    [feedback startAsynchronous];
+    [self loadFeedBack];
     
     return self;
 }
 
+-(void) loadFeedBack
+{
+    if(feedback)
+    {
+        [feedback cancel];
+        feedback=nil;
+    }
+    
+    feedback=[[ASIOperationGetFeedback alloc] initFeedback];
+    feedback.delegatePost=self;
+    
+    [feedback startAsynchronous];
+}
+
 - (IBAction)btnFeedbackTouchUpInside:(id)sender {
+    if([txt.text stringByRemoveString:@" ",nil]>0)
+    {
+        ASIOperationPostFeedback *post=[[ASIOperationPostFeedback alloc] initWithIDUser:[DataManager shareInstance].currentUser.idUser.integerValue content:txt.text];
+        
+        post.delegatePost=self;
+        [post startAsynchronous];
+        
+        [self showLoadingWithTitle:nil];
+    }
 }
 
 - (IBAction)btnBackTouchUpInside:(id)sender {
@@ -38,6 +58,8 @@
 {
     if([operation isKindOfClass:[ASIOperationGetFeedback class]])
     {
+        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(applyRandomFeedBack) object:nil];
+        
         ASIOperationGetFeedback *fb=(ASIOperationGetFeedback*) operation;
         
         _feedbacks=[[NSMutableArray alloc] initWithArray:fb.feedbacks];
@@ -46,10 +68,24 @@
         
         feedback=nil;
     }
+    else if([operation isKindOfClass:[ASIOperationPostFeedback class]])
+    {
+        txt.text=@"";
+        [txt resignFirstResponder];
+        
+        [self endEditing:true];
+        
+        [self removeLoading];
+        
+        [self applyRandomFeedBack];
+        
+        [self loadFeedBack];
+    }
 }
 
 -(void) applyFeedback:(Feedback*) fb
 {
+    txt.text=@"";
     [UIView animateWithDuration:0.15f animations:^{
         lblName.alpha=0;
         txt.alpha=0;
@@ -73,6 +109,7 @@
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(applyRandomFeedBack) object:nil];
     
     lblName.text=[DataManager shareInstance].currentUser.name;
+    txt.text=@" ";
     
     return true;
 }
@@ -98,7 +135,12 @@
 
 -(void)ASIOperaionPostFailed:(ASIOperationPost *)operation
 {
-    feedback=nil;
+    if([operation isKindOfClass:[ASIOperationGetFeedback class]])
+        feedback=nil;
+    else if([operation isKindOfClass:[ASIOperationPostFeedback class]])
+    {
+        [self removeLoading];
+    }
 }
 
 -(void)removeFromSuperview
@@ -122,6 +164,7 @@
         [[NSNotificationCenter defaultCenter] removeObserver:obj];
     }];
     
+    txt.text=@"";
     [self endEditing:true];
 }
 

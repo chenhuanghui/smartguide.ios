@@ -43,7 +43,7 @@
 							<object class="IBUIImageView" id="332499944">
 								<reference key="NSNextResponder" ref="631048504"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{10, 5}, {17, 18}}</string>
+								<string key="NSFrame">{{10, 13}, {17, 18}}</string>
 								<reference key="NSSuperview" ref="631048504"/>
 								<reference key="NSNextKeyView" ref="625272747"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
@@ -57,7 +57,7 @@
 							<object class="IBUILabel" id="625272747">
 								<reference key="NSNextResponder" ref="631048504"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{33, 4}, {210, 21}}</string>
+								<string key="NSFrame">{{33, 11}, {210, 21}}</string>
 								<reference key="NSSuperview" ref="631048504"/>
 								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
@@ -87,7 +87,7 @@
 								<bool key="IBUIAdjustsFontSizeToFit">NO</bool>
 							</object>
 						</array>
-						<string key="NSFrameSize">{243, 31}</string>
+						<string key="NSFrameSize">{243, 44}</string>
 						<reference key="NSSuperview" ref="580303977"/>
 						<reference key="NSNextKeyView" ref="332499944"/>
 						<string key="NSReuseIdentifierKey">_NS:11</string>
@@ -102,7 +102,7 @@
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 					</object>
 				</array>
-				<string key="NSFrameSize">{243, 32}</string>
+				<string key="NSFrameSize">{243, 45}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSNextKeyView" ref="631048504"/>
 				<string key="NSReuseIdentifierKey">_NS:9</string>
@@ -110,7 +110,7 @@
 				<int key="IBUISelectionStyle">0</int>
 				<reference key="IBUIContentView" ref="631048504"/>
 				<string key="IBUIReuseIdentifier">SettingCell</string>
-				<real value="32" key="IBUIRowHeight"/>
+				<real value="45" key="IBUIRowHeight"/>
 			</object>
 		</array>
 		<object class="IBObjectContainer" key="IBDocument.Objects">

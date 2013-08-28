@@ -174,6 +174,34 @@
             tutorial.alpha=1;
         }];
     }
+    else if([data.title isEqualToString:@"Giới thiệu"])
+    {
+        _isShowOtherView=true;
+        
+        IntroView *intro=[[IntroView alloc] init];
+        
+        intro.alpha=0;
+        intro.center=CGPointMake([UIScreen mainScreen].bounds.size.width/2, [UIScreen mainScreen].bounds.size.height/2);
+        intro.delegate=self;
+        
+        [[RootViewController shareInstance].window addSubview:intro];
+        
+        [UIView animateWithDuration:0.2f animations:^{
+            intro.alpha=1;
+        }];
+    }
+}
+
+-(void)introViewClose:(IntroView *)introView
+{
+    [UIView animateWithDuration:0.2 animations:^{
+        introView.alpha=0;
+    } completion:^(BOOL finished) {
+        introView.delegate=nil;
+        [introView removeFromSuperview];
+        
+        _isShowOtherView=false;
+    }];
 }
 
 -(void)tutorialViewBack:(TutorialView *)tutorial

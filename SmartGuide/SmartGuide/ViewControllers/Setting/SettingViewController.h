@@ -14,8 +14,9 @@
 #import "RootViewController.h"
 #import "FrontViewController.h"
 #import "ShopDetailViewController.h"
+#import "IntroView.h"
 
-@interface SettingViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,SwitchSettingDelegate,FeedbackViewDelegate,TutorialViewDelegate>
+@interface SettingViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,SwitchSettingDelegate,FeedbackViewDelegate,TutorialViewDelegate,IntroViewDelegate>
 {
     NSMutableArray *_settings;
     __weak IBOutlet UIImageView *avatar;

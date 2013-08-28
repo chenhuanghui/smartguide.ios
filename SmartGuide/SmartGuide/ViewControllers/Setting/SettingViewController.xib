@@ -316,8 +316,14 @@
 								</object>
 								<bool key="IBUIClipsSubviews">YES</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+								<bool key="IBUIBounces">NO</bool>
 								<bool key="IBUIShowsHorizontalScrollIndicator">NO</bool>
 								<bool key="IBUIShowsVerticalScrollIndicator">NO</bool>
+								<int key="IBUISeparatorStyle">1</int>
+								<object class="NSColor" key="IBUISeparatorColor">
+									<int key="NSColorSpace">1</int>
+									<bytes key="NSRGB">MC4zMTc2NDcwNTg4IDAuMzY0NzA1ODgyNCAwLjQ1ODgyMzUyOTQAA</bytes>
+								</object>
 								<int key="IBUISectionIndexMinimumDisplayRowCount">0</int>
 								<bool key="IBUIShowsSelectionImmediatelyOnTouchBegin">YES</bool>
 								<float key="IBUIRowHeight">44</float>
@@ -326,7 +332,7 @@
 							</object>
 							<object class="IBUILabel" id="1065961654">
 								<reference key="NSNextResponder" ref="191373211"/>
-								<int key="NSvFlags">292</int>
+								<int key="NSvFlags">-2147483356</int>
 								<string key="NSFrame">{{166, 67}, {76, 21}}</string>
 								<reference key="NSSuperview" ref="191373211"/>
 								<reference key="NSWindow"/>
@@ -353,7 +359,7 @@
 							</object>
 							<object class="IBUILabel" id="882022581">
 								<reference key="NSNextResponder" ref="191373211"/>
-								<int key="NSvFlags">292</int>
+								<int key="NSvFlags">-2147483356</int>
 								<string key="NSFrame">{{166, 81}, {76, 21}}</string>
 								<reference key="NSSuperview" ref="191373211"/>
 								<reference key="NSWindow"/>

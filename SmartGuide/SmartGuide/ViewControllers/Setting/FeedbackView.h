@@ -8,7 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "ASIOperationGetFeedback.h"
+#import "ASIOperationPostFeedback.h"
 #import "Feedback.h"
+#import "ActivityIndicator.h"
 
 @class FeedbackView;
 
