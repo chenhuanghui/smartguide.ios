@@ -130,6 +130,7 @@
 		A91D7B6917CA49CE00BF4DA2 /* 130725-SGmockup1e.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A91D7B6817CA49CE00BF4DA2 /* 130725-SGmockup1e.jpg */; };
 		A91D7B6B17CA4A7A00BF4DA2 /* button_done.png in Resources */ = {isa = PBXBuildFile; fileRef = A91D7B6A17CA4A7A00BF4DA2 /* button_done.png */; };
 		A91D7B6D17CA4A8800BF4DA2 /* button_done@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A91D7B6C17CA4A8800BF4DA2 /* button_done@2x.png */; };
+		A91E800217CF388000481666 /* CatalogueBlockViewController_ip5.xib in Resources */ = {isa = PBXBuildFile; fileRef = A91E800117CF388000481666 /* CatalogueBlockViewController_ip5.xib */; };
 		A91FF72F17A7FEBA00528263 /* ASIOperationVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = A91FF72E17A7FEBA00528263 /* ASIOperationVersion.m */; };
 		A91FF73217A7FED400528263 /* ASIOperationGroupInCity.m in Sources */ = {isa = PBXBuildFile; fileRef = A91FF73117A7FED400528263 /* ASIOperationGroupInCity.m */; };
 		A91FF73517A7FFD500528263 /* ASIOperationCity.m in Sources */ = {isa = PBXBuildFile; fileRef = A91FF73417A7FFD400528263 /* ASIOperationCity.m */; };
@@ -582,8 +583,6 @@
 		A9819872178D2FE40009FCB6 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9819871178D2FE40009FCB6 /* MapKit.framework */; };
 		A981988A178D38050009FCB6 /* CatalogueListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A9819889178D38050009FCB6 /* CatalogueListCell.m */; };
 		A981988C178D38120009FCB6 /* CatalogueListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A981988B178D38120009FCB6 /* CatalogueListCell.xib */; };
-		A98198A0178D39BB0009FCB6 /* ShopUserCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A981989F178D39BB0009FCB6 /* ShopUserCommentCell.m */; };
-		A98198A2178D39C50009FCB6 /* ShopUserCommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A98198A1178D39C50009FCB6 /* ShopUserCommentCell.xib */; };
 		A98198AC178D3C8C0009FCB6 /* Button.m in Sources */ = {isa = PBXBuildFile; fileRef = A98198AB178D3C8C0009FCB6 /* Button.m */; };
 		A98198AF178D3CA90009FCB6 /* ImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = A98198AE178D3CA90009FCB6 /* ImageView.m */; };
 		A98198B7178D3FB30009FCB6 /* Utility.m in Sources */ = {isa = PBXBuildFile; fileRef = A98198B6178D3FB30009FCB6 /* Utility.m */; };
@@ -1162,6 +1161,7 @@
 		A91D7B6817CA49CE00BF4DA2 /* 130725-SGmockup1e.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "130725-SGmockup1e.jpg"; sourceTree = "<group>"; };
 		A91D7B6A17CA4A7A00BF4DA2 /* button_done.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_done.png; sourceTree = "<group>"; };
 		A91D7B6C17CA4A8800BF4DA2 /* button_done@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_done@2x.png"; sourceTree = "<group>"; };
+		A91E800117CF388000481666 /* CatalogueBlockViewController_ip5.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CatalogueBlockViewController_ip5.xib; sourceTree = "<group>"; };
 		A91FF72D17A7FEBA00528263 /* ASIOperationVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIOperationVersion.h; sourceTree = "<group>"; };
 		A91FF72E17A7FEBA00528263 /* ASIOperationVersion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIOperationVersion.m; sourceTree = "<group>"; };
 		A91FF73017A7FED400528263 /* ASIOperationGroupInCity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIOperationGroupInCity.h; sourceTree = "<group>"; };
@@ -1746,9 +1746,6 @@
 		A9819888178D38050009FCB6 /* CatalogueListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CatalogueListCell.h; path = ../../GUI/SupportView/TableCell/CatalogueListCell.h; sourceTree = "<group>"; };
 		A9819889178D38050009FCB6 /* CatalogueListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CatalogueListCell.m; path = ../../GUI/SupportView/TableCell/CatalogueListCell.m; sourceTree = "<group>"; };
 		A981988B178D38120009FCB6 /* CatalogueListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CatalogueListCell.xib; path = ../../GUI/SupportView/TableCell/CatalogueListCell.xib; sourceTree = "<group>"; };
-		A981989E178D39BB0009FCB6 /* ShopUserCommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopUserCommentCell.h; sourceTree = "<group>"; };
-		A981989F178D39BB0009FCB6 /* ShopUserCommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopUserCommentCell.m; sourceTree = "<group>"; };
-		A98198A1178D39C50009FCB6 /* ShopUserCommentCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShopUserCommentCell.xib; sourceTree = "<group>"; };
 		A98198AA178D3C8C0009FCB6 /* Button.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Button.h; sourceTree = "<group>"; };
 		A98198AB178D3C8C0009FCB6 /* Button.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Button.m; sourceTree = "<group>"; };
 		A98198AD178D3CA90009FCB6 /* ImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageView.h; sourceTree = "<group>"; };
@@ -2778,19 +2775,8 @@
 				A98198E0178D6DD10009FCB6 /* PageConrol */,
 				A98198A9178D3C740009FCB6 /* Controls */,
 				A981988D178D385A0009FCB6 /* MapPin */,
-				A9819887178D37E60009FCB6 /* TableCell */,
 			);
 			path = SupportView;
-			sourceTree = "<group>";
-		};
-		A9819887178D37E60009FCB6 /* TableCell */ = {
-			isa = PBXGroup;
-			children = (
-				A981989E178D39BB0009FCB6 /* ShopUserCommentCell.h */,
-				A981989F178D39BB0009FCB6 /* ShopUserCommentCell.m */,
-				A98198A1178D39C50009FCB6 /* ShopUserCommentCell.xib */,
-			);
-			path = TableCell;
 			sourceTree = "<group>";
 		};
 		A981988D178D385A0009FCB6 /* MapPin */ = {
@@ -3365,6 +3351,7 @@
 				A9A505BA178EA37400F27E18 /* CatalogueBlockViewController.h */,
 				A9A505BB178EA37400F27E18 /* CatalogueBlockViewController.m */,
 				A9A505BC178EA37400F27E18 /* CatalogueBlockViewController.xib */,
+				A91E800117CF388000481666 /* CatalogueBlockViewController_ip5.xib */,
 			);
 			path = CatalogueBlock;
 			sourceTree = "<group>";
@@ -4014,7 +4001,6 @@
 				A9819866178D02530009FCB6 /* Default@2x.png in Resources */,
 				A9819868178D02530009FCB6 /* Default-568h@2x.png in Resources */,
 				A981988C178D38120009FCB6 /* CatalogueListCell.xib in Resources */,
-				A98198A2178D39C50009FCB6 /* ShopUserCommentCell.xib in Resources */,
 				A9A505C3178EA37400F27E18 /* CatalogueBlockViewController.xib in Resources */,
 				A9A505C5178EA37400F27E18 /* LoginViewController.xib in Resources */,
 				A9A505CA178EA38700F27E18 /* CatalogueListViewController.xib in Resources */,
@@ -4469,6 +4455,7 @@
 				A92376E317CD9EB100336FE2 /* IntroView.xib in Resources */,
 				A924256417CE63230074269F /* button_danhgia@2x.png in Resources */,
 				A924256517CE63230074269F /* button_danhgia.png in Resources */,
+				A91E800217CF388000481666 /* CatalogueBlockViewController_ip5.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4498,7 +4485,6 @@
 				A981985E178D02530009FCB6 /* main.m in Sources */,
 				A9819862178D02530009FCB6 /* AppDelegate.m in Sources */,
 				A981988A178D38050009FCB6 /* CatalogueListCell.m in Sources */,
-				A98198A0178D39BB0009FCB6 /* ShopUserCommentCell.m in Sources */,
 				A98198AC178D3C8C0009FCB6 /* Button.m in Sources */,
 				A98198AF178D3CA90009FCB6 /* ImageView.m in Sources */,
 				A98198B7178D3FB30009FCB6 /* Utility.m in Sources */,

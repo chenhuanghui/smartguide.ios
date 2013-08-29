@@ -87,8 +87,8 @@
 										<string key="IBUIText"/>
 										<string key="IBUIPlaceholder">   Nhập nhận xét của bạn.</string>
 										<object class="NSColor" key="IBUITextColor">
-											<int key="NSColorSpace">2</int>
-											<bytes key="NSRGB">MSAwLjI0MzEzNzI1NDkgMC4xNTY4NjI3NDUxAA</bytes>
+											<int key="NSColorSpace">3</int>
+											<bytes key="NSWhite">MAA</bytes>
 										</object>
 										<bool key="IBUIClearsOnBeginEditing">YES</bool>
 										<bool key="IBUIAdjustsFontSizeToFit">YES</bool>
@@ -99,11 +99,11 @@
 										</object>
 										<object class="IBUIFontDescription" key="IBUIFontDescription">
 											<int key="type">1</int>
-											<double key="pointSize">10</double>
+											<double key="pointSize">12</double>
 										</object>
 										<object class="NSFont" key="IBUIFont">
 											<string key="NSName">Helvetica</string>
-											<double key="NSSize">10</double>
+											<double key="NSSize">12</double>
 											<int key="NSfFlags">16</int>
 										</object>
 									</object>
@@ -128,6 +128,7 @@
 										<string key="NSFrame">{{239, 5}, {38, 38}}</string>
 										<reference key="NSSuperview" ref="166665069"/>
 										<reference key="NSWindow"/>
+										<reference key="NSNextKeyView"/>
 										<string key="NSReuseIdentifierKey">_NS:9</string>
 										<bool key="IBUIUserInteractionEnabled">NO</bool>
 										<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>

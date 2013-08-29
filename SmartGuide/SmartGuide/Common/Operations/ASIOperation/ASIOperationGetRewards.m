@@ -32,6 +32,8 @@
     for(Reward *reward in [Reward allObjects])
         [[DataManager shareInstance].managedObjectContext deleteObject:reward];
     
+    [[DataManager shareInstance] save];
+    
     rewards=[NSMutableArray array];
     
     if([self isNullData:json])

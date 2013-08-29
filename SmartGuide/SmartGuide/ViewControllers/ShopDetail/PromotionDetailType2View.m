@@ -46,8 +46,12 @@
     if(shop)
     {
         btnReward.hidden=false;
+        
+        NSNumberFormatter *format=[[NSNumberFormatter alloc] init];
+        format.groupingSeparator=@".";
+        format.maximumFractionDigits=0;
 
-        [btnReward setTitle:[NSNumberFormatter moneyFromNSNumber:shop.promotionDetail.money] forState:UIControlStateNormal];
+        [btnReward setTitle:[format stringFromNumber:shop.promotionDetail.money] forState:UIControlStateNormal];
         btnReward.tag=shop.promotionDetail.idAwardType2.integerValue;
         lblDesc.text=shop.promotionDetail.desc;
     }

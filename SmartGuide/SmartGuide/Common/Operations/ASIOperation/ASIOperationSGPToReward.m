@@ -7,17 +7,21 @@
 //
 
 #import "ASIOperationSGPToReward.h"
+#import "Shop.h"
+#import "PromotionDetail.h"
 
 @implementation ASIOperationSGPToReward
 @synthesize status,sgp,award,time,shopName,content,values,totalSGP,code;
 
--(ASIOperationSGPToReward *)initWithIDUser:(int)idUser idRewward:(int)idReward code:(NSString *)_code
+-(ASIOperationSGPToReward *)initWithIDUser:(int)idUser idRewward:(int)idReward code:(NSString *)_code idShop:(int)idShop
 {
     NSURL *_url=[NSURL URLWithString:SERVER_API_MAKE(API_SGP_TO_REWARD)];
     self=[super initWithURL:_url];
     
     code=[[NSString alloc] initWithString:_code];
     values=@[@(idUser),@(idReward),_code];
+    
+    _idShop=idShop;
     
     return self;
 }
@@ -35,11 +39,23 @@
     
     if(status==2)
     {
+        Shop *shop=[Shop shopWithIDShop:_idShop];
+        totalSGP=[dict doubleForKey:@"total_sgp"];
+        
+        if(shop)
+        {
+            if(shop.promotionDetail && shop.promotionDetail.promotionType.integerValue==1)
+            {
+                shop.promotionDetail.sgp=@(totalSGP);
+                
+                [[DataManager shareInstance] save];
+            }
+        }
+        
         sgp=[dict doubleForKey:@"sgp"];
         award=[NSString stringWithStringDefault:[dict objectForKey:@"award"]];
         time=[NSString stringWithStringDefault:[dict objectForKey:@"time"]];
         shopName=[NSString stringWithStringDefault:[dict objectForKey:@"shop_name"]];
-        totalSGP=[dict doubleForKey:@"total_sgp"];
     }
 }
 

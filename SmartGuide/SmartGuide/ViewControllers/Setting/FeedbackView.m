@@ -18,7 +18,6 @@
     self=[[[NSBundle mainBundle] loadNibNamed:@"FeedbackView" owner:nil options:nil] objectAtIndex:0];
     
     txt.text=@"";
-    [txt setPlaceHolderText:@"" textColor:[UIColor blackColor]];
     lblName.text=@"";
     
     [self loadFeedBack];
@@ -60,6 +59,8 @@
     }
     else
     {
+        txt.text=@"";
+        txt.editable=true;
         [txt becomeFirstResponder];
         [btnFeedback setTitle:@"Gữi" forState:UIControlStateNormal];
     }
@@ -86,6 +87,7 @@
     else if([operation isKindOfClass:[ASIOperationPostFeedback class]])
     {
         txt.text=@"";
+        txt.editable=false;
         [txt resignFirstResponder];
         
         [self endEditing:true];
@@ -107,7 +109,7 @@
         if(!_isEditing)
             lblName.text=[NSString stringWithFormat:@"%@",fb.user];
         
-        [txt setPlaceHolderText:[NSString stringWithFormat:@"%@", fb.content]textColor:[UIColor blackColor]];
+        txt.text=fb.content;
         
         [UIView animateWithDuration:0.15f animations:^{
             lblName.alpha=1;
@@ -175,7 +177,6 @@
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     txt.text=@"";
-    [txt removePlaceHolderText];
     [txt resignFirstResponder];
     [self endEditing:true];
 }
@@ -184,35 +185,8 @@
 {
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(applyRandomFeedBack) object:nil];
     _isEditing=false;
+    txt.editable=false;
     [self applyRandomFeedBack];
-}
-
-@end
-
-@implementation TextFieldFeedBack
-
--(void)drawPlaceholderInRect:(CGRect)rect
-{
-    [[UIColor blackColor] setFill];
-    UIFont *fo = [UIFont italicSystemFontOfSize:17];
-    float width=[[self placeholder] sizeWithFont:fo].width;
-    rect.origin.x=rect.size.width/2-width/2;
-    [[self placeholder] drawInRect:rect withFont:fo];
-    
-    [@"\"" drawInRect:CGRectMake(rect.origin.x-15, rect.origin.y, rect.size.width, rect.size.height) withFont:[UIFont italicSystemFontOfSize:24]];
-    [@"\"" drawInRect:CGRectMake(rect.origin.x+width+5, rect.origin.y, rect.size.width, rect.size.height) withFont:[UIFont italicSystemFontOfSize:24]];
-}
-
--(void)drawTextInRect:(CGRect)rect
-{
-    [[UIColor blackColor] setFill];
-    UIFont *fo = [UIFont italicSystemFontOfSize:17];
-    float width=[[self text] sizeWithFont:fo].width;
-    rect.origin.x=rect.size.width/2-width/2;
-    [[self text] drawInRect:rect withFont:fo];
-    
-    [@"\"" drawInRect:CGRectMake(rect.origin.x-15, rect.origin.y, rect.size.width, rect.size.height) withFont:[UIFont italicSystemFontOfSize:24]];
-    [@"\"" drawInRect:CGRectMake(rect.origin.x+width+5, rect.origin.y, rect.size.width, rect.size.height) withFont:[UIFont italicSystemFontOfSize:24]];
 }
 
 @end

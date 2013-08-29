@@ -166,6 +166,9 @@
 
 -(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
+    if(delegate && [delegate respondsToSelector:@selector(scrollViewDidEndDecelerating:)])
+        [delegate scrollViewDidEndDecelerating:scrollView];
+    
     if(!isAutoFullCell)
         return;
     

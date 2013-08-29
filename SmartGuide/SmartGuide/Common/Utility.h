@@ -158,6 +158,8 @@ bool isVailCLLocationCoordinate2D(CLLocationCoordinate2D location);
 
 -(void) animationScoreWithDuration:(float) duration startValue:(int) startValue endValue:(int) endValue format:(NSNumberFormatter*) format;
 -(void) stopAnimationScore;
+-(void) startFlashLabel;
+-(void) stopFlashLabel;
 
 @end
 

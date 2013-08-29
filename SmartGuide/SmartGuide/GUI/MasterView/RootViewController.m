@@ -1670,11 +1670,8 @@ static RootViewController *_rootViewController;
     
     if([self isShowedMap])
         return;
-    
-    if([self.frontViewController handlePanGestureShouldBegin:pan])
-    {
-        [self.frontViewController handlePanGesture:pan];
-    }
+
+    [self.frontViewController handlePanGesture:pan];
 }
 
 -(void)directionObjectDetail:(Shop *)shop

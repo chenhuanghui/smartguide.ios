@@ -219,6 +219,8 @@
         {
             _isNeedAnimaionScore=true;
         }
+        
+        [tableRank reloadData];
     }
 }
 

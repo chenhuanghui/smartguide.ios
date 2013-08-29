@@ -96,12 +96,6 @@
     [km.layer addAnimation:animation forKey:@"position.y"];
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 - (void)viewDidUnload {
     logo = nil;
     smartguide = nil;

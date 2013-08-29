@@ -953,6 +953,45 @@ static const NSString *KEY_HIT_TEST_EDGE_INSETS = @"HitTestEdgeInsets";
 
 @implementation UILabel(Utility)
 
+-(void)startFlashLabel
+{
+    if([self viewWithTag:122112])
+        return;
+    
+    UIView *view=[[UIView alloc] init];
+    view.backgroundColor=[UIColor clearColor];
+    view.alpha=0;
+    view.hidden=true;
+    view.tag=122112;
+    
+    [self addSubview:view];
+    
+    [self flashLabel];
+}
+
+-(void) flashLabel
+{
+    if(![self viewWithTag:122112])
+        return;
+
+    [UIView animateWithDuration:1 animations:^{
+        self.alpha=0.3f;
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:1 animations:^{
+            self.alpha=1;
+        } completion:^(BOOL finished) {
+            [self flashLabel];
+        }];
+    }];
+}
+
+-(void)stopFlashLabel
+{
+    while ([self viewWithTag:122112]) {
+        [[self viewWithTag:122112] removeFromSuperview];
+    }
+}
+
 -(void) stopAnimationScore
 {
     UILabel *lbl=(UILabel*)[self viewWithTag:909];

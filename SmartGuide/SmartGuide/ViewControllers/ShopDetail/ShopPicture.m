@@ -355,6 +355,16 @@
     galleryView=nil;
 }
 
+-(NSString *)galleryViewDescriptionImage:(int)index
+{
+    if(index<templateUser.datasource.count)
+    {
+        return ((ShopUserGallery*)[templateUser.datasource objectAtIndex:index]).desc;
+    }
+    
+    return @"";
+}
+
 -(CGRect)galleryViewFrameForAnimationHide:(GalleryView *)_galleryView index:(int)index
 {
     if(_isUserViewShopGallery)

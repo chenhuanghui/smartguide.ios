@@ -49,6 +49,18 @@
     vi =[[UIView alloc] initWithFrame:rect];
     vi.backgroundColor=[UIColor clearColor];
     tableReward.tableHeaderView=vi;
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userScanedQRCode:) name:NOTIFICATION_USER_SCANED_QR_CODE object:nil];
+}
+
+-(void) userScanedQRCode:(NSNotification*) notification
+{
+    if(!notification.object)
+        return;
+    
+    [table reloadData];
+    
+    [self refreshP];
 }
 
 -(bool)tableTemplateAllowLoadMore:(TableTemplate *)tableTemplate
@@ -154,9 +166,19 @@
         _operation=nil;
     }
     
+    if(_getRewards)
+    {
+        [_getRewards cancel];
+        _getRewards=nil;
+    }
+    
     templateTable.datasource=[[NSMutableArray alloc] init];
     templateTable.page=0;
     [table reloadData];
+    
+    templateReward.datasource=[[NSMutableArray alloc] init];
+    templateReward.page=0;
+    [tableReward reloadData];
     
     [avatar setSmartGuideImageWithURL:[NSURL URLWithString:[DataManager shareInstance].currentUser.avatar] placeHolderImage:UIIMAGE_LOADING_AVATAR success:nil failure:nil];
     
@@ -242,13 +264,11 @@
             [AlertView showAlertOKWithTitle:nil withMessage:ope.content onOK:nil];
         }
         
-        ASIOperationGetSG *getSG=[[ASIOperationGetSG alloc] initWithIDUser:[DataManager shareInstance].currentUser.idUser.integerValue];
-        getSG.delegatePost=self;
-        
-        [getSG startAsynchronous];
+        [self refreshP];
     }
     else if([operation isKindOfClass:[ASIOperationGetSG class]])
     {
+        [lblPoint stopFlashLabel];
         _totalPoint=((ASIOperationGetSG*)operation).sg;
         lblPoint.text=[NSNumberFormatter numberFromNSNumber:@(_totalPoint)];
         
@@ -258,12 +278,34 @@
     }
 }
 
+-(void) refreshP
+{
+    
+    [lblPoint startFlashLabel];
+    
+    if(_getSG)
+    {
+        [_getSG cancel];
+        _getSG=nil;
+    }
+    
+    _getSG=[[ASIOperationGetSG alloc] initWithIDUser:[DataManager shareInstance].currentUser.idUser.integerValue];
+    _getSG.delegatePost=self;
+    
+    [_getSG startAsynchronous];
+}
+
 -(void)ASIOperaionPostFailed:(ASIOperationPost *)operation
 {
     [self.view removeLoading];
     
     if([operation isKindOfClass:[ASIOperationGetRewards class]])
         [tableReward removeLoading];
+    else if([operation isKindOfClass:[ASIOperationGetSG class]])
+    {
+        [lblPoint stopFlashLabel];
+        _getSG=nil;
+    }
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView

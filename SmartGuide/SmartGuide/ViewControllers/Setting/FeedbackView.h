@@ -34,7 +34,3 @@
 @property (nonatomic, assign) id<FeedbackViewDelegate> delegate;
 
 @end
-
-@interface TextFieldFeedBack : UITextField
-
-@end

@@ -35,7 +35,7 @@ enum GRID_DIRECTION {
 -(void) endLoadNext;
 
 @property (nonatomic, strong) NSMutableArray *datasource;
-@property (nonatomic, assign) bool page;
+@property (nonatomic, assign) int page;
 @property (nonatomic, assign) bool isAllowLoadMore;
 @property (nonatomic, assign) GMGridView *gView;
 @property (nonatomic, assign) id<GridViewTemplate> delegate;

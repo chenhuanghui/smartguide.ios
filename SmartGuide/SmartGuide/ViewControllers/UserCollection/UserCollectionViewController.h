@@ -30,6 +30,8 @@
     __weak IBOutlet UIView *blurBottom;
     
     int _totalPoint;
+    
+    ASIOperationGetSG *_getSG;
 }
 
 -(void) loadUserCollection;

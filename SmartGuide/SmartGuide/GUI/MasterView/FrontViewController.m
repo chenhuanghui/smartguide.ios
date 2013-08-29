@@ -373,7 +373,7 @@
         rect.origin.x=0;
         self.visibleViewController.view.frame=rect;
         
-        [self.previousViewController.view alphaView].backgroundColor=COLOR_BACKGROUND_APP_ALPHA(0);
+        [self.previousViewController.view alphaView].backgroundColor=COLOR_BACKGROUND_APP_ALPHA(1);
         [self.visibleViewController.view alphaView].backgroundColor=COLOR_BACKGROUND_APP_ALPHA(0);
     } completion:^(BOOL finished) {
         

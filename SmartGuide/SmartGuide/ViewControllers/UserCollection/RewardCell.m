@@ -28,6 +28,8 @@
     lblRewardName.text=reward.content;
     btn.enabled=reward.status.boolValue;
     
+    btn.alpha=btn.enabled?1:0.5f;
+    
     [lblRewardName scrollLabelIfNeeded];
 }
 

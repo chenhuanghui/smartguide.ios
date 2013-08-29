@@ -228,7 +228,8 @@
 
 -(void) userScanedQRCode:(NSNotification*) notification
 {
-    [tableShop reloadData];
+    if(notification.object)
+        [tableShop reloadData];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -324,7 +325,7 @@
             tutorial.center=CGPointMake(320/2, 480/2);
             tutorial.alpha=0;
             tutorial.delegate=self;
-            tutorial.isHideClose=true;
+            tutorial.isHideClose=false;
             
             [self.view.window addSubview:tutorial];
             

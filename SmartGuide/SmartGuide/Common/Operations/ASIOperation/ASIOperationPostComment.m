@@ -59,6 +59,11 @@
         comment.comment=[values objectAtIndex:2];
         comment.avatar=[NSString stringWithStringDefault:[DataManager shareInstance].currentUser.avatar];
         
+        NSDateFormatter *dateFormat=[[NSDateFormatter alloc] init];
+        
+        [dateFormat setDateFormat:@"HH:mm"];
+        comment.time=[dateFormat stringFromDate:[NSDate dateWithTimeIntervalSinceNow:0]];
+        
         [[DataManager shareInstance] save];
     }
 }

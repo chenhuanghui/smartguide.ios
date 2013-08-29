@@ -242,7 +242,7 @@
             break;
             
         case SCAN_GET_AWARD_PROMOTION_1:
-            [self getPromotion1Reward:text idReward:self.idReward];
+            [self getPromotion1Reward:text idReward:self.idReward idShop:[Utility idShopFromQRCode:text]];
             break;
             
         case SCAN_GET_PROMOTION2:
@@ -253,10 +253,10 @@
     btnSlide.enabled=false;
 }
 
--(void) getPromotion1Reward:(NSString*) code idReward:(int) _idReward
+-(void) getPromotion1Reward:(NSString*) code idReward:(int) _idReward idShop:(int) idShop
 {
     int idUser=[DataManager shareInstance].currentUser.idUser.integerValue;
-    ASIOperationSGPToReward *operation=[[ASIOperationSGPToReward alloc] initWithIDUser:idUser idRewward:_idReward code:code];
+    ASIOperationSGPToReward *operation=[[ASIOperationSGPToReward alloc] initWithIDUser:idUser idRewward:_idReward code:code idShop:idShop];
     operation.delegatePost=self;
     
     [operation startAsynchronous];
@@ -382,6 +382,8 @@
             }];
             
             qrCode=[QRCode qrCodeWithCode:ope.code];
+            qrCode.totalSGP=ope.totalSGP;
+            
             [self.qrCodes addObject:qrCode];
         }
         else

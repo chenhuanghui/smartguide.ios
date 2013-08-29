@@ -9,8 +9,11 @@
 #import "ASIOperationPost.h"
 
 @interface ASIOperationSGPToReward : ASIOperationPost
+{
+    int _idShop;
+}
 
--(ASIOperationSGPToReward*) initWithIDUser:(int) idUser idRewward:(int) idReward code:(NSString*) code;
+-(ASIOperationSGPToReward*) initWithIDUser:(int) idUser idRewward:(int) idReward code:(NSString*) code idShop:(int) idShop;
 
 @property (nonatomic, readonly) int status;
 @property (nonatomic, readonly) NSString *content;

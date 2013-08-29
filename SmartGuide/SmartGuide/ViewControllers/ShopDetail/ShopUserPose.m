@@ -104,7 +104,7 @@
 {
     CGRect rect=imgv.frame;
     rect.size= [Utility scaleUserPoseFromSize:image.size toSize:rect.size];
-
+    
     imgv.image=image;
     
     imgv.frame=rect;
@@ -131,8 +131,12 @@
     
     [self showLoadingWithTitle:nil];
     
+    UIImage *image=imgv.image;
+    NSData *data=UIImagePNGRepresentation(image);
+    CGSize size=imgv.image.size;
+
     int idUser=[DataManager shareInstance].currentUser.idUser.integerValue;
-    ASIOperationUploadUserGallery *upload=[[ASIOperationUploadUserGallery alloc] initWithIDShop:_shop.idShop.integerValue userID:idUser desc:txt.text photo:UIImageJPEGRepresentation(imgv.image, 0)];
+    ASIOperationUploadUserGallery *upload=[[ASIOperationUploadUserGallery alloc] initWithIDShop:_shop.idShop.integerValue userID:idUser desc:txt.text photo:data];
     upload.delegatePost=self;
     
     [upload startAsynchronous];

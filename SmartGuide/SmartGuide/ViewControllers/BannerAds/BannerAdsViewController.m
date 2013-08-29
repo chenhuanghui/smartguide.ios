@@ -36,7 +36,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    self.title=@"Map";
+    self.title=@"Bản đồ";
 
     ray.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"ray_blue.png"]];
     

@@ -12,6 +12,6 @@
 
 -(ASIOperationShopUserGallery*) initWithIDShop:(int) idShop page:(int) page;
 
-@property (nonatomic, readonly) NSArray *userGallerys;
+@property (nonatomic, readonly) NSMutableArray *userGallerys;
 
 @end
