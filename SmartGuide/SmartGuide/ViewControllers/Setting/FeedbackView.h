@@ -22,9 +22,12 @@
 
 @interface FeedbackView : UIView<ASIOperationPostDelegate,UITextViewDelegate>
 {
-    __weak IBOutlet UITextView *txt;
-    __weak IBOutlet UILabel *lblName;
+    __weak IBOutlet UITextView *txtInput;
+    __weak IBOutlet UITextView *txtFeedBack;
+    __weak IBOutlet UILabel *lblUserFeedback;
     __weak IBOutlet UIButton *btnFeedback;
+    __weak IBOutlet UILabel *lblUser;
+    __weak IBOutlet UIView *loadingView;
     NSMutableArray *_feedbacks;
     
     bool _isEditing;

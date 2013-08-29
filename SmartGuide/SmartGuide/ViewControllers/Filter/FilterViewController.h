@@ -20,7 +20,7 @@
 
 @end
 
-@interface FilterViewController : ViewController<UIGestureRecognizerDelegate,CatalogueListViewDelegate>
+@interface FilterViewController : ViewController<UIGestureRecognizerDelegate>
 {
     __weak IBOutlet Label *lblAllField;
     __weak IBOutlet UIView *food;
@@ -31,8 +31,7 @@
     __weak IBOutlet UIView *travel;
     __weak IBOutlet UIView *production;
     __weak IBOutlet UIView *education;
-    
-    __weak IBOutlet UIButton *btnAward;
+
     __weak IBOutlet UIButton *btnPoint;
     __weak IBOutlet UIButton *btnLike;
     __weak IBOutlet UIButton *btnView;

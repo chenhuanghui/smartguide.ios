@@ -163,6 +163,22 @@
 {
     Filter *filter=[[DataManager shareInstance] currentUser].filter;
     
+    if(!filter)
+    {
+        filter=[Filter insert];
+        filter.food=@(true);
+        filter.drink=@(true);
+        filter.health=@(true);
+        filter.entertaiment=@(true);
+        filter.fashion=@(true);
+        filter.travel=@(true);
+        filter.production=@(true);
+        filter.education=@(true);
+        filter.distance=@(true);
+        
+        [[DataManager shareInstance] save];
+    }
+    
     if(filter)
     {
         [self setHighlight:filter.food.boolValue filter:food];
@@ -173,8 +189,7 @@
         [self setHighlight:filter.travel.boolValue filter:travel];
         [self setHighlight:filter.production.boolValue filter:production];
         [self setHighlight:filter.education.boolValue filter:education];
-        
-        btnAward.selected=filter.mostGetReward.boolValue;
+
         btnPoint.selected=filter.mostGetPoint.boolValue;
         btnLike.selected=filter.mostLike.boolValue;
         btnView.selected=filter.mostView.boolValue;
@@ -183,8 +198,7 @@
     else
     {
         [self btnCheckNonTouchUpInside:nil];
-        
-        btnAward.selected=false;
+
         btnPoint.selected=false;
         btnLike.selected=false;
         btnView.selected=false;
@@ -199,7 +213,7 @@
 
 -(NSArray*) radioButtons
 {
-    return @[btnAward,btnDistance,btnLike,btnPoint,btnView];
+    return @[btnDistance,btnLike,btnPoint,btnView];
 }
 
 -(void) setChecked:(UIButton*) btnChecked checked:(bool) checked
@@ -261,7 +275,6 @@
     filter.production=[NSNumber numberWithBool:[self isHighlighted:production]];
     filter.education=[NSNumber numberWithBool:[self isHighlighted:education]];
     
-    filter.mostGetReward=[NSNumber numberWithBool:btnAward.selected];
     filter.mostGetPoint=[NSNumber numberWithBool:btnPoint.selected];
     filter.mostLike=[NSNumber numberWithBool:btnLike.selected];
     filter.mostView=[NSNumber numberWithBool:btnView.selected];
@@ -294,9 +307,17 @@
                 [array addObject:[Group education]];
             
             [self.view showLoadingWithTitle:nil];
-            
-            [RootViewController shareInstance].frontViewController.catalogueList.delegate=self;
+
             [[RootViewController shareInstance].frontViewController.catalogueList loadGroups:array sortType:filter.sortBy city:[DataManager shareInstance].currentCity.idCity.integerValue];
+            
+            __block __weak id obs = [[NSNotificationCenter defaultCenter] addObserverForName:NOTIFICATION_CATALOGUE_LIST_FINISHED object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
+                
+                [self.view removeLoading];
+                
+                [[RootViewController shareInstance] hideFilter];
+                
+                [[NSNotificationCenter defaultCenter] removeObserver:obs];
+            }];
         }
         else
             [[RootViewController shareInstance] hideFilter];
@@ -306,13 +327,6 @@
 //    
 //    if(delegate && [delegate respondsToSelector:@selector(filterDone)])
 //        [delegate filterDone];
-}
-
--(void)catalogueListLoadShopFinished:(CatalogueListViewController *)catalogueListView
-{
-    [self.view removeLoading];
-    [[RootViewController shareInstance] hideFilter];
-    catalogueListView.delegate=nil;
 }
 
 - (void)viewDidUnload {
@@ -325,7 +339,6 @@
     travel = nil;
     production = nil;
     education = nil;
-    btnAward = nil;
     btnPoint = nil;
     btnLike = nil;
     btnView = nil;

@@ -122,7 +122,7 @@
             if(!self.catalogueBlock.view.superview)
                 [self.view addSubview:self.catalogueBlock.view];
             
-            self.catalogueBlock.view.center=CGPointMake([self center].x-self.view.frame.size.width, [self center].y);
+            self.catalogueBlock.view.center=CGPointMake([self center].x-self.view.frame.size.width, self.catalogueBlock.view.center.y);
         }
             break;
             
@@ -413,7 +413,7 @@
         [self.catalogueBlock configMenu];
         
         [UIView animateWithDuration:DURATION_SHOW_CATALOGUE animations:^{
-            self.catalogueBlock.view.center=[self center];
+            self.catalogueBlock.view.center=CGPointMake(160, self.catalogueBlock.view.center.y);
             
             self.visibleViewController.view.center=CGPointMake([self center].x+self.view.frame.size.width, [self center].y);
             

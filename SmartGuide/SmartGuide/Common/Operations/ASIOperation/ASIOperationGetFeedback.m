@@ -38,9 +38,16 @@
     {
         for(NSDictionary *dict in [[json objectAtIndex:0] objectForKey:@"content"])
         {
+            NSString *content=[NSString stringWithStringDefault:[dict objectForKey:@"feedback"]];
+            NSString *user=[NSString stringWithStringDefault:[dict objectForKey:@"username"]];
+            
+            if([content stringByRemoveString:@" ",nil].length==0 || [user stringByRemoveString:@" ",nil].length==0)
+                continue;
+                
+            
             Feedback *fb=[Feedback insert];
-            fb.content=[NSString stringWithStringDefault:[dict objectForKey:@"feedback"]];
-            fb.user=[NSString stringWithStringDefault:[dict objectForKey:@"username"]];
+            fb.content=content;
+            fb.user=user;
             
             [feedbacks addObject:fb];
         }

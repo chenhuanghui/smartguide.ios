@@ -17,8 +17,20 @@
 {
     self=[[[NSBundle mainBundle] loadNibNamed:@"FeedbackView" owner:nil options:nil] objectAtIndex:0];
     
-    txt.text=@"";
-    lblName.text=@"";
+    txtFeedBack.hidden=false;
+    lblUserFeedback.hidden=false;
+    
+    txtInput.hidden=true;
+    lblUser.hidden=true;
+    
+    txtInput.text=@"";
+    txtFeedBack.text=@"";
+    lblUserFeedback.text=@"";
+    lblUser.text=@"";
+    
+    lblUser.text=[DataManager shareInstance].currentUser.name;
+    
+    [loadingView showLoadingWithTitle:nil];
     
     [self loadFeedBack];
     
@@ -40,29 +52,53 @@
 }
 
 - (IBAction)btnFeedbackTouchUpInside:(id)sender {
-    if(_isEditing)
+    //Người dùng muốn feedback
+    if(txtInput.hidden)
     {
-        if([txt.text stringByRemoveString:@" ",nil].length==0)
+        btnFeedback.userInteractionEnabled=false;
+        
+        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(applyRandomFeedBack) object:nil];
+        
+        [btnFeedback setTitle:@"Gửi" forState:UIControlStateNormal];
+        txtInput.editable=true;
+        txtInput.alpha=0;
+        lblUser.alpha=0;
+        txtInput.hidden=false;
+        lblUser.hidden=false;
+        txtInput.text=@"";
+        
+        [txtInput becomeFirstResponder];
+        
+        [UIView animateWithDuration:0.3f animations:^{
+            txtInput.alpha=1;
+            lblUser.alpha=1;
+            txtFeedBack.alpha=0;
+            lblUserFeedback.alpha=0;
+        } completion:^(BOOL finished) {
+            txtFeedBack.hidden=true;
+            lblUserFeedback.hidden=true;
+            
+            btnFeedback.userInteractionEnabled=true;
+        }];
+    }
+    else //Người dùng gữi gửi feedback
+    {
+        txtInput.editable=false;
+        
+        if([txtInput.text stringByRemoveString:@" ",nil].length==0)
         {
             [AlertView showAlertOKWithTitle:nil withMessage:@"Vui lòng nhập nội dung đánh giá" onOK:^{
-                [txt becomeFirstResponder];
+                [txtInput becomeFirstResponder];
             }];
             return;
         }
         
-        ASIOperationPostFeedback *post=[[ASIOperationPostFeedback alloc] initWithIDUser:[DataManager shareInstance].currentUser.idUser.integerValue content:txt.text];
+        ASIOperationPostFeedback *post=[[ASIOperationPostFeedback alloc] initWithIDUser:[DataManager shareInstance].currentUser.idUser.integerValue content:txtInput.text];
         
         post.delegatePost=self;
         [post startAsynchronous];
         
-        [self showLoadingWithTitle:nil];
-    }
-    else
-    {
-        txt.text=@"";
-        txt.editable=true;
-        [txt becomeFirstResponder];
-        [btnFeedback setTitle:@"Gữi" forState:UIControlStateNormal];
+        [loadingView showLoadingWithTitle:nil];
     }
 }
 
@@ -74,63 +110,46 @@
 {
     if([operation isKindOfClass:[ASIOperationGetFeedback class]])
     {
-        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(applyRandomFeedBack) object:nil];
-        
+        [loadingView removeLoading];
+
         ASIOperationGetFeedback *fb=(ASIOperationGetFeedback*) operation;
         
         _feedbacks=[[NSMutableArray alloc] initWithArray:fb.feedbacks];
         
+        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(applyRandomFeedBack) object:nil];
         [self performSelector:@selector(applyRandomFeedBack) withObject:nil afterDelay:0];
+        
+        [self hideInput];
         
         feedback=nil;
     }
     else if([operation isKindOfClass:[ASIOperationPostFeedback class]])
     {
-        txt.text=@"";
-        txt.editable=false;
-        [txt resignFirstResponder];
-        
-        [self endEditing:true];
-        
-        [self removeLoading];
-        
         [self loadFeedBack];
     }
 }
 
 -(void) applyFeedback:(Feedback*) fb
 {
-    txt.text=@"";
-    [btnFeedback setTitle:@"Đánh giá" forState:UIControlStateNormal];
+    lblUserFeedback.hidden=false;
+    txtFeedBack.hidden=false;
+    
     [UIView animateWithDuration:0.15f animations:^{
-        lblName.alpha=0;
-        txt.alpha=0;
+        lblUserFeedback.alpha=0;
+        txtFeedBack.alpha=0;
     } completion:^(BOOL finished) {
-        if(!_isEditing)
-            lblName.text=[NSString stringWithFormat:@"%@",fb.user];
-        
-        txt.text=fb.content;
+
+        lblUserFeedback.text=fb.user;
+        txtFeedBack.text=fb.content;
         
         [UIView animateWithDuration:0.15f animations:^{
-            lblName.alpha=1;
-            txt.alpha=1;
+            lblUserFeedback.alpha=1;
+            txtFeedBack.alpha=1;
         } completion:^(BOOL finished) {
-            [self performSelector:@selector(applyRandomFeedBack) withObject:nil afterDelay:3];
+            if(finished)
+                [self performSelector:@selector(applyRandomFeedBack) withObject:nil afterDelay:3];
         }];
     }];
-}
-
--(BOOL)textViewShouldBeginEditing:(UITextView *)textView
-{
-    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(applyRandomFeedBack) object:nil];
-    
-    
-    lblName.text=[DataManager shareInstance].currentUser.name;
-    txt.text=@" ";
-    [btnFeedback setTitle:@"Gữi" forState:UIControlStateNormal];
-    _isEditing=true;
-    
-    return true;
 }
 
 -(void) applyRandomFeedBack
@@ -176,17 +195,37 @@
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    txt.text=@"";
-    [txt resignFirstResponder];
-    [self endEditing:true];
+    [self hideInput];
 }
 
--(void)textViewDidEndEditing:(UITextView *)textView
+-(void) hideInput
 {
-    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(applyRandomFeedBack) object:nil];
-    _isEditing=false;
-    txt.editable=false;
-    [self applyRandomFeedBack];
+    if(!txtInput.hidden)
+    {
+        [txtInput resignFirstResponder];
+        [self endEditing:true];
+        
+        txtInput.editable=false;
+        txtFeedBack.alpha=0;
+        lblUserFeedback.alpha=0;
+        txtFeedBack.hidden=false;
+        lblUserFeedback.hidden=false;
+        
+        [UIView animateWithDuration:0.3f animations:^{
+            txtInput.alpha=0;
+            lblUser.alpha=0;
+            txtFeedBack.alpha=1;
+            lblUserFeedback.alpha=1;
+        } completion:^(BOOL finished) {
+            txtInput.hidden=true;
+            lblUser.hidden=true;
+            
+            [btnFeedback setTitle:@"Đánh giá" forState:UIControlStateNormal];
+            
+            [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(applyRandomFeedBack) object:nil];
+            [self applyRandomFeedBack];
+        }];
+    }
 }
 
 @end

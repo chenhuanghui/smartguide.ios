@@ -24,7 +24,7 @@
 
 - (id)init
 {
-    self = [super initWithNibName:@"SettingViewController" bundle:nil];
+    self = [super initWithNibName:NIB_PHONE(@"SettingViewController") bundle:nil];
     if (self) {
         
     }
