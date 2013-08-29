@@ -17,7 +17,7 @@
 
 -(ShopPicture *)initWithShop:(Shop *)shop
 {
-    self=[[[NSBundle mainBundle] loadNibNamed:@"ShopPicture" owner:nil options:nil] objectAtIndex:0];
+    self=[[[NSBundle mainBundle] loadNibNamed:NIB_PHONE(@"ShopPicture") owner:nil options:nil] objectAtIndex:0];
     
     [self setShop:shop];
     

@@ -26,7 +26,7 @@
 
 -(ShopLocation *)initWithShop:(Shop *)shop
 {
-    self=[[[NSBundle mainBundle] loadNibNamed:@"ShopLocation" owner:nil options:nil] objectAtIndex:0];
+    self=[[[NSBundle mainBundle] loadNibNamed:NIB_PHONE(@"ShopLocation") owner:nil options:nil] objectAtIndex:0];
     
     mapContaint.delegate=self;
     

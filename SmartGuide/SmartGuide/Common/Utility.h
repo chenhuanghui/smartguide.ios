@@ -16,9 +16,9 @@
 #define CGRECT_PHONE(rectIP4,rectIP5) (IS_IPHONE_4?rectIP4:rectIP5)
 #define CGPOINT_PHONE(pntIP4,pntIP5) (IS_IPHONE_4?pntIP4:pntIP5)
 #define WIDTH_PHONE(wIP4,wIP5) (IS_IPHONE_4?wIP4:wIP5)
-#define HEIGHT_PHONE(hIP4,hIP5) (IS_IPHONE_4?hIP4,hIP5)
-#define X_PHONE(xIP4,xIP5) (IS_IPHONE_4?xIP4,xIP5)
-#define Y_PHONE(yIP4,yIP5) (IS_IPHONE_4?yIP4,yIP5)
+#define HEIGHT_PHONE(hIP4,hIP5) (IS_IPHONE_4?hIP4:hIP5)
+#define X_PHONE(xIP4,xIP5) (IS_IPHONE_4?xIP4:xIP5)
+#define Y_PHONE(yIP4,yIP5) (IS_IPHONE_4?yIP4:yIP5)
 #define NIB_PHONE(nibName) (IS_IPHONE_4?nibName:[nibName stringByAppendingString:@"_ip5"])
 
 #define DEGREES_TO_RADIANS(angle) ((angle) / 180.0 * M_PI)

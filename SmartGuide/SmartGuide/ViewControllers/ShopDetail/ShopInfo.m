@@ -7,12 +7,13 @@
 //
 
 #import "ShopInfo.h"
+#import "Utility.h"
 
 @implementation ShopInfo
 
 -(ShopInfo *)initWithShop:(Shop *)shop
 {
-    self=[[[NSBundle mainBundle] loadNibNamed:@"ShopInfo" owner:nil options:nil] objectAtIndex:0];
+    self=[[[NSBundle mainBundle] loadNibNamed:NIB_PHONE(@"ShopInfo") owner:nil options:nil] objectAtIndex:0];
     
     [self setShop:shop];
     
@@ -36,7 +37,7 @@
     
     lblDesc.text=shop.desc;
     
-    CGRect rect=CGRectMake(51, 14, 234, 72);
+    CGRect rect=CGRECT_PHONE(CGRectMake(51, 14, 234, 72), CGRectMake(51, 14, 234, 120));
     if(lblDesc.frame.size.height>lblDesc.contentSize.height)
         rect.size.height=MAX(21, lblDesc.contentSize.height);
     
@@ -44,10 +45,10 @@
     
     lblAddress.text=shop.address;
     
-    rect=CGRectMake(51, lblDesc.frame.origin.y+lblDesc.frame.size.height, 234, 60);
+    rect=CGRectMake(51, lblDesc.frame.origin.y+lblDesc.frame.size.height-2, 234, 60);
     
     if(lblAddress.frame.size.height>lblAddress.contentSize.height)
-        rect.size.height=MAX(21, lblAddress.contentSize.height);
+        rect.size.height=MAX(21, lblAddress.contentSize.height-2);
     
     lblAddress.frame=rect;
     

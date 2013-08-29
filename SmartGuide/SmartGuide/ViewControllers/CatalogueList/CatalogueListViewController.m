@@ -27,7 +27,7 @@
 
 - (id)init
 {
-    self = [super initWithNibName:@"CatalogueListViewController" bundle:nil];
+    self = [super initWithNibName:NIB_PHONE(@"CatalogueListViewController") bundle:nil];
     if (self) {
     }
     return self;
@@ -243,7 +243,7 @@
     [[RootViewController shareInstance].shopDetail removeFromParentViewController];
     [[RootViewController shareInstance].shopDetail.view removeFromSuperview];
     
-    self.navigationController.view.frame=CGRectMake(0, 37, 320, 337);
+    self.navigationController.view.frame=CGRECT_PHONE(CGRectMake(0, 37, 320, 337), CGRectMake(0, 37, 320, 337+([UIScreen mainScreen].bounds.size.height-480)));
     
     [[RootViewController shareInstance].bannerAds animationHideShopDetail];
     

@@ -24,11 +24,11 @@
 @implementation FilterViewController
 @synthesize tapGes,delegate;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (id)init
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    self = [super initWithNibName:NIB_PHONE(@"FilterViewController") bundle:nil];
     if (self) {
-        // Custom initialization
+        
     }
     return self;
 }

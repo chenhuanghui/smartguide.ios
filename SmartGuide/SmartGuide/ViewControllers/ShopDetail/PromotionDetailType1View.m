@@ -19,7 +19,7 @@
 
 -(PromotionDetailType1View *)initWithShop:(Shop *)shop
 {
-    self=[[[NSBundle mainBundle] loadNibNamed:@"PromotionDetailType1View" owner:nil options:nil] objectAtIndex:0];
+    self=[[[NSBundle mainBundle] loadNibNamed:NIB_PHONE(@"PromotionDetailType1View") owner:nil options:nil] objectAtIndex:0];
     
     [self setShop:shop];
     [tableRank registerNib:[UINib nibWithNibName:[PromotionDetailCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[PromotionDetailCell reuseIdentifier]];

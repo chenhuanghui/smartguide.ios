@@ -17,7 +17,7 @@
 
 -(ShopComment *)initWithShop:(Shop *)shop
 {
-    self=[[[NSBundle mainBundle] loadNibNamed:@"ShopComment" owner:nil options:nil] objectAtIndex:0];
+    self=[[[NSBundle mainBundle] loadNibNamed:NIB_PHONE(@"ShopComment") owner:nil options:nil] objectAtIndex:0];
     
     [self setShop:shop];
     
@@ -167,9 +167,9 @@
     
     [UIView animateWithDuration:duration animations:^{
         //vi tri x,y containComment được lấy khi bắt đầu animation scale (line 182)
-        containComment.frame=CGRectMake(17, 189, 287, 228);
-        tableComments.frame=CGRectMake(10, 0, 279, 181);
-        containInput.frame=CGRectMake(0, 181, 287, 47);
+        containComment.frame=CGRECT_PHONE(CGRectMake(17, 189, 287, 228), CGRectMake(17, 189, 287, 314));
+        tableComments.frame=CGRECT_PHONE(CGRectMake(10, 0, 279, 181), CGRectMake(10, 0, 279, 267));
+        containInput.frame=CGRECT_PHONE(CGRectMake(0, 181, 287, 47), CGRectMake(0, 267, 287, 47));
         txtComment.frame=CGRectMake(10, 8, 220, 32);
         containtAvatar.frame=CGRectMake(239, 4, 40, 40);
         arrow.frame=CGRectMake(229, 17, 8, 13);

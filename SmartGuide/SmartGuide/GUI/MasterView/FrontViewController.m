@@ -328,9 +328,9 @@
 
 -(void)setFrame:(CGRect)frame
 {
-    frame.origin=CGPointZero;
-    catalogueBlock.view.frame=frame;
-    catalogueList.view.frame=frame;
+//    frame.origin=CGPointZero;
+//    catalogueBlock.view.frame=frame;
+//    catalogueList.view.frame=frame;
 }
 
 -(void) showPreviousViewController:(void(^)(BOOL finished)) completed
@@ -537,7 +537,7 @@
     ViewController *vc=(ViewController*)viewController;
 
     //restore frame
-    self.view.frame=CGRectMake(0, 37, 320, 337);
+    self.view.frame=CGRECT_PHONE(CGRectMake(0, 37, 320, 337), CGRectMake(0, 37, 329, 512));
     
     if([vc allowBannerAds])
     {
@@ -546,7 +546,7 @@
     else
     {
         CGRect rect=self.view.frame;
-        rect.size.height=337+[BannerAdsViewController size].height;
+        rect.size.height=HEIGHT_PHONE(337, 512)+[BannerAdsViewController size].height;
         self.view.frame=rect;
     }
     

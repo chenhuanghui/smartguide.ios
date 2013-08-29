@@ -15,7 +15,7 @@
 
 -(ShopMenu *)initWithShop:(Shop *)shop
 {
-    self=[[[NSBundle mainBundle] loadNibNamed:@"ShopMenu" owner:nil options:nil] objectAtIndex:0];
+    self=[[[NSBundle mainBundle] loadNibNamed:NIB_PHONE(@"ShopMenu") owner:nil options:nil] objectAtIndex:0];
     
     _productType=[NSMutableDictionary dictionary];
     _productTypeName=[NSArray array];

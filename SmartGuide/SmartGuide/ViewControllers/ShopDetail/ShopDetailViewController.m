@@ -34,7 +34,7 @@
 
 - (id)init
 {
-    self=[super initWithNibName:@"ShopDetailViewController" bundle:nil];
+    self=[super initWithNibName:NIB_PHONE(@"ShopDetailViewController") bundle:nil];
     
     _isShowedShopMenu=false;
     _lastTag=-1;
