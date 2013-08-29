@@ -30,11 +30,6 @@
 -(void) receiveNotification:(NSNotification*) notification;
 -(void) willPopViewController;
 
-#pragma mark ActivityIndicator
--(ActivityIndicator*) showIndicatoWithTitle:(NSString*) indicatorTitle;
--(ActivityIndicator*) showIndicatoWithTitle:(NSString*) indicatorTitle countdown:(int) countdown;
--(void) removeIndicator;
-
 -(bool) allowBannerAds;
 
 -(bool) allowDragPreviousView:(UIPanGestureRecognizer*) pan;

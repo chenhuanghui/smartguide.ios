@@ -25,6 +25,7 @@
     
     self.image=UIIMAGE_USER_PIN;
     self.canShowCallout=true;
+    userLocation.title=@"Vị trí của bạn";
     
     [self setUserLocation:userLocation];
     

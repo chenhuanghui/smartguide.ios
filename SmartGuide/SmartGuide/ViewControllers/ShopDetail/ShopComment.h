@@ -19,6 +19,8 @@
     __weak IBOutlet UITextField *txtComment;
     __weak IBOutlet UIImageView *avatar;
     __weak IBOutlet UIImageView *arrow;
+    __weak IBOutlet UIView *containtAvatar;
+    
     ASIOperationShopComment *_operationComment;
     TableTemplate *_templateComment;
     NSMutableArray *_comments;

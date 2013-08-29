@@ -20,7 +20,7 @@
     lblSP.text=[NSString stringWithFormat:@"%0.0f",collection.SP];
     lblTime.text=collection.time;
     lblDay.text=collection.day;
-    lblName.text=collection.name;
+    lblName.text=[collection.name uppercaseString];
     [lblName scrollLabelIfNeeded];
 }
 

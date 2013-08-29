@@ -235,7 +235,27 @@
 
 @implementation UIView(ActivityIndicator)
 
--(void)showLoadingWithTitle:(NSString *)title
+
+-(ActivityIndicator*) activityIndicator
+{
+    ActivityIndicator *indicator=nil;
+    bool isFounded=false;
+    for(indicator in self.subviews)
+    {
+        if([indicator isKindOfClass:[ActivityIndicator class]])
+        {
+            isFounded=true;
+            break;
+        }
+    }
+    
+    if(isFounded)
+        return indicator;
+    
+    return nil;
+}
+
+-(ActivityIndicator*)showLoadingWithTitle:(NSString *)title
 {
     NSString *msg=@"";
     if(title.length>0)
@@ -259,7 +279,17 @@
     indicator.layer.cornerRadius=self.layer.cornerRadius;
     
     [self addSubview:indicator];
+    
+    return indicator;
+}
 
+-(ActivityIndicator *)showLoadingWithTitle:(NSString *)title countdown:(int)countdown delegate:(id<ActivityIndicatorDelegate>)delegate
+{
+    ActivityIndicator *indicator=[self showLoadingWithTitle:title];
+    indicator.delegate=delegate;
+    indicator.countdown=countdown;
+    
+    return indicator;
 }
 
 -(void)removeLoading

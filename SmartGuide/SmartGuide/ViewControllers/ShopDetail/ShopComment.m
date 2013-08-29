@@ -99,6 +99,8 @@
     [_templateComment setAllowLoadMore:_comments.count==10];
     isProcessedData=true;
     _page=1;
+    
+    [self removeLoading];
 }
 
 -(void)reset
@@ -169,7 +171,7 @@
         tableComments.frame=CGRectMake(10, 0, 279, 181);
         containInput.frame=CGRectMake(0, 181, 287, 47);
         txtComment.frame=CGRectMake(10, 8, 220, 32);
-        avatar.frame=CGRectMake(239, 5, 38, 38);
+        containtAvatar.frame=CGRectMake(239, 4, 40, 40);
         arrow.frame=CGRectMake(229, 17, 8, 13);
     } completion:^(BOOL finished) {
         [tableComments reloadData];
@@ -211,12 +213,12 @@
         rect.size.width=size.width;
         containInput.frame=rect;
         
-        rect=avatar.frame;
-        rect.origin.x=tableComments.frame.origin.x+tableComments.frame.size.width-rect.size.width;
-        avatar.frame=rect;
+        rect=containtAvatar.frame;
+        rect.origin.x=tableComments.frame.origin.x+tableComments.frame.size.width-rect.size.width+3;
+        containtAvatar.frame=rect;
         
         rect=txtComment.frame;
-        rect.size.width=size.width-rect.origin.x-(size.width-avatar.frame.origin.x)-9;
+        rect.size.width=size.width-rect.origin.x-(size.width-containtAvatar.frame.origin.x)-9;
         txtComment.frame=rect;
         
         rect.origin.x=rect.origin.x+rect.size.width-1;
@@ -266,8 +268,13 @@
 {
     [super willMoveToSuperview:newSuperview];
     
+    if(!newSuperview)
+        return;
+    
     if(isProcessedData)
         [tableComments reloadData];
+    else
+        [self showLoadingWithTitle:nil];
 }
 
 -(void)removeFromSuperview

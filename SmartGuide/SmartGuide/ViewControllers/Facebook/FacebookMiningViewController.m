@@ -120,7 +120,7 @@
         postProfile.delegatePost=self;
         [postProfile startAsynchronous];
         
-        [self showIndicatoWithTitle:@"Upload infomation"];
+        [self.view showLoadingWithTitle:nil];
     }
 }
 

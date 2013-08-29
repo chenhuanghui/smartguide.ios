@@ -133,7 +133,7 @@
     
     UIImage *image=imgv.image;
     NSData *data=UIImagePNGRepresentation(image);
-    CGSize size=imgv.image.size;
+//    CGSize size=imgv.image.size;
 
     int idUser=[DataManager shareInstance].currentUser.idUser.integerValue;
     ASIOperationUploadUserGallery *upload=[[ASIOperationUploadUserGallery alloc] initWithIDShop:_shop.idShop.integerValue userID:idUser desc:txt.text photo:data];

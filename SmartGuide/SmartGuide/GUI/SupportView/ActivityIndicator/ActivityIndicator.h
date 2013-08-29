@@ -39,7 +39,8 @@
 
 @interface UIView(ActivityIndicator)
 
--(void) showLoadingWithTitle:(NSString*) title;
+-(ActivityIndicator*) showLoadingWithTitle:(NSString*) title;
+-(ActivityIndicator*) showLoadingWithTitle:(NSString *)title countdown:(int) countdown delegate:(id<ActivityIndicatorDelegate>) delegate;
 -(void) removeLoading;
 
 @end

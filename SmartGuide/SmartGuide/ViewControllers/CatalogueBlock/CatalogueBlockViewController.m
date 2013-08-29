@@ -59,8 +59,7 @@
     
     if([[LocationManager shareInstance] isAllowLocation])
     {
-        ActivityIndicator *activity=[self showIndicatoWithTitle:nil countdown:5];
-        activity.tagID=@(1);
+        [self.view showLoadingWithTitle:nil countdown:5 delegate:self].tagID=@(1);
     }
     else
     {
@@ -250,7 +249,7 @@
     }
     else if([operation isKindOfClass:[ASIOperationGroupInCity class]])
     {
-        [self showIndicatoWithTitle:nil countdown:3];
+        [self.view showLoadingWithTitle:nil countdown:3 delegate:self];
         
         double delayInSeconds = 3.0;
         dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
@@ -265,7 +264,7 @@
 {
     if([notification.name isEqualToString:NOTIFICATION_LOCATION_CITY_AVAILABLE])
     {
-        [self showIndicatoWithTitle:nil];
+        [self.view showLoadingWithTitle:nil];
         
         NSString *userCity=notification.object;
         [self detectCity:userCity];
@@ -276,7 +275,7 @@
         
         if(![DataManager shareInstance].currentCity)
         {
-            [self showIndicatoWithTitle:nil countdown:5].tagID=@(2);
+            [self.view showLoadingWithTitle:nil countdown:5 delegate:self].tagID=@(2);
             [[LocationManager shareInstance] tryGetUserCityInfo];
         }
         else

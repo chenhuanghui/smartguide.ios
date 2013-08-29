@@ -306,7 +306,7 @@
 
 -(void)ASIOperaionPostFinished:(ASIOperationPost *)operation
 {
-    [self removeIndicator];
+    [self.view removeLoading];
     
     if(self.mode==LIST_SHOP)
     {
@@ -355,7 +355,7 @@
 
 -(void)ASIOperaionPostFailed:(ASIOperationPost *)operation
 {
-    [self removeIndicator];
+    [self.view removeLoading];
     
     if(self.mode==LIST_SHOP)
     {
