@@ -148,7 +148,7 @@
 								<bool key="IBUIAdjustsFontSizeToFit">NO</bool>
 							</object>
 						</array>
-						<string key="NSFrame">{{14, 9}, {86, 101}}</string>
+						<string key="NSFrame">{{14, 29}, {86, 101}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="670993742"/>
@@ -166,7 +166,7 @@
 							<object class="IBUIButton" id="568190597">
 								<reference key="NSNextResponder" ref="987388137"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{4, 5}, {81, 81}}</string>
+								<string key="NSFrame">{{4, 4}, {81, 81}}</string>
 								<reference key="NSSuperview" ref="987388137"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="956772819"/>
@@ -214,7 +214,7 @@
 							<object class="IBUILabel" id="956772819">
 								<reference key="NSNextResponder" ref="987388137"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{2, 86}, {86, 15}}</string>
+								<string key="NSFrame">{{2, 88}, {86, 15}}</string>
 								<reference key="NSSuperview" ref="987388137"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="1007422511"/>
@@ -239,7 +239,7 @@
 								<bool key="IBUIAdjustsFontSizeToFit">NO</bool>
 							</object>
 						</array>
-						<string key="NSFrame">{{116, 11}, {86, 101}}</string>
+						<string key="NSFrame">{{116, 31}, {86, 101}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="621071070"/>
@@ -327,7 +327,7 @@
 								<bool key="IBUIAdjustsFontSizeToFit">NO</bool>
 							</object>
 						</array>
-						<string key="NSFrame">{{218, 9}, {86, 101}}</string>
+						<string key="NSFrame">{{218, 31}, {86, 101}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="229584325"/>
@@ -415,7 +415,7 @@
 								<bool key="IBUIAdjustsFontSizeToFit">NO</bool>
 							</object>
 						</array>
-						<string key="NSFrame">{{16, 113}, {86, 101}}</string>
+						<string key="NSFrame">{{16, 153}, {86, 101}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="792154222"/>
@@ -478,7 +478,7 @@
 							<object class="IBUILabel" id="1061981613">
 								<reference key="NSNextResponder" ref="11191808"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{2, 86}, {86, 15}}</string>
+								<string key="NSFrame">{{2, 87}, {86, 15}}</string>
 								<reference key="NSSuperview" ref="11191808"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="376187443"/>
@@ -503,7 +503,7 @@
 								<bool key="IBUIAdjustsFontSizeToFit">NO</bool>
 							</object>
 						</array>
-						<string key="NSFrame">{{116, 113}, {86, 101}}</string>
+						<string key="NSFrame">{{116, 153}, {86, 101}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="144897979"/>
@@ -591,7 +591,7 @@
 								<bool key="IBUIAdjustsFontSizeToFit">NO</bool>
 							</object>
 						</array>
-						<string key="NSFrame">{{218, 112}, {86, 101}}</string>
+						<string key="NSFrame">{{218, 152}, {86, 101}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="381749900"/>
@@ -679,7 +679,7 @@
 								<bool key="IBUIAdjustsFontSizeToFit">NO</bool>
 							</object>
 						</array>
-						<string key="NSFrame">{{15, 217}, {86, 101}}</string>
+						<string key="NSFrame">{{15, 279}, {86, 101}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="809862929"/>
@@ -742,7 +742,7 @@
 							<object class="IBUILabel" id="365673324">
 								<reference key="NSNextResponder" ref="996609863"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{0, 87}, {86, 15}}</string>
+								<string key="NSFrame">{{0, 88}, {86, 15}}</string>
 								<reference key="NSSuperview" ref="996609863"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="479917353"/>
@@ -767,7 +767,7 @@
 								<bool key="IBUIAdjustsFontSizeToFit">NO</bool>
 							</object>
 						</array>
-						<string key="NSFrame">{{118, 217}, {86, 101}}</string>
+						<string key="NSFrame">{{118, 279}, {86, 101}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="1071183257"/>
@@ -833,6 +833,7 @@
 								<string key="NSFrame">{{0, 87}, {86, 15}}</string>
 								<reference key="NSSuperview" ref="479917353"/>
 								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -854,7 +855,7 @@
 								<bool key="IBUIAdjustsFontSizeToFit">NO</bool>
 							</object>
 						</array>
-						<string key="NSFrame">{{221, 217}, {86, 101}}</string>
+						<string key="NSFrame">{{221, 279}, {86, 101}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="126538740"/>
@@ -863,7 +864,7 @@
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 					</object>
 				</array>
-				<string key="NSFrameSize">{320, 328}</string>
+				<string key="NSFrameSize">{320, 380}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="336560731"/>
@@ -1268,7 +1269,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">124</int>
+			<int key="maxID">125</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">

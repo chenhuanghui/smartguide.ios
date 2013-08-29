@@ -31,6 +31,10 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+//    logo.frame=CGRECT_PHONE(CGRectMake(106, 142, 114, 100), CGRectMake(0, 0, 320, 548));
+    bg.frame=CGRECT_PHONE(CGRectMake(0, 0, 320, 460), CGRectMake(0, 0, 320, 548));
+//    smartguide.frame=CGRECT_PHONE(CGRectMake(115, 255, 95, 24),CGRectMake(0, 0, 0, 0));
+//    km.frame=CGRECT_PHONE(CGRectMake(53, 285, 221, 21), CGRectMake(0, 0, 0, 0));
     
     isAnimationFinished=false;
     
@@ -100,6 +104,7 @@
     logo = nil;
     smartguide = nil;
     km = nil;
+    bg = nil;
     [super viewDidUnload];
 }
 @end

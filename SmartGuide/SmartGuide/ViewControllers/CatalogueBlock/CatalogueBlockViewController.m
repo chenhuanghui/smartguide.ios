@@ -27,7 +27,7 @@
 
 -(id)init
 {
-    self=[super initWithNibName:@"CatalogueBlockViewController" bundle:nil];
+    self=[super initWithNibName:NIB_PHONE(@"CatalogueBlockViewController") bundle:nil];
     
     return self;
 }

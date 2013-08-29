@@ -131,6 +131,7 @@
 		A91D7B6B17CA4A7A00BF4DA2 /* button_done.png in Resources */ = {isa = PBXBuildFile; fileRef = A91D7B6A17CA4A7A00BF4DA2 /* button_done.png */; };
 		A91D7B6D17CA4A8800BF4DA2 /* button_done@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A91D7B6C17CA4A8800BF4DA2 /* button_done@2x.png */; };
 		A91E800217CF388000481666 /* CatalogueBlockViewController_ip5.xib in Resources */ = {isa = PBXBuildFile; fileRef = A91E800117CF388000481666 /* CatalogueBlockViewController_ip5.xib */; };
+		A91E800417CF656700481666 /* 4-Inch-Retina-Display-Screenshots2.png in Resources */ = {isa = PBXBuildFile; fileRef = A91E800317CF656700481666 /* 4-Inch-Retina-Display-Screenshots2.png */; };
 		A91FF72F17A7FEBA00528263 /* ASIOperationVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = A91FF72E17A7FEBA00528263 /* ASIOperationVersion.m */; };
 		A91FF73217A7FED400528263 /* ASIOperationGroupInCity.m in Sources */ = {isa = PBXBuildFile; fileRef = A91FF73117A7FED400528263 /* ASIOperationGroupInCity.m */; };
 		A91FF73517A7FFD500528263 /* ASIOperationCity.m in Sources */ = {isa = PBXBuildFile; fileRef = A91FF73417A7FFD400528263 /* ASIOperationCity.m */; };
@@ -1162,6 +1163,7 @@
 		A91D7B6A17CA4A7A00BF4DA2 /* button_done.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_done.png; sourceTree = "<group>"; };
 		A91D7B6C17CA4A8800BF4DA2 /* button_done@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_done@2x.png"; sourceTree = "<group>"; };
 		A91E800117CF388000481666 /* CatalogueBlockViewController_ip5.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CatalogueBlockViewController_ip5.xib; sourceTree = "<group>"; };
+		A91E800317CF656700481666 /* 4-Inch-Retina-Display-Screenshots2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "4-Inch-Retina-Display-Screenshots2.png"; sourceTree = "<group>"; };
 		A91FF72D17A7FEBA00528263 /* ASIOperationVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIOperationVersion.h; sourceTree = "<group>"; };
 		A91FF72E17A7FEBA00528263 /* ASIOperationVersion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIOperationVersion.m; sourceTree = "<group>"; };
 		A91FF73017A7FED400528263 /* ASIOperationGroupInCity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIOperationGroupInCity.h; sourceTree = "<group>"; };
@@ -2861,6 +2863,7 @@
 		A98198BE178D44FB0009FCB6 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				A91E800317CF656700481666 /* 4-Inch-Retina-Display-Screenshots2.png */,
 				A924256217CE63230074269F /* button_danhgia@2x.png */,
 				A924256317CE63230074269F /* button_danhgia.png */,
 				A923769E17CD9E5D00336FE2 /* intro_6@2x.png */,
@@ -4456,6 +4459,7 @@
 				A924256417CE63230074269F /* button_danhgia@2x.png in Resources */,
 				A924256517CE63230074269F /* button_danhgia.png in Resources */,
 				A91E800217CF388000481666 /* CatalogueBlockViewController_ip5.xib in Resources */,
+				A91E800417CF656700481666 /* 4-Inch-Retina-Display-Screenshots2.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

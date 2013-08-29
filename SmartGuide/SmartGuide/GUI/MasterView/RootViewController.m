@@ -93,8 +93,11 @@ static RootViewController *_rootViewController;
     pnt.x+=self.view.frame.size.width;
     self.view.center=pnt;
     
+    [self.loadingScreen view];
+    self.loadingScreen.view.frame=self.window.frame;
+    
     [self.window addSubview:self.loadingScreen.view];
-    pnt=self.loadingScreen.view.center;
+    pnt=self.loadingScreen. view.center;
     pnt.y+=20;
     self.loadingScreen.view.center=pnt;
 }
@@ -105,7 +108,7 @@ static RootViewController *_rootViewController;
         return;
     
     [UIView animateWithDuration:DURATION_NAVIGATION_PUSH animations:^{
-        self.view.center=CGPointMake(160,250);
+        self.view.center=CGPOINT_PHONE(CGPointMake(160, 250), CGPointMake(160, 260+(548-480)/2));
         self.loadingScreen.view.center=CGPointMake(-self.loadingScreen.view.frame.size.width/2, self.loadingScreen.view.center.y);
     } completion:^(BOOL finished) {
         [self.loadingScreen.view removeFromSuperview];
