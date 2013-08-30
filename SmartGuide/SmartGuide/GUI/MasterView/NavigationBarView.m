@@ -260,4 +260,9 @@
     return endE;
 }
 
+-(void)enableButton:(enum NAVIGATIONBAR_ITEM)button enabled:(bool)isEnable
+{
+    [self buttonWithItem:button].userInteractionEnabled=isEnable;
+}
+
 @end

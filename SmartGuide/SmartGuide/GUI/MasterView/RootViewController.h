@@ -82,6 +82,7 @@
 -(void) removeRootView:(UIView*) rootView;
 
 -(void) restoreGesturePrevious;
+-(float) heightAds_QR;
 
 @property (nonatomic, readonly) BannerAdsViewController *bannerAds;
 @property (nonatomic, readonly) SlideQRCodeViewController *slideQRCode;

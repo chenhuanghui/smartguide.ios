@@ -150,10 +150,9 @@
 					<object class="IBUITableView" id="665849060">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{0, 109}, {286, 205}}</string>
+						<string key="NSFrame">{{0, 145}, {286, 169}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<object class="NSColor" key="IBUIBackgroundColor" id="339731693">
 							<int key="NSColorSpace">3</int>

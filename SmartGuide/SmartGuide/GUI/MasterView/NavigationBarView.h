@@ -59,6 +59,8 @@ enum NAVIGATIONBAR_ITEM {
 -(void) showIconList;
 -(void) showIconMap;
 
+-(void) enableButton:(enum NAVIGATIONBAR_ITEM) button enabled:(bool) isEnable;
+
 +(float) height;
 
 @property (nonatomic, assign) id<NavigationBarDelegate> delegate;

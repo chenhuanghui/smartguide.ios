@@ -39,7 +39,7 @@
     
     self.catalogueBlock=[[CatalogueBlockViewController alloc] init];
     catalogueBlock.delegate=self;
-    
+
     [self addChildViewController:self.catalogueBlock];
     [self.view addSubview:self.catalogueBlock.view];
     
@@ -244,11 +244,8 @@
             pnt.x+=delta;
             self.visibleViewController.view.center=pnt;
             
-            UIView *alphaView=[self.previousViewController.view alphaView];
-            alphaView.backgroundColor=COLOR_BACKGROUND_APP_ALPHA(fabsf(self.previousViewController.view.frame.origin.x/320));
-            
-            alphaView=[self.visibleViewController.view alphaView];
-            alphaView.backgroundColor=COLOR_BACKGROUND_APP_ALPHA(fabsf(self.visibleViewController.view.frame.origin.x/320));
+            [self.previousViewController.view alphaView].backgroundColor=COLOR_BACKGROUND_APP_ALPHA(fabsf(self.previousViewController.view.frame.origin.x/320));
+            [self.visibleViewController.view alphaView].backgroundColor=COLOR_BACKGROUND_APP_ALPHA(fabsf(self.visibleViewController.view.frame.origin.x/320));
         }
             break;
             
@@ -537,7 +534,7 @@
     ViewController *vc=(ViewController*)viewController;
 
     //restore frame
-    self.view.frame=CGRECT_PHONE(CGRectMake(0, 37, 320, 337), CGRectMake(0, 37, 329, 512));
+    self.view.frame=CGRectMake(0, 37, 320, SCREEN_HEIGHT-[RootViewController shareInstance].heightAds_QR);
     
     if([vc allowBannerAds])
     {

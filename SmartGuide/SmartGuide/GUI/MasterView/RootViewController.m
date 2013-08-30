@@ -251,7 +251,7 @@ static RootViewController *_rootViewController;
     rect=self.view.frame;
     rect.origin.x=320;
     rect.origin.y=naviHeight;
-    rect.size.height=rect.size.height-[BannerAdsViewController size].height-[SlideQRCodeViewController size].height;
+    rect.size.height=rect.size.height-[self heightAds_QR];
     frontViewController.view.frame=rect;
     
     rect.origin=CGPointZero;
@@ -373,7 +373,7 @@ static RootViewController *_rootViewController;
         
         settingViewController=[[SettingViewController alloc] init];
         [self.window insertSubview:settingViewController.view atIndex:0];
-        settingViewController.view.frame=CGRectMake(-20, 20, 245, 480);
+        settingViewController.view.frame=CGRectMake(-20, 20, settingViewController.view.frame.size.width, settingViewController.view.frame.size.height);
         settingViewController.view.hidden=true;
     }
     
@@ -415,7 +415,7 @@ static RootViewController *_rootViewController;
             previousTouchSetting=initialTouchSetting;
             
             [self.settingViewController.view alphaViewWithColor:COLOR_BACKGROUND_APP_ALPHA(0)];
-            [self.view alphaViewWithColor:COLOR_BACKGROUND_APP_ALPHA(fabsf(self.view.frame.origin.x/320))];
+            [self.view alphaViewWithColor:COLOR_BACKGROUND_APP_ALPHA(fabsf(self.view.frame.origin.x/SCREEN_WIDTH))];
         }
             break;
             
@@ -432,8 +432,8 @@ static RootViewController *_rootViewController;
             pnt.x+=delta;
             self.view.center=pnt;
             
-            [self.settingViewController.view alphaView].backgroundColor=COLOR_BACKGROUND_APP_ALPHA(fabsf(self.settingViewController.view.frame.origin.x/320));
-            [self.view alphaView].backgroundColor=COLOR_BACKGROUND_APP_ALPHA(fabsf(self.view.frame.origin.x/320));
+            [self.settingViewController.view alphaView].backgroundColor=COLOR_BACKGROUND_APP_ALPHA(fabsf(self.settingViewController.view.frame.origin.x/SCREEN_WIDTH));
+            [self.view alphaView].backgroundColor=COLOR_BACKGROUND_APP_ALPHA(fabsf(self.view.frame.origin.x/SCREEN_WIDTH));
         }
             break;
             
@@ -453,7 +453,6 @@ static RootViewController *_rootViewController;
             }
             else
             {
-                NSLog(@"%@ %@",NSStringFromCGRect(self.view.frame),NSStringFromCGRect([UIScreen mainScreen].bounds));
                 if(self.view.frame.origin.x<[UIScreen mainScreen].bounds.size.width/2)
                 {
                     pan.enabled=false;
@@ -599,7 +598,7 @@ static RootViewController *_rootViewController;
         CGRect rect=self.view.frame;
         rect.origin.x=245;
         self.view.frame=rect;
-        [self.view alphaView].backgroundColor=COLOR_BACKGROUND_APP_ALPHA(fabsf(self.view.frame.origin.x/320));
+        [self.view alphaView].backgroundColor=COLOR_BACKGROUND_APP_ALPHA(fabsf(self.view.frame.origin.x/SCREEN_WIDTH));
         
         rect=settingViewController.view.frame;
         rect.origin.x=0;
@@ -1227,8 +1226,8 @@ static RootViewController *_rootViewController;
         [self.bannerAds configMenu];
         
         [UIView animateWithDuration:DURATION_NAVIGATION_PUSH animations:^{
-            self.bannerAds.view.center=CGPointMake(160, 243);
-            self.frontViewController.view.center=CGPointMake(480, 249);
+            self.bannerAds.view.center=CGPOINT_PHONE(CGPointMake(160, 243),CGPointMake(160,self.bannerAds.view.center.y));
+            self.frontViewController.view.center=CGPOINT_PHONE(CGPointMake(480, 249),CGPointMake(480,self.frontViewController.view.center.y));
             
             [self.bannerAds.view alphaView].backgroundColor=COLOR_BACKGROUND_APP_ALPHA(0);
             [self.frontViewController.view alphaView].backgroundColor=COLOR_BACKGROUND_APP_ALPHA(1);
@@ -1238,22 +1237,22 @@ static RootViewController *_rootViewController;
             [self.frontViewController.view removeAlphaView];
             
             [self.frontViewController popViewControllerAnimated:false];
-            self.frontViewController.view.center=CGPointMake(160, 249);
+            self.frontViewController.view.center=CGPOINT_PHONE(CGPointMake(160, 249),CGPointMake(160,self.frontViewController.view.center.y));
             
             onCompleted(finished);
         }];
     }
     else
     {
-        self.bannerAds.view.center=CGPointMake(160, 243);
-        self.frontViewController.view.center=CGPointMake(480, 249);
+        self.bannerAds.view.center=CGPOINT_PHONE(CGPointMake(160, 243),CGPointMake(160,self.bannerAds.view.center.y));
+        self.frontViewController.view.center=CGPOINT_PHONE(CGPointMake(480, 249),CGPointMake(480,self.frontViewController.view.center.y));
         
         [self.bannerAds.view removeAlphaView];
         [self.frontViewController.view removeAlphaView];
         
         //gay ra animtion pop
         //        [self.frontViewController popViewControllerAnimated:false];
-        self.frontViewController.view.center=CGPointMake(160, 249);
+        self.frontViewController.view.center=CGPOINT_PHONE(CGPointMake(160, 249),CGPointMake(160,self.frontViewController.view.center.y));
     }
 }
 
@@ -1263,8 +1262,8 @@ static RootViewController *_rootViewController;
     
     [[self.frontViewController currentVisibleViewController] configMenu];
     [UIView animateWithDuration:DURATION_NAVIGATION_PUSH animations:^{
-        self.bannerAds.view.center=CGPointMake(-160, 243);
-        self.frontViewController.view.center=CGPointMake(160, 249);
+        self.bannerAds.view.center=CGPOINT_PHONE(CGPointMake(-160, 243),CGPointMake(-160,self.bannerAds.view.center.y));
+        self.frontViewController.view.center=CGPOINT_PHONE(CGPointMake(160, 249),CGPointMake(160,self.frontViewController.view.center.y));
         
         [self.bannerAds.view alphaView].backgroundColor=COLOR_BACKGROUND_APP_ALPHA(1);
         [self.frontViewController.view alphaView].backgroundColor=COLOR_BACKGROUND_APP_ALPHA(0);
@@ -1719,8 +1718,8 @@ static RootViewController *_rootViewController;
         
         [UIView animateWithDuration:DURATION_NAVIGATION_PUSH animations:^{
             
-            self.userCollection.view.center=CGPointMake(160, 243);
-            self.frontViewController.view.center=CGPointMake(480, 249);
+            self.userCollection.view.center=CGPOINT_PHONE(CGPointMake(160, 243), CGPointMake(160, self.userCollection.view.center.y));
+            self.frontViewController.view.center=CGPOINT_PHONE(CGPointMake(480, 249),CGPointMake(480,self.frontViewController.view.center.y));
             
             [self.userCollection.view alphaView].backgroundColor=COLOR_BACKGROUND_APP_ALPHA(0);
             [self.frontViewController.view alphaView].backgroundColor=COLOR_BACKGROUND_APP_ALPHA(1);
@@ -1731,7 +1730,7 @@ static RootViewController *_rootViewController;
             self.bannerAds.view.hidden=false;
             
             [self.frontViewController popViewControllerAnimated:false];
-            self.frontViewController.view.center=CGPointMake(160, 249);
+            self.frontViewController.view.center=CGPOINT_PHONE(CGPointMake(160, 249),CGPointMake(160,self.frontViewController.view.center.y));
             
             if([self.frontViewController isHidedCatalogBlockForUserCollection])
                 [self.frontViewController showCatalogueBlockForUserCollection];
@@ -1742,15 +1741,15 @@ static RootViewController *_rootViewController;
     }
     else
     {
-        self.userCollection.view.center=CGPointMake(160, 243);
-        self.frontViewController.view.center=CGPointMake(480, 249);
+        self.userCollection.view.center=CGPOINT_PHONE(CGPointMake(160, 243),CGPointMake(160,self.userCollection.view.center.y));
+        self.frontViewController.view.center=CGPOINT_PHONE(CGPointMake(480, 249),CGPointMake(480,self.frontViewController.view.center.y));
         
         [self.userCollection.view removeAlphaView];
         [self.frontViewController.view removeAlphaView];
         self.bannerAds.view.hidden=false;
         
         [self.frontViewController popViewControllerAnimated:false];
-        self.frontViewController.view.center=CGPointMake(160, 249);
+        self.frontViewController.view.center=CGPOINT_PHONE(CGPointMake(160, 249),CGPointMake(160,self.frontViewController.view.center.y));
     }
 }
 
@@ -1765,8 +1764,8 @@ static RootViewController *_rootViewController;
     _isShowedUserCollection=false;
     self.userCollection.view.hidden=false;
     [UIView animateWithDuration:DURATION_NAVIGATION_PUSH animations:^{
-        self.userCollection.view.center=CGPointMake(-160, self.frontViewController.view.center.y);
-        self.frontViewController.view.center=CGPointMake(160, 249);
+        self.userCollection.view.center=CGPOINT_PHONE(CGPointMake(-160, self.userCollection.view.center.y),CGPointMake(-160,self.userCollection.view.center.y));
+        self.frontViewController.view.center=CGPOINT_PHONE(CGPointMake(160, 249),CGPointMake(160,self.frontViewController.view.center.y));
         
         [self.userCollection.view alphaView].backgroundColor=COLOR_BACKGROUND_APP_ALPHA(1);
         [self.frontViewController.view alphaView].backgroundColor=COLOR_BACKGROUND_APP_ALPHA(0);
@@ -1819,7 +1818,7 @@ static RootViewController *_rootViewController;
         {
             self.frontViewController.delegate=nil;
             
-            self.frontViewController.view.center=CGPointMake(480, 249);
+            self.frontViewController.view.center=CGPointMake(480, self.frontViewController.view.center.y);
             
             AlphaView *alphaView=[[AlphaView alloc] initWithFrame:[UIScreen mainScreen].bounds];
             alphaView.backgroundColor=COLOR_BACKGROUND_APP_ALPHA(0);
@@ -1852,7 +1851,7 @@ static RootViewController *_rootViewController;
         else if(_isShowedDetailFromCollection)
         {
             self.frontViewController.delegate=nil;
-            self.frontViewController.view.center=CGPointMake(480, 249);
+            self.frontViewController.view.center=CGPointMake(480, self.frontViewController.view.center.y);
             
             AlphaView *alphaView=[self.userCollection.view makeAlphaView];
             alphaView.backgroundColor=COLOR_BACKGROUND_APP_ALPHA(0);
@@ -1891,6 +1890,11 @@ static RootViewController *_rootViewController;
     
     [self.window addGestureRecognizer:self.panPrevious];
     self.panPrevious.delegate=self;
+}
+
+-(float)heightAds_QR
+{
+    return 160;
 }
 
 @end

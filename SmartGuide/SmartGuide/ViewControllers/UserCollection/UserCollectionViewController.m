@@ -19,6 +19,15 @@
 
 @implementation UserCollectionViewController
 
+- (id)init
+{
+    self = [super initWithNibName:NIB_PHONE(@"UserCollectionViewController") bundle:nil];
+    if (self) {
+        
+    }
+    return self;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -150,6 +159,8 @@
     [btnPoint setTitle:@"Đổi điểm lấy quà" forState:UIControlStateNormal];
     table.alpha=0;
     table.hidden=false;
+    
+    lblPoint.text=@"";
     
     [UIView animateWithDuration:0.2f animations:^{
         table.alpha=1;

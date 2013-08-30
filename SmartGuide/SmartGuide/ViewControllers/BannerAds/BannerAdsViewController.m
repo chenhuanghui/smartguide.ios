@@ -47,6 +47,7 @@
     self.view.layer.masksToBounds=true;
     borderMap.layer.cornerRadius=8;
     borderMap.layer.masksToBounds=true;
+    borderMap.frame=CGRECT_PHONE(borderMap.frame, CGRectMake(borderMap.frame.origin.x, borderMap.frame.origin.y-95, borderMap.frame.size.width, borderMap.frame.size.height+95));
     
     [tableAds registerNib:[UINib nibWithNibName:[BannerAdsCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[BannerAdsCell reuseIdentifier]];
     

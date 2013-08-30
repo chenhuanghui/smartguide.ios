@@ -23,6 +23,10 @@
 
 #define DEGREES_TO_RADIANS(angle) ((angle) / 180.0 * M_PI)
 #define RANDOM(min,max) arc4random() % (max - min) + min
+#define CGPOINT_X(cgpnt,px) CGPointMake(px,cgpnt.y)
+#define CGPOINT_Y(cgpnt,py) CGPointMake(cgpnt.x,py)
+#define SCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
+#define SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
 
 NSString* NSStringFromCoordinate(CLLocationCoordinate2D coordinate);
 CGPathRef CGPathCreateRoundRect( const CGRect r, const CGFloat cornerRadius );

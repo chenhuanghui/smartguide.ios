@@ -243,7 +243,7 @@
     [[RootViewController shareInstance].shopDetail removeFromParentViewController];
     [[RootViewController shareInstance].shopDetail.view removeFromSuperview];
     
-    self.navigationController.view.frame=CGRECT_PHONE(CGRectMake(0, 37, 320, 337), CGRectMake(0, 37, 320, 337+([UIScreen mainScreen].bounds.size.height-480)));
+    [RootViewController shareInstance].frontViewController.view.frame=CGRectMake(0, 37, 320, [UIScreen mainScreen].bounds.size.height-[RootViewController shareInstance].heightAds_QR);
     
     [[RootViewController shareInstance].bannerAds animationHideShopDetail];
     
@@ -449,7 +449,7 @@
         [RootViewController shareInstance].navigationBarView.delegate=[RootViewController shareInstance].shopDetail;
         
         CGRect rect=self.navigationController.view.frame;
-        rect.size.height+=[BannerAdsViewController size].height;
+        rect.size.height+=[RootViewController shareInstance].heightAds_QR;
         self.navigationController.view.frame=rect;
         
         [RootViewController shareInstance].shopDetail.view.frame=rect;
@@ -472,7 +472,7 @@
         [RootViewController shareInstance].navigationBarView.delegate=[RootViewController shareInstance].shopDetail;
         
         CGRect rect=self.navigationController.view.frame;
-        rect.size.height+=[BannerAdsViewController size].height;
+        rect.size.height+=[[RootViewController shareInstance] heightAds_QR];
         self.navigationController.view.frame=rect;
         
         [RootViewController shareInstance].shopDetail.view.frame=rect;
