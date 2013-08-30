@@ -28,6 +28,7 @@
     TableTemplate *templateReward;
     __weak IBOutlet UIView *blurTop;
     __weak IBOutlet UIView *blurBottom;
+    __weak IBOutlet UIView *userBlurMid;
     
     int _totalPoint;
     

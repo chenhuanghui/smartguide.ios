@@ -41,6 +41,17 @@
 						<reference key="NSNextResponder" ref="650893746"/>
 						<int key="NSvFlags">256</int>
 						<array class="NSMutableArray" key="NSSubviews">
+							<object class="IBUIImageView" id="771409606">
+								<reference key="NSNextResponder" ref="890468861"/>
+								<int key="NSvFlags">292</int>
+								<string key="NSFrame">{{73, 11}, {53, 53}}</string>
+								<reference key="NSSuperview" ref="890468861"/>
+								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView" ref="831950156"/>
+								<string key="NSReuseIdentifierKey">_NS:9</string>
+								<bool key="IBUIUserInteractionEnabled">NO</bool>
+								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+							</object>
 							<object class="IBUIImageView" id="271853516">
 								<reference key="NSNextResponder" ref="890468861"/>
 								<int key="NSvFlags">292</int>
@@ -113,17 +124,6 @@
 								<reference key="NSNextKeyView" ref="376240159"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<reference key="IBUIBackgroundColor" ref="422987005"/>
-								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-							</object>
-							<object class="IBUIImageView" id="771409606">
-								<reference key="NSNextResponder" ref="890468861"/>
-								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{74, 12}, {49, 49}}</string>
-								<reference key="NSSuperview" ref="890468861"/>
-								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="831950156"/>
-								<string key="NSReuseIdentifierKey">_NS:9</string>
-								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 							</object>
 							<object class="IBUILabel" id="831950156">
@@ -342,14 +342,14 @@
 						<int key="objectID">4</int>
 						<reference key="object" ref="650893746"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="271853516"/>
-							<reference ref="771409606"/>
 							<reference ref="802843551"/>
 							<reference ref="831950156"/>
 							<reference ref="1016458437"/>
 							<reference ref="424789536"/>
 							<reference ref="376240159"/>
+							<reference ref="771409606"/>
 							<reference ref="516842539"/>
+							<reference ref="271853516"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>

@@ -36,6 +36,8 @@
     self.title=@"USER";
     self.view.backgroundColor=COLOR_BACKGROUND_APP;
     
+    userBlurMid.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"user_blur_mid.png"]];
+    
     blurTop.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"blur_bottom.png"]];
     blurTop.transform=CGAffineTransformMakeRotation(DEGREES_TO_RADIANS(180));
     blurBottom.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"blur_bottom.png"]];
@@ -92,6 +94,7 @@
     blurTop = nil;
     blurBottom = nil;
     tableReward = nil;
+    userBlurMid = nil;
     [super viewDidUnload];
 }
 

@@ -99,14 +99,6 @@
     [lblScore addStyles:[Utility ftCoreTextFormatScoreListStyle]];
 }
 
--(void)willMoveToSuperview:(UIView *)newSuperview
-{
-    imgvLogo.layer.cornerRadius=6;
-    imgvLogo.layer.masksToBounds=true;
-    
-    [super willMoveToSuperview:newSuperview];
-}
-
 +(float)height
 {
     return 68;
