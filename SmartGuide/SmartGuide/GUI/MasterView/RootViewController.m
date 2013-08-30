@@ -1446,6 +1446,9 @@ static RootViewController *_rootViewController;
 {
     _isRootViewShowed=true;
     
+    self.panPrevious.enabled=false;
+    self.panSlide.enabled=false;
+    
     UIView *vi=[[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
     vi.backgroundColor=[UIColor clearColor];
     
@@ -1457,6 +1460,9 @@ static RootViewController *_rootViewController;
 -(void)removeRootView:(UIView *)rootView
 {
     _isRootViewShowed=false;
+    
+    self.panSlide.enabled=true;
+    self.panPrevious.enabled=true;
     
     [rootView removeFromSuperview];
 }

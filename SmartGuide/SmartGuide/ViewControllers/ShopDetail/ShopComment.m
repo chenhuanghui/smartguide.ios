@@ -21,6 +21,11 @@
     
     [self setShop:shop];
     
+    txtComment.leftViewMode=UITextFieldViewModeAlways;
+    UIView *v=[[UIView alloc] initWithFrame:CGRectMake(0, 0, 3, 0)];
+    v.backgroundColor=[UIColor clearColor];
+    txtComment.leftView=v;
+    
     [tableComments registerNib:[UINib nibWithNibName:[ShopCommentCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[ShopCommentCell reuseIdentifier]];
     
     CGRect rect=tableComments.frame;
@@ -344,6 +349,11 @@
     }];
     
     return true;
+}
+
+-(bool)isShowedBigComment
+{
+    return _isShowedComment;
 }
 
 @end

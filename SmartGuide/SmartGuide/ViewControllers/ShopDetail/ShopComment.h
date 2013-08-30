@@ -37,5 +37,6 @@
 
 -(ShopComment*) initWithShop:(Shop*) shop;
 -(void) setShop:(Shop*) shop;
+-(bool) isShowedBigComment;
 
 @end

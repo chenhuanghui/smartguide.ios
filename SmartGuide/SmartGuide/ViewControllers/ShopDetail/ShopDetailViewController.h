@@ -77,7 +77,6 @@ enum SHOP_DETAIL_MODE {
     __weak IBOutlet UIButton *btnPromotion;
     __weak IBOutlet UIButton *btnInfo;
     __weak IBOutlet UIButton *btnMenu;
-    __weak IBOutlet UIButton *btnCamera;
     __weak IBOutlet UIButton *btnGallery;
     __weak IBOutlet UIButton *btnComment;
     __weak IBOutlet UIButton *btnMap;

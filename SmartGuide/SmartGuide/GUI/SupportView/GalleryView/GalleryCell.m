@@ -15,7 +15,7 @@
 
 - (id)init
 {
-    self = [[[NSBundle mainBundle] loadNibNamed:@"GalleryCell" owner:nil options:nil] objectAtIndex:0];
+    self = [[[NSBundle mainBundle] loadNibNamed:NIB_PHONE(@"GalleryCell") owner:nil options:nil] objectAtIndex:0];
     if (self) {
         
     }
@@ -54,7 +54,7 @@
 
 +(CGSize)size
 {
-    return CGSizeMake(320, 460);
+    return CGSizeMake(320, SCREEN_HEIGHT);
 }
 
 @end

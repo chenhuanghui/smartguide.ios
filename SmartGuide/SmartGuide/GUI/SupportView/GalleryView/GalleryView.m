@@ -26,7 +26,7 @@
 
 - (id)init
 {
-    self = [[[NSBundle mainBundle] loadNibNamed:@"GalleryView" owner:nil options:nil] objectAtIndex:0];
+    self = [[[NSBundle mainBundle] loadNibNamed:NIB_PHONE(@"GalleryView") owner:nil options:nil] objectAtIndex:0];
     
     bg.backgroundColor=[UIColor blackColor];;
     blurr.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"blur_gallery.png"]];

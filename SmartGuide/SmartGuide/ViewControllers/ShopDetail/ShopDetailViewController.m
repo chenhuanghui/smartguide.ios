@@ -55,6 +55,11 @@
     blurCover.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"blur_cover.png"]];
 }
 
+-(NSArray*) arrButtons
+{
+    return @[btnInfo,btnMenu,btnGallery,btnComment,btnMap];
+}
+
 -(void) requestShopDetail
 {
     if([NSThread isMainThread])
@@ -157,7 +162,7 @@
             btnShop.alpha=0;
             
             rect=pick.frame;
-            rect.origin=CGPointMake(92, 148);
+            rect.origin=CGPointMake(92, 145);
             pick.frame=rect;
             
             rect=imgvSwitch.frame;
@@ -187,7 +192,7 @@
         btnShop.hidden=true;
         
         rect=pick.frame;
-        rect.origin=CGPointMake(92, 148);
+        rect.origin=CGPointMake(92, 145);
         pick.frame=rect;
         
         rect=imgvSwitch.frame;
@@ -230,7 +235,7 @@
             btnShop.alpha=1;
             
             rect=pick.frame;
-            rect.origin=CGPointMake(92, 148);
+            rect.origin=CGPointMake(92, 145);
             pick.frame=rect;
             
             btnPromotion.titleLabel.font=[UIFont boldSystemFontOfSize:10];
@@ -255,7 +260,7 @@
         buttonsContaint.frame=rect;
         
         rect=pick.frame;
-        rect.origin=CGPointMake(92, 148);
+        rect.origin=CGPointMake(92, 145);
         pick.frame=rect;
         
         btnShop.hidden=false;
@@ -381,12 +386,12 @@
     btnPromotion = nil;
     btnInfo = nil;
     btnMenu = nil;
-    btnCamera = nil;
     btnGallery = nil;
     btnComment = nil;
     btnMap = nil;
     btnShop = nil;
     blurCover = nil;
+
     [super viewDidUnload];
 }
 
@@ -712,6 +717,9 @@
         }
         else if([[viewContaint.subviews objectAtIndex:0] isKindOfClass:[ShopComment class]])
         {
+            if([shopComment isShowedBigComment])
+                return false;
+            
             CGPoint trans = [pan translationInView:pan.view];
             
             return fabsf(trans.x)>fabsf(trans.y);
@@ -836,6 +844,11 @@
 
 -(NSArray *)disableRightNavigationItems
 {
+    if([RootViewController shareInstance].isShowedShopDetailFromMap)
+    {
+        return @[@(ITEM_LIST),@(ITEM_MAP),@(ITEM_FILTER),@(ITEM_COLLECTION)];
+    }
+    
     return @[@(ITEM_LIST),@(ITEM_MAP),@(ITEM_FILTER)];
 }
 
