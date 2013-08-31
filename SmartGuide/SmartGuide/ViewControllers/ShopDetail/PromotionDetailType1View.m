@@ -25,22 +25,78 @@
     [tableRank registerNib:[UINib nibWithNibName:[PromotionDetailCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[PromotionDetailCell reuseIdentifier]];
     
     FTCoreTextStyle *style=[FTCoreTextStyle styleWithName:@"cost"];
-    style.textAlignment=FTCoreTextAlignementLeft;
-    style.color=[UIColor color255WithRed:123 green:124 blue:120 alpha:255];
-    style.font=[UIFont boldSystemFontOfSize:10];
+    style.textAlignment=FTCoreTextAlignementCenter;
+    style.color=[UIColor color255WithRed:201 green:84 blue:54 alpha:255];
+    style.font=[UIFont italicSystemFontOfSize:10];
     
     [lblCost addStyle:style];
     
-    style=[FTCoreTextStyle styleWithName:@"a"];
-    style.textAlignment=FTCoreTextAlignementLeft;
-    style.color=[UIColor color255WithRed:123 green:124 blue:120 alpha:255];
-    style.font=[UIFont systemFontOfSize:7];
+    style=[FTCoreTextStyle styleWithName:@"text"];
+    style.textAlignment=FTCoreTextAlignementCenter;
+    style.color=[UIColor darkGrayColor];
+    style.font=[UIFont systemFontOfSize:10];
+    
     [lblCost addStyle:style];
+    
+    style=[FTCoreTextStyle styleWithName:@"sp"];
+    style.textAlignment=FTCoreTextAlignementLeft;
+    style.color=[UIColor blackColor];
+    style.font=[UIFont boldSystemFontOfSize:12];
+    
+    [lblSP addStyle:style];
+    
+    style=[FTCoreTextStyle styleWithName:@"text"];
+    style.textAlignment=FTCoreTextAlignementLeft;
+    style.color=[UIColor darkGrayColor];
+    style.font=[UIFont systemFontOfSize:10];
+    
+    [lblSP addStyle:style];
+    
+    style=[FTCoreTextStyle styleWithName:@"p"];
+    style.textAlignment=FTCoreTextAlignementLeft;
+    style.color=[UIColor blackColor];
+    style.font=[UIFont boldSystemFontOfSize:12];
+    
+    [lblP addStyle:style];
+    
+    style=[FTCoreTextStyle styleWithName:@"text"];
+    style.textAlignment=FTCoreTextAlignementLeft;
+    style.color=[UIColor darkGrayColor];
+    style.font=[UIFont systemFontOfSize:10];
+    
+    [lblP addStyle:style];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userScanedQRCode:) name:NOTIFICATION_USER_SCANED_QR_CODE object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userScanedQRCode:) name:NOTIFICATION_USER_CANCELED_SCAN_QR_CODE object:nil];
     
     return self;
+}
+
+-(void) setSP:(int) sp
+{
+    if(sp==-1)
+    {
+        [lblSP setText:@"<sp> </sp><text> </text>"];;
+        return;
+    }
+    
+    [lblSP setText:[NSString stringWithFormat:@"<sp>%i</sp><text> SP tích luỹ</text>",sp]];
+}
+
+-(void) setP:(int) p
+{
+    if(p==-1)
+    {
+        [lblP setText:@"<p> </p><text> </text>"];
+        return;
+    }
+    
+    [lblP setText:[NSString stringWithFormat:@"<p>%i</p><text> P cho 1 SGP</text>",p]];
+}
+
+-(void) setCost:(NSString *) cost
+{
+    [lblCost setText:[NSString stringWithFormat:@"<text>Với mỗi <cost>%@K</cost> bạn sẽ được 1 lượt quét & nhận 1 SGP</text>",cost]];
 }
 
 -(void)setShop:(Shop *)shop
@@ -56,10 +112,13 @@
     _isNeedAnimaionScore=false;
     
     lblDuration.text=_shop.promotionDetail.duration;
-    lblSgp.text=[NSString stringWithFormat:@"%lld",_shop.promotionDetail.sgp.longLongValue];
-    lblSP.text=[NSString stringWithFormat:@"%lld",_shop.promotionDetail.sp.longLongValue];
     
-    [lblCost setText:[NSString stringWithFormat:@"<cost>%@</cost><a>/1SGP</a>",[NSNumberFormatter moneyFromNSNumber:_shop.promotionDetail.cost]]];
+    [self setSP:_shop.promotionDetail.sp.integerValue];
+    [self setP:10];
+    [self setCost:[NSNumberFormatter numberFromNSNumber:@(_shop.promotionDetail.cost.longLongValue/1000)]];
+    
+    lblSgp.text=[NSString stringWithFormat:@"%lld",_shop.promotionDetail.sgp.longLongValue];
+    
     
     [tableRank reloadData];
 }
@@ -105,7 +164,7 @@
     int idReward=require.idRequire.integerValue;
     [[RootViewController shareInstance].slideQRCode scanGetAwardPromotion1WithIDAward:idReward];
     
-    [self showLoadingWithTitle:@"Wait scan QRCode"];
+//    [self showLoadingWithTitle:@"Wait scan QRCode"];
 }
 
 -(void)ASIOperaionPostFinished:(ASIOperationPost *)operation
@@ -203,7 +262,7 @@
 
 -(void) userScanedQRCode:(NSNotification*) notification
 {
-    [self removeLoading];
+//    [self removeLoading];
     
     if(notification.object)
     {

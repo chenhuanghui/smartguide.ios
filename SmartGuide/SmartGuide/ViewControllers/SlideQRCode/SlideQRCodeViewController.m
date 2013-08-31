@@ -15,6 +15,9 @@
 #import "ASIOperationGetRewardPromotionType2.h"
 #import "RootViewController.h"
 #import "ASIOperationSGPToReward.h"
+#import "FrontViewController.h"
+#import "CatalogueListViewController.h"
+#import "ShopDetailViewController.h"
 
 @interface SlideQRCodeViewController ()
 {
@@ -28,7 +31,7 @@
 
 -(id)init
 {
-    self=[super init];
+    self=[super initWithNibName:NIB_PHONE(@"SlideQRCodeViewController") bundle:nil];
     return self;
 }
 
@@ -71,6 +74,7 @@
     lblChucMung = nil;
     lblNhanDuoc = nil;
     lblShop = nil;
+    imgvScan = nil;
     [super viewDidUnload];
 }
 
@@ -98,6 +102,7 @@
     
     darkLayer.backgroundColor=[UIColor clearColor];
     rewardView.hidden=true;
+    imgvScan.hidden=false;
     
     lblSlide.text=@"QUÉT QRCODE";
 }
@@ -285,6 +290,18 @@
 
 -(void)ASIOperaionPostFinished:(ASIOperationPost *)operation
 {
+    imgvScan.hidden=true;
+    
+    if([operation isKindOfClass:[ASIOperationShopDetail class]])
+    {
+        [self.view removeLoading];
+        
+        ASIOperationShopDetail *ope = (ASIOperationShopDetail*) operation;
+        [self showWithShop:ope.shop products:ope.products shopGalleries:ope.shopGalleries userGalleries:ope.userGalleries comments:ope.comments];
+        
+        return;
+    }
+    
     [qrView removeLoading];
     btnSlide.enabled=true;
     
@@ -398,6 +415,17 @@
 
 -(void)ASIOperaionPostFailed:(ASIOperationPost *)operation
 {
+    imgvScan.hidden=true;
+    
+    if([operation isKindOfClass:[ASIOperationShopDetail class]])
+    {
+        [self.view removeLoading];
+        
+        [btnSlide sendActionsForControlEvents:UIControlEventTouchUpInside];
+        
+        return;
+    }
+    
     [self.view removeLoading];
     
     lblChucMung.hidden=true;
@@ -437,6 +465,12 @@
 - (IBAction)btnCloseTouchUpInside:(UIButton *)sender {
     if([[RootViewController shareInstance] isShowedQRSlide])
     {
+//        if(qrCode)
+//        {
+//            [self loadShopWithID:qrCode.idShop];
+//            return;
+//        }
+        
         [[RootViewController shareInstance] hideQRSlide:true onCompleted:^(BOOL finished) {
             btnSlide.enabled=true;
         }];
@@ -446,6 +480,42 @@
 -(bool)isUserScanded
 {
     return _isUserScanded;
+}
+
+-(void) loadShopWithID:(int) idShop
+{
+    Shop *shop=[Shop shopWithIDShop:idShop];
+    
+    if(!shop || !shop.isShopDetail)
+    {
+        int idUser=[DataManager shareInstance].currentUser.idUser.integerValue;
+        double lat=[DataManager shareInstance].currentUser.location.latitude;
+        double lon=[DataManager shareInstance].currentUser.location.longitude;
+        ASIOperationShopDetail *ope=[[ASIOperationShopDetail alloc] initWithIDUser:idUser idShop:idShop latitude:lat longtitude:lon];
+        
+        ope.delegatePost=self;
+        [ope startAsynchronous];
+        
+        [self.view showLoadingWithTitle:nil];
+        
+        return;
+    }
+    
+    [self showWithShop:shop products:[shop.productsObjects mutableCopy] shopGalleries:[shop.shopGalleryObjects mutableCopy] userGalleries:[shop.userGalleryObjects mutableCopy] comments:[shop.shopUserCommentsObjects mutableCopy]];
+}
+
+-(void) showWithShop:(Shop*) shop products:(NSMutableArray *) products shopGalleries:(NSMutableArray *) shopGalleries userGalleries:(NSMutableArray *) userGalleries comments:(NSMutableArray *) comments
+{
+    if([[[RootViewController shareInstance].frontViewController currentVisibleViewController] isKindOfClass:[ShopDetailViewController class]])
+    {
+        ShopDetailViewController *shopDetail=[RootViewController shareInstance].shopDetail;
+        
+        [shopDetail setShop:shop products:products shopGalleries:shopGalleries userGalleries:userGalleries comments:comments];
+        
+        [[RootViewController shareInstance] hideQRSlide:true onCompleted:^(BOOL finished) {
+            btnSlide.enabled=true;
+        }];
+    }
 }
 
 @end

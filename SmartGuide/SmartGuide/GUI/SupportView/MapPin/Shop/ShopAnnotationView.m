@@ -109,14 +109,17 @@
 {
     if(self.pin.superview)
     {
-        UIView *result = [self.pin hitTest:[pin convertPoint:point fromView:self] withEvent:event];
-        
-        return result;
+        if([self.pin pointInside:[self convertPoint:point toView:self.pin] withEvent:event])
+        {
+            if(delegate)
+                [delegate shopAnnotationDetail:_shop];
+            
+            return self;
+        }
+    }
 
-    }
-    else
-        return [super hitTest:point withEvent:event];
-    }
+    return [super hitTest:point withEvent:event];
+}
 
 -(Shop *)shop
 {

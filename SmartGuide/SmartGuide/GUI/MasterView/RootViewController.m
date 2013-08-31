@@ -784,10 +784,21 @@ static RootViewController *_rootViewController;
 
 -(void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
 {
-    [self searchView:searchViewController selectedShop:nil];
-    
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
+    
+    [searchViewController cancelSearch];
+    [self.navigationBarView hideSearch];
+    
+    _isAnmationForSearch=false;
+    
+    [UIView animateWithDuration:0.3f animations:^{
+        searchViewController.view.alpha=0;
+    } completion:^(BOOL finished) {
+        [searchViewController.view removeFromSuperview];
+        [searchViewController removeFromParentViewController];
+        searchViewController=nil;
+    }];
 }
 
 -(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
@@ -1449,7 +1460,8 @@ static RootViewController *_rootViewController;
     self.panPrevious.enabled=false;
     self.panSlide.enabled=false;
     
-    UIView *vi=[[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    CGRect rect=[UIScreen mainScreen].bounds;
+    UIView *vi=[[UIView alloc] initWithFrame:rect];
     vi.backgroundColor=[UIColor clearColor];
     
     [self.view addSubview:vi];

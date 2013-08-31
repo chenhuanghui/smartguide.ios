@@ -21,12 +21,33 @@
 @implementation ShopUserPose
 @synthesize delegate;
 
+-(ShopUserPose *)initWithViewController:(UIViewController *)viewController shop:(Shop *)shop
+{
+    self=[[ShopUserPose alloc] init];
+    
+    _viewController=viewController;
+    _shop=shop;
+    
+    return self;
+}
+
+-(void)show
+{
+    _rootView=[[RootViewController shareInstance] giveARootView];
+    _rootView.hidden=true;
+    _rootView.backgroundColor=[UIColor whiteColor];
+    
+    [_rootView addSubview:self];
+    
+    [self showCamera];
+}
+
 - (id)init
 {
     self = [[[NSBundle mainBundle] loadNibNamed:@"ShopUserPose" owner:nil options:nil] objectAtIndex:0];
     if (self) {
         txt.text=@"";
-        [txt setPlaceHolderText:USER_POST_PLACEHOLDER textColor:[UIColor lightTextColor]];
+//        [txt setPlaceHolderText:USER_POST_PLACEHOLDER textColor:[UIColor lightTextColor]];
         containView.layer.masksToBounds=true;
     }
     return self;
@@ -46,17 +67,22 @@
 }
 
 - (IBAction)btnBackTouchUpInside:(id)sender {
+    [self showCamera];
+}
+
+-(void) showCamera
+{
     UIImagePickerController *imagePicker=[[UIImagePickerController alloc] init];
     imagePicker.modalPresentationStyle=UIModalPresentationCurrentContext;
     
     if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
         imagePicker.sourceType=UIImagePickerControllerSourceTypeCamera;
     else
-        imagePicker.sourceType=UIImagePickerControllerSourceTypePhotoLibrary;
+        imagePicker.sourceType=UIImagePickerControllerSourceTypeSavedPhotosAlbum;
     
     imagePicker.delegate=self;
     
-    [[RootViewController shareInstance].frontViewController presentModalViewController:imagePicker animated:true];
+    [_viewController presentModalViewController:imagePicker animated:true];
     
     imgv.image=nil;
 }
@@ -64,11 +90,21 @@
 -(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
 {
     picker.delegate=nil;
+    [self cancelPose];
+}
+
+-(void) cancelPose
+{
     imgv.image=nil;
-    
-    [[RootViewController shareInstance].frontViewController dismissModalViewControllerAnimated:true];
+
+    [_viewController dismissModalViewControllerAnimated:true];
     
     [delegate shopUserPostCancelled:self];
+    
+    [[RootViewController shareInstance] removeRootView:_rootView];
+    [self removeFromSuperview];
+    
+    self.delegate=nil;
 }
 
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
@@ -76,10 +112,21 @@
     imgv.image=nil;
     picker.delegate=nil;
     UIImage *img=[info valueForKey:UIImagePickerControllerOriginalImage];
-    
-    [[RootViewController shareInstance].frontViewController dismissModalViewControllerAnimated:true];
 
+    NSData *data=UIImagePNGRepresentation(img);
+    while (data.length>(2048*10)) {
+        data=UIImagePNGRepresentation([img resizedImage:CGSizeMake(img.size.width*0.9f, img.size.height*0.9f) interpolationQuality:kCGInterpolationMedium]);
+    }
+    
+    img=[UIImage imageWithData:data];
+    
     [self setImage:img shop:_shop];
+    
+    _rootView.hidden=false;
+    
+    [txt becomeFirstResponder];
+    
+    [_viewController dismissModalViewControllerAnimated:true];
 }
 
 - (IBAction)btnFaceTouchUpInside:(id)sender {
@@ -119,7 +166,6 @@
     
     if(newSuperview)
     {
-        [txt becomeFirstResponder];
         [self settingLayout];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userLoginFB:) name:NOTIFICATION_FACEBOOK_LOGIN_SUCCESS object:nil];
     }
@@ -153,7 +199,23 @@
     
     [self removeLoading];
     
-    [delegate shopUserPostFinished:self userGallery:ope.userGallery];
+    if(ope.isSuccess)
+    {
+        [delegate shopUserPostFinished:self userGallery:ope.userGallery];
+        
+        imgv.image=nil;
+        
+        [UIView animateWithDuration:0.2f animations:^{
+            _rootView.center=CGPointMake(_rootView.center.x, _rootView.center.y-_rootView.frame.size.height);
+        } completion:^(BOOL finished) {
+            [[RootViewController shareInstance] removeRootView:_rootView];
+            [self removeFromSuperview];
+            
+            self.delegate=nil;
+        }];
+    }
+    else
+        [AlertView showAlertOKWithTitle:nil withMessage:@"Up hình thất bại" onOK:nil];
 }
 
 -(void) ASIOperaionPostFailed:(ASIOperationPost *)operation
@@ -166,10 +228,10 @@
 
 -(void)textViewDidChange:(UITextView *)textView
 {
-    if(textView.text.length>0)
-        [textView removePlaceHolderText];
-    else
-        [textView setPlaceHolderText:USER_POST_PLACEHOLDER textColor:[UIColor lightTextColor]];
+//    if(textView.text.length>0)
+//        [textView removePlaceHolderText];
+//    else
+//        [textView setPlaceHolderText:USER_POST_PLACEHOLDER textColor:[UIColor lightTextColor]];
 }
 
 -(void) settingLayout

@@ -45,7 +45,7 @@
     int idShop=[dictJson integerForKey:@"id"];
     shop=[Shop shopWithIDShop:idShop];
     if(!shop)
-        shop=[Shop insert];
+        shop=[Shop makeShopWithDictionaryShopInGroup:dictJson];
     
     [shop removeProducts:shop.products];
     [shop removeShopGallery:shop.shopGallery];
@@ -147,6 +147,8 @@
             [shop addShopGalleryObject:shopG];
         }
     }
+    
+    shop.isShopDetail=true;
     
     [[DataManager shareInstance] save];
 }

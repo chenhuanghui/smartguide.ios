@@ -50,18 +50,6 @@
     return btnDetail;
 }
 
--(UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event
-{
-    UIView *result = [super hitTest:point withEvent:event];
-    
-    if([result isKindOfClass:[UIButton class]])
-    {
-        [btnDetail sendActionsForControlEvents:UIControlEventTouchUpInside];
-    }
-    
-    return result;
-}
-
 -(bool) isRespondSEL:(SEL) selector
 {
     return delegate && [delegate respondsToSelector:selector];

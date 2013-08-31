@@ -40,8 +40,6 @@
     templateShop.isAutoFullCell=true;
     templateUser.isAutoFullCell=true;
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userPosed:) name:NOTIFICATION_USER_POST_PICTURE object:nil];
-    
     return self;
 }
 
@@ -128,24 +126,6 @@
     }
 }
 
--(void) userPosed:(NSNotification*) notification
-{
-    if(_isTemporaryUserGallery)
-    {
-        templateUser.datasource=[[NSMutableArray alloc] init];
-        _isTemporaryUserGallery=false;
-    }
-    
-    if(templateUser.datasource.count>0)
-    {
-        [templateUser.datasource insertObject:notification.object atIndex:0];
-    }
-    else
-        [templateUser.datasource addObject:notification.object];
-    
-    [gridUser reloadData];
-}
-
 -(CGSize)GMGridView:(GMGridView *)gridView sizeForItemsInInterfaceOrientation:(UIInterfaceOrientation)orientation
 {
     if(gridView==gridUser || gridView==gridShop)
@@ -187,7 +167,7 @@
     _isTemporaryUserGallery=false;
     if(templateUser.datasource.count==0)
     {
-        [templateUser.datasource addObjectsFromArray:@[[ShopUserGallery temporary],[ShopUserGallery temporary],[ShopUserGallery temporary]]];
+        [templateUser.datasource addObjectsFromArray:@[[ShopUserGallery temporary],[ShopUserGallery temporary]]];
         _isTemporaryUserGallery=true;
     }
     
@@ -237,7 +217,7 @@
     templateUser.page=0;
     
     templateUser.datasource=[[NSMutableArray alloc] init];
-    [templateUser.datasource addObjectsFromArray:@[[ShopUserGallery temporary],[ShopUserGallery temporary],[ShopUserGallery temporary]]];
+    [templateUser.datasource addObjectsFromArray:@[[ShopUserGallery temporary],[ShopUserGallery temporary]]];
     _isTemporaryUserGallery=true;
     
     templateShop.datasource=[[NSMutableArray alloc] init];
@@ -400,6 +380,38 @@
     {
         [galleryView scrollViewDidEndDecelerating:scrollView];
     }
+}
+
+- (IBAction)btnAddTouchUpInside:(id)sender {
+    ShopUserPose *userPose=[[ShopUserPose alloc] initWithViewController:self.handler.navigationController shop:_shop];
+    userPose.delegate=self;
+    
+    [userPose show];
+}
+
+-(void)shopUserPostCancelled:(ShopUserPose *)userPose
+{
+    
+}
+
+-(void)shopUserPostFinished:(ShopUserPose *)userPose userGallery:(ShopUserGallery *)userGallery
+{
+    if(_isTemporaryUserGallery)
+    {
+        templateUser.datasource=[[NSMutableArray alloc] init];
+        _isTemporaryUserGallery=false;
+    }
+    
+    if(templateUser.datasource.count>0)
+    {
+        [templateUser.datasource insertObject:userGallery atIndex:0];
+    }
+    else
+        [templateUser.datasource addObject:userGallery];
+    
+    [gridUser scrollToObjectAtIndex:0 atScrollPosition:GMGridViewScrollPositionNone animated:false];
+    
+    [gridUser reloadData];
 }
 
 @end

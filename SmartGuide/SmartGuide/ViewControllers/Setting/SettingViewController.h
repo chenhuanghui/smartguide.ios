@@ -21,7 +21,7 @@
 {
     NSMutableArray *_settings;
     __weak IBOutlet UIImageView *avatar;
-    __weak IBOutlet UILabel *lblSP;
+//    __weak IBOutlet UILabel *lblSP;
     __weak IBOutlet SwitchSetting *switchLocation;
     __weak IBOutlet UITableView *tableSetting;
     __weak IBOutlet UIView *containAvatar;
@@ -30,7 +30,7 @@
     __weak IBOutlet UILabel *lblName;
     
     bool _isShowOtherView;
-    ASIOperationGetTotalSP *getTotalSP;
+//    ASIOperationGetTotalSP *getTotalSP;
 }
 
 -(void) loadSetting;

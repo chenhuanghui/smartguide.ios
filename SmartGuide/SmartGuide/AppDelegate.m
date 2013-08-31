@@ -54,7 +54,7 @@
     
     [Flurry setAppVersion:@"0.0a"];
     [Flurry startSession:@"SG974KP6KXTQ8P4ZRYHN" withOptions:launchOptions];
-    [Flurry setDebugLogEnabled:true];
+//    [Flurry setDebugLogEnabled:true];
     
     SHKSmartGuildeConfig *config=[[SHKSmartGuildeConfig alloc] init];
     [SHKConfiguration sharedInstanceWithConfigurator:config];
@@ -101,6 +101,8 @@
 
 -(BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
+    NSLog(@"%@ %@",url,sourceApplication);
+    
     return [SHKFacebook handleOpenURL:url];
 }
 

@@ -29,7 +29,7 @@
     
     lblDesc.text=@"";
     lblAddress.text=@"";
-    lblContact.text=@"";
+    [btnContact setTitle:@"" forState:UIControlStateNormal];
     lblWebsite.text=@"";
     
     if(!shop)
@@ -37,7 +37,7 @@
     
     lblDesc.text=shop.desc;
     
-    CGRect rect=CGRECT_PHONE(CGRectMake(51, 14, 234, 72), CGRectMake(51, 14, 234, 120));
+    CGRect rect=CGRECT_PHONE(CGRectMake(51, 14, 234, 109), CGRectMake(51, 14, 234, 120));
     if(lblDesc.frame.size.height>lblDesc.contentSize.height)
         rect.size.height=MAX(21, lblDesc.contentSize.height);
     
@@ -52,14 +52,14 @@
     
     lblAddress.frame=rect;
     
-    lblContact.text=shop.contact;
+    [btnContact setTitle:shop.contact forState:UIControlStateNormal];
     
     rect=CGRectMake(56, lblAddress.frame.origin.y+lblAddress.frame.size.height, 229, 21);
-    lblContact.frame=rect;
+    btnContact.frame=rect;
     
     lblWebsite.text=shop.website;
     
-    rect=CGRectMake(54, lblContact.frame.origin.y+lblContact.frame.size.height, 227, 21);
+    rect=CGRectMake(54, btnContact.frame.origin.y+btnContact.frame.size.height, 227, 21);
     lblWebsite.frame=rect;
 
     rect=lblDiaChi.frame;
@@ -67,12 +67,24 @@
     lblDiaChi.frame=rect;
     
     rect=lblLienLac.frame;
-    rect.origin.y=lblContact.frame.origin.y;
+    rect.origin.y=btnContact.frame.origin.y;
     lblLienLac.frame=rect;
     
     rect=lblWeb.frame;
     rect.origin.y=lblWebsite.frame.origin.y+4;
     lblWeb.frame=rect;
+}
+
+- (IBAction)btnContactTouchUpInside:(id)sender {
+    
+    [btnContact setTitleColor:[btnContact titleColorForState:UIControlStateNormal] forState:UIControlStateSelected];
+    
+    NSString *text=[btnContact titleForState:UIControlStateNormal];
+    
+    if([text stringByRemoveString:@" ",nil].length==0)
+        return;
+    
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"telprompt://%@",text]]];
 }
 
 @end

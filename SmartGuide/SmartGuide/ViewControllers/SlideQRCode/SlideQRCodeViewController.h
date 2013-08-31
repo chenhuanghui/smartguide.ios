@@ -10,6 +10,9 @@
 #import "QRCodeViewController.h"
 #import "TouchView.h"
 #import "ASIOperationPost.h"
+#import "Shop.h"
+#import "ASIOperationCity.h"
+#import "ASIOperationShopDetail.h"
 
 enum SCAND_TYPE {
     SCAN_GET_SGP= 0,
@@ -40,6 +43,7 @@ enum SCAND_TYPE {
     __weak IBOutlet UILabel *lblChucMung;
     __weak IBOutlet UILabel *lblNhanDuoc;
     __weak IBOutlet UILabel *lblShop;
+    __weak IBOutlet UIImageView *imgvScan;
     
     bool _isUserScanded;
 }

@@ -293,12 +293,18 @@
     
     [self alignButtonLikeDislike];
 }
+
 -(void)setShop:(Shop *)shop
+{
+    [self setShop:shop products:nil shopGalleries:nil userGalleries:nil comments:nil];
+}
+
+-(void)setShop:(Shop *)shop products:(NSMutableArray *)products shopGalleries:(NSMutableArray *)shopGalleries userGalleries:(NSMutableArray *)userGalleries comments:(NSMutableArray *)comments
 {
     [self hideShopMenu:false];
     
-    if(!_shop && !shop && _shop.idShop.integerValue==shop.idShop.integerValue)
-        return;
+//    if(!_shop && !shop && _shop.idShop.integerValue==shop.idShop.integerValue)
+//        return;
     
     [self.promotionDetailType1View removeFromSuperview];
     [self.promotionDetailType2View removeFromSuperview];
@@ -351,10 +357,14 @@
                 [promotionDetailType1View setShop:_shop];
                 [promotionDetailType1View setNeedAnimationScore];
                 [viewContaint addSubview:promotionDetailType1View];
+                
+                if(_shop.promotionDetail.sgp.integerValue==0)
+                    [btnShop sendActionsForControlEvents:UIControlEventTouchUpInside];
             }
             else
             {
                 [promotionDetailType2View setShop:_shop];
+                
                 [viewContaint addSubview:promotionDetailType2View];
             }
         }
@@ -392,6 +402,7 @@
     btnShop = nil;
     blurCover = nil;
 
+    imgvBtnHover = nil;
     [super viewDidUnload];
 }
 
@@ -588,6 +599,7 @@
 {
     [shopInfo setShop:_shop];
     _lastTag=shopInfo.tag;
+    [self moveHover:btnInfo];
     [self animationView:shopInfo direction:MENU_FIRST onCompleted:nil];
 }
 
@@ -611,6 +623,25 @@
     [self.shopLocation processFirstDataBackground:array];
 }
 
+-(void) startProcessShopDetailWithProducts:(NSMutableArray*) products shopGalleries:(NSMutableArray*) shopGalleries userGalleries:(NSMutableArray*) userGalleries comments:(NSMutableArray*) comments
+{
+    [shopMenuCategory setShop:_shop];
+    [shopPicture setShop:_shop];
+    [shopComment setShop:_shop];
+    [shopLocation setShop:_shop];
+    
+    shopMenuCategory.isProcessedData=false;
+    shopPicture.isProcessedData=false;
+    shopComment.isProcessedData=false;
+    shopLocation.isProcessedData=false;
+    
+    [self performSelectorInBackground:@selector(shopMenuCategoryProcessFirstData:) withObject:[products copy]];
+    [self performSelectorInBackground:@selector(shopPictureProcessFirstData:) withObject:@[[shopGalleries copy],[userGalleries copy]]];
+    [self performSelectorInBackground:@selector(shopCommentProcessFirstData:) withObject:[comments copy]];
+    [self performSelectorInBackground:@selector(shopLocationProcessFirstData:) withObject:[NSArray array]];
+
+}
+
 -(void)ASIOperaionPostFinished:(ASIOperationPost *)operation
 {
     if([operation isKindOfClass:[ASIOperationShopDetail class]])
@@ -620,21 +651,8 @@
         [imgvCover setSmartGuideImageWithURL:[NSURL URLWithString:_shop.cover] placeHolderImage:UIIMAGE_LOADING_SHOP_COVER success:nil failure:nil];
         
         _shop=ope.shop;
-        
-        [shopMenuCategory setShop:_shop];
-        [shopPicture setShop:_shop];
-        [shopComment setShop:_shop];
-        [shopLocation setShop:_shop];
-        
-        shopMenuCategory.isProcessedData=false;
-        shopPicture.isProcessedData=false;
-        shopComment.isProcessedData=false;
-        shopLocation.isProcessedData=false;
-        
-        [self performSelectorInBackground:@selector(shopMenuCategoryProcessFirstData:) withObject:[ope.products copy]];
-        [self performSelectorInBackground:@selector(shopPictureProcessFirstData:) withObject:@[[ope.shopGalleries copy],[ope.userGalleries copy]]];
-        [self performSelectorInBackground:@selector(shopCommentProcessFirstData:) withObject:[ope.comments copy]];
-        [self performSelectorInBackground:@selector(shopLocationProcessFirstData:) withObject:[NSArray array]];
+       
+        [self startProcessShopDetailWithProducts:ope.products shopGalleries:ope.shopGalleries userGalleries:ope.userGalleries comments:ope.comments];
         
         _operationShopDetail=nil;
     }
@@ -857,13 +875,48 @@
     [UIView animateWithDuration:0.2f animations:^{
         pick.center=CGPointMake(pnt.x, pick.center.y);
     } completion:^(BOOL finished) {
-        
+    }];
+}
+
+-(void) setButtonState:(UIButton*) btn
+{
+    btn.highlighted=true;
+}
+
+-(void) moveHover:(UIButton*) btn
+{
+    for(UIButton *button in [self arrButtons])
+    {
+        button.highlighted=false;
+    }
+    
+    if(![[self arrButtons] containsObject:btn])
+    {
+    }
+    
+    [self performSelector:@selector(setButtonState:) withObject:btn afterDelay:0];
+    
+    CGRect rect=imgvBtnHover.frame;
+    if(btn==btnInfo)
+        rect.origin.x=90;
+    else if(btn==btnMenu)
+        rect.origin.x=132;
+    else if(btn==btnGallery)
+        rect.origin.x=172;
+    else if(btn==btnComment)
+        rect.origin.x=213;
+    else if(btn==btnMap)
+        rect.origin.x=252;
+    
+    [UIView animateWithDuration:0.2f animations:^{
+        imgvBtnHover.frame=rect;
     }];
 }
 
 -(void) btnClick:(UIButton*) btn;
 {
     [self movePickToPoint:btn.center];
+    [self moveHover:btn];
     
     enum SHOP_MENU_DIRECTION direction=MENU_FIRST;
     

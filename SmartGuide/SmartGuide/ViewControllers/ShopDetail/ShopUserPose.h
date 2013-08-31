@@ -33,7 +33,13 @@
     __weak Shop *_shop;
     
     bool _isSharedFacebook;
+    
+    __weak UIViewController *_viewController;
+    UIView *_rootView;
 }
+
+-(ShopUserPose*) initWithViewController:(UIViewController*) viewController shop:(Shop*) shop;
+-(void) show;
 
 -(void) setImage:(UIImage*) image shop:(Shop*) shop;
 

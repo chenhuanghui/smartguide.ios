@@ -18,7 +18,8 @@
     __weak IBOutlet UILabel *lblSgp;
     __weak IBOutlet UITableView *tableRank;
     __weak Shop *_shop;
-    __weak IBOutlet UILabel *lblSP;
+    __weak IBOutlet FTCoreTextView *lblSP;
+    __weak IBOutlet FTCoreTextView *lblP;
     __weak IBOutlet FTCoreTextView *lblCost;
     
     bool _isNeedAnimaionScore;

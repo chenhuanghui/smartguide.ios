@@ -159,6 +159,20 @@ bool isVailCLLocationCoordinate2D(CLLocationCoordinate2D location);
 -(UIImage*) loopImage;
 - (UIImage *) scaleToSize: (CGSize)size;
 - (UIImage *) scaleProportionalToSize: (CGSize)size1;
+- (UIImage *)croppedImage:(CGRect)bounds;
+- (UIImage *)thumbnailImage:(NSInteger)thumbnailSize
+          transparentBorder:(NSUInteger)borderSize
+               cornerRadius:(NSUInteger)cornerRadius
+       interpolationQuality:(CGInterpolationQuality)quality;
+- (UIImage *)resizedImage:(CGSize)newSize
+     interpolationQuality:(CGInterpolationQuality)quality;
+- (UIImage *)resizedImageWithContentMode:(UIViewContentMode)contentMode
+                                  bounds:(CGSize)bounds
+                    interpolationQuality:(CGInterpolationQuality)quality;
+- (UIImage *)roundedCornerImage:(NSInteger)cornerSize borderSize:(NSInteger)borderSize;
+- (BOOL)hasAlpha;
+- (UIImage *)imageWithAlpha;
+- (UIImage *)transparentBorderImage:(NSUInteger)borderSize;
 
 @end
 
@@ -186,17 +200,19 @@ bool isVailCLLocationCoordinate2D(CLLocationCoordinate2D location);
 
 @interface NSNumberFormatter(Utility)
 
++(NSNumberFormatter*) moneyKFormat;
 +(NSNumberFormatter*) moneyFormat;
 +(NSNumberFormatter*) numberFormat;
 
 +(NSString*) moneyFromNSNumber:(NSNumber*) number;
++(NSString*) moneyKFromNSNumber:(NSNumber*) number;
 +(NSString*) numberFromNSNumber:(NSNumber*) number;
 
 @end
 
-@interface NSMoneyFormat : NSNumberFormatter
+@interface NSMoneyKFormat : NSNumberFormatter
 
-+(NSMoneyFormat*) moneyFormat;
++(NSMoneyKFormat*) moneyKFormat;
 
 @end
 

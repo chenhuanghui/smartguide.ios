@@ -4,7 +4,7 @@
 #import "Utility.h"
 
 @implementation Shop
-@synthesize selected,showPinType,isUserCollection;
+@synthesize selected,showPinType,isUserCollection,isShopDetail;
 
 -(id)initWithEntity:(NSEntityDescription *)entity insertIntoManagedObjectContext:(NSManagedObjectContext *)context
 {
@@ -14,6 +14,7 @@
     self.shop_lat=[NSNumber numberWithDouble:-1];
     self.shop_lng=[NSNumber numberWithDouble:-1];
     self.showPinType=0;
+    self.isShopDetail=false;
     
     return self;
 }
@@ -169,6 +170,8 @@
             [shop setPromotionDetail:nil];
         }
     }
+    
+    shop.isShopDetail=false;
     
     return shop;
 }

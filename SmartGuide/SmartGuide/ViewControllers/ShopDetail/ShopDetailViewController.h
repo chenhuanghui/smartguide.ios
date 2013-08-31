@@ -83,6 +83,7 @@ enum SHOP_DETAIL_MODE {
     __weak IBOutlet UIButton *btnShop;
     __weak IBOutlet UIView *buttonsContaint;
     __weak IBOutlet UIView *blurCover;
+    __weak IBOutlet UIImageView *imgvBtnHover;
     
     bool _isShowedShopMenu;
     bool _isAnimationMenu;
@@ -98,6 +99,9 @@ enum SHOP_DETAIL_MODE {
 }
 
 -(void) setShop:(Shop*) shop;
+-(void) setShop:(Shop*) shop products:(NSMutableArray*) products shopGalleries:(NSMutableArray*) shopGalleries userGalleries:(NSMutableArray*) userGalleries comments:(NSMutableArray*) comments;
+
+-(void) showWithIDShop:(int) idShop;
 
 @property (nonatomic, assign) enum SHOP_DETAIL_MODE shoplMode;
 @property (nonatomic, strong) ShopInfo *shopInfo;

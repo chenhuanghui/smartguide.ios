@@ -49,9 +49,10 @@
         
         NSNumberFormatter *format=[[NSNumberFormatter alloc] init];
         format.groupingSeparator=@".";
+        format.numberStyle=NSNumberFormatterNoStyle;
         format.maximumFractionDigits=0;
 
-        [btnReward setTitle:[format stringFromNumber:shop.promotionDetail.money] forState:UIControlStateNormal];
+        [btnReward setTitle:[NSNumberFormatter moneyFromNSNumber:shop.promotionDetail.money] forState:UIControlStateNormal];
         btnReward.tag=shop.promotionDetail.idAwardType2.integerValue;
         lblDesc.text=shop.promotionDetail.desc;
     }
@@ -62,7 +63,7 @@
 
 - (IBAction)btnRewardTouchUpInside:(id)sender
 {
-    [self showLoadingWithTitle:nil];
+//    [self showLoadingWithTitle:nil];
     [[RootViewController shareInstance].slideQRCode scanGetPromotion2WithIDAward:_shop.promotionDetail.idAwardType2.integerValue];
 }
 
@@ -79,7 +80,7 @@
 
 -(void)ASIOperaionPostFinished:(ASIOperationPost *)operation
 {
-    [self removeLoading];
+//    [self removeLoading];
     
     [AlertView showAlertOKWithTitle:nil withMessage:@"Bạn đã nhận phần thưởng thành công" onOK:nil];
     
@@ -88,7 +89,7 @@
 
 -(void)ASIOperaionPostFailed:(ASIOperationPost *)operation
 {
-    [self removeLoading];
+//    [self removeLoading];
     
     [AlertView showAlertOKWithTitle:nil withMessage:@"Nhận phần thưởng thất bại" onOK:nil];
     

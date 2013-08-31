@@ -90,30 +90,30 @@
     switchLocation.ON=[LocationManager shareInstance].isAllowLocation;
     switchLocation.delegate=self;
     
-    lblSP.text=@"";
-    if(getTotalSP)
-    {
-        [getTotalSP cancel];
-        getTotalSP=nil;
-    }
-    
-    getTotalSP=[[ASIOperationGetTotalSP alloc] initWithIDUser:[DataManager shareInstance].currentUser.idUser.integerValue];
-    getTotalSP.delegatePost=self;
-    
-    [getTotalSP startAsynchronous];
+//    lblSP.text=@"";
+//    if(getTotalSP)
+//    {
+//        [getTotalSP cancel];
+//        getTotalSP=nil;
+//    }
+//    
+//    getTotalSP=[[ASIOperationGetTotalSP alloc] initWithIDUser:[DataManager shareInstance].currentUser.idUser.integerValue];
+//    getTotalSP.delegatePost=self;
+//    
+//    [getTotalSP startAsynchronous];
 }
 
 -(void)ASIOperaionPostFinished:(ASIOperationPost *)operation
 {
-    ASIOperationGetTotalSP *ope=(ASIOperationGetTotalSP*)operation;
-    lblSP.text=[[NSNumberFormatter numberFromNSNumber:@(ope.totalSP)] stringByAppendingString:@" P"];
-    
-    getTotalSP=nil;
+//    ASIOperationGetTotalSP *ope=(ASIOperationGetTotalSP*)operation;
+//    lblSP.text=[[NSNumberFormatter numberFromNSNumber:@(ope.totalSP)] stringByAppendingString:@" P"];
+//    
+//    getTotalSP=nil;
 }
 
 -(void)ASIOperaionPostFailed:(ASIOperationPost *)operation
 {
-    getTotalSP=nil;
+//    getTotalSP=nil;
 }
 
 -(void)switchChanged:(SwitchSetting *)sw
