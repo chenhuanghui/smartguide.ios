@@ -43,6 +43,7 @@ enum SCAND_TYPE {
     __weak IBOutlet UILabel *lblNhanDuoc;
     __weak IBOutlet UILabel *lblShop;
     __weak IBOutlet UIImageView *imgvScan;
+    __weak IBOutlet UIButton *btnClose;
     
     bool _isUserScanded;
     bool _isLoadingShopDetail;

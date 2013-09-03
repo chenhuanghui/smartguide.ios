@@ -160,7 +160,6 @@
 								<string key="NSFrame">{{32, 141}, {202, 202}}</string>
 								<reference key="NSSuperview" ref="387233959"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -548,6 +547,14 @@
 					<int key="connectionID">57</int>
 				</object>
 				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">btnClose</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="20891533"/>
+					</object>
+					<int key="connectionID">58</int>
+				</object>
+				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
 						<string key="label">btnSlideTouchUpInside:</string>
 						<reference key="source" ref="830849094"/>
@@ -734,7 +741,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">57</int>
+			<int key="maxID">58</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -742,6 +749,7 @@
 					<string key="className">SlideQRCodeViewController</string>
 					<string key="superclassName">ViewController</string>
 					<dictionary class="NSMutableDictionary" key="outlets">
+						<string key="btnClose">UIButton</string>
 						<string key="btnSlide">UIButton</string>
 						<string key="darkLayer">UIView</string>
 						<string key="imgvRewardIcon">UIImageView</string>
@@ -757,6 +765,10 @@
 						<string key="rewardView">UIView</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<object class="IBToOneOutletInfo" key="btnClose">
+							<string key="name">btnClose</string>
+							<string key="candidateClassName">UIButton</string>
+						</object>
 						<object class="IBToOneOutletInfo" key="btnSlide">
 							<string key="name">btnSlide</string>
 							<string key="candidateClassName">UIButton</string>

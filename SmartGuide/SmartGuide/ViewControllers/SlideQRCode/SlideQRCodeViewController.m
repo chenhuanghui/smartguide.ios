@@ -75,6 +75,7 @@
     lblNhanDuoc = nil;
     lblShop = nil;
     imgvScan = nil;
+    btnClose = nil;
     [super viewDidUnload];
 }
 
@@ -499,9 +500,9 @@
     return _isUserScanded;
 }
 
--(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+-(void)touchesBegan1:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    [self qrCodeCaptureImage:nil text:@"{\"type\": 1,\"url\":\"shop.smartguide.vn/100012\",\"name\": \"Trung Nguyên 12\",\"code\":\"fed8de7a6f095add59bfef1bec793c07\"}"];
+    [self qrCodeCaptureImage:nil text:@"{\"type\": 1,\"url\":\"shop.smartguide.vn/100012\",\"name\": \"Trung Nguyên 12\",\"code\":\"32a1073560540b9e2ecdcf1c485d2f3d\"}"];
 }
 
 -(void) showShopDetail
@@ -509,27 +510,69 @@
     if(_isLoadingShopDetail || !_isUserClickClose)
         return;
     
+    btnClose.userInteractionEnabled=false;
     if([[[RootViewController shareInstance].frontViewController currentVisibleViewController] isKindOfClass:[ShopDetailViewController class]])
     {
         [[RootViewController shareInstance] hideQRSlide:true onCompleted:^(BOOL finished) {
             btnSlide.enabled=true;
+            
+            btnClose.userInteractionEnabled=true;
         }];
     }
     else if([RootViewController shareInstance].isShowedMap)
     {
         [[RootViewController shareInstance] showShopDetailFromMap];
         
-        [[RootViewController shareInstance] hideQRSlide:true onCompleted:^(BOOL finished) {
-            btnSlide.enabled=true;
-        }];
+        double delayInSeconds = 0.5f;
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+            [self.view removeLoading];
+            [[RootViewController shareInstance] hideQRSlide:true onCompleted:^(BOOL finished) {
+                btnSlide.enabled=true;
+                
+                btnClose.userInteractionEnabled=true;
+            }];
+        });
+    }
+    else if([RootViewController shareInstance].isShowedUserCollection)
+    {
+        [[RootViewController shareInstance] showShopDetailFromUserCollection];
+        
+        double delayInSeconds = 0.5f;
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+            [self.view removeLoading];
+            [[RootViewController shareInstance] hideQRSlide:true onCompleted:^(BOOL finished) {
+                btnSlide.enabled=true;
+                
+                btnClose.userInteractionEnabled=true;
+            }];
+        });
     }
     else if([RootViewController shareInstance].frontViewController.isShowedCatalogueBlock)
     {
         [[RootViewController shareInstance].frontViewController hideCatalogueBlock:false];
         [[RootViewController shareInstance].frontViewController.catalogueList showShopDetail];
         
+        double delayInSeconds = 0.5f;
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+            [self.view removeLoading];
+            [[RootViewController shareInstance] hideQRSlide:true onCompleted:^(BOOL finished) {
+                btnSlide.enabled=true;
+                
+                btnClose.userInteractionEnabled=true;
+            }];
+        });
+    }
+    else if([[[RootViewController shareInstance].frontViewController currentVisibleViewController] isKindOfClass:[CatalogueListViewController class]])
+    {
+        [[RootViewController shareInstance].frontViewController.catalogueList showShopDetail];
+        
         [[RootViewController shareInstance] hideQRSlide:true onCompleted:^(BOOL finished) {
             btnSlide.enabled=true;
+            
+            btnClose.userInteractionEnabled=true;
         }];
     }
 }

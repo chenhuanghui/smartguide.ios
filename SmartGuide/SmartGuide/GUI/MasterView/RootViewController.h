@@ -62,6 +62,7 @@
 -(bool) isShowedUserCollection;
 
 -(void) showShopDetailFromUserCollection:(Shop*) shop;
+-(void) showShopDetailFromUserCollection;//support qr code
 -(void) hideShopDetailFromUserCollection;
 -(bool) isShowedShopDetailFromUserCollection;
 

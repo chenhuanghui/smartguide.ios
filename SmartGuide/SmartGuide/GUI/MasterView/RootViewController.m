@@ -1820,6 +1820,26 @@ static RootViewController *_rootViewController;
     }];
 }
 
+-(void)showShopDetailFromUserCollection
+{
+    _isShowedDetailFromCollection=true;
+    _isShowedUserCollection=false;
+    
+    if([self.frontViewController isShowedCatalogueBlock])
+    {
+        [self.frontViewController hideCatalogueBlockForUserCollection];
+    }
+    
+    self.bannerAds.view.hidden=true;
+    self.shopDetail.view.hidden=false;
+    self.shopDetail.shoplMode=SHOPDETAIL_FROM_COLLECTION;
+    [self.shopDetail removeFromParentViewController];
+    [self.shopDetail.view removeFromSuperview];
+    
+    self.frontViewController.delegate=self;
+    [self.frontViewController pushViewController:self.shopDetail animated:false];
+}
+
 -(void) showShopDetailFromUserCollection:(Shop*) shop;
 {
     if(_isShowedDetailFromCollection)
