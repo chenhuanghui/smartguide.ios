@@ -8,6 +8,7 @@
 
 #import "Flags.h"
 #import "Utility.h"
+#import "Constant.h"
 
 #define FLAG_FIRST_RUN @"flagFirstRun"
 #define FLAG_ACCESS_TOKEN @"accessToken"
@@ -19,6 +20,8 @@
 #define FLAG_USER_CITY @"userCity"
 #define FLAG_FACEBOOK_TOKEN @"facebookToken"
 #define FLAG_IS_SHOWED_TUTORIAL @"isShowedTutorial"
+#define FLAG_IS_SHOWED_TURORIAL_SLIDE_LIST @"isShowedTurorialSlideList"
+#define FLAG_IS_SHOWED_TURORIAL_SLIDE_SHOPDETAIL @"isShowedTutorialSlideShopDetail"
 
 @implementation Flags
 
@@ -43,6 +46,7 @@
 
 +(NSString *)accessToken
 {
+    return @"NTQ4ZTM0OWI2OWUwMzNiY2JlOWEyOTBhMDkwZTU5Y2JkMTZhNjg2ZjFlYjc4YzhiOTc3YzNhMTkxMzRmZTBjZg";
     return [NSString stringWithStringDefault:[[NSUserDefaults standardUserDefaults] objectForKey:FLAG_ACCESS_TOKEN]];
 }
 
@@ -157,6 +161,38 @@
 +(void)setIsShowedTutorial:(bool)isShowed
 {
     [[NSUserDefaults standardUserDefaults] setBool:isShowed forKey:FLAG_IS_SHOWED_TUTORIAL];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
++(bool)isShowedTutorialSlideList
+{
+    id obj = [[NSUserDefaults standardUserDefaults] objectForKey:FLAG_IS_SHOWED_TURORIAL_SLIDE_LIST];
+    if(obj)
+        return [obj boolValue];
+    
+    return false;
+}
+
++(void)setIsShowedTutorialSlideList:(bool)isShowed
+{
+    [[NSUserDefaults standardUserDefaults] setBool:isShowed forKey:FLAG_IS_SHOWED_TURORIAL_SLIDE_LIST];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_USER_FINISHED_TUTORIAL_SLIDE_LIST object:nil];
+}
+
++(bool)isShowedTutorialSlideShopDetail
+{
+    id obj = [[NSUserDefaults standardUserDefaults] objectForKey:FLAG_IS_SHOWED_TURORIAL_SLIDE_SHOPDETAIL];
+    if(obj)
+        return [obj boolValue];
+    
+    return false;
+}
+
++(void)setIsShowedTutorialSlideShopDetail:(bool)isShowed
+{
+    [[NSUserDefaults standardUserDefaults] setBool:isShowed forKey:FLAG_IS_SHOWED_TURORIAL_SLIDE_SHOPDETAIL];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 

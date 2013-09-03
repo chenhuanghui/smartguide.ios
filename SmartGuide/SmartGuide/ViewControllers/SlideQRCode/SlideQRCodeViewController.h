@@ -12,7 +12,6 @@
 #import "ASIOperationPost.h"
 #import "Shop.h"
 #import "ASIOperationCity.h"
-#import "ASIOperationShopDetail.h"
 
 enum SCAND_TYPE {
     SCAN_GET_SGP= 0,
@@ -46,6 +45,9 @@ enum SCAND_TYPE {
     __weak IBOutlet UIImageView *imgvScan;
     
     bool _isUserScanded;
+    bool _isLoadingShopDetail;
+    bool _isUserClickClose;
+    bool _isSuccessed;
 }
 
 -(UIButton*) btnSlide;

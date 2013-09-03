@@ -14,7 +14,6 @@
     self.shop_lat=[NSNumber numberWithDouble:-1];
     self.shop_lng=[NSNumber numberWithDouble:-1];
     self.showPinType=0;
-    self.isShopDetail=false;
     
     return self;
 }
@@ -61,9 +60,7 @@
     if(self.promotionDetail)
     {
         double sgp=self.promotionDetail.sgp.doubleValue;
-        
-        sgp=30;
-        
+
         return [self.promotionDetail.requiresObjects filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"%K <= %f",PromotionRequire_SgpRequired,sgp]];
     }
     
@@ -109,6 +106,8 @@
     }
     
     shop.isUserCollection=false;
+    shop.isShopDetail=@(false);
+    
     shop.name=[dict objectForKey:@"name"];
     shop.shop_lat=[dict objectForKey:@"shop_lat"];
     shop.shop_lng=[dict objectForKey:@"shop_lng"];
@@ -170,8 +169,6 @@
             [shop setPromotionDetail:nil];
         }
     }
-    
-    shop.isShopDetail=false;
     
     return shop;
 }

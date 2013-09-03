@@ -334,6 +334,8 @@
 {
     [[self previousViewController] configMenu];
     
+    [Flags setIsShowedTutorialSlideShopDetail:true];
+    
     [UIView animateWithDuration:DURATION_SHOW_CATALOGUE animations:^{
         CGRect rect=self.previousViewController.view.frame;
         rect.origin.x=0;
@@ -396,6 +398,8 @@
 -(void)showCatalogueBlock:(bool)animated onCompleted:(void(^)(BOOL finished)) completed
 {
     _isShowedCatalogueBlock=true;
+    
+    [Flags setIsShowedTutorialSlideList:true];
     
     if(!self.catalogueBlock.view.superview)
     {

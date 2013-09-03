@@ -466,6 +466,11 @@
     }];
 }
 
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [self.view endEditing:true];
+}
+
 @end
 
 @implementation LoginView

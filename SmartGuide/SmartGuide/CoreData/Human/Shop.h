@@ -25,6 +25,5 @@ enum SHOP_SHOW_TYPE {
 @property (nonatomic, assign) bool selected;
 @property (nonatomic, assign) enum SHOP_SHOW_TYPE showPinType;
 @property (nonatomic, assign) bool isUserCollection;
-@property (nonatomic, assign) bool isShopDetail;
 
 @end

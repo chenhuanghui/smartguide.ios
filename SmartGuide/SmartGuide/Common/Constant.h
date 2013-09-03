@@ -95,6 +95,7 @@
 #define NOTIFICATION_CATALOGUEBLOCK_FINISHED @"catalogueBlockFinished"
 #define NOTIFICATION_CATALOGUE_LIST_FINISHED @"catalogueListFinished"
 #define NOTIFICATION_SHOPDETAIL_LOAD_FINISHED @"shopDetailLoadFinished"
+#define NOTIFICATION_USER_FINISHED_TUTORIAL_SLIDE_LIST @"userFinishedReadTutorial"
 
 #define COLOR_BACKGROUND_APP_ALPHA(a) [UIColor colorWithRed:40.f/255 green:46.f/255 blue:58.f/255 alpha:a]
 #define COLOR_BACKGROUND_APP COLOR_BACKGROUND_APP_ALPHA(1)

@@ -1230,6 +1230,8 @@ static RootViewController *_rootViewController;
     _isShowedDetailFromMap=false;
     _isShowedMap=true;
     
+    [Flags setIsShowedTutorialSlideShopDetail:true];
+    
     if(animated)
     {
         [self.bannerAds.view alphaViewWithColor:COLOR_BACKGROUND_APP_ALPHA(1)];
@@ -1727,6 +1729,8 @@ static RootViewController *_rootViewController;
     _isShowedUserCollection=true;
     
     self.userCollection.view.hidden=false;
+
+    [Flags setIsShowedTutorialSlideShopDetail:true];
     
     if(animated)
     {

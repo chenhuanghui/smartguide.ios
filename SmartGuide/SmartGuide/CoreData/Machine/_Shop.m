@@ -234,6 +234,19 @@
 	[self didChangeValueForKey:@"isNeedReloadData"];
 }
 
+- (NSNumber*)isShopDetail {
+	[self willAccessValueForKey:@"isShopDetail"];
+	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"isShopDetail"];
+	[self didAccessValueForKey:@"isShopDetail"];
+	return result;
+}
+
+- (void)setIsShopDetail:(NSNumber*)value {
+	[self willChangeValueForKey:@"isShopDetail"];
+	[self setPrimitiveValue:value forKey:@"isShopDetail"];
+	[self didChangeValueForKey:@"isShopDetail"];
+}
+
 - (NSNumber*)like {
 	[self willAccessValueForKey:@"like"];
 	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"like"];

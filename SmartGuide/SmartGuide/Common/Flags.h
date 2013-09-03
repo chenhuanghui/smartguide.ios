@@ -28,6 +28,10 @@
 +(void) setUserCity:(int) idCity;
 +(bool) isShowedTutorial;
 +(void) setIsShowedTutorial:(bool) isShowed;
++(bool) isShowedTutorialSlideList;
++(void) setIsShowedTutorialSlideList:(bool) isShowed;
++(bool) isShowedTutorialSlideShopDetail;
++(void) setIsShowedTutorialSlideShopDetail:(bool) isShowed;
 
 +(void) removeToken;
 

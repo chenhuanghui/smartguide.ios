@@ -144,7 +144,7 @@
         
         return;
     }
- 
+    
     if(group.count==1)
     {
         [self loadGroup:group.firstObject city:city sortType:sortBy];
@@ -191,7 +191,7 @@
     
     [self.view showLoadingWithTitle:nil];
     self.title=@"Nhiều danh mục";
-
+    
 }
 
 -(void)viewDidLoad
@@ -261,6 +261,64 @@
             [tableShop scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:[templateSearch.datasource indexOfObject:templateSearch.selectedShop] inSection:0] atScrollPosition:UITableViewScrollPositionNone animated:false];
         }
     }
+    
+    if(![Flags isShowedTutorialSlideList])
+    {
+        if(!imgvTutorial)
+        {
+            imgvTutorial=[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Truot.png"]];
+            imgvTutorial.frame=CGRectMake(0, self.view.frame.size.height/2-56/2, 62, 56);
+            
+            imgvTutorial.transform=CGAffineTransformMakeRotation(DEGREES_TO_RADIANS(-25));
+            
+            imgvTutorialText=[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Truot_text.png"]];
+            imgvTutorialText.frame=CGRectMake(0, imgvTutorial.frame.origin.y+imgvTutorial.frame.size.height-10, 62, 32);
+            
+            [self.view addSubview:imgvTutorial];
+            [self.view addSubview:imgvTutorialText];
+            
+            [self startAnimationTutorial];
+            
+            __block __weak id obs = [[NSNotificationCenter defaultCenter] addObserverForName:NOTIFICATION_USER_FINISHED_TUTORIAL_SLIDE_LIST object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
+                
+                if(imgvTutorial)
+                {
+                    [imgvTutorial removeFromSuperview];
+                    imgvTutorial=nil;
+                    
+                    [imgvTutorialText removeFromSuperview];
+                    imgvTutorialText=nil;
+                }
+                
+                [[NSNotificationCenter defaultCenter] removeObserver:obs];
+            }];
+        }
+    }
+    else
+    {
+        if(imgvTutorial)
+        {
+            [imgvTutorial removeFromSuperview];
+            imgvTutorial=nil;
+            
+            [imgvTutorialText removeFromSuperview];
+            imgvTutorialText=nil;
+        }
+    }
+}
+
+-(void) startAnimationTutorial
+{
+    [UIView animateWithDuration:0.5f animations:^{
+        imgvTutorial.transform=CGAffineTransformMakeRotation(DEGREES_TO_RADIANS(0));
+//        imgvTutorial.center=CGPointMake(imgvTutorial.center.x, imgvTutorial.center.y-10)
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:0.5f animations:^{
+            imgvTutorial.transform=CGAffineTransformMakeRotation(-25);
+        } completion:^(BOOL finished) {
+            [self startAnimationTutorial];
+        }];
+    }];
 }
 
 -(void)viewDidAppear:(BOOL)animated

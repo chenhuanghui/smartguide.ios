@@ -52,6 +52,7 @@
     [shop removeShopUserComments:shop.shopUserComments];
     [shop removeUserGallery:shop.userGallery];
     
+    shop.isShopDetail=@(true);
     shop.isNeedReloadData=false;
     shop.address=[NSString stringWithStringDefault:[dictJson objectForKey:@"address"]];
     shop.desc=[NSString stringWithStringDefault:[dictJson objectForKey:@"description"]];
@@ -147,8 +148,6 @@
             [shop addShopGalleryObject:shopG];
         }
     }
-    
-    shop.isShopDetail=true;
     
     [[DataManager shareInstance] save];
 }

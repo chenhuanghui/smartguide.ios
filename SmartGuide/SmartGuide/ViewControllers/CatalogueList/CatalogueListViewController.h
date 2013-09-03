@@ -33,6 +33,8 @@ enum LIST_MODE {
     
     bool _isInitedShopDetail;
     bool _isNeedReload;
+    UIImageView *imgvTutorial;
+    UIImageView *imgvTutorialText;
 }
 
 -(void) reloadDataForChangedCity:(int) city;

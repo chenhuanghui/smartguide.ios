@@ -96,12 +96,14 @@ enum SHOP_DETAIL_MODE {
     
     bool _isStartedLoad;
     bool _isLoadedViews;
+    
+    UIImageView *imgvTutorial;
+    UIImageView *imgvTutorialText;
+    bool _isSelfLoaded;
 }
 
 -(void) setShop:(Shop*) shop;
--(void) setShop:(Shop*) shop products:(NSMutableArray*) products shopGalleries:(NSMutableArray*) shopGalleries userGalleries:(NSMutableArray*) userGalleries comments:(NSMutableArray*) comments;
-
--(void) showWithIDShop:(int) idShop;
+-(void) loadWithIDShop:(int) idShop;
 
 @property (nonatomic, assign) enum SHOP_DETAIL_MODE shoplMode;
 @property (nonatomic, strong) ShopInfo *shopInfo;

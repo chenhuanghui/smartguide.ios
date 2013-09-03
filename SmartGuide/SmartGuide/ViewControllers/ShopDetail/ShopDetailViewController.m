@@ -294,17 +294,33 @@
     [self alignButtonLikeDislike];
 }
 
--(void)setShop:(Shop *)shop
+-(void)loadWithIDShop:(int)idShop
 {
-    [self setShop:shop products:nil shopGalleries:nil userGalleries:nil comments:nil];
+    if(_shop.idShop.integerValue==idShop)
+    {
+        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_SHOPDETAIL_LOAD_FINISHED object:nil];
+        return;
+    }
+    
+    if(_operationShopDetail)
+    {
+        [_operationShopDetail cancel];
+        _operationShopDetail=nil;
+    }
+    
+    _isSelfLoaded=true;
+    
+    int idUser=[DataManager shareInstance].currentUser.idUser.integerValue;
+    double lat=[DataManager shareInstance].currentUser.location.latitude;
+    double lon=[DataManager shareInstance].currentUser.location.longitude;
+    _operationShopDetail=[[ASIOperationShopDetail alloc] initWithIDUser:idUser idShop:idShop latitude:lat longtitude:lon];
+    _operationShopDetail.delegatePost=self;
+    [_operationShopDetail startAsynchronous];
 }
 
--(void)setShop:(Shop *)shop products:(NSMutableArray *)products shopGalleries:(NSMutableArray *)shopGalleries userGalleries:(NSMutableArray *)userGalleries comments:(NSMutableArray *)comments
+-(void) setupShop:(Shop*) shop completed:(void(^)()) onCompleted
 {
     [self hideShopMenu:false];
-    
-//    if(!_shop && !shop && _shop.idShop.integerValue==shop.idShop.integerValue)
-//        return;
     
     [self.promotionDetailType1View removeFromSuperview];
     [self.promotionDetailType2View removeFromSuperview];
@@ -366,6 +382,8 @@
                 [promotionDetailType2View setShop:_shop];
                 
                 [viewContaint addSubview:promotionDetailType2View];
+                
+                [btnShop sendActionsForControlEvents:UIControlEventTouchUpInside];
             }
         }
         else
@@ -374,12 +392,27 @@
             [btnShop sendActionsForControlEvents:UIControlEventTouchUpInside];
         }
         
-        [self requestShopDetail];
+        onCompleted();
+        onCompleted=nil;
     }
     else
     {
-        [self reset];
+        onCompleted();
+        onCompleted=nil;
     }
+}
+
+-(void)setShop:(Shop *)shop
+{
+    _isSelfLoaded=false;
+    [self setupShop:shop completed:^{
+        if(shop)
+        {
+            [self requestShopDetail];
+        }
+        else
+            [self reset];
+    }];
 }
 
 - (void)viewDidUnload {
@@ -401,7 +434,7 @@
     btnMap = nil;
     btnShop = nil;
     blurCover = nil;
-
+    
     imgvBtnHover = nil;
     [super viewDidUnload];
 }
@@ -639,7 +672,7 @@
     [self performSelectorInBackground:@selector(shopPictureProcessFirstData:) withObject:@[[shopGalleries copy],[userGalleries copy]]];
     [self performSelectorInBackground:@selector(shopCommentProcessFirstData:) withObject:[comments copy]];
     [self performSelectorInBackground:@selector(shopLocationProcessFirstData:) withObject:[NSArray array]];
-
+    
 }
 
 -(void)ASIOperaionPostFinished:(ASIOperationPost *)operation
@@ -651,10 +684,15 @@
         [imgvCover setSmartGuideImageWithURL:[NSURL URLWithString:_shop.cover] placeHolderImage:UIIMAGE_LOADING_SHOP_COVER success:nil failure:nil];
         
         _shop=ope.shop;
-       
+        
+        if(_isSelfLoaded)
+            [self setShop:ope.shop];
+        
         [self startProcessShopDetailWithProducts:ope.products shopGalleries:ope.shopGalleries userGalleries:ope.userGalleries comments:ope.comments];
         
         _operationShopDetail=nil;
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_SHOPDETAIL_LOAD_FINISHED object:nil];
     }
     else if([operation isKindOfClass:[ASIOperationPromotionDetail class]])
     {
@@ -825,6 +863,50 @@
     while (!_isLoadedViews) {
         sleep(0.1f);
     }
+    
+    if(![Flags isShowedTutorialSlideShopDetail])
+    {
+        if(!imgvTutorial)
+        {
+            imgvTutorial=[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Truot.png"]];
+            imgvTutorial.frame=CGRectMake(0, self.view.frame.size.height/2-56/2, 62, 56);
+            
+            imgvTutorial.transform=CGAffineTransformMakeRotation(DEGREES_TO_RADIANS(-25));
+            
+            imgvTutorialText=[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Truot_text.png"]];
+            imgvTutorialText.frame=CGRectMake(0, imgvTutorial.frame.origin.y+imgvTutorial.frame.size.height-10, 62, 32);
+            
+            [self.view addSubview:imgvTutorial];
+            [self.view addSubview:imgvTutorialText];
+            
+            [self startAnimationTutorial];
+        }
+    }
+    else
+    {
+        if(imgvTutorial)
+        {
+            [imgvTutorial removeFromSuperview];
+            imgvTutorial=nil;
+            
+            [imgvTutorialText removeFromSuperview];
+            imgvTutorialText=nil;
+        }
+    }
+}
+
+-(void) startAnimationTutorial
+{
+    [UIView animateWithDuration:0.5f animations:^{
+        imgvTutorial.transform=CGAffineTransformMakeRotation(DEGREES_TO_RADIANS(0));
+        //        imgvTutorial.center=CGPointMake(imgvTutorial.center.x, imgvTutorial.center.y-10)
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:0.5f animations:^{
+            imgvTutorial.transform=CGAffineTransformMakeRotation(-25);
+        } completion:^(BOOL finished) {
+            [self startAnimationTutorial];
+        }];
+    }];
 }
 
 -(void) reloadPromotionDetail

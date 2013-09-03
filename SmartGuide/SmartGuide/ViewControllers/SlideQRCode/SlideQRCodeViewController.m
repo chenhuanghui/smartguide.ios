@@ -86,6 +86,8 @@
 -(void)showCamera
 {
     _isUserScanded=false;
+    _isLoadingShopDetail=false;
+    _isUserClickClose=false;
     mode=SCAN_GET_SGP;
     
     [UIView animateWithDuration:0.2f animations:^{
@@ -152,7 +154,6 @@
     if(qrCodeView)
     {
         return;
-        [self removeCamera];
     }
     
     qrCodeView=[[QRCodeViewController alloc] init];
@@ -232,6 +233,7 @@
         return;
     }
     
+    _isSuccessed=false;
     _isUserScanded=true;
     
     qrCodeView.delegate=nil;
@@ -292,16 +294,6 @@
 {
     imgvScan.hidden=true;
     
-    if([operation isKindOfClass:[ASIOperationShopDetail class]])
-    {
-        [self.view removeLoading];
-        
-        ASIOperationShopDetail *ope = (ASIOperationShopDetail*) operation;
-        [self showWithShop:ope.shop products:ope.products shopGalleries:ope.shopGalleries userGalleries:ope.userGalleries comments:ope.comments];
-        
-        return;
-    }
-    
     [qrView removeLoading];
     btnSlide.enabled=true;
     
@@ -312,7 +304,7 @@
     lblShop.hidden=true;
     imgvRewardIcon.hidden=false;
     rewardView.hidden=false;
-    
+
     if([operation isKindOfClass:[ASIOperationGetSGP class]])
     {
         ASIOperationGetSGP *ope=(ASIOperationGetSGP*) operation;
@@ -332,6 +324,8 @@
             qrCode.totalSGP=ope.totalSGP;
             
             [qrCodes addObject:qrCode];
+            
+            _isSuccessed=true;
         }
         else
         {
@@ -369,6 +363,8 @@
             
             qrCode=[QRCode qrCodeWithCode:ope.code];
             [self.qrCodes addObject:qrCode];
+            
+            _isSuccessed=true;
         }
         else
         {
@@ -402,6 +398,8 @@
             qrCode.totalSGP=ope.totalSGP;
             
             [self.qrCodes addObject:qrCode];
+            
+            _isSuccessed=true;
         }
         else
         {
@@ -409,22 +407,47 @@
             lblError.text=ope.content;
             imgvRewardIcon.highlighted=true;
         }
+    }
+    
+    if(_isSuccessed)
+        [self requestShopDetailWithIDShop:qrCode.idShop];
+}
 
+-(void) requestShopDetailWithIDShop:(int) idShop
+{
+    _isLoadingShopDetail=true;
+    
+    __block __weak id obs = [[NSNotificationCenter defaultCenter] addObserverForName:NOTIFICATION_SHOPDETAIL_LOAD_FINISHED object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
+        
+        _isLoadingShopDetail=false;
+        [self showShopDetail];
+        
+        [[NSNotificationCenter defaultCenter] removeObserver:obs];
+    }];
+    
+    [[RootViewController shareInstance].shopDetail loadWithIDShop:idShop];
+}
+
+-(void) showShopDetail
+{
+    if(_isLoadingShopDetail || !_isUserClickClose)
+        return;
+    
+    if([[[RootViewController shareInstance].frontViewController currentVisibleViewController] isKindOfClass:[ShopDetailViewController class]])
+    {
+        [[RootViewController shareInstance] hideQRSlide:true onCompleted:^(BOOL finished) {
+            btnSlide.enabled=true;
+        }];
+    }
+    else if([RootViewController shareInstance].isShowedUserCollection)
+    {
+        
     }
 }
 
 -(void)ASIOperaionPostFailed:(ASIOperationPost *)operation
 {
     imgvScan.hidden=true;
-    
-    if([operation isKindOfClass:[ASIOperationShopDetail class]])
-    {
-        [self.view removeLoading];
-        
-        [btnSlide sendActionsForControlEvents:UIControlEventTouchUpInside];
-        
-        return;
-    }
     
     [self.view removeLoading];
     
@@ -465,15 +488,26 @@
 - (IBAction)btnCloseTouchUpInside:(UIButton *)sender {
     if([[RootViewController shareInstance] isShowedQRSlide])
     {
-//        if(qrCode)
-//        {
-//            [self loadShopWithID:qrCode.idShop];
-//            return;
-//        }
+        if(!_isSuccessed)
+        {
+            [[RootViewController shareInstance] hideQRSlide:true onCompleted:^(BOOL finished) {
+                btnSlide.enabled=true;
+            }];
+            
+            return;
+        }
         
-        [[RootViewController shareInstance] hideQRSlide:true onCompleted:^(BOOL finished) {
-            btnSlide.enabled=true;
-        }];
+        if(_isLoadingShopDetail)
+        {
+            [self.view.window showLoadingWithTitle:nil];
+            return;
+        }
+        else
+        {
+            _isUserClickClose=true;
+            [self showShopDetail];
+            return;
+        }
     }
 }
 
@@ -482,40 +516,9 @@
     return _isUserScanded;
 }
 
--(void) loadShopWithID:(int) idShop
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    Shop *shop=[Shop shopWithIDShop:idShop];
-    
-    if(!shop || !shop.isShopDetail)
-    {
-        int idUser=[DataManager shareInstance].currentUser.idUser.integerValue;
-        double lat=[DataManager shareInstance].currentUser.location.latitude;
-        double lon=[DataManager shareInstance].currentUser.location.longitude;
-        ASIOperationShopDetail *ope=[[ASIOperationShopDetail alloc] initWithIDUser:idUser idShop:idShop latitude:lat longtitude:lon];
-        
-        ope.delegatePost=self;
-        [ope startAsynchronous];
-        
-        [self.view showLoadingWithTitle:nil];
-        
-        return;
-    }
-    
-    [self showWithShop:shop products:[shop.productsObjects mutableCopy] shopGalleries:[shop.shopGalleryObjects mutableCopy] userGalleries:[shop.userGalleryObjects mutableCopy] comments:[shop.shopUserCommentsObjects mutableCopy]];
-}
-
--(void) showWithShop:(Shop*) shop products:(NSMutableArray *) products shopGalleries:(NSMutableArray *) shopGalleries userGalleries:(NSMutableArray *) userGalleries comments:(NSMutableArray *) comments
-{
-    if([[[RootViewController shareInstance].frontViewController currentVisibleViewController] isKindOfClass:[ShopDetailViewController class]])
-    {
-        ShopDetailViewController *shopDetail=[RootViewController shareInstance].shopDetail;
-        
-        [shopDetail setShop:shop products:products shopGalleries:shopGalleries userGalleries:userGalleries comments:comments];
-        
-        [[RootViewController shareInstance] hideQRSlide:true onCompleted:^(BOOL finished) {
-            btnSlide.enabled=true;
-        }];
-    }
+    [self qrCodeCaptureImage:nil text:@"{\"type\": 1,\"url\":\"shop.smartguide.vn/100012\",\"name\": \"Trung Nguyên 12\",\"code\":\"f1f12aa49eb68422fda2b8a9d89d70a1\"}"];
 }
 
 @end

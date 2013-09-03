@@ -101,19 +101,6 @@
 	[self didChangeValueForKey:@"avatar"];
 }
 
-- (id)idUserT {
-	[self willAccessValueForKey:@"idUserT"];
-	id result = (id)[self primitiveValueForKey:@"idUserT"];
-	[self didAccessValueForKey:@"idUserT"];
-	return result;
-}
-
-- (void)setIdUserT:(id)value {
-	[self willChangeValueForKey:@"idUserT"];
-	[self setPrimitiveValue:value forKey:@"idUserT"];
-	[self didChangeValueForKey:@"idUserT"];
-}
-
 - (NSNumber*)isConnectedFacebook {
 	[self willAccessValueForKey:@"isConnectedFacebook"];
 	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"isConnectedFacebook"];
