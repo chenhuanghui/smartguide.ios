@@ -276,6 +276,21 @@
 		A920F1FA17A90AF300889655 /* ShopPictureCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A920F1F917A90AF200889655 /* ShopPictureCell.m */; };
 		A920F1FC17A90AFE00889655 /* ShopPictureCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A920F1FB17A90AFE00889655 /* ShopPictureCell.xib */; };
 		A920F1FE17A90CB800889655 /* ShopComment.xib in Resources */ = {isa = PBXBuildFile; fileRef = A920F1FD17A90CB800889655 /* ShopComment.xib */; };
+		A920FDEA17D5A9840096CC07 /* tutorial_text.png in Resources */ = {isa = PBXBuildFile; fileRef = A920FDE017D5A9840096CC07 /* tutorial_text.png */; };
+		A920FDEB17D5A9840096CC07 /* tutorial_text@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A920FDE117D5A9840096CC07 /* tutorial_text@2x.png */; };
+		A920FDEC17D5A9840096CC07 /* tutorial1.png in Resources */ = {isa = PBXBuildFile; fileRef = A920FDE217D5A9840096CC07 /* tutorial1.png */; };
+		A920FDED17D5A9840096CC07 /* tutorial1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A920FDE317D5A9840096CC07 /* tutorial1@2x.png */; };
+		A920FDEE17D5A9840096CC07 /* tutorial2.png in Resources */ = {isa = PBXBuildFile; fileRef = A920FDE417D5A9840096CC07 /* tutorial2.png */; };
+		A920FDEF17D5A9840096CC07 /* tutorial2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A920FDE517D5A9840096CC07 /* tutorial2@2x.png */; };
+		A920FDF017D5A9840096CC07 /* tutorial3.png in Resources */ = {isa = PBXBuildFile; fileRef = A920FDE617D5A9840096CC07 /* tutorial3.png */; };
+		A920FDF117D5A9840096CC07 /* tutorial3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A920FDE717D5A9840096CC07 /* tutorial3@2x.png */; };
+		A920FDF217D5A9840096CC07 /* tutorial4.png in Resources */ = {isa = PBXBuildFile; fileRef = A920FDE817D5A9840096CC07 /* tutorial4.png */; };
+		A920FDF317D5A9840096CC07 /* tutorial4@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A920FDE917D5A9840096CC07 /* tutorial4@2x.png */; };
+		A920FE2317D5C1A10096CC07 /* TutorialCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A920FE2217D5C1A10096CC07 /* TutorialCell.m */; };
+		A920FE2517D5C1B50096CC07 /* TutorialCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A920FE2417D5C1B50096CC07 /* TutorialCell.xib */; };
+		A920FE2717D5C8E90096CC07 /* TutorialView_ip5.xib in Resources */ = {isa = PBXBuildFile; fileRef = A920FE2617D5C8E90096CC07 /* TutorialView_ip5.xib */; };
+		A920FE2917D5CFAE0096CC07 /* LoginViewController_ip5.xib in Resources */ = {isa = PBXBuildFile; fileRef = A920FE2817D5CFAE0096CC07 /* LoginViewController_ip5.xib */; };
+		A920FE2B17D5D0160096CC07 /* FacebookMiningViewController_ip5.xib in Resources */ = {isa = PBXBuildFile; fileRef = A920FE2A17D5D0160096CC07 /* FacebookMiningViewController_ip5.xib */; };
 		A920FE9317A647CA00D8E6FE /* arrow_down.png in Resources */ = {isa = PBXBuildFile; fileRef = A920FE8F17A647CA00D8E6FE /* arrow_down.png */; };
 		A920FE9417A647CA00D8E6FE /* arrow_down@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A920FE9017A647CA00D8E6FE /* arrow_down@2x.png */; };
 		A920FE9517A647CA00D8E6FE /* arrow_up.png in Resources */ = {isa = PBXBuildFile; fileRef = A920FE9117A647CA00D8E6FE /* arrow_up.png */; };
@@ -1399,6 +1414,22 @@
 		A920F1F917A90AF200889655 /* ShopPictureCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopPictureCell.m; sourceTree = "<group>"; };
 		A920F1FB17A90AFE00889655 /* ShopPictureCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShopPictureCell.xib; sourceTree = "<group>"; };
 		A920F1FD17A90CB800889655 /* ShopComment.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShopComment.xib; sourceTree = "<group>"; };
+		A920FDE017D5A9840096CC07 /* tutorial_text.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tutorial_text.png; sourceTree = "<group>"; };
+		A920FDE117D5A9840096CC07 /* tutorial_text@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tutorial_text@2x.png"; sourceTree = "<group>"; };
+		A920FDE217D5A9840096CC07 /* tutorial1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tutorial1.png; sourceTree = "<group>"; };
+		A920FDE317D5A9840096CC07 /* tutorial1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tutorial1@2x.png"; sourceTree = "<group>"; };
+		A920FDE417D5A9840096CC07 /* tutorial2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tutorial2.png; sourceTree = "<group>"; };
+		A920FDE517D5A9840096CC07 /* tutorial2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tutorial2@2x.png"; sourceTree = "<group>"; };
+		A920FDE617D5A9840096CC07 /* tutorial3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tutorial3.png; sourceTree = "<group>"; };
+		A920FDE717D5A9840096CC07 /* tutorial3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tutorial3@2x.png"; sourceTree = "<group>"; };
+		A920FDE817D5A9840096CC07 /* tutorial4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tutorial4.png; sourceTree = "<group>"; };
+		A920FDE917D5A9840096CC07 /* tutorial4@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tutorial4@2x.png"; sourceTree = "<group>"; };
+		A920FE2117D5C1A00096CC07 /* TutorialCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TutorialCell.h; sourceTree = "<group>"; };
+		A920FE2217D5C1A10096CC07 /* TutorialCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TutorialCell.m; sourceTree = "<group>"; };
+		A920FE2417D5C1B50096CC07 /* TutorialCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TutorialCell.xib; sourceTree = "<group>"; };
+		A920FE2617D5C8E90096CC07 /* TutorialView_ip5.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TutorialView_ip5.xib; sourceTree = "<group>"; };
+		A920FE2817D5CFAE0096CC07 /* LoginViewController_ip5.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController_ip5.xib; sourceTree = "<group>"; };
+		A920FE2A17D5D0160096CC07 /* FacebookMiningViewController_ip5.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FacebookMiningViewController_ip5.xib; sourceTree = "<group>"; };
 		A920FE8F17A647CA00D8E6FE /* arrow_down.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow_down.png; sourceTree = "<group>"; };
 		A920FE9017A647CA00D8E6FE /* arrow_down@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow_down@2x.png"; sourceTree = "<group>"; };
 		A920FE9117A647CA00D8E6FE /* arrow_up.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow_up.png; sourceTree = "<group>"; };
@@ -2535,6 +2566,7 @@
 				A9244BD9179F788D00D78D5A /* FacebookMiningViewController.h */,
 				A9244BDA179F788D00D78D5A /* FacebookMiningViewController.m */,
 				A9244BDB179F788D00D78D5A /* FacebookMiningViewController.xib */,
+				A920FE2A17D5D0160096CC07 /* FacebookMiningViewController_ip5.xib */,
 			);
 			path = Facebook;
 			sourceTree = "<group>";
@@ -2690,6 +2722,10 @@
 				A920E25317CBEB7B003FAA80 /* TutorialView.h */,
 				A920E25417CBEB7B003FAA80 /* TutorialView.m */,
 				A927130A17CC3C22007B94EE /* TutorialView.xib */,
+				A920FE2617D5C8E90096CC07 /* TutorialView_ip5.xib */,
+				A920FE2117D5C1A00096CC07 /* TutorialCell.h */,
+				A920FE2217D5C1A10096CC07 /* TutorialCell.m */,
+				A920FE2417D5C1B50096CC07 /* TutorialCell.xib */,
 				A92376DF17CD9E8100336FE2 /* IntroView.h */,
 				A92376E017CD9E8100336FE2 /* IntroView.m */,
 				A92376E217CD9EB100336FE2 /* IntroView.xib */,
@@ -3004,6 +3040,16 @@
 		A98198BE178D44FB0009FCB6 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				A920FDE017D5A9840096CC07 /* tutorial_text.png */,
+				A920FDE117D5A9840096CC07 /* tutorial_text@2x.png */,
+				A920FDE217D5A9840096CC07 /* tutorial1.png */,
+				A920FDE317D5A9840096CC07 /* tutorial1@2x.png */,
+				A920FDE417D5A9840096CC07 /* tutorial2.png */,
+				A920FDE517D5A9840096CC07 /* tutorial2@2x.png */,
+				A920FDE617D5A9840096CC07 /* tutorial3.png */,
+				A920FDE717D5A9840096CC07 /* tutorial3@2x.png */,
+				A920FDE817D5A9840096CC07 /* tutorial4.png */,
+				A920FDE917D5A9840096CC07 /* tutorial4@2x.png */,
 				A9F94C6B17D2614F009E190B /* Truot_text.png */,
 				A9F94C6C17D2614F009E190B /* Truot_text@2x.png */,
 				A9F94C6D17D2614F009E190B /* Truot.png */,
@@ -3570,6 +3616,7 @@
 				A9A505BF178EA37400F27E18 /* LoginViewController.h */,
 				A9A505C0178EA37400F27E18 /* LoginViewController.m */,
 				A9A505C1178EA37400F27E18 /* LoginViewController.xib */,
+				A920FE2817D5CFAE0096CC07 /* LoginViewController_ip5.xib */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -4716,6 +4763,20 @@
 				A9F94C7017D26150009E190B /* Truot_text@2x.png in Resources */,
 				A9F94C7117D26150009E190B /* Truot.png in Resources */,
 				A9F94C7217D26150009E190B /* Truot@2x.png in Resources */,
+				A920FDEA17D5A9840096CC07 /* tutorial_text.png in Resources */,
+				A920FDEB17D5A9840096CC07 /* tutorial_text@2x.png in Resources */,
+				A920FDEC17D5A9840096CC07 /* tutorial1.png in Resources */,
+				A920FDED17D5A9840096CC07 /* tutorial1@2x.png in Resources */,
+				A920FDEE17D5A9840096CC07 /* tutorial2.png in Resources */,
+				A920FDEF17D5A9840096CC07 /* tutorial2@2x.png in Resources */,
+				A920FDF017D5A9840096CC07 /* tutorial3.png in Resources */,
+				A920FDF117D5A9840096CC07 /* tutorial3@2x.png in Resources */,
+				A920FDF217D5A9840096CC07 /* tutorial4.png in Resources */,
+				A920FDF317D5A9840096CC07 /* tutorial4@2x.png in Resources */,
+				A920FE2517D5C1B50096CC07 /* TutorialCell.xib in Resources */,
+				A920FE2717D5C8E90096CC07 /* TutorialView_ip5.xib in Resources */,
+				A920FE2917D5CFAE0096CC07 /* LoginViewController_ip5.xib in Resources */,
+				A920FE2B17D5D0160096CC07 /* FacebookMiningViewController_ip5.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4946,6 +5007,7 @@
 				A92376E117CD9E8100336FE2 /* IntroView.m in Sources */,
 				A92376F017CDA58300336FE2 /* ASIOperationPostFeedback.m in Sources */,
 				A924259117CE6E6E0074269F /* ASIOperationGetTotalSP.m in Sources */,
+				A920FE2317D5C1A10096CC07 /* TutorialCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

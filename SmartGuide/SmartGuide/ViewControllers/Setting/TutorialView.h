@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PageControl.h"
+#import "TutorialCell.h"
 
 @class TutorialView;
 
@@ -16,18 +18,14 @@
 
 @end
 
-@interface TutorialView : UIView
+@interface TutorialView : UIView<UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate,PageControlDelegate>
 {
     NSArray *_tutorials;
-    __weak IBOutlet UIImageView *imgv;
-    __weak IBOutlet UIButton *btnNext;
-    int _page;
-    
-    UIButton *btn;
+    __weak IBOutlet UIImageView *imgvTutorial;
+    __weak IBOutlet UITableView *table;
+    __weak IBOutlet PageControl *pageControl;
     
     __weak IBOutlet UIButton *btnBack;
-    __weak IBOutlet UIButton *btnFind;
-    __weak IBOutlet UIButton *btnReward;
 }
 
 @property (nonatomic, assign) id<TutorialViewDelegate> delegate;

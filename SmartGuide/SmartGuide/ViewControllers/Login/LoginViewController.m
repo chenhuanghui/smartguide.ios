@@ -23,11 +23,11 @@
 
 @implementation LoginViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (id)init
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    self = [super initWithNibName:NIB_PHONE(@"LoginViewController") bundle:nil];
     if (self) {
-        // Custom initialization
+        
     }
     return self;
 }

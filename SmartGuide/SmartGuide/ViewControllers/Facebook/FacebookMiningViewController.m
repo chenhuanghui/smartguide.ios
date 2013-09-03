@@ -25,7 +25,7 @@
 
 - (id)init
 {
-    self = [super initWithNibName:@"FacebookMiningViewController" bundle:nil];
+    self = [super initWithNibName:NIB_PHONE(@"FacebookMiningViewController") bundle:nil];
     if (self) {
         
     }
