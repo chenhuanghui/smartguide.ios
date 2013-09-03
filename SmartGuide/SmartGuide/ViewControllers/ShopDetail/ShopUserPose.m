@@ -112,13 +112,11 @@
     imgv.image=nil;
     picker.delegate=nil;
     UIImage *img=[info valueForKey:UIImagePickerControllerOriginalImage];
-
-    NSData *data=UIImagePNGRepresentation(img);
-    while (data.length>(2048*10)) {
-        data=UIImagePNGRepresentation([img resizedImage:CGSizeMake(img.size.width*0.9f, img.size.height*0.9f) interpolationQuality:kCGInterpolationMedium]);
-    }
     
-    img=[UIImage imageWithData:data];
+    if(img.size.width>img.size.height)
+        img=[img resizedImage:CGSizeMake([UIScreen mainScreen].bounds.size.height, [UIScreen mainScreen].bounds.size.width) interpolationQuality:kCGInterpolationHigh];
+    else
+        img=[img resizedImage:[UIScreen mainScreen].bounds.size interpolationQuality:kCGInterpolationHigh];
     
     [self setImage:img shop:_shop];
     
@@ -244,7 +242,7 @@
     else
     {
         _isSharedFacebook=false;
-        [btnSend setTitle:@"Gửi" forState:UIControlStateNormal];
+        [btnSend setTitle:@"Gởi" forState:UIControlStateNormal];
     }
     
     [self settingShare];
@@ -265,7 +263,7 @@
         [btnFace setImage:UIIMAGE_FACEBOOK_NONE_TICK forState:UIControlStateHighlighted];
         [btnFace setImage:UIIMAGE_FACEBOOK_TICK forState:UIControlStateSelected];
         
-        [btnSend setTitle:@"Gửi" forState:UIControlStateNormal];
+        [btnSend setTitle:@"Gởi" forState:UIControlStateNormal];
     }
 }
 

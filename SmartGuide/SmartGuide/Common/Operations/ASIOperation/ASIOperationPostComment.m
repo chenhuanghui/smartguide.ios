@@ -47,7 +47,7 @@
 
 -(void)onCompletedWithJSON:(NSArray *)json
 {
-    isSuccess=[[json objectAtIndex:0] boolValue];
+    isSuccess=[[[json objectAtIndex:0] objectForKey:@"status"] boolValue];
     
     if(isSuccess)
     {
@@ -58,11 +58,7 @@
         comment.user=[DataManager shareInstance].currentUser.name;
         comment.comment=[values objectAtIndex:2];
         comment.avatar=[NSString stringWithStringDefault:[DataManager shareInstance].currentUser.avatar];
-        
-        NSDateFormatter *dateFormat=[[NSDateFormatter alloc] init];
-        
-        [dateFormat setDateFormat:@"HH:mm"];
-        comment.time=[dateFormat stringFromDate:[NSDate dateWithTimeIntervalSinceNow:0]];
+        comment.time=[NSString stringWithStringDefault:[[json objectAtIndex:1] objectForKey:@"time"]];
         
         [[DataManager shareInstance] save];
     }

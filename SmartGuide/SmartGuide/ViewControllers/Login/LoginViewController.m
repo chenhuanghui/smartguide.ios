@@ -212,7 +212,7 @@
     _phone=[[NSString alloc] initWithString:strPhone];
     _inputPhone=[[NSString alloc] initWithString:txt.text];
 
-    [AlertView showWithTitle:[((UILabel*)txt.leftView).text stringByAppendingFormat:@" %@", txt.text] withMessage:@"Mã kích hoạt SmartGuide sẽ được gửi đến số điện thoại trên. Chọn \"Đồng ý\" để tiếp tục hoặc \"Huỷ\" để thay đổi số điện thoại" withLeftTitle:@"Huỷ" withRightTitle:@"Đồng ý" onOK:^{
+    [AlertView showWithTitle:[((UILabel*)txt.leftView).text stringByAppendingFormat:@" %@", txt.text] withMessage:@"Mã kích hoạt SmartGuide sẽ được gởi đến số điện thoại trên. Chọn \"Đồng ý\" để tiếp tục hoặc \"Huỷ\" để thay đổi số điện thoại" withLeftTitle:@"Huỷ" withRightTitle:@"Đồng ý" onOK:^{
         [txt becomeFirstResponder];
     } onCancel:^{
         OperationGetActionCode *operation=[[OperationGetActionCode alloc] initWithPhone:strPhone];
@@ -456,7 +456,7 @@
 
     NSString *str=[NSString stringWithFormat:@"(+84) %@",_inputPhone];
     
-    [AlertView showWithTitle:str withMessage:@"Mã kích hoạt SmartGuide sẽ được gửi đến số điện thoại trên. Chọn \"Đồng ý\" để tiếp tục hoặc \"Huỷ\" để thay đổi số điện thoại" withLeftTitle:@"Huỷ" withRightTitle:@"Đồng ý" onOK:^{
+    [AlertView showWithTitle:str withMessage:@"Mã kích hoạt SmartGuide sẽ được gởi đến số điện thoại trên. Chọn \"Đồng ý\" để tiếp tục hoặc \"Huỷ\" để thay đổi số điện thoại" withLeftTitle:@"Huỷ" withRightTitle:@"Đồng ý" onOK:^{
     } onCancel:^{
         OperationGetActionCode *operation=[[OperationGetActionCode alloc] initWithPhone:_phone];
         operation.delegate=self;

@@ -59,7 +59,7 @@
         
         [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(applyRandomFeedBack) object:nil];
         
-        [btnFeedback setTitle:@"Gửi" forState:UIControlStateNormal];
+        [btnFeedback setTitle:@"Gởi" forState:UIControlStateNormal];
         txtInput.editable=true;
         txtInput.alpha=0;
         lblUser.alpha=0;
