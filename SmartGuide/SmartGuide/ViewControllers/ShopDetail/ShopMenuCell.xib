@@ -45,6 +45,7 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{7, -5}, {140, 35}}</string>
 								<reference key="NSSuperview" ref="1009025148"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="120963424"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<object class="NSColor" key="IBUIBackgroundColor" id="368114440">
@@ -83,7 +84,7 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{133, 0}, {92, 21}}</string>
 								<reference key="NSSuperview" ref="1009025148"/>
-								<reference key="NSNextKeyView"/>
+								<reference key="NSWindow"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<reference key="IBUIBackgroundColor" ref="368114440"/>
 								<bool key="IBUIOpaque">NO</bool>
@@ -116,6 +117,7 @@
 						</array>
 						<string key="NSFrameSize">{225, 30}</string>
 						<reference key="NSSuperview" ref="567669963"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="942101682"/>
 						<string key="NSReuseIdentifierKey">_NS:11</string>
 						<reference key="IBUIBackgroundColor" ref="368114440"/>
@@ -128,9 +130,11 @@
 				</array>
 				<string key="NSFrameSize">{225, 31}</string>
 				<reference key="NSSuperview"/>
+				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="1009025148"/>
 				<string key="NSReuseIdentifierKey">_NS:9</string>
 				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+				<int key="IBUISelectionStyle">0</int>
 				<reference key="IBUIContentView" ref="1009025148"/>
 				<string key="IBUIReuseIdentifier">ShopMenuCell</string>
 				<real value="31" key="IBUIRowHeight"/>
@@ -210,7 +214,32 @@
 			<nil key="sourceID"/>
 			<int key="maxID">14</int>
 		</object>
-		<object class="IBClassDescriber" key="IBDocument.Classes"/>
+		<object class="IBClassDescriber" key="IBDocument.Classes">
+			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
+				<object class="IBPartialClassDescription">
+					<string key="className">ShopMenuCell</string>
+					<string key="superclassName">UITableViewCell</string>
+					<dictionary class="NSMutableDictionary" key="outlets">
+						<string key="lblName">UITextView</string>
+						<string key="lblPrice">UILabel</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<object class="IBToOneOutletInfo" key="lblName">
+							<string key="name">lblName</string>
+							<string key="candidateClassName">UITextView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="lblPrice">
+							<string key="name">lblPrice</string>
+							<string key="candidateClassName">UILabel</string>
+						</object>
+					</dictionary>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/ShopMenuCell.h</string>
+					</object>
+				</object>
+			</array>
+		</object>
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.TargetRuntimeIdentifier">IBCocoaTouchFramework</string>
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>

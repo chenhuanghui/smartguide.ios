@@ -189,7 +189,7 @@
 					</object>
 					<object class="IBUITableView" id="67459108">
 						<reference key="NSNextResponder" ref="191373211"/>
-						<int key="NSvFlags">-2147483374</int>
+						<int key="NSvFlags">-2147483356</int>
 						<string key="NSFrame">{{67, 152}, {238, 262}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
@@ -272,7 +272,6 @@
 						<string key="NSFrame">{{212, 413}, {50, 48}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -620,6 +619,7 @@
 						<string key="lblPoint">UILabel</string>
 						<string key="table">UITableView</string>
 						<string key="tableReward">UITableView</string>
+						<string key="userBlurBot">UIImageView</string>
 						<string key="userBlurMid">UIView</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
@@ -650,6 +650,10 @@
 						<object class="IBToOneOutletInfo" key="tableReward">
 							<string key="name">tableReward</string>
 							<string key="candidateClassName">UITableView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="userBlurBot">
+							<string key="name">userBlurBot</string>
+							<string key="candidateClassName">UIImageView</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="userBlurMid">
 							<string key="name">userBlurMid</string>

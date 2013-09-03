@@ -44,6 +44,7 @@
     
     [table registerNib:[UINib nibWithNibName:[UserCollectionCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[UserCollectionCell reuseIdentifier]];
     [tableReward registerNib:[UINib nibWithNibName:[RewardCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[RewardCell reuseIdentifier]];
+    
     templateTable=[[TableTemplate alloc] initWithTableView:table withDelegate:self];
     templateReward=[[TableTemplate alloc] initWithTableView:tableReward withDelegate:self];
     
@@ -95,6 +96,7 @@
     blurBottom = nil;
     tableReward = nil;
     userBlurMid = nil;
+    userBlurBot = nil;
     [super viewDidUnload];
 }
 
@@ -389,7 +391,7 @@
 
 -(NSArray *)disableRightNavigationItems
 {
-    return @[@(ITEM_FILTER)];
+    return @[@(ITEM_FILTER),@(ITEM_LIST)];
 }
 
 @end

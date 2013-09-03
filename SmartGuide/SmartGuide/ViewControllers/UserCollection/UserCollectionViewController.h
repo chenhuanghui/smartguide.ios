@@ -29,6 +29,7 @@
     __weak IBOutlet UIView *blurTop;
     __weak IBOutlet UIView *blurBottom;
     __weak IBOutlet UIView *userBlurMid;
+    __weak IBOutlet UIImageView *userBlurBot;
     
     int _totalPoint;
     
