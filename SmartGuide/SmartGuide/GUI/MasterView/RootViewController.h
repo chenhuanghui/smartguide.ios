@@ -51,6 +51,7 @@
 -(void) hideMap;
 -(void) hideMap:(bool) animate;
 -(bool) isShowedMap;
+-(void) showShopDetailFromMap;
 
 -(void) showFilter;
 -(void) hideFilter;

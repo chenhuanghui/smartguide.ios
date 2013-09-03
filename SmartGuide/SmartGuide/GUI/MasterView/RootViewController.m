@@ -1269,6 +1269,24 @@ static RootViewController *_rootViewController;
     }
 }
 
+-(void)showShopDetailFromMap
+{
+    _isShowedDetailFromMap=true;
+    _isShowedMap=false;
+    
+    if([self.frontViewController isShowedCatalogueBlock])
+    {
+        [self.frontViewController hideCatalogueBlock:false];
+    }
+    
+    self.shopDetail.shoplMode=SHOPDETAIL_FROM_MAP;
+    [self.shopDetail removeFromParentViewController];
+    [self.shopDetail.view removeFromSuperview];
+    
+    [self.frontViewController pushViewController:self.shopDetail animated:false];
+    self.frontViewController.delegate=self;
+}
+
 -(void) showShopDetailFromMap:(bool) animated onCompleted:(void(^)(BOOL finished)) onCompleted
 {
     _isShowedDetailFromMap=true;

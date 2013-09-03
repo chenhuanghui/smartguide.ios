@@ -43,6 +43,7 @@ enum LIST_MODE {
 -(void) handleSearchResult:(NSString*) searchKey result:(NSArray*) array page:(int) page selectedShop:(Shop*) selectedShop selectedRow:(NSIndexPath*) lastSelectedRow;
 
 -(void) pushShopDetailWithShop:(Shop*) shop animated:(bool) animate;
+-(void) showShopDetail;
 
 -(void) switchToModeList;
 -(void) setIsNeedReload;

@@ -428,23 +428,6 @@
     [[RootViewController shareInstance].shopDetail loadWithIDShop:idShop];
 }
 
--(void) showShopDetail
-{
-    if(_isLoadingShopDetail || !_isUserClickClose)
-        return;
-    
-    if([[[RootViewController shareInstance].frontViewController currentVisibleViewController] isKindOfClass:[ShopDetailViewController class]])
-    {
-        [[RootViewController shareInstance] hideQRSlide:true onCompleted:^(BOOL finished) {
-            btnSlide.enabled=true;
-        }];
-    }
-    else if([RootViewController shareInstance].isShowedUserCollection)
-    {
-        
-    }
-}
-
 -(void)ASIOperaionPostFailed:(ASIOperationPost *)operation
 {
     imgvScan.hidden=true;
@@ -518,7 +501,37 @@
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    [self qrCodeCaptureImage:nil text:@"{\"type\": 1,\"url\":\"shop.smartguide.vn/100012\",\"name\": \"Trung Nguyên 12\",\"code\":\"f1f12aa49eb68422fda2b8a9d89d70a1\"}"];
+    [self qrCodeCaptureImage:nil text:@"{\"type\": 1,\"url\":\"shop.smartguide.vn/100012\",\"name\": \"Trung Nguyên 12\",\"code\":\"fed8de7a6f095add59bfef1bec793c07\"}"];
+}
+
+-(void) showShopDetail
+{
+    if(_isLoadingShopDetail || !_isUserClickClose)
+        return;
+    
+    if([[[RootViewController shareInstance].frontViewController currentVisibleViewController] isKindOfClass:[ShopDetailViewController class]])
+    {
+        [[RootViewController shareInstance] hideQRSlide:true onCompleted:^(BOOL finished) {
+            btnSlide.enabled=true;
+        }];
+    }
+    else if([RootViewController shareInstance].isShowedMap)
+    {
+        [[RootViewController shareInstance] showShopDetailFromMap];
+        
+        [[RootViewController shareInstance] hideQRSlide:true onCompleted:^(BOOL finished) {
+            btnSlide.enabled=true;
+        }];
+    }
+    else if([RootViewController shareInstance].frontViewController.isShowedCatalogueBlock)
+    {
+        [[RootViewController shareInstance].frontViewController hideCatalogueBlock:false];
+        [[RootViewController shareInstance].frontViewController.catalogueList showShopDetail];
+        
+        [[RootViewController shareInstance] hideQRSlide:true onCompleted:^(BOOL finished) {
+            btnSlide.enabled=true;
+        }];
+    }
 }
 
 @end

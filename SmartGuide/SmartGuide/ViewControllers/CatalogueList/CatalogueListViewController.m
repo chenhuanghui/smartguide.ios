@@ -542,6 +542,27 @@
     }
 }
 
+-(void) showShopDetail
+{
+    self.frontViewController.isPushingViewController=true;
+    [RootViewController shareInstance].shopDetail.shoplMode=SHOPDETAIL_FROM_LIST;
+    [[RootViewController shareInstance].shopDetail removeFromParentViewController];
+    [[RootViewController shareInstance].shopDetail.view removeFromSuperview];
+    
+    [RootViewController shareInstance].navigationBarView.delegate=[RootViewController shareInstance].shopDetail;
+    
+    CGRect rect=self.navigationController.view.frame;
+    rect.size.height+=[[RootViewController shareInstance] heightAds_QR];
+    self.navigationController.view.frame=rect;
+    
+    [RootViewController shareInstance].shopDetail.view.frame=rect;
+    
+    [[RootViewController shareInstance].bannerAds prepareAnimationShowShopDetail];
+    [[RootViewController shareInstance].bannerAds animationShowShopDetail:false completed:nil];
+    [RootViewController shareInstance].bannerAds.view.hidden=true;
+    [self.navigationController pushViewController:[RootViewController shareInstance].shopDetail animated:false];
+}
+
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return [CatalogueListCell height]+5;
