@@ -289,10 +289,10 @@
 
 -(void)operationURLFinished:(OperationURL *)operation
 {
-    [self.view removeLoading];
-    
     if([operation isKindOfClass:[OperationGetActionCode class]])
     {
+        [self.view removeLoading];
+        
         OperationGetActionCode *ope=(OperationGetActionCode*) operation;
         
         if(ope.isSuccess)
@@ -339,6 +339,8 @@
     }
     else if([operation isKindOfClass:[OperationVerifyActiveCode class]])
     {
+        [self.view removeLoading];
+        
         OperationVerifyActiveCode *ope=(OperationVerifyActiveCode*) operation;
         
         if(ope.isSuccess)

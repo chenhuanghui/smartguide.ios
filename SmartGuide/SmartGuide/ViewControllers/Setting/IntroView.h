@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "GMGridView.h"
+#import "PageControl.h"
 
 @class IntroView;
 
@@ -17,9 +17,10 @@
 
 @end
 
-@interface IntroView : UIView<GMGridViewDataSource>
+@interface IntroView : UIView<UITableViewDataSource,UITableViewDelegate>
 {
-    __weak IBOutlet GMGridView *grid;
+    __weak IBOutlet UITableView *table;
+    __weak IBOutlet PageControl *page;
 }
 
 @property (nonatomic, assign) id<IntroViewDelegate> delegate;

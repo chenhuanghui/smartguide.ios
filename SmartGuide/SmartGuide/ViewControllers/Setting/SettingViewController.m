@@ -177,7 +177,6 @@
         
         FeedbackView *fbv=[[FeedbackView alloc] init];
         fbv.alpha=0;
-        fbv.center=CGPointMake([UIScreen mainScreen].bounds.size.width/2, [UIScreen mainScreen].bounds.size.height/2+20);
         fbv.delegate=self;
         
         [[RootViewController shareInstance].window addSubview:fbv];
@@ -195,7 +194,6 @@
         TutorialView *tutorial=[[TutorialView alloc] init];
         
         tutorial.alpha=0;
-        tutorial.center=CGPointMake([UIScreen mainScreen].bounds.size.width/2, [UIScreen mainScreen].bounds.size.height/2);
         tutorial.delegate=self;
         
         [[RootViewController shareInstance].window addSubview:tutorial];
@@ -211,7 +209,6 @@
         IntroView *intro=[[IntroView alloc] init];
         
         intro.alpha=0;
-        intro.center=CGPointMake([UIScreen mainScreen].bounds.size.width/2, [UIScreen mainScreen].bounds.size.height/2);
         intro.delegate=self;
         
         [[RootViewController shareInstance].window addSubview:intro];

@@ -1,19 +1,24 @@
 //
-//  TutorialCell.m
+//  IntroCell.m
 //  SmartGuide
 //
-//  Created by XXX on 9/3/13.
+//  Created by XXX on 9/4/13.
 //  Copyright (c) 2013 Redbase. All rights reserved.
 //
 
-#import "TutorialCell.h"
+#import "IntroCell.h"
 #import "Utility.h"
 
-@implementation TutorialCell
+@implementation IntroCell
 
--(void)setTutorialImage:(UIImage *)image
+-(void)setImageIntro:(UIImage *)img
 {
-    imgv.image=image;
+    imgv.image=img;
+}
+
++(NSString *)reuseIdentifier
+{
+    return @"IntroCell";
 }
 
 -(id)awakeAfterUsingCoder:(NSCoder *)aDecoder
@@ -21,20 +26,11 @@
     self=[super awakeAfterUsingCoder:aDecoder];
     
     CGRect rect=self.frame;
+    rect.size.height=[UIScreen mainScreen].bounds.size.height;
     self.transform=CGAffineTransformMakeRotation(DEGREES_TO_RADIANS(45*2));
     self.frame=rect;
     
     return self;
-}
-
-+(CGSize)size
-{
-    return [UIScreen mainScreen].bounds.size;
-}
-
-+(NSString *)reuseIdentifier
-{
-    return @"TutorialCell";
 }
 
 @end

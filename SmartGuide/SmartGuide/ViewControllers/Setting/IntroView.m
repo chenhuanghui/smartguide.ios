@@ -8,6 +8,7 @@
 
 #import "IntroView.h"
 #import "Utility.h"
+#import "IntroCell.h"
 
 @implementation IntroView
 @synthesize delegate;
@@ -16,40 +17,44 @@
 {
     self = [[[NSBundle mainBundle] loadNibNamed:NIB_PHONE(@"IntroView") owner:nil options:nil] objectAtIndex:0];
     
-    grid.minEdgeInsets=UIEdgeInsetsMake(0, 0, 0, 0);
-    grid.layoutStrategy=[GMGridViewLayoutStrategyFactory strategyFromType:GMGridViewLayoutHorizontalPagedLTR];
-    grid.itemSpacing=0;
-    grid.style=GMGridViewStylePush;
-    grid.dataSource=self;
+    table.pagingEnabled=true;
+    table.bounces=false;
+    
+    CGRect rect=table.frame;
+    table.transform=CGAffineTransformMakeRotation(DEGREES_TO_RADIANS(45*6));
+    table.frame=rect;
+    
+    table.dataSource=self;
+    table.delegate=self;
+    
+    [table registerNib:[UINib nibWithNibName:[IntroCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[IntroCell reuseIdentifier]];
+    
+    page.numberOfPages=[self source].count;
 
     return self;
 }
 
--(NSInteger)numberOfItemsInGMGridView:(GMGridView *)gridView
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return [self source].count;
 }
 
--(CGSize)GMGridView:(GMGridView *)gridView sizeForItemsInInterfaceOrientation:(UIInterfaceOrientation)orientation
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return gridView.frame.size;
+    return 320;
 }
 
--(GMGridViewCell *)GMGridView:(GMGridView *)gridView cellForItemAtIndex:(NSInteger)index
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    GMGridViewCell *cell = [gridView dequeueReusableCell];
+    IntroCell *cell = [tableView dequeueReusableCellWithIdentifier:[IntroCell reuseIdentifier]];
+
     
-    if(!cell)
-    {
-        cell=[[GMGridViewCell alloc] init];
-        UIImageView *imgv = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, gridView.frame.size.width, gridView.frame.size.height)];
-        imgv.contentMode=UIViewContentModeScaleAspectFill;
-        cell.contentView=imgv;
-    }
-    
-    UIImageView *imgv=(UIImageView*)cell.contentView;
-    
-    [imgv setImage:[UIImage imageNamed:[[self source] objectAtIndex:index]]];
+    [cell setImageIntro:[UIImage imageNamed:[[self source] objectAtIndex:indexPath.row]]];
     
     return cell;
 }
@@ -64,5 +69,9 @@
     [delegate introViewClose:self];
 }
 
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    page.currentPage=[scrollView currentPageForHoriTable];
+}
 
 @end

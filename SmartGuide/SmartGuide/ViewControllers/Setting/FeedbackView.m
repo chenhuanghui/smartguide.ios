@@ -17,6 +17,10 @@
 {
     self=[[[NSBundle mainBundle] loadNibNamed:NIB_PHONE(@"FeedbackView") owner:nil options:nil] objectAtIndex:0];
     
+    CGPoint pnt=self.center;
+    pnt.y+=20;
+    self.center=pnt;
+    
     txtFeedBack.hidden=false;
     lblUserFeedback.hidden=false;
     
