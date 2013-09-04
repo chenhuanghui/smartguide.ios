@@ -19,6 +19,7 @@
 {
     __weak IBOutlet UILabel *lblPoint;
     __weak IBOutlet UIButton *btnPoint;
+    __weak IBOutlet UILabel *lblP;
     __weak IBOutlet UIImageView *avatar;
     __weak IBOutlet UITableView *table;
     __weak IBOutlet UITableView *tableReward;

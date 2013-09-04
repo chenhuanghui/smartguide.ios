@@ -7,13 +7,14 @@
 //
 
 #import "IntroView.h"
+#import "Utility.h"
 
 @implementation IntroView
 @synthesize delegate;
 
 - (id)init
 {
-    self = [[[NSBundle mainBundle] loadNibNamed:@"IntroView" owner:nil options:nil] objectAtIndex:0];
+    self = [[[NSBundle mainBundle] loadNibNamed:NIB_PHONE(@"IntroView") owner:nil options:nil] objectAtIndex:0];
     
     grid.minEdgeInsets=UIEdgeInsetsMake(0, 0, 0, 0);
     grid.layoutStrategy=[GMGridViewLayoutStrategyFactory strategyFromType:GMGridViewLayoutHorizontalPagedLTR];

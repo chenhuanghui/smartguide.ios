@@ -97,6 +97,7 @@
     tableReward = nil;
     userBlurMid = nil;
     userBlurBot = nil;
+    lblP = nil;
     [super viewDidUnload];
 }
 
@@ -166,6 +167,8 @@
     table.hidden=false;
     
     lblPoint.text=@"";
+    
+    lblP.frame=CGRectMake(83, 59, 42, 21);
     
     [UIView animateWithDuration:0.2f animations:^{
         table.alpha=1;
@@ -245,6 +248,11 @@
         
         lblPoint.text=@"";
         _totalPoint=ope.totalSP;
+        
+        [UIView animateWithDuration:1 animations:^{
+            lblP.frame=CGRectMake(83+[[[NSNumberFormatter numberFormat] stringFromNumber:@(_totalPoint)] sizeWithFont:lblPoint.font].width/2-2, 59, 42, 21);
+        }];
+        
         [lblPoint animationScoreWithDuration:1 startValue:0 endValue:_totalPoint format:[NSNumberFormatter numberFormat]];
         
         [templateTable setAllowLoadMore:ope.userCollection.count==5];
@@ -287,6 +295,7 @@
         [lblPoint stopFlashLabel];
         _totalPoint=((ASIOperationGetSG*)operation).sg;
         lblPoint.text=[NSNumberFormatter numberFromNSNumber:@(_totalPoint)];
+        lblP.frame=CGRectMake(83+([[NSNumberFormatter numberFormat] stringFromNumber:@(_totalPoint)].length*[@"0" sizeWithFont:lblPoint.font].width), 59, 42, 21);
         
         [tableReward reloadData];
         
