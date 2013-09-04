@@ -264,6 +264,8 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
+    
 }
 
 -(void) trackingLocationPermission:(NSNotification*) notification
@@ -355,6 +357,8 @@
 -(void) loadWithShops:(NSArray *)shops
 {
     map.delegate=self;
+    
+    map.showsUserLocation=true;
     
     [map removeAnnotations:map.annotations];
     

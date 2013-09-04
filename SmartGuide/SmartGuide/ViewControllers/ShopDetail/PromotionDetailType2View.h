@@ -10,11 +10,14 @@
 #import "Shop.h"
 #import "ShopDetailViewController.h"
 #import "ASIOperationGetRewardPromotionType2.h"
+#import "FTCoreTextView.h"
 
 @interface PromotionDetailType2View : UIView<PromotionDetailHandle,ASIOperationPostDelegate>
 {
     __weak IBOutlet UIButton *btnReward;
     __weak IBOutlet UILabel *lblDesc;
+    __weak IBOutlet UILabel *lblDuration;
+    __weak IBOutlet FTCoreTextView *lblP;
     
     ASIOperationGetRewardPromotionType2 *_operation;
     

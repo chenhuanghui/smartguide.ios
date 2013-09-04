@@ -11,6 +11,7 @@
 #define PromotionDetail_IdAwardType2 @"idAwardType2"
 #define PromotionDetail_Min_score @"min_score"
 #define PromotionDetail_Money @"money"
+#define PromotionDetail_P @"p"
 #define PromotionDetail_PromotionType @"promotionType"
 #define PromotionDetail_Sgp @"sgp"
 #define PromotionDetail_Sp @"sp"
@@ -36,6 +37,7 @@
 @property (nonatomic, retain) NSNumber* idAwardType2;
 @property (nonatomic, retain) NSNumber* min_score;
 @property (nonatomic, retain) NSNumber* money;
+@property (nonatomic, retain) NSNumber* p;
 @property (nonatomic, retain) NSNumber* promotionType;
 @property (nonatomic, retain) NSNumber* sgp;
 @property (nonatomic, retain) NSNumber* sp;

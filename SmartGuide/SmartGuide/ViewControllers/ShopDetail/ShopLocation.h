@@ -25,4 +25,6 @@
 
 -(UIView*) mapContaint;
 
+- (IBAction)btnFullscreenTouchUpInside:(id)sender;
+
 @end

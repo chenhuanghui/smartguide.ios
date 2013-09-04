@@ -27,10 +27,10 @@
     FTCoreTextStyle *style=[FTCoreTextStyle styleWithName:@"cost"];
     style.textAlignment=FTCoreTextAlignementCenter;
     style.color=[UIColor color255WithRed:201 green:84 blue:54 alpha:255];
-    style.font=[UIFont italicSystemFontOfSize:10];
+    style.font=[UIFont boldSystemFontOfSize:10];
     
     [lblCost addStyle:style];
-    
+        
     style=[FTCoreTextStyle styleWithName:@"text"];
     style.textAlignment=FTCoreTextAlignementCenter;
     style.color=[UIColor darkGrayColor];
@@ -114,7 +114,7 @@
     lblDuration.text=_shop.promotionDetail.duration;
     
     [self setSP:_shop.promotionDetail.sp.integerValue];
-    [self setP:10];
+    [self setP:_shop.promotionDetail.p.integerValue];
     [self setCost:[NSNumberFormatter numberFromNSNumber:@(_shop.promotionDetail.cost.longLongValue/1000)]];
     
     lblSgp.text=[NSString stringWithFormat:@"%lld",_shop.promotionDetail.sgp.longLongValue];

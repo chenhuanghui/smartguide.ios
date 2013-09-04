@@ -468,4 +468,8 @@
     }
 }
 
+- (IBAction)btnFullscreenTouchUpInside:(id)sender {
+    [self makeMapFullscreen];
+}
+
 @end

@@ -15,7 +15,7 @@
 
 -(id)init
 {
-    self=[[[NSBundle mainBundle] loadNibNamed:@"FeedbackView" owner:nil options:nil] objectAtIndex:0];
+    self=[[[NSBundle mainBundle] loadNibNamed:NIB_PHONE(@"FeedbackView") owner:nil options:nil] objectAtIndex:0];
     
     txtFeedBack.hidden=false;
     lblUserFeedback.hidden=false;
@@ -140,7 +140,7 @@
     } completion:^(BOOL finished) {
 
         lblUserFeedback.text=fb.user;
-        txtFeedBack.text=fb.content;
+        txtFeedBack.text=[NSString stringWithFormat:@"‘‘  %@  ’’",fb.content];
         
         [UIView animateWithDuration:0.15f animations:^{
             lblUserFeedback.alpha=1;
@@ -226,6 +226,17 @@
             [self applyRandomFeedBack];
         }];
     }
+}
+
+-(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
+{
+    if([text isEqualToString:@"\n"])
+    {
+        [btnFeedback sendActionsForControlEvents:UIControlEventTouchUpInside];
+        return false;
+    }
+    
+    return true;
 }
 
 @end

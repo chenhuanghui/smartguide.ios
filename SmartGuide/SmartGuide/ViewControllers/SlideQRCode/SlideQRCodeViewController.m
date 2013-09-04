@@ -18,6 +18,7 @@
 #import "FrontViewController.h"
 #import "CatalogueListViewController.h"
 #import "ShopDetailViewController.h"
+#import "LocationManager.h"
 
 @interface SlideQRCodeViewController ()
 {
@@ -84,7 +85,14 @@
     return true;
 }
 
--(void)showCamera
+-(bool) isAllowLocation
+{
+    [[LocationManager shareInstance] checkLocationAuthorize];
+    
+    return [LocationManager shareInstance].isAllowLocation;
+}
+
+-(void) showCameraQRCode
 {
     _isUserScanded=false;
     _isLoadingShopDetail=false;
@@ -109,6 +117,23 @@
     
     lblSlide.text=@"QUÉT QRCODE";
 }
+
+-(void)showCamera
+{
+//    if([self isAllowLocation])
+    [self showCameraQRCode];
+//    else
+//    {
+//        [AlertView showAlertOKCancelWithTitle:nil withMessage:@"Location services" onOK:^{
+//            [self showCamera];
+//        } onCancel:^{
+//            [[RootViewController shareInstance] hideQRSlide:true onCompleted:^(BOOL finished) {
+//                btnSlide.enabled=true;
+//            }];
+//        }];
+//    }
+}
+
 -(void) resizeQRView:(UIView*) vvv
 {
     CGRect rect=vvv.frame;
@@ -357,11 +382,7 @@
             
             lblSGP.text=[NSString stringWithFormat:@"%@",[moneyFormat stringFromNumber:@(ope.money)]];
             lblShop.text=[NSString stringWithFormat:@"tại cửa hàng %@",ope.shopName];
-            
-            [UIView animateWithDuration:DURATION_SHOW_QRCODE_REWARD animations:^{
-                darkLayer.backgroundColor=COLOR_BACKGROUND_APP_ALPHA(0.3f);
-            }];
-            
+
             qrCode=[QRCode qrCodeWithCode:ope.code];
             [self.qrCodes addObject:qrCode];
             
@@ -390,11 +411,7 @@
             
             lblSGP.text=[NSString stringWithFormat:@"%@",ope.award];
             lblShop.text=[NSString stringWithFormat:@"tại cửa hàng %@",ope.shopName];
-            
-            [UIView animateWithDuration:DURATION_SHOW_QRCODE_REWARD animations:^{
-                darkLayer.backgroundColor=COLOR_BACKGROUND_APP_ALPHA(0.3f);
-            }];
-            
+
             qrCode=[QRCode qrCodeWithCode:ope.code];
             qrCode.totalSGP=ope.totalSGP;
             

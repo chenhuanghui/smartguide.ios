@@ -108,22 +108,22 @@
     shop.isUserCollection=false;
     shop.isShopDetail=@(false);
     
-    shop.name=[dict objectForKey:@"name"];
-    shop.shop_lat=[dict objectForKey:@"shop_lat"];
-    shop.shop_lng=[dict objectForKey:@"shop_lng"];
-    shop.distance=[dict objectForKey:@"distance"];
+    shop.name=[NSString stringWithStringDefault:[dict objectForKey:@"name"]];
+    shop.shop_lat=[NSNumber numberWithObject:[dict objectForKey:@"shop_lat"]];
+    shop.shop_lng=[NSNumber numberWithObject:[dict objectForKey:@"shop_lng"]];
+    shop.distance=[NSNumber numberWithObject:[dict objectForKey:@"distance"]];
     shop.logo=[NSString stringWithStringDefault:[dict objectForKey:@"logo"]];
     shop.desc=[NSString stringWithStringDefault:[dict objectForKey:@"description"]];
     shop.address=[NSString stringWithStringDefault:[dict objectForKey:@"address"]];
-    shop.promotionStatus=[dict objectForKey:@"promotion_status"];
-    shop.like_status=[dict objectForKey:@"like_status"];
-    shop.like=[dict objectForKey:@"like"];
-    shop.dislike=[dict objectForKey:@"dislike"];
-    shop.numOfVisit=[dict objectForKey:@"num_of_visit"];
-    shop.numOfLike=[dict objectForKey:@"num_of_like"];
-    shop.numGetPromotion=[dict objectForKey:@"num_get_promotion"];
-    shop.numGetReward=[dict objectForKey:@"num_get_reward"];
-    shop.idGroup=[dict objectForKey:@"group_shop"];
+    shop.promotionStatus=[NSNumber numberWithObject:[dict objectForKey:@"promotion_status"]];
+    shop.like_status=[NSNumber numberWithObject:[dict objectForKey:@"like_status"]];
+    shop.like=[NSNumber numberWithObject:[dict objectForKey:@"like"]];
+    shop.dislike=[NSNumber numberWithObject:[dict objectForKey:@"dislike"]];
+    shop.numOfVisit=[NSNumber numberWithObject:[dict objectForKey:@"num_of_visit"]];
+    shop.numOfLike=[NSNumber numberWithObject:[dict objectForKey:@"num_of_like"]];
+    shop.numGetPromotion=[NSNumber numberWithObject:[dict objectForKey:@"num_get_promotion"]];
+    shop.numGetReward=[NSNumber numberWithObject:[dict objectForKey:@"num_get_reward"]];
+    shop.idGroup=[NSNumber numberWithObject:[dict objectForKey:@"group_shop"]];
     shop.selected=false;
     
     if(shop.promotionStatus.boolValue)
@@ -139,13 +139,14 @@
             shop.promotionDetail=promotion;
         }
         
-        promotion.promotionType=[dicInner objectForKey:@"promotion_type"];
-        promotion.sgp=[dicInner objectForKey:@"sgp"];
-        promotion.sp=[dicInner objectForKey:@"sp"];
-        promotion.cost=[dicInner objectForKey:@"cost"];
+        promotion.promotionType=[NSNumber numberWithObject:[dicInner objectForKey:@"promotion_type"]];
+        promotion.sgp=[NSNumber numberWithObject:[dicInner objectForKey:@"sgp"]];
+        promotion.sp=[NSNumber numberWithObject:[dicInner objectForKey:@"sp"]];
+        promotion.p=[NSNumber numberWithObject:[dicInner objectForKey:@"P"]];
+        promotion.cost=[NSNumber numberWithObject:[dicInner objectForKey:@"cost"]];
         promotion.duration=[NSString stringWithStringDefault:[dicInner objectForKey:@"duration"]];
-        promotion.money=[dicInner objectForKey:@"money"];
-        promotion.idAwardType2=[dicInner objectForKey:@"id"];
+        promotion.money=[NSNumber numberWithObject:[dicInner objectForKey:@"money"]];
+        promotion.idAwardType2=[NSNumber numberWithObject:[dicInner objectForKey:@"id"]];
         promotion.desc=[NSString stringWithStringDefault:[dicInner objectForKey:@"description"]];
         
         [promotion removeRequires:promotion.requires];
@@ -156,9 +157,9 @@
         {
             PromotionRequire *require=[PromotionRequire insert];
             
-            require.idRequire=[childDicInner objectForKey:@"id"];
+            require.idRequire=[NSNumber numberWithObject:[childDicInner objectForKey:@"id"]];
             require.promotion=promotion;
-            require.sgpRequired=[childDicInner objectForKey:@"required"];
+            require.sgpRequired=[NSNumber numberWithObject:[childDicInner objectForKey:@"required"]];
             require.content=[NSString stringWithStringDefault:[childDicInner objectForKey:@"content"]];
         }
     }

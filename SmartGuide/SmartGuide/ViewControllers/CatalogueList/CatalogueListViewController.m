@@ -269,7 +269,7 @@
             imgvTutorial=[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Truot.png"]];
             imgvTutorial.frame=CGRectMake(0, self.view.frame.size.height/2-56/2, 62, 56);
             
-            imgvTutorial.transform=CGAffineTransformMakeRotation(DEGREES_TO_RADIANS(-25));
+            imgvTutorial.transform=CGAffineTransformMakeRotation(DEGREES_TO_RADIANS(-8));
             
             imgvTutorialText=[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Truot_text.png"]];
             imgvTutorialText.frame=CGRectMake(0, imgvTutorial.frame.origin.y+imgvTutorial.frame.size.height-10, 62, 32);
@@ -310,11 +310,11 @@
 -(void) startAnimationTutorial
 {
     [UIView animateWithDuration:0.5f animations:^{
-        imgvTutorial.transform=CGAffineTransformMakeRotation(DEGREES_TO_RADIANS(0));
+        imgvTutorial.transform=CGAffineTransformMakeRotation(DEGREES_TO_RADIANS(15));
 //        imgvTutorial.center=CGPointMake(imgvTutorial.center.x, imgvTutorial.center.y-10)
     } completion:^(BOOL finished) {
         [UIView animateWithDuration:0.5f animations:^{
-            imgvTutorial.transform=CGAffineTransformMakeRotation(-25);
+            imgvTutorial.transform=CGAffineTransformMakeRotation(DEGREES_TO_RADIANS(-8));
         } completion:^(BOOL finished) {
             [self startAnimationTutorial];
         }];

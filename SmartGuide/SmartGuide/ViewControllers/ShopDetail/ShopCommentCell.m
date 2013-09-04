@@ -30,12 +30,6 @@
     
     comment.text=userComment.comment;
     [comment setFrame:CGRectMake(45, 15, COMMENT_WIDTH+changedWidth, MAX(size.height, 21))];
-    
-    [UIView animateWithDuration:0.25f animations:^{
-        CGRect rect=time.frame;
-        rect.origin.x=151+changedWidth;
-        time.frame=rect;
-    }];
 }
 
 +(float)heightWithContent:(NSString *)content widthChanged:(float)changedWidth

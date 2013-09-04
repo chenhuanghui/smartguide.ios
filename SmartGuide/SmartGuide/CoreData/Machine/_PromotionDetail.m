@@ -170,6 +170,19 @@
 	[self didChangeValueForKey:@"money"];
 }
 
+- (NSNumber*)p {
+	[self willAccessValueForKey:@"p"];
+	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"p"];
+	[self didAccessValueForKey:@"p"];
+	return result;
+}
+
+- (void)setP:(NSNumber*)value {
+	[self willChangeValueForKey:@"p"];
+	[self setPrimitiveValue:value forKey:@"p"];
+	[self didChangeValueForKey:@"p"];
+}
+
 - (NSNumber*)promotionType {
 	[self willAccessValueForKey:@"promotionType"];
 	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"promotionType"];

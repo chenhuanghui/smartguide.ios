@@ -22,69 +22,67 @@
 
 -(void)setShop:(Shop *)shop
 {
-    if(_shop && _shop.idShop.integerValue==shop.idShop.integerValue)
-        return;
-    
     _shop=shop;
     
-    lblDesc.text=@"";
-    lblAddress.text=@"";
-    [btnContact setTitle:@"" forState:UIControlStateNormal];
-    lblWebsite.text=@"";
-    
-    if(!shop)
-        return;
-    
-    lblDesc.text=shop.desc;
-    
-    CGRect rect=CGRECT_PHONE(CGRectMake(51, 14, 234, 109), CGRectMake(51, 14, 234, 120));
-    if(lblDesc.frame.size.height>lblDesc.contentSize.height)
-        rect.size.height=MAX(21, lblDesc.contentSize.height);
-    
-    lblDesc.frame=rect;
-    
-    lblAddress.text=shop.address;
-    
-    rect=CGRectMake(51, lblDesc.frame.origin.y+lblDesc.frame.size.height-2, 234, 60);
-    
-    if(lblAddress.frame.size.height>lblAddress.contentSize.height)
-        rect.size.height=MAX(21, lblAddress.contentSize.height-2);
-    
-    lblAddress.frame=rect;
-    
-    [btnContact setTitle:shop.contact forState:UIControlStateNormal];
-    
-    rect=CGRectMake(56, lblAddress.frame.origin.y+lblAddress.frame.size.height, 229, 21);
-    btnContact.frame=rect;
-    
-    lblWebsite.text=shop.website;
-    
-    rect=CGRectMake(54, btnContact.frame.origin.y+btnContact.frame.size.height, 227, 21);
-    lblWebsite.frame=rect;
+    if(!web)
+    {
+        CGRect rect=self.frame;
+        rect.origin=CGPointZero;
+        web=[[UIWebView alloc] initWithFrame:rect];
+        web.backgroundColor=self.backgroundColor;
+        [web setDataDetectorTypes:UIDataDetectorTypeLink|UIDataDetectorTypePhoneNumber];
 
-    rect=lblDiaChi.frame;
-    rect.origin.y=lblAddress.frame.origin.y+3;
-    lblDiaChi.frame=rect;
+        [self addSubview:web];
+    }
     
-    rect=lblLienLac.frame;
-    rect.origin.y=btnContact.frame.origin.y;
-    lblLienLac.frame=rect;
+    web.scrollView.bounces=false;
     
-    rect=lblWeb.frame;
-    rect.origin.y=lblWebsite.frame.origin.y+4;
-    lblWeb.frame=rect;
+    web.delegate=self;
+    
+    [web loadHTMLString:[self formatInfoWithDesc: _shop.desc address:_shop.address contact:_shop.contact web:_shop.website] baseURL:nil];
+}
+
+-(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
+{
+    if(navigationType==UIWebViewNavigationTypeLinkClicked)
+    {
+        [[UIApplication sharedApplication] openURL:request.URL];
+        return false;
+    }
+    
+    return true;
+}
+
+-(void)webViewDidFinishLoad:(UIWebView *)webView
+{
+    [webView sizeThatFits:CGSizeZero];
+}
+
+-(NSString*) formatInfoWithDesc:(NSString*) desc address:(NSString*) address contact:(NSString*) contact web:(NSString*) website
+{
+    NSString *html=[NSString stringWithFormat:@"<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\"><html xmlns=\"http://www.w3.org/1999/xhtml\" xmlns:og=\"http://ogp.me/ns#\"xmlns:fb=\"https://www.facebook.com/2008/fbml\"><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" /><meta http-equiv=\"REFRESH\" content=\"1800\" /><title>ABC</title></head><body><table style=\"font-family:Helvetica\"><tr><td valign=\"top\"><font size=\"2.5\"><b>Miêu tả:</b></font></td><td style=\"vertical-align:top;text-align:justify\"><font size=\"2\">%@</font></td></tr><tr height=\"10\"><td></td></tr><tr><td valign=\"top\"><b>Địa chỉ:</b></td><td><font size=\"2\">%@</font></td></tr><tr height=\"10\"><td></td></tr><tr><td valign=\"top\"><b>Liên lạc:</b></td><td><font size=\"2\">%@</font></td></tr><tr height=\"10\"><td></td></tr><tr><td valign=\"top\"><b>Website:</b></td><td><font size=\"2\">%@</font></td></tr></table></body></html>",desc,address,contact,website];
+    
+    return html;
+}
+
+-(void)removeFromSuperview
+{
+    [web removeFromSuperview];
+    web=nil;
+    
+    [super removeFromSuperview];
 }
 
 - (IBAction)btnContactTouchUpInside:(id)sender {
     
-    [btnContact setTitleColor:[btnContact titleColorForState:UIControlStateNormal] forState:UIControlStateSelected];
+    //    [btnContact setTitleColor:[btnContact titleColorForState:UIControlStateNormal] forState:UIControlStateSelected];
     
-    NSString *text=[btnContact titleForState:UIControlStateNormal];
+    //    NSString *text=[btnContact titleForState:UIControlStateNormal];
     
-    if([text stringByRemoveString:@" ",nil].length==0)
-        return;
+    //    if([text stringByRemoveString:@" ",nil].length==0)
+    return;
     
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"telprompt://%@",text]]];
+    //    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"telprompt://%@",text]]];
 }
 
 @end

@@ -172,7 +172,7 @@
     }
     
     _isTemporaryShopGallery=false;
-    if(templateShop)
+    if(templateShop.datasource.count==0)
     {
         [templateShop.datasource addObjectsFromArray:@[[ShopGallery temporary],[ShopGallery temporary],[ShopGallery temporary]]];
         _isTemporaryShopGallery=true;

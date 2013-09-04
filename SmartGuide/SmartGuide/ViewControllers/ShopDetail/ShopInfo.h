@@ -9,17 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "Shop.h"
 
-@interface ShopInfo : UIView
+@interface ShopInfo : UIView<UIWebViewDelegate>
 {
-    __weak IBOutlet UITextView *lblDesc;
-    __weak IBOutlet UITextView *lblAddress;
-    __weak IBOutlet UIButton *btnContact;
-    __weak IBOutlet UITextView *lblWebsite;
-    __weak IBOutlet UILabel *lblMieuTa;
-    __weak IBOutlet UILabel *lblDiaChi;
-    __weak IBOutlet UILabel *lblLienLac;
-    __weak IBOutlet UILabel *lblWeb;
-    
+    UIWebView *web;
     __weak Shop *_shop;
 }
 

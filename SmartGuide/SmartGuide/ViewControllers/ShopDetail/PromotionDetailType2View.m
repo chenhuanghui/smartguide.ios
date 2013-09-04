@@ -22,6 +22,20 @@
     btnReward.layer.masksToBounds=true;
     [self setShop:shop];
     
+    FTCoreTextStyle *style=[FTCoreTextStyle styleWithName:@"text"];
+    style.textAlignment=FTCoreTextAlignementCenter;
+    style.font=[UIFont italicSystemFontOfSize:10];
+    style.color=[UIColor darkGrayColor];
+    
+    [lblP addStyle:style];
+    
+    style=[FTCoreTextStyle styleWithName:@"p"];
+    style.textAlignment=FTCoreTextAlignementCenter;
+    style.color=[UIColor color255WithRed:201 green:84 blue:54 alpha:255];
+    style.font=[UIFont boldSystemFontOfSize:10];
+    
+    [lblP addStyle:style];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userScanedQRCode:) name:NOTIFICATION_USER_SCANED_QR_CODE object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userScanedQRCode:) name:NOTIFICATION_USER_CANCELED_SCAN_QR_CODE object:nil];
     
@@ -46,19 +60,20 @@
     if(shop)
     {
         btnReward.hidden=false;
+        lblDuration.text=_shop.promotionDetail.duration;
         
-        NSNumberFormatter *format=[[NSNumberFormatter alloc] init];
-        format.groupingSeparator=@".";
-        format.numberStyle=NSNumberFormatterNoStyle;
-        format.maximumFractionDigits=0;
-
         [btnReward setTitle:[NSNumberFormatter moneyFromNSNumber:shop.promotionDetail.money] forState:UIControlStateNormal];
         btnReward.tag=shop.promotionDetail.idAwardType2.integerValue;
         lblDesc.text=shop.promotionDetail.desc;
+        [self setP:shop.promotionDetail.p.integerValue];
     }
     else
         [self reset];
-        
+}
+
+-(void) setP:(int) p
+{
+    [lblP setText:[NSString stringWithFormat:@"<text>Tích luỹ <p>%iP</p> trên 1 lượt quét</text>",p]];
 }
 
 - (IBAction)btnRewardTouchUpInside:(id)sender

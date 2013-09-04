@@ -78,6 +78,8 @@
 {
     [super willMoveToSuperview:newSuperview];
     
+    tableMenu.separatorStyle=_productType.count==0? UITableViewCellSeparatorStyleNone:UITableViewCellSeparatorStyleSingleLine;
+    
     if(!isProcessedData)
     {
         [self showLoadingWithTitle:nil];

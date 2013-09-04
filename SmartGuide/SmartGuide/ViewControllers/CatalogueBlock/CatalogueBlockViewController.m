@@ -356,11 +356,6 @@
     return @[@(ITEM_FILTER),@(ITEM_COLLECTION),@(ITEM_MAP)];
 }
 
--(NSArray *)disableRightNavigationItems
-{
-    return @[@(ITEM_FILTER)];
-}
-
 -(void)setIsNeedLoad
 {
     _isNeedLoad=true;

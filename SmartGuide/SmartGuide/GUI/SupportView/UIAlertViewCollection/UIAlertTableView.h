@@ -13,6 +13,7 @@
 
 -(void)showOnOK:(void (^)())onOK onCancel:(void (^)())onCancel;
 - (void)prepare;
+-(void) alignControl;
 
 @property (nonatomic, readonly) UITableView *tableAlertView;
 

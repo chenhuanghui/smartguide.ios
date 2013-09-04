@@ -45,6 +45,7 @@
         <attribute name="idAwardType2" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="min_score" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="money" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="p" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="promotionType" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="sgp" optional="YES" attributeType="Integer 64" defaultValueString="0.0" syncable="YES"/>
         <attribute name="sp" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
@@ -139,7 +140,7 @@
         <element name="Feedback" positionX="160" positionY="192" width="128" height="75"/>
         <element name="Filter" positionX="-288" positionY="357" width="128" height="270"/>
         <element name="Group" positionX="45" positionY="99" width="128" height="90"/>
-        <element name="PromotionDetail" positionX="466" positionY="126" width="128" height="210"/>
+        <element name="PromotionDetail" positionX="466" positionY="126" width="128" height="225"/>
         <element name="PromotionRequire" positionX="432" positionY="369" width="128" height="105"/>
         <element name="Reward" positionX="160" positionY="192" width="128" height="105"/>
         <element name="Shop" positionX="216" positionY="267" width="128" height="510"/>

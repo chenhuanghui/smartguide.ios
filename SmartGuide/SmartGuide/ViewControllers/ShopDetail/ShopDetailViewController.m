@@ -1080,7 +1080,7 @@
 - (IBAction)btnLikeTouchUpInside:(id)sender {
     if(_shop.like_status.integerValue==1)
     {
-        [AlertView showAlertOKWithTitle:nil withMessage:@"Bạn đã like shop" onOK:nil];
+//        [AlertView showAlertOKWithTitle:nil withMessage:@"Bạn đã like shop" onOK:nil];
         return;
     }
     
@@ -1092,7 +1092,7 @@
 - (IBAction)btnDislikeTouchUpInside:(id)sender {
     if(_shop.like_status.integerValue==2)
     {
-        [AlertView showAlertOKWithTitle:nil withMessage:@"Bạn đã dislike shop" onOK:nil];
+//        [AlertView showAlertOKWithTitle:nil withMessage:@"Bạn đã dislike shop" onOK:nil];
         return;
     }
     

@@ -178,6 +178,8 @@
         txtComment.frame=CGRectMake(10, 8, 220, 32);
         containtAvatar.frame=CGRectMake(239, 4, 40, 40);
         arrow.frame=CGRectMake(229, 17, 8, 13);
+        
+        [containComment viewWithTag:112].alpha=0;
     } completion:^(BOOL finished) {
         [tableComments reloadData];
         
@@ -186,6 +188,8 @@
         [containComment removeFromSuperview];
         [self addSubview:containComment];
         containComment.center=pnt;
+        
+        [[containComment viewWithTag:112] removeFromSuperview];
     }];
     
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
@@ -232,10 +236,29 @@
         arrow.frame=rect;
     } completion:^(BOOL finished) {
         [tableComments reloadData];
+        
+        UIButton *btn=[UIButton buttonWithType:UIButtonTypeCustom];
+        btn.frame=CGRectMake(10, 10, 24, 23);
+        [btn setImage:[UIImage imageNamed:@"button_back.png"] forState:UIControlStateNormal];
+        btn.tag=112;
+        btn.alpha=0;
+        
+        [containComment addSubview:btn];
+        
+        [btn addTarget:self action:@selector(btnHideTouchUpInside:) forControlEvents:UIControlEventTouchUpInside];
+        
+        [UIView animateWithDuration:0.2f animations:^{
+            btn.alpha=1;
+        }];
     }];
     
     tapComment=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapComment:)];
     [tableComments addGestureRecognizer:tapComment];
+}
+
+-(void) btnHideTouchUpInside:(UIButton*) button
+{
+    [containComment endEditing:true];
 }
 
 -(void) tapComment:(UITapGestureRecognizer*) tap

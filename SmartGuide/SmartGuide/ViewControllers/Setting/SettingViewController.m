@@ -182,7 +182,7 @@
         
         [[RootViewController shareInstance].window addSubview:fbv];
         
-        [UIView animateWithDuration:0.2f animations:^{
+        [UIView animateWithDuration:DURATION_SETTING animations:^{
             fbv.alpha=1;
         }];
     }
@@ -200,7 +200,7 @@
         
         [[RootViewController shareInstance].window addSubview:tutorial];
         
-        [UIView animateWithDuration:0.2f animations:^{
+        [UIView animateWithDuration:DURATION_SETTING animations:^{
             tutorial.alpha=1;
         }];
     }
@@ -216,7 +216,7 @@
         
         [[RootViewController shareInstance].window addSubview:intro];
         
-        [UIView animateWithDuration:0.2f animations:^{
+        [UIView animateWithDuration:DURATION_SETTING animations:^{
             intro.alpha=1;
         }];
     }
@@ -224,7 +224,7 @@
 
 -(void)introViewClose:(IntroView *)introView
 {
-    [UIView animateWithDuration:0.2 animations:^{
+    [UIView animateWithDuration:DURATION_SETTING animations:^{
         introView.alpha=0;
     } completion:^(BOOL finished) {
         introView.delegate=nil;
@@ -237,7 +237,7 @@
 -(void)tutorialViewBack:(TutorialView *)tutorial
 {
     tutorial.userInteractionEnabled=false;
-    [UIView animateWithDuration:1.f animations:^{
+    [UIView animateWithDuration:DURATION_SETTING animations:^{
         tutorial.alpha=0;
     } completion:^(BOOL finished) {
         tutorial.delegate=nil;
@@ -250,7 +250,7 @@
 -(void)feedbackViewBack:(FeedbackView *)feedbackView
 {
     feedbackView.userInteractionEnabled=false;
-    [UIView animateWithDuration:0.2f animations:^{
+    [UIView animateWithDuration:DURATION_SETTING animations:^{
         feedbackView.alpha=0;
     } completion:^(BOOL finished) {
         feedbackView.delegate=nil;
