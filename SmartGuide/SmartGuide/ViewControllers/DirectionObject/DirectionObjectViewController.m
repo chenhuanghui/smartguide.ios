@@ -358,9 +358,9 @@
 {
     map.delegate=self;
     
-    map.showsUserLocation=true;
-    
     [map removeAnnotations:map.annotations];
+    map.showsUserLocation=false;
+    map.showsUserLocation=true;
     
     if (routeLine) {
 		[map removeOverlay:routeLine];

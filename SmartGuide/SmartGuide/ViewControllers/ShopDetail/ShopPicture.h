@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "Shop.h"
-#import "ASIOperationShopGallery.h"
 #import "ASIOperationShopUserGallery.h"
 #import "ShopDetailViewController.h"
 #import "GridViewTemplate.h"

@@ -8,6 +8,8 @@
 
 #import "RewardCell.h"
 #import "Utility.h"
+#import "UIImageView+AFNetworking.h"
+#import "Constant.h"
 
 @implementation RewardCell
 @synthesize delegate;
@@ -23,7 +25,7 @@
     lblRewardName.font=[UIFont boldSystemFontOfSize:12];
     lblRewardName.textColor=[UIColor whiteColor];
     lblRewardName.backgroundColor=[UIColor clearColor];
-    imgvReward.image=nil;
+    [imgvReward setSmartGuideImageWithURL:[NSURL URLWithString:reward.thumbnail] placeHolderImage:UIIMAGE_LOADING_REWARD success:nil failure:nil];
     lblPoint.text=[[NSNumberFormatter numberFromNSNumber:reward.score] stringByAppendingString:@" point"];
     lblRewardName.text=reward.content;
     btn.enabled=reward.status.boolValue;

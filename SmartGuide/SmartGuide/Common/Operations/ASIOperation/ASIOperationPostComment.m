@@ -59,6 +59,7 @@
         comment.comment=[values objectAtIndex:2];
         comment.avatar=[NSString stringWithStringDefault:[DataManager shareInstance].currentUser.avatar];
         comment.time=[NSString stringWithStringDefault:[[json objectAtIndex:1] objectForKey:@"time"]];
+        comment.fulltime=[NSString stringWithStringDefault:[[json objectAtIndex:1] objectForKey:@"fulltime"]];
         
         [[DataManager shareInstance] save];
     }

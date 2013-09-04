@@ -786,6 +786,12 @@
             
             return fabsf(trans.x)>fabsf(trans.y);
         }
+        else if([[viewContaint.subviews objectAtIndex:0] isKindOfClass:[ShopInfo class]])
+        {
+            CGPoint trans = [pan translationInView:pan.view];
+            
+            return fabsf(trans.x)>fabsf(trans.y);
+        }
     }
     
     return [super allowDragPreviousView:pan];

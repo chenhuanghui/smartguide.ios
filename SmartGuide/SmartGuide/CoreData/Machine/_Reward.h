@@ -9,6 +9,7 @@
 #define Reward_IdReward @"idReward"
 #define Reward_Score @"score"
 #define Reward_Status @"status"
+#define Reward_Thumbnail @"thumbnail"
 
 @class Reward;
 
@@ -27,6 +28,7 @@
 @property (nonatomic, retain) NSNumber* idReward;
 @property (nonatomic, retain) NSNumber* score;
 @property (nonatomic, retain) NSNumber* status;
+@property (nonatomic, retain) NSString* thumbnail;
 
 #pragma mark Fetched property
 

@@ -81,6 +81,7 @@
             comment.comment=[NSString stringWithStringDefault:[dict objectForKey:@"comment"]];
             comment.avatar=[NSString stringWithStringDefault:[dict objectForKey:@"avatar"]];
             comment.time=[NSString stringWithStringDefault:[dict objectForKey:@"time"]];
+            comment.fulltime=[NSString stringWithStringDefault:[dict objectForKey:@"fulltime"]];
             
             [comments addObject:comment];
             
@@ -125,6 +126,7 @@
             gallery.idShop=shop.idShop;
             gallery.desc=[NSString stringWithStringDefault:[dict objectForKey:@"description"]];
             gallery.image=[NSString stringWithStringDefault:[dict objectForKey:@"image"]];
+            gallery.thumbnail=[NSString stringWithStringDefault:[dict objectForKey:@"thumbnail"]];
             
             [userGalleries addObject:gallery];
             

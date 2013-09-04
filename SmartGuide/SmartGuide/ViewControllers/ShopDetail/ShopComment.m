@@ -72,7 +72,7 @@
     ShopUserComment *comment=[_comments objectAtIndex:indexPath.row];
     
     float tableOriginWidth=183;
-    [cell setShopComment:comment widthChanged:tableComments.frame.size.width-tableOriginWidth];
+    [cell setShopComment:comment widthChanged:tableComments.frame.size.width-tableOriginWidth isZoomed:_isShowedComment];
     
     return cell;
 }

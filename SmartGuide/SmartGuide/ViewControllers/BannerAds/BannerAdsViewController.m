@@ -159,6 +159,7 @@
 
 -(void)addMap
 {
+    self.direction.mapView.showsUserLocation=true;
     if(self.direction.view.superview==self.view)
         return;
     
@@ -174,6 +175,7 @@
 
 -(void)removeMap
 {
+    self.direction.mapView.showsUserLocation=false;
     [self.direction.view removeFromSuperview];
 }
 

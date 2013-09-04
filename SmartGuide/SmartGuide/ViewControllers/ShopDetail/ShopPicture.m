@@ -79,7 +79,7 @@
         if(ug.imagePosed)
             [picture setImage:ug.imagePosed duration:0.5f];
         else
-            [picture setURLString:ug.image duration:0.5f];
+            [picture setURLString:ug.thumbnail duration:0.5f];
         
         return cell;
     }
@@ -97,7 +97,7 @@
         ShopPictureCell *picture=(ShopPictureCell*)cell.contentView;
         ShopGallery *sg=[templateShop.datasource objectAtIndex:index];
         
-        [picture setURLString:sg.image duration:0.5f];
+        [picture setURLString:sg.thumbnail duration:0.5f];
         
         return cell;
     }

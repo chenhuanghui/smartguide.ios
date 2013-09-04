@@ -124,6 +124,8 @@
     shop.numGetPromotion=[NSNumber numberWithObject:[dict objectForKey:@"num_get_promotion"]];
     shop.numGetReward=[NSNumber numberWithObject:[dict objectForKey:@"num_get_reward"]];
     shop.idGroup=[NSNumber numberWithObject:[dict objectForKey:@"group_shop"]];
+    shop.contact=[NSString stringWithStringDefault:[dict objectForKey:@"tel"]];
+    shop.website=[NSString stringWithStringDefault:[dict objectForKey:@"website"]];
     shop.selected=false;
     
     if(shop.promotionStatus.boolValue)

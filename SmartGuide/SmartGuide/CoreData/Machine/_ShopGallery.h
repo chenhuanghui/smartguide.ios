@@ -7,6 +7,7 @@
 
 #define ShopGallery_IdShop @"idShop"
 #define ShopGallery_Image @"image"
+#define ShopGallery_Thumbnail @"thumbnail"
 
 @class ShopGallery;
 @class Shop;
@@ -24,6 +25,7 @@
 
 @property (nonatomic, retain) NSNumber* idShop;
 @property (nonatomic, retain) NSString* image;
+@property (nonatomic, retain) NSString* thumbnail;
 
 #pragma mark Fetched property
 

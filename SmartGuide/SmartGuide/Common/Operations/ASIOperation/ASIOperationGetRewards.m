@@ -47,6 +47,7 @@
         reward.score=[NSNumber numberWithObject:[dict objectForKey:@"score"]];
         reward.content=[NSString stringWithStringDefault:[dict objectForKey:@"content"]];
         reward.status=[NSNumber numberWithObject:[dict objectForKey:@"status"]];
+        reward.thumbnail=[NSString stringWithStringDefault:[dict objectForKey:@"thumbnail"]];
         
         [rewards addObject:reward];
     }

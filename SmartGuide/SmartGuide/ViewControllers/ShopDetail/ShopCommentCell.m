@@ -17,7 +17,7 @@
 
 @implementation ShopCommentCell
 
--(void)setShopComment:(ShopUserComment *) userComment widthChanged:(float)changedWidth
+-(void)setShopComment:(ShopUserComment *) userComment widthChanged:(float)changedWidth isZoomed:(bool)isZoomed
 {
     name.text=userComment.user;
     
@@ -25,7 +25,10 @@
     
     CGSize size = [userComment.comment sizeWithFont:[UIFont systemFontOfSize:COMMENT_FONT_SIZE] constrainedToSize:constraint lineBreakMode:UILineBreakModeWordWrap];
     
-    time.text=userComment.time;
+    if(isZoomed)
+        time.text=userComment.fulltime;
+    else
+        time.text=userComment.time;
     [avatar setSmartGuideImageWithURL:[NSURL URLWithString:userComment.avatar] placeHolderImage:UIIMAGE_LOADING_AVATAR_COMMENT success:nil failure:nil];
     
     comment.text=userComment.comment;

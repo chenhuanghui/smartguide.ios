@@ -17,7 +17,7 @@
     __weak IBOutlet UILabel *time;
 }
 
--(void) setShopComment:(ShopUserComment*) userComment widthChanged:(float) changedWidth;
+-(void) setShopComment:(ShopUserComment*) userComment widthChanged:(float) changedWidth isZoomed:(bool) isZoomed;
 +(float) heightWithContent:(NSString*) content widthChanged:(float) changedWidth;
 +(NSString *)reuseIdentifier;
 

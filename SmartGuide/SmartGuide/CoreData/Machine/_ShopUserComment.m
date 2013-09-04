@@ -114,6 +114,19 @@
 	[self didChangeValueForKey:@"comment"];
 }
 
+- (NSString*)fulltime {
+	[self willAccessValueForKey:@"fulltime"];
+	NSString* result = (NSString*)[self primitiveValueForKey:@"fulltime"];
+	[self didAccessValueForKey:@"fulltime"];
+	return result;
+}
+
+- (void)setFulltime:(NSString*)value {
+	[self willChangeValueForKey:@"fulltime"];
+	[self setPrimitiveValue:value forKey:@"fulltime"];
+	[self didChangeValueForKey:@"fulltime"];
+}
+
 - (NSNumber*)idShop {
 	[self willAccessValueForKey:@"idShop"];
 	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"idShop"];

@@ -45,6 +45,7 @@
         comment.comment=[NSString stringWithStringDefault:[dict objectForKey:@"comment"]];
         comment.avatar=[NSString stringWithStringDefault:[dict objectForKey:@"avatar"]];
         comment.time=[NSString stringWithStringDefault:[dict objectForKey:@"time"]];
+        comment.fulltime=[NSString stringWithStringDefault:[dict objectForKey:@"fulltime"]];
         
         [comments addObject:comment];
         [shop addShopUserCommentsObject:comment];

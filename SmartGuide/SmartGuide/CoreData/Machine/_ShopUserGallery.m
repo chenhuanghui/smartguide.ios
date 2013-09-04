@@ -127,6 +127,19 @@
 	[self didChangeValueForKey:@"image"];
 }
 
+- (NSString*)thumbnail {
+	[self willAccessValueForKey:@"thumbnail"];
+	NSString* result = (NSString*)[self primitiveValueForKey:@"thumbnail"];
+	[self didAccessValueForKey:@"thumbnail"];
+	return result;
+}
+
+- (void)setThumbnail:(NSString*)value {
+	[self willChangeValueForKey:@"thumbnail"];
+	[self setPrimitiveValue:value forKey:@"thumbnail"];
+	[self didChangeValueForKey:@"thumbnail"];
+}
+
 #pragma mark Relationships
     
 #pragma mark Shop

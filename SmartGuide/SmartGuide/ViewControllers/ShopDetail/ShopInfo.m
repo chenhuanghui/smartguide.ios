@@ -39,7 +39,7 @@
     
     web.delegate=self;
     
-    [web loadHTMLString:[self formatInfoWithDesc: _shop.desc address:_shop.address contact:_shop.contact web:_shop.website] baseURL:nil];
+    [web loadHTMLString:[self formatInfoWithDesc:[NSString stringWithFormat:@"%@%@%@",_shop.desc,_shop.desc,_shop.desc] address:_shop.address contact:_shop.contact web:_shop.website] baseURL:nil];
 }
 
 -(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
@@ -60,7 +60,7 @@
 
 -(NSString*) formatInfoWithDesc:(NSString*) desc address:(NSString*) address contact:(NSString*) contact web:(NSString*) website
 {
-    NSString *html=[NSString stringWithFormat:@"<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\"><html xmlns=\"http://www.w3.org/1999/xhtml\" xmlns:og=\"http://ogp.me/ns#\"xmlns:fb=\"https://www.facebook.com/2008/fbml\"><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" /><meta http-equiv=\"REFRESH\" content=\"1800\" /><title>ABC</title></head><body><table style=\"font-family:Helvetica\"><tr><td valign=\"top\"><font size=\"2.5\"><b>Miêu tả:</b></font></td><td style=\"vertical-align:top;text-align:justify\"><font size=\"2\">%@</font></td></tr><tr height=\"10\"><td></td></tr><tr><td valign=\"top\"><b>Địa chỉ:</b></td><td><font size=\"2\">%@</font></td></tr><tr height=\"10\"><td></td></tr><tr><td valign=\"top\"><b>Liên lạc:</b></td><td><font size=\"2\">%@</font></td></tr><tr height=\"10\"><td></td></tr><tr><td valign=\"top\"><b>Website:</b></td><td><font size=\"2\">%@</font></td></tr></table></body></html>",desc,address,contact,website];
+    NSString *html=[NSString stringWithFormat:@"<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\"><html xmlns=\"http://www.w3.org/1999/xhtml\" xmlns:og=\"http://ogp.me/ns#\"xmlns:fb=\"https://www.facebook.com/2008/fbml\"><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" /><meta http-equiv=\"REFRESH\" content=\"1800\" /><title>ABC</title></head><body><table style=\"font-family:Helvetica\"><tr><td valign=\"top\"><font size=\"2.5\"><b>Miêu tả:</b></font></td><td style=\"vertical-align:top;text-align:justify\"><font size=\"2\">%@</font></td></tr><tr height=\"10\"><td></td></tr><tr><td valign=\"top\"><font size=\"2.5\"><b>Địa chỉ:</b></font></td><td><font size=\"2\">%@</font></td></tr><tr height=\"10\"><td></td></tr><tr><td valign=\"top\"><font size=\"2.5\"><b>Liên lạc:</b></font></td><td><font size=\"2\">%@</font></td></tr><tr height=\"10\"><td></td></tr><tr><td valign=\"top\"><font size=\"2.5\"><b>Website:</b></font></td><td><font size=\"2\">%@</font></td></tr></table></body></html>",desc,address,contact,website];
     
     return html;
 }

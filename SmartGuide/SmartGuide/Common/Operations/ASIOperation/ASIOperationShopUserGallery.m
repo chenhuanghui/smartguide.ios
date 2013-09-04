@@ -43,6 +43,7 @@
         gallery.idShop=shop.idShop;
         gallery.desc=[NSString stringWithStringDefault:[dict objectForKey:@"description"]];
         gallery.image=[NSString stringWithStringDefault:[dict objectForKey:@"image"]];
+        gallery.thumbnail=[NSString stringWithStringDefault:[dict objectForKey:@"thumbnail"]];
         
         [userGallerys addObject:gallery];
     }

@@ -160,28 +160,13 @@
 }
 
 - (IBAction)btnTouchUpInside:(id)sender {
-    int index=[grid.layoutStrategy itemPositionFromLocation:grid.contentOffset];
-    GMGridViewCell *cell=[grid cellForItemAtIndex:index];
-    GalleryCell *gallery=(GalleryCell*)cell.contentView;
-    
-    UIImage *img=gallery.imgv.image;
-    UIImageView *imgv=[[UIImageView alloc] initWithImage:img];
-    imgv.contentMode=UIViewContentModeScaleAspectFit;
-    imgv.frame=CGRectMake(0, 0, grid.frame.size.width, grid.frame.size.height);
-    
-    [self addSubview:imgv];
-    
-    [grid removeFromSuperview];
-    
     [UIView animateWithDuration:DURATION_SHOW_USER_GALLERY_IMAGE animations:^{
-        CGRect rect=[delegate galleryViewFrameForAnimationHide:self index:index];
-        imgv.frame=rect;
-        txt.alpha=0.3f;
-        btn.alpha=0.3f;
-        blurr.alpha=0.3f;
+        txt.alpha=0.0f;
+        btn.alpha=0.0f;
+        blurr.alpha=0.0f;
         bg.alpha=0;
+        grid.alpha=0;
     } completion:^(BOOL finished) {
-        [imgv removeFromSuperview];
         [delegate galleryViewBack:self];
     }];
 }
@@ -211,35 +196,23 @@
 
 -(void)animationImage:(UIImage *)image startRect:(CGRect)rect
 {
-    grid.hidden=true;
-    
     txt.alpha=0.f;
     btn.alpha=0.f;
     blurr.alpha=0.f;
     bg.alpha=0;
+    grid.alpha=0;
     
-    UIImageView *imgv=[[UIImageView alloc] initWithFrame:rect];
-    imgv.image=image;
-    imgv.backgroundColor=[UIColor clearColor];
-    imgv.contentMode=UIViewContentModeScaleAspectFit;
-    
-    [self insertSubview:imgv aboveSubview:bg];
+    [grid reloadData];
+    [grid scrollToObjectAtIndex:selectedIndex atScrollPosition:GMGridViewScrollPositionNone animated:false];
     
     [UIView animateWithDuration:DURATION_SHOW_USER_GALLERY_IMAGE animations:^{
-        CGSize size=grid.frame.size;
-        imgv.frame=CGRectMake(0, 0, size.width, size.height);
-        
         txt.alpha=1;
         btn.alpha=1;
         bg.alpha=1;
         blurr.alpha=1;
+        grid.alpha=1;
     } completion:^(BOOL finished) {
-        [grid reloadData];
-        [grid scrollToObjectAtIndex:selectedIndex atScrollPosition:GMGridViewScrollPositionNone animated:false];
         grid.hidden=false;
-        
-        imgv.image=nil;
-        [imgv removeFromSuperview];
     }];
 }
 
