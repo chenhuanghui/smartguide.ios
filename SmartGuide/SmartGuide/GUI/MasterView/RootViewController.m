@@ -379,7 +379,7 @@ static RootViewController *_rootViewController;
     
     panPrevious=[[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panPrevious:)];
     panPrevious.delegate=self;
-
+    
     [panPrevious requireGestureRecognizerToFail:panSlide];
     
     [self.window addGestureRecognizer:panPrevious];
@@ -636,7 +636,7 @@ static RootViewController *_rootViewController;
         [settingViewController.view alphaView].backgroundColor=COLOR_BACKGROUND_APP_ALPHA(1);
     } completion:^(BOOL finished) {
         [self.view removeAlphaView];
-         [self.settingViewController.view removeAlphaView];
+        [self.settingViewController.view removeAlphaView];
         
         if(self.tapSetting)
         {
@@ -658,10 +658,10 @@ static RootViewController *_rootViewController;
         
         //không sử dụng notification vì settingviewcontroller đã xử lý
         //user change city
-//        if(_lastIDCity!=[DataManager shareInstance].currentCity.idCity.integerValue)
-//        {
-//            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_USER_CHANGED_CITY object:nil];
-//        }
+        //        if(_lastIDCity!=[DataManager shareInstance].currentCity.idCity.integerValue)
+        //        {
+        //            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_USER_CHANGED_CITY object:nil];
+        //        }
         
         _lastIDCity=[DataManager shareInstance].currentCity.idCity.integerValue;
     }];
@@ -688,8 +688,8 @@ static RootViewController *_rootViewController;
     
     if([self isShowedUserCollection])
         [self hideUserCollection];
-//    if(![self.frontViewController isShowedCatalogueBlock])
-//        [self.frontViewController showCatalogueBlock:false];
+    //    if(![self.frontViewController isShowedCatalogueBlock])
+    //        [self.frontViewController showCatalogueBlock:false];
 }
 
 - (void)navigationBarUserCollection:(UIButton *)sender
@@ -740,7 +740,7 @@ static RootViewController *_rootViewController;
     _isShowedMap=true;
     
     [bannerAds prepareShowMap];
-
+    
     [self.directionObject loadWithShops:[self.frontViewController.catalogueList currentShops]];
     
     [self.bannerAds configMenu];
@@ -901,7 +901,7 @@ static RootViewController *_rootViewController;
 
 -(void) keyboardWillHide:(NSNotification*) notification
 {
-
+    
 }
 
 -(void)navigationBarSetting:(UIButton *)sender
@@ -1010,7 +1010,11 @@ static RootViewController *_rootViewController;
     {
         [self.view alphaViewWithColor:COLOR_BACKGROUND_APP_ALPHA(1) belowView:self.userCollection.view];
         [self.userCollection.view alphaViewWithColor:COLOR_BACKGROUND_APP_ALPHA(0)];
-        [[self.frontViewController currentVisibleViewController] configMenu];
+        
+        if([self isShowedMap])
+            [self.bannerAds configMenu];
+        else
+            [[self.frontViewController currentVisibleViewController] configMenu];
         
         [UIView animateWithDuration:DURATION_SHOW_FILTER animations:^{
             CGRect rect=self.userCollection.view.frame;
@@ -1324,7 +1328,7 @@ static RootViewController *_rootViewController;
             rect.origin.y=[UIScreen mainScreen].bounds.size.height-[SlideQRCodeViewController size].height-25;
             self.slideQRCode.view.frame=rect;
             
-//            [self.slideQRCode.view alphaView].backgroundColor=COLOR_BACKGROUND_APP_ALPHA(1);
+            //            [self.slideQRCode.view alphaView].backgroundColor=COLOR_BACKGROUND_APP_ALPHA(1);
             [self.view alphaView].backgroundColor=COLOR_BACKGROUND_APP_ALPHA(0);
             
         } completion:^(BOOL finished) {
@@ -1332,7 +1336,7 @@ static RootViewController *_rootViewController;
             [self.slideQRCode hideCamera];
             
             [self.view removeAlphaView];
-//            [self.slideQRCode.view removeAlphaView];
+            //            [self.slideQRCode.view removeAlphaView];
             
             if(onCompleted)
                 onCompleted(finished);
@@ -1355,7 +1359,7 @@ static RootViewController *_rootViewController;
     
     self.slideQRCode.btnSlide.enabled=false;
     self.slideQRCode.delegate=self.frontViewController.catalogueList;
-
+    
     if(animated)
     {
         [self.view alphaViewWithColor:COLOR_BACKGROUND_APP_ALPHA(0) belowView:self.slideQRCode.view];
@@ -1710,7 +1714,7 @@ static RootViewController *_rootViewController;
     
     if([self isShowedMap])
         return;
-
+    
     [self.frontViewController handlePanGesture:pan];
 }
 
@@ -1747,7 +1751,7 @@ static RootViewController *_rootViewController;
     _isShowedUserCollection=true;
     
     self.userCollection.view.hidden=false;
-
+    
     [Flags setIsShowedTutorialSlideShopDetail:true];
     
     if(animated)
@@ -1847,7 +1851,7 @@ static RootViewController *_rootViewController;
     
     _isShowedDetailFromCollection=true;
     _isShowedUserCollection=false;
-
+    
     if([self.frontViewController isShowedCatalogueBlock])
     {
         [self.frontViewController hideCatalogueBlockForUserCollection];

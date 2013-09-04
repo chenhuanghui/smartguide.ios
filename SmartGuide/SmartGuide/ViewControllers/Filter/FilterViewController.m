@@ -189,7 +189,7 @@
         [self setHighlight:filter.travel.boolValue filter:travel];
         [self setHighlight:filter.production.boolValue filter:production];
         [self setHighlight:filter.education.boolValue filter:education];
-
+        
         btnPoint.selected=filter.mostGetPoint.boolValue;
         btnLike.selected=filter.mostLike.boolValue;
         btnView.selected=filter.mostView.boolValue;
@@ -198,7 +198,7 @@
     else
     {
         [self btnCheckNonTouchUpInside:nil];
-
+        
         btnPoint.selected=false;
         btnLike.selected=false;
         btnView.selected=false;
@@ -260,6 +260,19 @@
 - (IBAction)btnDoneTouchUpInside:(id)sender {
     Filter *filter=[[DataManager shareInstance] currentUser].filter;
     
+    if(!([self isHighlighted:food]
+         || [self isHighlighted:drink]
+         || [self isHighlighted:health]
+         || [self isHighlighted:entertaiment]
+         || [self isHighlighted:fashion]
+         || [self isHighlighted:travel]
+         || [self isHighlighted:production]
+         || [self isHighlighted:education]))
+    {
+        [AlertView showAlertOKWithTitle:nil withMessage:@"Bạn phải chọn ít nhất 1 danh mục" onOK:nil];
+        return;
+    }
+    
     if(!filter)
     {
         filter=[Filter insert];
@@ -280,53 +293,50 @@
     filter.mostView=[NSNumber numberWithBool:btnView.selected];
     filter.distance=[NSNumber numberWithBool:btnDistance.selected];
     
-    bool hasChange=filter.hasChanges;
+    bool hasChange=[filter changedValues].count>0;
     
     [[DataManager shareInstance] save];
-
-    if([[RootViewController shareInstance].frontViewController.currentVisibleViewController isKindOfClass:[CatalogueListViewController class]])
+    
+    if(hasChange)
     {
-        if(hasChange)
-        {
-            NSMutableArray *array=[NSMutableArray array];
-            if(filter.food.boolValue)
-                [array addObject:[Group food]];
-            if(filter.drink.boolValue)
-                [array addObject:[Group drink]];
-            if(filter.health.boolValue)
-                [array addObject:[Group health]];
-            if(filter.entertaiment.boolValue)
-                [array addObject:[Group entertaiment]];
-            if(filter.fashion.boolValue)
-                [array addObject:[Group fashion]];
-            if(filter.travel.boolValue)
-                [array addObject:[Group travel]];
-            if(filter.production.boolValue)
-                [array addObject:[Group production]];
-            if(filter.education.boolValue)
-                [array addObject:[Group education]];
+        NSMutableArray *array=[NSMutableArray array];
+        if(filter.food.boolValue)
+            [array addObject:[Group food]];
+        if(filter.drink.boolValue)
+            [array addObject:[Group drink]];
+        if(filter.health.boolValue)
+            [array addObject:[Group health]];
+        if(filter.entertaiment.boolValue)
+            [array addObject:[Group entertaiment]];
+        if(filter.fashion.boolValue)
+            [array addObject:[Group fashion]];
+        if(filter.travel.boolValue)
+            [array addObject:[Group travel]];
+        if(filter.production.boolValue)
+            [array addObject:[Group production]];
+        if(filter.education.boolValue)
+            [array addObject:[Group education]];
+        
+        [self.view showLoadingWithTitle:nil];
+        
+        [[RootViewController shareInstance].frontViewController.catalogueList loadGroups:array sortType:filter.sortBy city:[DataManager shareInstance].currentCity.idCity.integerValue];
+        
+        __block __weak id obs = [[NSNotificationCenter defaultCenter] addObserverForName:NOTIFICATION_CATALOGUE_LIST_FINISHED object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
             
-            [self.view showLoadingWithTitle:nil];
-
-            [[RootViewController shareInstance].frontViewController.catalogueList loadGroups:array sortType:filter.sortBy city:[DataManager shareInstance].currentCity.idCity.integerValue];
+            [self.view removeLoading];
             
-            __block __weak id obs = [[NSNotificationCenter defaultCenter] addObserverForName:NOTIFICATION_CATALOGUE_LIST_FINISHED object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
-                
-                [self.view removeLoading];
-                
-                [[RootViewController shareInstance] hideFilter];
-                
-                [[NSNotificationCenter defaultCenter] removeObserver:obs];
-            }];
-        }
-        else
+            if([RootViewController shareInstance].frontViewController.isShowedCatalogueBlock)
+                [[RootViewController shareInstance].frontViewController hideCatalogueBlock:false];
+            
             [[RootViewController shareInstance] hideFilter];
+            
+            [[NSNotificationCenter defaultCenter] removeObserver:obs];
+        }];
     }
-//    if(hasChange)
-//        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_FILTER_CHANGED object:nil];
-//    
-//    if(delegate && [delegate respondsToSelector:@selector(filterDone)])
-//        [delegate filterDone];
+    else
+    {
+        [[RootViewController shareInstance] hideFilter];
+    }
 }
 
 - (void)viewDidUnload {
