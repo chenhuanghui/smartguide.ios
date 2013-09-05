@@ -336,7 +336,7 @@
         
         if(ope.rewards.count>0)
         {
-            [templateReward.datasource addObjectsFromArray:ope.rewards];
+            templateReward.datasource=[[NSMutableArray alloc] initWithArray:ope.rewards];
         }
         
         [tableReward removeLoading];
@@ -350,11 +350,11 @@
         
         if(ope.status==2)
         {
-            [AlertView showAlertOKWithTitle:nil withMessage:ope.reward onOK:nil];
+            [AlertView showAlertOKWithTitle:@"Thông báo" withMessage:ope.reward onOK:nil];
         }
         else
         {
-            [AlertView showAlertOKWithTitle:nil withMessage:ope.content onOK:nil];
+            [AlertView showAlertOKWithTitle:@"Thông báo" withMessage:ope.content onOK:nil];
         }
         
         [self refreshP];
@@ -443,7 +443,7 @@
 
 -(void)rewardCellRequestReward:(RewardCell *)cell
 {
-    [AlertView showAlertOKCancelWithTitle:nil withMessage:@"Bạn có muốn đổi điểm lấy phần quà này" onOK:^{
+    [AlertView showAlertOKCancelWithTitle:@"Thông báo" withMessage:@"Bạn có muốn đổi điểm lấy phần quà này" onOK:^{
         ASIOperationSGToReward *ope=[[ASIOperationSGToReward alloc] initWithIDReward:cell.reward.idReward.integerValue idUser:[DataManager shareInstance].currentUser.idUser.integerValue];
         ope.delegatePost=self;
         

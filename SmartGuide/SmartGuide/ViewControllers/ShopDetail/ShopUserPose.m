@@ -27,6 +27,7 @@
     
     _viewController=viewController;
     _shop=shop;
+    txt.delegate=self;
     
     return self;
 }
@@ -265,6 +266,18 @@
         
         [btnSend setTitle:@"Gởi" forState:UIControlStateNormal];
     }
+}
+
+-(BOOL)textView1:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
+{
+    if([text isEqualToString:@"\n"])
+    {
+        [btnSend sendActionsForControlEvents:UIControlEventTouchUpInside];
+        
+        return false;
+    }
+    
+    return true;
 }
 
 @end

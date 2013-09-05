@@ -383,12 +383,7 @@
         
         [self.view endEditing:true];
         
-        __block __weak id obj = [[NSNotificationCenter defaultCenter] addObserverForName:UIKeyboardDidHideNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
-            
-            [[NSNotificationCenter defaultCenter] removeObserver:obj];
-            
-            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_LOGIN object:nil];
-        }];
+        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_LOGIN object:nil];
     }
 }
 

@@ -34,7 +34,7 @@
     _searchText=[[NSString alloc] initWithString:text];
     [table setContentOffset:CGPointZero];
     
-    [self.view showLoadingWithTitle:nil];
+    [self.view.window showLoadingWithTitle:nil];
     
     [self loadAtPage:0];
 }
@@ -86,7 +86,7 @@
 
 -(void)ASIOperaionPostFinished:(ASIOperationPost *)operation
 {
-    [self.view removeLoading];
+    [self.view.window removeLoading];
     
     ASIOperationSearchShop*ope = (ASIOperationSearchShop*)operation;
     

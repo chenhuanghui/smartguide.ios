@@ -9,6 +9,7 @@
 #import "ActivityIndicator.h"
 #import "Utility.h"
 #import <QuartzCore/QuartzCore.h>
+#import "Constant.h"
 
 @implementation ActivityIndicator
 @synthesize touchDelegate,delegate;
@@ -30,7 +31,7 @@
     lbl.textAlignment=NSTextAlignmentCenter;
     
     UIView *blackView=[[UIView alloc] init];
-    blackView.backgroundColor=[UIColor blackColor];
+    blackView.backgroundColor=COLOR_BACKGROUND_APP;
     
     [blackView.layer setMasksToBounds:YES];
     [blackView.layer setCornerRadius:10.0];
@@ -81,8 +82,8 @@
     
     if(_timerCountdown)
     {
-    [_timerCountdown invalidate];
-    _timerCountdown=nil;
+        [_timerCountdown invalidate];
+        _timerCountdown=nil;
     }
     
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -98,14 +99,17 @@
 
 -(void)willMoveToSuperview:(UIView *)newSuperview
 {
-    [self alignLayout:newSuperview];
-    [self startAnimation];
-    
-    UIActivityIndicatorView *indicator=(UIActivityIndicatorView*)[self viewWithTag:2];
-    
-    if(newSuperview.backgroundColor==[UIColor whiteColor])
+    if(newSuperview)
     {
-        indicator.color=[UIColor blackColor];
+        [self alignLayout:newSuperview];
+        [self startAnimation];
+        
+        UIActivityIndicatorView *indicator=(UIActivityIndicatorView*)[self viewWithTag:2];
+        
+        if(newSuperview.backgroundColor==[UIColor whiteColor])
+        {
+            indicator.color=[UIColor blackColor];
+        }
     }
     
     [super willMoveToSuperview:newSuperview];
@@ -114,7 +118,7 @@
 -(void) alignLayout:(UIView*) newSuperview
 {
     float alignX=20;
-
+    
     self.layer.masksToBounds=true;
     
     UIView *blackView=(UIView*)[self viewWithTag:1];
@@ -123,7 +127,7 @@
     lbl.text=[NSString stringWithStringDefault:lbl.text];
     
     CGRect rect=self.frame;
-
+    
     lbl.frame=rect;
     lbl.center=CGPointMake(lbl.center.x+alignX, lbl.center.y);
     
@@ -133,32 +137,28 @@
         [indicator setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleWhite];
     else
         [indicator setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    
     indicator.frame=CGRectMake(0, 0, 37, 37);
     indicator.center=CGPointMake(rect.size.width/2-size.width/2-indicator.frame.size.width/2, rect.size.height/2);
     indicator.center=CGPointMake(indicator.center.x+alignX, indicator.center.y);
     
-    rect.origin.x=indicator.frame.origin.x-20;
-    rect.origin.y=indicator.frame.origin.y-20;
-    rect.size.width=MIN(indicator.frame.size.width,self.frame.size.width)+size.width+40;
-    rect.size.height=MIN(indicator.frame.size.height,self.frame.size.height)+40;
+    rect=indicator.frame;
+    
+    rect.origin.x-=10;
+    rect.origin.y-=10;
+    rect.size.width+=20;
+    rect.size.height+=20;
     
     blackView.frame=rect;
 }
 
--(void)setFrame:(CGRect)frame
-{
-    [super setFrame:frame];
-    
-    [self alignLayout:self.superview];
-}
-
 -(void)startAnimation
 {
-//    self.backgroundColor=[UIColor colorWithRed:0 green:0 blue:0 alpha:0.3f];
-//    
-//    [UIView animateWithDuration:0.5f animations:^{
-//        self.backgroundColor=[UIColor colorWithRed:0 green:0 blue:0 alpha:0.7f];
-//    }];
+    //    self.backgroundColor=[UIColor colorWithRed:0 green:0 blue:0 alpha:0.3f];
+    //
+    //    [UIView animateWithDuration:0.5f animations:^{
+    //        self.backgroundColor=[UIColor colorWithRed:0 green:0 blue:0 alpha:0.7f];
+    //    }];
 }
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
@@ -194,7 +194,7 @@
         _timerCountdown=[NSTimer timerWithTimeInterval:1 target:self selector:@selector(loopCountdown) userInfo:nil repeats:true];
         [[NSRunLoop currentRunLoop] addTimer:_timerCountdown forMode:NSDefaultRunLoopMode];
     }
-
+    
     UILabel *lbl=(UILabel*)[self viewWithTag:3];
     
     if(_indicatorTitle && _indicatorTitle.length>0)
@@ -222,7 +222,7 @@
         {
             [_timerCountdown invalidate];
             _timerCountdown=nil;
-         
+            
             if(delegate && [delegate respondsToSelector:@selector(activityIndicatorCountdownEnded:)])
                 [delegate activityIndicatorCountdownEnded:self];
             
