@@ -132,7 +132,7 @@
     return [GalleryCell size].width;
 }
 
--(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     [self refreshDesc];
 }

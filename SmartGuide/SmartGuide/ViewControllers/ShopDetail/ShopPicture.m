@@ -346,11 +346,11 @@
     return !_isUserViewShopGallery;
 }
 
--(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     if(galleryView)
     {
-        [galleryView scrollViewDidEndDecelerating:scrollView];
+        [galleryView scrollViewDidScroll:scrollView];
     }
 }
 
