@@ -16,12 +16,14 @@
 
 @interface FacebookMiningViewController ()
 {
-    ImageEditor *imgEditor;
 }
+
+@property (nonatomic, strong) FBProfile *profile;
 
 @end
 
 @implementation FacebookMiningViewController
+@synthesize profile;
 
 - (id)init
 {
@@ -40,13 +42,13 @@
     [self.navigationController setNavigationBarHidden:true];
     [[RootViewController shareInstance] setNeedRemoveLoadingScreen];
     
-//    UILabel *lbl=[[UILabel alloc] initWithFrame:CGRectMake(0, 0, [@"  " sizeWithFont:txtAccount.font].width, 30)];
-//    lbl.font=txtAccount.font;
-//    lbl.textColor=[UIColor grayColor];
-//    lbl.backgroundColor=[UIColor clearColor];
-//    lbl.text=@"  ";
-//    txtAccount.leftView=lbl;
-//    txtAccount.leftViewMode=UITextFieldViewModeAlways;
+    UILabel *lbl=[[UILabel alloc] initWithFrame:CGRectMake(0, 0, [@"  " sizeWithFont:txtUser.font].width, 30)];
+    lbl.font=txtUser.font;
+    lbl.textColor=[UIColor grayColor];
+    lbl.backgroundColor=[UIColor clearColor];
+    lbl.text=@"  ";
+    txtUser.leftView=lbl;
+    txtUser.leftViewMode=UITextFieldViewModeAlways;
 }
 
 -(NSArray *)registerNotification
@@ -58,8 +60,8 @@
 {
     if([notification.name isEqualToString:UIApplicationDidBecomeActiveNotification])
     {
-//        if(!btnSkip.hidden)
-//            [self removeIndicator];
+        //        if(!btnSkip.hidden)
+        //            [self removeIndicator];
         
         if ([FBSession activeSession].accessTokenData.accessToken.length>0) {
             
@@ -91,6 +93,17 @@
 
 -(void) loginFacebook
 {
+    if(profile)
+    {
+        postProfile=[[ASIOperationFBProfile alloc] initWithFBProfile:profile];
+        postProfile.delegatePost=self;
+        [postProfile startAsynchronous];
+        
+        [self.view showLoadingWithTitle:nil];
+        
+        return;
+    }
+    
     [Flurry trackUserClickFacebook];
     
     [self.view showLoadingWithTitle:nil];
@@ -103,37 +116,45 @@
     {
         OperationFBGetProfile *ope=(OperationFBGetProfile*)operation;
         
-        FBProfile *profile = ope.profile;
-        
-        User *user=[User userWithIDUser:[DataManager shareInstance].currentUser.idUser.integerValue];
-        user.avatar=[NSString stringWithStringDefault:ope.profile.avatar];
-        
-//        [imgvAvatar setSmartGuideImageWithURL:[NSURL URLWithString:user.avatar] placeHolderImage:UIIMAGE_LOADING_AVATAR success:nil failure:nil];
-        
-        [[DataManager shareInstance] save];
-        
-        [DataManager shareInstance].currentUser=[User userWithIDUser:user.idUser.integerValue];
-        
+        self.profile = [ope.profile copy];
+
         getProfile=nil;
         
-        postProfile=[[ASIOperationFBProfile alloc] initWithFBProfile:profile];
+        postProfile=[[ASIOperationFBProfile alloc] initWithFBProfile:self.profile];
         postProfile.delegatePost=self;
         [postProfile startAsynchronous];
         
         [self.view showLoadingWithTitle:nil];
+        
+        [[FacebookManager shareInstance] postURL:[NSURL URLWithString:@"http://smartguide.vn"] title:@"SmartGuide - Trải nghiệm ngay nhận quà liền tay" text:[NSString stringWithFormat:@"Chúc mừng bạn %@ đã tham gia cộng đồng #SmartGuide. Chúc bạn có những trải nghiệm hoàn toàn thú vị cùng #SmartGuide",self.profile.name]];
     }
 }
 
 -(void)ASIOperaionPostFinished:(ASIOperationPost *)operation
 {
-    postProfile=nil;
-    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_FACEBOOK_UPLOAD_PROFILE_FINISHED object:nil];
+    if([operation isKindOfClass:[ASIOperationFBProfile class]])
+    {
+        postProfile=nil;
+        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_FACEBOOK_UPLOAD_PROFILE_FINISHED object:nil];
+    }
+    else
+    {
+        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_FACEBOOK_UPLOAD_PROFILE_FINISHED object:nil];
+    }
 }
 
 -(void)ASIOperaionPostFailed:(ASIOperationPost *)operation
 {
-    postProfile=nil;
-    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_FACEBOOK_UPLOAD_PROFILE_FINISHED object:nil];
+    if([operation isKindOfClass:[ASIOperationFBProfile class]])
+    {
+        postProfile=nil;
+        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_FACEBOOK_UPLOAD_PROFILE_FINISHED object:nil];
+    }
+    else
+    {
+        [self.view removeLoading];
+        [AlertView showAlertOKWithTitle:@"Thông báo" withMessage:@"Tạo thông tin đăng nhập thất bại" onOK:nil];
+    }
 }
 
 -(void)operationURLFailed:(OperationURL *)operation
@@ -146,30 +167,17 @@
 }
 
 - (void)viewDidUnload {
-//    btnSkip = nil;
+    //    btnSkip = nil;
     btnFace = nil;
-//    imgvAvatar = nil;
-//    infoView = nil;
+    //    imgvAvatar = nil;
+    //    infoView = nil;
     faceView = nil;
-//    txtAccount = nil;
-//    btnAvatar = nil;
+    //    txtAccount = nil;
+    //    btnAvatar = nil;
+    infoView = nil;
+    txtUser = nil;
+    btnAvatar = nil;
     [super viewDidUnload];
-}
-
-- (IBAction)skipTouchUpInside:(id)sender {
-    
-//    infoView.alpha=0;
-//    infoView.hidden=false;
-    
-    [UIView animateWithDuration:0.5f animations:^{
-        faceView.alpha=0;
-//        infoView.alpha=1;
-    } completion:^(BOOL finished) {
-        faceView.hidden=true;
-        
-//        [txtAccount becomeFirstResponder];
-    }];
-    //    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_FACEBOOK_UPLOAD_PROFILE_FINISHED object:nil];
 }
 
 - (IBAction)loginTouchUpInside:(id)sender {
@@ -177,49 +185,46 @@
 }
 
 - (IBAction)btnDoneTouchUpInside:(id)sender {
-//    if([txtAccount.text stringByRemoveString:@" ",nil].length==0)
-//    {
-//        [AlertView showAlertOKWithTitle:nil withMessage:@"Vui lòng nhập tên tài khoản" onOK:^{
-//            [txtAccount becomeFirstResponder];
-//        }];
-//        return;
-//    }
-//    
-//    if(![btnAvatar imageForState:UIControlStateNormal])
-//    {
-//        [AlertView showAlertOKCancelWithTitle:nil withMessage:@"Nhấn \"Huỷ\" để chọn avatar. Nhấn \"Tiếp tục\" với avatar rỗng" onOK:^{
-//            [btnAvatar sendActionsForControlEvents:UIControlEventTouchUpInside];
-//        } onCancel:^{
-//            [self uploadUserInfo];
-//        }];
-//        return;
-//    }
-//    
-//    [self uploadUserInfo];
+    if([txtUser.text stringByRemoveString:@" ",nil].length==0)
+    {
+        [AlertView showAlertOKWithTitle:nil withMessage:@"Vui lòng nhập tên tài khoản" onOK:^{
+            [txtUser becomeFirstResponder];
+        }];
+        return;
+    }
+    
+    if(![btnAvatar imageForState:UIControlStateNormal])
+    {
+        [AlertView showAlertOKWithTitle:@"Thông báo" withMessage:@"Vui lòng chọn avatar" onOK:^{
+            double delayInSeconds = 0.5f;
+            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+            dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+                [btnAvatar sendActionsForControlEvents:UIControlEventTouchUpInside];
+            });
+        }];
+        return;
+    }
+    
+    [self uploadUserInfo];
 }
 
 -(void) uploadUserInfo
 {
-    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_FACEBOOK_UPLOAD_PROFILE_FINISHED object:nil];
-    //    FBProfile *profile=[[FBProfile alloc] init];
-}
-
-- (IBAction)btnAvatarTouchUpInside:(id)sender {
+    NSData *data=nil;
     
-    UIActionSheet *sheet=[[UIActionSheet alloc] initWithTitle:@"Avatar" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Camera",@"Library", nil];
+    if(_isUserChangedAvatar)
+        data=UIImagePNGRepresentation([btnAvatar imageForState:UIControlStateNormal]);
     
-    sheet.actionSheetStyle=UIActionSheetStyleDefault;
-    sheet.delegate=self;
+    ASIOperationUpdateUserInfo *ope=[[ASIOperationUpdateUserInfo alloc] initWithIDUser:[DataManager shareInstance].currentUser.idUser.integerValue name:txtUser.text avatar:data];
+    ope.delegatePost=self;
     
-    [sheet showInView:self.view];
+    [ope startAsynchronous];
     
-    return;
-    
+    [self.view showLoadingWithTitle:nil];
 }
 
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    NSLog(@"%i",buttonIndex);
     switch (buttonIndex) {
         case 0:
             [self showCamera:false];
@@ -239,6 +244,7 @@
     
     UIImagePickerController *imagePicker=[[UIImagePickerController alloc] init];
     imagePicker.modalPresentationStyle=UIModalPresentationCurrentContext;
+    imagePicker.allowsEditing=true;
     
     if(isFromLibrary)
         imagePicker.sourceType=UIImagePickerControllerSourceTypePhotoLibrary;
@@ -253,41 +259,69 @@
     imagePicker.delegate=self;
     
     [self presentModalViewController:imagePicker animated:true];
-    
-//    [btnAvatar setImage:nil forState:UIControlStateNormal];
 }
 
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
-//    [btnAvatar setImage:[info valueForKey:UIImagePickerControllerOriginalImage] forState:UIControlStateNormal];
+    UIImage *img=[info valueForKey:UIImagePickerControllerEditedImage];
+    
+    //    if(img.size.width>img.size.height)
+    //    {
+    //        img=[img resizedImage:CGSizeMake([UIScreen mainScreen].bounds.size.height, [UIScreen mainScreen].bounds.size.width) interpolationQuality:kCGInterpolationHigh];
+    //    }
+    //    else
+    //        img=[img resizedImage:[UIScreen mainScreen].bounds.size interpolationQuality:kCGInterpolationHigh];
+    
     picker.delegate=nil;
     [picker dismissModalViewControllerAnimated:true];
-    return;
-//    [btnAvatar setImage:nil forState:UIControlStateNormal];
     
-    UIImage *img=[info valueForKey:UIImagePickerControllerOriginalImage];
-    imgEditor=[[ImageEditor alloc] initWithUIImage:img frame:self.view.frame];
-    picker.delegate=nil;
+    _isUserChangedAvatar=true;
     
-    [picker dismissModalViewControllerAnimated:true];
-    
-    [self.view addSubview:imgEditor];
-}
-
--(void)imageEditorBack
-{
-    
-}
-
--(void)imageEditorCroped:(UIImage *)image
-{
-    
+    [btnAvatar setImage:img forState:UIControlStateNormal];
 }
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     [self.view endEditing:true];
     return true;
+}
+
+- (IBAction)btnSkipTouchUpInside:(id)sender {
+    
+    [Flurry trackUserSkipFacebook];
+    
+    UIButton *btn=sender;
+    
+    btn.userInteractionEnabled=false;
+    
+    infoView.alpha=0;
+    infoView.hidden=false;
+    
+    [UIView animateWithDuration:0.3f animations:^{
+        faceView.alpha=0;
+        infoView.alpha=1;
+    } completion:^(BOOL finished) {
+        faceView.hidden=true;
+        
+        [txtUser becomeFirstResponder];
+    }];
+}
+
+- (IBAction)btnAvatarTouchUpInside:(id)sender {
+    
+    [self.view endEditing:true];
+    
+    UIActionSheet *sheet=[[UIActionSheet alloc] initWithTitle:@"Avatar" delegate:self cancelButtonTitle:@"Đóng" destructiveButtonTitle:nil otherButtonTitles:@"Camera",@"Thư viện", nil];
+    
+    sheet.actionSheetStyle=UIActionSheetStyleDefault;
+    sheet.delegate=self;
+    
+    [sheet showInView:self.view];
+}
+
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [self.view endEditing:true];
 }
 
 @end

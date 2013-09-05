@@ -18,6 +18,7 @@
 
 -(void) login;
 -(void)postText:(NSString *)text identity:(id) tag delegate:(id<SHKSharerDelegate>) delegate;
+-(void) postURL:(NSURL*) url title:(NSString*) title text:(NSString*) text;
 -(void) postImage:(UIImage*) image text:(NSString*) text identity:(id) tag delegate:(id<SHKSharerDelegate>) delegate;
 -(bool) isAuthorized;
 -(bool) isLogined;

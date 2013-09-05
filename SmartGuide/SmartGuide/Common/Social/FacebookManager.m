@@ -136,6 +136,13 @@ static FacebookManager *_facebookManager=nil;
     ((SHKFacebook*)[SHKFacebook shareItem:item]).shareDelegate=delegate;
 }
 
+-(void) postURL:(NSURL*) url title:(NSString*) title text:(NSString *)text
+{
+    SHKItem *item=[SHKItem URL:url title:title contentType:SHKURLContentTypeWebpage];
+    item.text=text;
+    [SHKFacebook shareItem:item];
+}
+
 -(void)postImage:(UIImage *)image text:(NSString *)text identity:(id)tag delegate:(id<SHKSharerDelegate>)delegate
 {
     SHKItem *item=[SHKItem image:image title:text];

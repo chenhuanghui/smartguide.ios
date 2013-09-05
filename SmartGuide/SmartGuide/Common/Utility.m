@@ -1669,4 +1669,9 @@ static const NSString *KEY_HIT_TEST_EDGE_INSETS = @"HitTestEdgeInsets";
     [Flurry logEvent:@"location" withParameters:dict];
 }
 
++(void)trackUserSkipFacebook
+{
+    [Flurry logEvent:@"skipFace"];
+}
+
 @end

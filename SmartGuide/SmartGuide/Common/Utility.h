@@ -245,5 +245,6 @@ bool isVailCLLocationCoordinate2D(CLLocationCoordinate2D location);
 +(void) trackUserClickTutorial;
 +(void) trackUserSearch:(NSString*) key;
 +(void) trackUserAllowLocation:(CLLocationCoordinate2D) location;
++(void) trackUserSkipFacebook;
 
 @end

@@ -74,7 +74,7 @@
 @end
 
 @implementation FBProfile
-@synthesize avatar,birthday,email,gender,job;
+@synthesize avatar,birthday,email,gender,job,fbID,name;
 
 - (id)init
 {
@@ -85,6 +85,8 @@
         self.email=@"";
         self.gender=@"";
         self.job=@"";
+        self.fbID=@"";
+        self.name=@"";
     }
     return self;
 }
@@ -97,6 +99,20 @@
 -(NSString *)description
 {
     return [NSString stringWithFormat:@"FBProfile %@ %@ %@ %@ %@",avatar,birthday,email,gender,job];
+}
+
+-(id)copyWithZone:(NSZone *)zone
+{
+    FBProfile *fb=[[FBProfile alloc] init];
+    fb.avatar=avatar;
+    fb.birthday=birthday;
+    fb.email=email;
+    fb.gender=gender;
+    fb.job=job;
+    fb.fbID=fbID;
+    fb.name=@"";
+    
+    return fb;
 }
 
 @end

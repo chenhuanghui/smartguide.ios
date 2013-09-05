@@ -54,6 +54,7 @@
 #define API_GET_SG @"score/get"
 #define API_POST_FEEDBACK @"feedback"
 #define API_GET_TOTAL_SP @"score/get"
+#define API_UPDATE_USER_INFO @"user/sginfo/update"
 
 #define API_GET_ACTIVE_CODE(phone) [NSString stringWithFormat:@"%@/user/activation?phone=%@",SERVER_IP,phone]
 #define API_VERIFY_ACTIVE_CODE(phone,activeCode) [NSString stringWithFormat:@"%@/user/check?phone=%@&code=%@",SERVER_IP,phone,activeCode]

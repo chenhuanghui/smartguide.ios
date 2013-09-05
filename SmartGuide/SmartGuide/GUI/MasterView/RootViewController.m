@@ -69,7 +69,7 @@ static RootViewController *_rootViewController;
     }
     else
     {
-        if(![DataManager shareInstance].currentUser.isConnectedFacebook.boolValue)
+        if(![DataManager shareInstance].currentUser.isConnectedFacebook.boolValue && [[DataManager shareInstance].currentUser.name stringByRemoveString:@" ",nil].length==0)
         {
             [root showFacebookMiningWithPreviousViewController:nil];
         }

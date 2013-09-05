@@ -18,7 +18,7 @@
 
 @end
 
-@interface FBProfile : NSObject
+@interface FBProfile : NSObject<NSCopying>
 
 @property (nonatomic, strong) NSString *birthday;
 @property (nonatomic, strong) NSString *email;
