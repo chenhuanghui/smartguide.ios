@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
+#import "DataManager.h"
 
 @interface LocationManager : NSObject<CLLocationManagerDelegate>
 {
@@ -17,6 +18,9 @@
     bool _isTryGetUserLocationInfo;
     bool _isTryGetUserCityInfo;
     CLGeocoder *_geoLocationInfo;
+    
+    void(^_onLocationCompleted)(CLLocationCoordinate2D location);
+    CLLocationManager *_locationBlock;
 }
 
 +(LocationManager*) shareInstance;
@@ -34,6 +38,8 @@
 -(bool) isLocationServicesEnabled;
 -(bool) isAuthorizeLocation;
 -(bool) isAllowLocation;
+
+-(void) getLocation:(void(^)(CLLocationCoordinate2D location)) onCompleted;
 
 @property (nonatomic, assign) CLLocationCoordinate2D userLocation;
 @property (nonatomic, strong) NSString *userCurrentCity;

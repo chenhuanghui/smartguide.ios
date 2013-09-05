@@ -178,6 +178,8 @@
     [operation start];
     
     [self.view showLoadingWithTitle:nil];
+    
+    [self.view endEditing:true];
 }
 
 -(void) requestActiveCode
@@ -215,6 +217,9 @@
     [AlertView showWithTitle:[((UILabel*)txt.leftView).text stringByAppendingFormat:@" %@", txt.text] withMessage:@"Mã kích hoạt SmartGuide sẽ được gởi đến số điện thoại trên. Chọn \"Đồng ý\" để tiếp tục hoặc \"Huỷ\" để thay đổi số điện thoại" withLeftTitle:@"Huỷ" withRightTitle:@"Đồng ý" onOK:^{
         [txt becomeFirstResponder];
     } onCancel:^{
+        
+        [self.view endEditing:true];
+        
         OperationGetActionCode *operation=[[OperationGetActionCode alloc] initWithPhone:strPhone];
         operation.delegate=self;
         [operation start];
@@ -460,6 +465,9 @@
     
     [AlertView showWithTitle:str withMessage:@"Mã kích hoạt SmartGuide sẽ được gởi đến số điện thoại trên. Chọn \"Đồng ý\" để tiếp tục hoặc \"Huỷ\" để thay đổi số điện thoại" withLeftTitle:@"Huỷ" withRightTitle:@"Đồng ý" onOK:^{
     } onCancel:^{
+        
+        [self.view endEditing:true];
+        
         OperationGetActionCode *operation=[[OperationGetActionCode alloc] initWithPhone:_phone];
         operation.delegate=self;
         [operation start];

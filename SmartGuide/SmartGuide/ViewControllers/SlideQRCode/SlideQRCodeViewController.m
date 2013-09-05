@@ -117,6 +117,28 @@
     [lblReward addStyle:style];
     
     [self loopAnimation];
+    
+    [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidBecomeActiveNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
+       if(alertLocation)
+       {
+           [alertLocation dismissWithClickedButtonIndex:-1 animated:false];
+           alertLocation=nil;
+           
+           [self showCamera];
+       }
+        else
+        {
+            if([RootViewController shareInstance].isShowedQRSlide)
+            {
+                if(![self isAllowLocation])
+                {
+                    [self removeCamera];
+                    
+                    [self showCamera];
+                }
+            }
+        }
+    }];
 }
 
 -(void) setReward1:(NSString*) sgp name:(NSString*) name
@@ -192,20 +214,53 @@
     imgvScan.hidden=false;
 }
 
+-(void) getLocation
+{
+    [self.view.window showLoadingWithTitle:nil];
+    [[LocationManager shareInstance] getLocation:^(CLLocationCoordinate2D location) {
+        
+        [self.view.window removeLoading];
+        
+        if(isVailCLLocationCoordinate2D(location))
+        {
+            [self showCameraQRCode];
+        }
+        else
+        {
+            _isAlertGetLocation=true;
+            alertLocation=[[UIAlertView alloc] initWithTitle:@"Thông báo" message:@"Lấy thông tin vị trí thất bại. Bạn có muốn thử lại?" delegate:self cancelButtonTitle:@"Đồng ý" otherButtonTitles:@"Đóng", nil];
+            [alertLocation show];
+        }
+    }];
+}
+
 -(void)showCamera
 {
-//    if([self isAllowLocation])
-    [self showCameraQRCode];
-//    else
-//    {
-//        [AlertView showAlertOKCancelWithTitle:nil withMessage:@"Location services" onOK:^{
-//            [self showCamera];
-//        } onCancel:^{
-//            [[RootViewController shareInstance] hideQRSlide:true onCompleted:^(BOOL finished) {
-//                btnSlide.enabled=true;
-//            }];
-//        }];
-//    }
+    _isAlertGetLocation=false;
+    if([self isAllowLocation])
+    {
+        [self getLocation];
+    }
+    else
+    {
+        alertLocation=nil;
+        
+        alertLocation=[[UIAlertView alloc] initWithTitle:@"Thông báo" message:@"Hãy cho phép ứng dụng kết nối với Location Services ở mục Setting/Privacy để có thể tích điểm với SmartGuide" delegate:self cancelButtonTitle:@"Đồng ý" otherButtonTitles:@"Đóng", nil];
+        
+        [alertLocation show];
+    }
+}
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if(buttonIndex==1)
+    {
+        [self hideMe];
+    }
+    else
+    {
+        [self showCamera];
+    }
 }
 
 -(void) resizeQRView:(UIView*) vvv
@@ -389,7 +444,9 @@
 -(void) getSGPWithCode:(NSString*) code idShop:(int) idShop;
 {
     int idUser=[DataManager shareInstance].currentUser.idUser.integerValue;
-    ASIOperationGetSGP *operation=[[ASIOperationGetSGP alloc] initWithUserID:idUser code:code idShop:idShop];
+    double lat=[DataManager shareInstance].currentUser.location.latitude;
+    double lon=[DataManager shareInstance].currentUser.location.longitude;
+    ASIOperationGetSGP *operation=[[ASIOperationGetSGP alloc] initWithUserID:idUser code:code idShop:idShop lat:lat lon:lon];
     operation.delegatePost=self;
     
     [operation startAsynchronous];
@@ -524,6 +581,14 @@
     lblError.text=@"Lỗi đã xảy ra";
     imgvRewardIcon.highlighted=true;
     rewardView.hidden=false;
+}
+
+-(void) hideMe
+{
+    btnSlide.enabled=false;
+    [[RootViewController shareInstance] hideQRSlide:true onCompleted:^(BOOL finished) {
+        btnSlide.enabled=true;
+    }];
 }
 
 - (IBAction)btnSlideTouchUpInside:(UIButton *)sender

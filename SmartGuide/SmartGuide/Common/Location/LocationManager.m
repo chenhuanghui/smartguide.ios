@@ -139,6 +139,20 @@ static LocationManager *_locationManager=nil;
 {
     if(locations.count>0)
     {
+        if(manager==_locationBlock)
+        {
+            CLLocation *location=[locations lastObject];
+            _onLocationCompleted(location.coordinate);
+            _onLocationCompleted=nil;
+            
+            _locationBlock.delegate=nil;
+            _locationBlock=nil;
+            
+            self.userLocation=location.coordinate;
+            [DataManager shareInstance].currentUser.location=self.userLocation;
+            return;
+        }
+        
         self.userLocation=((CLLocation*)[locations lastObject]).coordinate;
         _isTryGetUserLocationInfo=false;
         self.locationManager.delegate=nil;
@@ -218,12 +232,37 @@ static LocationManager *_locationManager=nil;
 {
     NSLog(@"LocationManager failed %@",error);
  
+    if(manager==_locationBlock)
+    {
+        _onLocationCompleted(CLLocationCoordinate2DMake(-1, -1));
+        _onLocationCompleted=nil;
+        
+        _locationBlock.delegate=nil;
+        _locationBlock=nil;
+        
+        self.userLocation=CLLocationCoordinate2DMake(-1, -1);
+        [DataManager shareInstance].currentUser.coordinate=self.userLocation;
+        
+        return;
+    }
+    
     self.userCurrentCity=[City HCMCity].name;
     _isTryGetUserLocationInfo=false;
     self.locationManager.delegate=nil;
     self.locationManager=nil;
     
     [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_LOCATION_PERMISSION_DENIED object:nil];
+}
+
+-(void)getLocation:(void (^)(CLLocationCoordinate2D))onCompleted
+{
+    _onLocationCompleted=onCompleted;
+    
+    _locationBlock=[[CLLocationManager alloc] init];
+    
+    _locationBlock.desiredAccuracy=kCLLocationAccuracyBest;
+    [_locationBlock setDelegate:self];
+    [_locationBlock startUpdatingLocation];
 }
 
 @end

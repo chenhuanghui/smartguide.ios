@@ -67,6 +67,9 @@
 
 -(void) userScanedQRCode:(NSNotification*) notification
 {
+    if(![RootViewController shareInstance].isShowedUserCollection)
+        return;
+    
     if(!notification.object)
         return;
     

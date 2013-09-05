@@ -13,7 +13,7 @@
 @implementation ASIOperationGetSGP
 @synthesize values,status,content,time,shopName,SGP,totalSGP,code;
 
--(ASIOperationGetSGP *)initWithUserID:(int)idUser code:(NSString *)_code idShop:(int)idShop
+-(ASIOperationGetSGP *)initWithUserID:(int)idUser code:(NSString *)_code idShop:(int)idShop lat:(double)lat lon:(double)lon
 {
     NSURL *_url=[NSURL URLWithString:SERVER_API_MAKE(API_GET_SGP)];
     
@@ -21,14 +21,14 @@
     
     code=[[NSString alloc] initWithString:_code];
     _idShop=idShop;
-    values=@[@(idUser),code];
+    values=@[@(idUser),code,@(lat),@(lon)];
     
     return self;
 }
 
 -(NSArray *)keys
 {
-    return @[@"user_id",@"code"];
+    return @[@"user_id",@"code",@"user_lat",@"user_lng"];
 }
 
 -(void)onCompletedWithJSON:(NSArray *)json

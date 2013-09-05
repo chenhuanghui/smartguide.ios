@@ -42,6 +42,14 @@
     return @[groupAll,groupDrink,groupEducation,groupEntertaiment,groupFashion,groupFood,groupHealth,groupProduction,groupTravel];
 }
 
+-(void) loadCities
+{
+    operationCity=[[ASIOperationCity alloc] initOperationCity];
+    
+    operationCity.delegatePost=self;
+    [operationCity startAsynchronous];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -51,6 +59,10 @@
     int idCity=[Flags userCity];
     if(idCity!=-1)
         [DataManager shareInstance].currentCity=[City cityWithID:idCity];
+    
+    //hot fix
+    if([City allObjects].count<=1)
+        [self loadCities];
     
     [[LocationManager shareInstance] checkLocationAuthorize];
     
@@ -228,7 +240,7 @@
         [[DataManager shareInstance] setUserCity:[LocationManager shareInstance].userCurrentCity];
         [Flags setUserCity:[DataManager shareInstance].currentCity.idCity.integerValue];
 
-        [self loadGroup:@"ASIOperaionPostFinished"];
+        [self loadGroup:@"ASIOperationCityFinished"];
         
         operationCity=nil;
     }
@@ -284,12 +296,7 @@
     else if([notification.name isEqualToString:NOTIFICATION_LOCATION_PERMISSION_DENIED])
     {
         [[LocationManager shareInstance] checkLocationAuthorize];
-        
-//        if(![[LocationManager shareInstance] isAuthorizeLocation] && ![Flags isFirstRunApp])
-//        {
-//            [AlertView showAlertOKWithTitle:nil withMessage:@"Setting to allow location" onOK:nil];
-//        }
-        
+
         [DataManager shareInstance].currentUser.location=CLLocationCoordinate2DMake(-1, -1);
         
         if(![DataManager shareInstance].currentCity)

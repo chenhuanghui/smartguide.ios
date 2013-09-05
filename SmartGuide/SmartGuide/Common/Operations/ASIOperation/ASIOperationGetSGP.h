@@ -21,7 +21,7 @@ enum SGP_STATUS {
     int _idShop;
 }
 
--(ASIOperationGetSGP*) initWithUserID:(int) idUser code:(NSString*) code idShop:(int) idShop;
+-(ASIOperationGetSGP*) initWithUserID:(int) idUser code:(NSString*) code idShop:(int) idShop lat:(double) lat lon:(double) lon;
 
 @property (nonatomic, readonly) int status;
 @property (nonatomic, readonly) NSString *content;

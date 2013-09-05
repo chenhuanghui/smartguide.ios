@@ -29,7 +29,7 @@ enum SCAND_TYPE {
 
 @end
 
-@interface SlideQRCodeViewController : ViewController<QRCodeDelegate,TouchViewDelegate,ASIOperationPostDelegate>
+@interface SlideQRCodeViewController : ViewController<QRCodeDelegate,TouchViewDelegate,ASIOperationPostDelegate,UIAlertViewDelegate>
 {
     __weak IBOutlet UIButton *btnSlide;
     __weak IBOutlet FTCoreTextView *lblSlide;
@@ -48,6 +48,9 @@ enum SCAND_TYPE {
     bool _isLoadingShopDetail;
     bool _isUserClickClose;
     bool _isSuccessed;
+    
+    UIAlertView *alertLocation;
+    bool _isAlertGetLocation;
 }
 
 -(UIButton*) btnSlide;
