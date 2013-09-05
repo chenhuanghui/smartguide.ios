@@ -64,7 +64,7 @@
 #define UIIMAGE_LOADING_AVATAR_COMMENT UIIMAGE_LOADING_AVATAR
 #define UIIMAGE_LOADING_SHOP_COVER [UIImage imageNamed:@"cover_loading.png"]
 #define UIIMAGE_LOADING_SHOP_GALLERY UIIMAGE_LOADING_SHOP_LOGO
-#define UIIMAGE_LOADING_REWARD UIIMAGE_LOADING_SHOP_LOGO
+#define UIIMAGE_LOADING_REWARD [UIImage imageNamed:@"gift_reward.png"]
 
 #define UIIMAGE_SHOP_PIN [UIImage imageNamed:@"pin.png"]
 #define UIIMAGE_USER_PIN [UIImage imageNamed:@"icon_pin.png"]

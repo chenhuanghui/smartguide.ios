@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface GalleryCell : UIView
+@interface GalleryCell : UITableViewCell
 {
     __weak IBOutlet UIImageView *imgv;
     

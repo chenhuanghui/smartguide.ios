@@ -24,7 +24,7 @@
     
     FTCoreTextStyle *style=[FTCoreTextStyle styleWithName:@"text"];
     style.textAlignment=FTCoreTextAlignementCenter;
-    style.font=[UIFont italicSystemFontOfSize:10];
+    style.font=[UIFont italicSystemFontOfSize:12];
     style.color=[UIColor darkGrayColor];
     
     [lblP addStyle:style];
@@ -32,9 +32,37 @@
     style=[FTCoreTextStyle styleWithName:@"p"];
     style.textAlignment=FTCoreTextAlignementCenter;
     style.color=[UIColor color255WithRed:201 green:84 blue:54 alpha:255];
-    style.font=[UIFont boldSystemFontOfSize:10];
+    style.font=[UIFont boldSystemFontOfSize:12];
     
     [lblP addStyle:style];
+    
+    style=[FTCoreTextStyle styleWithName:@"gn"];
+    style.textAlignment=FTCoreTextAlignementLeft;
+    style.color=[UIColor darkGrayColor];
+    style.font=[UIFont systemFontOfSize:10];
+    
+    [lblDesc addStyle:style];
+    
+    style=[FTCoreTextStyle styleWithName:@"vnd"];
+    style.textAlignment=FTCoreTextAlignementCenter;
+    style.color=[UIColor color255WithRed:201 green:84 blue:54 alpha:255];
+    style.font=[UIFont boldSystemFontOfSize:12];
+    
+    [lblDesc addStyle:style];
+    
+    style=[FTCoreTextStyle styleWithName:@"dk"];
+    style.textAlignment=FTCoreTextAlignementLeft;
+    style.color=[UIColor darkGrayColor];
+    style.font=[UIFont boldSystemFontOfSize:11];
+    
+    [lblDesc addStyle:style];
+    
+    style=[FTCoreTextStyle styleWithName:@"text"];
+    style.textAlignment=FTCoreTextAlignementLeft;
+    style.color=[UIColor darkGrayColor];
+    style.font=[UIFont systemFontOfSize:11];
+    
+    [lblDesc addStyle:style];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userScanedQRCode:) name:NOTIFICATION_USER_SCANED_QR_CODE object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userScanedQRCode:) name:NOTIFICATION_USER_CANCELED_SCAN_QR_CODE object:nil];
@@ -64,16 +92,22 @@
         
         [btnReward setTitle:[NSNumberFormatter moneyFromNSNumber:shop.promotionDetail.money] forState:UIControlStateNormal];
         btnReward.tag=shop.promotionDetail.idAwardType2.integerValue;
-        lblDesc.text=shop.promotionDetail.desc;
+        
+        [self setDesc:[NSNumberFormatter moneyFromNSNumber:shop.promotionDetail.money] dk:shop.promotionDetail.desc];
         [self setP:shop.promotionDetail.p.integerValue];
     }
     else
         [self reset];
 }
 
+-(void) setDesc:(NSString*) money dk:(NSString*) dk
+{
+    [lblDesc setText:[NSString stringWithFormat:@"<gn>Giảm ngay </gn><vnd>%@</vnd><text>\ntrên hoá đơn khi </text><dk>%@</dk>",money,dk]];
+}
+
 -(void) setP:(int) p
 {
-    [lblP setText:[NSString stringWithFormat:@"<text>Tích luỹ <p>%iP</p> trên 1 lượt quét</text>",p]];
+    [lblP setText:[NSString stringWithFormat:@"<text>Tích luỹ <p>%iP</p> trên 1 lượt quét thẻ</text>",p]];
 }
 
 - (IBAction)btnRewardTouchUpInside:(id)sender

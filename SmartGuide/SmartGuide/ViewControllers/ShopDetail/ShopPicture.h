@@ -10,19 +10,21 @@
 #import "Shop.h"
 #import "ASIOperationShopUserGallery.h"
 #import "ShopDetailViewController.h"
-#import "GridViewTemplate.h"
+#import "TableTemplate.h"
 #import "GalleryView.h"
 #import "ShopUserPose.h"
 
 @class ShopUserGalleryView,ShopGalleryView;
 
-@interface ShopPicture : UIView<ShopViewHandle,ASIOperationPostDelegate,GalleryViewDelegate,GridViewTemplate,ShopUserPoseDelegate>
+@interface ShopPicture : UIView<ShopViewHandle,ASIOperationPostDelegate,GalleryViewDelegate,TableTemplateDelegate,ShopUserPoseDelegate>
 {
     Shop *_shop;
-    __weak IBOutlet GMGridView *gridShop;
-    __weak IBOutlet GMGridView *gridUser;
-    GridViewTemplate *templateShop;
-    GridViewTemplate *templateUser;
+    
+    __weak IBOutlet UITableView *tableShop;
+    __weak IBOutlet UITableView *tableUser;
+
+    TableTemplate *templateShop;
+    TableTemplate *templateUser;
     __weak IBOutlet UIButton *btnAdd;
 
 //    ASIOperationShopGallery *_operationShopGallery;

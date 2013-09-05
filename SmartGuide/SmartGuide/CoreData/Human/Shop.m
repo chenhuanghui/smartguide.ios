@@ -150,6 +150,7 @@
         promotion.money=[NSNumber numberWithObject:[dicInner objectForKey:@"money"]];
         promotion.idAwardType2=[NSNumber numberWithObject:[dicInner objectForKey:@"id"]];
         promotion.desc=[NSString stringWithStringDefault:[dicInner objectForKey:@"description"]];
+        promotion.min_score=[NSNumber numberWithObject:[dicInner objectForKey:@"min_score"]];
         
         [promotion removeRequires:promotion.requires];
         

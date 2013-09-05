@@ -49,8 +49,84 @@
     self.qrCodes=[[NSMutableArray alloc] init];
     
     ray.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"ray_red.png"]];
+
+    FTCoreTextStyle *style=[FTCoreTextStyle styleWithName:@"vuot"];
+    
+    style.textAlignment=FTCoreTextAlignementCenter;
+    style.color=[UIColor whiteColor];
+    style.font=[UIFont boldSystemFontOfSize:10];
+    
+    [lblSlide addStyle:style];
+    
+    style=[FTCoreTextStyle styleWithName:@"a"];
+    
+    style.font=[UIFont boldSystemFontOfSize:10];
+    style.textAlignment=FTCoreTextAlignementCenter;
+    style.color=[UIColor whiteColor];
+    
+    [lblSlide addStyle:style];
+    
+    style=[FTCoreTextStyle styleWithName:@"text"];
+    
+    style.textAlignment=FTCoreTextAlignementCenter;
+    style.color=[UIColor whiteColor];
+    style.font=[UIFont systemFontOfSize:10];
+    
+    [lblSlide addStyle:style];
+    
+    [lblSlide setText:@"<vuot>VUỐT LÊN ĐỂ NHẬN ĐIỂM</vuot>"];
+    
+    style=[FTCoreTextStyle styleWithName:@"cm"];
+    
+    style.font=[UIFont boldSystemFontOfSize:12];
+    style.textAlignment=FTCoreTextAlignementCenter;
+    style.color=[UIColor color255WithRed:171 green:209 blue:245 alpha:255];
+    
+    [lblReward addStyle:style];
+    
+    style=[FTCoreTextStyle styleWithName:@"bdnd"];
+    
+    style.font=[UIFont systemFontOfSize:12];
+    style.textAlignment=FTCoreTextAlignementCenter;
+    style.color=[UIColor color255WithRed:171 green:209 blue:245 alpha:255];
+    
+    [lblReward addStyle:style];
+    
+    style=[FTCoreTextStyle styleWithName:@"reward"];
+    
+    style.font=[UIFont boldSystemFontOfSize:12];
+    style.textAlignment=FTCoreTextAlignementCenter;
+    style.color=[UIColor whiteColor];
+    
+    [lblReward addStyle:style];
+    
+    style=[FTCoreTextStyle styleWithName:@"text"];
+    
+    style.font=[UIFont systemFontOfSize:12];
+    style.textAlignment=FTCoreTextAlignementCenter;
+    style.color=[UIColor color255WithRed:171 green:209 blue:245 alpha:255];
+    
+    [lblReward addStyle:style];
+    
+    style=[FTCoreTextStyle styleWithName:@"shop"];
+    
+    style.font=[UIFont boldSystemFontOfSize:12];
+    style.textAlignment=FTCoreTextAlignementCenter;
+    style.color=[UIColor whiteColor];
+    
+    [lblReward addStyle:style];
     
     [self loopAnimation];
+}
+
+-(void) setReward1:(NSString*) sgp name:(NSString*) name
+{
+    [lblReward setText:[NSString stringWithFormat:@"<cm>Chúc mừng</cm><bdnd>\nbạn đã nhận được</bdnd><reward>\n\n%@ SGP</reward><text>\n\ntại cửa hàng </text><shop>%@</shop>",sgp,name]];
+}
+
+-(void) setReward2:(NSString*) reward name:(NSString*) name
+{
+    [lblReward setText:[NSString stringWithFormat:@"<cm>Chúc mừng</cm><bdnd>\nbạn đã nhận được</bdnd><reward>\n\n%@</reward><text>\n\ntại cửa hàng </text><shop>%@</shop>",reward,name]];
 }
 
 -(void) loopAnimation
@@ -69,14 +145,12 @@
     ray = nil;
     darkLayer = nil;
     rewardView = nil;
-    lblSGP = nil;
     imgvRewardIcon = nil;
     lblError = nil;
-    lblChucMung = nil;
-    lblNhanDuoc = nil;
-    lblShop = nil;
     imgvScan = nil;
     btnClose = nil;
+    btnCloseStartup = nil;
+    lblReward = nil;
     [super viewDidUnload];
 }
 
@@ -99,6 +173,8 @@
     _isUserClickClose=false;
     mode=SCAN_GET_SGP;
     
+    btnCloseStartup.hidden=false;
+    
     [UIView animateWithDuration:0.2f animations:^{
         CGPoint pnt=btnSlide.center;
         pnt.y=14+10;
@@ -114,8 +190,6 @@
     darkLayer.backgroundColor=[UIColor clearColor];
     rewardView.hidden=true;
     imgvScan.hidden=false;
-    
-    lblSlide.text=@"QUÉT QRCODE";
 }
 
 -(void)showCamera
@@ -162,7 +236,7 @@
     
     [self removeCamera];
     
-    lblSlide.text=@"TRƯỢT LÊN ĐỂ NHẬN ĐIỂM";
+    [lblSlide setText:@"<vuot>VUỐT LÊN ĐỂ NHẬN ĐIỂM</vuot>"];
     
     darkLayer.backgroundColor=[UIColor clearColor];
     rewardView.hidden=true;
@@ -191,6 +265,11 @@
     qrCodeView.view.frame=rect;
     
     [self resizeQRView:qrCodeView.view];
+    
+    if(self.mode==SCAN_GET_SGP)
+        [lblSlide setText:@"<a>TÍCH ĐIỂM</a><text> - CỬA HÀNG SẼ CUNG CẤP THẺ CHO BẠN</text>"];
+    else
+        [lblSlide setText:@"<a>NHẬN QUÀ</a><text> - CỬA HÀNG SẼ CUNG CẤP THẺ CHO BẠN</text>"];
 }
 
 -(void) removeCamera
@@ -259,12 +338,14 @@
         return;
     }
     
+    btnCloseStartup.hidden=true;
+    
     _isSuccessed=false;
     _isUserScanded=true;
     
     qrCodeView.delegate=nil;
     
-    [qrView showLoadingWithTitle:nil];
+    [self.view.window showLoadingWithTitle:nil];
     [UIView animateWithDuration:DURATION_SHOW_QRCODE_REWARD animations:^{
         darkLayer.backgroundColor=COLOR_BACKGROUND_APP_ALPHA(0.9);
     }];
@@ -303,8 +384,6 @@
     operation.delegatePost=self;
     
     [operation startAsynchronous];
-    
-    [self.view showLoadingWithTitle:nil];
 }
 
 -(void) getSGPWithCode:(NSString*) code idShop:(int) idShop;
@@ -320,14 +399,11 @@
 {
     imgvScan.hidden=true;
     
-    [qrView removeLoading];
+    [self.view.window removeLoading];
     btnSlide.enabled=true;
-    
-    lblChucMung.hidden=true;
-    lblNhanDuoc.hidden=true;
-    lblSGP.hidden=true;
+    lblReward.hidden=true;
     lblError.hidden=true;
-    lblShop.hidden=true;
+
     imgvRewardIcon.hidden=false;
     rewardView.hidden=false;
 
@@ -337,14 +413,10 @@
         
         if(ope.status==3)
         {
+            lblReward.hidden=false;
             imgvRewardIcon.highlighted=false;
-            lblChucMung.hidden=false;
-            lblNhanDuoc.hidden=false;
-            lblSGP.hidden=false;
-            lblShop.hidden=false;
-            imgvRewardIcon.highlighted=false;
-            lblSGP.text=[NSString stringWithFormat:@"%i SGP",ope.SGP];
-            lblShop.text=[NSString stringWithFormat:@"tại cửa hàng %@",ope.shopName];
+            
+            [self setReward1:[NSString stringWithFormat:@"%i",ope.SGP] name:ope.shopName];
             
             qrCode=[QRCode qrCodeWithCode:ope.code];
             qrCode.totalSGP=ope.totalSGP;
@@ -368,10 +440,7 @@
         
         if(ope.status==1)
         {
-            lblChucMung.hidden=false;
-            lblNhanDuoc.hidden=false;
-            lblSGP.hidden=false;
-            lblShop.hidden=false;
+            lblReward.hidden=false;
             imgvRewardIcon.highlighted=false;
             
             NSNumberFormatter *moneyFormat=[[NSNumberFormatter alloc] init];
@@ -380,8 +449,7 @@
             [moneyFormat setMaximumFractionDigits:0];
             moneyFormat.currencySymbol=@"";
             
-            lblSGP.text=[NSString stringWithFormat:@"%@",[moneyFormat stringFromNumber:@(ope.money)]];
-            lblShop.text=[NSString stringWithFormat:@"tại cửa hàng %@",ope.shopName];
+            [self setReward2:[NSString stringWithFormat:@"%@ vnđ",[moneyFormat stringFromNumber:@(ope.money)]] name:ope.shopName];
 
             qrCode=[QRCode qrCodeWithCode:ope.code];
             [self.qrCodes addObject:qrCode];
@@ -403,14 +471,10 @@
 
         if(ope.status==2)
         {
-            lblChucMung.hidden=false;
-            lblNhanDuoc.hidden=false;
-            lblSGP.hidden=false;
-            lblShop.hidden=false;
+            lblReward.hidden=false;
             imgvRewardIcon.highlighted=false;
             
-            lblSGP.text=[NSString stringWithFormat:@"%@",ope.award];
-            lblShop.text=[NSString stringWithFormat:@"tại cửa hàng %@",ope.shopName];
+            [self setReward2:ope.award name:ope.shopName];
 
             qrCode=[QRCode qrCodeWithCode:ope.code];
             qrCode.totalSGP=ope.totalSGP;
@@ -450,13 +514,10 @@
 {
     imgvScan.hidden=true;
     
-    [self.view removeLoading];
+    [self.view.window removeLoading];
     
-    lblChucMung.hidden=true;
-    lblNhanDuoc.hidden=true;
-    lblSGP.hidden=true;
+    lblReward.hidden=true;
     lblError.hidden=true;
-    lblShop.hidden=true;
     imgvRewardIcon.hidden=false;
     
     lblError.hidden=false;
@@ -543,7 +604,7 @@
         double delayInSeconds = 0.5f;
         dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
         dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-            [self.view removeLoading];
+            [self.view.window removeLoading];
             [[RootViewController shareInstance] hideQRSlide:true onCompleted:^(BOOL finished) {
                 btnSlide.enabled=true;
                 
@@ -558,7 +619,7 @@
         double delayInSeconds = 0.5f;
         dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
         dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-            [self.view removeLoading];
+            [self.view.window removeLoading];
             [[RootViewController shareInstance] hideQRSlide:true onCompleted:^(BOOL finished) {
                 btnSlide.enabled=true;
                 
@@ -574,7 +635,7 @@
         double delayInSeconds = 0.5f;
         dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
         dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-            [self.view removeLoading];
+            [self.view.window removeLoading];
             [[RootViewController shareInstance] hideQRSlide:true onCompleted:^(BOOL finished) {
                 btnSlide.enabled=true;
                 
@@ -592,6 +653,12 @@
             btnClose.userInteractionEnabled=true;
         }];
     }
+}
+
+- (IBAction)btnCloseStartupTouchUpInside:(id)sender {
+    [[RootViewController shareInstance] hideQRSlide:true onCompleted:^(BOOL finished) {
+        btnSlide.enabled=true;
+    }];
 }
 
 @end

@@ -10,6 +10,7 @@
 #import "Shop.h"
 #import "ShopDetailViewController.h"
 #import "TouchView.h"
+#import "LocationManager.h"
 
 @interface ShopLocation : UIView<ShopViewHandle,TouchViewDelegate,MKMapViewDelegate,UIGestureRecognizerDelegate>
 {

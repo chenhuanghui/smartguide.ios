@@ -462,6 +462,11 @@
             [self calculateDirections];
         }
         
+        [[LocationManager shareInstance] checkLocationAuthorize];
+        
+        if(![LocationManager shareInstance].isAllowLocation)
+            [self updateMapWithUserLocation:nil];
+        
         map.userInteractionEnabled=false;
         map.scrollEnabled=false;
         map.zoomEnabled=false;

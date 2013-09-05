@@ -55,7 +55,16 @@
     lblShopName.text=[data.name uppercaseString];
     lblContent.text=data.desc;
     
-    lblKM.text=[NSString stringWithFormat:@"%0.2fKM",data.distance.doubleValue];
+    if(data.distance.doubleValue==-1)
+    {
+        lblKM.textAlignment=UITextAlignmentCenter;
+        lblKM.text=@"...km";
+    }
+    else
+    {
+        lblKM.textAlignment=UITextAlignmentRight;
+        lblKM.text=[NSString stringWithFormat:@"%0.2fKM",data.distance.doubleValue];
+    }
     
     imgVND.highlighted=true;
     CGRect rect=CGRectZero;
@@ -73,10 +82,17 @@
         if(data.promotionDetail.promotionType.integerValue==1)
         {
             score=[NSString stringWithFormat:@"%02d",data.score];
-            rank=[NSString stringWithFormat:@"/%02d",data.minRank];
+            rank=[NSString stringWithFormat:@"/%02d",data.promotionDetail.min_score.integerValue];
             [lblScore setText:[Utility ftCoreTextFormatScore:score rank:rank]];
             
             imgVND.hidden=false;
+            
+            FTCoreTextStyle *style=[FTCoreTextStyle styleWithName:@"score"];
+            style.font=[UIFont boldSystemFontOfSize:14];
+            style.color=[UIColor whiteColor];
+            style.textAlignment=FTCoreTextAlignementCenter;
+            
+            [lblScore addStyle:style];
         }
         else
         {
@@ -88,6 +104,11 @@
             score=[NSString stringWithFormat:@"%lldK",data.promotionDetail.money.longLongValue/1000];
             rank=@"";
             [lblScore setText:[Utility ftCoreTextFormatScore:score rank:rank]];
+            
+            FTCoreTextStyle *style=[FTCoreTextStyle styleWithName:@"score"];
+            style.font=[UIFont boldSystemFontOfSize:13];
+            style.color=[UIColor whiteColor];
+            style.textAlignment=FTCoreTextAlignementCenter;
         }
     }
     else
@@ -96,7 +117,14 @@
         imgVND.hidden=true;
     }
     
-    [lblScore addStyles:[Utility ftCoreTextFormatScoreListStyle]];
+
+    
+    FTCoreTextStyle *style=[FTCoreTextStyle styleWithName:@"a"];
+    style.name=@"a";
+    style.font=[UIFont boldSystemFontOfSize:10];
+    style.color=COLOR_BACKGROUND_APP;
+
+    [lblScore addStyle:style];
 }
 
 +(float)height

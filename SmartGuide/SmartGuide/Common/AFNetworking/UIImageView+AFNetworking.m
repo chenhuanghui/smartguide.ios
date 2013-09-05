@@ -280,6 +280,7 @@ static inline NSString * AFImageCacheKeyFromURLRequest(NSURLRequest *request) {
     static dispatch_once_t oncePredicate;
     dispatch_once(&oncePredicate, ^{
         _af_imageCache = [[AFImageCache alloc] init];
+        [_af_imageCache setTotalCostLimit:1024*8];
     });
     
     return _af_imageCache;

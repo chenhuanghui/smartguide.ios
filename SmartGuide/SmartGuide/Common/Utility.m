@@ -1659,4 +1659,14 @@ static const NSString *KEY_HIT_TEST_EDGE_INSETS = @"HitTestEdgeInsets";
     [Flurry logEvent:@"SearchKey" withParameters:dict];
 }
 
++(void)trackUserAllowLocation:(CLLocationCoordinate2D)location
+{
+    NSMutableDictionary *dict=[NSMutableDictionary dictionary];
+    
+    [dict setObject:@(location.latitude) forKey:@"lat"];
+    [dict setObject:@(location.longitude) forKey:@"lon"];
+    
+    [Flurry logEvent:@"location" withParameters:dict];
+}
+
 @end

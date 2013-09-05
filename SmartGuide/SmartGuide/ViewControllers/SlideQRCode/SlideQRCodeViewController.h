@@ -12,6 +12,7 @@
 #import "ASIOperationPost.h"
 #import "Shop.h"
 #import "ASIOperationCity.h"
+#import "FTCoreTextView.h"
 
 enum SCAND_TYPE {
     SCAN_GET_SGP= 0,
@@ -31,19 +32,17 @@ enum SCAND_TYPE {
 @interface SlideQRCodeViewController : ViewController<QRCodeDelegate,TouchViewDelegate,ASIOperationPostDelegate>
 {
     __weak IBOutlet UIButton *btnSlide;
-    __weak IBOutlet UILabel *lblSlide;
+    __weak IBOutlet FTCoreTextView *lblSlide;
     __weak IBOutlet UIView *qrView;
     __weak IBOutlet UIView *ray;
     __weak IBOutlet UIView *darkLayer;
     __weak IBOutlet UIView *rewardView;
-    __weak IBOutlet UILabel *lblSGP;
     __weak IBOutlet UIImageView *imgvRewardIcon;
     __weak IBOutlet UILabel *lblError;
-    __weak IBOutlet UILabel *lblChucMung;
-    __weak IBOutlet UILabel *lblNhanDuoc;
-    __weak IBOutlet UILabel *lblShop;
     __weak IBOutlet UIImageView *imgvScan;
     __weak IBOutlet UIButton *btnClose;
+    __weak IBOutlet UIButton *btnCloseStartup;
+    __weak IBOutlet FTCoreTextView *lblReward;
     
     bool _isUserScanded;
     bool _isLoadingShopDetail;
@@ -60,6 +59,7 @@ enum SCAND_TYPE {
 -(void) scanGetAwardPromotion1WithIDAward:(int) idAward;
 
 -(bool) isUserScanded;
+- (IBAction)btnCloseStartupTouchUpInside:(id)sender;
 
 @property (nonatomic, strong) NSMutableArray *qrCodes;
 @property (nonatomic, strong) QRCode *qrCode;

@@ -14,15 +14,6 @@
 
 @implementation ShopPictureCell
 
-- (id)init
-{
-    self = [[[NSBundle mainBundle] loadNibNamed:@"ShopPictureCell" owner:nil options:nil] objectAtIndex:0];
-    
-    imgvImage.layer.masksToBounds=true;
-    
-    return self;
-}
-
 -(void)setImage:(UIImage *)image duration:(float)duration
 {
     imgvLoading.image=nil;
@@ -106,6 +97,17 @@
 +(CGSize)imageSize
 {
     return CGSizeMake(81, 81);
+}
+
+-(id)awakeAfterUsingCoder:(NSCoder *)aDecoder
+{
+    self=[super awakeAfterUsingCoder:aDecoder];
+    
+    CGRect rect=self.frame;
+    self.transform=CGAffineTransformMakeRotation(DEGREES_TO_RADIANS(45*2));
+    self.frame=rect;
+    
+    return self;
 }
 
 @end

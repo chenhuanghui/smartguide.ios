@@ -53,5 +53,6 @@ enum TABLE_DIRECTION {
 @property (nonatomic, readonly) int scrollDirection;
 @property (nonatomic, assign) bool isHoriTable;
 @property (nonatomic, assign) float alignAutoCell;
+@property (nonatomic, strong) NSIndexPath *currentIndexPath;
 
 @end

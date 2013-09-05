@@ -18,7 +18,7 @@
 @end
 
 @implementation TableTemplate
-@synthesize delegate,page,datasource,lastContentOffset,isHoriTable,contentOffset,scrollDirection;
+@synthesize delegate,page,datasource,lastContentOffset,isHoriTable,contentOffset,scrollDirection,currentIndexPath;
 @synthesize alignAutoCell;
 
 -(TableTemplate *)initWithTableView:(UITableView *)tableView withDelegate:(id<TableTemplateDelegate>)_delegate
@@ -216,6 +216,7 @@
     {
         CGRect rect=[_tableView rectForRowAtIndexPath:[_tableView indexPathsForVisibleRows].firstObject];
         rect.origin.y+=self.alignAutoCell;
+        [_tableView scrollRectToVisible:rect animated:true];
 //        [_tableView scrollToRowAtIndexPath:[_tableView indexPathsForVisibleRows].firstObject atScrollPosition:UITableViewScrollPositionNone animated:true];
     }
 }

@@ -14,6 +14,7 @@
 #import "ASIOperationGetRewards.h"
 #import "ASIOperationSGToReward.h"
 #import "ASIOperationGetSG.h"
+#import "SlideQRCodeViewController.h"
 
 @interface UserCollectionViewController : ViewController<ASIOperationPostDelegate,TableTemplateDelegate,RewardCellDelegate>
 {
@@ -35,6 +36,7 @@
     int _totalPoint;
     
     ASIOperationGetSG *_getSG;
+    bool _isReloadUserCollection;
 }
 
 -(void) loadUserCollection;

@@ -13,15 +13,6 @@
 
 @implementation GalleryCell
 
-- (id)init
-{
-    self = [[[NSBundle mainBundle] loadNibNamed:NIB_PHONE(@"GalleryCell") owner:nil options:nil] objectAtIndex:0];
-    if (self) {
-        
-    }
-    return self;
-}
-
 -(void) setImageURL:(NSURL*) url
 {
     imgv.image=nil;
@@ -55,6 +46,17 @@
 +(CGSize)size
 {
     return CGSizeMake(320, SCREEN_HEIGHT);
+}
+
+-(id)awakeAfterUsingCoder:(NSCoder *)aDecoder
+{
+    self=[super awakeAfterUsingCoder:aDecoder];
+    
+    CGRect rect=self.frame;
+    self.transform=CGAffineTransformMakeRotation(DEGREES_TO_RADIANS(45*2));
+    self.frame=rect;
+    
+    return self;
 }
 
 @end

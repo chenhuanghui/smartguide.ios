@@ -15,6 +15,7 @@
 #import "SlideQRCodeViewController.h"
 #import "Flags.h"
 #import "TutorialView.h"
+#import "LocationManager.h"
 
 enum LIST_MODE {
     LIST_SHOP = 0,

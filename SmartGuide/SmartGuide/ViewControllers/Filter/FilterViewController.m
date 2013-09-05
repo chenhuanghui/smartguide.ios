@@ -38,7 +38,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    self.title=@"Filter";
+    self.title=@"BỘ LỌC";
     
     tapGes=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)];
     tapGes.delegate=self;

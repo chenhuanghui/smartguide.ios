@@ -8,13 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ShopPictureCell : UIView
+@interface ShopPictureCell : UITableViewCell
 {
     __weak IBOutlet UIImageView *imgvLoading;
     __weak IBOutlet UIImageView *imgvImage;
 }
-
--(ShopPictureCell*) init;
 
 -(void) setURLString:(NSString*) url duration:(float) duration;
 -(void) setImage:(UIImage*) image duration:(float) duration;

@@ -10,6 +10,7 @@
 #import "Constant.h"
 #import <AddressBook/AddressBook.h>
 #import "City.h"
+#import "Utility.h"
 
 static LocationManager *_locationManager=nil;
 @implementation LocationManager
@@ -142,6 +143,8 @@ static LocationManager *_locationManager=nil;
         _isTryGetUserLocationInfo=false;
         self.locationManager.delegate=nil;
         self.locationManager=nil;
+        
+        [Flurry trackUserAllowLocation:self.userLocation];
         
         NSLog(@"location");
         [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_LOCATION_AVAILABLE object:nil];

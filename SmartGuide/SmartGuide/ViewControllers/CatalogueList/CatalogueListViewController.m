@@ -224,6 +224,17 @@
     UIView *vi = [[UIView alloc] initWithFrame:rect];
     vi.backgroundColor=[UIColor clearColor];
     tableShop.tableHeaderView=vi;
+    
+    [[LocationManager shareInstance] checkLocationAuthorize];
+    
+    if(![LocationManager shareInstance].isAllowLocation)
+    {
+        __block __weak id obs=[[NSNotificationCenter defaultCenter] addObserverForName:NOTIFICATION_CATALOGUEBLOCK_FINISHED object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
+            [self loadGroup:[Group groupAll] city:[DataManager shareInstance].currentCity.idCity.integerValue sortType:[DataManager shareInstance].currentUser.filter.sortBy];
+            
+            [[NSNotificationCenter defaultCenter] removeObserver:obs];
+        }];
+    }
 }
 
 -(void) userScanedQRCode:(NSNotification*) notification
@@ -404,7 +415,7 @@
 -(void)tutorialViewBack:(TutorialView *)tutorial
 {
     tutorial.userInteractionEnabled=false;
-    [UIView animateWithDuration:1.f animations:^{
+    [UIView animateWithDuration:0.2f animations:^{
         tutorial.alpha=0;
     } completion:^(BOOL finished) {
         [tutorial removeFromSuperview];

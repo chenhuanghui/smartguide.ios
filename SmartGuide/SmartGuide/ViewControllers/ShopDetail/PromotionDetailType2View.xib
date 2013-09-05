@@ -132,10 +132,10 @@
 					<object class="IBUIImageView" id="913979870">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{113, 38}, {69, 91}}</string>
+						<string key="NSFrame">{{36, 38}, {69, 91}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="759301834"/>
+						<reference key="NSNextKeyView" ref="220129261"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -144,7 +144,21 @@
 							<string key="NSResourceName">gift.png</string>
 						</object>
 					</object>
-					<object class="IBUILabel" id="759301834">
+					<object class="IBUIView" id="220129261">
+						<reference key="NSNextResponder" ref="191373211"/>
+						<int key="NSvFlags">292</int>
+						<string key="NSFrame">{{113, 38}, {163, 91}}</string>
+						<reference key="NSSuperview" ref="191373211"/>
+						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="418518484"/>
+						<string key="NSReuseIdentifierKey">_NS:9</string>
+						<object class="NSColor" key="IBUIBackgroundColor" id="277788368">
+							<int key="NSColorSpace">3</int>
+							<bytes key="NSWhite">MCAwAA</bytes>
+						</object>
+						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+					</object>
+					<object class="IBUILabel" id="418518484">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{7, 133}, {277, 21}}</string>
@@ -157,7 +171,7 @@
 						<int key="IBUIContentMode">7</int>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-						<string key="IBUIText">Click để nhận được phần quà trí giá</string>
+						<string key="IBUIText">Chạm vào đây để nhận phần quà trị giá</string>
 						<object class="NSColor" key="IBUITextColor">
 							<int key="NSColorSpace">2</int>
 							<bytes key="NSRGB">MC41NzI1NDkwNDUxIDAuNTg0MzEzNzUwMyAwLjYwMDAwMDAyMzgAA</bytes>
@@ -184,10 +198,7 @@
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="478288628"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
-						<object class="NSColor" key="IBUIBackgroundColor" id="277788368">
-							<int key="NSColorSpace">3</int>
-							<bytes key="NSWhite">MCAwAA</bytes>
-						</object>
+						<reference key="IBUIBackgroundColor" ref="277788368"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
@@ -222,6 +233,7 @@
 						<string key="NSFrame">{{0, 194}, {284, 26}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<reference key="IBUIBackgroundColor" ref="277788368"/>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -257,14 +269,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">lblDesc</string>
-						<reference key="source" ref="191373211"/>
-						<reference key="destination" ref="759301834"/>
-					</object>
-					<int key="connectionID">10</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">lblDuration</string>
 						<reference key="source" ref="191373211"/>
 						<reference key="destination" ref="152144903"/>
@@ -278,6 +282,14 @@
 						<reference key="destination" ref="478288628"/>
 					</object>
 					<int key="connectionID">23</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">lblDesc</string>
+						<reference key="source" ref="191373211"/>
+						<reference key="destination" ref="220129261"/>
+					</object>
+					<int key="connectionID">28</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
@@ -302,13 +314,14 @@
 						<reference key="object" ref="191373211"/>
 						<array class="NSMutableArray" key="children">
 							<reference ref="913979870"/>
-							<reference ref="759301834"/>
 							<reference ref="254626970"/>
 							<reference ref="1025588356"/>
 							<reference ref="152144903"/>
 							<reference ref="636863739"/>
 							<reference ref="161052826"/>
 							<reference ref="478288628"/>
+							<reference ref="418518484"/>
+							<reference ref="220129261"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -326,11 +339,6 @@
 					<object class="IBObjectRecord">
 						<int key="objectID">4</int>
 						<reference key="object" ref="913979870"/>
-						<reference key="parent" ref="191373211"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">5</int>
-						<reference key="object" ref="759301834"/>
 						<reference key="parent" ref="191373211"/>
 					</object>
 					<object class="IBObjectRecord">
@@ -356,12 +364,23 @@
 					<object class="IBObjectRecord">
 						<int key="objectID">22</int>
 						<reference key="object" ref="478288628"/>
+						<array class="NSMutableArray" key="children"/>
 						<reference key="parent" ref="191373211"/>
 						<string key="objectName">P</string>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">24</int>
 						<reference key="object" ref="161052826"/>
+						<reference key="parent" ref="191373211"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">25</int>
+						<reference key="object" ref="418518484"/>
+						<reference key="parent" ref="191373211"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">27</int>
+						<reference key="object" ref="220129261"/>
 						<reference key="parent" ref="191373211"/>
 					</object>
 				</array>
@@ -378,15 +397,17 @@
 				<string key="22.CustomClassName">FTCoreTextView</string>
 				<string key="22.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="24.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="25.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="27.CustomClassName">FTCoreTextView</string>
+				<string key="27.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="4.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-				<string key="5.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="6.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			</dictionary>
 			<dictionary class="NSMutableDictionary" key="unlocalizedProperties"/>
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">24</int>
+			<int key="maxID">28</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -403,7 +424,7 @@
 					<string key="superclassName">UIView</string>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="btnReward">UIButton</string>
-						<string key="lblDesc">UILabel</string>
+						<string key="lblDesc">FTCoreTextView</string>
 						<string key="lblDuration">UILabel</string>
 						<string key="lblP">FTCoreTextView</string>
 					</dictionary>
@@ -414,7 +435,7 @@
 						</object>
 						<object class="IBToOneOutletInfo" key="lblDesc">
 							<string key="name">lblDesc</string>
-							<string key="candidateClassName">UILabel</string>
+							<string key="candidateClassName">FTCoreTextView</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="lblDuration">
 							<string key="name">lblDuration</string>

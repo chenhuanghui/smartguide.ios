@@ -314,6 +314,9 @@ static RootViewController *_rootViewController;
     rect.origin.y=[UIScreen mainScreen].bounds.size.height-[SlideQRCodeViewController size].height-25;
     slideQRCode.view.frame=rect;
     
+    [MapView shareInstance].frame=[UIScreen mainScreen].bounds;
+    [MapView shareInstance].showsUserLocation=false;
+    
     if(previous)
     {
         [UIView animateWithDuration:DURATION_NAVIGATION_PUSH animations:^{

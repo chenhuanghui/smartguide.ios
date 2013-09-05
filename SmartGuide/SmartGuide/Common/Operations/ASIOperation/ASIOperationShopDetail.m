@@ -138,6 +138,8 @@
     
     if(![self isNullData:array])
     {
+        NSArray *arrShopGalleryThumbnails=[dictJson objectForKey:@"shop_gallery_thumbnail"];
+        int loop=0;
         for(NSString* image in array)
         {
             ShopGallery *shopG=[ShopGallery insert];
@@ -145,9 +147,16 @@
             shopG.idShop=shop.idShop;
             shopG.image=[NSString stringWithStringDefault:image];
             
+            if(arrShopGalleryThumbnails.count==array.count)
+            {
+                shopG.thumbnail=[NSString stringWithStringDefault:[arrShopGalleryThumbnails objectAtIndex:loop]];
+            }
+            
             [shopGalleries addObject:shopG];;
             
             [shop addShopGalleryObject:shopG];
+            
+            loop++;
         }
     }
     

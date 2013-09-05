@@ -96,7 +96,7 @@
 
 -(void) setCost:(NSString *) cost
 {
-    [lblCost setText:[NSString stringWithFormat:@"<text>Với mỗi <cost>%@K</cost> bạn sẽ được 1 lượt quét & nhận 1 SGP</text>",cost]];
+    [lblCost setText:[NSString stringWithFormat:@"<text>Với mỗi <cost>%@K</cost> trên hoá đơn bạn sẽ được 1 lượt quét thẻ</text>",cost]];
 }
 
 -(void)setShop:(Shop *)shop

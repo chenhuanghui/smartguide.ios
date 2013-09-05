@@ -26,6 +26,7 @@
     __weak IBOutlet UIButton *btnDetail;
     __weak IBOutlet UILabel *lblKM;
     __weak IBOutlet UITextView *lblContent;
+    __weak IBOutlet UILabel *lblPoint;
 }
 
 -(ShopPin*) initWithShop:(Shop*) shop;

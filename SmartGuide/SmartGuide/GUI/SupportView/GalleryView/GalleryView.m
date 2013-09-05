@@ -31,12 +31,11 @@
     bg.backgroundColor=[UIColor blackColor];;
     blurr.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"blur_gallery.png"]];
     
-    grid.itemSpacing=0;
-    grid.centerGrid=false;
-    grid.minEdgeInsets=UIEdgeInsetsMake(0, 0, 0, 0);
-    grid.style=GMGridViewStylePush;
-    grid.layoutStrategy=[GMGridViewLayoutStrategyFactory strategyFromType:GMGridViewLayoutHorizontalPagedLTR];
+    CGRect rect=table.frame;
+    table.transform=CGAffineTransformMakeRotation(DEGREES_TO_RADIANS(45*6));
+    table.frame=rect;
     
+    [table registerNib:[UINib nibWithNibName:[GalleryCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[GalleryCell reuseIdentifier]];
     
     self._tap=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)];
     _tap.numberOfTapsRequired=1;
@@ -47,17 +46,17 @@
     return self;
 }
 
+-(bool)tableTemplateAllowLoadMore:(TableTemplate *)tableTemplate
+{
+    return true;
+}
+
 -(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
 {
     if(touch.view ==btn)
         return false;
     
     return true;
-}
-
--(NSInteger)numberOfItemsInGMGridView:(GMGridView *)gridView
-{
-    return 0;
 }
 
 -(void) tap:(UITapGestureRecognizer*) tap
@@ -121,23 +120,16 @@
     }];
 }
 
--(GMGridViewCell *)GMGridView:(GMGridView *)gridView cellForItemAtIndex:(NSInteger)index
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    GMGridViewCell *cell=[gridView dequeueReusableCellWithIdentifier:[GalleryCell reuseIdentifier]];
-    
-    if(!cell)
-    {
-        cell=[[GMGridViewCell alloc] init];
-        cell.reuseIdentifier=[GalleryCell reuseIdentifier];
-        cell.contentView=[[GalleryCell alloc] init];
-    }
-    
+    GalleryCell *cell=[tableView dequeueReusableCellWithIdentifier:[GalleryCell reuseIdentifier]];
+
     return cell;
 }
 
--(CGSize)GMGridView:(GMGridView *)gridView sizeForItemsInInterfaceOrientation:(UIInterfaceOrientation)orientation
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return [GalleryCell size];
+    return [GalleryCell size].width;
 }
 
 -(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
@@ -145,17 +137,12 @@
     [self refreshDesc];
 }
 
--(void)GMGridView:(GMGridView *)gridView didTapOnItemAtIndex:(NSInteger)position
-{
-    
-}
-
 -(void) refreshDesc
 {
     if(_isAllowDescription)
         if(delegate && [delegate respondsToSelector:@selector(galleryViewDescriptionImage:)])
         {
-            txt.text=[delegate galleryViewDescriptionImage:grid.currentPage];
+            txt.text=[delegate galleryViewDescriptionImage:table.currentPageForHoriTable];
         }
 }
 
@@ -165,7 +152,7 @@
         btn.alpha=0.0f;
         blurr.alpha=0.0f;
         bg.alpha=0;
-        grid.alpha=0;
+        table.alpha=0;
     } completion:^(BOOL finished) {
         [delegate galleryViewBack:self];
     }];
@@ -200,25 +187,24 @@
     btn.alpha=0.f;
     blurr.alpha=0.f;
     bg.alpha=0;
-    grid.alpha=0;
+    table.alpha=0;
     
-    [grid reloadData];
-    [grid scrollToObjectAtIndex:selectedIndex atScrollPosition:GMGridViewScrollPositionNone animated:false];
+    [table reloadData];
+    [table scrollToRowAtIndexPath:selectedIndex atScrollPosition:UITableViewScrollPositionNone animated:false];
     
     [UIView animateWithDuration:DURATION_SHOW_USER_GALLERY_IMAGE animations:^{
         txt.alpha=1;
         btn.alpha=1;
         bg.alpha=1;
         blurr.alpha=1;
-        grid.alpha=1;
+        table.alpha=1;
     } completion:^(BOOL finished) {
-        grid.hidden=false;
     }];
 }
 
--(GMGridView *)gridView
+-(UITableView *)table
 {
-    return grid;
+    return table;
 }
 
 @end

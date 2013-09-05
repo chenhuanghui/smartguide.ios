@@ -63,7 +63,7 @@
         
         [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(applyRandomFeedBack) object:nil];
         
-        [btnFeedback setTitle:@"Gởi" forState:UIControlStateNormal];
+        [btnFeedback setTitle:@"GỞI" forState:UIControlStateNormal];
         txtInput.editable=true;
         txtInput.alpha=0;
         lblUser.alpha=0;
@@ -224,7 +224,7 @@
             txtInput.hidden=true;
             lblUser.hidden=true;
             
-            [btnFeedback setTitle:@"Đánh giá" forState:UIControlStateNormal];
+            [btnFeedback setTitle:@"ĐÁNH GIÁ" forState:UIControlStateNormal];
             
             [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(applyRandomFeedBack) object:nil];
             [self applyRandomFeedBack];

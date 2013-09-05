@@ -46,7 +46,6 @@
 
 +(NSString *)accessToken
 {
-    return @"NTQ4ZTM0OWI2OWUwMzNiY2JlOWEyOTBhMDkwZTU5Y2JkMTZhNjg2ZjFlYjc4YzhiOTc3YzNhMTkxMzRmZTBjZg";
     return [NSString stringWithStringDefault:[[NSUserDefaults standardUserDefaults] objectForKey:FLAG_ACCESS_TOKEN]];
 }
 

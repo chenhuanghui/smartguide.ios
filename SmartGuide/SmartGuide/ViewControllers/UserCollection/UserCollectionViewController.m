@@ -33,7 +33,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    self.title=@"USER";
+    self.title=[[DataManager shareInstance].currentUser.name uppercaseString];
     self.view.backgroundColor=COLOR_BACKGROUND_APP;
     
     userBlurMid.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"user_blur_mid.png"]];
@@ -70,9 +70,36 @@
     if(!notification.object)
         return;
     
-    [table reloadData];
+    QRCode *code=[notification.object objectAtIndex:0];
     
-    [self refreshP];
+    bool isContainShop=false;
+    for(Shop *shop in templateTable.datasource)
+        if(shop.idShop.integerValue==code.idShop)
+        {
+            isContainShop=true;
+            break;
+        }
+    
+    if(isContainShop)
+    {
+        [table reloadData];
+    
+        [self refreshP];
+    }
+    else
+    {
+        [self reloadCollection];
+    }
+}
+
+-(void) reloadCollection
+{
+    [templateTable resetData];
+    _isReloadUserCollection=true;
+    
+    [self loadCollectionAtPage:0];
+    
+    [table showLoadingWithTitle:nil];
 }
 
 -(bool)tableTemplateAllowLoadMore:(TableTemplate *)tableTemplate
@@ -102,9 +129,17 @@
 }
 
 - (IBAction)btnPointTouchUpInside:(id)sender {
+    
+    btnPoint.userInteractionEnabled=false;
+    
     if(tableReward.hidden)
     {
         [btnPoint setTitle:@"Cửa hàng" forState:UIControlStateNormal];
+        
+        CGRect rect=tableReward.frame;
+        rect.origin.x=table.frame.origin.x+table.frame.size.width;
+        tableReward.frame=rect;
+        
         tableReward.alpha=0;
         tableReward.hidden=false;
 
@@ -113,13 +148,25 @@
             table.alpha=0;
             blurBottom.frame=CGRectMake(blurBottom.frame.origin.x, blurBottom.frame.origin.y, tableReward.frame.size.width, blurBottom.frame.size.height);
             blurTop.frame=CGRectMake(blurTop.frame.origin.x, blurTop.frame.origin.y, tableReward.frame.size.width, blurTop.frame.size.height);
+            
+            CGRect rectAnim=table.frame;
+            rectAnim.origin.x-=rectAnim.size.width;
+            table.frame=rectAnim;
+            
+            rectAnim=tableReward.frame;
+            rectAnim.origin.x=67;
+            tableReward.frame=rectAnim;
         } completion:^(BOOL finished) {
             table.hidden=true;
+            
+            btnPoint.userInteractionEnabled=true;
         }];
     }
     else
     {
         [btnPoint setTitle:@"Đổi điểm lấy quà" forState:UIControlStateNormal];
+        
+        table.frame=CGRectMake(tableReward.frame.origin.x-table.frame.size.width, table.frame.origin.y, table.frame.size.width, table.frame.size.height);
         table.alpha=0;
         table.hidden=false;
         
@@ -128,8 +175,15 @@
             tableReward.alpha=0;
             blurBottom.frame=CGRectMake(blurBottom.frame.origin.x, blurBottom.frame.origin.y, table.frame.size.width, blurBottom.frame.size.height);
             blurTop.frame=CGRectMake(blurTop.frame.origin.x, blurTop.frame.origin.y, table.frame.size.width, blurTop.frame.size.height);
+            
+            table.frame=CGRectMake(67, table.frame.origin.y, table.frame.size.width, table.frame.size.height);
+            CGRect rect=tableReward.frame;
+            rect.origin.x=table.frame.origin.x+table.frame.size.width;
+            tableReward.frame=rect;
         } completion:^(BOOL finished) {
             tableReward.hidden=true;
+            
+            btnPoint.userInteractionEnabled=true;
         }];
     }
 }
@@ -166,9 +220,14 @@
     table.alpha=0;
     table.hidden=false;
     
+    _isReloadUserCollection=false;
+    
     lblPoint.text=@"";
     
     lblP.frame=CGRectMake(83, 59, 42, 21);
+    
+    tableReward.frame=CGRECT_PHONE(CGRectMake(67, 152, 238, 212), CGRectMake(67, 152, 238, 262));
+    table.frame=CGRECT_PHONE(CGRectMake(67, 152, 200, 212), CGRectMake(67, 152, 200, 262));
     
     [UIView animateWithDuration:0.2f animations:^{
         table.alpha=1;
@@ -222,13 +281,20 @@
 {
     if([operation isKindOfClass:[ASIOperationUserCollection class]])
     {
-        if(templateTable.page==0)
+        if(templateTable.page==0 || !_isReloadUserCollection)
         {
             [tableReward showLoadingWithTitle:nil];
             _getRewards=[[ASIOperationGetRewards alloc] initGetRewardsWithIDUser:[DataManager shareInstance].currentUser.idUser.integerValue];
             _getRewards.delegatePost=self;
             
             [_getRewards startAsynchronous];
+        }
+        
+        if(_isReloadUserCollection)
+        {
+            [table removeLoading];
+            
+            _isReloadUserCollection=false;
         }
         
         btnPoint.enabled=true;
