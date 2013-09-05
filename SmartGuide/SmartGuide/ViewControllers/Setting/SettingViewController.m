@@ -217,6 +217,10 @@
             intro.alpha=1;
         }];
     }
+    else if([data.title isEqualToString:@"Cập nhật phiên bản"])
+    {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://smartguide.vn"]];
+    }
 }
 
 -(void)introViewClose:(IntroView *)introView

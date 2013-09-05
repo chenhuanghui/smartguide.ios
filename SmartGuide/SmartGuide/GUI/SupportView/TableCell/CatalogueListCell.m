@@ -72,6 +72,7 @@
     rect.size=CGSizeMake(21, 7);
     imgVND.frame=rect;
     
+    NSString *text=@"";
     if(data.promotionStatus.boolValue)
     {
         imgVND.hidden=false;
@@ -83,7 +84,7 @@
         {
             score=[NSString stringWithFormat:@"%02d",data.score];
             rank=[NSString stringWithFormat:@"/%02d",data.promotionDetail.min_score.integerValue];
-            [lblScore setText:[Utility ftCoreTextFormatScore:score rank:rank]];
+            text=[Utility ftCoreTextFormatScore:score rank:rank];
             
             imgVND.hidden=false;
             
@@ -103,7 +104,7 @@
             
             score=[NSString stringWithFormat:@"%lldK",data.promotionDetail.money.longLongValue/1000];
             rank=@"";
-            [lblScore setText:[Utility ftCoreTextFormatScore:score rank:rank]];
+            text=[Utility ftCoreTextFormatScore:score rank:rank];
             
             FTCoreTextStyle *style=[FTCoreTextStyle styleWithName:@"score"];
             style.font=[UIFont boldSystemFontOfSize:13];
@@ -125,6 +126,8 @@
     style.color=COLOR_BACKGROUND_APP;
 
     [lblScore addStyle:style];
+    
+    [lblScore setText:text];
 }
 
 +(float)height

@@ -245,7 +245,7 @@
     {
         alertLocation=nil;
         
-        alertLocation=[[UIAlertView alloc] initWithTitle:@"Thông báo" message:@"Hãy cho phép ứng dụng kết nối với Location Services ở mục Setting/Privacy để có thể tích điểm với SmartGuide" delegate:self cancelButtonTitle:@"Đóng" otherButtonTitles:@"Đóng", nil];
+        alertLocation=[[UIAlertView alloc] initWithTitle:@"Thông báo" message:@"Hãy cho phép ứng dụng kết nối với Location Services ở mục Setting/Privacy để có thể tích điểm với SmartGuide" delegate:self cancelButtonTitle:@"Đóng" otherButtonTitles:nil];
         
         [alertLocation show];
     }
@@ -253,6 +253,12 @@
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
+    if(!_isAlertGetLocation && buttonIndex==0)
+    {
+        [self hideMe];
+        return;
+    }
+    
     if(buttonIndex==1)
     {
         [self hideMe];

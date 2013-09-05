@@ -159,7 +159,6 @@
 						<string key="NSFrame">{{116, 130}, {94, 24}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -328,42 +327,17 @@
 					<string key="className">FacebookMiningViewController</string>
 					<string key="superclassName">ViewController</string>
 					<dictionary class="NSMutableDictionary" key="outlets">
-						<string key="btnAvatar">UIButton</string>
 						<string key="btnFace">UIButton</string>
-						<string key="btnSkip">UIButton</string>
 						<string key="faceView">UIView</string>
-						<string key="imgvAvatar">UIImageView</string>
-						<string key="infoView">UIView</string>
-						<string key="txtAccount">UITextField</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<object class="IBToOneOutletInfo" key="btnAvatar">
-							<string key="name">btnAvatar</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
 						<object class="IBToOneOutletInfo" key="btnFace">
 							<string key="name">btnFace</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="btnSkip">
-							<string key="name">btnSkip</string>
 							<string key="candidateClassName">UIButton</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="faceView">
 							<string key="name">faceView</string>
 							<string key="candidateClassName">UIView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="imgvAvatar">
-							<string key="name">imgvAvatar</string>
-							<string key="candidateClassName">UIImageView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="infoView">
-							<string key="name">infoView</string>
-							<string key="candidateClassName">UIView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="txtAccount">
-							<string key="name">txtAccount</string>
-							<string key="candidateClassName">UITextField</string>
 						</object>
 					</dictionary>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
