@@ -11,30 +11,30 @@
 @implementation ASIOperationGetRewardPromotionType2
 @synthesize values,status,money,time,shopName,content,code;
 
--(ASIOperationGetRewardPromotionType2 *)initWithIDUser:(int)idUser promotionID:(int)promotionID code:(NSString *)_code
+-(ASIOperationGetRewardPromotionType2 *)initWithIDUser:(int)idUser promotionID:(int)promotionID code:(NSString *)_code lat:(double)lat lon:(double)lon
 {
     NSURL *_url=[NSURL URLWithString:SERVER_API_MAKE(API_GET_REWARD)];
     
     self=[super initWithURL:_url];
     
-    code=[[NSString alloc] initWithString:_code];
-    values=@[@(idUser),@(promotionID),_code];
+    values=@[@(idUser),@(promotionID),_code,@(lat),@(lon)];
     
     return self;
 }
 
 -(NSArray *)keys
 {
-    return @[@"user_id",@"promotion_2_id",@"code"];
+    return @[@"user_id",@"promotion_2_id",@"code",@"user_lat",@"user_lng"];
 }
 
 -(void)onCompletedWithJSON:(NSArray *)json
 {
     NSDictionary *dict=[json objectAtIndex:0];
-    status=[dict boolForKey:@"status"];
+    status=[dict integerForKey:@"status"];
     content=[NSString stringWithStringDefault:[dict objectForKey:@"content"]];
+    code=[self.values objectAtIndex:2];
     
-    if(status)
+    if(status==1)
     {
         time=[NSString stringWithStringDefault:[dict objectForKey:@"time"]];
         shopName=[NSString stringWithStringDefault:[dict objectForKey:@"shop_name"]];

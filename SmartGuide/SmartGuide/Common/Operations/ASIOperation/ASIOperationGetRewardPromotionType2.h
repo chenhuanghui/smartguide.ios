@@ -12,9 +12,9 @@
 {
 }
 
--(ASIOperationGetRewardPromotionType2*) initWithIDUser:(int) idUser promotionID:(int) promotionID code:(NSString*) code;
+-(ASIOperationGetRewardPromotionType2*) initWithIDUser:(int) idUser promotionID:(int) promotionID code:(NSString*) code lat:(double) lat lon:(double) lon;
 
-@property (nonatomic, readonly) bool status;
+@property (nonatomic, readonly) int status;
 @property (nonatomic, readonly) NSString *content;
 @property (nonatomic, readonly) double money;
 @property (nonatomic, readonly) NSString *time;

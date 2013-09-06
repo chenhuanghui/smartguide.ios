@@ -18,7 +18,6 @@ enum SGP_STATUS {
 
 @interface ASIOperationGetSGP : ASIOperationPost
 {
-    int _idShop;
 }
 
 -(ASIOperationGetSGP*) initWithUserID:(int) idUser code:(NSString*) code idShop:(int) idShop lat:(double) lat lon:(double) lon;

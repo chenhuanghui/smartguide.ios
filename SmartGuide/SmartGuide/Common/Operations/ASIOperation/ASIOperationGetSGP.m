@@ -19,9 +19,7 @@
     
     self=[super initWithURL:_url];
     
-    code=[[NSString alloc] initWithString:_code];
-    _idShop=idShop;
-    values=@[@(idUser),code,@(lat),@(lon)];
+    values=@[@(idUser),_code,@(lat),@(lon)];
     
     return self;
 }
@@ -43,8 +41,10 @@
         SGP=[dict integerForKey:@"sgp"];
         time=[dict objectForKey:@"time"];
         totalSGP=[[dict objectForKey:@"total_sgp"] doubleValue];
+        code=[self.values objectAtIndex:1];
         
-        Shop *shop=[Shop shopWithIDShop:_idShop];
+        int idShop=[Utility idShopFromQRCode:[self.values objectAtIndex:1]];
+        Shop *shop=[Shop shopWithIDShop:idShop];
         
         if(shop)
         {

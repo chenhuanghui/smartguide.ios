@@ -135,6 +135,12 @@
 
 -(void) applyFeedback:(Feedback*) fb
 {
+    if(!fb)
+    {
+        [self performSelector:@selector(applyRandomFeedBack) withObject:nil afterDelay:3];
+        return;
+    }
+    
     lblUserFeedback.hidden=false;
     txtFeedBack.hidden=false;
     

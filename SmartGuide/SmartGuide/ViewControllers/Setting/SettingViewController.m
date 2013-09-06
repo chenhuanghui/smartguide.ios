@@ -38,8 +38,6 @@
     containView.backgroundColor=COLOR_BACKGROUND_APP;
     _settings=[[NSMutableArray alloc] init];
     
-    lblName.text=[DataManager shareInstance].currentUser.name;
-    
     //    SettingCellData *cell=[[SettingCellData alloc] init];
     //    cell.title=@"Nhận thông báo";
     //    cell.icon=[UIImage imageNamed:@"icon_notice.png"];
@@ -170,6 +168,7 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     SettingCellData *data=[_settings objectAtIndex:indexPath.row];
+    self.view.userInteractionEnabled=false;
     
     if([data.title isEqualToString:@"Đánh giá SmartGuide"])
     {
@@ -236,6 +235,7 @@
 
 -(void)updateVersionClose:(UpdateVersion *)uv
 {
+    self.view.userInteractionEnabled=true;
     [UIView animateWithDuration:DURATION_SETTING animations:^{
         uv.alpha=0;
     } completion:^(BOOL finished) {
@@ -248,6 +248,7 @@
 
 -(void)introViewClose:(IntroView *)introView
 {
+    self.view.userInteractionEnabled=true;
     [UIView animateWithDuration:DURATION_SETTING animations:^{
         introView.alpha=0;
     } completion:^(BOOL finished) {
@@ -260,6 +261,7 @@
 
 -(void)tutorialViewBack:(TutorialView *)tutorial
 {
+    self.view.userInteractionEnabled=true;
     tutorial.userInteractionEnabled=false;
     [UIView animateWithDuration:DURATION_SETTING animations:^{
         tutorial.alpha=0;
@@ -273,6 +275,8 @@
 
 -(void)feedbackViewBack:(FeedbackView *)feedbackView
 {
+    self.view.userInteractionEnabled=true;
+    
     feedbackView.userInteractionEnabled=false;
     [UIView animateWithDuration:DURATION_SETTING animations:^{
         feedbackView.alpha=0;

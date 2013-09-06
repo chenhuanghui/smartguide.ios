@@ -28,9 +28,10 @@
     
     arrAds=[NSMutableArray array];
     if([self isNullData:json])
-    {
         return;
-    }
+    
+    if([[json objectAtIndex:0] isKindOfClass:[NSNumber class]] && [[json objectAtIndex:0] integerValue]==-1)
+        return;
     
     for(NSDictionary *dict in json)
     {

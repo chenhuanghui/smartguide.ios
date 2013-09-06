@@ -10,7 +10,6 @@
 
 @interface ASIOperationSGPToReward : ASIOperationPost
 {
-    int _idShop;
 }
 
 -(ASIOperationSGPToReward*) initWithIDUser:(int) idUser idRewward:(int) idReward code:(NSString*) code idShop:(int) idShop;

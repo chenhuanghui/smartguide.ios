@@ -110,7 +110,7 @@
     }
     else
     {
-        [AlertView showAlertOKWithTitle:nil withMessage:@"Group empty" onOK:nil];
+        [AlertView showAlertOKWithTitle:nil withMessage:@"Danh mục hiện không có khuyến mãi" onOK:nil];
     }
 }
 
@@ -222,12 +222,16 @@
             UIButton *btn = [self badgeButton:groupView];
             int badge=group.count.integerValue;
             
-            NSString *str=[NSString stringWithFormat:@"%02d",badge];
+            NSString *str=@"";
+            if(badge>0)
+                str=[NSString stringWithFormat:@"%02d",badge];
+            else
+                str=@"0";
+            
             if(badge>99)
                 str=@"99+";
             
             [btn setTitle:str forState:UIControlStateNormal];
-            btn.hidden=badge==0;
         }
 
         _isFinishedLoading=true;

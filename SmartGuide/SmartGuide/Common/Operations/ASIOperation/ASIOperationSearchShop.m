@@ -18,7 +18,6 @@
     self=[super initWithURL:_url];
     
     values=@[_name,@(idUser),@(lat),@(lon),@(page)];
-    name=[[NSString alloc] initWithString:_name];
     
     return self;
 }
@@ -31,6 +30,7 @@
 -(void)onCompletedWithJSON:(NSArray *)json
 {
     shops=[NSMutableArray array];
+    name=[NSString stringWithString:[values objectAtIndex:0]];
     
     if([self isNullData:json])
         return;

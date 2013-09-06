@@ -441,8 +441,10 @@
 -(void) getPromotion2Reward:(NSString*) code idReward:(int) _idReward
 {
     int idUser=[DataManager shareInstance].currentUser.idUser.integerValue;
+    double lat=[DataManager shareInstance].currentUser.location.latitude;
+    double lon=[DataManager shareInstance].currentUser.location.longitude;
     
-    ASIOperationGetRewardPromotionType2 *operation=[[ASIOperationGetRewardPromotionType2 alloc] initWithIDUser:idUser promotionID:_idReward code:code];
+    ASIOperationGetRewardPromotionType2 *operation=[[ASIOperationGetRewardPromotionType2 alloc] initWithIDUser:idUser promotionID:_idReward code:code lat:lat lon:lon];
     operation.delegatePost=self;
     
     [operation startAsynchronous];
@@ -669,7 +671,7 @@
 
 -(void)touchesBegan1:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    [self qrCodeCaptureImage:nil text:@"{\"type\": 1,\"url\":\"shop.smartguide.vn/100012\",\"name\": \"Trung Nguyên 12\",\"code\":\"32a1073560540b9e2ecdcf1c485d2f3d\"}"];
+    [self qrCodeCaptureImage:nil text:@"{\"type\":2,\"url\":\"shop.smartguide.vn/4\",\"name\": \"Trung Nguyên 12\",\"code\":\"1\"}"];
 }
 
 -(void) showShopDetail

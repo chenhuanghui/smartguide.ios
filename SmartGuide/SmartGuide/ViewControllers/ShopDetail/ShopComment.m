@@ -177,14 +177,14 @@
             [tableComments reloadData];
         }
         
-        [self.window removeLoading];
+        [containComment removeLoading];
         _isSendingComment=false;
     }
 }
 
 -(void)ASIOperaionPostFailed:(ASIOperationPost *)operation
 {
-    [self.window removeLoading];
+    [containComment removeLoading];
 }
 
 -(void) startAnimHide:(float) duration keyboard:(CGRect) keyboard
@@ -374,7 +374,7 @@
     int idUser=[DataManager shareInstance].currentUser.idUser.integerValue;
     int idShop=_shop.idShop.integerValue;
     
-    [self.window showLoadingWithTitle:nil];
+    [containComment showLoadingWithTitle:nil];
     _isSendingComment=true;
     
     ASIOperationPostComment *ope=[[ASIOperationPostComment alloc] initWithIDUser:idUser idShop:idShop content:txtComment.text];

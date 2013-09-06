@@ -17,11 +17,8 @@
 {
     NSURL *_url=[NSURL URLWithString:SERVER_API_MAKE(API_SGP_TO_REWARD)];
     self=[super initWithURL:_url];
-    
-    code=[[NSString alloc] initWithString:_code];
+
     values=@[@(idUser),@(idReward),_code];
-    
-    _idShop=idShop;
     
     return self;
 }
@@ -36,10 +33,12 @@
     NSDictionary *dict=[json objectAtIndex:0];
     status=[dict integerForKey:@"status"];
     content=[NSString stringWithStringDefault:[dict objectForKey:@"content"]];
+    code=[self.values objectAtIndex:2];
     
     if(status==2)
     {
-        Shop *shop=[Shop shopWithIDShop:_idShop];
+        int idShop=[Utility idShopFromQRCode:[self.values objectAtIndex:2]];
+        Shop *shop=[Shop shopWithIDShop:idShop];
         totalSGP=[dict doubleForKey:@"total_sgp"];
         
         if(shop)

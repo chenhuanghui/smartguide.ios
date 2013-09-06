@@ -144,10 +144,10 @@
     
     rect=indicator.frame;
     
-    rect.origin.x-=15;
-    rect.origin.y-=15;
-    rect.size.width+=30;
-    rect.size.height+=30;
+    rect.origin.x-=17;
+    rect.origin.y-=17;
+    rect.size.width+=34;
+    rect.size.height+=34;
     
     blackView.frame=rect;
 }
