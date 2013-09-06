@@ -11,7 +11,7 @@
 #import "Shop.h"
 
 @implementation ASIOperationUploadUserGallery
-@synthesize values,isSuccess,imageData,userGallery;
+@synthesize isSuccess,imageData,userGallery;
 
 -(ASIOperationUploadUserGallery *)initWithIDShop:(int)idShop userID:(int)idUser desc:(NSString *)desc photo:(NSData *)image
 {
@@ -21,7 +21,7 @@
     
     NSString *d=[NSString stringWithStringDefault:desc];
     
-    values=@[@(idShop),@(idUser),d];
+    self.values=@[@(idShop),@(idUser),d];
     
     [self addData:image withFileName:@"photo" andContentType:@"image/jpeg" forKey:@"photo"];
     imageData=[image copy];
@@ -41,9 +41,9 @@
     if(isSuccess)
     {
         userGallery=[ShopUserGallery insert];
-        userGallery.shop=[Shop shopWithIDShop:[[values objectAtIndex:0] integerValue]];
+        userGallery.shop=[Shop shopWithIDShop:[[self.values objectAtIndex:0] integerValue]];
         userGallery.imagePosed=[UIImage imageWithData:imageData];
-        userGallery.desc=[values objectAtIndex:2];
+        userGallery.desc=[self.values objectAtIndex:2];
         
         [[DataManager shareInstance] save];
     }

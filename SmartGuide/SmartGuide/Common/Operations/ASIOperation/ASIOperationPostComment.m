@@ -13,15 +13,6 @@
 @implementation ASIOperationPostComment
 @synthesize values,isSuccess,comment;
 
-+(void)postCommentWithIDUser:(int)idUser idShop:(int)idShop content:(NSString *)content onCompleted:(void (^)(bool, ShopUserComment *))completed
-{
-    ASIOperationPostComment *post=[[ASIOperationPostComment alloc] initWithIDUser:idUser idShop:idShop content:content];
-    [post setPostCommentComplete:completed];
-    post.delegatePost=post;
-    
-    [post startAsynchronous];
-}
-
 -(ASIOperationPostComment *)initWithIDUser:(int)idUser idShop:(int)idShop content:(NSString *)content
 {
     NSURL *_url=[NSURL URLWithString:SERVER_API_MAKE(API_SHOP_POST_COMMENT)];
@@ -33,11 +24,6 @@
     values=@[@(idUser),@(idShop),content];
     
     return self;
-}
-
--(void)setPostCommentComplete:(void (^)(bool, ShopUserComment *))onPostCompleted
-{
-    _onPostCompleted=[onPostCompleted copy];
 }
 
 -(NSArray *)keys
@@ -64,19 +50,4 @@
         [[DataManager shareInstance] save];
     }
 }
-
--(void)ASIOperaionPostFinished:(ASIOperationPost *)operation
-{
-    ASIOperationPostComment *cmt=(ASIOperationPostComment*)operation;
-
-    _onPostCompleted(cmt.isSuccess,cmt.comment);
-    _onPostCompleted=nil;
-}
-
--(void)ASIOperaionPostFailed:(ASIOperationPost *)operation
-{
-    _onPostCompleted(false,nil);
-    _onPostCompleted=nil;
-}
-
 @end

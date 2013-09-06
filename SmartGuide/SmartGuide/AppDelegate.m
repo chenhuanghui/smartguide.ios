@@ -14,6 +14,7 @@
 #import "DefaultSHKConfigurator.h"
 #import "SHKFacebook.h"
 #import "Flurry.h"
+#import "ASIOperationGetAds.h"
 
 @interface SHKSmartGuildeConfig : DefaultSHKConfigurator
 

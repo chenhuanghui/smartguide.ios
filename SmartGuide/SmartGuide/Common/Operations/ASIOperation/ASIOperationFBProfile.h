@@ -12,6 +12,7 @@
 
 @interface ASIOperationFBProfile : ASIOperationPost
 {
+    FBProfile *_profile;
 }
 
 -(ASIOperationFBProfile*) initWithFBProfile:(FBProfile*) profile;

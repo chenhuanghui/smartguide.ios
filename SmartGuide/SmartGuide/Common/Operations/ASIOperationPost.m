@@ -10,28 +10,36 @@
 #import "OperationRefreshToken.h"
 #import "TokenManager.h"
 
+static NSMutableArray *asioperations=nil;
+
 @interface ASIOperationPost()
 {
-    NSURL *_sourceURL;
 }
 
 @end
 
 @implementation ASIOperationPost
-@synthesize delegatePost,values,keys;
+@synthesize delegatePost,values,keys,operationAccessToken,sourceURL;
 
 -(ASIOperationPost *)initWithURL:(NSURL *)_url
 {
+    NSURL *urlCopy=[_url copy];
     NSString *accessToken=[NSString stringWithString:[TokenManager shareInstance].accessToken];
-    _sourceURL=[_url copy];
     _url=[ASIOperationPost makeURL:_url accessToken:accessToken];
     self=[super initWithURL:_url];
 
+    self.values=[NSArray array];
+    self.keys=[NSArray array];
+    
     self.numberOfTimesToRetryOnTimeout=3;
     self.shouldContinueWhenAppEntersBackground=true;
     self.persistentConnectionTimeoutSeconds=60*5;
     self.responseEncoding=NSUTF8StringEncoding;
     [self setValidatesSecureCertificate:true];
+    
+    self.sourceURL=urlCopy;
+    
+    self.operationAccessToken=[[NSString alloc] initWithString:accessToken];
     
     self.delegate=self;
     
@@ -85,8 +93,51 @@
         [delegatePost ASIOperaionPostFailed:self];
 }
 
+-(bool) handleTokenError:(NSDictionary*) json
+{
+    if(json.count>0)
+    {
+        NSString *key=[NSString stringWithStringDefault:[json valueForKey:@"error"]];
+        if(key.length>0)
+        {
+            if([key isEqualToString:@"invalid_grant"])
+            {
+                NSLog(@"handleToken %@ %@ %@",CLASS_NAME,self.operationAccessToken,[TokenManager shareInstance].accessToken);
+
+                if(![TokenManager shareInstance].isRefreshingToken)
+                {
+                    //Token có thể đã được refresh bởi 1 operation khác, nếu token operation (bị lỗi) trùng với token hiện tại->refresh token
+                    if([self.operationAccessToken isEqualToString:[TokenManager shareInstance].accessToken])
+                        [[TokenManager shareInstance] refreshToken];
+                    else
+                    {
+                        //Token đã được refresh bởi operation khác và token hiện tại của operation khác với token app->restart để apply token mới
+                        [self restart];
+                        return true;
+                    }
+                }
+                
+                if(!asioperations)
+                {
+                    asioperations=[[NSMutableArray alloc] init];
+                }
+                
+                [asioperations addObject:self];
+                
+                [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshTokenSuccess:) name:NOTIFICATION_REFRESH_TOKEN_SUCCESS object:nil];
+                [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshTokenFailed:) name:NOTIFICATION_REFRESH_TOKEN_FAILED object:nil];
+                
+                return true;
+            }
+        }
+    }
+    
+    return false;
+}
+
 -(void)requestFinished:(ASIHTTPRequest *)request
 {
+    NSLog(@"%@ requestFinished %@",CLASS_NAME,self.responseStatusMessage);
     if(self.responseString.length>0)
     {
         NSData *data=[self.responseString dataUsingEncoding:NSUTF8StringEncoding];
@@ -115,6 +166,9 @@
             else if([json isKindOfClass:[NSDictionary class]])
             {
                 NSDictionary *jsonDict=json;
+                
+                if([self handleTokenError:jsonDict])
+                    return;
                 
                 if(jsonDict.count==0)
                     [self onCompletedWithJSON:[NSArray array]];
@@ -171,6 +225,8 @@
 
 -(void)requestFailed:(ASIHTTPRequest *)request
 {
+    NSLog(@"%@ requestFailed %@",CLASS_NAME,self.responseStatusMessage);
+    
     if(self.responseString.length>0)
     {
         NSData *data=[self.responseString dataUsingEncoding:NSUTF8StringEncoding];
@@ -179,22 +235,8 @@
         
         if(!jsonError && [json isKindOfClass:[NSDictionary class]] && json.count>0)
         {
-            NSString *key=[json valueForKey:@"error"];
-            if(key.length>0)
-            {
-                if([key isEqualToString:@"invalid_grant"])
-                {
-                    if(![TokenManager shareInstance].isRefreshingToken)
-                    {
-                        [[TokenManager shareInstance] refreshToken];
-                    }
-                    
-                    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshTokenSuccess:) name:NOTIFICATION_REFRESH_TOKEN_SUCCESS object:nil];
-                    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshTokenFailed:) name:NOTIFICATION_REFRESH_TOKEN_FAILED object:nil];
-                    
-                    return;
-                }
-            }
+            if([self handleTokenError:(NSDictionary*)json])
+                return;
         }
         
         self.error=jsonError;
@@ -205,6 +247,8 @@
 
 -(void) refreshTokenFailed:(NSNotification*) notification
 {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
     self.error=[NSError errorWithDomain:@"Refresh token failed" code:0 userInfo:nil];
     [self onFailed:self.error];
     [self notifyFailed:self.error];
@@ -212,18 +256,29 @@
 
 -(void) refreshTokenSuccess:(NSNotification*) notification
 {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+
+    [self restart];
+}
+
+-(void)restart
+{
+    ASIOperationPost *ope=[self copy];
+ 
+    ope.sourceURL=[self.sourceURL copy];
+    
     NSString *accessToken=[NSString stringWithString:[TokenManager shareInstance].accessToken];
+    ope.operationAccessToken=[accessToken copy];
+    ope.url=[ASIOperationPost makeURL:ope.sourceURL accessToken:accessToken];
     
-    NSURL *_url=[ASIOperationPost makeURL:_sourceURL accessToken:accessToken];
+    ope.delegate=ope;
+    ope.delegatePost=self.delegatePost;
+    self.delegatePost=nil;
     
-    id ope=[[NSClassFromString(NSStringFromClass([self class])) alloc] initWithURL:_url];
-    
-    [ope setValues:self.values];
-    [ope setKeys:self.keys];
-    
-    [ope setDelegatePost:self.delegatePost];
-    
+    NSLog(@"%@ restart %@ %@ %@",NSStringFromClass([ope class]),ope.url,ope.keys,ope.values);
     [ope startAsynchronous];
+    
+    [asioperations removeObject:self];
 }
 
 -(void)onCompletedWithJSON:(NSArray *)json
@@ -241,16 +296,6 @@
     return delegatePost && [delegatePost respondsToSelector:aSelector];
 }
 
--(NSArray *)keys
-{
-    return [NSArray array];
-}
-
--(NSArray *)values
-{
-    return [NSArray array];
-}
-
 -(bool)isNullData:(NSArray *)data
 {
     if((id)data==[NSNull null] ||  data.count==0 || [data objectAtIndex:0]==[NSNull null])
@@ -262,6 +307,9 @@
 -(void)cancel
 {
     self.delegatePost=nil;
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];    
+    
     [super cancel];
 }
 
@@ -270,5 +318,15 @@
 // or cancel it ([request cancelAuthentication])
 //- (void)authenticationNeededForRequest:(ASIHTTPRequest *)request;
 //- (void)proxyAuthenticationNeededForRequest:(ASIHTTPRequest *)request;
+
+-(id)copyWithZone:(NSZone *)zone
+{
+    ASIOperationPost *ope=[super copyWithZone:zone];
+    
+    [ope setValues:self.values];
+    [ope setKeys:self.keys];
+    
+    return ope;
+}
 
 @end

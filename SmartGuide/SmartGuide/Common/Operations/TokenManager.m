@@ -94,8 +94,8 @@ static TokenManager *_tokenManager=nil;
         retryCount=0;
         _isRefreshingToken=false;
         
-        self.accessToken=refresh.accessToken;
-        self.refreshTokenString=refresh.refreshToken;
+        self.accessToken=[refresh.accessToken copy];
+        self.refreshTokenString=[refresh.refreshToken copy];
         
         _operationRefreshToken=nil;
         
@@ -107,8 +107,8 @@ static TokenManager *_tokenManager=nil;
         
         OperationGetToken *ope=(OperationGetToken*)operation;
         
-        self.accessToken=ope.accessToken;
-        self.refreshTokenString=ope.refreshToken;
+        self.accessToken=[ope.accessToken copy];
+        self.refreshTokenString=[ope.refreshToken copy];
         
         _operationGetToken=nil;
         

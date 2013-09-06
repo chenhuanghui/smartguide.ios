@@ -34,7 +34,7 @@
     blackView.backgroundColor=COLOR_BACKGROUND_APP;
     
     [blackView.layer setMasksToBounds:YES];
-    [blackView.layer setCornerRadius:5.0];
+    [blackView.layer setCornerRadius:8.0];
     [blackView.layer setBorderColor:[[UIColor clearColor] CGColor]];
     [blackView.layer setBorderWidth:1.0];
     

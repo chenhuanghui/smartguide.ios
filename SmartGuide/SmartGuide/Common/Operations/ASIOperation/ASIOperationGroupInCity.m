@@ -9,7 +9,7 @@
 #import "ASIOperationGroupInCity.h"
 
 @implementation ASIOperationGroupInCity
-@synthesize groups,values;
+@synthesize groups;
 
 -(ASIOperationGroupInCity *)initWithIDCity:(int)idCity
 {
@@ -18,7 +18,7 @@
     
     bool isRelease=1;
     
-    values=@[@(idCity),@(isRelease)];
+    self.values=@[@(idCity),@(isRelease)];
     
     return self;
 }

@@ -43,7 +43,7 @@
     
     web.delegate=self;
     
-    [web loadHTMLString:[self formatInfoWithDesc:[NSString stringWithFormat:@"%@%@%@",_shop.desc,_shop.desc,_shop.desc] address:_shop.address contact:_shop.contact web:_shop.website] baseURL:nil];
+    [web loadHTMLString:[self formatInfoWithDesc:_shop.desc address:_shop.address contact:_shop.contact web:_shop.website] baseURL:nil];
 }
 
 -(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType

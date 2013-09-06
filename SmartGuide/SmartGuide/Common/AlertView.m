@@ -14,6 +14,9 @@
 
 +(void)showWithTitle:(NSString *)title withMessage:(NSString *)message withLeftTitle:(NSString *)leftTitle withRightTitle:(NSString *)rightTitle onOK:(void (^)())onOk onCancel:(void (^)())onCancel
 {
+    if(title.length==0)
+        title=@"Thông báo";
+    
     AlertView *alert=nil;
     
     if(rightTitle)

@@ -1362,6 +1362,7 @@ static RootViewController *_rootViewController;
     
     self.slideQRCode.btnSlide.enabled=false;
     self.slideQRCode.delegate=self.frontViewController.catalogueList;
+    self.slideQRCode.mode=SCAN_GET_SGP;
     
     if(animated)
     {

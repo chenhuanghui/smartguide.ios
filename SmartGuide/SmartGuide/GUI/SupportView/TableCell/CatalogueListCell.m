@@ -110,6 +110,8 @@
             style.font=[UIFont boldSystemFontOfSize:13];
             style.color=[UIColor whiteColor];
             style.textAlignment=FTCoreTextAlignementCenter;
+            
+            [lblScore addStyle:style];
         }
     }
     else

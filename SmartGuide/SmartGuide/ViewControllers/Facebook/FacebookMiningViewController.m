@@ -39,6 +39,9 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
+    borderAvatar.layer.masksToBounds=true;
+    borderAvatar.layer.cornerRadius=8;
+    
     [self.navigationController setNavigationBarHidden:true];
     [[RootViewController shareInstance] setNeedRemoveLoadingScreen];
     
@@ -177,6 +180,7 @@
     infoView = nil;
     txtUser = nil;
     btnAvatar = nil;
+    borderAvatar = nil;
     [super viewDidUnload];
 }
 

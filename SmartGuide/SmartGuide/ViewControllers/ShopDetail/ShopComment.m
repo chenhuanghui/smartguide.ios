@@ -144,25 +144,47 @@
 
 -(void)ASIOperaionPostFinished:(ASIOperationPost *)operation
 {
-    ASIOperationShopComment *cmt=(ASIOperationShopComment*)operation;
-    
-    if(cmt.comments.count>0)
+    if([operation isKindOfClass:[ASIOperationShopComment class]])
     {
-        [_comments addObjectsFromArray:cmt.comments];
-        _page++;
+        ASIOperationShopComment *cmt=(ASIOperationShopComment*)operation;
+        
+        if(cmt.comments.count>0)
+        {
+            [_comments addObjectsFromArray:cmt.comments];
+            _page++;
+        }
+        
+        [_templateComment setAllowLoadMore:cmt.comments.count==10];
+        [_templateComment endLoadNext];
+        
+        if(_page==1 && _comments.count>0)
+        {
+            [tableComments scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionNone animated:true];
+        }
     }
-    
-    [_templateComment setAllowLoadMore:cmt.comments.count==10];
-    [_templateComment endLoadNext];
-    
-    if(_page==1 && _comments.count>0)
+    else if([operation isKindOfClass:[ASIOperationPostComment class]])
     {
-        [tableComments scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionNone animated:true];
+        ASIOperationPostComment *ope=(ASIOperationPostComment*)operation;
+        if(ope.isSuccess)
+        {
+            [[FacebookManager shareInstance] postText:txtComment.text identity:nil delegate:nil];
+            txtComment.text=@"";
+            if(_comments.count==0)
+                [_comments addObject:ope.comment];
+            else
+                [_comments insertObject:ope.comment atIndex:0];
+            
+            [tableComments reloadData];
+        }
+        
+        [self.window removeLoading];
+        _isSendingComment=false;
     }
 }
 
 -(void)ASIOperaionPostFailed:(ASIOperationPost *)operation
 {
+    [self.window removeLoading];
 }
 
 -(void) startAnimHide:(float) duration keyboard:(CGRect) keyboard
@@ -288,7 +310,7 @@
     
     float duration=[notification.userInfo floatForKey:UIKeyboardAnimationDurationUserInfoKey];
     CGRect rect=[[notification.userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
-
+    
     [self startAnimHide:duration keyboard:rect];
 }
 
@@ -354,22 +376,11 @@
     
     [self.window showLoadingWithTitle:nil];
     _isSendingComment=true;
-    [ASIOperationPostComment postCommentWithIDUser:idUser idShop:idShop content:txtComment.text onCompleted:^(bool finished, ShopUserComment *comment) {
-        if(finished)
-        {
-            [[FacebookManager shareInstance] postText:txtComment.text identity:nil delegate:nil];
-            txtComment.text=@"";
-            if(_comments.count==0)
-                [_comments addObject:comment];
-            else
-                [_comments insertObject:comment atIndex:0];
-            
-            [tableComments reloadData];
-        }
-
-        [self.window removeLoading];
-        _isSendingComment=false;
-    }];
+    
+    ASIOperationPostComment *ope=[[ASIOperationPostComment alloc] initWithIDUser:idUser idShop:idShop content:txtComment.text];
+    ope.delegatePost=self;
+    
+    [ope startAsynchronous];
     
     return true;
 }

@@ -19,6 +19,7 @@
     __weak IBOutlet UIView *infoView;
     __weak IBOutlet UITextField *txtUser;
     __weak IBOutlet UIButton *btnAvatar;
+    __weak IBOutlet UIView *borderAvatar;
     
     ASIOperationFBProfile *postProfile;
     OperationFBGetProfile *getProfile;

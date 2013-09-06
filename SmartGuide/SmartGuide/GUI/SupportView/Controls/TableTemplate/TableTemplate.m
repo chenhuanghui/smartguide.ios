@@ -215,7 +215,7 @@
     else if(scrollDirection==TABLE_DIRECTION_TO_TOP)
     {
         CGRect rect=[_tableView rectForRowAtIndexPath:[_tableView indexPathsForVisibleRows].firstObject];
-        rect.origin.y+=self.alignAutoCell;
+        rect.origin.y-=self.alignAutoCell;
         [_tableView scrollRectToVisible:rect animated:true];
 //        [_tableView scrollToRowAtIndexPath:[_tableView indexPathsForVisibleRows].firstObject atScrollPosition:UITableViewScrollPositionNone animated:true];
     }

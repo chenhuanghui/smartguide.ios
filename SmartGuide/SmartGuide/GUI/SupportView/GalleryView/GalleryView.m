@@ -142,7 +142,7 @@
     if(_isAllowDescription)
         if(delegate && [delegate respondsToSelector:@selector(galleryViewDescriptionImage:)])
         {
-            txt.text=[delegate galleryViewDescriptionImage:table.currentPageForHoriTable];
+            txt.text=[delegate galleryViewDescriptionImage:((table.contentOffset.y+80) / table.frame.size.width)];
         }
 }
 

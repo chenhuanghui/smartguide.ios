@@ -16,12 +16,13 @@
 
 -(PromotionDetailType2View *)initWithShop:(Shop *)shop
 {
-    self=[[[NSBundle mainBundle] loadNibNamed:@"PromotionDetailType2View" owner:nil options:nil] objectAtIndex:0];
+    self=[[[NSBundle mainBundle] loadNibNamed:NIB_PHONE(@"PromotionDetailType2View") owner:nil options:nil] objectAtIndex:0];
     
     btnReward.layer.cornerRadius=8;
     btnReward.layer.masksToBounds=true;
     [self setShop:shop];
     
+    //146 149 153
     FTCoreTextStyle *style=[FTCoreTextStyle styleWithName:@"text"];
     style.textAlignment=FTCoreTextAlignementCenter;
     style.font=[UIFont italicSystemFontOfSize:12];
@@ -39,7 +40,7 @@
     style=[FTCoreTextStyle styleWithName:@"gn"];
     style.textAlignment=FTCoreTextAlignementLeft;
     style.color=[UIColor darkGrayColor];
-    style.font=[UIFont systemFontOfSize:10];
+    style.font=[UIFont systemFontOfSize:11];
     
     [lblDesc addStyle:style];
     
@@ -67,6 +68,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userScanedQRCode:) name:NOTIFICATION_USER_SCANED_QR_CODE object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userScanedQRCode:) name:NOTIFICATION_USER_CANCELED_SCAN_QR_CODE object:nil];
     
+    //146 159 153
     return self;
 }
 

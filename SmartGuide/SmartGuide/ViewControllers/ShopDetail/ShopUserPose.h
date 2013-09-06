@@ -36,6 +36,7 @@
     
     __weak UIViewController *_viewController;
     UIView *_rootView;
+//    ASIOperationUploadUserGallery *upload;
 }
 
 -(ShopUserPose*) initWithViewController:(UIViewController*) viewController shop:(Shop*) shop;

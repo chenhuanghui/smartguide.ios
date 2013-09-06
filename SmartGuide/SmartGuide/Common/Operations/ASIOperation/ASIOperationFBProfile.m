@@ -10,7 +10,7 @@
 #import "OperationFBGetProfile.h"
 
 @implementation ASIOperationFBProfile
-@synthesize isSuccessed,values;
+@synthesize isSuccessed;
 
 -(ASIOperationFBProfile *)initWithFBProfile:(FBProfile *)profile
 {
@@ -22,8 +22,10 @@
         job=[NSString stringWithFormat:@"%@",profile.job];
     }
     
+    _profile=profile;
+    
     NSNumber *idUser=[DataManager shareInstance].currentUser.idUser;
-    values=@[profile.fbID,
+    self.values=@[profile.fbID,
              idUser,
              profile.email,
              profile.name,

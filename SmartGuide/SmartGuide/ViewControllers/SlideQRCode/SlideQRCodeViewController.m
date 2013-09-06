@@ -119,6 +119,10 @@
     [self loopAnimation];
     
     [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidBecomeActiveNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
+        
+        if(![RootViewController shareInstance].isShowedQRSlide)
+            return;
+        
        if(alertLocation)
        {
            [alertLocation dismissWithClickedButtonIndex:-1 animated:false];
@@ -193,7 +197,6 @@
     _isUserScanded=false;
     _isLoadingShopDetail=false;
     _isUserClickClose=false;
-    mode=SCAN_GET_SGP;
     
     btnCloseStartup.hidden=false;
     
@@ -216,11 +219,9 @@
 
 -(void) getLocation
 {
-    [self.view.window showLoadingWithTitle:nil];
     [[LocationManager shareInstance] getLocation:^(CLLocationCoordinate2D location) {
-        
-        [self.view.window removeLoading];
-        
+        [self showCameraQRCode];
+        return;
         if(isVailCLLocationCoordinate2D(location))
         {
             [self showCameraQRCode];
@@ -594,6 +595,11 @@
     btnSlide.enabled=false;
     [[RootViewController shareInstance] hideQRSlide:true onCompleted:^(BOOL finished) {
         btnSlide.enabled=true;
+        if(alertLocation)
+        {
+            [alertLocation dismissWithClickedButtonIndex:-1 animated:false];
+            alertLocation=nil;
+        }
     }];
 }
 
@@ -608,6 +614,12 @@
     {
         [[RootViewController shareInstance] hideQRSlide:true onCompleted:^(BOOL finished) {
             btnSlide.enabled=true;
+            
+            if(alertLocation)
+            {
+                [alertLocation dismissWithClickedButtonIndex:-1 animated:false];
+                alertLocation=nil;
+            }
         }];
     }
     else
@@ -625,6 +637,12 @@
         {
             [[RootViewController shareInstance] hideQRSlide:true onCompleted:^(BOOL finished) {
                 btnSlide.enabled=true;
+                
+                if(alertLocation)
+                {
+                    [alertLocation dismissWithClickedButtonIndex:-1 animated:false];
+                    alertLocation=nil;
+                }
             }];
             
             return;
@@ -666,6 +684,12 @@
             btnSlide.enabled=true;
             
             btnClose.userInteractionEnabled=true;
+            
+            if(alertLocation)
+            {
+                [alertLocation dismissWithClickedButtonIndex:-1 animated:false];
+                alertLocation=nil;
+            }
         }];
     }
     else if([RootViewController shareInstance].isShowedMap)
@@ -680,6 +704,12 @@
                 btnSlide.enabled=true;
                 
                 btnClose.userInteractionEnabled=true;
+                
+                if(alertLocation)
+                {
+                    [alertLocation dismissWithClickedButtonIndex:-1 animated:false];
+                    alertLocation=nil;
+                }
             }];
         });
     }
@@ -695,6 +725,12 @@
                 btnSlide.enabled=true;
                 
                 btnClose.userInteractionEnabled=true;
+                
+                if(alertLocation)
+                {
+                    [alertLocation dismissWithClickedButtonIndex:-1 animated:false];
+                    alertLocation=nil;
+                }
             }];
         });
     }
@@ -711,6 +747,12 @@
                 btnSlide.enabled=true;
                 
                 btnClose.userInteractionEnabled=true;
+                
+                if(alertLocation)
+                {
+                    [alertLocation dismissWithClickedButtonIndex:-1 animated:false];
+                    alertLocation=nil;
+                }
             }];
         });
     }
@@ -722,6 +764,12 @@
             btnSlide.enabled=true;
             
             btnClose.userInteractionEnabled=true;
+            
+            if(alertLocation)
+            {
+                [alertLocation dismissWithClickedButtonIndex:-1 animated:false];
+                alertLocation=nil;
+            }
         }];
     }
 }
@@ -729,6 +777,12 @@
 - (IBAction)btnCloseStartupTouchUpInside:(id)sender {
     [[RootViewController shareInstance] hideQRSlide:true onCompleted:^(BOOL finished) {
         btnSlide.enabled=true;
+        
+        if(alertLocation)
+        {
+            [alertLocation dismissWithClickedButtonIndex:-1 animated:false];
+            alertLocation=nil;
+        }
     }];
 }
 

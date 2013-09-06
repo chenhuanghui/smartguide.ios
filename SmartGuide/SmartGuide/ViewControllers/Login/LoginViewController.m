@@ -353,6 +353,7 @@
             [self.view showLoadingWithTitle:nil];
             
             [TokenManager shareInstance].phone=_phone;
+            [TokenManager shareInstance].activeCode=txt.text;
             
             OperationGetToken *getToken=[[OperationGetToken alloc] initWithPhone:_phone activeCode:txt.text];
             getToken.delegate=self;

@@ -120,7 +120,7 @@
 {
     if(sw.ON && ![LocationManager shareInstance].isAllowLocation)
     {
-        [AlertView showAlertOKWithTitle:nil withMessage:@"Location services is disabled" onOK:^{
+        [AlertView showAlertOKWithTitle:@"Thông báo" withMessage:@"Location services chưa được bật\nVào Setting/Privacy để kích hoạt chức năng này" onOK:^{
             switchLocation.delegate=nil;
             switchLocation.ON=[LocationManager shareInstance].isAllowLocation;
             switchLocation.delegate=self;
@@ -128,7 +128,7 @@
     }
     else if(!sw.ON && [LocationManager shareInstance].isAllowLocation)
     {
-        [AlertView showAlertOKWithTitle:nil withMessage:@"Location services is enabled" onOK:^{
+        [AlertView showAlertOKWithTitle:nil withMessage:@"Location services đang được kích hoạt" onOK:^{
             switchLocation.delegate=nil;
             switchLocation.ON=[LocationManager shareInstance].isAllowLocation;
             switchLocation.delegate=self;
@@ -219,8 +219,31 @@
     }
     else if([data.title isEqualToString:@"Cập nhật phiên bản"])
     {
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://smartguide.vn"]];
+        _isShowOtherView=true;
+        
+        UpdateVersion *uv=[[UpdateVersion alloc] init];
+        
+        uv.alpha=0;
+        uv.delegate=self;
+        
+        [[RootViewController shareInstance].window addSubview:uv];
+        
+        [UIView animateWithDuration:DURATION_SETTING animations:^{
+            uv.alpha=1;
+        }];
     }
+}
+
+-(void)updateVersionClose:(UpdateVersion *)uv
+{
+    [UIView animateWithDuration:DURATION_SETTING animations:^{
+        uv.alpha=0;
+    } completion:^(BOOL finished) {
+        uv.delegate=nil;
+        [uv removeFromSuperview];
+        
+        _isShowOtherView=false;
+    }];
 }
 
 -(void)introViewClose:(IntroView *)introView

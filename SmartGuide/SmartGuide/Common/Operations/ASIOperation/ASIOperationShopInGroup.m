@@ -20,7 +20,7 @@
     NSURL *_url=[NSURL URLWithString:SERVER_API_MAKE(API_SHOP_IN_GROUP_POST)];
     self=[super initWithURL:_url];
     
-    _values=[[NSMutableArray alloc] initWithObjects:ids,
+    self.values=[[NSMutableArray alloc] initWithObjects:ids,
              [NSNumber numberWithInt:idCity],
              [NSNumber numberWithInt:idUser],
              [NSNumber numberWithDouble:latitude],
@@ -29,11 +29,6 @@
              [NSNumber numberWithInt:sort],nil];
     
     return self;
-}
-
--(NSArray *)values
-{
-    return _values;
 }
 
 -(NSArray *)keys

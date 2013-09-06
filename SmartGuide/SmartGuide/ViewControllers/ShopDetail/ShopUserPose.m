@@ -181,6 +181,7 @@
 //    CGSize size=imgv.image.size;
 
     int idUser=[DataManager shareInstance].currentUser.idUser.integerValue;
+    
     ASIOperationUploadUserGallery *upload=[[ASIOperationUploadUserGallery alloc] initWithIDShop:_shop.idShop.integerValue userID:idUser desc:txt.text photo:data];
     upload.delegatePost=self;
     
@@ -214,14 +215,18 @@
         }];
     }
     else
-        [AlertView showAlertOKWithTitle:nil withMessage:@"Up hình thất bại" onOK:nil];
+        [AlertView showAlertOKWithTitle:nil withMessage:@"Đăng ảnh không thành công" onOK:nil];
+    
+//    upload=nil;
 }
 
 -(void) ASIOperaionPostFailed:(ASIOperationPost *)operation
 {
     [self removeLoading];
     
-    [AlertView showAlertOKWithTitle:nil withMessage:@"Lỗi" onOK:nil];
+    [AlertView showAlertOKWithTitle:nil withMessage:@"Đăng ảnh không thành công" onOK:nil];
+    
+//    upload=nil;
 //    [delegate shopUserPostFinished:self userGallery:nil];
 }
 

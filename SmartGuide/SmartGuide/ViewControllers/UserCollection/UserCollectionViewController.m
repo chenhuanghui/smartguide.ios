@@ -227,7 +227,8 @@
     
     lblPoint.text=@"";
     
-    lblP.frame=CGRectMake(83, 59, 42, 21);
+    lblP.frame=CGRectMake(83, 57, 42, 21);
+    lblP.alpha=0;
     
     tableReward.frame=CGRECT_PHONE(CGRectMake(67, 152, 238, 212), CGRectMake(67, 152, 238, 262));
     table.frame=CGRECT_PHONE(CGRectMake(67, 152, 200, 212), CGRectMake(67, 152, 200, 262));
@@ -319,7 +320,8 @@
         _totalPoint=ope.totalSP;
         
         [UIView animateWithDuration:1 animations:^{
-            lblP.frame=CGRectMake(83+[[[NSNumberFormatter numberFormat] stringFromNumber:@(_totalPoint)] sizeWithFont:lblPoint.font].width/2-2, 59, 42, 21);
+            lblP.alpha=1;
+            lblP.frame=CGRectMake(83+[[[NSNumberFormatter numberFormat] stringFromNumber:@(_totalPoint)] sizeWithFont:lblPoint.font].width/2-2, 57, 42, 21);
         }];
         
         [lblPoint animationScoreWithDuration:1 startValue:0 endValue:_totalPoint format:[NSNumberFormatter numberFormat]];
@@ -364,7 +366,8 @@
         [lblPoint stopFlashLabel];
         _totalPoint=((ASIOperationGetSG*)operation).sg;
         lblPoint.text=[NSNumberFormatter numberFromNSNumber:@(_totalPoint)];
-        lblP.frame=CGRectMake(83+([[NSNumberFormatter numberFormat] stringFromNumber:@(_totalPoint)].length*[@"0" sizeWithFont:lblPoint.font].width), 59, 42, 21);
+        lblP.frame=CGRectMake(83+([[NSNumberFormatter numberFormat] stringFromNumber:@(_totalPoint)].length*[@"0" sizeWithFont:lblPoint.font].width), 57, 42, 21);
+        lblP.alpha=1;
         
         [tableReward reloadData];
         

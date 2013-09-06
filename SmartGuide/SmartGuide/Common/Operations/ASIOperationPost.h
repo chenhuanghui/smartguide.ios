@@ -30,9 +30,12 @@
 -(void) notifyCompleted;
 -(void) notifyFailed:(NSError*) error;
 -(bool) isNullData:(NSArray*) data;
+-(void) restart;
 
 @property (nonatomic, assign) id<ASIOperationPostDelegate> delegatePost;
 @property (nonatomic, strong) NSArray *values;
 @property (nonatomic, strong) NSArray *keys;
+@property (nonatomic, strong) NSString *operationAccessToken;
+@property (nonatomic, strong) NSURL *sourceURL;
 
 @end

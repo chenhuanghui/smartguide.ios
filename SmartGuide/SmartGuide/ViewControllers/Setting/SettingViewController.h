@@ -16,8 +16,9 @@
 #import "ShopDetailViewController.h"
 #import "IntroView.h"
 #import "ASIOperationGetTotalSP.h"
+#import "UpdateVersion.h"
 
-@interface SettingViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,SwitchSettingDelegate,FeedbackViewDelegate,TutorialViewDelegate,IntroViewDelegate,ASIOperationPostDelegate>
+@interface SettingViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,SwitchSettingDelegate,FeedbackViewDelegate,TutorialViewDelegate,IntroViewDelegate,ASIOperationPostDelegate,UpdateVersionDelegate>
 {
     NSMutableArray *_settings;
     __weak IBOutlet UIImageView *avatar;
