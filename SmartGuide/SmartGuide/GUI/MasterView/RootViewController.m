@@ -61,6 +61,7 @@ static RootViewController *_rootViewController;
     [DataManager shareInstance].currentUser=[User userWithIDUser:[Flags lastIDUser]];
     
     [root createLoading];
+    [root showLoadingScreen];
     
     //Lần đầu đăng nhập, database model đổi->drop database(remove token)
     if([DataManager shareInstance].currentUser==nil)
@@ -78,8 +79,6 @@ static RootViewController *_rootViewController;
             [root showMainWithPreviousViewController:nil];
         }
     }
-    
-    [root showLoadingScreen];
 }
 
 -(void) createLoading
@@ -93,7 +92,6 @@ static RootViewController *_rootViewController;
     pnt.x+=self.view.frame.size.width;
     self.view.center=pnt;
     
-    [self.loadingScreen view];
     self.loadingScreen.view.frame=self.window.frame;
     
     [self.window addSubview:self.loadingScreen.view];

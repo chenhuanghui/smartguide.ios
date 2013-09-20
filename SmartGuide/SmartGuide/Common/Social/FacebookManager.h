@@ -22,5 +22,6 @@
 -(void) postImage:(UIImage*) image text:(NSString*) text identity:(id) tag delegate:(id<SHKSharerDelegate>) delegate;
 -(bool) isAuthorized;
 -(bool) isLogined;
+-(bool) isAllowPost;
 
 @end

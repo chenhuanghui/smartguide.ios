@@ -56,28 +56,12 @@
 
 -(NSArray *)registerNotification
 {
-    return @[UIApplicationDidBecomeActiveNotification,NOTIFICATION_FACEBOOK_LOGIN_SUCCESS,NOTIFICATION_FACEBOOK_LOGIN_FAILED];
+    return @[NOTIFICATION_FACEBOOK_LOGIN_SUCCESS];
 }
 
 -(void)receiveNotification:(NSNotification *)notification
 {
-    if([notification.name isEqualToString:UIApplicationDidBecomeActiveNotification])
-    {
-        //        if(!btnSkip.hidden)
-        //            [self removeIndicator];
-        
-        if ([FBSession activeSession].accessTokenData.accessToken.length>0) {
-            
-            [Flurry trackUserWaitFacebook];
-            
-            getProfile=[[OperationFBGetProfile alloc] initWithAccessToken:[FBSession activeSession].accessTokenData.accessToken];
-            getProfile.delegate=self;
-            [getProfile start];
-            
-            [self.view showLoadingWithTitle:nil];
-        }
-    }
-    else if([notification.name isEqualToString:NOTIFICATION_FACEBOOK_LOGIN_SUCCESS])
+    if([notification.name isEqualToString:NOTIFICATION_FACEBOOK_LOGIN_SUCCESS])
     {
         [Flurry trackUserWaitFacebook];
         
@@ -87,30 +71,17 @@
         
         [self.view showLoadingWithTitle:nil];
     }
-    else if([notification.name isEqualToString:NOTIFICATION_FACEBOOK_LOGIN_FAILED])
-    {
-        [self.view removeLoading];
-        [AlertView showAlertOKWithTitle:nil withMessage:@"Login facebook failed" onOK:nil];
-    }
 }
 
 -(void) loginFacebook
 {
-    if(profile)
-    {
-        postProfile=[[ASIOperationFBProfile alloc] initWithFBProfile:profile];
-        postProfile.delegatePost=self;
-        [postProfile startAsynchronous];
-        
-        [self.view showLoadingWithTitle:nil];
-        
-        return;
-    }
-    
     [Flurry trackUserClickFacebook];
-    
-    [self.view showLoadingWithTitle:nil];
     [[FacebookManager shareInstance] login];
+}
+
+-(void) postCheckinAppWithName:(NSString*) name
+{
+    [[FacebookManager shareInstance] postURL:[NSURL URLWithString:@"http://smartguide.vn"] title:@"SmartGuide - Trải nghiệm ngay nhận quà liền tay" text:[NSString stringWithFormat:@"Chúc mừng bạn %@ đã tham gia cộng đồng #SmartGuide. Chúc bạn có những trải nghiệm hoàn toàn thú vị cùng #SmartGuide",name]];
 }
 
 -(void)operationURLFinished:(OperationURL *)operation
@@ -129,7 +100,7 @@
         
         [self.view showLoadingWithTitle:nil];
         
-        [[FacebookManager shareInstance] postURL:[NSURL URLWithString:@"http://smartguide.vn"] title:@"SmartGuide - Trải nghiệm ngay nhận quà liền tay" text:[NSString stringWithFormat:@"Chúc mừng bạn %@ đã tham gia cộng đồng #SmartGuide. Chúc bạn có những trải nghiệm hoàn toàn thú vị cùng #SmartGuide",self.profile.name]];
+        [self postCheckinAppWithName:self.profile.name];
     }
 }
 

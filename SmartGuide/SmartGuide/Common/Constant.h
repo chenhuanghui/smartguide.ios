@@ -12,7 +12,8 @@
 
 #define CLASS_NAME NSStringFromClass([self class])
 
-#define FACEBOOK_PERMISSION @[@"email",@"publish_actions",@"user_about_me",@"user_birthday",@"user_work_history"]
+#define FACEBOOK_READ_PERMISSION @[@"basic_info",@"user_about_me",@"user_birthday",@"user_work_history",@"email"]
+#define FACEBOOK_PUBLISH_PERMISSION @[@"publish_actions"]
 #define FACEBOOK_APPID @"1391698407719065"
 #define FACEBOOK_GET_PROFILE(accessToken,fields) [NSString stringWithFormat:@"https://graph.facebook.com/me/?fields=%@&access_token=%@",fields,accessToken]
 #define CLIENT_ID @"1_orazuv2dl3k8ossssg8804o4kwksw8kwcskkk404w40gwcwws"

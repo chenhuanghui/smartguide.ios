@@ -161,6 +161,11 @@ static FacebookManager *_facebookManager=nil;
     return [FBSession activeSession].state==FBSessionStateOpen;
 }
 
+-(bool)isAllowPost
+{
+    return [self isLogined] && [[FBSession activeSession].permissions containsObject:@"publish_actions"];
+}
+
 @end
 
 @implementation SHKFacebook(Utility)

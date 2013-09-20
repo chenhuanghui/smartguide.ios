@@ -192,7 +192,7 @@
         [AlertView showAlertOKWithTitle:nil withMessage:@"Vui lòng nhập số điện thoại" onOK:nil];
         return;
     }
-    else if(phone.length<10 || phone.length>11)
+    if(phone.length<9 || phone.length>11)
     {
         [AlertView showAlertOKWithTitle:nil withMessage:@"Số điện thoại không hợp lệ" onOK:nil];
         return;
@@ -208,9 +208,11 @@
     {
         strPhone=[phone stringByReplacingCharactersInRange:NSMakeRange(0, 1) withString:@"84"];
     }
-    
-    
-    
+    else
+    {
+        strPhone=[@"84" stringByAppendingString:phone];
+    }
+
     _phone=[[NSString alloc] initWithString:strPhone];
     _inputPhone=[[NSString alloc] initWithString:txt.text];
 

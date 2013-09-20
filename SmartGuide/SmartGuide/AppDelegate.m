@@ -15,6 +15,7 @@
 #import "SHKFacebook.h"
 #import "Flurry.h"
 #import "ASIOperationGetAds.h"
+#import "FBSession.h"
 
 @interface SHKSmartGuildeConfig : DefaultSHKConfigurator
 
@@ -34,12 +35,12 @@
 
 -(NSArray *)facebookReadPermissions
 {
-    return FACEBOOK_PERMISSION;
+    return FACEBOOK_READ_PERMISSION;
 }
 
 -(NSArray *)facebookWritePermissions
 {
-    return FACEBOOK_PERMISSION;
+    return FACEBOOK_PUBLISH_PERMISSION;
 }
 
 @end
@@ -60,8 +61,8 @@
     SHKSmartGuildeConfig *config=[[SHKSmartGuildeConfig alloc] init];
     [SHKConfiguration sharedInstanceWithConfigurator:config];
     
-    SHKFacebook *fb=[[SHKFacebook alloc] init];
-    [fb isAuthorized];
+    if(![FBSession openActiveSessionWithAllowLoginUI:false])
+        [FBSession setActiveSession:nil];
     
     [AFHTTPRequestOperation addAcceptableContentTypes:[NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript", @"text/html", nil]];
     
@@ -98,13 +99,12 @@
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     [SHKFacebook handleWillTerminate];
+    
 }
 
 -(BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
-    NSLog(@"%@ %@",url,sourceApplication);
-    
-    return [SHKFacebook handleOpenURL:url];
+    return [SHKFacebook handleOpenURL:url sourceApplication:sourceApplication annotation:annotation];
 }
 
 -(NSUInteger)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window
