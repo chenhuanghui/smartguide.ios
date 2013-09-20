@@ -12,14 +12,14 @@
 #import "ASIOperationFBProfile.h"
 #import "OperationFBGetProfile.h"
 
-@interface FacebookManager : NSObject<SHKSharerDelegate,OperationURLDelegate,ASIOperationPostDelegate>
+@interface FacebookManager : NSObject<SHKFacebookDelegate,OperationURLDelegate,ASIOperationPostDelegate>
 
 +(FacebookManager*) shareInstance;
 
 -(void) login;
--(void)postText:(NSString *)text identity:(id) tag delegate:(id<SHKSharerDelegate>) delegate;
+-(void)postText:(NSString *)text identity:(id) tag delegate:(id<SHKFacebookDelegate>) delegate;
 -(void) postURL:(NSURL*) url title:(NSString*) title text:(NSString*) text;
--(void) postImage:(UIImage*) image text:(NSString*) text identity:(id) tag delegate:(id<SHKSharerDelegate>) delegate;
+-(void) postImage:(UIImage*) image text:(NSString*) text identity:(id) tag delegate:(id<SHKFacebookDelegate>) delegate;
 -(bool) isAuthorized;
 -(bool) isLogined;
 -(bool) isAllowPost;

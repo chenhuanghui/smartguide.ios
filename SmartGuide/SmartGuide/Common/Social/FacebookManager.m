@@ -30,15 +30,17 @@ static FacebookManager *_facebookManager=nil;
     NSLog(@"sharerFailedWithError %@ %@",sharer,error);
 }
 
--(void)sharerAuthDidFinish:(SHKSharer *)sharer success:(BOOL)success
+
+
+-(void)sharerAuthDidFinish1:(SHKSharer *)sharer success:(BOOL)success
 {
     NSLog(@"sharerAuthDidFinish %@ %i",sharer,success);
     
-    if(!success)
-    {
-        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_FACEBOOK_LOGIN_FAILED object:nil];
-        return;
-    }
+//    if(!success)
+//    {
+//        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_FACEBOOK_LOGIN_FAILED object:nil];
+//        return;
+//    }
     
 //    if(![DataManager shareInstance].currentUser.isConnectedFacebook.boolValue)
 //    {
@@ -48,7 +50,7 @@ static FacebookManager *_facebookManager=nil;
 //        [getProfile start];
 //    }
 //    else
-    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_FACEBOOK_LOGIN_SUCCESS object:nil];
+//    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_FACEBOOK_LOGIN_SUCCESS object:nil];
 }
 
 -(void)ASIOperaionPostFinished:(ASIOperationPost *)operation
@@ -129,7 +131,17 @@ static FacebookManager *_facebookManager=nil;
         [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_FACEBOOK_LOGIN_SUCCESS object:nil];
 }
 
--(void)postText:(NSString *)text identity:(id) tag delegate:(id<SHKSharerDelegate>) delegate
+-(void)facebookLogined:(SHKFacebook *)shk session:(FBSession *)session error:(NSError *)error
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_FACEBOOK_LOGIN_SUCCESS object:nil];
+}
+
+-(void)facebookAuthorizedPost:(SHKFacebook *)shk session:(FBSession *)session error:(NSError *)error
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_FACEBOOK_LOGIN_SUCCESS object:nil];
+}
+
+-(void)postText:(NSString *)text identity:(id) tag delegate:(id<SHKFacebookDelegate>) delegate
 {
     SHKItem *item=[SHKItem text:text];
     item.tagIdentity=tag;
@@ -143,7 +155,7 @@ static FacebookManager *_facebookManager=nil;
     [SHKFacebook shareItem:item];
 }
 
--(void)postImage:(UIImage *)image text:(NSString *)text identity:(id)tag delegate:(id<SHKSharerDelegate>)delegate
+-(void)postImage:(UIImage *)image text:(NSString *)text identity:(id)tag delegate:(id<SHKFacebookDelegate>)delegate
 {
     SHKItem *item=[SHKItem image:image title:text];
     item.tagIdentity=tag;

@@ -1820,6 +1820,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A9B807F6179FC25000C8E003 /* libxml2.dylib in Frameworks */,
 				A9A19E8817C40CA6000D0ECD /* libShareKit.a in Frameworks */,
 				A9A19D5F17C4088E000D0ECD /* MessageUI.framework in Frameworks */,
 				A9A19D5D17C40871000D0ECD /* StoreKit.framework in Frameworks */,
@@ -1833,7 +1834,6 @@
 				A9B807FC179FCCE300C8E003 /* Accounts.framework in Frameworks */,
 				A9B80809179FCEBD00C8E003 /* Security.framework in Frameworks */,
 				A9B807F8179FCCB600C8E003 /* libsqlite3.dylib in Frameworks */,
-				A9B807F6179FC25000C8E003 /* libxml2.dylib in Frameworks */,
 				A9B807F4179FC1B900C8E003 /* libz.dylib in Frameworks */,
 				A9BF947D178FAF0600EF7E5F /* SystemConfiguration.framework in Frameworks */,
 				A9B807F2179FC0E400C8E003 /* CFNetwork.framework in Frameworks */,

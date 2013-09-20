@@ -94,9 +94,9 @@
 
         getProfile=nil;
         
-        postProfile=[[ASIOperationFBProfile alloc] initWithFBProfile:self.profile];
-        postProfile.delegatePost=self;
-        [postProfile startAsynchronous];
+//        postProfile=[[ASIOperationFBProfile alloc] initWithFBProfile:self.profile];
+//        postProfile.delegatePost=self;
+//        [postProfile startAsynchronous];
         
         [self.view showLoadingWithTitle:nil];
         
