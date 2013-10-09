@@ -31,7 +31,7 @@
 
 +(CGSize)size
 {
-    return CGSizeMake(200, 46);
+    return CGSizeMake(206, 46);
 }
 
 -(void)willMoveToSuperview:(UIView *)newSuperview

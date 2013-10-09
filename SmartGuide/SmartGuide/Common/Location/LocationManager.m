@@ -142,8 +142,12 @@ static LocationManager *_locationManager=nil;
         if(manager==_locationBlock)
         {
             CLLocation *location=[locations lastObject];
-            _onLocationCompleted(location.coordinate);
-            _onLocationCompleted=nil;
+            
+            if(_onLocationCompleted)
+            {
+                _onLocationCompleted(location.coordinate);
+                _onLocationCompleted=nil;
+            }
             
             _locationBlock.delegate=nil;
             _locationBlock=nil;
@@ -191,7 +195,7 @@ static LocationManager *_locationManager=nil;
                     self.userCurrentCity=[NSString stringWithString:city];
             }
         }
-
+        
         _geoLocationInfo=nil;
         _isTryGetUserLocationInfo=false;
         
@@ -231,17 +235,20 @@ static LocationManager *_locationManager=nil;
 -(void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
 {
     NSLog(@"LocationManager failed %@",error);
- 
+    
     if(manager==_locationBlock)
     {
-        _onLocationCompleted(CLLocationCoordinate2DMake(-1, -1));
-        _onLocationCompleted=nil;
+        if(_onLocationCompleted)
+        {
+            _onLocationCompleted(CLLocationCoordinate2DMake(-1, -1));
+            _onLocationCompleted=nil;
+        }
         
         _locationBlock.delegate=nil;
         _locationBlock=nil;
         
         self.userLocation=CLLocationCoordinate2DMake(-1, -1);
-        [DataManager shareInstance].currentUser.coordinate=self.userLocation;
+        [DataManager shareInstance].currentUser.location=self.userLocation;
         
         return;
     }

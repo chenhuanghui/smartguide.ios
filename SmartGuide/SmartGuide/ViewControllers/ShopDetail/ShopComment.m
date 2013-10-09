@@ -19,6 +19,9 @@
 {
     self=[[[NSBundle mainBundle] loadNibNamed:NIB_PHONE(@"ShopComment") owner:nil options:nil] objectAtIndex:0];
     
+    if([tableComments respondsToSelector:@selector(setSeparatorInset:)])
+        [tableComments setSeparatorInset:UIEdgeInsetsZero];
+    
     [self setShop:shop];
     
     txtComment.leftViewMode=UITextFieldViewModeAlways;
@@ -165,9 +168,16 @@
     else if([operation isKindOfClass:[ASIOperationPostComment class]])
     {
         ASIOperationPostComment *ope=(ASIOperationPostComment*)operation;
+        
         if(ope.isSuccess)
         {
-            [[FacebookManager shareInstance] postText:txtComment.text identity:nil delegate:nil];
+            bool allowPostToFace=false;
+            
+            if(allowPostToFace)
+            {
+                [[FacebookManager shareInstance] postText:txtComment.text identity:nil delegate:nil];
+            }
+            
             txtComment.text=@"";
             if(_comments.count==0)
                 [_comments addObject:ope.comment];
@@ -207,7 +217,7 @@
         
         CGPoint pnt=containComment.center;
         pnt=[self convertPoint:pnt fromView:containComment.superview];
-        [containComment removeFromSuperview];
+//        [containComment removeFromSuperview]; ios 7 containtcomment nil after removeFromSuperview
         [self addSubview:containComment];
         containComment.center=pnt;
         
@@ -222,13 +232,23 @@
 {
     _isShowedComment=true;
     
-    [UIView animateWithDuration:duration animations:^{
+    [UIView animateWithDuration:duration delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
         CGRect rect=containComment.frame;
         rect.origin.x=0;
         rect.size.width=[UIScreen mainScreen].bounds.size.width;
         rect.size.height=[UIScreen mainScreen].bounds.size.height-keyboard.size.height;
-        rect.origin.y=keyboard.origin.y-rect.size.height;
-        rect.size.height-=20;
+        
+        if(NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_6_1)
+        {
+            rect.origin.y=-10;
+            rect.size.height-=10;
+        }
+        else
+        {
+            rect.origin.y=keyboard.origin.y-rect.size.height;
+            rect.size.height-=20;
+        }
+        
         containComment.frame=rect;
         
         CGSize size=rect.size;
@@ -260,7 +280,7 @@
         [tableComments reloadData];
         
         UIButton *btn=[UIButton buttonWithType:UIButtonTypeCustom];
-        btn.frame=CGRectMake(10, 10, 24, 23);
+        btn.frame=CGRectMake(10, 20, 24, 23);
         [btn setImage:[UIImage imageNamed:@"button_back.png"] forState:UIControlStateNormal];
         btn.tag=112;
         btn.alpha=0;
@@ -321,6 +341,8 @@
     if(!newSuperview)
         return;
     
+    [avatar setSmartGuideImageWithURL:[NSURL URLWithString:[DataManager shareInstance].currentUser.avatar] placeHolderImage:UIIMAGE_LOADING_AVATAR_COMMENT success:nil failure:nil];
+    
     if(isProcessedData)
         [tableComments reloadData];
     else
@@ -337,7 +359,6 @@
 -(BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {
     if(_isPreparedShowBigComment)
-        
         return true;
     else
     {
@@ -354,7 +375,7 @@
     _isPreparedShowBigComment=true;
     
     CGPoint pnt=containComment.center;
-    pnt=[self convertPoint:pnt toView:[RootViewController shareInstance].view];
+    pnt=[self convertPoint:pnt toView:[RootViewController shareInstance].rootContaintView];
     containComment.center=pnt;
     [[RootViewController shareInstance] moveMyCommentToRootView:containComment];
     

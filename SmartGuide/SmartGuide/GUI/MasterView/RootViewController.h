@@ -13,11 +13,13 @@
 #import "Constant.h"
 #import "SearchViewController.h"
 
+#import "OperationNotifications.h"
+
 @class BannerAdsViewController,SlideQRCodeViewController,SettingViewController,LoginViewController,FrontViewController,DirectionObjectViewController,ShopDetailViewController,CatalogueListViewController,UserCollectionViewController;
 
 @class QRCode;
 
-@interface RootViewController : UIViewController<UIGestureRecognizerDelegate,NavigationBarDelegate,FilterDelegate,DirectionObjectDelegate,SearchViewDelegate,NavigationViewControllerDelegate,UISearchBarDelegate>
+@interface RootViewController : UIViewController<UIGestureRecognizerDelegate,NavigationBarDelegate,FilterDelegate,DirectionObjectDelegate,SearchViewDelegate,NavigationViewControllerDelegate,UISearchBarDelegate,OperationURLDelegate,NavigationSearchDelegate>
 {
     bool _isShowedSetting;
     bool _isShowedQRSlide;
@@ -31,6 +33,8 @@
     
     bool _isAnmationForSearch;
     int _lastIDCity;
+    
+    OperationNotifications *_opeartionNotification;
 }
 
 +(void) startWithWindow:(UIWindow*) window;
@@ -98,6 +102,7 @@
 @property (nonatomic, strong) DirectionObjectViewController *directionObject;
 @property (nonatomic, strong) ShopDetailViewController *shopDetail;//được khởi tạo background khi Catalogue load
 @property (nonatomic, readonly) SearchViewController *searchViewController;
+@property (weak, nonatomic) IBOutlet UIView *rootContaintView;
 
 @property (nonatomic, readonly) UIPanGestureRecognizer *panPrevious;
 @property (nonatomic, readonly) UITapGestureRecognizer *tapSetting;

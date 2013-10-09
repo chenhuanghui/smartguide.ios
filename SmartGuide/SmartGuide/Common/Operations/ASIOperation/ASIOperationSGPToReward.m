@@ -11,7 +11,7 @@
 #import "PromotionDetail.h"
 
 @implementation ASIOperationSGPToReward
-@synthesize status,sgp,award,time,shopName,content,values,totalSGP,code;
+@synthesize status,sgp,award,time,shopName,content,values,totalSGP,code,idShop;
 
 -(ASIOperationSGPToReward *)initWithIDUser:(int)idUser idRewward:(int)idReward code:(NSString *)_code idShop:(int)idShop
 {
@@ -37,7 +37,7 @@
     
     if(status==2)
     {
-        int idShop=[Utility idShopFromQRCode:[self.values objectAtIndex:2]];
+        idShop=[[NSNumber numberWithObject:[dict objectForKey:@"shop_id"]] integerValue];
         Shop *shop=[Shop shopWithIDShop:idShop];
         totalSGP=[dict doubleForKey:@"total_sgp"];
         

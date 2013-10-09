@@ -46,6 +46,7 @@ enum TABLE_DIRECTION {
 -(void) setTableView:(UITableView*) tableView;
 
 -(void) setAllowLoadMore:(bool) isAllowLoadMore;
+-(bool) isAllowLoadMore;
 
 @property (nonatomic, assign) id<TableTemplateDelegate> delegate;
 @property (nonatomic, assign) int page;

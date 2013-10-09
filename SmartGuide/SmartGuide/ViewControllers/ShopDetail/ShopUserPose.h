@@ -9,8 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "Shop.h"
 #import "ASIOperationUploadUserGallery.h"
+#import "ASIOperationUploadFBToken.h"
 #import "ShopUserGallery.h"
 #import "FacebookManager.h"
+#import "FBAccessTokenData.h"
 
 @class ShopUserPose;
 
@@ -37,6 +39,8 @@
     __weak UIViewController *_viewController;
     UIView *_rootView;
 //    ASIOperationUploadUserGallery *upload;
+    bool _isUploadTokenFB;
+    bool _isUserTouchedSend;
 }
 
 -(ShopUserPose*) initWithViewController:(UIViewController*) viewController shop:(Shop*) shop;

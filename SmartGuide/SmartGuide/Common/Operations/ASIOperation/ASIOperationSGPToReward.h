@@ -22,5 +22,6 @@
 @property (nonatomic, readonly) NSString *shopName;
 @property (nonatomic, readonly) double totalSGP;
 @property (nonatomic, readonly) NSString *code;
+@property (nonatomic, readonly) int idShop;
 
 @end

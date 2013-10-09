@@ -13,7 +13,7 @@
 #import "Utility.h"
 
 @implementation NavigationBarView
-@synthesize delegate;
+@synthesize delegate,searchDelegate;
 
 - (id)init
 {
@@ -22,13 +22,15 @@
         lblTitle.text=@"";
     }
     
-    for(UIView *view in searchbar.subviews)
+    if(NSFoundationVersionNumber<=NSFoundationVersionNumber_iOS_6_1)
     {
-        if([view isKindOfClass:[UITextField class]])
-        {
-            ((UITextField*)view).borderStyle=UITextBorderStyleRoundedRect;
-        }
+        searchView.center=CGPointMake(searchView.center.x, searchView.center.y-3);
     }
+    
+    txtSearch.leftViewMode=UITextFieldViewModeAlways;
+    
+    UIView *vvv=[[UIView alloc] initWithFrame:CGRectMake(0, 0, 5, txtSearch.frame.size.height)];
+    txtSearch.leftView=vvv;
     
     return self;
 }
@@ -64,26 +66,24 @@
 -(void)hideSearch
 {
     containButtons.hidden=false;
-    searchbar.delegate=nil;
-    searchbar.hidden=true;
-    [searchbar resignFirstResponder];
+    
+    self.searchDelegate=nil;
+    searchView.hidden=true;
+    [txtSearch resignFirstResponder];
 }
 
--(void)showSearchWithDelegate:(id<UISearchBarDelegate>)_delegate
+-(void)showSearchWithDelegate:(id<NavigationSearchDelegate>)_delegate
 {
     containButtons.hidden=true;
-    
-//    searchbar.placeholder=@"Quick search";
-    searchbar.delegate=_delegate;
-    searchbar.tintColor=COLOR_BACKGROUND_APP;
-    searchbar.backgroundColor=COLOR_BACKGROUND_APP;
-    searchbar.hidden=false;
-    [searchbar becomeFirstResponder];
+
+    self.searchDelegate=_delegate;
+    searchView.hidden=false;
+    [txtSearch becomeFirstResponder];
 }
 
 -(void)setSearchKeyword:(NSString *)key
 {
-    searchbar.text=key;
+    txtSearch.text=key;
 }
 
 -(void)btnSettingTouchUpInside:(UIButton *)sender
@@ -132,30 +132,30 @@
 
 -(void)showIconList
 {
-//    btnList.alpha=0;
-//    btnMap.alpha=1;
-//    btnList.hidden=false;
-//    
-//    [UIView animateWithDuration:DURATION_NAVI_ICON animations:^{
-//        btnMap.alpha=0;
-//        btnList.alpha=1;
-//    } completion:^(BOOL finished) {
-//        btnMap.hidden=true;
-//    }];
+    //    btnList.alpha=0;
+    //    btnMap.alpha=1;
+    //    btnList.hidden=false;
+    //
+    //    [UIView animateWithDuration:DURATION_NAVI_ICON animations:^{
+    //        btnMap.alpha=0;
+    //        btnList.alpha=1;
+    //    } completion:^(BOOL finished) {
+    //        btnMap.hidden=true;
+    //    }];
 }
 
 -(void)showIconMap
 {
-//    btnFilter.alpha=1;
-//    btnMap.alpha=0;
-//    btnMap.hidden=false;
-//    
-//    [UIView animateWithDuration:DURATION_NAVI_ICON animations:^{
-//        btnMap.alpha=1;
-//        btnFilter.alpha=0;
-//    } completion:^(BOOL finished) {
-//        btnFilter.hidden=true;
-//    }];
+    //    btnFilter.alpha=1;
+    //    btnMap.alpha=0;
+    //    btnMap.hidden=false;
+    //
+    //    [UIView animateWithDuration:DURATION_NAVI_ICON animations:^{
+    //        btnMap.alpha=1;
+    //        btnFilter.alpha=0;
+    //    } completion:^(BOOL finished) {
+    //        btnFilter.hidden=true;
+    //    }];
 }
 
 -(void)setLeftIcon:(NSArray *)icons
@@ -174,7 +174,7 @@
     pnts[0]=CGPointMake(206, -3);
     pnts[1]=CGPointMake(237, -3);
     pnts[2]=CGPointMake(271, -3);
-
+    
     NSMutableArray *array=[NSMutableArray arrayWithArray:icons];
     for(int i=2;i>=0;i--)
     {
@@ -223,13 +223,6 @@
     return nil;
 }
 
--(void)setDelegate:(id<NavigationBarDelegate>)_delegate
-{
-    delegate=_delegate;
-    
-    NSLog(@"%@",NSStringFromClass([_delegate class]));
-}
-
 -(void)setDisableRighIcon:(NSArray *)icons
 {
     for(NSNumber *num in icons)
@@ -243,12 +236,7 @@
 
 -(void)enableCancelButton
 {
-    for(id subview in [searchbar subviews])
-    {
-        if ([subview isKindOfClass:[UIButton class]]) {
-            [subview setEnabled:YES];
-        }
-    }
+    btnCancel.enabled=true;
 }
 
 -(BOOL)endEditing:(BOOL)force
@@ -263,6 +251,17 @@
 -(void)enableButton:(enum NAVIGATIONBAR_ITEM)button enabled:(bool)isEnable
 {
     [self buttonWithItem:button].userInteractionEnabled=isEnable;
+}
+
+- (IBAction)btnCancelTouchUpInside:(id)sender {
+    [self.searchDelegate navigationSearchCancel:txtSearch];
+}
+
+-(BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [self.searchDelegate navigationSearchSearchClicked:textField];
+    
+    return true;
 }
 
 @end

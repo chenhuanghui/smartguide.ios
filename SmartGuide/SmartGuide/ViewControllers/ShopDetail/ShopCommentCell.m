@@ -23,7 +23,7 @@
     
     CGSize constraint = CGSizeMake(COMMENT_WIDTH+changedWidth, 20000.0f);
     
-    CGSize size = [userComment.comment sizeWithFont:[UIFont systemFontOfSize:COMMENT_FONT_SIZE] constrainedToSize:constraint lineBreakMode:UILineBreakModeWordWrap];
+    CGSize size = [userComment.comment sizeWithFont:[UIFont systemFontOfSize:COMMENT_FONT_SIZE] constrainedToSize:constraint lineBreakMode:NSLineBreakByWordWrapping];
     
     if(isZoomed)
         time.text=userComment.fulltime;
@@ -39,7 +39,7 @@
 {
     CGSize constraint = CGSizeMake(COMMENT_WIDTH+changedWidth, 20000.0f);
     
-    CGSize size = [content sizeWithFont:[UIFont systemFontOfSize:COMMENT_FONT_SIZE] constrainedToSize:constraint lineBreakMode:UILineBreakModeWordWrap];
+    CGSize size = [content sizeWithFont:[UIFont systemFontOfSize:COMMENT_FONT_SIZE] constrainedToSize:constraint lineBreakMode:NSLineBreakByWordWrapping];
     
     CGFloat height = MAX(size.height, 45);
     

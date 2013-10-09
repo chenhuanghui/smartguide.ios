@@ -15,7 +15,6 @@
 #import "ASIOperationLikeDislikeShop.h"
 #import "THLabel.h"
 #import "ButtonImageLeft.h"
-#import "ShopUserPose.h"
 
 enum SHOP_MENU_DIRECTION {
     MENU_FIRST = 0,
@@ -26,7 +25,6 @@ enum SHOP_MENU_DIRECTION {
 enum SHOP_MENU_TYPE {
     MENU_INFO = 0,
     MENU_MENU = 1,
-    MENU_CAMERA = 2,
     MENU_PICTURE = 3,
     MENU_COMMENT = 4,
     MENU_MAP = 5,
@@ -62,7 +60,7 @@ enum SHOP_DETAIL_MODE {
 
 @end
 
-@interface ShopDetailViewController : ViewController<ASIOperationPostDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,ShopUserPoseDelegate>
+@interface ShopDetailViewController : ViewController<ASIOperationPostDelegate,UINavigationControllerDelegate>
 {
     __weak IBOutlet UIImageView *imgvCover;
     __weak IBOutlet UIImageView *imgvLogo;
@@ -100,6 +98,7 @@ enum SHOP_DETAIL_MODE {
     UIImageView *imgvTutorial;
     UIImageView *imgvTutorialText;
     bool _isSelfLoaded;
+    bool _isAnimationMoveView;
 }
 
 -(void) setShop:(Shop*) shop;
@@ -111,6 +110,7 @@ enum SHOP_DETAIL_MODE {
 @property (nonatomic, strong) ShopPicture *shopPicture;
 @property (nonatomic, strong) PromotionDetailType1View *promotionDetailType1View;
 @property (nonatomic, strong) PromotionDetailType2View *promotionDetailType2View;
+@property (nonatomic, strong) UIView *noPromotionView;
 @property (nonatomic, strong) ShopComment *shopComment;
 @property (nonatomic, strong) ShopLocation *shopLocation;
 

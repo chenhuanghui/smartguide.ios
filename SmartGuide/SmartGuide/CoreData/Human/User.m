@@ -64,4 +64,14 @@
     [Flags setLastIDUser:num.integerValue];
 }
 
+-(NSNumber *)isConnectedFacebook1
+{
+    return @(false);
+}
+
+-(NSString *)name1
+{
+    return @"";
+}
+
 @end

@@ -42,55 +42,13 @@ static const UIViewAnimationOptions kDefaultAnimationOptions = UIViewAnimationOp
 //////////////////////////////////////////////////////////////
 
 @interface GMGridView () <UIGestureRecognizerDelegate, UIScrollViewDelegate>
-{
-    // Sorting Gestures
-    UIPanGestureRecognizer       *_sortingPanGesture;
-    UILongPressGestureRecognizer *_longPressGesture;
-    
-    // Moving gestures
-    UIPinchGestureRecognizer     *_pinchGesture;
-    UITapGestureRecognizer       *_tapGesture;
-    UIRotationGestureRecognizer  *_rotationGesture;
-    UIPanGestureRecognizer       *_panGesture;
-    
-    // General vars
-    NSInteger _numberTotalItems;
-    CGSize    _itemSize;
-    NSMutableSet *_reusableCells;
-    
-    // Moving (sorting) control vars
-    GMGridViewCell *_sortMovingItem;
-    NSInteger _sortFuturePosition;
-    BOOL _autoScrollActive;
-    
-    CGPoint _minPossibleContentOffset;
-    CGPoint _maxPossibleContentOffset;
-    
-    // Transforming control vars
-    GMGridViewCell *_transformingItem;
-    CGFloat _lastRotation;
-    CGFloat _lastScale;
-    BOOL _inFullSizeMode;
-    BOOL _inTransformingState;
-    
-    // Rotation
-    BOOL _rotationActive;
+{    
 }
 
 @property (nonatomic, readonly) BOOL itemsSubviewsCacheIsValid;
 @property (nonatomic, strong) NSArray *itemSubviewsCache;
 @property (atomic) NSInteger firstPositionLoaded;
 @property (atomic) NSInteger lastPositionLoaded;
-
-- (void)commonInit;
-
-// Gestures
-- (void)sortingPanGestureUpdated:(UIPanGestureRecognizer *)panGesture;
-- (void)longPressGestureUpdated:(UILongPressGestureRecognizer *)longPressGesture;
-- (void)tapGestureUpdated:(UITapGestureRecognizer *)tapGesture;
-- (void)panGestureUpdated:(UIPanGestureRecognizer *)panGesture;
-- (void)pinchGestureUpdated:(UIPinchGestureRecognizer *)pinchGesture;
-- (void)rotationGestureUpdated:(UIRotationGestureRecognizer *)rotationGesture;
 
 // Sorting movement control
 - (void)sortingMoveDidStartAtPoint:(CGPoint)point;
@@ -117,12 +75,6 @@ static const UIViewAnimationOptions kDefaultAnimationOptions = UIViewAnimationOp
 - (void)loadRequiredItems;
 - (void)cleanupUnseenItems;
 - (void)queueReusableCell:(GMGridViewCell *)cell;
-
-// Memory warning
-- (void)receivedMemoryWarningNotification:(NSNotification *)notification;
-
-// Rotation handling
-- (void)receivedWillRotateNotification:(NSNotification *)notification;
 
 @end
 
@@ -1766,6 +1718,10 @@ static const UIViewAnimationOptions kDefaultAnimationOptions = UIViewAnimationOp
                      }];
 }
 
+-(NSUInteger)totalItemCount
+{
+    return _numberTotalItems;
+}
 
 //////////////////////////////////////////////////////////////
 #pragma mark depracated public methods

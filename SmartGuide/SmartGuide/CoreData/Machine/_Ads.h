@@ -11,6 +11,7 @@
 #define Ads_Image @"image"
 #define Ads_Image_url @"image_url"
 #define Ads_Name @"name"
+#define Ads_Url @"url"
 
 @class Ads;
 
@@ -31,6 +32,7 @@
 @property (nonatomic, retain) NSData* image;
 @property (nonatomic, retain) NSString* image_url;
 @property (nonatomic, retain) NSString* name;
+@property (nonatomic, retain) NSString* url;
 
 #pragma mark Fetched property
 

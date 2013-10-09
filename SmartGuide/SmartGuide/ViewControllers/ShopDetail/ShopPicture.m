@@ -100,36 +100,13 @@
         
         return cell;
     }
-    else
-    {
-        GalleryCell *cell=(GalleryCell*)[galleryView tableView:tableView cellForRowAtIndexPath:indexPath];
-        
-        if(!_isUserViewShopGallery)
-        {
-            ShopUserGallery *ug=[templateUser.datasource objectAtIndex:indexPath.row];
-            
-            if(ug.imagePosed)
-                [cell setIMG:ug.imagePosed];
-            else
-                [cell setImageURL:[NSURL URLWithString:ug.image]];
-        }
-        else
-        {
-            ShopGallery *sg=[templateShop.datasource objectAtIndex:indexPath.row];
-            
-            [cell setImageURL:[NSURL URLWithString:sg.image]];
-        }
-        
-        return cell;
-    }
+    
+    return nil;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if(tableView==tableUser || tableView==tableShop)
-        return [ShopPictureCell size].height+12;
-    
-    return [galleryView tableView:tableView heightForRowAtIndexPath:indexPath];
+    return [ShopPictureCell size].height+12;
 }
 
 -(void)setShop:(Shop *)shop
@@ -249,6 +226,12 @@
         
         [templateUser setAllowLoadMore:operationUG.userGallerys.count==10];
         [templateUser endLoadNext];
+        
+        if(galleryView && !_isUserViewShopGallery)
+        {
+            [galleryView setAllowLoadMore:templateUser.isAllowLoadMore];
+            [galleryView endLoadMore];
+        }
     }
 }
 
@@ -270,15 +253,16 @@
         _rootView=[[RootViewController shareInstance] giveARootView];
         _rootView.backgroundColor=[UIColor clearColor];
         
-        galleryView=[[GalleryView alloc] init];
-        galleryView.selectedIndex=indexPath;
-        galleryView.delegate=self;
+        galleryView=[[GalleryView alloc] initWithDelegate:self defaultIndex:indexPath.row];
+        [galleryView setPage:templateUser.page];
         
-        [templateUser setTableView:galleryView.table];
+        _rootView.alpha=0;
         
         [_rootView addSubview:galleryView];
         
-        [galleryView animationImage:picture.userImage startRect:CGRectZero];
+        [UIView animateWithDuration:DURATION_SHOW_GALLERY_VIEW_INFO animations:^{
+            _rootView.alpha=1;
+        }];
     }
     else if(tableView==tableShop)
     {
@@ -291,16 +275,59 @@
         _rootView=[[RootViewController shareInstance] giveARootView];
         _rootView.backgroundColor=[UIColor clearColor];
         
-        galleryView=[[GalleryView alloc] init];
-        galleryView.selectedIndex=indexPath;
-        galleryView.delegate=self;
+        galleryView=[[GalleryView alloc] initWithDelegate:self defaultIndex:indexPath.row];
         
-        [templateShop setTableView:galleryView.table];
+        _rootView.alpha=0;
         
         [_rootView addSubview:galleryView];
         
-        [galleryView animationImage:picture.userImage startRect:CGRectZero];
+        [UIView animateWithDuration:DURATION_SHOW_GALLERY_VIEW_INFO animations:^{
+            _rootView.alpha=1;
+        }];
     }
+}
+
+-(bool)galleryViewAllowDescription:(GalleryView *)galleryView
+{
+    return !_isUserViewShopGallery;
+}
+
+-(bool)galleryViewAllowLoadMore:(GalleryView *)galleryView
+{
+    return !_isUserViewShopGallery && templateUser.isAllowLoadMore;
+}
+
+-(NSUInteger)numberOfItemInGallery:(GalleryView *)galleryView
+{
+    if(_isUserViewShopGallery)
+        return templateShop.datasource.count;
+    
+    return templateUser.datasource.count;
+}
+
+-(GalleryItem *)galleryViewItemAtIndex:(GalleryView *)gallerYView index:(NSUInteger)index
+{
+    GalleryItem *item=[[GalleryItem alloc] init];
+    
+    if(!_isUserViewShopGallery)
+    {
+        ShopUserGallery *ug=[templateUser.datasource objectAtIndex:index];
+        
+        if(ug.imagePosed)
+            item.image=ug.imagePosed;
+        else
+            item.imageURL=[NSURL URLWithString:ug.image];
+        
+        item.imageDescription=[NSString stringWithString:ug.desc];
+    }
+    else
+    {
+        ShopGallery *sg=[templateShop.datasource objectAtIndex:index];
+        
+        item.imageURL=[NSURL URLWithString:sg.image];
+    }
+    
+    return item;
 }
 
 -(void)galleryViewBack:(GalleryView *)_galleryView
@@ -317,45 +344,15 @@
     galleryView=nil;
 }
 
--(NSString *)galleryViewDescriptionImage:(int)index
+-(void)galleryViewLoadMore:(GalleryView *)galleryView atPage:(NSUInteger)page needWait:(bool *)isNeedWait
 {
-    if(index<templateUser.datasource.count)
-    {
-        return ((ShopUserGallery*)[templateUser.datasource objectAtIndex:index]).desc;
-    }
+    [self loadUserGalleryAtPage:page];
     
-    return @"";
-}
-
--(CGRect)galleryViewFrameForAnimationHide:(GalleryView *)_galleryView index:(NSIndexPath *)indexPath
-{
-    if(_isUserViewShopGallery)
-    {
-        templateShop.currentIndexPath=indexPath;        
-    }
-    else
-    {
-        templateUser.currentIndexPath=indexPath;
-    }
-    
-    return CGRectZero;
-}
-
--(bool)galleryViewAllowDescription:(GalleryView *)galleryView
-{
-    return !_isUserViewShopGallery;
-}
-
--(void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
-    if(galleryView)
-    {
-        [galleryView scrollViewDidScroll:scrollView];
-    }
+    *isNeedWait=true;
 }
 
 - (IBAction)btnAddTouchUpInside:(id)sender {
-    ShopUserPose *userPose=[[ShopUserPose alloc] initWithViewController:self.handler.navigationController shop:_shop];
+    ShopUserPose *userPose=[[ShopUserPose alloc] initWithViewController:[RootViewController shareInstance] shop:_shop];
     userPose.delegate=self;
     
     [userPose show];

@@ -150,6 +150,18 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    int index=indexPath.row;
+    
+    while (index>=templateAds.datasource.count) {
+        index-=templateAds.datasource.count;
+    }
+    
+    Ads *ads=[templateAds.datasource objectAtIndex:index];
+    
+    if(ads.url.length>0)
+    {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:ads.url]];
+    }
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -215,9 +227,9 @@
     [self addMap];
     
     height=[UIScreen mainScreen].bounds.size.height;
-    height-=33;
-    height-=[BannerAdsViewController size].height;
-    height-=[SlideQRCodeViewController size].height;
+    height-=20;
+    height-=[NavigationBarView height];
+    height-=[[RootViewController shareInstance] heightAds_QR];
     
     pntRay=ray.center;
     pntSelf=self.view.center;

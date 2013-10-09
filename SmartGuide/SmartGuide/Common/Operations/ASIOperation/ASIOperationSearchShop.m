@@ -17,14 +17,14 @@
     NSURL *_url=[NSURL URLWithString:SERVER_API_MAKE(API_SHOP_SEARCH)];
     self=[super initWithURL:_url];
     
-    values=@[_name,@(idUser),@(lat),@(lon),@(page)];
+    values=@[_name,@(idUser),@(lat),@(lon),@(page),@(1)];
     
     return self;
 }
 
 -(NSArray *)keys
 {
-    return @[@"shop_name",@"user_id",@"user_lat",@"user_lng",@"page"];
+    return @[@"shop_name",@"user_id",@"user_lat",@"user_lng",@"page",@"version"];
 }
 
 -(void)onCompletedWithJSON:(NSArray *)json

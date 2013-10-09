@@ -113,3 +113,11 @@
 }
 
 @end
+
+@interface UIApplication(ios6)
+
+@end
+
+@implementation UIApplication(ios6)
+
+@end

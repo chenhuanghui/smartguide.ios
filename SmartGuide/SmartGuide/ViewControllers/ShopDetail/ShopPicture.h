@@ -44,4 +44,6 @@
 -(ShopPicture*) initWithShop:(Shop*) shop;
 -(void)setShop:(Shop *)shop;
 
+- (IBAction)btnAddTouchUpInside:(id)sender;
+
 @end

@@ -10,6 +10,7 @@
 #import "RootViewController.h"
 #import "SlideQRCodeViewController.h"
 #import "Utility.h"
+#import "PromotionVoucherCell.h"
 
 @implementation PromotionDetailType2View
 @synthesize handler;
@@ -18,57 +19,11 @@
 {
     self=[[[NSBundle mainBundle] loadNibNamed:NIB_PHONE(@"PromotionDetailType2View") owner:nil options:nil] objectAtIndex:0];
     
-    btnReward.layer.cornerRadius=8;
-    btnReward.layer.masksToBounds=true;
     [self setShop:shop];
-    
-    //146 149 153
-    FTCoreTextStyle *style=[FTCoreTextStyle styleWithName:@"text"];
-    style.textAlignment=FTCoreTextAlignementCenter;
-    style.font=[UIFont italicSystemFontOfSize:12];
-    style.color=[UIColor darkGrayColor];
-    
-    [lblP addStyle:style];
-    
-    style=[FTCoreTextStyle styleWithName:@"p"];
-    style.textAlignment=FTCoreTextAlignementCenter;
-    style.color=[UIColor color255WithRed:201 green:84 blue:54 alpha:255];
-    style.font=[UIFont boldSystemFontOfSize:12];
-    
-    [lblP addStyle:style];
-    
-    style=[FTCoreTextStyle styleWithName:@"gn"];
-    style.textAlignment=FTCoreTextAlignementLeft;
-    style.color=[UIColor darkGrayColor];
-    style.font=[UIFont systemFontOfSize:11];
-    
-    [lblDesc addStyle:style];
-    
-    style=[FTCoreTextStyle styleWithName:@"vnd"];
-    style.textAlignment=FTCoreTextAlignementCenter;
-    style.color=[UIColor color255WithRed:201 green:84 blue:54 alpha:255];
-    style.font=[UIFont boldSystemFontOfSize:12];
-    
-    [lblDesc addStyle:style];
-    
-    style=[FTCoreTextStyle styleWithName:@"dk"];
-    style.textAlignment=FTCoreTextAlignementLeft;
-    style.color=[UIColor darkGrayColor];
-    style.font=[UIFont boldSystemFontOfSize:11];
-    
-    [lblDesc addStyle:style];
-    
-    style=[FTCoreTextStyle styleWithName:@"text"];
-    style.textAlignment=FTCoreTextAlignementLeft;
-    style.color=[UIColor darkGrayColor];
-    style.font=[UIFont systemFontOfSize:11];
-    
-    [lblDesc addStyle:style];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userScanedQRCode:) name:NOTIFICATION_USER_SCANED_QR_CODE object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userScanedQRCode:) name:NOTIFICATION_USER_CANCELED_SCAN_QR_CODE object:nil];
     
-    //146 159 153
     return self;
 }
 
@@ -79,43 +34,81 @@
 
 -(void)setShop:(Shop *)shop
 {
-    if(_operation)
-    {
-        [_operation cancel];
-        _operation=nil;
-    }
-    
     _shop=shop;
     
     if(shop)
     {
-        btnReward.hidden=false;
         lblDuration.text=_shop.promotionDetail.duration;
-        
-        [btnReward setTitle:[NSNumberFormatter moneyFromNSNumber:shop.promotionDetail.money] forState:UIControlStateNormal];
-        btnReward.tag=shop.promotionDetail.idAwardType2.integerValue;
-        
-        [self setDesc:[NSNumberFormatter moneyFromNSNumber:shop.promotionDetail.money] dk:shop.promotionDetail.desc];
-        [self setP:shop.promotionDetail.p.integerValue];
     }
     else
         [self reset];
 }
 
--(void) setDesc:(NSString*) money dk:(NSString*) dk
-{
-    [lblDesc setText:[NSString stringWithFormat:@"<gn>Giảm ngay </gn><vnd>%@</vnd><text>\ntrên hoá đơn khi </text><dk>%@</dk>",money,dk]];
+- (IBAction)bntRewardTouchUpInside:(id)sender {
+    [self getRewardWithID:-1];
 }
 
--(void) setP:(int) p
+- (IBAction)btnListRewardTouchUpInside:(id)sender
 {
-    [lblP setText:[NSString stringWithFormat:@"<text>Tích luỹ <p>%iP</p> trên 1 lượt quét thẻ</text>",p]];
+    PopupGiftPromotion2 *popup=nil;
+    
+    if(_shop.promotionDetail.vouchersInserted && _shop.promotionDetail.vouchersInserted.count>0)
+    {
+        NSMutableArray *array=[NSMutableArray array];
+        
+        for(NSNumber *num in _shop.promotionDetail.vouchersInserted)
+        {
+            int idVoucher=[num integerValue];
+            [array addObject:[_shop.promotionDetail voucherWithID:idVoucher]];
+        }
+        
+        popup=[[PopupGiftPromotion2 alloc] initWithVouchers:array delegate:self];
+    }
+    
+    if(!popup)
+        popup=[[PopupGiftPromotion2 alloc] initWithVouchers:_shop.promotionDetail.vouchersObjects delegate:self];
+    
+    _rootView=[[RootViewController shareInstance] giveARootView];
+    _rootView.backgroundColor=[UIColor clearColor];
+    
+    popup.frame=_rootView.frame;
+    
+    _rootView.alpha=0;
+    [_rootView addSubview:popup];
+    
+    [UIView animateWithDuration:DURATION_DEFAULT animations:^{
+        _rootView.alpha=1;
+    }];
+
 }
 
-- (IBAction)btnRewardTouchUpInside:(id)sender
+-(void)popupGiftDidCancelled:(PopupGiftPromotion2 *)popup
 {
-//    [self showLoadingWithTitle:nil];
-    [[RootViewController shareInstance].slideQRCode scanGetPromotion2WithIDAward:_shop.promotionDetail.idAwardType2.integerValue];
+    [self removePopup:popup];
+}
+
+-(void)popupGiftDidSelectedVoucher:(PopupGiftPromotion2 *)popup voucher:(PromotionVoucher *)voucher
+{
+    [self removePopup:popup];
+    
+//    [self getRewardWithID:voucher.idVoucher.integerValue];
+}
+
+-(void) removePopup:(PopupGiftPromotion2*) popup
+{
+    _rootView.userInteractionEnabled=false;
+    
+    [UIView animateWithDuration:DURATION_DEFAULT animations:^{
+        _rootView.alpha=0;
+    } completion:^(BOOL finished) {
+        [popup removeFromSuperview];
+        [[RootViewController shareInstance] removeRootView:_rootView];
+    }];
+}
+
+-(void) getRewardWithID:(int) idReward
+{
+    [[RootViewController shareInstance].slideQRCode scanGetPromotion2WithIDAward:idReward];
 }
 
 -(void)reloadWithShop:(Shop *)shop
@@ -125,26 +118,7 @@
 
 -(void)reset
 {
-    [btnReward setTitle:@"" forState:UIControlStateNormal];
-    btnReward.hidden=true;
-}
-
--(void)ASIOperaionPostFinished:(ASIOperationPost *)operation
-{
-//    [self removeLoading];
-    
-    [AlertView showAlertOKWithTitle:nil withMessage:@"Bạn đã nhận phần thưởng thành công" onOK:nil];
-    
-    _operation=nil;
-}
-
--(void)ASIOperaionPostFailed:(ASIOperationPost *)operation
-{
-//    [self removeLoading];
-    
-    [AlertView showAlertOKWithTitle:nil withMessage:@"Nhận phần thưởng thất bại" onOK:nil];
-    
-    _operation=nil;
+    lblDuration.text=@"";
 }
 
 @end

@@ -11,7 +11,7 @@
 #import "PromotionDetail.h"
 
 @implementation ASIOperationGetSGP
-@synthesize values,status,content,time,shopName,SGP,totalSGP,code;
+@synthesize values,status,content,time,shopName,SGP,totalSGP,code,idShop;
 
 -(ASIOperationGetSGP *)initWithUserID:(int)idUser code:(NSString *)_code idShop:(int)idShop lat:(double)lat lon:(double)lon
 {
@@ -43,7 +43,7 @@
         totalSGP=[[dict objectForKey:@"total_sgp"] doubleValue];
         code=[self.values objectAtIndex:1];
         
-        int idShop=[Utility idShopFromQRCode:[self.values objectAtIndex:1]];
+        idShop=[[NSNumber numberWithObject:[dict objectForKey:@"shop_id"]] integerValue];
         Shop *shop=[Shop shopWithIDShop:idShop];
         
         if(shop)

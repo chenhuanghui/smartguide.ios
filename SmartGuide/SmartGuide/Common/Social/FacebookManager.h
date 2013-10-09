@@ -12,7 +12,7 @@
 #import "ASIOperationFBProfile.h"
 #import "OperationFBGetProfile.h"
 
-@interface FacebookManager : NSObject<SHKFacebookDelegate,OperationURLDelegate,ASIOperationPostDelegate>
+@interface FacebookManager : NSObject<SHKFacebookDelegate>
 
 +(FacebookManager*) shareInstance;
 

@@ -18,11 +18,11 @@
 @implementation LoadingScreenViewController
 @synthesize isAnimationFinished,isNeedRemove;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (id)init
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    self = [super initWithNibName:NIB_PHONE(@"LoadingScreenViewController") bundle:nil];
     if (self) {
-        // Custom initialization
+        
     }
     return self;
 }
@@ -30,6 +30,13 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    if(IS_IPHONE_4)
+    {
+        if(!IS_RETINA)
+            imgvDefault.frame=CGRectMake(0, 0, 320, 460);
+    }
+    
     // Do any additional setup after loading the view from its nib.
 //    logo.frame=CGRECT_PHONE(CGRectMake(106, 142, 114, 100), CGRectMake(0, 0, 320, 548));
     bg.frame=CGRECT_PHONE(CGRectMake(0, 0, 320, 460), CGRectMake(0, 0, 320, 548));
@@ -38,7 +45,7 @@
     
     isAnimationFinished=false;
     
-    double delayInSeconds = 1.5f;
+    double delayInSeconds = 0.5f;
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
         isAnimationFinished=true;
@@ -47,6 +54,8 @@
         {
             [[RootViewController shareInstance] removeLoadingScreen];
         }
+        else
+            [self.view showLoadingWithTitle:nil];
     });
     
     return;

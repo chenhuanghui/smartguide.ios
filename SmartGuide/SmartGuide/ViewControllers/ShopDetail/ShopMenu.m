@@ -133,9 +133,13 @@
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     UIView *view=[[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 21)];
+
     UILabel *lbl=[[UILabel alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 21)];
     lbl.font=[UIFont boldSystemFontOfSize:9];
     lbl.text=[_productTypeName objectAtIndex:section];
+    
+    view.backgroundColor=[UIColor whiteColor];
+    lbl.backgroundColor=[UIColor whiteColor];
     
     [view addSubview:lbl];
     

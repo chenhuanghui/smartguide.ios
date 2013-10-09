@@ -16,14 +16,15 @@
 @end
 
 @implementation OperationVerifyActiveCode
-@synthesize isSuccess,user;
+@synthesize isSuccess,user,activeCode;
 
--(OperationVerifyActiveCode *)initWithPhone:(NSString *)phone aciveCode:(NSString *)activeCode
+-(OperationVerifyActiveCode *)initWithPhone:(NSString *)phone aciveCode:(NSString *)_activeCode
 {
-    NSURL *url=[NSURL URLWithString:API_VERIFY_ACTIVE_CODE(phone, activeCode)];
+    NSURL *url=[NSURL URLWithString:API_VERIFY_ACTIVE_CODE(phone, _activeCode)];
     self=[super initWithURL:url];
     
     _phone=[[NSString alloc] initWithString:phone];
+    self.activeCode=[[NSString alloc]initWithString:_activeCode];
     
     return self;
 }

@@ -7,6 +7,7 @@
 
 #define PromotionRequire_Content @"content"
 #define PromotionRequire_IdRequire @"idRequire"
+#define PromotionRequire_NumberVoucher @"numberVoucher"
 #define PromotionRequire_SgpRequired @"sgpRequired"
 
 @class PromotionRequire;
@@ -25,6 +26,7 @@
 
 @property (nonatomic, retain) NSString* content;
 @property (nonatomic, retain) NSNumber* idRequire;
+@property (nonatomic, retain) NSString* numberVoucher;
 @property (nonatomic, retain) NSNumber* sgpRequired;
 
 #pragma mark Fetched property

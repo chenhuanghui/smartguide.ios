@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="2061" systemVersion="11E53" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="3396" systemVersion="12F37" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="Ads" representedClassName="Ads" syncable="YES">
         <attribute name="begin_date" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="end_date" optional="YES" attributeType="String" syncable="YES"/>
@@ -7,6 +7,7 @@
         <attribute name="image" optional="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="image_url" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="url" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="City" representedClassName="City" syncable="YES">
         <attribute name="idCity" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
@@ -44,19 +45,29 @@
         <attribute name="duration" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="idAwardType2" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="min_score" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="money" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="money" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="p" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="promotionType" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="sgp" optional="YES" attributeType="Integer 64" defaultValueString="0.0" syncable="YES"/>
         <attribute name="sp" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <relationship name="requires" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="PromotionRequire" inverseName="promotion" inverseEntity="PromotionRequire" syncable="YES"/>
         <relationship name="shop" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Shop" inverseName="promotionDetail" inverseEntity="Shop" syncable="YES"/>
+        <relationship name="vouchers" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="PromotionVoucher" inverseName="promotion" inverseEntity="PromotionVoucher" syncable="YES"/>
     </entity>
     <entity name="PromotionRequire" representedClassName="PromotionRequire" syncable="YES">
         <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="idRequire" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="numberVoucher" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="sgpRequired" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <relationship name="promotion" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="PromotionDetail" inverseName="requires" inverseEntity="PromotionDetail" syncable="YES"/>
+    </entity>
+    <entity name="PromotionVoucher" representedClassName="PromotionVoucher" syncable="YES">
+        <attribute name="desc" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="idVoucher" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="money" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="numberVoucher" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="p" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <relationship name="promotion" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="PromotionDetail" inverseName="vouchers" inverseEntity="PromotionDetail" syncable="YES"/>
     </entity>
     <entity name="Reward" representedClassName="Reward" syncable="YES">
         <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>
@@ -130,6 +141,7 @@
     </entity>
     <entity name="User" representedClassName="User" syncable="YES">
         <attribute name="avatar" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="avatarImage" optional="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="isConnectedFacebook" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="filter" optional="YES" minCount="1" maxCount="1" deletionRule="Cascade" destinationEntity="Filter" inverseName="user" inverseEntity="Filter" syncable="YES"/>
@@ -139,20 +151,21 @@
         <attribute name="versionType" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Ads" positionX="160" positionY="192" width="128" height="135"/>
-        <element name="City" positionX="214" positionY="108" width="128" height="75"/>
-        <element name="Feedback" positionX="160" positionY="192" width="128" height="75"/>
-        <element name="Filter" positionX="-288" positionY="357" width="128" height="270"/>
-        <element name="Group" positionX="45" positionY="99" width="128" height="90"/>
-        <element name="PromotionDetail" positionX="466" positionY="126" width="128" height="225"/>
-        <element name="PromotionRequire" positionX="432" positionY="369" width="128" height="105"/>
-        <element name="Reward" positionX="160" positionY="192" width="128" height="120"/>
-        <element name="Shop" positionX="216" positionY="267" width="128" height="510"/>
-        <element name="ShopGallery" positionX="430" positionY="603" width="128" height="105"/>
-        <element name="ShopProduct" positionX="-0" positionY="399" width="128" height="135"/>
-        <element name="ShopUserComment" positionX="-29" positionY="594" width="128" height="150"/>
-        <element name="ShopUserGallery" positionX="-2" positionY="219" width="128" height="120"/>
-        <element name="User" positionX="-63" positionY="-27" width="128" height="105"/>
-        <element name="Versions" positionX="-342" positionY="144" width="128" height="75"/>
+        <element name="Ads" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="City" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Feedback" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Filter" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Group" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="PromotionDetail" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="PromotionRequire" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="PromotionVoucher" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Reward" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Shop" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="ShopGallery" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="ShopProduct" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="ShopUserComment" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="ShopUserGallery" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="User" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Versions" positionX="0" positionY="0" width="0" height="0"/>
     </elements>
 </model>

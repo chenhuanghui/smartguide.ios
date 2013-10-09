@@ -153,11 +153,6 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
-//    [RootViewController shareInstance].navigationBarView.delegate=self;
-//    [[RootViewController shareInstance].navigationBarView setTitle:self.title];
-//    [[RootViewController shareInstance].navigationBarView setRightIcon:self.rightNavigationItems];
-//    [[RootViewController shareInstance].navigationBarView setDisableRighIcon:self.disableRightNavigationItems];
 }
 
 -(void)viewWillDisappear:(BOOL)animated
@@ -285,6 +280,26 @@
     [[RootViewController shareInstance].navigationBarView setNavigationTitle:self.title];
     [[RootViewController shareInstance].navigationBarView setRightIcon:self.rightNavigationItems];
     [[RootViewController shareInstance].navigationBarView setDisableRighIcon:self.disableRightNavigationItems];
+}
+
+-(UIStatusBarStyle)preferredStatusBarStyle
+{
+    return UIStatusBarStyleLightContent;
+}
+
+-(UIRectEdge)edgesForExtendedLayout
+{
+    return UIRectEdgeNone;
+}
+
+-(BOOL)extendedLayoutIncludesOpaqueBars
+{
+    return false;
+}
+
+-(BOOL)automaticallyAdjustsScrollViewInsets
+{
+    return true;
 }
 
 @end

@@ -14,6 +14,7 @@
     __weak IBOutlet UIImageView *smartguide;
     __weak IBOutlet UIImageView *km;
     __weak IBOutlet UIImageView *bg;
+    __weak IBOutlet UIImageView *imgvDefault;
 }
 
 @property (nonatomic, assign) bool isNeedRemove;

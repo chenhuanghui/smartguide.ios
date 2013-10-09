@@ -104,6 +104,7 @@
         {
             if(delegate)
             {
+                self.title=_group.name;
                 [delegate catalogueListLoadShopFinished:self];
                 [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_CATALOGUE_LIST_FINISHED object:nil];
             }
@@ -225,6 +226,11 @@
     vi.backgroundColor=[UIColor clearColor];
     tableShop.tableHeaderView=vi;
     
+    rect.origin.y=tableShop.frame.size.height-rect.size.height;
+    vi=[[UIView alloc] initWithFrame:rect];
+    vi.backgroundColor=[UIColor clearColor];
+    tableShop.tableFooterView=vi;
+    
     [[LocationManager shareInstance] checkLocationAuthorize];
     
     if(![LocationManager shareInstance].isAllowLocation)
@@ -254,7 +260,8 @@
     [[RootViewController shareInstance].shopDetail removeFromParentViewController];
     [[RootViewController shareInstance].shopDetail.view removeFromSuperview];
     
-    [RootViewController shareInstance].frontViewController.view.frame=CGRectMake(0, 37, 320, [UIScreen mainScreen].bounds.size.height-[RootViewController shareInstance].heightAds_QR);
+//    CGRect rect=CGRectMake(0, 37, 320, [UIScreen mainScreen].bounds.size.height-[RootViewController shareInstance].heightAds_QR);
+//    [RootViewController shareInstance].frontViewController.view.frame=rect;
     
     [[RootViewController shareInstance].bannerAds animationHideShopDetail];
     
@@ -386,23 +393,6 @@
             [delegate catalogueListLoadShopFinished:self];
         [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_CATALOGUE_LIST_FINISHED object:nil];
         
-        if(![Flags isShowedTutorial])
-        {
-            [Flags setIsShowedTutorial:true];
-            
-            TutorialView *tutorial=[[TutorialView alloc] init];
-            tutorial.center=CGPointMake(320/2, 480/2);
-            tutorial.alpha=0;
-            tutorial.delegate=self;
-            tutorial.isHideClose=false;
-            
-            [self.view.window addSubview:tutorial];
-            
-            [UIView animateWithDuration:0.3f animations:^{
-                tutorial.alpha=1;
-            }];
-        }
-        
         [[RootViewController shareInstance] setNeedRemoveLoadingScreen];
     }
     else
@@ -410,16 +400,6 @@
         btnUp.hidden=templateSearch.datasource.count==0;
         btnDown.hidden=templateSearch.datasource.count==0;
     }
-}
-
--(void)tutorialViewBack:(TutorialView *)tutorial
-{
-    tutorial.userInteractionEnabled=false;
-    [UIView animateWithDuration:0.2f animations:^{
-        tutorial.alpha=0;
-    } completion:^(BOOL finished) {
-        [tutorial removeFromSuperview];
-    }];
 }
 
 -(void)ASIOperaionPostFailed:(ASIOperationPost *)operation
@@ -673,7 +653,7 @@
     {
         if(g.idGroup.integerValue==0)
         {
-            ids=@"1,2,3,4,5,6,7";
+            ids=@"1,2,3,4,5,6,7,8";
             break;
         }
     }

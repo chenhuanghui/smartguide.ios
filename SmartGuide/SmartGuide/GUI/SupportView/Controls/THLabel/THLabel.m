@@ -1,7 +1,7 @@
 //
 //  THLabel.m
 //
-//  Version 1.0.3
+//  Version 1.1.2
 //
 //  Created by Tobias Hagemann on 11/25/12.
 //  Copyright (c) 2013 tobiha.de. All rights reserved.
@@ -11,6 +11,10 @@
 //  https://github.com/nicklockwood/FXLabel
 //  KSLabel by Kai Schweiger,
 //  https://github.com/vigorouscoding/KSLabel
+//
+//  Big thanks to Jason Miller for showing me sample code of his implementation
+//  using Core Text! It inspired me to dig deeper and move away from drawing
+//  with NSAttributedString on iOS 7, which caused a lot of problems.
 //
 //  Distributed under the permissive zlib license
 //  Get the latest version from here:
@@ -36,22 +40,31 @@
 //  3. This notice may not be removed or altered from any source distribution.
 //
 
-#import "THLabel.h"
+#import <CoreText/CoreText.h>
 
-#if __IPHONE_OS_VERSION_MAX_ALLOWED < __IPHONE_6_0
-typedef enum {
-	NSTextAlignmentLeft = UITextAlignmentLeft,
-	NSTextAlignmentCenter = UITextAlignmentCenter,
-	NSTextAlignmentRight = UITextAlignmentRight
-} NSTextAlignment;
-#endif
+#import "THLabel.h"
 
 @implementation THLabel
 
-@synthesize shadowBlur = _shadowBlur;
-@synthesize strokeSize = _strokeSize, strokeColor = _strokeColor, strokePosition = _strokePosition;
-@synthesize gradientStartColor = _gradientStartColor, gradientEndColor = _gradientEndColor, gradientColors = _gradientColors, gradientStartPoint = _gradientStartPoint, gradientEndPoint = _gradientEndPoint;
-@synthesize textInsets = _textInsets;
+- (id)initWithFrame:(CGRect)frame {
+	if (self = [super initWithFrame:frame]) {
+		self.backgroundColor = [UIColor clearColor];
+		[self setDefaults];
+	}
+	return self;
+}
+
+- (id)initWithCoder:(NSCoder *)aDecoder {
+	if (self = [super initWithCoder:aDecoder]) {
+		[self setDefaults];
+	}
+	return self;
+}
+
+- (void)setDefaults {
+	self.gradientStartPoint = CGPointMake(0.5, 0.2);
+	self.gradientEndPoint = CGPointMake(0.5, 0.8);
+}
 
 #pragma mark -
 #pragma mark Accessors and Mutators
@@ -106,105 +119,97 @@ typedef enum {
 #pragma mark Drawing
 
 - (void)drawRect:(CGRect)rect {
-	// Get everything ready for drawing.
-	CGRect contentRect = [self contentRectFromBounds:self.bounds withInsets:self.textInsets];
-	CGFloat fontSize = self.font.pointSize;
-	CGRect textRect = [self textRectFromContentRect:contentRect actualFontSize:&fontSize];
-	UIFont *font = [self.font fontWithSize:fontSize];
-	
+	// Don't draw anything, if there is no text.
+	if (!self.text || [self.text isEqualToString:@""]) {
+		return;
+	}
+    
+	// -------
 	// Determine what has to be drawn.
-	BOOL hasShadow = self.shadowColor && ![self.shadowColor isEqual:[UIColor clearColor]] && (self.shadowBlur > 0.0f || !CGSizeEqualToSize(self.shadowOffset, CGSizeZero));
-	BOOL hasStroke = self.strokeSize > 0 && ![self.strokeColor isEqual:[UIColor clearColor]];
+	// -------
+    
+	BOOL hasShadow = self.shadowColor && ![self.shadowColor isEqual:[UIColor clearColor]] && (self.shadowBlur > 0.0 || !CGSizeEqualToSize(self.shadowOffset, CGSizeZero));
+	BOOL hasStroke = self.strokeSize > 0.0 && ![self.strokeColor isEqual:[UIColor clearColor]];
 	BOOL hasGradient = [self.gradientColors count] > 1;
 	BOOL needsMask = hasGradient || (hasStroke && self.strokePosition == THLabelStrokePositionInside);
-	
+    
 	// -------
 	// Step 1: Begin new drawing context, where we will apply all our styles.
 	// -------
-	
-	UIGraphicsBeginImageContextWithOptions(rect.size, NO, 0.0f);
+    
+	UIGraphicsBeginImageContextWithOptions(rect.size, NO, 0.0);
 	CGContextRef context = UIGraphicsGetCurrentContext();
 	CGImageRef alphaMask = NULL;
-	
+	CGRect textRect;
+	CTFrameRef frameRef = [self setupFrameForDrawingOutTextRect:&textRect];
+    
+	// Invert everything, because CG works with an inverted coordinate system.
+	CGContextTranslateCTM(context, 0.0, CGRectGetHeight(rect));
+	CGContextScaleCTM(context, 1.0, -1.0);
+    
 	// -------
 	// Step 2: Prepare mask.
 	// -------
-	
+    
 	if (needsMask) {
 		CGContextSaveGState(context);
-		
+        
+		// Draw alpha mask.
 		if (hasStroke) {
 			// Text needs invisible stroke for consistent character glyph widths.
 			CGContextSetTextDrawingMode(context, kCGTextFillStroke);
-			
-			// Set stroke attributes.
-			[self setStrokeAttributesInContext:context];
-			
-			// Set invisible stroke.
+			CGContextSetLineWidth(context, [self strokeSizeDependentOnStrokePosition]);
+			CGContextSetLineJoin(context, kCGLineJoinRound);
 			[[UIColor clearColor] setStroke];
 		} else {
 			CGContextSetTextDrawingMode(context, kCGTextFill);
 		}
-		
-		// Set white color for alpha mask.
+        
 		[[UIColor whiteColor] setFill];
-		
-		// Draw alpha mask.
-		[self drawTextInRect:textRect withFont:font];
-		
+		CTFrameDraw(frameRef, context);
+        
 		// Save alpha mask.
 		alphaMask = CGBitmapContextCreateImage(context);
-		
+        
 		// Clear the content.
 		CGContextClearRect(context, rect);
-		
+        
 		CGContextRestoreGState(context);
 	}
-	
+    
 	// -------
 	// Step 3: Draw text normally, or with gradient.
 	// -------
-	
+    
 	CGContextSaveGState(context);
-	
+    
 	if (!hasGradient) {
+		// Draw text.
 		if (hasStroke) {
 			// Text needs invisible stroke for consistent character glyph widths.
 			CGContextSetTextDrawingMode(context, kCGTextFillStroke);
-			
-			// Set stroke attributes.
-			[self setStrokeAttributesInContext:context];
-			
-			// Set invisible stroke.
+			CGContextSetLineWidth(context, [self strokeSizeDependentOnStrokePosition]);
+			CGContextSetLineJoin(context, kCGLineJoinRound);
 			[[UIColor clearColor] setStroke];
 		} else {
 			CGContextSetTextDrawingMode(context, kCGTextFill);
 		}
-		
-		// Set text fill color.
-		[self.textColor setFill];
-		
-		// Draw text.
-		[self drawTextInRect:textRect withFont:font];
+        
+		CTFrameDraw(frameRef, context);
 	} else {
-		// Invert everything, because CG works with an inverted coordinate system.
-		CGContextTranslateCTM(context, 0.0f, rect.size.height);
-		CGContextScaleCTM(context, 1.0f, -1.0f);
-		
 		// Clip the current context to alpha mask.
 		CGContextClipToMask(context, rect, alphaMask);
-		
+        
 		// Invert back to draw the gradient correctly.
-		CGContextTranslateCTM(context, 0.0f, rect.size.height);
-		CGContextScaleCTM(context, 1.0f, -1.0f);
-		
+		CGContextTranslateCTM(context, 0.0, CGRectGetHeight(rect));
+		CGContextScaleCTM(context, 1.0, -1.0);
+        
 		// Get gradient colors as CGColor.
 		NSMutableArray *gradientColors = [NSMutableArray arrayWithCapacity:[self.gradientColors count]];
-		
 		for (UIColor *color in self.gradientColors) {
-			[gradientColors addObject:( id)color.CGColor];
+			[gradientColors addObject:(__bridge id)color.CGColor];
 		}
-		
+        
 		// Create gradient.
 		CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
 		CGGradientRef gradient = CGGradientCreateWithColors(colorSpace, (__bridge CFArrayRef)gradientColors, NULL);
@@ -212,235 +217,196 @@ typedef enum {
 										 textRect.origin.y + self.gradientStartPoint.y * textRect.size.height);
 		CGPoint endPoint = CGPointMake(textRect.origin.x + self.gradientEndPoint.x * textRect.size.width,
 									   textRect.origin.y + self.gradientEndPoint.y * textRect.size.height);
-		
+        
 		// Draw gradient.
 		CGContextDrawLinearGradient(context, gradient, startPoint, endPoint, kCGGradientDrawsBeforeStartLocation | kCGGradientDrawsAfterEndLocation);
-		
-		// Clean up, because ARC doesn't handle CG.
+        
+		// Clean up.
 		CGColorSpaceRelease(colorSpace);
 		CGGradientRelease(gradient);
 	}
-	
+    
 	CGContextRestoreGState(context);
-	
+    
 	// -------
 	// Step 4: Draw stroke.
 	// -------
-	
+    
 	if (hasStroke) {
 		CGContextSaveGState(context);
-		
+        
 		CGContextSetTextDrawingMode(context, kCGTextStroke);
-		
+        
 		CGImageRef image = NULL;
-		
+        
 		if (self.strokePosition == THLabelStrokePositionOutside) {
 			// Create an image from the text.
 			image = CGBitmapContextCreateImage(context);
-		}
-		
-		// Set stroke attributes.
-		[self setStrokeAttributesInContext:context];
-		
-		// Set stroke color.
-		[self.strokeColor setStroke];
-		
-		if (self.strokePosition == THLabelStrokePositionInside) {
-			// Invert everything, because CG works with an inverted coordinate system.
-			CGContextTranslateCTM(context, 0.0f, rect.size.height);
-			CGContextScaleCTM(context, 1.0f, -1.0f);
-			
+		} else if (self.strokePosition == THLabelStrokePositionInside) {
 			// Clip the current context to alpha mask.
 			CGContextClipToMask(context, rect, alphaMask);
-			
-			// Invert back to draw the stroke correctly.
-			CGContextTranslateCTM(context, 0.0f, rect.size.height);
-			CGContextScaleCTM(context, 1.0f, -1.0f);
 		}
-		
+        
 		// Draw stroke.
-		[self drawTextInRect:textRect withFont:font];
-		
+		CGContextSetLineWidth(context, [self strokeSizeDependentOnStrokePosition]);
+		CGContextSetLineJoin(context, kCGLineJoinRound);
+		[self.strokeColor setStroke];
+		CTFrameDraw(frameRef, context);
+        
 		if (self.strokePosition == THLabelStrokePositionOutside) {
-			// Invert everything, because CG works with an inverted coordinate system.
-			CGContextTranslateCTM(context, 0.0f, rect.size.height);
-			CGContextScaleCTM(context, 1.0f, -1.0f);
-			
 			// Draw the saved image over half of the stroke.
 			CGContextDrawImage(context, rect, image);
-			
-			// Clean up, because ARC doesn't handle CG.
+            
+			// Clean up.
 			CGImageRelease(image);
 		}
-		
+        
 		CGContextRestoreGState(context);
 	}
-	
+    
 	// -------
 	// Step 5: Draw shadow.
 	// -------
-	
+    
 	if (hasShadow) {
 		CGContextSaveGState(context);
-		
+        
 		// Create an image from the text.
 		CGImageRef image = CGBitmapContextCreateImage(context);
-		
+        
 		// Clear the content.
 		CGContextClearRect(context, rect);
-		
-		// Invert everything, because CG works with an inverted coordinate system.
-		CGContextTranslateCTM(context, 0.0f, rect.size.height);
-		CGContextScaleCTM(context, 1.0f, -1.0f);
-		
+        
 		// Set shadow attributes.
 		CGContextSetShadowWithColor(context, self.shadowOffset, self.shadowBlur, self.shadowColor.CGColor);
-		
+        
 		// Draw the saved image, which throws off a shadow.
 		CGContextDrawImage(context, rect, image);
-		
-		// Clean up, because ARC doesn't handle CG.
+        
+		// Clean up.
 		CGImageRelease(image);
-		
+        
 		CGContextRestoreGState(context);
 	}
-	
+    
 	// -------
 	// Step 6: End drawing context and finally draw the text with all styles.
 	// -------
-	
+    
 	UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
 	UIGraphicsEndImageContext();
 	[image drawInRect:rect];
-	
+    
+	// -------
+	// Clean up.
+	// -------
+    
 	if (needsMask) {
 		CGImageRelease(alphaMask);
 	}
+    
+	CFRelease(frameRef);
 }
 
-- (void)drawTextInRect:(CGRect)rect withFont:(UIFont *)font {
-	if (self.adjustsFontSizeToFitWidth && self.numberOfLines == 1 && font.pointSize < self.font.pointSize) {
-		CGFloat fontSize = 0.0f;
-		[self.text drawAtPoint:rect.origin forWidth:rect.size.width withFont:self.font minFontSize:font.pointSize actualFontSize:&fontSize lineBreakMode:self.lineBreakMode baselineAdjustment:self.baselineAdjustment];
-	} else {
-		[self.text drawInRect:rect withFont:font lineBreakMode:self.lineBreakMode alignment:self.textAlignment];
-	}
+- (CTFrameRef)setupFrameForDrawingOutTextRect:(CGRect *)textRect {
+	// Set up font.
+	CTFontRef fontRef = CTFontCreateWithName((__bridge CFStringRef)self.font.fontName, self.font.pointSize, NULL);
+//	CTTextAlignment alignment = NSTextAlignmentToCTTextAlignment(self.textAlignment);
+    CTTextAlignment alignment=kCTTextAlignmentCenter;
+	CTLineBreakMode lineBreakMode = (int)self.lineBreakMode;
+	CTParagraphStyleSetting paragraphStyleSettings[] = {
+		{kCTParagraphStyleSpecifierAlignment, sizeof(CTTextAlignment), &alignment},
+		{kCTParagraphStyleSpecifierLineBreakMode, sizeof(CTLineBreakMode), &lineBreakMode}
+	};
+	CTParagraphStyleRef paragraphStyleRef = CTParagraphStyleCreate(paragraphStyleSettings, 2);
+	CFRelease(paragraphStyleSettings);
+    
+	// Set up attributed string.
+	CFStringRef keys[] = {kCTFontAttributeName, kCTParagraphStyleAttributeName, kCTForegroundColorAttributeName};
+	CFTypeRef values[] = {fontRef, paragraphStyleRef, self.textColor.CGColor};
+	CFDictionaryRef attributes = CFDictionaryCreate(kCFAllocatorDefault, (const void **)&keys, (const void **)&values, sizeof(keys) / sizeof(keys[0]), &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+	CFRelease(fontRef);
+	CFRelease(paragraphStyleRef);
+    
+	CFStringRef stringRef = (__bridge CFStringRef)self.text;
+	CFAttributedStringRef attributedStringRef = CFAttributedStringCreate(kCFAllocatorDefault, stringRef, attributes);
+	CFRelease(attributes);
+    
+	// Set up frame.
+	CTFramesetterRef framesetterRef = CTFramesetterCreateWithAttributedString(attributedStringRef);
+	CGRect contentRect = [self contentRectFromBounds:self.bounds withInsets:self.textInsets];
+	*textRect = [self textRectFromContentRect:contentRect framesetterRef:framesetterRef];
+	CGMutablePathRef pathRef = CGPathCreateMutable();
+	CGPathAddRect(pathRef, NULL, *textRect);
+    
+	CTFrameRef frameRef = CTFramesetterCreateFrame(framesetterRef, CFRangeMake(0, [self.text length]), pathRef, NULL);
+	CFRelease(framesetterRef);
+	CGPathRelease(pathRef);
+	return frameRef;
 }
 
 - (CGRect)contentRectFromBounds:(CGRect)bounds withInsets:(UIEdgeInsets)insets {
-	CGRect contentRect = CGRectMake(0.0f, 0.0f, bounds.size.width, bounds.size.height);
-	
+	CGRect contentRect = CGRectMake(0.0, 0.0, bounds.size.width, bounds.size.height);
+    
 	// Apply insets.
 	contentRect.origin.x += insets.left;
 	contentRect.origin.y += insets.top;
 	contentRect.size.width -= insets.left + insets.right;
 	contentRect.size.height -= insets.top + insets.bottom;
-	
+    
 	return contentRect;
 }
 
-- (void)setStrokeAttributesInContext:(CGContextRef)context {
-	switch (self.strokePosition) {
-		case THLabelStrokePositionCenter:
-			CGContextSetLineWidth(context, self.strokeSize);
-			CGContextSetLineJoin(context, kCGLineJoinRound);
-			break;
-			
-		default:
-			// Stroke width times 2, because CG draws a centered stroke. We cut the rest into halves.
-			CGContextSetLineWidth(context, self.strokeSize * 2.0f);
-			CGContextSetLineJoin(context, kCGLineJoinRound);
-			break;
-	}
-}
-
-- (CGRect)textRectFromContentRect:(CGRect)contentRect actualFontSize:(CGFloat *)actualFontSize {
+- (CGRect)textRectFromContentRect:(CGRect)contentRect framesetterRef:(CTFramesetterRef)framesetterRef {
 	CGRect textRect = contentRect;
-	CGFloat minFontSize;
-	
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_6_0
-	if ([self respondsToSelector:@selector(minimumScaleFactor)]) {
-		minFontSize = self.minimumScaleFactor ? self.minimumScaleFactor * *actualFontSize : *actualFontSize;
-	} else {
-#endif
-#if __IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_6_0
-		minFontSize = self.minimumFontSize ? : *actualFontSize;
-#endif
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_6_0
-	}
-#endif
-	
-	// Calculate text rect size.
-	if (self.adjustsFontSizeToFitWidth && self.numberOfLines == 1) {
-		textRect.size = [self.text sizeWithFont:self.font minFontSize:minFontSize actualFontSize:actualFontSize forWidth:contentRect.size.width lineBreakMode:self.lineBreakMode];
-	} else {
-		textRect.size = [self.text sizeWithFont:self.font constrainedToSize:contentRect.size lineBreakMode:self.lineBreakMode];
-	}
-	
+	textRect.size = CTFramesetterSuggestFrameSizeWithConstraints(framesetterRef, CFRangeMake(0, self.text.length), NULL, contentRect.size, NULL);
+    
 	// Horizontal alignment.
 	switch (self.textAlignment) {
 		case NSTextAlignmentCenter:
-			textRect.origin.x = floorf(contentRect.origin.x + (contentRect.size.width - textRect.size.width) / 2.0f);
+			textRect.origin.x = floorf(CGRectGetMinX(contentRect) + (CGRectGetWidth(contentRect) - CGRectGetWidth(textRect)) / 2.0);
 			break;
-			
+            
 		case NSTextAlignmentRight:
-			textRect.origin.x = floorf(contentRect.origin.x + contentRect.size.width - textRect.size.width);
+			textRect.origin.x = floorf(CGRectGetMinX(contentRect) + CGRectGetWidth(contentRect) - CGRectGetWidth(textRect));
 			break;
-			
+            
 		default:
-			textRect.origin.x = floorf(contentRect.origin.x);
+			textRect.origin.x = floorf(CGRectGetMinX(contentRect));
 			break;
 	}
-	
-	// Vertical alignment.
+    
+	// Vertical alignment. Top and bottom are upside down, because of inverted drawing.
 	switch (self.contentMode) {
 		case UIViewContentModeTop:
 		case UIViewContentModeTopLeft:
 		case UIViewContentModeTopRight:
-			textRect.origin.y = floorf(contentRect.origin.y);
+			textRect.origin.y = floorf(CGRectGetMinY(contentRect) + CGRectGetHeight(contentRect) - CGRectGetHeight(textRect));
 			break;
-			
+            
 		case UIViewContentModeBottom:
 		case UIViewContentModeBottomLeft:
 		case UIViewContentModeBottomRight:
-			textRect.origin.y = floorf(contentRect.origin.y + contentRect.size.height - textRect.size.height);
+			textRect.origin.y = floorf(CGRectGetMinY(contentRect));
 			break;
-			
+            
 		default:
-			textRect.origin.y = floorf(contentRect.origin.y + floorf((contentRect.size.height - textRect.size.height) / 2.0f));
+			textRect.origin.y = floorf(CGRectGetMinY(contentRect) + floorf((CGRectGetHeight(contentRect) - CGRectGetHeight(textRect)) / 2.0));
 			break;
 	}
-	
+    
 	return textRect;
 }
 
-#pragma mark -
-
-- (void)setDefaults {
-	self.gradientStartPoint = CGPointMake(0.5f, 0.2f);
-	self.gradientEndPoint = CGPointMake(0.5f, 0.8f);
-}
-
-- (id)initWithFrame:(CGRect)frame {
-	self = [super initWithFrame:frame];
-	
-	if (self) {
-		self.backgroundColor = [UIColor clearColor];
-		
-		[self setDefaults];
+- (CGFloat)strokeSizeDependentOnStrokePosition {
+	switch (self.strokePosition) {
+		case THLabelStrokePositionCenter:
+			return self.strokeSize;
+            
+		default:
+			// Stroke width times 2, because CG draws a centered stroke. We cut the rest into halves.
+			return self.strokeSize * 2.0;
 	}
-	
-	return self;
-}
-
-- (id)initWithCoder:(NSCoder *)aDecoder {
-	self = [super initWithCoder:aDecoder];
-	
-	if (self) {
-		[self setDefaults];
-	}
-	
-	return self;
 }
 
 @end

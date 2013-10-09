@@ -142,4 +142,11 @@
     return delegate && [delegate respondsToSelector:selector];
 }
 
+-(bool)isNullData:(NSArray *)data
+{
+    if((id)data==[NSNull null] ||  data.count==0 || [data objectAtIndex:0]==[NSNull null])
+        return true;
+    return false;
+}
+
 @end

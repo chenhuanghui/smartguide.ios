@@ -26,6 +26,7 @@
     
     NSNumber *idUser=[DataManager shareInstance].currentUser.idUser;
     self.values=@[profile.fbID,
+                  profile.token,
              idUser,
              profile.email,
              profile.name,
@@ -39,12 +40,19 @@
 
 -(NSArray *)keys
 {
-    return @[@"fb_id",@"user_id",@"email",@"name",@"gender",@"dob",@"avatar",@"job"];
+    return @[@"fb_id",@"fb_access_token",@"user_id",@"email",@"name",@"gender",@"dob",@"avatar",@"job"];
 }
 
 -(void)onCompletedWithJSON:(NSArray *)json
 {
-    isSuccessed=[[json objectAtIndex:0] boolValue];
+    isSuccessed=false;
+    
+    if([self isNullData:json])
+        return;
+    
+    NSDictionary *dict=[json objectAtIndex:0];
+    
+    isSuccessed=[[NSNumber numberWithObject:[dict objectForKey:@"code"]] boolValue];
     
     User *user=[User userWithIDUser:[DataManager shareInstance].currentUser.idUser.integerValue];
     user.isConnectedFacebook=@(true);

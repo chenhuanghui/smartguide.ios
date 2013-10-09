@@ -20,5 +20,6 @@
 @property (nonatomic, readonly) NSString *time;
 @property (nonatomic, readonly) NSString *shopName;
 @property (nonatomic, readonly) NSString *code;
+@property (nonatomic, readonly) int idShop;
 
 @end

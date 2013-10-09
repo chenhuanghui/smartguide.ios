@@ -27,6 +27,7 @@
     
     CGRect rect=self.frame;
     rect.size.height=[UIScreen mainScreen].bounds.size.height;
+    
     self.transform=CGAffineTransformMakeRotation(DEGREES_TO_RADIANS(45*2));
     self.frame=rect;
     

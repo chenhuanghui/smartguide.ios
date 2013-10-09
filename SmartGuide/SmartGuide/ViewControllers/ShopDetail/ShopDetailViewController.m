@@ -30,7 +30,7 @@
 @end
 
 @implementation ShopDetailViewController
-@synthesize shoplMode,shopLocation,shopComment,shopPicture,shopMenuCategory,shopInfo,promotionDetailType2View,promotionDetailType1View;
+@synthesize shoplMode,shopLocation,shopComment,shopPicture,shopMenuCategory,shopInfo,promotionDetailType2View,promotionDetailType1View,noPromotionView;
 
 - (id)init
 {
@@ -46,8 +46,13 @@
 {
     [super viewDidLoad];
     
+    [btnLike setTitle:[_likeDislikeFormat stringFromNumber:@(0)] forState:UIControlStateNormal];
+    [btnDislike setTitle:[_likeDislikeFormat stringFromNumber:@(0)] forState:UIControlStateNormal];
+    
     self.title=@"CỬA HÀNG";
     
+    lblName.backgroundColor=[UIColor clearColor];
+    lblName.textColor=[UIColor whiteColor];
     lblName.strokeSize=2;
     lblName.strokeColor=[UIColor blackColor];
     lblName.strokePosition=THLabelStrokePositionOutside;
@@ -76,6 +81,13 @@
     _operationShopDetail=[[ASIOperationShopDetail alloc] initWithIDUser:idUser idShop:idShop latitude:lat longtitude:lon];
     _operationShopDetail.delegatePost=self;
     [_operationShopDetail startAsynchronous];
+}
+
+-(void) clearNoPromotionView
+{
+    while (noPromotionView.subviews.count>0) {
+        [[[noPromotionView subviews] objectAtIndex:0] removeFromSuperview];
+    }
 }
 
 -(void) reset
@@ -131,6 +143,9 @@
     [[self currentPromotionDetailView] reset];
     [promotionDetailType1View removeFromSuperview];
     [promotionDetailType2View removeFromSuperview];
+    
+    [self clearNoPromotionView];
+    [noPromotionView removeFromSuperview];
     
     while (viewContaint.subviews.count>0) {
         [[viewContaint.subviews objectAtIndex:0] removeFromSuperview];
@@ -298,7 +313,7 @@
 {
     if(_shop.idShop.integerValue==idShop)
     {
-        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_SHOPDETAIL_LOAD_FINISHED object:nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_SHOPDETAIL_LOAD_FINISHED object:@(true)];
         return;
     }
     
@@ -324,6 +339,8 @@
     
     [self.promotionDetailType1View removeFromSuperview];
     [self.promotionDetailType2View removeFromSuperview];
+    [self clearNoPromotionView];
+    [self.noPromotionView removeFromSuperview];
     
     if(!_likeDislikeFormat)
     {
@@ -366,7 +383,7 @@
         
         //        self.title=_shop.name;
         lblName.text=[_shop.name uppercaseString];
-        if(_shop.promotionDetail)
+        if(_shop.promotionStatus.boolValue && _shop.promotionDetail)
         {
             if(_shop.promotionDetail.promotionType.integerValue==1)
             {
@@ -377,7 +394,7 @@
                 if(_shop.promotionDetail.sgp.integerValue==0)
                     [btnShop sendActionsForControlEvents:UIControlEventTouchUpInside];
             }
-            else
+            else if(_shop.promotionDetail.promotionType.integerValue==2)
             {
                 [promotionDetailType2View setShop:_shop];
                 
@@ -385,10 +402,37 @@
                 
                 [btnShop sendActionsForControlEvents:UIControlEventTouchUpInside];
             }
+            else
+            {
+                CGRect rect=viewContaint.frame;
+                rect.origin=CGPointZero;
+                noPromotionView.frame=rect;
+                
+                UIImageView *imgv=[[UIImageView alloc] initWithFrame:rect];
+                imgv.contentMode=UIViewContentModeCenter;
+                imgv.image=[UIImage imageNamed:@"no_promotion.png"];
+                
+                [noPromotionView addSubview:imgv];
+                
+                [viewContaint addSubview:noPromotionView];
+                
+                [btnShop sendActionsForControlEvents:UIControlEventTouchUpInside];
+            }
         }
         else
         {
-            btnPromotion.enabled=false;
+            CGRect rect=viewContaint.frame;
+            rect.origin=CGPointZero;
+            noPromotionView.frame=rect;
+            
+            UIImageView *imgv=[[UIImageView alloc] initWithFrame:rect];
+            imgv.contentMode=UIViewContentModeCenter;
+            imgv.image=[UIImage imageNamed:@"no_promotion.png"];
+            
+            [noPromotionView addSubview:imgv];
+            
+            [viewContaint addSubview:noPromotionView];
+            
             [btnShop sendActionsForControlEvents:UIControlEventTouchUpInside];
         }
         
@@ -439,36 +483,32 @@
     [super viewDidUnload];
 }
 
--(void)shopMenuShow:(enum SHOP_MENU_TYPE)type direction:(enum SHOP_MENU_DIRECTION)direction
+-(void)shopMenuShow:(enum SHOP_MENU_TYPE)type direction:(enum SHOP_MENU_DIRECTION)direction onCompleted:(void(^)()) onCompleted
 {
     switch (type) {
         case MENU_INFO:
             [shopInfo setShop:_shop];
-            [self animationView:shopInfo direction:direction onCompleted:nil];
+            [self animationView:shopInfo direction:direction onCompleted:onCompleted];
             break;
             
         case MENU_MENU:
             [shopMenuCategory setShop:_shop];
-            [self animationView:shopMenuCategory direction:direction onCompleted:nil];
-            break;
-            
-        case MENU_CAMERA:
-            [self showCamera];
+            [self animationView:shopMenuCategory direction:direction onCompleted:onCompleted];
             break;
             
         case MENU_PICTURE:
-            [self animationView:shopPicture direction:direction onCompleted:nil];
+            [self animationView:shopPicture direction:direction onCompleted:onCompleted];
             break;
             
         case MENU_COMMENT:
         {
-            [self animationView:shopComment direction:direction onCompleted:nil];
+            [self animationView:shopComment direction:direction onCompleted:onCompleted];
         }
             break;
             
         case MENU_MAP:
         {
-            [self animationView:shopLocation direction:direction onCompleted:nil];
+            [self animationView:shopLocation direction:direction onCompleted:onCompleted];
         }
             break;
             
@@ -477,77 +517,31 @@
     }
 }
 
--(void) showCamera
-{
-    UIImagePickerController *imagePicker=[[UIImagePickerController alloc] init];
-    imagePicker.modalPresentationStyle=UIModalPresentationCurrentContext;
-    
-    if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
-        imagePicker.sourceType=UIImagePickerControllerSourceTypeCamera;
-    else
-        imagePicker.sourceType=UIImagePickerControllerSourceTypePhotoLibrary;
-    
-    imagePicker.delegate=self;
-    
-    [self.navigationController presentModalViewController:imagePicker animated:true];
-}
-
--(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
-{
-    UIImage *img=[info valueForKey:UIImagePickerControllerOriginalImage];
-    
-    ShopUserPose *userPose=[[ShopUserPose alloc] init];
-    userPose.delegate=self;
-    
-    rootView=[[RootViewController shareInstance] giveARootView];
-    rootView.backgroundColor=[UIColor whiteColor];
-    [rootView addSubview:userPose];
-    
-    [self dismissModalViewControllerAnimated:true];
-    
-    [userPose setImage:img shop:_shop];
-}
-
--(void)shopUserPostCancelled:(ShopUserPose *)userPose
-{
-    [self removeUserPose:userPose];
-}
-
--(void)shopUserPostFinished:(ShopUserPose *)userPose userGallery:(ShopUserGallery *)userGallery
-{
-    if(userGallery)
-    {
-        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_USER_POST_PICTURE object:userGallery];
-        
-        [btnGallery sendActionsForControlEvents:UIControlEventTouchUpInside];
-        
-        [self removeUserPose:userPose];
-    }
-    else
-    {
-        [self removeUserPose:userPose];
-    }
-}
-
--(void) removeUserPose:(ShopUserPose*) userPose
-{
-    userPose.delegate=nil;
-    [userPose removeFromSuperview];
-    userPose=nil;
-    [[RootViewController shareInstance] removeRootView:rootView];
-    rootView=nil;
-}
-
 -(void) animationView:(UIView*) newView direction:(enum SHOP_MENU_DIRECTION) direction onCompleted:(void(^)()) onCompleted
 {
     if(viewContaint.subviews.count==0)
     {
         [viewContaint addSubview:newView];
+        
+        if(onCompleted)
+        {
+            onCompleted();
+            onCompleted=nil;
+        }
         return;
     }
     
     if([viewContaint.subviews objectAtIndex:0]==newView)
+    {
+        if(onCompleted)
+        {
+            onCompleted();
+            onCompleted=nil;
+        }
+        
         return;
+    }
+    
     UIView *currentView=[viewContaint.subviews objectAtIndex:0];
     [viewContaint addSubview:newView];
     
@@ -619,13 +613,21 @@
 -(void)shopMenuHideDetail
 {
     _lastTag=-1;
-    if(_shop.promotionDetail.promotionType.integerValue==1)
+    if(_shop.promotionStatus.boolValue)
     {
-        [self animationView:promotionDetailType1View direction:MENU_FIRST onCompleted:^{
-        }];
+        if(_shop.promotionDetail.promotionType.integerValue==1)
+        {
+            [self animationView:promotionDetailType1View direction:MENU_FIRST onCompleted:nil];
+        }
+        else if(_shop.promotionDetail.promotionType.integerValue==2)
+            [self animationView:promotionDetailType2View direction:MENU_FIRST onCompleted:nil];
+        else
+            [self animationView:noPromotionView direction:MENU_FIRST onCompleted:nil];
     }
     else
-        [self animationView:promotionDetailType2View direction:MENU_FIRST onCompleted:nil];
+    {
+        [self animationView:noPromotionView direction:MENU_FIRST onCompleted:nil];
+    }
 }
 
 -(void) shopMenuShowDetail
@@ -692,7 +694,7 @@
         
         _operationShopDetail=nil;
         
-        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_SHOPDETAIL_LOAD_FINISHED object:nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_SHOPDETAIL_LOAD_FINISHED object:@(true)];
     }
     else if([operation isKindOfClass:[ASIOperationPromotionDetail class]])
     {
@@ -740,6 +742,12 @@
         btnDislike.userInteractionEnabled=true;
         
         _operationLikeDislike=nil;
+    }
+    else if([operation isKindOfClass:[ASIOperationShopDetail class]])
+    {
+        _operationShopDetail=nil;
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_SHOPDETAIL_LOAD_FINISHED object:@(false)];
     }
 }
 
@@ -830,6 +838,7 @@
         self.shopLocation=[[ShopLocation alloc] initWithShop:nil];
         self.promotionDetailType1View=[[PromotionDetailType1View alloc] initWithShop:nil];
         self.promotionDetailType2View=[[PromotionDetailType2View alloc] initWithShop:nil];
+        self.noPromotionView=[[UIView alloc] initWithFrame:CGRectZero];
         
         self.shopMenuCategory.handler=self;
         self.shopPicture.handler=self;
@@ -1003,6 +1012,9 @@
 
 -(void) btnClick:(UIButton*) btn;
 {
+    if(_isAnimationMoveView)
+        return;
+    
     [self movePickToPoint:btn.center];
     [self moveHover:btn];
     
@@ -1018,29 +1030,31 @@
     
     _lastTag=btn.tag;
     
+    void(^onCompleted)()=^
+    {
+        _isAnimationMoveView=false;
+    };
+    
+    _isAnimationMoveView=true;
     switch (btn.tag) {
         case 1:
-            [self shopMenuShow:MENU_INFO direction:direction];
+            [self shopMenuShow:MENU_INFO direction:direction onCompleted:onCompleted];
             break;
             
         case 2:
-            [self shopMenuShow:MENU_MENU direction:direction];
-            break;
-            
-        case 3:
-            [self shopMenuShow:MENU_CAMERA direction:direction];
+            [self shopMenuShow:MENU_MENU direction:direction onCompleted:onCompleted];
             break;
             
         case 4:
-            [self shopMenuShow:MENU_PICTURE direction:direction];
+            [self shopMenuShow:MENU_PICTURE direction:direction onCompleted:onCompleted];
             break;
             
         case 5:
-            [self shopMenuShow:MENU_COMMENT direction:direction];
+            [self shopMenuShow:MENU_COMMENT direction:direction onCompleted:onCompleted];
             break;
             
         case 6:
-            [self shopMenuShow:MENU_MAP direction:direction];
+            [self shopMenuShow:MENU_MAP direction:direction onCompleted:onCompleted];
             break;
             
         default:
@@ -1049,7 +1063,7 @@
 }
 
 - (IBAction)btnPromotionTouchUpInside:(id)sender {
-    if(_isShowedShopMenu)
+    if(_isShowedShopMenu && !_isAnimationMoveView)
     {
         [self hideShopMenu:true];
         [self shopMenuHideDetail];
@@ -1061,9 +1075,6 @@
 }
 - (IBAction)btnMenuTouchUpInside:(id)sender {
     [self btnClick:(UIButton*)sender];
-}
-- (IBAction)btnCameraTouchUpInside:(id)sender {
-    [self showCamera];
 }
 - (IBAction)btnGalleryTouchUpInside:(id)sender {
     [self btnClick:(UIButton*)sender];
@@ -1086,7 +1097,7 @@
 - (IBAction)btnLikeTouchUpInside:(id)sender {
     if(_shop.like_status.integerValue==1)
     {
-//        [AlertView showAlertOKWithTitle:nil withMessage:@"Bạn đã like shop" onOK:nil];
+        //        [AlertView showAlertOKWithTitle:nil withMessage:@"Bạn đã like shop" onOK:nil];
         return;
     }
     
@@ -1098,7 +1109,7 @@
 - (IBAction)btnDislikeTouchUpInside:(id)sender {
     if(_shop.like_status.integerValue==2)
     {
-//        [AlertView showAlertOKWithTitle:nil withMessage:@"Bạn đã dislike shop" onOK:nil];
+        //        [AlertView showAlertOKWithTitle:nil withMessage:@"Bạn đã dislike shop" onOK:nil];
         return;
     }
     

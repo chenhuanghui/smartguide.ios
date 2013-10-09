@@ -1,7 +1,9 @@
 #import "PromotionDetail.h"
 #import "PromotionRequire.h"
+#import "PromotionVoucher.h"
 
 @implementation PromotionDetail
+@synthesize vouchersInserted,requiresInserted;
 
 -(NSArray *)requiresObjects
 {
@@ -14,6 +16,23 @@
     }
     
     return array;
+}
+
+-(PromotionVoucher *)voucherWithID:(int)idVoucher
+{
+    PromotionVoucher *voucher=nil;
+    bool found=false;
+    for(voucher in self.vouchersObjects)
+        if(voucher.idVoucher.integerValue==idVoucher)
+        {
+            found=true;
+            break;
+        }
+    
+    if(found)
+        return voucher;
+    
+    return nil;
 }
 
 @end

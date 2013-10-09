@@ -220,8 +220,19 @@ static char kAFImageRequestOperationObjectKey;
     else
     {
         [self showLoadingWithTitle:nil];
-        
+
         AFImageRequestOperation *requestOperation = [[AFImageRequestOperation alloc] initWithRequest:urlRequest];
+        
+//        __block __weak AFImageRequestOperation *weakRequest=requestOperation;
+//        [requestOperation setDownloadProgressBlock:^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead) {
+//            
+//            if(weakRequest)
+//            {
+//                self.image=[UIImage imageWithData:weakRequest.totalReceiveData];
+//            }
+//            
+//        }];
+        
         [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject)
          {
              if ([urlRequest isEqual:[self.af_imageRequestOperation request]]) {
@@ -255,7 +266,8 @@ static char kAFImageRequestOperationObjectKey;
                      self.image=emptyImage;
                  [self removeLoading];
                  
-                 [[AFImageCache af_sharedImageCache] cacheEmptyImage:emptyImage forRequest:urlRequest];
+                 if(emptyImage)
+                     [[AFImageCache af_sharedImageCache] cacheEmptyImage:emptyImage forRequest:urlRequest];
              }
          }];
         

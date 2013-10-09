@@ -12,6 +12,7 @@
 #import "ASIOperationPostComment.h"
 #import "ShopDetailViewController.h"
 #import "TableTemplate.h"
+#import "FacebookManager.h"
 
 @interface ShopComment : UIView<UITextFieldDelegate,ShopViewHandle,ASIOperationPostDelegate,TableTemplateDelegate>
 {

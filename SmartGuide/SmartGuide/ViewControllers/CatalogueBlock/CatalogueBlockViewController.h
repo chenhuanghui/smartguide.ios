@@ -7,12 +7,11 @@
 //
 
 #import "ViewController.h"
-#import "ASIOperationCity.h"
 #import "ASIOperationGroupInCity.h"
 #import "LoadingScreenViewController.h"
 #import "TutorialView.h"
 
-@interface CatalogueBlockViewController : ViewController<ASIOperationPostDelegate>
+@interface CatalogueBlockViewController : ViewController<ASIOperationPostDelegate,TutorialViewDelegate>
 {
     bool _isFinishedLoading;
     
@@ -25,10 +24,13 @@
     __weak IBOutlet UIView *groupTravel;
     __weak IBOutlet UIView *groupProduction;
     __weak IBOutlet UIView *groupEducation;
-    ASIOperationCity *operationCity;
     
     City *_city;
     bool _isNeedLoad;
+    
+    UIView *_launchingView;
+    
+    ASIOperationGroupInCity *_operationGroupInCity;
 }
 
 -(bool) isFinishedLoading;

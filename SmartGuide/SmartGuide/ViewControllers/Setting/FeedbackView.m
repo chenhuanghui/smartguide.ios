@@ -73,7 +73,7 @@
         
         [txtInput becomeFirstResponder];
         
-        [UIView animateWithDuration:0.3f animations:^{
+        [UIView animateWithDuration:DURATION_DEFAULT animations:^{
             txtInput.alpha=1;
             lblUser.alpha=1;
             txtFeedBack.alpha=0;
@@ -183,11 +183,13 @@
 
 -(void)ASIOperaionPostFailed:(ASIOperationPost *)operation
 {
+    [self removeLoading];
+    
     if([operation isKindOfClass:[ASIOperationGetFeedback class]])
         feedback=nil;
     else if([operation isKindOfClass:[ASIOperationPostFeedback class]])
     {
-        [self removeLoading];
+        
     }
 }
 
@@ -221,7 +223,7 @@
         txtFeedBack.hidden=false;
         lblUserFeedback.hidden=false;
         
-        [UIView animateWithDuration:0.3f animations:^{
+        [UIView animateWithDuration:DURATION_DEFAULT animations:^{
             txtInput.alpha=0;
             lblUser.alpha=0;
             txtFeedBack.alpha=1;

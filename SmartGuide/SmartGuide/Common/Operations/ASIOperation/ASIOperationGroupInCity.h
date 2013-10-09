@@ -13,6 +13,9 @@
 
 -(ASIOperationGroupInCity*) initWithIDCity:(int) idCity;
 
-@property (nonatomic, readonly) NSArray *groups;
+@property (nonatomic, readonly) NSMutableArray *groups;
+@property (nonatomic, readonly) int groupStatus;
+@property (nonatomic, readonly) NSString *groupContent;
+@property (nonatomic, readonly) NSString *groupUrl;
 
 @end

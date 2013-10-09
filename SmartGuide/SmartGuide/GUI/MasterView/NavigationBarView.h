@@ -30,7 +30,14 @@ enum NAVIGATIONBAR_ITEM {
 
 @end
 
-@interface NavigationBarView : UIView
+@protocol  NavigationSearchDelegate <NSObject>
+
+-(void) navigationSearchSearchClicked:(UITextField*) textfield;
+-(void) navigationSearchCancel:(UITextField*) textField;
+
+@end
+
+@interface NavigationBarView : UIView<UITextFieldDelegate>
 {
     __weak IBOutlet UIButton *btnSetting;
     __weak IBOutlet UIButton *btnSearch;
@@ -39,8 +46,11 @@ enum NAVIGATIONBAR_ITEM {
     __weak IBOutlet UIButton *btnMap;
     __weak IBOutlet UILabel *lblTitle;
     __weak IBOutlet UIButton *btnList;
-    __weak IBOutlet UISearchBar *searchbar;
     __weak IBOutlet UIView *containButtons;
+    __weak IBOutlet UIView *searchView;
+    __weak IBOutlet UITextField *txtSearch;
+    __weak IBOutlet UIButton *btnCancel;
+    
     
     NSString *_previousTitle;
 }
@@ -51,7 +61,7 @@ enum NAVIGATIONBAR_ITEM {
 -(IBAction) btnAvatarTouchUpInside:(UIButton*) sender;
 -(IBAction) btnMapTouchUpInside:(UIButton*) sender;
 -(IBAction)btnListTouchUpInside:(UIButton *)sender;
--(void) showSearchWithDelegate:(id<UISearchBarDelegate>) delegate;
+-(void) showSearchWithDelegate:(id<NavigationSearchDelegate>) delegate;
 -(void) setSearchKeyword:(NSString*) key;
 -(void) hideSearch;
 -(void) enableCancelButton;
@@ -64,5 +74,6 @@ enum NAVIGATIONBAR_ITEM {
 +(float) height;
 
 @property (nonatomic, assign) id<NavigationBarDelegate> delegate;
+@property (nonatomic, assign) id<NavigationSearchDelegate> searchDelegate;
 
 @end

@@ -23,6 +23,7 @@
 #import "TokenManager.h"
 #import "UserCollectionViewController.h"
 #import "LoadingScreenViewController.h"
+#import "AppDelegate.h"
 
 static RootViewController *_rootViewController;
 @interface RootViewController ()
@@ -35,6 +36,8 @@ static RootViewController *_rootViewController;
 @property (nonatomic, readonly) CGPoint initialTouchSetting;
 @property (nonatomic, readonly) CGPoint previousTouchSetting;
 @property (nonatomic, strong) LoadingScreenViewController *loadingScreen;
+@property (nonatomic, strong) LoginViewController *loginController;
+@property (nonatomic, strong) FacebookMiningViewController *facebookMining;
 
 @end
 
@@ -44,7 +47,6 @@ static RootViewController *_rootViewController;
 @synthesize directionObject;
 @synthesize filter;
 @synthesize tapSetting,panSetting,initialTouchSetting,previousTouchSetting;
-@synthesize window;
 @synthesize notifications;
 @synthesize shopDetail;
 @synthesize loadingScreen;
@@ -58,46 +60,313 @@ static RootViewController *_rootViewController;
     window.rootViewController=root;
     [window makeKeyAndVisible];
     
-    [DataManager shareInstance].currentUser=[User userWithIDUser:[Flags lastIDUser]];
+    [root showView];
     
-    [root createLoading];
-    [root showLoadingScreen];
+    root.view.backgroundColor=COLOR_BACKGROUND_APP;
+    root.rootContaintView.backgroundColor=COLOR_BACKGROUND_APP;
     
-    //Lần đầu đăng nhập, database model đổi->drop database(remove token)
-    if([DataManager shareInstance].currentUser==nil)
+    //Do status bar transparent nên khi show filter, collection thì cần phải có 1 view khác che lại
+    if(NSFoundationVersionNumber>NSFoundationVersionNumber_iOS_6_1)
     {
-        [root showLogin];
+        UIView *statusBarView=[[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 20)];
+        statusBarView.backgroundColor=COLOR_BACKGROUND_APP;
+        
+        [window addSubview:statusBarView];
     }
-    else
-    {
-        if(![DataManager shareInstance].currentUser.isConnectedFacebook.boolValue && [[DataManager shareInstance].currentUser.name stringByRemoveString:@" ",nil].length==0)
+    
+//    [DataManager shareInstance].currentUser=[User userWithIDUser:[Flags lastIDUser]];
+//    
+//    [root createLoading];
+//    [root showLoadingScreen];
+//    
+//    //Lần đầu đăng nhập, database model đổi->drop database(remove token)
+//    if([DataManager shareInstance].currentUser==nil)
+//    {
+//        [root showLogin];
+//    }
+//    else
+//    {
+//        if(![DataManager shareInstance].currentUser.isConnectedFacebook.boolValue && [DataManager shareInstance].currentUser.name.length==0)
+//        {
+//            [root showFacebookMiningWithPreviousViewController:nil];
+//        }
+//        else
+//        {
+//            [root showMainWithPreviousViewController:nil];
+//        }
+//    }
+}
+
+-(void) createLoginView
+{
+    self.loginController=[[LoginViewController alloc] init];
+    [self addChildViewController:self.loginController];
+}
+
+-(void) createFacebookView
+{
+    self.facebookMining=[[FacebookMiningViewController alloc] init];
+    [self addChildViewController:self.facebookMining];
+}
+
+-(void) createMainView
+{
+    navigationBarView=[[NavigationBarView alloc] init];
+    
+    frontViewController=[[FrontViewController alloc] init];
+    [self addChildViewController:frontViewController];
+    
+    bannerAds=[[BannerAdsViewController alloc] init];
+    [self addChildViewController:bannerAds];
+    
+    filter=[[FilterViewController alloc] init];
+    [self addChildViewController:filter];
+    
+    userCollection=[[UserCollectionViewController alloc] init];
+    [self addChildViewController:userCollection];
+    
+    slideQRCode=[[SlideQRCodeViewController alloc] init];
+    [self addChildViewController:slideQRCode];
+    
+    [MapView shareInstance].frame=[UIScreen mainScreen].bounds;
+    [MapView shareInstance].showsUserLocation=false;
+}
+
+-(void) showLoginView
+{
+    [self.rootContaintView addSubview:self.loginController.view];
+    
+    __block __weak id obs = [[NSNotificationCenter defaultCenter] addObserverForName:NOTIFICATION_LOGIN object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
+       
+        if([DataManager shareInstance].currentUser.isConnectedFacebook.boolValue || [DataManager shareInstance].currentUser.name.length>0)
         {
-            [root showFacebookMiningWithPreviousViewController:nil];
+            [self createMainView];
+            [self showMainViewWithPreviousViewController:self.loginController onCompleted:^{
+                self.loginController=nil;
+            }];
         }
         else
         {
-            [root showMainWithPreviousViewController:nil];
+            [self createFacebookView];
+            [self showFacebookViewWithPreviousViewController:self.loginController onCompleted:^{
+                self.loginController=nil;
+            }];
         }
+        
+        [[NSNotificationCenter defaultCenter] removeObserver:obs];
+    }];
+}
+
+-(void) showFacebookViewWithPreviousViewController:(UIViewController*) previous onCompleted:(void(^)()) onCompleted
+{
+    [self.rootContaintView addSubview:self.facebookMining.view];
+    
+    if(previous)
+    {
+        self.facebookMining.view.center=CGPointMake(self.facebookMining.view.center.x+self.facebookMining.view.frame.size.width, self.facebookMining.view.center.y);
+        
+        [UIView animateWithDuration:DURATION_NAVIGATION_PUSH animations:^{
+            CGPoint pnt=previous.view.center;
+            pnt.x=-previous.view.frame.size.width;
+            previous.view.center=pnt;
+            
+            pnt=self.facebookMining.view.center;
+            pnt.x=[UIScreen mainScreen].bounds.size.width/2;
+            self.facebookMining.view.center=pnt;
+            
+            previous.view.alpha=0;
+        } completion:^(BOOL finished) {
+            [previous removeFromParentViewController];
+            [previous.view removeFromSuperview];
+            
+            if(onCompleted)
+            {
+                onCompleted();
+            }
+        }];
+    }
+    
+    __block __weak id notiFace=[[NSNotificationCenter defaultCenter] addObserverForName:NOTIFICATION_FACEBOOK_UPLOAD_PROFILE_FINISHED object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
+        
+        [self createMainView];
+        [self showMainViewWithPreviousViewController:self.facebookMining onCompleted:^{
+            self.facebookMining=nil;
+        }];
+        
+        [[NSNotificationCenter defaultCenter] removeObserver:notiFace];
+    }];
+}
+
+-(void) showMainViewWithPreviousViewController:(UIViewController*) previous onCompleted:(void(^)()) onCompleted
+{
+    [self.rootContaintView addSubview:frontViewController.view];
+    [self.rootContaintView addSubview:bannerAds.view];
+    [self.rootContaintView addSubview:filter.view];
+    [self.rootContaintView addSubview:userCollection.view];
+    [self.rootContaintView addSubview:navigationBarView];
+    [self.rootContaintView addSubview:slideQRCode.view];
+    
+    self.userCollection.view.hidden=true;
+    self.filter.view.hidden=true;
+    
+    CGPoint pnt=CGPointZero;
+    CGRect rect=frontViewController.view.frame;
+    rect.origin.y=navigationBarView.frame.origin.y+navigationBarView.frame.size.height;
+    rect.size.height=self.rootContaintView.frame.size.height-rect.origin.y;
+    frontViewController.view.frame=rect;
+    
+    rect=slideQRCode.view.frame;
+    rect.origin.y=self.rootContaintView.frame.size.height-[SlideQRCodeViewController size].height;
+    slideQRCode.view.frame=rect;
+    
+    rect=bannerAds.view.frame;
+    rect.origin.y=self.rootContaintView.frame.size.height-[self heightAds_QR];
+    bannerAds.view.frame=rect;
+ 
+    if(previous)
+    {
+        pnt=navigationBarView.center;
+        pnt.x+=SCREEN_WIDTH;
+        navigationBarView.center=pnt;
+        
+        pnt=bannerAds.view.center;
+        pnt.x+=SCREEN_WIDTH;
+        bannerAds.view.center=pnt;
+        
+        pnt=slideQRCode.view.center;
+        pnt.x+=SCREEN_WIDTH;
+        slideQRCode.view.center=pnt;
+        
+        pnt=frontViewController.view.center;
+        pnt.x+=SCREEN_WIDTH;
+        frontViewController.view.center=pnt;
+        
+        [UIView animateWithDuration:DURATION_NAVIGATION_PUSH animations:^{
+            
+            CGPoint pntAnim=navigationBarView.center;
+            pntAnim.x=SCREEN_WIDTH/2;
+            navigationBarView.center=pntAnim;
+            
+            pntAnim=bannerAds.view.center;
+            pntAnim.x=SCREEN_WIDTH/2;
+            bannerAds.view.center=pntAnim;
+            
+            pntAnim=slideQRCode.view.center;
+            pntAnim.x=SCREEN_WIDTH/2;
+            slideQRCode.view.center=pntAnim;
+            
+            pntAnim=frontViewController.view.center;
+            pntAnim.x=SCREEN_WIDTH/2;
+            frontViewController.view.center=pntAnim;
+            
+            pntAnim=previous.view.center;
+            pntAnim.x-=SCREEN_WIDTH;
+            previous.view.center=pntAnim;
+        } completion:^(BOOL finished) {
+            
+            [previous removeFromParentViewController];
+            [previous.view removeFromSuperview];
+            
+            if(onCompleted)
+            {
+                onCompleted();
+            }
+            
+            settingViewController=[[SettingViewController alloc] init];
+            [self.window insertSubview:settingViewController.view atIndex:0];
+            CGRect rect=self.settingViewController.view.frame;
+            rect.origin.x=-20;
+            rect.origin.y=20;
+            settingViewController.view.frame=rect;
+            settingViewController.view.hidden=true;
+        }];
+    }
+    else
+    {
+        settingViewController=[[SettingViewController alloc] init];
+        [self.window insertSubview:settingViewController.view atIndex:0];
+        settingViewController.view.frame=CGRectMake(-20, 20, settingViewController.view.frame.size.width, settingViewController.view.frame.size.height);
+        settingViewController.view.hidden=true;
+    }
+    
+    panSlide=[[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panSlide:)];
+    panSlide.delegate=self;
+    
+    [[slideQRCode view] addGestureRecognizer:panSlide];
+    
+    panPrevious=[[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panPrevious:)];
+    panPrevious.delegate=self;
+    
+    [panPrevious requireGestureRecognizerToFail:panSlide];
+    
+    [self.window addGestureRecognizer:panPrevious];
+    
+    [self requestNotification];
+}
+
+-(void) showView
+{
+    [self showLoadingScreen];
+    
+    [DataManager shareInstance].currentUser=[User userWithIDUser:[Flags lastIDUser]];
+    
+    if([DataManager shareInstance].currentUser==nil)
+    {
+        [self showLoginView];
+    }
+    else
+    {
+        if(![DataManager shareInstance].currentUser.isConnectedFacebook.boolValue && [DataManager shareInstance].currentUser.name.length==0)
+            [self showFacebookViewWithPreviousViewController:nil onCompleted:nil];
+        else
+            [self showMainViewWithPreviousViewController:nil onCompleted:nil];
+    }
+}
+
+-(void)loadView
+{
+    [super loadView];
+    
+    self.rootContaintView.center=CGPointMake(self.rootContaintView.center.x, self.rootContaintView.center.y+OBJ_IOS(0, 20));
+    
+    [self createLoading];
+    
+    [DataManager shareInstance].currentUser=[User userWithIDUser:[Flags lastIDUser]];
+    
+    if([DataManager shareInstance].currentUser==nil)
+    {
+        [self createLoginView];
+    }
+    else
+    {
+        if(![DataManager shareInstance].currentUser.isConnectedFacebook.boolValue && [DataManager shareInstance].currentUser.name.length==0)
+            [self createFacebookView];
+        else
+            [self createMainView];
     }
 }
 
 -(void) createLoading
 {
     self.loadingScreen=[[LoadingScreenViewController alloc] init];
+    [self addChildViewController:self.loadingScreen];
 }
 
 -(void)showLoadingScreen
 {
-    CGPoint pnt=self.view.center;
-    pnt.x+=self.view.frame.size.width;
-    self.view.center=pnt;
+    CGPoint pnt=self.rootContaintView.center;
+    pnt.x+=self.rootContaintView.frame.size.width;
+    self.rootContaintView.center=pnt;
     
     self.loadingScreen.view.frame=self.window.frame;
     
-    [self.window addSubview:self.loadingScreen.view];
-    pnt=self.loadingScreen. view.center;
-    pnt.y+=20;
+    pnt=self.loadingScreen.view.center;
+    
+    pnt.y+=OBJ_IOS(0, 20);
+    
     self.loadingScreen.view.center=pnt;
+    
+    [self.view addSubview:self.loadingScreen.view];
 }
 
 -(void)removeLoadingScreen
@@ -105,8 +374,10 @@ static RootViewController *_rootViewController;
     if(!self.loadingScreen)
         return;
     
+    [self.loadingScreen.view removeLoading];
+    
     [UIView animateWithDuration:DURATION_NAVIGATION_PUSH animations:^{
-        self.view.center=CGPOINT_PHONE(CGPointMake(160, 250), CGPointMake(160, 260+(548-480)/2));
+        self.rootContaintView.center=CGPointMake(self.rootContaintView.center.x-self.rootContaintView.frame.size.width, self.rootContaintView.center.y);
         self.loadingScreen.view.center=CGPointMake(-self.loadingScreen.view.frame.size.width/2, self.loadingScreen.view.center.y);
     } completion:^(BOOL finished) {
         [self.loadingScreen.view removeFromSuperview];
@@ -130,9 +401,6 @@ static RootViewController *_rootViewController;
 -(RootViewController *)initWithWindow:(UIWindow *)_window
 {
     self=[RootViewController shareInstance];
-    
-    window=_window;
-    
     return self;
 }
 
@@ -140,31 +408,22 @@ static RootViewController *_rootViewController;
 {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        _rootViewController=[[RootViewController alloc] init];
+        _rootViewController=[[RootViewController alloc] initWithNibName:NIB_PHONE(@"RootViewController") bundle:nil];
     });
     
     return _rootViewController;
 }
 
-- (id)init
-{
-    self = [super init];
-    if (self) {
-        notifications=[[NSMutableArray alloc] init];
-    }
-    return self;
-}
-
 -(void) settting
 {
+    notifications=[[NSMutableArray alloc] init];
+    
     self.window.backgroundColor=COLOR_BACKGROUND_APP;
     [[UIApplication sharedApplication] setStatusBarHidden:false];
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackOpaque];
-}
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
+    if(NSFoundationVersionNumber>NSFoundationVersionNumber_iOS_6_1)
+        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    else
+        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackOpaque];
 }
 
 -(void) showLogin
@@ -173,11 +432,11 @@ static RootViewController *_rootViewController;
     
     [self addChildViewController:loginViewController];
     
-    [self.view addSubview:loginViewController.view];
-    
+    [self.rootContaintView addSubview:loginViewController.view];
+
     __block __weak id notification=[[NSNotificationCenter defaultCenter] addObserverForName:NOTIFICATION_LOGIN object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
         
-        if([DataManager shareInstance].currentUser.isConnectedFacebook.boolValue)
+        if([DataManager shareInstance].currentUser.isConnectedFacebook.boolValue || [DataManager shareInstance].currentUser.name.length>0)
             [self showMainWithPreviousViewController:loginViewController];
         else
         {
@@ -185,7 +444,6 @@ static RootViewController *_rootViewController;
         }
         
         [[NSNotificationCenter defaultCenter] removeObserver:notification];
-        notification=nil;
     }];
 }
 
@@ -194,8 +452,8 @@ static RootViewController *_rootViewController;
     FacebookMiningViewController *face=[[FacebookMiningViewController alloc] init];
     
     [self addChildViewController:face];
-    [self.view addSubview:face.view];
-    
+    [self.rootContaintView addSubview:face.view];
+
     if(previous)
     {
         [UIView animateWithDuration:DURATION_NAVIGATION_PUSH animations:^{
@@ -243,29 +501,20 @@ static RootViewController *_rootViewController;
     frontViewController=[[FrontViewController alloc] init];
     
     [self addChildViewController:frontViewController];
-    [self.view addSubview:frontViewController.view];
-    
-    [frontViewController view];
-    rect=self.view.frame;
-    rect.origin.x=320;
-    rect.origin.y=naviHeight;
-    rect.size.height=rect.size.height-[self heightAds_QR];
-    frontViewController.view.frame=rect;
-    
-    rect.origin=CGPointZero;
-    [frontViewController setFrame:rect];
+    [self.rootContaintView addSubview:frontViewController.view];
     
     if(!self.bannerAds)
     {
         bannerAds=[[BannerAdsViewController alloc] init];
         
         [self addChildViewController:bannerAds];
-        [self.view addSubview:bannerAds.view];
+        [self.rootContaintView addSubview:bannerAds.view];
     }
     
     rect=bannerAds.view.frame;
     rect.origin.x=320;
-    rect.origin.y=self.view.frame.size.height-[BannerAdsViewController size].height-naviHeight+24.5f;
+    rect.origin.y=self.rootContaintView.frame.size.height-[BannerAdsViewController size].height-naviHeight;
+    
     bannerAds.view.frame=rect;
     
     if(!self.filter)
@@ -273,7 +522,7 @@ static RootViewController *_rootViewController;
         filter=[[FilterViewController alloc] init];
         
         [self addChildViewController:filter];
-        [self.view addSubview:filter.view];
+        [self.rootContaintView addSubview:filter.view];
         
         filter.view.hidden=true;
     }
@@ -283,15 +532,15 @@ static RootViewController *_rootViewController;
         userCollection=[[UserCollectionViewController alloc] init];
         
         [self addChildViewController:userCollection];
-        [self.view addSubview:userCollection.view];
+        [self.rootContaintView addSubview:userCollection.view];
         
         userCollection.view.hidden=true;
     }
     
-    [self.view addSubview:navigationBarView];
+    [self.rootContaintView addSubview:navigationBarView];
     
     rect.origin=CGPointMake(320, 0);
-    rect.size=CGSizeMake(self.view.frame.size.width, naviHeight);
+    rect.size=CGSizeMake(self.rootContaintView.frame.size.width, naviHeight);
     navigationBarView.frame=rect;
     
     if(!self.slideQRCode)
@@ -299,7 +548,7 @@ static RootViewController *_rootViewController;
         slideQRCode=[[SlideQRCodeViewController alloc] init];
         
         [self addChildViewController:slideQRCode];
-        [self.view addSubview:slideQRCode.view];
+        [self.rootContaintView addSubview:slideQRCode.view];
         
         panSlide=[[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panSlide:)];
         panSlide.delegate=self;
@@ -307,13 +556,20 @@ static RootViewController *_rootViewController;
         [[slideQRCode view] addGestureRecognizer:panSlide];
     }
     
-    rect=slideQRCode.view.frame;
-    rect.origin.x=320;
-    rect.origin.y=[UIScreen mainScreen].bounds.size.height-[SlideQRCodeViewController size].height-25;
-    slideQRCode.view.frame=rect;
-    
     [MapView shareInstance].frame=[UIScreen mainScreen].bounds;
     [MapView shareInstance].showsUserLocation=false;
+    
+    [frontViewController view];
+    rect=self.view.frame;
+    rect.origin.x=320;
+    rect.origin.y=navigationBarView.frame.origin.y+navigationBarView.frame.size.height;
+    rect.size.height=self.view.frame.size.height-rect.origin.y;
+    frontViewController.view.frame=rect;
+   
+    rect=slideQRCode.view.frame;
+    rect.origin.x=320;
+    rect.origin.y=self.rootContaintView.frame.size.height-[SlideQRCodeViewController size].height;
+    slideQRCode.view.frame=rect;
     
     if(previous)
     {
@@ -384,6 +640,91 @@ static RootViewController *_rootViewController;
     [panPrevious requireGestureRecognizerToFail:panSlide];
     
     [self.window addGestureRecognizer:panPrevious];
+    
+    [self requestNotification];
+}
+
+-(void) requestNotification
+{
+    if(_opeartionNotification)
+    {
+        [_opeartionNotification cancel];
+        _opeartionNotification=nil;
+    }
+    
+    NSString *accessToken=[TokenManager shareInstance].accessToken;
+    NSString *version=[NSString stringWithFormat:@"ios%@_%@",[UIDevice currentDevice].systemVersion,SMARTUIDE_VERSION];
+    _opeartionNotification=[[OperationNotifications alloc] initNotificationsWithAccessToken:accessToken version:version];
+    _opeartionNotification.delegate=self;
+    
+    [_opeartionNotification start];
+}
+
+-(void)operationURLFinished:(OperationURL *)operation
+{
+    if([operation isKindOfClass:[OperationNotifications class]])
+    {
+        OperationNotifications *ope=(OperationNotifications*)operation;
+        
+        NotificationObject *notiObj=[ope.object copy];
+        
+        _opeartionNotification=nil;
+        
+        [self processNotification:notiObj];
+        notiObj=nil;
+    }
+}
+
+-(void)operationURLFailed:(OperationURL *)operation
+{
+    if([operation isKindOfClass:[OperationNotifications class]])
+    {
+        _opeartionNotification=nil;
+    }
+}
+
+-(void) processNotification:(NotificationObject*) notiObj
+{
+    NSLog(@"receive notification %@",notiObj);
+    
+    if(notiObj.notificationType==1)
+    {
+        [AlertView showWithTitle:nil withMessage:notiObj.content withLeftTitle:localizeCancel() withRightTitle:localizeOK() onOK:^{
+            exit(0);
+        } onCancel:^{
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:notiObj.link]];
+//            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.google.com"]];
+
+            double delayInSeconds = 0.0;
+            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+            dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+                exit(0);
+            });
+        }];
+    }
+    else if(notiObj.notificationType==2)
+    {
+        NSString *msg=@"";
+        
+        for(NotificationItem *item in notiObj.notificationList)
+        {
+            if(msg.length==0)
+                msg=item.content;
+            else
+                msg=[NSString stringWithFormat:@"%@\n%@",msg,item.content];
+        }
+        
+        if([msg stringByRemoveString:@" ",@"\n",nil].length==0)
+            return;
+        
+        [AlertView showAlertOKWithTitle:nil withMessage:msg onOK:nil];
+    }
+    else if(notiObj.notificationType==3)
+    {
+        [AlertView showAlertOKWithTitle:nil withMessage:notiObj.content onOK:^{
+            exit(0);
+        }];
+    }
 }
 
 -(void) tapSetting:(UITapGestureRecognizer*) tap
@@ -416,7 +757,7 @@ static RootViewController *_rootViewController;
             previousTouchSetting=initialTouchSetting;
             
             [self.settingViewController.view alphaViewWithColor:COLOR_BACKGROUND_APP_ALPHA(0)];
-            [self.view alphaViewWithColor:COLOR_BACKGROUND_APP_ALPHA(fabsf(self.view.frame.origin.x/SCREEN_WIDTH))];
+            [self.rootContaintView alphaViewWithColor:COLOR_BACKGROUND_APP_ALPHA(fabsf(self.view.frame.origin.x/SCREEN_WIDTH))];
         }
             break;
             
@@ -434,7 +775,7 @@ static RootViewController *_rootViewController;
             self.view.center=pnt;
             
             [self.settingViewController.view alphaView].backgroundColor=COLOR_BACKGROUND_APP_ALPHA(fabsf(self.settingViewController.view.frame.origin.x/SCREEN_WIDTH));
-            [self.view alphaView].backgroundColor=COLOR_BACKGROUND_APP_ALPHA(fabsf(self.view.frame.origin.x/SCREEN_WIDTH));
+            [self.rootContaintView alphaView].backgroundColor=COLOR_BACKGROUND_APP_ALPHA(fabsf(self.view.frame.origin.x/SCREEN_WIDTH));
         }
             break;
             
@@ -480,7 +821,7 @@ static RootViewController *_rootViewController;
 {
     if(gestureRecognizer==self.tapSetting)
     {
-        if([self.settingViewController isShowOtherView])
+        if([self.settingViewController isLockSlide])
             return false;
         CGPoint pnt=[gestureRecognizer locationInView:self.settingViewController.view];
         if(!CGRectContainsPoint(self.settingViewController.view.frame, pnt))
@@ -491,7 +832,7 @@ static RootViewController *_rootViewController;
     
     if(gestureRecognizer==self.panSetting)
     {
-        if([self.settingViewController isShowOtherView])
+        if([self.settingViewController isLockSlide])
             return false;
         
         CGPoint pnt=[self.panSetting translationInView:self.panSetting.view];
@@ -587,7 +928,7 @@ static RootViewController *_rootViewController;
     
     self.view.userInteractionEnabled=false;
     
-    [self.view alphaViewWithColor:COLOR_BACKGROUND_APP_ALPHA(0)];
+    [self.rootContaintView alphaViewWithColor:COLOR_BACKGROUND_APP_ALPHA(0)];
     [self.settingViewController.view alphaViewWithColor:COLOR_BACKGROUND_APP_ALPHA(1)];
     
     self.settingViewController.view.hidden=false;
@@ -599,7 +940,7 @@ static RootViewController *_rootViewController;
         CGRect rect=self.view.frame;
         rect.origin.x=245;
         self.view.frame=rect;
-        [self.view alphaView].backgroundColor=COLOR_BACKGROUND_APP_ALPHA(fabsf(self.view.frame.origin.x/SCREEN_WIDTH));
+        [self.rootContaintView alphaView].backgroundColor=COLOR_BACKGROUND_APP_ALPHA(fabsf(self.view.frame.origin.x/SCREEN_WIDTH));
         
         rect=settingViewController.view.frame;
         rect.origin.x=0;
@@ -622,13 +963,13 @@ static RootViewController *_rootViewController;
     self.view.userInteractionEnabled=true;
     
     [self.settingViewController.view alphaViewWithColor:COLOR_BACKGROUND_APP_ALPHA(0)];
-    [self.view alphaViewWithColor:COLOR_BACKGROUND_APP_ALPHA(1)];
+    [self.rootContaintView alphaViewWithColor:COLOR_BACKGROUND_APP_ALPHA(1)];
     
     [UIView animateWithDuration:DURATION_SHOW_SETTING delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
         CGRect rect=self.view.frame;
         rect.origin.x=0;
         self.view.frame=rect;
-        [self.view alphaView].backgroundColor=COLOR_BACKGROUND_APP_ALPHA(0.f);
+        [self.rootContaintView alphaView].backgroundColor=COLOR_BACKGROUND_APP_ALPHA(0.f);
         
         rect=settingViewController.view.frame;
         rect.origin.x=-20;
@@ -636,7 +977,7 @@ static RootViewController *_rootViewController;
         
         [settingViewController.view alphaView].backgroundColor=COLOR_BACKGROUND_APP_ALPHA(1);
     } completion:^(BOOL finished) {
-        [self.view removeAlphaView];
+        [self.rootContaintView removeAlphaView];
         [self.settingViewController.view removeAlphaView];
         
         if(self.tapSetting)
@@ -646,6 +987,7 @@ static RootViewController *_rootViewController;
         }
         
         self.settingViewController.view.hidden=true;
+        [self.settingViewController onHideSetting];
         
         //oncompleted enable pan
         if(onCompleted)
@@ -783,7 +1125,7 @@ static RootViewController *_rootViewController;
     [self.navigationBarView showSearchWithDelegate:self];
 }
 
--(void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
+-(void)navigationSearchCancel:(UITextField *)textField
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
@@ -793,7 +1135,7 @@ static RootViewController *_rootViewController;
     
     _isAnmationForSearch=false;
     
-    [UIView animateWithDuration:0.3f animations:^{
+    [UIView animateWithDuration:DURATION_DEFAULT animations:^{
         searchViewController.view.alpha=0;
     } completion:^(BOOL finished) {
         [searchViewController.view removeFromSuperview];
@@ -802,11 +1144,11 @@ static RootViewController *_rootViewController;
     }];
 }
 
--(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
+-(void)navigationSearchSearchClicked:(UITextField *)textfield
 {
-    [Flurry trackUserSearch:searchBar.text];
-    [Flags setKeywordSearch:searchBar.text];
-    [searchViewController search:searchBar.text];
+    [Flurry trackUserSearch:textfield.text];
+    [Flags setKeywordSearch:textfield.text];
+    [searchViewController search:textfield.text];
 }
 
 -(void)searchView:(SearchViewController *)searchView selectedShop:(Shop *)shop
@@ -840,7 +1182,7 @@ static RootViewController *_rootViewController;
     
     _isAnmationForSearch=false;
     
-    [UIView animateWithDuration:0.3f animations:^{
+    [UIView animateWithDuration:DURATION_DEFAULT animations:^{
         searchViewController.view.alpha=0;
     } completion:^(BOOL finished) {
         [searchViewController.view removeFromSuperview];
@@ -887,12 +1229,15 @@ static RootViewController *_rootViewController;
     if(self.frontViewController.catalogueList.templateSearch)
     {
         [searchViewController handleResult:self.frontViewController.catalogueList.templateSearch.datasource text:self.frontViewController.catalogueList.templateSearch.searchKey page:self.frontViewController.catalogueList.templateSearch.page];
+        
+        if(self.frontViewController.catalogueList.templateSearch.datasource.count>0)
+            [navigationBarView endEditing:true];
     }
     
-    [self.view addSubview:searchViewController.view];
+    [self.rootContaintView addSubview:searchViewController.view];
     
     searchViewController.view.alpha=0;
-    [UIView animateWithDuration:0.3f	 animations:^{
+    [UIView animateWithDuration:DURATION_DEFAULT	 animations:^{
         searchViewController.view.alpha=1;
         CGRect r=searchViewController.view.frame;
         r.size.height=self.view.frame.size.height-[NavigationBarView height];
@@ -933,11 +1278,8 @@ static RootViewController *_rootViewController;
     rect.origin.y=-rect.size.height;
     self.userCollection.view.frame=rect;
     
-    AlphaView *alphaView=[self.userCollection.view makeAlphaView];
-    alphaView.backgroundColor=COLOR_BACKGROUND_APP_ALPHA(1);
-    
-    alphaView=[self.view makeAlphaViewBelowView:self.userCollection.view];
-    alphaView.backgroundColor=COLOR_BACKGROUND_APP_ALPHA(0);
+    [self.userCollection.view alphaViewWithColor:COLOR_BACKGROUND_APP_ALPHA(1)];
+    [self.rootContaintView alphaViewWithColor:COLOR_BACKGROUND_APP_ALPHA(0) belowView:self.userCollection.view];
     
     self.userCollection.view.hidden=false;
     
@@ -950,10 +1292,10 @@ static RootViewController *_rootViewController;
         self.userCollection.view.frame=rectAnim;
         
         [self.userCollection.view alphaView].backgroundColor=COLOR_BACKGROUND_APP_ALPHA(0);
-        [self.view alphaView].backgroundColor=COLOR_BACKGROUND_APP_ALPHA(1);
+        [self.rootContaintView alphaView].backgroundColor=COLOR_BACKGROUND_APP_ALPHA(1);
     } completion:^(BOOL finished) {
         [self.userCollection.view removeAlphaView];
-        [self.view removeAlphaView];
+        [self.rootContaintView removeAlphaView];
     }];
 }
 
@@ -980,7 +1322,7 @@ static RootViewController *_rootViewController;
     rect.origin=CGPointZero;
     
     [self.filter.view alphaViewWithColor:COLOR_BACKGROUND_APP_ALPHA(1)];
-    [self.view alphaViewWithColor:COLOR_BACKGROUND_APP_ALPHA(0) belowView:self.filter.view];
+    [self.rootContaintView alphaViewWithColor:COLOR_BACKGROUND_APP_ALPHA(0) belowView:self.filter.view];
     
     self.filter.view.hidden=false;
     [self.filter configMenu];
@@ -991,10 +1333,10 @@ static RootViewController *_rootViewController;
         self.filter.view.frame=rectAnim;
         
         [self.filter.view alphaView].backgroundColor=COLOR_BACKGROUND_APP_ALPHA(0);
-        [self.view alphaView].backgroundColor=COLOR_BACKGROUND_APP_ALPHA(1);
+        [self.rootContaintView alphaView].backgroundColor=COLOR_BACKGROUND_APP_ALPHA(1);
     } completion:^(BOOL finished) {
         [self.filter.view removeAlphaView];
-        [self.view removeAlphaView];
+        [self.rootContaintView removeAlphaView];
     }];
 }
 
@@ -1009,7 +1351,7 @@ static RootViewController *_rootViewController;
     
     if(animate)
     {
-        [self.view alphaViewWithColor:COLOR_BACKGROUND_APP_ALPHA(1) belowView:self.userCollection.view];
+        [self.rootContaintView alphaViewWithColor:COLOR_BACKGROUND_APP_ALPHA(1) belowView:self.userCollection.view];
         [self.userCollection.view alphaViewWithColor:COLOR_BACKGROUND_APP_ALPHA(0)];
         
         if([self isShowedMap])
@@ -1022,10 +1364,10 @@ static RootViewController *_rootViewController;
             rect.origin.y=-rect.size.height;
             self.userCollection.view.frame=rect;
             [self.userCollection.view alphaView].backgroundColor=COLOR_BACKGROUND_APP_ALPHA(1);
-            [self.view alphaView].backgroundColor=COLOR_BACKGROUND_APP_ALPHA(0);
+            [self.rootContaintView alphaView].backgroundColor=COLOR_BACKGROUND_APP_ALPHA(0);
         } completion:^(BOOL finished) {
             [self.userCollection.view removeAlphaView];
-            [self.view removeAlphaView];
+            [self.rootContaintView removeAlphaView];
             
             if(onCompleted)
                 onCompleted();
@@ -1038,7 +1380,7 @@ static RootViewController *_rootViewController;
         self.userCollection.view.frame=rect;
         
         [self.userCollection.view removeAlphaView];
-        [self.view removeAlphaView];
+        [self.rootContaintView removeAlphaView];
     }
 }
 
@@ -1064,7 +1406,7 @@ static RootViewController *_rootViewController;
     if(animate)
     {
         [self.filter.view alphaViewWithColor:COLOR_BACKGROUND_APP_ALPHA(0)];
-        [self.view alphaViewWithColor:COLOR_BACKGROUND_APP_ALPHA(1) belowView:self.filter.view];
+        [self.rootContaintView alphaViewWithColor:COLOR_BACKGROUND_APP_ALPHA(1) belowView:self.filter.view];
         [[self.frontViewController currentVisibleViewController] configMenu];
         
         [UIView animateWithDuration:DURATION_SHOW_FILTER animations:^{
@@ -1072,10 +1414,10 @@ static RootViewController *_rootViewController;
             rect.origin.y=-rect.size.height;
             self.filter.view.frame=rect;
             [self.filter.view alphaView].backgroundColor=COLOR_BACKGROUND_APP_ALPHA(1);
-            [self.view alphaView].backgroundColor=COLOR_BACKGROUND_APP_ALPHA(0);
+            [self.rootContaintView alphaView].backgroundColor=COLOR_BACKGROUND_APP_ALPHA(0);
         } completion:^(BOOL finished) {
             [self.filter.view removeAlphaView];
-            [self.view removeAlphaView];
+            [self.rootContaintView removeAlphaView];
             
             if(onCompleted)
             {
@@ -1090,7 +1432,7 @@ static RootViewController *_rootViewController;
         self.filter.view.frame=rect;
         
         [self.filter.view removeAlphaView];
-        [self.view removeAlphaView];
+        [self.rootContaintView removeAlphaView];
     }
 }
 
@@ -1115,10 +1457,10 @@ static RootViewController *_rootViewController;
             initialTouchSlide=[pan locationInView:self.view.window];
             previousTouchSlide=initialTouchSlide;
             
-            AlphaView *alphaView=(AlphaView*)[self.view alphaView];
+            AlphaView *alphaView=(AlphaView*)[self.rootContaintView alphaView];
             if(!alphaView)
             {
-                rect=self.view.frame;
+                rect=self.rootContaintView.frame;
                 rect.origin=CGPointZero;
                 alphaView=[[AlphaView alloc] initWithFrame:rect];
                 
@@ -1127,13 +1469,14 @@ static RootViewController *_rootViewController;
                 else
                     alphaView.backgroundColor=COLOR_BACKGROUND_APP_ALPHA(0);
                 
-                [self.view insertSubview:alphaView belowSubview:self.slideQRCode.view];
+                [self.rootContaintView insertSubview:alphaView belowSubview:self.slideQRCode.view];
             }
         }
             break;
             
         case UIGestureRecognizerStateChanged:
         {
+            
             CGPoint currentLocation=[pan locationInView:self.view.window];
             
             float delta=currentLocation.y-previousTouchSlide.y;
@@ -1322,21 +1665,21 @@ static RootViewController *_rootViewController;
     
     if(animated)
     {
-        [self.view alphaViewWithColor:COLOR_BACKGROUND_APP_ALPHA(1) belowView:self.slideQRCode.view];
+        [self.rootContaintView alphaViewWithColor:COLOR_BACKGROUND_APP_ALPHA(1) belowView:self.slideQRCode.view];
         
         [UIView animateWithDuration:DURATION_SHOW_SLIDE_QRCODE delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
             CGRect rect=self.slideQRCode.view.frame;
-            rect.origin.y=[UIScreen mainScreen].bounds.size.height-[SlideQRCodeViewController size].height-25;
+            rect.origin.y=self.rootContaintView.frame.size.height-[SlideQRCodeViewController size].height;
             self.slideQRCode.view.frame=rect;
             
             //            [self.slideQRCode.view alphaView].backgroundColor=COLOR_BACKGROUND_APP_ALPHA(1);
-            [self.view alphaView].backgroundColor=COLOR_BACKGROUND_APP_ALPHA(0);
+            [self.rootContaintView alphaView].backgroundColor=COLOR_BACKGROUND_APP_ALPHA(0);
             
         } completion:^(BOOL finished) {
             
             [self.slideQRCode hideCamera];
             
-            [self.view removeAlphaView];
+            [self.rootContaintView removeAlphaView];
             //            [self.slideQRCode.view removeAlphaView];
             
             if(onCompleted)
@@ -1364,14 +1707,14 @@ static RootViewController *_rootViewController;
     
     if(animated)
     {
-        [self.view alphaViewWithColor:COLOR_BACKGROUND_APP_ALPHA(0) belowView:self.slideQRCode.view];
+        [self.rootContaintView alphaViewWithColor:COLOR_BACKGROUND_APP_ALPHA(0) belowView:self.slideQRCode.view];
         
         [UIView animateWithDuration:DURATION_SHOW_SLIDE_QRCODE delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
             CGRect rect=self.slideQRCode.view.frame;
             rect.origin.y=0;
             self.slideQRCode.view.frame=rect;
             
-            [self.view alphaView].backgroundColor=COLOR_BACKGROUND_APP_ALPHA(1);
+            [self.rootContaintView alphaView].backgroundColor=COLOR_BACKGROUND_APP_ALPHA(1);
             
         } completion:^(BOOL finished) {
             
@@ -1423,7 +1766,7 @@ static RootViewController *_rootViewController;
     rect.origin.y=navigationBarHeight+statusBarHeight;
     annou.view.frame=rect;
     
-    [self.view addSubview:annou.view];
+    [self.rootContaintView addSubview:annou.view];
 }
 
 -(void)hideNotificationWithIdentity:(NSObject *)tag
@@ -1465,7 +1808,7 @@ static RootViewController *_rootViewController;
 -(void)moveMyCommentToRootView:(UIView *)tableComment
 {
     [tableComment removeFromSuperview];
-    [self.view insertSubview:tableComment belowSubview:self.slideQRCode.view];
+    [self.rootContaintView insertSubview:tableComment belowSubview:self.slideQRCode.view];
 }
 
 -(DirectionObjectViewController *)directionObject
@@ -1486,11 +1829,12 @@ static RootViewController *_rootViewController;
     self.panPrevious.enabled=false;
     self.panSlide.enabled=false;
     
-    CGRect rect=[UIScreen mainScreen].bounds;
-    UIView *vi=[[UIView alloc] initWithFrame:rect];
-    vi.backgroundColor=[UIColor clearColor];
+    CGRect rect=self.rootContaintView.frame;
+    rect.origin=CGPointZero;
     
-    [self.view addSubview:vi];
+    UIView *vi=[[UIView alloc] initWithFrame:rect];
+    
+    [self.rootContaintView addSubview:vi];
     
     return vi;
 }
@@ -1960,7 +2304,37 @@ static RootViewController *_rootViewController;
 
 -(float)heightAds_QR
 {
-    return 160;
+    return 115-18;
+}
+
+-(UIStatusBarStyle)preferredStatusBarStyle
+{
+    return UIStatusBarStyleLightContent;
+}
+
+-(UIRectEdge)edgesForExtendedLayout
+{
+    return UIRectEdgeNone;
+}
+
+-(BOOL)automaticallyAdjustsScrollViewInsets
+{
+    return true;
+}
+
+-(UIViewController *)childViewControllerForStatusBarHidden
+{
+    return nil;
+}
+
+-(UIViewController *)childViewControllerForStatusBarStyle
+{
+    return nil;
+}
+
+-(UIWindow *)window
+{
+    return ((AppDelegate*)[UIApplication sharedApplication].delegate).window;
 }
 
 @end

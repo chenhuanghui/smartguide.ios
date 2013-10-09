@@ -8,17 +8,30 @@
 
 #import <UIKit/UIKit.h>
 
-@interface GalleryCell : UITableViewCell
+@class ScrollGallery;
+
+@interface GalleryCell : UIView<UIScrollViewDelegate>
 {
     __weak IBOutlet UIImageView *imgv;
+    __weak IBOutlet UITextView *txt;
+    __weak IBOutlet ScrollGallery *scroll;
     
+    bool _isZoomed;
+    bool _isHiddenDesc;
 }
 
--(void) setImageURL:(NSURL*) url;
--(void) setIMG:(UIImage*) image;
+
+-(void) setImageURL:(NSURL*) url desc:(NSString*) desc;
+-(void) setIMG:(UIImage*) image desc:(NSString*) desc;
 -(UIImageView*) imgv;
+-(void) setDescriptionVisibleWithDuration:(bool) visible duration:(float) duration;
+-(void) setDescriptVisible:(bool) visible;
 
 +(CGSize) size;
 +(NSString *)reuseIdentifier;
+
+@end
+
+@interface ScrollGallery : UIScrollView<UIGestureRecognizerDelegate>
 
 @end

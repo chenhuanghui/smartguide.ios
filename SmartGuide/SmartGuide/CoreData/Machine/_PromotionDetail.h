@@ -19,6 +19,7 @@
 @class PromotionDetail;
 @class PromotionRequire;
 @class Shop;
+@class PromotionVoucher;
 
 @interface _PromotionDetail : NSManagedObject
 
@@ -36,7 +37,7 @@
 @property (nonatomic, retain) NSString* duration;
 @property (nonatomic, retain) NSNumber* idAwardType2;
 @property (nonatomic, retain) NSNumber* min_score;
-@property (nonatomic, retain) NSNumber* money;
+@property (nonatomic, retain) NSString* money;
 @property (nonatomic, retain) NSNumber* p;
 @property (nonatomic, retain) NSNumber* promotionType;
 @property (nonatomic, retain) NSNumber* sgp;
@@ -57,6 +58,14 @@
 
 #pragma mark Shop
 @property (nonatomic, retain) Shop* shop;
+
+#pragma mark Vouchers
+- (NSSet*) vouchers;
+- (NSArray*) vouchersObjects;
+- (void) addVouchers:(NSSet*)value;
+- (void) removeVouchers:(NSSet*)value;
+- (void) addVouchersObject:(PromotionVoucher*)value;
+- (void) removeVouchersObject:(PromotionVoucher*)value;
 
 
 @end

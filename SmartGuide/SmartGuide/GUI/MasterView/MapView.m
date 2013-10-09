@@ -18,7 +18,7 @@ static __strong MapView *_mapView=nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         _mapView=[[MapView alloc] initWithFrame:[UIScreen mainScreen].bounds];
-        _mapView.showsUserLocation=true;
+//        _mapView.showsUserLocation=true;
     });
     
     return _mapView;

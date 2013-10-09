@@ -7,14 +7,25 @@
 //
 
 #import "PromotionDetailCell.h"
+#import "PromotionDetail.h"
 
 @implementation PromotionDetailCell
 
--(void)setSGP:(int)sgp content:(NSString *)content hightlighted:(bool)isHightlighted
+-(void)setPromotionRequire:(PromotionRequire *)require
 {
-    lblSgp.text=[NSString stringWithFormat:@"%02d",sgp];
-    lblContent.text=content;
-    bar.highlighted=isHightlighted;
+    lblSgp.text=[NSString stringWithFormat:@"%02d",require.sgpRequired.integerValue];
+    
+    [lblContent setText:require.content];
+    [lblContent setTextAlignment:NSTextAlignmentCenter];
+    [lblContent setTextColor:[UIColor whiteColor]];
+    [lblContent setFont:[UIFont boldSystemFontOfSize:12]];
+    lblContent.scrollDirection=CBAutoScrollDirectionLeft;
+    
+    [lblContent scrollLabelIfNeeded];
+    
+    bar.highlighted=require.promotion.sgp.longLongValue>=require.sgpRequired.longLongValue;
+    
+    lblNumberVoucher.text=require.numberVoucher;
 }
 
 +(NSString *)reuseIdentifier

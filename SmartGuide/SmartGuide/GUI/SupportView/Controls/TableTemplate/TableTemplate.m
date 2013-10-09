@@ -170,6 +170,11 @@
     _isAllowLoadMore=isAllowLoadMore;
 }
 
+-(bool)isAllowLoadMore
+{
+    return _isAllowLoadMore;
+}
+
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     lastContentOffset=contentOffset;

@@ -135,6 +135,7 @@
 
 +(int)userCity
 {
+    return 1;
     id obj=[[NSUserDefaults standardUserDefaults] objectForKey:FLAG_USER_CITY];
     if(obj)
         return [obj integerValue];
@@ -144,6 +145,7 @@
 
 +(void)setUserCity:(int)idCity
 {
+    idCity=1;
     [[NSUserDefaults standardUserDefaults] setInteger:idCity forKey:FLAG_USER_CITY];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }

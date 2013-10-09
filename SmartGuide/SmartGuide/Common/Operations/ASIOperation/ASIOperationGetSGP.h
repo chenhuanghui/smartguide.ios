@@ -29,5 +29,6 @@ enum SGP_STATUS {
 @property (nonatomic, readonly) NSString *time;
 @property (nonatomic, readonly) double totalSGP;
 @property (nonatomic, readonly) NSString *code;
+@property (nonatomic, readonly) int idShop;
 
 @end

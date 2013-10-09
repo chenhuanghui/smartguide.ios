@@ -11,37 +11,39 @@
 @implementation ASIOperationUpdateUserInfo
 @synthesize isSuccess,values;
 
--(ASIOperationUpdateUserInfo *)initWithIDUser:(int)idUser name:(NSString *)name avatar:(NSData *)avatar
+-(ASIOperationUpdateUserInfo *)initWithIDUser:(int)idUser name:(NSString *)name avatar:(NSString *)avatar
 {
     NSURL *_url=[NSURL URLWithString:SERVER_API_MAKE(API_UPDATE_USER_INFO)];
     self=[super initWithURL:_url];
     
-    values=@[@(idUser),name,@" "];
-    
-    if(avatar)
-        [self addData:avatar withFileName:@"photo" andContentType:@"image/jpeg" forKey:@"photo"];
+    values=@[@(idUser),name,avatar];
     
     return self;
 }
 
 -(void)onCompletedWithJSON:(NSArray *)json
 {
+    isSuccess=false;
+    
+    if([self isNullData:json])
+        return;
+    
     NSDictionary *dict=[json objectAtIndex:0];
     isSuccess=[dict boolForKey:@"code"];
     
     if(isSuccess)
     {
-    User *user=[DataManager shareInstance].currentUser;
+        User *user=[DataManager shareInstance].currentUser;
         user.name=[values objectAtIndex:1];
         user.avatar=[NSString stringWithStringDefault:[dict objectForKey:@"data"]];
-    
+        
         [[DataManager shareInstance] save];
     }
 }
 
 -(NSArray *)keys
 {
-    return @[@"user_id",@"first_name",@"last_name"];
+    return @[@"user_id",@"name",@"avatar"];
 }
 
 @end

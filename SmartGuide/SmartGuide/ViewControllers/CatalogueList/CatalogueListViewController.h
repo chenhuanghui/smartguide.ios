@@ -14,7 +14,6 @@
 #import "RootViewController.h"
 #import "SlideQRCodeViewController.h"
 #import "Flags.h"
-#import "TutorialView.h"
 #import "LocationManager.h"
 
 enum LIST_MODE {
@@ -24,7 +23,7 @@ enum LIST_MODE {
 
 @class CatalogueListViewController,ShopDetailViewController,TemplateList,TemplateSearch,TableList;
 
-@interface CatalogueListViewController : ViewController<TableTemplateDelegate,ASIOperationPostDelegate,SlideQRCodeDelegate,TutorialViewDelegate>
+@interface CatalogueListViewController : ViewController<TableTemplateDelegate,ASIOperationPostDelegate,SlideQRCodeDelegate>
 {
     __weak IBOutlet TableList *tableShop;
     __weak IBOutlet UIButton *btnUp;

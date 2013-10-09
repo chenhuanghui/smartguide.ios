@@ -84,7 +84,7 @@
         {
             score=[NSString stringWithFormat:@"%02d",data.score];
             rank=[NSString stringWithFormat:@"/%02d",data.promotionDetail.min_score.integerValue];
-            text=[Utility ftCoreTextFormatScore:score rank:rank];
+            text=[NSString stringWithFormat:@"<score>%@</score><a>%@</a>",score,rank];
             
             imgVND.hidden=false;
             
@@ -102,7 +102,7 @@
             rect.size=CGSizeMake(32, 11);
             imgVND.frame=rect;
             
-            score=[NSString stringWithFormat:@"%lldK",data.promotionDetail.money.longLongValue/1000];
+            score=data.promotionDetail.money;
             rank=@"";
             text=[Utility ftCoreTextFormatScore:score rank:rank];
             

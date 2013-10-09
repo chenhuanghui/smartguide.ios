@@ -7,15 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CBAutoScrollLabel.h"
+#import "PromotionRequire.h"
 
 @interface PromotionDetailCell : UITableViewCell
 {
     __weak IBOutlet UIImageView *bar;
     __weak IBOutlet UILabel *lblSgp;
-    __weak IBOutlet UILabel *lblContent;
+    __weak IBOutlet CBAutoScrollLabel *lblContent;
+    __weak IBOutlet UILabel *lblNumberVoucher;
 }
 
--(void) setSGP:(int) sgp content:(NSString*) content hightlighted:(bool) isHightlighted;
+-(void) setPromotionRequire:(PromotionRequire*) require;
 
 +(NSString *)reuseIdentifier;
 +(float) height;

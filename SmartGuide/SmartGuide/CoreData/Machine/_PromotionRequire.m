@@ -114,6 +114,19 @@
 	[self didChangeValueForKey:@"idRequire"];
 }
 
+- (NSString*)numberVoucher {
+	[self willAccessValueForKey:@"numberVoucher"];
+	NSString* result = (NSString*)[self primitiveValueForKey:@"numberVoucher"];
+	[self didAccessValueForKey:@"numberVoucher"];
+	return result;
+}
+
+- (void)setNumberVoucher:(NSString*)value {
+	[self willChangeValueForKey:@"numberVoucher"];
+	[self setPrimitiveValue:value forKey:@"numberVoucher"];
+	[self didChangeValueForKey:@"numberVoucher"];
+}
+
 - (NSNumber*)sgpRequired {
 	[self willAccessValueForKey:@"sgpRequired"];
 	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"sgpRequired"];

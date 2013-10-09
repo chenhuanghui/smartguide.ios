@@ -143,7 +143,7 @@ static TokenManager *_tokenManager=nil;
 
 -(void)setActiveCode:(NSString *)_activeCode
 {
-    [Flags setActiveCode:activeCode];
+    [Flags setActiveCode:_activeCode];
 }
 
 -(NSString *)activeCode

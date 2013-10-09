@@ -12,6 +12,7 @@
 #import "UserCollectionCell.h"
 #import "Shop.h"
 #import "UIImageView+AFNetworking.h"
+#import "FrontViewController.h"
 
 @interface UserCollectionViewController ()
 
@@ -32,11 +33,12 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    btnPoint.enabled=false;
     
     self.title=[[DataManager shareInstance].currentUser.name uppercaseString];
     self.view.backgroundColor=COLOR_BACKGROUND_APP;
     
-    userBlurMid.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"user_blur_mid.png"]];
+    userBlurMid.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"user_blurmid.png"]];
     
     blurTop.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"blur_bottom.png"]];
     blurTop.transform=CGAffineTransformMakeRotation(DEGREES_TO_RADIANS(180));
@@ -63,6 +65,18 @@
     tableReward.tableHeaderView=vi;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userScanedQRCode:) name:NOTIFICATION_USER_SCANED_QR_CODE object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userUpdatedInfo:) name:NOTIFICATION_USER_UPDATED_INFO object:nil];
+}
+
+-(void) userUpdatedInfo:(NSNotification*) notification
+{
+    self.title=[DataManager shareInstance].currentUser.name;
+    [avatar setSmartGuideImageWithURL:[NSURL URLWithString:[DataManager shareInstance].currentUser.avatar] placeHolderImage:UIIMAGE_LOADING_AVATAR success:nil failure:nil];
+    
+    if([RootViewController shareInstance].isShowedUserCollection)
+    {
+        [self configMenu];
+    }
 }
 
 -(void) userScanedQRCode:(NSNotification*) notification
@@ -126,14 +140,13 @@
     blurBottom = nil;
     tableReward = nil;
     userBlurMid = nil;
-    userBlurBot = nil;
     lblP = nil;
     [super viewDidUnload];
 }
 
 - (IBAction)btnPointTouchUpInside:(id)sender {
     
-    btnPoint.userInteractionEnabled=false;
+    btnPoint.enabled=false;
     
     if(tableReward.hidden)
     {
@@ -162,7 +175,7 @@
         } completion:^(BOOL finished) {
             table.hidden=true;
             
-            btnPoint.userInteractionEnabled=true;
+            btnPoint.enabled=true;
         }];
     }
     else
@@ -186,7 +199,7 @@
         } completion:^(BOOL finished) {
             tableReward.hidden=true;
             
-            btnPoint.userInteractionEnabled=true;
+            btnPoint.enabled=true;
         }];
     }
 }
@@ -223,6 +236,8 @@
     table.alpha=0;
     table.hidden=false;
     
+    self.title=[[DataManager shareInstance].currentUser.name uppercaseString];
+    
     _isReloadUserCollection=false;
     
     lblPoint.text=@"";
@@ -231,7 +246,7 @@
     lblP.alpha=0;
     
     tableReward.frame=CGRECT_PHONE(CGRectMake(67, 152, 238, 212), CGRectMake(67, 152, 238, 262));
-    table.frame=CGRECT_PHONE(CGRectMake(67, 152, 200, 212), CGRectMake(67, 152, 200, 262));
+    table.frame=CGRECT_PHONE(CGRectMake(67, 152, 206, 212), CGRectMake(67, 152, 206, 262));
     
     [UIView animateWithDuration:0.2f animations:^{
         table.alpha=1;
@@ -281,17 +296,23 @@
     [_operation startAsynchronous];
 }
 
+-(void) getListRewards
+{
+    _getRewards=[[ASIOperationGetRewards alloc] initGetRewardsWithIDUser:[DataManager shareInstance].currentUser.idUser.integerValue];
+    _getRewards.delegatePost=self;
+    
+    [_getRewards startAsynchronous];
+
+    [tableReward showLoadingWithTitle:nil];
+}
+
 -(void)ASIOperaionPostFinished:(ASIOperationPost *)operation
 {
     if([operation isKindOfClass:[ASIOperationUserCollection class]])
     {
         if(templateTable.page==0 || !_isReloadUserCollection)
         {
-            [tableReward showLoadingWithTitle:nil];
-            _getRewards=[[ASIOperationGetRewards alloc] initGetRewardsWithIDUser:[DataManager shareInstance].currentUser.idUser.integerValue];
-            _getRewards.delegatePost=self;
-            
-            [_getRewards startAsynchronous];
+            [self getListRewards];
         }
         
         if(_isReloadUserCollection)
@@ -396,7 +417,12 @@
 {
     [self.view removeLoading];
     
-    if([operation isKindOfClass:[ASIOperationGetRewards class]])
+    if([operation isKindOfClass:[ASIOperationUserCollection class]])
+    {
+        btnPoint.enabled=true;
+        [self getListRewards];
+    }
+    else if([operation isKindOfClass:[ASIOperationGetRewards class]])
         [tableReward removeLoading];
     else if([operation isKindOfClass:[ASIOperationGetSG class]])
     {
@@ -446,7 +472,8 @@
 
 -(void)rewardCellRequestReward:(RewardCell *)cell
 {
-    [AlertView showAlertOKCancelWithTitle:@"Thông báo" withMessage:@"Bạn có muốn đổi điểm lấy phần quà này" onOK:^{
+    NSString *msg=[NSString stringWithFormat:@"Bạn có muốn đổi điểm lấy phần quà: %@",cell.reward.content];
+    [AlertView showAlertOKCancelWithTitle:@"Thông báo" withMessage:msg onOK:^{
         ASIOperationSGToReward *ope=[[ASIOperationSGToReward alloc] initWithIDReward:cell.reward.idReward.integerValue idUser:[DataManager shareInstance].currentUser.idUser.integerValue];
         ope.delegatePost=self;
         

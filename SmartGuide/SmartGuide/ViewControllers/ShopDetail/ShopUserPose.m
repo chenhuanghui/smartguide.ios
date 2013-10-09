@@ -18,6 +18,19 @@
 #define UIIMAGE_FACEBOOK_TICK [UIImage imageNamed:@"facebook_tick.png"]
 #define UIIMAGE_FACEBOOK_NONE_TICK [UIImage imageNamed:@"facebook_nonetick.png"]
 
+@interface ImagePickerController : UIImagePickerController
+
+@end
+
+@implementation ImagePickerController
+
+-(BOOL)wantsFullScreenLayout
+{
+    return false;
+}
+
+@end
+
 @implementation ShopUserPose
 @synthesize delegate;
 
@@ -48,8 +61,9 @@
     self = [[[NSBundle mainBundle] loadNibNamed:@"ShopUserPose" owner:nil options:nil] objectAtIndex:0];
     if (self) {
         txt.text=@"";
-//        [txt setPlaceHolderText:USER_POST_PLACEHOLDER textColor:[UIColor lightTextColor]];
+        //        [txt setPlaceHolderText:USER_POST_PLACEHOLDER textColor:[UIColor lightTextColor]];
         containView.layer.masksToBounds=true;
+        _isUploadTokenFB=true;
     }
     return self;
 }
@@ -58,6 +72,13 @@
 {
     btnFace.userInteractionEnabled=true;
     [self settingLayout];
+    
+    _isUploadTokenFB=false;
+    
+    ASIOperationUploadFBToken *operation=[[ASIOperationUploadFBToken alloc] initWithIDUser:[DataManager shareInstance].currentUser.idUser.integerValue fbToken:[FBSession activeSession].accessTokenData.accessToken];
+    operation.delegatePost=self;
+    
+    [operation startAsynchronous];
 }
 
 -(void)removeFromSuperview
@@ -68,37 +89,63 @@
 }
 
 - (IBAction)btnBackTouchUpInside:(id)sender {
+    [self endEditing:true];
     [self showCamera];
 }
 
 -(void) showCamera
 {
-    UIImagePickerController *imagePicker=[[UIImagePickerController alloc] init];
-    imagePicker.modalPresentationStyle=UIModalPresentationCurrentContext;
+    ImagePickerController *imagePicker=[[ImagePickerController alloc] init];
+    imagePicker.wantsFullScreenLayout=false;
     
     if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
         imagePicker.sourceType=UIImagePickerControllerSourceTypeCamera;
     else
-        imagePicker.sourceType=UIImagePickerControllerSourceTypeSavedPhotosAlbum;
+        imagePicker.sourceType=UIImagePickerControllerSourceTypePhotoLibrary;
     
     imagePicker.delegate=self;
     
-    [_viewController presentModalViewController:imagePicker animated:true];
+    CGRect rect=imagePicker.view.frame;
+    rect.origin.y=rect.size.height;
+    imagePicker.view.frame=rect;
+    
+    [_viewController addChildViewController:imagePicker];
+    [_viewController.view addSubview:imagePicker.view];
+    
+    [UIView animateWithDuration:DURATION_NAVIGATION_PUSH animations:^{
+        CGRect rectAnim=imagePicker.view.frame;
+        rectAnim.origin.y=OBJ_IOS(0, 20);
+        rectAnim.size.height-=OBJ_IOS(0, 20);
+        imagePicker.view.frame=rectAnim;
+    }];
     
     imgv.image=nil;
 }
 
 -(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
 {
-    picker.delegate=nil;
     [self cancelPose];
+    
+    [self hideImagePicker:picker];
+}
+
+-(void) hideImagePicker:(UIImagePickerController*) picker
+{
+    picker.delegate=nil;
+    
+    [UIView animateWithDuration:DURATION_NAVIGATION_PUSH animations:^{
+        CGRect rect=picker.view.frame;
+        rect.origin.y=rect.size.height;
+        picker.view.frame=rect;
+    } completion:^(BOOL finished) {
+        [picker.view removeFromSuperview];
+        [picker removeFromParentViewController];
+    }];
 }
 
 -(void) cancelPose
 {
     imgv.image=nil;
-
-    [_viewController dismissModalViewControllerAnimated:true];
     
     [delegate shopUserPostCancelled:self];
     
@@ -125,7 +172,7 @@
     
     [txt becomeFirstResponder];
     
-    [_viewController dismissModalViewControllerAnimated:true];
+    [self hideImagePicker:picker];
 }
 
 - (IBAction)btnFaceTouchUpInside:(id)sender {
@@ -143,7 +190,18 @@
 }
 
 - (IBAction)btnSendTouchUpInside:(id)sender {
-    [self uploadImage];
+    _isUserTouchedSend=true;
+    [self notifySend];
+}
+
+-(void) notifySend
+{
+    [containView showLoadingWithTitle:nil];
+    
+    if(_isUploadTokenFB && _isUserTouchedSend)
+    {
+        [self uploadImage];
+    }
 }
 
 -(void)setImage:(UIImage *)image shop:(Shop *)shop
@@ -170,7 +228,7 @@
     }
 }
 
--(void) uploadImage	
+-(void) uploadImage
 {
     [self endEditing:true];
     
@@ -178,16 +236,18 @@
     
     UIImage *image=imgv.image;
     NSData *data=UIImagePNGRepresentation(image);
-//    CGSize size=imgv.image.size;
-
+    //    CGSize size=imgv.image.size;
+    
     int idUser=[DataManager shareInstance].currentUser.idUser.integerValue;
     
-    ASIOperationUploadUserGallery *upload=[[ASIOperationUploadUserGallery alloc] initWithIDShop:_shop.idShop.integerValue userID:idUser desc:txt.text photo:data];
+    ASIOperationUploadUserGallery *upload=[[ASIOperationUploadUserGallery alloc] initWithIDShop:_shop.idShop.integerValue userID:idUser desc:txt.text photo:data shareFacebook:_isSharedFacebook];
     upload.delegatePost=self;
     
     [upload startAsynchronous];
     
-    if(_isSharedFacebook)
+    bool allowPostFacebook=false;
+    
+    if(_isSharedFacebook && allowPostFacebook)
     {
         [[FacebookManager shareInstance] postImage:imgv.image text:txt.text identity:nil delegate:nil];
     }
@@ -195,47 +255,60 @@
 
 -(void)ASIOperaionPostFinished:(ASIOperationPost *)operation
 {
-    ASIOperationUploadUserGallery *ope=(ASIOperationUploadUserGallery*)operation;
-    
-    [self removeLoading];
-    
-    if(ope.isSuccess)
+    if([operation isKindOfClass:[ASIOperationUploadUserGallery class]])
     {
-        [delegate shopUserPostFinished:self userGallery:ope.userGallery];
+        ASIOperationUploadUserGallery *ope=(ASIOperationUploadUserGallery*)operation;
         
-        imgv.image=nil;
+        [self removeLoading];
         
-        [UIView animateWithDuration:0.2f animations:^{
-            _rootView.center=CGPointMake(_rootView.center.x, _rootView.center.y-_rootView.frame.size.height);
-        } completion:^(BOOL finished) {
-            [[RootViewController shareInstance] removeRootView:_rootView];
-            [self removeFromSuperview];
+        if(ope.isSuccess)
+        {
+            [delegate shopUserPostFinished:self userGallery:ope.userGallery];
             
-            self.delegate=nil;
-        }];
+            imgv.image=nil;
+            
+            [UIView animateWithDuration:0.2f animations:^{
+                _rootView.center=CGPointMake(_rootView.center.x, _rootView.center.y-_rootView.frame.size.height);
+            } completion:^(BOOL finished) {
+                [[RootViewController shareInstance] removeRootView:_rootView];
+                [self removeFromSuperview];
+                
+                self.delegate=nil;
+            }];
+        }
+        else
+            [AlertView showAlertOKWithTitle:nil withMessage:@"Đăng ảnh không thành công" onOK:nil];
     }
-    else
-        [AlertView showAlertOKWithTitle:nil withMessage:@"Đăng ảnh không thành công" onOK:nil];
+    else if([operation isKindOfClass:[ASIOperationUploadFBToken class]])
+    {
+        _isUploadTokenFB=true;
+        [self notifySend];
+    }
     
-//    upload=nil;
+    //    upload=nil;
 }
 
 -(void) ASIOperaionPostFailed:(ASIOperationPost *)operation
 {
-    [self removeLoading];
-    
-    [AlertView showAlertOKWithTitle:nil withMessage:@"Đăng ảnh không thành công" onOK:nil];
-    
-//    upload=nil;
-//    [delegate shopUserPostFinished:self userGallery:nil];
+    if([operation isKindOfClass:[ASIOperationUploadUserGallery class]])
+    {
+        [self removeLoading];
+        
+        [AlertView showAlertOKWithTitle:nil withMessage:@"Đăng ảnh không thành công" onOK:nil];
+    }
+    else if([operation isKindOfClass:[ASIOperationUploadFBToken class]])
+    {
+        _isUploadTokenFB=true;
+        [self notifySend];
+    }
 }
 
 -(void)textViewDidChange:(UITextView *)textView
 {
-//    if(textView.text.length>0)
-//        [textView removePlaceHolderText];
-//    else
-//        [textView setPlaceHolderText:USER_POST_PLACEHOLDER textColor:[UIColor lightTextColor]];
+    //    if(textView.text.length>0)
+    //        [textView removePlaceHolderText];
+    //    else
+    //        [textView setPlaceHolderText:USER_POST_PLACEHOLDER textColor:[UIColor lightTextColor]];
 }
 
 -(void) settingLayout

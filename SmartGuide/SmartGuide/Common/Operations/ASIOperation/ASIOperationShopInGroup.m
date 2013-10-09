@@ -13,27 +13,21 @@
 #import "Group.h"
 
 @implementation ASIOperationShopInGroup
-@synthesize shops;
+@synthesize shops,values;
 
 -(ASIOperationShopInGroup *)initWithIDCity:(int)idCity idUser:(int)idUser lat:(double)latitude lon:(double)longtitude page:(int)page sort:(enum SORT_BY)sort group:(NSString *)ids
 {
     NSURL *_url=[NSURL URLWithString:SERVER_API_MAKE(API_SHOP_IN_GROUP_POST)];
     self=[super initWithURL:_url];
     
-    self.values=[[NSMutableArray alloc] initWithObjects:ids,
-             [NSNumber numberWithInt:idCity],
-             [NSNumber numberWithInt:idUser],
-             [NSNumber numberWithDouble:latitude],
-             [NSNumber numberWithDouble:longtitude],
-             [NSNumber numberWithInt:page],
-             [NSNumber numberWithInt:sort],nil];
+    values=@[ids,@(idCity),@(idUser),@(latitude),@(longtitude),@(page),@(sort),@(1)];
     
     return self;
 }
 
 -(NSArray *)keys
 {
-    return @[@"group_list",@"city_id",@"user_id",@"user_lat",@"user_lng",@"page",@"sort_by"];
+    return @[@"group_list",@"city_id",@"user_id",@"user_lat",@"user_lng",@"page",@"sort_by",@"version"];
 }
 
 -(void)onCompletedWithJSON:(NSArray *)json

@@ -43,7 +43,7 @@
     self.tap.delegate=self;
     [self.tap addTarget:self action:@selector(tap:)];
     [[RootViewController shareInstance].panPrevious requireGestureRecognizerToFail:self.tap];
-//    [self.tap requireGestureRecognizerToFail:[RootViewController shareInstance].panPrevious];
+    //    [self.tap requireGestureRecognizerToFail:[RootViewController shareInstance].panPrevious];
     
     [mapContaint addGestureRecognizer:self.tap];
 }
@@ -80,26 +80,30 @@
     rootView.backgroundColor=[UIColor clearColor];
     
     UIButton *btn=[UIButton buttonWithType:UIButtonTypeCustom];
-    [btn setImage:[UIImage imageNamed:@"back.png"] forState:UIControlStateNormal];
-    btn.frame=CGRectMake(7, 10, 23, 20);
+    [btn setImage:[UIImage imageNamed:@"button_back.png"] forState:UIControlStateNormal];
+    btn.frame=CGRectMake(-5, -5, 50, 50);
     btn.tag=1;
     
     [btn addTarget:self action:@selector(btnBackTouchUpInside:) forControlEvents:UIControlEventTouchUpInside];
-    
-    [rootView addSubview:btn];
+
+    UIImageView *imgv=[[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 51)];
+    imgv.image=[UIImage imageNamed:@"back_blur.png"];
     
     [map removeFromSuperview];
     
     [rootView addSubview:map];
+    
+    [rootView addSubview:imgv];
+    [rootView addSubview:btn];
+    
     CGPoint pnt=map.center;
     pnt=[self convertPoint:pnt fromView:mapContaint];
     pnt=[rootView convertPoint:pnt fromView:self];
     map.center=pnt;
     
     [UIView animateWithDuration:DURATION_SHOW_MAP animations:^{
-//        NSLog(@"%@",NSStringFromCGRect(map.frame));
-        map.frame=CGRectMake(0, 37, rootView.frame.size.width, rootView.frame.size.height-37*2);
-        rootView.backgroundColor=[UIColor blackColor];
+        map.frame=CGRectMake(0, 0, rootView.frame.size.width, rootView.frame.size.height);
+        rootView.backgroundColor=COLOR_BACKGROUND_APP;
     }];
 }
 
@@ -108,7 +112,7 @@
     [self addGestureMap];
     
     [UIView animateWithDuration:DURATION_SHOW_MAP animations:^{
-
+        
         //vị trí được lấy từ animation show map fullscreen (line 65)
         map.frame=CGRectMake(17, 189, 285, 228);
         rootView.backgroundColor=[UIColor clearColor];
@@ -121,7 +125,7 @@
         rect.origin=CGPointZero;
         map.frame=rect;
         [mapContaint addSubview:map];
-
+        
         map.userInteractionEnabled=false;
         map.scrollEnabled=false;
         map.zoomEnabled=false;
@@ -129,12 +133,14 @@
         
         [[RootViewController shareInstance] removeRootView:rootView];
         rootView=nil;
+        
+        [self updateMapWithUserLocation:map.userLocation];
     }];
 }
 
 -(void)viewTouchBegan:(UIView *)touchView touches:(NSSet *)touches withEvent:(UIEvent *)event
 {
-//    [self makeMapFullscreen];
+    //    [self makeMapFullscreen];
 }
 
 -(void)setShop:(Shop *)shop
@@ -172,6 +178,11 @@
 
 -(void)reset
 {
+    if(_operationRouter)
+    {
+        [_operationRouter cancel];
+        _operationRouter=nil;
+    }
     
     [map removeFromSuperview];
     map=nil;
@@ -357,18 +368,22 @@
     @catch (NSException * e) {
         // TODO: show error
     }
+    
+    _operationRouter=nil;
 }
 
 -(void) operationFailure:(AFHTTPRequestOperation*) operation error:(NSError*) error
 {
     isCalculatingDirection=false;
+    
+    _operationRouter=nil;
 }
 
 - (void)calculateDirections {
     if(isCalculatingDirection || !self.source || !self.destination)
         return;
     
-    [map showLoadingWithTitle:nil];
+//    [map showLoadingWithTitle:nil];
     
     isCalculatingDirection=true;
     
@@ -381,19 +396,28 @@
     // by car:
     // urlString = [urlString stringByAppendingFormat:@"&dirflg=w"];
     
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlString]];
-    __block AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
     
-    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject)
+    
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlString]];
+    
+    if(_operationRouter)
+    {
+        [_operationRouter cancel];
+        _operationRouter=nil;
+    }
+    
+    _operationRouter = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+    
+    __weak ShopLocation *weakSelf=self;
+    [_operationRouter setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject)
      {
-         [map removeLoading];
-         [self operationSuccess:operation responseObject:responseObject];
+         [weakSelf operationSuccess:operation responseObject:responseObject];
      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-         [map  removeLoading];
-         [self operationFailure:operation error:error];
+         [weakSelf operationFailure:operation error:error];
      }];
     
-    [operation start];
+    
+    [_operationRouter start];
 }
 
 -(void) updateMapWithUserLocation:(MKUserLocation*) userLocation
@@ -415,7 +439,7 @@
         [self calculateDirections];
     else
     {
-        [map setRegion:MKCoordinateRegionMakeWithDistance(self.destination.coordinate, MAP_SPAN, MAP_SPAN)];
+        [map setRegion:MKCoordinateRegionMakeWithDistance(self.destination.coordinate, MAP_SPAN, MAP_SPAN) animated:true];
     }
 }
 
@@ -443,33 +467,34 @@
 {
     [super didMoveToSuperview];
     
-    if(!map)
+    if(self.superview)
     {
-        //neu nhu shopdetail chua load ma vao thi se bi crash do shop nil
-        CGRect rect=mapContaint.frame;
-        rect.origin=CGPointZero;
-        
-        map=[[MKMapView alloc] initWithFrame:rect];
-        [mapContaint addSubview:map];
-        
-        map.delegate=self;
-        map.showsUserLocation=true;
-        
-        if(_shop)
+        if(!map)
         {
-            self.destination=_shop;
-            [map addAnnotation:_shop];
-            [self calculateDirections];
-        }
-        
-        [[LocationManager shareInstance] checkLocationAuthorize];
-        
-        if(![LocationManager shareInstance].isAllowLocation)
+            //neu nhu shopdetail chua load ma vao thi se bi crash do shop nil
+            CGRect rect=mapContaint.frame;
+            rect.origin=CGPointZero;
+            
+            map=[[MKMapView alloc] initWithFrame:rect];
+            [mapContaint addSubview:map];
+            
+            map.delegate=self;
+            map.showsUserLocation=true;
+            map.userTrackingMode=MKUserTrackingModeNone;
+            
+            if(_shop)
+            {
+                self.destination=_shop;
+                [map addAnnotation:_shop];
+                [self calculateDirections];
+            }
+            
             [self updateMapWithUserLocation:nil];
-        
-        map.userInteractionEnabled=false;
-        map.scrollEnabled=false;
-        map.zoomEnabled=false;
+            
+            map.userInteractionEnabled=false;
+            map.scrollEnabled=false;
+            map.zoomEnabled=false;
+        }
     }
 }
 

@@ -31,6 +31,7 @@
 -(void) notifyCompleted;
 -(void) notifyFailed:(NSError*) error;
 -(bool) canManualHandleData:(id) responseObject;
+-(bool)isNullData:(NSArray *)data;
 
 @property (nonatomic, strong) NSError *error;
 @property (nonatomic, assign) id<OperationURLDelegate> delegate;

@@ -27,6 +27,7 @@
 
 -(void) setTitle:(NSString*) title;
 -(void) alignLayout:(UIView*) newSuperview;
+-(void) alignRect:(CGRect) rect;
 -(void) startAnimation;
 
 @property (nonatomic, unsafe_unretained) id touchDelegate;
@@ -39,6 +40,8 @@
 
 @interface UIView(ActivityIndicator)
 
+-(ActivityIndicator*) activityIndicator;
+-(void) centerActivityIndicator:(CGRect) rect;
 -(ActivityIndicator*) showLoadingWithTitle:(NSString*) title;
 -(ActivityIndicator*) showLoadingWithTitle:(NSString *)title countdown:(int) countdown delegate:(id<ActivityIndicatorDelegate>) delegate;
 -(void) removeLoading;

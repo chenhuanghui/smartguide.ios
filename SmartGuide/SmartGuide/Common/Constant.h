@@ -8,6 +8,7 @@
 
 #import "Flurry.h"
 
+#define SMARTUIDE_VERSION @"1"
 #define VELOCITY_SLIDE 800.f
 
 #define CLASS_NAME NSStringFromClass([self class])
@@ -16,18 +17,20 @@
 #define FACEBOOK_PUBLISH_PERMISSION @[@"publish_actions"]
 #define FACEBOOK_APPID @"1391698407719065"
 #define FACEBOOK_GET_PROFILE(accessToken,fields) [NSString stringWithFormat:@"https://graph.facebook.com/me/?fields=%@&access_token=%@",fields,accessToken]
-#define CLIENT_ID @"1_orazuv2dl3k8ossssg8804o4kwksw8kwcskkk404w40gwcwws"
-//#define CLIENT_ID @"1_53obx9yqlcco80w8wkoowgccw44o0w0ook0okogwosg84wscg8"
-#define SECRET_ID @"4xvgf3r9dxs8k8g8o8k0gss0s0wc8so4g4wg40c8s44kgcwsks"
-//#define SECRET_ID @"t3p0k1rvstcgwcsggo8ossgcwo8cckso88sscgcsks8w0wsk8"
+//#define CLIENT_ID @"1_orazuv2dl3k8ossssg8804o4kwksw8kwcskkk404w40gwcwws"//dev
+#define CLIENT_ID @"1_407qlmrvr5esg8s8wkocw8wgog84kkk40o8k00oososgcs8sc4"//dev2
+//#define CLIENT_ID @"1_53obx9yqlcco80w8wkoowgccw44o0w0ook0okogwosg84wscg8"//product
+//#define SECRET_ID @"4xvgf3r9dxs8k8g8o8k0gss0s0wc8so4g4wg40c8s44kgcwsks"//dev
+#define SECRET_ID @"1jcvy0kw4tk0o4wcgcos8s84kssw08c0w8w04c0k08gwc48cks"//dev2
+//#define SECRET_ID @"t3p0k1rvstcgwcsggo8ossgcwo8cckso88sscgcsks8w0wsk8"//product
 
 //#define SERVER_API @"http://192.168.1.102/rb-smartguide/web/app.php/api"
 //#define SERVER_API @"http://192.168.1.5/app.php/api"
-#define SERVER_API @"http://devapi.smartguide.vn/api"
-#define SERVER_IP @"http://devapi.smartguide.vn"
+#define SERVER_API @"http://dev2.smartguide.vn/api"
+#define SERVER_IP @"http://dev2.smartguide.vn"
 //#define SERVER_API @"https://api.smartguide.vn/api"
 //#define SERVER_IP @"https://api.smartguide.vn"
-#define SERVER_IP_MAKE (api) [NSString stringWithFormat:@"%@/%@",SERVER_IP,api]
+#define SERVER_IP_MAKE(api) [NSString stringWithFormat:@"%@/%@",SERVER_IP,api]
 #define SERVER_API_MAKE(api) [NSString stringWithFormat:@"%@/%@",SERVER_API,api]
 #define SERVER_API_IMAGE SERVER_API_MAKE(@"photo/upload")
 #define SERVER_API_UPLOAD_PROFILE_FACEBOOK SERVER_API_MAKE(@"user/info/update")
@@ -58,6 +61,9 @@
 #define API_POST_FEEDBACK @"feedback"
 #define API_GET_TOTAL_SP @"score/get"
 #define API_UPDATE_USER_INFO @"user/sginfo/update"
+#define API_UPLOAD_FB_ACCESS_TOKEN @"user/facebook/access_token"
+#define API_GET_AVATARS @"user/avatar/get"
+#define API_NOTIFICATIONS(accessToken,version) [NSString stringWithFormat:@"notification?access_token=%@&version=%@",accessToken,version]
 
 #define API_GET_ACTIVE_CODE(phone) [NSString stringWithFormat:@"%@/user/activation?phone=%@",SERVER_IP,phone]
 #define API_VERIFY_ACTIVE_CODE(phone,activeCode) [NSString stringWithFormat:@"%@/user/check?phone=%@&code=%@",SERVER_IP,phone,activeCode]
@@ -101,10 +107,13 @@
 #define NOTIFICATION_CATALOGUE_LIST_FINISHED @"catalogueListFinished"
 #define NOTIFICATION_SHOPDETAIL_LOAD_FINISHED @"shopDetailLoadFinished"
 #define NOTIFICATION_USER_FINISHED_TUTORIAL_SLIDE_LIST @"userFinishedReadTutorial"
+#define NOTIFICATION_USER_FINISHED_READ_FIRST_TUTORIAL @"userFinishedReadFirstTutorial"
+#define NOTIFICATION_USER_UPDATED_INFO @"userUpdatedInfo"
 
 #define COLOR_BACKGROUND_APP_ALPHA(a) [UIColor colorWithRed:40.f/255 green:46.f/255 blue:58.f/255 alpha:a]
 #define COLOR_BACKGROUND_APP COLOR_BACKGROUND_APP_ALPHA(1)
 
+#define DURATION_DEFAULT 0.3f
 #define DURATION_NAVIGATION_PUSH 0.35f
 #define DURATION_SHOW_MAP 0.5f
 #define DURATION_SHOW_FILTER DURATION_SHOW_MAP
@@ -114,9 +123,9 @@
 #define DURATION_NAVI_ICON 0.5f
 #define DURATION_NAVI_TITLE 0.7f
 #define DURATION_SHOW_QRCODE_REWARD 0.5f
-#define DURATION_SHOW_USER_GALLERY_IMAGE 0.5f
+#define DURATION_SHOW_USER_GALLERY_IMAGE DURATION_DEFAULT
 #define DURATION_ADS_CHANGE 10.f
-#define DURATION_SHOW_SLIDE_QRCODE 0.5f
+#define DURATION_SHOW_SLIDE_QRCODE 0.3f
 #define DURATION_SCORE 1.f
 #define DURATION_SHOW_MENU_SHOP_DETAIL 0.25f
 #define DURATION_SHOW_GALLERY_VIEW_INFO 0.5f

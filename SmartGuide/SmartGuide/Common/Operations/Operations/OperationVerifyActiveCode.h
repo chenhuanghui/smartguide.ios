@@ -14,5 +14,6 @@
 
 @property (nonatomic, readonly) bool isSuccess;
 @property (nonatomic, readonly) User *user;
+@property (nonatomic, strong) NSString *activeCode;
 
 @end

@@ -6,6 +6,7 @@
 #define User_ClassName @"User"
 
 #define User_Avatar @"avatar"
+#define User_AvatarImage @"avatarImage"
 #define User_IsConnectedFacebook @"isConnectedFacebook"
 #define User_Name @"name"
 
@@ -24,6 +25,7 @@
 
 
 @property (nonatomic, retain) NSString* avatar;
+@property (nonatomic, retain) NSData* avatarImage;
 @property (nonatomic, retain) NSNumber* isConnectedFacebook;
 @property (nonatomic, retain) NSString* name;
 

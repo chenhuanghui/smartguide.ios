@@ -39,7 +39,7 @@
     
     self.catalogueBlock=[[CatalogueBlockViewController alloc] init];
     catalogueBlock.delegate=self;
-
+    
     [self addChildViewController:self.catalogueBlock];
     [self.view addSubview:self.catalogueBlock.view];
     
@@ -302,7 +302,7 @@
 
 -(void)catalogueBlockDidSelectedGroup:(Group *)group
 {
-    [self.view showLoadingWithTitle:nil];
+    [[RootViewController shareInstance].rootContaintView showLoadingWithTitle:nil];
     
     //catalogueListLoadShopFinished handle delegate
     [catalogueList switchToModeList];
@@ -318,16 +318,16 @@
 -(void)catalogueListLoadShopFinished:(CatalogueListViewController *)catalogueListView
 {
     catalogueList.delegate=nil;
-    [self.view removeLoading];
+    [[RootViewController shareInstance].rootContaintView removeLoading];
     
     [self hideCatalogueBlock:true];
 }
 
 -(void)setFrame:(CGRect)frame
 {
-//    frame.origin=CGPointZero;
-//    catalogueBlock.view.frame=frame;
-//    catalogueList.view.frame=frame;
+    //    frame.origin=CGPointZero;
+    //    catalogueBlock.view.frame=frame;
+    //    catalogueList.view.frame=frame;
 }
 
 -(void) showPreviousViewController:(void(^)(BOOL finished)) completed
@@ -461,25 +461,27 @@
 -(void)hideCatalogueBlock:(bool)animated onCompleted:(void(^)(BOOL finished)) completed
 {
     _isShowedCatalogueBlock=false;
-
+    
     if(animated)
     {
         AlphaView *ap=[self.catalogueBlock.view alphaViewWithColor:COLOR_BACKGROUND_APP_ALPHA(0)];
         ap=[self.visibleViewController.view alphaViewWithColor:COLOR_BACKGROUND_APP_ALPHA(1)];
         [(ViewController*)[self visibleViewController] configMenu];
-
+        
         //Khi lần đầu add vào navigation controller vị trí x ko thể thay đổi->thay đổi khi hide block
         if(self.visibleViewController.view.frame.origin.x==0)
         {
             self.visibleViewController.view.center=CGPointMake([self center].x+self.view.frame.size.width,[self center].y);
         }
-
+        
         [UIView animateWithDuration:DURATION_SHOW_CATALOGUE animations:^{
             CGPoint pnt=self.catalogueBlock.view.center;
             pnt.x=[self center].x-self.view.frame.size.width;
             self.catalogueBlock.view.center=pnt;
             
-            self.catalogueList.view.center=[self center];
+            pnt=self.catalogueList.view.center;
+            pnt.x=self.view.frame.size.width/2;
+            self.catalogueList.view.center=pnt;
             
             [self.catalogueBlock.view alphaView].backgroundColor=COLOR_BACKGROUND_APP_ALPHA(1);
             [self.visibleViewController.view alphaView].backgroundColor=COLOR_BACKGROUND_APP_ALPHA(0);
@@ -489,7 +491,7 @@
             [self.visibleViewController.view removeAlphaView];
             
             [self.catalogueBlock.view removeFromSuperview];
-
+            
             if(completed)
                 completed(finished);
         }];
@@ -500,7 +502,9 @@
         pnt.x=[self center].x-self.view.frame.size.width;
         self.catalogueBlock.view.center=pnt;
         
-        self.catalogueList.view.center=[self center];
+        pnt=self.catalogueList.view.center;
+        pnt.x=self.view.frame.size.width/2;
+        self.catalogueList.view.center=pnt;
         
         [self.catalogueBlock.view removeAlphaView];
         [self.visibleViewController.view removeAlphaView];
@@ -536,7 +540,7 @@
 -(void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated
 {
     ViewController *vc=(ViewController*)viewController;
-
+    
     //restore frame
     self.view.frame=CGRectMake(0, 37, 320, SCREEN_HEIGHT-[RootViewController shareInstance].heightAds_QR);
     
@@ -553,7 +557,19 @@
     
     self.isPushingViewController=animated;
     
-    [super pushViewController:viewController animated:animated];
+    if(NSFoundationVersionNumber>NSFoundationVersionNumber_iOS_6_1 && animated)
+    {
+        CATransition* transition = [CATransition animation];
+        transition.duration = 0.5;
+        transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+        transition.type = kCATransitionPush; //kCATransitionMoveIn; //, kCATransitionPush, kCATransitionReveal, kCATransitionFade
+        transition.subtype = kCATransitionFromRight; //kCATransitionFromLeft, kCATransitionFromRight, kCATransitionFromTop, kCATransitionFromBottom
+        [self.view.layer addAnimation:transition forKey:nil];
+        
+        [super pushViewController:viewController animated:false];
+    }
+    else
+        [super pushViewController:viewController animated:animated];
     
     [vc configMenu];
     
@@ -606,6 +622,26 @@
     UIViewController *vc= [super popViewControllerAnimated:animated];
     
     return vc;
+}
+
+-(UIStatusBarStyle)preferredStatusBarStyle
+{
+    return UIStatusBarStyleLightContent;
+}
+
+-(UIRectEdge)edgesForExtendedLayout
+{
+    return UIRectEdgeNone;
+}
+
+-(BOOL)extendedLayoutIncludesOpaqueBars
+{
+    return true;
+}
+
+-(BOOL)automaticallyAdjustsScrollViewInsets
+{
+    return true;
 }
 
 @end

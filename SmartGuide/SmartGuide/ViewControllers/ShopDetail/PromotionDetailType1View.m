@@ -138,7 +138,7 @@
     PromotionDetailCell *cell=[tableRank dequeueReusableCellWithIdentifier:[PromotionDetailCell reuseIdentifier]];
     PromotionRequire *require=[_shop.promotionDetail.requiresObjects objectAtIndex:indexPath.row];
     
-    [cell setSGP:require.sgpRequired.longLongValue content:require.content hightlighted:_shop.promotionDetail.sgp.longLongValue>=require.sgpRequired.longLongValue];
+    [cell setPromotionRequire:require];
     
     return cell;
 }
@@ -157,7 +157,7 @@
     
     if(currentSGP<sgpRequire)
     {
-        [AlertView showAlertOKWithTitle:nil withMessage:@"Không đủ sgp" onOK:nil];
+        [AlertView showAlertOKWithTitle:nil withMessage:localizeRequireSGP() onOK:nil];
         return;
     }
     

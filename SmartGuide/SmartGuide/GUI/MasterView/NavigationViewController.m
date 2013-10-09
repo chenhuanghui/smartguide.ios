@@ -21,8 +21,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
     // Do any additional setup after loading the view from its nib.
+    
+    self.navigationBar.translucent=false;
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -53,6 +54,21 @@
 {
     naviType=NAVY_PUSH;
     [super pushViewController:viewController animated:animated];
+}
+
+-(UIStatusBarStyle)preferredStatusBarStyle
+{
+    return UIStatusBarStyleLightContent;
+}
+
+-(UIRectEdge)edgesForExtendedLayout
+{
+    return UIRectEdgeTop;
+}
+
+-(BOOL)automaticallyAdjustsScrollViewInsets
+{
+    return true;
 }
 
 @end

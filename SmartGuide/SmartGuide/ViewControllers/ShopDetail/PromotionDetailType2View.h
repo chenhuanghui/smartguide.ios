@@ -9,22 +9,23 @@
 #import <UIKit/UIKit.h>
 #import "Shop.h"
 #import "ShopDetailViewController.h"
-#import "ASIOperationGetRewardPromotionType2.h"
-#import "FTCoreTextView.h"
+#import "PopupGiftPromotion2.h"
 
-@interface PromotionDetailType2View : UIView<PromotionDetailHandle,ASIOperationPostDelegate>
+@interface PromotionDetailType2View : UIView<PromotionDetailHandle,PopupGiftPromotionDelegate>
 {
-    __weak IBOutlet UIButton *btnReward;
-    __weak IBOutlet FTCoreTextView *lblDesc;
     __weak IBOutlet UILabel *lblDuration;
-    __weak IBOutlet FTCoreTextView *lblP;
-    
-    ASIOperationGetRewardPromotionType2 *_operation;
-    
+    __weak IBOutlet UIButton *btnReward;
+    __weak IBOutlet UIButton *btnListReward;
+
     __weak Shop *_shop;
+    
+    UIView *_rootView;
 }
 
 -(PromotionDetailType2View*) initWithShop:(Shop*) shop;
 -(void) setShop:(Shop*) shop;
+
+- (IBAction)bntRewardTouchUpInside:(id)sender;
+- (IBAction)btnListRewardTouchUpInside:(id)sender;
 
 @end

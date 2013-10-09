@@ -11,6 +11,9 @@
 @class FBProfile;
 
 @interface OperationFBGetProfile : OperationURL
+{
+    NSString *_accessToken;
+}
 
 -(OperationFBGetProfile*) initWithAccessToken:(NSString*) accessToken;
 
@@ -26,7 +29,8 @@
 @property (nonatomic, strong) NSString *avatar;
 @property (nonatomic, strong) NSString *job;
 @property (nonatomic, strong) NSString *name;
-@property (nonatomic, assign) NSString *fbID;
+@property (nonatomic, strong) NSString *fbID;
+@property (nonatomic, strong) NSString *token;
 
 -(bool) sex;
 

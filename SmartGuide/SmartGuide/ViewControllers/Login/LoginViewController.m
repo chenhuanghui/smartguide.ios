@@ -17,6 +17,8 @@
 
 #define DURATION_RESET_SMS 30
 
+#define SKIP_INPUT_PHONE 0
+
 @interface LoginViewController ()
 
 @end
@@ -49,6 +51,43 @@
     _isActived=false;
     
     [self flashLabel];
+    
+#if SKIP_INPUT_PHONE
+    _isActived=true;
+    
+    lblInfo.text=@"Nhập mã số xác nhận";
+    txt.text=@"";
+    txt.leftView=nil;
+    txt.leftViewMode=UITextFieldViewModeNever;
+    
+    lblInfo.layer.shadowColor=[lblInfo.textColor CGColor];
+    lblInfo.layer.shadowOffset=CGSizeMake(0, 0);
+    [UIView animateWithDuration:0.5f delay:0 options:UIViewAnimationOptionAutoreverse|UIViewAnimationOptionRepeat animations:^{
+        lblInfo.textColor=[UIColor color255WithRed:255 green:0 blue:0 alpha:255];
+    } completion:^(BOOL finished) {
+        
+    }];
+    
+    lblResend.hidden=true;
+    btnResent.hidden=true;
+    
+    lblCountdown.text=[NSString stringWithFormat:@"%02i",DURATION_RESET_SMS];
+    lblGiay.alpha=0;
+    lblCountdown.alpha=0;
+    lblGiay.hidden=false;
+    lblCountdown.hidden=false;
+    
+    [UIView animateWithDuration:DURATION_DEFAULT delay:0.5f options:UIViewAnimationOptionCurveLinear animations:^{
+        lblGiay.alpha=1;
+        lblCountdown.alpha=1;
+    } completion:^(BOOL finished) {
+        _time=DURATION_RESET_SMS-1;
+        _timerSMS=[NSTimer timerWithTimeInterval:1 target:self selector:@selector(countdownSMS) userInfo:nil repeats:true];
+        [[NSRunLoop currentRunLoop] addTimer:_timerSMS forMode:NSDefaultRunLoopMode];
+    }];
+    
+    _phone=@"841225372227";
+#endif
     
     return;
     CGRect rect=imgvLogo.frame;
@@ -257,7 +296,7 @@
     btnResent.alpha=0;
     btnResent.hidden=false;
     
-    [UIView animateWithDuration:0.3f animations:^{
+    [UIView animateWithDuration:DURATION_DEFAULT animations:^{
         lblGiay.alpha=0;
         lblCountdown.alpha=0;
         lblResend.alpha=1;
@@ -330,7 +369,7 @@
             lblGiay.hidden=false;
             lblCountdown.hidden=false;
             
-            [UIView animateWithDuration:0.3f delay:0.5f options:UIViewAnimationOptionCurveLinear animations:^{
+            [UIView animateWithDuration:DURATION_DEFAULT delay:0.5f options:UIViewAnimationOptionCurveLinear animations:^{
                 lblGiay.alpha=1;
                 lblCountdown.alpha=1;
             } completion:^(BOOL finished) {
@@ -353,9 +392,9 @@
         if(ope.isSuccess)
         {
             [self.view showLoadingWithTitle:nil];
-            
+
             [TokenManager shareInstance].phone=_phone;
-            [TokenManager shareInstance].activeCode=txt.text;
+            [TokenManager shareInstance].activeCode=ope.activeCode;
             
             OperationGetToken *getToken=[[OperationGetToken alloc] initWithPhone:_phone activeCode:txt.text];
             getToken.delegate=self;
@@ -381,7 +420,6 @@
         
         [TokenManager shareInstance].accessToken=[[NSString alloc] initWithString:ope.accessToken];
         [TokenManager shareInstance].refreshTokenString=[[NSString alloc] initWithString:ope.refreshToken];
-        [TokenManager shareInstance].activeCode=txt.text;
         [Flags setLastIDUser:[DataManager shareInstance].currentUser.idUser.integerValue];
         
         [self.view endEditing:true];

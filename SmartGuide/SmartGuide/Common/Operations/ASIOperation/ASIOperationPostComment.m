@@ -21,14 +21,14 @@
     
     isSuccess=false;
     comment=nil;
-    values=@[@(idUser),@(idShop),content];
+    values=@[@(idUser),@(idShop),content,@(0)];
     
     return self;
 }
 
 -(NSArray *)keys
 {
-    return @[@"user_id",@"shop_id",@"content"];
+    return @[@"user_id",@"shop_id",@"content",@"share"];
 }
 
 -(void)onCompletedWithJSON:(NSArray *)json

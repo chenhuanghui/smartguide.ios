@@ -11,23 +11,24 @@
 #import "ASIOperationFBProfile.h"
 #import "FacebookManager.h"
 #import "ASIOperationUpdateUserInfo.h"
+#import "CreateUserView.h"
 
-@interface FacebookMiningViewController : ViewController<OperationURLDelegate,ASIOperationPostDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UITextFieldDelegate,UIActionSheetDelegate>
+@interface FacebookMiningViewController : ViewController<OperationURLDelegate,ASIOperationPostDelegate,UINavigationControllerDelegate,UITextFieldDelegate,UIActionSheetDelegate>
 {
     __weak IBOutlet UIButton *btnFace;
-    __weak IBOutlet UIView *faceView;
-    __weak IBOutlet UIView *infoView;
-    __weak IBOutlet UITextField *txtUser;
-    __weak IBOutlet UIButton *btnAvatar;
-    __weak IBOutlet UIView *borderAvatar;
+    __weak IBOutlet UIButton *btnCreate;
+    __weak IBOutlet UIView *containtView;
     
     ASIOperationFBProfile *postProfile;
     OperationFBGetProfile *getProfile;
     bool _isUserChangedAvatar;
+    bool _isRequestingProfileFB;
+    
+    bool _isUploadedFBToken;
+    bool _isGettedProfile;
 }
 
-- (IBAction)btnSkipTouchUpInside:(id)sender;
-- (IBAction)btnAvatarTouchUpInside:(id)sender;
-- (IBAction)btnDoneTouchUpInside:(id)sender;
+- (IBAction)btnFaceTouchUpInside:(id)sender;
+- (IBAction)btnCreateTouchUpInside:(id)sender;
 
 @end

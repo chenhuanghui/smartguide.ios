@@ -13,6 +13,7 @@
 #import "Shop.h"
 #import "ASIOperationCity.h"
 #import "FTCoreTextView.h"
+//#import <ZXingWidgetController.h>
 
 enum SCAND_TYPE {
     SCAN_GET_SGP= 0,
@@ -29,7 +30,7 @@ enum SCAND_TYPE {
 
 @end
 
-@interface SlideQRCodeViewController : ViewController<QRCodeDelegate,TouchViewDelegate,ASIOperationPostDelegate,UIAlertViewDelegate>
+@interface SlideQRCodeViewController : ViewController<TouchViewDelegate,ASIOperationPostDelegate,UIAlertViewDelegate,QRCodeDelegate>
 {
     __weak IBOutlet UIButton *btnSlide;
     __weak IBOutlet FTCoreTextView *lblSlide;
@@ -39,13 +40,13 @@ enum SCAND_TYPE {
     __weak IBOutlet UIView *rewardView;
     __weak IBOutlet UIImageView *imgvRewardIcon;
     __weak IBOutlet UILabel *lblError;
-    __weak IBOutlet UIImageView *imgvScan;
     __weak IBOutlet UIButton *btnClose;
     __weak IBOutlet UIButton *btnCloseStartup;
     __weak IBOutlet FTCoreTextView *lblReward;
     
     bool _isUserScanded;
     bool _isLoadingShopDetail;
+    bool _isLoadedShopDetailSuccess;
     bool _isUserClickClose;
     bool _isSuccessed;
     

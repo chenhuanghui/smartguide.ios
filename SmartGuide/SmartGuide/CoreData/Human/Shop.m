@@ -1,6 +1,7 @@
 #import "Shop.h"
 #import "PromotionDetail.h"
 #import "PromotionRequire.h"
+#import "PromotionVoucher.h"
 #import "Utility.h"
 
 @implementation Shop
@@ -45,7 +46,7 @@
         double sgp=self.promotionDetail.sgp.doubleValue;
         
         NSArray *ranks=[[self.promotionDetail.requiresObjects filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"%K <= %f",PromotionRequire_SgpRequired,sgp]] valueForKey:PromotionRequire_SgpRequired];
-
+        
         if(ranks.count>0)
             rank=(int)([[ranks objectAtIndex:0] doubleValue]);
         else
@@ -60,7 +61,7 @@
     if(self.promotionDetail)
     {
         double sgp=self.promotionDetail.sgp.doubleValue;
-
+        
         return [self.promotionDetail.requiresObjects filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"%K <= %f",PromotionRequire_SgpRequired,sgp]];
     }
     
@@ -147,23 +148,53 @@
         promotion.p=[NSNumber numberWithObject:[dicInner objectForKey:@"P"]];
         promotion.cost=[NSNumber numberWithObject:[dicInner objectForKey:@"cost"]];
         promotion.duration=[NSString stringWithStringDefault:[dicInner objectForKey:@"duration"]];
-        promotion.money=[NSNumber numberWithObject:[dicInner objectForKey:@"money"]];
+        promotion.money=[NSString stringWithStringDefault:[dicInner objectForKey:@"money"]];
         promotion.idAwardType2=[NSNumber numberWithObject:[dicInner objectForKey:@"id"]];
         promotion.desc=[NSString stringWithStringDefault:[dicInner objectForKey:@"description"]];
         promotion.min_score=[NSNumber numberWithObject:[dicInner objectForKey:@"min_score"]];
         
         [promotion removeRequires:promotion.requires];
+        [promotion removeVouchers:promotion.vouchers];
         
-        dicInner=[dicInner objectForKey:@"array_required"];
+        NSArray *arr=[dicInner objectForKey:@"array_required"];
         
-        for(NSDictionary *childDicInner in dicInner)
+        if(![arr isNullData])
         {
-            PromotionRequire *require=[PromotionRequire insert];
+            promotion.requiresInserted=[[NSMutableArray alloc] init];
             
-            require.idRequire=[NSNumber numberWithObject:[childDicInner objectForKey:@"id"]];
-            require.promotion=promotion;
-            require.sgpRequired=[NSNumber numberWithObject:[childDicInner objectForKey:@"required"]];
-            require.content=[NSString stringWithStringDefault:[childDicInner objectForKey:@"content"]];
+            for(NSDictionary *dictRequire in arr)
+            {
+                PromotionRequire *require=[PromotionRequire insert];
+                
+                require.idRequire=[NSNumber numberWithObject:[dictRequire objectForKey:@"id"]];
+                require.promotion=promotion;
+                require.sgpRequired=[NSNumber numberWithObject:[dictRequire objectForKey:@"required"]];
+                require.content=[NSString stringWithStringDefault:[dictRequire objectForKey:@"content"]];
+                require.numberVoucher=[NSString stringWithStringDefault:[dictRequire objectForKey:@"numberVoucher"]];
+                
+                [promotion.requiresInserted addObject:require.idRequire];
+            }
+        }
+        
+        arr=[dicInner objectForKey:@"list_voucher"];
+        
+        if(![arr isNullData])
+        {
+            promotion.vouchersInserted=[[NSMutableArray alloc] init];
+            
+            for(NSDictionary *dictVoucher in arr)
+            {
+                PromotionVoucher *voucher=[PromotionVoucher insert];
+                
+                voucher.idVoucher=[NSNumber numberWithObject:[dictVoucher objectForKey:@"id"]];
+                voucher.money=[NSNumber numberWithObject:[dictVoucher objectForKey:@"money"]];
+                voucher.p=[NSNumber numberWithObject:[dictVoucher objectForKey:@"P"]];
+                voucher.desc=[NSString stringWithStringDefault:[dictVoucher objectForKey:@"description"]];
+                voucher.promotion=promotion;
+                voucher.numberVoucher=[NSString stringWithStringDefault:[dictVoucher objectForKey:@"numberVoucher"]];
+                
+                [promotion.vouchersInserted addObject:voucher.idVoucher];
+            }
         }
     }
     else

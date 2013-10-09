@@ -32,6 +32,13 @@
     
     [table registerNib:[UINib nibWithNibName:[TutorialCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[TutorialCell reuseIdentifier]];
     
+//    if(NSFoundationVersionNumber>=NSFoundationVersionNumber_iOS_6_1)
+    {
+        rect=self.frame;
+        rect.origin.y=20;
+        self.frame=rect;
+    }
+    
     return self;
 }
 

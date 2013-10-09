@@ -21,6 +21,8 @@
 @interface SearchViewController : UIViewController<TableTemplateDelegate,ASIOperationPostDelegate>
 {
     __weak IBOutlet UITableView *table;
+    __weak IBOutlet UIView *blurTop;
+    __weak IBOutlet UIView *blurBot;
     TableTemplate *templateTable;
     ASIOperationSearchShop *_operation;
     NSString *_searchText;

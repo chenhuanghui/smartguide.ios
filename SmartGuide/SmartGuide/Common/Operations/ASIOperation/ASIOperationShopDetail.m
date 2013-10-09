@@ -20,14 +20,14 @@
     NSURL *_url=[NSURL URLWithString:SERVER_API_MAKE(API_SHOP_DETAIL)];
     self=[super initWithURL:_url];
     
-    values=@[@(idUser),@(idShop),@(lat),@(lon)];
+    values=@[@(idUser),@(idShop),@(lat),@(lon),@(1)];
     
     return self;
 }
 
 -(NSArray *)keys
 {
-    return @[@"user_id",@"shop_id",@"user_lat",@"user_lng"];
+    return @[@"user_id",@"shop_id",@"user_lat",@"user_lng",@"version"];
 }
 
 -(void)onCompletedWithJSON:(NSArray *)json
@@ -62,7 +62,7 @@
     shop.logo=[NSString stringWithStringDefault:[dictJson objectForKey:@"logo"]];
     shop.cover=[NSString stringWithStringDefault:[dictJson objectForKey:@"cover"]];
     shop.name=[NSString stringWithStringDefault:[dictJson objectForKey:@"name"]];
-    shop.promotionStatus=[dictJson objectForKey:@"promotion_status"];
+//    shop.promotionStatus=[dictJson objectForKey:@"promotion_status"];
     shop.shop_lat=[dictJson objectForKey:@"shop_lat"];
     shop.shop_lng=[dictJson objectForKey:@"shop_lng"];
     shop.contact=[NSString stringWithStringDefault:[dictJson objectForKey:@"tel"]];

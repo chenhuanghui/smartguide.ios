@@ -32,3 +32,13 @@ NSString* localizeErrorPhoneLength()
 {
     return @"Phone length <= 12";
 }
+
+NSString* localizeRequireSGP()
+{
+    return @"Hiện bạn không đủ SGP để nhận khuyến mãi này.";
+}
+
+NSString* localizeUpdateProfileFailed()
+{
+    return @"Cập nhật thông tin thất bại";
+}

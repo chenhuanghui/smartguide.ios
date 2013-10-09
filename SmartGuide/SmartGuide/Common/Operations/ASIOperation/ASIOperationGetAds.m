@@ -42,6 +42,7 @@
         ad.image_url=[NSString stringWithStringDefault:[dict objectForKey:@"image_url"]];
         ad.begin_date=[NSString stringWithStringDefault:[dict objectForKey:@"begin_date"]];
         ad.end_date=[NSString stringWithStringDefault:[dict objectForKey:@"end_date"]];
+        ad.url=[NSString stringWithStringDefault:[dict objectForKey:@"url"]];
         
         [arrAds addObject:ad];
     }

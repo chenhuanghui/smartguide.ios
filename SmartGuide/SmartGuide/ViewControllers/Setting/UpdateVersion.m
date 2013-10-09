@@ -15,7 +15,9 @@
 {
     self = [[[NSBundle mainBundle] loadNibNamed:@"UpdateVersion" owner:nil options:nil] objectAtIndex:0];
     
-    self.center=CGPointMake(self.center.x, self.center.y+20);
+    CGRect rect=[UIScreen mainScreen].bounds;
+    rect.origin.y=20;
+    self.frame=rect;
     
     return self;
 }

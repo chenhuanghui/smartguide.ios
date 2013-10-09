@@ -7,6 +7,7 @@
 #import "DataManager.h"
 #import "PromotionRequire.h"
 #import "Shop.h"
+#import "PromotionVoucher.h"
 
 
 @implementation _PromotionDetail
@@ -16,6 +17,9 @@
 
 
 @dynamic shop;
+
+
+
 
 
 
@@ -157,14 +161,14 @@
 	[self didChangeValueForKey:@"min_score"];
 }
 
-- (NSNumber*)money {
+- (NSString*)money {
 	[self willAccessValueForKey:@"money"];
-	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"money"];
+	NSString* result = (NSString*)[self primitiveValueForKey:@"money"];
 	[self didAccessValueForKey:@"money"];
 	return result;
 }
 
-- (void)setMoney:(NSNumber*)value {
+- (void)setMoney:(NSString*)value {
 	[self willChangeValueForKey:@"money"];
 	[self setPrimitiveValue:value forKey:@"money"];
 	[self didChangeValueForKey:@"money"];
@@ -292,6 +296,69 @@
 	[self willAccessValueForKey:@"shop"];
 	Shop *result = [self primitiveValueForKey:@"shop"];
 	[self didAccessValueForKey:@"shop"];
+	return result;
+}
+
+#pragma mark Vouchers
+- (NSSet*)vouchers {
+	[self willAccessValueForKey:@"vouchers"];
+	NSSet *result = [self primitiveValueForKey:@"vouchers"];
+	[self didAccessValueForKey:@"vouchers"];
+	return result;
+}
+
+-(NSArray*) vouchersObjects
+{
+    NSSet *set=[self vouchers];
+    if(set)
+        return [set allObjects];
+    
+    return [NSArray array];
+}
+
+- (void)setVouchers:(NSSet*)value {
+	[self willChangeValueForKey:@"vouchers" withSetMutation:NSKeyValueSetSetMutation usingObjects:value];
+	[[self primitiveValueForKey:@"vouchers"] setSet:value];
+	[self didChangeValueForKey:@"vouchers" withSetMutation:NSKeyValueSetSetMutation usingObjects:value];
+}
+
+- (void)addVouchers:(NSSet*)value {
+	[self willChangeValueForKey:@"vouchers" withSetMutation:NSKeyValueUnionSetMutation usingObjects:value];
+	[[self primitiveValueForKey:@"vouchers"] unionSet:value];
+	[self didChangeValueForKey:@"vouchers" withSetMutation:NSKeyValueUnionSetMutation usingObjects:value];
+}
+
+-(void)removeVouchers:(NSSet*)value {
+
+    for(NSManagedObject *obj in value.allObjects)
+        [self.managedObjectContext deleteObject:obj];
+
+	[self willChangeValueForKey:@"vouchers" withSetMutation:NSKeyValueMinusSetMutation usingObjects:value];
+	[[self primitiveValueForKey:@"vouchers"] minusSet:value];
+	[self didChangeValueForKey:@"vouchers" withSetMutation:NSKeyValueMinusSetMutation usingObjects:value];
+}
+	
+- (void)addVouchersObject:(PromotionVoucher*)value {
+	NSSet *changedObjects = [[NSSet alloc] initWithObjects:&value count:1];
+	[self willChangeValueForKey:@"vouchers" withSetMutation:NSKeyValueUnionSetMutation usingObjects:changedObjects];
+	[[self primitiveValueForKey:@"vouchers"] addObject:value];
+	[self didChangeValueForKey:@"vouchers" withSetMutation:NSKeyValueUnionSetMutation usingObjects:changedObjects];
+}
+
+- (void)removeVouchersObject:(PromotionVoucher*)value {
+
+    [self.managedObjectContext deleteObject:value];
+
+	NSSet *changedObjects = [[NSSet alloc] initWithObjects:&value count:1];
+	[self willChangeValueForKey:@"vouchers" withSetMutation:NSKeyValueMinusSetMutation usingObjects:changedObjects];
+	[[self primitiveValueForKey:@"vouchers"] removeObject:value];
+	[self didChangeValueForKey:@"vouchers" withSetMutation:NSKeyValueMinusSetMutation usingObjects:changedObjects];
+}
+
+- (NSMutableSet*)vouchersSet {
+	[self willAccessValueForKey:@"vouchers"];
+	NSMutableSet *result = [self mutableSetValueForKey:@"vouchers"];
+	[self didAccessValueForKey:@"vouchers"];
 	return result;
 }
 

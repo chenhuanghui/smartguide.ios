@@ -2,4 +2,9 @@
 
 @implementation PromotionRequire
 
+-(NSString *)numberVoucher1
+{
+    return @"A";
+}
+
 @end

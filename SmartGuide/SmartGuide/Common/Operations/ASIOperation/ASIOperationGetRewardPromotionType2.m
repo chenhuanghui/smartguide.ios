@@ -9,7 +9,7 @@
 #import "ASIOperationGetRewardPromotionType2.h"
 
 @implementation ASIOperationGetRewardPromotionType2
-@synthesize values,status,money,time,shopName,content,code;
+@synthesize values,status,money,time,shopName,content,code,idShop;
 
 -(ASIOperationGetRewardPromotionType2 *)initWithIDUser:(int)idUser promotionID:(int)promotionID code:(NSString *)_code lat:(double)lat lon:(double)lon
 {
@@ -39,6 +39,7 @@
         time=[NSString stringWithStringDefault:[dict objectForKey:@"time"]];
         shopName=[NSString stringWithStringDefault:[dict objectForKey:@"shop_name"]];
         money=[dict doubleForKey:@"money"];
+        idShop  =[[NSNumber numberWithObject:[dict objectForKey:@"shop_id"]] integerValue];
     }
 }
 @end

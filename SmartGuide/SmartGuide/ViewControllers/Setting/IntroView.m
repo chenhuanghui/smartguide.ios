@@ -20,7 +20,19 @@
     table.pagingEnabled=true;
     table.bounces=false;
     
-    CGRect rect=table.frame;
+    CGRect rect=CGRectZero;
+    
+    //if(NSFoundationVersionNumber>NSFoundationVersionNumber_iOS_6_1)
+    {
+        rect=self.frame;
+        rect.origin.y=20;
+        self.frame=rect;
+        
+        page.center=CGPointMake(page.center.x, page.center.y-20);
+    }
+    
+    rect=table.frame;
+    
     table.transform=CGAffineTransformMakeRotation(DEGREES_TO_RADIANS(45*6));
     table.frame=rect;
     
@@ -30,7 +42,7 @@
     [table registerNib:[UINib nibWithNibName:[IntroCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[IntroCell reuseIdentifier]];
     
     page.numberOfPages=[self source].count;
-
+    
     return self;
 }
 

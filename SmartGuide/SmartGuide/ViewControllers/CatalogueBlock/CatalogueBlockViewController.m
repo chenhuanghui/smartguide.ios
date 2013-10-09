@@ -17,6 +17,7 @@
 #import "LocationManager.h"
 #import "UIImageView+AFNetworking.h"
 #import "ActivityIndicator.h"
+#import "Utility.h"
 
 @interface CatalogueBlockViewController ()
 
@@ -42,27 +43,26 @@
     return @[groupAll,groupDrink,groupEducation,groupEntertaiment,groupFashion,groupFood,groupHealth,groupProduction,groupTravel];
 }
 
--(void) loadCities
-{
-    operationCity=[[ASIOperationCity alloc] initOperationCity];
-    
-    operationCity.delegatePost=self;
-    [operationCity startAsynchronous];
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
     self.title=@"DANH MỤC";
     
-    int idCity=[Flags userCity];
-    if(idCity!=-1)
-        [DataManager shareInstance].currentCity=[City cityWithID:idCity];
+    for(City *city in [City allObjects])
+    {
+        [[DataManager shareInstance].managedObjectContext deleteObject:city];
+    }
     
-    //hot fix
-    if([City allObjects].count<=1)
-        [self loadCities];
+    [[DataManager shareInstance] save];
+    
+    City *city=[City insert];
+    city.name=@"Hồ Chí Minh";
+    city.idCity=@(1);
+    
+    [[DataManager shareInstance] save];
+    
+    [DataManager shareInstance].currentCity=[City cityWithID:1];
     
     [[LocationManager shareInstance] checkLocationAuthorize];
     
@@ -71,11 +71,11 @@
     
     if([[LocationManager shareInstance] isAllowLocation])
     {
-        [self.view showLoadingWithTitle:nil countdown:5 delegate:self].tagID=@(1);
+        [[RootViewController shareInstance].rootContaintView showLoadingWithTitle:Nil countdown:5 delegate:self].tagID=@(1);
     }
     else
     {
-        [self.view showLoadingWithTitle:nil];
+        [[RootViewController shareInstance].rootContaintView showLoadingWithTitle:nil];
         if(![[LocationManager shareInstance] isLocationServicesEnabled])
         {
             [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_LOCATION_PERMISSION_DENIED object:nil];
@@ -114,37 +114,33 @@
     }
 }
 
--(void) detectCity:(NSString*) city
-{
-    operationCity=[[ASIOperationCity alloc] initOperationCity];
-    operationCity.delegatePost=self;
-    
-    [operationCity startAsynchronous];
-}
-
 -(void) loadGroup:(NSString*) log
 {
     NSLog(@"load group %@",log);
     
-    ASIOperationGroupInCity *operaion=[[ASIOperationGroupInCity alloc] initWithIDCity:[DataManager shareInstance].currentCity.idCity.integerValue];
-    operaion.delegatePost=self;
-    [operaion startAsynchronous];
+    [self updateBlocks];
     
     if(delegate && [delegate respondsToSelector:@selector(catalogueBlockUpdated)])
     {
         [delegate catalogueBlockUpdated];
     }
     
-    [self.view showLoadingWithTitle:nil];
+    [[RootViewController shareInstance].rootContaintView showLoadingWithTitle:nil];
 }
 
 -(void) updateBlocks
 {
-    ASIOperationGroupInCity *operaion=[[ASIOperationGroupInCity alloc] initWithIDCity:[DataManager shareInstance].currentCity.idCity.integerValue];
-    operaion.delegatePost=self;
-    [operaion startAsynchronous];
-
-    [self.view showLoadingWithTitle:nil];
+    if(_operationGroupInCity)
+    {
+        [_operationGroupInCity cancel];
+        _operationGroupInCity=nil;
+    }
+    
+    _operationGroupInCity=[[ASIOperationGroupInCity alloc] initWithIDCity:[DataManager shareInstance].currentCity.idCity.integerValue];
+    _operationGroupInCity.delegatePost=self;
+    [_operationGroupInCity startAsynchronous];
+    
+    [[RootViewController shareInstance].rootContaintView showLoadingWithTitle:nil];
 }
 
 -(UIButton*) iconButton:(UIView*) groupView
@@ -215,57 +211,99 @@
     {
         ASIOperationGroupInCity *ope = (ASIOperationGroupInCity*)operation;
         
-        for(Group *group in ope.groups)
+        if(ope.groupStatus==0)
         {
-            UIView *groupView=[self groupViewWithIDGroup:group.idGroup.integerValue];
+            [RootViewController shareInstance].window.userInteractionEnabled=false;
             
-            UIButton *btn = [self badgeButton:groupView];
-            int badge=group.count.integerValue;
-            
-            NSString *str=@"";
-            if(badge>0)
-                str=[NSString stringWithFormat:@"%02d",badge];
+            UIImageView *imgv=nil;
+            if(!_launchingView)
+            {
+                CGRect rect=CGRECT_PHONE(CGRectMake(0, 0, 320, 328), CGRectMake(0, 0, 320, 400));
+                _launchingView=[[UIView alloc] initWithFrame:rect];
+                _launchingView.backgroundColor=COLOR_BACKGROUND_APP_ALPHA(1);
+                _launchingView.alpha=0;
+                
+                imgv=[[UIImageView alloc] initWithFrame:rect];
+                imgv.contentMode=UIViewContentModeScaleAspectFit;
+                
+                [_launchingView addSubview:imgv];
+            }
             else
-                str=@"0";
+            {
+                imgv=(UIImageView*)[_launchingView.subviews objectAtIndex:0];
+            }
             
-            if(badge>99)
-                str=@"99+";
+            imgv.image=nil;
             
-            [btn setTitle:str forState:UIControlStateNormal];
+            __weak UIImageView *_weakImgv=imgv;
+            
+            [imgv setImageWithLoading:[NSURL URLWithString:ope.groupUrl] emptyImage:nil success:^(UIImage *image) {
+                [[RootViewController shareInstance].rootContaintView removeLoading];
+                _weakImgv.image=image;
+                
+                if(!_launchingView.superview)
+                    [self.view addSubview:_launchingView];
+                
+                [UIView animateWithDuration:DURATION_DEFAULT animations:^{
+                    _launchingView.alpha=1;
+                }];
+            } failure:^(UIImage *emptyImage) {
+                
+            }];
+            
+            __block __weak id obs=[[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidBecomeActiveNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
+                
+                [self updateBlocks];
+                
+                [[NSNotificationCenter defaultCenter] removeObserver:obs];
+            }];
         }
-
+        else
+        {
+            if(_launchingView)
+            {
+                [UIView animateWithDuration:DURATION_DEFAULT animations:^{
+                    _launchingView.alpha=0;
+                } completion:^(BOOL finished) {
+                    [_launchingView removeFromSuperview];
+                    _launchingView=nil;
+                }];
+                
+                [RootViewController shareInstance].window.userInteractionEnabled=true;
+            }
+            
+            for(Group *group in ope.groups)
+            {
+                UIView *groupView=[self groupViewWithIDGroup:group.idGroup.integerValue];
+                
+                UIButton *btn = [self badgeButton:groupView];
+                int badge=group.count.integerValue;
+                
+                NSString *str=@"";
+                if(badge>0)
+                    str=[NSString stringWithFormat:@"%02d",badge];
+                else
+                    str=@"0";
+                
+                if(badge>99)
+                    str=@"99+";
+                
+                [btn setTitle:str forState:UIControlStateNormal];
+            }
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_CATALOGUEBLOCK_FINISHED object:nil];
+        }
+        
         _isFinishedLoading=true;
-        [self.view removeLoading];
-        
-        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_CATALOGUEBLOCK_FINISHED object:nil];
-    }
-    else if([operation isKindOfClass:[ASIOperationCity class]])
-    {
-        [[DataManager shareInstance] setUserCity:[LocationManager shareInstance].userCurrentCity];
-        [Flags setUserCity:[DataManager shareInstance].currentCity.idCity.integerValue];
-
-        [self loadGroup:@"ASIOperationCityFinished"];
-        
-        operationCity=nil;
+        [[RootViewController shareInstance].rootContaintView removeLoading];
     }
 }
 
 -(void)ASIOperaionPostFailed:(ASIOperationPost *)operation
 {
-    if([operation isKindOfClass:[ASIOperationCity class]])
+    if([operation isKindOfClass:[ASIOperationGroupInCity class]])
     {
-        _isFinishedLoading=true;
-        
-        [DataManager shareInstance].currentCity=[City HCMCity];
-        [Flags setUserCity:[DataManager shareInstance].currentCity.idCity.integerValue];
-        
-        [self loadGroup:@"ASIOperaionPostFailed ASIOperationCity"];
-        
-        operationCity=nil;
-    }
-    else if([operation isKindOfClass:[ASIOperationGroupInCity class]])
-    {
-        [self.view showLoadingWithTitle:nil countdown:3 delegate:self];
+        [[RootViewController shareInstance].rootContaintView showLoadingWithTitle:nil countdown:3 delegate:self];
         
         double delayInSeconds = 3.0;
         dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
@@ -278,48 +316,53 @@
 
 -(void)receiveNotification:(NSNotification *)notification
 {
-    if([notification.name isEqualToString:NOTIFICATION_LOCATION_CITY_AVAILABLE])
-    {
-        [self.view showLoadingWithTitle:nil];
-        
-        NSString *userCity=notification.object;
-        [self detectCity:userCity];
-    }
-    else if([notification.name isEqualToString:NOTIFICATION_LOCATION_AVAILABLE])
+    if([notification.name isEqualToString:NOTIFICATION_LOCATION_AVAILABLE])
     {
         [DataManager shareInstance].currentUser.location=[LocationManager shareInstance].userLocation;
+        [self loadGroup:@"NOTIFICATION_LOCATION_AVAILABLE"];
         
-        if(![DataManager shareInstance].currentCity)
-        {
-            [self.view showLoadingWithTitle:nil countdown:5 delegate:self].tagID=@(2);
-            [[LocationManager shareInstance] tryGetUserCityInfo];
-        }
-        else
-            [self loadGroup:@"NOTIFICATION_LOCATION_AVAILABLE"];
+        [self showTutorial];
     }
     else if([notification.name isEqualToString:NOTIFICATION_LOCATION_PERMISSION_DENIED])
     {
-        [[LocationManager shareInstance] checkLocationAuthorize];
-
         [DataManager shareInstance].currentUser.location=CLLocationCoordinate2DMake(-1, -1);
-        
-        if(![DataManager shareInstance].currentCity)
-        {
-            [DataManager shareInstance].currentCity=[City HCMCity];
-            [Flags setUserCity:[DataManager shareInstance].currentCity.idCity.integerValue];
-        }
-        
         [self loadGroup:@"NOTIFICATION_LOCATION_PERMISSION_DENIED"];
+        
+        [self showTutorial];
     }
-    else if([notification.name isEqualToString:NOTIFICATION_USER_CHANGED_CITY])
+}
+
+-(void) showTutorial
+{
+    if(![Flags isShowedTutorial])
     {
-        [self updateBlocks];
+        [Flags setIsShowedTutorial:true];
+        
+        TutorialView *tutorial=[[TutorialView alloc] init];
+        tutorial.alpha=0;
+        tutorial.delegate=self;
+        tutorial.isHideClose=false;
+        
+        [self.view.window addSubview:tutorial];
+        
+        [UIView animateWithDuration:DURATION_DEFAULT animations:^{
+            tutorial.alpha=1;
+        }];
     }
+}
+-(void)tutorialViewBack:(TutorialView *)tutorial
+{
+    tutorial.userInteractionEnabled=false;
+    [UIView animateWithDuration:0.2f animations:^{
+        tutorial.alpha=0;
+    } completion:^(BOOL finished) {
+        [tutorial removeFromSuperview];
+    }];
 }
 
 -(NSArray *)registerNotification
 {
-    return @[NOTIFICATION_LOCATION_CITY_AVAILABLE,NOTIFICATION_LOCATION_AUTHORIZE_CHANGED,NOTIFICATION_LOCATION_PERMISSION_DENIED,NOTIFICATION_LOCATION_AVAILABLE,NOTIFICATION_USER_CHANGED_CITY];
+    return @[NOTIFICATION_LOCATION_AUTHORIZE_CHANGED,NOTIFICATION_LOCATION_PERMISSION_DENIED,NOTIFICATION_LOCATION_AVAILABLE];
 }
 
 -(void)activityIndicatorCountdownEnded:(ActivityIndicator *)activityIndicator
@@ -328,17 +371,6 @@
     {
         [[LocationManager shareInstance] stopGetUserLocationInfo];
         [DataManager shareInstance].currentUser.location=CLLocationCoordinate2DMake(-1, -1);
-        
-        if(![DataManager shareInstance].currentCity)
-            [DataManager shareInstance].currentCity=[City HCMCity];
-        
-        [self loadGroup:@"activityIndicatorCountdownEnded"];
-    }
-    else if([activityIndicator.tagID integerValue]==2)
-    {
-        [[LocationManager shareInstance] stopGetUserCityInfo];
-        [DataManager shareInstance].currentCity=[City HCMCity];
-        [Flags setUserCity:[DataManager shareInstance].currentCity.idCity.integerValue];
         
         [self loadGroup:@"activityIndicatorCountdownEnded"];
     }

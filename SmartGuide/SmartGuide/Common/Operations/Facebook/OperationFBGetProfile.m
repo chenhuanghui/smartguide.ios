@@ -18,14 +18,18 @@
     
     self=[super initWithURL:url];
     
+    _accessToken=[[NSString alloc] initWithString:accessToken];
+    
     return self;
 }
 
 -(void)onCompletedWithJSON:(NSArray *)json
 {
     NSDictionary *dictJSON=[json objectAtIndex:0];
-    
+        
     profile=[[FBProfile alloc] init];
+    
+    profile.token=[NSString stringWithStringDefault:_accessToken];
     
     profile.fbID=[dictJSON objectForKey:@"id"];
     profile.birthday=[NSString stringWithStringDefault:[dictJSON objectForKey:@"birthday"]];
@@ -104,13 +108,14 @@
 -(id)copyWithZone:(NSZone *)zone
 {
     FBProfile *fb=[[FBProfile alloc] init];
-    fb.avatar=avatar;
-    fb.birthday=birthday;
-    fb.email=email;
-    fb.gender=gender;
-    fb.job=job;
-    fb.fbID=fbID;
-    fb.name=@"";
+    fb.avatar=[NSString stringWithStringDefault:self.avatar];
+    fb.birthday=[NSString stringWithStringDefault:self.birthday];
+    fb.email=[NSString stringWithStringDefault:self.email];
+    fb.gender=[NSString stringWithStringDefault:self.gender];
+    fb.job=[NSString stringWithStringDefault:self.job];
+    fb.fbID=[NSString stringWithStringDefault:self.fbID];
+    fb.name=[NSString stringWithStringDefault:self.name];
+    fb.token=[NSString stringWithStringDefault:self.token];
     
     return fb;
 }

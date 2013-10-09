@@ -10,7 +10,7 @@
 
 @interface ASIOperationUpdateUserInfo : ASIOperationPost
 
--(ASIOperationUpdateUserInfo*) initWithIDUser:(int) idUser name:(NSString*) name avatar:(NSData*) avatar;
+-(ASIOperationUpdateUserInfo*) initWithIDUser:(int) idUser name:(NSString*) name avatar:(NSString*) avatar;
 
 @property (nonatomic, readonly) bool isSuccess;
 

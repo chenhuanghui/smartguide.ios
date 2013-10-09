@@ -11,7 +11,8 @@
 #import <MapKit/MapKit.h>
 #import "Flurry.h"
 
-#define IS_IPHONE_4 [UIScreen mainScreen].bounds.size.height==480
+#define IS_IPHONE_4 ([UIScreen mainScreen].bounds.size.height==480)
+#define IS_RETINA ([UIScreen mainScreen].scale==2)
 
 #define CGRECT_PHONE(rectIP4,rectIP5) (IS_IPHONE_4?rectIP4:rectIP5)
 #define CGPOINT_PHONE(pntIP4,pntIP5) (IS_IPHONE_4?pntIP4:pntIP5)
@@ -20,6 +21,7 @@
 #define X_PHONE(xIP4,xIP5) (IS_IPHONE_4?xIP4:xIP5)
 #define Y_PHONE(yIP4,yIP5) (IS_IPHONE_4?yIP4:yIP5)
 #define NIB_PHONE(nibName) (IS_IPHONE_4?nibName:[nibName stringByAppendingString:@"_ip5"])
+#define OBJ_IOS(ios6,ios7) (NSFoundationVersionNumber>NSFoundationVersionNumber_iOS_6_1?ios7:ios6)
 
 #define DEGREES_TO_RADIANS(angle) ((angle) / 180.0 * M_PI)
 #define RANDOM(min,max) arc4random() % (max - min) + min
@@ -246,5 +248,11 @@ bool isVailCLLocationCoordinate2D(CLLocationCoordinate2D location);
 +(void) trackUserSearch:(NSString*) key;
 +(void) trackUserAllowLocation:(CLLocationCoordinate2D) location;
 +(void) trackUserSkipFacebook;
+
+@end
+
+@interface NSObject(Utility)
+
+-(bool) isNullData;
 
 @end

@@ -9,7 +9,7 @@
 #import "ASIOperationGroupInCity.h"
 
 @implementation ASIOperationGroupInCity
-@synthesize groups;
+@synthesize groups,groupContent,groupStatus,groupUrl;
 
 -(ASIOperationGroupInCity *)initWithIDCity:(int)idCity
 {
@@ -39,32 +39,53 @@
 
 -(void)onCompletedWithJSON:(NSArray *)json
 {
-    NSArray *arr=[[json objectAtIndex:0] objectForKey:@"content"];
-    
     for(Group *group in [Group allObjects])
         [[DataManager shareInstance].managedObjectContext deleteObject:group];
     
-    int count=0;
-    for(NSDictionary *dic in arr)
-    {
-        int idGroup=[dic integerForKey:@"id"];
-        Group *group=[Group insert];
-        
-        group.idGroup=@(idGroup);
-        group.name=[NSString stringWithStringDefault:[dic objectForKey:@"name"]];
-        group.count=[dic objectForKey:@"count"];
-        
-        count+=group.count.integerValue;
-    }
-    
-    Group *groupAll=[Group insert];
-    groupAll.name=@"Tất cả";
-    groupAll.idGroup=@(0);
-    groupAll.count=@(count);
-    
     [[DataManager shareInstance] save];
     
-    groups=[Group allObjects];
+    groups=[NSMutableArray array];
+    groupUrl=@"";
+    groupContent=@"";
+    groupStatus=0;
+    
+    if([self isNullData:json])
+        return;
+    
+    NSDictionary *dict=[json objectAtIndex:0];
+    groupStatus=[[NSNumber numberWithObject:[dict objectForKey:@"status"]] integerValue];
+    
+    if(groupStatus==0)
+    {
+        groupContent=[NSString stringWithStringDefault:[dict objectForKey:@"content"]];
+        groupUrl=[NSString stringWithStringDefault:[dict objectForKey:@"url"]];
+    }
+    else
+    {
+        NSArray *arr=[[json objectAtIndex:0] objectForKey:@"content"];
+        
+        int count=0;
+        for(NSDictionary *dic in arr)
+        {
+            int idGroup=[dic integerForKey:@"id"];
+            Group *group=[Group insert];
+            
+            group.idGroup=@(idGroup);
+            group.name=[NSString stringWithStringDefault:[dic objectForKey:@"name"]];
+            group.count=[dic objectForKey:@"count"];
+            
+            count+=group.count.integerValue;
+        }
+        
+        Group *groupAll=[Group insert];
+        groupAll.name=@"Tất cả";
+        groupAll.idGroup=@(0);
+        groupAll.count=@(count);
+        
+        [[DataManager shareInstance] save];
+        
+        groups=[[Group allObjects] mutableCopy];
+    }
 }
 
 @end

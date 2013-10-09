@@ -161,6 +161,19 @@
 	[self didChangeValueForKey:@"name"];
 }
 
+- (NSString*)url {
+	[self willAccessValueForKey:@"url"];
+	NSString* result = (NSString*)[self primitiveValueForKey:@"url"];
+	[self didAccessValueForKey:@"url"];
+	return result;
+}
+
+- (void)setUrl:(NSString*)value {
+	[self willChangeValueForKey:@"url"];
+	[self setPrimitiveValue:value forKey:@"url"];
+	[self didChangeValueForKey:@"url"];
+}
+
 #pragma mark Relationships
     
 

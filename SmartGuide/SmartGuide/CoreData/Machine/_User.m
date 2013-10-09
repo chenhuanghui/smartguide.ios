@@ -101,6 +101,19 @@
 	[self didChangeValueForKey:@"avatar"];
 }
 
+- (NSData*)avatarImage {
+	[self willAccessValueForKey:@"avatarImage"];
+	NSData* result = (NSData*)[self primitiveValueForKey:@"avatarImage"];
+	[self didAccessValueForKey:@"avatarImage"];
+	return result;
+}
+
+- (void)setAvatarImage:(NSData*)value {
+	[self willChangeValueForKey:@"avatarImage"];
+	[self setPrimitiveValue:value forKey:@"avatarImage"];
+	[self didChangeValueForKey:@"avatarImage"];
+}
+
 - (NSNumber*)isConnectedFacebook {
 	[self willAccessValueForKey:@"isConnectedFacebook"];
 	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"isConnectedFacebook"];

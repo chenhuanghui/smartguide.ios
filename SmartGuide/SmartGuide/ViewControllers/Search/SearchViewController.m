@@ -121,6 +121,23 @@
     self.view.backgroundColor=COLOR_BACKGROUND_APP;
     templateTable=[[TableTemplate alloc] initWithTableView:table withDelegate:self];
     [table registerNib:[UINib nibWithNibName:[CatalogueListCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[CatalogueListCell reuseIdentifier]];
+    
+    blurTop.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"blur_bottom.png"]];
+    blurTop.transform=CGAffineTransformMakeRotation(DEGREES_TO_RADIANS(180));
+    blurBot.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"blur_bottom.png"]];
+    
+    CGRect rect=table.frame;
+    rect.origin=CGPointZero;
+    rect.size.height=18;
+    UIView *vi = [[UIView alloc] initWithFrame:rect];
+    vi.backgroundColor=[UIColor clearColor];
+    table.tableHeaderView=vi;
+    
+    rect.origin.y=table.frame.size.height-rect.size.height;
+    vi=[[UIView alloc] initWithFrame:rect];
+    vi.backgroundColor=[UIColor clearColor];
+    table.tableFooterView=vi;
+
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -145,7 +162,7 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return [CatalogueListCell height]+10;
+    return [CatalogueListCell height]+5;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

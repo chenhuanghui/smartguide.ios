@@ -10,6 +10,7 @@
 #import "Utility.h"
 #import <QuartzCore/QuartzCore.h>
 #import "Constant.h"
+#import <objc/runtime.h>
 
 @implementation ActivityIndicator
 @synthesize touchDelegate,delegate;
@@ -78,6 +79,7 @@
 
 -(void)removeFromSuperview
 {
+    [self.superview removeObserver:self forKeyPath:@"frame"];
     _indicatorTitle=nil;
     
     if(_timerCountdown)
@@ -115,6 +117,25 @@
     [super willMoveToSuperview:newSuperview];
 }
 
+-(void)didMoveToSuperview
+{
+    [super didMoveToSuperview];
+    
+    if(self.superview)
+    {
+        [self.superview addObserver:self forKeyPath:@"frame" options:NSKeyValueObservingOptionNew context:nil];
+    }
+}
+
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    if(self.superview)
+    {
+        self.frame=CGRectMake(self.frame.origin.x, self.frame.origin.y, self.superview.frame.size.width, self.superview.frame.size.height);
+        [self alignLayout:self.superview];
+    }
+}
+
 -(void) alignLayout:(UIView*) newSuperview
 {
     float alignX=20;
@@ -134,6 +155,43 @@
     CGSize size=[lbl.text sizeWithFont:lbl.font];
     
     if(newSuperview.frame.size.height<37 || newSuperview.frame.size.width<37)
+        [indicator setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleWhite];
+    else
+        [indicator setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    
+    indicator.frame=CGRectMake(0, 0, 37, 37);
+    indicator.center=CGPointMake(rect.size.width/2-size.width/2-indicator.frame.size.width/2, rect.size.height/2);
+    indicator.center=CGPointMake(indicator.center.x+alignX, indicator.center.y);
+    
+    rect=indicator.frame;
+    
+    rect.origin.x-=17;
+    rect.origin.y-=17;
+    rect.size.width+=34;
+    rect.size.height+=34;
+    
+    blackView.frame=rect;
+}
+
+-(void)alignRect:(CGRect)rectAlign
+{
+    float alignX=20;
+    
+    self.layer.masksToBounds=true;
+    
+    UIView *blackView=(UIView*)[self viewWithTag:1];
+    UIActivityIndicatorView *indicator=(UIActivityIndicatorView*)[self viewWithTag:2];
+    UILabel *lbl=(UILabel*)[self viewWithTag:3];
+    lbl.text=[NSString stringWithStringDefault:lbl.text];
+    
+    CGRect rect=self.frame;
+    
+    lbl.frame=rect;
+    lbl.center=CGPointMake(lbl.center.x+alignX, lbl.center.y);
+    
+    CGSize size=[lbl.text sizeWithFont:lbl.font];
+    
+    if(rectAlign.size.height<37 || rectAlign.size.width<37)
         [indicator setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleWhite];
     else
         [indicator setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleWhiteLarge];
@@ -297,6 +355,16 @@
     while ((ActivityIndicator*)[self viewWithTag:3333])
     {
         [[self viewWithTag:3333] removeFromSuperview];
+    }
+}
+
+-(void)centerActivityIndicator:(CGRect)rect
+{
+    ActivityIndicator *act=[self activityIndicator];
+    
+    if(act)
+    {
+        [act alignRect:rect];
     }
 }
 

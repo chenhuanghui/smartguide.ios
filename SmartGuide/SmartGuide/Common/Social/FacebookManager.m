@@ -27,6 +27,7 @@ static FacebookManager *_facebookManager=nil;
 
 -(void)sharer:(SHKSharer *)sharer failedWithError:(NSError *)error shouldRelogin:(BOOL)shouldRelogin
 {
+    shouldRelogin=true;
     NSLog(@"sharerFailedWithError %@ %@",sharer,error);
 }
 
@@ -35,67 +36,6 @@ static FacebookManager *_facebookManager=nil;
 -(void)sharerAuthDidFinish1:(SHKSharer *)sharer success:(BOOL)success
 {
     NSLog(@"sharerAuthDidFinish %@ %i",sharer,success);
-    
-//    if(!success)
-//    {
-//        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_FACEBOOK_LOGIN_FAILED object:nil];
-//        return;
-//    }
-    
-//    if(![DataManager shareInstance].currentUser.isConnectedFacebook.boolValue)
-//    {
-//        OperationFBGetProfile *getProfile=[[OperationFBGetProfile alloc] initWithAccessToken:[FBSession activeSession].accessTokenData.accessToken];
-//        getProfile.delegate=self;
-//        
-//        [getProfile start];
-//    }
-//    else
-//    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_FACEBOOK_LOGIN_SUCCESS object:nil];
-}
-
--(void)ASIOperaionPostFinished:(ASIOperationPost *)operation
-{
-    if([operation isKindOfClass:[ASIOperationFBProfile class]])
-    {
-        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_FACEBOOK_UPLOAD_PROFILE_FINISHED object:nil];
-        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_FACEBOOK_LOGIN_SUCCESS object:nil];
-    }
-}
-
--(void)ASIOperaionPostFailed:(ASIOperationPost *)operation
-{
-    if([operation isKindOfClass:[ASIOperationFBProfile class]])
-    {
-        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_FACEBOOK_UPLOAD_PROFILE_FINISHED object:nil];
-        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_FACEBOOK_LOGIN_SUCCESS object:nil];
-    }
-}
-
--(void)operationURLFinished:(OperationURL *)operation
-{
-    if([operation isKindOfClass:[OperationFBGetProfile class]])
-    {
-        OperationFBGetProfile *getProfile=(OperationFBGetProfile*)operation;
-        
-        FBProfile *profile = getProfile.profile;
-        
-        User *user=[User userWithIDUser:[DataManager shareInstance].currentUser.idUser.integerValue];
-        user.avatar=[NSString stringWithStringDefault:getProfile.profile.avatar];
-        
-        [DataManager shareInstance].currentUser=[User userWithIDUser:user.idUser.integerValue];
-        
-        ASIOperationFBProfile *postProfile=[[ASIOperationFBProfile alloc] initWithFBProfile:profile];
-        postProfile.delegatePost=self;
-        [postProfile startAsynchronous];
-    }
-}
-
--(void)operationURLFailed:(OperationURL *)operation
-{
-    if([operation isKindOfClass:[OperationFBGetProfile class]])
-    {
-        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_FACEBOOK_LOGIN_SUCCESS object:nil];
-    }
 }
 
 -(void)sharerCancelledSending:(SHKSharer *)sharer
@@ -133,7 +73,10 @@ static FacebookManager *_facebookManager=nil;
 
 -(void)facebookLogined:(SHKFacebook *)shk session:(FBSession *)session error:(NSError *)error
 {
-    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_FACEBOOK_LOGIN_SUCCESS object:nil];
+    if(session.state==FBSessionStateOpen||session.state==FBSessionStateOpenTokenExtended)
+        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_FACEBOOK_LOGIN_SUCCESS object:nil];
+    else
+        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_FACEBOOK_LOGIN_FAILED object:nil];
 }
 
 -(void)facebookAuthorizedPost:(SHKFacebook *)shk session:(FBSession *)session error:(NSError *)error
@@ -170,7 +113,7 @@ static FacebookManager *_facebookManager=nil;
 
 -(bool)isLogined
 {
-    return [FBSession activeSession].state==FBSessionStateOpen;
+    return [FBSession activeSession].state==FBSessionStateOpen || [FBSession activeSession].state==FBSessionStateOpenTokenExtended;
 }
 
 -(bool)isAllowPost

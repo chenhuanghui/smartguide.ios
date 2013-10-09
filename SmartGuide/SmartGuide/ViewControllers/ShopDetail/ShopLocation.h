@@ -19,6 +19,8 @@
     MKMapView *map;
     bool isCalculatingDirection;
     UIView *rootView;
+    
+    AFHTTPRequestOperation *_operationRouter;
 }
 
 -(ShopLocation*) initWithShop:(Shop*) shop;

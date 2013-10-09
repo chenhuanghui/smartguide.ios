@@ -186,6 +186,7 @@ bool isVailCLLocationCoordinate2D(CLLocationCoordinate2D location)
 
 +(int)idShopFromQRCode:(NSString *)url
 {
+//    return -1;
     if(url.length>0 && [url isContainString:@"/"])
     {
         int index=[url rangeOfString:@"/" options:NSBackwardsSearch].location;
@@ -390,6 +391,9 @@ bool isVailCLLocationCoordinate2D(CLLocationCoordinate2D location)
 {
     if((id)string==[NSNull null])
         return @"";
+    
+    if([string isKindOfClass:[NSNumber class]])
+        string=[NSString stringWithFormat:@"%@",string];
     
     if(string && string.length>0)
         return [NSString stringWithString:string];
@@ -817,7 +821,8 @@ bool isVailCLLocationCoordinate2D(CLLocationCoordinate2D location)
 {
     // Scalling selected image to targeted size
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
-    CGContextRef context = CGBitmapContextCreate(NULL, size.width, size.height, 8, 0, colorSpace, kCGImageAlphaPremultipliedLast);
+    
+    CGContextRef context = CGBitmapContextCreate(NULL, size.width, size.height, 8, 0, colorSpace, (CGBitmapInfo)kCGImageAlphaPremultipliedLast);
     CGContextClearRect(context, CGRectMake(0, 0, size.width, size.height));
     
     if(self.imageOrientation == UIImageOrientationRight)
@@ -1672,6 +1677,25 @@ static const NSString *KEY_HIT_TEST_EDGE_INSETS = @"HitTestEdgeInsets";
 +(void)trackUserSkipFacebook
 {
     [Flurry logEvent:@"skipFace"];
+}
+
+@end
+
+@implementation NSObject(Utility)
+
+-(bool)isNullData
+{
+    if(!self || (id)self==[NSNull null])
+        return true;
+    
+    if([self isKindOfClass:[NSArray class]])
+    {
+        NSArray *data=(NSArray*)self;
+        if(data.count==0 || [data objectAtIndex:0]==[NSNull null])
+            return true;
+    }
+    
+    return false;
 }
 
 @end

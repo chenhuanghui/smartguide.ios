@@ -417,4 +417,12 @@ static void each_object(NSArray *objects, void (^block)(id object))
     }
 }
 
+-(void)setTextAlignment:(NSTextAlignment)_textAlignment
+{
+    textAlignment=_textAlignment;
+    
+    for(UILabel *lbl in self.labels)
+        lbl.textAlignment=textAlignment;
+}
+
 @end
