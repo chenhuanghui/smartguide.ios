@@ -7,21 +7,21 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "ShareKit.h"
-#import "SHKFacebook.h"
+#import <FacebookSDK/FacebookSDK.h>
 #import "ASIOperationFBProfile.h"
 #import "OperationFBGetProfile.h"
+#import <Social/Social.h>
 
-@interface FacebookManager : NSObject<SHKFacebookDelegate>
+@interface FacebookManager : NSObject
 
 +(FacebookManager*) shareInstance;
 
++(void) checkFacebookToken;
 -(void) login;
--(void)postText:(NSString *)text identity:(id) tag delegate:(id<SHKFacebookDelegate>) delegate;
--(void) postURL:(NSURL*) url title:(NSString*) title text:(NSString*) text;
--(void) postImage:(UIImage*) image text:(NSString*) text identity:(id) tag delegate:(id<SHKFacebookDelegate>) delegate;
--(bool) isAuthorized;
 -(bool) isLogined;
--(bool) isAllowPost;
+
++(void) handleDidBecomeActive;
++(void) handleWillTerminate;
++(BOOL)handleOpenURL:(NSURL*)url sourceApplication:(NSString *)sourceApplication annotation:(NSString *)annotation;
 
 @end

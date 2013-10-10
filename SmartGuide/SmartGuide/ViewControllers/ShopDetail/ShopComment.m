@@ -171,13 +171,6 @@
         
         if(ope.isSuccess)
         {
-            bool allowPostToFace=false;
-            
-            if(allowPostToFace)
-            {
-                [[FacebookManager shareInstance] postText:txtComment.text identity:nil delegate:nil];
-            }
-            
             txtComment.text=@"";
             if(_comments.count==0)
                 [_comments addObject:ope.comment];

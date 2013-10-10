@@ -10,40 +10,8 @@
 #import "AFHTTPRequestOperation.h"
 #import "RootViewController.h"
 #import "FacebookManager.h"
-#import "SHKConfiguration.h"
-#import "DefaultSHKConfigurator.h"
-#import "SHKFacebook.h"
 #import "Flurry.h"
 #import "ASIOperationGetAds.h"
-#import "FBSession.h"
-
-@interface SHKSmartGuildeConfig : DefaultSHKConfigurator
-
-@end
-
-@implementation SHKSmartGuildeConfig
-
--(NSString *)appName
-{
-    return @"SmartGuide";
-}
-
--(NSString *)facebookAppId
-{
-    return FACEBOOK_APPID;
-}
-
--(NSArray *)facebookReadPermissions
-{
-    return FACEBOOK_READ_PERMISSION;
-}
-
--(NSArray *)facebookWritePermissions
-{
-    return FACEBOOK_PUBLISH_PERMISSION;
-}
-
-@end
 
 @implementation AppDelegate
 
@@ -56,13 +24,8 @@
     
     [Flurry setAppVersion:@"0.0a"];
     [Flurry startSession:@"SG974KP6KXTQ8P4ZRYHN" withOptions:launchOptions];
-//    [Flurry setDebugLogEnabled:true];
     
-    SHKSmartGuildeConfig *config=[[SHKSmartGuildeConfig alloc] init];
-    [SHKConfiguration sharedInstanceWithConfigurator:config];
-    
-    if(![FBSession openActiveSessionWithAllowLoginUI:false])
-        [FBSession setActiveSession:nil];
+    [FacebookManager checkFacebookToken];
     
     [AFHTTPRequestOperation addAcceptableContentTypes:[NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript", @"text/html", nil]];
     
@@ -92,19 +55,18 @@
 {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     
-    [SHKFacebook handleDidBecomeActive];
+    [FacebookManager handleDidBecomeActive];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-    [SHKFacebook handleWillTerminate];
-    
+    [FacebookManager handleWillTerminate];
 }
 
 -(BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
-    return [SHKFacebook handleOpenURL:url sourceApplication:sourceApplication annotation:annotation];
+    return [FacebookManager handleOpenURL:url sourceApplication:sourceApplication annotation:annotation];
 }
 
 -(NSUInteger)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window

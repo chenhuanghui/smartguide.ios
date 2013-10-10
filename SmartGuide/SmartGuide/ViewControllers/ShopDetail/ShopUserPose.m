@@ -244,13 +244,6 @@
     upload.delegatePost=self;
     
     [upload startAsynchronous];
-    
-    bool allowPostFacebook=false;
-    
-    if(_isSharedFacebook && allowPostFacebook)
-    {
-        [[FacebookManager shareInstance] postImage:imgv.image text:txt.text identity:nil delegate:nil];
-    }
 }
 
 -(void)ASIOperaionPostFinished:(ASIOperationPost *)operation

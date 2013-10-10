@@ -10,8 +10,6 @@
 #import "AlertView.h"
 #import "Utility.h"
 #import "UIImageView+AFNetworking.h"
-#import "FBSession.h"
-#import "FBAccessTokenData.h"
 #import "RootViewController.h"
 #import "ASIOperationUploadFBToken.h"
 
@@ -80,11 +78,11 @@
     [[FacebookManager shareInstance] login];
     _isRequestingProfileFB=false;
 }
-
--(void) postCheckinAppWithName:(NSString*) name
-{
-    [[FacebookManager shareInstance] postURL:[NSURL URLWithString:@"http://smartguide.vn"] title:@"SmartGuide - Trải nghiệm ngay nhận quà liền tay" text:[NSString stringWithFormat:@"Chúc mừng bạn %@ đã tham gia cộng đồng #SmartGuide. Chúc bạn có những trải nghiệm hoàn toàn thú vị cùng #SmartGuide",name]];
-}
+//
+//-(void) postCheckinAppWithName:(NSString*) name
+//{
+//    [[FacebookManager shareInstance] postURL:[NSURL URLWithString:@"http://smartguide.vn"] title:@"SmartGuide - Trải nghiệm ngay nhận quà liền tay" text:[NSString stringWithFormat:@"Chúc mừng bạn %@ đã tham gia cộng đồng #SmartGuide. Chúc bạn có những trải nghiệm hoàn toàn thú vị cùng #SmartGuide",name]];
+//}
 
 -(void)operationURLFinished:(OperationURL *)operation
 {

@@ -74,9 +74,6 @@
 -(void) hideSetting:(void(^)(BOOL finished)) onCompleted;
 -(bool) isShowedSetting;
 
--(void) showLogin;
--(void) showMainWithPreviousViewController:(UIViewController*) previous;
-
 -(void) showWarningNotificationWithIcon:(UIImage *)icon content:(NSString *)content identity:(NSObject*)tag closedWhenTouch:(bool)closedWhenTouch;
 -(void) hideNotificationWithIdentity:(NSObject*) tag;
 

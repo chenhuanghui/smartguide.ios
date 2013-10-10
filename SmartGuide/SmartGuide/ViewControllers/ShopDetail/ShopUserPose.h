@@ -12,7 +12,6 @@
 #import "ASIOperationUploadFBToken.h"
 #import "ShopUserGallery.h"
 #import "FacebookManager.h"
-#import "FBAccessTokenData.h"
 
 @class ShopUserPose;
 
