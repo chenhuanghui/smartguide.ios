@@ -9,7 +9,6 @@
 #import "CatalogueListViewController.h"
 #import "CatalogueListCell.h"
 #import "Shop.h"
-#import "BGBlurView.h"
 #import "ShopDetailViewController.h"
 #import "RootViewController.h"
 #import "BannerAdsViewController.h"
