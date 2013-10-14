@@ -133,7 +133,7 @@
 							<int key="NSColorSpace">1</int>
 							<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
 						</object>
-						<object class="NSColor" key="IBUIHighlightedTitleColor" id="1064407592">
+						<object class="NSColor" key="IBUIHighlightedTitleColor">
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MQA</bytes>
 						</object>
@@ -285,14 +285,16 @@
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
 						<int key="IBUIContentVerticalAlignment">0</int>
-						<int key="IBUIButtonType">1</int>
 						<object class="NSColor" key="IBUINormalTitleColor">
 							<int key="NSColorSpace">1</int>
-							<bytes key="NSRGB">MC4xOTYwNzg0MzE0IDAuMzA5ODAzOTIxNiAwLjUyMTU2ODYyNzUAA</bytes>
+							<bytes key="NSRGB">MC4xOTYwNzg0MzE0IDAuMzEzNzI1NDkwMiAwLjUyMTU2ODYyNzUAA</bytes>
 						</object>
-						<reference key="IBUIHighlightedTitleColor" ref="1064407592"/>
 						<string key="IBUINormalTitle">Gữi lại mã kích hoạt</string>
 						<reference key="IBUINormalTitleShadowColor" ref="466587122"/>
+						<object class="NSCustomResource" key="IBUINormalBackgroundImage">
+							<string key="NSClassName">NSImage</string>
+							<string key="NSResourceName">button_white.png</string>
+						</object>
 						<reference key="IBUIFontDescription" ref="738375395"/>
 						<reference key="IBUIFont" ref="577475340"/>
 					</object>
@@ -565,6 +567,7 @@
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
 			<string key="SmartGuide.png">{95, 24}</string>
 			<string key="button_send.png">{48, 50}</string>
+			<string key="button_white.png">{280, 31}</string>
 			<string key="logo.png">{114, 100}</string>
 			<string key="numberfield.png">{222, 50}</string>
 			<string key="wc_bg.png">{320, 480}</string>

@@ -20,14 +20,14 @@
     NSURL *_url=[NSURL URLWithString:SERVER_API_MAKE(API_SHOP_IN_GROUP_POST)];
     self=[super initWithURL:_url];
     
-    values=@[ids,@(idCity),@(idUser),@(latitude),@(longtitude),@(page),@(sort),@(1)];
+    values=@[ids,@(idCity),@(idUser),@(latitude),@(longtitude),@(page),@(sort)];
     
     return self;
 }
 
 -(NSArray *)keys
 {
-    return @[@"group_list",@"city_id",@"user_id",@"user_lat",@"user_lng",@"page",@"sort_by",@"version"];
+    return @[@"group_list",@"city_id",@"user_id",@"user_lat",@"user_lng",@"page",@"sort_by"];
 }
 
 -(void)onCompletedWithJSON:(NSArray *)json

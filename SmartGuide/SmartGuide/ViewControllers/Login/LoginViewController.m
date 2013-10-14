@@ -17,7 +17,7 @@
 
 #define DURATION_RESET_SMS 30
 
-#define SKIP_INPUT_PHONE 0
+#define SKIP_INPUT_PHONE 1
 
 @interface LoginViewController ()
 

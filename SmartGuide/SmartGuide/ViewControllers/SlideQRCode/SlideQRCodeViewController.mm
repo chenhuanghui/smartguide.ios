@@ -50,6 +50,8 @@
     if(qrCodeView)
         return;
     
+    qrView.backgroundColor=[UIColor clearColor];
+    
     qrCodeView=[[QRCodeViewController alloc] init];
     qrCodeView.delegate=self;
     

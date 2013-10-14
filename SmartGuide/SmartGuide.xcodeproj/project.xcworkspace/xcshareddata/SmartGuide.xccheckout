@@ -5,52 +5,20 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>D74B420C-97D4-4597-BD8F-B76CAB76B9F9</string>
+	<string>06FFE182-310D-4DD3-BC05-87DFB04AD499</string>
 	<key>IDESourceControlProjectName</key>
 	<string>SmartGuide</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>0BA837D0-4E33-4760-ACF7-F1291A5F7D05</key>
-		<string>git://github.com/AliSoftware/OHHTTPStubs.git</string>
-		<key>0DA6A473-3082-418C-B82B-244FC5145E2F</key>
-		<string>git://github.com/jakemdunn/google-api-objectivec-client.git</string>
 		<key>57F2536F-AD95-402B-A670-B8E66A006CDC</key>
 		<string>https://github.com/chenhuanghui/smartguide.ios.git</string>
-		<key>698469B4-EBB0-46E2-85C4-D5E03C0C7121</key>
-		<string>git://github.com/erikdoe/ocmock</string>
-		<key>701D5C94-5013-4E35-9044-35FFAB91A325</key>
-		<string>https://github.com/evernote/evernote-sdk-ios.git</string>
-		<key>A3A01369-2278-47AA-9E44-B3ACBB7EBC8F</key>
-		<string>https://github.com/facebook/facebook-ios-sdk.git</string>
-		<key>A503A27A-941E-4341-87D6-9328D53BF795</key>
-		<string>git://github.com/ShareKit/ShareKit.git</string>
-		<key>C4AEA20A-3275-4D50-A446-D25ADE189378</key>
-		<string>git://github.com/bufferapp/buffer-ios-sdk.git</string>
-		<key>F4688A7C-529A-474F-8080-021A8D7CA0E6</key>
-		<string>https://github.com/dropbox-sdk-mirror/dropbox-sdk-ios.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>SmartGuide/SmartGuide.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>0BA837D0-4E33-4760-ACF7-F1291A5F7D05</key>
-		<string>../../ShareKit/Submodules/ShareKit/Submodules/facebook-ios-sdk/vendor/OHHTTPStubs</string>
-		<key>0DA6A473-3082-418C-B82B-244FC5145E2F</key>
-		<string>../../ShareKit/Submodules/ShareKit/Submodules/google-api-objectivec</string>
 		<key>57F2536F-AD95-402B-A670-B8E66A006CDC</key>
 		<string>../../..</string>
-		<key>698469B4-EBB0-46E2-85C4-D5E03C0C7121</key>
-		<string>../../ShareKit/Submodules/ShareKit/Submodules/facebook-ios-sdk/vendor/OCMock</string>
-		<key>701D5C94-5013-4E35-9044-35FFAB91A325</key>
-		<string>../../ShareKit/Submodules/ShareKit/Submodules/evernote-ios-sdk</string>
-		<key>A3A01369-2278-47AA-9E44-B3ACBB7EBC8F</key>
-		<string>../../ShareKit/Submodules/ShareKit/Submodules/facebook-ios-sdk</string>
-		<key>A503A27A-941E-4341-87D6-9328D53BF795</key>
-		<string>../../ShareKit/Submodules/ShareKit</string>
-		<key>C4AEA20A-3275-4D50-A446-D25ADE189378</key>
-		<string>../../ShareKit/Submodules/ShareKit/Submodules/buffer-ios-sdk</string>
-		<key>F4688A7C-529A-474F-8080-021A8D7CA0E6</key>
-		<string>../../ShareKit/Submodules/ShareKit/Submodules/dropbox-sdk-ios</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://github.com/chenhuanghui/smartguide.ios.git</string>
@@ -60,70 +28,6 @@
 	<string>57F2536F-AD95-402B-A670-B8E66A006CDC</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
-		<dict>
-			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
-			<string>public.vcs.git</string>
-			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>C4AEA20A-3275-4D50-A446-D25ADE189378</string>
-			<key>IDESourceControlWCCName</key>
-			<string>buffer-ios-sdk</string>
-		</dict>
-		<dict>
-			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
-			<string>public.vcs.git</string>
-			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>F4688A7C-529A-474F-8080-021A8D7CA0E6</string>
-			<key>IDESourceControlWCCName</key>
-			<string>dropbox-sdk-ios</string>
-		</dict>
-		<dict>
-			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
-			<string>public.vcs.git</string>
-			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>701D5C94-5013-4E35-9044-35FFAB91A325</string>
-			<key>IDESourceControlWCCName</key>
-			<string>evernote-ios-sdk</string>
-		</dict>
-		<dict>
-			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
-			<string>public.vcs.git</string>
-			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>A3A01369-2278-47AA-9E44-B3ACBB7EBC8F</string>
-			<key>IDESourceControlWCCName</key>
-			<string>facebook-ios-sdk</string>
-		</dict>
-		<dict>
-			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
-			<string>public.vcs.git</string>
-			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>0DA6A473-3082-418C-B82B-244FC5145E2F</string>
-			<key>IDESourceControlWCCName</key>
-			<string>google-api-objectivec</string>
-		</dict>
-		<dict>
-			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
-			<string>public.vcs.git</string>
-			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>698469B4-EBB0-46E2-85C4-D5E03C0C7121</string>
-			<key>IDESourceControlWCCName</key>
-			<string>OCMock</string>
-		</dict>
-		<dict>
-			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
-			<string>public.vcs.git</string>
-			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>0BA837D0-4E33-4760-ACF7-F1291A5F7D05</string>
-			<key>IDESourceControlWCCName</key>
-			<string>OHHTTPStubs</string>
-		</dict>
-		<dict>
-			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
-			<string>public.vcs.git</string>
-			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>A503A27A-941E-4341-87D6-9328D53BF795</string>
-			<key>IDESourceControlWCCName</key>
-			<string>ShareKit</string>
-		</dict>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
