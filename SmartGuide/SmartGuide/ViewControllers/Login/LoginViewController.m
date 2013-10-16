@@ -17,7 +17,7 @@
 
 #define DURATION_RESET_SMS 30
 
-#define SKIP_INPUT_PHONE 1
+#define SKIP_INPUT_PHONE 0
 
 @interface LoginViewController ()
 
@@ -37,6 +37,13 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+#if DEBUG
+    if([SERVER_API isContainString:@"https"])
+        [AlertView showAlertOKWithTitle:@"PRODUCTION MODE" withMessage:nil onOK:nil];
+    else
+        [AlertView showAlertOKWithTitle:@"DEVELOPER MODE" withMessage:nil onOK:nil];
+#endif
     
     [Flurry trackUserViewLogin];
     

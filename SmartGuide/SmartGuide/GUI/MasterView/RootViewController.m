@@ -288,7 +288,7 @@ static RootViewController *_rootViewController;
     
     [DataManager shareInstance].currentUser=[User userWithIDUser:[Flags lastIDUser]];
     
-    if([DataManager shareInstance].currentUser==nil)
+    if([DataManager shareInstance].currentUser==nil || ([TokenManager shareInstance].accessToken.length==0))
     {
         [self showLoginView];
     }
@@ -311,7 +311,7 @@ static RootViewController *_rootViewController;
     
     [DataManager shareInstance].currentUser=[User userWithIDUser:[Flags lastIDUser]];
     
-    if([DataManager shareInstance].currentUser==nil)
+    if([DataManager shareInstance].currentUser==nil || ([TokenManager shareInstance].accessToken.length==0))
     {
         [self createLoginView];
     }

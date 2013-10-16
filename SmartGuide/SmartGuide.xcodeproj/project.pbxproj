@@ -53,6 +53,9 @@
 		9A3344F117FE749B00C6578F /* scan.png in Resources */ = {isa = PBXBuildFile; fileRef = A9F94C3817D25128009E190B /* scan.png */; };
 		9A3344F217FE749B00C6578F /* scan@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A9F94C3917D25128009E190B /* scan@2x.png */; };
 		9A372B5717F0B811003C26C4 /* PromotionDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A372B5617F0B811003C26C4 /* PromotionDetailCell.xib */; };
+		9A392B1D180CF356005E97CB /* logodemo_58.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A392B1A180CF356005E97CB /* logodemo_58.png */; };
+		9A392B1E180CF356005E97CB /* logodemo_114.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A392B1B180CF356005E97CB /* logodemo_114.png */; };
+		9A392B1F180CF356005E97CB /* logodemo_120.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A392B1C180CF356005E97CB /* logodemo_120.png */; };
 		9A451E2F17F0BA4000352CD7 /* GalleryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A451E2E17F0BA4000352CD7 /* GalleryView.xib */; };
 		9A451E3117F0BBF500352CD7 /* GalleryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A451E3017F0BBF500352CD7 /* GalleryCell.xib */; };
 		9A451E3317F0BCBD00352CD7 /* GalleryCell_ip5.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A451E3217F0BCBD00352CD7 /* GalleryCell_ip5.xib */; };
@@ -699,6 +702,9 @@
 		9A29E9A617F3CEB100C09C3C /* button_doidiemlayqua.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_doidiemlayqua.png; sourceTree = "<group>"; };
 		9A29E9A917F3DA9100C09C3C /* SettingViewController_ip5.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingViewController_ip5.xib; sourceTree = "<group>"; };
 		9A372B5617F0B811003C26C4 /* PromotionDetailCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PromotionDetailCell.xib; sourceTree = "<group>"; };
+		9A392B1A180CF356005E97CB /* logodemo_58.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logodemo_58.png; sourceTree = "<group>"; };
+		9A392B1B180CF356005E97CB /* logodemo_114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logodemo_114.png; sourceTree = "<group>"; };
+		9A392B1C180CF356005E97CB /* logodemo_120.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logodemo_120.png; sourceTree = "<group>"; };
 		9A451E2E17F0BA4000352CD7 /* GalleryView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GalleryView.xib; sourceTree = "<group>"; };
 		9A451E3017F0BBF500352CD7 /* GalleryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GalleryCell.xib; sourceTree = "<group>"; };
 		9A451E3217F0BCBD00352CD7 /* GalleryCell_ip5.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GalleryCell_ip5.xib; sourceTree = "<group>"; };
@@ -2394,6 +2400,9 @@
 		A98198BE178D44FB0009FCB6 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				9A392B1A180CF356005E97CB /* logodemo_58.png */,
+				9A392B1B180CF356005E97CB /* logodemo_114.png */,
+				9A392B1C180CF356005E97CB /* logodemo_120.png */,
 				9A122C54180BC4E60028E7CC /* button_white.png */,
 				9A122C55180BC4E60028E7CC /* button_white@2x.png */,
 				9AA523AE17FEB4570002288D /* logo_29.png */,
@@ -3376,6 +3385,7 @@
 				A9AE10F817C5B891004476F0 /* facebook_nonetick@2x.png in Resources */,
 				A91721E417C619B6003A5844 /* ava_loading.png in Resources */,
 				A91721E517C619B6003A5844 /* ava_loading@2x.png in Resources */,
+				9A392B1F180CF356005E97CB /* logodemo_120.png in Resources */,
 				A917221117C61A39003A5844 /* ava_default.png in Resources */,
 				A917221217C61A39003A5844 /* ava_default@2x.png in Resources */,
 				A917221517C61AE7003A5844 /* cover_loading.png in Resources */,
@@ -3488,12 +3498,14 @@
 				9A6C8E8F17FC1CAD00F80E67 /* AvatarListView.xib in Resources */,
 				A922FDDF17D8F0A20036B89A /* update@2x.png in Resources */,
 				A922FDE017D8F0A20036B89A /* update.png in Resources */,
+				9A392B1D180CF356005E97CB /* logodemo_58.png in Resources */,
 				9A46B67C17F0B13A00410408 /* ava_login.png in Resources */,
 				9A46B67D17F0B13A00410408 /* ava_login@2x.png in Resources */,
 				9A46B67E17F0B13A00410408 /* button_createacc.png in Resources */,
 				9A46B67F17F0B13A00410408 /* button_createacc@2x.png in Resources */,
 				9A46B68017F0B13A00410408 /* button_loginface.png in Resources */,
 				9A46B68117F0B13A00410408 /* button_loginface@2x.png in Resources */,
+				9A392B1E180CF356005E97CB /* logodemo_114.png in Resources */,
 				9A46B68217F0B13A00410408 /* createacc@2x.png in Resources */,
 				9A46B68317F0B13A00410408 /* createacc.png in Resources */,
 				9A46B68417F0B13A00410408 /* Default-568h@2x.png in Resources */,
@@ -3783,7 +3795,7 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Tran Huy (EBC7LYRN6Y)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Tran Huy (49BNYKS8B6)";
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3809,7 +3821,7 @@
 					"\"$(SRCROOT)\"",
 				);
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "578B12BB-F952-47C8-AFF5-F955EC88875B";
+				PROVISIONING_PROFILE = "850260A4-20AC-430C-B1EF-0A6A60C54FDA";
 				SDKROOT = iphoneos;
 				USER_HEADER_SEARCH_PATHS = "";
 			};
@@ -3828,7 +3840,7 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Tran Huy (EBC7LYRN6Y)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Tran Huy (49BNYKS8B6)";
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3848,7 +3860,7 @@
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				PROVISIONING_PROFILE = "578B12BB-F952-47C8-AFF5-F955EC88875B";
+				PROVISIONING_PROFILE = "850260A4-20AC-430C-B1EF-0A6A60C54FDA";
 				SDKROOT = iphoneos;
 				USER_HEADER_SEARCH_PATHS = "";
 				VALIDATE_PRODUCT = YES;

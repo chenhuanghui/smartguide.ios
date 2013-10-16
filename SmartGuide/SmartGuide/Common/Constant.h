@@ -17,19 +17,29 @@
 #define FACEBOOK_PUBLISH_PERMISSION @[@"publish_actions"]
 #define FACEBOOK_APPID @"1391698407719065"
 #define FACEBOOK_GET_PROFILE(accessToken,fields) [NSString stringWithFormat:@"https://graph.facebook.com/me/?fields=%@&access_token=%@",fields,accessToken]
-//#define CLIENT_ID @"1_orazuv2dl3k8ossssg8804o4kwksw8kwcskkk404w40gwcwws"//dev
-#define CLIENT_ID @"1_407qlmrvr5esg8s8wkocw8wgog84kkk40o8k00oososgcs8sc4"//dev2
-//#define CLIENT_ID @"1_53obx9yqlcco80w8wkoowgccw44o0w0ook0okogwosg84wscg8"//product
-//#define SECRET_ID @"4xvgf3r9dxs8k8g8o8k0gss0s0wc8so4g4wg40c8s44kgcwsks"//dev
-#define SECRET_ID @"1jcvy0kw4tk0o4wcgcos8s84kssw08c0w8w04c0k08gwc48cks"//dev2
-//#define SECRET_ID @"t3p0k1rvstcgwcsggo8ossgcwo8cckso88sscgcsks8w0wsk8"//product
 
-//#define SERVER_API @"http://192.168.1.102/rb-smartguide/web/app.php/api"
-//#define SERVER_API @"http://192.168.1.5/app.php/api"
+#define BUILD_MODE 0
+//0: developer
+//1: production
+
+#if BUILD_MODE==0
+
 #define SERVER_API @"http://dev2.smartguide.vn/api"
 #define SERVER_IP @"http://dev2.smartguide.vn"
-//#define SERVER_API @"https://api.smartguide.vn/api"
-//#define SERVER_IP @"https://api.smartguide.vn"
+
+#define CLIENT_ID @"1_orazuv2dl3k8ossssg8804o4kwksw8kwcskkk404w40gwcwws"//dev2
+#define SECRET_ID @"4xvgf3r9dxs8k8g8o8k0gss0s0wc8so4g4wg40c8s44kgcwsks"//dev2
+
+#else
+
+#define SERVER_API @"https://api.smartguide.vn/api"
+#define SERVER_IP @"https://api.smartguide.vn"
+
+#define CLIENT_ID @"1_orazuv2dl3k8ossssg8804o4kwksw8kwcskkk404w40gwcwws"//product
+#define SECRET_ID @"4xvgf3r9dxs8k8g8o8k0gss0s0wc8so4g4wg40c8s44kgcwsks"//product
+
+#endif
+
 #define SERVER_IP_MAKE(api) [NSString stringWithFormat:@"%@/%@",SERVER_IP,api]
 #define SERVER_API_MAKE(api) [NSString stringWithFormat:@"%@/%@",SERVER_API,api]
 #define SERVER_API_IMAGE SERVER_API_MAKE(@"photo/upload")
