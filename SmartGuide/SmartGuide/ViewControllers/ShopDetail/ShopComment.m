@@ -74,7 +74,7 @@
     ShopCommentCell *cell=[tableView dequeueReusableCellWithIdentifier:[ShopCommentCell reuseIdentifier]];
     ShopUserComment *comment=[_comments objectAtIndex:indexPath.row];
     
-    float tableOriginWidth=183;
+    float tableOriginWidth=279;
     [cell setShopComment:comment widthChanged:tableComments.frame.size.width-tableOriginWidth isZoomed:_isShowedComment];
     
     return cell;

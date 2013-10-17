@@ -12,7 +12,6 @@
 #import "UIImageView+AFNetworking.h"
 #import "DataManager.h"
 #import "Utility.h"
-#import "UIAlertTableCity.h"
 #import "LocationManager.h"
 #import "Flags.h"
 #import "AlphaView.h"
@@ -311,74 +310,6 @@
 -(UITableView *)table
 {
     return tableSetting;
-}
-
-- (IBAction)btnLocationTouchUpInside:(UIButton *)sender {
-    UIAlertTableCity *alert=[[UIAlertTableCity alloc] initWithTitle:@"Thành phố" message:nil delegate:nil cancelButtonTitle:nil otherButtonTitles:nil];
-    alert.selectedCity=[DataManager shareInstance].currentCity;
-    
-    [alert showOnOK:^{
-        
-        if([DataManager shareInstance].currentCity.idCity.integerValue!=alert.selectedCity.idCity.integerValue)
-        {
-            [self.view.window showLoadingWithTitle:nil];
-            
-            [RootViewController shareInstance].panSetting.enabled=false;
-            [RootViewController shareInstance].tapSetting.enabled=false;
-            
-            [DataManager shareInstance].currentCity=alert.selectedCity;
-            [Flags setUserCity:alert.selectedCity.idCity.integerValue];
-            lblCity.text=alert.selectedCity.name;
-            
-            if([[RootViewController shareInstance].frontViewController.currentVisibleViewController isKindOfClass:[CatalogueBlockViewController class]])
-            {
-                __block __weak id obj = [[NSNotificationCenter defaultCenter] addObserverForName:NOTIFICATION_CATALOGUEBLOCK_FINISHED object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
-                    [self.view.window removeLoading];
-                    
-                    [[RootViewController shareInstance] hideSetting:nil];
-                    
-                    
-                    [[NSNotificationCenter defaultCenter] removeObserver:obj];
-                }];
-                
-                [[RootViewController shareInstance].frontViewController.catalogueBlock loadWithCity:[DataManager shareInstance].currentCity];
-            }
-            else if([[RootViewController shareInstance].frontViewController.currentVisibleViewController isKindOfClass:[CatalogueListViewController class]])
-            {
-                CatalogueListViewController *list=(CatalogueListViewController*)[RootViewController shareInstance].frontViewController.currentVisibleViewController;
-                
-                if(list.mode==LIST_SHOP)
-                {
-                    __block __weak id obj = [[NSNotificationCenter defaultCenter] addObserverForName:NOTIFICATION_CATALOGUE_LIST_FINISHED object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
-                        
-                        [self.view.window removeLoading];
-                        
-                        [[NSNotificationCenter defaultCenter] removeObserver:obj];
-                        
-                        [[RootViewController shareInstance] hideSetting:nil];
-                        [[RootViewController shareInstance].frontViewController.catalogueBlock setIsNeedLoad];
-                    }];
-                    
-                    [list reloadDataForChangedCity:alert.selectedCity.idCity.integerValue];
-                }
-                else
-                {
-                    [self.view.window removeLoading];
-                    
-                    [[RootViewController shareInstance].frontViewController.catalogueBlock setIsNeedLoad];
-                    [[RootViewController shareInstance] hideSetting:nil];
-                }
-            }
-            else if([[RootViewController shareInstance].frontViewController.currentVisibleViewController isKindOfClass:[ShopDetailViewController class]])
-            {
-                [self.view.window removeLoading];
-                
-                [[RootViewController shareInstance].frontViewController.catalogueList setIsNeedReload];
-                [[RootViewController shareInstance].frontViewController.catalogueBlock setIsNeedLoad];
-                [[RootViewController shareInstance] hideSetting:nil];
-            }
-        }
-    } onCancel:nil];
 }
 
 -(bool)isLockSlide

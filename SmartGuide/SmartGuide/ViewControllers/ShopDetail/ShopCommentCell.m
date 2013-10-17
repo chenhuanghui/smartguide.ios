@@ -12,7 +12,7 @@
 #import "Constant.h"
 
 #define COMMENT_FONT_SIZE 10
-#define COMMENT_WIDTH 275.f
+#define COMMENT_WIDTH 230.f
 #define COMMENT_Y 15
 
 @implementation ShopCommentCell

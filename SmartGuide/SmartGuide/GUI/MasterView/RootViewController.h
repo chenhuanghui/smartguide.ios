@@ -6,7 +6,6 @@
 //  Copyright (c) 2013 Redbase. All rights reserved.
 //
 
-#import "PKRevealController.h"
 #import "NavigationBarView.h"
 #import "FilterViewController.h"
 #import "DirectionObjectViewController.h"

@@ -1,8 +1,0 @@
-[
-                    {
-                        "type": 1,
-                        "url": "shop.smartguide.vn/1",
-                        "name": "Trung Nguyên" 
-                        "code": "dlweefqwfojowfjoqjfowjfowqfoojdfl" 
-                    }
-                ]
