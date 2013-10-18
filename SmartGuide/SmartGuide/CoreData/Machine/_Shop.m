@@ -338,6 +338,19 @@
 	[self didChangeValueForKey:@"numGetReward"];
 }
 
+- (NSNumber*)numOfComment {
+	[self willAccessValueForKey:@"numOfComment"];
+	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"numOfComment"];
+	[self didAccessValueForKey:@"numOfComment"];
+	return result;
+}
+
+- (void)setNumOfComment:(NSNumber*)value {
+	[self willChangeValueForKey:@"numOfComment"];
+	[self setPrimitiveValue:value forKey:@"numOfComment"];
+	[self didChangeValueForKey:@"numOfComment"];
+}
+
 - (NSNumber*)numOfDislike {
 	[self willAccessValueForKey:@"numOfDislike"];
 	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"numOfDislike"];
@@ -362,6 +375,19 @@
 	[self willChangeValueForKey:@"numOfLike"];
 	[self setPrimitiveValue:value forKey:@"numOfLike"];
 	[self didChangeValueForKey:@"numOfLike"];
+}
+
+- (NSNumber*)numOfView {
+	[self willAccessValueForKey:@"numOfView"];
+	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"numOfView"];
+	[self didAccessValueForKey:@"numOfView"];
+	return result;
+}
+
+- (void)setNumOfView:(NSNumber*)value {
+	[self willChangeValueForKey:@"numOfView"];
+	[self setPrimitiveValue:value forKey:@"numOfView"];
+	[self didChangeValueForKey:@"numOfView"];
 }
 
 - (NSNumber*)numOfVisit {

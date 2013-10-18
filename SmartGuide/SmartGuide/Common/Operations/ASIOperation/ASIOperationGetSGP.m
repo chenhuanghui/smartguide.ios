@@ -33,14 +33,14 @@
 {
     NSDictionary *dict=[json objectAtIndex:0];
     status=[dict integerForKey:@"status"];
-    content=[dict objectForKey:@"content"];
+    content=[NSString stringWithStringDefault:[dict objectForKey:@"content"]];
     
     if(status==3)
     {
-        shopName=[dict objectForKey:@"shop_name"];
+        shopName=[NSString stringWithStringDefault:[dict objectForKey:@"shop_name"]];
         SGP=[dict integerForKey:@"sgp"];
-        time=[dict objectForKey:@"time"];
-        totalSGP=[[dict objectForKey:@"total_sgp"] doubleValue];
+        time=[NSString stringWithStringDefault:[dict objectForKey:@"time"]];
+        totalSGP=[dict doubleForKey:@"total_sgp"];
         code=[self.values objectAtIndex:1];
         
         idShop=[[NSNumber numberWithObject:[dict objectForKey:@"shop_id"]] integerValue];

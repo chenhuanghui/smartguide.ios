@@ -758,22 +758,22 @@ bool isVailCLLocationCoordinate2D(CLLocationCoordinate2D location)
 
 -(int)integerForKey:(NSString *)key
 {
-    return [[self objectForKey:key] integerValue];
+    return [[NSNumber numberWithObject:[self objectForKey:key]] integerValue];
 }
 
 -(double)doubleForKey:(NSString *)key
 {
-    return [[self objectForKey:key] doubleValue];
+    return [[NSNumber numberWithObject:[self objectForKey:key]] doubleValue];
 }
 
 -(float)floatForKey:(NSString *)key
 {
-    return [[self objectForKey:key] floatValue];
+    return [[NSNumber numberWithObject:[self objectForKey:key]] floatValue];
 }
 
 -(bool)boolForKey:(NSString *)key
 {
-    return [[self objectForKey:key] boolValue];
+    return [[NSNumber numberWithObject:[self objectForKey:key]] boolValue];
 }
 
 @end

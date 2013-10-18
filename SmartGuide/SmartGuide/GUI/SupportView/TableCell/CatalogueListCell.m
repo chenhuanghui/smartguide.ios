@@ -130,6 +130,9 @@
     [lblScore addStyle:style];
     
     [lblScore setText:text];
+    
+    lblNumOfComment.text=[NSNumberFormatter numberFromNSNumber:shop.numOfComment];
+    lblNumOfView.text=[NSNumberFormatter numberFromNSNumber:shop.numOfView];
 }
 
 +(float)height

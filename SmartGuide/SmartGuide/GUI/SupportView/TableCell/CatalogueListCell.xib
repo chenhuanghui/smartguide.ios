@@ -37,8 +37,12 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </view>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="57">
+                        <rect key="frame" x="136" y="13" width="20" height="20"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    </imageView>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="SHOP NAME" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="35">
-                        <rect key="frame" x="157" y="9" width="143" height="51"/>
+                        <rect key="frame" x="157" y="-3" width="143" height="51"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
@@ -46,8 +50,8 @@
                         <color key="shadowColor" red="0.094117647060000004" green="0.1215686275" blue="0.1647058824" alpha="1" colorSpace="calibratedRGB"/>
                         <size key="shadowOffset" width="0.0" height="1"/>
                     </label>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="content" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="36">
-                        <rect key="frame" x="155" y="30" width="145" height="37"/>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="content content content content content content content content content content content content content content " lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="36">
+                        <rect key="frame" x="158" y="22" width="145" height="37"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <fontDescription key="fontDescription" type="system" pointSize="9"/>
                         <color key="textColor" red="0.094117647060000004" green="0.1215686275" blue="0.1647058824" alpha="1" colorSpace="calibratedRGB"/>
@@ -57,10 +61,28 @@
                         <rect key="frame" x="27" y="53" width="32" height="11"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     </imageView>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="57">
-                        <rect key="frame" x="136" y="25" width="20" height="20"/>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="num_of_view.png" id="fom-Gn-zWs">
+                        <rect key="frame" x="157" y="54" width="16" height="10"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     </imageView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="num_of_comment.png" id="YhP-7V-zqP">
+                        <rect key="frame" x="210" y="54" width="11" height="11"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    </imageView>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="C5S-Jl-TIQ">
+                        <rect key="frame" x="174" y="48" width="41" height="21"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                        <color key="textColor" red="0.19607843137254902" green="0.19607843137254902" blue="0.19607843137254902" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="n3f-rf-fyu">
+                        <rect key="frame" x="223" y="48" width="42" height="21"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                        <color key="textColor" red="0.19607843137254902" green="0.19607843137254902" blue="0.19607843137254902" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -71,6 +93,8 @@
                 <outlet property="imgvLogo" destination="34" id="41"/>
                 <outlet property="lblContent" destination="36" id="43"/>
                 <outlet property="lblKM" destination="31" id="38"/>
+                <outlet property="lblNumOfComment" destination="n3f-rf-fyu" id="WxM-qm-zq5"/>
+                <outlet property="lblNumOfView" destination="C5S-Jl-TIQ" id="hdX-nf-Qa4"/>
                 <outlet property="lblScore" destination="32" id="39"/>
                 <outlet property="lblShopName" destination="35" id="42"/>
             </connections>
@@ -79,6 +103,8 @@
     <resources>
         <image name="list_bar.png" width="284" height="65"/>
         <image name="list_barchosen.png" width="284" height="65"/>
+        <image name="num_of_comment.png" width="11" height="11"/>
+        <image name="num_of_view.png" width="16" height="10"/>
         <image name="sgp.png" width="21" height="7"/>
         <image name="vnd_icon.png" width="32" height="11"/>
     </resources>

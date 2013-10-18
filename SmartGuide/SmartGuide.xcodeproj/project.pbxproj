@@ -112,6 +112,10 @@
 		9AE51844180F906800DF60DF /* UIImageView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AE51836180F906800DF60DF /* UIImageView+WebCache.m */; };
 		9AEE83FC17FABD1500D92191 /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AEE83FB17FABD1500D92191 /* AddressBookUI.framework */; };
 		9AF01E7F180652B000D9F037 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AF01E7E180652B000D9F037 /* FacebookSDK.framework */; };
+		9AF78B001810E84A0055730F /* num_of_view@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AF78AFC1810E84A0055730F /* num_of_view@2x.png */; };
+		9AF78B011810E84A0055730F /* num_of_comment@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AF78AFD1810E84A0055730F /* num_of_comment@2x.png */; };
+		9AF78B021810E84A0055730F /* num_of_view.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AF78AFE1810E84A0055730F /* num_of_view.png */; };
+		9AF78B031810E84A0055730F /* num_of_comment.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AF78AFF1810E84A0055730F /* num_of_comment.png */; };
 		9AFC69D117F2C0F500177476 /* OperationNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AFC69D017F2C0F500177476 /* OperationNotifications.m */; };
 		A90ED8C917C1C701003D2D93 /* ButtonImageRight.m in Sources */ = {isa = PBXBuildFile; fileRef = A90ED8C817C1C701003D2D93 /* ButtonImageRight.m */; };
 		A90ED8CC17C1C711003D2D93 /* ButtonImageLeft.m in Sources */ = {isa = PBXBuildFile; fileRef = A90ED8CB17C1C711003D2D93 /* ButtonImageLeft.m */; };
@@ -773,6 +777,10 @@
 		9AE51836180F906800DF60DF /* UIImageView+WebCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+WebCache.m"; sourceTree = "<group>"; };
 		9AEE83FB17FABD1500D92191 /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
 		9AF01E7E180652B000D9F037 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = ../../Documents/FacebookSDK/FacebookSDK.framework; sourceTree = "<group>"; };
+		9AF78AFC1810E84A0055730F /* num_of_view@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "num_of_view@2x.png"; sourceTree = "<group>"; };
+		9AF78AFD1810E84A0055730F /* num_of_comment@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "num_of_comment@2x.png"; sourceTree = "<group>"; };
+		9AF78AFE1810E84A0055730F /* num_of_view.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = num_of_view.png; sourceTree = "<group>"; };
+		9AF78AFF1810E84A0055730F /* num_of_comment.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = num_of_comment.png; sourceTree = "<group>"; };
 		9AFC69CF17F2C0F500177476 /* OperationNotifications.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OperationNotifications.h; path = ../ASIOperation/OperationNotifications.h; sourceTree = "<group>"; };
 		9AFC69D017F2C0F500177476 /* OperationNotifications.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OperationNotifications.m; path = ../ASIOperation/OperationNotifications.m; sourceTree = "<group>"; };
 		A90ED8C717C1C701003D2D93 /* ButtonImageRight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ButtonImageRight.h; sourceTree = "<group>"; };
@@ -2388,6 +2396,10 @@
 		A98198BE178D44FB0009FCB6 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				9AF78AFC1810E84A0055730F /* num_of_view@2x.png */,
+				9AF78AFD1810E84A0055730F /* num_of_comment@2x.png */,
+				9AF78AFE1810E84A0055730F /* num_of_view.png */,
+				9AF78AFF1810E84A0055730F /* num_of_comment.png */,
 				9A392B1A180CF356005E97CB /* logodemo_58.png */,
 				9A392B1B180CF356005E97CB /* logodemo_114.png */,
 				9A392B1C180CF356005E97CB /* logodemo_120.png */,
@@ -3230,6 +3242,7 @@
 				A9FD827817B5782300963F19 /* blur_bottom@2x.png in Resources */,
 				A9FD828017B5837C00963F19 /* SearchViewController.xib in Resources */,
 				A9271BBF17B5CB6000987290 /* icon_dislike_hover.png in Resources */,
+				9AF78B011810E84A0055730F /* num_of_comment@2x.png in Resources */,
 				9A243C8B17FDBA3A00BE96F5 /* user_blurmid.png in Resources */,
 				A9271BC017B5CB6000987290 /* icon_like_hover.png in Resources */,
 				A9271BC117B5CB6000987290 /* icon_dislike_hover@2x.png in Resources */,
@@ -3238,6 +3251,7 @@
 				A975495B17B7BAA400085F3F /* icon_pin.png in Resources */,
 				A925DB8917B8EDB800D1C09E /* edit-shopdetail1.jpg in Resources */,
 				A925DB8C17B8F55800D1C09E /* icon_info@2x.png in Resources */,
+				9AF78B021810E84A0055730F /* num_of_view.png in Resources */,
 				9A03F40717FC474000D2DF25 /* search@2x.png in Resources */,
 				A925DB8D17B8F55800D1C09E /* icon_info.png in Resources */,
 				A925DB9017B8F6BA00D1C09E /* switch@2x.png in Resources */,
@@ -3330,6 +3344,7 @@
 				A91721E517C619B6003A5844 /* ava_loading@2x.png in Resources */,
 				9A392B1F180CF356005E97CB /* logodemo_120.png in Resources */,
 				A917221117C61A39003A5844 /* ava_default.png in Resources */,
+				9AF78B031810E84A0055730F /* num_of_comment.png in Resources */,
 				A917221217C61A39003A5844 /* ava_default@2x.png in Resources */,
 				A917221517C61AE7003A5844 /* cover_loading.png in Resources */,
 				A917221617C61AE7003A5844 /* cover_loading@2x.png in Resources */,
@@ -3368,6 +3383,7 @@
 				A92376E317CD9EB100336FE2 /* IntroView.xib in Resources */,
 				A91E800217CF388000481666 /* CatalogueBlockViewController_ip5.xib in Resources */,
 				A91E800917CF6BE400481666 /* setting_icon @2x.png in Resources */,
+				9AF78B001810E84A0055730F /* num_of_view@2x.png in Resources */,
 				9AA523B217FEB4580002288D /* logo_29.png in Resources */,
 				A91E800A17CF6BE400481666 /* setting_icon.png in Resources */,
 				A91E800C17CFAA0D00481666 /* CatalogueListViewController_ip5.xib in Resources */,

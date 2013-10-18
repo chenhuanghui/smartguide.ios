@@ -122,8 +122,11 @@
     shop.dislike=[NSNumber numberWithObject:[dict objectForKey:@"dislike"]];
     shop.numOfVisit=[NSNumber numberWithObject:[dict objectForKey:@"num_of_visit"]];
     shop.numOfLike=[NSNumber numberWithObject:[dict objectForKey:@"num_of_like"]];
+    shop.numOfComment=[NSNumber numberWithObject:[dict objectForKey:@"num_of_comment"]];
+    shop.numOfView=[NSNumber numberWithObject:[dict objectForKey:@"num_of_view"]];
     shop.numGetPromotion=[NSNumber numberWithObject:[dict objectForKey:@"num_get_promotion"]];
     shop.numGetReward=[NSNumber numberWithObject:[dict objectForKey:@"num_get_reward"]];
+    
     shop.idGroup=[NSNumber numberWithObject:[dict objectForKey:@"group_shop"]];
     shop.contact=[NSString stringWithStringDefault:[dict objectForKey:@"tel"]];
     shop.website=[NSString stringWithStringDefault:[dict objectForKey:@"website"]];

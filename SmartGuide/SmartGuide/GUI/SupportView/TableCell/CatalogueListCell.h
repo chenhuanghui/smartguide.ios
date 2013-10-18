@@ -21,6 +21,8 @@
     __weak IBOutlet UIImageView *bg;
     __weak IBOutlet UIImageView *groupType;
     __weak IBOutlet UIImageView *imgVND;
+    __weak IBOutlet UILabel *lblNumOfView;
+    __weak IBOutlet UILabel *lblNumOfComment;
 }
 
 +(NSString *)reuseIdentifier;

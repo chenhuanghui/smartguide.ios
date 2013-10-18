@@ -23,8 +23,10 @@
 #define Shop_Name @"name"
 #define Shop_NumGetPromotion @"numGetPromotion"
 #define Shop_NumGetReward @"numGetReward"
+#define Shop_NumOfComment @"numOfComment"
 #define Shop_NumOfDislike @"numOfDislike"
 #define Shop_NumOfLike @"numOfLike"
+#define Shop_NumOfView @"numOfView"
 #define Shop_NumOfVisit @"numOfVisit"
 #define Shop_PromotionStatus @"promotionStatus"
 #define Shop_Shop_lat @"shop_lat"
@@ -68,8 +70,10 @@
 @property (nonatomic, retain) NSString* name;
 @property (nonatomic, retain) NSNumber* numGetPromotion;
 @property (nonatomic, retain) NSNumber* numGetReward;
+@property (nonatomic, retain) NSNumber* numOfComment;
 @property (nonatomic, retain) NSNumber* numOfDislike;
 @property (nonatomic, retain) NSNumber* numOfLike;
+@property (nonatomic, retain) NSNumber* numOfView;
 @property (nonatomic, retain) NSNumber* numOfVisit;
 @property (nonatomic, retain) NSNumber* promotionStatus;
 @property (nonatomic, retain) NSNumber* shop_lat;
