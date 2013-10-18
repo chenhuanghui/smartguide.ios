@@ -16,6 +16,7 @@
 #import "Flags.h"
 #import "AlphaView.h"
 #import "BannerAdsViewController.h"
+#import "FacebookManager.h"
 
 @interface SettingViewController ()
 
@@ -85,6 +86,8 @@
     [tableSetting registerNib:[UINib nibWithNibName:[SettingCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[SettingCell reuseIdentifier]];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appBecomeActived:) name:UIApplicationDidBecomeActiveNotification object:nil];
+    
+    [self loadSetting];
 }
 
 -(void) appBecomeActived:(NSNotification*) notification
@@ -98,6 +101,8 @@
 
 -(void)loadSetting
 {
+    btnFacebook.hidden=[DataManager shareInstance].currentUser.isConnectedFacebook.boolValue;
+    
     lblCity.text=[DataManager shareInstance].currentCity.name;
     lblName.text=[DataManager shareInstance].currentUser.name;
     
@@ -106,18 +111,6 @@
     switchLocation.delegate=nil;
     switchLocation.ON=[LocationManager shareInstance].isAllowLocation;
     switchLocation.delegate=self;
-    
-    //    lblSP.text=@"";
-    //    if(getTotalSP)
-    //    {
-    //        [getTotalSP cancel];
-    //        getTotalSP=nil;
-    //    }
-    //
-    //    getTotalSP=[[ASIOperationGetTotalSP alloc] initWithIDUser:[DataManager shareInstance].currentUser.idUser.integerValue];
-    //    getTotalSP.delegatePost=self;
-    //
-    //    [getTotalSP startAsynchronous];
 }
 
 -(void)switchChanged:(SwitchSetting *)sw
@@ -503,6 +496,45 @@
         [self hideEdit:true];
 }
 
+-(void)facebookLoginedSuccess:(NSNotification*) notification
+{
+    OperationFBGetProfile *getProfile=[[OperationFBGetProfile alloc] initWithAccessToken:[FBSession activeSession].accessTokenData.accessToken];
+    
+    getProfile.delegate=self;
+    [getProfile start];
+    
+    _lockSlide=true;
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:NOTIFICATION_FACEBOOK_LOGIN_SUCCESS object:nil];
+    [self.view.window showLoadingWithTitle:nil];
+}
+
+- (IBAction)btnFacebookTouchUpInside:(id)sender
+{
+    [[FacebookManager shareInstance] login];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(facebookLoginedSuccess:) name:NOTIFICATION_FACEBOOK_LOGIN_SUCCESS object:nil];
+}
+
+-(void)operationURLFinished:(OperationURL *)operation
+{
+    if([operation isKindOfClass:[OperationFBGetProfile class]])
+    {
+        OperationFBGetProfile *getProfile=(OperationFBGetProfile*) operation;
+        
+        ASIOperationFBProfile *postProfile=[[ASIOperationFBProfile alloc] initWithFBProfile:getProfile.profile];
+        
+        postProfile.delegatePost=self;
+        [postProfile startAsynchronous];
+    }
+}
+
+-(void)operationURLFailed:(OperationURL *)operation
+{
+    _lockSlide=false;
+    [AlertView showAlertOKWithTitle:nil withMessage:@"Lỗi" onOK:nil];
+}
+
 -(void)avatarListSelectedItem:(AvatarListView *)avatarListView item:(NSString *)url image:(UIImage *)image
 {
     _selectedAvatarLink=[[NSString alloc] initWithString:url];
@@ -523,6 +555,27 @@
         if(ope.isSuccess)
         {
             lblName.text=txtEditName.text;
+            
+            [self resetEditProfile];
+            [self hideEdit:true];
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_USER_UPDATED_INFO object:nil];
+        }
+        else
+            [AlertView showAlertOKWithTitle:nil withMessage:localizeUpdateProfileFailed() onOK:nil];
+    }
+    else if([operation isKindOfClass:[ASIOperationFBProfile class]])
+    {
+        [self.view.window removeLoading];
+        _lockSlide=false;
+        
+        ASIOperationFBProfile *ope=(ASIOperationFBProfile*)operation;
+        if(ope.isSuccessed)
+        {
+            btnFacebook.hidden=true;
+            
+            lblName.text=[DataManager shareInstance].currentUser.name;
+            [avatar setSmartGuideImageWithURL:[NSURL URLWithString:[DataManager shareInstance].currentUser.avatar] placeHolderImage:UIIMAGE_LOADING_AVATAR success:nil failure:nil];
             
             [self resetEditProfile];
             [self hideEdit:true];

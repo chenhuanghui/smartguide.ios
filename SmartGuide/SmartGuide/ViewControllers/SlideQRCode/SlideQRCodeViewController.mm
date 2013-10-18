@@ -45,8 +45,23 @@
 //    
 //}
 
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    UITextField *qr = [alertView textFieldAtIndex:0];
+    
+    [self processResult:qr.text];
+}
+
 -(void) addCamera
 {
+#if TARGET_IPHONE_SIMULATOR
+    UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"QR Code" message:nil delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    alert.alertViewStyle=UIAlertViewStylePlainTextInput;
+    
+    [alert show];
+    return;
+#endif
+    
     if(qrCodeView)
         return;
     
@@ -167,32 +182,6 @@
     [lblReward addStyle:style];
     
     [self loopAnimation];
-    
-    [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidBecomeActiveNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
-        
-        if(![RootViewController shareInstance].isShowedQRSlide)
-            return;
-        
-        if(alertLocation)
-        {
-            [alertLocation dismissWithClickedButtonIndex:-1 animated:false];
-            alertLocation=nil;
-            
-            [self showCamera];
-        }
-        else
-        {
-            if([RootViewController shareInstance].isShowedQRSlide)
-            {
-                if(![self isAllowLocation])
-                {
-                    [self removeCamera];
-                    
-                    [self showCamera];
-                }
-            }
-        }
-    }];
 }
 
 -(void) loopAnimation
@@ -260,57 +249,11 @@
 {
     [self showCameraQRCode];
     [[LocationManager shareInstance] getLocation:nil];
-    return;
-    [[LocationManager shareInstance] getLocation:^(CLLocationCoordinate2D location) {
-        if(isVailCLLocationCoordinate2D(location))
-        {
-            [self showCameraQRCode];
-        }
-        else
-        {
-            _isAlertGetLocation=true;
-            alertLocation=[[UIAlertView alloc] initWithTitle:@"Thông báo" message:@"Lấy thông tin vị trí thất bại. Bạn có muốn thử lại?" delegate:self cancelButtonTitle:@"Đồng ý" otherButtonTitles:@"Đóng", nil];
-            [alertLocation show];
-        }
-    }];
 }
 
 -(void)showCamera
 {
     [self getLocation];
-    return;
-    
-    _isAlertGetLocation=false;
-    if([self isAllowLocation])
-    {
-        [self getLocation];
-    }
-    else
-    {
-        alertLocation=nil;
-        
-        alertLocation=[[UIAlertView alloc] initWithTitle:@"Thông báo" message:@"Hãy cho phép ứng dụng kết nối với Location Services ở mục Setting/Privacy để có thể tích điểm với SmartGuide" delegate:self cancelButtonTitle:@"Đóng" otherButtonTitles:nil];
-        
-        [alertLocation show];
-    }
-}
-
--(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if(!_isAlertGetLocation && buttonIndex==0)
-    {
-        [self hideMe];
-        return;
-    }
-    
-    if(buttonIndex==1)
-    {
-        [self hideMe];
-    }
-    else
-    {
-        [self showCamera];
-    }
 }
 
 -(void) resizeQRView:(UIView*) vvv
@@ -646,11 +589,6 @@
     btnSlide.enabled=false;
     [[RootViewController shareInstance] hideQRSlide:true onCompleted:^(BOOL finished) {
         btnSlide.enabled=true;
-        if(alertLocation)
-        {
-            [alertLocation dismissWithClickedButtonIndex:-1 animated:false];
-            alertLocation=nil;
-        }
     }];
 }
 
@@ -665,12 +603,6 @@
     {
         [[RootViewController shareInstance] hideQRSlide:true onCompleted:^(BOOL finished) {
             btnSlide.enabled=true;
-            
-            if(alertLocation)
-            {
-                [alertLocation dismissWithClickedButtonIndex:-1 animated:false];
-                alertLocation=nil;
-            }
         }];
     }
     else
@@ -688,12 +620,6 @@
         {
             [[RootViewController shareInstance] hideQRSlide:true onCompleted:^(BOOL finished) {
                 btnSlide.enabled=true;
-                
-                if(alertLocation)
-                {
-                    [alertLocation dismissWithClickedButtonIndex:-1 animated:false];
-                    alertLocation=nil;
-                }
             }];
             
             return;
@@ -716,11 +642,6 @@
 -(bool)isUserScanded
 {
     return _isUserScanded;
-}
-
--(void)touchesBegan1:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    [self qrCodeCaptureImage:nil text:@"{\"type\":2,\"url\":\"shop.smartguide.vn/4\",\"name\": \"Trung Nguyên 12\",\"code\":\"1\"}"];
 }
 
 -(void) showShopDetail
@@ -763,12 +684,6 @@
             btnSlide.enabled=true;
             
             btnClose.userInteractionEnabled=true;
-            
-            if(alertLocation)
-            {
-                [alertLocation dismissWithClickedButtonIndex:-1 animated:false];
-                alertLocation=nil;
-            }
         }];
     }
     else if([RootViewController shareInstance].isShowedMap)
@@ -783,12 +698,6 @@
                 btnSlide.enabled=true;
                 
                 btnClose.userInteractionEnabled=true;
-                
-                if(alertLocation)
-                {
-                    [alertLocation dismissWithClickedButtonIndex:-1 animated:false];
-                    alertLocation=nil;
-                }
             }];
         });
     }
@@ -804,12 +713,6 @@
                 btnSlide.enabled=true;
                 
                 btnClose.userInteractionEnabled=true;
-                
-                if(alertLocation)
-                {
-                    [alertLocation dismissWithClickedButtonIndex:-1 animated:false];
-                    alertLocation=nil;
-                }
             }];
         });
     }
@@ -826,12 +729,6 @@
                 btnSlide.enabled=true;
                 
                 btnClose.userInteractionEnabled=true;
-                
-                if(alertLocation)
-                {
-                    [alertLocation dismissWithClickedButtonIndex:-1 animated:false];
-                    alertLocation=nil;
-                }
             }];
         });
     }
@@ -844,12 +741,6 @@
             btnSlide.enabled=true;
             
             btnClose.userInteractionEnabled=true;
-            
-            if(alertLocation)
-            {
-                [alertLocation dismissWithClickedButtonIndex:-1 animated:false];
-                alertLocation=nil;
-            }
         }];
     }
 }
@@ -857,12 +748,6 @@
 - (IBAction)btnCloseStartupTouchUpInside:(id)sender {
     [[RootViewController shareInstance] hideQRSlide:true onCompleted:^(BOOL finished) {
         btnSlide.enabled=true;
-        
-        if(alertLocation)
-        {
-            [alertLocation dismissWithClickedButtonIndex:-1 animated:false];
-            alertLocation=nil;
-        }
     }];
 }
 

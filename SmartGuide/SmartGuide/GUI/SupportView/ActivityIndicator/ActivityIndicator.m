@@ -32,7 +32,7 @@
     lbl.textAlignment=NSTextAlignmentCenter;
     
     UIView *blackView=[[UIView alloc] init];
-    blackView.backgroundColor=COLOR_BACKGROUND_APP;
+    blackView.backgroundColor=[UIColor colorWithRed:0 green:0 blue:0 alpha:0.7];
     
     [blackView.layer setMasksToBounds:YES];
     [blackView.layer setCornerRadius:8.0];
@@ -333,6 +333,35 @@
     
     CGRect rect=self.frame;
     rect.origin=CGPointZero;
+    
+    [indicator setFrame:rect];
+    indicator.layer.cornerRadius=self.layer.cornerRadius;
+    
+    [self addSubview:indicator];
+    
+    return indicator;
+}
+
+-(ActivityIndicator *)showLoadingWithTitle:(NSString *)title rect:(CGRect)rect
+{
+    NSString *msg=@"";
+    if(title.length>0)
+        msg=[@"  " stringByAppendingString:[NSString stringWithStringDefault:title]];
+    
+    [self removeLoading];
+    
+    ActivityIndicator *indicator=(ActivityIndicator*)[self viewWithTag:3333];
+    
+    if(!indicator)
+    {
+        indicator=[[ActivityIndicator alloc] initWithTitle:msg];
+        indicator.tag=3333;
+    }
+    else
+        [indicator setTitle:msg];
+    
+    rect.origin=CGPointZero;
+    
     [indicator setFrame:rect];
     indicator.layer.cornerRadius=self.layer.cornerRadius;
     
@@ -344,6 +373,15 @@
 -(ActivityIndicator *)showLoadingWithTitle:(NSString *)title countdown:(int)countdown delegate:(id<ActivityIndicatorDelegate>)delegate
 {
     ActivityIndicator *indicator=[self showLoadingWithTitle:title];
+    indicator.delegate=delegate;
+    indicator.countdown=countdown;
+    
+    return indicator;
+}
+
+-(ActivityIndicator *)showLoadingWithTitle:(NSString *)title countdown:(int)countdown delegate:(id<ActivityIndicatorDelegate>)delegate rect:(CGRect)rect
+{
+    ActivityIndicator *indicator=[self showLoadingWithTitle:title rect:rect];
     indicator.delegate=delegate;
     indicator.countdown=countdown;
     

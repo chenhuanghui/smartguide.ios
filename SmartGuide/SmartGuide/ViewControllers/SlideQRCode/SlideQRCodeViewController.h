@@ -49,9 +49,6 @@ enum SCAND_TYPE {
     bool _isLoadedShopDetailSuccess;
     bool _isUserClickClose;
     bool _isSuccessed;
-    
-    UIAlertView *alertLocation;
-    bool _isAlertGetLocation;
 }
 
 -(UIButton*) btnSlide;

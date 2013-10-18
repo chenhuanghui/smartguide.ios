@@ -71,11 +71,35 @@
     
     if([[LocationManager shareInstance] isAllowLocation])
     {
-        [[RootViewController shareInstance].rootContaintView showLoadingWithTitle:Nil countdown:5 delegate:self].tagID=@(1);
+        CGRect rect=[RootViewController shareInstance].rootContaintView.frame;
+        rect.origin=CGPointZero;
+        if([UIScreen mainScreen].bounds.size.height==480)
+        {
+            rect.size.height-=60;
+        }
+        else
+        {
+            rect.size.width-=3;
+            rect.size.height-=65;
+        }
+        
+        [[RootViewController shareInstance].rootContaintView showLoadingWithTitle:Nil countdown:5 delegate:self rect:rect].tagID=@(1);
     }
     else
     {
-        [[RootViewController shareInstance].rootContaintView showLoadingWithTitle:nil];
+        CGRect rect=[RootViewController shareInstance].rootContaintView.frame;
+        rect.origin=CGPointZero;
+        if([UIScreen mainScreen].bounds.size.height==480)
+        {
+            rect.size.height-=60;
+        }
+        else
+        {
+            rect.size.width-=3;
+            rect.size.height-=65;
+        }
+        
+        [[RootViewController shareInstance].rootContaintView showLoadingWithTitle:nil rect:rect];
         if(![[LocationManager shareInstance] isLocationServicesEnabled])
         {
             [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_LOCATION_PERMISSION_DENIED object:nil];
@@ -125,7 +149,19 @@
         [delegate catalogueBlockUpdated];
     }
     
-    [[RootViewController shareInstance].rootContaintView showLoadingWithTitle:nil];
+    CGRect rect=[RootViewController shareInstance].rootContaintView.frame;
+    rect.origin=CGPointZero;
+    if([UIScreen mainScreen].bounds.size.height==480)
+    {
+        rect.size.height-=60;
+    }
+    else
+    {
+        rect.size.width-=3;
+        rect.size.height-=65;
+    }
+    
+    [[RootViewController shareInstance].rootContaintView showLoadingWithTitle:nil rect:rect];
 }
 
 -(void) updateBlocks
@@ -140,7 +176,19 @@
     _operationGroupInCity.delegatePost=self;
     [_operationGroupInCity startAsynchronous];
     
-    [[RootViewController shareInstance].rootContaintView showLoadingWithTitle:nil];
+    CGRect rect=[RootViewController shareInstance].rootContaintView.frame;
+    rect.origin=CGPointZero;
+    if([UIScreen mainScreen].bounds.size.height==480)
+    {
+        rect.size.height-=60;
+    }
+    else
+    {
+        rect.size.width-=3;
+        rect.size.height-=65;
+    }
+    
+    [[RootViewController shareInstance].rootContaintView showLoadingWithTitle:nil rect:rect];
 }
 
 -(UIButton*) iconButton:(UIView*) groupView
@@ -303,7 +351,19 @@
 {
     if([operation isKindOfClass:[ASIOperationGroupInCity class]])
     {
-        [[RootViewController shareInstance].rootContaintView showLoadingWithTitle:nil countdown:3 delegate:self];
+        CGRect rect=[RootViewController shareInstance].rootContaintView.frame;
+        rect.origin=CGPointZero;
+        if([UIScreen mainScreen].bounds.size.height==480)
+        {
+            rect.size.height-=60;
+        }
+        else
+        {
+            rect.size.width-=3;
+            rect.size.height-=65;
+        }
+        
+        [[RootViewController shareInstance].rootContaintView showLoadingWithTitle:nil countdown:3 delegate:self rect:rect];
         
         double delayInSeconds = 3.0;
         dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));

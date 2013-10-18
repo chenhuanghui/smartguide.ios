@@ -56,6 +56,8 @@
     
     User *user=[User userWithIDUser:[DataManager shareInstance].currentUser.idUser.integerValue];
     user.isConnectedFacebook=@(true);
+    user.name=[self.values objectAtIndex:4];
+    user.avatar=[self.values objectAtIndex:7];
     
     [[DataManager shareInstance] save];
     

@@ -40,11 +40,8 @@
     
     [self.navigationController setNavigationBarHidden:true];
     [[RootViewController shareInstance] setNeedRemoveLoadingScreen];
-}
-
--(NSArray *)registerNotification
-{
-    return @[NOTIFICATION_FACEBOOK_LOGIN_SUCCESS];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveNotification:) name:NOTIFICATION_FACEBOOK_LOGIN_SUCCESS object:nil];
 }
 
 -(void)receiveNotification:(NSNotification *)notification
@@ -117,6 +114,7 @@
     if([operation isKindOfClass:[ASIOperationFBProfile class]])
     {
         postProfile=nil;
+        [[NSNotificationCenter defaultCenter] removeObserver:self];
         [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_FACEBOOK_UPLOAD_PROFILE_FINISHED object:nil];
     }
     else if([operation isKindOfClass:[ASIOperationUploadFBToken class]])
@@ -127,6 +125,7 @@
     }
     else
     {
+        [[NSNotificationCenter defaultCenter] removeObserver:self];
         [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_FACEBOOK_UPLOAD_PROFILE_FINISHED object:nil];
     }
 }
@@ -145,6 +144,7 @@
     if([operation isKindOfClass:[ASIOperationFBProfile class]])
     {
         postProfile=nil;
+        [[NSNotificationCenter defaultCenter] removeObserver:self];
         [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_FACEBOOK_UPLOAD_PROFILE_FINISHED object:nil];
     }
     else if([operation isKindOfClass:[ASIOperationUploadFBToken class]])
@@ -165,6 +165,7 @@
     [self.view removeLoading];
     [AlertView showAlertOKWithTitle:nil withMessage:[NSString stringWithFormat:@"%@",operation.error] onOK:nil];
     
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_FACEBOOK_UPLOAD_PROFILE_FINISHED object:nil];
 }
 

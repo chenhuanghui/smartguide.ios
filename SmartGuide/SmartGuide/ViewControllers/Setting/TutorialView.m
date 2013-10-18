@@ -76,6 +76,12 @@
     return cell;
 }
 
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if(indexPath.row==_tutorials.count-1)
+        [self btnBackTouchUpInside:btnBack];
+}
+
 - (IBAction)btnBackTouchUpInside:(id)sender {
     
     if(pageControl.currentPage==_tutorials.count-1)

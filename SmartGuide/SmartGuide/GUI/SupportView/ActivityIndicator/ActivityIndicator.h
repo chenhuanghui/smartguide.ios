@@ -43,7 +43,9 @@
 -(ActivityIndicator*) activityIndicator;
 -(void) centerActivityIndicator:(CGRect) rect;
 -(ActivityIndicator*) showLoadingWithTitle:(NSString*) title;
+-(ActivityIndicator*) showLoadingWithTitle:(NSString*) title rect:(CGRect) rect;
 -(ActivityIndicator*) showLoadingWithTitle:(NSString *)title countdown:(int) countdown delegate:(id<ActivityIndicatorDelegate>) delegate;
+-(ActivityIndicator*) showLoadingWithTitle:(NSString *)title countdown:(int) countdown delegate:(id<ActivityIndicatorDelegate>) delegate rect:(CGRect) rect;
 -(void) removeLoading;
 
 @end

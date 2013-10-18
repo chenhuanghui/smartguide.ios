@@ -18,8 +18,10 @@
 #import "UpdateVersion.h"
 #import "AvatarListView.h"
 #import "ASIOperationUpdateUserInfo.h"
+#import "ASIOperationFBProfile.h"
+#import "OperationFBGetProfile.h"
 
-@interface SettingViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,SwitchSettingDelegate,FeedbackViewDelegate,TutorialViewDelegate,IntroViewDelegate,ASIOperationPostDelegate,UpdateVersionDelegate,AvatarListViewDelegate,UITextFieldDelegate>
+@interface SettingViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,SwitchSettingDelegate,FeedbackViewDelegate,TutorialViewDelegate,IntroViewDelegate,ASIOperationPostDelegate,UpdateVersionDelegate,AvatarListViewDelegate,UITextFieldDelegate,OperationURLDelegate>
 {
     NSMutableArray *_settings;
     __weak IBOutlet UIImageView *avatar;
@@ -39,6 +41,7 @@
     __weak IBOutlet UIButton *btnEditCancel;
     __weak IBOutlet UIButton *btnEditUpdate;
     __weak IBOutlet UIView *logoView;
+    __weak IBOutlet UIButton *btnFacebook;
     
     
     bool _lockSlide;
@@ -61,6 +64,8 @@
 - (IBAction)btnEditAvatarTouchUpInside:(id)sender;
 - (IBAction)btnEditCancelTouchUpInside:(id)sender;
 - (IBAction)btnEditUpdateTouchUpInside:(id)sender;
+- (IBAction)btnFacebookTouchUpInside:(id)sender;
+
 
 
 @end

@@ -11,6 +11,7 @@
                 <outlet property="btnEditAvatar" destination="FdP-L8-SzS" id="TZJ-ch-qza"/>
                 <outlet property="btnEditCancel" destination="tcD-SP-hZS" id="Qjy-Eb-0pM"/>
                 <outlet property="btnEditUpdate" destination="PbH-Lp-dvR" id="WC5-fy-G4L"/>
+                <outlet property="btnFacebook" destination="DkW-iS-Py2" id="rBV-Wq-6xm"/>
                 <outlet property="containAvatar" destination="38" id="51"/>
                 <outlet property="containView" destination="1" id="58"/>
                 <outlet property="editProfileView" destination="7MS-yU-00D" id="ilW-1k-Viu"/>
@@ -65,7 +66,7 @@
                                             </connections>
                                         </button>
                                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Thay đổi tên cá nhân" textAlignment="center" minimumFontSize="17" background="textfield.png" id="5aY-V0-GaL">
-                                            <rect key="frame" x="27" y="185" width="190" height="33"/>
+                                            <rect key="frame" x="27" y="144" width="190" height="33"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <textInputTraits key="textInputTraits"/>
@@ -74,7 +75,7 @@
                                             </connections>
                                         </textField>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="PbH-Lp-dvR">
-                                            <rect key="frame" x="88" y="275" width="70" height="38"/>
+                                            <rect key="frame" x="88" y="181" width="70" height="38"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <state key="normal" image="button_update.png">
                                                 <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -89,6 +90,19 @@
                                     <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                                 </view>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="DkW-iS-Py2">
+                                    <rect key="frame" x="171" y="84" width="60" height="30"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="11"/>
+                                    <size key="titleShadowOffset" width="1" height="1"/>
+                                    <state key="normal" title="Facebook" backgroundImage="button_done.png">
+                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="titleShadowColor" red="0.13333334029999999" green="0.40784317260000003" blue="0.56862747670000002" alpha="1" colorSpace="deviceRGB"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="btnFacebookTouchUpInside:" destination="-1" eventType="touchUpInside" id="FDy-Vv-HHS"/>
+                                    </connections>
+                                </button>
                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="NGƯỜI DÙNG" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="15">
                                     <rect key="frame" x="0.0" y="0.0" width="243" height="35"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -214,6 +228,7 @@
     </objects>
     <resources>
         <image name="ava_default.png" width="124" height="124"/>
+        <image name="button_done.png" width="70" height="38"/>
         <image name="button_menu_expand.png" width="20" height="20"/>
         <image name="button_update.png" width="70" height="38"/>
         <image name="icon_scan.png" width="16" height="10"/>

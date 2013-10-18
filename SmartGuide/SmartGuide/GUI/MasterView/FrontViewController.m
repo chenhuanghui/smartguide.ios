@@ -302,7 +302,19 @@
 
 -(void)catalogueBlockDidSelectedGroup:(Group *)group
 {
-    [[RootViewController shareInstance].rootContaintView showLoadingWithTitle:nil];
+    CGRect rect=[RootViewController shareInstance].rootContaintView.frame;
+    rect.origin=CGPointZero;
+    if([UIScreen mainScreen].bounds.size.height==480)
+    {
+        rect.size.height-=60;
+    }
+    else
+    {
+        rect.size.width-=3;
+        rect.size.height-=65;
+    }
+    
+    [[RootViewController shareInstance].rootContaintView showLoadingWithTitle:nil rect:rect];
     
     //catalogueListLoadShopFinished handle delegate
     [catalogueList switchToModeList];

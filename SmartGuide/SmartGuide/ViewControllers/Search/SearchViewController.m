@@ -34,7 +34,17 @@
     _searchText=[[NSString alloc] initWithString:text];
     [table setContentOffset:CGPointZero];
     
-    [self.view.window showLoadingWithTitle:nil];
+    rect=self.view.window.frame;
+    if([UIScreen mainScreen].bounds.size.height==480)
+    {
+        rect.size.height-=150;
+    }
+    else
+    {
+        rect.size.height-=150;
+    }
+    
+    [self.view.window showLoadingWithTitle:nil rect:rect];
     
     [self loadAtPage:0];
 }
