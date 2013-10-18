@@ -29,7 +29,6 @@
     self = [[[NSBundle mainBundle] loadNibNamed:NIB_PHONE(@"GalleryView") owner:nil options:nil] objectAtIndex:0];
     
     bg.backgroundColor=[UIColor blackColor];;
-    blurr.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"blur_gallery.png"]];
 
     self.delegate=_delegate;
     
@@ -112,12 +111,8 @@
     
     [UIView animateWithDuration:DURATION_SHOW_GALLERY_VIEW_INFO animations:^{
         btn.alpha=0;
-        blurr.alpha=0;
-        txt.alpha=0;
     } completion:^(BOOL finished) {
         btn.hidden=true;
-        blurr.hidden=true;
-        txt.hidden=true;
         
         completed();
     }];
@@ -130,13 +125,9 @@
     _isHideInfo=false;
     
     btn.hidden=false;
-    blurr.hidden=false;
-    txt.hidden=false;
     
     [UIView animateWithDuration:DURATION_SHOW_GALLERY_VIEW_INFO animations:^{
         btn.alpha=1;
-        blurr.alpha=1;
-        txt.alpha=1;
     } completion:^(BOOL finished) {
         completed();
     }];
@@ -249,9 +240,7 @@
     btn.userInteractionEnabled=false;
     
     [UIView animateWithDuration:DURATION_SHOW_USER_GALLERY_IMAGE animations:^{
-        txt.alpha=0.0f;
         btn.alpha=0.0f;
-        blurr.alpha=0.0f;
         bg.alpha=0;
         grid.alpha=0;
     } completion:^(BOOL finished) {
@@ -269,8 +258,6 @@
         {
             if(!_isAllowDescription)
             {
-                [blurr removeFromSuperview];
-                blurr=nil;
             }
         }
     }

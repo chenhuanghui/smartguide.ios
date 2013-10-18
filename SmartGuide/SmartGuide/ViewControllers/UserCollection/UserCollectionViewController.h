@@ -32,6 +32,7 @@
     __weak IBOutlet UIView *blurBottom;
     __weak IBOutlet UIView *userBlurMid;
     
+    
     int _totalPoint;
     
     ASIOperationGetSG *_getSG;

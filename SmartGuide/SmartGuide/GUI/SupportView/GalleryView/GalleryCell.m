@@ -26,6 +26,8 @@
 {
     self = [[[NSBundle mainBundle] loadNibNamed:NIB_PHONE(@"GalleryCell") owner:nil options:nil] objectAtIndex:0];
     
+    blurr.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"blur_gallery.png"]];
+    
     scroll.delegate=self;
     scroll.showsHorizontalScrollIndicator=false;
     scroll.showsVerticalScrollIndicator=false;
@@ -162,6 +164,18 @@
 {
     _isHiddenDesc=!visible;
     txt.hidden=_isHiddenDesc;
+}
+
+-(void)setBlurrVisible:(bool)isVisible animation:(bool)isAnimation duration:(float)duration
+{
+    if(isAnimation)
+    {
+        [UIView animateWithDuration:duration animations:^{
+            blurr.alpha=isVisible?1:0;
+        }];
+    }
+    else
+        blurr.alpha=isVisible?1:0;
 }
 
 @end

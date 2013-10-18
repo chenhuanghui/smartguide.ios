@@ -30,8 +30,6 @@
 {
     __weak IBOutlet GalleryGridView *grid;
     __weak IBOutlet UIButton *btn;
-    __weak IBOutlet UITextView *txt;
-    __weak IBOutlet UIView *blurr;
     __weak IBOutlet UIView *bg;
     bool _isAllowDescription;
     

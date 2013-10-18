@@ -22,6 +22,11 @@
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </scrollView>
+                <view contentMode="scaleToFill" id="wC3-YP-CEc">
+                    <rect key="frame" x="0.0" y="368" width="320" height="113"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                </view>
                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" id="5">
                     <rect key="frame" x="0.0" y="387" width="320" height="93"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -34,6 +39,7 @@
             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
             <connections>
+                <outlet property="blurr" destination="wC3-YP-CEc" id="HJC-fY-Mte"/>
                 <outlet property="imgv" destination="4" id="6"/>
                 <outlet property="scroll" destination="3" id="7"/>
                 <outlet property="txt" destination="5" id="8"/>

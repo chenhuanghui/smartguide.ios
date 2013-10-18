@@ -15,6 +15,8 @@
     __weak IBOutlet UIImageView *imgv;
     __weak IBOutlet UITextView *txt;
     __weak IBOutlet ScrollGallery *scroll;
+    __weak IBOutlet UIView *blurr;
+    
     
     bool _isZoomed;
     bool _isHiddenDesc;
@@ -26,6 +28,7 @@
 -(UIImageView*) imgv;
 -(void) setDescriptionVisibleWithDuration:(bool) visible duration:(float) duration;
 -(void) setDescriptVisible:(bool) visible;
+-(void) setBlurrVisible:(bool) isVisible animation:(bool) isAnimation duration:(float) duration;
 
 +(CGSize) size;
 +(NSString *)reuseIdentifier;
