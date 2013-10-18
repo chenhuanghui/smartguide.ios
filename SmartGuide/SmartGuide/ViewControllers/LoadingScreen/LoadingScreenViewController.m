@@ -36,13 +36,6 @@
         if(!IS_RETINA)
             imgvDefault.frame=CGRectMake(0, 0, 320, 460);
     }
-    
-    // Do any additional setup after loading the view from its nib.
-//    logo.frame=CGRECT_PHONE(CGRectMake(106, 142, 114, 100), CGRectMake(0, 0, 320, 548));
-    bg.frame=CGRECT_PHONE(CGRectMake(0, 0, 320, 460), CGRectMake(0, 0, 320, 548));
-//    smartguide.frame=CGRECT_PHONE(CGRectMake(115, 255, 95, 24),CGRectMake(0, 0, 0, 0));
-//    km.frame=CGRECT_PHONE(CGRectMake(53, 285, 221, 21), CGRectMake(0, 0, 0, 0));
-    
     isAnimationFinished=false;
     
     double delayInSeconds = 0.5f;
@@ -57,63 +50,9 @@
         else
             [self.view showLoadingWithTitle:nil];
     });
-    
-    return;
-    CGRect rect=logo.frame;
-    rect.origin.y=self.view.frame.size.height+rect.size.height;
-    logo.frame=rect;
-    
-    rect=smartguide.frame;
-    rect.origin.y=self.view.frame.size.height+rect.size.height;
-    smartguide.frame=rect;
-    
-    rect=km.frame;
-    rect.origin.y=self.view.frame.size.height+rect.size.height;
-    km.frame=rect;
-    
-    [UIView animateWithDuration:1 animations:^{
-        logo.frame=CGRectMake(106, 142, 114, 100);
-    } completion:nil];
-    
-    [UIView animateWithDuration:1 delay:0.5f options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        smartguide.frame=CGRectMake(115, 255, 95, 24);
-    } completion:nil];
-    
-    [UIView animateWithDuration:1 delay:1.5f options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        km.frame=CGRectMake(53, 285, 221, 21);
-    } completion:^(BOOL finished) {
-        isAnimationFinished=true;
-        
-        if(self.isNeedRemove)
-        {
-            [[RootViewController shareInstance] removeLoadingScreen];
-        }
-    }];
-    
-    return;
-    float height=self.view.frame.size.height;
-    
-    NSBKeyframeAnimation *animation=[NSBKeyframeAnimation animationWithKeyPath:@"position.y" duration:1 startValue:height endValue:(142) function:NSBKeyframeAnimationFunctionEaseInOutQuad];
-    
-    [logo.layer setValue:@(height-142-100) forKeyPath:@"position.y"];
-    [logo.layer addAnimation:animation forKey:@"position.y"];
-    
-    animation=[NSBKeyframeAnimation animationWithKeyPath:@"position.y" duration:1 startValue:0 endValue:-(height-255) function:NSBKeyframeAnimationFunctionEaseInOutQuad];
-    
-    [smartguide.layer setValue:@(height-255-24) forKeyPath:@"position.y"];
-    [smartguide.layer addAnimation:animation forKey:@"position.y"];
-    
-    animation=[NSBKeyframeAnimation animationWithKeyPath:@"position.y" duration:1 startValue:height endValue:height-285-21 function:NSBKeyframeAnimationFunctionEaseInOutQuad];
-    
-    [km.layer setValue:@(height-285-21) forKeyPath:@"position.y"];
-    [km.layer addAnimation:animation forKey:@"position.y"];
 }
 
 - (void)viewDidUnload {
-    logo = nil;
-    smartguide = nil;
-    km = nil;
-    bg = nil;
     [super viewDidUnload];
 }
 @end

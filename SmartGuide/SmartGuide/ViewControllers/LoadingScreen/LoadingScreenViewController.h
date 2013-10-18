@@ -10,10 +10,6 @@
 
 @interface LoadingScreenViewController : ViewController
 {
-    __weak IBOutlet UIImageView *logo;
-    __weak IBOutlet UIImageView *smartguide;
-    __weak IBOutlet UIImageView *km;
-    __weak IBOutlet UIImageView *bg;
     __weak IBOutlet UIImageView *imgvDefault;
 }
 

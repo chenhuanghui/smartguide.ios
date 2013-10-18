@@ -73,7 +73,7 @@
 
 -(NSArray*) source
 {
-    return @[@"intro_1.png",@"intro_2.png",@"intro_3.png",@"intro_4.png",@"intro_5.png",@"intro_6.png"];
+    return @[@"intro_1.jpg",@"intro_2.jpg",@"intro_3.jpg",@"intro_4.jpg",@"intro_5.jpg",@"intro_6.jpg"];
 }
 
 - (IBAction)btnTouchUpInside:(id)sender {
