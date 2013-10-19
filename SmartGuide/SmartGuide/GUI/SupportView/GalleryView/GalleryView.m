@@ -221,10 +221,14 @@
         
         [gcell setDescriptVisible:!_isHideInfo];
         
+        NSString *str=item.imageDescription;
+        
+        str=[NSString stringWithFormat:@"%@ %@ %@",str,str,str];
+        
         if(item.image)
-            [gcell setIMG:item.image desc:item.imageDescription];
+            [gcell setIMG:item.image desc:str];
         else
-            [gcell setImageURL:item.imageURL desc:item.imageDescription];
+            [gcell setImageURL:item.imageURL desc:str];
     }
     
     return cell;
