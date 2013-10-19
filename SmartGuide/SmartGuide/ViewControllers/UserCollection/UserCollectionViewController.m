@@ -34,6 +34,10 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     btnPoint.enabled=false;
+    lblP.hidden=false;
+    lblP.alpha=1;
+    
+//    lblP.hidden=true;
     
     self.title=[[DataManager shareInstance].currentUser.name uppercaseString];
     self.view.backgroundColor=COLOR_BACKGROUND_APP;
@@ -243,7 +247,7 @@
     lblPoint.text=@"";
     
     lblP.frame=CGRectMake(83, 57, 42, 21);
-    lblP.alpha=0;
+//    lblP.alpha=0;
     
     tableReward.frame=CGRECT_PHONE(CGRectMake(67, 152, 238, 212), CGRectMake(67, 152, 238, 262));
     table.frame=CGRECT_PHONE(CGRectMake(67, 152, 206, 212), CGRectMake(67, 152, 206, 262));
@@ -338,14 +342,16 @@
         [numF setMaximumFractionDigits:0];
         
         lblPoint.text=@"";
-        _totalPoint=ope.totalSP;
+        _totalPoint=[ope.totalSP copy];
         
-        [UIView animateWithDuration:1 animations:^{
-            lblP.alpha=1;
-            lblP.frame=CGRectMake(83+[[[NSNumberFormatter numberFormat] stringFromNumber:@(_totalPoint)] sizeWithFont:lblPoint.font].width/2-2, 57, 42, 21);
-        }];
-        
-        [lblPoint animationScoreWithDuration:1 startValue:0 endValue:_totalPoint format:[NSNumberFormatter numberFormat]];
+        lblPoint.text=[NSString stringWithFormat:@"%@",_totalPoint];
+        lblP.frame=CGRectMake(83+[[NSString stringWithFormat:@"%@",_totalPoint] sizeWithFont:lblPoint.font].width/2-6, 57, 42, 21);
+//        [UIView animateWithDuration:1 animations:^{
+//            lblP.alpha=1;
+//            lblP.frame=CGRectMake(83+[[NSString stringWithFormat:@"%@",_totalPoint] sizeWithFont:lblPoint.font].width/2-2, 57, 42, 21);
+//        }];
+//        
+//        [lblPoint animationScoreWithDuration:1 startValue:0 endValue:_totalPoint format:[NSNumberFormatter numberFormat]];
         
         [templateTable setAllowLoadMore:ope.userCollection.count==5];
         
@@ -384,11 +390,12 @@
     }
     else if([operation isKindOfClass:[ASIOperationGetSG class]])
     {
-        [lblPoint stopFlashLabel];
-        _totalPoint=((ASIOperationGetSG*)operation).sg;
-        lblPoint.text=[NSNumberFormatter numberFromNSNumber:@(_totalPoint)];
-        lblP.frame=CGRectMake(83+([[NSNumberFormatter numberFormat] stringFromNumber:@(_totalPoint)].length*[@"0" sizeWithFont:lblPoint.font].width), 57, 42, 21);
-        lblP.alpha=1;
+//        [lblPoint stopFlashLabel];
+//        _totalPoint=((ASIOperationGetSG*)operation).sg;
+        lblPoint.text=[NSString stringWithFormat:@"%@",_totalPoint];
+        //[NSNumberFormatter numberFromNSNumber:@(_totalPoint)];
+        lblP.frame=CGRectMake(83+[[NSString stringWithFormat:@"%@",_totalPoint] sizeWithFont:lblPoint.font].width/2-6, 57, 42, 21);
+//        lblP.alpha=1;
         
         [tableReward reloadData];
         
@@ -464,7 +471,7 @@
         cell.delegate=self;
         Reward *reward=[templateReward.datasource objectAtIndex:indexPath.row];
         
-        [cell setReward:reward totalPoint:_totalPoint];
+        [cell setReward:reward totalPoint:0];
         
         return cell;
     }

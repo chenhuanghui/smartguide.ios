@@ -38,7 +38,7 @@
     
     NSDictionary *dict=[json objectAtIndex:0];
     
-    totalSP=[dict integerForKey:@"score"];
+    totalSP=[NSNumber numberWithObject:dict[@"score"]];
     
     NSArray *collection=[dict objectForKey:@"collection"];
     

@@ -24,7 +24,8 @@
 
 -(void)onCompletedWithJSON:(NSArray *)json
 {
-    sg=[[[json objectAtIndex:0] objectForKey:@"score"] integerValue];
+    NSDictionary *dict=[json objectAtIndex:0];
+    sg=[NSNumber numberWithObject:dict[@"@score"]];
 }
 
 -(NSArray *)keys

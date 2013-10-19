@@ -152,6 +152,8 @@
         promotion.cost=[NSNumber numberWithObject:[dicInner objectForKey:@"cost"]];
         promotion.duration=[NSString stringWithStringDefault:[dicInner objectForKey:@"duration"]];
         promotion.money=[NSString stringWithStringDefault:[dicInner objectForKey:@"str_money"]];
+        if(promotion.money.length==0)
+            promotion.money=[NSString stringWithStringDefault:dicInner[@"money"]];
         promotion.idAwardType2=[NSNumber numberWithObject:[dicInner objectForKey:@"id"]];
         promotion.desc=[NSString stringWithStringDefault:[dicInner objectForKey:@"description"]];
         promotion.min_score=[NSNumber numberWithObject:[dicInner objectForKey:@"min_score"]];

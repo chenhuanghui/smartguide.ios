@@ -12,6 +12,6 @@
 
 -(ASIOperationGetSG*) initWithIDUser:(int) idUser;
 
-@property (nonatomic, readonly) int sg;
+@property (nonatomic, readonly) NSNumber *sg;
 
 @end

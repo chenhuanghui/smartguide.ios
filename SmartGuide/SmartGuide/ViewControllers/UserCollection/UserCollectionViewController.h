@@ -33,7 +33,7 @@
     __weak IBOutlet UIView *userBlurMid;
     
     
-    int _totalPoint;
+    NSNumber *_totalPoint;
     
     ASIOperationGetSG *_getSG;
     bool _isReloadUserCollection;
