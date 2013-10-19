@@ -10,12 +10,15 @@
 #import "Shop.h"
 #import "ShopDetailViewController.h"
 #import "PopupGiftPromotion2.h"
+#import "FTCoreTextView.h"
 
 @interface PromotionDetailType2View : UIView<PromotionDetailHandle,PopupGiftPromotionDelegate>
 {
     __weak IBOutlet UILabel *lblDuration;
     __weak IBOutlet UIButton *btnReward;
     __weak IBOutlet UIButton *btnListReward;
+    __weak IBOutlet FTCoreTextView *lblP;
+    
 
     __weak Shop *_shop;
     

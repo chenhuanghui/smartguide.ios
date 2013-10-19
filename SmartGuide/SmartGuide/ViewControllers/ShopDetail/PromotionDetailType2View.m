@@ -24,6 +24,22 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userScanedQRCode:) name:NOTIFICATION_USER_SCANED_QR_CODE object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userScanedQRCode:) name:NOTIFICATION_USER_CANCELED_SCAN_QR_CODE object:nil];
     
+    FTCoreTextStyle *style=[FTCoreTextStyle styleWithName:@"text"];
+    style.textAlignment=FTCoreTextAlignementCenter;
+    style.color=[UIColor blackColor];
+    style.font=[UIFont systemFontOfSize:11];
+    
+    [lblP addStyle:style];
+    
+    style=[FTCoreTextStyle styleWithName:@"p"];
+    style.textAlignment=FTCoreTextAlignementCenter;
+    style.color=[UIColor redColor];
+    style.font=[UIFont systemFontOfSize:11];
+    
+    [lblP addStyle:style];
+    
+    [lblP setText:@"<text>Mỗi lần quét thẻ bạn nhận được điểm <p>P</p> tương ứng</text>"];
+    
     return self;
 }
 

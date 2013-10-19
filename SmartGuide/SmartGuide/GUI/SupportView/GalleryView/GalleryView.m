@@ -219,16 +219,12 @@
     {
         GalleryItem *item=[delegate galleryViewItemAtIndex:self index:index];
         
-        [gcell setDescriptVisible:!_isHideInfo];
-        
-        NSString *str=item.imageDescription;
-        
-        str=[NSString stringWithFormat:@"%@ %@ %@",str,str,str];
+        [gcell setDescriptVisible:_isAllowDescription && !_isHideInfo];
         
         if(item.image)
-            [gcell setIMG:item.image desc:str];
+            [gcell setIMG:item.image desc:item.imageDescription];
         else
-            [gcell setImageURL:item.imageURL desc:str];
+            [gcell setImageURL:item.imageURL desc:item.imageDescription];
     }
     
     return cell;

@@ -58,19 +58,11 @@
                         <action selector="bntRewardTouchUpInside:" destination="1" eventType="touchUpInside" id="0xw-f8-TzY"/>
                     </connections>
                 </button>
-                <label autoresizesSubviews="NO" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mỗi lần quét thẻ bạn nhận được điểm    tương ứng" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="vJf-En-pDQ">
-                    <rect key="frame" x="0.0" y="203" width="287" height="21"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="P" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="nyx-05-gQI">
-                    <rect key="frame" x="189" y="203" width="42" height="21"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                    <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                    <nil key="highlightedColor"/>
-                </label>
+                <view contentMode="scaleToFill" id="zao-gf-les" customClass="FTCoreTextView">
+                    <rect key="frame" x="0.0" y="206" width="287" height="21"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
@@ -78,6 +70,7 @@
                 <outlet property="btnListReward" destination="ZQn-F7-jjF" id="GN9-dO-Gze"/>
                 <outlet property="btnReward" destination="p9R-Bd-BdQ" id="NBA-qI-zes"/>
                 <outlet property="lblDuration" destination="18" id="21"/>
+                <outlet property="lblP" destination="zao-gf-les" id="vOu-a1-lMw"/>
             </connections>
         </view>
     </objects>

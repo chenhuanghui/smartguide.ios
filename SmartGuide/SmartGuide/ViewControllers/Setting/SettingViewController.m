@@ -480,13 +480,12 @@
 }
 
 - (IBAction)btnEditUpdateTouchUpInside:(id)sender {
-    
-    txtEditName.text=[txtEditName.text stringByRemoveString:@" ",nil];
+    NSString *name=[txtEditName.text stringByRemoveString:@" ",nil];
     
     if(_selectedAvatarLink.length==0)
         _selectedAvatarLink=[DataManager shareInstance].currentUser.avatar;
     
-    if((txtEditName.text.length>0 && ![[txtEditName.text lowercaseString] isEqualToString:[lblName.text lowercaseString]])
+    if((name.length>0 && ![[txtEditName.text lowercaseString] isEqualToString:[lblName.text lowercaseString]])
        || ![_selectedAvatarLink isEqualToString:[DataManager shareInstance].currentUser.avatar])
     {
         _lockSlide=true;

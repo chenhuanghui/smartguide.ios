@@ -66,7 +66,7 @@
         <attribute name="idVoucher" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="money" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="numberVoucher" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="p" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="p" optional="YES" attributeType="Float" defaultValueString="0" syncable="YES"/>
         <relationship name="promotion" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="PromotionDetail" inverseName="vouchers" inverseEntity="PromotionDetail" syncable="YES"/>
     </entity>
     <entity name="Reward" representedClassName="Reward" syncable="YES">

@@ -53,7 +53,7 @@
     [imgvLogo setSmartGuideImageWithURL:[NSURL URLWithString:data.logo] placeHolderImage:UIIMAGE_LOADING_SHOP_LOGO success:nil failure:nil];
     
     lblShopName.text=[data.name uppercaseString];
-    lblContent.text=data.desc;
+    lblContent.text=data.address;
     
     if(data.distance.doubleValue==-1)
     {

@@ -50,7 +50,7 @@
 
 -(void) setP:(NSString*) p
 {
-    [lblP setText:[NSString stringWithFormat:@"<text>Tích luỹ <p>%@ P</p> trên 1 lượt quét thẻ</text>",p]];
+    [lblP setText:[NSString stringWithFormat:@"<text>Tích luỹ <p>%@P</p> trên 1 lượt quét thẻ</text>",p]];
 }
 
 +(CGSize)size

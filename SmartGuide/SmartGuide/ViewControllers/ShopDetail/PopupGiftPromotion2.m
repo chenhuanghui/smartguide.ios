@@ -63,7 +63,7 @@
     GiftPromotion2Cell *cell=[table dequeueReusableCellWithIdentifier:[GiftPromotion2Cell reuseIdentifier]];
     PromotionVoucher *voucher=[_vouchers objectAtIndex:indexPath.row];
     
-    [cell setReward:voucher.desc p:[NSNumberFormatter numberFromNSNumber:voucher.p] numberVoucher:voucher.numberVoucher];
+    [cell setReward:voucher.desc p:[NSString stringWithFormat:@"%@",voucher.p] numberVoucher:voucher.numberVoucher];
     
     if(indexPath.row==_vouchers.count-1)
         [cell setLineVisible:false];

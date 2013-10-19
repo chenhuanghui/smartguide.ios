@@ -25,6 +25,10 @@
 #import "LoadingScreenViewController.h"
 #import "AppDelegate.h"
 
+#if DEBUG
+#define SHOW_FACEBOOK_VIEW 0
+#endif
+
 static RootViewController *_rootViewController;
 @interface RootViewController ()
 
@@ -285,6 +289,10 @@ static RootViewController *_rootViewController;
 -(void) showView
 {
     [self showLoadingScreen];
+#if SHOW_FACEBOOK_VIEW
+    [self showFacebookViewWithPreviousViewController:Nil onCompleted:nil];
+    return;
+#endif
     
     [DataManager shareInstance].currentUser=[User userWithIDUser:[Flags lastIDUser]];
     
@@ -310,6 +318,11 @@ static RootViewController *_rootViewController;
     [self createLoading];
     
     [DataManager shareInstance].currentUser=[User userWithIDUser:[Flags lastIDUser]];
+    
+#if SHOW_FACEBOOK_VIEW
+    [self createFacebookView];
+    return;
+#endif
     
     if([DataManager shareInstance].currentUser==nil || ([TokenManager shareInstance].accessToken.length==0))
     {

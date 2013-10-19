@@ -149,14 +149,22 @@
     txt.hidden=false;
     
     if(visible)
+    {
         txt.alpha=0;
+        blurr.alpha=0;
+    }
     else
+    {
         txt.alpha=1;
+        blurr.alpha=1;
+    }
     
     [UIView animateWithDuration:duration animations:^{
         txt.alpha=visible?1:0;
+        blurr.alpha=visible?1:0;
     } completion:^(BOOL finished) {
         txt.hidden=!visible;
+        blurr.hidden=!visible;
     }];
 }
 
@@ -164,6 +172,7 @@
 {
     _isHiddenDesc=!visible;
     txt.hidden=_isHiddenDesc;
+    blurr.hidden=!visible;
 }
 
 -(void)setBlurrVisible:(bool)isVisible animation:(bool)isAnimation duration:(float)duration
