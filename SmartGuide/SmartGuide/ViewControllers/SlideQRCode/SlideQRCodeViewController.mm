@@ -71,6 +71,18 @@
     {
         [qrCodeView.readerView start];
         qrCodeView.view.hidden=false;
+        
+        CGRect rect=qrView.frame;
+        rect.origin=CGPointZero;
+        qrCodeView.view.frame=rect;
+        
+        UIImageView *imgv=[[UIImageView alloc] initWithFrame:rect];
+        imgv.image=[UIImage imageNamed:@"scan.png"];
+        imgv.contentMode=UIViewContentModeCenter;
+        imgv.tag=112;
+        
+        [qrView addSubview:imgv];
+        
         return;
     }
     
@@ -306,13 +318,10 @@
     [qrCodeView.readerView stop];
     [qrCodeView.readerView flushCache];
     qrCodeView.view.hidden=true;
-//    [qrCodeView removeQRCodeScan];
-//    qrCodeView.delegate=nil;
-//    [qrCodeView removeFromParentViewController];
-//    [qrCodeView.view removeFromSuperview];
-//    qrCodeView=nil;
-    
-    [[qrView viewWithTag:112] removeFromSuperview];
+
+    while ([qrView viewWithTag:112]) {
+        [[qrView viewWithTag:112] removeFromSuperview];
+    }
 }
 
 +(CGSize)size
