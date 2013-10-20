@@ -17,6 +17,8 @@
 
 @interface QRCodeViewController : ZBarReaderViewController<ZBarReaderDelegate>
 
+-(void) removeQRCodeScan;
+
 @property (nonatomic, assign) id<QRCodeDelegate> delegate;
 
 @end

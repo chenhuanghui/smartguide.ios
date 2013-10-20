@@ -50,6 +50,7 @@
         <attribute name="promotionType" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="sgp" optional="YES" attributeType="Integer 64" defaultValueString="0.0" syncable="YES"/>
         <attribute name="sp" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="str_cost" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="requires" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="PromotionRequire" inverseName="promotion" inverseEntity="PromotionRequire" syncable="YES"/>
         <relationship name="shop" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Shop" inverseName="promotionDetail" inverseEntity="Shop" syncable="YES"/>
         <relationship name="vouchers" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="PromotionVoucher" inverseName="promotion" inverseEntity="PromotionVoucher" syncable="YES"/>

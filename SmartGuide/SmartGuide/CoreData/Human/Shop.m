@@ -150,6 +150,7 @@
         promotion.sp=[NSNumber numberWithObject:[dicInner objectForKey:@"sp"]];
         promotion.p=[NSNumber numberWithObject:[dicInner objectForKey:@"P"]];
         promotion.cost=[NSNumber numberWithObject:[dicInner objectForKey:@"cost"]];
+        promotion.str_cost=[NSString stringWithStringDefault:[dicInner objectForKey:@"str_cost"]];
         promotion.duration=[NSString stringWithStringDefault:[dicInner objectForKey:@"duration"]];
         promotion.money=[NSString stringWithStringDefault:[dicInner objectForKey:@"str_money"]];
         if(promotion.money.length==0)

@@ -15,6 +15,7 @@
 #define PromotionDetail_PromotionType @"promotionType"
 #define PromotionDetail_Sgp @"sgp"
 #define PromotionDetail_Sp @"sp"
+#define PromotionDetail_Str_cost @"str_cost"
 
 @class PromotionDetail;
 @class PromotionRequire;
@@ -42,6 +43,7 @@
 @property (nonatomic, retain) NSNumber* promotionType;
 @property (nonatomic, retain) NSNumber* sgp;
 @property (nonatomic, retain) NSNumber* sp;
+@property (nonatomic, retain) NSString* str_cost;
 
 #pragma mark Fetched property
 

@@ -226,6 +226,19 @@
 	[self didChangeValueForKey:@"sp"];
 }
 
+- (NSString*)str_cost {
+	[self willAccessValueForKey:@"str_cost"];
+	NSString* result = (NSString*)[self primitiveValueForKey:@"str_cost"];
+	[self didAccessValueForKey:@"str_cost"];
+	return result;
+}
+
+- (void)setStr_cost:(NSString*)value {
+	[self willChangeValueForKey:@"str_cost"];
+	[self setPrimitiveValue:value forKey:@"str_cost"];
+	[self didChangeValueForKey:@"str_cost"];
+}
+
 #pragma mark Relationships
     
 #pragma mark Requires

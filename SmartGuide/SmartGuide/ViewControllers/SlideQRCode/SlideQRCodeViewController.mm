@@ -62,8 +62,17 @@
     return;
 #endif
     
+    if(self.mode==SCAN_GET_SGP)
+        [lblSlide setText:@"<a>TÍCH ĐIỂM</a><text> - CỬA HÀNG SẼ CUNG CẤP THẺ CHO BẠN</text>"];
+    else
+        [lblSlide setText:@"<a>NHẬN QUÀ</a><text> - CỬA HÀNG SẼ CUNG CẤP THẺ CHO BẠN</text>"];
+    
     if(qrCodeView)
+    {
+        [qrCodeView.readerView start];
+        qrCodeView.view.hidden=false;
         return;
+    }
     
     qrView.backgroundColor=[UIColor clearColor];
     
@@ -88,11 +97,6 @@
     qrCodeView.view.center=CGPointMake(qrView.frame.size.width/2, qrView.frame.size.height/2);
     
     [self resizeQRView:qrCodeView.view];
-    
-    if(self.mode==SCAN_GET_SGP)
-        [lblSlide setText:@"<a>TÍCH ĐIỂM</a><text> - CỬA HÀNG SẼ CUNG CẤP THẺ CHO BẠN</text>"];
-    else
-        [lblSlide setText:@"<a>NHẬN QUÀ</a><text> - CỬA HÀNG SẼ CUNG CẤP THẺ CHO BẠN</text>"];
 }
 
 -(id)init
@@ -299,10 +303,14 @@
 
 -(void) removeCamera
 {
-    qrCodeView.delegate=nil;
-    [qrCodeView removeFromParentViewController];
-    [qrCodeView.view removeFromSuperview];
-    qrCodeView=nil;
+    [qrCodeView.readerView stop];
+    [qrCodeView.readerView flushCache];
+    qrCodeView.view.hidden=true;
+//    [qrCodeView removeQRCodeScan];
+//    qrCodeView.delegate=nil;
+//    [qrCodeView removeFromParentViewController];
+//    [qrCodeView.view removeFromSuperview];
+//    qrCodeView=nil;
     
     [[qrView viewWithTag:112] removeFromSuperview];
 }

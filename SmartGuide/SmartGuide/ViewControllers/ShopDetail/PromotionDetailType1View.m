@@ -99,6 +99,11 @@
     [lblCost setText:[NSString stringWithFormat:@"<text>Với mỗi <cost>%@K</cost> trên hoá đơn bạn sẽ được 1 lượt quét thẻ</text>",cost]];
 }
 
+-(void) setStrCost:(NSString *) cost
+{
+    [lblCost setText:[NSString stringWithFormat:@"<text>Với mỗi <cost>%@</cost> trên hoá đơn bạn sẽ được 1 lượt quét thẻ</text>",cost]];
+}
+
 -(void)setShop:(Shop *)shop
 {
     if(!shop)
@@ -115,7 +120,11 @@
     
     [self setSP:_shop.promotionDetail.sp.integerValue];
     [self setP:_shop.promotionDetail.p.integerValue];
-    [self setCost:[NSNumberFormatter numberFromNSNumber:@(_shop.promotionDetail.cost.longLongValue/1000)]];
+    
+    if(_shop.promotionDetail.str_cost.length>0)
+        [self setStrCost:_shop.promotionDetail.str_cost];
+    else
+        [self setCost:[NSNumberFormatter numberFromNSNumber:@(_shop.promotionDetail.cost.longLongValue/1000)]];
     
     lblSgp.text=[NSString stringWithFormat:@"%lld",_shop.promotionDetail.sgp.longLongValue];
     
@@ -232,6 +241,9 @@
         
         _isNeedAnimaionScore=false;
     }
+    
+    if(self.superview)
+        [tableRank reloadData];
 }
 
 -(void) animationScore

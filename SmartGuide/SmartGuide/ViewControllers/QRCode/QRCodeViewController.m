@@ -7,6 +7,7 @@
 //
 
 #import "QRCodeViewController.h"
+#import "ZBarReaderView.h"
 
 @interface QRCodeViewController ()
 
@@ -62,6 +63,13 @@
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo
 {
     
+}
+
+-(void)removeQRCodeScan
+{
+    [self.readerView stop];
+    [self.readerView flushCache];
+    self.readerDelegate=nil;
 }
 
 @end
