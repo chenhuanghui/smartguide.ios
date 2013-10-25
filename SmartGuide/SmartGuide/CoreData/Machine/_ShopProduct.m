@@ -114,6 +114,19 @@
 	[self didChangeValueForKey:@"desc"];
 }
 
+- (NSNumber*)hasPrice1 {
+	[self willAccessValueForKey:@"hasPrice1"];
+	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"hasPrice1"];
+	[self didAccessValueForKey:@"hasPrice1"];
+	return result;
+}
+
+- (void)setHasPrice1:(NSNumber*)value {
+	[self willChangeValueForKey:@"hasPrice1"];
+	[self setPrimitiveValue:value forKey:@"hasPrice1"];
+	[self didChangeValueForKey:@"hasPrice1"];
+}
+
 - (NSString*)images {
 	[self willAccessValueForKey:@"images"];
 	NSString* result = (NSString*)[self primitiveValueForKey:@"images"];

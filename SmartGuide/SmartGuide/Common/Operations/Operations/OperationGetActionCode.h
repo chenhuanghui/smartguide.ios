@@ -13,5 +13,6 @@
 -(OperationGetActionCode*) initWithPhone:(NSString*) phone;
 
 @property (nonatomic, readonly) bool isSuccess;
+@property (nonatomic, readonly) NSString *message;
 
 @end

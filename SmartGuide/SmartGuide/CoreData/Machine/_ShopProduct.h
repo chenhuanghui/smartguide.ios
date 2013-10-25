@@ -7,6 +7,7 @@
 
 #define ShopProduct_Cat_name @"cat_name"
 #define ShopProduct_Desc @"desc"
+#define ShopProduct_HasPrice1 @"hasPrice1"
 #define ShopProduct_Images @"images"
 #define ShopProduct_Name @"name"
 #define ShopProduct_Price @"price"
@@ -28,6 +29,7 @@
 
 @property (nonatomic, retain) NSString* cat_name;
 @property (nonatomic, retain) NSString* desc;
+@property (nonatomic, retain) NSNumber* hasPrice1;
 @property (nonatomic, retain) NSString* images;
 @property (nonatomic, retain) NSString* name;
 @property (nonatomic, retain) NSString* price;

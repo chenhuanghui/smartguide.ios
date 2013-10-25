@@ -389,7 +389,7 @@
         }
         else
         {
-            [AlertView showAlertOKWithTitle:nil withMessage:@"Số điện thoại không hợp lệ" onOK:nil];
+            [AlertView showAlertOKWithTitle:nil withMessage:ope.message onOK:nil];
         }
     }
     else if([operation isKindOfClass:[OperationVerifyActiveCode class]])
@@ -440,16 +440,8 @@
 -(void)operationURLFailed:(OperationURL *)operation
 {
     [self.view removeLoading];
-    if([operation isKindOfClass:[OperationGetActionCode class]])
-    {
-        [AlertView showAlertOKWithTitle:nil withMessage:@"Số điện thoại không hợp lệ" onOK:nil];
-    }
-    else if([operation isKindOfClass:[OperationVerifyActiveCode class]])
-    {
-        [AlertView showAlertOKWithTitle:nil withMessage:@"Mã xác thực không đúng" onOK:nil];
-    }
-    else
-        [AlertView showAlertOKWithTitle:nil withMessage:@"Lỗi" onOK:nil];
+    
+    [AlertView showAlertOKWithTitle:nil withMessage:localizeConnectToServerFailed() onOK:nil];
 }
 
 -(bool)allowBannerAds

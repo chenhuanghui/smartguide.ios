@@ -42,3 +42,8 @@ NSString* localizeUpdateProfileFailed()
 {
     return @"Cập nhật thông tin thất bại";
 }
+
+NSString* localizeConnectToServerFailed()
+{
+    return @"Kết nối đến máy chủ thất bại";
+}

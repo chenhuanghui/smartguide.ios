@@ -9,7 +9,7 @@
 #import "OperationGetActionCode.h"
 
 @implementation OperationGetActionCode
-@synthesize isSuccess;
+@synthesize isSuccess,message;
 
 -(OperationGetActionCode *)initWithPhone:(NSString *)phone
 {
@@ -21,7 +21,9 @@
 
 -(void)onCompletedWithJSON:(NSArray *)json
 {
-    isSuccess=[[[json objectAtIndex:0] objectForKey:@"result"] boolValue];
+    NSDictionary *dict=json[0];
+    isSuccess=[dict[@"result"] boolValue];
+    message=dict[@"message"];
 }
 
 @end

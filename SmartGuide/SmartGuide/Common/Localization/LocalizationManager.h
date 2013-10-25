@@ -15,3 +15,4 @@ NSString* localizeLocationAuthorationDenied();
 NSString* localizeErrorPhoneLength();
 NSString* localizeRequireSGP();
 NSString* localizeUpdateProfileFailed();
+NSString* localizeConnectToServerFailed();

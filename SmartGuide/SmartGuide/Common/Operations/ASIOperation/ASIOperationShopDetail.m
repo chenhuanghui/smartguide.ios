@@ -105,6 +105,7 @@
                 
                 product.name=[NSString stringWithStringDefault:[dictItem objectForKey:@"name"]];
                 product.price=[NSString stringWithStringDefault:[dictItem objectForKey:@"price"]];
+                product.hasPrice1=@([dictItem objectForKey:@"price1"]!=nil);
                 product.price1=[NSString stringWithStringDefault:[dictItem objectForKey:@"price1"]];
                 product.desc=[NSString stringWithStringDefault:[dictItem objectForKey:@"description"]];
                 product.images=[NSString stringWithStringDefault:[dictItem objectForKey:@"images"]];

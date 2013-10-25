@@ -121,6 +121,7 @@
     <entity name="ShopProduct" representedClassName="ShopProduct" syncable="YES">
         <attribute name="cat_name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="desc" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="hasPrice1" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="images" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="price" optional="YES" attributeType="String" syncable="YES"/>
