@@ -218,13 +218,13 @@
 - (IBAction)btnDownTouchUpInside:(id)sender {
     if(!tableReward.hidden)
     {
-        if([tableReward numberOfRowsInSection:0]>0)
+        if(templateReward.datasource.count>0)
             [tableReward scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:[tableReward numberOfRowsInSection:0]-1 inSection:0] atScrollPosition:UITableViewScrollPositionNone animated:true];
     }
     
     if(!table.hidden)
     {
-        if([table numberOfRowsInSection:0]>0)
+        if(templateTable.datasource.count>0)
             [table scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:[table numberOfRowsInSection:0]-1 inSection:0] atScrollPosition:UITableViewScrollPositionNone animated:true];
     }
 }
