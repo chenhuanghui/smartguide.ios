@@ -12,6 +12,8 @@
 #import "AlertView.h"
 #import "NSBKeyframeAnimation.h"
 #import "NavigationBarView.h"
+#import "Constant.h"
+#import "Utility.h"
 
 @class FrontViewController;
 

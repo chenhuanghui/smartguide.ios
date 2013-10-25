@@ -13,6 +13,7 @@
 #import "FacebookManager.h"
 #import "Flurry.h"
 #import "ASIOperationGetAds.h"
+#import "GUIManager.h"
 
 @implementation AppDelegate
 
@@ -20,6 +21,10 @@
 {
     CGRect rect=[[UIScreen mainScreen] bounds];
     self.window = [[UIWindow alloc] initWithFrame:rect];
+    
+    [[GUIManager shareInstance] startupWithWindow:self.window];
+    return true;
+    
     // Override point for customization after application launch.
     //Setting AFHTTP
     
