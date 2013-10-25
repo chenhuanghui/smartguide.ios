@@ -1,18 +1,18 @@
 //
-//  ToolbarViewController.m
+//  SGSettingViewController.m
 //  SmartGuide
 //
 //  Created by MacMini on 25/10/2013.
 //  Copyright (c) 2013 Redbase. All rights reserved.
 //
 
-#import "ToolbarViewController.h"
+#import "SGSettingViewController.h"
 
-@interface ToolbarViewController ()
+@interface SGSettingViewController ()
 
 @end
 
-@implementation ToolbarViewController
+@implementation SGSettingViewController
 @synthesize delegate;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -36,8 +36,14 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)btnSettingTouchUpInside:(id)sender {
-    [self.delegate toolbarSetting];
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [self.delegate SGSettingHide];
+}
+
+-(void)dealloc
+{
+    NSLog(@"dealloc %@", CLASS_NAME);
 }
 
 @end

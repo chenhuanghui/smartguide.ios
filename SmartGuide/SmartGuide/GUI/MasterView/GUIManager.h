@@ -13,10 +13,11 @@
 #import "ToolbarViewController.h"
 #import "SGAdsViewController.h"
 #import "SGQRCodeViewController.h"
+#import "SGSettingViewController.h"
 
 @class ContentViewController;
 
-@interface GUIManager : NSObject
+@interface GUIManager : NSObject<ToolbarDelegate,UINavigationControllerDelegate,SGSettingDelegate>
 
 +(GUIManager*) shareInstance;
 -(void) startupWithWindow:(UIWindow*) window;
@@ -28,5 +29,6 @@
 @property (nonatomic, strong, readonly) SGAdsViewController *adsController;
 @property (nonatomic, strong, readonly) SGQRCodeViewController *qrCodeController;
 @property (nonatomic, strong, readonly) UINavigationController *masterNavigation;
+@property (nonatomic, strong, readonly) SGSettingViewController *settingController;
 
 @end

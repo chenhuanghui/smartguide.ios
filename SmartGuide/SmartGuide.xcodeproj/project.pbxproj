@@ -128,6 +128,9 @@
 		9AA523B317FEB4580002288D /* logo_58.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AA523AF17FEB4580002288D /* logo_58.png */; };
 		9AA523B417FEB4580002288D /* logo_80.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AA523B017FEB4580002288D /* logo_80.png */; };
 		9AA523B517FEB4580002288D /* logo_120.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AA523B117FEB4580002288D /* logo_120.png */; };
+		9AAB97ED181ACCF100E13A85 /* SGSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AAB97EB181ACCF100E13A85 /* SGSettingViewController.m */; };
+		9AAB97EE181ACCF100E13A85 /* SGSettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9AAB97EC181ACCF100E13A85 /* SGSettingViewController.xib */; };
+		9AAB97F0181ACD1D00E13A85 /* st.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9AAB97EF181ACD1D00E13A85 /* st.jpg */; };
 		9AD23D5217FABC0100D28C7E /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AD23D5117FABC0100D28C7E /* AudioToolbox.framework */; };
 		9AEE83FC17FABD1500D92191 /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AEE83FB17FABD1500D92191 /* AddressBookUI.framework */; };
 		9AF01E7F180652B000D9F037 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AF01E7E180652B000D9F037 /* FacebookSDK.framework */; };
@@ -810,6 +813,10 @@
 		9AA523AF17FEB4580002288D /* logo_58.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = logo_58.png; path = ../../logo_58.png; sourceTree = "<group>"; };
 		9AA523B017FEB4580002288D /* logo_80.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = logo_80.png; path = ../../logo_80.png; sourceTree = "<group>"; };
 		9AA523B117FEB4580002288D /* logo_120.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = logo_120.png; path = ../../logo_120.png; sourceTree = "<group>"; };
+		9AAB97EA181ACCF100E13A85 /* SGSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGSettingViewController.h; sourceTree = "<group>"; };
+		9AAB97EB181ACCF100E13A85 /* SGSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGSettingViewController.m; sourceTree = "<group>"; };
+		9AAB97EC181ACCF100E13A85 /* SGSettingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SGSettingViewController.xib; sourceTree = "<group>"; };
+		9AAB97EF181ACD1D00E13A85 /* st.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = st.jpg; sourceTree = "<group>"; };
 		9AD23D5117FABC0100D28C7E /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		9AEE83FB17FABD1500D92191 /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
 		9AF01E7E180652B000D9F037 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = ../../Documents/FacebookSDK/FacebookSDK.framework; sourceTree = "<group>"; };
@@ -2130,6 +2137,9 @@
 				9A7EA902181ABD2D008D693A /* SGQRCodeViewController.h */,
 				9A7EA903181ABD2D008D693A /* SGQRCodeViewController.m */,
 				9A7EA904181ABD2D008D693A /* SGQRCodeViewController.xib */,
+				9AAB97EA181ACCF100E13A85 /* SGSettingViewController.h */,
+				9AAB97EB181ACCF100E13A85 /* SGSettingViewController.m */,
+				9AAB97EC181ACCF100E13A85 /* SGSettingViewController.xib */,
 			);
 			path = MasterView;
 			sourceTree = "<group>";
@@ -2424,6 +2434,7 @@
 		A98198BE178D44FB0009FCB6 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				9AAB97EF181ACD1D00E13A85 /* st.jpg */,
 				9A7EA8F6181AB548008D693A /* 130725-SGmockup2a.jpg */,
 				9AF78B081810F2030055730F /* intro_6@2x.jpg */,
 				9AF78B091810F2030055730F /* intro_5@2x.jpg */,
@@ -3245,6 +3256,7 @@
 				A924A39D17AE9F3D0042B28B /* icon_scan@2x.png in Resources */,
 				9AF78B1E1810F2030055730F /* intro_1@2x.jpg in Resources */,
 				A924A39E17AE9F3D0042B28B /* icon_report@2x.png in Resources */,
+				9AAB97EE181ACCF100E13A85 /* SGSettingViewController.xib in Resources */,
 				A924A39F17AE9F3D0042B28B /* icon_notice@2x.png in Resources */,
 				A924A3A117AE9F3D0042B28B /* icon_report.png in Resources */,
 				A924A3A217AE9F3D0042B28B /* icon_scan.png in Resources */,
@@ -3373,6 +3385,7 @@
 				A91D593D17BF7C87001C96DD /* iconc_healness@2x.png in Resources */,
 				A91D594017BF8ED1001C96DD /* button_doiqua.png in Resources */,
 				A91D594117BF8ED1001C96DD /* button_doiqua@2x.png in Resources */,
+				9AAB97F0181ACD1D00E13A85 /* st.jpg in Resources */,
 				A9238F1717C135DF00208FB0 /* button_back.png in Resources */,
 				A9238F1817C135DF00208FB0 /* button_back@2x.png in Resources */,
 				A91CDAD117C206A1009EC919 /* blur_gallery.png in Resources */,
@@ -3701,6 +3714,7 @@
 				A94088DD17B3950A00205145 /* Ads.m in Sources */,
 				A94088E017B3951300205145 /* _Ads.m in Sources */,
 				A9E5D2C017B4D71700E537B0 /* ASIOperationLikeDislikeShop.m in Sources */,
+				9AAB97ED181ACCF100E13A85 /* SGSettingViewController.m in Sources */,
 				A9FD827F17B5837C00963F19 /* SearchViewController.m in Sources */,
 				A9271BC517B5DC8100987290 /* ASIOperationSearchShop.m in Sources */,
 				A925508717B74BAC0096C411 /* OperationRouterMap.m in Sources */,

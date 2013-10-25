@@ -14,6 +14,11 @@
 #import "NavigationViewController.h"
 #import "TransportViewController.h"
 
-@interface ShopViewController : NavigationViewController<ShopCategoriesDelegate,ShopListDelegate,ShopUserDelegate,UIGestureRecognizerDelegate>
+@interface ShopViewController : UINavigationController<ShopCategoriesDelegate,ShopListDelegate,ShopUserDelegate,UIGestureRecognizerDelegate,UINavigationControllerDelegate>
+{
+    CGPoint _startDragPoint;
+}
+
+@property (nonatomic, weak) UIViewController *previousController;
 
 @end

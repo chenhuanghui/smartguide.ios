@@ -8,6 +8,17 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol ToolbarDelegate <NSObject>
+
+-(void) toolbarSetting;
+
+@end
+
 @interface ToolbarViewController : UIViewController
+{
+    __weak IBOutlet UIButton *btnSetting;
+}
+
+@property (nonatomic, assign) id<ToolbarDelegate> delegate;
 
 @end

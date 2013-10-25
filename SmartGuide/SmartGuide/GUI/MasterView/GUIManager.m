@@ -11,7 +11,7 @@
 
 static GUIManager *_shareInstance=nil;
 @implementation GUIManager
-@synthesize mainWindow,contentController,masterContainerView,masterNavigation,toolbarController,adsController,qrCodeController;
+@synthesize mainWindow,contentController,masterContainerView,masterNavigation,toolbarController,adsController,qrCodeController,settingController;
 
 +(GUIManager *)shareInstance
 {
@@ -28,6 +28,9 @@ static GUIManager *_shareInstance=nil;
     mainWindow=window;
     mainWindow.backgroundColor=COLOR_BACKGROUND_APP;
     
+    if(NSFoundationVersionNumber>NSFoundationVersionNumber_iOS_6_1)
+        mainWindow.center=CGPointMake(mainWindow.center.x, mainWindow.center.y+20);
+    
     masterContainerView = [[MasterContainerViewController alloc] init];
     masterNavigation = [[UINavigationController alloc] initWithRootViewController:masterContainerView];
     [masterNavigation setNavigationBarHidden:true];
@@ -38,6 +41,7 @@ static GUIManager *_shareInstance=nil;
     [masterContainerView.contentView addSubview:contentController.view];
     
     toolbarController=[[ToolbarViewController alloc] init];
+    toolbarController.delegate=self;
     [masterContainerView.toolbarView addSubview:toolbarController.view];
     
     adsController=[[SGAdsViewController alloc] init];
@@ -48,6 +52,46 @@ static GUIManager *_shareInstance=nil;
     
     window.rootViewController=masterNavigation;
     [window makeKeyAndVisible];
+    
+    masterNavigation.delegate=self;
+}
+
+-(void)toolbarSetting
+{
+    settingController=[[SGSettingViewController alloc] init];
+    __block CGRect rect=settingController.view.frame;
+    rect.origin.x=-rect.size.width;
+    settingController.view.frame=rect;
+    settingController.view.layer.masksToBounds=true;
+    settingController.delegate=self;
+    
+    [self.mainWindow addSubview:settingController.view];
+    
+    [UIView animateWithDuration:DURATION_NAVIGATION_PUSH animations:^{
+        rect=settingController.view.frame;
+        rect.origin.x=0;
+        settingController.view.frame=rect;
+        self.masterNavigation.view.center=CGPointMake(self.masterNavigation.view.center.x+245, self.masterNavigation.view.center.y);
+    }];
+}
+
+-(void)SGSettingHide
+{
+    [UIView animateWithDuration:DURATION_NAVIGATION_PUSH animations:^{
+        CGRect rect=settingController.view.frame;
+        rect.origin.x=-rect.size.width;
+        settingController.view.frame=rect;
+        
+        self.masterNavigation.view.center=CGPointMake(self.masterNavigation.view.center.x-245, self.masterNavigation.view.center.y);
+    } completion:^(BOOL finished) {
+        
+        settingController.delegate=nil;
+        [settingController.view removeFromSuperview];
+        [settingController removeFromParentViewController];
+        settingController=nil;
+        
+    }];
+    
 }
 
 @end
