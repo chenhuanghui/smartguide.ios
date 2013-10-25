@@ -10,6 +10,7 @@
 #define ShopProduct_Images @"images"
 #define ShopProduct_Name @"name"
 #define ShopProduct_Price @"price"
+#define ShopProduct_Price1 @"price1"
 
 @class ShopProduct;
 @class Shop;
@@ -30,6 +31,7 @@
 @property (nonatomic, retain) NSString* images;
 @property (nonatomic, retain) NSString* name;
 @property (nonatomic, retain) NSString* price;
+@property (nonatomic, retain) NSString* price1;
 
 #pragma mark Fetched property
 

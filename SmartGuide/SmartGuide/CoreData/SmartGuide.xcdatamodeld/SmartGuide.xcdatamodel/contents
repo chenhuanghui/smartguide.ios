@@ -124,6 +124,7 @@
         <attribute name="images" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="price" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="price1" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="shop" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Shop" inverseName="products" inverseEntity="Shop" syncable="YES"/>
     </entity>
     <entity name="ShopUserComment" representedClassName="ShopUserComment" syncable="YES">

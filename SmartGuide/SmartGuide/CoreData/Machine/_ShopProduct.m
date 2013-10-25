@@ -153,6 +153,19 @@
 	[self didChangeValueForKey:@"price"];
 }
 
+- (NSString*)price1 {
+	[self willAccessValueForKey:@"price1"];
+	NSString* result = (NSString*)[self primitiveValueForKey:@"price1"];
+	[self didAccessValueForKey:@"price1"];
+	return result;
+}
+
+- (void)setPrice1:(NSString*)value {
+	[self willChangeValueForKey:@"price1"];
+	[self setPrimitiveValue:value forKey:@"price1"];
+	[self didChangeValueForKey:@"price1"];
+}
+
 #pragma mark Relationships
     
 #pragma mark Shop

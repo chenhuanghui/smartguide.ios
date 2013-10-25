@@ -118,7 +118,10 @@
     NSString *key=[_productTypeName objectAtIndex:indexPath.section];
     ShopProduct *product=[[_productType objectForKey:key] objectAtIndex:indexPath.row];
     
-    [cell setName:product.name setPrice:product.price];
+    if(product.price1.length>0)
+        [cell setName:product.name setPrice:product.price1];
+    else
+        [cell setName:product.name setPrice:[NSString stringWithFormat:@"%@ vnđ", product.price]];
     
     return cell;
 }

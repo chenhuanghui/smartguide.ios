@@ -13,7 +13,7 @@
 -(void)setName:(NSString *)name setPrice:(NSString *)price
 {
     lblName.text=name;
-    lblPrice.text=[NSString stringWithFormat:@"%@ vnđ",price];
+    lblPrice.text=price;
 }
 
 +(NSString *)reuseIdentifier
