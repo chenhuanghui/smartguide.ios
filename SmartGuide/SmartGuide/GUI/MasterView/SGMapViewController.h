@@ -7,7 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Constant.h"
+
+@protocol SGMapViewDelegate <NSObject>
+
+-(void) SGMapViewSelectedShop;
+
+@end
 
 @interface SGMapViewController : UIViewController
+
+@property (nonatomic, assign) id<SGMapViewDelegate> delegate;
 
 @end

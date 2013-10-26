@@ -10,7 +10,8 @@
                 <outlet property="adsView" destination="baL-1L-kLc" id="CSp-pd-vAK"/>
                 <outlet property="containtView" destination="C1U-bj-pa7" id="3ZF-BQ-E8L"/>
                 <outlet property="contentView" destination="fr9-dk-gMm" id="4UU-6I-x8k"/>
-                <outlet property="content_ads" destination="64F-UK-abG" id="2i7-PV-iuy"/>
+                <outlet property="content_ads_middle" destination="izB-Nc-cmZ" id="ChU-rE-O70"/>
+                <outlet property="content_ads_upper" destination="64F-UK-abG" id="taK-BF-cAu"/>
                 <outlet property="qrView" destination="xGO-XS-yxH" id="D1d-QS-fsY"/>
                 <outlet property="toolbarView" destination="HLd-3y-S48" id="GdR-Is-PB1"/>
                 <outlet property="view" destination="1" id="3"/>
@@ -30,12 +31,17 @@
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         </view>
+                        <view hidden="YES" contentMode="scaleToFill" id="izB-Nc-cmZ" userLabel="content_ads_middle">
+                            <rect key="frame" x="0.0" y="31" width="320" height="411"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        </view>
                         <view contentMode="scaleToFill" id="baL-1L-kLc" userLabel="ads">
                             <rect key="frame" x="0.0" y="345" width="320" height="97"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         </view>
-                        <view hidden="YES" contentMode="scaleToFill" id="64F-UK-abG" userLabel="content_ads">
+                        <view hidden="YES" contentMode="scaleToFill" id="64F-UK-abG" userLabel="content_ads_upper">
                             <rect key="frame" x="0.0" y="31" width="320" height="411"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>

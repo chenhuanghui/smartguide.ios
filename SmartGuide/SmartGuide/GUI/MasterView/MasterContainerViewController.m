@@ -33,7 +33,7 @@
     contentFrame=self.contentView.frame;
     adsFrame=self.adsView.frame;
     qrFrame=self.qrView.frame;
-    content_adsFrame=self.content_ads.frame;
+    content_adsFrame=self.content_ads_upper.frame;
 }
 
 - (void)didReceiveMemoryWarning

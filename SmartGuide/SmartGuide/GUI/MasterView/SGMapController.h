@@ -7,7 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SGMapViewController.h"
 
-@interface SGMapController : UINavigationController
+@interface SGMapController : UINavigationController<SGMapViewDelegate>
+{
+    
+}
+
+@property (nonatomic, strong, readonly) SGMapViewController *mapViewController;
 
 @end

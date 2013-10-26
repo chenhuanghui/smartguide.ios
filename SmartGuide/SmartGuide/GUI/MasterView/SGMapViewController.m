@@ -13,12 +13,13 @@
 @end
 
 @implementation SGMapViewController
+@synthesize delegate;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (id)init
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    self = [super initWithNibName:@"SGMapViewController" bundle:nil];
     if (self) {
-        // Custom initialization
+        
     }
     return self;
 }
@@ -33,6 +34,11 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(void)dealloc
+{
+    NSLog(@"dealloc %@", CLASS_NAME);
 }
 
 @end

@@ -91,16 +91,16 @@ static GUIManager *_shareInstance=nil;
         return;
     }
     
-    masterContainerView.content_ads.hidden=false;
+    masterContainerView.content_ads_upper.hidden=false;
     
     userCollectionController=[[SGUserCollectionController alloc] init];
     [userCollectionController setNavigationBarHidden:true];
     CGRect rect=userCollectionController.view.frame;
-    rect.size=masterContainerView.content_ads.frame.size;
+    rect.size=masterContainerView.content_ads_upper.frame.size;
     userCollectionController.view.frame=rect;
 
     [self.masterContainerView addChildViewController:userCollectionController];
-    [self.masterContainerView.content_ads addSubview:userCollectionController.view];
+    [self.masterContainerView.content_ads_upper addSubview:userCollectionController.view];
 }
 
 -(void)toolbarUserLogin

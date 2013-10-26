@@ -13,14 +13,26 @@
 @end
 
 @implementation SGMapController
+@synthesize mapViewController;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (id)init
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    SGMapViewController *map=[[SGMapViewController alloc] init];
+    
+    self = [super initWithRootViewController:map];
+    
+    mapViewController=map;
+    mapViewController.delegate=self;
+    
     if (self) {
-        // Custom initialization
+        
     }
     return self;
+}
+
+-(void)SGMapViewSelectedShop
+{
+    
 }
 
 - (void)viewDidLoad
@@ -33,6 +45,12 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(void)dealloc
+{
+    mapViewController=nil;
+    NSLog(@"dealloc %@", CLASS_NAME);
 }
 
 @end

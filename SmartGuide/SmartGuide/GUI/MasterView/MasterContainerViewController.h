@@ -17,7 +17,8 @@
 @property (weak, nonatomic) IBOutlet UIView *contentView;
 @property (weak, nonatomic) IBOutlet UIView *adsView;
 @property (weak, nonatomic) IBOutlet UIView *qrView;
-@property (weak, nonatomic) IBOutlet UIView *content_ads;
+@property (weak, nonatomic) IBOutlet UIView *content_ads_upper;
+@property (weak, nonatomic) IBOutlet UIView *content_ads_middle;
 
 @property (nonatomic, readonly) CGRect toolbarFrame;
 @property (nonatomic, readonly) CGRect contentFrame;
