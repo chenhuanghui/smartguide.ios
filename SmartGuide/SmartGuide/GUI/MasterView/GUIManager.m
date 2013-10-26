@@ -7,11 +7,11 @@
 //
 
 #import "GUIManager.h"
-#import "ContentViewController.h"
+#import "TransportViewController.h"
 
 static GUIManager *_shareInstance=nil;
 @implementation GUIManager
-@synthesize mainWindow,contentController,masterContainerView,masterNavigation,toolbarController,adsController,qrCodeController,settingController;
+@synthesize mainWindow,contentController,masterContainerView,masterNavigation,toolbarController,adsController,qrCodeController,settingController, userCollectionController,authorizationController;
 
 +(GUIManager *)shareInstance
 {
@@ -27,7 +27,7 @@ static GUIManager *_shareInstance=nil;
 {    
     mainWindow=window;
     mainWindow.backgroundColor=COLOR_BACKGROUND_APP;
-    
+
     if(NSFoundationVersionNumber>NSFoundationVersionNumber_iOS_6_1)
         mainWindow.center=CGPointMake(mainWindow.center.x, mainWindow.center.y+20);
     
@@ -39,6 +39,7 @@ static GUIManager *_shareInstance=nil;
     
     contentController = [[ContentViewController alloc] init];
     [masterContainerView.contentView addSubview:contentController.view];
+    contentController.contentDelegate=self;
     
     toolbarController=[[ToolbarViewController alloc] init];
     toolbarController.delegate=self;
@@ -56,42 +57,69 @@ static GUIManager *_shareInstance=nil;
     masterNavigation.delegate=self;
 }
 
--(void)toolbarSetting
+-(void)contentViewSelectedShop
 {
-    settingController=[[SGSettingViewController alloc] init];
-    __block CGRect rect=settingController.view.frame;
-    rect.origin.x=-rect.size.width;
-    settingController.view.frame=rect;
-    settingController.view.layer.masksToBounds=true;
-    settingController.delegate=self;
-    
-    [self.mainWindow addSubview:settingController.view];
-    
     [UIView animateWithDuration:DURATION_NAVIGATION_PUSH animations:^{
-        rect=settingController.view.frame;
-        rect.origin.x=0;
-        settingController.view.frame=rect;
-        self.masterNavigation.view.center=CGPointMake(self.masterNavigation.view.center.x+245, self.masterNavigation.view.center.y);
+        CGRect rect=self.masterContainerView.adsView.frame;
+        rect.origin.y+=rect.size.height;
+        self.masterContainerView.adsView.frame=rect;
     }];
 }
 
--(void)SGSettingHide
+-(void)contentViewBackToShopListAnimated:(bool)isAnimated
 {
     [UIView animateWithDuration:DURATION_NAVIGATION_PUSH animations:^{
-        CGRect rect=settingController.view.frame;
-        rect.origin.x=-rect.size.width;
-        settingController.view.frame=rect;
-        
-        self.masterNavigation.view.center=CGPointMake(self.masterNavigation.view.center.x-245, self.masterNavigation.view.center.y);
-    } completion:^(BOOL finished) {
-        
-        settingController.delegate=nil;
-        [settingController.view removeFromSuperview];
-        [settingController removeFromParentViewController];
-        settingController=nil;
-        
+        self.masterContainerView.adsView.frame=self.masterContainerView.adsFrame;
     }];
+}
+
+-(void)toolbarSetting
+{
+    settingController=[[SGSettingViewController alloc] init];
+    settingController.delegate=self;
     
+    [settingController showSettingWithContaintView:self.mainWindow slideView:self.masterNavigation.view];
+}
+
+-(void)toolbarUserCollection
+{
+    if(userCollectionController)
+    {
+        [userCollectionController removeFromParentViewController];
+        [userCollectionController.view removeFromSuperview];
+        userCollectionController=nil;
+        return;
+    }
+    
+    masterContainerView.content_ads.hidden=false;
+    
+    userCollectionController=[[SGUserCollectionController alloc] init];
+    [userCollectionController setNavigationBarHidden:true];
+    CGRect rect=userCollectionController.view.frame;
+    rect.size=masterContainerView.content_ads.frame.size;
+    userCollectionController.view.frame=rect;
+
+    [self.masterContainerView addChildViewController:userCollectionController];
+    [self.masterContainerView.content_ads addSubview:userCollectionController.view];
+}
+
+-(void)toolbarUserLogin
+{
+    authorizationController=[[AuthorizationViewController alloc] initAuthorazion];
+    TransportViewController *transport=[[TransportViewController alloc] initWithNavigation:authorizationController];
+    
+    [self.masterNavigation pushViewController:transport animated:true];
+}
+
+-(void)toolbarMap
+{
+    
+}
+
+-(void)SGSettingHided
+{
+    settingController.delegate=nil;
+    settingController=nil;
 }
 
 @end

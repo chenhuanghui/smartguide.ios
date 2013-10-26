@@ -1,19 +1,18 @@
 //
-//  ShopListViewController.m
+//  SGUserCollectionViewController.m
 //  SmartGuide
 //
-//  Created by MacMini on 25/10/2013.
+//  Created by MacMini on 26/10/2013.
 //  Copyright (c) 2013 Redbase. All rights reserved.
 //
 
-#import "ShopListViewController.h"
+#import "SGUserCollectionViewController.h"
 
-@interface ShopListViewController ()
+@interface SGUserCollectionViewController ()
 
 @end
 
-@implementation ShopListViewController
-@synthesize delegate;
+@implementation SGUserCollectionViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -36,14 +35,16 @@
     // Dispose of any resources that can be recreated.
 }
 
--(NSString *)title
-{
-    return CLASS_NAME;
+- (IBAction)btn:(id)sender {
+    ShopUserViewController *vc=[[ShopUserViewController alloc] init];
+    vc.delegate=self;
+    
+    [self.navigationController pushViewController:vc animated:true];
 }
 
-- (IBAction)btn:(id)sender {
-    [self.delegate shopListSelectedShop];
-    
+-(void)shopUserFinished
+{
+    [self.navigationController popViewControllerAnimated:true];
 }
 
 -(void)dealloc

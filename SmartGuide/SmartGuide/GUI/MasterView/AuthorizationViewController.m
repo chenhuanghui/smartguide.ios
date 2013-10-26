@@ -32,6 +32,8 @@
         self=[super initWithRootViewController:vc];
     }
     
+    [self setNavigationBarHidden:true];
+    
     return self;
 }
 
@@ -62,6 +64,11 @@
     vc.delegate=self;
     
     [self pushViewController:vc animated:true];
+}
+
+-(void) userLoginCancelled
+{
+    [self.parentViewController.navigationController popViewControllerAnimated:true];
 }
 
 -(NSString *)title

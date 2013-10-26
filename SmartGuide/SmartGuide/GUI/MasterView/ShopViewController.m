@@ -13,11 +13,11 @@
 @end
 
 @implementation ShopViewController
-@synthesize previousController;
+@synthesize previousController,shopDelegate;
 
 -(id)init
 {
-    ShopCategoriesViewController *vc=[[ShopCategoriesViewController alloc] init];
+    ShopCatalogViewController *vc=[[ShopCatalogViewController alloc] init];
     vc.delegate=self;
     
     self=[super initWithRootViewController:vc];
@@ -31,19 +31,29 @@
 {
     [super viewDidLoad];
     
-    UIPanGestureRecognizer *panGes=[[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panGesture:)];
+    panGes=[[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panGesture:)];
     panGes.delegate=self;
     
     [self.view addGestureRecognizer:panGes];
 }
 
--(void) panGesture:(UIPanGestureRecognizer*) ges
+-(BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
 {
-    if([self.visibleViewController isKindOfClass:[ShopCategoriesViewController class]])
+    if(gestureRecognizer==panGes)
     {
-        return;
+        if(self.previousController==self.visibleViewController)
+            return false;
+        
+        float velocity=[panGes velocityInView:panGes.view].x;
+        if(self.visibleViewController.view.frame.origin.x==0 && velocity<0)
+            return false;
     }
     
+    return true;
+}
+
+-(void) panGesture:(UIPanGestureRecognizer*) ges
+{
     switch (ges.state) {
             
         case UIGestureRecognizerStateBegan:
@@ -55,6 +65,13 @@
             CGPoint pnt=[ges locationInView:ges.view];
             float deltaX=pnt.x-_startDragPoint.x;
             _startDragPoint=pnt;
+            
+            if(self.visibleViewController.view.center.x+deltaX<160)
+            {
+                self.visibleViewController.view.center=CGPointMake(160, self.visibleViewController.view.center.y);
+                return;
+            }
+
             previousController.view.center=CGPointMake(previousController.view.center.x+deltaX, previousController.view.center.y);
             self.visibleViewController.view.center=CGPointMake(self.visibleViewController.view.center.x+deltaX, self.visibleViewController.view.center.y);
         }
@@ -65,8 +82,6 @@
         case UIGestureRecognizerStateFailed:
         {
             float velocity=[ges velocityInView:ges.view].x;
-            
-            NSLog(@"velocity %f",velocity);
             
             if(velocity>0 && velocity>VELOCITY_SLIDE)
             {
@@ -118,7 +133,7 @@
 {
     ShopListViewController *shopList=[[ShopListViewController alloc] init];
     shopList.delegate=self;
-    
+
     [self pushViewController:shopList animated:true];
 }
 
@@ -127,6 +142,7 @@
     ShopUserViewController *shopUser=[[ShopUserViewController alloc] init];
     shopUser.delegate=self;
     
+    [self.shopDelegate shopViewSelectedShop];
     [self pushViewController:shopUser animated:true];
 }
 
@@ -144,8 +160,6 @@
     if(idx<0)
         idx=0;
     
-    NSLog(@"idx %i",idx);
-    
     previousController=self.viewControllers[idx];
     
     if(previousController!=self.visibleViewController)
@@ -153,8 +167,20 @@
         previousController.view.center=CGPointMake(-self.view.frame.size.width/2, previousController.view.center.y);
         [self.view addSubview:previousController.view];
     }
+}
+
+-(UIViewController *)popViewControllerAnimated:(BOOL)animated
+{
+    UIViewController *vc=[super popViewControllerAnimated:animated];
+    if([vc isKindOfClass:[ShopUserViewController class]])
+        [self.shopDelegate shopViewBackToShopListAnimated:animated];
     
-    NSLog(@"previousController %@",previousController);
+    return vc;
+}
+
+-(void)dealloc
+{
+    panGes=nil;
 }
 
 @end

@@ -1,26 +1,24 @@
 //
-//  ShopListViewController.m
+//  UserLoginViewController.m
 //  SmartGuide
 //
 //  Created by MacMini on 25/10/2013.
 //  Copyright (c) 2013 Redbase. All rights reserved.
 //
 
-#import "ShopListViewController.h"
+#import "UserLoginViewController.h"
 
-@interface ShopListViewController ()
+@interface UserLoginViewController ()
 
 @end
 
-@implementation ShopListViewController
+@implementation UserLoginViewController
 @synthesize delegate;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+-(id)init
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
+    self=[super initWithNibName:@"UserLoginViewController" bundle:nil];
+    
     return self;
 }
 
@@ -35,16 +33,19 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
 -(NSString *)title
 {
     return CLASS_NAME;
 }
 
 - (IBAction)btn:(id)sender {
-    [self.delegate shopListSelectedShop];
-    
+    [self.delegate userLoginSuccessed];
 }
+
+- (IBAction)cancel:(id)sender {
+    [self.delegate userLoginCancelled];
+}
+
 
 -(void)dealloc
 {

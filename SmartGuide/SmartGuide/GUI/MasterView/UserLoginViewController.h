@@ -12,6 +12,7 @@
 @protocol UserLoginDelegate <NSObject>
 
 -(void) userLoginSuccessed;
+-(void) userLoginCancelled;
 
 @end
 

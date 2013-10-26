@@ -11,12 +11,18 @@
 
 @protocol SGSettingDelegate <NSObject>
 
--(void) SGSettingHide;
+-(void) SGSettingHided;
 
 @end
 
-@interface SGSettingViewController : UIViewController
+@interface SGSettingViewController : UIViewController<UIGestureRecognizerDelegate>
+{
+    CGPoint _startPoint;
+}
+
+-(void) showSettingWithContaintView:(UIView*) containtView slideView:(UIView*) slideView;
 
 @property (nonatomic, assign) id<SGSettingDelegate> delegate;
+@property (nonatomic, assign) UIView *slideView;
 
 @end

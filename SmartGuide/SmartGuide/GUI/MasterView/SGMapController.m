@@ -1,19 +1,18 @@
 //
-//  ShopListViewController.m
+//  SGMapController.m
 //  SmartGuide
 //
-//  Created by MacMini on 25/10/2013.
+//  Created by MacMini on 26/10/2013.
 //  Copyright (c) 2013 Redbase. All rights reserved.
 //
 
-#import "ShopListViewController.h"
+#import "SGMapController.h"
 
-@interface ShopListViewController ()
+@interface SGMapController ()
 
 @end
 
-@implementation ShopListViewController
-@synthesize delegate;
+@implementation SGMapController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -27,28 +26,13 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+	// Do any additional setup after loading the view.
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
--(NSString *)title
-{
-    return CLASS_NAME;
-}
-
-- (IBAction)btn:(id)sender {
-    [self.delegate shopListSelectedShop];
-    
-}
-
--(void)dealloc
-{
-    NSLog(@"dealloc %@", CLASS_NAME);
 }
 
 @end

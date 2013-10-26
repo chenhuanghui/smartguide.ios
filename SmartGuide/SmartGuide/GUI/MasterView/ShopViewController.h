@@ -7,18 +7,27 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ShopCategoriesViewController.h"
+#import "ShopCatalogViewController.h"
 #import "ShopListViewController.h"
 #import "ShopUserViewController.h"
 #import "Constant.h"
 #import "NavigationViewController.h"
 #import "TransportViewController.h"
 
-@interface ShopViewController : UINavigationController<ShopCategoriesDelegate,ShopListDelegate,ShopUserDelegate,UIGestureRecognizerDelegate,UINavigationControllerDelegate>
+@protocol ShopViewDelegate <NSObject>
+
+-(void) shopViewSelectedShop;
+-(void) shopViewBackToShopListAnimated:(bool) animated;
+
+@end
+
+@interface ShopViewController : UINavigationController<ShopCatalogDelegate,ShopListDelegate,ShopUserDelegate,UIGestureRecognizerDelegate,UINavigationControllerDelegate>
 {
     CGPoint _startDragPoint;
+    UIPanGestureRecognizer *panGes;
 }
 
 @property (nonatomic, weak) UIViewController *previousController;
+@property (nonatomic, assign) id<ShopViewDelegate> shopDelegate;
 
 @end

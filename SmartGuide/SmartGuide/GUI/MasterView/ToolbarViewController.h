@@ -11,12 +11,17 @@
 @protocol ToolbarDelegate <NSObject>
 
 -(void) toolbarSetting;
+-(void) toolbarUserCollection;
+-(void) toolbarUserLogin;
+-(void) toolbarMap;
 
 @end
 
 @interface ToolbarViewController : UIViewController
 {
     __weak IBOutlet UIButton *btnSetting;
+    __weak IBOutlet UIButton *btnUserCollection;
+    __weak IBOutlet UIButton *btnMap;
 }
 
 @property (nonatomic, assign) id<ToolbarDelegate> delegate;

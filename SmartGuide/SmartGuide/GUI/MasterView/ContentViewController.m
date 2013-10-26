@@ -11,7 +11,6 @@
 #import "DataManager.h"
 #import "Flags.h"
 #import "TokenManager.h"
-#import "ShopViewController.h"
 #import "TransportViewController.h"
 
 @interface ContentViewController ()
@@ -19,6 +18,7 @@
 @end
 
 @implementation ContentViewController
+@synthesize shopController,contentDelegate;
 
 - (id)init
 {
@@ -26,8 +26,10 @@
     TransportViewController *transport=[[TransportViewController alloc] initWithNavigation:vc];
     self = [super initWithRootViewController:transport];
     [self setNavigationBarHidden:true];
-    if (self) {
-    }
+    
+    shopController=vc;
+    shopController.shopDelegate=self;
+    
     return self;
 }
 
@@ -35,6 +37,16 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+}
+
+-(void)shopViewSelectedShop
+{
+    [self.contentDelegate contentViewSelectedShop];
+}
+
+-(void)shopViewBackToShopListAnimated:(bool)animated
+{
+    [self.contentDelegate contentViewBackToShopListAnimated:animated];
 }
 
 - (void)didReceiveMemoryWarning

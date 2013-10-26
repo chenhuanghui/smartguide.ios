@@ -14,13 +14,13 @@
 #import "TokenManager.h"
 #import "NavigationViewController.h"
 
-@protocol AuthorizationDelegate <NavigationViewControllerDelegate>
+@protocol AuthorizationDelegate <UINavigationControllerDelegate>
 
 -(void) authorizationSuccess;
 
 @end
 
-@interface AuthorizationViewController : NavigationViewController<UserLoginDelegate,UserFacebookDelegate>
+@interface AuthorizationViewController : UINavigationController<UserLoginDelegate,UserFacebookDelegate>
 
 -(AuthorizationViewController*) initAuthorazion;
 +(bool) isNeedAuthoration;

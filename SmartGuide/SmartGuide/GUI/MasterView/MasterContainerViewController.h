@@ -10,10 +10,19 @@
 
 @interface MasterContainerViewController : UIViewController
 
+-(float) hideAdsWithAnimation:(bool) isAnimation;
+
 @property (weak, nonatomic) IBOutlet UIView *containtView;
 @property (weak, nonatomic) IBOutlet UIView *toolbarView;
 @property (weak, nonatomic) IBOutlet UIView *contentView;
 @property (weak, nonatomic) IBOutlet UIView *adsView;
 @property (weak, nonatomic) IBOutlet UIView *qrView;
+@property (weak, nonatomic) IBOutlet UIView *content_ads;
+
+@property (nonatomic, readonly) CGRect toolbarFrame;
+@property (nonatomic, readonly) CGRect contentFrame;
+@property (nonatomic, readonly) CGRect adsFrame;
+@property (nonatomic, readonly) CGRect qrFrame;
+@property (nonatomic, readonly) CGRect content_adsFrame;
 
 @end

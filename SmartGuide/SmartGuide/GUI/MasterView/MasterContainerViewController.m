@@ -13,6 +13,7 @@
 @end
 
 @implementation MasterContainerViewController
+@synthesize toolbarFrame,contentFrame,adsFrame,qrFrame,content_adsFrame;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -27,12 +28,29 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    toolbarFrame=self.toolbarView.frame;
+    contentFrame=self.contentView.frame;
+    adsFrame=self.adsView.frame;
+    qrFrame=self.qrView.frame;
+    content_adsFrame=self.content_ads.frame;
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(float)hideAdsWithAnimation:(bool)isAnimation
+{
+    float height = self.adsView.frame.size.height;
+    
+    CGRect rect=self.adsView.frame;
+    rect.origin.y=rect.size.height;
+    self.adsView.frame=rect;
+    
+    return height;
 }
 
 @end

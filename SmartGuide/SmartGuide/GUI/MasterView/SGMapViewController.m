@@ -1,19 +1,18 @@
 //
-//  ShopCategoriesViewController.m
+//  SGMapViewController.m
 //  SmartGuide
 //
-//  Created by MacMini on 25/10/2013.
+//  Created by MacMini on 26/10/2013.
 //  Copyright (c) 2013 Redbase. All rights reserved.
 //
 
-#import "ShopCategoriesViewController.h"
+#import "SGMapViewController.h"
 
-@interface ShopCategoriesViewController ()
+@interface SGMapViewController ()
 
 @end
 
-@implementation ShopCategoriesViewController
-@synthesize delegate;
+@implementation SGMapViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -34,20 +33,6 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
--(NSString *)title
-{
-    return CLASS_NAME;
-}
-
-- (IBAction)btn:(id)sender {
-    [self.delegate shopCategoriesSelectedGroup];
-}
-
--(void)dealloc
-{
-    NSLog(@"dealloc %@", CLASS_NAME);
 }
 
 @end

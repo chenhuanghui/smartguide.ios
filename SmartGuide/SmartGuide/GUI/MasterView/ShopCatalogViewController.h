@@ -9,14 +9,14 @@
 #import "ViewController.h"
 #import "Constant.h"
 
-@protocol ShopCategoriesDelegate <NSObject>
+@protocol ShopCatalogDelegate <NSObject>
 
 -(void) shopCategoriesSelectedGroup;
 
 @end
 
-@interface ShopCategoriesViewController : ViewController
+@interface ShopCatalogViewController : ViewController
 
-@property (nonatomic, assign) id<ShopCategoriesDelegate> delegate;
+@property (nonatomic, assign) id<ShopCatalogDelegate> delegate;
 
 @end
