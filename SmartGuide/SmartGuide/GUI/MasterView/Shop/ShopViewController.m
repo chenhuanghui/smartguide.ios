@@ -30,14 +30,9 @@
 -(void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    panGes=[[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panGesture:)];
-    panGes.delegate=self;
-    
-    [self.view addGestureRecognizer:panGes];
 }
 
--(BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
+-(BOOL)gestureRecognizerShouldBegin1:(UIGestureRecognizer *)gestureRecognizer
 {
     if(gestureRecognizer==panGes)
     {
@@ -54,49 +49,7 @@
 
 -(void) panGesture:(UIPanGestureRecognizer*) ges
 {
-    switch (ges.state) {
-            
-        case UIGestureRecognizerStateBegan:
-            _startDragPoint=[ges locationInView:ges.view];
-            break;
-            
-        case UIGestureRecognizerStateChanged:
-        {
-            CGPoint pnt=[ges locationInView:ges.view];
-            float deltaX=pnt.x-_startDragPoint.x;
-            _startDragPoint=pnt;
-            
-            if(self.visibleViewController.view.center.x+deltaX<160)
-            {
-                self.visibleViewController.view.center=CGPointMake(160, self.visibleViewController.view.center.y);
-                return;
-            }
-
-            previousController.view.center=CGPointMake(previousController.view.center.x+deltaX, previousController.view.center.y);
-            self.visibleViewController.view.center=CGPointMake(self.visibleViewController.view.center.x+deltaX, self.visibleViewController.view.center.y);
-        }
-            break;
-            
-        case UIGestureRecognizerStateEnded:
-        case UIGestureRecognizerStateCancelled:
-        case UIGestureRecognizerStateFailed:
-        {
-            float velocity=[ges velocityInView:ges.view].x;
-            
-            if(velocity>0 && velocity>VELOCITY_SLIDE)
-            {
-                [self moveToPreviousViewController];
-            }
-            else
-            {
-                [self moveToVisibleViewController];
-            }
-        }
-            break;
-            
-        default:
-            break;
-    }
+    [panHandle handlePanGesture:ges];
 }
 
 -(void) moveToVisibleViewController
@@ -166,6 +119,28 @@
     {
         previousController.view.center=CGPointMake(-self.view.frame.size.width/2, previousController.view.center.y);
         [self.view addSubview:previousController.view];
+        
+        if(panGes)
+        {
+            [panGes removeTarget:self action:@selector(panGesture:)];
+            panGes.delegate=nil;
+            [self.view removeGestureRecognizer:panGes];
+            panGes=nil;
+        }
+        
+        if(panHandle)
+        {
+            panHandle.delegate=nil;
+            panHandle=nil;
+        }
+        
+        panGes=[[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panGesture:)];
+        panGes.delegate=self;
+        
+        [self.view addGestureRecognizer:panGes];
+        
+        panHandle=[[PanGestureView alloc] initWithDirection:PanGestureDirectionToLeft withCurrentView:previousController.view withOtherView:viewController.view];
+        panHandle.delegate=self;
     }
 }
 
@@ -181,6 +156,30 @@
 -(void)dealloc
 {
     panGes=nil;
+    
+    DEALLOC_LOG;
+}
+
+-(void)panGestureMovedToView:(UIView *)view
+{
+    if(view==self.previousController.view)
+    {
+        [self popViewControllerAnimated:false];
+        
+        if(panGes)
+        {
+            [panGes removeTarget:self action:@selector(panGesture:)];
+            panGes.delegate=nil;
+            [self.view removeGestureRecognizer:panGes];
+            panGes=nil;
+        }
+        
+        if(panHandle)
+        {
+            panHandle.delegate=nil;
+            panHandle=nil;
+        }
+    }
 }
 
 @end

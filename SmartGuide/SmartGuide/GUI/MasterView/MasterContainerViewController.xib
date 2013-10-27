@@ -12,6 +12,7 @@
                 <outlet property="contentView" destination="fr9-dk-gMm" id="4UU-6I-x8k"/>
                 <outlet property="content_ads_middle" destination="izB-Nc-cmZ" id="ChU-rE-O70"/>
                 <outlet property="content_ads_upper" destination="64F-UK-abG" id="taK-BF-cAu"/>
+                <outlet property="mapView" destination="o8l-wT-N27" id="dba-SL-gdL"/>
                 <outlet property="qrView" destination="xGO-XS-yxH" id="D1d-QS-fsY"/>
                 <outlet property="toolbarView" destination="HLd-3y-S48" id="GdR-Is-PB1"/>
                 <outlet property="view" destination="1" id="3"/>
@@ -24,7 +25,7 @@
             <subviews>
                 <view contentMode="scaleToFill" id="C1U-bj-pa7">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <view contentMode="scaleToFill" id="fr9-dk-gMm" userLabel="content">
                             <rect key="frame" x="0.0" y="31" width="320" height="314"/>
@@ -33,6 +34,11 @@
                         </view>
                         <view hidden="YES" contentMode="scaleToFill" id="izB-Nc-cmZ" userLabel="content_ads_middle">
                             <rect key="frame" x="0.0" y="31" width="320" height="411"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        </view>
+                        <view hidden="YES" contentMode="scaleToFill" id="o8l-wT-N27" userLabel="map">
+                            <rect key="frame" x="0.0" y="31" width="320" height="314"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         </view>

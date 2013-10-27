@@ -17,6 +17,7 @@
 #import "SGUserCollectionController.h"
 #import "AuthorizationViewController.h"
 #import "ContentViewController.h"
+#import "SGMapController.h"
 
 @class ContentViewController;
 
@@ -35,5 +36,6 @@
 @property (nonatomic, strong, readonly) SGSettingViewController *settingController;
 @property (nonatomic, strong, readonly) SGUserCollectionController *userCollectionController;
 @property (nonatomic, strong, readonly) AuthorizationViewController *authorizationController;
+@property (nonatomic, strong, readonly) SGMapController *mapController;
 
 @end

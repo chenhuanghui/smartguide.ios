@@ -13,6 +13,7 @@
 @end
 
 @implementation SGUserCollectionViewController
+@synthesize delegate;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -36,15 +37,7 @@
 }
 
 - (IBAction)btn:(id)sender {
-    ShopUserViewController *vc=[[ShopUserViewController alloc] init];
-    vc.delegate=self;
-    
-    [self.navigationController pushViewController:vc animated:true];
-}
-
--(void)shopUserFinished
-{
-    [self.navigationController popViewControllerAnimated:true];
+    [self.delegate SGUserCollectionSelectedShop];
 }
 
 -(void)dealloc

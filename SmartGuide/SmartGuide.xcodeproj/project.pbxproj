@@ -48,6 +48,13 @@
 		9A29E9A717F3CEB100C09C3C /* button_doidiemlayqua@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A29E9A517F3CEB100C09C3C /* button_doidiemlayqua@2x.png */; };
 		9A29E9A817F3CEB100C09C3C /* button_doidiemlayqua.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A29E9A617F3CEB100C09C3C /* button_doidiemlayqua.png */; };
 		9A29E9AA17F3DA9100C09C3C /* SettingViewController_ip5.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A29E9A917F3DA9100C09C3C /* SettingViewController_ip5.xib */; };
+		9A2BD46D181D576800F211EF /* SGMapController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A2BD469181D576800F211EF /* SGMapController.m */; };
+		9A2BD46E181D576800F211EF /* SGMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A2BD46B181D576800F211EF /* SGMapViewController.m */; };
+		9A2BD46F181D576800F211EF /* SGMapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A2BD46C181D576800F211EF /* SGMapViewController.xib */; };
+		9A2BD476181D602D00F211EF /* SGUserCollectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A2BD472181D602D00F211EF /* SGUserCollectionController.m */; };
+		9A2BD477181D602D00F211EF /* SGUserCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A2BD474181D602D00F211EF /* SGUserCollectionViewController.m */; };
+		9A2BD478181D602D00F211EF /* SGUserCollectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A2BD475181D602D00F211EF /* SGUserCollectionViewController.xib */; };
+		9A2BD481181D6D1E00F211EF /* PanGestureView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A2BD480181D6D1E00F211EF /* PanGestureView.m */; };
 		9A3344F117FE749B00C6578F /* scan.png in Resources */ = {isa = PBXBuildFile; fileRef = A9F94C3817D25128009E190B /* scan.png */; };
 		9A3344F217FE749B00C6578F /* scan@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A9F94C3917D25128009E190B /* scan@2x.png */; };
 		9A372B5717F0B811003C26C4 /* PromotionDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A372B5617F0B811003C26C4 /* PromotionDetailCell.xib */; };
@@ -76,10 +83,6 @@
 		9A46B6C117F0B40900410408 /* FacebookMiningViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A46B6C017F0B40900410408 /* FacebookMiningViewController.xib */; };
 		9A46B6C517F0B54300410408 /* FacebookMiningViewController_ip5.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A46B6C417F0B54300410408 /* FacebookMiningViewController_ip5.xib */; };
 		9A46B6C717F0B67900410408 /* ShopDetailPin.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A46B6C617F0B67900410408 /* ShopDetailPin.xib */; };
-		9A537F77181B800500C8B6A0 /* SGUserCollectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A537F76181B800500C8B6A0 /* SGUserCollectionController.m */; };
-		9A537F7A181B816C00C8B6A0 /* SGMapController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A537F79181B816C00C8B6A0 /* SGMapController.m */; };
-		9A537F7E181B868900C8B6A0 /* SGMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A537F7C181B868900C8B6A0 /* SGMapViewController.m */; };
-		9A537F7F181B868900C8B6A0 /* SGMapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A537F7D181B868900C8B6A0 /* SGMapViewController.xib */; };
 		9A537F81181B90E700C8B6A0 /* m.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9A537F80181B90E700C8B6A0 /* m.jpg */; };
 		9A537F8F181B92ED00C8B6A0 /* ShopCatalogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A537F84181B92ED00C8B6A0 /* ShopCatalogViewController.m */; };
 		9A537F90181B92ED00C8B6A0 /* ShopCatalogViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A537F85181B92ED00C8B6A0 /* ShopCatalogViewController.xib */; };
@@ -136,8 +139,6 @@
 		9AAB97ED181ACCF100E13A85 /* SGSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AAB97EB181ACCF100E13A85 /* SGSettingViewController.m */; };
 		9AAB97EE181ACCF100E13A85 /* SGSettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9AAB97EC181ACCF100E13A85 /* SGSettingViewController.xib */; };
 		9AAB97F0181ACD1D00E13A85 /* st.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9AAB97EF181ACD1D00E13A85 /* st.jpg */; };
-		9AAB97F4181AEA0700E13A85 /* SGUserCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AAB97F2181AEA0700E13A85 /* SGUserCollectionViewController.m */; };
-		9AAB97F5181AEA0700E13A85 /* SGUserCollectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9AAB97F3181AEA0700E13A85 /* SGUserCollectionViewController.xib */; };
 		9AD23D5217FABC0100D28C7E /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AD23D5117FABC0100D28C7E /* AudioToolbox.framework */; };
 		9AEE83FC17FABD1500D92191 /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AEE83FB17FABD1500D92191 /* AddressBookUI.framework */; };
 		9AF01E7F180652B000D9F037 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AF01E7E180652B000D9F037 /* FacebookSDK.framework */; };
@@ -718,6 +719,18 @@
 		9A29E9A517F3CEB100C09C3C /* button_doidiemlayqua@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_doidiemlayqua@2x.png"; sourceTree = "<group>"; };
 		9A29E9A617F3CEB100C09C3C /* button_doidiemlayqua.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_doidiemlayqua.png; sourceTree = "<group>"; };
 		9A29E9A917F3DA9100C09C3C /* SettingViewController_ip5.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingViewController_ip5.xib; sourceTree = "<group>"; };
+		9A2BD468181D576800F211EF /* SGMapController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGMapController.h; sourceTree = "<group>"; };
+		9A2BD469181D576800F211EF /* SGMapController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGMapController.m; sourceTree = "<group>"; };
+		9A2BD46A181D576800F211EF /* SGMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGMapViewController.h; sourceTree = "<group>"; };
+		9A2BD46B181D576800F211EF /* SGMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGMapViewController.m; sourceTree = "<group>"; };
+		9A2BD46C181D576800F211EF /* SGMapViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SGMapViewController.xib; sourceTree = "<group>"; };
+		9A2BD471181D602D00F211EF /* SGUserCollectionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGUserCollectionController.h; sourceTree = "<group>"; };
+		9A2BD472181D602D00F211EF /* SGUserCollectionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGUserCollectionController.m; sourceTree = "<group>"; };
+		9A2BD473181D602D00F211EF /* SGUserCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGUserCollectionViewController.h; sourceTree = "<group>"; };
+		9A2BD474181D602D00F211EF /* SGUserCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGUserCollectionViewController.m; sourceTree = "<group>"; };
+		9A2BD475181D602D00F211EF /* SGUserCollectionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SGUserCollectionViewController.xib; sourceTree = "<group>"; };
+		9A2BD47F181D6D1E00F211EF /* PanGestureView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PanGestureView.h; sourceTree = "<group>"; };
+		9A2BD480181D6D1E00F211EF /* PanGestureView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PanGestureView.m; sourceTree = "<group>"; };
 		9A372B5617F0B811003C26C4 /* PromotionDetailCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PromotionDetailCell.xib; sourceTree = "<group>"; };
 		9A392B1A180CF356005E97CB /* logodemo_58.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logodemo_58.png; sourceTree = "<group>"; };
 		9A392B1B180CF356005E97CB /* logodemo_114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logodemo_114.png; sourceTree = "<group>"; };
@@ -748,13 +761,6 @@
 		9A46B6C017F0B40900410408 /* FacebookMiningViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FacebookMiningViewController.xib; sourceTree = "<group>"; };
 		9A46B6C417F0B54300410408 /* FacebookMiningViewController_ip5.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FacebookMiningViewController_ip5.xib; sourceTree = "<group>"; };
 		9A46B6C617F0B67900410408 /* ShopDetailPin.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShopDetailPin.xib; sourceTree = "<group>"; };
-		9A537F75181B800500C8B6A0 /* SGUserCollectionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGUserCollectionController.h; sourceTree = "<group>"; };
-		9A537F76181B800500C8B6A0 /* SGUserCollectionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGUserCollectionController.m; sourceTree = "<group>"; };
-		9A537F78181B816C00C8B6A0 /* SGMapController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGMapController.h; sourceTree = "<group>"; };
-		9A537F79181B816C00C8B6A0 /* SGMapController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGMapController.m; sourceTree = "<group>"; };
-		9A537F7B181B868900C8B6A0 /* SGMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGMapViewController.h; sourceTree = "<group>"; };
-		9A537F7C181B868900C8B6A0 /* SGMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGMapViewController.m; sourceTree = "<group>"; };
-		9A537F7D181B868900C8B6A0 /* SGMapViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SGMapViewController.xib; sourceTree = "<group>"; };
 		9A537F80181B90E700C8B6A0 /* m.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = m.jpg; sourceTree = "<group>"; };
 		9A537F83181B92ED00C8B6A0 /* ShopCatalogViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopCatalogViewController.h; sourceTree = "<group>"; };
 		9A537F84181B92ED00C8B6A0 /* ShopCatalogViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopCatalogViewController.m; sourceTree = "<group>"; };
@@ -832,9 +838,6 @@
 		9AAB97EB181ACCF100E13A85 /* SGSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGSettingViewController.m; sourceTree = "<group>"; };
 		9AAB97EC181ACCF100E13A85 /* SGSettingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SGSettingViewController.xib; sourceTree = "<group>"; };
 		9AAB97EF181ACD1D00E13A85 /* st.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = st.jpg; sourceTree = "<group>"; };
-		9AAB97F1181AEA0700E13A85 /* SGUserCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGUserCollectionViewController.h; sourceTree = "<group>"; };
-		9AAB97F2181AEA0700E13A85 /* SGUserCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGUserCollectionViewController.m; sourceTree = "<group>"; };
-		9AAB97F3181AEA0700E13A85 /* SGUserCollectionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SGUserCollectionViewController.xib; sourceTree = "<group>"; };
 		9AD23D5117FABC0100D28C7E /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		9AEE83FB17FABD1500D92191 /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
 		9AF01E7E180652B000D9F037 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = ../../Documents/FacebookSDK/FacebookSDK.framework; sourceTree = "<group>"; };
@@ -1628,9 +1631,36 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9A2BD467181D574C00F211EF /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				9A2BD468181D576800F211EF /* SGMapController.h */,
+				9A2BD469181D576800F211EF /* SGMapController.m */,
+				9A2BD46A181D576800F211EF /* SGMapViewController.h */,
+				9A2BD46B181D576800F211EF /* SGMapViewController.m */,
+				9A2BD46C181D576800F211EF /* SGMapViewController.xib */,
+			);
+			path = Map;
+			sourceTree = "<group>";
+		};
+		9A2BD470181D602D00F211EF /* UserCollection */ = {
+			isa = PBXGroup;
+			children = (
+				9A2BD471181D602D00F211EF /* SGUserCollectionController.h */,
+				9A2BD472181D602D00F211EF /* SGUserCollectionController.m */,
+				9A2BD473181D602D00F211EF /* SGUserCollectionViewController.h */,
+				9A2BD474181D602D00F211EF /* SGUserCollectionViewController.m */,
+				9A2BD475181D602D00F211EF /* SGUserCollectionViewController.xib */,
+			);
+			path = UserCollection;
+			sourceTree = "<group>";
+		};
 		9A537F82181B92D700C8B6A0 /* Shop */ = {
 			isa = PBXGroup;
 			children = (
+				9A537F8C181B92ED00C8B6A0 /* ShopViewController.h */,
+				9A537F8D181B92ED00C8B6A0 /* ShopViewController.m */,
+				9A537F8E181B92ED00C8B6A0 /* ShopViewController.xib */,
 				9A537F83181B92ED00C8B6A0 /* ShopCatalogViewController.h */,
 				9A537F84181B92ED00C8B6A0 /* ShopCatalogViewController.m */,
 				9A537F85181B92ED00C8B6A0 /* ShopCatalogViewController.xib */,
@@ -1640,9 +1670,6 @@
 				9A537F89181B92ED00C8B6A0 /* ShopUserViewController.h */,
 				9A537F8A181B92ED00C8B6A0 /* ShopUserViewController.m */,
 				9A537F8B181B92ED00C8B6A0 /* ShopUserViewController.xib */,
-				9A537F8C181B92ED00C8B6A0 /* ShopViewController.h */,
-				9A537F8D181B92ED00C8B6A0 /* ShopViewController.m */,
-				9A537F8E181B92ED00C8B6A0 /* ShopViewController.xib */,
 			);
 			path = Shop;
 			sourceTree = "<group>";
@@ -2150,8 +2177,10 @@
 			isa = PBXGroup;
 			children = (
 				9A7EA8D3181AB41E008D693A /* OldView */,
+				9A2BD470181D602D00F211EF /* UserCollection */,
 				9A537F82181B92D700C8B6A0 /* Shop */,
 				9A537F97181B931600C8B6A0 /* Authorization */,
+				9A2BD467181D574C00F211EF /* Map */,
 				9A55AB85181A726700BB4492 /* GUIManager.h */,
 				9A55AB86181A726700BB4492 /* GUIManager.m */,
 				9A7EA8CE181AB40D008D693A /* MasterContainerViewController.h */,
@@ -2174,16 +2203,8 @@
 				9AAB97EA181ACCF100E13A85 /* SGSettingViewController.h */,
 				9AAB97EB181ACCF100E13A85 /* SGSettingViewController.m */,
 				9AAB97EC181ACCF100E13A85 /* SGSettingViewController.xib */,
-				9AAB97F1181AEA0700E13A85 /* SGUserCollectionViewController.h */,
-				9AAB97F2181AEA0700E13A85 /* SGUserCollectionViewController.m */,
-				9AAB97F3181AEA0700E13A85 /* SGUserCollectionViewController.xib */,
-				9A537F75181B800500C8B6A0 /* SGUserCollectionController.h */,
-				9A537F76181B800500C8B6A0 /* SGUserCollectionController.m */,
-				9A537F78181B816C00C8B6A0 /* SGMapController.h */,
-				9A537F79181B816C00C8B6A0 /* SGMapController.m */,
-				9A537F7B181B868900C8B6A0 /* SGMapViewController.h */,
-				9A537F7C181B868900C8B6A0 /* SGMapViewController.m */,
-				9A537F7D181B868900C8B6A0 /* SGMapViewController.xib */,
+				9A2BD47F181D6D1E00F211EF /* PanGestureView.h */,
+				9A2BD480181D6D1E00F211EF /* PanGestureView.m */,
 			);
 			path = MasterView;
 			sourceTree = "<group>";
@@ -3184,7 +3205,6 @@
 				A97C783B17A1531300B0EE76 /* Done@2x.png in Resources */,
 				A97C783C17A1531300B0EE76 /* hold.png in Resources */,
 				A97C783D17A1531300B0EE76 /* hold@2x.png in Resources */,
-				9AAB97F5181AEA0700E13A85 /* SGUserCollectionViewController.xib in Resources */,
 				A97C785017A1531300B0EE76 /* line.png in Resources */,
 				A97C785117A1531300B0EE76 /* line@2x.png in Resources */,
 				A97C785217A1531300B0EE76 /* list_bar.png in Resources */,
@@ -3382,6 +3402,7 @@
 				A9220AD617BD164E00BA4E0B /* shop_arrowcomment.png in Resources */,
 				A9220AD717BD164E00BA4E0B /* shop_arrowcomment@2x.png in Resources */,
 				A91D58F417BF5EEC001C96DD /* blur_cover.png in Resources */,
+				9A2BD478181D602D00F211EF /* SGUserCollectionViewController.xib in Resources */,
 				9AF78B191810F2030055730F /* intro_4.jpg in Resources */,
 				A91D58F517BF5EEC001C96DD /* blur_cover@2x.png in Resources */,
 				A91D58F817BF6936001C96DD /* bg_logoshop.png in Resources */,
@@ -3460,7 +3481,6 @@
 				A9256DFD17C70FEA0064BBE9 /* numberfield.png in Resources */,
 				A9256DFE17C70FEA0064BBE9 /* button_send.png in Resources */,
 				A9256E2E17C71DB20064BBE9 /* icon_app4_small.png in Resources */,
-				9A537F7F181B868900C8B6A0 /* SGMapViewController.xib in Resources */,
 				9A03F44017FC5F8E00D2DF25 /* PromotionVoucherCell.xib in Resources */,
 				A91D7B6B17CA4A7A00BF4DA2 /* button_done.png in Resources */,
 				A91D7B6D17CA4A8800BF4DA2 /* button_done@2x.png in Resources */,
@@ -3573,6 +3593,7 @@
 				9A46B68617F0B13A00410408 /* Default~iphone.png in Resources */,
 				9A46B6C117F0B40900410408 /* FacebookMiningViewController.xib in Resources */,
 				9A46B6C517F0B54300410408 /* FacebookMiningViewController_ip5.xib in Resources */,
+				9A2BD46F181D576800F211EF /* SGMapViewController.xib in Resources */,
 				9A46B6C717F0B67900410408 /* ShopDetailPin.xib in Resources */,
 				9A372B5717F0B811003C26C4 /* PromotionDetailCell.xib in Resources */,
 				9A451E2F17F0BA4000352CD7 /* GalleryView.xib in Resources */,
@@ -3635,12 +3656,13 @@
 				A9BF9470178FA7E700EF7E5F /* AFJSONRequestOperation.m in Sources */,
 				A9BF9471178FA7E700EF7E5F /* AFNetworkActivityIndicatorManager.m in Sources */,
 				A9BF9472178FA7E700EF7E5F /* AFPropertyListRequestOperation.m in Sources */,
+				9A2BD481181D6D1E00F211EF /* PanGestureView.m in Sources */,
 				A9BF9473178FA7E700EF7E5F /* AFURLConnectionOperation.m in Sources */,
 				A9BF9474178FA7E700EF7E5F /* AFXMLRequestOperation.m in Sources */,
 				A9BF9475178FA7E700EF7E5F /* UIImageView+AFNetworking.m in Sources */,
 				A9BF9489178FB87E00EF7E5F /* LocationManager.m in Sources */,
 				A9E71DA6178FD2B200D7467E /* LocalizationManager.m in Sources */,
-				9A537F7E181B868900C8B6A0 /* SGMapViewController.m in Sources */,
+				9A2BD46E181D576800F211EF /* SGMapViewController.m in Sources */,
 				A9E71DAE178FD34500D7467E /* ShopAnnotationView.m in Sources */,
 				9A537FA5181B933300C8B6A0 /* UserLoginViewController.m in Sources */,
 				A9E71DAF178FD34500D7467E /* ShopPin.m in Sources */,
@@ -3664,7 +3686,6 @@
 				A9CFD3761797FFCC0035E448 /* _City.m in Sources */,
 				9A7EA8ED181AB46A008D693A /* NavigationViewController.m in Sources */,
 				A9253D8017981C3A00427BFE /* Group.m in Sources */,
-				9AAB97F4181AEA0700E13A85 /* SGUserCollectionViewController.m in Sources */,
 				A9253D8317981C4100427BFE /* _Group.m in Sources */,
 				A99089D7179926800025DC08 /* Shop.m in Sources */,
 				A99089DA179926880025DC08 /* _Shop.m in Sources */,
@@ -3737,7 +3758,6 @@
 				A91CE6D917A99D4C00D29E87 /* PromotionDetailType1View.m in Sources */,
 				A91CE6DE17A9A07B00D29E87 /* PromotionDetailCell.m in Sources */,
 				A9DCA90817AABCB200C56854 /* ShopUserComment.m in Sources */,
-				9A537F77181B800500C8B6A0 /* SGUserCollectionController.m in Sources */,
 				9A7EA8F5181AB46A008D693A /* ViewController.m in Sources */,
 				A9DCA90B17AABCBB00C56854 /* _ShopUserComment.m in Sources */,
 				A9519A9417AD2EA20062C995 /* PromotionDetailType2View.m in Sources */,
@@ -3745,6 +3765,7 @@
 				A925476617ADF82B00AD0BA9 /* ASIOperationGetSGP.m in Sources */,
 				A925476A17AE032D00AD0BA9 /* TouchView.m in Sources */,
 				A925479617AE3C2A00AD0BA9 /* OperationGetActionCode.m in Sources */,
+				9A2BD477181D602D00F211EF /* SGUserCollectionViewController.m in Sources */,
 				A925479917AE423400AD0BA9 /* OperationVerifyActiveCode.m in Sources */,
 				A925479C17AE453F00AD0BA9 /* OperationGetToken.m in Sources */,
 				A924A3C117AEB63F0042B28B /* OperationRefreshToken.m in Sources */,
@@ -3807,8 +3828,9 @@
 				A920FE2317D5C1A10096CC07 /* TutorialCell.m in Sources */,
 				A927725717D7852100405034 /* IntroCell.m in Sources */,
 				A922FDAE17D8C5490036B89A /* ASIOperationUpdateUserInfo.m in Sources */,
-				9A537F7A181B816C00C8B6A0 /* SGMapController.m in Sources */,
+				9A2BD46D181D576800F211EF /* SGMapController.m in Sources */,
 				A922FDDA17D8EFFB0036B89A /* UpdateVersion.m in Sources */,
+				9A2BD476181D602D00F211EF /* SGUserCollectionController.m in Sources */,
 				9A46B6B617F0B1D100410408 /* ASIOperationGetAvatars.m in Sources */,
 				9A46B6B717F0B1D100410408 /* ASIOperationUploadFBToken.m in Sources */,
 				9A46B6BD17F0B1E900410408 /* AvatarListView.m in Sources */,

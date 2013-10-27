@@ -11,7 +11,7 @@
 
 static GUIManager *_shareInstance=nil;
 @implementation GUIManager
-@synthesize mainWindow,contentController,masterContainerView,masterNavigation,toolbarController,adsController,qrCodeController,settingController, userCollectionController,authorizationController;
+@synthesize mainWindow,contentController,masterContainerView,masterNavigation,toolbarController,adsController,qrCodeController,settingController, userCollectionController,authorizationController,mapController;
 
 +(GUIManager *)shareInstance
 {
@@ -24,10 +24,10 @@ static GUIManager *_shareInstance=nil;
 }
 
 -(void)startupWithWindow:(UIWindow *)window
-{    
+{
     mainWindow=window;
     mainWindow.backgroundColor=COLOR_BACKGROUND_APP;
-
+    
     if(NSFoundationVersionNumber>NSFoundationVersionNumber_iOS_6_1)
         mainWindow.center=CGPointMake(mainWindow.center.x, mainWindow.center.y+20);
     
@@ -85,9 +85,14 @@ static GUIManager *_shareInstance=nil;
 {
     if(userCollectionController)
     {
-        [userCollectionController removeFromParentViewController];
-        [userCollectionController.view removeFromSuperview];
-        userCollectionController=nil;
+        [UIView animateWithDuration:DURATION_DEFAULT animations:^{
+            userCollectionController.view.center=CGPointMake(userCollectionController.view.center.x, -userCollectionController.view.frame.size.height/2);
+        } completion:^(BOOL finished) {
+            [userCollectionController removeFromParentViewController];
+            [userCollectionController.view removeFromSuperview];
+            userCollectionController=nil;
+            masterContainerView.content_ads_upper.hidden=true;
+        }];
         return;
     }
     
@@ -97,10 +102,15 @@ static GUIManager *_shareInstance=nil;
     [userCollectionController setNavigationBarHidden:true];
     CGRect rect=userCollectionController.view.frame;
     rect.size=masterContainerView.content_ads_upper.frame.size;
+    rect.origin=CGPointMake(0, -rect.size.height);
     userCollectionController.view.frame=rect;
-
+    
     [self.masterContainerView addChildViewController:userCollectionController];
     [self.masterContainerView.content_ads_upper addSubview:userCollectionController.view];
+    
+    [UIView animateWithDuration:DURATION_DEFAULT animations:^{
+        userCollectionController.view.center=CGPointMake(userCollectionController.view.center.x, userCollectionController.view.frame.size.height/2);
+    }];
 }
 
 -(void)toolbarUserLogin
@@ -113,7 +123,34 @@ static GUIManager *_shareInstance=nil;
 
 -(void)toolbarMap
 {
+    if(mapController)
+    {
+        [UIView animateWithDuration:DURATION_DEFAULT animations:^{
+            mapController.view.center=CGPointMake(mapController.view.center.x, mapController.view.center.y+mapController.view.frame.size.height);
+        } completion:^(BOOL finished) {
+            [mapController removeFromParentViewController];
+            [mapController.view removeFromSuperview];
+            mapController=nil;
+            self.masterContainerView.mapView.hidden=true;
+        }];
+        return;
+    }
     
+    mapController=[[SGMapController alloc] init];
+    [mapController setNavigationBarHidden:true];
+    CGRect rect=self.masterContainerView.mapFrame;
+    rect.origin=CGPointMake(0, rect.size.height);
+    
+    mapController.view.frame=rect;
+    
+    [self.masterContainerView addChildViewController:mapController];
+    [self.masterContainerView.mapView addSubview:mapController.view];
+    
+    
+    self.masterContainerView.mapView.hidden=false;
+    [UIView animateWithDuration:0.3f animations:^{
+        mapController.view.center=CGPointMake(mapController.view.center.x, mapController.view.frame.size.height/2);
+    }];
 }
 
 -(void)SGSettingHided

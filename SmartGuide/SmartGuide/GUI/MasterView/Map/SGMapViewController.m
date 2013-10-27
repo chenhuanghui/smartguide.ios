@@ -41,4 +41,8 @@
     NSLog(@"dealloc %@", CLASS_NAME);
 }
 
+- (IBAction)btn:(id)sender {
+    [self.delegate SGMapViewSelectedShop];
+}
+
 @end

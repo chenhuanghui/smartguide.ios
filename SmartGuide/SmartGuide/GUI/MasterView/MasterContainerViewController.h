@@ -19,11 +19,13 @@
 @property (weak, nonatomic) IBOutlet UIView *qrView;
 @property (weak, nonatomic) IBOutlet UIView *content_ads_upper;
 @property (weak, nonatomic) IBOutlet UIView *content_ads_middle;
+@property (weak, nonatomic) IBOutlet UIView *mapView;
 
 @property (nonatomic, readonly) CGRect toolbarFrame;
 @property (nonatomic, readonly) CGRect contentFrame;
 @property (nonatomic, readonly) CGRect adsFrame;
 @property (nonatomic, readonly) CGRect qrFrame;
 @property (nonatomic, readonly) CGRect content_adsFrame;
+@property (nonatomic, readonly) CGRect mapFrame;
 
 @end
