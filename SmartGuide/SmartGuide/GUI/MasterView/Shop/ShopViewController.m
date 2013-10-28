@@ -30,6 +30,8 @@
 -(void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [self setNavigationBarHidden:true];
 }
 
 -(BOOL)gestureRecognizerShouldBegin1:(UIGestureRecognizer *)gestureRecognizer

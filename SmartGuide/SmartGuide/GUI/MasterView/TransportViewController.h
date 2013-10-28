@@ -13,6 +13,6 @@
 
 -(TransportViewController*) initWithNavigation:(UINavigationController*) navi;
 
-@property (nonatomic, readonly) UINavigationController* navi;
+@property (nonatomic, weak, readonly) UINavigationController* navi;
 
 @end

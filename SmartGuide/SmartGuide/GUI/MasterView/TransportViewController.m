@@ -38,4 +38,11 @@
     NSLog(@"dealloc %@",CLASS_NAME);
 }
 
+-(void)loadView
+{
+    [super loadView];
+    
+    self.view.autoresizesSubviews=false;
+}
+
 @end

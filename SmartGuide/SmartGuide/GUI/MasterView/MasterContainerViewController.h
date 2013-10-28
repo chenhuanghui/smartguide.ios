@@ -20,6 +20,7 @@
 @property (weak, nonatomic) IBOutlet UIView *content_ads_upper;
 @property (weak, nonatomic) IBOutlet UIView *content_ads_middle;
 @property (weak, nonatomic) IBOutlet UIView *mapView;
+@property (weak, nonatomic) IBOutlet UIView *topView;
 
 @property (nonatomic, readonly) CGRect toolbarFrame;
 @property (nonatomic, readonly) CGRect contentFrame;
@@ -27,5 +28,6 @@
 @property (nonatomic, readonly) CGRect qrFrame;
 @property (nonatomic, readonly) CGRect content_adsFrame;
 @property (nonatomic, readonly) CGRect mapFrame;
+@property (nonatomic, readonly) CGRect topFrame;
 
 @end

@@ -15,7 +15,7 @@
 
 @end
 
-@interface ShopCatalogViewController : ViewController
+@interface ShopCatalogViewController : UIViewController
 
 @property (nonatomic, assign) id<ShopCatalogDelegate> delegate;
 

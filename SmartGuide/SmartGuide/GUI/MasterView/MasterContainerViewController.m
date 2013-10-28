@@ -13,7 +13,7 @@
 @end
 
 @implementation MasterContainerViewController
-@synthesize toolbarFrame,contentFrame,adsFrame,qrFrame,content_adsFrame,mapFrame;
+@synthesize toolbarFrame,contentFrame,adsFrame,qrFrame,content_adsFrame,mapFrame,topFrame;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -35,6 +35,7 @@
     qrFrame=self.qrView.frame;
     content_adsFrame=self.content_ads_upper.frame;
     mapFrame=self.mapView.frame;
+    topFrame=self.topView.frame;
 }
 
 - (void)didReceiveMemoryWarning

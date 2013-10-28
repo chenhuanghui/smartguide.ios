@@ -15,6 +15,7 @@
                 <outlet property="mapView" destination="o8l-wT-N27" id="dba-SL-gdL"/>
                 <outlet property="qrView" destination="xGO-XS-yxH" id="D1d-QS-fsY"/>
                 <outlet property="toolbarView" destination="HLd-3y-S48" id="GdR-Is-PB1"/>
+                <outlet property="topView" destination="qSd-Rv-3BB" id="glW-LB-B3s"/>
                 <outlet property="view" destination="1" id="3"/>
             </connections>
         </placeholder>
@@ -53,13 +54,18 @@
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         </view>
                         <view contentMode="scaleToFill" id="xGO-XS-yxH" userLabel="qr">
-                            <rect key="frame" x="0.0" y="420" width="320" height="40"/>
+                            <rect key="frame" x="0.0" y="420" width="320" height="480"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         </view>
                         <view contentMode="scaleToFill" id="HLd-3y-S48" userLabel="toolbar">
                             <rect key="frame" x="0.0" y="0.0" width="320" height="31"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        </view>
+                        <view hidden="YES" contentMode="scaleToFill" id="qSd-Rv-3BB" userLabel="topView">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                            <autoresizingMask key="autoresizingMask"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         </view>
                     </subviews>

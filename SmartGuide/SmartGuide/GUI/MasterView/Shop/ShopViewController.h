@@ -12,7 +12,6 @@
 #import "ShopUserViewController.h"
 #import "Constant.h"
 #import "NavigationViewController.h"
-#import "TransportViewController.h"
 #import "PanGestureView.h"
 
 @protocol ShopViewDelegate <NSObject>

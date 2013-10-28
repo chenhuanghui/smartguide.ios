@@ -22,13 +22,7 @@
 
 - (id)init
 {
-    ShopViewController *vc=[[ShopViewController alloc] init];
-    TransportViewController *transport=[[TransportViewController alloc] initWithNavigation:vc];
-    self = [super initWithRootViewController:transport];
-    [self setNavigationBarHidden:true];
-    
-    shopController=vc;
-    shopController.shopDelegate=self;
+    self=[super init];
     
     return self;
 }
@@ -37,6 +31,23 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+}
+
+-(void)showShopController
+{
+    shopController=[[ShopViewController alloc] init];
+    shopController.shopDelegate=self;
+    
+    CGRect rect=self.view.frame;
+    rect.origin=CGPointZero;
+
+    shopController.view.frame=rect;
+    
+    TransportViewController *transport=[[TransportViewController alloc] initWithNavigation:shopController];
+    
+    transport.view.frame=rect;
+    
+    [self pushViewController:transport animated:true];
 }
 
 -(void)shopViewSelectedShop

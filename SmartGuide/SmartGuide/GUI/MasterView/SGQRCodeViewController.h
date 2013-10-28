@@ -8,6 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol SGQRCodeDelegate <NSObject>
+
+-(void) SGQRCodeRequestShow;
+
+@end
+
 @interface SGQRCodeViewController : UIViewController
+
+@property (nonatomic, assign) id<SGQRCodeDelegate> delegate;
 
 @end

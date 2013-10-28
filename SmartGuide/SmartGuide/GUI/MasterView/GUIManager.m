@@ -31,6 +31,8 @@ static GUIManager *_shareInstance=nil;
     if(NSFoundationVersionNumber>NSFoundationVersionNumber_iOS_6_1)
         mainWindow.center=CGPointMake(mainWindow.center.x, mainWindow.center.y+20);
     
+    CGRect rect=CGRectZero;
+    
     masterContainerView = [[MasterContainerViewController alloc] init];
     masterNavigation = [[UINavigationController alloc] initWithRootViewController:masterContainerView];
     [masterNavigation setNavigationBarHidden:true];
@@ -38,6 +40,14 @@ static GUIManager *_shareInstance=nil;
     masterContainerView.view.backgroundColor=COLOR_BACKGROUND_APP;
     
     contentController = [[ContentViewController alloc] init];
+    [contentController setNavigationBarHidden:true];
+
+    rect=masterContainerView.contentFrame;
+    rect.origin=CGPointZero;
+    contentController.view.frame=rect;
+
+    [contentController showShopController];
+    
     [masterContainerView.contentView addSubview:contentController.view];
     contentController.contentDelegate=self;
     
@@ -49,12 +59,22 @@ static GUIManager *_shareInstance=nil;
     [masterContainerView.adsView addSubview:adsController.view];
     
     qrCodeController=[[SGQRCodeViewController alloc] init];
+    qrCodeController.delegate=self;
     [masterContainerView.qrView addSubview:qrCodeController.view];
     
     window.rootViewController=masterNavigation;
     [window makeKeyAndVisible];
     
     masterNavigation.delegate=self;
+}
+
+-(void)SGQRCodeRequestShow
+{
+    [UIView animateWithDuration:DURATION_DEFAULT animations:^{
+        CGRect rect=self.masterContainerView.qrView.frame;
+        rect.origin.y=self.masterContainerView.toolbarFrame.origin.y+self.masterContainerView.toolbarFrame.size.height;
+        self.masterContainerView.qrView.frame=rect;
+    }];
 }
 
 -(void)contentViewSelectedShop

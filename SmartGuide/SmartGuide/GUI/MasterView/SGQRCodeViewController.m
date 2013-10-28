@@ -13,6 +13,7 @@
 @end
 
 @implementation SGQRCodeViewController
+@synthesize delegate;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -33,6 +34,10 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (IBAction)btn:(id)sender {
+    [self.delegate SGQRCodeRequestShow];
 }
 
 @end
