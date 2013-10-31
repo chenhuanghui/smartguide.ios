@@ -13,7 +13,10 @@
 -(OperationVerifyActiveCode*) initWithPhone:(NSString*) phone aciveCode:(NSString*) activeCode;
 
 @property (nonatomic, readonly) bool isSuccess;
-@property (nonatomic, readonly) User *user;
+@property (nonatomic, readonly) int idUser;
+@property (nonatomic, readonly) bool isConnectedFacebook;
+@property (nonatomic, readonly) NSString *avatar;
+@property (nonatomic, readonly) NSString *name;
 @property (nonatomic, strong) NSString *activeCode;
 
 @end

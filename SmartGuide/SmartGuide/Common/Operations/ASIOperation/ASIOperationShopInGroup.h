@@ -8,7 +8,7 @@
 
 #import "ASIOperationPost.h"
 
-@class Group;
+@class ShopCatalog;
 
 @interface ASIOperationShopInGroup : ASIOperationPost
 {

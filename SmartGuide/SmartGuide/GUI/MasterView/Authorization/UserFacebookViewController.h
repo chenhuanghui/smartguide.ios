@@ -6,7 +6,12 @@
 //  Copyright (c) 2013 Redbase. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "SGViewController.h"
+#import "OperationFBGetProfile.h"
+#import "ASIOperationFBProfile.h"
+#import "FacebookManager.h"
+#import "ASIOperationUpdateUserInfo.h"
+#import "CreateUserView.h"
 
 @protocol UserFacebookDelegate <NSObject>
 
@@ -14,7 +19,23 @@
 
 @end
 
-@interface UserFacebookViewController : ViewController
+@interface UserFacebookViewController : SGViewController<OperationURLDelegate,ASIOperationPostDelegate,UINavigationControllerDelegate,UITextFieldDelegate,UIActionSheetDelegate,CreateUserDelegate>
+{
+    __weak IBOutlet UIButton *btnFace;
+    __weak IBOutlet UIButton *btnCreate;
+    __weak IBOutlet UIView *containtView;
+    
+    ASIOperationFBProfile *postProfile;
+    OperationFBGetProfile *getProfile;
+    bool _isUserChangedAvatar;
+    bool _isRequestingProfileFB;
+    
+    bool _isUploadedFBToken;
+    bool _isGettedProfile;
+}
+
+- (IBAction)btnFaceTouchUpInside:(id)sender;
+- (IBAction)btnCreateTouchUpInside:(id)sender;
 
 @property (nonatomic, assign) id<UserFacebookDelegate> delegate;
 

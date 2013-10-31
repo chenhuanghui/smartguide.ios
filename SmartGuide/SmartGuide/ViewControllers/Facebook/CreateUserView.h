@@ -10,6 +10,12 @@
 #import "AvatarListView.h"
 #import "ASIOperationUpdateUserInfo.h"
 
+@protocol CreateUserDelegate <NSObject>
+
+-(void) createUserFinished;
+
+@end
+
 @interface CreateUserView : UIView<AvatarListViewDelegate,ASIOperationPostDelegate>
 {
     __weak IBOutlet UITextField *txtUser;
@@ -29,5 +35,7 @@
 
 - (IBAction)btnDoneTouchUpInside:(id)sender;
 - (IBAction)btnAvatarTouchUpInside:(id)sender;
+
+@property (nonatomic, assign) id<CreateUserDelegate> delegate;
 
 @end

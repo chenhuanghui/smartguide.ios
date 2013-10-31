@@ -554,6 +554,23 @@ bool isVailCLLocationCoordinate2D(CLLocationCoordinate2D location)
 
 @implementation UIView(Utility)
 
+-(UIView*)childViewWithTag:(NSUInteger) childTag
+{
+    UIView *view=nil;
+    bool isFound=false;
+    for(view in self.subviews)
+        if(view.tag==childTag)
+        {
+            isFound=true;
+            break;
+        }
+    
+    if(isFound)
+        return view;
+    
+    return nil;
+}
+
 - (void)shake
 {
     CGFloat t = 2.0;

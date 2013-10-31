@@ -64,12 +64,12 @@
     [Flags setLastIDUser:num.integerValue];
 }
 
--(NSNumber *)isConnectedFacebook
+-(NSNumber *)isConnectedFacebook1
 {
     return @(false);
 }
 
--(NSString *)name
+-(NSString *)name1
 {
     return @"";
 }

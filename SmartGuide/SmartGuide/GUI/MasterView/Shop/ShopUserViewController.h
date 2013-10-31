@@ -6,7 +6,8 @@
 //  Copyright (c) 2013 Redbase. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "SGViewController.h"
+#import "Shop.h"
 
 @protocol ShopUserDelegate <NSObject>
 
@@ -14,7 +15,10 @@
 
 @end
 
-@interface ShopUserViewController : ViewController
+@interface ShopUserViewController : SGViewController
+
++(ShopUserViewController*) shareInstance;
+-(void) setShop:(Shop*) shop;
 
 @property (nonatomic, assign) id<ShopUserDelegate> delegate;
 

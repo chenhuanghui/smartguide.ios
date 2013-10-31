@@ -7,7 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ASIOperationGetAds.h"
+#import "SGViewController.h"
 
-@interface SGAdsViewController : UIViewController
+@interface SGAdsViewController : SGViewController<ASIOperationPostDelegate>
+{
+    __weak IBOutlet UIButton *btnLeft;
+    __weak IBOutlet UIButton *btnRight;
+    __weak IBOutlet UITableView *tableAds;
+}
 
 @end

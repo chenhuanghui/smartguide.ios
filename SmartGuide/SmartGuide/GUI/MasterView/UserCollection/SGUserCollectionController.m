@@ -56,7 +56,7 @@
     ShopUserViewController *shop=[[ShopUserViewController alloc] init];
     shop.delegate=self;
     
-    _panHandle=[[PanGestureView alloc] initWithDirection:PanGestureDirectionToLeft withCurrentView:self.visibleViewController.view withOtherView:shop.view];
+    _panHandle=[[PanDragViewHandle alloc] initWithDirection:PanGestureDirectionToLeft withCurrentView:self.visibleViewController.view withOtherView:shop.view];
     _panHandle.delegate=self;
     
     panGes=[[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panGes:)];

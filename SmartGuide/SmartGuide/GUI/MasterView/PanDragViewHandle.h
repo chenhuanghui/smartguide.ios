@@ -14,24 +14,24 @@ enum PanGestureDirection {
     PanGestureDirectionToRight = 1
     };
 
-@protocol PanGestureDelegate <NSObject>
+@protocol PanDragViewDelegate <NSObject>
 
 -(void) panGestureMovedToView:(UIView*) view;
 
 @end
 
-@interface PanGestureView : NSObject
+@interface PanDragViewHandle : NSObject
 {
     CGPoint _startPoint;
 }
 
--(PanGestureView*) initWithDirection:(enum PanGestureDirection) direction withCurrentView:(UIView*) currentView withOtherView:(UIView*) otherView;
+-(PanDragViewHandle*) initWithDirection:(enum PanGestureDirection) direction withCurrentView:(UIView*) currentView withOtherView:(UIView*) otherView;
 
 -(void) handlePanGesture:(UIPanGestureRecognizer*) ges;
 
 @property (nonatomic, readonly) enum PanGestureDirection panDirection;
 @property (nonatomic, weak, readonly) UIView *currentView;
 @property (nonatomic, weak, readonly) UIView *otherView;
-@property (nonatomic, assign) id<PanGestureDelegate> delegate;
+@property (nonatomic, assign) id<PanDragViewDelegate> delegate;
 
 @end

@@ -20,7 +20,7 @@
 #define FACEBOOK_APPID @"1391698407719065"
 #define FACEBOOK_GET_PROFILE(accessToken,fields) [NSString stringWithFormat:@"https://graph.facebook.com/me/?fields=%@&access_token=%@",fields,accessToken]
 
-#define BUILD_MODE 1
+#define BUILD_MODE 0
 //0: developer
 //1: production
 
@@ -159,10 +159,10 @@ enum LIKE_STATUS {
     DISLIKE = 2,
 };
 
-@class Group;
+@class ShopCatalog;
 @protocol CatalogueBlockViewDelegate <NSObject>
 
--(void) catalogueBlockDidSelectedGroup:(Group*) group;
+-(void) catalogueBlockDidSelectedGroup:(ShopCatalog*) group;
 -(void) catalogueBlockUpdated;
 
 @end

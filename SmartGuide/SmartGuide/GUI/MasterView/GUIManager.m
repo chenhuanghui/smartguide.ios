@@ -10,8 +10,20 @@
 #import "TransportViewController.h"
 
 static GUIManager *_shareInstance=nil;
+
+@interface GUIManager()
+{
+    
+}
+
+@property (nonatomic, weak) UIViewController *previousViewController;
+
+@end
+
 @implementation GUIManager
-@synthesize mainWindow,contentController,masterContainerView,masterNavigation,toolbarController,adsController,qrCodeController,settingController, userCollectionController,authorizationController,mapController;
+@synthesize mainWindow,contentController,masterContainerView,masterNavigation,toolbarController,adsController,qrCodeController,settingController, userCollectionController,mapController;
+@synthesize previousViewController;
+@synthesize isShowingMap;
 
 +(GUIManager *)shareInstance
 {
@@ -25,6 +37,8 @@ static GUIManager *_shareInstance=nil;
 
 -(void)startupWithWindow:(UIWindow *)window
 {
+    isShowingMap=false;
+    
     mainWindow=window;
     mainWindow.backgroundColor=COLOR_BACKGROUND_APP;
     
@@ -39,13 +53,18 @@ static GUIManager *_shareInstance=nil;
     
     masterContainerView.view.backgroundColor=COLOR_BACKGROUND_APP;
     
+    window.rootViewController=masterNavigation;
+    [window makeKeyAndVisible];
+    
+    masterNavigation.delegate=self;
+    
     contentController = [[ContentViewController alloc] init];
     [contentController setNavigationBarHidden:true];
-
+    
     rect=masterContainerView.contentFrame;
     rect.origin=CGPointZero;
     contentController.view.frame=rect;
-
+    
     [contentController showShopController];
     
     [masterContainerView.contentView addSubview:contentController.view];
@@ -62,10 +81,24 @@ static GUIManager *_shareInstance=nil;
     qrCodeController.delegate=self;
     [masterContainerView.qrView addSubview:qrCodeController.view];
     
-    window.rootViewController=masterNavigation;
-    [window makeKeyAndVisible];
+    mapController=[[SGMapController alloc] init];
+    [masterContainerView.mapView addSubview:mapController.view];
     
-    masterNavigation.delegate=self;
+    rect=masterContainerView.mapFrame;
+    rect.origin=CGPointMake(0, rect.size.height-10);
+    mapController.view.frame=rect;
+    
+    if([AuthorizationViewController isNeedFillInfo])
+    {
+        AuthorizationViewController *authorization=[[AuthorizationViewController alloc] init];
+        [authorization showCreateUser];
+        
+        authorization.delegate=self;
+        
+        TransportViewController *transport=[[TransportViewController alloc] initWithNavigation:authorization];
+        
+        [self.masterNavigation pushViewController:transport animated:false];
+    }
 }
 
 -(void)SGQRCodeRequestShow
@@ -135,14 +168,125 @@ static GUIManager *_shareInstance=nil;
 
 -(void)toolbarUserLogin
 {
-    authorizationController=[[AuthorizationViewController alloc] initAuthorazion];
+    AuthorizationViewController *authorizationController=[[AuthorizationViewController alloc] init];
+    authorizationController.delegate=self;
+    
+    [authorizationController showLogin];
+    
     TransportViewController *transport=[[TransportViewController alloc] initWithNavigation:authorizationController];
     
     [self.masterNavigation pushViewController:transport animated:true];
 }
 
+-(void)authorizationSuccessed
+{
+    [self.masterNavigation popViewControllerAnimated:true];
+}
+
+-(void)authorizationCancelled
+{
+    [self.masterNavigation popViewControllerAnimated:true];
+}
+
+-(void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated
+{
+    return;
+    int idx=[self.masterNavigation.viewControllers indexOfObject:viewController];
+    
+    idx--;
+    
+    if(idx<0)
+        idx=0;
+    
+    UIViewController *previousVC=self.masterNavigation.viewControllers[idx];
+    
+    if(previousVC!=viewController)
+    {
+        self.previousViewController=previousVC;
+        if([viewController isKindOfClass:[AuthorizationViewController class]])
+        {
+            [self removePanGes_Handle];
+        
+            [self applyPanGes_HandleWithCurrentView:previousViewController.view withOtherView:viewController.view];
+            
+            previousViewController.view.center=CGPointMake(-self.masterNavigation.view.frame.size.width/2, previousViewController.view.center.y);
+            [self.masterNavigation.view addSubview:previousViewController.view];
+        }
+    }
+}
+
+-(void)panGestureMovedToView:(UIView *)view
+{
+    if(view==self.previousViewController.view)
+    {
+        [self.masterNavigation popViewControllerAnimated:false];
+        [self removePanGes_Handle];
+    }
+}
+
+-(void) removePanGes_Handle
+{
+    if(panGes)
+    {
+        panGes.delegate=nil;
+        [panGes removeTarget:self action:@selector(panGes:)];
+        [self.masterNavigation.view removeGestureRecognizer:panGes];
+        panGes=nil;
+    }
+    
+    if(panHandle)
+    {
+        panHandle.delegate=nil;
+        panHandle=nil;
+    }
+}
+
+-(void) applyPanGes_HandleWithCurrentView:(UIView*) currentView withOtherView:(UIView*) otherView
+{
+    panGes=[[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panGes:)];
+    panGes.delegate=self;
+    
+    [self.masterNavigation.view addGestureRecognizer:panGes];
+    
+    panHandle=[[PanDragViewHandle alloc] initWithDirection:PanGestureDirectionToLeft withCurrentView:currentView withOtherView:otherView];
+    panHandle.delegate=self;
+}
+
+-(void) panGes:(UIPanGestureRecognizer*) ges
+{
+    [panHandle handlePanGesture:ges];
+}
+
 -(void)toolbarMap
 {
+    if(self.isShowingMap)
+    {
+        masterContainerView.ads_mapView.mapView.userInteractionEnabled=false;
+        
+        [UIView animateWithDuration:DURATION_DEFAULT animations:^{
+            CGRect rect=masterContainerView.mapFrame;
+            rect.origin=CGPointMake(0, rect.size.height-10);
+            mapController.view.frame=rect;
+        } completion:^(BOOL finished) {
+            [mapController.mapViewController removeMap];
+            
+            isShowingMap=false;
+        }];
+    }
+    else
+    {
+        [mapController .mapViewController addMap];
+        
+        masterContainerView.ads_mapView.mapView.userInteractionEnabled=true;
+        
+        [UIView animateWithDuration:DURATION_DEFAULT animations:^{
+            mapController.view.center=CGPointMake(mapController.view.center.x, mapController.view.frame.size.height/2);
+        } completion:^(BOOL finished) {
+            
+            isShowingMap=true;
+        }];
+    }
+    return;
     if(mapController)
     {
         [UIView animateWithDuration:DURATION_DEFAULT animations:^{
@@ -177,6 +321,43 @@ static GUIManager *_shareInstance=nil;
 {
     settingController.delegate=nil;
     settingController=nil;
+}
+
+-(void)presentModalViewController:(UIViewController *)viewController animated:(BOOL)animated
+{
+    [self.masterContainerView addChildViewController:viewController];
+    
+    [self.masterContainerView.view alphaViewWithColor:[UIColor blackColor]];
+    self.masterContainerView.view.alphaView.alpha=0;
+    
+    viewController.view.center=CGPointMake(self.masterContainerView.view.frame.size.width/2, -self.masterContainerView.view.frame.size.height/2);
+    
+    [self.masterContainerView.view addSubview:viewController.view];
+    
+    [UIView animateWithDuration:DURATION_DEFAULT animations:^{
+        self.masterContainerView.view.alphaView.alpha=0.7f;
+        float otherHeight=self.masterContainerView.view.frame.size.height-viewController.view.frame.size.height;
+        otherHeight/=2;
+        viewController.view.center=CGPointMake(viewController.view.center.x, self.masterContainerView.view.frame.size.height/2-otherHeight);
+    } completion:^(BOOL finished) {
+        
+    }];
+}
+
+-(void)dismissModalViewController:(UIViewController *)viewController animated:(BOOL)animated
+{
+    if([self.masterContainerView.childViewControllers containsObject:viewController])
+    {
+        [UIView animateWithDuration:DURATION_DEFAULT animations:^{
+            self.masterContainerView.view.alphaView.alpha=0;
+            viewController.view.center=CGPointMake(viewController.view.center.x, -self.masterContainerView.view.frame.size.height/2);
+        } completion:^(BOOL finished) {
+            [self.masterContainerView.view removeAlphaView];
+            
+            [viewController removeFromParentViewController];
+            [viewController.view removeFromSuperview];
+        }];
+    }
 }
 
 @end

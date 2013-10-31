@@ -1,10 +1,10 @@
-#import "Group.h"
+#import "ShopCatalog.h"
 
-@implementation Group
+@implementation ShopCatalog
 
-+(Group *)groupWithIDGroup:(int)idGroup
++(ShopCatalog *)catalogWithIDCatalog:(int)idCatalog
 {
-    return [Group queryGroupObject:[NSPredicate predicateWithFormat:@"%K == %i",Group_IdGroup,idGroup]];
+    return [ShopCatalog queryShopCatalogObject:[NSPredicate predicateWithFormat:@"%K == %i",ShopCatalog_IdCatalog,idCatalog]];
 }
 
 -(bool)isActived
@@ -17,14 +17,14 @@
     NSArray *array=[super allObjects];
     
     if(array.count>0)
-        return [array sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:Group_Name ascending:true]]];
+        return [array sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:ShopCatalog_Name ascending:true]]];
     
     return array;
 }
 
 -(NSString *)imageName
 {
-    switch (self.idGroup.integerValue) {
+    switch (self.idCatalog.integerValue) {
             
         case 1:
             return @"icon12.png";
@@ -55,15 +55,15 @@
     }
 }
 
-+(Group *)groupAll
++(ShopCatalog *)all
 {
-    Group *group=[Group groupWithIDGroup:0];
+    ShopCatalog *group=[ShopCatalog catalogWithIDCatalog:0];
     
     if(!group)
     {
-        Group *groupAll=[Group temporary];
+        ShopCatalog *groupAll=[ShopCatalog temporary];
         groupAll.name=@"Tất cả";
-        groupAll.idGroup=@(0);
+        groupAll.idCatalog=@(0);
         groupAll.count=0;
         
         return groupAll;
@@ -72,60 +72,60 @@
     return group;
 }
 
-+(Group *)food
++(ShopCatalog *)food
 {
-    return [Group groupWithIDGroup:1];
+    return [ShopCatalog catalogWithIDCatalog:1];
 }
 
-+(Group *)drink
++(ShopCatalog *)drink
 {
-    return [Group groupWithIDGroup:2];
+    return [ShopCatalog catalogWithIDCatalog:2];
 }
 
-+(Group *)health
++(ShopCatalog *)health
 {
-    return [Group groupWithIDGroup:3];
+    return [ShopCatalog catalogWithIDCatalog:3];
 }
 
-+(Group *)entertaiment
++(ShopCatalog *)entertaiment
 {
-    return [Group groupWithIDGroup:4];
+    return [ShopCatalog catalogWithIDCatalog:4];
 }
 
-+(Group *)fashion
++(ShopCatalog *)fashion
 {
-    return [Group groupWithIDGroup:5];
+    return [ShopCatalog catalogWithIDCatalog:5];
 }
 
-+(Group *)travel
++(ShopCatalog *)travel
 {
-    return [Group groupWithIDGroup:6];
+    return [ShopCatalog catalogWithIDCatalog:6];
 }
 
-+(Group *)production
++(ShopCatalog *)production
 {
-    return [Group groupWithIDGroup:7];
+    return [ShopCatalog catalogWithIDCatalog:7];
 }
 
-+(Group *)education
++(ShopCatalog *)education
 {
-    return [Group groupWithIDGroup:8];
+    return [ShopCatalog catalogWithIDCatalog:8];
 }
 
 -(NSString *)key
 {
-    if(self.idGroup.integerValue==0)
+    if(self.idCatalog.integerValue==0)
         return @"1,2,3,4,5,6,7,8";
     
-    return [NSString stringWithFormat:@"%i",self.idGroup.integerValue];
+    return [NSString stringWithFormat:@"%i",self.idCatalog.integerValue];
 }
 
 -(UIImage *)iconPin
 {
-    switch (self.idGroup.integerValue) {
+    switch (self.idCatalog.integerValue) {
         case 1:
             return [UIImage imageNamed:@"iconpin_food.png"];
-
+            
         case 2:
             return [UIImage imageNamed:@"iconpin_drink.png"];
             

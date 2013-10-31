@@ -34,11 +34,6 @@
         <attribute name="travel" optional="YES" attributeType="Boolean" syncable="YES"/>
         <relationship name="user" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="filter" inverseEntity="User" syncable="YES"/>
     </entity>
-    <entity name="Group" representedClassName="Group" syncable="YES">
-        <attribute name="count" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="idGroup" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
-    </entity>
     <entity name="PromotionDetail" representedClassName="PromotionDetail" syncable="YES">
         <attribute name="cost" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="desc" optional="YES" attributeType="String" syncable="YES"/>
@@ -85,7 +80,7 @@
         <attribute name="dislike" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="distance" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <attribute name="gallery" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="idGroup" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="idCatalog" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="idShop" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="isNeedReloadData" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="isShopDetail" optional="YES" attributeType="Boolean" syncable="YES"/>
@@ -108,9 +103,16 @@
         <attribute name="website" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="products" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ShopProduct" inverseName="shop" inverseEntity="ShopProduct" syncable="YES"/>
         <relationship name="promotionDetail" optional="YES" minCount="1" maxCount="1" deletionRule="Cascade" destinationEntity="PromotionDetail" inverseName="shop" inverseEntity="PromotionDetail" syncable="YES"/>
+        <relationship name="shopCatalog" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ShopCatalog" inverseName="shops" inverseEntity="ShopCatalog" syncable="YES"/>
         <relationship name="shopGallery" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ShopGallery" inverseName="shop" inverseEntity="ShopGallery" syncable="YES"/>
         <relationship name="shopUserComments" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ShopUserComment" inverseName="shop" inverseEntity="ShopUserComment" syncable="YES"/>
         <relationship name="userGallery" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ShopUserGallery" inverseName="shop" inverseEntity="ShopUserGallery" syncable="YES"/>
+    </entity>
+    <entity name="ShopCatalog" representedClassName="ShopCatalog" syncable="YES">
+        <attribute name="count" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="idCatalog" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="shops" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Shop" inverseName="shopCatalog" inverseEntity="Shop" syncable="YES"/>
     </entity>
     <entity name="ShopGallery" representedClassName="ShopGallery" syncable="YES">
         <attribute name="idShop" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
@@ -160,12 +162,12 @@
         <element name="City" positionX="0" positionY="0" width="0" height="0"/>
         <element name="Feedback" positionX="0" positionY="0" width="0" height="0"/>
         <element name="Filter" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="Group" positionX="0" positionY="0" width="0" height="0"/>
         <element name="PromotionDetail" positionX="0" positionY="0" width="0" height="0"/>
         <element name="PromotionRequire" positionX="0" positionY="0" width="0" height="0"/>
         <element name="PromotionVoucher" positionX="0" positionY="0" width="0" height="0"/>
         <element name="Reward" positionX="0" positionY="0" width="0" height="0"/>
         <element name="Shop" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="ShopCatalog" positionX="0" positionY="0" width="0" height="0"/>
         <element name="ShopGallery" positionX="0" positionY="0" width="0" height="0"/>
         <element name="ShopProduct" positionX="0" positionY="0" width="0" height="0"/>
         <element name="ShopUserComment" positionX="0" positionY="0" width="0" height="0"/>

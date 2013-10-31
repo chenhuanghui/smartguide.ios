@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SGNavigationViewController.h"
 #import "UserLoginViewController.h"
 #import "UserFacebookViewController.h"
 #import "DataManager.h"
@@ -16,14 +17,16 @@
 
 @protocol AuthorizationDelegate <UINavigationControllerDelegate>
 
--(void) authorizationSuccess;
+-(void) authorizationSuccessed;
+-(void) authorizationCancelled;
 
 @end
 
-@interface AuthorizationViewController : UINavigationController<UserLoginDelegate,UserFacebookDelegate>
+@interface AuthorizationViewController : SGNavigationViewController<UserLoginDelegate,UserFacebookDelegate>
 
--(AuthorizationViewController*) initAuthorazion;
-+(bool) isNeedAuthoration;
+-(void) showLogin;
+-(void) showCreateUser;
++(bool) isNeedFillInfo;
 
 @property (nonatomic, assign) id<AuthorizationDelegate> delegate;
 

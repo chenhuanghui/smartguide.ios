@@ -31,7 +31,6 @@
 {
     [super viewDidLoad];
     
-    return;
     if(IS_IPHONE_4)
     {
         if(!IS_RETINA)

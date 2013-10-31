@@ -7,7 +7,7 @@
 //
 
 #import "ViewController.h"
-#import "ASIOperationGroupInCity.h"
+#import "ASIOperationShopCatalog.h"
 #import "LoadingScreenViewController.h"
 #import "TutorialView.h"
 
@@ -30,7 +30,7 @@
     
     UIView *_launchingView;
     
-    ASIOperationGroupInCity *_operationGroupInCity;
+    ASIOperationShopCatalog *_operationGroupInCity;
 }
 
 -(bool) isFinishedLoading;

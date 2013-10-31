@@ -9,7 +9,7 @@
 #import "DataManager.h"
 #import "Utility.h"
 #import "Constant.h"
-#import "Group.h"
+#import "ShopCatalog.h"
 #import "Flags.h"
 #import "Versions.h"
 
@@ -129,7 +129,7 @@ static DataManager *_dataManager=nil;
     [[DataManager shareInstance] save];
 }
 
--(void)updateFilterWithSelectedGroup:(Group *)group
+-(void)updateFilterWithSelectedGroup:(ShopCatalog *)group
 {
     Filter *filter=[DataManager shareInstance].currentUser.filter;
     

@@ -8,6 +8,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MasterContainerViewController">
             <connections>
                 <outlet property="adsView" destination="baL-1L-kLc" id="CSp-pd-vAK"/>
+                <outlet property="ads_mapView" destination="Uil-x0-9NQ" id="8nh-vG-B6h"/>
                 <outlet property="containtView" destination="C1U-bj-pa7" id="3ZF-BQ-E8L"/>
                 <outlet property="contentView" destination="fr9-dk-gMm" id="4UU-6I-x8k"/>
                 <outlet property="content_ads_middle" destination="izB-Nc-cmZ" id="ChU-rE-O70"/>
@@ -24,46 +25,53 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" id="C1U-bj-pa7">
+                <view autoresizesSubviews="NO" contentMode="scaleToFill" id="C1U-bj-pa7">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                     <subviews>
-                        <view contentMode="scaleToFill" id="fr9-dk-gMm" userLabel="content">
+                        <view autoresizesSubviews="NO" contentMode="scaleToFill" id="fr9-dk-gMm" userLabel="content">
                             <rect key="frame" x="0.0" y="31" width="320" height="314"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         </view>
-                        <view hidden="YES" contentMode="scaleToFill" id="izB-Nc-cmZ" userLabel="content_ads_middle">
+                        <view hidden="YES" autoresizesSubviews="NO" contentMode="scaleToFill" id="izB-Nc-cmZ" userLabel="content_ads_middle">
                             <rect key="frame" x="0.0" y="31" width="320" height="411"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         </view>
-                        <view hidden="YES" contentMode="scaleToFill" id="o8l-wT-N27" userLabel="map">
-                            <rect key="frame" x="0.0" y="31" width="320" height="314"/>
+                        <view contentMode="scaleToFill" id="Uil-x0-9NQ" userLabel="ads_map" customClass="Ads_MapView">
+                            <rect key="frame" x="0.0" y="31" width="320" height="411"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <view autoresizesSubviews="NO" userInteractionEnabled="NO" contentMode="scaleToFill" id="o8l-wT-N27" userLabel="map">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="324"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                                <view autoresizesSubviews="NO" contentMode="scaleToFill" id="baL-1L-kLc" userLabel="ads">
+                                    <rect key="frame" x="0.0" y="324" width="320" height="87"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                            </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         </view>
-                        <view contentMode="scaleToFill" id="baL-1L-kLc" userLabel="ads">
-                            <rect key="frame" x="0.0" y="345" width="320" height="97"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                        </view>
-                        <view hidden="YES" contentMode="scaleToFill" id="64F-UK-abG" userLabel="content_ads_upper">
+                        <view hidden="YES" autoresizesSubviews="NO" contentMode="scaleToFill" id="64F-UK-abG" userLabel="content_ads_upper">
                             <rect key="frame" x="0.0" y="31" width="320" height="411"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         </view>
-                        <view contentMode="scaleToFill" id="xGO-XS-yxH" userLabel="qr">
+                        <view autoresizesSubviews="NO" contentMode="scaleToFill" id="xGO-XS-yxH" userLabel="qr">
                             <rect key="frame" x="0.0" y="420" width="320" height="480"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         </view>
-                        <view contentMode="scaleToFill" id="HLd-3y-S48" userLabel="toolbar">
+                        <view autoresizesSubviews="NO" contentMode="scaleToFill" id="HLd-3y-S48" userLabel="toolbar">
                             <rect key="frame" x="0.0" y="0.0" width="320" height="31"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         </view>
-                        <view hidden="YES" contentMode="scaleToFill" id="qSd-Rv-3BB" userLabel="topView">
+                        <view hidden="YES" autoresizesSubviews="NO" contentMode="scaleToFill" id="qSd-Rv-3BB" userLabel="topView">
                             <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>

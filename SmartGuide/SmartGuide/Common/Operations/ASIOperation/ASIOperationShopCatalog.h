@@ -7,11 +7,11 @@
 //
 
 #import "ASIOperationPost.h"
-#import "Group.h"
+#import "ShopCatalog.h"
 
-@interface ASIOperationGroupInCity : ASIOperationPost
+@interface ASIOperationShopCatalog : ASIOperationPost
 
--(ASIOperationGroupInCity*) initWithIDCity:(int) idCity;
+-(ASIOperationShopCatalog*) initWithIDCity:(NSNumber*) idCity;
 
 @property (nonatomic, readonly) NSMutableArray *groups;
 @property (nonatomic, readonly) int groupStatus;

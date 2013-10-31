@@ -15,7 +15,6 @@
 #import "RootViewController.h"
 #import "ASIOperationSGPToReward.h"
 #import "FrontViewController.h"
-#import "CatalogueListViewController.h"
 #import "ShopDetailViewController.h"
 #import "LocationManager.h"
 //#import <MultiFormatReader.h>

@@ -7,7 +7,7 @@
 //
 
 #import "ViewController.h"
-#import "Group.h"
+#import "ShopCatalog.h"
 #import "CatalogueListCell.h"
 #import "ASIOperationShopInGroup.h"
 #import "TableTemplate.h"
@@ -38,7 +38,7 @@ enum LIST_MODE {
 }
 
 -(void) reloadDataForChangedCity:(int) city;
--(void) loadGroup:(Group*) group city:(int) city sortType:(enum SORT_BY) sortBy;
+-(void) loadGroup:(ShopCatalog*) group city:(int) city sortType:(enum SORT_BY) sortBy;
 -(void) loadGroups:(NSArray*) group sortType:(enum SORT_BY) sortBy city:(int) city;
 -(void) handleSearchResult:(NSString*) searchKey result:(NSArray*) array page:(int) page selectedShop:(Shop*) selectedShop selectedRow:(NSIndexPath*) lastSelectedRow;
 
@@ -70,7 +70,7 @@ enum LIST_MODE {
 @property (nonatomic, assign) Shop *selectedShop;
 @property (nonatomic, strong) NSIndexPath *lastSelectedRow;
 @property (nonatomic, strong) NSMutableArray *group;
-@property (nonatomic, readonly) Group *firstGroup;
+@property (nonatomic, readonly) ShopCatalog *firstGroup;
 @property (nonatomic, assign) int city;
 @property (nonatomic, assign) enum SORT_BY sortBy;
 @property (nonatomic, strong) ASIOperationShopInGroup *opeartionShopInGroup;

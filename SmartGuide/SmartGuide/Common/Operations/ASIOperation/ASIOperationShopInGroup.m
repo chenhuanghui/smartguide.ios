@@ -10,7 +10,7 @@
 #import "Shop.h"
 #import "PromotionDetail.h"
 #import "PromotionRequire.h"
-#import "Group.h"
+#import "ShopCatalog.h"
 
 @implementation ASIOperationShopInGroup
 @synthesize shops,values;

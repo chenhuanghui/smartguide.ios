@@ -18,13 +18,21 @@
 #import "AuthorizationViewController.h"
 #import "ContentViewController.h"
 #import "SGMapController.h"
+#import "PanDragViewHandle.h"
+#import "AlphaView.h"
 
 @class ContentViewController;
 
-@interface GUIManager : NSObject<ToolbarDelegate,UINavigationControllerDelegate,SGSettingDelegate,ContentViewDelegate,SGQRCodeDelegate>
+@interface GUIManager : NSObject<ToolbarDelegate,UINavigationControllerDelegate,SGSettingDelegate,ContentViewDelegate,SGQRCodeDelegate,PanDragViewDelegate,UIGestureRecognizerDelegate,AuthorizationDelegate>
+{
+    UIPanGestureRecognizer *panGes;
+    PanDragViewHandle *panHandle;
+}
 
 +(GUIManager*) shareInstance;
 -(void) startupWithWindow:(UIWindow*) window;
+-(void) presentModalViewController:(UIViewController*) viewController animated:(BOOL)animated;
+-(void) dismissModalViewController:(UIViewController*) viewController animated:(BOOL) animated;
 
 @property (nonatomic, readonly) UIWindow *mainWindow;
 @property (nonatomic, strong, readonly) ContentViewController *contentController;
@@ -35,7 +43,8 @@
 @property (nonatomic, strong, readonly) UINavigationController *masterNavigation;
 @property (nonatomic, strong, readonly) SGSettingViewController *settingController;
 @property (nonatomic, strong, readonly) SGUserCollectionController *userCollectionController;
-@property (nonatomic, strong, readonly) AuthorizationViewController *authorizationController;
 @property (nonatomic, strong, readonly) SGMapController *mapController;
+
+@property (nonatomic, readonly) bool isShowingMap;
 
 @end

@@ -11,7 +11,7 @@
 #import "ShopDetailPin.h"
 #import "Constant.h"
 #import "Utility.h"
-#import "Group.h"
+#import "ShopCatalog.h"
 
 @interface ShopAnnotationView()
 
@@ -24,7 +24,7 @@
 {
     self=[super initWithAnnotation:shop reuseIdentifier:[ShopAnnotationView reuseIdentifier]];
     
-    self.image=[[Group groupWithIDGroup:shop.idGroup.integerValue] iconPin];
+    self.image=[[ShopCatalog catalogWithIDCatalog:shop.idCatalog.integerValue] iconPin];
     
     _shop=shop;
     if(shop.showPinType==SHOP_SHOW_DETAIL)

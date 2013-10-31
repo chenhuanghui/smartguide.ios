@@ -9,11 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "SGUserCollectionViewController.h"
 #import "ShopUserViewController.h"
-#import "PanGestureView.h"
+#import "PanDragViewHandle.h"
 
-@interface SGUserCollectionController : UINavigationController<SGUserCollectionDelegate,ShopUserDelegate,UIGestureRecognizerDelegate,UINavigationControllerDelegate,PanGestureDelegate>
+@interface SGUserCollectionController : UINavigationController<SGUserCollectionDelegate,ShopUserDelegate,UIGestureRecognizerDelegate,UINavigationControllerDelegate,PanDragViewDelegate>
 {
-    PanGestureView *_panHandle;
+    PanDragViewHandle *_panHandle;
     UIPanGestureRecognizer *panGes;
 }
 

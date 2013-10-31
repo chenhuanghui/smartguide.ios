@@ -47,7 +47,7 @@
     
     self.title=@"";
     if(templateList.group.count==1)
-        self.title=((Group*)[templateList.group objectAtIndex:0]).name;
+        self.title=((ShopCatalog*)[templateList.group objectAtIndex:0]).name;
     if(templateList.group.count>1)
         self.title=@"Nhiều danh mục";
     
@@ -83,7 +83,7 @@
     [self loadGroups:templateList.group sortType:templateList.sortBy city:_city];
 }
 
--(void)loadGroup:(Group *)_group city:(int)_city sortType:(enum SORT_BY)sortBy
+-(void)loadGroup:(ShopCatalog *)_group city:(int)_city sortType:(enum SORT_BY)sortBy
 {
     _isNeedReload=false;
     
@@ -99,7 +99,7 @@
     
     if(_group!=nil  && templateList.group.count==1)
     {
-        if(_group.idGroup.integerValue==templateList.firstGroup.idGroup.integerValue && _city==templateList.city && sortBy==templateList.sortBy)
+        if(_group.idCatalog.integerValue==templateList.firstGroup.idCatalog.integerValue && _city==templateList.city && sortBy==templateList.sortBy)
         {
             if(delegate)
             {
@@ -154,7 +154,7 @@
     if(templateList.group.count==group.count && templateList.sortBy==sortBy && templateList.city==city)
     {
         bool hasDiff=false;
-        for(Group *g in group)
+        for(ShopCatalog *g in group)
         {
             if(![templateList.group containsObject:g])
             {
@@ -235,7 +235,7 @@
     if(![LocationManager shareInstance].isAllowLocation)
     {
         __block __weak id obs=[[NSNotificationCenter defaultCenter] addObserverForName:NOTIFICATION_CATALOGUEBLOCK_FINISHED object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
-            [self loadGroup:[Group groupAll] city:[DataManager shareInstance].currentCity.idCity.integerValue sortType:[DataManager shareInstance].currentUser.filter.sortBy];
+            [self loadGroup:[ShopCatalog all] city:[DataManager shareInstance].currentCity.idCity.integerValue sortType:[DataManager shareInstance].currentUser.filter.sortBy];
             
             [[NSNotificationCenter defaultCenter] removeObserver:obs];
         }];
@@ -646,11 +646,11 @@
     
     User *user=[DataManager shareInstance].currentUser;
     
-    NSString *ids=[[self.group valueForKey:Group_IdGroup] componentsJoinedByString:@","];
+    NSString *ids=[[self.group valueForKey:ShopCatalog_IdCatalog] componentsJoinedByString:@","];
     
-    for(Group *g in self.group)
+    for(ShopCatalog *g in self.group)
     {
-        if(g.idGroup.integerValue==0)
+        if(g.idCatalog.integerValue==0)
         {
             ids=@"1,2,3,4,5,6,7,8";
             break;
@@ -666,7 +666,7 @@
     [self.opeartionShopInGroup startAsynchronous];
 }
 
--(Group *)firstGroup
+-(ShopCatalog *)firstGroup
 {
     if(self.group.count>0)
         return self.group.firstObject;

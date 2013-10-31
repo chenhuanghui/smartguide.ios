@@ -90,7 +90,7 @@
         
         [self.view addGestureRecognizer:panGes];
         
-        panHandle=[[PanGestureView alloc] initWithDirection:PanGestureDirectionToLeft withCurrentView:self.mapViewController.view withOtherView:viewController.view];
+        panHandle=[[PanDragViewHandle alloc] initWithDirection:PanGestureDirectionToLeft withCurrentView:self.mapViewController.view withOtherView:viewController.view];
         panHandle.delegate=self;
     }
 }

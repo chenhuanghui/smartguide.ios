@@ -300,7 +300,7 @@
     }
 }
 
--(void)catalogueBlockDidSelectedGroup:(Group *)group
+-(void)catalogueBlockDidSelectedGroup:(ShopCatalog *)group
 {
     CGRect rect=[RootViewController shareInstance].rootContaintView.frame;
     rect.origin=CGPointZero;
@@ -324,7 +324,7 @@
 
 -(void)catalogueBlockUpdated
 {
-    [catalogueList loadGroup:[Group groupAll] city:[DataManager shareInstance].currentCity.idCity.integerValue sortType:[DataManager shareInstance].currentUser.filter.sortBy];
+    [catalogueList loadGroup:[ShopCatalog all] city:[DataManager shareInstance].currentCity.idCity.integerValue sortType:[DataManager shareInstance].currentUser.filter.sortBy];
 }
 
 -(void)catalogueListLoadShopFinished:(CatalogueListViewController *)catalogueListView

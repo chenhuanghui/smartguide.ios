@@ -13,7 +13,7 @@
 #import "UIImageView+AFNetworking.h"
 #import "PromotionDetail.h"
 #import "PromotionRequire.h"
-#import "Group.h"
+#import "ShopCatalog.h"
 #import "Constant.h"
 
 @interface CatalogueListCell()
@@ -44,7 +44,7 @@
 
 -(void)setData:(Shop *)data
 {
-    groupType.image=[Group groupWithIDGroup:data.idGroup.integerValue].iconPin;
+    groupType.image=[ShopCatalog catalogWithIDCatalog:data.idCatalog.integerValue].iconPin;
     
     self.shop=data;
     bg.highlighted=data.selected;

@@ -12,7 +12,7 @@
 #define Shop_Dislike @"dislike"
 #define Shop_Distance @"distance"
 #define Shop_Gallery @"gallery"
-#define Shop_IdGroup @"idGroup"
+#define Shop_IdCatalog @"idCatalog"
 #define Shop_IdShop @"idShop"
 #define Shop_IsNeedReloadData @"isNeedReloadData"
 #define Shop_IsShopDetail @"isShopDetail"
@@ -37,6 +37,7 @@
 @class Shop;
 @class ShopProduct;
 @class PromotionDetail;
+@class ShopCatalog;
 @class ShopGallery;
 @class ShopUserComment;
 @class ShopUserGallery;
@@ -59,7 +60,7 @@
 @property (nonatomic, retain) NSNumber* dislike;
 @property (nonatomic, retain) NSNumber* distance;
 @property (nonatomic, retain) NSString* gallery;
-@property (nonatomic, retain) NSNumber* idGroup;
+@property (nonatomic, retain) NSNumber* idCatalog;
 @property (nonatomic, retain) NSNumber* idShop;
 @property (nonatomic, retain) NSNumber* isNeedReloadData;
 @property (nonatomic, retain) NSNumber* isShopDetail;
@@ -96,6 +97,9 @@
 
 #pragma mark PromotionDetail
 @property (nonatomic, retain) PromotionDetail* promotionDetail;
+
+#pragma mark ShopCatalog
+@property (nonatomic, retain) ShopCatalog* shopCatalog;
 
 #pragma mark ShopGallery
 - (NSSet*) shopGallery;

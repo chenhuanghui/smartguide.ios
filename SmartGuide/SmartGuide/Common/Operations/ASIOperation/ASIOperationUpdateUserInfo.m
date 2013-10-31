@@ -9,7 +9,7 @@
 #import "ASIOperationUpdateUserInfo.h"
 
 @implementation ASIOperationUpdateUserInfo
-@synthesize isSuccess,values;
+@synthesize isSuccess,values,messsage,data;
 
 -(ASIOperationUpdateUserInfo *)initWithIDUser:(int)idUser name:(NSString *)name avatar:(NSString *)avatar
 {
@@ -30,14 +30,11 @@
     
     NSDictionary *dict=[json objectAtIndex:0];
     isSuccess=[dict boolForKey:@"code"];
+    messsage=[NSString stringWithStringDefault:dict[@"message"]];
     
     if(isSuccess)
     {
-        User *user=[DataManager shareInstance].currentUser;
-        user.name=[values objectAtIndex:1];
-        user.avatar=[NSString stringWithStringDefault:[dict objectForKey:@"data"]];
-        
-        [[DataManager shareInstance] save];
+        data=[NSString stringWithStringDefault:dict[@"data"]];
     }
 }
 

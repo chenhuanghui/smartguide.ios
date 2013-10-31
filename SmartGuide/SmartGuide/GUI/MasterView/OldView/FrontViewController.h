@@ -11,7 +11,7 @@
 #import "CatalogueListViewController.h"
 #import "NavigationViewController.h"
 
-@class Group;
+@class ShopCatalog;
 
 @interface FrontViewController : NavigationViewController<CatalogueBlockViewDelegate,UIGestureRecognizerDelegate,NavigationBarDelegate,CatalogueListViewDelegate>
 {

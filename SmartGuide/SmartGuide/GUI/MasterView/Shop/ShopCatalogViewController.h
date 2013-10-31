@@ -6,16 +6,32 @@
 //  Copyright (c) 2013 Redbase. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "SGViewController.h"
 #import "Constant.h"
+#import "ASIOperationShopCatalog.h"
 
 @protocol ShopCatalogDelegate <NSObject>
 
--(void) shopCategoriesSelectedGroup;
+-(void) shopCatalogSelectedCatalog:(ShopCatalog*) group;
 
 @end
 
-@interface ShopCatalogViewController : UIViewController
+@interface ShopCatalogViewController : SGViewController<ASIOperationPostDelegate>
+{
+    ASIOperationShopCatalog *_operationShopCatalog;
+    
+    __weak IBOutlet UIView *groupAll;
+    __weak IBOutlet UIView *groupFood;
+    __weak IBOutlet UIView *groupDrink;
+    __weak IBOutlet UIView *groupHealth;
+    __weak IBOutlet UIView *groupEntertaiment;
+    __weak IBOutlet UIView *groupFashion;
+    __weak IBOutlet UIView *groupTravel;
+    __weak IBOutlet UIView *groupProduction;
+    __weak IBOutlet UIView *groupEducation;
+    
+    UIView *_launchingView;
+}
 
 @property (nonatomic, assign) id<ShopCatalogDelegate> delegate;
 

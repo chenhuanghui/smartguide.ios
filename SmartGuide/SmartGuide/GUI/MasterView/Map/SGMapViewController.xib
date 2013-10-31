@@ -7,34 +7,47 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SGMapViewController">
             <connections>
+                <outlet property="borderMap" destination="IMF-pP-uJf" id="6Ed-Xu-Gff"/>
+                <outlet property="containMap" destination="dQC-EP-jOh" id="yK3-P5-qzv"/>
+                <outlet property="mapShops" destination="ros-jT-k7n" id="neF-43-rhi"/>
+                <outlet property="ray" destination="0LX-do-wlx" id="JDZ-hU-DHE"/>
                 <outlet property="view" destination="1" id="3"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="1">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="314"/>
+            <rect key="frame" x="0.0" y="0.0" width="320" height="324"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="m.jpg" id="PGb-sy-tjJ">
-                    <rect key="frame" x="0.0" y="-53" width="320" height="480"/>
+                <view contentMode="scaleToFill" id="0LX-do-wlx">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="10"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                </imageView>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="UoG-Yk-7cb">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="314"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                </view>
+                <view contentMode="scaleToFill" id="IMF-pP-uJf">
+                    <rect key="frame" x="9" y="12" width="302" height="302"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <state key="normal" title="Map">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="btn:" destination="-1" eventType="touchUpInside" id="7cA-Vy-crZ"/>
-                    </connections>
-                </button>
+                    <subviews>
+                        <view autoresizesSubviews="NO" contentMode="scaleToFill" id="dQC-EP-jOh">
+                            <rect key="frame" x="1" y="1" width="300" height="300"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" id="ros-jT-k7n">
+                                    <rect key="frame" x="0.0" y="0.0" width="300" height="300"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <connections>
+                                        <outlet property="delegate" destination="-1" id="lSn-tI-FW3"/>
+                                    </connections>
+                                </mapView>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" red="0.83137254901960778" green="0.46274509803921571" blue="0.36470588235294116" alpha="1" colorSpace="deviceRGB"/>
+                </view>
             </subviews>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
         </view>
     </objects>
-    <resources>
-        <image name="m.jpg" width="320" height="480"/>
-    </resources>
 </document>

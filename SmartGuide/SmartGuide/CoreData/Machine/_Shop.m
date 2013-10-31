@@ -7,6 +7,7 @@
 #import "DataManager.h"
 #import "ShopProduct.h"
 #import "PromotionDetail.h"
+#import "ShopCatalog.h"
 #import "ShopGallery.h"
 #import "ShopUserComment.h"
 #import "ShopUserGallery.h"
@@ -19,6 +20,10 @@
 
 
 @dynamic promotionDetail;
+
+
+
+@dynamic shopCatalog;
 
 
 
@@ -195,17 +200,17 @@
 	[self didChangeValueForKey:@"gallery"];
 }
 
-- (NSNumber*)idGroup {
-	[self willAccessValueForKey:@"idGroup"];
-	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"idGroup"];
-	[self didAccessValueForKey:@"idGroup"];
+- (NSNumber*)idCatalog {
+	[self willAccessValueForKey:@"idCatalog"];
+	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"idCatalog"];
+	[self didAccessValueForKey:@"idCatalog"];
 	return result;
 }
 
-- (void)setIdGroup:(NSNumber*)value {
-	[self willChangeValueForKey:@"idGroup"];
-	[self setPrimitiveValue:value forKey:@"idGroup"];
-	[self didChangeValueForKey:@"idGroup"];
+- (void)setIdCatalog:(NSNumber*)value {
+	[self willChangeValueForKey:@"idCatalog"];
+	[self setPrimitiveValue:value forKey:@"idCatalog"];
+	[self didChangeValueForKey:@"idCatalog"];
 }
 
 - (NSNumber*)idShop {
@@ -538,6 +543,14 @@
 	[self willAccessValueForKey:@"promotionDetail"];
 	PromotionDetail *result = [self primitiveValueForKey:@"promotionDetail"];
 	[self didAccessValueForKey:@"promotionDetail"];
+	return result;
+}
+
+#pragma mark ShopCatalog
+- (ShopCatalog*)shopCatalog {
+	[self willAccessValueForKey:@"shopCatalog"];
+	ShopCatalog *result = [self primitiveValueForKey:@"shopCatalog"];
+	[self didAccessValueForKey:@"shopCatalog"];
 	return result;
 }
 

@@ -47,3 +47,8 @@ NSString* localizeConnectToServerFailed()
 {
     return @"Kết nối đến máy chủ thất bại";
 }
+
+NSString* localizeDanhMucHienKhongCoKhuyenMai()
+{
+    return @"Danh mục hiện không có khuyến mãi";
+}

@@ -14,25 +14,31 @@
 
 @implementation SGAdsViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    ASIOperationGetAds *operation=[[ASIOperationGetAds alloc] initAds];
+    operation.delegatePost=self;
+    
+    [operation startAsynchronous];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(void)ASIOperaionPostFinished:(ASIOperationPost *)operation
+{
+    
+}
+
+-(void)ASIOperaionPostFailed:(ASIOperationPost *)operation
+{
+    
 }
 
 @end

@@ -15,33 +15,24 @@
 @implementation AuthorizationViewController
 @synthesize delegate;
 
--(AuthorizationViewController *)initAuthorazion
+-(void)showLogin
 {
-    if([TokenManager shareInstance].accessToken.length==0 || ![DataManager shareInstance].currentUser)
-    {
-        UserLoginViewController *vc=[[UserLoginViewController alloc] init];
-        self=[super initWithRootViewController:vc];
-        
-        vc.delegate=self;
-    }
-    else
-    {
-        UserFacebookViewController *vc=[[UserFacebookViewController alloc] init];
-        vc.delegate=self;
-        
-        self=[super initWithRootViewController:vc];
-    }
+    UserLoginViewController *vc=[[UserLoginViewController alloc] init];
+    vc.delegate=self;
     
-    [self setNavigationBarHidden:true];
-    
-    return self;
+    [self pushViewController:vc animated:false];
 }
 
-+(bool)isNeedAuthoration
+-(void)showCreateUser
 {
-    if([TokenManager shareInstance].accessToken.length==0)
-        return true;
+    UserFacebookViewController *vc=[[UserFacebookViewController alloc] init];
+    vc.delegate=self;
     
+    [self pushViewController:vc animated:false];
+}
+
++(bool)isNeedFillInfo
+{
     User *currentUser=[DataManager shareInstance].currentUser;
     if(!currentUser)
     {
@@ -49,26 +40,33 @@
         [DataManager shareInstance].currentUser=currentUser;
     }
     
-    if(!currentUser)
+    // Nếu currentUser tồn tại mà chưa có thông tin=>user đã vào nhập số điện thoại, kích hoạt active code nhưng kill app khi đang kết nối facebook hoặc tạo user
+    if(currentUser && !currentUser.isConnectedFacebook.boolValue && [currentUser.name stringByRemoveString:@" ",nil].length==0)
+    {
         return true;
-    
-    if(!currentUser.isConnectedFacebook.boolValue && currentUser.name.length==0)
-        return true;
+    }
     
     return false;
 }
 
 -(void)userLoginSuccessed
 {
-    UserFacebookViewController *vc=[[UserFacebookViewController alloc] init];
-    vc.delegate=self;
+    User *user=[DataManager shareInstance].currentUser;
     
-    [self pushViewController:vc animated:true];
+    if(!user.isConnectedFacebook.boolValue && [user.name stringByRemoveString:@" ",nil].length==0)
+    {
+        UserFacebookViewController *vc=[[UserFacebookViewController alloc] init];
+        vc.delegate=self;
+        
+        [self pushViewController:vc animated:true];
+    }
+    else
+        [self.delegate authorizationSuccessed];
 }
 
--(void) userLoginCancelled
+-(void)userLoginCancelled
 {
-    [self.parentViewController.navigationController popViewControllerAnimated:true];
+    [self.delegate authorizationCancelled];
 }
 
 -(NSString *)title
@@ -78,11 +76,12 @@
 
 -(void) userFacebookSuccessed
 {
-    [self.delegate authorizationSuccess];
+    [self.delegate authorizationSuccessed];
 }
 
 -(void)dealloc
 {
+    [self.viewControllers[0] removeFromParentViewController];
     NSLog(@"dealloc %@", CLASS_NAME);
 }
 

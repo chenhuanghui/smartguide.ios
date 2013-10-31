@@ -124,7 +124,8 @@ bool isVailCLLocationCoordinate2D(CLLocationCoordinate2D location);
 -(void) scaleToSmall:(float) duration;
 -(void) addShadow:(float) offset;
 -(void) effectCornerRadius:(float) corner shadow:(float) radius;
--(void)cornerRadiusWithRounding:(UIRectCorner) round cornerRad:(CGSize) size;
+-(void) cornerRadiusWithRounding:(UIRectCorner) round cornerRad:(CGSize) size;
+-(UIView*) childViewWithTag:(NSUInteger) childTag;
 
 @end
 

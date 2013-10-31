@@ -28,6 +28,28 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    ray.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"ray_blue.png"]];
+    borderMap.layer.cornerRadius=4;
+    containMap.layer.cornerRadius=4;
+    mapShops.layer.cornerRadius=4;
+
+    [self removeMap];
+}
+
+-(void)addMap
+{
+    if(mapShops.superview)
+        return;
+    
+    [containMap addSubview:mapShops];
+    [mapShops setShowsUserLocation:true];
+}
+
+-(void)removeMap
+{
+    [mapShops setShowsUserLocation:false];
+    [mapShops removeFromSuperview];
 }
 
 - (void)didReceiveMemoryWarning

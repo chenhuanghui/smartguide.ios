@@ -13,7 +13,7 @@
 @end
 
 @implementation ShopViewController
-@synthesize previousController,shopDelegate;
+@synthesize previousController,shopDelegate,shopList;
 
 -(id)init
 {
@@ -34,16 +34,19 @@
     [self setNavigationBarHidden:true];
 }
 
--(BOOL)gestureRecognizerShouldBegin1:(UIGestureRecognizer *)gestureRecognizer
+-(BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
 {
     if(gestureRecognizer==panGes)
     {
         if(self.previousController==self.visibleViewController)
             return false;
         
-        float velocity=[panGes velocityInView:panGes.view].x;
-        if(self.visibleViewController.view.frame.origin.x==0 && velocity<0)
+        CGPoint pnt=[panGes translationInView:panGes.view];
+        
+        if(pnt.x<0)
             return false;
+        
+        return fabsf(pnt.x)>fabsf(pnt.y);
     }
     
     return true;
@@ -84,12 +87,21 @@
     return CLASS_NAME;
 }
 
--(void)shopCategoriesSelectedGroup
+-(void)shopCatalogSelectedCatalog:(ShopCatalog *)group
 {
-    ShopListViewController *shopList=[[ShopListViewController alloc] init];
-    shopList.delegate=self;
-
-    [self pushViewController:shopList animated:true];
+    ShopListViewController *_shopList=[[ShopListViewController alloc] init];
+    _shopList.delegate=self;
+    
+    shopList=_shopList;
+    
+    [_shopList loadWithCatalog:group onCompleted:^(bool isSuccessed) {
+        [self.view SGRemoveLoading];
+        
+        [self pushViewController:shopList animated:true];
+        shopList=nil;
+    }];
+    
+    [self.view SGShowLoading];
 }
 
 -(void)shopListSelectedShop
@@ -141,7 +153,7 @@
         
         [self.view addGestureRecognizer:panGes];
         
-        panHandle=[[PanGestureView alloc] initWithDirection:PanGestureDirectionToLeft withCurrentView:previousController.view withOtherView:viewController.view];
+        panHandle=[[PanDragViewHandle alloc] initWithDirection:PanGestureDirectionToLeft withCurrentView:previousController.view withOtherView:viewController.view];
         panHandle.delegate=self;
     }
 }

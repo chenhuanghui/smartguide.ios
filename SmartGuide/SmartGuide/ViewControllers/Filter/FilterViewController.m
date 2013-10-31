@@ -301,21 +301,21 @@
     {
         NSMutableArray *array=[NSMutableArray array];
         if(filter.food.boolValue)
-            [array addObject:[Group food]];
+            [array addObject:[ShopCatalog food]];
         if(filter.drink.boolValue)
-            [array addObject:[Group drink]];
+            [array addObject:[ShopCatalog drink]];
         if(filter.health.boolValue)
-            [array addObject:[Group health]];
+            [array addObject:[ShopCatalog health]];
         if(filter.entertaiment.boolValue)
-            [array addObject:[Group entertaiment]];
+            [array addObject:[ShopCatalog entertaiment]];
         if(filter.fashion.boolValue)
-            [array addObject:[Group fashion]];
+            [array addObject:[ShopCatalog fashion]];
         if(filter.travel.boolValue)
-            [array addObject:[Group travel]];
+            [array addObject:[ShopCatalog travel]];
         if(filter.production.boolValue)
-            [array addObject:[Group production]];
+            [array addObject:[ShopCatalog production]];
         if(filter.education.boolValue)
-            [array addObject:[Group education]];
+            [array addObject:[ShopCatalog education]];
         
         [self.view showLoadingWithTitle:nil];
         

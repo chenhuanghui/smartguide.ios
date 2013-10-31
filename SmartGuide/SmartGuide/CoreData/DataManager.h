@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "User.h"
 #import "City.h"
-#import "Group.h"
+#import "ShopCatalog.h"
 #import "Filter.h"
 
 @interface DataManager : NSObject
@@ -21,7 +21,7 @@
 -(bool) save;
 
 -(void) loadDefaultFilter;
--(void) updateFilterWithSelectedGroup:(Group*) group;
+-(void) updateFilterWithSelectedGroup:(ShopCatalog*) group;
 
 @property (nonatomic, strong) User *currentUser;
 @property (nonatomic, strong) City *currentCity;

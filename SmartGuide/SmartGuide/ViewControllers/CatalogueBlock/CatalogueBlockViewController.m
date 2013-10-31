@@ -125,7 +125,7 @@
     
     UIView *groupView=sender.superview;
     
-    Group *group=[self groupWithView:groupView];
+    ShopCatalog *group=[self groupWithView:groupView];
     
     if(group.count.integerValue>0)
     {
@@ -172,7 +172,7 @@
         _operationGroupInCity=nil;
     }
     
-    _operationGroupInCity=[[ASIOperationGroupInCity alloc] initWithIDCity:[DataManager shareInstance].currentCity.idCity.integerValue];
+    _operationGroupInCity=[[ASIOperationShopCatalog alloc] initWithIDCity:[DataManager shareInstance].currentCity.idCity];
     _operationGroupInCity.delegatePost=self;
     [_operationGroupInCity startAsynchronous];
     
@@ -206,26 +206,26 @@
     return (UILabel*)[groupView viewWithTag:2];
 }
 
--(Group*) groupWithView:(UIView*) groupView
+-(ShopCatalog*) groupWithView:(UIView*) groupView
 {
     if(groupView==groupFood)
-        return [Group groupWithIDGroup:1];
+        return [ShopCatalog catalogWithIDCatalog:1];
     else if(groupView==groupDrink)
-        return [Group groupWithIDGroup:2];
+        return [ShopCatalog catalogWithIDCatalog:2];
     else if(groupView==groupHealth)
-        return [Group groupWithIDGroup:3];
+        return [ShopCatalog catalogWithIDCatalog:3];
     else if(groupView==groupEntertaiment)
-        return [Group groupWithIDGroup:4];
+        return [ShopCatalog catalogWithIDCatalog:4];
     else if(groupView==groupFashion)
-        return [Group groupWithIDGroup:5];
+        return [ShopCatalog catalogWithIDCatalog:5];
     else if(groupView==groupTravel)
-        return [Group groupWithIDGroup:6];
+        return [ShopCatalog catalogWithIDCatalog:6];
     else if(groupView==groupProduction)
-        return [Group groupWithIDGroup:7];
+        return [ShopCatalog catalogWithIDCatalog:7];
     else if(groupView==groupEducation)
-        return [Group groupWithIDGroup:8];
+        return [ShopCatalog catalogWithIDCatalog:8];
     
-    return [Group groupAll];
+    return [ShopCatalog all];
 }
 
 -(UIView*) groupViewWithIDGroup:(int) idGroup
@@ -255,9 +255,9 @@
 
 -(void)ASIOperaionPostFinished:(ASIOperationPost *)operation
 {
-    if([operation isKindOfClass:[ASIOperationGroupInCity class]])
+    if([operation isKindOfClass:[ASIOperationShopCatalog class]])
     {
-        ASIOperationGroupInCity *ope = (ASIOperationGroupInCity*)operation;
+        ASIOperationShopCatalog *ope = (ASIOperationShopCatalog*)operation;
         
         if(ope.groupStatus==0)
         {
@@ -320,9 +320,9 @@
                 [RootViewController shareInstance].window.userInteractionEnabled=true;
             }
             
-            for(Group *group in ope.groups)
+            for(ShopCatalog *group in ope.groups)
             {
-                UIView *groupView=[self groupViewWithIDGroup:group.idGroup.integerValue];
+                UIView *groupView=[self groupViewWithIDGroup:group.idCatalog.integerValue];
                 
                 UIButton *btn = [self badgeButton:groupView];
                 int badge=group.count.integerValue;
@@ -349,7 +349,7 @@
 
 -(void)ASIOperaionPostFailed:(ASIOperationPost *)operation
 {
-    if([operation isKindOfClass:[ASIOperationGroupInCity class]])
+    if([operation isKindOfClass:[ASIOperationShopCatalog class]])
     {
         CGRect rect=[RootViewController shareInstance].rootContaintView.frame;
         rect.origin=CGPointZero;

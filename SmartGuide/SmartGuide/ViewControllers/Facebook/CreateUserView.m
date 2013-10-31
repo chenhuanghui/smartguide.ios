@@ -14,6 +14,7 @@
 #import "ActivityIndicator.h"
 
 @implementation CreateUserView
+@synthesize delegate;
 
 - (id)init
 {
@@ -134,14 +135,17 @@
 
 -(void)ASIOperaionPostFinished:(ASIOperationPost *)operation
 {
+    ASIOperationUpdateUserInfo *ope=(ASIOperationUpdateUserInfo*) operation;
+    
     User *user=[DataManager shareInstance].currentUser;
     
-    user.avatar=_selectedURL;
     user.name=txtUser.text;
+    user.avatar=ope.data;
+    user.isConnectedFacebook=@(false);
     
     [[DataManager shareInstance] save];
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_FACEBOOK_UPLOAD_PROFILE_FINISHED object:nil];
+    [self.delegate createUserFinished];
 }
 
 -(void)ASIOperaionPostFailed:(ASIOperationPost *)operation
@@ -164,5 +168,7 @@
         [[NSNotificationCenter defaultCenter] removeObserver:self];
     }
 }
+
+CALL_DEALLOC_LOG
 
 @end

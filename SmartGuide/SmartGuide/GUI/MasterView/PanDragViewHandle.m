@@ -6,12 +6,12 @@
 //  Copyright (c) 2013 Redbase. All rights reserved.
 //
 
-#import "PanGestureView.h"
+#import "PanDragViewHandle.h"
 
-@implementation PanGestureView
+@implementation PanDragViewHandle
 @synthesize panDirection,currentView,otherView,delegate;
 
--(PanGestureView *)initWithDirection:(enum PanGestureDirection)_direction withCurrentView:(UIView *)_currentView withOtherView:(UIView *)_otherView
+-(PanDragViewHandle *)initWithDirection:(enum PanGestureDirection)_direction withCurrentView:(UIView *)_currentView withOtherView:(UIView *)_otherView
 {
     self=[super init];
     
@@ -97,7 +97,7 @@
         switch (self.panDirection) {
             case PanGestureDirectionToLeft:
                 self.currentView.center=CGPointMake(self.currentView.frame.size.width/2, self.currentView.center.y);
-                self.otherView.center=CGPointMake(self.otherView.frame.size.width, self.otherView.center.y);
+                self.otherView.center=CGPointMake(self.otherView.frame.size.width*1.5f, self.otherView.center.y);
                 break;
                 
             case PanGestureDirectionToRight:
