@@ -46,6 +46,16 @@
                                 <action selector="btnCatalogTouchUpInside:" destination="-1" eventType="touchUpInside" id="FbD-db-Gf8"/>
                             </connections>
                         </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="vjC-VX-o9f">
+                            <rect key="frame" x="185" y="10" width="46" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" title="S">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="btnSetting:" destination="-1" eventType="touchUpInside" id="HC5-If-ILf"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" red="0.14901960784313725" green="0.1764705882352941" blue="0.27450980392156865" alpha="1" colorSpace="deviceRGB"/>
                 </view>

@@ -21,7 +21,7 @@ static GUIManager *_shareInstance=nil;
 @end
 
 @implementation GUIManager
-@synthesize mainWindow,masterContainerView,masterNavigation,rootNavigation,rootViewController,toolbarController,contentNavigation,adsController,qrCodeController;
+@synthesize mainWindow,masterContainerView,masterNavigation,rootNavigation,rootViewController,toolbarController,contentNavigation,adsController,qrCodeController,userController,userSettingController;
 @synthesize previousViewController;
 @synthesize shopUserController;
 
@@ -48,6 +48,8 @@ static GUIManager *_shareInstance=nil;
 -(void)startupWithWindow:(UIWindow *)window
 {
     mainWindow=window;
+    
+    [[UIApplication sharedApplication] setStatusBarHidden:true];
     
     NSMutableArray *viewControllers=[NSMutableArray array];
     
@@ -273,15 +275,54 @@ static GUIManager *_shareInstance=nil;
 
 -(void)settingTouchedCatalog:(SGSettingViewController *)settingController
 {
-    [self.masterNavigation popToViewController:self.masterContainerView animated:true];
+    [self.rootNavigation removeLeftSlideViewController];
+    [self.contentNavigation popToRootViewControllerAnimated:false];
 }
 
 -(void)settingTouchedUser:(SGSettingViewController *)settingController
 {
-    SGUserCollectionController *userController=[[SGUserCollectionController alloc] init];
-    TransportViewController *transport=[[TransportViewController alloc] initWithNavigation:userController];
+    [self.rootNavigation removeLeftSlideViewController];
     
-    [self.masterContainerView.contentControlelr pushViewController:transport animated:true];
+    if([self.contentNavigation.visibleViewController isKindOfClass:[UserViewController class]])
+        return;
+    
+    [self.contentNavigation popToRootViewControllerAnimated:false];
+    
+    if(userController)
+    {
+        [self.contentNavigation pushViewController:userController animated:false];
+        return;
+    }
+    
+    UserViewController *vc=[[UserViewController alloc] init];
+    vc.delegate=self;
+    
+    userController=vc;
+    
+    [self.contentNavigation pushViewController:vc animated:false];
+}
+
+-(void)settingTouchedUserSetting:(SGSettingViewController *)settingController
+{
+    [self.rootNavigation removeLeftSlideViewController];
+    
+    if([self.contentNavigation.visibleViewController isKindOfClass:[UserSettingViewController class]])
+        return;
+    
+    [self.contentNavigation popToRootViewControllerAnimated:false];
+    
+    if(userSettingController)
+    {
+        [self.contentNavigation pushViewController:userSettingController animated:false];
+        return;
+    }
+    
+    UserSettingViewController *vc=[[UserSettingViewController alloc] init];
+    vc.delegate=self;
+    
+    userSettingController=vc;
+    
+    [self.contentNavigation pushViewController:vc animated:false];
 }
 
 -(void)toolbarUserCollection

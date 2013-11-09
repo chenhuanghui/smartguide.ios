@@ -14,7 +14,8 @@
 #import "SGAdsViewController.h"
 #import "SGQRCodeViewController.h"
 #import "SGSettingViewController.h"
-#import "SGUserCollectionController.h"
+#import "UserViewController.h"
+#import "UserSettingViewController.h"
 #import "AuthorizationViewController.h"
 #import "ContentViewController.h"
 #import "SGMapController.h"
@@ -35,8 +36,6 @@
 
 +(GUIManager*) shareInstance;
 -(void) startupWithWindow:(UIWindow*) window;
--(void) presentModalViewController:(UIViewController*) viewController animated:(BOOL)animated;
--(void) dismissModalViewController:(UIViewController*) viewController animated:(BOOL) animated;
 
 -(void) presentShopUserWithIDShop:(int) idShop;
 -(void) dismissShopUser;
@@ -54,6 +53,8 @@
 @property (nonatomic, weak, readonly) SGAdsViewController *adsController;
 @property (nonatomic, weak, readonly) SGQRCodeViewController *qrCodeController;
 @property (nonatomic, weak, readonly) ShopUserViewController *shopUserController;
+@property (nonatomic, weak, readonly) UserViewController *userController;
+@property (nonatomic, weak, readonly) UserSettingViewController *userSettingController;
 
 -(ToolbarViewController*) toolbarController;
 -(SGAdsViewController*) adsController;

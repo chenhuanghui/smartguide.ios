@@ -259,4 +259,12 @@ CALL_DEALLOC_LOG
     }];
 }
 
+-(void)removeLeftSlideViewController
+{
+    if(self.leftSlideController)
+    {
+        [self moveToVisibleView];
+    }
+}
+
 @end

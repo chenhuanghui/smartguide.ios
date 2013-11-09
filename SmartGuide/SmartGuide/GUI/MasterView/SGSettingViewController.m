@@ -35,11 +35,6 @@
     // Dispose of any resources that can be recreated.
 }
 
--(void)dealloc
-{
-    NSLog(@"dealloc %@", CLASS_NAME);
-}
-
 - (IBAction)btnUserTouchUpInside:(id)sender {
     [self.delegate settingTouchedUser:self];
 }
@@ -47,4 +42,9 @@
 - (IBAction)btnCatalogTouchUpInside:(id)sender {
     [self.delegate settingTouchedCatalog:self];
 }
+
+-(IBAction)btnSetting:(id)sender {
+    [self.delegate settingTouchedUserSetting:self];
+}
+
 @end
