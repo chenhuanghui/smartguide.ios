@@ -6,15 +6,15 @@
 //  Copyright (c) 2013 Redbase. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "SGViewController.h"
 
-@protocol SGQRCodeDelegate <NSObject>
+@protocol SGQRCodeDelegate <SGViewControllerDelegate>
 
 -(void) SGQRCodeRequestShow;
 
 @end
 
-@interface SGQRCodeViewController : UIViewController
+@interface SGQRCodeViewController : SGViewController
 
 @property (nonatomic, assign) id<SGQRCodeDelegate> delegate;
 

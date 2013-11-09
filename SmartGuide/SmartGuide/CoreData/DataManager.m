@@ -12,6 +12,7 @@
 #import "ShopCatalog.h"
 #import "Flags.h"
 #import "Versions.h"
+#import "TokenManager.h"
 
 static DataManager *_dataManager=nil;
 @implementation DataManager
@@ -148,6 +149,28 @@ static DataManager *_dataManager=nil;
     filter.travel=@(true);
     filter.production=@(true);
     filter.education=@(true);
+}
+
+-(void)makeTryUser
+{
+    [Flags setLastIDUser:DEFAULT_USER_ID];
+    
+    User *user=[User userWithIDUser:DEFAULT_USER_ID];
+    
+    if(!user)
+    {
+        user=[User insert];
+    }
+    
+    user.idUser=@(DEFAULT_USER_ID);
+    user.name=DEFAULT_USER_NAME;
+    
+    [[DataManager shareInstance] save];
+    
+    [DataManager shareInstance].currentUser=user;
+    
+    [[TokenManager shareInstance] setAccessToken:DEFAULT_USER_ACCESS_TOKEN];
+
 }
 
 @end

@@ -6,9 +6,9 @@
 //  Copyright (c) 2013 Redbase. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "SGViewController.h"
 
-@protocol ToolbarDelegate <NSObject>
+@protocol ToolbarDelegate <SGViewControllerDelegate>
 
 -(void) toolbarSetting;
 -(void) toolbarUserCollection;
@@ -17,7 +17,7 @@
 
 @end
 
-@interface ToolbarViewController : UIViewController
+@interface ToolbarViewController : SGViewController
 {
     __weak IBOutlet UIButton *btnSetting;
     __weak IBOutlet UIButton *btnUserCollection;

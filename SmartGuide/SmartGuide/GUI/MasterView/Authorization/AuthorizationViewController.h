@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "SGNavigationViewController.h"
+#import "SGNavigationController.h"
 #import "UserLoginViewController.h"
 #import "UserFacebookViewController.h"
 #import "DataManager.h"
@@ -22,7 +22,7 @@
 
 @end
 
-@interface AuthorizationViewController : SGNavigationViewController<UserLoginDelegate,UserFacebookDelegate>
+@interface AuthorizationViewController : SGNavigationController<UserLoginDelegate,UserFacebookDelegate>
 
 -(void) showLogin;
 -(void) showCreateUser;

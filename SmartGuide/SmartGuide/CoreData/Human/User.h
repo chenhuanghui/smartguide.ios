@@ -10,6 +10,7 @@
 
 -(NSNumber*) idUser;
 -(void) setIdUser:(NSNumber*) num;
+-(bool) isUserDefault;
 
 @property (nonatomic, assign) int idCity;
 @property (nonatomic, strong) NSString *city;

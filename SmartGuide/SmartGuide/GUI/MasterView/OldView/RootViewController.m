@@ -410,7 +410,7 @@ static RootViewController *_rootViewController;
     notifications=[[NSMutableArray alloc] init];
     
     self.window.backgroundColor=COLOR_BACKGROUND_APP;
-    [[UIApplication sharedApplication] setStatusBarHidden:false];
+
     if(NSFoundationVersionNumber>NSFoundationVersionNumber_iOS_6_1)
         [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     else

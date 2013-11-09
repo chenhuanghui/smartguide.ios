@@ -9,7 +9,7 @@
 #import "SGViewController.h"
 #import "Shop.h"
 
-@protocol ShopUserDelegate <NSObject>
+@protocol ShopUserDelegate <SGViewControllerDelegate>
 
 -(void) shopUserFinished;
 
@@ -17,7 +17,6 @@
 
 @interface ShopUserViewController : SGViewController
 
-+(ShopUserViewController*) shareInstance;
 -(void) setShop:(Shop*) shop;
 
 @property (nonatomic, assign) id<ShopUserDelegate> delegate;

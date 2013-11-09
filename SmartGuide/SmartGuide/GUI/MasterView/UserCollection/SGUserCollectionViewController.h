@@ -6,16 +6,16 @@
 //  Copyright (c) 2013 Redbase. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "SGViewController.h"
 #import "Constant.h"
 
-@protocol SGUserCollectionDelegate <NSObject>
+@protocol SGUserCollectionDelegate <SGViewControllerDelegate>
 
 -(void) SGUserCollectionSelectedShop;
 
 @end
 
-@interface SGUserCollectionViewController : UIViewController
+@interface SGUserCollectionViewController : SGViewController
 
 @property (nonatomic, assign) id<SGUserCollectionDelegate> delegate;
 

@@ -10,7 +10,7 @@
 #import "Constant.h"
 #import "ASIOperationShopCatalog.h"
 
-@protocol ShopCatalogDelegate <NSObject>
+@protocol ShopCatalogDelegate <SGViewControllerDelegate>
 
 -(void) shopCatalogSelectedCatalog:(ShopCatalog*) group;
 

@@ -21,9 +21,19 @@ static GUIManager *_shareInstance=nil;
 @end
 
 @implementation GUIManager
-@synthesize mainWindow,contentController,masterContainerView,masterNavigation,toolbarController,adsController,qrCodeController,settingController, userCollectionController,mapController;
+@synthesize mainWindow,masterContainerView,masterNavigation,rootNavigation,rootViewController,toolbarController,contentNavigation,adsController,qrCodeController;
 @synthesize previousViewController;
-@synthesize isShowingMap;
+@synthesize shopUserController;
+
++(void)load
+{
+    [DataManager shareInstance].currentUser=[User userWithIDUser:[Flags lastIDUser]];
+    
+    if(![DataManager shareInstance].currentUser)
+    {
+        [[DataManager shareInstance] makeTryUser];
+    }
+}
 
 +(GUIManager *)shareInstance
 {
@@ -37,68 +47,195 @@ static GUIManager *_shareInstance=nil;
 
 -(void)startupWithWindow:(UIWindow *)window
 {
-    isShowingMap=false;
+    mainWindow=window;
     
+    NSMutableArray *viewControllers=[NSMutableArray array];
+    
+    if([[DataManager shareInstance].currentUser isUserDefault])
+    {
+        WelcomeViewController *welcome=[[WelcomeViewController alloc] init];
+        welcome.delegate=self;
+        
+        [viewControllers addObject:welcome];
+    }
+    else
+    {
+        User *user=[DataManager shareInstance].currentUser;
+        
+        if([user.name stringByRemoveString:@" ",nil].length==0)
+        {
+            AuthorizationViewController *author=[[AuthorizationViewController alloc] init];
+            author.delegate=self;
+            [author showCreateUser];
+            
+            TransportViewController *transport=[[TransportViewController alloc] initWithNavigation:author];
+            
+            [viewControllers addObject:transport];
+        }
+    }
+    
+    SGLoadingScreenViewController *loading=[[SGLoadingScreenViewController alloc] init];
+    loading.delegate=self;
+    
+    [viewControllers addObject:loading];
+    
+    SGNavigationController *rNavigation=[[SGNavigationController alloc] initWithViewControllers:viewControllers];
+    rootNavigation=rNavigation;
+    
+    mainWindow.rootViewController=rNavigation;
+    [mainWindow makeKeyAndVisible];
+}
+
+-(void)SGLoadingFinished:(SGLoadingScreenViewController *)loadingScreen
+{
+    [self.rootNavigation setAnimationPopViewController:^CATransition *(UIViewController *vc) {
+        CATransition* transition = [CATransition animation];
+        transition.duration = 0.5;
+        transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+        transition.type = kCATransitionPush; //kCATransitionMoveIn; //, kCATransitionPush, kCATransitionReveal, kCATransitionFade
+        transition.subtype = kCATransitionFromRight; //kCATransitionFromLeft, kCATransitionFromRight, kCATransitionFromTop, kCATransitionFromBottom
+        
+        return transition;
+    }];
+    [self.rootNavigation popViewControllerAnimated:true];
+}
+
+-(void)welcomeControllerTouchedLogin:(WelcomeViewController *)viewController
+{
+    
+}
+
+-(void)welcomeControllerTouchedTry:(WelcomeViewController *)viewController
+{
+    [self showRootControlelr];
+}
+
+-(void) showRootControlelr
+{
+    SGRootViewController *rController=[[SGRootViewController alloc] initWithDelegate:self];
+    rootViewController=rController;
+    
+    [self.rootNavigation setRootViewController:rController animate:true];
+}
+
+-(void)SGControllerLoadView:(SGViewController *)sgController
+{
+    if(sgController==rootViewController)
+    {
+        [self loadToolbar];
+        [self loadContentNavigation];
+        [self loadAds];
+        [self loadQRCode];
+    }
+}
+
+-(void)SGControllerDidLoadView:(SGViewController *)sgController
+{
+    if(sgController==rootViewController)
+    {
+        [rootViewController.toolbarView addSubview:toolbarController.view];
+        [rootViewController.contentView addSubview:contentNavigation.view];
+        [rootViewController.adsView addSubview:adsController.view];
+        [rootViewController.qrCodeView addSubview:qrCodeController.view];
+    }
+}
+
+-(void) loadToolbar
+{
+    ToolbarViewController *vc=[[ToolbarViewController alloc] init];
+    vc.delegate=self;
+    
+    toolbarController=vc;
+    
+    [rootViewController addChildViewController:vc];
+}
+
+-(void) loadContentNavigation
+{
+    ShopViewController *shopController=[[ShopViewController alloc] init];
+    TransportViewController *transport=[[TransportViewController alloc] initWithNavigation:shopController];
+    
+    SGNavigationController *vc=[[SGNavigationController alloc] initWithRootViewController:transport];
+    contentNavigation=vc;
+    
+    [rootViewController addChildViewController:vc];
+}
+
+-(void) loadAds
+{
+    SGAdsViewController *vc=[[SGAdsViewController alloc] init];
+    adsController=vc;
+    
+    [rootViewController addChildViewController:vc];
+}
+
+-(void) loadQRCode
+{
+    SGQRCodeViewController *vc=[[SGQRCodeViewController alloc] init];
+    qrCodeController=vc;
+    
+    [rootViewController addChildViewController:vc];
+}
+
+-(void)startupWithWindow1:(UIWindow *)window
+{
     mainWindow=window;
     mainWindow.backgroundColor=COLOR_BACKGROUND_APP;
     
-    if(NSFoundationVersionNumber>NSFoundationVersionNumber_iOS_6_1)
-        mainWindow.center=CGPointMake(mainWindow.center.x, mainWindow.center.y+20);
+    NSMutableArray *controllers=[NSMutableArray array];
     
-    CGRect rect=CGRectZero;
-    
-    masterContainerView = [[MasterContainerViewController alloc] init];
-    masterNavigation = [[UINavigationController alloc] initWithRootViewController:masterContainerView];
-    [masterNavigation setNavigationBarHidden:true];
-    
-    masterContainerView.view.backgroundColor=COLOR_BACKGROUND_APP;
-    
-    window.rootViewController=masterNavigation;
-    [window makeKeyAndVisible];
-    
-    masterNavigation.delegate=self;
-    
-    contentController = [[ContentViewController alloc] init];
-    [contentController setNavigationBarHidden:true];
-    
-    rect=masterContainerView.contentFrame;
-    rect.origin=CGPointZero;
-    contentController.view.frame=rect;
-    
-    [contentController showShopController];
-    
-    [masterContainerView.contentView addSubview:contentController.view];
-    contentController.contentDelegate=self;
-    
-    toolbarController=[[ToolbarViewController alloc] init];
-    toolbarController.delegate=self;
-    [masterContainerView.toolbarView addSubview:toolbarController.view];
-    
-    adsController=[[SGAdsViewController alloc] init];
-    [masterContainerView.adsView addSubview:adsController.view];
-    
-    qrCodeController=[[SGQRCodeViewController alloc] init];
-    qrCodeController.delegate=self;
-    [masterContainerView.qrView addSubview:qrCodeController.view];
-    
-    mapController=[[SGMapController alloc] init];
-    [masterContainerView.mapView addSubview:mapController.view];
-    
-    rect=masterContainerView.mapFrame;
-    rect.origin=CGPointMake(0, rect.size.height-10);
-    mapController.view.frame=rect;
-    
-    if([AuthorizationViewController isNeedFillInfo])
-    {
-        AuthorizationViewController *authorization=[[AuthorizationViewController alloc] init];
-        [authorization showCreateUser];
+    //isShowedWelcomeScreen true:khi user touch vào try hoặc login
+    if(![Flags isShowedWelcomeScreen])
+    {        
+        WelcomeViewController *vc=[[WelcomeViewController alloc] init];
+        vc.delegate=self;
         
-        authorization.delegate=self;
-        
-        TransportViewController *transport=[[TransportViewController alloc] initWithNavigation:authorization];
-        
-        [self.masterNavigation pushViewController:transport animated:false];
+        [controllers addObject:vc];
     }
+    else
+    {
+        [DataManager shareInstance].currentUser=[User userWithIDUser:[Flags lastIDUser]];
+        
+        //currentUser nil:khi touched vào login nhưng không nhập thông tin
+        if(![DataManager shareInstance].currentUser)
+        {
+            WelcomeViewController *welcome=[[WelcomeViewController alloc] init];
+            welcome.delegate=self;
+            
+            [controllers addObject:welcome];
+            
+            AuthorizationViewController *author=[[AuthorizationViewController alloc] init];
+            author.delegate=self;
+            [author showLogin];
+            TransportViewController *transport=[[TransportViewController alloc] initWithNavigation:author];
+            
+            [controllers addObject:transport];
+        }
+        else
+        {
+            MasterContainerViewController *vc=[[MasterContainerViewController alloc] initWithDelegate:self];
+            masterContainerView=vc;
+            
+            [controllers addObject:vc];
+        }
+    }
+    
+    SGLoadingScreenViewController *loadingController=[[SGLoadingScreenViewController alloc] init];
+    loadingController.delegate=self;
+    [controllers addObject:loadingController];
+    
+    SGNavigationController *navi=[[SGNavigationController alloc] initWithViewControllers:controllers];
+    masterNavigation=navi;
+    
+    [navi setNavigationBarHidden:true];
+    
+    window.rootViewController=navi;
+    [window makeKeyAndVisible];
+}
+
+-(void)masterContainerLoadedView:(MasterContainerViewController *)masterController
+{
+    masterController.toolbarController.delegate=self;
 }
 
 -(void)SGQRCodeRequestShow
@@ -128,42 +265,55 @@ static GUIManager *_shareInstance=nil;
 
 -(void)toolbarSetting
 {
-    settingController=[[SGSettingViewController alloc] init];
+    SGSettingViewController *settingController=[[SGSettingViewController alloc] init];
     settingController.delegate=self;
+ 
+    [self.rootNavigation showLeftSlideViewController:settingController animate:true];
+}
+
+-(void)settingTouchedCatalog:(SGSettingViewController *)settingController
+{
+    [self.masterNavigation popToViewController:self.masterContainerView animated:true];
+}
+
+-(void)settingTouchedUser:(SGSettingViewController *)settingController
+{
+    SGUserCollectionController *userController=[[SGUserCollectionController alloc] init];
+    TransportViewController *transport=[[TransportViewController alloc] initWithNavigation:userController];
     
-    [settingController showSettingWithContaintView:self.mainWindow slideView:self.masterNavigation.view];
+    [self.masterContainerView.contentControlelr pushViewController:transport animated:true];
 }
 
 -(void)toolbarUserCollection
 {
-    if(userCollectionController)
-    {
-        [UIView animateWithDuration:DURATION_DEFAULT animations:^{
-            userCollectionController.view.center=CGPointMake(userCollectionController.view.center.x, -userCollectionController.view.frame.size.height/2);
-        } completion:^(BOOL finished) {
-            [userCollectionController removeFromParentViewController];
-            [userCollectionController.view removeFromSuperview];
-            userCollectionController=nil;
-            masterContainerView.content_ads_upper.hidden=true;
-        }];
-        return;
-    }
-    
-    masterContainerView.content_ads_upper.hidden=false;
-    
-    userCollectionController=[[SGUserCollectionController alloc] init];
-    [userCollectionController setNavigationBarHidden:true];
-    CGRect rect=userCollectionController.view.frame;
-    rect.size=masterContainerView.content_ads_upper.frame.size;
-    rect.origin=CGPointMake(0, -rect.size.height);
-    userCollectionController.view.frame=rect;
-    
-    [self.masterContainerView addChildViewController:userCollectionController];
-    [self.masterContainerView.content_ads_upper addSubview:userCollectionController.view];
-    
-    [UIView animateWithDuration:DURATION_DEFAULT animations:^{
-        userCollectionController.view.center=CGPointMake(userCollectionController.view.center.x, userCollectionController.view.frame.size.height/2);
-    }];
+//    if(userCollectionController)
+//    {
+//        [UIView animateWithDuration:DURATION_DEFAULT animations:^{
+//            userCollectionController.view.center=CGPointMake(userCollectionController.view.center.x, -userCollectionController.view.frame.size.height/2);
+//        } completion:^(BOOL finished) {
+//            [userCollectionController removeFromParentViewController];
+//            [userCollectionController.view removeFromSuperview];
+//            userCollectionController=nil;
+//            masterContainerView.content_ads_upper.hidden=true;
+//        }];
+//        return;
+//    }
+//    
+//    masterContainerView.content_ads_upper.hidden=false;
+//    
+//    userCollectionController=[[SGUserCollectionController alloc] init];
+//    [userCollectionController setNavigationBarHidden:true];
+//    CGRect rect=userCollectionController.view.frame;
+//    rect.size=masterContainerView.content_ads_upper.frame.size;
+//    rect.origin=CGPointMake(0, -rect.size.height);
+//    userCollectionController.view.frame=rect;
+//    
+//    [self.masterContainerView addChildViewController:userCollectionController];
+//    [self.masterContainerView.content_ads_upper addSubview:userCollectionController.view];
+//    
+//    [UIView animateWithDuration:DURATION_DEFAULT animations:^{
+//        userCollectionController.view.center=CGPointMake(userCollectionController.view.center.x, userCollectionController.view.frame.size.height/2);
+//    }];
 }
 
 -(void)toolbarUserLogin
@@ -259,68 +409,68 @@ static GUIManager *_shareInstance=nil;
 
 -(void)toolbarMap
 {
-    if(self.isShowingMap)
-    {
-        masterContainerView.ads_mapView.mapView.userInteractionEnabled=false;
-        
-        [UIView animateWithDuration:DURATION_DEFAULT animations:^{
-            CGRect rect=masterContainerView.mapFrame;
-            rect.origin=CGPointMake(0, rect.size.height-10);
-            mapController.view.frame=rect;
-        } completion:^(BOOL finished) {
-            [mapController.mapViewController removeMap];
-            
-            isShowingMap=false;
-        }];
-    }
-    else
-    {
-        [mapController .mapViewController addMap];
-        
-        masterContainerView.ads_mapView.mapView.userInteractionEnabled=true;
-        
-        [UIView animateWithDuration:DURATION_DEFAULT animations:^{
-            mapController.view.center=CGPointMake(mapController.view.center.x, mapController.view.frame.size.height/2);
-        } completion:^(BOOL finished) {
-            
-            isShowingMap=true;
-        }];
-    }
-    return;
-    if(mapController)
-    {
-        [UIView animateWithDuration:DURATION_DEFAULT animations:^{
-            mapController.view.center=CGPointMake(mapController.view.center.x, mapController.view.center.y+mapController.view.frame.size.height);
-        } completion:^(BOOL finished) {
-            [mapController removeFromParentViewController];
-            [mapController.view removeFromSuperview];
-            mapController=nil;
-            self.masterContainerView.mapView.hidden=true;
-        }];
-        return;
-    }
-    
-    mapController=[[SGMapController alloc] init];
-    [mapController setNavigationBarHidden:true];
-    CGRect rect=self.masterContainerView.mapFrame;
-    rect.origin=CGPointMake(0, rect.size.height);
-    
-    mapController.view.frame=rect;
-    
-    [self.masterContainerView addChildViewController:mapController];
-    [self.masterContainerView.mapView addSubview:mapController.view];
-    
-    
-    self.masterContainerView.mapView.hidden=false;
-    [UIView animateWithDuration:0.3f animations:^{
-        mapController.view.center=CGPointMake(mapController.view.center.x, mapController.view.frame.size.height/2);
-    }];
+//    if(self.isShowingMap)
+//    {
+//        masterContainerView.ads_mapView.mapView.userInteractionEnabled=false;
+//        
+//        [UIView animateWithDuration:DURATION_DEFAULT animations:^{
+//            CGRect rect=masterContainerView.mapFrame;
+//            rect.origin=CGPointMake(0, rect.size.height-10);
+//            mapController.view.frame=rect;
+//        } completion:^(BOOL finished) {
+//            [mapController.mapViewController removeMap];
+//            
+//            isShowingMap=false;
+//        }];
+//    }
+//    else
+//    {
+//        [mapController .mapViewController addMap];
+//        
+//        masterContainerView.ads_mapView.mapView.userInteractionEnabled=true;
+//        
+//        [UIView animateWithDuration:DURATION_DEFAULT animations:^{
+//            mapController.view.center=CGPointMake(mapController.view.center.x, mapController.view.frame.size.height/2);
+//        } completion:^(BOOL finished) {
+//            
+//            isShowingMap=true;
+//        }];
+//    }
+//    return;
+//    if(mapController)
+//    {
+//        [UIView animateWithDuration:DURATION_DEFAULT animations:^{
+//            mapController.view.center=CGPointMake(mapController.view.center.x, mapController.view.center.y+mapController.view.frame.size.height);
+//        } completion:^(BOOL finished) {
+//            [mapController removeFromParentViewController];
+//            [mapController.view removeFromSuperview];
+//            mapController=nil;
+//            self.masterContainerView.mapView.hidden=true;
+//        }];
+//        return;
+//    }
+//    
+//    mapController=[[SGMapController alloc] init];
+//    [mapController setNavigationBarHidden:true];
+//    CGRect rect=self.masterContainerView.mapFrame;
+//    rect.origin=CGPointMake(0, rect.size.height);
+//    
+//    mapController.view.frame=rect;
+//    
+//    [self.masterContainerView addChildViewController:mapController];
+//    [self.masterContainerView.mapView addSubview:mapController.view];
+//    
+//    
+//    self.masterContainerView.mapView.hidden=false;
+//    [UIView animateWithDuration:0.3f animations:^{
+//        mapController.view.center=CGPointMake(mapController.view.center.x, mapController.view.frame.size.height/2);
+//    }];
 }
 
 -(void)SGSettingHided
 {
-    settingController.delegate=nil;
-    settingController=nil;
+//    settingController.delegate=nil;
+//    settingController=nil;
 }
 
 -(void)presentModalViewController:(UIViewController *)viewController animated:(BOOL)animated
@@ -358,6 +508,132 @@ static GUIManager *_shareInstance=nil;
             [viewController.view removeFromSuperview];
         }];
     }
+}
+
+#pragma - ViewControllers Delegate
+
+-(void)welcomeControllerTouchedLogin1:(WelcomeViewController *)viewController
+{
+    AuthorizationViewController *author=[[AuthorizationViewController alloc] init];
+    author.delegate=self;
+    
+    [author showLogin];
+    
+    TransportViewController *transport=[[TransportViewController alloc] initWithNavigation:author];
+    
+    [self.masterNavigation pushViewController:transport animated:true];
+}
+
+-(void)welcomeControllerTouchedTry1:(WelcomeViewController *)viewController
+{
+    MasterContainerViewController *vc=[[MasterContainerViewController alloc] init];
+    masterContainerView=vc;
+    
+    [self.masterNavigation setRootViewController:vc animate:true];
+}
+
+-(void)SGLoadingFinished1:(SGLoadingScreenViewController *)loadingScreen
+{
+    [self.masterNavigation setAnimationPopViewController:^CATransition *(UIViewController *vc) {
+        CATransition* transition = [CATransition animation];
+        transition.duration = 0.5;
+        transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+        transition.type = kCATransitionPush; //kCATransitionMoveIn; //, kCATransitionPush, kCATransitionReveal, kCATransitionFade
+        transition.subtype = kCATransitionFromRight; //kCATransitionFromLeft, kCATransitionFromRight, kCATransitionFromTop, kCATransitionFromBottom
+        
+        return transition;
+    }];
+    [self.masterNavigation popViewControllerAnimated:true];
+}
+
+-(ToolbarViewController *)toolbarController
+{
+    return self.masterContainerView.toolbarController;
+}
+
+-(SGAdsViewController *)adsController
+{
+    return self.masterContainerView.adsController;
+}
+
+-(SGQRCodeViewController *)qrCodeController
+{
+    return self.masterContainerView.qrCodeController;
+}
+
+-(SGMapController *)mapController
+{
+    return self.masterContainerView.mapController;
+}
+
+-(void) presentShopUserWithIDShop:(int)idShop
+{
+    ShopUserViewController *shopUser=[[ShopUserViewController alloc] init];
+    shopUserController=shopUser;
+    shopUser.delegate=self;
+    
+    [self.rootNavigation addChildViewController:shopUser];
+    
+    [shopUser view];
+    
+    shopUser.view.center=CGPointMake(self.rootNavigation.l_v_w/2, -self.rootNavigation.l_v_h/2);
+    [shopUser l_c_setY:-self.rootNavigation.l_v_h/2];
+    
+    [self.rootNavigation.view alphaViewWithColor:[UIColor blackColor]];
+    self.rootNavigation.view.alphaView.alpha=0;
+    
+    [self.rootNavigation.view addSubview:shopUser.view];
+    
+    [UIView animateWithDuration:DURATION_DEFAULT animations:^{
+        self.rootNavigation.view.alphaView.alpha=.7f;
+        
+        [shopUser l_c_setY:self.rootNavigation.l_v_h/2];
+    }];
+}
+
+-(void)shopUserFinished
+{
+    [self dismissShopUser];
+}
+
+-(void)dismissShopUser
+{
+    if(shopUserController)
+    {
+        [UIView animateWithDuration:DURATION_DEFAULT animations:^{
+            self.rootNavigation.view.alphaView.alpha=0;
+            [shopUserController l_c_setY:-self.rootNavigation.l_v_h/2];
+        } completion:^(BOOL finished) {
+            
+            [self.rootNavigation.view removeAlphaView];
+            
+            [shopUserController.view removeFromSuperview];
+            [shopUserController removeFromParentViewController];
+            shopUserController=nil;
+        }];
+    }
+}
+
+-(void)hideAdsWithDuration:(float)duration
+{
+    [UIView animateWithDuration:duration animations:^{
+        [self.rootViewController.adsView l_c_addY:self.rootViewController.adsFrame.size.height];
+        self.rootViewController.adsView.alpha=0;
+    } completion:^(BOOL finished) {
+        self.rootViewController.adsView.hidden=true;
+    }];
+}
+
+-(void)showAdsWithDuration:(float)duration
+{
+    self.rootViewController.adsView.hidden=false;
+    
+    [UIView animateWithDuration:duration animations:^{
+        self.rootViewController.adsView.frame=[self.rootViewController adsFrame];
+        self.rootViewController.adsView.alpha=1;
+    } completion:^(BOOL finished) {
+        
+    }];
 }
 
 @end

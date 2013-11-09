@@ -8,7 +8,6 @@
 
 #import "ShopUserViewController.h"
 
-static ShopUserViewController *_shopUser=nil;
 @interface ShopUserViewController ()
 
 @end
@@ -16,14 +15,13 @@ static ShopUserViewController *_shopUser=nil;
 @implementation ShopUserViewController
 @synthesize delegate;
 
-+(ShopUserViewController *)shareInstance
+- (id)init
 {
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        _shopUser=[[ShopUserViewController alloc] init];
-    });
-    
-    return _shopUser;
+    self = [super initWithNibName:@"ShopUserViewController" bundle:nil];
+    if (self) {
+        
+    }
+    return self;
 }
 
 - (void)viewDidLoad

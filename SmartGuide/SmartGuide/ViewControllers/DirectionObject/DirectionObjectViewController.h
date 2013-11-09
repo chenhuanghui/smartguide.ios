@@ -24,7 +24,8 @@
     MapView *map;
     bool isCalculatingDirection;
     
-    OperationRouterMap *operationRouter;;
+    OperationRouterMap *operationRouter;
+    bool _isZoomedUserLocation;
 }
 
 -(DirectionObjectViewController*) initDirectionObject;

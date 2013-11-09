@@ -74,4 +74,9 @@
     return @"";
 }
 
+-(bool)isUserDefault
+{
+    return self.idUser.integerValue==DEFAULT_USER_ID;
+}
+
 @end

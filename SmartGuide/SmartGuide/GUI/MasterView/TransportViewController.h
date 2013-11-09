@@ -6,10 +6,10 @@
 //  Copyright (c) 2013 Redbase. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "SGViewController.h"
 #import "Constant.h"
 
-@interface TransportViewController : UIViewController
+@interface TransportViewController : SGViewController
 
 -(TransportViewController*) initWithNavigation:(UINavigationController*) navi;
 

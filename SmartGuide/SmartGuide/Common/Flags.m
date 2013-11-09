@@ -22,6 +22,7 @@
 #define FLAG_IS_SHOWED_TUTORIAL @"isShowedTutorial"
 #define FLAG_IS_SHOWED_TURORIAL_SLIDE_LIST @"isShowedTurorialSlideList"
 #define FLAG_IS_SHOWED_TURORIAL_SLIDE_SHOPDETAIL @"isShowedTutorialSlideShopDetail"
+#define FLAG_IS_SHOWED_WELCOME_SCREEN @"isShowedWelcomeScreen"
 
 @implementation Flags
 
@@ -194,6 +195,21 @@
 +(void)setIsShowedTutorialSlideShopDetail:(bool)isShowed
 {
     [[NSUserDefaults standardUserDefaults] setBool:isShowed forKey:FLAG_IS_SHOWED_TURORIAL_SLIDE_SHOPDETAIL];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
++(bool)isShowedWelcomeScreen
+{
+    id obj = [[NSUserDefaults standardUserDefaults] objectForKey:FLAG_IS_SHOWED_WELCOME_SCREEN];
+    if(obj)
+        return [obj boolValue];
+    
+    return false;
+}
+
++(void)setIsShowedWelcomeScreen:(bool)isShowed
+{
+    [[NSUserDefaults standardUserDefaults] setBool:isShowed forKey:FLAG_IS_SHOWED_WELCOME_SCREEN];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 

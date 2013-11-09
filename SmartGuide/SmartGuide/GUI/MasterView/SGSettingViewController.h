@@ -6,21 +6,27 @@
 //  Copyright (c) 2013 Redbase. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "SGViewController.h"
 #import "Constant.h"
 
-@protocol SGSettingDelegate <NSObject>
+@class SGSettingViewController;
 
--(void) SGSettingHided;
+@protocol SGSettingDelegate <SGViewControllerDelegate>
+
+-(void) settingTouchedUser:(SGSettingViewController*) settingController;
+-(void) settingTouchedCatalog:(SGSettingViewController*) settingController;
 
 @end
 
-@interface SGSettingViewController : UIViewController<UIGestureRecognizerDelegate>
+@interface SGSettingViewController : SGViewController<UIGestureRecognizerDelegate>
 {
-    CGPoint _startPoint;
+    __weak IBOutlet UIButton *btnUser;
+    __weak IBOutlet UIButton *btnCatalog;
 }
 
--(void) showSettingWithContaintView:(UIView*) containtView slideView:(UIView*) slideView;
+- (IBAction)btnUserTouchUpInside:(id)sender;
+- (IBAction)btnCatalogTouchUpInside:(id)sender;
+
 
 @property (nonatomic, assign) id<SGSettingDelegate> delegate;
 @property (nonatomic, assign) UIView *slideView;

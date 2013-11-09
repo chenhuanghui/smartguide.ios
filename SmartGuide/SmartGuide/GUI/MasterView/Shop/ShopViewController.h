@@ -11,7 +11,7 @@
 #import "ShopListViewController.h"
 #import "ShopUserViewController.h"
 #import "Constant.h"
-#import "NavigationViewController.h"
+#import "SGNavigationController.h"
 #import "PanDragViewHandle.h"
 
 @protocol ShopViewDelegate <NSObject>
@@ -21,7 +21,7 @@
 
 @end
 
-@interface ShopViewController : UINavigationController<ShopCatalogDelegate,ShopListDelegate,ShopUserDelegate,UIGestureRecognizerDelegate,UINavigationControllerDelegate,PanDragViewDelegate>
+@interface ShopViewController : SGNavigationController<ShopCatalogDelegate,ShopListDelegate,ShopUserDelegate,UIGestureRecognizerDelegate,UINavigationControllerDelegate,PanDragViewDelegate>
 {
     UIPanGestureRecognizer *panGes;
     PanDragViewHandle *panHandle;

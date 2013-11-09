@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "AuthorizationViewController.h"
-#import "NavigationViewController.h"
+#import "SGNavigationController.h"
 #import "ShopViewController.h"
 
 @protocol ContentViewDelegate <NSObject>
@@ -18,7 +18,7 @@
 
 @end
 
-@interface ContentViewController : UINavigationController<ShopViewDelegate>
+@interface ContentViewController : SGNavigationController<ShopViewDelegate>
 
 -(void) showShopController;
 

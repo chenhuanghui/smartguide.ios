@@ -32,6 +32,8 @@
 +(void) setIsShowedTutorialSlideList:(bool) isShowed;
 +(bool) isShowedTutorialSlideShopDetail;
 +(void) setIsShowedTutorialSlideShopDetail:(bool) isShowed;
++(bool) isShowedWelcomeScreen;
++(void) setIsShowedWelcomeScreen:(bool) isShowed;
 
 +(void) removeToken;
 

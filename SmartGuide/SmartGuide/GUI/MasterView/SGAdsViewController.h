@@ -15,6 +15,10 @@
     __weak IBOutlet UIButton *btnLeft;
     __weak IBOutlet UIButton *btnRight;
     __weak IBOutlet UITableView *tableAds;
+    
+    ASIOperationGetAds *_operationAds;
 }
+
+-(void) loadAds;
 
 @end

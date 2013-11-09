@@ -97,7 +97,7 @@
 
 -(bool)sex
 {
-    return [gender isContainStrings:@"male","nam",nil]?1:0;
+    return [gender isEqualToString:@"female"]?0:1;
 }
 
 -(NSString *)description

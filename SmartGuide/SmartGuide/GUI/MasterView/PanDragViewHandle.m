@@ -52,7 +52,6 @@
                     
                 case PanGestureDirectionToRight:
                 {
-                    
                 }
                     break;
             }

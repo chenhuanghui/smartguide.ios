@@ -8,18 +8,19 @@
 
 #import <UIKit/UIKit.h>
 #import "SGViewController.h"
+#import "OperationNotifications.h"
 
 @class SGLoadingScreenViewController;
 
-@protocol SGLoadingScreenDelegate <NSObject>
+@protocol SGLoadingScreenDelegate <SGViewControllerDelegate>
 
 -(void) SGLoadingFinished:(SGLoadingScreenViewController*) loadingScreen;
 
 @end
 
-@interface SGLoadingScreenViewController : SGViewController
+@interface SGLoadingScreenViewController : SGViewController<OperationURLDelegate>
 {
-    bool _isDidAppear;
+    OperationNotifications *_notification;
 }
 
 @property (nonatomic, weak) id<SGLoadingScreenDelegate> delegate;

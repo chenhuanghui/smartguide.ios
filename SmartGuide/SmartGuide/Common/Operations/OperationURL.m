@@ -149,4 +149,6 @@
     return false;
 }
 
+CALL_DEALLOC_LOG
+
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "ShopViewController.h"
+#import "GUIManager.h"
 
 @interface ShopViewController ()
 
@@ -22,7 +23,6 @@
     
     self=[super initWithRootViewController:vc];
     self.delegate=self;
-    [self setNavigationBarHidden:true];
     
     return self;
 }
@@ -73,6 +73,7 @@
         self.visibleViewController.view.center=CGPointMake(self.view.frame.size.width*1.5f, self.visibleViewController.view.center.y);
     } completion:^(BOOL finished) {
         [self popViewControllerAnimated:false];
+        [[GUIManager shareInstance] showAdsWithDuration:DURATION_DEFAULT];
     }];
 }
 
@@ -97,6 +98,7 @@
     [_shopList loadWithCatalog:group onCompleted:^(bool isSuccessed) {
         [self.view SGRemoveLoading];
         
+        [[GUIManager shareInstance] hideAdsWithDuration:DURATION_DEFAULT];
         [self pushViewController:shopList animated:true];
         shopList=nil;
     }];
@@ -106,6 +108,8 @@
 
 -(void)shopListSelectedShop
 {
+    [[GUIManager shareInstance] presentShopUserWithIDShop:0];
+    return;
     ShopUserViewController *shopUser=[[ShopUserViewController alloc] init];
     shopUser.delegate=self;
     
@@ -115,7 +119,7 @@
 
 -(void)shopUserFinished
 {
-    [self popViewControllerAnimated:true];
+    [[GUIManager shareInstance] dismissShopUser];
 }
 
 -(void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated
@@ -179,6 +183,7 @@
     if(view==self.previousController.view)
     {
         [self popViewControllerAnimated:false];
+        [[GUIManager shareInstance] showAdsWithDuration:DURATION_DEFAULT];
         
         if(panGes)
         {

@@ -33,7 +33,7 @@
                         <size key="shadowOffset" width="1" height="1"/>
                     </label>
                     <view contentMode="scaleToFill" id="32" userLabel="point" customClass="FTCoreTextView">
-                        <rect key="frame" x="21" y="28" width="44" height="20"/>
+                        <rect key="frame" x="21" y="30" width="44" height="20"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </view>

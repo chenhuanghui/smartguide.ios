@@ -13,7 +13,7 @@
 #import "ASIOperationShopInGroup.h"
 #import "ShopUserViewController.h"
 
-@protocol ShopListDelegate <NSObject>
+@protocol ShopListDelegate <SGViewControllerDelegate>
 
 -(void) shopListSelectedShop;
 

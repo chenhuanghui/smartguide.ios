@@ -20,10 +20,14 @@
 #import "SGMapController.h"
 #import "PanDragViewHandle.h"
 #import "AlphaView.h"
+#import "WelcomeViewController.h"
+#import "SGViewController.h"
+#import "SGLoadingScreenViewController.h"
+#import "SGRootViewController.h"
 
 @class ContentViewController;
 
-@interface GUIManager : NSObject<ToolbarDelegate,UINavigationControllerDelegate,SGSettingDelegate,ContentViewDelegate,SGQRCodeDelegate,PanDragViewDelegate,UIGestureRecognizerDelegate,AuthorizationDelegate>
+@interface GUIManager : NSObject<ToolbarDelegate,UINavigationControllerDelegate,SGSettingDelegate,ContentViewDelegate,SGQRCodeDelegate,PanDragViewDelegate,UIGestureRecognizerDelegate,AuthorizationDelegate,WelcomeControllerDelegate,SGLoadingScreenDelegate,MasterControllerDelegate,SGViewControllerDelegate,ShopUserDelegate>
 {
     UIPanGestureRecognizer *panGes;
     PanDragViewHandle *panHandle;
@@ -34,17 +38,26 @@
 -(void) presentModalViewController:(UIViewController*) viewController animated:(BOOL)animated;
 -(void) dismissModalViewController:(UIViewController*) viewController animated:(BOOL) animated;
 
-@property (nonatomic, readonly) UIWindow *mainWindow;
-@property (nonatomic, strong, readonly) ContentViewController *contentController;
-@property (nonatomic, strong, readonly) MasterContainerViewController *masterContainerView;
-@property (nonatomic, strong, readonly) ToolbarViewController *toolbarController;
-@property (nonatomic, strong, readonly) SGAdsViewController *adsController;
-@property (nonatomic, strong, readonly) SGQRCodeViewController *qrCodeController;
-@property (nonatomic, strong, readonly) UINavigationController *masterNavigation;
-@property (nonatomic, strong, readonly) SGSettingViewController *settingController;
-@property (nonatomic, strong, readonly) SGUserCollectionController *userCollectionController;
-@property (nonatomic, strong, readonly) SGMapController *mapController;
+-(void) presentShopUserWithIDShop:(int) idShop;
+-(void) dismissShopUser;
 
-@property (nonatomic, readonly) bool isShowingMap;
+-(void) hideAdsWithDuration:(float) duration;
+-(void) showAdsWithDuration:(float) duration;
+
+@property (nonatomic, readonly) UIWindow *mainWindow;
+@property (nonatomic, weak, readonly) MasterContainerViewController *masterContainerView;
+@property (nonatomic, weak, readonly) SGNavigationController *masterNavigation;
+@property (nonatomic, weak, readonly) SGNavigationController *rootNavigation;
+@property (nonatomic, weak, readonly) SGRootViewController *rootViewController;
+@property (nonatomic, weak, readonly) ToolbarViewController *toolbarController;
+@property (nonatomic, weak, readonly) SGNavigationController *contentNavigation;
+@property (nonatomic, weak, readonly) SGAdsViewController *adsController;
+@property (nonatomic, weak, readonly) SGQRCodeViewController *qrCodeController;
+@property (nonatomic, weak, readonly) ShopUserViewController *shopUserController;
+
+-(ToolbarViewController*) toolbarController;
+-(SGAdsViewController*) adsController;
+-(SGQRCodeViewController*) qrCodeController;
+-(SGMapController*) mapController;
 
 @end

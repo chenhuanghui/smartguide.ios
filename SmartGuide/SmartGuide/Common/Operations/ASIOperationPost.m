@@ -86,7 +86,7 @@ static NSMutableArray *asioperations=nil;
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
-    self.error=error;
+    self.error=errorr;
     NSLog(@"%@ failed %@",CLASS_NAME,self.responseStatusMessage?self.responseStatusMessage:self.error);
     
     if([self isRespondsToSelector:@selector(ASIOperaionPostFailed:)])
@@ -327,5 +327,7 @@ static NSMutableArray *asioperations=nil;
     
     return ope;
 }
+
+CALL_DEALLOC_LOG
 
 @end

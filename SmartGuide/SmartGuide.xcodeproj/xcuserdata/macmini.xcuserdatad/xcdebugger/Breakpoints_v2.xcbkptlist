@@ -13,5 +13,97 @@
             stopOnStyle = "0">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SmartGuide/GUI/MasterView/Shop/ShopViewController.m"
+            timestampString = "405666486.438828"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "71"
+            endingLineNumber = "71"
+            landmarkName = "-moveToPreviousViewController"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[ShopViewController moveToPreviousViewController]"
+                  moduleName = "SmartGuide"
+                  urlString = "file://localhost/Users/macmini/smartguide.ios/SmartGuide/SmartGuide/GUI/MasterView/Shop/ShopViewController.m"
+                  timestampString = "405666778.129775"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "71"
+                  endingLineNumber = "71"
+                  offsetFromSymbolStart = "57">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__50-[ShopViewController moveToPreviousViewController]_block_invoke"
+                  moduleName = "SmartGuide"
+                  urlString = "file://localhost/Users/macmini/smartguide.ios/SmartGuide/SmartGuide/GUI/MasterView/Shop/ShopViewController.m"
+                  timestampString = "405666778.130074"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "71"
+                  endingLineNumber = "71"
+                  offsetFromSymbolStart = "23">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SmartGuide/GUI/MasterView/Shop/ShopViewController.m"
+            timestampString = "405666487.333586"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "62"
+            endingLineNumber = "62"
+            landmarkName = "-moveToVisibleViewController"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[ShopViewController moveToVisibleViewController]"
+                  moduleName = "SmartGuide"
+                  urlString = "file://localhost/Users/macmini/smartguide.ios/SmartGuide/SmartGuide/GUI/MasterView/Shop/ShopViewController.m"
+                  timestampString = "405666778.130408"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "62"
+                  endingLineNumber = "62"
+                  offsetFromSymbolStart = "51">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__49-[ShopViewController moveToVisibleViewController]_block_invoke"
+                  moduleName = "SmartGuide"
+                  urlString = "file://localhost/Users/macmini/smartguide.ios/SmartGuide/SmartGuide/GUI/MasterView/Shop/ShopViewController.m"
+                  timestampString = "405666778.130775"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "62"
+                  endingLineNumber = "62"
+                  offsetFromSymbolStart = "23">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

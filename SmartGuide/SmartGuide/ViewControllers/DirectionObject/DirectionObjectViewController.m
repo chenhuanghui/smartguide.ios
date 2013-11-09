@@ -299,9 +299,13 @@
     if(!isVailCLLocationCoordinate2D(userLocation.coordinate))
         return;
     
-    [DataManager shareInstance].currentUser.location=[userLocation location].coordinate;
+    if(!isVailCLLocationCoordinate2D([DataManager shareInstance].currentUser.location) || !_isZoomedUserLocation)
+    {
+        _isZoomedUserLocation=true;
+        [self zoomMap:MKCoordinateRegionMakeWithDistance(userLocation.coordinate, MAP_SPAN, MAP_SPAN)];
+    }
     
-    [self zoomMap:MKCoordinateRegionMakeWithDistance(userLocation.coordinate, MAP_SPAN, MAP_SPAN)];
+    [DataManager shareInstance].currentUser.location=[userLocation location].coordinate;
 }
 
 -(void)mapView:(MKMapView *)mapView didAddAnnotationViews:(NSArray *)views
@@ -356,6 +360,7 @@
 
 -(void) loadWithShops:(NSArray *)shops
 {
+    _isZoomedUserLocation=false;
     map.delegate=self;
     
     [map removeAnnotations:map.annotations];

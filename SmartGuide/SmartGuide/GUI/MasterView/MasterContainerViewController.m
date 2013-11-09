@@ -7,6 +7,7 @@
 //
 
 #import "MasterContainerViewController.h"
+#import "Constant.h"
 
 @interface MasterContainerViewController ()
 
@@ -14,12 +15,16 @@
 
 @implementation MasterContainerViewController
 @synthesize toolbarFrame,contentFrame,adsFrame,qrFrame,content_adsFrame,mapFrame,topFrame,ads_mapView,ads_mapFrame;
+@synthesize toolbarController,contentControlelr,adsController,mapController,qrCodeController;
+@synthesize delegate;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+-(MasterContainerViewController *)initWithDelegate:(id<MasterControllerDelegate>)_delegate
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    self = [super initWithNibName:@"MasterContainerViewController" bundle:nil];
+    
+    self.delegate=_delegate;
     if (self) {
-        // Custom initialization
+        
     }
     return self;
 }
@@ -28,6 +33,8 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    self.view.backgroundColor=COLOR_BACKGROUND_APP;
     
     ads_mapView.mapView=self.mapView;
     ads_mapView.adsView=self.adsView;
@@ -40,6 +47,71 @@
     mapFrame=self.mapView.frame;
     topFrame=self.topView.frame;
     ads_mapFrame=self.ads_mapView.frame;
+    
+    CGRect rect=mapController.view.frame;
+    rect.origin.y=self.mapView.frame.size.height-10;
+    mapController.view.frame=rect;
+    
+    [self.toolbarView addSubview:toolbarController.view];
+    [self.contentView addSubview:contentControlelr.view];
+    [self.mapView addSubview:mapController.view];
+    [self.adsView addSubview:adsController.view];
+    [self.qrView addSubview:qrCodeController.view];
+}
+
+-(void)loadView
+{
+    [super loadView];
+    
+    [self loadToolbarController];
+    [self loadContentController];
+    [self loadMapController];
+    [self loadAdsController];
+    [self loadQRCodeControlelr];
+    
+    [self.delegate masterContainerLoadedView:self];
+}
+
+-(void) loadToolbarController
+{
+    ToolbarViewController *vc=[[ToolbarViewController alloc] init];
+    toolbarController=vc;
+    
+    [self addChildViewController:vc];
+}
+
+-(void) loadContentController
+{
+    ContentViewController *vc=[[ContentViewController alloc] init];
+    contentControlelr=vc;
+    
+    [vc showShopController];
+    
+    [self addChildViewController:vc];
+}
+
+-(void) loadAdsController
+{
+    SGAdsViewController *vc=[[SGAdsViewController alloc] init];
+    adsController=vc;
+    
+    [self addChildViewController:vc];
+}
+
+-(void) loadMapController
+{
+    SGMapController *vc=[[SGMapController alloc] init];
+    mapController=vc;
+    
+    [self addChildViewController:vc];
+}
+
+-(void) loadQRCodeControlelr
+{
+    SGQRCodeViewController *vc=[[SGQRCodeViewController alloc] init];
+    qrCodeController=vc;
+    
+    [self addChildViewController:vc];
 }
 
 - (void)didReceiveMemoryWarning
@@ -58,6 +130,8 @@
     
     return height;
 }
+
+CALL_DEALLOC_LOG
 
 @end
 

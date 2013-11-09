@@ -267,6 +267,152 @@ bool isVailCLLocationCoordinate2D(CLLocationCoordinate2D location)
 
 @end
 
+@implementation UIViewController(lazy_method)
+
+-(CGPoint) l_c
+{
+    return self.view.center;
+}
+
+-(float) l_c_x
+{
+    return self.l_c.x;
+}
+
+-(float) l_c_y
+{
+    return self.l_c.y;
+}
+
+-(CGSize)l_v_s
+{
+    return self.view.frame.size;
+}
+
+-(CGPoint)l_v_o
+{
+    return self.view.frame.origin;
+}
+
+-(float)l_v_x
+{
+    return self.l_v_o.x;
+}
+
+-(float)l_v_y
+{
+    return self.l_v_o.y;
+}
+
+-(float) l_v_w
+{
+    return self.l_v_s.width;
+}
+
+-(float) l_v_h
+{
+    return self.l_v_s.height;
+}
+
+-(void)l_c_setX:(float)x
+{
+    self.view.center=CGPointMake(x, self.view.center.y);
+}
+
+-(void)l_c_setY:(float)y
+{
+    self.view.center=CGPointMake(self.view.center.x, y);
+}
+
+-(CGPoint) l_c_addX:(float) x
+{
+    self.view.center=CGPointMake(self.view.center.x+x, self.view.center.y);
+    
+    return self.view.center;
+}
+
+-(CGPoint) l_c_addY:(float) y
+{
+    self.view.center=CGPointMake(self.view.center.x, self.view.center.y+y);
+    
+    return self.view.center;
+}
+
+@end
+
+@implementation UIView(lazy_method)
+
+-(CGPoint) l_c
+{
+    return self.center;
+}
+
+-(float) l_c_x
+{
+    return self.l_c.x;
+}
+
+-(float) l_c_y
+{
+    return self.l_c.y;
+}
+
+-(CGSize)l_v_s
+{
+    return self.frame.size;
+}
+
+-(CGPoint)l_v_o
+{
+    return self.frame.origin;
+}
+
+-(float)l_v_x
+{
+    return self.l_v_o.x;
+}
+
+-(float)l_v_y
+{
+    return self.l_v_o.y;
+}
+
+-(float) l_v_w
+{
+    return self.l_v_s.width;
+}
+
+-(float) l_v_h
+{
+    return self.l_v_s.height;
+}
+
+-(void)l_c_setX:(float)x
+{
+    self.center=CGPointMake(x, self.center.y);
+}
+
+-(void)l_c_setY:(float)y
+{
+    self.center=CGPointMake(self.center.x, y);
+}
+
+-(CGPoint) l_c_addX:(float) x
+{
+    self.center=CGPointMake(self.center.x+x, self.center.y);
+    
+    return self.center;
+}
+
+-(CGPoint) l_c_addY:(float) y
+{
+    self.center=CGPointMake(self.center.x, self.center.y+y);
+    
+    return self.center;
+}
+
+@end
+
 @implementation UIColor(Utility)
 
 +(UIColor *)color255WithRed:(CGFloat)red green:(CGFloat)green blue:(CGFloat)blue alpha:(CGFloat)alpha

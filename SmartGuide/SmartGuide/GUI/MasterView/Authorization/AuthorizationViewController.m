@@ -40,6 +40,9 @@
         [DataManager shareInstance].currentUser=currentUser;
     }
     
+    if(!currentUser)
+        return true;
+    
     // Nếu currentUser tồn tại mà chưa có thông tin=>user đã vào nhập số điện thoại, kích hoạt active code nhưng kill app khi đang kết nối facebook hoặc tạo user
     if(currentUser && !currentUser.isConnectedFacebook.boolValue && [currentUser.name stringByRemoveString:@" ",nil].length==0)
     {

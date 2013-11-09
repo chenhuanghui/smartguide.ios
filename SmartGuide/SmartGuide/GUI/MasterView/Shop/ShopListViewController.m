@@ -54,6 +54,16 @@
 
 -(void)loadWithCatalog:(ShopCatalog *)shopCatalog onCompleted:(void (^)(bool))onFinishedLoadCatalog
 {
+    [self view];
+    
+    double delayInSeconds = .5;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        onFinishedLoadCatalog(true);
+    });
+    
+    return;
+    
     _onFinishedLoadCatalog=[onFinishedLoadCatalog copy];
     self.catalog=[NSString stringWithString:shopCatalog.key];
     
@@ -128,14 +138,11 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    ShopUserViewController *vc=[ShopUserViewController shareInstance];
-    vc.delegate=self;
-    [[GUIManager shareInstance] presentModalViewController:vc animated:true];
+
 }
 
 -(void)shopUserFinished
 {
-    [[GUIManager shareInstance] dismissModalViewController:[ShopUserViewController shareInstance] animated:true];
 }
 
 - (void)viewDidLoad
@@ -143,6 +150,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
+    return;
     [tableList registerNib:[UINib nibWithNibName:[CatalogueListCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[CatalogueListCell reuseIdentifier]];
    
     self.view.backgroundColor=COLOR_BACKGROUND_APP;
@@ -167,7 +175,7 @@
     templateShopList.isAllowLoadMore=true;
     templateShopList.isAllowPullToRefresh=true;
     
-    [self loadListAtPage:0];
+    //[self loadListAtPage:0];
 }
 
 -(void)SGTableTemplateLoadMore:(SGTableTemplate *)SGTemplate isWaited:(bool *)isWaited
@@ -210,5 +218,13 @@
 {
     NSLog(@"dealloc %@", CLASS_NAME);
 }
+- (IBAction)btnMap:(id)sender {
+    
+}
+
+- (IBAction)btnShop:(id)sender {
+    [self.delegate shopListSelectedShop];
+}
+
 
 @end

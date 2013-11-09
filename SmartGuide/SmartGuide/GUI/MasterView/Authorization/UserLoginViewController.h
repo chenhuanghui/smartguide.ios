@@ -13,7 +13,7 @@
 #import "TokenManager.h"
 #import "Flags.h"
 
-@protocol UserLoginDelegate <NSObject>
+@protocol UserLoginDelegate <SGViewControllerDelegate>
 
 -(void) userLoginSuccessed;
 -(void) userLoginCancelled;

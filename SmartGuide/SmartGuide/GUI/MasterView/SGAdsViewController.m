@@ -14,15 +14,33 @@
 
 @implementation SGAdsViewController
 
+- (id)init
+{
+    self = [super initWithNibName:@"SGAdsViewController" bundle:nil];
+    if (self) {
+        
+    }
+    return self;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+}
+
+-(void)loadAds
+{
+    if(_operationAds)
+    {
+        [_operationAds cancel];
+        _operationAds=nil;
+    }
     
-    ASIOperationGetAds *operation=[[ASIOperationGetAds alloc] initAds];
-    operation.delegatePost=self;
+    _operationAds=[[ASIOperationGetAds alloc] initAds];
+    _operationAds.delegatePost=self;
     
-    [operation startAsynchronous];
+    [_operationAds startAsynchronous];
 }
 
 - (void)didReceiveMemoryWarning
@@ -33,12 +51,12 @@
 
 -(void)ASIOperaionPostFinished:(ASIOperationPost *)operation
 {
-    
+    _operationAds=nil;
 }
 
 -(void)ASIOperaionPostFailed:(ASIOperationPost *)operation
 {
-    
+    _operationAds=nil;
 }
 
 @end

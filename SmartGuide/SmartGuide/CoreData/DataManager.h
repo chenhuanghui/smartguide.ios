@@ -23,6 +23,8 @@
 -(void) loadDefaultFilter;
 -(void) updateFilterWithSelectedGroup:(ShopCatalog*) group;
 
+-(void) makeTryUser;
+
 @property (nonatomic, strong) User *currentUser;
 @property (nonatomic, strong) City *currentCity;
 

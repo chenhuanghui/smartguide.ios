@@ -6,17 +6,17 @@
 //  Copyright (c) 2013 Redbase. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "SGViewController.h"
 #import "Constant.h"
 #import <MapKit/MapKit.h>
 
-@protocol SGMapViewDelegate <NSObject>
+@protocol SGMapViewDelegate <SGViewControllerDelegate>
 
 -(void) SGMapViewSelectedShop;
 
 @end
 
-@interface SGMapViewController : UIViewController<MKMapViewDelegate>
+@interface SGMapViewController : SGViewController<MKMapViewDelegate>
 {
     __strong IBOutlet MKMapView *mapShops;
     __weak IBOutlet UIView *ray;

@@ -6,11 +6,25 @@
 //  Copyright (c) 2013 Redbase. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "SGViewController.h"
+#import "ToolbarViewController.h"
+#import "ContentViewController.h"
+#import "SGAdsViewController.h"
+#import "SGQRCodeViewController.h"
+#import "SGMapController.h"
 
 @class Ads_MapView;
+@class MasterContainerViewController;
 
-@interface MasterContainerViewController : UIViewController
+@protocol MasterControllerDelegate <SGViewControllerDelegate>
+
+-(void) masterContainerLoadedView:(MasterContainerViewController*) masterController;
+
+@end
+
+@interface MasterContainerViewController : SGViewController
+
+-(MasterContainerViewController*) initWithDelegate:(id<MasterControllerDelegate>) delegate;
 
 -(float) hideAdsWithAnimation:(bool) isAnimation;
 
@@ -33,6 +47,14 @@
 @property (nonatomic, readonly) CGRect mapFrame;
 @property (nonatomic, readonly) CGRect topFrame;
 @property (nonatomic, readonly) CGRect ads_mapFrame;
+
+@property (nonatomic, weak, readonly) ToolbarViewController *toolbarController;
+@property (nonatomic, weak, readonly) ContentViewController *contentControlelr;
+@property (nonatomic, weak, readonly) SGAdsViewController *adsController;
+@property (nonatomic, weak, readonly) SGQRCodeViewController *qrCodeController;
+@property (nonatomic, weak, readonly) SGMapController *mapController;
+
+@property (nonatomic, weak) id<MasterControllerDelegate> delegate;
 
 @end
 

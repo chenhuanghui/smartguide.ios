@@ -16,9 +16,9 @@
 @implementation ShopCatalogViewController
 @synthesize delegate;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (id)init
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    self = [super initWithNibName:@"ShopCatalogViewController" bundle:nil];
     if (self) {
         // Custom initialization
     }
@@ -60,6 +60,9 @@
     UIView *groupView=btn.superview;
     
     ShopCatalog *group=[self groupWithView:groupView];
+    [self.delegate shopCatalogSelectedCatalog:group];
+    
+    return;
     
     if(!group.isActived)
     {
@@ -242,6 +245,7 @@
 -(void)ASIOperaionPostFailed:(ASIOperationPost *)operation
 {
     [self.view SGRemoveLoading];
+    _operationShopCatalog=nil;
 }
 
 - (void)didReceiveMemoryWarning

@@ -33,14 +33,15 @@
              @(profile.sex),
              profile.birthday,
              profile.avatar,
-             job];
+             job,
+             profile.gender];
     
     return self;
 }
 
 -(NSArray *)keys
 {
-    return @[@"fb_id",@"fb_access_token",@"user_id",@"email",@"name",@"gender",@"dob",@"avatar",@"job"];
+    return @[@"fb_id",@"fb_access_token",@"user_id",@"email",@"name",@"gender",@"dob",@"avatar",@"job",@"genderstr"];
 }
 
 -(void)onCompletedWithJSON:(NSArray *)json

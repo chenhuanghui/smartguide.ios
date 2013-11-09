@@ -13,7 +13,7 @@
 #import "ASIOperationUpdateUserInfo.h"
 #import "CreateUserView.h"
 
-@protocol UserFacebookDelegate <NSObject>
+@protocol UserFacebookDelegate <SGViewControllerDelegate>
 
 -(void) userFacebookSuccessed;
 

@@ -58,6 +58,46 @@ bool isVailCLLocationCoordinate2D(CLLocationCoordinate2D location);
 
 @end
 
+@interface UIViewController(lazy_method)
+
+-(CGPoint) l_c;
+-(float) l_c_x;
+-(float) l_c_y;
+
+-(CGSize) l_v_s;
+-(CGPoint) l_v_o;
+-(float) l_v_x;
+-(float) l_v_y;
+-(float) l_v_w;
+-(float) l_v_h;
+
+-(void) l_c_setX:(float) x;
+-(void) l_c_setY:(float) y;
+-(CGPoint) l_c_addX:(float) x;
+-(CGPoint) l_c_addY:(float) y;
+
+@end
+
+@interface UIView(lazy_method)
+
+-(CGPoint) l_c;
+-(float) l_c_x;
+-(float) l_c_y;
+
+-(CGSize) l_v_s;
+-(CGPoint) l_v_o;
+-(float) l_v_x;
+-(float) l_v_y;
+-(float) l_v_w;
+-(float) l_v_h;
+
+-(void) l_c_setX:(float) x;
+-(void) l_c_setY:(float) y;
+-(CGPoint) l_c_addX:(float) x;
+-(CGPoint) l_c_addY:(float) y;
+
+@end
+
 @interface UIColor(Utility)
 
 +(UIColor *)color255WithRed:(CGFloat)red green:(CGFloat)green blue:(CGFloat)blue alpha:(CGFloat)alpha;

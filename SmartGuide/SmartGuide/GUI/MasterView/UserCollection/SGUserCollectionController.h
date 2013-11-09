@@ -6,12 +6,12 @@
 //  Copyright (c) 2013 Redbase. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "SGNavigationController.h"
 #import "SGUserCollectionViewController.h"
 #import "ShopUserViewController.h"
 #import "PanDragViewHandle.h"
 
-@interface SGUserCollectionController : UINavigationController<SGUserCollectionDelegate,ShopUserDelegate,UIGestureRecognizerDelegate,UINavigationControllerDelegate,PanDragViewDelegate>
+@interface SGUserCollectionController : SGNavigationController<SGUserCollectionDelegate,ShopUserDelegate,UIGestureRecognizerDelegate,UINavigationControllerDelegate,PanDragViewDelegate>
 {
     PanDragViewHandle *_panHandle;
     UIPanGestureRecognizer *panGes;

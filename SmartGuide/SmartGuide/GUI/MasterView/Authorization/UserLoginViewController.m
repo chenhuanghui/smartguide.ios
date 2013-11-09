@@ -50,7 +50,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
 
-#if DEBUG
+#if 0
     if([SERVER_API isContainString:@"https"])
         [AlertView showAlertOKWithTitle:@"PRODUCTION MODE" withMessage:nil onOK:nil];
     else

@@ -11,6 +11,10 @@
 #define SMARTUIDE_VERSION ((NSString*)[[NSBundle mainBundle] infoDictionary][(NSString*)kCFBundleVersionKey])
 #define VELOCITY_SLIDE 800.f
 
+#define DEFAULT_USER_ID 0
+#define DEFAULT_USER_ACCESS_TOKEN @""
+#define DEFAULT_USER_NAME @"Guest"
+
 #define CLASS_NAME NSStringFromClass([self class])
 #define DEALLOC_LOG NSLog(@"dealloc %@",CLASS_NAME);
 #define CALL_DEALLOC_LOG -(void) dealloc{DEALLOC_LOG}
@@ -127,7 +131,7 @@
 
 #define DURATION_DEFAULT 0.3f
 #define DURATION_NAVIGATION_PUSH 0.35f
-#define DURATION_SHOW_MAP 0.5f
+#define DURATION_SHOW_MAP 0.3f
 #define DURATION_SHOW_FILTER DURATION_SHOW_MAP
 #define DURATION_SHOW_SETTING DURATION_SHOW_MAP
 #define DURATION_SHOW_CATALOGUE DURATION_SHOW_MAP

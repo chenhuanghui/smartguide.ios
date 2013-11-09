@@ -13,9 +13,23 @@
 #import "AlertView.h"
 #import "SGActivityIndicator.h"
 
+@class SGViewController;
+
+@protocol SGViewControllerDelegate <NSObject>
+
+@optional
+-(void) SGControllerLoadView:(SGViewController*) sgController;
+-(void) SGControllerDidLoadView:(SGViewController*) sgController;
+
+@end
+
 @interface SGViewController : UIViewController
+
+-(id) initWithDelegate:(id<SGViewControllerDelegate>) delegate;
 
 -(NSArray*) registerNotifications;
 -(void) receiveNotification:(NSNotification*) notification;
+
+@property (nonatomic, assign) id<SGViewControllerDelegate> delegate;
 
 @end
