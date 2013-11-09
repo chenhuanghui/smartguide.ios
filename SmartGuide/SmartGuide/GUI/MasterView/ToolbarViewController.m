@@ -49,7 +49,6 @@
 }
 
 - (IBAction)btnMapTouchUpInside:(id)sender {
-    [self.delegate toolbarMap];
 }
 
 @end

@@ -15,7 +15,7 @@
 @implementation TransportViewController
 @synthesize navi;
 
--(TransportViewController *)initWithNavigation:(UINavigationController *)_navi
+-(TransportViewController *)initWithNavigation:(SGNavigationController *)_navi
 {
     self=[super init];
     
@@ -27,17 +27,11 @@
     return self;
 }
 
--(NSString *)title
-{
-    return self.navi.visibleViewController.title;
-}
-
 -(void)dealloc
 {
     [navi removeFromParentViewController];
     [navi.view removeFromSuperview];
     navi=nil;
-    NSLog(@"dealloc %@",CLASS_NAME);
 }
 
 -(void)loadView
@@ -45,16 +39,6 @@
     [super loadView];
     
     self.view.autoresizesSubviews=false;
-}
-
--(BOOL)isKindOfClass:(Class)aClass
-{
-    bool isTrue=[super isKindOfClass:aClass];
-    
-    if(!isTrue && aClass!=[UINavigationController class])
-        isTrue=[self.navi isKindOfClass:aClass];
-    
-    return isTrue;
 }
 
 @end

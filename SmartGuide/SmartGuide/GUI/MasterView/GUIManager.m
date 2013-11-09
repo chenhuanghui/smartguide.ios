@@ -371,39 +371,26 @@ static GUIManager *_shareInstance=nil;
 
 -(void)authorizationSuccessed
 {
-    [self.masterNavigation popViewControllerAnimated:true];
+    if(_onLoginedCompleted)
+    {
+        _onLoginedCompleted(true);
+        _onLoginedCompleted=nil;
+    }
+    
+    [self.rootNavigation popViewControllerAnimated:true];
 }
 
 -(void)authorizationCancelled
 {
-    [self.masterNavigation popViewControllerAnimated:true];
-}
-
--(void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated
-{
-    return;
-    int idx=[self.masterNavigation.viewControllers indexOfObject:viewController];
+    [self.rootNavigation popViewControllerAnimated:true];
     
-    idx--;
-    
-    if(idx<0)
-        idx=0;
-    
-    UIViewController *previousVC=self.masterNavigation.viewControllers[idx];
-    
-    if(previousVC!=viewController)
+    if(_onLoginedCompleted)
     {
-        self.previousViewController=previousVC;
-        if([viewController isKindOfClass:[AuthorizationViewController class]])
-        {
-            [self removePanGes_Handle];
-        
-            [self applyPanGes_HandleWithCurrentView:previousViewController.view withOtherView:viewController.view];
-            
-            previousViewController.view.center=CGPointMake(-self.masterNavigation.view.frame.size.width/2, previousViewController.view.center.y);
-            [self.masterNavigation.view addSubview:previousViewController.view];
-        }
+        _onLoginedCompleted(false);
+        _onLoginedCompleted=nil;
     }
+    
+    
 }
 
 -(void)panGestureMovedToView:(UIView *)view
@@ -432,181 +419,12 @@ static GUIManager *_shareInstance=nil;
     }
 }
 
--(void) applyPanGes_HandleWithCurrentView:(UIView*) currentView withOtherView:(UIView*) otherView
-{
-    panGes=[[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panGes:)];
-    panGes.delegate=self;
-    
-    [self.masterNavigation.view addGestureRecognizer:panGes];
-    
-    panHandle=[[PanDragViewHandle alloc] initWithDirection:PanGestureDirectionToLeft withCurrentView:currentView withOtherView:otherView];
-    panHandle.delegate=self;
-}
-
--(void) panGes:(UIPanGestureRecognizer*) ges
-{
-    [panHandle handlePanGesture:ges];
-}
-
--(void)toolbarMap
-{
-//    if(self.isShowingMap)
-//    {
-//        masterContainerView.ads_mapView.mapView.userInteractionEnabled=false;
-//        
-//        [UIView animateWithDuration:DURATION_DEFAULT animations:^{
-//            CGRect rect=masterContainerView.mapFrame;
-//            rect.origin=CGPointMake(0, rect.size.height-10);
-//            mapController.view.frame=rect;
-//        } completion:^(BOOL finished) {
-//            [mapController.mapViewController removeMap];
-//            
-//            isShowingMap=false;
-//        }];
-//    }
-//    else
-//    {
-//        [mapController .mapViewController addMap];
-//        
-//        masterContainerView.ads_mapView.mapView.userInteractionEnabled=true;
-//        
-//        [UIView animateWithDuration:DURATION_DEFAULT animations:^{
-//            mapController.view.center=CGPointMake(mapController.view.center.x, mapController.view.frame.size.height/2);
-//        } completion:^(BOOL finished) {
-//            
-//            isShowingMap=true;
-//        }];
-//    }
-//    return;
-//    if(mapController)
-//    {
-//        [UIView animateWithDuration:DURATION_DEFAULT animations:^{
-//            mapController.view.center=CGPointMake(mapController.view.center.x, mapController.view.center.y+mapController.view.frame.size.height);
-//        } completion:^(BOOL finished) {
-//            [mapController removeFromParentViewController];
-//            [mapController.view removeFromSuperview];
-//            mapController=nil;
-//            self.masterContainerView.mapView.hidden=true;
-//        }];
-//        return;
-//    }
-//    
-//    mapController=[[SGMapController alloc] init];
-//    [mapController setNavigationBarHidden:true];
-//    CGRect rect=self.masterContainerView.mapFrame;
-//    rect.origin=CGPointMake(0, rect.size.height);
-//    
-//    mapController.view.frame=rect;
-//    
-//    [self.masterContainerView addChildViewController:mapController];
-//    [self.masterContainerView.mapView addSubview:mapController.view];
-//    
-//    
-//    self.masterContainerView.mapView.hidden=false;
-//    [UIView animateWithDuration:0.3f animations:^{
-//        mapController.view.center=CGPointMake(mapController.view.center.x, mapController.view.frame.size.height/2);
-//    }];
-}
-
 -(void)SGSettingHided
 {
 //    settingController.delegate=nil;
 //    settingController=nil;
 }
-
--(void)presentModalViewController:(UIViewController *)viewController animated:(BOOL)animated
-{
-    [self.masterContainerView addChildViewController:viewController];
-    
-    [self.masterContainerView.view alphaViewWithColor:[UIColor blackColor]];
-    self.masterContainerView.view.alphaView.alpha=0;
-    
-    viewController.view.center=CGPointMake(self.masterContainerView.view.frame.size.width/2, -self.masterContainerView.view.frame.size.height/2);
-    
-    [self.masterContainerView.view addSubview:viewController.view];
-    
-    [UIView animateWithDuration:DURATION_DEFAULT animations:^{
-        self.masterContainerView.view.alphaView.alpha=0.7f;
-        float otherHeight=self.masterContainerView.view.frame.size.height-viewController.view.frame.size.height;
-        otherHeight/=2;
-        viewController.view.center=CGPointMake(viewController.view.center.x, self.masterContainerView.view.frame.size.height/2-otherHeight);
-    } completion:^(BOOL finished) {
-        
-    }];
-}
-
--(void)dismissModalViewController:(UIViewController *)viewController animated:(BOOL)animated
-{
-    if([self.masterContainerView.childViewControllers containsObject:viewController])
-    {
-        [UIView animateWithDuration:DURATION_DEFAULT animations:^{
-            self.masterContainerView.view.alphaView.alpha=0;
-            viewController.view.center=CGPointMake(viewController.view.center.x, -self.masterContainerView.view.frame.size.height/2);
-        } completion:^(BOOL finished) {
-            [self.masterContainerView.view removeAlphaView];
-            
-            [viewController removeFromParentViewController];
-            [viewController.view removeFromSuperview];
-        }];
-    }
-}
-
 #pragma - ViewControllers Delegate
-
--(void)welcomeControllerTouchedLogin1:(WelcomeViewController *)viewController
-{
-    AuthorizationViewController *author=[[AuthorizationViewController alloc] init];
-    author.delegate=self;
-    
-    [author showLogin];
-    
-    TransportViewController *transport=[[TransportViewController alloc] initWithNavigation:author];
-    
-    [self.masterNavigation pushViewController:transport animated:true];
-}
-
--(void)welcomeControllerTouchedTry1:(WelcomeViewController *)viewController
-{
-    MasterContainerViewController *vc=[[MasterContainerViewController alloc] init];
-    masterContainerView=vc;
-    
-    [self.masterNavigation setRootViewController:vc animate:true];
-}
-
--(void)SGLoadingFinished1:(SGLoadingScreenViewController *)loadingScreen
-{
-    [self.masterNavigation setAnimationPopViewController:^CATransition *(UIViewController *vc) {
-        CATransition* transition = [CATransition animation];
-        transition.duration = 0.5;
-        transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-        transition.type = kCATransitionPush; //kCATransitionMoveIn; //, kCATransitionPush, kCATransitionReveal, kCATransitionFade
-        transition.subtype = kCATransitionFromRight; //kCATransitionFromLeft, kCATransitionFromRight, kCATransitionFromTop, kCATransitionFromBottom
-        
-        return transition;
-    }];
-    [self.masterNavigation popViewControllerAnimated:true];
-}
-
--(ToolbarViewController *)toolbarController
-{
-    return self.masterContainerView.toolbarController;
-}
-
--(SGAdsViewController *)adsController
-{
-    return self.masterContainerView.adsController;
-}
-
--(SGQRCodeViewController *)qrCodeController
-{
-    return self.masterContainerView.qrCodeController;
-}
-
--(SGMapController *)mapController
-{
-    return self.masterContainerView.mapController;
-}
-
 -(void) presentShopUserWithIDShop:(int)idShop
 {
     ShopUserViewController *shopUser=[[ShopUserViewController alloc] init];
@@ -675,6 +493,28 @@ static GUIManager *_shareInstance=nil;
     } completion:^(BOOL finished) {
         
     }];
+}
+
+-(void)showLoginDialogWithMessage:(NSString *)message onCompleted:(void (^)(bool))onCompleted
+{
+    _onLoginedCompleted=[onCompleted copy];
+    
+    [AlertView showAlertOKCancelWithTitle:nil withMessage:message onOK:^{
+        [self showLoginController];
+    } onCancel:^{
+        _onLoginedCompleted(false);
+        _onLoginedCompleted=nil;
+    }];
+}
+
+-(void) showLoginController
+{
+    AuthorizationViewController *author=[[AuthorizationViewController alloc] init];
+    [author showLogin];
+    author.delegate=self;
+    
+    TransportViewController *transport=[[TransportViewController alloc] initWithNavigation:author];
+    [self.rootNavigation pushViewController:transport animated:true];
 }
 
 @end

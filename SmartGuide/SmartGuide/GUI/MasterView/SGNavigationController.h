@@ -10,6 +10,8 @@
 #import "PanDragViewHandle.h"
 #import "Constant.h"
 #import "Utility.h"
+#import "SGViewController.h"
+#import "AlphaView.h"
 
 @interface SGNavigationController : UINavigationController<UINavigationControllerDelegate,UIGestureRecognizerDelegate>
 {
@@ -30,8 +32,9 @@
 -(void) removeLeftSlideViewController;
 -(void) setAnimationPopViewController:(CATransition*(^)(UIViewController* vc)) animationPush;
 
-@property (nonatomic, strong, readonly) UIViewController *leftSlideController;
-@property (nonatomic, strong, readonly) UIViewController *rightSlideController;
+@property (nonatomic, strong, readonly) SGViewController *leftSlideController;
+@property (nonatomic, strong, readonly) SGViewController *rightSlideController;
 @property (nonatomic, weak, readonly) UIViewController *previousViewController;
+@property (nonatomic, assign) bool isAllowDragBackPreviouseView;
 
 @end

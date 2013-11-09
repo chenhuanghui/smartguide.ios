@@ -32,6 +32,7 @@
 {
     UIPanGestureRecognizer *panGes;
     PanDragViewHandle *panHandle;
+    void(^_onLoginedCompleted)(bool isLogined);
 }
 
 +(GUIManager*) shareInstance;
@@ -42,6 +43,7 @@
 
 -(void) hideAdsWithDuration:(float) duration;
 -(void) showAdsWithDuration:(float) duration;
+-(void) showLoginDialogWithMessage:(NSString*) message onCompleted:(void(^)(bool isLogined)) onCompleted;
 
 @property (nonatomic, readonly) UIWindow *mainWindow;
 @property (nonatomic, weak, readonly) MasterContainerViewController *masterContainerView;
@@ -55,10 +57,4 @@
 @property (nonatomic, weak, readonly) ShopUserViewController *shopUserController;
 @property (nonatomic, weak, readonly) UserViewController *userController;
 @property (nonatomic, weak, readonly) UserSettingViewController *userSettingController;
-
--(ToolbarViewController*) toolbarController;
--(SGAdsViewController*) adsController;
--(SGQRCodeViewController*) qrCodeController;
--(SGMapController*) mapController;
-
 @end

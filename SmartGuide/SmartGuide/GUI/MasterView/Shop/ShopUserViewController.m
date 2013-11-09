@@ -7,6 +7,7 @@
 //
 
 #import "ShopUserViewController.h"
+#import "GUIManager.h"
 
 @interface ShopUserViewController ()
 
@@ -44,10 +45,10 @@
 - (IBAction)btn:(id)sender {
     [self.delegate shopUserFinished];
 }
-
--(void)dealloc
-{
-    NSLog(@"dealloc %@", CLASS_NAME);
+- (IBAction)like:(id)sender {
+    [[GUIManager shareInstance] showLoginDialogWithMessage:@"LOGIN TO LIKE" onCompleted:^(bool isLogined) {
+        [AlertView showAlertOKWithTitle:nil withMessage:[NSString stringWithFormat:@"LOGINED %i",isLogined] onOK:nil];
+    }];
 }
 
 @end

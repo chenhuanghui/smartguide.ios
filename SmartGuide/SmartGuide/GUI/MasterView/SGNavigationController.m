@@ -12,10 +12,15 @@
 
 @interface SGNavigationController ()
 
+@property (nonatomic, weak) UIPanGestureRecognizer *panPrevious;
+@property (nonatomic, assign) CGPoint startPointPrevious;
+
 @end
 
 @implementation SGNavigationController
 @synthesize leftSlideController,rightSlideController,previousViewController;
+@synthesize isAllowDragBackPreviouseView;
+@synthesize panPrevious,startPointPrevious;
 
 -(SGNavigationController *)initWithViewControllers:(NSArray *)controllers
 {
@@ -119,8 +124,8 @@ CALL_DEALLOC_LOG
     
     if(!self.leftSlideController)
     {
-        leftSlideController=[[UIViewController alloc] init];
-        leftSlideController.view.center=CGPointMake(-self.view.frame.size.width/2, self.view.frame.size.height/2);
+        leftSlideController=[[SGViewController alloc] init];
+        leftSlideController.view.frame=CGRectMake(-SLIDE_POSITION_X, self.l_v_x, SLIDE_POSITION_X, self.l_v_h);
         
         [self addChildViewController:leftSlideController];
         [self.view addSubview:leftSlideController.view];
@@ -129,14 +134,11 @@ CALL_DEALLOC_LOG
     [leftSlideController addChildViewController:viewController];
     [leftSlideController.view addSubview:viewController.view];
     
-    [UIView animateWithDuration:DURATION_SHOW_SETTING+0.01 animations:^{
-        previousViewController.view.center=CGPointMake(previousViewController.view.center.x+SLIDE_POSITION_X, self.view.frame.size.height/2);
-    }];
+    [self.view makeAlphaViewBelowView:leftSlideController.view];
     
-    [UIView animateWithDuration:DURATION_SHOW_SETTING animations:^{
-        leftSlideController.view.center=CGPointMake(self.view.frame.size.width/2, self.view.frame.size.height/2);
-    } completion:^(BOOL finished) {
-        
+    [UIView animateWithDuration:DURATION_DEFAULT animations:^{
+        [leftSlideController l_c_addX:SLIDE_POSITION_X];
+        [previousViewController l_c_addX:SLIDE_POSITION_X];
     }];
     
     _tapSlideGes=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(leftTapGes:)];
@@ -161,6 +163,18 @@ CALL_DEALLOC_LOG
     else if(gestureRecognizer==_panSlideGes)
     {
         CGPoint pnt=[_panSlideGes velocityInView:self.view];
+        return fabsf(pnt.x)>fabsf(pnt.y);
+    }
+    else if(gestureRecognizer==self.panPrevious)
+    {
+        if(self.leftSlideController || self.rightSlideController)
+            return false;
+        
+        if(self.viewControllers.count<=1)
+            return false;
+        
+        CGPoint pnt=[self.panPrevious velocityInView:self.view];
+        
         return fabsf(pnt.x)>fabsf(pnt.y);
     }
     
@@ -192,10 +206,10 @@ CALL_DEALLOC_LOG
             float deltaX=pnt.x-_panStartPoint.x;
             _panStartPoint=pnt;
             
-            if(self.leftSlideController.l_c_x+deltaX>self.l_v_w/2)
+            if(self.leftSlideController.l_v_x+deltaX>0)
             {
-                [self.leftSlideController l_c_setX:self.l_v_w/2];
-                [self.previousViewController l_c_setX:self.l_v_w/2+SLIDE_POSITION_X];
+                [self.leftSlideController l_v_setX:0];
+                [self.previousViewController l_v_setX:SLIDE_POSITION_X];
             }
             else
             {
@@ -209,6 +223,9 @@ CALL_DEALLOC_LOG
         case UIGestureRecognizerStateEnded:
         case UIGestureRecognizerStateFailed:
         {
+            if(self.viewControllers.count<=1)
+                return;
+            
             float velocity=[pan velocityInView:pan.view].x;
             
             if(velocity<0 && velocity<-VELOCITY_SLIDE)
@@ -231,8 +248,8 @@ CALL_DEALLOC_LOG
 -(void) moveToLeftSlide
 {
     [UIView animateWithDuration:DURATION_DEFAULT animations:^{
-        [self.leftSlideController l_c_setX:self.l_v_w/2];
-        [self.previousViewController l_c_setX:self.l_v_w/2+SLIDE_POSITION_X];
+        [self.leftSlideController l_v_setX:0];
+        [self.previousViewController l_v_setX:SLIDE_POSITION_X];
     } completion:^(BOOL finished) {
     }];
 }
@@ -245,6 +262,8 @@ CALL_DEALLOC_LOG
     } completion:^(BOOL finished) {
         [self.leftSlideController removeFromParentViewController];
         [self.leftSlideController.view removeFromSuperview];
+        
+        [self.view removeAlphaView];
         
         _panStartPoint=CGPointZero;
         [_panSlideGes removeTarget:self action:@selector(leftPanGes:)];
@@ -263,8 +282,148 @@ CALL_DEALLOC_LOG
 {
     if(self.leftSlideController)
     {
-        [self moveToVisibleView];
+        [UIView animateWithDuration:DURATION_SHOW_SETTING+0.01f animations:^{
+            [self.previousViewController l_c_setX:self.l_v_w/2];
+        }];
+        
+        [UIView animateWithDuration:DURATION_SHOW_SETTING-0.01f animations:^{
+            [self.leftSlideController l_c_setX:-self.l_v_w/2];
+        } completion:^(BOOL finished) {
+            [self.leftSlideController removeFromParentViewController];
+            [self.leftSlideController.view removeFromSuperview];
+            
+            [self.view removeAlphaView];
+            
+            _panStartPoint=CGPointZero;
+            [_panSlideGes removeTarget:self action:@selector(leftPanGes:)];
+            [self.view removeGestureRecognizer:_panSlideGes];
+            _panSlideGes=nil;
+            
+            [_tapSlideGes removeTarget:self action:@selector(leftTapGes:)];
+            [self.view removeGestureRecognizer:_tapSlideGes];
+            _tapSlideGes=nil;
+            
+            leftSlideController=nil;
+        }];
     }
+}
+
+-(void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated
+{
+    viewController.wantsFullScreenLayout=true;
+    [super pushViewController:viewController animated:animated];
+}
+
+-(void)setIsAllowDragBackPreviouseView:(bool)_isAllowDragBackPreviouseView
+{
+    isAllowDragBackPreviouseView=_isAllowDragBackPreviouseView;
+    
+    if(self.panPrevious)
+    {
+        [self.panPrevious removeTarget:self action:@selector(panPrevious:)];
+        [self.view removeGestureRecognizer:self.panPrevious];
+        self.panPrevious=nil;
+        self.startPointPrevious=CGPointZero;
+    }
+    
+    if(isAllowDragBackPreviouseView)
+    {
+        UIPanGestureRecognizer *pan=[[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panPrevious:)];
+        pan.delegate=self;
+        
+        self.panPrevious=pan;
+        
+        [self.view addGestureRecognizer:pan];
+    }
+}
+
+-(void) panPrevious:(UIPanGestureRecognizer*) ges
+{
+    switch (ges.state) {
+        case UIGestureRecognizerStateBegan:
+            self.startPointPrevious=[ges locationInView:self.view];
+            break;
+            
+        case UIGestureRecognizerStateChanged:
+        {
+            CGPoint pnt=[ges locationInView:ges.view];
+            float deltaX=pnt.x-self.startPointPrevious.x;
+            self.startPointPrevious=pnt;
+            
+            if(self.viewControllers.count<=1)
+                return;
+            
+            UIViewController *vc1=self.visibleViewController;
+            UIViewController *vc2=self.viewControllers[[self.viewControllers indexOfObject:vc1]-1];
+            
+            if(!vc2.view.superview)
+            {
+                [vc2 l_c_setX:-self.l_v_w/2];
+                [self.view addSubview:vc2.view];
+            }
+            
+            if(vc1.l_v_x+deltaX<0)
+            {
+                [vc1 l_v_setX:0];
+                [vc2 l_c_setX:-self.l_v_w/2];
+            }
+            else
+            {
+                [vc1 l_c_addX:deltaX];
+                [vc2 l_c_addX:deltaX];
+            }
+        }
+            break;
+            
+        case UIGestureRecognizerStateEnded:
+        case UIGestureRecognizerStateCancelled:
+        case UIGestureRecognizerStateFailed:
+        {
+            float velocity=[ges velocityInView:ges.view].x;
+            UIViewController *vc1=self.visibleViewController;
+            
+            if(velocity>0 && velocity>VELOCITY_SLIDE)
+                [self moveToPreviousViewController];
+            else
+            {
+                if(vc1.view.center.x>vc1.view.frame.size.width/2 + vc1.view.frame.size.width/4)
+                    [self moveToPreviousViewController];
+                else
+                    [self moveToVisibleViewController];
+            }
+            
+        }
+            break;
+            
+        default:
+            break;
+    }
+}
+
+-(void) moveToVisibleViewController
+{
+    UIViewController *vc1=self.visibleViewController;
+    UIViewController *vc2=self.viewControllers[[self.viewControllers indexOfObject:vc1]-1];
+    
+    [UIView animateWithDuration:DURATION_NAVIGATION_PUSH animations:^{
+        [vc1 l_c_setX:self.l_v_w/2];
+        [vc2 l_c_setX:-self.l_v_w/2];
+    } completion:^(BOOL finished) {
+        [vc2.view removeFromSuperview];
+    }];
+}
+
+-(void) moveToPreviousViewController
+{
+    UIViewController *vc1=self.visibleViewController;
+    UIViewController *vc2=self.viewControllers[[self.viewControllers indexOfObject:vc1]-1];
+    
+    [UIView animateWithDuration:DURATION_NAVIGATION_PUSH animations:^{
+        [vc1 l_c_setX:self.l_v_w*1.5f];
+        [vc2 l_c_setX:self.l_v_w/2];
+    } completion:^(BOOL finished) {
+        [self popViewControllerAnimated:false];
+    }];
 }
 
 @end

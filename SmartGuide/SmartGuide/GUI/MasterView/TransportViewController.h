@@ -7,12 +7,13 @@
 //
 
 #import "SGViewController.h"
+#import "SGNavigationController.h"
 #import "Constant.h"
 
 @interface TransportViewController : SGViewController
 
--(TransportViewController*) initWithNavigation:(UINavigationController*) navi;
+-(TransportViewController*) initWithNavigation:(SGNavigationController*) navi;
 
-@property (nonatomic, weak, readonly) UINavigationController* navi;
+@property (nonatomic, weak, readonly) SGNavigationController* navi;
 
 @end

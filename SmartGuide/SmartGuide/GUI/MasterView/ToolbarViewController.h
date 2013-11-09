@@ -13,7 +13,6 @@
 -(void) toolbarSetting;
 -(void) toolbarUserCollection;
 -(void) toolbarUserLogin;
--(void) toolbarMap;
 
 @end
 

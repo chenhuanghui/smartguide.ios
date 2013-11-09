@@ -314,6 +314,26 @@ bool isVailCLLocationCoordinate2D(CLLocationCoordinate2D location)
     return self.l_v_s.height;
 }
 
+-(void)l_v_setX:(float)x
+{
+    self.view.frame=CGRectMake(x, self.view.frame.origin.y, self.view.frame.size.width, self.view.frame.size.height);
+}
+
+-(void)l_v_setY:(float)y
+{
+    self.view.frame=CGRectMake(self.view.frame.origin.x, y, self.view.frame.size.width, self.view.frame.size.height);
+}
+
+-(void)l_v_setW:(float)w
+{
+    self.view.frame=CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y, w, self.view.frame.size.height);
+}
+
+-(void)l_v_setH:(float)h
+{
+    self.view.frame=CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y, self.view.frame.size.width, h);
+}
+
 -(void)l_c_setX:(float)x
 {
     self.view.center=CGPointMake(x, self.view.center.y);
@@ -375,6 +395,26 @@ bool isVailCLLocationCoordinate2D(CLLocationCoordinate2D location)
 -(float)l_v_y
 {
     return self.l_v_o.y;
+}
+
+-(void)l_v_setX:(float)x
+{
+    self.frame=CGRectMake(x, self.frame.origin.y, self.frame.size.width, self.frame.size.height);
+}
+
+-(void)l_v_setY:(float)y
+{
+    self.frame=CGRectMake(self.frame.origin.x, y, self.frame.size.width, self.frame.size.height);
+}
+
+-(void)l_v_setW:(float)w
+{
+    self.frame=CGRectMake(self.frame.origin.x, self.frame.origin.y, w, self.frame.size.height);
+}
+
+-(void)l_v_setH:(float)h
+{
+    self.frame=CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width, h);
 }
 
 -(float) l_v_w

@@ -70,6 +70,10 @@ bool isVailCLLocationCoordinate2D(CLLocationCoordinate2D location);
 -(float) l_v_y;
 -(float) l_v_w;
 -(float) l_v_h;
+-(void) l_v_setX:(float) x;
+-(void) l_v_setY:(float) y;
+-(void) l_v_setW:(float) w;
+-(void) l_v_setH:(float) h;
 
 -(void) l_c_setX:(float) x;
 -(void) l_c_setY:(float) y;
@@ -90,6 +94,10 @@ bool isVailCLLocationCoordinate2D(CLLocationCoordinate2D location);
 -(float) l_v_y;
 -(float) l_v_w;
 -(float) l_v_h;
+-(void) l_v_setX:(float) x;
+-(void) l_v_setY:(float) y;
+-(void) l_v_setW:(float) w;
+-(void) l_v_setH:(float) h;
 
 -(void) l_c_setX:(float) x;
 -(void) l_c_setY:(float) y;

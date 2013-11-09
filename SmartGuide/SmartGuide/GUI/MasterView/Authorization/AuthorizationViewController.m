@@ -82,10 +82,4 @@
     [self.delegate authorizationSuccessed];
 }
 
--(void)dealloc
-{
-    [self.viewControllers[0] removeFromParentViewController];
-    NSLog(@"dealloc %@", CLASS_NAME);
-}
-
 @end
