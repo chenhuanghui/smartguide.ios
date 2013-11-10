@@ -405,6 +405,17 @@
             [TokenManager shareInstance].phone=_phone;
             [TokenManager shareInstance].activeCode=ope.activeCode;
             
+            _verifiedUser=[User userWithIDUser:ope.idUser];
+            if(!_verifiedUser)
+            {
+                _verifiedUser=[User insert];
+                _verifiedUser.idUser=@(ope.idUser);
+            }
+            
+            _verifiedUser.isConnectedFacebook=@(ope.isConnectedFacebook);
+            _verifiedUser.avatar=ope.avatar;
+            _verifiedUser.name=ope.name;
+            
             OperationGetToken *getToken=[[OperationGetToken alloc] initWithPhone:_phone activeCode:txt.text];
             getToken.delegate=self;
             
@@ -424,6 +435,9 @@
             lblCountdown.hidden=true;
             lblGiay.hidden=true;
         }
+        
+        [[DataManager shareInstance] save];
+        [DataManager shareInstance].currentUser=[User userWithIDUser:_verifiedUser.idUser.integerValue];
         
         OperationGetToken *ope=(OperationGetToken*) operation;
         

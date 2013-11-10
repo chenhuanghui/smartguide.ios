@@ -31,6 +31,8 @@
     __weak IBOutlet UILabel *lblResend;
     __weak IBOutlet UIButton *btnResent;
     int _time;
+    
+    User *_verifiedUser;
 }
 
 @end

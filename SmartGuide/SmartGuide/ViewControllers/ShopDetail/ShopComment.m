@@ -88,7 +88,7 @@
     
     float tableOriginWidth=183;
     ShopUserComment *comment=[_comments objectAtIndex:indexPath.row];
-    return [ShopCommentCell heightWithContent:comment.comment widthChanged:tableView.frame.size.width-tableOriginWidth]+5;
+    return [ShopCommentCell heightWithContent:comment.comment widthChanged:tableView.frame.size.width-tableOriginWidth]+15;
 }
 
 -(void)setShop:(Shop *)shop
