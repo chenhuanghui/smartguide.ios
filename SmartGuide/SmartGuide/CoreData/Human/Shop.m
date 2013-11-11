@@ -158,6 +158,8 @@
         promotion.idAwardType2=[NSNumber numberWithObject:[dicInner objectForKey:@"id"]];
         promotion.desc=[NSString stringWithStringDefault:[dicInner objectForKey:@"description"]];
         promotion.min_score=[NSNumber numberWithObject:[dicInner objectForKey:@"min_score"]];
+        promotion.isPartner=[NSNumber numberWithObject:dicInner[@"isPartner"]];
+        
         [promotion removeRequires:promotion.requires];
         [promotion removeVouchers:promotion.vouchers];
         
@@ -197,6 +199,8 @@
                 voucher.desc=[NSString stringWithStringDefault:[dictVoucher objectForKey:@"description"]];
                 voucher.promotion=promotion;
                 voucher.numberVoucher=[NSString stringWithStringDefault:[dictVoucher objectForKey:@"numberVoucher"]];
+                voucher.title=[NSString stringWithStringDefault:dictVoucher[@"title"]];
+                voucher.content=[NSString stringWithStringDefault:dictVoucher[@"content"]];
                 
                 [promotion.vouchersInserted addObject:voucher.idVoucher];
             }

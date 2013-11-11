@@ -10,6 +10,7 @@
                 <outlet property="btnDistance" destination="58" id="130"/>
                 <outlet property="btnLike" destination="54" id="128"/>
                 <outlet property="btnPoint" destination="57" id="127"/>
+                <outlet property="btnShopKM" destination="pKq-0R-KaE" id="wT8-zK-VGp"/>
                 <outlet property="btnView" destination="53" id="129"/>
                 <outlet property="drink" destination="67" id="110"/>
                 <outlet property="education" destination="98" id="116"/>
@@ -564,6 +565,22 @@
                     <connections>
                         <action selector="btnDoneTouchUpInside:" destination="-1" eventType="touchUpInside" id="132"/>
                     </connections>
+                </button>
+                <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" id="pKq-0R-KaE">
+                    <rect key="frame" x="-37" y="264" width="320" height="15"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="10"/>
+                    <inset key="contentEdgeInsets" minX="-36" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    <state key="normal" title="  CHỈ TÌM CỬA HÀNG KHUYẾN MÃI" image="ticknone.png">
+                        <color key="titleColor" red="0.40784313729999999" green="0.50980392159999999" blue="0.67843137249999996" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <state key="selected" image="tick.png">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <state key="highlighted">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
                 </button>
             </subviews>
             <color key="backgroundColor" red="0.15686274510000001" green="0.18039215689999999" blue="0.2274509804" alpha="1" colorSpace="calibratedRGB"/>

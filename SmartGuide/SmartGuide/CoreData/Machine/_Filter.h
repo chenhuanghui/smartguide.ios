@@ -13,6 +13,7 @@
 #define Filter_Food @"food"
 #define Filter_Health @"health"
 #define Filter_IdUser @"idUser"
+#define Filter_IsShopKM @"isShopKM"
 #define Filter_MostGetPoint @"mostGetPoint"
 #define Filter_MostGetReward @"mostGetReward"
 #define Filter_MostLike @"mostLike"
@@ -42,6 +43,7 @@
 @property (nonatomic, retain) NSNumber* food;
 @property (nonatomic, retain) NSNumber* health;
 @property (nonatomic, retain) NSNumber* idUser;
+@property (nonatomic, retain) NSNumber* isShopKM;
 @property (nonatomic, retain) NSNumber* mostGetPoint;
 @property (nonatomic, retain) NSNumber* mostGetReward;
 @property (nonatomic, retain) NSNumber* mostLike;

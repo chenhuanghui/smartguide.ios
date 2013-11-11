@@ -175,6 +175,7 @@
         filter.production=@(true);
         filter.education=@(true);
         filter.distance=@(true);
+        filter.isShopKM=@(false);
         
         [[DataManager shareInstance] save];
     }
@@ -194,6 +195,7 @@
         btnLike.selected=filter.mostLike.boolValue;
         btnView.selected=filter.mostView.boolValue;
         btnDistance.selected=filter.distance.boolValue;
+        btnShopKM.selected=filter.isShopKM.boolValue;
     }
     else
     {
@@ -292,6 +294,7 @@
     filter.mostLike=[NSNumber numberWithBool:btnLike.selected];
     filter.mostView=[NSNumber numberWithBool:btnView.selected];
     filter.distance=[NSNumber numberWithBool:btnDistance.selected];
+    filter.isShopKM=@(btnShopKM.selected);
     
     bool hasChange=[filter changedValues].count>0;
     

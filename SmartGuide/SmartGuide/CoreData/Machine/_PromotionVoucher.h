@@ -5,11 +5,13 @@
 
 #define PromotionVoucher_ClassName @"PromotionVoucher"
 
+#define PromotionVoucher_Content @"content"
 #define PromotionVoucher_Desc @"desc"
 #define PromotionVoucher_IdVoucher @"idVoucher"
 #define PromotionVoucher_Money @"money"
 #define PromotionVoucher_NumberVoucher @"numberVoucher"
 #define PromotionVoucher_P @"p"
+#define PromotionVoucher_Title @"title"
 
 @class PromotionVoucher;
 @class PromotionDetail;
@@ -25,11 +27,13 @@
 -(bool) save;
 
 
+@property (nonatomic, retain) NSString* content;
 @property (nonatomic, retain) NSString* desc;
 @property (nonatomic, retain) NSNumber* idVoucher;
 @property (nonatomic, retain) NSNumber* money;
 @property (nonatomic, retain) NSString* numberVoucher;
 @property (nonatomic, retain) NSNumber* p;
+@property (nonatomic, retain) NSString* title;
 
 #pragma mark Fetched property
 

@@ -14,7 +14,7 @@
 {
 }
 
--(ASIOperationShopInGroup*) initWithIDCity:(int)idCity idUser:(int) idUser lat:(double) latitude lon:(double) longtitude page:(int) page sort:(enum SORT_BY) sort group:(NSString*) ids;
+-(ASIOperationShopInGroup*) initWithIDCity:(int)idCity idUser:(int) idUser lat:(double) latitude lon:(double) longtitude page:(int) page sort:(enum SORT_BY) sort filterPromotion:(enum SHOP_PROMOTION_FILTER_TYPE) promotionFilterType group:(NSString*) ids;
 
 @property (nonatomic, readonly) NSMutableArray *shops;
 

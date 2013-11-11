@@ -9,6 +9,7 @@
 #define PromotionDetail_Desc @"desc"
 #define PromotionDetail_Duration @"duration"
 #define PromotionDetail_IdAwardType2 @"idAwardType2"
+#define PromotionDetail_IsPartner @"isPartner"
 #define PromotionDetail_Min_score @"min_score"
 #define PromotionDetail_Money @"money"
 #define PromotionDetail_P @"p"
@@ -37,6 +38,7 @@
 @property (nonatomic, retain) NSString* desc;
 @property (nonatomic, retain) NSString* duration;
 @property (nonatomic, retain) NSNumber* idAwardType2;
+@property (nonatomic, retain) NSNumber* isPartner;
 @property (nonatomic, retain) NSNumber* min_score;
 @property (nonatomic, retain) NSString* money;
 @property (nonatomic, retain) NSNumber* p;

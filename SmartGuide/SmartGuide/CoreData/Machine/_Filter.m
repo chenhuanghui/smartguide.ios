@@ -192,6 +192,19 @@
 	[self didChangeValueForKey:@"idUser"];
 }
 
+- (NSNumber*)isShopKM {
+	[self willAccessValueForKey:@"isShopKM"];
+	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"isShopKM"];
+	[self didAccessValueForKey:@"isShopKM"];
+	return result;
+}
+
+- (void)setIsShopKM:(NSNumber*)value {
+	[self willChangeValueForKey:@"isShopKM"];
+	[self setPrimitiveValue:value forKey:@"isShopKM"];
+	[self didChangeValueForKey:@"isShopKM"];
+}
+
 - (NSNumber*)mostGetPoint {
 	[self willAccessValueForKey:@"mostGetPoint"];
 	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"mostGetPoint"];

@@ -36,6 +36,7 @@
     __weak IBOutlet UIButton *btnLike;
     __weak IBOutlet UIButton *btnView;
     __weak IBOutlet UIButton *btnDistance;
+    __weak IBOutlet UIButton *btnShopKM;
 }
 
 +(CGSize) size;

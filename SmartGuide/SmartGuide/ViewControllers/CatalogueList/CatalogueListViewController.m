@@ -660,7 +660,7 @@
     self.sortBy=[DataManager shareInstance].currentUser.filter.sortBy;
     
     int idCity=self.city;
-    self.opeartionShopInGroup=[[ASIOperationShopInGroup alloc] initWithIDCity:idCity idUser:user.idUser.integerValue lat:user.location.latitude lon:user.location.longitude page:page sort:sortBy group:ids];
+    self.opeartionShopInGroup=[[ASIOperationShopInGroup alloc] initWithIDCity:idCity idUser:user.idUser.integerValue lat:user.location.latitude lon:user.location.longitude page:page sort:sortBy filterPromotion:[DataManager shareInstance].currentUser.filter.shopPromotionFilterType group:ids];
     self.opeartionShopInGroup.delegatePost=self;
     
     [self.opeartionShopInGroup startAsynchronous];
@@ -735,7 +735,7 @@
 -(void)loadAtPage:(int)page
 {
     User *user=[DataManager shareInstance].currentUser;
-    self.operationSearchShop=[[ASIOperationSearchShop alloc] initWithShopName:self.searchKey idUser:user.idUser.integerValue lat:user.location.latitude lon:user.location.longitude page:page];
+    self.operationSearchShop=[[ASIOperationSearchShop alloc] initWithShopName:self.searchKey idUser:user.idUser.integerValue lat:user.location.latitude lon:user.location.longitude page:page promotionFilter:[DataManager shareInstance].currentUser.filter.shopPromotionFilterType];
     self.operationSearchShop.delegatePost=self;
     
     [self.operationSearchShop startAsynchronous];

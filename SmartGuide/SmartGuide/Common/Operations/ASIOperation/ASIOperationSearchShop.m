@@ -12,19 +12,19 @@
 @implementation ASIOperationSearchShop
 @synthesize values,shops,name;
 
--(ASIOperationSearchShop *)initWithShopName:(NSString *)_name idUser:(int)idUser lat:(double)lat lon:(double)lon page:(int)page
+-(ASIOperationSearchShop *)initWithShopName:(NSString *)_name idUser:(int)idUser lat:(double)lat lon:(double)lon page:(int)page promotionFilter:(enum SHOP_PROMOTION_FILTER_TYPE)promotionFilter
 {
     NSURL *_url=[NSURL URLWithString:SERVER_API_MAKE(API_SHOP_SEARCH)];
     self=[super initWithURL:_url];
     
-    values=@[_name,@(idUser),@(lat),@(lon),@(page),@(1)];
+    values=@[_name,@(idUser),@(lat),@(lon),@(page),@(1),@(promotionFilter)];
     
     return self;
 }
 
 -(NSArray *)keys
 {
-    return @[@"shop_name",@"user_id",@"user_lat",@"user_lng",@"page",@"version"];
+    return @[@"shop_name",@"user_id",@"user_lat",@"user_lng",@"page",@"version",SHOP_PROMOTION_FILTER_KEY];
 }
 
 -(void)onCompletedWithJSON:(NSArray *)json

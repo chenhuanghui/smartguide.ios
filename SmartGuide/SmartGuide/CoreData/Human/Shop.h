@@ -1,5 +1,6 @@
 #import "_Shop.h"
 #import <MapKit/MapKit.h>
+#import "Constant.h"
 
 enum SHOP_SHOW_TYPE {
     SHOP_SHOW_DETAIL = 1,

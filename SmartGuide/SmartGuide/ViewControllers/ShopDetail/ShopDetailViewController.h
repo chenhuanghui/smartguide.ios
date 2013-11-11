@@ -36,7 +36,7 @@ enum SHOP_DETAIL_MODE {
     SHOPDETAIL_FROM_COLLECTION=2,
 };
 
-@class ShopInfo,ShopMenu,ShopPicture,PromotionDetailType1View,ShopMenuView,ShopComment,PromotionDetailType2View,ShopLocation,ShopDetailViewController;
+@class ShopInfo,ShopMenu,ShopPicture,PromotionDetailType1View,ShopMenuView,ShopComment,PromotionDetailType2View,ShopLocation,ShopDetailViewController,PromotionDetailNotPartner;
 
 @protocol ShopViewHandle <NSObject>
 @property (nonatomic, assign) bool isProcessedData;
@@ -110,6 +110,7 @@ enum SHOP_DETAIL_MODE {
 @property (nonatomic, strong) ShopPicture *shopPicture;
 @property (nonatomic, strong) PromotionDetailType1View *promotionDetailType1View;
 @property (nonatomic, strong) PromotionDetailType2View *promotionDetailType2View;
+@property (nonatomic, strong) PromotionDetailNotPartner *promotionDetailNoPartner;
 @property (nonatomic, strong) UIView *noPromotionView;
 @property (nonatomic, strong) ShopComment *shopComment;
 @property (nonatomic, strong) ShopLocation *shopLocation;

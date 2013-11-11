@@ -896,6 +896,38 @@ static RootViewController *_rootViewController;
     
     [self.navigationBarView setSearchKeyword:[Flags keywordSearch]];
     [self.navigationBarView showSearchWithDelegate:self];
+    
+    if(searchViewController)
+        return;
+    
+    CGRect rect=CGRectZero;
+    rect.origin.y=[NavigationBarView height];
+    rect.size.width=self.view.frame.size.width;
+    rect.size.height=self.view.frame.size.height-[NavigationBarView height];
+    
+    searchViewController=[[SearchViewController alloc] init];
+    [self addChildViewController:searchViewController];
+    [searchViewController view];
+    searchViewController.view.frame=rect;
+    searchViewController.delegate=self;
+    
+    if(self.frontViewController.catalogueList.templateSearch)
+    {
+        [searchViewController handleResult:self.frontViewController.catalogueList.templateSearch.datasource text:self.frontViewController.catalogueList.templateSearch.searchKey page:self.frontViewController.catalogueList.templateSearch.page];
+        
+        if(self.frontViewController.catalogueList.templateSearch.datasource.count>0)
+            [navigationBarView endEditing:true];
+    }
+    
+    [self.rootContaintView addSubview:searchViewController.view];
+    
+    searchViewController.view.alpha=0;
+    [UIView animateWithDuration:DURATION_DEFAULT	 animations:^{
+        searchViewController.view.alpha=1;
+        CGRect r=searchViewController.view.frame;
+        r.size.height=self.view.frame.size.height-[NavigationBarView height];
+        searchViewController.view.frame=r;
+    }];
 }
 
 -(void)navigationSearchCancel:(UITextField *)textField
@@ -985,6 +1017,7 @@ static RootViewController *_rootViewController;
 
 -(void) keyboardWillShow:(NSNotification*) notification
 {
+    return;
     if(searchViewController)
         return;
     
@@ -2108,6 +2141,11 @@ static RootViewController *_rootViewController;
 -(UIWindow *)window
 {
     return ((AppDelegate*)[UIApplication sharedApplication].delegate).window;
+}
+
+-(BOOL)wantsFullScreenLayout
+{
+    return true;
 }
 
 @end

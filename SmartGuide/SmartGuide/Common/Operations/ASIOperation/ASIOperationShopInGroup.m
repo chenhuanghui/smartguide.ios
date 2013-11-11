@@ -15,19 +15,19 @@
 @implementation ASIOperationShopInGroup
 @synthesize shops,values;
 
--(ASIOperationShopInGroup *)initWithIDCity:(int)idCity idUser:(int)idUser lat:(double)latitude lon:(double)longtitude page:(int)page sort:(enum SORT_BY)sort group:(NSString *)ids
+-(ASIOperationShopInGroup *)initWithIDCity:(int)idCity idUser:(int)idUser lat:(double)latitude lon:(double)longtitude page:(int)page sort:(enum SORT_BY)sort filterPromotion:(enum SHOP_PROMOTION_FILTER_TYPE)promotionFilterType group:(NSString *)ids
 {
     NSURL *_url=[NSURL URLWithString:SERVER_API_MAKE(API_SHOP_IN_GROUP_POST)];
     self=[super initWithURL:_url];
     
-    values=@[ids,@(idCity),@(idUser),@(latitude),@(longtitude),@(page),@(sort)];
+    values=@[ids,@(idCity),@(idUser),@(latitude),@(longtitude),@(page),@(sort),@(promotionFilterType)];
     
     return self;
 }
 
 -(NSArray *)keys
 {
-    return @[@"group_list",@"city_id",@"user_id",@"user_lat",@"user_lng",@"page",@"sort_by"];
+    return @[@"group_list",@"city_id",@"user_id",@"user_lat",@"user_lng",@"page",@"sort_by",SHOP_PROMOTION_FILTER_KEY];
 }
 
 -(void)onCompletedWithJSON:(NSArray *)json

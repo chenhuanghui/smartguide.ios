@@ -18,4 +18,12 @@
     return SORT_DISTANCE;
 }
 
+-(enum SHOP_PROMOTION_FILTER_TYPE)shopPromotionFilterType
+{
+    if(self.isShopKM.boolValue)
+        return SHOP_PROMOTION_FILTER_HAS_PROMOTION;
+    
+    return SHOP_PROMOTION_FILTER_ALL;
+}
+
 @end

@@ -10,7 +10,7 @@
 
 @interface ASIOperationSearchShop : ASIOperationPost
 
--(ASIOperationSearchShop*) initWithShopName:(NSString*) name idUser:(int) idUser lat:(double) lat lon:(double) lon page:(int) page;
+-(ASIOperationSearchShop*) initWithShopName:(NSString*) name idUser:(int) idUser lat:(double) lat lon:(double) lon page:(int) page promotionFilter:(enum SHOP_PROMOTION_FILTER_TYPE) promotionFilter;
 
 @property (nonatomic, readonly) NSMutableArray *shops;
 @property (nonatomic, readonly) NSString *name;

@@ -62,9 +62,9 @@
 #endif
     
     if(self.mode==SCAN_GET_SGP)
-        [lblSlide setText:@"<a>TÍCH ĐIỂM</a><text> - CỬA HÀNG SẼ CUNG CẤP THẺ CHO BẠN</text>"];
+        [lblSlide setText:@"<a>QUÉT THẺ</a><text> - CỬA HÀNG SẼ CUNG CẤP THẺ CHO BẠN</text>"];
     else
-        [lblSlide setText:@"<a>NHẬN QUÀ</a><text> - CỬA HÀNG SẼ CUNG CẤP THẺ CHO BẠN</text>"];
+        [lblSlide setText:@"<a>QUÉT THẺ</a><text> - CỬA HÀNG SẼ CUNG CẤP THẺ CHO BẠN</text>"];
     
     if(qrCodeView)
     {
@@ -154,7 +154,7 @@
     
     [lblSlide addStyle:style];
     
-    [lblSlide setText:OBJ_IOS(@"<vuot>VUỐT LÊN ĐỂ NHẬN ĐIỂM</vuot>", @"<vuot>CHẠM VÀO ĐỂ NHẬN ĐIỂM</vuot>")];
+    [lblSlide setText:OBJ_IOS(@"<vuot>CHẠM VÀO ĐỂ QUÉT THẺ</vuot>", @"<vuot>CHẠM VÀO ĐỂ QUÉT THẺ</vuot>")];
     
     style=[FTCoreTextStyle styleWithName:@"cm"];
     
@@ -299,7 +299,7 @@
        [self removeCamera];
     }];
     
-    [lblSlide setText:OBJ_IOS(@"<vuot>VUỐT LÊN ĐỂ NHẬN ĐIỂM</vuot>", @"<vuot>CHẠM VÀO ĐỂ NHẬN ĐIỂM</vuot>")];
+    [lblSlide setText:OBJ_IOS(@"<vuot>CHẠM VÀO ĐỂ QUÉT THẺ</vuot>", @"<vuot>CHẠM VÀO ĐỂ QUÉT THẺ</vuot>")];
     
     darkLayer.backgroundColor=[UIColor clearColor];
     rewardView.hidden=true;

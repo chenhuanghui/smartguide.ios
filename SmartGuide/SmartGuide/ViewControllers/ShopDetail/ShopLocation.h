@@ -19,6 +19,7 @@
     MKMapView *map;
     bool isCalculatingDirection;
     UIView *rootView;
+    bool _isZoomedUserLocation;
     
     AFHTTPRequestOperation *_operationRouter;
 }

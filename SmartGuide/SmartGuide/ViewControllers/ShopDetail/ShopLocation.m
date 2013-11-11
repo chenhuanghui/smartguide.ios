@@ -448,9 +448,28 @@
     if(!CLLocationCoordinate2DIsValid(userLocation.coordinate) || (userLocation.coordinate.longitude==0 && userLocation.coordinate.latitude==0))
         return;
     
+    if(!isVailCLLocationCoordinate2D([DataManager shareInstance].currentUser.location) || !_isZoomedUserLocation)
+    {
+        _isZoomedUserLocation=true;
+        [self zoomMap:MKCoordinateRegionMakeWithDistance(userLocation.coordinate, MAP_SPAN, MAP_SPAN) animated:true];
+    }
+    
     [DataManager shareInstance].currentUser.location=[userLocation location].coordinate;
     
-    [self updateMapWithUserLocation:userLocation];
+//    [self updateMapWithUserLocation:userLocation];
+}
+
+-(void) zoomMap:(MKCoordinateRegion) region animated:(bool) animate
+{
+    if(isVailCLLocationCoordinate2D(map.userLocation.coordinate))
+        region.center=map.userLocation.coordinate;
+    
+    double miles = MAP_SPAN*0.000621371f;
+    double scalingFactor = ABS( (cos(2 * M_PI * region.center.latitude / 360.0) ));
+    
+    region.span=MKCoordinateSpanMake(miles/69, miles/(scalingFactor*69));
+    
+	[map setRegion:region animated:animate];
 }
 
 -(void) btnBackTouchUpInside:(UIButton*) btn
@@ -500,6 +519,13 @@
 
 - (IBAction)btnFullscreenTouchUpInside:(id)sender {
     [self makeMapFullscreen];
+}
+
+-(void)removeFromSuperview
+{
+    [super removeFromSuperview];
+    
+    _isZoomedUserLocation=false;
 }
 
 @end

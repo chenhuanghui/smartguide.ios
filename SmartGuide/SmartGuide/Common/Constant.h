@@ -24,7 +24,7 @@
 #define FACEBOOK_APPID @"1391698407719065"
 #define FACEBOOK_GET_PROFILE(accessToken,fields) [NSString stringWithFormat:@"https://graph.facebook.com/me/?fields=%@&access_token=%@",fields,accessToken]
 
-#define BUILD_MODE 1
+#define BUILD_MODE 0
 //0: developer
 //1: production
 
@@ -155,6 +155,12 @@ enum SORT_BY {
     SORT_LIKED = 2,
     SORT_POINT = 3,
     SORT_REWARD = 4,
+};
+
+#define SHOP_PROMOTION_FILTER_KEY @"hasPromotion"
+enum SHOP_PROMOTION_FILTER_TYPE{
+    SHOP_PROMOTION_FILTER_ALL = 1,
+    SHOP_PROMOTION_FILTER_HAS_PROMOTION = 0
 };
 
 enum LIKE_STATUS {

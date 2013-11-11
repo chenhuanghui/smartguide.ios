@@ -21,6 +21,7 @@
 #import "FrontViewController.h"
 #import "SlideQRCodeViewController.h"
 #import "AlphaView.h"
+#import "PromotionDetailNotPartner.h"
 
 @interface ShopDetailViewController ()
 {
@@ -30,7 +31,7 @@
 @end
 
 @implementation ShopDetailViewController
-@synthesize shoplMode,shopLocation,shopComment,shopPicture,shopMenuCategory,shopInfo,promotionDetailType2View,promotionDetailType1View,noPromotionView;
+@synthesize shoplMode,shopLocation,shopComment,shopPicture,shopMenuCategory,shopInfo,promotionDetailType2View,promotionDetailType1View,noPromotionView,promotionDetailNoPartner;
 
 - (id)init
 {
@@ -143,6 +144,7 @@
     [[self currentPromotionDetailView] reset];
     [promotionDetailType1View removeFromSuperview];
     [promotionDetailType2View removeFromSuperview];
+    [promotionDetailNoPartner removeFromSuperview];
     
     [self clearNoPromotionView];
     [noPromotionView removeFromSuperview];
@@ -339,6 +341,7 @@
     
     [self.promotionDetailType1View removeFromSuperview];
     [self.promotionDetailType2View removeFromSuperview];
+    [self.promotionDetailNoPartner removeFromSuperview];
     [self clearNoPromotionView];
     [self.noPromotionView removeFromSuperview];
     
@@ -385,38 +388,30 @@
         lblName.text=[_shop.name uppercaseString];
         if(_shop.promotionStatus.boolValue && _shop.promotionDetail)
         {
-            if(_shop.promotionDetail.promotionType.integerValue==1)
+            if(_shop.promotionDetail.isPartner.boolValue)
             {
-                [promotionDetailType1View setShop:_shop];
-                [promotionDetailType1View setNeedAnimationScore];
-                [viewContaint addSubview:promotionDetailType1View];
-                
-                if(_shop.promotionDetail.sgp.integerValue==0)
+                if(_shop.promotionDetail.promotionType.integerValue==1)
+                {
+                    [promotionDetailType1View setShop:_shop];
+                    [promotionDetailType1View setNeedAnimationScore];
+                    [viewContaint addSubview:promotionDetailType1View];
+                    
+                    if(_shop.promotionDetail.sgp.integerValue==0)
+                        [btnShop sendActionsForControlEvents:UIControlEventTouchUpInside];
+                }
+                else if(_shop.promotionDetail.promotionType.integerValue==2)
+                {
+                    [promotionDetailType2View setShop:_shop];
+                    
+                    [viewContaint addSubview:promotionDetailType2View];
+                    
                     [btnShop sendActionsForControlEvents:UIControlEventTouchUpInside];
-            }
-            else if(_shop.promotionDetail.promotionType.integerValue==2)
-            {
-                [promotionDetailType2View setShop:_shop];
-                
-                [viewContaint addSubview:promotionDetailType2View];
-                
-                [btnShop sendActionsForControlEvents:UIControlEventTouchUpInside];
+                }
             }
             else
             {
-                CGRect rect=viewContaint.frame;
-                rect.origin=CGPointZero;
-                noPromotionView.frame=rect;
-                
-                UIImageView *imgv=[[UIImageView alloc] initWithFrame:rect];
-                imgv.contentMode=UIViewContentModeCenter;
-                imgv.image=[UIImage imageNamed:@"no_promotion.png"];
-                
-                [noPromotionView addSubview:imgv];
-                
-                [viewContaint addSubview:noPromotionView];
-                
-                [btnShop sendActionsForControlEvents:UIControlEventTouchUpInside];
+                [promotionDetailNoPartner setShop:_shop];
+                [viewContaint addSubview:promotionDetailNoPartner];
             }
         }
         else
@@ -615,19 +610,22 @@
     _lastTag=-1;
     if(_shop.promotionStatus.boolValue)
     {
-        if(_shop.promotionDetail.promotionType.integerValue==1)
+        if(_shop.promotionDetail.isPartner.boolValue)
         {
-            [self animationView:promotionDetailType1View direction:MENU_FIRST onCompleted:nil];
+            if(_shop.promotionDetail.promotionType.integerValue==1)
+            {
+                [self animationView:promotionDetailType1View direction:MENU_FIRST onCompleted:nil];
+            }
+            else if(_shop.promotionDetail.promotionType.integerValue==2)
+            {
+                [self animationView:promotionDetailType2View direction:MENU_FIRST onCompleted:nil];
+            }
         }
-        else if(_shop.promotionDetail.promotionType.integerValue==2)
-            [self animationView:promotionDetailType2View direction:MENU_FIRST onCompleted:nil];
         else
-            [self animationView:noPromotionView direction:MENU_FIRST onCompleted:nil];
+            [self animationView:promotionDetailNoPartner direction:MENU_FIRST onCompleted:nil];
     }
     else
-    {
         [self animationView:noPromotionView direction:MENU_FIRST onCompleted:nil];
-    }
 }
 
 -(void) shopMenuShowDetail
@@ -838,6 +836,7 @@
         self.shopLocation=[[ShopLocation alloc] initWithShop:nil];
         self.promotionDetailType1View=[[PromotionDetailType1View alloc] initWithShop:nil];
         self.promotionDetailType2View=[[PromotionDetailType2View alloc] initWithShop:nil];
+        self.promotionDetailNoPartner=[[PromotionDetailNotPartner alloc] initWithShop:nil];
         self.noPromotionView=[[UIView alloc] initWithFrame:CGRectZero];
         
         self.shopMenuCategory.handler=self;
@@ -846,6 +845,7 @@
         self.shopLocation.handler=self;
         self.promotionDetailType1View.handler=self;
         self.promotionDetailType2View.handler=self;
+        self.promotionDetailNoPartner.handler=self;
         
         _isLoadedViews=true;
     });
@@ -946,10 +946,20 @@
 
 -(id<PromotionDetailHandle>) currentPromotionDetailView
 {
-    if(_shop.promotionDetail.promotionType.integerValue==1)
-        return promotionDetailType1View;
-    else
-        return promotionDetailType2View;
+    if(_shop.promotionStatus.boolValue && _shop.promotionDetail)
+    {
+        if(_shop.promotionDetail.isPartner.boolValue)
+        {
+            if(_shop.promotionDetail.promotionType.integerValue==1)
+                return promotionDetailType1View;
+            else if(_shop.promotionDetail.promotionType.integerValue==2)
+                return promotionDetailType2View;
+        }
+        else
+            return promotionDetailNoPartner;
+    }
+    
+    return promotionDetailNoPartner;
 }
 
 -(bool)allowBannerAds

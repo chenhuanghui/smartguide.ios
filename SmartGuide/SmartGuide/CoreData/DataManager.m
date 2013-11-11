@@ -19,6 +19,11 @@ static DataManager *_dataManager=nil;
 @synthesize managedObjectContext,managedObjectModel,persistentStoreCoordinator;
 @synthesize currentUser,currentCity;
 
++(void)load
+{
+    [DataManager shareInstance].currentUser=[User userWithIDUser:[Flags lastIDUser]];
+}
+
 +(DataManager *)shareInstance
 {
     static dispatch_once_t onceToken;
@@ -115,19 +120,22 @@ static DataManager *_dataManager=nil;
     if(!filter)
     {
         filter=[Filter insert];
+        
         filter.distance=@(true);
+        filter.isShopKM=@(false);
+        filter.food=@(true);
+        filter.drink=@(true);
+        filter.health=@(true);
+        filter.entertaiment=@(true);
+        filter.fashion=@(true);
+        filter.travel=@(true);
+        filter.production=@(true);
+        filter.education=@(true);
+        
+        [DataManager shareInstance].currentUser.filter=filter;
+        
+        [[DataManager shareInstance] save];
     }
-    
-    filter.food=@(true);
-    filter.drink=@(true);
-    filter.health=@(true);
-    filter.entertaiment=@(true);
-    filter.fashion=@(true);
-    filter.travel=@(true);
-    filter.production=@(true);
-    filter.education=@(true);
-    
-    [[DataManager shareInstance] save];
 }
 
 -(void)updateFilterWithSelectedGroup:(ShopCatalog *)group
@@ -171,6 +179,21 @@ static DataManager *_dataManager=nil;
     
     [[TokenManager shareInstance] setAccessToken:DEFAULT_USER_ACCESS_TOKEN];
 
+}
+
+-(void)setCurrentUser:(User *)_currentUser
+{
+    currentUser=_currentUser;
+    
+    if(currentUser)
+    {
+        Filter *filter=currentUser.filter;
+        
+        if(!filter)
+        {
+            [self loadDefaultFilter];
+        }
+    }
 }
 
 @end

@@ -78,7 +78,7 @@
 
     self.searchDelegate=_delegate;
     searchView.hidden=false;
-    [txtSearch becomeFirstResponder];
+    //[txtSearch becomeFirstResponder];
 }
 
 -(void)setSearchKeyword:(NSString *)key
@@ -176,11 +176,14 @@
     pnts[2]=CGPointMake(271, -3);
     
     NSMutableArray *array=[NSMutableArray arrayWithArray:icons];
+    [array removeObject:@(ITEM_FILTER)];
+    
     for(int i=2;i>=0;i--)
     {
         if(array.count>0)
         {
             UIButton *btn=[self buttonWithItem:[[array lastObject] integerValue]];
+
             CGRect rect=btn.frame;
             rect.origin=pnts[i];
             btn.frame=rect;

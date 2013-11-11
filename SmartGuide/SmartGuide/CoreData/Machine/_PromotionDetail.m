@@ -148,6 +148,19 @@
 	[self didChangeValueForKey:@"idAwardType2"];
 }
 
+- (NSNumber*)isPartner {
+	[self willAccessValueForKey:@"isPartner"];
+	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"isPartner"];
+	[self didAccessValueForKey:@"isPartner"];
+	return result;
+}
+
+- (void)setIsPartner:(NSNumber*)value {
+	[self willChangeValueForKey:@"isPartner"];
+	[self setPrimitiveValue:value forKey:@"isPartner"];
+	[self didChangeValueForKey:@"isPartner"];
+}
+
 - (NSNumber*)min_score {
 	[self willAccessValueForKey:@"min_score"];
 	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"min_score"];

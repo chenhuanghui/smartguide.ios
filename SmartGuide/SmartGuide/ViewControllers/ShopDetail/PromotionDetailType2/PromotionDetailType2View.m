@@ -10,7 +10,6 @@
 #import "RootViewController.h"
 #import "SlideQRCodeViewController.h"
 #import "Utility.h"
-#import "PromotionVoucherCell.h"
 
 @implementation PromotionDetailType2View
 @synthesize handler;

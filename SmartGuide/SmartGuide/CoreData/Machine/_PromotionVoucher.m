@@ -88,6 +88,19 @@
 
 
 
+- (NSString*)content {
+	[self willAccessValueForKey:@"content"];
+	NSString* result = (NSString*)[self primitiveValueForKey:@"content"];
+	[self didAccessValueForKey:@"content"];
+	return result;
+}
+
+- (void)setContent:(NSString*)value {
+	[self willChangeValueForKey:@"content"];
+	[self setPrimitiveValue:value forKey:@"content"];
+	[self didChangeValueForKey:@"content"];
+}
+
 - (NSString*)desc {
 	[self willAccessValueForKey:@"desc"];
 	NSString* result = (NSString*)[self primitiveValueForKey:@"desc"];
@@ -151,6 +164,19 @@
 	[self willChangeValueForKey:@"p"];
 	[self setPrimitiveValue:value forKey:@"p"];
 	[self didChangeValueForKey:@"p"];
+}
+
+- (NSString*)title {
+	[self willAccessValueForKey:@"title"];
+	NSString* result = (NSString*)[self primitiveValueForKey:@"title"];
+	[self didAccessValueForKey:@"title"];
+	return result;
+}
+
+- (void)setTitle:(NSString*)value {
+	[self willChangeValueForKey:@"title"];
+	[self setPrimitiveValue:value forKey:@"title"];
+	[self didChangeValueForKey:@"title"];
 }
 
 #pragma mark Relationships

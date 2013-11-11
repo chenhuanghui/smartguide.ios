@@ -191,8 +191,9 @@
     double lat=[DataManager shareInstance].currentUser.location.latitude;
     double lon=[DataManager shareInstance].currentUser.location.longitude;
     enum SORT_BY sortBy=[DataManager shareInstance].currentUser.filter.sortBy;
+    enum SHOP_PROMOTION_FILTER_TYPE promotionType=[DataManager shareInstance].currentUser.filter.shopPromotionFilterType;
     
-    _operationShopList=[[ASIOperationShopInGroup alloc] initWithIDCity:idCity idUser:idUser lat:lat lon:lon page:page sort:sortBy group:self.catalog];
+    _operationShopList=[[ASIOperationShopInGroup alloc] initWithIDCity:idCity idUser:idUser lat:lat lon:lon page:page sort:sortBy filterPromotion:promotionType group:self.catalog];
     _operationShopList.delegatePost=self;
     
     [_operationShopList startAsynchronous];

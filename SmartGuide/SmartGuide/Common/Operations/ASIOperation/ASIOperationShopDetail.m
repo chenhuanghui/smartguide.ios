@@ -51,13 +51,7 @@
     [shop removeShopGallery:shop.shopGallery];
     [shop removeShopUserComments:shop.shopUserComments];
     [shop removeUserGallery:shop.userGallery];
-    
-    shop.isPartner=@(true);
-    
-    id objIsPartner=dictJson[@"isPartner"];
-    if(objIsPartner)
-        shop.isPartner=[NSNumber numberWithObject:objIsPartner];
-    
+
     shop.isShopDetail=@(true);
     shop.isNeedReloadData=false;
     shop.address=[NSString stringWithStringDefault:[dictJson objectForKey:@"address"]];
