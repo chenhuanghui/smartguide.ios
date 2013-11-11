@@ -15,6 +15,7 @@
 #define Shop_IdCatalog @"idCatalog"
 #define Shop_IdShop @"idShop"
 #define Shop_IsNeedReloadData @"isNeedReloadData"
+#define Shop_IsPartner @"isPartner"
 #define Shop_IsShopDetail @"isShopDetail"
 #define Shop_Like @"like"
 #define Shop_Like_status @"like_status"
@@ -63,6 +64,7 @@
 @property (nonatomic, retain) NSNumber* idCatalog;
 @property (nonatomic, retain) NSNumber* idShop;
 @property (nonatomic, retain) NSNumber* isNeedReloadData;
+@property (nonatomic, retain) NSNumber* isPartner;
 @property (nonatomic, retain) NSNumber* isShopDetail;
 @property (nonatomic, retain) NSNumber* like;
 @property (nonatomic, retain) NSNumber* like_status;

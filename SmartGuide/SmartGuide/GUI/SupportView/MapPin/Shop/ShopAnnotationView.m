@@ -38,6 +38,8 @@
 -(void)setShop:(Shop *)shop
 {
     _shop=shop;
+    
+    self.image=[[ShopCatalog catalogWithIDCatalog:shop.idCatalog.integerValue] iconPin];
     if(shop.showPinType==SHOP_SHOW_DETAIL)
         [self.pin setShop:shop];
     else

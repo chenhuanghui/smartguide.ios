@@ -15,10 +15,11 @@
     __weak IBOutlet UILabel *name;
     __weak IBOutlet UILabel *comment;
     __weak IBOutlet UILabel *time;
+    __weak IBOutlet UILabel *lblShopName;
 }
 
 -(void) setShopComment:(ShopUserComment*) userComment widthChanged:(float) changedWidth isZoomed:(bool) isZoomed;
-+(float) heightWithContent:(NSString*) content widthChanged:(float) changedWidth;
++(float) heightWithContent:(NSString*) content widthChanged:(float) changedWidth isZoomed:(bool) isZoomed;
 +(NSString *)reuseIdentifier;
 
 @end

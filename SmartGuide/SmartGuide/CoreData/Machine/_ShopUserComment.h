@@ -9,6 +9,7 @@
 #define ShopUserComment_Comment @"comment"
 #define ShopUserComment_Fulltime @"fulltime"
 #define ShopUserComment_IdShop @"idShop"
+#define ShopUserComment_ShopName @"shopName"
 #define ShopUserComment_Time @"time"
 #define ShopUserComment_User @"user"
 
@@ -30,6 +31,7 @@
 @property (nonatomic, retain) NSString* comment;
 @property (nonatomic, retain) NSString* fulltime;
 @property (nonatomic, retain) NSNumber* idShop;
+@property (nonatomic, retain) NSString* shopName;
 @property (nonatomic, retain) NSString* time;
 @property (nonatomic, retain) NSString* user;
 

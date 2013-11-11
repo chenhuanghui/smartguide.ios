@@ -178,7 +178,7 @@
 	region.span.latitudeDelta  = maxLat - minLat;
 	region.span.longitudeDelta = maxLon - minLon;
     
-    [self zoomMap:region];
+    //[self zoomMap:region];
 }
 
 - (void)drawRoute:(NSMutableDictionary *)response
@@ -302,7 +302,7 @@
     if(!isVailCLLocationCoordinate2D([DataManager shareInstance].currentUser.location) || !_isZoomedUserLocation)
     {
         _isZoomedUserLocation=true;
-        [self zoomMap:MKCoordinateRegionMakeWithDistance(userLocation.coordinate, MAP_SPAN, MAP_SPAN)];
+        [self zoomMap:MKCoordinateRegionMakeWithDistance(userLocation.coordinate, MAP_SPAN, MAP_SPAN) animated:true];
     }
     
     [DataManager shareInstance].currentUser.location=[userLocation location].coordinate;
@@ -310,6 +310,7 @@
 
 -(void)mapView:(MKMapView *)mapView didAddAnnotationViews:(NSArray *)views
 {
+    return;
     float loop=0.3f;
     
     for(UIView *aV in views)
@@ -402,10 +403,10 @@
 	region.span.latitudeDelta  = maxLat - minLat;
 	region.span.longitudeDelta = maxLon - minLon;
     
-    [self zoomMap:region];
+    [self zoomMap:region animated:false];
 }
 
--(void) zoomMap:(MKCoordinateRegion) region
+-(void) zoomMap:(MKCoordinateRegion) region animated:(bool) animate
 {
     if(isVailCLLocationCoordinate2D(map.userLocation.coordinate))
         region.center=map.userLocation.coordinate;
@@ -415,7 +416,7 @@
 
     region.span=MKCoordinateSpanMake(miles/69, miles/(scalingFactor*69));
     
-	[map setRegion:region animated:YES];
+	[map setRegion:region animated:animate];
 }
 
 -(void)addShops:(NSArray *)shops

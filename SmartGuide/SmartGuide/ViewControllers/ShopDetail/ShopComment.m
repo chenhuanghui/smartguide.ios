@@ -84,11 +84,11 @@
 {
     //loading
     if(indexPath.row==_comments.count)
-        return [ShopCommentCell heightWithContent:@""widthChanged:0];
+        return 55;
     
-    float tableOriginWidth=183;
+    float tableOriginWidth=279;
     ShopUserComment *comment=[_comments objectAtIndex:indexPath.row];
-    return [ShopCommentCell heightWithContent:comment.comment widthChanged:tableView.frame.size.width-tableOriginWidth]+15;
+    return [ShopCommentCell heightWithContent:comment.comment widthChanged:tableView.frame.size.width-tableOriginWidth isZoomed:_isShowedComment];
 }
 
 -(void)setShop:(Shop *)shop

@@ -52,6 +52,12 @@
     [shop removeShopUserComments:shop.shopUserComments];
     [shop removeUserGallery:shop.userGallery];
     
+    shop.isPartner=@(true);
+    
+    id objIsPartner=dictJson[@"isPartner"];
+    if(objIsPartner)
+        shop.isPartner=[NSNumber numberWithObject:objIsPartner];
+    
     shop.isShopDetail=@(true);
     shop.isNeedReloadData=false;
     shop.address=[NSString stringWithStringDefault:[dictJson objectForKey:@"address"]];
@@ -82,6 +88,7 @@
             comment.avatar=[NSString stringWithStringDefault:[dict objectForKey:@"avatar"]];
             comment.time=[NSString stringWithStringDefault:[dict objectForKey:@"time"]];
             comment.fulltime=[NSString stringWithStringDefault:[dict objectForKey:@"fulltime"]];
+            comment.shopName=[NSString stringWithStringDefault:dict[@"shopName"]];
             
             [comments addObject:comment];
             

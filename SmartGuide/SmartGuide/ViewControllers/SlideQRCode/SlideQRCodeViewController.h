@@ -52,6 +52,7 @@ enum SCAND_TYPE {
 }
 
 -(UIButton*) btnSlide;
+-(FTCoreTextView*) lblSlide;
 
 +(CGSize) size;
 -(void) showCamera;

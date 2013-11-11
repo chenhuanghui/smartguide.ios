@@ -31,7 +31,15 @@
 -(void)onCompletedWithJSON:(NSArray *)json
 {
     NSData* data = [json objectAtIndex:0];
-    NSString* responseString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    NSString* responseString = [[NSString alloc] initWithData:data encoding:self.responseStringEncoding];
+    
+    if(!responseString || responseString.length==0)
+    {
+        responseString=[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    }
+    
+    if(!responseString)
+        responseString=@"";
     
     // TODO: better parsing. Regular expression?
     

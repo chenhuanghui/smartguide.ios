@@ -43,6 +43,7 @@
         comment.idShop=shop.idShop;
         comment.user=[NSString stringWithStringDefault:[dict objectForKey:@"user"]];
         comment.comment=[NSString stringWithStringDefault:[dict objectForKey:@"comment"]];
+        comment.shopName=[NSString stringWithStringDefault:dict[@"shopName"]];
         comment.avatar=[NSString stringWithStringDefault:[dict objectForKey:@"avatar"]];
         comment.time=[NSString stringWithStringDefault:[dict objectForKey:@"time"]];
         comment.fulltime=[NSString stringWithStringDefault:[dict objectForKey:@"fulltime"]];

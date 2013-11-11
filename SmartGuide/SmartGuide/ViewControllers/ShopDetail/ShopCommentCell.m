@@ -12,19 +12,18 @@
 #import "Constant.h"
 
 #define COMMENT_FONT_SIZE 10
-#define COMMENT_WIDTH 230.f
-#define COMMENT_Y 21
-#define COMMENT_HEIGHT 28
+#define COMMENT_CONTENT_FRAME CGRectMake(45,27,230,28)
+#define COMMENT_SHOP_FRAME CGRectMake(45,12,185,21)
 
 @implementation ShopCommentCell
 
 -(void)setShopComment:(ShopUserComment *) userComment widthChanged:(float)changedWidth isZoomed:(bool)isZoomed
 {
     name.text=userComment.user;
+    comment.text=userComment.comment;
+    lblShopName.text=userComment.shopName;
     
-    CGSize constraint = CGSizeMake(COMMENT_WIDTH+changedWidth, 20000.0f);
-    
-    CGSize size = [userComment.comment sizeWithFont:[UIFont systemFontOfSize:COMMENT_FONT_SIZE] constrainedToSize:constraint lineBreakMode:NSLineBreakByWordWrapping];
+    CGSize constraint = CGSizeMake(COMMENT_CONTENT_FRAME.size.width+changedWidth, 20000.0f);
     
     if(isZoomed)
         time.text=userComment.fulltime;
@@ -33,20 +32,28 @@
     
     [avatar setSmartGuideImageWithURL:[NSURL URLWithString:userComment.avatar] placeHolderImage:UIIMAGE_LOADING_AVATAR_COMMENT success:nil failure:nil];
     
-    comment.text=userComment.comment;
-    [comment setFrame:CGRectMake(45, COMMENT_Y, COMMENT_WIDTH+changedWidth, MAX(size.height, COMMENT_HEIGHT))];
+    CGSize size = [userComment.comment sizeWithFont:[UIFont systemFontOfSize:COMMENT_FONT_SIZE] constrainedToSize:constraint lineBreakMode:NSLineBreakByWordWrapping];
+    
+    [comment setFrame:CGRectMake(COMMENT_CONTENT_FRAME.origin.x, COMMENT_CONTENT_FRAME.origin.y, COMMENT_CONTENT_FRAME.size.width+changedWidth, MAX(size.height, COMMENT_CONTENT_FRAME.size.height))];
+    [lblShopName setFrame:CGRectMake(COMMENT_SHOP_FRAME.origin.x, COMMENT_SHOP_FRAME.origin.y, COMMENT_SHOP_FRAME.size.width+changedWidth, COMMENT_SHOP_FRAME.size.height)];
 }
 
-+(float)heightWithContent:(NSString *)content widthChanged:(float)changedWidth
++(float)heightWithContent:(NSString *)content widthChanged:(float)changedWidth isZoomed:(bool)isZoomed
 {
-    CGSize constraint = CGSizeMake(COMMENT_WIDTH+changedWidth, 20000.0f);
+    CGSize constraint = CGSizeMake(COMMENT_CONTENT_FRAME.size.width+changedWidth, 20000.0f);
     
     CGSize size = [content sizeWithFont:[UIFont systemFontOfSize:COMMENT_FONT_SIZE] constrainedToSize:constraint lineBreakMode:NSLineBreakByWordWrapping];
     
-    CGFloat height = MAX(size.height, COMMENT_HEIGHT);
+    CGFloat height = MAX(size.height, COMMENT_CONTENT_FRAME.size.height);
     
-    float labelCommentY=COMMENT_Y;
-    return height+labelCommentY;
+    float labelCommentY=COMMENT_CONTENT_FRAME.origin.y;
+    
+    float y=height+labelCommentY;
+    
+    if(y>55)
+        y+=5;
+    
+    return MAX(55, y);
 }
 
 +(NSString *)reuseIdentifier

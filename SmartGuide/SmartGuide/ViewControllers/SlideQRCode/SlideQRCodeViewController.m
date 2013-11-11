@@ -333,6 +333,11 @@
     return btnSlide;
 }
 
+-(FTCoreTextView *)lblSlide
+{
+    return lblSlide;
+}
+
 -(bool) validateQRCodeFormat:(NSString*) text
 {
     if(text.length>0)

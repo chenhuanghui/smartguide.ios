@@ -257,4 +257,9 @@
     return 0;
 }
 
+-(NSNumber *)isPartner1
+{
+    return @(rand()%2==0);
+}
+
 @end

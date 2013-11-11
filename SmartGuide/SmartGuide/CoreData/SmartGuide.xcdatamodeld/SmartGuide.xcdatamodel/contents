@@ -83,6 +83,7 @@
         <attribute name="idCatalog" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="idShop" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="isNeedReloadData" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="isPartner" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="isShopDetail" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="like" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="like_status" optional="YES" attributeType="Integer 32" syncable="YES"/>
@@ -135,6 +136,7 @@
         <attribute name="comment" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="fulltime" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="idShop" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="shopName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="time" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="user" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="shop" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Shop" inverseName="shopUserComments" inverseEntity="Shop" syncable="YES"/>
