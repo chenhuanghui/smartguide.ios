@@ -798,6 +798,12 @@
             
             return fabsf(trans.x)>fabsf(trans.y);
         }
+        else if([viewContaint.subviews[0] isKindOfClass:[PromotionDetailNotPartner class]])
+        {
+            CGPoint trans = [pan translationInView:pan.view];
+            
+            return fabsf(trans.x)>fabsf(trans.y);
+        }
     }
     
     return [super allowDragPreviousView:pan];

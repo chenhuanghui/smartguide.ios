@@ -189,6 +189,7 @@
         {
             promotion.vouchersInserted=[[NSMutableArray alloc] init];
             
+            int order=0;
             for(NSDictionary *dictVoucher in arr)
             {
                 PromotionVoucher *voucher=[PromotionVoucher insert];
@@ -201,6 +202,9 @@
                 voucher.numberVoucher=[NSString stringWithStringDefault:[dictVoucher objectForKey:@"numberVoucher"]];
                 voucher.title=[NSString stringWithStringDefault:dictVoucher[@"title"]];
                 voucher.content=[NSString stringWithStringDefault:dictVoucher[@"content"]];
+                voucher.sortOrder=@(order++);
+                
+                [promotion addVouchersObject:voucher];
                 
                 [promotion.vouchersInserted addObject:voucher.idVoucher];
             }

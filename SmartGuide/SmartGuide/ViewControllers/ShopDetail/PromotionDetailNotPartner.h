@@ -15,6 +15,7 @@
     __weak Shop *_shop;
     __weak IBOutlet UILabel *lblDuration;
     __weak IBOutlet UITableView *tablePromotion;
+    CGRect tableFrame;
 }
 
 -(PromotionDetailNotPartner*) initWithShop:(Shop*) shop;

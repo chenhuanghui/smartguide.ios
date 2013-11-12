@@ -657,4 +657,9 @@
     }
 }
 
+-(BOOL)wantsFullScreenLayout
+{
+    return true;
+}
+
 @end

@@ -10,27 +10,30 @@
 #import "Shop.h"
 
 @implementation ASIOperationSearchShop
-@synthesize values,shops,name;
+@synthesize values,shops,keyword,groups,promotionFilter,sortType;
 
--(ASIOperationSearchShop *)initWithShopName:(NSString *)_name idUser:(int)idUser lat:(double)lat lon:(double)lon page:(int)page promotionFilter:(enum SHOP_PROMOTION_FILTER_TYPE)promotionFilter
+-(ASIOperationSearchShop *) initWithKeyword:(NSString *)_keyword groups:(NSString *)_groups idUser:(int)idUser lat:(double)lat lon:(double)lon page:(int)page promotionFilter:(enum SHOP_PROMOTION_FILTER_TYPE)_promotionFilter sortType:(enum SORT_BY)_sortType
 {
     NSURL *_url=[NSURL URLWithString:SERVER_API_MAKE(API_SHOP_SEARCH)];
     self=[super initWithURL:_url];
     
-    values=@[_name,@(idUser),@(lat),@(lon),@(page),@(1),@(promotionFilter)];
+    values=@[_keyword,_groups,@(_sortType),@(_promotionFilter),@(lat),@(lon),@(page)];
     
     return self;
 }
 
 -(NSArray *)keys
 {
-    return @[@"shop_name",@"user_id",@"user_lat",@"user_lng",@"page",@"version",SHOP_PROMOTION_FILTER_KEY];
+    return @[@"keyWords",@"groups",@"sortType",SHOP_PROMOTION_FILTER_KEY,@"userLat",@"userLng",@"page"];
 }
 
 -(void)onCompletedWithJSON:(NSArray *)json
 {
     shops=[NSMutableArray array];
-    name=[NSString stringWithString:[values objectAtIndex:0]];
+    keyword=[values[0] copy];
+    groups=[values[1] copy];
+    sortType=[values[2] integerValue];
+    promotionFilter=[values[3] integerValue];
     
     if([self isNullData:json])
         return;

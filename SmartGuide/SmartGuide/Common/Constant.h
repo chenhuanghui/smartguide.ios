@@ -70,7 +70,7 @@
 #define API_USER_COLLECTION @"user/collection"
 #define API_GET_ADS @"ads/get"
 #define API_USER_LIKE_DISLIKE @"user/like"
-#define API_SHOP_SEARCH @"shop/search"
+#define API_SHOP_SEARCH @"shop/search_v2"
 #define API_GET_REWARDS @"reward/list"
 #define API_GET_FEEDBACK @"get_feedback"
 #define API_GET_SG @"score/get"
@@ -151,16 +151,14 @@
 
 enum SORT_BY {
     SORT_DISTANCE = 0,
-    SORT_VISITED = 1,
+    SORT_VIEWED = 1,
     SORT_LIKED = 2,
-    SORT_POINT = 3,
-    SORT_REWARD = 4,
 };
 
 #define SHOP_PROMOTION_FILTER_KEY @"hasPromotion"
 enum SHOP_PROMOTION_FILTER_TYPE{
-    SHOP_PROMOTION_FILTER_ALL = 1,
-    SHOP_PROMOTION_FILTER_HAS_PROMOTION = 0
+    SHOP_PROMOTION_FILTER_HAS_PROMOTION = 1,
+    SHOP_PROMOTION_FILTER_ALL = 0,
 };
 
 enum LIKE_STATUS {

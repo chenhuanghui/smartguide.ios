@@ -7,5 +7,6 @@
 
 -(enum SORT_BY) sortBy;
 -(enum SHOP_PROMOTION_FILTER_TYPE) shopPromotionFilterType;
+-(NSString*) groups;
 
 @end

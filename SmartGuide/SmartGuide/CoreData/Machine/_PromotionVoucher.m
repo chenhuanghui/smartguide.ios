@@ -166,6 +166,19 @@
 	[self didChangeValueForKey:@"p"];
 }
 
+- (NSNumber*)sortOrder {
+	[self willAccessValueForKey:@"sortOrder"];
+	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"sortOrder"];
+	[self didAccessValueForKey:@"sortOrder"];
+	return result;
+}
+
+- (void)setSortOrder:(NSNumber*)value {
+	[self willChangeValueForKey:@"sortOrder"];
+	[self setPrimitiveValue:value forKey:@"sortOrder"];
+	[self didChangeValueForKey:@"sortOrder"];
+}
+
 - (NSString*)title {
 	[self willAccessValueForKey:@"title"];
 	NSString* result = (NSString*)[self primitiveValueForKey:@"title"];

@@ -34,8 +34,7 @@
     __weak IBOutlet UIView *travel;
     __weak IBOutlet UIView *production;
     __weak IBOutlet UIView *education;
-    
-    __weak IBOutlet UIButton *btnPoint;
+
     __weak IBOutlet UIButton *btnLike;
     __weak IBOutlet UIButton *btnView;
     __weak IBOutlet UIButton *btnDistance;
@@ -44,6 +43,9 @@
     TableTemplate *templateTable;
     ASIOperationSearchShop *_operation;
     NSString *_searchText;
+    NSString *_groups;
+    enum SORT_BY _sortBy;
+    enum SHOP_PROMOTION_FILTER_TYPE _promotionFilter;
     
     __weak Shop *_selectedShop;
     NSIndexPath *_selectedRow;
@@ -51,13 +53,16 @@
 }
 
 -(void) search:(NSString*) text;
--(void) handleResult:(NSArray*) shops text:(NSString*) text page:(int) page;
+-(void) handleResult:(NSArray*) shops text:(NSString*) text page:(int) page groups:(NSString*) groups sortBy:(enum SORT_BY) sortBy promotionFilter:(enum SHOP_PROMOTION_FILTER_TYPE) promotionFilter;
 -(void) cancelSearch;
 -(NSString*) searchText;
 -(NSArray*) result;
 -(int) page;
 -(Shop*) selectedShop;
 -(NSIndexPath*) selectedRow;
+-(NSString*) groups;
+-(enum SORT_BY) sortBy;
+-(enum SHOP_PROMOTION_FILTER_TYPE) promotionFilter;
 
 - (IBAction)btnCheckAllTouchUpInside:(id)sender;
 - (IBAction)btnCheckNonTouchUpInside:(id)sender;

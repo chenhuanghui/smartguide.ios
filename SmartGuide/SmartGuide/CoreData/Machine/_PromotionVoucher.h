@@ -11,6 +11,7 @@
 #define PromotionVoucher_Money @"money"
 #define PromotionVoucher_NumberVoucher @"numberVoucher"
 #define PromotionVoucher_P @"p"
+#define PromotionVoucher_SortOrder @"sortOrder"
 #define PromotionVoucher_Title @"title"
 
 @class PromotionVoucher;
@@ -33,6 +34,7 @@
 @property (nonatomic, retain) NSNumber* money;
 @property (nonatomic, retain) NSString* numberVoucher;
 @property (nonatomic, retain) NSNumber* p;
+@property (nonatomic, retain) NSNumber* sortOrder;
 @property (nonatomic, retain) NSString* title;
 
 #pragma mark Fetched property

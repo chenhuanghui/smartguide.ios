@@ -205,32 +205,6 @@
 	[self didChangeValueForKey:@"isShopKM"];
 }
 
-- (NSNumber*)mostGetPoint {
-	[self willAccessValueForKey:@"mostGetPoint"];
-	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"mostGetPoint"];
-	[self didAccessValueForKey:@"mostGetPoint"];
-	return result;
-}
-
-- (void)setMostGetPoint:(NSNumber*)value {
-	[self willChangeValueForKey:@"mostGetPoint"];
-	[self setPrimitiveValue:value forKey:@"mostGetPoint"];
-	[self didChangeValueForKey:@"mostGetPoint"];
-}
-
-- (NSNumber*)mostGetReward {
-	[self willAccessValueForKey:@"mostGetReward"];
-	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"mostGetReward"];
-	[self didAccessValueForKey:@"mostGetReward"];
-	return result;
-}
-
-- (void)setMostGetReward:(NSNumber*)value {
-	[self willChangeValueForKey:@"mostGetReward"];
-	[self setPrimitiveValue:value forKey:@"mostGetReward"];
-	[self didChangeValueForKey:@"mostGetReward"];
-}
-
 - (NSNumber*)mostLike {
 	[self willAccessValueForKey:@"mostLike"];
 	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"mostLike"];

@@ -26,8 +26,6 @@ enum LIST_MODE {
 @interface CatalogueListViewController : ViewController<TableTemplateDelegate,ASIOperationPostDelegate,SlideQRCodeDelegate>
 {
     __weak IBOutlet TableList *tableShop;
-    __weak IBOutlet UIButton *btnUp;
-    __weak IBOutlet UIButton *btnDown;
     __weak IBOutlet UIView *blurTop;
     __weak IBOutlet UIView *blurBottom;
     
@@ -40,7 +38,7 @@ enum LIST_MODE {
 -(void) reloadDataForChangedCity:(int) city;
 -(void) loadGroup:(ShopCatalog*) group city:(int) city sortType:(enum SORT_BY) sortBy;
 -(void) loadGroups:(NSArray*) group sortType:(enum SORT_BY) sortBy city:(int) city;
--(void) handleSearchResult:(NSString*) searchKey result:(NSArray*) array page:(int) page selectedShop:(Shop*) selectedShop selectedRow:(NSIndexPath*) lastSelectedRow;
+-(void) handleSearchResult:(NSString*) searchKey result:(NSArray*) array page:(int) page selectedShop:(Shop*) selectedShop selectedRow:(NSIndexPath*) lastSelectedRow sortBy:(enum SORT_BY) sortBy promotionFilter:(enum SHOP_PROMOTION_FILTER_TYPE) promotionFilter groups:(NSString*) groups;
 
 -(void) pushShopDetailWithShop:(Shop*) shop animated:(bool) animate;
 -(void) showShopDetail;
@@ -80,12 +78,15 @@ enum LIST_MODE {
 
 @interface TemplateSearch : TableTemplate<ASIOperationPostDelegate>
 
--(TemplateSearch*) initWithSearchKey:(NSString*) searchKey result:(NSArray*) array page:(int) page withTableView:(UITableView*) table withDelegate:(id<TableTemplateDelegate>) delegate selectedShop:(Shop*) selectedShop selectedRow:(NSIndexPath*) lastSelectedRow;
+-(TemplateSearch*) initWithSearchKey:(NSString*) searchKey result:(NSArray*) array page:(int) page withTableView:(UITableView*) table withDelegate:(id<TableTemplateDelegate>) delegate selectedShop:(Shop*) selectedShop selectedRow:(NSIndexPath*) lastSelectedRow sortBy:(enum SORT_BY) sortBy groups:(NSString*) groups promotionFilter:(enum SHOP_PROMOTION_FILTER_TYPE) promotionFilter;
 
 -(void) loadAtPage:(int) page;
 -(void) reset;
 
 @property (nonatomic, strong) NSString *searchKey;
+@property (nonatomic, assign) enum SORT_BY sortBy;
+@property (nonatomic, assign) enum SHOP_PROMOTION_FILTER_TYPE promotionFilter;
+@property (nonatomic, strong) NSString *groups;
 @property (nonatomic, assign) Shop *selectedShop;
 @property (nonatomic, strong) NSIndexPath *lastSelectedRow;
 @property (nonatomic, strong) ASIOperationSearchShop *operationSearchShop;

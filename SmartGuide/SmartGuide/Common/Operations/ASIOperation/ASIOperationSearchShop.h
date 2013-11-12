@@ -10,9 +10,12 @@
 
 @interface ASIOperationSearchShop : ASIOperationPost
 
--(ASIOperationSearchShop*) initWithShopName:(NSString*) name idUser:(int) idUser lat:(double) lat lon:(double) lon page:(int) page promotionFilter:(enum SHOP_PROMOTION_FILTER_TYPE) promotionFilter;
+-(ASIOperationSearchShop*) initWithKeyword:(NSString*) keyword groups:(NSString*) groups idUser:(int) idUser lat:(double) lat lon:(double) lon page:(int) page promotionFilter:(enum SHOP_PROMOTION_FILTER_TYPE) promotionFilter sortType:(enum SORT_BY) sortType;
 
 @property (nonatomic, readonly) NSMutableArray *shops;
-@property (nonatomic, readonly) NSString *name;
+@property (nonatomic, readonly) NSString *keyword;
+@property (nonatomic, readonly) NSString *groups;
+@property (nonatomic, readonly) enum SHOP_PROMOTION_FILTER_TYPE promotionFilter;
+@property (nonatomic, readonly) enum SORT_BY sortType;
 
 @end

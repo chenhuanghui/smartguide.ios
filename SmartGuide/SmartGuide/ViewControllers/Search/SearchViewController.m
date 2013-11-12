@@ -19,8 +19,27 @@
 @implementation SearchViewController
 @synthesize delegate;
 
+-(bool) isHighlighted:(UIView*) filter
+{
+    return filter.tag;
+}
+
 -(void)search:(NSString *)text
 {
+    if(!([self isHighlighted:food]
+         || [self isHighlighted:drink]
+         || [self isHighlighted:health]
+         || [self isHighlighted:entertaiment]
+         || [self isHighlighted:fashion]
+         || [self isHighlighted:travel]
+         || [self isHighlighted:production]
+         || [self isHighlighted:education]))
+    {
+        [AlertView showAlertOKWithTitle:nil withMessage:@"Bạn phải chọn ít nhất 1 danh mục" onOK:nil];
+        return;
+    }
+    
+    
     [self cancelSearch];
     
     [self setFilterVisibled:false];
@@ -35,6 +54,10 @@
     templateTable.datasource=[[NSMutableArray alloc] init];
     
     _searchText=[[NSString alloc] initWithString:text];
+    _sortBy=[DataManager shareInstance].currentUser.filter.sortBy;
+    _promotionFilter=[DataManager shareInstance].currentUser.filter.shopPromotionFilterType;
+    _groups=[[DataManager shareInstance].currentUser.filter.groups copy];
+    
     [table setContentOffset:CGPointZero];
     
     rect=self.view.window.frame;
@@ -52,7 +75,7 @@
     [self loadAtPage:0];
 }
 
--(void)handleResult:(NSArray *)shops text:(NSString *)text page:(int)page
+-(void)handleResult:(NSArray *)shops text:(NSString *)text page:(int)page groups:(NSString *)groups sortBy:(enum SORT_BY)sortBy promotionFilter:(enum SHOP_PROMOTION_FILTER_TYPE)promotionFilter
 {
     for(Shop *shop in shops)
     {
@@ -64,9 +87,15 @@
     [templateTable resetData];
     templateTable.datasource=[shops mutableCopy];
     templateTable.page=page;
+
     _searchText=[[NSString alloc] initWithString:text];
+    _groups=[groups copy];
+    _sortBy=sortBy;
+    _promotionFilter=promotionFilter;
     
     [table reloadData];
+    
+    [self setFilterVisibled:false];
 }
 
 -(void)removeFromParentViewController
@@ -90,8 +119,8 @@
     int idUser=[DataManager shareInstance].currentUser.idUser.integerValue;
     double lat=[DataManager shareInstance].currentUser.location.latitude;
     double lon=[DataManager shareInstance].currentUser.location.longitude;
-    
-    _operation=[[ASIOperationSearchShop alloc] initWithShopName:_searchText idUser:idUser lat:lat lon:lon page:page promotionFilter:[DataManager shareInstance].currentUser.filter.shopPromotionFilterType];
+
+    _operation=[[ASIOperationSearchShop alloc] initWithKeyword:_searchText groups:_groups idUser:idUser lat:lat lon:lon page:page promotionFilter:_promotionFilter sortType:_sortBy];
     _operation.delegatePost=self;
     
     [_operation startAsynchronous];
@@ -249,7 +278,7 @@
     [self setHighlight:filter.production.boolValue filter:production];
     [self setHighlight:filter.education.boolValue filter:education];
     
-    btnPoint.selected=filter.mostGetPoint.boolValue;
+//    btnPoint.selected=filter.mostGetPoint.boolValue;
     btnLike.selected=filter.mostLike.boolValue;
     btnView.selected=filter.mostView.boolValue;
     btnDistance.selected=filter.distance.boolValue;
@@ -278,11 +307,6 @@
     filter.tag=highlighted;
     [self nameWithFilter:filter].textColor=colorName;
     [self subnameWithFilter:filter].textColor=colorSubname;
-}
-
--(bool) isHighlighted:(UIView*) filter
-{
-    return filter.tag;
 }
 
 -(UIButton*) iconWithFilter:(UIView*) filter
@@ -465,7 +489,7 @@
 
 -(NSArray*) radioButtons
 {
-    return @[btnDistance,btnLike,btnPoint,btnView];
+    return @[btnDistance,btnLike,btnView];
 }
 
 -(void) setFilterVisibled:(bool) visibled
@@ -492,7 +516,6 @@
     filter.production=@([self isHighlighted:production]);
     filter.education=@([self isHighlighted:education]);
     
-    filter.mostGetPoint=@(btnPoint.selected);
     filter.mostLike=@(btnLike.selected);
     filter.mostView=@(btnView.selected);
     filter.distance=@(btnDistance.selected);
@@ -501,6 +524,26 @@
     [[DataManager shareInstance] save];
     
     [[RootViewController shareInstance].navigationBarView endEditing:true];
+}
+
+-(NSString *)groups
+{
+    return _groups;
+}
+
+-(enum SORT_BY)sortBy
+{
+    return _sortBy;
+}
+
+-(enum SHOP_PROMOTION_FILTER_TYPE)promotionFilter
+{
+    return _promotionFilter;
+}
+
+-(BOOL)wantsFullScreenLayout
+{
+    return true;
 }
 
 @end

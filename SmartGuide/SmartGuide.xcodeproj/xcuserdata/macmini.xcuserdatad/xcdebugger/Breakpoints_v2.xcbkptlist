@@ -20,11 +20,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SmartGuide/ViewControllers/Search/SearchViewController.m"
-            timestampString = "405881015.466167"
+            timestampString = "405920727.206071"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "125"
-            endingLineNumber = "125"
+            startingLineNumber = "154"
+            endingLineNumber = "154"
             landmarkName = "-ASIOperaionPostFinished:"
             landmarkType = "5">
          </BreakpointContent>

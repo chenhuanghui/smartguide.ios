@@ -913,7 +913,9 @@ static RootViewController *_rootViewController;
     
     if(self.frontViewController.catalogueList.templateSearch)
     {
-        [searchViewController handleResult:self.frontViewController.catalogueList.templateSearch.datasource text:self.frontViewController.catalogueList.templateSearch.searchKey page:self.frontViewController.catalogueList.templateSearch.page];
+        TemplateSearch *templateSearch=self.frontViewController.catalogueList.templateSearch;
+        
+        [searchViewController handleResult:templateSearch.datasource text:templateSearch.searchKey page:templateSearch.page groups:templateSearch.groups sortBy:templateSearch.sortBy promotionFilter:templateSearch.promotionFilter];
         
         if(self.frontViewController.catalogueList.templateSearch.datasource.count>0)
             [navigationBarView endEditing:true];
@@ -999,8 +1001,8 @@ static RootViewController *_rootViewController;
         return;
     
     shop.selected=true;
-    
-    [self.frontViewController.catalogueList handleSearchResult:searchView.searchText result:searchView.result page:searchView.page selectedShop:shop selectedRow:searchView.selectedRow];
+
+    [self.frontViewController.catalogueList handleSearchResult:searchView.searchText result:searchView.result page:searchView.page selectedShop:shop selectedRow:searchView.selectedRow sortBy:searchView.sortBy promotionFilter:searchView.promotionFilter groups:searchView.groups];
     
     if([[self.frontViewController currentVisibleViewController] isKindOfClass:[ShopDetailViewController class]])
     {
@@ -1034,7 +1036,9 @@ static RootViewController *_rootViewController;
     
     if(self.frontViewController.catalogueList.templateSearch)
     {
-        [searchViewController handleResult:self.frontViewController.catalogueList.templateSearch.datasource text:self.frontViewController.catalogueList.templateSearch.searchKey page:self.frontViewController.catalogueList.templateSearch.page];
+        TemplateSearch *templateSearch=self.frontViewController.catalogueList.templateSearch;
+        
+        [searchViewController handleResult:templateSearch.datasource text:templateSearch.searchKey page:templateSearch.page groups:templateSearch.groups sortBy:templateSearch.sortBy promotionFilter:templateSearch.promotionFilter];
         
         if(self.frontViewController.catalogueList.templateSearch.datasource.count>0)
             [navigationBarView endEditing:true];

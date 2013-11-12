@@ -121,6 +121,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
+    self.wantsFullScreenLayout=true;
+    
     qrView.layer.cornerRadius=12;
     qrView.layer.masksToBounds=true;
     

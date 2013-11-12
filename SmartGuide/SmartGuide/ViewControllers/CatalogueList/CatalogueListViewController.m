@@ -63,7 +63,7 @@
     return false;
 }
 
--(void)handleSearchResult:(NSString *)searchKey result:(NSArray *)array page:(int)page selectedShop:(Shop *)selectedShop selectedRow:(NSIndexPath *)lastSelectedRow
+-(void)handleSearchResult:(NSString *)searchKey result:(NSArray *)array page:(int)page selectedShop:(Shop *)selectedShop selectedRow:(NSIndexPath *)lastSelectedRow sortBy:(enum SORT_BY)sortBy promotionFilter:(enum SHOP_PROMOTION_FILTER_TYPE)promotionFilter groups:(NSString *)groups
 {
     if(templateSearch)
     {
@@ -73,8 +73,8 @@
     
     self.title=searchKey;
     mode=LIST_SEARCH;
-    
-    self.templateSearch=[[TemplateSearch alloc] initWithSearchKey:searchKey result:array page:page withTableView:tableShop withDelegate:self selectedShop:selectedShop selectedRow:lastSelectedRow];
+
+    self.templateSearch=[[TemplateSearch alloc] initWithSearchKey:searchKey result:array page:page withTableView:tableShop withDelegate:self selectedShop:selectedShop selectedRow:lastSelectedRow sortBy:sortBy groups:groups promotionFilter:promotionFilter];
     templateSearch.catalogueList=self;
 }
 
@@ -208,9 +208,6 @@
     templateList.catalogueList=self;
     
     [tableShop registerNib:[UINib nibWithNibName:[CatalogueListCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[CatalogueListCell reuseIdentifier]];
-    
-    btnUp.hidden=true;
-    btnDown.hidden=true;
     
     blurTop.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"blur_bottom.png"]];
     blurTop.transform=CGAffineTransformMakeRotation(DEGREES_TO_RADIANS(180));
@@ -385,9 +382,6 @@
     
     if(self.mode==LIST_SHOP)
     {
-        btnUp.hidden=templateList.datasource.count==0;
-        btnDown.hidden=templateList.datasource.count==0;
-        
         if(delegate)
             [delegate catalogueListLoadShopFinished:self];
         [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_CATALOGUE_LIST_FINISHED object:nil];
@@ -396,8 +390,7 @@
     }
     else
     {
-        btnUp.hidden=templateSearch.datasource.count==0;
-        btnDown.hidden=templateSearch.datasource.count==0;
+
     }
 }
 
@@ -568,8 +561,6 @@
 
 - (void)viewDidUnload {
     tableShop = nil;
-    btnUp = nil;
-    btnDown = nil;
     blurTop = nil;
     blurBottom = nil;
     [super viewDidUnload];
@@ -717,9 +708,9 @@
 @end
 
 @implementation TemplateSearch
-@synthesize searchKey,lastSelectedRow,selectedShop,operationSearchShop,catalogueList;
+@synthesize searchKey,lastSelectedRow,selectedShop,operationSearchShop,catalogueList,sortBy,groups,promotionFilter;
 
--(TemplateSearch *)initWithSearchKey:(NSString *)_searchKey result:(NSArray *)array page:(int)page withTableView:(UITableView *)table withDelegate:(id<TableTemplateDelegate>)delegate selectedShop:(Shop *)_selectedShop selectedRow:(NSIndexPath *)_lastSelectedRow
+-(TemplateSearch *)initWithSearchKey:(NSString *)_searchKey result:(NSArray *)array page:(int)page withTableView:(UITableView *)table withDelegate:(id<TableTemplateDelegate>)delegate selectedShop:(Shop *)_selectedShop selectedRow:(NSIndexPath *)_lastSelectedRow sortBy:(enum SORT_BY)_sortBy groups:(NSString *)_groups promotionFilter:(enum SHOP_PROMOTION_FILTER_TYPE)_promotionFilter
 {
     self=[super initWithTableView:table withDelegate:delegate];
     
@@ -727,6 +718,9 @@
     self.page=page;
     self.datasource=[NSMutableArray arrayWithArray:array];
     self.selectedShop=_selectedShop;
+    self.sortBy=_sortBy;
+    self.promotionFilter=_promotionFilter;
+    self.groups=[NSString stringWithString:_groups];
     self.lastSelectedRow=[NSIndexPath indexPathForRow:_lastSelectedRow.row inSection:_lastSelectedRow.section];
     
     return self;
@@ -735,7 +729,8 @@
 -(void)loadAtPage:(int)page
 {
     User *user=[DataManager shareInstance].currentUser;
-    self.operationSearchShop=[[ASIOperationSearchShop alloc] initWithShopName:self.searchKey idUser:user.idUser.integerValue lat:user.location.latitude lon:user.location.longitude page:page promotionFilter:[DataManager shareInstance].currentUser.filter.shopPromotionFilterType];
+
+    self.operationSearchShop=[[ASIOperationSearchShop alloc] initWithKeyword:self.searchKey groups:self.groups idUser:user.idUser.integerValue lat:user.location.latitude lon:user.location.longitude page:page promotionFilter:self.promotionFilter sortType:self.sortBy];
     self.operationSearchShop.delegatePost=self;
     
     [self.operationSearchShop startAsynchronous];

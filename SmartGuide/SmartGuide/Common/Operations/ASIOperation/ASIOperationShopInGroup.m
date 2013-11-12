@@ -20,6 +20,8 @@
     NSURL *_url=[NSURL URLWithString:SERVER_API_MAKE(API_SHOP_IN_GROUP_POST)];
     self=[super initWithURL:_url];
     
+    sort=SORT_DISTANCE;
+    
     values=@[ids,@(idCity),@(idUser),@(latitude),@(longtitude),@(page),@(sort),@(promotionFilterType)];
     
     return self;

@@ -191,7 +191,6 @@
         [self setHighlight:filter.production.boolValue filter:production];
         [self setHighlight:filter.education.boolValue filter:education];
         
-        btnPoint.selected=filter.mostGetPoint.boolValue;
         btnLike.selected=filter.mostLike.boolValue;
         btnView.selected=filter.mostView.boolValue;
         btnDistance.selected=filter.distance.boolValue;
@@ -290,7 +289,6 @@
     filter.production=[NSNumber numberWithBool:[self isHighlighted:production]];
     filter.education=[NSNumber numberWithBool:[self isHighlighted:education]];
     
-    filter.mostGetPoint=[NSNumber numberWithBool:btnPoint.selected];
     filter.mostLike=[NSNumber numberWithBool:btnLike.selected];
     filter.mostView=[NSNumber numberWithBool:btnView.selected];
     filter.distance=[NSNumber numberWithBool:btnDistance.selected];

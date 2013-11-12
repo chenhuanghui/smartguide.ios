@@ -18,6 +18,18 @@
     return array;
 }
 
+-(NSArray *)vouchersObjects
+{
+    NSArray *array=[super vouchersObjects];
+    if(array.count>0)
+    {
+        NSSortDescriptor *sort=[NSSortDescriptor sortDescriptorWithKey:PromotionVoucher_SortOrder ascending:true];
+        return [array sortedArrayUsingDescriptors:@[sort]];
+    }
+    
+    return array;
+}
+
 -(PromotionVoucher *)voucherWithID:(int)idVoucher
 {
     PromotionVoucher *voucher=nil;

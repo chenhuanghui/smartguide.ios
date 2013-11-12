@@ -39,14 +39,10 @@
 {
     if(self.filter)
     {
-        if(self.filter.mostGetPoint.boolValue)
-            return SORT_POINT;
-        else if(self.filter.mostGetReward.boolValue)
-            return SORT_REWARD;
-        else if(self.filter.mostLike.boolValue)
+        if(self.filter.mostLike.boolValue)
             return SORT_LIKED;
         else if(self.filter.mostView.boolValue)
-            return SORT_VISITED;
+            return SORT_VIEWED;
         else if(self.filter.distance.boolValue)
             return SORT_DISTANCE;
     }
