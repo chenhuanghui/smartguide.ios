@@ -461,11 +461,6 @@
     }
 }
 
--(BOOL)wantsFullScreenLayout
-{
-    return true;
-}
-
 @end
 
 @implementation DirectionView

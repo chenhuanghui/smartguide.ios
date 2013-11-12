@@ -24,7 +24,7 @@
     
 //    [[GUIManager shareInstance] startupWithWindow:self.window];
 //    return true;
-    
+     
     // Override point for customization after application launch.
     //Setting AFHTTP
     

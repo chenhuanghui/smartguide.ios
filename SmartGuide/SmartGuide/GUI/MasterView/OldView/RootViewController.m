@@ -2147,9 +2147,4 @@ static RootViewController *_rootViewController;
     return ((AppDelegate*)[UIApplication sharedApplication].delegate).window;
 }
 
--(BOOL)wantsFullScreenLayout
-{
-    return true;
-}
-
 @end

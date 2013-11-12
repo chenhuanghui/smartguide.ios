@@ -73,7 +73,7 @@ static FacebookManager *_facebookManager=nil;
                     [[FBSession activeSession] closeAndClearTokenInformation];
                 }
             };
-            
+
             [FBSession openActiveSessionWithReadPermissions:FACEBOOK_READ_PERMISSION allowLoginUI:true completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
                 
                 if(runOnceHandle)

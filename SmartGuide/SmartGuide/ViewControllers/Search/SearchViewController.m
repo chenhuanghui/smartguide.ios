@@ -541,9 +541,4 @@
     return _promotionFilter;
 }
 
--(BOOL)wantsFullScreenLayout
-{
-    return true;
-}
-
 @end

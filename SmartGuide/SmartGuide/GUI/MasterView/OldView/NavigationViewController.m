@@ -71,9 +71,4 @@
     return true;
 }
 
--(BOOL)wantsFullScreenLayout
-{
-    return true;
-}
-
 @end
