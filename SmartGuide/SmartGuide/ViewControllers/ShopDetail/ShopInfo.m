@@ -27,7 +27,7 @@
         lblDesc.text=@"";
         lblAddress.text=@"";
         [btnContact setTitle:@"" forState:UIControlStateNormal];
-        lblWebsite.text=@"";
+        [lblWebsite setTitle:@"" forState:UIControlStateNormal];
         
         _shop=nil;
         return;
@@ -43,7 +43,7 @@
     lblDesc.text=@"";
     lblAddress.text=@"";
     [btnContact setTitle:@"" forState:UIControlStateNormal];
-    lblWebsite.text=@"";
+    [lblWebsite setTitle:@"" forState:UIControlStateNormal];
     
     if(!shop)
         return;
@@ -75,7 +75,7 @@
     rect=CGRectMake(56, lblAddress.frame.origin.y+lblAddress.frame.size.height, 229, 21);
     btnContact.frame=rect;
     
-    lblWebsite.text=shop.website;
+    [lblWebsite setTitle:shop.website forState:UIControlStateNormal];
     
     rect=CGRectMake(54, btnContact.frame.origin.y+btnContact.frame.size.height, 227, 21);
     lblWebsite.frame=rect;
@@ -101,6 +101,11 @@
         return;
     
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"telprompt://%@",text]]];
+}
+
+-(void)btnWebsiteTouchUpInside:(id)sender
+{
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[lblWebsite titleForState:UIControlStateNormal]]];
 }
 
 @end

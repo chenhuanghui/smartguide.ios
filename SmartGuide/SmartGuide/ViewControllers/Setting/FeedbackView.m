@@ -251,4 +251,11 @@
     return true;
 }
 
+-(void)didMoveToSuperview
+{
+    [super didMoveToSuperview];
+    
+    lblUser.text=[DataManager shareInstance].currentUser.name;
+}
+
 @end

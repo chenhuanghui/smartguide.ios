@@ -531,7 +531,7 @@
 -(void)operationURLFailed:(OperationURL *)operation
 {
     _lockSlide=false;
-    [AlertView showAlertOKWithTitle:nil withMessage:@"Lỗi" onOK:nil];
+    [AlertView showAlertOKWithTitle:nil withMessage:@"Cập nhật không thành công" onOK:nil];
 }
 
 -(void)avatarListSelectedItem:(AvatarListView *)avatarListView item:(NSString *)url image:(UIImage *)image

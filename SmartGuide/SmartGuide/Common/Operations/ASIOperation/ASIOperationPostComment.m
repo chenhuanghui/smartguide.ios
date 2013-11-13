@@ -46,6 +46,10 @@
         comment.avatar=[NSString stringWithStringDefault:[DataManager shareInstance].currentUser.avatar];
         comment.time=[NSString stringWithStringDefault:[[json objectAtIndex:0] objectForKey:@"time"]];
         comment.fulltime=[NSString stringWithStringDefault:[[json objectAtIndex:0] objectForKey:@"fulltime"]];
+        comment.shopName=[NSString stringWithStringDefault:json[0][@"shopName"]];
+        
+        if(comment.shopName.length==0)
+            comment.shopName=[NSString stringWithFormat:@"tại %@", shop.name];
         
         [[DataManager shareInstance] save];
     }

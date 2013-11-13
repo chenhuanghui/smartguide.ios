@@ -14,7 +14,7 @@
     __weak IBOutlet UITextView *lblDesc;
     __weak IBOutlet UITextView *lblAddress;
     __weak IBOutlet UIButton *btnContact;
-    __weak IBOutlet UITextView *lblWebsite;
+    __weak IBOutlet UIButton *lblWebsite;
     __weak IBOutlet UILabel *lblMieuTa;
     __weak IBOutlet UILabel *lblDiaChi;
     __weak IBOutlet UILabel *lblLienLac;
@@ -27,5 +27,6 @@
 -(void) setShop:(Shop*) shop;
 
 - (IBAction)btnContactTouchUpInside:(id)sender;
+- (IBAction)btnWebsiteTouchUpInside:(id)sender;
 
 @end

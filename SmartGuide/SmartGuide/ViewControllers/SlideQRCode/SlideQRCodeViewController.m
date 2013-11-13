@@ -602,7 +602,7 @@
     imgvRewardIcon.hidden=false;
     
     lblError.hidden=false;
-    lblError.text=@"Lỗi đã xảy ra";
+    lblError.text=@"Quá trình xác thực không thành công";
     imgvRewardIcon.highlighted=true;
     rewardView.hidden=false;
 }

@@ -19,7 +19,7 @@
     
     CGSize constraint = CGSizeMake(NOTPARTNER_CONTENT_FRAME.size.width, 20000.0f);
     
-    float height = [content sizeWithFont:[UIFont systemFontOfSize:10] constrainedToSize:constraint lineBreakMode:NSLineBreakByWordWrapping].height+15;
+    float height = [content sizeWithFont:[UIFont systemFontOfSize:11] constrainedToSize:constraint lineBreakMode:NSLineBreakByWordWrapping].height+15;
     txtContent.frame=CGRectMake(NOTPARTNER_CONTENT_FRAME.origin.x, NOTPARTNER_CONTENT_FRAME.origin.y, NOTPARTNER_CONTENT_FRAME.size.width, height);
     
     CGRect rect=lblLine.frame;
@@ -36,7 +36,7 @@
 {
     CGSize constraint = CGSizeMake(NOTPARTNER_CONTENT_FRAME.size.width, 20000.0f);
     
-    CGSize size = [content sizeWithFont:[UIFont systemFontOfSize:10] constrainedToSize:constraint lineBreakMode:NSLineBreakByWordWrapping];
+    CGSize size = [content sizeWithFont:[UIFont systemFontOfSize:11] constrainedToSize:constraint lineBreakMode:NSLineBreakByWordWrapping];
     
     CGFloat height = size.height;
     

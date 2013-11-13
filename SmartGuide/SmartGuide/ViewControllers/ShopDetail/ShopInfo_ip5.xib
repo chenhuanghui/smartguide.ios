@@ -33,9 +33,10 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="31">
-                    <rect key="frame" x="56" y="237" width="229" height="21"/>
+                    <rect key="frame" x="59" y="239" width="229" height="21"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                    <inset key="contentEdgeInsets" minX="1" minY="0.0" maxX="0.0" maxY="0.0"/>
                     <state key="normal" title="Button">
                         <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -53,15 +54,19 @@
                         <action selector="btnContactTouchUpInside:" destination="1" eventType="touchUpInside" id="34"/>
                     </connections>
                 </button>
-                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" text="http://" id="23">
-                    <rect key="frame" x="54" y="270" width="227" height="21"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="LVt-EN-rc7">
+                    <rect key="frame" x="59" y="276" width="227" height="21"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                    <color key="textColor" red="0.15686274510000001" green="0.18039215689999999" blue="0.2274509804" alpha="1" colorSpace="calibratedRGB"/>
                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                    <dataDetectorType key="dataDetectorTypes" link="YES"/>
-                </textView>
+                    <inset key="contentEdgeInsets" minX="4" minY="9" maxX="0.0" maxY="0.0"/>
+                    <state key="normal" title="http://www.cocasuki">
+                        <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="btnWebsiteTouchUpInside:" destination="1" eventType="touchUpInside" id="5nb-fk-J0D"/>
+                    </connections>
+                </button>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Website:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="11">
                     <rect key="frame" x="15" y="274" width="42" height="21"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -95,7 +100,7 @@
                 <outlet property="lblLienLac" destination="6" id="28"/>
                 <outlet property="lblMieuTa" destination="4" id="26"/>
                 <outlet property="lblWeb" destination="11" id="29"/>
-                <outlet property="lblWebsite" destination="23" id="24"/>
+                <outlet property="lblWebsite" destination="LVt-EN-rc7" id="YS5-Y0-Fdq"/>
             </connections>
         </view>
     </objects>
