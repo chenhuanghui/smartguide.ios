@@ -22,9 +22,9 @@
     CGRect rect=[[UIScreen mainScreen] bounds];
     self.window = [[UIWindow alloc] initWithFrame:rect];
     
-//    [[GUIManager shareInstance] startupWithWindow:self.window];
-//    return true;
-     
+    [[GUIManager shareInstance] startupWithWindow:self.window];
+    return true;
+    
     // Override point for customization after application launch.
     //Setting AFHTTP
     

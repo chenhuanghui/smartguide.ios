@@ -8,6 +8,7 @@
 
 #import "ShopListViewController.h"
 #import "GUIManager.h"
+#import "ShopListCell.h"
 
 @interface ShopListViewController ()
 
@@ -34,115 +35,36 @@
 {
     if([notification.name isEqualToString:UIApplicationDidBecomeActiveNotification])
     {
-        [self reloadList];
     }
 }
 
--(void) reloadList
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    double lat=[DataManager shareInstance].currentUser.location.latitude;
-    double lon=[DataManager shareInstance].currentUser.location.longitude;
-    
-    if(lat==-1||lon==-1)
-        return;
-    
-    [templateShopList reset];
-    [self loadListAtPage:0];
-    
-    [self.view SGShowLoading];
-}
-
--(void)loadWithCatalog:(ShopCatalog *)shopCatalog onCompleted:(void (^)(bool))onFinishedLoadCatalog
-{
-    [self view];
-    
-    double delayInSeconds = .5;
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-        onFinishedLoadCatalog(true);
-    });
-    
-    return;
-    
-    _onFinishedLoadCatalog=[onFinishedLoadCatalog copy];
-    self.catalog=[NSString stringWithString:shopCatalog.key];
-    
-    //Vì loading được hiển thị ở shop catalog nên shoplistcontroller không được push vào navigation dẫn đến viewdidload không được gọi
-    // gọi self view để force view được load còn nếu đã load rồi thì gọi ko ảnh hưởng gì hết
-    [self view];
-}
-
--(void)ASIOperaionPostFinished:(ASIOperationPost *)operation
-{
-    if([operation isKindOfClass:[ASIOperationShopInGroup class]])
-    {
-        [self.view SGRemoveLoading];
-        
-        ASIOperationShopInGroup *ope=(ASIOperationShopInGroup*)operation;
-        
-        if(ope.shops.count>0)
-        {
-            [templateShopList.datasource addObjectsFromArray:ope.shops];
-            templateShopList.page++;
-        }
-        
-        if(_onFinishedLoadCatalog)
-        {
-            _onFinishedLoadCatalog(true);
-            _onFinishedLoadCatalog=nil;
-        }
-        
-        templateShopList.isAllowLoadMore=ope.shops.count==10;
-        [templateShopList endLoadNext];
-        
-        _operationShopList=nil;
-    }
-}
-
--(void)ASIOperaionPostFailed:(ASIOperationPost *)operation
-{
-    if([operation isKindOfClass:[ASIOperationShopInGroup class]])
-    {
-        templateShopList.isAllowLoadMore=false;
-        [templateShopList endLoadNext];
-        
-        if(_onFinishedLoadCatalog)
-        {
-            _onFinishedLoadCatalog(false);
-            _onFinishedLoadCatalog=nil;
-        }
-        
-        _operationShopList=nil;
-    }
+    return 1;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 0;
+    return 10;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    CatalogueListCell *cell=[tableList dequeueReusableCellWithIdentifier:[CatalogueListCell reuseIdentifier]];
-    Shop *shop=templateShopList.datasource[indexPath.row];
+    ShopListCell *cell=[tableView dequeueReusableCellWithIdentifier:[ShopListCell reuseIdentifier]];
     
-    [cell setData:shop];
+    [cell loadContent];
     
     return cell;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return [CatalogueListCell height];
+    return [ShopListCell height];
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-
-}
-
--(void)shopUserFinished
-{
+    
 }
 
 - (void)viewDidLoad
@@ -150,82 +72,200 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    return;
-    [tableList registerNib:[UINib nibWithNibName:[CatalogueListCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[CatalogueListCell reuseIdentifier]];
-   
-    self.view.backgroundColor=COLOR_BACKGROUND_APP;
+    [tableList registerNib:[UINib nibWithNibName:[ShopListCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[ShopListCell reuseIdentifier]];
     
-    blurrTop.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"blur_bottom.png"]];
-    blurrTop.transform=CGAffineTransformMakeRotation(DEGREES_TO_RADIANS(180));
-    blurrBot.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"blur_bottom.png"]];
+    topFrame=topView.frame;
+    botFrame=botView.frame;
+    _searchFrame=txtSearch.frame;
     
-    CGRect rect=tableList.frame;
-    rect.origin=CGPointZero;
-    rect.size.height=16;
-    UIView *vi = [[UIView alloc] initWithFrame:rect];
-    vi.backgroundColor=[UIColor clearColor];
-    tableList.tableHeaderView=vi;
+//    scroll.contentSize=CGSizeMake(scroll.frame.size.width, scroll.frame.size.height*2);
+//    _scrollOffset=CGPointMake(0, 241);
+//    scroll.contentOffset=_scrollOffset;
     
-    rect.origin.y=tableList.frame.size.height-rect.size.height;
-    vi=[[UIView alloc] initWithFrame:rect];
-    vi.backgroundColor=[UIColor clearColor];
-    tableList.tableFooterView=vi;
+    scroll.panHandleDelegate=self;
     
-    templateShopList=[[SGTableTemplate alloc] initWithTableView:tableList withDelegate:self];
-    templateShopList.isAllowLoadMore=true;
-    templateShopList.isAllowPullToRefresh=true;
+    UITapGestureRecognizer *tapTop=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapTop:)];
+    _tapTop=tapTop;
     
-    //[self loadListAtPage:0];
+    [topView addGestureRecognizer:tapTop];
 }
 
--(void)SGTableTemplateLoadMore:(SGTableTemplate *)SGTemplate isWaited:(bool *)isWaited
+-(void) tapTop:(UITapGestureRecognizer*) ges
 {
-    *isWaited=true;
-    [self loadListAtPage:templateShopList.page];
+    [self zoomMap];
 }
 
--(void) loadListAtPage:(int) page
+-(bool)gestureShouldBegin:(id)object ges:(UIGestureRecognizer *)ges
 {
-    int idCity=[DataManager shareInstance].currentCity.idCity.integerValue;
-    int idUser=[DataManager shareInstance].currentUser.idUser.integerValue;
-    double lat=[DataManager shareInstance].currentUser.location.latitude;
-    double lon=[DataManager shareInstance].currentUser.location.longitude;
-    enum SORT_BY sortBy=[DataManager shareInstance].currentUser.filter.sortBy;
-    enum SHOP_PROMOTION_FILTER_TYPE promotionType=[DataManager shareInstance].currentUser.filter.shopPromotionFilterType;
+    UIPanGestureRecognizer *pan=(UIPanGestureRecognizer*) ges;
     
-    _operationShopList=[[ASIOperationShopInGroup alloc] initWithIDCity:idCity idUser:idUser lat:lat lon:lon page:page sort:sortBy filterPromotion:promotionType group:self.catalog];
-    _operationShopList.delegatePost=self;
+    float velocity=[pan velocityInView:pan.view].y;
     
-    [_operationShopList startAsynchronous];
+    NSLog(@"velocity %f",velocity);
+    
+    if(!_isZoomedMap)
+    {
+        
+    }
+    
+    return true;
 }
 
-- (void)didReceiveMemoryWarning
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
--(NSString *)title
-{
-    return CLASS_NAME;
-}
-
-- (IBAction)btn:(id)sender {
-    [self.delegate shopListSelectedShop];
+    CGRect rect=CGRectZero;
     
+    if(scrollView==scroll && false)
+    {
+        rect=_searchFrame;
+        rect.origin.y+=scroll.contentOffset.y-_scrollOffset.y;
+        txtSearch.frame=rect;
+    }
+    else if(scrollView==tableList)
+    {
+        CGFloat y = scrollView.contentOffset.y;
+        // did we drag ?
+        if (y<0) {
+            //we moved y pixels down, how much latitude is that ?
+            double deltaLat = y*deltaLatFor1px;
+            //Move the center coordinate accordingly
+            CLLocationCoordinate2D newCenter = CLLocationCoordinate2DMake(_mapCenter.latitude-deltaLat/2, _mapCenter.longitude);
+            map.centerCoordinate = newCenter;
+        }
+        
+        scroll.contentOffset=CGPointMake(scroll.contentOffset.x, _scrollOffset.y+y/3);
+    }
 }
 
--(void)dealloc
+-(void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation
 {
-    NSLog(@"dealloc %@", CLASS_NAME);
-}
-- (IBAction)btnMap:(id)sender {
+    [map setRegion:MKCoordinateRegionMakeWithDistance(userLocation.location.coordinate, MAP_SPAN, MAP_SPAN) animated:false];
     
+    float alignPoint=0.0125;
+    
+    _mapCenter=map.centerCoordinate;
+    _mapCenter.latitude+=alignPoint;
+    map.centerCoordinate=_mapCenter;
+    
+    CLLocationCoordinate2D referencePosition = [map convertPoint:CGPointMake(0, 0) toCoordinateFromView:map];
+    CLLocationCoordinate2D referencePosition2 = [map convertPoint:CGPointMake(0, 100) toCoordinateFromView:map];
+    deltaLatFor1px = (referencePosition2.latitude - referencePosition.latitude)/100;
 }
 
-- (IBAction)btnShop:(id)sender {
-    [self.delegate shopListSelectedShop];
+// Dùng để lấy alignPoint
+/*
+ -(void) move
+ {
+ if(!self.parentViewController)
+ return;
+ 
+ map.centerCoordinate=CLLocationCoordinate2DMake(map.centerCoordinate.latitude+0.001f, map.centerCoordinate.longitude);
+ 
+ NSLog(@"%f %f xxx %f",map.centerCoordinate.latitude,map.centerCoordinate.longitude,map.centerCoordinate.latitude-lll.latitude);
+ 
+ [self performSelector:@selector(move) withObject:nil afterDelay:0.5];
+ }
+ */
+
+-(void) zoomMap
+{
+    _tapTop.enabled=false;
+    _isZoomedMap=true;
+    
+    scroll.scrollEnabled=true;
+    
+    map.scrollEnabled=true;
+    map.userInteractionEnabled=true;
+    map.zoomEnabled=true;
+    
+    tableList.userInteractionEnabled=false;
+    
+    double delayInSeconds = 0.0;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        [scroll setContentOffset:CGPointMake(0, 0) animated:true];
+    });
+    
+    NSLog(@"zoomMap %@",@"");
 }
 
+-(void) endZoomMap
+{
+    NSLog(@"endZoomMap");
+    
+    _tapTop.enabled=true;
+    _isZoomedMap=false;
+    
+    double delayInSeconds = 0.0;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        
+        [UIView animateWithDuration:0.3 animations:^{
+            [scroll setContentOffset:CGPointZero];
+        } completion:^(BOOL finished) {
+            UIEdgeInsets insets=UIEdgeInsetsZero;
+            
+            scroll.contentInset=insets;
+            tableList.userInteractionEnabled=true;
+        }];
+    });
+}
+
+-(void)scrollViewDidEndDragging1:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
+{
+    CGPoint topPoint=[scroll convertPoint:topView.l_v_o toView:self.view];
+    topPoint.y+=topView.l_v_h;
+    
+    if(topPoint.y>self.l_v_h/2)
+    {
+        [self zoomMap];
+    }
+    else
+        [self endZoomMap];
+    
+    NSLog(@"topPoint %@",NSStringFromCGPoint(topPoint));
+}
+
+- (IBAction)btnMapTouchUpInside:(id)sender {
+    if(_isZoomedMap)
+        [self endZoomMap];
+    else
+        [self zoomMap];
+}
+
+@end
+
+@implementation ScrollShopList
+@synthesize unlimitScroll,panHandleDelegate;
+
+-(void)didMoveToSuperview
+{
+    [super didMoveToSuperview];
+    
+    self.panGestureRecognizer.delegate=self;
+}
+
+-(BOOL)gestureRecognizerShouldBegin1:(UIGestureRecognizer *)gestureRecognizer
+{
+    return [self.panHandleDelegate gestureShouldBegin:self ges:gestureRecognizer];
+}
+
+-(void)setContentOffset1:(CGPoint)contentOffset
+{
+    if(unlimitScroll)
+    {
+        [super setContentOffset:contentOffset];
+        return;
+    }
+    
+    if(contentOffset.y>0)
+    {
+        contentOffset.y=0;
+        [super setContentOffset:contentOffset];
+        return;
+    }
+    
+    [super setContentOffset:contentOffset];
+}
 
 @end

@@ -21,7 +21,7 @@ static GUIManager *_shareInstance=nil;
 @end
 
 @implementation GUIManager
-@synthesize mainWindow,masterContainerView,masterNavigation,rootNavigation,rootViewController,toolbarController,contentNavigation,adsController,qrCodeController,userController,userSettingController;
+@synthesize mainWindow,rootNavigation,rootViewController,toolbarController,contentNavigation,adsController,qrCodeController,userController,userSettingController;
 @synthesize previousViewController;
 @synthesize shopUserController;
 
@@ -99,6 +99,7 @@ static GUIManager *_shareInstance=nil;
         
         return transition;
     }];
+    
     [self.rootNavigation popViewControllerAnimated:true];
 }
 
@@ -177,92 +178,6 @@ static GUIManager *_shareInstance=nil;
     qrCodeController=vc;
     
     [rootViewController addChildViewController:vc];
-}
-
--(void)startupWithWindow1:(UIWindow *)window
-{
-    mainWindow=window;
-    mainWindow.backgroundColor=COLOR_BACKGROUND_APP;
-    
-    NSMutableArray *controllers=[NSMutableArray array];
-    
-    //isShowedWelcomeScreen true:khi user touch vào try hoặc login
-    if(![Flags isShowedWelcomeScreen])
-    {        
-        WelcomeViewController *vc=[[WelcomeViewController alloc] init];
-        vc.delegate=self;
-        
-        [controllers addObject:vc];
-    }
-    else
-    {
-        [DataManager shareInstance].currentUser=[User userWithIDUser:[Flags lastIDUser]];
-        
-        //currentUser nil:khi touched vào login nhưng không nhập thông tin
-        if(![DataManager shareInstance].currentUser)
-        {
-            WelcomeViewController *welcome=[[WelcomeViewController alloc] init];
-            welcome.delegate=self;
-            
-            [controllers addObject:welcome];
-            
-            AuthorizationViewController *author=[[AuthorizationViewController alloc] init];
-            author.delegate=self;
-            [author showLogin];
-            TransportViewController *transport=[[TransportViewController alloc] initWithNavigation:author];
-            
-            [controllers addObject:transport];
-        }
-        else
-        {
-            MasterContainerViewController *vc=[[MasterContainerViewController alloc] initWithDelegate:self];
-            masterContainerView=vc;
-            
-            [controllers addObject:vc];
-        }
-    }
-    
-    SGLoadingScreenViewController *loadingController=[[SGLoadingScreenViewController alloc] init];
-    loadingController.delegate=self;
-    [controllers addObject:loadingController];
-    
-    SGNavigationController *navi=[[SGNavigationController alloc] initWithViewControllers:controllers];
-    masterNavigation=navi;
-    
-    [navi setNavigationBarHidden:true];
-    
-    window.rootViewController=navi;
-    [window makeKeyAndVisible];
-}
-
--(void)masterContainerLoadedView:(MasterContainerViewController *)masterController
-{
-    masterController.toolbarController.delegate=self;
-}
-
--(void)SGQRCodeRequestShow
-{
-    [UIView animateWithDuration:DURATION_DEFAULT animations:^{
-        CGRect rect=self.masterContainerView.qrView.frame;
-        rect.origin.y=self.masterContainerView.toolbarFrame.origin.y+self.masterContainerView.toolbarFrame.size.height;
-        self.masterContainerView.qrView.frame=rect;
-    }];
-}
-
--(void)contentViewSelectedShop
-{
-    [UIView animateWithDuration:DURATION_NAVIGATION_PUSH animations:^{
-        CGRect rect=self.masterContainerView.adsView.frame;
-        rect.origin.y+=rect.size.height;
-        self.masterContainerView.adsView.frame=rect;
-    }];
-}
-
--(void)contentViewBackToShopListAnimated:(bool)isAnimated
-{
-    [UIView animateWithDuration:DURATION_NAVIGATION_PUSH animations:^{
-        self.masterContainerView.adsView.frame=self.masterContainerView.adsFrame;
-    }];
 }
 
 -(void)toolbarSetting
@@ -357,17 +272,7 @@ static GUIManager *_shareInstance=nil;
 //    }];
 }
 
--(void)toolbarUserLogin
-{
-    AuthorizationViewController *authorizationController=[[AuthorizationViewController alloc] init];
-    authorizationController.delegate=self;
-    
-    [authorizationController showLogin];
-    
-    TransportViewController *transport=[[TransportViewController alloc] initWithNavigation:authorizationController];
-    
-    [self.masterNavigation pushViewController:transport animated:true];
-}
+#pragma - ViewControllers Delegate
 
 -(void)authorizationSuccessed
 {
@@ -393,38 +298,6 @@ static GUIManager *_shareInstance=nil;
     
 }
 
--(void)panGestureMovedToView:(UIView *)view
-{
-    if(view==self.previousViewController.view)
-    {
-        [self.masterNavigation popViewControllerAnimated:false];
-        [self removePanGes_Handle];
-    }
-}
-
--(void) removePanGes_Handle
-{
-    if(panGes)
-    {
-        panGes.delegate=nil;
-        [panGes removeTarget:self action:@selector(panGes:)];
-        [self.masterNavigation.view removeGestureRecognizer:panGes];
-        panGes=nil;
-    }
-    
-    if(panHandle)
-    {
-        panHandle.delegate=nil;
-        panHandle=nil;
-    }
-}
-
--(void)SGSettingHided
-{
-//    settingController.delegate=nil;
-//    settingController=nil;
-}
-#pragma - ViewControllers Delegate
 -(void) presentShopUserWithIDShop:(int)idShop
 {
     ShopUserViewController *shopUser=[[ShopUserViewController alloc] init];

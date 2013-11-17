@@ -9,7 +9,6 @@
 #import <Foundation/Foundation.h>
 #import "NavigationViewController.h"
 #import "DataManager.h"
-#import "MasterContainerViewController.h"
 #import "ToolbarViewController.h"
 #import "SGAdsViewController.h"
 #import "SGQRCodeViewController.h"
@@ -28,7 +27,7 @@
 
 @class ContentViewController;
 
-@interface GUIManager : NSObject<ToolbarDelegate,UINavigationControllerDelegate,SGSettingDelegate,ContentViewDelegate,SGQRCodeDelegate,PanDragViewDelegate,UIGestureRecognizerDelegate,AuthorizationDelegate,WelcomeControllerDelegate,SGLoadingScreenDelegate,MasterControllerDelegate,SGViewControllerDelegate,ShopUserDelegate>
+@interface GUIManager : NSObject<ToolbarDelegate,UINavigationControllerDelegate,SGSettingDelegate,ContentViewDelegate,SGQRCodeDelegate,PanDragViewDelegate,UIGestureRecognizerDelegate,AuthorizationDelegate,WelcomeControllerDelegate,SGLoadingScreenDelegate,SGViewControllerDelegate,ShopUserDelegate>
 {
     UIPanGestureRecognizer *panGes;
     PanDragViewHandle *panHandle;
@@ -46,8 +45,6 @@
 -(void) showLoginDialogWithMessage:(NSString*) message onCompleted:(void(^)(bool isLogined)) onCompleted;
 
 @property (nonatomic, readonly) UIWindow *mainWindow;
-@property (nonatomic, weak, readonly) MasterContainerViewController *masterContainerView;
-@property (nonatomic, weak, readonly) SGNavigationController *masterNavigation;
 @property (nonatomic, weak, readonly) SGNavigationController *rootNavigation;
 @property (nonatomic, weak, readonly) SGRootViewController *rootViewController;
 @property (nonatomic, weak, readonly) ToolbarViewController *toolbarController;

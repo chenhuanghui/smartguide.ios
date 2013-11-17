@@ -23,6 +23,7 @@
 {
     __weak IBOutlet UIButton *btnUser;
     __weak IBOutlet UIButton *btnCatalog;
+    __weak IBOutlet UIView *containtView;
 }
 
 - (IBAction)btnUserTouchUpInside:(id)sender;

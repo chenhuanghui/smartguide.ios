@@ -53,15 +53,9 @@
     
     shopList=_shopList;
     
-    [_shopList loadWithCatalog:group onCompleted:^(bool isSuccessed) {
-        [self.view SGRemoveLoading];
-        
-        [[GUIManager shareInstance] hideAdsWithDuration:DURATION_DEFAULT];
-        [self pushViewController:shopList animated:true];
-        shopList=nil;
-    }];
-    
-    [self.view SGShowLoading];
+    [[GUIManager shareInstance] hideAdsWithDuration:DURATION_DEFAULT];
+    [self pushViewController:shopList animated:true];
+    shopList=nil;
 }
 
 -(void)shopListSelectedShop

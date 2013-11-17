@@ -51,4 +51,9 @@
 - (IBAction)btnMapTouchUpInside:(id)sender {
 }
 
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [self.delegate toolbarSetting];
+}
+
 @end

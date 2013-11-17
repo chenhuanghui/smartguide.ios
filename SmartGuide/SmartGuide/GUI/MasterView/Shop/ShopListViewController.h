@@ -9,9 +9,11 @@
 #import "SGViewController.h"
 #import "Constant.h"
 #import "SGTableTemplate.h"
-#import "CatalogueListCell.h"
 #import "ASIOperationShopInGroup.h"
 #import "ShopUserViewController.h"
+#import <MapKit/MapKit.h>
+
+@class ScrollShopList;
 
 @protocol ShopListDelegate <SGViewControllerDelegate>
 
@@ -19,21 +21,38 @@
 
 @end
 
-@interface ShopListViewController : SGViewController<SGTableTemplateDelegate,ASIOperationPostDelegate,ShopUserDelegate>
+@interface ShopListViewController : SGViewController<MKMapViewDelegate,UIScrollViewDelegate,GestureHandleDelegate>
 {
     __weak IBOutlet UITableView *tableList;
-    __weak IBOutlet UIView *blurrTop;
-    __weak IBOutlet UIView *blurrBot;
-    SGTableTemplate *templateShopList;
+    __weak IBOutlet MKMapView *map;
+    __weak IBOutlet ScrollShopList *scroll;
+    CLLocationCoordinate2D _mapCenter;
+    float deltaLatFor1px;
+    __weak IBOutlet UITextField *txtSearch;
+    __weak IBOutlet UIButton *btnMap;
+    __weak IBOutlet UIImageView *imgvLine;
+    __weak IBOutlet UIView *topView;
+    __weak IBOutlet UIView *botView;
+    __weak IBOutlet UIView *contentView;
     
-    void(^_onFinishedLoadCatalog)(bool isSuccessed);
+    CGRect topFrame;
+    CGRect botFrame;
+    CGPoint _scrollOffset;
+    CGRect _searchFrame;
     
-    ASIOperationShopInGroup *_operationShopList;
+    bool _isZoomedMap;
+    
+    __weak UITapGestureRecognizer *_tapTop;
 }
-
--(void) loadWithCatalog:(ShopCatalog*) catalog onCompleted:(void(^)(bool isSuccessed)) onFinishedLoadCatalog;
 
 @property (nonatomic, assign) id<ShopListDelegate> delegate;
 @property (nonatomic, strong) NSString *catalog;
+
+@end
+
+@interface ScrollShopList : UIScrollView<UIGestureRecognizerDelegate>
+
+@property (nonatomic, assign) bool unlimitScroll;
+@property (nonatomic, assign) id<GestureHandleDelegate> panHandleDelegate;
 
 @end

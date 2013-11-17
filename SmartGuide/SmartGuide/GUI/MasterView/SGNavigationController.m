@@ -8,7 +8,7 @@
 
 #import "SGNavigationController.h"
 
-#define SLIDE_POSITION_X 245.f
+#define SLIDE_POSITION_X 274.f
 
 @interface SGNavigationController ()
 
@@ -126,6 +126,8 @@ CALL_DEALLOC_LOG
     {
         leftSlideController=[[SGViewController alloc] init];
         leftSlideController.view.frame=CGRectMake(-SLIDE_POSITION_X, self.l_v_x, SLIDE_POSITION_X, self.l_v_h);
+        
+        leftSlideController.view.layer.masksToBounds=true;
         
         [self addChildViewController:leftSlideController];
         [self.view addSubview:leftSlideController.view];

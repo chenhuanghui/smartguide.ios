@@ -30,6 +30,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
+    return;
     for(UIView *group in [self groups])
     {
         UIButton *btn=[self groupButton:group];
@@ -264,6 +265,9 @@
     NSLog(@"dealloc %@", CLASS_NAME);
 }
 
-
+-(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [self.delegate shopCatalogSelectedCatalog:nil];
+}
 
 @end

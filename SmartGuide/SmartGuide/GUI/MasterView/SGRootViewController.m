@@ -34,6 +34,12 @@
     contentFrame=self.contentView.frame;
     qrCodeFrame=self.qrCodeView.frame;
     adsFrame=self.adsView.frame;
+    
+    self.containView.layer.masksToBounds=true;
+    self.toolbarView.layer.masksToBounds=true;
+    self.contentView.layer.masksToBounds=true;
+    self.qrCodeView.layer.masksToBounds=true;
+    self.adsView.layer.masksToBounds=true;
 }
 
 - (void)didReceiveMemoryWarning
