@@ -22,6 +22,11 @@ static DataManager *_dataManager=nil;
 +(void)load
 {
     [DataManager shareInstance].currentUser=[User userWithIDUser:[Flags lastIDUser]];
+    
+    if(![DataManager shareInstance].currentUser)
+    {
+        [[DataManager shareInstance] makeTryUser];
+    }
 }
 
 +(DataManager *)shareInstance
@@ -172,13 +177,13 @@ static DataManager *_dataManager=nil;
     
     user.idUser=@(DEFAULT_USER_ID);
     user.name=DEFAULT_USER_NAME;
+    user.isConnectedFacebook=@(true);
     
     [[DataManager shareInstance] save];
     
     [DataManager shareInstance].currentUser=user;
     
     [[TokenManager shareInstance] setAccessToken:DEFAULT_USER_ACCESS_TOKEN];
-
 }
 
 -(void)setCurrentUser:(User *)_currentUser

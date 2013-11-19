@@ -30,6 +30,7 @@
 +(NSArray*) queryPromotionDetail:(NSPredicate*) predicate;
 +(PromotionDetail*) queryPromotionDetailObject:(NSPredicate*) predicate;
 +(NSArray*) allObjects;
++(void) markDeleteAllObjects;
 
 -(bool) save;
 

@@ -29,6 +29,20 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    //retain shopNavi
+    [detailView addSubview:shopNavi.view];
+    detailView.receiveView=scrollShopUser;
+    
+    CGRect rect=CGRectZero;
+    rect.origin=CGPointMake(27, 0);
+    rect.size=CGSizeMake(266, 393);
+    shopNavi.view.frame=rect;
+    
+    shopNavi.view.layer.masksToBounds=true;
+    shopNavi.view.layer.cornerRadius=8;
+    
+    scrollShopUser.contentSize=contentScroll.frame.size;
 }
 
 -(void)setShop:(Shop *)shop
@@ -42,18 +56,12 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)btn:(id)sender {
-    [self.delegate shopUserFinished];
-}
-- (IBAction)like:(id)sender {
-    [[GUIManager shareInstance] showLoginDialogWithMessage:@"LOGIN TO LIKE" onCompleted:^(bool isLogined) {
-        [AlertView showAlertOKWithTitle:nil withMessage:[NSString stringWithFormat:@"LOGINED %i",isLogined] onOK:nil];
-    }];
-}
 
--(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    [self.delegate shopUserFinished];
-}
+
+@end
+
+@implementation ScrollShopUser
+
+
 
 @end

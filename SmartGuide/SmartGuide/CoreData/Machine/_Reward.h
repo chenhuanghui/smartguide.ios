@@ -20,6 +20,7 @@
 +(NSArray*) queryReward:(NSPredicate*) predicate;
 +(Reward*) queryRewardObject:(NSPredicate*) predicate;
 +(NSArray*) allObjects;
++(void) markDeleteAllObjects;
 
 -(bool) save;
 

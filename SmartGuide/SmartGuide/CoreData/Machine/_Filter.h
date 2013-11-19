@@ -29,6 +29,7 @@
 +(NSArray*) queryFilter:(NSPredicate*) predicate;
 +(Filter*) queryFilterObject:(NSPredicate*) predicate;
 +(NSArray*) allObjects;
++(void) markDeleteAllObjects;
 
 -(bool) save;
 

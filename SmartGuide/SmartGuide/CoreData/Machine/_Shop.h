@@ -49,6 +49,7 @@
 +(NSArray*) queryShop:(NSPredicate*) predicate;
 +(Shop*) queryShopObject:(NSPredicate*) predicate;
 +(NSArray*) allObjects;
++(void) markDeleteAllObjects;
 
 -(bool) save;
 

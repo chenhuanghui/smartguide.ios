@@ -47,4 +47,24 @@
     [self.delegate settingTouchedUserSetting:self];
 }
 
+- (IBAction)collection:(id)sender {
+    [self.delegate settingTouchedUser:self];
+}
+
+- (IBAction)setting:(id)sender {
+    [self.delegate settingTouchedUserSetting:self];
+}
+
+- (IBAction)block:(id)sender {
+    [self.delegate settingTouchedCatalog:self];
+}
+
+- (IBAction)notification:(id)sender {
+    [self.delegate settingTouchedNotification:self];
+}
+
+- (IBAction)otherView:(id)sender {
+    [self.delegate settingTouchedOtherView:self];
+}
+
 @end

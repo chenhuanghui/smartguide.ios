@@ -64,7 +64,7 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
+    [[GUIManager shareInstance] presentShopUserWithIDShop:0];
 }
 
 - (void)viewDidLoad
@@ -78,16 +78,26 @@
     botFrame=botView.frame;
     _searchFrame=txtSearch.frame;
     
-//    scroll.contentSize=CGSizeMake(scroll.frame.size.width, scroll.frame.size.height*2);
-//    _scrollOffset=CGPointMake(0, 241);
-//    scroll.contentOffset=_scrollOffset;
-    
-    scroll.panHandleDelegate=self;
+    _scrollOffset=CGPointMake(0, 241);
+    scroll.contentOffset=_scrollOffset;
+    scroll.contentSize=CGSizeMake(scroll.frame.size.width, scroll.frame.size.height*2);
     
     UITapGestureRecognizer *tapTop=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapTop:)];
     _tapTop=tapTop;
     
     [topView addGestureRecognizer:tapTop];
+    
+//    _timeScroller=[[ACTimeScroller alloc] initWithDelegate:self];
+}
+
+-(UITableView *)tableViewForTimeScroller:(ACTimeScroller *)timeScroller
+{
+    return tableList;
+}
+
+-(NSDate *)timeScroller:(ACTimeScroller *)timeScroller dateForCell:(UITableViewCell *)cell
+{
+    return [NSDate date];
 }
 
 -(void) tapTop:(UITapGestureRecognizer*) ges
@@ -95,27 +105,11 @@
     [self zoomMap];
 }
 
--(bool)gestureShouldBegin:(id)object ges:(UIGestureRecognizer *)ges
-{
-    UIPanGestureRecognizer *pan=(UIPanGestureRecognizer*) ges;
-    
-    float velocity=[pan velocityInView:pan.view].y;
-    
-    NSLog(@"velocity %f",velocity);
-    
-    if(!_isZoomedMap)
-    {
-        
-    }
-    
-    return true;
-}
-
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     CGRect rect=CGRectZero;
     
-    if(scrollView==scroll && false)
+    if(scrollView==scroll)
     {
         rect=_searchFrame;
         rect.origin.y+=scroll.contentOffset.y-_scrollOffset.y;
@@ -123,6 +117,8 @@
     }
     else if(scrollView==tableList)
     {
+        [_timeScroller scrollViewDidScroll];
+        
         CGFloat y = scrollView.contentOffset.y;
         // did we drag ?
         if (y<0) {
@@ -131,9 +127,13 @@
             //Move the center coordinate accordingly
             CLLocationCoordinate2D newCenter = CLLocationCoordinate2DMake(_mapCenter.latitude-deltaLat/2, _mapCenter.longitude);
             map.centerCoordinate = newCenter;
+            
+            scroll.contentOffset=CGPointMake(scroll.contentOffset.x, _scrollOffset.y+y);
         }
-        
-        scroll.contentOffset=CGPointMake(scroll.contentOffset.x, _scrollOffset.y+y/3);
+        else if(y>0)
+        {
+            scroll.contentOffset=_scrollOffset;
+        }
     }
 }
 
@@ -172,6 +172,8 @@
     _tapTop.enabled=false;
     _isZoomedMap=true;
     
+    self.view.userInteractionEnabled=false;
+    
     scroll.scrollEnabled=true;
     
     map.scrollEnabled=true;
@@ -183,7 +185,14 @@
     double delayInSeconds = 0.0;
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-        [scroll setContentOffset:CGPointMake(0, 0) animated:true];
+        
+        [UIView animateWithDuration:DURATION_DEFAULT animations:^{
+            [scroll setContentOffset:CGPointMake(0, 0) animated:false];
+        } completion:^(BOOL finished) {
+            scroll.contentInset=UIEdgeInsetsMake(0, 0, -contentView.frame.size.height/2+1, 0);
+            self.view.userInteractionEnabled=true;
+        }];
+
     });
     
     NSLog(@"zoomMap %@",@"");
@@ -196,34 +205,27 @@
     _tapTop.enabled=true;
     _isZoomedMap=false;
     
+    self.view.userInteractionEnabled=false;
+    
+    scroll.scrollEnabled=false;
+    
+    map.scrollEnabled=false;
+    map.userInteractionEnabled=false;
+    map.zoomEnabled=false;
+    
+    tableList.userInteractionEnabled=true;
+    
     double delayInSeconds = 0.0;
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
         
         [UIView animateWithDuration:0.3 animations:^{
-            [scroll setContentOffset:CGPointZero];
+            [scroll setContentOffset:_scrollOffset];
         } completion:^(BOOL finished) {
-            UIEdgeInsets insets=UIEdgeInsetsZero;
-            
-            scroll.contentInset=insets;
-            tableList.userInteractionEnabled=true;
+            self.view.userInteractionEnabled=true;
+            scroll.contentInset=UIEdgeInsetsZero;
         }];
     });
-}
-
--(void)scrollViewDidEndDragging1:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
-{
-    CGPoint topPoint=[scroll convertPoint:topView.l_v_o toView:self.view];
-    topPoint.y+=topView.l_v_h;
-    
-    if(topPoint.y>self.l_v_h/2)
-    {
-        [self zoomMap];
-    }
-    else
-        [self endZoomMap];
-    
-    NSLog(@"topPoint %@",NSStringFromCGPoint(topPoint));
 }
 
 - (IBAction)btnMapTouchUpInside:(id)sender {
@@ -233,39 +235,23 @@
         [self zoomMap];
 }
 
+- (void)dealloc
+{
+    scroll.delegate=nil;
+}
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    [_timeScroller scrollViewWillBeginDragging];
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    [_timeScroller scrollViewDidEndDecelerating];
+}
+
 @end
 
 @implementation ScrollShopList
-@synthesize unlimitScroll,panHandleDelegate;
-
--(void)didMoveToSuperview
-{
-    [super didMoveToSuperview];
-    
-    self.panGestureRecognizer.delegate=self;
-}
-
--(BOOL)gestureRecognizerShouldBegin1:(UIGestureRecognizer *)gestureRecognizer
-{
-    return [self.panHandleDelegate gestureShouldBegin:self ges:gestureRecognizer];
-}
-
--(void)setContentOffset1:(CGPoint)contentOffset
-{
-    if(unlimitScroll)
-    {
-        [super setContentOffset:contentOffset];
-        return;
-    }
-    
-    if(contentOffset.y>0)
-    {
-        contentOffset.y=0;
-        [super setContentOffset:contentOffset];
-        return;
-    }
-    
-    [super setContentOffset:contentOffset];
-}
 
 @end

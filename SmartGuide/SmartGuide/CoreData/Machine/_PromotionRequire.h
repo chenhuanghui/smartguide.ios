@@ -20,6 +20,7 @@
 +(NSArray*) queryPromotionRequire:(NSPredicate*) predicate;
 +(PromotionRequire*) queryPromotionRequireObject:(NSPredicate*) predicate;
 +(NSArray*) allObjects;
++(void) markDeleteAllObjects;
 
 -(bool) save;
 

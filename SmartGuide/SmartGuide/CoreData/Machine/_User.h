@@ -20,6 +20,7 @@
 +(NSArray*) queryUser:(NSPredicate*) predicate;
 +(User*) queryUserObject:(NSPredicate*) predicate;
 +(NSArray*) allObjects;
++(void) markDeleteAllObjects;
 
 -(bool) save;
 

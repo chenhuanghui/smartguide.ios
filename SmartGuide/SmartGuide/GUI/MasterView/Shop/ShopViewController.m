@@ -52,8 +52,7 @@
     _shopList.delegate=self;
     
     shopList=_shopList;
-    
-    [[GUIManager shareInstance] hideAdsWithDuration:DURATION_DEFAULT];
+
     [self pushViewController:shopList animated:true];
     shopList=nil;
 }
@@ -66,8 +65,6 @@
 -(UIViewController *)popViewControllerAnimated:(BOOL)animated
 {
     UIViewController *vc=[super popViewControllerAnimated:animated];
-    if([vc isKindOfClass:[ShopListViewController class]])
-        [[GUIManager shareInstance] showAdsWithDuration:DURATION_DEFAULT];
     
     return vc;
 }

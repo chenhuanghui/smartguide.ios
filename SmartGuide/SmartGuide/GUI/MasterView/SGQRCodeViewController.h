@@ -8,14 +8,21 @@
 
 #import "SGViewController.h"
 
-@protocol SGQRCodeDelegate <SGViewControllerDelegate>
+@class SGQRCodeViewController;
 
--(void) SGQRCodeRequestShow;
+@protocol SGQRCodeControllerDelegate <SGViewControllerDelegate>
+
+-(void) qrcodeControllerRequestShow:(SGQRCodeViewController*) controller;
+-(void) qrcodeControllerRequestClose:(SGQRCodeViewController*) controller;
+-(void) qrcodeControllerScanned:(SGQRCodeViewController*) controller;
 
 @end
 
 @interface SGQRCodeViewController : SGViewController
+{
+    bool _isShowed;
+}
 
-@property (nonatomic, assign) id<SGQRCodeDelegate> delegate;
+@property (nonatomic, assign) id<SGQRCodeControllerDelegate> delegate;
 
 @end

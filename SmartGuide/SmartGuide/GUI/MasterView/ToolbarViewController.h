@@ -11,8 +11,6 @@
 @protocol ToolbarDelegate <SGViewControllerDelegate>
 
 -(void) toolbarSetting;
--(void) toolbarUserCollection;
--(void) toolbarUserLogin;
 
 @end
 

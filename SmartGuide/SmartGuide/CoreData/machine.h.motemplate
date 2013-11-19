@@ -17,6 +17,7 @@
 +(NSArray*) query<$managedObjectClassName.initialCapitalString$>:(NSPredicate*) predicate;
 +(<$managedObjectClassName$>*) query<$managedObjectClassName.initialCapitalString$>Object:(NSPredicate*) predicate;
 +(NSArray*) allObjects;
++(void) markDeleteAllObjects;
 
 -(bool) save;
 

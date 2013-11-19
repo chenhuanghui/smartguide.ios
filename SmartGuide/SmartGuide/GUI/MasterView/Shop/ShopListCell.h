@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "LabelTopText.h"
 
-@interface ShopListCell : UITableViewCell
+@interface ShopListCell : UITableViewCell<UIScrollViewDelegate>
 {
     __weak IBOutlet UIImageView *imgvVoucher;
     __weak IBOutlet UIImageView *imgvSGP;
@@ -17,6 +17,12 @@
     __weak IBOutlet UILabel *lblName;
     __weak IBOutlet LabelTopText *lblContent;
     __weak IBOutlet UIImageView *imgvLine;
+    __weak IBOutlet UIImageView *imgvLineVerContent;
+    __weak IBOutlet UIView *slideView;
+    __weak IBOutlet UIButton *btnLove;
+    __weak IBOutlet UIButton *btnShare;
+    __weak IBOutlet UIView *visibleView;
+    __weak IBOutlet UIScrollView *scroll;
 }
 
 -(void) loadContent;

@@ -192,11 +192,51 @@
 
 -(void)createUserFinished
 {
+    [DataManager shareInstance].currentUser.isConnectedFacebook=@(false);
+    [DataManager shareInstance].currentUser.name=@"XXX";
+    
+    [[DataManager shareInstance] save];
+    
     [self.delegate userFacebookSuccessed];
 }
 
 - (IBAction)btnFaceTouchUpInside:(id)sender {
     [self loginFacebook];
 }
+
+- (IBAction)face:(id)sender {
+    
+    [DataManager shareInstance].currentUser.isConnectedFacebook=@(true);
+    [DataManager shareInstance].currentUser.name=@"XXX";
+    
+    [[DataManager shareInstance] save];
+    
+    [self.delegate userFacebookSuccessed];
+}
+
+- (IBAction)create:(id)sender {
+    
+    CreateUserView *userView=[[CreateUserView alloc] init];
+    userView.delegate=self;
+    
+    CGRect rect=userView.frame;
+    rect.origin=CGPointMake(0, self.view.frame.size.height);
+    userView.frame=rect;
+    
+    [self.view addSubview:userView];
+    
+    [UIView animateWithDuration:0.3 animations:^{
+        CGRect rectAnim=containtView.frame;
+        rectAnim.origin.y=-rectAnim.size.height;
+        containtView.frame=rectAnim;
+        
+        rectAnim=userView.frame;
+        rectAnim.origin.y=0;
+        userView.frame=rectAnim;
+    } completion:^(BOOL finished) {
+        [userView focusEdit];
+    }];
+}
+
 
 @end

@@ -12,6 +12,7 @@
 #import "ASIOperationShopInGroup.h"
 #import "ShopUserViewController.h"
 #import <MapKit/MapKit.h>
+#import "ACTimeScroller.h"
 
 @class ScrollShopList;
 
@@ -21,7 +22,7 @@
 
 @end
 
-@interface ShopListViewController : SGViewController<MKMapViewDelegate,UIScrollViewDelegate,GestureHandleDelegate>
+@interface ShopListViewController : SGViewController<MKMapViewDelegate,ACTimeScrollerDelegate>
 {
     __weak IBOutlet UITableView *tableList;
     __weak IBOutlet MKMapView *map;
@@ -43,6 +44,8 @@
     bool _isZoomedMap;
     
     __weak UITapGestureRecognizer *_tapTop;
+    
+    ACTimeScroller *_timeScroller;
 }
 
 @property (nonatomic, assign) id<ShopListDelegate> delegate;
@@ -50,9 +53,6 @@
 
 @end
 
-@interface ScrollShopList : UIScrollView<UIGestureRecognizerDelegate>
-
-@property (nonatomic, assign) bool unlimitScroll;
-@property (nonatomic, assign) id<GestureHandleDelegate> panHandleDelegate;
+@interface ScrollShopList : UIScrollView
 
 @end

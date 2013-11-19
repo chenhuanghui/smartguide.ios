@@ -23,6 +23,7 @@
 +(NSArray*) queryShopUserComment:(NSPredicate*) predicate;
 +(ShopUserComment*) queryShopUserCommentObject:(NSPredicate*) predicate;
 +(NSArray*) allObjects;
++(void) markDeleteAllObjects;
 
 -(bool) save;
 

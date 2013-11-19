@@ -475,5 +475,21 @@
     [self.delegate userLoginCancelled];
 }
 
+- (IBAction)login:(id)sender {
+    
+    [User markDeleteAllObjects];
+
+    [[DataManager shareInstance] save];
+    
+    User *user=[User insert];
+    user.idUser=@(1);
+    user.isConnectedFacebook=@(false);
+    
+    [Flags setLastIDUser:1];
+    
+    [[DataManager shareInstance] save];
+    
+    [self.delegate userLoginSuccessed];
+}
 
 @end

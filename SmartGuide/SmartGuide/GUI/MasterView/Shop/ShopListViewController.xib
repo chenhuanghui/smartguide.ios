@@ -24,10 +24,6 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="427"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="II-2-List.jpg" id="ueK-qf-acV">
-                    <rect key="frame" x="0.0" y="-53" width="320" height="480"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                </imageView>
                 <view contentMode="scaleToFill" id="wVQ-RN-Pr0">
                     <rect key="frame" x="0.0" y="374" width="320" height="53"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -44,11 +40,11 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <view contentMode="scaleToFill" id="ZVa-cZ-vjc">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="374"/>
+                            <rect key="frame" x="0.0" y="0.0" width="321" height="748"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <view contentMode="scaleToFill" id="mNf-C1-bpL" userLabel="topView">
-                                    <rect key="frame" x="0.0" y="-241" width="320" height="346"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="346"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <mapView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" mapType="standard" zoomEnabled="NO" scrollEnabled="NO" rotateEnabled="NO" pitchEnabled="NO" showsUserLocation="YES" id="Khm-ek-ChM">
@@ -76,7 +72,7 @@
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                                 <view contentMode="scaleToFill" id="Ecg-r8-ww5" userLabel="botView">
-                                    <rect key="frame" x="0.0" y="105" width="320" height="269"/>
+                                    <rect key="frame" x="0.0" y="346" width="320" height="269"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Yzp-w8-hbC">
@@ -92,7 +88,7 @@
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Tìm Kiếm Khuyến Mãi" minimumFontSize="17" background="search_field.png" id="oBD-mX-VC9">
-                                    <rect key="frame" x="35" y="7" width="255" height="32"/>
+                                    <rect key="frame" x="35" y="250" width="255" height="32"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                     <textInputTraits key="textInputTraits"/>
@@ -110,12 +106,11 @@
                     </connections>
                 </scrollView>
             </subviews>
-            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+            <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
         </view>
     </objects>
     <resources>
-        <image name="II-2-List.jpg" width="320" height="480"/>
         <image name="II-2-List.jpg" width="320" height="480"/>
         <image name="button_map.png" width="33" height="34"/>
         <image name="line_horcontent.png" width="124" height="1"/>

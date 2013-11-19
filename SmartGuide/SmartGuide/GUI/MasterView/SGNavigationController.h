@@ -13,6 +13,8 @@
 #import "SGViewController.h"
 #import "AlphaView.h"
 
+@class SGLeftViewController, SGRightViewController;
+
 @interface SGNavigationController : UINavigationController<UINavigationControllerDelegate,UIGestureRecognizerDelegate>
 {
     void(^_onPushedViewController)(UIViewController* vc);
@@ -32,9 +34,17 @@
 -(void) removeLeftSlideViewController;
 -(void) setAnimationPopViewController:(CATransition*(^)(UIViewController* vc)) animationPush;
 
-@property (nonatomic, strong, readonly) SGViewController *leftSlideController;
-@property (nonatomic, strong, readonly) SGViewController *rightSlideController;
+@property (nonatomic, strong, readonly) SGLeftViewController *leftSlideController;
+@property (nonatomic, strong, readonly) SGRightViewController *rightSlideController;
 @property (nonatomic, weak, readonly) UIViewController *previousViewController;
 @property (nonatomic, assign) bool isAllowDragBackPreviouseView;
+
+@end
+
+@interface SGLeftViewController : SGViewController
+
+@end
+
+@interface SGRightViewController : SGViewController
 
 @end

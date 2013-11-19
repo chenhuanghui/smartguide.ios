@@ -21,18 +21,12 @@ static GUIManager *_shareInstance=nil;
 @end
 
 @implementation GUIManager
-@synthesize mainWindow,rootNavigation,rootViewController,toolbarController,contentNavigation,adsController,qrCodeController,userController,userSettingController;
+@synthesize mainWindow,rootNavigation,rootViewController,toolbarController,contentNavigation,adsController,qrCodeController,userController,tutorialController,notificationController,presentedViewController;
 @synthesize previousViewController;
 @synthesize shopUserController;
 
 +(void)load
 {
-    [DataManager shareInstance].currentUser=[User userWithIDUser:[Flags lastIDUser]];
-    
-    if(![DataManager shareInstance].currentUser)
-    {
-        [[DataManager shareInstance] makeTryUser];
-    }
 }
 
 +(GUIManager *)shareInstance
@@ -74,6 +68,14 @@ static GUIManager *_shareInstance=nil;
             
             [viewControllers addObject:transport];
         }
+        else
+        {
+            SGRootViewController *root=[[SGRootViewController alloc] initWithDelegate:self];
+            
+            rootViewController=root;
+            
+            [viewControllers addObject:root];
+        }
     }
     
     SGLoadingScreenViewController *loading=[[SGLoadingScreenViewController alloc] init];
@@ -86,6 +88,12 @@ static GUIManager *_shareInstance=nil;
     
     mainWindow.rootViewController=rNavigation;
     [mainWindow makeKeyAndVisible];
+    
+    double delayInSeconds = 1.0;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        [self presentShopUserWithIDShop:0];
+    });
 }
 
 -(void)SGLoadingFinished:(SGLoadingScreenViewController *)loadingScreen
@@ -105,7 +113,7 @@ static GUIManager *_shareInstance=nil;
 
 -(void)welcomeControllerTouchedLogin:(WelcomeViewController *)viewController
 {
-    
+    [self showLoginController];
 }
 
 -(void)welcomeControllerTouchedTry:(WelcomeViewController *)viewController
@@ -138,7 +146,6 @@ static GUIManager *_shareInstance=nil;
     {
         [rootViewController.toolbarView addSubview:toolbarController.view];
         [rootViewController.contentView addSubview:contentNavigation.view];
-        [rootViewController.adsView addSubview:adsController.view];
         [rootViewController.qrCodeView addSubview:qrCodeController.view];
     }
 }
@@ -175,6 +182,8 @@ static GUIManager *_shareInstance=nil;
 -(void) loadQRCode
 {
     SGQRCodeViewController *vc=[[SGQRCodeViewController alloc] init];
+    vc.delegate=self;
+    
     qrCodeController=vc;
     
     [rootViewController addChildViewController:vc];
@@ -219,23 +228,59 @@ static GUIManager *_shareInstance=nil;
 
 -(void)settingTouchedUserSetting:(SGSettingViewController *)settingController
 {
+    SGUserSettingViewController *vc=[[SGUserSettingViewController alloc] init];
+    vc.delegate=self;
+    
+    [self presentViewController:vc];
+}
+
+-(void)userSettingControllerTouchedClose:(SGUserSettingViewController *)controller
+{
+    [self dismissPresentedViewController:nil];
+}
+
+-(void)settingTouchedNotification:(SGSettingViewController *)controller
+{
     [self.rootNavigation removeLeftSlideViewController];
     
-    if([self.contentNavigation.visibleViewController isKindOfClass:[UserSettingViewController class]])
+    if([self.contentNavigation.visibleViewController isKindOfClass:[SGNotificationViewController class]])
         return;
     
     [self.contentNavigation popToRootViewControllerAnimated:false];
     
-    if(userSettingController)
+    if(notificationController)
     {
-        [self.contentNavigation pushViewController:userSettingController animated:false];
+        [self.contentNavigation pushViewController:notificationController animated:false];
         return;
     }
     
-    UserSettingViewController *vc=[[UserSettingViewController alloc] init];
+    SGNotificationViewController *vc=[[SGNotificationViewController alloc] init];
     vc.delegate=self;
     
-    userSettingController=vc;
+    notificationController=vc;
+    
+    [self.contentNavigation pushViewController:vc animated:false];
+}
+
+-(void)settingTouchedOtherView:(SGSettingViewController *)controller
+{
+    [self.rootNavigation removeLeftSlideViewController];
+    
+    if([self.contentNavigation.visibleViewController isKindOfClass:[SGTutorialViewController class]])
+        return;
+    
+    [self.contentNavigation popToRootViewControllerAnimated:false];
+    
+    if(tutorialController)
+    {
+        [self.contentNavigation pushViewController:tutorialController animated:false];
+        return;
+    }
+    
+    SGTutorialViewController *vc=[[SGTutorialViewController alloc] init];
+    vc.delegate=self;
+    
+    tutorialController=vc;
     
     [self.contentNavigation pushViewController:vc animated:false];
 }
@@ -282,7 +327,12 @@ static GUIManager *_shareInstance=nil;
         _onLoginedCompleted=nil;
     }
     
-    [self.rootNavigation popViewControllerAnimated:true];
+    if(!self.rootViewController)
+    {
+        [self showRootControlelr];
+    }
+    else
+        [self.rootNavigation popViewControllerAnimated:true];
 }
 
 -(void)authorizationCancelled
@@ -298,29 +348,61 @@ static GUIManager *_shareInstance=nil;
     
 }
 
+-(void)presentViewController:(SGViewController *)viewController
+{
+    presentedViewController=viewController;
+    
+    [self.rootNavigation addChildViewController:viewController];
+    
+    [viewController view];
+    
+    viewController.view.center=CGPointMake(self.rootNavigation.l_v_w/2, -self.rootNavigation.l_v_h/2);
+    [viewController l_c_setY:-self.rootNavigation.l_v_h/2];
+    
+    [self.rootNavigation.view alphaViewWithColor:[UIColor blackColor]];
+    self.rootNavigation.view.alphaView.alpha=0;
+    
+    [self.rootNavigation.view addSubview:viewController.view];
+    
+    [UIView animateWithDuration:DURATION_DEFAULT animations:^{
+        self.rootNavigation.view.alphaView.alpha=.7f;
+        
+        [viewController l_c_setY:self.rootNavigation.l_v_h/2];
+    }];
+}
+
+-(void)dismissPresentedViewController:(void (^)())onCompleted
+{
+    if(!presentedViewController)
+        return;
+    
+    void(^_onCompleted)()=[onCompleted copy];
+    
+    [UIView animateWithDuration:DURATION_DEFAULT animations:^{
+        self.rootNavigation.view.alphaView.alpha=0;
+        [presentedViewController l_c_setY:-self.rootNavigation.l_v_h/2];
+    } completion:^(BOOL finished) {
+        
+        [self.rootNavigation.view removeAlphaView];
+        
+        [presentedViewController.view removeFromSuperview];
+        [presentedViewController removeFromParentViewController];
+        presentedViewController=nil;
+        
+        if(_onCompleted)
+        {
+            _onCompleted();
+        }
+    }];
+}
+
 -(void) presentShopUserWithIDShop:(int)idShop
 {
     ShopUserViewController *shopUser=[[ShopUserViewController alloc] init];
     shopUserController=shopUser;
     shopUser.delegate=self;
     
-    [self.rootNavigation addChildViewController:shopUser];
-    
-    [shopUser view];
-    
-    shopUser.view.center=CGPointMake(self.rootNavigation.l_v_w/2, -self.rootNavigation.l_v_h/2);
-    [shopUser l_c_setY:-self.rootNavigation.l_v_h/2];
-    
-    [self.rootNavigation.view alphaViewWithColor:[UIColor blackColor]];
-    self.rootNavigation.view.alphaView.alpha=0;
-    
-    [self.rootNavigation.view addSubview:shopUser.view];
-    
-    [UIView animateWithDuration:DURATION_DEFAULT animations:^{
-        self.rootNavigation.view.alphaView.alpha=.7f;
-        
-        [shopUser l_c_setY:self.rootNavigation.l_v_h/2];
-    }];
+    [self presentViewController:shopUser];
 }
 
 -(void)shopUserFinished
@@ -332,40 +414,10 @@ static GUIManager *_shareInstance=nil;
 {
     if(shopUserController)
     {
-        [UIView animateWithDuration:DURATION_DEFAULT animations:^{
-            self.rootNavigation.view.alphaView.alpha=0;
-            [shopUserController l_c_setY:-self.rootNavigation.l_v_h/2];
-        } completion:^(BOOL finished) {
-            
-            [self.rootNavigation.view removeAlphaView];
-            
-            [shopUserController.view removeFromSuperview];
-            [shopUserController removeFromParentViewController];
+        [self dismissPresentedViewController:^{
             shopUserController=nil;
         }];
     }
-}
-
--(void)hideAdsWithDuration:(float)duration
-{
-    [UIView animateWithDuration:duration animations:^{
-        [self.rootViewController.adsView l_c_addY:self.rootViewController.adsFrame.size.height];
-        self.rootViewController.adsView.alpha=0;
-    } completion:^(BOOL finished) {
-        self.rootViewController.adsView.hidden=true;
-    }];
-}
-
--(void)showAdsWithDuration:(float)duration
-{
-    self.rootViewController.adsView.hidden=false;
-    
-    [UIView animateWithDuration:duration animations:^{
-        self.rootViewController.adsView.frame=[self.rootViewController adsFrame];
-        self.rootViewController.adsView.alpha=1;
-    } completion:^(BOOL finished) {
-        
-    }];
 }
 
 -(void)showLoginDialogWithMessage:(NSString *)message onCompleted:(void (^)(bool))onCompleted
@@ -388,6 +440,29 @@ static GUIManager *_shareInstance=nil;
     
     TransportViewController *transport=[[TransportViewController alloc] initWithNavigation:author];
     [self.rootNavigation pushViewController:transport animated:true];
+}
+
+-(void)qrcodeControllerRequestShow:(SGQRCodeViewController *)controller
+{
+    [UIView animateWithDuration:DURATION_DEFAULT animations:^{
+        CGRect rect=self.rootViewController.qrCodeFrame;
+        rect.origin.y=self.rootViewController.toolbarFrame.size.height;
+        self.rootViewController.qrCodeView.frame=rect;
+    }];
+}
+
+-(void) qrcodeControllerRequestClose:(SGQRCodeViewController *)controller
+{
+    [UIView animateWithDuration:DURATION_DEFAULT animations:^{
+        self.rootViewController.qrCodeView.frame=self.rootViewController.qrCodeFrame;
+    }];
+}
+
+-(void) qrcodeControllerScanned:(SGQRCodeViewController *)controller
+{
+    [UIView animateWithDuration:DURATION_DEFAULT animations:^{
+        self.rootViewController.qrCodeView.frame=self.rootViewController.qrCodeFrame;
+    }];
 }
 
 @end

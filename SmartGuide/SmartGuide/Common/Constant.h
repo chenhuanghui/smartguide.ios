@@ -24,11 +24,11 @@
 #define FACEBOOK_APPID @"1391698407719065"
 #define FACEBOOK_GET_PROFILE(accessToken,fields) [NSString stringWithFormat:@"https://graph.facebook.com/me/?fields=%@&access_token=%@",fields,accessToken]
 
-#define BUILD_MODE 1
+#define BUILD_MODE 0
 //0: developer
 //1: production
 
-#if BUILD_MODE==0
+#if BUILD_MODE==0   
 
 #define SERVER_API @"http://dev2.smartguide.vn/api"
 #define SERVER_IP @"http://dev2.smartguide.vn"
@@ -192,5 +192,12 @@ enum LIKE_STATUS {
 @protocol GestureHandleDelegate <NSObject>
 
 -(bool) gestureShouldBegin:(id) object ges:(UIGestureRecognizer*) ges;
+
+@end
+
+@protocol ScrollViewDelegate <UIScrollViewDelegate>
+
+@optional
+-(CGPoint) scrollViewWillChangeContentOffset:(UIScrollView*) scrollView contentOffset:(CGPoint) offset;
 
 @end

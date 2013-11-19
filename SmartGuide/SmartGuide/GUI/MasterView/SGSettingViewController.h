@@ -13,9 +13,11 @@
 
 @protocol SGSettingDelegate <SGViewControllerDelegate>
 
--(void) settingTouchedUser:(SGSettingViewController*) settingController;
--(void) settingTouchedUserSetting:(SGSettingViewController*) settingController;
--(void) settingTouchedCatalog:(SGSettingViewController*) settingController;
+-(void) settingTouchedUser:(SGSettingViewController*) controller;
+-(void) settingTouchedUserSetting:(SGSettingViewController*) controller;
+-(void) settingTouchedCatalog:(SGSettingViewController*) controller;
+-(void) settingTouchedNotification:(SGSettingViewController*) controller;
+-(void) settingTouchedOtherView:(SGSettingViewController*) controller;
 
 @end
 

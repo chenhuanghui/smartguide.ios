@@ -8,6 +8,10 @@
 
 #import "SGViewController.h"
 #import "Shop.h"
+#import "SGNavigationController.h"
+#import "HitTestView.h"
+
+@class ScrollShopUser;
 
 @protocol ShopUserDelegate <SGViewControllerDelegate>
 
@@ -16,9 +20,20 @@
 @end
 
 @interface ShopUserViewController : SGViewController
+{
+    __strong IBOutlet SGNavigationController *shopNavi;
+    __weak IBOutlet SGViewController *detailController;
+    __weak IBOutlet ScrollShopUser *scrollShopUser;
+    __weak IBOutlet UIView *contentScroll;
+    __weak IBOutlet HitTestView *detailView;
+}
 
 -(void) setShop:(Shop*) shop;
 
 @property (nonatomic, assign) id<ShopUserDelegate> delegate;
+
+@end
+
+@interface ScrollShopUser : UIScrollView
 
 @end

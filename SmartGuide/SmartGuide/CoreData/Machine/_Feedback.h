@@ -17,6 +17,7 @@
 +(NSArray*) queryFeedback:(NSPredicate*) predicate;
 +(Feedback*) queryFeedbackObject:(NSPredicate*) predicate;
 +(NSArray*) allObjects;
++(void) markDeleteAllObjects;
 
 -(bool) save;
 

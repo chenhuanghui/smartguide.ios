@@ -7,59 +7,37 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="UserFacebookViewController">
             <connections>
-                <outlet property="btnCreate" destination="A0p-Yg-NIn" id="Glc-Ix-y9F"/>
-                <outlet property="btnFace" destination="Hg8-u0-OAJ" id="ypn-dv-izS"/>
-                <outlet property="containtView" destination="sGy-Ba-Yjf" id="bEK-Jn-4py"/>
-                <outlet property="view" destination="1" id="3"/>
+                <outlet property="view" destination="xCe-kO-wTk" id="aOO-rF-qy0"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="1">
+        <view contentMode="scaleToFill" id="xCe-kO-wTk">
             <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
-            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="wc_bg.jpg" id="hWC-uo-QP6">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="460"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="FjS-8d-AdP">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="240"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                </imageView>
-                <view autoresizesSubviews="NO" contentMode="scaleToFill" id="sGy-Ba-Yjf">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="460"/>
+                    <state key="normal" title="FACEBOOK">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="face:" destination="-1" eventType="touchUpInside" id="fXo-N0-i7a"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="uUy-T4-ItE">
+                    <rect key="frame" x="0.0" y="240" width="320" height="240"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Hg8-u0-OAJ">
-                            <rect key="frame" x="84" y="102" width="153" height="175"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                            <state key="normal" image="button_loginface.png">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                            <connections>
-                                <action selector="btnFaceTouchUpInside:" destination="-1" eventType="touchUpInside" id="iID-Y1-jEd"/>
-                            </connections>
-                        </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="A0p-Yg-NIn">
-                            <rect key="frame" x="94" y="293" width="138" height="97"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                            <state key="normal" image="button_createacc.png">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                            <connections>
-                                <action selector="btnCreateTouchUpInside:" destination="-1" eventType="touchUpInside" id="H9x-JV-88M"/>
-                            </connections>
-                        </button>
-                    </subviews>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                </view>
+                    <state key="normal" title="CREATE">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="create:" destination="-1" eventType="touchUpInside" id="vIf-xW-Rgg"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-            <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
         </view>
     </objects>
-    <resources>
-        <image name="button_createacc.png" width="138" height="97"/>
-        <image name="button_loginface.png" width="153" height="175"/>
-        <image name="wc_bg.jpg" width="320" height="480"/>
-    </resources>
 </document>

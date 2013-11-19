@@ -17,6 +17,7 @@
 +(NSArray*) queryCity:(NSPredicate*) predicate;
 +(City*) queryCityObject:(NSPredicate*) predicate;
 +(NSArray*) allObjects;
++(void) markDeleteAllObjects;
 
 -(bool) save;
 

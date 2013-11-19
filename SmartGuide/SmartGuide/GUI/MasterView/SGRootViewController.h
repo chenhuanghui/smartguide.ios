@@ -13,13 +13,11 @@
 @property (weak, nonatomic) IBOutlet UIView *containView;
 @property (weak, nonatomic) IBOutlet UIView *toolbarView;
 @property (weak, nonatomic) IBOutlet UIView *contentView;
-@property (weak, nonatomic) IBOutlet UIView *adsView;
 @property (weak, nonatomic) IBOutlet UIView *qrCodeView;
 
 @property (nonatomic, readonly, assign) CGRect containFrame;
 @property (nonatomic, readonly, assign) CGRect toolbarFrame;
 @property (nonatomic, readonly, assign) CGRect contentFrame;
-@property (nonatomic, readonly, assign) CGRect adsFrame;
 @property (nonatomic, readonly, assign) CGRect qrCodeFrame;
 
 @end

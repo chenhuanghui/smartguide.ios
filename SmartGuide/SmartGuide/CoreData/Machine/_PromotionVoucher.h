@@ -24,6 +24,7 @@
 +(NSArray*) queryPromotionVoucher:(NSPredicate*) predicate;
 +(PromotionVoucher*) queryPromotionVoucherObject:(NSPredicate*) predicate;
 +(NSArray*) allObjects;
++(void) markDeleteAllObjects;
 
 -(bool) save;
 

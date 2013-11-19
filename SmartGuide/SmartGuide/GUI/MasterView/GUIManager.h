@@ -18,30 +18,30 @@
 #import "AuthorizationViewController.h"
 #import "ContentViewController.h"
 #import "SGMapController.h"
-#import "PanDragViewHandle.h"
 #import "AlphaView.h"
 #import "WelcomeViewController.h"
 #import "SGViewController.h"
 #import "SGLoadingScreenViewController.h"
 #import "SGRootViewController.h"
+#import "SGNotificationViewController.h"
+#import "SGTutorialViewController.h"
+#import "SGUserSettingViewController.h"
 
 @class ContentViewController;
 
-@interface GUIManager : NSObject<ToolbarDelegate,UINavigationControllerDelegate,SGSettingDelegate,ContentViewDelegate,SGQRCodeDelegate,PanDragViewDelegate,UIGestureRecognizerDelegate,AuthorizationDelegate,WelcomeControllerDelegate,SGLoadingScreenDelegate,SGViewControllerDelegate,ShopUserDelegate>
+@interface GUIManager : NSObject<ToolbarDelegate,UINavigationControllerDelegate,SGSettingDelegate,SGQRCodeControllerDelegate,UIGestureRecognizerDelegate,AuthorizationDelegate,WelcomeControllerDelegate,SGLoadingScreenDelegate,SGViewControllerDelegate,ShopUserDelegate,SGUserSettingControllerDelegate>
 {
-    UIPanGestureRecognizer *panGes;
-    PanDragViewHandle *panHandle;
     void(^_onLoginedCompleted)(bool isLogined);
 }
 
 +(GUIManager*) shareInstance;
 -(void) startupWithWindow:(UIWindow*) window;
 
+-(void) presentViewController:(SGViewController*) viewController;
+-(void) dismissPresentedViewController:(void(^)()) onCompleted;
 -(void) presentShopUserWithIDShop:(int) idShop;
 -(void) dismissShopUser;
 
--(void) hideAdsWithDuration:(float) duration;
--(void) showAdsWithDuration:(float) duration;
 -(void) showLoginDialogWithMessage:(NSString*) message onCompleted:(void(^)(bool isLogined)) onCompleted;
 
 @property (nonatomic, readonly) UIWindow *mainWindow;
@@ -53,5 +53,7 @@
 @property (nonatomic, weak, readonly) SGQRCodeViewController *qrCodeController;
 @property (nonatomic, weak, readonly) ShopUserViewController *shopUserController;
 @property (nonatomic, weak, readonly) UserViewController *userController;
-@property (nonatomic, weak, readonly) UserSettingViewController *userSettingController;
+@property (nonatomic, weak, readonly) SGNotificationViewController *notificationController;
+@property (nonatomic, weak, readonly) SGTutorialViewController *tutorialController;
+@property (nonatomic, weak, readonly) SGViewController *presentedViewController;
 @end

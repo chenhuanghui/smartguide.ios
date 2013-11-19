@@ -124,7 +124,7 @@ CALL_DEALLOC_LOG
     
     if(!self.leftSlideController)
     {
-        leftSlideController=[[SGViewController alloc] init];
+        leftSlideController=[[SGLeftViewController alloc] init];
         leftSlideController.view.frame=CGRectMake(-SLIDE_POSITION_X, self.l_v_x, SLIDE_POSITION_X, self.l_v_h);
         
         leftSlideController.view.layer.masksToBounds=true;
@@ -428,4 +428,25 @@ CALL_DEALLOC_LOG
     }];
 }
 
+- (IBAction)detail:(id)sender {
+}
+
+- (IBAction)map:(id)sender {
+}
+
+- (IBAction)phone:(id)sender {
+}
+
+- (IBAction)camera:(id)sender {
+}
+
+- (IBAction)comment:(id)sender {
+}
+
+@end
+
+@implementation SGLeftViewController
+@end
+
+@implementation SGRightViewController
 @end

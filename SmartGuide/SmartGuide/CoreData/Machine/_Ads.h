@@ -22,6 +22,7 @@
 +(NSArray*) queryAds:(NSPredicate*) predicate;
 +(Ads*) queryAdsObject:(NSPredicate*) predicate;
 +(NSArray*) allObjects;
++(void) markDeleteAllObjects;
 
 -(bool) save;
 

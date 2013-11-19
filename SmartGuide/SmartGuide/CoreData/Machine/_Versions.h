@@ -17,6 +17,7 @@
 +(NSArray*) queryVersions:(NSPredicate*) predicate;
 +(Versions*) queryVersionsObject:(NSPredicate*) predicate;
 +(NSArray*) allObjects;
++(void) markDeleteAllObjects;
 
 -(bool) save;
 

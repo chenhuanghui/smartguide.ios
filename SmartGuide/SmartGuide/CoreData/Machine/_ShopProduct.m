@@ -75,6 +75,14 @@
     return [NSArray array];
 }
 
++(void) markDeleteAllObjects
+{
+    for(NSManagedObject *obj in [self allObjects])
+    {
+        [[DataManager shareInstance].managedObjectContext deleteObject:obj];
+    }
+}
+
 -(bool) save
 {
     NSError *error=nil;

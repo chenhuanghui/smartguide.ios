@@ -20,6 +20,7 @@
 +(NSArray*) queryShopUserGallery:(NSPredicate*) predicate;
 +(ShopUserGallery*) queryShopUserGalleryObject:(NSPredicate*) predicate;
 +(NSArray*) allObjects;
++(void) markDeleteAllObjects;
 
 -(bool) save;
 

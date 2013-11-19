@@ -40,14 +40,6 @@
     [self.delegate toolbarSetting];
 }
 
-- (IBAction)btnUserCollectionTouchUpInside:(id)sender {
-    [self.delegate toolbarUserCollection];
-}
-
-- (IBAction)btnUserLoginTouchUpInside:(id)sender {
-    [self.delegate toolbarUserLogin];
-}
-
 - (IBAction)btnMapTouchUpInside:(id)sender {
 }
 

@@ -169,6 +169,11 @@
     }
 }
 
+- (IBAction)create:(id)sender {
+    [self.delegate createUserFinished];
+}
+
+
 CALL_DEALLOC_LOG
 
 @end
