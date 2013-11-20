@@ -109,3 +109,94 @@
 }
 
 @end
+
+@implementation PageControlNext
+
+-(void)drawRect:(CGRect)rect
+{
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextSetAllowsAntialiasing(context, true);
+    
+    int numOfPage=self.numberOfPages>0?self.numberOfPages+1:0;
+    
+    btn.hidden=numOfPage==0;
+    
+    CGRect currentBounds = self.bounds;
+    CGFloat dotsWidth = numOfPage*kDotDiameter + MAX(0, numOfPage-1)*kDotSpacer;
+    CGFloat x = CGRectGetMidX(currentBounds)-dotsWidth/2;
+    CGFloat y = CGRectGetMidY(currentBounds)-kDotDiameter/2;
+    for (int i=0; i<numOfPage; i++)
+    {
+        CGRect circleRect = CGRectMake(x, y, kDotDiameter, kDotDiameter);
+        
+        if(i==numOfPage-1)
+        {
+            if(!btn)
+            {
+                btn=[UIButton buttonWithType:UIButtonTypeCustom];
+                [btn setImage:[UIImage imageNamed:@"button_arrow.png"] forState:UIControlStateNormal];
+                
+                [btn addTarget:self action:@selector(btn:) forControlEvents:UIControlEventTouchUpInside];
+                
+                [self addSubview:btn];
+            }
+            
+            btn.frame=circleRect;
+            
+            break;
+        }
+        
+        if (i == self.currentPage)
+        {
+            CGContextSetFillColorWithColor(context, self.dotColorCurrentPage.CGColor);
+        }
+        else
+        {
+            CGContextSetFillColorWithColor(context, self.dotColorOtherPage.CGColor);
+        }
+        CGContextFillEllipseInRect(context, circleRect);
+        x += kDotDiameter + kDotSpacer;
+    }
+}
+
+-(void) btn:(UIButton*) sender
+{
+    [self.delegate pageControlTouchedNext:self];
+}
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    if (!self.delegate) return;
+    
+    CGPoint touchPoint = [[[event touchesForView:self] anyObject] locationInView:self];
+    
+    int numOfPage=self.numberOfPages>0?self.numberOfPages+1:0;
+    
+    CGFloat dotSpanX = numOfPage*(kDotDiameter + kDotSpacer);
+    CGFloat dotSpanY = kDotDiameter + kDotSpacer;
+    
+    CGRect currentBounds = self.bounds;
+    CGFloat x = touchPoint.x + dotSpanX/2 - CGRectGetMidX(currentBounds);
+    CGFloat y = touchPoint.y + dotSpanY/2 - CGRectGetMidY(currentBounds);
+    
+    if ((x<0) || (x>dotSpanX) || (y<0) || (y>dotSpanY)) return;
+    
+    int page=floor(x/(kDotDiameter+kDotSpacer));
+    
+    if(page==numOfPage-1)
+    {
+        [self.delegate pageControlTouchedNext:self];
+        return;
+    }
+    
+    if(self.currentPage!=page)
+    {
+        self.currentPage=page;
+        if ([self.delegate respondsToSelector:@selector(pageControlPageDidChange:)])
+        {
+            [self.delegate pageControlPageDidChange:self];
+        }
+    }
+}
+
+@end

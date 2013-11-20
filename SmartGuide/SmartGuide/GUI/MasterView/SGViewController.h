@@ -12,6 +12,7 @@
 #import "LocalizationManager.h"
 #import "AlertView.h"
 #import "SGActivityIndicator.h"
+#import "ImageManager.h"
 
 @class SGViewController;
 

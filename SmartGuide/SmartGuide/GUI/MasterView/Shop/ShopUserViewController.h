@@ -14,10 +14,23 @@
 #import "ShopMapViewController.h"
 #import "ShopCameraViewController.h"
 #import "ShopCommentViewController.h"
+#import "ShopGalleryViewController.h"
+#import "ShopScanQRCodeViewController.h"
 #import "FTCoreTextView.h"
 #import "PageControl.h"
+#import "SGTableTemplate.h"
 
 @class ScrollShopUser;
+
+enum SHOP_USER_MODE {
+    SHOP_USER_FULL = 0,
+    SHOP_USER_SHOP_GALLERY = 1,
+    SHOP_USER_INFO = 2,
+    SHOP_USER_SCAN = 3,
+    SHOP_USER_MAP = 4,
+    SHOP_USER_CAMERA = 5,
+    SHOP_USER_COMMENT = 6,
+    };
 
 @protocol ShopUserDelegate <SGViewControllerDelegate>
 
@@ -25,7 +38,7 @@
 
 @end
 
-@interface ShopUserViewController : SGViewController<UIScrollViewDelegate,UINavigationControllerDelegate>
+@interface ShopUserViewController : SGViewController<UIScrollViewDelegate,UINavigationControllerDelegate,SGTableTemplateDelegate,UITableViewDataSource,UITableViewDelegate,UITextViewDelegate,PageControlNextDelegate>
 {
     __strong IBOutlet SGNavigationController *shopNavi;
     __weak IBOutlet SGViewController *detailController;
@@ -55,7 +68,7 @@
     __weak IBOutlet UIView *promotionContainListPromotionView;
     __weak IBOutlet UITableView *promotionTableListPromotion;
     __weak IBOutlet UIView *promotionBottomView;
-    __weak IBOutlet PageControl *promotionPageControl;
+    __weak IBOutlet PageControlNext *promotionPageControl;
     __weak IBOutlet UIButton *btnInfo;
     __weak IBOutlet UIView *promotionDetail;
     __weak IBOutlet UIScrollView *promotionDetailScroll;
@@ -63,14 +76,23 @@
     __weak IBOutlet UIView *promotionDetailKM1;
     __weak IBOutlet UIView *promotionDetailKM2;
     __weak IBOutlet UIView *promotionDetailKM3;
+    __weak IBOutlet UIView *bottomView;
+    __weak IBOutlet UIView *promotionShop;
+    __weak IBOutlet UITextView *txtComment;
+    
+    __weak Shop* _shop;
+    
+    SGTableTemplate *_templateShopGallery;
 }
 
 -(void) setShop:(Shop*) shop;
 
 @property (nonatomic, assign) id<ShopUserDelegate> delegate;
+@property (nonatomic, readonly) enum SHOP_USER_MODE shopMode;
 
 -(IBAction) btnInfoTouchUpInside:(id)sender;
 -(IBAction) btnNextPageTouchUpInside:(id)sender;
+-(IBAction) btnSendCommentTouchUpInside:(id)sender;
 
 @end
 

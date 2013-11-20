@@ -29,3 +29,20 @@
 @optional
 - (void)pageControlPageDidChange:(PageControl *)pageControl;
 @end
+
+@class PageControlNext;
+
+@protocol PageControlNextDelegate <PageControlDelegate>
+
+-(void) pageControlTouchedNext:(PageControlNext*) pageControl;
+
+@end
+
+@interface PageControlNext : PageControl
+{
+    __weak UIButton *btn;
+}
+
+@property (nonatomic, weak) NSObject<PageControlNextDelegate> *delegate;
+
+@end
