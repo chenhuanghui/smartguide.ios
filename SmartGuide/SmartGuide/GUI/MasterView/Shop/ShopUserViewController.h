@@ -10,6 +10,10 @@
 #import "Shop.h"
 #import "SGNavigationController.h"
 #import "HitTestView.h"
+#import "ShopDetailInfoViewController.h"
+#import "ShopMapViewController.h"
+#import "ShopCameraViewController.h"
+#import "ShopCommentViewController.h"
 
 @class ScrollShopUser;
 
@@ -19,7 +23,7 @@
 
 @end
 
-@interface ShopUserViewController : SGViewController
+@interface ShopUserViewController : SGViewController<UIScrollViewDelegate,UINavigationControllerDelegate>
 {
     __strong IBOutlet SGNavigationController *shopNavi;
     __weak IBOutlet SGViewController *detailController;

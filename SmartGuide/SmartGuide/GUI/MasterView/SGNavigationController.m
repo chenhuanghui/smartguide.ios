@@ -428,21 +428,6 @@ CALL_DEALLOC_LOG
     }];
 }
 
-- (IBAction)detail:(id)sender {
-}
-
-- (IBAction)map:(id)sender {
-}
-
-- (IBAction)phone:(id)sender {
-}
-
-- (IBAction)camera:(id)sender {
-}
-
-- (IBAction)comment:(id)sender {
-}
-
 @end
 
 @implementation SGLeftViewController

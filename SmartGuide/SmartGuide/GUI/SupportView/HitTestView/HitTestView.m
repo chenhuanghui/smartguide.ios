@@ -13,6 +13,9 @@
 
 -(UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event
 {
+    if(!receiveView)
+        return [super hitTest:point withEvent:event];
+    
     UIView *view = [super hitTest:point withEvent:event];
     if (view == self) {
         return receiveView;

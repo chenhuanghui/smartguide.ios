@@ -35,6 +35,7 @@ CGPathRef CGPathCreateRoundRect( const CGRect r, const CGFloat cornerRadius );
 NSString* NSStringFromColor(UIColor* color);
 CGRect CGRectWithOrigin(CGRect rect, CGPoint pnt);
 bool isVailCLLocationCoordinate2D(CLLocationCoordinate2D location);
+void makePhoneCall(NSString* phone);
 
 @interface Utility : NSObject
 

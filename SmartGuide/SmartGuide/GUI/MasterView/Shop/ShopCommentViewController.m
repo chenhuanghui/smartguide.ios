@@ -14,9 +14,9 @@
 
 @implementation ShopCommentViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (id)init
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    self = [super initWithNibName:@"ShopCommentViewController" bundle:nil];
     if (self) {
         // Custom initialization
     }

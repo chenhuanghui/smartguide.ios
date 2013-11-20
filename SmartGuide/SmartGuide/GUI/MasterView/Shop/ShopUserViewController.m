@@ -41,6 +41,7 @@
     
     shopNavi.view.layer.masksToBounds=true;
     shopNavi.view.layer.cornerRadius=8;
+    shopNavi.isAllowDragBackPreviouseView=true;
     
     scrollShopUser.contentSize=contentScroll.frame.size;
 }
@@ -56,7 +57,50 @@
     // Dispose of any resources that can be recreated.
 }
 
+-(void) showRightView:(SGViewController*) controller
+{
+    detailView.receiveView=nil;
+    
+    [shopNavi pushViewController:controller animated:true];
+}
 
+- (IBAction)detail:(id)sender {
+    ShopDetailInfoViewController *vc=[ShopDetailInfoViewController new];
+    
+    [self showRightView:vc];
+}
+
+- (IBAction)map:(id)sender {
+    ShopMapViewController *vc=[ShopMapViewController new];
+    
+    [self showRightView:vc];
+}
+
+- (IBAction)phone:(id)sender {
+    makePhoneCall(@"01225372227");
+}
+
+- (IBAction)camera:(id)sender {
+    ShopCameraViewController *vc=[ShopCameraViewController new];
+    
+    [self showRightView:vc];
+}
+
+- (IBAction)comment:(id)sender {
+    ShopCommentViewController *vc=[ShopCommentViewController new];
+    
+    [self showRightView:vc];
+}
+
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+//    NSLog(@"XXX");
+}
+
+-(void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated
+{
+    detailView.receiveView=viewController==detailController?scrollShopUser:nil;
+}
 
 @end
 

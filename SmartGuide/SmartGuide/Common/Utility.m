@@ -60,6 +60,17 @@ bool isVailCLLocationCoordinate2D(CLLocationCoordinate2D location)
     return location.latitude>0 && location.longitude>0;
 }
 
+void makePhoneCall(NSString* phone)
+{
+    NSString *text=[phone copy];
+    
+    text=[text stringByRemoveString:@" ",nil];
+    if(text.length==0)
+        return;
+    
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"telprompt://%@",text]]];
+}
+
 @implementation Utility
 
 +(CGRect) centerPinWithFrameAnnotation:(CGRect) rectAnn framePin:(CGRect) rectPin

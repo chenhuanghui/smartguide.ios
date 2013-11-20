@@ -14,9 +14,9 @@
 
 @implementation ShopMapViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (id)init
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    self = [super initWithNibName:@"ShopMapViewController" bundle:nil];
     if (self) {
         // Custom initialization
     }
