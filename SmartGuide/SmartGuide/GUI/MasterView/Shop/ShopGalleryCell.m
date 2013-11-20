@@ -19,7 +19,13 @@
 
 -(void)loadImage:(NSString *)url
 {
-    
+    imgv.image=[UIImage imageNamed:@"cover.jpg"];
+}
+
+-(void)setLbl:(NSString *)text
+{
+    imgv.image=[UIImage imageNamed:@"cover.jpg"];
+    llbbll.text=@"";
 }
 
 -(void)awakeFromNib
@@ -27,8 +33,7 @@
     [super awakeFromNib];
     
     CGRect rect=self.frame;
-    rect.size=CGSizeMake(rect.size.height, rect.size.width);
-    self.transform=CGAffineTransformMakeRotation(DEGREES_TO_RADIANS(45));
+    self.transform=CGAffineTransformMakeRotation(DEGREES_TO_RADIANS(45)*2);
     self.frame=rect;
 }
 

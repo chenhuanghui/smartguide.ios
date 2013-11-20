@@ -23,6 +23,8 @@
 // Optional delegate for callbacks when user taps a page dot.
 @property (nonatomic, weak) NSObject<PageControlDelegate> *delegate;
 
+-(void) scrollViewDidScroll:(UIScrollView*) scrollView isHorizontal:(bool) isHorizontal;
+
 @end
 
 @protocol PageControlDelegate<NSObject>
@@ -40,7 +42,6 @@
 
 @interface PageControlNext : PageControl
 {
-    __weak UIButton *btn;
 }
 
 @property (nonatomic, weak) NSObject<PageControlNextDelegate> *delegate;

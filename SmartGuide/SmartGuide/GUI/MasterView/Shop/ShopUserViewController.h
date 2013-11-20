@@ -19,6 +19,8 @@
 #import "FTCoreTextView.h"
 #import "PageControl.h"
 #import "SGTableTemplate.h"
+#import "ShopGalleryCell.h"
+#import "ShopKM1Cell.h"
 
 @class ScrollShopUser;
 
@@ -83,6 +85,9 @@ enum SHOP_USER_MODE {
     __weak Shop* _shop;
     
     SGTableTemplate *_templateShopGallery;
+    
+    CGPoint tableShopGalleryCenter;
+    CGPoint btnNextPageCenter;
 }
 
 -(void) setShop:(Shop*) shop;

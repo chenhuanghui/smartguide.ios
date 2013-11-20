@@ -11,9 +11,11 @@
 @interface ShopGalleryCell : UITableViewCell
 {
     __weak IBOutlet UIImageView *imgv;
+    __weak IBOutlet UILabel *llbbll;
 }
 
 -(void) loadImage:(NSString*) url;
+-(void) setLbl:(NSString*) text;
 +(NSString *)reuseIdentifier;
 
 @end

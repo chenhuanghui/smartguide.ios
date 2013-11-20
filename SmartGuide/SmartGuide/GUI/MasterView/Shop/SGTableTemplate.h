@@ -10,7 +10,7 @@
 
 @class SGTableTemplate;
 
-@protocol SGTableTemplateDelegate <UITableViewDataSource,UITableViewDelegate>
+@protocol SGTableTemplateDelegate <UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate>
 
 @optional
 -(void) SGTableTemplateLoadMore:(SGTableTemplate*) SGTemplate isWaited:(bool*) isWaited;
@@ -19,7 +19,7 @@
 
 @end
 
-@interface SGTableTemplate : NSObject<UITableViewDataSource,UITableViewDelegate>
+@interface SGTableTemplate : NSObject<UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate>
 {
     bool _isLoadingMore;
 }
