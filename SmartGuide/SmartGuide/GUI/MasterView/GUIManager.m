@@ -88,12 +88,6 @@ static GUIManager *_shareInstance=nil;
     
     mainWindow.rootViewController=rNavigation;
     [mainWindow makeKeyAndVisible];
-    
-//    double delayInSeconds = 1.0;
-//    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-//    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-//        [self presentShopUserWithIDShop:0];
-//    });
 }
 
 -(void)SGLoadingFinished:(SGLoadingScreenViewController *)loadingScreen
@@ -147,6 +141,8 @@ static GUIManager *_shareInstance=nil;
         [rootViewController.toolbarView addSubview:toolbarController.view];
         [rootViewController.contentView addSubview:contentNavigation.view];
         [rootViewController.qrCodeView addSubview:qrCodeController.view];
+        
+        [self presentShopUserWithIDShop:0];
     }
 }
 

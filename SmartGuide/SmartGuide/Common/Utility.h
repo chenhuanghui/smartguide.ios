@@ -61,49 +61,73 @@ void makePhoneCall(NSString* phone);
 
 @interface UIViewController(lazy_method)
 
--(CGPoint) l_c;
--(float) l_c_x;
--(float) l_c_y;
-
+//view x,y
 -(CGSize) l_v_s;
 -(CGPoint) l_v_o;
 -(float) l_v_x;
 -(float) l_v_y;
--(float) l_v_w;
--(float) l_v_h;
+-(void) l_v_setO:(CGPoint) xy;
+-(void) l_v_addO:(CGPoint) xy;
 -(void) l_v_setX:(float) x;
 -(void) l_v_setY:(float) y;
+-(void) l_v_addX:(float) x;
+-(void) l_v_addY:(float) y;
+//view width, height
+-(float) l_v_w;
+-(float) l_v_h;
+-(void) l_v_setS:(CGSize) wh;
+-(void) l_v_addS:(CGSize) wh;
 -(void) l_v_setW:(float) w;
 -(void) l_v_setH:(float) h;
+-(void) l_v_addW:(float) w;
+-(void) l_v_addH:(float) h;
 
+//view center
+-(CGPoint) l_c;
+-(float) l_c_x;
+-(float) l_c_y;
+-(void) l_c_setXY:(CGPoint) xy;
+-(void) l_c_addXY:(CGPoint) xy;
 -(void) l_c_setX:(float) x;
 -(void) l_c_setY:(float) y;
--(CGPoint) l_c_addX:(float) x;
--(CGPoint) l_c_addY:(float) y;
+-(void) l_c_addX:(float) x;
+-(void) l_c_addY:(float) y;
 
 @end
 
 @interface UIView(lazy_method)
 
--(CGPoint) l_c;
--(float) l_c_x;
--(float) l_c_y;
-
--(CGSize) l_v_s;
+//view x,y
 -(CGPoint) l_v_o;
 -(float) l_v_x;
 -(float) l_v_y;
--(float) l_v_w;
--(float) l_v_h;
+-(void) l_v_setO:(CGPoint) xy;
+-(void) l_v_addO:(CGPoint) xy;
 -(void) l_v_setX:(float) x;
 -(void) l_v_setY:(float) y;
+-(void) l_v_addX:(float) x;
+-(void) l_v_addY:(float) y;
+//view width, height
+-(CGSize) l_v_s;
+-(float) l_v_w;
+-(float) l_v_h;
+-(void) l_v_setS:(CGSize) wh;
+-(void) l_v_addS:(CGSize) wh;
 -(void) l_v_setW:(float) w;
 -(void) l_v_setH:(float) h;
+-(void) l_v_addW:(float) w;
+-(void) l_v_addH:(float) h;
 
+//view center
+-(CGPoint) l_c;
+-(float) l_c_x;
+-(float) l_c_y;
+-(void) l_c_setXY:(CGPoint) xy;
+-(void) l_c_addXY:(CGPoint) xy;
 -(void) l_c_setX:(float) x;
 -(void) l_c_setY:(float) y;
--(CGPoint) l_c_addX:(float) x;
--(CGPoint) l_c_addY:(float) y;
+-(void) l_c_addX:(float) x;
+-(void) l_c_addY:(float) y;
 
 @end
 

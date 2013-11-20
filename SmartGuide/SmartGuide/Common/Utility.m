@@ -280,186 +280,308 @@ void makePhoneCall(NSString* phone)
 
 @implementation UIViewController(lazy_method)
 
+//view x,y
+-(CGPoint) l_v_o
+{
+    return self.view.frame.origin;
+}
+-(float) l_v_x
+{
+    return self.view.frame.origin.x;
+}
+-(float) l_v_y
+{
+    return self.view.frame.origin.y;
+}
+-(void) l_v_setO:(CGPoint) xy
+{
+    CGRect rect=self.view.frame;
+    rect.origin=xy;
+    self.view.frame=rect;
+}
+-(void) l_v_addO:(CGPoint) xy
+{
+    CGRect rect=self.view.frame;
+    rect.origin.x+=xy.x;
+    rect.origin.y+=xy.y;
+    self.view.frame=rect;
+}
+-(void) l_v_setX:(float) x
+{
+    CGRect rect=self.view.frame;
+    rect.origin.x=x;
+    self.view.frame=rect;
+}
+-(void) l_v_setY:(float) y
+{
+    CGRect rect=self.view.frame;
+    rect.origin.y=y;
+    self.view.frame=rect;
+}
+-(void) l_v_addX:(float) x
+{
+    CGRect rect=self.view.frame;
+    rect.origin.x+=x;
+    self.view.frame=rect;
+}
+-(void) l_v_addY:(float) y
+{
+    CGRect rect=self.view.frame;
+    rect.origin.y+=y;
+    self.view.frame=rect;
+}
+//view width, height
+-(CGSize) l_v_s
+{
+    return self.view.frame.size;
+}
+-(float) l_v_w
+{
+    return self.view.frame.size.width;
+}
+-(float) l_v_h
+{
+    return self.view.frame.size.height;
+}
+-(void) l_v_setS:(CGSize) wh
+{
+    CGRect rect=self.view.frame;
+    rect.size=wh;
+    self.view.frame=rect;
+}
+-(void) l_v_addS:(CGSize) wh
+{
+    CGRect rect=self.view.frame;
+    rect.size.width+=wh.width;
+    rect.size.height+=wh.height;
+    self.view.frame=rect;
+}
+-(void) l_v_setW:(float) w
+{
+    CGRect rect=self.view.frame;
+    rect.size.width=w;
+    self.view.frame=rect;
+}
+-(void) l_v_setH:(float) h
+{
+    CGRect rect=self.view.frame;
+    rect.size.height=h;
+    self.view.frame=rect;
+}
+-(void) l_v_addW:(float) w
+{
+    CGRect rect=self.view.frame;
+    rect.size.width+=w;
+    self.view.frame=rect;
+}
+-(void) l_v_addH:(float) h
+{
+    CGRect rect=self.view.frame;
+    rect.size.height+=h;
+    self.view.frame=rect;
+}
+
+//view center
 -(CGPoint) l_c
 {
     return self.view.center;
 }
-
 -(float) l_c_x
 {
-    return self.l_c.x;
+    return self.view.center.x;
 }
-
 -(float) l_c_y
 {
-    return self.l_c.y;
+    return self.view.center.y;
 }
-
--(CGSize)l_v_s
+-(void) l_c_setXY:(CGPoint) xy
 {
-    return self.view.frame.size;
+    self.view.center=xy;
 }
-
--(CGPoint)l_v_o
+-(void) l_c_addXY:(CGPoint) xy
 {
-    return self.view.frame.origin;
+    CGPoint pnt=self.view.center;
+    pnt.x+=xy.x;
+    pnt.y+=xy.y;
+    self.view.center=pnt;
 }
-
--(float)l_v_x
+-(void) l_c_setX:(float) x
 {
-    return self.l_v_o.x;
+    CGPoint pnt=self.view.center;
+    pnt.x=x;
+    self.view.center=pnt;
 }
-
--(float)l_v_y
+-(void) l_c_setY:(float) y
 {
-    return self.l_v_o.y;
+    CGPoint pnt=self.view.center;
+    pnt.y=y;
+    self.view.center=pnt;
 }
-
--(float) l_v_w
+-(void) l_c_addX:(float) x
 {
-    return self.l_v_s.width;
+    CGPoint pnt=self.view.center;
+    pnt.x+=x;
+    self.view.center=pnt;
 }
-
--(float) l_v_h
+-(void) l_c_addY:(float) y
 {
-    return self.l_v_s.height;
-}
-
--(void)l_v_setX:(float)x
-{
-    self.view.frame=CGRectMake(x, self.view.frame.origin.y, self.view.frame.size.width, self.view.frame.size.height);
-}
-
--(void)l_v_setY:(float)y
-{
-    self.view.frame=CGRectMake(self.view.frame.origin.x, y, self.view.frame.size.width, self.view.frame.size.height);
-}
-
--(void)l_v_setW:(float)w
-{
-    self.view.frame=CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y, w, self.view.frame.size.height);
-}
-
--(void)l_v_setH:(float)h
-{
-    self.view.frame=CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y, self.view.frame.size.width, h);
-}
-
--(void)l_c_setX:(float)x
-{
-    self.view.center=CGPointMake(x, self.view.center.y);
-}
-
--(void)l_c_setY:(float)y
-{
-    self.view.center=CGPointMake(self.view.center.x, y);
-}
-
--(CGPoint) l_c_addX:(float) x
-{
-    self.view.center=CGPointMake(self.view.center.x+x, self.view.center.y);
-    
-    return self.view.center;
-}
-
--(CGPoint) l_c_addY:(float) y
-{
-    self.view.center=CGPointMake(self.view.center.x, self.view.center.y+y);
-    
-    return self.view.center;
+    CGPoint pnt=self.view.center;
+    pnt.y+=y;
+    self.view.center=pnt;
 }
 
 @end
 
 @implementation UIView(lazy_method)
 
+//view x,y
+-(CGPoint) l_v_o
+{
+    return self.frame.origin;
+}
+-(float) l_v_x
+{
+    return self.frame.origin.x;
+}
+-(float) l_v_y
+{
+    return self.frame.origin.y;
+}
+-(void) l_v_setO:(CGPoint) xy
+{
+    CGRect rect=self.frame;
+    rect.origin=xy;
+    self.frame=rect;
+}
+-(void) l_v_addO:(CGPoint) xy
+{
+    CGRect rect=self.frame;
+    rect.origin.x+=xy.x;
+    rect.origin.y+=xy.y;
+    self.frame=rect;
+}
+-(void) l_v_setX:(float) x
+{
+    CGRect rect=self.frame;
+    rect.origin.x=x;
+    self.frame=rect;
+}
+-(void) l_v_setY:(float) y
+{
+    CGRect rect=self.frame;
+    rect.origin.y=y;
+    self.frame=rect;
+}
+-(void) l_v_addX:(float) x
+{
+    CGRect rect=self.frame;
+    rect.origin.x+=x;
+    self.frame=rect;
+}
+-(void) l_v_addY:(float) y
+{
+    CGRect rect=self.frame;
+    rect.origin.y+=y;
+    self.frame=rect;
+}
+//view width, height
+-(CGSize) l_v_s
+{
+    return self.frame.size;
+}
+-(float) l_v_w
+{
+    return self.frame.size.width;
+}
+-(float) l_v_h
+{
+    return self.frame.size.height;
+}
+-(void) l_v_setS:(CGSize) wh
+{
+    CGRect rect=self.frame;
+    rect.size=wh;
+    self.frame=rect;
+}
+-(void) l_v_addS:(CGSize) wh
+{
+    CGRect rect=self.frame;
+    rect.size.width+=wh.width;
+    rect.size.height+=wh.height;
+    self.frame=rect;
+}
+-(void) l_v_setW:(float) w
+{
+    CGRect rect=self.frame;
+    rect.size.width=w;
+    self.frame=rect;
+}
+-(void) l_v_setH:(float) h
+{
+    CGRect rect=self.frame;
+    rect.size.height=h;
+    self.frame=rect;
+}
+-(void) l_v_addW:(float) w
+{
+    CGRect rect=self.frame;
+    rect.size.width+=w;
+    self.frame=rect;
+}
+-(void) l_v_addH:(float) h
+{
+    CGRect rect=self.frame;
+    rect.size.height+=h;
+    self.frame=rect;
+}
+
+//view center
 -(CGPoint) l_c
 {
     return self.center;
 }
-
 -(float) l_c_x
 {
-    return self.l_c.x;
+    return self.center.x;
 }
-
 -(float) l_c_y
 {
-    return self.l_c.y;
+    return self.center.y;
 }
-
--(CGSize)l_v_s
+-(void) l_c_setXY:(CGPoint) xy
 {
-    return self.frame.size;
+    self.center=xy;
 }
-
--(CGPoint)l_v_o
+-(void) l_c_addXY:(CGPoint) xy
 {
-    return self.frame.origin;
+    CGPoint pnt=self.center;
+    pnt.x+=xy.x;
+    pnt.y+=xy.y;
+    self.center=pnt;
 }
-
--(float)l_v_x
+-(void) l_c_setX:(float) x
 {
-    return self.l_v_o.x;
+    CGPoint pnt=self.center;
+    pnt.x=x;
+    self.center=pnt;
 }
-
--(float)l_v_y
+-(void) l_c_setY:(float) y
 {
-    return self.l_v_o.y;
+    CGPoint pnt=self.center;
+    pnt.y=y;
+    self.center=pnt;
 }
-
--(void)l_v_setX:(float)x
+-(void) l_c_addX:(float) x
 {
-    self.frame=CGRectMake(x, self.frame.origin.y, self.frame.size.width, self.frame.size.height);
+    CGPoint pnt=self.center;
+    pnt.x+=x;
+    self.center=pnt;
 }
-
--(void)l_v_setY:(float)y
+-(void) l_c_addY:(float) y
 {
-    self.frame=CGRectMake(self.frame.origin.x, y, self.frame.size.width, self.frame.size.height);
-}
-
--(void)l_v_setW:(float)w
-{
-    self.frame=CGRectMake(self.frame.origin.x, self.frame.origin.y, w, self.frame.size.height);
-}
-
--(void)l_v_setH:(float)h
-{
-    self.frame=CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width, h);
-}
-
--(float) l_v_w
-{
-    return self.l_v_s.width;
-}
-
--(float) l_v_h
-{
-    return self.l_v_s.height;
-}
-
--(void)l_c_setX:(float)x
-{
-    self.center=CGPointMake(x, self.center.y);
-}
-
--(void)l_c_setY:(float)y
-{
-    self.center=CGPointMake(self.center.x, y);
-}
-
--(CGPoint) l_c_addX:(float) x
-{
-    self.center=CGPointMake(self.center.x+x, self.center.y);
-    
-    return self.center;
-}
-
--(CGPoint) l_c_addY:(float) y
-{
-    self.center=CGPointMake(self.center.x, self.center.y+y);
-    
-    return self.center;
+    CGPoint pnt=self.center;
+    pnt.y+=y;
+    self.center=pnt;
 }
 
 @end

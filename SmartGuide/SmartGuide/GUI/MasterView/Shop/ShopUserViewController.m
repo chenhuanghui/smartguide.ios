@@ -35,20 +35,27 @@
     detailView.receiveView=scrollShopUser;
     
     CGRect rect=CGRectZero;
-    rect.origin=CGPointMake(27, 0);
-    rect.size=CGSizeMake(266, 393);
+    rect.origin=CGPointMake(15, 0);
+    rect.size=CGSizeMake(290, 431);
     shopNavi.view.frame=rect;
     
     shopNavi.view.layer.masksToBounds=true;
     shopNavi.view.layer.cornerRadius=8;
     shopNavi.isAllowDragBackPreviouseView=true;
     
-    scrollShopUser.contentSize=contentScroll.frame.size;
+    [self alignPageScroll];
 }
 
 -(void)setShop:(Shop *)shop
 {
     
+}
+
+-(void) alignPageScroll
+{
+    scrollShopUser.pagingEnabled=true;
+    [scrollShopUser l_v_setH:0];
+    scrollShopUser.contentSize=promotionView.l_v_s;
 }
 
 - (void)didReceiveMemoryWarning
@@ -62,12 +69,6 @@
     detailView.receiveView=nil;
     
     [shopNavi pushViewController:controller animated:true];
-}
-
-- (IBAction)detail:(id)sender {
-    ShopDetailInfoViewController *vc=[ShopDetailInfoViewController new];
-    
-    [self showRightView:vc];
 }
 
 - (IBAction)map:(id)sender {
@@ -100,6 +101,27 @@
 -(void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated
 {
     detailView.receiveView=viewController==detailController?scrollShopUser:nil;
+}
+
+- (IBAction)btnCloseTouchUpInside:(id)sender {
+    [self.delegate shopUserFinished];
+}
+
+-(IBAction) btnInfoTouchUpInside:(id)sender
+{
+    ShopDetailInfoViewController *vc=[ShopDetailInfoViewController new];
+    
+    [self showRightView:vc];
+}
+
+-(IBAction) btnNextPageTouchUpInside:(id)sender
+{
+    
+}
+
+-(NSArray*) pages
+{
+    return @[promotionView,infoView,galleryView,commentView];
 }
 
 @end
