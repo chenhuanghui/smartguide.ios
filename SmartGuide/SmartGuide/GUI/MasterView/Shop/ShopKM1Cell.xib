@@ -15,20 +15,13 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="II-3-DetailFull.jpg" id="FhQ-Ah-TX1">
-                        <rect key="frame" x="-10" y="-379" width="290" height="1532"/>
+                        <rect key="frame" x="-8" y="-379" width="290" height="1532"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     </imageView>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="e6q-rx-dqm">
-                        <rect key="frame" x="0.0" y="0.0" width="270" height="37"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="32"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                 </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </tableViewCellContentView>
-            <connections>
-                <outlet property="ll" destination="e6q-rx-dqm" id="OsX-ad-JBM"/>
-            </connections>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
         </tableViewCell>
     </objects>
     <resources>

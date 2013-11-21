@@ -90,16 +90,67 @@
     [promotionTableListPromotion registerNib:[UINib nibWithNibName:[ShopKM1Cell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[ShopKM1Cell reuseIdentifier]];
     
     rect=promotionTableShopGallery.frame;
-    
     promotionTableShopGallery.transform=CGAffineTransformMakeRotation(DEGREES_TO_RADIANS(45)*6);
-    
     promotionTableShopGallery.frame=rect;
     
-    tableShopGalleryCenter=promotionTableShopGallery.center;
+    [self settingUserGallery];
     
     [self setShop:nil];
     [self alignKM1View];
     [self alignPageScroll];
+    
+    [scrollShopUser scrollRectToVisible:galleryView.frame animated:true];
+}
+
+-(void) settingUserGallery
+{
+    tableShopGalleryCenter=promotionTableShopGallery.center;
+    
+    CGRect rect=tableUserGallery.frame;
+    tableUserGallery.transform=CGAffineTransformMakeRotation(DEGREES_TO_RADIANS(45)*6);
+    tableUserGallery.frame=rect;
+    
+    [tableUserGallery registerNib:[UINib nibWithNibName:[ShopUserGalleryCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[ShopUserGalleryCell reuseIdentifier]];
+    
+    _templateUserGallery=[[SGTableTemplate alloc] initWithTableView:tableUserGallery withDelegate:self];
+    _templateUserGallery.datasource=[NSMutableArray array];
+    _templateUserGallery.isAllowLoadMore=false;
+    
+    for(int i=0;i<7;i++)
+    {
+        [_templateUserGallery.datasource addObject:@""];
+    }
+    
+    imgvFirsttime.hidden=_templateUserGallery.datasource>0;
+    
+    [_templateUserGallery reload];
+    
+    _tableUserGalleryContentSize=tableUserGallery.contentSize;
+    tableUserGallery.contentSize=CGSizeMake(tableUserGallery.l_v_h, tableUserGallery.l_v_w+1);
+    
+    _pntCenterUserGallery=CGPointZero;
+    
+    [tableUserGallery.panGestureRecognizer addTarget:self action:@selector(panShopUserGallery:)];
+}
+
+-(void) panShopUserGallery:(UIPanGestureRecognizer*) pan
+{
+    switch (pan.state) {
+        case UIGestureRecognizerStateBegan:
+            _pntPanShopUserGallery=tableUserGallery.contentOffset;
+            break;
+            
+        case UIGestureRecognizerStateCancelled:
+        case UIGestureRecognizerStateEnded:
+        case UIGestureRecognizerStateFailed:
+        {
+            [self moveUserGallery];
+        }
+            break;
+            
+        default:
+            break;
+    }
 }
 
 -(void) alignKM1View
@@ -133,6 +184,13 @@
     rect=promotionDetail.frame;
     rect.size.height=promotionDetailScroll.l_v_h;
     promotionDetail.frame=rect;
+    
+    UIColor *patternColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"pattern_promotion.png"]];
+    
+    promotionDetail.backgroundColor=patternColor;
+    bottomView.backgroundColor=patternColor;
+    
+    statusView.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"background_status.png"]];
 }
 
 -(void)pageControlTouchedNext:(PageControlNext *)pageControl
@@ -192,7 +250,7 @@
     UIView *v=[[UIView alloc] initWithFrame:CGRectMake(0, 0, promotionView.l_v_w, promotionView.l_v_h)];
     v.backgroundColor=[[UIColor redColor] colorWithAlphaComponent:0.3f];
     
-//    [scrollShopUser insertSubview:v belowSubview:btnNextPage];
+    //    [scrollShopUser insertSubview:v belowSubview:btnNextPage];
 }
 
 - (void)didReceiveMemoryWarning
@@ -271,6 +329,78 @@
         [btnNextPage l_c_setY:y];
     }
 }
+-(void) moveUserGallery
+{
+    CGPoint pnt=tableUserGallery.contentOffset;
+    
+    float deltaX=_pntPanShopUserGallery.y-pnt.y;
+    
+    //kéo xem item tiếp theo
+    if(deltaX<0)
+    {
+        deltaX=fabsf(deltaX);
+        
+        if(deltaX>[ShopUserGalleryCell height]/2)
+            [self tableUserGalleryNextItem];
+        else
+            [self tableUserGalleryRestoreItem];
+    }
+    else
+    {
+        deltaX=fabsf(deltaX);
+        
+        if(deltaX>[ShopUserGalleryCell height]/2)
+            [self tableUserGalleryPreviousItem:deltaX/[ShopUserGalleryCell height]];
+        else
+            [self tableUserGalleryRestoreItem];
+    }
+
+    
+    _pntPanShopUserGallery=CGPointZero;
+}
+
+-(void) tableUserGalleryRestoreItem
+{
+    NSLog(@"tableUserGalleryRestoreItem");
+    
+    [tableUserGallery setContentOffset:_pntCenterUserGallery animated:true];
+}
+
+-(void) tableUserGalleryNextItem
+{
+    NSLog(@"tableUserGalleryNextItem");
+    
+    CGSize size=tableUserGallery.contentSize;
+    size.height+=[ShopUserGalleryCell height];
+    
+    size.height=MIN(size.height, _tableUserGalleryContentSize.height+1);
+    
+    tableUserGallery.contentSize=size;
+    
+    _pntCenterUserGallery.y+=[ShopUserGalleryCell height];
+    _pntCenterUserGallery.y=MIN(_pntCenterUserGallery.y, _tableUserGalleryContentSize.height-[ShopUserGalleryCell height]*3);
+    
+    [tableUserGallery setContentOffset:_pntCenterUserGallery animated:true];
+}
+
+-(void) tableUserGalleryPreviousItem:(NSUInteger) numOfPage
+{
+    NSLog(@"tableUserGalleryPreviousItem %i",numOfPage);
+    
+    numOfPage++;
+    
+    CGSize size=tableUserGallery.contentSize;
+    size.height-=[ShopUserGalleryCell height]*numOfPage;
+    
+    size.height=MAX(size.height, tableUserGallery.l_v_w+1);
+    
+    tableUserGallery.contentSize=size;
+    
+    _pntCenterUserGallery.y-=[ShopUserGalleryCell height]*numOfPage;
+    _pntCenterUserGallery.y=MAX(_pntCenterUserGallery.y, 0);
+    
+    [tableUserGallery setContentOffset:_pntCenterUserGallery animated:true];
+}
 
 -(void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated
 {
@@ -317,11 +447,11 @@
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     if(tableView==promotionTableShopGallery)
-    {
         return _templateShopGallery.datasource.count==0?0:1;
-    }
     else if(tableView==promotionTableListPromotion)
         return 1;
+    else if(tableView==tableUserGallery)
+        return _templateUserGallery.datasource.count==0?0:1;
     
     return 0;
 }
@@ -334,6 +464,8 @@
     }
     else if(tableView==promotionTableListPromotion)
         return 10;
+    else if(tableView==tableUserGallery)
+        return 20;
     
     return 0;
 }
@@ -356,6 +488,14 @@
         
         return cell;
     }
+    else if(tableView==tableUserGallery)
+    {
+        ShopUserGalleryCell *cell=[tableUserGallery dequeueReusableCellWithIdentifier:[ShopUserGalleryCell reuseIdentifier]];
+        
+        [cell setLLB:[NSString stringWithFormat:@"%02i",indexPath.row]];
+        
+        return cell;
+    }
     
     return nil;
 }
@@ -366,6 +506,8 @@
         return tableView.l_v_w;
     else if(tableView==promotionTableListPromotion)
         return [ShopKM1Cell height];
+    else if(tableView==tableUserGallery)
+        return [ShopUserGalleryCell height];
     
     return 0;
 }

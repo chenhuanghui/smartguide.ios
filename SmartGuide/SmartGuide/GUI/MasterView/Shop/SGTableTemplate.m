@@ -164,4 +164,40 @@
         [self.delegate scrollViewDidScroll:scrollView];
 }
 
+-(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    if([self.delegate respondsToSelector:@selector(scrollViewWillBeginDragging:)])
+        [self.delegate scrollViewWillBeginDragging:scrollView];
+}
+
+-(void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
+{
+    if([self.delegate respondsToSelector:@selector(scrollViewDidEndDragging:willDecelerate:)])
+        [self.delegate scrollViewDidEndDragging:scrollView willDecelerate:decelerate];
+}
+
+-(void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView
+{
+    if([self.delegate respondsToSelector:@selector(scrollViewWillBeginDecelerating:)])
+        [self.delegate scrollViewWillBeginDecelerating:scrollView];
+}
+
+-(void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset
+{
+    if([self.delegate respondsToSelector:@selector(scrollViewWillEndDragging:withVelocity:targetContentOffset:)])
+        [self.delegate scrollViewWillEndDragging:scrollView withVelocity:velocity targetContentOffset:targetContentOffset];
+}
+
+-(void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
+{
+    if([self.delegate respondsToSelector:@selector(scrollViewDidEndScrollingAnimation:)])
+        [self.delegate scrollViewDidEndScrollingAnimation:scrollView];
+}
+
+-(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    if([self.delegate respondsToSelector:@selector(scrollViewDidEndDecelerating:)])
+        [self.delegate scrollViewDidEndDecelerating:scrollView];
+}
+
 @end

@@ -21,6 +21,7 @@
 #import "SGTableTemplate.h"
 #import "ShopGalleryCell.h"
 #import "ShopKM1Cell.h"
+#import "ShopUserGalleryCell.h"
 
 @class ScrollShopUser;
 
@@ -40,7 +41,7 @@ enum SHOP_USER_MODE {
 
 @end
 
-@interface ShopUserViewController : SGViewController<UIScrollViewDelegate,UINavigationControllerDelegate,SGTableTemplateDelegate,UITableViewDataSource,UITableViewDelegate,UITextViewDelegate,PageControlNextDelegate>
+@interface ShopUserViewController : SGViewController<UIScrollViewDelegate,UINavigationControllerDelegate,SGTableTemplateDelegate,UITableViewDataSource,UITableViewDelegate,UITextViewDelegate,PageControlNextDelegate,UIGestureRecognizerDelegate>
 {
     __strong IBOutlet SGNavigationController *shopNavi;
     __weak IBOutlet SGViewController *detailController;
@@ -81,13 +82,21 @@ enum SHOP_USER_MODE {
     __weak IBOutlet UIView *bottomView;
     __weak IBOutlet UIView *promotionShop;
     __weak IBOutlet UITextView *txtComment;
+    __weak IBOutlet UIView *statusView;
+    __weak IBOutlet UITableView *tableUserGallery;
+    __weak IBOutlet UIImageView *imgvFirsttime;
     
     __weak Shop* _shop;
     
     SGTableTemplate *_templateShopGallery;
+    SGTableTemplate *_templateUserGallery;
     
     CGPoint tableShopGalleryCenter;
     CGPoint btnNextPageCenter;
+    CGSize _tableUserGalleryContentSize;
+    CGPoint _pntCenterUserGallery;
+    
+    CGPoint _pntPanShopUserGallery;
 }
 
 -(void) setShop:(Shop*) shop;
