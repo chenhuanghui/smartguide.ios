@@ -7,7 +7,6 @@
 //
 
 #import "ContentViewController.h"
-#import "LoadingScreenViewController.h"
 #import "DataManager.h"
 #import "Flags.h"
 #import "TokenManager.h"
@@ -31,23 +30,6 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-}
-
--(void)showShopController
-{
-    shopController=[[ShopViewController alloc] init];
-    shopController.shopDelegate=self;
-    
-    CGRect rect=self.view.frame;
-    rect.origin=CGPointZero;
-
-    shopController.view.frame=rect;
-    
-    TransportViewController *transport=[[TransportViewController alloc] initWithNavigation:shopController];
-    
-    transport.view.frame=rect;
-    
-    [self pushViewController:transport animated:true];
 }
 
 -(void)shopViewSelectedShop

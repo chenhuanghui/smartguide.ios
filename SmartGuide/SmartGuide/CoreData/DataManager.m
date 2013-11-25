@@ -176,13 +176,14 @@ static DataManager *_dataManager=nil;
     }
     
     user.idUser=@(DEFAULT_USER_ID);
-    user.name=DEFAULT_USER_NAME;
     user.isConnectedFacebook=@(true);
     
     [[DataManager shareInstance] save];
     
     [DataManager shareInstance].currentUser=user;
     
+    [[TokenManager shareInstance] setPhone:DEFAULT_USER_PHONE];
+    [[TokenManager shareInstance] setActiveCode:DEFAULT_USER_ACTIVE_CODE];
     [[TokenManager shareInstance] setAccessToken:DEFAULT_USER_ACCESS_TOKEN];
 }
 

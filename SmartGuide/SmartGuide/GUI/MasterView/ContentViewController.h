@@ -20,8 +20,6 @@
 
 @interface ContentViewController : SGNavigationController<ShopViewDelegate>
 
--(void) showShopController;
-
 @property (nonatomic, strong, readonly) ShopViewController *shopController;
 
 @property (nonatomic, assign) id<ContentViewDelegate> contentDelegate;

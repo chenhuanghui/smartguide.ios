@@ -12,8 +12,9 @@
 #define VELOCITY_SLIDE 800.f
 
 #define DEFAULT_USER_ID 0
-#define DEFAULT_USER_ACCESS_TOKEN @""
-#define DEFAULT_USER_NAME @"Guest"
+#define DEFAULT_USER_ACCESS_TOKEN @"ABC"
+#define DEFAULT_USER_PHONE @"84987654321"
+#define DEFAULT_USER_ACTIVE_CODE @"1111"
 
 #define CLASS_NAME NSStringFromClass([self class])
 #define DEALLOC_LOG NSLog(@"dealloc %@",CLASS_NAME);

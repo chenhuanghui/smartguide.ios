@@ -7,9 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "NavigationViewController.h"
 #import "DataManager.h"
-#import "ToolbarViewController.h"
+#import "SGToolbarViewController.h"
 #import "SGAdsViewController.h"
 #import "SGQRCodeViewController.h"
 #import "SGSettingViewController.h"
@@ -47,7 +46,7 @@
 @property (nonatomic, readonly) UIWindow *mainWindow;
 @property (nonatomic, weak, readonly) SGNavigationController *rootNavigation;
 @property (nonatomic, weak, readonly) SGRootViewController *rootViewController;
-@property (nonatomic, weak, readonly) ToolbarViewController *toolbarController;
+@property (nonatomic, weak, readonly) SGToolbarViewController *toolbarController;
 @property (nonatomic, weak, readonly) SGNavigationController *contentNavigation;
 @property (nonatomic, weak, readonly) SGAdsViewController *adsController;
 @property (nonatomic, weak, readonly) SGQRCodeViewController *qrCodeController;

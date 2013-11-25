@@ -9,7 +9,6 @@
 
 #import "AppDelegate.h"
 #import "AFHTTPRequestOperation.h"
-#import "RootViewController.h"
 #import "FacebookManager.h"
 #import "Flurry.h"
 #import "ASIOperationGetAds.h"
@@ -21,6 +20,8 @@
 {
     CGRect rect=[[UIScreen mainScreen] bounds];
     self.window = [[UIWindow alloc] initWithFrame:rect];
+    
+    [AFHTTPRequestOperation addAcceptableContentTypes:[NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript", @"text/html", nil]];
     
     [[GUIManager shareInstance] startupWithWindow:self.window];
     return true;
@@ -35,7 +36,7 @@
     
     [AFHTTPRequestOperation addAcceptableContentTypes:[NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript", @"text/html", nil]];
     
-    [RootViewController startWithWindow:self.window];
+//    [RootViewController startWithWindow:self.window];
     
     return YES;
 }

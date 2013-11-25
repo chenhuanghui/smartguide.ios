@@ -141,14 +141,12 @@ static GUIManager *_shareInstance=nil;
         [rootViewController.toolbarView addSubview:toolbarController.view];
         [rootViewController.contentView addSubview:contentNavigation.view];
         [rootViewController.qrCodeView addSubview:qrCodeController.view];
-        
-        [self presentShopUserWithIDShop:0];
     }
 }
 
 -(void) loadToolbar
 {
-    ToolbarViewController *vc=[[ToolbarViewController alloc] init];
+    SGToolbarViewController *vc=[[SGToolbarViewController alloc] init];
     vc.delegate=self;
     
     toolbarController=vc;
@@ -163,6 +161,8 @@ static GUIManager *_shareInstance=nil;
     
     SGNavigationController *vc=[[SGNavigationController alloc] initWithRootViewController:transport];
     contentNavigation=vc;
+    
+    [shopController showShopListWithGroup:nil];
     
     [rootViewController addChildViewController:vc];
 }
