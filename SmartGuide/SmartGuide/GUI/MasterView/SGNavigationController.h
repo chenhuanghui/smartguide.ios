@@ -21,10 +21,6 @@
     CATransition*(^_animationPopViewController)(UIViewController* vc);
     
     NSMutableArray *_controllers;
-    
-    CGPoint _panStartPoint;
-    UITapGestureRecognizer *_tapSlideGes;
-    UIPanGestureRecognizer *_panSlideGes;
 }
 
 -(SGNavigationController*) initWithViewControllers:(NSArray*) controllers;
@@ -34,8 +30,8 @@
 -(void) removeLeftSlideViewController;
 -(void) setAnimationPopViewController:(CATransition*(^)(UIViewController* vc)) animationPush;
 
-@property (nonatomic, strong, readonly) SGLeftViewController *leftSlideController;
-@property (nonatomic, strong, readonly) SGRightViewController *rightSlideController;
+@property (nonatomic, weak, readonly) SGLeftViewController *leftSlideController;
+@property (nonatomic, weak, readonly) SGRightViewController *rightSlideController;
 @property (nonatomic, weak, readonly) UIViewController *previousViewController;
 @property (nonatomic, assign) bool isAllowDragBackPreviouseView;
 

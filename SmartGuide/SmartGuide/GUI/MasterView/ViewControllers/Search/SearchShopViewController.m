@@ -1,27 +1,25 @@
 //
-//  MasterViewController.m
+//  SearchShopViewController.m
 //  SmartGuide
 //
-//  Created by MacMini on 25/10/2013.
+//  Created by MacMini on 25/11/2013.
 //  Copyright (c) 2013 Redbase. All rights reserved.
 //
 
-#import "ContentViewController.h"
-#import "DataManager.h"
-#import "Flags.h"
-#import "TokenManager.h"
-#import "TransportViewController.h"
+#import "SearchShopViewController.h"
 
-@interface ContentViewController ()
+@interface SearchShopViewController ()
 
 @end
 
-@implementation ContentViewController
+@implementation SearchShopViewController
 
 - (id)init
 {
-    self=[super init];
-    
+    self = [super initWithNibName:@"SearchShopViewController" bundle:nil];
+    if (self) {
+        // Custom initialization
+    }
     return self;
 }
 
@@ -35,11 +33,6 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
--(NSString *)title
-{
-    return CLASS_NAME;
 }
 
 @end

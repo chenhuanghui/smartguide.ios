@@ -14,17 +14,12 @@
 @end
 
 @implementation ShopViewController
-@synthesize shopDelegate,shopList;
+@synthesize shopList,shopCatalog;
 
 -(id)init
 {
-    ShopCatalogViewController *vc=[[ShopCatalogViewController alloc] init];
-    vc.delegate=self;
-    
-    self=[super initWithRootViewController:vc];
-    self.delegate=self;
-    self.isAllowDragBackPreviouseView=true;
-    
+    self=[super initWithNibName:@"ShopViewController" bundle:nil];
+
     return self;
 }
 
@@ -32,7 +27,21 @@
 {
     [super viewDidLoad];
     
-    [self setNavigationBarHidden:true];
+    [self addChildViewController:self.childNavigationController];
+    [contentView addSubview:self.childNavigationController.view];
+    
+    CGRect rect=contentView.frame;
+    rect.origin=CGPointZero;
+    self.childNavigationController.view.frame=rect;
+    
+    self.childNavigationController.isAllowDragBackPreviouseView=true;
+    
+    ShopCatalogViewController *vc=[[ShopCatalogViewController alloc] init];
+    vc.delegate=self;
+    
+    shopCatalog=vc;
+    
+    [self.childNavigationController pushViewController:vc animated:false];
 }
 
 -(void)showShopListWithGroup:(ShopCatalog*) group
@@ -42,18 +51,13 @@
     
     shopList=vc;
     
-    [self pushViewController:vc animated:true];
+    [self.childNavigationController pushViewController:vc animated:true];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
--(NSString *)title
-{
-    return CLASS_NAME;
 }
 
 -(void)shopCatalogSelectedCatalog:(ShopCatalog *)group
@@ -66,12 +70,40 @@
     [[GUIManager shareInstance] presentShopUserWithIDShop:0];
 }
 
--(UIViewController *)popViewControllerAnimated:(BOOL)animated
-{
-    UIViewController *vc=[super popViewControllerAnimated:animated];
-    
-    return vc;
+- (IBAction)btnSettingTouchUpInside:(id)sender {
+    [self.delegate shopControllerTouchedSetting:self];
 }
 
-CALL_DEALLOC_LOG
+- (IBAction)btnNotificationTouchUpInside:(id)sender {
+}
+
+- (IBAction)btnCancelTouchUpInside:(id)sender {
+    [[GUIManager shareInstance] closeViewController:searchShopController];
+    
+    searchShopController=nil;
+}
+
+- (IBAction)btnConfigTouchUpInside:(id)sender {
+}
+
+-(BOOL)textFieldShouldBeginEditing:(UITextField *)textField
+{
+    [self showSearch];
+    
+    return true;
+}
+
+-(void) showSearch
+{
+    if(searchShopController)
+        return;
+    
+    SearchShopViewController *vc=[[SearchShopViewController alloc] init];
+    vc.delegate=self;
+    
+    searchShopController=vc;
+    
+    [[GUIManager shareInstance] displayViewController:vc];
+}
+
 @end

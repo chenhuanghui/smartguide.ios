@@ -7,21 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "AuthorizationViewController.h"
 #import "SGNavigationController.h"
-#import "ShopViewController.h"
 
 @protocol ContentViewDelegate <NSObject>
 
--(void) contentViewSelectedShop;
--(void) contentViewBackToShopListAnimated:(bool) isAnimated;
-
 @end
 
-@interface ContentViewController : SGNavigationController<ShopViewDelegate>
-
-@property (nonatomic, strong, readonly) ShopViewController *shopController;
-
-@property (nonatomic, assign) id<ContentViewDelegate> contentDelegate;
+@interface ContentViewController : SGNavigationController
 
 @end

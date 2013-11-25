@@ -25,6 +25,7 @@
 #import "SGNotificationViewController.h"
 #import "SGTutorialViewController.h"
 #import "SGUserSettingViewController.h"
+#import "ShopViewController.h"
 
 @class ContentViewController;
 
@@ -35,6 +36,9 @@
 
 +(GUIManager*) shareInstance;
 -(void) startupWithWindow:(UIWindow*) window;
+
+-(void) displayViewController:(SGViewController*) viewController;
+-(void) closeViewController:(SGViewController*) viewController;
 
 -(void) presentViewController:(SGViewController*) viewController;
 -(void) dismissPresentedViewController:(void(^)()) onCompleted;

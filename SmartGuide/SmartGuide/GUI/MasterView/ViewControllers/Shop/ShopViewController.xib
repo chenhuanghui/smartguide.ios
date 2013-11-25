@@ -7,15 +7,121 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ShopViewController">
             <connections>
-                <outlet property="view" destination="1" id="3"/>
+                <outlet property="btnCancel" destination="536-JR-YEP" id="8u9-W7-UeN"/>
+                <outlet property="btnConfig" destination="G3i-Fg-5SG" id="AFK-2a-qsw"/>
+                <outlet property="btnNotification" destination="HQc-aP-HaX" id="0Vg-rg-Uze"/>
+                <outlet property="btnSetting" destination="dlo-Ho-yHY" id="cDT-DJ-Ssr"/>
+                <outlet property="childNavigationController" destination="ghr-3x-G5u" id="JZC-cC-exA"/>
+                <outlet property="contentView" destination="ZEF-il-E2d" id="JKI-jB-GXc"/>
+                <outlet property="searchView" destination="obz-s8-EAH" id="zUo-6P-nku"/>
+                <outlet property="titleView" destination="ZRw-y2-Gx8" id="WKR-bB-XeA"/>
+                <outlet property="topView" destination="fn1-Te-8sz" id="aU5-8B-gFP"/>
+                <outlet property="txtSearch" destination="wNk-Nz-xpm" id="YTP-Sj-eY9"/>
+                <outlet property="view" destination="1" id="69X-SK-6VO"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view autoresizesSubviews="NO" contentMode="scaleToFill" id="1">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="427"/>
-            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+        <view contentMode="scaleToFill" id="1">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" id="ZEF-il-E2d">
+                    <rect key="frame" x="0.0" y="44" width="320" height="380"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                </view>
+                <view contentMode="scaleToFill" id="fn1-Te-8sz">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" id="ZRw-y2-Gx8">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="dlo-Ho-yHY">
+                                    <rect key="frame" x="0.0" y="0.0" width="50" height="53"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                    <state key="normal" image="button_navigation.png">
+                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="btnSettingTouchUpInside:" destination="-1" eventType="touchUpInside" id="rd9-Av-Fb9"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="HQc-aP-HaX">
+                                    <rect key="frame" x="276" y="0.0" width="43" height="53"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                    <state key="normal" image="button_notification.png">
+                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="btnNotificationTouchUpInside:" destination="-1" eventType="touchUpInside" id="K9S-JZ-ALv"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        </view>
+                        <view hidden="YES" contentMode="scaleToFill" id="obz-s8-EAH">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="536-JR-YEP">
+                                    <rect key="frame" x="0.0" y="0.0" width="50" height="53"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <state key="normal" title="Cancel">
+                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="btnCancelTouchUpInside:" destination="-1" eventType="touchUpInside" id="Bj4-jk-86P"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="G3i-Fg-5SG">
+                                    <rect key="frame" x="276" y="0.0" width="43" height="53"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <state key="normal" title="Config">
+                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="btnConfigTouchUpInside:" destination="-1" eventType="touchUpInside" id="qdd-w8-jB2"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        </view>
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" background="search_field.png" id="wNk-Nz-xpm">
+                            <rect key="frame" x="52" y="10" width="224" height="32"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits"/>
+                            <connections>
+                                <outlet property="delegate" destination="-1" id="MbK-On-fgX"/>
+                            </connections>
+                        </textField>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                </view>
+            </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
         </view>
+        <navigationController definesPresentationContext="YES" id="ghr-3x-G5u" customClass="SGNavigationController">
+            <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
+            <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
+            <navigationBar key="navigationBar" contentMode="scaleToFill" id="Wj5-QJ-6Oa">
+                <autoresizingMask key="autoresizingMask"/>
+            </navigationBar>
+        </navigationController>
     </objects>
+    <resources>
+        <image name="button_navigation.png" width="25" height="20"/>
+        <image name="button_notification.png" width="26" height="26"/>
+        <image name="search_field.png" width="255" height="32"/>
+    </resources>
 </document>

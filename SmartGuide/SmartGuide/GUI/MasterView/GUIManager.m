@@ -127,9 +127,7 @@ static GUIManager *_shareInstance=nil;
 {
     if(sgController==rootViewController)
     {
-        [self loadToolbar];
         [self loadContentNavigation];
-        [self loadAds];
         [self loadQRCode];
     }
 }
@@ -138,28 +136,16 @@ static GUIManager *_shareInstance=nil;
 {
     if(sgController==rootViewController)
     {
-        [rootViewController.toolbarView addSubview:toolbarController.view];
         [rootViewController.contentView addSubview:contentNavigation.view];
         [rootViewController.qrCodeView addSubview:qrCodeController.view];
     }
 }
 
--(void) loadToolbar
-{
-    SGToolbarViewController *vc=[[SGToolbarViewController alloc] init];
-    vc.delegate=self;
-    
-    toolbarController=vc;
-    
-    [rootViewController addChildViewController:vc];
-}
-
 -(void) loadContentNavigation
 {
     ShopViewController *shopController=[[ShopViewController alloc] init];
-    TransportViewController *transport=[[TransportViewController alloc] initWithNavigation:shopController];
     
-    SGNavigationController *vc=[[SGNavigationController alloc] initWithRootViewController:transport];
+    SGNavigationController *vc=[[SGNavigationController alloc] initWithRootViewController:shopController];
     contentNavigation=vc;
     
     [shopController showShopListWithGroup:nil];
@@ -442,7 +428,7 @@ static GUIManager *_shareInstance=nil;
 {
     [UIView animateWithDuration:DURATION_DEFAULT animations:^{
         CGRect rect=self.rootViewController.qrCodeFrame;
-        rect.origin.y=self.rootViewController.toolbarFrame.size.height;
+        rect.origin.y=0;
         self.rootViewController.qrCodeView.frame=rect;
     }];
 }
@@ -459,6 +445,16 @@ static GUIManager *_shareInstance=nil;
     [UIView animateWithDuration:DURATION_DEFAULT animations:^{
         self.rootViewController.qrCodeView.frame=self.rootViewController.qrCodeFrame;
     }];
+}
+
+-(void)displayViewController:(SGViewController *)viewController
+{
+    [self.rootViewController moveToTopView:viewController];
+}
+
+-(void)closeViewController:(SGViewController *)viewController
+{
+    
 }
 
 @end

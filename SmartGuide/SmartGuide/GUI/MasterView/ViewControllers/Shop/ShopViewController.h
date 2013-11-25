@@ -11,21 +11,39 @@
 #import "ShopListViewController.h"
 #import "Constant.h"
 #import "SGNavigationController.h"
+#import "SearchShopViewController.h"
 
-@protocol ShopViewDelegate <NSObject>
+@class ShopViewController;
 
--(void) shopViewSelectedShop;
--(void) shopViewBackToShopListAnimated:(bool) animated;
+@protocol ShopViewDelegate <SGViewControllerDelegate>
+
+-(void) shopControllerTouchedSetting:(ShopViewController*) controller;
 
 @end
 
-@interface ShopViewController : SGNavigationController<ShopCatalogDelegate,ShopListDelegate,UINavigationControllerDelegate>
+@interface ShopViewController : SGViewController<ShopCatalogDelegate,ShopListDelegate,UINavigationControllerDelegate,UITextFieldDelegate>
 {
+    __weak IBOutlet UIView *contentView;
+    __weak IBOutlet UIView *topView;
+    __weak IBOutlet UIView *searchView;
+    __weak IBOutlet UIView *titleView;
+    __weak IBOutlet UITextField *txtSearch;
+    
+    __weak IBOutlet UIButton *btnSetting;
+    __weak IBOutlet UIButton *btnNotification;
+    __weak IBOutlet UIButton *btnCancel;
+    __weak IBOutlet UIButton *btnConfig;
+    
+    __weak SearchShopViewController *searchShopController;
 }
 
 -(void) showShopListWithGroup:(ShopCatalog*) group;
 
-@property (nonatomic, assign) id<ShopViewDelegate> shopDelegate;
+@property (weak, nonatomic) IBOutlet SGNavigationController *childNavigationController;
+
+
+@property (nonatomic, weak) id<ShopViewDelegate> delegate;
+@property (nonatomic, weak, readonly) ShopCatalogViewController *shopCatalog;
 @property (nonatomic, weak, readonly) ShopListViewController *shopList;
 
 @end
