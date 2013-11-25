@@ -11,7 +11,6 @@
 #import "ShopListViewController.h"
 #import "Constant.h"
 #import "SGNavigationController.h"
-#import "PanDragViewHandle.h"
 
 @protocol ShopViewDelegate <NSObject>
 

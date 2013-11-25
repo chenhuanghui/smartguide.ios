@@ -10,14 +10,11 @@
 #import "SGNavigationController.h"
 #import "SGMapViewController.h"
 #import "ShopUserViewController.h"
-#import "PanDragViewHandle.h"
 
-@interface SGMapController : SGNavigationController<SGMapViewDelegate,ShopUserDelegate,UIGestureRecognizerDelegate,UINavigationControllerDelegate,PanDragViewDelegate>
+@interface SGMapController : SGNavigationController<SGMapViewDelegate,ShopUserDelegate,UIGestureRecognizerDelegate,UINavigationControllerDelegate>
 {
-    UIPanGestureRecognizer *panGes;
-    PanDragViewHandle *panHandle;
 }
 
-@property (nonatomic, strong, readonly) SGMapViewController *mapViewController;
+@property (nonatomic, weak, readonly) SGMapViewController *mapViewController;
 
 @end
