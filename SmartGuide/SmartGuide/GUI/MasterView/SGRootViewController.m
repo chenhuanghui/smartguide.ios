@@ -49,6 +49,11 @@
     self.topView.alpha=0;
     self.topView.hidden=false;
     
+    [self.topView l_v_setO:displayView.l_v_o];
+    
+    [displayView l_v_setO:CGPointZero];
+    [self.topView l_v_setS:displayView.l_v_s];
+    
     [self addChildViewController:displayView];
     [self.topView addSubview:displayView.view];
     
@@ -61,18 +66,15 @@
 
 -(void)removeTopView:(SGViewController *)displayView
 {
-    if(self.topView.subviews.count==0)
-    {
-        [UIView animateWithDuration:DURATION_DEFAULT animations:^{
-            self.topView.alpha=0;
-        } completion:^(BOOL finished) {
-            
-            [displayView.view removeFromSuperview];
-            [displayView removeFromParentViewController];
-            
-            self.topView.hidden=true;
-        }];
-    }
+    [UIView animateWithDuration:DURATION_DEFAULT animations:^{
+        self.topView.alpha=0;
+    } completion:^(BOOL finished) {
+        
+        [displayView.view removeFromSuperview];
+        [displayView removeFromParentViewController];
+        
+        self.topView.hidden=true;
+    }];
 }
 
 @end

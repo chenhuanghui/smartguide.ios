@@ -28,6 +28,9 @@
 -(void) setRootViewController:(UIViewController*) viewController animate:(bool) animate;
 -(void) showLeftSlideViewController:(UIViewController*) viewController animate:(bool) animated;
 -(void) removeLeftSlideViewController;
+-(void) showRightSlideViewController:(UIViewController*) viewController animate:(bool) animated;
+-(void) removeRightSlideViewController:(UIViewController*) viewController;
+
 -(void) setAnimationPopViewController:(CATransition*(^)(UIViewController* vc)) animationPush;
 
 @property (nonatomic, weak, readonly) SGLeftViewController *leftSlideController;

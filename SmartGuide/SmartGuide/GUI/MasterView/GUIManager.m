@@ -144,6 +144,7 @@ static GUIManager *_shareInstance=nil;
 -(void) loadContentNavigation
 {
     ShopViewController *shopController=[[ShopViewController alloc] init];
+    shopController.delegate=self;
     
     SGNavigationController *vc=[[SGNavigationController alloc] initWithRootViewController:shopController];
     contentNavigation=vc;
@@ -173,10 +174,6 @@ static GUIManager *_shareInstance=nil;
 
 -(void)toolbarSetting
 {
-    SGSettingViewController *settingController=[[SGSettingViewController alloc] init];
-    settingController.delegate=self;
- 
-    [self.rootNavigation showLeftSlideViewController:settingController animate:true];
 }
 
 -(void)settingTouchedCatalog:(SGSettingViewController *)settingController
@@ -242,6 +239,18 @@ static GUIManager *_shareInstance=nil;
     notificationController=vc;
     
     [self.contentNavigation pushViewController:vc animated:false];
+}
+
+-(void)notificationControllerTouchedBack:(SGNotificationViewController *)controller
+{
+    if(self.rootNavigation.rightSlideController)
+    {
+        [self.rootNavigation removeRightSlideViewController:controller];
+    }
+    else
+    {
+        [self showLeftController];
+    }
 }
 
 -(void)settingTouchedOtherView:(SGSettingViewController *)controller
@@ -454,7 +463,33 @@ static GUIManager *_shareInstance=nil;
 
 -(void)closeViewController:(SGViewController *)viewController
 {
+    [self.rootViewController removeTopView:viewController];
+}
+
+-(void)shopControllerTouchedSetting:(ShopViewController *)controller
+{
+    [self showLeftController];
+}
+
+-(void)shopControllerTouchedNotification:(ShopViewController *)controller
+{
+    [self showRightController];
+}
+
+-(void) showLeftController
+{
+    SGSettingViewController *settingController=[[SGSettingViewController alloc] init];
+    settingController.delegate=self;
     
+    [self.rootNavigation showLeftSlideViewController:settingController animate:true];
+}
+
+-(void) showRightController
+{
+    SGNotificationViewController *vc=[[SGNotificationViewController alloc] init];
+    vc.delegate=self;
+    
+    [self.rootNavigation showRightSlideViewController:vc animate:true];
 }
 
 @end

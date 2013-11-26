@@ -18,6 +18,7 @@
 @protocol ShopViewDelegate <SGViewControllerDelegate>
 
 -(void) shopControllerTouchedSetting:(ShopViewController*) controller;
+-(void) shopControllerTouchedNotification:(ShopViewController*) controller;
 
 @end
 

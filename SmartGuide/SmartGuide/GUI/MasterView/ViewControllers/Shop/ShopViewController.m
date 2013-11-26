@@ -42,6 +42,12 @@
     shopCatalog=vc;
     
     [self.childNavigationController pushViewController:vc animated:false];
+    
+    UIImageView *imgv=[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_search.png"]];
+    imgv.contentMode=UIViewContentModeCenter;
+    imgv.frame=CGRectMake(0, 0, 30, 18);
+    txtSearch.leftView=imgv;
+    txtSearch.leftViewMode=UITextFieldViewModeAlways;
 }
 
 -(void)showShopListWithGroup:(ShopCatalog*) group
@@ -75,12 +81,11 @@
 }
 
 - (IBAction)btnNotificationTouchUpInside:(id)sender {
+    [self.delegate shopControllerTouchedNotification:self];
 }
 
 - (IBAction)btnCancelTouchUpInside:(id)sender {
-    [[GUIManager shareInstance] closeViewController:searchShopController];
-    
-    searchShopController=nil;
+    [self hideSearch];
 }
 
 - (IBAction)btnConfigTouchUpInside:(id)sender {
@@ -93,6 +98,25 @@
     return true;
 }
 
+-(void) hideSearch
+{
+    [[GUIManager shareInstance] closeViewController:searchShopController];
+    searchShopController=nil;
+    
+    titleView.alpha=0;
+    titleView.hidden=false;
+    
+    [self.view endEditing:true];
+    
+    [UIView animateWithDuration:DURATION_DEFAULT animations:^{
+        searchView.alpha=0;
+        titleView.alpha=1;
+    } completion:^(BOOL finished) {
+        
+        searchView.hidden=true;
+    }];
+}
+
 -(void) showSearch
 {
     if(searchShopController)
@@ -101,9 +125,23 @@
     SearchShopViewController *vc=[[SearchShopViewController alloc] init];
     vc.delegate=self;
     
+    [vc view];
+    [vc.view l_v_setY:topView.l_v_h];
+    
     searchShopController=vc;
     
     [[GUIManager shareInstance] displayViewController:vc];
+    
+    searchView.alpha=0;
+    searchView.hidden=false;
+    
+    [UIView animateWithDuration:DURATION_DEFAULT animations:^{
+        searchView.alpha=1;
+        titleView.alpha=0;
+    } completion:^(BOOL finished) {
+        
+        titleView.hidden=true;
+    }];
 }
 
 @end

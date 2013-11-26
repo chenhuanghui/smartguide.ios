@@ -138,7 +138,7 @@
 		9A5DC489183DC16A0051375A /* icon_promotion@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A5DC487183DC16A0051375A /* icon_promotion@2x.png */; };
 		9A616CF71843B03100201642 /* SearchShopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A616CF51843B03100201642 /* SearchShopViewController.m */; };
 		9A616CF81843B03100201642 /* SearchShopViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A616CF61843B03100201642 /* SearchShopViewController.xib */; };
-		9A616CFA1843B05B00201642 /* II-5-Search keyword.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A616CF91843B05B00201642 /* II-5-Search keyword.png */; };
+		9A616CFA1843B05B00201642 /* II-5-Search keyword.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9A616CF91843B05B00201642 /* II-5-Search keyword.jpg */; };
 		9A616CFE1843B17100201642 /* ShopViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A616CFD1843B17100201642 /* ShopViewController.xib */; };
 		9A616D031843BE5000201642 /* background_ads.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A616CFF1843BE5000201642 /* background_ads.png */; };
 		9A616D041843BE5000201642 /* background_ads@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A616D001843BE5000201642 /* background_ads@2x.png */; };
@@ -583,7 +583,7 @@
 		9A616CF41843B03100201642 /* SearchShopViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchShopViewController.h; sourceTree = "<group>"; };
 		9A616CF51843B03100201642 /* SearchShopViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchShopViewController.m; sourceTree = "<group>"; };
 		9A616CF61843B03100201642 /* SearchShopViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchShopViewController.xib; sourceTree = "<group>"; };
-		9A616CF91843B05B00201642 /* II-5-Search keyword.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "II-5-Search keyword.png"; sourceTree = "<group>"; };
+		9A616CF91843B05B00201642 /* II-5-Search keyword.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "II-5-Search keyword.jpg"; sourceTree = "<group>"; };
 		9A616CFD1843B17100201642 /* ShopViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShopViewController.xib; sourceTree = "<group>"; };
 		9A616CFF1843BE5000201642 /* background_ads.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background_ads.png; sourceTree = "<group>"; };
 		9A616D001843BE5000201642 /* background_ads@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background_ads@2x.png"; sourceTree = "<group>"; };
@@ -1553,7 +1553,7 @@
 		9AA0269E18366BDA0087B2DA /* Temp */ = {
 			isa = PBXGroup;
 			children = (
-				9A616CF91843B05B00201642 /* II-5-Search keyword.png */,
+				9A616CF91843B05B00201642 /* II-5-Search keyword.jpg */,
 				9A7E55C1183D2B0B006D1798 /* ava.png */,
 				9A7E55C2183D2B0B006D1798 /* ava@2x.png */,
 				9A7E55C3183D2B0B006D1798 /* cover@2x.jpg */,
@@ -2338,7 +2338,7 @@
 				9A32F3E5184345AE00704D26 /* ShopUserCommentCell.xib in Resources */,
 				9A7E5564183C7C05006D1798 /* icon_call@2x.png in Resources */,
 				9AA026D7183674CF0087B2DA /* icon_sgp.png in Resources */,
-				9A616CFA1843B05B00201642 /* II-5-Search keyword.png in Resources */,
+				9A616CFA1843B05B00201642 /* II-5-Search keyword.jpg in Resources */,
 				9A7E5557183C752A006D1798 /* button_dropdown.png in Resources */,
 				9AA026D6183674CF0087B2DA /* icon_search@2x.png in Resources */,
 				9AA026CD183674CF0087B2DA /* button_navigation.png in Resources */,

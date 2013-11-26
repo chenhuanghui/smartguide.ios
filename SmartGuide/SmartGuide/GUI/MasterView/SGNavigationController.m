@@ -117,6 +117,125 @@ CALL_DEALLOC_LOG
         _animationPopViewController=[animationPop copy];
 }
 
+-(void)showRightSlideViewController:(UIViewController *)viewController animate:(bool)animated
+{
+    if(self.rightSlideController)
+        return;
+    
+    [viewController view];
+    
+    previousViewController=self.visibleViewController;
+    
+    if(!self.rightSlideController)
+    {
+        SGRightViewController *vc=[[SGRightViewController alloc] init];
+        vc.view.frame=CGRectMake(self.l_v_w, self.l_v_y, self.l_v_w, self.l_v_h);
+        
+        rightSlideController=vc;
+        
+        [self addChildViewController:vc];
+        [self.view addSubview:vc.view];
+    }
+    
+    [rightSlideController addChildViewController:viewController];
+    [rightSlideController.view addSubview:viewController.view];
+    
+    [self.view makeAlphaViewBelowView:rightSlideController.view];
+    
+    if(animated)
+    {
+        [UIView animateWithDuration:DURATION_DEFAULT animations:^{
+            [previousViewController.view l_c_setX:-self.l_v_w/2];
+            [rightSlideController.view l_c_setX:self.l_v_w/2];
+        } completion:^(BOOL finished) {
+            
+        }];
+    }
+    else
+    {
+        [previousViewController.view l_c_setX:-self.l_v_w/2];
+        [rightSlideController.view l_c_setX:self.l_v_w/2];
+    }
+    
+    UITapGestureRecognizer *tap=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(rightTapGes:)];
+    tap.delegate=self;
+    
+    UIPanGestureRecognizer *pan=[[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(rightPanGes:)];
+    pan.delegate=self;
+    
+    [pan requireGestureRecognizerToFail:tap];
+    
+    panSlide=pan;
+    tapSlide=tap;
+    
+    [self.view addGestureRecognizer:tap];
+    [self.view addGestureRecognizer:pan];
+}
+
+-(void) rightTapGes:(UITapGestureRecognizer*) tap
+{
+    [self moveToVisibleView];
+}
+
+-(void) rightPanGes:(UIPanGestureRecognizer*) pan
+{
+    switch (pan.state) {
+        case UIGestureRecognizerStateBegan:
+        {
+            panSlideStartPoint=[pan locationInView:pan.view];
+        }
+            break;
+            
+        case UIGestureRecognizerStateChanged:
+        {
+            float velocity=[pan velocityInView:pan.view].x;
+            
+            if(velocity>0 && velocity>VELOCITY_SLIDE)
+                return;
+            
+            CGPoint pnt=[pan locationInView:pan.view];
+            float deltaX=pnt.x-panSlideStartPoint.x;
+            panSlideStartPoint=pnt;
+            
+            if(self.rightSlideController.l_v_x+deltaX<0)
+            {
+                [self.rightSlideController l_v_setX:0];
+                [self.previousViewController l_v_setX:-self.l_v_w/2];
+            }
+            else
+            {
+                [self.rightSlideController l_c_addX:deltaX];
+                [self.previousViewController l_c_addX:deltaX];
+            }
+        }
+            break;
+            
+        case UIGestureRecognizerStateCancelled:
+        case UIGestureRecognizerStateEnded:
+        case UIGestureRecognizerStateFailed:
+        {
+            if(self.viewControllers.count<=1)
+                return;
+            
+            float velocity=[pan velocityInView:pan.view].x;
+            
+            if(velocity>0 && velocity>VELOCITY_SLIDE)
+                [self moveToVisibleView];
+            else
+            {
+                if(self.rightSlideController.l_v_x<self.l_v_w/4)
+                    [self moveToRightSlide];
+                else
+                    [self moveToVisibleView];
+            }
+        }
+            break;
+            
+        default:
+            break;
+    }
+}
+
 -(void)showLeftSlideViewController:(UIViewController *)viewController animate:(bool)animated
 {
     if(self.leftSlideController)
@@ -129,7 +248,7 @@ CALL_DEALLOC_LOG
     if(!self.leftSlideController)
     {
         SGLeftViewController *vc=[[SGLeftViewController alloc] init];
-        vc.view.frame=CGRectMake(-SLIDE_POSITION_X, self.l_v_x, SLIDE_POSITION_X, self.l_v_h);
+        vc.view.frame=CGRectMake(-SLIDE_POSITION_X, self.l_v_y, SLIDE_POSITION_X, self.l_v_h);
         
         vc.view.layer.masksToBounds=true;
         
@@ -168,13 +287,43 @@ CALL_DEALLOC_LOG
 {
     if(gestureRecognizer==tapSlide)
     {
-        CGPoint pnt=[tapSlide locationInView:self.view];
-        return CGRectContainsPoint(CGRectMake(SLIDE_POSITION_X, 0, self.l_v_w-SLIDE_POSITION_X, self.l_v_h), pnt);
+        if(self.leftSlideController)
+        {
+            CGPoint pnt=[tapSlide locationInView:self.view];
+            return CGRectContainsPoint(CGRectMake(SLIDE_POSITION_X, 0, self.l_v_w-SLIDE_POSITION_X, self.l_v_h), pnt);
+        }
+        
+        return true;
     }
     else if(gestureRecognizer==panSlide)
     {
         CGPoint pnt=[panSlide velocityInView:self.view];
-        return fabsf(pnt.x)>fabsf(pnt.y);
+        
+        if(fabsf(pnt.x)>fabsf(pnt.y))
+        {
+            float velocity=pnt.x;
+            
+            if(self.leftSlideController)
+            {
+                if(velocity<0 && velocity<VELOCITY_SLIDE)
+                {
+                    [self moveToVisibleView];
+                    return false;
+                }
+            }
+            else if(self.rightSlideController)
+            {
+                if(velocity>0 && velocity>VELOCITY_SLIDE)
+                {
+                    [self moveToVisibleView];
+                    return false;
+                }
+            }
+            
+            return true;
+        }
+        
+        return false;
     }
     else if(gestureRecognizer==self.panPrevious)
     {
@@ -277,29 +426,82 @@ CALL_DEALLOC_LOG
     } completion:^(BOOL finished) {
     }];
 }
+-(void) moveToRightSlide
+{
+    [UIView animateWithDuration:DURATION_DEFAULT animations:^{
+        [self.rightSlideController l_c_setX:self.l_v_w/2];
+        [self.previousViewController l_c_setX:-self.l_v_w/2];
+    }];
+}
 
 -(void) moveToVisibleView
 {
     [UIView animateWithDuration:DURATION_DEFAULT animations:^{
+        
         [self.leftSlideController l_c_setX:-self.l_v_w/2];
+        [self.rightSlideController l_c_setX:self.l_v_w*1.5f];
         [self.previousViewController l_c_setX:self.l_v_w/2];
     } completion:^(BOOL finished) {
-        [self.leftSlideController removeFromParentViewController];
-        [self.leftSlideController.view removeFromSuperview];
+        
+        if(self.leftSlideController)
+        {
+            [panSlide removeTarget:self action:@selector(leftPanGes:)];
+            [tapSlide removeTarget:self action:@selector(leftTapGes:)];
+            
+            [self.leftSlideController removeFromParentViewController];
+            [self.leftSlideController.view removeFromSuperview];
+        }
+        
+        if(self.rightSlideController)
+        {
+            [panSlide removeTarget:self action:@selector(rightPanGes:)];
+            [tapSlide removeTarget:self action:@selector(rightTapGes:)];
+            
+            [self.rightSlideController removeFromParentViewController];
+            [self.rightSlideController.view removeFromSuperview];
+        }
         
         [self.view removeAlphaView];
         
         panSlideStartPoint=CGPointZero;
-        [panSlide removeTarget:self action:@selector(leftPanGes:)];
+        
         [self.view removeGestureRecognizer:panSlide];
         panSlide=nil;
         
-        [tapSlide removeTarget:self action:@selector(leftTapGes:)];
         [self.view removeGestureRecognizer:tapSlide];
         tapSlide=nil;
         
         leftSlideController=nil;
+        rightSlideController=nil;
     }];
+}
+
+-(void)removeRightSlideViewController:(UIViewController *)viewController
+{
+    if(self.rightSlideController)
+    {
+        [UIView animateWithDuration:DURATION_DEFAULT animations:^{
+            [self.previousViewController l_c_setX:self.l_v_w/2];
+            [self.rightSlideController l_c_setX:self.l_v_w*1.5f];
+        } completion:^(BOOL finished) {
+            [self.rightSlideController removeFromParentViewController];
+            [self.rightSlideController.view removeFromSuperview];
+            
+            [self.view removeAlphaView];
+            
+            panSlideStartPoint=CGPointZero;
+            
+            [panSlide removeTarget:self action:@selector(rightPanGes:)];
+            [self.view removeGestureRecognizer:panSlide];
+            panSlide=nil;
+            
+            [tapSlide removeTarget:self action:@selector(rightTapGes:)];
+            [self.view removeGestureRecognizer:tapSlide];
+            tapSlide=nil;
+            
+            rightSlideController=nil;
+        }];
+    }
 }
 
 -(void)removeLeftSlideViewController
@@ -419,7 +621,7 @@ CALL_DEALLOC_LOG
                 if(vc1.view.center.x>vc1.view.frame.size.width/2 + vc1.view.frame.size.width/4)
                     [self moveToPreviousViewController];
                 else
-                    [self moveToVisibleViewController];
+                    [self previousMoveToVisibleViewController];
             }
             
         }
@@ -430,7 +632,7 @@ CALL_DEALLOC_LOG
     }
 }
 
--(void) moveToVisibleViewController
+-(void) previousMoveToVisibleViewController
 {
     UIViewController *vc1=self.visibleViewController;
     UIViewController *vc2=self.viewControllers[[self.viewControllers indexOfObject:vc1]-1];

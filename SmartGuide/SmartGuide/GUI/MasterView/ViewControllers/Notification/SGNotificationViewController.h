@@ -8,6 +8,16 @@
 
 #import "SGViewController.h"
 
+@class SGNotificationViewController;
+
+@protocol NotificationControllerDelegate <SGViewControllerDelegate>
+
+-(void) notificationControllerTouchedBack:(SGNotificationViewController*) controller;
+
+@end
+
 @interface SGNotificationViewController : SGViewController
+
+@property (nonatomic, weak) id<NotificationControllerDelegate> delegate;
 
 @end
