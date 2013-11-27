@@ -73,21 +73,33 @@
     // Do any additional setup after loading the view from its nib.
     
     [tableList registerNib:[UINib nibWithNibName:[ShopListCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[ShopListCell reuseIdentifier]];
-    
+
     topFrame=topView.frame;
     botFrame=botView.frame;
-    _searchFrame=txtSearch.frame;
-    
-    _scrollOffset=CGPointMake(0, 241);
-    scroll.contentOffset=_scrollOffset;
-    scroll.contentSize=CGSizeMake(scroll.frame.size.width, scroll.frame.size.height*2);
     
     UITapGestureRecognizer *tapTop=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapTop:)];
     _tapTop=tapTop;
     
     [topView addGestureRecognizer:tapTop];
     
-//    _timeScroller=[[ACTimeScroller alloc] initWithDelegate:self];
+    [tableList reloadData];
+    [tableList l_v_setS:tableList.contentSize];
+    scroll.contentSize=CGSizeMake(scroll.l_v_w, (topView.l_v_h+topView.l_v_y)+tableList.contentSize.height);
+    
+    [sortView setIcon:[UIImage imageNamed:@"icon_distance.png"] text:@"Khoảng cách"];
+    
+    [map setRegion:MKCoordinateRegionMakeWithDistance(CLLocationCoordinate2DMake(10, 106), MAP_SPAN, MAP_SPAN) animated:false];
+    
+    [self refreshDeltaLat];
+    
+    CLLocationCoordinate2D referencePosition = [map convertPoint:CGPointMake(0, 0) toCoordinateFromView:map];
+    CLLocationCoordinate2D referencePosition2 = [map convertPoint:CGPointMake(0, 100) toCoordinateFromView:map];
+    deltaLatFor1px = (referencePosition2.latitude - referencePosition.latitude)/100;
+}
+
+-(void) refreshScrollSize
+{
+    scroll.contentSize=CGSizeMake(scroll.l_v_w, (topFrame.size.height+topFrame.origin.y)+tableList.contentSize.height);
 }
 
 -(UITableView *)tableViewForTimeScroller:(ACTimeScroller *)timeScroller
@@ -105,35 +117,30 @@
     [self zoomMap];
 }
 
+-(UIScrollView *)scrollView
+{
+    return scroll;
+}
+
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    CGRect rect=CGRectZero;
-    
     if(scrollView==scroll)
     {
-        rect=_searchFrame;
-        rect.origin.y+=scroll.contentOffset.y-_scrollOffset.y;
-        txtSearch.frame=rect;
-    }
-    else if(scrollView==tableList)
-    {
-        [_timeScroller scrollViewDidScroll];
         
-        CGFloat y = scrollView.contentOffset.y;
-        // did we drag ?
-        if (y<0) {
+        CGPoint pnt=scrollView.contentOffset;
+        
+        if (pnt.y<=0) {
+            CGPoint pnt=scrollView.contentOffset;
+            
             //we moved y pixels down, how much latitude is that ?
-            double deltaLat = y*deltaLatFor1px;
+            double deltaLat = pnt.y*deltaLatFor1px;
             //Move the center coordinate accordingly
             CLLocationCoordinate2D newCenter = CLLocationCoordinate2DMake(_mapCenter.latitude-deltaLat/2, _mapCenter.longitude);
             map.centerCoordinate = newCenter;
-            
-            scroll.contentOffset=CGPointMake(scroll.contentOffset.x, _scrollOffset.y+y);
         }
-        else if(y>0)
-        {
-            scroll.contentOffset=_scrollOffset;
-        }
+    }
+    else if(scrollView==tableList)
+    {
     }
 }
 
@@ -141,15 +148,16 @@
 {
     [map setRegion:MKCoordinateRegionMakeWithDistance(userLocation.location.coordinate, MAP_SPAN, MAP_SPAN) animated:false];
     
-    float alignPoint=0.0125;
+    [self refreshDeltaLat];
+}
+
+-(void) refreshDeltaLat
+{
+    float alignPoint=0.009f;
     
     _mapCenter=map.centerCoordinate;
     _mapCenter.latitude+=alignPoint;
     map.centerCoordinate=_mapCenter;
-    
-    CLLocationCoordinate2D referencePosition = [map convertPoint:CGPointMake(0, 0) toCoordinateFromView:map];
-    CLLocationCoordinate2D referencePosition2 = [map convertPoint:CGPointMake(0, 100) toCoordinateFromView:map];
-    deltaLatFor1px = (referencePosition2.latitude - referencePosition.latitude)/100;
 }
 
 // Dùng để lấy alignPoint
@@ -167,65 +175,84 @@
  }
  */
 
+-(void) scrollPanGes:(UIPanGestureRecognizer*) pan
+{
+    switch (pan.state) {
+        case UIGestureRecognizerStateEnded:
+        case UIGestureRecognizerStateFailed:
+        case UIGestureRecognizerStateCancelled:
+        {
+            if(scroll.contentOffset.y>[ShopListCell height]/2)
+                [self endZoomMap];
+        }
+            break;
+            
+        default:
+            break;
+    }
+}
+
 -(void) zoomMap
 {
-    _tapTop.enabled=false;
     _isZoomedMap=true;
+    _tapTop.enabled=false;
     
-    self.view.userInteractionEnabled=false;
-    
-    scroll.scrollEnabled=true;
+    scroll.contentSize=CGSizeMake(self.l_v_w, self.l_v_h+1);
+    tableList.userInteractionEnabled=false;
     
     map.scrollEnabled=true;
     map.userInteractionEnabled=true;
     map.zoomEnabled=true;
     
-    tableList.userInteractionEnabled=false;
-    
-    double delayInSeconds = 0.0;
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+    [UIView animateWithDuration:DURATION_DEFAULT animations:^{
+        float height=botFrame.size.height-[ShopListCell height]/2;
         
-        [UIView animateWithDuration:DURATION_DEFAULT animations:^{
-            [scroll setContentOffset:CGPointMake(0, 0) animated:false];
-        } completion:^(BOOL finished) {
-            scroll.contentInset=UIEdgeInsetsMake(0, 0, -contentView.frame.size.height/2+1, 0);
-            self.view.userInteractionEnabled=true;
-        }];
-
-    });
+        [botView l_v_addY:height];
+        [topView l_v_addH:height];
+    }];
     
-    NSLog(@"zoomMap %@",@"");
+    [scroll.panGestureRecognizer addTarget:self action:@selector(scrollPanGes:)];
+    
+    UITapGestureRecognizer *tap=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapBot:)];
+    
+    _tapBot=tap;
+    [scroll.panGestureRecognizer requireGestureRecognizerToFail:tap];
+    
+    [botView addGestureRecognizer:tap];
+}
+
+-(void) tapBot:(UITapGestureRecognizer*) tap
+{
+    [self endZoomMap];
 }
 
 -(void) endZoomMap
 {
-    NSLog(@"endZoomMap");
+    [scroll.panGestureRecognizer removeTarget:self action:@selector(scrollPanGes:)];
     
-    _tapTop.enabled=true;
+    _tapBot.delegate=nil;
+    [_tapBot removeTarget:self action:@selector(tapTable:)];
+    [botView removeGestureRecognizer:_tapBot];
+    _tapBot=nil;
+    
     _isZoomedMap=false;
-    
-    self.view.userInteractionEnabled=false;
-    
-    scroll.scrollEnabled=false;
+    _tapTop.enabled=true;
+
+    [self refreshScrollSize];
+    [scroll setContentOffset:CGPointZero animated:true];
+    tableList.userInteractionEnabled=true;
     
     map.scrollEnabled=false;
     map.userInteractionEnabled=false;
     map.zoomEnabled=false;
     
-    tableList.userInteractionEnabled=true;
-    
-    double delayInSeconds = 0.0;
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+    [UIView animateWithDuration:DURATION_DEFAULT animations:^{
+        float height=botFrame.size.height-[ShopListCell height]/2;
         
-        [UIView animateWithDuration:0.3 animations:^{
-            [scroll setContentOffset:_scrollOffset];
-        } completion:^(BOOL finished) {
-            self.view.userInteractionEnabled=true;
-            scroll.contentInset=UIEdgeInsetsZero;
-        }];
-    });
+        [botView l_v_addY:-height];
+        [topView l_v_addH:-height];
+    } completion:^(BOOL finished) {
+    }];
 }
 
 - (IBAction)btnMapTouchUpInside:(id)sender {
@@ -238,16 +265,6 @@
 - (void)dealloc
 {
     scroll.delegate=nil;
-}
-
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
-{
-    [_timeScroller scrollViewWillBeginDragging];
-}
-
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
-{
-    [_timeScroller scrollViewDidEndDecelerating];
 }
 
 @end

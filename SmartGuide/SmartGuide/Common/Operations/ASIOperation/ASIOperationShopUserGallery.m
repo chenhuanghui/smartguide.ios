@@ -38,14 +38,7 @@
     
     for(NSDictionary *dict in json)
     {
-        ShopUserGallery *gallery=[ShopUserGallery insert];
-        gallery.shop=shop;
-        gallery.idShop=shop.idShop;
-        gallery.desc=[NSString stringWithStringDefault:[dict objectForKey:@"description"]];
-        gallery.image=[NSString stringWithStringDefault:[dict objectForKey:@"image"]];
-        gallery.thumbnail=[NSString stringWithStringDefault:[dict objectForKey:@"thumbnail"]];
         
-        [userGallerys addObject:gallery];
     }
     
     [[DataManager shareInstance] save];

@@ -21,8 +21,7 @@
 +(Reward*) queryRewardObject:(NSPredicate*) predicate;
 +(NSArray*) allObjects;
 +(void) markDeleteAllObjects;
-
--(bool) save;
+-(void) markDeleted;
 
 
 @property (nonatomic, retain) NSString* content;

@@ -4,6 +4,8 @@
 {
 }
 
++(ShopUserGallery*) makeWithJSON:(NSDictionary*) data;
+
 @property (nonatomic, strong) UIImage *imagePosed;
 
 @end

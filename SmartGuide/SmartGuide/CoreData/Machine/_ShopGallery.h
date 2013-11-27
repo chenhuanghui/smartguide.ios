@@ -5,8 +5,9 @@
 
 #define ShopGallery_ClassName @"ShopGallery"
 
-#define ShopGallery_IdShop @"idShop"
+#define ShopGallery_IdGallery @"idGallery"
 #define ShopGallery_Image @"image"
+#define ShopGallery_SortOrder @"sortOrder"
 #define ShopGallery_Thumbnail @"thumbnail"
 
 @class ShopGallery;
@@ -20,12 +21,12 @@
 +(ShopGallery*) queryShopGalleryObject:(NSPredicate*) predicate;
 +(NSArray*) allObjects;
 +(void) markDeleteAllObjects;
+-(void) markDeleted;
 
--(bool) save;
 
-
-@property (nonatomic, retain) NSNumber* idShop;
+@property (nonatomic, retain) NSNumber* idGallery;
 @property (nonatomic, retain) NSString* image;
+@property (nonatomic, retain) NSNumber* sortOrder;
 @property (nonatomic, retain) NSString* thumbnail;
 
 #pragma mark Fetched property

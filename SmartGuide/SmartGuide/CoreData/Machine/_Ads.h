@@ -23,8 +23,7 @@
 +(Ads*) queryAdsObject:(NSPredicate*) predicate;
 +(NSArray*) allObjects;
 +(void) markDeleteAllObjects;
-
--(bool) save;
+-(void) markDeleted;
 
 
 @property (nonatomic, retain) NSString* begin_date;

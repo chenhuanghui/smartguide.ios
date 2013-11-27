@@ -1,10 +1,18 @@
 #import "ShopUserComment.h"
+#import "Utility.h"
 
 @implementation ShopUserComment
 
--(NSString *)shopName1
++(ShopUserComment *)makeWithJSON:(NSDictionary *)data
 {
-    return @"Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.";
+    ShopUserComment *obj=[ShopUserComment insert];
+    obj.username=[NSString stringWithStringDefault:data[@"username"]];
+    obj.time=[NSString stringWithStringDefault:data[@"time"]];
+    obj.shopName=[NSString stringWithStringDefault:data[@"shopName"]];
+    obj.avatar=[NSString stringWithStringDefault:data[@"avatar"]];
+    obj.comment=[NSString stringWithStringDefault:data[@"comment"]];
+    
+    return obj;
 }
 
 @end

@@ -33,40 +33,14 @@
         <attribute name="travel" optional="YES" attributeType="Boolean" syncable="YES"/>
         <relationship name="user" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="filter" inverseEntity="User" syncable="YES"/>
     </entity>
-    <entity name="PromotionDetail" representedClassName="PromotionDetail" syncable="YES">
-        <attribute name="cost" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
-        <attribute name="desc" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="duration" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="idAwardType2" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="isPartner" optional="YES" attributeType="Boolean" syncable="YES"/>
-        <attribute name="min_score" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="money" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="p" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="promotionType" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="sgp" optional="YES" attributeType="Integer 64" defaultValueString="0.0" syncable="YES"/>
-        <attribute name="sp" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
-        <attribute name="str_cost" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="requires" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="PromotionRequire" inverseName="promotion" inverseEntity="PromotionRequire" syncable="YES"/>
-        <relationship name="shop" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Shop" inverseName="promotionDetail" inverseEntity="Shop" syncable="YES"/>
-        <relationship name="vouchers" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="PromotionVoucher" inverseName="promotion" inverseEntity="PromotionVoucher" syncable="YES"/>
-    </entity>
-    <entity name="PromotionRequire" representedClassName="PromotionRequire" syncable="YES">
-        <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="idRequire" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="numberVoucher" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="sgpRequired" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
-        <relationship name="promotion" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="PromotionDetail" inverseName="requires" inverseEntity="PromotionDetail" syncable="YES"/>
-    </entity>
-    <entity name="PromotionVoucher" representedClassName="PromotionVoucher" syncable="YES">
-        <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="desc" optional="YES" attributeType="String" syncable="YES"/>
+    <entity name="KM1Voucher" representedClassName="KM1Voucher" syncable="YES">
         <attribute name="idVoucher" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="money" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
-        <attribute name="numberVoucher" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="p" optional="YES" attributeType="Float" defaultValueString="0" syncable="YES"/>
+        <attribute name="isAfford" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sgp" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="sortOrder" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="promotion" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="PromotionDetail" inverseName="vouchers" inverseEntity="PromotionDetail" syncable="YES"/>
+        <attribute name="type" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="shopKM1" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ShopKM1" inverseName="listVoucher" inverseEntity="ShopKM1" syncable="YES"/>
     </entity>
     <entity name="Reward" representedClassName="Reward" syncable="YES">
         <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>
@@ -77,78 +51,70 @@
     </entity>
     <entity name="Shop" representedClassName="Shop" syncable="YES">
         <attribute name="address" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="contact" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="cover" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="desc" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="dislike" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="distance" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
-        <attribute name="gallery" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="idCatalog" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="city" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="displayTel" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="groupName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="idShop" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="isNeedReloadData" optional="YES" attributeType="Boolean" syncable="YES"/>
-        <attribute name="isShopDetail" optional="YES" attributeType="Boolean" syncable="YES"/>
-        <attribute name="like" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="like_status" optional="YES" attributeType="Integer 32" syncable="YES"/>
         <attribute name="logo" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="love" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="numGetPromotion" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="numGetReward" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="numOfComment" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="numOfDislike" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="numOfLike" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="numOfView" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="numOfVisit" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="promotionStatus" optional="YES" attributeType="Integer 32" syncable="YES"/>
-        <attribute name="shop_lat" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
-        <attribute name="shop_lng" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
-        <attribute name="updated_at" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="website" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="products" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ShopProduct" inverseName="shop" inverseEntity="ShopProduct" syncable="YES"/>
-        <relationship name="promotionDetail" optional="YES" minCount="1" maxCount="1" deletionRule="Cascade" destinationEntity="PromotionDetail" inverseName="shop" inverseEntity="PromotionDetail" syncable="YES"/>
-        <relationship name="shopCatalog" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ShopCatalog" inverseName="shops" inverseEntity="ShopCatalog" syncable="YES"/>
-        <relationship name="shopGallery" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ShopGallery" inverseName="shop" inverseEntity="ShopGallery" syncable="YES"/>
-        <relationship name="shopUserComments" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ShopUserComment" inverseName="shop" inverseEntity="ShopUserComment" syncable="YES"/>
-        <relationship name="userGallery" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ShopUserGallery" inverseName="shop" inverseEntity="ShopUserGallery" syncable="YES"/>
+        <attribute name="loveStatus" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="numOfComment" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="numOfLove" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="numOfView" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="promotionType" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="shopLat" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="shopLng" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="shopName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sortOrder" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="tel" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="catalog" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ShopCatalog" inverseName="shops" inverseEntity="ShopCatalog" syncable="YES"/>
+        <relationship name="km1s" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="ShopKM1" inverseName="shop" inverseEntity="ShopKM1" syncable="YES"/>
+        <relationship name="shopGallerys" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ShopGallery" inverseName="shop" inverseEntity="ShopGallery" syncable="YES"/>
+        <relationship name="userComments" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ShopUserComment" inverseName="shop" inverseEntity="ShopUserComment" syncable="YES"/>
+        <relationship name="userGallerys" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ShopUserGallery" inverseName="shop" inverseEntity="ShopUserGallery" syncable="YES"/>
     </entity>
     <entity name="ShopCatalog" representedClassName="ShopCatalog" syncable="YES">
         <attribute name="count" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="idCatalog" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="shops" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Shop" inverseName="shopCatalog" inverseEntity="Shop" syncable="YES"/>
+        <relationship name="shops" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Shop" inverseName="catalog" inverseEntity="Shop" syncable="YES"/>
     </entity>
     <entity name="ShopGallery" representedClassName="ShopGallery" syncable="YES">
-        <attribute name="idShop" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="idGallery" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="image" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sortOrder" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="thumbnail" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="shop" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Shop" inverseName="shopGallery" inverseEntity="Shop" syncable="YES"/>
+        <relationship name="shop" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Shop" inverseName="shopGallerys" inverseEntity="Shop" syncable="YES"/>
     </entity>
-    <entity name="ShopProduct" representedClassName="ShopProduct" syncable="YES">
-        <attribute name="cat_name" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="desc" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="hasPrice1" optional="YES" attributeType="Boolean" syncable="YES"/>
-        <attribute name="images" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="price" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="price1" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="shop" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Shop" inverseName="products" inverseEntity="Shop" syncable="YES"/>
+    <entity name="ShopKM1" representedClassName="ShopKM1" syncable="YES">
+        <attribute name="duration" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="idKM1" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="money" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="notice" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="p" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sgp" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sp" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="listVoucher" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="KM1Voucher" inverseName="shopKM1" inverseEntity="KM1Voucher" syncable="YES"/>
+        <relationship name="shop" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Shop" inverseName="km1s" inverseEntity="Shop" syncable="YES"/>
     </entity>
     <entity name="ShopUserComment" representedClassName="ShopUserComment" syncable="YES">
         <attribute name="avatar" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="comment" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="fulltime" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="idShop" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="idComment" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="shopName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sortOrder" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="time" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="user" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="shop" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Shop" inverseName="shopUserComments" inverseEntity="Shop" syncable="YES"/>
+        <attribute name="username" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="shop" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Shop" inverseName="userComments" inverseEntity="Shop" syncable="YES"/>
     </entity>
     <entity name="ShopUserGallery" representedClassName="ShopUserGallery" syncable="YES">
         <attribute name="desc" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="idShop" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="idGallery" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="image" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sortOrder" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="thumbnail" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="shop" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Shop" inverseName="userGallery" inverseEntity="Shop" syncable="YES"/>
+        <attribute name="time" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="username" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="shop" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Shop" inverseName="userGallerys" inverseEntity="Shop" syncable="YES"/>
     </entity>
     <entity name="User" representedClassName="User" syncable="YES">
         <attribute name="avatar" optional="YES" attributeType="String" syncable="YES"/>
@@ -162,21 +128,19 @@
         <attribute name="versionType" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Ads" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="City" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="Feedback" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="Filter" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="PromotionDetail" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="PromotionRequire" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="PromotionVoucher" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="Reward" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="Shop" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="ShopCatalog" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="ShopGallery" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="ShopProduct" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="ShopUserComment" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="ShopUserGallery" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="User" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="Versions" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Ads" positionX="0" positionY="0" width="128" height="150"/>
+        <element name="City" positionX="0" positionY="0" width="128" height="75"/>
+        <element name="Feedback" positionX="0" positionY="0" width="128" height="75"/>
+        <element name="Filter" positionX="0" positionY="0" width="128" height="255"/>
+        <element name="Reward" positionX="0" positionY="0" width="128" height="120"/>
+        <element name="Shop" positionX="0" positionY="0" width="128" height="328"/>
+        <element name="ShopCatalog" positionX="0" positionY="0" width="128" height="105"/>
+        <element name="ShopGallery" positionX="0" positionY="0" width="128" height="103"/>
+        <element name="ShopUserComment" positionX="0" positionY="0" width="128" height="135"/>
+        <element name="ShopUserGallery" positionX="0" positionY="0" width="128" height="150"/>
+        <element name="User" positionX="0" positionY="0" width="128" height="120"/>
+        <element name="Versions" positionX="0" positionY="0" width="128" height="75"/>
+        <element name="ShopKM1" positionX="160" positionY="192" width="128" height="163"/>
+        <element name="KM1Voucher" positionX="160" positionY="192" width="128" height="118"/>
     </elements>
 </model>

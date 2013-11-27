@@ -1,20 +1,15 @@
 #import "Shop.h"
-#import "PromotionDetail.h"
-#import "PromotionRequire.h"
-#import "PromotionVoucher.h"
 #import "Utility.h"
+#import "Constant.h"
 
 @implementation Shop
-@synthesize selected,showPinType,isUserCollection,isShopDetail;
 
 -(id)initWithEntity:(NSEntityDescription *)entity insertIntoManagedObjectContext:(NSManagedObjectContext *)context
 {
     self=[super initWithEntity:entity insertIntoManagedObjectContext:context];
     
-    self.isNeedReloadData=false;
-    self.shop_lat=[NSNumber numberWithDouble:-1];
-    self.shop_lng=[NSNumber numberWithDouble:-1];
-    self.showPinType=0;
+    self.shopLat=[NSNumber numberWithDouble:-1];
+    self.shopLng=[NSNumber numberWithDouble:-1];
     
     return self;
 }
@@ -26,79 +21,21 @@
 
 -(CLLocationCoordinate2D)coordinate
 {
-    return CLLocationCoordinate2DMake(self.shop_lat.doubleValue, self.shop_lng.doubleValue);
+    return CLLocationCoordinate2DMake(self.shopLat.doubleValue, self.shopLng.doubleValue);
 }
 
--(int)score
-{
-    if(self.promotionDetail)
-        return [self.promotionDetail.sgp doubleValue];
-    
-    return 0;
-}
 
--(int)minRank
++(Shop*) makeShopWithIDShop:(int) idShop withJSONUserCollection:(NSDictionary*) data
 {
-    return self.promotionDetail.min_score.integerValue;
-    int rank=0;
-    if(self.promotionDetail && [self.promotionDetail.promotionType integerValue]!=-1 && self.promotionDetail.requiresObjects.count>0)
-    {
-        double sgp=self.promotionDetail.sgp.doubleValue;
-        
-        NSArray *ranks=[[self.promotionDetail.requiresObjects filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"%K <= %f",PromotionRequire_SgpRequired,sgp]] valueForKey:PromotionRequire_SgpRequired];
-        
-        if(ranks.count>0)
-            rank=(int)([[ranks objectAtIndex:0] doubleValue]);
-        else
-            rank=(int)([[[self.promotionDetail.requiresObjects valueForKey:PromotionRequire_SgpRequired] objectAtIndex:0] doubleValue]);
-    }
+    Shop *shop=[Shop makeShopWithIDShop:idShop withJSONShopInGroup:data];
     
-    return rank;
-}
-
--(NSArray *)ranks
-{
-    if(self.promotionDetail)
-    {
-        double sgp=self.promotionDetail.sgp.doubleValue;
-        
-        return [self.promotionDetail.requiresObjects filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"%K <= %f",PromotionRequire_SgpRequired,sgp]];
-    }
-    
-    return [NSArray array];
-}
-
-+(NSArray *)queryShop:(NSPredicate *)predicate
-{
-    NSArray *array=[super queryShop:predicate];
-    
-    if(array.count>0)
-        return [array sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:Shop_Name ascending:true]]];
-    
-    return array;
-}
-
--(PromotionDetail *)promotionDetail
-{
-    if([self.promotionStatus boolValue])
-        return [super promotionDetail];
-    
-    return nil;
-}
-
-+(Shop *)makeShopWithDictionaryUserCollection:(NSDictionary *)data
-{
-    Shop *shop=[Shop makeShopWithDictionaryShopInGroup:data];
-    
-    shop.updated_at=[NSString stringWithStringDefault:[data objectForKey:@"updated_at"]];
-    shop.isUserCollection=true;
+    //shop.updated_at=[NSString stringWithStringDefault:[data objectForKey:@"updated_at"]];
     
     return shop;
 }
 
-+(Shop *)makeShopWithDictionaryShopInGroup:(NSDictionary *)dict
++(Shop*) makeShopWithIDShop:(int) idShop withJSONShopInGroup:(NSDictionary*) data;
 {
-    int idShop=[dict integerForKey:@"id"];
     Shop *shop = [Shop shopWithIDShop:idShop];
     if(!shop)
     {
@@ -106,168 +43,127 @@
         shop.idShop=[NSNumber numberWithInt:idShop];
     }
     
-    shop.isUserCollection=false;
-    shop.isShopDetail=@(false);
+    [shop removeShopGallerys:shop.shopGallerys];
+    [shop removeUserGallerys:shop.userGallerys];
+    [shop removeUserComments:shop.userComments];
     
-    shop.name=[NSString stringWithStringDefault:[dict objectForKey:@"name"]];
-    shop.shop_lat=[NSNumber numberWithObject:[dict objectForKey:@"shop_lat"]];
-    shop.shop_lng=[NSNumber numberWithObject:[dict objectForKey:@"shop_lng"]];
-    shop.distance=[NSNumber numberWithObject:[dict objectForKey:@"distance"]];
-    shop.logo=[NSString stringWithStringDefault:[dict objectForKey:@"logo"]];
-    shop.desc=[NSString stringWithStringDefault:[dict objectForKey:@"description"]];
-    shop.address=[NSString stringWithStringDefault:[dict objectForKey:@"address"]];
-    shop.promotionStatus=[NSNumber numberWithObject:[dict objectForKey:@"promotion_status"]];
-    shop.like_status=[NSNumber numberWithObject:[dict objectForKey:@"like_status"]];
-    shop.like=[NSNumber numberWithObject:[dict objectForKey:@"like"]];
-    shop.dislike=[NSNumber numberWithObject:[dict objectForKey:@"dislike"]];
-    shop.numOfVisit=[NSNumber numberWithObject:[dict objectForKey:@"num_of_visit"]];
-    shop.numOfLike=[NSNumber numberWithObject:[dict objectForKey:@"num_of_like"]];
-    shop.numOfComment=[NSNumber numberWithObject:[dict objectForKey:@"num_of_comment"]];
-    shop.numOfView=[NSNumber numberWithObject:[dict objectForKey:@"num_of_view"]];
-    shop.numGetPromotion=[NSNumber numberWithObject:[dict objectForKey:@"num_get_promotion"]];
-    shop.numGetReward=[NSNumber numberWithObject:[dict objectForKey:@"num_get_reward"]];
+    shop.shopName=[NSString stringWithStringDefault:data[@"shopName"]];
+    shop.shopLat=[NSNumber numberWithObject:data[@"shopLat"]];
+    shop.shopLng=[NSNumber numberWithObject:data[@"shopLng"]];
+    shop.groupName=[NSString stringWithStringDefault:data[@"groupName"]];
+    shop.logo=[NSString stringWithStringDefault:data[@"logo"]];
+    shop.loveStatus=[NSNumber numberWithObject:data[@"loveStatus"]];
+    shop.numOfLove=[NSString stringWithStringDefault:data[@"numOfLove"]];
+    shop.numOfView=[NSString stringWithStringDefault:data[@"numOfView"]];
+    shop.numOfComment=[NSString stringWithStringDefault:data[@"numOfComment"]];
+    shop.address=[NSString stringWithStringDefault:data[@"address"]];
+    shop.city=[NSString stringWithStringDefault:data[@"city"]];
+    shop.tel=[NSString stringWithStringDefault:data[@"tel"]];
+    shop.displayTel=[NSString stringWithStringDefault:data[@"displayTel"]];
     
-    shop.idCatalog=[NSNumber numberWithObject:[dict objectForKey:@"group_shop"]];
-    shop.contact=[NSString stringWithStringDefault:[dict objectForKey:@"tel"]];
-    shop.website=[NSString stringWithStringDefault:[dict objectForKey:@"website"]];
-    shop.selected=false;
+    NSArray *array=data[@"shopGallery"];
     
-    if(shop.promotionStatus.boolValue)
+    if(![array isNullData])
     {
-        NSDictionary *dicInner=[dict objectForKey:@"promotion_detail"];
-        
-        PromotionDetail *promotion=shop.promotionDetail;
-        
-        if(!promotion)
+        int sortOrder=0;
+        for(NSDictionary *dict in array)
         {
-            promotion=[PromotionDetail insert];
-            promotion.shop=shop;
-            shop.promotionDetail=promotion;
-        }
-        
-        promotion.promotionType=[NSNumber numberWithObject:[dicInner objectForKey:@"promotion_type"]];
-        promotion.sgp=[NSNumber numberWithObject:[dicInner objectForKey:@"sgp"]];
-        promotion.sp=[NSNumber numberWithObject:[dicInner objectForKey:@"sp"]];
-        promotion.p=[NSNumber numberWithObject:[dicInner objectForKey:@"P"]];
-        promotion.cost=[NSNumber numberWithObject:[dicInner objectForKey:@"cost"]];
-        promotion.str_cost=[NSString stringWithStringDefault:[dicInner objectForKey:@"str_cost"]];
-        promotion.duration=[NSString stringWithStringDefault:[dicInner objectForKey:@"duration"]];
-        promotion.money=[NSString stringWithStringDefault:[dicInner objectForKey:@"str_money"]];
-        if(promotion.money.length==0)
-            promotion.money=[NSString stringWithStringDefault:dicInner[@"money"]];
-        promotion.idAwardType2=[NSNumber numberWithObject:[dicInner objectForKey:@"id"]];
-        promotion.desc=[NSString stringWithStringDefault:[dicInner objectForKey:@"description"]];
-        promotion.min_score=[NSNumber numberWithObject:[dicInner objectForKey:@"min_score"]];
-        promotion.isPartner=[NSNumber numberWithObject:dicInner[@"isPartner"]];
-        
-        [promotion removeRequires:promotion.requires];
-        [promotion removeVouchers:promotion.vouchers];
-        
-        NSArray *arr=[dicInner objectForKey:@"array_required"];
-        
-        if(![arr isNullData])
-        {
-            promotion.requiresInserted=[[NSMutableArray alloc] init];
-            
-            for(NSDictionary *dictRequire in arr)
-            {
-                PromotionRequire *require=[PromotionRequire insert];
-                
-                require.idRequire=[NSNumber numberWithObject:[dictRequire objectForKey:@"id"]];
-                require.promotion=promotion;
-                require.sgpRequired=[NSNumber numberWithObject:[dictRequire objectForKey:@"required"]];
-                require.content=[NSString stringWithStringDefault:[dictRequire objectForKey:@"content"]];
-                require.numberVoucher=[NSString stringWithStringDefault:[dictRequire objectForKey:@"numberVoucher"]];
-                
-                [promotion.requiresInserted addObject:require.idRequire];
-            }
-        }
-        
-        arr=[dicInner objectForKey:@"list_voucher"];
-        
-        if(![arr isNullData])
-        {
-            promotion.vouchersInserted=[[NSMutableArray alloc] init];
-            
-            int order=0;
-            for(NSDictionary *dictVoucher in arr)
-            {
-                PromotionVoucher *voucher=[PromotionVoucher insert];
-                
-                voucher.idVoucher=[NSNumber numberWithObject:[dictVoucher objectForKey:@"id"]];
-                voucher.money=[NSNumber numberWithObject:[dictVoucher objectForKey:@"money"]];
-                voucher.p=[NSNumber numberWithObject:[dictVoucher objectForKey:@"P"]];
-                voucher.desc=[NSString stringWithStringDefault:[dictVoucher objectForKey:@"description"]];
-                voucher.promotion=promotion;
-                voucher.numberVoucher=[NSString stringWithStringDefault:[dictVoucher objectForKey:@"numberVoucher"]];
-                voucher.title=[NSString stringWithStringDefault:dictVoucher[@"title"]];
-                voucher.content=[NSString stringWithStringDefault:dictVoucher[@"content"]];
-                voucher.sortOrder=@(order++);
-                
-                [promotion addVouchersObject:voucher];
-                
-                [promotion.vouchersInserted addObject:voucher.idVoucher];
-            }
+            ShopGallery *obj=[ShopGallery makeWithJSON:dict];
+            obj.shop=shop;
+            obj.sortOrder=@(sortOrder++);
+            obj.idGallery=@(0);
         }
     }
-    else
+    
+    array=data[@"userGallery"];
+    
+    if(![array isNullData])
     {
-        if(shop.promotionDetail)
+        int sortOrder=0;
+        for(NSDictionary *dict in array)
         {
-            [shop setPromotionDetail:nil];
+            ShopUserGallery *obj=[ShopUserGallery makeWithJSON:dict];
+            obj.shop=shop;
+            obj.sortOrder=@(sortOrder++);
+            obj.idGallery=@(0);
         }
+    }
+    
+    array=data[@"comments"];
+    
+    if(![array isNullData])
+    {
+        int sortOrder=0;
+        for(NSDictionary *dict in array)
+        {
+            ShopUserComment *obj=[ShopUserComment makeWithJSON:dict];
+            obj.shop=shop;
+            obj.sortOrder=@(sortOrder++);
+            obj.idComment=@(0);
+        }
+    }
+    
+    [shop.km1s markDeleted];
+    
+    shop.promotionType=[NSNumber numberWithObject:data[@"promotionType"]];
+    
+    NSDictionary *promotionDetail=data[@"promotionDetail"];
+    
+    switch (shop.shopPromotionType) {
+        case SHOP_PROMOTION_NONE:
+            
+            break;
+            
+        case SHOP_PROMOTION_KM1:
+        {
+            if(![promotionDetail isNullData])
+            {
+                ShopKM1 *km1=[ShopKM1 makeWithJSON:promotionDetail];
+                km1.shop=shop;
+                km1.idKM1=@(0);
+                
+                NSArray *voucherList=promotionDetail[@"voucherList"];
+                
+                if(![voucherList isNullData])
+                {
+                    int sortOrder=0;
+                    for(NSDictionary *dict in voucherList)
+                    {
+                        KM1Voucher *voucher=[KM1Voucher makeWithJSON:dict];
+                        voucher.shopKM1=km1;
+                        voucher.sortOrder=@(sortOrder++);
+                        voucher.idVoucher=@(0);
+                    }
+                }
+            }
+        }
+            break;
+            
+        default:
+            break;
     }
     
     return shop;
 }
 
--(NSString *)time
+-(enum SHOP_PROMOTION_TYPE)shopPromotionType
 {
-    if(self.updated_at.length>0)
-    {
-        NSArray *array=[self.updated_at componentsSeparatedByString:@" "];
-        if(array.count>0)
-            return [array objectAtIndex:0];
+    switch (self.promotionType.integerValue) {
+        case 0:
+            return SHOP_PROMOTION_NONE;
+            
+        case 1:
+            return SHOP_PROMOTION_KM1;
+            
+        case 2:
+            return SHOP_PROMOTION_KM2;
+            
+        case 3:
+            return SHOP_PROMOTION_KM3;
+            
+        default:
+            return SHOP_PROMOTION_NONE;
     }
-    
-    return @"";
-}
-
--(NSString *)day
-{
-    if(self.updated_at.length>0)
-    {
-        NSArray *array=[self.updated_at componentsSeparatedByString:@" "];
-        if(array.count>1)
-            return [array objectAtIndex:1];
-    }
-    
-    return @"";
-}
-
--(double)SGP
-{
-    if(self.promotionDetail && self.promotionDetail.promotionType.integerValue==1)
-    {
-        return self.promotionDetail.sgp.doubleValue;
-    }
-    
-    return 0;
-}
-
--(double)SP
-{
-    if(self.promotionDetail && self.promotionDetail.promotionType.integerValue==1)
-    {
-        return self.promotionDetail.sp.doubleValue;
-    }
-    
-    return 0;
-}
-
--(NSNumber *)isPartner1
-{
-    return @(rand()%2==0);
 }
 
 @end

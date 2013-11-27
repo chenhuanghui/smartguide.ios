@@ -7,11 +7,11 @@
 
 #define ShopUserComment_Avatar @"avatar"
 #define ShopUserComment_Comment @"comment"
-#define ShopUserComment_Fulltime @"fulltime"
-#define ShopUserComment_IdShop @"idShop"
+#define ShopUserComment_IdComment @"idComment"
 #define ShopUserComment_ShopName @"shopName"
+#define ShopUserComment_SortOrder @"sortOrder"
 #define ShopUserComment_Time @"time"
-#define ShopUserComment_User @"user"
+#define ShopUserComment_Username @"username"
 
 @class ShopUserComment;
 @class Shop;
@@ -24,17 +24,16 @@
 +(ShopUserComment*) queryShopUserCommentObject:(NSPredicate*) predicate;
 +(NSArray*) allObjects;
 +(void) markDeleteAllObjects;
-
--(bool) save;
+-(void) markDeleted;
 
 
 @property (nonatomic, retain) NSString* avatar;
 @property (nonatomic, retain) NSString* comment;
-@property (nonatomic, retain) NSString* fulltime;
-@property (nonatomic, retain) NSNumber* idShop;
+@property (nonatomic, retain) NSNumber* idComment;
 @property (nonatomic, retain) NSString* shopName;
+@property (nonatomic, retain) NSNumber* sortOrder;
 @property (nonatomic, retain) NSString* time;
-@property (nonatomic, retain) NSString* user;
+@property (nonatomic, retain) NSString* username;
 
 #pragma mark Fetched property
 

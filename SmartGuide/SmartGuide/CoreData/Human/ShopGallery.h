@@ -4,4 +4,6 @@
 {
 }
 
++(ShopGallery*) makeWithJSON:(NSDictionary*) data;
+
 @end

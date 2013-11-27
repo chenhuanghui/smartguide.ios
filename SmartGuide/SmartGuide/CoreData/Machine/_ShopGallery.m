@@ -83,30 +83,24 @@
     }
 }
 
--(bool) save
+-(void) markDeleted
 {
-    NSError *error=nil;
-    bool result = [self.managedObjectContext save:&error];
-    
-    if(error)
-        NSLog(@"ShopGallery save error %@",error);
-        
-    return result;
+    [[DataManager shareInstance].managedObjectContext deleteObject:self];
 }
 
 
 
-- (NSNumber*)idShop {
-	[self willAccessValueForKey:@"idShop"];
-	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"idShop"];
-	[self didAccessValueForKey:@"idShop"];
+- (NSNumber*)idGallery {
+	[self willAccessValueForKey:@"idGallery"];
+	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"idGallery"];
+	[self didAccessValueForKey:@"idGallery"];
 	return result;
 }
 
-- (void)setIdShop:(NSNumber*)value {
-	[self willChangeValueForKey:@"idShop"];
-	[self setPrimitiveValue:value forKey:@"idShop"];
-	[self didChangeValueForKey:@"idShop"];
+- (void)setIdGallery:(NSNumber*)value {
+	[self willChangeValueForKey:@"idGallery"];
+	[self setPrimitiveValue:value forKey:@"idGallery"];
+	[self didChangeValueForKey:@"idGallery"];
 }
 
 - (NSString*)image {
@@ -120,6 +114,19 @@
 	[self willChangeValueForKey:@"image"];
 	[self setPrimitiveValue:value forKey:@"image"];
 	[self didChangeValueForKey:@"image"];
+}
+
+- (NSNumber*)sortOrder {
+	[self willAccessValueForKey:@"sortOrder"];
+	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"sortOrder"];
+	[self didAccessValueForKey:@"sortOrder"];
+	return result;
+}
+
+- (void)setSortOrder:(NSNumber*)value {
+	[self willChangeValueForKey:@"sortOrder"];
+	[self setPrimitiveValue:value forKey:@"sortOrder"];
+	[self didChangeValueForKey:@"sortOrder"];
 }
 
 - (NSString*)thumbnail {

@@ -83,15 +83,9 @@
     }
 }
 
--(bool) save
+-(void) markDeleted
 {
-    NSError *error=nil;
-    bool result = [self.managedObjectContext save:&error];
-    
-    if(error)
-        NSLog(@"ShopUserGallery save error %@",error);
-        
-    return result;
+    [[DataManager shareInstance].managedObjectContext deleteObject:self];
 }
 
 
@@ -109,17 +103,17 @@
 	[self didChangeValueForKey:@"desc"];
 }
 
-- (NSNumber*)idShop {
-	[self willAccessValueForKey:@"idShop"];
-	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"idShop"];
-	[self didAccessValueForKey:@"idShop"];
+- (NSNumber*)idGallery {
+	[self willAccessValueForKey:@"idGallery"];
+	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"idGallery"];
+	[self didAccessValueForKey:@"idGallery"];
 	return result;
 }
 
-- (void)setIdShop:(NSNumber*)value {
-	[self willChangeValueForKey:@"idShop"];
-	[self setPrimitiveValue:value forKey:@"idShop"];
-	[self didChangeValueForKey:@"idShop"];
+- (void)setIdGallery:(NSNumber*)value {
+	[self willChangeValueForKey:@"idGallery"];
+	[self setPrimitiveValue:value forKey:@"idGallery"];
+	[self didChangeValueForKey:@"idGallery"];
 }
 
 - (NSString*)image {
@@ -135,6 +129,19 @@
 	[self didChangeValueForKey:@"image"];
 }
 
+- (NSNumber*)sortOrder {
+	[self willAccessValueForKey:@"sortOrder"];
+	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"sortOrder"];
+	[self didAccessValueForKey:@"sortOrder"];
+	return result;
+}
+
+- (void)setSortOrder:(NSNumber*)value {
+	[self willChangeValueForKey:@"sortOrder"];
+	[self setPrimitiveValue:value forKey:@"sortOrder"];
+	[self didChangeValueForKey:@"sortOrder"];
+}
+
 - (NSString*)thumbnail {
 	[self willAccessValueForKey:@"thumbnail"];
 	NSString* result = (NSString*)[self primitiveValueForKey:@"thumbnail"];
@@ -146,6 +153,32 @@
 	[self willChangeValueForKey:@"thumbnail"];
 	[self setPrimitiveValue:value forKey:@"thumbnail"];
 	[self didChangeValueForKey:@"thumbnail"];
+}
+
+- (NSString*)time {
+	[self willAccessValueForKey:@"time"];
+	NSString* result = (NSString*)[self primitiveValueForKey:@"time"];
+	[self didAccessValueForKey:@"time"];
+	return result;
+}
+
+- (void)setTime:(NSString*)value {
+	[self willChangeValueForKey:@"time"];
+	[self setPrimitiveValue:value forKey:@"time"];
+	[self didChangeValueForKey:@"time"];
+}
+
+- (NSString*)username {
+	[self willAccessValueForKey:@"username"];
+	NSString* result = (NSString*)[self primitiveValueForKey:@"username"];
+	[self didAccessValueForKey:@"username"];
+	return result;
+}
+
+- (void)setUsername:(NSString*)value {
+	[self willChangeValueForKey:@"username"];
+	[self setPrimitiveValue:value forKey:@"username"];
+	[self didChangeValueForKey:@"username"];
 }
 
 #pragma mark Relationships

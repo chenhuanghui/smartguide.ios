@@ -47,9 +47,7 @@
     
     for(NSDictionary *coll in collection)
     {
-        Shop *shop=[Shop makeShopWithDictionaryUserCollection:coll];
         
-        [userCollection addObject:shop];
     }
     
     [[DataManager shareInstance] save];

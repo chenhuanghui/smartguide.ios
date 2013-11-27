@@ -37,21 +37,6 @@
     
     if(isSuccess)
     {
-        Shop *shop=[Shop shopWithIDShop:[[values objectAtIndex:1] integerValue]];
-        comment=[ShopUserComment insert];
-        comment.shop=shop;
-        comment.idShop=shop.idShop;
-        comment.user=[DataManager shareInstance].currentUser.name;
-        comment.comment=[values objectAtIndex:2];
-        comment.avatar=[NSString stringWithStringDefault:[DataManager shareInstance].currentUser.avatar];
-        comment.time=[NSString stringWithStringDefault:[[json objectAtIndex:0] objectForKey:@"time"]];
-        comment.fulltime=[NSString stringWithStringDefault:[[json objectAtIndex:0] objectForKey:@"fulltime"]];
-        comment.shopName=[NSString stringWithStringDefault:json[0][@"shopName"]];
-        
-        if(comment.shopName.length==0)
-            comment.shopName=[NSString stringWithFormat:@"tại %@", shop.name];
-        
-        [[DataManager shareInstance] save];
     }
 }
 @end

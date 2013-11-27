@@ -4,4 +4,6 @@
 {
 }
 
++(ShopUserComment*) makeWithJSON:(NSDictionary*) data;
+
 @end

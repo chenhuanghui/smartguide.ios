@@ -168,6 +168,13 @@ enum LIKE_STATUS {
     DISLIKE = 2,
 };
 
+enum SHOP_PROMOTION_TYPE {
+    SHOP_PROMOTION_NONE = 0,
+    SHOP_PROMOTION_KM1 = 1,
+    SHOP_PROMOTION_KM2 = 2,
+    SHOP_PROMOTION_KM3 = 3,
+    };
+
 @class ShopCatalog;
 @protocol CatalogueBlockViewDelegate <NSObject>
 

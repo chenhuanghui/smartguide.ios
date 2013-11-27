@@ -8,8 +8,6 @@
 
 #import "ASIOperationShopInGroup.h"
 #import "Shop.h"
-#import "PromotionDetail.h"
-#import "PromotionRequire.h"
 #import "ShopCatalog.h"
 
 @implementation ASIOperationShopInGroup
@@ -41,8 +39,7 @@
     
     for(NSDictionary *dic in json)
     {
-        Shop *shop = [Shop makeShopWithDictionaryShopInGroup:dic];
-        [shops addObject:shop];
+        
     }
     
     [[DataManager shareInstance] save];

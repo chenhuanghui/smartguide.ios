@@ -40,9 +40,7 @@
     
     for(NSDictionary *dict in json)
     {
-        Shop *shop=[Shop makeShopWithDictionaryShopInGroup:dict];
         
-        [shops addObject:shop];
     }
     
     [[DataManager shareInstance] save];

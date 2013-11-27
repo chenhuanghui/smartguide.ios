@@ -8,7 +8,6 @@
 
 #import "ASIOperationSGPToReward.h"
 #import "Shop.h"
-#import "PromotionDetail.h"
 
 @implementation ASIOperationSGPToReward
 @synthesize status,sgp,award,time,shopName,content,values,totalSGP,code,idShop;
@@ -43,12 +42,6 @@
         
         if(shop)
         {
-            if(shop.promotionDetail && shop.promotionDetail.promotionType.integerValue==1)
-            {
-                shop.promotionDetail.sgp=@(totalSGP);
-                
-                [[DataManager shareInstance] save];
-            }
         }
         
         sgp=[dict doubleForKey:@"sgp"];

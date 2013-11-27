@@ -35,9 +35,7 @@
     dislike=[dict integerForKey:@"dislike"];
     
     Shop *shop=[Shop shopWithIDShop:[[values objectAtIndex:0] integerValue]];
-    shop.like_status=@(likeStatus);
-    shop.like=@(like);
-    shop.dislike=@(dislike);
+    
     
     [[DataManager shareInstance] save];
 }

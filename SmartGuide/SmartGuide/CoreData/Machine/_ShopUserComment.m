@@ -83,15 +83,9 @@
     }
 }
 
--(bool) save
+-(void) markDeleted
 {
-    NSError *error=nil;
-    bool result = [self.managedObjectContext save:&error];
-    
-    if(error)
-        NSLog(@"ShopUserComment save error %@",error);
-        
-    return result;
+    [[DataManager shareInstance].managedObjectContext deleteObject:self];
 }
 
 
@@ -122,30 +116,17 @@
 	[self didChangeValueForKey:@"comment"];
 }
 
-- (NSString*)fulltime {
-	[self willAccessValueForKey:@"fulltime"];
-	NSString* result = (NSString*)[self primitiveValueForKey:@"fulltime"];
-	[self didAccessValueForKey:@"fulltime"];
+- (NSNumber*)idComment {
+	[self willAccessValueForKey:@"idComment"];
+	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"idComment"];
+	[self didAccessValueForKey:@"idComment"];
 	return result;
 }
 
-- (void)setFulltime:(NSString*)value {
-	[self willChangeValueForKey:@"fulltime"];
-	[self setPrimitiveValue:value forKey:@"fulltime"];
-	[self didChangeValueForKey:@"fulltime"];
-}
-
-- (NSNumber*)idShop {
-	[self willAccessValueForKey:@"idShop"];
-	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"idShop"];
-	[self didAccessValueForKey:@"idShop"];
-	return result;
-}
-
-- (void)setIdShop:(NSNumber*)value {
-	[self willChangeValueForKey:@"idShop"];
-	[self setPrimitiveValue:value forKey:@"idShop"];
-	[self didChangeValueForKey:@"idShop"];
+- (void)setIdComment:(NSNumber*)value {
+	[self willChangeValueForKey:@"idComment"];
+	[self setPrimitiveValue:value forKey:@"idComment"];
+	[self didChangeValueForKey:@"idComment"];
 }
 
 - (NSString*)shopName {
@@ -161,6 +142,19 @@
 	[self didChangeValueForKey:@"shopName"];
 }
 
+- (NSNumber*)sortOrder {
+	[self willAccessValueForKey:@"sortOrder"];
+	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"sortOrder"];
+	[self didAccessValueForKey:@"sortOrder"];
+	return result;
+}
+
+- (void)setSortOrder:(NSNumber*)value {
+	[self willChangeValueForKey:@"sortOrder"];
+	[self setPrimitiveValue:value forKey:@"sortOrder"];
+	[self didChangeValueForKey:@"sortOrder"];
+}
+
 - (NSString*)time {
 	[self willAccessValueForKey:@"time"];
 	NSString* result = (NSString*)[self primitiveValueForKey:@"time"];
@@ -174,17 +168,17 @@
 	[self didChangeValueForKey:@"time"];
 }
 
-- (NSString*)user {
-	[self willAccessValueForKey:@"user"];
-	NSString* result = (NSString*)[self primitiveValueForKey:@"user"];
-	[self didAccessValueForKey:@"user"];
+- (NSString*)username {
+	[self willAccessValueForKey:@"username"];
+	NSString* result = (NSString*)[self primitiveValueForKey:@"username"];
+	[self didAccessValueForKey:@"username"];
 	return result;
 }
 
-- (void)setUser:(NSString*)value {
-	[self willChangeValueForKey:@"user"];
-	[self setPrimitiveValue:value forKey:@"user"];
-	[self didChangeValueForKey:@"user"];
+- (void)setUsername:(NSString*)value {
+	[self willChangeValueForKey:@"username"];
+	[self setPrimitiveValue:value forKey:@"username"];
+	[self didChangeValueForKey:@"username"];
 }
 
 #pragma mark Relationships

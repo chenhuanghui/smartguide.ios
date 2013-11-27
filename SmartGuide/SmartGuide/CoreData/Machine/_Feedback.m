@@ -78,15 +78,9 @@
     }
 }
 
--(bool) save
+-(void) markDeleted
 {
-    NSError *error=nil;
-    bool result = [self.managedObjectContext save:&error];
-    
-    if(error)
-        NSLog(@"Feedback save error %@",error);
-        
-    return result;
+    [[DataManager shareInstance].managedObjectContext deleteObject:self];
 }
 
 

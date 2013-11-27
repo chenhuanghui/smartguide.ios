@@ -1,30 +1,20 @@
 #import "_Shop.h"
 #import <MapKit/MapKit.h>
 #import "Constant.h"
-
-enum SHOP_SHOW_TYPE {
-    SHOP_SHOW_DETAIL = 1,
-    SHOP_SHOW_NAME = 2,
-    };
+#import "ShopUserComment.h"
+#import "ShopUserGallery.h"
+#import "ShopGallery.h"
+#import "ShopKM1.h"
+#import "KM1Voucher.h"
 
 @interface Shop : _Shop<MKAnnotation>
 {
 }
 
 +(Shop*) shopWithIDShop:(int) idShop;
-+(Shop*) makeShopWithDictionaryShopInGroup:(NSDictionary*) data;
-+(Shop*) makeShopWithDictionaryUserCollection:(NSDictionary*) data;
++(Shop*) makeShopWithIDShop:(int) idShop withJSONShopInGroup:(NSDictionary*) data;
++(Shop*) makeShopWithIDShop:(int) idShop withJSONUserCollection:(NSDictionary*) data;
 
--(int) score;
--(int) minRank;
--(NSArray*) ranks;
--(NSString*) time;
--(NSString*) day;
--(double) SGP;
--(double) SP;
-
-@property (nonatomic, assign) bool selected;
-@property (nonatomic, assign) enum SHOP_SHOW_TYPE showPinType;
-@property (nonatomic, assign) bool isUserCollection;
+-(enum SHOP_PROMOTION_TYPE) shopPromotionType;
 
 @end

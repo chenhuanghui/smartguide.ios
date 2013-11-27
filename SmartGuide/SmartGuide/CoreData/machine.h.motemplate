@@ -18,8 +18,7 @@
 +(<$managedObjectClassName$>*) query<$managedObjectClassName.initialCapitalString$>Object:(NSPredicate*) predicate;
 +(NSArray*) allObjects;
 +(void) markDeleteAllObjects;
-
--(bool) save;
+-(void) markDeleted;
 
 <$foreach Attribute noninheritedAttributes do$>
 @property (nonatomic, retain) <$Attribute.objectAttributeType$> <$Attribute.name$>;<$endif$><$endforeach do$>

@@ -8,7 +8,6 @@
 
 #import "ASIOperationGetSGP.h"
 #import "Shop.h"
-#import "PromotionDetail.h"
 
 @implementation ASIOperationGetSGP
 @synthesize values,status,content,time,shopName,SGP,totalSGP,code,idShop;
@@ -48,12 +47,6 @@
         
         if(shop)
         {
-            if(shop.promotionDetail && shop.promotionDetail.promotionType.integerValue==1)
-            {
-                shop.promotionDetail.sgp=@(totalSGP);
-                
-                [[DataManager shareInstance] save];
-            }
         }
     }
 }

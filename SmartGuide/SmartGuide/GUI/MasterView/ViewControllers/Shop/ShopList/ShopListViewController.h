@@ -13,6 +13,7 @@
 #import "ShopUserViewController.h"
 #import <MapKit/MapKit.h>
 #import "ACTimeScroller.h"
+#import "ShopListSortView.h"
 
 @class ScrollShopList;
 
@@ -29,23 +30,20 @@
     __weak IBOutlet ScrollShopList *scroll;
     CLLocationCoordinate2D _mapCenter;
     float deltaLatFor1px;
-    __weak IBOutlet UITextField *txtSearch;
     __weak IBOutlet UIButton *btnMap;
-    __weak IBOutlet UIImageView *imgvLine;
     __weak IBOutlet UIView *topView;
     __weak IBOutlet UIView *botView;
     __weak IBOutlet UIView *contentView;
+    __weak IBOutlet ShopListSortView *sortView;
     
     CGRect topFrame;
     CGRect botFrame;
     CGPoint _scrollOffset;
-    CGRect _searchFrame;
     
     bool _isZoomedMap;
     
     __weak UITapGestureRecognizer *_tapTop;
-    
-    ACTimeScroller *_timeScroller;
+    __weak UITapGestureRecognizer *_tapBot;
 }
 
 @property (nonatomic, assign) id<ShopListDelegate> delegate;
@@ -53,6 +51,12 @@
 
 @end
 
-@interface ScrollShopList : UIScrollView
+@interface ScrollShopList : UIScrollView<UIGestureRecognizerDelegate>
+
+@end
+
+@protocol ShopListScrollerDelegate <NSObject>
+
+-(UIScrollView*) scrollView;
 
 @end
