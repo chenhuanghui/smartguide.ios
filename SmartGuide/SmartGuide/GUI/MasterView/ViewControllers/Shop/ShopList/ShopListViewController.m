@@ -9,6 +9,10 @@
 #import "ShopListViewController.h"
 #import "GUIManager.h"
 #import "ShopListCell.h"
+#import "SGRootViewController.h"
+
+#define SHOP_LIST_SHOW_MAP_HEIGHT 255
+#define SHOP_LIST_MAP_ZOOMED_Y -19
 
 @interface ShopListViewController ()
 
@@ -67,39 +71,75 @@
     [[GUIManager shareInstance] presentShopUserWithIDShop:0];
 }
 
+-(void) storePosition
+{
+    _tableFrame=tableList.frame;
+    _mapFrame=map.frame;
+    _mapCenter=map.center;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
+    [self storePosition];
+    
+    if([map respondsToSelector:@selector(setShowsBuildings:)])
+        map.showsBuildings=false;
+    
+    if([map respondsToSelector:@selector(setShowsPointsOfInterest:)])
+        map.showsPointsOfInterest=false;
+    
+    tableList.backgroundColor=COLOR_BACKGROUND_SHOP_SERIES;
+    
     [tableList registerNib:[UINib nibWithNibName:[ShopListCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[ShopListCell reuseIdentifier]];
-
-    topFrame=topView.frame;
-    botFrame=botView.frame;
-    
-    UITapGestureRecognizer *tapTop=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapTop:)];
-    _tapTop=tapTop;
-    
-    [topView addGestureRecognizer:tapTop];
     
     [tableList reloadData];
     [tableList l_v_setS:tableList.contentSize];
-    scroll.contentSize=CGSizeMake(scroll.l_v_w, (topView.l_v_h+topView.l_v_y)+tableList.contentSize.height);
+    //
+    //    [listView l_v_setH:tableList.l_v_y+tableList.l_v_h];
+    //
+    
+    [self refreshScrollSize];
+    
+    float y=QRCODE_BIG_HEIGHT-QRCODE_SMALL_HEIGHT;
+    [scroll l_v_addH:y];
     
     [sortView setIcon:[UIImage imageNamed:@"icon_distance.png"] text:@"Khoảng cách"];
     
-    [map setRegion:MKCoordinateRegionMakeWithDistance(CLLocationCoordinate2DMake(10, 106), MAP_SPAN, MAP_SPAN) animated:false];
+    scroller=[[Scroller alloc] init];
+    scroller.delegate=self;
+    [scroller setIcon:[UIImage imageNamed:@"icon_heartscroll.png"]];
     
-    [self refreshDeltaLat];
-    
-    CLLocationCoordinate2D referencePosition = [map convertPoint:CGPointMake(0, 0) toCoordinateFromView:map];
-    CLLocationCoordinate2D referencePosition2 = [map convertPoint:CGPointMake(0, 100) toCoordinateFromView:map];
-    deltaLatFor1px = (referencePosition2.latitude - referencePosition.latitude)/100;
+    [scroll.panGestureRecognizer addTarget:self action:@selector(panShowMap:)];
+}
+
+-(void) panShowMap:(UIPanGestureRecognizer*) pan
+{
+    switch (pan.state) {
+        case UIGestureRecognizerStateCancelled:
+        case UIGestureRecognizerStateEnded:
+        case UIGestureRecognizerStateFailed:
+        {
+            CGPoint pnt=[scroll convertPoint:tableList.l_v_o toView:self.view];
+            if(pnt.y>self.l_v_h/2)
+            {
+                [UIView animateWithDuration:DURATION_DEFAULT animations:^{
+                    [self zoomMap];
+                }];
+            }
+        }
+            break;
+            
+        default:
+            break;
+    }
 }
 
 -(void) refreshScrollSize
 {
-    scroll.contentSize=CGSizeMake(scroll.l_v_w, (topFrame.size.height+topFrame.origin.y)+tableList.contentSize.height);
+    scroll.contentSize=CGSizeMake(scroll.l_v_w, tableList.l_v_y+tableList.contentSize.height+(QRCODE_BIG_HEIGHT-QRCODE_SMALL_HEIGHT+6));
 }
 
 -(UITableView *)tableViewForTimeScroller:(ACTimeScroller *)timeScroller
@@ -126,17 +166,28 @@
 {
     if(scrollView==scroll)
     {
+
+        [map l_c_addY:-scroll.offset.y/3];
+        return;
         
-        CGPoint pnt=scrollView.contentOffset;
+        [scroller scrollViewDidScroll:scroll];
         
-        if (pnt.y<=0) {
-            CGPoint pnt=scrollView.contentOffset;
-            
-            //we moved y pixels down, how much latitude is that ?
-            double deltaLat = pnt.y*deltaLatFor1px;
-            //Move the center coordinate accordingly
-            CLLocationCoordinate2D newCenter = CLLocationCoordinate2DMake(_mapCenter.latitude-deltaLat/2, _mapCenter.longitude);
-            map.centerCoordinate = newCenter;
+        CGPoint offset=scroller.center;
+        
+        offset=[[scroller scrollBar] convertPoint:offset toView:scrollView];
+        
+        NSIndexPath *indexPath=[tableList indexPathForRowAtPoint:offset];
+        
+        if(indexPath)
+        {
+            if(!_lastScrollerIndexPath || _lastScrollerIndexPath.row!=indexPath.row)
+            {
+                NSNumber *num=@[@(9),@(99),@(999),@(9999)][random_int(0, 4)];
+                
+                [scroller setText:[NSString stringWithFormat:@"%i km",num.integerValue] prefix:@"km"];
+                
+                _lastScrollerIndexPath=indexPath;
+            }
         }
     }
     else if(scrollView==tableList)
@@ -146,18 +197,12 @@
 
 -(void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation
 {
+    if(_isDidUpdateLocation)
+        return;
+    
+    _isDidUpdateLocation=true;
+    
     [map setRegion:MKCoordinateRegionMakeWithDistance(userLocation.location.coordinate, MAP_SPAN, MAP_SPAN) animated:false];
-    
-    [self refreshDeltaLat];
-}
-
--(void) refreshDeltaLat
-{
-    float alignPoint=0.009f;
-    
-    _mapCenter=map.centerCoordinate;
-    _mapCenter.latitude+=alignPoint;
-    map.centerCoordinate=_mapCenter;
 }
 
 // Dùng để lấy alignPoint
@@ -182,7 +227,9 @@
         case UIGestureRecognizerStateFailed:
         case UIGestureRecognizerStateCancelled:
         {
-            if(scroll.contentOffset.y>[ShopListCell height]/2)
+            CGPoint pnt=[scroll convertPoint:tableList.l_v_o toView:self.view];
+
+            if(self.l_v_h-pnt.y>[ShopListCell height]*1.5f)
                 [self endZoomMap];
         }
             break;
@@ -195,22 +242,29 @@
 -(void) zoomMap
 {
     _isZoomedMap=true;
-    _tapTop.enabled=false;
-    
-    scroll.contentSize=CGSizeMake(self.l_v_w, self.l_v_h+1);
-    tableList.userInteractionEnabled=false;
-    
-    map.scrollEnabled=true;
     map.userInteractionEnabled=true;
+    map.scrollEnabled=true;
     map.zoomEnabled=true;
     
+    if([map respondsToSelector:@selector(setRotateEnabled:)])
+        map.rotateEnabled=true;
+    
     [UIView animateWithDuration:DURATION_DEFAULT animations:^{
-        float height=botFrame.size.height-[ShopListCell height]/2;
+
+        float y=QRCODE_BIG_HEIGHT-QRCODE_SMALL_HEIGHT;
+        scroll.contentSize=CGSizeMake(scroll.l_v_w, scroll.l_v_h+1);
         
-        [botView l_v_addY:height];
-        [topView l_v_addH:height];
+        [[GUIManager shareInstance].rootViewController.qrCodeView l_v_addY:y];
+        
+        [map l_v_setY:-(map.l_v_h-self.l_v_h)];
+        [tableList l_c_addY:SHOP_LIST_SHOW_MAP_HEIGHT];
+        [btnSearchLocation l_c_addY:SHOP_LIST_SHOW_MAP_HEIGHT];
+        [btnMap l_c_addY:SHOP_LIST_SHOW_MAP_HEIGHT];
+        [sortView l_c_addY:SHOP_LIST_SHOW_MAP_HEIGHT];
+    } completion:^(BOOL finished) {
     }];
     
+    [scroll.panGestureRecognizer removeTarget:self action:@selector(panShowMap:)];
     [scroll.panGestureRecognizer addTarget:self action:@selector(scrollPanGes:)];
     
     UITapGestureRecognizer *tap=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapBot:)];
@@ -218,7 +272,7 @@
     _tapBot=tap;
     [scroll.panGestureRecognizer requireGestureRecognizerToFail:tap];
     
-    [botView addGestureRecognizer:tap];
+    [tableList addGestureRecognizer:tap];
 }
 
 -(void) tapBot:(UITapGestureRecognizer*) tap
@@ -228,30 +282,41 @@
 
 -(void) endZoomMap
 {
+    _isZoomedMap=false;
+    map.userInteractionEnabled=false;
+    map.scrollEnabled=false;
+    map.zoomEnabled=false;
+    
+    [scroll.panGestureRecognizer addTarget:self action:@selector(panShowMap:)];
     [scroll.panGestureRecognizer removeTarget:self action:@selector(scrollPanGes:)];
+    
+    [scroll setContentOffset:scroll.contentOffset animated:true];
     
     _tapBot.delegate=nil;
     [_tapBot removeTarget:self action:@selector(tapTable:)];
-    [botView removeGestureRecognizer:_tapBot];
+    [tableList removeGestureRecognizer:_tapBot];
     _tapBot=nil;
     
-    _isZoomedMap=false;
-    _tapTop.enabled=true;
-
-    [self refreshScrollSize];
-    [scroll setContentOffset:CGPointZero animated:true];
-    tableList.userInteractionEnabled=true;
-    
-    map.scrollEnabled=false;
-    map.userInteractionEnabled=false;
-    map.zoomEnabled=false;
+    if([map respondsToSelector:@selector(setRotateEnabled:)])
+        map.rotateEnabled=false;
     
     [UIView animateWithDuration:DURATION_DEFAULT animations:^{
-        float height=botFrame.size.height-[ShopListCell height]/2;
         
-        [botView l_v_addY:-height];
-        [topView l_v_addH:-height];
+        float y=-(QRCODE_BIG_HEIGHT-QRCODE_SMALL_HEIGHT);
+        [[GUIManager shareInstance].rootViewController.qrCodeView l_v_addY:y];
+        
+        map.frame=_mapFrame;
+        [tableList l_c_addY:-SHOP_LIST_SHOW_MAP_HEIGHT];
+        [btnSearchLocation l_c_addY:-SHOP_LIST_SHOW_MAP_HEIGHT];
+        [btnMap l_c_addY:-SHOP_LIST_SHOW_MAP_HEIGHT];
+        [sortView l_c_addY:-SHOP_LIST_SHOW_MAP_HEIGHT];
+        
+        [self refreshScrollSize];
+        
+        scroll.delegate=nil;
+        scroll.contentOffset=CGPointZero;
     } completion:^(BOOL finished) {
+        scroll.delegate=self;
     }];
 }
 
@@ -259,16 +324,40 @@
     if(_isZoomedMap)
         [self endZoomMap];
     else
+    {
         [self zoomMap];
+    }
+}
+
+-(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    return;
+    if(scrollView==scroll)
+        [scroller scrollViewWillBeginDragging:scrollView];
 }
 
 - (void)dealloc
 {
     scroll.delegate=nil;
+    scroller=nil;
 }
 
 @end
 
 @implementation ScrollShopList
+@synthesize disableScrollUp,offset;
+
+-(void)setContentOffset:(CGPoint)contentOffset
+{
+    offset=CGPointMake(self.contentOffset.x-contentOffset.x, self.contentOffset.y-contentOffset.y);
+    
+    if(disableScrollUp)
+    {
+        if(contentOffset.y<0)
+            contentOffset.y=0;
+    }
+    
+    [super setContentOffset:contentOffset];
+}
 
 @end

@@ -35,6 +35,7 @@
     _notification.delegate=self;
     
     [_notification start];
+    [_notification cancel];
 }
 
 -(void)operationURLFinished:(OperationURL *)operation

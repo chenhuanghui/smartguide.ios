@@ -71,6 +71,11 @@ void makePhoneCall(NSString* phone)
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"telprompt://%@",text]]];
 }
 
+int random_int(int from, int to)
+{
+    return from + rand() % (to-from);
+}
+
 @implementation Utility
 
 +(CGRect) centerPinWithFrameAnnotation:(CGRect) rectAnn framePin:(CGRect) rectPin
@@ -816,6 +821,26 @@ void makePhoneCall(NSString* phone)
 @end
 
 @implementation UIScrollView(Utility)
+
+-(UIImageView *)scrollBar
+{
+    UIImageView *imgv=nil;
+    for (id subview in [self subviews])
+    {
+        if ([subview isKindOfClass:[UIImageView class]])
+        {
+            UIImageView *imageView = (UIImageView *)subview;
+            
+            if (imageView.frame.size.width == 7.0f || imageView.frame.size.width == 5.0f || imageView.frame.size.width == 3.5f)
+            {
+                imgv=imageView;
+                break;
+            }
+        }
+    }
+    
+    return imgv;
+}
 
 -(int)currentPage
 {

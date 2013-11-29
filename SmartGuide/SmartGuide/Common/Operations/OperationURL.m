@@ -64,6 +64,12 @@
         return;
     }
     
+    if(!responseObject)
+    {
+        [self onFailure:self error:nil];
+        return;
+    }
+    
     NSError *error=nil;
     id json = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers|NSJSONReadingAllowFragments error:&error];
     

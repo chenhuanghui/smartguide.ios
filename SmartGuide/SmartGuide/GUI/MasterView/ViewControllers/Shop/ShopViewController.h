@@ -22,7 +22,7 @@
 
 @end
 
-@interface ShopViewController : SGViewController<ShopCatalogDelegate,ShopListDelegate,UINavigationControllerDelegate,UITextFieldDelegate>
+@interface ShopViewController : SGViewController<ShopCatalogDelegate,ShopListDelegate,UINavigationControllerDelegate,UITextFieldDelegate,UIActionSheetDelegate>
 {
     __weak IBOutlet UIView *contentView;
     __weak IBOutlet UIView *topView;
@@ -34,6 +34,8 @@
     __weak IBOutlet UIButton *btnNotification;
     __weak IBOutlet UIButton *btnCancel;
     __weak IBOutlet UIButton *btnConfig;
+    
+    __weak IBOutlet UILabel *lblLocation;
     
     __weak SearchShopViewController *searchShopController;
 }

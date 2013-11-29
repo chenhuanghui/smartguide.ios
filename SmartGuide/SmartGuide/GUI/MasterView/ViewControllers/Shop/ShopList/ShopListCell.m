@@ -17,9 +17,8 @@
 
 -(void)loadContent
 {
-    
-    imgvVoucher.hidden=rand()%2==0;
-    imgvSGP.hidden=!imgvVoucher.hidden;
+    imgvVoucher.highlighted=rand()%2==0;
+
     
 //    scroll.contentSize=CGSizeMake(scroll.l_v_w+(imgvLineVerContent.l_v_x-imgvLine.l_v_x), scroll.l_v_h);
 //    scroll.scrollEnabled=true;

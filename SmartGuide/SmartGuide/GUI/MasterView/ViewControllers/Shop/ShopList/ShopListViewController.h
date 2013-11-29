@@ -14,6 +14,7 @@
 #import <MapKit/MapKit.h>
 #import "ACTimeScroller.h"
 #import "ShopListSortView.h"
+#import "Scroller.h"
 
 @class ScrollShopList;
 
@@ -23,27 +24,30 @@
 
 @end
 
-@interface ShopListViewController : SGViewController<MKMapViewDelegate,ACTimeScrollerDelegate>
+@interface ShopListViewController : SGViewController<MKMapViewDelegate,UIScrollViewDelegate,ScrollerDelegate>
 {
     __weak IBOutlet UITableView *tableList;
     __weak IBOutlet MKMapView *map;
     __weak IBOutlet ScrollShopList *scroll;
-    CLLocationCoordinate2D _mapCenter;
-    float deltaLatFor1px;
     __weak IBOutlet UIButton *btnMap;
-    __weak IBOutlet UIView *topView;
-    __weak IBOutlet UIView *botView;
-    __weak IBOutlet UIView *contentView;
     __weak IBOutlet ShopListSortView *sortView;
+    __weak IBOutlet UIButton *btnSearchLocation;
     
-    CGRect topFrame;
-    CGRect botFrame;
     CGPoint _scrollOffset;
+    CGRect _mapFrame;
+    CGPoint _mapCenter;
+    CGRect _tableFrame;
     
     bool _isZoomedMap;
+    bool _isAnimatingZoomMap;
     
     __weak UITapGestureRecognizer *_tapTop;
     __weak UITapGestureRecognizer *_tapBot;
+    
+    Scroller *scroller;
+    NSIndexPath *_lastScrollerIndexPath;
+    
+    bool _isDidUpdateLocation;
 }
 
 @property (nonatomic, assign) id<ShopListDelegate> delegate;
@@ -52,6 +56,9 @@
 @end
 
 @interface ScrollShopList : UIScrollView<UIGestureRecognizerDelegate>
+
+@property (nonatomic, assign) bool disableScrollUp;
+@property (nonatomic, readonly) CGPoint offset;
 
 @end
 

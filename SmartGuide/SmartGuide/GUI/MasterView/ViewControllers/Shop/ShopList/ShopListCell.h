@@ -12,7 +12,6 @@
 @interface ShopListCell : UITableViewCell<UIScrollViewDelegate>
 {
     __weak IBOutlet UIImageView *imgvVoucher;
-    __weak IBOutlet UIImageView *imgvSGP;
     __weak IBOutlet UIImageView *imgvType;
     __weak IBOutlet UILabel *lblName;
     __weak IBOutlet LabelTopText *lblContent;

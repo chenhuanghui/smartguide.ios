@@ -13,6 +13,7 @@
                 <outlet property="btnSetting" destination="dlo-Ho-yHY" id="cDT-DJ-Ssr"/>
                 <outlet property="childNavigationController" destination="ghr-3x-G5u" id="JZC-cC-exA"/>
                 <outlet property="contentView" destination="ZEF-il-E2d" id="JKI-jB-GXc"/>
+                <outlet property="lblLocation" destination="xfs-ca-Njs" id="OGt-mi-w08"/>
                 <outlet property="searchView" destination="obz-s8-EAH" id="zUo-6P-nku"/>
                 <outlet property="titleView" destination="ZRw-y2-Gx8" id="WKR-bB-XeA"/>
                 <outlet property="topView" destination="fn1-Te-8sz" id="aU5-8B-gFP"/>
@@ -26,10 +27,14 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" id="ZEF-il-E2d">
-                    <rect key="frame" x="0.0" y="44" width="320" height="380"/>
+                    <rect key="frame" x="0.0" y="44" width="320" height="386"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background_blur.png" id="ffp-fk-K6m">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="91"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                </imageView>
                 <view contentMode="scaleToFill" id="fn1-Te-8sz">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -102,10 +107,18 @@
                             </connections>
                         </textField>
                     </subviews>
-                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&quot;Hồ Chí Minh city&quot;" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="xfs-ca-Njs">
+                    <rect key="frame" x="-2" y="46" width="320" height="21"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="11"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
         </view>
         <navigationController definesPresentationContext="YES" id="ghr-3x-G5u" customClass="SGNavigationController">
@@ -120,6 +133,7 @@
         </navigationController>
     </objects>
     <resources>
+        <image name="background_blur.png" width="320" height="91"/>
         <image name="button_navigation.png" width="25" height="20"/>
         <image name="button_notification.png" width="26" height="26"/>
         <image name="search_field.png" width="255" height="32"/>

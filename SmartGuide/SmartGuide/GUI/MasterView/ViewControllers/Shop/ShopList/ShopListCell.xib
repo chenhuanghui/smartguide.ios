@@ -22,12 +22,8 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="54"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_voucher.png" id="Inv-uG-hSn">
-                                        <rect key="frame" x="7" y="18" width="30" height="19"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    </imageView>
-                                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_sgp.png" id="MOI-Pg-6hU">
-                                        <rect key="frame" x="13" y="18" width="17" height="20"/>
+                                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_typevoucher.png" highlightedImage="icon_typesgp.png" id="Inv-uG-hSn">
+                                        <rect key="frame" x="12" y="12" width="31" height="29"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_typecoffee.png" id="k3Z-07-1QP">
@@ -117,7 +113,6 @@
                 <outlet property="btnShare" destination="ZZ9-oY-cTu" id="gcZ-bK-oYB"/>
                 <outlet property="imgvLine" destination="R4B-7Y-ND0" id="rd0-oa-9CY"/>
                 <outlet property="imgvLineVerContent" destination="Mh6-pp-het" id="icX-G5-m7o"/>
-                <outlet property="imgvSGP" destination="MOI-Pg-6hU" id="iGl-ev-kxx"/>
                 <outlet property="imgvType" destination="k3Z-07-1QP" id="ydm-he-NKp"/>
                 <outlet property="imgvVoucher" destination="Inv-uG-hSn" id="9Rl-aX-D9J"/>
                 <outlet property="lblContent" destination="KTc-sX-BFs" id="tQl-P2-0Rv"/>
@@ -131,10 +126,10 @@
     <resources>
         <image name="blur_slide.png" width="103" height="53"/>
         <image name="icon_heartslide.png" width="24" height="29"/>
-        <image name="icon_sgp.png" width="17" height="20"/>
         <image name="icon_shareslide.png" width="29" height="24"/>
-        <image name="icon_typecoffee.png" width="25" height="17"/>
-        <image name="icon_voucher.png" width="30" height="19"/>
+        <image name="icon_typecoffee.png" width="27" height="27"/>
+        <image name="icon_typesgp.png" width="31" height="29"/>
+        <image name="icon_typevoucher.png" width="31" height="29"/>
         <image name="line_hordot.png" width="299" height="2"/>
         <image name="line_vercontent.png" width="1" height="41"/>
     </resources>

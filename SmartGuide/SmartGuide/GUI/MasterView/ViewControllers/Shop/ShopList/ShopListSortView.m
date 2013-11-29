@@ -17,6 +17,7 @@
 @end
 
 @implementation ShopListSortView
+@synthesize delegate;
 
 -(void)setIcon:(UIImage *)icon text:(NSString *)text
 {
@@ -55,6 +56,8 @@
     CGRect smallMidRight=CGRectMake(sortRight.x+bgSortRight.size.width, smallMidLeft.origin.y, 0, smallmid.size.height);
     smallMidRight.size.width=rect.size.width-smallMidRight.origin.x;
     
+    _touchedArea=CGRectMake(icon.x, 0, sortRight.x-icon.x, 22);
+    
     [smallmid drawAsPatternInRect:smallMidLeft];
     [bgSortLeft drawAtPoint:sortLeft];
     [bgtallMid drawAsPatternInRect:tallMid];
@@ -65,6 +68,11 @@
     
     [[UIColor blackColor] set];
     [_text drawAtPoint:text withFont:font];
+}
+
+-(BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event
+{
+    return CGRectContainsPoint(_touchedArea, point);
 }
 
 @end

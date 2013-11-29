@@ -7,78 +7,63 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ShopListViewController">
             <connections>
-                <outlet property="botView" destination="Ecg-r8-ww5" id="5Eu-4I-jk3"/>
                 <outlet property="btnMap" destination="Xkq-kb-KOu" id="J7L-ET-PWA"/>
-                <outlet property="contentView" destination="ZVa-cZ-vjc" id="fRw-cl-Moq"/>
+                <outlet property="btnSearchLocation" destination="vVs-Zn-Uvn" id="IKJ-Oj-lm1"/>
                 <outlet property="map" destination="Khm-ek-ChM" id="QTk-vi-5m8"/>
                 <outlet property="scroll" destination="f21-IX-hgk" id="nOC-9n-U70"/>
                 <outlet property="sortView" destination="Jjr-nT-igQ" id="9c0-08-a74"/>
                 <outlet property="tableList" destination="Yzp-w8-hbC" id="JoC-2F-5Qb"/>
-                <outlet property="topView" destination="mNf-C1-bpL" id="cfx-pg-B8F"/>
                 <outlet property="view" destination="1" id="3"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view autoresizesSubviews="NO" contentMode="scaleToFill" id="1">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="380"/>
+            <rect key="frame" x="0.0" y="0.0" width="320" height="386"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" id="f21-IX-hgk" customClass="ScrollShopList">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="380"/>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" delaysContentTouches="NO" id="f21-IX-hgk" customClass="ScrollShopList">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="386"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
-                        <view contentMode="scaleToFill" id="ZVa-cZ-vjc">
-                            <rect key="frame" x="0.0" y="0.0" width="321" height="380"/>
+                        <mapView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" mapType="standard" zoomEnabled="NO" scrollEnabled="NO" rotateEnabled="NO" pitchEnabled="NO" showsUserLocation="YES" id="Khm-ek-ChM">
+                            <rect key="frame" x="0.0" y="-275" width="320" height="436"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <subviews>
-                                <view contentMode="scaleToFill" id="mNf-C1-bpL" userLabel="topView">
-                                    <rect key="frame" x="0.0" y="-200" width="320" height="313"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <subviews>
-                                        <mapView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" mapType="standard" zoomEnabled="NO" scrollEnabled="NO" rotateEnabled="NO" pitchEnabled="NO" showsUserLocation="YES" id="Khm-ek-ChM">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="313"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                            <connections>
-                                                <outlet property="delegate" destination="-1" id="XFc-AL-IXs"/>
-                                            </connections>
-                                        </mapView>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Xkq-kb-KOu">
-                                            <rect key="frame" x="131" y="246" width="66" height="68"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <state key="normal" image="button_map.png">
-                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                            </state>
-                                            <connections>
-                                                <action selector="btnMapTouchUpInside:" destination="-1" eventType="touchUpInside" id="EcV-1a-XTT"/>
-                                            </connections>
-                                        </button>
-                                        <view contentMode="scaleToFill" id="Jjr-nT-igQ" customClass="ShopListSortView">
-                                            <rect key="frame" x="0.0" y="291" width="320" height="22"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        </view>
-                                    </subviews>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                </view>
-                                <view contentMode="scaleToFill" id="Ecg-r8-ww5" userLabel="botView">
-                                    <rect key="frame" x="0.0" y="113" width="320" height="267"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <subviews>
-                                        <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Yzp-w8-hbC">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="267"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                            <connections>
-                                                <outlet property="dataSource" destination="-1" id="p1K-9y-b7D"/>
-                                                <outlet property="delegate" destination="-1" id="1d7-6A-LrC"/>
-                                            </connections>
-                                        </tableView>
-                                    </subviews>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                </view>
-                            </subviews>
+                            <connections>
+                                <outlet property="delegate" destination="-1" id="XFc-AL-IXs"/>
+                            </connections>
+                        </mapView>
+                        <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" style="plain" separatorStyle="none" allowsSelection="NO" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Yzp-w8-hbC">
+                            <rect key="frame" x="0.0" y="113" width="320" height="273"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <outlet property="dataSource" destination="-1" id="p1K-9y-b7D"/>
+                                <outlet property="delegate" destination="-1" id="1d7-6A-LrC"/>
+                            </connections>
+                        </tableView>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Xkq-kb-KOu">
+                            <rect key="frame" x="143" y="64" width="33" height="34"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" image="button_map.png">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="btnMapTouchUpInside:" destination="-1" eventType="touchUpInside" id="EcV-1a-XTT"/>
+                            </connections>
+                        </button>
+                        <view contentMode="scaleToFill" id="Jjr-nT-igQ" customClass="ShopListSortView">
+                            <rect key="frame" x="0.0" y="91" width="320" height="22"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         </view>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="vVs-Zn-Uvn">
+                            <rect key="frame" x="20" y="-227" width="279" height="50"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <state key="normal" image="button_location.png">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <connections>
@@ -86,11 +71,12 @@
                     </connections>
                 </scrollView>
             </subviews>
-            <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
         </view>
     </objects>
     <resources>
+        <image name="button_location.png" width="279" height="50"/>
         <image name="button_map.png" width="33" height="34"/>
     </resources>
 </document>

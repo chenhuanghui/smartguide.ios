@@ -43,6 +43,7 @@ static GUIManager *_shareInstance=nil;
 {
     mainWindow=window;
     
+    
     [[UIApplication sharedApplication] setStatusBarHidden:true];
     
     NSMutableArray *viewControllers=[NSMutableArray array];
@@ -148,8 +149,6 @@ static GUIManager *_shareInstance=nil;
     
     SGNavigationController *vc=[[SGNavigationController alloc] initWithRootViewController:shopController];
     contentNavigation=vc;
-    
-    [shopController showShopListWithGroup:nil];
     
     [rootViewController addChildViewController:vc];
 }

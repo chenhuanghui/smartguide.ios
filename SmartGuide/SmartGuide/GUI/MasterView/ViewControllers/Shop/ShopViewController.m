@@ -27,12 +27,16 @@
 {
     [super viewDidLoad];
     
+    self.view.backgroundColor=COLOR_BACKGROUND_SHOP_SERIES;
+    
     [self addChildViewController:self.childNavigationController];
     [contentView addSubview:self.childNavigationController.view];
     
     CGRect rect=contentView.frame;
     rect.origin=CGPointZero;
     self.childNavigationController.view.frame=rect;
+    
+    [contentView l_v_addH:QRCODE_BIG_HEIGHT-QRCODE_SMALL_HEIGHT];
     
     self.childNavigationController.isAllowDragBackPreviouseView=true;
     
@@ -43,11 +47,40 @@
     
     [self.childNavigationController pushViewController:vc animated:false];
     
+    [self showShopListWithGroup:nil];
+    
     UIImageView *imgv=[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_search.png"]];
     imgv.contentMode=UIViewContentModeCenter;
     imgv.frame=CGRectMake(0, 0, 30, 18);
     txtSearch.leftView=imgv;
     txtSearch.leftViewMode=UITextFieldViewModeAlways;
+    
+    UIButton *btn=[UIButton buttonWithType:UIButtonTypeCustom];
+    [btn setImage:[UIImage imageNamed:@"icon_location"] forState:UIControlStateNormal];
+    [btn addTarget:self action:@selector(btnSortTouchUpInside:) forControlEvents:UIControlEventTouchUpInside];
+    
+    btn.frame=CGRectMake(0, 0, 18, 14);
+    [btn setImageEdgeInsets:UIEdgeInsetsMake(0, -8, 0, 0)];
+    
+    txtSearch.rightView=btn;
+    txtSearch.rightViewMode=UITextFieldViewModeAlways;
+}
+
+-(void) btnSortTouchUpInside:(id) sender
+{
+    UIActionSheet *sheet=[[UIActionSheet alloc] initWithTitle:@"Tìm kiếm theo" delegate:self cancelButtonTitle:@"Đóng" destructiveButtonTitle:nil otherButtonTitles:@"Khoảng cách", @"Lượt xem", @"Lượt love", nil];
+    
+    [sheet showInView:self.view];
+}
+
+-(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    lblLocation.text=[NSString stringWithFormat:@"“%@”", [actionSheet buttonTitleAtIndex:buttonIndex]];
+}
+
+-(void)actionSheetCancel:(UIActionSheet *)actionSheet
+{
+    
 }
 
 -(void)showShopListWithGroup:(ShopCatalog*) group
