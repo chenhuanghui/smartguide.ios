@@ -11,6 +11,7 @@
 #import "Constant.h"
 
 @implementation ShopListCell
+@synthesize delegate;
 
 -(void)loadContent
 {
@@ -43,6 +44,23 @@
     
     scroll.contentOffset=CGPointZero;
     scroll.contentSize=CGSizeMake(self.frame.size.width+slideView.frame.size.width, 0);
+    
+    
+    tapGes.delegate=nil;
+    [tapGes removeTarget:self action:@selector(panGes:)];
+    [scroll removeGestureRecognizer:tapGes];
+    tapGes=nil;
+    
+    UITapGestureRecognizer *pan=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(panGes:)];
+    tapGes=pan;
+    
+    [scroll.panGestureRecognizer requireGestureRecognizerToFail:pan];
+    [scroll addGestureRecognizer:pan];
+}
+
+-(void) panGes:(UIPanGestureRecognizer*) pan
+{
+    [self.delegate shopListCellTouched:self];
 }
 
 +(float)height

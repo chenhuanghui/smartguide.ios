@@ -9,7 +9,13 @@
 #import <UIKit/UIKit.h>
 #import "LabelTopText.h"
 
-@class ScrollListCell;
+@class ScrollListCell,ShopListCell;
+
+@protocol ShopListCellDelegate <NSObject>
+
+-(void) shopListCellTouched:(ShopListCell*) cell;
+
+@end
 
 @interface ShopListCell : UITableViewCell<UIScrollViewDelegate>
 {
@@ -24,11 +30,15 @@
     __weak IBOutlet UIButton *btnShare;
     __weak IBOutlet UIView *visibleView;
     __weak IBOutlet ScrollListCell *scroll;
+    
+    __weak UITapGestureRecognizer *tapGes;
 }
 
 -(void) loadContent;
 +(NSString *)reuseIdentifier;
 +(float) height;
+
+@property (nonatomic, weak) id<ShopListCellDelegate> delegate;
 
 @end
 

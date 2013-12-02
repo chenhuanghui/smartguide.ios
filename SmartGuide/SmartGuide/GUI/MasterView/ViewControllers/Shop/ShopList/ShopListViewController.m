@@ -54,6 +54,7 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     ShopListCell *cell=[tableView dequeueReusableCellWithIdentifier:[ShopListCell reuseIdentifier]];
+    cell.delegate=self;
     
     [cell loadContent];
     
@@ -66,6 +67,11 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+}
+
+-(void)shopListCellTouched:(ShopListCell *)cell
 {
     [[GUIManager shareInstance] presentShopUserWithIDShop:0];
 }

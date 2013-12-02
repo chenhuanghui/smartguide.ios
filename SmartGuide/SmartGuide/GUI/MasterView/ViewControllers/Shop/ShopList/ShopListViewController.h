@@ -16,10 +16,11 @@
 #import "Scroller.h"
 #import "ShopViewController.h"
 #import "MapList.h"
+#import "ShopListCell.h"
 
 @class ScrollShopList,ShopListContentView;
 
-@interface ShopListViewController : SGViewController<MKMapViewDelegate,UIScrollViewDelegate,ScrollerDelegate,UIGestureRecognizerDelegate,SortViewDelegate,UIActionSheetDelegate,ShopControllerHandle,UITableViewDataSource,UITableViewDelegate>
+@interface ShopListViewController : SGViewController<MKMapViewDelegate,UIScrollViewDelegate,ScrollerDelegate,UIGestureRecognizerDelegate,SortViewDelegate,UIActionSheetDelegate,ShopControllerHandle,UITableViewDataSource,UITableViewDelegate,ShopListCellDelegate>
 {
     __weak IBOutlet UITableView *tableList;
     __weak IBOutlet ScrollShopList *scroll;
