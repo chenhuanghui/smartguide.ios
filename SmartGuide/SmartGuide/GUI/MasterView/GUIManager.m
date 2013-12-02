@@ -138,7 +138,6 @@ static GUIManager *_shareInstance=nil;
     if(sgController==rootViewController)
     {
         [rootViewController.contentView addSubview:contentNavigation.view];
-        [rootViewController.qrCodeView addSubview:qrCodeController.view];
     }
 }
 
@@ -434,25 +433,26 @@ static GUIManager *_shareInstance=nil;
 
 -(void)qrcodeControllerRequestShow:(SGQRCodeViewController *)controller
 {
-    [UIView animateWithDuration:DURATION_DEFAULT animations:^{
-        CGRect rect=self.rootViewController.qrCodeFrame;
-        rect.origin.y=0;
-        self.rootViewController.qrCodeView.frame=rect;
-    }];
+//    _qrCodeBeforeShowFrame=self.rootViewController.qrCodeView.frame;
+//    [UIView animateWithDuration:DURATION_DEFAULT animations:^{
+//        CGRect rect=self.rootViewController.qrCodeFrame;
+//        rect.origin.y=0;
+//        self.rootViewController.qrCodeView.frame=rect;
+//    }];
 }
 
 -(void) qrcodeControllerRequestClose:(SGQRCodeViewController *)controller
 {
-    [UIView animateWithDuration:DURATION_DEFAULT animations:^{
-        self.rootViewController.qrCodeView.frame=self.rootViewController.qrCodeFrame;
-    }];
+//    [UIView animateWithDuration:DURATION_DEFAULT animations:^{
+//        self.rootViewController.qrCodeView.frame=_qrCodeBeforeShowFrame;
+//    }];
 }
 
 -(void) qrcodeControllerScanned:(SGQRCodeViewController *)controller
 {
-    [UIView animateWithDuration:DURATION_DEFAULT animations:^{
-        self.rootViewController.qrCodeView.frame=self.rootViewController.qrCodeFrame;
-    }];
+//    [UIView animateWithDuration:DURATION_DEFAULT animations:^{
+//        self.rootViewController.qrCodeView.frame=self.rootViewController.qrCodeFrame;
+//    }];
 }
 
 -(void)displayViewController:(SGViewController *)viewController

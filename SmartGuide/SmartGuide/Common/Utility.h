@@ -201,6 +201,7 @@ int random_int(int from, int to);
 -(void) effectCornerRadius:(float) corner shadow:(float) radius;
 -(void) cornerRadiusWithRounding:(UIRectCorner) round cornerRad:(CGSize) size;
 -(UIView*) childViewWithTag:(NSUInteger) childTag;
+-(CGPoint)convertPoint:(CGPoint)point untilView:(UIView *)view;
 
 @end
 

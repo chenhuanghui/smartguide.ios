@@ -87,6 +87,10 @@
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
         </view>
+        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background_blur.png" id="49w-Mb-S8k">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="91"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+        </imageView>
         <navigationController definesPresentationContext="YES" navigationBarHidden="YES" id="tbE-VN-JL8" customClass="SGNavigationController">
             <nil key="simulatedStatusBarMetrics"/>
             <nil key="simulatedTopBarMetrics"/>
@@ -641,6 +645,7 @@
     <resources>
         <image name="II-3-DetailFull.jpg" width="290" height="1532"/>
         <image name="ava.png" width="74" height="74"/>
+        <image name="background_blur.png" width="320" height="91"/>
         <image name="background_shadow.png" width="304" height="439"/>
         <image name="buton_love.png" width="37" height="37"/>
         <image name="button_addphoto.png" width="279" height="50"/>

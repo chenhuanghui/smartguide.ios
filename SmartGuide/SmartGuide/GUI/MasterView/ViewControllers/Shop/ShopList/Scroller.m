@@ -123,8 +123,8 @@
     
     y=_scrollBar.l_v_h*perOffsetY;
     
-    y=MAX(view.l_v_h, y);
-    y=MIN(_scrollBar.l_v_h-view.l_v_h-3, y);
+//    y=MAX(view.l_v_h, y);
+//    y=MIN(_scrollBar.l_v_h-view.l_v_h*2, y);
     
     [view l_v_setY:y];
 }

@@ -8,6 +8,8 @@
 
 #import "ShopViewController.h"
 #import "GUIManager.h"
+#import "ShopCatalogViewController.h"
+#import "ShopListViewController.h"
 
 @interface ShopViewController ()
 
@@ -23,9 +25,30 @@
     return self;
 }
 
+-(void) showShopCatalog:(bool) animated
+{
+    ShopCatalogViewController *vc=[[ShopCatalogViewController alloc] init];
+    vc.delegate=self;
+    
+    [self settingShopHandle:vc];
+    
+    shopCatalog=vc;
+    
+    [self.childNavigationController pushViewController:vc animated:animated];
+}
+
+-(void) settingShopHandle:(id<ShopControllerHandle>) handle
+{
+    [handle setShopController:self];
+    [handle setQrCodeView:qrView];
+    [handle setQrViewFrame:_qrViewFrame];
+}
+
 -(void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    _qrViewFrame=qrView.frame;
     
     self.view.backgroundColor=COLOR_BACKGROUND_SHOP_SERIES;
     
@@ -40,12 +63,7 @@
     
     self.childNavigationController.isAllowDragBackPreviouseView=true;
     
-    ShopCatalogViewController *vc=[[ShopCatalogViewController alloc] init];
-    vc.delegate=self;
-    
-    shopCatalog=vc;
-    
-    [self.childNavigationController pushViewController:vc animated:false];
+    [self showShopCatalog:false];
     
     [self showShopListWithGroup:nil];
     
@@ -68,9 +86,7 @@
 
 -(void) btnSortTouchUpInside:(id) sender
 {
-    UIActionSheet *sheet=[[UIActionSheet alloc] initWithTitle:@"Tìm kiếm theo" delegate:self cancelButtonTitle:@"Đóng" destructiveButtonTitle:nil otherButtonTitles:@"Khoảng cách", @"Lượt xem", @"Lượt love", nil];
     
-    [sheet showInView:self.view];
 }
 
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
@@ -83,10 +99,13 @@
     
 }
 
+
 -(void)showShopListWithGroup:(ShopCatalog*) group
 {
     ShopListViewController *vc=[[ShopListViewController alloc] init];
     vc.delegate=self;
+    
+    [self settingShopHandle:vc];
     
     shopList=vc;
     
@@ -175,6 +194,27 @@
         
         titleView.hidden=true;
     }];
+}
+
+- (IBAction)btnQRCodeTouchUpInside:(id)sender {
+    id<ShopControllerHandle> handle=(id<ShopControllerHandle>)self.childNavigationController.visibleViewController;
+    
+    if([handle isShowedQRView])
+        [handle hideQRView];
+    else
+        [handle showQRView];
+    
+    [handle setIsShowedQRView:![handle isShowedQRView]];
+}
+
+-(CGRect)qrViewFrame
+{
+    return _qrViewFrame;
+}
+
+-(float)searchFieldHeight
+{
+    return 42;
 }
 
 @end

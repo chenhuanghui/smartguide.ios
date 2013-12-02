@@ -7,18 +7,40 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ShopCatalogViewController.h"
-#import "ShopListViewController.h"
 #import "Constant.h"
 #import "SGNavigationController.h"
 #import "SearchShopViewController.h"
 
-@class ShopViewController;
+@class ShopViewController,ShopCatalogViewController,ShopListViewController;
+
+@protocol ShopCatalogDelegate <SGViewControllerDelegate>
+
+-(void) shopCatalogSelectedCatalog:(ShopCatalog*) group;
+
+@end
+
+@protocol ShopListDelegate <SGViewControllerDelegate>
+
+-(void) shopListSelectedShop;
+
+@end
 
 @protocol ShopViewDelegate <SGViewControllerDelegate>
 
 -(void) shopControllerTouchedSetting:(ShopViewController*) controller;
 -(void) shopControllerTouchedNotification:(ShopViewController*) controller;
+
+@end
+
+@protocol ShopControllerHandle <NSObject>
+
+-(void) showQRView;
+-(void) hideQRView;
+
+@property (nonatomic, weak) ShopViewController *shopController;
+@property (nonatomic, weak) UIView *qrCodeView;
+@property (nonatomic, assign) CGRect qrViewFrame;
+@property (nonatomic, assign) bool isShowedQRView;
 
 @end
 
@@ -34,17 +56,22 @@
     __weak IBOutlet UIButton *btnNotification;
     __weak IBOutlet UIButton *btnCancel;
     __weak IBOutlet UIButton *btnConfig;
+    __weak IBOutlet UIView *qrView;
+    __weak IBOutlet UIButton *btnQRCode;
     
     __weak IBOutlet UILabel *lblLocation;
     
     __weak SearchShopViewController *searchShopController;
+    
+    CGRect _qrViewFrame;
 }
 
 -(void) showShopListWithGroup:(ShopCatalog*) group;
 
+-(CGRect) qrViewFrame;
+-(float) searchFieldHeight;
+
 @property (weak, nonatomic) IBOutlet SGNavigationController *childNavigationController;
-
-
 @property (nonatomic, weak) id<ShopViewDelegate> delegate;
 @property (nonatomic, weak, readonly) ShopCatalogViewController *shopCatalog;
 @property (nonatomic, weak, readonly) ShopListViewController *shopList;

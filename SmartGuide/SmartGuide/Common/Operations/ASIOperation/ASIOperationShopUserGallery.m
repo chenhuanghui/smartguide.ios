@@ -33,15 +33,15 @@
     userGallerys=[[NSMutableArray alloc] init];
     if([self isNullData:json])
         return;
-    
-    Shop *shop=[Shop shopWithIDShop:[[self.values objectAtIndex:0] integerValue]];
-    
-    for(NSDictionary *dict in json)
-    {
-        
-    }
-    
-    [[DataManager shareInstance] save];
+//    
+//    Shop *shop=[Shop shopWithIDShop:[[self.values objectAtIndex:0] integerValue]];
+//    
+//    for(NSDictionary *dict in json)
+//    {
+//        
+//    }
+//    
+//    [[DataManager shareInstance] save];
 }
 
 @end

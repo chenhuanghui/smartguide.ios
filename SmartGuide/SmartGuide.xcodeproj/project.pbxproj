@@ -27,6 +27,7 @@
 		9A076B99181F6D6C0060EC9D /* ShopCatalog.m in Sources */ = {isa = PBXBuildFile; fileRef = A9253D7F17981C3A00427BFE /* ShopCatalog.m */; };
 		9A15EAE5183E50DE00BF3CF7 /* frame_avacomment.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A15EAE3183E50DD00BF3CF7 /* frame_avacomment.png */; };
 		9A15EAE6183E50DE00BF3CF7 /* frame_avacomment@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A15EAE4183E50DE00BF3CF7 /* frame_avacomment@2x.png */; };
+		9A1E1347184AFCCB009FD224 /* MapList.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A1E1346184AFCCB009FD224 /* MapList.m */; };
 		9A29391B18445D9900FD49E2 /* _KM1Voucher.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A29391818445D9900FD49E2 /* _KM1Voucher.m */; };
 		9A29391C18445D9900FD49E2 /* _ShopKM1.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A29391A18445D9900FD49E2 /* _ShopKM1.m */; };
 		9A29392118445DA000FD49E2 /* KM1Voucher.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A29391E18445DA000FD49E2 /* KM1Voucher.m */; };
@@ -438,6 +439,8 @@
 		9A05D84317F15213000F232C /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		9A15EAE3183E50DD00BF3CF7 /* frame_avacomment.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = frame_avacomment.png; sourceTree = "<group>"; };
 		9A15EAE4183E50DE00BF3CF7 /* frame_avacomment@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "frame_avacomment@2x.png"; sourceTree = "<group>"; };
+		9A1E1345184AFCCB009FD224 /* MapList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapList.h; sourceTree = "<group>"; };
+		9A1E1346184AFCCB009FD224 /* MapList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapList.m; sourceTree = "<group>"; };
 		9A29391718445D9900FD49E2 /* _KM1Voucher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _KM1Voucher.h; sourceTree = "<group>"; };
 		9A29391818445D9900FD49E2 /* _KM1Voucher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _KM1Voucher.m; sourceTree = "<group>"; };
 		9A29391918445D9900FD49E2 /* _ShopKM1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _ShopKM1.h; sourceTree = "<group>"; };
@@ -1204,6 +1207,8 @@
 				9A2939981844AA6F00FD49E2 /* ShopListSortView.m */,
 				9AC29F901845E14A00B31927 /* Scroller.h */,
 				9AC29F911845E14A00B31927 /* Scroller.m */,
+				9A1E1345184AFCCB009FD224 /* MapList.h */,
+				9A1E1346184AFCCB009FD224 /* MapList.m */,
 			);
 			path = ShopList;
 			sourceTree = "<group>";
@@ -2638,6 +2643,7 @@
 				A9A505E5178EC5EF00F27E18 /* UIView+Layout.m in Sources */,
 				A9A505E6178EC5EF00F27E18 /* FTCoreTextStyle.m in Sources */,
 				A9A505E7178EC5EF00F27E18 /* FTCoreTextView.m in Sources */,
+				9A1E1347184AFCCB009FD224 /* MapList.m in Sources */,
 				A9BF946D178FA7E700EF7E5F /* AFHTTPClient.m in Sources */,
 				A9BF946E178FA7E700EF7E5F /* AFHTTPRequestOperation.m in Sources */,
 				9A29391B18445D9900FD49E2 /* _KM1Voucher.m in Sources */,

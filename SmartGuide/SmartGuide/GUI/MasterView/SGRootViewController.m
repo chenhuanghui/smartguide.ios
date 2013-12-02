@@ -13,7 +13,7 @@
 @end
 
 @implementation SGRootViewController
-@synthesize containFrame,contentFrame,qrCodeFrame;
+@synthesize containFrame,contentFrame;
 
 - (id)initWithDelegate:(id<SGViewControllerDelegate>)_delegate
 {
@@ -31,11 +31,9 @@
     
     containFrame=self.containView.frame;
     contentFrame=self.contentView.frame;
-    qrCodeFrame=self.qrCodeView.frame;
     
     self.containView.layer.masksToBounds=true;
     self.contentView.layer.masksToBounds=true;
-    self.qrCodeView.layer.masksToBounds=true;
 }
 
 - (void)didReceiveMemoryWarning

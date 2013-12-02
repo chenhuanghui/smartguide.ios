@@ -9,14 +9,9 @@
 #import "SGViewController.h"
 #import "Constant.h"
 #import "ASIOperationShopCatalog.h"
+#import "ShopViewController.h"
 
-@protocol ShopCatalogDelegate <SGViewControllerDelegate>
-
--(void) shopCatalogSelectedCatalog:(ShopCatalog*) group;
-
-@end
-
-@interface ShopCatalogViewController : SGViewController<ASIOperationPostDelegate>
+@interface ShopCatalogViewController : SGViewController<ASIOperationPostDelegate,ShopControllerHandle>
 {
     ASIOperationShopCatalog *_operationShopCatalog;
     

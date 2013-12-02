@@ -9,7 +9,6 @@
             <connections>
                 <outlet property="containView" destination="clU-Nc-up4" id="pz2-XN-V9B"/>
                 <outlet property="contentView" destination="RQU-48-iTN" id="LzY-Oz-Za0"/>
-                <outlet property="qrCodeView" destination="RZ9-MX-wAt" id="SRD-Fj-tDp"/>
                 <outlet property="topView" destination="c5x-Wd-VX5" id="hD5-97-UWt"/>
                 <outlet property="view" destination="1" id="3"/>
             </connections>
@@ -25,11 +24,6 @@
                     <subviews>
                         <view contentMode="scaleToFill" id="RQU-48-iTN" userLabel="content">
                             <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                        </view>
-                        <view contentMode="scaleToFill" id="RZ9-MX-wAt" userLabel="qrcode">
-                            <rect key="frame" x="0.0" y="424" width="320" height="480"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         </view>

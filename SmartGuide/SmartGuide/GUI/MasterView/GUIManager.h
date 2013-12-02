@@ -32,6 +32,7 @@
 @interface GUIManager : NSObject<ToolbarDelegate,UINavigationControllerDelegate,SGSettingDelegate,SGQRCodeControllerDelegate,UIGestureRecognizerDelegate,AuthorizationDelegate,WelcomeControllerDelegate,SGLoadingScreenDelegate,SGViewControllerDelegate,ShopUserDelegate,SGUserSettingControllerDelegate,ShopViewDelegate,NotificationControllerDelegate>
 {
     void(^_onLoginedCompleted)(bool isLogined);
+    CGRect _qrCodeBeforeShowFrame;
 }
 
 +(GUIManager*) shareInstance;

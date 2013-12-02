@@ -17,11 +17,9 @@
 
 @property (weak, nonatomic) IBOutlet UIView *containView;
 @property (weak, nonatomic) IBOutlet UIView *contentView;
-@property (weak, nonatomic) IBOutlet UIView *qrCodeView;
 @property (weak, nonatomic) IBOutlet UIView *topView;
 
 @property (nonatomic, readonly, assign) CGRect containFrame;
 @property (nonatomic, readonly, assign) CGRect contentFrame;
-@property (nonatomic, readonly, assign) CGRect qrCodeFrame;
 
 @end

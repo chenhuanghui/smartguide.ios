@@ -14,7 +14,7 @@
 @end
 
 @implementation ShopCatalogViewController
-@synthesize delegate;
+@synthesize delegate,shopController,qrCodeView,isShowedQRView,qrViewFrame;
 
 - (id)init
 {
@@ -268,6 +268,20 @@
 -(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
     [self.delegate shopCatalogSelectedCatalog:nil];
+}
+
+-(void)showQRView
+{
+    [UIView animateWithDuration:DURATION_DEFAULT animations:^{
+        [self.qrCodeView l_v_setO:CGPointZero];
+    }];
+}
+
+-(void)hideQRView
+{
+    [UIView animateWithDuration:DURATION_DEFAULT animations:^{
+        [self.qrCodeView l_v_setO:CGPointMake(0, self.qrViewFrame.origin.y)];
+    }];
 }
 
 @end

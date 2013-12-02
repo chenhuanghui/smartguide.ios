@@ -22,6 +22,7 @@
 }
 
 -(void) setIcon:(UIImage*) icon text:(NSString*) text;
+-(void) setText:(NSString*) text;
 
 @property (nonatomic, weak) id<SortViewDelegate> delegate;
 

@@ -32,7 +32,7 @@
     NSDictionary *dict=[json objectAtIndex:0];
     shop=[Shop shopWithIDShop:[[values objectAtIndex:0] integerValue]];
     
-    
+    NSLog(@"%@ %@",CLASS_NAME,dict);
 }
 
 @end

@@ -990,6 +990,21 @@ int random_int(int from, int to)
     self.layer.shouldRasterize=true;
 }
 
+-(CGPoint)convertPoint:(CGPoint)point untilView:(UIView *)view
+{
+    UIView *v=self.superview;
+    
+    CGPoint pnt=[self convertPoint:point toView:v];
+    while (v!=view) {
+        pnt=[v convertPoint:pnt toView:v.superview];
+        v=v.superview;
+    }
+    
+//    pnt=[v convertPoint:pnt toView:view];
+    
+    return pnt;
+}
+
 @end
 
 @implementation MKUserLocation(Utility)
