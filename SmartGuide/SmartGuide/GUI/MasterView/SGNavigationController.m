@@ -12,7 +12,6 @@
 
 @interface SGNavigationController ()
 
-@property (nonatomic, weak) UIPanGestureRecognizer *panPrevious;
 @property (nonatomic, assign) CGPoint panPreviousStartPoint;
 @property (nonatomic, weak) UIPanGestureRecognizer *panSlide;
 @property (nonatomic, weak) UITapGestureRecognizer *tapSlide;

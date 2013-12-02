@@ -40,7 +40,7 @@
     CGRect _buttonSearchLocationFrame;
     
     bool _isZoomedMap;
-    bool _isAnimatingZoomMap;
+    bool _isAnimatingZoom;
 
     __weak UITapGestureRecognizer *_tapTop;
     __weak UITapGestureRecognizer *_tapBot;
@@ -49,6 +49,7 @@
     NSIndexPath *_lastScrollerIndexPath;
     
     bool _isDidUpdateLocation;
+    bool _isAllowDiffScrollMap;
 }
 
 -(bool) isZoomedMap;

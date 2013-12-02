@@ -11,7 +11,7 @@
 #import "Constant.h"
 
 @implementation Scroller
-@synthesize delegate;
+@synthesize delegate,hidden;
 
 -(Scroller *)init
 {
@@ -37,7 +37,6 @@
         [bgView l_v_setX:(bgView.l_v_w-size.width)-imgv.image.size.width-8];
     } completion:^(BOOL finished) {
         lbl.text=text;
-        self.view.hidden=false;
     }];
 }
 
@@ -56,6 +55,7 @@
         UIView *v=[[UIView alloc] initWithFrame:CGRectMake(-319, 0, 320, 29)];
         v.layer.masksToBounds=true;
         v.backgroundColor=[UIColor clearColor];
+        v.hidden=self.hidden;
         
         view=v;
         
@@ -100,11 +100,7 @@
         
         [_scrollBar addSubview:view];
         
-        self.view.hidden=true;
-        
-        NSData *data=UIImagePNGRepresentation(_scrollBar.image);
-        
-        [data writeToFile:[[Utility documentPath] stringByAppendingPathComponent:@"XXX.png"] atomically:false];
+        [bgView l_v_setX:view.l_v_w];
     }
 }
 
@@ -123,8 +119,8 @@
     
     y=_scrollBar.l_v_h*perOffsetY;
     
-//    y=MAX(view.l_v_h, y);
-//    y=MIN(_scrollBar.l_v_h-view.l_v_h*2, y);
+    y=MAX(view.l_v_h, y);
+    y=MIN(231-view.l_v_h*2,y);
     
     [view l_v_setY:y];
 }
@@ -147,6 +143,18 @@
 -(UIView *)view
 {
     return view;
+}
+
+-(void)setHidden:(bool)_hidden
+{
+    hidden=_hidden;
+    
+    view.hidden=hidden;
+}
+
+-(bool)hidden
+{
+    return hidden;
 }
 
 @end

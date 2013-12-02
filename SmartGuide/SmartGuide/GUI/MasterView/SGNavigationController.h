@@ -37,6 +37,7 @@
 @property (nonatomic, weak, readonly) SGRightViewController *rightSlideController;
 @property (nonatomic, weak, readonly) UIViewController *previousViewController;
 @property (nonatomic, assign) bool isAllowDragBackPreviouseView;
+@property (nonatomic, weak) UIPanGestureRecognizer *panPrevious;
 
 @end
 

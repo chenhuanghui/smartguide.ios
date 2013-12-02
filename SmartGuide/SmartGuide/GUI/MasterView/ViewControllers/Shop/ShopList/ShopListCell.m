@@ -10,39 +10,39 @@
 #import "Utility.h"
 #import "Constant.h"
 
-#define SHOP_LIST_CELL_CONTENT_FRAME CGRectMake(54, 17, 268, 34)
-#define SHOP_LIST_CELL_SLIDE_FRAME CGRectMake(320, 0, 103, 54)
-
 @implementation ShopListCell
 
 -(void)loadContent
 {
     imgvVoucher.highlighted=rand()%2==0;
-
     
-//    scroll.contentSize=CGSizeMake(scroll.l_v_w+(imgvLineVerContent.l_v_x-imgvLine.l_v_x), scroll.l_v_h);
-//    scroll.scrollEnabled=true;
-//    scroll.bounces=false;
+    scroll.contentOffset=CGPointZero;
+    scroll.contentSize=CGSizeMake(self.frame.size.width+slideView.frame.size.width, 0);
 }
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    CGPoint pnt=scrollView.contentOffset;
-  
-    CGRect rect=SHOP_LIST_CELL_CONTENT_FRAME;
-    
-    rect.size.width-=pnt.x;
-    lblContent.frame=rect;
-    
-    rect=SHOP_LIST_CELL_SLIDE_FRAME;
-    rect.origin.x=lblContent.l_v_x+lblContent.l_v_w;
-    
-    slideView.frame=rect;
+    [UIView animateWithDuration:0.1f animations:^{
+        [visibleView l_v_setW:MIN(320, 320-scroll.contentOffset.x)];
+    }];
 }
 
 +(NSString *)reuseIdentifier
 {
     return @"ShopListCell";
+}
+
+-(void)prepareForReuse
+{
+    [super prepareForReuse];
+}
+
+-(void)didMoveToSuperview
+{
+    [super didMoveToSuperview];
+    
+    scroll.contentOffset=CGPointZero;
+    scroll.contentSize=CGSizeMake(self.frame.size.width+slideView.frame.size.width, 0);
 }
 
 +(float)height
@@ -51,11 +51,47 @@
 }
 
 - (IBAction)btnLoveTouchUpInside:(id)sender {
+    [scroll setContentOffset:CGPointZero animated:true];
     NSLog(@"love");
 }
 
 - (IBAction)btnShareTouchUpInside:(id)sender {
+    [scroll setContentOffset:CGPointZero animated:true];
     NSLog(@"share");
+}
+
+@end
+
+@implementation ScrollListCell
+@synthesize offset;
+
+-(void)didMoveToSuperview
+{
+    [super didMoveToSuperview];
+    
+    if(self.superview)
+    {
+        self.panGestureRecognizer.delegate=self;
+    }
+}
+
+-(BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
+{
+    if(gestureRecognizer==self.panGestureRecognizer)
+    {
+        CGPoint velocity=[self.panGestureRecognizer velocityInView:self.panGestureRecognizer.view];
+        
+        return fabsf(velocity.x)>fabsf(velocity.y);
+    }
+    
+    return true;
+}
+
+-(void)setContentOffset:(CGPoint)contentOffset
+{
+    offset=CGPointMake(contentOffset.x-self.contentOffset.x, contentOffset.y-self.contentOffset.y);
+    
+    [super setContentOffset:contentOffset];
 }
 
 @end

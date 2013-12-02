@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "LabelTopText.h"
 
+@class ScrollListCell;
+
 @interface ShopListCell : UITableViewCell<UIScrollViewDelegate>
 {
     __weak IBOutlet UIImageView *imgvVoucher;
@@ -21,11 +23,16 @@
     __weak IBOutlet UIButton *btnLove;
     __weak IBOutlet UIButton *btnShare;
     __weak IBOutlet UIView *visibleView;
-    __weak IBOutlet UIScrollView *scroll;
+    __weak IBOutlet ScrollListCell *scroll;
 }
 
 -(void) loadContent;
 +(NSString *)reuseIdentifier;
 +(float) height;
+
+@end
+
+@interface ScrollListCell : UIScrollView<UIGestureRecognizerDelegate>
+@property CGPoint offset;
 
 @end

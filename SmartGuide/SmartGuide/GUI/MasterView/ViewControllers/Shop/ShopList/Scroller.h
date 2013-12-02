@@ -20,6 +20,7 @@
     __weak UIView *view;
     __weak UIView *bgView;
     UIImage *_icon;
+    bool _isdidFirstVisible;
 }
 
 -(Scroller*) init;
@@ -36,5 +37,6 @@
 -(UIView*) view;
 
 @property (nonatomic, weak) id<ScrollerDelegate> delegate;
+@property (nonatomic, assign) bool hidden;
 
 @end

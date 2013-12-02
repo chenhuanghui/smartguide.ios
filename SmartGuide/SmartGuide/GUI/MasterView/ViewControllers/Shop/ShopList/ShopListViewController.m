@@ -48,7 +48,7 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 10;
+    return 1000;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -100,6 +100,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
+    _isAllowDiffScrollMap=true;
     [contentView insertSubview:self.map belowSubview:tableList];
     self.map.userInteractionEnabled=false;
     self.map.scrollEnabled=false;
@@ -139,6 +140,7 @@
     
     scroller=[[Scroller alloc] init];
     scroller.delegate=self;
+    scroller.hidden=false;
     [scroller setIcon:[UIImage imageNamed:@"icon_heartscroll.png"]];
     
     [scroll.panGestureRecognizer addTarget:self action:@selector(panShowMap:)];
@@ -201,9 +203,10 @@
 -(void) makeScrollSize
 {
     CGSize size=tableList.contentSize;
-    size.height=MAX(_tableFrame.size.height,size.height);
+    size.height=_tableFrame.origin.y+_tableFrame.size.height;
+    
     [tableList l_v_setS:size];
-    scroll.contentSize=CGSizeMake(scroll.l_v_w, tableList.l_v_y+tableList.l_v_h);
+    scroll.contentSize=CGSizeMake(scroll.l_v_w, tableList.l_v_y+MAX(_tableFrame.size.height,tableList.contentSize.height));
     scroll.contentInset=UIEdgeInsetsMake(0, 0, qrCodeView.l_v_h, 0);
 }
 
@@ -279,11 +282,47 @@
     {
         float y=scroll.offset.y/SHOP_LIST_SCROLL_SPEED;
         
-        if(!_isZoomedMap)
+        if(_isAllowDiffScrollMap)
             [self.map l_v_addY:y];
         
         [scroller scrollViewDidScroll:scroll];
-        [scroller setText:@"XXX" prefix:@""];
+        
+        y=scroll.contentOffset.y;
+        
+        if(y>=_tableFrame.origin.y && !_isZoomedMap)
+        {
+            [tableList l_v_setY:scroll.contentOffset.y];
+            [tableList setContentOffset:CGPointMake(0, y-_tableFrame.origin.y)];
+        }
+        else
+        {
+            if(_isZoomedMap && !_isAnimatingZoom)
+            {
+                float height=_viewFrame.size.height-_qrFrame.size.height+QRCODE_RAY_HEIGHT+QRCODE_BIG_HEIGHT-QRCODE_SMALL_HEIGHT;
+                height-=[ShopListCell height];
+                height-=_tableFrame.origin.y;
+                
+                [tableList l_v_setY:_tableFrame.origin.y+height];
+            }
+            else
+                [tableList l_v_setY:_tableFrame.origin.y];
+            [tableList setContentOffset:CGPointZero];
+        }
+        
+        CGPoint pnt=[scroller view].l_v_o;
+        pnt.x=0;
+        pnt=[[scroller scrollBar] convertPoint:pnt toView:scroll];
+        
+        if(pnt.y<_tableFrame.origin.y)
+            [scroller setText:@"Bản đồ" prefix:@""];
+        else
+        {
+            pnt=[scroll convertPoint:pnt toView:tableList];
+            
+            NSIndexPath *indexPath=[tableList indexPathForRowAtPoint:pnt];
+            
+            [scroller setText:[NSString stringWithFormat:@"%i",indexPath.row] prefix:@""];
+        }
     }
     else if(scrollView==tableList)
     {
@@ -337,9 +376,12 @@
 -(void) zoomMap
 {
     _isZoomedMap=true;
+    _isAllowDiffScrollMap=false;
+    _isAnimatingZoom=true;
     self.map.userInteractionEnabled=true;
     self.map.scrollEnabled=true;
     self.map.zoomEnabled=true;
+    scroller.hidden=true;
     
     if([self.map respondsToSelector:@selector(setRotateEnabled:)])
         self.map.rotateEnabled=true;
@@ -347,12 +389,12 @@
     float height=_viewFrame.size.height-_qrFrame.size.height+QRCODE_RAY_HEIGHT+QRCODE_BIG_HEIGHT-QRCODE_SMALL_HEIGHT;
     height-=[ShopListCell height];
     height-=_tableFrame.origin.y;
-
+    
     [UIView animateWithDuration:DURATION_DEFAULT animations:^{
         
         float y=QRCODE_BIG_HEIGHT-QRCODE_SMALL_HEIGHT;
         [self.qrCodeView l_v_addY:y];
-
+        
         scroll.contentInset=UIEdgeInsetsMake(0, 0, QRCODE_RAY_HEIGHT, 0);
         scroll.contentSize=scroll.l_v_s;
         
@@ -361,8 +403,10 @@
         [btnSearchLocation l_c_addY:height];
         [sortView l_c_addY:height];
         [self.map l_v_setY:0];
-    } completion:^(BOOL finished) {
         scroll.minContentOffsetY=0;
+    } completion:^(BOOL finished) {
+        _isAllowDiffScrollMap=true;
+        _isAnimatingZoom=false;
     }];
     
     [scroll.panGestureRecognizer removeTarget:self action:@selector(panShowMap:)];
@@ -410,7 +454,7 @@
     _tapBot=nil;
     
     [UIView animateWithDuration:DURATION_DEFAULT animations:^{
-
+        
         float y=QRCODE_BIG_HEIGHT-QRCODE_SMALL_HEIGHT;
         [self.qrCodeView l_v_addY:-y];
         
@@ -419,10 +463,11 @@
         [btnSearchLocation l_v_setO:_buttonSearchLocationFrame.origin];
         [sortView l_v_setO:_sortFrame.origin];
         [self.map l_v_setO:_mapFrame.origin];
-
+        
         [self makeScrollSize];
     } completion:^(BOOL finished) {
         scroll.delegate=self;
+        scroller.hidden=false;
     }];
 }
 
