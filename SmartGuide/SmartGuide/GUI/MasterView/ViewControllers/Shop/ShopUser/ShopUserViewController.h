@@ -24,7 +24,7 @@
 #import "ShopUserGalleryCell.h"
 #import "ShopUserCommentCell.h"
 
-@class ScrollShopUser;
+@class ScrollShopUser,PromotionDetailView;
 
 enum SHOP_USER_MODE {
     SHOP_USER_FULL = 0,
@@ -47,7 +47,6 @@ enum SHOP_USER_MODE {
     __strong IBOutlet SGNavigationController *shopNavi;
     __weak IBOutlet SGViewController *detailController;
     __weak IBOutlet ScrollShopUser *scrollShopUser;
-    __weak IBOutlet UIView *contentScroll;
     __weak IBOutlet HitTestView *detailView;
     __weak IBOutlet UIButton *btnClose;
     __weak IBOutlet UIView *promotionView;
@@ -74,8 +73,7 @@ enum SHOP_USER_MODE {
     __weak IBOutlet UIView *promotionBottomView;
     __weak IBOutlet PageControlNext *promotionPageControl;
     __weak IBOutlet UIButton *btnInfo;
-    __weak IBOutlet UIView *promotionDetail;
-    __weak IBOutlet UIScrollView *promotionDetailScroll;
+    __weak IBOutlet PromotionDetailView *promotionDetail;
     __weak IBOutlet UIView *promotionDetailScrollContent;
     __weak IBOutlet UIView *promotionDetailKM1;
     __weak IBOutlet UIView *promotionDetailKM2;
@@ -87,6 +85,7 @@ enum SHOP_USER_MODE {
     __weak IBOutlet UITableView *tableUserGallery;
     __weak IBOutlet UIImageView *imgvFirsttime;
     __weak IBOutlet UITableView *tableUserComment;
+    __weak IBOutlet MKMapView *map;
     
     __weak Shop* _shop;
     
@@ -115,5 +114,12 @@ enum SHOP_USER_MODE {
 @end
 
 @interface ScrollShopUser : UIScrollView
+
+@end
+
+@interface PromotionDetailView : UIView
+{
+    UIImage *img;
+}
 
 @end

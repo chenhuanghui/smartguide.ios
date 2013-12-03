@@ -30,6 +30,10 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
+    //UIColor *patternColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"pattern_promotion.png"]];
+    
+    //promotionDetail.backgroundColor=patternColor;
+    
     _buttonDirectionGoDown=true;
     
     btnNextPageCenter=btnNextPage.center;
@@ -101,6 +105,10 @@
     [self setShop:nil];
     [self alignKM1View];
     [self alignPageScroll];
+    
+//    [map removeFromSuperview];
+//    [infoView removeFromSuperview];
+//    [promotionView removeFromSuperview];
 }
 
 -(void) settingUserComment
@@ -193,21 +201,19 @@
     rect=promotionDetailScrollContent.frame;
     rect.size.height=promotionDetailKM1.l_v_h;
     promotionDetailScrollContent.frame=rect;
-    
-    rect=promotionDetailScroll.frame;
-    rect.size.height=promotionDetailScrollContent.l_v_h;
-    promotionDetailScroll.frame=rect;
-    
+
     rect=promotionDetail.frame;
-    rect.size.height=promotionDetailScroll.l_v_h;
+    rect.size.height=promotionDetailScrollContent.l_v_h;
     promotionDetail.frame=rect;
     
-    UIColor *patternColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"pattern_promotion.png"]];
+//    UIColor *patternColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"pattern_promotion.png"]];
     
-    promotionDetail.backgroundColor=patternColor;
-    bottomView.backgroundColor=patternColor;
+//    promotionDetail.backgroundColor=patternColor;
+//    bottomView.backgroundColor=patternColor;
     
-    statusView.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"background_status.png"]];
+    //statusView.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"background_status.png"]];
+    
+    [promotionTableListPromotion l_v_setS:CGSizeZero];
 }
 
 -(void)pageControlTouchedNext:(PageControlNext *)pageControl
@@ -242,7 +248,7 @@
 -(void) alignPageScroll
 {
     CGRect rect=CGRectZero;
-    rect.size.width=contentScroll.l_v_w;
+    rect.size.width=scrollShopUser.l_v_w;
     
     //promotion
     [promotionView l_v_setH:promotionDetail.l_v_y+promotionDetail.l_v_h];
@@ -258,11 +264,9 @@
     
     rect.size.height=commentView.l_v_y+commentView.l_v_h;
     
-    contentScroll.frame=rect;
-    
     [bottomView l_v_setY:commentView.l_v_y+commentView.l_v_h];
     
-    scrollShopUser.contentSize=contentScroll.l_v_s;
+    scrollShopUser.contentSize=rect.size;
 }
 
 - (void)didReceiveMemoryWarning
@@ -321,6 +325,7 @@
     }
     else if(scrollView==scrollShopUser)
     {
+        return;
         CGPoint offset=promotionTableShopGallery.contentOffset;
         offset.x=scrollView.contentOffset.y/3;
         promotionTableShopGallery.contentOffset=offset;
@@ -446,16 +451,14 @@
 {
     if(_buttonDirectionGoDown)
     {
-        CGPoint pnt=[contentScroll convertPoint:infoView.l_v_o toView:scrollShopUser];
+        CGPoint pnt=infoView.l_v_o;
         pnt.y-=btnNextPage.l_v_h-5;
         [scrollShopUser setContentOffset:pnt animated:true];
     }
     else
     {
-        CGPoint pnt=[promotionView convertPoint:promotionDetail.l_v_o toView:contentScroll];
-        
-        pnt=[contentScroll convertPoint:pnt toView:scrollShopUser];
-        
+        CGPoint pnt=[promotionView convertPoint:promotionDetail.l_v_o toView:scrollShopUser];
+
         [scrollShopUser setContentOffset:pnt animated:true];
     }
 }
@@ -582,5 +585,19 @@
 @implementation ScrollShopUser
 
 
+
+@end
+
+@implementation PromotionDetailView
+
+-(void)drawRect:(CGRect)rect
+{
+    if(!img)
+        img=[UIImage imageNamed:@"pattern_promotion.png"];
+    
+    rect.origin=CGPointZero;
+    
+    [img drawAsPatternInRect:rect];
+}
 
 @end

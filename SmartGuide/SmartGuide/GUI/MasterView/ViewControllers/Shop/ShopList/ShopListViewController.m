@@ -73,6 +73,7 @@
 
 -(void)shopListCellTouched:(ShopListCell *)cell
 {
+//    [self.map removeFromSuperview];
     [[GUIManager shareInstance] presentShopUserWithIDShop:0];
 }
 
@@ -158,6 +159,8 @@
     [self.view addGestureRecognizer:tap];
     
     [scroll.panGestureRecognizer requireGestureRecognizerToFail:tap];
+    
+    [self shopListCellTouched:nil];
 }
 
 -(BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer

@@ -41,8 +41,8 @@
 {
     [super awakeFromNib];
     
-    borderView.layer.cornerRadius=8;
-    borderView.layer.masksToBounds=true;
+//    borderView.layer.cornerRadius=8;
+//    borderView.layer.masksToBounds=true;
 }
 
 @end
