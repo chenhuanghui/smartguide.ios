@@ -437,6 +437,60 @@ int random_int(int from, int to)
 
 @end
 
+@implementation UIScrollView(lazy_method)
+
+-(float) cs_h
+{
+    return self.contentSize.height;
+}
+-(float) cs_w
+{
+    return self.contentSize.width;
+}
+-(void) cs_setH:(float) h
+{
+    self.contentSize=CGSizeMake(self.contentSize.width, h);
+}
+-(void) cs_setW:(float) w
+{
+    self.contentSize=CGSizeMake(w, self.contentSize.height);
+}
+-(void) cs_addH:(float) h
+{
+    self.contentSize=CGSizeMake(self.contentSize.width, self.contentSize.height+h);
+}
+-(void) cs_addW:(float) w
+{
+    self.contentSize=CGSizeMake(self.contentSize.width+w, self.contentSize.height);
+}
+
+-(float) co_x
+{
+    return self.contentOffset.x;
+}
+-(float) co_y
+{
+    return self.contentOffset.y;
+}
+-(void) co_setX:(float) x
+{
+    self.contentOffset=CGPointMake(x, self.contentOffset.y);
+}
+-(void) co_setY:(float) y
+{
+    self.contentOffset=CGPointMake(self.contentOffset.x, y);
+}
+-(void) co_addX:(float) x
+{
+    self.contentOffset=CGPointMake(self.contentOffset.x+x, self.contentOffset.y);
+}
+-(void) co_addY:(float) y
+{
+    self.contentOffset=CGPointMake(self.contentOffset.x, self.contentOffset.y+y);
+}
+
+@end
+
 @implementation UIView(lazy_method)
 
 //view x,y

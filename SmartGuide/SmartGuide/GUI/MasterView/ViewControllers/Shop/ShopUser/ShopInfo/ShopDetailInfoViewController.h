@@ -8,7 +8,7 @@
 
 #import "SGViewController.h"
 
-@interface ShopDetailInfoViewController : SGViewController<UITableViewDataSource,UITableViewDelegate>
+@interface ShopDetailInfoViewController : SGViewController<UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate>
 {
     __weak IBOutlet UIImageView *imgvCover;
     __weak IBOutlet UILabel *lblShopName;
@@ -25,15 +25,14 @@
     __weak IBOutlet UITableView *tableTool;
     __weak IBOutlet UITableView *tableDetail;
     __weak IBOutlet UITableView *tableImage;
-
-    CGRect _introFrame;
-    CGRect _toolFrame;
-    CGRect _detailFrame;
-    CGRect _imageFrame;
+    __weak IBOutlet UIScrollView *scroll;
+    __weak IBOutlet UIView *infoView;
+    
     CGRect _contentFrame;
     CGRect _tableToolFrame;
     CGRect _tableDetailFrame;
     CGRect _tableImageFrame;
+    CGRect _infoFrame;
 }
 
 @end

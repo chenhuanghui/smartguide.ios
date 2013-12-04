@@ -109,6 +109,8 @@
 //    [map removeFromSuperview];
 //    [infoView removeFromSuperview];
 //    [promotionView removeFromSuperview];
+    
+    [btnInfo sendActionsForControlEvents:UIControlEventTouchUpInside];
 }
 
 -(void) settingUserComment

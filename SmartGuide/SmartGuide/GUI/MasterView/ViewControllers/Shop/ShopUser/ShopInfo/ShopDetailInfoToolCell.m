@@ -7,7 +7,8 @@
 //
 
 #import "ShopDetailInfoToolCell.h"
-#define SHOP_DETAIL_INFO_TOOL_CELL_FONT nil
+#define SHOP_DETAIL_INFO_TOOL_CELL_FONT [UIFont fontWithName:@"Avenir-Light" size:12]
+#define SHOP_DETAIL_INFO_TOOL_CELL_CONTENT_WIDTH 200.f
 
 @implementation ShopDetailInfoToolCell
 
@@ -24,7 +25,7 @@
 
 +(float)heightWithContent:(NSString *)content
 {
-    return 40;
+    return [content sizeWithFont:SHOP_DETAIL_INFO_TOOL_CELL_FONT constrainedToSize:CGSizeMake(SHOP_DETAIL_INFO_TOOL_CELL_CONTENT_WIDTH, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height+10;
 }
 
 @end
