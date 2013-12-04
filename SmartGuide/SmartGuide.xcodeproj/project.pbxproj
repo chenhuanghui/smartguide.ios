@@ -47,6 +47,7 @@
 		9A2939991844AA6F00FD49E2 /* ShopListSortView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A2939981844AA6F00FD49E2 /* ShopListSortView.m */; };
 		9A29399C1844AA8F00FD49E2 /* icon_view.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A29399A1844AA8F00FD49E2 /* icon_view.png */; };
 		9A29399D1844AA8F00FD49E2 /* icon_view@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A29399B1844AA8F00FD49E2 /* icon_view@2x.png */; };
+		9A2A33C0184F7B3B002949C4 /* ShopUserViewController.zip in Resources */ = {isa = PBXBuildFile; fileRef = 9A2A33BF184F7B3B002949C4 /* ShopUserViewController.zip */; };
 		9A2AB09C184ECFF4003FD2CE /* button_tickoff.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A2AB09A184ECFF4003FD2CE /* button_tickoff.png */; };
 		9A2AB09D184ECFF4003FD2CE /* button_tickoff@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A2AB09B184ECFF4003FD2CE /* button_tickoff@2x.png */; };
 		9A2E18E6181F6B2A00D0D01E /* _ShopCatalog.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A2E18E5181F6B2A00D0D01E /* _ShopCatalog.m */; };
@@ -485,6 +486,7 @@
 		9A2939981844AA6F00FD49E2 /* ShopListSortView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopListSortView.m; sourceTree = "<group>"; };
 		9A29399A1844AA8F00FD49E2 /* icon_view.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_view.png; sourceTree = "<group>"; };
 		9A29399B1844AA8F00FD49E2 /* icon_view@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_view@2x.png"; sourceTree = "<group>"; };
+		9A2A33BF184F7B3B002949C4 /* ShopUserViewController.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = ShopUserViewController.zip; sourceTree = "<group>"; };
 		9A2AB09A184ECFF4003FD2CE /* button_tickoff.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_tickoff.png; sourceTree = "<group>"; };
 		9A2AB09B184ECFF4003FD2CE /* button_tickoff@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_tickoff@2x.png"; sourceTree = "<group>"; };
 		9A2E18E4181F6B2A00D0D01E /* _ShopCatalog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _ShopCatalog.h; sourceTree = "<group>"; };
@@ -1269,6 +1271,7 @@
 				9A32F3BC184345AE00704D26 /* ShopUserViewController.h */,
 				9A32F3BD184345AE00704D26 /* ShopUserViewController.m */,
 				9A32F3BE184345AE00704D26 /* ShopUserViewController.xib */,
+				9A2A33BF184F7B3B002949C4 /* ShopUserViewController.zip */,
 				9A32F3BF184345AE00704D26 /* UserGallery */,
 			);
 			path = ShopUser;
@@ -2551,6 +2554,7 @@
 				9A616D051843BE5000201642 /* background_scan.png in Resources */,
 				9A01E382182DEB5500225363 /* SGRootViewController.xib in Resources */,
 				9A2AB09C184ECFF4003FD2CE /* button_tickoff.png in Resources */,
+				9A2A33C0184F7B3B002949C4 /* ShopUserViewController.zip in Resources */,
 				9A29399C1844AA8F00FD49E2 /* icon_view.png in Resources */,
 				9AA026DD183674CF0087B2DA /* icon_voucher.png in Resources */,
 				9A66893B184DC6F2006A9EB2 /* bg_detailcover.png in Resources */,

@@ -218,8 +218,5 @@
         <image name="coverdetail.jpg" width="290" height="163"/>
         <image name="icon_typecoffee.png" width="27" height="27"/>
         <image name="line_detail.png" width="264" height="5"/>
-        <image name="line_detail.png" width="264" height="5"/>
-        <image name="line_detail.png" width="264" height="5"/>
-        <image name="line_detail.png" width="264" height="5"/>
     </resources>
 </document>
