@@ -8,8 +8,10 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ShopDetailInfoViewController">
             <connections>
                 <outlet property="btnMoreIntro" destination="OZk-Do-1Bk" id="68N-V3-KtS"/>
+                <outlet property="coverView" destination="L2A-r5-imc" id="YoT-Xm-g6p"/>
                 <outlet property="detailView" destination="sxb-KB-FPW" id="AWO-DM-OQi"/>
                 <outlet property="imageView" destination="MvT-wd-SHt" id="aCZ-CA-76e"/>
+                <outlet property="imgvBgCover" destination="zLh-Gz-Zrg" id="qEC-Ne-zRs"/>
                 <outlet property="imgvCover" destination="xYf-ag-n8k" id="Fug-YU-sd3"/>
                 <outlet property="imgvShopType" destination="rxW-OC-miv" id="6Ix-lO-4vG"/>
                 <outlet property="infoView" destination="DM7-nK-isK" id="LQ1-kS-S09"/>
@@ -32,7 +34,22 @@
             <rect key="frame" x="0.0" y="0.0" width="290" height="431"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" delaysContentTouches="NO" id="9YU-z1-K2J">
+                <view contentMode="scaleToFill" id="L2A-r5-imc" userLabel="cover">
+                    <rect key="frame" x="0.0" y="-75" width="290" height="203"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" alpha="0.25" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="coverdetail.jpg" id="xYf-ag-n8k" userLabel="cover">
+                            <rect key="frame" x="0.0" y="0.0" width="290" height="203"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        </imageView>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_detailcover.png" id="zLh-Gz-Zrg">
+                            <rect key="frame" x="0.0" y="0.0" width="290" height="203"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        </imageView>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                </view>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" delaysContentTouches="NO" id="9YU-z1-K2J" customClass="ShopDetailInfoScrollView">
                     <rect key="frame" x="0.0" y="0.0" width="290" height="431"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <subviews>
@@ -44,14 +61,6 @@
                             <rect key="frame" x="0.0" y="0.0" width="290" height="216"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <imageView userInteractionEnabled="NO" alpha="0.25" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="coverdetail.jpg" id="xYf-ag-n8k" userLabel="cover">
-                                    <rect key="frame" x="0.0" y="0.0" width="290" height="203"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                </imageView>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_detailcover.png" id="zLh-Gz-Zrg">
-                                    <rect key="frame" x="0.0" y="0.0" width="290" height="203"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                </imageView>
                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SHOP NAME" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="n44-ea-A55">
                                     <rect key="frame" x="9" y="24" width="281" height="21"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -95,7 +104,7 @@
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         </view>
                         <view contentMode="scaleToFill" id="N5M-dG-Y9Q" userLabel="gioi thieu">
-                            <rect key="frame" x="13" y="119" width="264" height="104"/>
+                            <rect key="frame" x="13" y="119" width="264" height="115"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="line_detail.png" id="kDq-lu-6fx">
@@ -109,14 +118,14 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="oax-6W-r9y">
-                                    <rect key="frame" x="6" y="34" width="254" height="54"/>
+                                    <rect key="frame" x="9" y="34" width="242" height="65"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                     <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="12"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="OZk-Do-1Bk">
-                                    <rect key="frame" x="0.0" y="82" width="258" height="18"/>
+                                    <rect key="frame" x="-7" y="94" width="258" height="18"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                                     <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="12"/>
                                     <state key="normal" title="Xem thêm"/>
@@ -199,7 +208,7 @@
                     </connections>
                 </scrollView>
             </subviews>
-            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+            <color key="backgroundColor" red="0.92156862745098034" green="0.92156862745098034" blue="0.92156862745098034" alpha="1" colorSpace="calibratedRGB"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
         </view>
     </objects>

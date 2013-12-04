@@ -439,27 +439,27 @@ int random_int(int from, int to)
 
 @implementation UIScrollView(lazy_method)
 
--(float) cs_h
+-(float) l_cs_h
 {
     return self.contentSize.height;
 }
--(float) cs_w
+-(float) l_cs_w
 {
     return self.contentSize.width;
 }
--(void) cs_setH:(float) h
+-(void) l_cs_setH:(float) h
 {
     self.contentSize=CGSizeMake(self.contentSize.width, h);
 }
--(void) cs_setW:(float) w
+-(void) l_cs_setW:(float) w
 {
     self.contentSize=CGSizeMake(w, self.contentSize.height);
 }
--(void) cs_addH:(float) h
+-(void) l_cs_addH:(float) h
 {
     self.contentSize=CGSizeMake(self.contentSize.width, self.contentSize.height+h);
 }
--(void) cs_addW:(float) w
+-(void) l_cs_addW:(float) w
 {
     self.contentSize=CGSizeMake(self.contentSize.width+w, self.contentSize.height);
 }

@@ -35,11 +35,12 @@
     _tableDetailFrame=tableDetail.frame;
     _tableImageFrame=tableImage.frame;
     _infoFrame=infoView.frame;
+    _coverFrame=coverView.frame;
 }
 
 -(void) maskTopLR:(UIView*) v
 {
-    UIBezierPath *maskPath=[UIBezierPath bezierPathWithRoundedRect:v.bounds byRoundingCorners:UIRectCornerTopLeft|UIRectCornerTopRight cornerRadii:CGSizeMake(8, 8)];
+    UIBezierPath *maskPath=[UIBezierPath bezierPathWithRoundedRect:v.bounds byRoundingCorners:UIRectCornerTopLeft|UIRectCornerTopRight cornerRadii:CGSizeMake(2.5f, 2.5f)];
     CAShapeLayer *shapeLayer=[CAShapeLayer new];
     shapeLayer.frame=v.bounds;
     shapeLayer.path=maskPath.CGPath;
@@ -48,9 +49,9 @@
 
 -(void) maskTableBottomLR:(UITableView*) v
 {
-    UIBezierPath *maskPath=[UIBezierPath bezierPathWithRoundedRect:CGRectMake(0, 0, v.cs_w, v.cs_h) byRoundingCorners:UIRectCornerBottomLeft|UIRectCornerBottomRight cornerRadii:CGSizeMake(8, 8)];
+    UIBezierPath *maskPath=[UIBezierPath bezierPathWithRoundedRect:CGRectMake(0, 0, v.l_cs_w, v.l_cs_h) byRoundingCorners:UIRectCornerBottomLeft|UIRectCornerBottomRight cornerRadii:CGSizeMake(2.5f, 2.5f)];
     CAShapeLayer *shapeLayer=[CAShapeLayer new];
-    shapeLayer.frame=CGRectMake(0, 0, v.cs_w, v.cs_h);
+    shapeLayer.frame=CGRectMake(0, 0, v.l_cs_w, v.l_cs_h);
     shapeLayer.path=maskPath.CGPath;
     v.layer.mask=shapeLayer;
 }
@@ -62,7 +63,7 @@
     
     [self storeRect];
 
-    introView.layer.cornerRadius=8;
+    introView.layer.cornerRadius=2.5f;
     introView.layer.masksToBounds=true;
     
     [self maskTopLR:toolView];
@@ -78,7 +79,7 @@
     [self alignDetail];
     [self alignImage];
     
-    scroll.contentSize=CGSizeMake(self.l_v_w, tableImage.l_v_y+tableImage.cs_h+5);
+    scroll.contentSize=CGSizeMake(self.l_v_w, tableImage.l_v_y+tableImage.l_cs_h+5);
 }
 
 -(void) alignIntro
@@ -93,14 +94,26 @@
     {
         CGPoint pnt=scrollView.contentOffset;
         
-        if(pnt.y<_infoFrame.origin.y)
-        {
-            [infoView l_v_setY:pnt.y];
-        }
-        else
-        {
-            [infoView l_v_setY:_infoFrame.origin.y];
-        }
+//        NSLog(@"%f %f %f %f",_coverFrame.origin.y,pnt.y-_coverFrame.origin.y,coverView.l_v_y,pnt.y);
+
+        float y=coverView.l_v_y;
+        
+        y=MIN(0,y-scroll.offset.y/4);
+        
+        [coverView l_v_setY:y];
+        
+//        if(coverView.l_v_y>0)
+//            [coverView l_v_setY:0];
+//        if(pnt.y-_coverFrame.origin.y<0)
+        
+//        if(pnt.y-_coverFrame.origin.y<0)
+//        {
+//            [coverView l_v_setY:pnt.y];
+//        }
+//        else
+//        {
+//            [coverView l_v_addY:scroll.offset.y/4];
+//        }
         
         if(pnt.y>=_tableToolFrame.origin.y)
         {
@@ -134,8 +147,6 @@
             [tableImage l_v_setY:_tableImageFrame.origin.y];
             [tableImage co_setY:0];
         }
-        
-        NSLog(@"%f",pnt.y);
     }
 }
 
@@ -178,7 +189,7 @@
     [tableTool reloadData];
     
     [tableTool l_v_setY:toolView.l_v_y+toolView.l_v_h];
-    [tableTool l_v_setH:MIN(self.l_v_h,tableTool.cs_h)];
+    [tableTool l_v_setH:MIN(self.l_v_h,tableTool.l_cs_h)];
     
     _tableToolFrame=tableTool.frame;
     
@@ -187,14 +198,14 @@
 
 -(void) alignDetail
 {
-    [detailView l_v_setY:tableTool.l_v_y+tableTool.cs_h+SHOP_DETAIL_INFO_TABLE_MARGIN_HEIGHT];
+    [detailView l_v_setY:tableTool.l_v_y+tableTool.l_cs_h+SHOP_DETAIL_INFO_TABLE_MARGIN_HEIGHT];
     
     tableDetail.dataSource=self;
     tableDetail.delegate=self;
     [tableDetail reloadData];
     
     [tableDetail l_v_setY:detailView.l_v_y+detailView.l_v_h];
-    [tableDetail l_v_setH:MIN(self.l_v_h,tableTool.cs_h)];
+    [tableDetail l_v_setH:MIN(self.l_v_h,tableTool.l_cs_h)];
     
     _tableDetailFrame=tableDetail.frame;
     
@@ -203,14 +214,14 @@
 
 -(void) alignImage
 {
-    [imageView l_v_setY:tableDetail.l_v_y+tableDetail.cs_h+SHOP_DETAIL_INFO_TABLE_MARGIN_HEIGHT];
+    [imageView l_v_setY:tableDetail.l_v_y+tableDetail.l_cs_h+SHOP_DETAIL_INFO_TABLE_MARGIN_HEIGHT];
     
     tableImage.dataSource=self;
     tableImage.delegate=self;
     [tableImage reloadData];
     
     [tableImage l_v_setY:imageView.l_v_y+imageView.l_v_h];
-    [tableImage l_v_setH:MIN(self.l_v_h,tableImage.cs_h)];
+    [tableImage l_v_setH:MIN(self.l_v_h,tableImage.l_cs_h)];
     
     _tableImageFrame=tableImage.frame;
     
@@ -230,7 +241,7 @@
             float height=size.height-_contentFrame.size.height+10;
             [introView l_v_addH:height];
             [self moveBottomView:height];
-            [scroll cs_addH:height];
+            [scroll l_cs_addH:height];
         }];
     }
     else
@@ -242,7 +253,7 @@
             float height=-(lblContent.l_v_h-_contentFrame.size.height);
             [introView l_v_addH:height];
             [self moveBottomView:height];
-            [scroll cs_addH:height];
+            [scroll l_cs_addH:height];
         }];
     }
 }
@@ -309,6 +320,18 @@
     }
     
     return 0;
+}
+
+@end
+
+@implementation ShopDetailInfoScrollView
+@synthesize offset;
+
+-(void)setContentOffset:(CGPoint)contentOffset
+{
+    offset=CGPointMake(contentOffset.x-self.contentOffset.x, contentOffset.y-self.contentOffset.y);
+    
+    [super setContentOffset:contentOffset];
 }
 
 @end

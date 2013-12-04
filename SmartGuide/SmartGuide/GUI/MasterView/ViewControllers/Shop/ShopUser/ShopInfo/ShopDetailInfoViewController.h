@@ -8,6 +8,8 @@
 
 #import "SGViewController.h"
 
+@class ShopDetailInfoScrollView;
+
 @interface ShopDetailInfoViewController : SGViewController<UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate>
 {
     __weak IBOutlet UIImageView *imgvCover;
@@ -25,14 +27,22 @@
     __weak IBOutlet UITableView *tableTool;
     __weak IBOutlet UITableView *tableDetail;
     __weak IBOutlet UITableView *tableImage;
-    __weak IBOutlet UIScrollView *scroll;
+    __weak IBOutlet ShopDetailInfoScrollView *scroll;
     __weak IBOutlet UIView *infoView;
+    __weak IBOutlet UIImageView *imgvBgCover;
+    __weak IBOutlet UIView *coverView;
     
     CGRect _contentFrame;
     CGRect _tableToolFrame;
     CGRect _tableDetailFrame;
     CGRect _tableImageFrame;
     CGRect _infoFrame;
+    CGRect _coverFrame;
 }
+
+@end
+
+@interface ShopDetailInfoScrollView : UIScrollView
+@property (nonatomic, assign) CGPoint offset;
 
 @end

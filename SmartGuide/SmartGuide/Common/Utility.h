@@ -99,12 +99,12 @@ int random_int(int from, int to);
 @interface UIScrollView(lazy_method)
 
 //contentSize
--(float) cs_h;
--(float) cs_w;
--(void) cs_setH:(float) h;
--(void) cs_setW:(float) w;
--(void) cs_addH:(float) h;
--(void) cs_addW:(float) w;
+-(float) l_cs_h;
+-(float) l_cs_w;
+-(void) l_cs_setH:(float) h;
+-(void) l_cs_setW:(float) w;
+-(void) l_cs_addH:(float) h;
+-(void) l_cs_addW:(float) w;
 
 //contentOffset
 -(float) co_x;
