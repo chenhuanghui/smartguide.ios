@@ -66,6 +66,15 @@
     introView.layer.cornerRadius=2.5f;
     introView.layer.masksToBounds=true;
     
+    if([tableTool respondsToSelector:@selector(setSeparatorInset:)])
+        tableTool.separatorInset=UIEdgeInsetsZero;
+    
+    if([tableDetail respondsToSelector:@selector(setSeparatorInset:)])
+        tableDetail.separatorInset=UIEdgeInsetsZero;
+    
+    if([tableImage respondsToSelector:@selector(setSeparatorInset:)])
+        tableImage.separatorInset=UIEdgeInsetsZero;
+    
     [self maskTopLR:toolView];
     [self maskTopLR:detailView];
     [self maskTopLR:imageView];

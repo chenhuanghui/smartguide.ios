@@ -71,8 +71,8 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="bsk-dc-LN0">
-                    <rect key="frame" x="283" y="13" width="25" height="25"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="bottom" lineBreakMode="middleTruncation" id="bsk-dc-LN0">
+                    <rect key="frame" x="283" y="0.0" width="55" height="38"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                     <state key="normal" image="button_close.png">
@@ -644,9 +644,15 @@
         <image name="icon_address.png" width="46" height="46"/>
         <image name="icon_call.png" width="19" height="19"/>
         <image name="icon_dottitle.png" width="12" height="12"/>
+        <image name="icon_dottitle.png" width="12" height="12"/>
+        <image name="icon_dottitle.png" width="12" height="12"/>
+        <image name="icon_dottitle.png" width="12" height="12"/>
+        <image name="icon_dottitle.png" width="12" height="12"/>
         <image name="icon_logo.png" width="162" height="110"/>
         <image name="icon_notice.png" width="31" height="27"/>
         <image name="icon_promotion.png" width="16" height="16"/>
+        <image name="line_shopdetail.png" width="272" height="3"/>
+        <image name="line_shopdetail.png" width="272" height="3"/>
         <image name="line_shopdetail.png" width="272" height="3"/>
         <image name="photo_firsttime.png" width="276" height="92"/>
     </resources>
