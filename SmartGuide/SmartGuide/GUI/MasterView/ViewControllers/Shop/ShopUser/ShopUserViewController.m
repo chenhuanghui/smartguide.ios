@@ -82,8 +82,8 @@
     rect.size=CGSizeMake(290, 431);
     shopNavi.view.frame=rect;
     
-    shopNavi.view.layer.masksToBounds=true;
-    shopNavi.view.layer.cornerRadius=8;
+//    shopNavi.view.layer.masksToBounds=true;
+//    shopNavi.view.layer.cornerRadius=8;
     shopNavi.isAllowDragBackPreviouseView=true;
     
     promotionPageControl.dotColorCurrentPage=[UIColor whiteColor];
@@ -93,7 +93,7 @@
     
     [promotionTableShopGallery registerNib:[UINib nibWithNibName:[ShopGalleryCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[ShopGalleryCell reuseIdentifier]];
     
-    [promotionTableListPromotion registerNib:[UINib nibWithNibName:[ShopKM1Cell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[ShopKM1Cell reuseIdentifier]];
+    [tableListPromotion registerNib:[UINib nibWithNibName:[ShopKM1Cell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[ShopKM1Cell reuseIdentifier]];
     
     rect=promotionTableShopGallery.frame;
     promotionTableShopGallery.transform=CGAffineTransformMakeRotation(DEGREES_TO_RADIANS(45)*6);
@@ -105,12 +105,6 @@
     [self setShop:nil];
     [self alignKM1View];
     [self alignPageScroll];
-    
-//    [map removeFromSuperview];
-//    [infoView removeFromSuperview];
-//    [promotionView removeFromSuperview];
-    
-    [btnInfo sendActionsForControlEvents:UIControlEventTouchUpInside];
 }
 
 -(void) settingUserComment
@@ -182,14 +176,14 @@
 
 -(void) alignKM1View
 {
-    [promotionTableListPromotion reloadData];
+    [tableListPromotion reloadData];
     
-    CGRect rect=promotionTableListPromotion.frame;
-    rect.size.height=promotionTableListPromotion.contentSize.height;
-    promotionTableListPromotion.frame=rect;
+    CGRect rect=tableListPromotion.frame;
+    rect.size.height=MIN(shopNavi.view.l_v_h, tableListPromotion.contentSize.height);
+    tableListPromotion.frame=rect;
     
     rect=promotionBottomView.frame;
-    rect.origin.y=promotionTableListPromotion.frame.size.height;
+    rect.origin.y=tableListPromotion.l_cs_h;
     promotionBottomView.frame=rect;
     
     rect=promotionContainListPromotionView.frame;
@@ -214,8 +208,6 @@
 //    bottomView.backgroundColor=patternColor;
     
     //statusView.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"background_status.png"]];
-    
-    [promotionTableListPromotion l_v_setS:CGSizeZero];
 }
 
 -(void)pageControlTouchedNext:(PageControlNext *)pageControl
@@ -268,7 +260,17 @@
     
     [bottomView l_v_setY:commentView.l_v_y+commentView.l_v_h];
     
-    scrollShopUser.contentSize=rect.size;
+//    scrollShopUser.contentSize=rect.size;
+    [scrollShopUser l_cs_setH:scrollShopUser.l_v_h+600];
+    
+//    [promotionTableShopGallery removeFromSuperview];
+    [map removeFromSuperview];
+    [commentView removeFromSuperview];
+    [galleryView removeFromSuperview];
+    [bottomView removeFromSuperview];
+//    [infoView removeFromSuperview];
+//    [promotionDetail removeFromSuperview];
+//    [promotionShop removeFromSuperview];
 }
 
 - (void)didReceiveMemoryWarning
@@ -327,10 +329,11 @@
     }
     else if(scrollView==scrollShopUser)
     {
-        return;
         CGPoint offset=promotionTableShopGallery.contentOffset;
         offset.x=scrollView.contentOffset.y/3;
         promotionTableShopGallery.contentOffset=offset;
+        
+        [promotionTableShopGallery removeFromSuperview];
         
         float y=btnNextPageCenter.y+scrollView.contentOffset.y;
         
@@ -482,7 +485,7 @@
 {
     if(tableView==promotionTableShopGallery)
         return _templateShopGallery.datasource.count==0?0:1;
-    else if(tableView==promotionTableListPromotion)
+    else if(tableView==tableListPromotion)
         return 1;
     else if(tableView==tableUserGallery)
         return _templateUserGallery.datasource.count==0?0:1;
@@ -498,7 +501,7 @@
     {
         return _templateShopGallery.datasource.count;
     }
-    else if(tableView==promotionTableListPromotion)
+    else if(tableView==tableListPromotion)
         return 10;
     else if(tableView==tableUserGallery)
         return 20;
@@ -518,7 +521,7 @@
         
         return cell;
     }
-    else if(tableView==promotionTableListPromotion)
+    else if(tableView==tableListPromotion)
     {
         ShopKM1Cell *cell=[tableView dequeueReusableCellWithIdentifier:[ShopKM1Cell reuseIdentifier]];
         
@@ -551,7 +554,7 @@
 {
     if(tableView==promotionTableShopGallery)
         return tableView.l_v_w;
-    else if(tableView==promotionTableListPromotion)
+    else if(tableView==tableListPromotion)
         return [ShopKM1Cell heightWithContent:@"Lorem ipsum dolor sit er elit lamet Lorem ipsum dolor sit er elit lamet Lorem ipsum dolor sit er elit lamet Lorem ipsum dolor sit er elit lamet"];
     else if(tableView==tableUserGallery)
         return [ShopUserGalleryCell height];

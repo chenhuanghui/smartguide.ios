@@ -69,7 +69,7 @@ enum SHOP_USER_MODE {
     __weak IBOutlet FTCoreTextView *promotionSP;
     __weak IBOutlet FTCoreTextView *promotionP;
     __weak IBOutlet UIView *promotionContainListPromotionView;
-    __weak IBOutlet UITableView *promotionTableListPromotion;
+    __weak IBOutlet UITableView *tableListPromotion;
     __weak IBOutlet UIView *promotionBottomView;
     __weak IBOutlet PageControlNext *promotionPageControl;
     __weak IBOutlet UIButton *btnInfo;

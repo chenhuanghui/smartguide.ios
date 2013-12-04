@@ -30,7 +30,7 @@
 {
     UIFont *font=SHOP_KM1_FONT;
     
-    CGSize size=[content sizeWithFont:font constrainedToSize:CGSizeMake(SHOP_KM1_CONTENT_WIDTH, 999999) lineBreakMode:NSLineBreakByTruncatingTail];
+    CGSize size=[content sizeWithFont:font constrainedToSize:CGSizeMake(SHOP_KM1_CONTENT_WIDTH, 9999) lineBreakMode:NSLineBreakByTruncatingTail];
    
     return size.height+10;
 }

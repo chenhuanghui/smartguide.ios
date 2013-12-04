@@ -40,12 +40,12 @@
                 <outlet property="promotionShopLogo" destination="w22-6d-gp5" id="ntG-Bs-yd9"/>
                 <outlet property="promotionShopName" destination="BFG-J4-Fe4" id="oUY-xi-hWv"/>
                 <outlet property="promotionShopType" destination="Aci-9d-Yg6" id="N05-oe-Lau"/>
-                <outlet property="promotionTableListPromotion" destination="xsn-W0-KVc" id="3Na-Dn-ThL"/>
                 <outlet property="promotionTableShopGallery" destination="tZH-NT-Ixy" id="4JU-dZ-IEU"/>
                 <outlet property="promotionView" destination="zF5-c5-Rbg" id="wja-SJ-Osu"/>
                 <outlet property="scrollShopUser" destination="dMh-Ef-O4z" id="6Cd-t4-8dY"/>
                 <outlet property="shopNavi" destination="tbE-VN-JL8" id="1PV-P9-tyC"/>
                 <outlet property="statusView" destination="q6j-Er-J00" id="xJU-2r-foG"/>
+                <outlet property="tableListPromotion" destination="xsn-W0-KVc" id="Kha-Au-MN7"/>
                 <outlet property="tableUserComment" destination="ujO-9L-z8X" id="yvt-FP-kLI"/>
                 <outlet property="tableUserGallery" destination="1Ev-ep-vZB" id="Bdb-jV-cpY"/>
                 <outlet property="txtComment" destination="04n-uq-0Pb" id="JiM-RU-3MT"/>
@@ -86,10 +86,6 @@
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
         </view>
-        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background_blur.png" id="49w-Mb-S8k">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="91"/>
-            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-        </imageView>
         <navigationController definesPresentationContext="YES" navigationBarHidden="YES" id="tbE-VN-JL8" customClass="SGNavigationController">
             <nil key="simulatedStatusBarMetrics"/>
             <nil key="simulatedTopBarMetrics"/>
@@ -619,15 +615,9 @@
                 <outlet property="delegate" destination="-1" id="u4O-v6-6DU"/>
             </connections>
         </navigationController>
-        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="II-3-DetailFull.jpg" id="yRp-55-n44">
-            <rect key="frame" x="0.0" y="0.0" width="290" height="1532"/>
-            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-        </imageView>
     </objects>
     <resources>
-        <image name="II-3-DetailFull.jpg" width="290" height="1532"/>
         <image name="ava.png" width="74" height="74"/>
-        <image name="background_blur.png" width="320" height="91"/>
         <image name="background_shadow.png" width="304" height="439"/>
         <image name="buton_love.png" width="37" height="37"/>
         <image name="button_addphoto.png" width="279" height="50"/>
