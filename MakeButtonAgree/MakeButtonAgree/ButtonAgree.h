@@ -9,5 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface ButtonAgree : UIButton
+{
+    NSString *_buttonTitle;
+}
 
 @end

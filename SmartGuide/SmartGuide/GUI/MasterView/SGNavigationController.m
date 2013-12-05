@@ -671,6 +671,7 @@ CALL_DEALLOC_LOG
         [vc1 l_c_setX:self.l_v_w*1.5f];
         [vc2 l_c_setX:self.l_v_w/2];
     } completion:^(BOOL finished) {
+        [vc1.view removeFromSuperview];
         [self popViewControllerAnimated:false];
     }];
 }

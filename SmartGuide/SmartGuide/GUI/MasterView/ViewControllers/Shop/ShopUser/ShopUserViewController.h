@@ -23,8 +23,12 @@
 #import "ShopKM1Cell.h"
 #import "ShopUserGalleryCell.h"
 #import "ShopUserCommentCell.h"
+#import "SUShopGalleryCell.h"
+#import "SUKM1Cell.h"
+#import "SUInfoCell.h"
+#import "SUUserGalleryCell.h"
 
-@class ScrollShopUser,PromotionDetailView;
+@class TableShopUser,PromotionDetailView;
 
 enum SHOP_USER_MODE {
     SHOP_USER_FULL = 0,
@@ -42,13 +46,14 @@ enum SHOP_USER_MODE {
 
 @end
 
-@interface ShopUserViewController : SGViewController<UIScrollViewDelegate,UINavigationControllerDelegate,SGTableTemplateDelegate,UITableViewDataSource,UITableViewDelegate,UITextViewDelegate,PageControlNextDelegate,UIGestureRecognizerDelegate>
+@interface ShopUserViewController : SGViewController<UIScrollViewDelegate,UINavigationControllerDelegate,SGTableTemplateDelegate,UITableViewDataSource,UITableViewDelegate,UITextViewDelegate,UIGestureRecognizerDelegate,SUShopGalleryDelegate>
 {
     __strong IBOutlet SGNavigationController *shopNavi;
     __weak IBOutlet SGViewController *detailController;
-    __weak IBOutlet ScrollShopUser *scrollShopUser;
     __weak IBOutlet HitTestView *detailView;
     __weak IBOutlet UIButton *btnClose;
+    /*
+    __weak IBOutlet ScrollShopUser *scrollShopUser;
     __weak IBOutlet UIView *promotionView;
     __weak IBOutlet UIView *infoView;
     __weak IBOutlet UIView *galleryView;
@@ -100,20 +105,30 @@ enum SHOP_USER_MODE {
     
     CGPoint _pntPanShopUserGallery;
     bool _buttonDirectionGoDown;
+     */
+    
+    __weak IBOutlet TableShopUser *tableShopUser;
+    __weak SUShopGalleryCell *shopGalleryCell;
+    __weak IBOutlet UIButton *btnNext;
+    
+    CGRect _btnNextFrame;
+    
+    NSMutableArray *_km1Data;
 }
 
--(void) setShop:(Shop*) shop;
+//-(void) setShop:(Shop*) shop;
 
 @property (nonatomic, assign) id<ShopUserDelegate> delegate;
 @property (nonatomic, readonly) enum SHOP_USER_MODE shopMode;
 
--(IBAction) btnInfoTouchUpInside:(id)sender;
--(IBAction) btnNextPageTouchUpInside:(id)sender;
--(IBAction) btnSendCommentTouchUpInside:(id)sender;
+//-(IBAction) btnInfoTouchUpInside:(id)sender;
+//-(IBAction) btnNextPageTouchUpInside:(id)sender;
+//-(IBAction) btnSendCommentTouchUpInside:(id)sender;
 
 @end
 
-@interface ScrollShopUser : UIScrollView
+@interface TableShopUser : UITableView
+@property (nonatomic, readonly) CGPoint offset;
 
 @end
 

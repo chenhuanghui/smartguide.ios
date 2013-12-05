@@ -17,6 +17,12 @@
 		9AA90B1E1850DA26002F40FF /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AA90B1D1850DA26002F40FF /* ViewController.m */; };
 		9AA90B201850DA26002F40FF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9AA90B1F1850DA26002F40FF /* Images.xcassets */; };
 		9AA90B401850DA69002F40FF /* ButtonAgree.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AA90B3F1850DA69002F40FF /* ButtonAgree.m */; };
+		9AA90B441850DD6F002F40FF /* button_green_mid.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AA90B411850DD6F002F40FF /* button_green_mid.png */; };
+		9AA90B451850DD6F002F40FF /* button_green_right.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AA90B421850DD6F002F40FF /* button_green_right.png */; };
+		9AA90B461850DD6F002F40FF /* button_green_left.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AA90B431850DD6F002F40FF /* button_green_left.png */; };
+		9AA90B4A1850DD8A002F40FF /* button_green_left@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AA90B471850DD8A002F40FF /* button_green_left@2x.png */; };
+		9AA90B4B1850DD8A002F40FF /* button_green_mid@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AA90B481850DD8A002F40FF /* button_green_mid@2x.png */; };
+		9AA90B4C1850DD8A002F40FF /* button_green_right@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AA90B491850DD8A002F40FF /* button_green_right@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +43,12 @@
 		9AA90B261850DA26002F40FF /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		9AA90B3E1850DA69002F40FF /* ButtonAgree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ButtonAgree.h; sourceTree = "<group>"; };
 		9AA90B3F1850DA69002F40FF /* ButtonAgree.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ButtonAgree.m; sourceTree = "<group>"; };
+		9AA90B411850DD6F002F40FF /* button_green_mid.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_green_mid.png; sourceTree = "<group>"; };
+		9AA90B421850DD6F002F40FF /* button_green_right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_green_right.png; sourceTree = "<group>"; };
+		9AA90B431850DD6F002F40FF /* button_green_left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_green_left.png; sourceTree = "<group>"; };
+		9AA90B471850DD8A002F40FF /* button_green_left@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_green_left@2x.png"; sourceTree = "<group>"; };
+		9AA90B481850DD8A002F40FF /* button_green_mid@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_green_mid@2x.png"; sourceTree = "<group>"; };
+		9AA90B491850DD8A002F40FF /* button_green_right@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_green_right@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,6 +105,12 @@
 				9AA90B0E1850DA26002F40FF /* Supporting Files */,
 				9AA90B3E1850DA69002F40FF /* ButtonAgree.h */,
 				9AA90B3F1850DA69002F40FF /* ButtonAgree.m */,
+				9AA90B411850DD6F002F40FF /* button_green_mid.png */,
+				9AA90B421850DD6F002F40FF /* button_green_right.png */,
+				9AA90B431850DD6F002F40FF /* button_green_left.png */,
+				9AA90B471850DD8A002F40FF /* button_green_left@2x.png */,
+				9AA90B481850DD8A002F40FF /* button_green_mid@2x.png */,
+				9AA90B491850DD8A002F40FF /* button_green_right@2x.png */,
 			);
 			path = MakeButtonAgree;
 			sourceTree = "<group>";
@@ -160,7 +178,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9AA90B441850DD6F002F40FF /* button_green_mid.png in Resources */,
+				9AA90B4B1850DD8A002F40FF /* button_green_mid@2x.png in Resources */,
+				9AA90B4A1850DD8A002F40FF /* button_green_left@2x.png in Resources */,
+				9AA90B451850DD6F002F40FF /* button_green_right.png in Resources */,
+				9AA90B461850DD6F002F40FF /* button_green_left.png in Resources */,
 				9AA90B201850DA26002F40FF /* Images.xcassets in Resources */,
+				9AA90B4C1850DD8A002F40FF /* button_green_right@2x.png in Resources */,
 				9AA90B121850DA26002F40FF /* InfoPlist.strings in Resources */,
 				9AA90B1B1850DA26002F40FF /* Main.storyboard in Resources */,
 			);

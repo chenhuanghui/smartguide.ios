@@ -8,24 +8,31 @@
 
 #import "ButtonAgree.h"
 
+#define BUTTON_AGREE_IMAGE_LEFT_NORMAL [UIImage imageNamed:@"button_green_left.png"]
+#define BUTTON_AGREE_IMAGE_RIGHT_NORMAL [UIImage imageNamed:@"button_green_right.png"]
+#define BUTTON_AGREE_IMAGE_MID_NORMAL [UIImage imageNamed:@"button_green_mid.png"]
+
 @implementation ButtonAgree
 
-- (id)initWithFrame:(CGRect)frame
-{
-    self = [super initWithFrame:frame];
-    if (self) {
-        // Initialization code
-    }
-    return self;
-}
-
-/*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect
 {
     // Drawing code
+    
+    NSLog(@"%@",self.titleLabel.text);
+    
+    UIImage *left=BUTTON_AGREE_IMAGE_LEFT_NORMAL;
+    UIImage *right=BUTTON_AGREE_IMAGE_RIGHT_NORMAL;
+    UIImage *mid=BUTTON_AGREE_IMAGE_MID_NORMAL;
+    
+    [left drawAtPoint:CGPointZero];
+    [right drawAtPoint:CGPointMake(rect.origin.x+rect.size.width-right.size.width, 0)];
+    
+    rect.origin.x=left.size.width;
+    rect.size.width=rect.size.width-right.size.width-left.size.width;
+    [mid drawAsPatternInRect:rect];
 }
-*/
+
 
 @end
