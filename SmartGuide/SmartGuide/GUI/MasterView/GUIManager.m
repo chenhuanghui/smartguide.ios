@@ -184,7 +184,7 @@ static GUIManager *_shareInstance=nil;
 {
     [self.rootNavigation removeLeftSlideViewController];
     
-    if([self.contentNavigation.visibleViewController isKindOfClass:[UserViewController class]])
+    if([self.contentNavigation.visibleViewController isKindOfClass:[SGUserViewController class]])
         return;
     
     [self.contentNavigation popToRootViewControllerAnimated:false];
@@ -195,7 +195,7 @@ static GUIManager *_shareInstance=nil;
         return;
     }
     
-    UserViewController *vc=[[UserViewController alloc] init];
+    SGUserViewController *vc=[[SGUserViewController alloc] init];
     vc.delegate=self;
     
     userController=vc;

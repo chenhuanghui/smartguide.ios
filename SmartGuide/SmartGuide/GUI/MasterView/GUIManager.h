@@ -12,7 +12,7 @@
 #import "SGAdsViewController.h"
 #import "SGQRCodeViewController.h"
 #import "SGSettingViewController.h"
-#import "UserViewController.h"
+#import "SGUserViewController.h"
 #import "UserSettingViewController.h"
 #import "AuthorizationViewController.h"
 #import "ContentViewController.h"
@@ -56,7 +56,7 @@
 @property (nonatomic, weak, readonly) SGAdsViewController *adsController;
 @property (nonatomic, weak, readonly) SGQRCodeViewController *qrCodeController;
 @property (nonatomic, weak, readonly) ShopUserViewController *shopUserController;
-@property (nonatomic, weak, readonly) UserViewController *userController;
+@property (nonatomic, weak, readonly) SGUserViewController *userController;
 @property (nonatomic, weak, readonly) SGNotificationViewController *notificationController;
 @property (nonatomic, weak, readonly) SGTutorialViewController *tutorialController;
 @property (nonatomic, weak, readonly) SGViewController *presentedViewController;

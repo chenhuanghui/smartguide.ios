@@ -7,6 +7,11 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SGUserViewController">
             <connections>
+                <outlet property="botView" destination="aFw-wh-DCE" id="xMY-aC-SQf"/>
+                <outlet property="emptyViewController" destination="e1V-39-zJK" id="mTD-Xn-tgO"/>
+                <outlet property="midNavigation" destination="MC6-Aw-eDT" id="Ijm-aJ-Hdx"/>
+                <outlet property="midView" destination="hQa-If-6oB" id="GHO-OQ-vmA"/>
+                <outlet property="topView" destination="seT-Vm-kd6" id="hkl-cX-31V"/>
                 <outlet property="view" destination="1" id="3"/>
             </connections>
         </placeholder>
@@ -15,17 +20,66 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="599-g1-0dY">
+                <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="III-2-Collection-History.jpg" id="kWA-Re-ahG">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="32"/>
-                    <state key="normal" title="USER">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                </button>
+                </imageView>
+                <view contentMode="scaleToFill" id="seT-Vm-kd6">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="135"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                </view>
+                <view contentMode="scaleToFill" id="hQa-If-6oB">
+                    <rect key="frame" x="0.0" y="135" width="320" height="321"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                </view>
+                <view contentMode="scaleToFill" id="aFw-wh-DCE">
+                    <rect key="frame" x="0.0" y="451" width="320" height="29"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background_scan.png" id="vum-ol-MVs">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="56"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        </imageView>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
         </view>
+        <navigationController definesPresentationContext="YES" navigationBarHidden="YES" id="MC6-Aw-eDT" customClass="SGNavigationController">
+            <nil key="simulatedStatusBarMetrics"/>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <navigationBar key="navigationBar" contentMode="scaleToFill" id="5Sb-Wo-OP4">
+                <autoresizingMask key="autoresizingMask"/>
+            </navigationBar>
+            <viewControllers>
+                <viewController id="e1V-39-zJK" customClass="SGViewController">
+                    <view key="view" contentMode="scaleToFill" id="yPJ-ZV-Y6Y">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="321"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Root View Controller" id="5dO-uk-iFJ"/>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
+                    <nil key="simulatedDestinationMetrics"/>
+                    <connections>
+                        <outlet property="view" destination="yPJ-ZV-Y6Y" id="KCn-5X-vRq"/>
+                    </connections>
+                </viewController>
+            </viewControllers>
+        </navigationController>
     </objects>
+    <resources>
+        <image name="III-2-Collection-History.jpg" width="320" height="480"/>
+        <image name="background_scan.png" width="320" height="56"/>
+    </resources>
 </document>

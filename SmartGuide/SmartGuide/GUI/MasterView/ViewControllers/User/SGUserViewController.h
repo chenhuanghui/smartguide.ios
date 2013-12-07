@@ -7,7 +7,15 @@
 //
 
 #import "SGViewController.h"
+#import "SGNavigationController.h"
 
 @interface SGUserViewController : SGViewController
+{
+    __weak IBOutlet UIView *topView;
+    __weak IBOutlet UIView *midView;
+    __weak IBOutlet UIView *botView;
+    IBOutlet SGNavigationController *midNavigation;
+    __weak IBOutlet SGViewController *emptyViewController;
+}
 
 @end

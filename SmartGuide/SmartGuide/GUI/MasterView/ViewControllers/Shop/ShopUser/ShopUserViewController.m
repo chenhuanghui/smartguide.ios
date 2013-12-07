@@ -89,6 +89,7 @@
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    shopNavi=nil;
 }
 
 -(void) shopUserCommentKeyboardWillShow:(NSNotification*) notification

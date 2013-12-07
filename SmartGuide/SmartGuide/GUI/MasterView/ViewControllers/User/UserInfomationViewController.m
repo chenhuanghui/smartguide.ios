@@ -1,22 +1,22 @@
 //
-//  UserViewController.m
+//  UserInfomationViewController.m
 //  SmartGuide
 //
-//  Created by MacMini on 09/11/2013.
+//  Created by MacMini on 07/12/2013.
 //  Copyright (c) 2013 Redbase. All rights reserved.
 //
 
-#import "UserViewController.h"
+#import "UserInfomationViewController.h"
 
-@interface UserViewController ()
+@interface UserInfomationViewController ()
 
 @end
 
-@implementation UserViewController
+@implementation UserInfomationViewController
 
-- (id)init
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-    self = [super initWithNibName:@"UserViewController" bundle:nil];
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
     }
