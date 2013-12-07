@@ -69,6 +69,23 @@
     [table registerNib:[UINib nibWithNibName:[ShopKM1Cell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[ShopKM1Cell reuseIdentifier]];
 }
 
+-(void)drawRect:(CGRect)rect
+{
+    
+}
 
+@end
+
+@implementation PromotionDetailView
+
+-(void)drawRect:(CGRect)rect
+{
+    if(!img)
+        img=[UIImage imageNamed:@"pattern_promotion.png"];
+    
+    rect.origin=CGPointZero;
+    
+    [img drawAsPatternInRect:rect];
+}
 
 @end

@@ -27,6 +27,8 @@
 #import "SUKM1Cell.h"
 #import "SUInfoCell.h"
 #import "SUUserGalleryCell.h"
+#import "CommentTyping.h"
+#import "SUUserCommentCell.h"
 
 @class TableShopUser,PromotionDetailView;
 
@@ -109,11 +111,16 @@ enum SHOP_USER_MODE {
     
     __weak IBOutlet TableShopUser *tableShopUser;
     __weak SUShopGalleryCell *shopGalleryCell;
+    __weak SUUserCommentCell *shopUserCommentCell;
     __weak IBOutlet UIButton *btnNext;
+//    __weak CommentTyping *cmtTyping;
     
     CGRect _btnNextFrame;
+    CGRect _cmtTypingFrame;
+    CGRect _shopUserContentFrame;
     
     NSMutableArray *_km1Data;
+    NSMutableArray *_comments;
 }
 
 //-(void) setShop:(Shop*) shop;
@@ -129,12 +136,5 @@ enum SHOP_USER_MODE {
 
 @interface TableShopUser : UITableView
 @property (nonatomic, readonly) CGPoint offset;
-
-@end
-
-@interface PromotionDetailView : UIView
-{
-    UIImage *img;
-}
 
 @end

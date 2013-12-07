@@ -464,27 +464,27 @@ int random_int(int from, int to)
     self.contentSize=CGSizeMake(self.contentSize.width+w, self.contentSize.height);
 }
 
--(float) co_x
+-(float) l_co_x
 {
     return self.contentOffset.x;
 }
--(float) co_y
+-(float) l_co_y
 {
     return self.contentOffset.y;
 }
--(void) co_setX:(float) x
+-(void) l_co_setX:(float) x
 {
     self.contentOffset=CGPointMake(x, self.contentOffset.y);
 }
--(void) co_setY:(float) y
+-(void) l_co_setY:(float) y
 {
     self.contentOffset=CGPointMake(self.contentOffset.x, y);
 }
--(void) co_addX:(float) x
+-(void) l_co_addX:(float) x
 {
     self.contentOffset=CGPointMake(self.contentOffset.x+x, self.contentOffset.y);
 }
--(void) co_addY:(float) y
+-(void) l_co_addY:(float) y
 {
     self.contentOffset=CGPointMake(self.contentOffset.x, self.contentOffset.y+y);
 }

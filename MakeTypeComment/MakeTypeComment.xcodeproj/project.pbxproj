@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9A3E764818517A5B00F596C1 /* CommentTyping.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A3E764718517A5B00F596C1 /* CommentTyping.xib */; };
+		9A3E764A18517A9900F596C1 /* II-3-Detail-Comment.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9A3E764918517A9900F596C1 /* II-3-Detail-Comment.jpg */; };
+		9A3E764C18517B4E00F596C1 /* II-3-Detail-PostComment.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9A3E764B18517B4E00F596C1 /* II-3-Detail-PostComment.jpg */; };
+		9A3E764F18517D6C00F596C1 /* button_send.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A3E764D18517D6C00F596C1 /* button_send.png */; };
+		9A3E765018517D6C00F596C1 /* button_send@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A3E764E18517D6C00F596C1 /* button_send@2x.png */; };
+		9A3E76531851851E00F596C1 /* ava.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A3E76511851851E00F596C1 /* ava.png */; };
+		9A3E76541851851E00F596C1 /* ava@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A3E76521851851E00F596C1 /* ava@2x.png */; };
 		9AA90B851850EF5C002F40FF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AA90B841850EF5C002F40FF /* Foundation.framework */; };
 		9AA90B871850EF5C002F40FF /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AA90B861850EF5C002F40FF /* CoreGraphics.framework */; };
 		9AA90B891850EF5C002F40FF /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AA90B881850EF5C002F40FF /* UIKit.framework */; };
@@ -37,6 +44,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9A3E764718517A5B00F596C1 /* CommentTyping.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentTyping.xib; sourceTree = "<group>"; };
+		9A3E764918517A9900F596C1 /* II-3-Detail-Comment.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "II-3-Detail-Comment.jpg"; sourceTree = "<group>"; };
+		9A3E764B18517B4E00F596C1 /* II-3-Detail-PostComment.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "II-3-Detail-PostComment.jpg"; sourceTree = "<group>"; };
+		9A3E764D18517D6C00F596C1 /* button_send.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_send.png; sourceTree = "<group>"; };
+		9A3E764E18517D6C00F596C1 /* button_send@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_send@2x.png"; sourceTree = "<group>"; };
+		9A3E76511851851E00F596C1 /* ava.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ava.png; sourceTree = "<group>"; };
+		9A3E76521851851E00F596C1 /* ava@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ava@2x.png"; sourceTree = "<group>"; };
 		9AA90B811850EF5C002F40FF /* MakeTypeComment.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MakeTypeComment.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9AA90B841850EF5C002F40FF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		9AA90B861850EF5C002F40FF /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -96,6 +110,8 @@
 			isa = PBXGroup;
 			children = (
 				9AA90B8A1850EF5C002F40FF /* MakeTypeComment */,
+				9A3E764D18517D6C00F596C1 /* button_send.png */,
+				9A3E764E18517D6C00F596C1 /* button_send@2x.png */,
 				9AA90BA91850EF5C002F40FF /* MakeTypeCommentTests */,
 				9AA90B831850EF5C002F40FF /* Frameworks */,
 				9AA90B821850EF5C002F40FF /* Products */,
@@ -133,6 +149,7 @@
 				9AA90B8B1850EF5C002F40FF /* Supporting Files */,
 				9AA90BB91850EF81002F40FF /* CommentTyping.h */,
 				9AA90BBA1850EF81002F40FF /* CommentTyping.m */,
+				9A3E764718517A5B00F596C1 /* CommentTyping.xib */,
 				9AA90BBC1850F6DC002F40FF /* HPGrowingTextView.h */,
 				9AA90BBD1850F6DC002F40FF /* HPGrowingTextView.m */,
 				9AA90BBE1850F6DC002F40FF /* HPTextViewInternal.h */,
@@ -152,6 +169,10 @@
 				9AA90BCE1850F7D5002F40FF /* frame_avauser@2x.png */,
 				9AA90BCF1850F7D5002F40FF /* line_comment@2x.png */,
 				9AA90BD01850F7D5002F40FF /* frame_avacomment.png */,
+				9A3E764918517A9900F596C1 /* II-3-Detail-Comment.jpg */,
+				9A3E764B18517B4E00F596C1 /* II-3-Detail-PostComment.jpg */,
+				9A3E76511851851E00F596C1 /* ava.png */,
+				9A3E76521851851E00F596C1 /* ava@2x.png */,
 			);
 			path = MakeTypeComment;
 			sourceTree = "<group>";
@@ -237,19 +258,26 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9A3E764A18517A9900F596C1 /* II-3-Detail-Comment.jpg in Resources */,
 				9AA90BDC1850F7D5002F40FF /* button_showmore@2x.png in Resources */,
+				9A3E765018517D6C00F596C1 /* button_send@2x.png in Resources */,
 				9AA90BD61850F7D5002F40FF /* button_showmore.png in Resources */,
 				9AA90BDD1850F7D5002F40FF /* frame_avauser@2x.png in Resources */,
 				9AA90B9D1850EF5C002F40FF /* Images.xcassets in Resources */,
 				9AA90BD31850F7D5002F40FF /* line_comment.png in Resources */,
+				9A3E764818517A5B00F596C1 /* CommentTyping.xib in Resources */,
 				9AA90BD11850F7D5002F40FF /* bg_typecomment_bottom.png in Resources */,
 				9AA90BDF1850F7D5002F40FF /* frame_avacomment.png in Resources */,
 				9AA90BD51850F7D5002F40FF /* button_Facebook.png in Resources */,
+				9A3E76541851851E00F596C1 /* ava@2x.png in Resources */,
 				9AA90BD91850F7D5002F40FF /* bg_typecomment_head@2x.png in Resources */,
 				9AA90B8F1850EF5C002F40FF /* InfoPlist.strings in Resources */,
 				9AA90BD21850F7D5002F40FF /* bg_typecomment_mid.png in Resources */,
+				9A3E764F18517D6C00F596C1 /* button_send.png in Resources */,
 				9AA90B981850EF5C002F40FF /* Main.storyboard in Resources */,
 				9AA90BD41850F7D5002F40FF /* bg_typecomment_head.png in Resources */,
+				9A3E764C18517B4E00F596C1 /* II-3-Detail-PostComment.jpg in Resources */,
+				9A3E76531851851E00F596C1 /* ava.png in Resources */,
 				9AA90BDE1850F7D5002F40FF /* line_comment@2x.png in Resources */,
 				9AA90BDB1850F7D5002F40FF /* button_Facebook@2x.png in Resources */,
 				9AA90BDA1850F7D5002F40FF /* bg_typecomment_mid@2x.png in Resources */,
@@ -421,6 +449,7 @@
 				9AA90BB51850EF5D002F40FF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

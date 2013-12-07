@@ -21,3 +21,10 @@
 +(float) heightWithKM:(NSArray*) array;
 
 @end
+
+@interface PromotionDetailView : UIView
+{
+    UIImage *img;
+}
+
+@end

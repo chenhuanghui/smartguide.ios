@@ -11,8 +11,15 @@
 
 @interface CommentTyping : UIView<HPGrowingTextViewDelegate,UIScrollViewDelegate>
 {
-    __weak HPGrowingTextView *textView;
-    float _midY;
+    __weak IBOutlet HPGrowingTextView *textView;
+    __weak IBOutlet UIView *midView;
+    __weak IBOutlet UIImageView *imgvAvatar;
+    bool _isExpanded;
 }
+
+-(void) expand;
+-(void) collapse;
+
+-(bool) isExpanded;
 
 @end

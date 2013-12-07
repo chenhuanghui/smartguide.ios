@@ -46,6 +46,9 @@
     AlphaView *alphaView=[self alphaView];
     if(!alphaView)
     {
+        if([self isKindOfClass:[UIScrollView class]])
+            rect.size=((UIScrollView*)self).contentSize;
+        
         alphaView=[[AlphaView alloc] initWithFrame:rect];
         [self addSubview:alphaView];
     }

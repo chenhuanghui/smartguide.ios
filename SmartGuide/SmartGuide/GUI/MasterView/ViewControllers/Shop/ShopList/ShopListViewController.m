@@ -314,8 +314,10 @@
                 [tableList l_v_setY:_tableFrame.origin.y+height];
             }
             else
+            {
                 [tableList l_v_setY:_tableFrame.origin.y];
-            [tableList setContentOffset:CGPointZero];
+                [tableList setContentOffset:CGPointZero];
+            }
         }
         
         CGPoint pnt=[scroller view].l_v_o;

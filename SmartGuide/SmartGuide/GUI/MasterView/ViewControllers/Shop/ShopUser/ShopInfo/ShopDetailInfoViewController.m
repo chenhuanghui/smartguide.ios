@@ -127,34 +127,34 @@
         if(pnt.y>=_tableToolFrame.origin.y)
         {
             [tableTool l_v_setY:pnt.y];
-            [tableTool co_setY:pnt.y-_tableToolFrame.origin.y];
+            [tableTool l_co_setY:pnt.y-_tableToolFrame.origin.y];
         }
         else
         {
             [tableTool l_v_setY:_tableToolFrame.origin.y];
-            [tableTool co_setY:0];
+            [tableTool l_co_setY:0];
         }
         
         if(pnt.y>=_tableDetailFrame.origin.y)
         {
             [tableDetail l_v_setY:pnt.y];
-            [tableDetail co_setY:pnt.y-_tableDetailFrame.origin.y];
+            [tableDetail l_co_setY:pnt.y-_tableDetailFrame.origin.y];
         }
         else
         {
             [tableDetail l_v_setY:_tableDetailFrame.origin.y];
-            [tableDetail co_setY:0];
+            [tableDetail l_co_setY:0];
         }
         
         if(pnt.y>=_tableImageFrame.origin.y)
         {
             [tableImage l_v_setY:pnt.y];
-            [tableImage co_setY:pnt.y-_tableImageFrame.origin.y];
+            [tableImage l_co_setY:pnt.y-_tableImageFrame.origin.y];
         }
         else
         {
             [tableImage l_v_setY:_tableImageFrame.origin.y];
-            [tableImage co_setY:0];
+            [tableImage l_co_setY:0];
         }
     }
 }

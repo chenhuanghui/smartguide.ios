@@ -14,17 +14,13 @@
 
 @implementation CommentTyping
 
--(void)willMoveToSuperview:(UIView *)newSuperview
+- (id)init
 {
-    [super willMoveToSuperview:newSuperview];
-    
-    if(newSuperview && !textView)
-    {
-        HPGrowingTextView *tv = [[HPGrowingTextView alloc] initWithFrame:CGRectMake(2, 5, self.frame.size.width-4, self.frame.size.height-4)];
+    self = [[NSBundle mainBundle] loadNibNamed:@"CommentTyping" owner:nil options:nil][0];
+    if (self) {
         
-        textView=tv;
-        
-        textView.backgroundColor=[UIColor clearColor];
+        imgvAvatar.layer.cornerRadius=imgvAvatar.frame.size.width/2;
+        imgvAvatar.layer.masksToBounds=true;
         
         textView.isScrollable = NO;
         textView.contentInset = UIEdgeInsetsZero;
@@ -40,8 +36,9 @@
         textView.backgroundColor = [UIColor whiteColor];
         textView.placeholder = @"Type to see the textView grow!";
         
-        [self addSubview:tv];
+        midView.backgroundColor=[UIColor colorWithPatternImage:COMMENT_TYPING_IMAGE_MID];
     }
+    return self;
 }
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
@@ -49,24 +46,34 @@
     NSLog(@"%f",scrollView.contentOffset.y);
 }
 
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
-    
-    UIImage *head=COMMENT_TYPING_IMAGE_HEAD;
-    UIImage *mid=COMMENT_TYPING_IMAGE_MID;
-    UIImage *bottom=COMMENT_TYPING_IMAGE_BOTTOM;
-
-    [head drawAtPoint:CGPointZero];
-    [mid drawAsPatternInRect:CGRectMake(0, head.size.height, rect.size.width, rect.size.height-bottom.size.height-head.size.height)];
-    [bottom drawAtPoint:CGPointMake(0, rect.size.height-bottom.size.height)];
-}
-
 -(void)growingTextView:(HPGrowingTextView *)growingTextView willChangeHeight:(float)height
 {
     NSLog(@"willChangeHeight %f",height);
+}
+
+-(void)expand
+{
+    _isExpanded=true;
+    
+    [UIView animateWithDuration:0.3f animations:^{
+        self.frame=CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width, self.frame.size.height+100);
+        midView.backgroundColor=[UIColor colorWithPatternImage:COMMENT_TYPING_IMAGE_MID];
+    }];
+}
+
+-(void)collapse
+{
+    _isExpanded=false;
+
+    [UIView animateWithDuration:0.3f animations:^{
+        self.frame=CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width, self.frame.size.height-100);
+        midView.backgroundColor=[UIColor colorWithPatternImage:COMMENT_TYPING_IMAGE_MID];
+    }];
+}
+
+-(bool)isExpanded
+{
+    return _isExpanded;
 }
 
 @end

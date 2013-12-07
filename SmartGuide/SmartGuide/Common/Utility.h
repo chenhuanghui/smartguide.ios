@@ -107,12 +107,12 @@ int random_int(int from, int to);
 -(void) l_cs_addW:(float) w;
 
 //contentOffset
--(float) co_x;
--(float) co_y;
--(void) co_setX:(float) x;
--(void) co_setY:(float) y;
--(void) co_addX:(float) x;
--(void) co_addY:(float) y;
+-(float) l_co_x;
+-(float) l_co_y;
+-(void) l_co_setX:(float) x;
+-(void) l_co_setY:(float) y;
+-(void) l_co_addX:(float) x;
+-(void) l_co_addY:(float) y;
 
 @end
 

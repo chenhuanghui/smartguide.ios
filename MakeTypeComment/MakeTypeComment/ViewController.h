@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CommentTyping.h"
 
 @interface ViewController : UIViewController
+{
+    __weak IBOutlet CommentTyping *cmt;
+}
 
 @end
