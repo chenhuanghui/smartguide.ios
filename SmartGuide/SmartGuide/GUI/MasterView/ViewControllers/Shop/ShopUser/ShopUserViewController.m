@@ -46,6 +46,8 @@
     rect.origin=CGPointMake(15, 0);
     rect.size=CGSizeMake(290, 431);
     shopNavi.view.frame=rect;
+    shopNavi.view.layer.cornerRadius=8;
+    shopNavi.view.layer.masksToBounds=true;
     
     [self storeRect];
     
