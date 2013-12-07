@@ -16,22 +16,8 @@
 		9A479E0D18533C7600E89229 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9A479E0B18533C7600E89229 /* Main.storyboard */; };
 		9A479E1018533C7600E89229 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A479E0F18533C7600E89229 /* ViewController.m */; };
 		9A479E1218533C7600E89229 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9A479E1118533C7600E89229 /* Images.xcassets */; };
-		9A479E1918533C7600E89229 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A479E1818533C7600E89229 /* XCTest.framework */; };
-		9A479E1A18533C7600E89229 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A479DF918533C7600E89229 /* Foundation.framework */; };
-		9A479E1B18533C7600E89229 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A479DFD18533C7600E89229 /* UIKit.framework */; };
-		9A479E2318533C7600E89229 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9A479E2118533C7600E89229 /* InfoPlist.strings */; };
-		9A479E2518533C7600E89229 /* MakeLabelTopTextTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A479E2418533C7600E89229 /* MakeLabelTopTextTests.m */; };
+		9A479E3018533CCA00E89229 /* LabelTopText.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A479E2F18533CCA00E89229 /* LabelTopText.m */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		9A479E1C18533C7600E89229 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 9A479DEE18533C7600E89229 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 9A479DF518533C7600E89229;
-			remoteInfo = MakeLabelTopText;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		9A479DF618533C7600E89229 /* MakeLabelTopText.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MakeLabelTopText.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -48,11 +34,12 @@
 		9A479E0E18533C7600E89229 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		9A479E0F18533C7600E89229 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		9A479E1118533C7600E89229 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		9A479E1718533C7600E89229 /* MakeLabelTopTextTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MakeLabelTopTextTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A479E1818533C7600E89229 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		9A479E2018533C7600E89229 /* MakeLabelTopTextTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MakeLabelTopTextTests-Info.plist"; sourceTree = "<group>"; };
 		9A479E2218533C7600E89229 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		9A479E2418533C7600E89229 /* MakeLabelTopTextTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MakeLabelTopTextTests.m; sourceTree = "<group>"; };
+		9A479E2E18533CCA00E89229 /* LabelTopText.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LabelTopText.h; sourceTree = "<group>"; };
+		9A479E2F18533CCA00E89229 /* LabelTopText.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LabelTopText.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,16 +53,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		9A479E1418533C7600E89229 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				9A479E1918533C7600E89229 /* XCTest.framework in Frameworks */,
-				9A479E1B18533C7600E89229 /* UIKit.framework in Frameworks */,
-				9A479E1A18533C7600E89229 /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -86,6 +63,7 @@
 				9A479E1E18533C7600E89229 /* MakeLabelTopTextTests */,
 				9A479DF818533C7600E89229 /* Frameworks */,
 				9A479DF718533C7600E89229 /* Products */,
+				9A479E0018533C7600E89229 /* Supporting Files */,
 			);
 			sourceTree = "<group>";
 		};
@@ -93,7 +71,6 @@
 			isa = PBXGroup;
 			children = (
 				9A479DF618533C7600E89229 /* MakeLabelTopText.app */,
-				9A479E1718533C7600E89229 /* MakeLabelTopTextTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -118,7 +95,8 @@
 				9A479E0E18533C7600E89229 /* ViewController.h */,
 				9A479E0F18533C7600E89229 /* ViewController.m */,
 				9A479E1118533C7600E89229 /* Images.xcassets */,
-				9A479E0018533C7600E89229 /* Supporting Files */,
+				9A479E2E18533CCA00E89229 /* LabelTopText.h */,
+				9A479E2F18533CCA00E89229 /* LabelTopText.m */,
 			);
 			path = MakeLabelTopText;
 			sourceTree = "<group>";
@@ -132,6 +110,7 @@
 				9A479E0718533C7600E89229 /* MakeLabelTopText-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			path = MakeLabelTopText;
 			sourceTree = "<group>";
 		};
 		9A479E1E18533C7600E89229 /* MakeLabelTopTextTests */ = {
@@ -172,24 +151,6 @@
 			productReference = 9A479DF618533C7600E89229 /* MakeLabelTopText.app */;
 			productType = "com.apple.product-type.application";
 		};
-		9A479E1618533C7600E89229 /* MakeLabelTopTextTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 9A479E2B18533C7600E89229 /* Build configuration list for PBXNativeTarget "MakeLabelTopTextTests" */;
-			buildPhases = (
-				9A479E1318533C7600E89229 /* Sources */,
-				9A479E1418533C7600E89229 /* Frameworks */,
-				9A479E1518533C7600E89229 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				9A479E1D18533C7600E89229 /* PBXTargetDependency */,
-			);
-			name = MakeLabelTopTextTests;
-			productName = MakeLabelTopTextTests;
-			productReference = 9A479E1718533C7600E89229 /* MakeLabelTopTextTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -198,11 +159,6 @@
 			attributes = {
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = MacMini;
-				TargetAttributes = {
-					9A479E1618533C7600E89229 = {
-						TestTargetID = 9A479DF518533C7600E89229;
-					};
-				};
 			};
 			buildConfigurationList = 9A479DF118533C7600E89229 /* Build configuration list for PBXProject "MakeLabelTopText" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -218,7 +174,6 @@
 			projectRoot = "";
 			targets = (
 				9A479DF518533C7600E89229 /* MakeLabelTopText */,
-				9A479E1618533C7600E89229 /* MakeLabelTopTextTests */,
 			);
 		};
 /* End PBXProject section */
@@ -234,14 +189,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		9A479E1518533C7600E89229 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				9A479E2318533C7600E89229 /* InfoPlist.strings in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -250,28 +197,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				9A479E1018533C7600E89229 /* ViewController.m in Sources */,
+				9A479E3018533CCA00E89229 /* LabelTopText.m in Sources */,
 				9A479E0A18533C7600E89229 /* AppDelegate.m in Sources */,
 				9A479E0618533C7600E89229 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		9A479E1318533C7600E89229 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				9A479E2518533C7600E89229 /* MakeLabelTopTextTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		9A479E1D18533C7600E89229 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 9A479DF518533C7600E89229 /* MakeLabelTopText */;
-			targetProxy = 9A479E1C18533C7600E89229 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		9A479E0218533C7600E89229 /* InfoPlist.strings */ = {
@@ -334,7 +266,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 			};
@@ -367,7 +299,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -399,48 +331,6 @@
 			};
 			name = Release;
 		};
-		9A479E2C18533C7600E89229 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/MakeLabelTopText.app/MakeLabelTopText";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "MakeLabelTopText/MakeLabelTopText-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "MakeLabelTopTextTests/MakeLabelTopTextTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Debug;
-		};
-		9A479E2D18533C7600E89229 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/MakeLabelTopText.app/MakeLabelTopText";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "MakeLabelTopText/MakeLabelTopText-Prefix.pch";
-				INFOPLIST_FILE = "MakeLabelTopTextTests/MakeLabelTopTextTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -458,14 +348,6 @@
 			buildConfigurations = (
 				9A479E2918533C7600E89229 /* Debug */,
 				9A479E2A18533C7600E89229 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-		};
-		9A479E2B18533C7600E89229 /* Build configuration list for PBXNativeTarget "MakeLabelTopTextTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				9A479E2C18533C7600E89229 /* Debug */,
-				9A479E2D18533C7600E89229 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 		};
