@@ -162,8 +162,6 @@
     [self.view addGestureRecognizer:tap];
     
     [scroll.panGestureRecognizer requireGestureRecognizerToFail:tap];
-    
-    [self shopListCellTouched:nil];
 }
 
 -(BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer

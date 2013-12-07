@@ -149,6 +149,9 @@ static GUIManager *_shareInstance=nil;
     SGNavigationController *vc=[[SGNavigationController alloc] initWithRootViewController:shopController];
     contentNavigation=vc;
     
+    SGUserViewController *vc1=[SGUserViewController new];
+    [contentNavigation pushViewController:vc1 animated:true];
+    
     [rootViewController addChildViewController:vc];
 }
 

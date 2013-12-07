@@ -8,14 +8,19 @@
 
 #import "SGViewController.h"
 #import "SGNavigationController.h"
+#import "UserNewFeedViewController.h"
+#import "UserInfomationViewController.h"
+#import "UserHistoryViewController.h"
+#import "UserCollectionViewController.h"
 
-@interface SGUserViewController : SGViewController
+@interface SGUserViewController : SGViewController<UIActionSheetDelegate,UINavigationControllerDelegate>
 {
     __weak IBOutlet UIView *topView;
     __weak IBOutlet UIView *midView;
     __weak IBOutlet UIView *botView;
-    IBOutlet SGNavigationController *midNavigation;
+    __strong IBOutlet SGNavigationController *midNavigation;
     __weak IBOutlet SGViewController *emptyViewController;
+    __weak UIViewController *willPopViewControlelr;
 }
 
 @end

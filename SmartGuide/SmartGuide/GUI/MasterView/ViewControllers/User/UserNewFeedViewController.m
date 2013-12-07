@@ -14,9 +14,9 @@
 
 @implementation UserNewFeedViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (id)init
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    self = [super initWithNibName:@"UserNewFeedViewController" bundle:nil];
     if (self) {
         // Custom initialization
     }
@@ -33,6 +33,11 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(NSString *)title
+{
+    return @"New Feed";
 }
 
 @end

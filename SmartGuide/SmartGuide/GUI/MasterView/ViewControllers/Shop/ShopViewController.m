@@ -65,8 +65,6 @@
     
     [self showShopCatalog:false];
     
-    [self showShopListWithGroup:nil];
-    
     UIImageView *imgv=[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_search.png"]];
     imgv.contentMode=UIViewContentModeCenter;
     imgv.frame=CGRectMake(0, 0, 30, 18);
