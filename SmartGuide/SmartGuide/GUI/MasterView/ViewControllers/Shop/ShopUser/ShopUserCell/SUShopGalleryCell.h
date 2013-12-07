@@ -21,6 +21,8 @@
 {
     __weak IBOutlet UITableView *table;
     __weak IBOutlet PageControlNext *pageControl;
+    
+    CGRect _tableFrame;
 }
 
 @property (nonatomic, weak) id<SUShopGalleryDelegate> delegate;

@@ -9,6 +9,9 @@
 #import "ShopUserViewController.h"
 #import "GUIManager.h"
 
+//Vị trí y của table
+#define SHOP_USER_ANIMATION_ALIGN_Y 100.f
+
 @interface ShopUserViewController ()
 
 @end
@@ -81,20 +84,13 @@
     {
         [tableShopUser cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
     }
-//    CommentTyping *ct=[CommentTyping new];
-//    [ct l_v_setY:self.l_v_h];
     
-//    cmtTyping=ct;
-    
-    //[detailController.view addSubview:ct];
-    
-//    rect=[tableShopUser rectForRowAtIndexPath:[NSIndexPath indexPathForRow:5 inSection:0]];
-    
-//    [tableShopUser addSubview:ct];
-//    [ct l_v_setY:rect.origin.y];
-    
-//    _cmtTypingFrame=ct.frame;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(shopUserCommentKeyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 -(void) shopUserCommentKeyboardWillShow:(NSNotification*) notification
@@ -108,10 +104,6 @@
     }
 }
 
--(void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
-{
-}
-
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     if(scrollView==tableShopUser)
@@ -122,6 +114,7 @@
         }
         
         float y=_btnNextFrame.origin.y+scrollView.contentOffset.y;
+        y+=SHOP_USER_ANIMATION_ALIGN_Y;
 
         CGRect rect=[tableShopUser rectForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:0]];
         
@@ -141,14 +134,9 @@
         }
         
         rect=[tableShopUser rectForRowAtIndexPath:[NSIndexPath indexPathForRow:5 inSection:0]];
-        
-//        if(scrollView.contentOffset.y-_cmtTypingFrame.origin.y+btnNext.l_v_h>0)
-//        {
-//            [cmtTyping l_v_setY:scrollView.contentOffset.y+btnNext.l_v_h];
-//        }
-        
+
         if(shopUserCommentCell)
-            [shopUserCommentCell tableDidScrollWithContentOffSetY:tableShopUser.contentOffset.y+_btnNextFrame.size.height cellContentY:rect.origin.y];
+            [shopUserCommentCell tableDidScrollWithContentOffSetY:tableShopUser.contentOffset.y+_btnNextFrame.size.height+SHOP_USER_ANIMATION_ALIGN_Y cellContentY:rect.origin.y];
     }
 }
 
@@ -239,7 +227,7 @@
             {
                 SUUserCommentCell *cell=[tableView dequeueReusableCellWithIdentifier:[SUUserCommentCell reuseIdentifier]];
                 
-                float maxHeight=_shopUserContentFrame.size.height-_btnNextFrame.size.height-[SUUserCommentCell tableY];
+                float maxHeight=_shopUserContentFrame.size.height-_btnNextFrame.size.height-[SUUserCommentCell tableY]+SHOP_USER_ANIMATION_ALIGN_Y;
                 shopUserCommentCell=cell;
                 
                 [cell loadWithComments:_comments maxHeight:maxHeight];
@@ -299,8 +287,8 @@
 
 -(void)setContentOffset:(CGPoint)contentOffset
 {
-    if(contentOffset.y<0)
-        contentOffset.y=0;
+    if(contentOffset.y+SHOP_USER_ANIMATION_ALIGN_Y<0)
+        contentOffset.y=-SHOP_USER_ANIMATION_ALIGN_Y;
     
     offset=CGPointMake(contentOffset.x-self.contentOffset.x, contentOffset.y-self.contentOffset.y);
     

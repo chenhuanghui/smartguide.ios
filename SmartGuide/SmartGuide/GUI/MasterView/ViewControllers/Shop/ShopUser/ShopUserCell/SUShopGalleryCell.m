@@ -20,7 +20,7 @@
 
 +(float)height
 {
-    return 227;
+    return 327;
 }
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
@@ -28,6 +28,13 @@
     if(scrollView==table)
     {
         [pageControl scrollViewDidScroll:scrollView isHorizontal:true];
+    }
+    else
+    {
+        if(CGRectIsEmpty(_tableFrame))
+            _tableFrame=table.frame;
+        
+        [table l_v_setY:_tableFrame.origin.y+scrollView.contentOffset.y/2];
     }
 }
 
