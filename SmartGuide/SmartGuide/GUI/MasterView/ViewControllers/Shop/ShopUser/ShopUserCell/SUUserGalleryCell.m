@@ -9,6 +9,7 @@
 #import "SUUserGalleryCell.h"
 
 @implementation SUUserGalleryCell
+@synthesize delegate;
 
 +(NSString *)reuseIdentifier
 {
@@ -18,6 +19,11 @@
 +(float)height
 {
     return 190;
+}
+
+-(IBAction) btnMakePictureTouchUpInside:(id)sender
+{
+    [self.delegate userGalleryTouchedMakePicture:self];
 }
 
 @end

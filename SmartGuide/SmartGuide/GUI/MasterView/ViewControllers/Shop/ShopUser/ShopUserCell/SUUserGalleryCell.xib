@@ -59,6 +59,9 @@
                                 <state key="normal" image="button_addphoto.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="btnMakePictureTouchUpInside:" destination="jss-vJ-FAg" eventType="touchUpInside" id="76f-ld-sBR"/>
+                                </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="line_shopdetail.png" id="oZG-1w-QgC">
                                 <rect key="frame" x="9" y="186" width="272" height="3"/>

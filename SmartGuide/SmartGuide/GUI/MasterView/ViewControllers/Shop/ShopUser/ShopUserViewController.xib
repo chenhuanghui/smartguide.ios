@@ -7,6 +7,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ShopUserViewController">
             <connections>
+                <outlet property="btnBack" destination="SlM-GL-ihj" id="0JZ-wY-H3b"/>
                 <outlet property="btnClose" destination="bsk-dc-LN0" id="ZVB-aY-7OI"/>
                 <outlet property="btnNext" destination="ILD-L8-qla" id="Klr-uI-3CZ"/>
                 <outlet property="detailController" destination="5lb-ft-nI1" id="mZT-DP-fK7"/>
@@ -44,6 +45,14 @@
                     </state>
                     <connections>
                         <action selector="btnCloseTouchUpInside:" destination="-1" eventType="touchUpInside" id="D8K-ht-02r"/>
+                    </connections>
+                </button>
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="SlM-GL-ihj">
+                    <rect key="frame" x="0.0" y="200" width="15" height="80"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <state key="normal" title="&lt;"/>
+                    <connections>
+                        <action selector="btnBackTouchUpInside:" destination="-1" eventType="touchUpInside" id="67g-Wb-nzE"/>
                     </connections>
                 </button>
             </subviews>

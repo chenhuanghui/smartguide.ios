@@ -54,8 +54,6 @@
     
     [self storeRect];
     
-    shopNavi.isAllowDragBackPreviouseView=true;;
-    
     [tableShopUser registerNib:[UINib nibWithNibName:[SUShopGalleryCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[SUShopGalleryCell reuseIdentifier]];
     [tableShopUser registerNib:[UINib nibWithNibName:[SUKM1Cell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[SUKM1Cell reuseIdentifier]];
     [tableShopUser registerNib:[UINib nibWithNibName:[SUInfoCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[SUInfoCell reuseIdentifier]];
@@ -213,12 +211,16 @@
             {
                 SUInfoCell *cell=[tableShopUser dequeueReusableCellWithIdentifier:[SUInfoCell reuseIdentifier]];
                 
+                cell.delegate=self;
+                
                 return cell;
             }
                 
             case 4:
             {
                 SUUserGalleryCell *cell=[tableShopUser dequeueReusableCellWithIdentifier:[SUUserGalleryCell reuseIdentifier]];
+                
+                cell.delegate=self;
                 
                 return cell;
             }
@@ -272,12 +274,49 @@
 {
     ShopDetailInfoViewController *vc=[ShopDetailInfoViewController new];
     
+    [self pushViewController:vc];
+}
+
+-(void) pushViewController:(UIViewController*) vc
+{
+    btnBack.alpha=0;
+    btnBack.hidden=false;
+    
+    [UIView animateWithDuration:DURATION_DEFAULT animations:^{
+        btnBack.alpha=1;
+    }];
+    
     [shopNavi pushViewController:vc animated:true];
 }
 
 -(IBAction) btnNextTouchUpInside:(id)sender
 {
     
+}
+
+-(void)userGalleryTouchedMakePicture:(SUUserGalleryCell *)cell
+{
+    ShopCameraViewController *vc=[ShopCameraViewController new];
+    
+    [self pushViewController:vc];
+}
+
+-(void)infoCellTouchedMap:(SUInfoCell *)cell
+{
+    ShopMapViewController *vc=[ShopMapViewController new];
+    
+    [self pushViewController:vc];
+}
+
+-(IBAction) btnBackTouchUpInside:(id)sender
+{
+    [shopNavi popToRootViewControllerAnimated:true];
+    
+    [UIView animateWithDuration:DURATION_DEFAULT animations:^{
+        btnBack.alpha=0;
+    } completion:^(BOOL finished) {
+        btnBack.hidden=true;
+    }];
 }
 
 @end

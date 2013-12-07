@@ -8,9 +8,19 @@
 
 #import <UIKit/UIKit.h>
 
+@class SUUserGalleryCell;
+
+@protocol UserGalleryDelegate <NSObject>
+
+-(void) userGalleryTouchedMakePicture:(SUUserGalleryCell*) cell;
+
+@end
+
 @interface SUUserGalleryCell : UITableViewCell
 
 +(float) height;
 +(NSString *)reuseIdentifier;
+
+@property (nonatomic, weak) id<UserGalleryDelegate> delegate;
 
 @end
