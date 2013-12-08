@@ -16,7 +16,7 @@
 -(void) settingTouchedUser:(SGSettingViewController*) controller;
 -(void) settingTouchedUserSetting:(SGSettingViewController*) controller;
 -(void) settingTouchedCatalog:(SGSettingViewController*) controller;
--(void) settingTouchedNotification:(SGSettingViewController*) controller;
+-(void) settingTouchedStore:(SGSettingViewController*) controller;
 -(void) settingTouchedOtherView:(SGSettingViewController*) controller;
 
 @end

@@ -59,8 +59,8 @@
     [self.delegate settingTouchedCatalog:self];
 }
 
-- (IBAction)notification:(id)sender {
-    [self.delegate settingTouchedNotification:self];
+- (IBAction)store:(id)sender {
+    [self.delegate settingTouchedStore:self];
 }
 
 - (IBAction)otherView:(id)sender {

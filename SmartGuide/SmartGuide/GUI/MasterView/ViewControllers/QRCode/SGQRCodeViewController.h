@@ -12,9 +12,8 @@
 
 @protocol SGQRCodeControllerDelegate <SGViewControllerDelegate>
 
--(void) qrcodeControllerRequestShow:(SGQRCodeViewController*) controller;
 -(void) qrcodeControllerRequestClose:(SGQRCodeViewController*) controller;
--(void) qrcodeControllerScanned:(SGQRCodeViewController*) controller;
+//-(void) qrcodeControllerScanned:(SGQRCodeViewController*) controller;
 
 @end
 
@@ -23,6 +22,16 @@
     bool _isShowed;
 }
 
-@property (nonatomic, assign) id<SGQRCodeControllerDelegate> delegate;
+@property (nonatomic, weak) id<SGQRCodeControllerDelegate> delegate;
+@property (nonatomic, weak) UIView *containView;
+@property (nonatomic, assign) CGRect containViewFrame;
+
+@end
+
+@interface SGViewController(QRCode)
+@property (nonatomic, readwrite, weak) SGQRCodeViewController *qrController;
+
+-(void) showQRCodeWithContorller:(SGViewController<SGQRCodeControllerDelegate>*) controller inView:(UIView*) view;
+-(void) hideQRCode;
 
 @end

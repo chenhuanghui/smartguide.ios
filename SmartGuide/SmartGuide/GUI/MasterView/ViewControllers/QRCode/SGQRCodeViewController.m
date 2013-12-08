@@ -13,7 +13,7 @@
 @end
 
 @implementation SGQRCodeViewController
-@synthesize delegate;
+@synthesize delegate,containView,containViewFrame;
 
 - (id)init
 {
@@ -37,18 +37,62 @@
     // Dispose of any resources that can be recreated.
 }
 
--(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    if(_isShowed)
-        [self.delegate qrcodeControllerRequestClose:self];
-    else
-        [self.delegate qrcodeControllerRequestShow:self];
-    
-    _isShowed=!_isShowed;
-}
-
 - (IBAction)qr:(id)sender {
     [self.delegate qrcodeControllerRequestClose:self];
+}
+
+-(void)setContainView:(UIView *)_containView
+{
+    containView=_containView;
+    
+    containViewFrame=containView.frame;
+}
+
+@end
+
+#import <objc/runtime.h>
+
+static char SGQRControllerObjectKey;
+
+@implementation SGViewController(QRCode)
+
+-(void)setQrController:(SGQRCodeViewController *)qrController
+{
+    objc_setAssociatedObject(self, &SGQRControllerObjectKey, qrController, OBJC_ASSOCIATION_ASSIGN);
+}
+
+-(SGQRCodeViewController *)qrController
+{
+    return objc_getAssociatedObject(self, &SGQRControllerObjectKey);
+}
+
+-(void)showQRCodeWithContorller:(SGViewController<SGQRCodeControllerDelegate> *)controller inView:(UIView *)view
+{
+    SGQRCodeViewController *qr=[SGQRCodeViewController new];
+    qr.delegate=controller;
+    qr.containView=view;
+    [controller setQrController:qr];
+    
+    [controller addChildViewController:qr];
+    [view addSubview:qr.view];
+    
+    [UIView animateWithDuration:DURATION_DEFAULT animations:^{
+        [view l_v_setO:CGPointZero];
+    }];
+}
+
+-(void)hideQRCode
+{
+    if(self.qrController)
+    {
+        [UIView animateWithDuration:DURATION_DEFAULT animations:^{
+            self.qrController.containView.frame=self.qrController.containViewFrame;
+        } completion:^(BOOL finished) {
+            [self.qrController.view removeFromSuperview];
+            [self.qrController removeFromParentViewController];
+            self.qrController=nil;
+        }];
+    }
 }
 
 @end

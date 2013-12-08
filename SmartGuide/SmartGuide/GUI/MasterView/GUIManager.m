@@ -21,7 +21,7 @@ static GUIManager *_shareInstance=nil;
 @end
 
 @implementation GUIManager
-@synthesize mainWindow,rootNavigation,rootViewController,toolbarController,contentNavigation,adsController,qrCodeController,userController,tutorialController,notificationController,presentedViewController;
+@synthesize mainWindow,rootNavigation,rootViewController,toolbarController,contentNavigation,adsController,qrCodeController,userController,tutorialController,notificationController,presentedViewController,storeController;
 @synthesize previousViewController;
 @synthesize shopUserController;
 
@@ -226,27 +226,38 @@ static GUIManager *_shareInstance=nil;
     [self dismissPresentedViewController:nil];
 }
 
--(void)settingTouchedNotification:(SGSettingViewController *)controller
+-(void) showStoreController
 {
     [self.rootNavigation removeLeftSlideViewController];
     
-    if([self.contentNavigation.visibleViewController isKindOfClass:[SGNotificationViewController class]])
+    if([self.contentNavigation.visibleViewController isKindOfClass:[StoreViewController class]])
         return;
     
     [self.contentNavigation popToRootViewControllerAnimated:false];
     
-    if(notificationController)
+    if(storeController)
     {
-        [self.contentNavigation pushViewController:notificationController animated:false];
+        [self.contentNavigation pushViewController:storeController animated:false];
         return;
     }
     
-    SGNotificationViewController *vc=[[SGNotificationViewController alloc] init];
+    StoreViewController *vc=[[StoreViewController alloc] init];
     vc.delegate=self;
     
-    notificationController=vc;
+    storeController=vc;
     
     [self.contentNavigation pushViewController:vc animated:false];
+
+}
+
+-(void)settingTouchedStore:(SGSettingViewController *)controller
+{
+    [self showStoreController];
+}
+
+-(void)storeControllerTouchedSetting:(StoreViewController *)controller
+{
+    [self showLeftController];
 }
 
 -(void)notificationControllerTouchedBack:(SGNotificationViewController *)controller

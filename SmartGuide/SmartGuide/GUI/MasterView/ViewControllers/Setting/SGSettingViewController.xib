@@ -65,7 +65,7 @@
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <connections>
-                                <action selector="notification:" destination="-1" eventType="touchUpInside" id="X6c-Mz-4xn"/>
+                                <action selector="store:" destination="-1" eventType="touchUpInside" id="TfZ-GW-4kE"/>
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="zZj-Yb-dNT">

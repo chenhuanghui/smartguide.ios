@@ -26,10 +26,11 @@
 #import "SGTutorialViewController.h"
 #import "SGUserSettingViewController.h"
 #import "ShopViewController.h"
+#import "StoreViewController.h"
 
 @class ContentViewController;
 
-@interface GUIManager : NSObject<ToolbarDelegate,UINavigationControllerDelegate,SGSettingDelegate,SGQRCodeControllerDelegate,UIGestureRecognizerDelegate,AuthorizationDelegate,WelcomeControllerDelegate,SGLoadingScreenDelegate,SGViewControllerDelegate,ShopUserDelegate,SGUserSettingControllerDelegate,ShopViewDelegate,NotificationControllerDelegate,UserControllerDelegate>
+@interface GUIManager : NSObject<ToolbarDelegate,UINavigationControllerDelegate,SGSettingDelegate,SGQRCodeControllerDelegate,UIGestureRecognizerDelegate,AuthorizationDelegate,WelcomeControllerDelegate,SGLoadingScreenDelegate,SGViewControllerDelegate,ShopUserDelegate,SGUserSettingControllerDelegate,ShopViewDelegate,NotificationControllerDelegate,UserControllerDelegate,StoreControllerDelegate>
 {
     void(^_onLoginedCompleted)(bool isLogined);
     CGRect _qrCodeBeforeShowFrame;
@@ -58,6 +59,7 @@
 @property (nonatomic, weak, readonly) ShopUserViewController *shopUserController;
 @property (nonatomic, weak, readonly) SGUserViewController *userController;
 @property (nonatomic, weak, readonly) SGNotificationViewController *notificationController;
+@property (nonatomic, weak, readonly) StoreViewController *storeController;
 @property (nonatomic, weak, readonly) SGTutorialViewController *tutorialController;
 @property (nonatomic, weak, readonly) SGViewController *presentedViewController;
 @end
