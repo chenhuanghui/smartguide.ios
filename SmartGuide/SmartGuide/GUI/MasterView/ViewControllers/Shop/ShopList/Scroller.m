@@ -40,6 +40,11 @@
     }];
 }
 
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    NSLog(@"observeValueForKeyPath %@ %@ %@",keyPath,object,change);
+}
+
 -(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
     if(!_scrollBar)
@@ -51,6 +56,9 @@
     if(!view)
     {
         _scrollBar.clipsToBounds=false;
+        
+        [_scrollBar addObserver:self forKeyPath:@"alpha" options:NSKeyValueObservingOptionNew context:nil];
+        [_scrollBar addObserver:self forKeyPath:@"hidden" options:NSKeyValueObservingOptionNew context:nil];
         
         UIView *v=[[UIView alloc] initWithFrame:CGRectMake(-319, 0, 320, 29)];
         v.layer.masksToBounds=true;

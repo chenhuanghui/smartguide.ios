@@ -29,7 +29,7 @@
 
 @class ContentViewController;
 
-@interface GUIManager : NSObject<ToolbarDelegate,UINavigationControllerDelegate,SGSettingDelegate,SGQRCodeControllerDelegate,UIGestureRecognizerDelegate,AuthorizationDelegate,WelcomeControllerDelegate,SGLoadingScreenDelegate,SGViewControllerDelegate,ShopUserDelegate,SGUserSettingControllerDelegate,ShopViewDelegate,NotificationControllerDelegate>
+@interface GUIManager : NSObject<ToolbarDelegate,UINavigationControllerDelegate,SGSettingDelegate,SGQRCodeControllerDelegate,UIGestureRecognizerDelegate,AuthorizationDelegate,WelcomeControllerDelegate,SGLoadingScreenDelegate,SGViewControllerDelegate,ShopUserDelegate,SGUserSettingControllerDelegate,ShopViewDelegate,NotificationControllerDelegate,UserControllerDelegate>
 {
     void(^_onLoginedCompleted)(bool isLogined);
     CGRect _qrCodeBeforeShowFrame;

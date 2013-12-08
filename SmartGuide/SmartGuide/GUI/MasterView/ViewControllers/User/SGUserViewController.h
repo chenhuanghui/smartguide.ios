@@ -13,14 +13,25 @@
 #import "UserHistoryViewController.h"
 #import "UserCollectionViewController.h"
 
+@class SGUserViewController;
+
+@protocol UserControllerDelegate <SGViewControllerDelegate>
+
+-(void) userControllerTouchedSetting:(SGUserViewController*) controller;
+
+@end
+
 @interface SGUserViewController : SGViewController<UIActionSheetDelegate,UINavigationControllerDelegate>
 {
     __weak IBOutlet UIView *topView;
     __weak IBOutlet UIView *midView;
     __weak IBOutlet UIView *botView;
+    __weak IBOutlet UILabel *lblTitle;
     __strong IBOutlet SGNavigationController *midNavigation;
     __weak IBOutlet SGViewController *emptyViewController;
     __weak UIViewController *willPopViewControlelr;
 }
+
+@property (nonatomic, weak) id<UserControllerDelegate> delegate;
 
 @end

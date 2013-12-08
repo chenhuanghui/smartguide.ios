@@ -85,6 +85,7 @@ static GUIManager *_shareInstance=nil;
     [viewControllers addObject:loading];
     
     SGNavigationController *rNavigation=[[SGNavigationController alloc] initWithViewControllers:viewControllers];
+
     rootNavigation=rNavigation;
     
     mainWindow.rootViewController=rNavigation;
@@ -147,13 +148,37 @@ static GUIManager *_shareInstance=nil;
     shopController.delegate=self;
     
     SGNavigationController *vc=[[SGNavigationController alloc] initWithRootViewController:shopController];
+    
     contentNavigation=vc;
     
-    SGUserViewController *vc1=[SGUserViewController new];
-    [contentNavigation pushViewController:vc1 animated:true];
+    [self showUserController];
     
     [rootViewController addChildViewController:vc];
 }
+
+-(void) showUserController
+{
+    [self.rootNavigation removeLeftSlideViewController];
+    
+    if([self.contentNavigation.visibleViewController isKindOfClass:[SGUserViewController class]])
+        return;
+    
+    [self.contentNavigation popToRootViewControllerAnimated:false];
+    
+    if(userController)
+    {
+        [self.contentNavigation pushViewController:userController animated:false];
+        return;
+    }
+    
+    SGUserViewController *vc=[[SGUserViewController alloc] init];
+    vc.delegate=self;
+    
+    userController=vc;
+    
+    [self.contentNavigation pushViewController:vc animated:false];
+}
+
 
 -(void) loadAds
 {
@@ -185,25 +210,7 @@ static GUIManager *_shareInstance=nil;
 
 -(void)settingTouchedUser:(SGSettingViewController *)settingController
 {
-    [self.rootNavigation removeLeftSlideViewController];
-    
-    if([self.contentNavigation.visibleViewController isKindOfClass:[SGUserViewController class]])
-        return;
-    
-    [self.contentNavigation popToRootViewControllerAnimated:false];
-    
-    if(userController)
-    {
-        [self.contentNavigation pushViewController:userController animated:false];
-        return;
-    }
-    
-    SGUserViewController *vc=[[SGUserViewController alloc] init];
-    vc.delegate=self;
-    
-    userController=vc;
-    
-    [self.contentNavigation pushViewController:vc animated:false];
+    [self showUserController];
 }
 
 -(void)settingTouchedUserSetting:(SGSettingViewController *)settingController
@@ -492,6 +499,11 @@ static GUIManager *_shareInstance=nil;
     vc.delegate=self;
     
     [self.rootNavigation showRightSlideViewController:vc animate:true];
+}
+
+-(void)userControllerTouchedSetting:(SGUserViewController *)controller
+{
+    [self showLeftController];
 }
 
 @end

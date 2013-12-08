@@ -13,6 +13,7 @@
 @end
 
 @implementation SGUserViewController
+@synthesize delegate;
 
 - (id)init
 {
@@ -98,6 +99,11 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(IBAction) btnSettingTouchUpInside:(id)sender
+{
+    [self.delegate userControllerTouchedSetting:self];
 }
 
 @end

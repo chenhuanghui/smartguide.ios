@@ -30,9 +30,7 @@
 
 -(void)drawTextInRect:(CGRect)rect
 {
-    rect.origin.y=0;
-    
-    [super drawTextInRect:rect];
+    [self.text drawInRect:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height) withFont:self.font lineBreakMode:self.lineBreakMode alignment:self.textAlignment];
 }
 
 @end
