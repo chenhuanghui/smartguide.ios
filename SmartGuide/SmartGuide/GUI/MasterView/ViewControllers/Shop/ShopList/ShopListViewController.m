@@ -48,7 +48,7 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 1000;
+    return 10;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -69,6 +69,80 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
+}
+
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    if(object==scrollBar)
+    {
+        float new=[change[NSKeyValueChangeNewKey] floatValue];
+        
+        [UIView animateWithDuration:0.1f animations:^{
+            scrollerView.alpha=new;
+        }];
+    }
+}
+
+-(void) loadScroller
+{
+    if(scrollerView)
+        return;
+    
+    scrollBar=[scroll scrollBar];
+    scrollBar.clipsToBounds=false;
+    
+    [scrollBar addObserver:self forKeyPath:@"alpha" options:NSKeyValueObservingOptionNew context:nil];
+    
+    UIView *v=[[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 29)];
+    v.layer.masksToBounds=true;
+    v.backgroundColor=[UIColor clearColor];
+    v.hidden=_isZoomedMap;
+    
+    scrollerView=v;
+    
+    UIView *bg=[[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 29)];
+    bg.backgroundColor=[UIColor clearColor];
+    
+    scrollerBGView=bg;
+    
+    [v addSubview:bg];
+    
+    UIImageView *slide_head=[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bgslide_head.png"]];
+    slide_head.frame=CGRectMake(0, 0, 30, 29);
+    slide_head.autoresizingMask=UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleTopMargin;
+    
+    [bg addSubview:slide_head];
+    
+    UIView *slide_mid=[[UIView alloc] initWithFrame:CGRectMake(slide_head.l_v_w, 0, bg.l_v_w-slide_head.l_v_w, bg.l_v_h)];
+    slide_mid.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"bgslide_mid.png"]];
+    
+    [bg addSubview:slide_mid];
+    
+    UILabel *label=[[UILabel alloc] initWithFrame:CGRectMake(-1, 0, 320, 29)];
+    label.textAlignment=NSTextAlignmentRight;
+    label.backgroundColor=[UIColor clearColor];
+    label.textColor=[UIColor whiteColor];
+    label.font=[UIFont systemFontOfSize:12];
+    label.autoresizingMask=UIViewAutoresizingNone;
+    
+    scrollerLabel=label;
+    
+    [v addSubview:label];
+    
+    UIImageView *imageView=[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_heartscroll.png"]];
+    imageView.contentMode=UIViewContentModeLeft;
+    imageView.autoresizingMask=UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleTopMargin;
+    imageView.frame=bg.frame;
+    [imageView l_v_addX:3];
+    
+    [bg addSubview:imageView];
+    
+    scrollerImageView=imageView;
+    
+    [scrollerContain addSubview:scrollerView];
+    //[scroll insertSubview:scrollerView aboveSubview:scrollBar];
+    
+    [scrollerBGView l_v_setX:scrollerView.l_v_w];
 }
 
 -(void)shopListCellTouched:(ShopListCell *)cell
@@ -148,11 +222,6 @@
     
     [sortView setIcon:[UIImage imageNamed:@"icon_distance.png"] text:@"Khoảng cách"];
     
-    scroller=[[Scroller alloc] init];
-    scroller.delegate=self;
-    scroller.hidden=false;
-    [scroller setIcon:[UIImage imageNamed:@"icon_heartscroll.png"]];
-    
     [scroll.panGestureRecognizer addTarget:self action:@selector(panShowMap:)];
     
     UITapGestureRecognizer *tap=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapTop:)];
@@ -218,6 +287,7 @@
     [tableList l_v_setS:size];
     scroll.contentSize=CGSizeMake(scroll.l_v_w, tableList.l_v_y+MAX(_tableFrame.size.height,tableList.contentSize.height));
     scroll.contentInset=UIEdgeInsetsMake(0, 0, qrCodeView.l_v_h, 0);
+    scroll.scrollIndicatorInsets=scroll.contentInset;
 }
 
 -(void) tapTop:(UITapGestureRecognizer*) ges
@@ -295,8 +365,6 @@
         if(_isAllowDiffScrollMap)
             [self.map l_v_addY:y];
         
-        [scroller scrollViewDidScroll:scroll];
-        
         y=scroll.contentOffset.y;
         
         if(y>=_tableFrame.origin.y && !_isZoomedMap)
@@ -321,20 +389,73 @@
             }
         }
         
-        CGPoint pnt=[scroller view].l_v_o;
+        //begin scroller
+
+        float height=(scroll.l_cs_h+scroll.contentInset.bottom-scroll.l_v_h);
+        float percent=(scroll.l_co_y)/height;
+        
+        y=percent*(scrollerContain.l_v_h);
+
+        y=MAX(36, y);
+        y=MIN(scrollerContain.l_v_h-scrollerView.l_v_h-QRCODE_RAY_HEIGHT, y);
+        
+        [scrollerView l_v_setY:y];
+        
+//        [scrollerView l_v_setY:scrollView.contentOffset.y];
+//        [scrollerView l_v_addY:-scroll.offset.y];
+        
+        CGPoint pnt=scrollerView.l_v_o;
         pnt.x=0;
-        pnt=[[scroller scrollBar] convertPoint:pnt toView:scroll];
+        pnt=[scrollerContain convertPoint:pnt toView:scroll];
+        
+        NSString *scrollerText=@"Bản đồ";
         
         if(pnt.y<_tableFrame.origin.y)
-            [scroller setText:@"Bản đồ" prefix:@""];
+        {
+            CGSize size=[scrollerText sizeWithFont:scrollerLabel.font];
+            
+            size.height=scrollerLabel.l_v_h;
+            
+            scrollerLabel.text=scrollerText;
+            
+            [UIView animateWithDuration:0.1 animations:^{
+                [scrollerBGView l_v_setX:(scrollerBGView.l_v_w-size.width)-scrollerImageView.image.size.width-8];
+            } completion:^(BOOL finished) {
+                scrollerLabel.text=scrollerText;
+            }];
+        }
         else
         {
             pnt=[scroll convertPoint:pnt toView:tableList];
             
             NSIndexPath *indexPath=[tableList indexPathForRowAtPoint:pnt];
             
-            [scroller setText:[NSString stringWithFormat:@"%i",indexPath.row] prefix:@""];
+            if(!indexPath)
+            {
+                [UIView animateWithDuration:0.1f animations:^{
+                    scrollerView.alpha=0;
+                }];
+                
+                return;
+            }
+            
+            scrollerText=[NSString stringWithFormat:@"Row %i",indexPath.row];
+            
+            CGSize size=[scrollerText sizeWithFont:scrollerLabel.font];
+            
+            size.height=scrollerLabel.l_v_h;
+            
+            scrollerLabel.text=scrollerText;
+            
+            [UIView animateWithDuration:0.1 animations:^{
+                scrollerView.alpha=1;
+                [scrollerBGView l_v_setX:(scrollerBGView.l_v_w-size.width)-scrollerImageView.image.size.width-8];
+            } completion:^(BOOL finished) {
+                scrollerLabel.text=scrollerText;
+            }];
         }
+
+        //end scroller
     }
     else if(scrollView==tableList)
     {
@@ -393,7 +514,7 @@
     self.map.userInteractionEnabled=true;
     self.map.scrollEnabled=true;
     self.map.zoomEnabled=true;
-    scroller.hidden=true;
+    scrollerView.hidden=true;
     
     if([self.map respondsToSelector:@selector(setRotateEnabled:)])
         self.map.rotateEnabled=true;
@@ -479,7 +600,7 @@
         [self makeScrollSize];
     } completion:^(BOOL finished) {
         scroll.delegate=self;
-        scroller.hidden=false;
+        scrollerView.hidden=false;
     }];
 }
 
@@ -495,13 +616,14 @@
 -(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
     if(scrollView==scroll)
-        [scroller scrollViewWillBeginDragging:scrollView];
+        [self loadScroller];
+        //[scroller scrollViewWillBeginDragging:scrollView];
 }
 
 - (void)dealloc
 {
     scroll.delegate=nil;
-    scroller=nil;
+    [scrollBar removeObserver:self forKeyPath:@"alpha"];
 }
 
 -(bool)isZoomedMap

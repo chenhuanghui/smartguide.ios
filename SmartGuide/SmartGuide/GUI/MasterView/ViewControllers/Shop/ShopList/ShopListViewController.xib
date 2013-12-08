@@ -12,6 +12,7 @@
                 <outlet property="contentView" destination="X3p-aY-tkP" id="iHd-r4-e64"/>
                 <outlet property="qrCodeView" destination="Lis-oX-9td" id="MiJ-fj-39v"/>
                 <outlet property="scroll" destination="f21-IX-hgk" id="nOC-9n-U70"/>
+                <outlet property="scrollerContain" destination="V1u-e0-mj5" id="GXU-Dc-Q8v"/>
                 <outlet property="sortView" destination="Jjr-nT-igQ" id="9c0-08-a74"/>
                 <outlet property="tableList" destination="Yzp-w8-hbC" id="JoC-2F-5Qb"/>
                 <outlet property="view" destination="1" id="3"/>
@@ -67,6 +68,11 @@
                         <outlet property="delegate" destination="-1" id="agK-zR-78k"/>
                     </connections>
                 </scrollView>
+                <view userInteractionEnabled="NO" contentMode="scaleToFill" id="V1u-e0-mj5">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="387"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                </view>
                 <view contentMode="scaleToFill" id="Lis-oX-9td">
                     <rect key="frame" x="0.0" y="381" width="320" height="56"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>

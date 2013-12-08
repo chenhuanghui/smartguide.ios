@@ -46,7 +46,13 @@
     __weak UITapGestureRecognizer *_tapTop;
     __weak UITapGestureRecognizer *_tapBot;
     
-    Scroller *scroller;
+    __weak UIImageView *scrollBar;
+    __weak UILabel *scrollerLabel;
+    __weak UIImageView *scrollerImageView;
+    __weak UIView *scrollerView;
+    __weak UIView *scrollerBGView;
+    __weak IBOutlet UIView *scrollerContain;
+    
     NSIndexPath *_lastScrollerIndexPath;
     
     bool _isDidUpdateLocation;

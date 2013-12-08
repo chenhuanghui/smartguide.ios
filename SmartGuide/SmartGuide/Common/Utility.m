@@ -926,6 +926,14 @@ int random_int(int from, int to)
     [self scrollRectToVisible:CGRectMake(0, self.frame.size.width*page, self.frame.size.height, self.frame.size.width) animated:animated];
 }
 
+-(float)contentOffSetY
+{
+    CGPoint offset = self.contentOffset;
+    CGRect bounds = self.bounds;
+    UIEdgeInsets inset = self.contentInset;
+    return offset.y + bounds.size.height - inset.bottom;
+}
+
 @end
 
 @implementation NSData(Utility)

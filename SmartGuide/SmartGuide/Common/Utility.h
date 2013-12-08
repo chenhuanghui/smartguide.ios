@@ -190,6 +190,7 @@ int random_int(int from, int to);
 -(void) scrollToPage:(int) page animated:(bool) animated;
 -(void) scrollToPageForHoriTable:(int) page;
 -(void) scrollToPageForHoriTable:(int)page animated:(bool) animated;
+-(float) contentOffSetY;
 
 @end
 
