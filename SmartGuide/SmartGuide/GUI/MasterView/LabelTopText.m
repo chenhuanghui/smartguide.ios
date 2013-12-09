@@ -30,6 +30,7 @@
 
 -(void)drawTextInRect:(CGRect)rect
 {
+    [self.textColor set];
     [self.text drawInRect:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height) withFont:self.font lineBreakMode:self.lineBreakMode alignment:self.textAlignment];
 }
 

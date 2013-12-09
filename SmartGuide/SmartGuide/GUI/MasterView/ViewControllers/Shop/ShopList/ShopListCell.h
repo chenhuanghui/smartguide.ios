@@ -23,11 +23,12 @@
     __weak IBOutlet UIImageView *imgvType;
     __weak IBOutlet UILabel *lblName;
     __weak IBOutlet LabelTopText *lblContent;
+    __weak IBOutlet UILabel *lblAddress;
     __weak IBOutlet UIImageView *imgvLine;
     __weak IBOutlet UIImageView *imgvLineVerContent;
     __weak IBOutlet UIView *slideView;
     __weak IBOutlet UIButton *btnLove;
-    __weak IBOutlet UIButton *btnShare;
+    __weak IBOutlet UIButton *btnAdd;
     __weak IBOutlet UIView *visibleView;
     __weak IBOutlet ScrollListCell *scroll;
     

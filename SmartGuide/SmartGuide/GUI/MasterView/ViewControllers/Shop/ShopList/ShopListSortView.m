@@ -51,7 +51,8 @@
     UIImage *bgSortLeft=[UIImage imageNamed:@"bgsort_left.png"];
     UIImage *bgSortRight=[UIImage imageNamed:@"bgsort_right.png"];
     UIImage *bgtallMid=[UIImage imageNamed:@"bgsort_tallmid.png"];
-    UIFont *font=[UIFont systemFontOfSize:10];
+    float fontSize=12;
+    UIFont *font=[UIFont fontWithName:@"Avenir" size:fontSize];
     float textWidth=[_text sizeWithFont:font].width+5;
 
     CGPoint sortLeft=CGPointMake(26, 0);

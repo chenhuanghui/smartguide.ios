@@ -46,8 +46,8 @@
                                         <action selector="btnMapTouchUpInside:" destination="-1" eventType="touchUpInside" id="EcV-1a-XTT"/>
                                     </connections>
                                 </button>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="vVs-Zn-Uvn">
-                                    <rect key="frame" x="20" y="-227" width="279" height="50"/>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="vVs-Zn-Uvn" userLabel="location">
+                                    <rect key="frame" x="20" y="-194" width="279" height="50"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                     <state key="normal" image="button_location.png">
@@ -95,18 +95,8 @@
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
         </view>
-        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="II-2-List.jpg" id="qQv-Yq-EsL">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
-            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-        </imageView>
-        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="II-2-List-Map.jpg" id="vid-TE-C4a">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
-            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-        </imageView>
     </objects>
     <resources>
-        <image name="II-2-List-Map.jpg" width="320" height="480"/>
-        <image name="II-2-List.jpg" width="320" height="480"/>
         <image name="background_scan.png" width="320" height="56"/>
         <image name="button_location.png" width="279" height="50"/>
         <image name="button_map.png" width="33" height="34"/>

@@ -18,14 +18,7 @@
     imgvVoucher.highlighted=rand()%2==0;
     
     scroll.contentOffset=CGPointZero;
-    scroll.contentSize=CGSizeMake(self.frame.size.width+slideView.frame.size.width, 0);
-}
-
--(void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
-    [UIView animateWithDuration:0.1f animations:^{
-        [visibleView l_v_setW:MIN(320, 320-scroll.contentOffset.x)];
-    }];
+    scroll.contentSize=CGSizeMake(scroll.l_v_w+imgvLine.l_v_x, 0);
 }
 
 +(NSString *)reuseIdentifier
@@ -43,29 +36,28 @@
     [super didMoveToSuperview];
     
     scroll.contentOffset=CGPointZero;
-    scroll.contentSize=CGSizeMake(self.frame.size.width+slideView.frame.size.width, 0);
-    
+    scroll.contentSize=CGSizeMake(scroll.l_v_w+imgvLine.l_v_x, 0);
     
     tapGes.delegate=nil;
     [tapGes removeTarget:self action:@selector(panGes:)];
     [scroll removeGestureRecognizer:tapGes];
     tapGes=nil;
     
-    UITapGestureRecognizer *pan=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(panGes:)];
-    tapGes=pan;
+    UITapGestureRecognizer *tap=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(panGes:)];
+    tapGes=tap;
     
-    [scroll.panGestureRecognizer requireGestureRecognizerToFail:pan];
-    [scroll addGestureRecognizer:pan];
+    [scroll.panGestureRecognizer requireGestureRecognizerToFail:tap];
+    [scroll addGestureRecognizer:tap];
 }
 
--(void) panGes:(UIPanGestureRecognizer*) pan
+-(void) tapGes:(UIPanGestureRecognizer*) tap
 {
     [self.delegate shopListCellTouched:self];
 }
 
 +(float)height
 {
-    return 55;
+    return 88;
 }
 
 - (IBAction)btnLoveTouchUpInside:(id)sender {
@@ -73,7 +65,7 @@
     NSLog(@"love");
 }
 
-- (IBAction)btnShareTouchUpInside:(id)sender {
+- (IBAction)btnAddTouchUpInside:(id)sender {
     [scroll setContentOffset:CGPointZero animated:true];
     NSLog(@"share");
 }
