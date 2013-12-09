@@ -24,25 +24,53 @@
     return self;
 }
 
+-(void) storeRect
+{
+    _rayViewFrame=rayView.frame;
+    _bgViewFrame=bgView.frame;
+    _bgImageViewFrame=bgImageView.frame;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    [self storeRect];
+    
+    bgView.layer.masksToBounds=true;
     
     [self addChildViewController:storeNavigation];
     
     [contentView addSubview:storeNavigation.view];
     [storeNavigation.view l_v_setS:contentView.l_v_s];
     
-    [storeNavigation setRootViewController:[StoreShopViewController new] animate:true];
+    StoreShopViewController *vc=[StoreShopViewController new];
+    vc.storeController=self;
+    vc.delegate=self;
     
-    UITapGestureRecognizer *tap=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapStoreNavi:)];
+    [storeNavigation setRootViewController:vc animate:true];
     
-    [storeNavigation.view addGestureRecognizer:tap];
-    
-    tap=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapQR:)];
+    UITapGestureRecognizer *tap=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapQR:)];
     
     [qrView addGestureRecognizer:tap];
+}
+
+-(void)storeShopControllerTouchedShop:(StoreShopViewController *)controller
+{
+    StoreShopInfoViewController *vc=[StoreShopInfoViewController new];
+    
+    [storeNavigation pushViewController:vc animated:true];
+    
+    btnBack.alpha=0;
+    btnBack.hidden=false;
+    
+    [UIView animateWithDuration:0.1f animations:^{
+        btnBack.alpha=1;
+        btnSetting.alpha=0;
+    } completion:^(BOOL finished) {
+        btnSetting.hidden=false;
+    }];
 }
 
 -(void) tapQR:(UITapGestureRecognizer*) tap
@@ -53,14 +81,6 @@
 -(void)qrcodeControllerRequestClose:(SGQRCodeViewController *)controller
 {
     [self hideQRCode];
-}
-
--(void) tapStoreNavi:(UITapGestureRecognizer*) tap
-{
-    if(storeNavigation.viewControllers.count>1)
-        [storeNavigation popToRootViewControllerAnimated:true];
-    else
-        [storeNavigation pushViewController:[StoreShopItemsViewController new] animated:true];
 }
 
 - (void)didReceiveMemoryWarning
@@ -77,5 +97,55 @@
 - (IBAction)btnSettingTouchUpInside:(id)sender {
     [self.delegate storeControllerTouchedSetting:self];
 }
+
+- (IBAction)btnBackTouchUpInside:(id)sender {
+    [storeNavigation popToRootViewControllerAnimated:true];
+    
+    btnSetting.alpha=0;
+    btnSetting.hidden=false;
+    
+    [UIView animateWithDuration:0.1f animations:^{
+        btnBack.alpha=0;
+        btnSetting.alpha=1;
+    } completion:^(BOOL finished) {
+        btnBack.hidden=true;
+    }];
+}
+
+-(UIView *)rayView
+{
+    return rayView;
+}
+
+-(CGRect)rayViewFrame
+{
+    return _rayViewFrame;
+}
+
+-(UIView *)bgView
+{
+    return bgView;
+}
+
+-(CGRect)bgViewFrame
+{
+    return _bgViewFrame;
+}
+
+-(UIImageView *)bgImageView
+{
+    return bgImageView;
+}
+
+-(CGRect)bgImageViewFrame
+{
+    return _bgImageViewFrame;
+}
+
+@end
+
+@implementation StoreScrollView
+
+
 
 @end

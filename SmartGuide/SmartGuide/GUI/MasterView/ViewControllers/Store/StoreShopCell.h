@@ -1,5 +1,5 @@
 //
-//  StoreShopCell.h
+//  StoreShopItemCell.h
 //  SmartGuide
 //
 //  Created by MacMini on 08/12/2013.
@@ -8,6 +8,24 @@
 
 #import <UIKit/UIKit.h>
 
-@interface StoreShopCell : UITableViewCell
+@interface StoreShopCell : UIView
+{
+    __weak IBOutlet UIImageView *imgvLineVer;
+    __weak IBOutlet UIImageView *imgvHor1;
+    __weak IBOutlet UIImageView *imgvHor2;
+    __weak IBOutlet UIImageView *imgvCount;
+    __weak IBOutlet UILabel *lblCount;
+    __weak IBOutlet UILabel *lblShopName;
+    __weak IBOutlet UILabel *lblType;
+    __weak IBOutlet UIImageView *imgvLogo;
+    __weak IBOutlet UIView *topRightView;
+}
+
+-(void) loadWithShopName:(NSString*) name type:(NSString*) type count:(NSString*) count logo:(NSString*) logo;
+-(void) emptyCell:(bool) isEmpty;
+
++(NSString *)reuseIdentifier;
++(CGSize) smallSize;
++(CGSize) bigSize;
 
 @end

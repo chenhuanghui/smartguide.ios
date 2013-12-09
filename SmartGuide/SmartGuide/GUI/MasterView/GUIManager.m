@@ -151,7 +151,7 @@ static GUIManager *_shareInstance=nil;
     
     contentNavigation=vc;
     
-//    [self showUserController];
+    [self showStoreController];
     
     [rootViewController addChildViewController:vc];
 }

@@ -1092,7 +1092,7 @@ static const UIViewAnimationOptions kDefaultAnimationOptions = UIViewAnimationOp
 
 - (void)tapGestureUpdated:(UITapGestureRecognizer *)tapGesture
 {
-    CGPoint locationTouch = [_tapGesture locationInView:self];
+    CGPoint locationTouch = [tapGesture locationInView:self];
     NSInteger position = [self.layoutStrategy itemPositionFromLocation:locationTouch];
     
     if (position != GMGV_INVALID_POSITION) 
