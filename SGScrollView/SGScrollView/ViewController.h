@@ -7,7 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SGScrollView.h"
 
-@interface ViewController : UIViewController
+@interface ViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>
+{
+    __weak IBOutlet SGScrollView *scroll;
+    __weak IBOutlet UIView *v1;    
+    __weak IBOutlet UITableView *table;
+}
 
 @end

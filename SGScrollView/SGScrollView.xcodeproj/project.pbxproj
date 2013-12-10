@@ -16,22 +16,8 @@
 		9A7521DA1856B0A600248B02 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9A7521D81856B0A600248B02 /* Main.storyboard */; };
 		9A7521DD1856B0A600248B02 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A7521DC1856B0A600248B02 /* ViewController.m */; };
 		9A7521DF1856B0A600248B02 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9A7521DE1856B0A600248B02 /* Images.xcassets */; };
-		9A7521E61856B0A600248B02 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A7521E51856B0A600248B02 /* XCTest.framework */; };
-		9A7521E71856B0A700248B02 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A7521C61856B0A600248B02 /* Foundation.framework */; };
-		9A7521E81856B0A700248B02 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A7521CA1856B0A600248B02 /* UIKit.framework */; };
-		9A7521F01856B0A700248B02 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9A7521EE1856B0A700248B02 /* InfoPlist.strings */; };
-		9A7521F21856B0A700248B02 /* SGScrollViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A7521F11856B0A700248B02 /* SGScrollViewTests.m */; };
+		9A7521FD1856B14E00248B02 /* SGScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A7521FC1856B14E00248B02 /* SGScrollView.m */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		9A7521E91856B0A700248B02 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 9A7521BB1856B0A600248B02 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 9A7521C21856B0A600248B02;
-			remoteInfo = SGScrollView;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		9A7521C31856B0A600248B02 /* SGScrollView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SGScrollView.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -48,11 +34,12 @@
 		9A7521DB1856B0A600248B02 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		9A7521DC1856B0A600248B02 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		9A7521DE1856B0A600248B02 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		9A7521E41856B0A600248B02 /* SGScrollViewTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SGScrollViewTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A7521E51856B0A600248B02 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		9A7521ED1856B0A700248B02 /* SGScrollViewTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SGScrollViewTests-Info.plist"; sourceTree = "<group>"; };
 		9A7521EF1856B0A700248B02 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		9A7521F11856B0A700248B02 /* SGScrollViewTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SGScrollViewTests.m; sourceTree = "<group>"; };
+		9A7521FB1856B14E00248B02 /* SGScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGScrollView.h; sourceTree = "<group>"; };
+		9A7521FC1856B14E00248B02 /* SGScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGScrollView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,16 +50,6 @@
 				9A7521C91856B0A600248B02 /* CoreGraphics.framework in Frameworks */,
 				9A7521CB1856B0A600248B02 /* UIKit.framework in Frameworks */,
 				9A7521C71856B0A600248B02 /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		9A7521E11856B0A600248B02 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				9A7521E61856B0A600248B02 /* XCTest.framework in Frameworks */,
-				9A7521E81856B0A700248B02 /* UIKit.framework in Frameworks */,
-				9A7521E71856B0A700248B02 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -93,7 +70,6 @@
 			isa = PBXGroup;
 			children = (
 				9A7521C31856B0A600248B02 /* SGScrollView.app */,
-				9A7521E41856B0A600248B02 /* SGScrollViewTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -119,6 +95,8 @@
 				9A7521DC1856B0A600248B02 /* ViewController.m */,
 				9A7521DE1856B0A600248B02 /* Images.xcassets */,
 				9A7521CD1856B0A600248B02 /* Supporting Files */,
+				9A7521FB1856B14E00248B02 /* SGScrollView.h */,
+				9A7521FC1856B14E00248B02 /* SGScrollView.m */,
 			);
 			path = SGScrollView;
 			sourceTree = "<group>";
@@ -172,24 +150,6 @@
 			productReference = 9A7521C31856B0A600248B02 /* SGScrollView.app */;
 			productType = "com.apple.product-type.application";
 		};
-		9A7521E31856B0A600248B02 /* SGScrollViewTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 9A7521F81856B0A700248B02 /* Build configuration list for PBXNativeTarget "SGScrollViewTests" */;
-			buildPhases = (
-				9A7521E01856B0A600248B02 /* Sources */,
-				9A7521E11856B0A600248B02 /* Frameworks */,
-				9A7521E21856B0A600248B02 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				9A7521EA1856B0A700248B02 /* PBXTargetDependency */,
-			);
-			name = SGScrollViewTests;
-			productName = SGScrollViewTests;
-			productReference = 9A7521E41856B0A600248B02 /* SGScrollViewTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -198,11 +158,6 @@
 			attributes = {
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = MacMini;
-				TargetAttributes = {
-					9A7521E31856B0A600248B02 = {
-						TestTargetID = 9A7521C21856B0A600248B02;
-					};
-				};
 			};
 			buildConfigurationList = 9A7521BE1856B0A600248B02 /* Build configuration list for PBXProject "SGScrollView" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -218,7 +173,6 @@
 			projectRoot = "";
 			targets = (
 				9A7521C21856B0A600248B02 /* SGScrollView */,
-				9A7521E31856B0A600248B02 /* SGScrollViewTests */,
 			);
 		};
 /* End PBXProject section */
@@ -234,14 +188,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		9A7521E21856B0A600248B02 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				9A7521F01856B0A700248B02 /* InfoPlist.strings in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -250,28 +196,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				9A7521DD1856B0A600248B02 /* ViewController.m in Sources */,
+				9A7521FD1856B14E00248B02 /* SGScrollView.m in Sources */,
 				9A7521D71856B0A600248B02 /* AppDelegate.m in Sources */,
 				9A7521D31856B0A600248B02 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		9A7521E01856B0A600248B02 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				9A7521F21856B0A700248B02 /* SGScrollViewTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		9A7521EA1856B0A700248B02 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 9A7521C21856B0A600248B02 /* SGScrollView */;
-			targetProxy = 9A7521E91856B0A700248B02 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		9A7521CF1856B0A600248B02 /* InfoPlist.strings */ = {
@@ -334,7 +265,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 			};
@@ -367,7 +298,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -399,48 +330,6 @@
 			};
 			name = Release;
 		};
-		9A7521F91856B0A700248B02 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/SGScrollView.app/SGScrollView";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "SGScrollView/SGScrollView-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "SGScrollViewTests/SGScrollViewTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Debug;
-		};
-		9A7521FA1856B0A700248B02 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/SGScrollView.app/SGScrollView";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "SGScrollView/SGScrollView-Prefix.pch";
-				INFOPLIST_FILE = "SGScrollViewTests/SGScrollViewTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -458,14 +347,6 @@
 			buildConfigurations = (
 				9A7521F61856B0A700248B02 /* Debug */,
 				9A7521F71856B0A700248B02 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-		};
-		9A7521F81856B0A700248B02 /* Build configuration list for PBXNativeTarget "SGScrollViewTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				9A7521F91856B0A700248B02 /* Debug */,
-				9A7521FA1856B0A700248B02 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 		};
