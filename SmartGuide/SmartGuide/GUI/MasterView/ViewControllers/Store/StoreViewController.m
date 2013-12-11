@@ -59,6 +59,7 @@
 -(void)storeShopControllerTouchedShop:(StoreShopViewController *)controller
 {
     StoreShopInfoViewController *vc=[StoreShopInfoViewController new];
+    vc.storeController=self;
     
     [storeNavigation pushViewController:vc animated:true];
     
@@ -99,16 +100,28 @@
 }
 
 - (IBAction)btnBackTouchUpInside:(id)sender {
-    [storeNavigation popToRootViewControllerAnimated:true];
+    btnBack.userInteractionEnabled=false;
     
-    btnSetting.alpha=0;
-    btnSetting.hidden=false;
+    StoreShopInfoViewController *vc=(StoreShopInfoViewController*)storeNavigation.visibleViewController;
+    
+    [vc prepareOnBack];
     
     [UIView animateWithDuration:0.1f animations:^{
-        btnBack.alpha=0;
-        btnSetting.alpha=1;
+        rayView.frame=_rayViewFrame;
+        bgView.frame=_bgViewFrame;
     } completion:^(BOOL finished) {
-        btnBack.hidden=true;
+        [storeNavigation popToRootViewControllerAnimated:true];
+        
+        btnSetting.alpha=0;
+        btnSetting.hidden=false;
+        
+        [UIView animateWithDuration:0.1f animations:^{
+            btnBack.alpha=0;
+            btnSetting.alpha=1;
+        } completion:^(BOOL finished) {
+            btnBack.hidden=true;
+            btnBack.userInteractionEnabled=true;
+        }];
     }];
 }
 

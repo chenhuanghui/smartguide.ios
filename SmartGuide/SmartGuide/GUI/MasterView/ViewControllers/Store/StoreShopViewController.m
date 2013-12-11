@@ -7,7 +7,7 @@
 //
 
 #import "StoreShopViewController.h"
-#import "StoreTopAdsCell.h"
+#import "StoreAdsCell.h"
 #import "StoreShopCell.h"
 #import "StoreViewController.h"
 
@@ -40,7 +40,7 @@
     
     _shops=[[NSMutableArray alloc] init];
     
-    for(int i=0;i<1;i++)
+    for(int i=0;i<10;i++)
     {
         [_shops addObject:@"Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda."];
     }
@@ -51,7 +51,7 @@
     tableAds.transform=CGAffineTransformMakeRotation(DEGREES_TO_RADIANS(45)*6);
     tableAds.frame=rect;
     
-    [tableAds registerNib:[UINib nibWithNibName:[StoreTopAdsCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[StoreTopAdsCell reuseIdentifier]];
+    [tableAds registerNib:[UINib nibWithNibName:[StoreAdsCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[StoreAdsCell reuseIdentifier]];
     
     tableAds.dataSource=self;
     tableAds.delegate=self;
@@ -75,17 +75,18 @@
     [self storeRect];
     
     [scroll l_cs_setH:tableShop.l_v_y+tableShop.l_cs_h];
+    tableShop.contentSize=tableShop.l_v_s;
     
-    UITapGestureRecognizer *tap=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapShop:)];
-    
-    [scroll addGestureRecognizer:tap];
-    [scroll.panGestureRecognizer requireGestureRecognizerToFail:tap];
+//    UITapGestureRecognizer *tap=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapShop:)];
+//    
+//    [scroll addGestureRecognizer:tap];
+//    [scroll.panGestureRecognizer requireGestureRecognizerToFail:tap];
 }
 
 -(void) tapShop:(UITapGestureRecognizer*) tap
 {
 //    CGPoint pnt=[tap locationInView:tableShop];
-    [tableShop tapGestureUpdated:tap];
+//    [tableShop tapGestureUpdated:tap];
 }
 
 - (void)didReceiveMemoryWarning
@@ -163,7 +164,7 @@
 {
     if(tableView==tableAds)
     {
-        StoreTopAdsCell *cell=[tableView dequeueReusableCellWithIdentifier:[StoreTopAdsCell reuseIdentifier]];
+        StoreAdsCell *cell=[tableView dequeueReusableCellWithIdentifier:[StoreAdsCell reuseIdentifier]];
         
         return cell;
     }
@@ -211,12 +212,12 @@
     [super setContentOffset:contentOffset];
 }
 
--(BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
+-(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
 {
     return true;
 }
 
--(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
+-(BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
 {
     return true;
 }

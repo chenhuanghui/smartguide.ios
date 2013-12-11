@@ -27,6 +27,10 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    UIImagePickerController *picker=[[UIImagePickerController alloc] init];
+    
+    picker.sourceType=UIImagePickerControllerSourceTypeCamera;
 }
 
 - (void)didReceiveMemoryWarning

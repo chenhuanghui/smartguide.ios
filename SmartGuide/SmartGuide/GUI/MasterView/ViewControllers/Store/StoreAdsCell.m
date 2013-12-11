@@ -6,14 +6,14 @@
 //  Copyright (c) 2013 Redbase. All rights reserved.
 //
 
-#import "StoreTopAdsCell.h"
+#import "StoreAdsCell.h"
 #import "Utility.h"
 
-@implementation StoreTopAdsCell
+@implementation StoreAdsCell
 
 +(NSString *)reuseIdentifier
 {
-    return @"StoreTopAdsCell";
+    return @"StoreAdsCell";
 }
 
 -(void)awakeFromNib

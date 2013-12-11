@@ -7,18 +7,31 @@
 //
 
 #import "SGViewController.h"
+#import "StoreShopItemCell.h"
+#import "GMGridView.h"
+#import "SGScrollView.h"
 
-@class StoreShopInfoScrollView,StoreShopInfoViewController;
+@class StoreShopInfoScrollView,StoreShopInfoViewController,StoreViewController;
 
-@interface StoreShopInfoViewController : SGViewController
+@interface StoreShopInfoViewController : SGViewController<GMGridViewActionDelegate,GMGridViewDataSource,UIScrollViewDelegate>
 {
     __weak IBOutlet StoreShopInfoScrollView *scroll;
     __weak IBOutlet UIView *topView;
-    __weak IBOutlet UITableView *table;
+    __weak IBOutlet GMGridView *grid;
+    __weak IBOutlet UILabel *lblNameBot;
+    
+    CGRect _gridFrame;
+    CGRect _lblNameBotFrame;
 }
+
+-(void) prepareOnBack;
+
+@property (nonatomic, weak) StoreViewController *storeController;
 
 @end
 
-@interface StoreShopInfoScrollView : UIScrollView
+@interface StoreShopInfoScrollView : SGScrollView
+{
+}
 
 @end

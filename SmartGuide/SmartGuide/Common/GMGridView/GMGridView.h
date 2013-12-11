@@ -63,57 +63,6 @@ typedef enum
 //////////////////////////////////////////////////////////////
 
 @interface GMGridView : UIScrollView
-{
-    // Sorting Gestures
-    UIPanGestureRecognizer       *_sortingPanGesture;
-    UILongPressGestureRecognizer *_longPressGesture;
-    
-    // Moving gestures
-    UIPinchGestureRecognizer     *_pinchGesture;
-    UITapGestureRecognizer       *_tapGesture;
-    UIRotationGestureRecognizer  *_rotationGesture;
-    UIPanGestureRecognizer       *_panGesture;
-    
-    // General vars
-    NSInteger _numberTotalItems;
-    CGSize    _itemSize;
-    NSMutableSet *_reusableCells;
-    
-    // Moving (sorting) control vars
-    GMGridViewCell *_sortMovingItem;
-    NSInteger _sortFuturePosition;
-    BOOL _autoScrollActive;
-    
-    CGPoint _minPossibleContentOffset;
-    CGPoint _maxPossibleContentOffset;
-    
-    // Transforming control vars
-    GMGridViewCell *_transformingItem;
-    CGFloat _lastRotation;
-    CGFloat _lastScale;
-    BOOL _inFullSizeMode;
-    BOOL _inTransformingState;
-    
-    // Rotation
-    BOOL _rotationActive;
-}
-
--(NSUInteger) totalItemCount;
-
-- (void)commonInit;
-
-// Gestures
-- (void)sortingPanGestureUpdated:(UIPanGestureRecognizer *)panGesture;
-- (void)longPressGestureUpdated:(UILongPressGestureRecognizer *)longPressGesture;
-- (void)tapGestureUpdated:(UITapGestureRecognizer *)tapGesture;
-- (void)panGestureUpdated:(UIPanGestureRecognizer *)panGesture;
-- (void)pinchGestureUpdated:(UIPinchGestureRecognizer *)pinchGesture;
-- (void)rotationGestureUpdated:(UIRotationGestureRecognizer *)rotationGesture;
-// Memory warning
-- (void)receivedMemoryWarningNotification:(NSNotification *)notification;
-
-// Rotation handling
-- (void)receivedWillRotateNotification:(NSNotification *)notification;
 
 // Delegates
 @property (nonatomic, gm_weak) IBOutlet NSObject<GMGridViewDataSource> *dataSource;                    // Required
@@ -162,8 +111,6 @@ typedef enum
 
 // Force the grid to update properties in an (probably) animated way.
 - (void)layoutSubviewsWithAnimation:(GMGridViewItemAnimation)animation;
-
-- (NSArray *)itemSubviews;
 
 @end
 

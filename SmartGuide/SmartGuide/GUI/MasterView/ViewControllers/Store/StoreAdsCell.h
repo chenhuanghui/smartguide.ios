@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface StoreTopAdsCell : UITableViewCell
+@interface StoreAdsCell : UITableViewCell
 
 +(NSString *)reuseIdentifier;
 
