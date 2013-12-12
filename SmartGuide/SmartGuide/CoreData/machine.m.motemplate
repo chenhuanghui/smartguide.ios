@@ -163,6 +163,11 @@
 	[self didChangeValueForKey:@"<$Relationship.name$>" withSetMutation:NSKeyValueMinusSetMutation usingObjects:changedObjects];
 }
 
+- (void) removeAll<$Relationship.name.initialCapitalString$>
+{
+    [self remove<$Relationship.name.initialCapitalString$>:self.<$Relationship.name$>];
+}
+
 - (NSMutableSet*)<$Relationship.name$>Set {
 	[self willAccessValueForKey:@"<$Relationship.name$>"];
 	NSMutableSet *result = [self mutableSetValueForKey:@"<$Relationship.name$>"];

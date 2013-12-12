@@ -186,6 +186,11 @@
 	[self didChangeValueForKey:@"shops" withSetMutation:NSKeyValueMinusSetMutation usingObjects:changedObjects];
 }
 
+- (void) removeAllShops
+{
+    [self removeShops:self.shops];
+}
+
 - (NSMutableSet*)shopsSet {
 	[self willAccessValueForKey:@"shops"];
 	NSMutableSet *result = [self mutableSetValueForKey:@"shops"];

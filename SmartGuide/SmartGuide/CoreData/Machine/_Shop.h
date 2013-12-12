@@ -75,6 +75,7 @@
 - (void) removeShopGallerys:(NSSet*)value;
 - (void) addShopGallerysObject:(ShopGallery*)value;
 - (void) removeShopGallerysObject:(ShopGallery*)value;
+- (void) removeAllShopGallerys;
 
 #pragma mark UserComments
 - (NSSet*) userComments;
@@ -83,6 +84,7 @@
 - (void) removeUserComments:(NSSet*)value;
 - (void) addUserCommentsObject:(ShopUserComment*)value;
 - (void) removeUserCommentsObject:(ShopUserComment*)value;
+- (void) removeAllUserComments;
 
 #pragma mark UserGallerys
 - (NSSet*) userGallerys;
@@ -91,6 +93,7 @@
 - (void) removeUserGallerys:(NSSet*)value;
 - (void) addUserGallerysObject:(ShopUserGallery*)value;
 - (void) removeUserGallerysObject:(ShopUserGallery*)value;
+- (void) removeAllUserGallerys;
 
 
 @end

@@ -39,6 +39,7 @@
 - (void) removeShops:(NSSet*)value;
 - (void) addShopsObject:(Shop*)value;
 - (void) removeShopsObject:(Shop*)value;
+- (void) removeAllShops;
 
 
 @end

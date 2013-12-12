@@ -84,6 +84,11 @@
     }
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(shopUserCommentKeyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    
+    for(int i=0;i<[tableShopUser numberOfRowsInSection:0];i++)
+    {
+        [tableShopUser cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
+    }
 }
 
 - (void)dealloc

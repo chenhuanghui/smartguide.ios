@@ -389,6 +389,11 @@
 	[self didChangeValueForKey:@"shopGallerys" withSetMutation:NSKeyValueMinusSetMutation usingObjects:changedObjects];
 }
 
+- (void) removeAllShopGallerys
+{
+    [self removeShopGallerys:self.shopGallerys];
+}
+
 - (NSMutableSet*)shopGallerysSet {
 	[self willAccessValueForKey:@"shopGallerys"];
 	NSMutableSet *result = [self mutableSetValueForKey:@"shopGallerys"];
@@ -452,6 +457,11 @@
 	[self didChangeValueForKey:@"userComments" withSetMutation:NSKeyValueMinusSetMutation usingObjects:changedObjects];
 }
 
+- (void) removeAllUserComments
+{
+    [self removeUserComments:self.userComments];
+}
+
 - (NSMutableSet*)userCommentsSet {
 	[self willAccessValueForKey:@"userComments"];
 	NSMutableSet *result = [self mutableSetValueForKey:@"userComments"];
@@ -513,6 +523,11 @@
 	[self willChangeValueForKey:@"userGallerys" withSetMutation:NSKeyValueMinusSetMutation usingObjects:changedObjects];
 	[[self primitiveValueForKey:@"userGallerys"] removeObject:value];
 	[self didChangeValueForKey:@"userGallerys" withSetMutation:NSKeyValueMinusSetMutation usingObjects:changedObjects];
+}
+
+- (void) removeAllUserGallerys
+{
+    [self removeUserGallerys:self.userGallerys];
 }
 
 - (NSMutableSet*)userGallerysSet {

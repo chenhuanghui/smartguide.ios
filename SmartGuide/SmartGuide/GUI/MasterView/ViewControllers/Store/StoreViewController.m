@@ -155,6 +155,13 @@
     return _bgImageViewFrame;
 }
 
+-(IBAction) btnCartTouchUpInside:(id)sender
+{
+    StoreCardViewController *vc=[StoreCardViewController new];
+    
+    [storeNavigation pushViewController:vc animated:true];
+}
+
 @end
 
 @implementation StoreScrollView

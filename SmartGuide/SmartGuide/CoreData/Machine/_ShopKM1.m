@@ -243,6 +243,11 @@
 	[self didChangeValueForKey:@"listVoucher" withSetMutation:NSKeyValueMinusSetMutation usingObjects:changedObjects];
 }
 
+- (void) removeAllListVoucher
+{
+    [self removeListVoucher:self.listVoucher];
+}
+
 - (NSMutableSet*)listVoucherSet {
 	[self willAccessValueForKey:@"listVoucher"];
 	NSMutableSet *result = [self mutableSetValueForKey:@"listVoucher"];

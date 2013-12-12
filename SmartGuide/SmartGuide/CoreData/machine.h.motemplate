@@ -35,7 +35,8 @@
 - (void) add<$Relationship.name.initialCapitalString$>:(NSSet*)value;
 - (void) remove<$Relationship.name.initialCapitalString$>:(NSSet*)value;
 - (void) add<$Relationship.name.initialCapitalString$>Object:(<$Relationship.destinationEntity.managedObjectClassName$>*)value;
-- (void) remove<$Relationship.name.initialCapitalString$>Object:(<$Relationship.destinationEntity.managedObjectClassName$>*)value;<$else$>
+- (void) remove<$Relationship.name.initialCapitalString$>Object:(<$Relationship.destinationEntity.managedObjectClassName$>*)value;
+- (void) removeAll<$Relationship.name.initialCapitalString$>;<$else$>
 @property (nonatomic, retain) <$Relationship.destinationEntity.managedObjectClassName$>* <$Relationship.name$>;<$endif$>
 <$endforeach do$>
 

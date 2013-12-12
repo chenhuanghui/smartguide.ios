@@ -48,6 +48,7 @@
 - (void) removeListVoucher:(NSSet*)value;
 - (void) addListVoucherObject:(KM1Voucher*)value;
 - (void) removeListVoucherObject:(KM1Voucher*)value;
+- (void) removeAllListVoucher;
 
 #pragma mark Shop
 @property (nonatomic, retain) Shop* shop;

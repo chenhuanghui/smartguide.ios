@@ -8,6 +8,7 @@
 
 #import "SGViewController.h"
 #import "GMGridView.h"
+#import "StoreCardViewController.h"
 
 @class StoreShopScrollView, StoreViewController, StoreShopTableAds,StoreShopViewController;
 

@@ -81,6 +81,7 @@
 #define API_UPLOAD_FB_ACCESS_TOKEN @"user/facebook/access_token"
 #define API_GET_AVATARS @"user/avatar/get"
 #define API_NOTIFICATIONS(accessToken,version) [NSString stringWithFormat:@"notification?access_token=%@&version=%@",accessToken,version]
+#define API_STORE_GET_LIST @"store/getList"
 
 #define API_GET_ACTIVE_CODE(phone) [NSString stringWithFormat:@"%@/user/activation?phone=%@",SERVER_IP,phone]
 #define API_VERIFY_ACTIVE_CODE(phone,activeCode) [NSString stringWithFormat:@"%@/user/check?phone=%@&code=%@",SERVER_IP,phone,activeCode]
@@ -160,6 +161,11 @@ enum SORT_BY {
     SORT_VIEWED = 1,
     SORT_LIKED = 2,
 };
+
+enum SORT_STORE_SHOP_LIST_TYPE {
+    SORT_STORE_SHOP_LIST_LATEST = 0,
+    SORT_STORE_SHOP_LIST_TOP_SELLER = 1
+    };
 
 #define SHOP_PROMOTION_FILTER_KEY @"hasPromotion"
 enum SHOP_PROMOTION_FILTER_TYPE{

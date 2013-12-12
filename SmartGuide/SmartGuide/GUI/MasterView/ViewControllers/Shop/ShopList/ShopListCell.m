@@ -43,7 +43,7 @@
     [scroll removeGestureRecognizer:tapGes];
     tapGes=nil;
     
-    UITapGestureRecognizer *tap=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(panGes:)];
+    UITapGestureRecognizer *tap=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGes:)];
     tapGes=tap;
     
     [scroll.panGestureRecognizer requireGestureRecognizerToFail:tap];
