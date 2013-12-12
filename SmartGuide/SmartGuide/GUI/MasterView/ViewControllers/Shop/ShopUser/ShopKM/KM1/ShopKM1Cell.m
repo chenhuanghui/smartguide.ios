@@ -35,12 +35,31 @@
     return size.height+10;
 }
 
+@end
+
+@implementation ShopKM1ContentView
+
+-(void)drawRect:(CGRect)rect
+{
+    [imgHead drawAtPoint:CGPointZero];
+    [imgMid drawAsPatternInRect:CGRectMake(0, imgHead.size.height, rect.size.width, rect.size.height-imgHead.size.height-imgBot.size.height)];
+    [imgBot drawAtPoint:CGPointMake(0, rect.size.height-imgBot.size.height)];
+}
+
 -(void)awakeFromNib
 {
     [super awakeFromNib];
     
-    containView.layer.cornerRadius=8;
-    containView.layer.masksToBounds=true;
+    imgMid=[UIImage imageNamed:@"bg_content_mid.png"];
+    imgHead=[UIImage imageNamed:@"bg_content_head.png"];
+    imgBot=[UIImage imageNamed:@"bg_content_bottom.png"];
+}
+
+-(void)dealloc
+{
+    imgBot=nil;
+    imgHead=nil;
+    imgMid=nil;
 }
 
 @end

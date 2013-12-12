@@ -8,9 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+@class ShopKM1ContentView;
+
 @interface ShopKM1Cell : UITableViewCell
 {
-    __weak IBOutlet UIView *containView;
+    __weak IBOutlet ShopKM1ContentView *containView;
     __weak IBOutlet UILabel *lblVoucher;
     __weak IBOutlet UILabel *lblContent;
     __weak IBOutlet UIImageView *imgvFlag;
@@ -21,5 +23,14 @@
 
 +(NSString *)reuseIdentifier;
 +(float) heightWithContent:(NSString*) content;
+
+@end
+
+@interface ShopKM1ContentView : UIView
+{
+    UIImage *imgHead;
+    UIImage *imgMid;
+    UIImage *imgBot;
+}
 
 @end

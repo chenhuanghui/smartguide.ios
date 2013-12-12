@@ -146,7 +146,6 @@
     <resources>
         <image name="button_getgiffthidden.png" width="91" height="77"/>
         <image name="icon_dottitle.png" width="12" height="12"/>
-        <image name="icon_dottitle.png" width="12" height="12"/>
         <image name="icon_notice.png" width="31" height="27"/>
         <image name="icon_promotion.png" width="16" height="16"/>
     </resources>
