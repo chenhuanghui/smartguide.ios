@@ -69,6 +69,52 @@
     [table registerNib:[UINib nibWithNibName:[ShopKM1Cell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[ShopKM1Cell reuseIdentifier]];
     
     bgStatusView.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"background_status.png"]];
+    
+    FTCoreTextStyle *style=[FTCoreTextStyle styleWithName:@"k"];
+    style.textAlignment=FTCoreTextAlignementCenter;
+    style.color=[UIColor redColor];
+    style.font=[UIFont fontWithName:@"Avenir-Roman" size:11];
+    
+    [lbl100K addStyle:style];
+    
+    style=[FTCoreTextStyle styleWithName:@"sp"];
+    style.textAlignment=FTCoreTextAlignementLeft;
+    style.color=[UIColor darkGrayColor];
+    style.font=[UIFont fontWithName:@"Avenir-Heavy" size:11];
+    
+    [lblSP addStyle:style];
+    
+    style=[FTCoreTextStyle styleWithName:@"p"];
+    style.textAlignment=FTCoreTextAlignementLeft;
+    style.color=[UIColor darkGrayColor];
+    style.font=[UIFont fontWithName:@"Avenir-Heavy" size:11];
+    
+    [lblP addStyle:style];
+    
+    style=[FTCoreTextStyle styleWithName:@"text"];
+    style.textAlignment=FTCoreTextAlignementCenter;
+    style.color=[UIColor darkGrayColor];
+    style.font=[UIFont fontWithName:@"Avenir-Roman" size:10];
+    
+    [lbl100K addStyle:style];
+    
+    style=[FTCoreTextStyle styleWithName:@"text"];
+    style.textAlignment=FTCoreTextAlignementCenter;
+    style.color=[UIColor darkGrayColor];
+    style.font=[UIFont fontWithName:@"Avenir-Roman" size:10];
+    
+    [lblSP addStyle:style];
+    
+    style=[FTCoreTextStyle styleWithName:@"text"];
+    style.textAlignment=FTCoreTextAlignementCenter;
+    style.color=[UIColor darkGrayColor];
+    style.font=[UIFont fontWithName:@"Avenir-Roman" size:10];
+    
+    [lblP addStyle:style];
+    
+    [lbl100K setText:@"<text>Với mỗi <k>100k</k> trên hoá đơn bạn nhận được 1 lượt quét thẻ</text>"];
+    [lblSP setText:@"<text><sp>300 SP</sp> tích luỹ</text>"];
+    [lblP setText:@"<text><p>10 P</p> cho <p>1 SGP</p></text>"];
 }
 
 -(void)drawRect:(CGRect)rect
