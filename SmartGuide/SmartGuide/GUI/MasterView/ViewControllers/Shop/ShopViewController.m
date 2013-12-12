@@ -61,7 +61,7 @@
     
     [contentView l_v_addH:QRCODE_BIG_HEIGHT-QRCODE_SMALL_HEIGHT];
     
-    self.childNavigationController.isAllowDragBackPreviouseView=true;
+    self.childNavigationController.isAllowDragBackPreviouseView=false;
     
     [self showShopCatalog:false];
     

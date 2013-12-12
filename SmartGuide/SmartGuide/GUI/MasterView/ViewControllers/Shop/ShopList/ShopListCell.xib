@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_typesgp.png" highlightedImage="icon_typevoucher.png" id="ce7-TU-pgl">
-                                <rect key="frame" x="5" y="26" width="31" height="29"/>
+                                <rect key="frame" x="5" y="30" width="31" height="29"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_typecoffee.png" id="wXV-Aq-Cvh">
@@ -54,8 +54,8 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="dIq-td-iKR" userLabel="love">
-                                <rect key="frame" x="325" y="5" width="23" height="29"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="dIq-td-iKR" userLabel="love">
+                                <rect key="frame" x="308" y="17" width="46" height="29"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <state key="normal" image="button_loveshop.png">
@@ -65,8 +65,8 @@
                                     <action selector="btnLoveTouchUpInside:" destination="GI8-BP-1kp" eventType="touchUpInside" id="MTj-gJ-OqF"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="TMM-lH-Bwg" userLabel="add">
-                                <rect key="frame" x="327" y="52" width="19" height="23"/>
+                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="TMM-lH-Bwg" userLabel="add">
+                                <rect key="frame" x="308" y="55" width="44" height="23"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <state key="normal" image="button_addshop.png">
@@ -87,6 +87,10 @@
                         <rect key="frame" x="11" y="84" width="299" height="2"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     </imageView>
+                    <imageView hidden="YES" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_love.png" id="LUY-PN-bxm">
+                        <rect key="frame" x="152" y="30" width="16" height="12"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    </imageView>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </tableViewCellContentView>
@@ -94,6 +98,7 @@
             <connections>
                 <outlet property="btnAdd" destination="TMM-lH-Bwg" id="kO8-4f-Vv3"/>
                 <outlet property="btnLove" destination="dIq-td-iKR" id="zG4-y8-bxb"/>
+                <outlet property="imgvHeartAni" destination="LUY-PN-bxm" id="TOO-CJ-nF2"/>
                 <outlet property="imgvLine" destination="nt7-AO-UwG" id="Rqn-bk-MLU"/>
                 <outlet property="imgvType" destination="wXV-Aq-Cvh" id="PrD-js-PJ6"/>
                 <outlet property="imgvVoucher" destination="ce7-TU-pgl" id="LnN-Ce-4T4"/>
@@ -107,6 +112,7 @@
     <resources>
         <image name="button_addshop.png" width="19" height="23"/>
         <image name="button_loveshop.png" width="23" height="29"/>
+        <image name="icon_love.png" width="16" height="12"/>
         <image name="icon_typecoffee.png" width="25" height="25"/>
         <image name="icon_typesgp.png" width="31" height="29"/>
         <image name="icon_typevoucher.png" width="31" height="29"/>

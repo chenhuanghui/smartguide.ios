@@ -18,7 +18,9 @@
     imgvVoucher.highlighted=rand()%2==0;
     
     scroll.contentOffset=CGPointZero;
-    scroll.contentSize=CGSizeMake(scroll.l_v_w+imgvLine.l_v_x, 0);
+    scroll.contentSize=CGSizeMake(scroll.l_v_w+imgvLine.l_v_x+5, 0);
+    imgvHeartAni.hidden=true;
+    imgvHeartAni.transform=CGAffineTransformMakeScale(1, 1);
 }
 
 +(NSString *)reuseIdentifier
@@ -36,7 +38,7 @@
     [super didMoveToSuperview];
     
     scroll.contentOffset=CGPointZero;
-    scroll.contentSize=CGSizeMake(scroll.l_v_w+imgvLine.l_v_x, 0);
+    scroll.contentSize=CGSizeMake(scroll.l_v_w+imgvLine.l_v_x+5, 0);
     
     tapGes.delegate=nil;
     [tapGes removeTarget:self action:@selector(panGes:)];
@@ -52,7 +54,8 @@
 
 -(void) tapGes:(UIPanGestureRecognizer*) tap
 {
-    [self.delegate shopListCellTouched:self];
+    if(scroll.l_co_x<=5)
+        [self.delegate shopListCellTouched:self];
 }
 
 +(float)height
@@ -61,13 +64,25 @@
 }
 
 - (IBAction)btnLoveTouchUpInside:(id)sender {
-    [scroll setContentOffset:CGPointZero animated:true];
-    NSLog(@"love");
+    
+    imgvHeartAni.alpha=0;
+    imgvHeartAni.hidden=false;
+    [UIView animateWithDuration:0.3f animations:^{
+        imgvHeartAni.alpha=1;
+        imgvHeartAni.transform=CGAffineTransformMakeScale(4, 4);
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:0.3f animations:^{
+        imgvHeartAni.transform=CGAffineTransformMakeScale(1.5f, 1.5f);
+        } completion:^(BOOL finished) {
+            imgvHeartAni.hidden=true;
+            
+            [scroll setContentOffset:CGPointZero animated:true];
+        }];
+    }];
 }
 
 - (IBAction)btnAddTouchUpInside:(id)sender {
     [scroll setContentOffset:CGPointZero animated:true];
-    NSLog(@"share");
 }
 
 @end

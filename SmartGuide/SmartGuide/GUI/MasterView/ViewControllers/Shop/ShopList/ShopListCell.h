@@ -31,6 +31,7 @@
     __weak IBOutlet UIButton *btnAdd;
     __weak IBOutlet UIView *visibleView;
     __weak IBOutlet ScrollListCell *scroll;
+    __weak IBOutlet UIImageView *imgvHeartAni;
     
     __weak UITapGestureRecognizer *tapGes;
 }

@@ -74,6 +74,9 @@
 
     [_icon drawAtPoint:icon];
     
+    [[UIColor whiteColor] set];
+    [_text drawAtPoint:CGPointMake(text.x, text.y+0.5f) withFont:font];
+    
     [[UIColor blackColor] set];
     [_text drawAtPoint:text withFont:font];
 }

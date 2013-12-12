@@ -143,10 +143,17 @@
     //[scroll insertSubview:scrollerView aboveSubview:scrollBar];
     
     [scrollerBGView l_v_setX:scrollerView.l_v_w];
+    
 }
 
 -(void)shopListCellTouched:(ShopListCell *)cell
 {
+    if(_isZoomedMap)
+    {
+        [self endZoomMap];
+        return;
+    }
+    
 //    [self.map removeFromSuperview];
     [[GUIManager shareInstance] presentShopUserWithIDShop:0];
 }
@@ -162,6 +169,8 @@
     _buttonMapFrame=btnMap.frame;
     _buttonSearchLocationFrame=btnSearchLocation.frame;
     _sortFrame=sortView.frame;
+    _buttonScanBigFrame=btnScanBig.frame;
+    _buttonScanSmallFrame=btnScanSmall.frame;
 }
 
 -(void)sortViewTouchedSort:(ShopListSortView *)_sortView
@@ -185,6 +194,7 @@
     // Do any additional setup after loading the view from its nib.
     
     _isAllowDiffScrollMap=true;
+    self.map.autoresizingMask=UIViewAutoresizingNone;
     [contentView insertSubview:self.map belowSubview:tableList];
     self.map.userInteractionEnabled=false;
     self.map.scrollEnabled=false;
@@ -265,7 +275,7 @@
         case UIGestureRecognizerStateFailed:
         {
             CGPoint pnt=[scroll convertPoint:tableList.l_v_o toView:self.view];
-            if(pnt.y>_tableFrame.origin.y+[ShopListCell height])
+            if(pnt.y>_tableFrame.origin.y+20)
             {
                 [UIView animateWithDuration:DURATION_DEFAULT animations:^{
                     [self zoomMap];
@@ -288,6 +298,7 @@
     scroll.contentSize=CGSizeMake(scroll.l_v_w, tableList.l_v_y+MAX(_tableFrame.size.height,tableList.contentSize.height));
     scroll.contentInset=UIEdgeInsetsMake(0, 0, qrCodeView.l_v_h, 0);
     scroll.scrollIndicatorInsets=scroll.contentInset;
+    [contentView l_v_setH:scroll.l_cs_h];
 }
 
 -(void) tapTop:(UITapGestureRecognizer*) ges
@@ -376,9 +387,7 @@
         {
             if(_isZoomedMap && !_isAnimatingZoom)
             {
-                float height=_viewFrame.size.height-_qrFrame.size.height+QRCODE_RAY_HEIGHT+QRCODE_BIG_HEIGHT-QRCODE_SMALL_HEIGHT;
-                height-=[ShopListCell height];
-                height-=_tableFrame.origin.y;
+                float height=_heightZoomedMap;
                 
                 [tableList l_v_setY:_tableFrame.origin.y+height];
             }
@@ -520,10 +529,20 @@
         self.map.rotateEnabled=true;
     
     float height=_viewFrame.size.height-_qrFrame.size.height+QRCODE_RAY_HEIGHT+QRCODE_BIG_HEIGHT-QRCODE_SMALL_HEIGHT;
-    height-=[ShopListCell height];
+    height-=[ShopListCell height]/2+20;
     height-=_tableFrame.origin.y;
     
+    _heightZoomedMap=height;
+    
+    btnScanSmall.alpha=0;
+    btnScanSmall.hidden=false;
+    
     [UIView animateWithDuration:DURATION_DEFAULT animations:^{
+        
+        btnScanSmall.alpha=1;
+        btnScanBig.alpha=0;
+        btnScanBig.frame=_buttonScanSmallFrame;
+        btnScanSmall.frame=_buttonScanBigFrame;
         
         float y=QRCODE_BIG_HEIGHT-QRCODE_SMALL_HEIGHT;
         [self.qrCodeView l_v_addY:y];
@@ -540,6 +559,8 @@
     } completion:^(BOOL finished) {
         _isAllowDiffScrollMap=true;
         _isAnimatingZoom=false;
+        
+        btnScanBig.hidden=false;
     }];
     
     [scroll.panGestureRecognizer removeTarget:self action:@selector(panShowMap:)];
@@ -569,10 +590,6 @@
     if([self.map respondsToSelector:@selector(setRotateEnabled:)])
         self.map.rotateEnabled=false;
     
-    float height=_viewFrame.size.height-_qrFrame.size.height+QRCODE_RAY_HEIGHT+QRCODE_BIG_HEIGHT-QRCODE_SMALL_HEIGHT;
-    height-=[ShopListCell height];
-    height-=_tableFrame.origin.y;
-    
     [self makeScrollSize];
     
     [scroll setContentOffset:CGPointZero animated:true];
@@ -586,7 +603,15 @@
     [tableList removeGestureRecognizer:_tapBot];
     _tapBot=nil;
     
+    btnScanBig.alpha=0;
+    btnScanBig.hidden=false;
+    
     [UIView animateWithDuration:DURATION_DEFAULT animations:^{
+        
+        btnScanBig.alpha=1;
+        btnScanSmall.alpha=0;
+        btnScanBig.frame=_buttonScanBigFrame;
+        btnScanSmall.frame=_buttonScanSmallFrame;
         
         float y=QRCODE_BIG_HEIGHT-QRCODE_SMALL_HEIGHT;
         [self.qrCodeView l_v_addY:-y];
@@ -601,6 +626,8 @@
     } completion:^(BOOL finished) {
         scroll.delegate=self;
         scrollerView.hidden=false;
+        
+        btnScanSmall.hidden=true;
     }];
 }
 

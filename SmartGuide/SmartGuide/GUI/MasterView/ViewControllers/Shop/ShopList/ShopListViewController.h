@@ -29,6 +29,8 @@
     __weak IBOutlet UIButton *btnSearchLocation;
     __weak IBOutlet ShopListContentView *contentView;
     __weak IBOutlet UIView *qrCodeView;
+    __weak IBOutlet UIButton *btnScanBig;
+    __weak IBOutlet UIButton *btnScanSmall;
     
     CGRect _mapFrame;
     CGRect _tableFrame;
@@ -39,8 +41,11 @@
     CGRect _sortFrame;
     CGRect _buttonMapFrame;
     CGRect _buttonSearchLocationFrame;
+    CGRect _buttonScanBigFrame;
+    CGRect _buttonScanSmallFrame;
     
     bool _isZoomedMap;
+    float _heightZoomedMap;
     bool _isAnimatingZoom;
 
     __weak UITapGestureRecognizer *_tapTop;

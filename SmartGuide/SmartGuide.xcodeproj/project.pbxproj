@@ -436,6 +436,8 @@
 		9ACF309C183E0A0A002FAE80 /* icon_flag@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9ACF3098183E0A0A002FAE80 /* icon_flag@2x.png */; };
 		9ACF309D183E0A0A002FAE80 /* icon_flaggray.png in Resources */ = {isa = PBXBuildFile; fileRef = 9ACF3099183E0A0A002FAE80 /* icon_flaggray.png */; };
 		9ACF309E183E0A0A002FAE80 /* icon_flaggray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9ACF309A183E0A0A002FAE80 /* icon_flaggray@2x.png */; };
+		9ACF4F411859AAF200D98BA7 /* button_scan_small.png in Resources */ = {isa = PBXBuildFile; fileRef = 9ACF4F3F1859AAF100D98BA7 /* button_scan_small.png */; };
+		9ACF4F421859AAF200D98BA7 /* button_scan_small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9ACF4F401859AAF100D98BA7 /* button_scan_small@2x.png */; };
 		9AD23D5217FABC0100D28C7E /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AD23D5117FABC0100D28C7E /* AudioToolbox.framework */; };
 		9AED46AC181E73AB00BAD467 /* SGViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AED46AB181E73AB00BAD467 /* SGViewController.m */; };
 		9AED46AF181E745500BAD467 /* SGActivityIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AED46AE181E745500BAD467 /* SGActivityIndicator.m */; };
@@ -1118,6 +1120,8 @@
 		9ACF3098183E0A0A002FAE80 /* icon_flag@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_flag@2x.png"; sourceTree = "<group>"; };
 		9ACF3099183E0A0A002FAE80 /* icon_flaggray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_flaggray.png; sourceTree = "<group>"; };
 		9ACF309A183E0A0A002FAE80 /* icon_flaggray@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_flaggray@2x.png"; sourceTree = "<group>"; };
+		9ACF4F3F1859AAF100D98BA7 /* button_scan_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_scan_small.png; sourceTree = "<group>"; };
+		9ACF4F401859AAF100D98BA7 /* button_scan_small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_scan_small@2x.png"; sourceTree = "<group>"; };
 		9AD23D5117FABC0100D28C7E /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		9AED46AA181E73AB00BAD467 /* SGViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGViewController.h; sourceTree = "<group>"; };
 		9AED46AB181E73AB00BAD467 /* SGViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGViewController.m; sourceTree = "<group>"; };
@@ -2554,6 +2558,8 @@
 		A98198BE178D44FB0009FCB6 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				9ACF4F3F1859AAF100D98BA7 /* button_scan_small.png */,
+				9ACF4F401859AAF100D98BA7 /* button_scan_small@2x.png */,
 				9A2F8D101855BC3C0024AE1A /* button_more.png */,
 				9A2F8D111855BC3C0024AE1A /* button_more@2x.png */,
 				9A2F8D0C1855BBF60024AE1A /* button_buy.png */,
@@ -2943,6 +2949,7 @@
 				9A32F3F9184345AE00704D26 /* UserSettingViewController.xib in Resources */,
 				9A2F8CFA185570D60024AE1A /* StoreAdsCell.xib in Resources */,
 				9A7E5573183C842E006D1798 /* button_send.png in Resources */,
+				9ACF4F411859AAF200D98BA7 /* button_scan_small.png in Resources */,
 				9A29399D1844AA8F00FD49E2 /* icon_view@2x.png in Resources */,
 				9A85B73C1846ECB2009FD108 /* button_location@2x.png in Resources */,
 				9A75E7711847509400A4C3A0 /* bgslide_head.png in Resources */,
@@ -3127,6 +3134,7 @@
 				9A7E5570183C7F21006D1798 /* photo_firsttime@2x.png in Resources */,
 				9A5DC475183DB7630051375A /* frame_ava@2x.png in Resources */,
 				9A9FCBB11854E1B6004A3CFB /* frame_ava_store.png in Resources */,
+				9ACF4F421859AAF200D98BA7 /* button_scan_small@2x.png in Resources */,
 				9A7E5547183C69E3006D1798 /* button_close.png in Resources */,
 				9A2A33E2184F8167002949C4 /* SUShopGalleryCell.xib in Resources */,
 				9A3E767B18532BC200F596C1 /* UserInfomationViewController.xib in Resources */,

@@ -133,7 +133,7 @@
 #define COLOR_BACKGROUND_SHOP_SERIES [UIColor colorWithRed:57.f/255 green:55.f/255 blue:53.f/255 alpha:1]
 
 #define QRCODE_BIG_HEIGHT 56
-#define QRCODE_SMALL_HEIGHT 24
+#define QRCODE_SMALL_HEIGHT 32
 #define QRCODE_RAY_HEIGHT 7
 
 #define DURATION_DEFAULT 0.3f
