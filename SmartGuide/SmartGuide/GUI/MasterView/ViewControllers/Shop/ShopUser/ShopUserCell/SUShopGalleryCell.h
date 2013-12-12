@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "PageControl.h"
+#import "ButtonLove.h"
 
 @class SUShopGalleryCell;
 
@@ -17,10 +18,12 @@
 
 @end
 
-@interface SUShopGalleryCell : UITableViewCell<UIScrollViewDelegate>
+@interface SUShopGalleryCell : UITableViewCell<UIScrollViewDelegate,ButtonLoveDelegate>
 {
     __weak IBOutlet UITableView *table;
     __weak IBOutlet PageControlNext *pageControl;
+    __weak IBOutlet UIView *bgLineStatus;
+    __weak ButtonLove *btnLove;
     
     CGRect _tableFrame;
 }

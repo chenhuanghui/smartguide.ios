@@ -64,6 +64,7 @@
     self.childNavigationController.isAllowDragBackPreviouseView=false;
     
     [self showShopCatalog:false];
+    [self shopListSelectedShop];
     
     UIImageView *imgv=[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_search.png"]];
     imgv.contentMode=UIViewContentModeCenter;

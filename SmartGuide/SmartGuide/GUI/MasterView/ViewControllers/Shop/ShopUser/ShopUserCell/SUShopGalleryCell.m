@@ -75,6 +75,21 @@
     table.frame=rect;
     
     [table registerNib:[UINib nibWithNibName:[ShopGalleryCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[ShopGalleryCell reuseIdentifier]];
+    
+    bgLineStatus.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"background_status.png"]];
+    
+    ButtonLove *love=[ButtonLove new];
+    [love l_v_setO:CGPointMake(87, 288)];
+    love.delegate=self;
+    
+    [self.contentView addSubview:love];
+    
+    btnLove=love;
+}
+
+-(void)buttonLoveTouched:(ButtonLove *)buttonLoveView
+{
+    btnLove.isLoved=!btnLove.isLoved;
 }
 
 -(IBAction) btnInfoTouchUpInside:(id)sender

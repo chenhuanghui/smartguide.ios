@@ -43,7 +43,7 @@
     [super viewDidLoad];
     
     [detailView addSubview:shopNavi.view];
-    detailView.receiveView=tableShopUser;
+    detailView.receiveView=tableShopUser;    
     
     CGRect rect=CGRectZero;
     rect.origin=CGPointMake(15, 0);

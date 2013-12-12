@@ -67,6 +67,8 @@
     [super awakeFromNib];
     
     [table registerNib:[UINib nibWithNibName:[ShopKM1Cell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[ShopKM1Cell reuseIdentifier]];
+    
+    bgStatusView.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"background_status.png"]];
 }
 
 -(void)drawRect:(CGRect)rect

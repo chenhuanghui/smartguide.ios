@@ -12,6 +12,7 @@
 @interface SUKM1Cell : UITableViewCell<UITableViewDataSource,UITableViewDelegate>
 {
     __weak IBOutlet UITableView *table;
+    __weak IBOutlet UIView *bgStatusView;
     NSArray *data;
 }
 
