@@ -22,7 +22,7 @@
     self = [[NSBundle mainBundle] loadNibNamed:@"CommentTyping" owner:nil options:nil][0];
     if (self) {
         
-        imgvAvatar.layer.cornerRadius=imgvAvatar.frame.size.width/2;
+        imgvAvatar.layer.cornerRadius=imgvAvatar.frame.size.height/2;
         imgvAvatar.layer.masksToBounds=true;
         
         textView.isScrollable = NO;

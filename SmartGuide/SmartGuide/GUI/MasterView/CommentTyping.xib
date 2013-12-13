@@ -11,6 +11,10 @@
             <rect key="frame" x="0.0" y="0.0" width="290" height="120"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_blur_comment.png" id="yrV-tA-668">
+                    <rect key="frame" x="9" y="57" width="272" height="80"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                </imageView>
                 <view contentMode="scaleToFill" id="4HH-0d-G2A">
                     <rect key="frame" x="18" y="79" width="253" height="8"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -104,6 +108,7 @@
     </objects>
     <resources>
         <image name="ava.png" width="74" height="74"/>
+        <image name="bg_blur_comment.png" width="272" height="70"/>
         <image name="bg_typecomment_bottom.png" width="253" height="7"/>
         <image name="bg_typecomment_head.png" width="253" height="57"/>
         <image name="button_Facebook.png" width="95" height="22"/>
