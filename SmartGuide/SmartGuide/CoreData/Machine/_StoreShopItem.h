@@ -8,6 +8,8 @@
 #define StoreShopItem_Desc @"desc"
 #define StoreShopItem_IdItem @"idItem"
 #define StoreShopItem_Image @"image"
+#define StoreShopItem_Money @"money"
+#define StoreShopItem_P @"p"
 #define StoreShopItem_Price @"price"
 #define StoreShopItem_SortOrderLatest @"sortOrderLatest"
 #define StoreShopItem_SortOrderTopSeller @"sortOrderTopSeller"
@@ -30,6 +32,8 @@
 @property (nonatomic, retain) NSString* desc;
 @property (nonatomic, retain) NSNumber* idItem;
 @property (nonatomic, retain) NSString* image;
+@property (nonatomic, retain) NSString* money;
+@property (nonatomic, retain) NSString* p;
 @property (nonatomic, retain) NSString* price;
 @property (nonatomic, retain) NSNumber* sortOrderLatest;
 @property (nonatomic, retain) NSNumber* sortOrderTopSeller;

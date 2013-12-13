@@ -4,4 +4,7 @@
 {
 }
 
++(StoreShopItem*) itemWithID:(int) idItem;
++(StoreShopItem*) makeItemWithDictionary:(NSDictionary*) dict;
+
 @end

@@ -14,6 +14,16 @@
 #import "Versions.h"
 #import "TokenManager.h"
 
+double userLat()
+{
+    return [DataManager shareInstance].currentUser.location.latitude;
+}
+
+double userLng()
+{
+    return [DataManager shareInstance].currentUser.location.longitude;
+}
+
 static DataManager *_dataManager=nil;
 @implementation DataManager
 @synthesize managedObjectContext,managedObjectModel,persistentStoreCoordinator;

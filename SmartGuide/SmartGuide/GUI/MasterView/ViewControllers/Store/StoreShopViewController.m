@@ -38,12 +38,11 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    _shops=[[NSMutableArray alloc] init];
+    _shopsLastest=[[NSMutableArray alloc] init];
+    _shopsTopSellers=[[NSMutableArray alloc] init];
     
-    for(int i=0;i<10;i++)
-    {
-        [_shops addObject:@"Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda."];
-    }
+    _canLoadMoreShopLastest=true;
+    _canLoadMoreTopSellers=true;
     
     scroll.minContentOffsetY=-80;
     
@@ -81,6 +80,49 @@
 //    
 //    [scroll addGestureRecognizer:tap];
 //    [scroll.panGestureRecognizer requireGestureRecognizerToFail:tap];
+    
+    _operationShopList=[[ASIOperationStoreShopList alloc] initWithUserLat:userLat() userLng:userLng() sort:SORT_STORE_SHOP_LIST_LATEST page:0];
+    _operationShopList.delegate=self;
+    
+    [_operationShopList startAsynchronous];
+    
+    [self.view showLoading];
+}
+
+-(void)ASIOperaionPostFinished:(ASIOperationPost *)operation
+{
+    [self.view removeLoading];
+    
+    if([operation isKindOfClass:[ASIOperationStoreShopList class]])
+    {
+        ASIOperationStoreShopList *ope=(ASIOperationStoreShopList*) operation;
+        
+        switch (ope.sortType) {
+            case SORT_STORE_SHOP_LIST_TOP_SELLER:
+            {
+                [_shopsTopSellers addObjectsFromArray:ope.shops];
+                
+                
+                _canLoadMoreTopSellers=ope.shops.count==10;
+            }
+                break;
+                
+            case SORT_STORE_SHOP_LIST_LATEST:
+                break;
+        }
+        
+        _operationShopList=nil;
+    }
+}
+
+-(void)ASIOperaionPostFailed:(ASIOperationPost *)operation
+{
+    [self.view removeLoading];
+    
+    if([operation isKindOfClass:[ASIOperationStoreShopList class]])
+    {
+        _operationShopList=nil;
+    }
 }
 
 -(void) tapShop:(UITapGestureRecognizer*) tap
@@ -143,7 +185,7 @@
 
 -(NSInteger)numberOfItemsInGMGridView:(GMGridView *)gridView
 {
-    return _shops.count<4?4:_shops.count;
+    return 0;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -183,7 +225,7 @@
     
     StoreShopCell *shopCell=(StoreShopCell*)cell.contentView;
     
-    [shopCell emptyCell:index>=_shops.count];
+//    [shopCell emptyCell:index>=_shops.count];
     
     return cell;
 }
@@ -191,6 +233,16 @@
 -(void)GMGridView:(GMGridView *)gridView didTapOnItemAtIndex:(NSInteger)position
 {
     [self.delegate storeShopControllerTouchedShop:self];
+}
+
+-(void)storeControllerButtonLatestTouched:(UIButton *)btn
+{
+    
+}
+
+-(void)storeControllerButtonTopSellersTouched:(UIButton *)btn
+{
+    
 }
 
 @end
@@ -226,6 +278,8 @@
 {
     return _offset;
 }
+
+
 
 @end
 

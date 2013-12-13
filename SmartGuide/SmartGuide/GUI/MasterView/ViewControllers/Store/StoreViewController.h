@@ -8,11 +8,19 @@
 
 #import "SGViewController.h"
 #import "SGNavigationController.h"
-#import "StoreShopViewController.h"
 #import "SGQRCodeViewController.h"
-#import "StoreShopInfoViewController.h"
+#import "StoreShop.h"
+#import "StoreShopItem.h"
 
-@class StoreViewController,StoreScrollView;
+@class StoreViewController,StoreScrollView, StoreShopInfoViewController,StoreShopViewController;
+
+@protocol StoreControllerHandle <NSObject>
+@property (nonatomic, weak) StoreViewController *storeController;
+
+-(void) storeControllerButtonLatestTouched:(UIButton*) btn;
+-(void) storeControllerButtonTopSellersTouched:(UIButton*) btn;
+
+@end
 
 @protocol StoreControllerDelegate <SGViewControllerDelegate>
 
@@ -20,7 +28,7 @@
 
 @end
 
-@interface StoreViewController : SGViewController<SGQRCodeControllerDelegate,StoreShopControllerDelegate>
+@interface StoreViewController : SGViewController<SGQRCodeControllerDelegate>
 {
     __weak IBOutlet UIView *contentView;
     __weak IBOutlet UIView *qrView;
@@ -30,11 +38,15 @@
     IBOutlet SGNavigationController *storeNavigation;
     __weak IBOutlet UIButton *btnSetting;
     __weak IBOutlet UIButton *btnBack;
+    __weak IBOutlet UIButton *btnLatest;
+    __weak IBOutlet UIButton *btnTopSellers;
     
     CGRect _rayViewFrame;
     CGRect _bgViewFrame;
     CGRect _bgImageViewFrame;
 }
+
+-(void) showShop:(StoreShop*) shop;
 
 -(UIView*) rayView;
 -(CGRect) rayViewFrame;
@@ -43,6 +55,9 @@
 -(UIImageView*) bgImageView;
 -(CGRect) bgViewFrame;
 -(CGRect) bgImageViewFrame;
+
+-(UIButton*) buttonLatest;
+-(UIButton*) buttonTopSellers;
 
 @property (nonatomic, weak) id<StoreControllerDelegate> delegate;
 

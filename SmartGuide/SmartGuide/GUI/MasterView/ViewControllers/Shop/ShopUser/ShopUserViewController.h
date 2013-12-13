@@ -55,11 +55,16 @@ enum SHOP_USER_MODE {
     __weak IBOutlet HitTestView *detailView;
     __weak IBOutlet UIButton *btnClose;
     __weak IBOutlet TableShopUser *tableShopUser;
-    __weak SUShopGalleryCell *shopGalleryCell;
     __weak SUUserCommentCell *shopUserCommentCell;
     __weak IBOutlet UIButton *btnNext;
     __weak IBOutlet UIButton *btnBack;
 //    __weak CommentTyping *cmtTyping;
+    
+    __strong SUShopGalleryCell *shopGalleryCell;
+    __strong SUKM1Cell *km1Cell;
+    __strong SUInfoCell *infoCell;
+    __strong SUUserGalleryCell *userGalleryCell;
+    __strong SUUserCommentCell *userCommentCell;
     
     CGRect _btnNextFrame;
     CGRect _cmtTypingFrame;

@@ -134,6 +134,32 @@
 	[self didChangeValueForKey:@"image"];
 }
 
+- (NSString*)money {
+	[self willAccessValueForKey:@"money"];
+	NSString* result = (NSString*)[self primitiveValueForKey:@"money"];
+	[self didAccessValueForKey:@"money"];
+	return result;
+}
+
+- (void)setMoney:(NSString*)value {
+	[self willChangeValueForKey:@"money"];
+	[self setPrimitiveValue:value forKey:@"money"];
+	[self didChangeValueForKey:@"money"];
+}
+
+- (NSString*)p {
+	[self willAccessValueForKey:@"p"];
+	NSString* result = (NSString*)[self primitiveValueForKey:@"p"];
+	[self didAccessValueForKey:@"p"];
+	return result;
+}
+
+- (void)setP:(NSString*)value {
+	[self willChangeValueForKey:@"p"];
+	[self setPrimitiveValue:value forKey:@"p"];
+	[self didChangeValueForKey:@"p"];
+}
+
 - (NSString*)price {
 	[self willAccessValueForKey:@"price"];
 	NSString* result = (NSString*)[self primitiveValueForKey:@"price"];

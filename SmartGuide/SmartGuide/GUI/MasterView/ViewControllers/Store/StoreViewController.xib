@@ -10,7 +10,9 @@
                 <outlet property="bgImageView" destination="cBH-yt-0AQ" id="9MA-6J-Mxm"/>
                 <outlet property="bgView" destination="Iaz-Ec-8yt" id="9Ia-qh-Ca6"/>
                 <outlet property="btnBack" destination="XQq-Ck-nno" id="TI1-Dx-bhX"/>
+                <outlet property="btnLatest" destination="FUA-LV-6Xd" id="Kcj-OE-MEY"/>
                 <outlet property="btnSetting" destination="uEg-DF-xuj" id="cyB-B1-4Fz"/>
+                <outlet property="btnTopSellers" destination="y2I-4k-2pi" id="gy0-5u-FFz"/>
                 <outlet property="contentView" destination="nfr-mI-for" id="YGn-ZH-nh2"/>
                 <outlet property="qrView" destination="p73-e8-CDK" id="eWl-mn-pnx"/>
                 <outlet property="rayView" destination="SjR-1A-Zpq" id="31p-RG-lGS"/>

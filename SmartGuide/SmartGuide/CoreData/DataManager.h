@@ -12,6 +12,9 @@
 #import "ShopCatalog.h"
 #import "Filter.h"
 
+double userLat();
+double userLng();
+
 @interface DataManager : NSObject
 
 +(DataManager*) shareInstance;

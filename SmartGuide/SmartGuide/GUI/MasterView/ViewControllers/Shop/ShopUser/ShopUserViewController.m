@@ -88,6 +88,11 @@
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     shopNavi=nil;
+    shopGalleryCell=nil;
+    km1Cell=nil;
+    infoCell=nil;
+    userGalleryCell=nil;
+    userCommentCell=nil;
 }
 
 -(void) shopUserCommentKeyboardWillShow:(NSNotification*) notification
@@ -177,6 +182,9 @@
         switch (indexPath.row) {
             case 0:
             {
+                if(shopGalleryCell)
+                    return shopGalleryCell;
+                
                 SUShopGalleryCell *cell=[tableView dequeueReusableCellWithIdentifier:[SUShopGalleryCell reuseIdentifier]];
                 cell.delegate=self;
                 
@@ -187,9 +195,14 @@
                 
             case 1:
             {
+                if(km1Cell)
+                    return km1Cell;
+                
                 SUKM1Cell *cell=[tableShopUser dequeueReusableCellWithIdentifier:[SUKM1Cell reuseIdentifier]];
                 
                 [cell loadWithKM:_km1Data];
+                
+                km1Cell=cell;
                 
                 return cell;
             }
@@ -208,30 +221,45 @@
                 
             case 3:
             {
+                if(infoCell)
+                    return infoCell;
+                
                 SUInfoCell *cell=[tableShopUser dequeueReusableCellWithIdentifier:[SUInfoCell reuseIdentifier]];
                 
                 cell.delegate=self;
+                
+                infoCell=cell;
                 
                 return cell;
             }
                 
             case 4:
             {
+                if(userGalleryCell)
+                    return userGalleryCell;
+                
                 SUUserGalleryCell *cell=[tableShopUser dequeueReusableCellWithIdentifier:[SUUserGalleryCell reuseIdentifier]];
                 
                 cell.delegate=self;
+                
+                userGalleryCell=cell;
                 
                 return cell;
             }
                 
             case 5:
             {
+                if(userCommentCell)
+                    return userCommentCell;
+                
                 SUUserCommentCell *cell=[tableView dequeueReusableCellWithIdentifier:[SUUserCommentCell reuseIdentifier]];
                 
                 float maxHeight=_shopUserContentFrame.size.height-_btnNextFrame.size.height-[SUUserCommentCell tableY]+SHOP_USER_ANIMATION_ALIGN_Y;
                 shopUserCommentCell=cell;
                 
                 [cell loadWithComments:_comments maxHeight:maxHeight];
+                
+                userCommentCell=cell;
                 
                 return cell;
             }

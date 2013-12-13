@@ -7,6 +7,8 @@
 //
 
 #import "StoreViewController.h"
+#import "StoreShopViewController.h"
+#import "StoreShopInfoViewController.h"
 
 @interface StoreViewController ()
 
@@ -47,31 +49,12 @@
     
     StoreShopViewController *vc=[StoreShopViewController new];
     vc.storeController=self;
-    vc.delegate=self;
-    
+
     [storeNavigation setRootViewController:vc animate:true];
     
     UITapGestureRecognizer *tap=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapQR:)];
     
     [qrView addGestureRecognizer:tap];
-}
-
--(void)storeShopControllerTouchedShop:(StoreShopViewController *)controller
-{
-    StoreShopInfoViewController *vc=[StoreShopInfoViewController new];
-    vc.storeController=self;
-    
-    [storeNavigation pushViewController:vc animated:true];
-    
-    btnBack.alpha=0;
-    btnBack.hidden=false;
-    
-    [UIView animateWithDuration:0.1f animations:^{
-        btnBack.alpha=1;
-        btnSetting.alpha=0;
-    } completion:^(BOOL finished) {
-        btnSetting.hidden=false;
-    }];
 }
 
 -(void) tapQR:(UITapGestureRecognizer*) tap
@@ -155,11 +138,39 @@
     return _bgImageViewFrame;
 }
 
+-(UIButton *)buttonLatest
+{
+    return btnLatest;
+}
+
+-(UIButton *)buttonTopSellers
+{
+    return btnTopSellers;
+}
+
 -(IBAction) btnCartTouchUpInside:(id)sender
 {
     StoreCardViewController *vc=[StoreCardViewController new];
     
     [storeNavigation pushViewController:vc animated:true];
+}
+
+-(void)showShop:(StoreShop *)shop
+{
+    StoreShopInfoViewController *vc=[StoreShopInfoViewController new];
+    vc.storeController=self;
+    
+    [storeNavigation pushViewController:vc animated:true];
+    
+    btnBack.alpha=0;
+    btnBack.hidden=false;
+    
+    [UIView animateWithDuration:0.1f animations:^{
+        btnBack.alpha=1;
+        btnSetting.alpha=0;
+    } completion:^(BOOL finished) {
+        btnSetting.hidden=false;
+    }];
 }
 
 @end

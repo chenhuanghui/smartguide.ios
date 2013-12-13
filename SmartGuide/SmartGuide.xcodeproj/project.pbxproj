@@ -294,6 +294,8 @@
 		9A85B7421846ECB2009FD108 /* icon_typevoucher@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A85B7381846ECB2009FD108 /* icon_typevoucher@2x.png */; };
 		9A85B7471846FE17009FD108 /* icon_location.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A85B7451846FE17009FD108 /* icon_location.png */; };
 		9A85B7481846FE17009FD108 /* icon_location@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A85B7461846FE17009FD108 /* icon_location@2x.png */; };
+		9A9211A2185AC39F0012F181 /* ASIOperationStoreShopItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A9211A1185AC39F0012F181 /* ASIOperationStoreShopItem.m */; };
+		9A9211A6185AC7AB0012F181 /* LoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A9211A5185AC7AB0012F181 /* LoadingView.m */; };
 		9A9FCB8918544C3C004A3CFB /* StoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A9FCB8718544C3C004A3CFB /* StoreViewController.m */; };
 		9A9FCB8A18544C3C004A3CFB /* StoreViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A9FCB8818544C3C004A3CFB /* StoreViewController.xib */; };
 		9A9FCB8E18544C9C004A3CFB /* StoreShopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A9FCB8C18544C9C004A3CFB /* StoreShopViewController.m */; };
@@ -986,6 +988,10 @@
 		9A85B7381846ECB2009FD108 /* icon_typevoucher@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_typevoucher@2x.png"; sourceTree = "<group>"; };
 		9A85B7451846FE17009FD108 /* icon_location.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_location.png; sourceTree = "<group>"; };
 		9A85B7461846FE17009FD108 /* icon_location@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_location@2x.png"; sourceTree = "<group>"; };
+		9A9211A0185AC39F0012F181 /* ASIOperationStoreShopItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIOperationStoreShopItem.h; sourceTree = "<group>"; };
+		9A9211A1185AC39F0012F181 /* ASIOperationStoreShopItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIOperationStoreShopItem.m; sourceTree = "<group>"; };
+		9A9211A4185AC7AB0012F181 /* LoadingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadingView.h; sourceTree = "<group>"; };
+		9A9211A5185AC7AB0012F181 /* LoadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoadingView.m; sourceTree = "<group>"; };
 		9A9FCB8618544C3C004A3CFB /* StoreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoreViewController.h; sourceTree = "<group>"; };
 		9A9FCB8718544C3C004A3CFB /* StoreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoreViewController.m; sourceTree = "<group>"; };
 		9A9FCB8818544C3C004A3CFB /* StoreViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StoreViewController.xib; sourceTree = "<group>"; };
@@ -2043,6 +2049,15 @@
 			path = SDWebImage;
 			sourceTree = "<group>";
 		};
+		9A9211A3185AC7A00012F181 /* Loading */ = {
+			isa = PBXGroup;
+			children = (
+				9A9211A4185AC7AB0012F181 /* LoadingView.h */,
+				9A9211A5185AC7AB0012F181 /* LoadingView.m */,
+			);
+			path = Loading;
+			sourceTree = "<group>";
+		};
 		9A9FCB8518544C2C004A3CFB /* Store */ = {
 			isa = PBXGroup;
 			children = (
@@ -2369,6 +2384,8 @@
 				A922FDAD17D8C5490036B89A /* ASIOperationUpdateUserInfo.m */,
 				9AC494B11858B2390042C535 /* ASIOperationStoreShopList.h */,
 				9AC494B21858B2390042C535 /* ASIOperationStoreShopList.m */,
+				9A9211A0185AC39F0012F181 /* ASIOperationStoreShopItem.h */,
+				9A9211A1185AC39F0012F181 /* ASIOperationStoreShopItem.m */,
 			);
 			path = ASIOperation;
 			sourceTree = "<group>";
@@ -2569,6 +2586,7 @@
 		A98198B4178D3FA70009FCB6 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				9A9211A3185AC7A00012F181 /* Loading */,
 				9AC494AD185870B40042C535 /* PickerValue */,
 				9A7521FE1856C5AD00248B02 /* SGScrollView */,
 				9A32F476184348C100704D26 /* PageConrol */,
@@ -3490,6 +3508,7 @@
 				9A32F3DC184345AE00704D26 /* ShopListCell.m in Sources */,
 				A95125FB17A456C0003F8BB2 /* ASIOperationShopInGroup.m in Sources */,
 				A91FF72F17A7FEBA00528263 /* ASIOperationVersion.m in Sources */,
+				9A9211A6185AC7AB0012F181 /* LoadingView.m in Sources */,
 				A91FF73217A7FED400528263 /* ASIOperationShopCatalog.m in Sources */,
 				A91FF73517A7FFD500528263 /* ASIOperationCity.m in Sources */,
 				9A32F3EE184345AE00704D26 /* ShopMapViewController.m in Sources */,
@@ -3517,6 +3536,7 @@
 				A91CE6C517A93F6E00D29E87 /* _ShopGallery.m in Sources */,
 				A91CE6C617A93F6E00D29E87 /* _ShopUserGallery.m in Sources */,
 				9A7E55AC183CEB30006D1798 /* UIImage+GIF.m in Sources */,
+				9A9211A2185AC39F0012F181 /* ASIOperationStoreShopItem.m in Sources */,
 				9A2F8CF8185570CD0024AE1A /* StoreAdsCell.m in Sources */,
 				A9DCA90817AABCB200C56854 /* ShopUserComment.m in Sources */,
 				A9DCA90B17AABCBB00C56854 /* _ShopUserComment.m in Sources */,

@@ -117,11 +117,6 @@
     [lblP setText:@"<text><p>10 P</p> cho <p>1 SGP</p></text>"];
 }
 
--(void)drawRect:(CGRect)rect
-{
-    
-}
-
 @end
 
 @implementation PromotionDetailView
