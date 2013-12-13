@@ -13,7 +13,6 @@
 #define BUTTON_AGREE_IMAGE_MID_NORMAL [UIImage imageNamed:@"button_green_mid.png"]
 
 @implementation ButtonAgree
-@synthesize delegate;
 
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
