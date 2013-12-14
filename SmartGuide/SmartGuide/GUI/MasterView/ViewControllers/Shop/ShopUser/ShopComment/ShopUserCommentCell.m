@@ -39,14 +39,6 @@
     return 70;
 }
 
--(void)awakeFromNib
-{
-    [super awakeFromNib];
-    
-//    borderView.layer.cornerRadius=8;
-//    borderView.layer.masksToBounds=true;
-}
-
 -(IBAction) btnCommentSort:(id)sender
 {
     

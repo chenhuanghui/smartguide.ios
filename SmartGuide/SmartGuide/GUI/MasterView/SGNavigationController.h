@@ -15,6 +15,13 @@
 
 @class SGLeftViewController, SGRightViewController;
 
+@protocol LeftControllerCallback <NSObject>
+
+@optional
+-(void) hideLeftSlideController:(SGLeftViewController*) leftSlideController withPreviousController:(UIViewController*) previousController callbackCompleted:(void(^)()) callbackCompleted;
+
+@end
+
 @interface SGNavigationController : UINavigationController<UINavigationControllerDelegate,UIGestureRecognizerDelegate>
 {
     void(^_onPushedViewController)(UIViewController* vc);
@@ -26,7 +33,7 @@
 -(SGNavigationController*) initWithViewControllers:(NSArray*) controllers;
 
 -(void) setRootViewController:(UIViewController*) viewController animate:(bool) animate;
--(void) showLeftSlideViewController:(UIViewController*) viewController animate:(bool) animated;
+-(void) showLeftSlideViewController:(UIViewController<LeftControllerCallback>*) viewController animate:(bool) animated;
 -(void) removeLeftSlideViewController;
 -(void) showRightSlideViewController:(UIViewController*) viewController animate:(bool) animated;
 -(void) removeRightSlideViewController:(UIViewController*) viewController;
@@ -42,6 +49,8 @@
 @end
 
 @interface SGLeftViewController : SGViewController
+
+@property (nonatomic, weak) UIViewController<LeftControllerCallback> *childController;
 
 @end
 

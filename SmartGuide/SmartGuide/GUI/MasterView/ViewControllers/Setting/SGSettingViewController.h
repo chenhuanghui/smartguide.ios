@@ -8,6 +8,7 @@
 
 #import "SGViewController.h"
 #import "Constant.h"
+#import "SGNavigationController.h"
 
 @class SGSettingViewController;
 
@@ -21,16 +22,12 @@
 
 @end
 
-@interface SGSettingViewController : SGViewController<UIGestureRecognizerDelegate>
+@interface SGSettingViewController : SGViewController<UIGestureRecognizerDelegate,LeftControllerCallback>
 {
     __weak IBOutlet UIButton *btnUser;
     __weak IBOutlet UIButton *btnCatalog;
     __weak IBOutlet UIView *containtView;
 }
-
-- (IBAction)btnUserTouchUpInside:(id)sender;
-- (IBAction)btnCatalogTouchUpInside:(id)sender;
-
 
 @property (nonatomic, assign) id<SGSettingDelegate> delegate;
 @property (nonatomic, assign) UIView *slideView;

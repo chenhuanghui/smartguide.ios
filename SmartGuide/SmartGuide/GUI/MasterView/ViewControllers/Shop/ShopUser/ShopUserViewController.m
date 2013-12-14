@@ -42,13 +42,13 @@
 {
     [super viewDidLoad];
     
-    [detailView addSubview:shopNavi.view];
-    detailView.receiveView=tableShopUser;    
-    
     CGRect rect=CGRectZero;
     rect.origin=CGPointMake(15, 0);
     rect.size=CGSizeMake(290, 431);
     shopNavi.view.frame=rect;
+    
+    [detailView addSubview:shopNavi.view];
+    detailView.receiveView=tableShopUser;
     
     [self storeRect];
     
@@ -64,7 +64,7 @@
     _km1Data=[NSMutableArray new];
     for(int i=0;i<3;i++)
     {
-        [_km1Data addObject:@"Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda."];
+        [_km1Data addObject:@"Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing incididunt ut."];
     }
     
     _comments=[NSMutableArray new];
@@ -175,6 +175,10 @@
     return 0;
 }
 
+-(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+}
+
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if(tableView==tableShopUser)
@@ -189,6 +193,8 @@
                 cell.delegate=self;
                 
                 shopGalleryCell=cell;
+                
+
                 
                 return cell;
             }
@@ -360,6 +366,5 @@
     
     [super setContentOffset:contentOffset];
 }
-
 
 @end

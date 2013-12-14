@@ -67,4 +67,11 @@
     [self.delegate settingTouchedOtherView:self];
 }
 
+-(void)hideLeftSlideController:(SGLeftViewController *)leftSlideController withPreviousController:(UIViewController *)previousController callbackCompleted:(void (^)())callbackCompleted
+{
+    
+    
+    [containtView l_v_setW:self.l_v_w];
+}
+
 @end

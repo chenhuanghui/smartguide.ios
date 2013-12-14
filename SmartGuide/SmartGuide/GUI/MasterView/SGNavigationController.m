@@ -235,7 +235,7 @@ CALL_DEALLOC_LOG
     }
 }
 
--(void)showLeftSlideViewController:(UIViewController *)viewController animate:(bool)animated
+-(void)showLeftSlideViewController:(UIViewController<LeftControllerCallback> *)viewController animate:(bool)animated
 {
     if(self.leftSlideController)
         return;
@@ -257,6 +257,7 @@ CALL_DEALLOC_LOG
         [self.view addSubview:vc.view];
     }
     
+    leftSlideController.childController=viewController;
     [leftSlideController addChildViewController:viewController];
     [leftSlideController.view addSubview:viewController.view];
     
@@ -273,13 +274,13 @@ CALL_DEALLOC_LOG
     UIPanGestureRecognizer *pan=[[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(leftPanGes:)];
     pan.delegate=self;
     
-    [pan requireGestureRecognizerToFail:tap];
+    //    [pan requireGestureRecognizerToFail:tap];
     
-    panSlide=pan;
+    //    panSlide=pan;
     tapSlide=tap;
     
     [self.view addGestureRecognizer:tap];
-    [self.view addGestureRecognizer:pan];
+    //    [self.view addGestureRecognizer:pan];
 }
 
 -(BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
@@ -435,8 +436,45 @@ CALL_DEALLOC_LOG
 
 -(void) moveToVisibleView
 {
-    [UIView animateWithDuration:DURATION_DEFAULT animations:^{
+    if([self.leftSlideController.childController respondsToSelector:@selector(hideLeftSlideController:withPreviousController:callbackCompleted:)])
+    {
+        [[self leftSlideController].childController hideLeftSlideController:self.leftSlideController withPreviousController:previousViewController callbackCompleted:^{
+            if(self.leftSlideController)
+            {
+                [panSlide removeTarget:self action:@selector(leftPanGes:)];
+                [tapSlide removeTarget:self action:@selector(leftTapGes:)];
+                
+                [self.leftSlideController removeFromParentViewController];
+                [self.leftSlideController.view removeFromSuperview];
+            }
+            
+            if(self.rightSlideController)
+            {
+                [panSlide removeTarget:self action:@selector(rightPanGes:)];
+                [tapSlide removeTarget:self action:@selector(rightTapGes:)];
+                
+                [self.rightSlideController removeFromParentViewController];
+                [self.rightSlideController.view removeFromSuperview];
+            }
+            
+            [self.view removeAlphaView];
+            
+            panSlideStartPoint=CGPointZero;
+            
+            [self.view removeGestureRecognizer:panSlide];
+            panSlide=nil;
+            
+            [self.view removeGestureRecognizer:tapSlide];
+            tapSlide=nil;
+            
+            leftSlideController=nil;
+            rightSlideController=nil;
+        }];
         
+        return;
+    }
+    
+    [UIView animateWithDuration:DURATION_DEFAULT animations:^{
         [self.leftSlideController l_c_setX:-self.l_v_w/2];
         [self.rightSlideController l_c_setX:self.l_v_w*1.5f];
         [self.previousViewController l_c_setX:self.l_v_w/2];
@@ -679,6 +717,8 @@ CALL_DEALLOC_LOG
 @end
 
 @implementation SGLeftViewController
+@synthesize  childController;
+
 @end
 
 @implementation SGRightViewController

@@ -30,9 +30,6 @@
     self.transform=CGAffineTransformMakeRotation(DEGREES_TO_RADIANS(45)*2);
     
     self.frame=rect;
-    
-//    imgv.layer.cornerRadius=imgv.layer.frame.size.width/2;
-//    imgv.layer.masksToBounds=true;
 }
 
 +(float)height
