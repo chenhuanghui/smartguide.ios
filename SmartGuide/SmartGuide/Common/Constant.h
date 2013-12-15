@@ -12,7 +12,7 @@
 #define VELOCITY_SLIDE 800.f
 
 #define DEFAULT_USER_ID 0
-#define DEFAULT_USER_ACCESS_TOKEN @"ABC"
+#define DEFAULT_USER_ACCESS_TOKEN @"abc"
 #define DEFAULT_USER_PHONE @"84987654321"
 #define DEFAULT_USER_ACTIVE_CODE @"1111"
 
@@ -81,6 +81,7 @@
 #define API_UPLOAD_FB_ACCESS_TOKEN @"user/facebook/access_token"
 #define API_GET_AVATARS @"user/avatar/get"
 #define API_NOTIFICATIONS(accessToken,version) [NSString stringWithFormat:@"notification?access_token=%@&version=%@",accessToken,version]
+#define API_STORE_ALL_STORE @"store/getAll"
 #define API_STORE_GET_LIST @"store/getList"
 #define API_STORE_GET_ITEMS @"store/getItem"
 

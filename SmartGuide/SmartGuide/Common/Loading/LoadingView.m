@@ -85,6 +85,8 @@
     
     LoadingView *loading=[[LoadingView alloc] initWithView:self];
     
+    [self addSubview:loading];
+    
     [UIView animateWithDuration:0.1f animations:^{
         loading.backgroundView.alpha=0.7f;
     }];

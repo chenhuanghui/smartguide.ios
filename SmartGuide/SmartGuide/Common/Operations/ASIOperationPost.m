@@ -35,7 +35,7 @@ static NSMutableArray *asioperations=nil;
     self.shouldContinueWhenAppEntersBackground=true;
     self.persistentConnectionTimeoutSeconds=60*5;
     self.responseEncoding=NSUTF8StringEncoding;
-    [self setValidatesSecureCertificate:true];
+    [self setValidatesSecureCertificate:false];
     
     self.sourceURL=urlCopy;
     

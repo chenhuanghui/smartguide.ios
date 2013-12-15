@@ -714,6 +714,16 @@ CALL_DEALLOC_LOG
     }];
 }
 
+-(void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated transition:(CATransition *)transition
+{
+    
+}
+
+-(UIViewController *)popViewControllerAnimated:(BOOL)animated transition:(CATransition *)transition
+{
+    return nil;
+}
+
 @end
 
 @implementation SGLeftViewController

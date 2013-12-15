@@ -5,5 +5,6 @@
 }
 
 +(StoreShop*) shopWithID:(int) idShop;
++(StoreShop*) makeWithDictionary:(NSDictionary*) dict;
 
 @end

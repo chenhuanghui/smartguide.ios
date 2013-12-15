@@ -34,7 +34,7 @@
     if([self isNullData:json])
         return;
     
-    Shop *shop=[Shop shopWithIDShop:[[self.values objectAtIndex:0] integerValue]];
+//    Shop *shop=[Shop shopWithIDShop:[[self.values objectAtIndex:0] integerValue]];
     
     for(NSDictionary *dict in json)
     {

@@ -32,6 +32,9 @@
 
 -(SGNavigationController*) initWithViewControllers:(NSArray*) controllers;
 
+-(void) pushViewController:(UIViewController *)viewController animated:(BOOL)animated transition:(CATransition*) transition;
+-(UIViewController *)popViewControllerAnimated:(BOOL)animated transition:(CATransition*) transition;
+
 -(void) setRootViewController:(UIViewController*) viewController animate:(bool) animate;
 -(void) showLeftSlideViewController:(UIViewController<LeftControllerCallback>*) viewController animate:(bool) animated;
 -(void) removeLeftSlideViewController;

@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "StoreShop.h"
 
 @interface StoreShopCell : UIView
 {
@@ -21,7 +22,7 @@
     __weak IBOutlet UIView *topRightView;
 }
 
--(void) loadWithShopName:(NSString*) name type:(NSString*) type count:(NSString*) count logo:(NSString*) logo;
+-(void) loadWithStore:(StoreShop*) store;
 -(void) emptyCell:(bool) isEmpty;
 
 +(NSString *)reuseIdentifier;

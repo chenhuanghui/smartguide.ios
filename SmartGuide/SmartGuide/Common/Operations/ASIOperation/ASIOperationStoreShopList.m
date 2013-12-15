@@ -45,41 +45,8 @@
     int countShop=10*page;
     for(NSDictionary *dict in json)
     {
-        int idShop=[[NSNumber numberWithObject:dict[@"idShop"]] integerValue];
-        StoreShop *store=[StoreShop shopWithID:idShop];
-        
-        if(!store)
-        {
-            store=[StoreShop insert];
-            store.idShop=@(idShop);
-        }
-        
-        [store removeAllLatestItems];
-        [store removeAllTopSellerItems];
-        
+        StoreShop *store=[StoreShop makeWithDictionary:dict];
         store.sortOrder=@(countShop++);
-        store.shopName=[NSString stringWithStringDefault:dict[@"shopName"]];
-        store.shopType=[NSString stringWithStringDefault:dict[@"shopType"]];
-        store.desc=[NSString stringWithStringDefault:dict[@"description"]];
-        store.condition=[NSString stringWithStringDefault:dict[@"condition"]];
-        store.conditionPair=[NSString stringWithStringDefault:dict[@"highlightKeywords"]];
-        store.total=[NSString stringWithStringDefault:dict[@"total"]];
-        
-        for(NSDictionary *dictItem in dict[@"latestItems"])
-        {
-            StoreShopItem *item=[StoreShopItem makeItemWithDictionary:dictItem];
-         
-            item.shopLatest=store;
-            [store addLatestItemsObject:item];
-        }
-        
-        for(NSDictionary *dictItem in dict[@"topSellerItems"])
-        {
-            StoreShopItem *item=[StoreShopItem makeItemWithDictionary:dictItem];
-            
-            item.shopTopSeller=store;
-            [store addTopSellerItemsObject:item];
-        }
         
         [shops addObject:store];
     }

@@ -13,8 +13,6 @@
     NSMutableArray *_pauseViews;
     NSMutableArray *_followViews;
     CGPoint _offset;
-    
-    bool _willRemoveFromSuperview;
 }
 
 -(CGPoint) offset;
@@ -24,6 +22,8 @@
 
 -(void) clearFollowViews;
 -(void) clearPauseViews;
+
+@property (nonatomic, assign) float minimumOffsetY;
 
 @end
 

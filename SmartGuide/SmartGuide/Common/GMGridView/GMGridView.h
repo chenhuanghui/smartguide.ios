@@ -26,6 +26,7 @@
 //  THE SOFTWARE.
 //
 
+#import "SGScrollView.h"
 #import <UIKit/UIKit.h>
 #import "GMGridView-Constants.h"
 #import "GMGridViewCell.h"
@@ -62,7 +63,7 @@ typedef enum
 #pragma mark Interface GMGridView
 //////////////////////////////////////////////////////////////
 
-@interface GMGridView : UIScrollView
+@interface GMGridView : SGScrollView
 
 // Delegates
 @property (nonatomic, gm_weak) IBOutlet NSObject<GMGridViewDataSource> *dataSource;                    // Required

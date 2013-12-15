@@ -10,6 +10,23 @@
 #import "Utility.h"
 
 @implementation SGScrollView
+@synthesize minimumOffsetY;
+
+- (id)init
+{
+    self = [super init];
+    if (self) {
+        minimumOffsetY=-1;
+    }
+    return self;
+}
+
+-(void)awakeFromNib
+{
+    [super awakeFromNib];
+    
+    minimumOffsetY=-1;
+}
 
 -(void)pauseView:(UIView *)view minY:(float)y
 {
@@ -62,13 +79,15 @@
 
 -(void)setContentOffset:(CGPoint)contentOffset
 {
+    if(minimumOffsetY!=-1)
+    {
+        contentOffset.y=MAX(minimumOffsetY, contentOffset.y);
+    }
+    
     _offset.x=contentOffset.x-self.contentOffset.x;
     _offset.y=contentOffset.y-self.contentOffset.y;
     
     [super setContentOffset:contentOffset];
-    
-    if(_willRemoveFromSuperview)
-        return;
     
     NSMutableArray *array=[NSMutableArray array];
     CGRect rect=CGRectZero;

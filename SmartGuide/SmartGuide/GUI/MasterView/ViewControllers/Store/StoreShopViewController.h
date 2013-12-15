@@ -10,9 +10,10 @@
 #import "GMGridView.h"
 #import "StoreCardViewController.h"
 #import "ASIOperationStoreShopList.h"
+#import "ASIOperationStoreAllStore.h"
 #import "StoreViewController.h"
 
-@class StoreShopScrollView, StoreViewController, StoreShopTableAds,StoreShopViewController;
+@class StoreShopScrollView, StoreViewController, StoreShopTableAds,StoreShopViewController,StoreShopListController;
 
 @protocol StoreShopControllerDelegate <SGViewControllerDelegate>
 
@@ -22,19 +23,30 @@
 
 @interface StoreShopViewController : SGViewController<UITableViewDelegate,UITableViewDataSource,GMGridViewActionDelegate,GMGridViewDataSource,ASIOperationPostDelegate,StoreControllerHandle>
 {
-    __weak IBOutlet StoreShopScrollView *scroll;
     __weak IBOutlet StoreShopTableAds *tableAds;
-    __weak IBOutlet GMGridView *tableShop;
+    __weak IBOutlet UIView *gridContainer;
+    __weak SGNavigationController *shopNavi;
+    StoreShopListController *shopLatest;
+    StoreShopListController *shopTopSellers;
+    
+    __weak GMGridView *gridLatest;
+    __weak GMGridView *gridTopSellers;
     
     CGRect _tableAdsFrame;
-    CGRect _tableShopFrame;
+    CGRect _gridLatestFrame;
+    CGRect _gridTopFrame;
+    CGRect _gridContainerFrame;
     
-    NSMutableArray *_shopsLastest;
+    NSMutableArray *_shopsLatest;
     NSMutableArray *_shopsTopSellers;
-    bool _canLoadMoreShopLastest;
+    bool _canLoadMoreShopLatest;
     bool _canLoadMoreTopSellers;
     
-    ASIOperationStoreShopList *_operationShopList;
+    NSUInteger _pageShopLatest;
+    NSUInteger _pageShopTopSellers;
+    ASIOperationStoreShopList *_operationShopsLatest;
+    ASIOperationStoreShopList *_operationShopsTopSellers;
+    ASIOperationStoreAllStore *_operationAllStore;
 }
 
 @property (nonatomic, weak) id<StoreShopControllerDelegate> delegate;
@@ -58,5 +70,14 @@
 }
 
 -(CGPoint) offset;
+
+@end
+
+@interface StoreShopListController : SGViewController
+{
+    __weak GMGridView *grid;
+}
+
+-(GMGridView*) gridView;
 
 @end

@@ -11,6 +11,8 @@
 #import "StoreShopCell.h"
 #import "StoreViewController.h"
 
+#define STORE_NUMBER_OF_ITEM_IN_GRID 4
+
 @interface StoreShopViewController ()
 
 @end
@@ -30,7 +32,17 @@
 -(void) storeRect
 {
     _tableAdsFrame=tableAds.frame;
-    _tableShopFrame=tableShop.frame;
+    _gridContainerFrame=gridContainer.frame;
+    _gridLatestFrame=gridLatest.frame;
+    _gridTopFrame=gridTopSellers.frame;
+}
+
+-(void)loadView
+{
+    [super loadView];
+    
+    shopLatest=[StoreShopListController new];
+    shopTopSellers=[StoreShopListController new];
 }
 
 - (void)viewDidLoad
@@ -38,13 +50,24 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    _shopsLastest=[[NSMutableArray alloc] init];
+    [shopLatest view];
+    [shopTopSellers view];
+    
+    gridLatest=[shopLatest gridView];
+    gridTopSellers=[shopTopSellers gridView];
+    
+    SGNavigationController *naviShop=[[SGNavigationController alloc] initWithRootViewController:shopLatest];
+    shopNavi=naviShop;
+    
+    [self addChildViewController:shopNavi];
+    
+    [gridContainer addSubview:shopNavi.view];
+    [shopNavi l_v_setS:gridContainer.l_v_s];
+    
+    _shopsLatest=[[NSMutableArray alloc] init];
     _shopsTopSellers=[[NSMutableArray alloc] init];
     
-    _canLoadMoreShopLastest=true;
-    _canLoadMoreTopSellers=true;
-    
-    scroll.minContentOffsetY=-80;
+    //    scroll.minContentOffsetY=-80;
     
     CGRect rect=tableAds.frame;
     tableAds.transform=CGAffineTransformMakeRotation(DEGREES_TO_RADIANS(45)*6);
@@ -57,42 +80,70 @@
     
     [tableAds reloadData];
     
-//    [tableShop registerNib:[UINib nibWithNibName:[StoreShopCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[StoreShopCell reuseIdentifier]];
-//
-    GMGridViewLayoutVerticalStrategy *ver=[GMGridViewLayoutStrategyFactory strategyFromType:GMGridViewLayoutVertical];
-    
-    tableShop.style=GMGridViewStylePush;
-    tableShop.layoutStrategy=ver;
-    tableShop.itemSpacing=0;
-    tableShop.centerGrid=false;
-    tableShop.minEdgeInsets=UIEdgeInsetsZero;
-    tableShop.layer.masksToBounds=true;
-    
-    tableShop.actionDelegate=self;
-    tableShop.dataSource=self;
-    
     [self storeRect];
     
-    [scroll l_cs_setH:tableShop.l_v_y+tableShop.l_cs_h];
-    tableShop.contentSize=tableShop.l_v_s;
+    [self requestAllStore];
     
-//    UITapGestureRecognizer *tap=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapShop:)];
-//    
-//    [scroll addGestureRecognizer:tap];
-//    [scroll.panGestureRecognizer requireGestureRecognizerToFail:tap];
+    gridTopSellers.delegate=self;
+    gridLatest.delegate=self;
     
-    _operationShopList=[[ASIOperationStoreShopList alloc] initWithUserLat:userLat() userLng:userLng() sort:SORT_STORE_SHOP_LIST_LATEST page:0];
-    _operationShopList.delegate=self;
+    _pageShopLatest=0;
+    _pageShopTopSellers=0;
     
-    [_operationShopList startAsynchronous];
+    gridTopSellers.minimumOffsetY=-storeController.rayViewFrame.size.height+12;
+    gridLatest.minimumOffsetY=-storeController.rayViewFrame.size.height+12;
+}
+
+-(void) requestStoresWithType:(enum SORT_STORE_SHOP_LIST_TYPE) sort
+{
+    switch (sort) {
+        case SORT_STORE_SHOP_LIST_LATEST:
+        {
+            if(_operationShopsLatest)
+                return;
+            
+            _operationShopsLatest=[[ASIOperationStoreShopList alloc] initWithUserLat:userLat() userLng:userLng() sort:SORT_STORE_SHOP_LIST_LATEST page:_pageShopLatest+1];
+            _operationShopsLatest.delegatePost=self;
+            
+            [_operationShopsLatest startAsynchronous];
+        }
+            break;
+            
+        case SORT_STORE_SHOP_LIST_TOP_SELLER:
+        {
+            if(_operationShopsTopSellers)
+                return;
+            
+            _operationShopsTopSellers=[[ASIOperationStoreShopList alloc] initWithUserLat:userLat() userLng:userLng() sort:SORT_STORE_SHOP_LIST_LATEST page:_pageShopTopSellers+1];
+            _operationShopsLatest.delegatePost=self;
+            
+            [_operationShopsLatest startAsynchronous];
+        }
+            break;
+    }
+}
+
+-(void) requestAllStore
+{
+    _canLoadMoreTopSellers=false;
+    _canLoadMoreShopLatest=false;
     
-    [self.view showLoading];
+    _shopsTopSellers=[[NSMutableArray alloc] init];
+    _shopsLatest=[[NSMutableArray alloc] init];
+    
+    gridLatest.dataSource=self;
+    gridTopSellers.dataSource=self;
+    
+    _operationAllStore=[[ASIOperationStoreAllStore alloc] initWithUserLat:userLat() withUserLng:userLng()];
+    _operationAllStore.delegatePost=self;
+    
+    [_operationAllStore startAsynchronous];
+    
+    [shopNavi.view showLoading];
 }
 
 -(void)ASIOperaionPostFinished:(ASIOperationPost *)operation
 {
-    [self.view removeLoading];
-    
     if([operation isKindOfClass:[ASIOperationStoreShopList class]])
     {
         ASIOperationStoreShopList *ope=(ASIOperationStoreShopList*) operation;
@@ -110,25 +161,43 @@
             case SORT_STORE_SHOP_LIST_LATEST:
                 break;
         }
+    }
+    else if([operation isKindOfClass:[ASIOperationStoreAllStore class]])
+    {
+        [shopNavi.view removeLoading];
         
-        _operationShopList=nil;
+        ASIOperationStoreAllStore *ope=(ASIOperationStoreAllStore*)operation;
+        
+        [_shopsLatest addObjectsFromArray:ope.shopsLatest];
+        [_shopsTopSellers addObjectsFromArray:ope.shopsTopSellers];
+        
+        _canLoadMoreShopLatest=_shopsLatest.count==10;
+        _canLoadMoreTopSellers=_shopsTopSellers.count==10;
+        
+        [gridLatest reloadData];
+        [gridTopSellers reloadData];
+        
+        _operationAllStore=nil;
     }
 }
 
 -(void)ASIOperaionPostFailed:(ASIOperationPost *)operation
 {
-    [self.view removeLoading];
+    [shopNavi.view removeLoading];
     
     if([operation isKindOfClass:[ASIOperationStoreShopList class]])
     {
-        _operationShopList=nil;
+    }
+    else if([operation isKindOfClass:[ASIOperationStoreAllStore class]])
+    {
+        _operationAllStore=nil;
     }
 }
 
 -(void) tapShop:(UITapGestureRecognizer*) tap
 {
-//    CGPoint pnt=[tap locationInView:tableShop];
-//    [tableShop tapGestureUpdated:tap];
+    //    CGPoint pnt=[tap locationInView:tableShop];
+    //    [tableShop tapGestureUpdated:tap];
 }
 
 - (void)didReceiveMemoryWarning
@@ -139,27 +208,21 @@
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    if(scrollView==scroll)
+    if(scrollView==gridLatest|| scrollView==gridTopSellers)
     {
         if(scrollView.l_co_y<0)
         {
-            [tableShop l_v_setY:_tableShopFrame.origin.y+scroll.l_co_y];
-            [tableShop l_co_setY:scroll.l_co_y];
-            
-            [tableAds l_v_setY:scroll.contentOffset.y/4];
             [self.storeController.rayView l_v_setY:self.storeController.rayViewFrame.origin.y-scrollView.l_co_y];
             [self.storeController.bgView l_v_setH:self.storeController.bgViewFrame.size.height-scrollView.l_co_y];
-            [self.storeController.bgImageView l_v_setY:scroll.contentOffset.y/6];
+            [self.storeController.bgImageView l_v_setY:scrollView.contentOffset.y/6];
         }
         else
         {
             [self.storeController.rayView l_v_setY:self.storeController.rayViewFrame.origin.y];
             [self.storeController.bgView l_v_setH:self.storeController.bgViewFrame.size.height];
+            [self.storeController.bgImageView l_v_setY:self.storeController.bgImageViewFrame.origin.y];
             
-            [tableAds l_v_setY:_tableAdsFrame.origin.y+scroll.l_co_y];
-            
-            [tableShop l_v_setY:_tableShopFrame.origin.y+scroll.l_co_y];
-            [tableShop l_co_setY:scroll.l_co_y];
+            [tableAds l_v_setY:_tableAdsFrame.origin.y];
         }
     }
     else if(scrollView==tableAds)
@@ -185,14 +248,25 @@
 
 -(NSInteger)numberOfItemsInGMGridView:(GMGridView *)gridView
 {
-    return 0;
+    int count=0;
+    
+    if(gridView==gridLatest)
+        count=_shopsLatest.count;
+    else if(gridView==gridTopSellers)
+        count=_shopsTopSellers.count;
+    
+    while (count%STORE_NUMBER_OF_ITEM_IN_GRID!=0) {
+        count++;
+    }
+    
+    return count;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if(tableView==tableAds)
         return tableView.l_v_w;
-
+    
     return 0;
 }
 
@@ -224,8 +298,20 @@
     }
     
     StoreShopCell *shopCell=(StoreShopCell*)cell.contentView;
+    StoreShop *store=nil;
     
-//    [shopCell emptyCell:index>=_shops.count];
+    if(gridView==gridLatest)
+    {
+        if(index<_shopsLatest.count)
+            store=_shopsLatest[index];
+    }
+    else if(gridView==gridTopSellers)
+    {
+        if(index<_shopsTopSellers.count)
+            store=_shopsTopSellers[index];
+    }
+    
+    [shopCell loadWithStore:store];
     
     return cell;
 }
@@ -237,12 +323,13 @@
 
 -(void)storeControllerButtonLatestTouched:(UIButton *)btn
 {
-    
+    [shopNavi popToRootViewControllerAnimated:true];
 }
 
 -(void)storeControllerButtonTopSellersTouched:(UIButton *)btn
 {
-    
+    if(![shopNavi.viewControllers containsObject:shopTopSellers])
+        [shopNavi pushViewController:shopTopSellers animated:true];
 }
 
 @end
@@ -296,6 +383,37 @@
 -(CGPoint)offset
 {
     return _offset;
+}
+
+@end
+
+@implementation StoreShopListController
+
+-(GMGridView *)gridView
+{
+    return grid;
+}
+
+-(void)loadView
+{
+    [super loadView];
+    
+    self.view.autoresizingMask=UIViewAutoresizingFlexibleBottomMargin|UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin|UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleWidth;
+    
+    GMGridView *gv=[[GMGridView alloc] initWithFrame:CGRectMake(0, 0, self.l_v_w, self.l_v_h)];
+    gv.autoresizingMask=UIViewAutoresizingFlexibleBottomMargin|UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin|UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleWidth;
+    
+    gv.style=GMGridViewStylePush;
+    gv.layoutStrategy=[GMGridViewLayoutStrategyFactory strategyFromType:GMGridViewLayoutVertical];
+    gv.itemSpacing=0;
+    gv.centerGrid=false;
+    gv.minEdgeInsets=UIEdgeInsetsZero;
+    gv.layer.masksToBounds=true;
+    gv.backgroundColor=[UIColor clearColor];
+    
+    grid=gv;
+    
+    [self.view addSubview:gv];
 }
 
 @end

@@ -18,9 +18,16 @@
     return self;
 }
 
--(void)loadWithShopName:(NSString *)name type:(NSString *)type count:(NSString *)count logo:(NSString *)logo
+-(void)loadWithStore:(StoreShop *)store
 {
-    
+    if(store)
+    {
+        [self emptyCell:false];
+    }
+    else
+    {
+        [self emptyCell:true];
+    }
 }
 
 -(void)emptyCell:(bool)isEmpty

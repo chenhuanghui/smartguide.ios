@@ -173,6 +173,21 @@
     }];
 }
 
+-(IBAction) btnLatestTouchUpInside:(id)sender
+{
+    [[self visibleController] storeControllerButtonLatestTouched:sender];
+}
+
+-(SGViewController<StoreControllerHandle>*) visibleController
+{
+    return (SGViewController<StoreControllerHandle>*)storeNavigation.visibleViewController;
+}
+
+-(IBAction) btnTopSellersTouchUpInside:(id)sender
+{
+    [[self visibleController] storeControllerButtonTopSellersTouched:sender];
+}
+
 @end
 
 @implementation StoreScrollView
