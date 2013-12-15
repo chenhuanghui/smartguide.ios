@@ -8,6 +8,7 @@
 
 #import "StoreShopCell.h"
 #import "Utility.h"
+#import "ImageManager.h"
 
 @implementation StoreShopCell
 
@@ -21,10 +22,17 @@
 -(void)loadWithStore:(StoreShop *)store
 {
     indicator.hidden=true;
+    _store=store;
     
     if(store)
     {
         [self emptyCell:false];
+        
+        lblCount.text=store.total;
+        lblShopName.text=store.shopName;
+        lblType.text=store.shopType;
+        
+        [imgvLogo loadStoreLogoWithURL:store.logo];
     }
     else
     {
@@ -34,6 +42,7 @@
 
 -(void)emptyCell:(bool)isEmpty
 {
+    _store=nil;
     for(UIView *v in self.subviews)
     {
         if(v==imgvLineVer || v==imgvHor1 || v==imgvHor2 || v==indicator)
@@ -55,6 +64,11 @@
     [UIView animateWithDuration:0.1f animations:^{
         indicator.alpha=1;
     }];
+}
+
+-(StoreShop *)store
+{
+    return _store;
 }
 
 -(void)didMoveToSuperview

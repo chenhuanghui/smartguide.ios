@@ -50,11 +50,20 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
+    _willReloadGridLatest=false;
+    _willReloadGridTopSellers=false;
+    
     [shopLatest view];
     [shopTopSellers view];
     
+    shopLatest.view.backgroundColor=[UIColor color255WithRed:235 green:235 blue:235 alpha:255];
+    shopTopSellers.view.backgroundColor=[UIColor color255WithRed:235 green:235 blue:235 alpha:255];
+    
     gridLatest=[shopLatest gridView];
     gridTopSellers=[shopTopSellers gridView];
+    
+    gridLatest.backgroundColor=[UIColor clearColor];
+    gridTopSellers.backgroundColor=[UIColor clearColor];
     
     SGNavigationController *naviShop=[[SGNavigationController alloc] initWithRootViewController:shopLatest];
     shopNavi=naviShop;
@@ -86,12 +95,53 @@
     
     gridTopSellers.delegate=self;
     gridLatest.delegate=self;
+    gridTopSellers.actionDelegate=self;
+    gridLatest.actionDelegate=self;
     
     _pageShopLatest=0;
     _pageShopTopSellers=0;
     
     gridTopSellers.minimumOffsetY=-storeController.rayViewFrame.size.height+12;
     gridLatest.minimumOffsetY=-storeController.rayViewFrame.size.height+12;
+    
+    [gridTopSellers.panGestureRecognizer addTarget:self action:@selector(gridTopSellersPanGes:)];
+    [gridLatest.panGestureRecognizer addTarget:self action:@selector(gridLatestPanGes:)];
+}
+
+-(void) gridTopSellersPanGes:(UIPanGestureRecognizer*) pan
+{
+    switch (pan.state) {
+        case UIGestureRecognizerStateEnded:
+        case UIGestureRecognizerStateCancelled:
+        case UIGestureRecognizerStateFailed:
+            if(_willReloadGridTopSellers)
+            {
+                _willReloadGridTopSellers=false;
+                [gridTopSellers reloadData];
+            }
+            break;
+            
+        default:
+            break;
+    }
+}
+
+-(void) gridLatestPanGes:(UIPanGestureRecognizer*) pan
+{
+    switch (pan.state) {
+        case UIGestureRecognizerStateEnded:
+        case UIGestureRecognizerStateCancelled:
+        case UIGestureRecognizerStateFailed:
+            if(_willReloadGridLatest)
+            {
+                _willReloadGridLatest=false;
+                [gridLatest reloadData];
+            }
+            break;
+            
+        default:
+            break;
+    }
 }
 
 -(void) requestStoresWithType:(enum SORT_STORE_SHOP_LIST_TYPE) sort
@@ -114,10 +164,10 @@
             if(_operationShopsTopSellers)
                 return;
             
-            _operationShopsTopSellers=[[ASIOperationStoreShopList alloc] initWithUserLat:userLat() userLng:userLng() sort:SORT_STORE_SHOP_LIST_LATEST page:_pageShopTopSellers+1];
-            _operationShopsLatest.delegatePost=self;
+            _operationShopsTopSellers=[[ASIOperationStoreShopList alloc] initWithUserLat:userLat() userLng:userLng() sort:SORT_STORE_SHOP_LIST_TOP_SELLER page:_pageShopTopSellers+1];
+            _operationShopsTopSellers.delegatePost=self;
             
-            [_operationShopsLatest startAsynchronous];
+            [_operationShopsTopSellers startAsynchronous];
         }
             break;
     }
@@ -152,13 +202,25 @@
             case SORT_STORE_SHOP_LIST_TOP_SELLER:
             {
                 [_shopsTopSellers addObjectsFromArray:ope.shops];
-                
-                
                 _canLoadMoreTopSellers=ope.shops.count==10;
+                _pageShopTopSellers++;
+                
+                [gridTopSellers reloadData];
+                
+                _operationShopsTopSellers=nil;
             }
                 break;
                 
             case SORT_STORE_SHOP_LIST_LATEST:
+            {
+                [_shopsLatest addObjectsFromArray:ope.shops];
+                _canLoadMoreShopLatest=ope.shops.count==10;
+                _pageShopLatest++;
+                
+                [gridLatest reloadData];
+                
+                _operationShopsLatest=nil;
+            }
                 break;
         }
     }
@@ -187,6 +249,25 @@
     
     if([operation isKindOfClass:[ASIOperationStoreShopList class]])
     {
+        ASIOperationStoreShopList *ope=(ASIOperationStoreShopList*) operation;
+        
+        switch (ope.sortType) {
+            case SORT_STORE_SHOP_LIST_LATEST:
+                _operationShopsLatest=nil;
+                _canLoadMoreShopLatest=false;
+                
+                [gridLatest reloadData];
+                
+                break;
+                
+            case SORT_STORE_SHOP_LIST_TOP_SELLER:
+                _operationShopsTopSellers=nil;
+                _canLoadMoreTopSellers=false;
+                
+                [gridTopSellers reloadData];
+                
+                break;
+        }
     }
     else if([operation isKindOfClass:[ASIOperationStoreAllStore class]])
     {
@@ -294,41 +375,80 @@
     if(!cell)
     {
         cell=[[GMGridViewCell alloc] initWithFrame:CGRectMake(0, 0, 163, 131)];
+        cell.backgroundColor=[UIColor clearColor];
         cell.contentView=[StoreShopCell new];
     }
     
     StoreShopCell *shopCell=(StoreShopCell*)cell.contentView;
     StoreShop *store=nil;
+    bool needRequestLoadMore=false;
+    
     bool isLoadingCell=false;
     
     if(gridView==gridLatest)
     {
         if(index<_shopsLatest.count)
+        {
             store=_shopsLatest[index];
-        else if(_canLoadMoreShopLatest)
-            isLoadingCell=true;
             
+            if(index==_shopsLatest.count-1 && _canLoadMoreShopLatest)
+                needRequestLoadMore=true;
+        }
+        else if(_canLoadMoreShopLatest)
+        {
+            isLoadingCell=true;
+            needRequestLoadMore=true;
+        }
+        
     }
     else if(gridView==gridTopSellers)
     {
         if(index<_shopsTopSellers.count)
+        {
             store=_shopsTopSellers[index];
+            
+            if(index==_shopsTopSellers.count-1 && _canLoadMoreTopSellers)
+                needRequestLoadMore=true;
+        }
         else if(_canLoadMoreTopSellers)
+        {
             isLoadingCell=true;
+            needRequestLoadMore=true;
+        }
     }
     
-    
     if(isLoadingCell)
+    {
         [shopCell loadingCell];
+    }
     else
         [shopCell loadWithStore:store];
+    
+    if(needRequestLoadMore)
+    {
+        if(gridView==gridTopSellers)
+        {
+            [self requestStoresWithType:SORT_STORE_SHOP_LIST_TOP_SELLER];
+        }
+        else if(gridView==gridLatest)
+        {
+            [self requestStoresWithType:SORT_STORE_SHOP_LIST_LATEST];
+        }
+    }
     
     return cell;
 }
 
 -(void)GMGridView:(GMGridView *)gridView didTapOnItemAtIndex:(NSInteger)position
 {
-    [self.delegate storeShopControllerTouchedShop:self];
+    StoreShop *store=nil;
+    GMGridViewCell *cell=[gridView cellForItemAtIndex:position];
+    StoreShopCell *storeCell=(StoreShopCell*)cell.contentView;
+    
+    store=storeCell.store;
+    
+    if(store)
+        [self.storeController showShop:store];
 }
 
 -(void)storeControllerButtonLatestTouched:(UIButton *)btn
@@ -375,7 +495,7 @@
         }
         
         count--;
-        double delayInSeconds = count*duration;
+        double delayInSeconds = count*duration-duration*2;
         dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
         dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
             [self.storeController enableTouch];
@@ -402,7 +522,7 @@
                 count++;
             }
         }
-
+        
         count--;
         double delayInSeconds = count*duration-duration*3;
         dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
@@ -425,7 +545,7 @@
             }
             
             count--;
-            double delayInSeconds = count*duration;
+            double delayInSeconds = count*duration-duration*2;
             dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
             dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
                 [self.storeController enableTouch];
@@ -516,6 +636,7 @@
     grid=gv;
     
     [self.view addSubview:gv];
+    self.view.backgroundColor=[UIColor clearColor];
 }
 
 @end

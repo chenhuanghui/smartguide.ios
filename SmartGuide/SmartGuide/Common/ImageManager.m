@@ -59,4 +59,9 @@ static ImageManager *_imageManager=nil;
     
 }
 
+-(void)loadStoreLogoWithURL:(NSString *)url
+{
+    
+}
+
 @end

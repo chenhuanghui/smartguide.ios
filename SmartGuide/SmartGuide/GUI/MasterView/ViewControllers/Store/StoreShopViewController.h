@@ -47,6 +47,9 @@
     ASIOperationStoreShopList *_operationShopsLatest;
     ASIOperationStoreShopList *_operationShopsTopSellers;
     ASIOperationStoreAllStore *_operationAllStore;
+    
+    bool _willReloadGridLatest;
+    bool _willReloadGridTopSellers;
 }
 
 @property (nonatomic, weak) id<StoreShopControllerDelegate> delegate;

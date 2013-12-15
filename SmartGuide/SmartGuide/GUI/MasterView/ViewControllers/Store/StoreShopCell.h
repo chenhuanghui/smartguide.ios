@@ -21,11 +21,14 @@
     __weak IBOutlet UIImageView *imgvLogo;
     __weak IBOutlet UIView *topRightView;
     __weak IBOutlet UIActivityIndicatorView *indicator;
+    
+    __weak StoreShop *_store;
 }
 
 -(void) loadWithStore:(StoreShop*) store;
 -(void) emptyCell:(bool) isEmpty;
 -(void) loadingCell;
+-(StoreShop*) store;
 
 +(NSString *)reuseIdentifier;
 +(CGSize) smallSize;

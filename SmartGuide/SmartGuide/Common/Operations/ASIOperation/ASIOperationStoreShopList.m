@@ -32,10 +32,10 @@
     shops=[NSMutableArray array];
     int sort=[values[2] integerValue];
     
-    sortType=SORT_STORE_SHOP_LIST_TOP_SELLER;
+    sortType=SORT_STORE_SHOP_LIST_LATEST;
     
-    if(sort==SORT_STORE_SHOP_LIST_LATEST)
-        sortType=SORT_STORE_SHOP_LIST_LATEST;
+    if(sort==SORT_STORE_SHOP_LIST_TOP_SELLER)
+        sortType=SORT_STORE_SHOP_LIST_TOP_SELLER;
     
     if([self isNullData:json])
         return;
