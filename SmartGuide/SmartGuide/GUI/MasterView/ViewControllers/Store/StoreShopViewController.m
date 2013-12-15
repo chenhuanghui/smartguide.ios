@@ -299,19 +299,29 @@
     
     StoreShopCell *shopCell=(StoreShopCell*)cell.contentView;
     StoreShop *store=nil;
+    bool isLoadingCell=false;
     
     if(gridView==gridLatest)
     {
         if(index<_shopsLatest.count)
             store=_shopsLatest[index];
+        else if(_canLoadMoreShopLatest)
+            isLoadingCell=true;
+            
     }
     else if(gridView==gridTopSellers)
     {
         if(index<_shopsTopSellers.count)
             store=_shopsTopSellers[index];
+        else if(_canLoadMoreTopSellers)
+            isLoadingCell=true;
     }
     
-    [shopCell loadWithStore:store];
+    
+    if(isLoadingCell)
+        [shopCell loadingCell];
+    else
+        [shopCell loadWithStore:store];
     
     return cell;
 }
@@ -323,13 +333,105 @@
 
 -(void)storeControllerButtonLatestTouched:(UIButton *)btn
 {
-    [shopNavi popToRootViewControllerAnimated:true];
+    if(shopNavi.viewControllers.count==1)
+        return;
+    
+    int count=1;
+    float duration=0.3f;
+    [self.storeController disableTouch];
+    
+    for(int i=gridTopSellers.subviews.count-1;i>=0;i--)
+    {
+        GMGridViewCell *cell=gridTopSellers.subviews[i];
+        
+        if([cell isKindOfClass:[GMGridViewCell class]])
+        {
+            [UIView animateWithDuration:duration*count animations:^{
+                cell.alpha=0;
+            }];
+            
+            count++;
+        }
+    }
+    
+    count--;
+    double delayInSeconds = count*duration-duration*3;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        [shopNavi popToRootViewControllerAnimated:false];
+        
+        int count=1;
+        for(GMGridViewCell *cell in gridLatest.subviews)
+        {
+            if([cell isKindOfClass:[GMGridViewCell class]])
+            {
+                cell.alpha=0;
+                [UIView animateWithDuration:duration*count animations:^{
+                    cell.alpha=1;
+                }];
+                
+                count++;
+            }
+        }
+        
+        count--;
+        double delayInSeconds = count*duration;
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+            [self.storeController enableTouch];
+        });
+    });
 }
 
 -(void)storeControllerButtonTopSellersTouched:(UIButton *)btn
 {
     if(![shopNavi.viewControllers containsObject:shopTopSellers])
-        [shopNavi pushViewController:shopTopSellers animated:true];
+    {
+        [self.storeController disableTouch];
+        
+        int count=1;
+        float duration=0.3f;
+        for(GMGridViewCell *cell in gridLatest.subviews)
+        {
+            if([cell isKindOfClass:[GMGridViewCell class]])
+            {
+                [UIView animateWithDuration:duration*count animations:^{
+                    cell.alpha=0;
+                }];
+                
+                count++;
+            }
+        }
+
+        count--;
+        double delayInSeconds = count*duration-duration*3;
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+            [shopNavi pushViewController:shopTopSellers animated:false];
+            
+            int count=1;
+            for(int i=gridTopSellers.subviews.count-1;i>=0;i--)
+            {
+                GMGridViewCell *cell=gridTopSellers.subviews[i];
+                if([cell isKindOfClass:[GMGridViewCell class]])
+                {
+                    cell.alpha=0;
+                    [UIView animateWithDuration:duration*count animations:^{
+                        cell.alpha=1;
+                    }];
+                    
+                    count++;
+                }
+            }
+            
+            count--;
+            double delayInSeconds = count*duration;
+            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+            dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+                [self.storeController enableTouch];
+            });
+        });
+    }
 }
 
 @end

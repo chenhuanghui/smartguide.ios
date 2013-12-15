@@ -20,10 +20,12 @@
     __weak IBOutlet UILabel *lblType;
     __weak IBOutlet UIImageView *imgvLogo;
     __weak IBOutlet UIView *topRightView;
+    __weak IBOutlet UIActivityIndicatorView *indicator;
 }
 
 -(void) loadWithStore:(StoreShop*) store;
 -(void) emptyCell:(bool) isEmpty;
+-(void) loadingCell;
 
 +(NSString *)reuseIdentifier;
 +(CGSize) smallSize;

@@ -188,6 +188,16 @@
     [[self visibleController] storeControllerButtonTopSellersTouched:sender];
 }
 
+-(void)enableTouch
+{
+    self.view.userInteractionEnabled=true;
+}
+
+-(void)disableTouch
+{
+    self.view.userInteractionEnabled=false;
+}
+
 @end
 
 @implementation StoreScrollView

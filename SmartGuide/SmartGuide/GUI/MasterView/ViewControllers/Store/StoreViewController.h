@@ -47,6 +47,8 @@
 }
 
 -(void) showShop:(StoreShop*) shop;
+-(void) enableTouch;
+-(void) disableTouch;
 
 -(UIView*) rayView;
 -(CGRect) rayViewFrame;

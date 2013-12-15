@@ -71,6 +71,10 @@
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
+                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" id="OK4-hL-MJ8">
+                    <rect key="frame" x="72" y="55" width="20" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                </activityIndicatorView>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
@@ -80,6 +84,7 @@
                 <outlet property="imgvHor2" destination="FCA-R6-cu7" id="yU0-ge-dXk"/>
                 <outlet property="imgvLineVer" destination="aEL-A5-EVK" id="lFv-zU-GP5"/>
                 <outlet property="imgvLogo" destination="v1b-Q8-ckI" id="Zbc-Vk-Ak2"/>
+                <outlet property="indicator" destination="OK4-hL-MJ8" id="19J-OH-KSx"/>
                 <outlet property="lblCount" destination="Nf4-QJ-5nG" id="sOz-DG-N9G"/>
                 <outlet property="lblShopName" destination="t0f-i7-ff4" id="oWA-Fm-rKK"/>
                 <outlet property="lblType" destination="yzT-h3-byl" id="g0P-I2-Spa"/>

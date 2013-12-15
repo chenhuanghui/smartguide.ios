@@ -20,6 +20,8 @@
 
 -(void)loadWithStore:(StoreShop *)store
 {
+    indicator.hidden=true;
+    
     if(store)
     {
         [self emptyCell:false];
@@ -34,11 +36,25 @@
 {
     for(UIView *v in self.subviews)
     {
-        if(v==imgvLineVer || v==imgvHor1 || v==imgvHor2)
+        if(v==imgvLineVer || v==imgvHor1 || v==imgvHor2 || v==indicator)
             continue;
         
         v.hidden=isEmpty;
     }
+}
+
+-(void)loadingCell
+{
+    [self emptyCell:true];
+    
+    indicator.alpha=0;
+    indicator.hidden=false;
+    
+    [indicator startAnimating];
+    
+    [UIView animateWithDuration:0.1f animations:^{
+        indicator.alpha=1;
+    }];
 }
 
 -(void)didMoveToSuperview
