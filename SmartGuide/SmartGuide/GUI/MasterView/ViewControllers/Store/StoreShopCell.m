@@ -22,7 +22,6 @@
 -(void)loadWithStore:(StoreShop *)store
 {
     indicator.hidden=true;
-    _store=store;
     
     if(store)
     {
@@ -33,6 +32,8 @@
         lblType.text=store.shopType;
         
         [imgvLogo loadStoreLogoWithURL:store.logo];
+        
+        _store=store;
     }
     else
     {

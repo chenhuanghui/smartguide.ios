@@ -421,8 +421,10 @@
     {
         [shopCell loadingCell];
     }
-    else
+    else if(store)
         [shopCell loadWithStore:store];
+    else
+        [shopCell emptyCell:true];
     
     if(needRequestLoadMore)
     {
