@@ -17,10 +17,11 @@
 
 @interface StoreShopInfoViewController : SGViewController<GMGridViewActionDelegate,GMGridViewDataSource,UIScrollViewDelegate,StoreControllerHandle,ASIOperationPostDelegate>
 {
-    __weak IBOutlet StoreShopInfoScrollView *scroll;
     __weak IBOutlet UIView *topView;
     __weak GMGridView *gridLatest;
     __weak GMGridView *gridTopSellers;
+    __weak SGScrollView *scrollLatest;
+    __weak SGScrollView *scrollTopSellers;
     __weak IBOutlet UILabel *lblNameBot;
     __weak IBOutlet UIView *gridContainer;
     __weak IBOutlet UIImageView *imgvShopLogo;
@@ -46,6 +47,7 @@
     
     __weak StoreShop *_store;
 
+    CGPoint _scrollOffset;
 }
 
 -(StoreShopInfoViewController*) initWithStore:(StoreShop*) store;
@@ -65,8 +67,15 @@
 @interface StoreItemListController : SGViewController
 {
     __weak GMGridView *grid;
+    __weak SGScrollView *scroll;
+    CGRect _gridFrame;
 }
 
+-(StoreItemListController*) initWithFrame:(CGRect) rect;
+
 -(GMGridView*) gridView;
+-(CGRect) gridFrame;
+-(SGScrollView*) scroll;
+-(void) makeScrollSize;
 
 @end

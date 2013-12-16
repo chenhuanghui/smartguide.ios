@@ -92,7 +92,7 @@
     
     StoreShopInfoViewController *vc=(StoreShopInfoViewController*)storeNavigation.visibleViewController;
     
-    [vc prepareOnBack];
+    //[vc prepareOnBack];
     
     [UIView animateWithDuration:0.1f animations:^{
         rayView.frame=_rayViewFrame;

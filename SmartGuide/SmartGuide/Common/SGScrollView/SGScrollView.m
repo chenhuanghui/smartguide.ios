@@ -21,6 +21,15 @@
     return self;
 }
 
+-(id)initWithFrame:(CGRect)frame
+{
+    self=[super initWithFrame:frame];
+    
+    minimumOffsetY=-1;
+    
+    return self;
+}
+
 -(void)awakeFromNib
 {
     [super awakeFromNib];

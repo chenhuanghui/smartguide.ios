@@ -34,9 +34,6 @@
 -(void)loadView
 {
     [super loadView];
-    
-    itemLatest=[StoreItemListController new];
-    itemTopSellers=[StoreItemListController new];
 }
 
 -(void) storeRect
@@ -53,8 +50,6 @@
     _itemLastest=[_store.latestItemsObjects mutableCopy];
     _itemTopSellers=[_store.topSellerItemsObjects mutableCopy];
     
-    NSLog(@"%i %i",_itemLastest.count,_itemTopSellers.count);
-    
     _canLoadMoreLatest=_itemTopSellers.count==10;
     _canLoadMoreTopSellers=_itemTopSellers.count==10;
     
@@ -64,6 +59,9 @@
     lblShopDesc.text=_store.desc;
     lblNameBot.text=_store.shopName;
     
+    itemLatest=[[StoreItemListController alloc] initWithFrame:gridContainer.frame];
+    itemTopSellers=[[StoreItemListController alloc] initWithFrame:gridContainer.frame];
+    
     [itemLatest view];
     [itemTopSellers view];
     
@@ -71,18 +69,28 @@
     
     itemNavi=navi;
     
-    [gridContainer l_v_setH:self.l_v_h-storeController.rayViewFrame.size.height];
-    
     [self addChildViewController:navi];
     [gridContainer addSubview:navi.view];
     [navi l_v_setS:gridContainer.l_v_s];
     
     gridLatest=itemLatest.gridView;
     gridTopSellers=itemTopSellers.gridView;
+    scrollLatest=itemLatest.scroll;
+    scrollTopSellers=itemTopSellers.scroll;
+    
+    scrollLatest.delegate=self;
+    scrollTopSellers.delegate=self;
     
     [self storeRect];
     
-    scroll.minimumOffsetY=-storeController.rayViewFrame.size.height+12;
+    scrollLatest.minimumOffsetY=-storeController.rayViewFrame.size.height+12;
+    scrollTopSellers.minimumOffsetY=-storeController.rayViewFrame.size.height+12;
+    
+    itemNavi.view.backgroundColor=[UIColor clearColor];
+    gridLatest.backgroundColor=[UIColor clearColor];
+    gridTopSellers.backgroundColor=[UIColor clearColor];
+    itemLatest.view.backgroundColor=[UIColor clearColor];
+    itemTopSellers.view.backgroundColor=[UIColor clearColor];
     
     gridLatest.dataSource=self;
     gridLatest.actionDelegate=self;
@@ -91,7 +99,9 @@
     gridTopSellers.actionDelegate=self;
     gridTopSellers.delegate=self;
     
-    [self makeScrollSize];
+    [itemLatest makeScrollSize];
+    [itemTopSellers makeScrollSize];
+    
 //    [scroll pauseView:self.storeController.rayView minY:STORE_RAY_MIN_Y];
 //    [scroll pauseView:gridContainer minY:self.storeController.rayViewFrame.origin.y-STORE_RAY_MIN_Y-8];
 //    [scroll followView:self.storeController.rayView];
@@ -99,16 +109,7 @@
 //    [scroll pauseView:lblNameBot minY:7];
 }
 
--(void) makeScrollSize
-{
-    GMGridView *grid=[self currentGrid];
-    
-    float height=_gridContainerFrame.origin.y+[grid.layoutStrategy contentSize].height/2;
-    
-    height=MAX(scroll.l_v_h+1,height);
-    
-    [scroll l_cs_setH:height];
-}
+
 
 - (void)didReceiveMemoryWarning
 {
@@ -121,10 +122,22 @@
     return self.storeController.sortType==SORT_STORE_SHOP_LIST_LATEST?gridLatest:gridTopSellers;
 }
 
+-(SGScrollView*) currentScroll
+{
+    return self.storeController.sortType==SORT_STORE_SHOP_LIST_LATEST?scrollLatest:scrollTopSellers;
+}
+
+-(CGRect) currentGridFrame
+{
+    return self.storeController.sortType==SORT_STORE_SHOP_LIST_LATEST?itemLatest.gridFrame:itemTopSellers.gridFrame;
+}
+
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    if(scrollView==scroll)
+    if(scrollView==[self currentScroll])
     {
+        [topView l_v_setY:-scrollView.l_co_y];
+        
         if(scrollView.l_co_y<0)
         {
 //            [grid l_v_setY:_gridFrame.origin.y+scroll.l_co_y];
@@ -132,7 +145,6 @@
             
             [gridContainer l_v_setY:_gridContainerFrame.origin.y];
             [[self currentGrid] l_co_setY:0];
-            
             [lblNameBot l_v_setY:_lblNameBotFrame.origin.y];
             
             [self.storeController.rayView l_v_setY:self.storeController.rayViewFrame.origin.y-scrollView.l_co_y];
@@ -141,42 +153,38 @@
         }
         else
         {
-            self.storeController.qrView.alpha=0.3f;
-            
             float y=self.storeController.rayViewFrame.origin.y-scrollView.l_co_y;
             
             y=MAX(y,STORE_RAY_MIN_Y);
             [self.storeController.rayView l_v_setY:y];
             
-            y=_gridContainerFrame.origin.y-scrollView.l_co_y;
-            float diff=self.storeController.rayViewFrame.origin.y-STORE_RAY_MIN_Y;
+            CGRect rect=[self currentGridFrame];
             
-            if(y<_gridContainerFrame.origin.y-diff)
+            y=rect.origin.y-scrollView.l_co_y;
+            
+            float diff=self.storeController.rayViewFrame.origin.y-STORE_RAY_MIN_Y;
+
+            if(y<rect.origin.y-diff)
             {
-                y=_gridContainerFrame.origin.y+scrollView.l_co_y-diff;
+                y=rect.origin.y+scrollView.l_co_y-diff;
                 
-                [gridLatest l_co_setY:y-_gridContainerFrame.origin.y];
+                [[self currentGrid] l_v_setY:y];
+                [[self currentGrid] l_co_setY:y-rect.origin.y];
             }
             else
             {
-                y=_gridContainerFrame.origin.y;
-                
-                [gridLatest l_co_setY:0];
+                y=rect.origin.y;
+                [[self currentGrid] l_v_setY:y];
+                [[self currentGrid] l_co_setY:0];
             }
             
-            [gridContainer l_v_setY:y];
-            
-            y=_lblNameBotFrame.origin.y-scroll.l_co_y;
+            y=_lblNameBotFrame.origin.y-scrollView.l_co_y;
             
             if(y<STORE_NAME_BOTTOM_MIN_Y)
-            {
-                y=_lblNameBotFrame.origin.y+scrollView.l_co_y-(_lblNameBotFrame.origin.y-STORE_NAME_BOTTOM_MIN_Y);
-            }
-            else
-                y=_lblNameBotFrame.origin.y;
+                y=STORE_NAME_BOTTOM_MIN_Y;
             
             [lblNameBot l_v_setY:y];
-            
+
             y=self.storeController.bgImageViewFrame.origin.y-scrollView.l_co_y/6;
             y=MAX(y,-STORE_RAY_MIN_Y);
             [self.storeController.bgImageView l_v_setY:y];
@@ -370,17 +378,17 @@
 
 -(void)prepareOnBack
 {
-    [scroll clearFollowViews];
-    [scroll clearPauseViews];
+//    [scroll clearFollowViews];
+//    [scroll clearPauseViews];
 }
 
 -(void)storeControllerButtonLatestTouched:(UIButton *)btn
 {
     if(itemNavi.viewControllers.count==1)
         return;
-    
+
     int count=1;
-    float duration=0.3f;
+    float duration=0.15f;
     [self.storeController disableTouch];
     
     for(int i=gridTopSellers.subviews.count-1;i>=0;i--)
@@ -396,6 +404,8 @@
             count++;
         }
     }
+    
+    itemLatest.scroll.contentOffset=itemTopSellers.scroll.contentOffset;
     
     count--;
     double delayInSeconds = count*duration-duration*3;
@@ -433,7 +443,7 @@
         [self.storeController disableTouch];
         
         int count=1;
-        float duration=0.3f;
+        float duration=0.15f;
         for(GMGridViewCell *cell in gridLatest.subviews)
         {
             if([cell isKindOfClass:[GMGridViewCell class]])
@@ -445,6 +455,8 @@
                 count++;
             }
         }
+        
+        itemTopSellers.scroll.contentOffset=itemLatest.scroll.contentOffset;
         
         count--;
         double delayInSeconds = count*duration-duration*3;
@@ -486,13 +498,19 @@
 
 @implementation StoreItemListController
 
--(void)loadView
+-(StoreItemListController *)initWithFrame:(CGRect)rect
 {
-    [super loadView];
+    self=[super init];
     
-    self.view.autoresizingMask=UIViewAutoresizingFlexibleBottomMargin|UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin|UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleWidth;
+    self.view.frame=rect;
     
-    GMGridView *gv=[[GMGridView alloc] initWithFrame:CGRectMake(0, 0, self.l_v_w, self.l_v_h)];
+    SGScrollView *scrollView=[[SGScrollView alloc] initWithFrame:self.view.frame];
+    
+    scrollView.autoresizingMask=UIViewAutoresizingFlexibleBottomMargin|UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin|UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleWidth;
+    
+    scroll=scrollView;
+    
+    GMGridView *gv=[[GMGridView alloc] initWithFrame:CGRectMake(0, 156, self.l_v_w, self.l_v_h)];
     gv.autoresizingMask=UIViewAutoresizingFlexibleBottomMargin|UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin|UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleWidth;
     
     gv.style=GMGridViewStylePush;
@@ -505,14 +523,39 @@
     gv.scrollEnabled=false;
     
     grid=gv;
+    _gridFrame=grid.frame;
     
-    [self.view addSubview:gv];
+    [scrollView addSubview:gv];
+    
+    [self.view addSubview:scrollView];
+    
     self.view.backgroundColor=[UIColor clearColor];
+    
+    return self;
 }
 
 -(GMGridView *)gridView
 {
     return grid;
+}
+
+-(SGScrollView *)scroll
+{
+    return scroll;
+}
+
+-(CGRect)gridFrame
+{
+    return _gridFrame;
+}
+
+-(void) makeScrollSize
+{
+    float height=grid.l_v_y+[grid.layoutStrategy contentSize].height;
+    
+    height=MAX(scroll.l_v_h+1,height);
+    
+    [scroll l_cs_setH:height];
 }
 
 @end

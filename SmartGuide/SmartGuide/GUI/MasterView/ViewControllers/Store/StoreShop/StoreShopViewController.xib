@@ -27,7 +27,7 @@
                     </connections>
                 </tableView>
                 <view contentMode="scaleToFill" id="cVc-LE-Gba">
-                    <rect key="frame" x="0.0" y="158" width="326" height="260"/>
+                    <rect key="frame" x="0.0" y="156" width="326" height="262"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
