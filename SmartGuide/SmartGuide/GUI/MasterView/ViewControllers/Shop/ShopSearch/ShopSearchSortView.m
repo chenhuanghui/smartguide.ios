@@ -6,9 +6,9 @@
 //  Copyright (c) 2013 MacMini. All rights reserved.
 //
 
-#import "ShopListSortView.h"
+#import "ShopSearchSortView.h"
 
-@interface ShopListSortView()
+@interface ShopSearchSortView()
 {
     UIImage *_icon;
     NSString *_text;
@@ -16,7 +16,7 @@
 
 @end
 
-@implementation ShopListSortView
+@implementation ShopSearchSortView
 @synthesize delegate;
 
 -(void)setIcon:(UIImage *)icon text:(NSString *)text

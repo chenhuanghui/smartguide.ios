@@ -11,7 +11,7 @@
 #import "SGNavigationController.h"
 #import "SearchShopViewController.h"
 
-@class ShopViewController,ShopCatalogViewController,ShopListViewController;
+@class ShopViewController,NewFeedViewController,ShopSearchViewController;
 
 @protocol ShopCatalogDelegate <SGViewControllerDelegate>
 
@@ -73,7 +73,7 @@
 
 @property (weak, nonatomic) IBOutlet SGNavigationController *childNavigationController;
 @property (nonatomic, weak) id<ShopViewDelegate> delegate;
-@property (nonatomic, weak, readonly) ShopCatalogViewController *shopCatalog;
-@property (nonatomic, weak, readonly) ShopListViewController *shopList;
+@property (nonatomic, weak, readonly) NewFeedViewController *shopCatalog;
+@property (nonatomic, weak, readonly) ShopSearchViewController *shopList;
 
 @end

@@ -9,15 +9,15 @@
 #import <UIKit/UIKit.h>
 #import "LabelTopText.h"
 
-@class ScrollListCell,ShopListCell;
+@class ScrollListCell,ShopSearchCell;
 
 @protocol ShopListCellDelegate <NSObject>
 
--(void) shopListCellTouched:(ShopListCell*) cell;
+-(void) shopListCellTouched:(ShopSearchCell*) cell;
 
 @end
 
-@interface ShopListCell : UITableViewCell<UIScrollViewDelegate>
+@interface ShopSearchCell : UITableViewCell<UIScrollViewDelegate>
 {
     __weak IBOutlet UIImageView *imgvVoucher;
     __weak IBOutlet UIImageView *imgvType;

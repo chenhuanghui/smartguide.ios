@@ -11,7 +11,7 @@
 #import "ASIOperationShopCatalog.h"
 #import "ShopViewController.h"
 
-@interface ShopCatalogViewController : SGViewController<ASIOperationPostDelegate,ShopControllerHandle>
+@interface NewFeedViewController : SGViewController<ASIOperationPostDelegate,ShopControllerHandle>
 {
     ASIOperationShopCatalog *_operationShopCatalog;
     

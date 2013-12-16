@@ -8,8 +8,8 @@
 
 #import "ShopViewController.h"
 #import "GUIManager.h"
-#import "ShopCatalogViewController.h"
-#import "ShopListViewController.h"
+#import "NewFeedViewController.h"
+#import "ShopSearchViewController.h"
 
 @interface ShopViewController ()
 
@@ -27,7 +27,7 @@
 
 -(void) showShopCatalog:(bool) animated
 {
-    ShopCatalogViewController *vc=[[ShopCatalogViewController alloc] init];
+    NewFeedViewController *vc=[[NewFeedViewController alloc] init];
     vc.delegate=self;
     
     [self settingShopHandle:vc];
@@ -101,7 +101,7 @@
 
 -(void)showShopListWithGroup:(ShopCatalog*) group
 {
-    ShopListViewController *vc=[[ShopListViewController alloc] init];
+    ShopSearchViewController *vc=[[ShopSearchViewController alloc] init];
     vc.delegate=self;
     
     [self settingShopHandle:vc];

@@ -6,11 +6,11 @@
 //  Copyright (c) 2013 Redbase. All rights reserved.
 //
 
-#import "ShopListCell.h"
+#import "ShopSearchCell.h"
 #import "Utility.h"
 #import "Constant.h"
 
-@implementation ShopListCell
+@implementation ShopSearchCell
 @synthesize delegate;
 
 -(void)loadContent
@@ -25,7 +25,7 @@
 
 +(NSString *)reuseIdentifier
 {
-    return @"ShopListCell";
+    return @"ShopSearchCell";
 }
 
 -(void)prepareForReuse

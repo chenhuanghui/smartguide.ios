@@ -12,20 +12,20 @@
 #import "ASIOperationShopInGroup.h"
 #import "ShopUserViewController.h"
 #import <MapKit/MapKit.h>
-#import "ShopListSortView.h"
+#import "ShopSearchSortView.h"
 #import "Scroller.h"
 #import "ShopViewController.h"
 #import "MapList.h"
-#import "ShopListCell.h"
+#import "ShopSearchCell.h"
 
 @class ScrollShopList,ShopListContentView;
 
-@interface ShopListViewController : SGViewController<MKMapViewDelegate,UIScrollViewDelegate,ScrollerDelegate,UIGestureRecognizerDelegate,SortViewDelegate,UIActionSheetDelegate,ShopControllerHandle,UITableViewDataSource,UITableViewDelegate,ShopListCellDelegate>
+@interface ShopSearchViewController : SGViewController<MKMapViewDelegate,UIScrollViewDelegate,ScrollerDelegate,UIGestureRecognizerDelegate,SortSearchDelegate,UIActionSheetDelegate,ShopControllerHandle,UITableViewDataSource,UITableViewDelegate,ShopListCellDelegate>
 {
     __weak IBOutlet UITableView *tableList;
     __weak IBOutlet ScrollShopList *scroll;
     __weak IBOutlet UIButton *btnMap;
-    __weak IBOutlet ShopListSortView *sortView;
+    __weak IBOutlet ShopSearchSortView *sortView;
     __weak IBOutlet UIButton *btnSearchLocation;
     __weak IBOutlet ShopListContentView *contentView;
     __weak IBOutlet UIView *qrCodeView;
@@ -64,6 +64,9 @@
     bool _isAllowDiffScrollMap;
 }
 
+-(ShopSearchViewController*) initWithKeyword:(NSString*) keyword;
+-(ShopSearchViewController*) initWithPlaceList;
+
 -(bool) isZoomedMap;
 -(void) scrollViewSetContentOffset:(CGPoint) contentOffset;
 
@@ -76,7 +79,7 @@
 
 @property (nonatomic, assign) bool disableScrollUp;
 @property (nonatomic, readonly) CGPoint offset;
-@property (nonatomic, weak) ShopListViewController *shopListController;
+@property (nonatomic, weak) ShopSearchViewController *shopListController;
 @property (nonatomic, assign) float minContentOffsetY;
 
 @end

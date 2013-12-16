@@ -6,19 +6,19 @@
 //  Copyright (c) 2013 Redbase. All rights reserved.
 //
 
-#import "ShopCatalogViewController.h"
+#import "NewFeedViewController.h"
 #import "GUIManager.h"
 
-@interface ShopCatalogViewController ()
+@interface NewFeedViewController ()
 
 @end
 
-@implementation ShopCatalogViewController
+@implementation NewFeedViewController
 @synthesize delegate,shopController,qrCodeView,isShowedQRView,qrViewFrame;
 
 - (id)init
 {
-    self = [super initWithNibName:@"ShopCatalogViewController" bundle:nil];
+    self = [super initWithNibName:@"NewFeedViewController" bundle:nil];
     if (self) {
         // Custom initialization
     }

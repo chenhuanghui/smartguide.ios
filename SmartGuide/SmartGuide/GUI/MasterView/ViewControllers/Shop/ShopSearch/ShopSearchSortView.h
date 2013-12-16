@@ -8,15 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
-@class ShopListSortView;
+@class ShopSearchSortView;
 
-@protocol SortViewDelegate <NSObject>
+@protocol SortSearchDelegate <NSObject>
 
--(void) sortViewTouchedSort:(ShopListSortView*) sortView;
+-(void) sortViewTouchedSort:(ShopSearchSortView*) sortView;
 
 @end
 
-@interface ShopListSortView : UIView
+@interface ShopSearchSortView : UIView
 {
     CGRect _touchedArea;
 }
@@ -24,6 +24,6 @@
 -(void) setIcon:(UIImage*) icon text:(NSString*) text;
 -(void) setText:(NSString*) text;
 
-@property (nonatomic, weak) id<SortViewDelegate> delegate;
+@property (nonatomic, weak) id<SortSearchDelegate> delegate;
 
 @end

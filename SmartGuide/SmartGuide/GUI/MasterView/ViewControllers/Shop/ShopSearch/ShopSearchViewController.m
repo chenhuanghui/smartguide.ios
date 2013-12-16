@@ -6,23 +6,28 @@
 //  Copyright (c) 2013 Redbase. All rights reserved.
 //
 
-#import "ShopListViewController.h"
+#import "ShopSearchViewController.h"
 #import "GUIManager.h"
-#import "ShopListCell.h"
+#import "ShopSearchCell.h"
 #import "SGRootViewController.h"
 
 #define SHOP_LIST_SCROLL_SPEED 3.f
 
-@interface ShopListViewController ()
+@interface ShopSearchViewController ()
 
 @end
 
-@implementation ShopListViewController
+@implementation ShopSearchViewController
 @synthesize delegate,catalog,shopController,qrCodeView,isShowedQRView,qrViewFrame;
+
+-(ShopSearchViewController *)initWithKeyword:(NSString *)keyword
+{
+    self=[super initWithNibName:@"ShopSearchViewController" bundle:nil];
+}
 
 - (id)init
 {
-    self = [super initWithNibName:@"ShopListViewController" bundle:nil];
+    self = [super initWithNibName:@"ShopSearchViewController" bundle:nil];
     if (self) {
         
     }
@@ -53,7 +58,7 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    ShopListCell *cell=[tableView dequeueReusableCellWithIdentifier:[ShopListCell reuseIdentifier]];
+    ShopSearchCell *cell=[tableView dequeueReusableCellWithIdentifier:[ShopSearchCell reuseIdentifier]];
     cell.delegate=self;
     
     [cell loadContent];
@@ -63,7 +68,7 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return [ShopListCell height];
+    return [ShopSearchCell height];
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -146,7 +151,7 @@
     
 }
 
--(void)shopListCellTouched:(ShopListCell *)cell
+-(void)shopListCellTouched:(ShopSearchCell *)cell
 {
     if(_isZoomedMap)
     {
@@ -173,7 +178,7 @@
     _buttonScanSmallFrame=btnScanSmall.frame;
 }
 
--(void)sortViewTouchedSort:(ShopListSortView *)_sortView
+-(void)sortViewTouchedSort:(ShopSearchSortView *)_sortView
 {
     UIActionSheet *sheet=[[UIActionSheet alloc] initWithTitle:@"Tìm kiếm theo" delegate:self cancelButtonTitle:@"Đóng" destructiveButtonTitle:nil otherButtonTitles:@"Khoảng cách", @"Lượt xem", @"Lượt love", nil];
     
@@ -221,7 +226,7 @@
     
     tableList.backgroundColor=COLOR_BACKGROUND_SHOP_SERIES;
     
-    [tableList registerNib:[UINib nibWithNibName:[ShopListCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[ShopListCell reuseIdentifier]];
+    [tableList registerNib:[UINib nibWithNibName:[ShopSearchCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[ShopSearchCell reuseIdentifier]];
     
     tableList.dataSource=self;
     tableList.delegate=self;
@@ -505,7 +510,7 @@
         {
             CGPoint pnt=[scroll convertPoint:tableList.l_v_o toView:self.view];
             
-            if(self.l_v_h-pnt.y>[ShopListCell height]*1.5f)
+            if(self.l_v_h-pnt.y>[ShopSearchCell height]*1.5f)
                 [self endZoomMap];
         }
             break;
@@ -529,7 +534,7 @@
         self.map.rotateEnabled=true;
     
     float height=_viewFrame.size.height-_qrFrame.size.height+QRCODE_RAY_HEIGHT+QRCODE_BIG_HEIGHT-QRCODE_SMALL_HEIGHT;
-    height-=[ShopListCell height]/2+20;
+    height-=[ShopSearchCell height]/2+20;
     height-=_tableFrame.origin.y;
     
     _heightZoomedMap=height;
