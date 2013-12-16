@@ -20,6 +20,9 @@
 -(void) storeControllerButtonLatestTouched:(UIButton*) btn;
 -(void) storeControllerButtonTopSellersTouched:(UIButton*) btn;
 
+@optional
+-(void) handleBackCallbackCompleted:(void(^)()) completed;
+
 @end
 
 @protocol StoreControllerDelegate <SGViewControllerDelegate>
@@ -47,6 +50,7 @@
 }
 
 -(void) showShop:(StoreShop*) shop;
+-(void) showItem:(StoreShopItem*) item;
 -(void) enableTouch;
 -(void) disableTouch;
 

@@ -195,7 +195,6 @@
 
 -(void) requestStoresWithType:(enum SORT_STORE_SHOP_LIST_TYPE) sort
 {
-    return;
     switch (sort) {
         case SORT_STORE_SHOP_LIST_LATEST:
         {
@@ -237,6 +236,7 @@
                 _pageShopTopSellers++;
                 
                 [gridTopSellers reloadData];
+                [itemTopSellers makeScrollSize];
                 
                 _operationItemTopSellers=nil;
             }
@@ -249,6 +249,7 @@
                 _pageShopLatest++;
                 
                 [gridLatest reloadData];
+                [itemLatest makeScrollSize];
                 
                 _operationItemLatest=nil;
             }
@@ -373,7 +374,22 @@
 
 -(void)GMGridView:(GMGridView *)gridView didTapOnItemAtIndex:(NSInteger)position
 {
+    StoreShopItem *item=nil;
     
+    switch (storeController.sortType) {
+        case SORT_STORE_SHOP_LIST_LATEST:
+            if(position<_itemLastest.count)
+                item=_itemLastest[position];
+            break;
+            
+        case SORT_STORE_SHOP_LIST_TOP_SELLER:
+            if(position<_itemTopSellers.count)
+                item=_itemTopSellers[position];
+            break;
+    }
+    
+    if(item)
+        [storeController showItem:item];
 }
 
 -(void)prepareOnBack
@@ -405,7 +421,10 @@
         }
     }
     
-    itemLatest.scroll.contentOffset=itemTopSellers.scroll.contentOffset;
+    CGPoint offset=itemTopSellers.scroll.contentOffset;
+    offset.y=MIN(offset.y,itemLatest.scroll.l_cs_h);
+    
+    [itemLatest.scroll setContentOffset:offset animated:true];
     
     count--;
     double delayInSeconds = count*duration-duration*3;
@@ -456,7 +475,10 @@
             }
         }
         
-        itemTopSellers.scroll.contentOffset=itemLatest.scroll.contentOffset;
+        CGPoint offset=itemLatest.scroll.contentOffset;
+        offset.y=MIN(offset.y,itemTopSellers.scroll.l_cs_h);
+        
+        [itemTopSellers.scroll setContentOffset:offset animated:true];
         
         count--;
         double delayInSeconds = count*duration-duration*3;
@@ -489,6 +511,17 @@
     }
 }
 
+-(void)handleBackCallbackCompleted:(void (^)())completed
+{
+    [storeController disableTouch];
+    
+    [UIView animateWithDuration:DURATION_DEFAULT animations:^{
+        [self currentScroll].contentOffset=CGPointZero;
+    } completion:^(BOOL finished) {
+        [storeController enableTouch];
+        completed();
+    }];
+}
 
 @end
 
@@ -506,6 +539,7 @@
     
     SGScrollView *scrollView=[[SGScrollView alloc] initWithFrame:self.view.frame];
     
+    scrollView.delaysContentTouches=false;
     scrollView.autoresizingMask=UIViewAutoresizingFlexibleBottomMargin|UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin|UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleWidth;
     
     scroll=scrollView;
@@ -551,7 +585,7 @@
 
 -(void) makeScrollSize
 {
-    float height=grid.l_v_y+[grid.layoutStrategy contentSize].height;
+    float height=_gridFrame.origin.y+[grid.layoutStrategy contentSize].height;
     
     height=MAX(scroll.l_v_h+1,height);
     

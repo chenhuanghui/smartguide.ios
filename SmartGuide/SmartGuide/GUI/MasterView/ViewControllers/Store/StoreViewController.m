@@ -9,6 +9,7 @@
 #import "StoreViewController.h"
 #import "StoreShopViewController.h"
 #import "StoreShopInfoViewController.h"
+#import "StoreItemInfoViewController.h"
 
 @interface StoreViewController ()
 
@@ -90,9 +91,30 @@
 - (IBAction)btnBackTouchUpInside:(id)sender {
     btnBack.userInteractionEnabled=false;
     
-    StoreShopInfoViewController *vc=(StoreShopInfoViewController*)storeNavigation.visibleViewController;
-    
-    //[vc prepareOnBack];
+    if([[self visibleController] respondsToSelector:@selector(handleBackCallbackCompleted:)])
+    {
+        [[self visibleController] handleBackCallbackCompleted:^{
+            [UIView animateWithDuration:0.1f animations:^{
+                rayView.frame=_rayViewFrame;
+                bgView.frame=_bgViewFrame;
+            } completion:^(BOOL finished) {
+                [storeNavigation popViewControllerAnimated:true];
+                
+                btnSetting.alpha=0;
+                btnSetting.hidden=false;
+                
+                [UIView animateWithDuration:0.1f animations:^{
+                    btnBack.alpha=0;
+                    btnSetting.alpha=1;
+                } completion:^(BOOL finished) {
+                    btnBack.hidden=true;
+                    btnBack.userInteractionEnabled=true;
+                }];
+            }];
+        }];
+        
+        return;
+    }
     
     [UIView animateWithDuration:0.1f animations:^{
         rayView.frame=_rayViewFrame;
@@ -181,6 +203,11 @@
     } completion:^(BOOL finished) {
         btnSetting.hidden=false;
     }];
+}
+
+-(void)showItem:(StoreShopItem *)item
+{
+    
 }
 
 -(IBAction) btnLatestTouchUpInside:(id)sender
