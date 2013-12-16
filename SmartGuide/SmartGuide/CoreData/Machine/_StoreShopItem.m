@@ -5,11 +5,16 @@
 #import "StoreShopItem.h"
 
 #import "DataManager.h"
+#import "StoreCart.h"
 #import "StoreShop.h"
 #import "StoreShop.h"
 
 
 @implementation _StoreShopItem
+
+
+@dynamic cart;
+
 
 
 @dynamic shopLatest;
@@ -201,6 +206,14 @@
 
 #pragma mark Relationships
     
+#pragma mark Cart
+- (StoreCart*)cart {
+	[self willAccessValueForKey:@"cart"];
+	StoreCart *result = [self primitiveValueForKey:@"cart"];
+	[self didAccessValueForKey:@"cart"];
+	return result;
+}
+
 #pragma mark ShopLatest
 - (StoreShop*)shopLatest {
 	[self willAccessValueForKey:@"shopLatest"];

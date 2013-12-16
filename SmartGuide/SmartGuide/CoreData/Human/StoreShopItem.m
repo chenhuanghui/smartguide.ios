@@ -1,5 +1,7 @@
 #import "StoreShopItem.h"
 #import "Utility.h"
+#import "StoreCart.h"
+#import "DataManager.h"
 
 @implementation StoreShopItem
 
@@ -26,6 +28,15 @@
     item.image=[NSString stringWithStringDefault:dictItem[@"image"]];
     
     return item;
+}
+
+-(void)buy
+{
+    StoreCart *cart=[StoreCart makeWithItem:self];
+    
+    cart.quantity=@(cart.quantity.integerValue+1);
+    
+    [[DataManager shareInstance] save];
 }
 
 @end

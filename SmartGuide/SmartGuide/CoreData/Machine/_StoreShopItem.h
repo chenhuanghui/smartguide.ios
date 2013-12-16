@@ -15,6 +15,7 @@
 #define StoreShopItem_SortOrderTopSeller @"sortOrderTopSeller"
 
 @class StoreShopItem;
+@class StoreCart;
 @class StoreShop;
 @class StoreShop;
 
@@ -42,6 +43,9 @@
 
     
 #pragma mark Relationships
+
+#pragma mark Cart
+@property (nonatomic, retain) StoreCart* cart;
 
 #pragma mark ShopLatest
 @property (nonatomic, retain) StoreShop* shopLatest;

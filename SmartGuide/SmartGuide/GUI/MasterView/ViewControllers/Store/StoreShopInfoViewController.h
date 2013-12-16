@@ -15,7 +15,7 @@
 
 @class StoreShopInfoScrollView,StoreShopInfoViewController,StoreItemListController;
 
-@interface StoreShopInfoViewController : SGViewController<GMGridViewActionDelegate,GMGridViewDataSource,UIScrollViewDelegate,StoreControllerHandle,ASIOperationPostDelegate>
+@interface StoreShopInfoViewController : SGViewController<GMGridViewActionDelegate,GMGridViewDataSource,UIScrollViewDelegate,StoreControllerHandle,ASIOperationPostDelegate,StoreShopItemDelegate>
 {
     __weak IBOutlet UIView *topView;
     __weak GMGridView *gridLatest;

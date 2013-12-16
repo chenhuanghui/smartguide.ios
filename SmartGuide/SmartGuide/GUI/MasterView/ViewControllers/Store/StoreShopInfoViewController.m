@@ -369,6 +369,8 @@
         }
     }
     
+    itemCell.delegate=self;
+    
     return cell;
 }
 
@@ -390,6 +392,11 @@
     
     if(item)
         [storeController showItem:item];
+}
+
+-(void)storeShopItemTouchedBuy:(StoreShopItem *)item
+{
+    [self.storeController buyItem:item];
 }
 
 -(void)prepareOnBack

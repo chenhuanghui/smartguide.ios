@@ -41,6 +41,7 @@
     
     [StoreShop markDeleteAllObjects];
     [StoreShopItem markDeleteAllObjects];
+    [StoreCart markDeleteAllObjects];
     
     [[DataManager shareInstance] save];
     
@@ -208,6 +209,15 @@
 -(void)showItem:(StoreShopItem *)item
 {
     
+}
+
+-(void)buyItem:(StoreShopItem *)item
+{
+    [item buy];
+    
+    NSString *str=[NSString stringWithFormat:@"%i",[StoreCart allObjects].count];
+    
+    lblCart.text=str;
 }
 
 -(IBAction) btnLatestTouchUpInside:(id)sender

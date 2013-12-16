@@ -10,6 +10,12 @@
 #import "ButtonPrice.h"
 #import "StoreShopItem.h"
 
+@protocol StoreShopItemDelegate <NSObject>
+
+-(void) storeShopItemTouchedBuy:(StoreShopItem*) item;
+
+@end
+
 @interface StoreShopItemCell : UIView
 {
     __weak IBOutlet UIImageView *imgvLineVer;
@@ -23,6 +29,8 @@
     __weak IBOutlet UIView *imageContainView;
     __weak IBOutlet UIView *displayView;
     __weak IBOutlet UIActivityIndicatorView *indicator;
+    
+    __weak StoreShopItem *_item;
 }
 
 -(void) loadWithItem:(StoreShopItem*) item;
@@ -31,5 +39,7 @@
 
 +(NSString *)reuseIdentifier;
 +(CGSize) size;
+
+@property (nonatomic, weak) id<StoreShopItemDelegate> delegate;
 
 @end

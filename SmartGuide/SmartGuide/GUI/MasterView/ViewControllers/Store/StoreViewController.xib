@@ -14,6 +14,7 @@
                 <outlet property="btnSetting" destination="uEg-DF-xuj" id="cyB-B1-4Fz"/>
                 <outlet property="btnTopSellers" destination="y2I-4k-2pi" id="gy0-5u-FFz"/>
                 <outlet property="contentView" destination="nfr-mI-for" id="YGn-ZH-nh2"/>
+                <outlet property="lblCart" destination="Myd-SL-6MX" id="8sg-PR-Phu"/>
                 <outlet property="qrView" destination="p73-e8-CDK" id="eWl-mn-pnx"/>
                 <outlet property="rayView" destination="SjR-1A-Zpq" id="31p-RG-lGS"/>
                 <outlet property="storeNavigation" destination="Xcv-BU-PZb" id="Job-Ui-vFM"/>
@@ -135,6 +136,13 @@
                                 <action selector="btnCartTouchUpInside:" destination="-1" eventType="touchUpInside" id="OOe-LS-HWj"/>
                             </connections>
                         </button>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Myd-SL-6MX">
+                            <rect key="frame" x="276" y="4" width="42" height="27"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="13"/>
+                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
@@ -170,6 +178,7 @@
     </objects>
     <resources>
         <image name="background_scan.png" width="320" height="56"/>
+        <image name="bg_animation.jpg" width="320" height="263"/>
         <image name="bg_animation.jpg" width="320" height="263"/>
         <image name="bg_sort.png" width="320" height="47"/>
         <image name="button_addcart.png" width="21" height="20"/>

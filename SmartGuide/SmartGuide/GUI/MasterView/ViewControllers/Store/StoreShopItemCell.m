@@ -10,6 +10,7 @@
 #import "ImageManager.h"
 
 @implementation StoreShopItemCell
+@synthesize delegate;
 
 - (id)init
 {
@@ -25,12 +26,16 @@
     indicator.hidden=false;
     [indicator startAnimating];
     displayView.hidden=true;
+    
+    _item=nil;
 }
 
 -(void)emptyCell
 {
     indicator.hidden=true;
     displayView.hidden=true;
+    
+    _item=nil;
 }
 
 -(void)loadWithItem:(StoreShopItem *)item
@@ -41,6 +46,8 @@
     [imgvItem loadStoreLogoWithURL:item.image];
     [btnPrice setTitle:item.price forState:UIControlStateNormal];
     lblName.text=item.desc;
+    
+    _item=item;
 }
 
 +(NSString *)reuseIdentifier
@@ -51,6 +58,11 @@
 +(CGSize)size
 {
     return CGSizeMake(163, 131);
+}
+
+-(IBAction) btnBuyTouchUpInside:(id)sender
+{
+    [self.delegate storeShopItemTouchedBuy:_item];
 }
 
 @end

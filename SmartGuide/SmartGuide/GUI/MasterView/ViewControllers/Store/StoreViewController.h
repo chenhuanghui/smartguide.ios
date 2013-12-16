@@ -11,6 +11,7 @@
 #import "SGQRCodeViewController.h"
 #import "StoreShop.h"
 #import "StoreShopItem.h"
+#import "StoreCart.h"
 
 @class StoreViewController,StoreScrollView, StoreShopInfoViewController,StoreShopViewController;
 
@@ -43,6 +44,7 @@
     __weak IBOutlet UIButton *btnBack;
     __weak IBOutlet UIButton *btnLatest;
     __weak IBOutlet UIButton *btnTopSellers;
+    __weak IBOutlet UILabel *lblCart;
     
     CGRect _rayViewFrame;
     CGRect _bgViewFrame;
@@ -51,6 +53,7 @@
 
 -(void) showShop:(StoreShop*) shop;
 -(void) showItem:(StoreShopItem*) item;
+-(void) buyItem:(StoreShopItem*) item;
 -(void) enableTouch;
 -(void) disableTouch;
 
