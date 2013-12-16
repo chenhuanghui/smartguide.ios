@@ -7,6 +7,7 @@
 //
 
 #import "StoreShopItemCell.h"
+#import "ImageManager.h"
 
 @implementation StoreShopItemCell
 
@@ -17,6 +18,29 @@
         
     }
     return self;
+}
+
+-(void)loadingCell
+{
+    indicator.hidden=false;
+    [indicator startAnimating];
+    displayView.hidden=true;
+}
+
+-(void)emptyCell
+{
+    indicator.hidden=true;
+    displayView.hidden=true;
+}
+
+-(void)loadWithItem:(StoreShopItem *)item
+{
+    displayView.hidden=false;
+    indicator.hidden=true;
+    
+    [imgvItem loadStoreLogoWithURL:item.image];
+    [btnPrice setTitle:item.price forState:UIControlStateNormal];
+    lblName.text=item.desc;
 }
 
 +(NSString *)reuseIdentifier

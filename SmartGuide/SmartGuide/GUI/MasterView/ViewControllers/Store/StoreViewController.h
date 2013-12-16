@@ -61,7 +61,10 @@
 -(UIButton*) buttonLatest;
 -(UIButton*) buttonTopSellers;
 
+-(UIView*) qrView;
+
 @property (nonatomic, weak) id<StoreControllerDelegate> delegate;
+@property (nonatomic, readonly) enum SORT_STORE_SHOP_LIST_TYPE sortType;
 
 @end
 

@@ -15,7 +15,7 @@
 @end
 
 @implementation StoreViewController
-@synthesize delegate;
+@synthesize delegate,sortType;
 
 - (id)init
 {
@@ -37,6 +37,11 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    [StoreShop markDeleteAllObjects];
+    [StoreShopItem markDeleteAllObjects];
+    
+    [[DataManager shareInstance] save];
     
     [self storeRect];
     
@@ -148,6 +153,11 @@
     return btnTopSellers;
 }
 
+-(UIView *)qrView
+{
+    return qrView;
+}
+
 -(IBAction) btnCartTouchUpInside:(id)sender
 {
     StoreCardViewController *vc=[StoreCardViewController new];
@@ -157,7 +167,7 @@
 
 -(void)showShop:(StoreShop *)shop
 {
-    StoreShopInfoViewController *vc=[StoreShopInfoViewController new];
+    StoreShopInfoViewController *vc=[[StoreShopInfoViewController alloc] initWithStore:shop];
     vc.storeController=self;
     
     [storeNavigation pushViewController:vc animated:true];
@@ -175,6 +185,7 @@
 
 -(IBAction) btnLatestTouchUpInside:(id)sender
 {
+    sortType=SORT_STORE_SHOP_LIST_LATEST;
     [[self visibleController] storeControllerButtonLatestTouched:sender];
 }
 
@@ -185,6 +196,7 @@
 
 -(IBAction) btnTopSellersTouchUpInside:(id)sender
 {
+    sortType=SORT_STORE_SHOP_LIST_TOP_SELLER;
     [[self visibleController] storeControllerButtonTopSellersTouched:sender];
 }
 

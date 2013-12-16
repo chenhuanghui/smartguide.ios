@@ -13,5 +13,6 @@
 -(ASIOperationStoreShopItem*) initWithIDShop:(NSNumber*) idShop page:(int) page userLat:(double) userLat userLng:(double) userLng sort:(enum SORT_STORE_SHOP_LIST_TYPE) sort;
 
 @property (nonatomic, readonly) NSMutableArray *items;
+@property (nonatomic, readonly) enum SORT_STORE_SHOP_LIST_TYPE sortType;
 
 @end

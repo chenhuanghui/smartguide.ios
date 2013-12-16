@@ -20,10 +20,10 @@
     }
     
     item.price=[NSString stringWithStringDefault:dictItem[@"price"]];
-    item.p=[NSString stringWithStringDefault:@"p"];
-    item.money=[NSString stringWithStringDefault:@"money"];
-    item.desc=[NSString stringWithStringDefault:@"description"];
-    item.image=[NSString stringWithStringDefault:@"image"];
+    item.p=[NSString stringWithStringDefault:dictItem[@"p"]];
+    item.money=[NSString stringWithStringDefault:dictItem[@"money"]];
+    item.desc=[NSString stringWithStringDefault:dictItem[@"description"]];
+    item.image=[NSString stringWithStringDefault:dictItem[@"image"]];
     
     return item;
 }

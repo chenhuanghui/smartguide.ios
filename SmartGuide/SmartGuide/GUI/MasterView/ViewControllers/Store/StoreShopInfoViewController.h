@@ -10,19 +10,45 @@
 #import "StoreShopItemCell.h"
 #import "GMGridView.h"
 #import "SGScrollView.h"
+#import "StoreViewController.h"
+#import "ASIOperationStoreShopItem.h"
 
-@class StoreShopInfoScrollView,StoreShopInfoViewController,StoreViewController;
+@class StoreShopInfoScrollView,StoreShopInfoViewController,StoreItemListController;
 
-@interface StoreShopInfoViewController : SGViewController<GMGridViewActionDelegate,GMGridViewDataSource,UIScrollViewDelegate>
+@interface StoreShopInfoViewController : SGViewController<GMGridViewActionDelegate,GMGridViewDataSource,UIScrollViewDelegate,StoreControllerHandle,ASIOperationPostDelegate>
 {
     __weak IBOutlet StoreShopInfoScrollView *scroll;
     __weak IBOutlet UIView *topView;
-    __weak IBOutlet GMGridView *grid;
+    __weak GMGridView *gridLatest;
+    __weak GMGridView *gridTopSellers;
     __weak IBOutlet UILabel *lblNameBot;
+    __weak IBOutlet UIView *gridContainer;
+    __weak IBOutlet UIImageView *imgvShopLogo;
+    __weak IBOutlet UILabel *lblShopName;
+    __weak IBOutlet UILabel *lblShopType;
+    __weak IBOutlet UILabel *lblShopDesc;
+    __weak SGNavigationController *itemNavi;
+    StoreItemListController *itemLatest;
+    StoreItemListController *itemTopSellers;
+    bool _canLoadMoreLatest;
+    bool _canLoadMoreTopSellers;
+    NSUInteger _pageShopLatest;
+    NSUInteger _pageShopTopSellers;
+    ASIOperationStoreShopItem *_operationItemLatest;
+    ASIOperationStoreShopItem *_operationItemTopSellers;
+    NSMutableArray *_itemLastest;
+    NSMutableArray *_itemTopSellers;
     
-    CGRect _gridFrame;
+    CGRect _gridLatestFrame;
+    CGRect _gridTopSellersFrame;
+    CGRect _gridContainerFrame;
     CGRect _lblNameBotFrame;
+    
+    __weak StoreShop *_store;
+
 }
+
+-(StoreShopInfoViewController*) initWithStore:(StoreShop*) store;
 
 -(void) prepareOnBack;
 
@@ -33,5 +59,14 @@
 @interface StoreShopInfoScrollView : SGScrollView
 {
 }
+
+@end
+
+@interface StoreItemListController : SGViewController
+{
+    __weak GMGridView *grid;
+}
+
+-(GMGridView*) gridView;
 
 @end

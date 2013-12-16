@@ -7,8 +7,12 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="StoreShopInfoViewController">
             <connections>
-                <outlet property="grid" destination="1M9-SH-goo" id="3lw-2o-s5a"/>
+                <outlet property="gridContainer" destination="Y9e-3l-yBV" id="4Vs-SM-UW7"/>
+                <outlet property="imgvShopLogo" destination="rUn-oS-Flg" id="rhZ-Tr-ErK"/>
                 <outlet property="lblNameBot" destination="WOn-fd-0xK" id="WYa-Jc-R7R"/>
+                <outlet property="lblShopDesc" destination="JwR-01-7FR" id="NiH-Zm-cMZ"/>
+                <outlet property="lblShopName" destination="RjH-87-F3h" id="mZW-Y6-Pxp"/>
+                <outlet property="lblShopType" destination="mxE-ry-Q8S" id="BDk-cG-c6w"/>
                 <outlet property="scroll" destination="Zeo-Fw-qbY" id="7XC-Hm-b7r"/>
                 <outlet property="topView" destination="T7f-m4-hbq" id="fQC-pt-QQi"/>
                 <outlet property="view" destination="1" id="3"/>
@@ -19,6 +23,11 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="418"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <view contentMode="scaleToFill" id="yWE-UU-3jN">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="418"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                </view>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" bouncesZoom="NO" id="Zeo-Fw-qbY" customClass="StoreShopInfoScrollView">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="418"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -65,8 +74,8 @@
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         </view>
-                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="WOn-fd-0xK">
-                            <rect key="frame" x="63" y="156" width="194" height="21"/>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="WOn-fd-0xK">
+                            <rect key="frame" x="0.0" y="156" width="320" height="21"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
@@ -74,10 +83,11 @@
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" id="1M9-SH-goo" customClass="GMGridView">
+                        <view contentMode="scaleToFill" id="Y9e-3l-yBV">
                             <rect key="frame" x="0.0" y="156" width="326" height="262"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        </scrollView>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        </view>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <connections>

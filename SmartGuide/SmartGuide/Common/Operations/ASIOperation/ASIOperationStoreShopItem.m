@@ -11,7 +11,7 @@
 #import "StoreShopItem.h"
 
 @implementation ASIOperationStoreShopItem
-@synthesize values,items;
+@synthesize values,items,sortType;
 
 -(ASIOperationStoreShopItem *)initWithIDShop:(NSNumber *)idShop page:(int)page userLat:(double)userLat userLng:(double)userLng sort:(enum SORT_STORE_SHOP_LIST_TYPE)sort
 {
@@ -33,6 +33,13 @@
     
     if([self isNullData:json])
         return;
+    
+    int sort=[values[4] integerValue];
+    
+    sortType=SORT_STORE_SHOP_LIST_LATEST;
+    
+    if(sort==SORT_STORE_SHOP_LIST_TOP_SELLER)
+        sortType=SORT_STORE_SHOP_LIST_TOP_SELLER;
     
     StoreShop *shop=[StoreShop shopWithID:[values[0] integerValue]];
     int type=[values[4] integerValue];
