@@ -8,7 +8,7 @@
 
 #import "ShopListViewController.h"
 #import "GUIManager.h"
-#import "ShopSearchCell.h"
+#import "ShopListCell.h"
 #import "SGRootViewController.h"
 
 #define SHOP_LIST_SCROLL_SPEED 3.f
@@ -23,6 +23,8 @@
 -(ShopListViewController *)initWithKeyword:(NSString *)keyword
 {
     self=[super initWithNibName:@"ShopListViewController" bundle:nil];
+    
+    _keyword=[NSString stringWithStringDefault:keyword];
     
     return self;
 }
@@ -48,27 +50,27 @@
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 0;
+    return _shopsList.count==0?0:1;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 10;
+    return _shopsList.count;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    ShopSearchCell *cell=[tableView dequeueReusableCellWithIdentifier:[ShopSearchCell reuseIdentifier]];
+    ShopListCell *cell=[tableView dequeueReusableCellWithIdentifier:[ShopListCell reuseIdentifier]];
     cell.delegate=self;
     
-    [cell loadContent];
+    [cell loadWithShopList:_shopsList[indexPath.row]];
     
     return cell;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return [ShopSearchCell height];
+    return [ShopListCell heightWithContent:[_shopsList[indexPath.row] desc]];
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -151,7 +153,7 @@
     
 }
 
--(void)shopListCellTouched:(ShopSearchCell *)cell
+-(void)shopListCellTouched:(ShopListCell *)cell
 {
     if(_isZoomedMap)
     {
@@ -226,14 +228,9 @@
     
     tableList.backgroundColor=COLOR_BACKGROUND_SHOP_SERIES;
     
-    [tableList registerNib:[UINib nibWithNibName:[ShopSearchCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[ShopSearchCell reuseIdentifier]];
+    [tableList registerNib:[UINib nibWithNibName:[ShopListCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[ShopListCell reuseIdentifier]];
     
-    tableList.dataSource=self;
-    tableList.delegate=self;
-    
-    [tableList reloadData];
-    
-    [self makeScrollSize];
+//    [self makeScrollSize];
     
     [sortView setIcon:[UIImage imageNamed:@"icon_distance.png"] text:@"Khoảng cách"];
     
@@ -246,6 +243,60 @@
     [self.view addGestureRecognizer:tap];
     
     [scroll.panGestureRecognizer requireGestureRecognizerToFail:tap];
+    
+    _shopsList=[NSMutableArray array];
+    
+    _page=-1;
+    _sort=SORT_SHOP_LIST_DISTANCE;
+    [self requestShopSearch];
+    
+    [self.view showLoading];
+}
+
+-(void) requestShopSearch
+{
+    if(_operationShopSearch)
+    {
+        [_operationShopSearch cancel];
+        _operationShopSearch=nil;
+    }
+    
+    _operationShopSearch=[[ASIOperationShopSearch alloc] initWithKeywords:_keyword userLat:userLat() userLng:userLng() page:_page+1 sort:_sort];
+    
+    _operationShopSearch.delegatePost=self;
+    [_operationShopSearch startAsynchronous];
+}
+
+-(void)ASIOperaionPostFinished:(ASIOperationPost *)operation
+{
+    if([operation isKindOfClass:[ASIOperationShopSearch class]])
+    {
+        [self.view removeLoading];
+        
+        ASIOperationShopSearch *ope=(ASIOperationShopSearch*) operation;
+        
+        [_shopsList addObjectsFromArray:ope.shopsList];
+        
+        _page++;
+        _canLoadMore=ope.shopsList.count==10;
+        
+        tableList.dataSource=self;
+        tableList.delegate=self;
+        
+        [tableList reloadData];
+        
+        [self makeScrollSize];
+    }
+}
+
+-(void)ASIOperaionPostFailed:(ASIOperationPost *)operation
+{
+    if([operation isKindOfClass:[ASIOperationShopSearch class]])
+    {
+        [self.view removeLoading];
+        
+        _operationShopSearch=nil;
+    }
 }
 
 -(BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
@@ -283,7 +334,7 @@
             if(pnt.y>_tableFrame.origin.y+20)
             {
                 [UIView animateWithDuration:DURATION_DEFAULT animations:^{
-                    [self zoomMap];
+                    //[self zoomMap];
                 }];
             }
         }
@@ -303,7 +354,6 @@
     scroll.contentSize=CGSizeMake(scroll.l_v_w, tableList.l_v_y+MAX(_tableFrame.size.height,tableList.contentSize.height));
     scroll.contentInset=UIEdgeInsetsMake(0, 0, qrCodeView.l_v_h, 0);
     scroll.scrollIndicatorInsets=scroll.contentInset;
-    [contentView l_v_setH:scroll.l_cs_h];
 }
 
 -(void) tapTop:(UITapGestureRecognizer*) ges
@@ -510,8 +560,8 @@
         {
             CGPoint pnt=[scroll convertPoint:tableList.l_v_o toView:self.view];
             
-            if(self.l_v_h-pnt.y>[ShopSearchCell height]*1.5f)
-                [self endZoomMap];
+            //if(self.l_v_h-pnt.y>[ShopListCell height]*1.5f)
+              //  [self endZoomMap];
         }
             break;
             
@@ -534,7 +584,7 @@
         self.map.rotateEnabled=true;
     
     float height=_viewFrame.size.height-_qrFrame.size.height+QRCODE_RAY_HEIGHT+QRCODE_BIG_HEIGHT-QRCODE_SMALL_HEIGHT;
-    height-=[ShopSearchCell height]/2+20;
+//    height-=[ShopListCell height]/2+20;
     height-=_tableFrame.origin.y;
     
     _heightZoomedMap=height;

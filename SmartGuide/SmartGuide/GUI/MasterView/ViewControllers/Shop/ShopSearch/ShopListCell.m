@@ -6,26 +6,30 @@
 //  Copyright (c) 2013 Redbase. All rights reserved.
 //
 
-#import "ShopSearchCell.h"
+#import "ShopListCell.h"
 #import "Utility.h"
 #import "Constant.h"
 
-@implementation ShopSearchCell
+@implementation ShopListCell
 @synthesize delegate;
 
--(void)loadContent
+-(void)loadWithShopList:(ShopList *)shopList
 {
     imgvVoucher.highlighted=rand()%2==0;
-    
+
     scroll.contentOffset=CGPointZero;
     scroll.contentSize=CGSizeMake(scroll.l_v_w+imgvLine.l_v_x+5, 0);
     imgvHeartAni.hidden=true;
     imgvHeartAni.transform=CGAffineTransformMakeScale(1, 1);
+    
+    lblName.text=shopList.shopName;
+    lblAddress.text=shopList.address;
+    lblContent.text=shopList.desc;
 }
 
 +(NSString *)reuseIdentifier
 {
-    return @"ShopSearchCell";
+    return @"ShopListCell";
 }
 
 -(void)prepareForReuse
@@ -58,9 +62,15 @@
         [self.delegate shopListCellTouched:self];
 }
 
-+(float)height
++(float)heightWithContent:(NSString *)content
 {
-    return 88;
+    content=@"Lorem ipsum dolor .";
+    
+    float height=[content sizeWithFont:[UIFont fontWithName:@"Avenir-Roman" size:13] constrainedToSize:CGSizeMake(249, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height+5;
+    
+    height=MIN(62,height);
+    
+    return height+44;
 }
 
 - (IBAction)btnLoveTouchUpInside:(id)sender {

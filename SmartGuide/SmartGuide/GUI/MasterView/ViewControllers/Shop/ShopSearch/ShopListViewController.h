@@ -15,8 +15,9 @@
 #import "ShopSearchSortView.h"
 #import "Scroller.h"
 #import "MapList.h"
-#import "ShopSearchCell.h"
+#import "ShopListCell.h"
 #import "SearchViewController.h"
+#import "ASIOperationShopSearch.h"
 
 @class ScrollShopList,ShopListContentView;
 
@@ -26,7 +27,7 @@
 
 @end
 
-@interface ShopListViewController : SGViewController<MKMapViewDelegate,UIScrollViewDelegate,ScrollerDelegate,UIGestureRecognizerDelegate,SortSearchDelegate,UIActionSheetDelegate,UITableViewDataSource,UITableViewDelegate,ShopListCellDelegate,SearchControllerHandle>
+@interface ShopListViewController : SGViewController<MKMapViewDelegate,UIScrollViewDelegate,ScrollerDelegate,UIGestureRecognizerDelegate,SortSearchDelegate,UIActionSheetDelegate,UITableViewDataSource,UITableViewDelegate,ShopListCellDelegate,SearchControllerHandle,ASIOperationPostDelegate>
 {
     __weak IBOutlet UITableView *tableList;
     __weak IBOutlet ScrollShopList *scroll;
@@ -68,6 +69,13 @@
     
     bool _isDidUpdateLocation;
     bool _isAllowDiffScrollMap;
+    
+    ASIOperationShopSearch *_operationShopSearch;
+    NSString *_keyword;
+    NSMutableArray *_shopsList;
+    NSUInteger _page;
+    enum SORT_SHOP_LIST _sort;
+    bool _canLoadMore;
 }
 
 -(ShopListViewController*) initWithKeyword:(NSString*) keyword;

@@ -212,8 +212,8 @@
 		9A55CE22185F558900F7EA9C /* NewFeedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A55CE20185F558900F7EA9C /* NewFeedViewController.xib */; };
 		9A55CE30185F57BF00F7EA9C /* MapList.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A55CE25185F57BF00F7EA9C /* MapList.m */; };
 		9A55CE31185F57BF00F7EA9C /* Scroller.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A55CE27185F57BF00F7EA9C /* Scroller.m */; };
-		9A55CE32185F57BF00F7EA9C /* ShopSearchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A55CE29185F57BF00F7EA9C /* ShopSearchCell.m */; };
-		9A55CE33185F57BF00F7EA9C /* ShopSearchCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A55CE2A185F57BF00F7EA9C /* ShopSearchCell.xib */; };
+		9A55CE32185F57BF00F7EA9C /* ShopListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A55CE29185F57BF00F7EA9C /* ShopListCell.m */; };
+		9A55CE33185F57BF00F7EA9C /* ShopListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A55CE2A185F57BF00F7EA9C /* ShopListCell.xib */; };
 		9A55CE34185F57BF00F7EA9C /* ShopSearchSortView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A55CE2C185F57BF00F7EA9C /* ShopSearchSortView.m */; };
 		9A55CE35185F57BF00F7EA9C /* ShopListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A55CE2E185F57BF00F7EA9C /* ShopListViewController.m */; };
 		9A55CE36185F57BF00F7EA9C /* ShopListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A55CE2F185F57BF00F7EA9C /* ShopListViewController.xib */; };
@@ -493,6 +493,7 @@
 		9ACFA69D185FFA7C0090E7A8 /* SearchShopViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9ACFA69B185FFA7C0090E7A8 /* SearchShopViewController.xib */; };
 		9ACFA6A318600AA50090E7A8 /* ShopList.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ACFA6A218600AA50090E7A8 /* ShopList.m */; };
 		9ACFA6A618600AC70090E7A8 /* _ShopList.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ACFA6A518600AC70090E7A8 /* _ShopList.m */; };
+		9ACFA6A9186010650090E7A8 /* ASIOperationShopSearch.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ACFA6A8186010650090E7A8 /* ASIOperationShopSearch.m */; };
 		9AD1280A185EFD2E00D56B24 /* StoreCart.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AD12809185EFD2E00D56B24 /* StoreCart.m */; };
 		9AD1280D185EFD3500D56B24 /* _StoreCart.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AD1280C185EFD3500D56B24 /* _StoreCart.m */; };
 		9AD23D5217FABC0100D28C7E /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AD23D5117FABC0100D28C7E /* AudioToolbox.framework */; };
@@ -911,9 +912,9 @@
 		9A55CE25185F57BF00F7EA9C /* MapList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapList.m; sourceTree = "<group>"; };
 		9A55CE26185F57BF00F7EA9C /* Scroller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Scroller.h; sourceTree = "<group>"; };
 		9A55CE27185F57BF00F7EA9C /* Scroller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Scroller.m; sourceTree = "<group>"; };
-		9A55CE28185F57BF00F7EA9C /* ShopSearchCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopSearchCell.h; sourceTree = "<group>"; };
-		9A55CE29185F57BF00F7EA9C /* ShopSearchCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopSearchCell.m; sourceTree = "<group>"; };
-		9A55CE2A185F57BF00F7EA9C /* ShopSearchCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShopSearchCell.xib; sourceTree = "<group>"; };
+		9A55CE28185F57BF00F7EA9C /* ShopListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopListCell.h; sourceTree = "<group>"; };
+		9A55CE29185F57BF00F7EA9C /* ShopListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopListCell.m; sourceTree = "<group>"; };
+		9A55CE2A185F57BF00F7EA9C /* ShopListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShopListCell.xib; sourceTree = "<group>"; };
 		9A55CE2B185F57BF00F7EA9C /* ShopSearchSortView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopSearchSortView.h; sourceTree = "<group>"; };
 		9A55CE2C185F57BF00F7EA9C /* ShopSearchSortView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopSearchSortView.m; sourceTree = "<group>"; };
 		9A55CE2D185F57BF00F7EA9C /* ShopListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopListViewController.h; sourceTree = "<group>"; };
@@ -1240,6 +1241,8 @@
 		9ACFA6A218600AA50090E7A8 /* ShopList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopList.m; sourceTree = "<group>"; };
 		9ACFA6A418600AC70090E7A8 /* _ShopList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _ShopList.h; sourceTree = "<group>"; };
 		9ACFA6A518600AC70090E7A8 /* _ShopList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _ShopList.m; sourceTree = "<group>"; };
+		9ACFA6A7186010650090E7A8 /* ASIOperationShopSearch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIOperationShopSearch.h; sourceTree = "<group>"; };
+		9ACFA6A8186010650090E7A8 /* ASIOperationShopSearch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIOperationShopSearch.m; sourceTree = "<group>"; };
 		9AD12808185EFD2E00D56B24 /* StoreCart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoreCart.h; sourceTree = "<group>"; };
 		9AD12809185EFD2E00D56B24 /* StoreCart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoreCart.m; sourceTree = "<group>"; };
 		9AD1280B185EFD3500D56B24 /* _StoreCart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _StoreCart.h; sourceTree = "<group>"; };
@@ -2053,9 +2056,9 @@
 				9A55CE25185F57BF00F7EA9C /* MapList.m */,
 				9A55CE26185F57BF00F7EA9C /* Scroller.h */,
 				9A55CE27185F57BF00F7EA9C /* Scroller.m */,
-				9A55CE28185F57BF00F7EA9C /* ShopSearchCell.h */,
-				9A55CE29185F57BF00F7EA9C /* ShopSearchCell.m */,
-				9A55CE2A185F57BF00F7EA9C /* ShopSearchCell.xib */,
+				9A55CE28185F57BF00F7EA9C /* ShopListCell.h */,
+				9A55CE29185F57BF00F7EA9C /* ShopListCell.m */,
+				9A55CE2A185F57BF00F7EA9C /* ShopListCell.xib */,
 				9A55CE2B185F57BF00F7EA9C /* ShopSearchSortView.h */,
 				9A55CE2C185F57BF00F7EA9C /* ShopSearchSortView.m */,
 				9A55CE2D185F57BF00F7EA9C /* ShopListViewController.h */,
@@ -2465,6 +2468,8 @@
 				9AC494B21858B2390042C535 /* ASIOperationStoreShopList.m */,
 				9A9211A0185AC39F0012F181 /* ASIOperationStoreShopItem.h */,
 				9A9211A1185AC39F0012F181 /* ASIOperationStoreShopItem.m */,
+				9ACFA6A7186010650090E7A8 /* ASIOperationShopSearch.h */,
+				9ACFA6A8186010650090E7A8 /* ASIOperationShopSearch.m */,
 			);
 			path = ASIOperation;
 			sourceTree = "<group>";
@@ -3201,7 +3206,7 @@
 				9A66893D184DC6F2006A9EB2 /* bg_detailcover@2x.png in Resources */,
 				9A32F419184346C000704D26 /* WelcomeViewController.xib in Resources */,
 				9AA90B6F1850EF0F002F40FF /* bg_typecomment_mid@2x.png in Resources */,
-				9A55CE33185F57BF00F7EA9C /* ShopSearchCell.xib in Resources */,
+				9A55CE33185F57BF00F7EA9C /* ShopListCell.xib in Resources */,
 				A91A675D1797F65000BEB8C5 /* human.m.motemplate in Resources */,
 				9AC4941618585B000042C535 /* IV-4-Cart-Money.jpg in Resources */,
 				A91A675E1797F65000BEB8C5 /* machine.h.motemplate in Resources */,
@@ -3611,6 +3616,7 @@
 				9A32F3D7184345AE00704D26 /* SGMapController.m in Sources */,
 				9A3E767F18532BCE00F596C1 /* UserHistoryViewController.m in Sources */,
 				9A32F46F184348A300704D26 /* GMGridView.m in Sources */,
+				9ACFA6A9186010650090E7A8 /* ASIOperationShopSearch.m in Sources */,
 				A9B807C8179FBD7B00C8E003 /* ASIFormDataRequest.m in Sources */,
 				A9B807C9179FBD7B00C8E003 /* ASIHTTPRequest.m in Sources */,
 				A9B807CA179FBD7B00C8E003 /* ASIInputStream.m in Sources */,
@@ -3618,7 +3624,7 @@
 				A9B807CC179FBD7B00C8E003 /* ASIWebPageRequest.m in Sources */,
 				9A32F4311843486F00704D26 /* AlphaView.m in Sources */,
 				A9B807EC179FBE3400C8E003 /* Reachability.m in Sources */,
-				9A55CE32185F57BF00F7EA9C /* ShopSearchCell.m in Sources */,
+				9A55CE32185F57BF00F7EA9C /* ShopListCell.m in Sources */,
 				A961416C17A02E8800D30375 /* Flags.m in Sources */,
 				A9E3784817A0CB2E00CE11F2 /* NSBKeyframeAnimation.m in Sources */,
 				9A32F42D1843485300704D26 /* ODRefreshControl.m in Sources */,

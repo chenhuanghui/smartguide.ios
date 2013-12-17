@@ -2024,6 +2024,15 @@ static const NSString *KEY_HIT_TEST_EDGE_INSETS = @"HitTestEdgeInsets";
         return @(0);
     }
     
+    if([obj isKindOfClass:[NSString class]])
+    {
+        NSNumberFormatter * f = [[NSNumberFormatter alloc] init];
+        [f setNumberStyle:NSNumberFormatterDecimalStyle];
+        
+        return [f numberFromString:obj];
+        
+    }
+    
     return obj;
 }
 

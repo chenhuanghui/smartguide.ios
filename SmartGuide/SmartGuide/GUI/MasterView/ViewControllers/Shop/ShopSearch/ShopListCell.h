@@ -8,16 +8,17 @@
 
 #import <UIKit/UIKit.h>
 #import "LabelTopText.h"
+#import "ShopList.h"
 
-@class ScrollListCell,ShopSearchCell;
+@class ScrollListCell,ShopListCell;
 
 @protocol ShopListCellDelegate <NSObject>
 
--(void) shopListCellTouched:(ShopSearchCell*) cell;
+-(void) shopListCellTouched:(ShopListCell*) cell;
 
 @end
 
-@interface ShopSearchCell : UITableViewCell<UIScrollViewDelegate>
+@interface ShopListCell : UITableViewCell<UIScrollViewDelegate>
 {
     __weak IBOutlet UIImageView *imgvVoucher;
     __weak IBOutlet UIImageView *imgvType;
@@ -36,9 +37,9 @@
     __weak UITapGestureRecognizer *tapGes;
 }
 
--(void) loadContent;
+-(void) loadWithShopList:(ShopList*) shopList;
 +(NSString *)reuseIdentifier;
-+(float) height;
++(float) heightWithContent:(NSString*) content;
 
 @property (nonatomic, weak) id<ShopListCellDelegate> delegate;
 

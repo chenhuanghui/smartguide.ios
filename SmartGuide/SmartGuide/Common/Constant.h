@@ -71,7 +71,6 @@
 #define API_USER_COLLECTION @"user/collection"
 #define API_GET_ADS @"ads/get"
 #define API_USER_LIKE_DISLIKE @"user/like"
-#define API_SHOP_SEARCH @"shop/search_v2"
 #define API_GET_REWARDS @"reward/list"
 #define API_GET_FEEDBACK @"get_feedback"
 #define API_GET_SG @"score/get"
@@ -84,6 +83,7 @@
 #define API_STORE_ALL_STORE @"store/getAll"
 #define API_STORE_GET_LIST @"store/getList"
 #define API_STORE_GET_ITEMS @"store/getItem"
+#define API_SHOP_SEARCH @"shop/search_v2_1"
 
 #define API_GET_ACTIVE_CODE(phone) [NSString stringWithFormat:@"%@/user/activation?phone=%@",SERVER_IP,phone]
 #define API_VERIFY_ACTIVE_CODE(phone,activeCode) [NSString stringWithFormat:@"%@/user/check?phone=%@&code=%@",SERVER_IP,phone,activeCode]
@@ -206,6 +206,12 @@ enum LOVE_STATUS
     LOVE_STATUS_NONE = 0,
     LOVE_STATUS_LOVED = 1
 };
+
+enum SORT_SHOP_LIST {
+    SORT_SHOP_LIST_DISTANCE = 0,
+    SORT_SHOP_LIST_VIEW = 1,
+    SORT_SHOP_LIST_LOVE = 2
+    };
 
 @class ShopCatalog;
 @protocol CatalogueBlockViewDelegate <NSObject>
