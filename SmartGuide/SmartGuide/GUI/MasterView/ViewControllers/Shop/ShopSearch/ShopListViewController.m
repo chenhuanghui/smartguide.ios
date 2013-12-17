@@ -6,31 +6,31 @@
 //  Copyright (c) 2013 Redbase. All rights reserved.
 //
 
-#import "ShopSearchViewController.h"
+#import "ShopListViewController.h"
 #import "GUIManager.h"
 #import "ShopSearchCell.h"
 #import "SGRootViewController.h"
 
 #define SHOP_LIST_SCROLL_SPEED 3.f
 
-@interface ShopSearchViewController ()
+@interface ShopListViewController ()
 
 @end
 
-@implementation ShopSearchViewController
-@synthesize delegate,catalog,shopController,qrCodeView,isShowedQRView,qrViewFrame;
+@implementation ShopListViewController
+@synthesize delegate,searchController;
 
--(ShopSearchViewController *)initWithKeyword:(NSString *)keyword
+-(ShopListViewController *)initWithKeyword:(NSString *)keyword
 {
-    self=[super initWithNibName:@"ShopSearchViewController" bundle:nil];
+    self=[super initWithNibName:@"ShopListViewController" bundle:nil];
+    
+    return self;
 }
 
-- (id)init
+-(ShopListViewController *)initWithPlaceList
 {
-    self = [super initWithNibName:@"ShopSearchViewController" bundle:nil];
-    if (self) {
-        
-    }
+    self=[super initWithNibName:@"ShopListViewController" bundle:nil];
+    
     return self;
 }
 
@@ -48,7 +48,7 @@
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
+    return 0;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -550,7 +550,7 @@
         btnScanSmall.frame=_buttonScanBigFrame;
         
         float y=QRCODE_BIG_HEIGHT-QRCODE_SMALL_HEIGHT;
-        [self.qrCodeView l_v_addY:y];
+        [self.searchController.qrView l_v_addY:y];
         
         scroll.contentInset=UIEdgeInsetsMake(0, 0, QRCODE_RAY_HEIGHT, 0);
         scroll.contentSize=scroll.l_v_s;
@@ -619,7 +619,7 @@
         btnScanSmall.frame=_buttonScanSmallFrame;
         
         float y=QRCODE_BIG_HEIGHT-QRCODE_SMALL_HEIGHT;
-        [self.qrCodeView l_v_addY:-y];
+        [self.searchController.qrView l_v_addY:-y];
         
         [tableList l_v_setO:_tableFrame.origin];
         [btnMap l_v_setO:_buttonMapFrame.origin];
@@ -672,7 +672,7 @@
         if(_isZoomedMap)
             [UIView animateWithDuration:DURATION_DEFAULT animations:^{
                 float y=-(QRCODE_BIG_HEIGHT-QRCODE_SMALL_HEIGHT);
-                [[self qrCodeView] l_v_addY:y];
+                [[self.searchController qrView] l_v_addY:y];
             }];
     }
 }
@@ -680,7 +680,7 @@
 -(void)showQRView
 {
     [UIView animateWithDuration:DURATION_DEFAULT animations:^{
-        [self.qrCodeView l_v_setO:CGPointZero];
+        [[self.searchController qrView] l_v_setO:CGPointZero];
     }];
 }
 
@@ -688,9 +688,9 @@
 {
     [UIView animateWithDuration:DURATION_DEFAULT animations:^{
         if(_isZoomedMap)
-            [self.qrCodeView l_v_setO:CGPointMake(0, self.qrViewFrame.origin.y+(QRCODE_BIG_HEIGHT-QRCODE_SMALL_HEIGHT))];
+            [[self.searchController qrView] l_v_setO:CGPointMake(0, self.searchController.qrFrame.origin.y+(QRCODE_BIG_HEIGHT-QRCODE_SMALL_HEIGHT))];
         else
-            [self.qrCodeView l_v_setO:CGPointMake(0, self.qrViewFrame.origin.y)];
+            [[self.searchController qrView] l_v_setO:CGPointMake(0, self.searchController.qrFrame.origin.y)];
     }];
 }
 

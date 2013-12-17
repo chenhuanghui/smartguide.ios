@@ -144,16 +144,22 @@ static GUIManager *_shareInstance=nil;
 
 -(void) loadContentNavigation
 {
-    ShopViewController *shopController=[[ShopViewController alloc] init];
-    shopController.delegate=self;
+    NewFeedViewController *vc=[[NewFeedViewController alloc] init];
+    vc.delegate=self;
     
-    SGNavigationController *vc=[[SGNavigationController alloc] initWithRootViewController:shopController];
+    SGNavigationController *navi=[[SGNavigationController alloc] initWithRootViewController:vc];
     
-    contentNavigation=vc;
+    contentNavigation=navi;
     
-    [self showStoreController];
+    [rootViewController addChildViewController:navi];
+}
+
+-(void)newFeedControllerTouchedTextField:(NewFeedViewController *)controller
+{
+    SearchViewController *vc=[[SearchViewController alloc] initWithSearch];
+    vc.delegate=self;
     
-    [rootViewController addChildViewController:vc];
+    [rootNavigation pushViewController:vc animated:true];
 }
 
 -(void) showUserController
@@ -484,16 +490,6 @@ static GUIManager *_shareInstance=nil;
 -(void)closeViewController:(SGViewController *)viewController
 {
     [self.rootViewController removeTopView:viewController];
-}
-
--(void)shopControllerTouchedSetting:(ShopViewController *)controller
-{
-    [self showLeftController];
-}
-
--(void)shopControllerTouchedNotification:(ShopViewController *)controller
-{
-    [self showRightController];
 }
 
 -(void) showLeftController

@@ -14,13 +14,19 @@
 #import <MapKit/MapKit.h>
 #import "ShopSearchSortView.h"
 #import "Scroller.h"
-#import "ShopViewController.h"
 #import "MapList.h"
 #import "ShopSearchCell.h"
+#import "SearchViewController.h"
 
 @class ScrollShopList,ShopListContentView;
 
-@interface ShopSearchViewController : SGViewController<MKMapViewDelegate,UIScrollViewDelegate,ScrollerDelegate,UIGestureRecognizerDelegate,SortSearchDelegate,UIActionSheetDelegate,ShopControllerHandle,UITableViewDataSource,UITableViewDelegate,ShopListCellDelegate>
+@protocol ShopListControllerDelegate <SGViewControllerDelegate>
+
+
+
+@end
+
+@interface ShopListViewController : SGViewController<MKMapViewDelegate,UIScrollViewDelegate,ScrollerDelegate,UIGestureRecognizerDelegate,SortSearchDelegate,UIActionSheetDelegate,UITableViewDataSource,UITableViewDelegate,ShopListCellDelegate,SearchControllerHandle>
 {
     __weak IBOutlet UITableView *tableList;
     __weak IBOutlet ScrollShopList *scroll;
@@ -64,13 +70,13 @@
     bool _isAllowDiffScrollMap;
 }
 
--(ShopSearchViewController*) initWithKeyword:(NSString*) keyword;
--(ShopSearchViewController*) initWithPlaceList;
+-(ShopListViewController*) initWithKeyword:(NSString*) keyword;
+-(ShopListViewController*) initWithPlaceList;
 
 -(bool) isZoomedMap;
 -(void) scrollViewSetContentOffset:(CGPoint) contentOffset;
 
-@property (nonatomic, assign) id<ShopListDelegate> delegate;
+@property (nonatomic, assign) id<ShopListControllerDelegate> delegate;
 @property (nonatomic, strong) NSString *catalog;
 
 @end
@@ -79,7 +85,7 @@
 
 @property (nonatomic, assign) bool disableScrollUp;
 @property (nonatomic, readonly) CGPoint offset;
-@property (nonatomic, weak) ShopSearchViewController *shopListController;
+@property (nonatomic, weak) ShopListViewController *shopListController;
 @property (nonatomic, assign) float minContentOffsetY;
 
 @end

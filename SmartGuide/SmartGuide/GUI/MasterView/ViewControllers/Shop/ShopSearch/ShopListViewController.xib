@@ -5,14 +5,11 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3742"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ShopSearchViewController">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ShopListViewController">
             <connections>
                 <outlet property="btnMap" destination="Xkq-kb-KOu" id="J7L-ET-PWA"/>
-                <outlet property="btnScanBig" destination="T1S-Qf-Uq1" id="rJX-ue-pBY"/>
-                <outlet property="btnScanSmall" destination="I04-lb-NhR" id="Opz-zq-Uxr"/>
                 <outlet property="btnSearchLocation" destination="vVs-Zn-Uvn" id="IKJ-Oj-lm1"/>
                 <outlet property="contentView" destination="X3p-aY-tkP" id="iHd-r4-e64"/>
-                <outlet property="qrCodeView" destination="Lis-oX-9td" id="MiJ-fj-39v"/>
                 <outlet property="scroll" destination="f21-IX-hgk" id="nOC-9n-U70"/>
                 <outlet property="sortView" destination="Jjr-nT-igQ" id="9c0-08-a74"/>
                 <outlet property="tableList" destination="Yzp-w8-hbC" id="JoC-2F-5Qb"/>
@@ -24,10 +21,6 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="II-2-List.jpg" id="pv7-bt-kaQ">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                </imageView>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" delaysContentTouches="NO" id="f21-IX-hgk" customClass="ScrollShopList">
                     <rect key="frame" x="0.0" y="44" width="320" height="436"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -73,33 +66,6 @@
                         <outlet property="delegate" destination="-1" id="agK-zR-78k"/>
                     </connections>
                 </scrollView>
-                <view contentMode="scaleToFill" id="Lis-oX-9td">
-                    <rect key="frame" x="0.0" y="424" width="320" height="56"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background_scan.png" id="5Xl-3e-xlO">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="56"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
-                        </imageView>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="T1S-Qf-Uq1">
-                            <rect key="frame" x="0.0" y="1" width="320" height="56"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <inset key="contentEdgeInsets" minX="0.0" minY="-1" maxX="0.0" maxY="0.0"/>
-                            <state key="normal" image="button_scan.png">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                        </button>
-                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="top" lineBreakMode="middleTruncation" id="I04-lb-NhR">
-                            <rect key="frame" x="0.0" y="56" width="320" height="56"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <inset key="contentEdgeInsets" minX="13" minY="10" maxX="0.0" maxY="0.0"/>
-                            <state key="normal" image="button_scan_small.png">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                        </button>
-                    </subviews>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                </view>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background_blur.png" id="Y1h-Ug-p0M">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="91"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -108,31 +74,16 @@
                     <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
-                        <view hidden="YES" contentMode="scaleToFill" id="dOm-9e-UOs">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="iUe-Ru-1lk">
+                            <rect key="frame" x="0.0" y="0.0" width="50" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="RQD-qR-fsF">
-                                    <rect key="frame" x="0.0" y="0.0" width="50" height="53"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                    <state key="normal" title="Back">
-                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                    </state>
-                                </button>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="NBn-aX-m62">
-                                    <rect key="frame" x="276" y="0.0" width="43" height="53"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                    <state key="normal" title="Config">
-                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                    </state>
-                                </button>
-                            </subviews>
-                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                        </view>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <state key="normal" title="Trở lại">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                        </button>
                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Tìm kiếm khuyến mãi" minimumFontSize="17" background="search_field.png" id="ray-CK-v4m">
-                            <rect key="frame" x="52" y="10" width="224" height="32"/>
+                            <rect key="frame" x="55" y="6" width="256" height="32"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits"/>
@@ -146,13 +97,9 @@
         </view>
     </objects>
     <resources>
-        <image name="II-2-List.jpg" width="320" height="480"/>
         <image name="background_blur.png" width="320" height="91"/>
-        <image name="background_scan.png" width="320" height="56"/>
         <image name="button_location.png" width="279" height="50"/>
         <image name="button_map.png" width="33" height="34"/>
-        <image name="button_scan.png" width="125" height="24"/>
-        <image name="button_scan_small.png" width="63" height="17"/>
         <image name="search_field.png" width="255" height="32"/>
     </resources>
 </document>

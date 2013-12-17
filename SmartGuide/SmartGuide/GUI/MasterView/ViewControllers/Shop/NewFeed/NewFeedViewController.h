@@ -7,27 +7,19 @@
 //
 
 #import "SGViewController.h"
-#import "Constant.h"
-#import "ASIOperationShopCatalog.h"
-#import "ShopViewController.h"
 
-@interface NewFeedViewController : SGViewController<ASIOperationPostDelegate,ShopControllerHandle>
+@class NewFeedViewController;
+
+@protocol NewFeedControllerDelegate <SGViewControllerDelegate>
+
+-(void) newFeedControllerTouchedTextField:(NewFeedViewController*) controller;
+
+@end
+
+@interface NewFeedViewController : SGViewController<UITextFieldDelegate>
 {
-    ASIOperationShopCatalog *_operationShopCatalog;
-    
-    __weak IBOutlet UIView *groupAll;
-    __weak IBOutlet UIView *groupFood;
-    __weak IBOutlet UIView *groupDrink;
-    __weak IBOutlet UIView *groupHealth;
-    __weak IBOutlet UIView *groupEntertaiment;
-    __weak IBOutlet UIView *groupFashion;
-    __weak IBOutlet UIView *groupTravel;
-    __weak IBOutlet UIView *groupProduction;
-    __weak IBOutlet UIView *groupEducation;
-    
-    UIView *_launchingView;
 }
 
-@property (nonatomic, assign) id<ShopCatalogDelegate> delegate;
+@property (nonatomic, assign) id<NewFeedControllerDelegate> delegate;
 
 @end
