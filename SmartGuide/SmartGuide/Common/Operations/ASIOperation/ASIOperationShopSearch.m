@@ -20,6 +20,11 @@
     return self;
 }
 
+-(NSArray *)keys
+{
+    return @[@"keywords",@"userLat",@"userLng",@"page",@"sort"];
+}
+
 -(void)onCompletedWithJSON:(NSArray *)json
 {
     shopsList=[NSMutableArray array];

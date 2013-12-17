@@ -17,8 +17,8 @@
 {
     imgvVoucher.highlighted=rand()%2==0;
 
-    scroll.contentOffset=CGPointZero;
-    scroll.contentSize=CGSizeMake(scroll.l_v_w+imgvLine.l_v_x+5, 0);
+    [self makeScrollSize];
+    
     imgvHeartAni.hidden=true;
     imgvHeartAni.transform=CGAffineTransformMakeScale(1, 1);
     
@@ -27,48 +27,23 @@
     lblContent.text=shopList.desc;
 }
 
+-(void) makeScrollSize
+{
+    scroll.contentOffset=CGPointZero;
+    scroll.contentSize=CGSizeMake(scroll.l_v_w+1, 0);
+}
+
 +(NSString *)reuseIdentifier
 {
     return @"ShopListCell";
 }
 
--(void)prepareForReuse
-{
-    [super prepareForReuse];
-}
-
--(void)didMoveToSuperview
-{
-    [super didMoveToSuperview];
-    
-    scroll.contentOffset=CGPointZero;
-    scroll.contentSize=CGSizeMake(scroll.l_v_w+imgvLine.l_v_x+5, 0);
-    
-    tapGes.delegate=nil;
-    [tapGes removeTarget:self action:@selector(panGes:)];
-    [scroll removeGestureRecognizer:tapGes];
-    tapGes=nil;
-    
-    UITapGestureRecognizer *tap=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGes:)];
-    tapGes=tap;
-    
-    [scroll.panGestureRecognizer requireGestureRecognizerToFail:tap];
-    [scroll addGestureRecognizer:tap];
-}
-
--(void) tapGes:(UIPanGestureRecognizer*) tap
-{
-    if(scroll.l_co_x<=5)
-        [self.delegate shopListCellTouched:self];
-}
-
 +(float)heightWithContent:(NSString *)content
 {
-    content=@"Lorem ipsum dolor .";
+    float height=[content sizeWithFont:[UIFont fontWithName:@"Avenir-Roman" size:13] constrainedToSize:CGSizeMake(249, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height+10;
     
-    float height=[content sizeWithFont:[UIFont fontWithName:@"Avenir-Roman" size:13] constrainedToSize:CGSizeMake(249, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height+5;
-    
-    height=MIN(62,height);
+    if(height>45)
+        height=45;
     
     return height+44;
 }
@@ -91,14 +66,42 @@
     }];
 }
 
-- (IBAction)btnAddTouchUpInside:(id)sender {
-    [scroll setContentOffset:CGPointZero animated:true];
+-(void)awakeFromNib
+{
+    [super awakeFromNib];
+    
+    [scroll.panGestureRecognizer addTarget:self action:@selector(panGes:)];
+}
+
+-(void) panGes:(UIPanGestureRecognizer*) pan
+{
+    switch (pan.state) {
+        case UIGestureRecognizerStateCancelled:
+        case UIGestureRecognizerStateEnded:
+        case UIGestureRecognizerStateFailed:
+            
+            if(scroll.contentOffset.x>rightView.l_v_w/2)
+            {
+                scroll.contentInset=UIEdgeInsetsMake(0, 0, 0, rightView.l_v_w);
+                [scroll setContentOffset:CGPointMake(rightView.l_v_w, 0) animated:true];
+            }
+            else
+            {
+                [scroll setContentOffsetX:CGPointZero animated:true completed:^{
+                    //scroll.contentInset=UIEdgeInsetsZero;
+                }];
+            }
+            
+            break;
+            
+        default:
+            break;
+    }
 }
 
 @end
 
 @implementation ScrollListCell
-@synthesize offset;
 
 -(void)didMoveToSuperview
 {
@@ -120,13 +123,6 @@
     }
     
     return true;
-}
-
--(void)setContentOffset:(CGPoint)contentOffset
-{
-    offset=CGPointMake(contentOffset.x-self.contentOffset.x, contentOffset.y-self.contentOffset.y);
-    
-    [super setContentOffset:contentOffset];
 }
 
 @end

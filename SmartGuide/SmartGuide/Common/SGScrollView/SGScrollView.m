@@ -96,7 +96,24 @@
     _offset.x=contentOffset.x-self.contentOffset.x;
     _offset.y=contentOffset.y-self.contentOffset.y;
     
+    bool isFoundX=false;
+    if(_completedSetContentOffSetX)
+    {
+        if(_contentOffsetTargetX+contentOffset.x<=0)
+        {
+            isFoundX=true;
+        }
+    }
+    
     [super setContentOffset:contentOffset];
+    
+    if(isFoundX)
+    {
+        _completedSetContentOffSetX();
+        _completedSetContentOffSetX=nil;
+        
+        [self setUserInteractionEnabled:true];
+    }
     
     NSMutableArray *array=[NSMutableArray array];
     CGRect rect=CGRectZero;
@@ -160,6 +177,15 @@
 {
     [_pauseViews removeAllObjects];
     _pauseViews=nil;
+}
+
+-(void)setContentOffsetX:(CGPoint)targetOffset animated:(BOOL)animated completed:(void (^)())completed
+{
+    _completedSetContentOffSetX=[completed copy];
+    _contentOffsetTargetX=targetOffset.x-self.contentOffset.x;
+    
+    [self setUserInteractionEnabled:false];
+    [self setContentOffset:targetOffset animated:animated];
 }
 
 @end

@@ -13,6 +13,9 @@
     NSMutableArray *_pauseViews;
     NSMutableArray *_followViews;
     CGPoint _offset;
+    
+    void(^_completedSetContentOffSetX)();
+    float _contentOffsetTargetX;
 }
 
 -(CGPoint) offset;
@@ -22,6 +25,8 @@
 
 -(void) clearFollowViews;
 -(void) clearPauseViews;
+
+-(void) setContentOffsetX:(CGPoint)contentOffset animated:(BOOL)animated completed:(void(^)()) completed;
 
 @property (nonatomic, assign) float minimumOffsetY;
 

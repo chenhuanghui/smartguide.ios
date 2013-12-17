@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "LabelTopText.h"
 #import "ShopList.h"
+#import "SGScrollView.h"
 
 @class ScrollListCell,ShopListCell;
 
@@ -26,15 +27,11 @@
     __weak IBOutlet LabelTopText *lblContent;
     __weak IBOutlet UILabel *lblAddress;
     __weak IBOutlet UIImageView *imgvLine;
-    __weak IBOutlet UIImageView *imgvLineVerContent;
-    __weak IBOutlet UIView *slideView;
     __weak IBOutlet UIButton *btnLove;
-    __weak IBOutlet UIButton *btnAdd;
-    __weak IBOutlet UIView *visibleView;
     __weak IBOutlet ScrollListCell *scroll;
     __weak IBOutlet UIImageView *imgvHeartAni;
-    
-    __weak UITapGestureRecognizer *tapGes;
+    __weak IBOutlet UIView *leftView;
+    __weak IBOutlet UIView *rightView;
 }
 
 -(void) loadWithShopList:(ShopList*) shopList;
@@ -45,7 +42,6 @@
 
 @end
 
-@interface ScrollListCell : UIScrollView<UIGestureRecognizerDelegate>
-@property CGPoint offset;
+@interface ScrollListCell : SGScrollView<UIGestureRecognizerDelegate>
 
 @end
