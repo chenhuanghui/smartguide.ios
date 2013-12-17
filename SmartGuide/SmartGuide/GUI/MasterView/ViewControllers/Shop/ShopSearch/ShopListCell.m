@@ -15,6 +15,7 @@
 
 -(void)loadWithShopList:(ShopList *)shopList
 {
+    _shop=shopList;
     imgvVoucher.highlighted=rand()%2==0;
 
     [self makeScrollSize];
@@ -71,6 +72,28 @@
     [super awakeFromNib];
     
     [scroll.panGestureRecognizer addTarget:self action:@selector(panGes:)];
+    
+    UITapGestureRecognizer *tap=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGes:)];
+    tap.delegate=self;
+    
+    [scroll addGestureRecognizer:tap];
+    
+    [scroll.panGestureRecognizer requireGestureRecognizerToFail:tap];
+}
+
+-(BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
+{
+    if(scroll.contentOffset.x>5)
+    {
+        return false;
+    }
+    
+    return true;
+}
+
+-(void) tapGes:(UITapGestureRecognizer*) tap
+{
+    [self.delegate shopListCellTouched:_shop];
 }
 
 -(void) panGes:(UIPanGestureRecognizer*) pan

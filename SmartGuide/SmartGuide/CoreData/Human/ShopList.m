@@ -117,4 +117,14 @@
     }
 }
 
+-(CLLocationCoordinate2D)coordinate
+{
+    return CLLocationCoordinate2DMake(self.shopLat.doubleValue, self.shopLng.doubleValue);
+}
+
+-(NSString *)title
+{
+    return self.shopName;
+}
+
 @end

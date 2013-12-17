@@ -1,7 +1,8 @@
 #import "_ShopList.h"
 #import "Constant.h"
+#import <MapKit/MapKit.h>
 
-@interface ShopList : _ShopList 
+@interface ShopList : _ShopList<MKAnnotation>
 {
 }
 

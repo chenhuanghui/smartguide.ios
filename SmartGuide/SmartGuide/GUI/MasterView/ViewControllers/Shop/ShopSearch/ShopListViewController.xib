@@ -13,8 +13,10 @@
                 <outlet property="btnSearchLocation" destination="vVs-Zn-Uvn" id="IKJ-Oj-lm1"/>
                 <outlet property="qrCodeView" destination="wZi-TX-GZk" id="Omh-oR-Tsp"/>
                 <outlet property="scroll" destination="f21-IX-hgk" id="nOC-9n-U70"/>
+                <outlet property="scrollerContain" destination="xkE-2n-RVR" id="3Kt-Dg-daL"/>
                 <outlet property="sortView" destination="Jjr-nT-igQ" id="9c0-08-a74"/>
                 <outlet property="tableList" destination="Yzp-w8-hbC" id="JoC-2F-5Qb"/>
+                <outlet property="txt" destination="ray-CK-v4m" id="tDG-jV-qFt"/>
                 <outlet property="view" destination="1" id="3"/>
             </connections>
         </placeholder>
@@ -54,6 +56,9 @@
                             <state key="normal" image="button_location.png">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
+                            <connections>
+                                <action selector="btnLocationTouchUpInside:" destination="-1" eventType="touchUpInside" id="HNT-c4-tj4"/>
+                            </connections>
                         </button>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -63,6 +68,11 @@
                         <outlet property="delegate" destination="-1" id="agK-zR-78k"/>
                     </connections>
                 </scrollView>
+                <view userInteractionEnabled="NO" contentMode="scaleToFill" id="xkE-2n-RVR">
+                    <rect key="frame" x="0.0" y="47" width="320" height="387"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                </view>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background_blur.png" id="Y1h-Ug-p0M">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="91"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -84,6 +94,9 @@
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits"/>
+                            <connections>
+                                <outlet property="delegate" destination="-1" id="N9d-kh-3WU"/>
+                            </connections>
                         </textField>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>

@@ -6,9 +6,9 @@
 //  Copyright (c) 2013 Redbase. All rights reserved.
 //
 
-#import <MapKit/MapKit.h>
+#import "SGMapView.h"
 
-@interface MapList : MKMapView
+@interface MapList : SGMapView
 
 +(MapList*) shareInstance;
 

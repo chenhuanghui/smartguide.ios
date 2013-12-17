@@ -27,7 +27,7 @@
 
 @end
 
-@interface ShopListViewController : SGViewController<MKMapViewDelegate,UIScrollViewDelegate,ScrollerDelegate,UIGestureRecognizerDelegate,SortSearchDelegate,UIActionSheetDelegate,UITableViewDataSource,UITableViewDelegate,ShopListCellDelegate,SearchControllerHandle,ASIOperationPostDelegate>
+@interface ShopListViewController : SGViewController<MKMapViewDelegate,UIScrollViewDelegate,ScrollerDelegate,UIGestureRecognizerDelegate,SortSearchDelegate,UIActionSheetDelegate,UITableViewDataSource,UITableViewDelegate,ShopListCellDelegate,SearchControllerHandle,ASIOperationPostDelegate,UITextFieldDelegate>
 {
     __weak IBOutlet UITableView *tableList;
     __weak IBOutlet ScrollShopList *scroll;
@@ -37,6 +37,7 @@
     __weak IBOutlet UIView *qrCodeView;
     __weak IBOutlet UIButton *btnScanBig;
     __weak IBOutlet UIButton *btnScanSmall;
+    __weak IBOutlet UITextField *txt;
     
     CGRect _mapFrame;
     CGRect _tableFrame;
@@ -72,25 +73,22 @@
     NSUInteger _page;
     enum SORT_SHOP_LIST _sort;
     bool _canLoadMore;
+    bool _isZoomedRegionMap;
+    
+    CLLocationCoordinate2D _location;
 }
 
 -(ShopListViewController*) initWithKeyword:(NSString*) keyword;
 -(ShopListViewController*) initWithPlaceList;
 
 -(bool) isZoomedMap;
--(void) scrollViewSetContentOffset:(CGPoint) contentOffset;
 
 @property (nonatomic, assign) id<ShopListControllerDelegate> delegate;
 @property (nonatomic, strong) NSString *catalog;
 
 @end
 
-@interface ScrollShopList : UIScrollView<UIGestureRecognizerDelegate>
-
-@property (nonatomic, assign) bool disableScrollUp;
-@property (nonatomic, readonly) CGPoint offset;
-@property (nonatomic, weak) ShopListViewController *shopListController;
-@property (nonatomic, assign) float minContentOffsetY;
+@interface ScrollShopList : SGScrollView<UIGestureRecognizerDelegate>
 
 @end
 

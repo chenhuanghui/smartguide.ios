@@ -15,7 +15,7 @@
 
 @protocol ShopListCellDelegate <NSObject>
 
--(void) shopListCellTouched:(ShopListCell*) cell;
+-(void) shopListCellTouched:(ShopList*) shop;
 
 @end
 
@@ -32,6 +32,8 @@
     __weak IBOutlet UIImageView *imgvHeartAni;
     __weak IBOutlet UIView *leftView;
     __weak IBOutlet UIView *rightView;
+    
+    __weak ShopList *_shop;
 }
 
 -(void) loadWithShopList:(ShopList*) shopList;

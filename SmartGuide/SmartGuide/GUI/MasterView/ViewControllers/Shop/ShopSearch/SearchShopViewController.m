@@ -32,6 +32,9 @@
     // Do any additional setup after loading the view from its nib.
     
     txt.text=_keyword;
+    txt.leftView=[[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, txt.l_v_h)];
+    txt.leftView.backgroundColor=[UIColor clearColor];
+    txt.leftViewMode=UITextFieldViewModeAlways;
     
     [txt becomeFirstResponder];
     

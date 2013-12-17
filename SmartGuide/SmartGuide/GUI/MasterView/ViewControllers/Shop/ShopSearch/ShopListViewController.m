@@ -92,7 +92,6 @@
 
 -(void) loadScroller
 {
-    return;
     if(scrollerView)
         return;
     
@@ -148,7 +147,6 @@
     scrollerImageView=imageView;
     
     [scrollerContain addSubview:scrollerView];
-    //[scroll insertSubview:scrollerView aboveSubview:scrollBar];
     
     [scrollerBGView l_v_setX:scrollerView.l_v_w];
     
@@ -162,7 +160,6 @@
         return;
     }
     
-//    [self.map removeFromSuperview];
     [[GUIManager shareInstance] presentShopUserWithIDShop:0];
 }
 
@@ -190,13 +187,45 @@
     if(buttonIndex==3)
         return;
     
-    [sortView setText:[actionSheet buttonTitleAtIndex:buttonIndex]];
+    enum SORT_SHOP_LIST sort;
+    
+    switch (buttonIndex) {
+        case 0:
+            sort=SORT_SHOP_LIST_DISTANCE;
+            break;
+            
+        case 1:
+            sort=SORT_SHOP_LIST_VIEW;
+            break;
+            
+        case 2:
+            sort=SORT_SHOP_LIST_LOVE;
+            break;
+            
+        default:
+            sort=SORT_SHOP_LIST_DISTANCE;
+            break;
+    }
+    
+    if(sort==_sort)
+        return;
+    
+    [self changeSort:sort];
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    txt.text=_keyword;
+    scroll.minimumOffsetY=-1;
+    txt.leftView=[[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, txt.l_v_h)];
+    txt.leftView.backgroundColor=[UIColor clearColor];
+    txt.leftViewMode=UITextFieldViewModeAlways;
+    
+    [self clearMap];
+    self.map.delegate=self;
     
     _isAllowDiffScrollMap=true;
     self.map.autoresizingMask=UIViewAutoresizingNone;
@@ -211,12 +240,12 @@
     rect.origin.y=-tableList.l_v_h/SHOP_LIST_SCROLL_SPEED;
     self.map.frame=rect;
     
+    _location.latitude=userLat();
+    _location.longitude=userLng();
+    
     sortView.delegate=self;
     
     [self storePosition];
-    
-    scroll.minContentOffsetY=-1;
-    scroll.shopListController=self;
     
     if([self.map respondsToSelector:@selector(setShowsBuildings:)])
         self.map.showsBuildings=false;
@@ -251,11 +280,6 @@
     [self.view showLoading];
 }
 
--(void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-}
-
 -(void) requestShopSearch
 {
     if(_operationShopSearch)
@@ -264,10 +288,97 @@
         _operationShopSearch=nil;
     }
     
-    _operationShopSearch=[[ASIOperationShopSearch alloc] initWithKeywords:_keyword userLat:userLat() userLng:userLng() page:_page+1 sort:_sort];
+    _operationShopSearch=[[ASIOperationShopSearch alloc] initWithKeywords:_keyword userLat:_location.latitude userLng:_location.longitude page:_page+1 sort:_sort];
     
     _operationShopSearch.delegatePost=self;
     [_operationShopSearch startAsynchronous];
+}
+
+-(void) changeLocation:(CLLocationCoordinate2D) coordinate
+{
+    [self.view showLoading];
+    
+    [tableList setContentOffset:tableList.contentOffset animated:true];
+    
+    tableList.dataSource=nil;
+    _shopsList=[NSMutableArray array];
+    _page=-1;
+    _location=coordinate;
+    
+    switch (_sort) {
+        case SORT_SHOP_LIST_DISTANCE:
+            [sortView setText:@"Khoảng cách"];
+            break;
+            
+        case SORT_SHOP_LIST_VIEW:
+            [sortView setText:@"Lượt xem"];
+            break;
+            
+        case SORT_SHOP_LIST_LOVE:
+            [sortView setText:@"Lượt love"];
+            
+    }
+    
+    [self clearMap];
+    
+    if(_operationShopSearch)
+    {
+        [_operationShopSearch cancel];
+        _operationShopSearch=nil;
+    }
+    
+    _operationShopSearch=[[ASIOperationShopSearch alloc] initWithKeywords:_keyword userLat:_location.latitude userLng:_location.longitude page:_page+1 sort:_sort];
+    
+    _operationShopSearch.delegatePost=self;
+    [_operationShopSearch startAsynchronous];}
+
+-(void) changeSort:(enum SORT_SHOP_LIST) sort
+{
+    [self.view showLoading];
+    
+    [tableList setContentOffset:tableList.contentOffset animated:true];
+    
+    tableList.dataSource=nil;
+    _shopsList=[NSMutableArray array];
+    _page=-1;
+    _sort=sort;
+    
+    switch (_sort) {
+        case SORT_SHOP_LIST_DISTANCE:
+            [sortView setText:@"Khoảng cách"];
+            break;
+            
+        case SORT_SHOP_LIST_VIEW:
+            [sortView setText:@"Lượt xem"];
+            break;
+            
+        case SORT_SHOP_LIST_LOVE:
+            [sortView setText:@"Lượt love"];
+            
+    }
+    
+    [self clearMap];
+    
+    if(_operationShopSearch)
+    {
+        [_operationShopSearch cancel];
+        _operationShopSearch=nil;
+    }
+    
+    _operationShopSearch=[[ASIOperationShopSearch alloc] initWithKeywords:_keyword userLat:_location.latitude userLng:_location.longitude page:_page+1 sort:sort];
+    
+    _operationShopSearch.delegatePost=self;
+    [_operationShopSearch startAsynchronous];
+}
+
+-(void) clearMap
+{
+    [self.map removeAnnotations:self.map.annotations];
+    [self.map removeOverlays:self.map.overlays];
+    
+    self.map.showsUserLocation=true;
+    self.map.showsUserLocation=false;
+    self.map.showsUserLocation=true;
 }
 
 -(void)ASIOperaionPostFinished:(ASIOperationPost *)operation
@@ -287,6 +398,24 @@
         tableList.delegate=self;
         
         [tableList reloadData];
+        
+        NSMutableArray *coordinates=[NSMutableArray array];
+        for(ShopList *shop in ope.shopsList)
+        {
+            [self.map addAnnotation:shop];
+            
+            [coordinates addObject:[NSValue valueWithMKCoordinate:shop.coordinate]];
+        }
+        
+        if(!_isZoomedRegionMap)
+        {
+            _isZoomedRegionMap=true;
+            
+            if(isVailCLLocationCoordinate2D(self.map.userLocation.coordinate))
+                [coordinates addObject:[NSValue valueWithMKCoordinate:self.map.userLocation.coordinate]];
+            
+            [self.map zoomToCoordinates:coordinates animate:true span:0];
+        }
         
         [self makeScrollSize];
     }
@@ -370,62 +499,6 @@
     return scroll;
 }
 
--(void)scrollViewSetContentOffset:(CGPoint)contentOffset
-{
-    /*
-     return;
-     if(y>-_tableFrame.origin.y)
-     {
-     y=_mapFrame.origin.y+contentOffset.y-_mapFrame.origin.y;
-     }
-     
-     [self.map l_v_setY:y];
-     
-     y=_tableFrame.origin.y-contentOffset.y;
-     
-     if(y>_qrFrame.origin.y/2)
-     {
-     y=_tableFrame.origin.y+scroll.contentOffset.y+(_qrFrame.origin.y-_tableFrame.origin.y);
-     }
-     
-     [tableList l_v_setY:y];
-     
-     NSLog(@"%f",y);
-     
-     return;
-     if(scroll.contentOffset.y-self.map.l_v_y<=0)
-     {
-     [self.map l_v_setY:-scroll.contentOffset.y];
-     }
-     else
-     [self.map l_v_setY:scroll.contentOffset.y+self.map.l_v_y];
-     
-     NSLog(@"%f",scroll.contentOffset.y+tableList.l_v_h);
-     
-     return;
-     [scroller scrollViewDidScroll:scroll];
-     
-     CGPoint offset=scroller.center;
-     
-     offset=[[scroller scrollBar] convertPoint:offset toView:scroll];
-     offset=[scroll convertPoint:offset toView:tableList];
-     
-     NSIndexPath *indexPath=[tableList indexPathForRowAtPoint:offset];
-     
-     if(indexPath)
-     {
-     if(!_lastScrollerIndexPath || _lastScrollerIndexPath.row!=indexPath.row)
-     {
-     NSNumber *num=@[@(9),@(99),@(999),@(9999)][random_int(0, 4)];
-     
-     [scroller setText:[NSString stringWithFormat:@"%i km",num.integerValue] prefix:@"km"];
-     
-     _lastScrollerIndexPath=indexPath;
-     }
-     }
-     */
-}
-
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     if(scrollView==scroll)
@@ -469,9 +542,6 @@
         
         [scrollerView l_v_setY:y];
         
-//        [scrollerView l_v_setY:scrollView.contentOffset.y];
-//        [scrollerView l_v_addY:-scroll.offset.y];
-        
         CGPoint pnt=scrollerView.l_v_o;
         pnt.x=0;
         pnt=[scrollerContain convertPoint:pnt toView:scroll];
@@ -507,7 +577,21 @@
                 return;
             }
             
-            scrollerText=[NSString stringWithFormat:@"Row %i",indexPath.row];
+            ShopList *shop=_shopsList[indexPath.row];
+            
+            switch (_sort) {
+                case SORT_SHOP_LIST_DISTANCE:
+                    scrollerText=shop.distance;
+                    break;
+                    
+                case SORT_SHOP_LIST_LOVE:
+                    scrollerText=shop.numOfLove;
+                    break;
+                    
+                case SORT_SHOP_LIST_VIEW:
+                    scrollerText=shop.numOfView;
+                    break;
+            }
             
             CGSize size=[scrollerText sizeWithFont:scrollerLabel.font];
             
@@ -614,7 +698,7 @@
         [btnMap l_c_addY:height];
         [sortView l_c_addY:height];
         [self.map l_v_setY:0];
-        scroll.minContentOffsetY=0;
+        scroll.minimumOffsetY=0;
         
         [btnSearchLocation l_v_setY:25];
     } completion:^(BOOL finished) {
@@ -646,7 +730,7 @@
     self.map.userInteractionEnabled=false;
     self.map.scrollEnabled=false;
     self.map.zoomEnabled=false;
-    scroll.minContentOffsetY=-1;
+    scroll.minimumOffsetY=-1;
     
     if([self.map respondsToSelector:@selector(setRotateEnabled:)])
         self.map.rotateEnabled=false;
@@ -727,7 +811,7 @@
     {
         if(_isZoomedMap)
             [UIView animateWithDuration:DURATION_DEFAULT animations:^{
-                float y=-(QRCODE_BIG_HEIGHT-QRCODE_SMALL_HEIGHT);
+//                float y=-(QRCODE_BIG_HEIGHT-QRCODE_SMALL_HEIGHT);
 
             }];
     }
@@ -743,28 +827,38 @@
 
 }
 
--(MKMapView*)map
+-(MapList*)map
 {
     return [MapList shareInstance];
+}
+
+-(IBAction) btnLocationTouchUpInside:(id)sender
+{
+    [self changeLocation:self.map.centerCoordinate];
+}
+
+-(void)mapView:(MKMapView *)mapView didAddAnnotationViews:(NSArray *)views
+{
+    float count=2;
+    
+    for(UIView *v in views)
+    {
+        if([v isKindOfClass:[MKPinAnnotationView class]])
+        {
+            [v l_v_addY:-50];
+            
+            [UIView animateWithDuration:0.15f*count animations:^{
+                [v l_v_addY:50];
+            }];
+            
+            count+=0.5f;
+        }
+    }
 }
 
 @end
 
 @implementation ScrollShopList
-@synthesize disableScrollUp,offset,shopListController,minContentOffsetY;
-
--(void)setContentOffset:(CGPoint)contentOffset
-{
-    if(minContentOffsetY!=-1)
-    {
-        if(contentOffset.y<minContentOffsetY)
-            contentOffset.y=minContentOffsetY;
-    }
-    
-    offset=CGPointMake(contentOffset.x-self.contentOffset.x, contentOffset.y-self.contentOffset.y);
-    
-    [super setContentOffset:contentOffset];
-}
 
 @end
 

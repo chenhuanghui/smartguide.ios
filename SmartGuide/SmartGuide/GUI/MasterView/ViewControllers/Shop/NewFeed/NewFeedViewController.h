@@ -18,6 +18,7 @@
 
 @interface NewFeedViewController : SGViewController<UITextFieldDelegate>
 {
+    __weak IBOutlet UITextField *txt;
 }
 
 @property (nonatomic, assign) id<NewFeedControllerDelegate> delegate;
