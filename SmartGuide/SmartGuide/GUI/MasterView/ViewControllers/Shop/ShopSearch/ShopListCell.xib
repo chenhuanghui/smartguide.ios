@@ -119,6 +119,5 @@
         <image name="icon_typevoucher.png" width="31" height="29"/>
         <image name="line_hordot.png" width="299" height="2"/>
         <image name="line_slide.png" width="1" height="66"/>
-        <image name="line_slide.png" width="1" height="66"/>
     </resources>
 </document>

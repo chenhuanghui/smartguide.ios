@@ -26,15 +26,9 @@ enum SEARCH_VIEW_MODE {
 {
     __weak SGNavigationController *searchNavi;
     __weak IBOutlet UIView *contentView;
-    __weak IBOutlet UIView *qrView;
     
     enum SEARCH_VIEW_MODE _viewMode;
-    
-    CGRect _qrViewFrame;
 }
-
--(UIView*) qrView;
--(CGRect) qrFrame;
 
 -(SearchViewController*) initWithSearch;
 -(SearchViewController*) initWithKeyword:(NSString*) keyword;

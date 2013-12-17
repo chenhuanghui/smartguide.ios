@@ -15,18 +15,19 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" id="MLu-mA-TR1">
-                    <rect key="frame" x="0.0" y="424" width="320" height="480"/>
+                <view contentMode="scaleToFill" id="9y3-sx-hNk">
+                    <rect key="frame" x="0.0" y="456" width="320" height="24"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background_scan.png" id="C2K-V6-zP1">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background_scan.png" id="EnO-4I-aqE">
                             <rect key="frame" x="0.0" y="0.0" width="320" height="56"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
                         </imageView>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="S2T-fi-bdv">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="56"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="5AV-pt-t36">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="33"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <state key="normal" image="button_scan.png">
+                            <inset key="contentEdgeInsets" minX="0.0" minY="-1" maxX="0.0" maxY="0.0"/>
+                            <state key="normal" image="button_scan_small.png">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                         </button>
@@ -58,7 +59,7 @@
     <resources>
         <image name="background_scan.png" width="320" height="56"/>
         <image name="button_navigation.png" width="25" height="20"/>
-        <image name="button_scan.png" width="125" height="24"/>
+        <image name="button_scan_small.png" width="63" height="17"/>
         <image name="search_field.png" width="255" height="32"/>
     </resources>
 </document>

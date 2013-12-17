@@ -92,6 +92,7 @@
 
 -(void) loadScroller
 {
+    return;
     if(scrollerView)
         return;
     
@@ -169,9 +170,6 @@
 {
     _tableFrame=tableList.frame;
     _mapFrame=self.map.frame;
-    _contentFrame=contentView.frame;
-    _scrollFrame=scroll.frame;
-    _viewFrame=self.view.frame;
     _qrFrame=qrCodeView.frame;
     _buttonMapFrame=btnMap.frame;
     _buttonSearchLocationFrame=btnSearchLocation.frame;
@@ -202,7 +200,7 @@
     
     _isAllowDiffScrollMap=true;
     self.map.autoresizingMask=UIViewAutoresizingNone;
-    [contentView insertSubview:self.map belowSubview:tableList];
+    [scroll insertSubview:self.map belowSubview:tableList];
     self.map.userInteractionEnabled=false;
     self.map.scrollEnabled=false;
     self.map.zoomEnabled=false;
@@ -229,9 +227,7 @@
     tableList.backgroundColor=COLOR_BACKGROUND_SHOP_SERIES;
     
     [tableList registerNib:[UINib nibWithNibName:[ShopListCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[ShopListCell reuseIdentifier]];
-    
-//    [self makeScrollSize];
-    
+
     [sortView setIcon:[UIImage imageNamed:@"icon_distance.png"] text:@"Khoảng cách"];
     
     [scroll.panGestureRecognizer addTarget:self action:@selector(panShowMap:)];
@@ -244,6 +240,8 @@
     
     [scroll.panGestureRecognizer requireGestureRecognizerToFail:tap];
     
+    [self makeScrollSize];
+    
     _shopsList=[NSMutableArray array];
     
     _page=-1;
@@ -251,6 +249,11 @@
     [self requestShopSearch];
     
     [self.view showLoading];
+}
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
 }
 
 -(void) requestShopSearch
@@ -330,11 +333,16 @@
         case UIGestureRecognizerStateEnded:
         case UIGestureRecognizerStateFailed:
         {
-            CGPoint pnt=[scroll convertPoint:tableList.l_v_o toView:self.view];
+            CGPoint pnt=[pan velocityInView:scroll];
+            
+            if(pnt.y<0)
+                return;
+
+            pnt=[scroll convertPoint:tableList.l_v_o toView:self.view];
             if(pnt.y>_tableFrame.origin.y+20)
             {
                 [UIView animateWithDuration:DURATION_DEFAULT animations:^{
-                    //[self zoomMap];
+                    [self zoomMap];
                 }];
             }
         }
@@ -347,12 +355,8 @@
 
 -(void) makeScrollSize
 {
-    CGSize size=tableList.contentSize;
-    size.height=_tableFrame.origin.y+_tableFrame.size.height;
-    
-    [tableList l_v_setS:size];
     scroll.contentSize=CGSizeMake(scroll.l_v_w, tableList.l_v_y+MAX(_tableFrame.size.height,tableList.contentSize.height));
-    scroll.contentInset=UIEdgeInsetsMake(0, 0, qrCodeView.l_v_h, 0);
+    scroll.contentInset=UIEdgeInsetsMake(0, 0, QRCODE_BIG_HEIGHT-QRCODE_RAY_HEIGHT, 0);
     scroll.scrollIndicatorInsets=scroll.contentInset;
 }
 
@@ -560,8 +564,8 @@
         {
             CGPoint pnt=[scroll convertPoint:tableList.l_v_o toView:self.view];
             
-            //if(self.l_v_h-pnt.y>[ShopListCell height]*1.5f)
-              //  [self endZoomMap];
+            if(self.l_v_h-pnt.y>[tableList rectForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]].size.height*1.5f)
+                [self endZoomMap];
         }
             break;
             
@@ -580,11 +584,13 @@
     self.map.zoomEnabled=true;
     scrollerView.hidden=true;
     
+    [tableList alphaViewWithColor:[UIColor clearColor]];
+    
     if([self.map respondsToSelector:@selector(setRotateEnabled:)])
         self.map.rotateEnabled=true;
     
-    float height=_viewFrame.size.height-_qrFrame.size.height+QRCODE_RAY_HEIGHT+QRCODE_BIG_HEIGHT-QRCODE_SMALL_HEIGHT;
-//    height-=[ShopListCell height]/2+20;
+    float height=scroll.l_v_h-(QRCODE_BIG_HEIGHT-QRCODE_SMALL_HEIGHT);//-_qrFrame.size.height+QRCODE_RAY_HEIGHT+QRCODE_BIG_HEIGHT-QRCODE_SMALL_HEIGHT;
+    height-=[tableList rectForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]].size.height/2+18;
     height-=_tableFrame.origin.y;
     
     _heightZoomedMap=height;
@@ -598,19 +604,19 @@
         btnScanBig.alpha=0;
         btnScanBig.frame=_buttonScanSmallFrame;
         btnScanSmall.frame=_buttonScanBigFrame;
-        
-        float y=QRCODE_BIG_HEIGHT-QRCODE_SMALL_HEIGHT;
-        [self.searchController.qrView l_v_addY:y];
-        
+
         scroll.contentInset=UIEdgeInsetsMake(0, 0, QRCODE_RAY_HEIGHT, 0);
         scroll.contentSize=scroll.l_v_s;
         
+        [qrCodeView l_v_addY:QRCODE_BIG_HEIGHT-QRCODE_SMALL_HEIGHT];
+        
         [tableList l_c_addY:height];
         [btnMap l_c_addY:height];
-        [btnSearchLocation l_c_addY:height];
         [sortView l_c_addY:height];
         [self.map l_v_setY:0];
         scroll.minContentOffsetY=0;
+        
+        [btnSearchLocation l_v_setY:25];
     } completion:^(BOOL finished) {
         _isAllowDiffScrollMap=true;
         _isAnimatingZoom=false;
@@ -668,8 +674,7 @@
         btnScanBig.frame=_buttonScanBigFrame;
         btnScanSmall.frame=_buttonScanSmallFrame;
         
-        float y=QRCODE_BIG_HEIGHT-QRCODE_SMALL_HEIGHT;
-        [self.searchController.qrView l_v_addY:-y];
+        qrCodeView.frame=_qrFrame;
         
         [tableList l_v_setO:_tableFrame.origin];
         [btnMap l_v_setO:_buttonMapFrame.origin];
@@ -683,6 +688,7 @@
         scrollerView.hidden=false;
         
         btnScanSmall.hidden=true;
+        [tableList removeAlphaView];
     }];
 }
 
@@ -722,26 +728,19 @@
         if(_isZoomedMap)
             [UIView animateWithDuration:DURATION_DEFAULT animations:^{
                 float y=-(QRCODE_BIG_HEIGHT-QRCODE_SMALL_HEIGHT);
-                [[self.searchController qrView] l_v_addY:y];
+
             }];
     }
 }
 
 -(void)showQRView
 {
-    [UIView animateWithDuration:DURATION_DEFAULT animations:^{
-        [[self.searchController qrView] l_v_setO:CGPointZero];
-    }];
+
 }
 
 -(void)hideQRView
 {
-    [UIView animateWithDuration:DURATION_DEFAULT animations:^{
-        if(_isZoomedMap)
-            [[self.searchController qrView] l_v_setO:CGPointMake(0, self.searchController.qrFrame.origin.y+(QRCODE_BIG_HEIGHT-QRCODE_SMALL_HEIGHT))];
-        else
-            [[self.searchController qrView] l_v_setO:CGPointMake(0, self.searchController.qrFrame.origin.y)];
-    }];
+
 }
 
 -(MKMapView*)map

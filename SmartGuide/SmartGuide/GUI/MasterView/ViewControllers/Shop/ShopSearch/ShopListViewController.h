@@ -34,16 +34,12 @@
     __weak IBOutlet UIButton *btnMap;
     __weak IBOutlet ShopSearchSortView *sortView;
     __weak IBOutlet UIButton *btnSearchLocation;
-    __weak IBOutlet ShopListContentView *contentView;
     __weak IBOutlet UIView *qrCodeView;
     __weak IBOutlet UIButton *btnScanBig;
     __weak IBOutlet UIButton *btnScanSmall;
     
     CGRect _mapFrame;
     CGRect _tableFrame;
-    CGRect _contentFrame;
-    CGRect _scrollFrame;
-    CGRect _viewFrame;
     CGRect _qrFrame;
     CGRect _sortFrame;
     CGRect _buttonMapFrame;

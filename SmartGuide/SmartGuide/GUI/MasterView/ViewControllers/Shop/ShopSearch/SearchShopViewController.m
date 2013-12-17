@@ -111,7 +111,7 @@
     float duration=[notification.userInfo[UIKeyboardAnimationDurationUserInfoKey] floatValue];
     
     [UIView animateWithDuration:duration animations:^{
-        [table l_v_setH:self.view.l_v_h-topView.l_v_h-self.searchController.qrFrame.size.height];
+        [table l_v_setH:self.view.l_v_h-topView.l_v_h];
     }];
 }
 

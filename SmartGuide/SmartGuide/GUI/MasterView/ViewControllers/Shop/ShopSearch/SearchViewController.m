@@ -45,7 +45,6 @@
 
 -(void) storeRect
 {
-    _qrViewFrame=qrView.frame;
 }
 
 - (void)viewDidLoad
@@ -109,16 +108,6 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
--(CGRect)qrFrame
-{
-    return _qrViewFrame;
-}
-
--(UIView *)qrView
-{
-    return qrView;
 }
 
 @end
