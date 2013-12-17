@@ -88,6 +88,9 @@
                             <state key="normal" title="Trở lại">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
+                            <connections>
+                                <action selector="btnBackTouchUpInside:" destination="-1" eventType="touchUpInside" id="xsp-Cc-TBf"/>
+                            </connections>
                         </button>
                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Tìm kiếm khuyến mãi" minimumFontSize="17" background="search_field.png" id="ray-CK-v4m">
                             <rect key="frame" x="55" y="6" width="256" height="32"/>

@@ -101,7 +101,23 @@
     ShopListViewController *vc=[[ShopListViewController alloc] initWithKeyword:keyword];
     vc.delegate=self;
     
+    [searchNavi setRootViewController:vc animate:true];
+}
+
+-(void)shopListControllerTouchedTextField:(ShopListViewController *)controller
+{
+    SearchShopViewController *vc=[[SearchShopViewController alloc] initWithKeyword:controller.keyword];
+    vc.delegate=self;
+    
     [searchNavi pushViewController:vc animated:true];
+}
+
+-(void)shopListControllerTouchedBack:(ShopListViewController *)controller
+{
+    if(searchNavi.viewControllers.count==1)
+        [self.navigationController popViewControllerAnimated:true];
+    else
+        [searchNavi popViewControllerAnimated:true];
 }
 
 - (void)didReceiveMemoryWarning

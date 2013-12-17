@@ -19,11 +19,12 @@
 #import "SearchViewController.h"
 #import "ASIOperationShopSearch.h"
 
-@class ScrollShopList,ShopListContentView;
+@class ScrollShopList,ShopListContentView,ShopListViewController;
 
 @protocol ShopListControllerDelegate <SGViewControllerDelegate>
 
-
+-(void) shopListControllerTouchedBack:(ShopListViewController*) controller;
+-(void) shopListControllerTouchedTextField:(ShopListViewController*) controller;
 
 @end
 
@@ -80,6 +81,8 @@
 
 -(ShopListViewController*) initWithKeyword:(NSString*) keyword;
 -(ShopListViewController*) initWithPlaceList;
+
+-(NSString*) keyword;
 
 -(bool) isZoomedMap;
 

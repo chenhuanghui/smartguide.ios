@@ -224,8 +224,8 @@
     txt.leftView.backgroundColor=[UIColor clearColor];
     txt.leftViewMode=UITextFieldViewModeAlways;
     
-    [self clearMap];
     self.map.delegate=self;
+    [self clearMap];
     
     _isAllowDiffScrollMap=true;
     self.map.autoresizingMask=UIViewAutoresizingNone;
@@ -854,6 +854,29 @@
             count+=0.5f;
         }
     }
+}
+
+-(IBAction) btnBackTouchUpInside:(id)sender
+{
+    if(_operationShopSearch)
+    {
+        [_operationShopSearch cancel];
+        _operationShopSearch=nil;
+    }
+    
+    [self.delegate shopListControllerTouchedBack:self];
+}
+
+-(BOOL)textFieldShouldBeginEditing:(UITextField *)textField
+{
+    [self.delegate shopListControllerTouchedTextField:self];
+    
+    return false;
+}
+
+-(NSString *)keyword
+{
+    return _keyword;
 }
 
 @end
