@@ -188,6 +188,25 @@ enum SHOP_PROMOTION_TYPE {
     SHOP_PROMOTION_KM3 = 3,
     };
 
+enum SHOP_TYPE
+{
+    SHOP_TYPE_TAT_CA = 0,
+    SHOP_TYPE_AM_THUC = 1,
+    SHOP_TYPE_CAFE = 2,
+    SHOP_TYPE_LAM_DEP = 3,
+    SHOP_TYPE_GIAI_TRI = 4,
+    SHOP_TYPE_THOI_TRANG = 5,
+    SHOP_TYPE_DU_LICH = 6,
+    SHOP_TYPE_SAN_PHAM = 7,
+    SHOP_TYPE_GIAO_DUC = 8,
+};
+
+enum LOVE_STATUS
+{
+    LOVE_STATUS_NONE = 0,
+    LOVE_STATUS_LOVED = 1
+};
+
 @class ShopCatalog;
 @protocol CatalogueBlockViewDelegate <NSObject>
 

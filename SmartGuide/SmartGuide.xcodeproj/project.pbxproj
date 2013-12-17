@@ -491,6 +491,8 @@
 		9ACFA698185FF3DE0090E7A8 /* SearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9ACFA696185FF3DE0090E7A8 /* SearchViewController.xib */; };
 		9ACFA69C185FFA7C0090E7A8 /* SearchShopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ACFA69A185FFA7C0090E7A8 /* SearchShopViewController.m */; };
 		9ACFA69D185FFA7C0090E7A8 /* SearchShopViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9ACFA69B185FFA7C0090E7A8 /* SearchShopViewController.xib */; };
+		9ACFA6A318600AA50090E7A8 /* ShopList.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ACFA6A218600AA50090E7A8 /* ShopList.m */; };
+		9ACFA6A618600AC70090E7A8 /* _ShopList.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ACFA6A518600AC70090E7A8 /* _ShopList.m */; };
 		9AD1280A185EFD2E00D56B24 /* StoreCart.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AD12809185EFD2E00D56B24 /* StoreCart.m */; };
 		9AD1280D185EFD3500D56B24 /* _StoreCart.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AD1280C185EFD3500D56B24 /* _StoreCart.m */; };
 		9AD23D5217FABC0100D28C7E /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AD23D5117FABC0100D28C7E /* AudioToolbox.framework */; };
@@ -1234,6 +1236,10 @@
 		9ACFA699185FFA7C0090E7A8 /* SearchShopViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchShopViewController.h; sourceTree = "<group>"; };
 		9ACFA69A185FFA7C0090E7A8 /* SearchShopViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchShopViewController.m; sourceTree = "<group>"; };
 		9ACFA69B185FFA7C0090E7A8 /* SearchShopViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchShopViewController.xib; sourceTree = "<group>"; };
+		9ACFA6A118600AA50090E7A8 /* ShopList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopList.h; sourceTree = "<group>"; };
+		9ACFA6A218600AA50090E7A8 /* ShopList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopList.m; sourceTree = "<group>"; };
+		9ACFA6A418600AC70090E7A8 /* _ShopList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _ShopList.h; sourceTree = "<group>"; };
+		9ACFA6A518600AC70090E7A8 /* _ShopList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _ShopList.m; sourceTree = "<group>"; };
 		9AD12808185EFD2E00D56B24 /* StoreCart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoreCart.h; sourceTree = "<group>"; };
 		9AD12809185EFD2E00D56B24 /* StoreCart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoreCart.m; sourceTree = "<group>"; };
 		9AD1280B185EFD3500D56B24 /* _StoreCart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _StoreCart.h; sourceTree = "<group>"; };
@@ -2245,6 +2251,8 @@
 		A91A674A1797F65000BEB8C5 /* Human */ = {
 			isa = PBXGroup;
 			children = (
+				9ACFA6A118600AA50090E7A8 /* ShopList.h */,
+				9ACFA6A218600AA50090E7A8 /* ShopList.m */,
 				9AD12808185EFD2E00D56B24 /* StoreCart.h */,
 				9AD12809185EFD2E00D56B24 /* StoreCart.m */,
 				9AC494C01858B4900042C535 /* StoreShop.h */,
@@ -2288,6 +2296,8 @@
 		A91A674D1797F65000BEB8C5 /* Machine */ = {
 			isa = PBXGroup;
 			children = (
+				9ACFA6A418600AC70090E7A8 /* _ShopList.h */,
+				9ACFA6A518600AC70090E7A8 /* _ShopList.m */,
 				9AD1280B185EFD3500D56B24 /* _StoreCart.h */,
 				9AD1280C185EFD3500D56B24 /* _StoreCart.m */,
 				9AC494BA1858B48A0042C535 /* _StoreShop.h */,
@@ -3559,6 +3569,7 @@
 				A93F206F1797DFB100622D75 /* OperationURL.m in Sources */,
 				9A32F4041843469400704D26 /* SGNotificationViewController.m in Sources */,
 				9A32F4521843488F00704D26 /* Label.m in Sources */,
+				9ACFA6A318600AA50090E7A8 /* ShopList.m in Sources */,
 				A91A675B1797F65000BEB8C5 /* DataManager.m in Sources */,
 				9A32F3E2184345AE00704D26 /* ShopCommentViewController.m in Sources */,
 				9A2A33D1184F80D9002949C4 /* SUKM2Cell.m in Sources */,
@@ -3625,6 +3636,7 @@
 				9A32F4541843488F00704D26 /* LoadingCell.m in Sources */,
 				9AC494BF1858B48A0042C535 /* _StoreShopItem.m in Sources */,
 				A935C51B17A430FB008910D3 /* Filter.m in Sources */,
+				9ACFA6A618600AC70090E7A8 /* _ShopList.m in Sources */,
 				9AC4940A18585A300042C535 /* StoreItemInfoViewController.m in Sources */,
 				A935C51E17A43101008910D3 /* _Filter.m in Sources */,
 				9AA90B5B1850ED8D002F40FF /* ButtonAgree.m in Sources */,

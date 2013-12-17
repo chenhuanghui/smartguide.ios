@@ -96,6 +96,24 @@
         <relationship name="listVoucher" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="KM1Voucher" inverseName="shopKM1" inverseEntity="KM1Voucher" syncable="YES"/>
         <relationship name="shop" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Shop" inverseName="km1s" inverseEntity="Shop" syncable="YES"/>
     </entity>
+    <entity name="ShopList" representedClassName="ShopList" syncable="YES">
+        <attribute name="address" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="cover" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="coverFullscreen" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="desc" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="distance" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="idShop" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="logo" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="loveStatus" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="numOfComment" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="numOfLove" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="numOfView" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="promotionType" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="shopLat" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="shopLng" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="shopName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="shopType" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+    </entity>
     <entity name="ShopUserComment" representedClassName="ShopUserComment" syncable="YES">
         <attribute name="avatar" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="comment" optional="YES" attributeType="String" syncable="YES"/>
@@ -171,10 +189,11 @@
         <element name="ShopKM1" positionX="0" positionY="0" width="0" height="0"/>
         <element name="ShopUserComment" positionX="0" positionY="0" width="0" height="0"/>
         <element name="ShopUserGallery" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="StoreCart" positionX="0" positionY="0" width="0" height="0"/>
         <element name="StoreShop" positionX="0" positionY="0" width="0" height="0"/>
         <element name="StoreShopItem" positionX="0" positionY="0" width="0" height="0"/>
         <element name="User" positionX="0" positionY="0" width="0" height="0"/>
         <element name="Versions" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="StoreCart" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="ShopList" positionX="0" positionY="0" width="0" height="0"/>
     </elements>
 </model>
