@@ -8,6 +8,9 @@
 
 #import "SGViewController.h"
 
-@interface ShopCameraViewController : SGViewController
+@interface ShopCameraViewController : SGViewController<UINavigationControllerDelegate,UIImagePickerControllerDelegate>
+{
+    __weak UIImagePickerController *camera;
+}
 
 @end

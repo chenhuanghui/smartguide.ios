@@ -16,10 +16,18 @@
 #import "Scroller.h"
 #import "MapList.h"
 #import "ShopListCell.h"
+#import "ShopListPlaceCell.h"
 #import "SearchViewController.h"
 #import "ASIOperationShopSearch.h"
+#import "ASIOperationPlacelistDetail.h"
+#import "Placelist.h"
 
 @class ScrollShopList,ShopListContentView,ShopListViewController;
+
+enum SHOP_LIST_VIEW_MODE {
+    SHOP_LIST_VIEW_LIST = 0,
+    SHOP_LIST_VIEW_PLACE = 1
+    };
 
 @protocol ShopListControllerDelegate <SGViewControllerDelegate>
 
@@ -69,18 +77,23 @@
     bool _isAllowDiffScrollMap;
     
     ASIOperationShopSearch *_operationShopSearch;
+    ASIOperationPlacelistDetail *_operationPlaceListDetail;
     NSString *_keyword;
+    Placelist *_placeList;
     NSMutableArray *_shopsList;
     NSUInteger _page;
     enum SORT_SHOP_LIST _sort;
+    enum SORT_PLACE_LIST _sortPlace;
     bool _canLoadMore;
     bool _isZoomedRegionMap;
+    bool _isLoadingMore;
+    enum SHOP_LIST_VIEW_MODE _viewMode;
     
     CLLocationCoordinate2D _location;
 }
 
 -(ShopListViewController*) initWithKeyword:(NSString*) keyword;
--(ShopListViewController*) initWithPlaceList;
+-(ShopListViewController*) initWithPlaceList:(Placelist*) placeList;
 
 -(NSString*) keyword;
 

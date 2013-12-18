@@ -34,7 +34,14 @@
     
     indicatorView=indicator;
     
+    [view addObserver:self forKeyPath:@"frame" options:NSKeyValueObservingOptionNew context:nil];
+    
     return self;
+}
+
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    [self l_v_setS:self.superview.l_v_s];
 }
 
 -(void)didMoveToSuperview
@@ -50,6 +57,8 @@
 -(void)removeFromSuperview
 {
     [indicatorView stopAnimating];
+    
+    [self.superview removeObserver:self forKeyPath:@"frame" context:nil];
     
     [super removeFromSuperview];
 }

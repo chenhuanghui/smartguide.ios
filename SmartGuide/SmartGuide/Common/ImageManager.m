@@ -64,4 +64,9 @@ static ImageManager *_imageManager=nil;
     
 }
 
+-(void)loadPlaceAuthorAvatarWithURL:(NSString *)url
+{
+    
+}
+
 @end

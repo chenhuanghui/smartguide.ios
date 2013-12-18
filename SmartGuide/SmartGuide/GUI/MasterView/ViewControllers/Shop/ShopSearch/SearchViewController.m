@@ -88,9 +88,9 @@
         [searchNavi popViewControllerAnimated:true];
 }
 
--(void)searchShopControllerTouchPlaceList:(SearchShopViewController *)controller
+-(void)searchShopControllerTouchPlaceList:(SearchShopViewController *)controller placeList:(Placelist *)place
 {
-    ShopListViewController *vc=[[ShopListViewController alloc] initWithPlaceList];
+    ShopListViewController *vc=[[ShopListViewController alloc] initWithPlaceList:place];
     vc.delegate=self;
     
     [searchNavi pushViewController:vc animated:true];

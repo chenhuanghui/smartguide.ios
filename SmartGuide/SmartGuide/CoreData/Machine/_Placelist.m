@@ -89,6 +89,32 @@
 
 
 
+- (NSString*)authorAvatar {
+	[self willAccessValueForKey:@"authorAvatar"];
+	NSString* result = (NSString*)[self primitiveValueForKey:@"authorAvatar"];
+	[self didAccessValueForKey:@"authorAvatar"];
+	return result;
+}
+
+- (void)setAuthorAvatar:(NSString*)value {
+	[self willChangeValueForKey:@"authorAvatar"];
+	[self setPrimitiveValue:value forKey:@"authorAvatar"];
+	[self didChangeValueForKey:@"authorAvatar"];
+}
+
+- (NSString*)authorName {
+	[self willAccessValueForKey:@"authorName"];
+	NSString* result = (NSString*)[self primitiveValueForKey:@"authorName"];
+	[self didAccessValueForKey:@"authorName"];
+	return result;
+}
+
+- (void)setAuthorName:(NSString*)value {
+	[self willChangeValueForKey:@"authorName"];
+	[self setPrimitiveValue:value forKey:@"authorName"];
+	[self didChangeValueForKey:@"authorName"];
+}
+
 - (NSString*)desc {
 	[self willAccessValueForKey:@"desc"];
 	NSString* result = (NSString*)[self primitiveValueForKey:@"desc"];

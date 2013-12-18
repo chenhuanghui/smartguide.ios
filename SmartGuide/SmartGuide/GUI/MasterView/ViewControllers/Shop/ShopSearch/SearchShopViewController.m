@@ -39,6 +39,59 @@
     [txt becomeFirstResponder];
     
     [txt addTarget:self action:@selector(textFieldDidChangedText:) forControlEvents:UIControlEventEditingChanged];
+    
+    _placeLists=[NSMutableArray array];
+    
+    _pagePlacelist=-1;
+    [self requestPlacelist];
+    
+    [table showLoading];
+}
+
+-(void) requestPlacelist
+{
+    if(_operationPlacelistGetList)
+    {
+        [_operationPlacelistGetList cancel];
+        _operationPlacelistGetList=nil;
+    }
+    
+    _operationPlacelistGetList = [[ASIOperationPlacelistGetList alloc] initWithUserLat:userLat() userLng:userLng() page:_pagePlacelist+1];
+    _operationPlacelistGetList.delegatePost=self;
+    
+    [_operationPlacelistGetList startAsynchronous];
+}
+
+-(void)ASIOperaionPostFinished:(ASIOperationPost *)operation
+{
+    if([operation isKindOfClass:[ASIOperationPlacelistGetList class]])
+    {
+        [table removeLoading];
+        
+        ASIOperationPlacelistGetList *ope=(ASIOperationPlacelistGetList*) operation;
+        
+        [_placeLists addObjectsFromArray:ope.placeLists];
+        _pagePlacelist++;
+        
+        _canLoadMorePlaceList=ope.placeLists.count==10;
+        _isLoadingMore=false;
+        
+        _operationPlacelistGetList=nil;
+
+        
+        [table reloadData];
+    }
+}
+
+-(void)ASIOperaionPostFailed:(ASIOperationPost *)operation
+{
+    if([operation isKindOfClass:[ASIOperationPlacelistGetList class]])
+    {
+        [table removeLoading];
+        
+        
+        _operationPlacelistGetList=nil;
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -54,34 +107,45 @@
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
+    return _placeLists.count==0?0:1;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 10;
+    return _placeLists.count;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell=[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
     
-    cell.textLabel.text=@"cafe";
+    cell.textLabel.text=[_placeLists[indexPath.row] title];
     
-    if(txt.text.length>0)
-        cell.textLabel.text=txt.text;
+    if(indexPath.row==_placeLists.count-1)
+    {
+        if(_canLoadMorePlaceList)
+        {
+            if(!_isLoadingMore)
+            {
+                [self requestPlacelist];
+                _isLoadingMore=true;
+            }
+        }
+    }
     
     return cell;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self.delegate searchShopControllerSearch:self keyword:@"cafe"];
+    [self.view endEditing:true];
+    
+    [self.delegate searchShopControllerTouchPlaceList:self placeList:_placeLists[indexPath.row]];
 }
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    [self.view endEditing:true];
+    //[self.view endEditing:true];
 }
 
 -(BOOL)textFieldShouldBeginEditing:(UITextField *)textField
@@ -92,9 +156,16 @@
     return true;
 }
 
+-(BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [self.delegate searchShopControllerSearch:self keyword:textField.text];
+    
+    return true;
+}
+
 -(void) textFieldDidChangedText:(UITextField*) textField
 {
-    [table reloadData];
+//    [table reloadData];
 }
 
 -(void) keyboardWillShow:(NSNotification*) notification

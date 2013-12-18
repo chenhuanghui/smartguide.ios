@@ -25,13 +25,17 @@
     self=[super initWithNibName:@"ShopListViewController" bundle:nil];
     
     _keyword=[NSString stringWithStringDefault:keyword];
+    _viewMode=SHOP_LIST_VIEW_LIST;
     
     return self;
 }
 
--(ShopListViewController *)initWithPlaceList
+-(ShopListViewController *)initWithPlaceList:(Placelist *)placeList
 {
     self=[super initWithNibName:@"ShopListViewController" bundle:nil];
+    
+    _placeList=placeList;
+    _viewMode=SHOP_LIST_VIEW_PLACE;
     
     return self;
 }
@@ -50,32 +54,137 @@
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return _shopsList.count==0?0:1;
+    switch (_viewMode) {
+        case SHOP_LIST_VIEW_LIST:
+            return _shopsList.count==0?0:1;
+            
+        case SHOP_LIST_VIEW_PLACE:
+            return 1;
+    }
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return _shopsList.count;
+    switch (_viewMode) {
+        case SHOP_LIST_VIEW_LIST:
+            return _shopsList.count;
+            
+        case SHOP_LIST_VIEW_PLACE:
+            return _shopsList.count+1;
+    }
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    ShopListCell *cell=[tableView dequeueReusableCellWithIdentifier:[ShopListCell reuseIdentifier]];
-    cell.delegate=self;
-    
-    [cell loadWithShopList:_shopsList[indexPath.row]];
-    
-    return cell;
+    switch (_viewMode) {
+        case SHOP_LIST_VIEW_LIST:
+        {
+            ShopListCell *cell=[tableView dequeueReusableCellWithIdentifier:[ShopListCell reuseIdentifier]];
+            cell.delegate=self;
+            
+            [cell loadWithShopList:_shopsList[indexPath.row]];
+            
+            if(indexPath.row==_shopsList.count-1)
+            {
+                if(_canLoadMore)
+                {
+                    if(!_isLoadingMore)
+                    {
+                        [self requestShopSearch];
+                        _isLoadingMore=true;
+                    }
+                }
+            }
+            
+            return cell;
+        }
+            
+        case SHOP_LIST_VIEW_PLACE:
+            
+            switch (indexPath.row) {
+                case 0:
+                {
+                    ShopListPlaceCell *cell=[tableView dequeueReusableCellWithIdentifier:[ShopListPlaceCell reuseIdentifier]];
+                    
+                    [cell loadWithPlace:_placeList];
+                    
+                    return cell;
+                }
+                    break;
+                    
+                default:
+                {
+                    ShopListCell *cell=[tableView dequeueReusableCellWithIdentifier:[ShopListCell reuseIdentifier]];
+                    cell.delegate=self;
+                    
+                    [cell loadWithShopList:_shopsList[indexPath.row-1]];
+                    
+                    if(indexPath.row==_shopsList.count)
+                    {
+                        if(_canLoadMore)
+                        {
+                            if(!_isLoadingMore)
+                            {
+                                [self requestPlacelistDetail];
+                                _isLoadingMore=true;
+                            }
+                        }
+                    }
+                    
+                    return cell;
+                }
+                    break;
+            }
+            
+            break;
+    }
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return [ShopListCell heightWithContent:[_shopsList[indexPath.row] desc]];
+    switch (_viewMode) {
+        case SHOP_LIST_VIEW_LIST:
+            return [ShopListCell heightWithContent:[_shopsList[indexPath.row] desc]];
+            
+        case SHOP_LIST_VIEW_PLACE:
+        {
+            switch (indexPath.row) {
+                case 0:
+                    return [ShopListPlaceCell heightWithContent:_placeList.desc];
+                    
+                default:
+                    return [ShopListCell heightWithContent:[_shopsList[indexPath.row-1] desc]];
+            }
+        }
+    }
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    ShopList *shop=nil;
+    switch (_viewMode) {
+            
+        case SHOP_LIST_VIEW_LIST:
+            shop=_shopsList[indexPath.row];
+            break;
+            
+        case SHOP_LIST_VIEW_PLACE:
+        {
+            switch (indexPath.row) {
+                case 0:
+                    
+                    break;
+                    
+                default:
+                    shop=_shopsList[indexPath.row-1];
+                    break;
+            }
+        }
+            break;
+    }
     
+    if(shop)
+        [[GUIManager shareInstance] presentShopUserWithIDShop:shop.idShop.integerValue];
 }
 
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
@@ -177,7 +286,17 @@
 
 -(void)sortViewTouchedSort:(ShopSearchSortView *)_sortView
 {
-    UIActionSheet *sheet=[[UIActionSheet alloc] initWithTitle:@"Tìm kiếm theo" delegate:self cancelButtonTitle:@"Đóng" destructiveButtonTitle:nil otherButtonTitles:@"Khoảng cách", @"Lượt xem", @"Lượt love", nil];
+    UIActionSheet *sheet=nil;
+    
+    switch (_viewMode) {
+        case SHOP_LIST_VIEW_LIST:
+            sheet=[[UIActionSheet alloc] initWithTitle:@"Tìm kiếm theo" delegate:self cancelButtonTitle:@"Đóng" destructiveButtonTitle:nil otherButtonTitles:@"Khoảng cách", @"Lượt xem", @"Lượt love", nil];
+            break;
+            
+        case SHOP_LIST_VIEW_PLACE:
+            sheet=[[UIActionSheet alloc] initWithTitle:@"Tìm kiếm theo" delegate:self cancelButtonTitle:@"Đóng" destructiveButtonTitle:nil otherButtonTitles:@"Khoảng cách", @"Lượt xem", @"Lượt love",@"Mặc định", nil];
+            break;
+    }
     
     [sheet showInView:self.view];
 }
@@ -187,30 +306,66 @@
     if(buttonIndex==3)
         return;
     
-    enum SORT_SHOP_LIST sort;
-    
-    switch (buttonIndex) {
-        case 0:
-            sort=SORT_SHOP_LIST_DISTANCE;
+    switch (_viewMode) {
+        case SHOP_LIST_VIEW_LIST:
+        {
+            enum SORT_SHOP_LIST sort;
+            
+            switch (buttonIndex) {
+                case 0:
+                    sort=SORT_SHOP_LIST_DISTANCE;
+                    break;
+                    
+                case 1:
+                    sort=SORT_SHOP_LIST_VIEW;
+                    break;
+                    
+                case 2:
+                    sort=SORT_SHOP_LIST_LOVE;
+                    break;
+                    
+                default:
+                    sort=SORT_SHOP_LIST_DISTANCE;
+                    break;
+            }
+            
+            if(sort==_sort)
+                return;
+            
+            [self changeSort:sort];
+        }
             break;
             
-        case 1:
-            sort=SORT_SHOP_LIST_VIEW;
-            break;
+        case SHOP_LIST_VIEW_PLACE:
+        {
+            enum SORT_PLACE_LIST sort;
             
-        case 2:
-            sort=SORT_SHOP_LIST_LOVE;
-            break;
+            switch (buttonIndex) {
+                case 0:
+                    sort=SORT_PLACE_LIST_DISTANCE;
+                    break;
+                    
+                case 1:
+                    sort=SORT_PLACE_LIST_VIEW;
+                    break;
+                    
+                case 2:
+                    sort=SORT_PLACE_LIST_LOVE;
+                    break;
+                    
+                default:
+                    sort=SORT_PLACE_LIST_DEFAULT;
+                    break;
+            }
             
-        default:
-            sort=SORT_SHOP_LIST_DISTANCE;
+            if(sort==_sortPlace)
+                return;
+            
+            [self changeSortPlace:sort];
+        }
             break;
     }
     
-    if(sort==_sort)
-        return;
-    
-    [self changeSort:sort];
 }
 
 - (void)viewDidLoad
@@ -218,8 +373,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    txt.text=_keyword;
     scroll.minimumOffsetY=-1;
+    
     txt.leftView=[[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, txt.l_v_h)];
     txt.leftView.backgroundColor=[UIColor clearColor];
     txt.leftViewMode=UITextFieldViewModeAlways;
@@ -234,6 +389,12 @@
     self.map.scrollEnabled=false;
     self.map.zoomEnabled=false;
     
+    if([self.map respondsToSelector:@selector(setShowsBuildings:)])
+        self.map.showsBuildings=false;
+    
+    if([self.map respondsToSelector:@selector(setShowsPointsOfInterest:)])
+        self.map.showsPointsOfInterest=false;
+    
     CGRect rect=CGRectZero;
     rect.size.height=self.l_v_h-qrCodeView.l_v_h+QRCODE_RAY_HEIGHT;
     rect.size.width=self.l_v_w;
@@ -243,21 +404,12 @@
     _location.latitude=userLat();
     _location.longitude=userLng();
     
-    sortView.delegate=self;
-    
     [self storePosition];
-    
-    if([self.map respondsToSelector:@selector(setShowsBuildings:)])
-        self.map.showsBuildings=false;
-    
-    if([self.map respondsToSelector:@selector(setShowsPointsOfInterest:)])
-        self.map.showsPointsOfInterest=false;
     
     tableList.backgroundColor=COLOR_BACKGROUND_SHOP_SERIES;
     
     [tableList registerNib:[UINib nibWithNibName:[ShopListCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[ShopListCell reuseIdentifier]];
-
-    [sortView setIcon:[UIImage imageNamed:@"icon_distance.png"] text:@"Khoảng cách"];
+    [tableList registerNib:[UINib nibWithNibName:[ShopListPlaceCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[ShopListPlaceCell reuseIdentifier]];
     
     [scroll.panGestureRecognizer addTarget:self action:@selector(panShowMap:)];
     
@@ -269,15 +421,56 @@
     
     [scroll.panGestureRecognizer requireGestureRecognizerToFail:tap];
     
-    [self makeScrollSize];
-    
     _shopsList=[NSMutableArray array];
-    
     _page=-1;
-    _sort=SORT_SHOP_LIST_DISTANCE;
-    [self requestShopSearch];
     
-    [self.view showLoading];
+    sortView.delegate=self;
+    btnSearchLocation.enabled=_viewMode==SHOP_LIST_VIEW_LIST;
+    
+    switch (_viewMode) {
+        case SHOP_LIST_VIEW_LIST:
+            
+            txt.text=_keyword;
+            
+            [sortView setIcon:[UIImage imageNamed:@"icon_distance.png"] text:@"Khoảng cách"];
+            _sort=SORT_SHOP_LIST_DISTANCE;
+            [self requestShopSearch];
+            [self.view showLoading];
+            
+            break;
+            
+        case SHOP_LIST_VIEW_PLACE:
+            
+            txt.text=_placeList.title;
+            
+            _sortPlace=SORT_PLACE_LIST_DEFAULT;
+            [sortView setIcon:[UIImage imageNamed:@"icon_distance.png"] text:@"Mặc định"];
+            
+            tableList.dataSource=self;
+            tableList.delegate=self;
+            
+            [tableList reloadData];
+            
+            [tableList showLoading];
+            [self requestPlacelistDetail];
+            break;
+    }
+    
+    [self makeScrollSize];
+}
+
+-(void) requestPlacelistDetail
+{
+    if(_operationPlaceListDetail)
+    {
+        [_operationPlaceListDetail cancel];
+        _operationPlaceListDetail=nil;
+    }
+    
+    _operationPlaceListDetail=[[ASIOperationPlacelistDetail alloc] initWithIDPlacelist:_placeList.idPlacelist.integerValue userLat:_location.latitude userLng:_location.longitude sort:SORT_PLACE_LIST_DEFAULT page:_page+1];
+    _operationPlaceListDetail.delegatePost=self;
+    
+    [_operationPlaceListDetail startAsynchronous];
 }
 
 -(void) requestShopSearch
@@ -330,7 +523,8 @@
     _operationShopSearch=[[ASIOperationShopSearch alloc] initWithKeywords:_keyword userLat:_location.latitude userLng:_location.longitude page:_page+1 sort:_sort];
     
     _operationShopSearch.delegatePost=self;
-    [_operationShopSearch startAsynchronous];}
+    [_operationShopSearch startAsynchronous];
+}
 
 -(void) changeSort:(enum SORT_SHOP_LIST) sort
 {
@@ -371,6 +565,50 @@
     [_operationShopSearch startAsynchronous];
 }
 
+-(void) changeSortPlace:(enum SORT_PLACE_LIST) sort
+{
+    [self.view showLoading];
+    
+    [tableList setContentOffset:tableList.contentOffset animated:true];
+    
+    tableList.dataSource=nil;
+    _shopsList=[NSMutableArray array];
+    _page=-1;
+    _sortPlace=sort;
+    
+    switch (_sortPlace) {
+        case SORT_PLACE_LIST_DISTANCE:
+            [sortView setText:@"Khoảng cách"];
+            break;
+            
+        case SORT_PLACE_LIST_VIEW:
+            [sortView setText:@"Lượt xem"];
+            break;
+            
+        case SORT_PLACE_LIST_LOVE:
+            [sortView setText:@"Lượt love"];
+            break;
+            
+        case SORT_PLACE_LIST_DEFAULT:
+            [sortView setText:@"Mặc định"];
+            break;
+            
+    }
+    
+    [self clearMap];
+    
+    if(_operationPlaceListDetail)
+    {
+        [_operationPlaceListDetail cancel];
+        _operationPlaceListDetail=nil;
+    }
+    
+    _operationPlaceListDetail=[[ASIOperationPlacelistDetail alloc] initWithIDPlacelist:_placeList.idPlacelist.integerValue userLat:_location.latitude userLng:_location.longitude sort:_sortPlace page:_page+1];
+    
+    _operationPlaceListDetail.delegatePost=self;
+    [_operationPlaceListDetail startAsynchronous];
+}
+
 -(void) clearMap
 {
     [self.map removeAnnotations:self.map.annotations];
@@ -393,6 +631,45 @@
         
         _page++;
         _canLoadMore=ope.shopsList.count==10;
+        _isLoadingMore=false;
+        
+        tableList.dataSource=self;
+        tableList.delegate=self;
+        
+        [tableList reloadData];
+        
+        NSMutableArray *coordinates=[NSMutableArray array];
+        for(ShopList *shop in ope.shopsList)
+        {
+            [self.map addAnnotation:shop];
+            
+            [coordinates addObject:[NSValue valueWithMKCoordinate:shop.coordinate]];
+        }
+        
+        if(!_isZoomedRegionMap)
+        {
+            _isZoomedRegionMap=true;
+            
+            if(isVailCLLocationCoordinate2D(self.map.userLocation.coordinate))
+                [coordinates addObject:[NSValue valueWithMKCoordinate:self.map.userLocation.coordinate]];
+            
+            [self.map zoomToCoordinates:coordinates animate:true span:0];
+        }
+        
+        [self makeScrollSize];
+    }
+    else if([operation isKindOfClass:[ASIOperationPlacelistDetail class]])
+    {
+        [tableList removeLoading];
+        [self.view removeLoading];
+        
+        ASIOperationPlacelistDetail *ope=(ASIOperationPlacelistDetail*) operation;
+        
+        [_shopsList addObjectsFromArray:ope.shopsList];
+        
+        _page++;
+        _canLoadMore=ope.shopsList.count==10;
+        _isLoadingMore=false;
         
         tableList.dataSource=self;
         tableList.delegate=self;
@@ -428,6 +705,13 @@
         [self.view removeLoading];
         
         _operationShopSearch=nil;
+    }
+    else if([operation isKindOfClass:[ASIOperationPlacelistDetail class]])
+    {
+        [tableList removeLoading];
+        [self.view removeLoading];
+        
+        _operationPlaceListDetail=nil;
     }
 }
 
@@ -468,8 +752,18 @@
                 return;
 
             pnt=[scroll convertPoint:tableList.l_v_o toView:self.view];
+            
             if(pnt.y>_tableFrame.origin.y+20)
             {
+                // do animation delay nên sẽ bị bug ko move sortview
+                _isZoomedMap=true;
+                _isAllowDiffScrollMap=false;
+                _isAnimatingZoom=true;
+                self.map.userInteractionEnabled=true;
+                self.map.scrollEnabled=true;
+                self.map.zoomEnabled=true;
+                scrollerView.hidden=true;
+                
                 [UIView animateWithDuration:DURATION_DEFAULT animations:^{
                     [self zoomMap];
                 }];
@@ -484,7 +778,7 @@
 
 -(void) makeScrollSize
 {
-    scroll.contentSize=CGSizeMake(scroll.l_v_w, tableList.l_v_y+MAX(_tableFrame.size.height,tableList.contentSize.height));
+    scroll.contentSize=CGSizeMake(scroll.l_v_w, _tableFrame.origin.y+MAX(_tableFrame.size.height,tableList.contentSize.height));
     scroll.contentInset=UIEdgeInsetsMake(0, 0, QRCODE_BIG_HEIGHT-QRCODE_RAY_HEIGHT, 0);
     scroll.scrollIndicatorInsets=scroll.contentInset;
 }
@@ -577,19 +871,58 @@
                 return;
             }
             
-            ShopList *shop=_shopsList[indexPath.row];
-            
-            switch (_sort) {
-                case SORT_SHOP_LIST_DISTANCE:
-                    scrollerText=shop.distance;
+            switch (_viewMode) {
+                case SHOP_LIST_VIEW_LIST:
+                {
+                    ShopList *shop=_shopsList[indexPath.row];
+                    
+                    switch (_sort) {
+                        case SORT_SHOP_LIST_DISTANCE:
+                            scrollerText=shop.distance;
+                            break;
+                            
+                        case SORT_SHOP_LIST_LOVE:
+                            scrollerText=shop.numOfLove;
+                            break;
+                            
+                        case SORT_SHOP_LIST_VIEW:
+                            scrollerText=shop.numOfView;
+                            break;
+                    }
+                }
                     break;
                     
-                case SORT_SHOP_LIST_LOVE:
-                    scrollerText=shop.numOfLove;
-                    break;
+                case SHOP_LIST_VIEW_PLACE:
+                    switch (indexPath.row) {
+                        case 0:
+                            scrollerText=_placeList.title;
+                            break;
+                            
+                        default:
+                        {
+                            ShopList *shop=_shopsList[indexPath.row-1];
+                            
+                            switch (_sortPlace) {
+                                case SORT_PLACE_LIST_DISTANCE:
+                                    scrollerText=shop.distance;
+                                    break;
+                                    
+                                case SORT_PLACE_LIST_LOVE:
+                                    scrollerText=shop.numOfLove;
+                                    break;
+                                    
+                                case SORT_PLACE_LIST_VIEW:
+                                    scrollerText=shop.numOfView;
+                                    break;
+                                    
+                                case SORT_PLACE_LIST_DEFAULT:
+                                    scrollerText=shop.numOfLove;
+                                    break;
+                            }
+                        }
+                            break;
+                    }
                     
-                case SORT_SHOP_LIST_VIEW:
-                    scrollerText=shop.numOfView;
                     break;
             }
             
@@ -877,6 +1210,14 @@
 -(NSString *)keyword
 {
     return _keyword;
+}
+
+-(void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    
+    self.map.mapType=MKMapTypeHybrid;
+    self.map.mapType=MKMapTypeStandard;
 }
 
 @end

@@ -513,4 +513,9 @@ static GUIManager *_shareInstance=nil;
     [self showLeftController];
 }
 
+-(void)newFeedControllerTouchedNavigation:(NewFeedViewController *)controller
+{
+    [self showLeftController];
+}
+
 @end

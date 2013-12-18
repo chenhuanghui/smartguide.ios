@@ -43,6 +43,8 @@
         <relationship name="shopKM1" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ShopKM1" inverseName="listVoucher" inverseEntity="ShopKM1" syncable="YES"/>
     </entity>
     <entity name="Placelist" representedClassName="Placelist" syncable="YES">
+        <attribute name="authorAvatar" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="authorName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="desc" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="idPlacelist" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="image" optional="YES" attributeType="String" syncable="YES"/>
@@ -192,6 +194,7 @@
         <element name="Feedback" positionX="0" positionY="0" width="0" height="0"/>
         <element name="Filter" positionX="0" positionY="0" width="0" height="0"/>
         <element name="KM1Voucher" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Placelist" positionX="0" positionY="0" width="0" height="0"/>
         <element name="Reward" positionX="0" positionY="0" width="0" height="0"/>
         <element name="Shop" positionX="0" positionY="0" width="0" height="0"/>
         <element name="ShopCatalog" positionX="0" positionY="0" width="0" height="0"/>
@@ -205,6 +208,5 @@
         <element name="StoreShopItem" positionX="0" positionY="0" width="0" height="0"/>
         <element name="User" positionX="0" positionY="0" width="0" height="0"/>
         <element name="Versions" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="Placelist" positionX="0" positionY="0" width="0" height="0"/>
     </elements>
 </model>

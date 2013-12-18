@@ -5,6 +5,8 @@
 
 #define Placelist_ClassName @"Placelist"
 
+#define Placelist_AuthorAvatar @"authorAvatar"
+#define Placelist_AuthorName @"authorName"
 #define Placelist_Desc @"desc"
 #define Placelist_IdPlacelist @"idPlacelist"
 #define Placelist_Image @"image"
@@ -26,6 +28,8 @@
 -(void) markDeleted;
 
 
+@property (nonatomic, retain) NSString* authorAvatar;
+@property (nonatomic, retain) NSString* authorName;
 @property (nonatomic, retain) NSString* desc;
 @property (nonatomic, retain) NSNumber* idPlacelist;
 @property (nonatomic, retain) NSString* image;

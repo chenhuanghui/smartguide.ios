@@ -85,6 +85,7 @@
 #define API_STORE_GET_ITEMS @"store/getItem"
 #define API_SHOP_SEARCH @"shop/search_v2_1"
 #define API_PLACELIST_GET_LIST @"placelist/getList"
+#define API_PLACELIST_DETAIL @"placelist/get"
 
 #define API_GET_ACTIVE_CODE(phone) [NSString stringWithFormat:@"%@/user/activation?phone=%@",SERVER_IP,phone]
 #define API_VERIFY_ACTIVE_CODE(phone,activeCode) [NSString stringWithFormat:@"%@/user/check?phone=%@&code=%@",SERVER_IP,phone,activeCode]
@@ -212,6 +213,13 @@ enum SORT_SHOP_LIST {
     SORT_SHOP_LIST_DISTANCE = 0,
     SORT_SHOP_LIST_VIEW = 1,
     SORT_SHOP_LIST_LOVE = 2
+    };
+
+enum SORT_PLACE_LIST {
+    SORT_PLACE_LIST_DISTANCE = 0,
+    SORT_PLACE_LIST_VIEW = 1,
+    SORT_PLACE_LIST_LOVE = 2,
+    SORT_PLACE_LIST_DEFAULT = 3
     };
 
 @class ShopCatalog;

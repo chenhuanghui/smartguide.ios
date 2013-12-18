@@ -8,6 +8,7 @@
 
 #import "SGViewController.h"
 #import "SearchViewController.h"
+#import "ASIOperationPlacelistGetList.h"
 
 @class SearchShopViewController;
 
@@ -15,11 +16,11 @@
 
 -(void) searchShopControllerTouchedBack:(SearchShopViewController*) controller;
 -(void) searchShopControllerSearch:(SearchShopViewController*) controller keyword:(NSString*) keyword;
--(void) searchShopControllerTouchPlaceList:(SearchShopViewController*) controller;
+-(void) searchShopControllerTouchPlaceList:(SearchShopViewController*) controller placeList:(Placelist*) place;
 
 @end
 
-@interface SearchShopViewController : SGViewController<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate,SearchControllerHandle>
+@interface SearchShopViewController : SGViewController<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate,SearchControllerHandle,ASIOperationPostDelegate>
 {
     __weak IBOutlet UITableView *table;
     __weak IBOutlet UITextField *txt;
@@ -27,6 +28,13 @@
     __weak IBOutlet UIView *topView;
     
     NSString *_keyword;
+    
+    ASIOperationPlacelistGetList *_operationPlacelistGetList;
+    
+    int _pagePlacelist;
+    NSMutableArray *_placeLists;
+    bool _canLoadMorePlaceList;
+    bool _isLoadingMore;
 }
 
 -(SearchShopViewController*) initWithKeyword:(NSString*) keyword;

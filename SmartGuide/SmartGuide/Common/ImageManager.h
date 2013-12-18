@@ -28,5 +28,6 @@
 -(void) loadShopUserGalleryWithURL:(NSString*) url;
 -(void) loadCommentAvatarWithURL:(NSString*) url;
 -(void) loadStoreLogoWithURL:(NSString*) url;
+-(void) loadPlaceAuthorAvatarWithURL:(NSString*) url;
 
 @end

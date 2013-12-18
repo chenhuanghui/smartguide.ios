@@ -5,7 +5,7 @@
 
 +(Placelist *)placeListWithID:(int)idPlaceList
 {
-    return [Placelist queryPlacelistObject:[NSPredicate predicateWithFormat:@"%K == %i",idPlaceList]];
+    return [Placelist queryPlacelistObject:[NSPredicate predicateWithFormat:@"%K == %i",Placelist_IdPlacelist,idPlaceList]];
 }
 
 +(Placelist *)makeWithDictionary:(NSDictionary *)dict
@@ -24,6 +24,8 @@
     obj.image=[NSString stringWithStringDefault:dict[@"image"]];
     obj.numOfView=[NSString stringWithStringDefault:dict[@"numOfView"]];
     obj.loveStatus=[NSNumber numberWithObject:dict[@"loveStatus"]];
+    obj.authorName=[NSString stringWithStringDefault:dict[@"authorName"]];
+    obj.authorAvatar=[NSString stringWithStringDefault:dict[@"authorAvatar"]];
     
     return obj;
 }
