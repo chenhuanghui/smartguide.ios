@@ -23,6 +23,7 @@
 #define ShopList_ShopType @"shopType"
 
 @class ShopList;
+@class Placelist;
 
 @interface _ShopList : NSManagedObject
 
@@ -56,6 +57,9 @@
 
     
 #pragma mark Relationships
+
+#pragma mark PlaceList
+@property (nonatomic, retain) Placelist* placeList;
 
 
 @end

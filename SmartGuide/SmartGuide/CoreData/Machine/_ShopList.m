@@ -5,9 +5,14 @@
 #import "ShopList.h"
 
 #import "DataManager.h"
+#import "Placelist.h"
 
 
 @implementation _ShopList
+
+
+@dynamic placeList;
+
 
 
 +(ShopList*) insert
@@ -295,5 +300,13 @@
 
 #pragma mark Relationships
     
+#pragma mark PlaceList
+- (Placelist*)placeList {
+	[self willAccessValueForKey:@"placeList"];
+	Placelist *result = [self primitiveValueForKey:@"placeList"];
+	[self didAccessValueForKey:@"placeList"];
+	return result;
+}
+
 
 @end

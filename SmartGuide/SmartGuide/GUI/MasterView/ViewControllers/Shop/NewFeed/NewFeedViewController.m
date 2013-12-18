@@ -60,4 +60,9 @@
     return false;
 }
 
+-(IBAction) btnNavigationTouchedUpInside:(id)sender
+{
+    [self.delegate newFeedControllerTouchedNavigation:self];
+}
+
 @end

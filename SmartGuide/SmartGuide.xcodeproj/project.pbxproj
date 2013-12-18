@@ -457,6 +457,9 @@
 		9AC494C41858B4900042C535 /* StoreShop.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AC494C11858B4900042C535 /* StoreShop.m */; };
 		9AC494C51858B4900042C535 /* StoreShopItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AC494C31858B4900042C535 /* StoreShopItem.m */; };
 		9AC74E4C186096740033EB61 /* SGMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AC74E4B186096740033EB61 /* SGMapView.m */; };
+		9AC74E521860BE1C0033EB61 /* Placelist.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AC74E511860BE1C0033EB61 /* Placelist.m */; };
+		9AC74E551860BE230033EB61 /* _Placelist.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AC74E541860BE230033EB61 /* _Placelist.m */; };
+		9AC74E581860C0F70033EB61 /* ASIOperationPlacelistGetList.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AC74E571860C0F70033EB61 /* ASIOperationPlacelistGetList.m */; };
 		9ACBA9BC185D7745000B3D6B /* ASIOperationStoreAllStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ACBA9BB185D7745000B3D6B /* ASIOperationStoreAllStore.m */; };
 		9ACBE8CF185A0A180004474F /* ButtonLove.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ACBE8CD185A0A180004474F /* ButtonLove.m */; };
 		9ACBE8D0185A0A180004474F /* ButtonLove.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9ACBE8CE185A0A180004474F /* ButtonLove.xib */; };
@@ -1201,6 +1204,12 @@
 		9AC494C31858B4900042C535 /* StoreShopItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoreShopItem.m; sourceTree = "<group>"; };
 		9AC74E4A186096740033EB61 /* SGMapView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGMapView.h; sourceTree = "<group>"; };
 		9AC74E4B186096740033EB61 /* SGMapView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGMapView.m; sourceTree = "<group>"; };
+		9AC74E501860BE1C0033EB61 /* Placelist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Placelist.h; sourceTree = "<group>"; };
+		9AC74E511860BE1C0033EB61 /* Placelist.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Placelist.m; sourceTree = "<group>"; };
+		9AC74E531860BE230033EB61 /* _Placelist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _Placelist.h; sourceTree = "<group>"; };
+		9AC74E541860BE230033EB61 /* _Placelist.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _Placelist.m; sourceTree = "<group>"; };
+		9AC74E561860C0F70033EB61 /* ASIOperationPlacelistGetList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIOperationPlacelistGetList.h; sourceTree = "<group>"; };
+		9AC74E571860C0F70033EB61 /* ASIOperationPlacelistGetList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIOperationPlacelistGetList.m; sourceTree = "<group>"; };
 		9ACBA9BA185D7745000B3D6B /* ASIOperationStoreAllStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIOperationStoreAllStore.h; sourceTree = "<group>"; };
 		9ACBA9BB185D7745000B3D6B /* ASIOperationStoreAllStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIOperationStoreAllStore.m; sourceTree = "<group>"; };
 		9ACBE8CC185A0A180004474F /* ButtonLove.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ButtonLove.h; sourceTree = "<group>"; };
@@ -2257,6 +2266,8 @@
 		A91A674A1797F65000BEB8C5 /* Human */ = {
 			isa = PBXGroup;
 			children = (
+				9AC74E501860BE1C0033EB61 /* Placelist.h */,
+				9AC74E511860BE1C0033EB61 /* Placelist.m */,
 				9ACFA6A118600AA50090E7A8 /* ShopList.h */,
 				9ACFA6A218600AA50090E7A8 /* ShopList.m */,
 				9AD12808185EFD2E00D56B24 /* StoreCart.h */,
@@ -2302,6 +2313,8 @@
 		A91A674D1797F65000BEB8C5 /* Machine */ = {
 			isa = PBXGroup;
 			children = (
+				9AC74E531860BE230033EB61 /* _Placelist.h */,
+				9AC74E541860BE230033EB61 /* _Placelist.m */,
 				9ACFA6A418600AC70090E7A8 /* _ShopList.h */,
 				9ACFA6A518600AC70090E7A8 /* _ShopList.m */,
 				9AD1280B185EFD3500D56B24 /* _StoreCart.h */,
@@ -2473,6 +2486,8 @@
 				9A9211A1185AC39F0012F181 /* ASIOperationStoreShopItem.m */,
 				9ACFA6A7186010650090E7A8 /* ASIOperationShopSearch.h */,
 				9ACFA6A8186010650090E7A8 /* ASIOperationShopSearch.m */,
+				9AC74E561860C0F70033EB61 /* ASIOperationPlacelistGetList.h */,
+				9AC74E571860C0F70033EB61 /* ASIOperationPlacelistGetList.m */,
 			);
 			path = ASIOperation;
 			sourceTree = "<group>";
@@ -3611,6 +3626,7 @@
 				A9244BE5179F8BCC00D78D5A /* OperationFBGetProfile.m in Sources */,
 				A9B807C4179FBD7B00C8E003 /* ASIAuthenticationDialog.m in Sources */,
 				9A2E18E6181F6B2A00D0D01E /* _ShopCatalog.m in Sources */,
+				9AC74E521860BE1C0033EB61 /* Placelist.m in Sources */,
 				A9B807C5179FBD7B00C8E003 /* ASIDataCompressor.m in Sources */,
 				9A32F418184346C000704D26 /* WelcomeViewController.m in Sources */,
 				9AA90AB71850CF2B002F40FF /* SUUserCommentCell.m in Sources */,
@@ -3627,6 +3643,7 @@
 				9AC74E4C186096740033EB61 /* SGMapView.m in Sources */,
 				A9B807CA179FBD7B00C8E003 /* ASIInputStream.m in Sources */,
 				A9B807CB179FBD7B00C8E003 /* ASINetworkQueue.m in Sources */,
+				9AC74E581860C0F70033EB61 /* ASIOperationPlacelistGetList.m in Sources */,
 				A9B807CC179FBD7B00C8E003 /* ASIWebPageRequest.m in Sources */,
 				9A32F4311843486F00704D26 /* AlphaView.m in Sources */,
 				A9B807EC179FBE3400C8E003 /* Reachability.m in Sources */,
@@ -3696,6 +3713,7 @@
 				9A3E768418532BDF00F596C1 /* UserCollectionViewController.m in Sources */,
 				9A55CE31185F57BF00F7EA9C /* Scroller.m in Sources */,
 				A925479C17AE453F00AD0BA9 /* OperationGetToken.m in Sources */,
+				9AC74E551860BE230033EB61 /* _Placelist.m in Sources */,
 				A924A3C117AEB63F0042B28B /* OperationRefreshToken.m in Sources */,
 				A924A3C517AEBC860042B28B /* SwitchSetting.m in Sources */,
 				9A7E55A6183CEB30006D1798 /* SDWebImageDecoder.m in Sources */,

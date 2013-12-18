@@ -13,6 +13,7 @@
 @protocol NewFeedControllerDelegate <SGViewControllerDelegate>
 
 -(void) newFeedControllerTouchedTextField:(NewFeedViewController*) controller;
+-(void) newFeedControllerTouchedNavigation:(NewFeedViewController*) controller;
 
 @end
 

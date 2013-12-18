@@ -42,6 +42,15 @@
         <attribute name="type" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="shopKM1" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ShopKM1" inverseName="listVoucher" inverseEntity="ShopKM1" syncable="YES"/>
     </entity>
+    <entity name="Placelist" representedClassName="Placelist" syncable="YES">
+        <attribute name="desc" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="idPlacelist" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="image" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="loveStatus" optional="YES" attributeType="Integer 32" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="numOfView" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="shopsList" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ShopList" inverseName="placeList" inverseEntity="ShopList" syncable="YES"/>
+    </entity>
     <entity name="Reward" representedClassName="Reward" syncable="YES">
         <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="idReward" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
@@ -113,6 +122,7 @@
         <attribute name="shopLng" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="shopName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="shopType" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <relationship name="placeList" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Placelist" inverseName="shopsList" inverseEntity="Placelist" syncable="YES"/>
     </entity>
     <entity name="ShopUserComment" representedClassName="ShopUserComment" syncable="YES">
         <attribute name="avatar" optional="YES" attributeType="String" syncable="YES"/>
@@ -187,6 +197,7 @@
         <element name="ShopCatalog" positionX="0" positionY="0" width="0" height="0"/>
         <element name="ShopGallery" positionX="0" positionY="0" width="0" height="0"/>
         <element name="ShopKM1" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="ShopList" positionX="0" positionY="0" width="0" height="0"/>
         <element name="ShopUserComment" positionX="0" positionY="0" width="0" height="0"/>
         <element name="ShopUserGallery" positionX="0" positionY="0" width="0" height="0"/>
         <element name="StoreCart" positionX="0" positionY="0" width="0" height="0"/>
@@ -194,6 +205,6 @@
         <element name="StoreShopItem" positionX="0" positionY="0" width="0" height="0"/>
         <element name="User" positionX="0" positionY="0" width="0" height="0"/>
         <element name="Versions" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="ShopList" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Placelist" positionX="0" positionY="0" width="0" height="0"/>
     </elements>
 </model>
