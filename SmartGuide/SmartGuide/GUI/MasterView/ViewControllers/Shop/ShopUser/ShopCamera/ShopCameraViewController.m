@@ -2,7 +2,7 @@
 //  ShopCameraViewController.m
 //  SmartGuide
 //
-//  Created by MacMini on 19/11/2013.
+//  Created by MacMini on 19/12/2013.
 //  Copyright (c) 2013 Redbase. All rights reserved.
 //
 
@@ -28,52 +28,30 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    UIImagePickerController *picker=[[UIImagePickerController alloc] init];
-    picker.delegate=self;
+    ShopCameraTakeViewController *take=[ShopCameraTakeViewController new];
+    take.delegate=self;
+    
+    SGNavigationController *navi=[[SGNavigationController alloc] initWithRootViewController:take];
+    
+    cameraNavi=navi;
+    
+    [self addChildViewController:navi];
+    [self.view addSubview:navi.view];
+    [navi.view l_v_setS:self.view.l_v_s];
+}
 
-    picker.sourceType=UIImagePickerControllerSourceTypeCamera;
+-(void)shopCameraTakeDidCapture:(ShopCameraTakeViewController *)controller image:(UIImage *)image
+{
+    ShopCameraPostViewController *vc=[[ShopCameraPostViewController alloc] initWithImage:image];
+    vc.delegate=self;
     
-    camera=picker;
-    
-    [self.view insertSubview:camera.view atIndex:0];
-    [camera l_v_setS:self.l_v_s];
+    [cameraNavi pushViewController:vc animated:true];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-- (IBAction)btnTakePictureTouchUpInside:(id)sender {
-    [camera takePicture];
-}
-
-- (IBAction)btnSwitchCameraTouchUpInside:(id)sender {
-    switch (camera.cameraDevice) {
-        case UIImagePickerControllerCameraDeviceFront:
-            camera.cameraDevice=UIImagePickerControllerCameraDeviceRear;
-            break;
-            
-        case UIImagePickerControllerCameraDeviceRear:
-            camera.cameraDevice=UIImagePickerControllerCameraDeviceFront;
-            break;
-    }
-}
-
-- (IBAction)btnFlashTouchUpInside:(id)sender {
-    switch (camera.cameraFlashMode) {
-        case UIImagePickerControllerCameraFlashModeOn:
-            camera.cameraFlashMode=UIImagePickerControllerCameraFlashModeOff;
-            break;
-            
-        case UIImagePickerControllerCameraFlashModeOff:
-            camera.cameraFlashMode=UIImagePickerControllerCameraFlashModeOn;
-            break;
-            
-        case UIImagePickerControllerCameraFlashModeAuto:
-            camera.cameraFlashMode=UIImagePickerControllerCameraFlashModeOff;
-    }
 }
 
 @end

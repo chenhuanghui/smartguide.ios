@@ -98,8 +98,8 @@
 		9A32F3D7184345AE00704D26 /* SGMapController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A32F388184345AE00704D26 /* SGMapController.m */; };
 		9A32F3D8184345AE00704D26 /* SGMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A32F38A184345AE00704D26 /* SGMapViewController.m */; };
 		9A32F3D9184345AE00704D26 /* SGMapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A32F38B184345AE00704D26 /* SGMapViewController.xib */; };
-		9A32F3E0184345AE00704D26 /* ShopCameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A32F39B184345AE00704D26 /* ShopCameraViewController.m */; };
-		9A32F3E1184345AE00704D26 /* ShopCameraViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A32F39C184345AE00704D26 /* ShopCameraViewController.xib */; };
+		9A32F3E0184345AE00704D26 /* ShopCameraTakeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A32F39B184345AE00704D26 /* ShopCameraTakeViewController.m */; };
+		9A32F3E1184345AE00704D26 /* ShopCameraTakeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A32F39C184345AE00704D26 /* ShopCameraTakeViewController.xib */; };
 		9A32F3E2184345AE00704D26 /* ShopCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A32F39F184345AE00704D26 /* ShopCommentViewController.m */; };
 		9A32F3E3184345AE00704D26 /* ShopCommentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A32F3A0184345AE00704D26 /* ShopCommentViewController.xib */; };
 		9A32F3E4184345AE00704D26 /* ShopUserCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A32F3A2184345AE00704D26 /* ShopUserCommentCell.m */; };
@@ -504,6 +504,18 @@
 		9ACFAE621861710A006131DC /* ShopListPlaceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9ACFAE611861710A006131DC /* ShopListPlaceCell.xib */; };
 		9ACFAE691861B893006131DC /* icon_playlist.png in Resources */ = {isa = PBXBuildFile; fileRef = 9ACFAE671861B893006131DC /* icon_playlist.png */; };
 		9ACFAE6A1861B893006131DC /* icon_playlist@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9ACFAE681861B893006131DC /* icon_playlist@2x.png */; };
+		9ACFAE7318621D10006131DC /* button_camera.png in Resources */ = {isa = PBXBuildFile; fileRef = 9ACFAE6B18621D10006131DC /* button_camera.png */; };
+		9ACFAE7418621D10006131DC /* button_flashcamera.png in Resources */ = {isa = PBXBuildFile; fileRef = 9ACFAE6C18621D10006131DC /* button_flashcamera.png */; };
+		9ACFAE7518621D10006131DC /* button_rotatecamera.png in Resources */ = {isa = PBXBuildFile; fileRef = 9ACFAE6D18621D10006131DC /* button_rotatecamera.png */; };
+		9ACFAE7618621D10006131DC /* frame_takephoto.png in Resources */ = {isa = PBXBuildFile; fileRef = 9ACFAE6E18621D10006131DC /* frame_takephoto.png */; };
+		9ACFAE7718621D10006131DC /* button_camera@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9ACFAE6F18621D10006131DC /* button_camera@2x.png */; };
+		9ACFAE7818621D10006131DC /* button_flashcamera@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9ACFAE7018621D10006131DC /* button_flashcamera@2x.png */; };
+		9ACFAE7918621D10006131DC /* button_rotatecamera@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9ACFAE7118621D10006131DC /* button_rotatecamera@2x.png */; };
+		9ACFAE7A18621D10006131DC /* frame_takephoto@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9ACFAE7218621D10006131DC /* frame_takephoto@2x.png */; };
+		9ACFAE7E18621DFA006131DC /* ShopCameraPostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ACFAE7C18621DFA006131DC /* ShopCameraPostViewController.m */; };
+		9ACFAE7F18621DFA006131DC /* ShopCameraPostViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9ACFAE7D18621DFA006131DC /* ShopCameraPostViewController.xib */; };
+		9ACFAE8818622025006131DC /* ShopCameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ACFAE8618622025006131DC /* ShopCameraViewController.m */; };
+		9ACFAE8918622025006131DC /* ShopCameraViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9ACFAE8718622025006131DC /* ShopCameraViewController.xib */; };
 		9AD1280A185EFD2E00D56B24 /* StoreCart.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AD12809185EFD2E00D56B24 /* StoreCart.m */; };
 		9AD1280D185EFD3500D56B24 /* _StoreCart.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AD1280C185EFD3500D56B24 /* _StoreCart.m */; };
 		9AD23D5217FABC0100D28C7E /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AD23D5117FABC0100D28C7E /* AudioToolbox.framework */; };
@@ -750,9 +762,9 @@
 		9A32F389184345AE00704D26 /* SGMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGMapViewController.h; sourceTree = "<group>"; };
 		9A32F38A184345AE00704D26 /* SGMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGMapViewController.m; sourceTree = "<group>"; };
 		9A32F38B184345AE00704D26 /* SGMapViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SGMapViewController.xib; sourceTree = "<group>"; };
-		9A32F39A184345AE00704D26 /* ShopCameraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopCameraViewController.h; sourceTree = "<group>"; };
-		9A32F39B184345AE00704D26 /* ShopCameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopCameraViewController.m; sourceTree = "<group>"; };
-		9A32F39C184345AE00704D26 /* ShopCameraViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShopCameraViewController.xib; sourceTree = "<group>"; };
+		9A32F39A184345AE00704D26 /* ShopCameraTakeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopCameraTakeViewController.h; sourceTree = "<group>"; };
+		9A32F39B184345AE00704D26 /* ShopCameraTakeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopCameraTakeViewController.m; sourceTree = "<group>"; };
+		9A32F39C184345AE00704D26 /* ShopCameraTakeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShopCameraTakeViewController.xib; sourceTree = "<group>"; };
 		9A32F39E184345AE00704D26 /* ShopCommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopCommentViewController.h; sourceTree = "<group>"; };
 		9A32F39F184345AE00704D26 /* ShopCommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopCommentViewController.m; sourceTree = "<group>"; };
 		9A32F3A0184345AE00704D26 /* ShopCommentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShopCommentViewController.xib; sourceTree = "<group>"; };
@@ -1269,6 +1281,20 @@
 		9ACFAE611861710A006131DC /* ShopListPlaceCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShopListPlaceCell.xib; sourceTree = "<group>"; };
 		9ACFAE671861B893006131DC /* icon_playlist.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_playlist.png; sourceTree = "<group>"; };
 		9ACFAE681861B893006131DC /* icon_playlist@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_playlist@2x.png"; sourceTree = "<group>"; };
+		9ACFAE6B18621D10006131DC /* button_camera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_camera.png; sourceTree = "<group>"; };
+		9ACFAE6C18621D10006131DC /* button_flashcamera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_flashcamera.png; sourceTree = "<group>"; };
+		9ACFAE6D18621D10006131DC /* button_rotatecamera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_rotatecamera.png; sourceTree = "<group>"; };
+		9ACFAE6E18621D10006131DC /* frame_takephoto.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = frame_takephoto.png; sourceTree = "<group>"; };
+		9ACFAE6F18621D10006131DC /* button_camera@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_camera@2x.png"; sourceTree = "<group>"; };
+		9ACFAE7018621D10006131DC /* button_flashcamera@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_flashcamera@2x.png"; sourceTree = "<group>"; };
+		9ACFAE7118621D10006131DC /* button_rotatecamera@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_rotatecamera@2x.png"; sourceTree = "<group>"; };
+		9ACFAE7218621D10006131DC /* frame_takephoto@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "frame_takephoto@2x.png"; sourceTree = "<group>"; };
+		9ACFAE7B18621DFA006131DC /* ShopCameraPostViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopCameraPostViewController.h; sourceTree = "<group>"; };
+		9ACFAE7C18621DFA006131DC /* ShopCameraPostViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopCameraPostViewController.m; sourceTree = "<group>"; };
+		9ACFAE7D18621DFA006131DC /* ShopCameraPostViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShopCameraPostViewController.xib; sourceTree = "<group>"; };
+		9ACFAE8518622025006131DC /* ShopCameraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopCameraViewController.h; sourceTree = "<group>"; };
+		9ACFAE8618622025006131DC /* ShopCameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopCameraViewController.m; sourceTree = "<group>"; };
+		9ACFAE8718622025006131DC /* ShopCameraViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShopCameraViewController.xib; sourceTree = "<group>"; };
 		9AD12808185EFD2E00D56B24 /* StoreCart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoreCart.h; sourceTree = "<group>"; };
 		9AD12809185EFD2E00D56B24 /* StoreCart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoreCart.m; sourceTree = "<group>"; };
 		9AD1280B185EFD3500D56B24 /* _StoreCart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _StoreCart.h; sourceTree = "<group>"; };
@@ -1716,9 +1742,15 @@
 		9A32F399184345AE00704D26 /* ShopCamera */ = {
 			isa = PBXGroup;
 			children = (
-				9A32F39A184345AE00704D26 /* ShopCameraViewController.h */,
-				9A32F39B184345AE00704D26 /* ShopCameraViewController.m */,
-				9A32F39C184345AE00704D26 /* ShopCameraViewController.xib */,
+				9ACFAE8518622025006131DC /* ShopCameraViewController.h */,
+				9ACFAE8618622025006131DC /* ShopCameraViewController.m */,
+				9ACFAE8718622025006131DC /* ShopCameraViewController.xib */,
+				9A32F39A184345AE00704D26 /* ShopCameraTakeViewController.h */,
+				9A32F39B184345AE00704D26 /* ShopCameraTakeViewController.m */,
+				9A32F39C184345AE00704D26 /* ShopCameraTakeViewController.xib */,
+				9ACFAE7B18621DFA006131DC /* ShopCameraPostViewController.h */,
+				9ACFAE7C18621DFA006131DC /* ShopCameraPostViewController.m */,
+				9ACFAE7D18621DFA006131DC /* ShopCameraPostViewController.xib */,
 			);
 			path = ShopCamera;
 			sourceTree = "<group>";
@@ -2752,6 +2784,15 @@
 		A98198BE178D44FB0009FCB6 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				9A9FCBB71854ED8C004A3CFB /* Temp */,
+				9ACFAE6B18621D10006131DC /* button_camera.png */,
+				9ACFAE6C18621D10006131DC /* button_flashcamera.png */,
+				9ACFAE6D18621D10006131DC /* button_rotatecamera.png */,
+				9ACFAE6E18621D10006131DC /* frame_takephoto.png */,
+				9ACFAE6F18621D10006131DC /* button_camera@2x.png */,
+				9ACFAE7018621D10006131DC /* button_flashcamera@2x.png */,
+				9ACFAE7118621D10006131DC /* button_rotatecamera@2x.png */,
+				9ACFAE7218621D10006131DC /* frame_takephoto@2x.png */,
 				9ACFAE671861B893006131DC /* icon_playlist.png */,
 				9ACFAE681861B893006131DC /* icon_playlist@2x.png */,
 				9A3986CA185B7CAF006C0961 /* frame_avauser_navigation.png */,
@@ -2824,7 +2865,6 @@
 				9A9FCBB41854ED8C004A3CFB /* button_addshop@2x.png */,
 				9A9FCBB51854ED8C004A3CFB /* button_loveshop.png */,
 				9A9FCBB61854ED8C004A3CFB /* button_loveshop@2x.png */,
-				9A9FCBB71854ED8C004A3CFB /* Temp */,
 				9A9FCBAF1854E1B6004A3CFB /* frame_ava_store.png */,
 				9A9FCBB01854E1B6004A3CFB /* frame_ava_store@2x.png */,
 				9A9FCBAB1854DD9B004A3CFB /* bg_countitem.png */,
@@ -3193,6 +3233,7 @@
 				9A3986AE185B6A8A006C0961 /* line_navigation.png in Resources */,
 				9A32F3F9184345AE00704D26 /* UserSettingViewController.xib in Resources */,
 				9A7E5573183C842E006D1798 /* button_send.png in Resources */,
+				9ACFAE7318621D10006131DC /* button_camera.png in Resources */,
 				9ACF4F411859AAF200D98BA7 /* button_scan_small.png in Resources */,
 				9A29399D1844AA8F00FD49E2 /* icon_view@2x.png in Resources */,
 				9A3986AB185B6A8A006C0961 /* button_setting_navigation@2x.png in Resources */,
@@ -3267,7 +3308,9 @@
 				9A2A33E8184F8181002949C4 /* SUKM2Cell.xib in Resources */,
 				9A32F3F1184345AE00704D26 /* ShopScanQRCodeViewController.xib in Resources */,
 				9A2F8CC4185569470024AE1A /* bg_sort@2x.png in Resources */,
+				9ACFAE7418621D10006131DC /* button_flashcamera.png in Resources */,
 				9A9FCBEE1854ED8C004A3CFB /* II-3-Detail-Comment.jpg in Resources */,
+				9ACFAE7918621D10006131DC /* button_rotatecamera@2x.png in Resources */,
 				9A3B93F4185DFDAE004F94A4 /* StoreAdsCell.xib in Resources */,
 				9A9FCBA81854DC50004A3CFB /* frame_hor_store@2x.png in Resources */,
 				9A85B7421846ECB2009FD108 /* icon_typevoucher@2x.png in Resources */,
@@ -3308,6 +3351,7 @@
 				9A9FCBF91854ED8C004A3CFB /* II-3-DetailFull.jpg in Resources */,
 				9AB1F04B183F136700A35422 /* arrowchat_smallgray@2x.png in Resources */,
 				9A32F3F5184345AE00704D26 /* ShopUserGalleryCell.xib in Resources */,
+				9ACFAE7A18621D10006131DC /* frame_takephoto@2x.png in Resources */,
 				9A7E556F183C7F21006D1798 /* photo_firsttime.png in Resources */,
 				9A5DC488183DC16A0051375A /* icon_promotion.png in Resources */,
 				9A5DC485183DBEAA0051375A /* background_status@2x.png in Resources */,
@@ -3330,6 +3374,7 @@
 				9A9FCBA71854DC50004A3CFB /* frame_hor_store.png in Resources */,
 				A91CE6CA17A981CA00D29E87 /* groupInCity.txt in Resources */,
 				9A3986C7185B7649006C0961 /* bg_button_navigation@2x.png in Resources */,
+				9ACFAE7718621D10006131DC /* button_camera@2x.png in Resources */,
 				9AA026AB18366CA10087B2DA /* blur_slide.png in Resources */,
 				A91CE6D217A983AB00D29E87 /* city.txt in Resources */,
 				9AA026DF183674CF0087B2DA /* line_horcontent.png in Resources */,
@@ -3379,6 +3424,7 @@
 				9A616D041843BE5000201642 /* background_ads@2x.png in Resources */,
 				9A32F47F18434ECF00704D26 /* SGAdsViewController.xib in Resources */,
 				9A9FCBFC1854ED8C004A3CFB /* II-7-Notification.jpg in Resources */,
+				9ACFAE8918622025006131DC /* ShopCameraViewController.xib in Resources */,
 				9A5DC481183DBB940051375A /* background_shadow@2x.png in Resources */,
 				9A55CE22185F558900F7EA9C /* NewFeedViewController.xib in Resources */,
 				9AA90B581850EBA5002F40FF /* button_green_right@2x.png in Resources */,
@@ -3394,6 +3440,7 @@
 				9A3986CC185B7CAF006C0961 /* frame_avauser_navigation.png in Resources */,
 				9AA90B761850EF0F002F40FF /* line_comment.png in Resources */,
 				9AA90B731850EF0F002F40FF /* button_showmore@2x.png in Resources */,
+				9ACFAE7818621D10006131DC /* button_flashcamera@2x.png in Resources */,
 				9AA026DE183674CF0087B2DA /* icon_voucher@2x.png in Resources */,
 				9A9211AB185AF1910012F181 /* bg_blur_comment.png in Resources */,
 				9A7E555C183C78DA006D1798 /* line_shopdetail@2x.png in Resources */,
@@ -3423,13 +3470,15 @@
 				9A66893E184DC6F2006A9EB2 /* line_detail@2x.png in Resources */,
 				9A9FCBDD1854ED8C004A3CFB /* button_addshop.png in Resources */,
 				9ACBE8DB185A0A8C0004474F /* button_love_hover.png in Resources */,
-				9A32F3E1184345AE00704D26 /* ShopCameraViewController.xib in Resources */,
+				9A32F3E1184345AE00704D26 /* ShopCameraTakeViewController.xib in Resources */,
 				9A9FCC051854ED8C004A3CFB /* map@2x.png in Resources */,
 				9A5DC471183DB1A50051375A /* pattern_promotion@2x.png in Resources */,
+				9ACFAE7618621D10006131DC /* frame_takephoto.png in Resources */,
 				9A2F8D031855B6A30024AE1A /* StoreShopItemCell.xib in Resources */,
 				9A2F8D091855BB9A0024AE1A /* bg_price_left@2x.png in Resources */,
 				9A32F3E7184345AE00704D26 /* ShopGalleryCell.xib in Resources */,
 				9A9FCBE21854ED8C004A3CFB /* ava@2x.png in Resources */,
+				9ACFAE7F18621DFA006131DC /* ShopCameraPostViewController.xib in Resources */,
 				9AC4941518585B000042C535 /* IV-3-ItemsInfo.jpg in Resources */,
 				9A7E5554183C72AA006D1798 /* icon_notice@2x.png in Resources */,
 				9A5DC480183DBB940051375A /* background_shadow.png in Resources */,
@@ -3473,6 +3522,7 @@
 				9ACBE8DC185A0A8C0004474F /* button_love_hover@2x.png in Resources */,
 				9A2F8CF518556DAE0024AE1A /* StoreShopInfoViewController.xib in Resources */,
 				9A7E557B183CA8B8006D1798 /* button_info.png in Resources */,
+				9ACFAE7518621D10006131DC /* button_rotatecamera.png in Resources */,
 				9A9FCC011854ED8C004A3CFB /* III-2-Collection.jpg in Resources */,
 				9A7E555B183C78DA006D1798 /* line_shopdetail.png in Resources */,
 				9A9FCBE71854ED8C004A3CFB /* II-1-Block.jpg in Resources */,
@@ -3639,7 +3689,7 @@
 				9ACFAE5D186163FE006131DC /* ASIOperationPlacelistDetail.m in Sources */,
 				A9CFD3761797FFCC0035E448 /* _City.m in Sources */,
 				9A32F4591843488F00704D26 /* TextField.m in Sources */,
-				9A32F3E0184345AE00704D26 /* ShopCameraViewController.m in Sources */,
+				9A32F3E0184345AE00704D26 /* ShopCameraTakeViewController.m in Sources */,
 				9A32F3CD184345AE00704D26 /* AuthorizationViewController.m in Sources */,
 				A99089D7179926800025DC08 /* Shop.m in Sources */,
 				A99089DA179926880025DC08 /* _Shop.m in Sources */,
@@ -3675,6 +3725,7 @@
 				9A32F4311843486F00704D26 /* AlphaView.m in Sources */,
 				A9B807EC179FBE3400C8E003 /* Reachability.m in Sources */,
 				9A55CE32185F57BF00F7EA9C /* ShopListCell.m in Sources */,
+				9ACFAE7E18621DFA006131DC /* ShopCameraPostViewController.m in Sources */,
 				A961416C17A02E8800D30375 /* Flags.m in Sources */,
 				A9E3784817A0CB2E00CE11F2 /* NSBKeyframeAnimation.m in Sources */,
 				9A32F42D1843485300704D26 /* ODRefreshControl.m in Sources */,
@@ -3697,6 +3748,7 @@
 				A935C51E17A43101008910D3 /* _Filter.m in Sources */,
 				9AA90B5B1850ED8D002F40FF /* ButtonAgree.m in Sources */,
 				9A7522041856D4D400248B02 /* ButtonPrice.m in Sources */,
+				9ACFAE8818622025006131DC /* ShopCameraViewController.m in Sources */,
 				9A7E55AD183CEB30006D1798 /* UIImage+MultiFormat.m in Sources */,
 				9A29391C18445D9900FD49E2 /* _ShopKM1.m in Sources */,
 				A95125FB17A456C0003F8BB2 /* ASIOperationShopInGroup.m in Sources */,
