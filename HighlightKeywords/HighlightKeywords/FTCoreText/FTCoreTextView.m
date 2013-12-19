@@ -1446,6 +1446,25 @@ UITextAlignment UITextAlignmentFromCoreTextAlignment(FTCoreTextAlignement alignm
     return @"";
 }
 
+-(void)awakeFromNib
+{
+    [super awakeFromNib];
+    
+    FTCoreTextStyle *abc=[FTCoreTextStyle styleWithName:@"xxx"];
+    
+    abc.color=[UIColor blackColor];
+    abc.textAlignment=FTCoreTextAlignementCenter;
+    abc.font=[UIFont boldSystemFontOfSize:12];
+    
+    FTCoreTextStyle *ddd=[FTCoreTextStyle styleWithName:@"aaa"];
+    
+    ddd.color=[UIColor grayColor];
+    ddd.textAlignment=FTCoreTextAlignementCenter;
+    ddd.font=[UIFont systemFontOfSize:10];
+    
+    [self highlightWithText:@"aabbccddeeffgghhjj" keyword:@"0:3;5:3" normalStyle:ddd styleBold:abc];
+}
+
 @end
 
 @implementation NSString (FTCoreText)
@@ -1475,9 +1494,6 @@ UITextAlignment UITextAlignmentFromCoreTextAlignment(FTCoreTextAlignement alignm
         NSString *str=array[i];
         int pos=[[str componentsSeparatedByString:@":"][0] integerValue];
         int leng=[[str componentsSeparatedByString:@":"][1] integerValue];
-        
-        if(pos+leng>text.length)
-            continue;
         
         NSLog(@"str %@",[text substringWithRange:NSMakeRange(pos, leng)]);
         

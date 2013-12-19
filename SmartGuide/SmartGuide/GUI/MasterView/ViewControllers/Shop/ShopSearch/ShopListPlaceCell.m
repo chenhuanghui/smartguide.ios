@@ -16,18 +16,47 @@
     lblTitle.text=place.title;
     lblContent.text=place.desc;
     [imgvAuthorAvatar loadCommentAvatarWithURL:place.authorAvatar];
-    lblAuthorName.text=place.authorName;
-    lblNumOfView.text=place.numOfView;
+    lblNumOfView.text=[NSString stringWithFormat:@"%@ lượt xem", place.numOfView];
+    
+    [lblAuthorName setText:[NSString stringWithFormat:@"<text>by <author>%@</author></text>",place.authorName]];
 }
 
 +(float)heightWithContent:(NSString *)content
 {
-    return 80;
+    float height=[content sizeWithFont:[UIFont fontWithName:@"Avenir-Roman" size:13] constrainedToSize:CGSizeMake(249, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height+10;
+    
+    if(height>45)
+        height=45;
+    
+    return MAX(80,height+44);
 }
 
 +(NSString *)reuseIdentifier
 {
     return @"ShopListPlaceCell";
+}
+
+-(void)awakeFromNib
+{
+    [super awakeFromNib];
+    
+    NSMutableArray *array=[NSMutableArray array];
+    
+    FTCoreTextStyle *style=[FTCoreTextStyle styleWithName:@"text"];
+    style.textAlignment=FTCoreTextAlignementCenter;
+    style.color=[UIColor grayColor];
+    style.font=[UIFont fontWithName:@"Avenir-Oblique" size:12];
+    
+    [array addObject:[style copy]];
+    
+    style=[FTCoreTextStyle styleWithName:@"author"];
+    style.textAlignment=FTCoreTextAlignementCenter;
+    style.color=[UIColor redColor];
+    style.font=[UIFont fontWithName:@"Avenir-Heavy" size:12];
+    
+    [array addObject:[style copy]];
+    
+    [lblAuthorName addStyles:array];
 }
 
 @end

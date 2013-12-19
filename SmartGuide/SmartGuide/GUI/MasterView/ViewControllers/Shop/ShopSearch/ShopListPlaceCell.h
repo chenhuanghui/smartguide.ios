@@ -9,13 +9,13 @@
 #import <UIKit/UIKit.h>
 #import "Placelist.h"
 #import "LabelTopText.h"
+#import "FTCoreTextView.h"
 
 @interface ShopListPlaceCell : UITableViewCell
 {
     __weak IBOutlet UIImageView *imgvIcon;
     __weak IBOutlet UILabel *lblTitle;
-    __weak IBOutlet UILabel *lblBy;
-    __weak IBOutlet UILabel *lblAuthorName;
+    __weak IBOutlet FTCoreTextView *lblAuthorName;
     __weak IBOutlet UILabel *lblNumOfView;
     __weak IBOutlet LabelTopText *lblContent;
     __weak IBOutlet UIImageView *imgvAuthorAvatar;

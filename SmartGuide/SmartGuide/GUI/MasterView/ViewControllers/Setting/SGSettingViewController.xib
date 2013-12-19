@@ -52,6 +52,9 @@
                             <state key="normal" image="button_setting_navigation.png">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
+                            <connections>
+                                <action selector="btnSetting:" destination="-1" eventType="touchUpInside" id="nSx-Rf-FcZ"/>
+                            </connections>
                         </button>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ava.png" id="h5W-C4-dWN">
                             <rect key="frame" x="9" y="52" width="71" height="71"/>
@@ -67,6 +70,9 @@
                             <state key="normal">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
+                            <connections>
+                                <action selector="btnUserTouchUpInside:" destination="-1" eventType="touchUpInside" id="L1I-OI-tnL"/>
+                            </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="rx9-7e-Zt0">
                             <rect key="frame" x="0.0" y="133" width="320" height="65"/>
@@ -84,6 +90,9 @@
                             <state key="highlighted" backgroundImage="bg_button_release_navigation.png">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
+                            <connections>
+                                <action selector="btnCatalogTouchUpInside:" destination="-1" eventType="touchUpInside" id="PNj-3c-peU"/>
+                            </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="G9Y-OP-4Gm">
                             <rect key="frame" x="0.0" y="426" width="320" height="40"/>
@@ -110,6 +119,9 @@
                             <state key="highlighted" backgroundImage="bg_button_release_navigation.png">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
+                            <connections>
+                                <action selector="store:" destination="-1" eventType="touchUpInside" id="mIs-gL-kqB"/>
+                            </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="fK8-aa-JIP">
                             <rect key="frame" x="0.0" y="360" width="320" height="65"/>
