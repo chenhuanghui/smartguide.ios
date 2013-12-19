@@ -9,7 +9,6 @@
 #import <Foundation/Foundation.h>
 #import "User.h"
 #import "City.h"
-#import "ShopCatalog.h"
 #import "Filter.h"
 
 double userLat();

@@ -14,7 +14,7 @@ enum SEARCH_VIEW_MODE {
     SEARCH_VIEW_MODE_LIST = 1
     };
 
-@class ShopListViewController,SearchViewController;
+@class ShopListViewController,SearchViewController,SearchShopViewController,Placelist;
 
 @protocol SearchControllerHandle <NSObject>
 
@@ -28,10 +28,14 @@ enum SEARCH_VIEW_MODE {
     __weak IBOutlet UIView *contentView;
     
     enum SEARCH_VIEW_MODE _viewMode;
+    Placelist *_place;
 }
 
 -(SearchViewController*) initWithSearch;
 -(SearchViewController*) initWithKeyword:(NSString*) keyword;
--(SearchViewController*) initWithPlaceLists;
+-(SearchViewController*) initWithPlaceList:(Placelist*) place;
+
+@property (nonatomic, weak) ShopListViewController *shopListController;
+@property (nonatomic, weak) SearchShopViewController *searchShopController;
 
 @end

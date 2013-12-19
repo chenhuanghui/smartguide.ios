@@ -7,7 +7,7 @@
 {
     ShopGallery *obj=[ShopGallery insert];
     
-    obj.thumbnail=[NSString stringWithStringDefault:data[@"thumbnail"]];
+    obj.cover=[NSString stringWithStringDefault:data[@"cover"]];
     obj.image=[NSString stringWithStringDefault:data[@"image"]];
     
     return obj;

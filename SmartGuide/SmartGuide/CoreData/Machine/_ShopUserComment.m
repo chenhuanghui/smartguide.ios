@@ -90,6 +90,19 @@
 
 
 
+- (NSNumber*)agreeStatus {
+	[self willAccessValueForKey:@"agreeStatus"];
+	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"agreeStatus"];
+	[self didAccessValueForKey:@"agreeStatus"];
+	return result;
+}
+
+- (void)setAgreeStatus:(NSNumber*)value {
+	[self willChangeValueForKey:@"agreeStatus"];
+	[self setPrimitiveValue:value forKey:@"agreeStatus"];
+	[self didChangeValueForKey:@"agreeStatus"];
+}
+
 - (NSString*)avatar {
 	[self willAccessValueForKey:@"avatar"];
 	NSString* result = (NSString*)[self primitiveValueForKey:@"avatar"];
@@ -127,6 +140,19 @@
 	[self willChangeValueForKey:@"idComment"];
 	[self setPrimitiveValue:value forKey:@"idComment"];
 	[self didChangeValueForKey:@"idComment"];
+}
+
+- (NSString*)numOfAgree {
+	[self willAccessValueForKey:@"numOfAgree"];
+	NSString* result = (NSString*)[self primitiveValueForKey:@"numOfAgree"];
+	[self didAccessValueForKey:@"numOfAgree"];
+	return result;
+}
+
+- (void)setNumOfAgree:(NSString*)value {
+	[self willChangeValueForKey:@"numOfAgree"];
+	[self setPrimitiveValue:value forKey:@"numOfAgree"];
+	[self didChangeValueForKey:@"numOfAgree"];
 }
 
 - (NSString*)shopName {

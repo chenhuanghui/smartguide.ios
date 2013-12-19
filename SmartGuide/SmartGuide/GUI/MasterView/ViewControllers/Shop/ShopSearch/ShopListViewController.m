@@ -209,7 +209,7 @@
     
     [scrollBar addObserver:self forKeyPath:@"alpha" options:NSKeyValueObservingOptionNew context:nil];
     
-    UIView *v=[[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 29)];
+    UIView *v=[[UIView alloc] initWithFrame:CGRectMake(0, 0, 315, 29)];
     v.layer.masksToBounds=true;
     v.backgroundColor=[UIColor clearColor];
     v.hidden=_isZoomedMap;
@@ -234,7 +234,7 @@
     
     [bg addSubview:slide_mid];
     
-    UILabel *label=[[UILabel alloc] initWithFrame:CGRectMake(-1, 0, 320, 29)];
+    UILabel *label=[[UILabel alloc] initWithFrame:CGRectMake(-3, 0, 315, 29)];
     label.textAlignment=NSTextAlignmentRight;
     label.backgroundColor=[UIColor clearColor];
     label.textColor=[UIColor whiteColor];
@@ -851,7 +851,7 @@
             scrollerLabel.text=scrollerText;
             
             [UIView animateWithDuration:0.1 animations:^{
-                [scrollerBGView l_v_setX:(scrollerBGView.l_v_w-size.width)-scrollerImageView.image.size.width-8];
+                [scrollerBGView l_v_setX:(scrollerBGView.l_v_w-size.width)-scrollerImageView.image.size.width-15];
             } completion:^(BOOL finished) {
                 scrollerLabel.text=scrollerText;
             }];
@@ -934,7 +934,7 @@
             
             [UIView animateWithDuration:0.1 animations:^{
                 scrollerView.alpha=1;
-                [scrollerBGView l_v_setX:(scrollerBGView.l_v_w-size.width)-scrollerImageView.image.size.width-8];
+                [scrollerBGView l_v_setX:(scrollerBGView.l_v_w-size.width)-scrollerImageView.image.size.width-15];
             } completion:^(BOOL finished) {
                 scrollerLabel.text=scrollerText;
             }];

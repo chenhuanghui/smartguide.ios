@@ -6,21 +6,21 @@
 //  Copyright (c) 2013 Redbase. All rights reserved.
 //
 
-#import "ASIOperationShopDetail.h"
+#import "ASIOperationShopUser.h"
 #import "ShopProduct.h"
 #import "ShopUserComment.h"
 #import "ShopUserGallery.h"
 #import "ShopGallery.h"
 
-@implementation ASIOperationShopDetail
+@implementation ASIOperationShopUser
 @synthesize values,shop;
 
--(ASIOperationShopDetail *)initWithIDShop:(int)idShop latitude:(double)lat longtitude:(double)lon
+-(ASIOperationShopUser *) initWithIDShop:(int)idShop userLat:(double)userLat userLng:(double)userLng
 {
     NSURL *_url=[NSURL URLWithString:SERVER_API_MAKE(API_SHOP_DETAIL)];
     self=[super initWithURL:_url];
     
-    values=@[@(idShop),@(lat),@(lon)];
+    values=@[@(idShop),@(userLat),@(userLng)];
     
     return self;
 }
@@ -35,10 +35,7 @@
     if([self isNullData:json])
         return;
     
-    NSDictionary *dictJson=[json objectAtIndex:0];
-    
-    int idShop=[self.values[0] integerValue];
-    shop=[Shop makeShopWithIDShop:idShop withJSONShopInGroup:dictJson];
+    shop=[Shop makeShopWithDictionary:json[0]];
     
     [[DataManager shareInstance] save];
 }

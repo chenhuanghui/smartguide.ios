@@ -9,7 +9,6 @@
 #import "DataManager.h"
 #import "Utility.h"
 #import "Constant.h"
-#import "ShopCatalog.h"
 #import "Flags.h"
 #import "Versions.h"
 #import "TokenManager.h"

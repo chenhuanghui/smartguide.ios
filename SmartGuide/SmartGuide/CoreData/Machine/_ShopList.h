@@ -21,6 +21,7 @@
 #define ShopList_ShopLng @"shopLng"
 #define ShopList_ShopName @"shopName"
 #define ShopList_ShopType @"shopType"
+#define ShopList_ShopTypeDisplay @"shopTypeDisplay"
 
 @class ShopList;
 @class Placelist;
@@ -52,6 +53,7 @@
 @property (nonatomic, retain) NSNumber* shopLng;
 @property (nonatomic, retain) NSString* shopName;
 @property (nonatomic, retain) NSNumber* shopType;
+@property (nonatomic, retain) NSString* shopTypeDisplay;
 
 #pragma mark Fetched property
 

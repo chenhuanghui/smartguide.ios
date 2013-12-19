@@ -9,9 +9,9 @@
 #import "ASIOperationPost.h"
 #import "Shop.h"
 
-@interface ASIOperationShopDetail : ASIOperationPost
+@interface ASIOperationShopUser : ASIOperationPost
 
--(ASIOperationShopDetail *)initWithIDShop:(int)idShop latitude:(double)lat longtitude:(double)lon;
+-(ASIOperationShopUser *)initWithIDShop:(int)idShop userLat:(double)userLat userLng:(double)userLng;
 
 @property (nonatomic, readonly) Shop* shop;
 

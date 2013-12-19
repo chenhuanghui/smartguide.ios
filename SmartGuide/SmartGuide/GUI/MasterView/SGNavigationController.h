@@ -36,6 +36,9 @@
 -(UIViewController *)popViewControllerAnimated:(BOOL)animated transition:(CATransition*) transition;
 
 -(void) setRootViewController:(UIViewController*) viewController animate:(bool) animate;
+-(void) makeRootViewController:(UIViewController*) viewController;
+-(void) removeViewController:(UIViewController*) viewController;
+
 -(void) showLeftSlideViewController:(UIViewController<LeftControllerCallback>*) viewController animate:(bool) animated;
 -(void) removeLeftSlideViewController;
 -(void) showRightSlideViewController:(UIViewController*) viewController animate:(bool) animated;

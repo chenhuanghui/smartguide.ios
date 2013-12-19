@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "PageControl.h"
 #import "ButtonLove.h"
+#import "ShopList.h"
 
 @class SUShopGalleryCell;
 
@@ -24,9 +25,18 @@
     __weak IBOutlet PageControlNext *pageControl;
     __weak IBOutlet UIView *bgLineStatus;
     __weak ButtonLove *btnLove;
+    __weak IBOutlet UILabel *lblShopName;
+    __weak IBOutlet UILabel *lblShopType;
+    __weak IBOutlet UILabel *lblNumOfView;
+    __weak IBOutlet UILabel *lblNumOfComment;
+    __weak IBOutlet UIImageView *imgvShopLogo;
     
     CGRect _tableFrame;
+    
+    __weak ShopList *_shopList;
 }
+
+-(void) loadWithShopList:(ShopList*) shopList;
 
 @property (nonatomic, weak) id<SUShopGalleryDelegate> delegate;
 

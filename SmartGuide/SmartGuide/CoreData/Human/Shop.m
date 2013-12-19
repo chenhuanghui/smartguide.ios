@@ -24,90 +24,84 @@
     return CLLocationCoordinate2DMake(self.shopLat.doubleValue, self.shopLng.doubleValue);
 }
 
-
-+(Shop*) makeShopWithIDShop:(int) idShop withJSONUserCollection:(NSDictionary*) data
++(Shop *)makeShopWithDictionary:(NSDictionary *)dict
 {
-    Shop *shop=[Shop makeShopWithIDShop:idShop withJSONShopInGroup:data];
+    int idShop=[[NSNumber numberWithObject:dict[@"idShop"]] integerValue];
     
-    //shop.updated_at=[NSString stringWithStringDefault:[data objectForKey:@"updated_at"]];
+    Shop *shop=[Shop shopWithIDShop:idShop];
     
-    return shop;
-}
-
-+(Shop*) makeShopWithIDShop:(int) idShop withJSONShopInGroup:(NSDictionary*) data;
-{
-    Shop *shop = [Shop shopWithIDShop:idShop];
     if(!shop)
     {
         shop=[Shop insert];
-        shop.idShop=[NSNumber numberWithInt:idShop];
+        shop.idShop=@(idShop);
     }
     
-    [shop removeShopGallerys:shop.shopGallerys];
-    [shop removeUserGallerys:shop.userGallerys];
-    [shop removeUserComments:shop.userComments];
+    [shop removeAllUserComments];
+    [shop removeAllUserGalleries];
+    [shop removeAllShopGalleries];
+    [shop removeAllDetailInfo];
+    shop.km1=nil;
     
-    shop.shopName=[NSString stringWithStringDefault:data[@"shopName"]];
-    shop.shopLat=[NSNumber numberWithObject:data[@"shopLat"]];
-    shop.shopLng=[NSNumber numberWithObject:data[@"shopLng"]];
-    shop.groupName=[NSString stringWithStringDefault:data[@"groupName"]];
-    shop.logo=[NSString stringWithStringDefault:data[@"logo"]];
-    shop.loveStatus=[NSNumber numberWithObject:data[@"loveStatus"]];
-    shop.numOfLove=[NSString stringWithStringDefault:data[@"numOfLove"]];
-    shop.numOfView=[NSString stringWithStringDefault:data[@"numOfView"]];
-    shop.numOfComment=[NSString stringWithStringDefault:data[@"numOfComment"]];
-    shop.address=[NSString stringWithStringDefault:data[@"address"]];
-    shop.city=[NSString stringWithStringDefault:data[@"city"]];
-    shop.tel=[NSString stringWithStringDefault:data[@"tel"]];
-    shop.displayTel=[NSString stringWithStringDefault:data[@"displayTel"]];
+    shop.shopName=[NSString stringWithStringDefault:dict[@"shopName"]];
+    shop.shopType=[NSString stringWithStringDefault:dict[@"shopType"]];
+    shop.shopLat=[NSNumber numberWithObject:dict[@"shopLat"]];
+    shop.shopLng=[NSNumber numberWithObject:dict[@"shopLng"]];
+    shop.logo=[NSString stringWithStringDefault:dict[@"logo"]];
+    shop.loveStatus=[NSNumber numberWithObject:dict[@"loveStatus"]];
+    shop.numOfLove=[NSString stringWithStringDefault:dict[@"numOfLove"]];
+    shop.numOfView=[NSString stringWithStringDefault:dict[@"numOfView"]];
+    shop.numOfComment=[NSString stringWithStringDefault:dict[@"numOfComment"]];
+    shop.address=[NSString stringWithStringDefault:dict[@"address"]];
+    shop.city=[NSString stringWithStringDefault:dict[@"city"]];
+    shop.tel=[NSString stringWithStringDefault:dict[@"tel"]];
+    shop.displayTel=[NSString stringWithStringDefault:dict[@"displayTel"]];
+    shop.desc=[NSString stringWithStringDefault:dict[@"description"]];
+    shop.promotionType=[NSNumber numberWithObject:dict[@"promotionType"]];
     
-    NSArray *array=data[@"shopGallery"];
+    NSArray *array=dict[@"shopGallery"];
     
     if(![array isNullData])
     {
-        int sortOrder=0;
-        for(NSDictionary *dict in array)
+        int i=0;
+        for(NSDictionary *gallery in array)
         {
-            ShopGallery *obj=[ShopGallery makeWithJSON:dict];
-            obj.shop=shop;
-            obj.sortOrder=@(sortOrder++);
-            obj.idGallery=@(0);
+            ShopGallery *sg=[ShopGallery makeWithJSON:gallery];
+            sg.sortOrder=@(i++);
+            
+            [shop addShopGalleriesObject:sg];
         }
     }
     
-    array=data[@"userGallery"];
+    array=dict[@"userGallery"];
     
     if(![array isNullData])
     {
-        int sortOrder=0;
-        for(NSDictionary *dict in array)
+        int i=0;
+        
+        for(NSDictionary *userGallery in array)
         {
-            ShopUserGallery *obj=[ShopUserGallery makeWithJSON:dict];
-            obj.shop=shop;
-            obj.sortOrder=@(sortOrder++);
-            obj.idGallery=@(0);
+            ShopUserGallery *su = [ShopUserGallery makeWithJSON:userGallery];
+            su.sortOrder=@(i++);
+            
+            [shop addUserGalleriesObject:su];
         }
     }
     
-    array=data[@"comments"];
+    array=dict[@"comments"];
     
     if(![array isNullData])
     {
-        int sortOrder=0;
-        for(NSDictionary *dict in array)
+        int i=0;
+        
+        for(NSDictionary *comment in array)
         {
-            ShopUserComment *obj=[ShopUserComment makeWithJSON:dict];
-            obj.shop=shop;
-            obj.sortOrder=@(sortOrder++);
-            obj.idComment=@(0);
+            ShopUserComment *obj = [ShopUserComment makeWithJSON:comment];
+            
+            obj.sortOrder=@(i++);
+            
+            [shop addUserCommentsObject:obj];
         }
     }
-    
-    [shop.km1s markDeleted];
-    
-    shop.promotionType=[NSNumber numberWithObject:data[@"promotionType"]];
-    
-    NSDictionary *promotionDetail=data[@"promotionDetail"];
     
     switch (shop.shopPromotionType) {
         case SHOP_PROMOTION_NONE:
@@ -116,30 +110,14 @@
             
         case SHOP_PROMOTION_KM1:
         {
-            if(![promotionDetail isNullData])
-            {
-                ShopKM1 *km1=[ShopKM1 makeWithJSON:promotionDetail];
-                km1.shop=shop;
-                km1.idKM1=@(0);
-                
-                NSArray *voucherList=promotionDetail[@"voucherList"];
-                
-                if(![voucherList isNullData])
-                {
-                    int sortOrder=0;
-                    for(NSDictionary *dict in voucherList)
-                    {
-                        KM1Voucher *voucher=[KM1Voucher makeWithJSON:dict];
-                        voucher.shopKM1=km1;
-                        voucher.sortOrder=@(sortOrder++);
-                        voucher.idVoucher=@(0);
-                    }
-                }
-            }
+            shop.km1=[ShopKM1 makeWithJSON:dict[@"promotionDetail"]];
         }
             break;
             
-        default:
+        case SHOP_PROMOTION_KM2:
+            break;
+            
+        case SHOP_PROMOTION_KM3:
             break;
     }
     
@@ -164,6 +142,21 @@
         default:
             return SHOP_PROMOTION_NONE;
     }
+}
+
+-(NSArray *)userCommentsObjects
+{
+    return [[super userCommentsObjects] sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:ShopUserComment_SortOrder ascending:true]]];
+}
+
+-(NSArray *)userGalleriesObjects
+{
+    return [[super userGalleriesObjects] sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:ShopUserGallery_SortOrder ascending:true]]];
+}
+
+-(NSArray *)shopGalleriesObjects
+{
+    return [[super shopGalleriesObjects] sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:ShopGallery_SortOrder ascending:true]]];
 }
 
 @end

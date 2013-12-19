@@ -22,6 +22,7 @@
     
     obj.promotionType=[NSNumber numberWithObject:dict[@"promotionType"]];
     obj.shopType=[NSNumber numberWithObject:dict[@"shopType"]];
+    obj.shopTypeDisplay=[NSString stringWithStringDefault:dict[@"shopTypeDisplay"]];
     obj.shopName=[NSString stringWithStringDefault:dict[@"shopName"]];
     obj.address=[NSString stringWithStringDefault:dict[@"address"]];
     obj.desc=[NSString stringWithStringDefault:dict[@"description"]];

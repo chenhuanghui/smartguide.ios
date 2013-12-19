@@ -24,7 +24,6 @@
 		9A01E381182DEB5500225363 /* SGRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A01E37F182DEB5500225363 /* SGRootViewController.m */; };
 		9A01E382182DEB5500225363 /* SGRootViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A01E380182DEB5500225363 /* SGRootViewController.xib */; };
 		9A05D84417F15213000F232C /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A05D84317F15213000F232C /* StoreKit.framework */; };
-		9A076B99181F6D6C0060EC9D /* ShopCatalog.m in Sources */ = {isa = PBXBuildFile; fileRef = A9253D7F17981C3A00427BFE /* ShopCatalog.m */; };
 		9A15EAE5183E50DE00BF3CF7 /* frame_avacomment.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A15EAE3183E50DD00BF3CF7 /* frame_avacomment.png */; };
 		9A15EAE6183E50DE00BF3CF7 /* frame_avacomment@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A15EAE4183E50DE00BF3CF7 /* frame_avacomment@2x.png */; };
 		9A29391B18445D9900FD49E2 /* _KM1Voucher.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A29391818445D9900FD49E2 /* _KM1Voucher.m */; };
@@ -61,7 +60,6 @@
 		9A2A33EE184F81A3002949C4 /* SUUserGalleryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A2A33ED184F81A3002949C4 /* SUUserGalleryCell.xib */; };
 		9A2AB09C184ECFF4003FD2CE /* button_tickoff.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A2AB09A184ECFF4003FD2CE /* button_tickoff.png */; };
 		9A2AB09D184ECFF4003FD2CE /* button_tickoff@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A2AB09B184ECFF4003FD2CE /* button_tickoff@2x.png */; };
-		9A2E18E6181F6B2A00D0D01E /* _ShopCatalog.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A2E18E5181F6B2A00D0D01E /* _ShopCatalog.m */; };
 		9A2F8CC1185569470024AE1A /* bg_animation.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9A2F8C95185569470024AE1A /* bg_animation.jpg */; };
 		9A2F8CC2185569470024AE1A /* bg_animation@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9A2F8C96185569470024AE1A /* bg_animation@2x.jpg */; };
 		9A2F8CC3185569470024AE1A /* bg_sort.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A2F8C97185569470024AE1A /* bg_sort.png */; };
@@ -516,6 +514,8 @@
 		9ACFAE7F18621DFA006131DC /* ShopCameraPostViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9ACFAE7D18621DFA006131DC /* ShopCameraPostViewController.xib */; };
 		9ACFAE8818622025006131DC /* ShopCameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ACFAE8618622025006131DC /* ShopCameraViewController.m */; };
 		9ACFAE8918622025006131DC /* ShopCameraViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9ACFAE8718622025006131DC /* ShopCameraViewController.xib */; };
+		9ACFAEDE1862F385006131DC /* _ShopDetailInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ACFAEDD1862F385006131DC /* _ShopDetailInfo.m */; };
+		9ACFAEE11862F38C006131DC /* ShopDetailInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ACFAEE01862F38C006131DC /* ShopDetailInfo.m */; };
 		9AD1280A185EFD2E00D56B24 /* StoreCart.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AD12809185EFD2E00D56B24 /* StoreCart.m */; };
 		9AD1280D185EFD3500D56B24 /* _StoreCart.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AD1280C185EFD3500D56B24 /* _StoreCart.m */; };
 		9AD23D5217FABC0100D28C7E /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AD23D5117FABC0100D28C7E /* AudioToolbox.framework */; };
@@ -542,7 +542,6 @@
 		A91CE6CA17A981CA00D29E87 /* groupInCity.txt in Resources */ = {isa = PBXBuildFile; fileRef = A91CE6C917A981C800D29E87 /* groupInCity.txt */; };
 		A91CE6D217A983AB00D29E87 /* city.txt in Resources */ = {isa = PBXBuildFile; fileRef = A91CE6D117A983A900D29E87 /* city.txt */; };
 		A91FF72F17A7FEBA00528263 /* ASIOperationVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = A91FF72E17A7FEBA00528263 /* ASIOperationVersion.m */; };
-		A91FF73217A7FED400528263 /* ASIOperationShopCatalog.m in Sources */ = {isa = PBXBuildFile; fileRef = A91FF73117A7FED400528263 /* ASIOperationShopCatalog.m */; };
 		A91FF73517A7FFD500528263 /* ASIOperationCity.m in Sources */ = {isa = PBXBuildFile; fileRef = A91FF73417A7FFD400528263 /* ASIOperationCity.m */; };
 		A920E1D317CBBC59003FAA80 /* Reward.m in Sources */ = {isa = PBXBuildFile; fileRef = A920E1D217CBBC59003FAA80 /* Reward.m */; };
 		A920E1D617CBBC64003FAA80 /* _Reward.m in Sources */ = {isa = PBXBuildFile; fileRef = A920E1D517CBBC64003FAA80 /* _Reward.m */; };
@@ -553,7 +552,7 @@
 		A920E1E817CBD0B9003FAA80 /* ASIOperationSGToReward.m in Sources */ = {isa = PBXBuildFile; fileRef = A920E1E717CBD0B9003FAA80 /* ASIOperationSGToReward.m */; };
 		A920E1EB17CBD523003FAA80 /* ASIOperationGetSG.m in Sources */ = {isa = PBXBuildFile; fileRef = A920E1EA17CBD522003FAA80 /* ASIOperationGetSG.m */; };
 		A920FEB517A67B0D00D8E6FE /* libzbar.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A920FEAF17A67B0D00D8E6FE /* libzbar.a */; };
-		A921B02F17A8B68200DC6D4D /* ASIOperationShopDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = A921B02E17A8B68100DC6D4D /* ASIOperationShopDetail.m */; };
+		A921B02F17A8B68200DC6D4D /* ASIOperationShopUser.m in Sources */ = {isa = PBXBuildFile; fileRef = A921B02E17A8B68100DC6D4D /* ASIOperationShopUser.m */; };
 		A921B03517A8BCA500DC6D4D /* ShopProduct.m in Sources */ = {isa = PBXBuildFile; fileRef = A921B03417A8BCA500DC6D4D /* ShopProduct.m */; };
 		A921B03817A8BCAB00DC6D4D /* _ShopProduct.m in Sources */ = {isa = PBXBuildFile; fileRef = A921B03717A8BCAB00DC6D4D /* _ShopProduct.m */; };
 		A92221BB17CE041300B4E305 /* libFlurry_4.2.3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A92221BA17CE041300B4E305 /* libFlurry_4.2.3.a */; };
@@ -712,8 +711,6 @@
 		9A2A33ED184F81A3002949C4 /* SUUserGalleryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SUUserGalleryCell.xib; sourceTree = "<group>"; };
 		9A2AB09A184ECFF4003FD2CE /* button_tickoff.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_tickoff.png; sourceTree = "<group>"; };
 		9A2AB09B184ECFF4003FD2CE /* button_tickoff@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_tickoff@2x.png"; sourceTree = "<group>"; };
-		9A2E18E4181F6B2A00D0D01E /* _ShopCatalog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _ShopCatalog.h; sourceTree = "<group>"; };
-		9A2E18E5181F6B2A00D0D01E /* _ShopCatalog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _ShopCatalog.m; sourceTree = "<group>"; };
 		9A2F8C95185569470024AE1A /* bg_animation.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = bg_animation.jpg; sourceTree = "<group>"; };
 		9A2F8C96185569470024AE1A /* bg_animation@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "bg_animation@2x.jpg"; sourceTree = "<group>"; };
 		9A2F8C97185569470024AE1A /* bg_sort.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_sort.png; sourceTree = "<group>"; };
@@ -1295,6 +1292,10 @@
 		9ACFAE8518622025006131DC /* ShopCameraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopCameraViewController.h; sourceTree = "<group>"; };
 		9ACFAE8618622025006131DC /* ShopCameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopCameraViewController.m; sourceTree = "<group>"; };
 		9ACFAE8718622025006131DC /* ShopCameraViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShopCameraViewController.xib; sourceTree = "<group>"; };
+		9ACFAEDC1862F385006131DC /* _ShopDetailInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _ShopDetailInfo.h; sourceTree = "<group>"; };
+		9ACFAEDD1862F385006131DC /* _ShopDetailInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _ShopDetailInfo.m; sourceTree = "<group>"; };
+		9ACFAEDF1862F38C006131DC /* ShopDetailInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopDetailInfo.h; sourceTree = "<group>"; };
+		9ACFAEE01862F38C006131DC /* ShopDetailInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopDetailInfo.m; sourceTree = "<group>"; };
 		9AD12808185EFD2E00D56B24 /* StoreCart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoreCart.h; sourceTree = "<group>"; };
 		9AD12809185EFD2E00D56B24 /* StoreCart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoreCart.m; sourceTree = "<group>"; };
 		9AD1280B185EFD3500D56B24 /* _StoreCart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _StoreCart.h; sourceTree = "<group>"; };
@@ -1338,8 +1339,6 @@
 		A91CE6D117A983A900D29E87 /* city.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = city.txt; sourceTree = "<group>"; };
 		A91FF72D17A7FEBA00528263 /* ASIOperationVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIOperationVersion.h; sourceTree = "<group>"; };
 		A91FF72E17A7FEBA00528263 /* ASIOperationVersion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIOperationVersion.m; sourceTree = "<group>"; };
-		A91FF73017A7FED400528263 /* ASIOperationShopCatalog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIOperationShopCatalog.h; sourceTree = "<group>"; };
-		A91FF73117A7FED400528263 /* ASIOperationShopCatalog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIOperationShopCatalog.m; sourceTree = "<group>"; };
 		A91FF73317A7FFD400528263 /* ASIOperationCity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIOperationCity.h; sourceTree = "<group>"; };
 		A91FF73417A7FFD400528263 /* ASIOperationCity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIOperationCity.m; sourceTree = "<group>"; };
 		A920E1D117CBBC59003FAA80 /* Reward.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reward.h; sourceTree = "<group>"; };
@@ -1379,8 +1378,8 @@
 		A920FEAD17A67B0D00D8E6FE /* ZBarSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBarSDK.h; sourceTree = "<group>"; };
 		A920FEAE17A67B0D00D8E6FE /* ZBarSymbol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBarSymbol.h; sourceTree = "<group>"; };
 		A920FEAF17A67B0D00D8E6FE /* libzbar.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libzbar.a; sourceTree = "<group>"; };
-		A921B02D17A8B68100DC6D4D /* ASIOperationShopDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIOperationShopDetail.h; sourceTree = "<group>"; };
-		A921B02E17A8B68100DC6D4D /* ASIOperationShopDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIOperationShopDetail.m; sourceTree = "<group>"; };
+		A921B02D17A8B68100DC6D4D /* ASIOperationShopUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIOperationShopUser.h; sourceTree = "<group>"; };
+		A921B02E17A8B68100DC6D4D /* ASIOperationShopUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIOperationShopUser.m; sourceTree = "<group>"; };
 		A921B03317A8BCA500DC6D4D /* ShopProduct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopProduct.h; sourceTree = "<group>"; };
 		A921B03417A8BCA500DC6D4D /* ShopProduct.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopProduct.m; sourceTree = "<group>"; };
 		A921B03617A8BCAB00DC6D4D /* _ShopProduct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _ShopProduct.h; sourceTree = "<group>"; };
@@ -1408,8 +1407,6 @@
 		A924A3C317AEBC860042B28B /* SwitchSetting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwitchSetting.h; sourceTree = "<group>"; };
 		A924A3C417AEBC860042B28B /* SwitchSetting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SwitchSetting.m; sourceTree = "<group>"; };
 		A924A3C617AEBC940042B28B /* SwitchSetting.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SwitchSetting.xib; sourceTree = "<group>"; };
-		A9253D7E17981C3A00427BFE /* ShopCatalog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopCatalog.h; sourceTree = "<group>"; };
-		A9253D7F17981C3A00427BFE /* ShopCatalog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopCatalog.m; sourceTree = "<group>"; };
 		A925476417ADF82B00AD0BA9 /* ASIOperationGetSGP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIOperationGetSGP.h; sourceTree = "<group>"; };
 		A925476517ADF82B00AD0BA9 /* ASIOperationGetSGP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIOperationGetSGP.m; sourceTree = "<group>"; };
 		A925479417AE3C2A00AD0BA9 /* OperationGetActionCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OperationGetActionCode.h; sourceTree = "<group>"; };
@@ -2316,6 +2313,8 @@
 		A91A674A1797F65000BEB8C5 /* Human */ = {
 			isa = PBXGroup;
 			children = (
+				9ACFAEDF1862F38C006131DC /* ShopDetailInfo.h */,
+				9ACFAEE01862F38C006131DC /* ShopDetailInfo.m */,
 				9AC74E501860BE1C0033EB61 /* Placelist.h */,
 				9AC74E511860BE1C0033EB61 /* Placelist.m */,
 				9ACFA6A118600AA50090E7A8 /* ShopList.h */,
@@ -2350,8 +2349,6 @@
 				A9249EEF179E8E4C00255B19 /* Versions.m */,
 				A99089D5179926800025DC08 /* Shop.h */,
 				A99089D6179926800025DC08 /* Shop.m */,
-				A9253D7E17981C3A00427BFE /* ShopCatalog.h */,
-				A9253D7F17981C3A00427BFE /* ShopCatalog.m */,
 				A9CFD3711797FFC20035E448 /* City.h */,
 				A9CFD3721797FFC20035E448 /* City.m */,
 				A9CFD3661797FCE60035E448 /* User.h */,
@@ -2363,6 +2360,8 @@
 		A91A674D1797F65000BEB8C5 /* Machine */ = {
 			isa = PBXGroup;
 			children = (
+				9ACFAEDC1862F385006131DC /* _ShopDetailInfo.h */,
+				9ACFAEDD1862F385006131DC /* _ShopDetailInfo.m */,
 				9AC74E531860BE230033EB61 /* _Placelist.h */,
 				9AC74E541860BE230033EB61 /* _Placelist.m */,
 				9ACFA6A418600AC70090E7A8 /* _ShopList.h */,
@@ -2377,8 +2376,6 @@
 				9A29391818445D9900FD49E2 /* _KM1Voucher.m */,
 				9A29391918445D9900FD49E2 /* _ShopKM1.h */,
 				9A29391A18445D9900FD49E2 /* _ShopKM1.m */,
-				9A2E18E4181F6B2A00D0D01E /* _ShopCatalog.h */,
-				9A2E18E5181F6B2A00D0D01E /* _ShopCatalog.m */,
 				A920E1E317CBC083003FAA80 /* _Feedback.h */,
 				A920E1E417CBC083003FAA80 /* _Feedback.m */,
 				A920E1D417CBBC64003FAA80 /* _Reward.h */,
@@ -2480,14 +2477,12 @@
 				A95125FA17A456C0003F8BB2 /* ASIOperationShopInGroup.m */,
 				A91FF72D17A7FEBA00528263 /* ASIOperationVersion.h */,
 				A91FF72E17A7FEBA00528263 /* ASIOperationVersion.m */,
-				A91FF73017A7FED400528263 /* ASIOperationShopCatalog.h */,
-				A91FF73117A7FED400528263 /* ASIOperationShopCatalog.m */,
 				A91CE6C917A981C800D29E87 /* groupInCity.txt */,
 				A91FF73317A7FFD400528263 /* ASIOperationCity.h */,
 				A91FF73417A7FFD400528263 /* ASIOperationCity.m */,
 				A91CE6D117A983A900D29E87 /* city.txt */,
-				A921B02D17A8B68100DC6D4D /* ASIOperationShopDetail.h */,
-				A921B02E17A8B68100DC6D4D /* ASIOperationShopDetail.m */,
+				A921B02D17A8B68100DC6D4D /* ASIOperationShopUser.h */,
+				A921B02E17A8B68100DC6D4D /* ASIOperationShopUser.m */,
 				A97C847217B0236400D9CEB9 /* ASIOperationShopProduct.h */,
 				A97C847317B0236400D9CEB9 /* ASIOperationShopProduct.m */,
 				A91CE6A917A93B6600D29E87 /* ASIOperationShopUserGallery.h */,
@@ -3620,7 +3615,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				9A7E55AF183CEB30006D1798 /* UIImageView+WebCache.m in Sources */,
-				9A076B99181F6D6C0060EC9D /* ShopCatalog.m in Sources */,
 				A981985E178D02530009FCB6 /* main.mm in Sources */,
 				9ACBA9BC185D7745000B3D6B /* ASIOperationStoreAllStore.m in Sources */,
 				A9819862178D02530009FCB6 /* AppDelegate.m in Sources */,
@@ -3702,7 +3696,6 @@
 				9A9FCB8918544C3C004A3CFB /* StoreViewController.m in Sources */,
 				A9244BE5179F8BCC00D78D5A /* OperationFBGetProfile.m in Sources */,
 				A9B807C4179FBD7B00C8E003 /* ASIAuthenticationDialog.m in Sources */,
-				9A2E18E6181F6B2A00D0D01E /* _ShopCatalog.m in Sources */,
 				9AC74E521860BE1C0033EB61 /* Placelist.m in Sources */,
 				A9B807C5179FBD7B00C8E003 /* ASIDataCompressor.m in Sources */,
 				9A32F418184346C000704D26 /* WelcomeViewController.m in Sources */,
@@ -3746,6 +3739,7 @@
 				9ACFA6A618600AC70090E7A8 /* _ShopList.m in Sources */,
 				9AC4940A18585A300042C535 /* StoreItemInfoViewController.m in Sources */,
 				A935C51E17A43101008910D3 /* _Filter.m in Sources */,
+				9ACFAEDE1862F385006131DC /* _ShopDetailInfo.m in Sources */,
 				9AA90B5B1850ED8D002F40FF /* ButtonAgree.m in Sources */,
 				9A7522041856D4D400248B02 /* ButtonPrice.m in Sources */,
 				9ACFAE8818622025006131DC /* ShopCameraViewController.m in Sources */,
@@ -3755,10 +3749,9 @@
 				9A3B93F3185DFDAE004F94A4 /* StoreAdsCell.m in Sources */,
 				A91FF72F17A7FEBA00528263 /* ASIOperationVersion.m in Sources */,
 				9A9211A6185AC7AB0012F181 /* LoadingView.m in Sources */,
-				A91FF73217A7FED400528263 /* ASIOperationShopCatalog.m in Sources */,
 				A91FF73517A7FFD500528263 /* ASIOperationCity.m in Sources */,
 				9A32F3EE184345AE00704D26 /* ShopMapViewController.m in Sources */,
-				A921B02F17A8B68200DC6D4D /* ASIOperationShopDetail.m in Sources */,
+				A921B02F17A8B68200DC6D4D /* ASIOperationShopUser.m in Sources */,
 				9A29392218445DA000FD49E2 /* ShopKM1.m in Sources */,
 				A921B03517A8BCA500DC6D4D /* ShopProduct.m in Sources */,
 				9A66894C184DCE86006A9EB2 /* ShopDetailInfoDetailCell.m in Sources */,
@@ -3774,6 +3767,7 @@
 				9A32F3D5184345AE00704D26 /* UserLoginViewController.m in Sources */,
 				A91CE6AE17A93B8B00D29E87 /* ASIOperationShopComment.m in Sources */,
 				A91CE6B117A93B9B00D29E87 /* ASIOperationPostComment.m in Sources */,
+				9ACFAEE11862F38C006131DC /* ShopDetailInfo.m in Sources */,
 				9A2F8D011855B6220024AE1A /* StoreShopItemCell.m in Sources */,
 				A91CE6BF17A93F6500D29E87 /* ShopGallery.m in Sources */,
 				A91CE6C017A93F6500D29E87 /* ShopUserGallery.m in Sources */,

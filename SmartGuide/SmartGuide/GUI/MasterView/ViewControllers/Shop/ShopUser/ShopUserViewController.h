@@ -29,6 +29,7 @@
 #import "SUUserGalleryCell.h"
 #import "CommentTyping.h"
 #import "SUUserCommentCell.h"
+#import "ShopList.h"
 
 @class TableShopUser,PromotionDetailView;
 
@@ -41,6 +42,12 @@ enum SHOP_USER_MODE {
     SHOP_USER_CAMERA = 5,
     SHOP_USER_COMMENT = 6,
     };
+
+enum SHOP_USER_DATA_MODE
+{
+    SHOP_USER_DATA_SHOP_LIST = 0,
+    SHOP_USER_DATA_SHOP_USER = 1
+};
 
 @protocol ShopUserDelegate <SGViewControllerDelegate>
 
@@ -72,7 +79,15 @@ enum SHOP_USER_MODE {
     
     NSMutableArray *_km1Data;
     NSMutableArray *_comments;
+    
+    __weak ShopList *_shopList;
+    
+    enum SHOP_USER_DATA_MODE _dataMode;
+    
+    
 }
+
+-(ShopUserViewController*) initWithShopList:(ShopList*) shopList;
 
 //-(void) setShop:(Shop*) shop;
 

@@ -15,6 +15,7 @@
 @end
 
 @implementation SearchViewController
+@synthesize shopListController,searchShopController;
 
 -(SearchViewController *)initWithSearch
 {
@@ -34,11 +35,12 @@
     return self;
 }
 
--(SearchViewController *)initWithPlaceLists
+-(SearchViewController *)initWithPlaceList:(Placelist *)place
 {
     self=[super initWithNibName:@"SearchViewController" bundle:nil];
     
     _viewMode=SEARCH_VIEW_MODE_LIST;
+    _place=place;
     
     return self;
 }
@@ -55,7 +57,17 @@
     switch (_viewMode) {
         case SEARCH_VIEW_MODE_LIST:
         {
-
+            ShopListViewController *vc=[[ShopListViewController alloc] initWithPlaceList:_place];
+            vc.searchController=self;
+            vc.delegate=self;
+            
+            shopListController=vc;
+            
+            SGNavigationController *navi=[[SGNavigationController alloc] initWithRootViewController:vc];
+            
+            searchNavi=navi;
+            
+            [self addChildViewController:searchNavi];
         }
             break;
             
@@ -64,6 +76,8 @@
             SearchShopViewController *vc=[[SearchShopViewController alloc] initWithKeyword:@""];
             vc.searchController=self;
             vc.delegate=self;
+            
+            searchShopController=vc;
             
             SGNavigationController *navi=[[SGNavigationController alloc] initWithRootViewController:vc];
             
@@ -82,18 +96,20 @@
 
 -(void)searchShopControllerTouchedBack:(SearchShopViewController *)controller
 {
-    if(searchNavi.viewControllers.count==1)
-        [self.navigationController popViewControllerAnimated:true];
+    if(shopListController)
+        [searchNavi popToRootViewControllerAnimated:true];
     else
-        [searchNavi popViewControllerAnimated:true];
+        [self.navigationController popViewControllerAnimated:true];
 }
 
 -(void)searchShopControllerTouchPlaceList:(SearchShopViewController *)controller placeList:(Placelist *)place
 {
+    [searchNavi removeViewController:shopListController];
+    
     ShopListViewController *vc=[[ShopListViewController alloc] initWithPlaceList:place];
     vc.delegate=self;
     
-    [searchNavi pushViewController:vc animated:true];
+    [searchNavi setRootViewController:vc animate:true];
 }
 
 -(void)searchShopControllerSearch:(SearchShopViewController *)controller keyword:(NSString *)keyword
@@ -101,11 +117,15 @@
     ShopListViewController *vc=[[ShopListViewController alloc] initWithKeyword:keyword];
     vc.delegate=self;
     
+    shopListController=vc;
+    
     [searchNavi setRootViewController:vc animate:true];
 }
 
 -(void)shopListControllerTouchedTextField:(ShopListViewController *)controller
 {
+    [searchNavi removeViewController:searchShopController];
+    
     SearchShopViewController *vc=[[SearchShopViewController alloc] initWithKeyword:controller.keyword];
     vc.delegate=self;
     

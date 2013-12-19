@@ -1,5 +1,6 @@
 #import "ShopKM1.h"
 #import "Utility.h"
+#import "KM1Voucher.h"
 
 @implementation ShopKM1
 
@@ -13,7 +14,26 @@
     obj.sp=[NSString stringWithStringDefault:data[@"sp"]];
     obj.p=[NSString stringWithStringDefault:data[@"p"]];
     
+    NSArray *voucher=data[@"voucherList"];
+    
+    if(![voucher isNullData])
+    {
+        int i=0;
+        for(NSDictionary *dict in voucher)
+        {
+            KM1Voucher *v = [KM1Voucher makeWithJSON:dict];
+            v.sortOrder=@(i++);
+            
+            [obj addListVoucherObject:v];
+        }
+    }
+    
     return obj;
+}
+
+-(NSArray *)listVoucherObjects
+{
+    return [[super listVoucherObjects] sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:KM1Voucher_SortOrder ascending:true]]];
 }
 
 @end

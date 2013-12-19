@@ -5,9 +5,11 @@
 
 #define ShopUserComment_ClassName @"ShopUserComment"
 
+#define ShopUserComment_AgreeStatus @"agreeStatus"
 #define ShopUserComment_Avatar @"avatar"
 #define ShopUserComment_Comment @"comment"
 #define ShopUserComment_IdComment @"idComment"
+#define ShopUserComment_NumOfAgree @"numOfAgree"
 #define ShopUserComment_ShopName @"shopName"
 #define ShopUserComment_SortOrder @"sortOrder"
 #define ShopUserComment_Time @"time"
@@ -27,9 +29,11 @@
 -(void) markDeleted;
 
 
+@property (nonatomic, retain) NSNumber* agreeStatus;
 @property (nonatomic, retain) NSString* avatar;
 @property (nonatomic, retain) NSString* comment;
 @property (nonatomic, retain) NSNumber* idComment;
+@property (nonatomic, retain) NSString* numOfAgree;
 @property (nonatomic, retain) NSString* shopName;
 @property (nonatomic, retain) NSNumber* sortOrder;
 @property (nonatomic, retain) NSString* time;

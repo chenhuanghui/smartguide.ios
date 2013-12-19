@@ -9,9 +9,21 @@
 #import "SUShopGalleryCell.h"
 #import "ShopGalleryCell.h"
 #import "Utility.h"
+#import "ImageManager.h"
 
 @implementation SUShopGalleryCell
 @synthesize delegate;
+
+-(void)loadWithShopList:(ShopList *)shopList
+{
+    lblShopName.text=shopList.shopName;
+    lblShopType.text=shopList.shopTypeDisplay;
+    lblNumOfComment.text=shopList.numOfComment;
+    lblNumOfView.text=shopList.numOfView;
+    
+    [btnLove setLoveStatus:shopList.enumLoveStatus withNumOfLove:shopList.numOfLove animate:false];
+    [imgvShopLogo loadShopLogoWithURL:shopList.logo];
+}
 
 +(NSString *)reuseIdentifier
 {
@@ -89,7 +101,6 @@
 
 -(void)buttonLoveTouched:(ButtonLove *)buttonLoveView
 {
-    btnLove.isLoved=!btnLove.isLoved;
 }
 
 -(IBAction) btnInfoTouchUpInside:(id)sender

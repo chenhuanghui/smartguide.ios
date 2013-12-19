@@ -53,6 +53,24 @@
     _controllers=nil;
 }
 
+-(void) removeViewController:(UIViewController*) viewController
+{
+    if(!viewController || ![self.viewControllers containsObject:viewController])
+        return;
+    
+    if(viewController==self.visibleViewController)
+    {
+        [self popViewControllerAnimated:false];
+    }
+    else
+    {
+        NSMutableArray *array=[self.viewControllers mutableCopy];
+        [array removeObject:viewController];
+        
+        self.viewControllers=array;
+    }
+}
+
 -(void)setRootViewController:(UIViewController *)viewController animate:(bool)animate
 {
     self.delegate=self;
@@ -68,6 +86,11 @@
     };
     
     [self pushViewController:viewController animated:animate];
+}
+
+-(void)makeRootViewController:(UIViewController *)viewController
+{
+    
 }
 
 -(UIViewController *)popViewControllerAnimated:(BOOL)animated

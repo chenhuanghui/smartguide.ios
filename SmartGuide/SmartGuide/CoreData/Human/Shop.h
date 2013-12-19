@@ -12,8 +12,9 @@
 }
 
 +(Shop*) shopWithIDShop:(int) idShop;
-+(Shop*) makeShopWithIDShop:(int) idShop withJSONShopInGroup:(NSDictionary*) data;
-+(Shop*) makeShopWithIDShop:(int) idShop withJSONUserCollection:(NSDictionary*) data;
++(Shop*) makeShopWithDictionary:(NSDictionary*) dict;
+//+(Shop*) makeShopWithIDShop:(int) idShop withJSONShopInGroup:(NSDictionary*) data;
+//+(Shop*) makeShopWithIDShop:(int) idShop withJSONUserCollection:(NSDictionary*) data;
 
 -(enum SHOP_PROMOTION_TYPE) shopPromotionType;
 

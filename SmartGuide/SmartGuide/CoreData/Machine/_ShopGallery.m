@@ -90,6 +90,19 @@
 
 
 
+- (NSString*)cover {
+	[self willAccessValueForKey:@"cover"];
+	NSString* result = (NSString*)[self primitiveValueForKey:@"cover"];
+	[self didAccessValueForKey:@"cover"];
+	return result;
+}
+
+- (void)setCover:(NSString*)value {
+	[self willChangeValueForKey:@"cover"];
+	[self setPrimitiveValue:value forKey:@"cover"];
+	[self didChangeValueForKey:@"cover"];
+}
+
 - (NSNumber*)idGallery {
 	[self willAccessValueForKey:@"idGallery"];
 	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"idGallery"];
@@ -127,19 +140,6 @@
 	[self willChangeValueForKey:@"sortOrder"];
 	[self setPrimitiveValue:value forKey:@"sortOrder"];
 	[self didChangeValueForKey:@"sortOrder"];
-}
-
-- (NSString*)thumbnail {
-	[self willAccessValueForKey:@"thumbnail"];
-	NSString* result = (NSString*)[self primitiveValueForKey:@"thumbnail"];
-	[self didAccessValueForKey:@"thumbnail"];
-	return result;
-}
-
-- (void)setThumbnail:(NSString*)value {
-	[self willChangeValueForKey:@"thumbnail"];
-	[self setPrimitiveValue:value forKey:@"thumbnail"];
-	[self didChangeValueForKey:@"thumbnail"];
 }
 
 #pragma mark Relationships

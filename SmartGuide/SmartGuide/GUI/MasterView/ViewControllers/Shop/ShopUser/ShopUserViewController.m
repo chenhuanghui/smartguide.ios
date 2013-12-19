@@ -28,6 +28,17 @@
     return self;
 }
 
+-(ShopUserViewController *)initWithShopList:(ShopList *)shopList
+{
+    self = [super initWithNibName:@"ShopUserViewController" bundle:nil];
+    if (self) {
+        shopMode=SHOP_USER_FULL;
+        _shopList=shopList;
+        _dataMode=SHOP_USER_DATA_SHOP_LIST;
+    }
+    return self;
+}
+
 - (IBAction)btnCloseTouchUpInside:(id)sender {
     [self.delegate shopUserFinished];
 }
@@ -60,6 +71,15 @@
     
     tableShopUser.dataSource=self;
     tableShopUser.delegate=self;
+    
+    switch (_dataMode) {
+        case SHOP_USER_DATA_SHOP_LIST:
+            
+            break;
+            
+        case SHOP_USER_DATA_SHOP_USER:
+            break;
+    }
     
     _km1Data=[NSMutableArray new];
     for(int i=0;i<3;i++)
@@ -192,10 +212,17 @@
                 SUShopGalleryCell *cell=[tableView dequeueReusableCellWithIdentifier:[SUShopGalleryCell reuseIdentifier]];
                 cell.delegate=self;
                 
+                switch (_dataMode) {
+                    case SHOP_USER_DATA_SHOP_LIST:
+                        [cell loadWithShopList:_shopList];
+                        break;
+                        
+                    case SHOP_USER_DATA_SHOP_USER:
+                        break;
+                }
+                
                 shopGalleryCell=cell;
-                
 
-                
                 return cell;
             }
                 

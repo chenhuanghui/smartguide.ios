@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Constant.h"
 
 @class ButtonLove;
 
@@ -33,9 +34,12 @@
     CGRect _lblBotFrame;
 }
 
+-(void) love:(bool) animate;
+-(void) unlove:(bool) animate;
 -(void) setNumOfLove:(NSString*) numOfLove;
+-(void) setLoveStatus:(enum LOVE_STATUS) status withNumOfLove:(NSString*) numOfLove animate:(bool) animate;
 
-@property (nonatomic, assign) bool isLoved;
+@property (nonatomic, assign) enum LOVE_STATUS loveStatus;
 @property (nonatomic, weak) id<ButtonLoveDelegate> delegate;
 
 @end

@@ -7,8 +7,8 @@
 
 #define Shop_Address @"address"
 #define Shop_City @"city"
+#define Shop_Desc @"desc"
 #define Shop_DisplayTel @"displayTel"
-#define Shop_GroupName @"groupName"
 #define Shop_IdShop @"idShop"
 #define Shop_Logo @"logo"
 #define Shop_LoveStatus @"loveStatus"
@@ -19,11 +19,11 @@
 #define Shop_ShopLat @"shopLat"
 #define Shop_ShopLng @"shopLng"
 #define Shop_ShopName @"shopName"
-#define Shop_SortOrder @"sortOrder"
+#define Shop_ShopType @"shopType"
 #define Shop_Tel @"tel"
 
 @class Shop;
-@class ShopCatalog;
+@class ShopDetailInfo;
 @class ShopKM1;
 @class ShopGallery;
 @class ShopUserComment;
@@ -42,8 +42,8 @@
 
 @property (nonatomic, retain) NSString* address;
 @property (nonatomic, retain) NSString* city;
+@property (nonatomic, retain) NSString* desc;
 @property (nonatomic, retain) NSString* displayTel;
-@property (nonatomic, retain) NSString* groupName;
 @property (nonatomic, retain) NSNumber* idShop;
 @property (nonatomic, retain) NSString* logo;
 @property (nonatomic, retain) NSNumber* loveStatus;
@@ -54,7 +54,7 @@
 @property (nonatomic, retain) NSNumber* shopLat;
 @property (nonatomic, retain) NSNumber* shopLng;
 @property (nonatomic, retain) NSString* shopName;
-@property (nonatomic, retain) NSNumber* sortOrder;
+@property (nonatomic, retain) NSString* shopType;
 @property (nonatomic, retain) NSString* tel;
 
 #pragma mark Fetched property
@@ -62,20 +62,26 @@
     
 #pragma mark Relationships
 
-#pragma mark Catalog
-@property (nonatomic, retain) ShopCatalog* catalog;
+#pragma mark DetailInfo
+- (NSSet*) detailInfo;
+- (NSArray*) detailInfoObjects;
+- (void) addDetailInfo:(NSSet*)value;
+- (void) removeDetailInfo:(NSSet*)value;
+- (void) addDetailInfoObject:(ShopDetailInfo*)value;
+- (void) removeDetailInfoObject:(ShopDetailInfo*)value;
+- (void) removeAllDetailInfo;
 
-#pragma mark Km1s
-@property (nonatomic, retain) ShopKM1* km1s;
+#pragma mark Km1
+@property (nonatomic, retain) ShopKM1* km1;
 
-#pragma mark ShopGallerys
-- (NSSet*) shopGallerys;
-- (NSArray*) shopGallerysObjects;
-- (void) addShopGallerys:(NSSet*)value;
-- (void) removeShopGallerys:(NSSet*)value;
-- (void) addShopGallerysObject:(ShopGallery*)value;
-- (void) removeShopGallerysObject:(ShopGallery*)value;
-- (void) removeAllShopGallerys;
+#pragma mark ShopGalleries
+- (NSSet*) shopGalleries;
+- (NSArray*) shopGalleriesObjects;
+- (void) addShopGalleries:(NSSet*)value;
+- (void) removeShopGalleries:(NSSet*)value;
+- (void) addShopGalleriesObject:(ShopGallery*)value;
+- (void) removeShopGalleriesObject:(ShopGallery*)value;
+- (void) removeAllShopGalleries;
 
 #pragma mark UserComments
 - (NSSet*) userComments;
@@ -86,14 +92,14 @@
 - (void) removeUserCommentsObject:(ShopUserComment*)value;
 - (void) removeAllUserComments;
 
-#pragma mark UserGallerys
-- (NSSet*) userGallerys;
-- (NSArray*) userGallerysObjects;
-- (void) addUserGallerys:(NSSet*)value;
-- (void) removeUserGallerys:(NSSet*)value;
-- (void) addUserGallerysObject:(ShopUserGallery*)value;
-- (void) removeUserGallerysObject:(ShopUserGallery*)value;
-- (void) removeAllUserGallerys;
+#pragma mark UserGalleries
+- (NSSet*) userGalleries;
+- (NSArray*) userGalleriesObjects;
+- (void) addUserGalleries:(NSSet*)value;
+- (void) removeUserGalleries:(NSSet*)value;
+- (void) addUserGalleriesObject:(ShopUserGallery*)value;
+- (void) removeUserGalleriesObject:(ShopUserGallery*)value;
+- (void) removeAllUserGalleries;
 
 
 @end

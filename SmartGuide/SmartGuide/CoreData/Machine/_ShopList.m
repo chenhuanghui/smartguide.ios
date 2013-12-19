@@ -298,6 +298,19 @@
 	[self didChangeValueForKey:@"shopType"];
 }
 
+- (NSString*)shopTypeDisplay {
+	[self willAccessValueForKey:@"shopTypeDisplay"];
+	NSString* result = (NSString*)[self primitiveValueForKey:@"shopTypeDisplay"];
+	[self didAccessValueForKey:@"shopTypeDisplay"];
+	return result;
+}
+
+- (void)setShopTypeDisplay:(NSString*)value {
+	[self willChangeValueForKey:@"shopTypeDisplay"];
+	[self setPrimitiveValue:value forKey:@"shopTypeDisplay"];
+	[self didChangeValueForKey:@"shopTypeDisplay"];
+}
+
 #pragma mark Relationships
     
 #pragma mark PlaceList

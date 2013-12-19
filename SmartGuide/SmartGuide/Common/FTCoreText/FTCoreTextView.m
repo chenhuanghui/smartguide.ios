@@ -1479,8 +1479,6 @@ UITextAlignment UITextAlignmentFromCoreTextAlignment(FTCoreTextAlignement alignm
         if(pos+leng>text.length)
             continue;
         
-        NSLog(@"str %@",[text substringWithRange:NSMakeRange(pos, leng)]);
-        
         [textmu insertString:endStyleName atIndex:pos+leng];
         [textmu insertString:beginStyleName atIndex:pos];
     }
@@ -1492,8 +1490,6 @@ UITextAlignment UITextAlignmentFromCoreTextAlignment(FTCoreTextAlignement alignm
     [textmu appendString:endStyleName];
     
     [self setText:textmu];
-    
-    NSLog(@"%@",textmu);
 }
 
 @end

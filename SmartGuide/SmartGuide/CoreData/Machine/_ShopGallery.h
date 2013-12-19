@@ -5,10 +5,10 @@
 
 #define ShopGallery_ClassName @"ShopGallery"
 
+#define ShopGallery_Cover @"cover"
 #define ShopGallery_IdGallery @"idGallery"
 #define ShopGallery_Image @"image"
 #define ShopGallery_SortOrder @"sortOrder"
-#define ShopGallery_Thumbnail @"thumbnail"
 
 @class ShopGallery;
 @class Shop;
@@ -24,10 +24,10 @@
 -(void) markDeleted;
 
 
+@property (nonatomic, retain) NSString* cover;
 @property (nonatomic, retain) NSNumber* idGallery;
 @property (nonatomic, retain) NSString* image;
 @property (nonatomic, retain) NSNumber* sortOrder;
-@property (nonatomic, retain) NSString* thumbnail;
 
 #pragma mark Fetched property
 

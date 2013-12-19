@@ -8,7 +8,6 @@
 
 #import "ASIOperationShopInGroup.h"
 #import "Shop.h"
-#import "ShopCatalog.h"
 
 @implementation ASIOperationShopInGroup
 @synthesize shops,values;

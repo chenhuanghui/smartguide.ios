@@ -15,13 +15,13 @@
 #define BUTTON_LOVE_IMAGE_MID [UIImage imageNamed:@"button_love_release_mid.png"]
 
 @implementation ButtonLove
-@synthesize isLoved,delegate;
+@synthesize loveStatus,delegate;
 
 - (id)init
 {
     self = [[NSBundle mainBundle] loadNibNamed:@"ButtonLove" owner:nil options:nil][0];
     if (self) {
-        isLoved=false;
+        loveStatus=LOVE_STATUS_NONE;
         midView.backgroundColor=[UIColor colorWithPatternImage:BUTTON_LOVE_IMAGE_MID];
         
         _leftFrame=imgvLeft.frame;
@@ -39,17 +39,49 @@
     [self.delegate buttonLoveTouched:self];
 }
 
--(void) love
+-(void) love:(bool) animate
 {
-    self.userInteractionEnabled=false;
-    isLoved=true;
+    loveStatus=LOVE_STATUS_LOVED;
     
     [btnLove setImage:BUTTON_LOVE_IMAGE_LOVE_HOVER forState:UIControlStateNormal];
     [btnLove setImage:BUTTON_LOVE_IMAGE_LOVE_HOVER forState:UIControlStateSelected];
     [btnLove setImage:BUTTON_LOVE_IMAGE_LOVE_HOVER forState:UIControlStateHighlighted];
     
-    [UIView animateWithDuration:0.3f animations:^{
-        
+    if(animate)
+    {
+        self.userInteractionEnabled=false;
+        [UIView animateWithDuration:0.3f animations:^{
+            
+            CGRect rect=btnLove.frame;
+            rect.origin.x=0;
+            btnLove.frame=rect;
+            
+            rect=imgvLeft.frame;
+            rect.origin.x=0;
+            imgvLeft.frame=rect;
+            
+            rect=midView.frame;
+            rect.origin.x=imgvLeft.frame.size.width;
+            rect.size.width=self.frame.size.width-imgvRight.frame.size.width-imgvLeft.frame.size.width;
+            midView.frame=rect;
+            
+            rect=lblTop.frame;
+            rect.origin.x=7;
+            lblTop.frame=rect;
+            lblTop.textColor=[UIColor whiteColor];
+            
+            rect=lblBot.frame;
+            rect.origin.x=7;
+            lblBot.frame=rect;
+            lblBot.textColor=[UIColor whiteColor];
+            
+        } completion:^(BOOL finished) {
+            self.userInteractionEnabled=true;
+        }];
+    }
+    else
+    {
+        self.userInteractionEnabled=true;
         CGRect rect=btnLove.frame;
         rect.origin.x=0;
         btnLove.frame=rect;
@@ -72,19 +104,38 @@
         rect.origin.x=7;
         lblBot.frame=rect;
         lblBot.textColor=[UIColor whiteColor];
-        
-    } completion:^(BOOL finished) {
-        self.userInteractionEnabled=true;
-    }];
+    }
 }
 
--(void) unlove
+-(void) unlove:(bool) animate
 {
-    isLoved=false;
-    self.userInteractionEnabled=false;
+    loveStatus=LOVE_STATUS_NONE;
     
-    [UIView animateWithDuration:0.3f animations:^{
+    if(animate)
+    {
+        self.userInteractionEnabled=false;
         
+        [UIView animateWithDuration:0.3f animations:^{
+            
+            btnLove.frame=_buttonFrame;
+            imgvLeft.frame=_leftFrame;
+            midView.frame=_midFrame;
+            lblTop.frame=_lblTopFrame;
+            lblTop.textColor=[UIColor darkGrayColor];
+            lblBot.frame=_lblBotFrame;
+            lblBot.textColor=[UIColor darkGrayColor];
+        } completion:^(BOOL finished) {
+            
+            [btnLove setImage:BUTTON_LOVE_IMAGE_LOVE forState:UIControlStateNormal];
+            [btnLove setImage:BUTTON_LOVE_IMAGE_LOVE_HOVER forState:UIControlStateSelected];
+            [btnLove setImage:BUTTON_LOVE_IMAGE_LOVE_HOVER forState:UIControlStateHighlighted];
+            
+            self.userInteractionEnabled=true;
+        }];
+    }
+    else
+    {
+        self.userInteractionEnabled=true;
         btnLove.frame=_buttonFrame;
         imgvLeft.frame=_leftFrame;
         midView.frame=_midFrame;
@@ -92,27 +143,40 @@
         lblTop.textColor=[UIColor darkGrayColor];
         lblBot.frame=_lblBotFrame;
         lblBot.textColor=[UIColor darkGrayColor];
-    } completion:^(BOOL finished) {
-        
-        [btnLove setImage:BUTTON_LOVE_IMAGE_LOVE forState:UIControlStateNormal];
-        [btnLove setImage:BUTTON_LOVE_IMAGE_LOVE_HOVER forState:UIControlStateSelected];
-        [btnLove setImage:BUTTON_LOVE_IMAGE_LOVE_HOVER forState:UIControlStateHighlighted];
-        
-        self.userInteractionEnabled=true;
-    }];
+    }
 }
 
--(void)setIsLoved:(bool)_isLoved
+-(void)setLoveStatus:(enum LOVE_STATUS)_loveStatus
 {
-    if(isLoved==_isLoved)
+    if(loveStatus==_loveStatus)
         return;
     
-    isLoved=_isLoved;
+    loveStatus=_loveStatus;
     
-    if(isLoved)
-        [self love];
-    else
-        [self unlove];
+    switch (loveStatus) {
+        case LOVE_STATUS_LOVED:
+            [self love:false];
+            break;
+            
+        case LOVE_STATUS_NONE:
+            [self unlove:false];
+            break;
+    }
+}
+
+-(void)setLoveStatus:(enum LOVE_STATUS)status withNumOfLove:(NSString *)numOfLove animate:(bool)animate
+{
+    [self setNumOfLove:numOfLove];
+    
+    switch (status) {
+        case LOVE_STATUS_NONE:
+            [self unlove:animate];
+            break;
+            
+        case LOVE_STATUS_LOVED:
+            [self love:animate];
+            break;
+    }
 }
 
 -(UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event
