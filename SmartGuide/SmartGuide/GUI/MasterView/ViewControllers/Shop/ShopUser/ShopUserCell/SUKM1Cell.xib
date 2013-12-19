@@ -136,8 +136,12 @@
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <connections>
                 <outlet property="bgStatusView" destination="vKD-hw-Qy2" id="b6M-1v-N4p"/>
+                <outlet property="btnReward" destination="aXo-6z-awT" id="4N9-ZW-iOJ"/>
                 <outlet property="lbl100K" destination="NHa-hy-ES9" id="hwo-fu-TMz"/>
+                <outlet property="lblDuration" destination="uH2-dM-KgM" id="jfJ-yI-GCl"/>
+                <outlet property="lblNotice" destination="clS-p4-UOl" id="kl9-Gp-TbQ"/>
                 <outlet property="lblP" destination="8PN-Hm-bCM" id="ZmA-xG-oc7"/>
+                <outlet property="lblSGP" destination="csC-WE-QgA" id="D5K-CL-CB6"/>
                 <outlet property="lblSP" destination="1xH-b4-6cH" id="FAH-QI-EZn"/>
                 <outlet property="table" destination="Nol-Ij-ByP" id="Xix-ts-MEW"/>
             </connections>

@@ -14,7 +14,7 @@
     IBOutlet UILabel *llb;
 }
 
--(void) setLLB:(NSString*) text;
+-(void) loadWithURL:(NSString*) url;
 
 +(NSString *)reuseIdentifier;
 +(float) height;

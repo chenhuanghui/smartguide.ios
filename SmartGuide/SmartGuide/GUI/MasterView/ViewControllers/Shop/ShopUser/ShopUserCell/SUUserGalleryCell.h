@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Shop.h"
+#import "ShopUserGallery.h"
 
 @class SUUserGalleryCell;
 
@@ -16,7 +18,14 @@
 
 @end
 
-@interface SUUserGalleryCell : UITableViewCell
+@interface SUUserGalleryCell : UITableViewCell<UITableViewDataSource,UITableViewDelegate>
+{
+    __weak Shop* _shop;
+    __weak IBOutlet UITableView *table;
+    __weak IBOutlet UIImageView *imgvFirsttime;
+}
+
+-(void) loadWithShop:(Shop*) shop;
 
 +(float) height;
 +(NSString *)reuseIdentifier;

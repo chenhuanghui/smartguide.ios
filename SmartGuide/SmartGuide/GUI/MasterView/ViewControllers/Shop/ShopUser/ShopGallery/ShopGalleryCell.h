@@ -15,7 +15,6 @@
 }
 
 -(void) loadImage:(NSString*) url;
--(void) setLbl:(NSString*) text;
 +(NSString *)reuseIdentifier;
 
 @end

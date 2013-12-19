@@ -69,4 +69,9 @@ static ImageManager *_imageManager=nil;
     
 }
 
+-(void)loadShopCoverWithURL:(NSString *)url
+{
+    
+}
+
 @end

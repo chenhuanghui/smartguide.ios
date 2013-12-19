@@ -8,12 +8,13 @@
 
 #import "ShopUserGalleryCell.h"
 #import "Utility.h"
+#import "ImageManager.h"
 
 @implementation ShopUserGalleryCell
 
--(void) setLLB:(NSString*) text
+-(void)loadWithURL:(NSString *)url
 {
-    llb.text=text;
+    [imgv loadShopUserGalleryWithURL:url];
 }
 
 +(NSString*) reuseIdentifier

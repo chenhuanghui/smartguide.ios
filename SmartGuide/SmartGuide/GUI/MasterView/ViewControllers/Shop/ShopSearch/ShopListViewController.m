@@ -184,7 +184,7 @@
     }
     
     if(shop)
-        [[GUIManager shareInstance] presentShopUserWithIDShop:shop.idShop.integerValue];
+        [[GUIManager shareInstance] presentShopUserWithShopList:shop];
 }
 
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
@@ -261,7 +261,7 @@
     
 }
 
--(void)shopListCellTouched:(ShopListCell *)cell
+-(void)shopListCellTouched:(ShopList *)shop
 {
     if(_isZoomedMap)
     {
@@ -269,7 +269,7 @@
         return;
     }
     
-    [[GUIManager shareInstance] presentShopUserWithIDShop:0];
+    [[GUIManager shareInstance] presentShopUserWithShopList:shop];
 }
 
 -(void) storePosition
@@ -1127,6 +1127,18 @@
 
 - (void)dealloc
 {
+    if(_operationPlaceListDetail)
+    {
+        [_operationPlaceListDetail cancel];
+        _operationPlaceListDetail=nil;
+    }
+    
+    if(_operationShopSearch)
+    {
+        [_operationShopSearch cancel];
+        _operationShopSearch=nil;
+    }
+    
     scroll.delegate=nil;
     [scrollBar removeObserver:self forKeyPath:@"alpha"];
 }

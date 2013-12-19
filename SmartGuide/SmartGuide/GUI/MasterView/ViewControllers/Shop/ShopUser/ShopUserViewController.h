@@ -30,6 +30,7 @@
 #import "CommentTyping.h"
 #import "SUUserCommentCell.h"
 #import "ShopList.h"
+#import "ASIOperationShopUser.h"
 
 @class TableShopUser,PromotionDetailView;
 
@@ -55,7 +56,7 @@ enum SHOP_USER_DATA_MODE
 
 @end
 
-@interface ShopUserViewController : SGViewController<UIScrollViewDelegate,UINavigationControllerDelegate,SGTableTemplateDelegate,UITableViewDataSource,UITableViewDelegate,UITextViewDelegate,UIGestureRecognizerDelegate,SUShopGalleryDelegate,UserGalleryDelegate,InfoCelLDelegate>
+@interface ShopUserViewController : SGViewController<UIScrollViewDelegate,UINavigationControllerDelegate,SGTableTemplateDelegate,UITableViewDataSource,UITableViewDelegate,UITextViewDelegate,UIGestureRecognizerDelegate,SUShopGalleryDelegate,UserGalleryDelegate,InfoCelLDelegate,ASIOperationPostDelegate>
 {
     __strong IBOutlet SGNavigationController *shopNavi;
     __weak IBOutlet SGViewController *detailController;
@@ -81,10 +82,11 @@ enum SHOP_USER_DATA_MODE
     NSMutableArray *_comments;
     
     __weak ShopList *_shopList;
+    Shop *_shop;
     
     enum SHOP_USER_DATA_MODE _dataMode;
     
-    
+    ASIOperationShopUser *_operationShopUser;
 }
 
 -(ShopUserViewController*) initWithShopList:(ShopList*) shopList;

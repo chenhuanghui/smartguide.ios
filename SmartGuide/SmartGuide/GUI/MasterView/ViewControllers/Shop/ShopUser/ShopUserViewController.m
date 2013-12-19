@@ -8,6 +8,7 @@
 
 #import "ShopUserViewController.h"
 #import "GUIManager.h"
+#import "SGShopEmptyCell.h"
 
 //Vị trí y của table
 #define SHOP_USER_ANIMATION_ALIGN_Y 100.f
@@ -68,30 +69,18 @@
     [tableShopUser registerNib:[UINib nibWithNibName:[SUInfoCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[SUInfoCell reuseIdentifier]];
     [tableShopUser registerNib:[UINib nibWithNibName:[SUUserGalleryCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[SUUserGalleryCell reuseIdentifier]];
     [tableShopUser registerNib:[UINib nibWithNibName:[SUUserCommentCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[SUUserCommentCell reuseIdentifier]];
+    [tableShopUser registerNib:[UINib nibWithNibName:[SGShopEmptyCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[SGShopEmptyCell reuseIdentifier]];
     
     tableShopUser.dataSource=self;
     tableShopUser.delegate=self;
     
     switch (_dataMode) {
         case SHOP_USER_DATA_SHOP_LIST:
-            
+            tableShopUser.scrollEnabled=false;
             break;
             
         case SHOP_USER_DATA_SHOP_USER:
             break;
-    }
-    
-    _km1Data=[NSMutableArray new];
-    for(int i=0;i<3;i++)
-    {
-        [_km1Data addObject:@"Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing incididunt ut."];
-    }
-    
-    _comments=[NSMutableArray new];
-    
-    for(int i=0;i<10;i++)
-    {
-        [_comments addObject:@"Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda."];
     }
     
     [tableShopUser reloadData];
@@ -102,10 +91,41 @@
     }
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(shopUserCommentKeyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    
+    _operationShopUser=[[ASIOperationShopUser alloc] initWithIDShop:_shopList.idShop.integerValue userLat:userLat() userLng:userLng()];
+    _operationShopUser.delegatePost=self;
+    
+    [_operationShopUser startAsynchronous];
+}
+
+-(void)ASIOperaionPostFinished:(ASIOperationPost *)operation
+{
+    if([operation isKindOfClass:[ASIOperationShopUser class]])
+    {
+        ASIOperationShopUser *ope=(ASIOperationShopUser*)operation;
+        
+        _shop=ope.shop;
+        
+        _dataMode=SHOP_USER_DATA_SHOP_USER;
+        
+        [tableShopUser reloadData];
+        tableShopUser.scrollEnabled=true;
+    }
+}
+
+-(void)ASIOperaionPostFailed:(ASIOperationPost *)operation
+{
+    
 }
 
 - (void)dealloc
 {
+    if(_operationShopUser)
+    {
+        [_operationShopUser cancel];
+        _operationShopUser=nil;
+    }
+    
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     shopNavi=nil;
     shopGalleryCell=nil;
@@ -113,6 +133,7 @@
     infoCell=nil;
     userGalleryCell=nil;
     userCommentCell=nil;
+    _shop=nil;
 }
 
 -(void) shopUserCommentKeyboardWillShow:(NSNotification*) notification
@@ -171,6 +192,16 @@
 {
     if(tableView==tableShopUser)
     {
+        switch (_dataMode) {
+            case SHOP_USER_DATA_SHOP_LIST:
+                
+                //shop gallery cell+loading cell
+                return 2;
+                
+            case SHOP_USER_DATA_SHOP_USER:
+                break;
+        }
+        
         int numOfRow=0;
         
         //shop gallery+logo+love+view+comment
@@ -195,10 +226,6 @@
     return 0;
 }
 
--(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-}
-
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if(tableView==tableShopUser)
@@ -218,6 +245,7 @@
                         break;
                         
                     case SHOP_USER_DATA_SHOP_USER:
+                        [cell loadWithShop:_shop];
                         break;
                 }
                 
@@ -228,12 +256,22 @@
                 
             case 1:
             {
+                switch (_dataMode) {
+                    case SHOP_USER_DATA_SHOP_LIST:
+                    {
+                        return [tableView dequeueReusableCellWithIdentifier:[SGShopEmptyCell reuseIdentifier]];
+                    }
+                        
+                    default:
+                        break;
+                }
+                
                 if(km1Cell)
                     return km1Cell;
                 
                 SUKM1Cell *cell=[tableShopUser dequeueReusableCellWithIdentifier:[SUKM1Cell reuseIdentifier]];
                 
-                [cell loadWithKM:_km1Data];
+                [cell loadWithKM1:_shop.km1];
                 
                 km1Cell=cell;
                 
@@ -260,6 +298,7 @@
                 SUInfoCell *cell=[tableShopUser dequeueReusableCellWithIdentifier:[SUInfoCell reuseIdentifier]];
                 
                 cell.delegate=self;
+                [cell loadWithShop:_shop];
                 
                 infoCell=cell;
                 
@@ -274,6 +313,7 @@
                 SUUserGalleryCell *cell=[tableShopUser dequeueReusableCellWithIdentifier:[SUUserGalleryCell reuseIdentifier]];
                 
                 cell.delegate=self;
+                [cell loadWithShop:_shop];
                 
                 userGalleryCell=cell;
                 
@@ -290,7 +330,7 @@
                 float maxHeight=_shopUserContentFrame.size.height-_btnNextFrame.size.height-[SUUserCommentCell tableY]+SHOP_USER_ANIMATION_ALIGN_Y;
                 shopUserCommentCell=cell;
                 
-                [cell loadWithComments:_comments maxHeight:maxHeight];
+                [cell loadWithShop:_shop maxHeight:maxHeight];
                 
                 userCommentCell=cell;
                 
@@ -313,7 +353,17 @@
             case 0:
                 return [SUShopGalleryCell height];
             case 1:
-                return [SUKM1Cell heightWithKM:_km1Data];
+            {
+                switch (_dataMode) {
+                    case SHOP_USER_DATA_SHOP_LIST:
+                        
+                        return [SGShopEmptyCell height];
+                        
+                    case SHOP_USER_DATA_SHOP_USER:
+                        return [SUKM1Cell heightWithKM1:_shop.km1];
+                }
+            }
+                
             case 2:
                 return _btnNextFrame.size.height-4;
             case 3:
@@ -321,7 +371,7 @@
             case 4:
                 return [SUUserGalleryCell height];
             case 5:
-                return [SUUserCommentCell heightWithComments:_comments];
+                return [SUUserCommentCell heightWithShop:_shop];
                 
             default:
                 break;

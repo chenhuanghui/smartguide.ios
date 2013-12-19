@@ -40,6 +40,10 @@
                                         <rect key="frame" x="7" y="6" width="276" height="91"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <connections>
+                                            <outlet property="dataSource" destination="jss-vJ-FAg" id="TES-Se-xcd"/>
+                                            <outlet property="delegate" destination="jss-vJ-FAg" id="aEz-W9-vJP"/>
+                                        </connections>
                                     </tableView>
                                     <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="frame_photo.png" id="wgZ-v0-j7Y">
                                         <rect key="frame" x="7" y="5" width="277" height="92"/>
@@ -74,6 +78,10 @@
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <connections>
+                <outlet property="imgvFirsttime" destination="F7F-p5-BWd" id="FcA-2Q-E8j"/>
+                <outlet property="table" destination="BLE-uC-hTG" id="ujK-ne-YXk"/>
+            </connections>
         </tableViewCell>
     </objects>
     <resources>

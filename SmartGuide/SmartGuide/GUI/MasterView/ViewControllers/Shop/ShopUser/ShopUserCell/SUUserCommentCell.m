@@ -14,12 +14,10 @@
 
 @implementation SUUserCommentCell
 
--(void)loadWithComments:(NSArray *)comments maxHeight:(float)maxHeight
+-(void)loadWithShop:(Shop *)shop maxHeight:(float)maxHeight
 {
-    _comments=[comments mutableCopy];
-    table.dataSource=self;
-    table.delegate=self;
-    
+    _shop=shop;
+
     [table reloadData];
     [table l_v_setH:maxHeight];
 }
@@ -45,12 +43,12 @@
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return _comments.count==0?0:1;
+    return _shop.userCommentsObjects.count==0?0:1;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return _comments.count+1;
+    return _shop.userCommentsObjects.count+1;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -58,8 +56,7 @@
     if(indexPath.row==0)
         return SU_USER_COMMENT_CELL_EMPTY_HEIGHT;
     
-    int row=indexPath.row-1;
-    return [ShopUserCommentCell heightWithComment:_comments[row]];
+    return [ShopUserCommentCell heightWithComment:[_shop.userCommentsObjects[indexPath.row-1] comment]];
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -79,10 +76,9 @@
         return cell;
     }
     
-    int row=indexPath.row-1;
     ShopUserCommentCell *cell=[tableView dequeueReusableCellWithIdentifier:[ShopUserCommentCell reuseIdentifier]];
     
-    [cell loadWithComment:_comments[row]];
+    [cell loadWithComment:_shop.userCommentsObjects[indexPath.row-1]];
     
     return cell;
 }
@@ -92,12 +88,12 @@
     return @"SUUserCommentCell";
 }
 
-+(float)heightWithComments:(NSArray *)comments
++(float)heightWithShop:(Shop *)shop
 {
     float height=58+SU_USER_COMMENT_CELL_EMPTY_HEIGHT;
     
-    for(NSString *str in comments)
-        height+=[ShopUserCommentCell heightWithComment:str];
+    for(ShopUserComment *comment in shop.userCommentsObjects)
+        height+=[ShopUserCommentCell heightWithComment:comment.comment];
     
     return height;
 }

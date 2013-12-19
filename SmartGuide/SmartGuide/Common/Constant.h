@@ -56,7 +56,7 @@
 #define API_CITY @"city/list"
 #define API_GROUP_IN_CITY @"group"
 #define API_SHOP_IN_GROUP(userID,cityID,groupID,pageIndex,userLat,userLong) [NSString stringWithFormat:@"promotion/%i/%i/%i/%i/%f/%f",userID,cityID,groupID,pageIndex,userLat,userLong]
-#define API_SHOP_DETAIL @"shop/user"
+#define API_SHOP_DETAIL @"shop/user_v2"
 #define API_SHOP_IN_GROUP_POST @"shop/list"
 #define API_SHOP_GALLERY @"images/gallery/get"
 #define API_SHOP_USER_GALLERY @"images/user/get"

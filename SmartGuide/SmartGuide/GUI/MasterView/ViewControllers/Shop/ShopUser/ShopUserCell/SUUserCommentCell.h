@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "ShopUserCommentCell.h"
 #import "CommentTyping.h"
+#import "Shop.h"
 
 @class TableUserComment;
 
@@ -17,14 +18,14 @@
     __weak IBOutlet TableUserComment *table;
     __weak CommentTyping *cmtTyping;
     __weak UITapGestureRecognizer *_tapTable;
-    NSMutableArray *_comments;
+    __weak Shop* _shop;
 }
 
--(void) loadWithComments:(NSArray*) comments maxHeight:(float) maxHeight;
+-(void) loadWithShop:(Shop*) shop maxHeight:(float) maxHeight;
 -(void) tableDidScrollWithContentOffSetY:(float) contentOffSetY cellContentY:(float) y;
 
 +(NSString *)reuseIdentifier;
-+(float) heightWithComments:(NSArray*) comments;
++(float) heightWithShop:(Shop*) shop;
 +(float) tableY;
 
 @end

@@ -77,13 +77,18 @@
                         <state key="normal" title="Đồng ý">
                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
+                        <connections>
+                            <action selector="btnAgreeTouchUpInside:" destination="1c0-Fd-XQF" eventType="touchUpInside" id="vvU-py-Rr2"/>
+                        </connections>
                     </button>
                 </subviews>
             </tableViewCellContentView>
             <connections>
                 <outlet property="borderView" destination="rch-gh-6mL" id="Xh9-zc-DeE"/>
+                <outlet property="btnAgree" destination="7pk-dt-d5W" id="C06-N6-XWO"/>
                 <outlet property="imgvAvatar" destination="nM6-mh-bYL" id="wIx-cG-8Vi"/>
                 <outlet property="lblComment" destination="Tp9-5E-x9p" id="m5X-In-VU9"/>
+                <outlet property="lblNumOfAgree" destination="V0t-Su-G7z" id="qgX-zo-dCy"/>
                 <outlet property="lblTime" destination="Oej-cI-3pc" id="5xd-kh-9Rs"/>
                 <outlet property="lblUsername" destination="qWs-yE-nzI" id="huQ-97-FeH"/>
             </connections>

@@ -32,7 +32,7 @@
     
     CGSize size=[content sizeWithFont:font constrainedToSize:CGSizeMake(SHOP_KM1_CONTENT_WIDTH, 9999) lineBreakMode:NSLineBreakByTruncatingTail];
    
-    return size.height+10;
+    return MAX(42, size.height+10);
 }
 
 @end

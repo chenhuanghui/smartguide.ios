@@ -122,6 +122,11 @@
     }
 }
 
+-(ShopList *)shopList
+{
+    return _shop;
+}
+
 @end
 
 @implementation ScrollListCell

@@ -18,6 +18,10 @@
                         <rect key="frame" x="9" y="58" width="273" height="61"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <connections>
+                            <outlet property="dataSource" destination="kGe-I5-iXb" id="aDY-MB-RKU"/>
+                            <outlet property="delegate" destination="kGe-I5-iXb" id="wmJ-6R-U49"/>
+                        </connections>
                     </tableView>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>

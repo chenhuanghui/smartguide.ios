@@ -37,6 +37,7 @@
 }
 
 -(void) loadWithShopList:(ShopList*) shopList;
+-(ShopList*) shopList;
 +(NSString *)reuseIdentifier;
 +(float) heightWithContent:(NSString*) content;
 

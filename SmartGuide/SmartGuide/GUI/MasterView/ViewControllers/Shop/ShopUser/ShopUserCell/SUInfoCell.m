@@ -12,6 +12,16 @@
 @implementation SUInfoCell
 @synthesize delegate;
 
+-(void)loadWithShop:(Shop *)shop
+{
+    _shop=shop;
+    
+    lblAddress.text=shop.address;
+    lblCity.text=shop.city;
+    
+    [btnTel setTitle:[@"  " stringByAppendingString:shop.displayTel] forState:UIControlStateNormal];
+}
+
 +(NSString *)reuseIdentifier
 {
     return @"SUInfoCell";
@@ -29,7 +39,7 @@
 
 -(IBAction) btnMakeCallTouchUpInside:(id)sender
 {
-    makePhoneCall(@"01225372227");
+    makePhoneCall(_shop.tel);
 }
 
 @end

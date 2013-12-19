@@ -29,5 +29,6 @@
 -(void) loadCommentAvatarWithURL:(NSString*) url;
 -(void) loadStoreLogoWithURL:(NSString*) url;
 -(void) loadPlaceAuthorAvatarWithURL:(NSString*) url;
+-(void) loadShopCoverWithURL:(NSString*) url;
 
 @end

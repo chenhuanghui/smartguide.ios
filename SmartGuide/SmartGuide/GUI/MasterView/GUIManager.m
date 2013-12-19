@@ -412,9 +412,9 @@ static GUIManager *_shareInstance=nil;
     }];
 }
 
--(void) presentShopUserWithIDShop:(int)idShop
+-(void) presentShopUserWithShopList:(ShopList *)shopList
 {
-    ShopUserViewController *shopUser=[[ShopUserViewController alloc] init];
+    ShopUserViewController *shopUser=[[ShopUserViewController alloc] initWithShopList:shopList];
     shopUserController=shopUser;
     shopUser.delegate=self;
     

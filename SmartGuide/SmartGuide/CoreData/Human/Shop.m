@@ -159,4 +159,18 @@
     return [[super shopGalleriesObjects] sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:ShopGallery_SortOrder ascending:true]]];
 }
 
+-(enum LOVE_STATUS)enumLoveStatus
+{
+    switch (self.loveStatus.integerValue) {
+        case 0:
+            return LOVE_STATUS_NONE;
+            
+        case 1:
+            return LOVE_STATUS_LOVED;
+            
+        default:
+            return LOVE_STATUS_NONE;
+    }
+}
+
 @end

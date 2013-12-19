@@ -7,10 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Constant.h"
 
 @interface ButtonAgree : UIButton
 {
     NSString *_buttonTitle;
 }
+
+-(void) setTitle:(NSString*) text agreeStatus:(enum AGREE_STATUS) status;
+
+@property (nonatomic, readonly) enum AGREE_STATUS agreeStatus;
 
 @end

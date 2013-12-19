@@ -7,18 +7,21 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ShopUserComment.h"
+#import "ButtonAgree.h"
 
 @interface ShopUserCommentCell : UITableViewCell
 {
     __weak IBOutlet UIImageView *imgvAvatar;
     __weak IBOutlet UILabel *lblUsername;
-    __weak IBOutlet UILabel *lblShopName;
     __weak IBOutlet UILabel *lblComment;
     __weak IBOutlet UILabel *lblTime;
     __weak IBOutlet UIView *borderView;
+    __weak IBOutlet UILabel *lblNumOfAgree;
+    __weak IBOutlet ButtonAgree *btnAgree;
 }
 
--(void) loadWithComment:(NSString*) comment;
+-(void) loadWithComment:(ShopUserComment*) comment;
 
 +(NSString *)reuseIdentifier;
 +(float) heightSummary;

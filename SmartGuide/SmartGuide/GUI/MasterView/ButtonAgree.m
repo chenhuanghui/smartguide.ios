@@ -13,6 +13,7 @@
 #define BUTTON_AGREE_IMAGE_MID_NORMAL [UIImage imageNamed:@"button_green_mid.png"]
 
 @implementation ButtonAgree
+@synthesize agreeStatus;
 
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
@@ -30,6 +31,12 @@
     rect.origin.x=left.size.width;
     rect.size.width=rect.size.width-right.size.width-left.size.width;
     [mid drawAsPatternInRect:rect];
+}
+
+-(void)setTitle:(NSString *)text agreeStatus:(enum AGREE_STATUS)status
+{
+    [self setTitle:text forState:UIControlStateNormal];
+    agreeStatus=status;
 }
 
 @end

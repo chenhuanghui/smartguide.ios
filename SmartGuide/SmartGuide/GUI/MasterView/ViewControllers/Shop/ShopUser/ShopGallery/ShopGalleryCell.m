@@ -9,6 +9,7 @@
 #import "ShopGalleryCell.h"
 #import "Constant.h"
 #import "Utility.h"
+#import "ImageManager.h"
 
 @implementation ShopGalleryCell
 
@@ -19,13 +20,7 @@
 
 -(void)loadImage:(NSString *)url
 {
-    imgv.image=[UIImage imageNamed:@"cover.jpg"];
-}
-
--(void)setLbl:(NSString *)text
-{
-    imgv.image=[UIImage imageNamed:@"cover.jpg"];
-    llbbll.text=@"";
+    [imgv loadShopCoverWithURL:url];
 }
 
 -(void)awakeFromNib

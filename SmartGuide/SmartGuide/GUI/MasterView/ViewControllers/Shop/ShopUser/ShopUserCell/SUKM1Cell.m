@@ -11,9 +11,18 @@
 
 @implementation SUKM1Cell
 
--(void)loadWithKM:(NSArray *)array
+-(void)loadWithKM1:(ShopKM1 *)km1
 {
-    data=[array copy];
+    _km1=km1;
+    
+    lblDuration.text=_km1.duration;
+    lblSGP.text=_km1.sgp;
+
+    [lbl100K setText:[NSString stringWithFormat:@"<text>Với mỗi <k>%@</k> trên hoá đơn bạn nhận được 1 lượt quét thẻ</text>",_km1.money]];
+    [lblSP setText:[NSString stringWithFormat:@"<text><sp>%@</sp> tích luỹ</text>",_km1.sp]];
+    [lblP setText:[NSString stringWithFormat:@"<text><p>%@</p> cho <p>1 SGP</p></text>",_km1.p]];
+    
+    lblNotice.text=_km1.notice;
     
     table.dataSource=self;
     table.delegate=self;
@@ -22,26 +31,26 @@
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return data.count==0?0:1;
+    return _km1.listVoucherObjects.count==0?0:1;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return data.count;
+    return _km1.listVoucherObjects.count;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return [ShopKM1Cell heightWithContent:data[indexPath.row]];
+    return [ShopKM1Cell heightWithContent:[_km1.listVoucherObjects[indexPath.row] name]];
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     ShopKM1Cell *cell=[tableView dequeueReusableCellWithIdentifier:[ShopKM1Cell reuseIdentifier]];
     
-    NSArray *array=@[@"A",@"B",@"C",@"D"];
+    KM1Voucher *voucher=_km1.listVoucherObjects[indexPath.row];
     
-    [cell setVoucher:array[random_int(0, array.count)] content:data[indexPath.row] sgp:@"99" isHighlighted:random()%2==0];
+    [cell setVoucher:voucher.type content:voucher.name sgp:voucher.sgp isHighlighted:voucher.isAfford.boolValue];
     
     return cell;
 }
@@ -51,12 +60,12 @@
     return @"SUKM1Cell";
 }
 
-+(float)heightWithKM:(NSArray *)array
++(float)heightWithKM1:(ShopKM1 *)km1
 {
     float height=208;
-    for(NSString *str in array)
+    for(KM1Voucher *voucher in km1.listVoucherObjects)
     {
-        height+=[ShopKM1Cell heightWithContent:str];
+        height+=[ShopKM1Cell heightWithContent:voucher.name];
     }
     
     return height;

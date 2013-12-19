@@ -10,6 +10,7 @@
 #import "PageControl.h"
 #import "ButtonLove.h"
 #import "ShopList.h"
+#import "Shop.h"
 
 @class SUShopGalleryCell;
 
@@ -34,9 +35,11 @@
     CGRect _tableFrame;
     
     __weak ShopList *_shopList;
+    __weak Shop *_shop;
 }
 
 -(void) loadWithShopList:(ShopList*) shopList;
+-(void) loadWithShop:(Shop*) shop;
 
 @property (nonatomic, weak) id<SUShopGalleryDelegate> delegate;
 

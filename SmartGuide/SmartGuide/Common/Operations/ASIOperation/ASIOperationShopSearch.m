@@ -22,7 +22,7 @@
 
 -(NSArray *)keys
 {
-    return @[@"keywords",@"userLat",@"userLng",@"page",@"sort"];
+    return @[@"keyWords",@"userLat",@"userLng",@"page",@"sort"];
 }
 
 -(void)onCompletedWithJSON:(NSArray *)json

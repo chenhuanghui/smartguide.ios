@@ -13,9 +13,13 @@
 
 @implementation ShopUserCommentCell
 
--(void)loadWithComment:(NSString *)comment
+-(void)loadWithComment:(ShopUserComment *)comment
 {
-    lblComment.text=comment;
+    lblUsername.text=comment.username;
+    lblTime.text=comment.time;
+    lblComment.text=comment.comment;
+    lblNumOfAgree.text=comment.numOfAgree;
+    [btnAgree setTitle:@"Đồng ý" agreeStatus:[comment enumAgreeStatus]];
 }
 
 +(NSString *)reuseIdentifier
@@ -39,7 +43,7 @@
     return 70;
 }
 
--(IBAction) btnCommentSort:(id)sender
+-(IBAction) btnAgreeTouchUpInside:(id)sender
 {
     
 }

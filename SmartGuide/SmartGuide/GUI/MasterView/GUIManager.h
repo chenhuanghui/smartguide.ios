@@ -45,7 +45,7 @@
 
 -(void) presentViewController:(SGViewController*) viewController;
 -(void) dismissPresentedViewController:(void(^)()) onCompleted;
--(void) presentShopUserWithIDShop:(int) idShop;
+-(void) presentShopUserWithShopList:(ShopList*) shopList;
 -(void) dismissShopUser;
 
 -(void) showLoginDialogWithMessage:(NSString*) message onCompleted:(void(^)(bool isLogined)) onCompleted;

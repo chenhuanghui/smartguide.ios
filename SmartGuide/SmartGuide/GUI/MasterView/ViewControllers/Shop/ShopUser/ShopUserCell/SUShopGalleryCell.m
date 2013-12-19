@@ -23,6 +23,24 @@
     
     [btnLove setLoveStatus:shopList.enumLoveStatus withNumOfLove:shopList.numOfLove animate:false];
     [imgvShopLogo loadShopLogoWithURL:shopList.logo];
+    
+    [table reloadData];
+}
+
+-(void)loadWithShop:(Shop *)shop
+{
+    _shopList=nil;
+    
+    lblShopName.text=shop.shopName;
+    lblShopType.text=shop.shopType;
+    lblNumOfComment.text=shop.numOfComment;
+    lblNumOfView.text=shop.numOfView;
+    
+    [btnLove setLoveStatus:shop.enumLoveStatus withNumOfLove:shop.numOfLove animate:false];
+    [imgvShopLogo loadShopLogoWithURL:shop.logo];
+    
+    pageControl.numberOfPages=shop.shopGalleriesObjects.count;
+    [table reloadData];
 }
 
 +(NSString *)reuseIdentifier
@@ -57,8 +75,10 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    pageControl.numberOfPages=10;
-    return 10;
+    if(_shopList)
+        return 1;
+    else
+        return _shop.shopGalleriesObjects.count;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -70,7 +90,16 @@
 {
     ShopGalleryCell *cell=[tableView dequeueReusableCellWithIdentifier:[ShopGalleryCell reuseIdentifier]];
     
-    [cell setLbl:[NSString stringWithFormat:@"%02i",indexPath.row+1]];
+    
+    if(_shopList)
+    {
+        [cell loadImage:_shopList.cover];
+    }
+    else
+    {
+        ShopGallery *gallery=_shop.shopGalleriesObjects[indexPath.row];
+        [cell loadImage:gallery.cover];
+    }
     
     return cell;
 }

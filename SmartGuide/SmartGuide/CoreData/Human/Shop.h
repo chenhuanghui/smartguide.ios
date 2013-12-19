@@ -17,5 +17,6 @@
 //+(Shop*) makeShopWithIDShop:(int) idShop withJSONUserCollection:(NSDictionary*) data;
 
 -(enum SHOP_PROMOTION_TYPE) shopPromotionType;
+-(enum LOVE_STATUS) enumLoveStatus;
 
 @end

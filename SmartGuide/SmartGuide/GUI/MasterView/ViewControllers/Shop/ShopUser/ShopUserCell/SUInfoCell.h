@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Shop.h"
 
 @class SUInfoCell;
 
@@ -17,6 +18,15 @@
 @end
 
 @interface SUInfoCell : UITableViewCell
+{
+    __weak IBOutlet UILabel *lblAddress;
+    __weak IBOutlet UILabel *lblCity;
+    __weak IBOutlet UIButton *btnTel;
+    
+    __weak Shop *_shop;
+}
+
+-(void) loadWithShop:(Shop*) shop;
 
 +(float) height;
 +(NSString *)reuseIdentifier;
