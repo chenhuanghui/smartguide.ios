@@ -82,7 +82,7 @@ enum SHOP_USER_DATA_MODE
     NSMutableArray *_comments;
     
     __weak ShopList *_shopList;
-    Shop *_shop;
+    __weak Shop *_shop;
     
     enum SHOP_USER_DATA_MODE _dataMode;
     

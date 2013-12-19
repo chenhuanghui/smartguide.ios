@@ -51,6 +51,11 @@
 
 - (IBAction)btnLoveTouchUpInside:(id)sender {
     
+    if(_shop.loveStatus.integerValue==0)
+        [ASIOperationLoveShop loveShop:_shop.idShop.integerValue userLat:userLat() userLng:userLng()];
+    else
+        [ASIOperationLoveShop unLoveShop:_shop.idShop.integerValue userLat:userLat() userLng:userLng()];
+    
     imgvHeartAni.alpha=0;
     imgvHeartAni.hidden=false;
     [UIView animateWithDuration:0.3f animations:^{

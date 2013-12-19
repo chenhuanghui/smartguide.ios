@@ -10,6 +10,7 @@
 #import "LabelTopText.h"
 #import "ShopList.h"
 #import "SGScrollView.h"
+#import "ASIOperationLoveShop.h"
 
 @class ScrollListCell,ShopListCell;
 

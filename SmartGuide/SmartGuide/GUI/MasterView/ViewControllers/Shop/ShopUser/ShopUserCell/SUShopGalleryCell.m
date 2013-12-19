@@ -16,6 +16,8 @@
 
 -(void)loadWithShopList:(ShopList *)shopList
 {
+    _shopList=shopList;
+    
     lblShopName.text=shopList.shopName;
     lblShopType.text=shopList.shopTypeDisplay;
     lblNumOfComment.text=shopList.numOfComment;
@@ -30,6 +32,7 @@
 -(void)loadWithShop:(Shop *)shop
 {
     _shopList=nil;
+    _shop=shop;
     
     lblShopName.text=shop.shopName;
     lblShopType.text=shop.shopType;
@@ -130,6 +133,65 @@
 
 -(void)buttonLoveTouched:(ButtonLove *)buttonLoveView
 {
+    if(_operationLoveShop)
+        return;
+ 
+    int idShop=0;
+    int willLove=true;
+    
+    if(_shopList)
+    {
+        idShop=_shopList.idShop.integerValue;
+        willLove=_shopList.enumLoveStatus==LOVE_STATUS_LOVED?false:true;
+    }
+    else
+    {
+        idShop=_shop.idShop.integerValue;
+        willLove=_shop.enumLoveStatus==LOVE_STATUS_LOVED?false:true;
+    }
+    
+    if(willLove)
+        [buttonLoveView love:true];
+    else
+        [buttonLoveView unlove:true];
+    
+    _operationLoveShop=[[ASIOperationLoveShop alloc] initWithIDShop:idShop userLat:userLat() userLng:userLng() isLove:willLove];
+    _operationLoveShop.delegatePost=self;
+    
+    [_operationLoveShop startAsynchronous];
+}
+
+-(void)ASIOperaionPostFinished:(ASIOperationPost *)operation
+{
+    if([operation isKindOfClass:[ASIOperationLoveShop class]])
+    {
+        ASIOperationLoveShop *ope=(ASIOperationLoveShop*) operation;
+        
+        if(_shopList)
+        {
+        }
+        
+        [btnLove setLoveStatus:ope.loveStatus withNumOfLove:ope.numOfLove animate:true];
+        
+        _operationLoveShop=nil;
+    }
+}
+
+-(void)ASIOperaionPostFailed:(ASIOperationPost *)operation
+{
+    if([operation isKindOfClass:[ASIOperationLoveShop class]])
+    {
+        _operationLoveShop=nil;
+    }
+}
+
+-(void)dealloc
+{
+    if(_operationLoveShop)
+    {
+        [_operationLoveShop cancel];
+        _operationLoveShop=nil;
+    }
 }
 
 -(IBAction) btnInfoTouchUpInside:(id)sender

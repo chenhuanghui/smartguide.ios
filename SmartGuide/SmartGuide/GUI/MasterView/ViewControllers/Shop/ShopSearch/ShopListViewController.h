@@ -79,7 +79,7 @@ enum SHOP_LIST_VIEW_MODE {
     ASIOperationShopSearch *_operationShopSearch;
     ASIOperationPlacelistDetail *_operationPlaceListDetail;
     NSString *_keyword;
-    Placelist *_placeList;
+    __weak Placelist *_placeList;
     NSMutableArray *_shopsList;
     NSUInteger _page;
     enum SORT_SHOP_LIST _sort;

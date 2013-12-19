@@ -117,7 +117,6 @@ static DataManager *_dataManager=nil;
 {
     NSError *error=nil;
     [self.managedObjectContext save:&error];
-    
     if(error)
     {
         NSLog(@"DataManager save error %@",error);

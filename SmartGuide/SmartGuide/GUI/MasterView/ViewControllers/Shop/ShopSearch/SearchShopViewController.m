@@ -189,4 +189,13 @@
     }];
 }
 
+-(void)dealloc
+{
+    if(_operationPlacelistGetList)
+    {
+        [_operationPlacelistGetList cancel];
+        _operationPlacelistGetList=nil;
+    }
+}
+
 @end

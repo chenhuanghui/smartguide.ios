@@ -34,7 +34,7 @@
     self = [super initWithNibName:@"ShopUserViewController" bundle:nil];
     if (self) {
         shopMode=SHOP_USER_FULL;
-        _shopList=shopList;
+        _shopList=[ShopList shopListWithIDShop:shopList.idShop.integerValue];
         _dataMode=SHOP_USER_DATA_SHOP_LIST;
     }
     return self;

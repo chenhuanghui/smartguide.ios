@@ -11,6 +11,7 @@
 #import "ButtonLove.h"
 #import "ShopList.h"
 #import "Shop.h"
+#import "ASIOperationLoveShop.h"
 
 @class SUShopGalleryCell;
 
@@ -20,7 +21,7 @@
 
 @end
 
-@interface SUShopGalleryCell : UITableViewCell<UIScrollViewDelegate,ButtonLoveDelegate>
+@interface SUShopGalleryCell : UITableViewCell<UIScrollViewDelegate,ButtonLoveDelegate,ASIOperationPostDelegate>
 {
     __weak IBOutlet UITableView *table;
     __weak IBOutlet PageControlNext *pageControl;
@@ -36,6 +37,7 @@
     
     __weak ShopList *_shopList;
     __weak Shop *_shop;
+    ASIOperationLoveShop *_operationLoveShop;
 }
 
 -(void) loadWithShopList:(ShopList*) shopList;

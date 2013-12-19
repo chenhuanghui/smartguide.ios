@@ -86,6 +86,7 @@
 #define API_SHOP_SEARCH @"shop/search_v2_1"
 #define API_PLACELIST_GET_LIST @"placelist/getList"
 #define API_PLACELIST_DETAIL @"placelist/get"
+#define API_LOVE_SHOP @"user/loveShop"
 
 #define API_GET_ACTIVE_CODE(phone) [NSString stringWithFormat:@"%@/user/activation?phone=%@",SERVER_IP,phone]
 #define API_VERIFY_ACTIVE_CODE(phone,activeCode) [NSString stringWithFormat:@"%@/user/check?phone=%@&code=%@",SERVER_IP,phone,activeCode]

@@ -16,6 +16,7 @@
     _km1=km1;
     
     lblDuration.text=_km1.duration;
+
     lblSGP.text=_km1.sgp;
 
     [lbl100K setText:[NSString stringWithFormat:@"<text>Với mỗi <k>%@</k> trên hoá đơn bạn nhận được 1 lượt quét thẻ</text>",_km1.money]];
