@@ -96,48 +96,102 @@
 
 -(void)searchShopControllerTouchedBack:(SearchShopViewController *)controller
 {
-    if(shopListController)
-        [searchNavi popToRootViewControllerAnimated:true];
-    else
+    if(searchNavi.viewControllers.count==1)
+    {
         [self.navigationController popViewControllerAnimated:true];
+        return;
+    }
+    
+    [searchNavi popViewControllerAnimated:true];
 }
 
 -(void)searchShopControllerTouchPlaceList:(SearchShopViewController *)controller placeList:(Placelist *)place
 {
-    [searchNavi removeViewController:shopListController];
-    
-    ShopListViewController *vc=[[ShopListViewController alloc] initWithPlaceList:place];
-    vc.delegate=self;
-    
-    [searchNavi setRootViewController:vc animate:true];
+    [self showShopListWithPlacelist:place];
 }
 
 -(void)searchShopControllerSearch:(SearchShopViewController *)controller keyword:(NSString *)keyword
 {
+    [self showShopListWithKeyword:keyword];
+}
+
+-(void) showSearchShopWithKeyword:(NSString*) keyword
+{
+    if(searchShopController)
+    {
+        [searchShopController setKeyword:keyword];
+        [searchNavi makePushViewController:searchShopController animate:true];
+    }
+    else
+    {
+        SearchShopViewController *vc=[[SearchShopViewController alloc] initWithKeyword:keyword];
+        vc.delegate=self;
+        
+        searchShopController=vc;
+        
+        [searchNavi pushViewController:vc animated:true];
+    }
+}
+
+-(void) showSearchShopWithPlacelist:(Placelist*) placelist
+{
+    if(searchShopController)
+    {
+        [searchShopController setPlacelist:placelist];
+        [searchNavi makePushViewController:searchShopController animate:true];
+    }
+    else
+    {
+        SearchShopViewController *vc=[[SearchShopViewController alloc] initWithPlacelist:placelist];
+        vc.delegate=self;
+        
+        searchShopController=vc;
+        
+        [searchNavi pushViewController:vc animated:true];
+    }
+}
+
+-(void) showShopListWithKeyword:(NSString*) keyword
+{
+    if(shopListController)
+    {
+        [searchNavi removeViewController:shopListController];
+    }
+    
     ShopListViewController *vc=[[ShopListViewController alloc] initWithKeyword:keyword];
     vc.delegate=self;
     
     shopListController=vc;
     
-    [searchNavi setRootViewController:vc animate:true];
+    [searchNavi pushViewController:vc animated:true];
+}
+
+-(void) showShopListWithPlacelist:(Placelist*) placelist
+{
+    if(shopListController)
+    {
+        [searchNavi removeViewController:shopListController];
+    }
+    
+    ShopListViewController *vc=[[ShopListViewController alloc] initWithPlaceList:placelist];
+    vc.delegate=self;
+    
+    shopListController=vc;
+    
+    [searchNavi pushViewController:vc animated:true];
 }
 
 -(void)shopListControllerTouchedTextField:(ShopListViewController *)controller
 {
-    [searchNavi removeViewController:searchShopController];
-    
-    SearchShopViewController *vc=[[SearchShopViewController alloc] initWithKeyword:controller.keyword];
-    vc.delegate=self;
-    
-    [searchNavi pushViewController:vc animated:true];
+    [self showSearchShopWithKeyword:controller.keyword];
 }
 
 -(void)shopListControllerTouchedBack:(ShopListViewController *)controller
 {
     if(searchNavi.viewControllers.count==1)
         [self.navigationController popViewControllerAnimated:true];
-    else
-        [searchNavi popViewControllerAnimated:true];
+    
+    [searchNavi popViewControllerAnimated:true];
 }
 
 - (void)didReceiveMemoryWarning

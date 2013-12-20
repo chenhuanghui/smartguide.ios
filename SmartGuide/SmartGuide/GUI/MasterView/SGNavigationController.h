@@ -32,8 +32,10 @@
 
 -(SGNavigationController*) initWithViewControllers:(NSArray*) controllers;
 
+-(void) makePushViewController:(UIViewController*)viewController animate:(bool) animate;
 -(void) pushViewController:(UIViewController *)viewController animated:(BOOL)animated transition:(CATransition*) transition;
 -(UIViewController *)popViewControllerAnimated:(BOOL)animated transition:(CATransition*) transition;
+
 
 -(void) setRootViewController:(UIViewController*) viewController animate:(bool) animate;
 -(void) makeRootViewController:(UIViewController*) viewController;

@@ -28,6 +28,7 @@
     __weak IBOutlet UIView *topView;
     
     NSString *_keyword;
+    __weak Placelist *_placelist;
     
     ASIOperationPlacelistGetList *_operationPlacelistGetList;
     
@@ -38,6 +39,10 @@
 }
 
 -(SearchShopViewController*) initWithKeyword:(NSString*) keyword;
+-(SearchShopViewController*) initWithPlacelist:(Placelist*) place;
+
+-(void) setKeyword:(NSString*) keyword;
+-(void) setPlacelist:(Placelist*) place;
 
 @property (nonatomic, weak) id<SearchShopControllerDelegate> delegate;
 

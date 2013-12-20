@@ -26,6 +26,26 @@
     return self;
 }
 
+-(SearchShopViewController *)initWithPlacelist:(Placelist *)place
+{
+    self = [super initWithNibName:@"SearchShopViewController" bundle:nil];
+    if (self) {
+        // Custom initialization
+        _placelist=place;
+    }
+    return self;
+}
+
+-(void)setKeyword:(NSString *)keyword
+{
+    _keyword=keyword;
+}
+
+-(void)setPlacelist:(Placelist *)place
+{
+    _placelist=place;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];

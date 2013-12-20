@@ -96,6 +96,7 @@ enum SHOP_LIST_VIEW_MODE {
 -(ShopListViewController*) initWithPlaceList:(Placelist*) placeList;
 
 -(NSString*) keyword;
+-(Placelist*) placelist;
 
 -(bool) isZoomedMap;
 

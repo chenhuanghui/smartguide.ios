@@ -747,6 +747,19 @@ CALL_DEALLOC_LOG
     return nil;
 }
 
+-(void)makePushViewController:(UIViewController *)viewController animate:(bool)animate
+{
+    if(self.visibleViewController==viewController)
+        return;
+    
+    NSMutableArray *array=[self.viewControllers mutableCopy];
+    [array removeObject:viewController];
+    
+    self.viewControllers=array;
+    
+    [self pushViewController:viewController animated:animate];
+}
+
 @end
 
 @implementation SGLeftViewController

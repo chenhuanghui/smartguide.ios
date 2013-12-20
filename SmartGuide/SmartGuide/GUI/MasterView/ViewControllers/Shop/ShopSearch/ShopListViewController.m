@@ -834,7 +834,9 @@
         y=MAX(36, y);
         y=MIN(scrollerContain.l_v_h-scrollerView.l_v_h-QRCODE_RAY_HEIGHT, y);
         
-        [scrollerView l_v_setY:y];
+        [UIView animateWithDuration:0.3f animations:^{
+            [scrollerView l_v_setY:y];
+        }];
         
         CGPoint pnt=scrollerView.l_v_o;
         pnt.x=0;
@@ -1222,6 +1224,11 @@
 -(NSString *)keyword
 {
     return _keyword;
+}
+
+-(Placelist *)placelist
+{
+    return _placeList;
 }
 
 -(void)didReceiveMemoryWarning
