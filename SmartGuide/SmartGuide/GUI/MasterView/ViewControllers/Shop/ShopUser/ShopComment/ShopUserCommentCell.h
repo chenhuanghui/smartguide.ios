@@ -9,8 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "ShopUserComment.h"
 #import "ButtonAgree.h"
+#import "ASIOperationAgreeComment.h"
 
-@interface ShopUserCommentCell : UITableViewCell
+@interface ShopUserCommentCell : UITableViewCell<ASIOperationPostDelegate>
 {
     __weak IBOutlet UIImageView *imgvAvatar;
     __weak IBOutlet UILabel *lblUsername;
@@ -19,12 +20,14 @@
     __weak IBOutlet UIView *borderView;
     __weak IBOutlet UILabel *lblNumOfAgree;
     __weak IBOutlet ButtonAgree *btnAgree;
+    
+    __weak ShopUserComment *_comment;
 }
 
 -(void) loadWithComment:(ShopUserComment*) comment;
 
 +(NSString *)reuseIdentifier;
 +(float) heightSummary;
-+(float) heightWithComment:(NSString*) comment;
++(float) heightWithComment:(ShopUserComment*) comment;
 
 @end

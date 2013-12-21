@@ -9,6 +9,7 @@
 #import "ShopKM1.h"
 #import "ShopGallery.h"
 #import "ShopUserComment.h"
+#import "ShopUserComment.h"
 #import "ShopUserGallery.h"
 
 
@@ -19,6 +20,9 @@
 
 
 @dynamic km1;
+
+
+
 
 
 
@@ -460,71 +464,139 @@
 	return result;
 }
 
-#pragma mark UserComments
-- (NSSet*)userComments {
-	[self willAccessValueForKey:@"userComments"];
-	NSSet *result = [self primitiveValueForKey:@"userComments"];
-	[self didAccessValueForKey:@"userComments"];
+#pragma mark TimeComments
+- (NSSet*)timeComments {
+	[self willAccessValueForKey:@"timeComments"];
+	NSSet *result = [self primitiveValueForKey:@"timeComments"];
+	[self didAccessValueForKey:@"timeComments"];
 	return result;
 }
 
--(NSArray*) userCommentsObjects
+-(NSArray*) timeCommentsObjects
 {
-    NSSet *set=[self userComments];
+    NSSet *set=[self timeComments];
     if(set)
         return [set allObjects];
     
     return [NSArray array];
 }
 
-- (void)setUserComments:(NSSet*)value {
-	[self willChangeValueForKey:@"userComments" withSetMutation:NSKeyValueSetSetMutation usingObjects:value];
-	[[self primitiveValueForKey:@"userComments"] setSet:value];
-	[self didChangeValueForKey:@"userComments" withSetMutation:NSKeyValueSetSetMutation usingObjects:value];
+- (void)setTimeComments:(NSSet*)value {
+	[self willChangeValueForKey:@"timeComments" withSetMutation:NSKeyValueSetSetMutation usingObjects:value];
+	[[self primitiveValueForKey:@"timeComments"] setSet:value];
+	[self didChangeValueForKey:@"timeComments" withSetMutation:NSKeyValueSetSetMutation usingObjects:value];
 }
 
-- (void)addUserComments:(NSSet*)value {
-	[self willChangeValueForKey:@"userComments" withSetMutation:NSKeyValueUnionSetMutation usingObjects:value];
-	[[self primitiveValueForKey:@"userComments"] unionSet:value];
-	[self didChangeValueForKey:@"userComments" withSetMutation:NSKeyValueUnionSetMutation usingObjects:value];
+- (void)addTimeComments:(NSSet*)value {
+	[self willChangeValueForKey:@"timeComments" withSetMutation:NSKeyValueUnionSetMutation usingObjects:value];
+	[[self primitiveValueForKey:@"timeComments"] unionSet:value];
+	[self didChangeValueForKey:@"timeComments" withSetMutation:NSKeyValueUnionSetMutation usingObjects:value];
 }
 
--(void)removeUserComments:(NSSet*)value {
+-(void)removeTimeComments:(NSSet*)value {
 
     for(NSManagedObject *obj in value.allObjects)
         [self.managedObjectContext deleteObject:obj];
 
-	[self willChangeValueForKey:@"userComments" withSetMutation:NSKeyValueMinusSetMutation usingObjects:value];
-	[[self primitiveValueForKey:@"userComments"] minusSet:value];
-	[self didChangeValueForKey:@"userComments" withSetMutation:NSKeyValueMinusSetMutation usingObjects:value];
+	[self willChangeValueForKey:@"timeComments" withSetMutation:NSKeyValueMinusSetMutation usingObjects:value];
+	[[self primitiveValueForKey:@"timeComments"] minusSet:value];
+	[self didChangeValueForKey:@"timeComments" withSetMutation:NSKeyValueMinusSetMutation usingObjects:value];
 }
 	
-- (void)addUserCommentsObject:(ShopUserComment*)value {
+- (void)addTimeCommentsObject:(ShopUserComment*)value {
 	NSSet *changedObjects = [[NSSet alloc] initWithObjects:&value count:1];
-	[self willChangeValueForKey:@"userComments" withSetMutation:NSKeyValueUnionSetMutation usingObjects:changedObjects];
-	[[self primitiveValueForKey:@"userComments"] addObject:value];
-	[self didChangeValueForKey:@"userComments" withSetMutation:NSKeyValueUnionSetMutation usingObjects:changedObjects];
+	[self willChangeValueForKey:@"timeComments" withSetMutation:NSKeyValueUnionSetMutation usingObjects:changedObjects];
+	[[self primitiveValueForKey:@"timeComments"] addObject:value];
+	[self didChangeValueForKey:@"timeComments" withSetMutation:NSKeyValueUnionSetMutation usingObjects:changedObjects];
 }
 
-- (void)removeUserCommentsObject:(ShopUserComment*)value {
+- (void)removeTimeCommentsObject:(ShopUserComment*)value {
 
     [self.managedObjectContext deleteObject:value];
 
 	NSSet *changedObjects = [[NSSet alloc] initWithObjects:&value count:1];
-	[self willChangeValueForKey:@"userComments" withSetMutation:NSKeyValueMinusSetMutation usingObjects:changedObjects];
-	[[self primitiveValueForKey:@"userComments"] removeObject:value];
-	[self didChangeValueForKey:@"userComments" withSetMutation:NSKeyValueMinusSetMutation usingObjects:changedObjects];
+	[self willChangeValueForKey:@"timeComments" withSetMutation:NSKeyValueMinusSetMutation usingObjects:changedObjects];
+	[[self primitiveValueForKey:@"timeComments"] removeObject:value];
+	[self didChangeValueForKey:@"timeComments" withSetMutation:NSKeyValueMinusSetMutation usingObjects:changedObjects];
 }
 
-- (void) removeAllUserComments
+- (void) removeAllTimeComments
 {
-    [self removeUserComments:self.userComments];
+    [self removeTimeComments:self.timeComments];
 }
 
-- (NSMutableSet*)userCommentsSet {
-	[self willAccessValueForKey:@"userComments"];
-	NSMutableSet *result = [self mutableSetValueForKey:@"userComments"];
-	[self didAccessValueForKey:@"userComments"];
+- (NSMutableSet*)timeCommentsSet {
+	[self willAccessValueForKey:@"timeComments"];
+	NSMutableSet *result = [self mutableSetValueForKey:@"timeComments"];
+	[self didAccessValueForKey:@"timeComments"];
+	return result;
+}
+
+#pragma mark TopComments
+- (NSSet*)topComments {
+	[self willAccessValueForKey:@"topComments"];
+	NSSet *result = [self primitiveValueForKey:@"topComments"];
+	[self didAccessValueForKey:@"topComments"];
+	return result;
+}
+
+-(NSArray*) topCommentsObjects
+{
+    NSSet *set=[self topComments];
+    if(set)
+        return [set allObjects];
+    
+    return [NSArray array];
+}
+
+- (void)setTopComments:(NSSet*)value {
+	[self willChangeValueForKey:@"topComments" withSetMutation:NSKeyValueSetSetMutation usingObjects:value];
+	[[self primitiveValueForKey:@"topComments"] setSet:value];
+	[self didChangeValueForKey:@"topComments" withSetMutation:NSKeyValueSetSetMutation usingObjects:value];
+}
+
+- (void)addTopComments:(NSSet*)value {
+	[self willChangeValueForKey:@"topComments" withSetMutation:NSKeyValueUnionSetMutation usingObjects:value];
+	[[self primitiveValueForKey:@"topComments"] unionSet:value];
+	[self didChangeValueForKey:@"topComments" withSetMutation:NSKeyValueUnionSetMutation usingObjects:value];
+}
+
+-(void)removeTopComments:(NSSet*)value {
+
+    for(NSManagedObject *obj in value.allObjects)
+        [self.managedObjectContext deleteObject:obj];
+
+	[self willChangeValueForKey:@"topComments" withSetMutation:NSKeyValueMinusSetMutation usingObjects:value];
+	[[self primitiveValueForKey:@"topComments"] minusSet:value];
+	[self didChangeValueForKey:@"topComments" withSetMutation:NSKeyValueMinusSetMutation usingObjects:value];
+}
+	
+- (void)addTopCommentsObject:(ShopUserComment*)value {
+	NSSet *changedObjects = [[NSSet alloc] initWithObjects:&value count:1];
+	[self willChangeValueForKey:@"topComments" withSetMutation:NSKeyValueUnionSetMutation usingObjects:changedObjects];
+	[[self primitiveValueForKey:@"topComments"] addObject:value];
+	[self didChangeValueForKey:@"topComments" withSetMutation:NSKeyValueUnionSetMutation usingObjects:changedObjects];
+}
+
+- (void)removeTopCommentsObject:(ShopUserComment*)value {
+
+    [self.managedObjectContext deleteObject:value];
+
+	NSSet *changedObjects = [[NSSet alloc] initWithObjects:&value count:1];
+	[self willChangeValueForKey:@"topComments" withSetMutation:NSKeyValueMinusSetMutation usingObjects:changedObjects];
+	[[self primitiveValueForKey:@"topComments"] removeObject:value];
+	[self didChangeValueForKey:@"topComments" withSetMutation:NSKeyValueMinusSetMutation usingObjects:changedObjects];
+}
+
+- (void) removeAllTopComments
+{
+    [self removeTopComments:self.topComments];
+}
+
+- (NSMutableSet*)topCommentsSet {
+	[self willAccessValueForKey:@"topComments"];
+	NSMutableSet *result = [self mutableSetValueForKey:@"topComments"];
+	[self didAccessValueForKey:@"topComments"];
 	return result;
 }
 

@@ -98,8 +98,6 @@
 		9A32F3D9184345AE00704D26 /* SGMapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A32F38B184345AE00704D26 /* SGMapViewController.xib */; };
 		9A32F3E0184345AE00704D26 /* ShopCameraTakeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A32F39B184345AE00704D26 /* ShopCameraTakeViewController.m */; };
 		9A32F3E1184345AE00704D26 /* ShopCameraTakeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A32F39C184345AE00704D26 /* ShopCameraTakeViewController.xib */; };
-		9A32F3E2184345AE00704D26 /* ShopCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A32F39F184345AE00704D26 /* ShopCommentViewController.m */; };
-		9A32F3E3184345AE00704D26 /* ShopCommentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A32F3A0184345AE00704D26 /* ShopCommentViewController.xib */; };
 		9A32F3E4184345AE00704D26 /* ShopUserCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A32F3A2184345AE00704D26 /* ShopUserCommentCell.m */; };
 		9A32F3E5184345AE00704D26 /* ShopUserCommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A32F3A3184345AE00704D26 /* ShopUserCommentCell.xib */; };
 		9A32F3E6184345AE00704D26 /* ShopGalleryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A32F3A6184345AE00704D26 /* ShopGalleryCell.m */; };
@@ -149,7 +147,6 @@
 		9A32F4581843488F00704D26 /* TableTemplate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A32F4491843488F00704D26 /* TableTemplate.m */; };
 		9A32F4591843488F00704D26 /* TextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A32F44B1843488F00704D26 /* TextField.m */; };
 		9A32F45A1843488F00704D26 /* THLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A32F44E1843488F00704D26 /* THLabel.m */; };
-		9A32F45E1843489600704D26 /* ActivityIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A32F45D1843489600704D26 /* ActivityIndicator.m */; };
 		9A32F46F184348A300704D26 /* GMGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A32F467184348A300704D26 /* GMGridView.m */; };
 		9A32F470184348A300704D26 /* GMGridViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A32F46A184348A300704D26 /* GMGridViewCell.m */; };
 		9A32F471184348A300704D26 /* GMGridViewLayoutStrategies.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A32F46C184348A300704D26 /* GMGridViewLayoutStrategies.m */; };
@@ -454,6 +451,7 @@
 		9AC494BF1858B48A0042C535 /* _StoreShopItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AC494BD1858B48A0042C535 /* _StoreShopItem.m */; };
 		9AC494C41858B4900042C535 /* StoreShop.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AC494C11858B4900042C535 /* StoreShop.m */; };
 		9AC494C51858B4900042C535 /* StoreShopItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AC494C31858B4900042C535 /* StoreShopItem.m */; };
+		9AC66F86186447B300890F80 /* ASIOperationAgreeComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AC66F85186447B300890F80 /* ASIOperationAgreeComment.m */; };
 		9AC74E4C186096740033EB61 /* SGMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AC74E4B186096740033EB61 /* SGMapView.m */; };
 		9AC74E521860BE1C0033EB61 /* Placelist.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AC74E511860BE1C0033EB61 /* Placelist.m */; };
 		9AC74E551860BE230033EB61 /* _Placelist.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AC74E541860BE230033EB61 /* _Placelist.m */; };
@@ -523,7 +521,6 @@
 		9AD1280D185EFD3500D56B24 /* _StoreCart.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AD1280C185EFD3500D56B24 /* _StoreCart.m */; };
 		9AD23D5217FABC0100D28C7E /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AD23D5117FABC0100D28C7E /* AudioToolbox.framework */; };
 		9AED46AC181E73AB00BAD467 /* SGViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AED46AB181E73AB00BAD467 /* SGViewController.m */; };
-		9AED46AF181E745500BAD467 /* SGActivityIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AED46AE181E745500BAD467 /* SGActivityIndicator.m */; };
 		9AEE83FC17FABD1500D92191 /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AEE83FB17FABD1500D92191 /* AddressBookUI.framework */; };
 		9AF01E7F180652B000D9F037 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AF01E7E180652B000D9F037 /* FacebookSDK.framework */; };
 		9AFC69D117F2C0F500177476 /* OperationNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AFC69D017F2C0F500177476 /* OperationNotifications.m */; };
@@ -764,9 +761,6 @@
 		9A32F39A184345AE00704D26 /* ShopCameraTakeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopCameraTakeViewController.h; sourceTree = "<group>"; };
 		9A32F39B184345AE00704D26 /* ShopCameraTakeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopCameraTakeViewController.m; sourceTree = "<group>"; };
 		9A32F39C184345AE00704D26 /* ShopCameraTakeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShopCameraTakeViewController.xib; sourceTree = "<group>"; };
-		9A32F39E184345AE00704D26 /* ShopCommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopCommentViewController.h; sourceTree = "<group>"; };
-		9A32F39F184345AE00704D26 /* ShopCommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopCommentViewController.m; sourceTree = "<group>"; };
-		9A32F3A0184345AE00704D26 /* ShopCommentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShopCommentViewController.xib; sourceTree = "<group>"; };
 		9A32F3A1184345AE00704D26 /* ShopUserCommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopUserCommentCell.h; sourceTree = "<group>"; };
 		9A32F3A2184345AE00704D26 /* ShopUserCommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopUserCommentCell.m; sourceTree = "<group>"; };
 		9A32F3A3184345AE00704D26 /* ShopUserCommentCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShopUserCommentCell.xib; sourceTree = "<group>"; };
@@ -846,8 +840,6 @@
 		9A32F44B1843488F00704D26 /* TextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextField.m; sourceTree = "<group>"; };
 		9A32F44D1843488F00704D26 /* THLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = THLabel.h; sourceTree = "<group>"; };
 		9A32F44E1843488F00704D26 /* THLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = THLabel.m; sourceTree = "<group>"; };
-		9A32F45C1843489600704D26 /* ActivityIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityIndicator.h; sourceTree = "<group>"; };
-		9A32F45D1843489600704D26 /* ActivityIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityIndicator.m; sourceTree = "<group>"; };
 		9A32F465184348A300704D26 /* GMGridView-Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GMGridView-Constants.h"; sourceTree = "<group>"; };
 		9A32F466184348A300704D26 /* GMGridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMGridView.h; sourceTree = "<group>"; };
 		9A32F467184348A300704D26 /* GMGridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMGridView.m; sourceTree = "<group>"; };
@@ -1219,6 +1211,8 @@
 		9AC494C11858B4900042C535 /* StoreShop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoreShop.m; sourceTree = "<group>"; };
 		9AC494C21858B4900042C535 /* StoreShopItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoreShopItem.h; sourceTree = "<group>"; };
 		9AC494C31858B4900042C535 /* StoreShopItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoreShopItem.m; sourceTree = "<group>"; };
+		9AC66F84186447B300890F80 /* ASIOperationAgreeComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIOperationAgreeComment.h; sourceTree = "<group>"; };
+		9AC66F85186447B300890F80 /* ASIOperationAgreeComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIOperationAgreeComment.m; sourceTree = "<group>"; };
 		9AC74E4A186096740033EB61 /* SGMapView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGMapView.h; sourceTree = "<group>"; };
 		9AC74E4B186096740033EB61 /* SGMapView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGMapView.m; sourceTree = "<group>"; };
 		9AC74E501860BE1C0033EB61 /* Placelist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Placelist.h; sourceTree = "<group>"; };
@@ -1310,8 +1304,6 @@
 		9AD23D5117FABC0100D28C7E /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		9AED46AA181E73AB00BAD467 /* SGViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGViewController.h; sourceTree = "<group>"; };
 		9AED46AB181E73AB00BAD467 /* SGViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGViewController.m; sourceTree = "<group>"; };
-		9AED46AD181E745500BAD467 /* SGActivityIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGActivityIndicator.h; sourceTree = "<group>"; };
-		9AED46AE181E745500BAD467 /* SGActivityIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGActivityIndicator.m; sourceTree = "<group>"; };
 		9AEE83FB17FABD1500D92191 /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
 		9AF01E7E180652B000D9F037 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = ../../Documents/FacebookSDK/FacebookSDK.framework; sourceTree = "<group>"; };
 		9AFC69CF17F2C0F500177476 /* OperationNotifications.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OperationNotifications.h; path = ../ASIOperation/OperationNotifications.h; sourceTree = "<group>"; };
@@ -1763,9 +1755,6 @@
 		9A32F39D184345AE00704D26 /* ShopComment */ = {
 			isa = PBXGroup;
 			children = (
-				9A32F39E184345AE00704D26 /* ShopCommentViewController.h */,
-				9A32F39F184345AE00704D26 /* ShopCommentViewController.m */,
-				9A32F3A0184345AE00704D26 /* ShopCommentViewController.xib */,
 				9A32F3A1184345AE00704D26 /* ShopUserCommentCell.h */,
 				9A32F3A2184345AE00704D26 /* ShopUserCommentCell.m */,
 				9A32F3A3184345AE00704D26 /* ShopUserCommentCell.xib */,
@@ -2017,15 +2006,6 @@
 				9A32F44E1843488F00704D26 /* THLabel.m */,
 			);
 			path = THLabel;
-			sourceTree = "<group>";
-		};
-		9A32F45B1843489600704D26 /* ActivityIndicator */ = {
-			isa = PBXGroup;
-			children = (
-				9A32F45C1843489600704D26 /* ActivityIndicator.h */,
-				9A32F45D1843489600704D26 /* ActivityIndicator.m */,
-			);
-			path = ActivityIndicator;
 			sourceTree = "<group>";
 		};
 		9A32F45F184348A300704D26 /* GMGridView */ = {
@@ -2543,6 +2523,8 @@
 				9ACFAE5C186163FE006131DC /* ASIOperationPlacelistDetail.m */,
 				9ACFAEEA18635267006131DC /* ASIOperationLoveShop.h */,
 				9ACFAEEB18635267006131DC /* ASIOperationLoveShop.m */,
+				9AC66F84186447B300890F80 /* ASIOperationAgreeComment.h */,
+				9AC66F85186447B300890F80 /* ASIOperationAgreeComment.m */,
 			);
 			path = ASIOperation;
 			sourceTree = "<group>";
@@ -2598,8 +2580,6 @@
 				9A7EA8C7181A8C8C008D693A /* TransportViewController.m */,
 				9AED46AA181E73AB00BAD467 /* SGViewController.h */,
 				9AED46AB181E73AB00BAD467 /* SGViewController.m */,
-				9AED46AD181E745500BAD467 /* SGActivityIndicator.h */,
-				9AED46AE181E745500BAD467 /* SGActivityIndicator.m */,
 				9AFF5CB1181EBC4200F159F0 /* SGNavigationController.h */,
 				9AFF5CB2181EBC4200F159F0 /* SGNavigationController.m */,
 				9A01E37E182DEB5500225363 /* SGRootViewController.h */,
@@ -2751,7 +2731,6 @@
 				9A32F476184348C100704D26 /* PageConrol */,
 				9A32F472184348B600704D26 /* HitTestView */,
 				9A32F45F184348A300704D26 /* GMGridView */,
-				9A32F45B1843489600704D26 /* ActivityIndicator */,
 				9A32F4321843488E00704D26 /* Controls */,
 				9A32F42E1843486F00704D26 /* AlphaView */,
 				9A32F42A1843485300704D26 /* ODRefreshControl */,
@@ -3258,7 +3237,6 @@
 				9A3E768518532BDF00F596C1 /* UserCollectionViewController.xib in Resources */,
 				9A32F4051843469400704D26 /* SGNotificationViewController.xib in Resources */,
 				9A3986BA185B6DF4006C0961 /* button_arrow_navigation.png in Resources */,
-				9A32F3E3184345AE00704D26 /* ShopCommentViewController.xib in Resources */,
 				9A7E5550183C710C006D1798 /* button_getgifft@2x.png in Resources */,
 				9AA026CE183674CF0087B2DA /* button_navigation@2x.png in Resources */,
 				9A32F3E5184345AE00704D26 /* ShopUserCommentCell.xib in Resources */,
@@ -3641,6 +3619,7 @@
 				A9A505E7178EC5EF00F27E18 /* FTCoreTextView.m in Sources */,
 				9A2A33D7184F80EA002949C4 /* SUKM0Cell.m in Sources */,
 				9A2A33D4184F80E1002949C4 /* SUKM3Cell.m in Sources */,
+				9AC66F86186447B300890F80 /* ASIOperationAgreeComment.m in Sources */,
 				A9BF946D178FA7E700EF7E5F /* AFHTTPClient.m in Sources */,
 				A9BF946E178FA7E700EF7E5F /* AFHTTPRequestOperation.m in Sources */,
 				9A29391B18445D9900FD49E2 /* _KM1Voucher.m in Sources */,
@@ -3675,7 +3654,6 @@
 				9A32F4521843488F00704D26 /* Label.m in Sources */,
 				9ACFA6A318600AA50090E7A8 /* ShopList.m in Sources */,
 				A91A675B1797F65000BEB8C5 /* DataManager.m in Sources */,
-				9A32F3E2184345AE00704D26 /* ShopCommentViewController.m in Sources */,
 				9A2A33D1184F80D9002949C4 /* SUKM2Cell.m in Sources */,
 				9A3B93F7185DFDAE004F94A4 /* StoreShopViewController.m in Sources */,
 				9A32F3F2184345AE00704D26 /* ShopUserViewController.m in Sources */,
@@ -3686,7 +3664,6 @@
 				9A32F4091843469A00704D26 /* SGTutorialViewController.m in Sources */,
 				9A3B93F5185DFDAE004F94A4 /* StoreShopCell.m in Sources */,
 				9ACFA697185FF3DE0090E7A8 /* SearchViewController.m in Sources */,
-				9AED46AF181E745500BAD467 /* SGActivityIndicator.m in Sources */,
 				A9CFD36B1797FCEC0035E448 /* _User.m in Sources */,
 				A9CFD3731797FFC20035E448 /* City.m in Sources */,
 				9ACFAE5D186163FE006131DC /* ASIOperationPlacelistDetail.m in Sources */,
@@ -3697,7 +3674,6 @@
 				A99089D7179926800025DC08 /* Shop.m in Sources */,
 				A99089DA179926880025DC08 /* _Shop.m in Sources */,
 				9A32F3CF184345AE00704D26 /* AvatarListView.m in Sources */,
-				9A32F45E1843489600704D26 /* ActivityIndicator.m in Sources */,
 				9A32F47E18434ECF00704D26 /* SGAdsViewController.m in Sources */,
 				A9249EED179E8E4500255B19 /* _Versions.m in Sources */,
 				9A55AB87181A726700BB4492 /* GUIManager.m in Sources */,

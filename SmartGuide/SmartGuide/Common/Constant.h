@@ -60,7 +60,7 @@
 #define API_SHOP_IN_GROUP_POST @"shop/list"
 #define API_SHOP_GALLERY @"images/gallery/get"
 #define API_SHOP_USER_GALLERY @"images/user/get"
-#define API_SHOP_COMMENTS @"comment/get"
+#define API_SHOP_COMMENTS @"comment/getShopComment"
 #define API_SHOP_POST_COMMENT @"comment/post"
 #define API_GET_SGP @"user/get/promotion1/point"
 #define API_GET_REWARD @"user/get/promotion2"
@@ -87,6 +87,7 @@
 #define API_PLACELIST_GET_LIST @"placelist/getList"
 #define API_PLACELIST_DETAIL @"placelist/get"
 #define API_LOVE_SHOP @"user/loveShop"
+#define API_AGREE_COMMENT @"user/agreeComment"
 
 #define API_GET_ACTIVE_CODE(phone) [NSString stringWithFormat:@"%@/user/activation?phone=%@",SERVER_IP,phone]
 #define API_VERIFY_ACTIVE_CODE(phone,activeCode) [NSString stringWithFormat:@"%@/user/check?phone=%@&code=%@",SERVER_IP,phone,activeCode]
@@ -227,6 +228,11 @@ enum SORT_PLACE_LIST {
     SORT_PLACE_LIST_LOVE = 2,
     SORT_PLACE_LIST_DEFAULT = 3
     };
+
+enum SORT_SHOP_COMMENT {
+    SORT_SHOP_COMMENT_TOP_AGREED = 0,
+    SORT_SHOP_COMMENT_TIME = 1
+};
 
 @class ShopCatalog;
 @protocol CatalogueBlockViewDelegate <NSObject>

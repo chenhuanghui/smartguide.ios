@@ -16,6 +16,7 @@
 #define COMMENT_TYPING_EXPANED_HEIGHT 114.f-86.f
 
 @implementation CommentTyping
+@synthesize sortComment,delegate;
 
 - (id)init
 {
@@ -43,6 +44,10 @@
         
         _imgvBottomFrame=imgvBottom.frame;
         _midFrame=midView.frame;
+        
+        textView.internalTextView.keyboardType=UIKeyboardTypeDefault;
+        textView.internalTextView.returnKeyType=UIReturnKeyDone;
+        hittestView.receiveView=textView;
     }
     return self;
 }
@@ -69,6 +74,7 @@
 
 -(void) keyboardWillShow:(NSNotification*) notification
 {
+    return;
     [UIView animateWithDuration:[notification.userInfo floatForKey:UIKeyboardAnimationDurationUserInfoKey] animations:^{
         [scroll l_co_setY:COMMENT_TYPING_EXPANED_HEIGHT];
         [imgvBottom l_v_setY:_imgvBottomFrame.origin.y+COMMENT_TYPING_EXPANED_HEIGHT];
@@ -109,6 +115,18 @@
 +(CGSize)size
 {
     return CGSizeMake(290, 120);
+}
+
+-(IBAction) btnSortTouchUpInside:(id)sender
+{
+    [self.delegate commentTypingTouchedSort:self];
+}
+
+-(void)setSortComment:(enum SORT_SHOP_COMMENT)_sortComment
+{
+    sortComment=_sortComment;
+    
+    [btnTopComment setTitle:sortComment==SORT_SHOP_COMMENT_TOP_AGREED?@"Xếp hạng":@"Thời gian" forState:UIControlStateNormal];
 }
 
 @end

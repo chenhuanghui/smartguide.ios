@@ -10,7 +10,7 @@
         <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="ShopUserCommentCell" rowHeight="124" id="1c0-Fd-XQF" customClass="ShopUserCommentCell">
             <rect key="frame" x="0.0" y="0.0" width="273" height="80"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="center" tableViewCell="1c0-Fd-XQF" id="c7i-7X-Dab">
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="1c0-Fd-XQF" id="c7i-7X-Dab">
                 <rect key="frame" x="0.0" y="0.0" width="273" height="79"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
@@ -70,11 +70,11 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </view>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="7pk-dt-d5W" customClass="ButtonAgree">
-                        <rect key="frame" x="216" y="55" width="52" height="22"/>
+                        <rect key="frame" x="214" y="55" width="56" height="22"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="12"/>
                         <inset key="titleEdgeInsets" minX="0.0" minY="3" maxX="0.0" maxY="0.0"/>
-                        <state key="normal" title="Đồng ý">
+                        <state key="normal" title="Đã đồng ý">
                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
                         <connections>

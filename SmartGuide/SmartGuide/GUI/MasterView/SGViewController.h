@@ -11,7 +11,6 @@
 #import "Utility.h"
 #import "LocalizationManager.h"
 #import "AlertView.h"
-#import "SGActivityIndicator.h"
 #import "ImageManager.h"
 #import "LoadingView.h"
 

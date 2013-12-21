@@ -11,7 +11,7 @@
 #import "Utility.h"
 #import "AlertView.h"
 #import "AlphaView.h"
-#import "ActivityIndicator.h"
+#import "LoadingView.h"
 
 @implementation CreateUserView
 @synthesize delegate;
@@ -65,7 +65,7 @@
     _isDoneTouched=true;
     if(_isLoadingAvatar)
     {
-        [self showLoadingWithTitle:nil];
+        [self showLoading];
     }
     else
         [self notifyDone];
@@ -129,7 +129,7 @@
         
         [operation startAsynchronous];
         
-        [self showLoadingWithTitle:nil];
+        [self showLoading];
     }
 }
 

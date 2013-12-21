@@ -12,21 +12,33 @@
 #import "Shop.h"
 
 @class TableUserComment;
+@class SUUserCommentCell;
 
-@interface SUUserCommentCell : UITableViewCell<UITableViewDataSource,UITableViewDelegate>
+@protocol UserCommentDelegate <NSObject>
+
+-(bool) userCommentCanLoadMore:(SUUserCommentCell*) cell;
+-(void) userCommentLoadMore:(SUUserCommentCell*) cell;
+-(void) userCommentChangeSort:(SUUserCommentCell*) cell sort:(enum SORT_SHOP_COMMENT) sort;
+
+@end
+
+@interface SUUserCommentCell : UITableViewCell<UITableViewDataSource,UITableViewDelegate,CommentTypingDelegate,UIActionSheetDelegate>
 {
     __weak IBOutlet TableUserComment *table;
     __weak CommentTyping *cmtTyping;
     __weak UITapGestureRecognizer *_tapTable;
-    __weak Shop* _shop;
+    
+    NSArray *_comments;
 }
 
--(void) loadWithShop:(Shop*) shop maxHeight:(float) maxHeight;
--(void) tableDidScrollWithContentOffSetY:(float) contentOffSetY cellContentY:(float) y;
+-(void) loadWithComments:(NSArray*) comments sort:(enum SORT_SHOP_COMMENT) sort maxHeight:(float) height;
+-(void) tableDidScroll:(UITableView*) tableUser cellRect:(CGRect) cellRect;
 
 +(NSString *)reuseIdentifier;
-+(float) heightWithShop:(Shop*) shop;
++(float) heightWithComments:(NSArray*) comments maxHeight:(float) maxHeight;
 +(float) tableY;
+
+@property (nonatomic, weak) id<UserCommentDelegate> delegate;
 
 @end
 

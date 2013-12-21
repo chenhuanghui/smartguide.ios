@@ -624,6 +624,7 @@
     if([operation isKindOfClass:[ASIOperationShopSearch class]])
     {
         [self.view removeLoading];
+        [tableList removeLoading];
         
         ASIOperationShopSearch *ope=(ASIOperationShopSearch*) operation;
         

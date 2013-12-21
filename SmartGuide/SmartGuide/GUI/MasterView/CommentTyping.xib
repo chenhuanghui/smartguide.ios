@@ -49,6 +49,9 @@
                                     <state key="normal" title="Top comments">
                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
+                                    <connections>
+                                        <action selector="btnSortTouchUpInside:" destination="1" eventType="touchUpInside" id="Gha-Az-wRe"/>
+                                    </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="MJG-e0-Voe">
                                     <rect key="frame" x="8" y="25" width="95" height="22"/>
@@ -90,6 +93,11 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
+                <view contentMode="scaleToFill" id="hK0-sf-eB6" customClass="HitTestView">
+                    <rect key="frame" x="26" y="29" width="239" height="49"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                </view>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
@@ -98,6 +106,7 @@
                 <outlet property="btnShareFB" destination="MJG-e0-Voe" id="kcK-O6-GcM"/>
                 <outlet property="btnTopComment" destination="Dbe-5H-a9w" id="oxX-BI-kqN"/>
                 <outlet property="contentScroll" destination="kbo-Jy-wGl" id="jpw-lU-nLR"/>
+                <outlet property="hittestView" destination="hK0-sf-eB6" id="Lgj-jw-oKK"/>
                 <outlet property="imgvAvatar" destination="Ei9-qT-l4w" id="2Jo-xh-XQ0"/>
                 <outlet property="imgvBottom" destination="gaI-5g-5bR" id="qD1-lu-OIw"/>
                 <outlet property="midView" destination="4HH-0d-G2A" id="ajL-zO-D11"/>

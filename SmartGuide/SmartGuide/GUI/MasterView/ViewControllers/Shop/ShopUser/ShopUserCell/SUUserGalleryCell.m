@@ -27,7 +27,7 @@
 
 +(float)height
 {
-    return 190;
+    return 182;
 }
 
 -(IBAction) btnMakePictureTouchUpInside:(id)sender

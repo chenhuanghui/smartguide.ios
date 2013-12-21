@@ -36,7 +36,8 @@
         shop.idShop=@(idShop);
     }
     
-    [shop removeAllUserComments];
+    [shop removeAllTimeComments];
+    [shop removeAllTopComments];
     [shop removeAllUserGalleries];
     [shop removeAllShopGalleries];
     [shop removeAllDetailInfo];
@@ -99,7 +100,7 @@
             
             obj.sortOrder=@(i++);
             
-            [shop addUserCommentsObject:obj];
+            [shop addTopCommentsObject:obj];
         }
     }
     
@@ -144,9 +145,9 @@
     }
 }
 
--(NSArray *)userCommentsObjects
+-(NSArray *) topCommentsObjects
 {
-    return [[super userCommentsObjects] sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:ShopUserComment_SortOrder ascending:true]]];
+    return [[super topCommentsObjects] sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:ShopUserComment_SortOrder ascending:true]]];
 }
 
 -(NSArray *)userGalleriesObjects

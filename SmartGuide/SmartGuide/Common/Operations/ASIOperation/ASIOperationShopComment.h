@@ -10,8 +10,9 @@
 
 @interface ASIOperationShopComment : ASIOperationPost
 
--(ASIOperationShopComment*) initWithIDShop:(int) idShop page:(int) page;
+-(ASIOperationShopComment*) initWithIDShop:(int) idShop page:(int) page sort:(enum SORT_SHOP_COMMENT) sort;
 
 @property (nonatomic, readonly) NSMutableArray *comments;
+@property (nonatomic, readonly) enum SORT_SHOP_COMMENT sortComment;
 
 @end

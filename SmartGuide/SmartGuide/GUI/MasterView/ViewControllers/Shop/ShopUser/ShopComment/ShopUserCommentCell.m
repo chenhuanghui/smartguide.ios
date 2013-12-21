@@ -7,6 +7,7 @@
 //
 
 #import "ShopUserCommentCell.h"
+#import "LoadingView.h"
 
 #define SHOP_USER_COMMENT_FONT [UIFont fontWithName:@"Avenir-Roman" size:11]
 #define SHOP_USER_COMMENT_WIDTH 189.f
@@ -15,11 +16,26 @@
 
 -(void)loadWithComment:(ShopUserComment *)comment
 {
+    _comment=comment;
+    
     lblUsername.text=comment.username;
     lblTime.text=comment.time;
     lblComment.text=comment.comment;
     lblNumOfAgree.text=comment.numOfAgree;
-    [btnAgree setTitle:@"Đồng ý" agreeStatus:[comment enumAgreeStatus]];
+    
+    switch (comment.enumAgreeStatus) {
+        case AGREE_STATUS_AGREED:
+            [btnAgree setTitle:@"Đã đồng ý" agreeStatus:comment.enumAgreeStatus];
+            break;
+     
+        case AGREE_STATUS_NONE:
+            [btnAgree setTitle:@"Đồng ý" agreeStatus:[comment enumAgreeStatus]];
+            break;
+            
+        default:
+            [btnAgree setTitle:@"Đồng ý" agreeStatus:[comment enumAgreeStatus]];
+            break;
+    }
 }
 
 +(NSString *)reuseIdentifier
@@ -27,11 +43,11 @@
     return @"ShopUserCommentCell";
 }
 
-+(float)heightWithComment:(NSString *)comment
++(float)heightWithComment:(ShopUserComment *)comment
 {
     UIFont *font=SHOP_USER_COMMENT_FONT;
     
-    CGSize size=[comment sizeWithFont:font constrainedToSize:CGSizeMake(SHOP_USER_COMMENT_WIDTH, 999999) lineBreakMode:NSLineBreakByTruncatingTail];
+    CGSize size=[comment.comment sizeWithFont:font constrainedToSize:CGSizeMake(SHOP_USER_COMMENT_WIDTH, 999999) lineBreakMode:NSLineBreakByTruncatingTail];
 
     float commentY=25;
 
@@ -44,6 +60,23 @@
 }
 
 -(IBAction) btnAgreeTouchUpInside:(id)sender
+{
+    enum AGREE_STATUS isAgree=_comment.enumAgreeStatus==AGREE_STATUS_AGREED?AGREE_STATUS_NONE:AGREE_STATUS_AGREED;
+    ASIOperationAgreeComment *ope=[[ASIOperationAgreeComment alloc] initWithIDComment:_comment.idComment.integerValue userLat:userLat() userLng:userLng() isAgree:isAgree];
+    ope.delegatePost=self;
+    
+    [ope startAsynchronous];
+}
+
+-(void)ASIOperaionPostFinished:(ASIOperationPost *)operation
+{
+    if([operation isKindOfClass:[ASIOperationAgreeComment class]])
+    {
+        [self loadWithComment:_comment];
+    }
+}
+
+-(void)ASIOperaionPostFailed:(ASIOperationPost *)operation
 {
     
 }

@@ -21,8 +21,8 @@
 // THE SOFTWARE.
 
 #import <Foundation/Foundation.h>
+#import "LoadingView.h"
 #import <objc/runtime.h>
-#import "ActivityIndicator.h"
 
 #if defined(__IPHONE_OS_VERSION_MIN_REQUIRED)
 #import "UIImageView+AFNetworking.h"
@@ -219,7 +219,7 @@ static char kAFImageRequestOperationObjectKey;
     }
     else
     {
-        [self showLoadingWithTitle:nil];
+        [self showLoading];
 
         AFImageRequestOperation *requestOperation = [[AFImageRequestOperation alloc] initWithRequest:urlRequest];
         

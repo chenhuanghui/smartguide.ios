@@ -7,7 +7,7 @@
 //
 
 #import "AvatarListView.h"
-#import "ActivityIndicator.h"
+#import "LoadingView.h"
 
 @interface AvatarListStrategy : GMGridViewLayoutVerticalStrategy
 
@@ -156,7 +156,7 @@
     if(newSuperview)
     {
         if(_opeartion)
-            [self showLoadingWithTitle:nil];
+            [self showLoading];
     }
 }
 

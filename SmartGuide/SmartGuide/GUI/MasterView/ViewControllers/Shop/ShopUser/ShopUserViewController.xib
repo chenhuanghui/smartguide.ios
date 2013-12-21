@@ -12,6 +12,7 @@
                 <outlet property="btnNext" destination="ILD-L8-qla" id="Klr-uI-3CZ"/>
                 <outlet property="detailController" destination="5lb-ft-nI1" id="mZT-DP-fK7"/>
                 <outlet property="detailView" destination="0Er-Yh-B7M" id="lmn-j7-id8"/>
+                <outlet property="imgvBG" destination="SZn-zg-rRb" id="7lN-3p-Cfi"/>
                 <outlet property="shopNavi" destination="tbE-VN-JL8" id="1PV-P9-tyC"/>
                 <outlet property="tableShopUser" destination="Hof-Gx-YJh" id="kfa-w2-V70"/>
                 <outlet property="view" destination="1" id="Hnd-zn-Nes"/>

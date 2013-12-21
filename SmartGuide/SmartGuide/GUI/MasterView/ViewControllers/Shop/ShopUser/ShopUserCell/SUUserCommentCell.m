@@ -9,46 +9,49 @@
 #import "SUUserCommentCell.h"
 #import "Utility.h"
 #import "AlphaView.h"
+#import "ShopUserViewController.h"
 
 #define SU_USER_COMMENT_CELL_EMPTY_HEIGHT 70.f
 
 @implementation SUUserCommentCell
+@synthesize delegate;
 
--(void)loadWithShop:(Shop *)shop maxHeight:(float)maxHeight
+-(void)loadWithComments:(NSArray *)comments sort:(enum SORT_SHOP_COMMENT)sort maxHeight:(float)height
 {
-    _shop=shop;
+    cmtTyping.sortComment=sort;
+    _comments=comments;
 
     [table reloadData];
-    [table l_v_setH:maxHeight];
+    
+    if(height!=-1)
+        [table l_v_setH:height];
 }
 
--(void)scrollViewDidScroll:(UIScrollView *)scrollView
+-(void)tableDidScroll:(UITableView *)tableUser cellRect:(CGRect)cellRect
 {
-    [self endEditing:true];
-}
-
--(void)tableDidScrollWithContentOffSetY:(float)contentOffSetY cellContentY:(float)y
-{
-    if(contentOffSetY>=y)
+    float diff=cellRect.origin.y-(tableUser.l_co_y+SHOP_USER_ANIMATION_ALIGN_Y+SHOP_USER_BUTTON_NEXT_HEIGHT);
+    if(diff<0)
     {
-        [self l_v_setY:contentOffSetY];
-        [table l_co_setY:contentOffSetY-y];
+        [self l_v_setY:cellRect.origin.y-diff];
+        [table l_co_setY:-diff];
+        
+//        NSLog(@"table y %f diff %f cmt %f cell %@",tableUser.l_co_y,diff,cmtTyping.l_v_h,NSStringFromCGRect(cellRect));
     }
     else
     {
+        [self l_v_setY:cellRect.origin.y];
         [table l_co_setY:0];
     }
-    return;
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return _shop.userCommentsObjects.count==0?0:1;
+    return 1;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return _shop.userCommentsObjects.count+1;
+    return _comments.count+1;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -56,7 +59,7 @@
     if(indexPath.row==0)
         return SU_USER_COMMENT_CELL_EMPTY_HEIGHT;
     
-    return [ShopUserCommentCell heightWithComment:[_shop.userCommentsObjects[indexPath.row-1] comment]];
+    return [ShopUserCommentCell heightWithComment:_comments[indexPath.row-1]];
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -77,8 +80,15 @@
     }
     
     ShopUserCommentCell *cell=[tableView dequeueReusableCellWithIdentifier:[ShopUserCommentCell reuseIdentifier]];
+    [cell loadWithComment:_comments[indexPath.row-1]];
     
-    [cell loadWithComment:_shop.userCommentsObjects[indexPath.row-1]];
+    if(indexPath.row==_comments.count)
+    {
+        if([self.delegate userCommentCanLoadMore:self])
+        {
+            [self.delegate userCommentLoadMore:self];
+        }
+    }
     
     return cell;
 }
@@ -88,14 +98,14 @@
     return @"SUUserCommentCell";
 }
 
-+(float)heightWithShop:(Shop *)shop
++(float)heightWithComments:(NSArray *)comments maxHeight:(float)maxHeight
 {
     float height=58+SU_USER_COMMENT_CELL_EMPTY_HEIGHT;
     
-    for(ShopUserComment *comment in shop.userCommentsObjects)
-        height+=[ShopUserCommentCell heightWithComment:comment.comment];
+    for(ShopUserComment *comment in comments)
+        height+=[ShopUserCommentCell heightWithComment:comment];
     
-    return height;
+    return MAX(height, maxHeight);
 }
 
 -(void)awakeFromNib
@@ -105,6 +115,9 @@
     [table registerNib:[UINib nibWithNibName:[ShopUserCommentCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[ShopUserCommentCell reuseIdentifier]];
     
     CommentTyping *cmtT=[CommentTyping new];
+    cmtT.delegate=self;
+    
+    cmtT.autoresizingMask=UIViewAutoresizingNone;
     
     cmtTyping=cmtT;
     
@@ -120,6 +133,7 @@
 {
     [super didMoveToSuperview];
     
+    return;
     if(self.superview)
     {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
@@ -150,6 +164,7 @@
 {
     [table alphaViewWithColor:[UIColor grayColor]];
     table.alphaView.alpha=0;
+    table.alphaView.userInteractionEnabled=false;
     [UIView animateWithDuration:[notification.userInfo floatForKey:UIKeyboardAnimationDurationUserInfoKey] animations:^{
         table.alphaView.alpha=0.3f;
     }];
@@ -164,12 +179,39 @@
 -(void) tapGes:(UITapGestureRecognizer*) tap
 {
     [table removeGestureRecognizer:tap];
-    [self endEditing:true];
+    //    [self endEditing:true];
 }
 
--(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+-(void)commentTypingTouchedSort:(CommentTyping *)cmt
 {
-    [self endEditing:true];
+    UIActionSheet *sheet=nil;
+    
+    switch (cmt.sortComment) {
+        case SORT_SHOP_COMMENT_TIME:
+            sheet=[[UIActionSheet alloc] initWithTitle:@"SORT" delegate:self cancelButtonTitle:@"Đóng" destructiveButtonTitle:nil otherButtonTitles:@"Xếp hạng", nil];
+            break;
+            
+        case SORT_SHOP_COMMENT_TOP_AGREED:
+            sheet=[[UIActionSheet alloc] initWithTitle:@"SORT" delegate:self cancelButtonTitle:@"Đóng" destructiveButtonTitle:nil otherButtonTitles:@"Thời gian", nil];
+            break;
+    }
+    
+    [sheet showInView:self];
+}
+
+-(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if(buttonIndex==actionSheet.cancelButtonIndex)
+        return;
+    
+    cmtTyping.sortComment=cmtTyping.sortComment==SORT_SHOP_COMMENT_TOP_AGREED?SORT_SHOP_COMMENT_TIME:SORT_SHOP_COMMENT_TOP_AGREED;
+    
+    [self.delegate userCommentChangeSort:self sort:cmtTyping.sortComment];
+}
+
+-(void)removeFromSuperview
+{
+    [super removeFromSuperview];
 }
 
 @end

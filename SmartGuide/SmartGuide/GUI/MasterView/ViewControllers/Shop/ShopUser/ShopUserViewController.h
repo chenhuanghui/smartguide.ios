@@ -13,7 +13,6 @@
 #import "ShopDetailInfoViewController.h"
 #import "ShopMapViewController.h"
 #import "ShopCameraViewController.h"
-#import "ShopCommentViewController.h"
 #import "ShopGalleryViewController.h"
 #import "ShopScanQRCodeViewController.h"
 #import "FTCoreTextView.h"
@@ -31,6 +30,11 @@
 #import "SUUserCommentCell.h"
 #import "ShopList.h"
 #import "ASIOperationShopUser.h"
+#import "ASIOperationShopComment.h"
+
+//Vị trí y của table
+#define SHOP_USER_ANIMATION_ALIGN_Y 100.f
+#define SHOP_USER_BUTTON_NEXT_HEIGHT 25.f
 
 @class TableShopUser,PromotionDetailView;
 
@@ -56,17 +60,16 @@ enum SHOP_USER_DATA_MODE
 
 @end
 
-@interface ShopUserViewController : SGViewController<UIScrollViewDelegate,UINavigationControllerDelegate,SGTableTemplateDelegate,UITableViewDataSource,UITableViewDelegate,UITextViewDelegate,UIGestureRecognizerDelegate,SUShopGalleryDelegate,UserGalleryDelegate,InfoCelLDelegate,ASIOperationPostDelegate>
+@interface ShopUserViewController : SGViewController<UIScrollViewDelegate,UINavigationControllerDelegate,SGTableTemplateDelegate,UITableViewDataSource,UITableViewDelegate,UITextViewDelegate,UIGestureRecognizerDelegate,SUShopGalleryDelegate,UserGalleryDelegate,InfoCelLDelegate,ASIOperationPostDelegate,UserCommentDelegate>
 {
     __strong IBOutlet SGNavigationController *shopNavi;
     __weak IBOutlet SGViewController *detailController;
     __weak IBOutlet HitTestView *detailView;
     __weak IBOutlet UIButton *btnClose;
     __weak IBOutlet TableShopUser *tableShopUser;
-    __weak SUUserCommentCell *shopUserCommentCell;
     __weak IBOutlet UIButton *btnNext;
     __weak IBOutlet UIButton *btnBack;
-//    __weak CommentTyping *cmtTyping;
+    __weak IBOutlet UIImageView *imgvBG;
     
     __strong SUShopGalleryCell *shopGalleryCell;
     __strong SUKM1Cell *km1Cell;
@@ -85,8 +88,23 @@ enum SHOP_USER_DATA_MODE
     __weak Shop *_shop;
     
     enum SHOP_USER_DATA_MODE _dataMode;
+    enum SORT_SHOP_COMMENT _sortComment;
     
     ASIOperationShopUser *_operationShopUser;
+    ASIOperationShopComment *_operationShopTopComment;
+    ASIOperationShopComment *_operationShopTimeComment;
+    
+    NSMutableArray *_topComments;
+    NSMutableArray *_timeComments;
+    bool _canLoadMoreTopComment;
+    bool _canLoadMoreTimeComment;
+    bool _isLoadingMoreTopComment;
+    bool _isLoadingMoreTimeComment;
+    int _pageTopComment;
+    int _pageTimeComment;
+    bool _markStartLoadTimeComment;
+    
+    bool _allowCommentCellScrolling;
 }
 
 -(ShopUserViewController*) initWithShopList:(ShopList*) shopList;

@@ -10,8 +10,7 @@
 #import "GUIManager.h"
 #import "SGShopEmptyCell.h"
 
-//Vị trí y của table
-#define SHOP_USER_ANIMATION_ALIGN_Y 100.f
+#define SHOP_USER_COMMENT_INDEX_PATH [NSIndexPath indexPathForRow:5 inSection:0]
 
 @interface ShopUserViewController ()
 
@@ -53,7 +52,7 @@
 -(void)viewDidLoad
 {
     [super viewDidLoad];
-    
+
     CGRect rect=CGRectZero;
     rect.origin=CGPointMake(15, 0);
     rect.size=CGSizeMake(290, 431);
@@ -106,10 +105,69 @@
         
         _shop=ope.shop;
         
+        _topComments=[[NSMutableArray alloc] initWithArray:_shop.topCommentsObjects];
+        _timeComments=[[NSMutableArray alloc] init];
+        
+        _pageTimeComment=-1;
+        _pageTopComment=0;
+        _isLoadingMoreTimeComment=false;
+        _isLoadingMoreTopComment=false;
+        _canLoadMoreTopComment=_topComments.count==10;
+        _canLoadMoreTimeComment=true;
+        
         _dataMode=SHOP_USER_DATA_SHOP_USER;
+        _sortComment=SORT_SHOP_COMMENT_TOP_AGREED;
         
         [tableShopUser reloadData];
         tableShopUser.scrollEnabled=true;
+        _allowCommentCellScrolling=true;
+        
+        for(int i=0;i<[tableShopUser numberOfRowsInSection:0];i++)
+        {
+            [self tableView:tableShopUser cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
+        }
+    }
+    else if([operation isKindOfClass:[ASIOperationShopComment class]])
+    {
+        ASIOperationShopComment *ope=(ASIOperationShopComment*)operation;
+        
+        bool scrollToCommentCell=false;
+        
+        switch (ope.sortComment) {
+            case SORT_SHOP_COMMENT_TOP_AGREED:
+            {
+                [_topComments addObjectsFromArray:ope.comments];
+                _canLoadMoreTopComment=ope.comments.count==10;
+                _isLoadingMoreTopComment=false;
+                _pageTopComment++;
+                
+                _operationShopTopComment=nil;
+
+                [userCommentCell loadWithComments:_topComments sort:_sortComment maxHeight:-1];
+                [tableShopUser reloadRowsAtIndexPaths:@[SHOP_USER_COMMENT_INDEX_PATH] withRowAnimation:UITableViewRowAnimationNone];
+                [self scrollViewDidScroll:tableShopUser];
+            }
+                break;
+                
+            case SORT_SHOP_COMMENT_TIME:
+            {
+                [_timeComments addObjectsFromArray:ope.comments];
+                _canLoadMoreTimeComment=ope.comments.count==10;
+                _isLoadingMoreTimeComment=false;
+                _pageTimeComment++;
+                
+                _operationShopTimeComment=nil;
+                
+                if(_pageTimeComment==0)
+                    scrollToCommentCell=true;
+            }
+                break;
+        }
+        
+        if(scrollToCommentCell)
+        {
+            [self scrollToCommentCell:true];
+        }
     }
 }
 
@@ -126,6 +184,18 @@
         _operationShopUser=nil;
     }
     
+    if(_operationShopTimeComment)
+    {
+        [_operationShopTimeComment cancel];
+        _operationShopTimeComment=nil;
+    }
+    
+    if(_operationShopTopComment)
+    {
+        [_operationShopTopComment cancel];
+        _operationShopTopComment=nil;
+    }
+    
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     shopNavi=nil;
     shopGalleryCell=nil;
@@ -138,12 +208,17 @@
 
 -(void) shopUserCommentKeyboardWillShow:(NSNotification*) notification
 {
+    //    float height=[notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue].size.height;
+    float duration=[notification.userInfo[UIKeyboardAnimationDurationUserInfoKey] floatValue];
     CGRect rect=[tableShopUser rectForRowAtIndexPath:[NSIndexPath indexPathForRow:5 inSection:0]];
-    rect.origin.y-=_btnNextFrame.size.height;
- 
-    if(tableShopUser.contentOffset.y<rect.origin.y)
+    
+    if(tableShopUser.l_co_y+tableShopUser.l_v_h>rect.origin.y)
     {
-        [tableShopUser setContentOffset:CGPointMake(0, rect.origin.y) animated:true];
+        rect.origin.y-=_btnNextFrame.size.height;
+        rect.size.height=shopNavi.l_v_h;
+        [UIView animateWithDuration:duration animations:^{
+            [tableShopUser scrollRectToVisible:rect animated:false];
+        }];
     }
 }
 
@@ -158,7 +233,7 @@
         
         float y=_btnNextFrame.origin.y+scrollView.contentOffset.y;
         y+=SHOP_USER_ANIMATION_ALIGN_Y;
-
+        
         CGRect rect=[tableShopUser rectForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:0]];
         
         if(y>=rect.origin.y)
@@ -177,9 +252,11 @@
         }
         
         rect=[tableShopUser rectForRowAtIndexPath:[NSIndexPath indexPathForRow:5 inSection:0]];
-
-        if(shopUserCommentCell)
-            [shopUserCommentCell tableDidScrollWithContentOffSetY:tableShopUser.contentOffset.y+_btnNextFrame.size.height+SHOP_USER_ANIMATION_ALIGN_Y cellContentY:rect.origin.y];
+        
+        if(userCommentCell && _allowCommentCellScrolling)
+        {
+            [userCommentCell tableDidScroll:tableShopUser cellRect:rect];
+        }
     }
 }
 
@@ -250,7 +327,7 @@
                 }
                 
                 shopGalleryCell=cell;
-
+                
                 return cell;
             }
                 
@@ -286,7 +363,7 @@
                     cell=[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"btnNext"];
                     [cell l_v_setS:CGSizeMake(tableShopUser.l_v_w, _btnNextFrame.size.height)];
                 }
-             
+                
                 return cell;
             }
                 
@@ -323,14 +400,25 @@
             case 5:
             {
                 if(userCommentCell)
+                {
                     return userCommentCell;
+                }
                 
                 SUUserCommentCell *cell=[tableView dequeueReusableCellWithIdentifier:[SUUserCommentCell reuseIdentifier]];
                 
                 float maxHeight=_shopUserContentFrame.size.height-_btnNextFrame.size.height-[SUUserCommentCell tableY]+SHOP_USER_ANIMATION_ALIGN_Y;
-                shopUserCommentCell=cell;
                 
-                [cell loadWithShop:_shop maxHeight:maxHeight];
+                switch (_sortComment) {
+                    case SORT_SHOP_COMMENT_TIME:
+                        [cell loadWithComments:_timeComments sort:_sortComment maxHeight:maxHeight];
+                        break;
+                        
+                    case SORT_SHOP_COMMENT_TOP_AGREED:
+                        [cell loadWithComments:_topComments sort:_sortComment maxHeight:maxHeight];
+                        break;
+                }
+                
+                cell.delegate=self;
                 
                 userCommentCell=cell;
                 
@@ -343,6 +431,107 @@
     }
     
     return nil;
+}
+
+-(void) scrollToCommentCell:(bool) animate
+{
+    return;
+    CGRect rect=[tableShopUser rectForRowAtIndexPath:[NSIndexPath indexPathForRow:5 inSection:0]];
+    
+    rect.origin.y-=_btnNextFrame.size.height;
+    rect.size.height=shopNavi.l_v_h;
+    [tableShopUser scrollRectToVisible:rect animated:animate];
+}
+
+-(void)userCommentChangeSort:(SUUserCommentCell *)cell sort:(enum SORT_SHOP_COMMENT)sort
+{
+    _sortComment=sort;
+    
+    switch (_sortComment) {
+        case SORT_SHOP_COMMENT_TIME:
+        {
+            if(!_markStartLoadTimeComment)
+            {
+                _markStartLoadTimeComment=true;
+                
+                userCommentCell=nil;
+                
+                [self requestComments];
+            }
+            else
+            {
+                userCommentCell=nil;
+                
+                //[tableShopUser reloadRowsAtIndexPaths:@[SHOP_USER_COMMENT_INDEX_PATH] withRowAnimation:UITableViewRowAnimationNone];
+                
+                [self scrollToCommentCell:true];
+            }
+        }
+            break;
+            
+        case SORT_SHOP_COMMENT_TOP_AGREED:
+        {
+            userCommentCell=nil;
+            
+            //[tableShopUser reloadRowsAtIndexPaths:@[SHOP_USER_COMMENT_INDEX_PATH] withRowAnimation:UITableViewRowAnimationNone];
+            
+            [self scrollToCommentCell:true];
+        }
+            break;
+    }
+}
+
+-(void) requestComments
+{
+    switch (_sortComment) {
+        case SORT_SHOP_COMMENT_TOP_AGREED:
+        {
+            _operationShopTopComment=[[ASIOperationShopComment alloc] initWithIDShop:_shop.idShop.integerValue page:_pageTopComment+1 sort:_sortComment];
+            _operationShopTopComment.delegatePost=self;
+            
+            [_operationShopTopComment startAsynchronous];
+        }
+            break;
+            
+        case SORT_SHOP_COMMENT_TIME:
+        {
+            _operationShopTimeComment=[[ASIOperationShopComment alloc] initWithIDShop:_shop.idShop.integerValue page:_pageTimeComment+1 sort:_sortComment];
+            _operationShopTimeComment.delegatePost=self;
+            
+            [_operationShopTimeComment startAsynchronous];
+        }
+            break;
+    }
+}
+
+-(bool)userCommentCanLoadMore:(SUUserCommentCell *)cell
+{
+    return _sortComment==SORT_SHOP_COMMENT_TIME?_canLoadMoreTimeComment:_canLoadMoreTopComment;
+}
+
+-(void)userCommentLoadMore:(SUUserCommentCell *)cell
+{
+    switch (_sortComment) {
+        case SORT_SHOP_COMMENT_TIME:
+            
+            if(_isLoadingMoreTimeComment)
+                return;
+            
+            _isLoadingMoreTimeComment=true;
+            
+            break;
+            
+        case SORT_SHOP_COMMENT_TOP_AGREED:
+            
+            if(_isLoadingMoreTopComment)
+                return;
+            
+            _isLoadingMoreTopComment=true;
+            
+            break;
+    }
+    
+    [self requestComments];
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -371,7 +560,15 @@
             case 4:
                 return [SUUserGalleryCell height];
             case 5:
-                return [SUUserCommentCell heightWithShop:_shop];
+            {
+                switch (_sortComment) {
+                    case SORT_SHOP_COMMENT_TOP_AGREED:
+                        return [SUUserCommentCell heightWithComments:_topComments maxHeight:shopNavi.l_v_h];
+                        
+                    case SORT_SHOP_COMMENT_TIME:
+                        return [SUUserCommentCell heightWithComments:_timeComments maxHeight:shopNavi.l_v_h];
+                }
+            }
                 
             default:
                 break;

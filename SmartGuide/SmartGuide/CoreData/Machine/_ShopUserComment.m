@@ -6,12 +6,17 @@
 
 #import "DataManager.h"
 #import "Shop.h"
+#import "Shop.h"
 
 
 @implementation _ShopUserComment
 
 
-@dynamic shop;
+@dynamic shopTime;
+
+
+
+@dynamic shopTop;
 
 
 
@@ -209,11 +214,19 @@
 
 #pragma mark Relationships
     
-#pragma mark Shop
-- (Shop*)shop {
-	[self willAccessValueForKey:@"shop"];
-	Shop *result = [self primitiveValueForKey:@"shop"];
-	[self didAccessValueForKey:@"shop"];
+#pragma mark ShopTime
+- (Shop*)shopTime {
+	[self willAccessValueForKey:@"shopTime"];
+	Shop *result = [self primitiveValueForKey:@"shopTime"];
+	[self didAccessValueForKey:@"shopTime"];
+	return result;
+}
+
+#pragma mark ShopTop
+- (Shop*)shopTop {
+	[self willAccessValueForKey:@"shopTop"];
+	Shop *result = [self primitiveValueForKey:@"shopTop"];
+	[self didAccessValueForKey:@"shopTop"];
 	return result;
 }
 

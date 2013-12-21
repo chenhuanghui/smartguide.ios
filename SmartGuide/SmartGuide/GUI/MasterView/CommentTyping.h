@@ -9,6 +9,15 @@
 #import <UIKit/UIKit.h>
 #import "HPGrowingTextView.h"
 #import "ButtonAgree.h"
+#import "HitTestView.h"
+
+@class CommentTyping;
+
+@protocol CommentTypingDelegate <NSObject>
+
+-(void) commentTypingTouchedSort:(CommentTyping*) cmtTyping;
+
+@end
 
 @interface CommentTyping : UIView<HPGrowingTextViewDelegate,UIScrollViewDelegate>
 {
@@ -21,6 +30,7 @@
     __weak IBOutlet ButtonAgree *btnSend;
     __weak IBOutlet UIImageView *imgvAvatar;
     __weak IBOutlet UIImageView *imgvBottom;
+    __weak IBOutlet HitTestView *hittestView;
     bool _isExpanded;
     
     CGRect _imgvBottomFrame;
@@ -32,5 +42,8 @@
 
 -(bool) isExpanded;
 +(CGSize) size;
+
+@property (nonatomic, weak) id<CommentTypingDelegate> delegate;
+@property (nonatomic, assign) enum SORT_SHOP_COMMENT sortComment;
 
 @end

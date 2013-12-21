@@ -80,7 +80,8 @@
         <relationship name="detailInfo" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ShopDetailInfo" inverseName="shop" inverseEntity="ShopDetailInfo" syncable="YES"/>
         <relationship name="km1" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="ShopKM1" inverseName="shop" inverseEntity="ShopKM1" syncable="YES"/>
         <relationship name="shopGalleries" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ShopGallery" inverseName="shop" inverseEntity="ShopGallery" syncable="YES"/>
-        <relationship name="userComments" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ShopUserComment" inverseName="shop" inverseEntity="ShopUserComment" syncable="YES"/>
+        <relationship name="timeComments" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ShopUserComment" inverseName="shopTime" inverseEntity="ShopUserComment" syncable="YES"/>
+        <relationship name="topComments" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ShopUserComment" inverseName="shopTop" inverseEntity="ShopUserComment" syncable="YES"/>
         <relationship name="userGalleries" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ShopUserGallery" inverseName="shop" inverseEntity="ShopUserGallery" syncable="YES"/>
     </entity>
     <entity name="ShopDetailInfo" representedClassName="ShopDetailInfo" syncable="YES">
@@ -142,7 +143,8 @@
         <attribute name="sortOrder" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="time" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="username" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="shop" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Shop" inverseName="userComments" inverseEntity="Shop" syncable="YES"/>
+        <relationship name="shopTime" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Shop" inverseName="timeComments" inverseEntity="Shop" syncable="YES"/>
+        <relationship name="shopTop" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Shop" inverseName="topComments" inverseEntity="Shop" syncable="YES"/>
     </entity>
     <entity name="ShopUserGallery" representedClassName="ShopUserGallery" syncable="YES">
         <attribute name="desc" optional="YES" attributeType="String" syncable="YES"/>
@@ -205,6 +207,7 @@
         <element name="Placelist" positionX="0" positionY="0" width="0" height="0"/>
         <element name="Reward" positionX="0" positionY="0" width="0" height="0"/>
         <element name="Shop" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="ShopDetailInfo" positionX="0" positionY="0" width="0" height="0"/>
         <element name="ShopGallery" positionX="0" positionY="0" width="0" height="0"/>
         <element name="ShopKM1" positionX="0" positionY="0" width="0" height="0"/>
         <element name="ShopList" positionX="0" positionY="0" width="0" height="0"/>
@@ -215,6 +218,5 @@
         <element name="StoreShopItem" positionX="0" positionY="0" width="0" height="0"/>
         <element name="User" positionX="0" positionY="0" width="0" height="0"/>
         <element name="Versions" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="ShopDetailInfo" positionX="0" positionY="0" width="0" height="0"/>
     </elements>
 </model>

@@ -51,7 +51,7 @@
         //Send facebook access token to server
         [self uploadFBToken];
         
-        [self.view SGShowLoading];
+        [self.view showLoading];
     }
 }
 
@@ -108,7 +108,7 @@
         postProfile.delegatePost=self;
         [postProfile startAsynchronous];
         
-        [self.view SGShowLoading];
+        [self.view showLoading];
     }
 }
 
@@ -154,14 +154,14 @@
     }
     else
     {
-        [self.view SGRemoveLoading];
+        [self.view removeLoading];
         [AlertView showAlertOKWithTitle:@"Thông báo" withMessage:@"Tạo thông tin đăng nhập thất bại" onOK:nil];
     }
 }
 
 -(void)operationURLFailed:(OperationURL *)operation
 {
-    [self.view SGRemoveLoading];
+    [self.view removeLoading];
     [AlertView showAlertOKWithTitle:nil withMessage:[NSString stringWithFormat:@"%@",operation.error] onOK:nil];
     
     [self.delegate userFacebookSuccessed];

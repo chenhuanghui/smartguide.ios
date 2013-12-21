@@ -17,6 +17,7 @@
 
 @class ShopUserComment;
 @class Shop;
+@class Shop;
 
 @interface _ShopUserComment : NSManagedObject
 
@@ -44,8 +45,11 @@
     
 #pragma mark Relationships
 
-#pragma mark Shop
-@property (nonatomic, retain) Shop* shop;
+#pragma mark ShopTime
+@property (nonatomic, retain) Shop* shopTime;
+
+#pragma mark ShopTop
+@property (nonatomic, retain) Shop* shopTop;
 
 
 @end

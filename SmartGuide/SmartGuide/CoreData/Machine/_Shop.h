@@ -27,6 +27,7 @@
 @class ShopKM1;
 @class ShopGallery;
 @class ShopUserComment;
+@class ShopUserComment;
 @class ShopUserGallery;
 
 @interface _Shop : NSManagedObject
@@ -83,14 +84,23 @@
 - (void) removeShopGalleriesObject:(ShopGallery*)value;
 - (void) removeAllShopGalleries;
 
-#pragma mark UserComments
-- (NSSet*) userComments;
-- (NSArray*) userCommentsObjects;
-- (void) addUserComments:(NSSet*)value;
-- (void) removeUserComments:(NSSet*)value;
-- (void) addUserCommentsObject:(ShopUserComment*)value;
-- (void) removeUserCommentsObject:(ShopUserComment*)value;
-- (void) removeAllUserComments;
+#pragma mark TimeComments
+- (NSSet*) timeComments;
+- (NSArray*) timeCommentsObjects;
+- (void) addTimeComments:(NSSet*)value;
+- (void) removeTimeComments:(NSSet*)value;
+- (void) addTimeCommentsObject:(ShopUserComment*)value;
+- (void) removeTimeCommentsObject:(ShopUserComment*)value;
+- (void) removeAllTimeComments;
+
+#pragma mark TopComments
+- (NSSet*) topComments;
+- (NSArray*) topCommentsObjects;
+- (void) addTopComments:(NSSet*)value;
+- (void) removeTopComments:(NSSet*)value;
+- (void) addTopCommentsObject:(ShopUserComment*)value;
+- (void) removeTopCommentsObject:(ShopUserComment*)value;
+- (void) removeAllTopComments;
 
 #pragma mark UserGalleries
 - (NSSet*) userGalleries;

@@ -159,7 +159,7 @@
     
     [operation start];
     
-    [self.view SGShowLoading];
+    [self.view showLoading];
     
     [self.view endEditing:true];
 }
@@ -208,7 +208,7 @@
         operation.delegate=self;
         [operation start];
         
-        [self.view SGShowLoading];
+        [self.view showLoading];
     }];
 }
 
@@ -280,7 +280,7 @@
 {
     if([operation isKindOfClass:[OperationGetActionCode class]])
     {
-        [self.view SGRemoveLoading];
+        [self.view showLoading];
         
         OperationGetActionCode *ope=(OperationGetActionCode*) operation;
         
@@ -328,7 +328,7 @@
     }
     else if([operation isKindOfClass:[OperationVerifyActiveCode class]])
     {
-        [self.view SGRemoveLoading];
+        [self.view showLoading];
         
         OperationVerifyActiveCode *ope=(OperationVerifyActiveCode*) operation;
         
@@ -339,7 +339,7 @@
             _avatar=[[NSString alloc] initWithString:ope.avatar];
             _isConnectedFacebook=ope.isConnectedFacebook;
             
-            [self.view SGShowLoading];
+            [self.view showLoading];
             
             OperationGetToken *getToken=[[OperationGetToken alloc] initWithPhone:_phone activeCode:txt.text];
             getToken.delegate=self;
@@ -393,7 +393,7 @@
 
 -(void)operationURLFailed:(OperationURL *)operation
 {
-    [self.view SGRemoveLoading];
+    [self.view showLoading];
     
     [AlertView showAlertOKWithTitle:nil withMessage:localizeConnectToServerFailed() onOK:nil];
 }
@@ -439,7 +439,7 @@
         operation.delegate=self;
         [operation start];
         
-        [self.view SGShowLoading];
+        [self.view showLoading];
     }];
 }
 
