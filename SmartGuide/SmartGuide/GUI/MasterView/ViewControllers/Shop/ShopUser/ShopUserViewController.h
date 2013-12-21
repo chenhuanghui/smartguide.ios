@@ -82,7 +82,6 @@ enum SHOP_USER_DATA_MODE
     CGRect _shopUserContentFrame;
     
     NSMutableArray *_km1Data;
-    NSMutableArray *_comments;
     
     __weak ShopList *_shopList;
     __weak Shop *_shop;
@@ -91,20 +90,12 @@ enum SHOP_USER_DATA_MODE
     enum SORT_SHOP_COMMENT _sortComment;
     
     ASIOperationShopUser *_operationShopUser;
-    ASIOperationShopComment *_operationShopTopComment;
-    ASIOperationShopComment *_operationShopTimeComment;
+    ASIOperationShopComment *_operationShopComment;
     
-    NSMutableArray *_topComments;
-    NSMutableArray *_timeComments;
-    bool _canLoadMoreTopComment;
-    bool _canLoadMoreTimeComment;
-    bool _isLoadingMoreTopComment;
-    bool _isLoadingMoreTimeComment;
-    int _pageTopComment;
-    int _pageTimeComment;
-    bool _markStartLoadTimeComment;
-    
-    bool _allowCommentCellScrolling;
+    NSMutableArray *_comments;
+    bool _canLoadMoreComment;
+    bool _isLoadingMoreComment;
+    int _pageComment;
 }
 
 -(ShopUserViewController*) initWithShopList:(ShopList*) shopList;

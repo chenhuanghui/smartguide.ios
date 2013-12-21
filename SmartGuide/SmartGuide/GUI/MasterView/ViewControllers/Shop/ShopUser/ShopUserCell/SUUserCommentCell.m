@@ -34,8 +34,6 @@
     {
         [self l_v_setY:cellRect.origin.y-diff];
         [table l_co_setY:-diff];
-        
-//        NSLog(@"table y %f diff %f cmt %f cell %@",tableUser.l_co_y,diff,cmtTyping.l_v_h,NSStringFromCGRect(cellRect));
     }
     else
     {
