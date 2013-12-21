@@ -157,7 +157,15 @@
             [userCommentCell l_v_setH:[tableShopUser rectForRowAtIndexPath:SHOP_USER_COMMENT_INDEX_PATH].size.height];
 
             [self scrollViewDidScroll:tableShopUser];
+            
+            CGRect rect=[tableShopUser rectForRowAtIndexPath:SHOP_USER_COMMENT_INDEX_PATH];
+            rect.origin.y-=[userCommentCell.table rectForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]].size.height;
+            rect.origin.y-=_btnNextFrame.size.height;
+
             [tableShopUser setContentOffset:tableShopUser.contentOffset animated:true];
+            
+            
+            [tableShopUser setContentOffset:rect.origin animated:true];
         }
         
         _opeartionPostComment=nil;
@@ -218,7 +226,11 @@
         rect.origin.y-=_btnNextFrame.size.height;
         rect.size.height=shopNavi.l_v_h;
         
-        [tableShopUser scrollRectToVisible:rect animated:true];
+        [UIView animateWithDuration:DURATION_DEFAULT animations:^{
+           [tableShopUser scrollRectToVisible:rect animated:false];
+        } completion:^(BOOL finished) {
+            [userCommentCell focus];
+        }];
     }
 }
 

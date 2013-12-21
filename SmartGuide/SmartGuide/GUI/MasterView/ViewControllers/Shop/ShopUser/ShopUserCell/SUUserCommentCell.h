@@ -40,6 +40,8 @@
 +(float) tableY;
 -(void) focus;
 
+-(UITableView*) table;
+
 @property (nonatomic, weak) id<UserCommentDelegate> delegate;
 
 @end

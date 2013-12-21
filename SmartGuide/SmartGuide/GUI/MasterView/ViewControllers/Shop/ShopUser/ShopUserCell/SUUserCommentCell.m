@@ -222,6 +222,11 @@
     [cmtTyping focus];
 }
 
+-(UITableView *)table
+{
+    return table;
+}
+
 @end
 
 @implementation TableUserComment
