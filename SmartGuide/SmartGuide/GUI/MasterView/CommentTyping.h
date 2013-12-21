@@ -45,6 +45,7 @@
 +(CGSize) size;
 
 -(NSString*) text;
+-(void) focus;
 
 @property (nonatomic, weak) id<CommentTypingDelegate> delegate;
 @property (nonatomic, assign) enum SORT_SHOP_COMMENT sortComment;

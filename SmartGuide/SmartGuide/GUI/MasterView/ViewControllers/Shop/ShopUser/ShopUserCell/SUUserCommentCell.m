@@ -217,6 +217,11 @@
     [super removeFromSuperview];
 }
 
+-(void)focus
+{
+    [cmtTyping focus];
+}
+
 @end
 
 @implementation TableUserComment

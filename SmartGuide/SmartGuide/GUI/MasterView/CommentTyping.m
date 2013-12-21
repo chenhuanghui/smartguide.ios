@@ -144,4 +144,9 @@
     return textView.text;
 }
 
+-(void)focus
+{
+    [textView.internalTextView becomeFirstResponder];
+}
+
 @end

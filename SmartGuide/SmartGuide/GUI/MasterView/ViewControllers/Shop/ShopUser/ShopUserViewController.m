@@ -152,14 +152,12 @@
             else
                 [_comments addObject:ope.userComment];
             
+            [userCommentCell loadWithComments:_comments sort:_sortComment maxHeight:-1];
             [tableShopUser reloadRowsAtIndexPaths:@[SHOP_USER_COMMENT_INDEX_PATH] withRowAnimation:UITableViewRowAnimationNone];
             [userCommentCell l_v_setH:[tableShopUser rectForRowAtIndexPath:SHOP_USER_COMMENT_INDEX_PATH].size.height];
-            
-            [self scrollToCommentCell:true];
-            
-            //[self scrollViewDidScroll:tableShopUser];
-            //[tableShopUser setContentOffset:tableShopUser.contentOffset animated:true];
-            [userCommentCell loadWithComments:_comments sort:_sortComment maxHeight:-1];
+
+            [self scrollViewDidScroll:tableShopUser];
+            [tableShopUser setContentOffset:tableShopUser.contentOffset animated:true];
         }
         
         _opeartionPostComment=nil;
@@ -201,19 +199,26 @@
     _shop=nil;
 }
 
+-(void) scrollToCommentCell:(bool) animate
+{
+    CGRect rect=[tableShopUser rectForRowAtIndexPath:SHOP_USER_COMMENT_INDEX_PATH];
+    
+    rect.origin.y-=_btnNextFrame.size.height;
+    rect.size.height=shopNavi.l_v_h;
+    [tableShopUser scrollRectToVisible:rect animated:animate];
+}
+
 -(void) shopUserCommentKeyboardWillShow:(NSNotification*) notification
 {
-    //    float height=[notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue].size.height;
-    float duration=[notification.userInfo[UIKeyboardAnimationDurationUserInfoKey] floatValue];
-    CGRect rect=[tableShopUser rectForRowAtIndexPath:[NSIndexPath indexPathForRow:5 inSection:0]];
+    CGRect rect=[tableShopUser rectForRowAtIndexPath:SHOP_USER_COMMENT_INDEX_PATH];
+    float height=tableShopUser.l_co_y+tableShopUser.l_v_h-rect.origin.y;
     
-    if(false && tableShopUser.l_co_y+tableShopUser.l_v_h>rect.origin.y)
+    if(height<403)
     {
         rect.origin.y-=_btnNextFrame.size.height;
         rect.size.height=shopNavi.l_v_h;
-        [UIView animateWithDuration:duration animations:^{
-            [tableShopUser scrollRectToVisible:rect animated:false];
-        }];
+        
+        [tableShopUser scrollRectToVisible:rect animated:true];
     }
 }
 
@@ -252,6 +257,8 @@
         {
             [userCommentCell tableDidScroll:tableShopUser cellRect:rect];
         }
+        
+        [self.view endEditing:true];
     }
 }
 
@@ -426,15 +433,6 @@
     }
     
     return nil;
-}
-
--(void) scrollToCommentCell:(bool) animate
-{
-    CGRect rect=[tableShopUser rectForRowAtIndexPath:[NSIndexPath indexPathForRow:5 inSection:0]];
-    
-    rect.origin.y-=_btnNextFrame.size.height;
-    rect.size.height=shopNavi.l_v_h;
-    [tableShopUser scrollRectToVisible:rect animated:animate];
 }
 
 -(void)userCommentChangeSort:(SUUserCommentCell *)cell sort:(enum SORT_SHOP_COMMENT)sort

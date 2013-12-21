@@ -38,6 +38,7 @@
 +(NSString *)reuseIdentifier;
 +(float) heightWithComments:(NSArray*) comments maxHeight:(float) maxHeight;
 +(float) tableY;
+-(void) focus;
 
 @property (nonatomic, weak) id<UserCommentDelegate> delegate;
 
