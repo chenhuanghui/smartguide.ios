@@ -152,9 +152,12 @@
             else
                 [_comments addObject:ope.userComment];
             
-            [userCommentCell loadWithComments:_comments sort:_sortComment maxHeight:-1];
+            userCommentCell.hidden=true;
+            userCommentCell=nil;
+            
+//            [userCommentCell loadWithComments:_comments sort:_sortComment maxHeight:-1];
             [tableShopUser reloadRowsAtIndexPaths:@[SHOP_USER_COMMENT_INDEX_PATH] withRowAnimation:UITableViewRowAnimationNone];
-            [userCommentCell l_v_setH:[tableShopUser rectForRowAtIndexPath:SHOP_USER_COMMENT_INDEX_PATH].size.height];
+//            [userCommentCell l_v_setH:[tableShopUser rectForRowAtIndexPath:SHOP_USER_COMMENT_INDEX_PATH].size.height];
 
             [self scrollViewDidScroll:tableShopUser];
             
@@ -162,10 +165,11 @@
             rect.origin.y-=[userCommentCell.table rectForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]].size.height;
             rect.origin.y-=_btnNextFrame.size.height;
 
-            [tableShopUser setContentOffset:tableShopUser.contentOffset animated:true];
+//            [tableShopUser setContentOffset:tableShopUser.contentOffset animated:true];
             
             
             [tableShopUser setContentOffset:rect.origin animated:true];
+            userCommentCell.hidden=false;
         }
         
         _opeartionPostComment=nil;
