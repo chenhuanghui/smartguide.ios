@@ -33,7 +33,8 @@
         textView.maxNumberOfLines = 2;
         // you can also set the maximum height in points with maxHeight
         // textView.maxHeight = 200.0f;
-        textView.returnKeyType = UIReturnKeyGo; //just as an example
+        textView.returnKeyType = UIReturnKeyDone; //just as an example
+        textView.enablesReturnKeyAutomatically=true;
         textView.font = [UIFont systemFontOfSize:12.0f];
         textView.delegate = self;
         textView.internalTextView.scrollIndicatorInsets = UIEdgeInsetsMake(5, 0, 5, 0);
@@ -50,6 +51,15 @@
         hittestView.receiveView=textView;
     }
     return self;
+}
+
+-(BOOL)growingTextViewShouldReturn:(HPGrowingTextView *)growingTextView
+{
+    [self endEditing:true];
+    
+    [self.delegate commentTypingTouchedReturn:self];
+    
+    return false;
 }
 
 -(BOOL)growingTextViewShouldBeginEditing:(HPGrowingTextView *)growingTextView
@@ -127,6 +137,11 @@
     sortComment=_sortComment;
     
     [btnTopComment setTitle:sortComment==SORT_SHOP_COMMENT_TOP_AGREED?@"Xếp hạng":@"Thời gian" forState:UIControlStateNormal];
+}
+
+-(NSString *)text
+{
+    return textView.text;
 }
 
 @end

@@ -31,6 +31,7 @@
 #import "ShopList.h"
 #import "ASIOperationShopUser.h"
 #import "ASIOperationShopComment.h"
+#import "ASIOperationPostComment.h"
 
 //Vị trí y của table
 #define SHOP_USER_ANIMATION_ALIGN_Y 100.f
@@ -91,6 +92,7 @@ enum SHOP_USER_DATA_MODE
     
     ASIOperationShopUser *_operationShopUser;
     ASIOperationShopComment *_operationShopComment;
+    ASIOperationPostComment *_opeartionPostComment;
     
     NSMutableArray *_comments;
     bool _canLoadMoreComment;

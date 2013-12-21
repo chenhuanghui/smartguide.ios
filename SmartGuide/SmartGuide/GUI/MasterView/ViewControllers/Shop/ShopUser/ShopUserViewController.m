@@ -139,6 +139,31 @@
         
         _operationShopComment=nil;
     }
+    else if([operation isKindOfClass:[ASIOperationPostComment class]])
+    {
+        [self.view removeLoading];
+        
+        ASIOperationPostComment *ope=(ASIOperationPostComment*) operation;
+        
+        if(ope.status==1)
+        {
+            if(_comments.count>0)
+                [_comments insertObject:ope.userComment atIndex:0];
+            else
+                [_comments addObject:ope.userComment];
+            
+            [tableShopUser reloadRowsAtIndexPaths:@[SHOP_USER_COMMENT_INDEX_PATH] withRowAnimation:UITableViewRowAnimationNone];
+            [userCommentCell l_v_setH:[tableShopUser rectForRowAtIndexPath:SHOP_USER_COMMENT_INDEX_PATH].size.height];
+            
+            [self scrollToCommentCell:true];
+            
+            //[self scrollViewDidScroll:tableShopUser];
+            //[tableShopUser setContentOffset:tableShopUser.contentOffset animated:true];
+            [userCommentCell loadWithComments:_comments sort:_sortComment maxHeight:-1];
+        }
+        
+        _opeartionPostComment=nil;
+    }
 }
 
 -(void)ASIOperaionPostFailed:(ASIOperationPost *)operation
@@ -160,6 +185,12 @@
         _operationShopComment=nil;
     }
     
+    if(_opeartionPostComment)
+    {
+        _opeartionPostComment.delegatePost=nil;
+        _opeartionPostComment=nil;
+    }
+    
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     shopNavi=nil;
     shopGalleryCell=nil;
@@ -176,7 +207,7 @@
     float duration=[notification.userInfo[UIKeyboardAnimationDurationUserInfoKey] floatValue];
     CGRect rect=[tableShopUser rectForRowAtIndexPath:[NSIndexPath indexPathForRow:5 inSection:0]];
     
-    if(tableShopUser.l_co_y+tableShopUser.l_v_h>rect.origin.y)
+    if(false && tableShopUser.l_co_y+tableShopUser.l_v_h>rect.origin.y)
     {
         rect.origin.y-=_btnNextFrame.size.height;
         rect.size.height=shopNavi.l_v_h;
@@ -443,6 +474,16 @@
     _isLoadingMoreComment=true;
     
     [self requestComments];
+}
+
+-(void)userCommentUserComment:(SUUserCommentCell *)cell comment:(NSString *)comment isShareFacebook:(bool)isShare
+{
+    [self.view showLoading];
+    
+    _opeartionPostComment=[[ASIOperationPostComment alloc] initWithIDShop:_shop.idShop.integerValue userLat:userLat() userLng:userLng() comment:comment sort:_sortComment];
+    _opeartionPostComment.delegatePost=self;
+    
+    [_opeartionPostComment startAsynchronous];
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

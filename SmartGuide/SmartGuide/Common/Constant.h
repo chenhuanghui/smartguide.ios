@@ -61,7 +61,7 @@
 #define API_SHOP_GALLERY @"images/gallery/get"
 #define API_SHOP_USER_GALLERY @"images/user/get"
 #define API_SHOP_COMMENTS @"comment/getShopComment"
-#define API_SHOP_POST_COMMENT @"comment/post"
+#define API_SHOP_POST_COMMENT @"comment/postShopComment"
 #define API_GET_SGP @"user/get/promotion1/point"
 #define API_GET_REWARD @"user/get/promotion2"
 #define API_SGP_TO_REWARD @"user/get/promotion1/award"

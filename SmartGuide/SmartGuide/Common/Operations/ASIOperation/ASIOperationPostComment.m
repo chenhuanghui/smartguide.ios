@@ -11,32 +11,82 @@
 #import "Shop.h"
 
 @implementation ASIOperationPostComment
-@synthesize values,isSuccess,comment;
+@synthesize values,status,message,time,idComment,sortComment,userComment;
 
--(ASIOperationPostComment *)initWithIDUser:(int)idUser idShop:(int)idShop content:(NSString *)content
+-(ASIOperationPostComment *)initWithIDShop:(int)idShop userLat:(double)userLat userLng:(double)userLng comment:(NSString *)comment sort:(enum SORT_SHOP_COMMENT)sort
 {
     NSURL *_url=[NSURL URLWithString:SERVER_API_MAKE(API_SHOP_POST_COMMENT)];
     
     self=[super initWithURL:_url];
-    
-    isSuccess=false;
-    comment=nil;
-    values=@[@(idUser),@(idShop),content,@(0)];
+
+    values=@[@(idShop),@(userLat),@(userLng),comment,@(sort)];
     
     return self;
 }
 
 -(NSArray *)keys
 {
-    return @[@"user_id",@"shop_id",@"content",@"share"];
+    return @[@"idShop",@"userLat",@"userLng",@"comment",@"sort"];
 }
 
 -(void)onCompletedWithJSON:(NSArray *)json
 {
-    isSuccess=[[[json objectAtIndex:0] objectForKey:@"status"] boolValue];
+    if([self isNullData:json])
+        return;
     
-    if(isSuccess)
+    int sort=[values[4] integerValue];
+    NSDictionary *dict=json[0];
+    
+    status=[[NSNumber numberWithObject:dict[@"status"]] integerValue];
+    message=[NSString stringWithStringDefault:dict[@"message"]];
+    
+    if(status==1)
     {
+        idComment=[[NSNumber numberWithObject:dict[@"idComment"]] integerValue];
+        time=[NSString stringWithStringDefault:dict[@"time"]];
+        
+        switch (sort) {
+            case 0:
+                sortComment=SORT_SHOP_COMMENT_TOP_AGREED;
+                break;
+                
+            case 1:
+                sortComment=SORT_SHOP_COMMENT_TIME;
+                break;
+                
+            default:
+                sortComment=SORT_SHOP_COMMENT_TOP_AGREED;
+                break;
+        }
+        
+        int idShop=[values[0] integerValue];
+        Shop *shop=[Shop shopWithIDShop:idShop];
+        
+        if(!shop)
+            return;
+        
+        userComment=[ShopUserComment insert];
+
+        userComment.idComment=@(idComment);
+        userComment.username=[NSString stringWithStringDefault:[DataManager shareInstance].currentUser.name];
+        userComment.comment=values[3];
+        userComment.avatar=[DataManager shareInstance].currentUser.avatar;
+        userComment.numOfAgree=@"0";
+        userComment.time=time;
+        userComment.agreeStatus=@(0);
+        
+        switch (sortComment) {
+            case SORT_SHOP_COMMENT_TIME:
+                [shop addTimeCommentsObject:userComment];
+                break;
+                
+            case SORT_SHOP_COMMENT_TOP_AGREED:
+                [shop addTopCommentsObject:userComment];
+                break;
+        }
+        
+        [[DataManager shareInstance] save];
     }
+    
 }
 @end

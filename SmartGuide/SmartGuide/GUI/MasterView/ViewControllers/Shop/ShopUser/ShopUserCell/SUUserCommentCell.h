@@ -19,6 +19,7 @@
 -(bool) userCommentCanLoadMore:(SUUserCommentCell*) cell;
 -(void) userCommentLoadMore:(SUUserCommentCell*) cell;
 -(void) userCommentChangeSort:(SUUserCommentCell*) cell sort:(enum SORT_SHOP_COMMENT) sort;
+-(void) userCommentUserComment:(SUUserCommentCell*) cell comment:(NSString*) comment isShareFacebook:(bool) isShare;
 
 @end
 

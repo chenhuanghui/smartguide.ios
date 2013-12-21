@@ -197,6 +197,11 @@
     [sheet showInView:self];
 }
 
+-(void)commentTypingTouchedReturn:(CommentTyping *)cmt
+{
+    [self.delegate userCommentUserComment:self comment:cmtTyping.text isShareFacebook:false];
+}
+
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if(buttonIndex==actionSheet.cancelButtonIndex)

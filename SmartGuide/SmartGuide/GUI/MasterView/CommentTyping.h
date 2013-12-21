@@ -16,6 +16,7 @@
 @protocol CommentTypingDelegate <NSObject>
 
 -(void) commentTypingTouchedSort:(CommentTyping*) cmtTyping;
+-(void) commentTypingTouchedReturn:(CommentTyping*) cmtTyping;
 
 @end
 
@@ -42,6 +43,8 @@
 
 -(bool) isExpanded;
 +(CGSize) size;
+
+-(NSString*) text;
 
 @property (nonatomic, weak) id<CommentTypingDelegate> delegate;
 @property (nonatomic, assign) enum SORT_SHOP_COMMENT sortComment;

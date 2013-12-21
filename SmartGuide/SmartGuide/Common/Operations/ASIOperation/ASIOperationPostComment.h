@@ -14,9 +14,13 @@
 {
 }
 
--(ASIOperationPostComment*) initWithIDUser:(int) idUser idShop:(int) idShop content:(NSString*) content;
+-(ASIOperationPostComment*) initWithIDShop:(int) idShop userLat:(double) userLat userLng:(double) userLng comment:(NSString*) comment sort:(enum SORT_SHOP_COMMENT) sort;
 
-@property (nonatomic, readonly) bool isSuccess;
-@property (nonatomic, readonly) ShopUserComment *comment;
+@property (nonatomic, readonly) int status;
+@property (nonatomic, readonly) NSString *message;
+@property (nonatomic, readonly) NSString *time;
+@property (nonatomic, readonly) int idComment;
+@property (nonatomic, readonly) enum SORT_SHOP_COMMENT sortComment;
+@property (nonatomic, readonly) ShopUserComment *userComment;
 
 @end
