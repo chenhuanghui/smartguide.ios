@@ -113,6 +113,10 @@ int random_int(int from, int to);
 -(void) l_co_setY:(float) y;
 -(void) l_co_addX:(float) x;
 -(void) l_co_addY:(float) y;
+-(void) l_co_setX:(float) x animate:(bool) animate;
+-(void) l_co_setY:(float) y animate:(bool) animate;
+-(void) l_co_addX:(float) x animate:(bool) animate;
+-(void) l_co_addY:(float) y animate:(bool) animate;
 
 @end
 

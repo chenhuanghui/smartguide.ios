@@ -489,6 +489,23 @@ int random_int(int from, int to)
     self.contentOffset=CGPointMake(self.contentOffset.x, self.contentOffset.y+y);
 }
 
+-(void) l_co_setX:(float) x animate:(bool)animate
+{
+    [self setContentOffset:CGPointMake(x, self.contentOffset.y) animated:animate];
+}
+-(void) l_co_setY:(float) y animate:(bool)animate
+{
+    [self setContentOffset:CGPointMake(self.contentOffset.x, y) animated:animate];
+}
+-(void) l_co_addX:(float) x animate:(bool)animate
+{
+    [self setContentOffset:CGPointMake(self.contentOffset.x+x, self.contentOffset.y)];
+}
+-(void) l_co_addY:(float) y animate:(bool)animate
+{
+    [self setContentOffset:CGPointMake(self.contentOffset.x, self.contentOffset.y+y)];
+}
+
 @end
 
 @implementation UIView(lazy_method)

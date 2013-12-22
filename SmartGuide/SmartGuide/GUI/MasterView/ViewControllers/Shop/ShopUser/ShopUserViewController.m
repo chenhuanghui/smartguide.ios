@@ -155,21 +155,16 @@
             userCommentCell.hidden=true;
             userCommentCell=nil;
             
-//            [userCommentCell loadWithComments:_comments sort:_sortComment maxHeight:-1];
             [tableShopUser reloadRowsAtIndexPaths:@[SHOP_USER_COMMENT_INDEX_PATH] withRowAnimation:UITableViewRowAnimationNone];
-//            [userCommentCell l_v_setH:[tableShopUser rectForRowAtIndexPath:SHOP_USER_COMMENT_INDEX_PATH].size.height];
-
             [self scrollViewDidScroll:tableShopUser];
+            
+            [self scrollToCommentCell:false showKeyboard:false];
             
             CGRect rect=[tableShopUser rectForRowAtIndexPath:SHOP_USER_COMMENT_INDEX_PATH];
             rect.origin.y-=[userCommentCell.table rectForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]].size.height;
             rect.origin.y-=_btnNextFrame.size.height;
-
-//            [tableShopUser setContentOffset:tableShopUser.contentOffset animated:true];
             
-            
-            [tableShopUser setContentOffset:rect.origin animated:true];
-            userCommentCell.hidden=false;
+            //[tableShopUser setContentOffset:rect.origin animated:true];
         }
         
         _opeartionPostComment=nil;
@@ -211,13 +206,50 @@
     _shop=nil;
 }
 
--(void) scrollToCommentCell:(bool) animate
+-(void) scrollToCommentCell:(bool) animate showKeyboard:(bool) isShowKeyboard
 {
     CGRect rect=[tableShopUser rectForRowAtIndexPath:SHOP_USER_COMMENT_INDEX_PATH];
+    float height=tableShopUser.l_co_y+tableShopUser.l_v_h-rect.origin.y;
     
-    rect.origin.y-=_btnNextFrame.size.height;
-    rect.size.height=shopNavi.l_v_h;
-    [tableShopUser scrollRectToVisible:rect animated:animate];
+    if(height<403)
+    {
+        rect.origin.y-=_btnNextFrame.size.height;
+        rect.size.height=shopNavi.l_v_h;
+        
+        if(animate)
+        {
+            [UIView animateWithDuration:DURATION_DEFAULT animations:^{
+                [tableShopUser scrollRectToVisible:rect animated:false];
+            } completion:^(BOOL finished) {
+                if(isShowKeyboard)
+                    [userCommentCell focus];
+            }];
+        }
+        else
+        {
+            [tableShopUser scrollRectToVisible:rect animated:false];
+            if(isShowKeyboard)
+                [userCommentCell focus];
+        }
+    }
+    else
+    {
+        if(animate)
+        {
+            [UIView animateWithDuration:DURATION_DEFAULT animations:^{
+                [tableShopUser l_co_addY:-userCommentCell.table.l_co_y animate:false];
+            } completion:^(BOOL finished) {
+                if(isShowKeyboard)
+                    [userCommentCell focus];
+            }];
+        }
+        else
+        {
+            [tableShopUser l_co_addY:-userCommentCell.table.l_co_y animate:false];
+            if(isShowKeyboard)
+                [userCommentCell focus];
+        }
+    }
 }
 
 -(void) shopUserCommentKeyboardWillShow:(NSNotification*) notification
@@ -231,7 +263,7 @@
         rect.size.height=shopNavi.l_v_h;
         
         [UIView animateWithDuration:DURATION_DEFAULT animations:^{
-           [tableShopUser scrollRectToVisible:rect animated:false];
+            [tableShopUser scrollRectToVisible:rect animated:false];
         } completion:^(BOOL finished) {
             [userCommentCell focus];
         }];
@@ -455,7 +487,7 @@
 {
     self.view.userInteractionEnabled=false;
     [UIView animateWithDuration:0.3f animations:^{
-        [self scrollToCommentCell:false];
+        [self scrollToCommentCell:false showKeyboard:false];
     } completion:^(BOOL finished) {
         self.view.userInteractionEnabled=true;
         _sortComment=sort;

@@ -30,6 +30,7 @@
 -(void)tableDidScroll:(UITableView *)tableUser cellRect:(CGRect)cellRect
 {
     float diff=cellRect.origin.y-(tableUser.l_co_y+SHOP_USER_ANIMATION_ALIGN_Y+SHOP_USER_BUTTON_NEXT_HEIGHT);
+    
     if(diff<0)
     {
         [self l_v_setY:cellRect.origin.y-diff];
@@ -40,6 +41,8 @@
         [self l_v_setY:cellRect.origin.y];
         [table l_co_setY:0];
     }
+    
+    NSLog(@"%f %f %f %f",diff,table.l_co_y,tableUser.l_co_y,[tableUser rectForRowAtIndexPath:[NSIndexPath indexPathForRow:5 inSection:0]].origin.y);
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
