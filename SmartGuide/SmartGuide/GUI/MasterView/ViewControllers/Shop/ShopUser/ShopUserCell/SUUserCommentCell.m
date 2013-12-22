@@ -42,7 +42,7 @@
         [table l_co_setY:0];
     }
     
-    NSLog(@"%f %f %f %f",diff,table.l_co_y,tableUser.l_co_y,[tableUser rectForRowAtIndexPath:[NSIndexPath indexPathForRow:5 inSection:0]].origin.y);
+//    NSLog(@"%f %f %f %f",diff,table.l_co_y,tableUser.l_co_y,[tableUser rectForRowAtIndexPath:[NSIndexPath indexPathForRow:5 inSection:0]].origin.y);
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView

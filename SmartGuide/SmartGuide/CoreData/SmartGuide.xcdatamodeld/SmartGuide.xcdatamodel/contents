@@ -77,23 +77,11 @@
         <attribute name="shopName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="shopType" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="tel" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="detailInfo" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ShopDetailInfo" inverseName="shop" inverseEntity="ShopDetailInfo" syncable="YES"/>
         <relationship name="km1" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="ShopKM1" inverseName="shop" inverseEntity="ShopKM1" syncable="YES"/>
         <relationship name="shopGalleries" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ShopGallery" inverseName="shop" inverseEntity="ShopGallery" syncable="YES"/>
         <relationship name="timeComments" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ShopUserComment" inverseName="shopTime" inverseEntity="ShopUserComment" syncable="YES"/>
         <relationship name="topComments" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ShopUserComment" inverseName="shopTop" inverseEntity="ShopUserComment" syncable="YES"/>
         <relationship name="userGalleries" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ShopUserGallery" inverseName="shop" inverseEntity="ShopUserGallery" syncable="YES"/>
-    </entity>
-    <entity name="ShopDetailInfo" representedClassName="ShopDetailInfo" syncable="YES">
-        <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="date" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="header" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="idShop" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="image" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="isTicked" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="type" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <relationship name="shop" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Shop" inverseName="detailInfo" inverseEntity="Shop" syncable="YES"/>
     </entity>
     <entity name="ShopGallery" representedClassName="ShopGallery" syncable="YES">
         <attribute name="cover" optional="YES" attributeType="String" syncable="YES"/>
@@ -207,7 +195,6 @@
         <element name="Placelist" positionX="0" positionY="0" width="0" height="0"/>
         <element name="Reward" positionX="0" positionY="0" width="0" height="0"/>
         <element name="Shop" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="ShopDetailInfo" positionX="0" positionY="0" width="0" height="0"/>
         <element name="ShopGallery" positionX="0" positionY="0" width="0" height="0"/>
         <element name="ShopKM1" positionX="0" positionY="0" width="0" height="0"/>
         <element name="ShopList" positionX="0" positionY="0" width="0" height="0"/>

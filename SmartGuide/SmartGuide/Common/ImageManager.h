@@ -15,9 +15,9 @@
 
 @property (nonatomic, strong, readonly) NSMutableArray *shopLogos;
 @property (nonatomic, strong, readonly) NSMutableArray *shopGallery;
-@property (nonatomic, strong, readonly) NSMutableArray *shopUserGallery
-;
+@property (nonatomic, strong, readonly) NSMutableArray *shopUserGallery;
 @property (nonatomic, strong, readonly) NSMutableArray *commentAvatar;
+@property (nonatomic, strong, readonly) NSMutableArray *storeLogo;
 
 @end
 

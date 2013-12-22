@@ -10,7 +10,7 @@
 
 static ImageManager *_imageManager=nil;
 @implementation ImageManager
-@synthesize shopGallery,shopLogos,shopUserGallery,commentAvatar;
+@synthesize shopGallery,shopLogos,shopUserGallery,commentAvatar,storeLogo;
 
 +(ImageManager*) sharedInstance
 {
@@ -30,6 +30,7 @@ static ImageManager *_imageManager=nil;
         shopLogos=[NSMutableArray new];
         shopUserGallery=[NSMutableArray new];
         commentAvatar=[NSMutableArray new];
+        storeLogo=[NSMutableArray new];
     }
     return self;
 }
@@ -40,38 +41,37 @@ static ImageManager *_imageManager=nil;
 
 -(void) loadShopLogoWithURL:(NSString*) url
 {
-    
+    [self setImageWithURL:[NSURL URLWithString:url]];
 }
 
 -(void) loadShopGalleryWithURL:(NSString*) url
 {
-    
+    [self setImageWithURL:[NSURL URLWithString:url]];
 }
 
 -(void) loadShopUserGalleryWithURL:(NSString*) url
 {
- 
-    
+    [self setImageWithURL:[NSURL URLWithString:url]];
 }
 
 -(void) loadCommentAvatarWithURL:(NSString*) url
 {
-    
+    [self setImageWithURL:[NSURL URLWithString:url]];
 }
 
 -(void)loadStoreLogoWithURL:(NSString *)url
 {
-    
+    [self setImageWithURL:[NSURL URLWithString:url]];
 }
 
 -(void)loadPlaceAuthorAvatarWithURL:(NSString *)url
 {
-    
+    [self setImageWithURL:[NSURL URLWithString:url]];
 }
 
 -(void)loadShopCoverWithURL:(NSString *)url
 {
-    
+    [self setImageWithURL:[NSURL URLWithString:url]];
 }
 
 @end

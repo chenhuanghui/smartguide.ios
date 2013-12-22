@@ -40,7 +40,6 @@
     [shop removeAllTopComments];
     [shop removeAllUserGalleries];
     [shop removeAllShopGalleries];
-    [shop removeAllDetailInfo];
     shop.km1=nil;
     
     shop.shopName=[NSString stringWithStringDefault:dict[@"shopName"]];

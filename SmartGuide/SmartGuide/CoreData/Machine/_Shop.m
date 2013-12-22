@@ -5,7 +5,6 @@
 #import "Shop.h"
 
 #import "DataManager.h"
-#import "ShopDetailInfo.h"
 #import "ShopKM1.h"
 #import "ShopGallery.h"
 #import "ShopUserComment.h"
@@ -14,9 +13,6 @@
 
 
 @implementation _Shop
-
-
-
 
 
 @dynamic km1;
@@ -320,74 +316,6 @@
 
 #pragma mark Relationships
     
-#pragma mark DetailInfo
-- (NSSet*)detailInfo {
-	[self willAccessValueForKey:@"detailInfo"];
-	NSSet *result = [self primitiveValueForKey:@"detailInfo"];
-	[self didAccessValueForKey:@"detailInfo"];
-	return result;
-}
-
--(NSArray*) detailInfoObjects
-{
-    NSSet *set=[self detailInfo];
-    if(set)
-        return [set allObjects];
-    
-    return [NSArray array];
-}
-
-- (void)setDetailInfo:(NSSet*)value {
-	[self willChangeValueForKey:@"detailInfo" withSetMutation:NSKeyValueSetSetMutation usingObjects:value];
-	[[self primitiveValueForKey:@"detailInfo"] setSet:value];
-	[self didChangeValueForKey:@"detailInfo" withSetMutation:NSKeyValueSetSetMutation usingObjects:value];
-}
-
-- (void)addDetailInfo:(NSSet*)value {
-	[self willChangeValueForKey:@"detailInfo" withSetMutation:NSKeyValueUnionSetMutation usingObjects:value];
-	[[self primitiveValueForKey:@"detailInfo"] unionSet:value];
-	[self didChangeValueForKey:@"detailInfo" withSetMutation:NSKeyValueUnionSetMutation usingObjects:value];
-}
-
--(void)removeDetailInfo:(NSSet*)value {
-
-    for(NSManagedObject *obj in value.allObjects)
-        [self.managedObjectContext deleteObject:obj];
-
-	[self willChangeValueForKey:@"detailInfo" withSetMutation:NSKeyValueMinusSetMutation usingObjects:value];
-	[[self primitiveValueForKey:@"detailInfo"] minusSet:value];
-	[self didChangeValueForKey:@"detailInfo" withSetMutation:NSKeyValueMinusSetMutation usingObjects:value];
-}
-	
-- (void)addDetailInfoObject:(ShopDetailInfo*)value {
-	NSSet *changedObjects = [[NSSet alloc] initWithObjects:&value count:1];
-	[self willChangeValueForKey:@"detailInfo" withSetMutation:NSKeyValueUnionSetMutation usingObjects:changedObjects];
-	[[self primitiveValueForKey:@"detailInfo"] addObject:value];
-	[self didChangeValueForKey:@"detailInfo" withSetMutation:NSKeyValueUnionSetMutation usingObjects:changedObjects];
-}
-
-- (void)removeDetailInfoObject:(ShopDetailInfo*)value {
-
-    [self.managedObjectContext deleteObject:value];
-
-	NSSet *changedObjects = [[NSSet alloc] initWithObjects:&value count:1];
-	[self willChangeValueForKey:@"detailInfo" withSetMutation:NSKeyValueMinusSetMutation usingObjects:changedObjects];
-	[[self primitiveValueForKey:@"detailInfo"] removeObject:value];
-	[self didChangeValueForKey:@"detailInfo" withSetMutation:NSKeyValueMinusSetMutation usingObjects:changedObjects];
-}
-
-- (void) removeAllDetailInfo
-{
-    [self removeDetailInfo:self.detailInfo];
-}
-
-- (NSMutableSet*)detailInfoSet {
-	[self willAccessValueForKey:@"detailInfo"];
-	NSMutableSet *result = [self mutableSetValueForKey:@"detailInfo"];
-	[self didAccessValueForKey:@"detailInfo"];
-	return result;
-}
-
 #pragma mark Km1
 - (ShopKM1*)km1 {
 	[self willAccessValueForKey:@"km1"];

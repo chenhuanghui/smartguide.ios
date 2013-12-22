@@ -23,7 +23,6 @@
 #define Shop_Tel @"tel"
 
 @class Shop;
-@class ShopDetailInfo;
 @class ShopKM1;
 @class ShopGallery;
 @class ShopUserComment;
@@ -62,15 +61,6 @@
 
     
 #pragma mark Relationships
-
-#pragma mark DetailInfo
-- (NSSet*) detailInfo;
-- (NSArray*) detailInfoObjects;
-- (void) addDetailInfo:(NSSet*)value;
-- (void) removeDetailInfo:(NSSet*)value;
-- (void) addDetailInfoObject:(ShopDetailInfo*)value;
-- (void) removeDetailInfoObject:(ShopDetailInfo*)value;
-- (void) removeAllDetailInfo;
 
 #pragma mark Km1
 @property (nonatomic, retain) ShopKM1* km1;
