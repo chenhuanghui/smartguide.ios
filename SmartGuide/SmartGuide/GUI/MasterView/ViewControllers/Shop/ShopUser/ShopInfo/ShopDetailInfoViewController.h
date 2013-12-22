@@ -7,10 +7,12 @@
 //
 
 #import "SGViewController.h"
+#import "ASIOperationShopDetailInfo.h"
+#import "Shop.h"
 
 @class ShopDetailInfoScrollView;
 
-@interface ShopDetailInfoViewController : SGViewController<UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate>
+@interface ShopDetailInfoViewController : SGViewController<UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate,ASIOperationPostDelegate>
 {
     __weak IBOutlet UIImageView *imgvCover;
     __weak IBOutlet UILabel *lblShopName;
@@ -38,7 +40,15 @@
     CGRect _tableImageFrame;
     CGRect _infoFrame;
     CGRect _coverFrame;
+    
+    ASIOperationShopDetailInfo *_operation;
+    
+    __weak Shop* _shop;
+    
+    NSMutableArray *_infos;
 }
+
+-(ShopDetailInfoViewController*) initWithShop:(Shop*) shop;
 
 @end
 

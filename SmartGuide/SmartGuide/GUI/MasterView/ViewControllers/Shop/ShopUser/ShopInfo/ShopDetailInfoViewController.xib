@@ -58,7 +58,7 @@
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </imageView>
                         <view contentMode="scaleToFill" id="DM7-nK-isK" userLabel="info">
-                            <rect key="frame" x="0.0" y="0.0" width="290" height="216"/>
+                            <rect key="frame" x="0.0" y="0.0" width="290" height="103"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SHOP NAME" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="n44-ea-A55">
@@ -217,6 +217,9 @@
         <image name="bg_detailcover.png" width="290" height="203"/>
         <image name="coverdetail.jpg" width="290" height="163"/>
         <image name="icon_typecoffee.png" width="25" height="25"/>
+        <image name="line_detail.png" width="264" height="5"/>
+        <image name="line_detail.png" width="264" height="5"/>
+        <image name="line_detail.png" width="264" height="5"/>
         <image name="line_detail.png" width="264" height="5"/>
     </resources>
 </document>

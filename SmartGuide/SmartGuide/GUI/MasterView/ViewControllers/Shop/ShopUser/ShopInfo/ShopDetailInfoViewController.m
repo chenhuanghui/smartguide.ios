@@ -19,13 +19,23 @@
 
 @implementation ShopDetailInfoViewController
 
-- (id)init
+- (ShopDetailInfoViewController *)initWithShop:(Shop *)shop
 {
     self = [super initWithNibName:@"ShopDetailInfoViewController" bundle:nil];
     if (self) {
         // Custom initialization
+        _shop=shop;
     }
     return self;
+}
+
+-(void)dealloc
+{
+    if(_operation)
+    {
+        [_operation cancel];
+        _operation=nil;
+    }
 }
 
 -(void) storeRect
@@ -89,6 +99,33 @@
     [self alignImage];
     
     scroll.contentSize=CGSizeMake(self.l_v_w, tableImage.l_v_y+tableImage.l_cs_h+5);
+    
+    _infos=[NSMutableArray new];
+    
+    _operation=[[ASIOperationShopDetailInfo alloc] initWithIDShop:_shop.idShop.integerValue userLat:userLat() userLng:userLng()];
+    _operation.delegatePost=self;
+    
+    [_operation startAsynchronous];
+}
+
+-(void)ASIOperaionPostFinished:(ASIOperationPost *)operation
+{
+    if([operation isKindOfClass:[ASIOperationShopDetailInfo class]])
+    {
+        ASIOperationShopDetailInfo *ope=(ASIOperationShopDetailInfo*) operation;
+        
+        _infos=[ope.infos mutableCopy];
+        
+        _operation=nil;
+    }
+}
+
+-(void)ASIOperaionPostFailed:(ASIOperationPost *)operation
+{
+    if([operation isKindOfClass:[ASIOperationShopDetailInfo class]])
+    {
+        _operation=nil;
+    }
 }
 
 -(void) alignIntro

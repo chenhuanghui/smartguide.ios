@@ -519,8 +519,6 @@
 		9ACFAE7F18621DFA006131DC /* ShopCameraPostViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9ACFAE7D18621DFA006131DC /* ShopCameraPostViewController.xib */; };
 		9ACFAE8818622025006131DC /* ShopCameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ACFAE8618622025006131DC /* ShopCameraViewController.m */; };
 		9ACFAE8918622025006131DC /* ShopCameraViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9ACFAE8718622025006131DC /* ShopCameraViewController.xib */; };
-		9ACFAEDE1862F385006131DC /* _ShopDetailInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ACFAEDD1862F385006131DC /* _ShopDetailInfo.m */; };
-		9ACFAEE11862F38C006131DC /* ShopDetailInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ACFAEE01862F38C006131DC /* ShopDetailInfo.m */; };
 		9ACFAEE7186333F3006131DC /* SGShopEmptyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ACFAEE6186333F3006131DC /* SGShopEmptyCell.m */; };
 		9ACFAEE918633568006131DC /* SGShopEmptyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9ACFAEE818633568006131DC /* SGShopEmptyCell.xib */; };
 		9ACFAEEC18635267006131DC /* ASIOperationLoveShop.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ACFAEEB18635267006131DC /* ASIOperationLoveShop.m */; };
@@ -1306,10 +1304,6 @@
 		9ACFAE8518622025006131DC /* ShopCameraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopCameraViewController.h; sourceTree = "<group>"; };
 		9ACFAE8618622025006131DC /* ShopCameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopCameraViewController.m; sourceTree = "<group>"; };
 		9ACFAE8718622025006131DC /* ShopCameraViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShopCameraViewController.xib; sourceTree = "<group>"; };
-		9ACFAEDC1862F385006131DC /* _ShopDetailInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _ShopDetailInfo.h; sourceTree = "<group>"; };
-		9ACFAEDD1862F385006131DC /* _ShopDetailInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _ShopDetailInfo.m; sourceTree = "<group>"; };
-		9ACFAEDF1862F38C006131DC /* ShopDetailInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopDetailInfo.h; sourceTree = "<group>"; };
-		9ACFAEE01862F38C006131DC /* ShopDetailInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopDetailInfo.m; sourceTree = "<group>"; };
 		9ACFAEE5186333F3006131DC /* SGShopEmptyCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGShopEmptyCell.h; sourceTree = "<group>"; };
 		9ACFAEE6186333F3006131DC /* SGShopEmptyCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGShopEmptyCell.m; sourceTree = "<group>"; };
 		9ACFAEE818633568006131DC /* SGShopEmptyCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SGShopEmptyCell.xib; sourceTree = "<group>"; };
@@ -2328,8 +2322,6 @@
 		A91A674A1797F65000BEB8C5 /* Human */ = {
 			isa = PBXGroup;
 			children = (
-				9ACFAEDF1862F38C006131DC /* ShopDetailInfo.h */,
-				9ACFAEE01862F38C006131DC /* ShopDetailInfo.m */,
 				9AC74E501860BE1C0033EB61 /* Placelist.h */,
 				9AC74E511860BE1C0033EB61 /* Placelist.m */,
 				9ACFA6A118600AA50090E7A8 /* ShopList.h */,
@@ -2375,8 +2367,6 @@
 		A91A674D1797F65000BEB8C5 /* Machine */ = {
 			isa = PBXGroup;
 			children = (
-				9ACFAEDC1862F385006131DC /* _ShopDetailInfo.h */,
-				9ACFAEDD1862F385006131DC /* _ShopDetailInfo.m */,
 				9AC74E531860BE230033EB61 /* _Placelist.h */,
 				9AC74E541860BE230033EB61 /* _Placelist.m */,
 				9ACFA6A418600AC70090E7A8 /* _ShopList.h */,
@@ -3760,7 +3750,6 @@
 				9ACFA6A618600AC70090E7A8 /* _ShopList.m in Sources */,
 				9AC4940A18585A300042C535 /* StoreItemInfoViewController.m in Sources */,
 				A935C51E17A43101008910D3 /* _Filter.m in Sources */,
-				9ACFAEDE1862F385006131DC /* _ShopDetailInfo.m in Sources */,
 				9AA90B5B1850ED8D002F40FF /* ButtonAgree.m in Sources */,
 				9A7522041856D4D400248B02 /* ButtonPrice.m in Sources */,
 				9ACFAE8818622025006131DC /* ShopCameraViewController.m in Sources */,
@@ -3788,7 +3777,6 @@
 				9A32F3D5184345AE00704D26 /* UserLoginViewController.m in Sources */,
 				A91CE6AE17A93B8B00D29E87 /* ASIOperationShopComment.m in Sources */,
 				A91CE6B117A93B9B00D29E87 /* ASIOperationPostComment.m in Sources */,
-				9ACFAEE11862F38C006131DC /* ShopDetailInfo.m in Sources */,
 				9A2F8D011855B6220024AE1A /* StoreShopItemCell.m in Sources */,
 				A91CE6BF17A93F6500D29E87 /* ShopGallery.m in Sources */,
 				A91CE6C017A93F6500D29E87 /* ShopUserGallery.m in Sources */,
