@@ -10,6 +10,7 @@
 #import "Shop.h"
 #import "ShopList.h"
 #import "LabelTopText.h"
+#import "InfoTypeBGView.h"
 
 enum SHOP_DETAIL_INFO_DESCRIPTION_MODE {
     SHOP_DETAIL_INFO_DESCRIPTION_NORMAL = 0,
@@ -32,6 +33,7 @@ enum SHOP_DETAIL_INFO_DESCRIPTION_MODE {
     __weak IBOutlet LabelTopText *lblFullAddress;
     __weak IBOutlet LabelTopText *lblIntro;
     __weak IBOutlet UIButton *btnMore;
+    __weak IBOutlet InfoTypeBGView *bg;
 }
 
 -(void) loadWithShop:(Shop*) shop height:(float) height mode:(enum SHOP_DETAIL_INFO_DESCRIPTION_MODE) mode;

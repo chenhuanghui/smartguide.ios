@@ -64,7 +64,7 @@
     // Do any additional setup after loading the view from its nib.
     
     [self storeRect];
-
+    
     [table registerNib:[UINib nibWithNibName:[ShopDetailInfoCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[ShopDetailInfoCell reuseIdentifier]];
     [table registerNib:[UINib nibWithNibName:[ShopDetailInfoEmptyCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[ShopDetailInfoEmptyCell reuseIdentifier]];
     [table registerNib:[UINib nibWithNibName:[ShopDetailInfoType1Cell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[ShopDetailInfoType1Cell reuseIdentifier]];
@@ -126,7 +126,7 @@
 {
     switch (section) {
         case 0:
-            return 1;
+            return _didLoadShopDetail?2:1;
             
         case 1:
         {
@@ -151,7 +151,19 @@
     
     switch (_descMode) {
         case SHOP_DETAIL_INFO_DESCRIPTION_NORMAL:
-            [table reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationBottom];
+            if(_didLoadShopDetail)
+            {
+                NSIndexPath *indexPath=[NSIndexPath indexPathForRow:0 inSection:0];
+                [table reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+                
+                indexPath=[NSIndexPath indexPathForRow:0 inSection:1];
+                [table scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:true];
+            }
+            else
+            {
+                NSIndexPath *indexPath=[NSIndexPath indexPathForRow:0 inSection:0];
+                [table reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            }
             break;
             
         case SHOP_DETAIL_INFO_DESCRIPTION_FULL:
@@ -165,12 +177,19 @@
     switch (indexPath.section) {
         case 0:
         {
-            ShopDetailInfoCell *cell=[table dequeueReusableCellWithIdentifier:[ShopDetailInfoCell reuseIdentifier]];
-            cell.delegate=self;
-
-            [cell loadWithShop:_shop height:[table rectForRowAtIndexPath:indexPath].size.height mode:_descMode];
-            
-            return cell;
+            if(indexPath.row==0)
+            {
+                ShopDetailInfoCell *cell=[table dequeueReusableCellWithIdentifier:[ShopDetailInfoCell reuseIdentifier]];
+                cell.delegate=self;
+                
+                [cell loadWithShop:_shop height:[table rectForRowAtIndexPath:indexPath].size.height mode:_descMode];
+                
+                return cell;
+            }
+            else
+            {
+                return [self emptyCell];
+            }
         }
             
         case 1:
@@ -235,7 +254,7 @@
         
         [headerFooter.contentView addSubview:header];
     }
-
+    
     ShopDetailInfoHeaderView *header=headerFooter.contentView.subviews[0];
     InfoTypeObject *obj=_infos[section];
     
@@ -249,9 +268,14 @@
     switch (indexPath.section) {
         case 0:
         {
-            _heightDesc=[ShopDetailInfoCell heightWithContent:_shop.desc mode:_descMode];
-            
-            return _heightDesc;
+            if(indexPath.row==0)
+            {
+                _heightDesc=[ShopDetailInfoCell heightWithContent:_shop.desc mode:_descMode];
+                
+                return _heightDesc;
+            }
+            else
+                return 23;
         }
             
         case 1:
@@ -289,23 +313,28 @@
     return 0;
 }
 
+-(UITableViewCell*) emptyCell
+{
+    UITableViewCell *emptyCell=[table dequeueReusableCellWithIdentifier:@"emptyCell"];
+    
+    if(!emptyCell)
+    {
+        emptyCell=[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"emptyCell"];
+        emptyCell.backgroundColor=[UIColor clearColor];
+        emptyCell.contentView.backgroundColor=[UIColor clearColor];
+        emptyCell.backgroundView.backgroundColor=[UIColor clearColor];
+    }
+    
+    return emptyCell;
+}
+
 -(UITableViewCell*) cellWithIndexPath:(NSIndexPath*) indexPath
 {
     InfoTypeObject *obj=_infos[indexPath.section];
- 
+    
     if(indexPath.row==obj.items.count)
     {
-        UITableViewCell *emptyCell=[table dequeueReusableCellWithIdentifier:@"emptyCell"];
-        
-        if(!emptyCell)
-        {
-            emptyCell=[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"emptyCell"];
-            emptyCell.backgroundColor=[UIColor clearColor];
-            emptyCell.contentView.backgroundColor=[UIColor clearColor];
-            emptyCell.backgroundView.backgroundColor=[UIColor clearColor];
-        }
-        
-        return emptyCell;
+        return [self emptyCell];
     }
     
     switch (obj.type) {
@@ -319,7 +348,7 @@
             
             return cell;
         }
-
+            
         case DETAIL_INFO_TYPE_2:
         {
             Info2 *item=obj.items[indexPath.row];

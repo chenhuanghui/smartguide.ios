@@ -78,10 +78,17 @@
             break;
     }
     
-    if(height<181)
-        height=181;
+    if(height<185)
+        height=185;
 
     return height;
+}
+
+-(void)awakeFromNib
+{
+    [super awakeFromNib];
+    
+    bg.drawBottomLine=true;
 }
 
 @end
