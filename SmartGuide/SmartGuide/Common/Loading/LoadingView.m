@@ -92,6 +92,8 @@
         if([view isKindOfClass:[LoadingView class]])
             return;
     
+    NSLog(@"showLoading %@",NSStringFromClass([self class]));
+    
     LoadingView *loading=[[LoadingView alloc] initWithView:self];
     
     [self addSubview:loading];
@@ -103,6 +105,8 @@
 
 -(void)removeLoading
 {
+    NSLog(@"removeLoading %@",NSStringFromClass([self class]));
+    
     NSMutableArray *array=[NSMutableArray array];
     
     for(UIView *view in self.subviews)

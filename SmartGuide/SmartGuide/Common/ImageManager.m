@@ -7,6 +7,7 @@
 //
 
 #import "ImageManager.h"
+#import "UIImageView+WebCache.h"
 
 static ImageManager *_imageManager=nil;
 @implementation ImageManager
@@ -70,6 +71,11 @@ static ImageManager *_imageManager=nil;
 }
 
 -(void)loadShopCoverWithURL:(NSString *)url
+{
+    [self setImageWithURL:[NSURL URLWithString:url]];
+}
+
+-(void)loadImageInfo3WithURL:(NSString *)url
 {
     [self setImageWithURL:[NSURL URLWithString:url]];
 }

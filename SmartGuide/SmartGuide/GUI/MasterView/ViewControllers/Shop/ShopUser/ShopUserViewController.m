@@ -76,6 +76,7 @@
     switch (_dataMode) {
         case SHOP_USER_DATA_SHOP_LIST:
             tableShopUser.scrollEnabled=false;
+            btnInfo.enabled=false;
             break;
             
         case SHOP_USER_DATA_SHOP_USER:
@@ -116,6 +117,7 @@
         
         [tableShopUser reloadData];
         tableShopUser.scrollEnabled=true;
+        btnInfo.enabled=true;
         
         for(int i=0;i<[tableShopUser numberOfRowsInSection:0];i++)
         {
@@ -572,7 +574,12 @@
 
 -(void)suShopGalleryTouchedMoreInfo:(SUShopGalleryCell *)cell
 {
-    ShopDetailInfoViewController *vc=[ShopDetailInfoViewController new];
+    if(!_shop)
+        return;
+    
+    ShopDetailInfoViewController *vc=nil;
+
+    vc=[[ShopDetailInfoViewController alloc] initWithShop:_shop];
     
     [self pushViewController:vc];
 }

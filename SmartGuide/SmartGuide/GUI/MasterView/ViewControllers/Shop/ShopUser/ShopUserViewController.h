@@ -70,6 +70,7 @@ enum SHOP_USER_DATA_MODE
     __weak IBOutlet TableShopUser *tableShopUser;
     __weak IBOutlet UIButton *btnNext;
     __weak IBOutlet UIButton *btnBack;
+    __weak IBOutlet UIButton *btnInfo;
     __weak IBOutlet UIImageView *imgvBG;
     
     __strong SUShopGalleryCell *shopGalleryCell;

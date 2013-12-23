@@ -7,9 +7,6 @@
 //
 
 #import "ShopDetailInfoViewController.h"
-#import "ShopDetailInfoToolCell.h"
-#import "ShopDetailInfoDetailCell.h"
-#import "ShopDetailInfoImageCell.h"
 
 #define SHOP_DETAIL_INFO_TABLE_MARGIN_HEIGHT 24.f
 
@@ -40,11 +37,6 @@
 
 -(void) storeRect
 {
-    _contentFrame=lblContent.frame;
-    _tableToolFrame=tableTool.frame;
-    _tableDetailFrame=tableDetail.frame;
-    _tableImageFrame=tableImage.frame;
-    _infoFrame=infoView.frame;
     _coverFrame=coverView.frame;
 }
 
@@ -73,34 +65,18 @@
     
     [self storeRect];
 
-    introView.layer.cornerRadius=2.5f;
-    introView.layer.masksToBounds=true;
-    
-    if([tableTool respondsToSelector:@selector(setSeparatorInset:)])
-        tableTool.separatorInset=UIEdgeInsetsZero;
-    
-    if([tableDetail respondsToSelector:@selector(setSeparatorInset:)])
-        tableDetail.separatorInset=UIEdgeInsetsZero;
-    
-    if([tableImage respondsToSelector:@selector(setSeparatorInset:)])
-        tableImage.separatorInset=UIEdgeInsetsZero;
-    
-    [self maskTopLR:toolView];
-    [self maskTopLR:detailView];
-    [self maskTopLR:imageView];
-    
-    [tableTool registerNib:[UINib nibWithNibName:[ShopDetailInfoToolCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[ShopDetailInfoToolCell reuseIdentifier]];
-    [tableDetail registerNib:[UINib nibWithNibName:[ShopDetailInfoDetailCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[ShopDetailInfoDetailCell reuseIdentifier]];
-    [tableImage registerNib:[UINib nibWithNibName:[ShopDetailInfoImageCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[ShopDetailInfoImageCell reuseIdentifier]];
-    
-    [self alignIntro];
-    [self alignTool];
-    [self alignDetail];
-    [self alignImage];
-    
-    scroll.contentSize=CGSizeMake(self.l_v_w, tableImage.l_v_y+tableImage.l_cs_h+5);
+    [table registerNib:[UINib nibWithNibName:[ShopDetailInfoCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[ShopDetailInfoCell reuseIdentifier]];
+    [table registerNib:[UINib nibWithNibName:[ShopDetailInfoEmptyCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[ShopDetailInfoEmptyCell reuseIdentifier]];
+    [table registerNib:[UINib nibWithNibName:[ShopDetailInfoType1Cell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[ShopDetailInfoType1Cell reuseIdentifier]];
+    [table registerNib:[UINib nibWithNibName:[ShopDetailInfoType2Cell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[ShopDetailInfoType2Cell reuseIdentifier]];
+    [table registerNib:[UINib nibWithNibName:[ShopDetailInfoType3Cell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[ShopDetailInfoType3Cell reuseIdentifier]];
+    [table registerNib:[UINib nibWithNibName:[ShopDetailInfoType4Cell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[ShopDetailInfoType4Cell reuseIdentifier]];
     
     _infos=[NSMutableArray new];
+    _didLoadShopDetail=false;
+    _descMode=SHOP_DETAIL_INFO_DESCRIPTION_NORMAL;
+    
+    [_infos addObject:@""];
     
     _operation=[[ASIOperationShopDetailInfo alloc] initWithIDShop:_shop.idShop.integerValue userLat:userLat() userLng:userLng()];
     _operation.delegatePost=self;
@@ -114,7 +90,10 @@
     {
         ASIOperationShopDetailInfo *ope=(ASIOperationShopDetailInfo*) operation;
         
-        _infos=[ope.infos mutableCopy];
+        [_infos addObjectsFromArray:ope.infos];
+        _didLoadShopDetail=true;
+        
+        [table reloadData];
         
         _operation=nil;
     }
@@ -128,180 +107,8 @@
     }
 }
 
--(void) alignIntro
-{
-    CGSize size=[lblContent.text sizeWithFont:lblContent.font constrainedToSize:CGSizeMake(lblContent.l_v_w, 9999) lineBreakMode:lblContent.lineBreakMode];
-    btnMoreIntro.hidden=size.height<_contentFrame.size.height;
-}
-
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    if(scrollView==scroll)
-    {
-        CGPoint pnt=scrollView.contentOffset;
-        
-//        NSLog(@"%f %f %f %f",_coverFrame.origin.y,pnt.y-_coverFrame.origin.y,coverView.l_v_y,pnt.y);
-
-        float y=coverView.l_v_y;
-        
-        y=MIN(0,y-scroll.offset.y/4);
-        
-        [coverView l_v_setY:y];
-        
-//        if(coverView.l_v_y>0)
-//            [coverView l_v_setY:0];
-//        if(pnt.y-_coverFrame.origin.y<0)
-        
-//        if(pnt.y-_coverFrame.origin.y<0)
-//        {
-//            [coverView l_v_setY:pnt.y];
-//        }
-//        else
-//        {
-//            [coverView l_v_addY:scroll.offset.y/4];
-//        }
-        
-        if(pnt.y>=_tableToolFrame.origin.y)
-        {
-            [tableTool l_v_setY:pnt.y];
-            [tableTool l_co_setY:pnt.y-_tableToolFrame.origin.y];
-        }
-        else
-        {
-            [tableTool l_v_setY:_tableToolFrame.origin.y];
-            [tableTool l_co_setY:0];
-        }
-        
-        if(pnt.y>=_tableDetailFrame.origin.y)
-        {
-            [tableDetail l_v_setY:pnt.y];
-            [tableDetail l_co_setY:pnt.y-_tableDetailFrame.origin.y];
-        }
-        else
-        {
-            [tableDetail l_v_setY:_tableDetailFrame.origin.y];
-            [tableDetail l_co_setY:0];
-        }
-        
-        if(pnt.y>=_tableImageFrame.origin.y)
-        {
-            [tableImage l_v_setY:pnt.y];
-            [tableImage l_co_setY:pnt.y-_tableImageFrame.origin.y];
-        }
-        else
-        {
-            [tableImage l_v_setY:_tableImageFrame.origin.y];
-            [tableImage l_co_setY:0];
-        }
-    }
-}
-
--(void) moveBottomView:(float) y
-{
-    [toolView l_v_addY:y];
-    [tableTool l_v_addY:y];
-    _tableToolFrame.origin.y+=y;
-    
-    [detailView l_v_addY:y];
-    [tableDetail l_v_addY:y];
-    _tableDetailFrame.origin.y+=y;
-    
-    [imageView l_v_addY:y];
-    [tableImage l_v_addY:y];
-    _tableImageFrame.origin.y+=y;
-}
-
--(void) alignBottom
-{
-    tableDetail.dataSource=self;
-    tableDetail.delegate=self;
-    [tableDetail reloadData];
-    
-    [self alignDetail];
-    
-    tableImage.dataSource=self;
-    tableImage.delegate=self;
-    [tableImage reloadData];
-    
-    [self alignImage];
-}
-
--(void) alignTool
-{
-    [toolView l_v_setY:introView.l_v_y+introView.l_v_h+SHOP_DETAIL_INFO_TABLE_MARGIN_HEIGHT];
-    
-    tableTool.dataSource=self;
-    tableTool.delegate=self;
-    [tableTool reloadData];
-    
-    [tableTool l_v_setY:toolView.l_v_y+toolView.l_v_h];
-    [tableTool l_v_setH:MIN(self.l_v_h,tableTool.l_cs_h)];
-    
-    _tableToolFrame=tableTool.frame;
-    
-    [self maskTableBottomLR:tableTool];
-}
-
--(void) alignDetail
-{
-    [detailView l_v_setY:tableTool.l_v_y+tableTool.l_cs_h+SHOP_DETAIL_INFO_TABLE_MARGIN_HEIGHT];
-    
-    tableDetail.dataSource=self;
-    tableDetail.delegate=self;
-    [tableDetail reloadData];
-    
-    [tableDetail l_v_setY:detailView.l_v_y+detailView.l_v_h];
-    [tableDetail l_v_setH:MIN(self.l_v_h,tableTool.l_cs_h)];
-    
-    _tableDetailFrame=tableDetail.frame;
-    
-    [self maskTableBottomLR:tableDetail];
-}
-
--(void) alignImage
-{
-    [imageView l_v_setY:tableDetail.l_v_y+tableDetail.l_cs_h+SHOP_DETAIL_INFO_TABLE_MARGIN_HEIGHT];
-    
-    tableImage.dataSource=self;
-    tableImage.delegate=self;
-    [tableImage reloadData];
-    
-    [tableImage l_v_setY:imageView.l_v_y+imageView.l_v_h];
-    [tableImage l_v_setH:MIN(self.l_v_h,tableImage.l_cs_h)];
-    
-    _tableImageFrame=tableImage.frame;
-    
-    [self maskTableBottomLR:tableImage];
-}
-
--(IBAction) btnMoreIntroTouchUpInside:(id)sender
-{
-    if(btnMoreIntro.tag==0)
-    {
-        btnMoreIntro.tag=1;
-        [btnMoreIntro setTitle:@"Thu nhỏ" forState:UIControlStateNormal];
-        
-        CGSize size=[lblContent.text sizeWithFont:lblContent.font constrainedToSize:CGSizeMake(lblContent.l_v_w, 9999) lineBreakMode:lblContent.lineBreakMode];
-        
-        [UIView animateWithDuration:DURATION_DEFAULT animations:^{
-            float height=size.height-_contentFrame.size.height+10;
-            [introView l_v_addH:height];
-            [self moveBottomView:height];
-            [scroll l_cs_addH:height];
-        }];
-    }
-    else
-    {
-        btnMoreIntro.tag=0;
-        [btnMoreIntro setTitle:@"Xem thêm" forState:UIControlStateNormal];
-        
-        [UIView animateWithDuration:DURATION_DEFAULT animations:^{
-            float height=-(lblContent.l_v_h-_contentFrame.size.height);
-            [introView l_v_addH:height];
-            [self moveBottomView:height];
-            [scroll l_cs_addH:height];
-        }];
-    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -312,72 +119,248 @@
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
+    return _infos.count+(_didLoadShopDetail?0:1);
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 10;
+    switch (section) {
+        case 0:
+            return 1;
+            
+        case 1:
+        {
+            if(!_didLoadShopDetail)
+                return 1;
+            
+            break;
+        }
+            
+        default:
+            break;
+    }
+    
+    InfoTypeObject *obj=_infos[section];
+    
+    return obj.items.count+1;
+}
+
+-(void)detailInfoCellTouchedMore:(ShopDetailInfoCell *)cell
+{
+    _descMode=(_descMode==SHOP_DETAIL_INFO_DESCRIPTION_NORMAL?SHOP_DETAIL_INFO_DESCRIPTION_FULL:SHOP_DETAIL_INFO_DESCRIPTION_NORMAL);
+    
+    switch (_descMode) {
+        case SHOP_DETAIL_INFO_DESCRIPTION_NORMAL:
+            [table reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationBottom];
+            break;
+            
+        case SHOP_DETAIL_INFO_DESCRIPTION_FULL:
+            [table reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+    }
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if(tableView==tableTool)
-    {
-        ShopDetailInfoToolCell *cell=[tableView dequeueReusableCellWithIdentifier:[ShopDetailInfoToolCell reuseIdentifier]];
-        
-        [cell loadWithContent:@"Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda." withState:rand()%2==0];
-        
-        return cell;
-    }
-    else if(tableView==tableDetail)
-    {
-        ShopDetailInfoDetailCell *cell=[tableView dequeueReusableCellWithIdentifier:[ShopDetailInfoDetailCell reuseIdentifier]];
-        
-        [cell loadWithName:@"Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda." withContent:@"Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda."];
-        
-        return cell;
-    }
-    else if(tableView==tableImage)
-    {
-        ShopDetailInfoImageCell *cell=[tableView dequeueReusableCellWithIdentifier:[ShopDetailInfoImageCell reuseIdentifier]];
-        
-        [cell loadWithImage:[UIImage imageNamed:@"ava.png"] withTitle:@"Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda." withContent:@"Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda."];
-        
-        return cell;
+    switch (indexPath.section) {
+        case 0:
+        {
+            ShopDetailInfoCell *cell=[table dequeueReusableCellWithIdentifier:[ShopDetailInfoCell reuseIdentifier]];
+            cell.delegate=self;
+
+            [cell loadWithShop:_shop height:[table rectForRowAtIndexPath:indexPath].size.height mode:_descMode];
+            
+            return cell;
+        }
+            
+        case 1:
+        {
+            if(!_didLoadShopDetail)
+            {
+                ShopDetailInfoEmptyCell *cell=[table dequeueReusableCellWithIdentifier:[ShopDetailInfoEmptyCell reuseIdentifier]];
+                
+                return cell;
+            }
+            
+            break;
+        }
+            
+        default:
+            break;
     }
     
-    return nil;
+    return [self cellWithIndexPath:indexPath];
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    switch (section) {
+        case 0:
+            return 0;
+            
+        case 1:
+            if(!_didLoadShopDetail)
+                return 0;
+            
+        default:
+            break;
+    }
+    
+    return [ShopDetailInfoHeaderView height];
+}
+
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    switch (section) {
+        case 0:
+            return [UIView new];
+            
+        case 1:
+            if(!_didLoadShopDetail)
+                return [UIView new];
+            
+        default:
+            break;
+    }
+    
+    UITableViewHeaderFooterView *headerFooter=[tableView dequeueReusableHeaderFooterViewWithIdentifier:[ShopDetailInfoHeaderView reuseIdentifier]];
+    
+    if(!headerFooter)
+    {
+        headerFooter=[[UITableViewHeaderFooterView alloc] initWithReuseIdentifier:[ShopDetailInfoHeaderView reuseIdentifier]];
+        headerFooter.backgroundView.backgroundColor=[UIColor clearColor];
+        headerFooter.contentView.backgroundColor=[UIColor clearColor];
+        
+        ShopDetailInfoHeaderView *header=[[ShopDetailInfoHeaderView alloc] initWithTitle:@""];
+        
+        [headerFooter.contentView addSubview:header];
+    }
+
+    ShopDetailInfoHeaderView *header=headerFooter.contentView.subviews[0];
+    InfoTypeObject *obj=_infos[section];
+    
+    [header setTitle:obj.header];
+    
+    return header;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if(tableView==tableTool)
-    {
-        return [ShopDetailInfoToolCell heightWithContent:@"Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda."];
+    switch (indexPath.section) {
+        case 0:
+        {
+            _heightDesc=[ShopDetailInfoCell heightWithContent:_shop.desc mode:_descMode];
+            
+            return _heightDesc;
+        }
+            
+        case 1:
+            if(!_didLoadShopDetail)
+                return self.l_v_h-_heightDesc;
+            
+        default:
+            break;
     }
-    else if(tableView==tableDetail)
+    
+    InfoTypeObject *obj=_infos[indexPath.section];
+    
+    if(indexPath.row==obj.items.count)
     {
-        return [ShopDetailInfoDetailCell heightWithContent:@"Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda."];
+        return 23;
     }
-    else if(tableView==tableImage)
-    {
-        return [ShopDetailInfoImageCell heightWithContent:@"Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda."];
+    
+    switch (obj.type) {
+        case DETAIL_INFO_TYPE_1:
+            return [ShopDetailInfoType1Cell heightWithContent:[obj.items[indexPath.row] content]];
+            
+        case DETAIL_INFO_TYPE_2:
+            return [ShopDetailInfoType2Cell heightWithContent:[obj.items[indexPath.row] content]];
+            
+        case DETAIL_INFO_TYPE_3:
+            return [ShopDetailInfoType3Cell heightWithContent:[obj.items[indexPath.row] content]];
+            
+        case DETAIL_INFO_TYPE_4:
+            return [ShopDetailInfoType4Cell heightWithContent:[obj.items[indexPath.row] content]];
+            
+        default:
+            break;
     }
     
     return 0;
 }
 
-@end
-
-@implementation ShopDetailInfoScrollView
-@synthesize offset;
-
--(void)setContentOffset:(CGPoint)contentOffset
+-(UITableViewCell*) cellWithIndexPath:(NSIndexPath*) indexPath
 {
-    offset=CGPointMake(contentOffset.x-self.contentOffset.x, contentOffset.y-self.contentOffset.y);
+    InfoTypeObject *obj=_infos[indexPath.section];
+ 
+    if(indexPath.row==obj.items.count)
+    {
+        UITableViewCell *emptyCell=[table dequeueReusableCellWithIdentifier:@"emptyCell"];
+        
+        if(!emptyCell)
+        {
+            emptyCell=[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"emptyCell"];
+            emptyCell.backgroundColor=[UIColor clearColor];
+            emptyCell.contentView.backgroundColor=[UIColor clearColor];
+            emptyCell.backgroundView.backgroundColor=[UIColor clearColor];
+        }
+        
+        return emptyCell;
+    }
     
-    [super setContentOffset:contentOffset];
+    switch (obj.type) {
+        case DETAIL_INFO_TYPE_1:
+        {
+            Info1 *item=obj.items[indexPath.row];
+            
+            ShopDetailInfoType1Cell *cell=[table dequeueReusableCellWithIdentifier:[ShopDetailInfoType1Cell reuseIdentifier]];
+            
+            [cell loadWithInfo1:item isLastCell:indexPath.row==obj.items.count-1];
+            
+            return cell;
+        }
+
+        case DETAIL_INFO_TYPE_2:
+        {
+            Info2 *item=obj.items[indexPath.row];
+            
+            ShopDetailInfoType2Cell *cell=[table dequeueReusableCellWithIdentifier:[ShopDetailInfoType2Cell reuseIdentifier]];
+            
+            [cell loadWithInfo2:item isLastCell:indexPath.row==obj.items.count-1];
+            
+            return cell;
+        }
+            break;
+            
+        case DETAIL_INFO_TYPE_3:
+        {
+            Info3 *item=obj.items[indexPath.row];
+            
+            ShopDetailInfoType3Cell *cell=[table dequeueReusableCellWithIdentifier:[ShopDetailInfoType3Cell reuseIdentifier]];
+            
+            [cell loadWithInfo3:item isLastCell:indexPath.row==obj.items.count-1];
+            
+            return cell;
+        }
+            break;
+            
+        case DETAIL_INFO_TYPE_4:
+        {
+            Info4 *item=obj.items[indexPath.row];
+            
+            ShopDetailInfoType4Cell *cell=[table dequeueReusableCellWithIdentifier:[ShopDetailInfoType4Cell reuseIdentifier]];
+            
+            [cell loadWithInfo4:item isLastCell:indexPath.row==obj.items.count-1];
+            
+            return cell;
+        }
+            break;
+            
+        default:
+            break;
+    }
+    
+    return [UITableViewCell new];
 }
 
 @end

@@ -20,6 +20,11 @@
     return self;
 }
 
+-(NSArray *)keys
+{
+    return @[@"idShop",@"userLat",@"userLng"];
+}
+
 -(void)onCompletedWithJSON:(NSArray *)json
 {
     infos=[NSMutableArray array];
@@ -152,6 +157,7 @@
             
         case 1:
             obj.isTicked=DETAIL_INFO_TICKED;
+            break;
             
         default:
             obj.isTicked=DETAIL_INFO_TICKED_NONE;

@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "UIImageView+WebCache.h"
 
 @interface ImageManager : NSObject
 
@@ -30,5 +29,6 @@
 -(void) loadStoreLogoWithURL:(NSString*) url;
 -(void) loadPlaceAuthorAvatarWithURL:(NSString*) url;
 -(void) loadShopCoverWithURL:(NSString*) url;
+-(void) loadImageInfo3WithURL:(NSString*) url;
 
 @end
