@@ -109,6 +109,19 @@
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
+    if(scrollView==table)
+    {
+        if(scrollView.l_co_y<0)
+            [coverView l_v_setY:_coverFrame.origin.y+scrollView.l_co_y/4];
+        else
+        {
+            float y=_coverFrame.origin.y+scrollView.l_co_y/4;
+            
+            y=MIN(0,y);
+            
+            [coverView l_v_setY:y];
+        }
+    }
 }
 
 - (void)didReceiveMemoryWarning
