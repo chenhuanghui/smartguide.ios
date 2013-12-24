@@ -10,20 +10,29 @@
 
 @implementation NewFeedListCell
 
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+-(void)loadWithHome3:(UserHome3 *)home3
 {
-    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
-    if (self) {
-        // Initialization code
-    }
-    return self;
+    
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated
+-(void)loadWithHome4:(UserHome4 *)home4
 {
-    [super setSelected:selected animated:animated];
+    
+}
 
-    // Configure the view for the selected state
+-(void)loadWithHome5:(UserHome5 *)home5
+{
+    
+}
+
++(float)height
+{
+    return 155;
+}
+
++(NSString *)reuseIdentifier
+{
+    return @"NewFeedListCell";
 }
 
 @end

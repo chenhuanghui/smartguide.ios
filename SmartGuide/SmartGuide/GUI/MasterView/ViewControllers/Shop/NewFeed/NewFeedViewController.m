@@ -34,6 +34,11 @@
     txt.leftView.backgroundColor=[UIColor clearColor];
     txt.leftViewMode=UITextFieldViewModeAlways;
     
+    [table registerNib:[UINib nibWithNibName:[NewFeedPromotionCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[NewFeedPromotionCell reuseIdentifier]];
+    [table registerNib:[UINib nibWithNibName:[NewFeedImagesCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[NewFeedImagesCell reuseIdentifier]];
+    [table registerNib:[UINib nibWithNibName:[NewFeedListCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[NewFeedListCell reuseIdentifier]];
+    [table registerNib:[UINib nibWithNibName:[NewFeedInfoCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[NewFeedInfoCell reuseIdentifier]];
+    
     _page=-1;
     _homes=[NSMutableArray array];
     _isLoadingMore=false;
@@ -123,6 +128,152 @@
 -(IBAction) btnNavigationTouchedUpInside:(id)sender
 {
     [self.delegate newFeedControllerTouchedNavigation:self];
+}
+
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return _homes.count==0?0:1;
+}
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return _homes.count;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UserHome *home=_homes[indexPath.row];
+    switch (home.enumType) {
+        case USER_HOME_TYPE_1:
+            return [NewFeedPromotionCell heightWithHome1:home.home1];
+            
+        case USER_HOME_TYPE_2:
+            return [NewFeedImagesCell height];
+            
+        case USER_HOME_TYPE_3:
+        case USER_HOME_TYPE_4:
+        case USER_HOME_TYPE_5:
+            return [NewFeedListCell height];
+            
+        case USER_HOME_TYPE_6:
+            return [NewFeedInfoCell heightWithHome6:home.home6];
+            
+        case USER_HOME_TYPE_7:
+            return [NewFeedInfoCell heightWithHome7:home.home7];
+            
+        default:
+            return 0;
+    }
+}
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UserHome *home=_homes[indexPath.row];
+    
+    switch (home.enumType) {
+        case USER_HOME_TYPE_1:
+        {
+            NewFeedPromotionCell *cell=[tableView dequeueReusableCellWithIdentifier:[NewFeedPromotionCell reuseIdentifier]];
+            
+            return cell;
+        }
+            
+        case USER_HOME_TYPE_2:
+        {
+            NewFeedImagesCell *cell=[tableView dequeueReusableCellWithIdentifier:[NewFeedImagesCell reuseIdentifier]];
+            
+            return cell;
+        }
+            
+        case USER_HOME_TYPE_3:
+        {
+            NewFeedListCell *cell=[tableView dequeueReusableCellWithIdentifier:[NewFeedListCell reuseIdentifier]];
+            
+            return cell;
+        }
+        case USER_HOME_TYPE_4:
+        {
+            NewFeedListCell *cell=[tableView dequeueReusableCellWithIdentifier:[NewFeedListCell reuseIdentifier]];
+            
+            return cell;
+        }
+        case USER_HOME_TYPE_5:
+        {
+            NewFeedListCell *cell=[tableView dequeueReusableCellWithIdentifier:[NewFeedListCell reuseIdentifier]];
+            
+            return cell;
+        }
+            
+        case USER_HOME_TYPE_6:
+        {
+            NewFeedInfoCell *cell=[tableView dequeueReusableCellWithIdentifier:[NewFeedInfoCell reuseIdentifier]];
+            
+            return cell;
+        }
+            
+        case USER_HOME_TYPE_7:
+        {
+            NewFeedInfoCell *cell=[tableView dequeueReusableCellWithIdentifier:[NewFeedInfoCell reuseIdentifier]];
+            
+            return cell;
+        }
+            
+        default:
+            return 0;
+    }
+    
+    return [UITableViewCell new];
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UserHome *home=_homes[indexPath.row];
+    switch (home.enumType) {
+        case USER_HOME_TYPE_1:
+        {
+            
+        }
+            break;
+            
+        case USER_HOME_TYPE_2:
+        {
+            
+        }
+            break;
+            
+        case USER_HOME_TYPE_3:
+        {
+            
+        }
+            break;
+            
+        case USER_HOME_TYPE_4:
+        {
+            
+        }
+            break;
+            
+        case USER_HOME_TYPE_5:
+        {
+            
+        }
+            break;
+            
+        case USER_HOME_TYPE_6:
+        {
+            
+        }
+            break;
+            
+        case USER_HOME_TYPE_7:
+        {
+            
+        }
+            break;
+            
+        default:
+            break;
+    }
 }
 
 @end

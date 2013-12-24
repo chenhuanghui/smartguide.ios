@@ -7,7 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UserHome1.h"
 
 @interface NewFeedPromotionCell : UITableViewCell
+
+-(void) loadWithHome1:(UserHome1*) home;
+
++(float) heightWithHome1:(UserHome1*) home;
++(NSString *)reuseIdentifier;
 
 @end

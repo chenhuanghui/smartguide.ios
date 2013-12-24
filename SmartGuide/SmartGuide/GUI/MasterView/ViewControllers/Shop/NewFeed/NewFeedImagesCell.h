@@ -10,4 +10,9 @@
 
 @interface NewFeedImagesCell : UITableViewCell
 
+-(void) loadWithImages:(NSString*) iamges;
+
++(float) height;
++(NSString *)reuseIdentifier;
+
 @end

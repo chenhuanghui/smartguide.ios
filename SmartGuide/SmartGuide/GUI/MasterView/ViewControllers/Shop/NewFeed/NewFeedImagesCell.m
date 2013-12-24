@@ -10,20 +10,19 @@
 
 @implementation NewFeedImagesCell
 
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+-(void)loadWithImages:(NSString *)iamges
 {
-    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
-    if (self) {
-        // Initialization code
-    }
-    return self;
+    
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated
++(float)height
 {
-    [super setSelected:selected animated:animated];
+    return 174;
+}
 
-    // Configure the view for the selected state
++(NSString *)reuseIdentifier
+{
+    return @"NewFeedImagesCell";
 }
 
 @end

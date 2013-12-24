@@ -8,6 +8,10 @@
 
 #import "SGViewController.h"
 #import "ASIOperationUserHome.h"
+#import "NewFeedPromotionCell.h"
+#import "NewFeedImagesCell.h"
+#import "NewFeedListCell.h"
+#import "NewFeedInfoCell.h"
 
 @class NewFeedViewController;
 

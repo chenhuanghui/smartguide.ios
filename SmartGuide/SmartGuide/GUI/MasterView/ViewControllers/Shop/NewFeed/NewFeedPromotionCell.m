@@ -10,20 +10,19 @@
 
 @implementation NewFeedPromotionCell
 
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+-(void)loadWithHome1:(UserHome1 *)home
 {
-    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
-    if (self) {
-        // Initialization code
-    }
-    return self;
+    
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated
++(float)heightWithHome1:(UserHome1 *)home
 {
-    [super setSelected:selected animated:animated];
+    return 45;
+}
 
-    // Configure the view for the selected state
++(NSString *)reuseIdentifier
+{
+    return @"NewFeedPromotionCell";
 }
 
 @end
