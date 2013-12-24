@@ -93,11 +93,8 @@
 {
     ShopGalleryCell *cell=[tableView dequeueReusableCellWithIdentifier:[ShopGalleryCell reuseIdentifier]];
     
-    
     if(_shopList)
-    {
         [cell loadImage:_shopList.cover];
-    }
     else
     {
         ShopGallery *gallery=_shop.shopGalleriesObjects[indexPath.row];

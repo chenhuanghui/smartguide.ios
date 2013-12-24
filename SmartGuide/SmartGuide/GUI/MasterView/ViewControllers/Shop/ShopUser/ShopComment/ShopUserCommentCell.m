@@ -8,6 +8,7 @@
 
 #import "ShopUserCommentCell.h"
 #import "LoadingView.h"
+#import "ImageManager.h"
 
 #define SHOP_USER_COMMENT_FONT [UIFont fontWithName:@"Avenir-Roman" size:11]
 #define SHOP_USER_COMMENT_WIDTH 189.f
@@ -17,6 +18,8 @@
 -(void)loadWithComment:(ShopUserComment *)comment
 {
     _comment=comment;
+    
+    [imgvAvatar loadCommentAvatarWithURL:comment.avatar];
     
     lblUsername.text=comment.username;
     lblTime.text=comment.time;

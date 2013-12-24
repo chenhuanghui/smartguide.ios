@@ -105,6 +105,7 @@
         ASIOperationShopUser *ope=(ASIOperationShopUser*)operation;
         
         _shop=ope.shop;
+        shopGalleryCell=nil;
         
         _comments=[[NSMutableArray alloc] initWithArray:_shop.topCommentsObjects];
         
