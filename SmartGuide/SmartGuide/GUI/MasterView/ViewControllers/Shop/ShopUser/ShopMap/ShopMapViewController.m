@@ -51,6 +51,19 @@
     }
 }
 
+-(NSArray *)registerNotifications
+{
+    return @[UIApplicationDidBecomeActiveNotification];
+}
+
+-(void)receiveNotification:(NSNotification *)notification
+{
+    if([notification.name isEqualToString:UIApplicationDidBecomeActiveNotification])
+    {
+        _didRouterUserLocation=false;
+    }
+}
+
 -(void) addTapAnnAtPoint:(CGPoint) pnt
 {
     CLLocationCoordinate2D touchMapCoordinate =
