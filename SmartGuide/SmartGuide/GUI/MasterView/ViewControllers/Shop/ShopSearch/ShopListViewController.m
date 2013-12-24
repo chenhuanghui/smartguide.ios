@@ -985,7 +985,15 @@
             CGPoint pnt=[scroll convertPoint:tableList.l_v_o toView:self.view];
             
             if(self.l_v_h-pnt.y>[tableList rectForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]].size.height*1.5f)
+            {
+                _isZoomedMap=false;
+                self.map.userInteractionEnabled=false;
+                self.map.scrollEnabled=false;
+                self.map.zoomEnabled=false;
+                scroll.minimumOffsetY=-1;
+                
                 [self endZoomMap];
+            }
         }
             break;
             

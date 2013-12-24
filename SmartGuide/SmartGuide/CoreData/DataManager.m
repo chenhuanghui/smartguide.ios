@@ -23,6 +23,21 @@ double userLng()
     return [DataManager shareInstance].currentUser.location.longitude;
 }
 
+void setUserLocation(CLLocationCoordinate2D location)
+{
+    [DataManager shareInstance].currentUser.location=location;
+}
+
+void setUserLat(double newLat)
+{
+    [DataManager shareInstance].currentUser.location=CLLocationCoordinate2DMake(newLat, userLng());
+}
+
+void setUserLng(double newLng)
+{
+    [DataManager shareInstance].currentUser.location=CLLocationCoordinate2DMake(userLat(), newLng);
+}
+
 static DataManager *_dataManager=nil;
 @implementation DataManager
 @synthesize managedObjectContext,managedObjectModel,persistentStoreCoordinator;

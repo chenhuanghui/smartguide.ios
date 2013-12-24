@@ -9,6 +9,7 @@
 
 @interface Shop : _Shop<MKAnnotation>
 {
+    CLLocationCoordinate2D _dragCoord;
 }
 
 +(Shop*) shopWithIDShop:(int) idShop;
@@ -18,5 +19,7 @@
 
 -(enum SHOP_PROMOTION_TYPE) shopPromotionType;
 -(enum LOVE_STATUS) enumLoveStatus;
+
+
 
 @end

@@ -37,6 +37,21 @@
     return self;
 }
 
+-(OperationURL *)initWithRequest:(NSURLRequest *)urlRequest
+{
+    self=[super initWithRequest:urlRequest];
+    
+    __weak id weakSelf=self;
+    [self setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        [weakSelf onCompleted:operation responseObject:responseObject];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [weakSelf onFailure:operation error:error];
+    }];
+    
+    return self;
+}
+
 -(void)start
 {
     NSLog(@"%@ request %@",NSStringFromClass([self class]),self.request.URL);

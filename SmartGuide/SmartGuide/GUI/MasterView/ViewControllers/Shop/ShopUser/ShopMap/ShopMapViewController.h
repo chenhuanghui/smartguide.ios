@@ -7,7 +7,34 @@
 //
 
 #import "SGViewController.h"
+#import "SGMapView.h"
+#import "Shop.h"
 
-@interface ShopMapViewController : SGViewController
+@class TapAnnoun;
+
+@interface ShopMapViewController : SGViewController<MKMapViewDelegate,UIGestureRecognizerDelegate>
+{
+    __weak IBOutlet SGMapView *map;
+    
+    __weak Shop* _shop;
+    
+    __weak TapAnnoun *_tapAnn;
+    
+    __weak IBOutlet UIButton *btnPinDrag;
+    __weak IBOutlet UIButton *btnPinInvs;
+    bool _didRouterUserLocation;
+}
+
+-(ShopMapViewController*) initWithShop:(Shop*) shop;
+
+@end
+
+@interface TapAnnoun : NSObject<MKAnnotation>
+{
+    CLLocationCoordinate2D _coordinate;
+    NSString *_title;
+}
+
+-(void) setTitle:(NSString*) title;
 
 @end

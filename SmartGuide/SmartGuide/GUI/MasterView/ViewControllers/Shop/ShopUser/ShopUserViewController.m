@@ -610,13 +610,18 @@
 
 -(void)infoCellTouchedMap:(SUInfoCell *)cell
 {
-    ShopMapViewController *vc=[ShopMapViewController new];
+    ShopMapViewController *vc=[[ShopMapViewController alloc] initWithShop:_shop];
     
     [self pushViewController:vc];
 }
 
 -(IBAction) btnBackTouchUpInside:(id)sender
 {
+    if([shopNavi.visibleViewController isKindOfClass:[ShopMapViewController class]])
+    {
+        [_shop setCoordinate:CLLocationCoordinate2DMake(-1, -1)];
+    }
+    
     [shopNavi popToRootViewControllerAnimated:true];
     
     [UIView animateWithDuration:DURATION_DEFAULT animations:^{

@@ -11,6 +11,8 @@
     self.shopLat=[NSNumber numberWithDouble:-1];
     self.shopLng=[NSNumber numberWithDouble:-1];
     
+    _dragCoord=CLLocationCoordinate2DMake(-1, -1);
+    
     return self;
 }
 
@@ -21,6 +23,9 @@
 
 -(CLLocationCoordinate2D)coordinate
 {
+    if(isVailCLLocationCoordinate2D(_dragCoord))
+        return _dragCoord;
+    
     return CLLocationCoordinate2DMake(self.shopLat.doubleValue, self.shopLng.doubleValue);
 }
 
@@ -171,6 +176,16 @@
         default:
             return LOVE_STATUS_NONE;
     }
+}
+
+-(NSString *)title
+{
+    return self.shopName;
+}
+
+-(void)setCoordinate:(CLLocationCoordinate2D)newCoordinate
+{
+    _dragCoord=newCoordinate;
 }
 
 @end

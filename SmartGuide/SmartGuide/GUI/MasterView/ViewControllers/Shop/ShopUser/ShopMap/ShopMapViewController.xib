@@ -7,6 +7,9 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ShopMapViewController">
             <connections>
+                <outlet property="btnPinDrag" destination="DFP-Lg-baX" id="XMB-5G-sqB"/>
+                <outlet property="btnPinInvs" destination="gff-xw-zKR" id="Duk-u2-kHv"/>
+                <outlet property="map" destination="IWU-JQ-UUt" id="jF9-xI-gDz"/>
                 <outlet property="view" destination="1" id="3"/>
             </connections>
         </placeholder>
@@ -15,16 +18,52 @@
             <rect key="frame" x="0.0" y="0.0" width="290" height="431"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="II-3-Detail-Map.jpg" id="vFK-qj-TLF">
-                    <rect key="frame" x="-15" y="-29" width="320" height="480"/>
+                <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" id="IWU-JQ-UUt" customClass="SGMapView">
+                    <rect key="frame" x="0.0" y="0.0" width="290" height="431"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                </imageView>
+                    <connections>
+                        <outlet property="delegate" destination="-1" id="gSj-Ak-hOq"/>
+                    </connections>
+                </mapView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="657-YF-6JG">
+                    <rect key="frame" x="0.0" y="381" width="290" height="43"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <state key="normal" title="Tìm đường đi">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="btnLocationTouchUpInside:" destination="-1" eventType="touchUpInside" id="4WD-r2-Hkc"/>
+                    </connections>
+                </button>
+                <button hidden="YES" opaque="NO" userInteractionEnabled="NO" alpha="0.29999999999999999" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="gff-xw-zKR">
+                    <rect key="frame" x="250" y="349" width="40" height="29"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <state key="normal" image="pin_drag.png">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="DFP-Lg-baX">
+                    <rect key="frame" x="250" y="349" width="40" height="29"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <state key="normal" image="pin_drag.png">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="btnPinDragInside:withEvent:" destination="-1" eventType="touchDragInside" id="4hK-qu-aUg"/>
+                        <action selector="btnPinTouchDown:withEvent:" destination="-1" eventType="touchDown" id="CqL-C7-1y7"/>
+                        <action selector="btnPinTouchUpInside:withEvent:" destination="-1" eventType="touchUpInside" id="csf-Rr-1l5"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
         </view>
     </objects>
     <resources>
-        <image name="II-3-Detail-Map.jpg" width="320" height="480"/>
+        <image name="pin_drag.png" width="16" height="16"/>
     </resources>
 </document>

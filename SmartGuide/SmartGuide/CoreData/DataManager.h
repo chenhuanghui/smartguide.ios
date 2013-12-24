@@ -13,6 +13,9 @@
 
 double userLat();
 double userLng();
+void setUserLocation(CLLocationCoordinate2D location);
+void setUserLat(double newLat);
+void setUserLng(double newLng);
 
 @interface DataManager : NSObject
 
