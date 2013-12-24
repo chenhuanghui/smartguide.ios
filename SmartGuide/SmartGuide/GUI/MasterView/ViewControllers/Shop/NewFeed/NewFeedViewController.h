@@ -7,6 +7,7 @@
 //
 
 #import "SGViewController.h"
+#import "ASIOperationUserHome.h"
 
 @class NewFeedViewController;
 
@@ -17,9 +18,17 @@
 
 @end
 
-@interface NewFeedViewController : SGViewController<UITextFieldDelegate>
+@interface NewFeedViewController : SGViewController<UITextFieldDelegate,ASIOperationPostDelegate,UITableViewDataSource,UITableViewDelegate>
 {
     __weak IBOutlet UITextField *txt;
+    __weak IBOutlet UIView *displayLoadingView;
+    __weak IBOutlet UITableView *table;
+    
+    ASIOperationUserHome *_operationUserHome;
+    NSMutableArray *_homes;
+    int _page;
+    bool _isLoadingMore;
+    bool _canLoadMore;
 }
 
 @property (nonatomic, assign) id<NewFeedControllerDelegate> delegate;

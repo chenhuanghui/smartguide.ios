@@ -7,6 +7,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="NewFeedViewController">
             <connections>
+                <outlet property="displayLoadingView" destination="Qvy-Tv-IgG" id="0IJ-xq-EXi"/>
+                <outlet property="table" destination="Ney-Bf-iDE" id="GjY-1O-67z"/>
                 <outlet property="txt" destination="Zxr-rq-3wh" id="wKt-3d-52E"/>
                 <outlet property="view" destination="1" id="3"/>
             </connections>
@@ -16,27 +18,21 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" id="9y3-sx-hNk">
-                    <rect key="frame" x="0.0" y="456" width="320" height="24"/>
+                <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="II-1-Block.jpg" id="efG-Hq-cth">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background_scan.png" id="EnO-4I-aqE">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="56"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
-                        </imageView>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="5AV-pt-t36">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="33"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <inset key="contentEdgeInsets" minX="0.0" minY="-1" maxX="0.0" maxY="0.0"/>
-                            <state key="normal" image="button_scan_small.png">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                        </button>
-                    </subviews>
+                </imageView>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Ney-Bf-iDE">
+                    <rect key="frame" x="0.0" y="50" width="320" height="306"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                </view>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="P0R-JT-9Eu"/>
+                        <outlet property="delegate" destination="-1" id="zAG-3c-5qO"/>
+                    </connections>
+                </tableView>
                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Tìm kiếm khuyến mãi" minimumFontSize="17" background="search_field.png" id="Zxr-rq-3wh">
-                    <rect key="frame" x="48" y="6" width="252" height="32"/>
+                    <rect key="frame" x="52" y="10" width="225" height="32"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits"/>
@@ -45,7 +41,7 @@
                     </connections>
                 </textField>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="KOS-9x-Ggl">
-                    <rect key="frame" x="11" y="12" width="25" height="20"/>
+                    <rect key="frame" x="12" y="16" width="25" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                     <state key="normal" image="button_navigation.png">
@@ -55,14 +51,48 @@
                         <action selector="btnNavigationTouchedUpInside:" destination="-1" eventType="touchUpInside" id="jHf-gE-uya"/>
                     </connections>
                 </button>
+                <view hidden="YES" contentMode="scaleToFill" id="MVN-kQ-te1">
+                    <rect key="frame" x="0.0" y="424" width="320" height="56"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background_scan.png" id="pI1-Hx-pJ7">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="56"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        </imageView>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="x6B-Va-eYj">
+                            <rect key="frame" x="0.0" y="1" width="320" height="56"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <inset key="contentEdgeInsets" minX="0.0" minY="-1" maxX="0.0" maxY="0.0"/>
+                            <state key="normal" image="button_scan.png">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                        </button>
+                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="top" lineBreakMode="middleTruncation" id="OIS-pB-zut">
+                            <rect key="frame" x="0.0" y="56" width="320" height="56"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <inset key="contentEdgeInsets" minX="13" minY="10" maxX="0.0" maxY="0.0"/>
+                            <state key="normal" image="button_scan_small.png">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                </view>
+                <view userInteractionEnabled="NO" contentMode="scaleToFill" id="Qvy-Tv-IgG">
+                    <rect key="frame" x="0.0" y="50" width="320" height="306"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                </view>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
         </view>
     </objects>
     <resources>
+        <image name="II-1-Block.jpg" width="320" height="480"/>
         <image name="background_scan.png" width="320" height="56"/>
         <image name="button_navigation.png" width="25" height="20"/>
+        <image name="button_scan.png" width="125" height="24"/>
         <image name="button_scan_small.png" width="63" height="17"/>
         <image name="search_field.png" width="255" height="32"/>
     </resources>

@@ -89,6 +89,7 @@
 #define API_LOVE_SHOP @"user/loveShop"
 #define API_AGREE_COMMENT @"user/agreeComment"
 #define API_SHOP_DETAIL_INFO @"shop/detailinfo"
+#define API_USER_HOME @"user/home"
 
 #define API_GET_ACTIVE_CODE(phone) [NSString stringWithFormat:@"%@/user/activation?phone=%@",SERVER_IP,phone]
 #define API_VERIFY_ACTIVE_CODE(phone,activeCode) [NSString stringWithFormat:@"%@/user/check?phone=%@&code=%@",SERVER_IP,phone,activeCode]
