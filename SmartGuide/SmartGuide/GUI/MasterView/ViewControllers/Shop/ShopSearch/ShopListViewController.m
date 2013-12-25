@@ -430,11 +430,10 @@
     [self storePosition];
     
     tableList.backgroundColor=COLOR_BACKGROUND_SHOP_SERIES;
+    self.view.backgroundColor=COLOR_BACKGROUND_SHOP_SERIES;
     
     [tableList registerNib:[UINib nibWithNibName:[ShopListCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[ShopListCell reuseIdentifier]];
     [tableList registerNib:[UINib nibWithNibName:[ShopListPlaceCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[ShopListPlaceCell reuseIdentifier]];
-    
-    [scroll.panGestureRecognizer addTarget:self action:@selector(panShowMap:)];
     
     UITapGestureRecognizer *tap=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapTop:)];
     tap.delegate=self;
@@ -443,6 +442,7 @@
     [self.view addGestureRecognizer:tap];
     
     [scroll.panGestureRecognizer requireGestureRecognizerToFail:tap];
+    [scroll.panGestureRecognizer addTarget:self action:@selector(scrollPanGes:)];
     
     _shopsList=[NSMutableArray array];
     _page=-1;
@@ -750,6 +750,11 @@
         _canLoadMore=false;
         _isLoadingMore=false;
         
+        tableList.dataSource=self;
+        tableList.delegate=self;
+        
+        [tableList reloadData];
+        
         NSMutableArray *coordinates=[NSMutableArray array];
         for(ShopList *shop in _shopsList)
         {
@@ -796,60 +801,32 @@
     if(gestureRecognizer==_tapTop)
     {
         if(_isZoomedMap)
-            return false;
-        
-        CGPoint pnt=[gestureRecognizer locationInView:self.view];
-        CGRect rect=CGRectMake(0, 0, self.l_v_w, [scroll convertPoint:tableList.l_v_o toView:self.view].y-1);
-        
-        if(CGRectContainsPoint(rect, pnt))
         {
-            if([sortView pointInside:[gestureRecognizer locationInView:sortView] withEvent:nil])
-                return false;
+            CGPoint pnt=[gestureRecognizer locationInView:tableList];
             
-            return true;
+            if(CGRectContainsPoint(CGRectMake(0, 0, tableList.l_v_w, tableList.l_v_h), pnt))
+                return true;
+            
+            return false;
         }
-        
-        return false;
+        else
+        {
+            CGPoint pnt=[gestureRecognizer locationInView:self.view];
+            CGRect rect=CGRectMake(0, 0, self.l_v_w, [scroll convertPoint:tableList.l_v_o toView:self.view].y-1);
+            
+            if(CGRectContainsPoint(rect, pnt))
+            {
+                if([sortView pointInside:[gestureRecognizer locationInView:sortView] withEvent:nil])
+                    return false;
+                
+                return true;
+            }
+            
+            return false;
+        }
     }
     
     return true;
-}
-
--(void) panShowMap:(UIPanGestureRecognizer*) pan
-{
-    switch (pan.state) {
-        case UIGestureRecognizerStateCancelled:
-        case UIGestureRecognizerStateEnded:
-        case UIGestureRecognizerStateFailed:
-        {
-            CGPoint pnt=[pan velocityInView:scroll];
-            
-            if(pnt.y<0)
-                return;
-
-            pnt=[scroll convertPoint:tableList.l_v_o toView:self.view];
-            
-            if(pnt.y>_tableFrame.origin.y+20)
-            {
-                // do animation delay nên sẽ bị bug ko move sortview
-                _isZoomedMap=true;
-                _isAllowDiffScrollMap=false;
-                _isAnimatingZoom=true;
-                self.map.userInteractionEnabled=true;
-                self.map.scrollEnabled=true;
-                self.map.zoomEnabled=true;
-                scrollerView.hidden=true;
-                
-                [UIView animateWithDuration:DURATION_DEFAULT animations:^{
-                    [self zoomMap];
-                }];
-            }
-        }
-            break;
-            
-        default:
-            break;
-    }
 }
 
 -(void) makeScrollSize
@@ -861,7 +838,10 @@
 
 -(void) tapTop:(UITapGestureRecognizer*) ges
 {
-    [self zoomMap];
+    if(_isZoomedMap)
+        [self endZoomMap];
+    else
+        [self zoomMap];
 }
 
 -(UIScrollView *)scrollView
@@ -875,9 +855,9 @@
     {
         float y=scroll.offset.y/SHOP_LIST_SCROLL_SPEED;
         
-        if(_isAllowDiffScrollMap)
-            [self.map l_v_addY:y];
+        [self.map l_v_setY:_mapFrame.origin.y+scroll.contentOffset.y-scroll.contentOffset.y/SHOP_LIST_SCROLL_SPEED];
         
+        return;
         y=scroll.contentOffset.y;
         
         if(y>=_tableFrame.origin.y && !_isZoomedMap)
@@ -901,12 +881,12 @@
         }
         
         //begin scroller
-
+        
         float height=(scroll.l_cs_h+scroll.contentInset.bottom-scroll.l_v_h);
         float percent=(scroll.l_co_y)/height;
         
         y=percent*(scrollerContain.l_v_h);
-
+        
         y=MAX(36, y);
         y=MIN(scrollerContain.l_v_h-scrollerView.l_v_h-QRCODE_RAY_HEIGHT, y);
         
@@ -1021,7 +1001,7 @@
                 scrollerLabel.text=scrollerText;
             }];
         }
-
+        
         //end scroller
     }
     else if(scrollView==tableList)
@@ -1039,21 +1019,6 @@
     [self.map setRegion:MKCoordinateRegionMakeWithDistance(userLocation.location.coordinate, MAP_SPAN, MAP_SPAN) animated:false];
 }
 
-// Dùng để lấy alignPoint
-/*
- -(void) move
- {
- if(!self.parentViewController)
- return;
- 
- self.map.centerCoordinate=CLLocationCoordinate2DMake(self.map.centerCoordinate.latitude+0.001f, self.map.centerCoordinate.longitude);
- 
- NSLog(@"%f %f xxx %f",self.map.centerCoordinate.latitude,self.map.centerCoordinate.longitude,self.map.centerCoordinate.latitude-lll.latitude);
- 
- [self performSelector:@selector(move) withObject:nil afterDelay:0.5];
- }
- */
-
 -(void) scrollPanGes:(UIPanGestureRecognizer*) pan
 {
     switch (pan.state) {
@@ -1061,17 +1026,82 @@
         case UIGestureRecognizerStateFailed:
         case UIGestureRecognizerStateCancelled:
         {
-            CGPoint pnt=[scroll convertPoint:tableList.l_v_o toView:self.view];
-            
-            if(self.l_v_h-pnt.y>[tableList rectForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]].size.height*1.5f)
+            if(_isZoomedMap)
             {
-                _isZoomedMap=false;
-                self.map.userInteractionEnabled=false;
-                self.map.scrollEnabled=false;
-                self.map.zoomEnabled=false;
-                scroll.minimumOffsetY=-1;
+                CGPoint pnt=[scroll convertPoint:tableList.l_v_o toView:self.view];
                 
-                [self endZoomMap];
+                if(self.l_v_h-pnt.y>[tableList rectForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]].size.height*1.5f)
+                {
+                    [scroll setContentOffset:scroll.contentOffset animated:true];
+                    self.view.userInteractionEnabled=false;
+                    self.map.userInteractionEnabled=false;
+                    self.map.scrollEnabled=false;
+                    self.map.zoomEnabled=false;
+                    tableList.userInteractionEnabled=true;
+                    
+                    btnScanBig.alpha=0;
+                    btnScanBig.hidden=false;
+                    
+                    [UIView animateWithDuration:DURATION_DEFAULT animations:^{
+                        scroll.contentInset=UIEdgeInsetsMake(0, 0, 0, 0);
+                        [qrCodeView l_v_setY:_qrFrame.origin.y];
+                        
+                        btnScanBig.alpha=1;
+                        btnScanSmall.alpha=0;
+                        btnScanBig.frame=_buttonScanBigFrame;
+                        btnScanSmall.frame=_buttonScanSmallFrame;
+                    } completion:^(BOOL finished) {
+                        [self makeScrollSize];
+                        
+                        _isZoomedMap=false;
+                        self.view.userInteractionEnabled=true;
+                    }];
+                }
+            }
+            else
+            {
+                CGPoint pnt=[pan velocityInView:scroll];
+                
+                if(pnt.y<0)
+                    return;
+                
+                pnt=[scroll convertPoint:tableList.l_v_o toView:self.view];
+                
+                if(pnt.y>_tableFrame.origin.y+20)
+                {
+                    self.view.userInteractionEnabled=false;
+                    self.map.userInteractionEnabled=true;
+                    self.map.scrollEnabled=true;
+                    self.map.zoomEnabled=true;
+                    tableList.userInteractionEnabled=false;
+                    
+                    _isZoomedMap=true;
+                    
+                    float height=scroll.l_v_h-(QRCODE_BIG_HEIGHT-QRCODE_SMALL_HEIGHT);
+                    height-=[tableList rectForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]].size.height/2+18;
+                    height-=_tableFrame.origin.y;
+                    
+                    _heightZoomedMap=height;
+                    
+                    btnScanSmall.alpha=0;
+                    btnScanSmall.hidden=false;
+                    
+                    [UIView animateWithDuration:DURATION_DEFAULT animations:^{
+                        [scroll setContentOffset:CGPointMake(0, -height) animated:false];
+                        [qrCodeView l_v_setY:_qrFrame.origin.y+QRCODE_BIG_HEIGHT-QRCODE_SMALL_HEIGHT];
+                        
+                        btnScanSmall.alpha=1;
+                        btnScanBig.alpha=0;
+                        btnScanBig.frame=_buttonScanSmallFrame;
+                        btnScanSmall.frame=_buttonScanBigFrame;
+                        
+                    } completion:^(BOOL finished) {
+                        [scroll l_cs_setH:scroll.l_v_h-height+1];
+                        scroll.contentInset=UIEdgeInsetsMake(height, 0, 0, 0);
+                        
+                        self.view.userInteractionEnabled=true;
+                    }];
+                }
             }
         }
             break;
@@ -1083,22 +1113,21 @@
 
 -(void) zoomMap
 {
+    self.view.userInteractionEnabled=false;
     _isZoomedMap=true;
-    _isAllowDiffScrollMap=false;
-    _isAnimatingZoom=true;
+    
+    tableList.userInteractionEnabled=false;
     self.map.userInteractionEnabled=true;
     self.map.scrollEnabled=true;
     self.map.zoomEnabled=true;
-    scrollerView.hidden=true;
     
-    [tableList alphaViewWithColor:[UIColor clearColor]];
-    
-    if([self.map respondsToSelector:@selector(setRotateEnabled:)])
-        self.map.rotateEnabled=true;
-    
-    float height=scroll.l_v_h-(QRCODE_BIG_HEIGHT-QRCODE_SMALL_HEIGHT);//-_qrFrame.size.height+QRCODE_RAY_HEIGHT+QRCODE_BIG_HEIGHT-QRCODE_SMALL_HEIGHT;
+    float height=scroll.l_v_h-(QRCODE_BIG_HEIGHT-QRCODE_SMALL_HEIGHT);
     height-=[tableList rectForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]].size.height/2+18;
     height-=_tableFrame.origin.y;
+    
+    CGPoint pnt=CGPointZero;
+    pnt.y=-(height);
+    [scroll l_cs_setH:scroll.l_v_h-height+1];
     
     _heightZoomedMap=height;
     
@@ -1106,40 +1135,17 @@
     btnScanSmall.hidden=false;
     
     [UIView animateWithDuration:DURATION_DEFAULT animations:^{
+        scroll.contentInset=UIEdgeInsetsMake(height, 0, 0, 0);
+        [qrCodeView l_v_setY:_qrFrame.origin.y+QRCODE_BIG_HEIGHT-QRCODE_SMALL_HEIGHT];
         
         btnScanSmall.alpha=1;
         btnScanBig.alpha=0;
         btnScanBig.frame=_buttonScanSmallFrame;
         btnScanSmall.frame=_buttonScanBigFrame;
-
-        scroll.contentInset=UIEdgeInsetsMake(0, 0, QRCODE_RAY_HEIGHT, 0);
-        scroll.contentSize=scroll.l_v_s;
         
-        [qrCodeView l_v_addY:QRCODE_BIG_HEIGHT-QRCODE_SMALL_HEIGHT];
-        
-        [tableList l_c_addY:height];
-        [btnMap l_c_addY:height];
-        [sortView l_c_addY:height];
-        [self.map l_v_setY:0];
-        scroll.minimumOffsetY=0;
-        
-        [btnSearchLocation l_v_setY:25];
     } completion:^(BOOL finished) {
-        _isAllowDiffScrollMap=true;
-        _isAnimatingZoom=false;
-        
-        btnScanBig.hidden=false;
+        self.view.userInteractionEnabled=true;
     }];
-    
-    [scroll.panGestureRecognizer removeTarget:self action:@selector(panShowMap:)];
-    [scroll.panGestureRecognizer addTarget:self action:@selector(scrollPanGes:)];
-    
-    UITapGestureRecognizer *tap=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapBot:)];
-    
-    _tapBot=tap;
-    [scroll.panGestureRecognizer requireGestureRecognizerToFail:tap];
-    
-    [tableList addGestureRecognizer:tap];
 }
 
 -(void) tapBot:(UITapGestureRecognizer*) tap
@@ -1150,52 +1156,25 @@
 -(void) endZoomMap
 {
     _isZoomedMap=false;
+    
     self.map.userInteractionEnabled=false;
     self.map.scrollEnabled=false;
     self.map.zoomEnabled=false;
-    scroll.minimumOffsetY=-1;
-    
-    if([self.map respondsToSelector:@selector(setRotateEnabled:)])
-        self.map.rotateEnabled=false;
-    
-    [self makeScrollSize];
-    
-    [scroll setContentOffset:CGPointZero animated:true];
-    
-    [scroll.panGestureRecognizer addTarget:self action:@selector(panShowMap:)];
-    [scroll.panGestureRecognizer removeTarget:self action:@selector(scrollPanGes:)];
-    [scroll.panGestureRecognizer requireGestureRecognizerToFail:_tapTop];
-    
-    _tapBot.delegate=nil;
-    [_tapBot removeTarget:self action:@selector(tapTable:)];
-    [tableList removeGestureRecognizer:_tapBot];
-    _tapBot=nil;
+    tableList.userInteractionEnabled=true;
     
     btnScanBig.alpha=0;
     btnScanBig.hidden=false;
     
     [UIView animateWithDuration:DURATION_DEFAULT animations:^{
+        scroll.contentInset=UIEdgeInsetsMake(0, 0, 0, 0);
+        [qrCodeView l_v_setY:_qrFrame.origin.y];
         
         btnScanBig.alpha=1;
         btnScanSmall.alpha=0;
         btnScanBig.frame=_buttonScanBigFrame;
         btnScanSmall.frame=_buttonScanSmallFrame;
-        
-        qrCodeView.frame=_qrFrame;
-        
-        [tableList l_v_setO:_tableFrame.origin];
-        [btnMap l_v_setO:_buttonMapFrame.origin];
-        [btnSearchLocation l_v_setO:_buttonSearchLocationFrame.origin];
-        [sortView l_v_setO:_sortFrame.origin];
-        [self.map l_v_setO:_mapFrame.origin];
-        
-        [self makeScrollSize];
     } completion:^(BOOL finished) {
-        scroll.delegate=self;
-        scrollerView.hidden=false;
-        
-        btnScanSmall.hidden=true;
-        [tableList removeAlphaView];
+        [self makeScrollSize];
     }];
 }
 
@@ -1212,7 +1191,6 @@
 {
     if(scrollView==scroll)
         [self loadScroller];
-        //[scroller scrollViewWillBeginDragging:scrollView];
 }
 
 - (void)dealloc
@@ -1246,20 +1224,20 @@
     {
         if(_isZoomedMap)
             [UIView animateWithDuration:DURATION_DEFAULT animations:^{
-//                float y=-(QRCODE_BIG_HEIGHT-QRCODE_SMALL_HEIGHT);
-
+                //                float y=-(QRCODE_BIG_HEIGHT-QRCODE_SMALL_HEIGHT);
+                
             }];
     }
 }
 
 -(void)showQRView
 {
-
+    
 }
 
 -(void)hideQRView
 {
-
+    
 }
 
 -(MapList*)map

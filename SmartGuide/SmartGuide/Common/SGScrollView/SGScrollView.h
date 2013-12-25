@@ -16,6 +16,9 @@
     
     void(^_completedSetContentOffSetX)();
     float _contentOffsetTargetX;
+    
+    void(^_completedSetContentOffSetY)();
+    float _contentOffsetTargetY;
 }
 
 -(CGPoint) offset;
@@ -27,6 +30,7 @@
 -(void) clearPauseViews;
 
 -(void) setContentOffsetX:(CGPoint)contentOffset animated:(BOOL)animated completed:(void(^)()) completed;
+-(void) setContentOffsetY:(CGPoint)contentOffset animated:(BOOL)animated completed:(void(^)()) completed;
 
 @property (nonatomic, assign) float minimumOffsetY;
 

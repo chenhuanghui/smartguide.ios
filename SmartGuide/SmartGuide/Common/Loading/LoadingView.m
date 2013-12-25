@@ -107,16 +107,20 @@
 {
     NSLog(@"removeLoading %@",NSStringFromClass([self class]));
     
-    NSMutableArray *array=[NSMutableArray array];
+    UIView *view=nil;
     
-    for(UIView *view in self.subviews)
+    for(view in self.subviews)
     {
         if([view isKindOfClass:[LoadingView class]])
-            [array addObject:view];
+            break;
     }
     
-    [array makeObjectsPerformSelector:@selector(removeFromSuperview)];
-    [array removeAllObjects];
+    if([view isKindOfClass:[LoadingView class]])
+    {
+        [view removeFromSuperview];
+        
+        [self removeLoading];
+    }
 }
 
 @end

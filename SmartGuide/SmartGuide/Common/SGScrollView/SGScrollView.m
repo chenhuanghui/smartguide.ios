@@ -96,24 +96,41 @@
     _offset.x=contentOffset.x-self.contentOffset.x;
     _offset.y=contentOffset.y-self.contentOffset.y;
     
-    bool isFoundX=false;
+    bool isFound=false;
     if(_completedSetContentOffSetX)
     {
         if(_contentOffsetTargetX+contentOffset.x<=0)
         {
-            isFoundX=true;
+            isFound=true;
         }
     }
     
-    [super setContentOffset:contentOffset];
-    
-    if(isFoundX)
+    if(isFound)
     {
         _completedSetContentOffSetX();
         _completedSetContentOffSetX=nil;
         
         [self setUserInteractionEnabled:true];
     }
+    
+    isFound=false;
+    if(_completedSetContentOffSetY)
+    {
+        if(_contentOffsetTargetY==contentOffset.y)
+        {
+            isFound=true;
+        }
+    }
+    
+    if(isFound)
+    {
+        _completedSetContentOffSetY();
+        _completedSetContentOffSetY=nil;
+        
+        [self setUserInteractionEnabled:true];
+    }
+    
+    [super setContentOffset:contentOffset];
     
     NSMutableArray *array=[NSMutableArray array];
     CGRect rect=CGRectZero;
@@ -183,6 +200,15 @@
 {
     _completedSetContentOffSetX=[completed copy];
     _contentOffsetTargetX=targetOffset.x-self.contentOffset.x;
+    
+    [self setUserInteractionEnabled:false];
+    [self setContentOffset:targetOffset animated:animated];
+}
+
+-(void)setContentOffsetY:(CGPoint)targetOffset animated:(BOOL)animated completed:(void (^)())completed
+{
+    _completedSetContentOffSetY=[completed copy];
+    _contentOffsetTargetY=targetOffset.y;
     
     [self setUserInteractionEnabled:false];
     [self setContentOffset:targetOffset animated:animated];
