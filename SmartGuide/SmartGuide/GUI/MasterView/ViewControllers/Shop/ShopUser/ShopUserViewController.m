@@ -19,11 +19,13 @@
 @implementation ShopUserViewController
 @synthesize delegate,shopMode;
 
-- (id)init
+-(ShopUserViewController *)initWithShopUser:(Shop *)shop
 {
     self = [super initWithNibName:@"ShopUserViewController" bundle:nil];
     if (self) {
+        _shop=shop;
         shopMode=SHOP_USER_FULL;
+        _dataMode=SHOP_USER_DATA_SHOP_USER;
     }
     return self;
 }
@@ -77,9 +79,24 @@
         case SHOP_USER_DATA_SHOP_LIST:
             tableShopUser.scrollEnabled=false;
             btnInfo.enabled=false;
+            
+            _operationShopUser=[[ASIOperationShopUser alloc] initWithIDShop:_shopList.idShop.integerValue userLat:userLat() userLng:userLng()];
+            _operationShopUser.delegatePost=self;
+            
+            [_operationShopUser startAsynchronous];
+            
             break;
             
         case SHOP_USER_DATA_SHOP_USER:
+            
+            _comments=[[NSMutableArray alloc] initWithArray:_shop.topCommentsObjects];
+
+            _pageComment=0;
+            _isLoadingMoreComment=false;
+            _canLoadMoreComment=_comments.count==10;
+            
+            _sortComment=SORT_SHOP_COMMENT_TOP_AGREED;
+
             break;
     }
     
@@ -91,11 +108,6 @@
     }
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(shopUserCommentKeyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
-    
-    _operationShopUser=[[ASIOperationShopUser alloc] initWithIDShop:_shopList.idShop.integerValue userLat:userLat() userLng:userLng()];
-    _operationShopUser.delegatePost=self;
-    
-    [_operationShopUser startAsynchronous];
 }
 
 -(void)ASIOperaionPostFinished:(ASIOperationPost *)operation

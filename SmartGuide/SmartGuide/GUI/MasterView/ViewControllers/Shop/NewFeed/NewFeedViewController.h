@@ -12,6 +12,7 @@
 #import "NewFeedImagesCell.h"
 #import "NewFeedListCell.h"
 #import "NewFeedInfoCell.h"
+#import "ASIOperationShopUser.h"
 
 @class NewFeedViewController;
 
@@ -31,6 +32,7 @@
     __weak IBOutlet UITableView *table;
     
     ASIOperationUserHome *_operationUserHome;
+    ASIOperationShopUser *_operationShopUser;
     NSMutableArray *_homes;
     int _page;
     bool _isLoadingMore;

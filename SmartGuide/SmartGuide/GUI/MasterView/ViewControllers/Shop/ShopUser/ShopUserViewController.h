@@ -102,6 +102,7 @@ enum SHOP_USER_DATA_MODE
 }
 
 -(ShopUserViewController*) initWithShopList:(ShopList*) shopList;
+-(ShopUserViewController*) initWithShopUser:(Shop*) shop;
 
 //-(void) setShop:(Shop*) shop;
 

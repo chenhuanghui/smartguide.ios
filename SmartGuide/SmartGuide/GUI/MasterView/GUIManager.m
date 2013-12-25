@@ -413,6 +413,16 @@ static GUIManager *_shareInstance=nil;
     [self presentViewController:shopUser];
 }
 
+-(void) presentShopUserWithShopUser:(Shop *)shop
+{
+    ShopUserViewController *vc=[[ShopUserViewController alloc] initWithShopUser:shop];
+    vc.delegate=self;
+    
+    shopUserController=vc;
+    
+    [self presentViewController:vc];
+}
+
 -(void)shopUserFinished
 {
     [self dismissShopUser];
@@ -533,5 +543,7 @@ static GUIManager *_shareInstance=nil;
     
     [contentNavigation pushViewController:vc animated:true];
 }
+
+
 
 @end

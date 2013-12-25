@@ -87,6 +87,16 @@
         
         _operationUserHome=nil;
     }
+    else if([operation isKindOfClass:[ASIOperationShopUser class]])
+    {
+        [self.view removeLoading];
+        
+        ASIOperationShopUser *ope=(ASIOperationShopUser*) operation;
+        
+        [[GUIManager shareInstance] presentShopUserWithShopUser:ope.shop];
+        
+        _operationShopUser=nil;
+    }
 }
 
 -(void)ASIOperaionPostFailed:(ASIOperationPost *)operation
@@ -100,6 +110,12 @@
         }
         
         _operationUserHome=nil;
+    }
+    else if([operation isKindOfClass:[ASIOperationShopUser class]])
+    {
+        [self.view removeLoading];
+        
+        _operationShopUser=nil;
     }
 }
 
@@ -263,6 +279,17 @@
     switch (home.enumType) {
         case USER_HOME_TYPE_1:
         {
+            if(home.home1.shopList.length>0 && ![home.home1.shopList isContainString:@","])
+            {
+                _operationShopUser=[[ASIOperationShopUser alloc] initWithIDShop:home.home1.idShop.integerValue userLat:userLat() userLng:userLng()];
+                _operationShopUser.delegatePost=self;
+                
+                [_operationShopUser startAsynchronous];
+                
+                [self.view showLoading];
+                return;
+            }
+            
             [self.delegate newFeedControllerTouchedHome1:self home1:home.home1];
         }
             break;
