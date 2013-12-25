@@ -9,7 +9,7 @@
 #import "NewFeedViewController.h"
 #import "GUIManager.h"
 
-@interface NewFeedViewController ()
+@interface NewFeedViewController ()<NewFeedListDelegate>
 
 @end
 
@@ -207,6 +207,7 @@
         case USER_HOME_TYPE_3:
         {
             NewFeedListCell *cell=[tableView dequeueReusableCellWithIdentifier:[NewFeedListCell reuseIdentifier]];
+            cell.delegate=self;
             
             [cell loadWithHome3:home.home3Objects];
             
@@ -215,6 +216,7 @@
         case USER_HOME_TYPE_4:
         {
             NewFeedListCell *cell=[tableView dequeueReusableCellWithIdentifier:[NewFeedListCell reuseIdentifier]];
+            cell.delegate=self;
             
             [cell loadWithHome4:home.home4Objects];
             
@@ -223,6 +225,7 @@
         case USER_HOME_TYPE_5:
         {
             NewFeedListCell *cell=[tableView dequeueReusableCellWithIdentifier:[NewFeedListCell reuseIdentifier]];
+            cell.delegate=self;
             
             [cell loadWithHome5:home.home5Objects];
             
@@ -272,7 +275,10 @@
             
         case USER_HOME_TYPE_3:
         {
-            
+//            NewFeedListCell *cell=(NewFeedListCell*)[tableView cellForRowAtIndexPath:indexPath];
+//            UserHome3 *home3=cell.currentHome;
+//            
+//            [self.delegate newFeedControllerTouchedPlacelist:self home3:home3];
         }
             break;
             
@@ -302,6 +308,17 @@
             
         default:
             break;
+    }
+}
+
+-(void)newFeedListTouched:(NewFeedListCell *)cell
+{
+    if(cell.currentHome)
+    {
+        if([cell.currentHome isKindOfClass:[UserHome3 class]])
+        {
+            [self.delegate newFeedControllerTouchedPlacelist:self home3:cell.currentHome];
+        }
     }
 }
 

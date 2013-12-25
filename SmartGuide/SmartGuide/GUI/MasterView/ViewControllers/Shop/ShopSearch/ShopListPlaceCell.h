@@ -10,6 +10,7 @@
 #import "Placelist.h"
 #import "LabelTopText.h"
 #import "FTCoreTextView.h"
+#import "UserHome3.h"
 
 @interface ShopListPlaceCell : UITableViewCell
 {
@@ -23,6 +24,7 @@
 }
 
 -(void) loadWithPlace:(Placelist*) place;
+-(void) loadWithUserHome3:(UserHome3*) home;
 
 +(NSString *)reuseIdentifier;
 +(float) heightWithContent:(NSString*) content;

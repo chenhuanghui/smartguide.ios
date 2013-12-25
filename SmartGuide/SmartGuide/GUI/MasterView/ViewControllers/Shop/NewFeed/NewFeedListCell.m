@@ -11,6 +11,7 @@
 #import "Utility.h"
 
 @implementation NewFeedListCell
+@synthesize delegate;
 
 -(void)loadWithHome3:(NSArray *)home3
 {
@@ -59,6 +60,8 @@
 
 -(IBAction) btnNextTouchUpInside:(id)sender
 {
+    [self.delegate newFeedListTouched:self];
+    return;
     NSIndexPath *indexPath=[table indexPathForRowAtPoint:CGPointMake(self.l_v_h/2, table.l_co_y+self.l_v_w/2)];
     
     if(indexPath)
@@ -69,6 +72,18 @@
             [table scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionNone animated:true];
         }
     }
+}
+
+-(id)currentHome
+{
+    NSIndexPath *indexPath=[table indexPathForRowAtPoint:CGPointMake(self.l_v_h/2, table.l_co_y+self.l_v_w/2)];
+    
+    if(indexPath)
+    {
+        return _homes[indexPath.row];
+    }
+    
+    return nil;
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView

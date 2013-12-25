@@ -28,7 +28,8 @@
 enum SHOP_LIST_VIEW_MODE {
     SHOP_LIST_VIEW_LIST = 0,
     SHOP_LIST_VIEW_PLACE = 1,
-    SHOP_LIST_VIEW_SHOP_LIST = 2
+    SHOP_LIST_VIEW_SHOP_LIST = 2,
+    SHOP_LIST_VIEW_HOME3 = 3
     };
 
 @protocol ShopListControllerDelegate <SGViewControllerDelegate>
@@ -58,6 +59,7 @@ enum SHOP_LIST_VIEW_MODE {
     CGRect _buttonSearchLocationFrame;
     CGRect _buttonScanBigFrame;
     CGRect _buttonScanSmallFrame;
+    CGRect _scrollFrame;
     
     bool _isZoomedMap;
     float _heightZoomedMap;
@@ -86,6 +88,7 @@ enum SHOP_LIST_VIEW_MODE {
     __weak Placelist *_placeList;
     NSMutableArray *_shopsList;
     NSString *_idShops;
+    __weak UserHome3 *_home3;
     
     NSUInteger _page;
     enum SORT_SHOP_LIST _sort;
@@ -101,6 +104,7 @@ enum SHOP_LIST_VIEW_MODE {
 -(ShopListViewController*) initWithKeyword:(NSString*) keyword;
 -(ShopListViewController*) initWithPlaceList:(Placelist*) placeList;
 -(ShopListViewController*) initWithIDShops:(NSString*) idShops;
+-(ShopListViewController*) initWithHome3:(UserHome3*) home3;
 
 -(NSString*) keyword;
 -(Placelist*) placelist;

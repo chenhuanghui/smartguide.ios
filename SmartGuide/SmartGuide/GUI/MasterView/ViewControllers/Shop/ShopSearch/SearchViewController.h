@@ -8,11 +8,13 @@
 
 #import "SGViewController.h"
 #import "SGNavigationController.h"
+#import "UserHome.h"
 
 enum SEARCH_VIEW_MODE {
     SEARCH_VIEW_MODE_SEARCH = 0,
     SEARCH_VIEW_MODE_LIST = 1,
-    SEARCH_VIEW_MODE_SHOP_LIST = 2
+    SEARCH_VIEW_MODE_SHOP_LIST = 2,
+    SEARCH_VIEW_MODE_HOME_3 = 3
     };
 
 @class ShopListViewController,SearchViewController,SearchShopViewController,Placelist;
@@ -29,7 +31,8 @@ enum SEARCH_VIEW_MODE {
     __weak IBOutlet UIView *contentView;
     
     enum SEARCH_VIEW_MODE _viewMode;
-    Placelist *_place;
+    __weak Placelist *_place;
+    __weak UserHome3 *_home3;
     NSString *_idShops;
 }
 
@@ -37,6 +40,7 @@ enum SEARCH_VIEW_MODE {
 -(SearchViewController*) initWithKeyword:(NSString*) keyword;
 -(SearchViewController*) initWithPlaceList:(Placelist*) place;
 -(SearchViewController*) initWithIDShops:(NSString*) idShops;
+-(SearchViewController*) initWithUserHome3:(UserHome3*) home3;
 
 @property (nonatomic, weak) ShopListViewController *shopListController;
 @property (nonatomic, weak) SearchShopViewController *searchShopController;

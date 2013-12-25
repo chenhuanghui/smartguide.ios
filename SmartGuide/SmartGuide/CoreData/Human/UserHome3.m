@@ -7,6 +7,7 @@
 {
     UserHome3 *home=[UserHome3 insert];
     
+    home.idPlacelist=[NSNumber numberWithObject:dict[@"idPlacelist"]];
     home.title=[NSString stringWithStringDefault:dict[@"title"]];
     home.desc=[NSString stringWithStringDefault:dict[@"description"]];
     home.image=[NSString stringWithStringDefault:dict[@"image"]];
@@ -17,7 +18,6 @@
     home.numOfShop=[NSString stringWithStringDefault:dict[@"numOfShop"]];
     home.content=[NSString stringWithStringDefault:dict[@"content"]];
     home.cover=[NSString stringWithStringDefault:dict[@"cover"]];
-    
     
     return home;
 }

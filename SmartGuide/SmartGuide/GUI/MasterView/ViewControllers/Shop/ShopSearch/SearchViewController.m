@@ -55,6 +55,16 @@
     return self;
 }
 
+-(SearchViewController *)initWithUserHome3:(UserHome3 *)home3
+{
+    self=[super initWithNibName:@"SearchViewController" bundle:nil];
+    
+    _viewMode=SEARCH_VIEW_MODE_HOME_3;
+    _home3=home3;
+    
+    return self;
+}
+
 -(void) storeRect
 {
 }
@@ -100,6 +110,22 @@
         case SEARCH_VIEW_MODE_SHOP_LIST:
         {
             ShopListViewController *vc=[[ShopListViewController alloc] initWithIDShops:_idShops];
+            vc.searchController=self;
+            vc.delegate=self;
+            
+            shopListController=vc;
+            
+            SGNavigationController *navi=[[SGNavigationController alloc] initWithRootViewController:vc];
+            
+            searchNavi=navi;
+            
+            [self addChildViewController:searchNavi];
+        }
+            break;
+            
+        case SEARCH_VIEW_MODE_HOME_3:
+        {
+            ShopListViewController *vc=[[ShopListViewController alloc] initWithHome3:_home3];
             vc.searchController=self;
             vc.delegate=self;
             

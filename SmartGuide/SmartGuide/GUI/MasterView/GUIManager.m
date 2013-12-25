@@ -526,4 +526,12 @@ static GUIManager *_shareInstance=nil;
     [contentNavigation pushViewController:vc animated:true];
 }
 
+-(void)newFeedControllerTouchedPlacelist:(NewFeedViewController *)controller home3:(UserHome3 *)home3
+{
+    SearchViewController *vc=[[SearchViewController alloc] initWithUserHome3:home3];
+    vc.delegate=self;
+    
+    [contentNavigation pushViewController:vc animated:true];
+}
+
 @end

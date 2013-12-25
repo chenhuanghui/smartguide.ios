@@ -17,6 +17,14 @@ enum NEW_FEED_LIST_DATA_MODE {
     NEW_FEED_LIST_DATA_HOME5 = 2,
     };
 
+@class NewFeedListCell;
+
+@protocol NewFeedListDelegate <NSObject>
+
+-(void) newFeedListTouched:(NewFeedListCell*) cell;
+
+@end
+
 @interface NewFeedListCell : UITableViewCell<UITableViewDataSource,UITableViewDelegate>
 {
     __weak IBOutlet UITableView *table;
@@ -30,7 +38,11 @@ enum NEW_FEED_LIST_DATA_MODE {
 -(void) loadWithHome4:(NSArray*) home4;
 -(void) loadWithHome5:(NSArray*) home5;
 
+-(id) currentHome;
+
 +(float) height;
 +(NSString *)reuseIdentifier;
+
+@property (nonatomic, weak) id<NewFeedListDelegate> delegate;
 
 @end
