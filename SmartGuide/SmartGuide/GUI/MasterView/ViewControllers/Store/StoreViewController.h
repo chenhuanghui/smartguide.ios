@@ -49,6 +49,8 @@
     CGRect _rayViewFrame;
     CGRect _bgViewFrame;
     CGRect _bgImageViewFrame;
+    
+    __weak StoreShop *_store;
 }
 
 -(void) showShop:(StoreShop*) shop;

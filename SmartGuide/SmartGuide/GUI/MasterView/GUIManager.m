@@ -544,6 +544,4 @@ static GUIManager *_shareInstance=nil;
     [contentNavigation pushViewController:vc animated:true];
 }
 
-
-
 @end

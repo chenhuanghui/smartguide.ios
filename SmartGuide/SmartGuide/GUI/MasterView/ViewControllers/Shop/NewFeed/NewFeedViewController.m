@@ -8,8 +8,9 @@
 
 #import "NewFeedViewController.h"
 #import "GUIManager.h"
+#import "StoreShopInfoViewController.h"
 
-@interface NewFeedViewController ()<NewFeedListDelegate>
+@interface NewFeedViewController ()<NewFeedListDelegate,NewFeedInfoCellDelegate>
 
 @end
 
@@ -251,6 +252,7 @@
         case USER_HOME_TYPE_6:
         {
             NewFeedInfoCell *cell=[tableView dequeueReusableCellWithIdentifier:[NewFeedInfoCell reuseIdentifier]];
+            cell.delegate=self;
             
             [cell loadWithHome6:home.home6];
             
@@ -281,10 +283,7 @@
         {
             if(home.home1.shopList.length>0 && ![home.home1.shopList isContainString:@","])
             {
-                _operationShopUser=[[ASIOperationShopUser alloc] initWithIDShop:home.home1.idShop.integerValue userLat:userLat() userLng:userLng()];
-                _operationShopUser.delegatePost=self;
-                
-                [_operationShopUser startAsynchronous];
+                [self requestShopUserWithIDShop:home.home1.idShop.integerValue];
                 
                 [self.view showLoading];
                 return;
@@ -302,10 +301,9 @@
             
         case USER_HOME_TYPE_3:
         {
-//            NewFeedListCell *cell=(NewFeedListCell*)[tableView cellForRowAtIndexPath:indexPath];
-//            UserHome3 *home3=cell.currentHome;
-//            
-//            [self.delegate newFeedControllerTouchedPlacelist:self home3:home3];
+            /*
+             using delegate newFeedListTouched
+            */
         }
             break;
             
@@ -346,7 +344,42 @@
         {
             [self.delegate newFeedControllerTouchedPlacelist:self home3:cell.currentHome];
         }
+        else if([cell.currentHome isKindOfClass:[UserHome4 class]])
+        {
+            UserHome4 *home=cell.currentHome;
+            [self requestShopUserWithIDShop:home.idShop.integerValue];
+            
+            [self.view showLoading];
+        }
+        else if([cell.currentHome isKindOfClass:[UserHome5 class]])
+        {
+//            UserHome5 *home=cell.currentHome;
+            
+            //StoreShopInfoViewController *vc=[StoreShopInfoViewController alloc] initWithStore:<#(StoreShop *)#>
+            
+//            [self.view showLoading];
+        }
     }
+}
+
+-(void)newFeedInfoCellTouchedGoTo:(id)home
+{
+    if([home isKindOfClass:[UserHome6 class]])
+    {
+        UserHome6 *home6=home;
+        
+        [self requestShopUserWithIDShop:home6.idShop.integerValue];
+        
+        [self.view showLoading];
+    }
+}
+
+-(void) requestShopUserWithIDShop:(int) idShop
+{
+    _operationShopUser=[[ASIOperationShopUser alloc] initWithIDShop:idShop userLat:userLat() userLng:userLng()];
+    _operationShopUser.delegatePost=self;
+    
+    [_operationShopUser startAsynchronous];
 }
 
 @end

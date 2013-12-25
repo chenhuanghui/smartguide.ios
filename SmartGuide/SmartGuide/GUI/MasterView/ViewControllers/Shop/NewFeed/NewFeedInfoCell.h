@@ -13,7 +13,7 @@
 
 @protocol NewFeedInfoCellDelegate <NSObject>
 
--(void) newFeedInfoCellTouchedGoTo:(NSObject*) home;
+-(void) newFeedInfoCellTouchedGoTo:(id) home;
 
 @end
 
