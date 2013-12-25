@@ -54,7 +54,7 @@
     float fontSize=12;
     UIFont *font=[UIFont fontWithName:@"Avenir" size:fontSize];
     float textWidth=[_text sizeWithFont:font].width+5;
-
+    
     CGPoint sortLeft=CGPointMake(26, 0);
     CGRect smallMidLeft=CGRectMake(0, 0, sortLeft.x, smallmid.size.height);
     CGRect tallMid=CGRectMake(sortLeft.x+bgSortLeft.size.width, 0, textWidth+3, bgtallMid.size.height);
@@ -74,22 +74,47 @@
 
     [_icon drawAtPoint:icon];
     
-    [[UIColor whiteColor] set];
-    [_text drawAtPoint:CGPointMake(text.x, text.y+0.5f) withFont:font];
+    if(!btn)
+    {
+        ButtonSortView *button=[[ButtonSortView alloc] initWithFrame:CGRectMake(text.x, text.y, textWidth, rect.size.height-text.y)];
+        button.titleLabel.font=font;
+        
+        btn=button;
+        
+        [self addSubview:button];
+        
+        [button addTarget:self action:@selector(btnTouchUpInside:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    else
+        [btn setFrame:CGRectMake(text.x, text.y, textWidth, rect.size.height-text.y)];
     
-    [[UIColor blackColor] set];
-    [_text drawAtPoint:text withFont:font];
+    [btn setTitle:_text forState:UIControlStateNormal];
+    
+//    [[UIColor whiteColor] set];
+//    [_text drawAtPoint:CGPointMake(text.x, text.y+0.5f) withFont:font];
+//    
+//    [[UIColor blackColor] set];
+//    [_text drawAtPoint:text withFont:font];
+}
+
+-(void) btnTouchUpInside:(UIButton*) sender
+{
+    [self.delegate sortViewTouchedSort:self];
 }
 
 -(BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event
 {
-    point=[self convertPoint:point toView:self];
-    return CGRectContainsPoint(_touchedArea, point);
+    point=[self convertPoint:point toView:btn];
+    return [btn pointInside:point withEvent:event];
 }
 
--(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+@end
+
+@implementation ButtonSortView
+
+-(void)drawRect:(CGRect)rect
 {
-    [self.delegate sortViewTouchedSort:self];
+    
 }
 
 @end

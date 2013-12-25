@@ -1000,9 +1000,10 @@
             [tableList l_co_setY:0];
         }
         
-//        if(_tableFrame.origin.y+scrollView.l_co_y<=0)
-        
         //begin scroller
+        
+        if(_isZoomedMap)
+            return;
         
         float height=(scroll.l_cs_h+scroll.contentInset.bottom-scroll.l_v_h);
         float percent=(scroll.l_co_y)/height;
@@ -1269,8 +1270,11 @@
         btnScanBig.frame=_buttonScanSmallFrame;
         btnScanSmall.frame=_buttonScanBigFrame;
         
+        scrollerView.alpha=true;
+        
     } completion:^(BOOL finished) {
         self.view.userInteractionEnabled=true;
+        scrollerView.hidden=true;
     }];
 }
 
@@ -1299,7 +1303,10 @@
         btnScanSmall.alpha=0;
         btnScanBig.frame=_buttonScanBigFrame;
         btnScanSmall.frame=_buttonScanSmallFrame;
+        
+        scrollerView.alpha=1;
     } completion:^(BOOL finished) {
+        scrollerView.hidden=false;
         [self makeScrollSize];
     }];
 }
