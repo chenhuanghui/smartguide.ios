@@ -44,6 +44,9 @@
     _isLoadingMore=false;
     _canLoadMore=true;
     
+    [UserHome markDeleteAllObjects];
+    [[DataManager shareInstance] save];
+    
     [self requestNewFeed];
     displayLoadingView.userInteractionEnabled=true;
     [displayLoadingView showLoading];
@@ -76,7 +79,7 @@
         ASIOperationUserHome *ope=(ASIOperationUserHome*) operation;
         
         [_homes addObjectsFromArray:ope.homes];
-        _canLoadMore=ope.homes.count==5;
+        _canLoadMore=ope.homes.count==10;
         _isLoadingMore=false;
         _page++;
         
@@ -175,12 +178,16 @@
         {
             NewFeedPromotionCell *cell=[tableView dequeueReusableCellWithIdentifier:[NewFeedPromotionCell reuseIdentifier]];
             
+            [cell loadWithHome1:home.home1];
+            
             return cell;
         }
             
         case USER_HOME_TYPE_2:
         {
             NewFeedImagesCell *cell=[tableView dequeueReusableCellWithIdentifier:[NewFeedImagesCell reuseIdentifier]];
+            
+            [cell loadWithImages:[home.home2Objects valueForKeyPath:UserHome2_Image]];
             
             return cell;
         }
@@ -189,17 +196,23 @@
         {
             NewFeedListCell *cell=[tableView dequeueReusableCellWithIdentifier:[NewFeedListCell reuseIdentifier]];
             
+            [cell loadWithHome3:home.home3Objects];
+            
             return cell;
         }
         case USER_HOME_TYPE_4:
         {
             NewFeedListCell *cell=[tableView dequeueReusableCellWithIdentifier:[NewFeedListCell reuseIdentifier]];
             
+            [cell loadWithHome4:home.home4Objects];
+            
             return cell;
         }
         case USER_HOME_TYPE_5:
         {
             NewFeedListCell *cell=[tableView dequeueReusableCellWithIdentifier:[NewFeedListCell reuseIdentifier]];
+            
+            [cell loadWithHome5:home.home5Objects];
             
             return cell;
         }
@@ -208,12 +221,16 @@
         {
             NewFeedInfoCell *cell=[tableView dequeueReusableCellWithIdentifier:[NewFeedInfoCell reuseIdentifier]];
             
+            [cell loadWithHome6:home.home6];
+            
             return cell;
         }
             
         case USER_HOME_TYPE_7:
         {
             NewFeedInfoCell *cell=[tableView dequeueReusableCellWithIdentifier:[NewFeedInfoCell reuseIdentifier]];
+            
+            [cell loadWithHome7:home.home7];
             
             return cell;
         }
@@ -231,13 +248,13 @@
     switch (home.enumType) {
         case USER_HOME_TYPE_1:
         {
-            
+            [self.delegate newFeedControllerTouchedHome1:self home1:home.home1];
         }
             break;
             
         case USER_HOME_TYPE_2:
         {
-            
+            //Nothing do
         }
             break;
             

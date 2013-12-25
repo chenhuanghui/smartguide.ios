@@ -8,6 +8,7 @@
 #define UserHome7_Content @"content"
 #define UserHome7_Cover @"cover"
 #define UserHome7_Date @"date"
+#define UserHome7_Gotostore @"gotostore"
 #define UserHome7_IdStore @"idStore"
 #define UserHome7_Logo @"logo"
 #define UserHome7_StoreName @"storeName"
@@ -30,6 +31,7 @@
 @property (nonatomic, retain) NSString* content;
 @property (nonatomic, retain) NSString* cover;
 @property (nonatomic, retain) NSString* date;
+@property (nonatomic, retain) NSString* gotostore;
 @property (nonatomic, retain) NSNumber* idStore;
 @property (nonatomic, retain) NSString* logo;
 @property (nonatomic, retain) NSString* storeName;

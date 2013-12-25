@@ -90,6 +90,32 @@
 
 
 
+- (NSString*)authorAvatar {
+	[self willAccessValueForKey:@"authorAvatar"];
+	NSString* result = (NSString*)[self primitiveValueForKey:@"authorAvatar"];
+	[self didAccessValueForKey:@"authorAvatar"];
+	return result;
+}
+
+- (void)setAuthorAvatar:(NSString*)value {
+	[self willChangeValueForKey:@"authorAvatar"];
+	[self setPrimitiveValue:value forKey:@"authorAvatar"];
+	[self didChangeValueForKey:@"authorAvatar"];
+}
+
+- (NSString*)authorName {
+	[self willAccessValueForKey:@"authorName"];
+	NSString* result = (NSString*)[self primitiveValueForKey:@"authorName"];
+	[self didAccessValueForKey:@"authorName"];
+	return result;
+}
+
+- (void)setAuthorName:(NSString*)value {
+	[self willChangeValueForKey:@"authorName"];
+	[self setPrimitiveValue:value forKey:@"authorName"];
+	[self didChangeValueForKey:@"authorName"];
+}
+
 - (NSString*)content {
 	[self willAccessValueForKey:@"content"];
 	NSString* result = (NSString*)[self primitiveValueForKey:@"content"];
@@ -116,6 +142,19 @@
 	[self didChangeValueForKey:@"cover"];
 }
 
+- (NSString*)desc {
+	[self willAccessValueForKey:@"desc"];
+	NSString* result = (NSString*)[self primitiveValueForKey:@"desc"];
+	[self didAccessValueForKey:@"desc"];
+	return result;
+}
+
+- (void)setDesc:(NSString*)value {
+	[self willChangeValueForKey:@"desc"];
+	[self setPrimitiveValue:value forKey:@"desc"];
+	[self didChangeValueForKey:@"desc"];
+}
+
 - (NSNumber*)idPlacelist {
 	[self willAccessValueForKey:@"idPlacelist"];
 	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"idPlacelist"];
@@ -129,6 +168,32 @@
 	[self didChangeValueForKey:@"idPlacelist"];
 }
 
+- (NSString*)image {
+	[self willAccessValueForKey:@"image"];
+	NSString* result = (NSString*)[self primitiveValueForKey:@"image"];
+	[self didAccessValueForKey:@"image"];
+	return result;
+}
+
+- (void)setImage:(NSString*)value {
+	[self willChangeValueForKey:@"image"];
+	[self setPrimitiveValue:value forKey:@"image"];
+	[self didChangeValueForKey:@"image"];
+}
+
+- (NSNumber*)loveStatus {
+	[self willAccessValueForKey:@"loveStatus"];
+	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"loveStatus"];
+	[self didAccessValueForKey:@"loveStatus"];
+	return result;
+}
+
+- (void)setLoveStatus:(NSNumber*)value {
+	[self willChangeValueForKey:@"loveStatus"];
+	[self setPrimitiveValue:value forKey:@"loveStatus"];
+	[self didChangeValueForKey:@"loveStatus"];
+}
+
 - (NSString*)numOfShop {
 	[self willAccessValueForKey:@"numOfShop"];
 	NSString* result = (NSString*)[self primitiveValueForKey:@"numOfShop"];
@@ -140,6 +205,19 @@
 	[self willChangeValueForKey:@"numOfShop"];
 	[self setPrimitiveValue:value forKey:@"numOfShop"];
 	[self didChangeValueForKey:@"numOfShop"];
+}
+
+- (NSString*)numOfView {
+	[self willAccessValueForKey:@"numOfView"];
+	NSString* result = (NSString*)[self primitiveValueForKey:@"numOfView"];
+	[self didAccessValueForKey:@"numOfView"];
+	return result;
+}
+
+- (void)setNumOfView:(NSString*)value {
+	[self willChangeValueForKey:@"numOfView"];
+	[self setPrimitiveValue:value forKey:@"numOfView"];
+	[self didChangeValueForKey:@"numOfView"];
 }
 
 - (NSNumber*)sortOrder {

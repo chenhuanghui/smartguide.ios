@@ -14,6 +14,7 @@
     home.cover=[NSString stringWithStringDefault:dict[@"cover"]];
     home.title=[NSString stringWithStringDefault:dict[@"title"]];
     home.content=[NSString stringWithStringDefault:dict[@"content"]];
+    home.gotostore=[NSString stringWithStringDefault:dict[@"goto"]];
     
     return home;
 }

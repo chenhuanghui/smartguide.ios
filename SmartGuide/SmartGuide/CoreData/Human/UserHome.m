@@ -41,4 +41,44 @@
     }
 }
 
+-(NSArray *)home2Objects
+{
+    NSArray *array=[super home2Objects];
+    
+    if(array.count>0)
+        return [array sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:UserHome2_SortOrder ascending:true]]];
+    
+    return [NSArray array];
+}
+
+-(NSArray *)home3Objects
+{
+    NSArray *array=[super home3Objects];
+    
+    if(array.count>0)
+        return [array sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:UserHome3_SortOrder ascending:true]]];
+    
+    return [NSArray array];
+}
+
+-(NSArray *)home4Objects
+{
+    NSArray *array=[super home4Objects];
+    
+    if(array.count>0)
+        return [array sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:UserHome4_SortOrder ascending:true]]];
+    
+    return [NSArray array];
+}
+
+-(NSArray *)home5Objects
+{
+    NSArray *array=[super home5Objects];
+    
+    if(array.count>0)
+        return [array sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:UserHome5_SortOrder ascending:true]]];
+    
+    return [NSArray array];
+}
+
 @end

@@ -19,6 +19,8 @@
 
 -(void) newFeedControllerTouchedTextField:(NewFeedViewController*) controller;
 -(void) newFeedControllerTouchedNavigation:(NewFeedViewController*) controller;
+-(void) newFeedControllerTouchedHome1:(NewFeedViewController*) contorller home1:(UserHome1*) home1;
+-(void) newFeedControllerTouchedPlacelist:(NewFeedViewController*) controller home3:(UserHome3*) home3;
 
 @end
 

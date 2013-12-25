@@ -40,6 +40,16 @@
     return self;
 }
 
+-(ShopListViewController *)initWithIDShops:(NSString *)idShops
+{
+    self=[super initWithNibName:@"ShopListViewController" bundle:nil];
+    
+    _idShops=[NSString stringWithStringDefault:idShops];
+    _viewMode=SHOP_LIST_VIEW_SHOP_LIST;
+    
+    return self;
+}
+
 -(NSArray *)registerNotifications
 {
     return @[UIApplicationDidBecomeActiveNotification];
@@ -56,6 +66,7 @@
 {
     switch (_viewMode) {
         case SHOP_LIST_VIEW_LIST:
+        case SHOP_LIST_VIEW_SHOP_LIST:
             return _shopsList.count==0?0:1;
             
         case SHOP_LIST_VIEW_PLACE:
@@ -67,6 +78,7 @@
 {
     switch (_viewMode) {
         case SHOP_LIST_VIEW_LIST:
+        case SHOP_LIST_VIEW_SHOP_LIST:
             return _shopsList.count;
             
         case SHOP_LIST_VIEW_PLACE:
@@ -78,6 +90,7 @@
 {
     switch (_viewMode) {
         case SHOP_LIST_VIEW_LIST:
+        case SHOP_LIST_VIEW_SHOP_LIST:
         {
             ShopListCell *cell=[tableView dequeueReusableCellWithIdentifier:[ShopListCell reuseIdentifier]];
             cell.delegate=self;
@@ -144,6 +157,7 @@
 {
     switch (_viewMode) {
         case SHOP_LIST_VIEW_LIST:
+        case SHOP_LIST_VIEW_SHOP_LIST:
             return [ShopListCell heightWithContent:[_shopsList[indexPath.row] desc]];
             
         case SHOP_LIST_VIEW_PLACE:
@@ -165,6 +179,7 @@
     switch (_viewMode) {
             
         case SHOP_LIST_VIEW_LIST:
+        case SHOP_LIST_VIEW_SHOP_LIST:
             shop=_shopsList[indexPath.row];
             break;
             
@@ -289,6 +304,10 @@
     UIActionSheet *sheet=nil;
     
     switch (_viewMode) {
+            
+        case SHOP_LIST_VIEW_SHOP_LIST:
+            return;
+            
         case SHOP_LIST_VIEW_LIST:
             sheet=[[UIActionSheet alloc] initWithTitle:@"Tìm kiếm theo" delegate:self cancelButtonTitle:@"Đóng" destructiveButtonTitle:nil otherButtonTitles:@"Khoảng cách", @"Lượt xem", @"Lượt love", nil];
             break;
@@ -307,6 +326,10 @@
         return;
     
     switch (_viewMode) {
+            
+        case SHOP_LIST_VIEW_SHOP_LIST:
+            break;
+            
         case SHOP_LIST_VIEW_LIST:
         {
             enum SORT_SHOP_LIST sort;
@@ -439,6 +462,12 @@
             
             break;
             
+        case SHOP_LIST_VIEW_SHOP_LIST:
+            _canLoadMore=false;
+            [self requestShopList];
+            [self.view showLoading];
+            break;
+            
         case SHOP_LIST_VIEW_PLACE:
             
             txt.text=_placeList.title;
@@ -471,6 +500,20 @@
     _operationPlaceListDetail.delegatePost=self;
     
     [_operationPlaceListDetail startAsynchronous];
+}
+
+-(void) requestShopList
+{
+    if(_operationShopList)
+    {
+        [_operationShopList cancel];
+        _operationShopList=nil;
+    }
+    
+    _operationShopList=[[ASIOperationGetShopList alloc] initWithIDShops:_idShops userLat:userLat() userLng:userLng()];
+    _operationShopList.delegatePost=self;
+    
+    [_operationShopList startAsynchronous];
 }
 
 -(void) requestShopSearch
@@ -697,6 +740,14 @@
         
         [self makeScrollSize];
     }
+    else if([operation isKindOfClass:[ASIOperationGetShopList class]])
+    {
+        [self.view removeLoading];
+        
+        ASIOperationGetShopList *ope=(ASIOperationGetShopList*) operation;
+        
+        _operationShopList=nil;
+    }
 }
 
 -(void)ASIOperaionPostFailed:(ASIOperationPost *)operation
@@ -875,6 +926,10 @@
             }
             
             switch (_viewMode) {
+                    
+                case SHOP_LIST_VIEW_SHOP_LIST:
+                    return;
+                    
                 case SHOP_LIST_VIEW_LIST:
                 {
                     ShopList *shop=_shopsList[indexPath.row];

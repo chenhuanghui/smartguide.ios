@@ -84,4 +84,9 @@ static ImageManager *_imageManager=nil;
     [self setImageWithURL:[NSURL URLWithString:url]];
 }
 
+-(void)loadImageHomeWithURL:(NSString *)url
+{
+    [self setImageWithURL:[NSURL URLWithString:url]];
+}
+
 @end

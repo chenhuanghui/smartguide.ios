@@ -18,10 +18,6 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="II-1-Block.jpg" id="efG-Hq-cth">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                </imageView>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Ney-Bf-iDE">
                     <rect key="frame" x="0.0" y="50" width="320" height="306"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -51,7 +47,7 @@
                         <action selector="btnNavigationTouchedUpInside:" destination="-1" eventType="touchUpInside" id="jHf-gE-uya"/>
                     </connections>
                 </button>
-                <view hidden="YES" contentMode="scaleToFill" id="MVN-kQ-te1">
+                <view contentMode="scaleToFill" id="MVN-kQ-te1">
                     <rect key="frame" x="0.0" y="424" width="320" height="56"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <subviews>
@@ -84,12 +80,11 @@
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
             </subviews>
-            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
         </view>
     </objects>
     <resources>
-        <image name="II-1-Block.jpg" width="320" height="480"/>
         <image name="background_scan.png" width="320" height="56"/>
         <image name="button_navigation.png" width="25" height="20"/>
         <image name="button_scan.png" width="125" height="24"/>

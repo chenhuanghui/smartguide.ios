@@ -48,10 +48,12 @@
                 if([self isNullData:array])
                     continue;
                 
+                int sort=0;
                 for(NSString *image in array)
                 {
                     UserHome2 *home2=[UserHome2 insert];
                     home2.image=image;
+                    home2.sortOrder=@(sort++);
                     
                     [home addHome2Object:home2];
                 }
@@ -65,9 +67,11 @@
                 if([self isNullData:array])
                     continue;
                 
+                int sort=0;
                 for(NSDictionary *place in array)
                 {
                     UserHome3 *home3=[UserHome3 makeWithDictionary:place];
+                    home3.sortOrder=@(sort++);
                     
                     [home addHome3Object:home3];
                 }
@@ -81,11 +85,13 @@
                 if([self isNullData:array])
                     continue;
                 
+                int sort=0;
                 for(NSDictionary *shop in array)
                 {
-                    UserHome4 *home3=[UserHome4 makeWithDictionary:shop];
+                    UserHome4 *home4=[UserHome4 makeWithDictionary:shop];
+                    home4.sortOrder=@(sort++);
                     
-                    [home addHome4Object:home3];
+                    [home addHome4Object:home4];
                 }
             }
                 break;
@@ -97,11 +103,13 @@
                 if([self isNullData:array])
                     continue;
                 
+                int sort=0;
                 for(NSDictionary *store in array)
                 {
-                    UserHome5 *home3=[UserHome5 makeWithDictionary:store];
+                    UserHome5 *home5=[UserHome5 makeWithDictionary:store];
+                    home5.sortOrder=@(sort++);
                     
-                    [home addHome5Object:home3];
+                    [home addHome5Object:home5];
                 }
             }
                 break;

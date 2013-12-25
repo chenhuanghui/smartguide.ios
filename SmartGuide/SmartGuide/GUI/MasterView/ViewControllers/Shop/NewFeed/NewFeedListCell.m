@@ -7,22 +7,33 @@
 //
 
 #import "NewFeedListCell.h"
+#import "NewFeedListObjectCell.h"
+#import "Utility.h"
 
 @implementation NewFeedListCell
 
--(void)loadWithHome3:(UserHome3 *)home3
+-(void)loadWithHome3:(NSArray *)home3
 {
+    _dataMode=NEW_FEED_LIST_DATA_HOME3;
+    _homes=[home3 mutableCopy];
     
+    [table reloadData];
 }
 
--(void)loadWithHome4:(UserHome4 *)home4
+-(void)loadWithHome4:(NSArray *)home4
 {
+    _dataMode=NEW_FEED_LIST_DATA_HOME4;
+    _homes=[home4 mutableCopy];
     
+    [table reloadData];
 }
 
--(void)loadWithHome5:(UserHome5 *)home5
+-(void)loadWithHome5:(NSArray *)home5
 {
+    _dataMode=NEW_FEED_LIST_DATA_HOME5;
+    _homes=[home5 mutableCopy];
     
+    [table reloadData];
 }
 
 +(float)height
@@ -33,6 +44,68 @@
 +(NSString *)reuseIdentifier
 {
     return @"NewFeedListCell";
+}
+
+-(void)awakeFromNib
+{
+    [super awakeFromNib];
+    
+    [table registerNib:[UINib nibWithNibName:[NewFeedListObjectCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[NewFeedListObjectCell reuseIdentifier]];
+    
+    CGRect rect=table.frame;
+    table.transform=CGAffineTransformMakeRotation(DEGREES_TO_RADIANS(45)*6);
+    table.frame=rect;
+}
+
+-(IBAction) btnNextTouchUpInside:(id)sender
+{
+    
+}
+
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return _homes.count==0?0:1;
+}
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return _homes.count;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return tableView.l_v_w;
+}
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NewFeedListObjectCell *cell=[tableView dequeueReusableCellWithIdentifier:[NewFeedListObjectCell reuseIdentifier]];
+    
+    switch (_dataMode) {
+        case NEW_FEED_LIST_DATA_HOME3:
+        {
+            UserHome3 *home=_homes[indexPath.row];
+            [cell setImage:home.cover title:home.title numOfShop:home.numOfShop content:home.content];
+            
+            return cell;
+        }
+            
+        case NEW_FEED_LIST_DATA_HOME4:
+        {
+            UserHome4 *home=_homes[indexPath.row];
+            [cell setImage:home.cover title:home.shopName numOfShop:home.numOfView content:home.content];
+            
+            return cell;
+        }
+            
+        case NEW_FEED_LIST_DATA_HOME5:
+        {
+            UserHome5 *home=_homes[indexPath.row];
+            [cell setImage:home.cover title:home.storeName numOfShop:home.numOfPurchase content:home.content];
+            
+            return cell;
+        }
+    }
 }
 
 @end

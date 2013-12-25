@@ -20,13 +20,15 @@
 #import "SearchViewController.h"
 #import "ASIOperationShopSearch.h"
 #import "ASIOperationPlacelistDetail.h"
+#import "ASIOperationGetShopList.h"
 #import "Placelist.h"
 
 @class ScrollShopList,ShopListContentView,ShopListViewController;
 
 enum SHOP_LIST_VIEW_MODE {
     SHOP_LIST_VIEW_LIST = 0,
-    SHOP_LIST_VIEW_PLACE = 1
+    SHOP_LIST_VIEW_PLACE = 1,
+    SHOP_LIST_VIEW_SHOP_LIST = 2
     };
 
 @protocol ShopListControllerDelegate <SGViewControllerDelegate>
@@ -78,9 +80,13 @@ enum SHOP_LIST_VIEW_MODE {
     
     ASIOperationShopSearch *_operationShopSearch;
     ASIOperationPlacelistDetail *_operationPlaceListDetail;
+    ASIOperationGetShopList *_operationShopList;
+    
     NSString *_keyword;
     __weak Placelist *_placeList;
     NSMutableArray *_shopsList;
+    NSString *_idShops;
+    
     NSUInteger _page;
     enum SORT_SHOP_LIST _sort;
     enum SORT_PLACE_LIST _sortPlace;
@@ -94,6 +100,7 @@ enum SHOP_LIST_VIEW_MODE {
 
 -(ShopListViewController*) initWithKeyword:(NSString*) keyword;
 -(ShopListViewController*) initWithPlaceList:(Placelist*) placeList;
+-(ShopListViewController*) initWithIDShops:(NSString*) idShops;
 
 -(NSString*) keyword;
 -(Placelist*) placelist;

@@ -10,6 +10,11 @@
 #import "UserHome1.h"
 
 @interface NewFeedPromotionCell : UITableViewCell
+{
+    __weak IBOutlet UIImageView *imgv;
+    __weak IBOutlet UILabel *lbl;
+    __weak IBOutlet UIView *bg;
+}
 
 -(void) loadWithHome1:(UserHome1*) home;
 

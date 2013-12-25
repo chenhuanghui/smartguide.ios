@@ -8,9 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-@interface NewFeedImagesCell : UITableViewCell
+@interface NewFeedImagesCell : UITableViewCell<UITableViewDataSource,UITableViewDelegate>
+{
+    NSMutableArray *_images;
+    __weak IBOutlet UITableView *table;
+}
 
--(void) loadWithImages:(NSString*) iamges;
+-(void) loadWithImages:(NSArray*) images;
 
 +(float) height;
 +(NSString *)reuseIdentifier;
