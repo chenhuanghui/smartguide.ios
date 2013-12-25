@@ -59,7 +59,16 @@
 
 -(IBAction) btnNextTouchUpInside:(id)sender
 {
+    NSIndexPath *indexPath=[table indexPathForRowAtPoint:CGPointMake(self.l_v_h/2, table.l_co_y+self.l_v_w/2)];
     
+    if(indexPath)
+    {
+        if(indexPath.row+1<[table numberOfRowsInSection:indexPath.section])
+        {
+            indexPath=[NSIndexPath indexPathForRow:indexPath.row+1 inSection:indexPath.section];
+            [table scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionNone animated:true];
+        }
+    }
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView

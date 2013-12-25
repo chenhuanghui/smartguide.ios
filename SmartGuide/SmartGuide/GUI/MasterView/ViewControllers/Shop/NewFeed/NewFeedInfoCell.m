@@ -50,16 +50,16 @@
 
 +(float)heightWithHome6:(UserHome6 *)home
 {
-    float height=247;
-    height+=[home.content sizeWithFont:[UIFont fontWithName:@"Avenir-Roman" size:13] constrainedToSize:CGSizeMake(257, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height;
+    float height=222;
+    height+=[home.content sizeWithFont:[UIFont fontWithName:@"Avenir-Roman" size:13] constrainedToSize:CGSizeMake(257, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height-10;
     
     return height;
 }
 
 +(float)heightWithHome7:(UserHome7 *)home
 {
-    float height=247;
-    height+=[home.content sizeWithFont:[UIFont fontWithName:@"Avenir-Roman" size:13] constrainedToSize:CGSizeMake(257, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height;
+    float height=222;
+    height+=[home.content sizeWithFont:[UIFont fontWithName:@"Avenir-Roman" size:13] constrainedToSize:CGSizeMake(257, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height-10;
     
     return height;
 }

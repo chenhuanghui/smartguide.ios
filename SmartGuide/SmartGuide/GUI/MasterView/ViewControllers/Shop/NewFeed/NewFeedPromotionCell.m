@@ -23,9 +23,6 @@
     float height=75;
     height+=[home.content sizeWithFont:font constrainedToSize:CGSizeMake(202, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height-10;
     
-    //lbl y
-//    height+=21;
-    
     return height;
 }
 

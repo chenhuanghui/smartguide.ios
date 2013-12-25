@@ -746,6 +746,30 @@
         
         ASIOperationGetShopList *ope=(ASIOperationGetShopList*) operation;
         
+        [_shopsList addObjectsFromArray:ope.shopLists];
+        _canLoadMore=false;
+        _isLoadingMore=false;
+        
+        NSMutableArray *coordinates=[NSMutableArray array];
+        for(ShopList *shop in _shopsList)
+        {
+            [self.map addAnnotation:shop];
+            
+            [coordinates addObject:[NSValue valueWithMKCoordinate:shop.coordinate]];
+        }
+        
+        if(!_isZoomedRegionMap)
+        {
+            _isZoomedRegionMap=true;
+            
+            if(isVailCLLocationCoordinate2D(self.map.userLocation.coordinate))
+                [coordinates addObject:[NSValue valueWithMKCoordinate:self.map.userLocation.coordinate]];
+            
+            [self.map zoomToCoordinates:coordinates animate:true span:0];
+        }
+        
+        [self makeScrollSize];
+        
         _operationShopList=nil;
     }
 }

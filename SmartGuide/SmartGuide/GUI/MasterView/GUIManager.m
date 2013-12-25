@@ -154,14 +154,6 @@ static GUIManager *_shareInstance=nil;
     [rootViewController addChildViewController:navi];
 }
 
--(void)newFeedControllerTouchedTextField:(NewFeedViewController *)controller
-{
-    SearchViewController *vc=[[SearchViewController alloc] initWithSearch];
-    vc.delegate=self;
-    
-    [rootNavigation pushViewController:vc animated:true];
-}
-
 -(void) showUserController
 {
     [self.rootNavigation removeLeftSlideViewController];
@@ -516,6 +508,22 @@ static GUIManager *_shareInstance=nil;
 -(void)newFeedControllerTouchedNavigation:(NewFeedViewController *)controller
 {
     [self showLeftController];
+}
+
+-(void)newFeedControllerTouchedHome1:(NewFeedViewController *)contorller home1:(UserHome1 *)home1
+{
+    SearchViewController *vc=[[SearchViewController alloc] initWithIDShops:home1.shopList];
+    vc.delegate=self;
+    
+    [contentNavigation pushViewController:vc animated:true];
+}
+
+-(void)newFeedControllerTouchedTextField:(NewFeedViewController *)controller
+{
+    SearchViewController *vc=[[SearchViewController alloc] initWithSearch];
+    vc.delegate=self;
+    
+    [contentNavigation pushViewController:vc animated:true];
 }
 
 @end

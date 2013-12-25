@@ -99,7 +99,7 @@
             
         case SEARCH_VIEW_MODE_SHOP_LIST:
         {
-            ShopListViewController *vc=[[ShopListViewController alloc] initWithPlaceList:_place];
+            ShopListViewController *vc=[[ShopListViewController alloc] initWithIDShops:_idShops];
             vc.searchController=self;
             vc.delegate=self;
             

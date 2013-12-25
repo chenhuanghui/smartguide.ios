@@ -173,6 +173,18 @@
 {
     UserHome *home=_homes[indexPath.row];
     
+    if(_canLoadMore)
+    {
+        if(!_isLoadingMore)
+        {
+            if(indexPath.row==_homes.count-1)
+            {
+                _isLoadingMore=true;
+                
+                [self requestNewFeed];
+            }
+        }
+    }
     switch (home.enumType) {
         case USER_HOME_TYPE_1:
         {
