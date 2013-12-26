@@ -10,13 +10,10 @@
                 <outlet property="bgImageView" destination="cBH-yt-0AQ" id="9MA-6J-Mxm"/>
                 <outlet property="bgView" destination="Iaz-Ec-8yt" id="9Ia-qh-Ca6"/>
                 <outlet property="btnBack" destination="XQq-Ck-nno" id="TI1-Dx-bhX"/>
-                <outlet property="btnLatest" destination="FUA-LV-6Xd" id="Kcj-OE-MEY"/>
                 <outlet property="btnSetting" destination="uEg-DF-xuj" id="cyB-B1-4Fz"/>
-                <outlet property="btnTopSellers" destination="y2I-4k-2pi" id="gy0-5u-FFz"/>
                 <outlet property="contentView" destination="nfr-mI-for" id="YGn-ZH-nh2"/>
                 <outlet property="lblCart" destination="Myd-SL-6MX" id="8sg-PR-Phu"/>
                 <outlet property="qrView" destination="p73-e8-CDK" id="eWl-mn-pnx"/>
-                <outlet property="rayView" destination="SjR-1A-Zpq" id="31p-RG-lGS"/>
                 <outlet property="storeNavigation" destination="Xcv-BU-PZb" id="Job-Ui-vFM"/>
                 <outlet property="view" destination="1" id="3"/>
             </connections>
@@ -44,41 +41,6 @@
                 <view contentMode="scaleToFill" id="nfr-mI-for">
                     <rect key="frame" x="0.0" y="39" width="320" height="418"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                </view>
-                <view contentMode="scaleToFill" id="SjR-1A-Zpq">
-                    <rect key="frame" x="0.0" y="152" width="320" height="47"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_sort.png" id="Pgf-hN-xYX">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="47"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        </imageView>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="FUA-LV-6Xd">
-                            <rect key="frame" x="0.0" y="0.0" width="160" height="47"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="13"/>
-                            <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="-5"/>
-                            <state key="normal" title="Mới nhất">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                            <connections>
-                                <action selector="btnLatestTouchUpInside:" destination="-1" eventType="touchUpInside" id="F58-xC-LIn"/>
-                            </connections>
-                        </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="y2I-4k-2pi">
-                            <rect key="frame" x="160" y="0.0" width="160" height="47"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="13"/>
-                            <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="-5"/>
-                            <state key="normal" title="Nhiều người mua nhất">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                            <connections>
-                                <action selector="btnTopSellersTouchUpInside:" destination="-1" eventType="touchUpInside" id="PYh-Pb-mEM"/>
-                            </connections>
-                        </button>
-                    </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
                 <view contentMode="scaleToFill" id="p73-e8-CDK">
@@ -179,7 +141,6 @@
     <resources>
         <image name="background_scan.png" width="320" height="56"/>
         <image name="bg_animation.jpg" width="320" height="263"/>
-        <image name="bg_sort.png" width="320" height="47"/>
         <image name="button_addcart.png" width="21" height="20"/>
         <image name="button_navigation.png" width="25" height="20"/>
     </resources>

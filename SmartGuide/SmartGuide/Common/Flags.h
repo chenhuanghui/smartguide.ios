@@ -34,6 +34,13 @@
 +(void) setIsShowedTutorialSlideShopDetail:(bool) isShowed;
 +(bool) isShowedWelcomeScreen;
 +(void) setIsShowedWelcomeScreen:(bool) isShowed;
++(bool) isUserReadTutorialPlace;
++(bool) isUserReadTutorialShopList;
++(bool) isUserReadTutorialStoreList;
++(void) setIsUserReadTutorialPlace:(bool) isRead;
++(void) setIsUserReadTutorialShopList:(bool) isRead;
++(void) setIsUserReadTutorialStoreList:(bool) isRead;
+
 
 +(void) removeToken;
 

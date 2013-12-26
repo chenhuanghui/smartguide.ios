@@ -35,6 +35,7 @@
     _gridContainerFrame=gridContainer.frame;
     _gridLatestFrame=gridLatest.frame;
     _gridTopFrame=gridTopSellers.frame;
+    _rayFrame=rayView.frame;
 }
 
 -(void)loadView
@@ -76,8 +77,6 @@
     _shopsLatest=[[NSMutableArray alloc] init];
     _shopsTopSellers=[[NSMutableArray alloc] init];
     
-    //    scroll.minContentOffsetY=-80;
-    
     CGRect rect=tableAds.frame;
     tableAds.transform=CGAffineTransformMakeRotation(DEGREES_TO_RADIANS(45)*6);
     tableAds.frame=rect;
@@ -97,12 +96,11 @@
     gridLatest.delegate=self;
     gridTopSellers.actionDelegate=self;
     gridLatest.actionDelegate=self;
+    gridLatest.minimumOffsetY=-34;
+    gridTopSellers.minimumOffsetY=-34;
     
     _pageShopLatest=0;
     _pageShopTopSellers=0;
-    
-    gridTopSellers.minimumOffsetY=-storeController.rayViewFrame.size.height+12;
-    gridLatest.minimumOffsetY=-storeController.rayViewFrame.size.height+12;
     
     [gridTopSellers.panGestureRecognizer addTarget:self action:@selector(gridTopSellersPanGes:)];
     [gridLatest.panGestureRecognizer addTarget:self action:@selector(gridLatestPanGes:)];
@@ -293,13 +291,13 @@
     {
         if(scrollView.l_co_y<0)
         {
-            [self.storeController.rayView l_v_setY:self.storeController.rayViewFrame.origin.y-scrollView.l_co_y];
+            [rayView l_v_setY:_rayFrame.origin.y-scrollView.l_co_y];
             [self.storeController.bgView l_v_setH:self.storeController.bgViewFrame.size.height-scrollView.l_co_y];
             [self.storeController.bgImageView l_v_setY:scrollView.contentOffset.y/6];
         }
         else
         {
-            [self.storeController.rayView l_v_setY:self.storeController.rayViewFrame.origin.y];
+            [rayView l_v_setY:_rayFrame.origin.y];
             [self.storeController.bgView l_v_setH:self.storeController.bgViewFrame.size.height];
             [self.storeController.bgImageView l_v_setY:self.storeController.bgImageViewFrame.origin.y];
             
@@ -453,7 +451,7 @@
         [self.storeController showShop:store];
 }
 
--(void)storeControllerButtonLatestTouched:(UIButton *)btn
+- (IBAction)btnLatestTouchUpInside:(id)sender
 {
     if(shopNavi.viewControllers.count==1)
         return;
@@ -505,7 +503,7 @@
     });
 }
 
--(void)storeControllerButtonTopSellersTouched:(UIButton *)btn
+- (IBAction)btnTopSellerTouchUpInside:(id)sender
 {
     if(![shopNavi.viewControllers containsObject:shopTopSellers])
     {

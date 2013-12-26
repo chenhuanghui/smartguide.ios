@@ -20,23 +20,13 @@
 {
     CGRect rect=[[UIScreen mainScreen] bounds];
     self.window = [[UIWindow alloc] initWithFrame:rect];
+
+    [Flurry setAppVersion:@"0.0a"];
+    [Flurry startSession:@"SG974KP6KXTQ8P4ZRYHN" withOptions:launchOptions];
     
     [AFHTTPRequestOperation addAcceptableContentTypes:[NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript", @"text/html", nil]];
     
     [[GUIManager shareInstance] startupWithWindow:self.window];
-    return true;
-    
-    // Override point for customization after application launch.
-    //Setting AFHTTP
-    
-    [Flurry setAppVersion:@"0.0a"];
-    [Flurry startSession:@"SG974KP6KXTQ8P4ZRYHN" withOptions:launchOptions];
-    
-    [FacebookManager checkFacebookToken];
-    
-    [AFHTTPRequestOperation addAcceptableContentTypes:[NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript", @"text/html", nil]];
-    
-//    [RootViewController startWithWindow:self.window];
     
     return YES;
 }

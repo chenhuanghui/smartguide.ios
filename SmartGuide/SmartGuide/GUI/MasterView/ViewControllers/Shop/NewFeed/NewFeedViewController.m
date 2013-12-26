@@ -10,6 +10,8 @@
 #import "GUIManager.h"
 #import "StoreShopInfoViewController.h"
 
+#define NEW_FEED_DELTA_SPEED 2.1f
+
 @interface NewFeedViewController ()<NewFeedListDelegate,NewFeedInfoCellDelegate>
 
 @end
@@ -26,19 +28,29 @@
     return self;
 }
 
+-(void) storeRect
+{
+    _adsFrame=adsView.frame;
+    _qrFrame=qrView.frame;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
+    [tableFeed l_v_addH:QRCODE_SMALL_HEIGHT*NEW_FEED_DELTA_SPEED];
+    
+    [self storeRect];
+    
     txt.leftView=[[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, txt.l_v_h)];
     txt.leftView.backgroundColor=[UIColor clearColor];
     txt.leftViewMode=UITextFieldViewModeAlways;
     
-    [table registerNib:[UINib nibWithNibName:[NewFeedPromotionCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[NewFeedPromotionCell reuseIdentifier]];
-    [table registerNib:[UINib nibWithNibName:[NewFeedImagesCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[NewFeedImagesCell reuseIdentifier]];
-    [table registerNib:[UINib nibWithNibName:[NewFeedListCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[NewFeedListCell reuseIdentifier]];
-    [table registerNib:[UINib nibWithNibName:[NewFeedInfoCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[NewFeedInfoCell reuseIdentifier]];
+    [tableFeed registerNib:[UINib nibWithNibName:[NewFeedPromotionCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[NewFeedPromotionCell reuseIdentifier]];
+    [tableFeed registerNib:[UINib nibWithNibName:[NewFeedImagesCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[NewFeedImagesCell reuseIdentifier]];
+    [tableFeed registerNib:[UINib nibWithNibName:[NewFeedListCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[NewFeedListCell reuseIdentifier]];
+    [tableFeed registerNib:[UINib nibWithNibName:[NewFeedInfoCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[NewFeedInfoCell reuseIdentifier]];
     
     _page=-1;
     _homes=[NSMutableArray array];
@@ -51,6 +63,35 @@
     [self requestNewFeed];
     displayLoadingView.userInteractionEnabled=true;
     [displayLoadingView showLoading];
+}
+
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    if(scrollView==tableFeed)
+    {
+        float destY=_qrFrame.origin.y+QRCODE_SMALL_HEIGHT;
+        float speed=6;
+        float v=tableFeed.l_co_y/speed;
+
+        if(tableFeed.l_co_y>0)
+        {
+            if(_qrFrame.origin.y+v<destY)
+            {
+                [qrView l_v_setY:_qrFrame.origin.y+v];
+                [adsView l_v_setY:_adsFrame.origin.y+v*NEW_FEED_DELTA_SPEED];
+            }
+            else
+            {
+                [qrView l_v_setY:destY];
+                [adsView l_v_setY:_adsFrame.origin.y+QRCODE_SMALL_HEIGHT*NEW_FEED_DELTA_SPEED];
+            }
+        }
+        else
+        {
+            [qrView l_v_setY:_qrFrame.origin.y];
+            [adsView l_v_setY:_adsFrame.origin.y];
+        }
+    }
 }
 
 -(void) requestNewFeed
@@ -84,7 +125,7 @@
         _isLoadingMore=false;
         _page++;
         
-        [table reloadData];
+        [tableFeed reloadData];
         
         _operationUserHome=nil;
     }
@@ -152,124 +193,167 @@
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return _homes.count==0?0:1;
+    if(tableView==tableFeed)
+        return _homes.count==0?0:1;
+    else if(tableView==tableAds)
+        return _ads.count==0?0:1;
+    
+    return 0;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return _homes.count;
+    if(tableView==tableFeed)
+        return _homes.count;
+    else if(tableView==tableAds)
+        return _ads.count;
+    
+    return 0;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UserHome *home=_homes[indexPath.row];
-    switch (home.enumType) {
-        case USER_HOME_TYPE_1:
-            return [NewFeedPromotionCell heightWithHome1:home.home1];
-            
-        case USER_HOME_TYPE_2:
-            return [NewFeedImagesCell height];
-            
-        case USER_HOME_TYPE_3:
-        case USER_HOME_TYPE_4:
-        case USER_HOME_TYPE_5:
-            return [NewFeedListCell height];
-            
-        case USER_HOME_TYPE_6:
-            return [NewFeedInfoCell heightWithHome6:home.home6];
-            
-        case USER_HOME_TYPE_7:
-            return [NewFeedInfoCell heightWithHome7:home.home7];
-            
-        default:
-            return 0;
+    if(tableView==tableFeed)
+    {
+        UserHome *home=_homes[indexPath.row];
+        switch (home.enumType) {
+            case USER_HOME_TYPE_1:
+                return [NewFeedPromotionCell heightWithHome1:home.home1];
+                
+            case USER_HOME_TYPE_2:
+                return [NewFeedImagesCell height];
+                
+            case USER_HOME_TYPE_3:
+                return [NewFeedListCell heightWithMode:[self newFeedPlaceListDisplayMode]];
+            case USER_HOME_TYPE_4:
+                return [NewFeedListCell heightWithMode:[self newFeedShopListDisplayMode]];
+            case USER_HOME_TYPE_5:
+                return [NewFeedListCell heightWithMode:[self newFeedStoreListDisplayMode]];
+                
+            case USER_HOME_TYPE_6:
+                return [NewFeedInfoCell heightWithHome6:home.home6];
+                
+            case USER_HOME_TYPE_7:
+                return [NewFeedInfoCell heightWithHome7:home.home7];
+                
+            default:
+                return 0;
+        }
     }
+    else if(tableView==tableAds)
+    {
+        return tableView.l_v_w;
+    }
+    
+    return 0;
+}
+
+-(enum NEW_FEED_LIST_DISPLAY_MODE) newFeedPlaceListDisplayMode
+{
+    return [Flags isUserReadTutorialPlace]?NEW_FEED_LIST_DISPLAY_USED:NEW_FEED_LIST_DISPLAY_TUTORIAL;
+}
+
+-(enum NEW_FEED_LIST_DISPLAY_MODE) newFeedShopListDisplayMode
+{
+    return [Flags isUserReadTutorialShopList]?NEW_FEED_LIST_DISPLAY_USED:NEW_FEED_LIST_DISPLAY_TUTORIAL;
+}
+
+-(enum NEW_FEED_LIST_DISPLAY_MODE) newFeedStoreListDisplayMode
+{
+    return [Flags isUserReadTutorialStoreList]?NEW_FEED_LIST_DISPLAY_USED:NEW_FEED_LIST_DISPLAY_TUTORIAL;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UserHome *home=_homes[indexPath.row];
-    
-    if(_canLoadMore)
+    if(tableView==tableFeed)
     {
-        if(!_isLoadingMore)
+        UserHome *home=_homes[indexPath.row];
+        
+        if(_canLoadMore)
         {
-            if(indexPath.row==_homes.count-1)
+            if(!_isLoadingMore)
             {
-                _isLoadingMore=true;
-                
-                [self requestNewFeed];
+                if(indexPath.row==_homes.count-1)
+                {
+                    _isLoadingMore=true;
+                    
+                    [self requestNewFeed];
+                }
             }
         }
+        switch (home.enumType) {
+            case USER_HOME_TYPE_1:
+            {
+                NewFeedPromotionCell *cell=[tableView dequeueReusableCellWithIdentifier:[NewFeedPromotionCell reuseIdentifier]];
+                
+                [cell loadWithHome1:home.home1];
+                
+                return cell;
+            }
+                
+            case USER_HOME_TYPE_2:
+            {
+                NewFeedImagesCell *cell=[tableView dequeueReusableCellWithIdentifier:[NewFeedImagesCell reuseIdentifier]];
+                
+                [cell loadWithImages:[home.home2Objects valueForKeyPath:UserHome2_Image]];
+                
+                return cell;
+            }
+                
+            case USER_HOME_TYPE_3:
+            {
+                NewFeedListCell *cell=[tableView dequeueReusableCellWithIdentifier:[NewFeedListCell reuseIdentifier]];
+                cell.delegate=self;
+                
+                [cell loadWithHome3:home.home3Objects displayMode:[self newFeedPlaceListDisplayMode]];
+                
+                return cell;
+            }
+            case USER_HOME_TYPE_4:
+            {
+                NewFeedListCell *cell=[tableView dequeueReusableCellWithIdentifier:[NewFeedListCell reuseIdentifier]];
+                cell.delegate=self;
+                
+                [cell loadWithHome4:home.home4Objects displayMode:[self newFeedShopListDisplayMode]];
+                
+                return cell;
+            }
+            case USER_HOME_TYPE_5:
+            {
+                NewFeedListCell *cell=[tableView dequeueReusableCellWithIdentifier:[NewFeedListCell reuseIdentifier]];
+                cell.delegate=self;
+                
+                [cell loadWithHome5:home.home5Objects displayMode:[self newFeedStoreListDisplayMode]];
+                
+                return cell;
+            }
+                
+            case USER_HOME_TYPE_6:
+            {
+                NewFeedInfoCell *cell=[tableView dequeueReusableCellWithIdentifier:[NewFeedInfoCell reuseIdentifier]];
+                cell.delegate=self;
+                
+                [cell loadWithHome6:home.home6];
+                
+                return cell;
+            }
+                
+            case USER_HOME_TYPE_7:
+            {
+                NewFeedInfoCell *cell=[tableView dequeueReusableCellWithIdentifier:[NewFeedInfoCell reuseIdentifier]];
+                
+                [cell loadWithHome7:home.home7];
+                
+                return cell;
+            }
+                
+            default:
+                return 0;
+        }
     }
-    switch (home.enumType) {
-        case USER_HOME_TYPE_1:
-        {
-            NewFeedPromotionCell *cell=[tableView dequeueReusableCellWithIdentifier:[NewFeedPromotionCell reuseIdentifier]];
-            
-            [cell loadWithHome1:home.home1];
-            
-            return cell;
-        }
-            
-        case USER_HOME_TYPE_2:
-        {
-            NewFeedImagesCell *cell=[tableView dequeueReusableCellWithIdentifier:[NewFeedImagesCell reuseIdentifier]];
-            
-            [cell loadWithImages:[home.home2Objects valueForKeyPath:UserHome2_Image]];
-            
-            return cell;
-        }
-            
-        case USER_HOME_TYPE_3:
-        {
-            NewFeedListCell *cell=[tableView dequeueReusableCellWithIdentifier:[NewFeedListCell reuseIdentifier]];
-            cell.delegate=self;
-            
-            [cell loadWithHome3:home.home3Objects];
-            
-            return cell;
-        }
-        case USER_HOME_TYPE_4:
-        {
-            NewFeedListCell *cell=[tableView dequeueReusableCellWithIdentifier:[NewFeedListCell reuseIdentifier]];
-            cell.delegate=self;
-            
-            [cell loadWithHome4:home.home4Objects];
-            
-            return cell;
-        }
-        case USER_HOME_TYPE_5:
-        {
-            NewFeedListCell *cell=[tableView dequeueReusableCellWithIdentifier:[NewFeedListCell reuseIdentifier]];
-            cell.delegate=self;
-            
-            [cell loadWithHome5:home.home5Objects];
-            
-            return cell;
-        }
-            
-        case USER_HOME_TYPE_6:
-        {
-            NewFeedInfoCell *cell=[tableView dequeueReusableCellWithIdentifier:[NewFeedInfoCell reuseIdentifier]];
-            cell.delegate=self;
-            
-            [cell loadWithHome6:home.home6];
-            
-            return cell;
-        }
-            
-        case USER_HOME_TYPE_7:
-        {
-            NewFeedInfoCell *cell=[tableView dequeueReusableCellWithIdentifier:[NewFeedInfoCell reuseIdentifier]];
-            
-            [cell loadWithHome7:home.home7];
-            
-            return cell;
-        }
-            
-        default:
-            return 0;
+    else if(tableView==tableAds)
+    {
+        return [UITableViewCell new];
     }
     
     return [UITableViewCell new];
@@ -277,62 +361,69 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UserHome *home=_homes[indexPath.row];
-    switch (home.enumType) {
-        case USER_HOME_TYPE_1:
-        {
-            if(home.home1.shopList.length>0 && ![home.home1.shopList isContainString:@","])
+    if(tableView==tableFeed)
+    {
+        UserHome *home=_homes[indexPath.row];
+        switch (home.enumType) {
+            case USER_HOME_TYPE_1:
             {
-                [self requestShopUserWithIDShop:home.home1.idShop.integerValue];
+                if(home.home1.shopList.length>0 && ![home.home1.shopList isContainString:@","])
+                {
+                    [self requestShopUserWithIDShop:home.home1.idShop.integerValue];
+                    
+                    [self.view showLoading];
+                    return;
+                }
                 
-                [self.view showLoading];
-                return;
+                [self.delegate newFeedControllerTouchedHome1:self home1:home.home1];
             }
-            
-            [self.delegate newFeedControllerTouchedHome1:self home1:home.home1];
+                break;
+                
+            case USER_HOME_TYPE_2:
+            {
+                //Nothing do
+            }
+                break;
+                
+            case USER_HOME_TYPE_3:
+            {
+                /*
+                 using delegate newFeedListTouched
+                 */
+            }
+                break;
+                
+            case USER_HOME_TYPE_4:
+            {
+                
+            }
+                break;
+                
+            case USER_HOME_TYPE_5:
+            {
+                
+            }
+                break;
+                
+            case USER_HOME_TYPE_6:
+            {
+                
+            }
+                break;
+                
+            case USER_HOME_TYPE_7:
+            {
+                
+            }
+                break;
+                
+            default:
+                break;
         }
-            break;
-            
-        case USER_HOME_TYPE_2:
-        {
-            //Nothing do
-        }
-            break;
-            
-        case USER_HOME_TYPE_3:
-        {
-            /*
-             using delegate newFeedListTouched
-            */
-        }
-            break;
-            
-        case USER_HOME_TYPE_4:
-        {
-            
-        }
-            break;
-            
-        case USER_HOME_TYPE_5:
-        {
-            
-        }
-            break;
-            
-        case USER_HOME_TYPE_6:
-        {
-            
-        }
-            break;
-            
-        case USER_HOME_TYPE_7:
-        {
-            
-        }
-            break;
-            
-        default:
-            break;
+    }
+    else if(tableView==tableAds)
+    {
+        
     }
 }
 
@@ -353,11 +444,11 @@
         }
         else if([cell.currentHome isKindOfClass:[UserHome5 class]])
         {
-//            UserHome5 *home=cell.currentHome;
+            //            UserHome5 *home=cell.currentHome;
             
             //StoreShopInfoViewController *vc=[StoreShopInfoViewController alloc] initWithStore:<#(StoreShop *)#>
             
-//            [self.view showLoading];
+            //            [self.view showLoading];
         }
     }
 }

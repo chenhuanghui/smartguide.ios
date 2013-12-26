@@ -29,14 +29,22 @@
 {
     __weak IBOutlet UITextField *txt;
     __weak IBOutlet UIView *displayLoadingView;
-    __weak IBOutlet UITableView *table;
+    __weak IBOutlet UITableView *tableFeed;
+    __weak IBOutlet UITableView *tableAds;
+    __weak IBOutlet UIView *adsView;
+    __weak IBOutlet UIView *qrView;
     
     ASIOperationUserHome *_operationUserHome;
     ASIOperationShopUser *_operationShopUser;
     NSMutableArray *_homes;
+    NSMutableArray *_ads;
+    
     int _page;
     bool _isLoadingMore;
     bool _canLoadMore;
+    
+    CGRect _adsFrame;
+    CGRect _qrFrame;
 }
 
 @property (nonatomic, assign) id<NewFeedControllerDelegate> delegate;

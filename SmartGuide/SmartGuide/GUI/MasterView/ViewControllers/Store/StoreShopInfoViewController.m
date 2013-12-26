@@ -83,8 +83,8 @@
     
     [self storeRect];
     
-    scrollLatest.minimumOffsetY=-storeController.rayViewFrame.size.height+12;
-    scrollTopSellers.minimumOffsetY=-storeController.rayViewFrame.size.height+12;
+//    scrollLatest.minimumOffsetY=-storeController.rayViewFrame.size.height+12;
+//    scrollTopSellers.minimumOffsetY=-storeController.rayViewFrame.size.height+12;
     
     itemNavi.view.backgroundColor=[UIColor clearColor];
     gridLatest.backgroundColor=[UIColor clearColor];
@@ -147,48 +147,48 @@
             [[self currentGrid] l_co_setY:0];
             [lblNameBot l_v_setY:_lblNameBotFrame.origin.y];
             
-            [self.storeController.rayView l_v_setY:self.storeController.rayViewFrame.origin.y-scrollView.l_co_y];
-            [self.storeController.bgView l_v_setH:self.storeController.bgViewFrame.size.height-scrollView.l_co_y];
-            [self.storeController.bgImageView l_v_setY:scrollView.contentOffset.y/6];
+//            [self.storeController.rayView l_v_setY:self.storeController.rayViewFrame.origin.y-scrollView.l_co_y];
+//            [self.storeController.bgView l_v_setH:self.storeController.bgViewFrame.size.height-scrollView.l_co_y];
+//            [self.storeController.bgImageView l_v_setY:scrollView.contentOffset.y/6];
         }
         else
         {
-            float y=self.storeController.rayViewFrame.origin.y-scrollView.l_co_y;
-            
-            y=MAX(y,STORE_RAY_MIN_Y);
-            [self.storeController.rayView l_v_setY:y];
-            
-            CGRect rect=[self currentGridFrame];
-            
-            y=rect.origin.y-scrollView.l_co_y;
-            
-            float diff=self.storeController.rayViewFrame.origin.y-STORE_RAY_MIN_Y;
-
-            if(y<rect.origin.y-diff)
-            {
-                y=rect.origin.y+scrollView.l_co_y-diff;
-                
-                [[self currentGrid] l_v_setY:y];
-                [[self currentGrid] l_co_setY:y-rect.origin.y];
-            }
-            else
-            {
-                y=rect.origin.y;
-                [[self currentGrid] l_v_setY:y];
-                [[self currentGrid] l_co_setY:0];
-            }
-            
-            y=_lblNameBotFrame.origin.y-scrollView.l_co_y;
-            
-            if(y<STORE_NAME_BOTTOM_MIN_Y)
-                y=STORE_NAME_BOTTOM_MIN_Y;
-            
-            [lblNameBot l_v_setY:y];
-
-            y=self.storeController.bgImageViewFrame.origin.y-scrollView.l_co_y/6;
-            y=MAX(y,-STORE_RAY_MIN_Y);
-            [self.storeController.bgImageView l_v_setY:y];
-            [self.storeController.bgView l_v_setH:self.storeController.bgViewFrame.size.height];
+//            float y=self.storeController.rayViewFrame.origin.y-scrollView.l_co_y;
+//            
+//            y=MAX(y,STORE_RAY_MIN_Y);
+//            [self.storeController.rayView l_v_setY:y];
+//            
+//            CGRect rect=[self currentGridFrame];
+//            
+//            y=rect.origin.y-scrollView.l_co_y;
+//            
+//            float diff=self.storeController.rayViewFrame.origin.y-STORE_RAY_MIN_Y;
+//
+//            if(y<rect.origin.y-diff)
+//            {
+//                y=rect.origin.y+scrollView.l_co_y-diff;
+//                
+//                [[self currentGrid] l_v_setY:y];
+//                [[self currentGrid] l_co_setY:y-rect.origin.y];
+//            }
+//            else
+//            {
+//                y=rect.origin.y;
+//                [[self currentGrid] l_v_setY:y];
+//                [[self currentGrid] l_co_setY:0];
+//            }
+//            
+//            y=_lblNameBotFrame.origin.y-scrollView.l_co_y;
+//            
+//            if(y<STORE_NAME_BOTTOM_MIN_Y)
+//                y=STORE_NAME_BOTTOM_MIN_Y;
+//            
+//            [lblNameBot l_v_setY:y];
+//
+//            y=self.storeController.bgImageViewFrame.origin.y-scrollView.l_co_y/6;
+//            y=MAX(y,-STORE_RAY_MIN_Y);
+//            [self.storeController.bgImageView l_v_setY:y];
+//            [self.storeController.bgView l_v_setH:self.storeController.bgViewFrame.size.height];
         }
     }
 }

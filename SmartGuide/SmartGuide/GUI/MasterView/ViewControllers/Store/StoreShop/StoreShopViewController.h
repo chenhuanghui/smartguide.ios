@@ -26,6 +26,9 @@
     __weak IBOutlet StoreShopTableAds *tableAds;
     __weak IBOutlet UIView *gridContainer;
     __weak SGNavigationController *shopNavi;
+    __weak IBOutlet UIView *rayView;
+    __weak IBOutlet UIButton *btnLatest;
+    __weak IBOutlet UIButton *btnTopSeller;
     StoreShopListController *shopLatest;
     StoreShopListController *shopTopSellers;
     
@@ -36,6 +39,7 @@
     CGRect _gridLatestFrame;
     CGRect _gridTopFrame;
     CGRect _gridContainerFrame;
+    CGRect _rayFrame;
     
     NSMutableArray *_shopsLatest;
     NSMutableArray *_shopsTopSellers;

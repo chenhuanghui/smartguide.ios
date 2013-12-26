@@ -18,9 +18,6 @@
 @protocol StoreControllerHandle <NSObject>
 @property (nonatomic, weak) StoreViewController *storeController;
 
--(void) storeControllerButtonLatestTouched:(UIButton*) btn;
--(void) storeControllerButtonTopSellersTouched:(UIButton*) btn;
-
 @optional
 -(void) handleBackCallbackCompleted:(void(^)()) completed;
 
@@ -38,15 +35,11 @@
     __weak IBOutlet UIView *qrView;
     __weak IBOutlet UIView *bgView;
     __weak IBOutlet UIImageView *bgImageView;
-    __weak IBOutlet UIView *rayView;
     IBOutlet SGNavigationController *storeNavigation;
     __weak IBOutlet UIButton *btnSetting;
     __weak IBOutlet UIButton *btnBack;
-    __weak IBOutlet UIButton *btnLatest;
-    __weak IBOutlet UIButton *btnTopSellers;
     __weak IBOutlet UILabel *lblCart;
     
-    CGRect _rayViewFrame;
     CGRect _bgViewFrame;
     CGRect _bgImageViewFrame;
     
@@ -59,16 +52,10 @@
 -(void) enableTouch;
 -(void) disableTouch;
 
--(UIView*) rayView;
--(CGRect) rayViewFrame;
-
 -(UIView*) bgView;
 -(UIImageView*) bgImageView;
 -(CGRect) bgViewFrame;
 -(CGRect) bgImageViewFrame;
-
--(UIButton*) buttonLatest;
--(UIButton*) buttonTopSellers;
 
 -(UIView*) qrView;
 

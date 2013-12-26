@@ -23,6 +23,9 @@
 #define FLAG_IS_SHOWED_TURORIAL_SLIDE_LIST @"isShowedTurorialSlideList"
 #define FLAG_IS_SHOWED_TURORIAL_SLIDE_SHOPDETAIL @"isShowedTutorialSlideShopDetail"
 #define FLAG_IS_SHOWED_WELCOME_SCREEN @"isShowedWelcomeScreen"
+#define FLAG_IS_READ_TUTORIAL_PLACE @"isReadTutorialPlace"
+#define FLAG_IS_READ_TUTORIAL_SHOP_LIST @"isReadTutorialShopList"
+#define FLAG_IS_READ_TUTORIAL_STORE_LIST @"isReadTutorialStoreList"
 
 @implementation Flags
 
@@ -210,6 +213,51 @@
 +(void)setIsShowedWelcomeScreen:(bool)isShowed
 {
     [[NSUserDefaults standardUserDefaults] setBool:isShowed forKey:FLAG_IS_SHOWED_WELCOME_SCREEN];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
++(bool) isUserReadTutorialPlace
+{
+    id obj = [[NSUserDefaults standardUserDefaults] objectForKey:FLAG_IS_READ_TUTORIAL_PLACE];
+    if(obj)
+        return [obj boolValue];
+    
+    return false;
+}
+
++(bool) isUserReadTutorialShopList
+{
+    id obj = [[NSUserDefaults standardUserDefaults] objectForKey:FLAG_IS_READ_TUTORIAL_SHOP_LIST];
+    if(obj)
+        return [obj boolValue];
+    
+    return false;
+}
+
++(bool) isUserReadTutorialStoreList
+{
+    id obj = [[NSUserDefaults standardUserDefaults] objectForKey:FLAG_IS_READ_TUTORIAL_STORE_LIST];
+    if(obj)
+        return [obj boolValue];
+    
+    return false;
+}
+
++(void) setIsUserReadTutorialPlace:(bool) isRead
+{
+    [[NSUserDefaults standardUserDefaults] setBool:isRead forKey:FLAG_IS_READ_TUTORIAL_PLACE];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
++(void) setIsUserReadTutorialShopList:(bool) isRead
+{
+    [[NSUserDefaults standardUserDefaults] setBool:isRead forKey:FLAG_IS_READ_TUTORIAL_SHOP_LIST];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
++(void) setIsUserReadTutorialStoreList:(bool) isRead
+{
+    [[NSUserDefaults standardUserDefaults] setBool:isRead forKey:FLAG_IS_READ_TUTORIAL_STORE_LIST];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 

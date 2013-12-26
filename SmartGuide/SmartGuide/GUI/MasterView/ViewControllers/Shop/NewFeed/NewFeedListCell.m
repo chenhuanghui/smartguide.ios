@@ -13,33 +13,55 @@
 @implementation NewFeedListCell
 @synthesize delegate;
 
--(void)loadWithHome3:(NSArray *)home3
+-(void) config
+{
+    switch (_displayMode) {
+        case NEW_FEED_LIST_DISPLAY_USED:
+            if(tableTutorial)
+                [tableTutorial removeFromSuperview];
+            break;
+            
+        default:
+            break;
+    }
+}
+
+-(void)loadWithHome3:(NSArray *)home3 displayMode:(enum NEW_FEED_LIST_DISPLAY_MODE)displayMode
 {
     _dataMode=NEW_FEED_LIST_DATA_HOME3;
     _homes=[home3 mutableCopy];
+    _displayMode=displayMode;
     
-    [table reloadData];
+    [tablePlace reloadData];
 }
 
--(void)loadWithHome4:(NSArray *)home4
+-(void)loadWithHome4:(NSArray *)home4 displayMode:(enum NEW_FEED_LIST_DISPLAY_MODE)displayMode
 {
     _dataMode=NEW_FEED_LIST_DATA_HOME4;
     _homes=[home4 mutableCopy];
+    _displayMode=displayMode;
     
-    [table reloadData];
+    [tablePlace reloadData];
 }
 
--(void)loadWithHome5:(NSArray *)home5
+-(void)loadWithHome5:(NSArray *)home5 displayMode:(enum NEW_FEED_LIST_DISPLAY_MODE)displayMode
 {
     _dataMode=NEW_FEED_LIST_DATA_HOME5;
     _homes=[home5 mutableCopy];
+    _displayMode=displayMode;
     
-    [table reloadData];
+    [tablePlace reloadData];
 }
 
-+(float)height
++(float)heightWithMode:(enum NEW_FEED_LIST_DISPLAY_MODE)displayMode
 {
-    return 155;
+    switch (displayMode) {
+        case NEW_FEED_LIST_DISPLAY_TUTORIAL:
+            return 345;
+            
+        case NEW_FEED_LIST_DISPLAY_USED:
+            return 173;
+    }
 }
 
 +(NSString *)reuseIdentifier
@@ -51,32 +73,36 @@
 {
     [super awakeFromNib];
     
-    [table registerNib:[UINib nibWithNibName:[NewFeedListObjectCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[NewFeedListObjectCell reuseIdentifier]];
+    [tablePlace registerNib:[UINib nibWithNibName:[NewFeedListObjectCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[NewFeedListObjectCell reuseIdentifier]];
     
-    CGRect rect=table.frame;
-    table.transform=CGAffineTransformMakeRotation(DEGREES_TO_RADIANS(45)*6);
-    table.frame=rect;
+    CGRect rect=tablePlace.frame;
+    tablePlace.transform=CGAffineTransformMakeRotation(DEGREES_TO_RADIANS(45)*6);
+    tablePlace.frame=rect;
+    
+    rect=tableTutorial.frame;
+    tableTutorial.transform=CGAffineTransformMakeRotation(DEGREES_TO_RADIANS(45)*6);
+    tableTutorial.frame=rect;
 }
 
 -(IBAction) btnNextTouchUpInside:(id)sender
 {
     [self.delegate newFeedListTouched:self];
     return;
-    NSIndexPath *indexPath=[table indexPathForRowAtPoint:CGPointMake(self.l_v_h/2, table.l_co_y+self.l_v_w/2)];
+    NSIndexPath *indexPath=[tablePlace indexPathForRowAtPoint:CGPointMake(self.l_v_h/2, tablePlace.l_co_y+self.l_v_w/2)];
     
     if(indexPath)
     {
-        if(indexPath.row+1<[table numberOfRowsInSection:indexPath.section])
+        if(indexPath.row+1<[tablePlace numberOfRowsInSection:indexPath.section])
         {
             indexPath=[NSIndexPath indexPathForRow:indexPath.row+1 inSection:indexPath.section];
-            [table scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionNone animated:true];
+            [tablePlace scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionNone animated:true];
         }
     }
 }
 
 -(id)currentHome
 {
-    NSIndexPath *indexPath=[table indexPathForRowAtPoint:CGPointMake(self.l_v_h/2, table.l_co_y+self.l_v_w/2)];
+    NSIndexPath *indexPath=[tablePlace indexPathForRowAtPoint:CGPointMake(self.l_v_h/2, tablePlace.l_co_y+self.l_v_w/2)];
     
     if(indexPath)
     {
@@ -88,12 +114,22 @@
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return _homes.count==0?0:1;
+    if(tableView==tablePlace)
+        return _homes.count==0?0:1;
+    else if(tableView==tableTutorial)
+        return _tutorials.count==0?0:1;
+    
+    return 0;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return _homes.count;
+    if(tableView==tablePlace)
+        return _homes.count;
+    else if(tableView==tableTutorial)
+        return _tutorials.count;
+    
+    return 0;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

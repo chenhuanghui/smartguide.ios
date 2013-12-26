@@ -13,6 +13,7 @@
 #import "AlertView.h"
 #import "ImageManager.h"
 #import "LoadingView.h"
+#import "Flags.h"
 
 @class SGViewController;
 

@@ -29,7 +29,6 @@
 
 -(void) storeRect
 {
-    _rayViewFrame=rayView.frame;
     _bgViewFrame=bgView.frame;
     _bgImageViewFrame=bgImageView.frame;
 }
@@ -96,8 +95,8 @@
     {
         [[self visibleController] handleBackCallbackCompleted:^{
             [UIView animateWithDuration:0.1f animations:^{
-                rayView.frame=_rayViewFrame;
-                bgView.frame=_bgViewFrame;
+//                rayView.frame=_rayViewFrame;
+//                bgView.frame=_bgViewFrame;
             } completion:^(BOOL finished) {
                 [storeNavigation popViewControllerAnimated:true];
                 
@@ -118,8 +117,8 @@
     }
     
     [UIView animateWithDuration:0.1f animations:^{
-        rayView.frame=_rayViewFrame;
-        bgView.frame=_bgViewFrame;
+//        rayView.frame=_rayViewFrame;
+//        bgView.frame=_bgViewFrame;
     } completion:^(BOOL finished) {
         [storeNavigation popToRootViewControllerAnimated:true];
         
@@ -134,16 +133,6 @@
             btnBack.userInteractionEnabled=true;
         }];
     }];
-}
-
--(UIView *)rayView
-{
-    return rayView;
-}
-
--(CGRect)rayViewFrame
-{
-    return _rayViewFrame;
 }
 
 -(UIView *)bgView
@@ -164,16 +153,6 @@
 -(CGRect)bgImageViewFrame
 {
     return _bgImageViewFrame;
-}
-
--(UIButton *)buttonLatest
-{
-    return btnLatest;
-}
-
--(UIButton *)buttonTopSellers
-{
-    return btnTopSellers;
 }
 
 -(UIView *)qrView
@@ -223,7 +202,7 @@
 -(IBAction) btnLatestTouchUpInside:(id)sender
 {
     sortType=SORT_STORE_SHOP_LIST_LATEST;
-    [[self visibleController] storeControllerButtonLatestTouched:sender];
+//    [[self visibleController] storeControllerButtonLatestTouched:sender];
 }
 
 -(SGViewController<StoreControllerHandle>*) visibleController
@@ -234,7 +213,7 @@
 -(IBAction) btnTopSellersTouchUpInside:(id)sender
 {
     sortType=SORT_STORE_SHOP_LIST_TOP_SELLER;
-    [[self visibleController] storeControllerButtonTopSellersTouched:sender];
+//    [[self visibleController] storeControllerButtonTopSellersTouched:sender];
 }
 
 -(void)enableTouch
