@@ -10,6 +10,7 @@
 #import "UserHome3.h"
 #import "UserHome4.h"
 #import "UserHome5.h"
+#import "PageControl.h"
 
 enum NEW_FEED_LIST_DATA_MODE {
     NEW_FEED_LIST_DATA_HOME3 = 0,
@@ -35,6 +36,7 @@ enum NEW_FEED_LIST_DISPLAY_MODE {
     __weak IBOutlet UITableView *tablePlace;
     __weak IBOutlet UITableView *tableSlide;
     __weak IBOutlet UIButton *btnNext;
+    __weak IBOutlet PageControlNext *pageControl;
     
     NSMutableArray *_homes;
     NSMutableArray *_images;

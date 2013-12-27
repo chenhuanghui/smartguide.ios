@@ -23,6 +23,11 @@
                             <outlet property="delegate" destination="hwq-mM-dmO" id="sqS-6g-dt6"/>
                         </connections>
                     </tableView>
+                    <view contentMode="scaleToFill" id="z8L-cD-PPw" customClass="PageControlNext">
+                        <rect key="frame" x="13" y="135" width="295" height="17"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </view>
                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="uuR-rL-eRl">
                         <rect key="frame" x="13" y="173" width="295" height="156"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -48,6 +53,7 @@
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <connections>
                 <outlet property="btnNext" destination="vZ2-cU-Dgr" id="30x-N2-b17"/>
+                <outlet property="pageControl" destination="z8L-cD-PPw" id="XxM-bN-GOG"/>
                 <outlet property="tablePlace" destination="uuR-rL-eRl" id="K6t-Kh-3MU"/>
                 <outlet property="tableSlide" destination="eKy-Lh-jZu" id="UIf-mB-YdF"/>
             </connections>

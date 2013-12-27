@@ -23,6 +23,7 @@
         {
             [tableSlide reloadData];
             tableSlide.hidden=true;
+            pageControl.hidden=true;
         }
             break;
             
@@ -30,6 +31,7 @@
         {
             [tableSlide reloadData];
             tableSlide.hidden=false;
+            pageControl.hidden=false;
         }
             break;
     }
@@ -41,6 +43,7 @@
     _homes=[home.home3Objects mutableCopy];
     _displayMode=home.imagesObjects.count==0?NEW_FEED_LIST_DISPLAY_USED:NEW_FEED_LIST_DISPLAY_SLIDE;
     _images=[home.imagesObjects mutableCopy];
+    pageControl.numberOfPages=_images.count;
     
     [self config];
     
@@ -53,6 +56,7 @@
     _homes=[home.home4Objects mutableCopy];
     _displayMode=home.imagesObjects.count==0?NEW_FEED_LIST_DISPLAY_USED:NEW_FEED_LIST_DISPLAY_SLIDE;
     _images=[home.imagesObjects mutableCopy];
+    pageControl.numberOfPages=_images.count;
     
     [self config];
     
@@ -65,6 +69,7 @@
     _homes=[home.home5Objects mutableCopy];
     _displayMode=home.imagesObjects.count==0?NEW_FEED_LIST_DISPLAY_USED:NEW_FEED_LIST_DISPLAY_SLIDE;
     _images=[home.imagesObjects mutableCopy];
+    pageControl.numberOfPages=_images.count;
     
     [self config];
     
@@ -98,6 +103,9 @@
     rect=tableSlide.frame;
     tableSlide.transform=CGAffineTransformMakeRotation(DEGREES_TO_RADIANS(45)*6);
     tableSlide.frame=rect;
+    
+    pageControl.dotColorCurrentPage=[UIColor whiteColor];
+    pageControl.dotColorOtherPage=[[UIColor whiteColor] colorWithAlphaComponent:0.5];
 }
 
 -(IBAction) btnNextTouchUpInside:(id)sender
@@ -196,6 +204,14 @@
     }
     
     return [UITableViewCell new];
+}
+
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    if(scrollView==tableSlide)
+    {
+        [pageControl scrollViewDidScroll:scrollView isHorizontal:true];
+    }
 }
 
 @end

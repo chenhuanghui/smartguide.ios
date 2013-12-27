@@ -920,7 +920,7 @@ int random_int(int from, int to)
 
 -(int)currentPageForHoriTable
 {
-    return self.contentOffset.y / self.frame.size.width;
+    return (self.contentOffset.y+self.frame.size.width/2) / self.frame.size.width;
 }
 
 -(void)scrollToPage:(int)page
