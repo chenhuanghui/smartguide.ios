@@ -224,11 +224,9 @@
                 return [NewFeedImagesCell height];
                 
             case USER_HOME_TYPE_3:
-                return [NewFeedListCell heightWithMode:[self newFeedPlaceListDisplayMode]];
             case USER_HOME_TYPE_4:
-                return [NewFeedListCell heightWithMode:[self newFeedShopListDisplayMode]];
             case USER_HOME_TYPE_5:
-                return [NewFeedListCell heightWithMode:[self newFeedStoreListDisplayMode]];
+                return [NewFeedListCell heightWithHome:home];
                 
             case USER_HOME_TYPE_6:
                 return [NewFeedInfoCell heightWithHome6:home.home6];
@@ -248,19 +246,15 @@
     return 0;
 }
 
--(enum NEW_FEED_LIST_DISPLAY_MODE) newFeedPlaceListDisplayMode
+-(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return [Flags isUserReadTutorialPlace]?NEW_FEED_LIST_DISPLAY_USED:NEW_FEED_LIST_DISPLAY_TUTORIAL;
-}
-
--(enum NEW_FEED_LIST_DISPLAY_MODE) newFeedShopListDisplayMode
-{
-    return [Flags isUserReadTutorialShopList]?NEW_FEED_LIST_DISPLAY_USED:NEW_FEED_LIST_DISPLAY_TUTORIAL;
-}
-
--(enum NEW_FEED_LIST_DISPLAY_MODE) newFeedStoreListDisplayMode
-{
-    return [Flags isUserReadTutorialStoreList]?NEW_FEED_LIST_DISPLAY_USED:NEW_FEED_LIST_DISPLAY_TUTORIAL;
+    if(tableView==tableFeed)
+    {
+        if([cell isKindOfClass:[NewFeedPromotionCell class]])
+        {
+            [((NewFeedPromotionCell*)cell) alignContent];
+        }
+    }
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -305,7 +299,7 @@
                 NewFeedListCell *cell=[tableView dequeueReusableCellWithIdentifier:[NewFeedListCell reuseIdentifier]];
                 cell.delegate=self;
                 
-                [cell loadWithHome3:home.home3Objects displayMode:[self newFeedPlaceListDisplayMode]];
+                [cell loadWithHome3:home];
                 
                 return cell;
             }
@@ -314,7 +308,7 @@
                 NewFeedListCell *cell=[tableView dequeueReusableCellWithIdentifier:[NewFeedListCell reuseIdentifier]];
                 cell.delegate=self;
                 
-                [cell loadWithHome4:home.home4Objects displayMode:[self newFeedShopListDisplayMode]];
+                [cell loadWithHome4:home];
                 
                 return cell;
             }
@@ -323,7 +317,7 @@
                 NewFeedListCell *cell=[tableView dequeueReusableCellWithIdentifier:[NewFeedListCell reuseIdentifier]];
                 cell.delegate=self;
                 
-                [cell loadWithHome5:home.home5Objects displayMode:[self newFeedStoreListDisplayMode]];
+                [cell loadWithHome5:home];
                 
                 return cell;
             }
@@ -471,6 +465,32 @@
     _operationShopUser.delegatePost=self;
     
     [_operationShopUser startAsynchronous];
+}
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    return;
+    [Flags setIsUserReadTutorialPlace:rand()%2==0];
+    [Flags setIsUserReadTutorialShopList:rand()%2==0];
+    [Flags setIsUserReadTutorialStoreList:rand()%2==0];
+    
+    NSMutableArray *array=[NSMutableArray array];
+    for(int i=0;i<[tableFeed numberOfRowsInSection:0];i++)
+    {
+        NSIndexPath *ip=[NSIndexPath indexPathForRow:i inSection:0];
+        
+        UITableViewCell *cell=[tableFeed cellForRowAtIndexPath:ip];
+        
+        if([cell isKindOfClass:[NewFeedListCell class]])
+        {
+            [array addObject:ip];
+        }
+    }
+    
+    if(array.count>0)
+        [tableFeed reloadRowsAtIndexPaths:array withRowAnimation:UITableViewRowAnimationFade];
 }
 
 @end

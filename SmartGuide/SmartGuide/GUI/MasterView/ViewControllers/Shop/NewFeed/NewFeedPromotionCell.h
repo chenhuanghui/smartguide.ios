@@ -17,6 +17,7 @@
 }
 
 -(void) loadWithHome1:(UserHome1*) home;
+-(void) alignContent;
 
 +(float) heightWithHome1:(UserHome1*) home;
 +(NSString *)reuseIdentifier;

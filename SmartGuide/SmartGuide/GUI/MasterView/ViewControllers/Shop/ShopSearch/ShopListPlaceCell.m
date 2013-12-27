@@ -23,12 +23,12 @@
 
 -(void)loadWithUserHome3:(UserHome3 *)home
 {
-    lblTitle.text=home.title;
-    lblContent.text=home.desc;
-    [imgvAuthorAvatar loadCommentAvatarWithURL:home.authorAvatar];
-    lblNumOfView.text=[NSString stringWithFormat:@"%@ lượt xem", home.numOfView];
+    lblTitle.text=home.place.title;
+    lblContent.text=home.content;
+    [imgvAuthorAvatar loadCommentAvatarWithURL:home.place.authorAvatar];
+    lblNumOfView.text=[NSString stringWithFormat:@"%@ lượt xem", home.place.numOfView];
     
-    [lblAuthorName setText:[NSString stringWithFormat:@"<text>by <author>%@</author></text>",home.authorName]];
+    [lblAuthorName setText:[NSString stringWithFormat:@"<text>by <author>%@</author></text>",home.place.authorName]];
 }
 
 +(float)heightWithContent:(NSString *)content

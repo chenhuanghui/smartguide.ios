@@ -23,6 +23,7 @@
 #define Shop_Tel @"tel"
 
 @class Shop;
+@class UserHome8;
 @class ShopKM1;
 @class ShopGallery;
 @class ShopUserComment;
@@ -61,6 +62,9 @@
 
     
 #pragma mark Relationships
+
+#pragma mark Home8
+@property (nonatomic, retain) UserHome8* home8;
 
 #pragma mark Km1
 @property (nonatomic, retain) ShopKM1* km1;

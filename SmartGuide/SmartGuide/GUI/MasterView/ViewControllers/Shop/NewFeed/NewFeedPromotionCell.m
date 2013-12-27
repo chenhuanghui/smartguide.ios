@@ -8,6 +8,8 @@
 
 #import "NewFeedPromotionCell.h"
 #import "ImageManager.h"
+#import "Constant.h"
+#import "Utility.h"
 
 @implementation NewFeedPromotionCell
 
@@ -17,13 +19,20 @@
     lbl.text=home.content;
 }
 
+-(void)alignContent
+{
+    float height=MAX(self.l_v_h-10,53-NEW_FEED_CELL_SPACING);
+    
+    [bg l_v_setH:height];
+}
+
 +(float)heightWithHome1:(UserHome1 *)home
 {
     UIFont *font=[UIFont fontWithName:@"Avenir-Roman" size:13];
-    float height=60;
-    height+=[home.content sizeWithFont:font constrainedToSize:CGSizeMake(202, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height-10;
+    float height=6;
+    height+=[home.content sizeWithFont:font constrainedToSize:CGSizeMake(202, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height+15;
     
-    return height;
+    return MAX(height,53+NEW_FEED_CELL_SPACING);
 }
 
 +(NSString *)reuseIdentifier

@@ -555,7 +555,7 @@
             
         case SHOP_LIST_VIEW_HOME3:
             
-            txt.text=_home3.title;
+            txt.text=_home3.place.title;
             
             _sortPlace=SORT_PLACE_LIST_DEFAULT;
             [sortView setIcon:[UIImage imageNamed:@"icon_distance.png"] text:@"Mặc định"];
@@ -582,7 +582,7 @@
         _operationPlaceListDetail=nil;
     }
     
-    _operationPlaceListDetail=[[ASIOperationPlacelistDetail alloc] initWithIDPlacelist:_home3.idPlacelist.integerValue userLat:_location.latitude userLng:_location.longitude sort:SORT_PLACE_LIST_DEFAULT page:_page+1];
+    _operationPlaceListDetail=[[ASIOperationPlacelistDetail alloc] initWithIDPlacelist:_home3.place.idPlacelist.integerValue userLat:_location.latitude userLng:_location.longitude sort:SORT_PLACE_LIST_DEFAULT page:_page+1];
     _operationPlaceListDetail.delegatePost=self;
     
     [_operationPlaceListDetail startAsynchronous];
@@ -751,7 +751,7 @@
     
     switch (_viewMode) {
         case SHOP_LIST_VIEW_HOME3:
-            idPlacelist=_home3.idPlacelist.integerValue;
+            idPlacelist=_home3.place.idPlacelist.integerValue;
             break;
             
         case SHOP_LIST_VIEW_PLACE:
@@ -1082,7 +1082,7 @@
                     switch (indexPath.row) {
                         case 0:
                             if(_viewMode==SHOP_LIST_VIEW_HOME3)
-                                scrollerText=_home3.title;
+                                scrollerText=_home3.place.title;
                             else
                                 scrollerText=_placeList.title;
                             break;

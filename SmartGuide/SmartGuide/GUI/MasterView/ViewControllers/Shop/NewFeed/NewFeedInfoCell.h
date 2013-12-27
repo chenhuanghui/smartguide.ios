@@ -41,3 +41,12 @@
 @property (nonatomic, weak) id<NewFeedInfoCellDelegate> delegate;
 
 @end
+
+@interface ButtonGoTo : UIButton
+{
+    UIImage *imgLeft;
+    UIImage *imgMid;
+    UIImage *imgRight;
+}
+
+@end

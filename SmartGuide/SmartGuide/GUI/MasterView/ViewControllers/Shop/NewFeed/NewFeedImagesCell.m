@@ -9,6 +9,7 @@
 #import "NewFeedImagesCell.h"
 #import "Utility.h"
 #import "NewFeedImageCell.h"
+#import "Constant.h"
 
 @implementation NewFeedImagesCell
 
@@ -21,7 +22,7 @@
 
 +(float)height
 {
-    return 174;
+    return 290+NEW_FEED_CELL_SPACING;
 }
 
 +(NSString *)reuseIdentifier

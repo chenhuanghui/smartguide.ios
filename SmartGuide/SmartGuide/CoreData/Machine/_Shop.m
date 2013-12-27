@@ -5,6 +5,7 @@
 #import "Shop.h"
 
 #import "DataManager.h"
+#import "UserHome8.h"
 #import "ShopKM1.h"
 #import "ShopGallery.h"
 #import "ShopUserComment.h"
@@ -13,6 +14,10 @@
 
 
 @implementation _Shop
+
+
+@dynamic home8;
+
 
 
 @dynamic km1;
@@ -316,6 +321,14 @@
 
 #pragma mark Relationships
     
+#pragma mark Home8
+- (UserHome8*)home8 {
+	[self willAccessValueForKey:@"home8"];
+	UserHome8 *result = [self primitiveValueForKey:@"home8"];
+	[self didAccessValueForKey:@"home8"];
+	return result;
+}
+
 #pragma mark Km1
 - (ShopKM1*)km1 {
 	[self willAccessValueForKey:@"km1"];

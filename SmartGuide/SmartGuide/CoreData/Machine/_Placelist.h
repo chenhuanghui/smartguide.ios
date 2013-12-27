@@ -15,6 +15,7 @@
 #define Placelist_Title @"title"
 
 @class Placelist;
+@class UserHome3;
 @class ShopList;
 
 @interface _Placelist : NSManagedObject
@@ -41,6 +42,9 @@
 
     
 #pragma mark Relationships
+
+#pragma mark Home3
+@property (nonatomic, retain) UserHome3* home3;
 
 #pragma mark ShopsList
 - (NSSet*) shopsList;

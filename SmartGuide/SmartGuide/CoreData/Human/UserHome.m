@@ -9,6 +9,21 @@
     
     home.type=[NSNumber numberWithObject:dict[@"type"]];
     
+    NSArray *imgs=dict[@"images"];
+    
+    if(![imgs isNullData])
+    {
+        int count=0;
+        for(NSString* img in imgs)
+        {
+            UserHomeImage *obj=[UserHomeImage insert];
+            obj.image=[NSString stringWithStringDefault:img];
+            obj.sortOrder=@(count++);
+            
+            [home addImagesObject:obj];
+        }
+    }
+    
     return home;
 }
 
@@ -77,6 +92,16 @@
     
     if(array.count>0)
         return [array sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:UserHome5_SortOrder ascending:true]]];
+    
+    return [NSArray array];
+}
+
+-(NSArray *)imagesObjects
+{
+    NSArray *array=[super imagesObjects];
+    
+    if(array.count>0)
+        return [array sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:UserHomeImage_SortOrder ascending:true]]];
     
     return [NSArray array];
 }

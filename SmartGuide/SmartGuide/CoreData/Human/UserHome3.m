@@ -1,5 +1,6 @@
 #import "UserHome3.h"
 #import "Utility.h"
+#import "Placelist.h"
 
 @implementation UserHome3
 
@@ -7,33 +8,17 @@
 {
     UserHome3 *home=[UserHome3 insert];
     
-    home.idPlacelist=[NSNumber numberWithObject:dict[@"idPlacelist"]];
-    home.title=[NSString stringWithStringDefault:dict[@"title"]];
-    home.desc=[NSString stringWithStringDefault:dict[@"description"]];
-    home.image=[NSString stringWithStringDefault:dict[@"image"]];
-    home.numOfView=[NSString stringWithStringDefault:dict[@"numOfView"]];
-    home.loveStatus=[NSNumber numberWithObject:dict[@"loveStatus"]];
-    home.authorName=[NSString stringWithStringDefault:dict[@"authorName"]];
-    home.authorAvatar=[NSString stringWithStringDefault:dict[@"authorAvatar"]];
-    home.numOfShop=[NSString stringWithStringDefault:dict[@"numOfShop"]];
+    home.place=[Placelist makeWithDictionary:dict];
     home.content=[NSString stringWithStringDefault:dict[@"content"]];
     home.cover=[NSString stringWithStringDefault:dict[@"cover"]];
+    home.numOfShop=[NSString stringWithStringDefault:dict[@"numOfShop"]];
     
     return home;
 }
 
 -(enum LOVE_STATUS)enumLoveStatus
 {
-    switch (self.loveStatus.integerValue) {
-        case 0:
-            return LOVE_STATUS_NONE;
-            
-        case 1:
-            return LOVE_STATUS_LOVED;
-            
-        default:
-            return LOVE_STATUS_NONE;
-    }
+    return self.place.enumLoveStatus;
 }
 
 

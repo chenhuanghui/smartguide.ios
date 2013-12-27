@@ -89,4 +89,9 @@ static ImageManager *_imageManager=nil;
     [self setImageWithURL:[NSURL URLWithString:url]];
 }
 
+-(void)loadImageHomeListWithURL:(NSString *)url
+{
+    [self setImageWithURL:[NSURL URLWithString:url] placeholderImage:nil options:SDWebImageProgressiveDownload progress:nil completed:nil];
+}
+
 @end

@@ -129,6 +129,19 @@
 	[self didChangeValueForKey:@"idStore"];
 }
 
+- (NSNumber*)idTutorial {
+	[self willAccessValueForKey:@"idTutorial"];
+	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"idTutorial"];
+	[self didAccessValueForKey:@"idTutorial"];
+	return result;
+}
+
+- (void)setIdTutorial:(NSNumber*)value {
+	[self willChangeValueForKey:@"idTutorial"];
+	[self setPrimitiveValue:value forKey:@"idTutorial"];
+	[self didChangeValueForKey:@"idTutorial"];
+}
+
 - (NSString*)numOfPurchase {
 	[self willAccessValueForKey:@"numOfPurchase"];
 	NSString* result = (NSString*)[self primitiveValueForKey:@"numOfPurchase"];

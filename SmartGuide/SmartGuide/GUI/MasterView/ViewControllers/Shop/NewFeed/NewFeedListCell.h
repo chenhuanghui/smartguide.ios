@@ -18,7 +18,7 @@ enum NEW_FEED_LIST_DATA_MODE {
     };
 
 enum NEW_FEED_LIST_DISPLAY_MODE {
-    NEW_FEED_LIST_DISPLAY_TUTORIAL = 0,
+    NEW_FEED_LIST_DISPLAY_SLIDE = 0,
     NEW_FEED_LIST_DISPLAY_USED = 1,
     };
 
@@ -33,23 +33,23 @@ enum NEW_FEED_LIST_DISPLAY_MODE {
 @interface NewFeedListCell : UITableViewCell<UITableViewDataSource,UITableViewDelegate>
 {
     __weak IBOutlet UITableView *tablePlace;
-    __weak IBOutlet UITableView *tableTutorial;
+    __weak IBOutlet UITableView *tableSlide;
     __weak IBOutlet UIButton *btnNext;
     
     NSMutableArray *_homes;
-    NSMutableArray *_tutorials;
+    NSMutableArray *_images;
     
     enum NEW_FEED_LIST_DATA_MODE _dataMode;
     enum NEW_FEED_LIST_DISPLAY_MODE _displayMode;
 }
 
--(void) loadWithHome3:(NSArray*) home3 displayMode:(enum NEW_FEED_LIST_DISPLAY_MODE) displayMode;
--(void) loadWithHome4:(NSArray*) home4 displayMode:(enum NEW_FEED_LIST_DISPLAY_MODE) displayMode;
--(void) loadWithHome5:(NSArray*) home5 displayMode:(enum NEW_FEED_LIST_DISPLAY_MODE) displayMode;
+-(void) loadWithHome3:(UserHome*) home;
+-(void) loadWithHome4:(UserHome*) home;
+-(void) loadWithHome5:(UserHome*) home;
 
 -(id) currentHome;
 
-+(float) heightWithMode:(enum NEW_FEED_LIST_DISPLAY_MODE) displayMode;
++(float) heightWithHome:(UserHome*) home;
 +(NSString *)reuseIdentifier;
 
 @property (nonatomic, weak) id<NewFeedListDelegate> delegate;

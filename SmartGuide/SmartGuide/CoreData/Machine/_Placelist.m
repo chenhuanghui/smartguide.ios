@@ -5,10 +5,15 @@
 #import "Placelist.h"
 
 #import "DataManager.h"
+#import "UserHome3.h"
 #import "ShopList.h"
 
 
 @implementation _Placelist
+
+
+@dynamic home3;
+
 
 
 
@@ -195,6 +200,14 @@
 
 #pragma mark Relationships
     
+#pragma mark Home3
+- (UserHome3*)home3 {
+	[self willAccessValueForKey:@"home3"];
+	UserHome3 *result = [self primitiveValueForKey:@"home3"];
+	[self didAccessValueForKey:@"home3"];
+	return result;
+}
+
 #pragma mark ShopsList
 - (NSSet*)shopsList {
 	[self willAccessValueForKey:@"shopsList"];

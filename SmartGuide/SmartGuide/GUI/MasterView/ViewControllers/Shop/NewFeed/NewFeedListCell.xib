@@ -49,7 +49,7 @@
             <connections>
                 <outlet property="btnNext" destination="vZ2-cU-Dgr" id="30x-N2-b17"/>
                 <outlet property="tablePlace" destination="uuR-rL-eRl" id="K6t-Kh-3MU"/>
-                <outlet property="tableTutorial" destination="eKy-Lh-jZu" id="ci6-4t-lGV"/>
+                <outlet property="tableSlide" destination="eKy-Lh-jZu" id="UIf-mB-YdF"/>
             </connections>
         </tableViewCell>
     </objects>

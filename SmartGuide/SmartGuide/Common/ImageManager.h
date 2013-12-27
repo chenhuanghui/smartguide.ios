@@ -31,5 +31,6 @@
 -(void) loadShopCoverWithURL:(NSString*) url;
 -(void) loadImageInfo3WithURL:(NSString*) url;
 -(void) loadImageHomeWithURL:(NSString*) url;
+-(void) loadImageHomeListWithURL:(NSString*) url;
 
 @end

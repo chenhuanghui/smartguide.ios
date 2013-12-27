@@ -8,6 +8,7 @@
 #define UserHome5_Content @"content"
 #define UserHome5_Cover @"cover"
 #define UserHome5_IdStore @"idStore"
+#define UserHome5_IdTutorial @"idTutorial"
 #define UserHome5_NumOfPurchase @"numOfPurchase"
 #define UserHome5_SortOrder @"sortOrder"
 #define UserHome5_StoreName @"storeName"
@@ -29,6 +30,7 @@
 @property (nonatomic, retain) NSString* content;
 @property (nonatomic, retain) NSString* cover;
 @property (nonatomic, retain) NSNumber* idStore;
+@property (nonatomic, retain) NSNumber* idTutorial;
 @property (nonatomic, retain) NSString* numOfPurchase;
 @property (nonatomic, retain) NSNumber* sortOrder;
 @property (nonatomic, retain) NSString* storeName;

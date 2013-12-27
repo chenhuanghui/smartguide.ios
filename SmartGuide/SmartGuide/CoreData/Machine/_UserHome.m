@@ -12,6 +12,8 @@
 #import "UserHome5.h"
 #import "UserHome6.h"
 #import "UserHome7.h"
+#import "UserHome8.h"
+#import "UserHomeImage.h"
 
 
 @implementation _UserHome
@@ -38,6 +40,13 @@
 
 
 @dynamic home7;
+
+
+
+@dynamic home8;
+
+
+
 
 
 
@@ -437,6 +446,82 @@
 	[self willAccessValueForKey:@"home7"];
 	UserHome7 *result = [self primitiveValueForKey:@"home7"];
 	[self didAccessValueForKey:@"home7"];
+	return result;
+}
+
+#pragma mark Home8
+- (UserHome8*)home8 {
+	[self willAccessValueForKey:@"home8"];
+	UserHome8 *result = [self primitiveValueForKey:@"home8"];
+	[self didAccessValueForKey:@"home8"];
+	return result;
+}
+
+#pragma mark Images
+- (NSSet*)images {
+	[self willAccessValueForKey:@"images"];
+	NSSet *result = [self primitiveValueForKey:@"images"];
+	[self didAccessValueForKey:@"images"];
+	return result;
+}
+
+-(NSArray*) imagesObjects
+{
+    NSSet *set=[self images];
+    if(set)
+        return [set allObjects];
+    
+    return [NSArray array];
+}
+
+- (void)setImages:(NSSet*)value {
+	[self willChangeValueForKey:@"images" withSetMutation:NSKeyValueSetSetMutation usingObjects:value];
+	[[self primitiveValueForKey:@"images"] setSet:value];
+	[self didChangeValueForKey:@"images" withSetMutation:NSKeyValueSetSetMutation usingObjects:value];
+}
+
+- (void)addImages:(NSSet*)value {
+	[self willChangeValueForKey:@"images" withSetMutation:NSKeyValueUnionSetMutation usingObjects:value];
+	[[self primitiveValueForKey:@"images"] unionSet:value];
+	[self didChangeValueForKey:@"images" withSetMutation:NSKeyValueUnionSetMutation usingObjects:value];
+}
+
+-(void)removeImages:(NSSet*)value {
+
+    for(NSManagedObject *obj in value.allObjects)
+        [self.managedObjectContext deleteObject:obj];
+
+	[self willChangeValueForKey:@"images" withSetMutation:NSKeyValueMinusSetMutation usingObjects:value];
+	[[self primitiveValueForKey:@"images"] minusSet:value];
+	[self didChangeValueForKey:@"images" withSetMutation:NSKeyValueMinusSetMutation usingObjects:value];
+}
+	
+- (void)addImagesObject:(UserHomeImage*)value {
+	NSSet *changedObjects = [[NSSet alloc] initWithObjects:&value count:1];
+	[self willChangeValueForKey:@"images" withSetMutation:NSKeyValueUnionSetMutation usingObjects:changedObjects];
+	[[self primitiveValueForKey:@"images"] addObject:value];
+	[self didChangeValueForKey:@"images" withSetMutation:NSKeyValueUnionSetMutation usingObjects:changedObjects];
+}
+
+- (void)removeImagesObject:(UserHomeImage*)value {
+
+    [self.managedObjectContext deleteObject:value];
+
+	NSSet *changedObjects = [[NSSet alloc] initWithObjects:&value count:1];
+	[self willChangeValueForKey:@"images" withSetMutation:NSKeyValueMinusSetMutation usingObjects:changedObjects];
+	[[self primitiveValueForKey:@"images"] removeObject:value];
+	[self didChangeValueForKey:@"images" withSetMutation:NSKeyValueMinusSetMutation usingObjects:changedObjects];
+}
+
+- (void) removeAllImages
+{
+    [self removeImages:self.images];
+}
+
+- (NSMutableSet*)imagesSet {
+	[self willAccessValueForKey:@"images"];
+	NSMutableSet *result = [self mutableSetValueForKey:@"images"];
+	[self didAccessValueForKey:@"images"];
 	return result;
 }
 

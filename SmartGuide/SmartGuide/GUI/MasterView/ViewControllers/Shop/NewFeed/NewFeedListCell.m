@@ -8,7 +8,10 @@
 
 #import "NewFeedListCell.h"
 #import "NewFeedListObjectCell.h"
+#import "NewFeedListImageCell.h"
+#import "Placelist.h"
 #import "Utility.h"
+#import "UserHome.h"
 
 @implementation NewFeedListCell
 @synthesize delegate;
@@ -17,51 +20,63 @@
 {
     switch (_displayMode) {
         case NEW_FEED_LIST_DISPLAY_USED:
-            if(tableTutorial)
-                [tableTutorial removeFromSuperview];
+        {
+            [tableSlide reloadData];
+            tableSlide.hidden=true;
+        }
             break;
             
-        default:
+        case NEW_FEED_LIST_DISPLAY_SLIDE:
+        {
+            [tableSlide reloadData];
+            tableSlide.hidden=false;
+        }
             break;
     }
 }
 
--(void)loadWithHome3:(NSArray *)home3 displayMode:(enum NEW_FEED_LIST_DISPLAY_MODE)displayMode
+-(void)loadWithHome3:(UserHome *)home
 {
     _dataMode=NEW_FEED_LIST_DATA_HOME3;
-    _homes=[home3 mutableCopy];
-    _displayMode=displayMode;
+    _homes=[home.home3Objects mutableCopy];
+    _displayMode=home.imagesObjects.count==0?NEW_FEED_LIST_DISPLAY_USED:NEW_FEED_LIST_DISPLAY_SLIDE;
+    _images=[home.imagesObjects mutableCopy];
+    
+    [self config];
     
     [tablePlace reloadData];
 }
 
--(void)loadWithHome4:(NSArray *)home4 displayMode:(enum NEW_FEED_LIST_DISPLAY_MODE)displayMode
+-(void)loadWithHome4:(UserHome *)home
 {
     _dataMode=NEW_FEED_LIST_DATA_HOME4;
-    _homes=[home4 mutableCopy];
-    _displayMode=displayMode;
+    _homes=[home.home4Objects mutableCopy];
+    _displayMode=home.imagesObjects.count==0?NEW_FEED_LIST_DISPLAY_USED:NEW_FEED_LIST_DISPLAY_SLIDE;
+    _images=[home.imagesObjects mutableCopy];
+    
+    [self config];
     
     [tablePlace reloadData];
 }
 
--(void)loadWithHome5:(NSArray *)home5 displayMode:(enum NEW_FEED_LIST_DISPLAY_MODE)displayMode
+-(void)loadWithHome5:(UserHome *)home
 {
     _dataMode=NEW_FEED_LIST_DATA_HOME5;
-    _homes=[home5 mutableCopy];
-    _displayMode=displayMode;
+    _homes=[home.home5Objects mutableCopy];
+    _displayMode=home.imagesObjects.count==0?NEW_FEED_LIST_DISPLAY_USED:NEW_FEED_LIST_DISPLAY_SLIDE;
+    _images=[home.imagesObjects mutableCopy];
+    
+    [self config];
     
     [tablePlace reloadData];
 }
 
-+(float)heightWithMode:(enum NEW_FEED_LIST_DISPLAY_MODE)displayMode
++(float)heightWithHome:(UserHome *)home
 {
-    switch (displayMode) {
-        case NEW_FEED_LIST_DISPLAY_TUTORIAL:
-            return 345;
-            
-        case NEW_FEED_LIST_DISPLAY_USED:
-            return 173;
-    }
+    if(home.imagesObjects.count==0)
+        return 173;
+    
+    return 345;
 }
 
 +(NSString *)reuseIdentifier
@@ -74,14 +89,15 @@
     [super awakeFromNib];
     
     [tablePlace registerNib:[UINib nibWithNibName:[NewFeedListObjectCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[NewFeedListObjectCell reuseIdentifier]];
+    [tableSlide registerNib:[UINib nibWithNibName:[NewFeedListImageCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[NewFeedListImageCell reuseIdentifier]];
     
     CGRect rect=tablePlace.frame;
     tablePlace.transform=CGAffineTransformMakeRotation(DEGREES_TO_RADIANS(45)*6);
     tablePlace.frame=rect;
     
-    rect=tableTutorial.frame;
-    tableTutorial.transform=CGAffineTransformMakeRotation(DEGREES_TO_RADIANS(45)*6);
-    tableTutorial.frame=rect;
+    rect=tableSlide.frame;
+    tableSlide.transform=CGAffineTransformMakeRotation(DEGREES_TO_RADIANS(45)*6);
+    tableSlide.frame=rect;
 }
 
 -(IBAction) btnNextTouchUpInside:(id)sender
@@ -116,8 +132,8 @@
 {
     if(tableView==tablePlace)
         return _homes.count==0?0:1;
-    else if(tableView==tableTutorial)
-        return _tutorials.count==0?0:1;
+    else if(tableView==tableSlide)
+        return _images.count==0?0:1;
     
     return 0;
 }
@@ -126,8 +142,8 @@
 {
     if(tableView==tablePlace)
         return _homes.count;
-    else if(tableView==tableTutorial)
-        return _tutorials.count;
+    else if(tableView==tableSlide)
+        return _images.count;
     
     return 0;
 }
@@ -139,33 +155,47 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NewFeedListObjectCell *cell=[tableView dequeueReusableCellWithIdentifier:[NewFeedListObjectCell reuseIdentifier]];
-    
-    switch (_dataMode) {
-        case NEW_FEED_LIST_DATA_HOME3:
-        {
-            UserHome3 *home=_homes[indexPath.row];
-            [cell setImage:home.cover title:home.title numOfShop:home.numOfShop content:home.content];
-            
-            return cell;
-        }
-            
-        case NEW_FEED_LIST_DATA_HOME4:
-        {
-            UserHome4 *home=_homes[indexPath.row];
-            [cell setImage:home.cover title:home.shopName numOfShop:home.numOfView content:home.content];
-            
-            return cell;
-        }
-            
-        case NEW_FEED_LIST_DATA_HOME5:
-        {
-            UserHome5 *home=_homes[indexPath.row];
-            [cell setImage:home.cover title:home.storeName numOfShop:home.numOfPurchase content:home.content];
-            
-            return cell;
+    if(tableView==tablePlace)
+    {
+        NewFeedListObjectCell *cell=[tableView dequeueReusableCellWithIdentifier:[NewFeedListObjectCell reuseIdentifier]];
+        
+        switch (_dataMode) {
+            case NEW_FEED_LIST_DATA_HOME3:
+            {
+                UserHome3 *home=_homes[indexPath.row];
+                [cell setImage:home.cover title:home.place.title numOfShop:home.numOfShop content:home.content];
+                
+                return cell;
+            }
+                
+            case NEW_FEED_LIST_DATA_HOME4:
+            {
+                UserHome4 *home=_homes[indexPath.row];
+                [cell setImage:home.cover title:home.shopName numOfShop:home.numOfView content:home.content];
+                
+                return cell;
+            }
+                
+            case NEW_FEED_LIST_DATA_HOME5:
+            {
+                UserHome5 *home=_homes[indexPath.row];
+                [cell setImage:home.cover title:home.storeName numOfShop:home.numOfPurchase content:home.content];
+                
+                return cell;
+            }
         }
     }
+    else if(tableView==tableSlide)
+    {
+        NewFeedListImageCell *cell=[tableView dequeueReusableCellWithIdentifier:[NewFeedListImageCell reuseIdentifier]];
+        UserHomeImage *img=_images[indexPath.row];
+        
+        [cell loadImageWithURL:img.image];
+        
+        return cell;
+    }
+    
+    return [UITableViewCell new];
 }
 
 @end
