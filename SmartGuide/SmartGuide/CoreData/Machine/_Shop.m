@@ -10,6 +10,7 @@
 #import "UserHome8.h"
 #import "ShopKM1.h"
 #import "ShopGallery.h"
+#import "ShopList.h"
 #import "ShopUserComment.h"
 #import "ShopUserComment.h"
 #import "ShopUserGallery.h"
@@ -34,6 +35,10 @@
 
 
 
+
+
+
+@dynamic shopList;
 
 
 
@@ -467,6 +472,14 @@
 	[self willAccessValueForKey:@"shopGalleries"];
 	NSMutableSet *result = [self mutableSetValueForKey:@"shopGalleries"];
 	[self didAccessValueForKey:@"shopGalleries"];
+	return result;
+}
+
+#pragma mark ShopList
+- (ShopList*)shopList {
+	[self willAccessValueForKey:@"shopList"];
+	ShopList *result = [self primitiveValueForKey:@"shopList"];
+	[self didAccessValueForKey:@"shopList"];
 	return result;
 }
 

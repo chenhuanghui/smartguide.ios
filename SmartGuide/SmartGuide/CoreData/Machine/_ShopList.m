@@ -6,12 +6,17 @@
 
 #import "DataManager.h"
 #import "Placelist.h"
+#import "Shop.h"
 
 
 @implementation _ShopList
 
 
 @dynamic placeList;
+
+
+
+@dynamic shop;
 
 
 
@@ -90,45 +95,6 @@
 
 
 
-- (NSString*)address {
-	[self willAccessValueForKey:@"address"];
-	NSString* result = (NSString*)[self primitiveValueForKey:@"address"];
-	[self didAccessValueForKey:@"address"];
-	return result;
-}
-
-- (void)setAddress:(NSString*)value {
-	[self willChangeValueForKey:@"address"];
-	[self setPrimitiveValue:value forKey:@"address"];
-	[self didChangeValueForKey:@"address"];
-}
-
-- (NSString*)cover {
-	[self willAccessValueForKey:@"cover"];
-	NSString* result = (NSString*)[self primitiveValueForKey:@"cover"];
-	[self didAccessValueForKey:@"cover"];
-	return result;
-}
-
-- (void)setCover:(NSString*)value {
-	[self willChangeValueForKey:@"cover"];
-	[self setPrimitiveValue:value forKey:@"cover"];
-	[self didChangeValueForKey:@"cover"];
-}
-
-- (NSString*)coverFullscreen {
-	[self willAccessValueForKey:@"coverFullscreen"];
-	NSString* result = (NSString*)[self primitiveValueForKey:@"coverFullscreen"];
-	[self didAccessValueForKey:@"coverFullscreen"];
-	return result;
-}
-
-- (void)setCoverFullscreen:(NSString*)value {
-	[self willChangeValueForKey:@"coverFullscreen"];
-	[self setPrimitiveValue:value forKey:@"coverFullscreen"];
-	[self didChangeValueForKey:@"coverFullscreen"];
-}
-
 - (NSString*)desc {
 	[self willAccessValueForKey:@"desc"];
 	NSString* result = (NSString*)[self primitiveValueForKey:@"desc"];
@@ -155,123 +121,6 @@
 	[self didChangeValueForKey:@"distance"];
 }
 
-- (NSNumber*)idShop {
-	[self willAccessValueForKey:@"idShop"];
-	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"idShop"];
-	[self didAccessValueForKey:@"idShop"];
-	return result;
-}
-
-- (void)setIdShop:(NSNumber*)value {
-	[self willChangeValueForKey:@"idShop"];
-	[self setPrimitiveValue:value forKey:@"idShop"];
-	[self didChangeValueForKey:@"idShop"];
-}
-
-- (NSString*)logo {
-	[self willAccessValueForKey:@"logo"];
-	NSString* result = (NSString*)[self primitiveValueForKey:@"logo"];
-	[self didAccessValueForKey:@"logo"];
-	return result;
-}
-
-- (void)setLogo:(NSString*)value {
-	[self willChangeValueForKey:@"logo"];
-	[self setPrimitiveValue:value forKey:@"logo"];
-	[self didChangeValueForKey:@"logo"];
-}
-
-- (NSNumber*)loveStatus {
-	[self willAccessValueForKey:@"loveStatus"];
-	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"loveStatus"];
-	[self didAccessValueForKey:@"loveStatus"];
-	return result;
-}
-
-- (void)setLoveStatus:(NSNumber*)value {
-	[self willChangeValueForKey:@"loveStatus"];
-	[self setPrimitiveValue:value forKey:@"loveStatus"];
-	[self didChangeValueForKey:@"loveStatus"];
-}
-
-- (NSString*)numOfComment {
-	[self willAccessValueForKey:@"numOfComment"];
-	NSString* result = (NSString*)[self primitiveValueForKey:@"numOfComment"];
-	[self didAccessValueForKey:@"numOfComment"];
-	return result;
-}
-
-- (void)setNumOfComment:(NSString*)value {
-	[self willChangeValueForKey:@"numOfComment"];
-	[self setPrimitiveValue:value forKey:@"numOfComment"];
-	[self didChangeValueForKey:@"numOfComment"];
-}
-
-- (NSString*)numOfLove {
-	[self willAccessValueForKey:@"numOfLove"];
-	NSString* result = (NSString*)[self primitiveValueForKey:@"numOfLove"];
-	[self didAccessValueForKey:@"numOfLove"];
-	return result;
-}
-
-- (void)setNumOfLove:(NSString*)value {
-	[self willChangeValueForKey:@"numOfLove"];
-	[self setPrimitiveValue:value forKey:@"numOfLove"];
-	[self didChangeValueForKey:@"numOfLove"];
-}
-
-- (NSString*)numOfView {
-	[self willAccessValueForKey:@"numOfView"];
-	NSString* result = (NSString*)[self primitiveValueForKey:@"numOfView"];
-	[self didAccessValueForKey:@"numOfView"];
-	return result;
-}
-
-- (void)setNumOfView:(NSString*)value {
-	[self willChangeValueForKey:@"numOfView"];
-	[self setPrimitiveValue:value forKey:@"numOfView"];
-	[self didChangeValueForKey:@"numOfView"];
-}
-
-- (NSNumber*)promotionType {
-	[self willAccessValueForKey:@"promotionType"];
-	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"promotionType"];
-	[self didAccessValueForKey:@"promotionType"];
-	return result;
-}
-
-- (void)setPromotionType:(NSNumber*)value {
-	[self willChangeValueForKey:@"promotionType"];
-	[self setPrimitiveValue:value forKey:@"promotionType"];
-	[self didChangeValueForKey:@"promotionType"];
-}
-
-- (NSNumber*)shopLat {
-	[self willAccessValueForKey:@"shopLat"];
-	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"shopLat"];
-	[self didAccessValueForKey:@"shopLat"];
-	return result;
-}
-
-- (void)setShopLat:(NSNumber*)value {
-	[self willChangeValueForKey:@"shopLat"];
-	[self setPrimitiveValue:value forKey:@"shopLat"];
-	[self didChangeValueForKey:@"shopLat"];
-}
-
-- (NSNumber*)shopLng {
-	[self willAccessValueForKey:@"shopLng"];
-	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"shopLng"];
-	[self didAccessValueForKey:@"shopLng"];
-	return result;
-}
-
-- (void)setShopLng:(NSNumber*)value {
-	[self willChangeValueForKey:@"shopLng"];
-	[self setPrimitiveValue:value forKey:@"shopLng"];
-	[self didChangeValueForKey:@"shopLng"];
-}
-
 - (NSString*)shopName {
 	[self willAccessValueForKey:@"shopName"];
 	NSString* result = (NSString*)[self primitiveValueForKey:@"shopName"];
@@ -285,32 +134,6 @@
 	[self didChangeValueForKey:@"shopName"];
 }
 
-- (NSNumber*)shopType {
-	[self willAccessValueForKey:@"shopType"];
-	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"shopType"];
-	[self didAccessValueForKey:@"shopType"];
-	return result;
-}
-
-- (void)setShopType:(NSNumber*)value {
-	[self willChangeValueForKey:@"shopType"];
-	[self setPrimitiveValue:value forKey:@"shopType"];
-	[self didChangeValueForKey:@"shopType"];
-}
-
-- (NSString*)shopTypeDisplay {
-	[self willAccessValueForKey:@"shopTypeDisplay"];
-	NSString* result = (NSString*)[self primitiveValueForKey:@"shopTypeDisplay"];
-	[self didAccessValueForKey:@"shopTypeDisplay"];
-	return result;
-}
-
-- (void)setShopTypeDisplay:(NSString*)value {
-	[self willChangeValueForKey:@"shopTypeDisplay"];
-	[self setPrimitiveValue:value forKey:@"shopTypeDisplay"];
-	[self didChangeValueForKey:@"shopTypeDisplay"];
-}
-
 #pragma mark Relationships
     
 #pragma mark PlaceList
@@ -318,6 +141,14 @@
 	[self willAccessValueForKey:@"placeList"];
 	Placelist *result = [self primitiveValueForKey:@"placeList"];
 	[self didAccessValueForKey:@"placeList"];
+	return result;
+}
+
+#pragma mark Shop
+- (Shop*)shop {
+	[self willAccessValueForKey:@"shop"];
+	Shop *result = [self primitiveValueForKey:@"shop"];
+	[self didAccessValueForKey:@"shop"];
 	return result;
 }
 

@@ -82,6 +82,7 @@
         <relationship name="home8" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="UserHome8" inverseName="shop" inverseEntity="UserHome8" syncable="YES"/>
         <relationship name="km1" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="ShopKM1" inverseName="shop" inverseEntity="ShopKM1" syncable="YES"/>
         <relationship name="shopGalleries" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ShopGallery" inverseName="shop" inverseEntity="ShopGallery" syncable="YES"/>
+        <relationship name="shopList" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="ShopList" inverseName="shop" inverseEntity="ShopList" syncable="YES"/>
         <relationship name="timeComments" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ShopUserComment" inverseName="shopTime" inverseEntity="ShopUserComment" syncable="YES"/>
         <relationship name="topComments" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ShopUserComment" inverseName="shopTop" inverseEntity="ShopUserComment" syncable="YES"/>
         <relationship name="userGalleries" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ShopUserGallery" inverseName="shop" inverseEntity="ShopUserGallery" syncable="YES"/>
@@ -105,24 +106,11 @@
         <relationship name="shop" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Shop" inverseName="km1" inverseEntity="Shop" syncable="YES"/>
     </entity>
     <entity name="ShopList" representedClassName="ShopList" syncable="YES">
-        <attribute name="address" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="cover" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="coverFullscreen" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="desc" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="distance" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="idShop" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="logo" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="loveStatus" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="numOfComment" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="numOfLove" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="numOfView" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="promotionType" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="shopLat" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
-        <attribute name="shopLng" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="shopName" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="shopType" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="shopTypeDisplay" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="placeList" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Placelist" inverseName="shopsList" inverseEntity="Placelist" syncable="YES"/>
+        <relationship name="shop" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Shop" inverseName="shopList" inverseEntity="Shop" syncable="YES"/>
     </entity>
     <entity name="ShopUserComment" representedClassName="ShopUserComment" syncable="YES">
         <attribute name="agreeStatus" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>

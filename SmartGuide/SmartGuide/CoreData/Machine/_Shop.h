@@ -31,6 +31,7 @@
 @class UserHome8;
 @class ShopKM1;
 @class ShopGallery;
+@class ShopList;
 @class ShopUserComment;
 @class ShopUserComment;
 @class ShopUserGallery;
@@ -91,6 +92,9 @@
 - (void) addShopGalleriesObject:(ShopGallery*)value;
 - (void) removeShopGalleriesObject:(ShopGallery*)value;
 - (void) removeAllShopGalleries;
+
+#pragma mark ShopList
+@property (nonatomic, retain) ShopList* shopList;
 
 #pragma mark TimeComments
 - (NSSet*) timeComments;
