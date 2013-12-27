@@ -24,6 +24,7 @@
 
 @class Shop;
 @class UserHome4;
+@class UserHome6;
 @class UserHome8;
 @class ShopKM1;
 @class ShopGallery;
@@ -66,6 +67,9 @@
 
 #pragma mark Home4
 @property (nonatomic, retain) UserHome4* home4;
+
+#pragma mark Home6
+@property (nonatomic, retain) UserHome6* home6;
 
 #pragma mark Home8
 @property (nonatomic, retain) UserHome8* home8;

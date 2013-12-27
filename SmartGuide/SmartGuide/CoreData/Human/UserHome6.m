@@ -7,8 +7,18 @@
 {
     UserHome6 *home=[UserHome6 insert];
     
-    home.idShop=[NSNumber numberWithObject:dict[@"idShop"]];
-    home.logo=[NSString stringWithStringDefault:dict[@"logo"]];
+    int idShop=[[NSNumber numberWithObject:dict[@"idShop"]] integerValue];
+    
+    home.shop=[Shop shopWithIDShop:idShop];
+    
+    if(!home.shop)
+    {
+        home.shop=[Shop insert];
+        home.shop.idShop=@(idShop);
+    }
+
+    home.shop.logo=[NSString stringWithStringDefault:dict[@"logo"]];
+    
     home.shopName=[NSString stringWithStringDefault:dict[@"shopName"]];
     home.date=[NSString stringWithStringDefault:dict[@"date"]];
     home.cover=[NSString stringWithStringDefault:dict[@"cover"]];
@@ -17,6 +27,16 @@
     home.gotoshop=[NSString stringWithStringDefault:dict[@"goto"]];
     
     return home;
+}
+
+-(NSNumber *)idShop
+{
+    return self.shop.idShop;
+}
+
+-(NSString *)logo
+{
+    return self.shop.logo;
 }
 
 @end

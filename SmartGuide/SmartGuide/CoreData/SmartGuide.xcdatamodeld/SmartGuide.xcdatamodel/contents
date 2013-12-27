@@ -75,6 +75,7 @@
         <attribute name="shopType" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="tel" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="home4" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="UserHome4" inverseName="shop" inverseEntity="UserHome4" syncable="YES"/>
+        <relationship name="home6" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="UserHome6" inverseName="shop" inverseEntity="UserHome6" syncable="YES"/>
         <relationship name="home8" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="UserHome8" inverseName="shop" inverseEntity="UserHome8" syncable="YES"/>
         <relationship name="km1" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="ShopKM1" inverseName="shop" inverseEntity="ShopKM1" syncable="YES"/>
         <relationship name="shopGalleries" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ShopGallery" inverseName="shop" inverseEntity="ShopGallery" syncable="YES"/>
@@ -241,11 +242,10 @@
         <attribute name="cover" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="date" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="gotoshop" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="idShop" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="logo" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="shopName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="home" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="UserHome" inverseName="home6" inverseEntity="UserHome" syncable="YES"/>
+        <relationship name="shop" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Shop" inverseName="home6" inverseEntity="Shop" syncable="YES"/>
     </entity>
     <entity name="UserHome7" representedClassName="UserHome7" syncable="YES">
         <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>
