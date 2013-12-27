@@ -48,7 +48,7 @@
     shop.km1=nil;
     
     shop.shopName=[NSString stringWithStringDefault:dict[@"shopName"]];
-    shop.shopType=[NSString stringWithStringDefault:dict[@"shopType"]];
+    shop.shopType=[NSNumber numberWithObject:dict[@"shopType"]];
     shop.shopLat=[NSNumber numberWithObject:dict[@"shopLat"]];
     shop.shopLng=[NSNumber numberWithObject:dict[@"shopLng"]];
     shop.logo=[NSString stringWithStringDefault:dict[@"logo"]];

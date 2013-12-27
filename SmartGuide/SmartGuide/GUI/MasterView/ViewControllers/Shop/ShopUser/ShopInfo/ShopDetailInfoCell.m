@@ -16,7 +16,7 @@
 -(void)loadWithShop:(Shop *)shop height:(float)height mode:(enum SHOP_DETAIL_INFO_DESCRIPTION_MODE)mode
 {
     lblShopName.text=shop.shopName;
-    lblShopType.text=shop.shopType;
+    lblShopType.text=shop.shopTypeDisplay;
     lblFullAddress.text=[NSString stringWithFormat:@"%@, %@", shop.address, shop.city];
     lblIntro.text=shop.desc;
     

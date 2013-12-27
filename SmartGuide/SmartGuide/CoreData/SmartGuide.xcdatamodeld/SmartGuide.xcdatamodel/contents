@@ -69,10 +69,13 @@
         <attribute name="numOfLove" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="numOfView" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="promotionType" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="shopGalleryCover" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="shopGalleryImage" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="shopLat" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="shopLng" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="shopName" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="shopType" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="shopType" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="shopTypeDisplay" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="tel" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="home4" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="UserHome4" inverseName="shop" inverseEntity="UserHome4" syncable="YES"/>
         <relationship name="home6" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="UserHome6" inverseName="shop" inverseEntity="UserHome6" syncable="YES"/>
@@ -260,6 +263,7 @@
     </entity>
     <entity name="UserHome8" representedClassName="UserHome8" syncable="YES">
         <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="shopName" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="home" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="UserHome" inverseName="home8" inverseEntity="UserHome" syncable="YES"/>
         <relationship name="shop" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Shop" inverseName="home8" inverseEntity="Shop" syncable="YES"/>
     </entity>

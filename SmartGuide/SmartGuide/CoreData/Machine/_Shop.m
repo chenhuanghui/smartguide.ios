@@ -264,6 +264,32 @@
 	[self didChangeValueForKey:@"promotionType"];
 }
 
+- (NSString*)shopGalleryCover {
+	[self willAccessValueForKey:@"shopGalleryCover"];
+	NSString* result = (NSString*)[self primitiveValueForKey:@"shopGalleryCover"];
+	[self didAccessValueForKey:@"shopGalleryCover"];
+	return result;
+}
+
+- (void)setShopGalleryCover:(NSString*)value {
+	[self willChangeValueForKey:@"shopGalleryCover"];
+	[self setPrimitiveValue:value forKey:@"shopGalleryCover"];
+	[self didChangeValueForKey:@"shopGalleryCover"];
+}
+
+- (NSString*)shopGalleryImage {
+	[self willAccessValueForKey:@"shopGalleryImage"];
+	NSString* result = (NSString*)[self primitiveValueForKey:@"shopGalleryImage"];
+	[self didAccessValueForKey:@"shopGalleryImage"];
+	return result;
+}
+
+- (void)setShopGalleryImage:(NSString*)value {
+	[self willChangeValueForKey:@"shopGalleryImage"];
+	[self setPrimitiveValue:value forKey:@"shopGalleryImage"];
+	[self didChangeValueForKey:@"shopGalleryImage"];
+}
+
 - (NSNumber*)shopLat {
 	[self willAccessValueForKey:@"shopLat"];
 	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"shopLat"];
@@ -303,17 +329,30 @@
 	[self didChangeValueForKey:@"shopName"];
 }
 
-- (NSString*)shopType {
+- (NSNumber*)shopType {
 	[self willAccessValueForKey:@"shopType"];
-	NSString* result = (NSString*)[self primitiveValueForKey:@"shopType"];
+	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"shopType"];
 	[self didAccessValueForKey:@"shopType"];
 	return result;
 }
 
-- (void)setShopType:(NSString*)value {
+- (void)setShopType:(NSNumber*)value {
 	[self willChangeValueForKey:@"shopType"];
 	[self setPrimitiveValue:value forKey:@"shopType"];
 	[self didChangeValueForKey:@"shopType"];
+}
+
+- (NSString*)shopTypeDisplay {
+	[self willAccessValueForKey:@"shopTypeDisplay"];
+	NSString* result = (NSString*)[self primitiveValueForKey:@"shopTypeDisplay"];
+	[self didAccessValueForKey:@"shopTypeDisplay"];
+	return result;
+}
+
+- (void)setShopTypeDisplay:(NSString*)value {
+	[self willChangeValueForKey:@"shopTypeDisplay"];
+	[self setPrimitiveValue:value forKey:@"shopTypeDisplay"];
+	[self didChangeValueForKey:@"shopTypeDisplay"];
 }
 
 - (NSString*)tel {

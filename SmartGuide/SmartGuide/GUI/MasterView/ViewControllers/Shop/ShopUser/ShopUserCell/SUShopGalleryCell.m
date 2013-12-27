@@ -35,7 +35,7 @@
     _shop=shop;
     
     lblShopName.text=shop.shopName;
-    lblShopType.text=shop.shopType;
+    lblShopType.text=shop.shopTypeDisplay;
     lblNumOfComment.text=shop.numOfComment;
     lblNumOfView.text=shop.numOfView;
     

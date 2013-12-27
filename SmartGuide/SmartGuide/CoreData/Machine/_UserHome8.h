@@ -6,6 +6,7 @@
 #define UserHome8_ClassName @"UserHome8"
 
 #define UserHome8_Content @"content"
+#define UserHome8_ShopName @"shopName"
 
 @class UserHome8;
 @class UserHome;
@@ -23,6 +24,7 @@
 
 
 @property (nonatomic, retain) NSString* content;
+@property (nonatomic, retain) NSString* shopName;
 
 #pragma mark Fetched property
 

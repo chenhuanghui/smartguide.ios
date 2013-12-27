@@ -16,10 +16,13 @@
 #define Shop_NumOfLove @"numOfLove"
 #define Shop_NumOfView @"numOfView"
 #define Shop_PromotionType @"promotionType"
+#define Shop_ShopGalleryCover @"shopGalleryCover"
+#define Shop_ShopGalleryImage @"shopGalleryImage"
 #define Shop_ShopLat @"shopLat"
 #define Shop_ShopLng @"shopLng"
 #define Shop_ShopName @"shopName"
 #define Shop_ShopType @"shopType"
+#define Shop_ShopTypeDisplay @"shopTypeDisplay"
 #define Shop_Tel @"tel"
 
 @class Shop;
@@ -54,10 +57,13 @@
 @property (nonatomic, retain) NSString* numOfLove;
 @property (nonatomic, retain) NSString* numOfView;
 @property (nonatomic, retain) NSNumber* promotionType;
+@property (nonatomic, retain) NSString* shopGalleryCover;
+@property (nonatomic, retain) NSString* shopGalleryImage;
 @property (nonatomic, retain) NSNumber* shopLat;
 @property (nonatomic, retain) NSNumber* shopLng;
 @property (nonatomic, retain) NSString* shopName;
-@property (nonatomic, retain) NSString* shopType;
+@property (nonatomic, retain) NSNumber* shopType;
+@property (nonatomic, retain) NSString* shopTypeDisplay;
 @property (nonatomic, retain) NSString* tel;
 
 #pragma mark Fetched property
