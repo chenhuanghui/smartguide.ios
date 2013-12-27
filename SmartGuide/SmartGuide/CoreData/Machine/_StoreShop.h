@@ -17,6 +17,7 @@
 
 @class StoreShop;
 @class UserHome5;
+@class UserHome7;
 @class StoreShopItem;
 @class StoreShopItem;
 
@@ -48,6 +49,9 @@
 
 #pragma mark Home5
 @property (nonatomic, retain) UserHome5* home5;
+
+#pragma mark Home7
+@property (nonatomic, retain) UserHome7* home7;
 
 #pragma mark LatestItems
 - (NSSet*) latestItems;

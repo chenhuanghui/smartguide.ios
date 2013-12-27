@@ -11,7 +11,7 @@
 
 +(StoreShop *)makeWithDictionary:(NSDictionary *)dict
 {
-    int idShop=[[NSNumber numberWithObject:dict[@"idShop"]] integerValue];
+    int idShop=[[NSNumber numberWithObject:dict[@"idStore"]] integerValue];
     StoreShop *store=[StoreShop storeWithID:idShop];
     
     if(!store)
@@ -20,8 +20,8 @@
         store.idStore=@(idShop);
     }
 
-    store.storeName=[NSString stringWithStringDefault:dict[@"shopName"]];
-    store.storeType=[NSString stringWithStringDefault:dict[@"shopType"]];
+    store.storeName=[NSString stringWithStringDefault:dict[@"storeName"]];
+    store.storeType=[NSString stringWithStringDefault:dict[@"storeType"]];
     store.desc=[NSString stringWithStringDefault:dict[@"description"]];
     store.condition=[NSString stringWithStringDefault:dict[@"condition"]];
     store.conditionPair=[NSString stringWithStringDefault:dict[@"highlightKeywords"]];

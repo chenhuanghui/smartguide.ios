@@ -7,8 +7,17 @@
 {
     UserHome7 *home=[UserHome7 insert];
     
-    home.idStore=[NSNumber numberWithObject:dict[@"idStore"]];
-    home.logo=[NSString stringWithStringDefault:dict[@"logo"]];
+    int idStore=[[NSNumber numberWithObject:dict[@"idStore"]] integerValue];
+    
+    home.store=[StoreShop storeWithID:idStore];
+    if(!home.store)
+    {
+        home.store=[StoreShop insert];
+        home.store.idStore=@(idStore);
+        home.storeName=[NSString stringWithStringDefault:dict[@"storeName"]];
+    }
+    
+    home.store.logo=[NSString stringWithStringDefault:dict[@"logo"]];
     home.storeName=[NSString stringWithStringDefault:dict[@"storeName"]];
     home.date=[NSString stringWithStringDefault:dict[@"date"]];
     home.cover=[NSString stringWithStringDefault:dict[@"cover"]];

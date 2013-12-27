@@ -6,6 +6,7 @@
 
 #import "DataManager.h"
 #import "UserHome5.h"
+#import "UserHome7.h"
 #import "StoreShopItem.h"
 #import "StoreShopItem.h"
 
@@ -14,6 +15,10 @@
 
 
 @dynamic home5;
+
+
+
+@dynamic home7;
 
 
 
@@ -222,6 +227,14 @@
 	[self willAccessValueForKey:@"home5"];
 	UserHome5 *result = [self primitiveValueForKey:@"home5"];
 	[self didAccessValueForKey:@"home5"];
+	return result;
+}
+
+#pragma mark Home7
+- (UserHome7*)home7 {
+	[self willAccessValueForKey:@"home7"];
+	UserHome7 *result = [self primitiveValueForKey:@"home7"];
+	[self didAccessValueForKey:@"home7"];
 	return result;
 }
 

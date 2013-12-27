@@ -35,7 +35,7 @@
     _home6=nil;
     _home7=home;
     
-    [imgvLogo loadImageHomeWithURL:home.logo];
+    [imgvLogo loadImageHomeWithURL:home.store.logo];
     lblName.text=home.storeName;
     lblDate.text=home.date;
     [imgvCover loadImageHomeWithURL:home.cover];
