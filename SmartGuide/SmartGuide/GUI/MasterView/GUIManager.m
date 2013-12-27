@@ -423,6 +423,16 @@ static GUIManager *_shareInstance=nil;
     [self presentViewController:vc];
 }
 
+-(void)presentShopUserWithHome8:(UserHome8 *)home8
+{
+    ShopUserViewController *vc=[[ShopUserViewController alloc] initWithHome8:home8];
+    vc.delegate=self;
+    
+    shopUserController=vc;
+    
+    [self presentViewController:vc];
+}
+
 -(void)shopUserFinished
 {
     [self dismissShopUser];

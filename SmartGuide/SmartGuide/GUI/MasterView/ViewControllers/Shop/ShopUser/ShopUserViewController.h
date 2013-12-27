@@ -52,7 +52,8 @@ enum SHOP_USER_MODE {
 enum SHOP_USER_DATA_MODE
 {
     SHOP_USER_DATA_SHOP_LIST = 0,
-    SHOP_USER_DATA_SHOP_USER = 1
+    SHOP_USER_DATA_SHOP_USER = 1,
+    SHOP_USER_DATA_HOME8 = 2,
 };
 
 @protocol ShopUserDelegate <SGViewControllerDelegate>
@@ -87,6 +88,7 @@ enum SHOP_USER_DATA_MODE
     
     __weak ShopList *_shopList;
     __weak Shop *_shop;
+    __weak UserHome8 *_home8;
     
     enum SHOP_USER_DATA_MODE _dataMode;
     enum SORT_SHOP_COMMENT _sortComment;
@@ -103,6 +105,7 @@ enum SHOP_USER_DATA_MODE
 
 -(ShopUserViewController*) initWithShopList:(ShopList*) shopList;
 -(ShopUserViewController*) initWithShopUser:(Shop*) shop;
+-(ShopUserViewController*) initWithHome8:(UserHome8*) home8;
 
 //-(void) setShop:(Shop*) shop;
 

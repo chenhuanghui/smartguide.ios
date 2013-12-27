@@ -17,6 +17,7 @@ enum USER_HOME_TYPE {
     USER_HOME_TYPE_5 = 5,
     USER_HOME_TYPE_6 = 6,
     USER_HOME_TYPE_7 = 7,
+    USER_HOME_TYPE_8 = 8,
     };
 
 @interface UserHome : _UserHome 

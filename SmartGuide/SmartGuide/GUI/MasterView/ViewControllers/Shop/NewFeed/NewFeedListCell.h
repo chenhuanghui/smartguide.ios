@@ -7,9 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "UserHome3.h"
-#import "UserHome4.h"
-#import "UserHome5.h"
+#import "UserHome.h"
 #import "PageControl.h"
 
 enum NEW_FEED_LIST_DATA_MODE {

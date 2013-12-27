@@ -122,6 +122,9 @@
                 home.home7=[UserHome7 makeWithDictionary:dict];
                 break;
                 
+            case USER_HOME_TYPE_8:
+                break;
+                
             case USER_HOME_TYPE_UNKNOW:
                 break;
         }

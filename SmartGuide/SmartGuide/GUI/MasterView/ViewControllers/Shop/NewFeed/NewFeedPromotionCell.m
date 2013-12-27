@@ -19,6 +19,12 @@
     lbl.text=home.content;
 }
 
+-(void) loadWithHome8:(UserHome8 *)home
+{
+    [imgv loadShopLogoWithURL:home.shop.logo];
+    lbl.text=home.content;
+}
+
 -(void)alignContent
 {
     float height=MAX(self.l_v_h-10,53-NEW_FEED_CELL_SPACING);
@@ -27,6 +33,15 @@
 }
 
 +(float)heightWithHome1:(UserHome1 *)home
+{
+    UIFont *font=[UIFont fontWithName:@"Avenir-Roman" size:13];
+    float height=6;
+    height+=[home.content sizeWithFont:font constrainedToSize:CGSizeMake(202, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height+15;
+    
+    return MAX(height,53+NEW_FEED_CELL_SPACING);
+}
+
++(float)heightWithHome8:(UserHome8 *)home
 {
     UIFont *font=[UIFont fontWithName:@"Avenir-Roman" size:13];
     float height=6;

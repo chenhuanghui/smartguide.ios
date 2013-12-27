@@ -30,6 +30,17 @@
     return self;
 }
 
+-(ShopUserViewController *)initWithHome8:(UserHome8 *)home8
+{
+    self = [super initWithNibName:@"ShopUserViewController" bundle:nil];
+    if (self) {
+        _home8=home8;
+        shopMode=SHOP_USER_FULL;
+        _dataMode=SHOP_USER_DATA_HOME8;
+    }
+    return self;
+}
+
 -(ShopUserViewController *)initWithShopList:(ShopList *)shopList
 {
     self = [super initWithNibName:@"ShopUserViewController" bundle:nil];
@@ -97,6 +108,18 @@
             
             _sortComment=SORT_SHOP_COMMENT_TOP_AGREED;
 
+            break;
+            
+        case SHOP_USER_DATA_HOME8:
+            
+            tableShopUser.scrollEnabled=false;
+            btnInfo.enabled=false;
+            
+            _operationShopUser=[[ASIOperationShopUser alloc] initWithIDShop:_home8.shop.idShop.integerValue userLat:userLat() userLng:userLng()];
+            _operationShopUser.delegatePost=self;
+            
+            [_operationShopUser startAsynchronous];
+            
             break;
     }
     

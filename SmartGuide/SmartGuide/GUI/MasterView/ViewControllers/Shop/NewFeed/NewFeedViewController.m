@@ -234,7 +234,10 @@
             case USER_HOME_TYPE_7:
                 return [NewFeedInfoCell heightWithHome7:home.home7];
                 
-            default:
+            case USER_HOME_TYPE_8:
+                return [NewFeedPromotionCell heightWithHome8:home.home8];
+                
+            case USER_HOME_TYPE_UNKNOW:
                 return 0;
         }
     }
@@ -341,7 +344,16 @@
                 return cell;
             }
                 
-            default:
+            case USER_HOME_TYPE_8:
+            {
+                NewFeedPromotionCell *cell=[tableView dequeueReusableCellWithIdentifier:[NewFeedPromotionCell reuseIdentifier]];
+                
+                [cell loadWithHome8:home.home8];
+                
+                return cell;
+            }
+                
+            case USER_HOME_TYPE_UNKNOW:
                 return 0;
         }
     }
@@ -411,7 +423,13 @@
             }
                 break;
                 
-            default:
+            case USER_HOME_TYPE_8:
+            {
+                [[GUIManager shareInstance] presentShopUserWithShopUser:nil];
+            }
+                break;
+                
+            case USER_HOME_TYPE_UNKNOW:
                 break;
         }
     }

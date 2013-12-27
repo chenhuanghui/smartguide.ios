@@ -14,7 +14,7 @@
 
 -(void)loadImage:(NSString *)url
 {
-    [imgv loadImageHomeWithURL:url];
+    [imgv loadImageHomeListWithURL:url];
 }
 
 +(NSString *)reuseIdentifier

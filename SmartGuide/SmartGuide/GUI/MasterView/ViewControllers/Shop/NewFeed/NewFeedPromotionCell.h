@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "UserHome1.h"
+#import "UserHome8.h"
+#import "Shop.h"
 
 @interface NewFeedPromotionCell : UITableViewCell
 {
@@ -17,9 +19,11 @@
 }
 
 -(void) loadWithHome1:(UserHome1*) home;
+-(void) loadWithHome8:(UserHome8*) home;
 -(void) alignContent;
 
 +(float) heightWithHome1:(UserHome1*) home;
++(float) heightWithHome8:(UserHome8*) home;
 +(NSString *)reuseIdentifier;
 
 @end
