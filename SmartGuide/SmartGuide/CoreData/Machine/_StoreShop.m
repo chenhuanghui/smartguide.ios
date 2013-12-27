@@ -5,11 +5,16 @@
 #import "StoreShop.h"
 
 #import "DataManager.h"
+#import "UserHome5.h"
 #import "StoreShopItem.h"
 #import "StoreShopItem.h"
 
 
 @implementation _StoreShop
+
+
+@dynamic home5;
+
 
 
 
@@ -132,17 +137,17 @@
 	[self didChangeValueForKey:@"desc"];
 }
 
-- (NSNumber*)idShop {
-	[self willAccessValueForKey:@"idShop"];
-	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"idShop"];
-	[self didAccessValueForKey:@"idShop"];
+- (NSNumber*)idStore {
+	[self willAccessValueForKey:@"idStore"];
+	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"idStore"];
+	[self didAccessValueForKey:@"idStore"];
 	return result;
 }
 
-- (void)setIdShop:(NSNumber*)value {
-	[self willChangeValueForKey:@"idShop"];
-	[self setPrimitiveValue:value forKey:@"idShop"];
-	[self didChangeValueForKey:@"idShop"];
+- (void)setIdStore:(NSNumber*)value {
+	[self willChangeValueForKey:@"idStore"];
+	[self setPrimitiveValue:value forKey:@"idStore"];
+	[self didChangeValueForKey:@"idStore"];
 }
 
 - (NSString*)logo {
@@ -158,32 +163,6 @@
 	[self didChangeValueForKey:@"logo"];
 }
 
-- (NSString*)shopName {
-	[self willAccessValueForKey:@"shopName"];
-	NSString* result = (NSString*)[self primitiveValueForKey:@"shopName"];
-	[self didAccessValueForKey:@"shopName"];
-	return result;
-}
-
-- (void)setShopName:(NSString*)value {
-	[self willChangeValueForKey:@"shopName"];
-	[self setPrimitiveValue:value forKey:@"shopName"];
-	[self didChangeValueForKey:@"shopName"];
-}
-
-- (NSString*)shopType {
-	[self willAccessValueForKey:@"shopType"];
-	NSString* result = (NSString*)[self primitiveValueForKey:@"shopType"];
-	[self didAccessValueForKey:@"shopType"];
-	return result;
-}
-
-- (void)setShopType:(NSString*)value {
-	[self willChangeValueForKey:@"shopType"];
-	[self setPrimitiveValue:value forKey:@"shopType"];
-	[self didChangeValueForKey:@"shopType"];
-}
-
 - (NSNumber*)sortOrder {
 	[self willAccessValueForKey:@"sortOrder"];
 	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"sortOrder"];
@@ -195,6 +174,32 @@
 	[self willChangeValueForKey:@"sortOrder"];
 	[self setPrimitiveValue:value forKey:@"sortOrder"];
 	[self didChangeValueForKey:@"sortOrder"];
+}
+
+- (NSString*)storeName {
+	[self willAccessValueForKey:@"storeName"];
+	NSString* result = (NSString*)[self primitiveValueForKey:@"storeName"];
+	[self didAccessValueForKey:@"storeName"];
+	return result;
+}
+
+- (void)setStoreName:(NSString*)value {
+	[self willChangeValueForKey:@"storeName"];
+	[self setPrimitiveValue:value forKey:@"storeName"];
+	[self didChangeValueForKey:@"storeName"];
+}
+
+- (NSString*)storeType {
+	[self willAccessValueForKey:@"storeType"];
+	NSString* result = (NSString*)[self primitiveValueForKey:@"storeType"];
+	[self didAccessValueForKey:@"storeType"];
+	return result;
+}
+
+- (void)setStoreType:(NSString*)value {
+	[self willChangeValueForKey:@"storeType"];
+	[self setPrimitiveValue:value forKey:@"storeType"];
+	[self didChangeValueForKey:@"storeType"];
 }
 
 - (NSString*)total {
@@ -212,6 +217,14 @@
 
 #pragma mark Relationships
     
+#pragma mark Home5
+- (UserHome5*)home5 {
+	[self willAccessValueForKey:@"home5"];
+	UserHome5 *result = [self primitiveValueForKey:@"home5"];
+	[self didAccessValueForKey:@"home5"];
+	return result;
+}
+
 #pragma mark LatestItems
 - (NSSet*)latestItems {
 	[self willAccessValueForKey:@"latestItems"];

@@ -8,14 +8,15 @@
 #define StoreShop_Condition @"condition"
 #define StoreShop_ConditionPair @"conditionPair"
 #define StoreShop_Desc @"desc"
-#define StoreShop_IdShop @"idShop"
+#define StoreShop_IdStore @"idStore"
 #define StoreShop_Logo @"logo"
-#define StoreShop_ShopName @"shopName"
-#define StoreShop_ShopType @"shopType"
 #define StoreShop_SortOrder @"sortOrder"
+#define StoreShop_StoreName @"storeName"
+#define StoreShop_StoreType @"storeType"
 #define StoreShop_Total @"total"
 
 @class StoreShop;
+@class UserHome5;
 @class StoreShopItem;
 @class StoreShopItem;
 
@@ -33,17 +34,20 @@
 @property (nonatomic, retain) NSString* condition;
 @property (nonatomic, retain) NSString* conditionPair;
 @property (nonatomic, retain) NSString* desc;
-@property (nonatomic, retain) NSNumber* idShop;
+@property (nonatomic, retain) NSNumber* idStore;
 @property (nonatomic, retain) NSString* logo;
-@property (nonatomic, retain) NSString* shopName;
-@property (nonatomic, retain) NSString* shopType;
 @property (nonatomic, retain) NSNumber* sortOrder;
+@property (nonatomic, retain) NSString* storeName;
+@property (nonatomic, retain) NSString* storeType;
 @property (nonatomic, retain) NSString* total;
 
 #pragma mark Fetched property
 
     
 #pragma mark Relationships
+
+#pragma mark Home5
+@property (nonatomic, retain) UserHome5* home5;
 
 #pragma mark LatestItems
 - (NSSet*) latestItems;

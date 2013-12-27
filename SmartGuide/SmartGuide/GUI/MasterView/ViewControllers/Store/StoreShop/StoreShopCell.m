@@ -28,8 +28,8 @@
         [self emptyCell:false];
         
         lblCount.text=store.total;
-        lblShopName.text=store.shopName;
-        lblType.text=store.shopType;
+        lblShopName.text=store.storeName;
+        lblType.text=store.storeType;
         
         [imgvLogo loadStoreLogoWithURL:store.logo];
         

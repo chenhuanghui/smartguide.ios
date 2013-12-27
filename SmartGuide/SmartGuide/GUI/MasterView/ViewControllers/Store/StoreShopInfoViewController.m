@@ -54,10 +54,10 @@
     _canLoadMoreTopSellers=_itemTopSellers.count==10;
     
     [imgvShopLogo loadStoreLogoWithURL:_store.logo];
-    lblShopName.text=_store.shopName;
-    lblShopType.text=_store.shopType;
+    lblShopName.text=_store.storeName;
+    lblShopType.text=_store.storeType;
     lblShopDesc.text=_store.desc;
-    lblNameBot.text=_store.shopName;
+    lblNameBot.text=_store.storeName;
     
     itemLatest=[[StoreItemListController alloc] initWithFrame:gridContainer.frame];
     itemTopSellers=[[StoreItemListController alloc] initWithFrame:gridContainer.frame];
@@ -201,7 +201,7 @@
             if(_operationItemLatest)
                 return;
             
-            _operationItemLatest=[[ASIOperationStoreShopItem alloc] initWithIDShop:_store.idShop page:_pageShopLatest+1 userLat:userLat() userLng:userLng() sort:SORT_STORE_SHOP_LIST_LATEST];
+            _operationItemLatest=[[ASIOperationStoreShopItem alloc] initWithIDShop:_store.idStore page:_pageShopLatest+1 userLat:userLat() userLng:userLng() sort:SORT_STORE_SHOP_LIST_LATEST];
             _operationItemLatest.delegatePost=self;
             
             [_operationItemLatest startAsynchronous];
@@ -213,7 +213,7 @@
             if(_operationItemTopSellers)
                 return;
             
-            _operationItemTopSellers=[[ASIOperationStoreShopItem alloc] initWithIDShop:_store.idShop page:_pageShopTopSellers+1 userLat:userLat() userLng:userLng() sort:SORT_STORE_SHOP_LIST_TOP_SELLER];
+            _operationItemTopSellers=[[ASIOperationStoreShopItem alloc] initWithIDShop:_store.idStore page:_pageShopTopSellers+1 userLat:userLat() userLng:userLng() sort:SORT_STORE_SHOP_LIST_TOP_SELLER];
             _operationItemTopSellers.delegatePost=self;
             
             [_operationItemTopSellers startAsynchronous];

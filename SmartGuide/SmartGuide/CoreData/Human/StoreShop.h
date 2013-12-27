@@ -4,7 +4,7 @@
 {
 }
 
-+(StoreShop*) shopWithID:(int) idShop;
++(StoreShop*) storeWithID:(int) idShop;
 +(StoreShop*) makeWithDictionary:(NSDictionary*) dict;
 
 @end

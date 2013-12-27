@@ -7,14 +7,13 @@
 
 #define UserHome5_Content @"content"
 #define UserHome5_Cover @"cover"
-#define UserHome5_IdStore @"idStore"
-#define UserHome5_IdTutorial @"idTutorial"
 #define UserHome5_NumOfPurchase @"numOfPurchase"
 #define UserHome5_SortOrder @"sortOrder"
 #define UserHome5_StoreName @"storeName"
 
 @class UserHome5;
 @class UserHome;
+@class StoreShop;
 
 @interface _UserHome5 : NSManagedObject
 
@@ -29,8 +28,6 @@
 
 @property (nonatomic, retain) NSString* content;
 @property (nonatomic, retain) NSString* cover;
-@property (nonatomic, retain) NSNumber* idStore;
-@property (nonatomic, retain) NSNumber* idTutorial;
 @property (nonatomic, retain) NSString* numOfPurchase;
 @property (nonatomic, retain) NSNumber* sortOrder;
 @property (nonatomic, retain) NSString* storeName;
@@ -42,6 +39,9 @@
 
 #pragma mark Home
 @property (nonatomic, retain) UserHome* home;
+
+#pragma mark Store
+@property (nonatomic, retain) StoreShop* store;
 
 
 @end

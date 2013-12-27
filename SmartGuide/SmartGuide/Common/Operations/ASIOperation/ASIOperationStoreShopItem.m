@@ -41,7 +41,7 @@
     if(sort==SORT_STORE_SHOP_LIST_TOP_SELLER)
         sortType=SORT_STORE_SHOP_LIST_TOP_SELLER;
     
-    StoreShop *shop=[StoreShop shopWithID:[values[0] integerValue]];
+    StoreShop *shop=[StoreShop storeWithID:[values[0] integerValue]];
     int type=[values[4] integerValue];
     
     for(NSDictionary *dict in json)

@@ -144,12 +144,13 @@
         <attribute name="condition" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="conditionPair" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="desc" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="idShop" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="idStore" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="logo" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="shopName" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="shopType" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="sortOrder" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="storeName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="storeType" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="total" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="home5" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="UserHome5" inverseName="store" inverseEntity="UserHome5" syncable="YES"/>
         <relationship name="latestItems" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="StoreShopItem" inverseName="shopLatest" inverseEntity="StoreShopItem" syncable="YES"/>
         <relationship name="topSellerItems" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="StoreShopItem" inverseName="shopTopSeller" inverseEntity="StoreShopItem" syncable="YES"/>
     </entity>
@@ -221,12 +222,11 @@
     <entity name="UserHome5" representedClassName="UserHome5" syncable="YES">
         <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="cover" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="idStore" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="idTutorial" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="numOfPurchase" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="sortOrder" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="storeName" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="home" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="UserHome" inverseName="home5" inverseEntity="UserHome" syncable="YES"/>
+        <relationship name="store" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="StoreShop" inverseName="home5" inverseEntity="StoreShop" syncable="YES"/>
     </entity>
     <entity name="UserHome6" representedClassName="UserHome6" syncable="YES">
         <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>

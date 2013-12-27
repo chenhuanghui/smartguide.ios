@@ -6,12 +6,17 @@
 
 #import "DataManager.h"
 #import "UserHome.h"
+#import "StoreShop.h"
 
 
 @implementation _UserHome5
 
 
 @dynamic home;
+
+
+
+@dynamic store;
 
 
 
@@ -116,32 +121,6 @@
 	[self didChangeValueForKey:@"cover"];
 }
 
-- (NSNumber*)idStore {
-	[self willAccessValueForKey:@"idStore"];
-	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"idStore"];
-	[self didAccessValueForKey:@"idStore"];
-	return result;
-}
-
-- (void)setIdStore:(NSNumber*)value {
-	[self willChangeValueForKey:@"idStore"];
-	[self setPrimitiveValue:value forKey:@"idStore"];
-	[self didChangeValueForKey:@"idStore"];
-}
-
-- (NSNumber*)idTutorial {
-	[self willAccessValueForKey:@"idTutorial"];
-	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"idTutorial"];
-	[self didAccessValueForKey:@"idTutorial"];
-	return result;
-}
-
-- (void)setIdTutorial:(NSNumber*)value {
-	[self willChangeValueForKey:@"idTutorial"];
-	[self setPrimitiveValue:value forKey:@"idTutorial"];
-	[self didChangeValueForKey:@"idTutorial"];
-}
-
 - (NSString*)numOfPurchase {
 	[self willAccessValueForKey:@"numOfPurchase"];
 	NSString* result = (NSString*)[self primitiveValueForKey:@"numOfPurchase"];
@@ -188,6 +167,14 @@
 	[self willAccessValueForKey:@"home"];
 	UserHome *result = [self primitiveValueForKey:@"home"];
 	[self didAccessValueForKey:@"home"];
+	return result;
+}
+
+#pragma mark Store
+- (StoreShop*)store {
+	[self willAccessValueForKey:@"store"];
+	StoreShop *result = [self primitiveValueForKey:@"store"];
+	[self didAccessValueForKey:@"store"];
 	return result;
 }
 
