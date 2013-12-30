@@ -526,14 +526,14 @@
             [sortView setIcon:[UIImage imageNamed:@"icon_distance.png"] text:@"Khoảng cách"];
             _sort=SORT_SHOP_LIST_DISTANCE;
             [self requestShopSearch];
-            [self.view showLoading];
+            [self showLoading];
             
             break;
             
         case SHOP_LIST_VIEW_SHOP_LIST:
             _canLoadMore=false;
             [self requestShopList];
-            [self.view showLoading];
+            [self showLoading];
             break;
             
         case SHOP_LIST_VIEW_PLACE:
@@ -548,7 +548,8 @@
             
             [tableList reloadData];
             
-            [tableList showLoading];
+            [self showLoading];
+            
             [self requestPlacelistDetail];
             
             break;
@@ -565,7 +566,8 @@
             
             [tableList reloadData];
             
-            [tableList showLoading];
+            [self showLoading];
+            
             [self requestListHome3];
             
             break;
@@ -633,7 +635,7 @@
 
 -(void) changeLocation:(CLLocationCoordinate2D) coordinate
 {
-    [self.view showLoading];
+    [self showLoading];
     
     [tableList setContentOffset:tableList.contentOffset animated:true];
     
@@ -672,7 +674,7 @@
 
 -(void) changeSort:(enum SORT_SHOP_LIST) sort
 {
-    [self.view showLoading];
+    [self showLoading];
     
     [tableList setContentOffset:tableList.contentOffset animated:true];
     
@@ -711,7 +713,7 @@
 
 -(void) changeSortPlace:(enum SORT_PLACE_LIST) sort
 {
-    [self.view showLoading];
+    [self showLoading];
     
     [tableList setContentOffset:tableList.contentOffset animated:true];
     
@@ -781,8 +783,7 @@
 {
     if([operation isKindOfClass:[ASIOperationShopSearch class]])
     {
-        [self.view removeLoading];
-        [tableList removeLoading];
+        [self removeLoading];
         
         ASIOperationShopSearch *ope=(ASIOperationShopSearch*) operation;
         
@@ -819,8 +820,7 @@
     }
     else if([operation isKindOfClass:[ASIOperationPlacelistDetail class]])
     {
-        [tableList removeLoading];
-        [self.view removeLoading];
+        [self removeLoading];
         
         ASIOperationPlacelistDetail *ope=(ASIOperationPlacelistDetail*) operation;
         
@@ -857,7 +857,7 @@
     }
     else if([operation isKindOfClass:[ASIOperationGetShopList class]])
     {
-        [self.view removeLoading];
+        [self removeLoading];
         
         ASIOperationGetShopList *ope=(ASIOperationGetShopList*) operation;
         
@@ -898,17 +898,28 @@
 {
     if([operation isKindOfClass:[ASIOperationShopSearch class]])
     {
-        [self.view removeLoading];
+        [loadingView removeLoading];
         
         _operationShopSearch=nil;
     }
     else if([operation isKindOfClass:[ASIOperationPlacelistDetail class]])
     {
-        [tableList removeLoading];
-        [self.view removeLoading];
+        [loadingView removeLoading];
         
         _operationPlaceListDetail=nil;
     }
+}
+
+-(void) showLoading
+{
+    [loadingView showLoading];
+    loadingView.userInteractionEnabled=true;
+}
+
+-(void) removeLoading
+{
+    [loadingView removeLoading];
+    loadingView.userInteractionEnabled=false;
 }
 
 -(BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
@@ -946,6 +957,9 @@
 
 -(void) makeScrollSize
 {
+    if(self.isZoomedMap)
+        return;
+    
     float actuallyTableHeight=_scrollFrame.size.height-_tableFrame.origin.y-_qrFrame.size.height-QRCODE_RAY_HEIGHT;
     
     float height=_tableFrame.origin.y;

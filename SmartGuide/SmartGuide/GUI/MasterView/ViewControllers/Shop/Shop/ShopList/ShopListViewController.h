@@ -50,6 +50,7 @@ enum SHOP_LIST_VIEW_MODE {
     __weak IBOutlet UIButton *btnScanBig;
     __weak IBOutlet UIButton *btnScanSmall;
     __weak IBOutlet UITextField *txt;
+    __weak IBOutlet UIView *loadingView;
     
     CGRect _mapFrame;
     CGRect _tableFrame;
