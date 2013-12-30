@@ -6,12 +6,12 @@
 //  Copyright (c) 2013 Redbase. All rights reserved.
 //
 
-#import "NewFeedPromotionCell.h"
+#import "HomePromotionCell.h"
 #import "ImageManager.h"
 #import "Constant.h"
 #import "Utility.h"
 
-@implementation NewFeedPromotionCell
+@implementation HomePromotionCell
 
 -(void)loadWithHome1:(UserHome1 *)home
 {
@@ -52,7 +52,7 @@
 
 +(NSString *)reuseIdentifier
 {
-    return @"NewFeedPromotionCell";
+    return @"HomePromotionCell";
 }
 
 -(void)awakeFromNib

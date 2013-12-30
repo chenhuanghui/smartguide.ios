@@ -11,7 +11,7 @@
 #import "UserHome8.h"
 #import "Shop.h"
 
-@interface NewFeedPromotionCell : UITableViewCell
+@interface HomePromotionCell : UITableViewCell
 {
     __weak IBOutlet UIImageView *imgv;
     __weak IBOutlet UILabel *lbl;

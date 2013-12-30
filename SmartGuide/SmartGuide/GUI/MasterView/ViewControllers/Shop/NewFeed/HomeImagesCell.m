@@ -6,12 +6,12 @@
 //  Copyright (c) 2013 Redbase. All rights reserved.
 //
 
-#import "NewFeedImagesCell.h"
+#import "HomeImagesCell.h"
 #import "Utility.h"
-#import "NewFeedImageCell.h"
+#import "HomeImageCell.h"
 #import "Constant.h"
 
-@implementation NewFeedImagesCell
+@implementation HomeImagesCell
 
 -(void)loadWithImages:(NSArray *) images
 {
@@ -27,14 +27,14 @@
 
 +(NSString *)reuseIdentifier
 {
-    return @"NewFeedImagesCell";
+    return @"HomeImagesCell";
 }
 
 -(void)awakeFromNib
 {
     [super awakeFromNib];
  
-    [table registerNib:[UINib nibWithNibName:[NewFeedImageCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[NewFeedImageCell reuseIdentifier]];
+    [table registerNib:[UINib nibWithNibName:[HomeImageCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[HomeImageCell reuseIdentifier]];
     
     CGRect rect=table.frame;
     table.transform=CGAffineTransformMakeRotation(DEGREES_TO_RADIANS(45)*6);
@@ -58,7 +58,7 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NewFeedImageCell *cell=[tableView dequeueReusableCellWithIdentifier:[NewFeedImageCell reuseIdentifier]];
+    HomeImageCell *cell=[tableView dequeueReusableCellWithIdentifier:[HomeImageCell reuseIdentifier]];
     
     [cell loadImage:_images[indexPath.row]];
     

@@ -21,15 +21,15 @@ enum NEW_FEED_LIST_DISPLAY_MODE {
     NEW_FEED_LIST_DISPLAY_USED = 1,
     };
 
-@class NewFeedListCell;
+@class HomeListCell;
 
-@protocol NewFeedListDelegate <NSObject>
+@protocol homeListDelegate <NSObject>
 
--(void) newFeedListTouched:(NewFeedListCell*) cell;
+-(void) homeListTouched:(HomeListCell*) cell;
 
 @end
 
-@interface NewFeedListCell : UITableViewCell<UITableViewDataSource,UITableViewDelegate>
+@interface HomeListCell : UITableViewCell<UITableViewDataSource,UITableViewDelegate>
 {
     __weak IBOutlet UITableView *tablePlace;
     __weak IBOutlet UITableView *tableSlide;
@@ -52,6 +52,6 @@ enum NEW_FEED_LIST_DISPLAY_MODE {
 +(float) heightWithHome:(UserHome*) home;
 +(NSString *)reuseIdentifier;
 
-@property (nonatomic, weak) id<NewFeedListDelegate> delegate;
+@property (nonatomic, weak) id<homeListDelegate> delegate;
 
 @end

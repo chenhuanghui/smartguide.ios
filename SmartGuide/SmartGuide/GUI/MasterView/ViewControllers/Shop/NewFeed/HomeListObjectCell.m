@@ -6,11 +6,11 @@
 //  Copyright (c) 2013 Redbase. All rights reserved.
 //
 
-#import "NewFeedListObjectCell.h"
+#import "HomeListObjectCell.h"
 #import "Utility.h"
 #import "ImageManager.h"
 
-@implementation NewFeedListObjectCell
+@implementation HomeListObjectCell
 
 -(void)setImage:(NSString *)url title:(NSString *)title numOfShop:(NSString *)numOfShop content:(NSString *)content
 {
@@ -22,7 +22,7 @@
 
 +(NSString *)reuseIdentifier
 {
-    return @"NewFeedListObjectCell";
+    return @"HomeListObjectCell";
 }
 
 -(void)awakeFromNib

@@ -26,12 +26,12 @@
 #import "SGTutorialViewController.h"
 #import "SGUserSettingViewController.h"
 #import "StoreViewController.h"
-#import "NewFeedViewController.h"
+#import "HomeViewController.h"
 #import "SearchViewController.h"
 
 @class ContentViewController;
 
-@interface GUIManager : NSObject<ToolbarDelegate,UINavigationControllerDelegate,SGSettingDelegate,SGQRCodeControllerDelegate,UIGestureRecognizerDelegate,AuthorizationDelegate,WelcomeControllerDelegate,SGLoadingScreenDelegate,SGViewControllerDelegate,ShopUserDelegate,SGUserSettingControllerDelegate,NotificationControllerDelegate,UserControllerDelegate,StoreControllerDelegate,NewFeedControllerDelegate>
+@interface GUIManager : NSObject<ToolbarDelegate,UINavigationControllerDelegate,SGSettingDelegate,SGQRCodeControllerDelegate,UIGestureRecognizerDelegate,AuthorizationDelegate,WelcomeControllerDelegate,SGLoadingScreenDelegate,SGViewControllerDelegate,ShopUserDelegate,SGUserSettingControllerDelegate,NotificationControllerDelegate,UserControllerDelegate,StoreControllerDelegate,HomeControllerDelegate>
 {
     void(^_onLoginedCompleted)(bool isLogined);
     CGRect _qrCodeBeforeShowFrame;

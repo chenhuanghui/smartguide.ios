@@ -6,14 +6,14 @@
 //  Copyright (c) 2013 Redbase. All rights reserved.
 //
 
-#import "NewFeedListCell.h"
-#import "NewFeedListObjectCell.h"
-#import "NewFeedListImageCell.h"
+#import "HomeListCell.h"
+#import "HomeListObjectCell.h"
+#import "HomeListImageCell.h"
 #import "Placelist.h"
 #import "Utility.h"
 #import "UserHome.h"
 
-@implementation NewFeedListCell
+@implementation HomeListCell
 @synthesize delegate;
 
 -(void) config
@@ -86,15 +86,15 @@
 
 +(NSString *)reuseIdentifier
 {
-    return @"NewFeedListCell";
+    return @"HomeListCell";
 }
 
 -(void)awakeFromNib
 {
     [super awakeFromNib];
     
-    [tablePlace registerNib:[UINib nibWithNibName:[NewFeedListObjectCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[NewFeedListObjectCell reuseIdentifier]];
-    [tableSlide registerNib:[UINib nibWithNibName:[NewFeedListImageCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[NewFeedListImageCell reuseIdentifier]];
+    [tablePlace registerNib:[UINib nibWithNibName:[HomeListObjectCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[HomeListObjectCell reuseIdentifier]];
+    [tableSlide registerNib:[UINib nibWithNibName:[HomeListImageCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[HomeListImageCell reuseIdentifier]];
     
     CGRect rect=tablePlace.frame;
     tablePlace.transform=CGAffineTransformMakeRotation(DEGREES_TO_RADIANS(45)*6);
@@ -110,7 +110,7 @@
 
 -(IBAction) btnNextTouchUpInside:(id)sender
 {
-    [self.delegate newFeedListTouched:self];
+    [self.delegate homeListTouched:self];
     return;
     NSIndexPath *indexPath=[tablePlace indexPathForRowAtPoint:CGPointMake(self.l_v_h/2, tablePlace.l_co_y+self.l_v_w/2)];
     
@@ -165,7 +165,7 @@
 {
     if(tableView==tablePlace)
     {
-        NewFeedListObjectCell *cell=[tableView dequeueReusableCellWithIdentifier:[NewFeedListObjectCell reuseIdentifier]];
+        HomeListObjectCell *cell=[tableView dequeueReusableCellWithIdentifier:[HomeListObjectCell reuseIdentifier]];
         
         switch (_dataMode) {
             case NEW_FEED_LIST_DATA_HOME3:
@@ -195,7 +195,7 @@
     }
     else if(tableView==tableSlide)
     {
-        NewFeedListImageCell *cell=[tableView dequeueReusableCellWithIdentifier:[NewFeedListImageCell reuseIdentifier]];
+        HomeListImageCell *cell=[tableView dequeueReusableCellWithIdentifier:[HomeListImageCell reuseIdentifier]];
         UserHomeImage *img=_images[indexPath.row];
         
         [cell loadImageWithURL:img.image];

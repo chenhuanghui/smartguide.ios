@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface NewFeedImagesCell : UITableViewCell<UITableViewDataSource,UITableViewDelegate>
+@interface HomeImagesCell : UITableViewCell<UITableViewDataSource,UITableViewDelegate>
 {
     NSMutableArray *_images;
     __weak IBOutlet UITableView *table;

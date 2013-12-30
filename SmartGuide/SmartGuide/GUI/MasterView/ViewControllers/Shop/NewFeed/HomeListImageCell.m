@@ -1,25 +1,25 @@
 //
-//  NewFeedImageCell.m
+//  NewFeedListImageCell.m
 //  SmartGuide
 //
-//  Created by MacMini on 25/12/2013.
+//  Created by MacMini on 27/12/2013.
 //  Copyright (c) 2013 Redbase. All rights reserved.
 //
 
-#import "NewFeedImageCell.h"
-#import "Utility.h"
+#import "HomeListImageCell.h"
 #import "ImageManager.h"
+#import "Utility.h"
 
-@implementation NewFeedImageCell
+@implementation HomeListImageCell
 
--(void)loadImage:(NSString *)url
+-(void)loadImageWithURL:(NSString *)url
 {
     [imgv loadImageHomeListWithURL:url];
 }
 
 +(NSString *)reuseIdentifier
 {
-    return @"NewFeedImageCell";
+    return @"HomeListImageCell";
 }
 
 -(void)awakeFromNib

@@ -11,13 +11,13 @@
 #import "UserHome7.h"
 #import "LabelTopText.h"
 
-@protocol NewFeedInfoCellDelegate <NSObject>
+@protocol homeInfoCellDelegate <NSObject>
 
--(void) newFeedInfoCellTouchedGoTo:(id) home;
+-(void) homeInfoCellTouchedGoTo:(id) home;
 
 @end
 
-@interface NewFeedInfoCell : UITableViewCell
+@interface HomeInfoCell : UITableViewCell
 {
     __weak IBOutlet UIImageView *imgvLogo;
     __weak IBOutlet UILabel *lblName;
@@ -38,7 +38,7 @@
 +(float) heightWithHome7:(UserHome7*) home;
 +(NSString *)reuseIdentifier;
 
-@property (nonatomic, weak) id<NewFeedInfoCellDelegate> delegate;
+@property (nonatomic, weak) id<homeInfoCellDelegate> delegate;
 
 @end
 

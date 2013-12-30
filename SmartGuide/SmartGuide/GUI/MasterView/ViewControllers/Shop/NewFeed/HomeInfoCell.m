@@ -6,10 +6,10 @@
 //  Copyright (c) 2013 Redbase. All rights reserved.
 //
 
-#import "NewFeedInfoCell.h"
+#import "HomeInfoCell.h"
 #import "ImageManager.h"
 
-@implementation NewFeedInfoCell
+@implementation HomeInfoCell
 @synthesize delegate;
 
 -(void)loadWithHome6:(UserHome6 *)home
@@ -66,11 +66,11 @@
 
 +(NSString *)reuseIdentifier
 {
-    return @"NewFeedInfoCell";
+    return @"HomeInfoCell";
 }
 
 - (IBAction)btnGoToTouchUpInside:(id)sender {
-    [self.delegate newFeedInfoCellTouchedGoTo:_home6?_home6:_home7];
+    [self.delegate homeInfoCellTouchedGoTo:_home6?_home6:_home7];
 }
 
 @end

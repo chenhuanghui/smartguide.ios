@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface NewFeedListObjectCell : UITableViewCell
+@interface HomeListObjectCell : UITableViewCell
 {
     __weak IBOutlet UIImageView *imgv;
     __weak IBOutlet UILabel *lblContent;

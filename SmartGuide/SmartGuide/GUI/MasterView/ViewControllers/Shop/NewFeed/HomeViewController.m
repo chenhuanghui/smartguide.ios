@@ -6,22 +6,22 @@
 //  Copyright (c) 2013 Redbase. All rights reserved.
 //
 
-#import "NewFeedViewController.h"
+#import "HomeViewController.h"
 #import "GUIManager.h"
 #import "StoreShopInfoViewController.h"
 
 #define NEW_FEED_DELTA_SPEED 2.1f
 
-@interface NewFeedViewController ()<NewFeedListDelegate,NewFeedInfoCellDelegate>
+@interface HomeViewController ()<homeListDelegate,homeInfoCellDelegate>
 
 @end
 
-@implementation NewFeedViewController
+@implementation HomeViewController
 @synthesize delegate;
 
 - (id)init
 {
-    self = [super initWithNibName:@"NewFeedViewController" bundle:nil];
+    self = [super initWithNibName:@"HomeViewController" bundle:nil];
     if (self) {
         // Custom initialization
     }
@@ -39,6 +39,9 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
+    [UserHome markDeleteAllObjects];
+    [[DataManager shareInstance] save];
+    
     [tableFeed l_v_addH:QRCODE_SMALL_HEIGHT*NEW_FEED_DELTA_SPEED];
     
     [self storeRect];
@@ -47,18 +50,15 @@
     txt.leftView.backgroundColor=[UIColor clearColor];
     txt.leftViewMode=UITextFieldViewModeAlways;
     
-    [tableFeed registerNib:[UINib nibWithNibName:[NewFeedPromotionCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[NewFeedPromotionCell reuseIdentifier]];
-    [tableFeed registerNib:[UINib nibWithNibName:[NewFeedImagesCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[NewFeedImagesCell reuseIdentifier]];
-    [tableFeed registerNib:[UINib nibWithNibName:[NewFeedListCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[NewFeedListCell reuseIdentifier]];
-    [tableFeed registerNib:[UINib nibWithNibName:[NewFeedInfoCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[NewFeedInfoCell reuseIdentifier]];
+    [tableFeed registerNib:[UINib nibWithNibName:[HomePromotionCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[HomePromotionCell reuseIdentifier]];
+    [tableFeed registerNib:[UINib nibWithNibName:[HomeImagesCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[HomeImagesCell reuseIdentifier]];
+    [tableFeed registerNib:[UINib nibWithNibName:[HomeListCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[HomeListCell reuseIdentifier]];
+    [tableFeed registerNib:[UINib nibWithNibName:[HomeInfoCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[HomeInfoCell reuseIdentifier]];
     
     _page=-1;
     _homes=[NSMutableArray array];
     _isLoadingMore=false;
     _canLoadMore=true;
-    
-    [UserHome markDeleteAllObjects];
-    [[DataManager shareInstance] save];
     
     [self requestNewFeed];
     displayLoadingView.userInteractionEnabled=true;
@@ -181,14 +181,14 @@
 
 -(BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {
-    [self.delegate newFeedControllerTouchedTextField:self];
+    [self.delegate homeControllerTouchedTextField:self];
     
     return false;
 }
 
 -(IBAction) btnNavigationTouchedUpInside:(id)sender
 {
-    [self.delegate newFeedControllerTouchedNavigation:self];
+    [self.delegate homeControllerTouchedNavigation:self];
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -218,24 +218,24 @@
         UserHome *home=_homes[indexPath.row];
         switch (home.enumType) {
             case USER_HOME_TYPE_1:
-                return [NewFeedPromotionCell heightWithHome1:home.home1];
+                return [HomePromotionCell heightWithHome1:home.home1];
                 
             case USER_HOME_TYPE_2:
-                return [NewFeedImagesCell height];
+                return [HomeImagesCell height];
                 
             case USER_HOME_TYPE_3:
             case USER_HOME_TYPE_4:
             case USER_HOME_TYPE_5:
-                return [NewFeedListCell heightWithHome:home];
+                return [HomeListCell heightWithHome:home];
                 
             case USER_HOME_TYPE_6:
-                return [NewFeedInfoCell heightWithHome6:home.home6];
+                return [HomeInfoCell heightWithHome6:home.home6];
                 
             case USER_HOME_TYPE_7:
-                return [NewFeedInfoCell heightWithHome7:home.home7];
+                return [HomeInfoCell heightWithHome7:home.home7];
                 
             case USER_HOME_TYPE_8:
-                return [NewFeedPromotionCell heightWithHome8:home.home8];
+                return [HomePromotionCell heightWithHome8:home.home8];
                 
             case USER_HOME_TYPE_UNKNOW:
                 return 0;
@@ -253,9 +253,9 @@
 {
     if(tableView==tableFeed)
     {
-        if([cell isKindOfClass:[NewFeedPromotionCell class]])
+        if([cell isKindOfClass:[HomePromotionCell class]])
         {
-            [((NewFeedPromotionCell*)cell) alignContent];
+            [((HomePromotionCell*)cell) alignContent];
         }
     }
 }
@@ -281,7 +281,7 @@
         switch (home.enumType) {
             case USER_HOME_TYPE_1:
             {
-                NewFeedPromotionCell *cell=[tableView dequeueReusableCellWithIdentifier:[NewFeedPromotionCell reuseIdentifier]];
+                HomePromotionCell *cell=[tableView dequeueReusableCellWithIdentifier:[HomePromotionCell reuseIdentifier]];
                 
                 [cell loadWithHome1:home.home1];
                 
@@ -290,7 +290,7 @@
                 
             case USER_HOME_TYPE_2:
             {
-                NewFeedImagesCell *cell=[tableView dequeueReusableCellWithIdentifier:[NewFeedImagesCell reuseIdentifier]];
+                HomeImagesCell *cell=[tableView dequeueReusableCellWithIdentifier:[HomeImagesCell reuseIdentifier]];
                 
                 [cell loadWithImages:[home.home2Objects valueForKeyPath:UserHome2_Image]];
                 
@@ -299,7 +299,7 @@
                 
             case USER_HOME_TYPE_3:
             {
-                NewFeedListCell *cell=[tableView dequeueReusableCellWithIdentifier:[NewFeedListCell reuseIdentifier]];
+                HomeListCell *cell=[tableView dequeueReusableCellWithIdentifier:[HomeListCell reuseIdentifier]];
                 cell.delegate=self;
                 
                 [cell loadWithHome3:home];
@@ -308,7 +308,7 @@
             }
             case USER_HOME_TYPE_4:
             {
-                NewFeedListCell *cell=[tableView dequeueReusableCellWithIdentifier:[NewFeedListCell reuseIdentifier]];
+                HomeListCell *cell=[tableView dequeueReusableCellWithIdentifier:[HomeListCell reuseIdentifier]];
                 cell.delegate=self;
                 
                 [cell loadWithHome4:home];
@@ -317,7 +317,7 @@
             }
             case USER_HOME_TYPE_5:
             {
-                NewFeedListCell *cell=[tableView dequeueReusableCellWithIdentifier:[NewFeedListCell reuseIdentifier]];
+                HomeListCell *cell=[tableView dequeueReusableCellWithIdentifier:[HomeListCell reuseIdentifier]];
                 cell.delegate=self;
                 
                 [cell loadWithHome5:home];
@@ -327,7 +327,7 @@
                 
             case USER_HOME_TYPE_6:
             {
-                NewFeedInfoCell *cell=[tableView dequeueReusableCellWithIdentifier:[NewFeedInfoCell reuseIdentifier]];
+                HomeInfoCell *cell=[tableView dequeueReusableCellWithIdentifier:[HomeInfoCell reuseIdentifier]];
                 cell.delegate=self;
                 
                 [cell loadWithHome6:home.home6];
@@ -337,7 +337,7 @@
                 
             case USER_HOME_TYPE_7:
             {
-                NewFeedInfoCell *cell=[tableView dequeueReusableCellWithIdentifier:[NewFeedInfoCell reuseIdentifier]];
+                HomeInfoCell *cell=[tableView dequeueReusableCellWithIdentifier:[HomeInfoCell reuseIdentifier]];
                 
                 [cell loadWithHome7:home.home7];
                 
@@ -346,7 +346,7 @@
                 
             case USER_HOME_TYPE_8:
             {
-                NewFeedPromotionCell *cell=[tableView dequeueReusableCellWithIdentifier:[NewFeedPromotionCell reuseIdentifier]];
+                HomePromotionCell *cell=[tableView dequeueReusableCellWithIdentifier:[HomePromotionCell reuseIdentifier]];
                 
                 [cell loadWithHome8:home.home8];
                 
@@ -381,7 +381,7 @@
                     return;
                 }
                 
-                [self.delegate newFeedControllerTouchedHome1:self home1:home.home1];
+                [self.delegate homeControllerTouchedHome1:self home1:home.home1];
             }
                 break;
                 
@@ -439,13 +439,13 @@
     }
 }
 
--(void)newFeedListTouched:(NewFeedListCell *)cell
+-(void)homeListTouched:(HomeListCell *)cell
 {
     if(cell.currentHome)
     {
         if([cell.currentHome isKindOfClass:[UserHome3 class]])
         {
-            [self.delegate newFeedControllerTouchedPlacelist:self home3:cell.currentHome];
+            [self.delegate homeControllerTouchedPlacelist:self home3:cell.currentHome];
         }
         else if([cell.currentHome isKindOfClass:[UserHome4 class]])
         {
@@ -465,7 +465,7 @@
     }
 }
 
--(void)newFeedInfoCellTouchedGoTo:(id)home
+-(void)homeInfoCellTouchedGoTo:(id)home
 {
     if([home isKindOfClass:[UserHome6 class]])
     {
@@ -501,7 +501,7 @@
         
         UITableViewCell *cell=[tableFeed cellForRowAtIndexPath:ip];
         
-        if([cell isKindOfClass:[NewFeedListCell class]])
+        if([cell isKindOfClass:[HomeListCell class]])
         {
             [array addObject:ip];
         }

@@ -1,5 +1,5 @@
 //
-//  DDAnnotation.m
+//  DDAnnotationView.h
 //  MapKitDragAndDrop 3.2 (Released under MIT License)
 //
 //  Created by digdog on 7/24/09.
@@ -12,10 +12,10 @@
 //  distribute, sublicense, and/or sell copies of the Software, and to
 //  permit persons to whom the Software is furnished to do so, subject to
 //  the following conditions:
-//   
+//
 //  The above copyright notice and this permission notice shall be
 //  included in all copies or substantial portions of the Software.
-//   
+//
 //  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
 //  EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
 //  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
@@ -25,27 +25,19 @@
 //  WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 
-#import "DDAnnotation.h"
+#import <MapKit/MapKit.h>
 
-@implementation DDAnnotation
+@interface DDAnnotationView : MKAnnotationView {
+	__weak MKMapView *mapView_;
 
-@synthesize coordinate = coordinate_;
-@synthesize title = title_;
-@synthesize subtitle = subtitle_;
-
-- (id)initWithCoordinate:(CLLocationCoordinate2D)coordinate addressDictionary:(NSDictionary *)addressDictionary {
-	
-	if ((self = [super initWithCoordinate:coordinate addressDictionary:addressDictionary])) {
-		self.coordinate = coordinate;
-	}
-	return self;
+	BOOL isMoving_;
+	CGPoint startLocation_;
+	CGPoint originalCenter_;
+	__weak UIImageView *pinShadow_;
+	__weak NSTimer *pinTimer_;
 }
 
-- (void)dealloc {
-    [title_ release];
-    [subtitle_ release];
-    
-    [super dealloc];
-}
+// Please use this class method to create DDAnnotationView (on iOS 3) or built-in draggble MKPinAnnotationView (on iOS 4).
++ (id)annotationViewWithAnnotation:(id <MKAnnotation>)annotation reuseIdentifier:(NSString *)reuseIdentifier mapView:(MKMapView *)mapView;
 
 @end

@@ -144,7 +144,7 @@ static GUIManager *_shareInstance=nil;
 
 -(void) loadContentNavigation
 {
-    NewFeedViewController *vc=[[NewFeedViewController alloc] init];
+    HomeViewController *vc=[[HomeViewController alloc] init];
     vc.delegate=self;
     
     SGNavigationController *navi=[[SGNavigationController alloc] initWithRootViewController:vc];
@@ -525,12 +525,12 @@ static GUIManager *_shareInstance=nil;
     [self showLeftController];
 }
 
--(void)newFeedControllerTouchedNavigation:(NewFeedViewController *)controller
+-(void)homeControllerTouchedNavigation:(HomeViewController *)controller
 {
     [self showLeftController];
 }
 
--(void)newFeedControllerTouchedHome1:(NewFeedViewController *)contorller home1:(UserHome1 *)home1
+-(void)homeControllerTouchedHome1:(HomeViewController *)contorller home1:(UserHome1 *)home1
 {
     SearchViewController *vc=[[SearchViewController alloc] initWithIDShops:home1.shopList];
     vc.delegate=self;
@@ -538,7 +538,7 @@ static GUIManager *_shareInstance=nil;
     [contentNavigation pushViewController:vc animated:true];
 }
 
--(void)newFeedControllerTouchedTextField:(NewFeedViewController *)controller
+-(void)homeControllerTouchedTextField:(HomeViewController *)controller
 {
     SearchViewController *vc=[[SearchViewController alloc] initWithSearch];
     vc.delegate=self;
@@ -546,7 +546,7 @@ static GUIManager *_shareInstance=nil;
     [contentNavigation pushViewController:vc animated:true];
 }
 
--(void)newFeedControllerTouchedPlacelist:(NewFeedViewController *)controller home3:(UserHome3 *)home3
+-(void)homeControllerTouchedPlacelist:(HomeViewController *)controller home3:(UserHome3 *)home3
 {
     SearchViewController *vc=[[SearchViewController alloc] initWithUserHome3:home3];
     vc.delegate=self;

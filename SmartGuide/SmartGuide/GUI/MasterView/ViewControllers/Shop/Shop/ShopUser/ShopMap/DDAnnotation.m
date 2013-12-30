@@ -1,5 +1,5 @@
 //
-//  DDAnnotation.h
+//  DDAnnotation.m
 //  MapKitDragAndDrop 3.2 (Released under MIT License)
 //
 //  Created by digdog on 7/24/09.
@@ -25,18 +25,20 @@
 //  WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 
-#import <MapKit/MapKit.h>
+#import "DDAnnotation.h"
 
-@interface DDAnnotation : MKPlacemark {
-	CLLocationCoordinate2D coordinate_;
-	NSString *title_;
-	NSString *subtitle_;
+@implementation DDAnnotation
+
+@synthesize coordinate = coordinate_;
+@synthesize title = title_;
+@synthesize subtitle = subtitle_;
+
+- (id)initWithCoordinate:(CLLocationCoordinate2D)coordinate addressDictionary:(NSDictionary *)addressDictionary {
+	
+	if ((self = [super initWithCoordinate:coordinate addressDictionary:addressDictionary])) {
+		self.coordinate = coordinate;
+	}
+	return self;
 }
-
-// Re-declare MKAnnotation's readonly property 'coordinate' to readwrite. 
-@property (nonatomic, readwrite, assign) CLLocationCoordinate2D coordinate;
-
-@property (nonatomic, retain) NSString *title;
-@property (nonatomic, retain) NSString *subtitle;
 
 @end
