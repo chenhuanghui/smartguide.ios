@@ -48,7 +48,7 @@
 
 -(StoreViewController*) initWithStore:(StoreShop*) store;
 
--(void) showShop:(StoreShop*) shop;
+-(void) showShop:(StoreShop*) shop animate:(bool) animate;
 -(void) showItem:(StoreShopItem*) item;
 -(void) buyItem:(StoreShopItem*) item;
 -(void) enableTouch;

@@ -448,7 +448,7 @@
     store=storeCell.store;
     
     if(store)
-        [self.storeController showShop:store];
+        [self.storeController showShop:store animate:true];
 }
 
 - (IBAction)btnLatestTouchUpInside:(id)sender

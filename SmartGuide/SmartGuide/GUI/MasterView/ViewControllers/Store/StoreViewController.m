@@ -58,15 +58,14 @@
     
     SGNavigationController *navi=[[SGNavigationController alloc] initWithRootViewController:vc];
     
-    if(_store)
-    {
-        StoreShopInfoViewController *storeInfo=[[StoreShopInfoViewController alloc] initWithStore:_store];
-        [navi pushViewController:storeInfo animated:false];
-    }
-    
     [self addChildViewController:navi];
     
     storeNavigation=navi;
+    
+    if(_store)
+    {
+        [self showShop:_store animate:false];
+    }
     
     [contentView addSubview:storeNavigation.view];
     [storeNavigation.view l_v_setS:contentView.l_v_s];
@@ -108,8 +107,8 @@
     {
         [[self visibleController] handleBackCallbackCompleted:^{
             [UIView animateWithDuration:0.1f animations:^{
-//                rayView.frame=_rayViewFrame;
-//                bgView.frame=_bgViewFrame;
+                //                rayView.frame=_rayViewFrame;
+                //                bgView.frame=_bgViewFrame;
             } completion:^(BOOL finished) {
                 [storeNavigation popViewControllerAnimated:true];
                 
@@ -130,8 +129,8 @@
     }
     
     [UIView animateWithDuration:0.1f animations:^{
-//        rayView.frame=_rayViewFrame;
-//        bgView.frame=_bgViewFrame;
+        //        rayView.frame=_rayViewFrame;
+        //        bgView.frame=_bgViewFrame;
     } completion:^(BOOL finished) {
         [storeNavigation popToRootViewControllerAnimated:true];
         
@@ -180,22 +179,32 @@
     [storeNavigation pushViewController:vc animated:true];
 }
 
--(void)showShop:(StoreShop *)shop
+-(void)showShop:(StoreShop *)shop animate:(bool) animate
 {
     StoreShopInfoViewController *vc=[[StoreShopInfoViewController alloc] initWithStore:shop];
     vc.storeController=self;
     
-    [storeNavigation pushViewController:vc animated:true];
+    [storeNavigation pushViewController:vc animated:animate];
     
-    btnBack.alpha=0;
-    btnBack.hidden=false;
-    
-    [UIView animateWithDuration:0.1f animations:^{
-        btnBack.alpha=1;
+    if(animate)
+    {
+        btnBack.alpha=0;
+        btnBack.hidden=false;
+        
+        [UIView animateWithDuration:0.1f animations:^{
+            btnBack.alpha=1;
+            btnSetting.alpha=0;
+        } completion:^(BOOL finished) {
+            btnSetting.hidden=false;
+        }];
+    }
+    else
+    {
         btnSetting.alpha=0;
-    } completion:^(BOOL finished) {
-        btnSetting.hidden=false;
-    }];
+        btnSetting.hidden=true;
+        btnBack.alpha=1;
+        btnBack.hidden=false;
+    }
 }
 
 -(void)showItem:(StoreShopItem *)item
@@ -215,7 +224,7 @@
 -(IBAction) btnLatestTouchUpInside:(id)sender
 {
     sortType=SORT_STORE_SHOP_LIST_LATEST;
-//    [[self visibleController] storeControllerButtonLatestTouched:sender];
+    //    [[self visibleController] storeControllerButtonLatestTouched:sender];
 }
 
 -(SGViewController<StoreControllerHandle>*) visibleController
@@ -226,7 +235,7 @@
 -(IBAction) btnTopSellersTouchUpInside:(id)sender
 {
     sortType=SORT_STORE_SHOP_LIST_TOP_SELLER;
-//    [[self visibleController] storeControllerButtonTopSellersTouched:sender];
+    //    [[self visibleController] storeControllerButtonTopSellersTouched:sender];
 }
 
 -(void)enableTouch
