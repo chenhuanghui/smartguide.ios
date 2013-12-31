@@ -518,22 +518,22 @@
 		9AC97A01186C273B00E5432D /* pic_tutorial@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AC979ED186C273B00E5432D /* pic_tutorial@2x.png */; };
 		9ACA42F5186D3BF3008D89BC /* _UserHome8.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ACA42F4186D3BF3008D89BC /* _UserHome8.m */; };
 		9ACA42F8186D3BFB008D89BC /* UserHome8.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ACA42F7186D3BFB008D89BC /* UserHome8.m */; };
-		9ACAECF518726F930025B027 /* HomeImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ACAECDE18726F930025B027 /* HomeImageCell.m */; };
-		9ACAECF618726F930025B027 /* HomeImageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9ACAECDF18726F930025B027 /* HomeImageCell.xib */; };
-		9ACAECF718726F930025B027 /* HomeImagesCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ACAECE118726F930025B027 /* HomeImagesCell.m */; };
-		9ACAECF818726F930025B027 /* HomeImagesCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9ACAECE218726F930025B027 /* HomeImagesCell.xib */; };
-		9ACAECF918726F930025B027 /* HomeInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ACAECE418726F930025B027 /* HomeInfoCell.m */; };
-		9ACAECFA18726F930025B027 /* HomeInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9ACAECE518726F930025B027 /* HomeInfoCell.xib */; };
-		9ACAECFB18726F930025B027 /* HomeListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ACAECE718726F930025B027 /* HomeListCell.m */; };
-		9ACAECFC18726F930025B027 /* HomeListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9ACAECE818726F930025B027 /* HomeListCell.xib */; };
-		9ACAECFD18726F930025B027 /* HomeListImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ACAECEA18726F930025B027 /* HomeListImageCell.m */; };
-		9ACAECFE18726F930025B027 /* HomeListImageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9ACAECEB18726F930025B027 /* HomeListImageCell.xib */; };
-		9ACAECFF18726F930025B027 /* HomeListObjectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ACAECED18726F930025B027 /* HomeListObjectCell.m */; };
-		9ACAED0018726F930025B027 /* HomeListObjectCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9ACAECEE18726F930025B027 /* HomeListObjectCell.xib */; };
-		9ACAED0118726F930025B027 /* HomePromotionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ACAECF018726F930025B027 /* HomePromotionCell.m */; };
-		9ACAED0218726F930025B027 /* HomePromotionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9ACAECF118726F930025B027 /* HomePromotionCell.xib */; };
-		9ACAED0318726F930025B027 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ACAECF318726F930025B027 /* HomeViewController.m */; };
-		9ACAED0418726F930025B027 /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9ACAECF418726F930025B027 /* HomeViewController.xib */; };
+		9ACAED1E187270D10025B027 /* HomeImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ACAED07187270D10025B027 /* HomeImageCell.m */; };
+		9ACAED1F187270D10025B027 /* HomeImageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9ACAED08187270D10025B027 /* HomeImageCell.xib */; };
+		9ACAED20187270D10025B027 /* HomeImagesCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ACAED0A187270D10025B027 /* HomeImagesCell.m */; };
+		9ACAED21187270D10025B027 /* HomeImagesCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9ACAED0B187270D10025B027 /* HomeImagesCell.xib */; };
+		9ACAED22187270D10025B027 /* HomeInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ACAED0D187270D10025B027 /* HomeInfoCell.m */; };
+		9ACAED23187270D10025B027 /* HomeInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9ACAED0E187270D10025B027 /* HomeInfoCell.xib */; };
+		9ACAED24187270D10025B027 /* HomeListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ACAED10187270D10025B027 /* HomeListCell.m */; };
+		9ACAED25187270D10025B027 /* HomeListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9ACAED11187270D10025B027 /* HomeListCell.xib */; };
+		9ACAED26187270D10025B027 /* HomeListImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ACAED13187270D10025B027 /* HomeListImageCell.m */; };
+		9ACAED27187270D10025B027 /* HomeListImageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9ACAED14187270D10025B027 /* HomeListImageCell.xib */; };
+		9ACAED28187270D10025B027 /* HomeListObjectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ACAED16187270D10025B027 /* HomeListObjectCell.m */; };
+		9ACAED29187270D10025B027 /* HomeListObjectCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9ACAED17187270D10025B027 /* HomeListObjectCell.xib */; };
+		9ACAED2A187270D10025B027 /* HomePromotionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ACAED19187270D10025B027 /* HomePromotionCell.m */; };
+		9ACAED2B187270D10025B027 /* HomePromotionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9ACAED1A187270D10025B027 /* HomePromotionCell.xib */; };
+		9ACAED2C187270D10025B027 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ACAED1C187270D10025B027 /* HomeViewController.m */; };
+		9ACAED2D187270D10025B027 /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9ACAED1D187270D10025B027 /* HomeViewController.xib */; };
 		9ACBA9BC185D7745000B3D6B /* ASIOperationStoreAllStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ACBA9BB185D7745000B3D6B /* ASIOperationStoreAllStore.m */; };
 		9ACBE8CF185A0A180004474F /* ButtonLove.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ACBE8CD185A0A180004474F /* ButtonLove.m */; };
 		9ACBE8D0185A0A180004474F /* ButtonLove.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9ACBE8CE185A0A180004474F /* ButtonLove.xib */; };
@@ -1383,30 +1383,30 @@
 		9ACA42F4186D3BF3008D89BC /* _UserHome8.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _UserHome8.m; sourceTree = "<group>"; };
 		9ACA42F6186D3BFB008D89BC /* UserHome8.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserHome8.h; sourceTree = "<group>"; };
 		9ACA42F7186D3BFB008D89BC /* UserHome8.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserHome8.m; sourceTree = "<group>"; };
-		9ACAECDD18726F930025B027 /* HomeImageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeImageCell.h; sourceTree = "<group>"; };
-		9ACAECDE18726F930025B027 /* HomeImageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeImageCell.m; sourceTree = "<group>"; };
-		9ACAECDF18726F930025B027 /* HomeImageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeImageCell.xib; sourceTree = "<group>"; };
-		9ACAECE018726F930025B027 /* HomeImagesCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeImagesCell.h; sourceTree = "<group>"; };
-		9ACAECE118726F930025B027 /* HomeImagesCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeImagesCell.m; sourceTree = "<group>"; };
-		9ACAECE218726F930025B027 /* HomeImagesCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeImagesCell.xib; sourceTree = "<group>"; };
-		9ACAECE318726F930025B027 /* HomeInfoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeInfoCell.h; sourceTree = "<group>"; };
-		9ACAECE418726F930025B027 /* HomeInfoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeInfoCell.m; sourceTree = "<group>"; };
-		9ACAECE518726F930025B027 /* HomeInfoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeInfoCell.xib; sourceTree = "<group>"; };
-		9ACAECE618726F930025B027 /* HomeListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeListCell.h; sourceTree = "<group>"; };
-		9ACAECE718726F930025B027 /* HomeListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeListCell.m; sourceTree = "<group>"; };
-		9ACAECE818726F930025B027 /* HomeListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeListCell.xib; sourceTree = "<group>"; };
-		9ACAECE918726F930025B027 /* HomeListImageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeListImageCell.h; sourceTree = "<group>"; };
-		9ACAECEA18726F930025B027 /* HomeListImageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeListImageCell.m; sourceTree = "<group>"; };
-		9ACAECEB18726F930025B027 /* HomeListImageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeListImageCell.xib; sourceTree = "<group>"; };
-		9ACAECEC18726F930025B027 /* HomeListObjectCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeListObjectCell.h; sourceTree = "<group>"; };
-		9ACAECED18726F930025B027 /* HomeListObjectCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeListObjectCell.m; sourceTree = "<group>"; };
-		9ACAECEE18726F930025B027 /* HomeListObjectCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeListObjectCell.xib; sourceTree = "<group>"; };
-		9ACAECEF18726F930025B027 /* HomePromotionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomePromotionCell.h; sourceTree = "<group>"; };
-		9ACAECF018726F930025B027 /* HomePromotionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomePromotionCell.m; sourceTree = "<group>"; };
-		9ACAECF118726F930025B027 /* HomePromotionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomePromotionCell.xib; sourceTree = "<group>"; };
-		9ACAECF218726F930025B027 /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
-		9ACAECF318726F930025B027 /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
-		9ACAECF418726F930025B027 /* HomeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeViewController.xib; sourceTree = "<group>"; };
+		9ACAED06187270D10025B027 /* HomeImageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeImageCell.h; sourceTree = "<group>"; };
+		9ACAED07187270D10025B027 /* HomeImageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeImageCell.m; sourceTree = "<group>"; };
+		9ACAED08187270D10025B027 /* HomeImageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeImageCell.xib; sourceTree = "<group>"; };
+		9ACAED09187270D10025B027 /* HomeImagesCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeImagesCell.h; sourceTree = "<group>"; };
+		9ACAED0A187270D10025B027 /* HomeImagesCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeImagesCell.m; sourceTree = "<group>"; };
+		9ACAED0B187270D10025B027 /* HomeImagesCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeImagesCell.xib; sourceTree = "<group>"; };
+		9ACAED0C187270D10025B027 /* HomeInfoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeInfoCell.h; sourceTree = "<group>"; };
+		9ACAED0D187270D10025B027 /* HomeInfoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeInfoCell.m; sourceTree = "<group>"; };
+		9ACAED0E187270D10025B027 /* HomeInfoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeInfoCell.xib; sourceTree = "<group>"; };
+		9ACAED0F187270D10025B027 /* HomeListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeListCell.h; sourceTree = "<group>"; };
+		9ACAED10187270D10025B027 /* HomeListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeListCell.m; sourceTree = "<group>"; };
+		9ACAED11187270D10025B027 /* HomeListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeListCell.xib; sourceTree = "<group>"; };
+		9ACAED12187270D10025B027 /* HomeListImageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeListImageCell.h; sourceTree = "<group>"; };
+		9ACAED13187270D10025B027 /* HomeListImageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeListImageCell.m; sourceTree = "<group>"; };
+		9ACAED14187270D10025B027 /* HomeListImageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeListImageCell.xib; sourceTree = "<group>"; };
+		9ACAED15187270D10025B027 /* HomeListObjectCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeListObjectCell.h; sourceTree = "<group>"; };
+		9ACAED16187270D10025B027 /* HomeListObjectCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeListObjectCell.m; sourceTree = "<group>"; };
+		9ACAED17187270D10025B027 /* HomeListObjectCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeListObjectCell.xib; sourceTree = "<group>"; };
+		9ACAED18187270D10025B027 /* HomePromotionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomePromotionCell.h; sourceTree = "<group>"; };
+		9ACAED19187270D10025B027 /* HomePromotionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomePromotionCell.m; sourceTree = "<group>"; };
+		9ACAED1A187270D10025B027 /* HomePromotionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomePromotionCell.xib; sourceTree = "<group>"; };
+		9ACAED1B187270D10025B027 /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
+		9ACAED1C187270D10025B027 /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
+		9ACAED1D187270D10025B027 /* HomeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeViewController.xib; sourceTree = "<group>"; };
 		9ACBA9BA185D7745000B3D6B /* ASIOperationStoreAllStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIOperationStoreAllStore.h; sourceTree = "<group>"; };
 		9ACBA9BB185D7745000B3D6B /* ASIOperationStoreAllStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIOperationStoreAllStore.m; sourceTree = "<group>"; };
 		9ACBE8CC185A0A180004474F /* ButtonLove.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ButtonLove.h; sourceTree = "<group>"; };
@@ -1801,7 +1801,6 @@
 		9A0F757A187152DB00160E54 /* Shop */ = {
 			isa = PBXGroup;
 			children = (
-				9ACAECDC18726F930025B027 /* Home */,
 				9A0F7581187152DB00160E54 /* ShopList */,
 				9A0F7591187152DB00160E54 /* ShopUser */,
 				9A0F757B187152DB00160E54 /* SearchShopViewController.h */,
@@ -2033,6 +2032,7 @@
 		9A32F375184345AE00704D26 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				9ACAED05187270D10025B027 /* Home */,
 				9A0F757A187152DB00160E54 /* Shop */,
 				9A9FCB8518544C2C004A3CFB /* Store */,
 				9A32F48018434F2000704D26 /* Setting */,
@@ -2476,33 +2476,33 @@
 			path = PickerValue;
 			sourceTree = "<group>";
 		};
-		9ACAECDC18726F930025B027 /* Home */ = {
+		9ACAED05187270D10025B027 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				9ACAECDD18726F930025B027 /* HomeImageCell.h */,
-				9ACAECDE18726F930025B027 /* HomeImageCell.m */,
-				9ACAECDF18726F930025B027 /* HomeImageCell.xib */,
-				9ACAECE018726F930025B027 /* HomeImagesCell.h */,
-				9ACAECE118726F930025B027 /* HomeImagesCell.m */,
-				9ACAECE218726F930025B027 /* HomeImagesCell.xib */,
-				9ACAECE318726F930025B027 /* HomeInfoCell.h */,
-				9ACAECE418726F930025B027 /* HomeInfoCell.m */,
-				9ACAECE518726F930025B027 /* HomeInfoCell.xib */,
-				9ACAECE618726F930025B027 /* HomeListCell.h */,
-				9ACAECE718726F930025B027 /* HomeListCell.m */,
-				9ACAECE818726F930025B027 /* HomeListCell.xib */,
-				9ACAECE918726F930025B027 /* HomeListImageCell.h */,
-				9ACAECEA18726F930025B027 /* HomeListImageCell.m */,
-				9ACAECEB18726F930025B027 /* HomeListImageCell.xib */,
-				9ACAECEC18726F930025B027 /* HomeListObjectCell.h */,
-				9ACAECED18726F930025B027 /* HomeListObjectCell.m */,
-				9ACAECEE18726F930025B027 /* HomeListObjectCell.xib */,
-				9ACAECEF18726F930025B027 /* HomePromotionCell.h */,
-				9ACAECF018726F930025B027 /* HomePromotionCell.m */,
-				9ACAECF118726F930025B027 /* HomePromotionCell.xib */,
-				9ACAECF218726F930025B027 /* HomeViewController.h */,
-				9ACAECF318726F930025B027 /* HomeViewController.m */,
-				9ACAECF418726F930025B027 /* HomeViewController.xib */,
+				9ACAED06187270D10025B027 /* HomeImageCell.h */,
+				9ACAED07187270D10025B027 /* HomeImageCell.m */,
+				9ACAED08187270D10025B027 /* HomeImageCell.xib */,
+				9ACAED09187270D10025B027 /* HomeImagesCell.h */,
+				9ACAED0A187270D10025B027 /* HomeImagesCell.m */,
+				9ACAED0B187270D10025B027 /* HomeImagesCell.xib */,
+				9ACAED0C187270D10025B027 /* HomeInfoCell.h */,
+				9ACAED0D187270D10025B027 /* HomeInfoCell.m */,
+				9ACAED0E187270D10025B027 /* HomeInfoCell.xib */,
+				9ACAED0F187270D10025B027 /* HomeListCell.h */,
+				9ACAED10187270D10025B027 /* HomeListCell.m */,
+				9ACAED11187270D10025B027 /* HomeListCell.xib */,
+				9ACAED12187270D10025B027 /* HomeListImageCell.h */,
+				9ACAED13187270D10025B027 /* HomeListImageCell.m */,
+				9ACAED14187270D10025B027 /* HomeListImageCell.xib */,
+				9ACAED15187270D10025B027 /* HomeListObjectCell.h */,
+				9ACAED16187270D10025B027 /* HomeListObjectCell.m */,
+				9ACAED17187270D10025B027 /* HomeListObjectCell.xib */,
+				9ACAED18187270D10025B027 /* HomePromotionCell.h */,
+				9ACAED19187270D10025B027 /* HomePromotionCell.m */,
+				9ACAED1A187270D10025B027 /* HomePromotionCell.xib */,
+				9ACAED1B187270D10025B027 /* HomeViewController.h */,
+				9ACAED1C187270D10025B027 /* HomeViewController.m */,
+				9ACAED1D187270D10025B027 /* HomeViewController.xib */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -3561,12 +3561,12 @@
 				9AC5380518684490009A000B /* bg_detail_info_header.png in Resources */,
 				9AA026E6183674CF0087B2DA /* line_vercontent@2x.png in Resources */,
 				9A29392C18447EAE00FD49E2 /* bgsort_left@2x.png in Resources */,
-				9ACAECF818726F930025B027 /* HomeImagesCell.xib in Resources */,
-				9ACAED0218726F930025B027 /* HomePromotionCell.xib in Resources */,
+				9ACAED21187270D10025B027 /* HomeImagesCell.xib in Resources */,
+				9ACAED2B187270D10025B027 /* HomePromotionCell.xib in Resources */,
 				9A7E5577183C84FC006D1798 /* icon_logo.png in Resources */,
 				9ACBE8E7185A117B0004474F /* button_getgiffthidden.png in Resources */,
 				9A2939371844803A00FD49E2 /* icon_comment.png in Resources */,
-				9ACAECFC18726F930025B027 /* HomeListCell.xib in Resources */,
+				9ACAED25187270D10025B027 /* HomeListCell.xib in Resources */,
 				9A9FCBDE1854ED8C004A3CFB /* button_addshop@2x.png in Resources */,
 				9A9FCBAE1854DD9B004A3CFB /* bg_countitem@2x.png in Resources */,
 				9ACFAE6A1861B893006131DC /* icon_playlist@2x.png in Resources */,
@@ -3745,7 +3745,7 @@
 				9A7E554C183C702D006D1798 /* icon_dottitle@2x.png in Resources */,
 				9A85B73E1846ECB2009FD108 /* icon_love@2x.png in Resources */,
 				9AA90B711850EF0F002F40FF /* button_Facebook@2x.png in Resources */,
-				9ACAECF618726F930025B027 /* HomeImageCell.xib in Resources */,
+				9ACAED1F187270D10025B027 /* HomeImageCell.xib in Resources */,
 				9A3986CC185B7CAF006C0961 /* frame_avauser_navigation.png in Resources */,
 				9AA90B761850EF0F002F40FF /* line_comment.png in Resources */,
 				9AA90B731850EF0F002F40FF /* button_showmore@2x.png in Resources */,
@@ -3802,7 +3802,7 @@
 				9AC979EE186C273B00E5432D /* bg_feed_bottom_home.png in Resources */,
 				9A2F8D121855BC3C0024AE1A /* button_more.png in Resources */,
 				9A85B73F1846ECB2009FD108 /* icon_typesgp.png in Resources */,
-				9ACAECFA18726F930025B027 /* HomeInfoCell.xib in Resources */,
+				9ACAED23187270D10025B027 /* HomeInfoCell.xib in Resources */,
 				9ACF309D183E0A0A002FAE80 /* icon_flaggray.png in Resources */,
 				9A32F40F184346B400704D26 /* SGQRCodeViewController.xib in Resources */,
 				9A7E555F183C7A4D006D1798 /* icon_address.png in Resources */,
@@ -3839,7 +3839,7 @@
 				9AA90B541850EBA5002F40FF /* button_green_right.png in Resources */,
 				9A9FCBE51854ED8C004A3CFB /* coverdetail.jpg in Resources */,
 				9A3B93F8185DFDAE004F94A4 /* StoreShopViewController.xib in Resources */,
-				9ACAED0018726F930025B027 /* HomeListObjectCell.xib in Resources */,
+				9ACAED29187270D10025B027 /* HomeListObjectCell.xib in Resources */,
 				9A29393118447EAE00FD49E2 /* bgsort_tallmid.png in Resources */,
 				9ACBE8F2185A16EA0004474F /* bg_content_head@2x.png in Resources */,
 				9A9FCBA91854DC50004A3CFB /* frame_ver_store.png in Resources */,
@@ -3858,7 +3858,7 @@
 				9A85B73A1846ECB2009FD108 /* background_blur@2x.png in Resources */,
 				9A3986AA185B6A8A006C0961 /* button_setting_navigation.png in Resources */,
 				9ACBE8E8185A117B0004474F /* button_getgiffthidden@2x.png in Resources */,
-				9ACAECFE18726F930025B027 /* HomeListImageCell.xib in Resources */,
+				9ACAED27187270D10025B027 /* HomeListImageCell.xib in Resources */,
 				9A9FCBE61854ED8C004A3CFB /* coverdetail@2x.jpg in Resources */,
 				9A9FCC021854ED8C004A3CFB /* IV-1-Stores.jpg in Resources */,
 				9A32F414184346BA00704D26 /* SGToolbarViewController.xib in Resources */,
@@ -3908,7 +3908,7 @@
 				9AC979F9186C273B00E5432D /* button_green_right_home@2x.png in Resources */,
 				9A32F3D0184345AE00704D26 /* AvatarListView.xib in Resources */,
 				9A7E5542183C68E9006D1798 /* buton_love@2X.png in Resources */,
-				9ACAED0418726F930025B027 /* HomeViewController.xib in Resources */,
+				9ACAED2D187270D10025B027 /* HomeViewController.xib in Resources */,
 				9AA026E5183674CF0087B2DA /* line_vercontent.png in Resources */,
 				9A9FCBF11854ED8C004A3CFB /* II-3-Detail-Info1.jpg in Resources */,
 				9A3986AC185B6A8A006C0961 /* button_update.png in Resources */,
@@ -3963,7 +3963,7 @@
 				A9A505E6178EC5EF00F27E18 /* FTCoreTextStyle.m in Sources */,
 				A9A505E7178EC5EF00F27E18 /* FTCoreTextView.m in Sources */,
 				9A0F7639187152DB00160E54 /* SUKM2Cell.m in Sources */,
-				9ACAED0118726F930025B027 /* HomePromotionCell.m in Sources */,
+				9ACAED2A187270D10025B027 /* HomePromotionCell.m in Sources */,
 				9AC66F86186447B300890F80 /* ASIOperationAgreeComment.m in Sources */,
 				A9BF946D178FA7E700EF7E5F /* AFHTTPClient.m in Sources */,
 				A9BF946E178FA7E700EF7E5F /* AFHTTPRequestOperation.m in Sources */,
@@ -3971,7 +3971,7 @@
 				A9BF946F178FA7E700EF7E5F /* AFImageRequestOperation.m in Sources */,
 				A9BF9470178FA7E700EF7E5F /* AFJSONRequestOperation.m in Sources */,
 				9A32F471184348A300704D26 /* GMGridViewLayoutStrategies.m in Sources */,
-				9ACAED0318726F930025B027 /* HomeViewController.m in Sources */,
+				9ACAED2C187270D10025B027 /* HomeViewController.m in Sources */,
 				A9BF9471178FA7E700EF7E5F /* AFNetworkActivityIndicatorManager.m in Sources */,
 				9A32F475184348B600704D26 /* HitTestView.m in Sources */,
 				A9BF9472178FA7E700EF7E5F /* AFPropertyListRequestOperation.m in Sources */,
@@ -3995,7 +3995,7 @@
 				9AC494B31858B2390042C535 /* ASIOperationStoreShopList.m in Sources */,
 				A93F206F1797DFB100622D75 /* OperationURL.m in Sources */,
 				9A32F4041843469400704D26 /* SGNotificationViewController.m in Sources */,
-				9ACAECF518726F930025B027 /* HomeImageCell.m in Sources */,
+				9ACAED1E187270D10025B027 /* HomeImageCell.m in Sources */,
 				9A32F4521843488F00704D26 /* Label.m in Sources */,
 				9ACFA6A318600AA50090E7A8 /* ShopList.m in Sources */,
 				A91A675B1797F65000BEB8C5 /* DataManager.m in Sources */,
@@ -4072,7 +4072,7 @@
 				9A0F75FD187152DB00160E54 /* SearchShopViewController.m in Sources */,
 				9ACF7AC71869A25800B0BC78 /* ASIOperationGetShopList.m in Sources */,
 				9ACFAEEC18635267006131DC /* ASIOperationLoveShop.m in Sources */,
-				9ACAECFF18726F930025B027 /* HomeListObjectCell.m in Sources */,
+				9ACAED28187270D10025B027 /* HomeListObjectCell.m in Sources */,
 				9A2F8D181855C0860024AE1A /* UIGestureRecognizer+GMGridViewAdditions.m in Sources */,
 				9A7E55A8183CEB30006D1798 /* SDWebImageDownloaderOperation.m in Sources */,
 				9A0F761F187152DB00160E54 /* ShopDetailInfoType2Cell.m in Sources */,
@@ -4095,7 +4095,7 @@
 				A95125FB17A456C0003F8BB2 /* ASIOperationShopInGroup.m in Sources */,
 				9A3B93F3185DFDAE004F94A4 /* StoreAdsCell.m in Sources */,
 				9A9211A6185AC7AB0012F181 /* LoadingView.m in Sources */,
-				9ACAECFB18726F930025B027 /* HomeListCell.m in Sources */,
+				9ACAED24187270D10025B027 /* HomeListCell.m in Sources */,
 				A921B02F17A8B68200DC6D4D /* ASIOperationShopUser.m in Sources */,
 				9A29392218445DA000FD49E2 /* ShopKM1.m in Sources */,
 				A921B03517A8BCA500DC6D4D /* ShopProduct.m in Sources */,
@@ -4138,13 +4138,13 @@
 				A925479917AE423400AD0BA9 /* OperationVerifyActiveCode.m in Sources */,
 				9A3E768418532BDF00F596C1 /* UserCollectionViewController.m in Sources */,
 				A925479C17AE453F00AD0BA9 /* OperationGetToken.m in Sources */,
-				9ACAECF718726F930025B027 /* HomeImagesCell.m in Sources */,
+				9ACAED20187270D10025B027 /* HomeImagesCell.m in Sources */,
 				9AC74E551860BE230033EB61 /* _Placelist.m in Sources */,
 				A924A3C117AEB63F0042B28B /* OperationRefreshToken.m in Sources */,
-				9ACAECF918726F930025B027 /* HomeInfoCell.m in Sources */,
+				9ACAED22187270D10025B027 /* HomeInfoCell.m in Sources */,
 				A924A3C517AEBC860042B28B /* SwitchSetting.m in Sources */,
 				9A7E55A6183CEB30006D1798 /* SDWebImageDecoder.m in Sources */,
-				9ACAECFD18726F930025B027 /* HomeListImageCell.m in Sources */,
+				9ACAED26187270D10025B027 /* HomeListImageCell.m in Sources */,
 				9A2F8CF418556DAE0024AE1A /* StoreShopInfoViewController.m in Sources */,
 				9A0F762A187152DB00160E54 /* DDAnnotationView.m in Sources */,
 				A925C31717AF80CE00CF43D6 /* ASIOperationGetRewardPromotionType2.m in Sources */,
