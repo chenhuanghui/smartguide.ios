@@ -49,6 +49,7 @@
 -(void) presentShopUserWithShopUser:(Shop*) shop;
 -(void) presentShopUserWithHome8:(UserHome8*) home8;
 -(void) dismissShopUser;
+-(void) showStoreWithStore:(StoreShop*) store;
 
 -(void) showLoginDialogWithMessage:(NSString*) message onCompleted:(void(^)(bool isLogined)) onCompleted;
 

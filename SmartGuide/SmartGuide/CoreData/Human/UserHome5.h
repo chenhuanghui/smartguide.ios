@@ -7,4 +7,6 @@
 
 +(UserHome5*) makeWithDictionary:(NSDictionary*) dict;
 
+-(NSString*) storeName;
+
 @end

@@ -18,6 +18,17 @@
 @implementation StoreViewController
 @synthesize delegate,sortType;
 
+-(StoreViewController *)initWithStore:(StoreShop *)store
+{
+    self = [super initWithNibName:@"StoreViewController" bundle:nil];
+    if (self) {
+        // Custom initialization
+        
+        _store=store;
+    }
+    return self;
+}
+
 - (id)init
 {
     self = [super initWithNibName:@"StoreViewController" bundle:nil];
@@ -38,25 +49,27 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    [StoreShop markDeleteAllObjects];
-    [StoreShopItem markDeleteAllObjects];
-    [StoreCart markDeleteAllObjects];
-    
-    [[DataManager shareInstance] save];
-    
     [self storeRect];
     
     bgView.layer.masksToBounds=true;
     
-    [self addChildViewController:storeNavigation];
+    StoreShopViewController *vc=[StoreShopViewController new];
+    vc.storeController=self;
+    
+    SGNavigationController *navi=[[SGNavigationController alloc] initWithRootViewController:vc];
+    
+    if(_store)
+    {
+        StoreShopInfoViewController *storeInfo=[[StoreShopInfoViewController alloc] initWithStore:_store];
+        [navi pushViewController:storeInfo animated:false];
+    }
+    
+    [self addChildViewController:navi];
+    
+    storeNavigation=navi;
     
     [contentView addSubview:storeNavigation.view];
     [storeNavigation.view l_v_setS:contentView.l_v_s];
-    
-    StoreShopViewController *vc=[StoreShopViewController new];
-    vc.storeController=self;
-
-    [storeNavigation setRootViewController:vc animate:true];
     
     UITapGestureRecognizer *tap=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapQR:)];
     

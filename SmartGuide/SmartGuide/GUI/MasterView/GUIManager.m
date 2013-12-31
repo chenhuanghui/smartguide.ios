@@ -224,7 +224,7 @@ static GUIManager *_shareInstance=nil;
     [self dismissPresentedViewController:nil];
 }
 
--(void) showStoreController
+-(void) showStoreControllerWithStore:(StoreShop*) store animate:(bool) animate
 {
     [self.rootNavigation removeLeftSlideViewController];
     
@@ -239,18 +239,24 @@ static GUIManager *_shareInstance=nil;
         return;
     }
     
-    StoreViewController *vc=[[StoreViewController alloc] init];
+    StoreViewController *vc=nil;
+    
+    if(store)
+        vc=[[StoreViewController alloc] initWithStore:store];
+    else
+        vc=[[StoreViewController alloc] init];
+    
     vc.delegate=self;
     
     storeController=vc;
     
-    [self.contentNavigation pushViewController:vc animated:false];
+    [self.contentNavigation pushViewController:vc animated:animate];
 
 }
 
 -(void)settingTouchedStore:(SGSettingViewController *)controller
 {
-    [self showStoreController];
+    [self showStoreControllerWithStore:nil animate:false];
 }
 
 -(void)storeControllerTouchedSetting:(StoreViewController *)controller
@@ -552,6 +558,11 @@ static GUIManager *_shareInstance=nil;
     vc.delegate=self;
     
     [contentNavigation pushViewController:vc animated:true];
+}
+
+-(void)showStoreWithStore:(StoreShop *)store
+{
+    [self showStoreControllerWithStore:store animate:true];
 }
 
 @end

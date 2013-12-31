@@ -147,19 +147,6 @@
 	[self didChangeValueForKey:@"gotostore"];
 }
 
-- (NSString*)storeName {
-	[self willAccessValueForKey:@"storeName"];
-	NSString* result = (NSString*)[self primitiveValueForKey:@"storeName"];
-	[self didAccessValueForKey:@"storeName"];
-	return result;
-}
-
-- (void)setStoreName:(NSString*)value {
-	[self willChangeValueForKey:@"storeName"];
-	[self setPrimitiveValue:value forKey:@"storeName"];
-	[self didChangeValueForKey:@"storeName"];
-}
-
 - (NSString*)title {
 	[self willAccessValueForKey:@"title"];
 	NSString* result = (NSString*)[self primitiveValueForKey:@"title"];

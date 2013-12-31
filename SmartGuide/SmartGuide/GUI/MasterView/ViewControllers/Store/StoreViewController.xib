@@ -14,7 +14,6 @@
                 <outlet property="contentView" destination="nfr-mI-for" id="YGn-ZH-nh2"/>
                 <outlet property="lblCart" destination="Myd-SL-6MX" id="8sg-PR-Phu"/>
                 <outlet property="qrView" destination="p73-e8-CDK" id="eWl-mn-pnx"/>
-                <outlet property="storeNavigation" destination="Xcv-BU-PZb" id="Job-Ui-vFM"/>
                 <outlet property="view" destination="1" id="3"/>
             </connections>
         </placeholder>
@@ -112,34 +111,10 @@
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
         </view>
-        <navigationController definesPresentationContext="YES" navigationBarHidden="YES" id="Xcv-BU-PZb" customClass="SGNavigationController">
-            <nil key="simulatedStatusBarMetrics"/>
-            <nil key="simulatedTopBarMetrics"/>
-            <nil key="simulatedBottomBarMetrics"/>
-            <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
-            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <navigationBar key="navigationBar" contentMode="scaleToFill" id="ynF-ej-bGo">
-                <autoresizingMask key="autoresizingMask"/>
-            </navigationBar>
-            <viewControllers>
-                <viewController id="aXf-J8-cCi" customClass="SGViewController">
-                    <view key="view" contentMode="scaleToFill" id="Sg8-iz-xbn">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="418"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    </view>
-                    <navigationItem key="navigationItem" title="Root View Controller" id="VDg-iK-hdk"/>
-                    <nil key="simulatedStatusBarMetrics"/>
-                    <nil key="simulatedTopBarMetrics"/>
-                    <nil key="simulatedBottomBarMetrics"/>
-                    <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
-                    <nil key="simulatedDestinationMetrics"/>
-                </viewController>
-            </viewControllers>
-        </navigationController>
     </objects>
     <resources>
         <image name="background_scan.png" width="320" height="56"/>
+        <image name="bg_animation.jpg" width="320" height="263"/>
         <image name="bg_animation.jpg" width="320" height="263"/>
         <image name="button_addcart.png" width="21" height="20"/>
         <image name="button_navigation.png" width="25" height="20"/>

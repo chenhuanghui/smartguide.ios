@@ -24,7 +24,7 @@
 
 -(NSArray *)keys
 {
-    return @[@"idShop",@"page",@"userLat",@"userLng",@"sort"];
+    return @[@"idStore",@"page",@"userLat",@"userLng",@"sort"];
 }
 
 -(void)onCompletedWithJSON:(NSArray *)json

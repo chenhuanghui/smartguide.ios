@@ -340,6 +340,7 @@
             case USER_HOME_TYPE_7:
             {
                 HomeInfoCell *cell=[tableView dequeueReusableCellWithIdentifier:[HomeInfoCell reuseIdentifier]];
+                cell.delegate=self;
                 
                 [cell loadWithHome7:home.home7];
                 
@@ -458,12 +459,9 @@
         }
         else if([cell.currentHome isKindOfClass:[UserHome5 class]])
         {
+            UserHome5 *home=cell.currentHome;
             
-            //            UserHome5 *home=cell.currentHome;
-            
-            //StoreShopInfoViewController *vc=[StoreShopInfoViewController alloc] initWithStore:<#(StoreShop *)#>
-            
-            //            [self.view showLoading];
+            [[GUIManager shareInstance] showStoreWithStore:home.store];
         }
     }
 }
@@ -477,6 +475,11 @@
         [self requestShopUserWithIDShop:home6.idShop.integerValue];
         
         [self.view showLoading];
+    }
+    else if([home isKindOfClass:[UserHome7 class]])
+    {
+        UserHome7 *home7=home;
+        [[GUIManager shareInstance] showStoreWithStore:home7.store];
     }
 }
 

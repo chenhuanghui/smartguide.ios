@@ -35,7 +35,7 @@
     __weak IBOutlet UIView *qrView;
     __weak IBOutlet UIView *bgView;
     __weak IBOutlet UIImageView *bgImageView;
-    IBOutlet SGNavigationController *storeNavigation;
+    __weak SGNavigationController *storeNavigation;
     __weak IBOutlet UIButton *btnSetting;
     __weak IBOutlet UIButton *btnBack;
     __weak IBOutlet UILabel *lblCart;
@@ -45,6 +45,8 @@
     
     __weak StoreShop *_store;
 }
+
+-(StoreViewController*) initWithStore:(StoreShop*) store;
 
 -(void) showShop:(StoreShop*) shop;
 -(void) showItem:(StoreShopItem*) item;

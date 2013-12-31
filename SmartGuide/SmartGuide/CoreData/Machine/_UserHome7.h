@@ -9,7 +9,6 @@
 #define UserHome7_Cover @"cover"
 #define UserHome7_Date @"date"
 #define UserHome7_Gotostore @"gotostore"
-#define UserHome7_StoreName @"storeName"
 #define UserHome7_Title @"title"
 
 @class UserHome7;
@@ -31,7 +30,6 @@
 @property (nonatomic, retain) NSString* cover;
 @property (nonatomic, retain) NSString* date;
 @property (nonatomic, retain) NSString* gotostore;
-@property (nonatomic, retain) NSString* storeName;
 @property (nonatomic, retain) NSString* title;
 
 #pragma mark Fetched property
