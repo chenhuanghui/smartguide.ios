@@ -18,7 +18,9 @@
         home.shop.dataMode=@(SHOP_DATA_HOME_8);
     }
     
+    home.content=[NSString stringWithStringDefault:dict[@"content"]];
     home.shopName=[NSString stringWithStringDefault:dict[@"shopName"]];
+    
     home.shop.shopType=[NSNumber numberWithObject:dict[@"shopType"]];
     home.shop.shopTypeDisplay=[NSString stringWithStringDefault:dict[@"shopTypeDisplay"]];
     home.shop.loveStatus=[NSNumber numberWithObject:dict[@"loveStatus"]];

@@ -106,6 +106,9 @@
     
     pageControl.dotColorCurrentPage=[UIColor whiteColor];
     pageControl.dotColorOtherPage=[[UIColor whiteColor] colorWithAlphaComponent:0.5];
+    
+    bgView.layer.cornerRadius=2;
+    bgView.layer.masksToBounds=true;
 }
 
 -(IBAction) btnNextTouchUpInside:(id)sender
@@ -126,7 +129,7 @@
 
 -(id)currentHome
 {
-    NSIndexPath *indexPath=[tablePlace indexPathForRowAtPoint:CGPointMake(self.l_v_h/2, tablePlace.l_co_y+self.l_v_w/2)];
+    NSIndexPath *indexPath=[tablePlace indexPathForRowAtPoint:CGPointMake(tablePlace.l_v_h/2, tablePlace.l_co_y+tablePlace.l_v_w/2)];
     
     if(indexPath)
     {

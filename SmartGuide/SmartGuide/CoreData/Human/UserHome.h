@@ -6,6 +6,7 @@
 #import "UserHome5.h"
 #import "UserHome6.h"
 #import "UserHome7.h"
+#import "UserHome8.h"
 #import "UserHomeImage.h"
 
 enum USER_HOME_TYPE {

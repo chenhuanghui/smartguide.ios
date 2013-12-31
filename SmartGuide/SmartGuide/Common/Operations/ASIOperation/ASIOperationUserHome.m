@@ -123,6 +123,7 @@
                 break;
                 
             case USER_HOME_TYPE_8:
+                home.home8=[UserHome8 makeWithDictionary:dict];
                 break;
                 
             case USER_HOME_TYPE_UNKNOW:

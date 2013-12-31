@@ -50,6 +50,9 @@
             
         case 7:
             return USER_HOME_TYPE_7;
+        
+        case 8:
+            return USER_HOME_TYPE_8;
             
         default:
             return USER_HOME_TYPE_UNKNOW;

@@ -29,6 +29,9 @@
     CGRect rect=self.frame;
     self.transform=CGAffineTransformMakeRotation(DEGREES_TO_RADIANS(45)*2);
     self.frame=rect;
+    
+    imgv.layer.cornerRadius=2;
+    imgv.layer.masksToBounds=true;
 }
 
 @end

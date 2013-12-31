@@ -55,12 +55,4 @@
     return @"HomePromotionCell";
 }
 
--(void)awakeFromNib
-{
-    [super awakeFromNib];
-    
-    bg.layer.cornerRadius=2;
-    bg.layer.masksToBounds=true;
-}
-
 @end

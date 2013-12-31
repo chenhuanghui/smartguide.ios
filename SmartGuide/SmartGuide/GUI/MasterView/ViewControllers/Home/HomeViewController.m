@@ -56,6 +56,7 @@
     [tableFeed registerNib:[UINib nibWithNibName:[HomeInfoCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[HomeInfoCell reuseIdentifier]];
     
     _page=-1;
+//    _page=1;
     _homes=[NSMutableArray array];
     _isLoadingMore=false;
     _canLoadMore=true;
@@ -238,6 +239,7 @@
                 return [HomePromotionCell heightWithHome8:home.home8];
                 
             case USER_HOME_TYPE_UNKNOW:
+                NSLog(@"USER_HOME_TYPE_UNKNOW heightForRowAtIndexPath");
                 return 0;
         }
     }
@@ -354,7 +356,8 @@
             }
                 
             case USER_HOME_TYPE_UNKNOW:
-                return 0;
+                NSLog(@"USER_HOME_TYPE_UNKNOW cellForRowAtIndexPath");
+                break;
         }
     }
     else if(tableView==tableAds)
@@ -373,6 +376,7 @@
         switch (home.enumType) {
             case USER_HOME_TYPE_1:
             {
+                // Nếu shop list chỉ có 1 idShop
                 if(home.home1.shopList.length>0 && ![home.home1.shopList isContainString:@","])
                 {
                     [self requestShopUserWithIDShop:home.home1.idShop.integerValue];
@@ -393,39 +397,37 @@
                 
             case USER_HOME_TYPE_3:
             {
-                /*
-                 using delegate newFeedListTouched
-                 */
+                // using  homeListTouched
             }
                 break;
                 
             case USER_HOME_TYPE_4:
             {
-                
+                // using homeListTouched
             }
                 break;
                 
             case USER_HOME_TYPE_5:
             {
-                
+                // using homeListTouched
             }
                 break;
                 
             case USER_HOME_TYPE_6:
             {
-                
+                // using homeInfoCellTouchedGoTo
             }
                 break;
                 
             case USER_HOME_TYPE_7:
             {
-                
+                // using homeInfoCellTouchedGoTo
             }
                 break;
                 
             case USER_HOME_TYPE_8:
             {
-                [[GUIManager shareInstance] presentShopUserWithShopUser:nil];
+                [[GUIManager shareInstance] presentShopUserWithHome8:home.home8];
             }
                 break;
                 
@@ -456,6 +458,7 @@
         }
         else if([cell.currentHome isKindOfClass:[UserHome5 class]])
         {
+            
             //            UserHome5 *home=cell.currentHome;
             
             //StoreShopInfoViewController *vc=[StoreShopInfoViewController alloc] initWithStore:<#(StoreShop *)#>
