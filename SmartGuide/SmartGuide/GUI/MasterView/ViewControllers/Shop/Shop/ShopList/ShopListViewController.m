@@ -50,16 +50,6 @@
     return self;
 }
 
--(ShopListViewController *)initWithHome3:(UserHome3 *)home3
-{
-    self=[super initWithNibName:@"ShopListViewController" bundle:nil];
-    
-    _home3=home3;
-    _viewMode=SHOP_LIST_VIEW_HOME3;
-    
-    return self;
-}
-
 -(NSArray *)registerNotifications
 {
     return @[UIApplicationDidBecomeActiveNotification];
@@ -80,7 +70,6 @@
             return _shopsList.count==0?0:1;
             
         case SHOP_LIST_VIEW_PLACE:
-        case SHOP_LIST_VIEW_HOME3:
             return 1;
     }
 }
@@ -93,7 +82,6 @@
             return _shopsList.count;
             
         case SHOP_LIST_VIEW_PLACE:
-        case SHOP_LIST_VIEW_HOME3:
             return _shopsList.count+1;
     }
 }
@@ -162,45 +150,6 @@
             }
             
             break;
-            
-        case SHOP_LIST_VIEW_HOME3:
-        {
-            switch (indexPath.row) {
-                case 0:
-                {
-                    ShopListPlaceCell *cell=[tableView dequeueReusableCellWithIdentifier:[ShopListPlaceCell reuseIdentifier]];
-                    
-                    [cell loadWithUserHome3:_home3];
-                    
-                    return cell;
-                }
-                    break;
-                    
-                default:
-                {
-                    ShopListCell *cell=[tableView dequeueReusableCellWithIdentifier:[ShopListCell reuseIdentifier]];
-                    cell.delegate=self;
-                    
-                    [cell loadWithShopList:_shopsList[indexPath.row-1]];
-                    
-                    if(indexPath.row==_shopsList.count)
-                    {
-                        if(_canLoadMore)
-                        {
-                            if(!_isLoadingMore)
-                            {
-                                [self requestListHome3];
-                                _isLoadingMore=true;
-                            }
-                        }
-                    }
-                    
-                    return cell;
-                }
-                    break;
-            }            
-        }
-            break;
     }
 }
 
@@ -222,18 +171,6 @@
             }
         }
             break;
-            
-        case SHOP_LIST_VIEW_HOME3:
-        {
-            switch (indexPath.row) {
-                case 0:
-                    return [ShopListPlaceCell heightWithContent:_home3.content];
-                    
-                default:
-                    return [ShopListCell heightWithContent:[_shopsList[indexPath.row-1] desc]];
-            }
-        }
-            break;
     }
 }
 
@@ -248,7 +185,6 @@
             break;
             
         case SHOP_LIST_VIEW_PLACE:
-        case SHOP_LIST_VIEW_HOME3:
         {
             switch (indexPath.row) {
                 case 0:
@@ -379,7 +315,6 @@
             break;
             
         case SHOP_LIST_VIEW_PLACE:
-        case SHOP_LIST_VIEW_HOME3:
             sheet=[[UIActionSheet alloc] initWithTitle:@"Tìm kiếm theo" delegate:self cancelButtonTitle:@"Đóng" destructiveButtonTitle:nil otherButtonTitles:@"Khoảng cách", @"Lượt xem", @"Lượt love",@"Mặc định", nil];
             break;
     }
@@ -427,7 +362,6 @@
             break;
             
         case SHOP_LIST_VIEW_PLACE:
-        case SHOP_LIST_VIEW_HOME3:
         {
             enum SORT_PLACE_LIST sort;
             
@@ -553,43 +487,10 @@
             [self requestPlacelistDetail];
             
             break;
-            
-        case SHOP_LIST_VIEW_HOME3:
-            
-            txt.text=_home3.place.title;
-            
-            _sortPlace=SORT_PLACE_LIST_DEFAULT;
-            [sortView setIcon:[UIImage imageNamed:@"icon_distance.png"] text:@"Mặc định"];
-            
-            tableList.dataSource=self;
-            tableList.delegate=self;
-            
-            [tableList reloadData];
-            
-            [self showLoading];
-            
-            [self requestListHome3];
-            
-            break;
     }
     
     [self makeScrollSize];
 }
-
--(void) requestListHome3
-{
-    if(_operationPlaceListDetail)
-    {
-        [_operationPlaceListDetail cancel];
-        _operationPlaceListDetail=nil;
-    }
-    
-    _operationPlaceListDetail=[[ASIOperationPlacelistDetail alloc] initWithIDPlacelist:_home3.place.idPlacelist.integerValue userLat:_location.latitude userLng:_location.longitude sort:SORT_PLACE_LIST_DEFAULT page:_page+1];
-    _operationPlaceListDetail.delegatePost=self;
-    
-    [_operationPlaceListDetail startAsynchronous];
-}
-
 
 -(void) requestPlacelistDetail
 {
@@ -752,14 +653,11 @@
     int idPlacelist=0;
     
     switch (_viewMode) {
-        case SHOP_LIST_VIEW_HOME3:
-            idPlacelist=_home3.place.idPlacelist.integerValue;
-            break;
-            
         case SHOP_LIST_VIEW_PLACE:
             idPlacelist=_placeList.idPlacelist.integerValue;
             
-        default:
+        case SHOP_LIST_VIEW_LIST:
+        case SHOP_LIST_VIEW_SHOP_LIST:
             break;
     }
     
@@ -1092,13 +990,9 @@
                     break;
                     
                 case SHOP_LIST_VIEW_PLACE:
-                case SHOP_LIST_VIEW_HOME3:
                     switch (indexPath.row) {
                         case 0:
-                            if(_viewMode==SHOP_LIST_VIEW_HOME3)
-                                scrollerText=_home3.place.title;
-                            else
-                                scrollerText=_placeList.title;
+                            scrollerText=_placeList.title;
                             break;
                             
                         default:

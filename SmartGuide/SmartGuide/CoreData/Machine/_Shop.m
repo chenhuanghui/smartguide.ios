@@ -152,6 +152,19 @@
 	[self didChangeValueForKey:@"city"];
 }
 
+- (NSNumber*)dataMode {
+	[self willAccessValueForKey:@"dataMode"];
+	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"dataMode"];
+	[self didAccessValueForKey:@"dataMode"];
+	return result;
+}
+
+- (void)setDataMode:(NSNumber*)value {
+	[self willChangeValueForKey:@"dataMode"];
+	[self setPrimitiveValue:value forKey:@"dataMode"];
+	[self didChangeValueForKey:@"dataMode"];
+}
+
 - (NSString*)desc {
 	[self willAccessValueForKey:@"desc"];
 	NSString* result = (NSString*)[self primitiveValueForKey:@"desc"];

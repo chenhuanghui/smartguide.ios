@@ -34,13 +34,13 @@ enum SEARCH_VIEW_MODE {
     __weak Placelist *_place;
     __weak UserHome3 *_home3;
     NSString *_idShops;
+    NSString *_keyword;
 }
 
--(SearchViewController*) initWithSearch;
 -(SearchViewController*) initWithKeyword:(NSString*) keyword;
--(SearchViewController*) initWithPlaceList:(Placelist*) place;
+-(SearchViewController*) initWithShop:(Shop*) shop mode:(enum SEARCH_VIEW_MODE) mode;
+-(SearchViewController*) initWithPlace:(Placelist*) place;
 -(SearchViewController*) initWithIDShops:(NSString*) idShops;
--(SearchViewController*) initWithUserHome3:(UserHome3*) home3;
 
 @property (nonatomic, weak) ShopListViewController *shopListController;
 @property (nonatomic, weak) SearchShopViewController *searchShopController;

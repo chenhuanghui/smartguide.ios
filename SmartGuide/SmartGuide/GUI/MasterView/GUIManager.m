@@ -406,7 +406,7 @@ static GUIManager *_shareInstance=nil;
 
 -(void) presentShopUserWithShopList:(ShopList *)shopList
 {
-    ShopUserViewController *shopUser=[[ShopUserViewController alloc] initWithShopList:shopList];
+    ShopUserViewController *shopUser=[[ShopUserViewController alloc] initWithShopUser:shopList.shop];
     shopUserController=shopUser;
     shopUser.delegate=self;
     
@@ -425,7 +425,7 @@ static GUIManager *_shareInstance=nil;
 
 -(void)presentShopUserWithHome8:(UserHome8 *)home8
 {
-    ShopUserViewController *vc=[[ShopUserViewController alloc] initWithHome8:home8];
+    ShopUserViewController *vc=[[ShopUserViewController alloc] initWithShopUser:home8.shop];
     vc.delegate=self;
     
     shopUserController=vc;
@@ -540,7 +540,7 @@ static GUIManager *_shareInstance=nil;
 
 -(void)homeControllerTouchedTextField:(HomeViewController *)controller
 {
-    SearchViewController *vc=[[SearchViewController alloc] initWithSearch];
+    SearchViewController *vc=[[SearchViewController alloc] init];
     vc.delegate=self;
     
     [contentNavigation pushViewController:vc animated:true];
@@ -548,7 +548,7 @@ static GUIManager *_shareInstance=nil;
 
 -(void)homeControllerTouchedPlacelist:(HomeViewController *)controller home3:(UserHome3 *)home3
 {
-    SearchViewController *vc=[[SearchViewController alloc] initWithUserHome3:home3];
+    SearchViewController *vc=[[SearchViewController alloc] initWithPlace:home3.place];
     vc.delegate=self;
     
     [contentNavigation pushViewController:vc animated:true];

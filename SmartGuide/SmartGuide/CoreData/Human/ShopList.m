@@ -31,6 +31,7 @@
         obj.shop=[Shop insert];
         obj.shop.idShop=@(idShop);
         obj.shop.shopName=[NSString stringWithStringDefault:dict[@"shopName"]];
+        obj.shop.dataMode=@(SHOP_DATA_SHOP_LIST);
     }
     
     obj.distance=[NSString stringWithStringDefault:dict[@"distance"]];
@@ -119,16 +120,6 @@
 -(NSString *)cover
 {
     return self.shop.shopGalleryCover;
-}
-
--(void)setNumOfLove:(NSString *)numOfLove
-{
-    self.shop.numOfLove=numOfLove;
-}
-
--(void)setLoveStatus:(NSNumber *)loveStatus
-{
-    self.shop.loveStatus=loveStatus;
 }
 
 @end

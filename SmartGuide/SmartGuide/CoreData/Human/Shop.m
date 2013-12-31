@@ -40,12 +40,14 @@
         shop=[Shop insert];
         shop.idShop=@(idShop);
     }
-    
+
     [shop removeAllTimeComments];
     [shop removeAllTopComments];
     [shop removeAllUserGalleries];
     [shop removeAllShopGalleries];
     shop.km1=nil;
+    
+    shop.dataMode=@(SHOP_DATA_FULL);
     
     shop.shopName=[NSString stringWithStringDefault:dict[@"shopName"]];
     shop.shopType=[NSNumber numberWithObject:dict[@"shopType"]];
@@ -186,6 +188,22 @@
 -(void)setCoordinate:(CLLocationCoordinate2D)newCoordinate
 {
     _dragCoord=newCoordinate;
+}
+
+-(enum SHOP_DATA_MODE)enumDataMode
+{
+    switch (self.dataMode.integerValue) {
+        case 0:
+            return SHOP_DATA_SHOP_LIST;
+            
+        case 1:
+            return SHOP_DATA_HOME_8;
+            
+        case 2:
+            return SHOP_DATA_FULL;
+    }
+    
+    return SHOP_DATA_HOME_8;
 }
 
 @end

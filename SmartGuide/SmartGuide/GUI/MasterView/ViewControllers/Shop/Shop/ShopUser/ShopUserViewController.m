@@ -25,29 +25,6 @@
     if (self) {
         _shop=shop;
         shopMode=SHOP_USER_FULL;
-        _dataMode=SHOP_USER_DATA_SHOP_USER;
-    }
-    return self;
-}
-
--(ShopUserViewController *)initWithHome8:(UserHome8 *)home8
-{
-    self = [super initWithNibName:@"ShopUserViewController" bundle:nil];
-    if (self) {
-        _home8=home8;
-        shopMode=SHOP_USER_FULL;
-        _dataMode=SHOP_USER_DATA_HOME8;
-    }
-    return self;
-}
-
--(ShopUserViewController *)initWithShopList:(ShopList *)shopList
-{
-    self = [super initWithNibName:@"ShopUserViewController" bundle:nil];
-    if (self) {
-        shopMode=SHOP_USER_FULL;
-        _shopList=[ShopList shopListWithIDShop:shopList.idShop.integerValue];
-        _dataMode=SHOP_USER_DATA_SHOP_LIST;
     }
     return self;
 }
@@ -86,19 +63,19 @@
     tableShopUser.dataSource=self;
     tableShopUser.delegate=self;
     
-    switch (_dataMode) {
-        case SHOP_USER_DATA_SHOP_LIST:
+    switch (_shop.enumDataMode) {
+        case SHOP_DATA_SHOP_LIST:
             tableShopUser.scrollEnabled=false;
             btnInfo.enabled=false;
             
-            _operationShopUser=[[ASIOperationShopUser alloc] initWithIDShop:_shopList.idShop.integerValue userLat:userLat() userLng:userLng()];
+            _operationShopUser=[[ASIOperationShopUser alloc] initWithIDShop:_shop.idShop.integerValue userLat:userLat() userLng:userLng()];
             _operationShopUser.delegatePost=self;
             
             [_operationShopUser startAsynchronous];
             
             break;
             
-        case SHOP_USER_DATA_SHOP_USER:
+        case SHOP_DATA_FULL:
             
             _comments=[[NSMutableArray alloc] initWithArray:_shop.topCommentsObjects];
 
@@ -110,12 +87,12 @@
 
             break;
             
-        case SHOP_USER_DATA_HOME8:
+        case SHOP_DATA_HOME_8:
             
             tableShopUser.scrollEnabled=false;
             btnInfo.enabled=false;
             
-            _operationShopUser=[[ASIOperationShopUser alloc] initWithIDShop:_home8.shop.idShop.integerValue userLat:userLat() userLng:userLng()];
+            _operationShopUser=[[ASIOperationShopUser alloc] initWithIDShop:_shop.idShop.integerValue userLat:userLat() userLng:userLng()];
             _operationShopUser.delegatePost=self;
             
             [_operationShopUser startAsynchronous];
@@ -148,7 +125,6 @@
         _isLoadingMoreComment=false;
         _canLoadMoreComment=_comments.count==10;
         
-        _dataMode=SHOP_USER_DATA_SHOP_USER;
         _sortComment=SORT_SHOP_COMMENT_TOP_AGREED;
         
         [tableShopUser reloadData];
@@ -357,13 +333,14 @@
 {
     if(tableView==tableShopUser)
     {
-        switch (_dataMode) {
-            case SHOP_USER_DATA_SHOP_LIST:
+        switch (_shop.enumDataMode) {
+            case SHOP_DATA_SHOP_LIST:
+            case SHOP_DATA_HOME_8:
                 
                 //shop gallery cell+loading cell
                 return 2;
                 
-            case SHOP_USER_DATA_SHOP_USER:
+            case SHOP_DATA_FULL:
                 break;
         }
         
@@ -404,15 +381,7 @@
                 SUShopGalleryCell *cell=[tableView dequeueReusableCellWithIdentifier:[SUShopGalleryCell reuseIdentifier]];
                 cell.delegate=self;
                 
-                switch (_dataMode) {
-                    case SHOP_USER_DATA_SHOP_LIST:
-                        [cell loadWithShopList:_shopList];
-                        break;
-                        
-                    case SHOP_USER_DATA_SHOP_USER:
-                        [cell loadWithShop:_shop];
-                        break;
-                }
+                [cell loadWithShop:_shop];
                 
                 shopGalleryCell=cell;
                 
@@ -421,13 +390,15 @@
                 
             case 1:
             {
-                switch (_dataMode) {
-                    case SHOP_USER_DATA_SHOP_LIST:
+                switch (_shop.enumDataMode) {
+                    case SHOP_DATA_HOME_8:
+                    case SHOP_DATA_SHOP_LIST:
                     {
                         return [tableView dequeueReusableCellWithIdentifier:[SGShopEmptyCell reuseIdentifier]];
                     }
                         
-                    default:
+
+                    case SHOP_DATA_FULL:
                         break;
                 }
                 
@@ -579,12 +550,13 @@
                 return [SUShopGalleryCell height];
             case 1:
             {
-                switch (_dataMode) {
-                    case SHOP_USER_DATA_SHOP_LIST:
+                switch (_shop.enumDataMode) {
+                    case SHOP_DATA_SHOP_LIST:
+                    case SHOP_DATA_HOME_8:
                         
                         return [SGShopEmptyCell height];
                         
-                    case SHOP_USER_DATA_SHOP_USER:
+                    case SHOP_DATA_FULL:
                         return [SUKM1Cell heightWithKM1:_shop.km1];
                 }
             }

@@ -14,36 +14,41 @@
 @implementation SUShopGalleryCell
 @synthesize delegate;
 
--(void)loadWithShopList:(ShopList *)shopList
-{
-    _shopList=shopList;
-    
-    lblShopName.text=shopList.shopName;
-    lblShopType.text=shopList.shopTypeDisplay;
-    lblNumOfComment.text=shopList.numOfComment;
-    lblNumOfView.text=shopList.numOfView;
-    
-    [btnLove setLoveStatus:shopList.enumLoveStatus withNumOfLove:shopList.numOfLove animate:false];
-    [imgvShopLogo loadShopLogoWithURL:shopList.logo];
-    
-    [table reloadData];
-}
-
 -(void)loadWithShop:(Shop *)shop
 {
-    _shopList=nil;
     _shop=shop;
     
-    lblShopName.text=shop.shopName;
-    lblShopType.text=shop.shopTypeDisplay;
-    lblNumOfComment.text=shop.numOfComment;
-    lblNumOfView.text=shop.numOfView;
-    
-    [btnLove setLoveStatus:shop.enumLoveStatus withNumOfLove:shop.numOfLove animate:false];
-    [imgvShopLogo loadShopLogoWithURL:shop.logo];
-    
-    pageControl.numberOfPages=shop.shopGalleriesObjects.count;
-    [table reloadData];
+    switch (shop.enumDataMode) {
+        case SHOP_DATA_HOME_8:
+        case SHOP_DATA_SHOP_LIST:
+            
+            lblShopName.text=shop.shopName;
+            lblShopType.text=shop.shopTypeDisplay;
+            lblNumOfComment.text=shop.numOfComment;
+            lblNumOfView.text=shop.numOfView;
+            
+            [btnLove setLoveStatus:shop.enumLoveStatus withNumOfLove:shop.numOfLove animate:false];
+            [imgvShopLogo loadShopLogoWithURL:shop.logo];
+            
+            [table reloadData];
+            
+            break;
+            
+        case SHOP_DATA_FULL:
+            
+            lblShopName.text=shop.shopName;
+            lblShopType.text=shop.shopTypeDisplay;
+            lblNumOfComment.text=shop.numOfComment;
+            lblNumOfView.text=shop.numOfView;
+            
+            [btnLove setLoveStatus:shop.enumLoveStatus withNumOfLove:shop.numOfLove animate:false];
+            [imgvShopLogo loadShopLogoWithURL:shop.logo];
+            
+            pageControl.numberOfPages=shop.shopGalleriesObjects.count;
+            [table reloadData];
+            
+            break;
+    }
 }
 
 +(NSString *)reuseIdentifier
@@ -78,10 +83,14 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if(_shopList)
-        return 1;
-    else
-        return _shop.shopGalleriesObjects.count;
+    switch (_shop.enumDataMode) {
+        case SHOP_DATA_HOME_8:
+        case SHOP_DATA_SHOP_LIST:
+            return 1;
+            
+        case SHOP_DATA_FULL:
+            return _shop.shopGalleriesObjects.count;
+    }
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -93,12 +102,18 @@
 {
     ShopGalleryCell *cell=[tableView dequeueReusableCellWithIdentifier:[ShopGalleryCell reuseIdentifier]];
     
-    if(_shopList)
-        [cell loadImage:_shopList.cover];
-    else
-    {
-        ShopGallery *gallery=_shop.shopGalleriesObjects[indexPath.row];
-        [cell loadImage:gallery.cover];
+    switch (_shop.enumDataMode) {
+        case SHOP_DATA_HOME_8:
+        case SHOP_DATA_SHOP_LIST:
+            [cell loadImage:_shop.shopGalleryCover];
+            break;
+            
+        case SHOP_DATA_FULL:
+        {
+            ShopGallery *gallery=_shop.shopGalleriesObjects[indexPath.row];
+            
+            [cell loadImage:gallery.cover];
+        }
     }
     
     return cell;
@@ -133,19 +148,8 @@
     if(_operationLoveShop)
         return;
  
-    int idShop=0;
-    int willLove=true;
-    
-    if(_shopList)
-    {
-        idShop=_shopList.idShop.integerValue;
-        willLove=_shopList.enumLoveStatus==LOVE_STATUS_LOVED?false:true;
-    }
-    else
-    {
-        idShop=_shop.idShop.integerValue;
-        willLove=_shop.enumLoveStatus==LOVE_STATUS_LOVED?false:true;
-    }
+    int idShop=_shop.idShop.integerValue;
+    int willLove=_shop.enumLoveStatus==LOVE_STATUS_LOVED?false:true;
     
     if(willLove)
         [buttonLoveView love:true];
@@ -163,10 +167,6 @@
     if([operation isKindOfClass:[ASIOperationLoveShop class]])
     {
         ASIOperationLoveShop *ope=(ASIOperationLoveShop*) operation;
-        
-        if(_shopList)
-        {
-        }
         
         [btnLove setLoveStatus:ope.loveStatus withNumOfLove:ope.numOfLove animate:true];
         

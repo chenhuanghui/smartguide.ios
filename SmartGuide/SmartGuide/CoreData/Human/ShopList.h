@@ -20,7 +20,5 @@
 -(NSNumber*) loveStatus;
 -(NSString*) numOfLove;
 -(NSString*) cover;
--(void) setNumOfLove:(NSString*) numOfLove;
--(void) setLoveStatus:(NSNumber*) loveStatus;
 
 @end

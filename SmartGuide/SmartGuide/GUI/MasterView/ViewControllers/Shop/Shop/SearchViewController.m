@@ -17,11 +17,21 @@
 @implementation SearchViewController
 @synthesize shopListController,searchShopController;
 
--(SearchViewController *)initWithSearch
+-(SearchViewController *)init
 {
     self=[super initWithNibName:@"SearchViewController" bundle:nil];
     
+    _keyword=@"";
     _viewMode=SEARCH_VIEW_MODE_SEARCH;
+    
+    return self;
+}
+
+-(SearchViewController *)initWithShop:(Shop *)shop mode:(enum SEARCH_VIEW_MODE)mode
+{
+    self=[super initWithNibName:@"SearchViewController" bundle:nil];
+    
+    _viewMode=mode;
     
     return self;
 }
@@ -30,12 +40,13 @@
 {
     self=[super initWithNibName:@"SearchViewController" bundle:nil];
     
+    _keyword=keyword;
     _viewMode=SEARCH_VIEW_MODE_SEARCH;
     
     return self;
 }
 
--(SearchViewController *)initWithPlaceList:(Placelist *)place
+-(SearchViewController *)initWithPlace:(Placelist *)place
 {
     self=[super initWithNibName:@"SearchViewController" bundle:nil];
     
@@ -93,7 +104,7 @@
             
         case SEARCH_VIEW_MODE_SEARCH:
         {
-            SearchShopViewController *vc=[[SearchShopViewController alloc] initWithKeyword:@""];
+            SearchShopViewController *vc=[[SearchShopViewController alloc] initWithKeyword:_keyword];
             vc.searchController=self;
             vc.delegate=self;
             
@@ -125,7 +136,7 @@
             
         case SEARCH_VIEW_MODE_HOME_3:
         {
-            ShopListViewController *vc=[[ShopListViewController alloc] initWithHome3:_home3];
+            ShopListViewController *vc=[[ShopListViewController alloc] initWithPlaceList:_home3.place];
             vc.searchController=self;
             vc.delegate=self;
             

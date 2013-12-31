@@ -35,12 +35,10 @@
     
     CGRect _tableFrame;
     
-    __weak ShopList *_shopList;
     __weak Shop *_shop;
     ASIOperationLoveShop *_operationLoveShop;
 }
 
--(void) loadWithShopList:(ShopList*) shopList;
 -(void) loadWithShop:(Shop*) shop;
 
 @property (nonatomic, weak) id<SUShopGalleryDelegate> delegate;

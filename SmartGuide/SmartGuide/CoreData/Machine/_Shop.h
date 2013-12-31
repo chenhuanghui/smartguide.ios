@@ -7,6 +7,7 @@
 
 #define Shop_Address @"address"
 #define Shop_City @"city"
+#define Shop_DataMode @"dataMode"
 #define Shop_Desc @"desc"
 #define Shop_DisplayTel @"displayTel"
 #define Shop_IdShop @"idShop"
@@ -49,6 +50,7 @@
 
 @property (nonatomic, retain) NSString* address;
 @property (nonatomic, retain) NSString* city;
+@property (nonatomic, retain) NSNumber* dataMode;
 @property (nonatomic, retain) NSString* desc;
 @property (nonatomic, retain) NSString* displayTel;
 @property (nonatomic, retain) NSNumber* idShop;

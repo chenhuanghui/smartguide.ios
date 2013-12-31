@@ -249,8 +249,6 @@
 		9A5113D6186C772C008E1418 /* Tutorial.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A5113D5186C772C008E1418 /* Tutorial.m */; };
 		9A5113D9186C7754008E1418 /* ASIOperationGetTutorial.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A5113D8186C7754008E1418 /* ASIOperationGetTutorial.m */; };
 		9A55AB87181A726700BB4492 /* GUIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A55AB86181A726700BB4492 /* GUIManager.m */; };
-		9A55CE21185F558900F7EA9C /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A55CE1F185F558900F7EA9C /* HomeViewController.m */; };
-		9A55CE22185F558900F7EA9C /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A55CE20185F558900F7EA9C /* HomeViewController.xib */; };
 		9A5DC470183DB1A50051375A /* pattern_promotion.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A5DC46E183DB1A50051375A /* pattern_promotion.png */; };
 		9A5DC471183DB1A50051375A /* pattern_promotion@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A5DC46F183DB1A50051375A /* pattern_promotion@2x.png */; };
 		9A5DC474183DB7630051375A /* frame_ava.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A5DC472183DB7630051375A /* frame_ava.png */; };
@@ -280,8 +278,6 @@
 		9A692AE0183933E10066F60F /* ACTimeScroller.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A692ADF183933E10066F60F /* ACTimeScroller.m */; };
 		9A693CAF186D483C00114597 /* _UserHomeImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A693CAE186D483C00114597 /* _UserHomeImage.m */; };
 		9A693CB2186D484300114597 /* UserHomeImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A693CB1186D484300114597 /* UserHomeImage.m */; };
-		9A693CB5186D5AC600114597 /* HomeListImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A693CB4186D5AC600114597 /* HomeListImageCell.m */; };
-		9A693CB7186D5AD100114597 /* HomeListImageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A693CB6186D5AD100114597 /* HomeListImageCell.xib */; };
 		9A7522011856C5BC00248B02 /* SGScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A7522001856C5BC00248B02 /* SGScrollView.m */; };
 		9A7522041856D4D400248B02 /* ButtonPrice.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A7522031856D4D400248B02 /* ButtonPrice.m */; };
 		9A75E7711847509400A4C3A0 /* bgslide_head.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A75E76D1847509400A4C3A0 /* bgslide_head.png */; };
@@ -522,6 +518,22 @@
 		9AC97A01186C273B00E5432D /* pic_tutorial@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AC979ED186C273B00E5432D /* pic_tutorial@2x.png */; };
 		9ACA42F5186D3BF3008D89BC /* _UserHome8.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ACA42F4186D3BF3008D89BC /* _UserHome8.m */; };
 		9ACA42F8186D3BFB008D89BC /* UserHome8.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ACA42F7186D3BFB008D89BC /* UserHome8.m */; };
+		9ACAECF518726F930025B027 /* HomeImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ACAECDE18726F930025B027 /* HomeImageCell.m */; };
+		9ACAECF618726F930025B027 /* HomeImageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9ACAECDF18726F930025B027 /* HomeImageCell.xib */; };
+		9ACAECF718726F930025B027 /* HomeImagesCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ACAECE118726F930025B027 /* HomeImagesCell.m */; };
+		9ACAECF818726F930025B027 /* HomeImagesCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9ACAECE218726F930025B027 /* HomeImagesCell.xib */; };
+		9ACAECF918726F930025B027 /* HomeInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ACAECE418726F930025B027 /* HomeInfoCell.m */; };
+		9ACAECFA18726F930025B027 /* HomeInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9ACAECE518726F930025B027 /* HomeInfoCell.xib */; };
+		9ACAECFB18726F930025B027 /* HomeListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ACAECE718726F930025B027 /* HomeListCell.m */; };
+		9ACAECFC18726F930025B027 /* HomeListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9ACAECE818726F930025B027 /* HomeListCell.xib */; };
+		9ACAECFD18726F930025B027 /* HomeListImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ACAECEA18726F930025B027 /* HomeListImageCell.m */; };
+		9ACAECFE18726F930025B027 /* HomeListImageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9ACAECEB18726F930025B027 /* HomeListImageCell.xib */; };
+		9ACAECFF18726F930025B027 /* HomeListObjectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ACAECED18726F930025B027 /* HomeListObjectCell.m */; };
+		9ACAED0018726F930025B027 /* HomeListObjectCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9ACAECEE18726F930025B027 /* HomeListObjectCell.xib */; };
+		9ACAED0118726F930025B027 /* HomePromotionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ACAECF018726F930025B027 /* HomePromotionCell.m */; };
+		9ACAED0218726F930025B027 /* HomePromotionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9ACAECF118726F930025B027 /* HomePromotionCell.xib */; };
+		9ACAED0318726F930025B027 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ACAECF318726F930025B027 /* HomeViewController.m */; };
+		9ACAED0418726F930025B027 /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9ACAECF418726F930025B027 /* HomeViewController.xib */; };
 		9ACBA9BC185D7745000B3D6B /* ASIOperationStoreAllStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ACBA9BB185D7745000B3D6B /* ASIOperationStoreAllStore.m */; };
 		9ACBE8CF185A0A180004474F /* ButtonLove.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ACBE8CD185A0A180004474F /* ButtonLove.m */; };
 		9ACBE8D0185A0A180004474F /* ButtonLove.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9ACBE8CE185A0A180004474F /* ButtonLove.xib */; };
@@ -575,14 +587,6 @@
 		9ACF7AA518698E4100B0BC78 /* _UserHome5.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ACF7A9B18698E4100B0BC78 /* _UserHome5.m */; };
 		9ACF7AA618698E4100B0BC78 /* _UserHome6.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ACF7A9D18698E4100B0BC78 /* _UserHome6.m */; };
 		9ACF7AA718698E4100B0BC78 /* _UserHome7.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ACF7A9F18698E4100B0BC78 /* _UserHome7.m */; };
-		9ACF7AB31869997900B0BC78 /* HomePromotionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ACF7AB21869997900B0BC78 /* HomePromotionCell.m */; };
-		9ACF7AB61869998700B0BC78 /* HomeImagesCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ACF7AB51869998700B0BC78 /* HomeImagesCell.m */; };
-		9ACF7AB9186999A000B0BC78 /* HomeListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ACF7AB8186999A000B0BC78 /* HomeListCell.m */; };
-		9ACF7ABC186999B600B0BC78 /* HomeInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ACF7ABB186999B600B0BC78 /* HomeInfoCell.m */; };
-		9ACF7ABE18699A6C00B0BC78 /* HomePromotionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9ACF7ABD18699A6C00B0BC78 /* HomePromotionCell.xib */; };
-		9ACF7AC018699A9200B0BC78 /* HomeImagesCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9ACF7ABF18699A9200B0BC78 /* HomeImagesCell.xib */; };
-		9ACF7AC218699AA800B0BC78 /* HomeListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9ACF7AC118699AA800B0BC78 /* HomeListCell.xib */; };
-		9ACF7AC418699ABA00B0BC78 /* HomeInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9ACF7AC318699ABA00B0BC78 /* HomeInfoCell.xib */; };
 		9ACF7AC71869A25800B0BC78 /* ASIOperationGetShopList.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ACF7AC61869A25800B0BC78 /* ASIOperationGetShopList.m */; };
 		9ACFA6A318600AA50090E7A8 /* ShopList.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ACFA6A218600AA50090E7A8 /* ShopList.m */; };
 		9ACFA6A618600AC70090E7A8 /* _ShopList.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ACFA6A518600AC70090E7A8 /* _ShopList.m */; };
@@ -603,10 +607,6 @@
 		9AD1280A185EFD2E00D56B24 /* StoreCart.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AD12809185EFD2E00D56B24 /* StoreCart.m */; };
 		9AD1280D185EFD3500D56B24 /* _StoreCart.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AD1280C185EFD3500D56B24 /* _StoreCart.m */; };
 		9AD23D5217FABC0100D28C7E /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AD23D5117FABC0100D28C7E /* AudioToolbox.framework */; };
-		9AD2982F186A897200B25287 /* HomeImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AD2982E186A897200B25287 /* HomeImageCell.m */; };
-		9AD29831186A897F00B25287 /* HomeImageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9AD29830186A897F00B25287 /* HomeImageCell.xib */; };
-		9AD29834186A93C800B25287 /* HomeListObjectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AD29833186A93C800B25287 /* HomeListObjectCell.m */; };
-		9AD29836186A93D200B25287 /* HomeListObjectCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9AD29835186A93D200B25287 /* HomeListObjectCell.xib */; };
 		9AED46AC181E73AB00BAD467 /* SGViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AED46AB181E73AB00BAD467 /* SGViewController.m */; };
 		9AEE83FC17FABD1500D92191 /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AEE83FB17FABD1500D92191 /* AddressBookUI.framework */; };
 		9AF01E7F180652B000D9F037 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AF01E7E180652B000D9F037 /* FacebookSDK.framework */; };
@@ -1068,9 +1068,6 @@
 		9A5113D8186C7754008E1418 /* ASIOperationGetTutorial.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIOperationGetTutorial.m; sourceTree = "<group>"; };
 		9A55AB85181A726700BB4492 /* GUIManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GUIManager.h; sourceTree = "<group>"; };
 		9A55AB86181A726700BB4492 /* GUIManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GUIManager.m; sourceTree = "<group>"; };
-		9A55CE1E185F558900F7EA9C /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
-		9A55CE1F185F558900F7EA9C /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
-		9A55CE20185F558900F7EA9C /* HomeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeViewController.xib; sourceTree = "<group>"; };
 		9A5DC46E183DB1A50051375A /* pattern_promotion.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pattern_promotion.png; sourceTree = "<group>"; };
 		9A5DC46F183DB1A50051375A /* pattern_promotion@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pattern_promotion@2x.png"; sourceTree = "<group>"; };
 		9A5DC472183DB7630051375A /* frame_ava.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = frame_ava.png; sourceTree = "<group>"; };
@@ -1103,9 +1100,6 @@
 		9A693CAE186D483C00114597 /* _UserHomeImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _UserHomeImage.m; sourceTree = "<group>"; };
 		9A693CB0186D484300114597 /* UserHomeImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserHomeImage.h; sourceTree = "<group>"; };
 		9A693CB1186D484300114597 /* UserHomeImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserHomeImage.m; sourceTree = "<group>"; };
-		9A693CB3186D5AC600114597 /* HomeListImageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeListImageCell.h; sourceTree = "<group>"; };
-		9A693CB4186D5AC600114597 /* HomeListImageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeListImageCell.m; sourceTree = "<group>"; };
-		9A693CB6186D5AD100114597 /* HomeListImageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeListImageCell.xib; sourceTree = "<group>"; };
 		9A7521FF1856C5BC00248B02 /* SGScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGScrollView.h; sourceTree = "<group>"; };
 		9A7522001856C5BC00248B02 /* SGScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGScrollView.m; sourceTree = "<group>"; };
 		9A7522021856D4D400248B02 /* ButtonPrice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ButtonPrice.h; sourceTree = "<group>"; };
@@ -1389,6 +1383,30 @@
 		9ACA42F4186D3BF3008D89BC /* _UserHome8.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _UserHome8.m; sourceTree = "<group>"; };
 		9ACA42F6186D3BFB008D89BC /* UserHome8.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserHome8.h; sourceTree = "<group>"; };
 		9ACA42F7186D3BFB008D89BC /* UserHome8.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserHome8.m; sourceTree = "<group>"; };
+		9ACAECDD18726F930025B027 /* HomeImageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeImageCell.h; sourceTree = "<group>"; };
+		9ACAECDE18726F930025B027 /* HomeImageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeImageCell.m; sourceTree = "<group>"; };
+		9ACAECDF18726F930025B027 /* HomeImageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeImageCell.xib; sourceTree = "<group>"; };
+		9ACAECE018726F930025B027 /* HomeImagesCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeImagesCell.h; sourceTree = "<group>"; };
+		9ACAECE118726F930025B027 /* HomeImagesCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeImagesCell.m; sourceTree = "<group>"; };
+		9ACAECE218726F930025B027 /* HomeImagesCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeImagesCell.xib; sourceTree = "<group>"; };
+		9ACAECE318726F930025B027 /* HomeInfoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeInfoCell.h; sourceTree = "<group>"; };
+		9ACAECE418726F930025B027 /* HomeInfoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeInfoCell.m; sourceTree = "<group>"; };
+		9ACAECE518726F930025B027 /* HomeInfoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeInfoCell.xib; sourceTree = "<group>"; };
+		9ACAECE618726F930025B027 /* HomeListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeListCell.h; sourceTree = "<group>"; };
+		9ACAECE718726F930025B027 /* HomeListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeListCell.m; sourceTree = "<group>"; };
+		9ACAECE818726F930025B027 /* HomeListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeListCell.xib; sourceTree = "<group>"; };
+		9ACAECE918726F930025B027 /* HomeListImageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeListImageCell.h; sourceTree = "<group>"; };
+		9ACAECEA18726F930025B027 /* HomeListImageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeListImageCell.m; sourceTree = "<group>"; };
+		9ACAECEB18726F930025B027 /* HomeListImageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeListImageCell.xib; sourceTree = "<group>"; };
+		9ACAECEC18726F930025B027 /* HomeListObjectCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeListObjectCell.h; sourceTree = "<group>"; };
+		9ACAECED18726F930025B027 /* HomeListObjectCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeListObjectCell.m; sourceTree = "<group>"; };
+		9ACAECEE18726F930025B027 /* HomeListObjectCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeListObjectCell.xib; sourceTree = "<group>"; };
+		9ACAECEF18726F930025B027 /* HomePromotionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomePromotionCell.h; sourceTree = "<group>"; };
+		9ACAECF018726F930025B027 /* HomePromotionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomePromotionCell.m; sourceTree = "<group>"; };
+		9ACAECF118726F930025B027 /* HomePromotionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomePromotionCell.xib; sourceTree = "<group>"; };
+		9ACAECF218726F930025B027 /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
+		9ACAECF318726F930025B027 /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
+		9ACAECF418726F930025B027 /* HomeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeViewController.xib; sourceTree = "<group>"; };
 		9ACBA9BA185D7745000B3D6B /* ASIOperationStoreAllStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIOperationStoreAllStore.h; sourceTree = "<group>"; };
 		9ACBA9BB185D7745000B3D6B /* ASIOperationStoreAllStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIOperationStoreAllStore.m; sourceTree = "<group>"; };
 		9ACBE8CC185A0A180004474F /* ButtonLove.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ButtonLove.h; sourceTree = "<group>"; };
@@ -1463,18 +1481,6 @@
 		9ACF7A9D18698E4100B0BC78 /* _UserHome6.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _UserHome6.m; sourceTree = "<group>"; };
 		9ACF7A9E18698E4100B0BC78 /* _UserHome7.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _UserHome7.h; sourceTree = "<group>"; };
 		9ACF7A9F18698E4100B0BC78 /* _UserHome7.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _UserHome7.m; sourceTree = "<group>"; };
-		9ACF7AB11869997900B0BC78 /* HomePromotionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomePromotionCell.h; sourceTree = "<group>"; };
-		9ACF7AB21869997900B0BC78 /* HomePromotionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomePromotionCell.m; sourceTree = "<group>"; };
-		9ACF7AB41869998700B0BC78 /* HomeImagesCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeImagesCell.h; sourceTree = "<group>"; };
-		9ACF7AB51869998700B0BC78 /* HomeImagesCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeImagesCell.m; sourceTree = "<group>"; };
-		9ACF7AB7186999A000B0BC78 /* HomeListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeListCell.h; sourceTree = "<group>"; };
-		9ACF7AB8186999A000B0BC78 /* HomeListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeListCell.m; sourceTree = "<group>"; };
-		9ACF7ABA186999B600B0BC78 /* HomeInfoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeInfoCell.h; sourceTree = "<group>"; };
-		9ACF7ABB186999B600B0BC78 /* HomeInfoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeInfoCell.m; sourceTree = "<group>"; };
-		9ACF7ABD18699A6C00B0BC78 /* HomePromotionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomePromotionCell.xib; sourceTree = "<group>"; };
-		9ACF7ABF18699A9200B0BC78 /* HomeImagesCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeImagesCell.xib; sourceTree = "<group>"; };
-		9ACF7AC118699AA800B0BC78 /* HomeListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeListCell.xib; sourceTree = "<group>"; };
-		9ACF7AC318699ABA00B0BC78 /* HomeInfoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeInfoCell.xib; sourceTree = "<group>"; };
 		9ACF7AC51869A25800B0BC78 /* ASIOperationGetShopList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIOperationGetShopList.h; sourceTree = "<group>"; };
 		9ACF7AC61869A25800B0BC78 /* ASIOperationGetShopList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIOperationGetShopList.m; sourceTree = "<group>"; };
 		9ACFA6A118600AA50090E7A8 /* ShopList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopList.h; sourceTree = "<group>"; };
@@ -1503,12 +1509,6 @@
 		9AD1280B185EFD3500D56B24 /* _StoreCart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _StoreCart.h; sourceTree = "<group>"; };
 		9AD1280C185EFD3500D56B24 /* _StoreCart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _StoreCart.m; sourceTree = "<group>"; };
 		9AD23D5117FABC0100D28C7E /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
-		9AD2982D186A897200B25287 /* HomeImageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeImageCell.h; sourceTree = "<group>"; };
-		9AD2982E186A897200B25287 /* HomeImageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeImageCell.m; sourceTree = "<group>"; };
-		9AD29830186A897F00B25287 /* HomeImageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeImageCell.xib; sourceTree = "<group>"; };
-		9AD29832186A93C800B25287 /* HomeListObjectCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeListObjectCell.h; sourceTree = "<group>"; };
-		9AD29833186A93C800B25287 /* HomeListObjectCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeListObjectCell.m; sourceTree = "<group>"; };
-		9AD29835186A93D200B25287 /* HomeListObjectCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeListObjectCell.xib; sourceTree = "<group>"; };
 		9AED46AA181E73AB00BAD467 /* SGViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGViewController.h; sourceTree = "<group>"; };
 		9AED46AB181E73AB00BAD467 /* SGViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGViewController.m; sourceTree = "<group>"; };
 		9AEE83FB17FABD1500D92191 /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
@@ -1801,6 +1801,7 @@
 		9A0F757A187152DB00160E54 /* Shop */ = {
 			isa = PBXGroup;
 			children = (
+				9ACAECDC18726F930025B027 /* Home */,
 				9A0F7581187152DB00160E54 /* ShopList */,
 				9A0F7591187152DB00160E54 /* ShopUser */,
 				9A0F757B187152DB00160E54 /* SearchShopViewController.h */,
@@ -2044,7 +2045,6 @@
 				9A32F4001843460F00704D26 /* Welcome */,
 				9A32F376184345AE00704D26 /* Authorization */,
 				9A32F386184345AE00704D26 /* Map */,
-				9A55CE1D185F558900F7EA9C /* NewFeed */,
 				9A32F3C6184345AE00704D26 /* User */,
 			);
 			path = ViewControllers;
@@ -2323,38 +2323,6 @@
 			path = StoreShop;
 			sourceTree = "<group>";
 		};
-		9A55CE1D185F558900F7EA9C /* NewFeed */ = {
-			isa = PBXGroup;
-			children = (
-				9A55CE1E185F558900F7EA9C /* HomeViewController.h */,
-				9A55CE1F185F558900F7EA9C /* HomeViewController.m */,
-				9A55CE20185F558900F7EA9C /* HomeViewController.xib */,
-				9ACF7AB11869997900B0BC78 /* HomePromotionCell.h */,
-				9ACF7AB21869997900B0BC78 /* HomePromotionCell.m */,
-				9ACF7ABD18699A6C00B0BC78 /* HomePromotionCell.xib */,
-				9ACF7AB41869998700B0BC78 /* HomeImagesCell.h */,
-				9ACF7AB51869998700B0BC78 /* HomeImagesCell.m */,
-				9ACF7ABF18699A9200B0BC78 /* HomeImagesCell.xib */,
-				9AD2982D186A897200B25287 /* HomeImageCell.h */,
-				9AD2982E186A897200B25287 /* HomeImageCell.m */,
-				9AD29830186A897F00B25287 /* HomeImageCell.xib */,
-				9ACF7AB7186999A000B0BC78 /* HomeListCell.h */,
-				9ACF7AB8186999A000B0BC78 /* HomeListCell.m */,
-				9ACF7AC118699AA800B0BC78 /* HomeListCell.xib */,
-				9A693CB3186D5AC600114597 /* HomeListImageCell.h */,
-				9A693CB4186D5AC600114597 /* HomeListImageCell.m */,
-				9A693CB6186D5AD100114597 /* HomeListImageCell.xib */,
-				9AD29832186A93C800B25287 /* HomeListObjectCell.h */,
-				9AD29833186A93C800B25287 /* HomeListObjectCell.m */,
-				9AD29835186A93D200B25287 /* HomeListObjectCell.xib */,
-				9ACF7ABA186999B600B0BC78 /* HomeInfoCell.h */,
-				9ACF7ABB186999B600B0BC78 /* HomeInfoCell.m */,
-				9ACF7AC318699ABA00B0BC78 /* HomeInfoCell.xib */,
-			);
-			name = NewFeed;
-			path = Shop/NewFeed;
-			sourceTree = "<group>";
-		};
 		9A692ADD183933E10066F60F /* ACTimeScroller */ = {
 			isa = PBXGroup;
 			children = (
@@ -2506,6 +2474,37 @@
 				9AC494AF185870B90042C535 /* PickerValue.m */,
 			);
 			path = PickerValue;
+			sourceTree = "<group>";
+		};
+		9ACAECDC18726F930025B027 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				9ACAECDD18726F930025B027 /* HomeImageCell.h */,
+				9ACAECDE18726F930025B027 /* HomeImageCell.m */,
+				9ACAECDF18726F930025B027 /* HomeImageCell.xib */,
+				9ACAECE018726F930025B027 /* HomeImagesCell.h */,
+				9ACAECE118726F930025B027 /* HomeImagesCell.m */,
+				9ACAECE218726F930025B027 /* HomeImagesCell.xib */,
+				9ACAECE318726F930025B027 /* HomeInfoCell.h */,
+				9ACAECE418726F930025B027 /* HomeInfoCell.m */,
+				9ACAECE518726F930025B027 /* HomeInfoCell.xib */,
+				9ACAECE618726F930025B027 /* HomeListCell.h */,
+				9ACAECE718726F930025B027 /* HomeListCell.m */,
+				9ACAECE818726F930025B027 /* HomeListCell.xib */,
+				9ACAECE918726F930025B027 /* HomeListImageCell.h */,
+				9ACAECEA18726F930025B027 /* HomeListImageCell.m */,
+				9ACAECEB18726F930025B027 /* HomeListImageCell.xib */,
+				9ACAECEC18726F930025B027 /* HomeListObjectCell.h */,
+				9ACAECED18726F930025B027 /* HomeListObjectCell.m */,
+				9ACAECEE18726F930025B027 /* HomeListObjectCell.xib */,
+				9ACAECEF18726F930025B027 /* HomePromotionCell.h */,
+				9ACAECF018726F930025B027 /* HomePromotionCell.m */,
+				9ACAECF118726F930025B027 /* HomePromotionCell.xib */,
+				9ACAECF218726F930025B027 /* HomeViewController.h */,
+				9ACAECF318726F930025B027 /* HomeViewController.m */,
+				9ACAECF418726F930025B027 /* HomeViewController.xib */,
+			);
+			path = Home;
 			sourceTree = "<group>";
 		};
 		A90ED8C617C1C701003D2D93 /* ButtonImage */ = {
@@ -3518,7 +3517,6 @@
 				9A7E5573183C842E006D1798 /* button_send.png in Resources */,
 				9ACFAE7318621D10006131DC /* button_camera.png in Resources */,
 				9ACF4F411859AAF200D98BA7 /* button_scan_small.png in Resources */,
-				9AD29831186A897F00B25287 /* HomeImageCell.xib in Resources */,
 				9A29399D1844AA8F00FD49E2 /* icon_view@2x.png in Resources */,
 				9A0F763F187152DB00160E54 /* SUShopGalleryCell.xib in Resources */,
 				9A3986AB185B6A8A006C0961 /* button_setting_navigation@2x.png in Resources */,
@@ -3563,9 +3561,12 @@
 				9AC5380518684490009A000B /* bg_detail_info_header.png in Resources */,
 				9AA026E6183674CF0087B2DA /* line_vercontent@2x.png in Resources */,
 				9A29392C18447EAE00FD49E2 /* bgsort_left@2x.png in Resources */,
+				9ACAECF818726F930025B027 /* HomeImagesCell.xib in Resources */,
+				9ACAED0218726F930025B027 /* HomePromotionCell.xib in Resources */,
 				9A7E5577183C84FC006D1798 /* icon_logo.png in Resources */,
 				9ACBE8E7185A117B0004474F /* button_getgiffthidden.png in Resources */,
 				9A2939371844803A00FD49E2 /* icon_comment.png in Resources */,
+				9ACAECFC18726F930025B027 /* HomeListCell.xib in Resources */,
 				9A9FCBDE1854ED8C004A3CFB /* button_addshop@2x.png in Resources */,
 				9A9FCBAE1854DD9B004A3CFB /* bg_countitem@2x.png in Resources */,
 				9ACFAE6A1861B893006131DC /* icon_playlist@2x.png in Resources */,
@@ -3575,8 +3576,6 @@
 				9AC5380418684490009A000B /* bg_detail_info_bottom.png in Resources */,
 				9A32F3D6184345AE00704D26 /* UserLoginViewController.xib in Resources */,
 				9A9FCC001854ED8C004A3CFB /* III-2-Collection-History.jpg in Resources */,
-				9AD29836186A93D200B25287 /* HomeListObjectCell.xib in Resources */,
-				9ACF7AC018699A9200B0BC78 /* HomeImagesCell.xib in Resources */,
 				9A0F7628187152DB00160E54 /* ShopKM1Cell.xib in Resources */,
 				9A5DC479183DB8ED0051375A /* frame_map@2x.png in Resources */,
 				9A9FCBF61854ED8C004A3CFB /* II-3-Detail.jpg in Resources */,
@@ -3654,7 +3653,6 @@
 				9A9FCBF91854ED8C004A3CFB /* II-3-DetailFull.jpg in Resources */,
 				9AB1F04B183F136700A35422 /* arrowchat_smallgray@2x.png in Resources */,
 				9ACFAE7A18621D10006131DC /* frame_takephoto@2x.png in Resources */,
-				9ACF7ABE18699A6C00B0BC78 /* HomePromotionCell.xib in Resources */,
 				9A7E556F183C7F21006D1798 /* photo_firsttime.png in Resources */,
 				9A5DC488183DC16A0051375A /* icon_promotion.png in Resources */,
 				9A5DC485183DBEAA0051375A /* background_status@2x.png in Resources */,
@@ -3737,7 +3735,6 @@
 				9A9FCBFC1854ED8C004A3CFB /* II-7-Notification.jpg in Resources */,
 				9ACF7A5618694D4F00B0BC78 /* pin_drag.png in Resources */,
 				9A5DC481183DBB940051375A /* background_shadow@2x.png in Resources */,
-				9A55CE22185F558900F7EA9C /* HomeViewController.xib in Resources */,
 				9AA90B581850EBA5002F40FF /* button_green_right@2x.png in Resources */,
 				9ACF4F4A1859C39D00D98BA7 /* line_status@2x.png in Resources */,
 				9A0F760F187152DB00160E54 /* ShopCameraViewController.xib in Resources */,
@@ -3748,6 +3745,7 @@
 				9A7E554C183C702D006D1798 /* icon_dottitle@2x.png in Resources */,
 				9A85B73E1846ECB2009FD108 /* icon_love@2x.png in Resources */,
 				9AA90B711850EF0F002F40FF /* button_Facebook@2x.png in Resources */,
+				9ACAECF618726F930025B027 /* HomeImageCell.xib in Resources */,
 				9A3986CC185B7CAF006C0961 /* frame_avauser_navigation.png in Resources */,
 				9AA90B761850EF0F002F40FF /* line_comment.png in Resources */,
 				9AA90B731850EF0F002F40FF /* button_showmore@2x.png in Resources */,
@@ -3775,7 +3773,6 @@
 				9A7E5547183C69E3006D1798 /* button_close.png in Resources */,
 				9A3B93F6185DFDAE004F94A4 /* StoreShopCell.xib in Resources */,
 				9ACBE8F4185A16EA0004474F /* bg_content_mid@2x.png in Resources */,
-				9ACF7AC418699ABA00B0BC78 /* HomeInfoCell.xib in Resources */,
 				9A3E767B18532BC200F596C1 /* UserInfomationViewController.xib in Resources */,
 				9A66893E184DC6F2006A9EB2 /* line_detail@2x.png in Resources */,
 				9A9FCBDD1854ED8C004A3CFB /* button_addshop.png in Resources */,
@@ -3805,6 +3802,7 @@
 				9AC979EE186C273B00E5432D /* bg_feed_bottom_home.png in Resources */,
 				9A2F8D121855BC3C0024AE1A /* button_more.png in Resources */,
 				9A85B73F1846ECB2009FD108 /* icon_typesgp.png in Resources */,
+				9ACAECFA18726F930025B027 /* HomeInfoCell.xib in Resources */,
 				9ACF309D183E0A0A002FAE80 /* icon_flaggray.png in Resources */,
 				9A32F40F184346B400704D26 /* SGQRCodeViewController.xib in Resources */,
 				9A7E555F183C7A4D006D1798 /* icon_address.png in Resources */,
@@ -3838,10 +3836,10 @@
 				9A9FCBE71854ED8C004A3CFB /* II-1-Block.jpg in Resources */,
 				9A9FCBF31854ED8C004A3CFB /* II-3-Detail-InfoFull.jpg in Resources */,
 				9A9FCBE41854ED8C004A3CFB /* cover@2x.jpg in Resources */,
-				9ACF7AC218699AA800B0BC78 /* HomeListCell.xib in Resources */,
 				9AA90B541850EBA5002F40FF /* button_green_right.png in Resources */,
 				9A9FCBE51854ED8C004A3CFB /* coverdetail.jpg in Resources */,
 				9A3B93F8185DFDAE004F94A4 /* StoreShopViewController.xib in Resources */,
+				9ACAED0018726F930025B027 /* HomeListObjectCell.xib in Resources */,
 				9A29393118447EAE00FD49E2 /* bgsort_tallmid.png in Resources */,
 				9ACBE8F2185A16EA0004474F /* bg_content_head@2x.png in Resources */,
 				9A9FCBA91854DC50004A3CFB /* frame_ver_store.png in Resources */,
@@ -3860,6 +3858,7 @@
 				9A85B73A1846ECB2009FD108 /* background_blur@2x.png in Resources */,
 				9A3986AA185B6A8A006C0961 /* button_setting_navigation.png in Resources */,
 				9ACBE8E8185A117B0004474F /* button_getgiffthidden@2x.png in Resources */,
+				9ACAECFE18726F930025B027 /* HomeListImageCell.xib in Resources */,
 				9A9FCBE61854ED8C004A3CFB /* coverdetail@2x.jpg in Resources */,
 				9A9FCC021854ED8C004A3CFB /* IV-1-Stores.jpg in Resources */,
 				9A32F414184346BA00704D26 /* SGToolbarViewController.xib in Resources */,
@@ -3899,7 +3898,6 @@
 				9A9FCBE81854ED8C004A3CFB /* II-2-List-Add.jpg in Resources */,
 				9A3E765C1851C61000F596C1 /* button_dropup@2x.png in Resources */,
 				9A3986A8185B6A8A006C0961 /* bg_blur_navigation.jpg in Resources */,
-				9A693CB7186D5AD100114597 /* HomeListImageCell.xib in Resources */,
 				9AB1F04D183F136700A35422 /* arrowchat@2x.png in Resources */,
 				9A5DC47C183DBA9C0051375A /* button_call.png in Resources */,
 				9AB1F04C183F136700A35422 /* arrowchat.png in Resources */,
@@ -3910,6 +3908,7 @@
 				9AC979F9186C273B00E5432D /* button_green_right_home@2x.png in Resources */,
 				9A32F3D0184345AE00704D26 /* AvatarListView.xib in Resources */,
 				9A7E5542183C68E9006D1798 /* buton_love@2X.png in Resources */,
+				9ACAED0418726F930025B027 /* HomeViewController.xib in Resources */,
 				9AA026E5183674CF0087B2DA /* line_vercontent.png in Resources */,
 				9A9FCBF11854ED8C004A3CFB /* II-3-Detail-Info1.jpg in Resources */,
 				9A3986AC185B6A8A006C0961 /* button_update.png in Resources */,
@@ -3955,7 +3954,6 @@
 				9A7E55AE183CEB30006D1798 /* UIImage+WebP.m in Sources */,
 				9ACF7AA318698E4100B0BC78 /* _UserHome3.m in Sources */,
 				9A0F7609187152DB00160E54 /* ShopSearchSortView.m in Sources */,
-				9ACF7AB61869998700B0BC78 /* HomeImagesCell.m in Sources */,
 				9A2F8D191855C0860024AE1A /* UIView+GMGridViewAdditions.m in Sources */,
 				A9A505A9178E8B8400F27E18 /* AlertView.m in Sources */,
 				9A0F7610187152DB00160E54 /* ShopUserCommentCell.m in Sources */,
@@ -3965,7 +3963,7 @@
 				A9A505E6178EC5EF00F27E18 /* FTCoreTextStyle.m in Sources */,
 				A9A505E7178EC5EF00F27E18 /* FTCoreTextView.m in Sources */,
 				9A0F7639187152DB00160E54 /* SUKM2Cell.m in Sources */,
-				9A693CB5186D5AC600114597 /* HomeListImageCell.m in Sources */,
+				9ACAED0118726F930025B027 /* HomePromotionCell.m in Sources */,
 				9AC66F86186447B300890F80 /* ASIOperationAgreeComment.m in Sources */,
 				A9BF946D178FA7E700EF7E5F /* AFHTTPClient.m in Sources */,
 				A9BF946E178FA7E700EF7E5F /* AFHTTPRequestOperation.m in Sources */,
@@ -3973,6 +3971,7 @@
 				A9BF946F178FA7E700EF7E5F /* AFImageRequestOperation.m in Sources */,
 				A9BF9470178FA7E700EF7E5F /* AFJSONRequestOperation.m in Sources */,
 				9A32F471184348A300704D26 /* GMGridViewLayoutStrategies.m in Sources */,
+				9ACAED0318726F930025B027 /* HomeViewController.m in Sources */,
 				A9BF9471178FA7E700EF7E5F /* AFNetworkActivityIndicatorManager.m in Sources */,
 				9A32F475184348B600704D26 /* HitTestView.m in Sources */,
 				A9BF9472178FA7E700EF7E5F /* AFPropertyListRequestOperation.m in Sources */,
@@ -3980,7 +3979,6 @@
 				9ACBE8CF185A0A180004474F /* ButtonLove.m in Sources */,
 				9A313AB318430B1A002DDA80 /* SGTableTemplate.m in Sources */,
 				A9BF9473178FA7E700EF7E5F /* AFURLConnectionOperation.m in Sources */,
-				9ACF7AB9186999A000B0BC78 /* HomeListCell.m in Sources */,
 				9A32F44F1843488F00704D26 /* Button.m in Sources */,
 				A9BF9474178FA7E700EF7E5F /* AFXMLRequestOperation.m in Sources */,
 				A9BF9489178FB87E00EF7E5F /* LocationManager.m in Sources */,
@@ -3988,7 +3986,6 @@
 				9A7E55AB183CEB30006D1798 /* UIButton+WebCache.m in Sources */,
 				9ACF7AA518698E4100B0BC78 /* _UserHome5.m in Sources */,
 				A9E71DA6178FD2B200D7467E /* LocalizationManager.m in Sources */,
-				9ACF7AB31869997900B0BC78 /* HomePromotionCell.m in Sources */,
 				9A7EA8C8181A8C8C008D693A /* TransportViewController.m in Sources */,
 				9A5113D3186C7726008E1418 /* _Tutorial.m in Sources */,
 				9ACF7A5F186988D200B0BC78 /* ASIOperationUserHome.m in Sources */,
@@ -3998,6 +3995,7 @@
 				9AC494B31858B2390042C535 /* ASIOperationStoreShopList.m in Sources */,
 				A93F206F1797DFB100622D75 /* OperationURL.m in Sources */,
 				9A32F4041843469400704D26 /* SGNotificationViewController.m in Sources */,
+				9ACAECF518726F930025B027 /* HomeImageCell.m in Sources */,
 				9A32F4521843488F00704D26 /* Label.m in Sources */,
 				9ACFA6A318600AA50090E7A8 /* ShopList.m in Sources */,
 				A91A675B1797F65000BEB8C5 /* DataManager.m in Sources */,
@@ -4031,7 +4029,6 @@
 				9A32F47E18434ECF00704D26 /* SGAdsViewController.m in Sources */,
 				9ACF7AA718698E4100B0BC78 /* _UserHome7.m in Sources */,
 				9A0F7625187152DB00160E54 /* ShopDetailInfoViewController.m in Sources */,
-				9AD29834186A93C800B25287 /* HomeListObjectCell.m in Sources */,
 				9ACF7A8918698E3700B0BC78 /* UserHome1.m in Sources */,
 				9A0F760A187152DB00160E54 /* ShopCameraPostViewController.m in Sources */,
 				9A55AB87181A726700BB4492 /* GUIManager.m in Sources */,
@@ -4075,6 +4072,7 @@
 				9A0F75FD187152DB00160E54 /* SearchShopViewController.m in Sources */,
 				9ACF7AC71869A25800B0BC78 /* ASIOperationGetShopList.m in Sources */,
 				9ACFAEEC18635267006131DC /* ASIOperationLoveShop.m in Sources */,
+				9ACAECFF18726F930025B027 /* HomeListObjectCell.m in Sources */,
 				9A2F8D181855C0860024AE1A /* UIGestureRecognizer+GMGridViewAdditions.m in Sources */,
 				9A7E55A8183CEB30006D1798 /* SDWebImageDownloaderOperation.m in Sources */,
 				9A0F761F187152DB00160E54 /* ShopDetailInfoType2Cell.m in Sources */,
@@ -4087,7 +4085,6 @@
 				9A0F7623187152DB00160E54 /* ShopDetailInfoType4Cell.m in Sources */,
 				9ACFA6A618600AC70090E7A8 /* _ShopList.m in Sources */,
 				9AC4940A18585A300042C535 /* StoreItemInfoViewController.m in Sources */,
-				9ACF7ABC186999B600B0BC78 /* HomeInfoCell.m in Sources */,
 				A935C51E17A43101008910D3 /* _Filter.m in Sources */,
 				9AA90B5B1850ED8D002F40FF /* ButtonAgree.m in Sources */,
 				9A7522041856D4D400248B02 /* ButtonPrice.m in Sources */,
@@ -4098,6 +4095,7 @@
 				A95125FB17A456C0003F8BB2 /* ASIOperationShopInGroup.m in Sources */,
 				9A3B93F3185DFDAE004F94A4 /* StoreAdsCell.m in Sources */,
 				9A9211A6185AC7AB0012F181 /* LoadingView.m in Sources */,
+				9ACAECFB18726F930025B027 /* HomeListCell.m in Sources */,
 				A921B02F17A8B68200DC6D4D /* ASIOperationShopUser.m in Sources */,
 				9A29392218445DA000FD49E2 /* ShopKM1.m in Sources */,
 				A921B03517A8BCA500DC6D4D /* ShopProduct.m in Sources */,
@@ -4140,10 +4138,13 @@
 				A925479917AE423400AD0BA9 /* OperationVerifyActiveCode.m in Sources */,
 				9A3E768418532BDF00F596C1 /* UserCollectionViewController.m in Sources */,
 				A925479C17AE453F00AD0BA9 /* OperationGetToken.m in Sources */,
+				9ACAECF718726F930025B027 /* HomeImagesCell.m in Sources */,
 				9AC74E551860BE230033EB61 /* _Placelist.m in Sources */,
 				A924A3C117AEB63F0042B28B /* OperationRefreshToken.m in Sources */,
+				9ACAECF918726F930025B027 /* HomeInfoCell.m in Sources */,
 				A924A3C517AEBC860042B28B /* SwitchSetting.m in Sources */,
 				9A7E55A6183CEB30006D1798 /* SDWebImageDecoder.m in Sources */,
+				9ACAECFD18726F930025B027 /* HomeListImageCell.m in Sources */,
 				9A2F8CF418556DAE0024AE1A /* StoreShopInfoViewController.m in Sources */,
 				9A0F762A187152DB00160E54 /* DDAnnotationView.m in Sources */,
 				A925C31717AF80CE00CF43D6 /* ASIOperationGetRewardPromotionType2.m in Sources */,
@@ -4193,7 +4194,6 @@
 				9A0F7603187152DB00160E54 /* ShopListCell.m in Sources */,
 				9A0F7607187152DB00160E54 /* ShopListViewController.m in Sources */,
 				9A0F761B187152DB00160E54 /* ShopDetailInfoHeaderView.m in Sources */,
-				9A55CE21185F558900F7EA9C /* HomeViewController.m in Sources */,
 				9A32F4531843488F00704D26 /* LabelStroke.m in Sources */,
 				9A693CB2186D484300114597 /* UserHomeImage.m in Sources */,
 				A920E1E817CBD0B9003FAA80 /* ASIOperationSGToReward.m in Sources */,
@@ -4217,7 +4217,6 @@
 				9A0F762F187152DB00160E54 /* SGShopEmptyCell.m in Sources */,
 				9A7E55A9183CEB30006D1798 /* SDWebImageManager.m in Sources */,
 				9A692AE0183933E10066F60F /* ACTimeScroller.m in Sources */,
-				9AD2982F186A897200B25287 /* HomeImageCell.m in Sources */,
 				9A46B6B717F0B1D100410408 /* ASIOperationUploadFBToken.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

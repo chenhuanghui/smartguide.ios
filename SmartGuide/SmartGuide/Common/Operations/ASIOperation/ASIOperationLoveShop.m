@@ -71,15 +71,7 @@
             shop.numOfLove=numOfLove;
             shop.loveStatus=@(loveS);
         }
-        
-        ShopList *shopList=[ShopList shopListWithIDShop:idShop];
-        
-        if(shopList)
-        {
-            shopList.numOfLove=numOfLove;
-            shopList.loveStatus=@(loveS);
-        }
-        
+   
         [[DataManager shareInstance] save];
     }
 }

@@ -15,6 +15,7 @@
         home.shop=[Shop insert];
         home.shop.idShop=@(idShop);
         home.shop.shopName=[NSString stringWithStringDefault:dict[@"shopName"]];
+        home.shop.dataMode=@(SHOP_DATA_HOME_8);
     }
     
     home.shopName=[NSString stringWithStringDefault:dict[@"shopName"]];
@@ -29,6 +30,56 @@
     home.shop.shopGalleryImage=[NSString stringWithStringDefault:dict[@"image"]];
     
     return home;
+}
+
+-(NSNumber *)shopType
+{
+    return self.shop.shopType;
+}
+
+-(NSString *)shopTypeDisplay
+{
+    return self.shop.shopTypeDisplay;
+}
+
+-(NSNumber *)idShop
+{
+    return self.shop.idShop;
+}
+
+-(NSNumber *)loveStatus
+{
+    return self.shop.loveStatus;
+}
+
+-(NSString *)numOfLove
+{
+    return self.shop.numOfLove;
+}
+
+-(NSString *)numOfView
+{
+    return self.shop.numOfView;
+}
+
+-(NSString *)numOfComment
+{
+    return self.shop.numOfComment;
+}
+
+-(NSString *)logo
+{
+    return self.shop.logo;
+}
+
+-(NSString *)cover
+{
+    return self.shop.shopGalleryCover;
+}
+
+-(NSString *)coverFull
+{
+    return self.shop.shopGalleryImage;
 }
 
 @end

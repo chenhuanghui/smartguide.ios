@@ -7,6 +7,13 @@
 #import "ShopKM1.h"
 #import "KM1Voucher.h"
 
+enum SHOP_DATA_MODE {
+    SHOP_DATA_SHOP_LIST = 0,
+    SHOP_DATA_HOME_8 = 1,
+    SHOP_DATA_FULL = 2,
+};
+
+
 @interface Shop : _Shop<MKAnnotation>
 {
     CLLocationCoordinate2D _dragCoord;
@@ -20,6 +27,6 @@
 -(enum SHOP_PROMOTION_TYPE) shopPromotionType;
 -(enum LOVE_STATUS) enumLoveStatus;
 
-
+-(enum SHOP_DATA_MODE) enumDataMode;
 
 @end
