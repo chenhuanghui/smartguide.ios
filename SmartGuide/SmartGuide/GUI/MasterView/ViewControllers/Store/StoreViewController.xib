@@ -115,7 +115,6 @@
     <resources>
         <image name="background_scan.png" width="320" height="56"/>
         <image name="bg_animation.jpg" width="320" height="263"/>
-        <image name="bg_animation.jpg" width="320" height="263"/>
         <image name="button_addcart.png" width="21" height="20"/>
         <image name="button_navigation.png" width="25" height="20"/>
     </resources>

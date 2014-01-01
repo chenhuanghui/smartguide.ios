@@ -93,7 +93,7 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </view>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nhận thẻ và quà từ nhân viên cửa hàng" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="7zc-4S-YXi">
-                        <rect key="frame" x="0.0" y="128" width="290" height="21"/>
+                        <rect key="frame" x="0.0" y="133" width="290" height="21"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="11"/>
                         <nil key="highlightedColor"/>
@@ -130,6 +130,10 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" red="0.92156862750000001" green="0.92156862750000001" blue="0.92156862750000001" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="II-3-Detail-Promtion1-firsttime.jpg" id="2uW-6L-8xi">
+                        <rect key="frame" x="-3" y="0.0" width="295" height="282"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    </imageView>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </tableViewCellContentView>
@@ -148,6 +152,7 @@
         </tableViewCell>
     </objects>
     <resources>
+        <image name="II-3-Detail-Promtion1-firsttime.jpg" width="290" height="282"/>
         <image name="button_getgiffthidden.png" width="91" height="77"/>
         <image name="icon_dottitle.png" width="12" height="12"/>
         <image name="icon_notice.png" width="31" height="27"/>

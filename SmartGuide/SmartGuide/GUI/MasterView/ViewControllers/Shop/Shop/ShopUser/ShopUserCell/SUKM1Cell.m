@@ -63,6 +63,7 @@
 
 +(float)heightWithKM1:(ShopKM1 *)km1
 {
+    return 282;
     float height=208;
     for(KM1Voucher *voucher in km1.listVoucherObjects)
     {
