@@ -83,7 +83,7 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="icon_flag.png" width="33" height="41"/>
-        <image name="icon_flaggray.png" width="33" height="41"/>
+        <image name="icon_flag.png" width="33" height="42"/>
+        <image name="icon_flaggray.png" width="33" height="42"/>
     </resources>
 </document>

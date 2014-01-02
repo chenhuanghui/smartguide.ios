@@ -1,14 +1,14 @@
 //
-//  SUKM3Cell.m
+//  SUKMNewsCell.m
 //  SmartGuide
 //
-//  Created by MacMini on 04/12/2013.
-//  Copyright (c) 2013 Redbase. All rights reserved.
+//  Created by MacMini on 02/01/2014.
+//  Copyright (c) 2014 Redbase. All rights reserved.
 //
 
-#import "SUKM3Cell.h"
+#import "SUKMNewsCell.h"
 
-@implementation SUKM3Cell
+@implementation SUKMNewsCell
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {

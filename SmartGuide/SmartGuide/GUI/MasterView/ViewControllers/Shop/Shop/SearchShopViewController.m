@@ -50,8 +50,8 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    
-    _keyword=@"xa";
+
+    _autocomplete=[[NSMutableDictionary alloc] init];
     
     txt.text=_keyword;
     txt.leftView=[[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, txt.l_v_h)];
@@ -102,6 +102,20 @@
         
         [table reloadData];
     }
+    else if([operation isKindOfClass:[ASIOperationSearchAutocomplete class]])
+    {
+        ASIOperationSearchAutocomplete *ope=(ASIOperationSearchAutocomplete*) operation;
+        
+        NSMutableDictionary *dict=[NSMutableDictionary dictionary];
+        
+        [dict setObject:ope.shops forKey:@"shop"];
+        [dict setObject:ope.placelists forKey:@"placelist"];
+        
+        [_autocomplete setObject:dict forKey:ope.keyword];
+        
+        if([txt.text isEqualToString:ope.keyword])
+            [table reloadData];
+    }
 }
 
 -(void)ASIOperaionPostFailed:(ASIOperationPost *)operation
@@ -128,17 +142,73 @@
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
+    if(txt.text.length>0)
+    {
+        return ([self shopsForKeyword:txt.text].count+[self placelistsForKeyword:txt.text].count)>0?2:0;
+    }
+    
     return _placeLists.count==0?0:1;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    if(txt.text.length>0)
+    {
+        switch (section) {
+            case 0:
+                return [self shopsForKeyword:txt.text].count;
+                
+            case 1:
+                return [self placelistsForKeyword:txt.text].count;
+                
+            default:
+                return 0;
+        }
+    }
+    
     return _placeLists.count;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell=[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
+    if(txt.text.length>0)
+    {
+        switch (indexPath.section) {
+            case 0:
+            {
+                UITableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:@"auto_shop"];
+                
+                if(!cell)
+                    cell=[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"auto_shop"];
+                
+                cell.imageView.image=[UIImage imageNamed:@"ava.png"];
+                cell.textLabel.text=[self shopsForKeyword:txt.text][indexPath.row][AUTOCOMPLETE_KEY];
+                
+                return cell;
+            }
+                
+            case 1:
+            {
+                UITableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:@"auto_place"];
+                
+                if(!cell)
+                    cell=[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"auto_place"];
+                
+                cell.imageView.image=[UIImage imageNamed:@"ava.png"];
+                cell.textLabel.text=[self placelistsForKeyword:txt.text][indexPath.row][AUTOCOMPLETE_KEY];
+                
+                return cell;
+            }
+                
+            default:
+                return [UITableViewCell new];
+        }
+    }
+    
+    UITableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:@"placelist"];
+    
+    if(!cell)
+        cell=[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"placelist"];
     
     cell.textLabel.text=[_placeLists[indexPath.row] title];
     
@@ -186,7 +256,21 @@
 
 -(void) textFieldDidChangedText:(UITextField*) textField
 {
-//    [table reloadData];
+    if(textField.text.length==0)
+        return;
+    
+    if(_autocomplete[textField.text])
+    {
+        [table  reloadData];
+        return;
+    }
+    else
+    {
+        ASIOperationSearchAutocomplete *ope=[[ASIOperationSearchAutocomplete alloc] initWithKeyword:textField.text userLat:userLat() userLng:userLng()];
+        ope.delegatePost=self;
+        
+        [ope startAsynchronous];
+    }
 }
 
 -(void) keyboardWillShow:(NSNotification*) notification
@@ -217,6 +301,31 @@
         [_operationPlacelistGetList cancel];
         _operationPlacelistGetList=nil;
     }
+}
+
+-(NSDictionary*) dataForKeyword:(NSString*) keyword
+{
+    return _autocomplete[keyword];
+}
+
+-(NSArray*) shopsForKeyword:(NSString*) keyword
+{
+    NSDictionary *dict=[self dataForKeyword:keyword];
+    
+    if(dict)
+        return dict[@"shop"];
+    
+    return [NSArray array];
+}
+
+-(NSArray*) placelistsForKeyword:(NSString*) keyword
+{
+    NSDictionary *dict=[self dataForKeyword:keyword];
+    
+    if(dict)
+        return dict[@"placelist"];
+    
+    return [NSArray array];
 }
 
 @end

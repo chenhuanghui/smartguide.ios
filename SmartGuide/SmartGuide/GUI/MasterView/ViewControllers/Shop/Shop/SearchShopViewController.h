@@ -9,6 +9,7 @@
 #import "SGViewController.h"
 #import "SearchViewController.h"
 #import "ASIOperationPlacelistGetList.h"
+#import "ASIOperationSearchAutocomplete.h"
 
 @class SearchShopViewController;
 
@@ -29,6 +30,12 @@
     
     NSString *_keyword;
     __weak Placelist *_placelist;
+    
+    //key: text người dùng nhập
+    //value: 1 dictionary 2 KVP
+    //value 1: key shop value array shops-dictionary từ api
+    //value 2: key placelist value array placelist-dictionary từ api
+    NSMutableDictionary *_autocomplete;
     
     ASIOperationPlacelistGetList *_operationPlacelistGetList;
     
