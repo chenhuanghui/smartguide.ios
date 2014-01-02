@@ -6,12 +6,12 @@
 #define ShopKM1_ClassName @"ShopKM1"
 
 #define ShopKM1_Duration @"duration"
-#define ShopKM1_IdKM1 @"idKM1"
+#define ShopKM1_HasSGP @"hasSGP"
 #define ShopKM1_Money @"money"
-#define ShopKM1_Notice @"notice"
 #define ShopKM1_P @"p"
 #define ShopKM1_Sgp @"sgp"
 #define ShopKM1_Sp @"sp"
+#define ShopKM1_Text @"text"
 
 @class ShopKM1;
 @class KM1Voucher;
@@ -29,12 +29,12 @@
 
 
 @property (nonatomic, retain) NSString* duration;
-@property (nonatomic, retain) NSNumber* idKM1;
+@property (nonatomic, retain) NSNumber* hasSGP;
 @property (nonatomic, retain) NSString* money;
-@property (nonatomic, retain) NSString* notice;
 @property (nonatomic, retain) NSString* p;
 @property (nonatomic, retain) NSString* sgp;
 @property (nonatomic, retain) NSString* sp;
+@property (nonatomic, retain) NSString* text;
 
 #pragma mark Fetched property
 

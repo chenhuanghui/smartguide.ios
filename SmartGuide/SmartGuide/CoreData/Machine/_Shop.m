@@ -9,6 +9,8 @@
 #import "UserHome6.h"
 #import "UserHome8.h"
 #import "ShopKM1.h"
+#import "ShopKM2.h"
+#import "PromotionNews.h"
 #import "ShopGallery.h"
 #import "ShopList.h"
 #import "ShopUserComment.h"
@@ -32,6 +34,14 @@
 
 
 @dynamic km1;
+
+
+
+@dynamic km2;
+
+
+
+@dynamic promotionNew;
 
 
 
@@ -417,6 +427,22 @@
 	[self willAccessValueForKey:@"km1"];
 	ShopKM1 *result = [self primitiveValueForKey:@"km1"];
 	[self didAccessValueForKey:@"km1"];
+	return result;
+}
+
+#pragma mark Km2
+- (ShopKM2*)km2 {
+	[self willAccessValueForKey:@"km2"];
+	ShopKM2 *result = [self primitiveValueForKey:@"km2"];
+	[self didAccessValueForKey:@"km2"];
+	return result;
+}
+
+#pragma mark PromotionNew
+- (PromotionNews*)promotionNew {
+	[self willAccessValueForKey:@"promotionNew"];
+	PromotionNews *result = [self primitiveValueForKey:@"promotionNew"];
+	[self didAccessValueForKey:@"promotionNew"];
 	return result;
 }
 

@@ -46,6 +46,7 @@
     [shop removeAllUserGalleries];
     [shop removeAllShopGalleries];
     shop.km1=nil;
+    shop.km2=nil;
     
     shop.dataMode=@(SHOP_DATA_FULL);
     
@@ -116,17 +117,19 @@
             break;
             
         case SHOP_PROMOTION_KM1:
-        {
             shop.km1=[ShopKM1 makeWithJSON:dict[@"promotionDetail"]];
-        }
             break;
             
         case SHOP_PROMOTION_KM2:
+            shop.km2=[ShopKM2 makeWithDictionary:dict[@"promotionDetail"]];
             break;
             
         case SHOP_PROMOTION_KM3:
             break;
     }
+    
+    shop.promotionNew=nil;
+    shop.promotionNew=[PromotionNews makeWithDictionary:dict[@"promotionNews"]];
     
     return shop;
 }

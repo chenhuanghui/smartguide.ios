@@ -31,6 +31,8 @@
 @class UserHome6;
 @class UserHome8;
 @class ShopKM1;
+@class ShopKM2;
+@class PromotionNews;
 @class ShopGallery;
 @class ShopList;
 @class ShopUserComment;
@@ -85,6 +87,12 @@
 
 #pragma mark Km1
 @property (nonatomic, retain) ShopKM1* km1;
+
+#pragma mark Km2
+@property (nonatomic, retain) ShopKM2* km2;
+
+#pragma mark PromotionNew
+@property (nonatomic, retain) PromotionNews* promotionNew;
 
 #pragma mark ShopGalleries
 - (NSSet*) shopGalleries;

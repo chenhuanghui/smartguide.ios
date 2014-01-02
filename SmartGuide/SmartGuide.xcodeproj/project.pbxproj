@@ -576,6 +576,12 @@
 		9ACE90771875BC81008FEA7E /* II-5-SearchPlaylist.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9ACE90761875BC81008FEA7E /* II-5-SearchPlaylist.jpg */; };
 		9ACE907A1875BCD2008FEA7E /* SearchShopCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ACE90791875BCD2008FEA7E /* SearchShopCell.m */; };
 		9ACE907C1875BCDB008FEA7E /* SearchShopCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9ACE907B1875BCDB008FEA7E /* SearchShopCell.xib */; };
+		9ACE90821875CE8C008FEA7E /* PromotionNews.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ACE90811875CE8C008FEA7E /* PromotionNews.m */; };
+		9ACE90851875CE92008FEA7E /* _PromotionNews.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ACE90841875CE92008FEA7E /* _PromotionNews.m */; };
+		9ACE90901875D176008FEA7E /* KM2Voucher.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ACE908D1875D176008FEA7E /* KM2Voucher.m */; };
+		9ACE90911875D176008FEA7E /* ShopKM2.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ACE908F1875D176008FEA7E /* ShopKM2.m */; };
+		9ACE90961875D17E008FEA7E /* _KM2Voucher.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ACE90931875D17E008FEA7E /* _KM2Voucher.m */; };
+		9ACE90971875D17E008FEA7E /* _ShopKM2.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ACE90951875D17E008FEA7E /* _ShopKM2.m */; };
 		9ACEC6711866CF6F00E4C5C1 /* ASIOperationShopDetailInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ACEC6701866CF6F00E4C5C1 /* ASIOperationShopDetailInfo.m */; };
 		9ACF309B183E0A0A002FAE80 /* icon_flag.png in Resources */ = {isa = PBXBuildFile; fileRef = 9ACF3097183E0A0A002FAE80 /* icon_flag.png */; };
 		9ACF309C183E0A0A002FAE80 /* icon_flag@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9ACF3098183E0A0A002FAE80 /* icon_flag@2x.png */; };
@@ -1472,6 +1478,18 @@
 		9ACE90781875BCD2008FEA7E /* SearchShopCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchShopCell.h; sourceTree = "<group>"; };
 		9ACE90791875BCD2008FEA7E /* SearchShopCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchShopCell.m; sourceTree = "<group>"; };
 		9ACE907B1875BCDB008FEA7E /* SearchShopCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchShopCell.xib; sourceTree = "<group>"; };
+		9ACE90801875CE8C008FEA7E /* PromotionNews.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PromotionNews.h; sourceTree = "<group>"; };
+		9ACE90811875CE8C008FEA7E /* PromotionNews.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PromotionNews.m; sourceTree = "<group>"; };
+		9ACE90831875CE92008FEA7E /* _PromotionNews.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _PromotionNews.h; sourceTree = "<group>"; };
+		9ACE90841875CE92008FEA7E /* _PromotionNews.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _PromotionNews.m; sourceTree = "<group>"; };
+		9ACE908C1875D176008FEA7E /* KM2Voucher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KM2Voucher.h; sourceTree = "<group>"; };
+		9ACE908D1875D176008FEA7E /* KM2Voucher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KM2Voucher.m; sourceTree = "<group>"; };
+		9ACE908E1875D176008FEA7E /* ShopKM2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopKM2.h; sourceTree = "<group>"; };
+		9ACE908F1875D176008FEA7E /* ShopKM2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopKM2.m; sourceTree = "<group>"; };
+		9ACE90921875D17E008FEA7E /* _KM2Voucher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _KM2Voucher.h; sourceTree = "<group>"; };
+		9ACE90931875D17E008FEA7E /* _KM2Voucher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _KM2Voucher.m; sourceTree = "<group>"; };
+		9ACE90941875D17E008FEA7E /* _ShopKM2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _ShopKM2.h; sourceTree = "<group>"; };
+		9ACE90951875D17E008FEA7E /* _ShopKM2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _ShopKM2.m; sourceTree = "<group>"; };
 		9ACEC66F1866CF6F00E4C5C1 /* ASIOperationShopDetailInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIOperationShopDetailInfo.h; sourceTree = "<group>"; };
 		9ACEC6701866CF6F00E4C5C1 /* ASIOperationShopDetailInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIOperationShopDetailInfo.m; sourceTree = "<group>"; };
 		9ACF3097183E0A0A002FAE80 /* icon_flag.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_flag.png; sourceTree = "<group>"; };
@@ -2691,6 +2709,12 @@
 		A91A674A1797F65000BEB8C5 /* Human */ = {
 			isa = PBXGroup;
 			children = (
+				9ACE908C1875D176008FEA7E /* KM2Voucher.h */,
+				9ACE908D1875D176008FEA7E /* KM2Voucher.m */,
+				9ACE908E1875D176008FEA7E /* ShopKM2.h */,
+				9ACE908F1875D176008FEA7E /* ShopKM2.m */,
+				9ACE90801875CE8C008FEA7E /* PromotionNews.h */,
+				9ACE90811875CE8C008FEA7E /* PromotionNews.m */,
 				9A693CB0186D484300114597 /* UserHomeImage.h */,
 				9A693CB1186D484300114597 /* UserHomeImage.m */,
 				9ACA42F6186D3BFB008D89BC /* UserHome8.h */,
@@ -2754,6 +2778,12 @@
 		A91A674D1797F65000BEB8C5 /* Machine */ = {
 			isa = PBXGroup;
 			children = (
+				9ACE90921875D17E008FEA7E /* _KM2Voucher.h */,
+				9ACE90931875D17E008FEA7E /* _KM2Voucher.m */,
+				9ACE90941875D17E008FEA7E /* _ShopKM2.h */,
+				9ACE90951875D17E008FEA7E /* _ShopKM2.m */,
+				9ACE90831875CE92008FEA7E /* _PromotionNews.h */,
+				9ACE90841875CE92008FEA7E /* _PromotionNews.m */,
 				9A693CAD186D483C00114597 /* _UserHomeImage.h */,
 				9A693CAE186D483C00114597 /* _UserHomeImage.m */,
 				9ACA42F3186D3BF3008D89BC /* _UserHome8.h */,
@@ -4182,6 +4212,7 @@
 				9A32F413184346BA00704D26 /* SGToolbarViewController.m in Sources */,
 				9A32F4091843469A00704D26 /* SGTutorialViewController.m in Sources */,
 				9ACF7A8F18698E3700B0BC78 /* UserHome7.m in Sources */,
+				9ACE90851875CE92008FEA7E /* _PromotionNews.m in Sources */,
 				9A3B93F5185DFDAE004F94A4 /* StoreShopCell.m in Sources */,
 				A9CFD36B1797FCEC0035E448 /* _User.m in Sources */,
 				A9CFD3731797FFC20035E448 /* City.m in Sources */,
@@ -4204,6 +4235,7 @@
 				9A55AB87181A726700BB4492 /* GUIManager.m in Sources */,
 				9A9FCB8918544C3C004A3CFB /* StoreViewController.m in Sources */,
 				9ACE90401875A36C008FEA7E /* ASIOperationSearchAutocomplete.m in Sources */,
+				9ACE90971875D17E008FEA7E /* _ShopKM2.m in Sources */,
 				9A0F7619187152DB00160E54 /* ShopDetailInfoEmptyCell.m in Sources */,
 				9ACE90651875BB2C008FEA7E /* SearchShopViewController.m in Sources */,
 				9A693CAF186D483C00114597 /* _UserHomeImage.m in Sources */,
@@ -4212,6 +4244,7 @@
 				9A0F7617187152DB00160E54 /* ShopDetailInfoCell.m in Sources */,
 				A9B807C4179FBD7B00C8E003 /* ASIAuthenticationDialog.m in Sources */,
 				9ACAED821872B18E0025B027 /* HPTextViewInternal.m in Sources */,
+				9ACE90911875D176008FEA7E /* ShopKM2.m in Sources */,
 				9A0F7648187152DB00160E54 /* ShopUserGalleryCell.m in Sources */,
 				9AC74E521860BE1C0033EB61 /* Placelist.m in Sources */,
 				A9B807C5179FBD7B00C8E003 /* ASIDataCompressor.m in Sources */,
@@ -4278,6 +4311,7 @@
 				9ACF7A5A1869589900B0BC78 /* OperationGeoCoder.m in Sources */,
 				9A0F7645187152DB00160E54 /* ShopUserViewController.m in Sources */,
 				9ACF7A8C18698E3700B0BC78 /* UserHome4.m in Sources */,
+				9ACE90961875D17E008FEA7E /* _KM2Voucher.m in Sources */,
 				9ACAED951872B2160025B027 /* ContentViewController.m in Sources */,
 				9A32F479184348C100704D26 /* PageControl.m in Sources */,
 				9AFC69D117F2C0F500177476 /* OperationNotifications.m in Sources */,
@@ -4341,6 +4375,7 @@
 				A94088E017B3951300205145 /* _Ads.m in Sources */,
 				9ACE90531875B4E6008FEA7E /* SUKM1Cell.m in Sources */,
 				9A32F3D8184345AE00704D26 /* SGMapViewController.m in Sources */,
+				9ACE90821875CE8C008FEA7E /* PromotionNews.m in Sources */,
 				A9271BC517B5DC8100987290 /* ASIOperationSearchShop.m in Sources */,
 				9AC4942118585C540042C535 /* StoreCardCell.m in Sources */,
 				A925508717B74BAC0096C411 /* OperationRouterMap.m in Sources */,
@@ -4360,6 +4395,7 @@
 				9AC494B0185870B90042C535 /* PickerValue.m in Sources */,
 				A920E1D617CBBC64003FAA80 /* _Reward.m in Sources */,
 				9A0F7627187152DB00160E54 /* ShopKM1Cell.m in Sources */,
+				9ACE90901875D176008FEA7E /* KM2Voucher.m in Sources */,
 				A920E1D917CBBD13003FAA80 /* ASIOperationGetRewards.m in Sources */,
 				9A32F420184346C800704D26 /* SGUserSettingViewController.m in Sources */,
 				9ACAED4E1872714C0025B027 /* HomeListObjectCell.m in Sources */,

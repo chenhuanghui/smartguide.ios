@@ -6,6 +6,9 @@
 #import "ShopGallery.h"
 #import "ShopKM1.h"
 #import "KM1Voucher.h"
+#import "ShopKM2.h"
+#import "KM2Voucher.h"
+#import "PromotionNews.h"
 
 enum SHOP_DATA_MODE {
     SHOP_DATA_SHOP_LIST = 0,

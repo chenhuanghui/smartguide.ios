@@ -1,15 +1,15 @@
 // DO NOT EDIT. This file is machine-generated and constantly overwritten.
-// Make changes to ShopKM1.m instead.
+// Make changes to ShopKM2.m instead.
 
-#import "_ShopKM1.h"
-#import "ShopKM1.h"
+#import "_ShopKM2.h"
+#import "ShopKM2.h"
 
 #import "DataManager.h"
-#import "KM1Voucher.h"
+#import "KM2Voucher.h"
 #import "Shop.h"
 
 
-@implementation _ShopKM1
+@implementation _ShopKM2
 
 
 
@@ -19,20 +19,20 @@
 
 
 
-+(ShopKM1*) insert
++(ShopKM2*) insert
 {
-    return [NSEntityDescription insertNewObjectForEntityForName:@"ShopKM1" inManagedObjectContext:[DataManager shareInstance].managedObjectContext];
+    return [NSEntityDescription insertNewObjectForEntityForName:@"ShopKM2" inManagedObjectContext:[DataManager shareInstance].managedObjectContext];
 }
 
-+(ShopKM1*) temporary
++(ShopKM2*) temporary
 {
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"ShopKM1" inManagedObjectContext:[DataManager shareInstance].managedObjectContext];
-    return [[ShopKM1 alloc] initWithEntity:entity insertIntoManagedObjectContext:nil];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"ShopKM2" inManagedObjectContext:[DataManager shareInstance].managedObjectContext];
+    return [[ShopKM2 alloc] initWithEntity:entity insertIntoManagedObjectContext:nil];
 }
 
-+(NSArray*) queryShopKM1:(NSPredicate*) predicate
++(NSArray*) queryShopKM2:(NSPredicate*) predicate
 {
-    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"ShopKM1"];
+    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"ShopKM2"];
     
     if(predicate)
         [fetchRequest setPredicate:predicate];
@@ -43,14 +43,14 @@
     NSArray *result=[context executeFetchRequest:fetchRequest error:&error];
     
     if(error)
-        NSLog(@"ShopKM1 query error %@ predicate %@",error,predicate);
+        NSLog(@"ShopKM2 query error %@ predicate %@",error,predicate);
     
     return result?result:[NSArray array];
 }
 
-+(ShopKM1*) queryShopKM1Object:(NSPredicate*) predicate
++(ShopKM2*) queryShopKM2Object:(NSPredicate*) predicate
 {
-    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"ShopKM1"];
+    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"ShopKM2"];
     
     if(predicate)
         [fetchRequest setPredicate:predicate];
@@ -61,7 +61,7 @@
     NSArray *result=[context executeFetchRequest:fetchRequest error:&error];
     
     if(error)
-        NSLog(@"ShopKM1 query error %@ predicate %@",error,predicate);
+        NSLog(@"ShopKM2 query error %@ predicate %@",error,predicate);
     
     if(result && result.count>0)
         return [result objectAtIndex:0];
@@ -71,7 +71,7 @@
 
 +(NSArray*) allObjects
 {
-    NSArray *array=[_ShopKM1 queryShopKM1:nil];
+    NSArray *array=[_ShopKM2 queryShopKM2:nil];
     
     if(array)
         return array;
@@ -93,84 +93,6 @@
 }
 
 
-
-- (NSString*)duration {
-	[self willAccessValueForKey:@"duration"];
-	NSString* result = (NSString*)[self primitiveValueForKey:@"duration"];
-	[self didAccessValueForKey:@"duration"];
-	return result;
-}
-
-- (void)setDuration:(NSString*)value {
-	[self willChangeValueForKey:@"duration"];
-	[self setPrimitiveValue:value forKey:@"duration"];
-	[self didChangeValueForKey:@"duration"];
-}
-
-- (NSNumber*)hasSGP {
-	[self willAccessValueForKey:@"hasSGP"];
-	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"hasSGP"];
-	[self didAccessValueForKey:@"hasSGP"];
-	return result;
-}
-
-- (void)setHasSGP:(NSNumber*)value {
-	[self willChangeValueForKey:@"hasSGP"];
-	[self setPrimitiveValue:value forKey:@"hasSGP"];
-	[self didChangeValueForKey:@"hasSGP"];
-}
-
-- (NSString*)money {
-	[self willAccessValueForKey:@"money"];
-	NSString* result = (NSString*)[self primitiveValueForKey:@"money"];
-	[self didAccessValueForKey:@"money"];
-	return result;
-}
-
-- (void)setMoney:(NSString*)value {
-	[self willChangeValueForKey:@"money"];
-	[self setPrimitiveValue:value forKey:@"money"];
-	[self didChangeValueForKey:@"money"];
-}
-
-- (NSString*)p {
-	[self willAccessValueForKey:@"p"];
-	NSString* result = (NSString*)[self primitiveValueForKey:@"p"];
-	[self didAccessValueForKey:@"p"];
-	return result;
-}
-
-- (void)setP:(NSString*)value {
-	[self willChangeValueForKey:@"p"];
-	[self setPrimitiveValue:value forKey:@"p"];
-	[self didChangeValueForKey:@"p"];
-}
-
-- (NSString*)sgp {
-	[self willAccessValueForKey:@"sgp"];
-	NSString* result = (NSString*)[self primitiveValueForKey:@"sgp"];
-	[self didAccessValueForKey:@"sgp"];
-	return result;
-}
-
-- (void)setSgp:(NSString*)value {
-	[self willChangeValueForKey:@"sgp"];
-	[self setPrimitiveValue:value forKey:@"sgp"];
-	[self didChangeValueForKey:@"sgp"];
-}
-
-- (NSString*)sp {
-	[self willAccessValueForKey:@"sp"];
-	NSString* result = (NSString*)[self primitiveValueForKey:@"sp"];
-	[self didAccessValueForKey:@"sp"];
-	return result;
-}
-
-- (void)setSp:(NSString*)value {
-	[self willChangeValueForKey:@"sp"];
-	[self setPrimitiveValue:value forKey:@"sp"];
-	[self didChangeValueForKey:@"sp"];
-}
 
 - (NSString*)text {
 	[self willAccessValueForKey:@"text"];
@@ -226,14 +148,14 @@
 	[self didChangeValueForKey:@"listVoucher" withSetMutation:NSKeyValueMinusSetMutation usingObjects:value];
 }
 	
-- (void)addListVoucherObject:(KM1Voucher*)value {
+- (void)addListVoucherObject:(KM2Voucher*)value {
 	NSSet *changedObjects = [[NSSet alloc] initWithObjects:&value count:1];
 	[self willChangeValueForKey:@"listVoucher" withSetMutation:NSKeyValueUnionSetMutation usingObjects:changedObjects];
 	[[self primitiveValueForKey:@"listVoucher"] addObject:value];
 	[self didChangeValueForKey:@"listVoucher" withSetMutation:NSKeyValueUnionSetMutation usingObjects:changedObjects];
 }
 
-- (void)removeListVoucherObject:(KM1Voucher*)value {
+- (void)removeListVoucherObject:(KM2Voucher*)value {
 
     [self.managedObjectContext deleteObject:value];
 

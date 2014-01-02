@@ -23,7 +23,7 @@
     [lblSP setText:[NSString stringWithFormat:@"<text><sp>%@</sp> tích luỹ</text>",_km1.sp]];
     [lblP setText:[NSString stringWithFormat:@"<text><p>%@</p> cho <p>1 SGP</p></text>",_km1.p]];
     
-    lblNotice.text=_km1.notice;
+    lblNotice.text=_km1.text;
     
     table.dataSource=self;
     table.delegate=self;

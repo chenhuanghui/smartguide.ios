@@ -38,6 +38,15 @@
         <attribute name="type" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="shopKM1" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ShopKM1" inverseName="listVoucher" inverseEntity="ShopKM1" syncable="YES"/>
     </entity>
+    <entity name="KM2Voucher" representedClassName="KM2Voucher" syncable="YES">
+        <attribute name="condition" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="highlightKeywords" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="isAfford" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sortOrder" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="type" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="shopKM2" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ShopKM2" inverseName="listVoucher" inverseEntity="ShopKM2" syncable="YES"/>
+    </entity>
     <entity name="Placelist" representedClassName="Placelist" syncable="YES">
         <attribute name="authorAvatar" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="authorName" optional="YES" attributeType="String" syncable="YES"/>
@@ -49,6 +58,13 @@
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="home3" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="UserHome3" inverseName="place" inverseEntity="UserHome3" syncable="YES"/>
         <relationship name="shopsList" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ShopList" inverseName="placeList" inverseEntity="ShopList" syncable="YES"/>
+    </entity>
+    <entity name="PromotionNews" representedClassName="PromotionNews" syncable="YES">
+        <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="duration" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="image" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="shop" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Shop" inverseName="promotionNew" inverseEntity="Shop" syncable="YES"/>
     </entity>
     <entity name="Reward" representedClassName="Reward" syncable="YES">
         <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>
@@ -82,6 +98,8 @@
         <relationship name="home6" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="UserHome6" inverseName="shop" inverseEntity="UserHome6" syncable="YES"/>
         <relationship name="home8" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="UserHome8" inverseName="shop" inverseEntity="UserHome8" syncable="YES"/>
         <relationship name="km1" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="ShopKM1" inverseName="shop" inverseEntity="ShopKM1" syncable="YES"/>
+        <relationship name="km2" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="ShopKM2" inverseName="shop" inverseEntity="ShopKM2" syncable="YES"/>
+        <relationship name="promotionNew" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="PromotionNews" inverseName="shop" inverseEntity="PromotionNews" syncable="YES"/>
         <relationship name="shopGalleries" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ShopGallery" inverseName="shop" inverseEntity="ShopGallery" syncable="YES"/>
         <relationship name="shopList" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="ShopList" inverseName="shop" inverseEntity="ShopList" syncable="YES"/>
         <relationship name="timeComments" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ShopUserComment" inverseName="shopTime" inverseEntity="ShopUserComment" syncable="YES"/>
@@ -97,14 +115,19 @@
     </entity>
     <entity name="ShopKM1" representedClassName="ShopKM1" syncable="YES">
         <attribute name="duration" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="idKM1" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="hasSGP" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="money" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="notice" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="p" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="sgp" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="sp" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="text" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="listVoucher" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="KM1Voucher" inverseName="shopKM1" inverseEntity="KM1Voucher" syncable="YES"/>
         <relationship name="shop" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Shop" inverseName="km1" inverseEntity="Shop" syncable="YES"/>
+    </entity>
+    <entity name="ShopKM2" representedClassName="ShopKM2" syncable="YES">
+        <attribute name="text" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="listVoucher" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="KM2Voucher" inverseName="shopKM2" inverseEntity="KM2Voucher" syncable="YES"/>
+        <relationship name="shop" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Shop" inverseName="km2" inverseEntity="Shop" syncable="YES"/>
     </entity>
     <entity name="ShopList" representedClassName="ShopList" syncable="YES">
         <attribute name="desc" optional="YES" attributeType="String" syncable="YES"/>
@@ -287,5 +310,8 @@
         <element name="UserHome7" positionX="0" positionY="0" width="0" height="0"/>
         <element name="UserHome8" positionX="0" positionY="0" width="0" height="0"/>
         <element name="UserHomeImage" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="PromotionNews" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="ShopKM2" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="KM2Voucher" positionX="0" positionY="0" width="0" height="0"/>
     </elements>
 </model>
