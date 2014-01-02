@@ -10,6 +10,7 @@
 #import "SearchViewController.h"
 #import "ASIOperationPlacelistGetList.h"
 #import "ASIOperationSearchAutocomplete.h"
+#import "ASIOperationShopUser.h"
 
 @class SearchShopViewController;
 
@@ -38,6 +39,7 @@
     NSMutableDictionary *_autocomplete;
     
     ASIOperationPlacelistGetList *_operationPlacelistGetList;
+    ASIOperationShopUser *_operationShopUser;
     
     int _pagePlacelist;
     NSMutableArray *_placeLists;

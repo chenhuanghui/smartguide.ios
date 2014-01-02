@@ -1457,13 +1457,12 @@ UITextAlignment UITextAlignmentFromCoreTextAlignment(FTCoreTextAlignement alignm
 
 @implementation FTCoreTextView(highlightKeywords)
 
--(void)highlightWithText:(NSString *)text keyword:(NSString *)keywords normalStyle:(FTCoreTextStyle*) normalStyle styleBold:(FTCoreTextStyle*) boldStyle
+-(void)highlightWithText:(NSString *)text pairs:(NSString *)pairs normalStyle:(FTCoreTextStyle*) normalStyle styleBold:(FTCoreTextStyle*) boldStyle
 {
-    self.backgroundColor=[UIColor redColor];
     [self addStyle:boldStyle];
     [self addStyle:normalStyle];
     
-    NSMutableArray *array=[[keywords componentsSeparatedByString:@";"] mutableCopy];
+    NSMutableArray *array=[[pairs componentsSeparatedByString:@";"] mutableCopy];
     
     NSMutableString *textmu=[NSMutableString stringWithString:text];
     
@@ -1485,6 +1484,37 @@ UITextAlignment UITextAlignmentFromCoreTextAlignment(FTCoreTextAlignement alignm
     
     beginStyleName=[NSString stringWithFormat:@"<%@>",normalStyle.name];
     endStyleName=[NSString stringWithFormat:@"</%@>",normalStyle.name];
+    
+    [textmu insertString:beginStyleName atIndex:0];
+    [textmu appendString:endStyleName];
+    
+    [self setText:textmu];
+}
+
+-(void)highlightWithText:(NSString *)text pairs:(NSString *)pairs normalStyleName:(NSString *)normalStyleName styleBoldName:(NSString *)boldStyleName
+{
+    NSMutableArray *array=[[pairs componentsSeparatedByString:@";"] mutableCopy];
+    
+    NSMutableString *textmu=[NSMutableString stringWithString:text];
+    
+    NSString *endStyleName=[NSString stringWithFormat:@"</%@>",boldStyleName];
+    NSString *beginStyleName=[NSString stringWithFormat:@"<%@>",boldStyleName];
+    
+    for(int i=array.count-1;i>=0;i--)
+    {
+        NSString *str=array[i];
+        int pos=[[str componentsSeparatedByString:@","][0] integerValue];
+        int leng=[[str componentsSeparatedByString:@","][1] integerValue];
+        
+        if(pos+leng>text.length)
+            continue;
+        
+        [textmu insertString:endStyleName atIndex:pos+leng];
+        [textmu insertString:beginStyleName atIndex:pos];
+    }
+    
+    beginStyleName=[NSString stringWithFormat:@"<%@>",normalStyleName];
+    endStyleName=[NSString stringWithFormat:@"</%@>",normalStyleName];
     
     [textmu insertString:beginStyleName atIndex:0];
     [textmu appendString:endStyleName];

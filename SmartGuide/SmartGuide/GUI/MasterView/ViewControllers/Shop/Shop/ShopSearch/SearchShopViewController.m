@@ -7,6 +7,8 @@
 //
 
 #import "SearchShopViewController.h"
+#import "GUIManager.h"
+#import "SearchShopCell.h"
 
 @interface SearchShopViewController ()
 
@@ -51,6 +53,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
 
+    [table registerNib:[UINib nibWithNibName:[SearchShopCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[SearchShopCell reuseIdentifier]];
+    
     _autocomplete=[[NSMutableDictionary alloc] init];
     
     txt.text=_keyword;
@@ -154,16 +158,21 @@
 {
     if(txt.text.length>0)
     {
+        int count=0;
         switch (section) {
             case 0:
-                return [self shopsForKeyword:txt.text].count;
+                count=[self shopsForKeyword:txt.text].count;
+                break;
                 
             case 1:
-                return [self placelistsForKeyword:txt.text].count;
+                count=[self placelistsForKeyword:txt.text].count;
+                break;
                 
             default:
-                return 0;
+                break;
         }
+        
+        return count;
     }
     
     return _placeLists.count;
@@ -176,26 +185,18 @@
         switch (indexPath.section) {
             case 0:
             {
-                UITableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:@"auto_shop"];
+                SearchShopCell *cell=[tableView dequeueReusableCellWithIdentifier:[SearchShopCell reuseIdentifier]];
                 
-                if(!cell)
-                    cell=[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"auto_shop"];
-                
-                cell.imageView.image=[UIImage imageNamed:@"ava.png"];
-                cell.textLabel.text=[self shopsForKeyword:txt.text][indexPath.row][AUTOCOMPLETE_KEY];
+                [cell loadWithDataAutocomplete:[self shopsForKeyword:txt.text][indexPath.row]];
                 
                 return cell;
             }
                 
             case 1:
             {
-                UITableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:@"auto_place"];
+                SearchShopCell *cell=[tableView dequeueReusableCellWithIdentifier:[SearchShopCell reuseIdentifier]];
                 
-                if(!cell)
-                    cell=[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"auto_place"];
-                
-                cell.imageView.image=[UIImage imageNamed:@"ava.png"];
-                cell.textLabel.text=[self placelistsForKeyword:txt.text][indexPath.row][AUTOCOMPLETE_KEY];
+                [cell loadWithDataAutocomplete:[self placelistsForKeyword:txt.text][indexPath.row]];
                 
                 return cell;
             }
@@ -205,12 +206,9 @@
         }
     }
     
-    UITableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:@"placelist"];
+    SearchShopCell *cell=[tableView dequeueReusableCellWithIdentifier:[SearchShopCell reuseIdentifier]];
     
-    if(!cell)
-        cell=[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"placelist"];
-    
-    cell.textLabel.text=[_placeLists[indexPath.row] title];
+    [cell loadWithPlace:_placeLists[indexPath.row]];
     
     if(indexPath.row==_placeLists.count-1)
     {
@@ -227,9 +225,41 @@
     return cell;
 }
 
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return [SearchShopCell height];
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    if(txt.text.length>0)
+        return 10;
+    
+    return 0;
+}
+
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [self.view endEditing:true];
+    
+    if(txt.text.length>0)
+    {
+        switch (indexPath.section) {
+            case 0:
+            {
+//                _operationShopUser=[ASIOperationShopUser alloc] initWithIDShop:<#(int)#> userLat:<#(double)#> userLng:<#(double)#>
+            }
+                break;
+                
+            case 1:
+                break;
+                
+                default:
+                break;
+        }
+        
+        return;
+    }
     
     [self.delegate searchShopControllerTouchPlaceList:self placeList:_placeLists[indexPath.row]];
 }
@@ -257,7 +287,10 @@
 -(void) textFieldDidChangedText:(UITextField*) textField
 {
     if(textField.text.length==0)
+    {
+        [table reloadData];
         return;
+    }
     
     if(_autocomplete[textField.text])
     {
@@ -266,11 +299,17 @@
     }
     else
     {
-        ASIOperationSearchAutocomplete *ope=[[ASIOperationSearchAutocomplete alloc] initWithKeyword:textField.text userLat:userLat() userLng:userLng()];
-        ope.delegatePost=self;
-        
-        [ope startAsynchronous];
+        [NSObject cancelPreviousPerformRequestsWithTarget:self];
+        [self performSelector:@selector(callAutocomplete:) withObject:[textField.text copy] afterDelay:0.5f];
     }
+}
+
+-(void) callAutocomplete:(NSString*) keyword
+{
+    ASIOperationSearchAutocomplete *ope=[[ASIOperationSearchAutocomplete alloc] initWithKeyword:keyword userLat:userLat() userLng:userLng()];
+    ope.delegatePost=self;
+    
+    [ope startAsynchronous];
 }
 
 -(void) keyboardWillShow:(NSNotification*) notification

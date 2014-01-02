@@ -110,6 +110,7 @@ extern NSString * const FTCoreTextDataAttributes;
 
 @interface FTCoreTextView(highlightKeywords)
 
--(void)highlightWithText:(NSString *)text keyword:(NSString *)keywords normalStyle:(FTCoreTextStyle*) normalStyle styleBold:(FTCoreTextStyle*) boldStyle;
+-(void)highlightWithText:(NSString *)text pairs:(NSString *)pairs normalStyle:(FTCoreTextStyle*) normalStyle styleBold:(FTCoreTextStyle*) boldStyle;
+-(void)highlightWithText:(NSString *)text pairs:(NSString *)pairs normalStyleName:(NSString*) normalStyleName styleBoldName:(NSString*) boldStyleName;
 
 @end
