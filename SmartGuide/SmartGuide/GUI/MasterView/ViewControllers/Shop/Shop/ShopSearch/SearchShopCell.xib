@@ -10,21 +10,21 @@
         <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="SearchShopCell" rowHeight="33" id="hqG-1S-sWi" customClass="SearchShopCell">
             <rect key="frame" x="0.0" y="0.0" width="320" height="32"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hqG-1S-sWi" id="bBf-iQ-dNK">
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="center" tableViewCell="hqG-1S-sWi" id="bBf-iQ-dNK">
                 <rect key="frame" x="0.0" y="0.0" width="320" height="31"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view contentMode="scaleToFill" id="Qcr-22-Hi7">
+                    <view userInteractionEnabled="NO" contentMode="scaleToFill" id="Qcr-22-Hi7">
                         <rect key="frame" x="16" y="30" width="288" height="1"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <view contentMode="scaleToFill" id="o7L-sv-jwf">
+                    <view userInteractionEnabled="NO" contentMode="scaleToFill" id="o7L-sv-jwf">
                         <rect key="frame" x="16" y="0.0" width="288" height="31"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <view contentMode="scaleToFill" id="g6a-Fk-uWY" customClass="FTCoreTextView">
+                    <view userInteractionEnabled="NO" contentMode="scaleToFill" id="g6a-Fk-uWY" customClass="FTCoreTextView">
                         <rect key="frame" x="50" y="7" width="254" height="31"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>

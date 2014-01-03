@@ -32,5 +32,6 @@
 -(void) loadImageInfo3WithURL:(NSString*) url;
 -(void) loadImageHomeWithURL:(NSString*) url;
 -(void) loadImageHomeListWithURL:(NSString*) url;
+-(void) loadImagePromotionNewsWithURL:(NSString*) url;
 
 @end

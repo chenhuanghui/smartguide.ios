@@ -27,7 +27,7 @@ enum SHOP_DATA_MODE {
 //+(Shop*) makeShopWithIDShop:(int) idShop withJSONShopInGroup:(NSDictionary*) data;
 //+(Shop*) makeShopWithIDShop:(int) idShop withJSONUserCollection:(NSDictionary*) data;
 
--(enum SHOP_PROMOTION_TYPE) shopPromotionType;
+-(enum SHOP_PROMOTION_TYPE) enumPromotionType;
 -(enum LOVE_STATUS) enumLoveStatus;
 
 -(enum SHOP_DATA_MODE) enumDataMode;

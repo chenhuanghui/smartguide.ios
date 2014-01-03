@@ -7,7 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ShopKM2.h"
 
 @interface SUKM2Cell : UITableViewCell
+
+-(void) loadWithKM2:(ShopKM2*) km2;
+
++(NSString *)reuseIdentifier;
++(float) heightWithKM2:(ShopKM2*) km2;
 
 @end

@@ -10,20 +10,19 @@
 
 @implementation SUKM2Cell
 
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+-(void)loadWithKM2:(ShopKM2 *)km2
 {
-    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
-    if (self) {
-        // Initialization code
-    }
-    return self;
+    
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated
++(NSString *)reuseIdentifier
 {
-    [super setSelected:selected animated:animated];
+    return @"SUKM2Cell";
+}
 
-    // Configure the view for the selected state
++(float)heightWithKM2:(ShopKM2 *)km2
+{
+    return 100;
 }
 
 @end

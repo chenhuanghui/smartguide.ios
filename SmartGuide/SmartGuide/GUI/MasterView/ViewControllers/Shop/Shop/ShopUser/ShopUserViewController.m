@@ -8,7 +8,7 @@
 
 #import "ShopUserViewController.h"
 #import "GUIManager.h"
-#import "SGShopEmptyCell.h"
+#import "SGShopLoadingCell.h"
 
 #define SHOP_USER_COMMENT_INDEX_PATH [NSIndexPath indexPathForRow:5 inSection:0]
 
@@ -55,9 +55,12 @@
     
     [tableShopUser registerNib:[UINib nibWithNibName:[SUShopGalleryCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[SUShopGalleryCell reuseIdentifier]];
     [tableShopUser registerNib:[UINib nibWithNibName:[SUKM1Cell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[SUKM1Cell reuseIdentifier]];
+    [tableShopUser registerNib:[UINib nibWithNibName:[SUKM2Cell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[SUKM2Cell reuseIdentifier]];
+    [tableShopUser registerNib:[UINib nibWithNibName:[SUKMNewsCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[SUKMNewsCell reuseIdentifier]];
     [tableShopUser registerNib:[UINib nibWithNibName:[SUInfoCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[SUInfoCell reuseIdentifier]];
     [tableShopUser registerNib:[UINib nibWithNibName:[SUUserGalleryCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[SUUserGalleryCell reuseIdentifier]];
     [tableShopUser registerNib:[UINib nibWithNibName:[SUUserCommentCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[SUUserCommentCell reuseIdentifier]];
+    [tableShopUser registerNib:[UINib nibWithNibName:[SGShopLoadingCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[SGShopLoadingCell reuseIdentifier]];
     [tableShopUser registerNib:[UINib nibWithNibName:[SGShopEmptyCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[SGShopEmptyCell reuseIdentifier]];
     
     tableShopUser.dataSource=self;
@@ -78,13 +81,13 @@
         case SHOP_DATA_FULL:
             
             _comments=[[NSMutableArray alloc] initWithArray:_shop.topCommentsObjects];
-
+            
             _pageComment=0;
             _isLoadingMoreComment=false;
             _canLoadMoreComment=_comments.count==10;
             
             _sortComment=SORT_SHOP_COMMENT_TOP_AGREED;
-
+            
             break;
             
         case SHOP_DATA_HOME_8:
@@ -341,155 +344,236 @@
                 return 2;
                 
             case SHOP_DATA_FULL:
-                break;
+            {
+                int numOfRow=0;
+                
+                //shop gallery+logo+numOfLove+numOfView+numOfComment
+                numOfRow++;
+                
+                //km0, km1, km2
+                numOfRow++;
+                
+                //promotion news
+                numOfRow++;
+                
+                //empty row phía trên shop info, btnNext sẽ lấp vào khi table đang scroll
+                numOfRow++;
+                
+                //shop info
+                numOfRow++;
+                
+                //user gallery
+                numOfRow++;
+                
+                //comments
+                numOfRow++;
+                
+                return numOfRow;
+            }
         }
-        
-        int numOfRow=0;
-        
-        //shop gallery+logo+love+view+comment
-        numOfRow++;
-        //km1,km2,km3
-        numOfRow++;
-        
-        //empty row, btnNext sẽ lấp vào khi table đang scroll
-        numOfRow++;
-        
-        //shop info
-        numOfRow++;
-        
-        //user gallery
-        numOfRow++;
-        
-        //comments
-        numOfRow++;
-        
-        return numOfRow;
     }
     return 0;
+}
+
+-(SUShopGalleryCell*) shopGalleryCell
+{
+    if(shopGalleryCell)
+        return shopGalleryCell;
+    
+    SUShopGalleryCell *cell=[tableShopUser dequeueReusableCellWithIdentifier:[SUShopGalleryCell reuseIdentifier]];
+    cell.delegate=self;
+    
+    [cell loadWithShop:_shop];
+    
+    shopGalleryCell=cell;
+    
+    return cell;
+}
+
+-(SGShopLoadingCell*) loadingCell
+{
+    return [tableShopUser dequeueReusableCellWithIdentifier:[SGShopLoadingCell reuseIdentifier]];
+}
+
+-(SGShopEmptyCell*) emptyCell
+{
+    return [tableShopUser dequeueReusableCellWithIdentifier:[SGShopEmptyCell reuseIdentifier]];
+}
+
+-(SUKM1Cell*) km1Cell
+{
+    if(km1Cell)
+        return km1Cell;
+    
+    SUKM1Cell *cell=[tableShopUser dequeueReusableCellWithIdentifier:[SUKM1Cell reuseIdentifier]];
+    
+    [cell loadWithKM1:_shop.km1];
+    
+    km1Cell=cell;
+    
+    return cell;
+}
+
+-(SUKM2Cell*) km2Cell
+{
+    if(km2Cell)
+        return km2Cell;
+    
+    SUKM2Cell *cell=[tableShopUser dequeueReusableCellWithIdentifier:[SUKM2Cell reuseIdentifier]];
+    
+    [cell loadWithKM2:_shop.km2];
+    
+    km2Cell=cell;
+    
+    return cell;
+}
+
+-(SUKMNewsCell*) promotionNewsCell
+{
+    if(kmNewsCell)
+        return kmNewsCell;
+    
+    SUKMNewsCell *cell=[tableShopUser dequeueReusableCellWithIdentifier:[SUKMNewsCell reuseIdentifier]];
+    
+    [cell loadWithPromotionNews:_shop.promotionNew];
+    
+    kmNewsCell=cell;
+    
+    return cell;
+}
+
+-(UITableViewCell*) buttonNextContainCell
+{
+    UITableViewCell *cell=[tableShopUser dequeueReusableCellWithIdentifier:@"btnNext"];
+    if(!cell)
+    {
+        cell=[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"btnNext"];
+        [cell l_v_setS:CGSizeMake(tableShopUser.l_v_w, _btnNextFrame.size.height)];
+    }
+    
+    return cell;
+}
+
+-(SUInfoCell*) infoCell
+{
+    if(infoCell)
+        return infoCell;
+    
+    SUInfoCell *cell=[tableShopUser dequeueReusableCellWithIdentifier:[SUInfoCell reuseIdentifier]];
+    
+    cell.delegate=self;
+    [cell loadWithShop:_shop];
+    
+    infoCell=cell;
+    
+    return cell;
+}
+
+-(SUUserGalleryCell*) userGalleryCell
+{
+    if(userGalleryCell)
+        return userGalleryCell;
+    
+    SUUserGalleryCell *cell=[tableShopUser dequeueReusableCellWithIdentifier:[SUUserGalleryCell reuseIdentifier]];
+    
+    cell.delegate=self;
+    [cell loadWithShop:_shop];
+    
+    userGalleryCell=cell;
+    
+    return cell;
+}
+
+-(SUUserCommentCell*) userCommentCell
+{
+    if(userCommentCell)
+    {
+        return userCommentCell;
+    }
+    
+    SUUserCommentCell *cell=[tableShopUser dequeueReusableCellWithIdentifier:[SUUserCommentCell reuseIdentifier]];
+    
+    float maxHeight=_shopUserContentFrame.size.height-_btnNextFrame.size.height-[SUUserCommentCell tableY]+SHOP_USER_ANIMATION_ALIGN_Y;
+    
+    switch (_sortComment) {
+        case SORT_SHOP_COMMENT_TIME:
+            [cell loadWithComments:_comments sort:_sortComment maxHeight:maxHeight];
+            break;
+            
+        case SORT_SHOP_COMMENT_TOP_AGREED:
+            [cell loadWithComments:_comments sort:_sortComment maxHeight:maxHeight];
+            break;
+    }
+    
+    cell.delegate=self;
+    
+    userCommentCell=cell;
+    
+    return cell;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if(tableView==tableShopUser)
     {
-        switch (indexPath.row) {
-            case 0:
+        switch (_shop.enumDataMode) {
+            case SHOP_DATA_HOME_8:
+            case SHOP_DATA_SHOP_LIST:
+                
+                if(indexPath.row==0)
+                    return [self shopGalleryCell];
+                else
+                    return [self loadingCell];
+                
+            case SHOP_DATA_FULL:
             {
-                if(shopGalleryCell)
-                    return shopGalleryCell;
-                
-                SUShopGalleryCell *cell=[tableView dequeueReusableCellWithIdentifier:[SUShopGalleryCell reuseIdentifier]];
-                cell.delegate=self;
-                
-                [cell loadWithShop:_shop];
-                
-                shopGalleryCell=cell;
-                
-                return cell;
-            }
-                
-            case 1:
-            {
-                switch (_shop.enumDataMode) {
-                    case SHOP_DATA_HOME_8:
-                    case SHOP_DATA_SHOP_LIST:
+                switch (indexPath.row) {
+                    case 0:
+                        return [self shopGalleryCell];
+                        
+                    case 1:
                     {
-                        return [tableView dequeueReusableCellWithIdentifier:[SGShopEmptyCell reuseIdentifier]];
+                        switch (_shop.enumPromotionType)
+                        {
+                            case SHOP_PROMOTION_NONE:
+                                return [self emptyCell];
+                                
+                            case SHOP_PROMOTION_KM1:
+                                return [self km1Cell];
+                                
+                            case SHOP_PROMOTION_KM2:
+                                return [self km2Cell];
+                        }
                     }
                         
-
-                    case SHOP_DATA_FULL:
-                        break;
-                }
-                
-                if(km1Cell)
-                    return km1Cell;
-                
-                SUKM1Cell *cell=[tableShopUser dequeueReusableCellWithIdentifier:[SUKM1Cell reuseIdentifier]];
-                
-                [cell loadWithKM1:_shop.km1];
-                
-                km1Cell=cell;
-                
-                return cell;
-            }
-                
-            case 2:
-            {
-                UITableViewCell *cell=[tableShopUser dequeueReusableCellWithIdentifier:@"btnNext"];
-                if(!cell)
-                {
-                    cell=[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"btnNext"];
-                    [cell l_v_setS:CGSizeMake(tableShopUser.l_v_w, _btnNextFrame.size.height)];
-                }
-                
-                return cell;
-            }
-                
-            case 3:
-            {
-                if(infoCell)
-                    return infoCell;
-                
-                SUInfoCell *cell=[tableShopUser dequeueReusableCellWithIdentifier:[SUInfoCell reuseIdentifier]];
-                
-                cell.delegate=self;
-                [cell loadWithShop:_shop];
-                
-                infoCell=cell;
-                
-                return cell;
-            }
-                
-            case 4:
-            {
-                if(userGalleryCell)
-                    return userGalleryCell;
-                
-                SUUserGalleryCell *cell=[tableShopUser dequeueReusableCellWithIdentifier:[SUUserGalleryCell reuseIdentifier]];
-                
-                cell.delegate=self;
-                [cell loadWithShop:_shop];
-                
-                userGalleryCell=cell;
-                
-                return cell;
-            }
-                
-            case 5:
-            {
-                if(userCommentCell)
-                {
-                    return userCommentCell;
-                }
-                
-                SUUserCommentCell *cell=[tableView dequeueReusableCellWithIdentifier:[SUUserCommentCell reuseIdentifier]];
-                
-                float maxHeight=_shopUserContentFrame.size.height-_btnNextFrame.size.height-[SUUserCommentCell tableY]+SHOP_USER_ANIMATION_ALIGN_Y;
-                
-                switch (_sortComment) {
-                    case SORT_SHOP_COMMENT_TIME:
-                        [cell loadWithComments:_comments sort:_sortComment maxHeight:maxHeight];
-                        break;
+                    case 2:
+                    {
+                        if(_shop.promotionNew)
+                            return [self promotionNewsCell];
+                        else
+                            return [self emptyCell];
+                    }
                         
-                    case SORT_SHOP_COMMENT_TOP_AGREED:
-                        [cell loadWithComments:_comments sort:_sortComment maxHeight:maxHeight];
-                        break;
+                    case 3:
+                        return [self buttonNextContainCell];
+                        
+                    case 4:
+                        return [self infoCell];
+                        
+                    case 5:
+                        return [self userGalleryCell];
+                        
+                    case 6:
+                        return [self userCommentCell];
+                        
+                    default:
+                        return [UITableViewCell new];
                 }
-                
-                cell.delegate=self;
-                
-                userCommentCell=cell;
-                
-                return cell;
             }
-                
-            default:
-                break;
         }
     }
     
-    return nil;
+    return [UITableViewCell new];
 }
 
 -(void)userCommentChangeSort:(SUUserCommentCell *)cell sort:(enum SORT_SHOP_COMMENT)sort
@@ -545,38 +629,66 @@
 {
     if(tableView==tableShopUser)
     {
-        switch (indexPath.row) {
-            case 0:
-                return [SUShopGalleryCell height];
-            case 1:
+        switch (_shop.enumDataMode) {
+            case SHOP_DATA_HOME_8:
+            case SHOP_DATA_SHOP_LIST:
             {
-                switch (_shop.enumDataMode) {
-                    case SHOP_DATA_SHOP_LIST:
-                    case SHOP_DATA_HOME_8:
+                if(indexPath.row==0)
+                    return [SUShopGalleryCell height];
+                else
+                    return [SGShopLoadingCell height];
+            }
+                
+            case SHOP_DATA_FULL:
+            {
+                switch (indexPath.row) {
+                    case 0:
+                        return [SUShopGalleryCell height];
                         
-                        return [SGShopEmptyCell height];
+                    case 1:
+                    {
+                        switch (_shop.enumPromotionType) {
+                            case SHOP_PROMOTION_NONE:
+                                return [SGShopEmptyCell height];
+                                
+                            case SHOP_PROMOTION_KM1:
+                                return [SUKM1Cell heightWithKM1:_shop.km1];
+                                
+                            case SHOP_PROMOTION_KM2:
+                                return [SUKM2Cell heightWithKM2:_shop.km2];
+                        }
+                    }
                         
-                    case SHOP_DATA_FULL:
-                        return [SUKM1Cell heightWithKM1:_shop.km1];
+                    case 2:
+                    {
+                        if(_shop.promotionNew)
+                            return [SUKMNewsCell heightWithPromotionNews:_shop.promotionNew];
+                        else
+                            return [SGShopEmptyCell height];
+                    }
+                        
+                    case 3:
+                        return _btnNextFrame.size.height-4;
+                        
+                    case 4:
+                        return [SUInfoCell height];
+                        
+                    case 5:
+                        return [SUUserGalleryCell height];
+                        
+                    case 6:
+                    {
+                        float maxHeight=_shopUserContentFrame.size.height-_btnNextFrame.size.height-[SUUserCommentCell tableY]+SHOP_USER_ANIMATION_ALIGN_Y;
+                        return [SUUserCommentCell heightWithComments:_comments maxHeight:maxHeight];
+                    }
+                        
+                    default:
+                        return 0;
                 }
             }
-                
-            case 2:
-                return _btnNextFrame.size.height-4;
-            case 3:
-                return [SUInfoCell height];
-            case 4:
-                return [SUUserGalleryCell height];
-            case 5:
-            {
-                float maxHeight=_shopUserContentFrame.size.height-_btnNextFrame.size.height-[SUUserCommentCell tableY]+SHOP_USER_ANIMATION_ALIGN_Y;
-                return [SUUserCommentCell heightWithComments:_comments maxHeight:maxHeight];
-            }
-                
-            default:
-                break;
         }
     }
+    
     return 0;
 }
 
@@ -586,7 +698,7 @@
         return;
     
     ShopDetailInfoViewController *vc=nil;
-
+    
     vc=[[ShopDetailInfoViewController alloc] initWithShop:_shop];
     
     [self pushViewController:vc];

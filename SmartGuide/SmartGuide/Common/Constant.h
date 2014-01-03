@@ -92,6 +92,7 @@
 #define API_USER_HOME @"user/home"
 #define API_GET_SHOP_LIST @"shop/getShopList"
 #define API_ELASTIC_AUTOCOMPLETE @"elastic/autocomplete"
+#define API_ELASTIC_AUTOCOMPLETE_NATIVE(source) [NSString stringWithFormat:@"http://116.251.210.100:9200/data/_search?source=%@",source]
 
 #define API_GET_ACTIVE_CODE(phone) [NSString stringWithFormat:@"%@/user/activation?phone=%@",SERVER_IP,phone]
 #define API_VERIFY_ACTIVE_CODE(phone,activeCode) [NSString stringWithFormat:@"%@/user/check?phone=%@&code=%@",SERVER_IP,phone,activeCode]
@@ -196,7 +197,6 @@ enum SHOP_PROMOTION_TYPE {
     SHOP_PROMOTION_NONE = 0,
     SHOP_PROMOTION_KM1 = 1,
     SHOP_PROMOTION_KM2 = 2,
-    SHOP_PROMOTION_KM3 = 3,
     };
 
 enum SHOP_TYPE

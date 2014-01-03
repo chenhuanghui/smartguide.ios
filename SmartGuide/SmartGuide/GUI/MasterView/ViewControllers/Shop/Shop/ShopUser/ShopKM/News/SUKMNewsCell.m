@@ -7,23 +7,29 @@
 //
 
 #import "SUKMNewsCell.h"
+#import "ImageManager.h"
 
 @implementation SUKMNewsCell
 
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+-(void)loadWithPromotionNews:(PromotionNews *)news
 {
-    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
-    if (self) {
-        // Initialization code
-    }
-    return self;
+    lblTitle.text=news.title;
+    lblContent.text=news.content;
+    [cover loadImagePromotionNewsWithURL:news.image];
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated
++(NSString *)reuseIdentifier
 {
-    [super setSelected:selected animated:animated];
+    return @"SUKMNewsCell";
+}
 
-    // Configure the view for the selected state
++(float)heightWithPromotionNews:(PromotionNews *)news
+{
+    float height=156;
+    
+    height+=[news.content sizeWithFont:[UIFont fontWithName:@"Avenir-Roman" size:13] constrainedToSize:CGSizeMake(234, 9999)].height;
+    
+    return height;
 }
 
 @end

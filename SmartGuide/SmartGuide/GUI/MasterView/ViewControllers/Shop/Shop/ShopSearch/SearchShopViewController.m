@@ -106,19 +106,16 @@
         
         [table reloadData];
     }
-    else if([operation isKindOfClass:[ASIOperationSearchAutocomplete class]])
+    else if([operation isKindOfClass:[ASIOperationShopUser class]])
     {
-        ASIOperationSearchAutocomplete *ope=(ASIOperationSearchAutocomplete*) operation;
+        [self.view removeLoading];
         
-        NSMutableDictionary *dict=[NSMutableDictionary dictionary];
+        ASIOperationShopUser *ope=(ASIOperationShopUser*) operation;
         
-        [dict setObject:ope.shops forKey:@"shop"];
-        [dict setObject:ope.placelists forKey:@"placelist"];
+        if(ope.shop)
+            [[GUIManager shareInstance] presentShopUserWithShopUser:ope.shop];
         
-        [_autocomplete setObject:dict forKey:ope.keyword];
-        
-        if([txt.text isEqualToString:ope.keyword])
-            [table reloadData];
+        _operationShopUser=nil;
     }
 }
 
@@ -131,6 +128,31 @@
         
         _operationPlacelistGetList=nil;
     }
+    else if([operation isKindOfClass:[ASIOperationShopUser class]])
+    {
+        [self.view removeLoading];
+        
+        _operationShopUser=nil;
+    }
+}
+
+-(void)operationURLFinished:(OperationURL *)operation
+{
+    if([operation isKindOfClass:[OperationSearchAutocomplete class]])
+    {
+        OperationSearchAutocomplete *ope=(OperationSearchAutocomplete*) operation;
+        
+        [_autocomplete setObject:@[ope.shops,ope.placelists] forKey:ope.keyword];
+        [_searchInQuery removeObject:ope.keyword];
+        
+        if([[txt.text lowercaseString] isEqualToString:[ope.keyword lowercaseString]])
+            [table reloadData];
+    }
+}
+
+-(void)operationURLFailed:(OperationURL *)operation
+{
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -146,33 +168,33 @@
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    if(txt.text.length>0)
+    if(_searchKey.length>0)
     {
-        return ([self shopsForKeyword:txt.text].count+[self placelistsForKeyword:txt.text].count)>0?2:0;
+        _searchDisplayKey=[_searchKey copy];
+        return ([self shopsForKeyword:_searchKey].count+[self placelistsForKeyword:_searchKey].count)>0?2:0;
     }
+    
+    _searchDisplayKey=@"";
     
     return _placeLists.count==0?0:1;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if(txt.text.length>0)
+    if(_searchDisplayKey.length>0)
     {
-        int count=0;
         switch (section) {
             case 0:
-                count=[self shopsForKeyword:txt.text].count;
-                break;
+                return [self shopsForKeyword:_searchDisplayKey].count;
                 
             case 1:
-                count=[self placelistsForKeyword:txt.text].count;
-                break;
+                return [self placelistsForKeyword:_searchDisplayKey].count;
                 
             default:
                 break;
         }
         
-        return count;
+        return 0;
     }
     
     return _placeLists.count;
@@ -180,14 +202,14 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if(txt.text.length>0)
+    if(_searchDisplayKey.length>0)
     {
         switch (indexPath.section) {
             case 0:
             {
                 SearchShopCell *cell=[tableView dequeueReusableCellWithIdentifier:[SearchShopCell reuseIdentifier]];
                 
-                [cell loadWithDataAutocomplete:[self shopsForKeyword:txt.text][indexPath.row]];
+                [cell loadWithDataAutocompleteShop:[self shopsForKeyword:_searchDisplayKey][indexPath.row]];
                 
                 return cell;
             }
@@ -196,7 +218,7 @@
             {
                 SearchShopCell *cell=[tableView dequeueReusableCellWithIdentifier:[SearchShopCell reuseIdentifier]];
                 
-                [cell loadWithDataAutocomplete:[self placelistsForKeyword:txt.text][indexPath.row]];
+                [cell loadWithDataAutocompletePlace:[self placelistsForKeyword:_searchDisplayKey][indexPath.row]];
                 
                 return cell;
             }
@@ -232,7 +254,7 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    if(txt.text.length>0)
+    if(_searchKey.length>0)
         return 10;
     
     return 0;
@@ -242,26 +264,26 @@
 {
     [self.view endEditing:true];
     
-    if(txt.text.length>0)
-    {
-        switch (indexPath.section) {
-            case 0:
-            {
-//                _operationShopUser=[ASIOperationShopUser alloc] initWithIDShop:<#(int)#> userLat:<#(double)#> userLng:<#(double)#>
-            }
-                break;
-                
-            case 1:
-                break;
-                
-                default:
-                break;
-        }
-        
-        return;
-    }
+    SearchShopCell *cell=(SearchShopCell*)[tableView cellForRowAtIndexPath:indexPath];
     
-    [self.delegate searchShopControllerTouchPlaceList:self placeList:_placeLists[indexPath.row]];
+    if([cell.value isKindOfClass:[AutocompletePlacelist class]])
+    {
+        
+    }
+    else if([cell.value isKindOfClass:[AutocompleteShop class]])
+    {
+        [self.view showLoading];
+        
+        AutocompleteShop *shop=cell.value;
+        _operationShopUser=[[ASIOperationShopUser alloc] initWithIDShop:shop.idShop userLat:userLat() userLng:userLng()];
+        _operationShopUser.delegatePost=self;
+        
+        [_operationShopUser startAsynchronous];
+    }
+    else if([cell.value isKindOfClass:[Placelist class]])
+    {
+        [self.delegate searchShopControllerTouchPlaceList:self placeList:cell.value];
+    }
 }
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
@@ -286,30 +308,44 @@
 
 -(void) textFieldDidChangedText:(UITextField*) textField
 {
+    _searchKey=[textField.text lowercaseString];
+    NSData *data=[_searchKey dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:true];
+    
+    if(data)
+    {
+        _searchKey=[[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
+    }
+    
     if(textField.text.length==0)
     {
         [table reloadData];
         return;
     }
     
-    if(_autocomplete[textField.text])
+    if(_autocomplete[_searchKey])
     {
         [table  reloadData];
         return;
     }
     else
     {
-        [NSObject cancelPreviousPerformRequestsWithTarget:self];
-        [self performSelector:@selector(callAutocomplete:) withObject:[textField.text copy] afterDelay:0.5f];
+        if([_searchInQuery containsObject:_searchKey])
+            return;
+        
+        [_searchInQuery addObject:_searchKey];
+        
+        [self callAutocomplete:_searchKey];
     }
 }
 
 -(void) callAutocomplete:(NSString*) keyword
 {
-    ASIOperationSearchAutocomplete *ope=[[ASIOperationSearchAutocomplete alloc] initWithKeyword:keyword userLat:userLat() userLng:userLng()];
-    ope.delegatePost=self;
+    NSLog(@"callAutocomplete %@",keyword);
     
-    [ope startAsynchronous];
+    OperationSearchAutocomplete *ope=[[OperationSearchAutocomplete alloc] initWithKeyword:keyword];
+    ope.delegate=self;
+    
+    [ope start];
 }
 
 -(void) keyboardWillShow:(NSNotification*) notification
@@ -342,27 +378,27 @@
     }
 }
 
--(NSDictionary*) dataForKeyword:(NSString*) keyword
+-(NSArray*) dataForKeyword:(NSString*) keyword
 {
-    return _autocomplete[keyword];
+    return _autocomplete[[keyword lowercaseString]];
 }
 
 -(NSArray*) shopsForKeyword:(NSString*) keyword
 {
-    NSDictionary *dict=[self dataForKeyword:keyword];
+    NSArray *array=[self dataForKeyword:keyword];
     
-    if(dict)
-        return dict[@"shop"];
+    if(array)
+        return array[0];
     
     return [NSArray array];
 }
 
 -(NSArray*) placelistsForKeyword:(NSString*) keyword
 {
-    NSDictionary *dict=[self dataForKeyword:keyword];
+    NSArray *array=[self dataForKeyword:keyword];
     
-    if(dict)
-        return dict[@"placelist"];
+    if(array)
+        return array[1];
     
     return [NSArray array];
 }

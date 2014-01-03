@@ -24,6 +24,7 @@
 @interface ASIOperationPost : ASIFormDataRequest<ASIHTTPRequestDelegate>
 
 -(ASIOperationPost*) initWithURL:(NSURL*) url;
+-(ASIOperationPost*) initWithRouter:(NSURL*) url;
 
 -(void) onCompletedWithJSON:(NSArray*) json;
 -(void) onFailed:(NSError *)error;

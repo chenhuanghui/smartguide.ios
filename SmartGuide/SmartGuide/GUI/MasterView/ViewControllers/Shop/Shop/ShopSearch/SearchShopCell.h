@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "FTCoreTextView.h"
 #import "Placelist.h"
+#import "OperationSearchAutocomplete.h"
 
 @interface SearchShopCell : UITableViewCell
 {
@@ -16,15 +17,16 @@
     __weak IBOutlet FTCoreTextView *lbl;
     __weak IBOutlet UIImageView *icon;
     
-    __weak NSDictionary *_dict;
+    __weak AutocompleteShop* _shop;
+    __weak AutocompletePlacelist *_placeauto;
     __weak Placelist *_place;
 }
 
--(void) loadWithDataAutocomplete:(NSDictionary*) dict;
+-(void) loadWithDataAutocompleteShop:(AutocompleteShop*) shop;
+-(void) loadWithDataAutocompletePlace:(AutocompletePlacelist*) place;
 -(void) loadWithPlace:(Placelist*) place;
 
--(NSDictionary*) data;
--(Placelist*) place;
+-(id) value;
 
 +(NSString *)reuseIdentifier;
 +(float) height;

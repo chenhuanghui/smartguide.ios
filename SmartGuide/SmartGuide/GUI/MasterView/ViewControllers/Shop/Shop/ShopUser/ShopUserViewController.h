@@ -22,7 +22,10 @@
 #import "ShopUserGalleryCell.h"
 #import "ShopUserCommentCell.h"
 #import "SUShopGalleryCell.h"
+#import "SGShopEmptyCell.h"
 #import "SUKM1Cell.h"
+#import "SUKM2Cell.h"
+#import "SUKMNewsCell.h"
 #import "SUInfoCell.h"
 #import "SUUserGalleryCell.h"
 #import "CommentTyping.h"
@@ -68,6 +71,8 @@ enum SHOP_USER_MODE {
     
     __strong SUShopGalleryCell *shopGalleryCell;
     __strong SUKM1Cell *km1Cell;
+    __strong SUKM2Cell *km2Cell;
+    __strong SUKMNewsCell *kmNewsCell;
     __strong SUInfoCell *infoCell;
     __strong SUUserGalleryCell *userGalleryCell;
     __strong SUUserCommentCell *userCommentCell;

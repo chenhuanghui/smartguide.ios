@@ -94,4 +94,9 @@ static ImageManager *_imageManager=nil;
     [self setImageWithURL:[NSURL URLWithString:url] placeholderImage:nil options:SDWebImageProgressiveDownload progress:nil completed:nil];
 }
 
+-(void)loadImagePromotionNewsWithURL:(NSString *)url
+{
+    [self setImageWithURL:[NSURL URLWithString:url]];
+}
+
 @end

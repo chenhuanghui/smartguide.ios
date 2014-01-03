@@ -7,36 +7,59 @@
 //
 
 #import "SearchShopCell.h"
-#import "ASIOperationSearchAutocomplete.h"
 
 @implementation SearchShopCell
 
--(void)loadWithDataAutocomplete:(NSDictionary *)dict
+-(void)loadWithDataAutocompleteShop:(AutocompleteShop *)shop
 {
     _place=nil;
-    _dict=dict;
+    _placeauto=nil;
+    _shop=shop;
     
-    [lbl highlightWithText:dict[AUTOCOMPLETE_KEY] pairs:dict[AUTOCOMPLETE_PAIRS] normalStyleName:@"text" styleBoldName:@"highlight"];
+    if(shop.highlight.length>0)
+        [lbl setText:[shop.highlight stringByAppendingTagName:@"text"]];
+    else
+        [lbl setText:[shop.content stringByAppendingTagName:@"text"]];
+    
     [icon setImage:[UIImage imageNamed:@"ava.png"]];
 }
 
 -(void)loadWithPlace:(Placelist *)place
 {
     _place=place;
-    _dict=nil;
+    _shop=nil;
+    _placeauto=nil;
     
     [lbl setText:[place.title stringByAppendingTagName:@"text"]];
     [icon setImage:[UIImage imageNamed:@"ava.png"]];
 }
 
--(NSDictionary *)data
+-(void)loadWithDataAutocompletePlace:(AutocompletePlacelist *)place
 {
-    return _dict;
+    _place=nil;
+    _shop=nil;
+    _placeauto=place;
+    
+    if(_placeauto.highlight.length>0)
+        [lbl setText:[_placeauto.highlight stringByAppendingTagName:@"text"]];
+    else
+        [lbl setText:[_placeauto.content stringByAppendingTagName:@"text"]];
+    
+    [icon setImage:[UIImage imageNamed:@"ava.png"]];
 }
 
--(Placelist *)place
+-(id)value
 {
-    return _place;
+    if(_shop)
+        return _shop;
+    
+    if(_placeauto)
+        return _placeauto;
+    
+    if(_place)
+        return _place;
+    
+    return nil;
 }
 
 -(void)awakeFromNib
@@ -50,7 +73,7 @@
     
     [lbl addStyle:style];
     
-    style=[FTCoreTextStyle styleWithName:@"highlight"];
+    style=[FTCoreTextStyle styleWithName:@"em"];
     style.font=[UIFont fontWithName:@"Avenir-Roman" size:13];
     style.color=[UIColor blackColor];
     style.textAlignment=FTCoreTextAlignementLeft;

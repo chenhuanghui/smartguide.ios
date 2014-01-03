@@ -15,15 +15,14 @@
 {
     _km1=km1;
     
+    btnFirstScan.hidden=km1.hasSGP.integerValue==1;
+    hasSGPView.hidden=!btnFirstScan.hidden;
+    
     lblDuration.text=_km1.duration;
 
-    lblSGP.text=_km1.sgp;
-
     [lbl100K setText:[NSString stringWithFormat:@"<text>Với mỗi <k>%@</k> trên hoá đơn bạn nhận được 1 lượt quét thẻ</text>",_km1.money]];
-    [lblSP setText:[NSString stringWithFormat:@"<text><sp>%@</sp> tích luỹ</text>",_km1.sp]];
-    [lblP setText:[NSString stringWithFormat:@"<text><p>%@</p> cho <p>1 SGP</p></text>",_km1.p]];
     
-    lblNotice.text=_km1.text;
+    lblText.text=_km1.text;
     
     table.dataSource=self;
     table.delegate=self;
@@ -63,8 +62,7 @@
 
 +(float)heightWithKM1:(ShopKM1 *)km1
 {
-    return 282;
-    float height=208;
+    float height=161;
     for(KM1Voucher *voucher in km1.listVoucherObjects)
     {
         height+=[ShopKM1Cell heightWithContent:voucher.name];
@@ -79,7 +77,7 @@
     
     [table registerNib:[UINib nibWithNibName:[ShopKM1Cell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[ShopKM1Cell reuseIdentifier]];
     
-    bgStatusView.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"background_status.png"]];
+//    bgStatusView.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"background_status.png"]];
     
     FTCoreTextStyle *style=[FTCoreTextStyle styleWithName:@"k"];
     style.textAlignment=FTCoreTextAlignementCenter;
@@ -88,20 +86,6 @@
     
     [lbl100K addStyle:style];
     
-    style=[FTCoreTextStyle styleWithName:@"sp"];
-    style.textAlignment=FTCoreTextAlignementLeft;
-    style.color=[UIColor darkGrayColor];
-    style.font=[UIFont fontWithName:@"Avenir-Heavy" size:11];
-    
-    [lblSP addStyle:style];
-    
-    style=[FTCoreTextStyle styleWithName:@"p"];
-    style.textAlignment=FTCoreTextAlignementLeft;
-    style.color=[UIColor darkGrayColor];
-    style.font=[UIFont fontWithName:@"Avenir-Heavy" size:11];
-    
-    [lblP addStyle:style];
-    
     style=[FTCoreTextStyle styleWithName:@"text"];
     style.textAlignment=FTCoreTextAlignementCenter;
     style.color=[UIColor darkGrayColor];
@@ -109,37 +93,7 @@
     
     [lbl100K addStyle:style];
     
-    style=[FTCoreTextStyle styleWithName:@"text"];
-    style.textAlignment=FTCoreTextAlignementCenter;
-    style.color=[UIColor darkGrayColor];
-    style.font=[UIFont fontWithName:@"Avenir-Roman" size:10];
-    
-    [lblSP addStyle:style];
-    
-    style=[FTCoreTextStyle styleWithName:@"text"];
-    style.textAlignment=FTCoreTextAlignementCenter;
-    style.color=[UIColor darkGrayColor];
-    style.font=[UIFont fontWithName:@"Avenir-Roman" size:10];
-    
-    [lblP addStyle:style];
-    
     [lbl100K setText:@"<text>Với mỗi <k>100k</k> trên hoá đơn bạn nhận được 1 lượt quét thẻ</text>"];
-    [lblSP setText:@"<text><sp>300 SP</sp> tích luỹ</text>"];
-    [lblP setText:@"<text><p>10 P</p> cho <p>1 SGP</p></text>"];
-}
-
-@end
-
-@implementation PromotionDetailView
-
--(void)drawRect:(CGRect)rect
-{
-    if(!img)
-        img=[UIImage imageNamed:@"pattern_promotion.png"];
-    
-    rect.origin=CGPointZero;
-    
-    [img drawAsPatternInRect:rect];
 }
 
 @end

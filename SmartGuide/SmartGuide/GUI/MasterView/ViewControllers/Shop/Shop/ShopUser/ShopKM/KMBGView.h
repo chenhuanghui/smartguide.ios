@@ -1,5 +1,5 @@
 //
-//  SGShopEmptyCell.h
+//  KMBGView.h
 //  SmartGuide
 //
 //  Created by MacMini on 03/01/2014.
@@ -8,9 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SGShopEmptyCell : UITableViewCell
-
-+(float) height;
-+(NSString *)reuseIdentifier;
+@interface KMBGView : UIView
+{
+    UIImage *img;
+}
 
 @end

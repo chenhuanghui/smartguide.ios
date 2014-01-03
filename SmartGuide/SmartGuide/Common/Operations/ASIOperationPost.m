@@ -21,6 +21,28 @@ static NSMutableArray *asioperations=nil;
 @implementation ASIOperationPost
 @synthesize delegatePost,values,keys,operationAccessToken,sourceURL;
 
+-(ASIOperationPost *)initWithRouter:(NSURL *)_url
+{
+    self=[super initWithURL:_url];
+    
+    self.values=[NSArray array];
+    self.keys=[NSArray array];
+    
+    self.numberOfTimesToRetryOnTimeout=3;
+    self.shouldContinueWhenAppEntersBackground=true;
+    self.persistentConnectionTimeoutSeconds=60*5;
+    self.responseEncoding=NSUTF8StringEncoding;
+    [self setValidatesSecureCertificate:false];
+    
+    self.sourceURL=[_url copy];
+    
+//    self.operationAccessToken=[[NSString alloc] initWithString:accessToken];
+    
+    self.delegate=self;
+    
+    return self;
+}
+
 -(ASIOperationPost *)initWithURL:(NSURL *)_url
 {
     NSURL *urlCopy=[_url copy];

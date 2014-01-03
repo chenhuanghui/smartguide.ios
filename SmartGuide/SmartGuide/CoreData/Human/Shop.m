@@ -111,7 +111,7 @@
         }
     }
     
-    switch (shop.shopPromotionType) {
+    switch (shop.enumPromotionType) {
         case SHOP_PROMOTION_NONE:
             
             break;
@@ -123,9 +123,6 @@
         case SHOP_PROMOTION_KM2:
             shop.km2=[ShopKM2 makeWithDictionary:dict[@"promotionDetail"]];
             break;
-            
-        case SHOP_PROMOTION_KM3:
-            break;
     }
     
     shop.promotionNew=nil;
@@ -134,7 +131,7 @@
     return shop;
 }
 
--(enum SHOP_PROMOTION_TYPE)shopPromotionType
+-(enum SHOP_PROMOTION_TYPE)enumPromotionType
 {
     switch (self.promotionType.integerValue) {
         case 0:
@@ -145,9 +142,6 @@
             
         case 2:
             return SHOP_PROMOTION_KM2;
-            
-        case 3:
-            return SHOP_PROMOTION_KM3;
             
         default:
             return SHOP_PROMOTION_NONE;
