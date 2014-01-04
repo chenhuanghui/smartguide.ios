@@ -319,6 +319,7 @@
 		9A860BDD187673A800CD435F /* SGShopEmptyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A860BDC187673A800CD435F /* SGShopEmptyCell.m */; };
 		9A860BDF187673B300CD435F /* SGShopEmptyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A860BDE187673B300CD435F /* SGShopEmptyCell.xib */; };
 		9A860BE218767AB600CD435F /* KMBGView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A860BE118767AB600CD435F /* KMBGView.m */; };
+		9A8653B91877EFF600A60BF1 /* ShopKM2Cell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A8653B81877EFF600A60BF1 /* ShopKM2Cell.xib */; };
 		9A9211A2185AC39F0012F181 /* ASIOperationStoreShopItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A9211A1185AC39F0012F181 /* ASIOperationStoreShopItem.m */; };
 		9A9211A6185AC7AB0012F181 /* LoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A9211A5185AC7AB0012F181 /* LoadingView.m */; };
 		9A9211AB185AF1910012F181 /* bg_blur_comment.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A9211A9185AF1910012F181 /* bg_blur_comment.png */; };
@@ -638,6 +639,7 @@
 		9AD1280A185EFD2E00D56B24 /* StoreCart.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AD12809185EFD2E00D56B24 /* StoreCart.m */; };
 		9AD1280D185EFD3500D56B24 /* _StoreCart.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AD1280C185EFD3500D56B24 /* _StoreCart.m */; };
 		9AD23D5217FABC0100D28C7E /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AD23D5117FABC0100D28C7E /* AudioToolbox.framework */; };
+		9AD47A0A1877EFBE00F1A111 /* ShopKM2Cell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AD47A091877EFBD00F1A111 /* ShopKM2Cell.m */; };
 		9AED46AC181E73AB00BAD467 /* SGViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AED46AB181E73AB00BAD467 /* SGViewController.m */; };
 		9AEE83FC17FABD1500D92191 /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AEE83FB17FABD1500D92191 /* AddressBookUI.framework */; };
 		9AF01E7F180652B000D9F037 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AF01E7E180652B000D9F037 /* FacebookSDK.framework */; };
@@ -1178,6 +1180,7 @@
 		9A860BDE187673B300CD435F /* SGShopEmptyCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SGShopEmptyCell.xib; sourceTree = "<group>"; };
 		9A860BE018767AB600CD435F /* KMBGView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KMBGView.h; sourceTree = "<group>"; };
 		9A860BE118767AB600CD435F /* KMBGView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KMBGView.m; sourceTree = "<group>"; };
+		9A8653B81877EFF600A60BF1 /* ShopKM2Cell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShopKM2Cell.xib; sourceTree = "<group>"; };
 		9A9211A0185AC39F0012F181 /* ASIOperationStoreShopItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIOperationStoreShopItem.h; sourceTree = "<group>"; };
 		9A9211A1185AC39F0012F181 /* ASIOperationStoreShopItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIOperationStoreShopItem.m; sourceTree = "<group>"; };
 		9A9211A4185AC7AB0012F181 /* LoadingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadingView.h; sourceTree = "<group>"; };
@@ -1579,6 +1582,8 @@
 		9AD1280B185EFD3500D56B24 /* _StoreCart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _StoreCart.h; sourceTree = "<group>"; };
 		9AD1280C185EFD3500D56B24 /* _StoreCart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _StoreCart.m; sourceTree = "<group>"; };
 		9AD23D5117FABC0100D28C7E /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		9AD47A081877EFBD00F1A111 /* ShopKM2Cell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopKM2Cell.h; sourceTree = "<group>"; };
+		9AD47A091877EFBD00F1A111 /* ShopKM2Cell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopKM2Cell.m; sourceTree = "<group>"; };
 		9AED46AA181E73AB00BAD467 /* SGViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGViewController.h; sourceTree = "<group>"; };
 		9AED46AB181E73AB00BAD467 /* SGViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGViewController.m; sourceTree = "<group>"; };
 		9AEE83FB17FABD1500D92191 /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
@@ -2667,6 +2672,9 @@
 				9ACE90561875B508008FEA7E /* SUKM2Cell.h */,
 				9ACE90571875B508008FEA7E /* SUKM2Cell.m */,
 				9ACE90581875B508008FEA7E /* SUKM2Cell.xib */,
+				9AD47A081877EFBD00F1A111 /* ShopKM2Cell.h */,
+				9AD47A091877EFBD00F1A111 /* ShopKM2Cell.m */,
+				9A8653B81877EFF600A60BF1 /* ShopKM2Cell.xib */,
 			);
 			path = KM2;
 			sourceTree = "<group>";
@@ -3926,6 +3934,7 @@
 				9A2AB09D184ECFF4003FD2CE /* button_tickoff@2x.png in Resources */,
 				9A3E765B1851C61000F596C1 /* button_dropup.png in Resources */,
 				9AB1F048183F136700A35422 /* arrowchat_small.png in Resources */,
+				9A8653B91877EFF600A60BF1 /* ShopKM2Cell.xib in Resources */,
 				9AC979F4186C273B00E5432D /* button_green_left_home.png in Resources */,
 				9A2F8D0B1855BB9A0024AE1A /* bg_price_right@2x.png in Resources */,
 				9A2F8CC2185569470024AE1A /* bg_animation@2x.jpg in Resources */,
@@ -4287,6 +4296,7 @@
 				A9B807EC179FBE3400C8E003 /* Reachability.m in Sources */,
 				A961416C17A02E8800D30375 /* Flags.m in Sources */,
 				A9E3784817A0CB2E00CE11F2 /* NSBKeyframeAnimation.m in Sources */,
+				9AD47A0A1877EFBE00F1A111 /* ShopKM2Cell.m in Sources */,
 				9A32F42D1843485300704D26 /* ODRefreshControl.m in Sources */,
 				9A32F422184346C800704D26 /* SGUserViewController.m in Sources */,
 				9A7E55A2183CEB30006D1798 /* MKAnnotationView+WebCache.m in Sources */,

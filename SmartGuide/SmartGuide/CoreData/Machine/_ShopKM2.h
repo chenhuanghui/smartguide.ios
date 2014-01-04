@@ -5,6 +5,8 @@
 
 #define ShopKM2_ClassName @"ShopKM2"
 
+#define ShopKM2_Duration @"duration"
+#define ShopKM2_Note @"note"
 #define ShopKM2_Text @"text"
 
 @class ShopKM2;
@@ -22,6 +24,8 @@
 -(void) markDeleted;
 
 
+@property (nonatomic, retain) NSString* duration;
+@property (nonatomic, retain) NSString* note;
 @property (nonatomic, retain) NSString* text;
 
 #pragma mark Fetched property

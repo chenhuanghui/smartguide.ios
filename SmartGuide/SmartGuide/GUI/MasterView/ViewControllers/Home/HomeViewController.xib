@@ -7,10 +7,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HomeViewController">
             <connections>
-                <outlet property="adsView" destination="SzX-gn-fel" id="lMf-Dl-S6A"/>
                 <outlet property="displayLoadingView" destination="Qvy-Tv-IgG" id="0IJ-xq-EXi"/>
                 <outlet property="qrView" destination="MVN-kQ-te1" id="X6K-xY-xc6"/>
-                <outlet property="tableAds" destination="Dgg-bA-HIk" id="4rC-KN-34C"/>
                 <outlet property="tableFeed" destination="Ney-Bf-iDE" id="RhK-f1-eD4"/>
                 <outlet property="txt" destination="Zxr-rq-3wh" id="wKt-3d-52E"/>
                 <outlet property="view" destination="1" id="3"/>
@@ -22,7 +20,7 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Ney-Bf-iDE">
-                    <rect key="frame" x="0.0" y="50" width="320" height="307"/>
+                    <rect key="frame" x="0.0" y="50" width="320" height="380"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <connections>
@@ -51,28 +49,8 @@
                     </connections>
                 </button>
                 <view userInteractionEnabled="NO" contentMode="scaleToFill" id="Qvy-Tv-IgG">
-                    <rect key="frame" x="0.0" y="50" width="320" height="306"/>
+                    <rect key="frame" x="0.0" y="50" width="320" height="380"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                </view>
-                <view contentMode="scaleToFill" id="SzX-gn-fel">
-                    <rect key="frame" x="0.0" y="347" width="320" height="97"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background_ads.png" id="hFT-IA-LA2">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="97"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        </imageView>
-                        <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Dgg-bA-HIk">
-                            <rect key="frame" x="0.0" y="10" width="320" height="73"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                            <connections>
-                                <outlet property="dataSource" destination="-1" id="JnN-L9-jG4"/>
-                                <outlet property="delegate" destination="-1" id="VTf-pR-Sof"/>
-                            </connections>
-                        </tableView>
-                    </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
                 <view contentMode="scaleToFill" id="MVN-kQ-te1">
@@ -108,7 +86,6 @@
         </view>
     </objects>
     <resources>
-        <image name="background_ads.png" width="320" height="97"/>
         <image name="background_scan.png" width="320" height="56"/>
         <image name="button_navigation.png" width="25" height="20"/>
         <image name="button_scan.png" width="125" height="24"/>

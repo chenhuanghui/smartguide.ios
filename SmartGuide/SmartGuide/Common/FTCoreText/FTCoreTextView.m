@@ -1503,8 +1503,8 @@ UITextAlignment UITextAlignmentFromCoreTextAlignment(FTCoreTextAlignement alignm
     for(int i=array.count-1;i>=0;i--)
     {
         NSString *str=array[i];
-        int pos=[[str componentsSeparatedByString:@","][0] integerValue];
-        int leng=[[str componentsSeparatedByString:@","][1] integerValue];
+        int pos=[[str componentsSeparatedByString:@":"][0] integerValue];
+        int leng=[[str componentsSeparatedByString:@":"][1] integerValue];
         
         if(pos+leng>text.length)
             continue;

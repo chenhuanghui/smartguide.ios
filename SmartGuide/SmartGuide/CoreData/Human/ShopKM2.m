@@ -8,6 +8,8 @@
     ShopKM2 *km2=[ShopKM2 insert];
     
     km2.text=[NSString stringWithStringDefault:dict[@"text"]];
+    km2.note=[NSString stringWithStringDefault:dict[@"note"]];
+    km2.duration=[NSString stringWithStringDefault:dict[@"duration"]];
     
     NSArray *array=dict[@"voucherList"];
     

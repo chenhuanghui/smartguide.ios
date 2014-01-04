@@ -125,6 +125,8 @@
         <relationship name="shop" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Shop" inverseName="km1" inverseEntity="Shop" syncable="YES"/>
     </entity>
     <entity name="ShopKM2" representedClassName="ShopKM2" syncable="YES">
+        <attribute name="duration" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="note" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="text" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="listVoucher" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="KM2Voucher" inverseName="shopKM2" inverseEntity="KM2Voucher" syncable="YES"/>
         <relationship name="shop" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Shop" inverseName="km2" inverseEntity="Shop" syncable="YES"/>
@@ -287,11 +289,14 @@
         <element name="City" positionX="0" positionY="0" width="0" height="0"/>
         <element name="Filter" positionX="0" positionY="0" width="0" height="0"/>
         <element name="KM1Voucher" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="KM2Voucher" positionX="0" positionY="0" width="0" height="0"/>
         <element name="Placelist" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="PromotionNews" positionX="0" positionY="0" width="0" height="0"/>
         <element name="Reward" positionX="0" positionY="0" width="0" height="0"/>
         <element name="Shop" positionX="0" positionY="0" width="0" height="0"/>
         <element name="ShopGallery" positionX="0" positionY="0" width="0" height="0"/>
         <element name="ShopKM1" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="ShopKM2" positionX="0" positionY="0" width="0" height="0"/>
         <element name="ShopList" positionX="0" positionY="0" width="0" height="0"/>
         <element name="ShopUserComment" positionX="0" positionY="0" width="0" height="0"/>
         <element name="ShopUserGallery" positionX="0" positionY="0" width="0" height="0"/>
@@ -310,8 +315,5 @@
         <element name="UserHome7" positionX="0" positionY="0" width="0" height="0"/>
         <element name="UserHome8" positionX="0" positionY="0" width="0" height="0"/>
         <element name="UserHomeImage" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="PromotionNews" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="ShopKM2" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="KM2Voucher" positionX="0" positionY="0" width="0" height="0"/>
     </elements>
 </model>

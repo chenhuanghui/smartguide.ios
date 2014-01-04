@@ -36,7 +36,7 @@
 #import "ASIOperationPostComment.h"
 
 //Vị trí y của table
-#define SHOP_USER_ANIMATION_ALIGN_Y 100.f
+#define SHOP_USER_ANIMATION_ALIGN_Y 100.f // cần để thực hiện effect scroll giãn shop gallery
 #define SHOP_USER_BUTTON_NEXT_HEIGHT 25.f
 
 @class TableShopUser,PromotionDetailView;

@@ -126,7 +126,9 @@
     }
     
     shop.promotionNew=nil;
-    shop.promotionNew=[PromotionNews makeWithDictionary:dict[@"promotionNews"]];
+    
+    if(![dict[@"promotionNews"] isNullData])
+        shop.promotionNew=[PromotionNews makeWithDictionary:dict[@"promotionNews"]];
     
     return shop;
 }

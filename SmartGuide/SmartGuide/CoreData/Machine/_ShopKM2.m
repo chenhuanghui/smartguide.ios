@@ -94,6 +94,32 @@
 
 
 
+- (NSString*)duration {
+	[self willAccessValueForKey:@"duration"];
+	NSString* result = (NSString*)[self primitiveValueForKey:@"duration"];
+	[self didAccessValueForKey:@"duration"];
+	return result;
+}
+
+- (void)setDuration:(NSString*)value {
+	[self willChangeValueForKey:@"duration"];
+	[self setPrimitiveValue:value forKey:@"duration"];
+	[self didChangeValueForKey:@"duration"];
+}
+
+- (NSString*)note {
+	[self willAccessValueForKey:@"note"];
+	NSString* result = (NSString*)[self primitiveValueForKey:@"note"];
+	[self didAccessValueForKey:@"note"];
+	return result;
+}
+
+- (void)setNote:(NSString*)value {
+	[self willChangeValueForKey:@"note"];
+	[self setPrimitiveValue:value forKey:@"note"];
+	[self didChangeValueForKey:@"note"];
+}
+
 - (NSString*)text {
 	[self willAccessValueForKey:@"text"];
 	NSString* result = (NSString*)[self primitiveValueForKey:@"text"];

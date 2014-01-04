@@ -30,7 +30,6 @@
 
 -(void) storeRect
 {
-    _adsFrame=adsView.frame;
     _qrFrame=qrView.frame;
 }
 
@@ -55,7 +54,7 @@
     [tableFeed registerNib:[UINib nibWithNibName:[HomeListCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[HomeListCell reuseIdentifier]];
     [tableFeed registerNib:[UINib nibWithNibName:[HomeInfoCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[HomeInfoCell reuseIdentifier]];
     
-    _page=-1;
+    _page=1;
 //    _page=1;
     _homes=[NSMutableArray array];
     _isLoadingMore=false;
@@ -64,35 +63,6 @@
     [self requestNewFeed];
     displayLoadingView.userInteractionEnabled=true;
     [displayLoadingView showLoading];
-}
-
--(void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
-    if(scrollView==tableFeed)
-    {
-        float destY=_qrFrame.origin.y+QRCODE_SMALL_HEIGHT;
-        float speed=6;
-        float v=tableFeed.l_co_y/speed;
-
-        if(tableFeed.l_co_y>0)
-        {
-            if(_qrFrame.origin.y+v<destY)
-            {
-                [qrView l_v_setY:_qrFrame.origin.y+v];
-                [adsView l_v_setY:_adsFrame.origin.y+v*NEW_FEED_DELTA_SPEED];
-            }
-            else
-            {
-                [qrView l_v_setY:destY];
-                [adsView l_v_setY:_adsFrame.origin.y+QRCODE_SMALL_HEIGHT*NEW_FEED_DELTA_SPEED];
-            }
-        }
-        else
-        {
-            [qrView l_v_setY:_qrFrame.origin.y];
-            [adsView l_v_setY:_adsFrame.origin.y];
-        }
-    }
 }
 
 -(void) requestNewFeed
@@ -196,8 +166,6 @@
 {
     if(tableView==tableFeed)
         return _homes.count==0?0:1;
-    else if(tableView==tableAds)
-        return _ads.count==0?0:1;
     
     return 0;
 }
@@ -206,8 +174,6 @@
 {
     if(tableView==tableFeed)
         return _homes.count;
-    else if(tableView==tableAds)
-        return _ads.count;
     
     return 0;
 }
@@ -242,10 +208,6 @@
                 NSLog(@"USER_HOME_TYPE_UNKNOW heightForRowAtIndexPath");
                 return 0;
         }
-    }
-    else if(tableView==tableAds)
-    {
-        return tableView.l_v_w;
     }
     
     return 0;
@@ -361,10 +323,6 @@
                 break;
         }
     }
-    else if(tableView==tableAds)
-    {
-        return [UITableViewCell new];
-    }
     
     return [UITableViewCell new];
 }
@@ -435,10 +393,6 @@
             case USER_HOME_TYPE_UNKNOW:
                 break;
         }
-    }
-    else if(tableView==tableAds)
-    {
-        
     }
 }
 

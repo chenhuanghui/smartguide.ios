@@ -30,8 +30,6 @@
     __weak IBOutlet UITextField *txt;
     __weak IBOutlet UIView *displayLoadingView;
     __weak IBOutlet UITableView *tableFeed;
-    __weak IBOutlet UITableView *tableAds;
-    __weak IBOutlet UIView *adsView;
     __weak IBOutlet UIView *qrView;
     
     ASIOperationUserHome *_operationUserHome;
@@ -43,7 +41,6 @@
     bool _isLoadingMore;
     bool _canLoadMore;
     
-    CGRect _adsFrame;
     CGRect _qrFrame;
 }
 

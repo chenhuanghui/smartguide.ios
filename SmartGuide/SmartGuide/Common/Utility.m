@@ -2158,6 +2158,12 @@ static const NSString *KEY_HIT_TEST_EDGE_INSETS = @"HitTestEdgeInsets";
         if(data.count==0 || [data objectAtIndex:0]==[NSNull null])
             return true;
     }
+    else if([self isKindOfClass:[NSDictionary class]])
+    {
+        NSDictionary *dict=(NSDictionary*)self;
+        if(dict.count==0)
+            return true;
+    }
     
     return false;
 }

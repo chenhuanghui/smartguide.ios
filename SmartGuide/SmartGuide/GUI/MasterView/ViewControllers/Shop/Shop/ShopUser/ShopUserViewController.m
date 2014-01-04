@@ -10,7 +10,13 @@
 #import "GUIManager.h"
 #import "SGShopLoadingCell.h"
 
-#define SHOP_USER_COMMENT_INDEX_PATH [NSIndexPath indexPathForRow:5 inSection:0]
+#define SHOP_USER_SHOP_GALLERY_INDEX_PATH [NSIndexPath indexPathForRow:0 inSection:0]
+#define SHOP_USER_PROMOTION_INDEX_PATH [NSIndexPath indexPathForRow:1 inSection:0]
+#define SHOP_USER_PROMOTION_NEWS_INDEX_PATH [NSIndexPath indexPathForRow:2 inSection:0]
+#define SHOP_USER_BUTTON_CONTAIN_INDEX_PATH [NSIndexPath indexPathForRow:3 inSection:0]
+#define SHOP_USER_INFO_INDEX_PATH [NSIndexPath indexPathForRow:4 inSection:0]
+#define SHOP_USER_USER_GALLERY_INDEX_PATH [NSIndexPath indexPathForRow:5 inSection:0]
+#define SHOP_USER_USER_COMMENT_INDEX_PATH [NSIndexPath indexPathForRow:6 inSection:0]
 
 @interface ShopUserViewController ()
 
@@ -148,8 +154,8 @@
         _isLoadingMoreComment=false;
         _pageComment++;
         
-        [tableShopUser reloadRowsAtIndexPaths:@[SHOP_USER_COMMENT_INDEX_PATH] withRowAnimation:UITableViewRowAnimationNone];
-        [userCommentCell l_v_setH:[tableShopUser rectForRowAtIndexPath:SHOP_USER_COMMENT_INDEX_PATH].size.height];
+        [tableShopUser reloadRowsAtIndexPaths:@[SHOP_USER_USER_COMMENT_INDEX_PATH] withRowAnimation:UITableViewRowAnimationNone];
+        [userCommentCell l_v_setH:[tableShopUser rectForRowAtIndexPath:SHOP_USER_USER_COMMENT_INDEX_PATH].size.height];
         [self scrollViewDidScroll:tableShopUser];
         [tableShopUser setContentOffset:tableShopUser.contentOffset animated:true];
         [userCommentCell loadWithComments:_comments sort:_sortComment maxHeight:-1];
@@ -172,16 +178,10 @@
             userCommentCell.hidden=true;
             userCommentCell=nil;
             
-            [tableShopUser reloadRowsAtIndexPaths:@[SHOP_USER_COMMENT_INDEX_PATH] withRowAnimation:UITableViewRowAnimationNone];
+            [tableShopUser reloadRowsAtIndexPaths:@[SHOP_USER_USER_COMMENT_INDEX_PATH] withRowAnimation:UITableViewRowAnimationNone];
             [self scrollViewDidScroll:tableShopUser];
             
             [self scrollToCommentCell:false showKeyboard:false];
-            
-            CGRect rect=[tableShopUser rectForRowAtIndexPath:SHOP_USER_COMMENT_INDEX_PATH];
-            rect.origin.y-=[userCommentCell.table rectForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]].size.height;
-            rect.origin.y-=_btnNextFrame.size.height;
-            
-            //[tableShopUser setContentOffset:rect.origin animated:true];
         }
         
         _opeartionPostComment=nil;
@@ -225,7 +225,7 @@
 
 -(void) scrollToCommentCell:(bool) animate showKeyboard:(bool) isShowKeyboard
 {
-    CGRect rect=[tableShopUser rectForRowAtIndexPath:SHOP_USER_COMMENT_INDEX_PATH];
+    CGRect rect=[tableShopUser rectForRowAtIndexPath:SHOP_USER_USER_COMMENT_INDEX_PATH];
     float height=tableShopUser.l_co_y+tableShopUser.l_v_h-rect.origin.y;
     
     if(height<403)
@@ -271,7 +271,7 @@
 
 -(void) shopUserCommentKeyboardWillShow:(NSNotification*) notification
 {
-    CGRect rect=[tableShopUser rectForRowAtIndexPath:SHOP_USER_COMMENT_INDEX_PATH];
+    CGRect rect=[tableShopUser rectForRowAtIndexPath:SHOP_USER_USER_COMMENT_INDEX_PATH];
     float height=tableShopUser.l_co_y+tableShopUser.l_v_h-rect.origin.y;
     
     if(height<403)
@@ -287,6 +287,59 @@
     }
 }
 
+-(IBAction) btnNextTouchUpInside:(id)sender
+{
+    if(_shop.enumDataMode!=SHOP_DATA_FULL)
+        return;
+    
+    CGRect rect=CGRectZero;
+    float tableOffsetY=[self tableOffsetY];
+    
+    switch (_shop.enumPromotionType) {
+        case SHOP_PROMOTION_KM1:
+        case SHOP_PROMOTION_KM2:
+            
+            rect=[tableShopUser rectForRowAtIndexPath:SHOP_USER_PROMOTION_INDEX_PATH];
+            
+            //vị trí khuyến mãi chưa scroll đến top của màn hình
+            if(tableOffsetY-rect.origin.y<0)
+            {
+                [self scrollToRowAtIndexPath:SHOP_USER_PROMOTION_INDEX_PATH animate:true];
+            }
+            else
+            {
+                // vùng hiển thị của khuyến mãi đã qua khỏi màn hình->scroll đến thông tin khuyến mãi
+                if(tableOffsetY-rect.origin.y-rect.size.height>0)
+                    [self scrollToRowAtIndexPath:SHOP_USER_PROMOTION_INDEX_PATH animate:true];
+                else
+                    [self scrollToInfoRow:true];
+            }
+            
+            break;
+            
+        default:
+            break;
+    }
+}
+
+-(void) scrollToInfoRow:(bool) animate
+{
+    [self scrollToRowAtIndexPath:SHOP_USER_BUTTON_CONTAIN_INDEX_PATH animate:animate];
+}
+
+-(void) scrollToRowAtIndexPath:(NSIndexPath*) indexPath animate:(bool) animate
+{
+    CGRect rect=[tableShopUser rectForRowAtIndexPath:indexPath];
+    rect.origin.y-=SHOP_USER_ANIMATION_ALIGN_Y;
+    
+    [tableShopUser l_co_setY:rect.origin.y animate:animate];
+}
+
+-(float) tableOffsetY
+{
+    return tableShopUser.l_co_y+SHOP_USER_ANIMATION_ALIGN_Y;
+}
+
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     if(scrollView==tableShopUser)
@@ -299,7 +352,7 @@
         float y=_btnNextFrame.origin.y+scrollView.contentOffset.y;
         y+=SHOP_USER_ANIMATION_ALIGN_Y;
         
-        CGRect rect=[tableShopUser rectForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:0]];
+        CGRect rect=[tableShopUser rectForRowAtIndexPath:SHOP_USER_BUTTON_CONTAIN_INDEX_PATH];
         
         if(y>=rect.origin.y)
         {
@@ -316,7 +369,7 @@
             [btnNext setImage:[UIImage imageNamed:@"button_dropdown.png"] forState:UIControlStateNormal];
         }
         
-        rect=[tableShopUser rectForRowAtIndexPath:SHOP_USER_COMMENT_INDEX_PATH];
+        rect=[tableShopUser rectForRowAtIndexPath:SHOP_USER_USER_COMMENT_INDEX_PATH];
         
         if(userCommentCell)
         {
@@ -714,11 +767,6 @@
     }];
     
     [shopNavi pushViewController:vc animated:true];
-}
-
--(IBAction) btnNextTouchUpInside:(id)sender
-{
-    
 }
 
 -(void)userGalleryTouchedMakePicture:(SUUserGalleryCell *)cell

@@ -9,7 +9,17 @@
 #import <UIKit/UIKit.h>
 #import "ShopKM2.h"
 
-@interface SUKM2Cell : UITableViewCell
+@interface SUKM2Cell : UITableViewCell<UITableViewDataSource,UITableViewDelegate>
+{
+    __weak IBOutlet UILabel *lblDuration;
+    __weak IBOutlet UILabel *lblText;
+    __weak IBOutlet UIButton *btnScan;
+    __weak IBOutlet UIButton *btnCode;
+    __weak IBOutlet UILabel *lblNote;
+    __weak IBOutlet UITableView *table;
+    
+    __weak ShopKM2 *_km2;
+}
 
 -(void) loadWithKM2:(ShopKM2*) km2;
 
