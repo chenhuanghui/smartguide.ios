@@ -1,5 +1,4 @@
 #import "User.h"
-#import "Filter.h"
 #import "Constant.h"
 #import "Flags.h"
 
@@ -33,21 +32,6 @@
 -(CLLocationCoordinate2D)coordinate
 {
     return self.location;
-}
-
--(enum SORT_BY)currentSort
-{
-    if(self.filter)
-    {
-        if(self.filter.mostLike.boolValue)
-            return SORT_LIKED;
-        else if(self.filter.mostView.boolValue)
-            return SORT_VIEWED;
-        else if(self.filter.distance.boolValue)
-            return SORT_DISTANCE;
-    }
-    
-    return SORT_DISTANCE;
 }
 
 -(NSNumber *)idUser

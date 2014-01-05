@@ -9,7 +9,6 @@
 #import "SGViewController.h"
 #import "Constant.h"
 #import "SGTableTemplate.h"
-#import "ASIOperationShopInGroup.h"
 #import "ShopUserViewController.h"
 #import <MapKit/MapKit.h>
 #import "ShopSearchSortView.h"
