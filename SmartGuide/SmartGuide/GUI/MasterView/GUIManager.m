@@ -48,28 +48,26 @@ static GUIManager *_shareInstance=nil;
     
     NSMutableArray *viewControllers=[NSMutableArray array];
     
-    if([[DataManager shareInstance].currentUser isUserDefault])
-    {
-        WelcomeViewController *welcome=[[WelcomeViewController alloc] init];
-        welcome.delegate=self;
-        
-        [viewControllers addObject:welcome];
-    }
-    else
-    {
-        User *user=[DataManager shareInstance].currentUser;
-        
-        if([user.name stringByRemoveString:@" ",nil].length==0)
+    switch (currentUser().enumDataMode) {
+        case USER_DATA_TRY:
+        {
+            WelcomeViewController *welcome=[[WelcomeViewController alloc] init];
+            welcome.delegate=self;
+            
+            [viewControllers addObject:welcome];
+        }
+            break;
+            
+        case USER_DATA_CREATING:
         {
             AuthorizationViewController *author=[[AuthorizationViewController alloc] init];
             author.delegate=self;
-            [author showCreateUser];
             
-            TransportViewController *transport=[[TransportViewController alloc] initWithNavigation:author];
-            
-            [viewControllers addObject:transport];
+            [viewControllers addObject:author];
         }
-        else
+            break;
+            
+        case USER_DATA_FULL:
         {
             SGRootViewController *root=[[SGRootViewController alloc] initWithDelegate:self];
             
@@ -77,6 +75,7 @@ static GUIManager *_shareInstance=nil;
             
             [viewControllers addObject:root];
         }
+            break;
     }
     
     SGLoadingScreenViewController *loading=[[SGLoadingScreenViewController alloc] init];
@@ -468,12 +467,10 @@ static GUIManager *_shareInstance=nil;
 
 -(void) showLoginController
 {
-    AuthorizationViewController *author=[[AuthorizationViewController alloc] init];
-    [author showLogin];
+    AuthorizationViewController *author=[AuthorizationViewController new];
     author.delegate=self;
     
-    TransportViewController *transport=[[TransportViewController alloc] initWithNavigation:author];
-    [self.rootNavigation pushViewController:transport animated:true];
+    [self.rootNavigation pushViewController:author animated:true];
 }
 
 -(void)qrcodeControllerRequestShow:(SGQRCodeViewController *)controller

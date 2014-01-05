@@ -85,6 +85,19 @@
 
 
 
+- (NSString*)activationCode {
+	[self willAccessValueForKey:@"activationCode"];
+	NSString* result = (NSString*)[self primitiveValueForKey:@"activationCode"];
+	[self didAccessValueForKey:@"activationCode"];
+	return result;
+}
+
+- (void)setActivationCode:(NSString*)value {
+	[self willChangeValueForKey:@"activationCode"];
+	[self setPrimitiveValue:value forKey:@"activationCode"];
+	[self didChangeValueForKey:@"activationCode"];
+}
+
 - (NSString*)avatar {
 	[self willAccessValueForKey:@"avatar"];
 	NSString* result = (NSString*)[self primitiveValueForKey:@"avatar"];
@@ -111,6 +124,19 @@
 	[self didChangeValueForKey:@"cover"];
 }
 
+- (NSString*)facebookToken {
+	[self willAccessValueForKey:@"facebookToken"];
+	NSString* result = (NSString*)[self primitiveValueForKey:@"facebookToken"];
+	[self didAccessValueForKey:@"facebookToken"];
+	return result;
+}
+
+- (void)setFacebookToken:(NSString*)value {
+	[self willChangeValueForKey:@"facebookToken"];
+	[self setPrimitiveValue:value forKey:@"facebookToken"];
+	[self didChangeValueForKey:@"facebookToken"];
+}
+
 - (NSNumber*)gender {
 	[self willAccessValueForKey:@"gender"];
 	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"gender"];
@@ -122,6 +148,32 @@
 	[self willChangeValueForKey:@"gender"];
 	[self setPrimitiveValue:value forKey:@"gender"];
 	[self didChangeValueForKey:@"gender"];
+}
+
+- (NSString*)googleplusToken {
+	[self willAccessValueForKey:@"googleplusToken"];
+	NSString* result = (NSString*)[self primitiveValueForKey:@"googleplusToken"];
+	[self didAccessValueForKey:@"googleplusToken"];
+	return result;
+}
+
+- (void)setGoogleplusToken:(NSString*)value {
+	[self willChangeValueForKey:@"googleplusToken"];
+	[self setPrimitiveValue:value forKey:@"googleplusToken"];
+	[self didChangeValueForKey:@"googleplusToken"];
+}
+
+- (NSNumber*)idUser {
+	[self willAccessValueForKey:@"idUser"];
+	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"idUser"];
+	[self didAccessValueForKey:@"idUser"];
+	return result;
+}
+
+- (void)setIdUser:(NSNumber*)value {
+	[self willChangeValueForKey:@"idUser"];
+	[self setPrimitiveValue:value forKey:@"idUser"];
+	[self didChangeValueForKey:@"idUser"];
 }
 
 - (NSString*)name {

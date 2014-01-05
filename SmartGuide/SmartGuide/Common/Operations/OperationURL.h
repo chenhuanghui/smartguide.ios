@@ -25,8 +25,7 @@
 {
 }
 
--(OperationURL*) initWithURL:(NSURL*) url;
--(OperationURL*)initWithRequest:(NSURLRequest *)urlRequest;
+-(OperationURL*) initWithRouter:(NSString*) router params:(NSDictionary*) dict;
 
 -(void) onCompletedWithJSON:(NSArray*) json;
 -(void) notifyCompleted;
@@ -36,5 +35,7 @@
 
 @property (nonatomic, strong) NSError *error;
 @property (nonatomic, weak) id<OperationURLDelegate> delegate;
+@property (nonatomic, readonly) NSDictionary *params;
+@property (nonatomic, readonly) NSString *router;
 
 @end

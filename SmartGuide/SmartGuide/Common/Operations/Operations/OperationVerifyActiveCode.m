@@ -19,8 +19,10 @@
 
 -(OperationVerifyActiveCode *)initWithPhone:(NSString *)phone aciveCode:(NSString *)_activeCode
 {
-    NSURL *url=[NSURL URLWithString:API_VERIFY_ACTIVE_CODE(phone, _activeCode)];
-    self=[super initWithURL:url];
+    NSMutableDictionary *dict=[NSMutableDictionary dictionary];
+    [dict setObject:phone forKey:@"phone"];
+    [dict setObject:_activeCode forKey:@"code"];
+    self=[super initWithRouter:SERVER_IP_MAKE(API_VERIFY_ACTIVE_CODE) params:dict];
     
     self.activeCode=[[NSString alloc]initWithString:_activeCode];
     

@@ -5,9 +5,13 @@
 
 #define User_ClassName @"User"
 
+#define User_ActivationCode @"activationCode"
 #define User_Avatar @"avatar"
 #define User_Cover @"cover"
+#define User_FacebookToken @"facebookToken"
 #define User_Gender @"gender"
+#define User_GoogleplusToken @"googleplusToken"
+#define User_IdUser @"idUser"
 #define User_Name @"name"
 #define User_Phone @"phone"
 #define User_SocialType @"socialType"
@@ -25,9 +29,13 @@
 -(void) markDeleted;
 
 
+@property (nonatomic, retain) NSString* activationCode;
 @property (nonatomic, retain) NSString* avatar;
 @property (nonatomic, retain) NSString* cover;
+@property (nonatomic, retain) NSString* facebookToken;
 @property (nonatomic, retain) NSNumber* gender;
+@property (nonatomic, retain) NSString* googleplusToken;
+@property (nonatomic, retain) NSNumber* idUser;
 @property (nonatomic, retain) NSString* name;
 @property (nonatomic, retain) NSString* phone;
 @property (nonatomic, retain) NSNumber* socialType;

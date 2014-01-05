@@ -22,28 +22,12 @@
 
 @interface UserLoginViewController : SGViewController<OperationURLDelegate,UITextFieldDelegate>
 {
-    __weak IBOutlet UIImageView *imgvLogo;
-    __weak IBOutlet UIImageView *smartguide;
-    __weak IBOutlet UIButton *btnDone;
-    __weak IBOutlet UILabel *lblInfo;
-    __weak IBOutlet UITextField *txt;
+    __weak IBOutlet UIButton *btnLogin;
+    __weak IBOutlet UITextField *txtPhone;
     
-    
-    bool _isActived;
+    OperationGetActionCode *_operationGetActionCode;
+    NSString *_activationCode;
     NSString *_phone;
-    
-    NSString *_inputPhone;
-    NSTimer *_timerSMS;
-    __weak IBOutlet UILabel *lblCountdown;
-    __weak IBOutlet UILabel *lblGiay;
-    __weak IBOutlet UILabel *lblResend;
-    __weak IBOutlet UIButton *btnResent;
-    int _time;
-    
-    int _idUser;
-    NSString *_name;
-    bool _isConnectedFacebook;
-    NSString *_avatar;
 }
 
 @property (nonatomic, assign) id<UserLoginDelegate> delegate;

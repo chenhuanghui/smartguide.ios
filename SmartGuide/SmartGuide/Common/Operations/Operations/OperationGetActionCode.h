@@ -14,5 +14,6 @@
 
 @property (nonatomic, readonly) bool isSuccess;
 @property (nonatomic, readonly) NSString *message;
+@property (nonatomic, readonly) NSString *phone;
 
 @end

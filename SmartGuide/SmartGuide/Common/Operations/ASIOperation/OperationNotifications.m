@@ -13,11 +13,10 @@
 
 -(OperationNotifications *)initNotificationsWithAccessToken:(NSString *)accessToken version:(NSString *)version
 {
-//    NSString *info=[NSString stringWithFormat:@"ios%@_%@",[UIDevice currentDevice].systemVersion,SMARTUIDE_VERSION];
-    
-    NSURL *url=[NSURL URLWithString:SERVER_IP_MAKE(API_NOTIFICATIONS(accessToken, version))];
-    
-    self=[super initWithURL:url];
+    NSMutableDictionary *dict=[NSMutableDictionary dictionary];
+    [dict setObject:accessToken forKey:@"access_token"];
+    [dict setObject:version forKey:@"version"];
+    self=[super initWithRouter:SERVER_API_MAKE(API_NOTIFICATIONS) params:dict];
     
     return self;
 }

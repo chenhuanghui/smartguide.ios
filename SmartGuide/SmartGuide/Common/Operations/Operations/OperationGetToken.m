@@ -13,8 +13,14 @@
 
 -(OperationGetToken *)initWithPhone:(NSString *)phone activeCode:(NSString *)activeCode
 {
-    NSURL *url=[NSURL URLWithString:API_GET_TOKEN(phone, activeCode)];
-    self=[super initWithURL:url];
+    NSMutableDictionary *dict=[NSMutableDictionary dictionary];
+    [dict setObject:@"http://dev.smartguide.com/app_dev.php/grants/bingo" forKey:@"grant_type"];
+    [dict setObject:CLIENT_ID forKey:@"client_id"];
+    [dict setObject:SECRET_ID forKey:@"client_secret"];
+    [dict setObject:phone forKey:@"phone"];
+    [dict setObject:activeCode forKey:@"code"];
+    
+    self=[super initWithRouter:SERVER_IP_MAKE(API_GET_TOKEN) params:dict];
     
     return self;
 }

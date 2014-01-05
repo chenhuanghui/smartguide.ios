@@ -36,26 +36,3 @@ User *currentUser();
 @property (strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 
 @end
-
-@interface CurrentUser : NSObject
-
-+(CurrentUser*) currentUser;
-
--(enum GENDER_TYPE) enumGender;
-
--(bool) save;
-
-@property (nonatomic, readwrite) int idUser;
-@property (nonatomic, readwrite, strong) NSString *name;
-@property (nonatomic, readwrite) int gender;
-@property (nonatomic, readwrite, strong) NSString *avatar;
-@property (nonatomic, readwrite, strong) NSString *cover;
-@property (nonatomic, readwrite, strong) NSString *phone;
-@property (nonatomic, readwrite) int socialType;
-@property (nonatomic, readwrite, strong) NSString *activationCode;
-@property (nonatomic, readwrite, strong) NSString *accessToken;
-@property (nonatomic, readwrite, strong) NSString *refreshToken;
-@property (nonatomic, readwrite, strong) NSString *facebookToken;
-@property (nonatomic, readwrite, strong) NSString *googlePlusToken;
-
-@end

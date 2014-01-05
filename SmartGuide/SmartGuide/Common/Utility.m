@@ -1231,6 +1231,20 @@ int random_int(int from, int to)
     return [[NSNumber numberWithObject:[self objectForKey:key]] boolValue];
 }
 
+-(NSString *)makeParamsHTTPGET
+{
+    NSMutableArray *array=[NSMutableArray array];
+    for(NSString *key in [self allKeys])
+    {
+        [array addObject:[NSString stringWithFormat:@"%@=%@",key,self[key]]];
+    }
+    
+    NSString *param=[array componentsJoinedByString:@"&"];
+    array=nil;
+    
+    return [param copy];
+}
+
 @end
 
 @implementation NSURLRequest(Utility)

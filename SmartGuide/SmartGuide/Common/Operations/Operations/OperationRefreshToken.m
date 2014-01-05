@@ -22,10 +22,13 @@
 
 -(OperationRefreshToken *)initWithClientID:(NSString *)clientID secretID:(NSString *)secretID refreshToken:(NSString *)_refreshToken
 {
+    NSMutableDictionary *dict=[NSMutableDictionary dictionary];
+    [dict setObject:@"refresh_token" forKey:@"grant_type"];
+    [dict setObject:clientID forKey:@"client_id"];
+    [dict setObject:secretID forKey:@"client_secret"];
+    [dict setObject:_refreshToken forKey:@"refresh_token"];
     
-    NSString *str=[NSString stringWithFormat:@"%@/oauth/v2/token?grant_type=refresh_token&client_id=%@&client_secret=%@&refresh_token=%@",SERVER_IP,clientID,secretID,_refreshToken];
-    NSURL *url=[NSURL URLWithString:str];
-    self=[super initWithURL:url];
+    self=[super initWithRouter:SERVER_IP_MAKE(API_REFRESH_TOKEN) params:dict];
     
     return self;
 }

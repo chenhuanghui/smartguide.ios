@@ -250,6 +250,8 @@ int random_int(int from, int to);
 -(float) floatForKey:(NSString*) key;
 -(bool) boolForKey:(NSString*) key;
 
+-(NSString*) makeParamsHTTPGET;
+
 @end
 @interface NSURLRequest(Utility)
 

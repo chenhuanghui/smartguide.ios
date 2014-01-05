@@ -16,9 +16,13 @@
     NSString* saddr = [NSString stringWithFormat:@"%f,%f", source.latitude, source.longitude];
 	NSString* daddr = [NSString stringWithFormat:@"%f,%f", destination.latitude, destination.longitude];
     
-	NSString* urlString = [NSString stringWithFormat:@"http://maps.google.com/maps?output=dragdir&saddr=%@&daddr=%@&hl=%@", saddr, daddr, localeIdentifier];
+    NSMutableDictionary *dict=[NSMutableDictionary dictionary];
+    [dict setObject:@"dragdir" forKey:@"output"];
+    [dict setObject:saddr forKey:@"saddr"];
+    [dict setObject:daddr forKey:@"daddr"];
+    [dict setObject:localeIdentifier forKey:@"hl"];
     
-    self=[super initWithURL:[NSURL URLWithString:urlString]];
+    self=[super initWithRouter:@"http://maps.google.com/maps" params:dict];
     
     return self;
 }

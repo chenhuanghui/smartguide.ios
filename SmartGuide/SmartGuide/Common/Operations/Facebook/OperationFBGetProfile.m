@@ -14,9 +14,12 @@
 -(OperationFBGetProfile *)initWithAccessToken:(NSString *)accessToken
 {
     NSString *fieldParams=@"picture.width(100).height(100),birthday,email,gender,id,name,name_format,first_name,last_name,work";
-    NSURL *url=[NSURL URLWithString:FACEBOOK_GET_PROFILE(accessToken,fieldParams)];
+
+    NSMutableDictionary *dict=[NSMutableDictionary dictionary];
+    [dict setObject:fieldParams forKey:@"fields"];
+    [dict setObject:accessToken forKey:@"access_token"];
     
-    self=[super initWithURL:url];
+    self=[super initWithRouter:FACEBOOK_GET_PROFILE params:dict];
     
     _accessToken=[[NSString alloc] initWithString:accessToken];
     

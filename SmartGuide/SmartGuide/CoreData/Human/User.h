@@ -1,19 +1,23 @@
 #import "_User.h"
 #import <MapKit/MapKit.h>
 
+enum USER_DATA_MODE {
+    USER_DATA_CREATING = 0, //user đã nhập activation code nhưng đến màn hình tạo/kết nối social thì ngưng
+    USER_DATA_TRY = 1, //user mặc định
+    USER_DATA_FULL = 2,
+    };
+
 @interface User : _User<MKAnnotation>
 {
+    CLLocationCoordinate2D _location;
 }
 
-+(User*) userWithIDUser:(int) idUser;
--(enum SORT_BY) currentSort;
+-(bool) isDefaultUser;
 
--(NSNumber*) idUser;
--(void) setIdUser:(NSNumber*) num;
--(bool) isUserDefault;
+-(NSString *) accessToken;
 
-@property (nonatomic, assign) int idCity;
-@property (nonatomic, strong) NSString *city;
-@property (nonatomic, assign) CLLocationCoordinate2D location;
+-(void)setCoordinate:(CLLocationCoordinate2D)newCoordinate;
+
+-(enum USER_DATA_MODE) enumDataMode;
 
 @end

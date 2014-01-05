@@ -13,17 +13,24 @@
 
 -(OperationGetActionCode *)initWithPhone:(NSString *)phone
 {
-    NSURL *url=[NSURL URLWithString:API_GET_ACTIVE_CODE(phone)];
-    self=[super initWithURL:url];
+    //?phone=%@
+    NSMutableDictionary *dict=[NSMutableDictionary dictionary];
+    [dict setObject:phone forKey:@"phone"];
+    self=[super initWithRouter:SERVER_IP_MAKE(API_GET_ACTIVE_CODE) params:dict];
     
     return self;
 }
 
 -(void)onCompletedWithJSON:(NSArray *)json
 {
+    isSuccess=false;
+    message=@"";
+    if([self isNullData:json])
+        return;
+    
     NSDictionary *dict=json[0];
-    isSuccess=[dict[@"result"] boolValue];
-    message=dict[@"message"];
+    isSuccess=[[NSNumber numberWithObject:dict[@"result"]] boolValue];
+    message=[NSString stringWithStringDefault:dict[@"message"]];
 }
 
 @end

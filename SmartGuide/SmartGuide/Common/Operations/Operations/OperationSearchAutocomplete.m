@@ -7,31 +7,23 @@
 //
 
 #import "OperationSearchAutocomplete.h"
-
-static NSString *es_query=nil;
-
 @implementation OperationSearchAutocomplete
 @synthesize shops,placelists,keyword,highlightTag;
-
-+(void)load
-{
-    NSError *txtError=nil;
-    NSString *path=[[NSBundle mainBundle] pathForResource:@"es_search" ofType:@"txt"];
-    es_query=[NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:&txtError];
-    
-    if(txtError)
-        NSLog(@"es_search.txt error %@",txtError);
-}
 
 -(OperationSearchAutocomplete *)initWithKeyword:(NSString *)_keyword
 {
     NSString *key=[_keyword lowercaseString];
     
-    NSString *query=[NSString stringWithFormat:es_query,key];
-    query=[query stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    NSURL *uurl=[NSURL URLWithString:query];
+    NSString *esQuery=@"{\"query\":{\"query_string\":{\"query\":\"%@\",\"fields\":[\"shop_name_auto_complete\",\"name_auto_complete\"]}},\"highlight\":{\"fields\":{\"shop_name_auto_complete\":{},\"name_auto_complete\":{}}},\"from\":0,\"size\":5,\"fields\":[\"shop_name\",\"name\",\"id\"]}";
     
-    self=[super initWithURL:uurl];
+    NSString *query=[NSString stringWithFormat:esQuery,key];
+    query=[query stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    
+    NSMutableDictionary *dict=[NSMutableDictionary dictionary];
+    
+    [dict setObject:query forKey:@"source"];
+    
+    self=[super initWithRouter:API_ELASTIC_AUTOCOMPLETE_NATIVE params:dict];
     
     keyword=[[NSString alloc] initWithString:key];
     

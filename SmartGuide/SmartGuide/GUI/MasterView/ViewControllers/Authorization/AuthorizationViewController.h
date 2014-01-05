@@ -10,23 +10,25 @@
 #import "SGNavigationController.h"
 #import "UserLoginViewController.h"
 #import "UserFacebookViewController.h"
+#import "RegisterViewController.h"
 #import "DataManager.h"
 #import "Flags.h"
 #import "TokenManager.h"
 
-@protocol AuthorizationDelegate <UINavigationControllerDelegate>
+@protocol AuthorizationDelegate <SGViewControllerDelegate>
 
 -(void) authorizationSuccessed;
 -(void) authorizationCancelled;
 
 @end
 
-@interface AuthorizationViewController : SGNavigationController<UserLoginDelegate,UserFacebookDelegate>
+@interface AuthorizationViewController : SGViewController<UserLoginDelegate,UserFacebookDelegate>
+{
+    __weak SGNavigationController *authorNavi;
+    __weak IBOutlet UIView *containView;
+    __weak IBOutlet UIButton *btnBack;
+}
 
--(void) showLogin;
--(void) showCreateUser;
-+(bool) isNeedFillInfo;
-
-@property (nonatomic, assign) id<AuthorizationDelegate> delegate;
+@property (nonatomic, weak) id<AuthorizationDelegate> delegate;
 
 @end

@@ -11,7 +11,6 @@
 #define SMARTUIDE_VERSION ((NSString*)[[NSBundle mainBundle] infoDictionary][(NSString*)kCFBundleVersionKey])
 #define VELOCITY_SLIDE 800.f
 
-#define DEFAULT_USER_ID 0
 #define DEFAULT_USER_ACCESS_TOKEN @"abc"
 #define DEFAULT_USER_PHONE @"84987654321"
 #define DEFAULT_USER_ACTIVE_CODE @"1111"
@@ -23,7 +22,7 @@
 #define FACEBOOK_READ_PERMISSION @[@"basic_info",@"user_about_me",@"user_birthday",@"user_work_history",@"email"]
 #define FACEBOOK_PUBLISH_PERMISSION @[@"publish_actions"]
 #define FACEBOOK_APPID @"1391698407719065"
-#define FACEBOOK_GET_PROFILE(accessToken,fields) [NSString stringWithFormat:@"https://graph.facebook.com/me/?fields=%@&access_token=%@",fields,accessToken]
+#define FACEBOOK_GET_PROFILE @"https://graph.facebook.com/me/"
 
 #define BUILD_MODE 0
 //0: developer
@@ -79,7 +78,7 @@
 #define API_UPDATE_USER_INFO @"user/sginfo/update"
 #define API_UPLOAD_FB_ACCESS_TOKEN @"user/facebook/access_token"
 #define API_GET_AVATARS @"user/avatar/get"
-#define API_NOTIFICATIONS(accessToken,version) [NSString stringWithFormat:@"notification?access_token=%@&version=%@",accessToken,version]
+#define API_NOTIFICATIONS @"notification"
 #define API_STORE_ALL_STORE @"store/getAll"
 #define API_STORE_GET_LIST @"store/getList"
 #define API_STORE_GET_ITEMS @"store/getItem"
@@ -92,12 +91,12 @@
 #define API_USER_HOME @"user/home"
 #define API_GET_SHOP_LIST @"shop/getShopList"
 #define API_ELASTIC_AUTOCOMPLETE @"elastic/autocomplete"
-#define API_ELASTIC_AUTOCOMPLETE_NATIVE(source) [NSString stringWithFormat:@"http://116.251.210.100:9200/data/_search?source=%@",source]
+#define API_ELASTIC_AUTOCOMPLETE_NATIVE @"http://116.251.210.100:9200/data/_search"
 
-#define API_GET_ACTIVE_CODE(phone) [NSString stringWithFormat:@"%@/user/activation?phone=%@",SERVER_IP,phone]
-#define API_VERIFY_ACTIVE_CODE(phone,activeCode) [NSString stringWithFormat:@"%@/user/check?phone=%@&code=%@",SERVER_IP,phone,activeCode]
-#define API_GET_TOKEN(phone,activeCode) [NSString stringWithFormat:@"%@/oauth/v2/token?grant_type=http://dev.smartguide.com/app_dev.php/grants/bingo&client_id=%@&client_secret=%@&phone=%@&code=%@",SERVER_IP,CLIENT_ID,SECRET_ID,phone,activeCode]
-
+#define API_GET_ACTIVE_CODE @"user/activation"
+#define API_VERIFY_ACTIVE_CODE @"user/check"
+#define API_GET_TOKEN @"oauth/v2/token"
+#define API_REFRESH_TOKEN @"oauth/v2/token"
 #define UIIMAGE_LOADING_SHOP_LOGO [UIImage imageNamed:@"ava_loading.png"]
 #define UIIMAGE_LOADING_AVATAR [UIImage imageNamed:@"ava_default.png"]
 #define UIIMAGE_LOADING_AVATAR_COMMENT UIIMAGE_LOADING_AVATAR

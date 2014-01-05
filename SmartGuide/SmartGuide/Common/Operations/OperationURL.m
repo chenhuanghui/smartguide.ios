@@ -16,30 +16,23 @@
 @end
 
 @implementation OperationURL
-@synthesize delegate;
+@synthesize delegate,params,router;
 
--(OperationURL *)initWithURL:(NSURL *)url
+
+
+-(OperationURL *)initWithRouter:(NSString *)_router params:(NSDictionary *)dict
 {
-//    NSString *token=@"?access_token=ODlmZmVlZWQ4MGNmN2I4MzlhNGQ5OTlmOTg0MmU4YWRmZjNmNDQ1NjY1MzZlY2M5Zjk0N2Y0NWY3Yjg5ZjEzNA";
-//    url=[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",url,token]];
-//    
-    NSURLRequest *request=[NSURLRequest requestWithURL:url];
+    NSString *url=_router;
+    
+    if(dict.count>0)
+        url=[url stringByAppendingFormat:@"?%@",[dict makeParamsHTTPGET]];
+    
+    NSURLRequest *request=[NSURLRequest requestWithURL:[NSURL URLWithString:url]];
+    
     self=[super initWithRequest:request];
     
-    __weak id weakSelf=self;
-    [self setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
-        [weakSelf onCompleted:operation responseObject:responseObject];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [weakSelf onFailure:operation error:error];
-    }];
-    
-    return self;
-}
-
--(OperationURL *)initWithRequest:(NSURLRequest *)urlRequest
-{
-    self=[super initWithRequest:urlRequest];
+    params=[dict copy];
+    router=[_router copy];
     
     __weak id weakSelf=self;
     [self setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {

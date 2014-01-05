@@ -153,7 +153,7 @@ static LocationManager *_locationManager=nil;
             _locationBlock=nil;
             
             self.userLocation=location.coordinate;
-            [DataManager shareInstance].currentUser.location=self.userLocation;
+            [DataManager shareInstance].currentUser.coordinate=self.userLocation;
             return;
         }
         
@@ -248,7 +248,7 @@ static LocationManager *_locationManager=nil;
         _locationBlock=nil;
         
         self.userLocation=CLLocationCoordinate2DMake(-1, -1);
-        [DataManager shareInstance].currentUser.location=self.userLocation;
+        [DataManager shareInstance].currentUser.coordinate=self.userLocation;
         
         return;
     }
