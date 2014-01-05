@@ -44,7 +44,7 @@
         return true;
     
     // Nếu currentUser tồn tại mà chưa có thông tin=>user đã vào nhập số điện thoại, kích hoạt active code nhưng kill app khi đang kết nối facebook hoặc tạo user
-    if(currentUser && !currentUser.isConnectedFacebook.boolValue && [currentUser.name stringByRemoveString:@" ",nil].length==0)
+//    if(currentUser && !currentUser.isConnectedFacebook.boolValue && [currentUser.name stringByRemoveString:@" ",nil].length==0)
     {
         return true;
     }
@@ -56,15 +56,15 @@
 {
     User *user=[DataManager shareInstance].currentUser;
     
-    if(!user.isConnectedFacebook.boolValue && [user.name stringByRemoveString:@" ",nil].length==0)
-    {
-        UserFacebookViewController *vc=[[UserFacebookViewController alloc] init];
-        vc.delegate=self;
-        
-        [self pushViewController:vc animated:true];
-    }
-    else
-        [self.delegate authorizationSuccessed];
+//    if(!user.isConnectedFacebook.boolValue && [user.name stringByRemoveString:@" ",nil].length==0)
+//    {
+//        UserFacebookViewController *vc=[[UserFacebookViewController alloc] init];
+//        vc.delegate=self;
+//        
+//        [self pushViewController:vc animated:true];
+//    }
+//    else
+//        [self.delegate authorizationSuccessed];
 }
 
 -(void)userLoginCancelled

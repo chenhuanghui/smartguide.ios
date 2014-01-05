@@ -6,12 +6,13 @@
 #define User_ClassName @"User"
 
 #define User_Avatar @"avatar"
-#define User_AvatarImage @"avatarImage"
-#define User_IsConnectedFacebook @"isConnectedFacebook"
+#define User_Cover @"cover"
+#define User_Gender @"gender"
 #define User_Name @"name"
+#define User_Phone @"phone"
+#define User_SocialType @"socialType"
 
 @class User;
-@class Filter;
 
 @interface _User : NSManagedObject
 
@@ -25,17 +26,16 @@
 
 
 @property (nonatomic, retain) NSString* avatar;
-@property (nonatomic, retain) NSData* avatarImage;
-@property (nonatomic, retain) NSNumber* isConnectedFacebook;
+@property (nonatomic, retain) NSString* cover;
+@property (nonatomic, retain) NSNumber* gender;
 @property (nonatomic, retain) NSString* name;
+@property (nonatomic, retain) NSString* phone;
+@property (nonatomic, retain) NSNumber* socialType;
 
 #pragma mark Fetched property
 
     
 #pragma mark Relationships
-
-#pragma mark Filter
-@property (nonatomic, retain) Filter* filter;
 
 
 @end

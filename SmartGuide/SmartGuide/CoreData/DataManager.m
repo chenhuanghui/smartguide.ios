@@ -14,42 +14,47 @@
 
 double userLat()
 {
-    return [DataManager shareInstance].currentUser.location.latitude;
+    return [DataManager shareInstance].currentUser.coordinate.latitude;
 }
 
 double userLng()
 {
-    return [DataManager shareInstance].currentUser.location.longitude;
+    return [DataManager shareInstance].currentUser.coordinate.longitude;
 }
 
 void setUserLocation(CLLocationCoordinate2D location)
 {
-    [DataManager shareInstance].currentUser.location=location;
+    [DataManager shareInstance].currentUser.coordinate=location;
 }
 
 void setUserLat(double newLat)
 {
-    [DataManager shareInstance].currentUser.location=CLLocationCoordinate2DMake(newLat, userLng());
+    [DataManager shareInstance].currentUser.coordinate=CLLocationCoordinate2DMake(newLat, userLng());
 }
 
 void setUserLng(double newLng)
 {
-    [DataManager shareInstance].currentUser.location=CLLocationCoordinate2DMake(userLat(), newLng);
+    [DataManager shareInstance].currentUser.coordinate=CLLocationCoordinate2DMake(userLat(), newLng);
+}
+
+User *currentUser()
+{
+    return [DataManager shareInstance].currentUser;
 }
 
 static DataManager *_dataManager=nil;
 @implementation DataManager
 @synthesize managedObjectContext,managedObjectModel,persistentStoreCoordinator;
-@synthesize currentUser,currentCity;
+@synthesize currentUser;
 
 +(void)load
 {
-    [DataManager shareInstance].currentUser=[User userWithIDUser:[Flags lastIDUser]];
+    NSArray *users=[User allObjects];
     
-    if(![DataManager shareInstance].currentUser)
-    {
+    if(users.count>0)
+        [DataManager shareInstance].currentUser=users[0];
+    else
         [[DataManager shareInstance] makeTryUser];
-    }
 }
 
 +(DataManager *)shareInstance
@@ -61,30 +66,6 @@ static DataManager *_dataManager=nil;
     });
     
     return _dataManager;
-}
-
--(int)setUserCity:(NSString *)cityName
-{
-    int idCity=-1;
-    
-    self.currentCity=nil;
-    NSArray *cities=[City allObjects];
-    for(City *city in cities)
-    {
-        if([city.name isContainString:cityName])
-        {
-            idCity=city.idCity.integerValue;
-            self.currentCity=city;
-            break;
-        }
-    }
-    
-    if(idCity==-1)
-        self.currentCity=[City HCMCity];
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_DETECTED_USER_CITY object:self.currentCity.idCity];
-    
-    return self.currentCity.idCity.integerValue;
 }
 
 -(void) loadDatabase
@@ -140,65 +121,16 @@ static DataManager *_dataManager=nil;
     return true;
 }
 
--(void)loadDefaultFilter
-{
-    Filter *filter=[DataManager shareInstance].currentUser.filter;
-    
-    if(!filter)
-    {
-        filter=[Filter insert];
-        
-        filter.distance=@(true);
-        filter.isShopKM=@(false);
-        filter.food=@(true);
-        filter.drink=@(true);
-        filter.health=@(true);
-        filter.entertaiment=@(true);
-        filter.fashion=@(true);
-        filter.travel=@(true);
-        filter.production=@(true);
-        filter.education=@(true);
-        
-        [DataManager shareInstance].currentUser.filter=filter;
-        
-        [[DataManager shareInstance] save];
-    }
-}
-
--(void)updateFilterWithSelectedGroup:(ShopCatalog *)group
-{
-    Filter *filter=[DataManager shareInstance].currentUser.filter;
-    
-    if(!filter)
-    {
-        [self loadDefaultFilter];
-        [self updateFilterWithSelectedGroup:group];
-        return;
-    }
-    
-    filter.food=@(true);
-    filter.drink=@(true);
-    filter.health=@(true);
-    filter.entertaiment=@(true);
-    filter.fashion=@(true);
-    filter.travel=@(true);
-    filter.production=@(true);
-    filter.education=@(true);
-}
-
 -(void)makeTryUser
 {
+    [User markDeleteAllObjects];
+    [[DataManager shareInstance] save];
+    
     [Flags setLastIDUser:DEFAULT_USER_ID];
     
-    User *user=[User userWithIDUser:DEFAULT_USER_ID];
+    User *user=[User insert];
     
-    if(!user)
-    {
-        user=[User insert];
-    }
-    
-    user.idUser=@(DEFAULT_USER_ID);
-    user.isConnectedFacebook=@(true);
+    user.socialType=@(SOCIAL_NONE);
     
     [[DataManager shareInstance] save];
     
@@ -209,18 +141,187 @@ static DataManager *_dataManager=nil;
     [[TokenManager shareInstance] setAccessToken:DEFAULT_USER_ACCESS_TOKEN];
 }
 
--(void)setCurrentUser:(User *)_currentUser
+@end
+
+@implementation CurrentUser
+
++(void)load
 {
-    currentUser=_currentUser;
+    if([[NSUserDefaults standardUserDefaults] objectForKey:@"currentUser_idUser"])
+        [[NSUserDefaults standardUserDefaults] setInteger:-1 forKey:@"currentUser_idUser"];
     
-    if(currentUser)
-    {
-        Filter *filter=currentUser.filter;
-        
-        if(!filter)
-        {
-            [self loadDefaultFilter];
-        }
+    if([[NSUserDefaults standardUserDefaults] objectForKey:@"currentUser_name"])
+        [[NSUserDefaults standardUserDefaults] setObject:@"" forKey:@"currentUser_name"];
+    
+    if([[NSUserDefaults standardUserDefaults] objectForKey:@"currentUser_gender"])
+        [[NSUserDefaults standardUserDefaults] setInteger:GENDER_NONE forKey:@"currentUser_gender"];
+    
+    if([[NSUserDefaults standardUserDefaults] objectForKey:@"currentUser_avatar"])
+        [[NSUserDefaults standardUserDefaults] setObject:@"" forKey:@"currentUser_avatar"];
+    
+    if([[NSUserDefaults standardUserDefaults] objectForKey:@"currentUser_cover"])
+        [[NSUserDefaults standardUserDefaults] setObject:@"" forKey:@"currentUser_cover"];
+    
+    if([[NSUserDefaults standardUserDefaults] objectForKey:@"currentUser_phone"])
+        [[NSUserDefaults standardUserDefaults] setObject:@"" forKey:@"currentUser_phone"];
+    
+    if([[NSUserDefaults standardUserDefaults] objectForKey:@"currentUser_socialType"])
+        [[NSUserDefaults standardUserDefaults] setInteger:SOCIAL_NONE forKey:@"currentUser_socialType"];
+    
+    if([[NSUserDefaults standardUserDefaults] objectForKey:@"currentUser_facebookToken"])
+        [[NSUserDefaults standardUserDefaults] setObject:@"" forKey:@"currentUser_facebookToken"];
+    
+    if([[NSUserDefaults standardUserDefaults] objectForKey:@"currentUser_googlePlusToken"])
+        [[NSUserDefaults standardUserDefaults] setObject:@"" forKey:@"currentUser_googlePlusToken"];
+    
+    if([[NSUserDefaults standardUserDefaults] objectForKey:@"currentUser_accessToken"])
+        [[NSUserDefaults standardUserDefaults] setObject:@"" forKey:@"currentUser_accessToken"];
+    
+    if([[NSUserDefaults standardUserDefaults] objectForKey:@"currentUser_refreshToken"])
+        [[NSUserDefaults standardUserDefaults] setObject:@"" forKey:@"currentUser_refreshToken"];
+    
+    if([[NSUserDefaults standardUserDefaults] objectForKey:@"currentUser_activationCode"])
+        [[NSUserDefaults standardUserDefaults] setObject:@"" forKey:@"currentUser_activtionCode"];
+    
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+-(int)idUser
+{
+    return [[NSUserDefaults standardUserDefaults] integerForKey:@"currentUser_idUser"];
+}
+
+-(void)setIdUser:(int)idUser
+{
+    [[NSUserDefaults standardUserDefaults] setInteger:idUser forKey:@"currentUser_idUser"];
+}
+
+-(NSString *)name
+{
+    return [[NSUserDefaults standardUserDefaults] stringForKey:@"currentUser_name"];
+}
+
+-(void)setName:(NSString *)name
+{
+    [[NSUserDefaults standardUserDefaults] setObject:name forKey:@"currentUser_name"];
+}
+
+-(int)gender
+{
+    return [[NSUserDefaults standardUserDefaults] integerForKey:@"currentUser_gender"];
+}
+
+-(void)setGender:(int)gender
+{
+    [[NSUserDefaults standardUserDefaults] setInteger:gender forKey:@"currentUser_gender"];
+}
+
+-(NSString *)avatar
+{
+    return [[NSUserDefaults standardUserDefaults] stringForKey:@"currentUser_avatar"];
+}
+
+-(void)setAvatar:(NSString *)avatar
+{
+    [[NSUserDefaults standardUserDefaults] setObject:avatar forKey:@"currentUser_avatar"];
+}
+
+-(NSString *)cover
+{
+    return [[NSUserDefaults standardUserDefaults] stringForKey:@"currentUser_cover"];
+}
+
+-(void)setCover:(NSString *)cover
+{
+    [[NSUserDefaults standardUserDefaults] setObject:cover forKey:@"currentUser_cover"];
+}
+
+-(NSString *)phone
+{
+    return [[NSUserDefaults standardUserDefaults] stringForKey:@"currentUser_phone"];
+}
+
+-(void)setPhone:(NSString *)phone
+{
+    [[NSUserDefaults standardUserDefaults] setObject:phone forKey:@"currentUser_phone"];
+}
+
+-(int)socialType
+{
+    return [[NSUserDefaults standardUserDefaults] integerForKey:@"currentUser_socialType"];
+}
+
+-(void)setSocialType:(int)socialType
+{
+    [[NSUserDefaults standardUserDefaults] setInteger:socialType forKey:@"currentUser_socialType"];
+}
+
+-(NSString *)activationCode
+{
+    return [[NSUserDefaults standardUserDefaults] stringForKey:@"currentUser_activationCode"];
+}
+
+-(void)setActivationCode:(NSString *)activationCode
+{
+    [[NSUserDefaults standardUserDefaults] setObject:activationCode forKey:@"currentUser_activationCode"];
+}
+
+-(NSString *)accessToken
+{
+    return [[NSUserDefaults standardUserDefaults] stringForKey:@"currentUser_accessToken"];
+}
+
+-(void)setAccessToken:(NSString *)accessToken
+{
+    [[NSUserDefaults standardUserDefaults] setObject:accessToken forKey:@"currentUser_accessToken"];
+}
+
+-(NSString *)refreshToken
+{
+    return [[NSUserDefaults standardUserDefaults] stringForKey:@"currentUser_refreshToken"];
+}
+
+-(void)setRefreshToken:(NSString *)refreshToken
+{
+    [[NSUserDefaults standardUserDefaults] setObject:refreshToken forKey:@"currentUser_refreshToken"];
+}
+
+-(NSString *)facebookToken
+{
+    return [[NSUserDefaults standardUserDefaults] stringForKey:@"currentUser_facebookToken"];
+}
+
+-(void)setFacebookToken:(NSString *)facebookToken
+{
+    [[NSUserDefaults standardUserDefaults] setObject:facebookToken forKey:@"currentUser_facebookToken"];
+}
+
+-(NSString *)googlePlusToken
+{
+    return [[NSUserDefaults standardUserDefaults] stringForKey:@"currentUser_googlePlusToken"];
+}
+
+-(void)setGooglePlusToken:(NSString *)googlePlusToken
+{
+    [[NSUserDefaults standardUserDefaults] setObject:googlePlusToken forKey:@"currentUser_googlePlusToken"];
+}
+
+-(bool)save
+{
+    return [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+-(enum GENDER_TYPE)enumGender
+{
+    switch (self.gender) {
+        case 0:
+            return GENDER_FEMALE;
+            
+        case 1:
+            return GENDER_MALE;
+            
+        default:
+            return GENDER_NONE;
     }
 }
 

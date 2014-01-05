@@ -11,7 +11,6 @@
 #import "ASIOperationFBProfile.h"
 #import "FacebookManager.h"
 #import "ASIOperationUpdateUserInfo.h"
-#import "CreateUserView.h"
 
 @protocol UserFacebookDelegate <SGViewControllerDelegate>
 
@@ -19,7 +18,7 @@
 
 @end
 
-@interface UserFacebookViewController : SGViewController<OperationURLDelegate,ASIOperationPostDelegate,UINavigationControllerDelegate,UITextFieldDelegate,UIActionSheetDelegate,CreateUserDelegate>
+@interface UserFacebookViewController : SGViewController<OperationURLDelegate,ASIOperationPostDelegate,UINavigationControllerDelegate,UITextFieldDelegate,UIActionSheetDelegate>
 {
     __weak IBOutlet UIButton *btnFace;
     __weak IBOutlet UIButton *btnCreate;

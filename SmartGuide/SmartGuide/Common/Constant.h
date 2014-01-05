@@ -241,6 +241,18 @@ enum SORT_SHOP_COMMENT {
     SORT_SHOP_COMMENT_TIME = 1
 };
 
+enum SOCIAL_TYPE {
+    SOCIAL_NONE = 0,
+    SOCIAL_FACEBOOK = 1,
+    SOCIAL_GOOGLEPLUS =2
+    };
+
+enum GENDER_TYPE {
+    GENDER_NONE = -1,
+    GENDER_FEMALE = 0,
+    GENDER_MALE = 1
+    };
+
 @class ShopCatalog;
 @protocol CatalogueBlockViewDelegate <NSObject>
 

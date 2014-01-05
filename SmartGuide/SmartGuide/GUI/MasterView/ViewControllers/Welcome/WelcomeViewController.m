@@ -35,8 +35,6 @@
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
- 
-    [self performSelector:@selector(btnTryTouchUpInside:) onThread:[NSThread mainThread] withObject:nil waitUntilDone:true];
 }
 
 - (void)didReceiveMemoryWarning

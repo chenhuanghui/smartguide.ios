@@ -379,7 +379,7 @@
         
         user.name=_name;
         user.avatar=_avatar;
-        user.isConnectedFacebook=@(_isConnectedFacebook);
+//        user.isConnectedFacebook=@(_isConnectedFacebook);
         
         [[DataManager shareInstance] save];
         
@@ -483,7 +483,7 @@
     
     User *user=[User insert];
     user.idUser=@(1);
-    user.isConnectedFacebook=@(false);
+//    user.isConnectedFacebook=@(false);
     
     [Flags setLastIDUser:1];
     

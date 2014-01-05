@@ -5,14 +5,9 @@
 #import "User.h"
 
 #import "DataManager.h"
-#import "Filter.h"
 
 
 @implementation _User
-
-
-@dynamic filter;
-
 
 
 +(User*) insert
@@ -103,30 +98,30 @@
 	[self didChangeValueForKey:@"avatar"];
 }
 
-- (NSData*)avatarImage {
-	[self willAccessValueForKey:@"avatarImage"];
-	NSData* result = (NSData*)[self primitiveValueForKey:@"avatarImage"];
-	[self didAccessValueForKey:@"avatarImage"];
+- (NSString*)cover {
+	[self willAccessValueForKey:@"cover"];
+	NSString* result = (NSString*)[self primitiveValueForKey:@"cover"];
+	[self didAccessValueForKey:@"cover"];
 	return result;
 }
 
-- (void)setAvatarImage:(NSData*)value {
-	[self willChangeValueForKey:@"avatarImage"];
-	[self setPrimitiveValue:value forKey:@"avatarImage"];
-	[self didChangeValueForKey:@"avatarImage"];
+- (void)setCover:(NSString*)value {
+	[self willChangeValueForKey:@"cover"];
+	[self setPrimitiveValue:value forKey:@"cover"];
+	[self didChangeValueForKey:@"cover"];
 }
 
-- (NSNumber*)isConnectedFacebook {
-	[self willAccessValueForKey:@"isConnectedFacebook"];
-	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"isConnectedFacebook"];
-	[self didAccessValueForKey:@"isConnectedFacebook"];
+- (NSNumber*)gender {
+	[self willAccessValueForKey:@"gender"];
+	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"gender"];
+	[self didAccessValueForKey:@"gender"];
 	return result;
 }
 
-- (void)setIsConnectedFacebook:(NSNumber*)value {
-	[self willChangeValueForKey:@"isConnectedFacebook"];
-	[self setPrimitiveValue:value forKey:@"isConnectedFacebook"];
-	[self didChangeValueForKey:@"isConnectedFacebook"];
+- (void)setGender:(NSNumber*)value {
+	[self willChangeValueForKey:@"gender"];
+	[self setPrimitiveValue:value forKey:@"gender"];
+	[self didChangeValueForKey:@"gender"];
 }
 
 - (NSString*)name {
@@ -142,15 +137,33 @@
 	[self didChangeValueForKey:@"name"];
 }
 
-#pragma mark Relationships
-    
-#pragma mark Filter
-- (Filter*)filter {
-	[self willAccessValueForKey:@"filter"];
-	Filter *result = [self primitiveValueForKey:@"filter"];
-	[self didAccessValueForKey:@"filter"];
+- (NSString*)phone {
+	[self willAccessValueForKey:@"phone"];
+	NSString* result = (NSString*)[self primitiveValueForKey:@"phone"];
+	[self didAccessValueForKey:@"phone"];
 	return result;
 }
 
+- (void)setPhone:(NSString*)value {
+	[self willChangeValueForKey:@"phone"];
+	[self setPrimitiveValue:value forKey:@"phone"];
+	[self didChangeValueForKey:@"phone"];
+}
+
+- (NSNumber*)socialType {
+	[self willAccessValueForKey:@"socialType"];
+	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"socialType"];
+	[self didAccessValueForKey:@"socialType"];
+	return result;
+}
+
+- (void)setSocialType:(NSNumber*)value {
+	[self willChangeValueForKey:@"socialType"];
+	[self setPrimitiveValue:value forKey:@"socialType"];
+	[self didChangeValueForKey:@"socialType"];
+}
+
+#pragma mark Relationships
+    
 
 @end

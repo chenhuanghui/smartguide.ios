@@ -23,11 +23,9 @@
     }
     
     _profile=profile;
-    
-    NSNumber *idUser=[DataManager shareInstance].currentUser.idUser;
+
     self.values=@[profile.fbID,
                   profile.token,
-             idUser,
              profile.email,
              profile.name,
              @(profile.sex),
@@ -41,7 +39,7 @@
 
 -(NSArray *)keys
 {
-    return @[@"fb_id",@"fb_access_token",@"user_id",@"email",@"name",@"gender",@"dob",@"avatar",@"job",@"genderstr"];
+    return @[@"fb_id",@"fb_access_token",@"email",@"name",@"gender",@"dob",@"avatar",@"job",@"genderstr"];
 }
 
 -(void)onCompletedWithJSON:(NSArray *)json
@@ -55,14 +53,14 @@
     
     isSuccessed=[[NSNumber numberWithObject:[dict objectForKey:@"code"]] boolValue];
     
-    User *user=[User userWithIDUser:[DataManager shareInstance].currentUser.idUser.integerValue];
-    user.isConnectedFacebook=@(true);
+    User *user=currentUser();
+    user.socialType=@(SOCIAL_FACEBOOK);
     user.name=[self.values objectAtIndex:4];
     user.avatar=[self.values objectAtIndex:7];
     
     [[DataManager shareInstance] save];
     
-    [DataManager shareInstance].currentUser=[User userWithIDUser:user.idUser.integerValue];
+    [DataManager shareInstance].currentUser=user;
 }
 
 -(void)onFailed:(NSError *)error
