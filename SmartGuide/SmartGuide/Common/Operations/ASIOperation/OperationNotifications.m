@@ -16,7 +16,7 @@
     NSMutableDictionary *dict=[NSMutableDictionary dictionary];
     [dict setObject:accessToken forKey:@"access_token"];
     [dict setObject:version forKey:@"version"];
-    self=[super initWithRouter:SERVER_API_MAKE(API_NOTIFICATIONS) params:dict];
+    self=[super initWithRouter:SERVER_IP_MAKE(API_NOTIFICATIONS) params:dict];
     
     return self;
 }
@@ -27,29 +27,29 @@
     if([self isNullData:json])
         return;
     
-    NSDictionary *dict=[json objectAtIndex:0];
+    NSDictionary *dict=json[0];
     
-    object=[[NotificationObject alloc] init];
+    object=[NotificationObject new];
     
-    object.notificationType=[[NSNumber numberWithObject:[dict objectForKey:@"notification_type"]] integerValue];
+    object.notificationType=[[NSNumber numberWithObject:dict[@"notification_type"]] integerValue];
     
     if(object.notificationType==1)
     {
-        object.content=[NSString stringWithStringDefault:[dict objectForKey:@"content"]];
-        object.link=[NSString stringWithStringDefault:[dict objectForKey:@"link"]];
+        object.content=[NSString stringWithStringDefault:dict[@"content"]];
+        object.link=[NSString stringWithStringDefault:dict[@"link"]];
     }
     else if(object.notificationType==2)
     {
-        NSArray *array=[dict objectForKey:@"notify_list"];
+        NSArray *array=dict[@"notify_list"];
         
         if(![self isNullData:array])
         {
             for(NSDictionary *dictNoti in array)
             {
-                NotificationItem *item=[[NotificationItem alloc] init];
+                NotificationItem *item=[NotificationItem new];
                 
-                item.idNotification=[[NSNumber numberWithObject:[dictNoti objectForKey:@"notify_id"]] integerValue];
-                item.content=[NSString stringWithStringDefault:[dictNoti objectForKey:@"content"]];
+                item.idNotification=[[NSNumber numberWithObject:dictNoti[@"notify_id"]] integerValue];
+                item.content=[NSString stringWithStringDefault:dictNoti[@"content"]];
                 
                 [object.notificationList addObject:item];
             }
@@ -57,7 +57,7 @@
     }
     else if(object.notificationType==3)
     {
-        object.content=[NSString stringWithStringDefault:[dict objectForKey:@"content"]];
+        object.content=[NSString stringWithStringDefault:dict[@"content"]];
     }
 }
 

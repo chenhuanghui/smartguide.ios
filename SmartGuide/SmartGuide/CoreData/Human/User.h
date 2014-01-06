@@ -12,6 +12,9 @@ enum USER_DATA_MODE {
     CLLocationCoordinate2D _location;
 }
 
++(User*) userWithIDUser:(int) idUser;
++(User*) makeWithDictionary:(NSDictionary*) dict;
+
 -(bool) isDefaultUser;
 
 -(NSString *) accessToken;

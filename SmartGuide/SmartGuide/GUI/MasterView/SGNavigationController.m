@@ -10,6 +10,50 @@
 
 #define SLIDE_POSITION_X 274.f
 
+CATransition* transitionPushFromBottom()
+{
+    CATransition* transition = [CATransition animation];
+    transition.duration = 0.5;
+    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    transition.type = kCATransitionPush; //kCATransitionMoveIn; //, kCATransitionPush, kCATransitionReveal, kCATransitionFade
+    transition.subtype = kCATransitionFromBottom; //kCATransitionFromLeft, kCATransitionFromRight, kCATransitionFromTop, kCATransitionFromBottom
+    
+    return transition;
+}
+
+CATransition* transitionPushFromTop()
+{
+    CATransition* transition = [CATransition animation];
+    transition.duration = 0.5;
+    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    transition.type = kCATransitionPush; //kCATransitionMoveIn; //, kCATransitionPush, kCATransitionReveal, kCATransitionFade
+    transition.subtype = kCATransitionFromTop; //kCATransitionFromLeft, kCATransitionFromRight, kCATransitionFromTop, kCATransitionFromBottom
+    
+    return transition;
+}
+
+CATransition* transitionPushFromLeft()
+{
+    CATransition* transition = [CATransition animation];
+    transition.duration = 0.5;
+    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    transition.type = kCATransitionPush; //kCATransitionMoveIn; //, kCATransitionPush, kCATransitionReveal, kCATransitionFade
+    transition.subtype = kCATransitionFromLeft; //kCATransitionFromLeft, kCATransitionFromRight, kCATransitionFromTop, kCATransitionFromBottom
+    
+    return transition;
+}
+
+CATransition* transitionPushFromRight()
+{
+    CATransition* transition = [CATransition animation];
+    transition.duration = 0.5;
+    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    transition.type = kCATransitionPush; //kCATransitionMoveIn; //, kCATransitionPush, kCATransitionReveal, kCATransitionFade
+    transition.subtype = kCATransitionFromRight; //kCATransitionFromLeft, kCATransitionFromRight, kCATransitionFromTop, kCATransitionFromBottom
+    
+    return transition;
+}
+
 @interface SGNavigationController ()
 
 @property (nonatomic, assign) CGPoint panPreviousStartPoint;
@@ -739,7 +783,8 @@ CALL_DEALLOC_LOG
 
 -(void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated transition:(CATransition *)transition
 {
-    
+    [self.view.layer addAnimation:transition forKey:nil];
+    [self pushViewController:viewController animated:animated];
 }
 
 -(UIViewController *)popViewControllerAnimated:(BOOL)animated transition:(CATransition *)transition

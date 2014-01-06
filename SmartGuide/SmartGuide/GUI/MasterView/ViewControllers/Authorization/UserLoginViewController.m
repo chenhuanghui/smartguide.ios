@@ -67,6 +67,16 @@
 {
 }
 
+-(void)ASIOperaionPostFinished:(ASIOperationPost *)operation
+{
+    
+}
+
+-(void)ASIOperaionPostFailed:(ASIOperationPost *)operation
+{
+    
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

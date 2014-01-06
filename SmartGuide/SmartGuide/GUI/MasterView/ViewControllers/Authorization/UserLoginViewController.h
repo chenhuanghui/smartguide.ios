@@ -8,8 +8,7 @@
 
 #import "SGViewController.h"
 #import "OperationGetActionCode.h"
-#import "OperationVerifyActiveCode.h"
-#import "OperationGetToken.h"
+#import "ASIOperationUserCheck.h"
 #import "TokenManager.h"
 #import "Flags.h"
 
@@ -20,12 +19,13 @@
 
 @end
 
-@interface UserLoginViewController : SGViewController<OperationURLDelegate,UITextFieldDelegate>
+@interface UserLoginViewController : SGViewController<OperationURLDelegate,ASIOperationPostDelegate,UITextFieldDelegate>
 {
     __weak IBOutlet UIButton *btnLogin;
     __weak IBOutlet UITextField *txtPhone;
     
     OperationGetActionCode *_operationGetActionCode;
+    ASIOperationUserCheck *_operationUserCheck;
     NSString *_activationCode;
     NSString *_phone;
 }

@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "SGViewController.h"
 #import "OperationNotifications.h"
+#import "ASIOperationUserProfile.h"
 
 @class SGLoadingScreenViewController;
 
@@ -18,9 +19,10 @@
 
 @end
 
-@interface SGLoadingScreenViewController : SGViewController<OperationURLDelegate>
+@interface SGLoadingScreenViewController : SGViewController<OperationURLDelegate,ASIOperationPostDelegate>
 {
     OperationNotifications *_notification;
+    ASIOperationUserProfile *_operationUserProfile;
 }
 
 @property (nonatomic, weak) id<SGLoadingScreenDelegate> delegate;

@@ -35,7 +35,6 @@
     _notification.delegate=self;
     
     [_notification start];
-    [_notification cancel];
 }
 
 -(void)operationURLFinished:(OperationURL *)operation
@@ -49,16 +48,38 @@
     _notification=nil;
 }
 
--(void) requestUserInfocation
-{
-    
-}
-
 -(void)operationURLFailed:(OperationURL *)operation
 {
-    [self.delegate SGLoadingFinished:self];
+    [self.view showLoading];
+    [self requestUserProfile];
     
     _notification=nil;
+}
+
+-(void)ASIOperaionPostFinished:(ASIOperationPost *)operation
+{
+    if([operation isKindOfClass:[ASIOperationUserProfile class]])
+    {
+        [self.view removeLoading];
+        [self.delegate SGLoadingFinished:self];
+    }
+}
+
+-(void)ASIOperaionPostFailed:(ASIOperationPost *)operation
+{
+    if([operation isKindOfClass:[ASIOperationUserProfile class]])
+    {
+        [self.view removeLoading];
+        [self.delegate SGLoadingFinished:self];
+    }
+}
+
+-(void) requestUserProfile
+{
+    _operationUserProfile=[[ASIOperationUserProfile alloc] initOperation];
+    _operationUserProfile.delegatePost=self;
+    
+    [_operationUserProfile startAsynchronous];
 }
 
 -(void) processNotification:(NotificationObject*) notiObj
@@ -69,7 +90,7 @@
             exit(0);
         } onCancel:^{
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:notiObj.link]];
-
+            
             double delayInSeconds = 0.0;
             dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
             dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
@@ -89,12 +110,12 @@
                 msg=[NSString stringWithFormat:@"%@\n%@",msg,item.content];
         }
         
-        if([msg stringByRemoveString:@" ",@"\n",nil].length==0)
-            return;
+        [self requestUserProfile];
         
-        [AlertView showAlertOKWithTitle:nil withMessage:msg onOK:^{
-            [self.delegate SGLoadingFinished:self];
-        }];
+        if([msg stringByRemoveString:@" ",@"\n",nil].length>0)
+        {
+            [AlertView showAlertOKWithTitle:nil withMessage:msg onOK:nil];
+        }
     }
     else if(notiObj.notificationType==3)
     {
@@ -103,12 +124,10 @@
         }];
     }
     else
-        [self.delegate SGLoadingFinished:self];
-}
-
--(void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
+    {
+        [self.view showLoading];
+        [self requestUserProfile];
+    }
 }
 
 - (void)didReceiveMemoryWarning

@@ -7,6 +7,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WelcomeViewController">
             <connections>
+                <outlet property="btnLogin" destination="XGZ-kd-M4A" id="rt0-KZ-FEJ"/>
+                <outlet property="btnTry" destination="X5G-9s-Ava" id="OA2-yb-9HF"/>
                 <outlet property="view" destination="1" id="3"/>
             </connections>
         </placeholder>
@@ -15,38 +17,54 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="I-2-Welcome.jpg" id="hh2-iy-hic">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background_login.jpg" id="rUk-Uf-mRu">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </imageView>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="XGZ-kd-M4A">
-                    <rect key="frame" x="52" y="74" width="215" height="222"/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_white_login.png" id="bKT-JE-7Ke">
+                    <rect key="frame" x="0.0" y="186" width="320" height="294"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                </imageView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="XGZ-kd-M4A">
+                    <rect key="frame" x="55" y="79" width="211" height="212"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    <state key="normal">
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <state key="normal" image="button_login.png">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <connections>
-                        <action selector="btnLoginTouchUpInside:" destination="-1" eventType="touchUpInside" id="Wya-eM-VOh"/>
+                        <action selector="btnLoginTouchUpInside:" destination="-1" eventType="touchUpInside" id="cim-TG-ZPl"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="X5G-9s-Ava">
-                    <rect key="frame" x="20" y="352" width="280" height="45"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="X5G-9s-Ava">
+                    <rect key="frame" x="21" y="349" width="278" height="50"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    <state key="normal">
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <state key="normal" image="button_trainghiem.png">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <connections>
                         <action selector="btnTryTouchUpInside:" destination="-1" eventType="touchUpInside" id="HZS-ou-FWL"/>
                     </connections>
                 </button>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="hoặc" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="cMH-S0-okD">
+                    <rect key="frame" x="145" y="308" width="42" height="21"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" name="Avenir-Oblique" family="Avenir" pointSize="16"/>
+                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
         </view>
     </objects>
     <resources>
-        <image name="I-2-Welcome.jpg" width="320" height="480"/>
+        <image name="background_login.jpg" width="320" height="480"/>
+        <image name="bg_white_login.png" width="320" height="294"/>
+        <image name="button_login.png" width="211" height="212"/>
+        <image name="button_trainghiem.png" width="278" height="50"/>
     </resources>
 </document>

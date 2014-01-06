@@ -36,8 +36,6 @@ static NSMutableArray *asioperations=nil;
     
     self.sourceURL=[_url copy];
     
-//    self.operationAccessToken=[[NSString alloc] initWithString:accessToken];
-    
     self.delegate=self;
     
     return self;

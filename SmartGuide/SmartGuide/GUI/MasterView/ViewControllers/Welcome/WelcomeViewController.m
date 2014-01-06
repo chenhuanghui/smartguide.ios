@@ -44,15 +44,10 @@
 }
 
 - (IBAction)btnTryTouchUpInside:(id)sender {
-    [Flags setIsShowedWelcomeScreen:true];
-    
-    [[DataManager shareInstance] makeTryUser];
-    
     [self.delegate welcomeControllerTouchedTry:self];
 }
 
 - (IBAction)btnLoginTouchUpInside:(id)sender {
-    [Flags setIsShowedWelcomeScreen:true];
     
     [self.delegate welcomeControllerTouchedLogin:self];
 }

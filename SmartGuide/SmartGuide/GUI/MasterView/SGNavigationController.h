@@ -13,6 +13,11 @@
 #import "SGViewController.h"
 #import "AlphaView.h"
 
+CATransition* transitionPushFromBottom();
+CATransition* transitionPushFromTop();
+CATransition* transitionPushFromLeft();
+CATransition* transitionPushFromRight();
+
 @class SGLeftViewController, SGRightViewController;
 
 @protocol LeftControllerCallback <NSObject>

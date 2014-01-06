@@ -21,10 +21,10 @@
 +(TokenManager*) shareInstance;
 
 -(bool) isRefreshingToken;
--(void) refreshToken;
+-(void) refresh;
 
 @property (nonatomic, strong) NSString *accessToken;
-@property (nonatomic, strong) NSString *refreshTokenString;
+@property (nonatomic, strong) NSString *refreshToken;
 @property (nonatomic, strong) NSString *activeCode;
 @property (nonatomic, strong) NSString *phone;
 @property (nonatomic, readonly) int retryCount;

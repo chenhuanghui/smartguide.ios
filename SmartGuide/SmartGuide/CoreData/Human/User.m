@@ -14,6 +14,31 @@
     return self;
 }
 
++(User *)userWithIDUser:(int)idUser
+{
+    return [User queryUserObject:[NSPredicate predicateWithFormat:@"%K == %i",User_IdUser,idUser]];
+}
+
++(User *)makeWithDictionary:(NSDictionary *)dict
+{
+    int idUser=[[NSNumber numberWithObject:dict[@"idUser"]] integerValue];
+    User *user=[User userWithIDUser:idUser];
+    if(!user)
+    {
+        user=[User insert];
+        user.idUser=@(idUser);
+    }
+    
+    user.name=[NSString stringWithStringDefault:dict[@"name"]];
+    user.gender=[NSNumber numberWithObject:dict[@"gender"]];
+    user.cover=[NSString stringWithStringDefault:dict[@"cover"]];
+    user.avatar=[NSString stringWithStringDefault:dict[@"avatar"]];
+    user.phone=[NSString stringWithStringDefault:dict[@"phone"]];
+    user.socialType=[NSNumber numberWithObject:dict[@"socialType"]];
+    
+    return user;
+}
+
 -(NSString *)title
 {
     return @"You here";
@@ -27,16 +52,6 @@
 -(void)setCoordinate:(CLLocationCoordinate2D)newCoordinate
 {
     _location=newCoordinate;
-}
-
--(NSNumber *)idUser
-{
-    return @([Flags lastIDUser]);
-}
-
--(void)setIdUser:(NSNumber *)num
-{
-    [Flags setLastIDUser:num.integerValue];
 }
 
 -(bool)save

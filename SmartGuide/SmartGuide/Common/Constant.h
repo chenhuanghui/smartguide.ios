@@ -78,7 +78,7 @@
 #define API_UPDATE_USER_INFO @"user/sginfo/update"
 #define API_UPLOAD_FB_ACCESS_TOKEN @"user/facebook/access_token"
 #define API_GET_AVATARS @"user/avatar/get"
-#define API_NOTIFICATIONS @"notification"
+#define API_NOTIFICATIONS @"notification_v2"
 #define API_STORE_ALL_STORE @"store/getAll"
 #define API_STORE_GET_LIST @"store/getList"
 #define API_STORE_GET_ITEMS @"store/getItem"
@@ -92,11 +92,13 @@
 #define API_GET_SHOP_LIST @"shop/getShopList"
 #define API_ELASTIC_AUTOCOMPLETE @"elastic/autocomplete"
 #define API_ELASTIC_AUTOCOMPLETE_NATIVE @"http://116.251.210.100:9200/data/_search"
+#define API_USER_PROFILE @"user/profile"
 
 #define API_GET_ACTIVE_CODE @"user/activation"
-#define API_VERIFY_ACTIVE_CODE @"user/check"
+#define API_USER_CHECK @"user/check_v2"
 #define API_GET_TOKEN @"oauth/v2/token"
 #define API_REFRESH_TOKEN @"oauth/v2/token"
+
 #define UIIMAGE_LOADING_SHOP_LOGO [UIImage imageNamed:@"ava_loading.png"]
 #define UIIMAGE_LOADING_AVATAR [UIImage imageNamed:@"ava_default.png"]
 #define UIIMAGE_LOADING_AVATAR_COMMENT UIIMAGE_LOADING_AVATAR

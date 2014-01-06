@@ -108,7 +108,7 @@ static GUIManager *_shareInstance=nil;
 
 -(void)welcomeControllerTouchedLogin:(WelcomeViewController *)viewController
 {
-    [self showLoginController];
+    [self showLoginController:transitionPushFromTop()];
 }
 
 -(void)welcomeControllerTouchedTry:(WelcomeViewController *)viewController
@@ -467,10 +467,18 @@ static GUIManager *_shareInstance=nil;
 
 -(void) showLoginController
 {
+    [self showLoginController:nil];
+}
+
+-(void) showLoginController:(CATransition*) transition
+{
     AuthorizationViewController *author=[AuthorizationViewController new];
     author.delegate=self;
     
-    [self.rootNavigation pushViewController:author animated:true];
+    if(transition)
+        [self.rootNavigation pushViewController:author animated:true transition:transition];
+    else
+        [self.rootNavigation pushViewController:author animated:true];
 }
 
 -(void)qrcodeControllerRequestShow:(SGQRCodeViewController *)controller

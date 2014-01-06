@@ -17,7 +17,7 @@
 
 static TokenManager *_tokenManager=nil;
 @implementation TokenManager
-@synthesize refreshTokenString,retryCount,accessToken,activeCode,phone,retryGetTokenCount;
+@synthesize refreshToken,retryCount,accessToken,activeCode,phone,retryGetTokenCount;
 
 +(TokenManager *)shareInstance
 {
@@ -29,7 +29,7 @@ static TokenManager *_tokenManager=nil;
     return _tokenManager;
 }
 
--(void)refreshToken
+-(void)refresh
 {
     if(_isRefreshingToken)
         return;

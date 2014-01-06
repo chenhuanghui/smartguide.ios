@@ -19,11 +19,9 @@
 
 @interface WelcomeViewController : SGViewController
 {
-    
+    __weak IBOutlet UIButton *btnTry;
+    __weak IBOutlet UIButton *btnLogin;
 }
-
-- (IBAction)btnTryTouchUpInside:(id)sender;
-- (IBAction)btnLoginTouchUpInside:(id)sender;
 
 @property (nonatomic, assign) id<WelcomeControllerDelegate> delegate;
 

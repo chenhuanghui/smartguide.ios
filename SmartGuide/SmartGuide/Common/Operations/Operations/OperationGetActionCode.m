@@ -13,7 +13,6 @@
 
 -(OperationGetActionCode *)initWithPhone:(NSString *)phone
 {
-    //?phone=%@
     NSMutableDictionary *dict=[NSMutableDictionary dictionary];
     [dict setObject:phone forKey:@"phone"];
     self=[super initWithRouter:SERVER_IP_MAKE(API_GET_ACTIVE_CODE) params:dict];
