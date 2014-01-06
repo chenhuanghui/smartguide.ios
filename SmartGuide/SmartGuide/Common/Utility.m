@@ -782,6 +782,22 @@ int random_int(int from, int to)
     return false;
 }
 
+-(NSString*) deleteCharacterAtIndex:(NSUInteger) index
+{
+    if(self.length-1>index)
+        return [self stringByReplacingCharactersInRange:NSMakeRange(index, 1) withString:@""];
+    
+    return self;
+}
+
+-(NSString*) deleteStringAtRange:(NSRange) range
+{
+    if(self.length-1>=range.location+range.length)
+        return [self stringByReplacingCharactersInRange:range withString:@""];
+    
+    return self;
+}
+
 +(NSString*)stringWithStringDefault:(NSString *)string
 {
     if((id)string==[NSNull null])

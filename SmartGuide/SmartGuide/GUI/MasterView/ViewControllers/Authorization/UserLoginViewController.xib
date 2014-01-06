@@ -8,6 +8,8 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="UserLoginViewController">
             <connections>
                 <outlet property="btnLogin" destination="pEj-2F-1rg" id="fD4-F7-LT0"/>
+                <outlet property="lblBottom" destination="5oC-Vz-RHf" id="3ce-Aj-noB"/>
+                <outlet property="lblTop" destination="ofs-36-73E" id="037-oM-TmC"/>
                 <outlet property="txtPhone" destination="ghz-yU-fvx" id="9Rz-P8-w6b"/>
                 <outlet property="view" destination="IBr-mI-6xU" id="sqf-sm-vQR"/>
             </connections>
@@ -17,33 +19,46 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="426"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="I-3-PhoneActive.jpg" id="xQn-zA-XUS">
-                    <rect key="frame" x="0.0" y="-54" width="320" height="480"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                </imageView>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="pEj-2F-1rg">
-                    <rect key="frame" x="128" y="92" width="67" height="37"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="pEj-2F-1rg">
+                    <rect key="frame" x="112" y="91" width="100" height="42"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="32"/>
-                    <state key="normal">
+                    <state key="normal" image="button_confirm_login.png">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <connections>
                         <action selector="btnLoginTouchUpInside:" destination="-1" eventType="touchUpInside" id="Pjb-37-ytZ"/>
                     </connections>
                 </button>
-                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="ghz-yU-fvx">
-                    <rect key="frame" x="35" y="52" width="249" height="30"/>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Số điện thoại" minimumFontSize="17" background="bg_textbox_login.jpg" id="ghz-yU-fvx">
+                    <rect key="frame" x="35" y="37" width="253" height="56"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="phonePad" returnKeyType="send" enablesReturnKeyAutomatically="YES"/>
+                    <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="26"/>
+                    <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numberPad" returnKeyType="send" enablesReturnKeyAutomatically="YES"/>
+                    <connections>
+                        <outlet property="delegate" destination="-1" id="Ucg-7k-Fh7"/>
+                    </connections>
                 </textField>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nhập số điện thoại của bạn" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ofs-36-73E">
+                    <rect key="frame" x="1" y="12" width="320" height="21"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="13"/>
+                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <view contentMode="scaleToFill" id="5oC-Vz-RHf" customClass="FTCoreTextView">
+                    <rect key="frame" x="0.0" y="141" width="320" height="21"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
         </view>
     </objects>
     <resources>
-        <image name="I-3-PhoneActive.jpg" width="320" height="480"/>
+        <image name="bg_textbox_login.jpg" width="253" height="56"/>
+        <image name="button_confirm_login.png" width="100" height="42"/>
     </resources>
 </document>

@@ -164,6 +164,9 @@ int random_int(int from, int to);
 
 @interface NSString(Utility)
 
+-(NSString*) deleteCharacterAtIndex:(NSUInteger) index;
+-(NSString*) deleteStringAtRange:(NSRange) range;
+
 +(NSString*)stringWithStringDefault:(NSString *)string;
 -(NSString*) stringByTrimmingWhiteSpace;
 -(bool) isContainString:(NSString*) string;

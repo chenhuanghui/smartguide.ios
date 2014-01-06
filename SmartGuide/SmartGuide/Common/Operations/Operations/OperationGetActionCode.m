@@ -9,12 +9,12 @@
 #import "OperationGetActionCode.h"
 
 @implementation OperationGetActionCode
-@synthesize isSuccess,message;
+@synthesize isSuccess,message,phone;
 
--(OperationGetActionCode *)initWithPhone:(NSString *)phone
+-(OperationGetActionCode *)initWithPhone:(NSString *)_phone
 {
     NSMutableDictionary *dict=[NSMutableDictionary dictionary];
-    [dict setObject:phone forKey:@"phone"];
+    [dict setObject:_phone forKey:@"phone"];
     self=[super initWithRouter:SERVER_IP_MAKE(API_GET_ACTIVE_CODE) params:dict];
     
     return self;
@@ -24,6 +24,7 @@
 {
     isSuccess=false;
     message=@"";
+    phone=self.params[@"phone"];
     if([self isNullData:json])
         return;
     

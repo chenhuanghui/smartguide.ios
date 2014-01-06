@@ -11,6 +11,7 @@
 #import "ASIOperationUserCheck.h"
 #import "TokenManager.h"
 #import "Flags.h"
+#import "FTCoreTextView.h"
 
 @protocol UserLoginDelegate <SGViewControllerDelegate>
 
@@ -23,6 +24,10 @@
 {
     __weak IBOutlet UIButton *btnLogin;
     __weak IBOutlet UITextField *txtPhone;
+    __weak IBOutlet UILabel *lblTop;
+    __weak IBOutlet FTCoreTextView *lblBottom;
+    
+    int _countdown;
     
     OperationGetActionCode *_operationGetActionCode;
     ASIOperationUserCheck *_operationUserCheck;
