@@ -14,6 +14,7 @@
 #import "DataManager.h"
 #import "Flags.h"
 #import "TokenManager.h"
+#import "AvatarViewController.h"
 
 @protocol AuthorizationDelegate <SGViewControllerDelegate>
 
@@ -28,6 +29,10 @@
     __weak IBOutlet UIView *containView;
     __weak IBOutlet UIButton *btnBack;
 }
+
+-(UIButton*) buttonBack;
+
+-(SGViewController*) visibleController;
 
 @property (nonatomic, weak) id<AuthorizationDelegate> delegate;
 

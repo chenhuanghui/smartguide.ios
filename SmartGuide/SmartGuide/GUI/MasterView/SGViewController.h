@@ -14,8 +14,9 @@
 #import "ImageManager.h"
 #import "LoadingView.h"
 #import "Flags.h"
+#import "AlphaView.h"
 
-@class SGViewController;
+@class SGViewController,SGNavigationController;
 
 @protocol SGViewControllerDelegate <NSObject>
 
@@ -25,7 +26,13 @@
 
 @end
 
-@interface SGViewController : UIViewController
+@protocol SGViewControllerHandle <NSObject>
+
+-(void) navigationController:(SGNavigationController*) navigationController willPopController:(SGViewController*) controller;
+
+@end
+
+@interface SGViewController : UIViewController<SGViewControllerHandle>
 
 -(id) initWithDelegate:(id<SGViewControllerDelegate>) delegate;
 

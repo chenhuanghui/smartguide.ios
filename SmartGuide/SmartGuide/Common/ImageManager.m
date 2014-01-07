@@ -99,4 +99,14 @@ static ImageManager *_imageManager=nil;
     [self setImageWithURL:[NSURL URLWithString:url]];
 }
 
+-(void)loadAvatarWithURL:(NSString *)url
+{
+    [self setImageWithURL:[NSURL URLWithString:url]];
+}
+
+-(void)loadAvatarWithURL:(NSString *)url completed:(SDWebImageCompletedBlock)completedBlock
+{
+    [self setImageWithURL:[NSURL URLWithString:url] completed:completedBlock];
+}
+
 @end

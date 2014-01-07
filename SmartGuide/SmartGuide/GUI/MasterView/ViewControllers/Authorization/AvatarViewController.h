@@ -9,25 +9,39 @@
 #import "SGViewController.h"
 #import "ASIOperationGetAvatars.h"
 #import "TouchView.h"
+#import "GMGridView.h"
 
 @class AvatarViewController;
 
 @protocol AvatarControllerDelegate <SGViewControllerDelegate>
 
--(void) avatarControllerTouched:(AvatarViewController*) controller avatar:(NSString*) avatar;
+-(void) avatarControllerTouched:(AvatarViewController*) controller avatar:(NSString*) avatar avatarImage:(UIImage*) avatarImage;
 
 @end
 
-@interface AvatarViewController : SGViewController<UITableViewDataSource,UITableViewDelegate,ASIOperationPostDelegate>
+@interface AvatarViewController : SGViewController<GMGridViewDataSource,ASIOperationPostDelegate>
 {
-    __weak IBOutlet UITableView *table;
     __weak IBOutlet UIButton *btnUpPhoto;
     __weak IBOutlet UIButton *btnConfirm;
+    __weak IBOutlet GMGridView *grid;
     __weak IBOutlet TouchView *touchView;
     
     ASIOperationGetAvatars *_operationGetAvatars;
     NSMutableArray *_avatars;
+    
+    NSString *_avatar;
+    UIImage *_avatarImage;
+    
+    __weak UIImagePickerController *imagePicker;
+    
+    int _selectedIndex;
 }
+
+-(AvatarViewController*) initWithAvatars:(NSMutableArray*) avatars avatarImage:(UIImage*) avatarImage;
+-(NSMutableArray*) avatars;
+-(UIImage*) avatarImage;
+
+-(void) setSelectedAvatar:(NSString*) selectedAvatar;
 
 @property (nonatomic, weak) id<AvatarControllerDelegate> delegate;
 

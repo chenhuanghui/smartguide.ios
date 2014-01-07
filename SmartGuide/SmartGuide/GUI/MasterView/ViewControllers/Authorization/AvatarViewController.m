@@ -9,18 +9,21 @@
 #import "AvatarViewController.h"
 #import "AvatarCell.h"
 
-@interface AvatarViewController ()
+@interface AvatarViewController ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 
 @end
 
 @implementation AvatarViewController
 @synthesize delegate;
 
-- (id)init
+-(AvatarViewController *)initWithAvatars:(NSMutableArray *)avatars avatarImage:(UIImage *)avatarImage
 {
     self = [super initWithNibName:@"AvatarViewController" bundle:nil];
     if (self) {
         // Custom initialization
+        _avatars=[avatars copy];
+        _avatarImage=avatarImage;
+        _selectedIndex=NSNotFound;
     }
     return self;
 }
@@ -30,28 +33,68 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    touchView.receiveView=table;
-    
-    _avatars=[NSMutableArray new];
-    
-    CGRect rect=table.frame;
-    table.transform=CGAffineTransformMakeRotation(DEGREES_TABLE);
-    table.frame=rect;
-
-    [table registerNib:[UINib nibWithNibName:[AvatarCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[AvatarCell reuseIdentifier]];
-    
-    for(int i=0;i<20;i++)
+    if(_avatars.count==0)
     {
-        [_avatars addObject:@""];
+        _avatars=[NSMutableArray new];
+        
+        _operationGetAvatars=[[ASIOperationGetAvatars alloc] initGetAvatars];
+        _operationGetAvatars.delegatePost=self;
+        
+        [_operationGetAvatars startAsynchronous];
+        
+        [touchView showLoading];
     }
     
-    table.clipsToBounds=false;
+    grid.style=GMGridViewStylePush;
+    grid.centerGrid=false;
+    grid.layoutStrategy=[GMGridViewLayoutStrategyFactory strategyFromType:GMGridViewLayoutHorizontal];
+    grid.minEdgeInsets=UIEdgeInsetsMake(0, 0, 0, 0);
+    grid.pagingEnabled=true;
+    grid.itemSpacing=0;
     
-    table.contentInset=UIEdgeInsetsMake(0, 0, 1, 0);
+    grid.dataSource=self;
+    
+    if(_selectedIndex!=NSNotFound)
+    {
+        [grid scrollToObjectAtIndex:_selectedIndex atScrollPosition:GMGridViewScrollPositionTop animated:false];
+    }
 }
 
--(void)scrollViewDidScroll:(UIScrollView *)scrollView
+-(void)ASIOperaionPostFinished:(ASIOperationPost *)operation
 {
+    if([operation isKindOfClass:[ASIOperationGetAvatars class]])
+    {
+        [touchView removeLoading];
+        
+        ASIOperationGetAvatars *ope=(ASIOperationGetAvatars*) operation;
+        
+        _avatars=[ope.avatars copy];
+        
+        grid.dataSource=self;
+        
+        _operationGetAvatars=nil;
+    }
+}
+
+-(void)ASIOperaionPostFailed:(ASIOperationPost *)operation
+{
+    if([operation isKindOfClass:[ASIOperationGetAvatars class]])
+    {
+        [touchView removeLoading];
+        
+        _operationGetAvatars=nil;
+    }
+}
+
+-(void)dealloc
+{
+    if(_operationGetAvatars)
+    {
+        [_operationGetAvatars cancel];
+        _operationGetAvatars=nil;
+    }
+    
+    [touchView removeLoading];
 }
 
 - (void)didReceiveMemoryWarning
@@ -61,41 +104,106 @@
 }
 
 - (IBAction)btnUpPhotoTouchUpInside:(id)sender {
+    UIImagePickerController *imgPicker=[[UIImagePickerController alloc] init];
+    imgPicker.sourceType=UIImagePickerControllerSourceTypePhotoLibrary;
+    imgPicker.delegate=self;
+    imgPicker.editing=false;
+    
+    imagePicker=imgPicker;
+    
+    [self.navigationController presentModalViewController:imgPicker animated:true];
+}
+
+-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    _avatarImage=info[UIImagePickerControllerOriginalImage];
+    
+    [grid reloadData];
+    [grid scrollToObjectAtIndex:0 atScrollPosition:GMGridViewScrollPositionTop animated:false];
+    
+    [self.navigationController dismissModalViewControllerAnimated:true];
 }
 
 - (IBAction)btnConfirmTouchUpInside:(id)sender {
     
-    CGPoint pnt=CGPointMake(table.l_co_y+160, table.l_v_h/2);
     
-    NSIndexPath *indexPath=[table indexPathForRowAtPoint:pnt];
     
-    AvatarCell *cell=(AvatarCell*)[table cellForRowAtIndexPath:indexPath];
+    CGPoint pnt=CGPointMake(self.l_v_w/2+grid.l_co_x, grid.l_v_h/2);
+    int index=[grid.layoutStrategy itemPositionFromLocation:pnt];
     
-    [self.delegate avatarControllerTouched:self avatar:cell.url];
+    if(_avatarImage)
+    {
+        if(index==0)
+        {
+            [self.delegate avatarControllerTouched:self avatar:@"" avatarImage:_avatarImage];
+        }
+        else
+        {
+            [self.delegate avatarControllerTouched:self avatar:_avatars[index-1] avatarImage:nil];
+        }
+    }
+    else
+        [self.delegate avatarControllerTouched:self avatar:_avatars[index] avatarImage:nil];
+    
+    _avatarImage=nil;
 }
 
--(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+-(NSInteger)numberOfItemsInGMGridView:(GMGridView *)gridView
 {
-    return _avatars.count==0?0:1;
+    return _avatars.count + (_avatarImage?1:0);
 }
 
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+-(GMGridViewCell *)GMGridView:(GMGridView *)gridView cellForItemAtIndex:(NSInteger)index
 {
-    return _avatars.count;
-}
-
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return 210;
-}
-
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    AvatarCell *cell=[tableView dequeueReusableCellWithIdentifier:[AvatarCell reuseIdentifier]];
+    GMGridViewCell *cell=[gridView dequeueReusableCell];
     
-    [cell loadWithURL:_avatars[indexPath.row]];
+    if(!cell)
+    {
+        cell=[[GMGridViewCell alloc] initWithFrame:CGRectZero];
+        cell.contentView=[AvatarCell new];
+    }
+    
+    AvatarCell *aCell=(AvatarCell*)cell.contentView;
+    
+    if(_avatarImage)
+    {
+        if(index==0)
+            [aCell loadWithImage:_avatarImage];
+        else
+            [aCell loadWithURL:_avatars[index-1]];
+    }
+    else
+        [aCell loadWithURL:_avatars[index]];
     
     return cell;
+}
+
+-(CGSize)GMGridView:(GMGridView *)gridView sizeForItemsInInterfaceOrientation:(UIInterfaceOrientation)orientation
+{
+    CGSize size=[AvatarCell size];
+    size.width+=grid.l_v_w-[AvatarCell size].width;
+    
+    return size;
+}
+
+-(NSMutableArray *)avatars
+{
+    return _avatars;
+}
+
+-(UIImage *)avatarImage
+{
+    return _avatarImage;
+}
+
+-(void)setSelectedAvatar:(NSString *)selectedAvatar
+{
+    int index=[_avatars indexOfObject:selectedAvatar];
+    
+    if(index!=NSNotFound)
+        index+=(_avatarImage?1:0);
+    
+    _selectedIndex=index;
 }
 
 @end

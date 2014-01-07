@@ -8,16 +8,17 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AvatarCell : UITableViewCell
+@interface AvatarCell : UIView
 {
     NSString *_url;
     __weak IBOutlet UIImageView *imgv;
-    
 }
 
 -(void) loadWithURL:(NSString*) url;
+-(void) loadWithImage:(UIImage*) image;
 -(NSString*) url;
 
 +(NSString *)reuseIdentifier;
++(CGSize) size;
 
 @end

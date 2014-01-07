@@ -152,6 +152,11 @@ CATransition* transitionPushFromRight()
         }
     }
     
+    for(SGViewController *vc in self.viewControllers)
+    {
+        [vc navigationController:self willPopController:(SGViewController*)self.visibleViewController];
+    }
+        
     UIViewController *vc=[super popViewControllerAnimated:animated];
     
     _animationPopViewController=nil;

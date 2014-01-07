@@ -24,5 +24,6 @@
 
 -(void) showLoading;
 -(void) removeLoading;
+-(void) removeLoading:(bool) animate;
 
 @end

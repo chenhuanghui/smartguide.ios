@@ -8,6 +8,8 @@
 
 #import "SGViewController.h"
 
+@class RegisterViewController;
+
 @interface RegisterInfoStep2ViewController : SGViewController<UITextFieldDelegate>
 {
     __weak IBOutlet UITextField *txtDay;
@@ -15,10 +17,16 @@
     __weak IBOutlet UITextField *txtYear;
     __weak IBOutlet UIButton *btnMale;
     __weak IBOutlet UIButton *btnFemale;
+    __weak IBOutlet UIButton *btnDOB;
     
+    NSDate *_selectedDate;
 }
+
+-(void) showDOBPicker;
 
 -(NSString*) dob;
 -(enum GENDER_TYPE) gender;
+
+@property (nonatomic, weak) RegisterViewController *registerController;
 
 @end

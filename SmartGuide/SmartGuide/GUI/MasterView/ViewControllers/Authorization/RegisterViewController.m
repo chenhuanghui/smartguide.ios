@@ -8,13 +8,14 @@
 
 #import "RegisterViewController.h"
 #import "AvatarViewController.h"
-
+#import "AuthorizationViewController.h"
 
 @interface RegisterViewController ()<AvatarControllerDelegate>
 
 @end
 
 @implementation RegisterViewController
+@synthesize authorizationController;
 
 - (id)init
 {
@@ -44,6 +45,17 @@
     registerNavi=navi;
 }
 
+-(void)navigationController:(SGNavigationController *)navigationController willPopController:(SGViewController *)controller
+{
+    if([controller isKindOfClass:[AvatarViewController class]])
+    {
+        AvatarViewController *vc=(AvatarViewController*)controller;
+        
+        _avatars=[vc.avatars mutableCopy];
+        _avatarImage=vc.avatarImage;
+    }
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -57,9 +69,28 @@
 
 - (IBAction)btnConfirmTouchUpInside:(id)sender {
     
-    if(registerNavi.viewControllers.count==1)
+    if(registerStep2)
     {
-        if(registerStep1.avatar.length==0 || !registerStep1.avatarImage)
+        if(registerStep2.dob.length==0)
+        {
+            [AlertView showAlertOKWithTitle:nil withMessage:@"Bạn phải chọn ngày sinh" onOK:^{
+                [registerStep2 showDOBPicker];
+            }];
+            return;
+        }
+        if(registerStep2.gender==GENDER_NONE)
+        {
+            [AlertView showAlertOKWithTitle:nil withMessage:@"Bạn phải chọn giới tính" onOK:nil];
+            return;
+        }
+        
+        
+    }
+    else
+    {
+        bool byPass=true;
+        
+        if(!byPass && (registerStep1.avatar.length==0 && !registerStep1.avatarImage))
         {
             [AlertView showAlertOKWithTitle:nil withMessage:@"Bạn phải chọn avatar" onOK:^{
                 [self showAvatarController];
@@ -68,7 +99,7 @@
             return;
         }
         
-        if(registerStep1.name.length==0)
+        if(!byPass && registerStep1.name.length==0)
         {
             [AlertView showAlertOKWithTitle:nil withMessage:@"Bạn phải nhập tên" onOK:^{
                 [registerStep1 focusName];
@@ -77,21 +108,34 @@
             return;
         }
         
+        [lblStep setText:@"2/2"];
+        
         RegisterInfoStep2ViewController *vc=[RegisterInfoStep2ViewController new];
         vc.delegate=self;
+        vc.registerController=self;
+        
+        registerStep2=vc;
         
         [registerNavi pushViewController:vc animated:true];
-    }
-    else
-    {
         
+        double delayInSeconds = 0.0;
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+            
+            [btnConfirm setImage:[UIImage imageNamed:@"button_confirm_login.png"] forState:UIControlStateNormal];
+            [btnConfirm setImage:[UIImage imageNamed:@"button_confirm_login.png"] forState:UIControlStateSelected];
+            [btnConfirm setImage:[UIImage imageNamed:@"button_confirm_login.png"] forState:UIControlStateHighlighted];
+        });
     }
 }
 
 -(void) showAvatarController
 {
-    AvatarViewController *vc=[AvatarViewController new];
+    AvatarViewController *vc=[[AvatarViewController alloc] initWithAvatars:_avatars avatarImage:_avatarImage];
     vc.delegate=self;
+    
+    if(_selectedAvatar)
+        [vc setSelectedAvatar:_selectedAvatar];
     
     [self.navigationController pushViewController:vc animated:true];
 }
@@ -102,9 +146,28 @@
 - (IBAction)btnGooglePlusTouchUpInside:(id)sender {
 }
 
--(void)avatarControllerTouched:(AvatarViewController *)controller avatar:(NSString *)avatar
+-(void)avatarControllerTouched:(AvatarViewController *)controller avatar:(NSString *)avatar avatarImage:(UIImage *)avatarImage
 {
+    _avatars=[controller.avatars mutableCopy];
+    _avatarImage=controller.avatarImage;
     
+    if(avatar.length>0)
+    {
+        _selectedAvatar=[avatar copy];
+        [registerStep1 setAvatar:avatar];
+    }
+    else
+    {
+        _selectedAvatar=@"";
+        [registerStep1 setAvatarImage:avatarImage];
+    }
+    
+    [self.navigationController popViewControllerAnimated:true];
+}
+
+-(UIButton *)buttonNext
+{
+    return btnConfirm;
 }
 
 @end

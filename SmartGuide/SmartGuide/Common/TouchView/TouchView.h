@@ -10,6 +10,6 @@
 
 @interface TouchView : UIView
 
-@property (nonatomic,weak) UIView *receiveView;
+@property (nonatomic,weak) IBOutlet UIView *receiveView;
 
 @end

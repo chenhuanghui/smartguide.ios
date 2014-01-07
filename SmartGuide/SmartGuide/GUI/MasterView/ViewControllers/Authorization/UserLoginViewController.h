@@ -13,6 +13,8 @@
 #import "Flags.h"
 #import "FTCoreTextView.h"
 
+@class AuthorizationViewController;
+
 @protocol UserLoginDelegate <SGViewControllerDelegate>
 
 -(void) userLoginSuccessed;
@@ -36,5 +38,6 @@
 }
 
 @property (nonatomic, assign) id<UserLoginDelegate> delegate;
+@property (nonatomic, weak) AuthorizationViewController *authorizationController;
 
 @end

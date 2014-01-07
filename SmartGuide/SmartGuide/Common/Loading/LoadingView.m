@@ -74,13 +74,13 @@
 }
 
 /*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
-}
-*/
+ // Only override drawRect: if you perform custom drawing.
+ // An empty implementation adversely affects performance during animation.
+ - (void)drawRect:(CGRect)rect
+ {
+ // Drawing code
+ }
+ */
 
 @end
 
@@ -98,12 +98,12 @@
     
     [self addSubview:loading];
     
-    [UIView animateWithDuration:0.1f animations:^{
+    [UIView animateWithDuration:0.15f animations:^{
         loading.backgroundView.alpha=0.7f;
     }];
 }
 
--(void)removeLoading
+-(void) removeLoading:(bool) animate
 {
     NSLog(@"removeLoading %@",NSStringFromClass([self class]));
     
@@ -117,10 +117,27 @@
     
     if([view isKindOfClass:[LoadingView class]])
     {
-        [view removeFromSuperview];
-        
-        [self removeLoading];
+        if(animate)
+        {
+            view.userInteractionEnabled=false;
+            [UIView animateWithDuration:0.15f animations:^{
+                view.alpha=0;
+            } completion:^(BOOL finished) {
+                [view removeFromSuperview];
+                [self removeLoading:animate];
+            }];
+        }
+        else
+        {
+            [view removeFromSuperview];
+            [self removeLoading:animate];
+        }
     }
+}
+
+-(void)removeLoading
+{
+    [self removeLoading:true];
 }
 
 @end

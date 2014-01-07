@@ -34,6 +34,7 @@
     {
         RegisterViewController *vc=[RegisterViewController new];
         vc.delegate=self;
+        vc.authorizationController=self;
         
         navi=[[SGNavigationController alloc] initWithRootViewController:vc];
     }
@@ -41,6 +42,7 @@
     {
         UserLoginViewController *vc=[UserLoginViewController new];
         vc.delegate=self;
+        vc.authorizationController=self;
         
         navi=[[SGNavigationController alloc] initWithRootViewController:vc];
     }
@@ -99,7 +101,24 @@
     if(authorNavi.viewControllers.count==1)
         [self.navigationController popViewControllerAnimated:true];
     else
+    {
         [authorNavi popViewControllerAnimated:true];
+    }
+}
+
+-(UIButton *)buttonBack
+{
+    return btnBack;
+}
+
+-(SGViewController *)visibleController
+{
+    return (SGViewController*)authorNavi.visibleViewController;
+}
+
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [self.view endEditing:true];
 }
 
 @end

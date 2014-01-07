@@ -8,6 +8,8 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RegisterInfoStep1ViewController">
             <connections>
                 <outlet property="btnAvatar" destination="1GO-A3-Pua" id="uHD-l2-7GB"/>
+                <outlet property="btnName" destination="ZEe-Jw-Yh4" id="WFl-gf-sGs"/>
+                <outlet property="btnSelectAvatar" destination="YXJ-CL-OGz" id="bOr-mE-cRE"/>
                 <outlet property="txt" destination="xHd-iS-MOp" id="kyb-J1-Ce2"/>
                 <outlet property="view" destination="1" id="3"/>
             </connections>
@@ -69,7 +71,6 @@
         </view>
     </objects>
     <resources>
-        <image name="bg_notice_login.png" width="120" height="39"/>
         <image name="bg_notice_login.png" width="120" height="39"/>
         <image name="bg_textbox_login.jpg" width="253" height="56"/>
         <image name="frame_ava_login.png" width="73" height="75"/>

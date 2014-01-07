@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+#import "SDWebImageManager.h"
+
 @interface ImageManager : NSObject
 
 +(ImageManager*) sharedInstance;
@@ -22,6 +24,8 @@
 
 @interface UIImageView(ImageManager)
 
+-(void) loadAvatarWithURL:(NSString*) url;
+-(void) loadAvatarWithURL:(NSString*) url completed:(SDWebImageCompletedBlock)completedBlock;
 -(void) loadShopLogoWithURL:(NSString*) url;
 -(void) loadShopGalleryWithURL:(NSString*) url;
 -(void) loadShopUserGalleryWithURL:(NSString*) url;

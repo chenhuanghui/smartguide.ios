@@ -95,4 +95,9 @@
     [[UIApplication sharedApplication] setStatusBarHidden:true];
 }
 
+-(void)navigationController:(SGNavigationController *)navigationController willPopController:(SGViewController *)controller
+{
+    
+}
+
 @end

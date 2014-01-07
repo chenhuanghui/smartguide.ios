@@ -9,8 +9,8 @@
             <connections>
                 <outlet property="btnConfirm" destination="MDh-6S-trJ" id="jOh-BY-i5M"/>
                 <outlet property="btnUpPhoto" destination="yp7-td-pjn" id="WAb-M8-sas"/>
-                <outlet property="table" destination="5Qz-Z8-X29" id="EgO-5b-7AY"/>
-                <outlet property="touchView" destination="ghY-Pi-SbA" id="0Fg-dj-uFV"/>
+                <outlet property="grid" destination="9lO-SU-zSK" id="7Ao-Tn-bGY"/>
+                <outlet property="touchView" destination="LWV-3b-mdc" id="Gpu-Zp-hN1"/>
                 <outlet property="view" destination="1" id="3"/>
             </connections>
         </placeholder>
@@ -19,19 +19,20 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="426"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="5Qz-Z8-X29">
-                    <rect key="frame" x="85" y="82" width="210" height="150"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" id="9lO-SU-zSK" customClass="GMGridView">
+                    <rect key="frame" x="85" y="82" width="185" height="154"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <connections>
-                        <outlet property="dataSource" destination="-1" id="hbe-bE-qL9"/>
-                        <outlet property="delegate" destination="-1" id="H1d-lR-QFk"/>
+                        <outlet property="delegate" destination="-1" id="WXW-mC-3p5"/>
                     </connections>
-                </tableView>
-                <view contentMode="scaleToFill" id="ghY-Pi-SbA" customClass="TouchView">
+                </scrollView>
+                <view contentMode="scaleToFill" id="LWV-3b-mdc" customClass="TouchView">
                     <rect key="frame" x="0.0" y="82" width="320" height="150"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <connections>
+                        <outlet property="receiveView" destination="9lO-SU-zSK" id="DgH-0D-zMr"/>
+                    </connections>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="yp7-td-pjn">
                     <rect key="frame" x="48" y="206" width="84" height="67"/>
@@ -56,7 +57,7 @@
                     </connections>
                 </button>
             </subviews>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <color key="backgroundColor" red="0.21960785984992981" green="0.21568629145622253" blue="0.20784315466880798" alpha="1" colorSpace="deviceRGB"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
         </view>
     </objects>

@@ -8,7 +8,7 @@
 
 #import "SGViewController.h"
 
-@class RegisterInfoStep1ViewController;
+@class RegisterInfoStep1ViewController,RegisterViewController;
 
 @protocol RegisterInfoStep1Contorller <SGViewControllerDelegate>
 
@@ -22,6 +22,8 @@
     __weak IBOutlet UITextField *txt;
     NSString *_avatar;
     UIImage *_avatarImage;
+    __weak IBOutlet UIButton *btnSelectAvatar;
+    __weak IBOutlet UIButton *btnName;
 }
 
 -(NSString*) avatar;
@@ -33,6 +35,9 @@
 
 -(void) focusName;
 
+-(void) setAvatars:(NSMutableArray*) avatars avatarImage:(UIImage*) avatarImage;
+
 @property (nonatomic, weak) id<RegisterInfoStep1Contorller> delegate;
+@property (nonatomic, weak) RegisterViewController *registerController;
 
 @end

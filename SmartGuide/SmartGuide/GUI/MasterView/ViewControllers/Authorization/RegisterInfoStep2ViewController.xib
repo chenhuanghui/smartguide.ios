@@ -7,6 +7,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RegisterInfoStep2ViewController">
             <connections>
+                <outlet property="btnDOB" destination="Ijv-Ht-b7Q" id="RKs-h1-apE"/>
                 <outlet property="btnFemale" destination="hQD-hB-0f2" id="IOD-5w-FiI"/>
                 <outlet property="btnMale" destination="kiQ-QG-yhv" id="eCg-Yk-xiM"/>
                 <outlet property="txtDay" destination="EqC-TM-egK" id="u5h-8C-8Kh"/>
@@ -58,6 +59,9 @@
                         <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
+                    <connections>
+                        <action selector="btnDOBTouchUpInside:" destination="-1" eventType="touchUpInside" id="ygW-YQ-Yfz"/>
+                    </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="kiQ-QG-yhv">
                     <rect key="frame" x="86" y="88" width="61" height="53"/>
@@ -101,8 +105,13 @@
     <resources>
         <image name="bg_notice_login.png" width="120" height="39"/>
         <image name="bg_numbbox_login.png" width="48" height="56"/>
+        <image name="bg_numbbox_login.png" width="48" height="56"/>
         <image name="bg_yearbox_login.png" width="68" height="56"/>
         <image name="button_tickoff.png" width="15" height="13"/>
+        <image name="button_tickoff.png" width="15" height="13"/>
+        <image name="button_tickon.png" width="15" height="13"/>
+        <image name="button_tickon.png" width="15" height="13"/>
+        <image name="button_tickon.png" width="15" height="13"/>
         <image name="button_tickon.png" width="15" height="13"/>
         <image name="line_comment.png" width="257" height="1"/>
     </resources>
