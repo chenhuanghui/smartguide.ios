@@ -9,35 +9,15 @@
 #import "TouchView.h"
 
 @implementation TouchView
-@synthesize delegate;
+@synthesize receiveView;
 
--(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+-(UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event
 {
-    if([self isRespondsSEL:@selector(viewTouchBegan:touches:withEvent:)])
-        [delegate viewTouchBegan:self touches:touches withEvent:event];
-}
-
--(void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    if([self isRespondsSEL:@selector(viewTouchMoved:touches:withEvent:)])
-        [delegate viewTouchMoved:self touches:touches withEvent:event];
-}
-
--(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    if([self isRespondsSEL:@selector(viewTouchEnded:touches:withEvent:)])
-        [delegate viewTouchEnded:self touches:touches withEvent:event];
-}
-
--(void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    if([self isRespondsSEL:@selector(viewTouchCancelled:touches:withEvent:)])
-        [delegate viewTouchCancelled:self touches:touches withEvent:event];
-}
-
--(bool) isRespondsSEL:(SEL) selector
-{
-    return delegate && [delegate respondsToSelector:selector];
+    UIView *view=[super hitTest:point withEvent:event];
+    if(view==self)
+        return receiveView;
+    
+    return view;
 }
 
 @end

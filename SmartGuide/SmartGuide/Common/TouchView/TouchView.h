@@ -8,18 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@protocol  TouchViewDelegate <NSObject>
-
-@optional
--(void) viewTouchBegan:(UIView*) touchView touches:(NSSet *)touches withEvent:(UIEvent *)event;
--(void) viewTouchMoved:(UIView*) touchView touches:(NSSet *)touches withEvent:(UIEvent *)event;
--(void) viewTouchEnded:(UIView*) touchView touches:(NSSet *)touches withEvent:(UIEvent *)event;
--(void) viewTouchCancelled:(UIView*) touchView touches:(NSSet *)touches withEvent:(UIEvent *)event;
-
-@end
-
 @interface TouchView : UIView
 
-@property (nonatomic, assign) id<TouchViewDelegate> delegate;
+@property (nonatomic,weak) UIView *receiveView;
 
 @end

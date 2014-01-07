@@ -70,8 +70,8 @@
     
     [lblBottom addStyle:style];;
     
-    txtPhone.text=@"845225372227";
-    //[self switchToActivationModeWithPhone:@"845225372227"];
+//    txtPhone.text=@"845225372227";
+    [self switchToActivationModeWithPhone:@"845225372227"];
 }
 
 -(void) switchToActivationModeWithPhone:(NSString*) phone

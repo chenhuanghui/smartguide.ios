@@ -24,6 +24,8 @@
 #define OBJ_IOS(ios6,ios7) (NSFoundationVersionNumber>NSFoundationVersionNumber_iOS_6_1?ios7:ios6)
 
 #define DEGREES_TO_RADIANS(angle) ((angle) / 180.0 * M_PI)
+#define DEGREES_CELL DEGREES_TO_RADIANS(45)*2
+#define DEGREES_TABLE DEGREES_TO_RADIANS(45)*6
 #define RANDOM(min,max) arc4random() % (max - min) + min
 #define CGPOINT_X(cgpnt,px) CGPointMake(px,cgpnt.y)
 #define CGPOINT_Y(cgpnt,py) CGPointMake(cgpnt.x,py)
