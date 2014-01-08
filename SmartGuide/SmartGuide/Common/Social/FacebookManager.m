@@ -160,7 +160,7 @@ static FacebookManager *_facebookManager=nil;
 
 + (void)handleDidBecomeActive
 {
-    [FBAppEvents activateApp];
+//    [FBAppEvents activateApp];
     
 	[FBSettings setDefaultAppID:FACEBOOK_APPID];
 	// We need to properly handle activation of the application with regards to SSO
