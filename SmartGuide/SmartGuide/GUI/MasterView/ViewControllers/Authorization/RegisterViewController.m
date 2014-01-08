@@ -46,6 +46,8 @@
     }
 }
 
+#pragma mark - OperationURL
+
 -(void)operationURLFinished:(OperationURL *)operation
 {
     if([operation isKindOfClass:[OperationFBGetProfile class]])
@@ -97,6 +99,8 @@
         _operationGPGetUserProfile=nil;
     }
 }
+
+#pragma mark ASIOperation
 
 -(void)ASIOperaionPostFinished:(ASIOperationPost *)operation
 {
