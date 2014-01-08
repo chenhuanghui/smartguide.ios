@@ -124,6 +124,8 @@
 		9A2F8D181855C0860024AE1A /* UIGestureRecognizer+GMGridViewAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A2F8D151855C0860024AE1A /* UIGestureRecognizer+GMGridViewAdditions.m */; };
 		9A2F8D191855C0860024AE1A /* UIView+GMGridViewAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A2F8D171855C0860024AE1A /* UIView+GMGridViewAdditions.m */; };
 		9A313AB318430B1A002DDA80 /* SGTableTemplate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A313AB218430B1A002DDA80 /* SGTableTemplate.m */; };
+		9A32D667187D99F800987F26 /* icon_back.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A32D665187D99F800987F26 /* icon_back.png */; };
+		9A32D668187D99F800987F26 /* icon_back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A32D666187D99F800987F26 /* icon_back@2x.png */; };
 		9A32F3CD184345AE00704D26 /* AuthorizationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A32F378184345AE00704D26 /* AuthorizationViewController.m */; };
 		9A32F3CE184345AE00704D26 /* AuthorizationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A32F379184345AE00704D26 /* AuthorizationViewController.xib */; };
 		9A32F3D5184345AE00704D26 /* UserLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A32F384184345AE00704D26 /* UserLoginViewController.m */; };
@@ -980,6 +982,8 @@
 		9A313AB118430B1A002DDA80 /* SGTableTemplate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGTableTemplate.h; sourceTree = "<group>"; };
 		9A313AB218430B1A002DDA80 /* SGTableTemplate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGTableTemplate.m; sourceTree = "<group>"; };
 		9A32D662187D988E00987F26 /* PhuongConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhuongConfig.h; sourceTree = "<group>"; };
+		9A32D665187D99F800987F26 /* icon_back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon_back.png; path = Temp/icon_back.png; sourceTree = "<group>"; };
+		9A32D666187D99F800987F26 /* icon_back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon_back@2x.png"; path = "Temp/icon_back@2x.png"; sourceTree = "<group>"; };
 		9A32F377184345AE00704D26 /* AuthorizationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthorizationViewController.h; sourceTree = "<group>"; };
 		9A32F378184345AE00704D26 /* AuthorizationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthorizationViewController.m; sourceTree = "<group>"; };
 		9A32F379184345AE00704D26 /* AuthorizationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AuthorizationViewController.xib; sourceTree = "<group>"; };
@@ -3444,6 +3448,8 @@
 		A98198BE178D44FB0009FCB6 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				9A32D665187D99F800987F26 /* icon_back.png */,
+				9A32D666187D99F800987F26 /* icon_back@2x.png */,
 				9A9FCBB71854ED8C004A3CFB /* Temp */,
 				9A9DB979187BA42700091602 /* bg_numbbox_login.png */,
 				9A9DB97A187BA42700091602 /* bg_yearbox_login.png */,
@@ -4055,6 +4061,7 @@
 				9ACAEDA21872B6150025B027 /* II-3-Detail-Promtion2.jpg in Resources */,
 				9AC5380918684490009A000B /* bg_detail_info_header@2x.png in Resources */,
 				A91A675D1797F65000BEB8C5 /* human.m.motemplate in Resources */,
+				9A32D667187D99F800987F26 /* icon_back.png in Resources */,
 				9AC4941618585B000042C535 /* IV-4-Cart-Money.jpg in Resources */,
 				9A8653C118780E5400A60BF1 /* II-6-ScanAlert-Lack.jpg in Resources */,
 				A91A675E1797F65000BEB8C5 /* machine.h.motemplate in Resources */,
@@ -4222,6 +4229,7 @@
 				9A8653E41878609A00A60BF1 /* I-1-FlashScreen.jpg in Resources */,
 				9A9DB99C187BABDF00091602 /* I-4-RegisterType_Step1.jpg in Resources */,
 				9A9FCBE11854ED8C004A3CFB /* ava.png in Resources */,
+				9A32D668187D99F800987F26 /* icon_back@2x.png in Resources */,
 				9A7E55C0183D00F9006D1798 /* button_arrow@2x.png in Resources */,
 				9A85B73B1846ECB2009FD108 /* button_location.png in Resources */,
 				9ACF4F461859C0ED00D98BA7 /* cover_blur@2x.png in Resources */,

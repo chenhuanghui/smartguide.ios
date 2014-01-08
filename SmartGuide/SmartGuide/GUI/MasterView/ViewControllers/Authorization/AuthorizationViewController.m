@@ -67,7 +67,7 @@
         RegisterViewController *vc=[RegisterViewController new];
         vc.delegate=self;
         
-        [authorNavi pushViewController:vc animated:true];
+        [authorNavi setRootViewController:vc animate:true];
     }
     else if(currentUser().enumDataMode==USER_DATA_FULL)
     {
@@ -104,10 +104,14 @@
 -(IBAction) btnBackTouchUpInside:(id)sender
 {
     if(authorNavi.viewControllers.count==1)
-        [self.navigationController popViewControllerAnimated:true];
+    {
+        SGNavigationController *navi=(SGNavigationController*) self.navigationController;
+        
+        [navi popViewControllerAnimated:true transition:transitionPushFromBottom()];
+    }
     else
     {
-        [authorNavi popViewControllerAnimated:true];
+        [authorNavi popViewControllerAnimated:true transition:transitionPushFromLeft()];
     }
 }
 

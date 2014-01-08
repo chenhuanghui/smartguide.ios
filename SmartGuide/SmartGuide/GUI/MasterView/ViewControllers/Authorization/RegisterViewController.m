@@ -346,8 +346,8 @@
         [stepView l_v_setX:0];
         
         [btnConfirm setImage:[UIImage imageNamed:@"button_next_login.png"] forState:UIControlStateNormal];
-        [btnConfirm setImage:[UIImage imageNamed:@"button_confirm_login.png"] forState:UIControlStateSelected];
-        [btnConfirm setImage:[UIImage imageNamed:@"button_confirm_login.png"] forState:UIControlStateHighlighted];
+        [btnConfirm setImage:[UIImage imageNamed:@"button_next_login.png"] forState:UIControlStateSelected];
+        [btnConfirm setImage:[UIImage imageNamed:@"button_next_login.png"] forState:UIControlStateHighlighted];
     } completion:^(BOOL finished) {
         self.view.userInteractionEnabled=true;
     }];

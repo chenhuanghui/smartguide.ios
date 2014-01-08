@@ -60,6 +60,11 @@ static GUIManager *_shareInstance=nil;
             
         case USER_DATA_CREATING:
         {
+            WelcomeViewController *welcome=[[WelcomeViewController alloc] init];
+            welcome.delegate=self;
+            
+            [viewControllers addObject:welcome];
+            
             AuthorizationViewController *author=[[AuthorizationViewController alloc] init];
             author.delegate=self;
             
