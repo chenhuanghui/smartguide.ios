@@ -9,11 +9,11 @@
 #import "ASIOperationUploadSocialProfile.h"
 
 @implementation ASIOperationUploadSocialProfile
-@synthesize values,status;
+@synthesize values,status,message;
 
 -(ASIOperationUploadSocialProfile *)initWithProfile:(NSString *)profile socialType:(enum SOCIAL_TYPE)socialType accessToken:(NSString *)accessToken
 {
-    self=[super initWithRouter:[NSURL URLWithString:SERVER_API_MAKE(API_USER_UPLOAD_SOCIAL_PROFILE)]];
+    self=[super initWithURL:[NSURL URLWithString:SERVER_API_MAKE(API_USER_UPLOAD_SOCIAL_PROFILE)]];
     
     values=@[profile,accessToken,@(socialType)];
     
@@ -28,17 +28,22 @@
 -(void)onCompletedWithJSON:(NSArray *)json
 {
     status=0;
+    message=@"";
     if([self isNullData:json])
         return;
     
-    status=1;
-    
     NSDictionary *dict=json[0];
     
-    User *user=[User makeWithDictionary:dict];
+    status=[[NSNumber numberWithObject:dict[@"status"]] integerValue];
+    message=[NSString stringWithStringDefault:dict[@"message"]];
     
-    [[DataManager shareInstance] save];
-    [DataManager shareInstance].currentUser=user;
+    if(status==1)
+    {
+        User *user=[User makeWithDictionary:dict[@"profile"]];
+        
+        [[DataManager shareInstance] save];
+        [DataManager shareInstance].currentUser=user;
+    }
 }
 
 @end

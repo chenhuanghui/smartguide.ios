@@ -105,10 +105,22 @@
         [authorizationController.view removeLoading];
         
         ASIOperationUploadSocialProfile *ope=(ASIOperationUploadSocialProfile*) operation;
+
+        int status=ope.status;
         
-        if(ope.status==1)
+        if(ope.message.length>0)
         {
-            [self.delegate registerControllerFinished:self];
+            [AlertView showAlertOKWithTitle:nil withMessage:ope.message onOK:^{
+                if(status==1)
+                    [self.delegate registerControllerFinished:self];
+            }];
+        }
+        else
+        {
+            if(status==1)
+            {
+                [self.delegate registerControllerFinished:self];
+            }
         }
         
         _operationUploadSocialProfile=nil;
@@ -134,6 +146,7 @@
     
     RegisterInfoStep1ViewController *vc=[RegisterInfoStep1ViewController new];
     vc.delegate=self;
+    vc.registerController=self;
     
     registerStep1=vc;
     

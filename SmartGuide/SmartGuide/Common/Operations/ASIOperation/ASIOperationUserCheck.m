@@ -20,7 +20,7 @@
 
 -(ASIOperationUserCheck *)initWithPhone:(NSString *)_phone aciveCode:(NSString *)_activeCode
 {
-    self=[super initWithRouter:[NSURL URLWithString:SERVER_IP_MAKE(API_USER_CHECK)]];
+    self=[super initWithURL:[NSURL URLWithString:SERVER_IP_MAKE(API_USER_CHECK)]];
     
     values=@[_phone,_activeCode];
     
