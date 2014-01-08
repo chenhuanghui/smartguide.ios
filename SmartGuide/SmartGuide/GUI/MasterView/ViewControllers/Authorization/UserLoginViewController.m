@@ -68,10 +68,7 @@
     style.font=[UIFont fontWithName:@"Avenir-Roman" size:13];
     style.color=[UIColor redColor];
     
-    [lblBottom addStyle:style];;
-    
-//    txtPhone.text=@"845225372227";
-    [self switchToActivationModeWithPhone:@"848877996655"];
+    [lblBottom addStyle:style];
 }
 
 -(void) switchToActivationModeWithPhone:(NSString*) phone
