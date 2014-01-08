@@ -30,6 +30,11 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
+    [self loadData];
+}
+
+-(void) loadData
+{
     if(registerController.registerInfo.gender==GENDER_MALE)
         [self male];
     else if(registerController.registerInfo.gender==GENDER_FEMALE)
@@ -45,7 +50,7 @@
     txtMonth.text=[NSString stringWithFormat:@"%02i",date.month];
     txtYear.text=[NSString stringWithFormat:@"%i",date.year];
     
-    btnDOB.hidden=false;
+    btnDOB.hidden=true;
 }
 
 - (void)didReceiveMemoryWarning
@@ -121,44 +126,32 @@
 
 -(void) showDOBPicker
 {
-    [self.registerController buttonNext].hidden=true;
+    if(self.registerController.isShowedDatePicker)
+        return;
     
-    UIDatePicker *datePicker=[[UIDatePicker alloc] initWithFrame:CGRectMake(0, 0, self.l_v_w, self.l_v_h)];
-    datePicker.datePickerMode=UIDatePickerModeDate;
-    datePicker.locale=[NSLocale localeWithLocaleIdentifier:@"vi-vn"];
- 
-    if(registerController.registerInfo.selectedDate)
-        datePicker.date=registerController.registerInfo.selectedDate;
+    UIDatePicker *dp=[self.registerController showDatePicker];
     
-    [self.view alphaViewWithColor:[UIColor darkGrayColor]];
+    [dp addTarget:self action:@selector(dobChanged:) forControlEvents:UIControlEventValueChanged];
     
-    [self.view.alphaView addSubview:datePicker];
+    UITapGestureRecognizer *tap=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)];
+    tap.cancelsTouchesInView=false;
+    tap.delaysTouchesEnded=false;
+    tap.delaysTouchesBegan=false;
     
-    UIButton *btn=[UIButton buttonWithType:UIButtonTypeCustom];
-    [btn setImage:[UIImage imageNamed:@"button_confirm_login.png"] forState:UIControlStateNormal];
-    
-    [btn addTarget:self action:@selector(btnConfirmDOBTouchUpInside:) forControlEvents:UIControlEventTouchUpInside];
-    [btn setFrame:self.registerController.buttonNext.frame];
-    [btn l_v_addY:-22];
-    
-    [self.view.alphaView addSubview:btn];
+    [self.view addGestureRecognizer:tap];
 }
 
--(void) btnConfirmDOBTouchUpInside:(UIButton*) btn
+-(void) tap:(UITapGestureRecognizer*) tap
 {
-    btnDOB.hidden=true;
-    
-    UIDatePicker *datePicker=self.view.alphaView.subviews[0];
-    
-    NSDate *date=datePicker.date;
-    registerController.registerInfo.selectedDate=date;
-    
-    [self settingBirthday:date];
-    
-    registerController.registerInfo.birthday=[date stringValueWithFormat:@"dd/MM/yyyy"];
-    
-    [self.registerController buttonNext].hidden=false;
-    [self.view removeAlphaView];
+    [registerController removeDatePicker];
+    [self.view removeGestureRecognizer:tap];
+}
+
+-(void) dobChanged:(UIDatePicker*) datePicker
+{
+    registerController.registerInfo.selectedDate=datePicker.date;
+    registerController.registerInfo.birthday=[datePicker.date stringValueWithFormat:@"dd/MM/yyyy"];
+    [self settingBirthday:datePicker.date];
 }
 
 - (IBAction)btnDOBTouchUpInside:(id)sender {

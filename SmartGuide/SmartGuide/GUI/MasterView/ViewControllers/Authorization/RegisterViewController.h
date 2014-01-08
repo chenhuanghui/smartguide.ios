@@ -14,6 +14,7 @@
 #import "OperationFBGetProfile.h"
 #import "OperationGPGetUserProfile.h"
 #import "ASIOperationUploadSocialProfile.h"
+#import "ASIOperationUpdateUserProfile.h"
 #import <GooglePlus/GooglePlus.h>
 
 @class AuthorizationViewController;
@@ -32,11 +33,11 @@
     __weak IBOutlet UIButton *btnConfirm;
     __weak IBOutlet UIButton *btnFacebook;
     __weak IBOutlet UIButton *btnGooglePlus;
-    __weak IBOutlet UITextField *txtName;
     __weak IBOutlet UIView *containNavi;
     __weak IBOutlet UIButton *btnStep1;
     __weak IBOutlet UIButton *btnStep2;
     __weak IBOutlet UIView *stepView;
+    __weak IBOutlet UIView *socialView;
     
     __weak SGNavigationController *registerNavi;
     
@@ -48,11 +49,19 @@
     OperationFBGetProfile *_operationFBGetProfile;
     OperationGPGetUserProfile *_operationGPGetUserProfile;
     ASIOperationUploadSocialProfile *_operationUploadSocialProfile;
+    ASIOperationUpdateUserProfile *_operationUpdateUserProfile;
     
     NSMutableArray *_avatars;
+    
+    bool _isShowedDatePicker;
+    __weak UIDatePicker *_datePicker;
 }
 
 -(UIButton*) buttonNext;
+
+-(UIDatePicker*) showDatePicker;
+-(void) removeDatePicker;
+-(bool) isShowedDatePicker;
 
 -(RegisterInfo*) registerInfo;
 

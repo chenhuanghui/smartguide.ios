@@ -86,7 +86,6 @@
 
 -(enum USER_DATA_MODE)enumDataMode
 {
-    return USER_DATA_CREATING;
     if([self isDefaultUser])
         return USER_DATA_TRY;
     else if([self.name stringByTrimmingWhiteSpace].length==0 || [self.avatar stringByTrimmingWhiteSpace].length==0)

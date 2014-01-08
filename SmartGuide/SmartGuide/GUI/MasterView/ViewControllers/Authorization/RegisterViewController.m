@@ -105,7 +105,7 @@
         [authorizationController.view removeLoading];
         
         ASIOperationUploadSocialProfile *ope=(ASIOperationUploadSocialProfile*) operation;
-
+        
         int status=ope.status;
         
         if(ope.message.length>0)
@@ -125,6 +125,29 @@
         
         _operationUploadSocialProfile=nil;
     }
+    else if([operation isKindOfClass:[ASIOperationUpdateUserProfile class]])
+    {
+        [authorizationController.view removeLoading];
+        
+        ASIOperationUpdateUserProfile *ope=(ASIOperationUpdateUserProfile*) operation;
+        
+        int status=ope.status;
+        
+        if(ope.message.length>0)
+        {
+            [AlertView showAlertOKWithTitle:nil withMessage:ope.message onOK:^{
+                if(status==1)
+                    [self.delegate registerControllerFinished:self];
+            }];
+        }
+        else
+        {
+            if(status==1)
+                [self.delegate registerControllerFinished:self];
+        }
+        
+        _operationUpdateUserProfile=nil;
+    }
 }
 
 -(void)ASIOperaionPostFailed:(ASIOperationPost *)operation
@@ -135,13 +158,19 @@
         
         _operationUploadSocialProfile=nil;
     }
+    else if([operation isKindOfClass:[ASIOperationUpdateUserProfile class]])
+    {
+        [authorizationController.view removeLoading];
+        
+        _operationUpdateUserProfile=nil;
+    }
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-
+    
     _registerInfo=[RegisterInfo new];
     
     RegisterInfoStep1ViewController *vc=[RegisterInfoStep1ViewController new];
@@ -157,6 +186,8 @@
     [navi.view l_v_setS:containNavi.l_v_s];
     
     registerNavi=navi;
+    
+    [self settingButtonStep];
 }
 
 -(void)navigationController:(SGNavigationController *)navigationController willPopController:(SGViewController *)controller
@@ -183,6 +214,11 @@
 
 - (IBAction)btnConfirmTouchUpInside:(id)sender {
     
+    if(_isShowedDatePicker)
+    {
+        [self removeDatePicker];
+    }
+    
     if(registerStep2)
     {
         if(_registerInfo.birthday.length==0)
@@ -198,32 +234,15 @@
             return;
         }
         
-        [self.delegate registerControllerFinished:self];
+        [self.authorizationController.view showLoading];
+        
+        _operationUpdateUserProfile=[[ASIOperationUpdateUserProfile alloc] initWithName:_registerInfo.name cover:nil avatar:_registerInfo.avatar avatarImage:UIImagePNGRepresentation(_registerInfo.selectedAvatar) gender:_registerInfo.gender socialType:SOCIAL_NONE birthday:_registerInfo.birthday];
+        _operationUpdateUserProfile.delegatePost=self;
+        
+        [_operationUpdateUserProfile startAsynchronous];
     }
     else
     {
-        bool byPass=true;
-        
-        _registerInfo.name=registerStep1.name;
-        
-        if(!byPass && (_registerInfo.name.length==0 && !_registerInfo.selectedAvatar))
-        {
-            [AlertView showAlertOKWithTitle:nil withMessage:@"Bạn phải chọn avatar" onOK:^{
-                [self showAvatarController];
-            }];
-            
-            return;
-        }
-        
-        if(!byPass && _registerInfo.name.length==0)
-        {
-            [AlertView showAlertOKWithTitle:nil withMessage:@"Bạn phải nhập tên" onOK:^{
-                [registerStep1 focusName];
-            }];
-            
-            return;
-        }
-        
         [self showStep2];
     }
 }
@@ -301,13 +320,6 @@
 
 - (IBAction)btnStep1TouchUpInside:(id)sender {
     [self showStep1];
-    
-    double delayInSeconds = .0;
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-        btnStep1.selected=true;
-        btnStep2.selected=false;
-    });
 }
 
 - (IBAction)btnStep2TouchUpInside:(id)sender {
@@ -316,8 +328,15 @@
 
 -(void) showStep1
 {
+    if(registerNavi.visibleViewController==registerStep1)
+        return;
+    
+    [self removeDatePicker];
+    
     self.view.userInteractionEnabled=false;
     [registerNavi popViewControllerAnimated:true transition:transitionPushFromLeft()];
+    
+    [self settingButtonStep];
     
     [UIView animateWithDuration:DURATION_NAVIGATION_PUSH animations:^{
         [stepView l_v_setX:0];
@@ -330,16 +349,81 @@
     }];
 }
 
+-(void) settingButtonStep
+{
+    double delayInSeconds = 0;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        
+        //step1
+        if([registerNavi.visibleViewController isKindOfClass:[RegisterInfoStep1ViewController class]])
+        {
+            [btnStep1 setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+            [btnStep1 setTitleColor:[UIColor darkGrayColor] forState:UIControlStateSelected];
+            [btnStep1 setTitleColor:[UIColor darkGrayColor] forState:UIControlStateHighlighted];
+            
+            [btnStep2 setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+            [btnStep2 setTitleColor:[UIColor darkGrayColor] forState:UIControlStateSelected];
+            [btnStep2 setTitleColor:[UIColor darkGrayColor] forState:UIControlStateHighlighted];
+        }
+        //step 2
+        else
+        {
+            [btnStep1 setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+            [btnStep1 setTitleColor:[UIColor darkGrayColor] forState:UIControlStateSelected];
+            [btnStep1 setTitleColor:[UIColor darkGrayColor] forState:UIControlStateHighlighted];
+            
+            [btnStep2 setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+            [btnStep2 setTitleColor:[UIColor darkGrayColor] forState:UIControlStateSelected];
+            [btnStep2 setTitleColor:[UIColor darkGrayColor] forState:UIControlStateHighlighted];
+        }
+    });
+}
+
+-(bool) validateStep1
+{
+    bool byPass=false;
+    
+    _registerInfo.name=registerStep1.name;
+    
+    if(!byPass && (_registerInfo.avatar.length==0 && !_registerInfo.selectedAvatar))
+    {
+        [AlertView showAlertOKWithTitle:nil withMessage:@"Bạn phải chọn avatar" onOK:^{
+            [self showAvatarController];
+        }];
+        
+        return false;
+    }
+    
+    if(!byPass && _registerInfo.name.length==0)
+    {
+        [AlertView showAlertOKWithTitle:nil withMessage:@"Bạn phải nhập tên" onOK:^{
+            [registerStep1 focusName];
+        }];
+        
+        return false;
+    }
+    
+    return true;
+}
+
 -(void) showStep2
 {
+    if(![self validateStep1])
+        return;
+    
     if(registerStep2)
         return;
+    
+    [self.view endEditing:true];
     
     RegisterInfoStep2ViewController *vc=[RegisterInfoStep2ViewController new];
     vc.delegate=self;
     vc.registerController=self;
     
     registerStep2=vc;
+    
+    [self settingButtonStep];
     
     [registerNavi pushViewController:vc animated:true transition:transitionPushFromRight()];
     
@@ -360,6 +444,77 @@
     });
 }
 
+-(bool)isShowedDatePicker
+{
+    return _isShowedDatePicker;
+}
+
+-(UIDatePicker*) showDatePicker
+{
+    _isShowedDatePicker=true;
+    
+    UIDatePicker *datePicker=[[UIDatePicker alloc] initWithFrame:CGRectMake(0, socialView.l_v_y, socialView.l_v_w, socialView.l_v_h)];
+    datePicker.datePickerMode=UIDatePickerModeDate;
+    datePicker.locale=[NSLocale localeWithLocaleIdentifier:@"vi-vn"];
+    
+    if(_registerInfo.selectedDate)
+        datePicker.date=_registerInfo.selectedDate;
+    
+    datePicker.alpha=0;
+    
+    [self.view insertSubview:datePicker belowSubview:btnConfirm];
+    
+    self.view.userInteractionEnabled=false;
+    [UIView animateWithDuration:DURATION_DEFAULT animations:^{
+        socialView.alpha=0;
+        datePicker.alpha=1;
+    } completion:^(BOOL finished) {
+        socialView.hidden=true;
+        
+        self.view.userInteractionEnabled=true;
+    }];
+    
+    _datePicker=datePicker;
+    
+    return datePicker;
+}
+
+-(void)removeDatePicker
+{
+    if(!_isShowedDatePicker)
+        return;
+    
+    if(_datePicker)
+    {
+        if(_datePicker.date)
+        {
+            _registerInfo.selectedDate=_datePicker.date;
+            _registerInfo.birthday=[_registerInfo.selectedDate stringValueWithFormat:@"dd/MM/yyyy"];
+            
+            [registerStep2 loadData];
+        }
+        
+        self.view.userInteractionEnabled=false;
+        
+        socialView.alpha=0;
+        socialView.hidden=false;
+        
+        [UIView animateWithDuration:DURATION_DEFAULT animations:^{
+            socialView.alpha=1;
+            _datePicker.alpha=0;
+        } completion:^(BOOL finished) {
+            [_datePicker removeFromSuperview];
+            _datePicker=nil;
+            
+            self.view.userInteractionEnabled=true;
+            
+            _isShowedDatePicker=false;
+        }];
+    }
+    else
+        _isShowedDatePicker=false;
+}
+
 @end
 
 @implementation RegisterInfo
@@ -376,6 +531,22 @@
         name=@"";
     }
     return self;
+}
+
+-(void)setSelectedAvatar:(UIImage *)_selectedAvatar
+{
+    selectedAvatar=_selectedAvatar;
+    
+    if(selectedAvatar)
+        avatar=@"";
+}
+
+-(void)setAvatar:(NSString *)_avatar
+{
+    avatar=_avatar;
+    
+    if(avatar.length>0)
+        selectedAvatar=nil;
 }
 
 @end

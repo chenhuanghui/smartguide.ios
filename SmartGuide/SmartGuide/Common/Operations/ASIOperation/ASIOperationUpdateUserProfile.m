@@ -11,7 +11,7 @@
 @implementation ASIOperationUpdateUserProfile
 @synthesize values,status,message,avatar,cover;
 
--(ASIOperationUpdateUserProfile *)initWithName:(NSString *)name cover:(NSData *)_cover avatar:(NSString *)_avatar avatarImage:(NSData *)_avatarImage gender:(enum GENDER_TYPE)gender socialType:(enum SOCIAL_TYPE)socialType
+-(ASIOperationUpdateUserProfile *)initWithName:(NSString *)name cover:(NSData *)_cover avatar:(NSString *)_avatar avatarImage:(NSData *)_avatarImage gender:(enum GENDER_TYPE)gender socialType:(enum SOCIAL_TYPE)socialType birthday:(NSString *)birthday
 {
     self=[super initWithURL:[NSURL URLWithString:SERVER_API_MAKE(API_USER_UPDATE_PROFILE)]];
     
@@ -20,6 +20,7 @@
     [array addObject:name];
     [array addObject:@(gender)];
     [array addObject:@(socialType)];
+    [array addObject:birthday];
     
     if(_cover && _cover.length>0)
         [self addData:_cover withFileName:@"cover" andContentType:@"image/jpeg" forKey:@"cover"];
@@ -36,10 +37,10 @@
 
 -(NSArray *)keys
 {
-    if(self.values.count==4)
-        return @[@"name",@"gender",@"socialType",@"avatar"];
+    if(self.values.count==5)
+        return @[@"name",@"gender",@"socialType",@"dob",@"avatar"];
     
-    return @[@"name",@"gender",@"socialType"];
+    return @[@"name",@"gender",@"socialType",@"dob"];
 }
 
 -(void)onCompletedWithJSON:(NSArray *)json
@@ -60,6 +61,11 @@
     if(status==1)
     {
         User *user=[DataManager shareInstance].currentUser;
+        
+        user.name=values[0];
+        user.gender=values[1];
+        user.socialType=@(SOCIAL_NONE);
+        user.birthday=values[3];
         
         avatar=[NSString stringWithStringDefault:dict[@"avatar"]];
         cover=[NSString stringWithStringDefault:dict[@"cover"]];

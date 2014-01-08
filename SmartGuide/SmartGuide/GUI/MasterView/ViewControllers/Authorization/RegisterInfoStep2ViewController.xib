@@ -70,6 +70,7 @@
                     <inset key="titleEdgeInsets" minX="0.0" minY="-21" maxX="0.0" maxY="0.0"/>
                     <inset key="imageEdgeInsets" minX="29" minY="26" maxX="0.0" maxY="0.0"/>
                     <state key="normal" title="Nam" image="button_tickoff.png">
+                        <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <state key="selected" image="button_tickon.png"/>
@@ -89,6 +90,7 @@
                     <inset key="titleEdgeInsets" minX="0.0" minY="-21" maxX="0.0" maxY="0.0"/>
                     <inset key="imageEdgeInsets" minX="29" minY="26" maxX="0.0" maxY="0.0"/>
                     <state key="normal" title="Nữ" image="button_tickoff.png">
+                        <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <state key="selected" image="button_tickon.png"/>

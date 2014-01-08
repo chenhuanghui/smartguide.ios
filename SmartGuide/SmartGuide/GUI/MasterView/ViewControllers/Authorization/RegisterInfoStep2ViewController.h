@@ -21,6 +21,7 @@
 }
 
 -(void) showDOBPicker;
+-(void) loadData;
 
 @property (nonatomic, weak) RegisterViewController *registerController;
 
