@@ -44,6 +44,8 @@
     txtDay.text=[NSString stringWithFormat:@"%02i",date.day];
     txtMonth.text=[NSString stringWithFormat:@"%02i",date.month];
     txtYear.text=[NSString stringWithFormat:@"%i",date.year];
+    
+    btnDOB.hidden=false;
 }
 
 - (void)didReceiveMemoryWarning

@@ -34,7 +34,9 @@
     __weak IBOutlet UIButton *btnGooglePlus;
     __weak IBOutlet UITextField *txtName;
     __weak IBOutlet UIView *containNavi;
-    __weak IBOutlet UILabel *lblStep;
+    __weak IBOutlet UIButton *btnStep1;
+    __weak IBOutlet UIButton *btnStep2;
+    __weak IBOutlet UIView *stepView;
     
     __weak SGNavigationController *registerNavi;
     

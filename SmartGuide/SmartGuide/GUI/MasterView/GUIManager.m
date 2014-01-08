@@ -93,17 +93,7 @@ static GUIManager *_shareInstance=nil;
 
 -(void)SGLoadingFinished:(SGLoadingScreenViewController *)loadingScreen
 {
-    [self.rootNavigation setAnimationPopViewController:^CATransition *(UIViewController *vc) {
-        CATransition* transition = [CATransition animation];
-        transition.duration = 0.5;
-        transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-        transition.type = kCATransitionPush; //kCATransitionMoveIn; //, kCATransitionPush, kCATransitionReveal, kCATransitionFade
-        transition.subtype = kCATransitionFromRight; //kCATransitionFromLeft, kCATransitionFromRight, kCATransitionFromTop, kCATransitionFromBottom
-        
-        return transition;
-    }];
-    
-    [self.rootNavigation popViewControllerAnimated:true];
+    [self.rootNavigation popViewControllerAnimated:true transition:transitionPushFromRight()];
 }
 
 -(void)welcomeControllerTouchedLogin:(WelcomeViewController *)viewController

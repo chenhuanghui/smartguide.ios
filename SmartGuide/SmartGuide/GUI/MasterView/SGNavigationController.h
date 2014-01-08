@@ -13,6 +13,11 @@
 #import "SGViewController.h"
 #import "AlphaView.h"
 
+CATransition* transitionPushFromBottomWithDuration(float duration);
+CATransition* transitionPushFromTopWithDuration(float duration);
+CATransition* transitionPushFromLeftWithDuration(float duration);
+CATransition* transitionPushFromRightWithDuration(float duration);
+
 CATransition* transitionPushFromBottom();
 CATransition* transitionPushFromTop();
 CATransition* transitionPushFromLeft();
@@ -30,8 +35,7 @@ CATransition* transitionPushFromRight();
 @interface SGNavigationController : UINavigationController<UINavigationControllerDelegate,UIGestureRecognizerDelegate>
 {
     void(^_onPushedViewController)(UIViewController* vc);
-    CATransition*(^_animationPopViewController)(UIViewController* vc);
-    
+
     NSMutableArray *_controllers;
 }
 
@@ -50,8 +54,6 @@ CATransition* transitionPushFromRight();
 -(void) removeLeftSlideViewController;
 -(void) showRightSlideViewController:(UIViewController*) viewController animate:(bool) animated;
 -(void) removeRightSlideViewController:(UIViewController*) viewController;
-
--(void) setAnimationPopViewController:(CATransition*(^)(UIViewController* vc)) animationPush;
 
 @property (nonatomic, weak, readonly) SGLeftViewController *leftSlideController;
 @property (nonatomic, weak, readonly) SGRightViewController *rightSlideController;

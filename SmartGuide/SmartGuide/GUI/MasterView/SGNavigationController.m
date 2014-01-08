@@ -10,10 +10,10 @@
 
 #define SLIDE_POSITION_X 274.f
 
-CATransition* transitionPushFromBottom()
+CATransition* transitionPushFromBottomWithDuration(float duration)
 {
     CATransition* transition = [CATransition animation];
-    transition.duration = 0.5;
+    transition.duration = duration;
     transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
     transition.type = kCATransitionPush; //kCATransitionMoveIn; //, kCATransitionPush, kCATransitionReveal, kCATransitionFade
     transition.subtype = kCATransitionFromBottom; //kCATransitionFromLeft, kCATransitionFromRight, kCATransitionFromTop, kCATransitionFromBottom
@@ -21,10 +21,10 @@ CATransition* transitionPushFromBottom()
     return transition;
 }
 
-CATransition* transitionPushFromTop()
+CATransition* transitionPushFromTopWithDuration(float duration)
 {
     CATransition* transition = [CATransition animation];
-    transition.duration = 0.5;
+    transition.duration = duration;
     transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
     transition.type = kCATransitionPush; //kCATransitionMoveIn; //, kCATransitionPush, kCATransitionReveal, kCATransitionFade
     transition.subtype = kCATransitionFromTop; //kCATransitionFromLeft, kCATransitionFromRight, kCATransitionFromTop, kCATransitionFromBottom
@@ -32,26 +32,47 @@ CATransition* transitionPushFromTop()
     return transition;
 }
 
-CATransition* transitionPushFromLeft()
+CATransition* transitionPushFromLeftWithDuration(float duration)
 {
     CATransition* transition = [CATransition animation];
-    transition.duration = 0.5;
+    transition.duration = duration;
     transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
     transition.type = kCATransitionPush; //kCATransitionMoveIn; //, kCATransitionPush, kCATransitionReveal, kCATransitionFade
     transition.subtype = kCATransitionFromLeft; //kCATransitionFromLeft, kCATransitionFromRight, kCATransitionFromTop, kCATransitionFromBottom
     
     return transition;
+
 }
 
-CATransition* transitionPushFromRight()
+CATransition* transitionPushFromRightWithDuration(float duration)
 {
     CATransition* transition = [CATransition animation];
-    transition.duration = 0.5;
+    transition.duration = duration;
     transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
     transition.type = kCATransitionPush; //kCATransitionMoveIn; //, kCATransitionPush, kCATransitionReveal, kCATransitionFade
     transition.subtype = kCATransitionFromRight; //kCATransitionFromLeft, kCATransitionFromRight, kCATransitionFromTop, kCATransitionFromBottom
     
     return transition;
+}
+
+CATransition* transitionPushFromBottom()
+{
+    return transitionPushFromBottomWithDuration(DURATION_NAVIGATION_PUSH);
+}
+
+CATransition* transitionPushFromTop()
+{
+    return transitionPushFromTopWithDuration(DURATION_NAVIGATION_PUSH);
+}
+
+CATransition* transitionPushFromLeft()
+{
+    return transitionPushFromLeftWithDuration(DURATION_NAVIGATION_PUSH);
+}
+
+CATransition* transitionPushFromRight()
+{
+    return transitionPushFromRightWithDuration(DURATION_NAVIGATION_PUSH);
 }
 
 @interface SGNavigationController ()
@@ -139,29 +160,12 @@ CATransition* transitionPushFromRight()
 
 -(UIViewController *)popViewControllerAnimated:(BOOL)animated
 {
-    if(animated)
-    {
-        if(_animationPopViewController)
-        {
-            CATransition *transition=_animationPopViewController(self.visibleViewController);
-            
-            if(transition)
-            {
-                [self.view.layer addAnimation:transition forKey:nil];
-            }
-        }
-    }
-    
     for(SGViewController *vc in self.viewControllers)
     {
         [vc navigationController:self willPopController:(SGViewController*)self.visibleViewController];
     }
         
-    UIViewController *vc=[super popViewControllerAnimated:animated];
-    
-    _animationPopViewController=nil;
-    
-    return vc;
+    return [super popViewControllerAnimated:animated];
 }
 
 -(void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated
@@ -178,14 +182,6 @@ CALL_DEALLOC_LOG
 -(BOOL)prefersStatusBarHidden
 {
     return true;
-}
-
--(void)setAnimationPopViewController:(CATransition *(^)(UIViewController *))animationPop
-{
-    _animationPopViewController=nil;
-    
-    if(animationPop)
-        _animationPopViewController=[animationPop copy];
 }
 
 -(void)showRightSlideViewController:(UIViewController *)viewController animate:(bool)animated
@@ -789,12 +785,14 @@ CALL_DEALLOC_LOG
 -(void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated transition:(CATransition *)transition
 {
     [self.view.layer addAnimation:transition forKey:nil];
-    [self pushViewController:viewController animated:animated];
+    [self pushViewController:viewController animated:false];
 }
 
 -(UIViewController *)popViewControllerAnimated:(BOOL)animated transition:(CATransition *)transition
 {
-    return nil;
+    [self.view.layer addAnimation:transition forKey:nil];
+    
+    return [self popViewControllerAnimated:false];
 }
 
 -(void)makePushViewController:(UIViewController *)viewController animate:(bool)animate

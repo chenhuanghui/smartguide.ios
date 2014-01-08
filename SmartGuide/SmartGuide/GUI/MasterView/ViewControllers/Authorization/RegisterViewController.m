@@ -211,24 +211,7 @@
             return;
         }
         
-        [lblStep setText:@"2/2"];
-        
-        RegisterInfoStep2ViewController *vc=[RegisterInfoStep2ViewController new];
-        vc.delegate=self;
-        vc.registerController=self;
-        
-        registerStep2=vc;
-        
-        [registerNavi pushViewController:vc animated:true];
-        
-        double delayInSeconds = 0.0;
-        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-            
-            [btnConfirm setImage:[UIImage imageNamed:@"button_confirm_login.png"] forState:UIControlStateNormal];
-            [btnConfirm setImage:[UIImage imageNamed:@"button_confirm_login.png"] forState:UIControlStateSelected];
-            [btnConfirm setImage:[UIImage imageNamed:@"button_confirm_login.png"] forState:UIControlStateHighlighted];
-        });
+        [self showStep2];
     }
 }
 
@@ -301,6 +284,67 @@
 -(RegisterInfo *)registerInfo
 {
     return _registerInfo;
+}
+
+- (IBAction)btnStep1TouchUpInside:(id)sender {
+    [self showStep1];
+    
+    double delayInSeconds = .0;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        btnStep1.selected=true;
+        btnStep2.selected=false;
+    });
+}
+
+- (IBAction)btnStep2TouchUpInside:(id)sender {
+    [self showStep2];
+}
+
+-(void) showStep1
+{
+    self.view.userInteractionEnabled=false;
+    [registerNavi popViewControllerAnimated:true transition:transitionPushFromLeft()];
+    
+    [UIView animateWithDuration:DURATION_NAVIGATION_PUSH animations:^{
+        [stepView l_v_setX:0];
+        
+        [btnConfirm setImage:[UIImage imageNamed:@"button_next_login.png"] forState:UIControlStateNormal];
+        [btnConfirm setImage:[UIImage imageNamed:@"button_confirm_login.png"] forState:UIControlStateSelected];
+        [btnConfirm setImage:[UIImage imageNamed:@"button_confirm_login.png"] forState:UIControlStateHighlighted];
+    } completion:^(BOOL finished) {
+        self.view.userInteractionEnabled=true;
+    }];
+}
+
+-(void) showStep2
+{
+    if(registerStep2)
+        return;
+    
+    RegisterInfoStep2ViewController *vc=[RegisterInfoStep2ViewController new];
+    vc.delegate=self;
+    vc.registerController=self;
+    
+    registerStep2=vc;
+    
+    [registerNavi pushViewController:vc animated:true transition:transitionPushFromRight()];
+    
+    self.view.userInteractionEnabled=false;
+    [UIView animateWithDuration:DURATION_NAVIGATION_PUSH animations:^{
+        [stepView l_v_setX:self.l_v_w/2];
+    } completion:^(BOOL finished) {
+        self.view.userInteractionEnabled=true;
+    }];
+    
+    double delayInSeconds = 0.0;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        
+        [btnConfirm setImage:[UIImage imageNamed:@"button_confirm_login.png"] forState:UIControlStateNormal];
+        [btnConfirm setImage:[UIImage imageNamed:@"button_confirm_login.png"] forState:UIControlStateSelected];
+        [btnConfirm setImage:[UIImage imageNamed:@"button_confirm_login.png"] forState:UIControlStateHighlighted];
+    });
 }
 
 @end
