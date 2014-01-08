@@ -7,6 +7,7 @@
 
 #define User_ActivationCode @"activationCode"
 #define User_Avatar @"avatar"
+#define User_Birthday @"birthday"
 #define User_Cover @"cover"
 #define User_FacebookToken @"facebookToken"
 #define User_Gender @"gender"
@@ -31,6 +32,7 @@
 
 @property (nonatomic, retain) NSString* activationCode;
 @property (nonatomic, retain) NSString* avatar;
+@property (nonatomic, retain) NSString* birthday;
 @property (nonatomic, retain) NSString* cover;
 @property (nonatomic, retain) NSString* facebookToken;
 @property (nonatomic, retain) NSNumber* gender;

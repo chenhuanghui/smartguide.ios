@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "SGNavigationController.h"
 #import "UserLoginViewController.h"
-#import "UserFacebookViewController.h"
 #import "RegisterViewController.h"
 #import "DataManager.h"
 #import "Flags.h"
@@ -23,7 +22,7 @@
 
 @end
 
-@interface AuthorizationViewController : SGViewController<UserLoginDelegate,UserFacebookDelegate>
+@interface AuthorizationViewController : SGViewController<UserLoginDelegate,RegisterControllerDelegate>
 {
     __weak SGNavigationController *authorNavi;
     __weak IBOutlet UIView *containView;

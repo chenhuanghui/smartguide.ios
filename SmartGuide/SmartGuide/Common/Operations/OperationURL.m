@@ -19,7 +19,6 @@
 @synthesize delegate,params,router;
 
 
-
 -(OperationURL *)initWithRouter:(NSString *)_router params:(NSDictionary *)dict
 {
     NSString *url=_router;

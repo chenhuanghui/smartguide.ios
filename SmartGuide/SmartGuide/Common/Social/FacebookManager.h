@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import <FacebookSDK/FacebookSDK.h>
-#import "ASIOperationFBProfile.h"
 #import "OperationFBGetProfile.h"
 #import <Social/Social.h>
 

@@ -105,13 +105,8 @@
     <resources>
         <image name="bg_notice_login.png" width="120" height="39"/>
         <image name="bg_numbbox_login.png" width="48" height="56"/>
-        <image name="bg_numbbox_login.png" width="48" height="56"/>
         <image name="bg_yearbox_login.png" width="68" height="56"/>
         <image name="button_tickoff.png" width="15" height="13"/>
-        <image name="button_tickoff.png" width="15" height="13"/>
-        <image name="button_tickon.png" width="15" height="13"/>
-        <image name="button_tickon.png" width="15" height="13"/>
-        <image name="button_tickon.png" width="15" height="13"/>
         <image name="button_tickon.png" width="15" height="13"/>
         <image name="line_comment.png" width="257" height="1"/>
     </resources>

@@ -9,13 +9,15 @@
 #import "RegisterViewController.h"
 #import "AvatarViewController.h"
 #import "AuthorizationViewController.h"
+#import <GoogleOpenSource/GoogleOpenSource.h>
+#import "GooglePlusManager.h"
 
-@interface RegisterViewController ()<AvatarControllerDelegate>
+@interface RegisterViewController ()<AvatarControllerDelegate,GPPSignInDelegate>
 
 @end
 
 @implementation RegisterViewController
-@synthesize authorizationController;
+@synthesize authorizationController,delegate;
 
 - (id)init
 {
@@ -26,10 +28,109 @@
     return self;
 }
 
+-(NSArray *)registerNotifications
+{
+    return @[NOTIFICATION_FACEBOOK_LOGIN_SUCCESS];
+}
+
+-(void)receiveNotification:(NSNotification *)notification
+{
+    if([notification.name isEqualToString:NOTIFICATION_FACEBOOK_LOGIN_SUCCESS])
+    {
+        [authorizationController.view showLoading];
+        
+        _operationFBGetProfile=[[OperationFBGetProfile alloc] initWithAccessToken:[[FBSession activeSession] accessTokenData].accessToken];
+        _operationFBGetProfile.delegate=self;
+        
+        [_operationFBGetProfile start];
+    }
+}
+
+-(void)operationURLFinished:(OperationURL *)operation
+{
+    if([operation isKindOfClass:[OperationFBGetProfile class]])
+    {
+        OperationFBGetProfile *ope=(OperationFBGetProfile*) operation;
+        
+        if(ope.jsonData.length>0)
+        {
+            _operationUploadSocialProfile=[[ASIOperationUploadSocialProfile alloc] initWithProfile:[ope.jsonData copy] socialType:SOCIAL_FACEBOOK accessToken:[FBSession activeSession].accessTokenData.accessToken];
+            _operationUploadSocialProfile.delegatePost=self;
+            
+            [_operationUploadSocialProfile startAsynchronous];
+        }
+        else
+            [authorizationController.view removeLoading];
+        
+        _operationFBGetProfile=nil;
+    }
+    else if([operation isKindOfClass:[OperationGPGetUserProfile class]])
+    {
+        OperationGPGetUserProfile *ope=(OperationGPGetUserProfile*) operation;
+        
+        if(ope.jsonData.length>0)
+        {
+            _operationUploadSocialProfile=[[ASIOperationUploadSocialProfile alloc] initWithProfile:[ope.jsonData copy] socialType:SOCIAL_GOOGLEPLUS accessToken:[GooglePlusManager shareInstance].authentication.accessToken];
+            _operationUploadSocialProfile.delegatePost=self;
+            
+            [_operationUploadSocialProfile startAsynchronous];
+        }
+        else
+            [authorizationController.view removeLoading];
+        
+        _operationGPGetUserProfile=nil;
+    }
+}
+
+-(void)operationURLFailed:(OperationURL *)operation
+{
+    if([operation isKindOfClass:[OperationFBGetProfile class]])
+    {
+        [authorizationController.view removeLoading];
+        
+        _operationFBGetProfile=nil;
+    }
+    else if([operation isKindOfClass:[OperationGPGetUserProfile class]])
+    {
+        [authorizationController.view removeLoading];
+        
+        _operationGPGetUserProfile=nil;
+    }
+}
+
+-(void)ASIOperaionPostFinished:(ASIOperationPost *)operation
+{
+    if([operation isKindOfClass:[ASIOperationUploadSocialProfile class]])
+    {
+        [authorizationController.view removeLoading];
+        
+        ASIOperationUploadSocialProfile *ope=(ASIOperationUploadSocialProfile*) operation;
+        
+        if(ope.status==1)
+        {
+            [self.delegate registerControllerFinished:self];
+        }
+        
+        _operationUploadSocialProfile=nil;
+    }
+}
+
+-(void)ASIOperaionPostFailed:(ASIOperationPost *)operation
+{
+    if([operation isKindOfClass:[ASIOperationUploadSocialProfile class]])
+    {
+        [authorizationController.view removeLoading];
+        
+        _operationUploadSocialProfile=nil;
+    }
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+
+    _registerInfo=[RegisterInfo new];
     
     RegisterInfoStep1ViewController *vc=[RegisterInfoStep1ViewController new];
     vc.delegate=self;
@@ -52,7 +153,7 @@
         AvatarViewController *vc=(AvatarViewController*)controller;
         
         _avatars=[vc.avatars mutableCopy];
-        _avatarImage=vc.avatarImage;
+        _registerInfo.avatarImage=vc.avatarImage;
     }
 }
 
@@ -71,26 +172,28 @@
     
     if(registerStep2)
     {
-        if(registerStep2.dob.length==0)
+        if(_registerInfo.birthday.length==0)
         {
             [AlertView showAlertOKWithTitle:nil withMessage:@"Bạn phải chọn ngày sinh" onOK:^{
                 [registerStep2 showDOBPicker];
             }];
             return;
         }
-        if(registerStep2.gender==GENDER_NONE)
+        if(_registerInfo.gender==GENDER_NONE)
         {
             [AlertView showAlertOKWithTitle:nil withMessage:@"Bạn phải chọn giới tính" onOK:nil];
             return;
         }
         
-        
+        [self.delegate registerControllerFinished:self];
     }
     else
     {
         bool byPass=true;
         
-        if(!byPass && (registerStep1.avatar.length==0 && !registerStep1.avatarImage))
+        _registerInfo.name=registerStep1.name;
+        
+        if(!byPass && (_registerInfo.name.length==0 && !_registerInfo.selectedAvatar))
         {
             [AlertView showAlertOKWithTitle:nil withMessage:@"Bạn phải chọn avatar" onOK:^{
                 [self showAvatarController];
@@ -99,7 +202,7 @@
             return;
         }
         
-        if(!byPass && registerStep1.name.length==0)
+        if(!byPass && _registerInfo.name.length==0)
         {
             [AlertView showAlertOKWithTitle:nil withMessage:@"Bạn phải nhập tên" onOK:^{
                 [registerStep1 focusName];
@@ -131,36 +234,61 @@
 
 -(void) showAvatarController
 {
-    AvatarViewController *vc=[[AvatarViewController alloc] initWithAvatars:_avatars avatarImage:_avatarImage];
+    AvatarViewController *vc=[[AvatarViewController alloc] initWithAvatars:_avatars avatarImage:_registerInfo.avatarImage];
     vc.delegate=self;
     
-    if(_selectedAvatar)
-        [vc setSelectedAvatar:_selectedAvatar];
+    //Không có selectedAvatarImage vì index 0 là hình user đã chọn từ device
+    
+    if(_registerInfo.avatar)
+        [vc setSelectedAvatar:_registerInfo.avatar];
     
     [self.navigationController pushViewController:vc animated:true];
 }
 
 - (IBAction)btnFacebookTouchUpInside:(id)sender {
+    [[FacebookManager shareInstance] login];
 }
 
 - (IBAction)btnGooglePlusTouchUpInside:(id)sender {
+    GPPSignIn *gp = [GPPSignIn sharedInstance];
+    gp.clientID=kClientId;
+    gp.scopes=@[kGTLAuthScopePlusLogin,kGTLAuthScopePlusMe];
+    gp.delegate=self;
+    gp.shouldFetchGooglePlusUser=true;
+    gp.shouldFetchGoogleUserEmail=true;
+    
+    if(![gp trySilentAuthentication])
+        [gp authenticate];
+}
+
+-(void)finishedWithAuth:(GTMOAuth2Authentication *)auth error:(NSError *)error
+{
+    if(!error)
+    {
+        [self.authorizationController.view showLoading];
+        
+        [GooglePlusManager shareInstance].authentication=auth;
+        _operationGPGetUserProfile=[[OperationGPGetUserProfile alloc] initWithAccessToken:auth.accessToken clientID:kClientId];
+        _operationGPGetUserProfile.delegate=self;
+        
+        [_operationGPGetUserProfile start];
+    }
 }
 
 -(void)avatarControllerTouched:(AvatarViewController *)controller avatar:(NSString *)avatar avatarImage:(UIImage *)avatarImage
 {
-    _avatars=[controller.avatars mutableCopy];
-    _avatarImage=controller.avatarImage;
-    
     if(avatar.length>0)
     {
-        _selectedAvatar=[avatar copy];
-        [registerStep1 setAvatar:avatar];
+        _registerInfo.avatar=avatar;
+        _registerInfo.selectedAvatar=nil;
     }
     else
     {
-        _selectedAvatar=@"";
-        [registerStep1 setAvatarImage:avatarImage];
+        _registerInfo.avatar=@"";
+        _registerInfo.selectedAvatar=avatarImage;
     }
+    
+    [registerStep1 loadData];
     
     [self.navigationController popViewControllerAnimated:true];
 }
@@ -168,6 +296,29 @@
 -(UIButton *)buttonNext
 {
     return btnConfirm;
+}
+
+-(RegisterInfo *)registerInfo
+{
+    return _registerInfo;
+}
+
+@end
+
+@implementation RegisterInfo
+@synthesize avatar,avatarImage,birthday,gender,name,selectedDate,selectedAvatar;
+
+- (id)init
+{
+    self = [super init];
+    if (self) {
+        avatarImage=nil;
+        avatar=@"";
+        birthday=@"";
+        gender=GENDER_NONE;
+        name=@"";
+    }
+    return self;
 }
 
 @end

@@ -20,22 +20,14 @@
 {
     __weak IBOutlet UIButton *btnAvatar;
     __weak IBOutlet UITextField *txt;
-    NSString *_avatar;
-    UIImage *_avatarImage;
     __weak IBOutlet UIButton *btnSelectAvatar;
     __weak IBOutlet UIButton *btnName;
 }
 
--(NSString*) avatar;
--(UIImage*) avatarImage;
+-(void) focusName;
 -(NSString*) name;
 
--(void) setAvatar:(NSString*) avatar;
--(void) setAvatarImage:(UIImage*) avatar;
-
--(void) focusName;
-
--(void) setAvatars:(NSMutableArray*) avatars avatarImage:(UIImage*) avatarImage;
+-(void) loadData;
 
 @property (nonatomic, weak) id<RegisterInfoStep1Contorller> delegate;
 @property (nonatomic, weak) RegisterViewController *registerController;

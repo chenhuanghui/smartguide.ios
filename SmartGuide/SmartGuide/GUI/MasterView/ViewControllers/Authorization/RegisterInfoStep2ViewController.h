@@ -18,14 +18,9 @@
     __weak IBOutlet UIButton *btnMale;
     __weak IBOutlet UIButton *btnFemale;
     __weak IBOutlet UIButton *btnDOB;
-    
-    NSDate *_selectedDate;
 }
 
 -(void) showDOBPicker;
-
--(NSString*) dob;
--(enum GENDER_TYPE) gender;
 
 @property (nonatomic, weak) RegisterViewController *registerController;
 

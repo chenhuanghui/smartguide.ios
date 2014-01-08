@@ -35,6 +35,7 @@
     user.avatar=[NSString stringWithStringDefault:dict[@"avatar"]];
     user.phone=[NSString stringWithStringDefault:dict[@"phone"]];
     user.socialType=[NSNumber numberWithObject:dict[@"socialType"]];
+    user.birthday=[NSString stringWithStringDefault:dict[@"dob"]];
     
     return user;
 }
@@ -85,6 +86,7 @@
 
 -(enum USER_DATA_MODE)enumDataMode
 {
+    return USER_DATA_CREATING;
     if([self isDefaultUser])
         return USER_DATA_TRY;
     else if([self.name stringByTrimmingWhiteSpace].length==0 || [self.avatar stringByTrimmingWhiteSpace].length==0)

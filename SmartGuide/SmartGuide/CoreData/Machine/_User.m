@@ -111,6 +111,19 @@
 	[self didChangeValueForKey:@"avatar"];
 }
 
+- (NSString*)birthday {
+	[self willAccessValueForKey:@"birthday"];
+	NSString* result = (NSString*)[self primitiveValueForKey:@"birthday"];
+	[self didAccessValueForKey:@"birthday"];
+	return result;
+}
+
+- (void)setBirthday:(NSString*)value {
+	[self willChangeValueForKey:@"birthday"];
+	[self setPrimitiveValue:value forKey:@"birthday"];
+	[self didChangeValueForKey:@"birthday"];
+}
+
 - (NSString*)cover {
 	[self willAccessValueForKey:@"cover"];
 	NSString* result = (NSString*)[self primitiveValueForKey:@"cover"];

@@ -32,6 +32,16 @@
 				<string>fb1391698407719065</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>com.redbase.smartguide</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.redbase.smartguide</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>1.2.1</string>

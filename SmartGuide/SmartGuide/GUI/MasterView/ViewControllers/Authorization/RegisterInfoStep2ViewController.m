@@ -29,6 +29,21 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    if(registerController.registerInfo.gender==GENDER_MALE)
+        [self male];
+    else if(registerController.registerInfo.gender==GENDER_FEMALE)
+        [self female];
+    
+    if(registerController.registerInfo.selectedDate)
+        [self settingBirthday:registerController.registerInfo.selectedDate];
+}
+
+-(void) settingBirthday:(NSDate*) date
+{
+    txtDay.text=[NSString stringWithFormat:@"%02i",date.day];
+    txtMonth.text=[NSString stringWithFormat:@"%02i",date.month];
+    txtYear.text=[NSString stringWithFormat:@"%i",date.year];
 }
 
 - (void)didReceiveMemoryWarning
@@ -37,38 +52,31 @@
     // Dispose of any resources that can be recreated.
 }
 
--(NSString *)dob
-{
-    if(_selectedDate)
-        return [_selectedDate stringValueWithFormat:@"dd/MM/yyyy"];
-    
-    return @"";
-}
-
--(enum GENDER_TYPE)gender
-{
-    if(btnMale.tag==1)
-        return GENDER_MALE;
-    if(btnFemale.tag==1)
-        return GENDER_FEMALE;
-    
-    return GENDER_NONE;
-}
-
 - (IBAction)btnMaleTouchUpInside:(id)sender {
+    [self male];
+}
+
+-(void) male
+{
     btnMale.tag=1;
     btnFemale.tag=0;
+    registerController.registerInfo.gender=GENDER_MALE;
     
     [self settingGender];
 }
 
 - (IBAction)btnFemaleTouchUpInside:(id)sender {
+    [self female];
+}
+
+-(void) female
+{
     btnMale.tag=0;
     btnFemale.tag=1;
+    registerController.registerInfo.gender=GENDER_FEMALE;
     
     [self settingGender];
 }
-
 
 -(void) settingGender
 {
@@ -117,8 +125,8 @@
     datePicker.datePickerMode=UIDatePickerModeDate;
     datePicker.locale=[NSLocale localeWithLocaleIdentifier:@"vi-vn"];
  
-    if(_selectedDate)
-        datePicker.date=_selectedDate;
+    if(registerController.registerInfo.selectedDate)
+        datePicker.date=registerController.registerInfo.selectedDate;
     
     [self.view alphaViewWithColor:[UIColor darkGrayColor]];
     
@@ -139,11 +147,13 @@
     btnDOB.hidden=true;
     
     UIDatePicker *datePicker=self.view.alphaView.subviews[0];
-    _selectedDate=datePicker.date;
     
-    txtDay.text=[NSString stringWithFormat:@"%02i",_selectedDate.day];
-    txtMonth.text=[NSString stringWithFormat:@"%02i",_selectedDate.month];
-    txtYear.text=[NSString stringWithFormat:@"%i",_selectedDate.year];
+    NSDate *date=datePicker.date;
+    registerController.registerInfo.selectedDate=date;
+    
+    [self settingBirthday:date];
+    
+    registerController.registerInfo.birthday=[date stringValueWithFormat:@"dd/MM/yyyy"];
     
     [self.registerController buttonNext].hidden=false;
     [self.view removeAlphaView];

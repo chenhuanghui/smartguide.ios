@@ -55,6 +55,11 @@
     authorNavi=navi;
 }
 
+-(void)registerControllerFinished:(RegisterViewController *)controller
+{
+    [self.delegate authorizationSuccessed];
+}
+
 -(void)userLoginSuccessed
 {
     if(currentUser().enumDataMode==USER_DATA_CREATING)

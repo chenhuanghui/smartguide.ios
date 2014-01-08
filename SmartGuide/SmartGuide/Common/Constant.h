@@ -24,6 +24,8 @@
 #define FACEBOOK_APPID @"1391698407719065"
 #define FACEBOOK_GET_PROFILE @"https://graph.facebook.com/me/"
 
+static NSString * const kClientId = @"816218358288-msr055u6pvnlqep605ri3lu8tt5ev8u7.apps.googleusercontent.com";
+
 #define BUILD_MODE 0
 //0: developer
 //1: production
@@ -93,6 +95,8 @@
 #define API_ELASTIC_AUTOCOMPLETE @"elastic/autocomplete"
 #define API_ELASTIC_AUTOCOMPLETE_NATIVE @"http://116.251.210.100:9200/data/_search"
 #define API_USER_PROFILE @"user/profile"
+#define API_USER_UPDATE_PROFILE @"user/updateProfile"
+#define API_USER_UPLOAD_SOCIAL_PROFILE @"user/uploadSocialProfile"
 
 #define API_GET_ACTIVE_CODE @"user/activation"
 #define API_USER_CHECK @"user/check_v2"

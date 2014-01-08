@@ -10,10 +10,23 @@
 #import "SGNavigationController.h"
 #import "RegisterInfoStep1ViewController.h"
 #import "RegisterInfoStep2ViewController.h"
+#import "FacebookManager.h"
+#import "OperationFBGetProfile.h"
+#import "OperationGPGetUserProfile.h"
+#import "ASIOperationUploadSocialProfile.h"
+#import <GooglePlus/GooglePlus.h>
 
 @class AuthorizationViewController;
+@class RegisterViewController;
+@class RegisterInfo;
 
-@interface RegisterViewController : SGViewController<RegisterInfoStep1Contorller>
+@protocol RegisterControllerDelegate <SGViewControllerDelegate>
+
+-(void) registerControllerFinished:(RegisterViewController*) controller;
+
+@end
+
+@interface RegisterViewController : SGViewController<RegisterInfoStep1Contorller,OperationURLDelegate,ASIOperationPostDelegate>
 {
     __weak IBOutlet UIButton *btnAvatar;
     __weak IBOutlet UIButton *btnConfirm;
@@ -28,13 +41,32 @@
     __weak RegisterInfoStep1ViewController *registerStep1;
     __weak RegisterInfoStep2ViewController *registerStep2;
     
+    RegisterInfo *_registerInfo;
+    
+    OperationFBGetProfile *_operationFBGetProfile;
+    OperationGPGetUserProfile *_operationGPGetUserProfile;
+    ASIOperationUploadSocialProfile *_operationUploadSocialProfile;
+    
     NSMutableArray *_avatars;
-    UIImage *_avatarImage;
-    NSString *_selectedAvatar;
 }
 
 -(UIButton*) buttonNext;
 
+-(RegisterInfo*) registerInfo;
+
 @property (nonatomic, weak) AuthorizationViewController *authorizationController;
+@property (nonatomic, weak) id<RegisterControllerDelegate> delegate;
+
+@end
+
+@interface RegisterInfo : NSObject
+
+@property (nonatomic, strong) NSString *avatar;
+@property (nonatomic, strong) UIImage *avatarImage;
+@property (nonatomic, strong) UIImage *selectedAvatar;
+@property (nonatomic, strong) NSString *name;
+@property (nonatomic, strong) NSString *birthday;
+@property (nonatomic, assign) enum GENDER_TYPE gender;
+@property (nonatomic, strong) NSDate *selectedDate;
 
 @end

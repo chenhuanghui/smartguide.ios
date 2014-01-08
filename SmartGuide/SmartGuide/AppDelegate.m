@@ -63,6 +63,13 @@
 
 -(BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
+    bool googlePlusHandle=[GPPURLHandler handleURL:url
+           sourceApplication:sourceApplication
+                  annotation:annotation];
+    
+    if(googlePlusHandle)
+        return true;
+    
     return [FacebookManager handleOpenURL:url sourceApplication:sourceApplication annotation:annotation];
 }
 
