@@ -979,6 +979,7 @@
 		9A2F8D171855C0860024AE1A /* UIView+GMGridViewAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+GMGridViewAdditions.m"; sourceTree = "<group>"; };
 		9A313AB118430B1A002DDA80 /* SGTableTemplate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGTableTemplate.h; sourceTree = "<group>"; };
 		9A313AB218430B1A002DDA80 /* SGTableTemplate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGTableTemplate.m; sourceTree = "<group>"; };
+		9A32D662187D988E00987F26 /* PhuongConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhuongConfig.h; sourceTree = "<group>"; };
 		9A32F377184345AE00704D26 /* AuthorizationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthorizationViewController.h; sourceTree = "<group>"; };
 		9A32F378184345AE00704D26 /* AuthorizationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthorizationViewController.m; sourceTree = "<group>"; };
 		9A32F379184345AE00704D26 /* AuthorizationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AuthorizationViewController.xib; sourceTree = "<group>"; };
@@ -3296,6 +3297,7 @@
 		A9819845178D02520009FCB6 = {
 			isa = PBXGroup;
 			children = (
+				9A32D662187D988E00987F26 /* PhuongConfig.h */,
 				A9819857178D02530009FCB6 /* SmartGuide */,
 				A9819850178D02530009FCB6 /* Frameworks */,
 				A981984F178D02530009FCB6 /* Products */,

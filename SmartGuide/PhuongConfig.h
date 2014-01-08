@@ -1,0 +1,2 @@
+
+#define TEST_KHONG_NHAP_SO_DIEN_THOAI 1
