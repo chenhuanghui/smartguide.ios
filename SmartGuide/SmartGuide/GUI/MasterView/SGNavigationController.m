@@ -7,6 +7,7 @@
 //
 
 #import "SGNavigationController.h"
+#import "SGViewController.h"
 
 #define SLIDE_POSITION_X 274.f
 
@@ -89,6 +90,7 @@ CATransition* transitionPushFromRight()
 @synthesize isAllowDragBackPreviouseView;
 @synthesize panPrevious,panPreviousStartPoint;
 @synthesize panSlide,tapSlide,panSlideStartPoint;
+@synthesize lblTitle;
 
 -(SGNavigationController *)initWithViewControllers:(NSArray *)controllers
 {
@@ -109,6 +111,8 @@ CATransition* transitionPushFromRight()
 -(void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.delegate=self;
     
     while (_controllers.count>0) {
         [self pushViewController:_controllers[0] animated:false];
@@ -138,8 +142,6 @@ CATransition* transitionPushFromRight()
 
 -(void)setRootViewController:(UIViewController *)viewController animate:(bool)animate
 {
-    self.delegate=self;
-    
     __block __weak SGNavigationController *weakSelf=self;
     _onPushedViewController=nil;
     _onPushedViewController=^(UIViewController*vc)
@@ -163,6 +165,12 @@ CATransition* transitionPushFromRight()
     for(SGViewController *vc in self.viewControllers)
     {
         [vc navigationController:self willPopController:(SGViewController*)self.visibleViewController];
+    }
+    
+    if(animated)
+    {
+        [self.view.layer addAnimation:transitionPushFromLeft() forKey:nil];
+        return [super popViewControllerAnimated:false];
     }
         
     return [super popViewControllerAnimated:animated];
@@ -641,6 +649,13 @@ CALL_DEALLOC_LOG
 
 -(void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated
 {
+    if(animated)
+    {
+        [self.view.layer addAnimation:transitionPushFromRight() forKey:nil];
+        [super pushViewController:viewController animated:false];
+        return;
+    }
+    
     viewController.wantsFullScreenLayout=true;
     [super pushViewController:viewController animated:animated];
 }
@@ -782,13 +797,13 @@ CALL_DEALLOC_LOG
     }];
 }
 
--(void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated transition:(CATransition *)transition
+-(void)pushViewController:(UIViewController *)viewController withTransition:(CATransition *)transition
 {
     [self.view.layer addAnimation:transition forKey:nil];
     [self pushViewController:viewController animated:false];
 }
 
--(UIViewController *)popViewControllerAnimated:(BOOL)animated transition:(CATransition *)transition
+-(UIViewController *)popViewControllerWithTransition:(CATransition *)transition
 {
     [self.view.layer addAnimation:transition forKey:nil];
     
@@ -806,6 +821,27 @@ CALL_DEALLOC_LOG
     self.viewControllers=array;
     
     [self pushViewController:viewController animated:animate];
+}
+
+-(void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated
+{
+    if(lblTitle)
+        lblTitle.text=viewController.title;
+}
+
+-(void)setLblTitle:(UILabel *)_lblTitle
+{
+    lblTitle=_lblTitle;
+    
+    if(lblTitle)
+        lblTitle.text=self.visibleViewController.title;
+}
+
+-(void)setDelegate:(id<UINavigationControllerDelegate>)delegate
+{
+    NSAssert(delegate==self, @"SGNavigation set delegate must be owner");
+    
+    [super setDelegate:delegate];
 }
 
 @end

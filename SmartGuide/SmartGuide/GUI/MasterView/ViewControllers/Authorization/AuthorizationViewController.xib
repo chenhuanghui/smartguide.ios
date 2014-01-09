@@ -9,6 +9,7 @@
             <connections>
                 <outlet property="btnBack" destination="3bG-IJ-mbl" id="8Ze-TJ-LQY"/>
                 <outlet property="containView" destination="rYJ-6J-Wwk" id="zgt-uj-s1O"/>
+                <outlet property="lblTitle" destination="G6P-1q-8jp" id="wX8-uy-j4r"/>
                 <outlet property="view" destination="1" id="3"/>
             </connections>
         </placeholder>
@@ -34,6 +35,13 @@
                                 <action selector="btnBackTouchUpInside:" destination="-1" eventType="touchUpInside" id="GUz-vy-ceq"/>
                             </connections>
                         </button>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="G6P-1q-8jp">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="54"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="17"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                     </subviews>
                     <color key="backgroundColor" red="0.22352941176470587" green="0.21568627450980393" blue="0.20784313725490194" alpha="1" colorSpace="calibratedRGB"/>
                 </view>

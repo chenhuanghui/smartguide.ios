@@ -201,7 +201,6 @@
         AvatarViewController *vc=(AvatarViewController*)controller;
         
         _avatars=[vc.avatars mutableCopy];
-        _registerInfo.avatarImage=vc.avatarImage;
     }
 }
 
@@ -253,7 +252,7 @@
 
 -(void) showAvatarController
 {
-    AvatarViewController *vc=[[AvatarViewController alloc] initWithAvatars:_avatars avatarImage:_registerInfo.avatarImage];
+    AvatarViewController *vc=[[AvatarViewController alloc] initWithAvatars:_avatars avatarImage:_registerInfo.selectedAvatar];
     vc.delegate=self;
     
     //Không có selectedAvatarImage vì index 0 là hình user đã chọn từ device
@@ -338,7 +337,7 @@
     [self removeDatePicker];
     
     self.view.userInteractionEnabled=false;
-    [registerNavi popViewControllerAnimated:true transition:transitionPushFromLeft()];
+    [registerNavi popViewControllerAnimated:true];
     
     [self settingButtonStep];
     
@@ -429,7 +428,7 @@
     
     [self settingButtonStep];
     
-    [registerNavi pushViewController:vc animated:true transition:transitionPushFromRight()];
+    [registerNavi pushViewController:vc animated:true];
     
     self.view.userInteractionEnabled=false;
     [UIView animateWithDuration:DURATION_NAVIGATION_PUSH animations:^{
@@ -519,16 +518,20 @@
         _isShowedDatePicker=false;
 }
 
+-(NSString *)title
+{
+    return @"Tạo tài khoản";
+}
+
 @end
 
 @implementation RegisterInfo
-@synthesize avatar,avatarImage,birthday,gender,name,selectedDate,selectedAvatar;
+@synthesize avatar,birthday,gender,name,selectedDate,selectedAvatar;
 
 - (id)init
 {
     self = [super init];
     if (self) {
-        avatarImage=nil;
         avatar=@"";
         birthday=@"";
         gender=GENDER_NONE;

@@ -46,10 +46,11 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    UILabel *lbl=[[UILabel alloc] initWithFrame:CGRectMake(0, 0, 65, txtPhone.l_v_h)];
+    UILabel *lbl=[[UILabel alloc] initWithFrame:CGRectMake(0, 0, 70, txtPhone.l_v_h)];
     lbl.backgroundColor=[UIColor clearColor];
     lbl.textColor=txtPhone.textColor;
     lbl.font=txtPhone.font;
+    lbl.textAlignment=NSTextAlignmentCenter;
     
     lbl.text=@"(+84)";
     
@@ -241,6 +242,11 @@
     [super viewDidUnload];
     
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(setCountdown) object:nil];
+}
+
+-(NSString *)title
+{
+    return @"Đăng nhập";
 }
 
 @end

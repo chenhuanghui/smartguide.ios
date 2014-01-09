@@ -98,7 +98,7 @@ static GUIManager *_shareInstance=nil;
 
 -(void)SGLoadingFinished:(SGLoadingScreenViewController *)loadingScreen
 {
-    [self.rootNavigation popViewControllerAnimated:true transition:transitionPushFromRight()];
+    [self.rootNavigation popViewControllerWithTransition:transitionPushFromRight()];
 }
 
 -(void)welcomeControllerTouchedLogin:(WelcomeViewController *)viewController
@@ -471,7 +471,7 @@ static GUIManager *_shareInstance=nil;
     author.delegate=self;
     
     if(transition)
-        [self.rootNavigation pushViewController:author animated:true transition:transition];
+        [self.rootNavigation pushViewController:author withTransition:transition];
     else
         [self.rootNavigation pushViewController:author animated:true];
 }

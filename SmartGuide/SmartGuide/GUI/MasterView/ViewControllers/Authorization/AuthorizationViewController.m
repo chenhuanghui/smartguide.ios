@@ -47,10 +47,14 @@
         navi=[[SGNavigationController alloc] initWithRootViewController:vc];
     }
     
+    navi.lblTitle=lblTitle;
+    
     [self addChildViewController:navi];
     [containView addSubview:navi.view];
     
     [navi.view l_v_setS:containView.l_v_s];
+    
+    
     
     authorNavi=navi;
 }
@@ -74,16 +78,6 @@
         [self.delegate authorizationSuccessed];
         [self.navigationController popViewControllerAnimated:true];
     }
-    
-//    if(!user.isConnectedFacebook.boolValue && [user.name stringByRemoveString:@" ",nil].length==0)
-//    {
-//        UserFacebookViewController *vc=[[UserFacebookViewController alloc] init];
-//        vc.delegate=self;
-//        
-//        [self pushViewController:vc animated:true];
-//    }
-//    else
-//        [self.delegate authorizationSuccessed];
 }
 
 -(void)userLoginCancelled
@@ -107,11 +101,11 @@
     {
         SGNavigationController *navi=(SGNavigationController*) self.navigationController;
         
-        [navi popViewControllerAnimated:true transition:transitionPushFromBottom()];
+        [navi popViewControllerWithTransition:transitionPushFromBottom()];
     }
     else
     {
-        [authorNavi popViewControllerAnimated:true transition:transitionPushFromLeft()];
+        [authorNavi popViewControllerAnimated:true];
     }
 }
 

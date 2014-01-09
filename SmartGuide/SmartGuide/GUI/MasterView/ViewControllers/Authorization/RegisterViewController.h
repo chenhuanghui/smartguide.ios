@@ -73,7 +73,6 @@
 @interface RegisterInfo : NSObject
 
 @property (nonatomic, strong) NSString *avatar;
-@property (nonatomic, strong) UIImage *avatarImage;
 @property (nonatomic, strong) UIImage *selectedAvatar;
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSString *birthday;

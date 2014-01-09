@@ -27,6 +27,7 @@
     __weak SGNavigationController *authorNavi;
     __weak IBOutlet UIView *containView;
     __weak IBOutlet UIButton *btnBack;
+    __weak IBOutlet UILabel *lblTitle;
 }
 
 -(UIButton*) buttonBack;

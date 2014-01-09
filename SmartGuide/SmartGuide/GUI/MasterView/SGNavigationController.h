@@ -42,8 +42,8 @@ CATransition* transitionPushFromRight();
 -(SGNavigationController*) initWithViewControllers:(NSArray*) controllers;
 
 -(void) makePushViewController:(UIViewController*)viewController animate:(bool) animate;
--(void) pushViewController:(UIViewController *)viewController animated:(BOOL)animated transition:(CATransition*) transition;
--(UIViewController *)popViewControllerAnimated:(BOOL)animated transition:(CATransition*) transition;
+-(void) pushViewController:(UIViewController *)viewController withTransition:(CATransition*) transition;
+-(UIViewController *)popViewControllerWithTransition:(CATransition*) transition;
 
 
 -(void) setRootViewController:(UIViewController*) viewController animate:(bool) animate;
@@ -60,6 +60,7 @@ CATransition* transitionPushFromRight();
 @property (nonatomic, weak, readonly) UIViewController *previousViewController;
 @property (nonatomic, assign) bool isAllowDragBackPreviouseView;
 @property (nonatomic, weak) UIPanGestureRecognizer *panPrevious;
+@property (nonatomic, weak) UILabel *lblTitle;
 
 @end
 

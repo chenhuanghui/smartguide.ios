@@ -53,6 +53,7 @@
     grid.itemSpacing=0;
     
     grid.dataSource=self;
+    grid.actionDelegate=self;
     
     if(_selectedIndex!=NSNotFound)
     {
@@ -125,8 +126,6 @@
 }
 
 - (IBAction)btnConfirmTouchUpInside:(id)sender {
-    
-    
     
     CGPoint pnt=CGPointMake(self.l_v_w/2+grid.l_co_x, grid.l_v_h/2);
     int index=[grid.layoutStrategy itemPositionFromLocation:pnt];
@@ -204,6 +203,49 @@
         index+=(_avatarImage?1:0);
     
     _selectedIndex=index;
+}
+
+-(void)GMGridView:(GMGridView *)gridView didTapOnItemAtIndex:(NSInteger)position
+{
+    int centerIndex=[self centerItem];
+    if(position!=centerIndex)
+    {
+        [gridView scrollToObjectAtIndex:position atScrollPosition:GMGridViewScrollPositionTop animated:true];
+    }
+    else
+    {
+        CGPoint pnt=CGPointMake(self.l_v_w/2+grid.l_co_x, grid.l_v_h/2);
+        int index=[grid.layoutStrategy itemPositionFromLocation:pnt];
+        
+        if(_avatarImage)
+        {
+            if(index==0)
+            {
+                [self.delegate avatarControllerTouched:self avatar:@"" avatarImage:_avatarImage];
+            }
+            else
+            {
+                [self.delegate avatarControllerTouched:self avatar:_avatars[index-1] avatarImage:nil];
+            }
+        }
+        else
+            [self.delegate avatarControllerTouched:self avatar:_avatars[index] avatarImage:nil];
+        
+        _avatarImage=nil;
+    }
+}
+
+-(int) centerItem
+{
+    CGPoint pnt=CGPointMake(self.l_v_w/2+grid.l_co_x, grid.l_v_h/2);
+    int index=[grid.layoutStrategy itemPositionFromLocation:pnt];
+    
+    return index;
+}
+
+-(NSString *)title
+{
+    return @"Avatar";
 }
 
 @end

@@ -19,7 +19,7 @@
 
 @end
 
-@interface AvatarViewController : SGViewController<GMGridViewDataSource,ASIOperationPostDelegate>
+@interface AvatarViewController : SGViewController<GMGridViewDataSource,ASIOperationPostDelegate,GMGridViewActionDelegate>
 {
     __weak IBOutlet UIButton *btnUpPhoto;
     __weak IBOutlet UIButton *btnConfirm;
@@ -39,7 +39,6 @@
 
 -(AvatarViewController*) initWithAvatars:(NSMutableArray*) avatars avatarImage:(UIImage*) avatarImage;
 -(NSMutableArray*) avatars;
--(UIImage*) avatarImage;
 
 -(void) setSelectedAvatar:(NSString*) selectedAvatar;
 
