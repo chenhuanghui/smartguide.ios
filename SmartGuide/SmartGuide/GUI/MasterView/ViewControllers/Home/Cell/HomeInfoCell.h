@@ -22,7 +22,7 @@
     __weak IBOutlet UIImageView *imgvLogo;
     __weak IBOutlet UILabel *lblName;
     __weak IBOutlet UILabel *lblDate;
-    __weak IBOutlet UILabel *lblTitle;
+    __weak IBOutlet LabelTopText *lblTitle;
     __weak IBOutlet LabelTopText *lblContent;
     __weak IBOutlet UIImageView *imgvCover;
     __weak IBOutlet UIButton *btnGoTo;
@@ -47,6 +47,7 @@
     UIImage *imgLeft;
     UIImage *imgMid;
     UIImage *imgRight;
+    UIImage *imgIcon;
 }
 
 @end

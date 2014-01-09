@@ -26,6 +26,7 @@
     store.condition=[NSString stringWithStringDefault:dict[@"condition"]];
     store.conditionPair=[NSString stringWithStringDefault:dict[@"highlightKeywords"]];
     store.total=[NSString stringWithStringDefault:dict[@"total"]];
+    store.logo=[NSString stringWithStringDefault:dict[@"logo"]];
     
     for(NSDictionary *dictItem in dict[@"latestItems"])
     {

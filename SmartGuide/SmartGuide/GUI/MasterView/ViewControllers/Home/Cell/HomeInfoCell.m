@@ -29,6 +29,12 @@
     
     if(home.gotoshop.length>0)
         [btnGoTo setTitle:home.gotoshop forState:UIControlStateNormal];
+    
+//    [btnGoTo setTitle:@"Đến cửa hàng ngay" forState:UIControlStateNormal];
+    
+    [self makeButtonSize];
+    
+    
 }
 
 -(void)loadWithHome7:(UserHome7 *)home
@@ -47,6 +53,20 @@
     
     if(home.gotostore.length>0)
         [btnGoTo setTitle:home.gotostore forState:UIControlStateNormal];
+    
+//    [btnGoTo setTitle:@"Đến cửa hàng ngay" forState:UIControlStateNormal];
+    
+    [self makeButtonSize];
+
+    [lblContent l_v_setY:174+home.titleHeight];
+}
+
+-(void) makeButtonSize
+{
+    float width=[[btnGoTo titleForState:UIControlStateNormal] sizeWithFont:btnGoTo.titleLabel.font constrainedToSize:CGSizeMake(295, 44) lineBreakMode:btnGoTo.titleLabel.lineBreakMode].width+50;
+    
+    [btnGoTo l_v_setW:width];
+    [btnGoTo l_c_setX:self.l_v_w/2];
 }
 
 +(float)heightWithHome6:(UserHome6 *)home
@@ -59,8 +79,25 @@
 
 +(float)heightWithHome7:(UserHome7 *)home
 {
+    float height=273;
+    
+    home.titleHeight=[home.title sizeWithFont:[UIFont fontWithName:@"Avenir-Heavy" size:13] constrainedToSize:CGSizeMake(275, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height-30;
+    
+    height+=home.titleHeight;
+    
+    home.contentHeight=[home.content sizeWithFont:[UIFont fontWithName:@"Avenir-Roman" size:13] constrainedToSize:CGSizeMake(265, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height+30-15;
+    
+    height+=home.contentHeight;
+    
+    return height;
+}
+
++(float) heightWithTitle:(NSString*) title content:(NSString*) content
+{
     float height=242;
-    height+=[home.content sizeWithFont:[UIFont fontWithName:@"Avenir-Roman" size:13] constrainedToSize:CGSizeMake(257, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height-10;
+    
+    height+=[title sizeWithFont:[UIFont fontWithName:@"Avenir-Heavy" size:13] constrainedToSize:CGSizeMake(284, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height;
+    height+=[title sizeWithFont:[UIFont fontWithName:@"Avenir-Roman" size:13] constrainedToSize:CGSizeMake(257, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height;
     
     return height;
 }
@@ -94,11 +131,13 @@
         imgLeft=[UIImage imageNamed:@"button_green_left_home.png"];
         imgMid=[UIImage imageNamed:@"button_green_mid_home.png"];
         imgRight=[UIImage imageNamed:@"button_green_right_home.png"];
+        imgIcon=[UIImage imageNamed:@"icon_go.png"];
     }
     
     [imgLeft drawAtPoint:CGPointZero];
     [imgMid drawAsPatternInRect:CGRectMake(imgLeft.size.width, 0, rect.size.width-imgLeft.size.width-imgRight.size.width, rect.size.height)];
     [imgRight drawAtPoint:CGPointMake(rect.size.width-imgRight.size.width, 0)];
+    [imgIcon drawAtPoint:CGPointMake(rect.size.width-imgRight.size.width-imgIcon.size.width/2, (rect.size.height-imgIcon.size.height)/2)];
 }
 
 @end

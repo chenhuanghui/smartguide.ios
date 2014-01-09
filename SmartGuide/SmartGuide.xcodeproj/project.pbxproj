@@ -124,8 +124,6 @@
 		9A2F8D181855C0860024AE1A /* UIGestureRecognizer+GMGridViewAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A2F8D151855C0860024AE1A /* UIGestureRecognizer+GMGridViewAdditions.m */; };
 		9A2F8D191855C0860024AE1A /* UIView+GMGridViewAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A2F8D171855C0860024AE1A /* UIView+GMGridViewAdditions.m */; };
 		9A313AB318430B1A002DDA80 /* SGTableTemplate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A313AB218430B1A002DDA80 /* SGTableTemplate.m */; };
-		9A32D667187D99F800987F26 /* icon_back.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A32D665187D99F800987F26 /* icon_back.png */; };
-		9A32D668187D99F800987F26 /* icon_back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A32D666187D99F800987F26 /* icon_back@2x.png */; };
 		9A32F3CD184345AE00704D26 /* AuthorizationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A32F378184345AE00704D26 /* AuthorizationViewController.m */; };
 		9A32F3CE184345AE00704D26 /* AuthorizationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A32F379184345AE00704D26 /* AuthorizationViewController.xib */; };
 		9A32F3D5184345AE00704D26 /* UserLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A32F384184345AE00704D26 /* UserLoginViewController.m */; };
@@ -399,6 +397,8 @@
 		9A9DB999187BA7C400091602 /* RegisterInfoStep2ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A9DB997187BA7C400091602 /* RegisterInfoStep2ViewController.xib */; };
 		9A9DB99C187BABDF00091602 /* I-4-RegisterType_Step1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9A9DB99A187BABDF00091602 /* I-4-RegisterType_Step1.jpg */; };
 		9A9DB99D187BABDF00091602 /* I-4-RegisterType_Step2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9A9DB99B187BABDF00091602 /* I-4-RegisterType_Step2.jpg */; };
+		9A9DCD30187EFA660041882B /* icon_back.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A9DCD2E187EFA660041882B /* icon_back.png */; };
+		9A9DCD31187EFA660041882B /* icon_back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A9DCD2F187EFA660041882B /* icon_back@2x.png */; };
 		9A9ED306187D06D00081A16E /* GooglePlusManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A9ED305187D06D00081A16E /* GooglePlusManager.m */; };
 		9A9ED30E187D09890081A16E /* OperationFBGetProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A9ED30A187D09890081A16E /* OperationFBGetProfile.m */; };
 		9A9ED30F187D09890081A16E /* OperationGPGetUserProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A9ED30D187D09890081A16E /* OperationGPGetUserProfile.m */; };
@@ -988,8 +988,6 @@
 		9A313AB118430B1A002DDA80 /* SGTableTemplate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGTableTemplate.h; sourceTree = "<group>"; };
 		9A313AB218430B1A002DDA80 /* SGTableTemplate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGTableTemplate.m; sourceTree = "<group>"; };
 		9A32D662187D988E00987F26 /* PhuongConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhuongConfig.h; sourceTree = "<group>"; };
-		9A32D665187D99F800987F26 /* icon_back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon_back.png; path = Temp/icon_back.png; sourceTree = "<group>"; };
-		9A32D666187D99F800987F26 /* icon_back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon_back@2x.png"; path = "Temp/icon_back@2x.png"; sourceTree = "<group>"; };
 		9A32F377184345AE00704D26 /* AuthorizationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthorizationViewController.h; sourceTree = "<group>"; };
 		9A32F378184345AE00704D26 /* AuthorizationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthorizationViewController.m; sourceTree = "<group>"; };
 		9A32F379184345AE00704D26 /* AuthorizationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AuthorizationViewController.xib; sourceTree = "<group>"; };
@@ -1345,6 +1343,8 @@
 		9A9DB997187BA7C400091602 /* RegisterInfoStep2ViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RegisterInfoStep2ViewController.xib; sourceTree = "<group>"; };
 		9A9DB99A187BABDF00091602 /* I-4-RegisterType_Step1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "I-4-RegisterType_Step1.jpg"; sourceTree = "<group>"; };
 		9A9DB99B187BABDF00091602 /* I-4-RegisterType_Step2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "I-4-RegisterType_Step2.jpg"; sourceTree = "<group>"; };
+		9A9DCD2E187EFA660041882B /* icon_back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_back.png; sourceTree = "<group>"; };
+		9A9DCD2F187EFA660041882B /* icon_back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_back@2x.png"; sourceTree = "<group>"; };
 		9A9ED304187D06D00081A16E /* GooglePlusManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GooglePlusManager.h; sourceTree = "<group>"; };
 		9A9ED305187D06D00081A16E /* GooglePlusManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GooglePlusManager.m; sourceTree = "<group>"; };
 		9A9ED309187D09890081A16E /* OperationFBGetProfile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OperationFBGetProfile.h; sourceTree = "<group>"; };
@@ -3460,14 +3460,14 @@
 		A98198BE178D44FB0009FCB6 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				9A9DCD2E187EFA660041882B /* icon_back.png */,
+				9A9DCD2F187EFA660041882B /* icon_back@2x.png */,
 				9A9BDEE2187E94AD00D45167 /* bg_blurradio_home.png */,
 				9A9BDEE3187E94AD00D45167 /* bg_blurradio_home@2x.png */,
 				9A9BDEDA187E8E3A00D45167 /* button_arrow_left_home.png */,
 				9A9BDEDB187E8E3A00D45167 /* button_arrow_left_home@2x.png */,
 				9A9BDEDC187E8E3A00D45167 /* button_arrow_right_home.png */,
 				9A9BDEDD187E8E3A00D45167 /* button_arrow_right_home@2x.png */,
-				9A32D665187D99F800987F26 /* icon_back.png */,
-				9A32D666187D99F800987F26 /* icon_back@2x.png */,
 				9A9FCBB71854ED8C004A3CFB /* Temp */,
 				9A9DB979187BA42700091602 /* bg_numbbox_login.png */,
 				9A9DB97A187BA42700091602 /* bg_yearbox_login.png */,
@@ -4081,7 +4081,6 @@
 				9ACAEDA21872B6150025B027 /* II-3-Detail-Promtion2.jpg in Resources */,
 				9AC5380918684490009A000B /* bg_detail_info_header@2x.png in Resources */,
 				A91A675D1797F65000BEB8C5 /* human.m.motemplate in Resources */,
-				9A32D667187D99F800987F26 /* icon_back.png in Resources */,
 				9AC4941618585B000042C535 /* IV-4-Cart-Money.jpg in Resources */,
 				9A8653C118780E5400A60BF1 /* II-6-ScanAlert-Lack.jpg in Resources */,
 				A91A675E1797F65000BEB8C5 /* machine.h.motemplate in Resources */,
@@ -4110,6 +4109,7 @@
 				9A2F8CC4185569470024AE1A /* bg_sort@2x.png in Resources */,
 				9ACFAE7418621D10006131DC /* button_flashcamera.png in Resources */,
 				9A9FCBEE1854ED8C004A3CFB /* II-3-Detail-Comment.jpg in Resources */,
+				9A9DCD31187EFA660041882B /* icon_back@2x.png in Resources */,
 				9ACFAE7918621D10006131DC /* button_rotatecamera@2x.png in Resources */,
 				9A3B93F4185DFDAE004F94A4 /* StoreAdsCell.xib in Resources */,
 				9A9FCBA81854DC50004A3CFB /* frame_hor_store@2x.png in Resources */,
@@ -4138,6 +4138,7 @@
 				9AA026CF183674CF0087B2DA /* button_scan.png in Resources */,
 				9AA026D4183674CF0087B2DA /* icon_heartslide@2x.png in Resources */,
 				9A85B7481846FE17009FD108 /* icon_location@2x.png in Resources */,
+				9A9DCD30187EFA660041882B /* icon_back.png in Resources */,
 				9A3986BF185B6DF4006C0961 /* icon_store_navigation@2x.png in Resources */,
 				9ACAEDA61872B6150025B027 /* II-3-Detail-UserPhoto-threepic.jpg in Resources */,
 				9AC5380A18684490009A000B /* bg_detail_info_mid@2x.png in Resources */,
@@ -4252,7 +4253,6 @@
 				9A8653E41878609A00A60BF1 /* I-1-FlashScreen.jpg in Resources */,
 				9A9DB99C187BABDF00091602 /* I-4-RegisterType_Step1.jpg in Resources */,
 				9A9FCBE11854ED8C004A3CFB /* ava.png in Resources */,
-				9A32D668187D99F800987F26 /* icon_back@2x.png in Resources */,
 				9A7E55C0183D00F9006D1798 /* button_arrow@2x.png in Resources */,
 				9A85B73B1846ECB2009FD108 /* button_location.png in Resources */,
 				9ACF4F461859C0ED00D98BA7 /* cover_blur@2x.png in Resources */,

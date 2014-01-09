@@ -54,7 +54,7 @@
     [tableFeed registerNib:[UINib nibWithNibName:[HomeListCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[HomeListCell reuseIdentifier]];
     [tableFeed registerNib:[UINib nibWithNibName:[HomeInfoCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[HomeInfoCell reuseIdentifier]];
     
-    _page=0;
+    _page=1;
 //    _page=1;
     _homes=[NSMutableArray array];
     _isLoadingMore=false;
