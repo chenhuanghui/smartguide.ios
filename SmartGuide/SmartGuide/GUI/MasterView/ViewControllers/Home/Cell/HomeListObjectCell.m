@@ -14,7 +14,7 @@
 
 -(void)setImage:(NSString *)url title:(NSString *)title numOfShop:(NSString *)numOfShop content:(NSString *)content
 {
-    [imgv loadImageHomeWithURL:url];
+    [imgv loadImageHomeListWithURL:url];
     lblTitle.text=title;
     lblContent.text=content;
     lblNumOfShop.text=numOfShop;

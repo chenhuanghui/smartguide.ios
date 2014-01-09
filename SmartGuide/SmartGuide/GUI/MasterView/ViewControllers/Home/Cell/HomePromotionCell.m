@@ -25,29 +25,24 @@
     lbl.text=home.content;
 }
 
--(void)alignContent
-{
-    float height=MAX(self.l_v_h-10,53-NEW_FEED_CELL_SPACING);
-    
-    [bg l_v_setH:height];
-}
-
 +(float)heightWithHome1:(UserHome1 *)home
 {
-    UIFont *font=[UIFont fontWithName:@"Avenir-Roman" size:13];
-    float height=6;
-    height+=[home.content sizeWithFont:font constrainedToSize:CGSizeMake(202, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height+15;
+    return [HomePromotionCell heightWithContent:home.content];
+}
+
++(float) heightWithContent:(NSString*) content
+{
+    float height=61;
+    height+=[content sizeWithFont:[UIFont fontWithName:@"Avenir-Roman" size:13] constrainedToSize:CGSizeMake(202, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height-35;
     
-    return MAX(height,53+NEW_FEED_CELL_SPACING);
+    height=MAX(61,height);
+    
+    return height;
 }
 
 +(float)heightWithHome8:(UserHome8 *)home
 {
-    UIFont *font=[UIFont fontWithName:@"Avenir-Roman" size:13];
-    float height=6;
-    height+=[home.content sizeWithFont:font constrainedToSize:CGSizeMake(202, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height+15;
-    
-    return MAX(height,53+NEW_FEED_CELL_SPACING);
+    return [HomePromotionCell heightWithContent:home.content];
 }
 
 +(NSString *)reuseIdentifier

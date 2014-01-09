@@ -34,6 +34,7 @@ enum NEW_FEED_LIST_DISPLAY_MODE {
     __weak IBOutlet UITableView *tablePlace;
     __weak IBOutlet UITableView *tableSlide;
     __weak IBOutlet UIButton *btnNext;
+    __weak IBOutlet UIButton *btnPrevious;
     __weak IBOutlet PageControlNext *pageControl;
     __weak IBOutlet UIView *bgView;
     

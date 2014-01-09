@@ -7,18 +7,19 @@
 {
     UserHome5 *home=[UserHome5 insert];
     
-    home.store=[StoreShop makeWithDictionary:dict[@"storeInfo"]];
+    NSDictionary *dictStore=dict[@"storeInfo"];
+    
+    if(![dictStore isNullData])
+    {
+        home.store=[StoreShop makeWithDictionary:dictStore];
+        home.storeName=[NSString stringWithStringDefault:dictStore[@"storeName"]];
+    }
     
     home.numOfPurchase=[NSString stringWithStringDefault:dict[@"numOfPurchase"]];
     home.content=[NSString stringWithStringDefault:dict[@"content"]];
     home.cover=[NSString stringWithStringDefault:dict[@"cover"]];
-    
-    return home;
-}
 
--(NSString *)storeName
-{
-    return self.store.storeName;
+    return home;
 }
 
 @end

@@ -9,6 +9,7 @@
 #define UserHome5_Cover @"cover"
 #define UserHome5_NumOfPurchase @"numOfPurchase"
 #define UserHome5_SortOrder @"sortOrder"
+#define UserHome5_StoreName @"storeName"
 
 @class UserHome5;
 @class UserHome;
@@ -29,6 +30,7 @@
 @property (nonatomic, retain) NSString* cover;
 @property (nonatomic, retain) NSString* numOfPurchase;
 @property (nonatomic, retain) NSNumber* sortOrder;
+@property (nonatomic, retain) NSString* storeName;
 
 #pragma mark Fetched property
 

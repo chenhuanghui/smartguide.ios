@@ -8,7 +8,7 @@
     UserHome7 *home=[UserHome7 insert];
     
     home.store=[StoreShop makeWithDictionary:dict[@"storeInfo"]];
-    
+
     home.date=[NSString stringWithStringDefault:dict[@"date"]];
     home.cover=[NSString stringWithStringDefault:dict[@"cover"]];
     home.title=[NSString stringWithStringDefault:dict[@"title"]];

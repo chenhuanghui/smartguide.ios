@@ -77,13 +77,31 @@
 #pragma mark Relationships
 
 #pragma mark Home4
-@property (nonatomic, retain) UserHome4* home4;
+- (NSSet*) home4;
+- (NSArray*) home4Objects;
+- (void) addHome4:(NSSet*)value;
+- (void) removeHome4:(NSSet*)value;
+- (void) addHome4Object:(UserHome4*)value;
+- (void) removeHome4Object:(UserHome4*)value;
+- (void) removeAllHome4;
 
 #pragma mark Home6
-@property (nonatomic, retain) UserHome6* home6;
+- (NSSet*) home6;
+- (NSArray*) home6Objects;
+- (void) addHome6:(NSSet*)value;
+- (void) removeHome6:(NSSet*)value;
+- (void) addHome6Object:(UserHome6*)value;
+- (void) removeHome6Object:(UserHome6*)value;
+- (void) removeAllHome6;
 
 #pragma mark Home8
-@property (nonatomic, retain) UserHome8* home8;
+- (NSSet*) home8;
+- (NSArray*) home8Objects;
+- (void) addHome8:(NSSet*)value;
+- (void) removeHome8:(NSSet*)value;
+- (void) addHome8Object:(UserHome8*)value;
+- (void) removeHome8Object:(UserHome8*)value;
+- (void) removeAllHome8;
 
 #pragma mark Km1
 @property (nonatomic, retain) ShopKM1* km1;

@@ -102,9 +102,6 @@
                     <nil key="simulatedDestinationMetrics"/>
                 </viewController>
             </viewControllers>
-            <connections>
-                <outlet property="delegate" destination="-1" id="u4O-v6-6DU"/>
-            </connections>
         </navigationController>
     </objects>
     <resources>

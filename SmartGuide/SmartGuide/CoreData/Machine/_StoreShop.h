@@ -48,10 +48,22 @@
 #pragma mark Relationships
 
 #pragma mark Home5
-@property (nonatomic, retain) UserHome5* home5;
+- (NSSet*) home5;
+- (NSArray*) home5Objects;
+- (void) addHome5:(NSSet*)value;
+- (void) removeHome5:(NSSet*)value;
+- (void) addHome5Object:(UserHome5*)value;
+- (void) removeHome5Object:(UserHome5*)value;
+- (void) removeAllHome5;
 
 #pragma mark Home7
-@property (nonatomic, retain) UserHome7* home7;
+- (NSSet*) home7;
+- (NSArray*) home7Objects;
+- (void) addHome7:(NSSet*)value;
+- (void) removeHome7:(NSSet*)value;
+- (void) addHome7Object:(UserHome7*)value;
+- (void) removeHome7Object:(UserHome7*)value;
+- (void) removeAllHome7;
 
 #pragma mark LatestItems
 - (NSSet*) latestItems;

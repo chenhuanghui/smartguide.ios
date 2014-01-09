@@ -111,17 +111,33 @@
     bgView.layer.masksToBounds=true;
 }
 
--(IBAction) btnNextTouchUpInside:(id)sender
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [self.delegate homeListTouched:self];
-    return;
-    NSIndexPath *indexPath=[tablePlace indexPathForRowAtPoint:CGPointMake(self.l_v_h/2, tablePlace.l_co_y+self.l_v_w/2)];
+}
+
+-(IBAction) btnNextTouchUpInside:(id)sender
+{
+    NSIndexPath *indexPath=[tablePlace indexPathForRowAtPoint:CGPointMake(tablePlace.l_v_w/2, tablePlace.l_co_y+self.l_v_w/2)];
     
     if(indexPath)
     {
         if(indexPath.row+1<[tablePlace numberOfRowsInSection:indexPath.section])
         {
             indexPath=[NSIndexPath indexPathForRow:indexPath.row+1 inSection:indexPath.section];
+            [tablePlace scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionNone animated:true];
+        }
+    }
+}
+
+- (IBAction)btnPreviousTouchUpInside:(id)sender {
+    NSIndexPath *indexPath=[tablePlace indexPathForRowAtPoint:CGPointMake(tablePlace.l_v_w/2, tablePlace.l_co_y+self.l_v_w/2)];
+    
+    if(indexPath)
+    {
+        if(indexPath.row-1<[tablePlace numberOfRowsInSection:indexPath.section])
+        {
+            indexPath=[NSIndexPath indexPathForRow:indexPath.row-1 inSection:indexPath.section];
             [tablePlace scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionNone animated:true];
         }
     }
@@ -174,7 +190,7 @@
             case NEW_FEED_LIST_DATA_HOME3:
             {
                 UserHome3 *home=_homes[indexPath.row];
-                [cell setImage:home.cover title:home.place.title numOfShop:home.numOfShop content:home.content];
+                [cell setImage:home.cover title:home.title numOfShop:home.numOfShop content:home.content];
                 
                 return cell;
             }

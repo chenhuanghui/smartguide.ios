@@ -20,17 +20,24 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Ney-Bf-iDE">
-                    <rect key="frame" x="0.0" y="50" width="320" height="380"/>
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="430"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <inset key="contentInset" minX="0.0" minY="66" maxX="0.0" maxY="0.0"/>
+                    <inset key="scrollIndicatorInsets" minX="0.0" minY="66" maxX="0.0" maxY="0.0"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="P0R-JT-9Eu"/>
                         <outlet property="delegate" destination="-1" id="zAG-3c-5qO"/>
                     </connections>
                 </tableView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background_blur.png" id="kyh-BN-7R3">
+                    <rect key="frame" x="0.0" y="-25" width="320" height="91"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                </imageView>
                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Tìm kiếm khuyến mãi" minimumFontSize="17" background="search_field.png" id="Zxr-rq-3wh">
                     <rect key="frame" x="52" y="10" width="225" height="32"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits"/>
                     <connections>
@@ -49,7 +56,7 @@
                     </connections>
                 </button>
                 <view userInteractionEnabled="NO" contentMode="scaleToFill" id="Qvy-Tv-IgG">
-                    <rect key="frame" x="0.0" y="50" width="320" height="380"/>
+                    <rect key="frame" x="0.0" y="92" width="320" height="338"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
@@ -81,11 +88,12 @@
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
             </subviews>
-            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+            <color key="backgroundColor" red="0.21960785984992981" green="0.21568629145622253" blue="0.20784315466880798" alpha="1" colorSpace="deviceRGB"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
         </view>
     </objects>
     <resources>
+        <image name="background_blur.png" width="320" height="91"/>
         <image name="background_scan.png" width="320" height="56"/>
         <image name="button_navigation.png" width="25" height="20"/>
         <image name="button_scan.png" width="125" height="24"/>

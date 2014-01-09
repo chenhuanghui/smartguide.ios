@@ -44,7 +44,13 @@
 #pragma mark Relationships
 
 #pragma mark Home3
-@property (nonatomic, retain) UserHome3* home3;
+- (NSSet*) home3;
+- (NSArray*) home3Objects;
+- (void) addHome3:(NSSet*)value;
+- (void) removeHome3:(NSSet*)value;
+- (void) addHome3Object:(UserHome3*)value;
+- (void) removeHome3Object:(UserHome3*)value;
+- (void) removeAllHome3;
 
 #pragma mark ShopsList
 - (NSSet*) shopsList;

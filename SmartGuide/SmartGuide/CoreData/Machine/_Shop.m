@@ -21,15 +21,12 @@
 @implementation _Shop
 
 
-@dynamic home4;
 
 
 
-@dynamic home6;
 
 
 
-@dynamic home8;
 
 
 
@@ -399,25 +396,205 @@
 #pragma mark Relationships
     
 #pragma mark Home4
-- (UserHome4*)home4 {
+- (NSSet*)home4 {
 	[self willAccessValueForKey:@"home4"];
-	UserHome4 *result = [self primitiveValueForKey:@"home4"];
+	NSSet *result = [self primitiveValueForKey:@"home4"];
+	[self didAccessValueForKey:@"home4"];
+	return result;
+}
+
+-(NSArray*) home4Objects
+{
+    NSSet *set=[self home4];
+    if(set)
+        return [set allObjects];
+    
+    return [NSArray array];
+}
+
+- (void)setHome4:(NSSet*)value {
+	[self willChangeValueForKey:@"home4" withSetMutation:NSKeyValueSetSetMutation usingObjects:value];
+	[[self primitiveValueForKey:@"home4"] setSet:value];
+	[self didChangeValueForKey:@"home4" withSetMutation:NSKeyValueSetSetMutation usingObjects:value];
+}
+
+- (void)addHome4:(NSSet*)value {
+	[self willChangeValueForKey:@"home4" withSetMutation:NSKeyValueUnionSetMutation usingObjects:value];
+	[[self primitiveValueForKey:@"home4"] unionSet:value];
+	[self didChangeValueForKey:@"home4" withSetMutation:NSKeyValueUnionSetMutation usingObjects:value];
+}
+
+-(void)removeHome4:(NSSet*)value {
+
+    for(NSManagedObject *obj in value.allObjects)
+        [self.managedObjectContext deleteObject:obj];
+
+	[self willChangeValueForKey:@"home4" withSetMutation:NSKeyValueMinusSetMutation usingObjects:value];
+	[[self primitiveValueForKey:@"home4"] minusSet:value];
+	[self didChangeValueForKey:@"home4" withSetMutation:NSKeyValueMinusSetMutation usingObjects:value];
+}
+	
+- (void)addHome4Object:(UserHome4*)value {
+	NSSet *changedObjects = [[NSSet alloc] initWithObjects:&value count:1];
+	[self willChangeValueForKey:@"home4" withSetMutation:NSKeyValueUnionSetMutation usingObjects:changedObjects];
+	[[self primitiveValueForKey:@"home4"] addObject:value];
+	[self didChangeValueForKey:@"home4" withSetMutation:NSKeyValueUnionSetMutation usingObjects:changedObjects];
+}
+
+- (void)removeHome4Object:(UserHome4*)value {
+
+    [self.managedObjectContext deleteObject:value];
+
+	NSSet *changedObjects = [[NSSet alloc] initWithObjects:&value count:1];
+	[self willChangeValueForKey:@"home4" withSetMutation:NSKeyValueMinusSetMutation usingObjects:changedObjects];
+	[[self primitiveValueForKey:@"home4"] removeObject:value];
+	[self didChangeValueForKey:@"home4" withSetMutation:NSKeyValueMinusSetMutation usingObjects:changedObjects];
+}
+
+- (void) removeAllHome4
+{
+    [self removeHome4:self.home4];
+}
+
+- (NSMutableSet*)home4Set {
+	[self willAccessValueForKey:@"home4"];
+	NSMutableSet *result = [self mutableSetValueForKey:@"home4"];
 	[self didAccessValueForKey:@"home4"];
 	return result;
 }
 
 #pragma mark Home6
-- (UserHome6*)home6 {
+- (NSSet*)home6 {
 	[self willAccessValueForKey:@"home6"];
-	UserHome6 *result = [self primitiveValueForKey:@"home6"];
+	NSSet *result = [self primitiveValueForKey:@"home6"];
+	[self didAccessValueForKey:@"home6"];
+	return result;
+}
+
+-(NSArray*) home6Objects
+{
+    NSSet *set=[self home6];
+    if(set)
+        return [set allObjects];
+    
+    return [NSArray array];
+}
+
+- (void)setHome6:(NSSet*)value {
+	[self willChangeValueForKey:@"home6" withSetMutation:NSKeyValueSetSetMutation usingObjects:value];
+	[[self primitiveValueForKey:@"home6"] setSet:value];
+	[self didChangeValueForKey:@"home6" withSetMutation:NSKeyValueSetSetMutation usingObjects:value];
+}
+
+- (void)addHome6:(NSSet*)value {
+	[self willChangeValueForKey:@"home6" withSetMutation:NSKeyValueUnionSetMutation usingObjects:value];
+	[[self primitiveValueForKey:@"home6"] unionSet:value];
+	[self didChangeValueForKey:@"home6" withSetMutation:NSKeyValueUnionSetMutation usingObjects:value];
+}
+
+-(void)removeHome6:(NSSet*)value {
+
+    for(NSManagedObject *obj in value.allObjects)
+        [self.managedObjectContext deleteObject:obj];
+
+	[self willChangeValueForKey:@"home6" withSetMutation:NSKeyValueMinusSetMutation usingObjects:value];
+	[[self primitiveValueForKey:@"home6"] minusSet:value];
+	[self didChangeValueForKey:@"home6" withSetMutation:NSKeyValueMinusSetMutation usingObjects:value];
+}
+	
+- (void)addHome6Object:(UserHome6*)value {
+	NSSet *changedObjects = [[NSSet alloc] initWithObjects:&value count:1];
+	[self willChangeValueForKey:@"home6" withSetMutation:NSKeyValueUnionSetMutation usingObjects:changedObjects];
+	[[self primitiveValueForKey:@"home6"] addObject:value];
+	[self didChangeValueForKey:@"home6" withSetMutation:NSKeyValueUnionSetMutation usingObjects:changedObjects];
+}
+
+- (void)removeHome6Object:(UserHome6*)value {
+
+    [self.managedObjectContext deleteObject:value];
+
+	NSSet *changedObjects = [[NSSet alloc] initWithObjects:&value count:1];
+	[self willChangeValueForKey:@"home6" withSetMutation:NSKeyValueMinusSetMutation usingObjects:changedObjects];
+	[[self primitiveValueForKey:@"home6"] removeObject:value];
+	[self didChangeValueForKey:@"home6" withSetMutation:NSKeyValueMinusSetMutation usingObjects:changedObjects];
+}
+
+- (void) removeAllHome6
+{
+    [self removeHome6:self.home6];
+}
+
+- (NSMutableSet*)home6Set {
+	[self willAccessValueForKey:@"home6"];
+	NSMutableSet *result = [self mutableSetValueForKey:@"home6"];
 	[self didAccessValueForKey:@"home6"];
 	return result;
 }
 
 #pragma mark Home8
-- (UserHome8*)home8 {
+- (NSSet*)home8 {
 	[self willAccessValueForKey:@"home8"];
-	UserHome8 *result = [self primitiveValueForKey:@"home8"];
+	NSSet *result = [self primitiveValueForKey:@"home8"];
+	[self didAccessValueForKey:@"home8"];
+	return result;
+}
+
+-(NSArray*) home8Objects
+{
+    NSSet *set=[self home8];
+    if(set)
+        return [set allObjects];
+    
+    return [NSArray array];
+}
+
+- (void)setHome8:(NSSet*)value {
+	[self willChangeValueForKey:@"home8" withSetMutation:NSKeyValueSetSetMutation usingObjects:value];
+	[[self primitiveValueForKey:@"home8"] setSet:value];
+	[self didChangeValueForKey:@"home8" withSetMutation:NSKeyValueSetSetMutation usingObjects:value];
+}
+
+- (void)addHome8:(NSSet*)value {
+	[self willChangeValueForKey:@"home8" withSetMutation:NSKeyValueUnionSetMutation usingObjects:value];
+	[[self primitiveValueForKey:@"home8"] unionSet:value];
+	[self didChangeValueForKey:@"home8" withSetMutation:NSKeyValueUnionSetMutation usingObjects:value];
+}
+
+-(void)removeHome8:(NSSet*)value {
+
+    for(NSManagedObject *obj in value.allObjects)
+        [self.managedObjectContext deleteObject:obj];
+
+	[self willChangeValueForKey:@"home8" withSetMutation:NSKeyValueMinusSetMutation usingObjects:value];
+	[[self primitiveValueForKey:@"home8"] minusSet:value];
+	[self didChangeValueForKey:@"home8" withSetMutation:NSKeyValueMinusSetMutation usingObjects:value];
+}
+	
+- (void)addHome8Object:(UserHome8*)value {
+	NSSet *changedObjects = [[NSSet alloc] initWithObjects:&value count:1];
+	[self willChangeValueForKey:@"home8" withSetMutation:NSKeyValueUnionSetMutation usingObjects:changedObjects];
+	[[self primitiveValueForKey:@"home8"] addObject:value];
+	[self didChangeValueForKey:@"home8" withSetMutation:NSKeyValueUnionSetMutation usingObjects:changedObjects];
+}
+
+- (void)removeHome8Object:(UserHome8*)value {
+
+    [self.managedObjectContext deleteObject:value];
+
+	NSSet *changedObjects = [[NSSet alloc] initWithObjects:&value count:1];
+	[self willChangeValueForKey:@"home8" withSetMutation:NSKeyValueMinusSetMutation usingObjects:changedObjects];
+	[[self primitiveValueForKey:@"home8"] removeObject:value];
+	[self didChangeValueForKey:@"home8" withSetMutation:NSKeyValueMinusSetMutation usingObjects:changedObjects];
+}
+
+- (void) removeAllHome8
+{
+    [self removeHome8:self.home8];
+}
+
+- (NSMutableSet*)home8Set {
+	[self willAccessValueForKey:@"home8"];
+	NSMutableSet *result = [self mutableSetValueForKey:@"home8"];
 	[self didAccessValueForKey:@"home8"];
 	return result;
 }

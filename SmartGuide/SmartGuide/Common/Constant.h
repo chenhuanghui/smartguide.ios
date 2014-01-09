@@ -153,7 +153,7 @@ static NSString * const kClientId = @"816218358288-msr055u6pvnlqep605ri3lu8tt5ev
 #define QRCODE_RAY_HEIGHT 7
 #define STORE_RAY_HEIGHT 7
 
-#define NEW_FEED_CELL_SPACING 10
+#define NEW_FEED_CELL_SPACING 15
 
 #define DURATION_DEFAULT 0.3f
 #define DURATION_NAVIGATION_PUSH 0.35f

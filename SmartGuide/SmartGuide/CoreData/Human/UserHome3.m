@@ -9,6 +9,8 @@
     UserHome3 *home=[UserHome3 insert];
     
     home.place=[Placelist makeWithDictionary:dict];
+    
+    home.title=[NSString stringWithStringDefault:dict[@"title"]];
     home.content=[NSString stringWithStringDefault:dict[@"content"]];
     home.cover=[NSString stringWithStringDefault:dict[@"cover"]];
     home.numOfShop=[NSString stringWithStringDefault:dict[@"numOfShop"]];

@@ -12,7 +12,6 @@
 @implementation _Placelist
 
 
-@dynamic home3;
 
 
 
@@ -201,9 +200,69 @@
 #pragma mark Relationships
     
 #pragma mark Home3
-- (UserHome3*)home3 {
+- (NSSet*)home3 {
 	[self willAccessValueForKey:@"home3"];
-	UserHome3 *result = [self primitiveValueForKey:@"home3"];
+	NSSet *result = [self primitiveValueForKey:@"home3"];
+	[self didAccessValueForKey:@"home3"];
+	return result;
+}
+
+-(NSArray*) home3Objects
+{
+    NSSet *set=[self home3];
+    if(set)
+        return [set allObjects];
+    
+    return [NSArray array];
+}
+
+- (void)setHome3:(NSSet*)value {
+	[self willChangeValueForKey:@"home3" withSetMutation:NSKeyValueSetSetMutation usingObjects:value];
+	[[self primitiveValueForKey:@"home3"] setSet:value];
+	[self didChangeValueForKey:@"home3" withSetMutation:NSKeyValueSetSetMutation usingObjects:value];
+}
+
+- (void)addHome3:(NSSet*)value {
+	[self willChangeValueForKey:@"home3" withSetMutation:NSKeyValueUnionSetMutation usingObjects:value];
+	[[self primitiveValueForKey:@"home3"] unionSet:value];
+	[self didChangeValueForKey:@"home3" withSetMutation:NSKeyValueUnionSetMutation usingObjects:value];
+}
+
+-(void)removeHome3:(NSSet*)value {
+
+    for(NSManagedObject *obj in value.allObjects)
+        [self.managedObjectContext deleteObject:obj];
+
+	[self willChangeValueForKey:@"home3" withSetMutation:NSKeyValueMinusSetMutation usingObjects:value];
+	[[self primitiveValueForKey:@"home3"] minusSet:value];
+	[self didChangeValueForKey:@"home3" withSetMutation:NSKeyValueMinusSetMutation usingObjects:value];
+}
+	
+- (void)addHome3Object:(UserHome3*)value {
+	NSSet *changedObjects = [[NSSet alloc] initWithObjects:&value count:1];
+	[self willChangeValueForKey:@"home3" withSetMutation:NSKeyValueUnionSetMutation usingObjects:changedObjects];
+	[[self primitiveValueForKey:@"home3"] addObject:value];
+	[self didChangeValueForKey:@"home3" withSetMutation:NSKeyValueUnionSetMutation usingObjects:changedObjects];
+}
+
+- (void)removeHome3Object:(UserHome3*)value {
+
+    [self.managedObjectContext deleteObject:value];
+
+	NSSet *changedObjects = [[NSSet alloc] initWithObjects:&value count:1];
+	[self willChangeValueForKey:@"home3" withSetMutation:NSKeyValueMinusSetMutation usingObjects:changedObjects];
+	[[self primitiveValueForKey:@"home3"] removeObject:value];
+	[self didChangeValueForKey:@"home3" withSetMutation:NSKeyValueMinusSetMutation usingObjects:changedObjects];
+}
+
+- (void) removeAllHome3
+{
+    [self removeHome3:self.home3];
+}
+
+- (NSMutableSet*)home3Set {
+	[self willAccessValueForKey:@"home3"];
+	NSMutableSet *result = [self mutableSetValueForKey:@"home3"];
 	[self didAccessValueForKey:@"home3"];
 	return result;
 }
