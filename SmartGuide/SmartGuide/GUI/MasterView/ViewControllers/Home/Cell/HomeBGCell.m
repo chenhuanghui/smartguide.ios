@@ -14,7 +14,7 @@
 
 -(void)drawRect:(CGRect)rect
 {
-    [super drawRect:rect];
+//    [super drawRect:rect];
     
     if(!imgMid)
     {
@@ -23,7 +23,7 @@
         imgBottom=[UIImage imageNamed:@"bg_feed_bottom_home.png"];
     }
     
-    [imgTop drawAtPoint:CGPointZero];
+    [imgTop drawInRect:CGRectMake(0, 0, imgTop.size.width, imgTop.size.height)];
     [imgBottom drawAtPoint:CGPointMake(0, rect.size.height-imgTop.size.height)];
     
     rect.origin.y=imgTop.size.height;
@@ -31,6 +31,14 @@
     rect.size.height-=(imgTop.size.height+imgBottom.size.height-1);
     
     [imgMid drawAsPatternInRect:rect];
+}
+
+-(id)initWithCoder:(NSCoder *)aDecoder
+{
+    self=[super initWithCoder:aDecoder];
+    self.contentMode=UIViewContentModeRedraw;
+    
+    return self;
 }
 
 @end
