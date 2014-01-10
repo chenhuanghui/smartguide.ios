@@ -110,13 +110,6 @@
     [self.delegate homeInfoCellTouchedGoTo:_home6?_home6:_home7];
 }
 
--(void)awakeFromNib
-{
-    [super awakeFromNib];
-    
-    imgvCover.transform=CGAffineTransformMakeScale(0.99f, 1);
-}
-
 @end
 
 @implementation ButtonGoTo
