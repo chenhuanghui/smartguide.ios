@@ -48,9 +48,25 @@
     [icon setImage:[UIImage imageNamed:@"ava.png"]];
 }
 
--(void)setIsLastCell:(bool)isLastCell
+-(void)setCellType:(enum SEARCH_SHOP_CELL_TYPE)cellType
 {
-    line.hidden=isLastCell;
+    switch (cellType) {
+        case SEARCH_SHOP_CELL_FIRST:
+            lineTop.hidden=true;
+            lineBottom.hidden=false;
+            break;
+            
+        case SEARCH_SHOP_CELL_MID:
+            lineTop.hidden=false;
+            lineBottom.hidden=false;
+            break;
+            
+        case SEARCH_SHOP_CELL_LAST:
+            lineTop.hidden=false;
+            lineBottom.hidden=true;
+            break;
+
+    }
 }
 
 -(id)value
@@ -96,7 +112,7 @@
 
 +(float)height
 {
-    return 35;
+    return 36;
 }
 
 @end

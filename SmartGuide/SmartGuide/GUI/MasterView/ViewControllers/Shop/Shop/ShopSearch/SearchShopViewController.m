@@ -96,7 +96,7 @@
 //        rect.size.height-=4;
         
         SearchShopBGView *bg=[[SearchShopBGView alloc] initWithFrame:rect];
-
+        
         [table insertSubview:bg atIndex:0];
         
         bg1=bg;
@@ -111,10 +111,8 @@
             rect.origin.y+=[table rectForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]].size.height;
             rect.size.height-=[table rectForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]].size.height;
             
-//            rect.size.height-=4;
-            
             SearchShopBGView *bg=[[SearchShopBGView alloc] initWithFrame:rect];
-
+            
             [table insertSubview:bg atIndex:0];
             
             bg2=bg;
@@ -266,7 +264,13 @@
                 SearchShopCell *cell=[tableView dequeueReusableCellWithIdentifier:[SearchShopCell reuseIdentifier]];
                 
                 [cell loadWithDataAutocompleteShop:[self shopsForKeyword:_searchDisplayKey][indexPath.row-1]];
-                [cell setIsLastCell:indexPath.row==[table numberOfRowsInSection:indexPath.section]-1];
+                
+                if(indexPath.row==1)
+                    [cell setCellType:SEARCH_SHOP_CELL_FIRST];
+                else if(indexPath.row==[tableView numberOfRowsInSection:indexPath.section]-1)
+                    [cell setCellType:SEARCH_SHOP_CELL_LAST];
+                else
+                    [cell setCellType:SEARCH_SHOP_CELL_MID];
                 
                 return cell;
             }
@@ -285,7 +289,13 @@
                 SearchShopCell *cell=[tableView dequeueReusableCellWithIdentifier:[SearchShopCell reuseIdentifier]];
                 
                 [cell loadWithDataAutocompletePlace:[self placelistsForKeyword:_searchDisplayKey][indexPath.row-1]];
-                [cell setIsLastCell:indexPath.row==[table numberOfRowsInSection:indexPath.section]-1];
+
+                if(indexPath.row==1)
+                    [cell setCellType:SEARCH_SHOP_CELL_FIRST];
+                else if(indexPath.row==[tableView numberOfRowsInSection:indexPath.section]-1)
+                    [cell setCellType:SEARCH_SHOP_CELL_LAST];
+                else
+                    [cell setCellType:SEARCH_SHOP_CELL_MID];
                 
                 return cell;
             }
@@ -298,7 +308,13 @@
     SearchShopCell *cell=[tableView dequeueReusableCellWithIdentifier:[SearchShopCell reuseIdentifier]];
     
     [cell loadWithPlace:_placeLists[indexPath.row]];
-    [cell setIsLastCell:indexPath.row==[table numberOfRowsInSection:indexPath.section]-1];
+
+    if(indexPath.row==0)
+        [cell setCellType:SEARCH_SHOP_CELL_FIRST];
+    else if(indexPath.row==[tableView numberOfRowsInSection:indexPath.section]-1)
+        [cell setCellType:SEARCH_SHOP_CELL_LAST];
+    else
+        [cell setCellType:SEARCH_SHOP_CELL_MID];
     
     if(indexPath.row==_placeLists.count-1)
     {
@@ -493,9 +509,9 @@
 {
     if(!imgMid)
     {
-        imgTop=[UIImage imageNamed:@"bg_feed_head_home.png"];
-        imgMid=[UIImage imageNamed:@"bg_feed_mid_home.png"];
-        imgBottom=[UIImage imageNamed:@"bg_feed_bottom_home.png"];
+        imgTop=[UIImage imageNamed:@"bg_top_search.png"];
+        imgMid=[UIImage imageNamed:@"bg_mid_search.png"];
+        imgBottom=[UIImage imageNamed:@"bg_bottom_search.png"];
     }
     
     [imgTop drawInRect:CGRectMake(0, 0, imgTop.size.width, imgTop.size.height)];

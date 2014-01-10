@@ -11,11 +11,18 @@
 #import "Placelist.h"
 #import "OperationSearchAutocomplete.h"
 
+enum SEARCH_SHOP_CELL_TYPE {
+    SEARCH_SHOP_CELL_MID = 0,
+    SEARCH_SHOP_CELL_FIRST = 1,
+    SEARCH_SHOP_CELL_LAST = 2
+    };
+
 @interface SearchShopCell : UITableViewCell
 {
     __weak IBOutlet FTCoreTextView *lbl;
     __weak IBOutlet UIImageView *icon;
-    __weak IBOutlet UIImageView *line;
+    __weak IBOutlet UIImageView *lineTop;
+    __weak IBOutlet UIImageView *lineBottom;
     
     __weak AutocompleteShop* _shop;
     __weak AutocompletePlacelist *_placeauto;
@@ -26,7 +33,7 @@
 -(void) loadWithDataAutocompletePlace:(AutocompletePlacelist*) place;
 -(void) loadWithPlace:(Placelist*) place;
 
--(void) setIsLastCell:(bool) isLastCell;
+-(void) setCellType:(enum SEARCH_SHOP_CELL_TYPE) cellType;
 
 -(id) value;
 
