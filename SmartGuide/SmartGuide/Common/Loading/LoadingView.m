@@ -8,6 +8,9 @@
 
 #import "LoadingView.h"
 #import "Utility.h"
+#import <objc/runtime.h>
+
+static char loadingViewKey;
 
 @implementation LoadingView
 
@@ -21,6 +24,8 @@
     bg.backgroundColor=[UIColor blackColor];
     bg.alpha=0.3f;
     
+    bg.autoresizingMask=UIViewAutoresizingFlexibleBottomMargin|UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin|UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleWidth;
+    
     bgView=bg;
     
     [self addSubview:bg];
@@ -33,15 +38,12 @@
     [self addSubview:indicator];
     
     indicatorView=indicator;
+
+    self.autoresizingMask=UIViewAutoresizingFlexibleBottomMargin|UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin|UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleWidth;
     
-    [view addObserver:self forKeyPath:@"frame" options:NSKeyValueObservingOptionNew context:nil];
+    [view setLoadingView:self];
     
     return self;
-}
-
--(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
-{
-    [self l_v_setS:self.superview.l_v_s];
 }
 
 -(void)didMoveToSuperview
@@ -57,9 +59,7 @@
 -(void)removeFromSuperview
 {
     [indicatorView stopAnimating];
-    
-    [self.superview removeObserver:self forKeyPath:@"frame" context:nil];
-    
+
     [super removeFromSuperview];
 }
 
@@ -73,26 +73,25 @@
     return indicatorView;
 }
 
-/*
- // Only override drawRect: if you perform custom drawing.
- // An empty implementation adversely affects performance during animation.
- - (void)drawRect:(CGRect)rect
- {
- // Drawing code
- }
- */
-
 @end
 
 @implementation UIView(Loading)
+
+-(LoadingView *)loadingView
+{
+    return objc_getAssociatedObject(self, &loadingViewKey);
+}
+
+-(void)setLoadingView:(LoadingView *)loadingView
+{
+    objc_setAssociatedObject(self, &loadingViewKey, loadingView, OBJC_ASSOCIATION_ASSIGN);
+}
 
 -(void) showLoading
 {
     for(UIView *view in self.subviews)
         if([view isKindOfClass:[LoadingView class]])
             return;
-    
-    NSLog(@"showLoading %@",NSStringFromClass([self class]));
     
     LoadingView *loading=[[LoadingView alloc] initWithView:self];
     
@@ -105,8 +104,6 @@
 
 -(void) removeLoading:(bool) animate
 {
-    NSLog(@"removeLoading %@",NSStringFromClass([self class]));
-    
     UIView *view=nil;
     
     for(view in self.subviews)
@@ -125,11 +122,13 @@
             } completion:^(BOOL finished) {
                 [view removeFromSuperview];
                 [self removeLoading:animate];
+                [self setLoadingView:nil];
             }];
         }
         else
         {
             [view removeFromSuperview];
+            [self setLoadingView:nil];
             [self removeLoading:animate];
         }
     }
@@ -138,6 +137,12 @@
 -(void)removeLoading
 {
     [self removeLoading:true];
+}
+
+-(void)showLoadingInsideFrame:(CGRect)rect
+{
+    [self showLoading];
+    self.loadingView.frame=rect;
 }
 
 @end

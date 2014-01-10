@@ -21,9 +21,11 @@
 @end
 
 @interface UIView(Loading)
+@property (nonatomic, readwrite,weak) LoadingView *loadingView;
 
 -(void) showLoading;
 -(void) removeLoading;
 -(void) removeLoading:(bool) animate;
+-(void) showLoadingInsideFrame:(CGRect) rect;
 
 @end

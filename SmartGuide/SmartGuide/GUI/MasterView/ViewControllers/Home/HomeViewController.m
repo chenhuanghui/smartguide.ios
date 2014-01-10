@@ -61,8 +61,9 @@
     _canLoadMore=true;
     
     [self requestNewFeed];
-    displayLoadingView.userInteractionEnabled=true;
+    
     [displayLoadingView showLoading];
+    displayLoadingView.loadingView.backgroundView.backgroundColor=self.view.backgroundColor;
 }
 
 -(void) requestNewFeed
@@ -85,8 +86,8 @@
     {
         if(displayLoadingView)
         {
-            [displayLoadingView removeLoading];
             [displayLoadingView removeFromSuperview];
+            displayLoadingView=nil;
         }
         
         ASIOperationUserHome *ope=(ASIOperationUserHome*) operation;
@@ -118,8 +119,8 @@
     {
         if(displayLoadingView)
         {
-            [displayLoadingView removeLoading];
             [displayLoadingView removeFromSuperview];
+            displayLoadingView=nil;
         }
         
         _operationUserHome=nil;
