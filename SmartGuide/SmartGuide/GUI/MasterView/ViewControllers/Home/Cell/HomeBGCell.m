@@ -36,6 +36,7 @@
 -(id)initWithCoder:(NSCoder *)aDecoder
 {
     self=[super initWithCoder:aDecoder];
+    
     self.contentMode=UIViewContentModeRedraw;
     
     return self;

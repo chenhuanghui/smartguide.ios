@@ -22,14 +22,14 @@
 -(void) commonInit
 {
     self.background=[UIImage imageNamed:@"button_search_home.png"];
-}
-
--(void)drawPlaceholderInRect:(CGRect)rect
-{
-    rect.origin.y=10;
     
-    [[UIColor colorWithRed:91.f/225 green:91.f/255 blue:91.f/255 alpha:1] set];
-    [self.placeholder drawInRect:rect withFont:self.font lineBreakMode:NSLineBreakByTruncatingTail alignment:NSTextAlignmentCenter];
+    self.leftView=[[UIView alloc] initWithFrame:CGRectMake(0, 0, 35, self.frame.size.height)];
+    self.leftView.backgroundColor=[UIColor clearColor];
+    self.leftViewMode=UITextFieldViewModeAlways;
+    
+    self.textAlignment=NSTextAlignmentLeft;
+    
+    self.textColor=[UIColor colorWithRed:91.f/225 green:91.f/255 blue:91.f/255 alpha:1];
 }
 
 @end

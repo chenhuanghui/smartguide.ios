@@ -7,6 +7,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HomeViewController">
             <connections>
+                <outlet property="blackView" destination="f0f-E2-pZd" id="XW6-Qz-rsb"/>
                 <outlet property="displayLoadingView" destination="Qvy-Tv-IgG" id="0IJ-xq-EXi"/>
                 <outlet property="qrView" destination="MVN-kQ-te1" id="X6K-xY-xc6"/>
                 <outlet property="tableFeed" destination="Ney-Bf-iDE" id="RhK-f1-eD4"/>
@@ -30,25 +31,21 @@
                         <outlet property="delegate" destination="-1" id="zAG-3c-5qO"/>
                     </connections>
                 </tableView>
-                <view contentMode="scaleToFill" id="sfo-Me-op7" customClass="TouchView">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="430"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    <connections>
-                        <outlet property="receiveView" destination="Ney-Bf-iDE" id="cr6-6l-rfY"/>
-                    </connections>
-                </view>
-                <view contentMode="scaleToFill" id="f0f-E2-pZd">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="5"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                </view>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="blur_top_home.png" id="YXQ-JM-K9Z">
                     <rect key="frame" x="0.0" y="5" width="320" height="58"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </imageView>
-                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Tìm Kiếm Khuyến Mãi" textAlignment="center" minimumFontSize="17" background="button_search_home.png" id="Zxr-rq-3wh" customClass="TextFieldSearch">
+                <view contentMode="scaleToFill" id="f0f-E2-pZd">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="5"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" red="0.2196078431372549" green="0.21568627450980393" blue="0.20784313725490194" alpha="1" colorSpace="deviceRGB"/>
+                </view>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="button_search_home.png" id="gzj-2R-QyM">
                     <rect key="frame" x="48" y="7" width="232" height="39"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                </imageView>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Tìm Kiếm Khuyến Mãi" minimumFontSize="17" id="Zxr-rq-3wh">
+                    <rect key="frame" x="48" y="8" width="232" height="39"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="14"/>

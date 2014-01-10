@@ -31,6 +31,7 @@
     __weak IBOutlet UIView *displayLoadingView;
     __weak IBOutlet UITableView *tableFeed;
     __weak IBOutlet UIView *qrView;
+    __weak IBOutlet UIView *blackView;
     
     ASIOperationUserHome *_operationUserHome;
     ASIOperationShopUser *_operationShopUser;

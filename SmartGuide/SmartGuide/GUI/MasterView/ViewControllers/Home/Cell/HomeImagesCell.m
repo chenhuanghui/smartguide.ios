@@ -39,6 +39,9 @@
     CGRect rect=table.frame;
     table.transform=CGAffineTransformMakeRotation(DEGREES_TO_RADIANS(45)*6);
     table.frame=rect;
+    
+    table.layer.cornerRadius=2;
+    table.layer.masksToBounds=true;
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView

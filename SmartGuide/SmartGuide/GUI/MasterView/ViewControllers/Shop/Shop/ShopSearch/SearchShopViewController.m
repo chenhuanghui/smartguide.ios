@@ -55,11 +55,6 @@
     _autocomplete=[[NSMutableDictionary alloc] init];
     
     txt.text=_keyword;
-    txt.leftView=[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_search.png"]];
-    txt.leftView.contentMode=UIViewContentModeCenter;
-    [txt.leftView l_v_setS:CGSizeMake(24, txt.l_v_h)];
-    txt.leftViewMode=UITextFieldViewModeAlways;
-    
     [txt addTarget:self action:@selector(textFieldDidChangedText:) forControlEvents:UIControlEventEditingChanged];
     
     _placeLists=[NSMutableArray array];

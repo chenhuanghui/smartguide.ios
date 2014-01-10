@@ -38,6 +38,10 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
+    txt.leftView=[[UIView alloc] initWithFrame:CGRectMake(0, 0, 35, txt.frame.size.height)];
+    txt.leftView.backgroundColor=[UIColor clearColor];
+    txt.leftViewMode=UITextFieldViewModeAlways;
+    
     [UserHome markDeleteAllObjects];
     [[DataManager shareInstance] save];
     
@@ -141,6 +145,12 @@
     }
 }
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [blackView l_v_setH:5];
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -149,7 +159,14 @@
 
 -(BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {
-    [self.delegate homeControllerTouchedTextField:self];
+    self.view.userInteractionEnabled=false;
+    
+    [UIView animateWithDuration:DURATION_DEFAULT animations:^{
+        [blackView l_v_setH:54];
+    } completion:^(BOOL finished) {
+        self.view.userInteractionEnabled=true;
+        [self.delegate homeControllerTouchedTextField:self];
+    }];
     
     return false;
 }
