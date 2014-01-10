@@ -38,6 +38,9 @@ enum SEARCH_SHOP_CELL_TYPE {
 -(id) value;
 
 +(NSString *)reuseIdentifier;
-+(float) height;
+
++(float) heightWithDataAutocompleteShop:(AutocompleteShop*) shop;
++(float) heightWithDataAutocompletePlace:(AutocompletePlacelist*) place;
++(float) heightWithPlace:(Placelist*) place;
 
 @end

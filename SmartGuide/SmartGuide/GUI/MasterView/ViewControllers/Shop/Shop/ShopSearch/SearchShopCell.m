@@ -92,7 +92,7 @@
     
     FTCoreTextStyle *style=[FTCoreTextStyle styleWithName:@"text"];
     style.font=[UIFont fontWithName:@"Avenir-Roman" size:13];
-    style.color=[UIColor colorWithRed:0.702 green:0.702 blue:0.702 alpha:1];
+    style.color=[UIColor color255WithRed:135 green:135 blue:135 alpha:255];
     style.textAlignment=FTCoreTextAlignementLeft;
     
     [lbl addStyle:style];
@@ -113,9 +113,28 @@
     return @"SearchShopCell";
 }
 
-+(float)height
++(float)heightWithContent:(NSString *)content
 {
-    return 36;
+    float height=36;
+    
+    height+=MAX(0,[content sizeWithFont:[UIFont fontWithName:@"Avenir-Roman" size:13] constrainedToSize:CGSizeMake(255, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height-25);
+    
+    return height;
+}
+
++(float)heightWithDataAutocompletePlace:(AutocompletePlacelist *)place
+{
+    return [SearchShopCell heightWithContent:place.content];
+}
+
++(float)heightWithDataAutocompleteShop:(AutocompleteShop *)shop
+{
+    return [SearchShopCell heightWithContent:shop.content];
+}
+
++(float)heightWithPlace:(Placelist *)place
+{
+    return [SearchShopCell heightWithContent:place.title];
 }
 
 @end

@@ -45,14 +45,4 @@
     }
 }
 
--(NSString *)title
-{
-    return @"Mục tiêu  trận gặp U19 .";
-}
-
--(NSString *)desc
-{
-    return @"Mục tiêu của U19 Việt Nam trong trận gặp U19 Tottenham là trình diễn lối chơi thuyết phục như ở trận ra quân với U19 AS Roma.";
-}
-
 @end

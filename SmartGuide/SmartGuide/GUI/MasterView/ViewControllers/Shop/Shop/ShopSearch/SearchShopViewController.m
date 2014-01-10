@@ -388,19 +388,36 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if(_searchDisplayKey.length>0)
-    {
-        if(indexPath.row==0)
-            return [SearchShopHeaderCell height];
-        
-        return [SearchShopCell height];
-    }
-    else
-    {
-        if(indexPath.section==0)
-            return [SearchShopPlacelistCell heightWithPlace:_placeLists[indexPath.row]];
-        else
-            return [SearchShopCell height];
+    switch ([self viewMode]) {
+        case SEARCH_SHOP_VIEW_AUTOCOMPLETE:
+        {
+            switch (indexPath.section) {
+                case 0:
+                {
+                    if(indexPath.row==0)
+                        return [SearchShopHeaderCell height];
+                    
+                    return [SearchShopCell heightWithDataAutocompleteShop:[self shopsForKeyword:_searchDisplayKey][indexPath.row-1]];
+                }
+                    
+                case 1:
+                    if(indexPath.row==0)
+                        return [SearchShopHeaderCell height];
+                    
+                    return [SearchShopCell heightWithDataAutocompletePlace:[self placelistsForKeyword:_searchDisplayKey][indexPath.row-1]];
+                    
+                default:
+                    return 0;
+            }
+        }
+            break;
+         
+        case SEARCH_SHOP_VIEW_PLACELIST:
+            if(indexPath.section==0)
+                return [SearchShopPlacelistCell heightWithPlace:_placeLists[indexPath.row]];
+            else
+                return [SearchShopCell heightWithPlace:_placeLists[indexPath.row+SEARCH_SHOP_NUMBER_OF_HIGHLIGHT_PLACE_LIST]];
+            break;
     }
 }
 
