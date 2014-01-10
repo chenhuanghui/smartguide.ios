@@ -416,35 +416,39 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return;
     [self.view endEditing:true];
     
-    if(_searchDisplayKey.length>0)
+    UITableViewCell *cell=[tableView cellForRowAtIndexPath:indexPath];
+    
+    if([cell isKindOfClass:[SearchShopCell class]])
     {
-        if(indexPath.row==0)
-            return;
+        SearchShopCell *sCell=(SearchShopCell*)cell;
+        
+        if([sCell.value isKindOfClass:[AutocompletePlacelist class]])
+        {
+            
+        }
+        else if([sCell.value isKindOfClass:[AutocompleteShop class]])
+        {
+            [self.view showLoading];
+            
+            AutocompleteShop *shop=sCell.value;
+            _operationShopUser=[[ASIOperationShopUser alloc] initWithIDShop:shop.idShop userLat:userLat() userLng:userLng()];
+            _operationShopUser.delegatePost=self;
+            
+            [_operationShopUser startAsynchronous];
+        }
+        else if([sCell.value isKindOfClass:[Placelist class]])
+        {
+            [self.delegate searchShopControllerTouchPlaceList:self placeList:sCell.value];
+        }
+    }
+    else if([cell isKindOfClass:[SearchShopPlacelistCell class]])
+    {
+        SearchShopPlacelistCell *pCell=(SearchShopPlacelistCell*)cell;
+        [self.delegate searchShopControllerTouchPlaceList:self placeList:pCell.place];
     }
     
-    SearchShopCell *cell=(SearchShopCell*)[tableView cellForRowAtIndexPath:indexPath];
-    
-    if([cell.value isKindOfClass:[AutocompletePlacelist class]])
-    {
-        
-    }
-    else if([cell.value isKindOfClass:[AutocompleteShop class]])
-    {
-        [self.view showLoading];
-        
-        AutocompleteShop *shop=cell.value;
-        _operationShopUser=[[ASIOperationShopUser alloc] initWithIDShop:shop.idShop userLat:userLat() userLng:userLng()];
-        _operationShopUser.delegatePost=self;
-        
-        [_operationShopUser startAsynchronous];
-    }
-    else if([cell.value isKindOfClass:[Placelist class]])
-    {
-        [self.delegate searchShopControllerTouchPlaceList:self placeList:cell.value];
-    }
 }
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView

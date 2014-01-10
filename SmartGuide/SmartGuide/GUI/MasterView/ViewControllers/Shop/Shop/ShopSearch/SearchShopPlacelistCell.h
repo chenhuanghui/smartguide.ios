@@ -16,10 +16,13 @@
     __weak IBOutlet LabelTopText *lblTitle;
     __weak IBOutlet LabelTopText *lblContent;
     __weak IBOutlet UIImageView *line;
+    
+    __weak Placelist *_place;
 }
 
 -(void) loadWithPlace:(Placelist*) place;
 -(void) setIsLastCell:(bool) isLastCell;
+-(Placelist*) place;
 
 +(float) heightWithPlace:(Placelist*) place;
 +(NSString *)reuseIdentifier;

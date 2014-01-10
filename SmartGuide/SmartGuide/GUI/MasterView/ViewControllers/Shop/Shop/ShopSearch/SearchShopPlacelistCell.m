@@ -12,8 +12,15 @@
 
 @implementation SearchShopPlacelistCell
 
+-(Placelist *)place
+{
+    return _place;
+}
+
 -(void)loadWithPlace:(Placelist *)place
 {
+    _place=place;
+    
     if(place.image.length==0)
         icon.image=[UIImage imageNamed:@"icon_placelist_search.png"];
     else
