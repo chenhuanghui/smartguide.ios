@@ -21,7 +21,10 @@
     else
         [lbl setText:[shop.content stringByAppendingTagName:@"text"]];
     
-    [icon setImage:[UIImage imageNamed:@"ava.png"]];
+    if(shop.hasPromotion)
+        [icon setImage:[UIImage imageNamed:@"icon_promotion_search.png"]];
+    else
+        [icon setImage:[UIImage imageNamed:@"icon_keyword_search.png"]];
 }
 
 -(void)loadWithPlace:(Placelist *)place
@@ -31,7 +34,7 @@
     _placeauto=nil;
     
     [lbl setText:[place.title stringByAppendingTagName:@"text"]];
-    [icon setImage:[UIImage imageNamed:@"ava.png"]];
+    [icon setImage:[UIImage imageNamed:@"icon_playlist_search.png"]];
 }
 
 -(void)loadWithDataAutocompletePlace:(AutocompletePlacelist *)place
@@ -45,7 +48,7 @@
     else
         [lbl setText:[_placeauto.content stringByAppendingTagName:@"text"]];
     
-    [icon setImage:[UIImage imageNamed:@"ava.png"]];
+    [icon setImage:[UIImage imageNamed:@"icon_playlist_search.png"]];
 }
 
 -(void)setCellType:(enum SEARCH_SHOP_CELL_TYPE)cellType

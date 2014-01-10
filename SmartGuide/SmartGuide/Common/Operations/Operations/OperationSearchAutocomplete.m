@@ -95,6 +95,7 @@
             AutocompleteShop *shop=[AutocompleteShop new];
             shop.idShop=idShop;
             shop.content=[NSString stringWithStringDefault:kvp[@"shop_name"]];
+            shop.hasPromotion=[[NSNumber numberWithObject:kvp[@"has_promotion"]] boolValue];
             
             [shops addObject:shop];
             

@@ -400,8 +400,9 @@
     
     scroll.minimumOffsetY=-1;
     
-    txt.leftView=[[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, txt.l_v_h)];
-    txt.leftView.backgroundColor=[UIColor clearColor];
+    txt.leftView=[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_search.png"]];
+    txt.leftView.contentMode=UIViewContentModeCenter;
+    [txt.leftView l_v_setS:CGSizeMake(24, txt.l_v_h)];
     txt.leftViewMode=UITextFieldViewModeAlways;
     
     self.map.delegate=self;

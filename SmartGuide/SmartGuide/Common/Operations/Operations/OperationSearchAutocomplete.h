@@ -32,5 +32,6 @@
 @property (nonatomic, assign) int idShop;
 @property (nonatomic, strong) NSString *content;
 @property (nonatomic, strong) NSString *highlight;
+@property (nonatomic, assign) bool hasPromotion;
 
 @end

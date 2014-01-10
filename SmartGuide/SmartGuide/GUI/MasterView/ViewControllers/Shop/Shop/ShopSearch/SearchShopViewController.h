@@ -47,6 +47,8 @@
     NSMutableArray *_placeLists;
     bool _canLoadMorePlaceList;
     bool _isLoadingMore;
+    
+    CGRect _tableFrame;
 }
 
 -(SearchShopViewController*) initWithKeyword:(NSString*) keyword;

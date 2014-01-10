@@ -43,17 +43,19 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
+    _tableFrame=table.frame;
+    
     [table registerNib:[UINib nibWithNibName:[SearchShopCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[SearchShopCell reuseIdentifier]];
     [table registerNib:[UINib nibWithNibName:[SearchShopHeaderCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[SearchShopHeaderCell reuseIdentifier]];
     
     _autocomplete=[[NSMutableDictionary alloc] init];
     
     txt.text=_keyword;
-    txt.leftView=[[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, txt.l_v_h)];
-    txt.leftView.backgroundColor=[UIColor clearColor];
+    txt.leftView=[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_search.png"]];
+    txt.leftView.contentMode=UIViewContentModeCenter;
+    [txt.leftView l_v_setS:CGSizeMake(24, txt.l_v_h)];
     txt.leftViewMode=UITextFieldViewModeAlways;
     
-    [txt becomeFirstResponder];
     [txt addTarget:self action:@selector(textFieldDidChangedText:) forControlEvents:UIControlEventEditingChanged];
     
     _placeLists=[NSMutableArray array];
@@ -452,7 +454,7 @@
     float height=[notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue].size.height;
     
     [UIView animateWithDuration:duration animations:^{
-        [table l_v_setH:self.view.l_v_h-topView.l_v_h-height];
+        [table l_v_setH:_tableFrame.size.height-height];
     }];
 }
 
@@ -463,7 +465,7 @@
     float duration=[notification.userInfo[UIKeyboardAnimationDurationUserInfoKey] floatValue];
     
     [UIView animateWithDuration:duration animations:^{
-        [table l_v_setH:self.view.l_v_h-topView.l_v_h];
+        [table l_v_setH:_tableFrame.size.height];
     }];
 }
 
