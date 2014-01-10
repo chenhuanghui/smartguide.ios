@@ -196,24 +196,6 @@
     }
 }
 
--(void) showSearchShopWithPlacelist:(Placelist*) placelist
-{
-    if(searchShopController)
-    {
-        [searchShopController setPlacelist:placelist];
-        [searchNavi makePushViewController:searchShopController animate:true];
-    }
-    else
-    {
-        SearchShopViewController *vc=[[SearchShopViewController alloc] initWithPlacelist:placelist];
-        vc.delegate=self;
-        
-        searchShopController=vc;
-        
-        [searchNavi pushViewController:vc animated:true];
-    }
-}
-
 -(void) showShopListWithKeyword:(NSString*) keyword
 {
     if(shopListController)

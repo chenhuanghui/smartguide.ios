@@ -9,8 +9,13 @@
 #import "SearchShopViewController.h"
 #import "GUIManager.h"
 #import "SearchShopCell.h"
+#import "SearchShopHeaderCell.h"
 
 @interface SearchShopViewController ()
+{
+    SearchShopBGView *bg1;
+    SearchShopBGView *bg2;
+}
 
 @end
 
@@ -28,32 +33,18 @@
     return self;
 }
 
--(SearchShopViewController *)initWithPlacelist:(Placelist *)place
-{
-    self = [super initWithNibName:@"SearchShopViewController" bundle:nil];
-    if (self) {
-        // Custom initialization
-        _placelist=place;
-    }
-    return self;
-}
-
 -(void)setKeyword:(NSString *)keyword
 {
     _keyword=keyword;
-}
-
--(void)setPlacelist:(Placelist *)place
-{
-    _placelist=place;
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-
+    
     [table registerNib:[UINib nibWithNibName:[SearchShopCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[SearchShopCell reuseIdentifier]];
+    [table registerNib:[UINib nibWithNibName:[SearchShopHeaderCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[SearchShopHeaderCell reuseIdentifier]];
     
     _autocomplete=[[NSMutableDictionary alloc] init];
     
@@ -69,8 +60,66 @@
     
     _pagePlacelist=-1;
     [self requestPlacelist];
+}
+
+-(void) reloadData
+{
+    [table reloadData];
     
-    [table showLoading];
+    if(bg1)
+    {
+        [bg1 removeFromSuperview];
+        bg1=nil;
+    }
+    
+    if(bg2)
+    {
+        [bg2 removeFromSuperview];
+        bg2=nil;
+    }
+    
+    if([table numberOfSections]==0)
+        return;
+    
+    CGRect rect=CGRectZero;
+    
+    if([table numberOfRowsInSection:0]>0)
+    {
+        rect=[table rectForSection:0];
+        
+        if([table numberOfSections]>1)
+        {
+            rect.origin.y+=[table rectForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]].size.height;
+            rect.size.height-=[table rectForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]].size.height;
+        }
+        
+//        rect.size.height-=4;
+        
+        SearchShopBGView *bg=[[SearchShopBGView alloc] initWithFrame:rect];
+
+        [table insertSubview:bg atIndex:0];
+        
+        bg1=bg;
+    }
+    
+    if([table numberOfSections]>=2)
+    {
+        if([table numberOfRowsInSection:1]>0)
+        {
+            rect=[table rectForSection:1];
+            
+            rect.origin.y+=[table rectForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]].size.height;
+            rect.size.height-=[table rectForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]].size.height;
+            
+//            rect.size.height-=4;
+            
+            SearchShopBGView *bg=[[SearchShopBGView alloc] initWithFrame:rect];
+
+            [table insertSubview:bg atIndex:0];
+            
+            bg2=bg;
+        }
+    }
 }
 
 -(void) requestPlacelist
@@ -91,8 +140,6 @@
 {
     if([operation isKindOfClass:[ASIOperationPlacelistGetList class]])
     {
-        [table removeLoading];
-        
         ASIOperationPlacelistGetList *ope=(ASIOperationPlacelistGetList*) operation;
         
         [_placeLists addObjectsFromArray:ope.placeLists];
@@ -102,9 +149,9 @@
         _isLoadingMore=false;
         
         _operationPlacelistGetList=nil;
-
         
-        [table reloadData];
+        
+        [self reloadData];
     }
     else if([operation isKindOfClass:[ASIOperationShopUser class]])
     {
@@ -123,9 +170,6 @@
 {
     if([operation isKindOfClass:[ASIOperationPlacelistGetList class]])
     {
-        [table removeLoading];
-        
-        
         _operationPlacelistGetList=nil;
     }
     else if([operation isKindOfClass:[ASIOperationShopUser class]])
@@ -146,7 +190,7 @@
         [_searchInQuery removeObject:ope.keyword];
         
         if([[txt.text lowercaseString] isEqualToString:[ope.keyword lowercaseString]])
-            [table reloadData];
+            [self reloadData];
     }
 }
 
@@ -183,12 +227,15 @@
 {
     if(_searchDisplayKey.length>0)
     {
+        int count=0;
         switch (section) {
             case 0:
-                return [self shopsForKeyword:_searchDisplayKey].count;
+                count=[self shopsForKeyword:_searchDisplayKey].count;
+                return count==0?0:count+1;
                 
             case 1:
-                return [self placelistsForKeyword:_searchDisplayKey].count;
+                count=[self placelistsForKeyword:_searchDisplayKey].count;
+                return count==0?0:count+1;
                 
             default:
                 break;
@@ -207,18 +254,38 @@
         switch (indexPath.section) {
             case 0:
             {
+                if(indexPath.row==0)
+                {
+                    SearchShopHeaderCell *cell=[table dequeueReusableCellWithIdentifier:[SearchShopHeaderCell reuseIdentifier]];
+                    
+                    [cell setHeaderText:@"Cửa hàng"];
+                    
+                    return cell;
+                }
+                
                 SearchShopCell *cell=[tableView dequeueReusableCellWithIdentifier:[SearchShopCell reuseIdentifier]];
                 
-                [cell loadWithDataAutocompleteShop:[self shopsForKeyword:_searchDisplayKey][indexPath.row]];
+                [cell loadWithDataAutocompleteShop:[self shopsForKeyword:_searchDisplayKey][indexPath.row-1]];
+                [cell setIsLastCell:indexPath.row==[table numberOfRowsInSection:indexPath.section]-1];
                 
                 return cell;
             }
                 
             case 1:
             {
+                if(indexPath.row==0)
+                {
+                    SearchShopHeaderCell *cell=[table dequeueReusableCellWithIdentifier:[SearchShopHeaderCell reuseIdentifier]];
+                    
+                    [cell setHeaderText:@"Placelist"];
+                    
+                    return cell;
+                }
+                
                 SearchShopCell *cell=[tableView dequeueReusableCellWithIdentifier:[SearchShopCell reuseIdentifier]];
                 
-                [cell loadWithDataAutocompletePlace:[self placelistsForKeyword:_searchDisplayKey][indexPath.row]];
+                [cell loadWithDataAutocompletePlace:[self placelistsForKeyword:_searchDisplayKey][indexPath.row-1]];
+                [cell setIsLastCell:indexPath.row==[table numberOfRowsInSection:indexPath.section]-1];
                 
                 return cell;
             }
@@ -231,6 +298,7 @@
     SearchShopCell *cell=[tableView dequeueReusableCellWithIdentifier:[SearchShopCell reuseIdentifier]];
     
     [cell loadWithPlace:_placeLists[indexPath.row]];
+    [cell setIsLastCell:indexPath.row==[table numberOfRowsInSection:indexPath.section]-1];
     
     if(indexPath.row==_placeLists.count-1)
     {
@@ -238,7 +306,7 @@
         {
             if(!_isLoadingMore)
             {
-                [self requestPlacelist];
+                //[self requestPlacelist];
                 _isLoadingMore=true;
             }
         }
@@ -249,20 +317,34 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if(_searchDisplayKey.length>0)
+    {
+        if(indexPath.row==0)
+            return [SearchShopHeaderCell height];
+    }
+    
     return [SearchShopCell height];
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    if(_searchKey.length>0)
-        return 10;
-    
     return 0;
+}
+
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    return [UIView new];
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [self.view endEditing:true];
+    
+    if(_searchDisplayKey.length>0)
+    {
+        if(indexPath.row==0)
+            return;
+    }
     
     SearchShopCell *cell=(SearchShopCell*)[tableView cellForRowAtIndexPath:indexPath];
     
@@ -318,13 +400,13 @@
     
     if(textField.text.length==0)
     {
-        [table reloadData];
+        [self reloadData];
         return;
     }
     
     if(_autocomplete[_searchKey])
     {
-        [table  reloadData];
+        [self reloadData];
         return;
     }
     else
@@ -401,6 +483,53 @@
         return array[1];
     
     return [NSArray array];
+}
+
+@end
+
+@implementation SearchShopBGView
+
+-(void)drawRect:(CGRect)rect
+{
+    if(!imgMid)
+    {
+        imgTop=[UIImage imageNamed:@"bg_feed_head_home.png"];
+        imgMid=[UIImage imageNamed:@"bg_feed_mid_home.png"];
+        imgBottom=[UIImage imageNamed:@"bg_feed_bottom_home.png"];
+    }
+    
+    [imgTop drawInRect:CGRectMake(0, 0, imgTop.size.width, imgTop.size.height)];
+    [imgBottom drawAtPoint:CGPointMake(0, rect.size.height-imgTop.size.height)];
+    
+    rect.origin.y=imgTop.size.height;
+    rect.origin.x=0;
+    rect.size.height-=(imgTop.size.height+imgBottom.size.height-1);
+    
+    [imgMid drawAsPatternInRect:rect];
+}
+
+-(id)initWithCoder:(NSCoder *)aDecoder
+{
+    self=[super initWithCoder:aDecoder];
+    
+    [self commonInit];
+    
+    return self;
+}
+
+-(id)initWithFrame:(CGRect)frame
+{
+    self=[super initWithFrame:frame];
+    
+    [self commonInit];
+    
+    return self;
+}
+
+-(void) commonInit
+{
+    self.backgroundColor=[UIColor clearColor];
+    self.contentMode=UIViewContentModeRedraw;
 }
 
 @end

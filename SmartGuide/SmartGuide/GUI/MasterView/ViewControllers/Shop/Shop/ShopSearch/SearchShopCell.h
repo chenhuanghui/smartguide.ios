@@ -13,9 +13,9 @@
 
 @interface SearchShopCell : UITableViewCell
 {
-    __weak IBOutlet UIView *bg;
     __weak IBOutlet FTCoreTextView *lbl;
     __weak IBOutlet UIImageView *icon;
+    __weak IBOutlet UIImageView *line;
     
     __weak AutocompleteShop* _shop;
     __weak AutocompletePlacelist *_placeauto;
@@ -25,6 +25,8 @@
 -(void) loadWithDataAutocompleteShop:(AutocompleteShop*) shop;
 -(void) loadWithDataAutocompletePlace:(AutocompletePlacelist*) place;
 -(void) loadWithPlace:(Placelist*) place;
+
+-(void) setIsLastCell:(bool) isLastCell;
 
 -(id) value;
 

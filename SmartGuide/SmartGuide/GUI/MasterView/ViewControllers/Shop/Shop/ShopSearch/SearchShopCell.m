@@ -48,6 +48,11 @@
     [icon setImage:[UIImage imageNamed:@"ava.png"]];
 }
 
+-(void)setIsLastCell:(bool)isLastCell
+{
+    line.hidden=isLastCell;
+}
+
 -(id)value
 {
     if(_shop)
@@ -68,14 +73,14 @@
     
     FTCoreTextStyle *style=[FTCoreTextStyle styleWithName:@"text"];
     style.font=[UIFont fontWithName:@"Avenir-Roman" size:13];
-    style.color=[UIColor grayColor];
+    style.color=[UIColor colorWithRed:0.702 green:0.702 blue:0.702 alpha:1];
     style.textAlignment=FTCoreTextAlignementLeft;
     
     [lbl addStyle:style];
     
     style=[FTCoreTextStyle styleWithName:@"em"];
     style.font=[UIFont fontWithName:@"Avenir-Roman" size:13];
-    style.color=[UIColor blackColor];
+    style.color=[UIColor colorWithRed:0.357 green:0.357 blue:0.357 alpha:1];
     style.textAlignment=FTCoreTextAlignementLeft;
     
     [lbl addStyle:style];
@@ -91,7 +96,7 @@
 
 +(float)height
 {
-    return 32;
+    return 35;
 }
 
 @end

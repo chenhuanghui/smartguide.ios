@@ -12,7 +12,7 @@
 #import "OperationSearchAutocomplete.h"
 #import "ASIOperationShopUser.h"
 
-@class SearchShopViewController;
+@class SearchShopViewController,SearchShopBGView;
 
 @protocol SearchShopControllerDelegate <SGViewControllerDelegate>
 
@@ -30,7 +30,6 @@
     __weak IBOutlet UIView *topView;
     
     NSString *_keyword;
-    __weak Placelist *_placelist;
     NSString *_searchKey;
     NSString *_searchDisplayKey;
     
@@ -51,11 +50,18 @@
 }
 
 -(SearchShopViewController*) initWithKeyword:(NSString*) keyword;
--(SearchShopViewController*) initWithPlacelist:(Placelist*) place;
 
 -(void) setKeyword:(NSString*) keyword;
--(void) setPlacelist:(Placelist*) place;
 
 @property (nonatomic, weak) id<SearchShopControllerDelegate> delegate;
+
+@end
+
+@interface SearchShopBGView : UIView
+{
+    UIImage *imgMid;
+    UIImage *imgTop;
+    UIImage *imgBottom;
+}
 
 @end
