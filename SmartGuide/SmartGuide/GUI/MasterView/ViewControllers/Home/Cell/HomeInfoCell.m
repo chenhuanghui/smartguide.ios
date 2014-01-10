@@ -81,23 +81,14 @@
 {
     float height=273;
     
-    home.titleHeight=[home.title sizeWithFont:[UIFont fontWithName:@"Avenir-Heavy" size:13] constrainedToSize:CGSizeMake(275, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height-30;
+    home.titleHeight=[home.title sizeWithFont:[UIFont fontWithName:@"Avenir-Heavy" size:13] constrainedToSize:CGSizeMake(275, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height-20;
+    home.titleHeight=MAX(0,home.titleHeight);
     
     height+=home.titleHeight;
     
     home.contentHeight=[home.content sizeWithFont:[UIFont fontWithName:@"Avenir-Roman" size:13] constrainedToSize:CGSizeMake(265, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height+30-15;
     
     height+=home.contentHeight;
-    
-    return height;
-}
-
-+(float) heightWithTitle:(NSString*) title content:(NSString*) content
-{
-    float height=242;
-    
-    height+=[title sizeWithFont:[UIFont fontWithName:@"Avenir-Heavy" size:13] constrainedToSize:CGSizeMake(284, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height;
-    height+=[title sizeWithFont:[UIFont fontWithName:@"Avenir-Roman" size:13] constrainedToSize:CGSizeMake(257, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height;
     
     return height;
 }

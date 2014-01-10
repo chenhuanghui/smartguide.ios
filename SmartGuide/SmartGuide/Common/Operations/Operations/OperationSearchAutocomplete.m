@@ -14,7 +14,7 @@
 {
     NSString *key=[_keyword lowercaseString];
     
-    NSString *esQuery=@"{\"query\":{\"query_string\":{\"query\":\"%@\",\"fields\":[\"shop_name_auto_complete\",\"name_auto_complete\"]}},\"highlight\":{\"fields\":{\"shop_name_auto_complete\":{},\"name_auto_complete\":{}}},\"from\":0,\"size\":5,\"fields\":[\"shop_name\",\"name\",\"id\"]}";
+    NSString *esQuery=@"{\"query\":{\"query_string\":{\"query\":\"%@\",\"fields\":[\"shop_name_auto_complete\",\"name_auto_complete\"]}},\"highlight\":{\"fields\":{\"shop_name_auto_complete\":{},\"name_auto_complete\":{}}},\"from\":0,\"size\":5,\"fields\":[\"shop_name\",\"hasPromotion\",\"name\",\"id\"]}";
     
     NSString *query=[NSString stringWithFormat:esQuery,key];
     query=[query stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];

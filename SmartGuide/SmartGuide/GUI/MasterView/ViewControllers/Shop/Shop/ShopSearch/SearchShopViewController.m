@@ -10,6 +10,9 @@
 #import "GUIManager.h"
 #import "SearchShopCell.h"
 #import "SearchShopHeaderCell.h"
+#import "SearchShopPlacelistCell.h"
+
+#define SEARCH_SHOP_NUMBER_OF_HIGHLIGHT_PLACE_LIST 3
 
 @interface SearchShopViewController ()
 {
@@ -47,6 +50,7 @@
     
     [table registerNib:[UINib nibWithNibName:[SearchShopCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[SearchShopCell reuseIdentifier]];
     [table registerNib:[UINib nibWithNibName:[SearchShopHeaderCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[SearchShopHeaderCell reuseIdentifier]];
+    [table registerNib:[UINib nibWithNibName:[SearchShopPlacelistCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[SearchShopPlacelistCell reuseIdentifier]];
     
     _autocomplete=[[NSMutableDictionary alloc] init];
     
@@ -85,42 +89,62 @@
     
     CGRect rect=CGRectZero;
     
-    if([table numberOfRowsInSection:0]>0)
-    {
-        rect=[table rectForSection:0];
-        
-        if([table numberOfSections]>1)
+    switch ([self viewMode]) {
+        case SEARCH_SHOP_VIEW_AUTOCOMPLETE:
         {
-            rect.origin.y+=[table rectForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]].size.height;
-            rect.size.height-=[table rectForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]].size.height;
+            if([table numberOfRowsInSection:0]>0)
+            {
+                rect=[table rectForSection:0];
+                
+                if([table numberOfSections]>1)
+                {
+                    rect.origin.y+=[table rectForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]].size.height;
+                    rect.size.height-=[table rectForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]].size.height;
+                }
+                
+                //        rect.size.height-=4;
+                
+                SearchShopBGView *bg=[[SearchShopBGView alloc] initWithFrame:rect];
+                
+                [table insertSubview:bg atIndex:0];
+                
+                bg1=bg;
+            }
+            
+            if([table numberOfSections]>=2)
+            {
+                if([table numberOfRowsInSection:1]>0)
+                {
+                    rect=[table rectForSection:1];
+                    
+                    rect.origin.y+=[table rectForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]].size.height;
+                    rect.size.height-=[table rectForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]].size.height;
+                    
+                    SearchShopBGView *bg=[[SearchShopBGView alloc] initWithFrame:rect];
+                    
+                    [table insertSubview:bg atIndex:0];
+                    
+                    bg2=bg;
+                }
+            }
         }
-        
-//        rect.size.height-=4;
-        
-        SearchShopBGView *bg=[[SearchShopBGView alloc] initWithFrame:rect];
-        
-        [table insertSubview:bg atIndex:0];
-        
-        bg1=bg;
-    }
-    
-    if([table numberOfSections]>=2)
-    {
-        if([table numberOfRowsInSection:1]>0)
+            break;
+
+        case SEARCH_SHOP_VIEW_PLACELIST:
         {
             rect=[table rectForSection:1];
-            
-            rect.origin.y+=[table rectForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]].size.height;
-            rect.size.height-=[table rectForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]].size.height;
-            
+
             SearchShopBGView *bg=[[SearchShopBGView alloc] initWithFrame:rect];
             
             [table insertSubview:bg atIndex:0];
             
-            bg2=bg;
+            bg1=bg;
+
         }
+            break;
     }
-}
+    
+    }
 
 -(void) requestPlacelist
 {
@@ -220,7 +244,7 @@
     
     _searchDisplayKey=@"";
     
-    return _placeLists.count==0?0:1;
+    return _placeLists.count==0?0:2;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -243,8 +267,23 @@
         
         return 0;
     }
-    
-    return _placeLists.count;
+    else
+    {
+        if(_placeLists.count>SEARCH_SHOP_NUMBER_OF_HIGHLIGHT_PLACE_LIST)
+        {
+            if(section==0)
+                return SEARCH_SHOP_NUMBER_OF_HIGHLIGHT_PLACE_LIST;
+            else
+                return _placeLists.count-SEARCH_SHOP_NUMBER_OF_HIGHLIGHT_PLACE_LIST;
+        }
+        else
+        {
+            if(section==0)
+                return _placeLists.count;
+            else
+                return 0;
+        }
+    }
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -291,7 +330,7 @@
                 SearchShopCell *cell=[tableView dequeueReusableCellWithIdentifier:[SearchShopCell reuseIdentifier]];
                 
                 [cell loadWithDataAutocompletePlace:[self placelistsForKeyword:_searchDisplayKey][indexPath.row-1]];
-
+                
                 if(indexPath.row==1)
                     [cell setCellType:SEARCH_SHOP_CELL_FIRST];
                 else if(indexPath.row==[tableView numberOfRowsInSection:indexPath.section]-1)
@@ -306,31 +345,45 @@
                 return [UITableViewCell new];
         }
     }
-    
-    SearchShopCell *cell=[tableView dequeueReusableCellWithIdentifier:[SearchShopCell reuseIdentifier]];
-    
-    [cell loadWithPlace:_placeLists[indexPath.row]];
-
-    if(indexPath.row==0)
-        [cell setCellType:SEARCH_SHOP_CELL_FIRST];
-    else if(indexPath.row==[tableView numberOfRowsInSection:indexPath.section]-1)
-        [cell setCellType:SEARCH_SHOP_CELL_LAST];
     else
-        [cell setCellType:SEARCH_SHOP_CELL_MID];
-    
-    if(indexPath.row==_placeLists.count-1)
     {
-        if(_canLoadMorePlaceList)
+        if(indexPath.section==0)
         {
-            if(!_isLoadingMore)
+            SearchShopPlacelistCell *cell=[tableView dequeueReusableCellWithIdentifier:[SearchShopPlacelistCell reuseIdentifier]];
+            
+            [cell loadWithPlace:_placeLists[indexPath.row]];
+            [cell setIsLastCell:indexPath.row==[tableView numberOfRowsInSection:indexPath.section]-1];
+            
+            return cell;
+        }
+        else
+        {
+            SearchShopCell *cell=[tableView dequeueReusableCellWithIdentifier:[SearchShopCell reuseIdentifier]];
+            
+            [cell loadWithPlace:_placeLists[indexPath.row+SEARCH_SHOP_NUMBER_OF_HIGHLIGHT_PLACE_LIST]];
+            
+            if(indexPath.row==0)
+                [cell setCellType:SEARCH_SHOP_CELL_FIRST];
+            else if(indexPath.row==[tableView numberOfRowsInSection:indexPath.section]-1)
+                [cell setCellType:SEARCH_SHOP_CELL_LAST];
+            else
+                [cell setCellType:SEARCH_SHOP_CELL_MID];
+            
+            if(indexPath.row==_placeLists.count-1)
             {
-                //[self requestPlacelist];
-                _isLoadingMore=true;
+                if(_canLoadMorePlaceList)
+                {
+                    if(!_isLoadingMore)
+                    {
+                        //[self requestPlacelist];
+                        _isLoadingMore=true;
+                    }
+                }
             }
+            
+            return cell;
         }
     }
-    
-    return cell;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -339,9 +392,16 @@
     {
         if(indexPath.row==0)
             return [SearchShopHeaderCell height];
+        
+        return [SearchShopCell height];
     }
-    
-    return [SearchShopCell height];
+    else
+    {
+        if(indexPath.section==0)
+            return [SearchShopPlacelistCell heightWithPlace:_placeLists[indexPath.row]];
+        else
+            return [SearchShopCell height];
+    }
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -356,6 +416,7 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    return;
     [self.view endEditing:true];
     
     if(_searchDisplayKey.length>0)
@@ -419,6 +480,7 @@
     if(textField.text.length==0)
     {
         [self reloadData];
+        [self.view endEditing:true];
         return;
     }
     
@@ -501,6 +563,14 @@
         return array[1];
     
     return [NSArray array];
+}
+
+-(enum SEARCH_SHOP_VIEW_MODE) viewMode
+{
+    if(_searchDisplayKey.length==0)
+        return SEARCH_SHOP_VIEW_PLACELIST;
+    
+    return SEARCH_SHOP_VIEW_AUTOCOMPLETE;
 }
 
 @end

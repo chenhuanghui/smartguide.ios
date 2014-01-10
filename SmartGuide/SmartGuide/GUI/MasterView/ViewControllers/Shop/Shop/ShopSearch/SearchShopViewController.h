@@ -12,6 +12,11 @@
 #import "OperationSearchAutocomplete.h"
 #import "ASIOperationShopUser.h"
 
+enum SEARCH_SHOP_VIEW_MODE {
+    SEARCH_SHOP_VIEW_PLACELIST = 0,
+    SEARCH_SHOP_VIEW_AUTOCOMPLETE = 1
+    };
+
 @class SearchShopViewController,SearchShopBGView;
 
 @protocol SearchShopControllerDelegate <SGViewControllerDelegate>
