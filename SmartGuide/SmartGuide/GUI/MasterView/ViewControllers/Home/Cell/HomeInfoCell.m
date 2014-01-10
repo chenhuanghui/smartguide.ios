@@ -34,7 +34,7 @@
     
     [self makeButtonSize];
     
-    
+    [lblContent l_v_setY:165+home.titleHeight];
 }
 
 -(void)loadWithHome7:(UserHome7 *)home
@@ -58,7 +58,7 @@
     
     [self makeButtonSize];
 
-    [lblContent l_v_setY:174+home.titleHeight];
+    [lblContent l_v_setY:165+home.titleHeight];
 }
 
 -(void) makeButtonSize
@@ -71,22 +71,30 @@
 
 +(float)heightWithHome6:(UserHome6 *)home
 {
-    float height=242;
-    height+=[home.content sizeWithFont:[UIFont fontWithName:@"Avenir-Roman" size:13] constrainedToSize:CGSizeMake(257, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height-10;
-    
-    return height;
-}
-
-+(float)heightWithHome7:(UserHome7 *)home
-{
-    float height=273;
+    float height=247;
     
     home.titleHeight=[home.title sizeWithFont:[UIFont fontWithName:@"Avenir-Heavy" size:13] constrainedToSize:CGSizeMake(275, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height-20;
     home.titleHeight=MAX(0,home.titleHeight);
     
     height+=home.titleHeight;
     
-    home.contentHeight=[home.content sizeWithFont:[UIFont fontWithName:@"Avenir-Roman" size:13] constrainedToSize:CGSizeMake(265, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height+30-15;
+    home.contentHeight=[home.content sizeWithFont:[UIFont fontWithName:@"Avenir-Roman" size:13] constrainedToSize:CGSizeMake(265, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height;
+    
+    height+=home.contentHeight;
+    
+    return height;
+}
+
++(float)heightWithHome7:(UserHome7 *)home
+{
+    float height=247;
+    
+    home.titleHeight=[home.title sizeWithFont:[UIFont fontWithName:@"Avenir-Heavy" size:13] constrainedToSize:CGSizeMake(275, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height-20;
+    home.titleHeight=MAX(0,home.titleHeight);
+    
+    height+=home.titleHeight;
+    
+    home.contentHeight=[home.content sizeWithFont:[UIFont fontWithName:@"Avenir-Roman" size:13] constrainedToSize:CGSizeMake(265, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height;
     
     height+=home.contentHeight;
     

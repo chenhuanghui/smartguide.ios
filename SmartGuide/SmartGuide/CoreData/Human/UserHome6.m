@@ -2,6 +2,7 @@
 #import "Utility.h"
 
 @implementation UserHome6
+@synthesize contentHeight,titleHeight;
 
 +(UserHome6 *)makeWithDictionary:(NSDictionary *)dict
 {

@@ -10,4 +10,7 @@
 -(NSNumber *)idShop;
 -(NSString *)logo;
 
+@property (nonatomic, assign) float titleHeight;
+@property (nonatomic, assign) float contentHeight;
+
 @end
