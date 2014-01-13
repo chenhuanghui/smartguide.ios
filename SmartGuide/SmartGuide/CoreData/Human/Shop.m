@@ -2,6 +2,8 @@
 #import "Utility.h"
 #import "Constant.h"
 
+static NSMutableDictionary *_dictPinShop=nil;
+
 @implementation Shop
 
 -(id)initWithEntity:(NSEntityDescription *)entity insertIntoManagedObjectContext:(NSManagedObjectContext *)context
@@ -203,6 +205,60 @@
     }
     
     return SHOP_DATA_HOME_8;
+}
+
+-(enum SHOP_TYPE)enumShopType
+{
+    switch (self.shopType.integerValue) {
+        case SHOP_TYPE_ALL:
+            return SHOP_TYPE_ALL;
+            
+        case SHOP_TYPE_FOOD:
+            return SHOP_TYPE_FOOD;
+            
+        case SHOP_TYPE_CAFE:
+            return SHOP_TYPE_CAFE;
+            
+        case SHOP_TYPE_HEALTH:
+            return SHOP_TYPE_HEALTH;
+            
+        case SHOP_TYPE_ENTERTAIMENT:
+            return SHOP_TYPE_ENTERTAIMENT;
+            
+        case SHOP_TYPE_FASHION:
+            return SHOP_TYPE_FASHION;
+            
+        case SHOP_TYPE_TRAVEL:
+            return SHOP_TYPE_TRAVEL;
+            
+        case SHOP_TYPE_PRODUCTION:
+            return SHOP_TYPE_PRODUCTION;
+            
+        case SHOP_TYPE_EDUCATION:
+            return SHOP_TYPE_EDUCATION;
+            
+        default:
+            return SHOP_TYPE_ALL;
+    }
+}
+
+-(UIImage *)iconPin
+{
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _dictPinShop=[[NSMutableDictionary alloc] initWithCapacity:9];
+        
+        [_dictPinShop setObject:[UIImage imageNamed:@"iconpin_education.png"] forKey:[NSString stringWithFormat:@"%i",SHOP_TYPE_EDUCATION]];
+        [_dictPinShop setObject:[UIImage imageNamed:@"iconpin_entertaiment.png"] forKey:[NSString stringWithFormat:@"%i",SHOP_TYPE_ENTERTAIMENT]];
+        [_dictPinShop setObject:[UIImage imageNamed:@"iconpin_fashion.png"] forKey:[NSString stringWithFormat:@"%i",SHOP_TYPE_FASHION]];
+        [_dictPinShop setObject:[UIImage imageNamed:@"iconpin_food.png"] forKey:[NSString stringWithFormat:@"%i",SHOP_TYPE_FOOD]];
+        [_dictPinShop setObject:[UIImage imageNamed:@"iconpin_healness.png"] forKey:[NSString stringWithFormat:@"%i",SHOP_TYPE_HEALTH]];
+        [_dictPinShop setObject:[UIImage imageNamed:@"iconpin_shopping.png"] forKey:[NSString stringWithFormat:@"%i",SHOP_TYPE_PRODUCTION]];
+        [_dictPinShop setObject:[UIImage imageNamed:@"iconpin_travel.png"] forKey:[NSString stringWithFormat:@"%i",SHOP_TYPE_TRAVEL]];
+        [_dictPinShop setObject:[UIImage imageNamed:@"iconpin_drink.png"] forKey:[NSString stringWithFormat:@"%i",SHOP_TYPE_CAFE]];
+    });
+    
+    return _dictPinShop[[NSString stringWithFormat:@"%i",[self enumShopType]]];
 }
 
 @end

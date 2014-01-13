@@ -29,7 +29,8 @@ enum SHOP_DATA_MODE {
 
 -(enum SHOP_PROMOTION_TYPE) enumPromotionType;
 -(enum LOVE_STATUS) enumLoveStatus;
-
+-(enum SHOP_TYPE) enumShopType;
 -(enum SHOP_DATA_MODE) enumDataMode;
+-(UIImage*) iconPin;
 
 @end

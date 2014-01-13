@@ -122,4 +122,9 @@
     return self.shop.shopGalleryCover;
 }
 
+-(UIImage *)iconPin
+{
+    return self.shop.iconPin;
+}
+
 @end

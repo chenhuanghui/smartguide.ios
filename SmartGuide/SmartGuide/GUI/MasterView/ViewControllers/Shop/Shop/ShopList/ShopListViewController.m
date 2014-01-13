@@ -1290,6 +1290,27 @@
     [self changeLocation:self.map.centerCoordinate];
 }
 
+-(MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation
+{
+    if ([annotation isKindOfClass:[ShopList class]])
+    {
+        ShopList *shop=(ShopList*)annotation;
+        UIImage *iconPin=[shop iconPin];
+        MKAnnotationView *ann = [mapView dequeueReusableAnnotationViewWithIdentifier:@"mapPin"];
+        if(!ann)
+        {
+            
+            ann=[[MKAnnotationView alloc] initWithFrame:CGRectMake(0, 0, iconPin.size.width, iconPin.size.height)];
+        }
+        
+        ann.image=iconPin;
+        
+        return ann;
+    }
+    
+    return nil;
+}
+
 -(void)mapView:(MKMapView *)mapView didAddAnnotationViews:(NSArray *)views
 {
     float count=2;

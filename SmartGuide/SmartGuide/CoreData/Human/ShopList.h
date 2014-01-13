@@ -21,4 +21,6 @@
 -(NSString*) numOfLove;
 -(NSString*) cover;
 
+-(UIImage*) iconPin;
+
 @end
