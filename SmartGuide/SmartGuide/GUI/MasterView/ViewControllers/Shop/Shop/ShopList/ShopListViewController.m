@@ -797,13 +797,13 @@
 {
     if([operation isKindOfClass:[ASIOperationShopSearch class]])
     {
-        [loadingView removeLoading];
+        [self removeLoading];
         
         _operationShopSearch=nil;
     }
     else if([operation isKindOfClass:[ASIOperationPlacelistDetail class]])
     {
-        [loadingView removeLoading];
+        [self removeLoading];
         
         _operationPlaceListDetail=nil;
     }
@@ -1064,7 +1064,14 @@
             {
                 CGPoint pnt=[scroll convertPoint:tableList.l_v_o toView:self.view];
                 
-                if(self.l_v_h-pnt.y>[tableList rectForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]].size.height*1.5f)
+                float y=tableList.l_v_y+25;
+                
+                if([self hasRow])
+                    y=[tableList rectForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]].size.height*1.5f;
+                else
+                    y+=44;
+                
+                if(self.l_v_h-pnt.y>y)
                 {
                     [scroll setContentOffset:scroll.contentOffset animated:true];
                     self.view.userInteractionEnabled=false;
@@ -1085,9 +1092,9 @@
                         btnScanBig.frame=_buttonScanBigFrame;
                         btnScanSmall.frame=_buttonScanSmallFrame;
                     } completion:^(BOOL finished) {
+                        _isZoomedMap=false;
                         [self makeScrollSize];
                         
-                        _isZoomedMap=false;
                         self.view.userInteractionEnabled=true;
                     }];
                 }
@@ -1111,10 +1118,7 @@
                     
                     _isZoomedMap=true;
                     
-                    float height=scroll.l_v_h-(QRCODE_BIG_HEIGHT-QRCODE_SMALL_HEIGHT);
-                    height-=[tableList rectForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]].size.height/2+18;
-                    height-=_tableFrame.origin.y;
-                    
+                    float height=[self heightForZoom];
                     _heightZoomedMap=height;
                     
                     btnScanSmall.alpha=0;
@@ -1145,6 +1149,25 @@
     }
 }
 
+-(float) heightForZoom
+{
+    float height=scroll.l_v_h-(QRCODE_BIG_HEIGHT-QRCODE_SMALL_HEIGHT);
+    
+    if([self hasRow])
+        height-=[tableList rectForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]].size.height/2+18;
+    else
+        height-=44;
+    
+    height-=_tableFrame.origin.y;
+    
+    return height;
+}
+
+-(bool) hasRow
+{
+    return tableList.numberOfSections>0 && [tableList numberOfRowsInSection:0]>0;
+}
+
 -(void) zoomMap
 {
     self.view.userInteractionEnabled=false;
@@ -1155,9 +1178,7 @@
     self.map.scrollEnabled=true;
     self.map.zoomEnabled=true;
     
-    float height=scroll.l_v_h-(QRCODE_BIG_HEIGHT-QRCODE_SMALL_HEIGHT);
-    height-=[tableList rectForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]].size.height/2+18;
-    height-=_tableFrame.origin.y;
+    float height=[self heightForZoom];
     
     CGPoint pnt=CGPointZero;
     pnt.y=-(height);

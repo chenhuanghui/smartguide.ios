@@ -80,7 +80,14 @@
     }
     
     if([table numberOfSections]==0)
+    {
+        [btnSearch setTitle:[NSString stringWithFormat:@"Tìm kiếm với \"%@\"",txt.text] forState:UIControlStateNormal];
+        btnSearch.hidden=false;
+        
         return;
+    }
+    
+    btnSearch.hidden=true;
     
     CGRect rect=CGRectZero;
     
@@ -587,6 +594,10 @@
         return SEARCH_SHOP_VIEW_PLACELIST;
     
     return SEARCH_SHOP_VIEW_AUTOCOMPLETE;
+}
+
+- (IBAction)btnSearchTouchUpInside:(id)sender {
+    [self.delegate searchShopControllerSearch:self keyword:txt.text];
 }
 
 @end

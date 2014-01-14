@@ -8,6 +8,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SearchShopViewController">
             <connections>
                 <outlet property="btn" destination="tak-ih-g6j" id="rg2-68-5jW"/>
+                <outlet property="btnSearch" destination="3F7-pU-cxZ" id="OvN-yG-pDz"/>
                 <outlet property="table" destination="Raa-Jl-y5M" id="q8K-qg-yy5"/>
                 <outlet property="txt" destination="U8H-kV-yHe" id="Ckw-fA-Yoy"/>
                 <outlet property="view" destination="1" id="3"/>
@@ -40,6 +41,18 @@
                         <outlet property="receiveView" destination="Raa-Jl-y5M" id="g3g-3W-fID"/>
                     </connections>
                 </view>
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="3F7-pU-cxZ">
+                    <rect key="frame" x="13" y="54" width="295" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="13"/>
+                    <state key="normal" title="Button">
+                        <color key="titleColor" red="0.68627450980392157" green="0.68627450980392157" blue="0.68627450980392157" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="btnSearchTouchUpInside:" destination="-1" eventType="touchUpInside" id="QTE-xN-GYg"/>
+                    </connections>
+                </button>
                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Tìm kiếm khuyến mãi" minimumFontSize="17" background="button_search_home.png" id="U8H-kV-yHe" customClass="TextFieldSearch">
                     <rect key="frame" x="52" y="7" width="239" height="39"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>

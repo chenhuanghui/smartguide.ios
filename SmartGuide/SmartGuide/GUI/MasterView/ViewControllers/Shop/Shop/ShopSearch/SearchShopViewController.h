@@ -33,6 +33,7 @@ enum SEARCH_SHOP_VIEW_MODE {
     __weak IBOutlet UITextField *txt;
     __weak IBOutlet UIButton *btn;
     __weak IBOutlet UIView *topView;
+    __weak IBOutlet UIButton *btnSearch;
     
     NSString *_keyword;
     NSString *_searchKey;
