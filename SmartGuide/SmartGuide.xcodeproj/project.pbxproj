@@ -411,6 +411,8 @@
 		9A94116C187B20C200863DFA /* TouchView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A94116B187B20C200863DFA /* TouchView.m */; };
 		9A94335F188572C100066DC3 /* PlacelistHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A94335E188572C100066DC3 /* PlacelistHeaderCell.m */; };
 		9A943361188572DE00066DC3 /* PlacelistHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A943360188572DE00066DC3 /* PlacelistHeaderCell.xib */; };
+		9A94336518859B6600066DC3 /* TextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A94336418859B6600066DC3 /* TextView.m */; };
+		9A9433681885A91400066DC3 /* ASIOperationCreatePlacelist.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A9433671885A91400066DC3 /* ASIOperationCreatePlacelist.m */; };
 		9A96BB4A188044DD0081171B /* button_search_home.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A96BB42188044DD0081171B /* button_search_home.png */; };
 		9A96BB4B188044DD0081171B /* blur_bottom_home.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A96BB43188044DD0081171B /* blur_bottom_home.png */; };
 		9A96BB4C188044DD0081171B /* blur_top_home.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A96BB44188044DD0081171B /* blur_top_home.png */; };
@@ -1428,6 +1430,10 @@
 		9A94335D188572C100066DC3 /* PlacelistHeaderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlacelistHeaderCell.h; sourceTree = "<group>"; };
 		9A94335E188572C100066DC3 /* PlacelistHeaderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlacelistHeaderCell.m; sourceTree = "<group>"; };
 		9A943360188572DE00066DC3 /* PlacelistHeaderCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlacelistHeaderCell.xib; sourceTree = "<group>"; };
+		9A94336318859B6600066DC3 /* TextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextView.h; sourceTree = "<group>"; };
+		9A94336418859B6600066DC3 /* TextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextView.m; sourceTree = "<group>"; };
+		9A9433661885A91400066DC3 /* ASIOperationCreatePlacelist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIOperationCreatePlacelist.h; sourceTree = "<group>"; };
+		9A9433671885A91400066DC3 /* ASIOperationCreatePlacelist.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIOperationCreatePlacelist.m; sourceTree = "<group>"; };
 		9A96BB42188044DD0081171B /* button_search_home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_search_home.png; sourceTree = "<group>"; };
 		9A96BB43188044DD0081171B /* blur_bottom_home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blur_bottom_home.png; sourceTree = "<group>"; };
 		9A96BB44188044DD0081171B /* blur_top_home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blur_top_home.png; sourceTree = "<group>"; };
@@ -2805,6 +2811,15 @@
 			path = TouchView;
 			sourceTree = "<group>";
 		};
+		9A94336218859B5B00066DC3 /* TextView */ = {
+			isa = PBXGroup;
+			children = (
+				9A94336318859B6600066DC3 /* TextView.h */,
+				9A94336418859B6600066DC3 /* TextView.m */,
+			);
+			path = TextView;
+			sourceTree = "<group>";
+		};
 		9A96BB521880474C0081171B /* TextFieldSearch */ = {
 			isa = PBXGroup;
 			children = (
@@ -3419,6 +3434,8 @@
 				9AEE41C9187C05F00000D515 /* ASIOperationUpdateUserProfile.m */,
 				9A06F98E188540DF005C0377 /* ASIOperationUserPlacelist.h */,
 				9A06F98F188540DF005C0377 /* ASIOperationUserPlacelist.m */,
+				9A9433661885A91400066DC3 /* ASIOperationCreatePlacelist.h */,
+				9A9433671885A91400066DC3 /* ASIOperationCreatePlacelist.m */,
 			);
 			path = ASIOperation;
 			sourceTree = "<group>";
@@ -3597,6 +3614,7 @@
 		A98198B4178D3FA70009FCB6 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				9A94336218859B5B00066DC3 /* TextView */,
 				9A96BB521880474C0081171B /* TextFieldSearch */,
 				9A941169187B20C200863DFA /* TouchView */,
 				9ACAED871872B1D10025B027 /* ButtonPrice */,
@@ -4819,6 +4837,7 @@
 				A9A505E6178EC5EF00F27E18 /* FTCoreTextStyle.m in Sources */,
 				A9A505E7178EC5EF00F27E18 /* FTCoreTextView.m in Sources */,
 				9AC66F86186447B300890F80 /* ASIOperationAgreeComment.m in Sources */,
+				9A94336518859B6600066DC3 /* TextView.m in Sources */,
 				A9BF946D178FA7E700EF7E5F /* AFHTTPClient.m in Sources */,
 				9A06F99918854243005C0377 /* _UserPlacelist.m in Sources */,
 				A9BF946E178FA7E700EF7E5F /* AFHTTPRequestOperation.m in Sources */,
@@ -4964,6 +4983,7 @@
 				9ACAED54187273D00025B027 /* HomeBGCell.m in Sources */,
 				9A3B93F3185DFDAE004F94A4 /* StoreAdsCell.m in Sources */,
 				9A9211A6185AC7AB0012F181 /* LoadingView.m in Sources */,
+				9A9433681885A91400066DC3 /* ASIOperationCreatePlacelist.m in Sources */,
 				A921B02F17A8B68200DC6D4D /* ASIOperationShopUser.m in Sources */,
 				9A29392218445DA000FD49E2 /* ShopKM1.m in Sources */,
 				A921B03517A8BCA500DC6D4D /* ShopProduct.m in Sources */,

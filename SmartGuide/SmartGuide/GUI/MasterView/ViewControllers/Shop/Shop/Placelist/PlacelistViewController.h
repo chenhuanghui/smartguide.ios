@@ -9,6 +9,7 @@
 #import "SGViewController.h"
 #import "ShopList.h"
 #import "ASIOperationUserPlacelist.h"
+#import "ASIOperationCreatePlacelist.h"
 
 @protocol PlacelistControllerDelegate <SGViewControllerDelegate>
 
@@ -18,6 +19,8 @@
 {
     __weak ShopList *_shoplist;
     __weak IBOutlet UITableView *table;
+    
+    ASIOperationCreatePlacelist *_operationCreatePlacelist;
     
     ASIOperationUserPlacelist *_operationUserPlacelist;
     int _page;
