@@ -21,6 +21,7 @@
 #import "ASIOperationPlacelistDetail.h"
 #import "ASIOperationGetShopList.h"
 #import "Placelist.h"
+#import "PlacelistViewController.h"
 
 @class ScrollShopList,ShopListContentView,ShopListViewController;
 
@@ -37,7 +38,7 @@ enum SHOP_LIST_VIEW_MODE {
 
 @end
 
-@interface ShopListViewController : SGViewController<MKMapViewDelegate,UIScrollViewDelegate,ScrollerDelegate,UIGestureRecognizerDelegate,SortSearchDelegate,UIActionSheetDelegate,UITableViewDataSource,UITableViewDelegate,ShopListCellDelegate,SearchControllerHandle,ASIOperationPostDelegate,UITextFieldDelegate>
+@interface ShopListViewController : SGViewController<MKMapViewDelegate,UIScrollViewDelegate,ScrollerDelegate,UIGestureRecognizerDelegate,SortSearchDelegate,UIActionSheetDelegate,UITableViewDataSource,UITableViewDelegate,ShopListCellDelegate,SearchControllerHandle,ASIOperationPostDelegate,UITextFieldDelegate,PlacelistControllerDelegate>
 {
     __weak IBOutlet UITableView *tableList;
     __weak IBOutlet ScrollShopList *scroll;

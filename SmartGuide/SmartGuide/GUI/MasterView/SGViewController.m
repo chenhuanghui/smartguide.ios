@@ -100,4 +100,9 @@
     
 }
 
+-(SGNavigationController *)sgNavigationController
+{
+    return (SGNavigationController*)self.navigationController;
+}
+
 @end

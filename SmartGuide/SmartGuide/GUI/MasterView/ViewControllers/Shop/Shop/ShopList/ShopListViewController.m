@@ -96,6 +96,7 @@
             cell.delegate=self;
             
             [cell loadWithShopList:_shopsList[indexPath.row]];
+            [cell setButtonTypeIsTypeAdded:true];
             
             if(indexPath.row==_shopsList.count-1)
             {
@@ -131,6 +132,7 @@
                     cell.delegate=self;
                     
                     [cell loadWithShopList:_shopsList[indexPath.row-1]];
+                    [cell setButtonTypeIsTypeAdded:_placeList.idAuthor.integerValue!=currentUser().idUser.integerValue];
                     
                     if(indexPath.row==_shopsList.count)
                     {
@@ -286,6 +288,22 @@
     }
     
     [[GUIManager shareInstance] presentShopUserWithShopList:shop];
+}
+
+-(void)shopListCellTouchedAdd:(ShopList *)shop
+{
+    PlacelistViewController *vc=[[PlacelistViewController alloc] initWithShopList:shop];
+    vc.delegate=self;
+    
+    [self.sgNavigationController pushViewController:vc animated:true];
+}
+
+-(void)shopListCellTouchedRemove:(ShopList *)shop
+{
+    PlacelistViewController *vc=[[PlacelistViewController alloc] initWithShopList:shop];
+    vc.delegate=self;
+    
+    [self.sgNavigationController pushViewController:vc animated:true];
 }
 
 -(void) storePosition
@@ -451,7 +469,7 @@
     _page=-1;
     
     sortView.delegate=self;
-    btnSearchLocation.enabled=_viewMode==SHOP_LIST_VIEW_LIST;
+    btnSearchLocation.hidden=_viewMode==SHOP_LIST_VIEW_PLACE;
     
     switch (_viewMode) {
         case SHOP_LIST_VIEW_LIST:

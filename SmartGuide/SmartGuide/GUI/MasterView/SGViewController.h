@@ -38,6 +38,7 @@
 
 -(NSArray*) registerNotifications;
 -(void) receiveNotification:(NSNotification*) notification;
+-(SGNavigationController*) sgNavigationController;
 
 @property (nonatomic, assign) id<SGViewControllerDelegate> delegate;
 

@@ -10,6 +10,9 @@
 #import "Utility.h"
 #import "Constant.h"
 
+#define SHOP_LIST_CELL_BUTTON_TAG_ADD 0
+#define SHOP_LIST_CELL_BUTTON_TAG_REMOVE 1
+
 @implementation ShopListCell
 @synthesize delegate;
 
@@ -26,6 +29,20 @@
     lblName.text=shopList.shopName;
     lblAddress.text=shopList.address;
     lblContent.text=shopList.desc;
+}
+
+-(void)setButtonTypeIsTypeAdded:(bool)isTypeAdded
+{
+    if(isTypeAdded)
+    {
+        [btnAddRemove setImage:[UIImage imageNamed:@"button_addslide.png"] forState:UIControlStateNormal];
+        btnAddRemove.tag=SHOP_LIST_CELL_BUTTON_TAG_ADD;
+    }
+    else
+    {
+        [btnAddRemove setImage:[UIImage imageNamed:@"button_removeslide.png"] forState:UIControlStateNormal];
+        btnAddRemove.tag=SHOP_LIST_CELL_BUTTON_TAG_REMOVE;
+    }
 }
 
 -(void) makeScrollSize
@@ -70,6 +87,14 @@
             [scroll setContentOffset:CGPointZero animated:true];
         }];
     }];
+}
+
+-(IBAction) btnAddRemoveTouchUpInside:(id)sender
+{
+    if(btnAddRemove.tag==SHOP_LIST_CELL_BUTTON_TAG_ADD)
+        [self.delegate shopListCellTouchedAdd:_shop];
+    else
+        [self.delegate shopListCellTouchedRemove:_shop];
 }
 
 -(void)awakeFromNib

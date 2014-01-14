@@ -132,6 +132,19 @@
 	[self didChangeValueForKey:@"desc"];
 }
 
+- (NSNumber*)idAuthor {
+	[self willAccessValueForKey:@"idAuthor"];
+	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"idAuthor"];
+	[self didAccessValueForKey:@"idAuthor"];
+	return result;
+}
+
+- (void)setIdAuthor:(NSNumber*)value {
+	[self willChangeValueForKey:@"idAuthor"];
+	[self setPrimitiveValue:value forKey:@"idAuthor"];
+	[self didChangeValueForKey:@"idAuthor"];
+}
+
 - (NSNumber*)idPlacelist {
 	[self willAccessValueForKey:@"idPlacelist"];
 	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"idPlacelist"];

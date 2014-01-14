@@ -8,6 +8,7 @@
 #define Placelist_AuthorAvatar @"authorAvatar"
 #define Placelist_AuthorName @"authorName"
 #define Placelist_Desc @"desc"
+#define Placelist_IdAuthor @"idAuthor"
 #define Placelist_IdPlacelist @"idPlacelist"
 #define Placelist_Image @"image"
 #define Placelist_LoveStatus @"loveStatus"
@@ -32,6 +33,7 @@
 @property (nonatomic, retain) NSString* authorAvatar;
 @property (nonatomic, retain) NSString* authorName;
 @property (nonatomic, retain) NSString* desc;
+@property (nonatomic, retain) NSNumber* idAuthor;
 @property (nonatomic, retain) NSNumber* idPlacelist;
 @property (nonatomic, retain) NSString* image;
 @property (nonatomic, retain) NSNumber* loveStatus;

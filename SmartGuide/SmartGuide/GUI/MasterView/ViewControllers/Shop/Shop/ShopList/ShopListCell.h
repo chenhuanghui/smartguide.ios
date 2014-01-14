@@ -17,6 +17,8 @@
 @protocol ShopListCellDelegate <NSObject>
 
 -(void) shopListCellTouched:(ShopList*) shop;
+-(void) shopListCellTouchedAdd:(ShopList*) shop;
+-(void) shopListCellTouchedRemove:(ShopList*) shop;
 
 @end
 
@@ -33,11 +35,13 @@
     __weak IBOutlet UIImageView *imgvHeartAni;
     __weak IBOutlet UIView *leftView;
     __weak IBOutlet UIView *rightView;
+    __weak IBOutlet UIButton *btnAddRemove;
     
     __weak ShopList *_shop;
 }
 
 -(void) loadWithShopList:(ShopList*) shopList;
+-(void) setButtonTypeIsTypeAdded:(bool) isTypeAdded;
 -(ShopList*) shopList;
 +(NSString *)reuseIdentifier;
 +(float) heightWithContent:(NSString*) content;

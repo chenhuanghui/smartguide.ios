@@ -27,6 +27,7 @@
     obj.loveStatus=[NSNumber numberWithObject:dict[@"loveStatus"]];
     obj.authorName=[NSString stringWithStringDefault:dict[@"authorName"]];
     obj.authorAvatar=[NSString stringWithStringDefault:dict[@"authorAvatar"]];
+    obj.idAuthor=[NSNumber numberWithObject:dict[@"idAuthor"]];
     
     return obj;
 }
