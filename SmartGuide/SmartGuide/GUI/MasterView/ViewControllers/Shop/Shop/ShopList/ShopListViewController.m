@@ -937,6 +937,19 @@
         
         [self.map l_v_setY:_mapFrame.origin.y+scroll.contentOffset.y-scroll.contentOffset.y/SHOP_LIST_SCROLL_SPEED];
 
+        y=tableList.l_v_y-scrollView.l_co_y;
+        
+        if(self.map.superview)
+        {
+            if(y<0)
+                [self.map removeFromSuperview];
+        }
+        else
+        {
+            if(y>0)
+                [scroll insertSubview:self.map belowSubview:tableList];
+        }
+        
         if(_tableFrame.origin.y-scrollView.l_co_y<=0)
         {
             [tableList l_v_setY:scrollView.l_co_y];
