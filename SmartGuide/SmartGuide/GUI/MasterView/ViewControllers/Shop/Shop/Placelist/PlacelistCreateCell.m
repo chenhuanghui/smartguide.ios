@@ -16,13 +16,23 @@
 {
     switch (mode) {
         case PLACELIST_CREATE_CELL_SMALL:
+        {
             btnCreate.hidden=true;
             txtDesc.hidden=true;
+        }
             break;
             
         case PLACELIST_CREATE_CELL_DETAIL:
+        {
+            btnCreate.alpha=0;
+            txtDesc.alpha=0;
             btnCreate.hidden=false;
             txtDesc.hidden=false;
+            [UIView animateWithDuration:0.2f animations:^{
+                btnCreate.alpha=1;
+                txtDesc.alpha=1;
+            }];
+        }
             break;
     }
 }

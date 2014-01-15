@@ -40,7 +40,7 @@
     
     if(status==1)
     {
-        idPlacelist=[NSNumber numberWithObject:dict[@"idPlacelist"]];
+        idPlacelist=[[NSNumber numberWithObject:dict[@"idPlacelist"]] integerValue];
     }
 }
 

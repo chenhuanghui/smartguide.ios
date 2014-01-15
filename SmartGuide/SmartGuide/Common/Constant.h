@@ -254,6 +254,13 @@ enum GENDER_TYPE {
     GENDER_MALE = 1
     };
 
+enum CELL_POSITION
+{
+    CELL_POSITION_MIDDLE = 0,
+    CELL_POSITION_TOP = 1,
+    CELL_POSITION_BOTTOM = 2
+};
+
 @class ShopCatalog;
 @protocol CatalogueBlockViewDelegate <NSObject>
 

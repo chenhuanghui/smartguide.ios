@@ -10,12 +10,13 @@
 #import "PlacelistHeaderCell.h"
 #import "PlacelistCreateCell.h"
 #import "PlaceListInfoCell.h"
+#import "PlacelistBGView.h"
 
 @interface PlacelistViewController ()<PlacelistCreateCellDelegate,UITextFieldDelegate>
 {
     enum PLACELIST_CREATE_CELL_MODE _createCellMode;
-    __weak UIView *bg1;
-    __weak UIView *bg2;
+    __weak PlacelistBGView *bg1;
+    __weak PlacelistBGView *bg2;
 }
 
 @end
@@ -47,6 +48,11 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
+    [UserPlacelist markDeleteAllObjects];
+    [[DataManager shareInstance] save];
+    
+    _tableFrame=table.frame;
+    
     _createCellMode=PLACELIST_CREATE_CELL_SMALL;
     
     [table registerNib:[UINib nibWithNibName:[PlacelistHeaderCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[PlacelistHeaderCell reuseIdentifier]];
@@ -58,6 +64,7 @@
     _isLoadingMore=false;
     _placelists=[NSMutableArray array];
     
+    _isLoadingPlacelist=true;
     [self requestUserPlacelist];
     
     table.dataSource=self;
@@ -68,7 +75,7 @@
 
 -(NSArray *)registerNotifications
 {
-    return @[UIKeyboardWillShowNotification];
+    return @[UIKeyboardWillShowNotification,UIKeyboardWillHideNotification];
 }
 
 -(void)receiveNotification:(NSNotification *)notification
@@ -79,19 +86,37 @@
         {
             _createCellMode=PLACELIST_CREATE_CELL_DETAIL;
             
-            [table reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:1 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
             
-            [UIView animateWithDuration:DURATION_DEFAULT animations:^{
+            float height=[[notification.userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size.height;
+            [table l_v_setH:_tableFrame.size.height-height];
+            
+            [table beginUpdates];
+            
+            PlacelistCreateCell *cell=(PlacelistCreateCell*)[table cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
+            [cell loadWithMode:_createCellMode];
+            
+            [table endUpdates];
+            
+            [table setContentOffset:CGPointMake(0, -1) animated:true];
+            
+            [UIView animateWithDuration:0.15f animations:^{
                 CGRect rect=[table rectForSection:0];
                 rect.size.height-=7;
                 
                 bg1.frame=rect;
+                
+                rect=[table rectForSection:1];
+                bg2.frame=rect;
             } completion:^(BOOL finished) {
                 PlacelistCreateCell *cell=(PlacelistCreateCell*)[table cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
                 [cell focus];
             }];
-
+            
         }
+    }
+    else if([notification.name isEqualToString:UIKeyboardWillHideNotification])
+    {
+        table.frame=_tableFrame;
     }
 }
 
@@ -125,11 +150,7 @@
     CGRect rect=[table rectForSection:0];
     rect.size.height-=7;
     
-    UIView *bg=[[UIView alloc] initWithFrame:rect];
-    
-    bg.backgroundColor=[UIColor whiteColor];
-    bg.layer.cornerRadius=2;
-    bg.layer.masksToBounds=true;
+    PlacelistBGView *bg=[[PlacelistBGView alloc] initWithFrame:rect];
     
     bg1=bg;
     
@@ -137,14 +158,7 @@
     
     rect=[table rectForSection:1];
     
-    if([table numberOfRowsInSection:1]>1)
-        rect.size.height-=7;
-    
-    bg=[[UIView alloc] initWithFrame:rect];
-    
-    bg.backgroundColor=[UIColor whiteColor];
-    bg.layer.cornerRadius=2;
-    bg.layer.masksToBounds=true;
+    bg=[[PlacelistBGView alloc] initWithFrame:rect];
     
     bg2=bg;
     
@@ -165,11 +179,50 @@
     {
         [self.view removeLoading];
         
+        ASIOperationCreatePlacelist *ope=(ASIOperationCreatePlacelist*) operation;
+        int status=ope.status;
+        
+        if(ope.message.length>0)
+        {
+            [AlertView showAlertOKWithTitle:nil withMessage:ope.message onOK:^{
+                if(status==1)
+                    [self.navigationController popViewControllerAnimated:true];
+            }];
+        }
+        else if(status==1)
+        {
+            [self.navigationController popViewControllerAnimated:true];
+        }
         
         _operationCreatePlacelist=nil;
     }
     else if([operation isKindOfClass:[ASIOperationUserPlacelist class]])
     {
+        _isLoadingPlacelist=false;
+        
+        ASIOperationUserPlacelist *ope=(ASIOperationUserPlacelist*) operation;
+        
+        _placelists=[ope.userPlacelists mutableCopy];
+        
+        if(_shoplist)
+        {
+            for(UserPlacelist *place in _placelists)
+            {
+                if([place.arrayIDShops containsObject:[NSString stringWithFormat:@"%@",_shoplist.idShop]])
+                {
+                    place.isTicked=@(true);
+                }
+            }
+            
+            [[DataManager shareInstance] save];
+        }
+        
+        _isCanLoadMore=_placelists.count==10;
+        _isLoadingMore=false;
+        _page++;
+        
+        [self reloadData];
+        
         _operationUserPlacelist=nil;
     }
 }
@@ -209,12 +262,12 @@
                 return [PlacelistHeaderCell height];
             else
                 return [PlacelistCreateCell heightWithMode:_createCellMode];
-
+            
         case 1:
             if(indexPath.row==0)
                 return [PlacelistHeaderCell height];
             else
-                return table.l_v_h-[table rectForSection:0].size.height-[PlacelistHeaderCell height];
+                return [PlaceListInfoCell height];
             
         default:
             return 0;
@@ -259,6 +312,16 @@
             else
             {
                 PlaceListInfoCell *cell=[tableView dequeueReusableCellWithIdentifier:[PlaceListInfoCell reuseIdentifier]];
+                UserPlacelist *place=_placelists[indexPath.row-1];
+                
+                [cell loadWithUserPlace:place];
+                
+                if(indexPath.row==1)
+                    [cell setCellPosition:CELL_POSITION_TOP];
+                else if(indexPath.row==[tableView numberOfRowsInSection:1]-1)
+                    [cell setCellPosition:CELL_POSITION_BOTTOM];
+                else
+                    [cell setCellPosition:CELL_POSITION_MIDDLE];
                 
                 return cell;
             }
@@ -269,7 +332,42 @@
     return [UITableViewCell new];
 }
 
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if(indexPath.section==1 && indexPath.row>0)
+    {
+        PlaceListInfoCell *cell=(PlaceListInfoCell*)[tableView cellForRowAtIndexPath:indexPath];
+        
+        if(_shoplist)
+        {
+            if([cell.place.arrayIDShops containsObject:[NSString stringWithFormat:@"%i",_shoplist.idShop.integerValue]])
+            {
+                return;
+            }
+        }
+        
+        
+        cell.place.isTicked=@(!cell.place.isTicked.boolValue);
+        
+        [cell setIsTicked:cell.place.isTicked.boolValue];
+    }
+}
+
 - (IBAction)btnBackTouchUpInside:(id)sender {
+    
+    if(_shoplist)
+    {
+        NSString *idPlacelists=@"";
+        
+        for(UserPlacelist *place in _placelists)
+        {
+            if(place.hasChanges)
+            {
+                
+            }
+        }
+    }
+    
     [self.navigationController popViewControllerAnimated:true];
 }
 

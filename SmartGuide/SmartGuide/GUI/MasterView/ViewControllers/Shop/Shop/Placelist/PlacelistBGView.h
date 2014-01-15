@@ -9,5 +9,10 @@
 #import <UIKit/UIKit.h>
 
 @interface PlacelistBGView : UIView
+{
+    UIImage *imgMid;
+    UIImage *imgTop;
+    UIImage *imgBottom;
+}
 
 @end

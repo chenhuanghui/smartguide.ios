@@ -279,6 +279,7 @@
     </entity>
     <entity name="UserPlacelist" representedClassName="UserPlacelist" syncable="YES">
         <attribute name="idPlacelist" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="idShops" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="isTicked" optional="YES" attributeType="Boolean" defaultValueString="0" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="numOfShop" optional="YES" attributeType="String" syncable="YES"/>

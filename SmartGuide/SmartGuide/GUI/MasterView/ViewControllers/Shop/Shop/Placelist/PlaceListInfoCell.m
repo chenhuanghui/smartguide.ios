@@ -10,16 +10,40 @@
 
 @implementation PlaceListInfoCell
 
--(void)loadWithNumOfShop:(NSString *)numOfShop name:(NSString *)name isTicked:(bool)isTicked
+-(void)loadWithUserPlace:(UserPlacelist *)place
 {
-    lblNumOfShop.text=numOfShop;
-    lblName.text=name;
-    imgTick.highlighted=isTicked;
+    _place=place;
+    
+    lblNumOfShop.text=place.numOfShop;
+    lblName.text=place.name;
+    imgTick.highlighted=place.isTicked.boolValue;
+}
+
+-(UserPlacelist *)place
+{
+    return _place;
 }
 
 -(void)setIsTicked:(bool)isTicked
 {
     imgTick.highlighted=isTicked;
+}
+
+-(void)setCellPosition:(enum CELL_POSITION)cellPos
+{
+    switch (cellPos) {
+        case CELL_POSITION_TOP:
+            lineBottom.hidden=false;
+            break;
+            
+        case CELL_POSITION_BOTTOM:
+            lineBottom.hidden=true;
+            break;
+            
+        case CELL_POSITION_MIDDLE:
+            lineBottom.hidden=false;
+            break;
+    }
 }
 
 +(NSString *)reuseIdentifier
@@ -29,7 +53,7 @@
 
 +(float)height
 {
-    return 47;
+    return 49;
 }
 
 @end

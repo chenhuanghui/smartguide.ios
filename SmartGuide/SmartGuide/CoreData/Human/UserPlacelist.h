@@ -7,4 +7,6 @@
 +(UserPlacelist*) userPlacelistWithIDPlacelist:(int) idPlace;
 +(UserPlacelist*) makeWithDictionary:(NSDictionary*) dict;
 
+@property (nonatomic, readonly) NSArray *arrayIDShops;
+
 @end

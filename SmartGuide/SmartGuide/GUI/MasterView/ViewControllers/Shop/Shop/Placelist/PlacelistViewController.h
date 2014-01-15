@@ -20,6 +20,8 @@
     __weak ShopList *_shoplist;
     __weak IBOutlet UITableView *table;
     
+    CGRect _tableFrame;
+    
     ASIOperationCreatePlacelist *_operationCreatePlacelist;
     
     ASIOperationUserPlacelist *_operationUserPlacelist;
@@ -27,6 +29,7 @@
     bool _isLoadingMore;
     bool _isCanLoadMore;
     NSMutableArray *_placelists;
+    bool _isLoadingPlacelist;
 }
 
 -(PlacelistViewController*) initWithShopList:(ShopList*) shoplist;

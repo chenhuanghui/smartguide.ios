@@ -98,6 +98,19 @@
 	[self didChangeValueForKey:@"idPlacelist"];
 }
 
+- (NSString*)idShops {
+	[self willAccessValueForKey:@"idShops"];
+	NSString* result = (NSString*)[self primitiveValueForKey:@"idShops"];
+	[self didAccessValueForKey:@"idShops"];
+	return result;
+}
+
+- (void)setIdShops:(NSString*)value {
+	[self willChangeValueForKey:@"idShops"];
+	[self setPrimitiveValue:value forKey:@"idShops"];
+	[self didChangeValueForKey:@"idShops"];
+}
+
 - (NSNumber*)isTicked {
 	[self willAccessValueForKey:@"isTicked"];
 	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"isTicked"];

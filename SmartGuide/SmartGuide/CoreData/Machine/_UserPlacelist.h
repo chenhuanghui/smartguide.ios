@@ -6,6 +6,7 @@
 #define UserPlacelist_ClassName @"UserPlacelist"
 
 #define UserPlacelist_IdPlacelist @"idPlacelist"
+#define UserPlacelist_IdShops @"idShops"
 #define UserPlacelist_IsTicked @"isTicked"
 #define UserPlacelist_Name @"name"
 #define UserPlacelist_NumOfShop @"numOfShop"
@@ -24,6 +25,7 @@
 
 
 @property (nonatomic, retain) NSNumber* idPlacelist;
+@property (nonatomic, retain) NSString* idShops;
 @property (nonatomic, retain) NSNumber* isTicked;
 @property (nonatomic, retain) NSString* name;
 @property (nonatomic, retain) NSString* numOfShop;

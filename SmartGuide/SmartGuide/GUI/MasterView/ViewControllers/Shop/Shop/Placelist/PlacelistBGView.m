@@ -10,22 +10,43 @@
 
 @implementation PlacelistBGView
 
-- (id)initWithFrame:(CGRect)frame
+-(void)drawRect:(CGRect)rect
 {
-    self = [super initWithFrame:frame];
-    if (self) {
-        // Initialization code
-    }
-    return self;
+    [imgTop drawInRect:CGRectMake(0, 0, imgTop.size.width, imgTop.size.height)];
+    [imgBottom drawAtPoint:CGPointMake(0, rect.size.height-imgTop.size.height)];
+    
+    rect.origin.y=imgTop.size.height;
+    rect.origin.x=0;
+    rect.size.height-=(imgTop.size.height+imgBottom.size.height-1);
+    
+    [imgMid drawAsPatternInRect:rect];
 }
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
+-(void)awakeFromNib
 {
-    // Drawing code
+    [super awakeFromNib];
+    
+    self.contentMode=UIViewContentModeRedraw;
+    self.backgroundColor=[UIColor clearColor];
+    
+    imgTop=[UIImage imageNamed:@"bg_detail_placelist_header.png"];
+    imgMid=[UIImage imageNamed:@"bg_detail_info_mid.png"];
+    imgBottom=[UIImage imageNamed:@"bg_detail_info_bottom.png"];
+    
 }
-*/
+
+-(id)initWithFrame:(CGRect)frame
+{
+    self=[super initWithFrame:frame];
+    
+    self.contentMode=UIViewContentModeRedraw;
+    self.backgroundColor=[UIColor clearColor];
+    
+    imgTop=[UIImage imageNamed:@"bg_detail_placelist_header.png"];
+    imgMid=[UIImage imageNamed:@"bg_detail_info_mid.png"];
+    imgBottom=[UIImage imageNamed:@"bg_detail_info_bottom.png"];
+    
+    return self;
+}
 
 @end
