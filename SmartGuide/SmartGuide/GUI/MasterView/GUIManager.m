@@ -109,10 +109,10 @@ static GUIManager *_shareInstance=nil;
 
 -(void)welcomeControllerTouchedTry:(WelcomeViewController *)viewController
 {
-    PlacelistViewController *vc=[[PlacelistViewController alloc] init];
-    [self.rootNavigation pushViewController:vc animated:true];
-    
-    return;
+//    PlacelistViewController *vc=[[PlacelistViewController alloc] init];
+//    [self.rootNavigation pushViewController:vc animated:true];
+//    
+//    return;
     [self showRootControlelr];
 }
 

@@ -11,7 +11,7 @@
 @implementation ASIOperationPlacelistDetail
 @synthesize values,place,shopsList;
 
--(ASIOperationPlacelistDetail *)initWithIDPlacelist:(int)idPlaceList userLat:(double)userLat userLng:(double)userLng sort:(enum SORT_PLACE_LIST)sort page:(NSUInteger)page
+-(ASIOperationPlacelistDetail *)initWithIDPlacelist:(int)idPlaceList userLat:(double)userLat userLng:(double)userLng sort:(enum SORT_LIST)sort page:(NSUInteger)page
 {
     self=[super initWithURL:[NSURL URLWithString:SERVER_API_MAKE(API_PLACELIST_DETAIL)]];
     

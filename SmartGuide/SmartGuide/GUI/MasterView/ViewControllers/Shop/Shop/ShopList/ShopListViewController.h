@@ -90,8 +90,7 @@ enum SHOP_LIST_VIEW_MODE {
     NSString *_idShops;
     
     NSUInteger _page;
-    enum SORT_SHOP_LIST _sort;
-    enum SORT_PLACE_LIST _sortPlace;
+    enum SORT_LIST _sort;
     bool _canLoadMore;
     bool _isZoomedRegionMap;
     bool _isLoadingMore;
