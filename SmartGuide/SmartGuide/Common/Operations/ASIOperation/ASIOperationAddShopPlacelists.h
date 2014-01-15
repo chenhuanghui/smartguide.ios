@@ -7,6 +7,7 @@
 //
 
 #import "ASIOperationPost.h"
+#import "UserPlacelist.h"
 
 @interface ASIOperationAddShopPlacelists : ASIOperationPost
 
@@ -14,5 +15,6 @@
 
 @property (nonatomic, readonly) int status;
 @property (nonatomic, readonly) NSString *message;
+@property (nonatomic, readonly) NSMutableArray *placelits;
 
 @end

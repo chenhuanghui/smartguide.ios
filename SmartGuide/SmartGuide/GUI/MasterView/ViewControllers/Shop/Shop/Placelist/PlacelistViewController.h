@@ -10,8 +10,13 @@
 #import "ShopList.h"
 #import "ASIOperationUserPlacelist.h"
 #import "ASIOperationCreatePlacelist.h"
+#import "ASIOperationAddShopPlacelists.h"
+
+@class PlacelistViewController;
 
 @protocol PlacelistControllerDelegate <SGViewControllerDelegate>
+
+-(void) placelistControllerTouchedTextField:(PlacelistViewController*) controller;
 
 @end
 
@@ -23,6 +28,7 @@
     CGRect _tableFrame;
     
     ASIOperationCreatePlacelist *_operationCreatePlacelist;
+    ASIOperationAddShopPlacelists *_operationAddShopPlacelists;
     
     ASIOperationUserPlacelist *_operationUserPlacelist;
     int _page;

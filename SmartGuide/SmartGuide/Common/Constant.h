@@ -99,6 +99,7 @@ static NSString * const kClientId = @"816218358288-msr055u6pvnlqep605ri3lu8tt5ev
 #define API_USER_UPLOAD_SOCIAL_PROFILE @"user/uploadSocialProfile"
 #define API_USER_PLACELIST @"user/getPlacelist"
 #define API_CREATE_PLACELIST @"placelist/create"
+#define API_ADD_SHOP_PLACELISTS @"placelist/addShopPlacelists"
 
 #define API_GET_ACTIVE_CODE @"user/activation"
 #define API_USER_CHECK @"user/check_v2"

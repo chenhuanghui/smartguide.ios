@@ -173,6 +173,12 @@
     [_operationUserPlacelist startAsynchronous];
 }
 
+-(void) clearInfo
+{
+    PlacelistCreateCell *cell=(PlacelistCreateCell*)[table cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
+    [cell clear];
+}
+
 -(void)ASIOperaionPostFinished:(ASIOperationPost *)operation
 {
     if([operation isKindOfClass:[ASIOperationCreatePlacelist class]])
@@ -184,14 +190,29 @@
         
         if(ope.message.length>0)
         {
-            [AlertView showAlertOKWithTitle:nil withMessage:ope.message onOK:^{
-                if(status==1)
-                    [self.navigationController popViewControllerAnimated:true];
-            }];
+            [AlertView showAlertOKWithTitle:nil withMessage:ope.message onOK:nil];
         }
-        else if(status==1)
+        
+        if(status==1)
         {
-            [self.navigationController popViewControllerAnimated:true];
+            [self clearInfo];
+            
+            if(_shoplist)
+            {
+                if([ope.placelist.arrayIDShops containsObject:[NSString stringWithFormat:@"%@",_shoplist.idShop]])
+                {
+                    ope.placelist.isTicked=@(true);
+                    
+                    [[DataManager shareInstance] save];
+                }
+            }
+            
+            if(_placelists.count>0)
+                [_placelists insertObject:ope.placelist atIndex:0];
+            else
+                [_placelists addObject:ope.placelist];
+            
+            [self reloadData];
         }
         
         _operationCreatePlacelist=nil;
@@ -225,6 +246,25 @@
         
         _operationUserPlacelist=nil;
     }
+    else if([operation isKindOfClass:[ASIOperationAddShopPlacelists class]])
+    {
+        [self.view removeLoading];
+        
+        ASIOperationAddShopPlacelists *ope=(ASIOperationAddShopPlacelists*) operation;
+        int status=ope.status;
+        
+        if(ope.message.length>0)
+        {
+            [AlertView showAlertOKWithTitle:nil withMessage:ope.message onOK:^{
+                if(status==1)
+                    [self.navigationController popViewControllerAnimated:true];
+            }];
+        }
+        else if(status==1)
+            [self.navigationController popViewControllerAnimated:true];
+        
+        _operationAddShopPlacelists=nil;
+    }
 }
 
 -(void)ASIOperaionPostFailed:(ASIOperationPost *)operation
@@ -236,6 +276,12 @@
     else if([operation isKindOfClass:[ASIOperationUserPlacelist class]])
     {
         _operationUserPlacelist=nil;
+    }
+    else if([operation isKindOfClass:[ASIOperationAddShopPlacelists class]])
+    {
+        _operationAddShopPlacelists=nil;
+        
+        [self.view removeLoading];
     }
 }
 
@@ -357,14 +403,27 @@
     
     if(_shoplist)
     {
-        NSString *idPlacelists=@"";
+        NSMutableArray *array=[NSMutableArray array];
         
         for(UserPlacelist *place in _placelists)
         {
             if(place.hasChanges)
             {
-                
+                [array addObject:[NSString stringWithFormat:@"%i",place.idPlacelist.integerValue]];
             }
+        }
+        
+        if(array.count>0)
+        {
+            NSString *idPlacelists=[array componentsJoinedByString:@","];
+            _operationAddShopPlacelists=[[ASIOperationAddShopPlacelists alloc] initWithIDShop:_shoplist.idShop.integerValue idPlacelists:idPlacelists userLat:userLat() userLng:userLng()];
+            _operationAddShopPlacelists.delegatePost=self;
+            
+            [_operationAddShopPlacelists startAsynchronous];
+            
+            [self.view showLoading];
+            
+            return;
         }
     }
     
@@ -379,6 +438,8 @@
 
 -(BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {
+    [self.delegate placelistControllerTouchedTextField:self];
+    
     return false;
 }
 

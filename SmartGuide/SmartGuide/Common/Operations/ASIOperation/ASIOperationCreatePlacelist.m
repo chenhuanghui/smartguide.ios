@@ -9,7 +9,7 @@
 #import "ASIOperationCreatePlacelist.h"
 
 @implementation ASIOperationCreatePlacelist
-@synthesize values,message,status,idPlacelist;
+@synthesize values,message,status,placelist;
 
 -(ASIOperationCreatePlacelist *)initWithName:(NSString *)name desc:(NSString *)desc idShop:(NSString *)idShops userLat:(double)userLat userLng:(double)userLng
 {
@@ -29,7 +29,6 @@
 {
     status=0;
     message=@"";
-    idPlacelist=0;
     
     if([self isNullData:json])
         return;
@@ -40,7 +39,8 @@
     
     if(status==1)
     {
-        idPlacelist=[[NSNumber numberWithObject:dict[@"idPlacelist"]] integerValue];
+        placelist=[UserPlacelist makeWithDictionary:dict[@"placelist"]];
+        [[DataManager shareInstance] save];
     }
 }
 

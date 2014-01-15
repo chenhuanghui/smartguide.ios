@@ -7,6 +7,7 @@
 //
 
 #import "ASIOperationPost.h"
+#import "UserPlacelist.h"
 
 @interface ASIOperationCreatePlacelist : ASIOperationPost
 
@@ -14,6 +15,6 @@
 
 @property (nonatomic, readonly) int status;
 @property (nonatomic, readonly) NSString *message;
-@property (nonatomic, readonly) int idPlacelist;
+@property (nonatomic, readonly) UserPlacelist *placelist;
 
 @end

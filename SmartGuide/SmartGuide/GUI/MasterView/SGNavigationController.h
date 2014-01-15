@@ -43,6 +43,7 @@ CATransition* transitionPushFromRight();
 
 -(void) makePushViewController:(UIViewController*)viewController animate:(bool) animate;
 -(void) pushViewController:(UIViewController *)viewController withTransition:(CATransition*) transition;
+-(void) pushViewController:(SGViewController*) viewController andPopWithTransition:(CATransition*) transition;
 -(UIViewController *)popViewControllerWithTransition:(CATransition*) transition;
 
 

@@ -803,6 +803,29 @@ CALL_DEALLOC_LOG
     [self pushViewController:viewController animated:false];
 }
 
+-(void)pushViewController:(SGViewController *)viewController andPopWithTransition:(CATransition *)transition
+{
+    __block __weak SGNavigationController *weakSelf=self;
+    _onPushedViewController=nil;
+    _onPushedViewController=^(UIViewController*vc)
+    {
+        if(weakSelf.viewControllers.count>1)
+        {
+            int index=[weakSelf.viewControllers indexOfObject:vc];
+            
+            if(index!=NSNotFound && index>0)
+            {
+                NSMutableArray *array=[weakSelf.viewControllers mutableCopy];
+                [array removeObjectAtIndex:index-1];
+                weakSelf.viewControllers=array;
+            }
+        }
+    };
+    
+    [self.view.layer addAnimation:transition forKey:nil];
+    [self pushViewController:viewController animated:false];
+}
+
 -(UIViewController *)popViewControllerWithTransition:(CATransition *)transition
 {
     [self.view.layer addAnimation:transition forKey:nil];

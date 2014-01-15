@@ -1405,6 +1405,11 @@
     self.map.mapType=MKMapTypeStandard;
 }
 
+-(void)placelistControllerTouchedTextField:(PlacelistViewController *)controller
+{
+    [self.sgNavigationController popViewControllerWithTransition:transitionPushFromRight()];
+}
+
 @end
 
 @implementation ScrollShopList
