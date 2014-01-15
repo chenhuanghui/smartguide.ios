@@ -10,6 +10,7 @@
 #import <CoreLocation/CoreLocation.h>
 #import <MapKit/MapKit.h>
 #import "Flurry.h"
+#import "Constant.h"
 
 #define IS_IPHONE_4 ([UIScreen mainScreen].bounds.size.height==480)
 #define IS_RETINA ([UIScreen mainScreen].scale==2)
@@ -39,6 +40,7 @@ CGRect CGRectWithOrigin(CGRect rect, CGPoint pnt);
 bool isVailCLLocationCoordinate2D(CLLocationCoordinate2D location);
 void makePhoneCall(NSString* phone);
 int random_int(int from, int to);
+NSString* sortList(enum SORT_LIST sort);
 
 @interface Utility : NSObject
 

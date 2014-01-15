@@ -60,6 +60,21 @@ bool isVailCLLocationCoordinate2D(CLLocationCoordinate2D location)
     return location.latitude>0 && location.longitude>0;
 }
 
+NSString* sortList(enum SORT_LIST sort)
+{
+    switch (sort) {
+        case SORT_LIST_DEFAULT:
+            return @"Mặc định";
+            
+        case SORT_LIST_DISTANCE:
+            return @"Khoảng cách";
+        case SORT_LIST_LOVE:
+            return @"Lượt thích";
+        case SORT_LIST_VIEW:
+            return @"Lượt xem";
+    }
+}
+
 void makePhoneCall(NSString* phone)
 {
     NSString *text=[phone copy];

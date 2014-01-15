@@ -10,7 +10,7 @@
 
 @interface ASIOperationGetShopList : ASIOperationPost
 
--(ASIOperationGetShopList*) initWithIDShops:(NSString*) idShops userLat:(double) userLat userLng:(double) userLng;
+-(ASIOperationGetShopList*) initWithIDShops:(NSString*) idShops userLat:(double) userLat userLng:(double) userLng page:(int) page sort:(enum SORT_LIST) sort;
 
 @property (nonatomic, readonly) NSMutableArray *shopLists;
 

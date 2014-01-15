@@ -326,7 +326,8 @@
     switch (_viewMode) {
             
         case SHOP_LIST_VIEW_SHOP_LIST:
-            return;
+            sheet=[[UIActionSheet alloc] initWithTitle:@"Tìm kiếm theo" delegate:self cancelButtonTitle:@"Đóng" destructiveButtonTitle:nil otherButtonTitles:@"Khoảng cách", @"Lượt xem", @"Lượt love",@"Mặc định", nil];
+            break;
             
         case SHOP_LIST_VIEW_LIST:
             sheet=[[UIActionSheet alloc] initWithTitle:@"Tìm kiếm theo" delegate:self cancelButtonTitle:@"Đóng" destructiveButtonTitle:nil otherButtonTitles:@"Khoảng cách", @"Lượt xem", @"Lượt love", nil];
@@ -342,78 +343,48 @@
 
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if(buttonIndex==3)
+    if(buttonIndex==actionSheet.cancelButtonIndex)
+        return;
+    
+    enum SORT_LIST sort;
+    
+    switch (buttonIndex) {
+        case 0:
+            sort=SORT_LIST_DISTANCE;
+            break;
+            
+        case 1:
+            sort=SORT_LIST_VIEW;
+            break;
+            
+        case 2:
+            sort=SORT_LIST_LOVE;
+            break;
+            
+        case 3:
+            sort=SORT_LIST_DEFAULT;
+            break;
+            
+        default:
+            sort=SORT_LIST_DISTANCE;
+            break;
+    }
+
+    if(_sort==sort)
         return;
     
     switch (_viewMode) {
             
         case SHOP_LIST_VIEW_SHOP_LIST:
+            [self changeSortShopList:sort];
             break;
             
         case SHOP_LIST_VIEW_LIST:
-        {
-            enum SORT_LIST sort;
-            
-            switch (buttonIndex) {
-                case 0:
-                    sort=SORT_LIST_DISTANCE;
-                    break;
-                    
-                case 1:
-                    sort=SORT_LIST_VIEW;
-                    break;
-                    
-                case 2:
-                    sort=SORT_LIST_LOVE;
-                    break;
-                    
-                case 3:
-                    sort=SORT_LIST_DEFAULT;
-                    break;
-                    
-                default:
-                    sort=SORT_LIST_DISTANCE;
-                    break;
-            }
-            
-            if(sort==_sort)
-                return;
-            
             [self changeSort:sort];
-        }
             break;
             
         case SHOP_LIST_VIEW_PLACE:
-        {
-            enum SORT_LIST sort;
-            
-            switch (buttonIndex) {
-                case 0:
-                    sort=SORT_LIST_DISTANCE;
-                    break;
-                    
-                case 1:
-                    sort=SORT_LIST_VIEW;
-                    break;
-                    
-                case 2:
-                    sort=SORT_LIST_LOVE;
-                    break;
-                    
-                case 3:
-                    sort=SORT_LIST_DEFAULT;
-                    break;
-                    
-                default:
-                    sort=SORT_LIST_DISTANCE;
-                    break;
-            }
-            
-            if(sort==_sort)
-                return;
-            
             [self changeSortPlace:sort];
-        }
             break;
     }
     
@@ -496,6 +467,11 @@
             [sortView setIcon:[UIImage imageNamed:@"icon_distance.png"] text:@"Mặc định"];
             
             _canLoadMore=false;
+            _page=-1;
+            _isLoadingMore=false;
+            _sort=SORT_LIST_DEFAULT;
+            
+            
             [self requestShopList];
             [self showLoading];
             break;
@@ -544,7 +520,7 @@
         _operationShopList=nil;
     }
     
-    _operationShopList=[[ASIOperationGetShopList alloc] initWithIDShops:_idShops userLat:userLat() userLng:userLng()];
+    _operationShopList=[[ASIOperationGetShopList alloc] initWithIDShops:_idShops userLat:userLat() userLng:userLng() page:_page+1 sort:_sort];
     _operationShopList.delegatePost=self;
     
     [_operationShopList startAsynchronous];
@@ -606,6 +582,30 @@
     [_operationShopSearch startAsynchronous];
 }
 
+-(void) changeSortShopList:(enum SORT_LIST) sort
+{
+    [self showLoading];
+    
+    [tableList setContentOffset:tableList.contentOffset animated:true];
+    
+    tableList.dataSource=nil;
+    _shopsList=[NSMutableArray array];
+    _page=-1;
+    _sort=sort;
+    
+    [sortView setText:sortList(_sort)];
+    
+    [self clearMap];
+    
+    if(_operationShopList)
+    {
+        [_operationShopList cancel];
+        _operationShopList=nil;
+    }
+    
+    [self requestShopList];
+}
+
 -(void) changeSort:(enum SORT_LIST) sort
 {
     [self showLoading];
@@ -617,24 +617,7 @@
     _page=-1;
     _sort=sort;
     
-    switch (_sort) {
-        case SORT_LIST_DISTANCE:
-            [sortView setText:@"Khoảng cách"];
-            break;
-            
-        case SORT_LIST_VIEW:
-            [sortView setText:@"Lượt xem"];
-            break;
-            
-        case SORT_LIST_LOVE:
-            [sortView setText:@"Lượt love"];
-            break;
-            
-        case SORT_LIST_DEFAULT:
-            [sortView setText:@"Mặc định"];
-            break;
-            
-    }
+    [sortView setText:sortList(_sort)];
     
     [self clearMap];
     
@@ -661,24 +644,7 @@
     _page=-1;
     _sort=sort;
     
-    switch (_sort) {
-        case SORT_LIST_DISTANCE:
-            [sortView setText:@"Khoảng cách"];
-            break;
-            
-        case SORT_LIST_VIEW:
-            [sortView setText:@"Lượt xem"];
-            break;
-            
-        case SORT_LIST_LOVE:
-            [sortView setText:@"Lượt love"];
-            break;
-            
-        case SORT_LIST_DEFAULT:
-            [sortView setText:@"Mặc định"];
-            break;
-            
-    }
+    [sortView setText:sortList(_sort)];
     
     [self clearMap];
     
@@ -798,8 +764,9 @@
         ASIOperationGetShopList *ope=(ASIOperationGetShopList*) operation;
         
         [_shopsList addObjectsFromArray:ope.shopLists];
-        _canLoadMore=false;
+        _canLoadMore=ope.shopLists.count==10;
         _isLoadingMore=false;
+        _page++;
         
         tableList.dataSource=self;
         tableList.delegate=self;
@@ -1016,8 +983,6 @@
             switch (_viewMode) {
                     
                 case SHOP_LIST_VIEW_SHOP_LIST:
-                    return;
-                    
                 case SHOP_LIST_VIEW_LIST:
                 {
                     ShopList *shop=_shopsList[indexPath.row];
@@ -1036,7 +1001,7 @@
                             break;
                             
                         case SORT_LIST_DEFAULT:
-                            scrollerText=@"";
+                            scrollerText=shop.distance;
                             break;
                     }
                 }
@@ -1066,7 +1031,7 @@
                                     break;
                                     
                                 case SORT_LIST_DEFAULT:
-                                    scrollerText=shop.numOfLove;
+                                    scrollerText=shop.distance;
                                     break;
                             }
                         }
