@@ -86,6 +86,23 @@
     }
 }
 
+-(void) loadMore
+{
+    switch (_viewMode) {
+        case SHOP_LIST_VIEW_LIST:
+            [self requestShopSearch];
+            break;
+            
+        case SHOP_LIST_VIEW_PLACE:
+            [self requestPlacelistDetail];
+            break;
+            
+        case SHOP_LIST_VIEW_SHOP_LIST:
+            [self requestShopList];
+            break;
+    }
+}
+
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     switch (_viewMode) {
@@ -104,7 +121,7 @@
                 {
                     if(!_isLoadingMore)
                     {
-                        [self requestShopSearch];
+                        [self loadMore];
                         _isLoadingMore=true;
                     }
                 }
@@ -140,7 +157,7 @@
                         {
                             if(!_isLoadingMore)
                             {
-                                [self requestPlacelistDetail];
+                                [self loadMore];
                                 _isLoadingMore=true;
                             }
                         }
@@ -546,27 +563,13 @@
     
     [tableList setContentOffset:tableList.contentOffset animated:true];
     
-    tableList.dataSource=nil;
     _shopsList=[NSMutableArray array];
     _page=-1;
     _location=coordinate;
+    _viewMode=SHOP_LIST_VIEW_LIST;
+    _sort=SORT_LIST_DISTANCE;
     
-    switch (_sort) {
-        case SORT_LIST_DISTANCE:
-            [sortView setText:@"Khoảng cách"];
-            break;
-            
-        case SORT_LIST_VIEW:
-            [sortView setText:@"Lượt xem"];
-            break;
-            
-        case SORT_LIST_LOVE:
-            [sortView setText:@"Lượt love"];
-            
-        case SORT_LIST_DEFAULT:
-            [sortView setText:@"Mặc định"];
-            
-    }
+    [sortView setText:sortList(_sort)];
     
     [self clearMap];
     
@@ -575,6 +578,9 @@
         [_operationShopSearch cancel];
         _operationShopSearch=nil;
     }
+    
+    if(_keyword.length==0)
+        _keyword=@"";
     
     _operationShopSearch=[[ASIOperationShopSearch alloc] initWithKeywords:_keyword userLat:_location.latitude userLng:_location.longitude page:_page+1 sort:_sort];
     
@@ -1285,6 +1291,12 @@
     {
         [_operationShopSearch cancel];
         _operationShopSearch=nil;
+    }
+    
+    if(_operationShopList)
+    {
+        [_operationShopList cancel];
+        _operationShopList=nil;
     }
     
     scroll.delegate=nil;
