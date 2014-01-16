@@ -14,11 +14,6 @@
                 <rect key="frame" x="0.0" y="0.0" width="290" height="31"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view contentMode="scaleToFill" id="WVo-9y-lZO" customClass="InfoTypeBGView">
-                        <rect key="frame" x="10" y="0.0" width="270" height="32"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    </view>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lorem ipsum dolor sit er elit lamet, consectetaur cillium adciviuda." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="25E-sT-mqW">
                         <rect key="frame" x="12" y="0.0" width="100" height="32"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -39,7 +34,6 @@
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <connections>
-                <outlet property="bg" destination="WVo-9y-lZO" id="H6h-V5-8TB"/>
                 <outlet property="lblLeft" destination="25E-sT-mqW" id="7BE-xE-GPS"/>
                 <outlet property="lblRight" destination="cH2-Tv-G2x" id="oxx-65-KIs"/>
             </connections>

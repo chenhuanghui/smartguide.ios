@@ -38,11 +38,13 @@ enum NEW_FEED_LIST_DISPLAY_MODE {
     __weak IBOutlet PageControlNext *pageControl;
     __weak IBOutlet UIView *bgView;
     
-    NSMutableArray *_homes;
-    NSMutableArray *_images;
+    NSArray *_homes;
+    NSArray *_images;
     
     enum NEW_FEED_LIST_DATA_MODE _dataMode;
     enum NEW_FEED_LIST_DISPLAY_MODE _displayMode;
+    
+    __weak UserHome *_home;
 }
 
 -(void) loadWithHome3:(UserHome*) home;

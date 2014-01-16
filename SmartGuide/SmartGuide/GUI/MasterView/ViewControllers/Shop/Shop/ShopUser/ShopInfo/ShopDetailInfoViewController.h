@@ -17,10 +17,11 @@
 #import "ShopDetailInfoType3Cell.h"
 #import "ShopDetailInfoType4Cell.h"
 #import "ShopDetailInfoHeaderView.h"
+#import "ShopDetailInfoDescCell.h"
 
 @class ShopDetailInfoScrollView;
 
-@interface ShopDetailInfoViewController : SGViewController<UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate,ASIOperationPostDelegate,ShopDetailInfoCellDelegate>
+@interface ShopDetailInfoViewController : SGViewController<UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate,ASIOperationPostDelegate>
 {
     __weak IBOutlet UIImageView *imgvCover;
     __weak IBOutlet UIImageView *imgvBgCover;

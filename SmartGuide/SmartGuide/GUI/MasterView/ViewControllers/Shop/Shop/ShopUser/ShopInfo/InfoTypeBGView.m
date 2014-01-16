@@ -9,42 +9,30 @@
 #import "InfoTypeBGView.h"
 
 @implementation InfoTypeBGView
-@synthesize drawBottomLine;
+
+-(void)drawRect:(CGRect)rect
+{
+    [imgTop drawInRect:CGRectMake(0, 0, imgTop.size.width, imgTop.size.height)];
+    [imgBottom drawAtPoint:CGPointMake(0, rect.size.height-imgTop.size.height)];
+    
+    rect.origin.y=imgTop.size.height;
+    rect.origin.x=0;
+    rect.size.height-=(imgTop.size.height+imgBottom.size.height-1);
+    
+    [imgMid drawAsPatternInRect:rect];
+}
 
 -(void)awakeFromNib
 {
     [super awakeFromNib];
     
+    self.contentMode=UIViewContentModeRedraw;
     self.backgroundColor=[UIColor clearColor];
-}
-
--(void)drawRect:(CGRect)rect
-{
-    [[UIImage imageNamed:@"bg_detail_info_mid.png"] drawAsPatternInRect:rect];
     
-    if(drawBottomLine)
-    {
-        [[UIImage imageNamed:@"bg_detail_info_bottom.png"] drawAtPoint:CGPointMake(0, rect.size.height-5)];
-    }
-    else
-    {
-        CGContextRef context=UIGraphicsGetCurrentContext();
-        CGContextSetStrokeColorWithColor(context, [UIColor lightGrayColor].CGColor);
-        CGContextSetLineWidth(context, 0.5f);
-        
-        CGContextMoveToPoint(context, 4, rect.size.height-2);
-        CGContextAddLineToPoint(context, rect.size.width-2, rect.size.height-2);
-        
-        CGContextStrokePath(context);
-    }
-}
-
--(void)setDrawBottomLine:(bool)_drawBottomLine
-{
-    if(drawBottomLine!=_drawBottomLine)
-        [self setNeedsDisplay];
+    imgTop=[UIImage imageNamed:@"bg_detail_placelist_header.png"];
+    imgMid=[UIImage imageNamed:@"bg_detail_info_mid.png"];
+    imgBottom=[UIImage imageNamed:@"bg_detail_info_bottom.png"];
     
-    drawBottomLine=_drawBottomLine;
 }
 
 @end

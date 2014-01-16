@@ -40,24 +40,6 @@
     _coverFrame=coverView.frame;
 }
 
--(void) maskTopLR:(UIView*) v
-{
-    UIBezierPath *maskPath=[UIBezierPath bezierPathWithRoundedRect:v.bounds byRoundingCorners:UIRectCornerTopLeft|UIRectCornerTopRight cornerRadii:CGSizeMake(2.5f, 2.5f)];
-    CAShapeLayer *shapeLayer=[CAShapeLayer new];
-    shapeLayer.frame=v.bounds;
-    shapeLayer.path=maskPath.CGPath;
-    v.layer.mask=shapeLayer;
-}
-
--(void) maskTableBottomLR:(UITableView*) v
-{
-    UIBezierPath *maskPath=[UIBezierPath bezierPathWithRoundedRect:CGRectMake(0, 0, v.l_cs_w, v.l_cs_h) byRoundingCorners:UIRectCornerBottomLeft|UIRectCornerBottomRight cornerRadii:CGSizeMake(2.5f, 2.5f)];
-    CAShapeLayer *shapeLayer=[CAShapeLayer new];
-    shapeLayer.frame=CGRectMake(0, 0, v.l_cs_w, v.l_cs_h);
-    shapeLayer.path=maskPath.CGPath;
-    v.layer.mask=shapeLayer;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -75,8 +57,6 @@
     _infos=[NSMutableArray new];
     _didLoadShopDetail=false;
     _descMode=SHOP_DETAIL_INFO_DESCRIPTION_NORMAL;
-    
-    [_infos addObject:@""];
     
     _operation=[[ASIOperationShopDetailInfo alloc] initWithIDShop:_shop.idShop.integerValue userLat:userLat() userLng:userLng()];
     _operation.delegatePost=self;
@@ -132,30 +112,37 @@
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return _infos.count+(_didLoadShopDetail?0:1);
+    // address, shop name
+    int count=1;
+    
+    // description
+    count++;
+    
+    // các block info
+    count+=_infos.count;
+    
+    return count;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     switch (section) {
-        case 0:
-            return _didLoadShopDetail?2:1;
+        case 0: //address
+            return 1;
             
-        case 1:
-        {
-            if(!_didLoadShopDetail)
-                return 1;
-            
-            break;
-        }
+        case 1: //desc
+            return 1;
             
         default:
-            break;
+        {
+            InfoTypeObject *obj=_infos[section-2];
+            
+            if(section==[tableView numberOfSections]-1)
+                return obj.items.count;
+            else //num of item + empty
+                return obj.items.count+1;
+        }
     }
-    
-    InfoTypeObject *obj=_infos[section];
-    
-    return obj.items.count+1;
 }
 
 -(void)detailInfoCellTouchedMore:(ShopDetailInfoCell *)cell
@@ -190,23 +177,17 @@
     switch (indexPath.section) {
         case 0:
         {
-            if(indexPath.row==0)
-            {
-                ShopDetailInfoCell *cell=[table dequeueReusableCellWithIdentifier:[ShopDetailInfoCell reuseIdentifier]];
-                cell.delegate=self;
-                
-                [cell loadWithShop:_shop height:[table rectForRowAtIndexPath:indexPath].size.height mode:_descMode];
-                
-                return cell;
-            }
-            else
-            {
-                return [self emptyCell];
-            }
+            ShopDetailInfoCell *cell=[table dequeueReusableCellWithIdentifier:[ShopDetailInfoCell reuseIdentifier]];
+            
+            [cell loadWithShop:_shop];
+            
+            return cell;
         }
             
         case 1:
         {
+            ShopDetailInfoDescCell *cell=[tableView dequeueReusableCellWithIdentifier:[ShopDetailInfoDescCell reuseIdentifier]];
+            
             if(!_didLoadShopDetail)
             {
                 ShopDetailInfoEmptyCell *cell=[table dequeueReusableCellWithIdentifier:[ShopDetailInfoEmptyCell reuseIdentifier]];
@@ -283,9 +264,7 @@
         {
             if(indexPath.row==0)
             {
-                _heightDesc=[ShopDetailInfoCell heightWithContent:_shop.desc mode:_descMode];
-                
-                return _heightDesc;
+                return [ShopDetailInfoCell height];
             }
             else
                 return 23;
@@ -357,7 +336,7 @@
             
             ShopDetailInfoType1Cell *cell=[table dequeueReusableCellWithIdentifier:[ShopDetailInfoType1Cell reuseIdentifier]];
             
-            [cell loadWithInfo1:item isLastCell:indexPath.row==obj.items.count-1];
+            [cell loadWithInfo1:item];
             
             return cell;
         }
@@ -368,7 +347,7 @@
             
             ShopDetailInfoType2Cell *cell=[table dequeueReusableCellWithIdentifier:[ShopDetailInfoType2Cell reuseIdentifier]];
             
-            [cell loadWithInfo2:item isLastCell:indexPath.row==obj.items.count-1];
+            [cell loadWithInfo2:item];
             
             return cell;
         }
@@ -380,7 +359,7 @@
             
             ShopDetailInfoType3Cell *cell=[table dequeueReusableCellWithIdentifier:[ShopDetailInfoType3Cell reuseIdentifier]];
             
-            [cell loadWithInfo3:item isLastCell:indexPath.row==obj.items.count-1];
+            [cell loadWithInfo3:item];
             
             return cell;
         }
@@ -392,7 +371,7 @@
             
             ShopDetailInfoType4Cell *cell=[table dequeueReusableCellWithIdentifier:[ShopDetailInfoType4Cell reuseIdentifier]];
             
-            [cell loadWithInfo4:item isLastCell:indexPath.row==obj.items.count-1];
+            [cell loadWithInfo4:item];
             
             return cell;
         }

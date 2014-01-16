@@ -15,12 +15,11 @@
 
 @implementation ShopDetailInfoType3Cell
 
--(void)loadWithInfo3:(Info3 *)info3 isLastCell:(bool)isLastCell
+-(void)loadWithInfo3:(Info3 *)info3
 {
     [imgv loadImageInfo3WithURL:info3.image];
     lblTitle.text=info3.title;
     lblContent.text=info3.content;
-    bg.drawBottomLine=isLastCell;
 }
 
 +(NSString *)reuseIdentifier

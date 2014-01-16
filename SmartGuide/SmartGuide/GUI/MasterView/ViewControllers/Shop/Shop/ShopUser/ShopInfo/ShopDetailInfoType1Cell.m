@@ -12,11 +12,10 @@
 
 @implementation ShopDetailInfoType1Cell
 
--(void) loadWithInfo1:(Info1 *)info1 isLastCell:(bool)isLastCell
+-(void) loadWithInfo1:(Info1 *)info1
 {
     lblContent.text=info1.content;
     btnTick.enabled=info1.isTicked==DETAIL_INFO_TICKED;
-    bg.drawBottomLine=isLastCell;
 }
 
 +(NSString *)reuseIdentifier

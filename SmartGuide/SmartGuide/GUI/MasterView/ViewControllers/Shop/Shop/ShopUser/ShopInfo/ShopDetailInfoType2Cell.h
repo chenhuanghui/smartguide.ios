@@ -14,10 +14,9 @@
 {
     __weak IBOutlet UILabel *lblLeft;
     __weak IBOutlet UILabel *lblRight;
-    __weak IBOutlet InfoTypeBGView *bg;
 }
 
--(void) loadWithInfo2:(Info2*) info2 isLastCell:(bool) isLastCell;
+-(void) loadWithInfo2:(Info2*) info2;
 
 +(NSString *)reuseIdentifier;
 +(float) heightWithContent:(NSString*) content;

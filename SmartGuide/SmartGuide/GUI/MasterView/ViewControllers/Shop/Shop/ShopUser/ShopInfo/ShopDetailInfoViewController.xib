@@ -21,7 +21,7 @@
             <subviews>
                 <view contentMode="scaleToFill" id="L2A-r5-imc" userLabel="cover">
                     <rect key="frame" x="0.0" y="-75" width="290" height="203"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" alpha="0.25" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="coverdetail.jpg" id="xYf-ag-n8k" userLabel="cover">
                             <rect key="frame" x="0.0" y="0.0" width="290" height="203"/>
@@ -35,7 +35,7 @@
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="OST-Jf-nB9">
-                    <rect key="frame" x="0.0" y="0.0" width="290" height="431"/>
+                    <rect key="frame" x="10" y="0.0" width="270" height="431"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <connections>
@@ -43,6 +43,14 @@
                         <outlet property="delegate" destination="-1" id="oyC-5m-K4C"/>
                     </connections>
                 </tableView>
+                <view contentMode="scaleToFill" id="a6K-wR-8wo" customClass="TouchView">
+                    <rect key="frame" x="0.0" y="0.0" width="290" height="431"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <connections>
+                        <outlet property="receiveView" destination="OST-Jf-nB9" id="rVu-8H-Ghm"/>
+                    </connections>
+                </view>
             </subviews>
             <color key="backgroundColor" red="0.92156862745098034" green="0.92156862745098034" blue="0.92156862745098034" alpha="1" colorSpace="calibratedRGB"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>

@@ -14,11 +14,6 @@
                 <rect key="frame" x="0.0" y="0.0" width="290" height="69"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view contentMode="scaleToFill" id="qgs-mK-c1X" customClass="InfoTypeBGView">
-                        <rect key="frame" x="10" y="0.0" width="270" height="70"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    </view>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="j56-hd-3f2">
                         <rect key="frame" x="15" y="0.0" width="260" height="31"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -49,7 +44,6 @@
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <connections>
-                <outlet property="bg" destination="qgs-mK-c1X" id="FTl-Jq-9e8"/>
                 <outlet property="lblContent" destination="mgE-Je-VVZ" id="jGG-Bs-JX3"/>
                 <outlet property="lblDate" destination="O3h-bK-OUm" id="jQW-JY-Mz5"/>
                 <outlet property="lblTitle" destination="j56-hd-3f2" id="3vX-nY-FAp"/>

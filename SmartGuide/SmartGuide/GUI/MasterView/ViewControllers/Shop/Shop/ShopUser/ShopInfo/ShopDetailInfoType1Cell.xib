@@ -14,11 +14,6 @@
                 <rect key="frame" x="0.0" y="0.0" width="290" height="39"/>
                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <view contentMode="scaleToFill" id="XaK-Zm-Hlr" customClass="InfoTypeBGView">
-                        <rect key="frame" x="10" y="0.0" width="270" height="40"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    </view>
                     <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="E7g-FY-vjA">
                         <rect key="frame" x="21" y="13" width="15" height="13"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
@@ -39,7 +34,6 @@
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <connections>
-                <outlet property="bg" destination="XaK-Zm-Hlr" id="d4r-6s-a49"/>
                 <outlet property="btnTick" destination="E7g-FY-vjA" id="CMP-bx-vEy"/>
                 <outlet property="lblContent" destination="eTZ-vj-Tuc" id="dky-VN-oYH"/>
             </connections>

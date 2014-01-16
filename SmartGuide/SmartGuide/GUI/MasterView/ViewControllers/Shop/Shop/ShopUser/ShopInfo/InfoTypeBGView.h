@@ -9,7 +9,10 @@
 #import <UIKit/UIKit.h>
 
 @interface InfoTypeBGView : UIView
-
-@property (nonatomic, assign) bool drawBottomLine;
+{
+    UIImage *imgMid;
+    UIImage *imgTop;
+    UIImage *imgBottom;
+}
 
 @end

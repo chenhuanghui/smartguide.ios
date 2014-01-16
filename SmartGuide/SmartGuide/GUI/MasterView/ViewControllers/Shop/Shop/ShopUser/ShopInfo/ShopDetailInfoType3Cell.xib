@@ -14,11 +14,6 @@
                 <rect key="frame" x="0.0" y="0.0" width="290" height="85"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view contentMode="scaleToFill" id="xnr-Ml-i0h" customClass="InfoTypeBGView">
-                        <rect key="frame" x="10" y="0.0" width="270" height="86"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    </view>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="I9X-dV-bXe">
                         <rect key="frame" x="11" y="10" width="66" height="66"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -42,7 +37,6 @@
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <connections>
-                <outlet property="bg" destination="xnr-Ml-i0h" id="F2F-19-V6n"/>
                 <outlet property="imgv" destination="I9X-dV-bXe" id="nHW-dm-8vT"/>
                 <outlet property="lblContent" destination="lv4-mF-J5d" id="nE4-Si-Dw5"/>
                 <outlet property="lblTitle" destination="9mS-oh-fhm" id="EPn-C3-quN"/>

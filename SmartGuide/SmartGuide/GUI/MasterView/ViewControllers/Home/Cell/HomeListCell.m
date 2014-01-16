@@ -22,8 +22,8 @@
         case NEW_FEED_LIST_DISPLAY_USED:
         {
             [tableSlide reloadData];
-            tableSlide.hidden=true;
-            pageControl.hidden=true;
+            tableSlide.hidden=false;
+            pageControl.hidden=false;
         }
             break;
             
@@ -39,10 +39,12 @@
 
 -(void)loadWithHome3:(UserHome *)home
 {
+    _home=home;
+    
     _dataMode=NEW_FEED_LIST_DATA_HOME3;
-    _homes=[home.home3Objects mutableCopy];
+    _homes=home.home3Objects;
     _displayMode=home.imagesObjects.count==0?NEW_FEED_LIST_DISPLAY_USED:NEW_FEED_LIST_DISPLAY_SLIDE;
-    _images=[home.imagesObjects mutableCopy];
+    _images=home.imagesObjects;
     pageControl.numberOfPages=_images.count;
     
     [self config];
@@ -52,10 +54,12 @@
 
 -(void)loadWithHome4:(UserHome *)home
 {
+    _home=home;
+    
     _dataMode=NEW_FEED_LIST_DATA_HOME4;
-    _homes=[home.home4Objects mutableCopy];
+    _homes=home.home4Objects;
     _displayMode=home.imagesObjects.count==0?NEW_FEED_LIST_DISPLAY_USED:NEW_FEED_LIST_DISPLAY_SLIDE;
-    _images=[home.imagesObjects mutableCopy];
+    _images=home.imagesObjects;
     pageControl.numberOfPages=_images.count;
     
     [self config];
@@ -65,10 +69,12 @@
 
 -(void)loadWithHome5:(UserHome *)home
 {
+    _home=home;
+    
     _dataMode=NEW_FEED_LIST_DATA_HOME5;
-    _homes=[home.home5Objects mutableCopy];
+    _homes=home.home5Objects;
     _displayMode=home.imagesObjects.count==0?NEW_FEED_LIST_DISPLAY_USED:NEW_FEED_LIST_DISPLAY_SLIDE;
-    _images=[home.imagesObjects mutableCopy];
+    _images=home.imagesObjects;
     pageControl.numberOfPages=_images.count;
     
     [self config];
@@ -79,7 +85,7 @@
 +(float)heightWithHome:(UserHome *)home
 {
     if(home.imagesObjects.count==0)
-        return 173;
+        return 170;
     
     return 345;
 }
@@ -106,9 +112,6 @@
     
     pageControl.dotColorCurrentPage=[UIColor whiteColor];
     pageControl.dotColorOtherPage=[[UIColor whiteColor] colorWithAlphaComponent:0.5];
-    
-    bgView.layer.cornerRadius=2;
-    bgView.layer.masksToBounds=true;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

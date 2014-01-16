@@ -13,12 +13,10 @@
 
 @implementation ShopDetailInfoType2Cell
 
--(void)loadWithInfo2:(Info2 *)info2 isLastCell:(bool)isLastCell
+-(void)loadWithInfo2:(Info2 *)info2
 {
     lblLeft.text=info2.title;
     lblRight.text=info2.content;
-    
-    bg.drawBottomLine=isLastCell;
 }
 
 +(NSString *)reuseIdentifier

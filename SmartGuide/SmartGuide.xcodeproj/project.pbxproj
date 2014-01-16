@@ -605,6 +605,8 @@
 		9AB1F04B183F136700A35422 /* arrowchat_smallgray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AB1F045183F136700A35422 /* arrowchat_smallgray@2x.png */; };
 		9AB1F04C183F136700A35422 /* arrowchat.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AB1F046183F136700A35422 /* arrowchat.png */; };
 		9AB1F04D183F136700A35422 /* arrowchat@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AB1F047183F136700A35422 /* arrowchat@2x.png */; };
+		9AB3693D1888371E00551E03 /* ShopDetailInfoDescCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AB3693C1888371E00551E03 /* ShopDetailInfoDescCell.m */; };
+		9AB3693F1888372800551E03 /* ShopDetailInfoDescCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9AB3693E1888372800551E03 /* ShopDetailInfoDescCell.xib */; };
 		9AB6CF51187C4A1800B8DEA2 /* GooglePlus.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9AB6CF50187C4A1800B8DEA2 /* GooglePlus.bundle */; };
 		9AC4940A18585A300042C535 /* StoreItemInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AC4940818585A300042C535 /* StoreItemInfoViewController.m */; };
 		9AC4940B18585A300042C535 /* StoreItemInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9AC4940918585A300042C535 /* StoreItemInfoViewController.xib */; };
@@ -1663,6 +1665,9 @@
 		9AB1F045183F136700A35422 /* arrowchat_smallgray@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrowchat_smallgray@2x.png"; sourceTree = "<group>"; };
 		9AB1F046183F136700A35422 /* arrowchat.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrowchat.png; sourceTree = "<group>"; };
 		9AB1F047183F136700A35422 /* arrowchat@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrowchat@2x.png"; sourceTree = "<group>"; };
+		9AB3693B1888371E00551E03 /* ShopDetailInfoDescCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopDetailInfoDescCell.h; sourceTree = "<group>"; };
+		9AB3693C1888371E00551E03 /* ShopDetailInfoDescCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopDetailInfoDescCell.m; sourceTree = "<group>"; };
+		9AB3693E1888372800551E03 /* ShopDetailInfoDescCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShopDetailInfoDescCell.xib; sourceTree = "<group>"; };
 		9AB6CF4A187C499400B8DEA2 /* GoogleOpenSource.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleOpenSource.framework; path = "google-plus-ios-sdk-1.5.0/GoogleOpenSource.framework"; sourceTree = "<group>"; };
 		9AB6CF4C187C49A100B8DEA2 /* GooglePlus.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GooglePlus.framework; path = "google-plus-ios-sdk-1.5.0/GooglePlus.framework"; sourceTree = "<group>"; };
 		9AB6CF50187C4A1800B8DEA2 /* GooglePlus.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = GooglePlus.bundle; sourceTree = "<group>"; };
@@ -2372,6 +2377,9 @@
 				9A0F75B0187152DB00160E54 /* ShopDetailInfoHeaderView.h */,
 				9A0F75B1187152DB00160E54 /* ShopDetailInfoHeaderView.m */,
 				9A0F75B2187152DB00160E54 /* ShopDetailInfoHeaderView.xib */,
+				9AB3693B1888371E00551E03 /* ShopDetailInfoDescCell.h */,
+				9AB3693C1888371E00551E03 /* ShopDetailInfoDescCell.m */,
+				9AB3693E1888372800551E03 /* ShopDetailInfoDescCell.xib */,
 				9A0F75B3187152DB00160E54 /* ShopDetailInfoType1Cell.h */,
 				9A0F75B4187152DB00160E54 /* ShopDetailInfoType1Cell.m */,
 				9A0F75B5187152DB00160E54 /* ShopDetailInfoType1Cell.xib */,
@@ -4414,6 +4422,7 @@
 				9A9FCBE91854ED8C004A3CFB /* II-2-List-Map.jpg in Resources */,
 				9ACE907C1875BCDB008FEA7E /* SearchShopCell.xib in Resources */,
 				9A66893D184DC6F2006A9EB2 /* bg_detailcover@2x.png in Resources */,
+				9AB3693F1888372800551E03 /* ShopDetailInfoDescCell.xib in Resources */,
 				9A5E66ED18842E32003F33CD /* iconpin_food@2x.png in Resources */,
 				9A9DB978187BA2F800091602 /* I-4-Register.jpg in Resources */,
 				9A32F419184346C000704D26 /* WelcomeViewController.xib in Resources */,
@@ -5087,6 +5096,7 @@
 				9A98550C1887B15E0008BFE7 /* ShopGalleryViewController.m in Sources */,
 				9A0F7616187152DB00160E54 /* InfoTypeBGView.m in Sources */,
 				9ACF7A5A1869589900B0BC78 /* OperationGeoCoder.m in Sources */,
+				9AB3693D1888371E00551E03 /* ShopDetailInfoDescCell.m in Sources */,
 				9A0F7645187152DB00160E54 /* ShopUserViewController.m in Sources */,
 				9ACF7A8C18698E3700B0BC78 /* UserHome4.m in Sources */,
 				9ACE90961875D17E008FEA7E /* _KM2Voucher.m in Sources */,

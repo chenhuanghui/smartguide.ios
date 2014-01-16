@@ -10,12 +10,11 @@
 
 @implementation ShopDetailInfoType4Cell
 
--(void)loadWithInfo4:(Info4 *)info4 isLastCell:(bool)isLastCell
+-(void)loadWithInfo4:(Info4 *)info4
 {
     lblTitle.text=info4.title;
     lblDate.text=info4.date;
     lblContent.text=info4.content;
-    bg.drawBottomLine=isLastCell;
 }
 
 +(NSString *)reuseIdentifier

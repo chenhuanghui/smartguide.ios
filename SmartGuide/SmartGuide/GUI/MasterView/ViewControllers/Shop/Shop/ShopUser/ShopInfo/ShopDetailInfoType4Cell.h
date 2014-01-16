@@ -16,10 +16,9 @@
     __weak IBOutlet UILabel *lblTitle;
     __weak IBOutlet UILabel *lblDate;
     __weak IBOutlet LabelTopText *lblContent;
-    __weak IBOutlet InfoTypeBGView *bg;
 }
 
--(void) loadWithInfo4:(Info4*) info4 isLastCell:(bool) isLastCell;
+-(void) loadWithInfo4:(Info4*) info4;
 
 +(float) heightWithContent:(NSString*) content;
 +(NSString *)reuseIdentifier;

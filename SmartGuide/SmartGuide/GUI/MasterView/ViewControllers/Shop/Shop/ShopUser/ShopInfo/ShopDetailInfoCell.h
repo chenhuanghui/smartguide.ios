@@ -12,18 +12,7 @@
 #import "LabelTopText.h"
 #import "InfoTypeBGView.h"
 
-enum SHOP_DETAIL_INFO_DESCRIPTION_MODE {
-    SHOP_DETAIL_INFO_DESCRIPTION_NORMAL = 0,
-    SHOP_DETAIL_INFO_DESCRIPTION_FULL = 1,
-    };
-
 @class ShopDetailInfoCell;
-
-@protocol ShopDetailInfoCellDelegate <NSObject>
-
--(void) detailInfoCellTouchedMore:(ShopDetailInfoCell*) cell;
-
-@end
 
 @interface ShopDetailInfoCell : UITableViewCell
 {
@@ -31,17 +20,12 @@ enum SHOP_DETAIL_INFO_DESCRIPTION_MODE {
     __weak IBOutlet UILabel *lblShopType;
     __weak IBOutlet UIImageView *imgvIcon;
     __weak IBOutlet LabelTopText *lblFullAddress;
-    __weak IBOutlet LabelTopText *lblIntro;
-    __weak IBOutlet UIButton *btnMore;
-    __weak IBOutlet InfoTypeBGView *bg;
 }
 
--(void) loadWithShop:(Shop*) shop height:(float) height mode:(enum SHOP_DETAIL_INFO_DESCRIPTION_MODE) mode;
--(void) loadWithShopList:(ShopList*) shop height:(float) height mode:(enum SHOP_DETAIL_INFO_DESCRIPTION_MODE) mode;
+-(void) loadWithShop:(Shop*) shop;
+-(void) loadWithShopList:(ShopList*) shop;
 
 +(NSString *)reuseIdentifier;
-+(float) heightWithContent:(NSString*) content mode:(enum SHOP_DETAIL_INFO_DESCRIPTION_MODE) mode;
-
-@property (nonatomic, weak) id<ShopDetailInfoCellDelegate> delegate;
++(float) height;
 
 @end
