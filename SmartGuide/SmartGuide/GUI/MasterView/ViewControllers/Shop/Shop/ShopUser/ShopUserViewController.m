@@ -482,6 +482,9 @@
     
     [cell loadWithPromotionNews:_shop.promotionNew];
     
+    if(_shop.enumPromotionType!=SHOP_PROMOTION_NONE)
+        [cell hideLine];
+    
     kmNewsCell=cell;
     
     return cell;

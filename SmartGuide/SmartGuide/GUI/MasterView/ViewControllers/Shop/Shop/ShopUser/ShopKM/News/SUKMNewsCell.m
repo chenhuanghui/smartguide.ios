@@ -18,6 +18,11 @@
     [cover loadImagePromotionNewsWithURL:news.image];
 }
 
+-(void)hideLine
+{
+    lineStatus.hidden=true;
+}
+
 +(NSString *)reuseIdentifier
 {
     return @"SUKMNewsCell";

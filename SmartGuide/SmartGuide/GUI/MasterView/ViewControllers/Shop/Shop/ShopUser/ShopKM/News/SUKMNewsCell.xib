@@ -50,6 +50,10 @@
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </view>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="line_blur_status.png" id="ZYU-mm-f7D">
+                        <rect key="frame" x="0.0" y="-1" width="290" height="3"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    </imageView>
                 </subviews>
             </tableViewCellContentView>
             <connections>
@@ -57,10 +61,12 @@
                 <outlet property="cover" destination="k2T-aU-a3x" id="Yxd-c1-NLF"/>
                 <outlet property="lblContent" destination="PjU-bt-OXc" id="jM5-ms-pXf"/>
                 <outlet property="lblTitle" destination="XGd-YP-6hL" id="haD-4F-s1B"/>
+                <outlet property="lineStatus" destination="ZYU-mm-f7D" id="6rr-wE-iRZ"/>
             </connections>
         </tableViewCell>
     </objects>
     <resources>
         <image name="cover.jpg" width="526" height="351"/>
+        <image name="line_blur_status.png" width="290" height="3"/>
     </resources>
 </document>

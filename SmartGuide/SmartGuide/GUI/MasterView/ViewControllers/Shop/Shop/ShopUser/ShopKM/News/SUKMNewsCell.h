@@ -16,9 +16,11 @@
     __weak IBOutlet UIImageView *cover;
     __weak IBOutlet UILabel *lblTitle;
     __weak IBOutlet LabelTopText *lblContent;
+    __weak IBOutlet UIImageView *lineStatus;
 }
 
 -(void) loadWithPromotionNews:(PromotionNews*) news;
+-(void) hideLine;
 
 +(NSString *)reuseIdentifier;
 +(float) heightWithPromotionNews:(PromotionNews*) news;

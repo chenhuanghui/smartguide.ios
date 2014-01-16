@@ -19,11 +19,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </view>
-                    <view userInteractionEnabled="NO" contentMode="scaleToFill" id="tjz-IB-PGr">
-                        <rect key="frame" x="10" y="26" width="270" height="1"/>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="line_promotion.png" id="62k-yH-JcO">
+                        <rect key="frame" x="27" y="24" width="237" height="5"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
+                    </imageView>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_promotion.png" id="BeC-im-57w">
                         <rect key="frame" x="11" y="7" width="16" height="16"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -90,6 +89,10 @@
                             <outlet property="delegate" destination="EKW-Su-4WS" id="dQW-Tc-mk7"/>
                         </connections>
                     </tableView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="line_blur_status.png" id="Rv8-Og-1XX">
+                        <rect key="frame" x="0.0" y="-1" width="290" height="3"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    </imageView>
                 </subviews>
             </tableViewCellContentView>
             <connections>
@@ -105,5 +108,7 @@
     <resources>
         <image name="ava.png" width="74" height="74"/>
         <image name="icon_promotion.png" width="16" height="16"/>
+        <image name="line_blur_status.png" width="290" height="3"/>
+        <image name="line_promotion.png" width="273" height="5"/>
     </resources>
 </document>

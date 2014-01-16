@@ -137,8 +137,6 @@
     
     [table registerNib:[UINib nibWithNibName:[ShopGalleryCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[ShopGalleryCell reuseIdentifier]];
     
-    bgLineStatus.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"background_status.png"]];
-    
     ButtonLove *love=[ButtonLove new];
     [love l_v_setO:CGPointMake(87, 288)];
     love.delegate=self;
@@ -199,6 +197,22 @@
 -(IBAction) btnInfoTouchUpInside:(id)sender
 {
     [self.delegate suShopGalleryTouchedMoreInfo:self];
+}
+
+@end
+
+@implementation BGShopGalleryView
+
+-(void)awakeFromNib
+{
+    [super awakeFromNib];
+    
+    self.contentMode=UIViewContentModeRedraw;
+}
+
+-(void)drawRect:(CGRect)rect
+{
+    [[UIImage imageNamed:@"background_status.png"] drawAsPatternInRect:rect];
 }
 
 @end

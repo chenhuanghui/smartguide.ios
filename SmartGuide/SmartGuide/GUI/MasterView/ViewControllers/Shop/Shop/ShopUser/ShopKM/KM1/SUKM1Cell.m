@@ -81,14 +81,14 @@
     
     FTCoreTextStyle *style=[FTCoreTextStyle styleWithName:@"k"];
     style.textAlignment=FTCoreTextAlignementCenter;
-    style.color=[UIColor redColor];
+    style.color=[UIColor colorWithRed:1.000 green:0.314 blue:0.165 alpha:1];
     style.font=[UIFont fontWithName:@"Avenir-Roman" size:11];
     
     [lbl100K addStyle:style];
     
     style=[FTCoreTextStyle styleWithName:@"text"];
     style.textAlignment=FTCoreTextAlignementCenter;
-    style.color=[UIColor darkGrayColor];
+    style.color=[UIColor colorWithRed:0.616 green:0.616 blue:0.616 alpha:1];
     style.font=[UIFont fontWithName:@"Avenir-Roman" size:10];
     
     [lbl100K addStyle:style];
