@@ -43,7 +43,7 @@
                         <outlet property="delegate" destination="-1" id="oyC-5m-K4C"/>
                     </connections>
                 </tableView>
-                <view contentMode="scaleToFill" id="a6K-wR-8wo" customClass="TouchView">
+                <view hidden="YES" contentMode="scaleToFill" id="a6K-wR-8wo" customClass="TouchView">
                     <rect key="frame" x="0.0" y="0.0" width="290" height="431"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>

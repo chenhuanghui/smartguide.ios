@@ -8,12 +8,31 @@
 
 #import "ShopDetailInfoDescCell.h"
 
+#define SHOP_DETAIL_INFO_DESC_HEIGHT_MAX_NORMAL 80.f
+
 @implementation ShopDetailInfoDescCell
 @synthesize delegate;
 
--(void)loadWithContent:(NSString *)content mode:(enum SHOP_DETAIL_INFO_DESCRIPTION_MODE)mode
+-(void)loadWithShop:(Shop *)shop mode:(enum SHOP_DETAIL_INFO_DESCRIPTION_MODE)mode
 {
     _mode=mode;
+    lbl.text=shop.desc;
+    
+    if(mode==SHOP_DETAIL_INFO_DESCRIPTION_NORMAL)
+    {
+        if(shop.descHeight>SHOP_DETAIL_INFO_DESC_HEIGHT_MAX_NORMAL)
+        {
+            [btn setTitle:@"Xem thêm" forState:UIControlStateNormal];
+            btn.hidden=false;
+        }
+        else
+            btn.hidden=true;
+    }
+    else
+    {
+        btn.hidden=false;
+        [btn setTitle:@"Thu nhỏ" forState:UIControlStateNormal];
+    }
 }
 
 - (IBAction)btnReadTouchUpInside:(id)sender {
@@ -28,9 +47,17 @@
     }
 }
 
-+(float)heightWithContent:(NSString *)content withMode:(enum SHOP_DETAIL_INFO_DESCRIPTION_MODE)mode
++(float)heightWithShop:(Shop *)shop withMode:(enum SHOP_DETAIL_INFO_DESCRIPTION_MODE)mode
 {
-    return 25;
+    float height=25;
+    
+    height+=[shop.desc sizeWithFont:[UIFont fontWithName:@"Avenir-Roman" size:13] constrainedToSize:CGSizeMake(260, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height;
+    shop.descHeight=height;
+    
+    if(mode==SHOP_DETAIL_INFO_DESCRIPTION_NORMAL)
+        height=MIN(SHOP_DETAIL_INFO_DESC_HEIGHT_MAX_NORMAL,height);
+    
+    return height;
 }
 
 +(NSString *)reuseIdentifier

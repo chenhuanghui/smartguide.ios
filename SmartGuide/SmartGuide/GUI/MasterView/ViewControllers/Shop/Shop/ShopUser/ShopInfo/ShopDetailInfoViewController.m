@@ -10,7 +10,7 @@
 
 #define SHOP_DETAIL_INFO_TABLE_MARGIN_HEIGHT 24.f
 
-@interface ShopDetailInfoViewController ()
+@interface ShopDetailInfoViewController ()<ShopDetailInfoDescCellDelegate>
 
 @end
 
@@ -53,6 +53,7 @@
     [table registerNib:[UINib nibWithNibName:[ShopDetailInfoType2Cell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[ShopDetailInfoType2Cell reuseIdentifier]];
     [table registerNib:[UINib nibWithNibName:[ShopDetailInfoType3Cell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[ShopDetailInfoType3Cell reuseIdentifier]];
     [table registerNib:[UINib nibWithNibName:[ShopDetailInfoType4Cell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[ShopDetailInfoType4Cell reuseIdentifier]];
+    [table registerNib:[UINib nibWithNibName:[ShopDetailInfoDescCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[ShopDetailInfoDescCell reuseIdentifier]];
     
     _infos=[NSMutableArray new];
     _didLoadShopDetail=false;
@@ -73,7 +74,7 @@
         [_infos addObjectsFromArray:ope.infos];
         _didLoadShopDetail=true;
         
-        [table reloadData];
+        [self reloadData];
         
         _operation=nil;
     }
@@ -101,7 +102,14 @@
             
             [coverView l_v_setY:y];
         }
+        
+        for(HeaderViewObject *obj in _headerViewObjects)
+        {
+            NSLog(@"%i %@",obj.headerView.hidden,obj.headerView.superview);
+        }
     }
+    
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -131,7 +139,7 @@
             return 1;
             
         case 1: //desc
-            return 1;
+            return 2;
             
         default:
         {
@@ -172,6 +180,45 @@
     }
 }
 
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    switch (indexPath.section) {
+        case 0:
+            return [ShopDetailInfoCell height];
+            
+        case 1:
+            if(indexPath.row==0)
+                return [ShopDetailInfoDescCell heightWithShop:_shop withMode:_descMode];
+            else
+                return 23;
+            
+        default:
+        {
+            InfoTypeObject *obj=_infos[indexPath.section-2];
+            
+            if(indexPath.row==obj.items.count)
+                return 23; //empty cell height
+            
+            switch (obj.type) {
+                case DETAIL_INFO_TYPE_1:
+                    return [ShopDetailInfoType1Cell heightWithContent:[obj.items[indexPath.row] content]];
+                    
+                case DETAIL_INFO_TYPE_2:
+                    return [ShopDetailInfoType2Cell heightWithContent:[obj.items[indexPath.row] content]];
+                    
+                case DETAIL_INFO_TYPE_3:
+                    return [ShopDetailInfoType3Cell heightWithContent:[obj.items[indexPath.row] content]];
+                    
+                case DETAIL_INFO_TYPE_4:
+                    return [ShopDetailInfoType4Cell heightWithContent:[obj.items[indexPath.row] content]];
+                    
+                default:
+                    return 0;
+            }
+        }
+    }
+}
+
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     switch (indexPath.section) {
@@ -186,23 +233,22 @@
             
         case 1:
         {
-            ShopDetailInfoDescCell *cell=[tableView dequeueReusableCellWithIdentifier:[ShopDetailInfoDescCell reuseIdentifier]];
-            
-            if(!_didLoadShopDetail)
+            if(indexPath.row==0)
             {
-                ShopDetailInfoEmptyCell *cell=[table dequeueReusableCellWithIdentifier:[ShopDetailInfoEmptyCell reuseIdentifier]];
+                ShopDetailInfoDescCell *cell=[tableView dequeueReusableCellWithIdentifier:[ShopDetailInfoDescCell reuseIdentifier]];
+                cell.delegate=self;
+                
+                [cell loadWithShop:_shop mode:_descMode];
                 
                 return cell;
             }
-            
-            break;
+            else
+                return [self emptyCell];
         }
             
         default:
-            break;
+            return [self cellWithIndexPath:indexPath];
     }
-    
-    return [self cellWithIndexPath:indexPath];
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -211,15 +257,9 @@
         case 0:
             return 0;
             
-        case 1:
-            if(!_didLoadShopDetail)
-                return 0;
-            
         default:
-            break;
+            return [ShopDetailInfoHeaderView height];
     }
-    
-    return [ShopDetailInfoHeaderView height];
 }
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
@@ -228,81 +268,56 @@
         case 0:
             return [UIView new];
             
-        case 1:
-            if(!_didLoadShopDetail)
-                return [UIView new];
-            
         default:
-            break;
-    }
-    
-    UITableViewHeaderFooterView *headerFooter=[tableView dequeueReusableHeaderFooterViewWithIdentifier:[ShopDetailInfoHeaderView reuseIdentifier]];
-    
-    if(!headerFooter)
-    {
-        headerFooter=[[UITableViewHeaderFooterView alloc] initWithReuseIdentifier:[ShopDetailInfoHeaderView reuseIdentifier]];
-        headerFooter.backgroundView.backgroundColor=[UIColor clearColor];
-        headerFooter.contentView.backgroundColor=[UIColor clearColor];
-        
-        ShopDetailInfoHeaderView *header=[[ShopDetailInfoHeaderView alloc] initWithTitle:@""];
-        
-        [headerFooter.contentView addSubview:header];
-    }
-    
-    ShopDetailInfoHeaderView *header=headerFooter.contentView.subviews[0];
-    InfoTypeObject *obj=_infos[section];
-    
-    [header setTitle:obj.header];
-    
-    return header;
-}
-
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    switch (indexPath.section) {
-        case 0:
         {
-            if(indexPath.row==0)
-            {
-                return [ShopDetailInfoCell height];
-            }
+            NSString *title=@"";
+            
+            if(section==1)
+                title=@"GIỚI THIỆU";
             else
-                return 23;
+                title=[_infos[section-2] header];
+            
+            if(!_headerViewObjects)
+                _headerViewObjects=[NSMutableArray new];
+            else
+            {
+                NSMutableArray *array=[NSMutableArray array];
+                
+                for(HeaderViewObject *obj in _headerViewObjects)
+                {
+                    if(!obj.headerView)
+                        [array addObject:obj];
+                }
+                
+                NSLog(@"empty %@",array);
+                
+                [_headerViewObjects removeObjectsInArray:array];
+            }
+            
+            ShopDetailInfoHeaderView *headerView=[[ShopDetailInfoHeaderView alloc] initWithTitle:title];
+
+            bool found=false;
+            for(HeaderViewObject *obj in _headerViewObjects)
+            {
+                if(obj.headerView==headerView)
+                {
+                    found=true;
+                    break;
+                }
+            }
+            
+            if(!found)
+            {
+                HeaderViewObject *objNew=[HeaderViewObject new];
+                objNew.headerView=headerView;
+                objNew.section=section;
+                
+                [_headerViewObjects addObject:objNew];
+            }
+            
+            return headerView;
         }
-            
-        case 1:
-            if(!_didLoadShopDetail)
-                return self.l_v_h-_heightDesc;
-            
-        default:
-            break;
     }
-    
-    InfoTypeObject *obj=_infos[indexPath.section];
-    
-    if(indexPath.row==obj.items.count)
-    {
-        return 23;
-    }
-    
-    switch (obj.type) {
-        case DETAIL_INFO_TYPE_1:
-            return [ShopDetailInfoType1Cell heightWithContent:[obj.items[indexPath.row] content]];
-            
-        case DETAIL_INFO_TYPE_2:
-            return [ShopDetailInfoType2Cell heightWithContent:[obj.items[indexPath.row] content]];
-            
-        case DETAIL_INFO_TYPE_3:
-            return [ShopDetailInfoType3Cell heightWithContent:[obj.items[indexPath.row] content]];
-            
-        case DETAIL_INFO_TYPE_4:
-            return [ShopDetailInfoType4Cell heightWithContent:[obj.items[indexPath.row] content]];
-            
-        default:
-            break;
-    }
-    
-    return 0;
 }
 
 -(UITableViewCell*) emptyCell
@@ -322,7 +337,7 @@
 
 -(UITableViewCell*) cellWithIndexPath:(NSIndexPath*) indexPath
 {
-    InfoTypeObject *obj=_infos[indexPath.section];
+    InfoTypeObject *obj=_infos[indexPath.section-2];
     
     if(indexPath.row==obj.items.count)
     {
@@ -383,5 +398,94 @@
     
     return [UITableViewCell new];
 }
+
+-(void)shopDetailInfoDescCellTouchedReadLess:(ShopDetailInfoDescCell *)cell
+{
+    _descMode=SHOP_DETAIL_INFO_DESCRIPTION_NORMAL;
+    [self reloadData];
+}
+
+-(void)shopDetailInfoDescCellTouchedReadMore:(ShopDetailInfoDescCell *)cell
+{
+    _descMode=SHOP_DETAIL_INFO_DESCRIPTION_FULL;
+    [self reloadData];
+}
+
+-(void) reloadData
+{
+    [table reloadData];
+    
+    [self clearBGView];
+    
+    int sectionCount=[table numberOfSections];
+    
+    CGRect rect=CGRectZero;
+    
+    for(int i=1;i<sectionCount;i++)
+    {
+        rect=[table rectForSection:i];
+        rect.size.height-=23;
+        
+        ShopDetailBGView *bg=[[ShopDetailBGView alloc] initWithFrame:rect];
+        
+        [table insertSubview:bg atIndex:0];
+    }
+}
+
+-(void) clearBGView
+{
+    UIView *view=nil;
+    
+    for(view in table.subviews)
+    {
+        if([view isKindOfClass:[ShopDetailBGView class]])
+            break;
+    }
+    
+    if([view isKindOfClass:[ShopDetailBGView class]])
+    {
+        [view removeFromSuperview];
+        [self clearBGView];
+    }
+}
+
+@end
+
+@implementation ShopDetailBGView
+
+-(id)initWithFrame:(CGRect)frame
+{
+    self=[super initWithFrame:frame];
+    
+    self.contentMode=UIViewContentModeRedraw;
+    self.backgroundColor=[UIColor clearColor];
+    
+    return self;
+}
+
+-(void)drawRect:(CGRect)rect
+{
+    if(!imgMid)
+    {
+        imgTop=[UIImage imageNamed:@"bg_detail_placelist_header.png"];
+        imgMid=[UIImage imageNamed:@"bg_detail_info_mid.png"];
+        imgBottom=[UIImage imageNamed:@"bg_detail_info_bottom.png"];
+    }
+    
+    [imgTop drawInRect:CGRectMake(0, 0, imgTop.size.width, imgTop.size.height)];
+    [imgBottom drawAtPoint:CGPointMake(0, rect.size.height-imgTop.size.height)];
+    
+    rect.origin.y=imgTop.size.height;
+    rect.origin.x=0;
+    rect.size.height-=(imgTop.size.height+imgBottom.size.height-1);
+    
+    [imgMid drawAsPatternInRect:rect];
+}
+
+
+@end
+
+@implementation HeaderViewObject
+@synthesize headerView,section;
 
 @end

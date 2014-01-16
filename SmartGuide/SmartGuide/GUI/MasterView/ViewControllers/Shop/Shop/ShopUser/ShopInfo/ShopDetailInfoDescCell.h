@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "LabelTopText.h"
+#import "Shop.h"
 
 enum SHOP_DETAIL_INFO_DESCRIPTION_MODE {
     SHOP_DETAIL_INFO_DESCRIPTION_NORMAL = 0,
@@ -31,9 +32,9 @@ enum SHOP_DETAIL_INFO_DESCRIPTION_MODE {
     enum SHOP_DETAIL_INFO_DESCRIPTION_MODE _mode;
 }
 
--(void) loadWithContent:(NSString*) content mode:(enum SHOP_DETAIL_INFO_DESCRIPTION_MODE) mode;
+-(void) loadWithShop:(Shop*) shop mode:(enum SHOP_DETAIL_INFO_DESCRIPTION_MODE) mode;
 
-+(float) heightWithContent:(NSString*) content withMode:(enum SHOP_DETAIL_INFO_DESCRIPTION_MODE) mode;
++(float) heightWithShop:(Shop*) shop withMode:(enum SHOP_DETAIL_INFO_DESCRIPTION_MODE) mode;
 +(NSString *)reuseIdentifier;
 
 @property (nonatomic, weak) id<ShopDetailInfoDescCellDelegate> delegate;

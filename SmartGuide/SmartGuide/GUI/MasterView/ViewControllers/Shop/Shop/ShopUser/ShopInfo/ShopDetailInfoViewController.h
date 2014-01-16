@@ -19,7 +19,7 @@
 #import "ShopDetailInfoHeaderView.h"
 #import "ShopDetailInfoDescCell.h"
 
-@class ShopDetailInfoScrollView;
+@class ShopDetailInfoScrollView,ShopDetailBGView;
 
 @interface ShopDetailInfoViewController : SGViewController<UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate,ASIOperationPostDelegate>
 {
@@ -38,9 +38,27 @@
     __weak Shop* _shop;
 //    __weak ShopList *_shopList;
     NSMutableArray *_infos;
+    
+    NSMutableArray *_headerViewObjects;
 }
 
 -(ShopDetailInfoViewController*) initWithShop:(Shop*) shop;
 //-(ShopDetailInfoViewController*) initWithShopList:(ShopList*) shopList;
+
+@end
+
+@interface ShopDetailBGView : UIView
+{
+    UIImage *imgMid;
+    UIImage *imgTop;
+    UIImage *imgBottom;
+}
+
+@end
+
+@interface HeaderViewObject : NSObject
+
+@property (nonatomic, weak) ShopDetailInfoHeaderView *headerView;
+@property (nonatomic, assign) int section;
 
 @end

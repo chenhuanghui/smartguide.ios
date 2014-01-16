@@ -5,6 +5,7 @@
 static NSMutableDictionary *_dictPinShop=nil;
 
 @implementation Shop
+@synthesize descHeight;
 
 -(id)initWithEntity:(NSEntityDescription *)entity insertIntoManagedObjectContext:(NSManagedObjectContext *)context
 {

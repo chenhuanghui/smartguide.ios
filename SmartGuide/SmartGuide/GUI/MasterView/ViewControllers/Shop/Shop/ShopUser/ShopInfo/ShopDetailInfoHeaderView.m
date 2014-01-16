@@ -26,7 +26,7 @@
 
 +(float)height
 {
-    return 37;
+    return 43;
 }
 
 +(NSString *)reuseIdentifier
