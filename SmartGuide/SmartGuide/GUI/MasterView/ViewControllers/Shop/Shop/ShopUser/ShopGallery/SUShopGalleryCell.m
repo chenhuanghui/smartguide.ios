@@ -119,6 +119,11 @@
     return cell;
 }
 
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [self.delegate suShopGalleryTouchedCover:self object:_shop.shopGalleriesObjects[indexPath.row]];
+}
+
 -(void)awakeFromNib
 {
     [super awakeFromNib];

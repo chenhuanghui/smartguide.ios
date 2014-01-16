@@ -10,7 +10,7 @@
         <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="ShopGalleryCell" rowHeight="480" id="ul5-l4-7lO" customClass="ShopGalleryCell">
             <rect key="frame" x="0.0" y="0.0" width="290" height="480"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ul5-l4-7lO" id="S9K-NM-G7X">
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" contentMode="center" tableViewCell="ul5-l4-7lO" id="S9K-NM-G7X">
                 <rect key="frame" x="0.0" y="0.0" width="290" height="479"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
@@ -18,19 +18,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="290" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     </imageView>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="M5o-dL-31R">
-                        <rect key="frame" x="0.0" y="0.0" width="290" height="180"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="32"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                 </subviews>
                 <color key="backgroundColor" red="0.92156862745098034" green="0.92156862745098034" blue="0.92156862745098034" alpha="1" colorSpace="calibratedRGB"/>
             </tableViewCellContentView>
             <color key="backgroundColor" red="0.92156862750000001" green="0.92156862750000001" blue="0.92156862750000001" alpha="1" colorSpace="calibratedRGB"/>
             <connections>
                 <outlet property="imgv" destination="z13-9J-wjs" id="VO4-Pe-qNc"/>
-                <outlet property="llbbll" destination="M5o-dL-31R" id="4Iy-Rm-K3C"/>
             </connections>
         </tableViewCell>
     </objects>

@@ -18,10 +18,11 @@
 @protocol SUShopGalleryDelegate <NSObject>
 
 -(void)suShopGalleryTouchedMoreInfo:(SUShopGalleryCell*) cell;
+-(void)suShopGalleryTouchedCover:(SUShopGalleryCell*) cell object:(ShopGallery*) gallery;
 
 @end
 
-@interface SUShopGalleryCell : UITableViewCell<UIScrollViewDelegate,ButtonLoveDelegate,ASIOperationPostDelegate>
+@interface SUShopGalleryCell : UITableViewCell<UIScrollViewDelegate,ButtonLoveDelegate,ASIOperationPostDelegate,UITableViewDataSource,UITableViewDelegate>
 {
     __weak IBOutlet UITableView *table;
     __weak IBOutlet PageControlNext *pageControl;

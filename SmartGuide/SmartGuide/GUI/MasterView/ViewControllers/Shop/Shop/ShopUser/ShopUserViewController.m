@@ -749,13 +749,40 @@
     [self pushViewController:vc];
 }
 
+-(void)suShopGalleryTouchedCover:(SUShopGalleryCell *)cell object:(ShopGallery *)gallery
+{
+    ShopGalleryViewController *vc=[[ShopGalleryViewController alloc] initWithShop:_shop withMode:SHOP_GALLERY_VIEW_SHOP];
+    vc.delegate=self;
+    
+    _selectedShopGallery=gallery;
+    
+    [vc setSelectedGallery:_selectedShopGallery];
+    
+    [self pushViewController:vc];
+}
+
+-(void)shopGalleryTouchedGallery:(ShopGalleryViewController *)controller gallery:(id)gallery
+{
+    if([gallery isKindOfClass:[ShopGallery class]])
+    {
+        _selectedShopGallery=gallery;
+    }
+    else if([gallery isKindOfClass:[ShopUserGallery class]])
+    {
+        
+    }
+}
+
 -(void) pushViewController:(UIViewController*) vc
 {
     btnBack.alpha=0;
     btnBack.hidden=false;
+    bgBack.alpha=0;
+    bgBack.hidden=false;
     
     [UIView animateWithDuration:DURATION_DEFAULT animations:^{
         btnBack.alpha=1;
+        bgBack.alpha=1;
     }];
     
     [shopNavi pushViewController:vc animated:true];
@@ -785,9 +812,11 @@
     [shopNavi popViewControllerAnimated:true];
     
     [UIView animateWithDuration:DURATION_DEFAULT animations:^{
+        bgBack.alpha=0;
         btnBack.alpha=0;
     } completion:^(BOOL finished) {
         btnBack.hidden=true;
+        bgBack.hidden=true;
     }];
 }
 
