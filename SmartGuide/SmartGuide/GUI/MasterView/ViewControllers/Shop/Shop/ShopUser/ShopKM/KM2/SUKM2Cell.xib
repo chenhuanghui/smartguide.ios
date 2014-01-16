@@ -93,6 +93,10 @@
                         <rect key="frame" x="0.0" y="-1" width="290" height="3"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     </imageView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="II-3-Detail-Promtion2.jpg" id="vWQ-TV-w0l">
+                        <rect key="frame" x="0.0" y="0.0" width="290" height="530"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    </imageView>
                 </subviews>
             </tableViewCellContentView>
             <connections>
@@ -106,6 +110,7 @@
         </tableViewCell>
     </objects>
     <resources>
+        <image name="II-3-Detail-Promtion2.jpg" width="290" height="530"/>
         <image name="ava.png" width="74" height="74"/>
         <image name="icon_promotion.png" width="16" height="16"/>
         <image name="line_blur_status.png" width="290" height="3"/>
