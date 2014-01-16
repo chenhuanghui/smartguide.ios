@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <view clipsSubviews="YES" contentMode="scaleToFill" id="VgX-bD-riX">
+                    <view clipsSubviews="YES" contentMode="scaleToFill" id="VgX-bD-riX" customClass="ShopKM1ContentView">
                         <rect key="frame" x="9" y="2" width="274" height="147"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
                         <subviews>
@@ -54,6 +54,10 @@
                         <rect key="frame" x="0.0" y="-1" width="290" height="3"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     </imageView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_flag_promotion.png" id="stO-z7-Ngp">
+                        <rect key="frame" x="21" y="0.0" width="31" height="38"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    </imageView>
                 </subviews>
             </tableViewCellContentView>
             <connections>
@@ -67,6 +71,7 @@
     </objects>
     <resources>
         <image name="cover.jpg" width="526" height="351"/>
+        <image name="icon_flag_promotion.png" width="31" height="38"/>
         <image name="line_blur_status.png" width="290" height="3"/>
     </resources>
 </document>
