@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "HPGrowingTextView.h"
 #import "ButtonAgree.h"
-#import "HitTestView.h"
+#import "TouchView.h"
 
 @class CommentTyping;
 
@@ -31,7 +31,7 @@
     __weak IBOutlet ButtonAgree *btnSend;
     __weak IBOutlet UIImageView *imgvAvatar;
     __weak IBOutlet UIImageView *imgvBottom;
-    __weak IBOutlet HitTestView *hittestView;
+    __weak IBOutlet TouchView *hittestView;
     bool _isExpanded;
     
     CGRect _imgvBottomFrame;

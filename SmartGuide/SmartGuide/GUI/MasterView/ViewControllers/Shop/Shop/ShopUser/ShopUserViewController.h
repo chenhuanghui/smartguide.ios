@@ -9,7 +9,7 @@
 #import "SGViewController.h"
 #import "Shop.h"
 #import "SGNavigationController.h"
-#import "HitTestView.h"
+#import "TouchView.h"
 #import "ShopDetailInfoViewController.h"
 #import "ShopMapViewController.h"
 #import "ShopCameraViewController.h"
@@ -61,12 +61,12 @@ enum SHOP_USER_MODE {
 {
     __strong IBOutlet SGNavigationController *shopNavi;
     __weak IBOutlet SGViewController *detailController;
-    __weak IBOutlet HitTestView *detailView;
+    __weak IBOutlet TouchView *touchView;
+    __weak IBOutlet UIView *detailView;
     __weak IBOutlet UIButton *btnClose;
     __weak IBOutlet TableShopUser *tableShopUser;
     __weak IBOutlet UIButton *btnNext;
     __weak IBOutlet UIButton *btnBack;
-    __weak IBOutlet UIButton *btnInfo;
     __weak IBOutlet UIImageView *imgvBG;
     
     __strong SUShopGalleryCell *shopGalleryCell;

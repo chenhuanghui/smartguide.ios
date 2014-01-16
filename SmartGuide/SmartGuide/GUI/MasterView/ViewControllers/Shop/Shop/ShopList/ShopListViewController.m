@@ -906,11 +906,9 @@
 {
     if(scrollView==scroll)
     {
-        float y=scroll.offset.y/SHOP_LIST_SCROLL_SPEED;
-        
         [self.map l_v_setY:_mapFrame.origin.y+scroll.contentOffset.y-scroll.contentOffset.y/SHOP_LIST_SCROLL_SPEED];
 
-        y=tableList.l_v_y-scrollView.l_co_y;
+        float y=tableList.l_v_y-scrollView.l_co_y;
         
         if(self.map.superview)
         {
@@ -976,6 +974,13 @@
             pnt=[scroll convertPoint:pnt toView:tableList];
             
             NSIndexPath *indexPath=[tableList indexPathForRowAtPoint:pnt];
+            
+            if(!_scrollerIndexPath)
+                _scrollerIndexPath=indexPath;
+            else if(_scrollerIndexPath.row==indexPath.row)
+                return;
+
+            _scrollerIndexPath=indexPath;
             
             if(!indexPath)
             {

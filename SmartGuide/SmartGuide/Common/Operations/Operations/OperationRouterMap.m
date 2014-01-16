@@ -34,6 +34,8 @@
 
 -(void)onCompletedWithJSON:(NSArray *)json
 {
+    steps=[NSMutableArray array];
+    
     NSData* data = [json objectAtIndex:0];
     NSString* responseString = [[NSString alloc] initWithData:data encoding:self.responseStringEncoding];
     
@@ -46,6 +48,9 @@
         responseString=@"";
     
     // TODO: better parsing. Regular expression?
+    
+    if(!([responseString containsString:@"points"] && [responseString containsString:@"levels"]))
+        return;
     
     NSInteger a = [responseString indexOf:@"points:\"" from:0];
     NSInteger b = [responseString indexOf:@"\",levels:\"" from:a] - 10;

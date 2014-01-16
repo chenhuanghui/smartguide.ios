@@ -11,10 +11,11 @@
                 <outlet property="btnClose" destination="bsk-dc-LN0" id="ZVB-aY-7OI"/>
                 <outlet property="btnNext" destination="ILD-L8-qla" id="Klr-uI-3CZ"/>
                 <outlet property="detailController" destination="5lb-ft-nI1" id="mZT-DP-fK7"/>
-                <outlet property="detailView" destination="0Er-Yh-B7M" id="lmn-j7-id8"/>
+                <outlet property="detailView" destination="jLX-ME-04I" id="VO4-7i-886"/>
                 <outlet property="imgvBG" destination="SZn-zg-rRb" id="7lN-3p-Cfi"/>
                 <outlet property="shopNavi" destination="tbE-VN-JL8" id="1PV-P9-tyC"/>
                 <outlet property="tableShopUser" destination="Hof-Gx-YJh" id="kfa-w2-V70"/>
+                <outlet property="touchView" destination="0Er-Yh-B7M" id="N5d-Xr-6u2"/>
                 <outlet property="view" destination="1" id="Hnd-zn-Nes"/>
             </connections>
         </placeholder>
@@ -28,14 +29,27 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background_shadow.png" id="SZn-zg-rRb">
-                    <rect key="frame" x="8" y="29" width="304" height="439"/>
+                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background_shadow.png" id="SZn-zg-rRb">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </imageView>
-                <view contentMode="scaleToFill" id="0Er-Yh-B7M" customClass="HitTestView">
-                    <rect key="frame" x="0.0" y="29" width="320" height="431"/>
+                <view clipsSubviews="YES" contentMode="scaleToFill" id="jLX-ME-04I">
+                    <rect key="frame" x="15" y="20" width="290" height="432"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="12"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
+                <view hidden="YES" contentMode="scaleToFill" id="0Er-Yh-B7M" customClass="TouchView">
+                    <rect key="frame" x="0.0" y="21" width="320" height="432"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <connections>
+                        <outlet property="receiveView" destination="Hof-Gx-YJh" id="gm6-FT-qLW"/>
+                    </connections>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="bottom" lineBreakMode="middleTruncation" id="bsk-dc-LN0">
                     <rect key="frame" x="283" y="0.0" width="55" height="38"/>

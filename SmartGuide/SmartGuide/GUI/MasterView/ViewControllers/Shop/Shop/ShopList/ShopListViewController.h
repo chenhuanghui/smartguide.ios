@@ -97,6 +97,8 @@ enum SHOP_LIST_VIEW_MODE {
     enum SHOP_LIST_VIEW_MODE _viewMode;
     
     CLLocationCoordinate2D _location;
+    
+    NSIndexPath *_scrollerIndexPath;
 }
 
 -(ShopListViewController*) initWithKeyword:(NSString*) keyword;

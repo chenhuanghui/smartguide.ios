@@ -160,27 +160,13 @@ CATransition* transitionPushFromRight()
     
 }
 
--(UIViewController *)popViewControllerAnimated:(BOOL)animated
-{
-    for(SGViewController *vc in self.viewControllers)
-    {
-        [vc navigationController:self willPopController:(SGViewController*)self.visibleViewController];
-    }
-    
-    if(animated)
-    {
-        [self.view.layer addAnimation:transitionPushFromLeft() forKey:nil];
-        return [super popViewControllerAnimated:false];
-    }
-        
-    return [super popViewControllerAnimated:animated];
-}
-
 -(void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated
 {
     if(_onPushedViewController)
     {
-        _onPushedViewController(viewController);
+        __weak UIViewController *weakController=viewController;
+        
+        _onPushedViewController(weakController);
         _onPushedViewController=nil;
     }
 }
@@ -649,6 +635,8 @@ CALL_DEALLOC_LOG
 
 -(void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated
 {
+    viewController.wantsFullScreenLayout=true;
+    
     if(animated)
     {
         [self.view.layer addAnimation:transitionPushFromRight() forKey:nil];
@@ -656,7 +644,6 @@ CALL_DEALLOC_LOG
         return;
     }
     
-    viewController.wantsFullScreenLayout=true;
     [super pushViewController:viewController animated:animated];
 }
 
@@ -826,11 +813,32 @@ CALL_DEALLOC_LOG
     [self pushViewController:viewController animated:false];
 }
 
+-(UIViewController *)popViewControllerAnimated:(BOOL)animated
+{
+    for(SGViewController *vc in self.viewControllers)
+    {
+        [vc navigationController:self willPopController:(SGViewController*)self.visibleViewController];
+    }
+    
+    if(animated)
+    {
+        [self.view.layer addAnimation:transitionPushFromLeft() forKey:nil];
+        return [super popViewControllerAnimated:false];
+    }
+    
+    return [super popViewControllerAnimated:animated];
+}
+
 -(UIViewController *)popViewControllerWithTransition:(CATransition *)transition
 {
     [self.view.layer addAnimation:transition forKey:nil];
     
     return [self popViewControllerAnimated:false];
+}
+
+-(NSArray *)popToRootViewControllerAnimated:(BOOL)animated
+{
+    return [super popToRootViewControllerAnimated:animated];
 }
 
 -(void)makePushViewController:(UIViewController *)viewController animate:(bool)animate

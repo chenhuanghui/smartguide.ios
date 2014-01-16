@@ -42,20 +42,15 @@
 -(void) storeRect
 {
     _btnNextFrame=btnNext.frame;
-    _shopUserContentFrame=CGRectMake(0, 0, 290, 431);
+    _shopUserContentFrame=shopNavi.view.frame;
 }
 
 -(void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    CGRect rect=CGRectZero;
-    rect.origin=CGPointMake(15, 0);
-    rect.size=CGSizeMake(290, 431);
-    shopNavi.view.frame=rect;
-    
+
     [detailView addSubview:shopNavi.view];
-    detailView.receiveView=tableShopUser;
+    [shopNavi l_v_setS:detailView.l_v_s];
     
     [self storeRect];
     
@@ -75,7 +70,6 @@
     switch (_shop.enumDataMode) {
         case SHOP_DATA_SHOP_LIST:
             tableShopUser.scrollEnabled=false;
-            btnInfo.enabled=false;
             
             _operationShopUser=[[ASIOperationShopUser alloc] initWithIDShop:_shop.idShop.integerValue userLat:userLat() userLng:userLng()];
             _operationShopUser.delegatePost=self;
@@ -99,7 +93,6 @@
         case SHOP_DATA_HOME_8:
             
             tableShopUser.scrollEnabled=false;
-            btnInfo.enabled=false;
             
             _operationShopUser=[[ASIOperationShopUser alloc] initWithIDShop:_shop.idShop.integerValue userLat:userLat() userLng:userLng()];
             _operationShopUser.delegatePost=self;
@@ -138,7 +131,6 @@
         
         [tableShopUser reloadData];
         tableShopUser.scrollEnabled=true;
-        btnInfo.enabled=true;
         
         for(int i=0;i<[tableShopUser numberOfRowsInSection:0];i++)
         {
@@ -790,7 +782,7 @@
         [_shop setCoordinate:CLLocationCoordinate2DMake(-1, -1)];
     }
     
-    [shopNavi popToRootViewControllerAnimated:true];
+    [shopNavi popViewControllerAnimated:true];
     
     [UIView animateWithDuration:DURATION_DEFAULT animations:^{
         btnBack.alpha=0;

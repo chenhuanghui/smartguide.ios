@@ -76,7 +76,6 @@
     else if(currentUser().enumDataMode==USER_DATA_FULL)
     {
         [self.delegate authorizationSuccessed];
-        [self.navigationController popViewControllerAnimated:true];
     }
 }
 

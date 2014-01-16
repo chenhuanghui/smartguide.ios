@@ -38,6 +38,24 @@
 
 -(void)dealloc
 {
+    if(_operationGeoCoder)
+    {
+        [_operationGeoCoder cancel];
+        _operationGeoCoder=nil;
+    }
+    
+    if(_operationRouter)
+    {
+        [_operationRouter cancel];
+        _operationRouter=nil;
+    }
+    
+    if(_operationRouterUserLocation)
+    {
+        [_operationRouterUserLocation cancel];
+        _operationRouterUserLocation=nil;
+    }
+    
     if(_didAddNotification)
     {
         _didAddNotification=false;

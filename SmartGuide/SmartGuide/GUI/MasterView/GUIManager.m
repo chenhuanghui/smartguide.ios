@@ -372,13 +372,11 @@ static GUIManager *_shareInstance=nil;
     viewController.view.center=CGPointMake(self.rootNavigation.l_v_w/2, -self.rootNavigation.l_v_h/2);
     [viewController l_c_setY:-self.rootNavigation.l_v_h/2];
     
-    [self.rootNavigation.view alphaViewWithColor:[UIColor blackColor]];
-    self.rootNavigation.view.alphaView.alpha=0;
+    [self.rootNavigation.view alphaViewWithColor:[UIColor clearColor]];
     
     [self.rootNavigation.view addSubview:viewController.view];
     
     [UIView animateWithDuration:DURATION_DEFAULT animations:^{
-        self.rootNavigation.view.alphaView.alpha=.7f;
         
         [viewController l_c_setY:self.rootNavigation.l_v_h/2];
     }];
