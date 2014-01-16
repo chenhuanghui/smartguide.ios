@@ -8,7 +8,7 @@
 
 #import "ShopDetailInfoViewController.h"
 
-#define SHOP_DETAIL_INFO_TABLE_MARGIN_HEIGHT 24.f
+#define SHOP_DETAIL_INFO_TABLE_EMPTY_CELL_HEIGHT 23.f
 
 @interface ShopDetailInfoViewController ()<ShopDetailInfoDescCellDelegate>
 
@@ -102,14 +102,7 @@
             
             [coverView l_v_setY:y];
         }
-        
-        for(HeaderViewObject *obj in _headerViewObjects)
-        {
-            NSLog(@"%i %@",obj.headerView.hidden,obj.headerView.superview);
-        }
     }
-    
-    
 }
 
 - (void)didReceiveMemoryWarning
@@ -190,14 +183,14 @@
             if(indexPath.row==0)
                 return [ShopDetailInfoDescCell heightWithShop:_shop withMode:_descMode];
             else
-                return 23;
+                return SHOP_DETAIL_INFO_TABLE_EMPTY_CELL_HEIGHT;
             
         default:
         {
             InfoTypeObject *obj=_infos[indexPath.section-2];
             
             if(indexPath.row==obj.items.count)
-                return 23; //empty cell height
+                return SHOP_DETAIL_INFO_TABLE_EMPTY_CELL_HEIGHT;
             
             switch (obj.type) {
                 case DETAIL_INFO_TYPE_1:
@@ -277,44 +270,14 @@
             else
                 title=[_infos[section-2] header];
             
-            if(!_headerViewObjects)
-                _headerViewObjects=[NSMutableArray new];
-            else
-            {
-                NSMutableArray *array=[NSMutableArray array];
-                
-                for(HeaderViewObject *obj in _headerViewObjects)
-                {
-                    if(!obj.headerView)
-                        [array addObject:obj];
-                }
-                
-                NSLog(@"empty %@",array);
-                
-                [_headerViewObjects removeObjectsInArray:array];
-            }
-            
             ShopDetailInfoHeaderView *headerView=[[ShopDetailInfoHeaderView alloc] initWithTitle:title];
 
-            bool found=false;
-            for(HeaderViewObject *obj in _headerViewObjects)
-            {
-                if(obj.headerView==headerView)
-                {
-                    found=true;
-                    break;
-                }
-            }
+            CGRect rect=[table rectForSection:section];
             
-            if(!found)
-            {
-                HeaderViewObject *objNew=[HeaderViewObject new];
-                objNew.headerView=headerView;
-                objNew.section=section;
-                
-                [_headerViewObjects addObject:objNew];
-            }
+            rect.size.height-=(SHOP_DETAIL_INFO_TABLE_EMPTY_CELL_HEIGHT+[ShopDetailInfoHeaderView height]-2);
             
+            headerView.maxY=rect.origin.y+rect.size.height;
+
             return headerView;
         }
     }
@@ -424,7 +387,7 @@
     for(int i=1;i<sectionCount;i++)
     {
         rect=[table rectForSection:i];
-        rect.size.height-=23;
+        rect.size.height-=SHOP_DETAIL_INFO_TABLE_EMPTY_CELL_HEIGHT;
         
         ShopDetailBGView *bg=[[ShopDetailBGView alloc] initWithFrame:rect];
         
@@ -482,10 +445,5 @@
     [imgMid drawAsPatternInRect:rect];
 }
 
-
-@end
-
-@implementation HeaderViewObject
-@synthesize headerView,section;
 
 @end

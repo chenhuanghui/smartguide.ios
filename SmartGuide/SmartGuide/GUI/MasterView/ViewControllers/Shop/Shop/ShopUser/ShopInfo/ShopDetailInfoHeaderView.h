@@ -20,4 +20,6 @@
 +(float) height;
 +(NSString *)reuseIdentifier;
 
+@property (nonatomic, assign) float maxY;
+
 @end

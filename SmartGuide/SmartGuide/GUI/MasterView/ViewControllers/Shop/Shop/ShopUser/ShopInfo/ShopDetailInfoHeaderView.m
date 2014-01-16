@@ -9,11 +9,13 @@
 #import "ShopDetailInfoHeaderView.h"
 
 @implementation ShopDetailInfoHeaderView
+@synthesize maxY;
 
 -(ShopDetailInfoHeaderView *)initWithTitle:(NSString *)title
 {
     self=[[NSBundle mainBundle] loadNibNamed:@"ShopDetailInfoHeaderView" owner:nil options:nil][0];
     
+    maxY=-1;
     lbl.text=title;
     
     return self;
@@ -32,6 +34,14 @@
 +(NSString *)reuseIdentifier
 {
     return @"ShopDetailInfoHeaderView";
+}
+
+-(void)setFrame:(CGRect)frame
+{
+    if(maxY!=-1)
+        frame.origin.y=MIN(maxY,frame.origin.y);
+    
+    [super setFrame:frame];
 }
 
 @end

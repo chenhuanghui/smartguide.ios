@@ -38,8 +38,6 @@
     __weak Shop* _shop;
 //    __weak ShopList *_shopList;
     NSMutableArray *_infos;
-    
-    NSMutableArray *_headerViewObjects;
 }
 
 -(ShopDetailInfoViewController*) initWithShop:(Shop*) shop;
@@ -53,12 +51,5 @@
     UIImage *imgTop;
     UIImage *imgBottom;
 }
-
-@end
-
-@interface HeaderViewObject : NSObject
-
-@property (nonatomic, weak) ShopDetailInfoHeaderView *headerView;
-@property (nonatomic, assign) int section;
 
 @end
