@@ -607,6 +607,8 @@
 		9AB1F04D183F136700A35422 /* arrowchat@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AB1F047183F136700A35422 /* arrowchat@2x.png */; };
 		9AB3693D1888371E00551E03 /* ShopDetailInfoDescCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AB3693C1888371E00551E03 /* ShopDetailInfoDescCell.m */; };
 		9AB3693F1888372800551E03 /* ShopDetailInfoDescCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9AB3693E1888372800551E03 /* ShopDetailInfoDescCell.xib */; };
+		9AB369491888551500551E03 /* pattern_home.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AB369451888551500551E03 /* pattern_home.png */; };
+		9AB3694C1888551500551E03 /* pattern_home@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AB369481888551500551E03 /* pattern_home@2x.png */; };
 		9AB6CF51187C4A1800B8DEA2 /* GooglePlus.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9AB6CF50187C4A1800B8DEA2 /* GooglePlus.bundle */; };
 		9AC4940A18585A300042C535 /* StoreItemInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AC4940818585A300042C535 /* StoreItemInfoViewController.m */; };
 		9AC4940B18585A300042C535 /* StoreItemInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9AC4940918585A300042C535 /* StoreItemInfoViewController.xib */; };
@@ -1668,6 +1670,8 @@
 		9AB3693B1888371E00551E03 /* ShopDetailInfoDescCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopDetailInfoDescCell.h; sourceTree = "<group>"; };
 		9AB3693C1888371E00551E03 /* ShopDetailInfoDescCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopDetailInfoDescCell.m; sourceTree = "<group>"; };
 		9AB3693E1888372800551E03 /* ShopDetailInfoDescCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShopDetailInfoDescCell.xib; sourceTree = "<group>"; };
+		9AB369451888551500551E03 /* pattern_home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pattern_home.png; sourceTree = "<group>"; };
+		9AB369481888551500551E03 /* pattern_home@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pattern_home@2x.png"; sourceTree = "<group>"; };
 		9AB6CF4A187C499400B8DEA2 /* GoogleOpenSource.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleOpenSource.framework; path = "google-plus-ios-sdk-1.5.0/GoogleOpenSource.framework"; sourceTree = "<group>"; };
 		9AB6CF4C187C49A100B8DEA2 /* GooglePlus.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GooglePlus.framework; path = "google-plus-ios-sdk-1.5.0/GooglePlus.framework"; sourceTree = "<group>"; };
 		9AB6CF50187C4A1800B8DEA2 /* GooglePlus.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = GooglePlus.bundle; sourceTree = "<group>"; };
@@ -3726,6 +3730,8 @@
 		A98198BE178D44FB0009FCB6 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				9AB369451888551500551E03 /* pattern_home.png */,
+				9AB369481888551500551E03 /* pattern_home@2x.png */,
 				9A4E4B721887EEDA00E4A1D2 /* icon_qrcode.png */,
 				9A4E4B731887EEDA00E4A1D2 /* icon_qrcode@2x.png */,
 				9A4E4B6E1887E60700E4A1D2 /* line_promotion.png */,
@@ -4391,6 +4397,7 @@
 				9AC5380518684490009A000B /* bg_detail_info_header.png in Resources */,
 				9AA026E6183674CF0087B2DA /* line_vercontent@2x.png in Resources */,
 				9A29392C18447EAE00FD49E2 /* bgsort_left@2x.png in Resources */,
+				9AB369491888551500551E03 /* pattern_home.png in Resources */,
 				9A7E5577183C84FC006D1798 /* icon_logo.png in Resources */,
 				9A4E4B6A1887E2EE00E4A1D2 /* button_getgift_voucher.png in Resources */,
 				9ACBE8E7185A117B0004474F /* button_getgiffthidden.png in Resources */,
@@ -4890,6 +4897,7 @@
 				9A0F7630187152DB00160E54 /* SGShopLoadingCell.xib in Resources */,
 				9A3986CD185B7CAF006C0961 /* frame_avauser_navigation@2x.png in Resources */,
 				9A96BB4F188044DD0081171B /* blur_top_home@2x.png in Resources */,
+				9AB3694C1888551500551E03 /* pattern_home@2x.png in Resources */,
 				9ACBE8E3185A0A8C0004474F /* button_love.png in Resources */,
 				9AC4941E18585BE40042C535 /* StoreCardViewController.xib in Resources */,
 				9AC4941418585B000042C535 /* IV-2-ItemsExpan.jpg in Resources */,

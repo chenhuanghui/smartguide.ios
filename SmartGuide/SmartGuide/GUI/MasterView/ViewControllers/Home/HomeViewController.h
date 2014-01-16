@@ -14,7 +14,7 @@
 #import "HomeInfoCell.h"
 #import "ASIOperationShopUser.h"
 
-@class HomeViewController;
+@class HomeViewController,TableHome;
 
 @protocol HomeControllerDelegate <SGViewControllerDelegate>
 
@@ -29,9 +29,10 @@
 {
     __weak IBOutlet UITextField *txt;
     __weak IBOutlet UIView *displayLoadingView;
-    __weak IBOutlet UITableView *tableFeed;
+    __weak IBOutlet TableHome *tableFeed;
     __weak IBOutlet UIView *qrView;
     __weak IBOutlet UIView *blackView;
+    __weak IBOutlet UIImageView *blurBottom;
     
     ASIOperationUserHome *_operationUserHome;
     ASIOperationShopUser *_operationShopUser;
@@ -43,8 +44,22 @@
     bool _canLoadMore;
     
     CGRect _qrFrame;
+    CGRect _blurBottomFrame;
 }
 
 @property (nonatomic, assign) id<HomeControllerDelegate> delegate;
+
+@end
+
+@interface TableHome : UITableView
+{
+    CGPoint _offset;
+}
+
+-(CGPoint) offset;
+
+@end
+
+@interface HomeBGView : UIView
 
 @end

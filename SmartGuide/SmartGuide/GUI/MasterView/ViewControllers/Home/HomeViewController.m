@@ -31,6 +31,7 @@
 -(void) storeRect
 {
     _qrFrame=qrView.frame;
+    _blurBottomFrame=blurBottom.frame;
 }
 
 - (void)viewDidLoad
@@ -48,7 +49,7 @@
     [tableFeed l_v_addH:QRCODE_SMALL_HEIGHT*NEW_FEED_DELTA_SPEED];
     
     [self storeRect];
-
+    
     [tableFeed registerNib:[UINib nibWithNibName:[HomePromotionCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[HomePromotionCell reuseIdentifier]];
     [tableFeed registerNib:[UINib nibWithNibName:[HomeImagesCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[HomeImagesCell reuseIdentifier]];
     [tableFeed registerNib:[UINib nibWithNibName:[HomeListCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[HomeListCell reuseIdentifier]];
@@ -471,6 +472,66 @@
     
     if(array.count>0)
         [tableFeed reloadRowsAtIndexPaths:array withRowAnimation:UITableViewRowAnimationFade];
+}
+
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    if(scrollView==tableFeed)
+    {
+        float y=tableFeed.l_co_y+tableFeed.contentInset.top;
+        
+        NSLog(@"%f",y);
+        
+        if(y>=0)
+        {
+            float offsetY=tableFeed.offset.y/4;
+            float max=_qrFrame.origin.y+(QRCODE_BIG_HEIGHT-QRCODE_SMALL_HEIGHT);
+            y=qrView.l_v_y+offsetY;
+            
+            y=MIN(y,max);
+            y=MAX(_qrFrame.origin.y,y);
+            
+            [qrView l_v_setY:y];
+        }
+        else
+        {
+            [blurBottom l_v_setY:_blurBottomFrame.origin.y];
+            [qrView l_v_setY:_qrFrame.origin.y];
+        }
+    }
+}
+
+@end
+
+@implementation HomeBGView
+
+-(void)drawRect:(CGRect)rect
+{
+    [[UIImage imageNamed:@"pattern_home.png"] drawAsPatternInRect:rect];
+}
+
+-(void)awakeFromNib
+{
+    [super awakeFromNib];
+    
+    self.contentMode=UIViewContentModeRedraw;
+}
+
+@end
+
+@implementation TableHome
+
+-(void)setContentOffset:(CGPoint)contentOffset
+{
+    _offset.x=contentOffset.x-self.contentOffset.x;
+    _offset.y=contentOffset.y-self.contentOffset.y;
+    
+    [super setContentOffset:contentOffset];
+}
+
+-(CGPoint)offset
+{
+    return _offset;
 }
 
 @end

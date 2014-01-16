@@ -8,6 +8,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HomeViewController">
             <connections>
                 <outlet property="blackView" destination="f0f-E2-pZd" id="XW6-Qz-rsb"/>
+                <outlet property="blurBottom" destination="LCo-O1-eW2" id="3Gp-6G-AHt"/>
                 <outlet property="displayLoadingView" destination="Qvy-Tv-IgG" id="0IJ-xq-EXi"/>
                 <outlet property="qrView" destination="MVN-kQ-te1" id="X6K-xY-xc6"/>
                 <outlet property="tableFeed" destination="Ney-Bf-iDE" id="RhK-f1-eD4"/>
@@ -20,7 +21,12 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Ney-Bf-iDE">
+                <view contentMode="scaleToFill" id="411-1B-SuF" customClass="HomeBGView">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                </view>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Ney-Bf-iDE" customClass="TableHome">
                     <rect key="frame" x="9" y="0.0" width="302" height="430"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -102,14 +108,14 @@
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
             </subviews>
-            <color key="backgroundColor" red="0.83529411764705885" green="0.83529411764705885" blue="0.83529411764705885" alpha="1" colorSpace="deviceRGB"/>
+            <color key="backgroundColor" red="0.96862745098039216" green="0.96862745098039216" blue="0.96862745098039216" alpha="1" colorSpace="deviceRGB"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
         </view>
     </objects>
     <resources>
         <image name="background_scan.png" width="320" height="56"/>
-        <image name="blur_bottom_home.png" width="320" height="58"/>
-        <image name="blur_top_home.png" width="320" height="58"/>
+        <image name="blur_bottom_home.png" width="320" height="41"/>
+        <image name="blur_top_home.png" width="320" height="41"/>
         <image name="button_navigation.png" width="34" height="26"/>
         <image name="button_scan.png" width="125" height="24"/>
         <image name="button_scan_small.png" width="63" height="17"/>
