@@ -23,10 +23,9 @@
 
 +(float)heightWithContent:(NSString *)content
 {
-    return 32;
-    float height=[content sizeWithFont:[UIFont fontWithName:@"Avenir-Roman" size:12] constrainedToSize:CGSizeMake(140, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height;
+    float height=[content sizeWithFont:[UIFont fontWithName:@"Avenir-Roman" size:12] constrainedToSize:CGSizeMake(160, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height;
     
-    height=MAX(height, 32);
+    height=MAX(height, 37);
     
     return height;
 }

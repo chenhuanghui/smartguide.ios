@@ -17,6 +17,7 @@
 }
 
 -(void) loadWithInfo1:(Info1*) info1;
+-(void) setCellPos:(enum CELL_POSITION) cellPos;
 
 +(NSString *)reuseIdentifier;
 +(float) heightWithContent:(NSString*) content;

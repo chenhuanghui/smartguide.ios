@@ -29,13 +29,12 @@
 
 +(float) heightWithContent:(NSString*) content
 {
-    float height=[content sizeWithFont:SHOP_DETAIL_INFO_IMAGE_CELL_FONT constrainedToSize:CGSizeMake(SHOP_DETAIL_INFO_IMAGE_CELL_CONTENT_WIDTH, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height;
-    height+=SHOP_DETAIL_INFO_IMAGE_CELL_CONTENT_Y;
+    float height=86;
     
-    if(height-10>86)
-        height+=10;
+    height+=MAX(0,[content sizeWithFont:[UIFont fontWithName:@"Avenir-Roman" size:12] constrainedToSize:CGSizeMake(164, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height-65);
     
-    return MAX(86,height);
+    
+    return height;
 }
 
 @end

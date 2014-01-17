@@ -169,10 +169,25 @@
     return obj;
 }
 
+-(NSString *)content1
+{
+    return @"Lorem ipsum dolor sit amet, consectetuer adipiscing elit,sed diam nonummy nibh euismod tincidunt ut la sed diam nonummy nibh euismod tincidunt ut la Lorem ipsum dolor sit amet, consectetuer adipiscing elit,sed diam nonummy nibh euismod tincidunt ut la sed diam nonummy nibh euismod tincidunt ut la";
+}
+
 @end
 
 @implementation Info2
 @synthesize title,content;
+
+-(NSString *)content1
+{
+    return @"Lorem ipsum dolor sit amet consectetuer adipiscing elit nibh euismod tincidunt ut la sed";
+}
+
+-(NSString *)title1
+{
+    return @"Lorem ipsum dolor sit amet";
+}
 
 - (id)init
 {
