@@ -293,6 +293,7 @@
         emptyCell.backgroundColor=[UIColor clearColor];
         emptyCell.contentView.backgroundColor=[UIColor clearColor];
         emptyCell.backgroundView.backgroundColor=[UIColor clearColor];
+        emptyCell.selectionStyle=UITableViewCellSelectionStyleNone;
     }
     
     return emptyCell;
