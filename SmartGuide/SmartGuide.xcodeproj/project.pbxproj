@@ -5276,7 +5276,7 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Tran Huy (49BNYKS8B6)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Tran Huy (EBC7LYRN6Y)";
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5302,7 +5302,6 @@
 					"\"$(SRCROOT)\"",
 				);
 				ONLY_ACTIVE_ARCH = NO;
-				PROVISIONING_PROFILE = "850260A4-20AC-430C-B1EF-0A6A60C54FDA";
 				SDKROOT = iphoneos;
 				USER_HEADER_SEARCH_PATHS = "";
 			};
@@ -5321,7 +5320,7 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Tran Huy (49BNYKS8B6)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Tran Huy (EBC7LYRN6Y)";
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5341,7 +5340,6 @@
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				PROVISIONING_PROFILE = "850260A4-20AC-430C-B1EF-0A6A60C54FDA";
 				SDKROOT = iphoneos;
 				USER_HEADER_SEARCH_PATHS = "";
 				VALIDATE_PRODUCT = YES;
@@ -5353,7 +5351,6 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Tran Huy (EBC7LYRN6Y)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/macmini/Documents/FacebookSDK,
@@ -5368,7 +5365,6 @@
 					"-Objc",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -5378,7 +5374,6 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Tran Huy (EBC7LYRN6Y)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/macmini/Documents/FacebookSDK,
@@ -5393,7 +5388,6 @@
 					"-Objc",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

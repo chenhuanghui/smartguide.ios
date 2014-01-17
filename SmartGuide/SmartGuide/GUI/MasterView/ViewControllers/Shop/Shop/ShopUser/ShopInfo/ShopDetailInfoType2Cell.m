@@ -8,9 +8,6 @@
 
 #import "ShopDetailInfoType2Cell.h"
 
-#define SHOP_DETAIL_INFO_DETAIL_CELL_FONT [UIFont fontWithName:@"Avenir-Roman" size:12]
-#define SHOP_DETAIL_INFO_DETAIL_CELL_CONTENT_WIDTH 145.f
-
 @implementation ShopDetailInfoType2Cell
 
 -(void)loadWithInfo2:(Info2 *)info2
@@ -26,7 +23,12 @@
 
 +(float)heightWithContent:(NSString *)content
 {
-    return MAX([content sizeWithFont:SHOP_DETAIL_INFO_DETAIL_CELL_FONT constrainedToSize:CGSizeMake(SHOP_DETAIL_INFO_DETAIL_CELL_CONTENT_WIDTH, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height-10,32);
+    return 32;
+    float height=[content sizeWithFont:[UIFont fontWithName:@"Avenir-Roman" size:12] constrainedToSize:CGSizeMake(140, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height;
+    
+    height=MAX(height, 32);
+    
+    return height;
 }
 
 @end

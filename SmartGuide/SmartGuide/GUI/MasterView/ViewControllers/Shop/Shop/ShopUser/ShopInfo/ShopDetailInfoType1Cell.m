@@ -7,8 +7,6 @@
 //
 
 #import "ShopDetailInfoType1Cell.h"
-#define SHOP_DETAIL_INFO_TOOL_CELL_FONT [UIFont fontWithName:@"Avenir-Light" size:12]
-#define SHOP_DETAIL_INFO_TOOL_CELL_CONTENT_WIDTH 200.f
 
 @implementation ShopDetailInfoType1Cell
 
@@ -25,7 +23,7 @@
 
 +(float)heightWithContent:(NSString *)content
 {
-    float height=[content sizeWithFont:SHOP_DETAIL_INFO_TOOL_CELL_FONT constrainedToSize:CGSizeMake(SHOP_DETAIL_INFO_TOOL_CELL_CONTENT_WIDTH, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height+10;
+    float height=[content sizeWithFont:[UIFont fontWithName:@"Avenir-Light" size:12] constrainedToSize:CGSizeMake(215, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height;
     
     return MAX(height,40);
 }

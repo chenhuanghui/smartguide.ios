@@ -479,8 +479,13 @@
     if(scrollView==tableFeed)
     {
         float y=tableFeed.l_co_y+tableFeed.contentInset.top;
+        float speed=4;
+        float height=speed*100;
         
-        NSLog(@"%f",y);
+        if(y<height)
+        {
+            
+        }
         
         if(y>=0)
         {

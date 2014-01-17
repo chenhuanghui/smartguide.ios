@@ -21,6 +21,9 @@
 @interface LabelURL : UILabel
 {
     __weak FTCoreTextView *_textView;
+    __weak UITapGestureRecognizer *tap;
+    
+    NSURL *_url;
 }
 
 @property (nonatomic, readonly) bool isURL;

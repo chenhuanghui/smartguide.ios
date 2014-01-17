@@ -8,6 +8,7 @@
 
 #import "LabelURL.h"
 #import "Utility.h"
+#import <CoreText/CoreText.h>
 
 @interface LabelURL()<FTCoreTextViewDelegate>
 
@@ -29,10 +30,7 @@
     {
         if(!_textView)
         {
-            FTCoreTextView *textView=[[FTCoreTextView alloc] initWithFrame:CGRectMake(0, 0, self.l_v_w, self.l_v_h)];
-            
-            [textView l_v_addX:5];
-            [textView l_v_addW:-10];
+            FTCoreTextView *textView=[[FTCoreTextView alloc] initWithFrame:CGRectMake(0, 8, self.l_v_w, self.l_v_h)];
             
             textView.delegate=self;
             textView.backgroundColor=self.backgroundColor;
@@ -42,14 +40,16 @@
             
             style.font=self.font;
             style.underlined=true;
-            style.textAlignment=FTCoreTextAlignementLeft;
+            style.textAlignment=FTCoreTextAlignementCenter;
             
             _textView=textView;
             
             [self addSubview:textView];
+            
+            _url=[NSURL URLWithString:text];
         }
         
-        [_textView setText:[[NSString stringWithFormat:@"%@|%@",text,text] stringByAppendingTagName:FTCoreTextTagLink]];
+        [_textView setText:[[NSString stringWithFormat:@"%@|%@",text,@"Liên kết"] stringByAppendingTagName:FTCoreTextTagLink]];
         
         [super setText:@""];
     }
@@ -68,17 +68,15 @@
 
 -(void)coreTextView:(FTCoreTextView *)coreTextView receivedTouchOnData:(NSDictionary *)data
 {
-    NSURL *url=[data objectForKey:FTCoreTextDataURL];
-    
-    if(url)
+    if(_url)
     {
         if(self.delegate && [self.delegate respondsToSelector:@selector(lableURLWillOpenURL:url:)])
         {
-            if(![self.delegate lableURLWillOpenURL:self url:url])
+            if(![self.delegate lableURLWillOpenURL:self url:_url])
                 return;
         }
         
-        [[UIApplication sharedApplication] openURL:url];
+        [[UIApplication sharedApplication] openURL:_url];
     }
 }
 
