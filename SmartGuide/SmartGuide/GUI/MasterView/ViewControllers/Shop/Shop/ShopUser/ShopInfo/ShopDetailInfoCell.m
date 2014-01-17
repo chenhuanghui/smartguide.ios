@@ -13,14 +13,14 @@
 -(void)loadWithShop:(Shop *)shop
 {
     lblShopName.text=shop.shopName;
-    lblShopType.text=shop.shopTypeDisplay;
+    [btnShopType setTitle:shop.shopTypeDisplay forState:UIControlStateNormal];
     lblFullAddress.text=[NSString stringWithFormat:@"%@, %@", shop.address, shop.city];
 }
 
 -(void)loadWithShopList:(ShopList *)shop
 {
     lblShopName.text=shop.shopName;
-    lblShopType.text=shop.shopTypeDisplay;
+    [btnShopType setTitle:shop.shopTypeDisplay forState:UIControlStateNormal];
     lblFullAddress.text=shop.address;
 }
 
@@ -29,9 +29,13 @@
     return @"ShopDetailInfoCell";
 }
 
-+(float)height
++(float)heightWithShopName:(NSString*) shopName
 {
-    return 123;
+    float height=130;
+    
+    height+=MAX(0,[shopName sizeWithFont:[UIFont fontWithName:@"Avenir-Heavy" size:14] constrainedToSize:CGSizeMake(234, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height-21);
+    
+    return height;
 }
 
 @end

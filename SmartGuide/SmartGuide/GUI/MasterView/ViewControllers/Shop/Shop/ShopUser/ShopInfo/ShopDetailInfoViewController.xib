@@ -23,7 +23,7 @@
                     <rect key="frame" x="0.0" y="-75" width="290" height="203"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <subviews>
-                        <imageView userInteractionEnabled="NO" alpha="0.25" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="coverdetail.jpg" id="xYf-ag-n8k" userLabel="cover">
+                        <imageView userInteractionEnabled="NO" alpha="0.25" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="xYf-ag-n8k" userLabel="cover">
                             <rect key="frame" x="0.0" y="0.0" width="290" height="203"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </imageView>
@@ -58,6 +58,5 @@
     </objects>
     <resources>
         <image name="bg_detailcover.png" width="290" height="203"/>
-        <image name="coverdetail.jpg" width="290" height="163"/>
     </resources>
 </document>

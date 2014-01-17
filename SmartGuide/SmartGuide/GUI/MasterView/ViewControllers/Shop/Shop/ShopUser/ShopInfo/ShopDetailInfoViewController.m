@@ -63,6 +63,13 @@
     _operation.delegatePost=self;
     
     [_operation startAsynchronous];
+    
+    if(_shop.shopGalleriesObjects.count>0)
+    {
+        ShopGallery *gallery=_shop.shopGalleriesObjects[0];
+        
+        [imgvCover loadShopCoverWithURL:gallery.cover];
+    }
 }
 
 -(void)ASIOperaionPostFinished:(ASIOperationPost *)operation
@@ -177,7 +184,7 @@
 {
     switch (indexPath.section) {
         case 0:
-            return [ShopDetailInfoCell height];
+            return [ShopDetailInfoCell heightWithShopName:_shop.shopName];
             
         case 1:
             if(indexPath.row==0)

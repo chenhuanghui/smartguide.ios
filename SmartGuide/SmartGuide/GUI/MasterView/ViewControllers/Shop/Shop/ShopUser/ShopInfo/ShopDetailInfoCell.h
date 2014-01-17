@@ -17,8 +17,7 @@
 @interface ShopDetailInfoCell : UITableViewCell
 {
     __weak IBOutlet UILabel *lblShopName;
-    __weak IBOutlet UILabel *lblShopType;
-    __weak IBOutlet UIImageView *imgvIcon;
+    __weak IBOutlet UIButton *btnShopType;
     __weak IBOutlet LabelTopText *lblFullAddress;
 }
 
@@ -26,6 +25,6 @@
 -(void) loadWithShopList:(ShopList*) shop;
 
 +(NSString *)reuseIdentifier;
-+(float) height;
++(float)heightWithShopName:(NSString*) shopName;
 
 @end
