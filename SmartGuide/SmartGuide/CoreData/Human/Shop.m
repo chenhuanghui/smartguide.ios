@@ -262,4 +262,9 @@ static NSMutableDictionary *_dictPinShop=nil;
     return _dictPinShop[[NSString stringWithFormat:@"%i",[self enumShopType]]];
 }
 
+-(NSString *)desc1
+{
+    return @"Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet ";
+}
+
 @end

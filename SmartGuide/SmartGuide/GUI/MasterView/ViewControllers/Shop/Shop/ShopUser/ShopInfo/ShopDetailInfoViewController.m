@@ -70,6 +70,8 @@
         
         [imgvCover loadShopCoverWithURL:gallery.cover];
     }
+    
+    [self reloadData];
 }
 
 -(void)ASIOperaionPostFinished:(ASIOperationPost *)operation
