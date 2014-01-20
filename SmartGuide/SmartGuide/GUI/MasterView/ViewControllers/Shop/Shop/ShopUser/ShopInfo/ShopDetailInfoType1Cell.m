@@ -16,6 +16,20 @@
     btnTick.enabled=info1.isTicked==DETAIL_INFO_TICKED;
 }
 
+-(void)setCellPos:(enum CELL_POSITION)cellPos
+{
+    switch (cellPos) {
+        case CELL_POSITION_BOTTOM:
+            line.hidden=true;
+            break;
+            
+        case CELL_POSITION_MIDDLE:
+        case CELL_POSITION_TOP:
+            line.hidden=false;
+            break;
+    }
+}
+
 +(NSString *)reuseIdentifier
 {
     return @"ShopDetailInfoType1Cell";

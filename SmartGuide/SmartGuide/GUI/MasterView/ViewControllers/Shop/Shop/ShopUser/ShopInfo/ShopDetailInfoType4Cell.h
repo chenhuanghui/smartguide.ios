@@ -16,9 +16,11 @@
     __weak IBOutlet UILabel *lblTitle;
     __weak IBOutlet UILabel *lblDate;
     __weak IBOutlet LabelTopText *lblContent;
+    __weak IBOutlet UIImageView *line;
 }
 
 -(void) loadWithInfo4:(Info4*) info4;
+-(void)setCellPos:(enum CELL_POSITION)cellPos;
 
 +(float) heightWithContent:(NSString*) content;
 +(NSString *)reuseIdentifier;

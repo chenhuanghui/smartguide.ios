@@ -17,6 +17,20 @@
     lblContent.text=info4.content;
 }
 
+-(void)setCellPos:(enum CELL_POSITION)cellPos
+{
+    switch (cellPos) {
+        case CELL_POSITION_BOTTOM:
+            line.hidden=true;
+            break;
+            
+        case CELL_POSITION_MIDDLE:
+        case CELL_POSITION_TOP:
+            line.hidden=false;
+            break;
+    }
+}
+
 +(NSString *)reuseIdentifier
 {
     return @"ShopDetailInfoType4Cell";
@@ -24,11 +38,10 @@
 
 +(float)heightWithContent:(NSString *)content
 {
-    float height=[content sizeWithFont:[UIFont fontWithName:@"Avenir-Roman" size:12] constrainedToSize:CGSizeMake(243, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height+15;
+    float height=70;
+    height+=MAX(0,[content sizeWithFont:[UIFont fontWithName:@"Avenir-Roman" size:12] constrainedToSize:CGSizeMake(254, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height-20);
     
-    height+=40;
-    
-    return MAX(70,height);
+    return height;
 }
 
 @end

@@ -22,6 +22,21 @@
     lblContent.text=info3.content;
 }
 
+-(void)setCellPos:(enum CELL_POSITION)cellPos
+{
+    switch (cellPos) {
+        case CELL_POSITION_BOTTOM:
+            line.hidden=true;
+            break;
+            
+        case CELL_POSITION_MIDDLE:
+        case CELL_POSITION_TOP:
+            line.hidden=false;
+            break;
+    }
+}
+
+
 +(NSString *)reuseIdentifier
 {
     return @"ShopDetailInfoType3Cell";
@@ -32,7 +47,6 @@
     float height=86;
     
     height+=MAX(0,[content sizeWithFont:[UIFont fontWithName:@"Avenir-Roman" size:12] constrainedToSize:CGSizeMake(164, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height-65);
-    
     
     return height;
 }

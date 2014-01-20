@@ -144,11 +144,8 @@
         default:
         {
             InfoTypeObject *obj=_infos[section-2];
-            
-            if(section==[tableView numberOfSections]-1)
-                return obj.items.count;
-            else //num of item + empty
-                return obj.items.count+1;
+
+            return obj.items.count+1;
         }
     }
 }
@@ -324,6 +321,13 @@
             
             [cell loadWithInfo1:item];
             
+            if(indexPath.row==0)
+                [cell setCellPos:CELL_POSITION_TOP];
+            else if(indexPath.row==obj.items.count-1)
+                [cell setCellPos:CELL_POSITION_BOTTOM];
+            else
+                [cell setCellPos:CELL_POSITION_MIDDLE];
+            
             return cell;
         }
             
@@ -335,9 +339,15 @@
             
             [cell loadWithInfo2:item];
             
+            if(indexPath.row==0)
+                [cell setCellPos:CELL_POSITION_TOP];
+            else if(indexPath.row==obj.items.count-1)
+                [cell setCellPos:CELL_POSITION_BOTTOM];
+            else
+                [cell setCellPos:CELL_POSITION_MIDDLE];
+            
             return cell;
         }
-            break;
             
         case DETAIL_INFO_TYPE_3:
         {
@@ -347,9 +357,15 @@
             
             [cell loadWithInfo3:item];
             
+            if(indexPath.row==0)
+                [cell setCellPos:CELL_POSITION_TOP];
+            else if(indexPath.row==obj.items.count-1)
+                [cell setCellPos:CELL_POSITION_BOTTOM];
+            else
+                [cell setCellPos:CELL_POSITION_MIDDLE];
+            
             return cell;
         }
-            break;
             
         case DETAIL_INFO_TYPE_4:
         {
@@ -359,11 +375,17 @@
             
             [cell loadWithInfo4:item];
             
+            if(indexPath.row==0)
+                [cell setCellPos:CELL_POSITION_TOP];
+            else if(indexPath.row==obj.items.count-1)
+                [cell setCellPos:CELL_POSITION_BOTTOM];
+            else
+                [cell setCellPos:CELL_POSITION_MIDDLE];
+            
             return cell;
         }
-            break;
             
-        default:
+        case DETAIL_INFO_TYPE_UNKNOW:
             break;
     }
     

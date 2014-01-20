@@ -30,7 +30,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="line_detail_placelist.png" id="zdA-56-QlX">
-                        <rect key="frame" x="2" y="32" width="265" height="5"/>
+                        <rect key="frame" x="3" y="32" width="264" height="5"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     </imageView>
                 </subviews>
@@ -40,6 +40,7 @@
             <connections>
                 <outlet property="lblLeft" destination="25E-sT-mqW" id="7BE-xE-GPS"/>
                 <outlet property="lblRight" destination="cH2-Tv-G2x" id="oxx-65-KIs"/>
+                <outlet property="line" destination="zdA-56-QlX" id="AHR-Bs-f5H"/>
             </connections>
         </tableViewCell>
     </objects>

@@ -14,6 +14,7 @@
 {
     __weak IBOutlet UIButton *btnTick;
     __weak IBOutlet UILabel *lblContent;
+    __weak IBOutlet UIImageView *line;
 }
 
 -(void) loadWithInfo1:(Info1*) info1;
