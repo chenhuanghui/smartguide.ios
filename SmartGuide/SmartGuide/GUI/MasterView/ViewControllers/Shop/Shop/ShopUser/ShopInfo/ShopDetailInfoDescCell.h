@@ -28,6 +28,7 @@ enum SHOP_DETAIL_INFO_DESCRIPTION_MODE {
 {
     __weak IBOutlet LabelTopText *lbl;
     __weak IBOutlet UIButton *btn;
+    __weak IBOutlet UIImageView *blur;
     
     enum SHOP_DETAIL_INFO_DESCRIPTION_MODE _mode;
 }

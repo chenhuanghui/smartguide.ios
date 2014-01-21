@@ -22,6 +22,10 @@
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_blur_detail_info.png" id="eRH-nS-Q4h">
+                        <rect key="frame" x="3" y="-27" width="265" height="25"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    </imageView>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="5Gv-6b-iER">
                         <rect key="frame" x="197" y="0.0" width="65" height="25"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -39,9 +43,13 @@
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <connections>
+                <outlet property="blur" destination="eRH-nS-Q4h" id="gEi-Kd-kOU"/>
                 <outlet property="btn" destination="5Gv-6b-iER" id="OsK-55-Dkj"/>
                 <outlet property="lbl" destination="v0O-KU-y7E" id="Lgz-TL-4wi"/>
             </connections>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="bg_blur_detail_info.png" width="262" height="25"/>
+    </resources>
 </document>

@@ -326,6 +326,32 @@
     
     CGRect rect=CGRectZero;
     float tableOffsetY=[self tableOffsetY];
+    float btnHeight=[self buttonContainHeight];
+    
+    rect=[tableShopUser rectForRowAtIndexPath:SHOP_USER_INFO_INDEX_PATH];
+    
+    float y=tableOffsetY-rect.origin.y+btnHeight;
+
+    //vị trí khuyến mãi chưa scroll đến top của màn hình
+    if(y<0)
+    {
+        [self scrollToInfoRow:true];
+    }
+    else
+    {
+        y=tableOffsetY-rect.origin.y-rect.size.height-btnHeight;
+        // vùng hiển thị của khuyến mãi đã qua khỏi màn hình->scroll đến thông tin khuyến mãi
+        if(y<0)
+            [self scrollToInfoRow:true];
+        else
+            [self scrollToTop:true];
+    }
+
+    return;
+    if(tableOffsetY-rect.origin.y+_btnNextFrame.size.height>0)
+        [self scrollToInfoRow:true];
+    else
+        [self scrollToRowAtIndexPath:SHOP_USER_SHOP_GALLERY_INDEX_PATH animate:true];
     
     switch (_shop.enumPromotionType) {
         case SHOP_PROMOTION_KM1:
@@ -352,6 +378,11 @@
         default:
             break;
     }
+}
+
+-(void) scrollToTop:(bool) animate
+{
+    [self scrollToRowAtIndexPath:SHOP_USER_SHOP_GALLERY_INDEX_PATH animate:animate];
 }
 
 -(void) scrollToInfoRow:(bool) animate
@@ -852,6 +883,11 @@
         [shopNavi popViewControllerAnimated:true];
         btnBack.hidden=true;
     }];
+}
+
+-(float) buttonContainHeight
+{
+    return [self tableView:tableShopUser heightForRowAtIndexPath:SHOP_USER_BUTTON_CONTAIN_INDEX_PATH];
 }
 
 @end

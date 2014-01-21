@@ -7,6 +7,7 @@
 //
 
 #import "ShopDetailInfoDescCell.h"
+#import "Utility.h"
 
 #define SHOP_DETAIL_INFO_DESC_HEIGHT_MAX_NORMAL 80.f
 
@@ -24,12 +25,17 @@
         {
             [btn setTitle:@"Xem thêm" forState:UIControlStateNormal];
             btn.hidden=false;
+            blur.hidden=false;
         }
         else
+        {
             btn.hidden=true;
+            blur.hidden=true;
+        }
     }
     else
     {
+        blur.hidden=true;
         btn.hidden=false;
         [btn setTitle:@"Rút gọn" forState:UIControlStateNormal];
     }
@@ -63,6 +69,13 @@
 +(NSString *)reuseIdentifier
 {
     return @"ShopDetailInfoDescCell";
+}
+
+-(void)awakeFromNib
+{
+    [super awakeFromNib];
+    
+    blur.transform=CGAffineTransformMakeRotation(DEGREES_TO_RADIANS(180));
 }
 
 @end
