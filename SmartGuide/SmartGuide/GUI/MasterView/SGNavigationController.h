@@ -37,6 +37,10 @@ CATransition* transitionPushFromRight();
     void(^_onPushedViewController)(UIViewController* vc);
 
     NSMutableArray *_controllers;
+    
+    SGViewController *_prepareViewController;
+    bool _didLoadPrepareViewController;
+    bool _didCallPushPrepareViewController;
 }
 
 -(SGNavigationController*) initWithViewControllers:(NSArray*) controllers;
@@ -46,6 +50,8 @@ CATransition* transitionPushFromRight();
 -(void) pushViewController:(SGViewController*) viewController andPopWithTransition:(CATransition*) transition;
 -(UIViewController *)popViewControllerWithTransition:(CATransition*) transition;
 
+-(void) preparePushController:(SGViewController*) viewController;
+-(void) pushViewControllerPrepared;
 
 -(void) setRootViewController:(UIViewController*) viewController animate:(bool) animate;
 -(void) makeRootViewController:(UIViewController*) viewController;

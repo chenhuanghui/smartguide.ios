@@ -824,19 +824,15 @@
     }
 }
 
--(void) pushViewController:(UIViewController*) vc
+-(void) pushViewController:(SGViewController*) vc
 {
-    btnBack.alpha=0;
     btnBack.hidden=false;
-    bgBack.alpha=0;
-    bgBack.hidden=false;
     
-    [UIView animateWithDuration:DURATION_DEFAULT animations:^{
-        btnBack.alpha=1;
-        bgBack.alpha=1;
+    [shopNavi preparePushController:vc];
+    
+    [btnBack startShowAnimateOnCompleted:^(UIButton *btn) {
+        [shopNavi pushViewControllerPrepared];
     }];
-    
-    [shopNavi pushViewController:vc animated:true];
 }
 
 -(void)userGalleryTouchedMakePicture:(SUUserGalleryCell *)cell
@@ -855,19 +851,9 @@
 
 -(IBAction) btnBackTouchUpInside:(id)sender
 {
-    if([shopNavi.visibleViewController isKindOfClass:[ShopMapViewController class]])
-    {
-        [_shop setCoordinate:CLLocationCoordinate2DMake(-1, -1)];
-    }
-    
-    [shopNavi popViewControllerAnimated:true];
-    
-    [UIView animateWithDuration:DURATION_DEFAULT animations:^{
-        bgBack.alpha=0;
-        btnBack.alpha=0;
-    } completion:^(BOOL finished) {
+    [btnBack startHideAnimateOnCompleted:^(UIButton *btn) {
+        [shopNavi popViewControllerAnimated:true];
         btnBack.hidden=true;
-        bgBack.hidden=true;
     }];
 }
 

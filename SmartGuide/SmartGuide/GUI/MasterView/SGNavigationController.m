@@ -171,7 +171,12 @@ CATransition* transitionPushFromRight()
     }
 }
 
-CALL_DEALLOC_LOG
+-(void)dealloc
+{
+    DEALLOC_LOG
+    
+    _prepareViewController=nil;
+}
 
 -(BOOL)prefersStatusBarHidden
 {
@@ -873,6 +878,41 @@ CALL_DEALLOC_LOG
     NSAssert(delegate==self, @"SGNavigation set delegate must be owner");
     
     [super setDelegate:delegate];
+}
+
+-(void)preparePushController:(SGViewController *)viewController
+{
+    _didLoadPrepareViewController=false;
+    _didCallPushPrepareViewController=false;
+    
+    _prepareViewController=viewController;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [_prepareViewController view];
+        _didLoadPrepareViewController=true;
+        
+        [self callPushPreparedViewController];
+    });
+}
+
+-(void)pushViewControllerPrepared
+{
+    _didCallPushPrepareViewController=true;
+    
+    [self callPushPreparedViewController];
+}
+
+-(void) callPushPreparedViewController
+{
+    if(_didCallPushPrepareViewController && _didLoadPrepareViewController)
+    {
+        if(_prepareViewController)
+            [self pushViewController:_prepareViewController animated:true];
+        
+        _prepareViewController=nil;
+        
+        _didCallPushPrepareViewController=false;
+        _didLoadPrepareViewController=false;
+    }
 }
 
 @end
