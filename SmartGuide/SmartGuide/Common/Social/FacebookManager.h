@@ -20,6 +20,9 @@ enum FACEBOOK_PERMISSION_TYPE {
     };
 
 @interface FacebookManager : NSObject
+{
+    NSMutableArray *_needPermission;
+}
 
 +(FacebookManager*) shareInstance;
 
@@ -31,6 +34,8 @@ enum FACEBOOK_PERMISSION_TYPE {
 
 -(void) requestPermission:(NSArray*) permission;
 -(void) requestPermissionPostToWall;
+
+-(void) markNeedPermissionPostToWall;
 
 +(void) handleDidBecomeActive;
 +(void) handleWillTerminate;

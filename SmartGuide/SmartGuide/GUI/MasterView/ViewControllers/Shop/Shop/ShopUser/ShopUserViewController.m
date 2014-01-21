@@ -51,7 +51,7 @@
 -(void)viewDidLoad
 {
     [super viewDidLoad];
-
+    
     [detailView addSubview:shopNavi.view];
     [shopNavi l_v_setS:detailView.l_v_s];
     
@@ -181,6 +181,15 @@
         }
         
         _opeartionPostComment=nil;
+    }
+    else if([operation isKindOfClass:[ASIOperationSocialShare class]])
+    {
+        ASIOperationSocialShare *ope=(ASIOperationSocialShare*)operation;
+        
+        if(ope.status==0)
+            [[FacebookManager shareInstance] markNeedPermissionPostToWall];
+        
+        _operationSocialShare=nil;
     }
 }
 
@@ -702,6 +711,14 @@
     _opeartionPostComment.delegatePost=self;
     
     [_opeartionPostComment startAsynchronous];
+    
+    if([[FacebookManager shareInstance] permissionTypeForPostToWall]==FACEBOOK_PERMISSION_GRANTED)
+    {
+        _operationSocialShare=[[ASIOperationSocialShare alloc] initWithContent:comment url:nil image:nil accessToken:[FBSession activeSession].accessTokenData.accessToken socialType:SOCIAL_FACEBOOK];
+        _operationSocialShare.delegatePost=self;
+        
+        [_operationSocialShare startAsynchronous];
+    }
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

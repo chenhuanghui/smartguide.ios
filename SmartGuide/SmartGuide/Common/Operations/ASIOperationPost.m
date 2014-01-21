@@ -19,7 +19,7 @@ static NSMutableArray *asioperations=nil;
 @end
 
 @implementation ASIOperationPost
-@synthesize delegatePost,values,keys,operationAccessToken,sourceURL;
+@synthesize delegatePost,values,keys,operationAccessToken,sourceURL,keyValue;
 
 -(ASIOperationPost *)initWithRouter:(NSURL *)_url
 {
@@ -75,7 +75,10 @@ static NSMutableArray *asioperations=nil;
 {
     [self applyPostValue];
     
-    NSLog(@"%@ start async %@ %@ %@",CLASS_NAME,self.url,self.keys,self.values);
+    if(self.keyValue)
+            NSLog(@"%@ start async kvl %@ %@ %@",CLASS_NAME,self.url,self.keyValue.allKeys,self.keyValue.allValues);
+    else
+        NSLog(@"%@ start async %@ %@ %@",CLASS_NAME,self.url,self.keys,self.values);
     
     [super startAsynchronous];
 }
@@ -84,13 +87,26 @@ static NSMutableArray *asioperations=nil;
 {
     [self applyPostValue];
     
-    NSLog(@"%@ start sync %@ %@ %@",CLASS_NAME,self.url,self.keys,self.values);
+    if(self.keyValue)
+        NSLog(@"%@ start sync kvl %@ %@ %@",CLASS_NAME,self.url,self.keyValue.allKeys,self.keyValue.allValues);
+    else
+        NSLog(@"%@ start sync %@ %@ %@",CLASS_NAME,self.url,self.keys,self.values);
     
     [super startSynchronous];
 }
 
 -(void) applyPostValue
 {
+    if(keyValue)
+    {
+        for(NSString *key in keyValue.allKeys)
+        {
+            [self setPostValue:keyValue[key] forKey:key];
+        }
+        
+        return;
+    }
+    
     NSArray *arrKeys=[self keys];
     NSArray *arrValues=[self values];
     for(int i=0;i<arrKeys.count;i++)
@@ -344,6 +360,7 @@ static NSMutableArray *asioperations=nil;
     
     [ope setValues:self.values];
     [ope setKeys:self.keys];
+    [ope setKeyValue:self.keyValue];
     
     return ope;
 }

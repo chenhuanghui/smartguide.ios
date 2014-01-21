@@ -34,6 +34,7 @@
 #import "ASIOperationShopUser.h"
 #import "ASIOperationShopComment.h"
 #import "ASIOperationPostComment.h"
+#import "ASIOperationSocialShare.h"
 #import "ShopGalleryViewController.h"
 
 //Vị trí y của table
@@ -95,6 +96,7 @@ enum SHOP_USER_MODE {
     ASIOperationShopUser *_operationShopUser;
     ASIOperationShopComment *_operationShopComment;
     ASIOperationPostComment *_opeartionPostComment;
+    ASIOperationSocialShare *_operationSocialShare;
     
     NSMutableArray *_comments;
     bool _canLoadMoreComment;

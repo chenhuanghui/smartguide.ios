@@ -99,7 +99,6 @@
     <resources>
         <image name="ava.png" width="74" height="74"/>
         <image name="button_agree.png" width="56" height="22"/>
-        <image name="button_agree.png" width="56" height="22"/>
         <image name="button_agree_hidden.png" width="56" height="22"/>
         <image name="frame_avacomment.png" width="43" height="44"/>
         <image name="line_comment.png" width="257" height="1"/>

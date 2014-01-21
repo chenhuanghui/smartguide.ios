@@ -36,6 +36,7 @@
 @property (nonatomic, weak) id<ASIOperationPostDelegate> delegatePost;
 @property (nonatomic, strong) NSArray *values;
 @property (nonatomic, strong) NSArray *keys;
+@property (nonatomic, strong) NSDictionary *keyValue;
 @property (nonatomic, strong) NSString *operationAccessToken;
 @property (nonatomic, strong) NSURL *sourceURL;
 

@@ -9,6 +9,7 @@
 #import "ShopUserCommentCell.h"
 #import "LoadingView.h"
 #import "ImageManager.h"
+#import "FacebookManager.h"
 
 #define SHOP_USER_COMMENT_FONT [UIFont fontWithName:@"Avenir-Roman" size:11]
 #define SHOP_USER_COMMENT_WIDTH 189.f

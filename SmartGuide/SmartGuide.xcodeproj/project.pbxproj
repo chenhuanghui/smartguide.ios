@@ -450,6 +450,7 @@
 		9A998A5E188E2CE400F59840 /* button_agree_hidden@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A998A5A188E2CE300F59840 /* button_agree_hidden@2x.png */; };
 		9A998A5F188E2CE400F59840 /* button_agree@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A998A5B188E2CE400F59840 /* button_agree@2x.png */; };
 		9A998A61188E2D0F00F59840 /* button_agree_hidden.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A998A60188E2D0F00F59840 /* button_agree_hidden.png */; };
+		9A998A67188E324500F59840 /* ASIOperationSocialShare.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A998A66188E324500F59840 /* ASIOperationSocialShare.m */; };
 		9A9BDEDE187E8E3A00D45167 /* button_arrow_left_home.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A9BDEDA187E8E3A00D45167 /* button_arrow_left_home.png */; };
 		9A9BDEDF187E8E3A00D45167 /* button_arrow_left_home@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A9BDEDB187E8E3A00D45167 /* button_arrow_left_home@2x.png */; };
 		9A9BDEE0187E8E3A00D45167 /* button_arrow_right_home.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A9BDEDC187E8E3A00D45167 /* button_arrow_right_home.png */; };
@@ -1507,6 +1508,8 @@
 		9A998A5A188E2CE300F59840 /* button_agree_hidden@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_agree_hidden@2x.png"; sourceTree = "<group>"; };
 		9A998A5B188E2CE400F59840 /* button_agree@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_agree@2x.png"; sourceTree = "<group>"; };
 		9A998A60188E2D0F00F59840 /* button_agree_hidden.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_agree_hidden.png; sourceTree = "<group>"; };
+		9A998A65188E324500F59840 /* ASIOperationSocialShare.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIOperationSocialShare.h; sourceTree = "<group>"; };
+		9A998A66188E324500F59840 /* ASIOperationSocialShare.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIOperationSocialShare.m; sourceTree = "<group>"; };
 		9A9BDEDA187E8E3A00D45167 /* button_arrow_left_home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_arrow_left_home.png; sourceTree = "<group>"; };
 		9A9BDEDB187E8E3A00D45167 /* button_arrow_left_home@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_arrow_left_home@2x.png"; sourceTree = "<group>"; };
 		9A9BDEDC187E8E3A00D45167 /* button_arrow_right_home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_arrow_right_home.png; sourceTree = "<group>"; };
@@ -3508,6 +3511,8 @@
 				9A9433671885A91400066DC3 /* ASIOperationCreatePlacelist.m */,
 				9A96DC0D1886562600AD0EEC /* ASIOperationAddShopPlacelists.h */,
 				9A96DC0E1886562600AD0EEC /* ASIOperationAddShopPlacelists.m */,
+				9A998A65188E324500F59840 /* ASIOperationSocialShare.h */,
+				9A998A66188E324500F59840 /* ASIOperationSocialShare.m */,
 			);
 			path = ASIOperation;
 			sourceTree = "<group>";
@@ -5067,6 +5072,7 @@
 				9ACE90591875B508008FEA7E /* SUKM2Cell.m in Sources */,
 				9AC74E581860C0F70033EB61 /* ASIOperationPlacelistGetList.m in Sources */,
 				9A860BDD187673A800CD435F /* SGShopEmptyCell.m in Sources */,
+				9A998A67188E324500F59840 /* ASIOperationSocialShare.m in Sources */,
 				A9B807CC179FBD7B00C8E003 /* ASIWebPageRequest.m in Sources */,
 				9A32F4311843486F00704D26 /* AlphaView.m in Sources */,
 				9A0F761D187152DB00160E54 /* ShopDetailInfoType1Cell.m in Sources */,
