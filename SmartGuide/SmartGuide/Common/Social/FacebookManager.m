@@ -42,75 +42,65 @@ static FacebookManager *_facebookManager=nil;
 
 -(bool)isLogined
 {
-    return [FBSession activeSession].state==FBSessionStateOpen || [FBSession activeSession].state==FBSessionStateOpenTokenExtended;
+    return [[FBSession activeSession] isOpen];
+}
+
+-(bool) isAvailableSocialFramework
+{
+    return NSClassFromString(@"SLComposeViewController")!=nil;
+}
+
+-(bool) isAvailableSystemAccount
+{
+    return [self isAvailableSocialFramework] && [SLComposeViewController isAvailableForServiceType:SLServiceTypeFacebook];
+}
+
+-(void) requestPermission:(NSArray *)permission
+{
+    __block NSArray *_per=[permission copy];
+    
+    [[FBSession activeSession] requestNewPublishPermissions:permission defaultAudience:FBSessionDefaultAudienceEveryone completionHandler:^(FBSession *session, NSError *error) {
+        if(error)
+            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_FACEBOOK_USER_DENIED_PERMISSION object:_per];
+        else
+            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_FACEBOOK_USER_GRANTED_PERMISSION object:_per];
+    }];
+}
+
+-(void) requestPermissionPostToWall
+{
+    [self requestPermission:FACEBOOK_PUBLISH_PERMISSION];
 }
 
 - (void)openSession{
-    if(NSClassFromString(@"SLComposeViewController"))
+    if([self isAvailableSystemAccount])
     {
-        if([SLComposeViewController isAvailableForServiceType:SLServiceTypeFacebook])
-        {
-            __block FBSessionStateHandler runOnceHandle=^(FBSession *session, FBSessionState status, NSError *error)
-            {
-                if(status==FBSessionStateOpen || status==FBSessionStateOpenTokenExtended)
-                {
-                    if(![session.permissions containsObject:@"publish_actions"])
-                    {
-                        dispatch_async(dispatch_get_current_queue(), ^{
-                            [[FBSession activeSession] requestNewPublishPermissions:FACEBOOK_PUBLISH_PERMISSION defaultAudience:FBSessionDefaultAudienceEveryone completionHandler:^(FBSession *session, NSError *error) {
-                                [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_FACEBOOK_LOGIN_SUCCESS object:nil];
-                            }];
-                        });
-                    }
-                    else
-                    {
-                        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_FACEBOOK_LOGIN_SUCCESS object:nil];
-                    }
-                }
-                else
-                {
-                    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_FACEBOOK_LOGIN_FAILED object:nil];
-                    [[FBSession activeSession] closeAndClearTokenInformation];
-                }
-            };
-
-            [FBSession openActiveSessionWithReadPermissions:FACEBOOK_READ_PERMISSION allowLoginUI:true completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
-                
-                if(runOnceHandle)
-                {
-                    runOnceHandle(session,status,error);
-                    runOnceHandle=nil;
-                }
-            }];
-        }
-        else
-        {
-            NSMutableArray *per=[NSMutableArray array];
+        __block id obsGranted=nil;
+        __block id obsDenied=nil;
+        
+        obsGranted=[[NSNotificationCenter defaultCenter] addObserverForName:NOTIFICATION_FACEBOOK_LOGIN_SUCCESS object:nil queue:[NSOperationQueue currentQueue] usingBlock:^(NSNotification *note) {
             
-            [per addObjectsFromArray:FACEBOOK_READ_PERMISSION];
-            [per addObjectsFromArray:FACEBOOK_PUBLISH_PERMISSION];
+            [self requestPermissionPostToWall];
             
-            FBSession *session =
-            [[FBSession alloc] initWithAppID:FACEBOOK_APPID
-                                 permissions:per	// FB only wants read or publish so use default read, request publish when we need it
-                             urlSchemeSuffix:@""
-                          tokenCacheStrategy:nil];
+            [[NSNotificationCenter defaultCenter] removeObserver:obsGranted];
+            [[NSNotificationCenter defaultCenter] removeObserver:obsDenied];
+        }];
+        
+        obsDenied=[[NSNotificationCenter defaultCenter] addObserverForName:NOTIFICATION_FACEBOOK_LOGIN_FAILED object:nil queue:[NSOperationQueue currentQueue] usingBlock:^(NSNotification *note) {
             
-            [FBSession setActiveSession:session];
-            [session openWithCompletionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
-                
-                if(error)
-                    [FBSession.activeSession closeAndClearTokenInformation];
-                
-                if(status==FBSessionStateOpen||status==FBSessionStateOpenTokenExtended)
-                {
-                    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_FACEBOOK_LOGIN_SUCCESS object:nil];
-                    return;
-                }
-                
+            [[FBSession activeSession] closeAndClearTokenInformation];
+            
+            [[NSNotificationCenter defaultCenter] removeObserver:obsGranted];
+            [[NSNotificationCenter defaultCenter] removeObserver:obsDenied];
+        }];
+        
+        [FBSession openActiveSessionWithReadPermissions:FACEBOOK_READ_PERMISSION allowLoginUI:true completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
+            
+            if(error)
                 [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_FACEBOOK_LOGIN_FAILED object:nil];
-            }];
-        }
+            else
+                [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_FACEBOOK_LOGIN_SUCCESS object:nil];
+        }];
     }
     else
     {
@@ -134,6 +124,12 @@ static FacebookManager *_facebookManager=nil;
             if(status==FBSessionStateOpen||status==FBSessionStateOpenTokenExtended)
             {
                 [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_FACEBOOK_LOGIN_SUCCESS object:nil];
+                
+                if([session.permissions containsObject:FACEBOOK_POST_TO_WALL_PERMISSION])
+                    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_FACEBOOK_USER_GRANTED_PERMISSION object:FACEBOOK_POST_TO_WALL_PERMISSION];
+                else
+                    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_FACEBOOK_USER_DENIED_PERMISSION object:FACEBOOK_POST_TO_WALL_PERMISSION];
+                
                 return;
             }
             
@@ -168,6 +164,19 @@ static FacebookManager *_facebookManager=nil;
     
     [FBAppCall handleDidBecomeActive];
     //	[FBSession.activeSession handleDidBecomeActive];
+}
+
+-(enum FACEBOOK_PERMISSION_TYPE)permissionTypeForPermission:(NSString *)permission
+{
+    if([[FBSession activeSession].permissions containsObject:permission])
+        return FACEBOOK_PERMISSION_GRANTED;
+    
+    return FACEBOOK_PERMISSION_DENIED;
+}
+
+-(enum FACEBOOK_PERMISSION_TYPE)permissionTypeForPostToWall
+{
+    return [self permissionTypeForPermission:FACEBOOK_POST_TO_WALL_PERMISSION];
 }
 
 @end

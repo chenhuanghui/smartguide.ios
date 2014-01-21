@@ -20,7 +20,8 @@
 #define CALL_DEALLOC_LOG -(void) dealloc{DEALLOC_LOG}
 
 #define FACEBOOK_READ_PERMISSION @[@"basic_info",@"user_about_me",@"user_birthday",@"user_work_history",@"email"]
-#define FACEBOOK_PUBLISH_PERMISSION @[@"publish_actions"]
+#define FACEBOOK_POST_TO_WALL_PERMISSION @"publish_actions"
+#define FACEBOOK_PUBLISH_PERMISSION @[FACEBOOK_POST_TO_WALL_PERMISSION]
 #define FACEBOOK_APPID @"1391698407719065"
 #define FACEBOOK_GET_PROFILE @"https://graph.facebook.com/me/"
 

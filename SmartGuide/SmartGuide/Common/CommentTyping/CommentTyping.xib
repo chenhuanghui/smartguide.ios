@@ -60,6 +60,9 @@
                                     <state key="normal" image="button_Facebook.png">
                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
+                                    <connections>
+                                        <action selector="btnShareFBTouchUpInside:" destination="1" eventType="touchUpInside" id="qGY-8O-hkl"/>
+                                    </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Bes-Y0-WUw" customClass="ButtonAgree">
                                     <rect key="frame" x="205" y="25" width="46" height="22"/>

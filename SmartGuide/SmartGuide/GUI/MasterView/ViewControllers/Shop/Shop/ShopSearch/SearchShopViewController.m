@@ -383,6 +383,37 @@
                 }
             }
             
+//            int row=indexPath.row+1;
+//            int section=indexPath.section;
+//            
+//            cell.hidden=true;
+//            
+//            double delayInSeconds = 0.0;
+//            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+//            dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+//                float y=cell.l_v_y;
+//                cell.alpha=0;
+//                cell.hidden=false;
+//                
+//                if(row!=0)
+//                    [cell l_v_setY:y-cell.l_v_h];
+//                else
+//                    [cell l_v_setY:-cell.l_v_h];
+//                
+//                float s=section;
+//                
+//                if(s>0)
+//                    s=[table numberOfRowsInSection:s-1]*0.1f;
+//
+//                [UIView animateWithDuration:0.1f delay:MAX(0.1f*row+s-0.1f-0.05f,0) options:UIViewAnimationOptionCurveLinear animations:^{
+//                    cell.alpha=1;
+//                } completion:nil];
+//                
+//                [UIView animateWithDuration:0.1f*row+s animations:^{
+//                    [cell l_v_setY:y];
+//                }];
+//            });
+            
             return cell;
         }
     }

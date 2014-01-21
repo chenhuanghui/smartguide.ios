@@ -39,7 +39,7 @@
         textView.delegate = self;
         textView.internalTextView.scrollIndicatorInsets = UIEdgeInsetsMake(5, 0, 5, 0);
         textView.backgroundColor = [UIColor whiteColor];
-        textView.placeholder = @"Type to see the textView grow!";
+        textView.placeholder = @"";
         
         midView.backgroundColor=[UIColor colorWithPatternImage:COMMENT_TYPING_IMAGE_MID];
         
@@ -84,7 +84,6 @@
 
 -(void) keyboardWillShow:(NSNotification*) notification
 {
-    return;
     [UIView animateWithDuration:[notification.userInfo floatForKey:UIKeyboardAnimationDurationUserInfoKey] animations:^{
         [scroll l_co_setY:COMMENT_TYPING_EXPANED_HEIGHT];
         [imgvBottom l_v_setY:_imgvBottomFrame.origin.y+COMMENT_TYPING_EXPANED_HEIGHT];
@@ -110,7 +109,7 @@
 -(void)collapse
 {
     _isExpanded=false;
-
+    
     [UIView animateWithDuration:0.3f animations:^{
         self.frame=CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width, self.frame.size.height-100);
         midView.backgroundColor=[UIColor colorWithPatternImage:COMMENT_TYPING_IMAGE_MID];
@@ -147,6 +146,20 @@
 -(void)focus
 {
     [textView.internalTextView becomeFirstResponder];
+}
+
+- (IBAction)btnShareFBTouchUpInside:(id)sender {
+    if([[FacebookManager shareInstance] isLogined])
+    {
+        if([[FacebookManager shareInstance] permissionTypeForPostToWall]==FACEBOOK_PERMISSION_DENIED)
+        {
+            [[FacebookManager shareInstance] requestPermissionPostToWall];
+        }
+    }
+    else
+    {
+        [[FacebookManager shareInstance] login];
+    }
 }
 
 @end

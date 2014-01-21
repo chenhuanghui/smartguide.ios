@@ -1802,6 +1802,12 @@ static const NSString *KEY_HIT_TEST_EDGE_INSETS = @"HitTestEdgeInsets";
     return CGRectContainsPoint(hitFrame, point);
 }
 
+-(void)setDefaultImage:(UIImage *)defaultImage highlightImage:(UIImage *)highlightImage
+{
+    [self setImage:defaultImage forState:UIControlStateNormal];
+    [self setImage:highlightImage forState:UIControlStateHighlighted|UIControlStateSelected];
+}
+
 @end
 
 @implementation UILabel(Utility)

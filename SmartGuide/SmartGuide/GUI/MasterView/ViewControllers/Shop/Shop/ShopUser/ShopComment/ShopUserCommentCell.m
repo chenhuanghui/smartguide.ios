@@ -28,15 +28,13 @@
     
     switch (comment.enumAgreeStatus) {
         case AGREE_STATUS_AGREED:
-            [btnAgree setTitle:@"Đã đồng ý" agreeStatus:comment.enumAgreeStatus];
+            btnAgree.tag=AGREE_STATUS_AGREED;
+            [btnAgree setDefaultImage:[UIImage imageNamed:@"button_agree.png"] highlightImage:[UIImage imageNamed:@"button_agree_hidden.png"]];
             break;
      
         case AGREE_STATUS_NONE:
-            [btnAgree setTitle:@"Đồng ý" agreeStatus:[comment enumAgreeStatus]];
-            break;
-            
-        default:
-            [btnAgree setTitle:@"Đồng ý" agreeStatus:[comment enumAgreeStatus]];
+            btnAgree.tag=AGREE_STATUS_NONE;
+            [btnAgree setDefaultImage:[UIImage imageNamed:@"button_agree_hidden.png"] highlightImage:[UIImage imageNamed:@"button_agree.png"]];
             break;
     }
 }
@@ -63,12 +61,24 @@
 }
 
 -(IBAction) btnAgreeTouchUpInside:(id)sender
-{
+{    
     enum AGREE_STATUS isAgree=_comment.enumAgreeStatus==AGREE_STATUS_AGREED?AGREE_STATUS_NONE:AGREE_STATUS_AGREED;
     ASIOperationAgreeComment *ope=[[ASIOperationAgreeComment alloc] initWithIDComment:_comment.idComment.integerValue userLat:userLat() userLng:userLng() isAgree:isAgree];
     ope.delegatePost=self;
     
     [ope startAsynchronous];
+    
+    switch (isAgree) {
+        case AGREE_STATUS_AGREED:
+            btnAgree.tag=AGREE_STATUS_AGREED;
+            [btnAgree setDefaultImage:[UIImage imageNamed:@"button_agree.png"] highlightImage:[UIImage imageNamed:@"button_agree_hidden.png"]];
+            break;
+            
+        case AGREE_STATUS_NONE:
+            btnAgree.tag=AGREE_STATUS_NONE;
+            [btnAgree setDefaultImage:[UIImage imageNamed:@"button_agree_hidden.png"] highlightImage:[UIImage imageNamed:@"button_agree.png"]];
+            break;
+    }
 }
 
 -(void)ASIOperaionPostFinished:(ASIOperationPost *)operation

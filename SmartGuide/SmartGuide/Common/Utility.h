@@ -291,6 +291,8 @@ NSString* sortList(enum SORT_LIST sort);
 
 @interface UIButton (Utility)
 
+-(void) setDefaultImage:(UIImage*) defaultImage highlightImage:(UIImage*) highlightImage;
+
 @property(nonatomic, assign) UIEdgeInsets hitTestEdgeInsets;
 
 @end

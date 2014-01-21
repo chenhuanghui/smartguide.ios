@@ -19,6 +19,9 @@
 #define SHOP_USER_USER_COMMENT_INDEX_PATH [NSIndexPath indexPathForRow:6 inSection:0]
 
 @interface ShopUserViewController ()
+{
+    __weak UITapGestureRecognizer *_tap;
+}
 
 @end
 
@@ -110,6 +113,7 @@
     }
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(shopUserCommentKeyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(shopUserCommentKeyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
 }
 
 -(void)ASIOperaionPostFinished:(ASIOperationPost *)operation
@@ -261,6 +265,17 @@
     }
 }
 
+-(void) shopUserCommentKeyboardWillHide:(NSNotification*) notification
+{
+    if(_tap)
+    {
+        [_tap removeTarget:self action:@selector(tap:)];
+        [tableShopUser removeGestureRecognizer:_tap];
+        
+        _tap=nil;
+    }
+}
+
 -(void) shopUserCommentKeyboardWillShow:(NSNotification*) notification
 {
     CGRect rect=[tableShopUser rectForRowAtIndexPath:SHOP_USER_USER_COMMENT_INDEX_PATH];
@@ -277,6 +292,22 @@
             [userCommentCell focus];
         }];
     }
+    
+    if(!_tap)
+    {
+        UITapGestureRecognizer *tap=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)];
+        
+        [tableShopUser.panGestureRecognizer requireGestureRecognizerToFail:tap];
+        
+        [tableShopUser addGestureRecognizer:tap];
+        
+        _tap=tap;
+    }
+}
+
+-(void) tap:(UITapGestureRecognizer*) tap
+{
+    [self.view endEditing:true];
 }
 
 -(IBAction) btnNextTouchUpInside:(id)sender

@@ -10,6 +10,7 @@
 #import "HPGrowingTextView.h"
 #import "ButtonAgree.h"
 #import "TouchView.h"
+#import "FacebookManager.h"
 
 @class CommentTyping;
 
