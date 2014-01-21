@@ -5,7 +5,7 @@
 static NSMutableDictionary *_dictPinShop=nil;
 
 @implementation Shop
-@synthesize descHeight;
+@synthesize descHeight,shopNameHeight,addressHeight;
 
 -(id)initWithEntity:(NSEntityDescription *)entity insertIntoManagedObjectContext:(NSManagedObjectContext *)context
 {
@@ -260,6 +260,16 @@ static NSMutableDictionary *_dictPinShop=nil;
     });
     
     return _dictPinShop[[NSString stringWithFormat:@"%i",[self enumShopType]]];
+}
+
+-(NSString *)shopName1
+{
+    return @"Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh";
+}
+
+-(NSString *)address1
+{
+    return @"Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet";
 }
 
 -(NSString *)desc1

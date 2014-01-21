@@ -451,27 +451,6 @@
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    
-    return;
-    [Flags setIsUserReadTutorialPlace:rand()%2==0];
-    [Flags setIsUserReadTutorialShopList:rand()%2==0];
-    [Flags setIsUserReadTutorialStoreList:rand()%2==0];
-    
-    NSMutableArray *array=[NSMutableArray array];
-    for(int i=0;i<[tableFeed numberOfRowsInSection:0];i++)
-    {
-        NSIndexPath *ip=[NSIndexPath indexPathForRow:i inSection:0];
-        
-        UITableViewCell *cell=[tableFeed cellForRowAtIndexPath:ip];
-        
-        if([cell isKindOfClass:[HomeListCell class]])
-        {
-            [array addObject:ip];
-        }
-    }
-    
-    if(array.count>0)
-        [tableFeed reloadRowsAtIndexPaths:array withRowAnimation:UITableViewRowAnimationFade];
 }
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView

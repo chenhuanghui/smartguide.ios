@@ -2,6 +2,7 @@
 #import "Utility.h"
 
 @implementation ShopList
+@synthesize shopNameHeight,addressHeight;
 
 +(ShopList *)shopListWithIDShop:(int)idShop
 {

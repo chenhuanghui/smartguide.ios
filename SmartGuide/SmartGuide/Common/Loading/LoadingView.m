@@ -9,6 +9,10 @@
 #import "LoadingView.h"
 #import "Utility.h"
 #import <objc/runtime.h>
+#import "PhuongConfig.h"
+
+static NSMutableArray *_loadingImages=nil;
+static NSMutableArray *_loadMoreImages=nil;
 
 static char loadingViewKey;
 
@@ -30,14 +34,28 @@ static char loadingViewKey;
     
     [self addSubview:bg];
     
-    UIActivityIndicatorView *indicator=[[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-    [indicator l_v_setS:self.l_v_s];
+    UIImageView *imgv=[[UIImageView alloc] initWithImage:nil];
+    [imgv l_v_setS:self.l_v_s];
+    imgv.contentMode=UIViewContentModeCenter;
     
-    indicator.autoresizingMask=UIViewAutoresizingFlexibleBottomMargin|UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin|UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleWidth;
+    imgv.autoresizingMask=UIViewAutoresizingFlexibleBottomMargin|UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin|UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleWidth;
     
-    [self addSubview:indicator];
+    [self addSubview:imgv];
     
-    indicatorView=indicator;
+    if(!_loadingImages)
+    {
+        _loadingImages=[NSMutableArray new];
+        for(int i=0;i<=11;i++)
+        {
+            [_loadingImages addObject:[UIImage imageNamed:[NSString stringWithFormat:@"button_loading_small_%02i",i]]];
+        }
+    }
+    
+    imgv.animationDuration=DURATION_LOADING;
+    imgv.animationImages=_loadingImages;
+    imgv.animationRepeatCount=0;
+    
+    imgvLoading=imgv;
 
     self.autoresizingMask=UIViewAutoresizingFlexibleBottomMargin|UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin|UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleWidth;
     
@@ -52,13 +70,13 @@ static char loadingViewKey;
     
     if(self.superview)
     {
-        [indicatorView startAnimating];
+        [imgvLoading startAnimating];
     }
 }
 
 -(void)removeFromSuperview
 {
-    [indicatorView stopAnimating];
+    [imgvLoading stopAnimating];
 
     [super removeFromSuperview];
 }
@@ -66,11 +84,6 @@ static char loadingViewKey;
 -(UIView *)backgroundView
 {
     return bgView;
-}
-
--(UIActivityIndicatorView *)activityIndicatorView
-{
-    return indicatorView;
 }
 
 @end

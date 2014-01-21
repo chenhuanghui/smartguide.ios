@@ -31,7 +31,7 @@
     else
     {
         btn.hidden=false;
-        [btn setTitle:@"Thu nhỏ" forState:UIControlStateNormal];
+        [btn setTitle:@"Rút gọn" forState:UIControlStateNormal];
     }
 }
 
@@ -51,7 +51,7 @@
 {
     float height=25;
     
-    height+=[shop.desc sizeWithFont:[UIFont fontWithName:@"Avenir-Roman" size:13] constrainedToSize:CGSizeMake(250, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height;
+    height+=[shop.desc sizeWithFont:[UIFont fontWithName:@"Avenir-Roman" size:13] constrainedToSize:CGSizeMake(244, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height;
     shop.descHeight=height;
     
     if(mode==SHOP_DETAIL_INFO_DESCRIPTION_NORMAL)

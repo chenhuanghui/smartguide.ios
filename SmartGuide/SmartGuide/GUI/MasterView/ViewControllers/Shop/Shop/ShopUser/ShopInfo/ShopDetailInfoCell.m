@@ -7,6 +7,7 @@
 //
 
 #import "ShopDetailInfoCell.h"
+#import "Utility.h"
 
 @implementation ShopDetailInfoCell
 
@@ -14,14 +15,11 @@
 {
     lblShopName.text=shop.shopName;
     [btnShopType setTitle:shop.shopTypeDisplay forState:UIControlStateNormal];
-    lblFullAddress.text=[NSString stringWithFormat:@"%@, %@", shop.address, shop.city];
-}
-
--(void)loadWithShopList:(ShopList *)shop
-{
-    lblShopName.text=shop.shopName;
-    [btnShopType setTitle:shop.shopTypeDisplay forState:UIControlStateNormal];
     lblFullAddress.text=shop.address;
+    
+    [line l_v_setY:44+shop.shopNameHeight];
+    [btnShopType l_v_setY:19+shop.shopNameHeight];
+    [lblFullAddress l_v_setY:55+shop.shopNameHeight];
 }
 
 +(NSString *)reuseIdentifier
@@ -29,11 +27,15 @@
     return @"ShopDetailInfoCell";
 }
 
-+(float)heightWithShopName:(NSString*) shopName
++(float)heightWithShop:(Shop *)shop
 {
-    float height=130;
+    float height=75;
     
-    height+=MAX(0,[shopName sizeWithFont:[UIFont fontWithName:@"Avenir-Heavy" size:14] constrainedToSize:CGSizeMake(234, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height-21);
+    shop.shopNameHeight=[shop.shopName sizeWithFont:[UIFont fontWithName:@"Avenir-Heavy" size:14] constrainedToSize:CGSizeMake(242, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height;
+    height+=shop.shopNameHeight;
+    
+    shop.addressHeight=[shop.address sizeWithFont:[UIFont fontWithName:@"Avenir-Roman" size:12] constrainedToSize:CGSizeMake(242, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height;
+    height+=shop.addressHeight;
     
     return height;
 }

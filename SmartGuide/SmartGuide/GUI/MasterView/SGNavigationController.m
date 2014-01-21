@@ -789,6 +789,21 @@ CATransition* transitionPushFromRight()
     }];
 }
 
+-(void)pushViewController:(SGViewController *)viewController onCompleted:(void (^)())completed
+{
+    _onPushedViewController=nil;
+    
+    __block void(^_completed)() = [completed copy];
+
+    double delayInSeconds = DURATION_NAVIGATION_PUSH;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        _completed();
+    });
+    
+    [self pushViewController:viewController animated:true];
+}
+
 -(void)pushViewController:(UIViewController *)viewController withTransition:(CATransition *)transition
 {
     [self.view.layer addAnimation:transition forKey:nil];

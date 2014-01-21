@@ -19,12 +19,12 @@
     __weak IBOutlet UILabel *lblShopName;
     __weak IBOutlet UIButton *btnShopType;
     __weak IBOutlet LabelTopText *lblFullAddress;
+    __weak IBOutlet UIImageView *line;
 }
 
 -(void) loadWithShop:(Shop*) shop;
--(void) loadWithShopList:(ShopList*) shop;
 
 +(NSString *)reuseIdentifier;
-+(float)heightWithShopName:(NSString*) shopName;
++(float)heightWithShop:(Shop*) shop;
 
 @end

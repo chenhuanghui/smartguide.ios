@@ -34,5 +34,7 @@ enum SHOP_DATA_MODE {
 -(UIImage*) iconPin;
 
 @property (nonatomic, assign) float descHeight;
+@property (nonatomic, assign) float shopNameHeight;
+@property (nonatomic, assign) float addressHeight;
 
 @end

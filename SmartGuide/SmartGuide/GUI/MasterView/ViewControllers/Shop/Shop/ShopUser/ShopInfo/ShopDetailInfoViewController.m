@@ -183,7 +183,7 @@
 {
     switch (indexPath.section) {
         case 0:
-            return [ShopDetailInfoCell heightWithShopName:_shop.shopName];
+            return [ShopDetailInfoCell heightWithShop:_shop];
             
         case 1:
             if(indexPath.row==0)

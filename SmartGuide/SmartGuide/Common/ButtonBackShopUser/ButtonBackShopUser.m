@@ -37,14 +37,17 @@
     [self.imageView setAnimationImages:array];
     
     [self.imageView startAnimating];
-  
-    double delayInSeconds = self.imageView.animationDuration;
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-        completed(self);
-        
-//        [self setDefaultImage:[UIImage imageNamed:@"button_back_00.png"] highlightImage:[UIImage imageNamed:@"button_back_00.png"]];
-    });
+    
+    if(completed)
+    {
+        double delayInSeconds = self.imageView.animationDuration;
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+            
+            completed(self);
+            
+        });
+    }
 }
 
 -(void)startHideAnimateOnCompleted:(void (^)(UIButton *))completed
@@ -64,13 +67,16 @@
     
     [self.imageView startAnimating];
     
-    double delayInSeconds = self.imageView.animationDuration;
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-        completed(self);
-        
-//        [self setDefaultImage:[UIImage imageNamed:@"button_back_10.png"] highlightImage:[UIImage imageNamed:@"button_back_10.png"]];
-    });
+    if(completed)
+    {
+        double delayInSeconds = self.imageView.animationDuration;
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+            
+            completed(self);
+            
+        });
+    }
 }
 
 @end

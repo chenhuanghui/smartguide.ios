@@ -11,12 +11,11 @@
 @interface LoadingView : UIView
 {
     __weak UIView *bgView;
-    __weak UIActivityIndicatorView *indicatorView;
+    __weak UIImageView *imgvLoading;
 }
 
 -(LoadingView*) initWithView:(UIView*) view;
 -(UIView*) backgroundView;
--(UIActivityIndicatorView*) activityIndicatorView;
 
 @end
 

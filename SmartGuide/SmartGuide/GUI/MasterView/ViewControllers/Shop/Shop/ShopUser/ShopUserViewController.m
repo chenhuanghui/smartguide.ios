@@ -826,12 +826,9 @@
 
 -(void) pushViewController:(SGViewController*) vc
 {
-    btnBack.hidden=false;
-    
-    [shopNavi preparePushController:vc];
-    
-    [btnBack startShowAnimateOnCompleted:^(UIButton *btn) {
-        [shopNavi pushViewControllerPrepared];
+    [shopNavi pushViewController:vc onCompleted:^{
+        btnBack.hidden=false;
+        [btnBack startShowAnimateOnCompleted:nil];
     }];
 }
 
