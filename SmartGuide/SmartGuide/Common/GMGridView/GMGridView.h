@@ -37,6 +37,7 @@
 @protocol GMGridViewSortingDelegate;
 @protocol GMGridViewTransformationDelegate;
 @protocol GMGridViewLayoutStrategy;
+@protocol SGGridViewCustomDelegate;
 
 typedef enum
 {
@@ -70,6 +71,7 @@ typedef enum
 @property (nonatomic, gm_weak) IBOutlet NSObject<GMGridViewActionDelegate> *actionDelegate;            // Optional - to get taps callback & deleting item
 @property (nonatomic, gm_weak) IBOutlet NSObject<GMGridViewSortingDelegate> *sortingDelegate;          // Optional - to enable sorting
 @property (nonatomic, gm_weak) IBOutlet NSObject<GMGridViewTransformationDelegate> *transformDelegate; // Optional - to enable fullsize mode
+@property (nonatomic, gm_weak) IBOutlet NSObject<SGGridViewCustomDelegate> *customDelegate;
 
 // Layout Strategy
 @property (nonatomic, strong) IBOutlet id<GMGridViewLayoutStrategy> layoutStrategy; // Default is GMGridViewLayoutVerticalStrategy
@@ -192,5 +194,12 @@ typedef enum
 - (void)GMGridView:(GMGridView *)gridView didStartTransformingCell:(GMGridViewCell *)cell;
 - (void)GMGridView:(GMGridView *)gridView didEnterFullSizeForCell:(GMGridViewCell *)cell;
 - (void)GMGridView:(GMGridView *)gridView didEndTransformingCell:(GMGridViewCell *)cell;
+
+@end
+
+@protocol SGGridViewCustomDelegate <NSObject>
+
+@optional
+-(void) GMGridViewDidRecomputeSize:(GMGridView *)gridView;
 
 @end

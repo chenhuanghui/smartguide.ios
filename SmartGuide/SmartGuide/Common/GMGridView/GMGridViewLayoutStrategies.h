@@ -37,7 +37,8 @@ typedef enum {
     GMGridViewLayoutVertical = 0,
     GMGridViewLayoutHorizontal,
     GMGridViewLayoutHorizontalPagedLTR,   // LTR: left to right
-    GMGridViewLayoutHorizontalPagedTTB    // TTB: top to bottom
+    GMGridViewLayoutHorizontalPagedTTB,    // TTB: top to bottom
+    SGGridViewLayoutHorizontalPagedLTR,
 } GMGridViewLayoutStrategyType;
 
 
@@ -191,3 +192,4 @@ typedef enum {
 @interface GMGridViewLayoutHorizontalPagedTTBStrategy : GMGridViewLayoutHorizontalPagedStrategy
 
 @end
+

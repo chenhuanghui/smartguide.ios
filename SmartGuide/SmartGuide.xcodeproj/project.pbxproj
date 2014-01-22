@@ -914,6 +914,7 @@
 		9AEE6C3C188FCB820059B93C /* icon_arrowleft_photo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AEE6C36188FCB820059B93C /* icon_arrowleft_photo@2x.png */; };
 		9AEE6C3D188FCB820059B93C /* icon_picture_photo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AEE6C37188FCB820059B93C /* icon_picture_photo@2x.png */; };
 		9AEE6C3E188FCB820059B93C /* icon_arrowright_photo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AEE6C38188FCB820059B93C /* icon_arrowright_photo@2x.png */; };
+		9AEE6C41188FFEFF0059B93C /* SGGridViewLayoutStrategies.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AEE6C40188FFEFF0059B93C /* SGGridViewLayoutStrategies.m */; };
 		9AEE83FC17FABD1500D92191 /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AEE83FB17FABD1500D92191 /* AddressBookUI.framework */; };
 		9AFC69D117F2C0F500177476 /* OperationNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AFC69D017F2C0F500177476 /* OperationNotifications.m */; };
 		9AFF5CB3181EBC4200F159F0 /* SGNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AFF5CB2181EBC4200F159F0 /* SGNavigationController.m */; };
@@ -2160,6 +2161,8 @@
 		9AEE6C36188FCB820059B93C /* icon_arrowleft_photo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_arrowleft_photo@2x.png"; sourceTree = "<group>"; };
 		9AEE6C37188FCB820059B93C /* icon_picture_photo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_picture_photo@2x.png"; sourceTree = "<group>"; };
 		9AEE6C38188FCB820059B93C /* icon_arrowright_photo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_arrowright_photo@2x.png"; sourceTree = "<group>"; };
+		9AEE6C3F188FFEFF0059B93C /* SGGridViewLayoutStrategies.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGGridViewLayoutStrategies.h; sourceTree = "<group>"; };
+		9AEE6C40188FFEFF0059B93C /* SGGridViewLayoutStrategies.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGGridViewLayoutStrategies.m; sourceTree = "<group>"; };
 		9AEE83FB17FABD1500D92191 /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
 		9AFC69CF17F2C0F500177476 /* OperationNotifications.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OperationNotifications.h; path = ../ASIOperation/OperationNotifications.h; sourceTree = "<group>"; };
 		9AFC69D017F2C0F500177476 /* OperationNotifications.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OperationNotifications.m; path = ../ASIOperation/OperationNotifications.m; sourceTree = "<group>"; };
@@ -2933,6 +2936,8 @@
 				9A32F46A184348A300704D26 /* GMGridViewCell.m */,
 				9A32F46B184348A300704D26 /* GMGridViewLayoutStrategies.h */,
 				9A32F46C184348A300704D26 /* GMGridViewLayoutStrategies.m */,
+				9AEE6C3F188FFEFF0059B93C /* SGGridViewLayoutStrategies.h */,
+				9AEE6C40188FFEFF0059B93C /* SGGridViewLayoutStrategies.m */,
 			);
 			path = GMGridView;
 			sourceTree = "<group>";
@@ -5606,6 +5611,7 @@
 				9A9855121887B2770008BFE7 /* ShopGalleryViewCell.m in Sources */,
 				9A0F7603187152DB00160E54 /* ShopListCell.m in Sources */,
 				9A0F7607187152DB00160E54 /* ShopListViewController.m in Sources */,
+				9AEE6C41188FFEFF0059B93C /* SGGridViewLayoutStrategies.m in Sources */,
 				9A0F761B187152DB00160E54 /* ShopDetailInfoHeaderView.m in Sources */,
 				9A32F4531843488F00704D26 /* LabelStroke.m in Sources */,
 				9A693CB2186D484300114597 /* UserHomeImage.m in Sources */,

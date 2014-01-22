@@ -13,23 +13,18 @@
 
 @implementation ShopUserGalleryCell
 
+- (id)init
+{
+    self = [[NSBundle mainBundle] loadNibNamed:[ShopUserGalleryCell reuseIdentifier] owner:nil options:nil][0];
+    if (self) {
+        
+    }
+    return self;
+}
+
 -(void)loadWithURL:(NSString *)url state:(enum SHOP_USER_GALLERY_CELL_STATE)state
 {
     switch (state) {
-        case SHOP_USER_GALLERY_STATE_ARROW_LEFT:
-            
-            [imgvThumbnail loadShopUserGalleryThumbnailWithURL:url];
-            imgvState.image=[UIImage imageNamed:@"icon_arrowleft_photo.png"];
-            
-            break;
-            
-        case SHOP_USER_GALLERY_STATE_ARROW_RIGHT:
-            
-            [imgvThumbnail loadShopUserGalleryThumbnailWithURL:url];
-            imgvState.image=[UIImage imageNamed:@"icon_arrowright_photo.png"];
-            
-            break;
-            
         case SHOP_USER_GALLERY_STATE_THUMBNAIL:
         {
             [imgvThumbnail loadShopUserGalleryThumbnailWithURL:url];
@@ -52,18 +47,9 @@
     return @"ShopUserGalleryCell";
 }
 
--(void)awakeFromNib
++(CGSize)size
 {
-    [super awakeFromNib];
-    
-    CGRect rect=self.frame;
-    self.transform=CGAffineTransformMakeRotation(DEGREES_TO_RADIANS(45)*2);
-    self.frame=rect;
-}
-
-+(float)height
-{
-    return 92;
+    return CGSizeMake(92, 92);
 }
 
 @end

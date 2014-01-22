@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Shop.h"
 #import "ShopUserGallery.h"
+#import "GMGridView.h"
 
 @class SUUserGalleryCell;
 
@@ -18,13 +19,16 @@
 
 @end
 
-@interface SUUserGalleryCell : UITableViewCell<UITableViewDataSource,UITableViewDelegate>
+@interface SUUserGalleryCell : UITableViewCell<GMGridViewActionDelegate,GMGridViewDataSource,UIScrollViewDelegate>
 {
     __weak Shop* _shop;
-    __weak IBOutlet UITableView *table;
+    __weak IBOutlet GMGridView *grid;
     __weak IBOutlet UIImageView *imgvFirsttime;
-    
+    __weak IBOutlet UIButton *btnLeft;
+    __weak IBOutlet UIButton *btnRight;
+
     NSMutableArray *_galleries;
+    int _galleriesCount;
 }
 
 -(void) loadWithShop:(Shop*) shop;

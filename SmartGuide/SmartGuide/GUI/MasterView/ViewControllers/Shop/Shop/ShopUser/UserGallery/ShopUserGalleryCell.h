@@ -9,13 +9,11 @@
 #import <UIKit/UIKit.h>
 
 enum SHOP_USER_GALLERY_CELL_STATE {
-    SHOP_USER_GALLERY_STATE_ARROW_LEFT = 0,
     SHOP_USER_GALLERY_STATE_EMPTY = 1,
-    SHOP_USER_GALLERY_STATE_ARROW_RIGHT = 2,
     SHOP_USER_GALLERY_STATE_THUMBNAIL=3
     };
 
-@interface ShopUserGalleryCell : UITableViewCell
+@interface ShopUserGalleryCell : UIView
 {
     __weak IBOutlet UIImageView *imgvThumbnail;
     __weak IBOutlet UIImageView *imgvState;
@@ -24,6 +22,6 @@ enum SHOP_USER_GALLERY_CELL_STATE {
 -(void) loadWithURL:(NSString*) url state:(enum SHOP_USER_GALLERY_CELL_STATE) state;
 
 +(NSString *)reuseIdentifier;
-+(float) height;
++(CGSize) size;
 
 @end

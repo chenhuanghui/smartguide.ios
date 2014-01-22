@@ -37,15 +37,37 @@
                                 <rect key="frame" x="0.0" y="25" width="290" height="105"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="BLE-uC-hTG">
+                                    <view autoresizesSubviews="NO" clipsSubviews="YES" contentMode="scaleToFill" id="oCd-aH-KDW" customClass="TouchView">
                                         <rect key="frame" x="7" y="6" width="276" height="92"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <subviews>
+                                            <scrollView multipleTouchEnabled="YES" contentMode="scaleToFill" id="uIB-WV-sa8" customClass="GMGridView">
+                                                <rect key="frame" x="0.0" y="0.0" width="92" height="92"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                                            </scrollView>
+                                            <button opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" id="jRD-mL-72F">
+                                                <rect key="frame" x="0.0" y="0.0" width="92" height="92"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                <state key="normal" image="icon_arrowleft_photo.png">
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                            </button>
+                                            <button opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" id="7AI-9s-VsZ">
+                                                <rect key="frame" x="184" y="0.0" width="92" height="92"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                <state key="normal" image="icon_arrowright_photo.png">
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                            </button>
+                                        </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <connections>
-                                            <outlet property="dataSource" destination="jss-vJ-FAg" id="TES-Se-xcd"/>
-                                            <outlet property="delegate" destination="jss-vJ-FAg" id="aEz-W9-vJP"/>
+                                            <outlet property="receiveView" destination="uIB-WV-sa8" id="fhx-vF-NlI"/>
                                         </connections>
-                                    </tableView>
+                                    </view>
                                     <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="frame_photo.png" id="wgZ-v0-j7Y">
                                         <rect key="frame" x="7" y="6" width="277" height="92"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -76,14 +98,18 @@
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <connections>
+                <outlet property="btnLeft" destination="jRD-mL-72F" id="S8P-xR-m9S"/>
+                <outlet property="btnRight" destination="7AI-9s-VsZ" id="745-Ob-TKq"/>
+                <outlet property="grid" destination="uIB-WV-sa8" id="ihI-bg-R6S"/>
                 <outlet property="imgvFirsttime" destination="F7F-p5-BWd" id="FcA-2Q-E8j"/>
-                <outlet property="table" destination="BLE-uC-hTG" id="ujK-ne-YXk"/>
             </connections>
         </tableViewCell>
     </objects>
     <resources>
         <image name="button_addphoto.png" width="279" height="50"/>
         <image name="frame_photo.png" width="276" height="92"/>
+        <image name="icon_arrowleft_photo.png" width="13" height="26"/>
+        <image name="icon_arrowright_photo.png" width="13" height="26"/>
         <image name="icon_dottitle.png" width="12" height="12"/>
         <image name="line_shopdetail.png" width="272" height="3"/>
         <image name="photo_firsttime.png" width="276" height="92"/>

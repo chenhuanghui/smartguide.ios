@@ -137,6 +137,7 @@ static const UIViewAnimationOptions kDefaultAnimationOptions = UIViewAnimationOp
 @synthesize sortingDelegate = _sortingDelegate, dataSource = _dataSource, transformDelegate = _transformDelegate, actionDelegate = _actionDelegate;
 @synthesize mainSuperView = _mainSuperView;
 @synthesize layoutStrategy = _layoutStrategy;
+@synthesize customDelegate;
 @synthesize itemSpacing = _itemSpacing;
 @synthesize style = _style;
 @synthesize minimumPressDuration;
@@ -1293,7 +1294,6 @@ static const UIViewAnimationOptions kDefaultAnimationOptions = UIViewAnimationOp
             self.contentSize = contentSize;
         }
     }
-    
 }
 
 - (void)relayoutItemsAnimated:(BOOL)animated

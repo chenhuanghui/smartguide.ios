@@ -27,6 +27,7 @@
 //
 
 #import "GMGridViewLayoutStrategies.h"
+#import "SGGridViewLayoutStrategies.h"
 
 //////////////////////////////////////////////////////////////
 #pragma mark - 
@@ -52,6 +53,9 @@
         case GMGridViewLayoutHorizontalPagedTTB:
             strategy = [[GMGridViewLayoutHorizontalPagedTTBStrategy alloc] init];
             break;
+            
+        case SGGridViewLayoutHorizontalPagedLTR:
+            strategy = [[SGGridViewLayoutHorizontalPagedLTRStrategy alloc] init];
     }
     
     return strategy;
