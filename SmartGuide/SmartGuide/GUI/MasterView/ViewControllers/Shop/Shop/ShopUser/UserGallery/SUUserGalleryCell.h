@@ -23,6 +23,8 @@
     __weak Shop* _shop;
     __weak IBOutlet UITableView *table;
     __weak IBOutlet UIImageView *imgvFirsttime;
+    
+    NSArray *_galleries;
 }
 
 -(void) loadWithShop:(Shop*) shop;

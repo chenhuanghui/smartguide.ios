@@ -17,6 +17,8 @@
 {
     imgvFirsttime.hidden=shop.userGalleriesObjects.count>0;
     
+    _galleries=shop.userGalleriesObjects;
+    
     [table reloadData];
 }
 
@@ -48,12 +50,12 @@
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return _shop.userGalleriesObjects.count==0?0:1;
+    return _galleries.count==0?0:1;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return _shop.userGalleriesObjects.count;
+    return _galleries.count;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -64,7 +66,11 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     ShopUserGalleryCell *cell=[tableView dequeueReusableCellWithIdentifier:[ShopUserGalleryCell reuseIdentifier]];
-    [cell loadWithURL:[_shop.userGalleriesObjects[indexPath.row] thumbnail]];
+    ShopUserGallery *gallery=_galleries[indexPath.row];
+    
+    enum SHOP_USER_GALLERY_CELL_STATE state=SHOP_USER_GALLERY_STATE_THUMBNAIL;
+    
+    [cell loadWithURL:gallery.thumbnail state:state];
     
     return cell;
 }

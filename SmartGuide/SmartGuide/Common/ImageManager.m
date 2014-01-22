@@ -9,6 +9,9 @@
 #import "ImageManager.h"
 #import "UIImageView+WebCache.h"
 
+static NSMutableArray *_loadingImages=nil;
+static NSMutableArray *_loadingMoreImages=nil;
+
 static ImageManager *_imageManager=nil;
 @implementation ImageManager
 @synthesize shopGallery,shopLogos,shopUserGallery,commentAvatar,storeLogo;
@@ -38,6 +41,25 @@ static ImageManager *_imageManager=nil;
         storeLogo=[NSMutableArray new];
     }
     return self;
+}
+
+-(NSArray *)loadingImages
+{
+    if(!_loadingImages)
+    {
+        _loadingImages=[NSMutableArray new];
+        for(int i=0;i<=11;i++)
+        {
+            [_loadingImages addObject:[UIImage imageNamed:[NSString stringWithFormat:@"button_loading_small_%02i",i]]];
+        }
+    }
+    
+    return _loadingImages;
+}
+
+-(NSArray *)loadingMoreImages
+{
+    return _loadingMoreImages;
 }
 
 @end
@@ -107,6 +129,24 @@ static ImageManager *_imageManager=nil;
 -(void)loadAvatarWithURL:(NSString *)url completed:(SDWebImageCompletedBlock)completedBlock
 {
     [self setImageWithURL:[NSURL URLWithString:url] completed:completedBlock];
+}
+
+-(void)loadShopUserGalleryThumbnailWithURL:(NSString *)url
+{
+    self.animationImages=[ImageManager sharedInstance].loadingImages;
+    self.animationDuration=0.7f;
+    self.animationRepeatCount=0;
+    
+    UIViewContentMode mode=self.contentMode;
+    self.contentMode=UIViewContentModeCenter;
+    [self startAnimating];
+    
+    __weak UIImageView *wself=self;
+    [self setImageWithURL:[NSURL URLWithString:url] completed:^(UIImage *_image, NSError *error, SDImageCacheType cacheType) {
+        wself.animationImages=nil;
+        [wself stopAnimating];
+        wself.contentMode=mode;
+    }];
 }
 
 @end

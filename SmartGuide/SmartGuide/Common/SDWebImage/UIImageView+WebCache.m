@@ -53,6 +53,12 @@ static char operationArrayKey;
     if (url)
     {
         __weak UIImageView *wself = self;
+        
+        __block SDWebImageCompletedBlock _completedBlock=nil;
+        
+        if(completedBlock)
+            _completedBlock=[completedBlock copy];
+        
         id<SDWebImageOperation> operation = [SDWebImageManager.sharedManager downloadWithURL:url options:options progress:progressBlock completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished)
         {
             if (!wself)
@@ -68,9 +74,10 @@ static char operationArrayKey;
                     wself.image = image;
                     [wself setNeedsLayout];
                 }
-                if (completedBlock && finished)
+                if (_completedBlock && finished)
                 {
-                    completedBlock(image, error, cacheType);
+                    _completedBlock(image, error, cacheType);
+                    _completedBlock=nil;
                 }
             });
         }];

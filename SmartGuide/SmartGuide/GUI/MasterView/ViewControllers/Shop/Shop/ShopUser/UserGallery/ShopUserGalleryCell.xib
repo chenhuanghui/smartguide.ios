@@ -14,28 +14,22 @@
                 <rect key="frame" x="0.0" y="0.0" width="92" height="91"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ava.png" id="U1T-Xk-A2m">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="U1T-Xk-A2m">
                         <rect key="frame" x="0.0" y="0.0" width="92" height="92"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     </imageView>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="rr8-Tu-G7a">
+                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="Eqg-9f-Boe">
                         <rect key="frame" x="0.0" y="0.0" width="92" height="92"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="32"/>
-                        <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                        <nil key="highlightedColor"/>
-                    </label>
+                    </imageView>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <connections>
-                <outlet property="imgv" destination="U1T-Xk-A2m" id="qR2-Z1-iLR"/>
-                <outlet property="llb" destination="rr8-Tu-G7a" id="s5X-BH-oPp"/>
+                <outlet property="imgvState" destination="Eqg-9f-Boe" id="CHm-jb-bKT"/>
+                <outlet property="imgvThumbnail" destination="U1T-Xk-A2m" id="qlp-5S-Iyk"/>
             </connections>
         </tableViewCell>
     </objects>
-    <resources>
-        <image name="ava.png" width="74" height="74"/>
-    </resources>
 </document>

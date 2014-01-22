@@ -14,6 +14,9 @@
 
 +(ImageManager*) sharedInstance;
 
+-(NSArray*) loadingImages;
+-(NSArray*) loadingMoreImages;
+
 @property (nonatomic, strong, readonly) NSMutableArray *shopLogos;
 @property (nonatomic, strong, readonly) NSMutableArray *shopGallery;
 @property (nonatomic, strong, readonly) NSMutableArray *shopUserGallery;
@@ -29,6 +32,7 @@
 -(void) loadShopLogoWithURL:(NSString*) url;
 -(void) loadShopGalleryWithURL:(NSString*) url;
 -(void) loadShopUserGalleryWithURL:(NSString*) url;
+-(void) loadShopUserGalleryThumbnailWithURL:(NSString*) url;
 -(void) loadCommentAvatarWithURL:(NSString*) url;
 -(void) loadStoreLogoWithURL:(NSString*) url;
 -(void) loadPlaceAuthorAvatarWithURL:(NSString*) url;

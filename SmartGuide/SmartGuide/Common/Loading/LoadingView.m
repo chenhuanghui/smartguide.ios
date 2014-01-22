@@ -10,9 +10,8 @@
 #import "Utility.h"
 #import <objc/runtime.h>
 #import "PhuongConfig.h"
+#import "ImageManager.h"
 
-static NSMutableArray *_loadingImages=nil;
-static NSMutableArray *_loadMoreImages=nil;
 
 static char loadingViewKey;
 
@@ -42,17 +41,8 @@ static char loadingViewKey;
     
     [self addSubview:imgv];
     
-    if(!_loadingImages)
-    {
-        _loadingImages=[NSMutableArray new];
-        for(int i=0;i<=11;i++)
-        {
-            [_loadingImages addObject:[UIImage imageNamed:[NSString stringWithFormat:@"button_loading_small_%02i",i]]];
-        }
-    }
-    
     imgv.animationDuration=DURATION_LOADING;
-    imgv.animationImages=_loadingImages;
+    imgv.animationImages=[ImageManager sharedInstance].loadingImages;
     imgv.animationRepeatCount=0;
     
     imgvLoading=imgv;
