@@ -17,7 +17,13 @@
 {
     imgvFirsttime.hidden=shop.userGalleriesObjects.count>0;
     
-    _galleries=shop.userGalleriesObjects;
+    _galleries=[shop.userGalleriesObjects mutableCopy];
+
+    if(_galleries.count>0)
+    {
+        [_galleries insertObject:@"" atIndex:0];
+        [_galleries addObject:@""];
+    }
     
     [table reloadData];
 }
@@ -60,19 +66,31 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return table.l_v_w;
+    return [ShopUserGalleryCell height];
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     ShopUserGalleryCell *cell=[tableView dequeueReusableCellWithIdentifier:[ShopUserGalleryCell reuseIdentifier]];
-    ShopUserGallery *gallery=_galleries[indexPath.row];
     
-    enum SHOP_USER_GALLERY_CELL_STATE state=SHOP_USER_GALLERY_STATE_THUMBNAIL;
+    id obj=_galleries[indexPath.row];
     
-    [cell loadWithURL:gallery.thumbnail state:state];
-    
-    return cell;
+    if([obj isKindOfClass:[NSString class]])
+    {
+        [cell loadWithURL:nil state:SHOP_USER_GALLERY_STATE_EMPTY];
+        
+        return cell;
+    }
+    else
+    {
+        ShopUserGallery *gallery=obj;
+        
+        enum SHOP_USER_GALLERY_CELL_STATE state=SHOP_USER_GALLERY_STATE_THUMBNAIL;
+        
+        [cell loadWithURL:gallery.thumbnail state:state];
+        
+        return cell;
+    }
 }
 
 @end

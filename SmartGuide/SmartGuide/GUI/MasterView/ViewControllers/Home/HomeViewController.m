@@ -64,6 +64,8 @@
     
     [displayLoadingView showLoading];
     displayLoadingView.loadingView.backgroundView.backgroundColor=self.view.backgroundColor;
+    
+    [self requestShopUserWithIDShop:18];
 }
 
 -(void) requestNewFeed

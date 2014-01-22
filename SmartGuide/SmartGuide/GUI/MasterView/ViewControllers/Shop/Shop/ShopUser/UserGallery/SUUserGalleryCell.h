@@ -24,7 +24,7 @@
     __weak IBOutlet UITableView *table;
     __weak IBOutlet UIImageView *imgvFirsttime;
     
-    NSArray *_galleries;
+    NSMutableArray *_galleries;
 }
 
 -(void) loadWithShop:(Shop*) shop;
