@@ -17,7 +17,6 @@
     _shop=shop;
     
     lblAddress.text=shop.address;
-    lblCity.text=shop.city;
     
     [btnTel setTitle:[@"  " stringByAppendingString:shop.displayTel] forState:UIControlStateNormal];
     
@@ -29,9 +28,13 @@
     return @"SUInfoCell";
 }
 
-+(float)height
++(float)heightWithAddress:(NSString *)address
 {
-    return 212;
+    float height=187;
+    
+    height+=[address sizeWithFont:[UIFont fontWithName:@"Avenir-Heavy" size:13] constrainedToSize:CGSizeMake(279, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height;
+    
+    return height;
 }
 
 -(IBAction) btnMapTouchUpInside:(id)sender
@@ -42,6 +45,26 @@
 -(IBAction) btnMakeCallTouchUpInside:(id)sender
 {
     makePhoneCall(_shop.tel);
+}
+
+@end
+
+@implementation SUInfoBG
+
+-(void)awakeFromNib
+{
+    [super awakeFromNib];
+    
+    self.contentMode=UIViewContentModeRedraw;
+}
+
+-(void)drawRect:(CGRect)rect
+{
+    UIImage *imgMid=[UIImage imageNamed:@"frame_map_mid.png"];
+    UIImage *imgBottom=[UIImage imageNamed:@"frame_map_bottom.png"];
+    
+    [imgMid drawAsPatternInRect:CGRectMake(0, 0, rect.size.width, rect.size.height-imgBottom.size.height)];
+    [imgBottom drawAtPoint:CGPointMake(0, rect.size.height-imgBottom.size.height)];
 }
 
 @end

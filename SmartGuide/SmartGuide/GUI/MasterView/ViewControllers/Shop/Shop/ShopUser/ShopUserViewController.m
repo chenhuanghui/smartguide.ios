@@ -804,7 +804,7 @@
                         }
                         
                     case 4:
-                        return [SUInfoCell height];
+                        return [SUInfoCell heightWithAddress:_shop.address];
                         
                     case 5:
                         return [SUUserGalleryCell height];

@@ -269,7 +269,7 @@ static NSMutableDictionary *_dictPinShop=nil;
 
 -(NSString *)address1
 {
-    return @"Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet";
+    return @"Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh Lorem ipsum dolor sit amet, consectetuer adipiscing";
 }
 
 -(NSString *)desc1

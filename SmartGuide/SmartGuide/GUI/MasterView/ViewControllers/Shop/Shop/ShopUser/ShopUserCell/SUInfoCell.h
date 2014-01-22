@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "Shop.h"
+#import "LabelTopText.h"
 
 @class SUInfoCell;
 
@@ -19,8 +20,7 @@
 
 @interface SUInfoCell : UITableViewCell
 {
-    __weak IBOutlet UILabel *lblAddress;
-    __weak IBOutlet UILabel *lblCity;
+    __weak IBOutlet LabelTopText *lblAddress;
     __weak IBOutlet UIButton *btnTel;
     __weak IBOutlet UIImageView *line;
     
@@ -29,9 +29,13 @@
 
 -(void) loadWithShop:(Shop*) shop;
 
-+(float) height;
++(float) heightWithAddress:(NSString*) address;
 +(NSString *)reuseIdentifier;
 
 @property (nonatomic, weak) id<InfoCelLDelegate> delegate;
+
+@end
+
+@interface SUInfoBG : UIView
 
 @end
