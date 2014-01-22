@@ -16,7 +16,7 @@
     return obj;
 }
 
--(NSString *)title
+-(NSString *)title1
 {
     return @"Lorem ipsum dolor sit amet, consectetuer";
 }

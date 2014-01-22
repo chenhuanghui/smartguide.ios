@@ -8,9 +8,6 @@
 
 #import "ShopKM1Cell.h"
 
-#define SHOP_KM1_FONT [UIFont fontWithName:@"Futura-Medium" size:14]
-#define SHOP_KM1_CONTENT_WIDTH 198.f
-
 @implementation ShopKM1Cell
 
 -(void)setVoucher:(NSString *)voucher content:(NSString *)content sgp:(NSString *)sgp isHighlighted:(bool)isHighlighted
@@ -28,11 +25,11 @@
 
 +(float)heightWithContent:(NSString *)content
 {
-    UIFont *font=SHOP_KM1_FONT;
+    float height=38;
     
-    CGSize size=[content sizeWithFont:font constrainedToSize:CGSizeMake(SHOP_KM1_CONTENT_WIDTH, 9999) lineBreakMode:NSLineBreakByTruncatingTail];
+    height+=[content sizeWithFont:[UIFont fontWithName:@"Georgia" size:14] constrainedToSize:CGSizeMake(198.f, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height;
    
-    return MAX(42, size.height+10);
+    return height;
 }
 
 @end

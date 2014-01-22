@@ -20,6 +20,8 @@
     lblCity.text=shop.city;
     
     [btnTel setTitle:[@"  " stringByAppendingString:shop.displayTel] forState:UIControlStateNormal];
+    
+    line.hidden=(_shop.km1!=nil || _shop.km2!=nil || _shop.promotionNew!=nil);
 }
 
 +(NSString *)reuseIdentifier

@@ -82,6 +82,10 @@
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </view>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="line_blur_status.png" id="o1x-rN-FBL">
+                        <rect key="frame" x="0.0" y="-1" width="290" height="3"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    </imageView>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </tableViewCellContentView>
@@ -90,6 +94,7 @@
                 <outlet property="btnTel" destination="OxC-P5-kvZ" id="urg-xD-Hob"/>
                 <outlet property="lblAddress" destination="jh3-vK-Grf" id="IMM-hu-bmF"/>
                 <outlet property="lblCity" destination="F9X-0L-yAr" id="CDd-VH-IqX"/>
+                <outlet property="line" destination="o1x-rN-FBL" id="KyB-Vc-5dj"/>
             </connections>
         </tableViewCell>
     </objects>
@@ -99,6 +104,7 @@
         <image name="icon_address.png" width="46" height="46"/>
         <image name="icon_call.png" width="19" height="19"/>
         <image name="icon_dottitle.png" width="12" height="12"/>
+        <image name="line_blur_status.png" width="290" height="3"/>
         <image name="line_shopdetail.png" width="272" height="3"/>
         <image name="map.png" width="261" height="69"/>
     </resources>

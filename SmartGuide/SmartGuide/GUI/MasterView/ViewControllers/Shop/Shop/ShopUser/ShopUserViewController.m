@@ -795,7 +795,13 @@
                     }
                         
                     case 3:
-                        return _btnNextFrame.size.height-4;
+                        if(_shop.km1 || _shop.km2 || _shop.promotionNew)
+                            return _btnNextFrame.size.height-4;
+                        else
+                        {
+                            btnNext.hidden=true;
+                            return 0;
+                        }
                         
                     case 4:
                         return [SUInfoCell height];
