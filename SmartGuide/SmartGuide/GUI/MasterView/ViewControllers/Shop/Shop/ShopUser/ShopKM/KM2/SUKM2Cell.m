@@ -8,6 +8,7 @@
 
 #import "SUKM2Cell.h"
 #import "ShopKM2Cell.h"
+#import "ShopKM2NonConditionCell.h"
 
 @implementation SUKM2Cell
 
@@ -19,6 +20,8 @@
     lblNote.text=km2.note;
     lblText.text=km2.text;
     
+    _vouchers=km2.listVoucherObjects;
+    
     [table reloadData];
 }
 
@@ -27,6 +30,7 @@
     [super awakeFromNib];
     
     [table registerNib:[UINib nibWithNibName:[ShopKM2Cell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[ShopKM2Cell reuseIdentifier]];
+    [table registerNib:[UINib nibWithNibName:[ShopKM2NonConditionCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[ShopKM2NonConditionCell reuseIdentifier]];
 }
 
 +(NSString *)reuseIdentifier
@@ -39,33 +43,52 @@
     float height=161;
     
     for(KM2Voucher *voucher in km2.listVoucherObjects)
-        height+=[ShopKM2Cell heightWithKM2:voucher];
+    {
+        if(voucher.condition.length==0)
+            height+=[ShopKM2NonConditionCell heightWithVoucher:voucher];
+        else
+            height+=[ShopKM2Cell heightWithKM2:voucher];
+    }
     
     return height;
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return _km2.listVoucherObjects.count==0?0:1;
+    return _vouchers.count==0?0:1;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return _km2.listVoucherObjects.count;
+    return _vouchers.count;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return [ShopKM2Cell heightWithKM2:_km2.listVoucherObjects[indexPath.row]];
+    KM2Voucher *voucher=_vouchers[indexPath.row];
+    return voucher.voucherHeight;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    ShopKM2Cell *cell=[tableView dequeueReusableCellWithIdentifier:[ShopKM2Cell reuseIdentifier]];
+    KM2Voucher *voucher=_vouchers[indexPath.row];
     
-    [cell loadWithKM2:_km2.listVoucherObjects[indexPath.row]];
-    
-    return cell;
+    if(voucher.condition.length==0)
+    {
+        ShopKM2NonConditionCell *cell=[tableView dequeueReusableCellWithIdentifier:[ShopKM2NonConditionCell reuseIdentifier]];
+        
+        [cell loadWithVoucher:voucher];
+        
+        return cell;
+    }
+    else
+    {
+        ShopKM2Cell *cell=[tableView dequeueReusableCellWithIdentifier:[ShopKM2Cell reuseIdentifier]];
+        
+        [cell loadWithKM2:voucher];
+        
+        return cell;
+    }
 }
 
 @end

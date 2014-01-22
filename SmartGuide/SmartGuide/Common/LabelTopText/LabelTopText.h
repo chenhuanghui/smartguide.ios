@@ -10,4 +10,6 @@
 
 @interface LabelTopText : UILabel
 
+@property (nonatomic, assign) float alignTextY;
+
 @end

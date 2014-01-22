@@ -9,12 +9,13 @@
 #import <UIKit/UIKit.h>
 #import "KM2Voucher.h"
 #import "FTCoreTextView.h"
+#import "LabelTopText.h"
 
 @interface ShopKM2Cell : UITableViewCell
 {
     __weak KM2Voucher *_voucher;
     __weak IBOutlet UILabel *lblType;
-    __weak IBOutlet UILabel *lblTitle;
+    __weak IBOutlet LabelTopText *lblTitle;
     __weak IBOutlet FTCoreTextView *lblCondition;
     __weak IBOutlet UIImageView *icon;
 }

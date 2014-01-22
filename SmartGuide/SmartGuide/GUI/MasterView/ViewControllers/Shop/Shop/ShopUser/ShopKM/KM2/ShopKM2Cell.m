@@ -7,6 +7,7 @@
 //
 
 #import "ShopKM2Cell.h"
+#import "Utility.h"
 
 @implementation ShopKM2Cell
 
@@ -23,6 +24,8 @@
         [lblCondition highlightWithText:voucher.condition pairs:voucher.highlightKeywords normalStyleName:@"text" styleBoldName:@"bold"];
     
     icon.highlighted=voucher.isAfford.integerValue==0;
+    
+    [lblCondition l_v_setY:lblTitle.l_v_y+voucher.nameHeight+12];
 }
 
 +(NSString *)reuseIdentifier
@@ -32,11 +35,17 @@
 
 +(float)heightWithKM2:(KM2Voucher *)voucher
 {
-    float height=65;
+    voucher.voucherHeight=65;
     
-    height+=[voucher.name sizeWithFont:[UIFont fontWithName:@"Avenir-Heavy" size:14] constrainedToSize:CGSizeMake(189, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height;
+    voucher.nameHeight=[voucher.name sizeWithFont:[UIFont fontWithName:@"Georgia" size:14] constrainedToSize:CGSizeMake(189, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height;
     
-    return height;
+    voucher.voucherHeight+=MAX(voucher.nameHeight-16,0);
+    
+    voucher.conditionHeight=[voucher.condition sizeWithFont:[UIFont fontWithName:@"Avenir-Roman" size:11] constrainedToSize:CGSizeMake(189, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height;
+    
+    voucher.voucherHeight+=MAX(voucher.conditionHeight-16,0);
+    
+    return voucher.voucherHeight;
 }
 
 -(void)awakeFromNib
@@ -56,6 +65,8 @@
     style.textAlignment=FTCoreTextAlignementCenter;
     
     [lblCondition addStyle:style];
+    
+    lblTitle.alignTextY=1;
 }
 
 @end

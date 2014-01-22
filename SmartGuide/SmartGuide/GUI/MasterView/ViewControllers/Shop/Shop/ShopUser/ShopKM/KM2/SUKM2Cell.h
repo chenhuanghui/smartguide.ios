@@ -19,6 +19,7 @@
     __weak IBOutlet UITableView *table;
     
     __weak ShopKM2 *_km2;
+    NSArray *_vouchers;
 }
 
 -(void) loadWithKM2:(ShopKM2*) km2;
