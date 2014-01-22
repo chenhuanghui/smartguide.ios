@@ -8,6 +8,7 @@
 
 #import "SUKMNewsCell.h"
 #import "ImageManager.h"
+#import "Utility.h"
 
 @implementation SUKMNewsCell
 
@@ -16,6 +17,8 @@
     lblTitle.text=news.title;
     lblContent.text=news.content;
     [cover loadImagePromotionNewsWithURL:news.image];
+    
+    [lblContent l_v_setY:133+news.titleHeight];
 }
 
 -(void)hideLine
@@ -30,9 +33,13 @@
 
 +(float)heightWithPromotionNews:(PromotionNews *)news
 {
-    float height=156;
+    float height=195;
     
-    height+=[news.content sizeWithFont:[UIFont fontWithName:@"Avenir-Roman" size:13] constrainedToSize:CGSizeMake(234, 9999)].height;
+    news.titleHeight=[news.title sizeWithFont:[UIFont fontWithName:@"Avenir-Heavy" size:14] constrainedToSize:CGSizeMake(234, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height;
+    height+=news.titleHeight;
+    
+    news.contentHeight=[news.content sizeWithFont:[UIFont fontWithName:@"Avenir-Roman" size:13] constrainedToSize:CGSizeMake(234, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height;
+    height+=news.contentHeight;
     
     return height;
 }

@@ -2,6 +2,7 @@
 #import "Utility.h"
 
 @implementation PromotionNews
+@synthesize titleHeight,contentHeight;
 
 +(PromotionNews *)makeWithDictionary:(NSDictionary *)dict
 {
@@ -13,6 +14,11 @@
     obj.content=[NSString stringWithStringDefault:dict[@"content"]];
     
     return obj;
+}
+
+-(NSString *)title
+{
+    return @"Lorem ipsum dolor sit amet, consectetuer";
 }
 
 @end
