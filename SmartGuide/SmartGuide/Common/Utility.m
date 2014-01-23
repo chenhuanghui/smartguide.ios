@@ -982,6 +982,18 @@ int random_int(int from, int to)
     return offset.y + bounds.size.height - inset.bottom;
 }
 
+-(float)makeZoomScaleWithSize:(CGSize)size
+{
+    CGFloat widthScale = size.width / self.frame.size.width;
+    CGFloat heightScale = size.height / self.frame.size.height;
+    self.maximumZoomScale=MAX(MIN(widthScale, heightScale),1)*2;
+    
+    CGFloat zoomScale = (self.zoomScale == self.maximumZoomScale) ?
+    self.minimumZoomScale : self.maximumZoomScale;
+    
+    return zoomScale;
+}
+
 @end
 
 @implementation NSData(Utility)
@@ -2079,6 +2091,17 @@ static const NSString *KEY_HIT_TEST_EDGE_INSETS = @"HitTestEdgeInsets";
         return [self objectAtIndex:1];
     
     return [self firstObject];
+}
+
+-(bool)isIndexInside:(int)index
+{
+    if(self.count==0 || index<0)
+        return false;
+    
+    if(index<self.count)
+        return true;
+    
+    return false;
 }
 
 @end

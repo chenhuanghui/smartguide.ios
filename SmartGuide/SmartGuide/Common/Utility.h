@@ -203,6 +203,8 @@ NSString* sortList(enum SORT_LIST sort);
 -(void) scrollToPageForHoriTable:(int)page animated:(bool) animated;
 -(float) contentOffSetY;
 
+-(float) makeZoomScaleWithSize:(CGSize) size;
+
 @end
 
 @interface NSDate(Utility)
@@ -335,6 +337,7 @@ NSString* sortList(enum SORT_LIST sort);
 
 -(id) firstObject;
 -(id) secondObject;//neu ko thi se chuyen ve firstObject
+-(bool) isIndexInside:(int) index;
 
 @end
 

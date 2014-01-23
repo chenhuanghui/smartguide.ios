@@ -96,7 +96,16 @@
 
 -(void)GMGridView:(GMGridView *)gridView didTapOnItemAtIndex:(NSInteger)position
 {
-    
+    float x=grid.l_co_x;    
+    SGGridViewLayoutHorizontalPagedLTRStrategy *strategy=grid.layoutStrategy;
+    int index=[strategy itemPositionFromLocation:CGPointMake(x+([ShopUserGalleryCell size].width*3)/2, [ShopUserGalleryCell size].height/2)];
+    if(position==index)
+    {
+        id obj=_galleries[index];
+        
+        if([obj isKindOfClass:[ShopUserGallery class]])
+            [self.delegate userGalleryTouchedGallery:self gallery:obj];
+    }
 }
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView

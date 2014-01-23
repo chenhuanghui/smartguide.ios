@@ -56,6 +56,11 @@
             
         case SGGridViewLayoutHorizontalPagedLTR:
             strategy = [[SGGridViewLayoutHorizontalPagedLTRStrategy alloc] init];
+            break;
+            
+        case SGGridViewLayoutHorizontalPagedLTRImage:
+            strategy = [[SGGridViewLayoutHorizontalPagedLTRStrategyImage alloc] init];
+            break;
     }
     
     return strategy;

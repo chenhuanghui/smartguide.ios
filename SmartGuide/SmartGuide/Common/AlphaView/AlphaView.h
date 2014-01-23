@@ -18,6 +18,7 @@
 
 -(AlphaView*) makeAlphaView;
 -(AlphaView*) makeAlphaViewBelowView:(UIView*) view;
+-(AlphaView*) makeAlphaViewAtIndex:(int) index;
 -(AlphaView*) alphaView;
 -(AlphaView*) alphaViewWithColor:(UIColor*) color;
 -(AlphaView*) alphaViewWithColor:(UIColor*) color belowView:(UIView*) view;

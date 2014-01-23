@@ -16,6 +16,7 @@
 @protocol UserGalleryDelegate <NSObject>
 
 -(void) userGalleryTouchedMakePicture:(SUUserGalleryCell*) cell;
+-(void) userGalleryTouchedGallery:(SUUserGalleryCell*) cell gallery:(ShopUserGallery*) gallery;
 
 @end
 

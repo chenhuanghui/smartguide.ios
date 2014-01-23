@@ -69,6 +69,18 @@
     return alphaView;
 }
 
+-(AlphaView *)makeAlphaViewAtIndex:(int)index
+{
+    UIView *view=[self.subviews objectAtIndex:index];
+    
+    if(view)
+    {
+        return [self makeAlphaViewBelowView:view];
+    }
+    
+    return [self makeAlphaView];
+}
+
 -(AlphaView *)alphaView
 {
     for(id obj in self.subviews)

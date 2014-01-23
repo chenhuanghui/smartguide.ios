@@ -34,4 +34,9 @@
     return @"ShopGalleryViewCell";
 }
 
+-(UIImageView *)imgv
+{
+    return imgv;
+}
+
 @end

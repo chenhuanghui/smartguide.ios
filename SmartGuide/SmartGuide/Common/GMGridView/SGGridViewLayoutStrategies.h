@@ -12,3 +12,9 @@
 @interface SGGridViewLayoutHorizontalPagedLTRStrategy : GMGridViewLayoutHorizontalPagedLTRStrategy
 
 @end
+
+@interface SGGridViewLayoutHorizontalPagedLTRStrategyImage : GMGridViewLayoutHorizontalPagedLTRStrategy
+
+@property (nonatomic, assign) int numberOfNext;
+
+@end

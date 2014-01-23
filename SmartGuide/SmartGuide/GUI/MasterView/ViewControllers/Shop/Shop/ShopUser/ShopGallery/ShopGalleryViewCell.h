@@ -16,6 +16,8 @@
 
 -(void) loadWithImage:(NSString*) url highlighted:(bool) isHighlighted;
 
+-(UIImageView*) imgv;
+
 +(NSString*) reuseIdentifier;
 +(float) height;
 

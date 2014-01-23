@@ -37,6 +37,8 @@
 #import "ASIOperationSocialShare.h"
 #import "ShopGalleryViewController.h"
 #import "ButtonBackShopUser.h"
+#import "ShopGalleryFullViewController.h"
+#import "UserGalleryFullViewController.h"
 
 //Vị trí y của table
 #define SHOP_USER_ANIMATION_ALIGN_Y 100.f // cần để thực hiện effect scroll giãn shop gallery
@@ -60,7 +62,7 @@ enum SHOP_USER_MODE {
 
 @end
 
-@interface ShopUserViewController : SGViewController<UIScrollViewDelegate,UINavigationControllerDelegate,SGTableTemplateDelegate,UITableViewDataSource,UITableViewDelegate,UITextViewDelegate,UIGestureRecognizerDelegate,SUShopGalleryDelegate,UserGalleryDelegate,InfoCelLDelegate,ASIOperationPostDelegate,UserCommentDelegate,ShopGalleryControllerDelegate>
+@interface ShopUserViewController : SGViewController<UIScrollViewDelegate,UINavigationControllerDelegate,SGTableTemplateDelegate,UITableViewDataSource,UITableViewDelegate,UITextViewDelegate,UIGestureRecognizerDelegate,SUShopGalleryDelegate,UserGalleryDelegate,InfoCelLDelegate,ASIOperationPostDelegate,UserCommentDelegate,ShopGalleryControllerDelegate,GalleryFullControllerDelegate>
 {
     __strong IBOutlet SGNavigationController *shopNavi;
     __weak IBOutlet SGViewController *detailController;
@@ -82,6 +84,8 @@ enum SHOP_USER_MODE {
     
     __weak ShopGallery *_selectedShopGallery;
     __weak ShopUserGallery *_selectedUserGallery;
+    
+    __weak ShopGalleryViewController *shopGalleryController;
     
     CGRect _btnNextFrame;
     CGRect _cmtTypingFrame;

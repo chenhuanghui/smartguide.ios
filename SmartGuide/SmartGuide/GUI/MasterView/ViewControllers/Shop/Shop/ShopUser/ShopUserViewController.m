@@ -845,6 +845,7 @@
     _selectedShopGallery=gallery;
     
     [vc setSelectedGallery:_selectedShopGallery];
+    shopGalleryController=vc;
     
     [self pushViewController:vc];
 }
@@ -854,10 +855,33 @@
     if([gallery isKindOfClass:[ShopGallery class]])
     {
         _selectedShopGallery=gallery;
+        
+        ShopGalleryFullViewController *vc=[[ShopGalleryFullViewController alloc] initWithShop:_shop selectedGallery:_selectedShopGallery];
+        vc.delegate=self;
+        [vc setParentController:self];
     }
     else if([gallery isKindOfClass:[ShopUserGallery class]])
     {
+        _selectedUserGallery=gallery;
         
+        UserGalleryFullViewController *vc=[[UserGalleryFullViewController alloc] initWithShop:_shop selectedGallery:_selectedUserGallery];
+        vc.delegate=self;
+        
+        [vc setParentController:self];
+    }
+}
+
+-(void)galleryFullTouchedBack:(GalleryFullViewController *)controller
+{
+    if([controller isKindOfClass:[ShopGalleryFullViewController class]])
+    {
+        _selectedShopGallery=[controller selectedObject];
+        [shopGalleryController setSelectedGallery:_selectedShopGallery];
+    }
+    else if([controller isKindOfClass:[UserGalleryFullViewController class]])
+    {
+        _selectedUserGallery=[controller selectedObject];
+        [shopGalleryController setSelectedGallery:_selectedUserGallery];
     }
 }
 
@@ -872,6 +896,20 @@
 -(void)userGalleryTouchedMakePicture:(SUUserGalleryCell *)cell
 {
     ShopCameraViewController *vc=[ShopCameraViewController new];
+    
+    [self pushViewController:vc];
+}
+
+-(void)userGalleryTouchedGallery:(SUUserGalleryCell *)cell gallery:(ShopUserGallery *)gallery
+{
+    ShopGalleryViewController *vc=[[ShopGalleryViewController alloc] initWithShop:_shop withMode:SHOP_GALLERY_VIEW_USER];
+    vc.delegate=self;
+    
+    _selectedUserGallery=gallery;
+    
+    [vc setSelectedGallery:_selectedUserGallery];
+    
+    shopGalleryController=vc;
     
     [self pushViewController:vc];
 }

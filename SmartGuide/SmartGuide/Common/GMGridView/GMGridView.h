@@ -155,6 +155,8 @@ typedef enum
 
 - (void)GMGridView:(GMGridView *)gridView changedEdit:(BOOL)edit;
 
+- (void)GMGridView:(GMGridView *)gridView didTapOnItemAtIndex:(NSInteger)position atTouchLocation:(CGPoint) touchLocation;
+
 @end
 
 
