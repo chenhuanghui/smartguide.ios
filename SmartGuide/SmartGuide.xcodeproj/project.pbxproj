@@ -91,8 +91,6 @@
 		9A0F7630187152DB00160E54 /* SGShopLoadingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A0F75D6187152DB00160E54 /* SGShopLoadingCell.xib */; };
 		9A0F7633187152DB00160E54 /* SUInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A0F75DB187152DB00160E54 /* SUInfoCell.m */; };
 		9A0F7634187152DB00160E54 /* SUInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A0F75DC187152DB00160E54 /* SUInfoCell.xib */; };
-		9A0F7635187152DB00160E54 /* SUKM0Cell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A0F75DE187152DB00160E54 /* SUKM0Cell.m */; };
-		9A0F7636187152DB00160E54 /* SUKM0Cell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A0F75DF187152DB00160E54 /* SUKM0Cell.xib */; };
 		9A0F7645187152DB00160E54 /* ShopUserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A0F75F6187152DB00160E54 /* ShopUserViewController.m */; };
 		9A0F7646187152DB00160E54 /* ShopUserViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A0F75F7187152DB00160E54 /* ShopUserViewController.xib */; };
 		9A0F7648187152DB00160E54 /* ShopUserGalleryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A0F75FB187152DB00160E54 /* ShopUserGalleryCell.m */; };
@@ -1146,9 +1144,6 @@
 		9A0F75DA187152DB00160E54 /* SUInfoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUInfoCell.h; sourceTree = "<group>"; };
 		9A0F75DB187152DB00160E54 /* SUInfoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUInfoCell.m; sourceTree = "<group>"; };
 		9A0F75DC187152DB00160E54 /* SUInfoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SUInfoCell.xib; sourceTree = "<group>"; };
-		9A0F75DD187152DB00160E54 /* SUKM0Cell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUKM0Cell.h; sourceTree = "<group>"; };
-		9A0F75DE187152DB00160E54 /* SUKM0Cell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUKM0Cell.m; sourceTree = "<group>"; };
-		9A0F75DF187152DB00160E54 /* SUKM0Cell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SUKM0Cell.xib; sourceTree = "<group>"; };
 		9A0F75F5187152DB00160E54 /* ShopUserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopUserViewController.h; sourceTree = "<group>"; };
 		9A0F75F6187152DB00160E54 /* ShopUserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopUserViewController.m; sourceTree = "<group>"; };
 		9A0F75F7187152DB00160E54 /* ShopUserViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShopUserViewController.xib; sourceTree = "<group>"; };
@@ -2670,9 +2665,6 @@
 				9A0F75DA187152DB00160E54 /* SUInfoCell.h */,
 				9A0F75DB187152DB00160E54 /* SUInfoCell.m */,
 				9A0F75DC187152DB00160E54 /* SUInfoCell.xib */,
-				9A0F75DD187152DB00160E54 /* SUKM0Cell.h */,
-				9A0F75DE187152DB00160E54 /* SUKM0Cell.m */,
-				9A0F75DF187152DB00160E54 /* SUKM0Cell.xib */,
 				9A860BDB187673A800CD435F /* SGShopEmptyCell.h */,
 				9A860BDC187673A800CD435F /* SGShopEmptyCell.m */,
 				9A860BDE187673B300CD435F /* SGShopEmptyCell.xib */,
@@ -4953,7 +4945,6 @@
 				9ACBE8F1185A16EA0004474F /* bg_content_head.png in Resources */,
 				9A2F8CFD1855711D0024AE1A /* slide_ads.png in Resources */,
 				9ACE90661875BB2C008FEA7E /* SearchShopViewController.xib in Resources */,
-				9A0F7636187152DB00160E54 /* SUKM0Cell.xib in Resources */,
 				9AA2C56C187FC6DF004F895B /* line_content_search@2x.png in Resources */,
 				9A0F7622187152DB00160E54 /* ShopDetailInfoType3Cell.xib in Resources */,
 				9ACAED651872B10E0025B027 /* icon_flaggray_clock.png in Resources */,
@@ -5626,7 +5617,6 @@
 				A90ED8CC17C1C711003D2D93 /* ButtonImageLeft.m in Sources */,
 				A9A19CCA17C406A5000D0ECD /* FacebookManager.m in Sources */,
 				9AC4941D18585BE40042C535 /* StoreCardViewController.m in Sources */,
-				9A0F7635187152DB00160E54 /* SUKM0Cell.m in Sources */,
 				9A7E55AA183CEB30006D1798 /* SDWebImagePrefetcher.m in Sources */,
 				9A32F428184346D700704D26 /* SGLoadingScreenViewController.m in Sources */,
 				A920E1D317CBBC59003FAA80 /* Reward.m in Sources */,

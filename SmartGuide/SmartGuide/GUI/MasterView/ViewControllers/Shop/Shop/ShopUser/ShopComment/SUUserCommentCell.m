@@ -11,38 +11,49 @@
 #import "AlphaView.h"
 #import "ShopUserViewController.h"
 
-#define SU_USER_COMMENT_CELL_EMPTY_HEIGHT 70.f
+#define SU_USER_COMMENT_CELL_BOTTOM_NORMAL_Y 92.f
+#define SU_USER_COMMENT_CELL_BOTTOM_EDIT_Y 120.f
 
 @implementation SUUserCommentCell
 @synthesize delegate;
 
--(void)loadWithComments:(NSArray *)comments sort:(enum SORT_SHOP_COMMENT)sort maxHeight:(float)height
+-(void)loadWithShop:(Shop *)shop sort:(enum SORT_SHOP_COMMENT)sort maxHeight:(float)height
 {
-    cmtTyping.sortComment=sort;
-    _comments=comments;
-
+//    cmtTyping.sortComment=sort;
+    
+    _sort=sort;
+    switch (sort) {
+        case SORT_SHOP_COMMENT_TIME:
+            _comments=shop.timeCommentsObjects;
+            break;
+            
+        case SORT_SHOP_COMMENT_TOP_AGREED:
+            _comments=shop.topCommentsObjects;
+    }
+    
     [table reloadData];
     
     if(height!=-1)
         [table l_v_setH:height];
+    
+    [imgvAvatar loadAvatarWithURL:userAvatar()];
 }
 
--(void)tableDidScroll:(UITableView *)tableUser cellRect:(CGRect)cellRect
+-(void)tableDidScroll:(UITableView *)tableUser cellRect:(CGRect)cellRect buttonNextHeight:(float)buttonHeight
 {
-    float diff=cellRect.origin.y-(tableUser.l_co_y+SHOP_USER_ANIMATION_ALIGN_Y+SHOP_USER_BUTTON_NEXT_HEIGHT);
+    return;
+    float diff=cellRect.origin.y-(tableUser.l_co_y-tableUser.l_v_y+buttonHeight);
     
     if(diff<0)
     {
         [self l_v_setY:cellRect.origin.y-diff];
-        [table l_co_setY:-diff];
+        [table l_co_setY:table.contentInset.top-diff];
     }
     else
     {
         [self l_v_setY:cellRect.origin.y];
-        [table l_co_setY:0];
+        [table l_co_setY:-table.contentInset.top];
     }
-    
-//    NSLog(@"%f %f %f %f",diff,table.l_co_y,tableUser.l_co_y,[tableUser rectForRowAtIndexPath:[NSIndexPath indexPathForRow:5 inSection:0]].origin.y);
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -52,36 +63,25 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return _comments.count+1;
+    return _comments.count;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if(indexPath.row==0)
-        return SU_USER_COMMENT_CELL_EMPTY_HEIGHT;
-    
-    return [ShopUserCommentCell heightWithComment:_comments[indexPath.row-1]];
+    return [ShopUserCommentCell heightWithComment:_comments[indexPath.row]];
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if(indexPath.row==0)
-    {
-        UITableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:@"emptyCell"];
-        if(!cell)
-        {
-            cell=[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"emptyCell"];
-            cell.frame=CGRectMake(0, 0, tableView.frame.size.width, SU_USER_COMMENT_CELL_EMPTY_HEIGHT);
-            
-            cell.backgroundColor=[UIColor whiteColor];
-            cell.contentView.backgroundColor=[UIColor whiteColor];
-        }
-        
-        return cell;
-    }
-    
     ShopUserCommentCell *cell=[tableView dequeueReusableCellWithIdentifier:[ShopUserCommentCell reuseIdentifier]];
-    [cell loadWithComment:_comments[indexPath.row-1]];
+    [cell loadWithComment:_comments[indexPath.row]];
+    
+    if(indexPath.row==0)
+        [cell setCellPosition:CELL_POSITION_TOP];
+    else if(indexPath.row==[tableView numberOfRowsInSection:indexPath.section]-1)
+        [cell setCellPosition:CELL_POSITION_BOTTOM];
+    else
+        [cell setCellPosition:CELL_POSITION_MIDDLE];
     
     if(indexPath.row==_comments.count)
     {
@@ -99,14 +99,27 @@
     return @"SUUserCommentCell";
 }
 
-+(float)heightWithComments:(NSArray *)comments maxHeight:(float)maxHeight
++(float)heightWithShop:(Shop *)shop sort:(enum SORT_SHOP_COMMENT)sort
 {
-    float height=58+SU_USER_COMMENT_CELL_EMPTY_HEIGHT;
+    float height=141;
+    
+    NSArray *comments=[NSArray array];
+    
+    switch (sort) {
+        case SORT_SHOP_COMMENT_TIME:
+            comments=shop.timeCommentsObjects;
+            break;
+            
+        case SORT_SHOP_COMMENT_TOP_AGREED:
+            comments=shop.topCommentsObjects;
+    }
     
     for(ShopUserComment *comment in comments)
+    {
         height+=[ShopUserCommentCell heightWithComment:comment];
+    }
     
-    return MAX(height, maxHeight);
+    return height;
 }
 
 -(void)awakeFromNib
@@ -115,14 +128,20 @@
     
     [table registerNib:[UINib nibWithNibName:[ShopUserCommentCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[ShopUserCommentCell reuseIdentifier]];
     
-    CommentTyping *cmtT=[CommentTyping new];
-    cmtT.delegate=self;
+    [self switchToNormailModeAnimate:false duration:0];
     
-    cmtT.autoresizingMask=UIViewAutoresizingNone;
-    
-    cmtTyping=cmtT;
-    
-    [self.contentView addSubview:cmtT];
+    txt.isScrollable=false;
+    txt.contentInset=UIEdgeInsetsZero;
+    txt.minNumberOfLines=1;
+    txt.maxNumberOfLines=2;
+    txt.returnKeyType=UIReturnKeyDone;
+    txt.enablesReturnKeyAutomatically=true;
+    txt.font=[UIFont fontWithName:@"Avenir-Roman" size:12];
+    txt.delegate=self;
+    txt.internalTextView.scrollIndicatorInsets=UIEdgeInsetsMake(0, 5, 0, 5);
+    txt.backgroundColor=[UIColor clearColor];
+    txt.placeholder=@"Nhập nhận xét của bạn....";
+    txt.keyboardType=UIKeyboardTypeDefault;
 }
 
 +(float)tableY
@@ -130,64 +149,137 @@
     return 58;
 }
 
--(void)didMoveToSuperview
+-(void)focus
 {
-    [super didMoveToSuperview];
+//    [cmtTyping focus];
+}
+
+-(UITableView *)table
+{
+    return table;
+}
+
+-(void) switchToEditingModeAnimate:(bool) animate duration:(float) duration
+{
+    NSLog(@"switchToEditingModeAnimate %i",animate);
     
-    return;
-    if(self.superview)
+    _isAnimating=false;
+    
+    if(animate)
     {
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+        _isAnimating=true;
+        animationView.alpha=0;
+        animationView.hidden=false;
+        btnSort.alpha=1;
+        btnSort.hidden=false;
+        btnSend.alpha=0;
+        btnSend.hidden=false;
+        btnShare.alpha=0;
+        btnShare.hidden=false;
+        [UIView animateWithDuration:duration animations:^{
+           
+            [bgView l_v_setH:SU_USER_COMMENT_CELL_BOTTOM_EDIT_Y-SU_USER_COMMENT_CELL_BOTTOM_NORMAL_Y];
+            [typeCommentBot l_v_setY:SU_USER_COMMENT_CELL_BOTTOM_EDIT_Y];
+            
+            [btnSort l_v_setY:containButtonView.l_v_h+btnSort.l_v_h];
+            btnSort.alpha=0;
+            
+            [btnShare l_v_setY:19];
+            btnShare.alpha=1;
+            
+            [btnSend l_v_setY:0];
+            btnSend.alpha=1;
+            
+            animationView.alpha=0.7f;
+            
+        } completion:^(BOOL finished) {
+            btnSort.hidden=true;
+            _isAnimating=false;
+        }];
     }
     else
     {
-        [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
-        [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+        [bgView l_v_setH:SU_USER_COMMENT_CELL_BOTTOM_EDIT_Y-SU_USER_COMMENT_CELL_BOTTOM_NORMAL_Y];
+        [typeCommentBot l_v_setY:SU_USER_COMMENT_CELL_BOTTOM_EDIT_Y];
+        [btnSort l_v_setY:containButtonView.l_v_h+btnSort.l_v_h];
+        [btnShare l_v_setY:19];
+        btnShare.alpha=1;
+        btnShare.hidden=false;
+        [btnSend l_v_setY:0];
+        btnSend.alpha=1;
+        btnSend.hidden=false;
+        animationView.alpha=0.7f;
+        animationView.hidden=false;
+        btnSort.hidden=true;
+        btnSort.alpha=0;
     }
 }
 
--(void) keyboardWillHide:(NSNotification*) notification
+-(void) switchToNormailModeAnimate:(bool) animate duration:(float) duration
 {
-    if(_tapTable)
+    NSLog(@"switchToNormailModeAnimate %i",animate);
+    
+    _isAnimating=false;
+    
+    if(animate)
     {
-        [table removeGestureRecognizer:_tapTable];
+        _isAnimating=true;
+        btnSort.alpha=0;
+        btnSort.hidden=false;
+        btnShare.alpha=1;
+        btnShare.hidden=false;
+        btnSend.alpha=1;
+        btnSend.hidden=false;
+        
+        [UIView animateWithDuration:duration animations:^{
+            
+            [bgView l_v_setH:7];
+            [typeCommentBot l_v_setY:SU_USER_COMMENT_CELL_BOTTOM_NORMAL_Y];
+            
+            btnSort.alpha=1;
+            [btnSort l_v_setY:19];
+            
+            [btnShare l_v_setY:containButtonView.l_v_h+btnShare.l_v_h];
+            btnShare.alpha=0;
+            
+            [btnSend l_v_setY:containButtonView.l_v_h+btnSend.l_v_h];
+            btnSend.alpha=0;
+            
+            animationView.alpha=0;
+            
+        } completion:^(BOOL finished) {
+            animationView.hidden=true;
+            btnShare.hidden=true;
+            btnSend.hidden=true;
+            _isAnimating=false;
+        }];
     }
-    
-    [UIView animateWithDuration:[notification.userInfo floatForKey:UIKeyboardAnimationDurationUserInfoKey] animations:^{
-        table.alphaView.alpha=0;
-    } completion:^(BOOL finished) {
-        [table removeAlphaView];
-    }];
+    else
+    {
+        [bgView l_v_setH:7];
+        [typeCommentBot l_v_setY:SU_USER_COMMENT_CELL_BOTTOM_NORMAL_Y];
+        
+        btnSort.hidden=false;
+        btnSort.alpha=1;
+        [btnSort l_v_setY:19];
+        
+        [btnShare l_v_setY:containButtonView.l_v_h+btnShare.l_v_h];
+        btnShare.hidden=true;
+        btnShare.alpha=0;
+        
+        [btnSend l_v_setY:containButtonView.l_v_h+btnSend.l_v_h];
+        btnSend.hidden=true;
+        btnSend.alpha=0;
+        
+        animationView.alpha=0;
+        animationView.hidden=true;
+    }
 }
 
--(void) keyboardWillShow:(NSNotification*) notification
-{
-    [table alphaViewWithColor:[UIColor grayColor]];
-    table.alphaView.alpha=0;
-    table.alphaView.userInteractionEnabled=false;
-    [UIView animateWithDuration:[notification.userInfo floatForKey:UIKeyboardAnimationDurationUserInfoKey] animations:^{
-        table.alphaView.alpha=0.3f;
-    }];
-    
-    UITapGestureRecognizer *tap=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGes:)];
-    
-    _tapTable=tap;
-    
-    [table addGestureRecognizer:tap];
-}
-
--(void) tapGes:(UITapGestureRecognizer*) tap
-{
-    [table removeGestureRecognizer:tap];
-    //    [self endEditing:true];
-}
-
--(void)commentTypingTouchedSort:(CommentTyping *)cmt
-{
+- (IBAction)btnSortTouchUpInside:(id)sender {
     UIActionSheet *sheet=nil;
     
-    switch (cmt.sortComment) {
+    switch (_sort) {
         case SORT_SHOP_COMMENT_TIME:
             sheet=[[UIActionSheet alloc] initWithTitle:@"SORT" delegate:self cancelButtonTitle:@"Đóng" destructiveButtonTitle:nil otherButtonTitles:@"Xếp hạng", nil];
             break;
@@ -200,40 +292,56 @@
     [sheet showInView:self];
 }
 
--(void)commentTypingTouchedReturn:(CommentTyping *)cmt
-{
-    [self.delegate userCommentUserComment:self comment:cmtTyping.text isShareFacebook:false];
-}
-
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if(buttonIndex==actionSheet.cancelButtonIndex)
         return;
     
-    cmtTyping.sortComment=cmtTyping.sortComment==SORT_SHOP_COMMENT_TOP_AGREED?SORT_SHOP_COMMENT_TIME:SORT_SHOP_COMMENT_TOP_AGREED;
+    _sort=_sort==SORT_SHOP_COMMENT_TIME?SORT_SHOP_COMMENT_TOP_AGREED:SORT_SHOP_COMMENT_TIME;
     
-    [self.delegate userCommentChangeSort:self sort:cmtTyping.sortComment];
+    [self.delegate userCommentChangeSort:self sort:_sort];
 }
 
--(void)removeFromSuperview
-{
-    [super removeFromSuperview];
+- (IBAction)btnShareTouchUpInside:(id)sender {
+    currentUser().allowShareCommentFB=@(!currentUser().allowShareCommentFB.boolValue);
+    [[DataManager shareInstance] save];
+    
+    if(currentUser().allowShareCommentFB.boolValue)
+    {
+        if([[FacebookManager shareInstance] permissionTypeForPostToWall]==FACEBOOK_PERMISSION_DENIED)
+        {
+            [[FacebookManager shareInstance] requestPermissionPostToWall];
+        }
+    }
 }
 
--(void)focus
-{
-    [cmtTyping focus];
+- (IBAction)btnSendTouchUpInside:(id)sender {
+    if([txt.text stringByTrimmingWhiteSpace].length>0)
+    {
+        [self.delegate userCommentUserComment:self comment:txt.text isShareFacebook:currentUser().allowShareCommentFB.boolValue];
+    }
 }
 
--(UITableView *)table
+-(BOOL)growingTextViewShouldBeginEditing:(HPGrowingTextView *)growingTextView
 {
-    return table;
+    return true;
 }
 
 @end
 
-@implementation TableUserComment
+@implementation UserCommentBGMidView
 
+-(void)awakeFromNib
+{
+    [super awakeFromNib];
+    
+    self.contentMode=UIViewContentModeRedraw;
+    self.backgroundColor=[UIColor clearColor];
+}
 
+-(void)drawRect:(CGRect)rect
+{
+    [[UIImage imageNamed:@"bg_typecomment_mid.png"] drawAsPatternInRect:rect];
+}
 
 @end

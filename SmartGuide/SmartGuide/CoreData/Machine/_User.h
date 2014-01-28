@@ -6,6 +6,7 @@
 #define User_ClassName @"User"
 
 #define User_ActivationCode @"activationCode"
+#define User_AllowShareCommentFB @"allowShareCommentFB"
 #define User_Avatar @"avatar"
 #define User_Birthday @"birthday"
 #define User_Cover @"cover"
@@ -31,6 +32,7 @@
 
 
 @property (nonatomic, retain) NSString* activationCode;
+@property (nonatomic, retain) NSNumber* allowShareCommentFB;
 @property (nonatomic, retain) NSString* avatar;
 @property (nonatomic, retain) NSString* birthday;
 @property (nonatomic, retain) NSString* cover;

@@ -102,15 +102,17 @@ enum SHOP_USER_MODE {
     ASIOperationPostComment *_opeartionPostComment;
     ASIOperationSocialShare *_operationSocialShare;
     
-    NSMutableArray *_comments;
     bool _canLoadMoreComment;
     bool _isLoadingMoreComment;
     int _pageComment;
+    
+    bool _isKeyboardShowed;
 }
 
 -(ShopUserViewController*) initWithShopUser:(Shop*) shop;
 
 //-(void) setShop:(Shop*) shop;
+
 
 @property (nonatomic, assign) id<ShopUserDelegate> delegate;
 @property (nonatomic, readonly) enum SHOP_USER_MODE shopMode;

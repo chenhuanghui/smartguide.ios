@@ -186,6 +186,7 @@
     </entity>
     <entity name="User" representedClassName="User" syncable="YES">
         <attribute name="activationCode" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="allowShareCommentFB" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="avatar" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="birthday" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="cover" optional="YES" attributeType="String" syncable="YES"/>

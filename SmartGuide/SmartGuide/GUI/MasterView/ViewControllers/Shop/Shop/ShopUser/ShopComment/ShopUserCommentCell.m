@@ -11,9 +11,6 @@
 #import "ImageManager.h"
 #import "FacebookManager.h"
 
-#define SHOP_USER_COMMENT_FONT [UIFont fontWithName:@"Avenir-Roman" size:11]
-#define SHOP_USER_COMMENT_WIDTH 189.f
-
 @implementation ShopUserCommentCell
 
 -(void)loadWithComment:(ShopUserComment *)comment
@@ -40,6 +37,23 @@
     }
 }
 
+-(void)setCellPosition:(enum CELL_POSITION)cellPos
+{
+    switch (cellPos) {
+        case CELL_POSITION_TOP:
+            lineBot.hidden=false;
+            break;
+            
+        case CELL_POSITION_MIDDLE:
+            lineBot.hidden=false;
+            break;
+            
+        case CELL_POSITION_BOTTOM:
+            lineBot.hidden=true;
+            break;
+    }
+}
+
 +(NSString *)reuseIdentifier
 {
     return @"ShopUserCommentCell";
@@ -47,18 +61,19 @@
 
 +(float)heightWithComment:(ShopUserComment *)comment
 {
-    UIFont *font=SHOP_USER_COMMENT_FONT;
+    if(comment.cellCommentHeight!=-1)
+        return comment.cellCommentHeight;
     
-    CGSize size=[comment.comment sizeWithFont:font constrainedToSize:CGSizeMake(SHOP_USER_COMMENT_WIDTH, 999999) lineBreakMode:NSLineBreakByTruncatingTail];
-
-    float commentY=25;
-
-    return size.height+commentY+25;
-}
-
-+(float)heightSummary
-{
-    return 70;
+    comment.cellCommentHeight=80;
+    
+    if(comment.commentHeight==-1)
+    {
+        comment.commentHeight=[comment.comment sizeWithFont:[UIFont fontWithName:@"Avenir-Roman" size:11] constrainedToSize:CGSizeMake(189, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height;
+    }
+    
+    comment.cellCommentHeight+=MAX(0,comment.commentHeight-32);
+    
+    return comment.cellCommentHeight;
 }
 
 -(IBAction) btnAgreeTouchUpInside:(id)sender

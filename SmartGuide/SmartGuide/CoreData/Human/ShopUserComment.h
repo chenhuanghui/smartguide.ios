@@ -10,4 +10,7 @@
 
 -(enum AGREE_STATUS) enumAgreeStatus;
 
+@property (nonatomic, assign) float commentHeight;
+@property (nonatomic, assign) float cellCommentHeight;
+
 @end

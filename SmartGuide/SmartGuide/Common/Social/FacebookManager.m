@@ -168,7 +168,7 @@ static FacebookManager *_facebookManager=nil;
 
 -(enum FACEBOOK_PERMISSION_TYPE)permissionTypeForPermission:(NSString *)permission
 {
-    if([_needPermission containsObject:permission])
+    if([self permissionIsNeedRequest:permission])
         return FACEBOOK_PERMISSION_DENIED;
     
     if([[FBSession activeSession].permissions containsObject:permission])
@@ -180,6 +180,11 @@ static FacebookManager *_facebookManager=nil;
 -(enum FACEBOOK_PERMISSION_TYPE)permissionTypeForPostToWall
 {
     return [self permissionTypeForPermission:FACEBOOK_POST_TO_WALL_PERMISSION];
+}
+
+-(bool) permissionIsNeedRequest:(NSString*) permission
+{
+    return [_needPermission containsObject:permission];
 }
 
 -(void)markNeedPermissionPostToWall

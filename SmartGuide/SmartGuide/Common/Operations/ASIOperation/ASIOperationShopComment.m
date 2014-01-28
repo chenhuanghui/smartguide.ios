@@ -37,8 +37,6 @@
     
     Shop *shop=[Shop shopWithIDShop:[values[0] integerValue]];
     
-    int count=0;
-    
     switch ([values[2] integerValue]) {
         case 0:
             sortComment=SORT_SHOP_COMMENT_TOP_AGREED;
@@ -52,6 +50,8 @@
             sortComment=SORT_SHOP_COMMENT_TOP_AGREED;
             break;
     }
+    
+    int count=sortComment==SORT_SHOP_COMMENT_TIME?shop.timeCommentsObjects.count:shop.topCommentsObjects.count;
 
     for(NSDictionary *dict in json)
     {

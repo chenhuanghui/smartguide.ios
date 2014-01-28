@@ -8,11 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "ShopUserCommentCell.h"
-#import "CommentTyping.h"
 #import "Shop.h"
+#import "HPGrowingTextView.h"
 
-@class TableUserComment;
-@class SUUserCommentCell;
+@class SUUserCommentCell,UserCommentBGMidView;
 
 @protocol UserCommentDelegate <NSObject>
 
@@ -23,22 +22,35 @@
 
 @end
 
-@interface SUUserCommentCell : UITableViewCell<UITableViewDataSource,UITableViewDelegate,CommentTypingDelegate,UIActionSheetDelegate>
+@interface SUUserCommentCell : UITableViewCell<UITableViewDataSource,UITableViewDelegate,UIActionSheetDelegate,HPGrowingTextViewDelegate>
 {
-    __weak IBOutlet TableUserComment *table;
-    __weak CommentTyping *cmtTyping;
+    __weak IBOutlet UITableView *table;
     __weak UITapGestureRecognizer *_tapTable;
+    __weak IBOutlet UserCommentBGMidView *bgView;
+    __weak IBOutlet HPGrowingTextView *txt;
+    __weak IBOutlet UIImageView *typeCommentBot;
+    __weak IBOutlet UIImageView *imgvAvatar;
+    __weak IBOutlet UIView *containButtonView;
+    __weak IBOutlet ButtonAgree *btnSort;
+    __weak IBOutlet UIButton *btnShare;
+    __weak IBOutlet ButtonAgree *btnSend;
+    __weak IBOutlet UIView *animationView;
+    enum SORT_SHOP_COMMENT _sort;
+    bool _isAnimating;
     
     NSArray *_comments;
 }
 
--(void) loadWithComments:(NSArray*) comments sort:(enum SORT_SHOP_COMMENT) sort maxHeight:(float) height;
--(void) tableDidScroll:(UITableView*) tableUser cellRect:(CGRect) cellRect;
+-(void) loadWithShop:(Shop*) shop sort:(enum SORT_SHOP_COMMENT) sort maxHeight:(float) height;
+-(void) tableDidScroll:(UITableView*) tableUser cellRect:(CGRect) cellRect buttonNextHeight:(float) buttonHeight;
 
 +(NSString *)reuseIdentifier;
-+(float) heightWithComments:(NSArray*) comments maxHeight:(float) maxHeight;
++(float) heightWithShop:(Shop*) shop sort:(enum SORT_SHOP_COMMENT) sort;
 +(float) tableY;
 -(void) focus;
+
+-(void) switchToNormailModeAnimate:(bool) animate duration:(float) duration;
+-(void) switchToEditingModeAnimate:(bool) animate duration:(float) duration;
 
 -(UITableView*) table;
 
@@ -46,6 +58,6 @@
 
 @end
 
-@interface TableUserComment : UITableView
+@interface UserCommentBGMidView : UIView
 
 @end

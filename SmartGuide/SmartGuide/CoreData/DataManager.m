@@ -22,6 +22,11 @@ double userLng()
     return [DataManager shareInstance].currentUser.coordinate.longitude;
 }
 
+NSString *userAvatar()
+{
+    return [DataManager shareInstance].currentUser.avatar;
+}
+
 void setUserLocation(CLLocationCoordinate2D location)
 {
     [DataManager shareInstance].currentUser.coordinate=location;

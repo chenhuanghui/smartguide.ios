@@ -7,36 +7,144 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SUUserCommentCell" rowHeight="117" id="kGe-I5-iXb" customClass="SUUserCommentCell">
-            <rect key="frame" x="0.0" y="0.0" width="290" height="117"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SUUserCommentCell" rowHeight="141" id="kGe-I5-iXb" customClass="SUUserCommentCell">
+            <rect key="frame" x="0.0" y="0.0" width="290" height="141"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="kGe-I5-iXb" id="Zsh-hn-Tf4">
-                <rect key="frame" x="0.0" y="0.0" width="290" height="116"/>
+                <rect key="frame" x="0.0" y="0.0" width="290" height="140"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="line_shopdetail.png" id="2Rq-1v-Pdn">
-                        <rect key="frame" x="9" y="1" width="272" height="3"/>
+                        <rect key="frame" x="9" y="4" width="272" height="3"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     </imageView>
-                    <tableView clipsSubviews="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="BSm-TN-SA8" customClass="TableUserComment">
-                        <rect key="frame" x="9" y="57" width="273" height="60"/>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mọi người nói về cửa hàng" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="5na-gA-4fb">
+                        <rect key="frame" x="25" y="7" width="262" height="21"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="13"/>
+                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_dottitle.png" id="8wk-Sm-iRP">
+                        <rect key="frame" x="8" y="13" width="12" height="12"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    </imageView>
+                    <tableView clipsSubviews="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="BSm-TN-SA8">
+                        <rect key="frame" x="9" y="61" width="273" height="61"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <inset key="contentInset" minX="0.0" minY="60" maxX="0.0" maxY="0.0"/>
+                        <inset key="scrollIndicatorInsets" minX="0.0" minY="50" maxX="0.0" maxY="0.0"/>
                         <connections>
                             <outlet property="dataSource" destination="kGe-I5-iXb" id="aDY-MB-RKU"/>
                             <outlet property="delegate" destination="kGe-I5-iXb" id="wmJ-6R-U49"/>
                         </connections>
                     </tableView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_blur_comment.png" id="BG0-q4-kCB">
+                        <rect key="frame" x="8" y="61" width="272" height="80"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    </imageView>
+                    <view hidden="YES" contentMode="scaleToFill" id="Y2u-kh-psR" userLabel="animationView">
+                        <rect key="frame" x="9" y="61" width="273" height="79"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_typecomment_head.png" id="oIa-Il-iqd">
+                        <rect key="frame" x="19" y="28" width="253" height="57"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    </imageView>
+                    <view contentMode="scaleToFill" id="VMv-3j-xix" customClass="HPGrowingTextView">
+                        <rect key="frame" x="24" y="33" width="244" height="45"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </view>
+                    <view autoresizesSubviews="NO" contentMode="redraw" id="zQc-by-iAQ" customClass="UserCommentBGMidView">
+                        <rect key="frame" x="19" y="85" width="253" height="7"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </view>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_typecomment_bottom.png" id="oJx-Ko-S1b">
+                        <rect key="frame" x="19" y="92" width="253" height="7"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    </imageView>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="NRw-wE-4MB">
+                        <rect key="frame" x="130" y="84" width="34" height="34"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <integer key="value" value="17"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </imageView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="frame_avauser.png" id="nFo-m3-E0C">
+                        <rect key="frame" x="126" y="81" width="44" height="44"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    </imageView>
+                    <view clipsSubviews="YES" contentMode="scaleToFill" id="HRs-gT-9Rb">
+                        <rect key="frame" x="19" y="80" width="253" height="41"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="akX-ib-rE9" customClass="ButtonAgree">
+                                <rect key="frame" x="153" y="19" width="94" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="10"/>
+                                <size key="titleShadowOffset" width="1" height="0.0"/>
+                                <state key="normal" title="Top comments">
+                                    <color key="titleShadowColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="btnSortTouchUpInside:" destination="kGe-I5-iXb" eventType="touchUpInside" id="dZH-O8-hc5"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="hGN-bx-BlQ">
+                                <rect key="frame" x="8" y="19" width="95" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <state key="normal" image="button_Facebook.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="btnShareTouchUpInside:" destination="kGe-I5-iXb" eventType="touchUpInside" id="XVF-vA-YIx"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="8cC-19-qwe">
+                                <rect key="frame" x="171" y="0.0" width="70" height="41"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <state key="normal" image="button_send.png"/>
+                                <connections>
+                                    <action selector="btnSendTouchUpInside:" destination="kGe-I5-iXb" eventType="touchUpInside" id="bzp-Yf-dqL"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </view>
                 </subviews>
-                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                <color key="backgroundColor" red="0.92156862745098034" green="0.92156862745098034" blue="0.92156862745098034" alpha="1" colorSpace="calibratedRGB"/>
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <connections>
+                <outlet property="animationView" destination="Y2u-kh-psR" id="Xvk-kn-Biz"/>
+                <outlet property="bgView" destination="zQc-by-iAQ" id="J2R-pB-iSH"/>
+                <outlet property="btnSend" destination="8cC-19-qwe" id="ASx-xc-mew"/>
+                <outlet property="btnShare" destination="hGN-bx-BlQ" id="H5P-vm-gcl"/>
+                <outlet property="btnSort" destination="akX-ib-rE9" id="oCR-ko-Vd5"/>
+                <outlet property="containButtonView" destination="HRs-gT-9Rb" id="Wlu-ae-qai"/>
+                <outlet property="imgvAvatar" destination="NRw-wE-4MB" id="2kr-2Y-Roa"/>
                 <outlet property="table" destination="BSm-TN-SA8" id="DaF-8U-Hdi"/>
+                <outlet property="txt" destination="VMv-3j-xix" id="uC7-Rz-8sp"/>
+                <outlet property="typeCommentBot" destination="oJx-Ko-S1b" id="tps-3Q-LHh"/>
             </connections>
         </tableViewCell>
     </objects>
     <resources>
+        <image name="bg_blur_comment.png" width="272" height="70"/>
+        <image name="bg_typecomment_bottom.png" width="253" height="7"/>
+        <image name="bg_typecomment_head.png" width="253" height="57"/>
+        <image name="button_Facebook.png" width="95" height="22"/>
+        <image name="button_send.png" width="81" height="47"/>
+        <image name="frame_avauser.png" width="43" height="44"/>
+        <image name="icon_dottitle.png" width="12" height="12"/>
         <image name="line_shopdetail.png" width="272" height="3"/>
     </resources>
 </document>

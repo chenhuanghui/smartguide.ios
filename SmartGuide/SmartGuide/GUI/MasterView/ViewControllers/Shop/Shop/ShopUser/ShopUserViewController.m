@@ -20,7 +20,6 @@
 
 @interface ShopUserViewController ()
 {
-    __weak UITapGestureRecognizer *_tap;
 }
 
 @end
@@ -83,11 +82,9 @@
             
         case SHOP_DATA_FULL:
             
-            _comments=[[NSMutableArray alloc] initWithArray:_shop.topCommentsObjects];
-            
             _pageComment=0;
             _isLoadingMoreComment=false;
-            _canLoadMoreComment=_comments.count==10;
+            _canLoadMoreComment=_shop.topCommentsObjects.count==10;
             
             _sortComment=SORT_SHOP_COMMENT_TOP_AGREED;
             
@@ -107,13 +104,53 @@
     
     [tableShopUser reloadData];
     
+    [self loadCells];
+}
+
+-(NSArray *)registerNotifications
+{
+    return @[UIKeyboardWillShowNotification,UIKeyboardDidShowNotification,UIKeyboardWillHideNotification,UIKeyboardDidHideNotification];
+}
+-(void)receiveNotification:(NSNotification *)notification
+{
+    if([notification.name isEqualToString:UIKeyboardWillShowNotification])
+    {
+        CGRect rect=[tableShopUser rectForRowAtIndexPath:SHOP_USER_USER_COMMENT_INDEX_PATH];
+        float height=tableShopUser.l_co_y+tableShopUser.l_v_h-rect.origin.y;
+        float duration=[notification.userInfo floatForKey:UIKeyboardAnimationDurationUserInfoKey];
+        
+        if(height<403)
+        {
+            rect.origin.y-=[self buttonNextHeight];
+            rect.size.height=shopNavi.l_v_h;
+            
+            [userCommentCell switchToEditingModeAnimate:true duration:duration];
+            [UIView animateWithDuration:duration animations:^{
+                [tableShopUser scrollRectToVisible:rect animated:false];
+            }];
+        }
+    }
+    else if([notification.name isEqualToString:UIKeyboardWillHideNotification])
+    {
+        float duration=[notification.userInfo floatForKey:UIKeyboardAnimationDurationUserInfoKey];
+        [userCommentCell switchToNormailModeAnimate:true duration:duration];
+    }
+    else if([notification.name isEqualToString:UIKeyboardDidShowNotification])
+    {
+        _isKeyboardShowed=true;
+    }
+    else if([notification.name isEqualToString:UIKeyboardDidHideNotification])
+    {
+        _isKeyboardShowed=false;
+    }
+}
+
+-(void) loadCells
+{
     for(int i=0;i<[tableShopUser numberOfRowsInSection:0];i++)
     {
         [self tableView:tableShopUser cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
     }
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(shopUserCommentKeyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(shopUserCommentKeyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
 }
 
 -(void)ASIOperaionPostFinished:(ASIOperationPost *)operation
@@ -125,27 +162,21 @@
         _shop=ope.shop;
         shopGalleryCell=nil;
         
-        _comments=[[NSMutableArray alloc] initWithArray:_shop.topCommentsObjects];
-        
         _pageComment=0;
         _isLoadingMoreComment=false;
-        _canLoadMoreComment=_comments.count==10;
+        _canLoadMoreComment=_shop.topCommentsObjects.count==10;
         
         _sortComment=SORT_SHOP_COMMENT_TOP_AGREED;
         
         [tableShopUser reloadData];
         tableShopUser.scrollEnabled=true;
         
-        for(int i=0;i<[tableShopUser numberOfRowsInSection:0];i++)
-        {
-            [self tableView:tableShopUser cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
-        }
+        [self loadCells];
     }
     else if([operation isKindOfClass:[ASIOperationShopComment class]])
     {
         ASIOperationShopComment *ope=(ASIOperationShopComment*)operation;
         
-        [_comments addObjectsFromArray:ope.comments];
         _canLoadMoreComment=ope.comments.count==10;
         _isLoadingMoreComment=false;
         _pageComment++;
@@ -154,7 +185,7 @@
         [userCommentCell l_v_setH:[tableShopUser rectForRowAtIndexPath:SHOP_USER_USER_COMMENT_INDEX_PATH].size.height];
         [self scrollViewDidScroll:tableShopUser];
         [tableShopUser setContentOffset:tableShopUser.contentOffset animated:true];
-        [userCommentCell loadWithComments:_comments sort:_sortComment maxHeight:-1];
+        [userCommentCell loadWithShop:_shop sort:_sortComment maxHeight:-1];
         
         _operationShopComment=nil;
     }
@@ -166,11 +197,6 @@
         
         if(ope.status==1)
         {
-            if(_comments.count>0)
-                [_comments insertObject:ope.userComment atIndex:0];
-            else
-                [_comments addObject:ope.userComment];
-            
             userCommentCell.hidden=true;
             userCommentCell=nil;
             
@@ -235,7 +261,7 @@
     
     if(height<403)
     {
-        rect.origin.y-=_btnNextFrame.size.height;
+        rect.origin.y-=[self buttonNextHeight];
         rect.size.height=shopNavi.l_v_h;
         
         if(animate)
@@ -274,46 +300,6 @@
     }
 }
 
--(void) shopUserCommentKeyboardWillHide:(NSNotification*) notification
-{
-    if(_tap)
-    {
-        [_tap removeTarget:self action:@selector(tap:)];
-        [tableShopUser removeGestureRecognizer:_tap];
-        
-        _tap=nil;
-    }
-}
-
--(void) shopUserCommentKeyboardWillShow:(NSNotification*) notification
-{
-    CGRect rect=[tableShopUser rectForRowAtIndexPath:SHOP_USER_USER_COMMENT_INDEX_PATH];
-    float height=tableShopUser.l_co_y+tableShopUser.l_v_h-rect.origin.y;
-    
-    if(height<403)
-    {
-        rect.origin.y-=_btnNextFrame.size.height;
-        rect.size.height=shopNavi.l_v_h;
-        
-        [UIView animateWithDuration:DURATION_DEFAULT animations:^{
-            [tableShopUser scrollRectToVisible:rect animated:false];
-        } completion:^(BOOL finished) {
-            [userCommentCell focus];
-        }];
-    }
-    
-    if(!_tap)
-    {
-        UITapGestureRecognizer *tap=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)];
-        
-        [tableShopUser.panGestureRecognizer requireGestureRecognizerToFail:tap];
-        
-        [tableShopUser addGestureRecognizer:tap];
-        
-        _tap=tap;
-    }
-}
-
 -(void) tap:(UITapGestureRecognizer*) tap
 {
     [self.view endEditing:true];
@@ -348,36 +334,6 @@
     }
 
     return;
-    if(tableOffsetY-rect.origin.y+_btnNextFrame.size.height>0)
-        [self scrollToInfoRow:true];
-    else
-        [self scrollToRowAtIndexPath:SHOP_USER_SHOP_GALLERY_INDEX_PATH animate:true];
-    
-    switch (_shop.enumPromotionType) {
-        case SHOP_PROMOTION_KM1:
-        case SHOP_PROMOTION_KM2:
-            
-            rect=[tableShopUser rectForRowAtIndexPath:SHOP_USER_PROMOTION_INDEX_PATH];
-            
-            //vị trí khuyến mãi chưa scroll đến top của màn hình
-            if(tableOffsetY-rect.origin.y<0)
-            {
-                [self scrollToRowAtIndexPath:SHOP_USER_PROMOTION_INDEX_PATH animate:true];
-            }
-            else
-            {
-                // vùng hiển thị của khuyến mãi đã qua khỏi màn hình->scroll đến thông tin khuyến mãi
-                if(tableOffsetY-rect.origin.y-rect.size.height>0)
-                    [self scrollToRowAtIndexPath:SHOP_USER_PROMOTION_INDEX_PATH animate:true];
-                else
-                    [self scrollToInfoRow:true];
-            }
-            
-            break;
-            
-        default:
-            break;
-    }
 }
 
 -(void) scrollToTop:(bool) animate
@@ -412,8 +368,7 @@
             [shopGalleryCell scrollViewDidScroll:tableShopUser];
         }
         
-        float y=_btnNextFrame.origin.y+scrollView.contentOffset.y;
-        y+=SHOP_USER_ANIMATION_ALIGN_Y;
+        float y=_btnNextFrame.origin.y+[self tableOffsetY];
         
         CGRect rect=[tableShopUser rectForRowAtIndexPath:SHOP_USER_BUTTON_CONTAIN_INDEX_PATH];
         
@@ -436,10 +391,11 @@
         
         if(userCommentCell)
         {
-            [userCommentCell tableDidScroll:tableShopUser cellRect:rect];
+            [userCommentCell tableDidScroll:tableShopUser cellRect:rect buttonNextHeight:[self buttonNextHeight]];
         }
         
-        [self.view endEditing:true];
+        if(_isKeyboardShowed)
+            [self.view endEditing:true];
     }
 }
 
@@ -480,7 +436,7 @@
                 
                 //user gallery
                 numOfRow++;
-                
+
                 //comments
                 numOfRow++;
                 
@@ -612,15 +568,16 @@
     
     SUUserCommentCell *cell=[tableShopUser dequeueReusableCellWithIdentifier:[SUUserCommentCell reuseIdentifier]];
     
-    float maxHeight=_shopUserContentFrame.size.height-_btnNextFrame.size.height-[SUUserCommentCell tableY]+SHOP_USER_ANIMATION_ALIGN_Y;
+    float maxHeight=[self commentCellMaxHeight];
     
     switch (_sortComment) {
         case SORT_SHOP_COMMENT_TIME:
-            [cell loadWithComments:_comments sort:_sortComment maxHeight:maxHeight];
+            
+            [cell loadWithShop:_shop sort:_sortComment maxHeight:maxHeight];
             break;
             
         case SORT_SHOP_COMMENT_TOP_AGREED:
-            [cell loadWithComments:_comments sort:_sortComment maxHeight:maxHeight];
+            [cell loadWithShop:_shop sort:_sortComment maxHeight:maxHeight];
             break;
     }
     
@@ -629,6 +586,11 @@
     userCommentCell=cell;
     
     return cell;
+}
+
+-(float) commentCellMaxHeight
+{
+    return _shopUserContentFrame.size.height-_btnNextFrame.size.height-[SUUserCommentCell tableY]+SHOP_USER_ANIMATION_ALIGN_Y;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -703,8 +665,6 @@
     } completion:^(BOOL finished) {
         self.view.userInteractionEnabled=true;
         _sortComment=sort;
-        
-        _comments=[NSMutableArray array];
         _pageComment=-1;
         
         [self requestComments];
@@ -752,6 +712,22 @@
     }
 }
 
+-(float) buttonNextHeight
+{
+    if(_shop.km1 || _shop.km2 || _shop.promotionNew)
+        return _btnNextFrame.size.height;
+    
+    return 0;
+}
+
+-(float) buttonNextY
+{
+    if(_shop.km1 || _shop.km2 || _shop.promotionNew)
+        return 0;
+    
+    return _btnNextFrame.origin.y;
+}
+
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if(tableView==tableShopUser)
@@ -796,7 +772,7 @@
                         
                     case 3:
                         if(_shop.km1 || _shop.km2 || _shop.promotionNew)
-                            return _btnNextFrame.size.height-4;
+                            return [self buttonNextHeight]-4;
                         else
                         {
                             btnNext.hidden=true;
@@ -811,8 +787,12 @@
                         
                     case 6:
                     {
-                        float maxHeight=_shopUserContentFrame.size.height-_btnNextFrame.size.height-[SUUserCommentCell tableY]+SHOP_USER_ANIMATION_ALIGN_Y;
-                        return [SUUserCommentCell heightWithComments:_comments maxHeight:maxHeight];
+                        float height=[SUUserCommentCell heightWithShop:_shop sort:_sortComment];
+                        float minHeight=[self commentCellMaxHeight];
+
+                        height=MAX(height,minHeight);
+                        
+                        return height;
                     }
                         
                     default:

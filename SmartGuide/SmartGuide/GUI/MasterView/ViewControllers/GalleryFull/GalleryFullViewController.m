@@ -68,7 +68,7 @@
         
         [UIView animateWithDuration:DURATION_DEFAULT animations:^{
             self.view.alpha=1;
-            self.view.alphaView.alpha=0.8f;
+            self.view.alphaView.alpha=0.9f;
         }];
     }
     else
@@ -111,6 +111,11 @@
 }
 
 -(void)GMGridView:(GMGridView *)gridView didTapOnItemAtIndex:(NSInteger)position atTouchLocation:(CGPoint)touchLocation
+{
+    
+}
+
+-(void)GMGridView:(GMGridView *)gridView didTapOnItemAtIndex:(NSInteger)position
 {
     
 }

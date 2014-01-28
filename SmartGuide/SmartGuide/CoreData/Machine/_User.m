@@ -98,6 +98,19 @@
 	[self didChangeValueForKey:@"activationCode"];
 }
 
+- (NSNumber*)allowShareCommentFB {
+	[self willAccessValueForKey:@"allowShareCommentFB"];
+	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"allowShareCommentFB"];
+	[self didAccessValueForKey:@"allowShareCommentFB"];
+	return result;
+}
+
+- (void)setAllowShareCommentFB:(NSNumber*)value {
+	[self willChangeValueForKey:@"allowShareCommentFB"];
+	[self setPrimitiveValue:value forKey:@"allowShareCommentFB"];
+	[self didChangeValueForKey:@"allowShareCommentFB"];
+}
+
 - (NSString*)avatar {
 	[self willAccessValueForKey:@"avatar"];
 	NSString* result = (NSString*)[self primitiveValueForKey:@"avatar"];
