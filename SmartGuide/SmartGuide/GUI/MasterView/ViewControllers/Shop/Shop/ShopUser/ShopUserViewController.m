@@ -123,7 +123,10 @@
         
         if(y<rect.origin.y)
         {
-            [self scrollToRowAtIndexPath:SHOP_USER_USER_COMMENT_INDEX_PATH animate:true];
+            rect=[self rectForRowAtIndexPath:SHOP_USER_USER_COMMENT_INDEX_PATH];
+            rect.origin.y-=[self buttonNextHeight];
+            
+            [tableShopUser l_co_setY:rect.origin.y animate:true];
         }
     }
     else if([notification.name isEqualToString:UIKeyboardWillHideNotification])
@@ -349,10 +352,17 @@
 
 -(void) scrollToRowAtIndexPath:(NSIndexPath*) indexPath animate:(bool) animate
 {
+    CGRect rect=[self rectForRowAtIndexPath:indexPath];
+    
+    [tableShopUser l_co_setY:rect.origin.y animate:animate];
+}
+
+-(CGRect) rectForRowAtIndexPath:(NSIndexPath*) indexPath
+{
     CGRect rect=[tableShopUser rectForRowAtIndexPath:indexPath];
     rect.origin.y-=SHOP_USER_ANIMATION_ALIGN_Y;
     
-    [tableShopUser l_co_setY:rect.origin.y animate:animate];
+    return rect;
 }
 
 -(float) tableOffsetY
@@ -392,7 +402,7 @@
         
         if(userCommentCell)
         {
-            [userCommentCell tableDidScroll:tableShopUser cellRect:rect buttonNextHeight:[self buttonNextHeight]];
+            [userCommentCell tableDidScroll:tableShopUser cellRect:rect buttonNextHeight:[self buttonNextHeight]-2];
         }
         
         if(_isKeyboardShowed)

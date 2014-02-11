@@ -43,10 +43,10 @@
 {
     float y=tableUser.l_co_y-tableUser.l_v_y;
     
-    if(y>cellRect.origin.y)
+    if(y>cellRect.origin.y-buttonHeight)
     {
-        [self l_v_setY:y];
-        [table l_co_setY:y-cellRect.origin.y-table.contentInset.top];
+        [self l_v_setY:y+buttonHeight];
+        [table l_co_setY:y-cellRect.origin.y-table.contentInset.top+buttonHeight];
     }
     else
     {
