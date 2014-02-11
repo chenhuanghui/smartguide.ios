@@ -48,6 +48,7 @@
 +(float) heightWithShop:(Shop*) shop sort:(enum SORT_SHOP_COMMENT) sort;
 +(float) tableY;
 -(void) focus;
+-(void) clearInput;
 
 -(void) switchToNormailModeAnimate:(bool) animate duration:(float) duration;
 -(void) switchToEditingModeAnimate:(bool) animate duration:(float) duration;

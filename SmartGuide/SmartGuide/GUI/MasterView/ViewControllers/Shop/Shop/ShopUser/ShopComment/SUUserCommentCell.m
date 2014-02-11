@@ -328,6 +328,11 @@
     return true;
 }
 
+-(void)clearInput
+{
+    txt.text=@"";
+}
+
 @end
 
 @implementation UserCommentBGMidView

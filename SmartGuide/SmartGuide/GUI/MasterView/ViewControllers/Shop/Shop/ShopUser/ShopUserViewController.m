@@ -115,19 +115,15 @@
 {
     if([notification.name isEqualToString:UIKeyboardWillShowNotification])
     {
-        CGRect rect=[tableShopUser rectForRowAtIndexPath:SHOP_USER_USER_COMMENT_INDEX_PATH];
-        float height=tableShopUser.l_co_y+tableShopUser.l_v_h-rect.origin.y;
         float duration=[notification.userInfo floatForKey:UIKeyboardAnimationDurationUserInfoKey];
+        CGRect rect=[tableShopUser rectForRowAtIndexPath:SHOP_USER_USER_COMMENT_INDEX_PATH];
+        float y=[self tableOffsetY];
+        
         [userCommentCell switchToEditingModeAnimate:true duration:duration];
         
-        if(height<403)
+        if(y<rect.origin.y)
         {
-            rect.origin.y-=[self buttonNextHeight];
-            rect.size.height=shopNavi.l_v_h;
-
-            [UIView animateWithDuration:duration animations:^{
-                [tableShopUser scrollRectToVisible:rect animated:false];
-            }];
+            [self scrollToRowAtIndexPath:SHOP_USER_USER_COMMENT_INDEX_PATH animate:true];
         }
     }
     else if([notification.name isEqualToString:UIKeyboardWillHideNotification])
@@ -197,6 +193,8 @@
         
         if(ope.status==1)
         {
+            [userCommentCell endEditing:true];
+            [userCommentCell clearInput];
             userCommentCell.hidden=true;
             userCommentCell=nil;
             
@@ -257,9 +255,9 @@
 -(void) scrollToCommentCell:(bool) animate showKeyboard:(bool) isShowKeyboard
 {
     CGRect rect=[tableShopUser rectForRowAtIndexPath:SHOP_USER_USER_COMMENT_INDEX_PATH];
-    float height=tableShopUser.l_co_y+tableShopUser.l_v_h-rect.origin.y;
-    
-    if(height<403)
+    float y=[self tableOffsetY];
+
+    if(y<rect.origin.y)
     {
         rect.origin.y-=[self buttonNextHeight];
         rect.size.height=shopNavi.l_v_h;
@@ -285,7 +283,7 @@
         if(animate)
         {
             [UIView animateWithDuration:DURATION_DEFAULT animations:^{
-                [tableShopUser l_co_addY:-userCommentCell.table.l_co_y animate:false];
+                [tableShopUser l_co_addY:-userCommentCell.table.l_co_y-userCommentCell.table.contentInset.top animate:false];
             } completion:^(BOOL finished) {
                 if(isShowKeyboard)
                     [userCommentCell focus];
@@ -293,7 +291,7 @@
         }
         else
         {
-            [tableShopUser l_co_addY:-userCommentCell.table.l_co_y animate:false];
+            [tableShopUser l_co_addY:-userCommentCell.table.l_co_y-userCommentCell.table.contentInset.top animate:false];
             if(isShowKeyboard)
                 [userCommentCell focus];
         }

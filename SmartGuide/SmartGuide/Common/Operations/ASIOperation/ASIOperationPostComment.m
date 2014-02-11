@@ -75,12 +75,25 @@
         userComment.time=time;
         userComment.agreeStatus=@(0);
         
+        int sortOrder=0;
+        
         switch (sortComment) {
             case SORT_SHOP_COMMENT_TIME:
+                
+                if(shop.timeCommentsObjects.count>0)
+                    sortOrder=[[shop.timeCommentsObjects valueForKeyPath:[NSString stringWithFormat:@"@min.%@",ShopUserComment_SortOrder]] integerValue]-1;
+                
+                userComment.sortOrder=@(sortOrder);
                 [shop addTimeCommentsObject:userComment];
                 break;
                 
             case SORT_SHOP_COMMENT_TOP_AGREED:
+                
+                if(shop.topCommentsObjects.count>0)
+                    sortOrder=[[shop.topCommentsObjects valueForKeyPath:[NSString stringWithFormat:@"@min.%@",ShopUserComment_SortOrder]] integerValue]-1;
+                
+                userComment.sortOrder=@(sortOrder);
+                
                 [shop addTopCommentsObject:userComment];
                 break;
         }

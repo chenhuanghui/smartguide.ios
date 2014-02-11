@@ -107,7 +107,7 @@ static NSMutableDictionary *_dictPinShop=nil;
         for(NSDictionary *comment in array)
         {
             ShopUserComment *obj = [ShopUserComment makeWithJSON:comment];
-            
+
             obj.sortOrder=@(i++);
             
             [shop addTopCommentsObject:obj];
@@ -156,6 +156,11 @@ static NSMutableDictionary *_dictPinShop=nil;
 -(NSArray *) topCommentsObjects
 {
     return [[super topCommentsObjects] sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:ShopUserComment_SortOrder ascending:true]]];
+}
+
+-(NSArray *)timeCommentsObjects
+{
+    return [[super timeCommentsObjects] sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:ShopUserComment_SortOrder ascending:true]]];
 }
 
 -(NSArray *)userGalleriesObjects

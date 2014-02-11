@@ -918,6 +918,7 @@
 		9AEE6C58189022B20059B93C /* GalleryFullViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AEE6C56189022B20059B93C /* GalleryFullViewController.m */; };
 		9AEE6C59189022B20059B93C /* GalleryFullViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9AEE6C57189022B20059B93C /* GalleryFullViewController.xib */; };
 		9AEE83FC17FABD1500D92191 /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AEE83FB17FABD1500D92191 /* AddressBookUI.framework */; };
+		9AF94E7718A9DE21002529BE /* KeyboardUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AF94E7618A9DE21002529BE /* KeyboardUtility.m */; };
 		9AFC69D117F2C0F500177476 /* OperationNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AFC69D017F2C0F500177476 /* OperationNotifications.m */; };
 		9AFF5CB3181EBC4200F159F0 /* SGNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AFF5CB2181EBC4200F159F0 /* SGNavigationController.m */; };
 		A90ED8C917C1C701003D2D93 /* ButtonImageRight.m in Sources */ = {isa = PBXBuildFile; fileRef = A90ED8C817C1C701003D2D93 /* ButtonImageRight.m */; };
@@ -2170,6 +2171,8 @@
 		9AEE6C56189022B20059B93C /* GalleryFullViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GalleryFullViewController.m; sourceTree = "<group>"; };
 		9AEE6C57189022B20059B93C /* GalleryFullViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GalleryFullViewController.xib; sourceTree = "<group>"; };
 		9AEE83FB17FABD1500D92191 /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
+		9AF94E7518A9DE21002529BE /* KeyboardUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyboardUtility.h; sourceTree = "<group>"; };
+		9AF94E7618A9DE21002529BE /* KeyboardUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeyboardUtility.m; sourceTree = "<group>"; };
 		9AFC69CF17F2C0F500177476 /* OperationNotifications.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OperationNotifications.h; path = ../ASIOperation/OperationNotifications.h; sourceTree = "<group>"; };
 		9AFC69D017F2C0F500177476 /* OperationNotifications.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OperationNotifications.m; path = ../ASIOperation/OperationNotifications.m; sourceTree = "<group>"; };
 		9AFF5CB1181EBC4200F159F0 /* SGNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGNavigationController.h; sourceTree = "<group>"; };
@@ -3928,15 +3931,6 @@
 				9A32F42E1843486F00704D26 /* AlphaView */,
 				9A32F42A1843485300704D26 /* ODRefreshControl */,
 				9A313AB018430B1A002DDA80 /* Template */,
-				A9A505A7178E8B8400F27E18 /* AlertView.h */,
-				A9A505A8178E8B8400F27E18 /* AlertView.m */,
-				A98198B5178D3FB30009FCB6 /* Utility.h */,
-				A98198B6178D3FB30009FCB6 /* Utility.m */,
-				A98198D7178D5EDC0009FCB6 /* Constant.h */,
-				A961416A17A02E8800D30375 /* Flags.h */,
-				A961416B17A02E8800D30375 /* Flags.m */,
-				9A7E55B0183CEB88006D1798 /* ImageManager.h */,
-				9A7E55B1183CEB88006D1798 /* ImageManager.m */,
 				9A7E5584183CEB30006D1798 /* SDWebImage */,
 				9A692ADD183933E10066F60F /* ACTimeScroller */,
 				A960BD1F1793FE7400F7F928 /* Operations */,
@@ -3956,6 +3950,17 @@
 				9AC5380F186855AC009A000B /* LabelURL.m */,
 				9AC53811186855B9009A000B /* LabelURLTopText.h */,
 				9AC53812186855B9009A000B /* LabelURLTopText.m */,
+				9AF94E7518A9DE21002529BE /* KeyboardUtility.h */,
+				9AF94E7618A9DE21002529BE /* KeyboardUtility.m */,
+				A9A505A7178E8B8400F27E18 /* AlertView.h */,
+				A9A505A8178E8B8400F27E18 /* AlertView.m */,
+				A98198B5178D3FB30009FCB6 /* Utility.h */,
+				A98198B6178D3FB30009FCB6 /* Utility.m */,
+				A98198D7178D5EDC0009FCB6 /* Constant.h */,
+				A961416A17A02E8800D30375 /* Flags.h */,
+				A961416B17A02E8800D30375 /* Flags.m */,
+				9A7E55B0183CEB88006D1798 /* ImageManager.h */,
+				9A7E55B1183CEB88006D1798 /* ImageManager.m */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -5378,6 +5383,7 @@
 				9ACAED2C187270D10025B027 /* HomeViewController.m in Sources */,
 				A9BF9471178FA7E700EF7E5F /* AFNetworkActivityIndicatorManager.m in Sources */,
 				A9BF9472178FA7E700EF7E5F /* AFPropertyListRequestOperation.m in Sources */,
+				9AF94E7718A9DE21002529BE /* KeyboardUtility.m in Sources */,
 				9A3E767A18532BC200F596C1 /* UserInfomationViewController.m in Sources */,
 				9A313AB318430B1A002DDA80 /* SGTableTemplate.m in Sources */,
 				A9BF9473178FA7E700EF7E5F /* AFURLConnectionOperation.m in Sources */,
