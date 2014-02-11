@@ -30,18 +30,23 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     </imageView>
                     <tableView clipsSubviews="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="BSm-TN-SA8">
-                        <rect key="frame" x="9" y="61" width="273" height="61"/>
+                        <rect key="frame" x="8" y="61" width="272" height="61"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                        <inset key="contentInset" minX="0.0" minY="60" maxX="0.0" maxY="0.0"/>
-                        <inset key="scrollIndicatorInsets" minX="0.0" minY="50" maxX="0.0" maxY="0.0"/>
+                        <inset key="contentInset" minX="0.0" minY="60" maxX="0.0" maxY="-60"/>
+                        <inset key="scrollIndicatorInsets" minX="0.0" minY="60" maxX="0.0" maxY="-60"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <integer key="value" value="2"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
                         <connections>
                             <outlet property="dataSource" destination="kGe-I5-iXb" id="aDY-MB-RKU"/>
                             <outlet property="delegate" destination="kGe-I5-iXb" id="wmJ-6R-U49"/>
                         </connections>
                     </tableView>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_blur_comment.png" id="BG0-q4-kCB">
-                        <rect key="frame" x="8" y="61" width="272" height="80"/>
+                        <rect key="frame" x="8" y="61" width="272" height="70"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     </imageView>
                     <view hidden="YES" contentMode="scaleToFill" id="Y2u-kh-psR" userLabel="animationView">

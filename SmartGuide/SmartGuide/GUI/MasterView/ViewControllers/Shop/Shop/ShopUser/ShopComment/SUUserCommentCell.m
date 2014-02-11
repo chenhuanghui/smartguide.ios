@@ -41,13 +41,12 @@
 
 -(void)tableDidScroll:(UITableView *)tableUser cellRect:(CGRect)cellRect buttonNextHeight:(float)buttonHeight
 {
-    return;
-    float diff=cellRect.origin.y-(tableUser.l_co_y-tableUser.l_v_y+buttonHeight);
+    float y=tableUser.l_co_y-tableUser.l_v_y;
     
-    if(diff<0)
+    if(y>cellRect.origin.y)
     {
-        [self l_v_setY:cellRect.origin.y-diff];
-        [table l_co_setY:table.contentInset.top-diff];
+        [self l_v_setY:y];
+        [table l_co_setY:y-cellRect.origin.y-table.contentInset.top];
     }
     else
     {
@@ -178,7 +177,8 @@
         btnShare.hidden=false;
         [UIView animateWithDuration:duration animations:^{
            
-            [bgView l_v_setH:SU_USER_COMMENT_CELL_BOTTOM_EDIT_Y-SU_USER_COMMENT_CELL_BOTTOM_NORMAL_Y];
+            float h=7;
+            [bgView l_v_setH:SU_USER_COMMENT_CELL_BOTTOM_EDIT_Y-SU_USER_COMMENT_CELL_BOTTOM_NORMAL_Y+h];
             [typeCommentBot l_v_setY:SU_USER_COMMENT_CELL_BOTTOM_EDIT_Y];
             
             [btnSort l_v_setY:containButtonView.l_v_h+btnSort.l_v_h];
@@ -199,7 +199,8 @@
     }
     else
     {
-        [bgView l_v_setH:SU_USER_COMMENT_CELL_BOTTOM_EDIT_Y-SU_USER_COMMENT_CELL_BOTTOM_NORMAL_Y];
+        float h=7;
+        [bgView l_v_setH:SU_USER_COMMENT_CELL_BOTTOM_EDIT_Y-SU_USER_COMMENT_CELL_BOTTOM_NORMAL_Y+h];
         [typeCommentBot l_v_setY:SU_USER_COMMENT_CELL_BOTTOM_EDIT_Y];
         [btnSort l_v_setY:containButtonView.l_v_h+btnSort.l_v_h];
         [btnShare l_v_setY:19];

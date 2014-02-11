@@ -14,6 +14,7 @@
 @interface ShopUserCommentCell : UITableViewCell<ASIOperationPostDelegate>
 {
     __weak IBOutlet UIImageView *lineBot;
+    __weak IBOutlet UIImageView *lineTop;
     __weak IBOutlet UIImageView *imgvAvatar;
     __weak IBOutlet UILabel *lblUsername;
     __weak IBOutlet UILabel *lblComment;

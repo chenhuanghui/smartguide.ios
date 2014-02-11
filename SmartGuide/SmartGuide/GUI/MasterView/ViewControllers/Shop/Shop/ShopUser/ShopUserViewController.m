@@ -118,13 +118,13 @@
         CGRect rect=[tableShopUser rectForRowAtIndexPath:SHOP_USER_USER_COMMENT_INDEX_PATH];
         float height=tableShopUser.l_co_y+tableShopUser.l_v_h-rect.origin.y;
         float duration=[notification.userInfo floatForKey:UIKeyboardAnimationDurationUserInfoKey];
+        [userCommentCell switchToEditingModeAnimate:true duration:duration];
         
         if(height<403)
         {
             rect.origin.y-=[self buttonNextHeight];
             rect.size.height=shopNavi.l_v_h;
-            
-            [userCommentCell switchToEditingModeAnimate:true duration:duration];
+
             [UIView animateWithDuration:duration animations:^{
                 [tableShopUser scrollRectToVisible:rect animated:false];
             }];

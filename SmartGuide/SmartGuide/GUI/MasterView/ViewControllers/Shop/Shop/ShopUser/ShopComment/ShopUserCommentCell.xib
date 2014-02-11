@@ -14,6 +14,10 @@
                 <rect key="frame" x="0.0" y="0.0" width="273" height="79"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="line_comment.png" id="3Xk-OH-Y5g">
+                        <rect key="frame" x="10" y="0.0" width="257" height="1"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    </imageView>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="nM6-mh-bYL">
                         <rect key="frame" x="6" y="9" width="44" height="44"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -83,6 +87,7 @@
                 <outlet property="lblTime" destination="Oej-cI-3pc" id="5xd-kh-9Rs"/>
                 <outlet property="lblUsername" destination="qWs-yE-nzI" id="huQ-97-FeH"/>
                 <outlet property="lineBot" destination="JCO-uo-rcY" id="oCU-bh-Lqm"/>
+                <outlet property="lineTop" destination="3Xk-OH-Y5g" id="bBi-Sz-MwF"/>
             </connections>
         </tableViewCell>
     </objects>

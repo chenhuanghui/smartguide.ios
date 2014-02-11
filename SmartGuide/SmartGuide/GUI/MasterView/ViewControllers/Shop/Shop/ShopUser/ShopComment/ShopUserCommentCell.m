@@ -42,14 +42,17 @@
     switch (cellPos) {
         case CELL_POSITION_TOP:
             lineBot.hidden=false;
+            lineTop.hidden=false;
             break;
             
         case CELL_POSITION_MIDDLE:
             lineBot.hidden=false;
+            lineTop.hidden=true;
             break;
             
         case CELL_POSITION_BOTTOM:
             lineBot.hidden=true;
+            lineTop.hidden=true;
             break;
     }
 }
