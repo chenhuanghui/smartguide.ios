@@ -171,6 +171,9 @@
     }
     else if([operation isKindOfClass:[ASIOperationShopComment class]])
     {
+        self.view.userInteractionEnabled=true;
+        [detailView removeLoading];
+        
         ASIOperationShopComment *ope=(ASIOperationShopComment*)operation;
         
         _canLoadMoreComment=ope.comments.count==10;
@@ -661,10 +664,10 @@
     [UIView animateWithDuration:0.3f animations:^{
         [self scrollToCommentCell:false showKeyboard:false];
     } completion:^(BOOL finished) {
-        self.view.userInteractionEnabled=true;
         _sortComment=sort;
         _pageComment=-1;
         
+        [detailView showLoading];
         [self requestComments];
     }];
 }

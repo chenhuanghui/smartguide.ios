@@ -58,6 +58,11 @@
                         <rect key="frame" x="19" y="28" width="253" height="57"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     </imageView>
+                    <view autoresizesSubviews="NO" userInteractionEnabled="NO" contentMode="scaleToFill" id="hqN-HG-Ite">
+                        <rect key="frame" x="0.0" y="0.0" width="290" height="141"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </view>
                     <view contentMode="scaleToFill" id="VMv-3j-xix" customClass="HPGrowingTextView">
                         <rect key="frame" x="24" y="33" width="244" height="45"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -137,6 +142,7 @@
                 <outlet property="containButtonView" destination="HRs-gT-9Rb" id="Wlu-ae-qai"/>
                 <outlet property="imgvAvatar" destination="NRw-wE-4MB" id="2kr-2Y-Roa"/>
                 <outlet property="table" destination="BSm-TN-SA8" id="DaF-8U-Hdi"/>
+                <outlet property="touchView" destination="hqN-HG-Ite" id="Dm9-wE-O3k"/>
                 <outlet property="txt" destination="VMv-3j-xix" id="uC7-Rz-8sp"/>
                 <outlet property="typeCommentBot" destination="oJx-Ko-S1b" id="tps-3Q-LHh"/>
             </connections>

@@ -141,6 +141,14 @@
     txt.backgroundColor=[UIColor clearColor];
     txt.placeholder=@"Nhập nhận xét của bạn....";
     txt.keyboardType=UIKeyboardTypeDefault;
+    
+    UITapGestureRecognizer *tap=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapTouchView:)];
+    [touchView addGestureRecognizer:tap];
+}
+
+-(void) tapTouchView:(UITapGestureRecognizer*) tap
+{
+    [self endEditing:true];
 }
 
 +(float)tableY
@@ -214,6 +222,8 @@
         btnSort.hidden=true;
         btnSort.alpha=0;
     }
+    
+    touchView.userInteractionEnabled=true;
 }
 
 -(void) switchToNormailModeAnimate:(bool) animate duration:(float) duration
@@ -275,6 +285,8 @@
         animationView.alpha=0;
         animationView.hidden=true;
     }
+    
+    touchView.userInteractionEnabled=false;
 }
 
 - (IBAction)btnSortTouchUpInside:(id)sender {

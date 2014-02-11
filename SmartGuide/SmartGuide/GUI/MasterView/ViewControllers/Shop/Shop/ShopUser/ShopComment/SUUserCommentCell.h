@@ -25,6 +25,7 @@
 @interface SUUserCommentCell : UITableViewCell<UITableViewDataSource,UITableViewDelegate,UIActionSheetDelegate,HPGrowingTextViewDelegate>
 {
     __weak IBOutlet UITableView *table;
+    __weak IBOutlet UIView *touchView;
     __weak UITapGestureRecognizer *_tapTable;
     __weak IBOutlet UserCommentBGMidView *bgView;
     __weak IBOutlet HPGrowingTextView *txt;
