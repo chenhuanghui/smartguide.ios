@@ -41,7 +41,7 @@
                                         <rect key="frame" x="7" y="6" width="276" height="92"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
-                                            <scrollView multipleTouchEnabled="YES" contentMode="scaleToFill" id="uIB-WV-sa8" customClass="GMGridView">
+                                            <scrollView multipleTouchEnabled="YES" contentMode="scaleToFill" id="uIB-WV-sa8" customClass="UserGalleryGridView">
                                                 <rect key="frame" x="0.0" y="0.0" width="92" height="92"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>

@@ -68,7 +68,7 @@ static NSString * const kClientId = @"816218358288-msr055u6pvnlqep605ri3lu8tt5ev
 #define API_GET_REWARD @"user/get/promotion2"
 #define API_SGP_TO_REWARD @"user/get/promotion1/award"
 #define API_SG_TO_REWARD @"reward/receive"
-#define API_UPLOAD_USER_GALLERY @"images/upload"
+#define API_USER_GALLERY_POST @"user/postpicture"
 #define API_SHOP_PROMOTION_DETAIL @"shop/promotion/get"
 #define API_USER_COLLECTION @"user/collection"
 #define API_GET_ADS @"ads/get"

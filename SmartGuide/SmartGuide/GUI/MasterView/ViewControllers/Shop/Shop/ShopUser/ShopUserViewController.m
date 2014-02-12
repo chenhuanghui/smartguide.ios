@@ -886,9 +886,17 @@
 
 -(void)userGalleryTouchedMakePicture:(SUUserGalleryCell *)cell
 {
-    ShopCameraViewController *vc=[ShopCameraViewController new];
+    ShopCameraViewController *vc=[[ShopCameraViewController alloc] initWithShop:_shop];
+    vc.delegate=self;
     
     [self pushViewController:vc];
+}
+
+-(void)shopCameraControllerDidUploadPhoto:(ShopCameraViewController *)controller
+{
+    [self btnBackTouchUpInside:btnBack];
+    userGalleryCell=nil;
+    [tableShopUser reloadRowsAtIndexPaths:@[SHOP_USER_USER_GALLERY_INDEX_PATH] withRowAnimation:UITableViewRowAnimationNone];
 }
 
 -(void)userGalleryTouchedGallery:(SUUserGalleryCell *)cell gallery:(ShopUserGallery *)gallery
@@ -914,6 +922,12 @@
 
 -(IBAction) btnBackTouchUpInside:(id)sender
 {
+    for(SGViewController *vc in shopNavi.viewControllers)
+    {
+        if(![vc navigationWillBack])
+            return;
+    }
+    
     [btnBack startHideAnimateOnCompleted:^(UIButton *btn) {
         [shopNavi popViewControllerAnimated:true];
         btnBack.hidden=true;

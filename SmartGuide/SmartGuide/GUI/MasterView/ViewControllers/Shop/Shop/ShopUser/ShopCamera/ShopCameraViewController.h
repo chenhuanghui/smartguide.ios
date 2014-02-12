@@ -11,9 +11,22 @@
 #import "ShopCameraTakeViewController.h"
 #import "ShopCameraPostViewController.h"
 
-@interface ShopCameraViewController : SGViewController<ShopCameraTakeDelegate>
+@class ShopCameraViewController;
+
+@protocol ShopCameraControllerDelegate <SGViewControllerDelegate>
+
+-(void) shopCameraControllerDidUploadPhoto:(ShopCameraViewController*) controller;
+
+@end
+
+@interface ShopCameraViewController : SGViewController<ShopCameraTakeDelegate,ShopCameraPostDelegae>
 {
     __weak SGNavigationController *cameraNavi;
+    __weak Shop *_shop;
 }
+
+-(ShopCameraViewController*) initWithShop:(Shop*) shop;
+
+@property (nonatomic, weak) id<ShopCameraControllerDelegate> delegate;
 
 @end

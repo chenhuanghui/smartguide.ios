@@ -170,3 +170,12 @@
 }
 
 @end
+
+@implementation UserGalleryGridView
+
+-(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
+{
+    return false;
+}
+
+@end

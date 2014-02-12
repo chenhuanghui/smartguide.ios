@@ -2,7 +2,6 @@
 #import "Utility.h"
 
 @implementation ShopUserGallery
-@synthesize imagePosed;
 
 +(ShopUserGallery *)makeWithJSON:(NSDictionary *)data
 {

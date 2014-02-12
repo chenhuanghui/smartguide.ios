@@ -105,4 +105,9 @@
     return (SGNavigationController*)self.navigationController;
 }
 
+-(bool)navigationWillBack
+{
+    return true;
+}
+
 @end

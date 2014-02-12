@@ -15,7 +15,7 @@
 {
     [super awakeFromNib];
     
-    self.imageView.animationDuration=0.4f;
+    self.imageView.animationDuration=0.2f;
     self.imageView.animationRepeatCount=1;
     
     [self setDefaultImage:[UIImage imageNamed:@"button_back_10.png"] highlightImage:[UIImage imageNamed:@"button_back_10.png"]];

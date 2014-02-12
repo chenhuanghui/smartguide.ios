@@ -11,7 +11,7 @@
 #import "ShopUserGallery.h"
 #import "GMGridView.h"
 
-@class SUUserGalleryCell;
+@class SUUserGalleryCell,UserGalleryGridView;
 
 @protocol UserGalleryDelegate <NSObject>
 
@@ -23,7 +23,7 @@
 @interface SUUserGalleryCell : UITableViewCell<GMGridViewActionDelegate,GMGridViewDataSource,UIScrollViewDelegate>
 {
     __weak Shop* _shop;
-    __weak IBOutlet GMGridView *grid;
+    __weak IBOutlet UserGalleryGridView *grid;
     __weak IBOutlet UIImageView *imgvFirsttime;
     __weak IBOutlet UIButton *btnLeft;
     __weak IBOutlet UIButton *btnRight;
@@ -38,5 +38,9 @@
 +(NSString *)reuseIdentifier;
 
 @property (nonatomic, weak) id<UserGalleryDelegate> delegate;
+
+@end
+
+@interface UserGalleryGridView : GMGridView<UIGestureRecognizerDelegate>
 
 @end

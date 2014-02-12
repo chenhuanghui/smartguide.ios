@@ -7,6 +7,11 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ShopCameraPostViewController">
             <connections>
+                <outlet property="btnSend" destination="f44-z2-0Di" id="MI1-BW-4Su"/>
+                <outlet property="btnShare" destination="GNC-2Z-j4F" id="xdh-2b-s3n"/>
+                <outlet property="imgvBG" destination="ARD-BY-wET" id="tnx-ht-d5y"/>
+                <outlet property="imgvPhoto" destination="tpj-jV-isr" id="Dtq-jm-mNh"/>
+                <outlet property="txt" destination="FyK-KU-Ysy" id="O4t-YU-DHC"/>
                 <outlet property="view" destination="1" id="3"/>
             </connections>
         </placeholder>
@@ -15,16 +20,90 @@
             <rect key="frame" x="0.0" y="0.0" width="290" height="431"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="II-3-Detail-CameraPost.jpg" id="rS3-MM-jcW">
-                    <rect key="frame" x="-15" y="-29" width="320" height="480"/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="ARD-BY-wET">
+                    <rect key="frame" x="0.0" y="0.0" width="290" height="229"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 </imageView>
+                <view alpha="0.20000000000000001" contentMode="scaleToFill" id="QLX-5o-Wue">
+                    <rect key="frame" x="0.0" y="0.0" width="290" height="431"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                </view>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="blur_photoupload.png" id="i91-wT-5La">
+                    <rect key="frame" x="0.0" y="41" width="290" height="83"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                </imageView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="tpj-jV-isr">
+                    <rect key="frame" x="17" y="12" width="102" height="102"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                </imageView>
+                <imageView autoresizesSubviews="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="frame_camera_photo.png" id="RAP-bn-X1U">
+                    <rect key="frame" x="11" y="6" width="114" height="114"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                </imageView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="f44-z2-0Di">
+                    <rect key="frame" x="165" y="28" width="81" height="47"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <state key="normal" image="button_send.png">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="btnSendTouchUpInside:" destination="-1" eventType="touchUpInside" id="3Qd-RG-pAM"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="GNC-2Z-j4F">
+                    <rect key="frame" x="145" y="76" width="95" height="22"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <state key="normal" image="button_Facebook.png">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="btnShareTouchUpInside:" destination="-1" eventType="touchUpInside" id="6pI-PA-kco"/>
+                    </connections>
+                </button>
+                <view contentMode="scaleToFill" id="IQt-yw-1Ps">
+                    <rect key="frame" x="0.0" y="124" width="290" height="307"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" red="0.92156862745098034" green="0.92156862745098034" blue="0.92156862745098034" alpha="1" colorSpace="calibratedRGB"/>
+                </view>
+                <view contentMode="scaleToFill" id="3nI-gu-MBS">
+                    <rect key="frame" x="18" y="124" width="253" height="105"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_typecomment_head.png" id="vtp-cD-BEa">
+                            <rect key="frame" x="0.0" y="0.0" width="253" height="57"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        </imageView>
+                        <view autoresizesSubviews="NO" contentMode="redraw" id="qFd-yi-L0F" customClass="UserCommentBGMidView">
+                            <rect key="frame" x="0.0" y="57" width="253" height="41"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        </view>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_typecomment_bottom.png" id="Cn9-8N-Xxz">
+                            <rect key="frame" x="0.0" y="98" width="253" height="7"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        </imageView>
+                        <view contentMode="scaleToFill" id="FyK-KU-Ysy" customClass="HPGrowingTextView">
+                            <rect key="frame" x="5" y="6" width="243" height="45"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
         </view>
     </objects>
     <resources>
-        <image name="II-3-Detail-CameraPost.jpg" width="320" height="480"/>
+        <image name="bg_typecomment_bottom.png" width="253" height="7"/>
+        <image name="bg_typecomment_head.png" width="253" height="57"/>
+        <image name="blur_photoupload.png" width="290" height="83"/>
+        <image name="button_Facebook.png" width="95" height="22"/>
+        <image name="button_send.png" width="81" height="47"/>
+        <image name="frame_camera_photo.png" width="114" height="114"/>
     </resources>
 </document>

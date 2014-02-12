@@ -37,6 +37,11 @@
         [table l_v_setH:height];
     
     [imgvAvatar loadAvatarWithURL:userAvatar()];
+ 
+    if(currentUser().allowShareCommentFB.boolValue)
+        [btnShare setDefaultImage:[UIImage imageNamed:@"button_Facebook.png"] highlightImage:[UIImage imageNamed:@"button_facebook_hidden.png"]];
+    else
+        [btnShare setDefaultImage:[UIImage imageNamed:@"button_facebook_hidden.png"] highlightImage:[UIImage imageNamed:@"button_Facebook.png"]];
 }
 
 -(void)tableDidScroll:(UITableView *)tableUser cellRect:(CGRect)cellRect buttonNextHeight:(float)buttonHeight
@@ -319,6 +324,11 @@
     currentUser().allowShareCommentFB=@(!currentUser().allowShareCommentFB.boolValue);
     [[DataManager shareInstance] save];
 
+    if(currentUser().allowShareCommentFB.boolValue)
+        [btnShare setDefaultImage:[UIImage imageNamed:@"button_Facebook.png"] highlightImage:[UIImage imageNamed:@"button_Facebook_hidden.png"]];
+    else
+        [btnShare setDefaultImage:[UIImage imageNamed:@"button_Facebook_hidden.png"] highlightImage:[UIImage imageNamed:@"button_Facebook.png"]];
+    
     if(currentUser().allowShareCommentFB.boolValue)
     {
         btnShare.userInteractionEnabled=false;

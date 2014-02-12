@@ -42,6 +42,8 @@ void makePhoneCall(NSString* phone);
 int random_int(int from, int to);
 NSString* sortList(enum SORT_LIST sort);
 
+NSString *documentPath();
+
 @interface Utility : NSObject
 
 +(CGRect) centerPinWithFrameAnnotation:(CGRect) rectAnn framePin:(CGRect) rectPin;
@@ -288,6 +290,7 @@ NSString* sortList(enum SORT_LIST sort);
 - (BOOL)hasAlpha;
 - (UIImage *)imageWithAlpha;
 - (UIImage *)transparentBorderImage:(NSUInteger)borderSize;
+- (UIImage*) blur;
 
 @end
 

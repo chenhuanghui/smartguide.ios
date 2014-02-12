@@ -7,6 +7,9 @@
 //
 
 #import "SGViewController.h"
+#import "HPGrowingTextView.h"
+#import "ASIOperationUploadUserGallery.h"
+#import "Shop.h"
 
 @class ShopCameraPostViewController;
 
@@ -16,8 +19,21 @@
 
 @end
 
-@interface ShopCameraPostViewController : SGViewController
+@interface ShopCameraPostViewController : SGViewController<HPGrowingTextViewDelegate,ASIOperationPostDelegate>
+{
+    __weak IBOutlet UIImageView *imgvBG;
+    __weak IBOutlet UIImageView *imgvPhoto;
+    __weak IBOutlet UIButton *btnSend;
+    __weak IBOutlet UIButton *btnShare;
+    __weak IBOutlet HPGrowingTextView *txt;
+    
+    UIImage *_img;
+    ASIOperationUploadUserGallery *_operation;
+    __weak Shop *_shop;
+}
 
--(ShopCameraPostViewController*) initWithImage:(UIImage*) image;
+-(ShopCameraPostViewController*) initWithShop:(Shop*) shop image:(UIImage*) image;
+
+@property (nonatomic, weak) id<ShopCameraPostDelegae> delegate;
 
 @end

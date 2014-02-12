@@ -28,7 +28,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    UIImagePickerController *picker=[[UIImagePickerController alloc] init];
+    picker=[[UIImagePickerController alloc] init];
     picker.delegate=self;
 
     picker.sourceType=UIImagePickerControllerSourceTypeCamera;
@@ -39,10 +39,28 @@
     
     [picker l_v_setS:self.l_v_s];
     
-    [self presentModalViewController:picker animated:false];
-    picker.cameraOverlayView=self.view;
+    [self.view insertSubview:picker.view atIndex:0];
     
     camera=picker;
+    
+    [self makeFlashStatus];
+}
+
+-(void) makeFlashStatus
+{
+    switch (picker.cameraFlashMode) {
+        case UIImagePickerControllerCameraFlashModeAuto:
+            lblFlashStatus.text=@"Auto";
+            break;
+            
+        case UIImagePickerControllerCameraFlashModeOff:
+            lblFlashStatus.text=@"Off";
+            break;
+            
+        case UIImagePickerControllerCameraFlashModeOn:
+            lblFlashStatus.text=@"On";
+            break;
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -53,12 +71,22 @@
 
 - (IBAction)btnTakePictureTouchUpInside:(id)sender {
     [camera takePicture];
-    
-    [self.delegate shopCameraTakeDidCapture:self image:nil];
 }
 
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
+    UIImage *img=info[UIImagePickerControllerOriginalImage];
+    
+    CGSize size=img.size;
+    float hdSize=2073600;
+    float scale=hdSize/(size.width*size.height);
+    
+    size.width*=scale;
+    size.height*=scale;
+
+    img=[img resizedImage:size interpolationQuality:kCGInterpolationHigh];
+    
+    [self.delegate shopCameraTakeDidCapture:self image:img];
 }
 
 - (IBAction)btnSwitchCameraTouchUpInside:(id)sender {
@@ -74,18 +102,21 @@
 }
 
 - (IBAction)btnFlashTouchUpInside:(id)sender {
+
     switch (camera.cameraFlashMode) {
         case UIImagePickerControllerCameraFlashModeOn:
             camera.cameraFlashMode=UIImagePickerControllerCameraFlashModeOff;
             break;
             
         case UIImagePickerControllerCameraFlashModeOff:
-            camera.cameraFlashMode=UIImagePickerControllerCameraFlashModeOn;
+            camera.cameraFlashMode=UIImagePickerControllerCameraFlashModeAuto;
             break;
             
         case UIImagePickerControllerCameraFlashModeAuto:
-            camera.cameraFlashMode=UIImagePickerControllerCameraFlashModeOff;
+            camera.cameraFlashMode=UIImagePickerControllerCameraFlashModeOn;
     }
+    
+    [self makeFlashStatus];
 }
 
 @end

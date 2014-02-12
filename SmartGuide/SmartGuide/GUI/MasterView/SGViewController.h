@@ -39,7 +39,8 @@
 -(NSArray*) registerNotifications;
 -(void) receiveNotification:(NSNotification*) notification;
 -(SGNavigationController*) sgNavigationController;
+-(bool) navigationWillBack;
 
-@property (nonatomic, assign) id<SGViewControllerDelegate> delegate;
+@property (nonatomic, weak) id<SGViewControllerDelegate> delegate;
 
 @end

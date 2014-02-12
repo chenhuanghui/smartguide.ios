@@ -13,12 +13,14 @@
 @end
 
 @implementation ShopCameraViewController
+@synthesize delegate;
 
-- (id)init
+-(ShopCameraViewController *)initWithShop:(Shop *)shop
 {
     self = [super initWithNibName:@"ShopCameraViewController" bundle:nil];
     if (self) {
         // Custom initialization
+        _shop=shop;
     }
     return self;
 }
@@ -42,16 +44,32 @@
 
 -(void)shopCameraTakeDidCapture:(ShopCameraTakeViewController *)controller image:(UIImage *)image
 {
-    ShopCameraPostViewController *vc=[[ShopCameraPostViewController alloc] initWithImage:image];
+    ShopCameraPostViewController *vc=[[ShopCameraPostViewController alloc] initWithShop:_shop image:image];
     vc.delegate=self;
     
     [cameraNavi pushViewController:vc animated:true];
+}
+
+-(void)shopCameraControllerDidSend:(ShopCameraPostViewController *)controller
+{
+    [self.delegate shopCameraControllerDidUploadPhoto:self];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(bool)navigationWillBack
+{
+    if([cameraNavi.visibleViewController isKindOfClass:[ShopCameraPostViewController class]])
+    {
+        [cameraNavi popViewControllerAnimated:true];
+        return false;
+    }
+    
+    return true;
 }
 
 @end
