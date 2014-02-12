@@ -153,11 +153,20 @@
  
     int idShop=_shop.idShop.integerValue;
     int willLove=_shop.enumLoveStatus==LOVE_STATUS_LOVED?false:true;
+    NSString *numOfLove=@"";
     
     if(willLove)
-        [buttonLoveView love:true];
+    {
+        numOfLove=[NSNumberFormatter numberFromNSNumber:@(_shop.totalLove.integerValue+1)];
+        [buttonLoveView setNumOfLove:numOfLove];
+        [buttonLoveView love:true ];
+    }
     else
+    {
+        numOfLove=[NSNumberFormatter numberFromNSNumber:@(_shop.totalLove.integerValue-1)];
+        [buttonLoveView setNumOfLove:numOfLove];
         [buttonLoveView unlove:true];
+    }
     
     _operationLoveShop=[[ASIOperationLoveShop alloc] initWithIDShop:idShop userLat:userLat() userLng:userLng() isLove:willLove];
     _operationLoveShop.delegatePost=self;

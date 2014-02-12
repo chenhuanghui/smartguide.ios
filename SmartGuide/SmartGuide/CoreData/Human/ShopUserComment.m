@@ -34,6 +34,7 @@
     obj.comment=[NSString stringWithStringDefault:data[@"comment"]];
     obj.avatar=[NSString stringWithStringDefault:data[@"avatar"]];
     obj.numOfAgree=[NSString stringWithString:data[@"numOfAgree"]];
+    obj.totalAgree=[NSNumber numberWithObject:data[@"totalAgree"]];
     obj.time=[NSString stringWithStringDefault:data[@"time"]];
     obj.agreeStatus=[NSNumber numberWithObject:data[@"agreeStatus"]];
     

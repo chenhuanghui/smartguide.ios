@@ -37,14 +37,9 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)qr:(id)sender {
-    [self.delegate qrcodeControllerRequestClose:self];
-}
-
 -(void)setContainView:(UIView *)_containView
 {
-    containView=_containView;
-    
+    containView=_containView;   
     containViewFrame=containView.frame;
 }
 

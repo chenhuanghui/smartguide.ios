@@ -64,6 +64,8 @@
     
     [displayLoadingView showLoading];
     displayLoadingView.loadingView.backgroundView.backgroundColor=self.view.backgroundColor;
+    
+    [self requestShopUserWithIDShop:1];
 }
 
 -(void) requestNewFeed
@@ -483,6 +485,18 @@
             [qrView l_v_setY:_qrFrame.origin.y];
         }
     }
+}
+
+- (IBAction)btnShowQRCodeTouchUpInside:(id)sender {
+    [self showQRCodeWithContorller:self inView:self.view];
+}
+
+-(void)qrcodeControllerRequestClose:(SGQRCodeViewController *)controller
+{
+    
+}
+
+- (IBAction)btnHideQRCodeTouchUpInside:(id)sender {
 }
 
 @end

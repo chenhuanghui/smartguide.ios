@@ -95,6 +95,9 @@
                             <state key="normal" image="button_scan.png">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
+                            <connections>
+                                <action selector="btnShowQRCodeTouchUpInside:" destination="-1" eventType="touchUpInside" id="KK0-y6-SRd"/>
+                            </connections>
                         </button>
                         <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="top" lineBreakMode="middleTruncation" id="OIS-pB-zut">
                             <rect key="frame" x="0.0" y="56" width="320" height="56"/>
@@ -103,6 +106,9 @@
                             <state key="normal" image="button_scan_small.png">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
+                            <connections>
+                                <action selector="btnHideQRCodeTouchUpInside:" destination="-1" eventType="touchUpInside" id="XTz-PX-ust"/>
+                            </connections>
                         </button>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>

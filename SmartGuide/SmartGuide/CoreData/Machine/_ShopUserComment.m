@@ -199,6 +199,19 @@
 	[self didChangeValueForKey:@"time"];
 }
 
+- (NSNumber*)totalAgree {
+	[self willAccessValueForKey:@"totalAgree"];
+	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"totalAgree"];
+	[self didAccessValueForKey:@"totalAgree"];
+	return result;
+}
+
+- (void)setTotalAgree:(NSNumber*)value {
+	[self willChangeValueForKey:@"totalAgree"];
+	[self setPrimitiveValue:value forKey:@"totalAgree"];
+	[self didChangeValueForKey:@"totalAgree"];
+}
+
 - (NSString*)username {
 	[self willAccessValueForKey:@"username"];
 	NSString* result = (NSString*)[self primitiveValueForKey:@"username"];

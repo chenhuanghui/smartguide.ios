@@ -13,6 +13,7 @@
 #define ShopUserComment_ShopName @"shopName"
 #define ShopUserComment_SortOrder @"sortOrder"
 #define ShopUserComment_Time @"time"
+#define ShopUserComment_TotalAgree @"totalAgree"
 #define ShopUserComment_Username @"username"
 
 @class ShopUserComment;
@@ -38,6 +39,7 @@
 @property (nonatomic, retain) NSString* shopName;
 @property (nonatomic, retain) NSNumber* sortOrder;
 @property (nonatomic, retain) NSString* time;
+@property (nonatomic, retain) NSNumber* totalAgree;
 @property (nonatomic, retain) NSString* username;
 
 #pragma mark Fetched property

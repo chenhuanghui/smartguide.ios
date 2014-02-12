@@ -79,6 +79,8 @@
         <attribute name="shopType" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="shopTypeDisplay" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="tel" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="totalComment" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="totalLove" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <relationship name="home4" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="UserHome4" inverseName="shop" inverseEntity="UserHome4" syncable="YES"/>
         <relationship name="home6" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="UserHome6" inverseName="shop" inverseEntity="UserHome6" syncable="YES"/>
         <relationship name="home8" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="UserHome8" inverseName="shop" inverseEntity="UserHome8" syncable="YES"/>
@@ -132,6 +134,7 @@
         <attribute name="shopName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="sortOrder" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="time" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="totalAgree" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="username" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="shopTime" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Shop" inverseName="timeComments" inverseEntity="Shop" syncable="YES"/>
         <relationship name="shopTop" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Shop" inverseName="topComments" inverseEntity="Shop" syncable="YES"/>

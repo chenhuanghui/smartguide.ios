@@ -25,6 +25,8 @@
 #define Shop_ShopType @"shopType"
 #define Shop_ShopTypeDisplay @"shopTypeDisplay"
 #define Shop_Tel @"tel"
+#define Shop_TotalComment @"totalComment"
+#define Shop_TotalLove @"totalLove"
 
 @class Shop;
 @class UserHome4;
@@ -70,6 +72,8 @@
 @property (nonatomic, retain) NSNumber* shopType;
 @property (nonatomic, retain) NSString* shopTypeDisplay;
 @property (nonatomic, retain) NSString* tel;
+@property (nonatomic, retain) NSNumber* totalComment;
+@property (nonatomic, retain) NSNumber* totalLove;
 
 #pragma mark Fetched property
 

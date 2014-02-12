@@ -20,6 +20,9 @@
 @interface SGQRCodeViewController : SGViewController
 {
     bool _isShowed;
+    __weak IBOutlet UIImageView *imgvScanTop;
+    __weak IBOutlet UIImageView *imgvScanBot;
+    __weak IBOutlet UIView *contentView;
 }
 
 @property (nonatomic, weak) id<SGQRCodeControllerDelegate> delegate;

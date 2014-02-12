@@ -393,6 +393,32 @@
 	[self didChangeValueForKey:@"tel"];
 }
 
+- (NSNumber*)totalComment {
+	[self willAccessValueForKey:@"totalComment"];
+	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"totalComment"];
+	[self didAccessValueForKey:@"totalComment"];
+	return result;
+}
+
+- (void)setTotalComment:(NSNumber*)value {
+	[self willChangeValueForKey:@"totalComment"];
+	[self setPrimitiveValue:value forKey:@"totalComment"];
+	[self didChangeValueForKey:@"totalComment"];
+}
+
+- (NSNumber*)totalLove {
+	[self willAccessValueForKey:@"totalLove"];
+	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"totalLove"];
+	[self didAccessValueForKey:@"totalLove"];
+	return result;
+}
+
+- (void)setTotalLove:(NSNumber*)value {
+	[self willChangeValueForKey:@"totalLove"];
+	[self setPrimitiveValue:value forKey:@"totalLove"];
+	[self didChangeValueForKey:@"totalLove"];
+}
+
 #pragma mark Relationships
     
 #pragma mark Home4

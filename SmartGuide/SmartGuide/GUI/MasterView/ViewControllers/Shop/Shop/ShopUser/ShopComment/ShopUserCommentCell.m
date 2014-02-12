@@ -10,6 +10,7 @@
 #import "LoadingView.h"
 #import "ImageManager.h"
 #import "FacebookManager.h"
+#import "Utility.h"
 
 @implementation ShopUserCommentCell
 
@@ -86,16 +87,22 @@
     ope.delegatePost=self;
     
     [ope startAsynchronous];
-    
+
     switch (isAgree) {
         case AGREE_STATUS_AGREED:
+            
             btnAgree.tag=AGREE_STATUS_AGREED;
             [btnAgree setDefaultImage:[UIImage imageNamed:@"button_agree.png"] highlightImage:[UIImage imageNamed:@"button_agree_hidden.png"]];
+            lblNumOfAgree.text=[NSNumberFormatter numberFromNSNumber:@(_comment.totalAgree.integerValue+1)];
+            
             break;
             
         case AGREE_STATUS_NONE:
+            
             btnAgree.tag=AGREE_STATUS_NONE;
             [btnAgree setDefaultImage:[UIImage imageNamed:@"button_agree_hidden.png"] highlightImage:[UIImage imageNamed:@"button_agree.png"]];
+            lblNumOfAgree.text=[NSNumberFormatter numberFromNSNumber:@(_comment.totalAgree.integerValue-1)];
+            
             break;
     }
 }

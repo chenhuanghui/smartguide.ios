@@ -19,7 +19,7 @@
 
 -(void)loadWithShop:(Shop *)shop sort:(enum SORT_SHOP_COMMENT)sort maxHeight:(float)height
 {
-//    cmtTyping.sortComment=sort;
+    //    cmtTyping.sortComment=sort;
     
     _sort=sort;
     switch (sort) {
@@ -158,7 +158,7 @@
 
 -(void)focus
 {
-//    [cmtTyping focus];
+    //    [cmtTyping focus];
 }
 
 -(UITableView *)table
@@ -184,7 +184,7 @@
         btnShare.alpha=0;
         btnShare.hidden=false;
         [UIView animateWithDuration:duration animations:^{
-           
+            
             float h=7;
             [bgView l_v_setH:SU_USER_COMMENT_CELL_BOTTOM_EDIT_Y-SU_USER_COMMENT_CELL_BOTTOM_NORMAL_Y+h];
             [typeCommentBot l_v_setY:SU_USER_COMMENT_CELL_BOTTOM_EDIT_Y];
@@ -318,12 +318,34 @@
 - (IBAction)btnShareTouchUpInside:(id)sender {
     currentUser().allowShareCommentFB=@(!currentUser().allowShareCommentFB.boolValue);
     [[DataManager shareInstance] save];
-    
+
     if(currentUser().allowShareCommentFB.boolValue)
     {
-        if([[FacebookManager shareInstance] permissionTypeForPostToWall]==FACEBOOK_PERMISSION_DENIED)
+        btnShare.userInteractionEnabled=false;
+        
+        if([[FacebookManager shareInstance] isLogined])
         {
-            [[FacebookManager shareInstance] requestPermissionPostToWall];
+            if([[FacebookManager shareInstance] permissionTypeForPostToWall]==FACEBOOK_PERMISSION_DENIED)
+            {
+                [[FacebookManager shareInstance] requestPermissionPostToWallOnCompleted:^(enum FACEBOOK_PERMISSION_TYPE permissionType) {
+                    btnShare.userInteractionEnabled=true;
+                }];
+            }
+            else
+                btnShare.userInteractionEnabled=true;
+        }
+        else
+        {
+            [[FacebookManager shareInstance] loginOnCompleted:^(enum FACEBOOK_PERMISSION_TYPE permissionType) {
+                if(permissionType==FACEBOOK_PERMISSION_GRANTED)
+                {
+                    [[FacebookManager shareInstance] requestPermissionPostToWallOnCompleted:^(enum FACEBOOK_PERMISSION_TYPE permissionType) {
+                        btnShare.userInteractionEnabled=true;
+                    }];
+                }
+                else
+                    btnShare.userInteractionEnabled=true;
+            }];
         }
     }
 }

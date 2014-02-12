@@ -26,10 +26,6 @@ static GUIManager *_shareInstance=nil;
 @synthesize previousViewController;
 @synthesize shopUserController;
 
-+(void)load
-{
-}
-
 +(GUIManager *)shareInstance
 {
     static dispatch_once_t onceToken;

@@ -28,16 +28,21 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    return;
     UIImagePickerController *picker=[[UIImagePickerController alloc] init];
     picker.delegate=self;
 
     picker.sourceType=UIImagePickerControllerSourceTypeCamera;
+    picker.cameraCaptureMode=UIImagePickerControllerCameraCaptureModePhoto;
+    picker.showsCameraControls=false;
+    picker.navigationBarHidden=true;
+    picker.toolbarHidden=true;
+    
+    [picker l_v_setS:self.l_v_s];
+    
+    [self presentModalViewController:picker animated:false];
+    picker.cameraOverlayView=self.view;
     
     camera=picker;
-    
-    [self.view insertSubview:camera.view atIndex:0];
-    [camera l_v_setS:self.l_v_s];
 }
 
 - (void)didReceiveMemoryWarning
@@ -50,6 +55,10 @@
     [camera takePicture];
     
     [self.delegate shopCameraTakeDidCapture:self image:nil];
+}
+
+-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
 }
 
 - (IBAction)btnSwitchCameraTouchUpInside:(id)sender {

@@ -61,6 +61,7 @@
         {
             cmt.agreeStatus=@(as);
             cmt.numOfAgree=numOfAgree;
+            cmt.totalAgree=[NSNumber numberWithObject:dict[@"totalAgree"]];
             
             [[DataManager shareInstance] save];
         }

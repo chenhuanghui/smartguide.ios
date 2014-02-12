@@ -20,7 +20,7 @@
     __weak IBOutlet UILabel *lblComment;
     __weak IBOutlet UILabel *lblTime;
     __weak IBOutlet UILabel *lblNumOfAgree;
-    __weak IBOutlet ButtonAgree *btnAgree;
+    __weak IBOutlet UIButton *btnAgree;
     
     __weak ShopUserComment *_comment;
 }

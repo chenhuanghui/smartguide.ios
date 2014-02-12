@@ -13,6 +13,12 @@
 static FacebookManager *_facebookManager=nil;
 @implementation FacebookManager
 
++(void)load
+{
+    if([FBSession openActiveSessionWithAllowLoginUI:false])
+        [FBSession setActiveSession:nil];
+}
+
 +(FacebookManager *)shareInstance
 {
     static dispatch_once_t onceToken;
@@ -21,12 +27,6 @@ static FacebookManager *_facebookManager=nil;
     });
     
     return _facebookManager;
-}
-
-+(void)checkFacebookToken
-{
-    if(![FBSession openActiveSessionWithAllowLoginUI:false])
-        [FBSession setActiveSession:nil];
 }
 
 -(void)login
@@ -39,6 +39,43 @@ static FacebookManager *_facebookManager=nil;
     
     [self openSession];
 }
+
+-(void)loginOnCompleted:(void (^)(enum FACEBOOK_PERMISSION_TYPE))completed
+{
+    if([[FBSession activeSession] isOpen])
+    {
+        completed(FACEBOOK_PERMISSION_GRANTED);
+        return;
+    }
+    
+    __block void(^_completed)(enum FACEBOOK_PERMISSION_TYPE)=[completed copy];
+    
+    __block id obsGranted=nil;
+    __block id obsDenied=nil;
+    
+    obsGranted=[[NSNotificationCenter defaultCenter] addObserverForName:NOTIFICATION_FACEBOOK_LOGIN_SUCCESS object:nil queue:[NSOperationQueue currentQueue] usingBlock:^(NSNotification *note) {
+        
+        _completed(FACEBOOK_PERMISSION_GRANTED);
+        _completed=nil;
+        
+        [[NSNotificationCenter defaultCenter] removeObserver:obsGranted];
+        [[NSNotificationCenter defaultCenter] removeObserver:obsDenied];
+    }];
+    
+    obsDenied=[[NSNotificationCenter defaultCenter] addObserverForName:NOTIFICATION_FACEBOOK_LOGIN_FAILED object:nil queue:[NSOperationQueue currentQueue] usingBlock:^(NSNotification *note) {
+        
+        [[FBSession activeSession] closeAndClearTokenInformation];
+        
+        _completed(FACEBOOK_PERMISSION_DENIED);
+        _completed=nil;
+        
+        [[NSNotificationCenter defaultCenter] removeObserver:obsGranted];
+        [[NSNotificationCenter defaultCenter] removeObserver:obsDenied];
+    }];
+    
+    [self openSession];
+}
+
 
 -(bool)isLogined
 {
@@ -67,9 +104,58 @@ static FacebookManager *_facebookManager=nil;
     }];
 }
 
+-(void)requestPermission:(NSArray *)permission onCompleted:(void (^)(enum FACEBOOK_PERMISSION_TYPE))completed
+{
+    __block id obsGranted=nil;
+    __block id obsDenied=nil;
+    __block NSArray *_permission=[permission copy];
+    __block void(^_completed)(enum FACEBOOK_PERMISSION_TYPE)=[completed copy];
+    
+    obsGranted=[[NSNotificationCenter defaultCenter] addObserverForName:NOTIFICATION_FACEBOOK_USER_GRANTED_PERMISSION object:nil queue:[NSOperationQueue currentQueue] usingBlock:^(NSNotification *note) {
+        
+        if(note.object && [note.object isKindOfClass:[NSArray class]])
+        {
+            NSArray *array=note.object;
+            
+            if([array isEqualToArray:_permission])
+            {
+                [[NSNotificationCenter defaultCenter] removeObserver:obsGranted];
+                [[NSNotificationCenter defaultCenter] removeObserver:obsDenied];
+                
+                _completed(FACEBOOK_PERMISSION_GRANTED);
+                _completed=nil;
+            }
+        }
+    }];
+    
+    obsDenied=[[NSNotificationCenter defaultCenter] addObserverForName:NOTIFICATION_FACEBOOK_USER_DENIED_PERMISSION object:nil queue:[NSOperationQueue currentQueue] usingBlock:^(NSNotification *note) {
+        
+        if(note.object && [note.object isKindOfClass:[NSArray class]])
+        {
+            NSArray *array=note.object;
+            
+            if([array isEqualToArray:_permission])
+            {
+                [[NSNotificationCenter defaultCenter] removeObserver:obsGranted];
+                [[NSNotificationCenter defaultCenter] removeObserver:obsDenied];
+                
+                _completed(FACEBOOK_PERMISSION_DENIED);
+                _completed=nil;
+            }
+        }
+    }];
+    
+    [self requestPermission:permission];
+}
+
 -(void) requestPermissionPostToWall
 {
     [self requestPermission:FACEBOOK_PUBLISH_PERMISSION];
+}
+
+-(void)requestPermissionPostToWallOnCompleted:(void (^)(enum FACEBOOK_PERMISSION_TYPE))completed
+{
+    [self requestPermission:FACEBOOK_PUBLISH_PERMISSION onCompleted:completed];
 }
 
 - (void)openSession{
@@ -79,8 +165,6 @@ static FacebookManager *_facebookManager=nil;
         __block id obsDenied=nil;
         
         obsGranted=[[NSNotificationCenter defaultCenter] addObserverForName:NOTIFICATION_FACEBOOK_LOGIN_SUCCESS object:nil queue:[NSOperationQueue currentQueue] usingBlock:^(NSNotification *note) {
-            
-            [self requestPermissionPostToWall];
             
             [[NSNotificationCenter defaultCenter] removeObserver:obsGranted];
             [[NSNotificationCenter defaultCenter] removeObserver:obsDenied];

@@ -13,6 +13,7 @@
 #import "HomeListCell.h"
 #import "HomeInfoCell.h"
 #import "ASIOperationShopUser.h"
+#import "SGQRCodeViewController.h"
 
 @class HomeViewController,TableHome;
 
@@ -25,7 +26,7 @@
 
 @end
 
-@interface HomeViewController : SGViewController<UITextFieldDelegate,ASIOperationPostDelegate,UITableViewDataSource,UITableViewDelegate>
+@interface HomeViewController : SGViewController<UITextFieldDelegate,ASIOperationPostDelegate,UITableViewDataSource,UITableViewDelegate,SGQRCodeControllerDelegate>
 {
     __weak IBOutlet UITextField *txt;
     __weak IBOutlet UIView *displayLoadingView;

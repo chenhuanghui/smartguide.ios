@@ -26,14 +26,16 @@ enum FACEBOOK_PERMISSION_TYPE {
 
 +(FacebookManager*) shareInstance;
 
-+(void) checkFacebookToken;
 -(void) login;
+-(void) loginOnCompleted:(void(^)(enum FACEBOOK_PERMISSION_TYPE permissionType)) completed;
 -(bool) isLogined;
 -(enum FACEBOOK_PERMISSION_TYPE) permissionTypeForPermission:(NSString*) permission;
 -(enum FACEBOOK_PERMISSION_TYPE) permissionTypeForPostToWall;
 
 -(void) requestPermission:(NSArray*) permission;
+-(void) requestPermission:(NSArray*) permission onCompleted:(void(^)(enum FACEBOOK_PERMISSION_TYPE permissionType)) completed;
 -(void) requestPermissionPostToWall;
+-(void) requestPermissionPostToWallOnCompleted:(void(^)(enum FACEBOOK_PERMISSION_TYPE permissionType)) completed;
 
 -(void) markNeedPermissionPostToWall;
 
