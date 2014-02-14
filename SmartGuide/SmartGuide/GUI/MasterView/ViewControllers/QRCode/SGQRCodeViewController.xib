@@ -7,9 +7,17 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SGQRCodeViewController">
             <connections>
+                <outlet property="bgResultView" destination="H5S-1a-qDf" id="MUj-ez-pO1"/>
+                <outlet property="bgtView" destination="Ei3-p4-wuk" id="oqu-1d-50y"/>
+                <outlet property="btnClose" destination="MOx-nK-zrT" id="Lyf-qH-pmt"/>
+                <outlet property="btnCloseCamera" destination="7mM-Dd-4TV" id="Yte-a7-Edx"/>
+                <outlet property="btnScan" destination="euz-4A-j7J" id="Lbw-07-U3e"/>
+                <outlet property="cameraView" destination="gS0-a1-Dt2" id="Jxg-Uh-1xr"/>
                 <outlet property="contentView" destination="2XG-9V-BZE" id="0cu-fj-zrH"/>
+                <outlet property="imgvScan" destination="QRZ-qt-4aj" id="88v-6g-Soc"/>
                 <outlet property="imgvScanBot" destination="xgf-6g-6mI" id="7m5-QN-OzK"/>
                 <outlet property="imgvScanTop" destination="kzK-7w-P3r" id="yr7-ee-Eai"/>
+                <outlet property="scanCodeView" destination="iK6-MK-Yh6" id="YpU-aT-xIV"/>
                 <outlet property="view" destination="1" id="3"/>
             </connections>
         </placeholder>
@@ -18,19 +26,98 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
+                <view contentMode="scaleToFill" id="Ei3-p4-wuk">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                </view>
+                <view contentMode="scaleToFill" id="iK6-MK-Yh6">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" id="gS0-a1-Dt2">
+                            <rect key="frame" x="0.0" y="50" width="320" height="380"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="scan.png" id="QRZ-qt-4aj">
+                                    <rect key="frame" x="59" y="89" width="202" height="202"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                </imageView>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                </view>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background_scan.png" id="kzK-7w-P3r">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="56"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </imageView>
-                <view contentMode="scaleToFill" id="2XG-9V-BZE">
-                    <rect key="frame" x="80" y="64" width="160" height="296"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                </view>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background_scan.png" id="xgf-6g-6mI">
                     <rect key="frame" x="0.0" y="424" width="320" height="56"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </imageView>
+                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="button_scan.png" id="XqO-wN-SGQ">
+                    <rect key="frame" x="0.0" y="424" width="320" height="56"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                </imageView>
+                <view hidden="YES" alpha="0.0" contentMode="scaleToFill" id="H5S-1a-qDf" userLabel="bgResult">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                </view>
+                <view hidden="YES" alpha="0.0" contentMode="scaleToFill" id="2XG-9V-BZE" userLabel="contentResult">
+                    <rect key="frame" x="0.0" y="50" width="320" height="380"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="MOx-nK-zrT">
+                            <rect key="frame" x="60" y="293" width="77" height="48"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="12"/>
+                            <state key="normal" title="Đóng"/>
+                            <connections>
+                                <action selector="btnCloseTouchUpInside:" destination="-1" eventType="touchUpInside" id="0LZ-L2-AlD"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="euz-4A-j7J">
+                            <rect key="frame" x="178" y="293" width="77" height="48"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="12"/>
+                            <state key="normal" title="Quét tiếp"/>
+                            <connections>
+                                <action selector="btnScanTouchUpInside:" destination="-1" eventType="touchUpInside" id="yst-Xq-vNc"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                </view>
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="1WB-yT-Miz">
+                    <rect key="frame" x="137" y="430" width="46" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <state key="normal" title="Button">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="btnnext:" destination="-1" eventType="touchUpInside" id="ZgY-rS-tGm"/>
+                    </connections>
+                </button>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nhận thẻ và quà từ nhân viên cửa hàng" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="mdW-Cw-dcJ">
+                    <rect key="frame" x="0.0" y="17" width="322" height="21"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="12"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="7mM-Dd-4TV">
+                    <rect key="frame" x="270" y="1" width="50" height="50"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <state key="normal" image="button_close.png"/>
+                    <connections>
+                        <action selector="btnCloseCameraTouchUpInside:" destination="-1" eventType="touchUpInside" id="XQG-vA-58Q"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
@@ -38,5 +125,8 @@
     </objects>
     <resources>
         <image name="background_scan.png" width="320" height="56"/>
+        <image name="button_close.png" width="25" height="25"/>
+        <image name="button_scan.png" width="125" height="24"/>
+        <image name="scan.png" width="202" height="202"/>
     </resources>
 </document>

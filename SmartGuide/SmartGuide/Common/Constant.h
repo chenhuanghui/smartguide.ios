@@ -64,10 +64,6 @@ static NSString * const kClientId = @"816218358288-msr055u6pvnlqep605ri3lu8tt5ev
 #define API_SHOP_USER_GALLERY @"images/user/get"
 #define API_SHOP_COMMENTS @"comment/getShopComment"
 #define API_SHOP_POST_COMMENT @"comment/postShopComment"
-#define API_GET_SGP @"user/get/promotion1/point"
-#define API_GET_REWARD @"user/get/promotion2"
-#define API_SGP_TO_REWARD @"user/get/promotion1/award"
-#define API_SG_TO_REWARD @"reward/receive"
 #define API_USER_GALLERY_POST @"user/postpicture"
 #define API_SHOP_PROMOTION_DETAIL @"shop/promotion/get"
 #define API_USER_COLLECTION @"user/collection"
@@ -102,6 +98,7 @@ static NSString * const kClientId = @"816218358288-msr055u6pvnlqep605ri3lu8tt5ev
 #define API_CREATE_PLACELIST @"placelist/create"
 #define API_ADD_SHOP_PLACELISTS @"placelist/addShopPlacelists"
 #define API_SOCIAL_SHARE @"social/share"
+#define API_SCAN_CODE @"user/scanSGCode_v2"
 
 #define API_GET_ACTIVE_CODE @"user/activation"
 #define API_USER_CHECK @"user/check_v2"

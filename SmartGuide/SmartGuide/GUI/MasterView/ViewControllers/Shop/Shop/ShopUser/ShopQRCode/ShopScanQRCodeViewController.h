@@ -9,5 +9,8 @@
 #import "SGViewController.h"
 
 @interface ShopScanQRCodeViewController : SGViewController
+{
+    
+}
 
 @end

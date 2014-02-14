@@ -125,7 +125,6 @@ static GUIManager *_shareInstance=nil;
     if(sgController==rootViewController)
     {
         [self loadContentNavigation];
-        [self loadQRCode];
     }
 }
 
@@ -177,16 +176,6 @@ static GUIManager *_shareInstance=nil;
 {
     SGAdsViewController *vc=[[SGAdsViewController alloc] init];
     adsController=vc;
-    
-    [rootViewController addChildViewController:vc];
-}
-
--(void) loadQRCode
-{
-    SGQRCodeViewController *vc=[[SGQRCodeViewController alloc] init];
-    vc.delegate=self;
-    
-    qrCodeController=vc;
     
     [rootViewController addChildViewController:vc];
 }

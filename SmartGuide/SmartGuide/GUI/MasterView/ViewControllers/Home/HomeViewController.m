@@ -64,8 +64,6 @@
     
     [displayLoadingView showLoading];
     displayLoadingView.loadingView.backgroundView.backgroundColor=self.view.backgroundColor;
-    
-    [self requestShopUserWithIDShop:1];
 }
 
 -(void) requestNewFeed
@@ -488,7 +486,7 @@
 }
 
 - (IBAction)btnShowQRCodeTouchUpInside:(id)sender {
-    [self showQRCodeWithContorller:self inView:self.view];
+    [self showQRCodeWithContorller:self inView:self.view withAnimationType:QRCODE_ANIMATION_TOP];
 }
 
 -(void)qrcodeControllerRequestClose:(SGQRCodeViewController *)controller

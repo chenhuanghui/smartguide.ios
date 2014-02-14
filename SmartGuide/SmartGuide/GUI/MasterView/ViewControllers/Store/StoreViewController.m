@@ -77,12 +77,7 @@
 
 -(void) tapQR:(UITapGestureRecognizer*) tap
 {
-    [self showQRCodeWithContorller:self inView:qrView];
-}
-
--(void)qrcodeControllerRequestClose:(SGQRCodeViewController *)controller
-{
-    [self hideQRCode];
+    [self showQRCodeWithContorller:self inView:qrView withAnimationType:QRCODE_ANIMATION_TOP];
 }
 
 - (void)didReceiveMemoryWarning
