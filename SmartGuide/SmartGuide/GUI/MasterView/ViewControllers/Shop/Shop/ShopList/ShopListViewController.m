@@ -1428,6 +1428,15 @@
     [self.sgNavigationController popViewControllerWithTransition:transitionPushFromRight()];
 }
 
+- (IBAction)btnScanBigTouchUpInside:(id)sender {
+    [self showQRCodeWithContorller:self inView:self.view withAnimationType:QRCODE_ANIMATION_TOP];
+}
+
+- (IBAction)btnScanSmallTouchUpInside:(id)sender {
+    [self showQRCodeWithContorller:self inView:self.view withAnimationType:QRCODE_ANIMATION_TOP_BOT];
+}
+
+
 @end
 
 @implementation ScrollShopList
