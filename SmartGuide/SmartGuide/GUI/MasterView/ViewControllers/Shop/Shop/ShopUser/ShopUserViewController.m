@@ -18,7 +18,7 @@
 #define SHOP_USER_USER_GALLERY_INDEX_PATH [NSIndexPath indexPathForRow:5 inSection:0]
 #define SHOP_USER_USER_COMMENT_INDEX_PATH [NSIndexPath indexPathForRow:6 inSection:0]
 
-@interface ShopUserViewController ()
+@interface ShopUserViewController ()<SUKM1Delegate,SUKM2Delegate>
 {
 }
 
@@ -38,7 +38,7 @@
 }
 
 - (IBAction)btnCloseTouchUpInside:(id)sender {
-    [self.delegate shopUserFinished];
+    [self.delegate shopUserFinished:self];
 }
 
 -(void) storeRect
@@ -489,6 +489,7 @@
         return km1Cell;
     
     SUKM1Cell *cell=[tableShopUser dequeueReusableCellWithIdentifier:[SUKM1Cell reuseIdentifier]];
+    cell.delegate=self;
     
     [cell loadWithKM1:_shop.km1];
     
@@ -503,6 +504,7 @@
         return km2Cell;
     
     SUKM2Cell *cell=[tableShopUser dequeueReusableCellWithIdentifier:[SUKM2Cell reuseIdentifier]];
+    cell.delegate=self;
     
     [cell loadWithKM2:_shop.km2];
     
@@ -937,6 +939,16 @@
 -(float) buttonContainHeight
 {
     return [self tableView:tableShopUser heightForRowAtIndexPath:SHOP_USER_BUTTON_CONTAIN_INDEX_PATH];
+}
+
+-(void)km1TouchedScan:(SUKM1Cell *)km1
+{
+    [self showQRCodeWithContorller:self inView:self.view withAnimationType:QRCODE_ANIMATION_TOP_BOT];
+}
+
+-(void)km2TouchedScan:(SUKM2Cell *)cell
+{
+    [self showQRCodeWithContorller:self inView:self.view withAnimationType:QRCODE_ANIMATION_TOP_BOT];
 }
 
 @end

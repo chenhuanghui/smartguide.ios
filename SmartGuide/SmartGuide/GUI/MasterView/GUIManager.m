@@ -86,7 +86,7 @@ static GUIManager *_shareInstance=nil;
     [viewControllers addObject:loading];
     
     SGNavigationController *rNavigation=[[SGNavigationController alloc] initWithViewControllers:viewControllers];
-
+    
     rootNavigation=rNavigation;
     
     mainWindow.rootViewController=rNavigation;
@@ -105,10 +105,10 @@ static GUIManager *_shareInstance=nil;
 
 -(void)welcomeControllerTouchedTry:(WelcomeViewController *)viewController
 {
-//    PlacelistViewController *vc=[[PlacelistViewController alloc] init];
-//    [self.rootNavigation pushViewController:vc animated:true];
-//    
-//    return;
+    //    PlacelistViewController *vc=[[PlacelistViewController alloc] init];
+    //    [self.rootNavigation pushViewController:vc animated:true];
+    //
+    //    return;
     [self showRootControlelr];
 }
 
@@ -235,7 +235,7 @@ static GUIManager *_shareInstance=nil;
     storeController=vc;
     
     [self.contentNavigation pushViewController:vc animated:animate];
-
+    
 }
 
 -(void)settingTouchedStore:(SGSettingViewController *)controller
@@ -285,34 +285,34 @@ static GUIManager *_shareInstance=nil;
 
 -(void)toolbarUserCollection
 {
-//    if(userCollectionController)
-//    {
-//        [UIView animateWithDuration:DURATION_DEFAULT animations:^{
-//            userCollectionController.view.center=CGPointMake(userCollectionController.view.center.x, -userCollectionController.view.frame.size.height/2);
-//        } completion:^(BOOL finished) {
-//            [userCollectionController removeFromParentViewController];
-//            [userCollectionController.view removeFromSuperview];
-//            userCollectionController=nil;
-//            masterContainerView.content_ads_upper.hidden=true;
-//        }];
-//        return;
-//    }
-//    
-//    masterContainerView.content_ads_upper.hidden=false;
-//    
-//    userCollectionController=[[SGUserCollectionController alloc] init];
-//    [userCollectionController setNavigationBarHidden:true];
-//    CGRect rect=userCollectionController.view.frame;
-//    rect.size=masterContainerView.content_ads_upper.frame.size;
-//    rect.origin=CGPointMake(0, -rect.size.height);
-//    userCollectionController.view.frame=rect;
-//    
-//    [self.masterContainerView addChildViewController:userCollectionController];
-//    [self.masterContainerView.content_ads_upper addSubview:userCollectionController.view];
-//    
-//    [UIView animateWithDuration:DURATION_DEFAULT animations:^{
-//        userCollectionController.view.center=CGPointMake(userCollectionController.view.center.x, userCollectionController.view.frame.size.height/2);
-//    }];
+    //    if(userCollectionController)
+    //    {
+    //        [UIView animateWithDuration:DURATION_DEFAULT animations:^{
+    //            userCollectionController.view.center=CGPointMake(userCollectionController.view.center.x, -userCollectionController.view.frame.size.height/2);
+    //        } completion:^(BOOL finished) {
+    //            [userCollectionController removeFromParentViewController];
+    //            [userCollectionController.view removeFromSuperview];
+    //            userCollectionController=nil;
+    //            masterContainerView.content_ads_upper.hidden=true;
+    //        }];
+    //        return;
+    //    }
+    //
+    //    masterContainerView.content_ads_upper.hidden=false;
+    //
+    //    userCollectionController=[[SGUserCollectionController alloc] init];
+    //    [userCollectionController setNavigationBarHidden:true];
+    //    CGRect rect=userCollectionController.view.frame;
+    //    rect.size=masterContainerView.content_ads_upper.frame.size;
+    //    rect.origin=CGPointMake(0, -rect.size.height);
+    //    userCollectionController.view.frame=rect;
+    //
+    //    [self.masterContainerView addChildViewController:userCollectionController];
+    //    [self.masterContainerView.content_ads_upper addSubview:userCollectionController.view];
+    //
+    //    [UIView animateWithDuration:DURATION_DEFAULT animations:^{
+    //        userCollectionController.view.center=CGPointMake(userCollectionController.view.center.x, userCollectionController.view.frame.size.height/2);
+    //    }];
 }
 
 #pragma - ViewControllers Delegate
@@ -367,18 +367,34 @@ static GUIManager *_shareInstance=nil;
     }];
 }
 
--(void)dismissPresentedViewController:(void (^)())onCompleted
+-(void) dimissPresentedViewControllerAnimated:(bool) animated onCompleted:(void(^)()) onCompleted
 {
     if(!presentedViewController)
         return;
     
     void(^_onCompleted)()=[onCompleted copy];
     
-    [UIView animateWithDuration:DURATION_DEFAULT animations:^{
-        self.rootNavigation.view.alphaView.alpha=0;
-        [presentedViewController l_c_setY:-self.rootNavigation.l_v_h/2];
-    } completion:^(BOOL finished) {
-        
+    if(animated)
+    {
+        [UIView animateWithDuration:DURATION_DEFAULT animations:^{
+            self.rootNavigation.view.alphaView.alpha=0;
+            [presentedViewController l_c_setY:-self.rootNavigation.l_v_h/2];
+        } completion:^(BOOL finished) {
+            
+            [self.rootNavigation.view removeAlphaView];
+            
+            [presentedViewController.view removeFromSuperview];
+            [presentedViewController removeFromParentViewController];
+            presentedViewController=nil;
+            
+            if(_onCompleted)
+            {
+                _onCompleted();
+            }
+        }];
+    }
+    else
+    {
         [self.rootNavigation.view removeAlphaView];
         
         [presentedViewController.view removeFromSuperview];
@@ -386,10 +402,13 @@ static GUIManager *_shareInstance=nil;
         presentedViewController=nil;
         
         if(_onCompleted)
-        {
             _onCompleted();
-        }
-    }];
+    }
+}
+
+-(void)dismissPresentedViewController:(void (^)())onCompleted
+{
+    [self dimissPresentedViewControllerAnimated:true onCompleted:onCompleted];
 }
 
 -(void) presentShopUserWithShopList:(ShopList *)shopList
@@ -421,9 +440,14 @@ static GUIManager *_shareInstance=nil;
     [self presentViewController:vc];
 }
 
--(void)shopUserFinished
+-(void)shopUserFinished:(ShopUserViewController *)controller
 {
     [self dismissShopUser];
+}
+
+-(void)shopUserRequestScanCode:(ShopUserViewController *)controller
+{
+    
 }
 
 -(void)dismissShopUser
@@ -434,6 +458,10 @@ static GUIManager *_shareInstance=nil;
             shopUserController=nil;
         }];
     }
+}
+
+-(void) dimissShopUserAnimated:(bool) animated
+{
 }
 
 -(void)showLoginDialogWithMessage:(NSString *)message onCompleted:(void (^)(bool))onCompleted
@@ -466,26 +494,26 @@ static GUIManager *_shareInstance=nil;
 
 -(void)qrcodeControllerRequestShow:(SGQRCodeViewController *)controller
 {
-//    _qrCodeBeforeShowFrame=self.rootViewController.qrCodeView.frame;
-//    [UIView animateWithDuration:DURATION_DEFAULT animations:^{
-//        CGRect rect=self.rootViewController.qrCodeFrame;
-//        rect.origin.y=0;
-//        self.rootViewController.qrCodeView.frame=rect;
-//    }];
+    //    _qrCodeBeforeShowFrame=self.rootViewController.qrCodeView.frame;
+    //    [UIView animateWithDuration:DURATION_DEFAULT animations:^{
+    //        CGRect rect=self.rootViewController.qrCodeFrame;
+    //        rect.origin.y=0;
+    //        self.rootViewController.qrCodeView.frame=rect;
+    //    }];
 }
 
 -(void) qrcodeControllerRequestClose:(SGQRCodeViewController *)controller
 {
-//    [UIView animateWithDuration:DURATION_DEFAULT animations:^{
-//        self.rootViewController.qrCodeView.frame=_qrCodeBeforeShowFrame;
-//    }];
+    //    [UIView animateWithDuration:DURATION_DEFAULT animations:^{
+    //        self.rootViewController.qrCodeView.frame=_qrCodeBeforeShowFrame;
+    //    }];
 }
 
 -(void) qrcodeControllerScanned:(SGQRCodeViewController *)controller
 {
-//    [UIView animateWithDuration:DURATION_DEFAULT animations:^{
-//        self.rootViewController.qrCodeView.frame=self.rootViewController.qrCodeFrame;
-//    }];
+    //    [UIView animateWithDuration:DURATION_DEFAULT animations:^{
+    //        self.rootViewController.qrCodeView.frame=self.rootViewController.qrCodeFrame;
+    //    }];
 }
 
 -(void)displayViewController:(SGViewController *)viewController

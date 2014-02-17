@@ -11,6 +11,7 @@
 #import "ShopKM2NonConditionCell.h"
 
 @implementation SUKM2Cell
+@synthesize delegate;
 
 -(void)loadWithKM2:(ShopKM2 *)km2
 {
@@ -89,6 +90,10 @@
         
         return cell;
     }
+}
+
+- (IBAction)scanTouchUpInside:(id)sender {
+    [self.delegate km2TouchedScan:self];
 }
 
 @end

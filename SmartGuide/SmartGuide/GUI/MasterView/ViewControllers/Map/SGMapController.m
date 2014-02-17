@@ -35,9 +35,14 @@
     [self pushViewController:shop animated:true];
 }
 
--(void)shopUserFinished
+-(void)shopUserFinished:(ShopUserViewController *)controller
 {
     [self popViewControllerAnimated:true];
+}
+
+-(void)shopUserRequestScanCode:(ShopUserViewController *)controller
+{
+    
 }
 
 - (void)viewDidLoad

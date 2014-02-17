@@ -10,6 +10,7 @@
 #import "Utility.h"
 
 @implementation SUKM1Cell
+@synthesize delegate;
 
 -(void)loadWithKM1:(ShopKM1 *)km1
 {
@@ -94,6 +95,10 @@
     [lbl100K addStyle:style];
     
     [lbl100K setText:@"<text>Với mỗi <k>100k</k> trên hoá đơn bạn nhận được 1 lượt quét thẻ</text>"];
+}
+
+- (IBAction)scanTouchUpInside:(id)sender {
+    [self.delegate km1TouchedScan:self];
 }
 
 @end

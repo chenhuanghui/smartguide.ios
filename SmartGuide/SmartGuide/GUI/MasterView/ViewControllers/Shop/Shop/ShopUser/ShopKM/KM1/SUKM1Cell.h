@@ -12,6 +12,14 @@
 #import "ShopKM1.h"
 #import "KM1Voucher.h"
 
+@class SUKM1Cell;
+
+@protocol SUKM1Delegate <NSObject>
+
+-(void) km1TouchedScan:(SUKM1Cell*) km1;
+
+@end
+
 @interface SUKM1Cell : UITableViewCell<UITableViewDataSource,UITableViewDelegate>
 {
     __weak IBOutlet UITableView *table;
@@ -28,5 +36,7 @@
 
 +(NSString *)reuseIdentifier;
 +(float) heightWithKM1:(ShopKM1*) km1;
+
+@property (nonatomic, weak) id<SUKM1Delegate> delegate;
 
 @end

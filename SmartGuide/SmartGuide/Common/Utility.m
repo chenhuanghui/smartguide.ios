@@ -928,20 +928,6 @@ NSString *documentPath()
 	return [d hexString];
 }
 
--(NSString *)stringWithReplaceString:(NSString *)replaceString fromString:(NSString *)first, ...
-{
-    va_list list;
-    va_start(list, first);
-    
-    NSString *source=[NSString stringWithStringDefault:self];
-    for(NSString *str = first;str;str = va_arg(list, NSString*))
-    {
-        source=[source stringByReplacingOccurrencesOfString:str withString:replaceString];
-    }
-    
-    va_end(list);
-}
-
 @end
 
 @implementation UIScrollView(Utility)

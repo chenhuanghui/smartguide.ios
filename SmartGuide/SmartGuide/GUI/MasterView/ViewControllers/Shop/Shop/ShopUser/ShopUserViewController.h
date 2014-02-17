@@ -44,7 +44,7 @@
 #define SHOP_USER_ANIMATION_ALIGN_Y 100.f // cần để thực hiện effect scroll giãn shop gallery
 #define SHOP_USER_BUTTON_NEXT_HEIGHT 25.f
 
-@class TableShopUser,PromotionDetailView;
+@class TableShopUser,PromotionDetailView,ShopUserViewController;
 
 enum SHOP_USER_MODE {
     SHOP_USER_FULL = 0,
@@ -58,7 +58,8 @@ enum SHOP_USER_MODE {
 
 @protocol ShopUserDelegate <SGViewControllerDelegate>
 
--(void) shopUserFinished;
+-(void) shopUserFinished:(ShopUserViewController*) controller;
+-(void) shopUserRequestScanCode:(ShopUserViewController*) controller;
 
 @end
 

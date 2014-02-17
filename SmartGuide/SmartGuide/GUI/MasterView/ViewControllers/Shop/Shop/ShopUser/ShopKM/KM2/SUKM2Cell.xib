@@ -57,6 +57,9 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="16"/>
                                 <state key="normal" image="button_getgift_voucher.png"/>
+                                <connections>
+                                    <action selector="scanTouchUpInside:" destination="EKW-Su-4WS" eventType="touchUpInside" id="XXt-Es-P0b"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="mi1-TX-Jy4">
                                 <rect key="frame" x="50" y="16" width="56" height="56"/>
