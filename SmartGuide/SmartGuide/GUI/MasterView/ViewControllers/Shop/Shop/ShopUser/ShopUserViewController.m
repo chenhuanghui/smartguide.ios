@@ -841,27 +841,6 @@
     [self pushViewController:vc];
 }
 
--(void)shopGalleryTouchedGallery:(ShopGalleryViewController *)controller gallery:(id)gallery
-{
-    if([gallery isKindOfClass:[ShopGallery class]])
-    {
-        _selectedShopGallery=gallery;
-        
-        ShopGalleryFullViewController *vc=[[ShopGalleryFullViewController alloc] initWithShop:_shop selectedGallery:_selectedShopGallery];
-        vc.delegate=self;
-        [vc setParentController:self];
-    }
-    else if([gallery isKindOfClass:[ShopUserGallery class]])
-    {
-        _selectedUserGallery=gallery;
-        
-        UserGalleryFullViewController *vc=[[UserGalleryFullViewController alloc] initWithShop:_shop selectedGallery:_selectedUserGallery];
-        vc.delegate=self;
-        
-        [vc setParentController:self];
-    }
-}
-
 -(void)galleryFullTouchedBack:(GalleryFullViewController *)controller
 {
     if([controller isKindOfClass:[ShopGalleryFullViewController class]])
@@ -911,6 +890,27 @@
     shopGalleryController=vc;
     
     [self pushViewController:vc];
+}
+
+-(void)shopGalleryTouchedGallery:(ShopGalleryViewController *)controller gallery:(id)gallery
+{
+    if([gallery isKindOfClass:[ShopGallery class]])
+    {
+        _selectedShopGallery=gallery;
+        
+        ShopGalleryFullViewController *vc=[[ShopGalleryFullViewController alloc] initWithShop:_shop selectedGallery:_selectedShopGallery];
+        vc.delegate=self;
+        [vc setParentController:self];
+    }
+    else if([gallery isKindOfClass:[ShopUserGallery class]])
+    {
+        _selectedUserGallery=gallery;
+        
+        UserGalleryFullViewController *vc=[[UserGalleryFullViewController alloc] initWithShop:_shop selectedGallery:_selectedUserGallery];
+        vc.delegate=self;
+        
+        [vc setParentController:self];
+    }
 }
 
 -(void)infoCellTouchedMap:(SUInfoCell *)cell

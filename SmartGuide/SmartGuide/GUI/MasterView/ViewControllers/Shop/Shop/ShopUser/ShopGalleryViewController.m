@@ -51,6 +51,11 @@
     
     grid.dataSource=self;
     grid.actionDelegate=self;
+    
+    if(_selectedGallery)
+    {
+        [self.delegate shopGalleryTouchedGallery:self gallery:_selectedGallery];
+    }
 }
 
 -(NSInteger)numberOfItemsInGMGridView:(GMGridView *)gridView
