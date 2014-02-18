@@ -23,10 +23,9 @@
     return self;
 }
 
-- (void)viewDidLoad
+-(void)loadView
 {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+    [super loadView];
     
     NSString *accessToken=[TokenManager shareInstance].accessToken;
     NSString *version=[NSString stringWithFormat:@"ios%@_%@",[UIDevice currentDevice].systemVersion,SMARTUIDE_VERSION];
@@ -37,21 +36,48 @@
     [_notification start];
 }
 
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    // Do any additional setup after loading the view from its nib.
+    
+    _viewDidLoad=true;
+    
+    [self finishRequestNotification];
+}
+
+-(void) finishRequestNotification
+{
+    if(_viewDidLoad && _finishedRequestNotification)
+    {
+        if(_notifiObject)
+        {
+            [self processNotification:_notifiObject];
+        }
+        else
+        {
+            [self.view showLoading];
+            [self requestUserProfile];
+        }
+    }
+}
+
 -(void)operationURLFinished:(OperationURL *)operation
 {
+    _finishedRequestNotification=true;
     OperationNotifications *ope=(OperationNotifications*)operation;
     
-    NotificationObject *notiObj=ope.object;
+    _notifiObject=ope.object;
     
-    [self processNotification:notiObj];
+    [self finishRequestNotification];
     
     _notification=nil;
 }
 
 -(void)operationURLFailed:(OperationURL *)operation
 {
-    [self.view showLoading];
-    [self requestUserProfile];
+    _finishedRequestNotification=true;
+    [self finishRequestNotification];
     
     _notification=nil;
 }
@@ -62,6 +88,8 @@
     {
         [self.view removeLoading];
         [self.delegate SGLoadingFinished:self];
+        
+        _operationUserProfile=nil;
     }
 }
 
@@ -71,6 +99,8 @@
     {
         [self.view removeLoading];
         [self.delegate SGLoadingFinished:self];
+        
+        _operationUserProfile=nil;
     }
 }
 

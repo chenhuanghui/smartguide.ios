@@ -23,6 +23,10 @@
 {
     OperationNotifications *_notification;
     ASIOperationUserProfile *_operationUserProfile;
+    
+    bool _viewDidLoad;
+    bool _finishedRequestNotification;
+    NotificationObject *_notifiObject;
 }
 
 @property (nonatomic, weak) id<SGLoadingScreenDelegate> delegate;
