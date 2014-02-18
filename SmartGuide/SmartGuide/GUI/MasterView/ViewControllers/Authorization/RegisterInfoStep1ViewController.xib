@@ -46,7 +46,7 @@
                         <action selector="btnAvatarTouchUpInside:" destination="-1" eventType="touchUpInside" id="QB3-l9-5Qv"/>
                     </connections>
                 </button>
-                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" background="bg_textbox_login.jpg" id="xHd-iS-MOp">
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" background="bg_textbox_login.png" id="xHd-iS-MOp">
                     <rect key="frame" x="34" y="88" width="253" height="56"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -72,7 +72,7 @@
     </objects>
     <resources>
         <image name="bg_notice_login.png" width="120" height="39"/>
-        <image name="bg_textbox_login.jpg" width="253" height="56"/>
+        <image name="bg_textbox_login.png" width="253" height="56"/>
         <image name="frame_ava_login.png" width="73" height="75"/>
         <image name="pic_ava_login.png" width="73" height="75"/>
     </resources>

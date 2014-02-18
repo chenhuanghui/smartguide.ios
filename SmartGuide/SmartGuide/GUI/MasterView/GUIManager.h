@@ -13,7 +13,6 @@
 #import "SGQRCodeViewController.h"
 #import "SGSettingViewController.h"
 #import "SGUserViewController.h"
-#import "UserSettingViewController.h"
 #import "AuthorizationViewController.h"
 #import "ContentViewController.h"
 #import "SGMapController.h"
@@ -28,6 +27,7 @@
 #import "StoreViewController.h"
 #import "HomeViewController.h"
 #import "SearchViewController.h"
+#import "UserPromotionViewController.h"
 
 @class ContentViewController;
 
@@ -62,8 +62,10 @@
 @property (nonatomic, weak, readonly) SGQRCodeViewController *qrCodeController;
 @property (nonatomic, weak, readonly) ShopUserViewController *shopUserController;
 @property (nonatomic, weak, readonly) SGUserViewController *userController;
+@property (nonatomic, weak, readonly) SGUserSettingViewController *userSettingController;
 @property (nonatomic, weak, readonly) SGNotificationViewController *notificationController;
 @property (nonatomic, weak, readonly) StoreViewController *storeController;
 @property (nonatomic, weak, readonly) SGTutorialViewController *tutorialController;
+@property (nonatomic, weak, readonly) UserPromotionViewController *userPromotionControlelr;
 @property (nonatomic, weak, readonly) SGViewController *presentedViewController;
 @end

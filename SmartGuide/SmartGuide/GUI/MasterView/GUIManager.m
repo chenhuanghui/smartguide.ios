@@ -12,7 +12,7 @@
 
 static GUIManager *_shareInstance=nil;
 
-@interface GUIManager()
+@interface GUIManager()<UserPromotionDelegate>
 {
     
 }
@@ -22,7 +22,7 @@ static GUIManager *_shareInstance=nil;
 @end
 
 @implementation GUIManager
-@synthesize mainWindow,rootNavigation,rootViewController,toolbarController,contentNavigation,adsController,qrCodeController,userController,tutorialController,notificationController,presentedViewController,storeController;
+@synthesize mainWindow,rootNavigation,rootViewController,toolbarController,contentNavigation,adsController,qrCodeController,userController,tutorialController,notificationController,presentedViewController,storeController,userPromotionControlelr,userSettingController;
 @synthesize previousViewController;
 @synthesize shopUserController;
 
@@ -197,10 +197,25 @@ static GUIManager *_shareInstance=nil;
 
 -(void)settingTouchedUserSetting:(SGSettingViewController *)settingController
 {
-    SGUserSettingViewController *vc=[[SGUserSettingViewController alloc] init];
+    [self.rootNavigation removeLeftSlideViewController];
+    
+    if([self.contentNavigation.visibleViewController isKindOfClass:[SGUserSettingViewController class]])
+        return;
+    
+    [self.contentNavigation popToRootViewControllerAnimated:false];
+    
+    if(userSettingController)
+    {
+        [self.contentNavigation pushViewController:userSettingController animated:false];
+        return;
+    }
+    
+    SGUserSettingViewController *vc=[SGUserSettingViewController new];
     vc.delegate=self;
     
-    [self presentViewController:vc];
+    userSettingController=vc;
+    
+    [self.contentNavigation pushViewController:vc animated:false];
 }
 
 -(void)userSettingControllerTouchedClose:(SGUserSettingViewController *)controller
@@ -281,6 +296,34 @@ static GUIManager *_shareInstance=nil;
     tutorialController=vc;
     
     [self.contentNavigation pushViewController:vc animated:false];
+}
+
+-(void)settingTouchedPromotion:(SGSettingViewController *)controller
+{
+    [self.rootNavigation removeLeftSlideViewController];
+    
+    if([self.contentNavigation.visibleViewController isKindOfClass:[UserPromotionViewController class]])
+        return;
+    
+    [self.contentNavigation popToRootViewControllerAnimated:false];
+    
+    if(userPromotionControlelr)
+    {
+        [self.contentNavigation pushViewController:userPromotionControlelr animated:false];
+        return;
+    }
+    
+    UserPromotionViewController *vc=[[UserPromotionViewController alloc] init];
+    vc.delegate=self;
+    
+    userPromotionControlelr=vc;
+    
+    [self.contentNavigation pushViewController:vc animated:false];
+}
+
+-(void)userPromotionTouchedNavigation:(UserPromotionViewController *)controller
+{
+    [self showLeftController];
 }
 
 -(void)toolbarUserCollection

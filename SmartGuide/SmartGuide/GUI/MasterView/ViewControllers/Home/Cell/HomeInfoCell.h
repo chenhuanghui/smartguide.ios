@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "UserHome6.h"
 #import "UserHome7.h"
+#import "UserPromotion.h"
 #import "LabelTopText.h"
 
 @protocol homeInfoCellDelegate <NSObject>
@@ -26,16 +27,17 @@
     __weak IBOutlet LabelTopText *lblContent;
     __weak IBOutlet UIImageView *imgvCover;
     __weak IBOutlet UIButton *btnGoTo;
-    
-    __weak UserHome6 *_home6;
-    __weak UserHome7 *_home7;
+
+    __weak id _obj;
 }
 
 -(void) loadWithHome6:(UserHome6*) home;
 -(void) loadWithHome7:(UserHome7*) home;
+-(void) loadWithUserPromotion:(UserPromotion*) obj;
 
 +(float) heightWithHome6:(UserHome6*) home;
 +(float) heightWithHome7:(UserHome7*) home;
++(float) heightWithUserPromotion:(UserPromotion*) obj;
 +(NSString *)reuseIdentifier;
 
 @property (nonatomic, weak) id<homeInfoCellDelegate> delegate;

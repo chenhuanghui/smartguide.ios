@@ -8,6 +8,7 @@
 
 #import "ImageManager.h"
 #import "UIImageView+WebCache.h"
+#import "Utility.h"
 
 static NSMutableArray *_loadingImages=nil;
 static NSMutableArray *_loadingMoreImages=nil;
@@ -146,6 +147,41 @@ static ImageManager *_imageManager=nil;
         wself.animationImages=nil;
         [wself stopAnimating];
         wself.contentMode=mode;
+    }];
+}
+
+@end
+
+@implementation UIButton(ImageManager)
+
+-(void)loadImage:(NSString *)url
+{
+    [self loadImage:url onCompleted:nil];
+}
+
+-(void)loadImage:(NSString *)url onCompleted:(void (^)(UIImage *))onCompleted
+{
+    __weak UIButton *wSelf=self;
+    
+    __block void(^_onCompleted)(UIImage* image)=nil;
+    if(onCompleted)
+        _onCompleted=[onCompleted copy];
+    
+    [self.imageView setImageWithURL:[NSURL URLWithString:url] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
+        if(image && wSelf)
+        {
+            [wSelf setDefaultImage:image highlightImage:image];
+        }
+        
+        if(_onCompleted)
+        {
+            if(error)
+                _onCompleted(nil);
+            else
+                _onCompleted(image);
+            
+            _onCompleted=nil;
+        }
     }];
 }
 

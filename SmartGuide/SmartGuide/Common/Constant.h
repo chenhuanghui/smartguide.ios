@@ -51,6 +51,7 @@ static NSString * const kClientId = @"816218358288-msr055u6pvnlqep605ri3lu8tt5ev
 
 #define SERVER_IP_MAKE(api) [NSString stringWithFormat:@"%@/%@",SERVER_IP,api]
 #define SERVER_API_MAKE(api) [NSString stringWithFormat:@"%@/%@",SERVER_API,api]
+#define SERVER_API_URL_MAKE(api) [NSURL URLWithString:SERVER_API_MAKE(api)]
 #define SERVER_API_IMAGE SERVER_API_MAKE(@"photo/upload")
 #define SERVER_API_UPLOAD_PROFILE_FACEBOOK SERVER_API_MAKE(@"user/info/update")
 
@@ -99,6 +100,7 @@ static NSString * const kClientId = @"816218358288-msr055u6pvnlqep605ri3lu8tt5ev
 #define API_ADD_SHOP_PLACELISTS @"placelist/addShopPlacelists"
 #define API_SOCIAL_SHARE @"social/share"
 #define API_SCAN_CODE @"user/scanSGCode_v2"
+#define API_USER_PROMOTION @"user/promotion"
 
 #define API_GET_ACTIVE_CODE @"user/activation"
 #define API_USER_CHECK @"user/check_v2"

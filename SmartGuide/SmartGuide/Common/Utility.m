@@ -1557,6 +1557,11 @@ NSString *documentPath()
 
 -(UIImage *)blur
 {
+    return [self blurWithInputRadius:8];
+}
+
+-(UIImage *)blurWithInputRadius:(float)inputRadius
+{
     // ***********If you need re-orienting (e.g. trying to blur a photo taken from the device camera front facing camera in portrait mode)
     // theImage = [self reOrientIfNeeded:theImage];
     
@@ -1567,7 +1572,7 @@ NSString *documentPath()
     // setting up Gaussian Blur (we could use one of many filters offered by Core Image)
     CIFilter *filter = [CIFilter filterWithName:@"CIGaussianBlur"];
     [filter setValue:inputImage forKey:kCIInputImageKey];
-    [filter setValue:[NSNumber numberWithFloat:8.0f] forKey:@"inputRadius"];
+    [filter setValue:[NSNumber numberWithFloat:inputRadius] forKey:@"inputRadius"];
     CIImage *result = [filter valueForKey:kCIOutputImageKey];
     
     // CIGaussianBlur has a tendency to shrink the image a little,
@@ -1578,6 +1583,29 @@ NSString *documentPath()
     CGImageRelease(cgImage);//release CGImageRef because ARC doesn't manage this on its own.
     
     return returnImage;
+}
+
+- (UIImage*)convertToGrayscale
+{
+    UIGraphicsBeginImageContextWithOptions(self.size, NO, self.scale);
+    CGRect imageRect = CGRectMake(0.0f, 0.0f, self.size.width, self.size.height);
+    
+    CGContextRef ctx = UIGraphicsGetCurrentContext();
+    
+    // Draw a white background
+    CGContextSetRGBFillColor(ctx, 1.0f, 1.0f, 1.0f, 1.0f);
+    CGContextFillRect(ctx, imageRect);
+    
+    // Draw the luminosity on top of the white background to get grayscale
+    [self drawInRect:imageRect blendMode:kCGBlendModeLuminosity alpha:1.0f];
+    
+    // Apply the source image's alpha
+    [self drawInRect:imageRect blendMode:kCGBlendModeDestinationIn alpha:1.0f];
+    
+    UIImage* grayscaleImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return grayscaleImage;
 }
 
 #pragma mark -

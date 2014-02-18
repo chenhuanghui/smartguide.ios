@@ -52,3 +52,17 @@ NSString* localizeDanhMucHienKhongCoKhuyenMai()
 {
     return @"Danh mục hiện không có khuyến mãi";
 }
+
+NSString *localizeGender(int gender)
+{
+    switch (gender) {
+        case 0:
+            return @"Nữ";
+            
+        case 1:
+            return @"Nam";
+            
+        default:
+            return @"";
+    }
+}

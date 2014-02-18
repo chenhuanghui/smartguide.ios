@@ -17,3 +17,4 @@ NSString* localizeRequireSGP();
 NSString* localizeUpdateProfileFailed();
 NSString* localizeConnectToServerFailed();
 NSString* localizeDanhMucHienKhongCoKhuyenMai();
+NSString *localizeGender(int gender);

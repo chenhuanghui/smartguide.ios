@@ -291,6 +291,8 @@ NSString *documentPath();
 - (UIImage *)imageWithAlpha;
 - (UIImage *)transparentBorderImage:(NSUInteger)borderSize;
 - (UIImage*) blur;
+- (UIImage*) blurWithInputRadius:(float) inputRadius;
+- (UIImage*) convertToGrayscale;
 
 @end
 

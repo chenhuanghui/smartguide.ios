@@ -43,8 +43,6 @@
 {
     if([notification.name isEqualToString:kReachabilityChangedNotification])
     {
-        NSLog(@"%@ %i",_reach, _reach.currentReachabilityStatus);
-        
         switch (_reach.currentReachabilityStatus) {
             case NotReachable:
             {

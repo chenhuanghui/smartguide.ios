@@ -43,3 +43,10 @@
 -(void) loadImagePromotionNewsWithURL:(NSString*) url;
 
 @end
+
+@interface UIButton(ImageManager)
+
+-(void) loadImage:(NSString*) url;
+-(void) loadImage:(NSString*) url onCompleted:(void(^)(UIImage *image)) onCompleted;
+
+@end

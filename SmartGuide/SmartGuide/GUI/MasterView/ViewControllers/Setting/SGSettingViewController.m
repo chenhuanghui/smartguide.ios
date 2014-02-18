@@ -62,4 +62,8 @@
     [containtView l_v_setW:self.l_v_w];
 }
 
+- (IBAction)btnKMTouchUpInside:(id)sender {
+    [self.delegate settingTouchedPromotion:self];
+}
+
 @end

@@ -15,8 +15,7 @@
 
 -(void)loadWithHome6:(UserHome6 *)home
 {
-    _home6=home;
-    _home7=nil;
+    _obj=home;
     
     [imgvLogo loadImageHomeWithURL:home.logo];
     lblName.text=home.shopName;
@@ -39,8 +38,7 @@
 
 -(void)loadWithHome7:(UserHome7 *)home
 {
-    _home6=nil;
-    _home7=home;
+    _obj=home;
     
     [imgvLogo loadImageHomeWithURL:home.store.logo];
     lblName.text=home.storeName;
@@ -59,6 +57,29 @@
     [self makeButtonSize];
 
     [lblContent l_v_setY:165+home.titleHeight];
+}
+
+-(void)loadWithUserPromotion:(UserPromotion *)obj
+{
+    _obj=obj;
+    
+    [imgvLogo loadImageHomeWithURL:obj.logo];
+    lblName.text=obj.brandName;
+    lblDate.text=obj.date;
+    [imgvCover loadImageHomeWithURL:obj.cover];
+    lblTitle.text=obj.title;
+    lblContent.text=obj.desc;
+    
+    [btnGoTo setTitle:@"GO" forState:UIControlStateNormal];
+    
+    if(obj.goTo.length>0)
+        [btnGoTo setTitle:obj.goTo forState:UIControlStateNormal];
+    
+    //    [btnGoTo setTitle:@"Đến cửa hàng ngay" forState:UIControlStateNormal];
+    
+    [self makeButtonSize];
+    
+    [lblContent l_v_setY:165+obj.titleHeight];
 }
 
 -(void) makeButtonSize
@@ -101,13 +122,32 @@
     return height;
 }
 
++(float) heightWithUserPromotion:(UserPromotion *)obj
+{
+    float height=247;
+    
+    if(obj.titleHeight==-1)
+        obj.titleHeight=[obj.title sizeWithFont:[UIFont fontWithName:@"Avenir-Heavy" size:13] constrainedToSize:CGSizeMake(275, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height-20;
+    
+    obj.titleHeight=MAX(0,obj.titleHeight);
+    
+    height+=obj.titleHeight;
+    
+    if(obj.contentHeight==-1)
+        obj.contentHeight=[obj.desc sizeWithFont:[UIFont fontWithName:@"Avenir-Roman" size:13] constrainedToSize:CGSizeMake(265, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height;
+    
+    height+=obj.contentHeight;
+    
+    return height;
+}
+
 +(NSString *)reuseIdentifier
 {
     return @"HomeInfoCell";
 }
 
 - (IBAction)btnGoToTouchUpInside:(id)sender {
-    [self.delegate homeInfoCellTouchedGoTo:_home6?_home6:_home7];
+    [self.delegate homeInfoCellTouchedGoTo:_obj];
 }
 
 @end

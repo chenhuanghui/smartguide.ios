@@ -30,7 +30,7 @@
                         <action selector="btnLoginTouchUpInside:" destination="-1" eventType="touchUpInside" id="Pjb-37-ytZ"/>
                     </connections>
                 </button>
-                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Số điện thoại" minimumFontSize="17" background="bg_textbox_login.jpg" id="ghz-yU-fvx">
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Số điện thoại" minimumFontSize="17" background="bg_textbox_login.png" id="ghz-yU-fvx">
                     <rect key="frame" x="35" y="37" width="253" height="56"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -58,7 +58,7 @@
         </view>
     </objects>
     <resources>
-        <image name="bg_textbox_login.jpg" width="253" height="56"/>
+        <image name="bg_textbox_login.png" width="253" height="56"/>
         <image name="button_confirm_login.png" width="100" height="42"/>
     </resources>
 </document>

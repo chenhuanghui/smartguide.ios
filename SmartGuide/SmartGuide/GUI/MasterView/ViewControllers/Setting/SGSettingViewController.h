@@ -19,6 +19,7 @@
 -(void) settingTouchedCatalog:(SGSettingViewController*) controller;
 -(void) settingTouchedStore:(SGSettingViewController*) controller;
 -(void) settingTouchedOtherView:(SGSettingViewController*) controller;
+-(void) settingTouchedPromotion:(SGSettingViewController*) controller;
 
 @end
 
@@ -26,6 +27,7 @@
 {
     __weak IBOutlet UIButton *btnUser;
     __weak IBOutlet UIButton *btnCatalog;
+    __weak IBOutlet UIButton *btnKM;
     __weak IBOutlet UIView *containtView;
 }
 
