@@ -518,7 +518,7 @@
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    [self.view endEditing:true];
+    [txt resignFirstResponder];
 }
 
 -(BOOL)textFieldShouldBeginEditing:(UITextField *)textField
@@ -586,23 +586,24 @@
 
 -(void) keyboardWillShow:(NSNotification*) notification
 {
-    float duration=[notification.userInfo[UIKeyboardAnimationDurationUserInfoKey] floatValue];
-    float height=[notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue].size.height;
+//    float duration=[notification.userInfo[UIKeyboardAnimationDurationUserInfoKey] floatValue];
+//    float height=[notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue].size.height;
     
-    [UIView animateWithDuration:duration animations:^{
-        [table l_v_setH:_tableFrame.size.height-height];
-    }];
+//    [UIView animateWithDuration:duration animations:^{
+//        [table l_v_setH:_tableFrame.size.height-height];
+//    }];
 }
 
 -(void) keyboardWillHide:(NSNotification*) notification
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
-    float duration=[notification.userInfo[UIKeyboardAnimationDurationUserInfoKey] floatValue];
-    
-    [UIView animateWithDuration:duration animations:^{
-        [table l_v_setH:_tableFrame.size.height];
-    }];
+//    float duration=[notification.userInfo[UIKeyboardAnimationDurationUserInfoKey] floatValue];
+ 
+//    NSLog(@"XXX");
+//    [UIView animateWithDuration:duration animations:^{
+//        [table l_v_setH:_tableFrame.size.height];
+//    }];
 }
 
 -(void)dealloc
