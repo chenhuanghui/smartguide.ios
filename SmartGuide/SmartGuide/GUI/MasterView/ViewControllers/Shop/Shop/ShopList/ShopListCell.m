@@ -9,6 +9,7 @@
 #import "ShopListCell.h"
 #import "Utility.h"
 #import "Constant.h"
+#import "GUIManager.h"
 
 #define SHOP_LIST_CELL_BUTTON_TAG_ADD 0
 #define SHOP_LIST_CELL_BUTTON_TAG_REMOVE 1
@@ -66,8 +67,8 @@
     return height+44;
 }
 
-- (IBAction)btnLoveTouchUpInside:(id)sender {
-    
+-(void) love_unlove
+{
     if(_shop.loveStatus.integerValue==0)
         [ASIOperationLoveShop loveShop:_shop.idShop.integerValue userLat:userLat() userLng:userLng()];
     else
@@ -80,7 +81,7 @@
         imgvHeartAni.transform=CGAffineTransformMakeScale(4, 4);
     } completion:^(BOOL finished) {
         [UIView animateWithDuration:0.3f animations:^{
-        imgvHeartAni.transform=CGAffineTransformMakeScale(1.5f, 1.5f);
+            imgvHeartAni.transform=CGAffineTransformMakeScale(1.5f, 1.5f);
         } completion:^(BOOL finished) {
             imgvHeartAni.hidden=true;
             
@@ -89,7 +90,55 @@
     }];
 }
 
+- (IBAction)btnLoveTouchUpInside:(id)sender {
+
+    if(currentUser().enumDataMode==USER_DATA_TRY)
+    {
+        [[GUIManager shareInstance] showLoginDialogWithMessage:localizeLoginRequire() onOK:nil onCancelled:nil onLogined:^(bool isLogined) {
+            if(isLogined)
+                [self love_unlove];
+        }];
+        return;
+    }
+    
+    if(currentUser().enumDataMode==USER_DATA_CREATING)
+    {
+        [[GUIManager shareInstance] showLoginDialogWithMessage:localizeUserProfileRequire() onOK:nil onCancelled:nil onLogined:^(bool isLogined) {
+            if(isLogined)
+                [self love_unlove];
+        }];
+        
+        return;
+    }
+    
+    [self love_unlove];
+}
+
 -(IBAction) btnAddRemoveTouchUpInside:(id)sender
+{
+    if(currentUser().enumDataMode==USER_DATA_TRY)
+    {
+        [[GUIManager shareInstance] showLoginDialogWithMessage:localizeLoginRequire() onOK:nil onCancelled:nil onLogined:^(bool isLogined) {
+            if(isLogined)
+                [self add_removeShop];
+        }];
+        return;
+    }
+    
+    if(currentUser().enumDataMode==USER_DATA_CREATING)
+    {
+        [[GUIManager shareInstance] showLoginDialogWithMessage:localizeUserProfileRequire() onOK:nil onCancelled:nil onLogined:^(bool isLogined) {
+            if(isLogined)
+                [self add_removeShop];
+        }];
+        
+        return;
+    }
+    
+    [self add_removeShop];
+}
+
+-(void) add_removeShop
 {
     if(btnAddRemove.tag==SHOP_LIST_CELL_BUTTON_TAG_ADD)
         [self.delegate shopListCellTouchedAdd:_shop];
