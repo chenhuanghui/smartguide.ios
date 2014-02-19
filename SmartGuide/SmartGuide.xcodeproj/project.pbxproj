@@ -937,6 +937,12 @@
 		9AD1280D185EFD3500D56B24 /* _StoreCart.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AD1280C185EFD3500D56B24 /* _StoreCart.m */; };
 		9AD23D5217FABC0100D28C7E /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AD23D5117FABC0100D28C7E /* AudioToolbox.framework */; };
 		9AD47A0A1877EFBE00F1A111 /* ShopKM2Cell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AD47A091877EFBD00F1A111 /* ShopKM2Cell.m */; };
+		9AE0173918B4A75500A222FA /* button_gotoshop_home.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AE0173718B4A75400A222FA /* button_gotoshop_home.png */; };
+		9AE0173A18B4A75500A222FA /* button_gotoshop_home@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AE0173818B4A75500A222FA /* button_gotoshop_home@2x.png */; };
+		9AE0173D18B4AACA00A222FA /* icon_avashop_home.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AE0173B18B4AACA00A222FA /* icon_avashop_home.png */; };
+		9AE0173E18B4AACA00A222FA /* icon_avashop_home@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AE0173C18B4AACA00A222FA /* icon_avashop_home@2x.png */; };
+		9AE0174118B4B3E800A222FA /* button_close_search.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AE0173F18B4B3E800A222FA /* button_close_search.png */; };
+		9AE0174218B4B3E800A222FA /* button_close_search@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AE0174018B4B3E800A222FA /* button_close_search@2x.png */; };
 		9AED46AC181E73AB00BAD467 /* SGViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AED46AB181E73AB00BAD467 /* SGViewController.m */; };
 		9AEE41CA187C05F00000D515 /* ASIOperationUpdateUserProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AEE41C9187C05F00000D515 /* ASIOperationUpdateUserProfile.m */; };
 		9AEE6C39188FCB820059B93C /* icon_arrowleft_photo.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AEE6C33188FCB820059B93C /* icon_arrowleft_photo.png */; };
@@ -2220,6 +2226,12 @@
 		9AD23D5117FABC0100D28C7E /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		9AD47A081877EFBD00F1A111 /* ShopKM2Cell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopKM2Cell.h; sourceTree = "<group>"; };
 		9AD47A091877EFBD00F1A111 /* ShopKM2Cell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopKM2Cell.m; sourceTree = "<group>"; };
+		9AE0173718B4A75400A222FA /* button_gotoshop_home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_gotoshop_home.png; sourceTree = "<group>"; };
+		9AE0173818B4A75500A222FA /* button_gotoshop_home@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_gotoshop_home@2x.png"; sourceTree = "<group>"; };
+		9AE0173B18B4AACA00A222FA /* icon_avashop_home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_avashop_home.png; sourceTree = "<group>"; };
+		9AE0173C18B4AACA00A222FA /* icon_avashop_home@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_avashop_home@2x.png"; sourceTree = "<group>"; };
+		9AE0173F18B4B3E800A222FA /* button_close_search.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_close_search.png; sourceTree = "<group>"; };
+		9AE0174018B4B3E800A222FA /* button_close_search@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_close_search@2x.png"; sourceTree = "<group>"; };
 		9AED46AA181E73AB00BAD467 /* SGViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGViewController.h; sourceTree = "<group>"; };
 		9AED46AB181E73AB00BAD467 /* SGViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGViewController.m; sourceTree = "<group>"; };
 		9AEE41C8187C05F00000D515 /* ASIOperationUpdateUserProfile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIOperationUpdateUserProfile.h; sourceTree = "<group>"; };
@@ -4038,6 +4050,12 @@
 		A98198BE178D44FB0009FCB6 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				9AE0173F18B4B3E800A222FA /* button_close_search.png */,
+				9AE0174018B4B3E800A222FA /* button_close_search@2x.png */,
+				9AE0173B18B4AACA00A222FA /* icon_avashop_home.png */,
+				9AE0173C18B4AACA00A222FA /* icon_avashop_home@2x.png */,
+				9AE0173718B4A75400A222FA /* button_gotoshop_home.png */,
+				9AE0173818B4A75500A222FA /* button_gotoshop_home@2x.png */,
 				9A3DE85E18B322B9006F473A /* bg_textbox_login.png */,
 				9A3DE85F18B322B9006F473A /* bg_textbox_login@2x.png */,
 				9A3DE85A18B30B88006F473A /* button_logout.png */,
@@ -4884,6 +4902,7 @@
 				9A5E66ED18842E32003F33CD /* iconpin_food@2x.png in Resources */,
 				9A9DB978187BA2F800091602 /* I-4-Register.jpg in Resources */,
 				9A98C910188E83A30067EAD3 /* button_loading_small_00.png in Resources */,
+				9AE0173918B4A75500A222FA /* button_gotoshop_home.png in Resources */,
 				9A32F419184346C000704D26 /* WelcomeViewController.xib in Resources */,
 				9AA90B6F1850EF0F002F40FF /* bg_typecomment_mid@2x.png in Resources */,
 				9ACAEDA21872B6150025B027 /* II-3-Detail-Promtion2.jpg in Resources */,
@@ -4997,6 +5016,7 @@
 				9AA026DD183674CF0087B2DA /* icon_voucher.png in Resources */,
 				9A66893B184DC6F2006A9EB2 /* bg_detailcover.png in Resources */,
 				9A8653C518780E5400A60BF1 /* II-6-ScanAlert-Disconnect.jpg in Resources */,
+				9AE0173A18B4A75500A222FA /* button_gotoshop_home@2x.png in Resources */,
 				9A9FCBF91854ED8C004A3CFB /* II-3-DetailFull.jpg in Resources */,
 				9AB1F04B183F136700A35422 /* arrowchat_smallgray@2x.png in Resources */,
 				9AEE6C59189022B20059B93C /* GalleryFullViewController.xib in Resources */,
@@ -5005,6 +5025,7 @@
 				9ACFAE7A18621D10006131DC /* frame_takephoto@2x.png in Resources */,
 				9A98C8FF188E83A30067EAD3 /* button_loading_small_05.png in Resources */,
 				9A7E556F183C7F21006D1798 /* photo_firsttime.png in Resources */,
+				9AE0173E18B4AACA00A222FA /* icon_avashop_home@2x.png in Resources */,
 				9A5DC488183DC16A0051375A /* icon_promotion.png in Resources */,
 				9AEE6C3E188FCB820059B93C /* icon_arrowright_photo@2x.png in Resources */,
 				9A5DC485183DBEAA0051375A /* background_status@2x.png in Resources */,
@@ -5096,6 +5117,7 @@
 				9A3E765B1851C61000F596C1 /* button_dropup.png in Resources */,
 				9AB1F048183F136700A35422 /* arrowchat_small.png in Resources */,
 				9A1E233E18B1B7120077F503 /* II-2-UserSetting.jpg in Resources */,
+				9AE0173D18B4AACA00A222FA /* icon_avashop_home.png in Resources */,
 				9A9BDEDF187E8E3A00D45167 /* button_arrow_left_home@2x.png in Resources */,
 				9A8653B91877EFF600A60BF1 /* ShopKM2Cell.xib in Resources */,
 				9A1E234F18B1D2BD0077F503 /* UserPromotionViewController.xib in Resources */,
@@ -5214,6 +5236,7 @@
 				9ACAED691872B10E0025B027 /* icon_sgp_promotion_1.png in Resources */,
 				9A98C904188E83A30067EAD3 /* button_loading_big_00.png in Resources */,
 				9A998A85188E47B400F59840 /* button_back_06.png in Resources */,
+				9AE0174118B4B3E800A222FA /* button_close_search.png in Resources */,
 				9A5DC471183DB1A50051375A /* pattern_promotion@2x.png in Resources */,
 				9A96BB4A188044DD0081171B /* button_search_home.png in Resources */,
 				9ACFAE7618621D10006131DC /* frame_takephoto.png in Resources */,
@@ -5356,6 +5379,7 @@
 				9A998A86188E47B400F59840 /* button_back_07.png in Resources */,
 				9ACBE8E8185A117B0004474F /* button_getgiffthidden@2x.png in Resources */,
 				9A9FCBE61854ED8C004A3CFB /* coverdetail@2x.jpg in Resources */,
+				9AE0174218B4B3E800A222FA /* button_close_search@2x.png in Resources */,
 				9A9FCC021854ED8C004A3CFB /* IV-1-Stores.jpg in Resources */,
 				9A9DB98B187BA42700091602 /* icon_sale_login@2x.png in Resources */,
 				9A32F414184346BA00704D26 /* SGToolbarViewController.xib in Resources */,

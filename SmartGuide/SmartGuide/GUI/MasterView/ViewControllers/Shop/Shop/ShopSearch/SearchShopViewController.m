@@ -63,6 +63,18 @@
     [self requestPlacelist];
 }
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    if(!_viewWillAppear)
+    {
+        _viewWillAppear=true;
+        
+        [txt becomeFirstResponder];
+    }
+}
+
 -(void) reloadData
 {
     [table reloadData];
@@ -214,6 +226,9 @@
         
         [_autocomplete setObject:@[ope.shops,ope.placelists] forKey:ope.keyword];
         [_searchInQuery removeObject:ope.keyword];
+
+        if([_operationsAutocompleted objectForKey:ope.keyword])
+            [_operationsAutocompleted removeObjectForKey:ope.keyword];
         
         if([[txt.text lowercaseString] isEqualToString:[ope.keyword lowercaseString]])
             [self reloadData];
@@ -503,7 +518,7 @@
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    //[self.view endEditing:true];
+    [self.view endEditing:true];
 }
 
 -(BOOL)textFieldShouldBeginEditing:(UITextField *)textField
@@ -534,7 +549,6 @@
     if(textField.text.length==0)
     {
         [self reloadData];
-        [self.view endEditing:true];
         return;
     }
     
@@ -562,6 +576,12 @@
     ope.delegate=self;
     
     [ope start];
+    
+    if(!_operationsAutocompleted)
+        _operationsAutocompleted=[NSMutableDictionary new];
+    
+    if(![_operationsAutocompleted objectForKey:keyword])
+        [_operationsAutocompleted setObject:ope forKey:keyword];
 }
 
 -(void) keyboardWillShow:(NSNotification*) notification
@@ -587,10 +607,28 @@
 
 -(void)dealloc
 {
+    if(_operationsAutocompleted && _operationsAutocompleted.allValues.count>0)
+    {
+        while (_operationsAutocompleted.allKeys.count>0) {
+            NSString *key=_operationsAutocompleted.allKeys[0];
+            OperationURL *ope=[_operationsAutocompleted objectForKey:key];
+            ope.delegate=nil;
+            [ope cancel];
+            
+            [_operationsAutocompleted removeObjectForKey:key];
+        }
+    }
+    
     if(_operationPlacelistGetList)
     {
         [_operationPlacelistGetList cancel];
         _operationPlacelistGetList=nil;
+    }
+    
+    if(_operationShopUser)
+    {
+        [_operationShopUser cancel];
+        _operationShopUser=nil;
     }
 }
 

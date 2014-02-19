@@ -15,13 +15,13 @@
 
 -(void)loadWithHome1:(UserHome1 *)home
 {
-    [imgv loadShopLogoWithURL:home.logo];
+    [imgv loadShopLogoPromotionHome:home.logo];
     lbl.text=home.content;
 }
 
 -(void) loadWithHome8:(UserHome8 *)home
 {
-    [imgv loadShopLogoWithURL:home.shop.logo];
+    [imgv loadShopLogoPromotionHome:home.shop.logo];
     lbl.text=home.content;
 }
 
@@ -32,7 +32,7 @@
 
 +(float) heightWithContent:(NSString*) content
 {
-    float height=61;
+    float height=69;
     return height;
     height+=MAX(0,[content sizeWithFont:[UIFont fontWithName:@"Avenir-Roman" size:13] constrainedToSize:CGSizeMake(236, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height-35);
     

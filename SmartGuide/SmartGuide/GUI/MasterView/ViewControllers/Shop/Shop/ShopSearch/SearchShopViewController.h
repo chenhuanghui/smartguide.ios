@@ -55,6 +55,10 @@ enum SEARCH_SHOP_VIEW_MODE {
     bool _isLoadingMore;
     
     CGRect _tableFrame;
+    
+    NSMutableDictionary *_operationsAutocompleted;
+    
+    bool _viewWillAppear;
 }
 
 -(SearchShopViewController*) initWithKeyword:(NSString*) keyword;

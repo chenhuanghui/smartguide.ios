@@ -15,7 +15,6 @@
 @end
 
 @implementation SearchViewController
-@synthesize shopListController,searchShopController;
 
 -(SearchViewController *)init
 {
@@ -92,7 +91,7 @@
             vc.searchController=self;
             vc.delegate=self;
             
-            shopListController=vc;
+            self.shopListController=vc;
             
             SGNavigationController *navi=[[SGNavigationController alloc] initWithRootViewController:vc];
             
@@ -108,7 +107,7 @@
             vc.searchController=self;
             vc.delegate=self;
             
-            searchShopController=vc;
+            self.searchShopController=vc;
             
             SGNavigationController *navi=[[SGNavigationController alloc] initWithRootViewController:vc];
             
@@ -124,7 +123,7 @@
             vc.searchController=self;
             vc.delegate=self;
             
-            shopListController=vc;
+            self.shopListController=vc;
             
             SGNavigationController *navi=[[SGNavigationController alloc] initWithRootViewController:vc];
             
@@ -140,7 +139,7 @@
             vc.searchController=self;
             vc.delegate=self;
             
-            shopListController=vc;
+            self.shopListController=vc;
             
             SGNavigationController *navi=[[SGNavigationController alloc] initWithRootViewController:vc];
             
@@ -180,17 +179,17 @@
 
 -(void) showSearchShopWithKeyword:(NSString*) keyword
 {
-    if(searchShopController)
+    if(self.searchShopController)
     {
-        [searchShopController setKeyword:keyword];
-        [searchNavi makePushViewController:searchShopController animate:true];
+        [self.searchShopController setKeyword:keyword];
+        [searchNavi makePushViewController:self.searchShopController animate:true];
     }
     else
     {
         SearchShopViewController *vc=[[SearchShopViewController alloc] initWithKeyword:keyword];
         vc.delegate=self;
         
-        searchShopController=vc;
+        self.searchShopController=vc;
         
         [searchNavi pushViewController:vc animated:true];
     }
@@ -198,30 +197,30 @@
 
 -(void) showShopListWithKeyword:(NSString*) keyword
 {
-    if(shopListController)
+    if(self.shopListController)
     {
-        [searchNavi removeViewController:shopListController];
+        [searchNavi removeViewController:self.shopListController];
     }
     
     ShopListViewController *vc=[[ShopListViewController alloc] initWithKeyword:keyword];
     vc.delegate=self;
     
-    shopListController=vc;
+    self.shopListController=vc;
     
     [searchNavi pushViewController:vc animated:true];
 }
 
 -(void) showShopListWithPlacelist:(Placelist*) placelist
 {
-    if(shopListController)
+    if(self.shopListController)
     {
-        [searchNavi removeViewController:shopListController];
+        [searchNavi removeViewController:self.shopListController];
     }
     
     ShopListViewController *vc=[[ShopListViewController alloc] initWithPlaceList:placelist];
     vc.delegate=self;
     
-    shopListController=vc;
+    self.shopListController=vc;
     
     [searchNavi pushViewController:vc animated:true];
 }

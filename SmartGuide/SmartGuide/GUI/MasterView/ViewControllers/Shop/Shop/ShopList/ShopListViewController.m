@@ -461,7 +461,7 @@
     [scroll.panGestureRecognizer requireGestureRecognizerToFail:tap];
     [scroll.panGestureRecognizer addTarget:self action:@selector(scrollPanGes:)];
     
-    _shopsList=[NSMutableArray array];
+    _shopsList=[NSMutableArray new];
     _page=-1;
     
     sortView.delegate=self;
@@ -563,7 +563,7 @@
     
     [tableList setContentOffset:tableList.contentOffset animated:true];
     
-    _shopsList=[NSMutableArray array];
+    _shopsList=[NSMutableArray new];
     _page=-1;
     _location=coordinate;
     _viewMode=SHOP_LIST_VIEW_LIST;
@@ -595,7 +595,7 @@
     [tableList setContentOffset:tableList.contentOffset animated:true];
     
     tableList.dataSource=nil;
-    _shopsList=[NSMutableArray array];
+    _shopsList=[NSMutableArray new];
     _page=-1;
     _sort=sort;
     
@@ -619,7 +619,7 @@
     [tableList setContentOffset:tableList.contentOffset animated:true];
     
     tableList.dataSource=nil;
-    _shopsList=[NSMutableArray array];
+    _shopsList=[NSMutableArray new];
     _page=-1;
     _sort=sort;
     
@@ -646,7 +646,7 @@
     [tableList setContentOffset:tableList.contentOffset animated:true];
     
     tableList.dataSource=nil;
-    _shopsList=[NSMutableArray array];
+    _shopsList=[NSMutableArray new];
     _page=-1;
     _sort=sort;
     
@@ -701,9 +701,6 @@
         _canLoadMore=ope.shopsList.count==10;
         _isLoadingMore=false;
         
-        tableList.dataSource=self;
-        tableList.delegate=self;
-        
         [tableList reloadData];
         
         NSMutableArray *coordinates=[NSMutableArray array];
@@ -737,9 +734,6 @@
         _page++;
         _canLoadMore=ope.shopsList.count==10;
         _isLoadingMore=false;
-        
-        tableList.dataSource=self;
-        tableList.delegate=self;
         
         [tableList reloadData];
         

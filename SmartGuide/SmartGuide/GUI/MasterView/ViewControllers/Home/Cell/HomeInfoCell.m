@@ -24,12 +24,7 @@
     lblTitle.text=home.title;
     lblContent.text=home.content;
     
-    [btnGoTo setTitle:@"GO" forState:UIControlStateNormal];
-    
-    if(home.gotoshop.length>0)
-        [btnGoTo setTitle:home.gotoshop forState:UIControlStateNormal];
-    
-//    [btnGoTo setTitle:@"Đến cửa hàng ngay" forState:UIControlStateNormal];
+    lblGoTo.text=home.gotoshop;
     
     [self makeButtonSize];
     
@@ -47,12 +42,7 @@
     lblTitle.text=home.title;
     lblContent.text=home.content;
     
-    [btnGoTo setTitle:@"GO" forState:UIControlStateNormal];
-    
-    if(home.gotostore.length>0)
-        [btnGoTo setTitle:home.gotostore forState:UIControlStateNormal];
-    
-//    [btnGoTo setTitle:@"Đến cửa hàng ngay" forState:UIControlStateNormal];
+    lblGoTo.text=home.gotostore;
     
     [self makeButtonSize];
 
@@ -70,12 +60,7 @@
     lblTitle.text=obj.title;
     lblContent.text=obj.desc;
     
-    [btnGoTo setTitle:@"GO" forState:UIControlStateNormal];
-    
-    if(obj.goTo.length>0)
-        [btnGoTo setTitle:obj.goTo forState:UIControlStateNormal];
-    
-    //    [btnGoTo setTitle:@"Đến cửa hàng ngay" forState:UIControlStateNormal];
+    lblGoTo.text=obj.goTo;
     
     [self makeButtonSize];
     
@@ -84,6 +69,7 @@
 
 -(void) makeButtonSize
 {
+    return;
     float width=[[btnGoTo titleForState:UIControlStateNormal] sizeWithFont:btnGoTo.titleLabel.font constrainedToSize:CGSizeMake(295, 44) lineBreakMode:btnGoTo.titleLabel.lineBreakMode].width+50;
     
     [btnGoTo l_v_setW:width];

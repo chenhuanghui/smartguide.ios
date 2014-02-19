@@ -9,7 +9,7 @@
 #import "ASIOperationPlacelistDetail.h"
 
 @implementation ASIOperationPlacelistDetail
-@synthesize values,place,shopsList;
+@synthesize values,place;
 
 -(ASIOperationPlacelistDetail *)initWithIDPlacelist:(int)idPlaceList userLat:(double)userLat userLng:(double)userLng sort:(enum SORT_LIST)sort page:(NSUInteger)page
 {
@@ -31,14 +31,14 @@
         return;
     
     place=[Placelist placeListWithID:[values[0] integerValue]];
-    shopsList=[NSMutableArray array];
+    self.shopsList=[NSMutableArray new];
     
     for(NSDictionary *dict in json)
     {
         ShopList *shop=[ShopList makeWithDictionary:dict];
         
         [place addShopsListObject:shop];
-        [shopsList addObject:shop];
+        [self.shopsList addObject:shop];
     }
     
     [[DataManager shareInstance] save];

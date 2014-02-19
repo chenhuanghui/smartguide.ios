@@ -53,7 +53,7 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                         <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="13"/>
-                        <color key="textColor" red="0.43529415130615234" green="0.43529415130615234" blue="0.43529415130615234" alpha="1" colorSpace="deviceRGB"/>
+                        <color key="textColor" red="0.20784313725490194" green="0.61960784313725492" blue="0.93725490196078431" alpha="1" colorSpace="deviceRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="w7N-eo-ObW" customClass="LabelTopText">
@@ -65,20 +65,30 @@
                         <color key="textColor" red="0.43921571969985962" green="0.43921571969985962" blue="0.43921571969985962" alpha="1" colorSpace="deviceRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <button opaque="NO" contentMode="redraw" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="m6T-kj-FJN" customClass="ButtonGoTo">
-                        <rect key="frame" x="65" y="175" width="173" height="47"/>
+                    <button opaque="NO" contentMode="redraw" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="m6T-kj-FJN">
+                        <rect key="frame" x="53" y="176" width="196" height="44"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                        <inset key="titleEdgeInsets" minX="-25" minY="0.0" maxX="0.0" maxY="0.0"/>
-                        <state key="normal" title="GO TO SHOP">
-                            <color key="titleColor" red="0.52513051357639984" green="0.87400350765306123" blue="0.24824779275065018" alpha="1" colorSpace="calibratedRGB"/>
-                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="15"/>
+                        <inset key="titleEdgeInsets" minX="-29" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        <size key="titleShadowOffset" width="0.0" height="1"/>
+                        <state key="normal" backgroundImage="button_gotoshop_home.png">
+                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="titleShadowColor" red="0.35642538265306123" green="0.031077005413865693" blue="0.071378173721617838" alpha="1" colorSpace="calibratedRGB"/>
                         </state>
                         <connections>
                             <action selector="btnGoToTouchUpInside:" destination="8wt-FS-583" eventType="touchUpInside" id="hPw-wQ-ndz"/>
                         </connections>
                     </button>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Đi đến cửa hàng" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="n2Z-zN-CZR">
+                        <rect key="frame" x="71" y="176" width="141" height="44"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="14"/>
+                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                        <color key="shadowColor" red="0.35642538270000002" green="0.031077005410000001" blue="0.071378173719999993" alpha="1" colorSpace="calibratedRGB"/>
+                        <size key="shadowOffset" width="0.0" height="1"/>
+                    </label>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </tableViewCellContentView>
@@ -89,12 +99,14 @@
                 <outlet property="imgvLogo" destination="Lk2-e4-H4O" id="M6J-ZC-z9g"/>
                 <outlet property="lblContent" destination="w7N-eo-ObW" id="nzp-Xw-p5W"/>
                 <outlet property="lblDate" destination="8eo-6j-xR1" id="Gph-uT-rkx"/>
+                <outlet property="lblGoTo" destination="n2Z-zN-CZR" id="ATH-5A-1l5"/>
                 <outlet property="lblName" destination="Wfs-Jf-5ZZ" id="dCE-CL-4ML"/>
                 <outlet property="lblTitle" destination="6pt-5m-XHK" id="nWp-cZ-aIM"/>
             </connections>
         </tableViewCell>
     </objects>
     <resources>
+        <image name="button_gotoshop_home.png" width="196" height="44"/>
         <image name="frame_avashop_home.png" width="37" height="37"/>
     </resources>
 </document>

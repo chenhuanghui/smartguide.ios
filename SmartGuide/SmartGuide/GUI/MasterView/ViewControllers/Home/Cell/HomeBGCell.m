@@ -28,7 +28,7 @@
     
     rect.origin.y=imgTop.size.height;
     rect.origin.x=0;
-    rect.size.height-=(imgTop.size.height+imgBottom.size.height-1);
+    rect.size.height-=(imgTop.size.height+imgBottom.size.height);
     
     [imgMid drawAsPatternInRect:rect];
 }

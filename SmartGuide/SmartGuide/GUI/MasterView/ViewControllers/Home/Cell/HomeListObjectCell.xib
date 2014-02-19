@@ -37,8 +37,8 @@
                         <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="14"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
-                        <color key="shadowColor" cocoaTouchSystemColor="lightTextColor"/>
-                        <size key="shadowOffset" width="1" height="0.0"/>
+                        <color key="shadowColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <size key="shadowOffset" width="0.0" height="1"/>
                     </label>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="1Bm-Oq-iaX">
                         <rect key="frame" x="0.0" y="55" width="302" height="46"/>
@@ -46,8 +46,8 @@
                         <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="47"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
-                        <color key="shadowColor" cocoaTouchSystemColor="lightTextColor"/>
-                        <size key="shadowOffset" width="1" height="-1"/>
+                        <color key="shadowColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <size key="shadowOffset" width="0.0" height="1"/>
                     </label>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Heh-AD-cGb">
                         <rect key="frame" x="0.0" y="107" width="302" height="21"/>
@@ -55,8 +55,8 @@
                         <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="13"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
-                        <color key="shadowColor" cocoaTouchSystemColor="lightTextColor"/>
-                        <size key="shadowOffset" width="1" height="0.0"/>
+                        <color key="shadowColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <size key="shadowOffset" width="0.0" height="1"/>
                     </label>
                 </subviews>
             </tableViewCellContentView>

@@ -34,6 +34,10 @@
                             <rect key="frame" x="0.0" y="113" width="320" height="432"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <outlet property="dataSource" destination="-1" id="4sx-mn-R2m"/>
+                                <outlet property="delegate" destination="-1" id="GJ1-1h-wcc"/>
+                            </connections>
                         </tableView>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Xkq-kb-KOu">
                             <rect key="frame" x="143" y="57" width="33" height="34"/>

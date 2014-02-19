@@ -27,6 +27,7 @@
     __weak IBOutlet LabelTopText *lblContent;
     __weak IBOutlet UIImageView *imgvCover;
     __weak IBOutlet UIButton *btnGoTo;
+    __weak IBOutlet UILabel *lblGoTo;
 
     __weak id _obj;
 }

@@ -8,8 +8,8 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SGSettingViewController">
             <connections>
                 <outlet property="btnHome" destination="rx9-7e-Zt0" id="ons-oU-RQt"/>
-                <outlet property="btnPromotion" destination="cbU-GG-j8u" id="WKp-2u-vNN"/>
-                <outlet property="btnStore" destination="tQl-Es-nVG" id="6vf-jO-bbT"/>
+                <outlet property="btnPromotion" destination="tQl-Es-nVG" id="jyd-ve-4tc"/>
+                <outlet property="btnStore" destination="cbU-GG-j8u" id="XG4-KZ-BMt"/>
                 <outlet property="btnTutorial" destination="fK8-aa-JIP" id="IXv-rD-4JF"/>
                 <outlet property="btnUserSetting" destination="afg-hD-ybv" id="SFN-JB-PkE"/>
                 <outlet property="containtView" destination="CKn-Je-Vp9" id="lWU-Wv-LXf"/>
@@ -47,9 +47,11 @@
                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="EMMA CHARLOTTE DUERRE WATSON" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Qtb-WW-kak">
                             <rect key="frame" x="88" y="67" width="119" height="40"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="11"/>
+                            <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="14"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
+                            <color key="shadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            <size key="shadowOffset" width="0.0" height="1"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="afg-hD-ybv">
                             <rect key="frame" x="215" y="61" width="50" height="50"/>
@@ -106,8 +108,8 @@
                                 <action selector="btnHomeTouchUpInside:" destination="-1" eventType="touchUpInside" id="jbl-4y-JmA"/>
                             </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="G9Y-OP-4Gm">
-                            <rect key="frame" x="0.0" y="426" width="320" height="40"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="G9Y-OP-4Gm">
+                            <rect key="frame" x="0.0" y="426" width="274" height="40"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <inset key="contentEdgeInsets" minX="35" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -117,26 +119,6 @@
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="tQl-Es-nVG">
                             <rect key="frame" x="0.0" y="198" width="320" height="65"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="14"/>
-                            <inset key="contentEdgeInsets" minX="29" minY="0.0" maxX="0.0" maxY="0.0"/>
-                            <inset key="titleEdgeInsets" minX="9" minY="0.0" maxX="0.0" maxY="0.0"/>
-                            <state key="normal" title="Cửa hàng" image="icon_store_navigation.png" backgroundImage="bg_button_navigation.png">
-                                <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                            <state key="selected" backgroundImage="bg_button_release_navigation.png">
-                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                            <state key="highlighted" backgroundImage="bg_button_release_navigation.png">
-                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                            <connections>
-                                <action selector="btnStoreTouchUpInside:" destination="-1" eventType="touchUpInside" id="KZy-Hy-grx"/>
-                            </connections>
-                        </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="cbU-GG-j8u">
-                            <rect key="frame" x="0.0" y="263" width="320" height="65"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="14"/>
                             <inset key="contentEdgeInsets" minX="29" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -152,11 +134,31 @@
                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <connections>
-                                <action selector="btnPromotionTouchUpInside:" destination="-1" eventType="touchUpInside" id="aBb-Vi-gnf"/>
+                                <action selector="btnPromotionTouchUpInside:" destination="-1" eventType="touchUpInside" id="erP-oG-Bun"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="cbU-GG-j8u">
+                            <rect key="frame" x="0.0" y="263" width="320" height="65"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="14"/>
+                            <inset key="contentEdgeInsets" minX="29" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            <inset key="titleEdgeInsets" minX="9" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            <state key="normal" title="Cửa hàng" image="icon_store_navigation.png" backgroundImage="bg_button_navigation.png">
+                                <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <state key="selected" backgroundImage="bg_button_release_navigation.png">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <state key="highlighted" backgroundImage="bg_button_release_navigation.png">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="btnStoreTouchUpInside:" destination="-1" eventType="touchUpInside" id="EsX-JP-b6r"/>
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="fK8-aa-JIP">
-                            <rect key="frame" x="0.0" y="360" width="320" height="65"/>
+                            <rect key="frame" x="0.0" y="327" width="320" height="65"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="14"/>
                             <inset key="contentEdgeInsets" minX="29" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -198,7 +200,7 @@
                             </state>
                         </button>
                         <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="c8t-4n-A4K">
-                            <rect key="frame" x="254" y="386" width="6" height="11"/>
+                            <rect key="frame" x="254" y="353" width="6" height="11"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <state key="normal" image="button_arrow_navigation.png">

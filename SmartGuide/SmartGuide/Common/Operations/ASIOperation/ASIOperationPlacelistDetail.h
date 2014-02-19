@@ -15,6 +15,6 @@
 -(ASIOperationPlacelistDetail*) initWithIDPlacelist:(int) idPlaceList userLat:(double) userLat userLng:(double) userLng sort:(enum SORT_LIST) sort page:(NSUInteger) page;
 
 @property (nonatomic, weak) Placelist *place;
-@property (nonatomic, weak) NSMutableArray *shopsList;
+@property (nonatomic, strong) NSMutableArray *shopsList;
 
 @end
