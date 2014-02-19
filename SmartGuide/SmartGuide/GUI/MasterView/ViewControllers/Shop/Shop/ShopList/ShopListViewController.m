@@ -1286,6 +1286,8 @@
 
 - (void)dealloc
 {
+    self.map.delegate=nil;
+    
     if(_operationPlaceListDetail)
     {
         [_operationPlaceListDetail cancel];
