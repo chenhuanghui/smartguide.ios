@@ -11,9 +11,8 @@
 #define SMARTUIDE_VERSION ((NSString*)[[NSBundle mainBundle] infoDictionary][(NSString*)kCFBundleVersionKey])
 #define VELOCITY_SLIDE 800.f
 
+#define DEFAULT_USER_ID 1
 #define DEFAULT_USER_ACCESS_TOKEN @"abc"
-#define DEFAULT_USER_PHONE @"84987654321"
-#define DEFAULT_USER_ACTIVE_CODE @"1111"
 
 #define CLASS_NAME NSStringFromClass([self class])
 #define DEALLOC_LOG NSLog(@"dealloc %@",CLASS_NAME);
@@ -289,5 +288,22 @@ enum CELL_POSITION
 
 @optional
 -(CGPoint) scrollViewWillChangeContentOffset:(UIScrollView*) scrollView contentOffset:(CGPoint) offset;
+
+@end
+
+@class SGViewController;
+
+@protocol SGViewControllerDelegate <NSObject>
+
+@optional
+-(void) SGControllerLoadView:(SGViewController*) sgController;
+-(void) SGControllerDidLoadView:(SGViewController*) sgController;
+
+@end
+
+@protocol AuthorizationDelegate <SGViewControllerDelegate>
+
+-(void) authorizationSuccessed;
+-(void) authorizationCancelled;
 
 @end

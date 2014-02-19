@@ -15,13 +15,6 @@
 #import "TokenManager.h"
 #import "AvatarViewController.h"
 
-@protocol AuthorizationDelegate <SGViewControllerDelegate>
-
--(void) authorizationSuccessed;
--(void) authorizationCancelled;
-
-@end
-
 @interface AuthorizationViewController : SGViewController<UserLoginDelegate,RegisterControllerDelegate>
 {
     __weak SGNavigationController *authorNavi;

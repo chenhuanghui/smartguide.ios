@@ -64,7 +64,6 @@
         
         user.name=values[0];
         user.gender=values[1];
-        user.socialType=@(SOCIAL_NONE);
         user.birthday=values[3];
         
         avatar=[NSString stringWithStringDefault:dict[@"avatar"]];

@@ -43,6 +43,23 @@ static GUIManager *_shareInstance=nil;
     
     [[UIApplication sharedApplication] setStatusBarHidden:true];
     
+    [[TokenManager shareInstance] checkToken];
+    
+    SGLoadingScreenViewController *loading=[[SGLoadingScreenViewController alloc] init];
+    loading.delegate=self;
+    
+    //    [viewControllers addObject:loading];
+    
+    SGNavigationController *rNavigation=[[SGNavigationController alloc] initWithRootViewController:loading];
+    
+    rootNavigation=rNavigation;
+    
+    mainWindow.rootViewController=rNavigation;
+    [mainWindow makeKeyAndVisible];
+}
+
+-(void)SGLoadingFinished:(SGLoadingScreenViewController *)loadingScreen
+{
     NSMutableArray *viewControllers=[NSMutableArray array];
     
     switch (currentUser().enumDataMode) {
@@ -75,27 +92,12 @@ static GUIManager *_shareInstance=nil;
             
             rootViewController=root;
             
-            [viewControllers addObject:root];
+            [viewControllers addObject:rootViewController];
         }
             break;
     }
     
-    SGLoadingScreenViewController *loading=[[SGLoadingScreenViewController alloc] init];
-    loading.delegate=self;
-    
-    [viewControllers addObject:loading];
-    
-    SGNavigationController *rNavigation=[[SGNavigationController alloc] initWithViewControllers:viewControllers];
-    
-    rootNavigation=rNavigation;
-    
-    mainWindow.rootViewController=rNavigation;
-    [mainWindow makeKeyAndVisible];
-}
-
--(void)SGLoadingFinished:(SGLoadingScreenViewController *)loadingScreen
-{
-    [self.rootNavigation popViewControllerWithTransition:transitionPushFromRight()];
+    [self.rootNavigation setRootViewControllers:viewControllers animate:true];
 }
 
 -(void)welcomeControllerTouchedLogin:(WelcomeViewController *)viewController
@@ -218,9 +220,14 @@ static GUIManager *_shareInstance=nil;
     [self.contentNavigation pushViewController:vc animated:false];
 }
 
--(void)userSettingControllerTouchedClose:(SGUserSettingViewController *)controller
+-(void)userSettingControllerFinished:(SGUserSettingViewController *)controller
 {
-    [self dismissPresentedViewController:nil];
+    [self showLeftController];
+}
+
+-(void)userSettingControllerTouchedSetting:(SGUserSettingViewController *)controller
+{
+    [self showLeftController];
 }
 
 -(void) showStoreControllerWithStore:(StoreShop*) store animate:(bool) animate
@@ -378,15 +385,24 @@ static GUIManager *_shareInstance=nil;
 
 -(void)authorizationCancelled
 {
-    [self.rootNavigation popViewControllerAnimated:true];
-    
     if(_onLoginedCompleted)
     {
         _onLoginedCompleted(false);
         _onLoginedCompleted=nil;
     }
     
+    bool found=false;
+    for(UIViewController *vc in self.rootNavigation.viewControllers)
+        if([vc isKindOfClass:[WelcomeViewController class]])
+        {
+            found=true;
+            break;
+        }
     
+    if(found)
+        [self.rootNavigation popViewControllerWithTransition:transitionPushFromBottom()];
+    else
+        [self.rootNavigation popViewControllerAnimated:true];
 }
 
 -(void)presentViewController:(SGViewController *)viewController
@@ -507,13 +523,34 @@ static GUIManager *_shareInstance=nil;
 {
 }
 
--(void)showLoginDialogWithMessage:(NSString *)message onCompleted:(void (^)(bool))onCompleted
+-(void)showLoginDialogWithMessage:(NSString *)message onOK:(void (^)())onOK onCancelled:(void (^)())onCancelled onLogined:(void (^)(bool))onLogin
 {
-    _onLoginedCompleted=[onCompleted copy];
+    _onLoginedCompleted=[onLogin copy];
+    __block void(^_onOK)()=nil;
+    __block void(^_onCancelled)()=nil;
+    
+    if(onOK)
+        _onOK=[onOK copy];
+    if(onCancelled)
+        _onCancelled=[onCancelled copy];
     
     [AlertView showAlertOKCancelWithTitle:nil withMessage:message onOK:^{
+        
+        if(_onOK)
+        {
+            _onOK();
+            _onOK=nil;
+        }
+        
         [self showLoginController];
     } onCancel:^{
+        
+        if(_onCancelled)
+        {
+            _onCancelled();
+            _onCancelled=nil;
+        }
+        
         _onLoginedCompleted(false);
         _onLoginedCompleted=nil;
     }];

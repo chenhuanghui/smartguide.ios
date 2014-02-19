@@ -77,7 +77,7 @@
 
 -(bool)isDefaultUser
 {
-    return [[self accessToken] isEqualToString:DEFAULT_USER_ACCESS_TOKEN];
+    return self.idUser.integerValue==DEFAULT_USER_ID;
 }
 
 -(NSString *)accessToken
@@ -97,6 +97,20 @@
         return USER_DATA_CREATING;
     else
         return USER_DATA_FULL;
+}
+
+-(enum SOCIAL_TYPE)enumSocialType
+{
+    switch (self.socialType.integerValue) {
+        case SOCIAL_FACEBOOK:
+            return SOCIAL_FACEBOOK;
+            
+        case SOCIAL_GOOGLEPLUS:
+            return SOCIAL_GOOGLEPLUS;
+            
+        default:
+            return SOCIAL_NONE;
+    }
 }
 
 @end

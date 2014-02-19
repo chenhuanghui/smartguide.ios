@@ -42,4 +42,9 @@
 @property (nonatomic, retain) Shop* shop;
 
 
+
+#pragma mark Utility
+
+-(void) revert;
+
 @end

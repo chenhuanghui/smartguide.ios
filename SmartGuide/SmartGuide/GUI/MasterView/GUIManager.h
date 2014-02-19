@@ -51,7 +51,7 @@
 -(void) dismissShopUser;
 -(void) showStoreWithStore:(StoreShop*) store;
 
--(void) showLoginDialogWithMessage:(NSString*) message onCompleted:(void(^)(bool isLogined)) onCompleted;
+-(void) showLoginDialogWithMessage:(NSString*) message onOK:(void(^)()) onOK onCancelled:(void(^)()) onCancelled onLogined:(void(^)(bool isLogined)) onLogin;
 
 @property (nonatomic, readonly) UIWindow *mainWindow;
 @property (nonatomic, weak, readonly) SGNavigationController *rootNavigation;

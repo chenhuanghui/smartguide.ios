@@ -10,12 +10,13 @@
 #import "TPKeyboardAvoidingScrollView.h"
 #import "SGNavigationController.h"
 #import "AvatarViewController.h"
+#import "ASIOperationUpdateUserProfile.h"
 
 @class SGUserSettingViewController;
 
 @protocol SGUserSettingControllerDelegate <SGViewControllerDelegate>
 
--(void) userSettingControllerTouchedClose:(SGUserSettingViewController*) controller;
+-(void) userSettingControllerFinished:(SGUserSettingViewController*) controller;
 -(void) userSettingControllerTouchedSetting:(SGUserSettingViewController*) controller;
 
 @end
@@ -48,6 +49,7 @@
     
     __weak UIView *_pickerView;
     int _selectedGender;
+    ASIOperationUpdateUserProfile *_operationUpdateUserProfile;
 }
 
 @property (nonatomic, weak) id<SGUserSettingControllerDelegate> delegate;

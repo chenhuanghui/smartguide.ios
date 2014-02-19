@@ -29,6 +29,14 @@ static TokenManager *_tokenManager=nil;
     return _tokenManager;
 }
 
+-(void) checkToken
+{
+    if([self accessToken].length==0)
+    {
+        [self setAccessToken:DEFAULT_USER_ACCESS_TOKEN];
+    }
+}
+
 -(void)refresh
 {
     if(_isRefreshingToken)

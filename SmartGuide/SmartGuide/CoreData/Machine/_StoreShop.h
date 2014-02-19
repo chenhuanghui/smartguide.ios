@@ -84,4 +84,9 @@
 - (void) removeAllTopSellerItems;
 
 
+
+#pragma mark Utility
+
+-(void) revert;
+
 @end

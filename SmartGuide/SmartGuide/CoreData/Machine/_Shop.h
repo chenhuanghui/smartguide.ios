@@ -156,4 +156,9 @@
 - (void) removeAllUserGalleries;
 
 
+
+#pragma mark Utility
+
+-(void) revert;
+
 @end

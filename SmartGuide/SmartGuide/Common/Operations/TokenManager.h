@@ -20,6 +20,7 @@
 
 +(TokenManager*) shareInstance;
 
+-(void) checkToken;
 -(bool) isRefreshingToken;
 -(void) refresh;
 

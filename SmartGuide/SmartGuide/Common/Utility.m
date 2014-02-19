@@ -1608,6 +1608,18 @@ NSString *documentPath()
     return grayscaleImage;
 }
 
+-(UIImage *)convertToServer
+{
+    CGSize size=self.size;
+    float hdSize=2073600;
+    float scale=hdSize/(size.width*size.height);
+    
+    size.width*=scale;
+    size.height*=scale;
+    
+    return [self resizedImage:size interpolationQuality:kCGInterpolationHigh];
+}
+
 #pragma mark -
 #pragma mark Private helper methods
 

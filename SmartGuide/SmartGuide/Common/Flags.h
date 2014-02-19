@@ -21,28 +21,6 @@
 +(void) setFacebookToken:(NSString*) token;
 +(NSString*) lastPhoneUser;
 +(void) setLastPhoneUser:(NSString*) phoneUser;
-+(int) lastIDUser;
-+(void) setLastIDUser:(int) idUser;
-+(void) removeLastIDUser;
-+(int) userCity;
-+(void) setUserCity:(int) idCity;
-+(bool) isShowedTutorial;
-+(void) setIsShowedTutorial:(bool) isShowed;
-+(bool) isShowedTutorialSlideList;
-+(void) setIsShowedTutorialSlideList:(bool) isShowed;
-+(bool) isShowedTutorialSlideShopDetail;
-+(void) setIsShowedTutorialSlideShopDetail:(bool) isShowed;
-+(bool) isShowedWelcomeScreen;
-+(void) setIsShowedWelcomeScreen:(bool) isShowed;
-+(bool) isUserReadTutorialPlace;
-+(bool) isUserReadTutorialShopList;
-+(bool) isUserReadTutorialStoreList;
-+(void) setIsUserReadTutorialPlace:(bool) isRead;
-+(void) setIsUserReadTutorialShopList:(bool) isRead;
-+(void) setIsUserReadTutorialStoreList:(bool) isRead;
-
-
-+(void) removeToken;
 
 +(NSString*) keywordSearch;
 +(void) setKeywordSearch:(NSString*) key;

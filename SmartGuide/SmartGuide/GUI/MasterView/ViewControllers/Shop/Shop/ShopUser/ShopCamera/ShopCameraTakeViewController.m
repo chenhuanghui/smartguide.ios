@@ -75,16 +75,7 @@
 
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
-    UIImage *img=info[UIImagePickerControllerOriginalImage];
-    
-    CGSize size=img.size;
-    float hdSize=2073600;
-    float scale=hdSize/(size.width*size.height);
-    
-    size.width*=scale;
-    size.height*=scale;
-
-    img=[img resizedImage:size interpolationQuality:kCGInterpolationHigh];
+    UIImage *img=[info[UIImagePickerControllerOriginalImage] convertToServer];
     
     [self.delegate shopCameraTakeDidCapture:self image:img];
 }

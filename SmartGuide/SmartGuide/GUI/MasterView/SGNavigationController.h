@@ -55,6 +55,7 @@ CATransition* transitionPushFromRight();
 -(void) pushViewControllerPrepared;
 
 -(void) setRootViewController:(UIViewController*) viewController animate:(bool) animate;
+-(void) setRootViewControllers:(NSArray *)viewControllers animate:(bool)animate;
 -(void) makeRootViewController:(UIViewController*) viewController;
 -(void) removeViewController:(UIViewController*) viewController;
 

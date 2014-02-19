@@ -7,6 +7,7 @@
 //
 
 #import "SGSettingViewController.h"
+#import "DataManager.h"
 
 @interface SGSettingViewController ()
 
@@ -27,6 +28,13 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    [imgvAvatar loadAvatarWithURL:currentUser().avatar completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
+        if(image)
+            [imgvBGAvatar setImage:[[image blur] convertToGrayscale]];
+    }];
+    
+    lblName.text=currentUser().name;
 }
 
 - (void)didReceiveMemoryWarning
@@ -39,15 +47,15 @@
     [self.delegate settingTouchedUser:self];
 }
 
-- (IBAction)btnCatalogTouchUpInside:(id)sender {
+- (IBAction)btnHomeTouchUpInside:(id)sender {
     [self.delegate settingTouchedCatalog:self];
 }
 
--(IBAction)btnSetting:(id)sender {
+-(IBAction)btnUserSettingTouchUpInside:(id)sender {
     [self.delegate settingTouchedUserSetting:self];
 }
 
-- (IBAction)store:(id)sender {
+- (IBAction)btnStoreTouchUpInside:(id)sender {
     [self.delegate settingTouchedStore:self];
 }
 
@@ -55,14 +63,7 @@
     [self.delegate settingTouchedOtherView:self];
 }
 
--(void)hideLeftSlideController:(SGLeftViewController *)leftSlideController withPreviousController:(UIViewController *)previousController callbackCompleted:(void (^)())callbackCompleted
-{
-    
-    
-    [containtView l_v_setW:self.l_v_w];
-}
-
-- (IBAction)btnKMTouchUpInside:(id)sender {
+- (IBAction)btnPromotionTouchUpInside:(id)sender {
     [self.delegate settingTouchedPromotion:self];
 }
 

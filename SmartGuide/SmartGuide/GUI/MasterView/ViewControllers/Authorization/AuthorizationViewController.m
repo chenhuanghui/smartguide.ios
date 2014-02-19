@@ -98,9 +98,7 @@
 {
     if(authorNavi.viewControllers.count==1)
     {
-        SGNavigationController *navi=(SGNavigationController*) self.navigationController;
-        
-        [navi popViewControllerWithTransition:transitionPushFromBottom()];
+        [self.delegate authorizationCancelled];
     }
     else
     {

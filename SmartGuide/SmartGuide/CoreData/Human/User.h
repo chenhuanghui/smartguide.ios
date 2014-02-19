@@ -16,6 +16,8 @@ enum USER_DATA_MODE {
 +(User*) makeWithDictionary:(NSDictionary*) dict;
 
 -(bool) isDefaultUser;
+-(enum GENDER_TYPE)enumGender;
+-(enum SOCIAL_TYPE)enumSocialType;
 
 -(NSString *) accessToken;
 

@@ -978,7 +978,6 @@
 		A921B03817A8BCAB00DC6D4D /* _ShopProduct.m in Sources */ = {isa = PBXBuildFile; fileRef = A921B03717A8BCAB00DC6D4D /* _ShopProduct.m */; };
 		A92221BB17CE041300B4E305 /* libFlurry_4.2.3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A92221BA17CE041300B4E305 /* libFlurry_4.2.3.a */; };
 		A922663217A1137D00BCFF7E /* ASIOperationPost.m in Sources */ = {isa = PBXBuildFile; fileRef = A922663117A1137D00BCFF7E /* ASIOperationPost.m */; };
-		A922FDAE17D8C5490036B89A /* ASIOperationUpdateUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = A922FDAD17D8C5490036B89A /* ASIOperationUpdateUserInfo.m */; };
 		A92376F017CDA58300336FE2 /* ASIOperationPostFeedback.m in Sources */ = {isa = PBXBuildFile; fileRef = A92376EF17CDA58300336FE2 /* ASIOperationPostFeedback.m */; };
 		A924259117CE6E6E0074269F /* ASIOperationGetTotalSP.m in Sources */ = {isa = PBXBuildFile; fileRef = A924259017CE6E6E0074269F /* ASIOperationGetTotalSP.m */; };
 		A924A3C117AEB63F0042B28B /* OperationRefreshToken.m in Sources */ = {isa = PBXBuildFile; fileRef = A924A3C017AEB63F0042B28B /* OperationRefreshToken.m */; };
@@ -2309,8 +2308,6 @@
 		A92221BC17CE041F00B4E305 /* Flurry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flurry.h; sourceTree = "<group>"; };
 		A922663017A1137D00BCFF7E /* ASIOperationPost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIOperationPost.h; sourceTree = "<group>"; };
 		A922663117A1137D00BCFF7E /* ASIOperationPost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIOperationPost.m; sourceTree = "<group>"; };
-		A922FDAC17D8C5490036B89A /* ASIOperationUpdateUserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIOperationUpdateUserInfo.h; sourceTree = "<group>"; };
-		A922FDAD17D8C5490036B89A /* ASIOperationUpdateUserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIOperationUpdateUserInfo.m; sourceTree = "<group>"; };
 		A92376EE17CDA58300336FE2 /* ASIOperationPostFeedback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIOperationPostFeedback.h; sourceTree = "<group>"; };
 		A92376EF17CDA58300336FE2 /* ASIOperationPostFeedback.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIOperationPostFeedback.m; sourceTree = "<group>"; };
 		A924258F17CE6E6E0074269F /* ASIOperationGetTotalSP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIOperationGetTotalSP.h; sourceTree = "<group>"; };
@@ -3767,8 +3764,6 @@
 				A92376EF17CDA58300336FE2 /* ASIOperationPostFeedback.m */,
 				A924258F17CE6E6E0074269F /* ASIOperationGetTotalSP.h */,
 				A924259017CE6E6E0074269F /* ASIOperationGetTotalSP.m */,
-				A922FDAC17D8C5490036B89A /* ASIOperationUpdateUserInfo.h */,
-				A922FDAD17D8C5490036B89A /* ASIOperationUpdateUserInfo.m */,
 				9ACBA9BA185D7745000B3D6B /* ASIOperationStoreAllStore.h */,
 				9ACBA9BB185D7745000B3D6B /* ASIOperationStoreAllStore.m */,
 				9AC494B11858B2390042C535 /* ASIOperationStoreShopList.h */,
@@ -5785,7 +5780,6 @@
 				9ACEC6711866CF6F00E4C5C1 /* ASIOperationShopDetailInfo.m in Sources */,
 				9A32F4511843488F00704D26 /* ImageView.m in Sources */,
 				9A7E55B2183CEB88006D1798 /* ImageManager.m in Sources */,
-				A922FDAE17D8C5490036B89A /* ASIOperationUpdateUserInfo.m in Sources */,
 				9A46B6B617F0B1D100410408 /* ASIOperationGetAvatars.m in Sources */,
 				9A7E55A5183CEB30006D1798 /* SDWebImageCompat.m in Sources */,
 				9A0F762F187152DB00160E54 /* SGShopLoadingCell.m in Sources */,

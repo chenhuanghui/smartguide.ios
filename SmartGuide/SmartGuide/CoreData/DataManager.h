@@ -28,8 +28,6 @@ User *currentUser();
 
 -(bool) save;
 
--(void) makeTryUser;
-
 @property (nonatomic, strong) User* currentUser;
 
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;

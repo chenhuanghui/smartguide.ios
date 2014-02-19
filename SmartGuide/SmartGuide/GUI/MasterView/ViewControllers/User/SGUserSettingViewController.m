@@ -9,7 +9,7 @@
 #import "SGUserSettingViewController.h"
 #import "DataManager.h"
 
-@interface SGUserSettingViewController ()<UITextFieldDelegate,UIPickerViewDataSource,UIPickerViewDelegate,UIGestureRecognizerDelegate,AvatarControllerDelegate>
+@interface SGUserSettingViewController ()<UITextFieldDelegate,UIPickerViewDataSource,UIPickerViewDelegate,UIGestureRecognizerDelegate,AvatarControllerDelegate,ASIOperationPostDelegate>
 
 @end
 
@@ -38,6 +38,8 @@
     [txtName setText:currentUser().name];
     [lblDOB setText:currentUser().birthday];
     [lblGender setText:localizeGender(currentUser().gender.integerValue)];
+    _selectedGender=currentUser().gender.integerValue;
+    _selectedAvatar=currentUser().avatar;
     
     [contentView addSubview:_navi.view];
     _avatars=[NSMutableArray new];
@@ -50,15 +52,154 @@
 }
 
 - (IBAction)btnDoneTouchUpInside:(id)sender {
-    [self.delegate userSettingControllerTouchedClose:self];
+    [self.view endEditing:true];
+    [self finishUpdate];
+}
+
+-(bool) validateInput
+{
+    [self endEditing];
+    
+    if(_selectedAvatar.length==0 && _avatarImage==nil)
+    {
+        [AlertView showAlertOKWithTitle:nil withMessage:localizeAvatarEmpty() onOK:^{
+            [self showAvatars];
+        }];
+        
+        return false;
+    }
+    
+    if(currentUser().name.length==0)
+    {
+        [AlertView showAlertOKWithTitle:nil withMessage:localizeNameEmpty() onOK:^{
+            [txtName becomeFirstResponder];
+        }];
+        
+        return false;
+    }
+    
+    if(currentUser().birthday.length==0)
+    {
+        [AlertView showAlertOKWithTitle:nil withMessage:localizeDOBEmpty() onOK:^{
+            [self showDOBPicker];
+        }];
+        
+        return false;
+    }
+    
+    if(currentUser().enumGender==GENDER_NONE)
+    {
+        [AlertView showAlertOKWithTitle:nil withMessage:localizeGenderEmpty() onOK:^{
+            [self showGenderPicker];
+        }];
+        
+        return false;
+    }
+    
+    return true;
+}
+
+-(void) endEditing
+{
+    currentUser().name=txtName.text;
+    currentUser().birthday=lblDOB.text;
+    currentUser().gender=@(_selectedGender);
+}
+
+-(bool) hasChange
+{
+    if(_selectedAvatar.length>0 && currentUser().avatar.length>0 && ![_selectedAvatar isEqualToString:currentUser().avatar])
+        return true;
+    else if(_selectedAvatar.length==0 && _avatarImage)
+        return true;
+    
+    return [currentUser() hasChanges];
+}
+
+-(void) finishUpdate
+{
+    [self endEditing];
+    
+    if(![self validateInput])
+        return;
+    
+    if([self hasChange])
+    {
+        if(![self validateInput])
+            return;
+        
+        if(_selectedAvatar.length>0)
+            _avatarImage=nil;
+        
+        NSData *avatarBinary=nil;
+        if(_avatarImage)
+            avatarBinary=UIImageJPEGRepresentation(_avatarImage, 1);
+        
+        _operationUpdateUserProfile=[[ASIOperationUpdateUserProfile alloc] initWithName:currentUser().name cover:nil avatar:_selectedAvatar avatarImage:avatarBinary gender:currentUser().enumGender socialType:currentUser().enumSocialType birthday:currentUser().birthday];
+        _operationUpdateUserProfile.delegatePost=self;
+        
+        [_operationUpdateUserProfile startAsynchronous];
+        
+        [self.view showLoading];
+    }
+    else
+        [self.delegate userSettingControllerFinished:self];
+}
+
+-(void)ASIOperaionPostFinished:(ASIOperationPost *)operation
+{
+    if([operation isKindOfClass:[ASIOperationUpdateUserProfile class]])
+    {
+        [self.view removeLoading];
+        
+        ASIOperationUpdateUserProfile *ope=(ASIOperationUpdateUserProfile*) operation;
+        
+        if(ope.status==1)
+        {
+            [self.delegate userSettingControllerFinished:self];
+        }
+        
+        _operationUpdateUserProfile=nil;
+    }
+}
+
+-(void)ASIOperaionPostFailed:(ASIOperationPost *)operation
+{
+    if([operation isKindOfClass:[ASIOperationUpdateUserProfile class]])
+    {
+        [self.view removeLoading];
+        _operationUpdateUserProfile=nil;
+    }
 }
 
 - (IBAction)btnSettingTouchUpInside:(id)sender {
-    [self.delegate userSettingControllerTouchedSetting:self];
+    [self.view endEditing:true];
+    [self endEditing];
+    
+    if([self hasChange])
+    {
+        [AlertView showAlertOKCancelWithTitle:nil withMessage:@"Lưu thay đổi?" onOK:^{
+            
+            if(![self validateInput])
+                return;
+            
+            [self finishUpdate];
+        } onCancel:^{
+            [currentUser() revert];
+            [self.delegate userSettingControllerTouchedSetting:self];
+        }];
+    }
+    else
+        [self.delegate userSettingControllerTouchedSetting:self];
 }
 
 - (IBAction)btnAvatarTouchUpInside:(id)sender {
-    AvatarViewController *vc=[[AvatarViewController alloc] initWithAvatars:_avatars avatarImage:nil];
+    [self showAvatars];
+}
+
+-(void) showAvatars
+{
+    AvatarViewController *vc=[[AvatarViewController alloc] initWithAvatars:_avatars avatarImage:_avatarImage];
     vc.delegate=self;
     
     [vc setSelectedAvatar:_selectedAvatar];
@@ -129,7 +270,7 @@
     self.view.alphaView.alpha=0;
     self.view.alphaView.userInteractionEnabled=false;
     [self.view addSubview:datePicker];
-
+    
     self.view.userInteractionEnabled=false;
     [UIView animateWithDuration:DURATION_DEFAULT animations:^{
         datePicker.alpha=1;
@@ -156,7 +297,7 @@
     _selectedDate=dob.date;
     
     if(_selectedDate)
-        [lblDOB setText:[NSString stringWithFormat:@"%02i tháng %02i năm %i",_selectedDate.day,_selectedDate.month,_selectedDate.year]];
+        [lblDOB setText:[_selectedDate stringValueWithFormat:@"dd/MM/yyyy"]];
     else
         [lblDOB setText:@""];
 }

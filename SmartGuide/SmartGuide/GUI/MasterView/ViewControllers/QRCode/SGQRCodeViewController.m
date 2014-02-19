@@ -7,6 +7,7 @@
 //
 
 #import "SGQRCodeViewController.h"
+#import "GUIManager.h"
 
 @interface SGQRCodeViewController ()
 
@@ -82,8 +83,9 @@
     
     [zbarReader.scanner setSymbology:ZBAR_I25|ZBAR_QRCODE config: ZBAR_CFG_ENABLE to:0];
     
-    [self addBarReaderView];
     [zbarReader.view l_v_setS:cameraView.l_v_s];
+    
+    [self displayScan];
 }
 
 -(void) addBarReaderView
@@ -129,7 +131,7 @@
             }
                 break;
         }
-
+        
         _viewWillAppear=true;
     }
 }
@@ -176,6 +178,20 @@
 {
     if(_reach.currentReachabilityStatus==NotReachable)
         return;
+    
+    if(currentUser().enumDataMode==USER_DATA_TRY)
+    {
+        [[GUIManager shareInstance] showLoginDialogWithMessage:localizeLoginRequire() onOK:nil onCancelled:^{
+            [self close];
+        } onLogined:^(bool isLogined) {
+            if(isLogined)
+                [self displayScan];
+            else
+                [self close];
+        }];
+        
+        return;
+    }
     
     scanCodeView.alpha=0;
     scanCodeView.hidden=false;
@@ -234,7 +250,7 @@
 {
     zbarReader.readerDelegate=nil;
     zbarReader=nil;
-
+    
     [_reach stopNotifier];
     _reach=nil;
     
@@ -375,7 +391,7 @@
             break;
     }
     
-
+    
 }
 
 @end

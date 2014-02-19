@@ -257,4 +257,16 @@
 #pragma mark Relationships
     
 
+#pragma mark Utility
+
+-(void) revert
+{
+    [[[DataManager shareInstance] managedObjectContext] refreshObject:self mergeChanges:false];
+}
+
+-(BOOL) hasChanges
+{
+    return self.changedValues.count>0;
+}
+
 @end

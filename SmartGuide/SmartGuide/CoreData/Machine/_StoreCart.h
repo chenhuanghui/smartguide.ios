@@ -34,4 +34,9 @@
 @property (nonatomic, retain) StoreShopItem* item;
 
 
+
+#pragma mark Utility
+
+-(void) revert;
+
 @end

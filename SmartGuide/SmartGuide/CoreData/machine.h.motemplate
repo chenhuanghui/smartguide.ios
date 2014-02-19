@@ -40,4 +40,9 @@
 @property (nonatomic, retain) <$Relationship.destinationEntity.managedObjectClassName$>* <$Relationship.name$>;<$endif$>
 <$endforeach do$>
 
+
+#pragma mark Utility
+
+-(void) revert;
+
 @end

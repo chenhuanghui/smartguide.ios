@@ -64,4 +64,9 @@
 - (void) removeAllShopsList;
 
 
+
+#pragma mark Utility
+
+-(void) revert;
+
 @end

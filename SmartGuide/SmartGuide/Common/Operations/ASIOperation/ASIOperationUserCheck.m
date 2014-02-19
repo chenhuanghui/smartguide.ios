@@ -44,7 +44,7 @@
     
     NSDictionary *dict=json[0];
     
-    isSuccess=[NSNumber numberWithObject:dict[@"status"]];
+    isSuccess=[[NSNumber numberWithObject:dict[@"status"]] boolValue];
     if(isSuccess)
     {
         [User markDeleteAllObjects];
@@ -57,6 +57,8 @@
         
         [TokenManager shareInstance].accessToken=[NSString stringWithStringDefault:dict[@"accessToken"]];
         [TokenManager shareInstance].refreshToken=[NSString stringWithStringDefault:dict[@"refreshToken"]];
+        [TokenManager shareInstance].phone=phone;
+        [TokenManager shareInstance].activeCode=activeCode;
     }
 }
 

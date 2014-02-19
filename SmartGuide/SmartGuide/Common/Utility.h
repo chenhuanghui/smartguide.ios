@@ -293,6 +293,7 @@ NSString *documentPath();
 - (UIImage*) blur;
 - (UIImage*) blurWithInputRadius:(float) inputRadius;
 - (UIImage*) convertToGrayscale;
+- (UIImage*) convertToServer;
 
 @end
 

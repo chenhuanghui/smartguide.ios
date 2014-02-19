@@ -155,6 +155,33 @@ CATransition* transitionPushFromRight()
     [self pushViewController:viewController animated:animate];
 }
 
+-(void)setRootViewControllers:(NSArray *)viewControllers animate:(bool)animate
+{
+    if(viewControllers.count==0)
+        return;
+    else if(viewControllers.count==1)
+    {
+        [self setRootViewController:viewControllers[0] animate:animate];
+        return;
+    }
+    
+    UIViewController *controller=[viewControllers lastObject];
+    
+    __block __weak SGNavigationController *weakSelf=self;
+    _onPushedViewController=nil;
+    _onPushedViewController=^(UIViewController*vc)
+    {
+        while (weakSelf.viewControllers.count>1 && weakSelf.viewControllers[0]!=controller) {
+            [[weakSelf.viewControllers[0] view] removeFromSuperview];
+            [weakSelf.viewControllers[0] removeFromParentViewController];
+        }
+        
+        weakSelf.viewControllers=viewControllers;
+    };
+    
+    [self pushViewController:controller animated:animate];
+}
+
 -(void)makeRootViewController:(UIViewController *)viewController
 {
     
@@ -341,13 +368,12 @@ CATransition* transitionPushFromRight()
     UIPanGestureRecognizer *pan=[[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(leftPanGes:)];
     pan.delegate=self;
     
-    //    [pan requireGestureRecognizerToFail:tap];
-    
-    //    panSlide=pan;
+    [pan requireGestureRecognizerToFail:tap];
+    panSlide=pan;
     tapSlide=tap;
     
     [self.view addGestureRecognizer:tap];
-    //    [self.view addGestureRecognizer:pan];
+    [self.view addGestureRecognizer:pan];
 }
 
 -(BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
@@ -372,7 +398,7 @@ CATransition* transitionPushFromRight()
             
             if(self.leftSlideController)
             {
-                if(velocity<0 && velocity<VELOCITY_SLIDE)
+                if(velocity<0 && velocity<-VELOCITY_SLIDE)
                 {
                     [self moveToVisibleView];
                     return false;

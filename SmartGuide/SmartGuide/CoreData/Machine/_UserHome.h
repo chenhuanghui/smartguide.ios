@@ -96,4 +96,9 @@
 - (void) removeAllImages;
 
 
+
+#pragma mark Utility
+
+-(void) revert;
+
 @end

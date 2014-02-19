@@ -66,3 +66,28 @@ NSString *localizeGender(int gender)
             return @"";
     }
 }
+
+NSString* localizeNameEmpty()
+{
+    return @"Vui lòng nhập tên";
+}
+
+NSString* localizeDOBEmpty()
+{
+    return @"Vui lòng chọn ngày sinh";
+}
+
+NSString* localizeGenderEmpty()
+{
+    return @"Vui lòng chọn giới tính";
+}
+
+NSString* localizeAvatarEmpty()
+{
+    return @"Vui lòng chọn avatar";
+}
+
+NSString* localizeLoginRequire()
+{
+    return @"Bạn phải đăng nhập để sử dụng chức năng này";
+}

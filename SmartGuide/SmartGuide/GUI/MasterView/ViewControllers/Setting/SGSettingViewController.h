@@ -27,8 +27,15 @@
 {
     __weak IBOutlet UIButton *btnUser;
     __weak IBOutlet UIButton *btnCatalog;
-    __weak IBOutlet UIButton *btnKM;
+    __weak IBOutlet UIButton *btnPromotion;
     __weak IBOutlet UIView *containtView;
+    __weak IBOutlet UILabel *lblName;
+    __weak IBOutlet UIButton *btnUserSetting;
+    __weak IBOutlet UIImageView *imgvAvatar;
+    __weak IBOutlet UIImageView *imgvBGAvatar;
+    __weak IBOutlet UIButton *btnHome;
+    __weak IBOutlet UIButton *btnStore;
+    __weak IBOutlet UIButton *btnTutorial;
 }
 
 @property (nonatomic, assign) id<SGSettingDelegate> delegate;

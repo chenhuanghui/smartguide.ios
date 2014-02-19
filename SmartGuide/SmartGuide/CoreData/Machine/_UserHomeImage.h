@@ -34,4 +34,9 @@
 @property (nonatomic, retain) UserHome* home;
 
 
+
+#pragma mark Utility
+
+-(void) revert;
+
 @end

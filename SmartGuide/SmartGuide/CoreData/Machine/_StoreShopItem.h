@@ -54,4 +54,9 @@
 @property (nonatomic, retain) StoreShop* shopTopSeller;
 
 
+
+#pragma mark Utility
+
+-(void) revert;
+
 @end

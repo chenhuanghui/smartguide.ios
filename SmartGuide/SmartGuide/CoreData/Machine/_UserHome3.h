@@ -44,4 +44,9 @@
 @property (nonatomic, retain) Placelist* place;
 
 
+
+#pragma mark Utility
+
+-(void) revert;
+
 @end

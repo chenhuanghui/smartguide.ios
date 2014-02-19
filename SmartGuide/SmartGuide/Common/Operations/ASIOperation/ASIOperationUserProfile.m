@@ -26,6 +26,15 @@
     
     User *user=[DataManager shareInstance].currentUser;
     
+    if(!user)
+    {
+        [User markDeleteAllObjects];
+        [[DataManager shareInstance] save];
+        
+        user=[User insert];
+        [DataManager shareInstance].currentUser=user;
+    }
+    
     user.idUser=[NSNumber numberWithObject:dict[@"idUser"]];
     user.name=[NSString stringWithStringDefault:dict[@"name"]];
     user.gender=[NSNumber numberWithObject:dict[@"gender"]];

@@ -18,14 +18,6 @@
 
 @class SGViewController,SGNavigationController;
 
-@protocol SGViewControllerDelegate <NSObject>
-
-@optional
--(void) SGControllerLoadView:(SGViewController*) sgController;
--(void) SGControllerDidLoadView:(SGViewController*) sgController;
-
-@end
-
 @protocol SGViewControllerHandle <NSObject>
 
 -(void) navigationController:(SGNavigationController*) navigationController willPopController:(SGViewController*) controller;

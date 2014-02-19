@@ -52,16 +52,6 @@ static DataManager *_dataManager=nil;
 @synthesize managedObjectContext,managedObjectModel,persistentStoreCoordinator;
 @synthesize currentUser;
 
-+(void)load
-{
-    NSArray *users=[User allObjects];
-    
-    if(users.count>0)
-        [DataManager shareInstance].currentUser=users[0];
-    else
-        [[DataManager shareInstance] makeTryUser];
-}
-
 +(DataManager *)shareInstance
 {
     static dispatch_once_t onceToken;
@@ -94,9 +84,6 @@ static DataManager *_dataManager=nil;
     {
         NSLog(@"persistentStoreCoordinator error %@",error);
         [[NSFileManager defaultManager] removeItemAtURL:[self storeURL] error:nil];
-        //xoa database->mat thong tin user da dang nhap->remove token->dang nhap lai
-        [Flags removeLastIDUser];
-        [Flags removeToken];
         [self loadDatabase];
         return;
     }
@@ -125,23 +112,4 @@ static DataManager *_dataManager=nil;
     
     return true;
 }
-
--(void)makeTryUser
-{
-    [User markDeleteAllObjects];
-    [[DataManager shareInstance] save];
-    
-    User *user=[User insert];
-    
-    user.socialType=@(SOCIAL_NONE);
-    
-    [[DataManager shareInstance] save];
-    
-    [DataManager shareInstance].currentUser=user;
-    
-    [[TokenManager shareInstance] setPhone:DEFAULT_USER_PHONE];
-    [[TokenManager shareInstance] setActiveCode:DEFAULT_USER_ACTIVE_CODE];
-    [[TokenManager shareInstance] setAccessToken:DEFAULT_USER_ACCESS_TOKEN];
-}
-
 @end

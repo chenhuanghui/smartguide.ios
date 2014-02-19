@@ -36,4 +36,9 @@
 #pragma mark Relationships
 
 
+
+#pragma mark Utility
+
+-(void) revert;
+
 @end
