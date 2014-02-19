@@ -8,6 +8,7 @@
 
 #import "SGViewController.h"
 #import "ZBarReaderViewController.h"
+#import "ZBarReaderView.h"
 #import "ASIOperationScanQRCode.h"
 #import "SGNavigationController.h"
 #import "Reachability.h"

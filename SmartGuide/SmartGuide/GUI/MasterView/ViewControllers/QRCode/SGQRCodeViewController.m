@@ -90,6 +90,7 @@
 
 -(void) addBarReaderView
 {
+    [zbarReader.readerView start];
     [cameraView insertSubview:zbarReader.view atIndex:0];
     _isScanningCode=true;
 }
@@ -179,7 +180,7 @@
     if(_reach.currentReachabilityStatus==NotReachable)
         return;
     
-    if(currentUser().enumDataMode==USER_DATA_TRY)
+    if(false && currentUser().enumDataMode==USER_DATA_TRY)
     {
         [[GUIManager shareInstance] showLoginDialogWithMessage:localizeLoginRequire() onOK:nil onCancelled:^{
             [self close];
@@ -204,6 +205,7 @@
         contentView.alpha=0;
         btnCloseCamera.alpha=1;
     } completion:^(BOOL finished) {
+        
         [self addBarReaderView];
         zbarReader.readerDelegate=self;
         
@@ -232,6 +234,8 @@
         btnCloseCamera.alpha=0;
     } completion:^(BOOL finished) {
         btnCloseCamera.hidden=true;
+        [zbarReader.readerView stop];
+        [zbarReader.readerView flushCache];
         [zbarReader.view removeFromSuperview];
     }];
 }
@@ -248,6 +252,14 @@
 
 -(void)dealloc
 {
+    [zbarReader.readerView stop];
+    [zbarReader.readerView flushCache];
+    
+    for(UIView *subview in zbarReader.view.subviews)
+        [subview removeFromSuperview];
+    
+    [zbarReader.view removeFromSuperview];
+    [zbarReader removeFromParentViewController];
     zbarReader.readerDelegate=nil;
     zbarReader=nil;
     
