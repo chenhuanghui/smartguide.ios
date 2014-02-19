@@ -14,7 +14,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="295" height="82"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_placelist_search.png" id="ok4-VQ-lyH">
+                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="ok4-VQ-lyH">
                         <rect key="frame" x="0.0" y="4" width="60" height="73"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     </imageView>
@@ -51,7 +51,6 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="icon_placelist_search.png" width="44" height="69"/>
         <image name="line_shopdetail.png" width="272" height="3"/>
     </resources>
 </document>

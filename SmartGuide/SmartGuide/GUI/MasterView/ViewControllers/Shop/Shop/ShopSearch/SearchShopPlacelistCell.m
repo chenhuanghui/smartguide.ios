@@ -20,11 +20,8 @@
 -(void)loadWithPlace:(Placelist *)place
 {
     _place=place;
-    
-    if(place.image.length==0)
-        icon.image=[UIImage imageNamed:@"icon_placelist_search.png"];
-    else
-        [icon loadPlaceAuthorAvatarWithURL:place.image];
+
+    [icon loadPlaceAuthorAvatarWithURL:place.image];
     
     lblTitle.text=place.title;
     

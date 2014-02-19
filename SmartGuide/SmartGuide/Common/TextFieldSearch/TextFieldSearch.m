@@ -29,6 +29,7 @@
     
     UIButton *btn=[[UIButton alloc] initWithFrame:CGRectMake(0, 0, 36, 21)];
     [btn setImage:[UIImage imageNamed:@"button_close_search.png"] forState:UIControlStateNormal];
+    btn.hidden=self.text.length==0;
     
     btn.contentMode=UIViewContentModeLeft;
     self.rightView=btn;

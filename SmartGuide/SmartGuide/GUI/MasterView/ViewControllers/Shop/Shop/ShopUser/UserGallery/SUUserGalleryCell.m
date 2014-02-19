@@ -189,6 +189,14 @@
     grid.minEdgeInsets=UIEdgeInsetsZero;
 }
 
+- (IBAction)btnLeftTouchUpInside:(id)sender {
+    [grid l_co_addX:-[ShopUserGalleryCell size].width animate:true];
+}
+
+- (IBAction)btnRightTouchUpInside:(id)sender {
+    [grid l_co_addX:[ShopUserGalleryCell size].width animate:true];
+}
+
 @end
 
 @implementation UserGalleryGridView

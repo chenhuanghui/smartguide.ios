@@ -31,7 +31,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="line_slide.png" id="nt7-AO-UwG">
-                                        <rect key="frame" x="38" y="17" width="1" height="66"/>
+                                        <rect key="frame" x="38" y="12" width="1" height="66"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
                                     </imageView>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CÀ PHÊ NGUYỄN DU" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="vfY-48-DTF">
@@ -64,7 +64,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="line_slide.png" id="fzV-nC-CaE">
-                                        <rect key="frame" x="0.0" y="17" width="1" height="66"/>
+                                        <rect key="frame" x="0.0" y="12" width="1" height="66"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
                                     </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="dIq-td-iKR" userLabel="love">
@@ -131,7 +131,6 @@
         <image name="icon_typesgp.png" width="31" height="29"/>
         <image name="icon_typevoucher.png" width="31" height="29"/>
         <image name="line_hordot.png" width="299" height="2"/>
-        <image name="line_slide.png" width="1" height="66"/>
         <image name="line_slide.png" width="1" height="66"/>
     </resources>
 </document>

@@ -96,3 +96,29 @@ NSString* localizeUserProfileRequire()
 {
     return @"Bạn phải cập nhật profile để sử dụng chức năng này";
 }
+
+NSString* localizeSortComment(enum SORT_SHOP_COMMENT sort)
+{
+    switch (sort) {
+        case SORT_SHOP_COMMENT_TIME:
+            return @"Mới nhất";
+            
+        case SORT_SHOP_COMMENT_TOP_AGREED:
+            return @"Thích nhiều nhất";
+    }
+}
+
+NSString* localizeSortList(enum SORT_LIST sort)
+{
+    switch (sort) {
+        case SORT_LIST_DEFAULT:
+            return @"Mặc định";
+            
+        case SORT_LIST_DISTANCE:
+            return @"Khoảng cách";
+        case SORT_LIST_LOVE:
+            return @"Lượt thích";
+        case SORT_LIST_VIEW:
+            return @"Lượt xem";
+    }
+}

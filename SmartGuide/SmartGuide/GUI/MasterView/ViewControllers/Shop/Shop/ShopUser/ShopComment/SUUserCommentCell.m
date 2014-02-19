@@ -23,6 +23,8 @@
     //    cmtTyping.sortComment=sort;
     
     _sort=sort;
+    [btnSort setTitle:localizeSortComment(_sort) forState:UIControlStateNormal];
+    
     switch (sort) {
         case SORT_SHOP_COMMENT_TIME:
             _comments=shop.timeCommentsObjects;
@@ -300,11 +302,11 @@
     
     switch (_sort) {
         case SORT_SHOP_COMMENT_TIME:
-            sheet=[[UIActionSheet alloc] initWithTitle:@"SORT" delegate:self cancelButtonTitle:@"Đóng" destructiveButtonTitle:nil otherButtonTitles:@"Xếp hạng", nil];
+            sheet=[[UIActionSheet alloc] initWithTitle:@"Sắp xếp" delegate:self cancelButtonTitle:@"Đóng" destructiveButtonTitle:nil otherButtonTitles:localizeSortComment(SORT_SHOP_COMMENT_TOP_AGREED), nil];
             break;
             
         case SORT_SHOP_COMMENT_TOP_AGREED:
-            sheet=[[UIActionSheet alloc] initWithTitle:@"SORT" delegate:self cancelButtonTitle:@"Đóng" destructiveButtonTitle:nil otherButtonTitles:@"Thời gian", nil];
+            sheet=[[UIActionSheet alloc] initWithTitle:@"Sắp xếp" delegate:self cancelButtonTitle:@"Đóng" destructiveButtonTitle:nil otherButtonTitles:localizeSortComment(SORT_SHOP_COMMENT_TIME), nil];
             break;
     }
     
@@ -317,6 +319,8 @@
         return;
     
     _sort=_sort==SORT_SHOP_COMMENT_TIME?SORT_SHOP_COMMENT_TOP_AGREED:SORT_SHOP_COMMENT_TIME;
+    
+    [btnSort setTitle:localizeSortComment(_sort) forState:UIControlStateNormal];
     
     [self.delegate userCommentChangeSort:self sort:_sort];
 }

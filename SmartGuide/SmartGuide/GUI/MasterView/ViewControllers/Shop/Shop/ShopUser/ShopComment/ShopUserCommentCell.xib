@@ -32,13 +32,10 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     </imageView>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="7pk-dt-d5W">
-                        <rect key="frame" x="214" y="50" width="56" height="22"/>
+                        <rect key="frame" x="214" y="32" width="56" height="57"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="12"/>
-                        <inset key="titleEdgeInsets" minX="0.0" minY="3" maxX="0.0" maxY="0.0"/>
-                        <state key="normal" image="button_agree_hidden.png">
-                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                        </state>
+                        <state key="normal" image="button_liked_comment.png"/>
                         <state key="selected" image="button_agree.png"/>
                         <state key="highlighted" image="button_agree.png"/>
                         <connections>
@@ -93,7 +90,7 @@
     </objects>
     <resources>
         <image name="button_agree.png" width="56" height="22"/>
-        <image name="button_agree_hidden.png" width="56" height="22"/>
+        <image name="button_liked_comment.png" width="27" height="28"/>
         <image name="frame_avacomment.png" width="43" height="44"/>
         <image name="line_comment.png" width="257" height="1"/>
     </resources>

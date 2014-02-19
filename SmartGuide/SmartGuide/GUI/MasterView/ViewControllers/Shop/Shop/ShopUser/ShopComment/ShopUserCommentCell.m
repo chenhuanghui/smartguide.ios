@@ -25,15 +25,20 @@
     lblComment.text=comment.comment;
     lblNumOfAgree.text=comment.numOfAgree;
     
-    switch (comment.enumAgreeStatus) {
+    [self makeButtonAgree];
+}
+
+-(void) makeButtonAgree
+{
+    switch (_comment.enumAgreeStatus) {
         case AGREE_STATUS_AGREED:
             btnAgree.tag=AGREE_STATUS_AGREED;
-            [btnAgree setDefaultImage:[UIImage imageNamed:@"button_agree.png"] highlightImage:[UIImage imageNamed:@"button_agree_hidden.png"]];
+            [btnAgree setDefaultImage:[UIImage imageNamed:@"button_liked_comment.png"] highlightImage:[UIImage imageNamed:@"button_like_comment.png"]];
             break;
-     
+            
         case AGREE_STATUS_NONE:
             btnAgree.tag=AGREE_STATUS_NONE;
-            [btnAgree setDefaultImage:[UIImage imageNamed:@"button_agree_hidden.png"] highlightImage:[UIImage imageNamed:@"button_agree.png"]];
+            [btnAgree setDefaultImage:[UIImage imageNamed:@"button_like_comment.png"] highlightImage:[UIImage imageNamed:@"button_liked_comment.png"]];
             break;
     }
 }
@@ -91,20 +96,20 @@
     switch (isAgree) {
         case AGREE_STATUS_AGREED:
             
-            btnAgree.tag=AGREE_STATUS_AGREED;
-            [btnAgree setDefaultImage:[UIImage imageNamed:@"button_agree.png"] highlightImage:[UIImage imageNamed:@"button_agree_hidden.png"]];
+            _comment.agreeStatus=@(AGREE_STATUS_AGREED);
             lblNumOfAgree.text=[NSNumberFormatter numberFromNSNumber:@(_comment.totalAgree.integerValue+1)];
             
             break;
             
         case AGREE_STATUS_NONE:
             
-            btnAgree.tag=AGREE_STATUS_NONE;
-            [btnAgree setDefaultImage:[UIImage imageNamed:@"button_agree_hidden.png"] highlightImage:[UIImage imageNamed:@"button_agree.png"]];
+            _comment.agreeStatus=@(AGREE_STATUS_NONE);
             lblNumOfAgree.text=[NSNumberFormatter numberFromNSNumber:@(_comment.totalAgree.integerValue-1)];
             
             break;
     }
+    
+    [self makeButtonAgree];
 }
 
 -(void)ASIOperaionPostFinished:(ASIOperationPost *)operation

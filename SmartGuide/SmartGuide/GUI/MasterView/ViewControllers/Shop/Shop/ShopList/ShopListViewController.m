@@ -294,6 +294,7 @@
     
     [scrollerBGView l_v_setX:scrollerView.l_v_w];
     
+    [self makeSortLayout];
 }
 
 -(void)shopListCellTouched:(ShopList *)shop
@@ -338,22 +339,7 @@
 
 -(void)sortViewTouchedSort:(ShopSearchSortView *)_sortView
 {
-    UIActionSheet *sheet=nil;
-    
-    switch (_viewMode) {
-            
-        case SHOP_LIST_VIEW_SHOP_LIST:
-            sheet=[[UIActionSheet alloc] initWithTitle:@"Tìm kiếm theo" delegate:self cancelButtonTitle:@"Đóng" destructiveButtonTitle:nil otherButtonTitles:@"Khoảng cách", @"Lượt xem", @"Lượt love",@"Mặc định", nil];
-            break;
-            
-        case SHOP_LIST_VIEW_LIST:
-            sheet=[[UIActionSheet alloc] initWithTitle:@"Tìm kiếm theo" delegate:self cancelButtonTitle:@"Đóng" destructiveButtonTitle:nil otherButtonTitles:@"Khoảng cách", @"Lượt xem", @"Lượt love", nil];
-            break;
-            
-        case SHOP_LIST_VIEW_PLACE:
-            sheet=[[UIActionSheet alloc] initWithTitle:@"Tìm kiếm theo" delegate:self cancelButtonTitle:@"Đóng" destructiveButtonTitle:nil otherButtonTitles:@"Khoảng cách", @"Lượt xem", @"Lượt love",@"Mặc định", nil];
-            break;
-    }
+    UIActionSheet *sheet=[[UIActionSheet alloc] initWithTitle:@"Tìm kiếm theo" delegate:self cancelButtonTitle:@"Đóng" destructiveButtonTitle:nil otherButtonTitles:localizeSortList(SORT_LIST_DISTANCE), localizeSortList(SORT_LIST_VIEW), localizeSortList(SORT_LIST_LOVE),localizeSortList(SORT_LIST_DEFAULT), nil];;
     
     [sheet showInView:self.view];
 }
@@ -472,7 +458,6 @@
             
             txt.text=_keyword;
             
-            [sortView setIcon:[UIImage imageNamed:@"icon_distance.png"] text:@"Khoảng cách"];
             _sort=SORT_LIST_DISTANCE;
             [self requestShopSearch];
             [self showLoading];
@@ -480,8 +465,6 @@
             break;
             
         case SHOP_LIST_VIEW_SHOP_LIST:
-            
-            [sortView setIcon:[UIImage imageNamed:@"icon_distance.png"] text:@"Mặc định"];
             
             _canLoadMore=false;
             _page=-1;
@@ -498,7 +481,6 @@
             txt.text=_placeList.title;
             
             _sort=SORT_LIST_DEFAULT;
-            [sortView setIcon:[UIImage imageNamed:@"icon_distance.png"] text:@"Mặc định"];
             
             tableList.dataSource=self;
             tableList.delegate=self;
@@ -513,6 +495,7 @@
     }
     
     [self makeScrollSize];
+    [self makeSortLayout];
 }
 
 -(void) requestPlacelistDetail
@@ -569,7 +552,7 @@
     _viewMode=SHOP_LIST_VIEW_LIST;
     _sort=SORT_LIST_DISTANCE;
     
-    [sortView setText:sortList(_sort)];
+    [self makeSortLayout];
     
     [self clearMap];
     
@@ -599,7 +582,7 @@
     _page=-1;
     _sort=sort;
     
-    [sortView setText:sortList(_sort)];
+    [self makeSortLayout];
     
     [self clearMap];
     
@@ -610,6 +593,37 @@
     }
     
     [self requestShopList];
+}
+
+-(void) makeSortLayout
+{
+    UIImage *sortImage=nil;
+    UIImage *sortScrollerImage=nil;
+    
+    switch (_sort) {
+        case SORT_LIST_DEFAULT:
+            sortImage=[UIImage imageNamed:@"icon_bestmatch.png"];
+            sortScrollerImage=[UIImage imageNamed:@"icon_bestmatchscroll.png"];
+            break;
+            
+        case SORT_LIST_DISTANCE:
+            sortImage=[UIImage imageNamed:@"icon_distance.png"];
+            sortScrollerImage=[UIImage imageNamed:@"icon_distancescroll.png"];
+            break;
+            
+        case SORT_LIST_LOVE:
+            sortImage=[UIImage imageNamed:@"icon_lovelist.png"];
+            sortScrollerImage=[UIImage imageNamed:@"icon_lovescroll.png"];
+            break;
+            
+        case SORT_LIST_VIEW:
+            sortImage=[UIImage imageNamed:@"icon_viewlist.png"];
+            sortScrollerImage=[UIImage imageNamed:@"icon_viewlistscroll.png"];
+            break;
+    }
+    
+    [sortView setIcon:sortImage text:localizeSortList(_sort)];
+    scrollerImageView.image=sortScrollerImage;
 }
 
 -(void) changeSort:(enum SORT_LIST) sort
@@ -623,7 +637,7 @@
     _page=-1;
     _sort=sort;
     
-    [sortView setText:sortList(_sort)];
+    [self makeSortLayout];
     
     [self clearMap];
     
@@ -650,7 +664,7 @@
     _page=-1;
     _sort=sort;
     
-    [sortView setText:sortList(_sort)];
+    [self makeSortLayout];
     
     [self clearMap];
     

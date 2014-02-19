@@ -859,6 +859,12 @@
 
 -(void) pushViewController:(SGViewController*) vc
 {
+    [UIView animateWithDuration:DURATION_NAVIGATION_PUSH animations:^{
+        btnClose.alpha=0;
+    } completion:^(BOOL finished) {
+        btnClose.hidden=true;
+    }];
+    
     [shopNavi pushViewController:vc onCompleted:^{
         btnBack.hidden=false;
         [btnBack startShowAnimateOnCompleted:nil];
@@ -933,6 +939,12 @@
     [btnBack startHideAnimateOnCompleted:^(UIButton *btn) {
         [shopNavi popViewControllerAnimated:true];
         btnBack.hidden=true;
+        
+        btnClose.hidden=false;
+        btnClose.alpha=0;
+        [UIView animateWithDuration:DURATION_NAVIGATION_PUSH animations:^{
+            btnClose.alpha=1;
+        }];
     }];
 }
 

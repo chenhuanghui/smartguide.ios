@@ -161,7 +161,7 @@
 {
     self.view.userInteractionEnabled=false;
     
-    [UIView animateWithDuration:DURATION_DEFAULT animations:^{
+    [UIView animateWithDuration:0.15f animations:^{
         [blackView l_v_setH:54];
     } completion:^(BOOL finished) {
         self.view.userInteractionEnabled=true;

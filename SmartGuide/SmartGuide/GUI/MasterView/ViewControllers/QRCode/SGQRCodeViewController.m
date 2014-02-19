@@ -90,8 +90,8 @@
 
 -(void) addBarReaderView
 {
-    [zbarReader.readerView start];
     [cameraView insertSubview:zbarReader.view atIndex:0];
+    [zbarReader.readerView start];
     _isScanningCode=true;
 }
 
@@ -159,6 +159,8 @@
 {
     if([operation isKindOfClass:[ASIOperationScanQRCode class]])
     {
+        [self.view removeLoading];
+        
         ASIOperationScanQRCode *ope=(ASIOperationScanQRCode*) operation;
         
         [self displayResult:ope.result];
@@ -290,8 +292,6 @@
 - (IBAction)btnnext:(id)sender {
     UIButton *btn=sender;
     
-    btn.tag=4;
-    
     if(btn.tag==0)
     {
         ScanQRCodeResult0 *result=[ScanQRCodeResult0 new];
@@ -347,7 +347,7 @@
     
     btn.tag++;
     
-    if(btn.tag>=4)
+    if(btn.tag>4)
         btn.tag=0;
 }
 

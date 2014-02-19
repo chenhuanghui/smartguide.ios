@@ -49,7 +49,7 @@
 
 +(CGSize)size
 {
-    return CGSizeMake(92, 92);
+    return CGSizeMake(92, 90);
 }
 
 @end

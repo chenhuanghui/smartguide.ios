@@ -78,6 +78,9 @@
     {
         ButtonSortView *button=[[ButtonSortView alloc] initWithFrame:CGRectMake(text.x, text.y, textWidth, rect.size.height-text.y)];
         button.titleLabel.font=font;
+        button.titleLabel.shadowOffset=CGSizeMake(0, 1);
+        [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [button setTitleShadowColor:[UIColor whiteColor] forState:UIControlStateNormal];
         
         btn=button;
         
