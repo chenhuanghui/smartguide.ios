@@ -8,14 +8,14 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <tableViewCell autoresizesSubviews="NO" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="ShopListCell" rowHeight="88" id="GI8-BP-1kp" customClass="ShopListCell">
-            <rect key="frame" x="0.0" y="0.0" width="649" height="88"/>
+            <rect key="frame" x="0.0" y="0.0" width="320" height="88"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="GI8-BP-1kp" id="YgZ-6y-rxc">
-                <rect key="frame" x="0.0" y="0.0" width="649" height="87"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="87"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <scrollView autoresizesSubviews="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" id="aNH-VV-Cjy" customClass="ScrollListCell">
-                        <rect key="frame" x="0.0" y="0.0" width="592" height="88"/>
+                    <scrollView autoresizesSubviews="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" id="aNH-VV-Cjy" customClass="ScrollListCell">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="88"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" id="O7G-u4-lmx">
@@ -131,6 +131,7 @@
         <image name="icon_typesgp.png" width="31" height="29"/>
         <image name="icon_typevoucher.png" width="31" height="29"/>
         <image name="line_hordot.png" width="299" height="2"/>
+        <image name="line_slide.png" width="1" height="66"/>
         <image name="line_slide.png" width="1" height="66"/>
     </resources>
 </document>

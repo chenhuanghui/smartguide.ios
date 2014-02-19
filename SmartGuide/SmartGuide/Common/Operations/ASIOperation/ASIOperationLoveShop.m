@@ -69,6 +69,7 @@
         if(shop)
         {
             shop.numOfLove=numOfLove;
+            shop.totalLove=[NSNumber numberWithObject:dict[@"totalLove"]];
             shop.loveStatus=@(loveS);
         }
    

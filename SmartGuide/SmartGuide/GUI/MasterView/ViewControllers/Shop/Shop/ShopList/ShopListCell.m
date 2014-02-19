@@ -48,7 +48,7 @@
 -(void) makeScrollSize
 {
     scroll.contentOffset=CGPointZero;
-    scroll.contentSize=CGSizeMake(scroll.l_v_w+1, 0);
+    scroll.contentSize=CGSizeMake(414, 0);
 }
 
 +(NSString *)reuseIdentifier

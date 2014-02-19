@@ -10,6 +10,7 @@
 #import "Utility.h"
 #import "ShopUserGalleryCell.h"
 #import "SGGridViewLayoutStrategies.h"
+#import "GUIManager.h"
 
 @implementation SUUserGalleryCell
 @synthesize delegate;
@@ -49,6 +50,25 @@
 
 -(IBAction) btnMakePictureTouchUpInside:(id)sender
 {
+    if(currentUser().enumDataMode==USER_DATA_TRY)
+    {
+        [[GUIManager shareInstance] showLoginDialogWithMessage:localizeLoginRequire() onOK:nil onCancelled:nil onLogined:^(bool isLogined) {
+          if(isLogined)
+              [self.delegate userGalleryTouchedMakePicture:self];
+        }];
+        
+        return;
+    }
+    else if(currentUser().enumDataMode==USER_DATA_CREATING)
+    {
+        [[GUIManager shareInstance] showLoginDialogWithMessage:localizeUserProfileRequire() onOK:nil onCancelled:nil onLogined:^(bool isLogined) {
+            if(isLogined)
+                [self.delegate userGalleryTouchedMakePicture:self];
+        }];
+        
+        return;
+    }
+    
     [self.delegate userGalleryTouchedMakePicture:self];
 }
 

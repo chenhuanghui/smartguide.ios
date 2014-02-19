@@ -10,6 +10,7 @@
 #import "ShopGalleryCell.h"
 #import "Utility.h"
 #import "ImageManager.h"
+#import "GUIManager.h"
 
 @implementation SUShopGalleryCell
 @synthesize delegate;
@@ -146,11 +147,11 @@
     btnLove=love;
 }
 
--(void)buttonLoveTouched:(ButtonLove *)buttonLoveView
+-(void) love
 {
     if(_operationLoveShop)
         return;
- 
+    
     int idShop=_shop.idShop.integerValue;
     int willLove=_shop.enumLoveStatus==LOVE_STATUS_LOVED?false:true;
     NSString *numOfLove=@"";
@@ -158,20 +159,44 @@
     if(willLove)
     {
         numOfLove=[NSNumberFormatter numberFromNSNumber:@(_shop.totalLove.integerValue+1)];
-        [buttonLoveView setNumOfLove:numOfLove];
-        [buttonLoveView love:true ];
+        [btnLove setNumOfLove:numOfLove];
+        [btnLove love:true ];
     }
     else
     {
         numOfLove=[NSNumberFormatter numberFromNSNumber:@(_shop.totalLove.integerValue-1)];
-        [buttonLoveView setNumOfLove:numOfLove];
-        [buttonLoveView unlove:true];
+        [btnLove setNumOfLove:numOfLove];
+        [btnLove unlove:true];
     }
     
     _operationLoveShop=[[ASIOperationLoveShop alloc] initWithIDShop:idShop userLat:userLat() userLng:userLng() isLove:willLove];
     _operationLoveShop.delegatePost=self;
     
     [_operationLoveShop startAsynchronous];
+}
+
+-(void)buttonLoveTouched:(ButtonLove *)buttonLoveView
+{
+    if(currentUser().enumDataMode==USER_DATA_TRY)
+    {
+        [[GUIManager shareInstance] showLoginDialogWithMessage:localizeLoginRequire() onOK:nil onCancelled:nil onLogined:^(bool isLogined) {
+            if(isLogined)
+                [self love];
+        }];
+        
+        return;
+    }
+    else if(currentUser().enumDataMode==USER_DATA_CREATING)
+    {
+        [[GUIManager shareInstance] showLoginDialogWithMessage:localizeUserProfileRequire() onOK:nil onCancelled:nil onLogined:^(bool isLogined) {
+            if(isLogined)
+                [self love];
+        }];
+        
+        return;
+    }
+    
+    [self love];
 }
 
 -(void)ASIOperaionPostFinished:(ASIOperationPost *)operation

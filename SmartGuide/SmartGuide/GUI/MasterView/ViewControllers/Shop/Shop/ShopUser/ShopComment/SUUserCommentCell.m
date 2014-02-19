@@ -10,6 +10,7 @@
 #import "Utility.h"
 #import "AlphaView.h"
 #import "ShopUserViewController.h"
+#import "GUIManager.h"
 
 #define SU_USER_COMMENT_CELL_BOTTOM_NORMAL_Y 92.f
 #define SU_USER_COMMENT_CELL_BOTTOM_EDIT_Y 120.f
@@ -363,6 +364,25 @@
 - (IBAction)btnSendTouchUpInside:(id)sender {
     if([txt.text stringByTrimmingWhiteSpace].length>0)
     {
+        if(currentUser().enumDataMode==USER_DATA_TRY)
+        {
+            [[GUIManager shareInstance] showLoginDialogWithMessage:localizeLoginRequire() onOK:nil onCancelled:nil onLogined:^(bool isLogined) {
+                if(isLogined)
+                    [self.delegate userCommentUserComment:self comment:txt.text isShareFacebook:currentUser().allowShareCommentFB.boolValue];
+            }];
+            
+            return;
+        }
+        else if(currentUser().enumDataMode==USER_DATA_CREATING)
+        {
+            [[GUIManager shareInstance] showLoginDialogWithMessage:localizeUserProfileRequire() onOK:nil onCancelled:nil onLogined:^(bool isLogined) {
+                if(isLogined)
+                    [self.delegate userCommentUserComment:self comment:txt.text isShareFacebook:currentUser().allowShareCommentFB.boolValue];
+            }];
+            
+            return;
+        }
+        
         [self.delegate userCommentUserComment:self comment:txt.text isShareFacebook:currentUser().allowShareCommentFB.boolValue];
     }
 }

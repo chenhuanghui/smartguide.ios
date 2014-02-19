@@ -48,8 +48,6 @@ static GUIManager *_shareInstance=nil;
     SGLoadingScreenViewController *loading=[[SGLoadingScreenViewController alloc] init];
     loading.delegate=self;
     
-    //    [viewControllers addObject:loading];
-    
     SGNavigationController *rNavigation=[[SGNavigationController alloc] initWithRootViewController:loading];
     
     rootNavigation=rNavigation;
@@ -107,10 +105,6 @@ static GUIManager *_shareInstance=nil;
 
 -(void)welcomeControllerTouchedTry:(WelcomeViewController *)viewController
 {
-    //    PlacelistViewController *vc=[[PlacelistViewController alloc] init];
-    //    [self.rootNavigation pushViewController:vc animated:true];
-    //
-    //    return;
     [self showRootControlelr];
 }
 
@@ -409,20 +403,20 @@ static GUIManager *_shareInstance=nil;
 {
     presentedViewController=viewController;
     
-    [self.rootNavigation addChildViewController:viewController];
+    [self.contentNavigation addChildViewController:viewController];
     
     [viewController view];
     
-    viewController.view.center=CGPointMake(self.rootNavigation.l_v_w/2, -self.rootNavigation.l_v_h/2);
-    [viewController l_c_setY:-self.rootNavigation.l_v_h/2];
+    viewController.view.center=CGPointMake(self.contentNavigation.l_v_w/2, -self.contentNavigation.l_v_h/2);
+    [viewController l_c_setY:-self.contentNavigation.l_v_h/2];
     
-    [self.rootNavigation.view alphaViewWithColor:[UIColor clearColor]];
+    [self.contentNavigation.view alphaViewWithColor:[UIColor clearColor]];
     
-    [self.rootNavigation.view addSubview:viewController.view];
+    [self.contentNavigation.view addSubview:viewController.view];
     
     [UIView animateWithDuration:DURATION_DEFAULT animations:^{
         
-        [viewController l_c_setY:self.rootNavigation.l_v_h/2];
+        [viewController l_c_setY:self.contentNavigation.l_v_h/2];
     }];
 }
 
@@ -436,11 +430,11 @@ static GUIManager *_shareInstance=nil;
     if(animated)
     {
         [UIView animateWithDuration:DURATION_DEFAULT animations:^{
-            self.rootNavigation.view.alphaView.alpha=0;
-            [presentedViewController l_c_setY:-self.rootNavigation.l_v_h/2];
+            self.contentNavigation.view.alphaView.alpha=0;
+            [presentedViewController l_c_setY:-self.contentNavigation.l_v_h/2];
         } completion:^(BOOL finished) {
             
-            [self.rootNavigation.view removeAlphaView];
+            [self.contentNavigation.view removeAlphaView];
             
             [presentedViewController.view removeFromSuperview];
             [presentedViewController removeFromParentViewController];
@@ -454,7 +448,7 @@ static GUIManager *_shareInstance=nil;
     }
     else
     {
-        [self.rootNavigation.view removeAlphaView];
+        [self.contentNavigation.view removeAlphaView];
         
         [presentedViewController.view removeFromSuperview];
         [presentedViewController removeFromParentViewController];

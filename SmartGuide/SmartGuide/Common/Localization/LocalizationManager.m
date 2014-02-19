@@ -91,3 +91,8 @@ NSString* localizeLoginRequire()
 {
     return @"Bạn phải đăng nhập để sử dụng chức năng này";
 }
+
+NSString* localizeUserProfileRequire()
+{
+    return @"Bạn phải cập nhật profile để sử dụng chức năng này";
+}

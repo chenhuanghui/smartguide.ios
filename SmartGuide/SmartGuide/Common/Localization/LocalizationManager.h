@@ -23,3 +23,4 @@ NSString* localizeDOBEmpty();
 NSString* localizeGenderEmpty();
 NSString* localizeAvatarEmpty();
 NSString* localizeLoginRequire();
+NSString* localizeUserProfileRequire();
