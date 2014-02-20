@@ -8,6 +8,8 @@
 
 #import "SGUserSettingViewController.h"
 #import "DataManager.h"
+#import "TokenManager.h"
+#import "GUIManager.h"
 
 @interface SGUserSettingViewController ()<UITextFieldDelegate,UIPickerViewDataSource,UIPickerViewDelegate,UIGestureRecognizerDelegate,AvatarControllerDelegate,ASIOperationPostDelegate>
 
@@ -161,6 +163,10 @@
         
         _operationUpdateUserProfile=nil;
     }
+    else if([operation isKindOfClass:[ASIOperationUserProfile class]])
+    {
+        [[GUIManager shareInstance] logout];
+    }
 }
 
 -(void)ASIOperaionPostFailed:(ASIOperationPost *)operation
@@ -169,6 +175,8 @@
     {
         [self.view removeLoading];
         _operationUpdateUserProfile=nil;
+        
+        [[TokenManager shareInstance] setAccessToken:_accessToken];
     }
 }
 
@@ -252,6 +260,15 @@
 }
 
 - (IBAction)btnLogoutTouchUpInside:(id)sender {
+    _accessToken=[[TokenManager shareInstance].accessToken copy];
+    [[TokenManager shareInstance] setAccessToken:DEFAULT_USER_ACCESS_TOKEN];
+    
+    _operationUserProfile=[[ASIOperationUserProfile alloc] initOperation];
+    _operationUserProfile.delegatePost=self;
+    
+    [_operationUserProfile startAsynchronous];
+    
+    [self.view showLoading];
 }
 
 -(void) showDOBPicker
@@ -414,6 +431,21 @@
     } completion:^(BOOL finished) {
         backView.hidden=true;
     }];
+}
+
+-(void)dealloc
+{
+    if(_operationUpdateUserProfile)
+    {
+        [_operationUpdateUserProfile cancel];
+        _operationUpdateUserProfile=nil;
+    }
+    
+    if(_operationUserProfile)
+    {
+        [_operationUserProfile cancel];
+        _operationUserProfile=nil;
+    }
 }
 
 @end

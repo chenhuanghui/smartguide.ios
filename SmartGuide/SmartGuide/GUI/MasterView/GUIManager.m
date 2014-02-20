@@ -56,7 +56,12 @@ static GUIManager *_shareInstance=nil;
     [mainWindow makeKeyAndVisible];
 }
 
--(void)SGLoadingFinished:(SGLoadingScreenViewController *)loadingScreen
+-(void)logout
+{
+    [self showFirstController];
+}
+
+-(void) showFirstController
 {
     NSMutableArray *viewControllers=[NSMutableArray array];
     
@@ -96,6 +101,11 @@ static GUIManager *_shareInstance=nil;
     }
     
     [self.rootNavigation setRootViewControllers:viewControllers animate:true];
+}
+
+-(void)SGLoadingFinished:(SGLoadingScreenViewController *)loadingScreen
+{
+    [self showFirstController];
 }
 
 -(void)welcomeControllerTouchedLogin:(WelcomeViewController *)viewController

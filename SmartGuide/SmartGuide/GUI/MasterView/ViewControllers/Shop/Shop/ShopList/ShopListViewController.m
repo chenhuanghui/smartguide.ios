@@ -10,6 +10,7 @@
 #import "GUIManager.h"
 #import "ShopListCell.h"
 #import "SGRootViewController.h"
+#import "EmptyDataCell.h"
 
 #define SHOP_LIST_SCROLL_SPEED 3.f
 
@@ -64,6 +65,7 @@
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
+    return 1;
     switch (_viewMode) {
         case SHOP_LIST_VIEW_LIST:
         case SHOP_LIST_VIEW_SHOP_LIST:
@@ -76,6 +78,9 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    if(_shopsList.count==0)
+        return 1;
+    
     switch (_viewMode) {
         case SHOP_LIST_VIEW_LIST:
         case SHOP_LIST_VIEW_SHOP_LIST:
@@ -105,6 +110,13 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if(_shopsList.count==0)
+    {
+        EmptyDataCell *cell=[tableList dequeueReusableCellWithIdentifier:[EmptyDataCell reuseIdentifier]];
+        
+        return cell;
+    }
+    
     switch (_viewMode) {
         case SHOP_LIST_VIEW_LIST:
         case SHOP_LIST_VIEW_SHOP_LIST:
@@ -174,6 +186,9 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if(_shopsList.count==0)
+        return tableList.l_v_h;
+    
     switch (_viewMode) {
         case SHOP_LIST_VIEW_LIST:
         case SHOP_LIST_VIEW_SHOP_LIST:
@@ -437,6 +452,7 @@
     
     [tableList registerNib:[UINib nibWithNibName:[ShopListCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[ShopListCell reuseIdentifier]];
     [tableList registerNib:[UINib nibWithNibName:[ShopListPlaceCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[ShopListPlaceCell reuseIdentifier]];
+    [tableList registerNib:[UINib nibWithNibName:[EmptyDataCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[EmptyDataCell reuseIdentifier]];
     
     UITapGestureRecognizer *tap=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapTop:)];
     tap.delegate=self;
@@ -535,8 +551,8 @@
     }
     
     _operationShopSearch=[[ASIOperationShopSearch alloc] initWithKeywords:_keyword userLat:_location.latitude userLng:_location.longitude page:_page+1 sort:_sort];
-    
     _operationShopSearch.delegatePost=self;
+    
     [_operationShopSearch startAsynchronous];
 }
 
@@ -715,6 +731,7 @@
         _canLoadMore=ope.shopsList.count==10;
         _isLoadingMore=false;
         
+        tableList.dataSource=self;
         [tableList reloadData];
         
         NSMutableArray *coordinates=[NSMutableArray array];
@@ -749,6 +766,7 @@
         _canLoadMore=ope.shopsList.count==10;
         _isLoadingMore=false;
         
+        tableList.dataSource=self;
         [tableList reloadData];
         
         NSMutableArray *coordinates=[NSMutableArray array];

@@ -11,6 +11,7 @@
 #import "SGNavigationController.h"
 #import "AvatarViewController.h"
 #import "ASIOperationUpdateUserProfile.h"
+#import "ASIOperationUserProfile.h"
 
 @class SGUserSettingViewController;
 
@@ -50,6 +51,8 @@
     __weak UIView *_pickerView;
     int _selectedGender;
     ASIOperationUpdateUserProfile *_operationUpdateUserProfile;
+    ASIOperationUserProfile *_operationUserProfile;
+    NSString *_accessToken;
 }
 
 @property (nonatomic, weak) id<SGUserSettingControllerDelegate> delegate;

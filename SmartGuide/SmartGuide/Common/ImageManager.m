@@ -49,9 +49,9 @@ static ImageManager *_imageManager=nil;
     if(!_loadingImages)
     {
         _loadingImages=[NSMutableArray new];
-        for(int i=0;i<=11;i++)
+        for(int i=0;i<=14;i++)
         {
-            [_loadingImages addObject:[UIImage imageNamed:[NSString stringWithFormat:@"button_loading_small_%02i",i]]];
+            [_loadingImages addObject:[UIImage imageNamed:[NSString stringWithFormat:@"button_loading_big_%02i.png",i]]];
         }
     }
     

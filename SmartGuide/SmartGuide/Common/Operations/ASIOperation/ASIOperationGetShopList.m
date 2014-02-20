@@ -10,7 +10,7 @@
 #import "ShopList.h"
 
 @implementation ASIOperationGetShopList
-@synthesize values,shopLists;
+@synthesize values;
 
 -(ASIOperationGetShopList *)initWithIDShops:(NSString *)idShops userLat:(double)userLat userLng:(double)userLng page:(int)page sort:(enum SORT_LIST)sort
 {
@@ -28,7 +28,7 @@
 
 -(void)onCompletedWithJSON:(NSArray *)json
 {
-    shopLists=[NSMutableArray array];
+    self.shopLists=[NSMutableArray array];
     if([self isNullData:json])
         return;
     
@@ -36,7 +36,7 @@
     {
         ShopList *shop=[ShopList makeWithDictionary:dict];
         
-        [shopLists addObject:shop];
+        [self.shopLists addObject:shop];
     }
     
     [[DataManager shareInstance] save];

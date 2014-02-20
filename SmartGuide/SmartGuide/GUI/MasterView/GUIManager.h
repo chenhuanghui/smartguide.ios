@@ -39,6 +39,7 @@
 
 +(GUIManager*) shareInstance;
 -(void) startupWithWindow:(UIWindow*) window;
+-(void) logout;
 
 -(void) displayViewController:(SGViewController*) viewController;
 -(void) closeViewController:(SGViewController*) viewController;

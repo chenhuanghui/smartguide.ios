@@ -12,6 +12,6 @@
 
 -(ASIOperationGetShopList*) initWithIDShops:(NSString*) idShops userLat:(double) userLat userLng:(double) userLng page:(int) page sort:(enum SORT_LIST) sort;
 
-@property (nonatomic, readonly) NSMutableArray *shopLists;
+@property (nonatomic, strong) NSMutableArray *shopLists;
 
 @end
