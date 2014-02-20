@@ -8,6 +8,7 @@
 
 #import "SGQRCodeViewController.h"
 #import "GUIManager.h"
+#import <AVFoundation/AVFoundation.h>
 
 @interface SGQRCodeViewController ()
 
@@ -74,6 +75,10 @@
     
     imgvScanTop.transform=CGAffineTransformMakeScale(1, -1);
     
+    AVCaptureDevice *device=zbarReader.readerView.device;
+    
+    btnTorch.enabled=device.torchAvailable;
+    
     zbarReader.showsZBarControls=false;
     zbarReader.showsCameraControls=false;
     zbarReader.cameraFlashMode=UIImagePickerControllerCameraFlashModeAuto;
@@ -86,6 +91,38 @@
     [zbarReader.view l_v_setS:cameraView.l_v_s];
     
     [self displayScan];
+    
+    [device addObserver:self forKeyPath:@"torchAvailable" options:NSKeyValueObservingOptionNew context:nil];
+    [device addObserver:self forKeyPath:@"torchMode" options:NSKeyValueObservingOptionNew context:nil];
+}
+
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    if([keyPath isEqualToString:@"torchAvailable"])
+    {
+        btnTorch.enabled=zbarReader.readerView.device.torchAvailable;
+    }
+    else if([keyPath isEqualToString:@"torchMode"])
+    {
+        [self makeTorchStatus];
+    }
+}
+
+-(void) makeTorchStatus
+{
+    switch (zbarReader.readerView.device.torchMode) {
+        case AVCaptureTorchModeOn:
+            lblTorch.text=@"On";
+            break;
+            
+        case AVCaptureTorchModeAuto:
+            lblTorch.text=@"Auto";
+            break;
+            
+        case AVCaptureTorchModeOff:
+            lblTorch.text=@"Off";
+            break;
+    }
 }
 
 -(void) addBarReaderView
@@ -254,6 +291,9 @@
 
 -(void)dealloc
 {
+    [zbarReader.readerView.device removeObserver:self forKeyPath:@"torchAvailable"];
+    [zbarReader.readerView.device removeObserver:self forKeyPath:@"torchMode"];
+    
     [zbarReader.readerView stop];
     [zbarReader.readerView flushCache];
     
@@ -291,7 +331,7 @@
 
 - (IBAction)btnnext:(id)sender {
     UIButton *btn=sender;
-    
+
     if(btn.tag==0)
     {
         ScanQRCodeResult0 *result=[ScanQRCodeResult0 new];
@@ -404,6 +444,31 @@
     }
     
     
+}
+
+- (IBAction)btnTorchTouchUpInside:(id)sender {
+    
+    NSError *error=nil;
+    [zbarReader.readerView.device lockForConfiguration:&error];
+    
+    if(!error)
+    {
+        switch (zbarReader.readerView.device.torchMode) {
+            case AVCaptureTorchModeOn:
+                zbarReader.readerView.device.torchMode=AVCaptureTorchModeOff;
+                break;
+                
+            case AVCaptureTorchModeOff:
+                zbarReader.readerView.device.torchMode=AVCaptureTorchModeAuto;
+                break;
+                
+            case AVCaptureTorchModeAuto:
+                zbarReader.readerView.device.torchMode=AVCaptureTorchModeOn;
+                break;
+        }
+        
+        [zbarReader.readerView.device unlockForConfiguration];
+    }
 }
 
 @end

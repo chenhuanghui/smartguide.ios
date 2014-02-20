@@ -42,6 +42,8 @@ enum QRCODE_ANIMATION_TYPE {
     __weak IBOutlet UIButton *btnClose;
     __weak IBOutlet UIButton *btnCloseCamera;
     __weak IBOutlet UIButton *btnScan;
+    __weak IBOutlet UIButton *btnTorch;
+    __weak IBOutlet UILabel *lblTorch;
     
     __strong ZBarReaderViewController *zbarReader;
     ASIOperationScanQRCode *_operationScanCode;

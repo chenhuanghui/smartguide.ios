@@ -32,7 +32,9 @@
     picker.delegate=self;
 
     picker.sourceType=UIImagePickerControllerSourceTypeCamera;
+    picker.cameraDevice=UIImagePickerControllerCameraDeviceRear;
     picker.cameraCaptureMode=UIImagePickerControllerCameraCaptureModePhoto;
+    picker.cameraFlashMode=UIImagePickerControllerCameraFlashModeAuto;
     picker.showsCameraControls=false;
     picker.navigationBarHidden=true;
     picker.toolbarHidden=true;
@@ -93,7 +95,7 @@
 }
 
 - (IBAction)btnFlashTouchUpInside:(id)sender {
-
+    
     switch (camera.cameraFlashMode) {
         case UIImagePickerControllerCameraFlashModeOn:
             camera.cameraFlashMode=UIImagePickerControllerCameraFlashModeOff;
@@ -105,6 +107,7 @@
             
         case UIImagePickerControllerCameraFlashModeAuto:
             camera.cameraFlashMode=UIImagePickerControllerCameraFlashModeOn;
+            break;
     }
     
     [self makeFlashStatus];
