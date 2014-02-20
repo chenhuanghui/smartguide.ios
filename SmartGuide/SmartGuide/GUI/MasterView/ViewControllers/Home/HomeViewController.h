@@ -32,6 +32,8 @@
     __weak IBOutlet UIView *displayLoadingView;
     __weak IBOutlet TableHome *tableFeed;
     __weak IBOutlet UIView *qrView;
+    __weak IBOutlet UIButton *btnScanBig;
+    __weak IBOutlet UIButton *btnScanSmall;
     __weak IBOutlet UIView *blackView;
     __weak IBOutlet UIImageView *blurBottom;
     
@@ -46,6 +48,8 @@
     
     CGRect _qrFrame;
     CGRect _blurBottomFrame;
+    CGRect _buttonScanBigFrame;
+    CGRect _buttonScanSmallFrame;
 }
 
 @property (nonatomic, assign) id<HomeControllerDelegate> delegate;

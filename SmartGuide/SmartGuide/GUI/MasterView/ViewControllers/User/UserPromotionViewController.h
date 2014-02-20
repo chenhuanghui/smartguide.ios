@@ -27,6 +27,10 @@
     __weak IBOutlet UIButton *btnScanSmall;
     __weak IBOutlet UIButton *btnScanBig;
     
+    CGRect _qrFrame;
+    CGRect _buttonScanBigFrame;
+    CGRect _buttonScanSmallFrame;
+    
     ASIOperationUserPromotion *_operationUserPromotion;
     NSMutableArray *_userPromotions;
     int _page;

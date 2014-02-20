@@ -9,6 +9,8 @@
             <connections>
                 <outlet property="blackView" destination="f0f-E2-pZd" id="XW6-Qz-rsb"/>
                 <outlet property="blurBottom" destination="LCo-O1-eW2" id="3Gp-6G-AHt"/>
+                <outlet property="btnScanBig" destination="x6B-Va-eYj" id="iwd-yJ-YHk"/>
+                <outlet property="btnScanSmall" destination="OIS-pB-zut" id="bgb-MN-Gls"/>
                 <outlet property="displayLoadingView" destination="Qvy-Tv-IgG" id="0IJ-xq-EXi"/>
                 <outlet property="qrView" destination="MVN-kQ-te1" id="X6K-xY-xc6"/>
                 <outlet property="tableFeed" destination="Ney-Bf-iDE" id="RhK-f1-eD4"/>
@@ -30,8 +32,8 @@
                     <rect key="frame" x="9" y="0.0" width="302" height="430"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    <inset key="contentInset" minX="0.0" minY="54" maxX="0.0" maxY="70"/>
-                    <inset key="scrollIndicatorInsets" minX="0.0" minY="54" maxX="0.0" maxY="54"/>
+                    <inset key="contentInset" minX="0.0" minY="54" maxX="0.0" maxY="30"/>
+                    <inset key="scrollIndicatorInsets" minX="0.0" minY="54" maxX="0.0" maxY="30"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="P0R-JT-9Eu"/>
                         <outlet property="delegate" destination="-1" id="zAG-3c-5qO"/>
@@ -99,7 +101,7 @@
                                 <action selector="btnShowQRCodeTouchUpInside:" destination="-1" eventType="touchUpInside" id="KK0-y6-SRd"/>
                             </connections>
                         </button>
-                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="top" lineBreakMode="middleTruncation" id="OIS-pB-zut">
+                        <button opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="top" lineBreakMode="middleTruncation" id="OIS-pB-zut">
                             <rect key="frame" x="0.0" y="56" width="320" height="56"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <inset key="contentEdgeInsets" minX="13" minY="10" maxX="0.0" maxY="0.0"/>
@@ -107,7 +109,7 @@
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <connections>
-                                <action selector="btnHideQRCodeTouchUpInside:" destination="-1" eventType="touchUpInside" id="XTz-PX-ust"/>
+                                <action selector="btnShowQRCodeTouchUpInside:" destination="-1" eventType="touchUpInside" id="AnE-0D-fhp"/>
                             </connections>
                         </button>
                     </subviews>

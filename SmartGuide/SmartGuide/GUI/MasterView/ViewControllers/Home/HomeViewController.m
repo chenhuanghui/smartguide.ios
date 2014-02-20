@@ -32,6 +32,8 @@
 {
     _qrFrame=qrView.frame;
     _blurBottomFrame=blurBottom.frame;
+    _buttonScanBigFrame=btnScanBig.frame;
+    _buttonScanSmallFrame=btnScanSmall.frame;
 }
 
 - (void)viewDidLoad
@@ -43,11 +45,11 @@
     txt.leftView.backgroundColor=[UIColor clearColor];
     txt.leftViewMode=UITextFieldViewModeAlways;
     
+    [tableFeed l_v_addH:QRCODE_BIG_HEIGHT-QRCODE_SMALL_HEIGHT];
+    
     [UserHome markDeleteAllObjects];
     [[DataManager shareInstance] save];
-    
-    [tableFeed l_v_addH:QRCODE_SMALL_HEIGHT*NEW_FEED_DELTA_SPEED];
-    
+
     [self storeRect];
     
     [tableFeed registerNib:[UINib nibWithNibName:[HomePromotionCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[HomePromotionCell reuseIdentifier]];
@@ -457,44 +459,47 @@
 {
     if(scrollView==tableFeed)
     {
-        float y=tableFeed.l_co_y+tableFeed.contentInset.top;
-        float speed=4;
-        float height=speed*100;
-        
-        if(y<height)
+        if(tableFeed.l_co_y+tableFeed.contentInset.top>100)
         {
-            
-        }
-        
-        if(y>=0)
-        {
-            float offsetY=tableFeed.offset.y/4;
-            float max=_qrFrame.origin.y+(QRCODE_BIG_HEIGHT-QRCODE_SMALL_HEIGHT);
-            y=qrView.l_v_y+offsetY;
-            
-            y=MIN(y,max);
-            y=MAX(_qrFrame.origin.y,y);
-            
-            [qrView l_v_setY:y];
+            [UIView animateWithDuration:0.3f animations:^{
+                [qrView l_v_setY:_qrFrame.origin.y+QRCODE_BIG_HEIGHT-QRCODE_SMALL_HEIGHT];
+                
+                btnScanSmall.alpha=1;
+                btnScanBig.alpha=0;
+                btnScanBig.frame=_buttonScanSmallFrame;
+                btnScanSmall.frame=_buttonScanBigFrame;
+            } completion:^(BOOL finished) {
+                btnScanBig.userInteractionEnabled=false;
+                btnScanSmall.userInteractionEnabled=true;
+            }];
         }
         else
         {
-            [blurBottom l_v_setY:_blurBottomFrame.origin.y];
-            [qrView l_v_setY:_qrFrame.origin.y];
+            [UIView animateWithDuration:0.3f animations:^{
+                [qrView l_v_setY:_qrFrame.origin.y];
+                
+                btnScanBig.alpha=1;
+                btnScanSmall.alpha=0;
+                btnScanBig.frame=_buttonScanBigFrame;
+                btnScanSmall.frame=_buttonScanSmallFrame;
+            } completion:^(BOOL finished) {
+                btnScanBig.userInteractionEnabled=true;
+                btnScanSmall.userInteractionEnabled=false;
+            }];
         }
     }
 }
 
 - (IBAction)btnShowQRCodeTouchUpInside:(id)sender {
-    [self showQRCodeWithContorller:self inView:self.view withAnimationType:QRCODE_ANIMATION_TOP];
+    if(sender==btnScanBig)
+        [self showQRCodeWithContorller:self inView:self.view withAnimationType:QRCODE_ANIMATION_TOP];
+    else
+        [self showQRCodeWithContorller:self inView:self.view withAnimationType:QRCODE_ANIMATION_TOP_BOT];
 }
 
 -(void)qrcodeControllerRequestClose:(SGQRCodeViewController *)controller
 {
     
-}
-
-- (IBAction)btnHideQRCodeTouchUpInside:(id)sender {
 }
 
 @end
