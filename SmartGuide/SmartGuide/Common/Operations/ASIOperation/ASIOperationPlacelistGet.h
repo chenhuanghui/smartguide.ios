@@ -10,9 +10,9 @@
 #import "Placelist.h"
 #import "ShopList.h"
 
-@interface ASIOperationPlacelistDetail : ASIOperationPost
+@interface ASIOperationPlacelistGet : ASIOperationPost
 
--(ASIOperationPlacelistDetail*) initWithIDPlacelist:(int) idPlaceList userLat:(double) userLat userLng:(double) userLng sort:(enum SORT_LIST) sort page:(NSUInteger) page;
+-(ASIOperationPlacelistGet*) initWithIDPlacelist:(int) idPlaceList userLat:(double) userLat userLng:(double) userLng sort:(enum SORT_LIST) sort page:(NSUInteger) page;
 
 @property (nonatomic, weak) Placelist *place;
 @property (nonatomic, strong) NSMutableArray *shopsList;

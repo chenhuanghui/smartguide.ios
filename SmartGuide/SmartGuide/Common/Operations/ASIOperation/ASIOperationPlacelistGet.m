@@ -6,14 +6,14 @@
 //  Copyright (c) 2013 Redbase. All rights reserved.
 //
 
-#import "ASIOperationPlacelistDetail.h"
+#import "ASIOperationPlacelistGet.h"
 
-@implementation ASIOperationPlacelistDetail
+@implementation ASIOperationPlacelistGet
 @synthesize values,place;
 
--(ASIOperationPlacelistDetail *)initWithIDPlacelist:(int)idPlaceList userLat:(double)userLat userLng:(double)userLng sort:(enum SORT_LIST)sort page:(NSUInteger)page
+-(ASIOperationPlacelistGet *)initWithIDPlacelist:(int)idPlaceList userLat:(double)userLat userLng:(double)userLng sort:(enum SORT_LIST)sort page:(NSUInteger)page
 {
-    self=[super initWithURL:[NSURL URLWithString:SERVER_API_MAKE(API_PLACELIST_DETAIL)]];
+    self=[super initWithURL:[NSURL URLWithString:SERVER_API_MAKE(API_PLACELIST_GET)]];
     
     values=@[@(idPlaceList),@(userLat),@(userLng),@(sort),@(page)];
     

@@ -24,6 +24,7 @@ enum SEARCH_SHOP_VIEW_MODE {
 -(void) searchShopControllerTouchedBack:(SearchShopViewController*) controller;
 -(void) searchShopControllerSearch:(SearchShopViewController*) controller keyword:(NSString*) keyword;
 -(void) searchShopControllerTouchPlaceList:(SearchShopViewController*) controller placeList:(Placelist*) place;
+-(void) searchShopControllerTouchedIDPlacelist:(SearchShopViewController*) controller idPlacelist:(int) idPlacelist;
 
 @end
 

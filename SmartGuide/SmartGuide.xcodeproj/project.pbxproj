@@ -128,6 +128,9 @@
 		9A211ECF18B5300100EBCCD9 /* button_liked_comment@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A211ECB18B5300100EBCCD9 /* button_liked_comment@2x.png */; };
 		9A22E84418B6056E00CECD3C /* EmptyDataCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A22E84318B6056E00CECD3C /* EmptyDataCell.m */; };
 		9A22E84618B6057D00CECD3C /* EmptyDataCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A22E84518B6057D00CECD3C /* EmptyDataCell.xib */; };
+		9A24781018B7364F00BAAA7D /* ASIOperationPlacelistGetDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A24780F18B7364F00BAAA7D /* ASIOperationPlacelistGetDetail.m */; };
+		9A24781418B739B100BAAA7D /* EmptyDataView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A24781318B739B100BAAA7D /* EmptyDataView.m */; };
+		9A24781618B739BA00BAAA7D /* EmptyDataView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A24781518B739BA00BAAA7D /* EmptyDataView.xib */; };
 		9A24D75318AC723900789D73 /* ASIOperationScanQRCode.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A24D75218AC723900789D73 /* ASIOperationScanQRCode.m */; };
 		9A24D76218AC8A1400789D73 /* button_help_arlet.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A24D75418AC8A1400789D73 /* button_help_arlet.png */; };
 		9A24D76318AC8A1400789D73 /* icon_condition_arlet.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A24D75518AC8A1400789D73 /* icon_condition_arlet.png */; };
@@ -939,7 +942,7 @@
 		9ACFA6A618600AC70090E7A8 /* _ShopList.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ACFA6A518600AC70090E7A8 /* _ShopList.m */; };
 		9ACFA6A9186010650090E7A8 /* ASIOperationShopSearch.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ACFA6A8186010650090E7A8 /* ASIOperationShopSearch.m */; };
 		9ACFAE5A18614EC2006131DC /* II-3-Detail-CameraPost.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9ACFAE5918614EC2006131DC /* II-3-Detail-CameraPost.jpg */; };
-		9ACFAE5D186163FE006131DC /* ASIOperationPlacelistDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ACFAE5C186163FE006131DC /* ASIOperationPlacelistDetail.m */; };
+		9ACFAE5D186163FE006131DC /* ASIOperationPlacelistGet.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ACFAE5C186163FE006131DC /* ASIOperationPlacelistGet.m */; };
 		9ACFAE691861B893006131DC /* icon_playlist.png in Resources */ = {isa = PBXBuildFile; fileRef = 9ACFAE671861B893006131DC /* icon_playlist.png */; };
 		9ACFAE6A1861B893006131DC /* icon_playlist@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9ACFAE681861B893006131DC /* icon_playlist@2x.png */; };
 		9ACFAE7318621D10006131DC /* button_camera.png in Resources */ = {isa = PBXBuildFile; fileRef = 9ACFAE6B18621D10006131DC /* button_camera.png */; };
@@ -1241,6 +1244,11 @@
 		9A22E84218B6056E00CECD3C /* EmptyDataCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmptyDataCell.h; sourceTree = "<group>"; };
 		9A22E84318B6056E00CECD3C /* EmptyDataCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmptyDataCell.m; sourceTree = "<group>"; };
 		9A22E84518B6057D00CECD3C /* EmptyDataCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EmptyDataCell.xib; sourceTree = "<group>"; };
+		9A24780E18B7364F00BAAA7D /* ASIOperationPlacelistGetDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIOperationPlacelistGetDetail.h; sourceTree = "<group>"; };
+		9A24780F18B7364F00BAAA7D /* ASIOperationPlacelistGetDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIOperationPlacelistGetDetail.m; sourceTree = "<group>"; };
+		9A24781218B739B100BAAA7D /* EmptyDataView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmptyDataView.h; sourceTree = "<group>"; };
+		9A24781318B739B100BAAA7D /* EmptyDataView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmptyDataView.m; sourceTree = "<group>"; };
+		9A24781518B739BA00BAAA7D /* EmptyDataView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EmptyDataView.xib; sourceTree = "<group>"; };
 		9A24D75118AC723900789D73 /* ASIOperationScanQRCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIOperationScanQRCode.h; sourceTree = "<group>"; };
 		9A24D75218AC723900789D73 /* ASIOperationScanQRCode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIOperationScanQRCode.m; sourceTree = "<group>"; };
 		9A24D75418AC8A1400789D73 /* button_help_arlet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_help_arlet.png; sourceTree = "<group>"; };
@@ -2242,8 +2250,8 @@
 		9ACFA6A7186010650090E7A8 /* ASIOperationShopSearch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIOperationShopSearch.h; sourceTree = "<group>"; };
 		9ACFA6A8186010650090E7A8 /* ASIOperationShopSearch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIOperationShopSearch.m; sourceTree = "<group>"; };
 		9ACFAE5918614EC2006131DC /* II-3-Detail-CameraPost.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "II-3-Detail-CameraPost.jpg"; sourceTree = "<group>"; };
-		9ACFAE5B186163FE006131DC /* ASIOperationPlacelistDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIOperationPlacelistDetail.h; sourceTree = "<group>"; };
-		9ACFAE5C186163FE006131DC /* ASIOperationPlacelistDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIOperationPlacelistDetail.m; sourceTree = "<group>"; };
+		9ACFAE5B186163FE006131DC /* ASIOperationPlacelistGet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIOperationPlacelistGet.h; sourceTree = "<group>"; };
+		9ACFAE5C186163FE006131DC /* ASIOperationPlacelistGet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIOperationPlacelistGet.m; sourceTree = "<group>"; };
 		9ACFAE671861B893006131DC /* icon_playlist.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_playlist.png; sourceTree = "<group>"; };
 		9ACFAE681861B893006131DC /* icon_playlist@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_playlist@2x.png"; sourceTree = "<group>"; };
 		9ACFAE6B18621D10006131DC /* button_camera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_camera.png; sourceTree = "<group>"; };
@@ -2803,6 +2811,16 @@
 				9A22E84518B6057D00CECD3C /* EmptyDataCell.xib */,
 			);
 			path = TableCells;
+			sourceTree = "<group>";
+		};
+		9A24781118B739A500BAAA7D /* EmptyDataView */ = {
+			isa = PBXGroup;
+			children = (
+				9A24781218B739B100BAAA7D /* EmptyDataView.h */,
+				9A24781318B739B100BAAA7D /* EmptyDataView.m */,
+				9A24781518B739BA00BAAA7D /* EmptyDataView.xib */,
+			);
+			path = EmptyDataView;
 			sourceTree = "<group>";
 		};
 		9A313AB018430B1A002DDA80 /* Template */ = {
@@ -3833,8 +3851,10 @@
 				9ACFA6A8186010650090E7A8 /* ASIOperationShopSearch.m */,
 				9AC74E561860C0F70033EB61 /* ASIOperationPlacelistGetList.h */,
 				9AC74E571860C0F70033EB61 /* ASIOperationPlacelistGetList.m */,
-				9ACFAE5B186163FE006131DC /* ASIOperationPlacelistDetail.h */,
-				9ACFAE5C186163FE006131DC /* ASIOperationPlacelistDetail.m */,
+				9ACFAE5B186163FE006131DC /* ASIOperationPlacelistGet.h */,
+				9ACFAE5C186163FE006131DC /* ASIOperationPlacelistGet.m */,
+				9A24780E18B7364F00BAAA7D /* ASIOperationPlacelistGetDetail.h */,
+				9A24780F18B7364F00BAAA7D /* ASIOperationPlacelistGetDetail.m */,
 				9ACFAEEA18635267006131DC /* ASIOperationLoveShop.h */,
 				9ACFAEEB18635267006131DC /* ASIOperationLoveShop.m */,
 				9AC66F84186447B300890F80 /* ASIOperationAgreeComment.h */,
@@ -4041,6 +4061,7 @@
 		A98198B4178D3FA70009FCB6 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				9A24781118B739A500BAAA7D /* EmptyDataView */,
 				9A22E84118B604A000CECD3C /* TableCells */,
 				9A3DE84918B303E3006F473A /* TPKeyboardAvoiding */,
 				9A998A94188E47D500F59840 /* ButtonBackShopUser */,
@@ -5296,6 +5317,7 @@
 				9A7E5547183C69E3006D1798 /* button_close.png in Resources */,
 				9A9DB98A187BA42700091602 /* frame_ava_photo@2x.png in Resources */,
 				9A3B93F6185DFDAE004F94A4 /* StoreShopCell.xib in Resources */,
+				9A24781618B739BA00BAAA7D /* EmptyDataView.xib in Resources */,
 				9ACBE8F4185A16EA0004474F /* bg_content_mid@2x.png in Resources */,
 				9A3E767B18532BC200F596C1 /* UserInfomationViewController.xib in Resources */,
 				9A3DE85918B30788006F473A /* frame_avauser_uc@2x.png in Resources */,
@@ -5653,7 +5675,7 @@
 				9A3B93F5185DFDAE004F94A4 /* StoreShopCell.m in Sources */,
 				A9CFD36B1797FCEC0035E448 /* _User.m in Sources */,
 				A9CFD3731797FFC20035E448 /* City.m in Sources */,
-				9ACFAE5D186163FE006131DC /* ASIOperationPlacelistDetail.m in Sources */,
+				9ACFAE5D186163FE006131DC /* ASIOperationPlacelistGet.m in Sources */,
 				9A0F7621187152DB00160E54 /* ShopDetailInfoType3Cell.m in Sources */,
 				9ACAED461872714C0025B027 /* HomeImagesCell.m in Sources */,
 				A9CFD3761797FFCC0035E448 /* _City.m in Sources */,
@@ -5751,6 +5773,7 @@
 				9A22E84418B6056E00CECD3C /* EmptyDataCell.m in Sources */,
 				9A3B93F3185DFDAE004F94A4 /* StoreAdsCell.m in Sources */,
 				9A9211A6185AC7AB0012F181 /* LoadingView.m in Sources */,
+				9A24781018B7364F00BAAA7D /* ASIOperationPlacelistGetDetail.m in Sources */,
 				9A9433681885A91400066DC3 /* ASIOperationCreatePlacelist.m in Sources */,
 				A921B02F17A8B68200DC6D4D /* ASIOperationShopUser.m in Sources */,
 				9A24D75318AC723900789D73 /* ASIOperationScanQRCode.m in Sources */,
@@ -5809,6 +5832,7 @@
 				9A3E768418532BDF00F596C1 /* UserCollectionViewController.m in Sources */,
 				A925479C17AE453F00AD0BA9 /* OperationGetToken.m in Sources */,
 				9AC74E551860BE230033EB61 /* _Placelist.m in Sources */,
+				9A24781418B739B100BAAA7D /* EmptyDataView.m in Sources */,
 				A924A3C117AEB63F0042B28B /* OperationRefreshToken.m in Sources */,
 				A924A3C517AEBC860042B28B /* SwitchSetting.m in Sources */,
 				9A8653F5187865B100A60BF1 /* AvatarViewController.m in Sources */,

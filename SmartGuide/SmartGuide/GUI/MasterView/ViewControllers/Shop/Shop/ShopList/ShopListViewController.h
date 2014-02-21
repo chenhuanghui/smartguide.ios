@@ -18,7 +18,8 @@
 #import "ShopListPlaceCell.h"
 #import "SearchViewController.h"
 #import "ASIOperationShopSearch.h"
-#import "ASIOperationPlacelistDetail.h"
+#import "ASIOperationPlacelistGet.h"
+#import "ASIOperationPlacelistGetDetail.h"
 #import "ASIOperationGetShopList.h"
 #import "Placelist.h"
 #import "PlacelistViewController.h"
@@ -29,6 +30,7 @@ enum SHOP_LIST_VIEW_MODE {
     SHOP_LIST_VIEW_LIST = 0,
     SHOP_LIST_VIEW_PLACE = 1,
     SHOP_LIST_VIEW_SHOP_LIST = 2,
+    SHOP_LIST_VIEW_IDPLACE = 3,
     };
 
 @protocol ShopListControllerDelegate <SGViewControllerDelegate>
@@ -81,13 +83,15 @@ enum SHOP_LIST_VIEW_MODE {
     bool _isAllowDiffScrollMap;
     
     ASIOperationShopSearch *_operationShopSearch;
-    ASIOperationPlacelistDetail *_operationPlaceListDetail;
+    ASIOperationPlacelistGet *_operationPlaceListDetail;
     ASIOperationGetShopList *_operationShopList;
+    ASIOperationPlacelistGetDetail *_operationPlacelistGetDetail;
     
     NSString *_keyword;
     __weak Placelist *_placeList;
     NSMutableArray *_shopsList;
     NSString *_idShops;
+    int _idPlacelist;
     
     NSUInteger _page;
     enum SORT_LIST _sort;
@@ -104,6 +108,7 @@ enum SHOP_LIST_VIEW_MODE {
 -(ShopListViewController*) initWithKeyword:(NSString*) keyword;
 -(ShopListViewController*) initWithPlaceList:(Placelist*) placeList;
 -(ShopListViewController*) initWithIDShops:(NSString*) idShops;
+-(ShopListViewController*) initWithIDPlacelist:(int) idPlacelist;
 
 -(NSString*) keyword;
 -(Placelist*) placelist;

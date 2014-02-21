@@ -491,7 +491,8 @@
         
         if([sCell.value isKindOfClass:[AutocompletePlacelist class]])
         {
-            
+            AutocompletePlacelist *place=sCell.value;
+            [self.delegate searchShopControllerTouchedIDPlacelist:self idPlacelist:place.idPlacelist];
         }
         else if([sCell.value isKindOfClass:[AutocompleteShop class]])
         {

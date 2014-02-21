@@ -10,7 +10,7 @@
 #import "GUIManager.h"
 #import "ShopListCell.h"
 #import "SGRootViewController.h"
-#import "EmptyDataCell.h"
+#import "EmptyDataView.h"
 
 #define SHOP_LIST_SCROLL_SPEED 3.f
 
@@ -20,6 +20,16 @@
 
 @implementation ShopListViewController
 @synthesize delegate,searchController;
+
+-(ShopListViewController *)initWithIDPlacelist:(int)idPlacelist
+{
+    self=[super initWithNibName:@"ShopListViewController" bundle:nil];
+    
+    _idPlacelist=idPlacelist;
+    _viewMode=SHOP_LIST_VIEW_IDPLACE;
+    
+    return self;
+}
 
 -(ShopListViewController *)initWithKeyword:(NSString *)keyword
 {
@@ -65,7 +75,6 @@
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
     switch (_viewMode) {
         case SHOP_LIST_VIEW_LIST:
         case SHOP_LIST_VIEW_SHOP_LIST:
@@ -73,20 +82,24 @@
             
         case SHOP_LIST_VIEW_PLACE:
             return 1;
+            
+        case SHOP_LIST_VIEW_IDPLACE:
+            if(_placeList)
+                return 1;
+            else
+                return 0;
     }
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if(_shopsList.count==0)
-        return 1;
-    
     switch (_viewMode) {
         case SHOP_LIST_VIEW_LIST:
         case SHOP_LIST_VIEW_SHOP_LIST:
             return _shopsList.count;
             
         case SHOP_LIST_VIEW_PLACE:
+        case SHOP_LIST_VIEW_IDPLACE:
             return _shopsList.count+1;
     }
 }
@@ -99,6 +112,7 @@
             break;
             
         case SHOP_LIST_VIEW_PLACE:
+        case SHOP_LIST_VIEW_IDPLACE:
             [self requestPlacelistDetail];
             break;
             
@@ -110,13 +124,6 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if(_shopsList.count==0)
-    {
-        EmptyDataCell *cell=[tableList dequeueReusableCellWithIdentifier:[EmptyDataCell reuseIdentifier]];
-        
-        return cell;
-    }
-    
     switch (_viewMode) {
         case SHOP_LIST_VIEW_LIST:
         case SHOP_LIST_VIEW_SHOP_LIST:
@@ -143,6 +150,7 @@
         }
             
         case SHOP_LIST_VIEW_PLACE:
+        case SHOP_LIST_VIEW_IDPLACE:
             
             switch (indexPath.row) {
                 case 0:
@@ -186,15 +194,13 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if(_shopsList.count==0)
-        return tableList.l_v_h;
-    
     switch (_viewMode) {
         case SHOP_LIST_VIEW_LIST:
         case SHOP_LIST_VIEW_SHOP_LIST:
             return [ShopListCell heightWithContent:[_shopsList[indexPath.row] desc]];
             
         case SHOP_LIST_VIEW_PLACE:
+        case SHOP_LIST_VIEW_IDPLACE:
         {
             switch (indexPath.row) {
                 case 0:
@@ -219,6 +225,7 @@
             break;
             
         case SHOP_LIST_VIEW_PLACE:
+        case SHOP_LIST_VIEW_IDPLACE:
         {
             switch (indexPath.row) {
                 case 0:
@@ -402,6 +409,7 @@
             break;
             
         case SHOP_LIST_VIEW_PLACE:
+        case SHOP_LIST_VIEW_IDPLACE:
             [self changeSortPlace:sort];
             break;
     }
@@ -452,8 +460,7 @@
     
     [tableList registerNib:[UINib nibWithNibName:[ShopListCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[ShopListCell reuseIdentifier]];
     [tableList registerNib:[UINib nibWithNibName:[ShopListPlaceCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[ShopListPlaceCell reuseIdentifier]];
-    [tableList registerNib:[UINib nibWithNibName:[EmptyDataCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[EmptyDataCell reuseIdentifier]];
-    
+
     UITapGestureRecognizer *tap=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapTop:)];
     tap.delegate=self;
     _tapTop=tap;
@@ -508,10 +515,39 @@
             [self requestPlacelistDetail];
             
             break;
+            
+        case SHOP_LIST_VIEW_IDPLACE:
+            
+            _sort=SORT_LIST_DEFAULT;
+            
+            tableList.dataSource=self;
+            tableList.delegate=self;
+            
+            [tableList reloadData];
+            
+            [self showLoading];
+            
+            [self requestPlacelistGetDetail];
+            
+            break;
     }
     
     [self makeScrollSize];
     [self makeSortLayout];
+}
+
+-(void) requestPlacelistGetDetail
+{
+    if(_operationPlacelistGetDetail)
+    {
+        [_operationPlacelistGetDetail cancel];
+        _operationPlacelistGetDetail=nil;
+    }
+    
+    _operationPlacelistGetDetail=[[ASIOperationPlacelistGetDetail alloc] initWithIDPlacelist:_idPlacelist userLat:userLat() userLng:userLng() sort:_sort];
+    _operationPlacelistGetDetail.delegatePost=self;
+    
+    [_operationPlacelistGetDetail startAsynchronous];
 }
 
 -(void) requestPlacelistDetail
@@ -522,7 +558,7 @@
         _operationPlaceListDetail=nil;
     }
     
-    _operationPlaceListDetail=[[ASIOperationPlacelistDetail alloc] initWithIDPlacelist:_placeList.idPlacelist.integerValue userLat:_location.latitude userLng:_location.longitude sort:_sort page:_page+1];
+    _operationPlaceListDetail=[[ASIOperationPlacelistGet alloc] initWithIDPlacelist:_placeList.idPlacelist.integerValue userLat:_location.latitude userLng:_location.longitude sort:_sort page:_page+1];
     _operationPlaceListDetail.delegatePost=self;
     
     [_operationPlaceListDetail startAsynchronous];
@@ -694,6 +730,7 @@
     
     switch (_viewMode) {
         case SHOP_LIST_VIEW_PLACE:
+        case SHOP_LIST_VIEW_IDPLACE:
             idPlacelist=_placeList.idPlacelist.integerValue;
             
         case SHOP_LIST_VIEW_LIST:
@@ -701,7 +738,7 @@
             break;
     }
     
-    _operationPlaceListDetail=[[ASIOperationPlacelistDetail alloc] initWithIDPlacelist:idPlacelist userLat:_location.latitude userLng:_location.longitude sort:_sort page:_page+1];
+    _operationPlaceListDetail=[[ASIOperationPlacelistGet alloc] initWithIDPlacelist:idPlacelist userLat:_location.latitude userLng:_location.longitude sort:_sort page:_page+1];
     
     _operationPlaceListDetail.delegatePost=self;
     [_operationPlaceListDetail startAsynchronous];
@@ -754,11 +791,49 @@
         
         [self makeScrollSize];
     }
-    else if([operation isKindOfClass:[ASIOperationPlacelistDetail class]])
+    else if([operation isKindOfClass:[ASIOperationPlacelistGetDetail class]])
     {
         [self removeLoading];
         
-        ASIOperationPlacelistDetail *ope=(ASIOperationPlacelistDetail*) operation;
+        ASIOperationPlacelistGetDetail *ope=(ASIOperationPlacelistGetDetail*) operation;
+        
+        _placeList=ope.place;
+        
+        [_shopsList addObjectsFromArray:ope.shops];
+        
+        _page++;
+        _canLoadMore=ope.shops.count==10;
+        _isLoadingMore=false;
+        
+        tableList.dataSource=self;
+        [tableList reloadData];
+        
+        NSMutableArray *coordinates=[NSMutableArray array];
+        for(ShopList *shop in ope.shops)
+        {
+            [self.map addAnnotation:shop];
+            
+            [coordinates addObject:[NSValue valueWithMKCoordinate:shop.coordinate]];
+        }
+        
+        if(!_isZoomedRegionMap)
+        {
+            _isZoomedRegionMap=true;
+            
+            if(isVailCLLocationCoordinate2D(self.map.userLocation.coordinate))
+                [coordinates addObject:[NSValue valueWithMKCoordinate:self.map.userLocation.coordinate]];
+            
+            [self.map zoomToCoordinates:coordinates animate:true span:0];
+        }
+        
+        [self makeScrollSize];
+
+    }
+    else if([operation isKindOfClass:[ASIOperationPlacelistGet class]])
+    {
+        [self removeLoading];
+        
+        ASIOperationPlacelistGet *ope=(ASIOperationPlacelistGet*) operation;
         
         [_shopsList addObjectsFromArray:ope.shopsList];
         
@@ -788,6 +863,8 @@
         }
         
         [self makeScrollSize];
+        
+        _operationPlacelistGetDetail=nil;
     }
     else if([operation isKindOfClass:[ASIOperationGetShopList class]])
     {
@@ -827,6 +904,9 @@
         
         _operationShopList=nil;
     }
+    
+    if(!_placeList && _shopsList.count==0)
+        [tableList showEmptyDataWithText:@"\nKhông tìm thấy dữ liệu" align:EMPTY_DATA_ALIGN_TEXT_TOP];
 }
 
 -(void)ASIOperaionPostFailed:(ASIOperationPost *)operation
@@ -837,7 +917,7 @@
         
         _operationShopSearch=nil;
     }
-    else if([operation isKindOfClass:[ASIOperationPlacelistDetail class]])
+    else if([operation isKindOfClass:[ASIOperationPlacelistGet class]])
     {
         [self removeLoading];
         
@@ -1045,6 +1125,8 @@
                     break;
                     
                 case SHOP_LIST_VIEW_PLACE:
+                case SHOP_LIST_VIEW_IDPLACE:
+                    
                     switch (indexPath.row) {
                         case 0:
                             scrollerText=_placeList.title;
@@ -1330,6 +1412,12 @@
     {
         [_operationShopList cancel];
         _operationShopList=nil;
+    }
+    
+    if(_operationPlacelistGetDetail)
+    {
+        [_operationPlacelistGetDetail cancel];
+        _operationPlacelistGetDetail=nil;
     }
     
     scroll.delegate=nil;

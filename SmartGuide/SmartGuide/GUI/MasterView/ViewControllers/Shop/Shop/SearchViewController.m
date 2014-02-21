@@ -172,6 +172,11 @@
     [self showShopListWithPlacelist:place];
 }
 
+-(void)searchShopControllerTouchedIDPlacelist:(SearchShopViewController *)controller idPlacelist:(int)idPlacelist
+{
+    [self showShopListWithIDPlacelist:idPlacelist];
+}
+
 -(void)searchShopControllerSearch:(SearchShopViewController *)controller keyword:(NSString *)keyword
 {
     [self showShopListWithKeyword:keyword];
@@ -203,6 +208,21 @@
     }
     
     ShopListViewController *vc=[[ShopListViewController alloc] initWithKeyword:keyword];
+    vc.delegate=self;
+    
+    self.shopListController=vc;
+    
+    [searchNavi pushViewController:vc animated:true];
+}
+
+-(void) showShopListWithIDPlacelist:(int) idPlacelist
+{
+    if(self.shopListController)
+    {
+        [searchNavi removeViewController:self.shopListController];
+    }
+    
+    ShopListViewController *vc=[[ShopListViewController alloc] initWithIDPlacelist:idPlacelist];
     vc.delegate=self;
     
     self.shopListController=vc;
