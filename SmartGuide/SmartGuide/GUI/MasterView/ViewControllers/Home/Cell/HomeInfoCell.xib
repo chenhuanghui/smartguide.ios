@@ -20,11 +20,11 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </view>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="Lk2-e4-H4O">
-                        <rect key="frame" x="14" y="11" width="31" height="31"/>
+                        <rect key="frame" x="15" y="14" width="30" height="30"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     </imageView>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="frame_avashop_home.png" id="ZOP-wd-08Z">
-                        <rect key="frame" x="11" y="8" width="37" height="37"/>
+                        <rect key="frame" x="11" y="8" width="37" height="39"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     </imageView>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SmartGuide" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Wfs-Jf-5ZZ">
@@ -52,7 +52,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
-                        <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="13"/>
+                        <fontDescription key="fontDescription" name="Georgia-Bold" family="Georgia" pointSize="14"/>
                         <color key="textColor" red="0.20784313725490194" green="0.61960784313725492" blue="0.93725490196078431" alpha="1" colorSpace="deviceRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -107,6 +107,6 @@
     </objects>
     <resources>
         <image name="button_gotoshop_home.png" width="196" height="44"/>
-        <image name="frame_avashop_home.png" width="37" height="37"/>
+        <image name="frame_avashop_home.png" width="37" height="39"/>
     </resources>
 </document>

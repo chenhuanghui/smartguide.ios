@@ -15,13 +15,48 @@
 
 -(void)loadWithHome1:(UserHome1 *)home
 {
-    [imgv loadShopLogoPromotionHome:home.logo];
+    imgvFrame.hidden=false;
+    imgvFrame.image=[UIImage imageNamed:@"icon_avashop_home.png"];
+    imgv.hidden=true;
+    [imgv loadShopLogoPromotionHome:home.logo completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
+        if(image)
+        {
+            imgv.hidden=false;
+            imgv.image=image;
+            imgvFrame.hidden=false;
+            imgvFrame.image=[UIImage imageNamed:@"frame_avashop_home.png"];
+        }
+        else
+        {
+            imgv.hidden=true;
+            imgvFrame.hidden=false;
+            imgvFrame.image=[UIImage imageNamed:@"icon_avashop_home.png"];
+        }
+    }];
     lbl.text=home.content;
 }
 
 -(void) loadWithHome8:(UserHome8 *)home
 {
-    [imgv loadShopLogoPromotionHome:home.shop.logo];
+    imgvFrame.hidden=false;
+    imgvFrame.image=[UIImage imageNamed:@"icon_avashop_home.png"];
+    imgv.hidden=true;
+    [imgv loadShopLogoPromotionHome:home.shop.logo completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
+        if(image)
+        {
+            imgv.hidden=false;
+            imgv.image=image;
+            imgvFrame.hidden=false;
+            imgvFrame.image=[UIImage imageNamed:@"frame_avashop_home.png"];
+        }
+        else
+        {
+            imgv.hidden=true;
+            imgvFrame.hidden=false;
+            imgvFrame.image=[UIImage imageNamed:@"icon_avashop_home.png"];
+        }
+    }];
+    
     lbl.text=home.content;
 }
 

@@ -112,9 +112,9 @@ static ImageManager *_imageManager=nil;
     [self setImageWithURL:[NSURL URLWithString:url]];
 }
 
--(void) loadShopLogoPromotionHome:(NSString*) url
+-(void) loadShopLogoPromotionHome:(NSString*) url completed:(SDWebImageCompletedBlock)completedBlock
 {
-    [self setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"icon_avashop_home.png"]];
+    [self setImageWithURL:[NSURL URLWithString:url]  completed:completedBlock];
 }
 
 -(void)loadImageHomeListWithURL:(NSString *)url

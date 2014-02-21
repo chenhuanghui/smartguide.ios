@@ -157,7 +157,7 @@
         <image name="background_scan.png" width="320" height="56"/>
         <image name="button_location.png" width="279" height="50"/>
         <image name="button_map.png" width="33" height="34"/>
-        <image name="button_scan.png" width="125" height="24"/>
+        <image name="button_scan.png" width="124" height="31"/>
         <image name="button_scan_small.png" width="63" height="17"/>
         <image name="search_field.png" width="255" height="32"/>
     </resources>

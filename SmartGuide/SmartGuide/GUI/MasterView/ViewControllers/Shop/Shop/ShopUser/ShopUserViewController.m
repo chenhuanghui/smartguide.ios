@@ -111,10 +111,26 @@
 {
     return @[UIKeyboardWillShowNotification,UIKeyboardDidShowNotification,UIKeyboardWillHideNotification,UIKeyboardDidHideNotification];
 }
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    _viewWillAppear=false;
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    _viewWillAppear=true;
+}
+
 -(void)receiveNotification:(NSNotification *)notification
 {
     if([notification.name isEqualToString:UIKeyboardWillShowNotification])
     {
+        if(!_viewWillAppear)
+            return;
+        
         float duration=[notification.userInfo floatForKey:UIKeyboardAnimationDurationUserInfoKey];
         CGRect rect=[tableShopUser rectForRowAtIndexPath:SHOP_USER_USER_COMMENT_INDEX_PATH];
         float y=[self tableOffsetY];
@@ -131,15 +147,25 @@
     }
     else if([notification.name isEqualToString:UIKeyboardWillHideNotification])
     {
+        if(!_viewWillAppear)
+            return;
+        
+        NSLog(@"UIKeyboardWillHideNotification");
         float duration=[notification.userInfo floatForKey:UIKeyboardAnimationDurationUserInfoKey];
         [userCommentCell switchToNormailModeAnimate:true duration:duration];
     }
     else if([notification.name isEqualToString:UIKeyboardDidShowNotification])
     {
+        if(!_viewWillAppear)
+            return;
+        
         _isKeyboardShowed=true;
     }
     else if([notification.name isEqualToString:UIKeyboardDidHideNotification])
     {
+        if(!_viewWillAppear)
+            return;
+        
         _isKeyboardShowed=false;
     }
 }
@@ -262,7 +288,7 @@
 {
     CGRect rect=[tableShopUser rectForRowAtIndexPath:SHOP_USER_USER_COMMENT_INDEX_PATH];
     float y=[self tableOffsetY];
-
+    
     if(y<rect.origin.y)
     {
         rect.origin.y-=[self buttonNextHeight];
@@ -321,7 +347,7 @@
     rect=[tableShopUser rectForRowAtIndexPath:SHOP_USER_INFO_INDEX_PATH];
     
     float y=tableOffsetY-rect.origin.y+btnHeight;
-
+    
     //vị trí khuyến mãi chưa scroll đến top của màn hình
     if(y<0)
     {
@@ -336,7 +362,7 @@
         else
             [self scrollToTop:true];
     }
-
+    
     return;
 }
 
@@ -447,7 +473,7 @@
                 
                 //user gallery
                 numOfRow++;
-
+                
                 //comments
                 numOfRow++;
                 
@@ -802,7 +828,7 @@
                     {
                         float height=[SUUserCommentCell heightWithShop:_shop sort:_sortComment];
                         float minHeight=[self commentCellMaxHeight];
-
+                        
                         height=MAX(height,minHeight);
                         
                         return height;

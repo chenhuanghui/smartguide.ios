@@ -11,6 +11,7 @@
 #import "ImageManager.h"
 #import "FacebookManager.h"
 #import "Utility.h"
+#import "GUIManager.h"
 
 @implementation ShopUserCommentCell
 
@@ -85,31 +86,31 @@
     return comment.cellCommentHeight;
 }
 
--(IBAction) btnAgreeTouchUpInside:(id)sender
-{    
-    enum AGREE_STATUS isAgree=_comment.enumAgreeStatus==AGREE_STATUS_AGREED?AGREE_STATUS_NONE:AGREE_STATUS_AGREED;
-    ASIOperationAgreeComment *ope=[[ASIOperationAgreeComment alloc] initWithIDComment:_comment.idComment.integerValue userLat:userLat() userLng:userLng() isAgree:isAgree];
-    ope.delegatePost=self;
+-(void) agree
+{
     
-    [ope startAsynchronous];
+}
 
-    switch (isAgree) {
-        case AGREE_STATUS_AGREED:
-            
-            _comment.agreeStatus=@(AGREE_STATUS_AGREED);
-            lblNumOfAgree.text=[NSNumberFormatter numberFromNSNumber:@(_comment.totalAgree.integerValue+1)];
-            
-            break;
-            
-        case AGREE_STATUS_NONE:
-            
-            _comment.agreeStatus=@(AGREE_STATUS_NONE);
-            lblNumOfAgree.text=[NSNumberFormatter numberFromNSNumber:@(_comment.totalAgree.integerValue-1)];
-            
-            break;
+-(IBAction) btnAgreeTouchUpInside:(id)sender
+{
+    if(currentUser().enumDataMode==USER_DATA_TRY)
+    {
+        [[GUIManager shareInstance] showLoginDialogWithMessage:localizeLoginRequire() onOK:nil onCancelled:nil onLogined:^(bool isLogined) {
+            if(isLogined)
+                [self agree];
+        }];
+        return;
+    }
+    if(currentUser().enumDataMode==USER_DATA_CREATING)
+    {
+        [[GUIManager shareInstance] showLoginDialogWithMessage:localizeUserProfileRequire() onOK:nil onCancelled:nil onLogined:^(bool isLogined) {
+            if(isLogined)
+                [self agree];
+        }];
+        return;
     }
     
-    [self makeButtonAgree];
+    [self agree];
 }
 
 -(void)ASIOperaionPostFinished:(ASIOperationPost *)operation

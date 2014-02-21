@@ -90,6 +90,11 @@
     
     [zbarReader.view l_v_setS:cameraView.l_v_s];
     
+    for(UIView *subview in zbarReader.view.subviews)
+    {
+        [subview l_v_setS:cameraView.l_v_s];
+    }
+    
     [self displayScan];
     
     [device addObserver:self forKeyPath:@"torchAvailable" options:NSKeyValueObservingOptionNew context:nil];

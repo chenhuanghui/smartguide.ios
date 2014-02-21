@@ -80,7 +80,7 @@
 {
     float height=247;
     
-    home.titleHeight=[home.title sizeWithFont:[UIFont fontWithName:@"Avenir-Heavy" size:13] constrainedToSize:CGSizeMake(275, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height-20;
+    home.titleHeight=[home.title sizeWithFont:[UIFont fontWithName:@"Georgia-Bold" size:14] constrainedToSize:CGSizeMake(275, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height-20;
     home.titleHeight=MAX(0,home.titleHeight);
     
     height+=home.titleHeight;
@@ -96,7 +96,7 @@
 {
     float height=247;
     
-    home.titleHeight=[home.title sizeWithFont:[UIFont fontWithName:@"Avenir-Heavy" size:13] constrainedToSize:CGSizeMake(275, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height-20;
+    home.titleHeight=[home.title sizeWithFont:[UIFont fontWithName:@"Georgia-Bold" size:14] constrainedToSize:CGSizeMake(275, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height-20;
     home.titleHeight=MAX(0,home.titleHeight);
     
     height+=home.titleHeight;
@@ -113,7 +113,7 @@
     float height=247;
     
     if(obj.titleHeight==-1)
-        obj.titleHeight=[obj.title sizeWithFont:[UIFont fontWithName:@"Avenir-Heavy" size:13] constrainedToSize:CGSizeMake(275, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height-20;
+        obj.titleHeight=[obj.title sizeWithFont:[UIFont fontWithName:@"Georgia-Bold" size:14] constrainedToSize:CGSizeMake(275, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height-20;
     
     obj.titleHeight=MAX(0,obj.titleHeight);
     
