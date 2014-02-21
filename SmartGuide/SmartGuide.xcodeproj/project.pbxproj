@@ -131,6 +131,8 @@
 		9A24781018B7364F00BAAA7D /* ASIOperationPlacelistGetDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A24780F18B7364F00BAAA7D /* ASIOperationPlacelistGetDetail.m */; };
 		9A24781418B739B100BAAA7D /* EmptyDataView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A24781318B739B100BAAA7D /* EmptyDataView.m */; };
 		9A24781618B739BA00BAAA7D /* EmptyDataView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A24781518B739BA00BAAA7D /* EmptyDataView.xib */; };
+		9A24781918B74A4100BAAA7D /* LoadingMoreCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A24781818B74A4100BAAA7D /* LoadingMoreCell.m */; };
+		9A24781B18B74A6700BAAA7D /* LoadingMoreCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A24781A18B74A6700BAAA7D /* LoadingMoreCell.xib */; };
 		9A24D75318AC723900789D73 /* ASIOperationScanQRCode.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A24D75218AC723900789D73 /* ASIOperationScanQRCode.m */; };
 		9A24D76218AC8A1400789D73 /* button_help_arlet.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A24D75418AC8A1400789D73 /* button_help_arlet.png */; };
 		9A24D76318AC8A1400789D73 /* icon_condition_arlet.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A24D75518AC8A1400789D73 /* icon_condition_arlet.png */; };
@@ -1249,6 +1251,9 @@
 		9A24781218B739B100BAAA7D /* EmptyDataView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmptyDataView.h; sourceTree = "<group>"; };
 		9A24781318B739B100BAAA7D /* EmptyDataView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmptyDataView.m; sourceTree = "<group>"; };
 		9A24781518B739BA00BAAA7D /* EmptyDataView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EmptyDataView.xib; sourceTree = "<group>"; };
+		9A24781718B74A4100BAAA7D /* LoadingMoreCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadingMoreCell.h; sourceTree = "<group>"; };
+		9A24781818B74A4100BAAA7D /* LoadingMoreCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoadingMoreCell.m; sourceTree = "<group>"; };
+		9A24781A18B74A6700BAAA7D /* LoadingMoreCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoadingMoreCell.xib; sourceTree = "<group>"; };
 		9A24D75118AC723900789D73 /* ASIOperationScanQRCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIOperationScanQRCode.h; sourceTree = "<group>"; };
 		9A24D75218AC723900789D73 /* ASIOperationScanQRCode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIOperationScanQRCode.m; sourceTree = "<group>"; };
 		9A24D75418AC8A1400789D73 /* button_help_arlet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_help_arlet.png; sourceTree = "<group>"; };
@@ -2809,6 +2814,9 @@
 				9A22E84218B6056E00CECD3C /* EmptyDataCell.h */,
 				9A22E84318B6056E00CECD3C /* EmptyDataCell.m */,
 				9A22E84518B6057D00CECD3C /* EmptyDataCell.xib */,
+				9A24781718B74A4100BAAA7D /* LoadingMoreCell.h */,
+				9A24781818B74A4100BAAA7D /* LoadingMoreCell.m */,
+				9A24781A18B74A6700BAAA7D /* LoadingMoreCell.xib */,
 			);
 			path = TableCells;
 			sourceTree = "<group>";
@@ -5040,6 +5048,7 @@
 				9ACFAE7918621D10006131DC /* button_rotatecamera@2x.png in Resources */,
 				9A5E66F018842E32003F33CD /* iconpin_travel@2x.png in Resources */,
 				9A98C929188E83A30067EAD3 /* button_loading_small_04@2x.png in Resources */,
+				9A24781B18B74A6700BAAA7D /* LoadingMoreCell.xib in Resources */,
 				9A3B93F4185DFDAE004F94A4 /* StoreAdsCell.xib in Resources */,
 				9A9FCBA81854DC50004A3CFB /* frame_hor_store@2x.png in Resources */,
 				9A85B7421846ECB2009FD108 /* icon_typevoucher@2x.png in Resources */,
@@ -5874,6 +5883,7 @@
 				9AC494BE1858B48A0042C535 /* _StoreShop.m in Sources */,
 				9A5113D9186C7754008E1418 /* ASIOperationGetTutorial.m in Sources */,
 				9A32F40E184346B400704D26 /* SGQRCodeViewController.m in Sources */,
+				9A24781918B74A4100BAAA7D /* LoadingMoreCell.m in Sources */,
 				A90ED8C917C1C701003D2D93 /* ButtonImageRight.m in Sources */,
 				A90ED8CC17C1C711003D2D93 /* ButtonImageLeft.m in Sources */,
 				A9A19CCA17C406A5000D0ECD /* FacebookManager.m in Sources */,

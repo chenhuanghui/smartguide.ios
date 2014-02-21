@@ -55,17 +55,18 @@
     
     EmptyDataView *view=[EmptyDataView new];
     view.lblContent.text=text;
+    [view l_v_setS:self.l_v_s];
     
-    switch (contentMode) {
-        case EMPTY_DATA_ALIGN_TEXT_MIDDLE:
-            [view l_v_setS:self.l_v_s];
-            break;
-            
-        case EMPTY_DATA_ALIGN_TEXT_TOP:
-            [view l_v_setH:[text sizeWithFont:view.lblContent.font constrainedToSize:CGSizeMake(self.l_v_w, 9999) lineBreakMode:view.lblContent.lineBreakMode].height+5];
-            [view l_v_setW:self.l_v_w];
-            break;
-    }
+//    switch (contentMode) {
+//        case EMPTY_DATA_ALIGN_TEXT_MIDDLE:
+//            [view l_v_setS:self.l_v_s];
+//            break;
+//            
+//        case EMPTY_DATA_ALIGN_TEXT_TOP:
+//            [view l_v_setH:[text sizeWithFont:view.lblContent.font constrainedToSize:CGSizeMake(self.l_v_w, 9999) lineBreakMode:view.lblContent.lineBreakMode].height+5];
+//            [view l_v_setW:self.l_v_w];
+//            break;
+//    }
     
     [self addSubview:view];
 }

@@ -11,6 +11,7 @@
 #import "ShopListCell.h"
 #import "SGRootViewController.h"
 #import "EmptyDataView.h"
+#import "LoadingMoreCell.h"
 
 #define SHOP_LIST_SCROLL_SPEED 3.f
 
@@ -96,11 +97,11 @@
     switch (_viewMode) {
         case SHOP_LIST_VIEW_LIST:
         case SHOP_LIST_VIEW_SHOP_LIST:
-            return _shopsList.count;
+            return _shopsList.count+(_canLoadMore?1:0);
             
         case SHOP_LIST_VIEW_PLACE:
         case SHOP_LIST_VIEW_IDPLACE:
-            return _shopsList.count+1;
+            return _shopsList.count+1+(_canLoadMore?1:0);
     }
 }
 
@@ -128,23 +129,22 @@
         case SHOP_LIST_VIEW_LIST:
         case SHOP_LIST_VIEW_SHOP_LIST:
         {
+            if(_canLoadMore && indexPath.row==_shopsList.count)
+            {
+                if(!_isLoadingMore)
+                {
+                    [self loadMore];
+                    _isLoadingMore=true;
+                }
+                
+                return [tableList loadingMoreCell];
+            }
+            
             ShopListCell *cell=[tableView dequeueReusableCellWithIdentifier:[ShopListCell reuseIdentifier]];
             cell.delegate=self;
             
             [cell loadWithShopList:_shopsList[indexPath.row]];
             [cell setButtonTypeIsTypeAdded:true];
-            
-            if(indexPath.row==_shopsList.count-1)
-            {
-                if(_canLoadMore)
-                {
-                    if(!_isLoadingMore)
-                    {
-                        [self loadMore];
-                        _isLoadingMore=true;
-                    }
-                }
-            }
             
             return cell;
         }
@@ -161,31 +161,28 @@
                     
                     return cell;
                 }
-                    break;
                     
                 default:
                 {
+                    if(_canLoadMore && indexPath.row==_shopsList.count)
+                    {
+                        if(!_isLoadingMore)
+                        {
+                            [self loadMore];
+                            _isLoadingMore=true;
+                        }
+                        
+                        return [tableList loadingMoreCell];
+                    }
+                    
                     ShopListCell *cell=[tableView dequeueReusableCellWithIdentifier:[ShopListCell reuseIdentifier]];
                     cell.delegate=self;
                     
                     [cell loadWithShopList:_shopsList[indexPath.row-1]];
                     [cell setButtonTypeIsTypeAdded:_placeList.idAuthor.integerValue!=currentUser().idUser.integerValue];
                     
-                    if(indexPath.row==_shopsList.count)
-                    {
-                        if(_canLoadMore)
-                        {
-                            if(!_isLoadingMore)
-                            {
-                                [self loadMore];
-                                _isLoadingMore=true;
-                            }
-                        }
-                    }
-                    
                     return cell;
                 }
-                    break;
             }
             
             break;
@@ -197,6 +194,10 @@
     switch (_viewMode) {
         case SHOP_LIST_VIEW_LIST:
         case SHOP_LIST_VIEW_SHOP_LIST:
+            
+            if(_canLoadMore && indexPath.row==_shopsList.count)
+                return 88;
+            
             return [ShopListCell heightWithContent:[_shopsList[indexPath.row] desc]];
             
         case SHOP_LIST_VIEW_PLACE:
@@ -207,10 +208,13 @@
                     return [ShopListPlaceCell heightWithContent:_placeList.desc];
                     
                 default:
+                    
+                    if(_canLoadMore && indexPath.row==_shopsList.count)
+                        return 88;
+                    
                     return [ShopListCell heightWithContent:[_shopsList[indexPath.row-1] desc]];
             }
         }
-            break;
     }
 }
 
@@ -221,6 +225,10 @@
             
         case SHOP_LIST_VIEW_LIST:
         case SHOP_LIST_VIEW_SHOP_LIST:
+            
+            if(_canLoadMore && indexPath.row==_shopsList.count)
+                return;
+            
             shop=_shopsList[indexPath.row];
             break;
             
@@ -233,6 +241,10 @@
                     break;
                     
                 default:
+                    
+                    if(_canLoadMore && indexPath.row==_shopsList.count)
+                        return;
+                    
                     shop=_shopsList[indexPath.row-1];
                     break;
             }
@@ -394,7 +406,7 @@
             sort=SORT_LIST_DISTANCE;
             break;
     }
-
+    
     if(_sort==sort)
         return;
     
@@ -460,7 +472,8 @@
     
     [tableList registerNib:[UINib nibWithNibName:[ShopListCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[ShopListCell reuseIdentifier]];
     [tableList registerNib:[UINib nibWithNibName:[ShopListPlaceCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[ShopListPlaceCell reuseIdentifier]];
-
+    [tableList registerLoadingMoreCell];
+    
     UITapGestureRecognizer *tap=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapTop:)];
     tap.delegate=self;
     _tapTop=tap;
@@ -827,7 +840,7 @@
         }
         
         [self makeScrollSize];
-
+        
     }
     else if([operation isKindOfClass:[ASIOperationPlacelistGet class]])
     {
@@ -906,7 +919,7 @@
     }
     
     if(!_placeList && _shopsList.count==0)
-        [tableList showEmptyDataWithText:@"\nKhông tìm thấy dữ liệu" align:EMPTY_DATA_ALIGN_TEXT_TOP];
+        [tableList showEmptyDataWithText:@"Không tìm thấy dữ liệu" align:EMPTY_DATA_ALIGN_TEXT_TOP];
 }
 
 -(void)ASIOperaionPostFailed:(ASIOperationPost *)operation
@@ -1013,7 +1026,7 @@
     if(scrollView==scroll)
     {
         [self.map l_v_setY:_mapFrame.origin.y+scroll.contentOffset.y-scroll.contentOffset.y/SHOP_LIST_SCROLL_SPEED];
-
+        
         float y=tableList.l_v_y-scrollView.l_co_y;
         
         if(self.map.superview)
@@ -1085,7 +1098,7 @@
                 _scrollerIndexPath=indexPath;
             else if(_scrollerIndexPath.row==indexPath.row)
                 return;
-
+            
             _scrollerIndexPath=indexPath;
             
             if(!indexPath)
@@ -1102,24 +1115,31 @@
                 case SHOP_LIST_VIEW_SHOP_LIST:
                 case SHOP_LIST_VIEW_LIST:
                 {
-                    ShopList *shop=_shopsList[indexPath.row];
-                    
-                    switch (_sort) {
-                        case SORT_LIST_DISTANCE:
-                            scrollerText=shop.distance;
-                            break;
-                            
-                        case SORT_LIST_LOVE:
-                            scrollerText=shop.numOfLove;
-                            break;
-                            
-                        case SORT_LIST_VIEW:
-                            scrollerText=shop.numOfView;
-                            break;
-                            
-                        case SORT_LIST_DEFAULT:
-                            scrollerText=shop.distance;
-                            break;
+                    if(indexPath.row==_shopsList.count)
+                    {
+                        scrollerText=@"Đang tải thêm dữ liệu";
+                    }
+                    else
+                    {
+                        ShopList *shop=_shopsList[indexPath.row];
+                        
+                        switch (_sort) {
+                            case SORT_LIST_DISTANCE:
+                                scrollerText=shop.distance;
+                                break;
+                                
+                            case SORT_LIST_LOVE:
+                                scrollerText=shop.numOfLove;
+                                break;
+                                
+                            case SORT_LIST_VIEW:
+                                scrollerText=shop.numOfView;
+                                break;
+                                
+                            case SORT_LIST_DEFAULT:
+                                scrollerText=shop.distance;
+                                break;
+                        }
                     }
                 }
                     break;
@@ -1134,24 +1154,31 @@
                             
                         default:
                         {
-                            ShopList *shop=_shopsList[indexPath.row-1];
-                            
-                            switch (_sort) {
-                                case SORT_LIST_DISTANCE:
-                                    scrollerText=shop.distance;
-                                    break;
-                                    
-                                case SORT_LIST_LOVE:
-                                    scrollerText=shop.numOfLove;
-                                    break;
-                                    
-                                case SORT_LIST_VIEW:
-                                    scrollerText=shop.numOfView;
-                                    break;
-                                    
-                                case SORT_LIST_DEFAULT:
-                                    scrollerText=shop.distance;
-                                    break;
+                            if(indexPath.row==_shopsList.count)
+                            {
+                                scrollerText=@"Đang tải thêm dữ liệu";
+                            }
+                            else
+                            {
+                                ShopList *shop=_shopsList[indexPath.row-1];
+                                
+                                switch (_sort) {
+                                    case SORT_LIST_DISTANCE:
+                                        scrollerText=shop.distance;
+                                        break;
+                                        
+                                    case SORT_LIST_LOVE:
+                                        scrollerText=shop.numOfLove;
+                                        break;
+                                        
+                                    case SORT_LIST_VIEW:
+                                        scrollerText=shop.numOfView;
+                                        break;
+                                        
+                                    case SORT_LIST_DEFAULT:
+                                        scrollerText=shop.distance;
+                                        break;
+                                }
                             }
                         }
                             break;

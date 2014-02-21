@@ -52,6 +52,7 @@
 -(void) btn:(UIButton*) btn
 {
     self.text=@"";
+    [self sendActionsForControlEvents:UIControlEventEditingChanged];
 }
 
 @end
