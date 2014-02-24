@@ -125,6 +125,19 @@
 
 
 
+- (NSNumber*)idPost {
+	[self willAccessValueForKey:@"idPost"];
+	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"idPost"];
+	[self didAccessValueForKey:@"idPost"];
+	return result;
+}
+
+- (void)setIdPost:(NSNumber*)value {
+	[self willChangeValueForKey:@"idPost"];
+	[self setPrimitiveValue:value forKey:@"idPost"];
+	[self didChangeValueForKey:@"idPost"];
+}
+
 - (NSNumber*)sortOrder {
 	[self willAccessValueForKey:@"sortOrder"];
 	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"sortOrder"];

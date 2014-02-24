@@ -15,6 +15,7 @@
 #import "LoadingView.h"
 #import "Flags.h"
 #import "AlphaView.h"
+#import "SGData.h"
 
 @class SGViewController,SGNavigationController;
 

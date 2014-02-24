@@ -1537,12 +1537,14 @@
         [_operationShopSearch clearDelegatesAndCancel];
         _operationShopSearch=nil;
     }
-    
+
+    [SGData shareInstance].fScreen=SCREEN_CODE_SHOP_LIST;
     [self.delegate shopListControllerTouchedBack:self];
 }
 
 -(BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {
+    [SGData shareInstance].fScreen=SCREEN_CODE_SHOP_LIST;
     [self.delegate shopListControllerTouchedTextField:self];
     
     return false;

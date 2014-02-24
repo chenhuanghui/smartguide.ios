@@ -49,8 +49,8 @@
 @property (nonatomic, strong) NSString *operationAccessToken;
 @property (nonatomic, strong) NSURL *sourceURL;
 @property (nonatomic, strong) NSString *tScreen;
-@property (nonatomic, strong) NSString *tData;
+@property (nonatomic, strong) NSMutableDictionary *tData;
 @property (nonatomic, strong) NSString *fScreen;
-@property (nonatomic, strong) NSString *fData;
+@property (nonatomic, strong) NSMutableDictionary *fData;
 
 @end

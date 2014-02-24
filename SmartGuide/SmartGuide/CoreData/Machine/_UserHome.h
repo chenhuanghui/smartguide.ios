@@ -5,6 +5,7 @@
 
 #define UserHome_ClassName @"UserHome"
 
+#define UserHome_IdPost @"idPost"
 #define UserHome_SortOrder @"sortOrder"
 #define UserHome_Type @"type"
 
@@ -30,6 +31,7 @@
 -(void) markDeleted;
 
 
+@property (nonatomic, retain) NSNumber* idPost;
 @property (nonatomic, retain) NSNumber* sortOrder;
 @property (nonatomic, retain) NSNumber* type;
 

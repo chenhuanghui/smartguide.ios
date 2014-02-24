@@ -98,6 +98,7 @@
 		9A10DFC2187D73E800D8D243 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A10DFC1187D73E700D8D243 /* FacebookSDK.framework */; };
 		9A15EAE5183E50DE00BF3CF7 /* frame_avacomment.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A15EAE3183E50DD00BF3CF7 /* frame_avacomment.png */; };
 		9A15EAE6183E50DE00BF3CF7 /* frame_avacomment@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A15EAE4183E50DE00BF3CF7 /* frame_avacomment@2x.png */; };
+		9A1CAD5618BB4239004C7A4A /* SGData.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A1CAD5518BB4239004C7A4A /* SGData.m */; };
 		9A1D330918AB60340008D9CE /* button_Facebook_hidden.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A1D330718AB60340008D9CE /* button_Facebook_hidden.png */; };
 		9A1D330A18AB60340008D9CE /* button_Facebook_hidden@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A1D330818AB60340008D9CE /* button_Facebook_hidden@2x.png */; };
 		9A1D330D18AB64F10008D9CE /* frame_camera_photo.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A1D330B18AB64F10008D9CE /* frame_camera_photo.png */; };
@@ -1201,6 +1202,8 @@
 		9A10DFC1187D73E700D8D243 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = ../../Documents/FacebookSDK/FacebookSDK.framework; sourceTree = "<group>"; };
 		9A15EAE3183E50DD00BF3CF7 /* frame_avacomment.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = frame_avacomment.png; sourceTree = "<group>"; };
 		9A15EAE4183E50DE00BF3CF7 /* frame_avacomment@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "frame_avacomment@2x.png"; sourceTree = "<group>"; };
+		9A1CAD5418BB4239004C7A4A /* SGData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGData.h; sourceTree = "<group>"; };
+		9A1CAD5518BB4239004C7A4A /* SGData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGData.m; sourceTree = "<group>"; };
 		9A1D330718AB60340008D9CE /* button_Facebook_hidden.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_Facebook_hidden.png; sourceTree = "<group>"; };
 		9A1D330818AB60340008D9CE /* button_Facebook_hidden@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_Facebook_hidden@2x.png"; sourceTree = "<group>"; };
 		9A1D330B18AB64F10008D9CE /* frame_camera_photo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = frame_camera_photo.png; sourceTree = "<group>"; };
@@ -4064,6 +4067,8 @@
 				A961416B17A02E8800D30375 /* Flags.m */,
 				9A7E55B0183CEB88006D1798 /* ImageManager.h */,
 				9A7E55B1183CEB88006D1798 /* ImageManager.m */,
+				9A1CAD5418BB4239004C7A4A /* SGData.h */,
+				9A1CAD5518BB4239004C7A4A /* SGData.m */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -5654,6 +5659,7 @@
 				9ACE90651875BB2C008FEA7E /* SearchShopViewController.m in Sources */,
 				9A693CAF186D483C00114597 /* _UserHomeImage.m in Sources */,
 				9ACAED751872B1740025B027 /* ButtonLove.m in Sources */,
+				9A1CAD5618BB4239004C7A4A /* SGData.m in Sources */,
 				9A0F7617187152DB00160E54 /* ShopDetailInfoCell.m in Sources */,
 				A9B807C4179FBD7B00C8E003 /* ASIAuthenticationDialog.m in Sources */,
 				9ACAED821872B18E0025B027 /* HPTextViewInternal.m in Sources */,

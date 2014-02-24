@@ -25,6 +25,11 @@
 @implementation SearchShopViewController
 @synthesize delegate,searchController;
 
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+}
+
 - (SearchShopViewController *)initWithKeyword:(NSString *)keyword
 {
     self = [super initWithNibName:@"SearchShopViewController" bundle:nil];
@@ -398,37 +403,6 @@
                 }
             }
             
-//            int row=indexPath.row+1;
-//            int section=indexPath.section;
-//            
-//            cell.hidden=true;
-//            
-//            double delayInSeconds = 0.0;
-//            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-//            dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-//                float y=cell.l_v_y;
-//                cell.alpha=0;
-//                cell.hidden=false;
-//                
-//                if(row!=0)
-//                    [cell l_v_setY:y-cell.l_v_h];
-//                else
-//                    [cell l_v_setY:-cell.l_v_h];
-//                
-//                float s=section;
-//                
-//                if(s>0)
-//                    s=[table numberOfRowsInSection:s-1]*0.1f;
-//
-//                [UIView animateWithDuration:0.1f delay:MAX(0.1f*row+s-0.1f-0.05f,0) options:UIViewAnimationOptionCurveLinear animations:^{
-//                    cell.alpha=1;
-//                } completion:nil];
-//                
-//                [UIView animateWithDuration:0.1f*row+s animations:^{
-//                    [cell l_v_setY:y];
-//                }];
-//            });
-            
             return cell;
         }
     }
@@ -492,6 +466,12 @@
         if([sCell.value isKindOfClass:[AutocompletePlacelist class]])
         {
             AutocompletePlacelist *place=sCell.value;
+            
+            [SGData shareInstance].fScreen=SCREEN_CODE_SUGGEST;
+            [[SGData shareInstance].fData setObject:txt.text forKey:@"enterKeywords"];
+            [[SGData shareInstance].fData setObject:place.content forKey:@"chosenKeywords"];
+            [[SGData shareInstance].fData setObject:@(0) forKey:@"type"];
+            
             [self.delegate searchShopControllerTouchedIDPlacelist:self idPlacelist:place.idPlacelist];
         }
         else if([sCell.value isKindOfClass:[AutocompleteShop class]])
@@ -499,6 +479,11 @@
             [self.view showLoading];
             
             AutocompleteShop *shop=sCell.value;
+            
+            [SGData shareInstance].fScreen=SCREEN_CODE_SUGGEST;
+            [[SGData shareInstance].fData setObject:txt.text forKey:@"enterKeywords"];
+            [[SGData shareInstance].fData setObject:shop.content forKey:@"chosenKeywords"];
+            [[SGData shareInstance].fData setObject:@(3) forKey:@"type"];
             _operationShopUser=[[ASIOperationShopUser alloc] initWithIDShop:shop.idShop userLat:userLat() userLng:userLng()];
             _operationShopUser.delegatePost=self;
             
@@ -506,11 +491,15 @@
         }
         else if([sCell.value isKindOfClass:[Placelist class]])
         {
+            [SGData shareInstance].fScreen=SCREEN_CODE_RECOMMENDATION;
+            
             [self.delegate searchShopControllerTouchPlaceList:self placeList:sCell.value];
         }
     }
     else if([cell isKindOfClass:[SearchShopPlacelistCell class]])
     {
+        [SGData shareInstance].fScreen=SCREEN_CODE_RECOMMENDATION;
+        
         SearchShopPlacelistCell *pCell=(SearchShopPlacelistCell*)cell;
         [self.delegate searchShopControllerTouchPlaceList:self placeList:pCell.place];
     }
@@ -669,6 +658,14 @@
 
 - (IBAction)btnSearchTouchUpInside:(id)sender {
     [self.delegate searchShopControllerSearch:self keyword:txt.text];
+}
+
+-(NSString *)screenCode
+{
+    if(txt.text.length==0)
+        return SCREEN_CODE_RECOMMENDATION;
+    else
+        return SCREEN_CODE_SUGGEST;
 }
 
 @end

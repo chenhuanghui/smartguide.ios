@@ -9,6 +9,7 @@
 #import "ASIOperationPost.h"
 #import "OperationRefreshToken.h"
 #import "TokenManager.h"
+#import "SGData.h"
 
 static NSMutableArray *asioperations=nil;
 
@@ -62,6 +63,7 @@ static NSMutableArray *asioperations=nil;
     [self setValidatesSecureCertificate:false];
     
     self.keyValue=[NSMutableDictionary dictionary];
+    self.fData=[NSMutableDictionary dictionary];
 }
 
 -(void)startAsynchronous
@@ -84,6 +86,27 @@ static NSMutableArray *asioperations=nil;
 
 -(void) applyPostValue
 {
+    if([self fScreen].length==0 && [SGData shareInstance].fScreen.length>0)
+        self.fScreen=[SGData shareInstance].fScreen;
+    if([self fData].allKeys.count==0 && [SGData shareInstance].fData.allKeys.count>0)
+        self.fData=[SGData shareInstance].fData;
+    
+    if([self tScreen].length>0)
+        [self.keyValue setObject:[self tScreen] forKey:@"tScreen"];
+    if([self tData].allKeys.count>0)
+    {
+        NSString *jsonString=[[NSString alloc] initWithData:[[self tData] json] encoding:NSUTF8StringEncoding];
+        [self.keyValue setObject:jsonString forKey:@"tData"];
+    }
+    
+    if([self fScreen].length>0)
+        [self.keyValue setObject:[self fScreen] forKey:@"fScreen"];
+    if([self fData].allKeys.count>0)
+    {
+        NSString *jsonString=[[NSString alloc] initWithData:[[self fData] json] encoding:NSUTF8StringEncoding];
+        [self.keyValue setObject:jsonString forKey:@"fData"];
+    }
+    
     for(NSString *key in self.keyValue.allKeys)
     {
         [self setPostValue:self.keyValue[key] forKey:key];

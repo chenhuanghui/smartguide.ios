@@ -8,6 +8,7 @@
     UserHome *home=[UserHome insert];
     
     home.type=[NSNumber numberWithObject:dict[@"type"]];
+    home.idPost=[NSNumber numberWithObject:dict[@"idPost"]];
     
     NSArray *imgs=dict[@"images"];
 

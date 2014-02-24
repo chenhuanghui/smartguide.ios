@@ -167,6 +167,8 @@
         [blackView l_v_setH:54];
     } completion:^(BOOL finished) {
         self.view.userInteractionEnabled=true;
+        [SGData shareInstance].fScreen=[HomeViewController screenCode];
+        
         [self.delegate homeControllerTouchedTextField:self];
     }];
     
@@ -343,7 +345,7 @@
                 // Nếu shop list chỉ có 1 idShop
                 if(home.home1.shopList.length>0 && ![home.home1.shopList isContainString:@","])
                 {
-                    [self requestShopUserWithIDShop:home.home1.idShop.integerValue];
+                    [self requestShopUserWithIDShop:home.home1.idShop.integerValue idPost:home.idPost.integerValue];
                     
                     [self.view showLoading];
                     return;
@@ -412,7 +414,7 @@
         else if([cell.currentHome isKindOfClass:[UserHome4 class]])
         {
             UserHome4 *home=cell.currentHome;
-            [self requestShopUserWithIDShop:home.idShop.integerValue];
+            [self requestShopUserWithIDShop:home.idShop.integerValue idPost:home.home.idPost.integerValue];
             
             [self.view showLoading];
         }
@@ -431,7 +433,7 @@
     {
         UserHome6 *home6=home;
         
-        [self requestShopUserWithIDShop:home6.idShop.integerValue];
+        [self requestShopUserWithIDShop:home6.idShop.integerValue idPost:home6.home.idPost.integerValue];
         
         [self.view showLoading];
     }
@@ -442,10 +444,12 @@
     }
 }
 
--(void) requestShopUserWithIDShop:(int) idShop
+-(void) requestShopUserWithIDShop:(int) idShop idPost:(int) idPost
 {
     _operationShopUser=[[ASIOperationShopUser alloc] initWithIDShop:idShop userLat:userLat() userLng:userLng()];
     _operationShopUser.delegatePost=self;
+    _operationShopUser.fScreen=[HomeViewController screenCode];
+    [_operationShopUser.fData setObject:@(idPost) forKey:@"idPost"];
     
     [_operationShopUser startAsynchronous];
 }
@@ -453,6 +457,8 @@
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    
+    [SGData shareInstance].fScreen=[HomeViewController screenCode];
 }
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView

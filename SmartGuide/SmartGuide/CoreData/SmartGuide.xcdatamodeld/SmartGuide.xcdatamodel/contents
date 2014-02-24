@@ -202,6 +202,7 @@
         <attribute name="socialType" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
     </entity>
     <entity name="UserHome" representedClassName="UserHome" syncable="YES">
+        <attribute name="idPost" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="sortOrder" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="type" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <relationship name="home1" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="UserHome1" inverseName="home" inverseEntity="UserHome1" syncable="YES"/>

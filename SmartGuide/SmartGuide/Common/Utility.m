@@ -1281,6 +1281,17 @@ NSString *documentPath()
     return [param copy];
 }
 
+-(NSData *)json
+{
+    NSError *error=nil;
+    NSData *data=[NSJSONSerialization dataWithJSONObject:self options:NSJSONWritingPrettyPrinted error:&error];
+    
+    if(error)
+        NSLog(@"NSDictionary json error %@ %@",error,self);
+    
+    return data;
+}
+
 @end
 
 @implementation NSURLRequest(Utility)

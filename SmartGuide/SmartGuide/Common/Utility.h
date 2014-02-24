@@ -261,6 +261,7 @@ NSString *documentPath();
 -(bool) boolForKey:(NSString*) key;
 
 -(NSString*) makeParamsHTTPGET;
+-(NSData*) json;
 
 @end
 @interface NSURLRequest(Utility)
