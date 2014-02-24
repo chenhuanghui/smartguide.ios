@@ -290,7 +290,6 @@
 		9A3E768418532BDF00F596C1 /* UserCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A3E768218532BDF00F596C1 /* UserCollectionViewController.m */; };
 		9A3E768518532BDF00F596C1 /* UserCollectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A3E768318532BDF00F596C1 /* UserCollectionViewController.xib */; };
 		9A46B6B617F0B1D100410408 /* ASIOperationGetAvatars.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A46B6B317F0B1D100410408 /* ASIOperationGetAvatars.m */; };
-		9A46B6B717F0B1D100410408 /* ASIOperationUploadFBToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A46B6B517F0B1D100410408 /* ASIOperationUploadFBToken.m */; };
 		9A4E4B641887E0B800E4A1D2 /* line_blur_status.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A4E4B621887E0B800E4A1D2 /* line_blur_status.png */; };
 		9A4E4B651887E0B800E4A1D2 /* line_blur_status@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A4E4B631887E0B800E4A1D2 /* line_blur_status@2x.png */; };
 		9A4E4B6A1887E2EE00E4A1D2 /* button_getgift_voucher.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A4E4B661887E2EE00E4A1D2 /* button_getgift_voucher.png */; };
@@ -990,7 +989,6 @@
 		A91A675D1797F65000BEB8C5 /* human.m.motemplate in Resources */ = {isa = PBXBuildFile; fileRef = A91A674C1797F65000BEB8C5 /* human.m.motemplate */; };
 		A91A675E1797F65000BEB8C5 /* machine.h.motemplate in Resources */ = {isa = PBXBuildFile; fileRef = A91A674E1797F65000BEB8C5 /* machine.h.motemplate */; };
 		A91A675F1797F65000BEB8C5 /* machine.m.motemplate in Resources */ = {isa = PBXBuildFile; fileRef = A91A674F1797F65000BEB8C5 /* machine.m.motemplate */; };
-		A91CE6AB17A93B6600D29E87 /* ASIOperationShopUserGallery.m in Sources */ = {isa = PBXBuildFile; fileRef = A91CE6AA17A93B6600D29E87 /* ASIOperationShopUserGallery.m */; };
 		A91CE6AE17A93B8B00D29E87 /* ASIOperationShopComment.m in Sources */ = {isa = PBXBuildFile; fileRef = A91CE6AD17A93B8B00D29E87 /* ASIOperationShopComment.m */; };
 		A91CE6B117A93B9B00D29E87 /* ASIOperationPostComment.m in Sources */ = {isa = PBXBuildFile; fileRef = A91CE6B017A93B9B00D29E87 /* ASIOperationPostComment.m */; };
 		A91CE6BF17A93F6500D29E87 /* ShopGallery.m in Sources */ = {isa = PBXBuildFile; fileRef = A91CE6BC17A93F6500D29E87 /* ShopGallery.m */; };
@@ -999,16 +997,12 @@
 		A91CE6C617A93F6E00D29E87 /* _ShopUserGallery.m in Sources */ = {isa = PBXBuildFile; fileRef = A91CE6C417A93F6E00D29E87 /* _ShopUserGallery.m */; };
 		A920E1D317CBBC59003FAA80 /* Reward.m in Sources */ = {isa = PBXBuildFile; fileRef = A920E1D217CBBC59003FAA80 /* Reward.m */; };
 		A920E1D617CBBC64003FAA80 /* _Reward.m in Sources */ = {isa = PBXBuildFile; fileRef = A920E1D517CBBC64003FAA80 /* _Reward.m */; };
-		A920E1D917CBBD13003FAA80 /* ASIOperationGetRewards.m in Sources */ = {isa = PBXBuildFile; fileRef = A920E1D817CBBD13003FAA80 /* ASIOperationGetRewards.m */; };
-		A920E1EB17CBD523003FAA80 /* ASIOperationGetSG.m in Sources */ = {isa = PBXBuildFile; fileRef = A920E1EA17CBD522003FAA80 /* ASIOperationGetSG.m */; };
 		A920FEB517A67B0D00D8E6FE /* libzbar.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A920FEAF17A67B0D00D8E6FE /* libzbar.a */; };
 		A921B02F17A8B68200DC6D4D /* ASIOperationShopUser.m in Sources */ = {isa = PBXBuildFile; fileRef = A921B02E17A8B68100DC6D4D /* ASIOperationShopUser.m */; };
 		A921B03517A8BCA500DC6D4D /* ShopProduct.m in Sources */ = {isa = PBXBuildFile; fileRef = A921B03417A8BCA500DC6D4D /* ShopProduct.m */; };
 		A921B03817A8BCAB00DC6D4D /* _ShopProduct.m in Sources */ = {isa = PBXBuildFile; fileRef = A921B03717A8BCAB00DC6D4D /* _ShopProduct.m */; };
 		A92221BB17CE041300B4E305 /* libFlurry_4.2.3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A92221BA17CE041300B4E305 /* libFlurry_4.2.3.a */; };
 		A922663217A1137D00BCFF7E /* ASIOperationPost.m in Sources */ = {isa = PBXBuildFile; fileRef = A922663117A1137D00BCFF7E /* ASIOperationPost.m */; };
-		A92376F017CDA58300336FE2 /* ASIOperationPostFeedback.m in Sources */ = {isa = PBXBuildFile; fileRef = A92376EF17CDA58300336FE2 /* ASIOperationPostFeedback.m */; };
-		A924259117CE6E6E0074269F /* ASIOperationGetTotalSP.m in Sources */ = {isa = PBXBuildFile; fileRef = A924259017CE6E6E0074269F /* ASIOperationGetTotalSP.m */; };
 		A924A3C117AEB63F0042B28B /* OperationRefreshToken.m in Sources */ = {isa = PBXBuildFile; fileRef = A924A3C017AEB63F0042B28B /* OperationRefreshToken.m */; };
 		A924A3C517AEBC860042B28B /* SwitchSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = A924A3C417AEBC860042B28B /* SwitchSetting.m */; };
 		A924A3C717AEBC940042B28B /* SwitchSetting.xib in Resources */ = {isa = PBXBuildFile; fileRef = A924A3C617AEBC940042B28B /* SwitchSetting.xib */; };
@@ -1018,8 +1012,6 @@
 		A925E3CF17B089EB00806617 /* TokenManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A925E3CE17B089EB00806617 /* TokenManager.m */; };
 		A925E3DC17B09B9400806617 /* ASIOperationUploadUserGallery.m in Sources */ = {isa = PBXBuildFile; fileRef = A925E3DB17B09B9400806617 /* ASIOperationUploadUserGallery.m */; };
 		A92603F817967A55005B923F /* CBAutoScrollLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = A92603F717967A55005B923F /* CBAutoScrollLabel.m */; };
-		A92655B017B220E600BAE49A /* ASIOperationPromotionDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = A92655AF17B220E600BAE49A /* ASIOperationPromotionDetail.m */; };
-		A92655C617B25A1500BAE49A /* ASIOperationUserCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = A92655C517B25A1400BAE49A /* ASIOperationUserCollection.m */; };
 		A93F20611797CF7600622D75 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A93F20601797CF7600622D75 /* AddressBook.framework */; };
 		A93F206F1797DFB100622D75 /* OperationURL.m in Sources */ = {isa = PBXBuildFile; fileRef = A93F206E1797DFB100622D75 /* OperationURL.m */; };
 		A94088D717B3918D00205145 /* ASIOperationGetAds.m in Sources */ = {isa = PBXBuildFile; fileRef = A94088D617B3918D00205145 /* ASIOperationGetAds.m */; };
@@ -1468,8 +1460,6 @@
 		9A3E768318532BDF00F596C1 /* UserCollectionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserCollectionViewController.xib; sourceTree = "<group>"; };
 		9A46B6B217F0B1D100410408 /* ASIOperationGetAvatars.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIOperationGetAvatars.h; sourceTree = "<group>"; };
 		9A46B6B317F0B1D100410408 /* ASIOperationGetAvatars.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIOperationGetAvatars.m; sourceTree = "<group>"; };
-		9A46B6B417F0B1D100410408 /* ASIOperationUploadFBToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIOperationUploadFBToken.h; sourceTree = "<group>"; };
-		9A46B6B517F0B1D100410408 /* ASIOperationUploadFBToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIOperationUploadFBToken.m; sourceTree = "<group>"; };
 		9A4E4B621887E0B800E4A1D2 /* line_blur_status.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = line_blur_status.png; sourceTree = "<group>"; };
 		9A4E4B631887E0B800E4A1D2 /* line_blur_status@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "line_blur_status@2x.png"; sourceTree = "<group>"; };
 		9A4E4B661887E2EE00E4A1D2 /* button_getgift_voucher.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_getgift_voucher.png; sourceTree = "<group>"; };
@@ -2317,8 +2307,6 @@
 		A91A674C1797F65000BEB8C5 /* human.m.motemplate */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = human.m.motemplate; sourceTree = "<group>"; };
 		A91A674E1797F65000BEB8C5 /* machine.h.motemplate */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = machine.h.motemplate; sourceTree = "<group>"; };
 		A91A674F1797F65000BEB8C5 /* machine.m.motemplate */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = machine.m.motemplate; sourceTree = "<group>"; };
-		A91CE6A917A93B6600D29E87 /* ASIOperationShopUserGallery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIOperationShopUserGallery.h; sourceTree = "<group>"; };
-		A91CE6AA17A93B6600D29E87 /* ASIOperationShopUserGallery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIOperationShopUserGallery.m; sourceTree = "<group>"; };
 		A91CE6AC17A93B8B00D29E87 /* ASIOperationShopComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIOperationShopComment.h; sourceTree = "<group>"; };
 		A91CE6AD17A93B8B00D29E87 /* ASIOperationShopComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIOperationShopComment.m; sourceTree = "<group>"; };
 		A91CE6AF17A93B9B00D29E87 /* ASIOperationPostComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIOperationPostComment.h; sourceTree = "<group>"; };
@@ -2335,10 +2323,6 @@
 		A920E1D217CBBC59003FAA80 /* Reward.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reward.m; sourceTree = "<group>"; };
 		A920E1D417CBBC64003FAA80 /* _Reward.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _Reward.h; sourceTree = "<group>"; };
 		A920E1D517CBBC64003FAA80 /* _Reward.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _Reward.m; sourceTree = "<group>"; };
-		A920E1D717CBBD13003FAA80 /* ASIOperationGetRewards.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIOperationGetRewards.h; sourceTree = "<group>"; };
-		A920E1D817CBBD13003FAA80 /* ASIOperationGetRewards.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIOperationGetRewards.m; sourceTree = "<group>"; };
-		A920E1E917CBD522003FAA80 /* ASIOperationGetSG.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIOperationGetSG.h; sourceTree = "<group>"; };
-		A920E1EA17CBD522003FAA80 /* ASIOperationGetSG.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIOperationGetSG.m; sourceTree = "<group>"; };
 		A920FE9B17A67B0D00D8E6FE /* Decoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Decoder.h; sourceTree = "<group>"; };
 		A920FE9C17A67B0D00D8E6FE /* Exception.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Exception.h; sourceTree = "<group>"; };
 		A920FE9D17A67B0D00D8E6FE /* Image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Image.h; sourceTree = "<group>"; };
@@ -2370,10 +2354,6 @@
 		A92221BC17CE041F00B4E305 /* Flurry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flurry.h; sourceTree = "<group>"; };
 		A922663017A1137D00BCFF7E /* ASIOperationPost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIOperationPost.h; sourceTree = "<group>"; };
 		A922663117A1137D00BCFF7E /* ASIOperationPost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIOperationPost.m; sourceTree = "<group>"; };
-		A92376EE17CDA58300336FE2 /* ASIOperationPostFeedback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIOperationPostFeedback.h; sourceTree = "<group>"; };
-		A92376EF17CDA58300336FE2 /* ASIOperationPostFeedback.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIOperationPostFeedback.m; sourceTree = "<group>"; };
-		A924258F17CE6E6E0074269F /* ASIOperationGetTotalSP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIOperationGetTotalSP.h; sourceTree = "<group>"; };
-		A924259017CE6E6E0074269F /* ASIOperationGetTotalSP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIOperationGetTotalSP.m; sourceTree = "<group>"; };
 		A924A3BF17AEB63F0042B28B /* OperationRefreshToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OperationRefreshToken.h; sourceTree = "<group>"; };
 		A924A3C017AEB63F0042B28B /* OperationRefreshToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OperationRefreshToken.m; sourceTree = "<group>"; };
 		A924A3C317AEBC860042B28B /* SwitchSetting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwitchSetting.h; sourceTree = "<group>"; };
@@ -2391,10 +2371,6 @@
 		A925E3DB17B09B9400806617 /* ASIOperationUploadUserGallery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIOperationUploadUserGallery.m; sourceTree = "<group>"; };
 		A92603F617967A55005B923F /* CBAutoScrollLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBAutoScrollLabel.h; sourceTree = "<group>"; };
 		A92603F717967A55005B923F /* CBAutoScrollLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBAutoScrollLabel.m; sourceTree = "<group>"; };
-		A92655AE17B220E600BAE49A /* ASIOperationPromotionDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIOperationPromotionDetail.h; sourceTree = "<group>"; };
-		A92655AF17B220E600BAE49A /* ASIOperationPromotionDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIOperationPromotionDetail.m; sourceTree = "<group>"; };
-		A92655C417B25A1400BAE49A /* ASIOperationUserCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIOperationUserCollection.h; sourceTree = "<group>"; };
-		A92655C517B25A1400BAE49A /* ASIOperationUserCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIOperationUserCollection.m; sourceTree = "<group>"; };
 		A93F20601797CF7600622D75 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		A93F206D1797DFB100622D75 /* OperationURL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OperationURL.h; sourceTree = "<group>"; };
 		A93F206E1797DFB100622D75 /* OperationURL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OperationURL.m; sourceTree = "<group>"; };
@@ -3821,34 +3797,18 @@
 				9A889BBF187ABA7500602CBB /* ASIOperationUserCheck.m */,
 				9A46B6B217F0B1D100410408 /* ASIOperationGetAvatars.h */,
 				9A46B6B317F0B1D100410408 /* ASIOperationGetAvatars.m */,
-				9A46B6B417F0B1D100410408 /* ASIOperationUploadFBToken.h */,
-				9A46B6B517F0B1D100410408 /* ASIOperationUploadFBToken.m */,
 				A921B02D17A8B68100DC6D4D /* ASIOperationShopUser.h */,
 				A921B02E17A8B68100DC6D4D /* ASIOperationShopUser.m */,
 				A97C847217B0236400D9CEB9 /* ASIOperationShopProduct.h */,
 				A97C847317B0236400D9CEB9 /* ASIOperationShopProduct.m */,
-				A91CE6A917A93B6600D29E87 /* ASIOperationShopUserGallery.h */,
-				A91CE6AA17A93B6600D29E87 /* ASIOperationShopUserGallery.m */,
 				A91CE6AC17A93B8B00D29E87 /* ASIOperationShopComment.h */,
 				A91CE6AD17A93B8B00D29E87 /* ASIOperationShopComment.m */,
 				A91CE6AF17A93B9B00D29E87 /* ASIOperationPostComment.h */,
 				A91CE6B017A93B9B00D29E87 /* ASIOperationPostComment.m */,
 				A925E3DA17B09B9400806617 /* ASIOperationUploadUserGallery.h */,
 				A925E3DB17B09B9400806617 /* ASIOperationUploadUserGallery.m */,
-				A92655AE17B220E600BAE49A /* ASIOperationPromotionDetail.h */,
-				A92655AF17B220E600BAE49A /* ASIOperationPromotionDetail.m */,
-				A92655C417B25A1400BAE49A /* ASIOperationUserCollection.h */,
-				A92655C517B25A1400BAE49A /* ASIOperationUserCollection.m */,
 				A94088D517B3918D00205145 /* ASIOperationGetAds.h */,
 				A94088D617B3918D00205145 /* ASIOperationGetAds.m */,
-				A920E1D717CBBD13003FAA80 /* ASIOperationGetRewards.h */,
-				A920E1D817CBBD13003FAA80 /* ASIOperationGetRewards.m */,
-				A920E1E917CBD522003FAA80 /* ASIOperationGetSG.h */,
-				A920E1EA17CBD522003FAA80 /* ASIOperationGetSG.m */,
-				A92376EE17CDA58300336FE2 /* ASIOperationPostFeedback.h */,
-				A92376EF17CDA58300336FE2 /* ASIOperationPostFeedback.m */,
-				A924258F17CE6E6E0074269F /* ASIOperationGetTotalSP.h */,
-				A924259017CE6E6E0074269F /* ASIOperationGetTotalSP.m */,
 				9ACBA9BA185D7745000B3D6B /* ASIOperationStoreAllStore.h */,
 				9ACBA9BB185D7745000B3D6B /* ASIOperationStoreAllStore.m */,
 				9AC494B11858B2390042C535 /* ASIOperationStoreShopList.h */,
@@ -5806,7 +5766,6 @@
 				9AC494C51858B4900042C535 /* StoreShopItem.m in Sources */,
 				9ACF7A8818698E3700B0BC78 /* UserHome.m in Sources */,
 				9AED46AC181E73AB00BAD467 /* SGViewController.m in Sources */,
-				A91CE6AB17A93B6600D29E87 /* ASIOperationShopUserGallery.m in Sources */,
 				9AC53813186855B9009A000B /* LabelURLTopText.m in Sources */,
 				9A0F760C187152DB00160E54 /* ShopCameraTakeViewController.m in Sources */,
 				9A1E234E18B1D2BD0077F503 /* UserPromotionViewController.m in Sources */,
@@ -5859,7 +5818,6 @@
 				A925E3CF17B089EB00806617 /* TokenManager.m in Sources */,
 				A925E3DC17B09B9400806617 /* ASIOperationUploadUserGallery.m in Sources */,
 				9A0F7605187152DB00160E54 /* ShopListPlaceCell.m in Sources */,
-				A92655B017B220E600BAE49A /* ASIOperationPromotionDetail.m in Sources */,
 				9ACF7AA018698E4100B0BC78 /* _UserHome.m in Sources */,
 				9ACAED861872B1B40025B027 /* ButtonAgree.m in Sources */,
 				9ACAED481872714C0025B027 /* HomeInfoCell.m in Sources */,
@@ -5868,7 +5826,6 @@
 				9A8653F0187864EE00A60BF1 /* RegisterViewController.m in Sources */,
 				9A96BB551880475F0081171B /* TextFieldSearch.m in Sources */,
 				9A0F762B187152DB00160E54 /* ShopMapViewController.m in Sources */,
-				A92655C617B25A1500BAE49A /* ASIOperationUserCollection.m in Sources */,
 				A94088D717B3918D00205145 /* ASIOperationGetAds.m in Sources */,
 				A94088DD17B3950A00205145 /* Ads.m in Sources */,
 				A94088E017B3951300205145 /* _Ads.m in Sources */,
@@ -5896,7 +5853,6 @@
 				9A0F7627187152DB00160E54 /* ShopKM1Cell.m in Sources */,
 				9ACE90901875D176008FEA7E /* KM2Voucher.m in Sources */,
 				9A1E234118B1C76D0077F503 /* ASIOperationUserPromotion.m in Sources */,
-				A920E1D917CBBD13003FAA80 /* ASIOperationGetRewards.m in Sources */,
 				9A998A97188E47E000F59840 /* ButtonBackShopUser.m in Sources */,
 				9A32F420184346C800704D26 /* SGUserSettingViewController.m in Sources */,
 				9ACAED4E1872714C0025B027 /* HomeListObjectCell.m in Sources */,
@@ -5908,13 +5864,10 @@
 				9A32F4531843488F00704D26 /* LabelStroke.m in Sources */,
 				9A693CB2186D484300114597 /* UserHomeImage.m in Sources */,
 				9AC494C41858B4900042C535 /* StoreShop.m in Sources */,
-				A920E1EB17CBD523003FAA80 /* ASIOperationGetSG.m in Sources */,
 				9ACF7AA218698E4100B0BC78 /* _UserHome2.m in Sources */,
 				9ACAED4A1872714C0025B027 /* HomeListCell.m in Sources */,
-				A92376F017CDA58300336FE2 /* ASIOperationPostFeedback.m in Sources */,
 				9A32F45A1843488F00704D26 /* THLabel.m in Sources */,
 				9ACA42F8186D3BFB008D89BC /* UserHome8.m in Sources */,
-				A924259117CE6E6E0074269F /* ASIOperationGetTotalSP.m in Sources */,
 				9A32F4561843488F00704D26 /* TemplateCatalogueList.m in Sources */,
 				9ACE904E1875B47F008FEA7E /* SUUserGalleryCell.m in Sources */,
 				9ACEC6711866CF6F00E4C5C1 /* ASIOperationShopDetailInfo.m in Sources */,
@@ -5925,7 +5878,6 @@
 				9A0F762F187152DB00160E54 /* SGShopLoadingCell.m in Sources */,
 				9A7E55A9183CEB30006D1798 /* SDWebImageManager.m in Sources */,
 				9A692AE0183933E10066F60F /* ACTimeScroller.m in Sources */,
-				9A46B6B717F0B1D100410408 /* ASIOperationUploadFBToken.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

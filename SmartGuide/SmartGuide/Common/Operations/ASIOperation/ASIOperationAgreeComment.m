@@ -10,20 +10,18 @@
 #import "ShopUserComment.h"
 
 @implementation ASIOperationAgreeComment
-@synthesize status,message,agreeStatus,numOfAgree,values;
+@synthesize status,message,agreeStatus,numOfAgree;
 
 -(ASIOperationAgreeComment *)initWithIDComment:(int)idCmt userLat:(double)userLat userLng:(double)userLng isAgree:(enum AGREE_STATUS)isAgree
 {
     self=[super initWithURL:[NSURL URLWithString:SERVER_API_MAKE(API_AGREE_COMMENT)]];
     
-    values=@[@(idCmt),@(userLat),@(userLng),@(isAgree)];
-    
-    return self;
-}
+    [self.keyValue setObject:@(idCmt) forKey:@"idComment"];
+    [self.keyValue setObject:@(userLat) forKey:@"userLat"];
+    [self.keyValue setObject:@(userLng) forKey:@"userLng"];
+    [self.keyValue setObject:@(isAgree) forKey:@"isAgree"];
 
--(NSArray *)keys
-{
-    return @[@"idComment",@"userLat",@"userLng",@"isAgree"];
+    return self;
 }
 
 -(void)onCompletedWithJSON:(NSArray *)json
@@ -54,7 +52,7 @@
         
         numOfAgree=[NSString stringWithStringDefault:dict[@"numOfAgree"]];
         
-        int idCmt=[values[0] integerValue];
+        int idCmt=[self.keyValue[@"idComment"] integerValue];
         ShopUserComment *cmt=[ShopUserComment commentWithIDComment:idCmt];
         
         if(cmt)

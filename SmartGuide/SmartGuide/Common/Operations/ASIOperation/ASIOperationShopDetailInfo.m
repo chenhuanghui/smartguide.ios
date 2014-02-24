@@ -9,20 +9,17 @@
 #import "ASIOperationShopDetailInfo.h"
 
 @implementation ASIOperationShopDetailInfo
-@synthesize infos,values;
+@synthesize infos;
 
 -(ASIOperationShopDetailInfo *)initWithIDShop:(int)idShop userLat:(double)userLat userLng:(double)userLng
 {
     self=[super initWithURL:[NSURL URLWithString:SERVER_API_MAKE(API_SHOP_DETAIL_INFO)]];
     
-    values=@[@(idShop),@(userLat),@(userLng)];
+    [self.keyValue setObject:@(idShop) forKey:IDSHOP];
+    [self.keyValue setObject:@(userLat) forKey:USER_LATITUDE];
+    [self.keyValue setObject:@(userLng) forKey:USER_LONGITUDE];
     
     return self;
-}
-
--(NSArray *)keys
-{
-    return @[@"idShop",@"userLat",@"userLng"];
 }
 
 -(void)onCompletedWithJSON:(NSArray *)json

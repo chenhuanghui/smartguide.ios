@@ -13,21 +13,18 @@
 #import "ShopGallery.h"
 
 @implementation ASIOperationShopUser
-@synthesize values,shop;
+@synthesize shop;
 
 -(ASIOperationShopUser *) initWithIDShop:(int)idShop userLat:(double)userLat userLng:(double)userLng
 {
     NSURL *_url=[NSURL URLWithString:SERVER_API_MAKE(API_SHOP_DETAIL)];
     self=[super initWithURL:_url];
     
-    values=@[@(idShop),@(userLat),@(userLng)];
+    [self.keyValue setObject:@(idShop) forKey:IDSHOP];
+    [self.keyValue setObject:@(userLat) forKey:USER_LATITUDE];
+    [self.keyValue setObject:@(userLng) forKey:USER_LONGITUDE];
     
     return self;
-}
-
--(NSArray *)keys
-{
-    return @[@"idShop",@"userLat",@"userLng"];
 }
 
 -(void)onCompletedWithJSON:(NSArray *)json

@@ -9,20 +9,19 @@
 #import "ASIOperationShopSearch.h"
 
 @implementation ASIOperationShopSearch
-@synthesize values,shopsList;
+@synthesize shopsList;
 
 -(ASIOperationShopSearch *)initWithKeywords:(NSString *)keywords userLat:(double)userLat userLng:(double)userLng page:(NSUInteger)page sort:(enum SORT_LIST)sort
 {
     self=[super initWithURL:[NSURL URLWithString:SERVER_API_MAKE(API_SHOP_SEARCH)]];
     
-    values=@[keywords,@(userLat),@(userLng),@(page),@(sort)];
+    [self.keyValue setObject:keywords forKey:@"keyWords"];
+    [self.keyValue setObject:@(userLat) forKey:USER_LATITUDE];
+    [self.keyValue setObject:@(userLng) forKey:USER_LONGITUDE];
+    [self.keyValue setObject:@(page) forKey:PAGE];
+    [self.keyValue setObject:@(sort) forKey:SORT];
     
     return self;
-}
-
--(NSArray *)keys
-{
-    return @[@"keyWords",@"userLat",@"userLng",@"page",@"sort"];
 }
 
 -(void)onCompletedWithJSON:(NSArray *)json

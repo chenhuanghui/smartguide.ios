@@ -38,6 +38,7 @@
     __weak IBOutlet UIButton *btnAddRemove;
     
     __weak ShopList *_shop;
+    ASIOperationLoveShop *_operationLove;
 }
 
 -(void) loadWithShopList:(ShopList*) shopList;

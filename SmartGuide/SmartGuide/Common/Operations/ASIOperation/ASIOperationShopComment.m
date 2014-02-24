@@ -11,21 +11,18 @@
 #import "ShopUserComment.h"
 
 @implementation ASIOperationShopComment
-@synthesize values,comments,sortComment;
+@synthesize comments,sortComment;
 
 -(ASIOperationShopComment *)initWithIDShop:(int)idShop page:(int)page sort:(enum SORT_SHOP_COMMENT)sort
 {
     NSURL *_url=[NSURL URLWithString:SERVER_API_MAKE(API_SHOP_COMMENTS)];
     self=[super initWithURL:_url];
     
-    values=@[@(idShop),@(page),@(sort)];
+    [self.keyValue setObject:@(idShop) forKey:IDSHOP];
+    [self.keyValue setObject:@(page) forKey:PAGE];
+    [self.keyValue setObject:@(sort) forKey:SORT];
     
     return self;
-}
-
--(NSArray *)keys
-{
-    return @[@"idShop",@"page",@"sort"];
 }
 
 -(void)onCompletedWithJSON:(NSArray *)json
@@ -35,9 +32,9 @@
     if([self isNullData:json])
         return;
     
-    Shop *shop=[Shop shopWithIDShop:[values[0] integerValue]];
+    Shop *shop=[Shop shopWithIDShop:[self.keyValue[IDSHOP] integerValue]];
     
-    switch ([values[2] integerValue]) {
+    switch ([self.keyValue[SORT] integerValue]) {
         case 0:
             sortComment=SORT_SHOP_COMMENT_TOP_AGREED;
             break;

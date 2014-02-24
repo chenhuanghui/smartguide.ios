@@ -16,26 +16,22 @@
 @end
 
 @implementation ASIOperationUserCheck
-@synthesize isSuccess,message,phone,activeCode,refreshToken,accessToken,values;
+@synthesize isSuccess,message,phone,activeCode,refreshToken,accessToken;
 
 -(ASIOperationUserCheck *)initWithPhone:(NSString *)_phone aciveCode:(NSString *)_activeCode
 {
     self=[super initWithURL:[NSURL URLWithString:SERVER_IP_MAKE(API_USER_CHECK)]];
     
-    values=@[_phone,_activeCode];
+    [self.keyValue setObject:_phone forKey:@"phone"];
+    [self.keyValue setObject:_activeCode forKey:@"activeCode"];
     
     return self;
 }
 
--(NSArray *)keys
-{
-    return @[@"phone",@"activeCode"];
-}
-
 -(void)onCompletedWithJSON:(NSArray *)json
 {
-    phone=values[0];
-    activeCode=values[1];
+    phone=self.keyValue[@"phone"];
+    activeCode=self.keyValue[@"activeCode"];
     isSuccess=false;
     accessToken=@"";
     refreshToken=@"";

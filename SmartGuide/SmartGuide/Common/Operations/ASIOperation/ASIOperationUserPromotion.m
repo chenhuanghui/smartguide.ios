@@ -9,20 +9,17 @@
 #import "ASIOperationUserPromotion.h"
 
 @implementation ASIOperationUserPromotion
-@synthesize userPromotions,values;
+@synthesize userPromotions;
 
 -(ASIOperationUserPromotion *)initWithPage:(int)page userLat:(double)userLat userLng:(double)userLng
 {
     self=[super initWithURL:SERVER_API_URL_MAKE(API_USER_PROMOTION)];
  
-    values=@[@(page),@(userLat),@(userLng)];
+    [self.keyValue setObject:@(page) forKey:PAGE];
+    [self.keyValue setObject:@(userLat) forKey:USER_LATITUDE];
+    [self.keyValue setObject:@(userLng) forKey:USER_LONGITUDE];
     
     return self;
-}
-
--(NSArray *)keys
-{
-    return @[@"page",@"userLat",@"userLng"];
 }
 
 -(void)onCompletedWithJSON:(NSArray *)json

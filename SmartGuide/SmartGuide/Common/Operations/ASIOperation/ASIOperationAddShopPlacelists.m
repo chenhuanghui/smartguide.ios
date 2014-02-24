@@ -9,20 +9,18 @@
 #import "ASIOperationAddShopPlacelists.h"
 
 @implementation ASIOperationAddShopPlacelists
-@synthesize values,status,message,placelits;
+@synthesize status,message,placelits;
 
 -(ASIOperationAddShopPlacelists *)initWithIDShop:(int)idShop idPlacelists:(NSString *)idPlacelists userLat:(double)userLat userLng:(double)userLng
 {
     self=[super initWithURL:[NSURL URLWithString:SERVER_API_MAKE(API_ADD_SHOP_PLACELISTS)]];
     
-    values=@[@(idShop),idPlacelists,@(userLat),@(userLng)];
+    [self.keyValue setObject:@(idShop) forKey:IDSHOP];
+    [self.keyValue setObject:idPlacelists forKey:@"idPlacelists"];
+    [self.keyValue setObject:@(userLat) forKey:USER_LATITUDE];
+    [self.keyValue setObject:@(userLng) forKey:USER_LONGITUDE];
     
     return self;
-}
-
--(NSArray *)keys
-{
-    return @[@"idShop",@"idPlacelists",@"userLat",@"userLng"];
 }
 
 -(void)onCompletedWithJSON:(NSArray *)json

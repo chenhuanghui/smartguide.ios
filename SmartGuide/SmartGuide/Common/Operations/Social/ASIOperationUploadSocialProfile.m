@@ -9,20 +9,17 @@
 #import "ASIOperationUploadSocialProfile.h"
 
 @implementation ASIOperationUploadSocialProfile
-@synthesize values,status,message;
+@synthesize status,message;
 
 -(ASIOperationUploadSocialProfile *)initWithProfile:(NSString *)profile socialType:(enum SOCIAL_TYPE)socialType accessToken:(NSString *)accessToken
 {
     self=[super initWithURL:[NSURL URLWithString:SERVER_API_MAKE(API_USER_UPLOAD_SOCIAL_PROFILE)]];
     
-    values=@[profile,accessToken,@(socialType)];
+    [self.keyValue setObject:profile forKey:@"profile"];
+    [self.keyValue setObject:accessToken forKey:@"accessToken"];
+    [self.keyValue setObject:@"socialType" forKey:@(socialType)];
     
     return self;
-}
-
--(NSArray *)keys
-{
-    return @[@"profile",@"accessToken",@"socialType"];
 }
 
 -(void)onCompletedWithJSON:(NSArray *)json

@@ -9,20 +9,19 @@
 #import "ASIOperationPlacelistGet.h"
 
 @implementation ASIOperationPlacelistGet
-@synthesize values,place;
+@synthesize place;
 
 -(ASIOperationPlacelistGet *)initWithIDPlacelist:(int)idPlaceList userLat:(double)userLat userLng:(double)userLng sort:(enum SORT_LIST)sort page:(NSUInteger)page
 {
     self=[super initWithURL:[NSURL URLWithString:SERVER_API_MAKE(API_PLACELIST_GET)]];
     
-    values=@[@(idPlaceList),@(userLat),@(userLng),@(sort),@(page)];
+    [self.keyValue setObject:@(idPlaceList) forKey:@"idPlacelist"];
+    [self.keyValue setObject:@(userLat) forKey:@"userLat"];
+    [self.keyValue setObject:@(userLng) forKey:@"userLng"];
+    [self.keyValue setObject:@(sort) forKey:@"sort"];
+    [self.keyValue setObject:@(page) forKey:@"page"];
     
     return self;
-}
-
--(NSArray *)keys
-{
-    return @[@"idPlacelist",@"userLat",@"userLng",@"sort",@"page"];
 }
 
 -(void)onCompletedWithJSON:(NSArray *)json
@@ -30,7 +29,7 @@
     if([self isNullData:json])
         return;
     
-    place=[Placelist placeListWithID:[values[0] integerValue]];
+    place=[Placelist placeListWithID:[self.keyValue[@"idPlacelist"] integerValue]];
     self.shopsList=[NSMutableArray new];
     
     for(NSDictionary *dict in json)

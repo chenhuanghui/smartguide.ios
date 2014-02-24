@@ -11,22 +11,21 @@
 #import "Shop.h"
 
 @implementation ASIOperationUploadUserGallery
-@synthesize status,message,values;
+@synthesize status,message;
 
 -(ASIOperationUploadUserGallery *)initWithIDShop:(int)idShop desc:(NSString *)desc photo:(NSData *)image shareFacebook:(bool)isSharedFacebook userLat:(double)userLat userLng:(double)userLng
 {
     self=[super initWithURL:[NSURL URLWithString:SERVER_API_MAKE(API_USER_GALLERY_POST)]];
     
-    values=@[@(idShop),@(userLat),@(userLng),desc,@(isSharedFacebook)];
+    [self.keyValue setObject:@(idShop) forKey:IDSHOP];
+    [self.keyValue setObject:@(userLat) forKey:USER_LATITUDE];
+    [self.keyValue setObject:@(userLng) forKey:USER_LONGITUDE];
+    [self.keyValue setObject:desc forKey:DESCRIPTION];
+    [self.keyValue setObject:@(isSharedFacebook) forKey:@"hasShareFB"];
     
     [self addData:image withFileName:@"photo" andContentType:@"image/jpeg" forKey:@"photo"];
     
     return self;
-}
-
--(NSArray *)keys
-{
-    return @[@"idShop",@"userLat",@"userLng",@"description",@"hasShareFB"];
 }
 
 -(void)onCompletedWithJSON:(NSArray *)json
@@ -40,7 +39,7 @@
     
     if(status==1)
     {
-        Shop *shop=[Shop shopWithIDShop:[values[0] integerValue]];
+        Shop *shop=[Shop shopWithIDShop:[self.keyValue[IDSHOP] integerValue]];
         ShopUserGallery *userGallery=[ShopUserGallery makeWithJSON:dict[@"userGallery"]];
         userGallery.shop=shop;
         

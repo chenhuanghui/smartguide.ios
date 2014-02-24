@@ -19,23 +19,20 @@ static NSMutableArray *asioperations=nil;
 @end
 
 @implementation ASIOperationPost
-@synthesize delegatePost,values,keys,operationAccessToken,sourceURL,keyValue;
+@synthesize delegatePost,operationAccessToken,sourceURL,keyValue;
+
++(NSURL*) makeURL:(NSURL*) sourceURL accessToken:(NSString*) accessToken
+{
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@?access_token=%@",sourceURL,accessToken]];
+}
 
 -(ASIOperationPost *)initWithRouter:(NSURL *)_url
 {
     self=[super initWithURL:_url];
     
-    self.values=[NSArray array];
-    self.keys=[NSArray array];
-    
-    self.numberOfTimesToRetryOnTimeout=3;
-    self.shouldContinueWhenAppEntersBackground=true;
-    self.persistentConnectionTimeoutSeconds=60*5;
-    self.responseEncoding=NSUTF8StringEncoding;
-    [self setValidatesSecureCertificate:false];
+    [self commonInit];
     
     self.sourceURL=[_url copy];
-    
     self.delegate=self;
     
     return self;
@@ -43,42 +40,36 @@ static NSMutableArray *asioperations=nil;
 
 -(ASIOperationPost *)initWithURL:(NSURL *)_url
 {
-    NSURL *urlCopy=[_url copy];
     NSString *accessToken=[NSString stringWithString:[TokenManager shareInstance].accessToken];
     _url=[ASIOperationPost makeURL:_url accessToken:accessToken];
     self=[super initWithURL:_url];
-
-    self.values=[NSArray array];
-    self.keys=[NSArray array];
     
+    [self commonInit];
+    
+    self.operationAccessToken=[[NSString alloc] initWithString:accessToken];
+    
+    self.sourceURL=[_url copy];
+    self.delegate=self;
+    
+    return self;
+}
+
+-(void) commonInit
+{
     self.numberOfTimesToRetryOnTimeout=3;
     self.shouldContinueWhenAppEntersBackground=true;
     self.persistentConnectionTimeoutSeconds=60*5;
     self.responseEncoding=NSUTF8StringEncoding;
     [self setValidatesSecureCertificate:false];
     
-    self.sourceURL=urlCopy;
-    
-    self.operationAccessToken=[[NSString alloc] initWithString:accessToken];
-    
-    self.delegate=self;
-    
-    return self;
-}
-
-+(NSURL*) makeURL:(NSURL*) sourceURL accessToken:(NSString*) accessToken
-{
-    return [NSURL URLWithString:[NSString stringWithFormat:@"%@?access_token=%@",sourceURL,accessToken]];
+    self.keyValue=[NSMutableDictionary dictionary];
 }
 
 -(void)startAsynchronous
 {
     [self applyPostValue];
     
-    if(self.keyValue)
-            NSLog(@"%@ start async kvl %@ %@ %@",CLASS_NAME,self.url,self.keyValue.allKeys,self.keyValue.allValues);
-    else
-        NSLog(@"%@ start async %@ %@ %@",CLASS_NAME,self.url,self.keys,self.values);
+    NSLog(@"%@ start async %@ %@ %@",CLASS_NAME,self.url,self.keyValue.allKeys,self.keyValue.allValues);
     
     [super startAsynchronous];
 }
@@ -87,34 +78,16 @@ static NSMutableArray *asioperations=nil;
 {
     [self applyPostValue];
     
-    if(self.keyValue)
-        NSLog(@"%@ start sync kvl %@ %@ %@",CLASS_NAME,self.url,self.keyValue.allKeys,self.keyValue.allValues);
-    else
-        NSLog(@"%@ start sync %@ %@ %@",CLASS_NAME,self.url,self.keys,self.values);
+    NSLog(@"%@ start sync %@ %@ %@",CLASS_NAME,self.url,self.keyValue.allKeys,self.keyValue.allValues);
     
     [super startSynchronous];
 }
 
 -(void) applyPostValue
 {
-    if(keyValue)
+    for(NSString *key in keyValue.allKeys)
     {
-        for(NSString *key in keyValue.allKeys)
-        {
-            [self setPostValue:keyValue[key] forKey:key];
-        }
-        
-        return;
-    }
-    
-    NSArray *arrKeys=[self keys];
-    NSArray *arrValues=[self values];
-    for(int i=0;i<arrKeys.count;i++)
-    {
-        NSString *key = [arrKeys objectAtIndex:i];
-        id obj = [arrValues objectAtIndex:i];
-        
-        [self setPostValue:obj forKey:key];
+        [self setPostValue:keyValue[key] forKey:key];
     }
 }
 
@@ -139,7 +112,7 @@ static NSMutableArray *asioperations=nil;
             if([key isEqualToString:@"invalid_grant"])
             {
                 NSLog(@"handleToken %@ %@ %@",CLASS_NAME,self.operationAccessToken,[TokenManager shareInstance].accessToken);
-
+                
                 if(![TokenManager shareInstance].isRefreshingToken)
                 {
                     //Token có thể đã được refresh bởi 1 operation khác, nếu token operation (bị lỗi) trùng với token hiện tại->refresh token
@@ -253,7 +226,7 @@ static NSMutableArray *asioperations=nil;
 {
     NSLog(@"%@ finished %i",CLASS_NAME,self.responseString.length);
     
-    [[NSNotificationCenter defaultCenter] removeObserver:self];    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     
     if([self isRespondsToSelector:@selector(ASIOperaionPostFinished:)])
         [delegatePost ASIOperaionPostFinished:self];
@@ -293,14 +266,14 @@ static NSMutableArray *asioperations=nil;
 -(void) refreshTokenSuccess:(NSNotification*) notification
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-
+    
     [self restart];
 }
 
 -(void)restart
 {
     ASIOperationPost *ope=[self copy];
- 
+    
     ope.sourceURL=[self.sourceURL copy];
     
     NSString *accessToken=[NSString stringWithString:[TokenManager shareInstance].accessToken];
@@ -311,7 +284,7 @@ static NSMutableArray *asioperations=nil;
     ope.delegatePost=self.delegatePost;
     self.delegatePost=nil;
     
-    NSLog(@"%@ restart %@ %@ %@",NSStringFromClass([ope class]),ope.url,ope.keys,ope.values);
+    NSLog(@"%@ restart %@ %@",NSStringFromClass([ope class]),ope.url,ope.keyValue);
     [ope startAsynchronous];
     
     [asioperations removeObject:self];
@@ -343,7 +316,7 @@ static NSMutableArray *asioperations=nil;
 {
     self.delegatePost=nil;
     
-    [[NSNotificationCenter defaultCenter] removeObserver:self];    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     
     [super cancel];
 }
@@ -358,13 +331,16 @@ static NSMutableArray *asioperations=nil;
 {
     ASIOperationPost *ope=[super copyWithZone:zone];
     
-    [ope setValues:self.values];
-    [ope setKeys:self.keys];
     [ope setKeyValue:self.keyValue];
     
     return ope;
 }
 
 CALL_DEALLOC_LOG
+
+-(void)keys
+{
+    
+}
 
 @end

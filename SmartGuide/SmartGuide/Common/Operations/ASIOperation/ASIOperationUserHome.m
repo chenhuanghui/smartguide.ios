@@ -9,20 +9,17 @@
 #import "ASIOperationUserHome.h"
 
 @implementation ASIOperationUserHome
-@synthesize values,homes;
+@synthesize homes;
 
 -(ASIOperationUserHome *)initWithPage:(NSUInteger)page userLat:(double)userLat userLng:(double)userLng
 {
     self=[super initWithURL:[NSURL URLWithString:SERVER_API_MAKE(API_USER_HOME)]];
 
-    values=@[@(page),@(userLat),@(userLng)];
+    [self.keyValue setObject:@(page) forKey:@"page"];
+    [self.keyValue setObject:@(userLat) forKey:@"userLat"];
+    [self.keyValue setObject:@(userLng) forKey:@"userLng"];
     
     return self;
-}
-
--(NSArray *)keys
-{
-    return @[@"page",@"userLat",@"userLng"];
 }
 
 -(void)onCompletedWithJSON:(NSArray *)json

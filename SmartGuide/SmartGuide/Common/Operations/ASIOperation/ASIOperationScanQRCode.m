@@ -10,20 +10,17 @@
 #import "Shop.h"
 
 @implementation ASIOperationScanQRCode
-@synthesize status,result,values;
+@synthesize status,result;
 
 -(ASIOperationScanQRCode *)initWithCode:(NSString *)code userLat:(double)userLat userLng:(double)userLng
 {
     self=[super initWithURL:[NSURL URLWithString:SERVER_API_MAKE(API_SCAN_CODE)]];
     
-    values=@[code,@(userLat),@(userLng)];
+    [self.keyValue setObject:code forKey:@"code"];
+    [self.keyValue setObject:@(userLat) forKey:USER_LATITUDE];
+    [self.keyValue setObject:@(userLng) forKey:USER_LONGITUDE];
     
     return self;
-}
-
--(NSArray *)keys
-{
-    return @[@"code",@"userLat",@"userLng"];
 }
 
 -(void)onCompletedWithJSON:(NSArray *)json

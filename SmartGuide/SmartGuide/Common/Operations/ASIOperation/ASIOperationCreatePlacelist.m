@@ -9,20 +9,19 @@
 #import "ASIOperationCreatePlacelist.h"
 
 @implementation ASIOperationCreatePlacelist
-@synthesize values,message,status,placelist;
+@synthesize message,status,placelist;
 
 -(ASIOperationCreatePlacelist *)initWithName:(NSString *)name desc:(NSString *)desc idShop:(NSString *)idShops userLat:(double)userLat userLng:(double)userLng
 {
     self=[super initWithURL:[NSURL URLWithString:SERVER_API_MAKE(API_CREATE_PLACELIST)]];
     
-    values=@[name,desc,idShops,@(userLat),@(userLng)];
+    [self.keyValue setObject:name forKey:@"name"];
+    [self.keyValue setObject:desc forKey:@"description"];
+    [self.keyValue setObject:idShops forKey:@"idShops"];
+    [self.keyValue setObject:@(userLat) forKey:USER_LATITUDE];
+    [self.keyValue setObject:@(userLng) forKey:USER_LONGITUDE];
     
     return self;
-}
-
--(NSArray *)keys
-{
-    return @[@"name",@"description",@"idShops",@"userLat",@"userLng"];
 }
 
 -(void)onCompletedWithJSON:(NSArray *)json

@@ -11,7 +11,7 @@
 #import "Shop.h"
 
 @implementation ASIOperationPostComment
-@synthesize values,status,message,time,idComment,sortComment,userComment;
+@synthesize status,message,time,idComment,sortComment,userComment;
 
 -(ASIOperationPostComment *)initWithIDShop:(int)idShop userLat:(double)userLat userLng:(double)userLng comment:(NSString *)comment sort:(enum SORT_SHOP_COMMENT)sort
 {
@@ -19,14 +19,13 @@
     
     self=[super initWithURL:_url];
 
-    values=@[@(idShop),@(userLat),@(userLng),comment,@(sort)];
+    [self.keyValue setObject:@(idShop) forKey:IDSHOP];
+    [self.keyValue setObject:@(userLat) forKey:USER_LATITUDE];
+    [self.keyValue setObject:@(userLng) forKey:USER_LONGITUDE];
+    [self.keyValue setObject:comment forKey:@"comment"];
+    [self.keyValue setObject:@(sort) forKey:SORT];
     
     return self;
-}
-
--(NSArray *)keys
-{
-    return @[@"idShop",@"userLat",@"userLng",@"comment",@"sort"];
 }
 
 -(void)onCompletedWithJSON:(NSArray *)json
@@ -34,7 +33,7 @@
     if([self isNullData:json])
         return;
     
-    int sort=[values[4] integerValue];
+    int sort=[self.keyValue[SORT] integerValue];
     NSDictionary *dict=json[0];
     
     status=[[NSNumber numberWithObject:dict[@"status"]] integerValue];
@@ -59,7 +58,7 @@
                 break;
         }
         
-        int idShop=[values[0] integerValue];
+        int idShop=[self.keyValue[IDSHOP] integerValue];
         Shop *shop=[Shop shopWithIDShop:idShop];
         
         if(!shop)
@@ -69,7 +68,7 @@
 
         userComment.idComment=@(idComment);
         userComment.username=[NSString stringWithStringDefault:[DataManager shareInstance].currentUser.name];
-        userComment.comment=values[3];
+        userComment.comment=self.keyValue[@"comment"];
         userComment.avatar=[DataManager shareInstance].currentUser.avatar;
         userComment.numOfAgree=@"0";
         userComment.time=time;

@@ -201,7 +201,7 @@
             if(_operationItemLatest)
                 return;
             
-            _operationItemLatest=[[ASIOperationStoreShopItem alloc] initWithIDShop:_store.idStore page:_pageShopLatest+1 userLat:userLat() userLng:userLng() sort:SORT_STORE_SHOP_LIST_LATEST];
+            _operationItemLatest=[[ASIOperationStoreShopItem alloc] initWithIDStore:_store.idStore page:_pageShopLatest+1 userLat:userLat() userLng:userLng() sort:SORT_STORE_SHOP_LIST_LATEST];
             _operationItemLatest.delegatePost=self;
             
             [_operationItemLatest startAsynchronous];
@@ -213,7 +213,7 @@
             if(_operationItemTopSellers)
                 return;
             
-            _operationItemTopSellers=[[ASIOperationStoreShopItem alloc] initWithIDShop:_store.idStore page:_pageShopTopSellers+1 userLat:userLat() userLng:userLng() sort:SORT_STORE_SHOP_LIST_TOP_SELLER];
+            _operationItemTopSellers=[[ASIOperationStoreShopItem alloc] initWithIDStore:_store.idStore page:_pageShopTopSellers+1 userLat:userLat() userLng:userLng() sort:SORT_STORE_SHOP_LIST_TOP_SELLER];
             _operationItemTopSellers.delegatePost=self;
             
             [_operationItemTopSellers startAsynchronous];

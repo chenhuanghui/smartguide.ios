@@ -69,10 +69,12 @@
 
 -(void) love_unlove
 {
+    int isLove=0;
     if(_shop.loveStatus.integerValue==0)
-        [ASIOperationLoveShop loveShop:_shop.idShop.integerValue userLat:userLat() userLng:userLng()];
-    else
-        [ASIOperationLoveShop unLoveShop:_shop.idShop.integerValue userLat:userLat() userLng:userLng()];
+        isLove=1;
+    
+    _operationLove=[[ASIOperationLoveShop alloc] initWithIDShop:_shop.idShop.integerValue userLat:userLat() userLng:userLng() isLove:isLove];
+    [_operationLove startAsynchronous];
     
     imgvHeartAni.alpha=0;
     imgvHeartAni.hidden=false;
@@ -88,6 +90,11 @@
             [scroll setContentOffset:CGPointZero animated:true];
         }];
     }];
+}
+
+-(void)dealloc
+{
+    _operationLove=nil;
 }
 
 - (IBAction)btnLoveTouchUpInside:(id)sender {

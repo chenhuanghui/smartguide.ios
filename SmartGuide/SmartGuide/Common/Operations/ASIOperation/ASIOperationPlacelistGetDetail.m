@@ -14,14 +14,12 @@
 {
     self=[super initWithURL:SERVER_API_URL_MAKE(API_PLACELIST_GET_DETAIL)];
     
-    self.values=@[@(idPlacelist),@(userLat),@(userLng),@(sort)];
+    [self.keyValue setObject:@(idPlacelist) forKey:IDPLACELIST];
+    [self.keyValue setObject:@(userLat) forKey:USER_LATITUDE];
+    [self.keyValue setObject:@(userLng) forKey:USER_LONGITUDE];
+    [self.keyValue setObject:@(sort) forKey:SORT];
     
     return self;
-}
-
--(NSArray *)keys
-{
-    return @[@"idPlacelist",@"userLat",@"userLng",@"sort"];
 }
 
 -(void)onCompletedWithJSON:(NSArray *)json

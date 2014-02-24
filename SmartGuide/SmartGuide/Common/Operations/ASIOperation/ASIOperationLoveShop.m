@@ -9,30 +9,18 @@
 #import "ASIOperationLoveShop.h"
 
 @implementation ASIOperationLoveShop
-@synthesize values,status,message,loveStatus,numOfLove;
-
-+(void)loveShop:(int)idShop userLat:(double)userLat userLng:(double)userLng
-{
-    [[[ASIOperationLoveShop alloc] initWithIDShop:idShop userLat:userLat userLng:userLng isLove:true] startAsynchronous];
-}
-
-+(void)unLoveShop:(int)idShop userLat:(double)userLat userLng:(double)userLng
-{
-    [[[ASIOperationLoveShop alloc] initWithIDShop:idShop userLat:userLat userLng:userLng isLove:false] startAsynchronous];
-}
+@synthesize status,message,loveStatus,numOfLove;
 
 -(ASIOperationLoveShop *)initWithIDShop:(int)idShop userLat:(double)userLat userLng:(double)userLng isLove:(int)isLove
 {
     self=[super initWithURL:[NSURL URLWithString:SERVER_API_MAKE(API_LOVE_SHOP)]];
 
-    values=@[@(idShop),@(userLat),@(userLng),@(isLove)];
+    [self.keyValue setObject:@(idShop) forKey:IDSHOP];
+    [self.keyValue setObject:@(userLat) forKey:USER_LATITUDE];
+    [self.keyValue setObject:@(userLng) forKey:USER_LONGITUDE];
+    [self.keyValue setObject:@(isLove) forKey:@"isLove"];
     
     return self;
-}
-
--(NSArray *)keys
-{
-    return @[@"idShop",@"userLat",@"userLng",@"isLove"];
 }
 
 -(void)onCompletedWithJSON:(NSArray *)json
@@ -63,7 +51,7 @@
                 break;
         }
         
-        int idShop=[values[0] integerValue];
+        int idShop=[self.keyValue[IDSHOP] integerValue];
         Shop *shop=[Shop shopWithIDShop:idShop];
         
         if(shop)

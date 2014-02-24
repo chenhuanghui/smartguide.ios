@@ -14,8 +14,6 @@
 @interface ASIOperationLoveShop : ASIOperationPost
 
 -(ASIOperationLoveShop*) initWithIDShop:(int) idShop userLat:(double) userLat userLng:(double) userLng isLove:(int) isLove;
-+(void) loveShop:(int) idShop userLat:(double) userLat userLng:(double) userLng;
-+(void) unLoveShop:(int) idShop userLat:(double) userLat userLng:(double) userLng;
 
 @property (nonatomic, readonly) int status;
 @property (nonatomic, readonly) NSString *message;

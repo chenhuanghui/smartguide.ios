@@ -12,6 +12,15 @@
 #import "DataManager.h"
 #import "AFNetworking.h"
 
+#define USER_LATITUDE @"userLat"
+#define USER_LONGITUDE @"userLng"
+#define PAGE @"page"
+#define SORT @"sort"
+#define IDSHOP @"idShop"
+#define IDSTORE @"idStore"
+#define IDPLACELIST @"idPlacelist"
+#define DESCRIPTION @"description"
+
 @class ASIOperationPost;
 
 @protocol ASIOperationPostDelegate <NSObject>
@@ -33,11 +42,15 @@
 -(bool) isNullData:(NSArray*) data;
 -(void) restart;
 
+-(void) keys;
+
 @property (nonatomic, weak) id<ASIOperationPostDelegate> delegatePost;
-@property (nonatomic, strong) NSArray *values;
-@property (nonatomic, strong) NSArray *keys;
-@property (nonatomic, strong) NSDictionary *keyValue;
+@property (nonatomic, strong) NSMutableDictionary *keyValue;
 @property (nonatomic, strong) NSString *operationAccessToken;
 @property (nonatomic, strong) NSURL *sourceURL;
+@property (nonatomic, strong) NSString *tScreen;
+@property (nonatomic, strong) NSString *tData;
+@property (nonatomic, strong) NSString *fScreen;
+@property (nonatomic, strong) NSString *fData;
 
 @end

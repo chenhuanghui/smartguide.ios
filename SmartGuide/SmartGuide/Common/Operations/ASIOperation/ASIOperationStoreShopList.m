@@ -11,26 +11,24 @@
 #import "StoreShopItem.h"
 
 @implementation ASIOperationStoreShopList
-@synthesize values,shops,sortType;
+@synthesize shops,sortType;
 
 -(ASIOperationStoreShopList *)initWithUserLat:(double)userLat userLng:(double)userLng sort:(enum SORT_STORE_SHOP_LIST_TYPE)sort page:(NSUInteger)page
 {
     self=[super initWithURL:[NSURL URLWithString:SERVER_API_MAKE(API_STORE_GET_LIST)]];
     
-    values=@[@(userLat),@(userLng),@(sort),@(page)];
+    [self.keyValue setObject:@(userLat) forKey:USER_LATITUDE];
+    [self.keyValue setObject:@(userLng) forKey:USER_LONGITUDE];
+    [self.keyValue setObject:@(sort) forKey:SORT];
+    [self.keyValue setObject:@(page) forKey:PAGE];
     
     return self;
-}
-
--(NSArray *)keys
-{
-    return @[@"userLat",@"userLng",@"sort",@"page"];
 }
 
 -(void)onCompletedWithJSON:(NSArray *)json
 {
     shops=[NSMutableArray array];
-    int sort=[values[2] integerValue];
+    int sort=[self.keyValue[SORT] integerValue];
     
     sortType=SORT_STORE_SHOP_LIST_LATEST;
     
@@ -40,7 +38,7 @@
     if([self isNullData:json])
         return;
     
-    int page=[values[3] integerValue];
+    int page=[self.keyValue[PAGE] integerValue];
     
     int countShop=10*page;
     for(NSDictionary *dict in json)

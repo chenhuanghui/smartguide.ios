@@ -9,20 +9,16 @@
 #import "ASIOperationStoreAllStore.h"
 
 @implementation ASIOperationStoreAllStore
-@synthesize values,shopsLatest,shopsTopSellers;
+@synthesize shopsLatest,shopsTopSellers;
 
 -(ASIOperationStoreAllStore *)initWithUserLat:(double)userLat withUserLng:(double)userLng
 {
     self=[super initWithURL:[NSURL URLWithString:SERVER_API_MAKE(API_STORE_ALL_STORE)]];
-    
-    values=@[@(userLat),@(userLng)];
+
+    [self.keyValue setObject:@(userLat) forKey:@"userLat"];
+    [self.keyValue setObject:@(userLng) forKey:@"userLng"];
     
     return self;
-}
-
--(NSArray *)keys
-{
-    return @[@"userLat",@"userLng"];
 }
 
 -(void)onCompletedWithJSON:(NSArray *)json

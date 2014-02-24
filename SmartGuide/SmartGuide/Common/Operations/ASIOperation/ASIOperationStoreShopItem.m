@@ -11,20 +11,19 @@
 #import "StoreShopItem.h"
 
 @implementation ASIOperationStoreShopItem
-@synthesize values,items,sortType;
+@synthesize items,sortType;
 
--(ASIOperationStoreShopItem *)initWithIDShop:(NSNumber *)idShop page:(int)page userLat:(double)userLat userLng:(double)userLng sort:(enum SORT_STORE_SHOP_LIST_TYPE)sort
+-(ASIOperationStoreShopItem *)initWithIDStore:(NSNumber *)idStore page:(int)page userLat:(double)userLat userLng:(double)userLng sort:(enum SORT_STORE_SHOP_LIST_TYPE)sort
 {
     self=[super initWithURL:[NSURL URLWithString:SERVER_API_MAKE(API_STORE_GET_ITEMS)]];
     
-    values=@[idShop,@(page),@(userLat),@(userLng),@(sort)];
+    [self.keyValue setObject:idStore forKey:IDSTORE];
+    [self.keyValue setObject:@(page) forKey:PAGE];
+    [self.keyValue setObject:@(userLat) forKey:USER_LATITUDE];
+    [self.keyValue setObject:@(userLng) forKey:USER_LONGITUDE];
+    [self.keyValue setObject:@(sort) forKey:SORT];
     
     return self;
-}
-
--(NSArray *)keys
-{
-    return @[@"idStore",@"page",@"userLat",@"userLng",@"sort"];
 }
 
 -(void)onCompletedWithJSON:(NSArray *)json
@@ -34,15 +33,15 @@
     if([self isNullData:json])
         return;
     
-    int sort=[values[4] integerValue];
+    int sort=[self.keyValue[SORT] integerValue];
     
     sortType=SORT_STORE_SHOP_LIST_LATEST;
     
     if(sort==SORT_STORE_SHOP_LIST_TOP_SELLER)
         sortType=SORT_STORE_SHOP_LIST_TOP_SELLER;
     
-    StoreShop *shop=[StoreShop storeWithID:[values[0] integerValue]];
-    int type=[values[4] integerValue];
+    StoreShop *shop=[StoreShop storeWithID:[self.keyValue[IDSTORE] integerValue]];
+    int type=[self.keyValue[SORT] integerValue];
     
     for(NSDictionary *dict in json)
     {

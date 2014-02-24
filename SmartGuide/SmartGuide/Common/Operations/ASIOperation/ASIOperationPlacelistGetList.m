@@ -9,20 +9,17 @@
 #import "ASIOperationPlacelistGetList.h"
 
 @implementation ASIOperationPlacelistGetList
-@synthesize values,placeLists;
+@synthesize placeLists;
 
 -(ASIOperationPlacelistGetList *)initWithUserLat:(double)userLat userLng:(double)userLng page:(NSUInteger)page
 {
     self=[super initWithURL:[NSURL URLWithString:SERVER_API_MAKE(API_PLACELIST_GET_LIST)]];
 
-    values=@[@(userLat),@(userLng),@(page)];
+    [self.keyValue setObject:@(userLat) forKey:@"userLat"];
+    [self.keyValue setObject:@(userLng) forKey:@"userLng"];
+    [self.keyValue setObject:@(page) forKey:@"page"];
     
     return self;
-}
-
--(NSArray *)keys
-{
-    return @[@"userLat",@"userLng",@"page"];
 }
 
 -(void)onCompletedWithJSON:(NSArray *)json
