@@ -223,7 +223,7 @@
 {
     if(_operationLoveShop)
     {
-        [_operationLoveShop cancel];
+        [_operationLoveShop clearDelegatesAndCancel];
         _operationLoveShop=nil;
     }
 }

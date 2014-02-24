@@ -91,7 +91,7 @@
 {
     if(_operationGetAvatars)
     {
-        [_operationGetAvatars cancel];
+        [_operationGetAvatars clearDelegatesAndCancel];
         _operationGetAvatars=nil;
     }
     

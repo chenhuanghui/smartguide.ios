@@ -258,19 +258,19 @@
 {
     if(_operationShopUser)
     {
-        [_operationShopUser cancel];
+        [_operationShopUser clearDelegatesAndCancel];
         _operationShopUser=nil;
     }
     
     if(_operationShopComment)
     {
-        [_operationShopComment cancel];
+        [_operationShopComment clearDelegatesAndCancel];
         _operationShopComment=nil;
     }
     
     if(_opeartionPostComment)
     {
-        _opeartionPostComment.delegatePost=nil;
+        [_opeartionPostComment clearDelegatesAndCancel];
         _opeartionPostComment=nil;
     }
     

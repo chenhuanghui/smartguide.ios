@@ -72,7 +72,7 @@
 {
     if(_operationUserHome)
     {
-        [_operationUserHome cancel];
+        [_operationUserHome clearDelegatesAndCancel];
         _operationUserHome=nil;
     }
     
@@ -500,6 +500,11 @@
 -(void)qrcodeControllerRequestClose:(SGQRCodeViewController *)controller
 {
     
+}
+
++(NSString *)screenCode
+{
+    return SCREEN_CODE_HOME;
 }
 
 @end

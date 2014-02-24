@@ -19,7 +19,6 @@ static NSMutableArray *asioperations=nil;
 @end
 
 @implementation ASIOperationPost
-@synthesize delegatePost,operationAccessToken,sourceURL,keyValue;
 
 +(NSURL*) makeURL:(NSURL*) sourceURL accessToken:(NSString*) accessToken
 {
@@ -85,9 +84,9 @@ static NSMutableArray *asioperations=nil;
 
 -(void) applyPostValue
 {
-    for(NSString *key in keyValue.allKeys)
+    for(NSString *key in self.keyValue.allKeys)
     {
-        [self setPostValue:keyValue[key] forKey:key];
+        [self setPostValue:self.keyValue[key] forKey:key];
     }
 }
 
@@ -99,7 +98,7 @@ static NSMutableArray *asioperations=nil;
     NSLog(@"%@ failed %@",CLASS_NAME,self.responseStatusMessage?self.responseStatusMessage:self.error);
     
     if([self isRespondsToSelector:@selector(ASIOperaionPostFailed:)])
-        [delegatePost ASIOperaionPostFailed:self];
+        [self.delegatePost ASIOperaionPostFailed:self];
 }
 
 -(bool) handleTokenError:(NSDictionary*) json
@@ -229,7 +228,7 @@ static NSMutableArray *asioperations=nil;
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
     if([self isRespondsToSelector:@selector(ASIOperaionPostFinished:)])
-        [delegatePost ASIOperaionPostFinished:self];
+        [self.delegatePost ASIOperaionPostFinished:self];
 }
 
 -(void)requestFailed:(ASIHTTPRequest *)request
@@ -302,7 +301,7 @@ static NSMutableArray *asioperations=nil;
 
 -(BOOL) isRespondsToSelector:(SEL)aSelector
 {
-    return delegatePost && [delegatePost respondsToSelector:aSelector];
+    return self.delegatePost && [self.delegatePost respondsToSelector:aSelector];
 }
 
 -(bool)isNullData:(NSArray *)data
@@ -312,13 +311,11 @@ static NSMutableArray *asioperations=nil;
     return false;
 }
 
--(void)cancel
+-(void)clearDelegatesAndCancel
 {
     self.delegatePost=nil;
-    
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    
-    [super cancel];
+    [super clearDelegatesAndCancel];
 }
 
 // If a delegate implements one of these, it will be asked to supply credentials when none are available

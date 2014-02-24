@@ -30,7 +30,7 @@
 {
     if(_operation)
     {
-        [_operation cancel];
+        [_operation clearDelegatesAndCancel];
         _operation=nil;
     }
 }

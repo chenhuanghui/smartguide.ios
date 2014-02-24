@@ -317,7 +317,7 @@
     
     if(_operationScanCode)
     {
-        [_operationScanCode cancel];
+        [_operationScanCode clearDelegatesAndCancel];
         _operationScanCode=nil;
     }
 }

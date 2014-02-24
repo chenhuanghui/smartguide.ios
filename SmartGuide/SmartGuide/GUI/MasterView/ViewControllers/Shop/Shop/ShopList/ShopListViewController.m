@@ -553,7 +553,7 @@
 {
     if(_operationPlacelistGetDetail)
     {
-        [_operationPlacelistGetDetail cancel];
+        [_operationPlacelistGetDetail clearDelegatesAndCancel];
         _operationPlacelistGetDetail=nil;
     }
     
@@ -567,7 +567,7 @@
 {
     if(_operationPlaceListDetail)
     {
-        [_operationPlaceListDetail cancel];
+        [_operationPlaceListDetail clearDelegatesAndCancel];
         _operationPlaceListDetail=nil;
     }
     
@@ -581,7 +581,7 @@
 {
     if(_operationShopList)
     {
-        [_operationShopList cancel];
+        [_operationShopList clearDelegatesAndCancel];
         _operationShopList=nil;
     }
     
@@ -595,7 +595,7 @@
 {
     if(_operationShopSearch)
     {
-        [_operationShopSearch cancel];
+        [_operationShopSearch clearDelegatesAndCancel];
         _operationShopSearch=nil;
     }
     
@@ -623,7 +623,7 @@
     
     if(_operationShopSearch)
     {
-        [_operationShopSearch cancel];
+        [_operationShopSearch clearDelegatesAndCancel];
         _operationShopSearch=nil;
     }
     
@@ -653,7 +653,7 @@
     
     if(_operationShopList)
     {
-        [_operationShopList cancel];
+        [_operationShopList clearDelegatesAndCancel];
         _operationShopList=nil;
     }
     
@@ -708,7 +708,7 @@
     
     if(_operationShopSearch)
     {
-        [_operationShopSearch cancel];
+        [_operationShopSearch clearDelegatesAndCancel];
         _operationShopSearch=nil;
     }
     
@@ -735,7 +735,7 @@
     
     if(_operationPlaceListDetail)
     {
-        [_operationPlaceListDetail cancel];
+        [_operationPlaceListDetail clearDelegatesAndCancel];
         _operationPlaceListDetail=nil;
     }
     
@@ -1425,25 +1425,25 @@
     
     if(_operationPlaceListDetail)
     {
-        [_operationPlaceListDetail cancel];
+        [_operationPlaceListDetail clearDelegatesAndCancel];
         _operationPlaceListDetail=nil;
     }
     
     if(_operationShopSearch)
     {
-        [_operationShopSearch cancel];
+        [_operationShopSearch clearDelegatesAndCancel];
         _operationShopSearch=nil;
     }
     
     if(_operationShopList)
     {
-        [_operationShopList cancel];
+        [_operationShopList clearDelegatesAndCancel];
         _operationShopList=nil;
     }
     
     if(_operationPlacelistGetDetail)
     {
-        [_operationPlacelistGetDetail cancel];
+        [_operationPlacelistGetDetail clearDelegatesAndCancel];
         _operationPlacelistGetDetail=nil;
     }
     
@@ -1534,7 +1534,7 @@
 {
     if(_operationShopSearch)
     {
-        [_operationShopSearch cancel];
+        [_operationShopSearch clearDelegatesAndCancel];
         _operationShopSearch=nil;
     }
     

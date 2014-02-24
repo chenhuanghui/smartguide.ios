@@ -437,13 +437,13 @@
 {
     if(_operationUpdateUserProfile)
     {
-        [_operationUpdateUserProfile cancel];
+        [_operationUpdateUserProfile clearDelegatesAndCancel];
         _operationUpdateUserProfile=nil;
     }
     
     if(_operationUserProfile)
     {
-        [_operationUserProfile cancel];
+        [_operationUserProfile clearDelegatesAndCancel];
         _operationUserProfile=nil;
     }
 }

@@ -235,8 +235,6 @@
 		9A32F470184348A300704D26 /* GMGridViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A32F46A184348A300704D26 /* GMGridViewCell.m */; };
 		9A32F471184348A300704D26 /* GMGridViewLayoutStrategies.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A32F46C184348A300704D26 /* GMGridViewLayoutStrategies.m */; };
 		9A32F479184348C100704D26 /* PageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A32F478184348C100704D26 /* PageControl.m */; };
-		9A32F47E18434ECF00704D26 /* SGAdsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A32F47C18434ECF00704D26 /* SGAdsViewController.m */; };
-		9A32F47F18434ECF00704D26 /* SGAdsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A32F47D18434ECF00704D26 /* SGAdsViewController.xib */; };
 		9A32F48418434F2000704D26 /* SGSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A32F48218434F2000704D26 /* SGSettingViewController.m */; };
 		9A32F48518434F2000704D26 /* SGSettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A32F48318434F2000704D26 /* SGSettingViewController.xib */; };
 		9A3986A8185B6A8A006C0961 /* bg_blur_navigation.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9A39869E185B6A8A006C0961 /* bg_blur_navigation.jpg */; };
@@ -1391,9 +1389,6 @@
 		9A32F46C184348A300704D26 /* GMGridViewLayoutStrategies.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMGridViewLayoutStrategies.m; sourceTree = "<group>"; };
 		9A32F477184348C100704D26 /* PageControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PageControl.h; sourceTree = "<group>"; };
 		9A32F478184348C100704D26 /* PageControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PageControl.m; sourceTree = "<group>"; };
-		9A32F47B18434ECF00704D26 /* SGAdsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGAdsViewController.h; sourceTree = "<group>"; };
-		9A32F47C18434ECF00704D26 /* SGAdsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGAdsViewController.m; sourceTree = "<group>"; };
-		9A32F47D18434ECF00704D26 /* SGAdsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SGAdsViewController.xib; sourceTree = "<group>"; };
 		9A32F48118434F2000704D26 /* SGSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGSettingViewController.h; sourceTree = "<group>"; };
 		9A32F48218434F2000704D26 /* SGSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGSettingViewController.m; sourceTree = "<group>"; };
 		9A32F48318434F2000704D26 /* SGSettingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SGSettingViewController.xib; sourceTree = "<group>"; };
@@ -2826,7 +2821,6 @@
 				9A0F757A187152DB00160E54 /* Shop */,
 				9A9FCB8518544C2C004A3CFB /* Store */,
 				9A32F48018434F2000704D26 /* Setting */,
-				9A32F47A18434ECF00704D26 /* Ads */,
 				9A32F424184346D700704D26 /* Loading */,
 				9A32F3FC1843460F00704D26 /* Notification */,
 				9A32F3FD1843460F00704D26 /* Other */,
@@ -3075,16 +3069,6 @@
 				9A32F478184348C100704D26 /* PageControl.m */,
 			);
 			path = PageConrol;
-			sourceTree = "<group>";
-		};
-		9A32F47A18434ECF00704D26 /* Ads */ = {
-			isa = PBXGroup;
-			children = (
-				9A32F47B18434ECF00704D26 /* SGAdsViewController.h */,
-				9A32F47C18434ECF00704D26 /* SGAdsViewController.m */,
-				9A32F47D18434ECF00704D26 /* SGAdsViewController.xib */,
-			);
-			path = Ads;
 			sourceTree = "<group>";
 		};
 		9A32F48018434F2000704D26 /* Setting */ = {
@@ -5217,7 +5201,6 @@
 				9A616D041843BE5000201642 /* background_ads@2x.png in Resources */,
 				9ACE90771875BC81008FEA7E /* II-5-SearchPlaylist.jpg in Resources */,
 				9A0F7626187152DB00160E54 /* ShopDetailInfoViewController.xib in Resources */,
-				9A32F47F18434ECF00704D26 /* SGAdsViewController.xib in Resources */,
 				9A9FCBFC1854ED8C004A3CFB /* II-7-Notification.jpg in Resources */,
 				9ACF7A5618694D4F00B0BC78 /* pin_drag.png in Resources */,
 				9A9BDEDE187E8E3A00D45167 /* button_arrow_left_home.png in Resources */,
@@ -5658,7 +5641,6 @@
 				9A28390E1890CCDA00C7BB35 /* ShopGalleryFullViewController.m in Sources */,
 				9AC53810186855AC009A000B /* LabelURL.m in Sources */,
 				9ACA42F5186D3BF3008D89BC /* _UserHome8.m in Sources */,
-				9A32F47E18434ECF00704D26 /* SGAdsViewController.m in Sources */,
 				9ACF7AA718698E4100B0BC78 /* _UserHome7.m in Sources */,
 				9A0F7625187152DB00160E54 /* ShopDetailInfoViewController.m in Sources */,
 				9ACF7A8918698E3700B0BC78 /* UserHome1.m in Sources */,

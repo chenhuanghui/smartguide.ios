@@ -110,4 +110,9 @@
     return true;
 }
 
++(NSString *)screenCode
+{
+    return SCREEN_CODE_UNKNOW;
+}
+
 @end

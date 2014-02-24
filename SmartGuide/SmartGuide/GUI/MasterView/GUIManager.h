@@ -9,7 +9,6 @@
 #import <Foundation/Foundation.h>
 #import "DataManager.h"
 #import "SGToolbarViewController.h"
-#import "SGAdsViewController.h"
 #import "SGQRCodeViewController.h"
 #import "SGSettingViewController.h"
 #import "SGUserViewController.h"
@@ -59,7 +58,6 @@
 @property (nonatomic, weak, readonly) SGRootViewController *rootViewController;
 @property (nonatomic, weak, readonly) SGToolbarViewController *toolbarController;
 @property (nonatomic, weak, readonly) SGNavigationController *contentNavigation;
-@property (nonatomic, weak, readonly) SGAdsViewController *adsController;
 @property (nonatomic, weak, readonly) SGQRCodeViewController *qrCodeController;
 @property (nonatomic, weak, readonly) ShopUserViewController *shopUserController;
 @property (nonatomic, weak, readonly) SGUserViewController *userController;

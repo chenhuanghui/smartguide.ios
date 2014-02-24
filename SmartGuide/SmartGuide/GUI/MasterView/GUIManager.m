@@ -22,7 +22,7 @@ static GUIManager *_shareInstance=nil;
 @end
 
 @implementation GUIManager
-@synthesize mainWindow,rootNavigation,rootViewController,toolbarController,contentNavigation,adsController,qrCodeController,userController,tutorialController,notificationController,presentedViewController,storeController,userPromotionControlelr,userSettingController;
+@synthesize mainWindow,rootNavigation,rootViewController,toolbarController,contentNavigation,qrCodeController,userController,tutorialController,notificationController,presentedViewController,storeController,userPromotionControlelr,userSettingController;
 @synthesize previousViewController;
 @synthesize shopUserController;
 
@@ -175,15 +175,6 @@ static GUIManager *_shareInstance=nil;
     userController=vc;
     
     [self.contentNavigation pushViewController:vc animated:false];
-}
-
-
--(void) loadAds
-{
-    SGAdsViewController *vc=[[SGAdsViewController alloc] init];
-    adsController=vc;
-    
-    [rootViewController addChildViewController:vc];
 }
 
 -(void)toolbarSetting

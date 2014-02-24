@@ -164,7 +164,7 @@
 {
     if(_operationPlacelistGetList)
     {
-        [_operationPlacelistGetList cancel];
+        [_operationPlacelistGetList clearDelegatesAndCancel];
         _operationPlacelistGetList=nil;
     }
     
@@ -623,13 +623,13 @@
     
     if(_operationPlacelistGetList)
     {
-        [_operationPlacelistGetList cancel];
+        [_operationPlacelistGetList clearDelegatesAndCancel];
         _operationPlacelistGetList=nil;
     }
     
     if(_operationShopUser)
     {
-        [_operationShopUser cancel];
+        [_operationShopUser clearDelegatesAndCancel];
         _operationShopUser=nil;
     }
 }
