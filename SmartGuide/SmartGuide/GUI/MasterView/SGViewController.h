@@ -69,6 +69,8 @@
 #define SCREEN_CODE_RECOMMENDATION @"S020" //màn hình Search lúc chưa nhập keyword
 #define SCREEN_CODE_USER_PROMOTION_LIST @"S021"
 
+@class SGViewController;
+
 @interface SGViewController : UIViewController<SGViewControllerHandle>
 {
     bool _viewWillAppear;
@@ -85,5 +87,14 @@
 +(NSString*) screenCode;
 
 @property (nonatomic, weak) id<SGViewControllerDelegate> delegate;
+
+@end
+
+@interface SGViewController(PresentViewController)
+
+@property (nonatomic, readwrite, weak) SGViewController *presentSGViewControlelr;
+
+-(void)presentSGViewController:(SGViewController *)viewControllerToPresent completion:(void (^)(void))completion;
+-(void)dismissSGViewControllerCompletion:(void (^)(void))completion;
 
 @end

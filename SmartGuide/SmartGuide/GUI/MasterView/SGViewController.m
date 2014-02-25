@@ -7,6 +7,9 @@
 //
 
 #import "SGViewController.h"
+#import <objc/runtime.h>
+
+static char presentSGViewControlelrKey;
 
 @interface SGViewController ()
 
@@ -129,6 +132,57 @@
 
 -(void)storeRect
 {
+}
+
+@end
+
+@implementation SGViewController(PresentViewController)
+
+-(SGViewController *)presentSGViewControlelr
+{
+    return objc_getAssociatedObject(self, &presentSGViewControlelrKey);
+}
+
+-(void)setPresentSGViewControlelr:(SGViewController *)presentSGViewControlelr
+{
+    objc_setAssociatedObject(self, &presentSGViewControlelrKey, presentSGViewControlelr, OBJC_ASSOCIATION_ASSIGN);
+}
+
+-(void)presentSGViewController:(SGViewController *)viewControllerToPresent completion:(void (^)(void))completion
+{
+    self.presentSGViewControlelr=viewControllerToPresent;
+    
+    [self addChildViewController:viewControllerToPresent];
+    
+    [viewControllerToPresent view];
+    [viewControllerToPresent l_v_setS:self.l_v_s];
+    
+    [viewControllerToPresent l_v_setY:-viewControllerToPresent.l_v_h];
+    [self.view addSubview:viewControllerToPresent.view];
+    [viewControllerToPresent viewWillAppear:true];
+    
+    [UIView animateWithDuration:DURATION_PRESENT_VIEW_CONTROLLER animations:^{
+        [viewControllerToPresent l_v_setY:0];
+    } completion:^(BOOL finished) {
+        [viewControllerToPresent viewDidAppear:true];
+    }];
+}
+
+-(void)dismissSGViewControllerCompletion:(void (^)(void))completion
+{
+    if(!self.presentSGViewControlelr)
+        return;
+    
+    [self.presentSGViewControlelr viewWillDisappear:true];
+    [UIView animateWithDuration:DURATION_PRESENT_VIEW_CONTROLLER animations:^{
+        [self.presentSGViewControlelr l_v_setY:-self.presentSGViewControlelr.l_v_h];
+    } completion:^(BOOL finished) {
+        
+        [self.presentSGViewControlelr viewDidDisappear:true];
+        [self.presentSGViewControlelr.view removeFromSuperview];
+        [self.presentSGViewControlelr removeFromParentViewController];
+        self.presentSGViewControlelr=nil;
+    }];
 }
 
 @end
