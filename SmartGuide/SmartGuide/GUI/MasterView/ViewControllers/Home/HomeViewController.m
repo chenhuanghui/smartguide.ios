@@ -504,9 +504,9 @@
 
 - (IBAction)btnShowQRCodeTouchUpInside:(id)sender {
     if(sender==btnScanBig)
-        [self showQRCodeWithContorller:self inView:self.view withAnimationType:QRCODE_ANIMATION_TOP];
+        [self showQRCodeWithContorller:self inView:self.view withAnimationType:QRCODE_ANIMATION_TOP screenCode:[HomeViewController screenCode]];
     else
-        [self showQRCodeWithContorller:self inView:self.view withAnimationType:QRCODE_ANIMATION_TOP_BOT];
+        [self showQRCodeWithContorller:self inView:self.view withAnimationType:QRCODE_ANIMATION_TOP_BOT screenCode:[HomeViewController screenCode]];
 }
 
 -(void)qrcodeControllerRequestClose:(SGQRCodeViewController *)controller

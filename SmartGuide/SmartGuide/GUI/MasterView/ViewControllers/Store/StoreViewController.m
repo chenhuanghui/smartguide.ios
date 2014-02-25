@@ -77,7 +77,7 @@
 
 -(void) tapQR:(UITapGestureRecognizer*) tap
 {
-    [self showQRCodeWithContorller:self inView:qrView withAnimationType:QRCODE_ANIMATION_TOP];
+    [self showQRCodeWithContorller:self inView:qrView withAnimationType:QRCODE_ANIMATION_TOP screenCode:SCREEN_CODE_STORE_LIST];
 }
 
 - (void)didReceiveMemoryWarning

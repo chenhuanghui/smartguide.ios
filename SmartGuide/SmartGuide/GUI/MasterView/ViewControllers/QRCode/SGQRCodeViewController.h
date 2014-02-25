@@ -67,7 +67,7 @@ enum QRCODE_ANIMATION_TYPE {
 @interface SGViewController(QRCode)<SGQRCodeControllerDelegate>
 @property (nonatomic, readwrite, weak) SGQRCodeViewController *qrController;
 
--(void) showQRCodeWithContorller:(SGViewController<SGQRCodeControllerDelegate>*) controller inView:(UIView*) view withAnimationType:(enum QRCODE_ANIMATION_TYPE) animationType;
+-(void) showQRCodeWithContorller:(SGViewController<SGQRCodeControllerDelegate>*) controller inView:(UIView*) view withAnimationType:(enum QRCODE_ANIMATION_TYPE) animationType screenCode:(NSString*) screenCode;
 -(void)qrcodeControllerFinished:(SGQRCodeViewController *)controller;
 
 @end

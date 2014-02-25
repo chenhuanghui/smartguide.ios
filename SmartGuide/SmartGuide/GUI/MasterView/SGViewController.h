@@ -65,6 +65,7 @@
 #define SCREEN_CODE_SOCIAL @"S018"
 #define SCREEN_CODE_REGISTER_USER @"S019"
 #define SCREEN_CODE_RECOMMENDATION @"S020" //màn hình Search lúc chưa nhập keyword
+#define SCREEN_CODE_USER_PROMOTION_LIST @"S021"
 
 @interface SGViewController : UIViewController<SGViewControllerHandle>
 

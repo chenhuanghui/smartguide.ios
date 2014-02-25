@@ -113,11 +113,16 @@
 }
 
 - (IBAction)btnScanBigTouchUpInside:(id)sender {
-    [self showQRCodeWithContorller:self inView:self.view withAnimationType:QRCODE_ANIMATION_TOP];
+    [self showQRCodeWithContorller:self inView:self.view withAnimationType:QRCODE_ANIMATION_TOP screenCode:[UserPromotionViewController screenCode]];
 }
 
 - (IBAction)btnScanSmallTouchUpInside:(id)sender {
-    [self showQRCodeWithContorller:self inView:self.view withAnimationType:QRCODE_ANIMATION_TOP_BOT];
+    [self showQRCodeWithContorller:self inView:self.view withAnimationType:QRCODE_ANIMATION_TOP_BOT screenCode:[UserPromotionViewController screenCode]];
+}
+
++(NSString *)screenCode
+{
+    return SCREEN_CODE_USER_PROMOTION_LIST;
 }
 
 - (IBAction)btnSettingTouchUpInside:(id)sender {

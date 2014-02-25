@@ -1584,11 +1584,11 @@
 }
 
 - (IBAction)btnScanBigTouchUpInside:(id)sender {
-    [self showQRCodeWithContorller:self inView:self.view withAnimationType:QRCODE_ANIMATION_TOP];
+    [self showQRCodeWithContorller:self inView:self.view withAnimationType:QRCODE_ANIMATION_TOP screenCode:[ShopListViewController screenCode]];
 }
 
 - (IBAction)btnScanSmallTouchUpInside:(id)sender {
-    [self showQRCodeWithContorller:self inView:self.view withAnimationType:QRCODE_ANIMATION_TOP_BOT];
+    [self showQRCodeWithContorller:self inView:self.view withAnimationType:QRCODE_ANIMATION_TOP_BOT screenCode:[ShopListViewController screenCode]];
 }
 
 

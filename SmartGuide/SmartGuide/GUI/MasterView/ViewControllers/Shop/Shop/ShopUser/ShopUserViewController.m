@@ -721,7 +721,6 @@
 {
     _operationShopComment=[[ASIOperationShopComment alloc] initWithIDShop:_shop.idShop.integerValue page:_pageComment+1 sort:_sortComment];
     _operationShopComment.delegatePost=self;
-    _opeartionPostComment.fScreen=[ShopUserViewController screenCode];
     
     [_operationShopComment startAsynchronous];
 }
@@ -747,7 +746,6 @@
     
     _opeartionPostComment=[[ASIOperationPostComment alloc] initWithIDShop:_shop.idShop.integerValue userLat:userLat() userLng:userLng() comment:comment sort:_sortComment];
     _opeartionPostComment.delegatePost=self;
-    _opeartionPostComment.fScreen=[ShopUserViewController screenCode];
     
     [_opeartionPostComment startAsynchronous];
     
@@ -755,7 +753,6 @@
     {
         _operationSocialShare=[[ASIOperationSocialShare alloc] initWithContent:comment url:nil image:nil accessToken:[FBSession activeSession].accessTokenData.accessToken socialType:SOCIAL_FACEBOOK];
         _operationSocialShare.delegatePost=self;
-        _operationSocialShare.fScreen=[ShopUserViewController screenCode];
         
         [_operationSocialShare startAsynchronous];
     }
@@ -991,12 +988,12 @@
 
 -(void)km1TouchedScan:(SUKM1Cell *)km1
 {
-    [self showQRCodeWithContorller:self inView:self.view withAnimationType:QRCODE_ANIMATION_TOP_BOT];
+    [self showQRCodeWithContorller:self inView:self.view withAnimationType:QRCODE_ANIMATION_TOP_BOT screenCode:[ShopUserViewController screenCode]];
 }
 
 -(void)km2TouchedScan:(SUKM2Cell *)cell
 {
-    [self showQRCodeWithContorller:self inView:self.view withAnimationType:QRCODE_ANIMATION_TOP_BOT];
+    [self showQRCodeWithContorller:self inView:self.view withAnimationType:QRCODE_ANIMATION_TOP_BOT screenCode:[ShopUserViewController screenCode]];
 }
 
 @end

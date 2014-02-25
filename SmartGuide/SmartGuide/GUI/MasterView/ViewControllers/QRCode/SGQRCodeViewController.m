@@ -408,10 +408,16 @@
     [self close];
 }
 
++(NSString *)screenCode
+{
+    return SCREEN_CODE_SCAN_CODE;
+}
+
 -(void) close
 {
     __block void(^_animationCompleted)()=^()
     {
+        [SGData shareInstance].fScreen=[SGQRCodeViewController screenCode];
         [self.delegate qrcodeControllerFinished:self];
         
         [self.view removeFromSuperview];
@@ -494,8 +500,9 @@ static char SGQRControllerObjectKey;
     return objc_getAssociatedObject(self, &SGQRControllerObjectKey);
 }
 
--(void)showQRCodeWithContorller:(SGViewController<SGQRCodeControllerDelegate> *)controller inView:(UIView *)view withAnimationType:(enum QRCODE_ANIMATION_TYPE)animationType
+-(void)showQRCodeWithContorller:(SGViewController<SGQRCodeControllerDelegate> *)controller inView:(UIView *)view withAnimationType:(enum QRCODE_ANIMATION_TYPE)animationType screenCode:(NSString *)screenCode
 {
+    [SGData shareInstance].fScreen=screenCode;
     SGQRCodeViewController *qr=[SGQRCodeViewController new];
     qr.delegate=controller;
     qr.containView=view;
