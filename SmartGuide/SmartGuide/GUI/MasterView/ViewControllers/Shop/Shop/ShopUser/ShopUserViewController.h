@@ -107,7 +107,7 @@ enum SHOP_USER_MODE {
     int _pageComment;
     
     bool _isKeyboardShowed;
-    bool _viewWillAppear;
+    bool _isDiplayView;
 }
 
 -(ShopUserViewController*) initWithShopUser:(Shop*) shop;

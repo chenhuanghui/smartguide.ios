@@ -22,7 +22,7 @@ static GUIManager *_shareInstance=nil;
 @end
 
 @implementation GUIManager
-@synthesize mainWindow,rootNavigation,rootViewController,toolbarController,contentNavigation,qrCodeController,userController,tutorialController,notificationController,presentedViewController,storeController,userPromotionControlelr,userSettingController;
+@synthesize mainWindow,rootNavigation,rootViewController,toolbarController,contentNavigation,qrCodeController,userController,tutorialController,notificationController,storeController,userPromotionControlelr,userSettingController;
 @synthesize previousViewController;
 @synthesize shopUserController;
 
@@ -402,62 +402,64 @@ static GUIManager *_shareInstance=nil;
 
 -(void)presentViewController:(SGViewController *)viewController
 {
-    presentedViewController=viewController;
-    
-    [self.contentNavigation addChildViewController:viewController];
-    
-    [viewController l_v_setH:self.contentNavigation.l_v_h];
-    
-    viewController.view.center=CGPointMake(self.contentNavigation.l_v_w/2, -self.contentNavigation.l_v_h/2);
-    [viewController l_c_setY:-self.contentNavigation.l_v_h/2];
-    
-    [self.contentNavigation.view alphaViewWithColor:[UIColor clearColor]];
-    
-    [self.contentNavigation.view addSubview:viewController.view];
-    
-    [UIView animateWithDuration:DURATION_DEFAULT animations:^{
-        
-        [viewController l_c_setY:self.contentNavigation.l_v_h/2];
-    }];
+    [self.contentNavigation presentSGViewController:viewController completion:nil];
+//    [self.contentNavigation addChildViewController:viewController];
+//    
+//    [viewController l_v_setH:self.contentNavigation.l_v_h];
+//    
+//    viewController.view.center=CGPointMake(self.contentNavigation.l_v_w/2, -self.contentNavigation.l_v_h/2);
+//    [viewController l_c_setY:-self.contentNavigation.l_v_h/2];
+//    
+//    [self.contentNavigation.view alphaViewWithColor:[UIColor clearColor]];
+//    
+//    [self.contentNavigation.view addSubview:viewController.view];
+//    
+//    [UIView animateWithDuration:DURATION_DEFAULT animations:^{
+//        
+//        [viewController l_c_setY:self.contentNavigation.l_v_h/2];
+//    }];
 }
 
 -(void) dimissPresentedViewControllerAnimated:(bool) animated onCompleted:(void(^)()) onCompleted
 {
-    if(!presentedViewController)
-        return;
-    
-    void(^_onCompleted)()=[onCompleted copy];
-    
-    if(animated)
-    {
-        [UIView animateWithDuration:DURATION_DEFAULT animations:^{
-            self.contentNavigation.view.alphaView.alpha=0;
-            [presentedViewController l_c_setY:-self.contentNavigation.l_v_h/2];
-        } completion:^(BOOL finished) {
-            
-            [self.contentNavigation.view removeAlphaView];
-            
-            [presentedViewController.view removeFromSuperview];
-            [presentedViewController removeFromParentViewController];
-            presentedViewController=nil;
-            
-            if(_onCompleted)
-            {
-                _onCompleted();
-            }
-        }];
-    }
-    else
-    {
-        [self.contentNavigation.view removeAlphaView];
-        
-        [presentedViewController.view removeFromSuperview];
-        [presentedViewController removeFromParentViewController];
-        presentedViewController=nil;
-        
-        if(_onCompleted)
-            _onCompleted();
-    }
+    [self.contentNavigation dismissSGViewControllerCompletion:onCompleted];
+//    if(!presentedViewController)
+//        return;
+//    
+//    [self.contentNavigation dismissModalViewControllerAnimated:true];
+//    
+//    void(^_onCompleted)()=[onCompleted copy];
+//    
+//    if(animated)
+//    {
+//        [UIView animateWithDuration:DURATION_DEFAULT animations:^{
+//            self.contentNavigation.view.alphaView.alpha=0;
+//            [presentedViewController l_c_setY:-self.contentNavigation.l_v_h/2];
+//        } completion:^(BOOL finished) {
+//            
+//            [self.contentNavigation.view removeAlphaView];
+//            
+//            [presentedViewController.view removeFromSuperview];
+//            [presentedViewController removeFromParentViewController];
+//            presentedViewController=nil;
+//            
+//            if(_onCompleted)
+//            {
+//                _onCompleted();
+//            }
+//        }];
+//    }
+//    else
+//    {
+//        [self.contentNavigation.view removeAlphaView];
+//        
+//        [presentedViewController.view removeFromSuperview];
+//        [presentedViewController removeFromParentViewController];
+//        presentedViewController=nil;
+//        
+//        if(_onCompleted)
+//            _onCompleted();
+//    }
 }
 
 -(void)dismissPresentedViewController:(void (^)())onCompleted
@@ -560,7 +562,7 @@ static GUIManager *_shareInstance=nil;
 {
     AuthorizationViewController *author=[AuthorizationViewController new];
     author.delegate=self;
-    
+
     if(transition)
         [self.rootNavigation pushViewController:author withTransition:transition];
     else

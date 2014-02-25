@@ -56,8 +56,6 @@
     [detailView addSubview:shopNavi.view];
     [shopNavi l_v_setS:detailView.l_v_s];
     
-    [self storeRect];
-    
     [tableShopUser registerNib:[UINib nibWithNibName:[SUShopGalleryCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[SUShopGalleryCell reuseIdentifier]];
     [tableShopUser registerNib:[UINib nibWithNibName:[SUKM1Cell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[SUKM1Cell reuseIdentifier]];
     [tableShopUser registerNib:[UINib nibWithNibName:[SUKM2Cell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[SUKM2Cell reuseIdentifier]];
@@ -124,20 +122,20 @@
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    _viewWillAppear=false;
+    _isDiplayView=false;
 }
 
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    _viewWillAppear=true;
+    _isDiplayView=true;
 }
 
 -(void)receiveNotification:(NSNotification *)notification
 {
     if([notification.name isEqualToString:UIKeyboardWillShowNotification])
     {
-        if(!_viewWillAppear)
+        if(!_isDiplayView)
             return;
         
         float duration=[notification.userInfo floatForKey:UIKeyboardAnimationDurationUserInfoKey];
@@ -156,7 +154,7 @@
     }
     else if([notification.name isEqualToString:UIKeyboardWillHideNotification])
     {
-        if(!_viewWillAppear)
+        if(!_isDiplayView)
             return;
         
         NSLog(@"UIKeyboardWillHideNotification");
@@ -165,14 +163,14 @@
     }
     else if([notification.name isEqualToString:UIKeyboardDidShowNotification])
     {
-        if(!_viewWillAppear)
+        if(!_isDiplayView)
             return;
         
         _isKeyboardShowed=true;
     }
     else if([notification.name isEqualToString:UIKeyboardDidHideNotification])
     {
-        if(!_viewWillAppear)
+        if(!_isDiplayView)
             return;
         
         _isKeyboardShowed=false;

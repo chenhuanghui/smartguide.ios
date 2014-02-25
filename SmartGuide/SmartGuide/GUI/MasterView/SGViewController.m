@@ -136,7 +136,7 @@ static char presentSGViewControlelrKey;
 
 @end
 
-@implementation SGViewController(PresentViewController)
+@implementation UIViewController(PresentViewController)
 
 -(SGViewController *)presentSGViewControlelr
 {
@@ -173,6 +173,11 @@ static char presentSGViewControlelrKey;
     if(!self.presentSGViewControlelr)
         return;
     
+    __block void(^_completion)()=nil;
+    
+    if(completion)
+        _completion=[completion copy];
+    
     [self.presentSGViewControlelr viewWillDisappear:true];
     [UIView animateWithDuration:DURATION_PRESENT_VIEW_CONTROLLER animations:^{
         [self.presentSGViewControlelr l_v_setY:-self.presentSGViewControlelr.l_v_h];
@@ -182,6 +187,12 @@ static char presentSGViewControlelrKey;
         [self.presentSGViewControlelr.view removeFromSuperview];
         [self.presentSGViewControlelr removeFromParentViewController];
         self.presentSGViewControlelr=nil;
+        
+        if(_completion)
+        {
+            _completion();
+            _completion=nil;
+        }
     }];
 }
 

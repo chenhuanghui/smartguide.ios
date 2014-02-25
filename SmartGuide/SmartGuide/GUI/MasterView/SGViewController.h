@@ -90,7 +90,7 @@
 
 @end
 
-@interface SGViewController(PresentViewController)
+@interface UIViewController(PresentViewController)
 
 @property (nonatomic, readwrite, weak) SGViewController *presentSGViewControlelr;
 
