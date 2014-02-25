@@ -40,6 +40,7 @@
     bool _isAnimating;
     
     NSArray *_comments;
+    __weak Shop* _shop;
 }
 
 -(void) loadWithShop:(Shop*) shop sort:(enum SORT_SHOP_COMMENT) sort maxHeight:(float) height;

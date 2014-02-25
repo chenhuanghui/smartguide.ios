@@ -55,4 +55,12 @@
     }
 }
 
+-(Shop *)shop
+{
+    if(self.shopTime)
+        return self.shopTime;
+    
+    return self.shopTime;
+}
+
 @end

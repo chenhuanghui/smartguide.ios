@@ -10,7 +10,7 @@
 
 @interface OperationGetActionCode : OperationURL
 
--(OperationGetActionCode*) initWithPhone:(NSString*) phone;
+-(OperationGetActionCode*) initWithPhone:(NSString*) phone fScreen:(NSString*) fScreen fData:(NSDictionary*) fData;
 
 @property (nonatomic, readonly) bool isSuccess;
 @property (nonatomic, readonly) NSString *message;

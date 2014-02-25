@@ -61,7 +61,7 @@
     _homes=[NSMutableArray array];
     _isLoadingMore=false;
     _canLoadMore=true;
-    
+
     [self requestNewFeed];
     
     [displayLoadingView showLoading];
@@ -177,6 +177,7 @@
 
 -(IBAction) btnNavigationTouchedUpInside:(id)sender
 {
+    [SGData shareInstance].fScreen=[HomeViewController screenCode];
     [self.delegate homeControllerTouchedNavigation:self];
 }
 

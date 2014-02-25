@@ -1283,13 +1283,31 @@ NSString *documentPath()
 
 -(NSData *)json
 {
+    if(self.allKeys.count==0 || self.allValues.count==0)
+        return nil;
+    
     NSError *error=nil;
     NSData *data=[NSJSONSerialization dataWithJSONObject:self options:NSJSONWritingPrettyPrinted error:&error];
     
     if(error)
+    {
+        data=nil;
         NSLog(@"NSDictionary json error %@ %@",error,self);
+    }
     
     return data;
+}
+
+-(NSString *)jsonString
+{
+    NSData *data=[self json];
+    
+    if(data.length>0)
+    {
+        return [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    }
+    
+    return @"";
 }
 
 @end

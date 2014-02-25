@@ -101,7 +101,11 @@
 
     if(currentUser().enumDataMode==USER_DATA_TRY)
     {
-        [[GUIManager shareInstance] showLoginDialogWithMessage:localizeLoginRequire() onOK:nil onCancelled:nil onLogined:^(bool isLogined) {
+        [[GUIManager shareInstance] showLoginDialogWithMessage:localizeLoginRequire() onOK:^
+        {
+            [SGData shareInstance].fScreen=SCREEN_CODE_SHOP_LIST;
+            [[SGData shareInstance].fData setObject:_shop.idShop forKey:IDSHOP];
+        } onCancelled:nil onLogined:^(bool isLogined) {
             if(isLogined)
                 [self love_unlove];
         }];
@@ -110,7 +114,13 @@
     
     if(currentUser().enumDataMode==USER_DATA_CREATING)
     {
-        [[GUIManager shareInstance] showLoginDialogWithMessage:localizeUserProfileRequire() onOK:nil onCancelled:nil onLogined:^(bool isLogined) {
+        [SGData shareInstance].fScreen=SCREEN_CODE_SHOP_LIST;
+        [[SGData shareInstance].fData setObject:_shop.idShop forKey:IDSHOP];
+        [[GUIManager shareInstance] showLoginDialogWithMessage:localizeUserProfileRequire() onOK:^
+        {
+            [SGData shareInstance].fScreen=SCREEN_CODE_SHOP_LIST;
+            [[SGData shareInstance].fData setObject:_shop.idShop forKey:IDSHOP];
+        } onCancelled:nil onLogined:^(bool isLogined) {
             if(isLogined)
                 [self love_unlove];
         }];
@@ -125,7 +135,11 @@
 {
     if(currentUser().enumDataMode==USER_DATA_TRY)
     {
-        [[GUIManager shareInstance] showLoginDialogWithMessage:localizeLoginRequire() onOK:nil onCancelled:nil onLogined:^(bool isLogined) {
+        [[GUIManager shareInstance] showLoginDialogWithMessage:localizeLoginRequire() onOK:^
+        {
+            [SGData shareInstance].fScreen=SCREEN_CODE_SHOP_LIST;
+            [[SGData shareInstance].fData setObject:_shop.idShop forKey:IDSHOP];
+        } onCancelled:nil onLogined:^(bool isLogined) {
             if(isLogined)
                 [self add_removeShop];
         }];
@@ -134,7 +148,14 @@
     
     if(currentUser().enumDataMode==USER_DATA_CREATING)
     {
-        [[GUIManager shareInstance] showLoginDialogWithMessage:localizeUserProfileRequire() onOK:nil onCancelled:nil onLogined:^(bool isLogined) {
+        [SGData shareInstance].fScreen=SCREEN_CODE_SHOP_LIST;
+        [[SGData shareInstance].fData setObject:_shop.idShop forKey:IDSHOP];
+        
+        [[GUIManager shareInstance] showLoginDialogWithMessage:localizeUserProfileRequire() onOK:^
+        {
+            [SGData shareInstance].fScreen=SCREEN_CODE_SHOP_LIST;
+            [[SGData shareInstance].fData setObject:_shop.idShop forKey:IDSHOP];
+        } onCancelled:nil onLogined:^(bool isLogined) {
             if(isLogined)
                 [self add_removeShop];
         }];

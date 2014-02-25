@@ -180,7 +180,11 @@
 {
     if(currentUser().enumDataMode==USER_DATA_TRY)
     {
-        [[GUIManager shareInstance] showLoginDialogWithMessage:localizeLoginRequire() onOK:nil onCancelled:nil onLogined:^(bool isLogined) {
+        [[GUIManager shareInstance] showLoginDialogWithMessage:localizeLoginRequire() onOK:^
+        {
+            [SGData shareInstance].fScreen=SCREEN_CODE_SHOP_USER_LOVE_SHOP;
+            [[SGData shareInstance].fData setObject:_shop.idShop forKey:IDSHOP];
+        } onCancelled:nil onLogined:^(bool isLogined) {
             if(isLogined)
                 [self love];
         }];
@@ -189,7 +193,11 @@
     }
     else if(currentUser().enumDataMode==USER_DATA_CREATING)
     {
-        [[GUIManager shareInstance] showLoginDialogWithMessage:localizeUserProfileRequire() onOK:nil onCancelled:nil onLogined:^(bool isLogined) {
+        [[GUIManager shareInstance] showLoginDialogWithMessage:localizeUserProfileRequire() onOK:^
+        {
+            [SGData shareInstance].fScreen=SCREEN_CODE_SHOP_USER_LOVE_SHOP;
+            [[SGData shareInstance].fData setObject:_shop.idShop forKey:IDSHOP];
+        } onCancelled:nil onLogined:^(bool isLogined) {
             if(isLogined)
                 [self love];
         }];

@@ -262,6 +262,7 @@ NSString *documentPath();
 
 -(NSString*) makeParamsHTTPGET;
 -(NSData*) json;
+-(NSString*) jsonString;
 
 @end
 @interface NSURLRequest(Utility)

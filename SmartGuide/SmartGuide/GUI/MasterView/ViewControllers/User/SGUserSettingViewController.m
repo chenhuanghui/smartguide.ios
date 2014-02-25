@@ -145,7 +145,15 @@
         [self.view showLoading];
     }
     else
+    {
+        [SGData shareInstance].fScreen=[SGUserSettingViewController screenCode];
         [self.delegate userSettingControllerFinished:self];
+    }
+}
+
++(NSString *)screenCode
+{
+    return SCREEN_CODE_USER_SETTING;
 }
 
 -(void)ASIOperaionPostFinished:(ASIOperationPost *)operation
@@ -158,6 +166,7 @@
         
         if(ope.status==1)
         {
+            [SGData shareInstance].fScreen=[SGUserSettingViewController screenCode];
             [self.delegate userSettingControllerFinished:self];
         }
         
@@ -194,11 +203,15 @@
             [self finishUpdate];
         } onCancel:^{
             [currentUser() revert];
+            [SGData shareInstance].fScreen=[SGUserSettingViewController screenCode];
             [self.delegate userSettingControllerTouchedSetting:self];
         }];
     }
     else
+    {
+        [SGData shareInstance].fScreen=[SGUserSettingViewController screenCode];
         [self.delegate userSettingControllerTouchedSetting:self];
+    }
 }
 
 - (IBAction)btnAvatarTouchUpInside:(id)sender {

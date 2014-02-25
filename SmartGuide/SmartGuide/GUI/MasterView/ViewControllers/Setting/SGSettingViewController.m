@@ -37,6 +37,18 @@
     lblName.text=currentUser().name;
 }
 
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    [SGData shareInstance].fScreen=[SGSettingViewController screenCode];
+}
+
++(NSString *)screenCode
+{
+    return SCREEN_CODE_NAVIGATION;
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -57,10 +69,6 @@
 
 - (IBAction)btnStoreTouchUpInside:(id)sender {
     [self.delegate settingTouchedStore:self];
-}
-
-- (IBAction)otherView:(id)sender {
-    [self.delegate settingTouchedOtherView:self];
 }
 
 - (IBAction)btnPromotionTouchUpInside:(id)sender {

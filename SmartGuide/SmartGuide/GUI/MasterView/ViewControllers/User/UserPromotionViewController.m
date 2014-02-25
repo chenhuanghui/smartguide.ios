@@ -126,6 +126,7 @@
 }
 
 - (IBAction)btnSettingTouchUpInside:(id)sender {
+    [SGData shareInstance].fScreen=[UserPromotionViewController screenCode];
     [self.delegate userPromotionTouchedNavigation:self];
 }
 

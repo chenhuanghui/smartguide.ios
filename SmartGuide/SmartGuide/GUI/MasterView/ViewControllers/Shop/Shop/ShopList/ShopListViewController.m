@@ -255,6 +255,12 @@
     if(shop)
     {
         [SGData shareInstance].fScreen=[ShopListViewController screenCode];
+        
+        if(txt.text.length>0)
+            [[SGData shareInstance].fData setObject:txt.text forKey:@"keywords"];
+        if(_idShops.length>0)
+            [[SGData shareInstance].fData setObject:_idShops forKey:@"idShops"];
+        
         [[GUIManager shareInstance] presentShopUserWithShopList:shop];
     }
 }

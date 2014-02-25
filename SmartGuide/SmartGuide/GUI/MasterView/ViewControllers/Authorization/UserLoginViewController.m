@@ -156,7 +156,13 @@
 
 -(void) finishLogin
 {
+    [SGData shareInstance].fScreen=[UserLoginViewController screenCode];
     [self.delegate userLoginSuccessed];
+}
+
++(NSString *)screenCode
+{
+    return SCREEN_CODE_LOGIN;
 }
 
 -(void)ASIOperaionPostFailed:(ASIOperationPost *)operation
@@ -195,7 +201,7 @@
         NSString *phone=txtPhone.text;
         phone=[@"84" stringByAppendingString:phone];
         
-        _operationGetActionCode=[[OperationGetActionCode alloc] initWithPhone:phone];
+        _operationGetActionCode=[[OperationGetActionCode alloc] initWithPhone:phone fScreen:[SGData shareInstance].fScreen fData:[SGData shareInstance].fData];
         _operationGetActionCode.delegate=self;
         
         [_operationGetActionCode start];

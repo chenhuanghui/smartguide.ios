@@ -22,6 +22,7 @@
 {
     //    cmtTyping.sortComment=sort;
     
+    _shop=shop;
     _sort=sort;
     [btnSort setTitle:localizeSortComment(_sort) forState:UIControlStateNormal];
     
@@ -370,7 +371,11 @@
     {
         if(currentUser().enumDataMode==USER_DATA_TRY)
         {
-            [[GUIManager shareInstance] showLoginDialogWithMessage:localizeLoginRequire() onOK:nil onCancelled:nil onLogined:^(bool isLogined) {
+            [[GUIManager shareInstance] showLoginDialogWithMessage:localizeLoginRequire() onOK:^
+            {
+                [SGData shareInstance].fScreen=SCREEN_CODE_SHOP_USER_COMMENT_SEND;
+                [[SGData shareInstance].fData setObject:_shop.idShop forKey:IDSHOP];
+            } onCancelled:nil onLogined:^(bool isLogined) {
                 if(isLogined)
                     [self.delegate userCommentUserComment:self comment:txt.text isShareFacebook:currentUser().allowShareCommentFB.boolValue];
             }];
@@ -379,7 +384,11 @@
         }
         else if(currentUser().enumDataMode==USER_DATA_CREATING)
         {
-            [[GUIManager shareInstance] showLoginDialogWithMessage:localizeUserProfileRequire() onOK:nil onCancelled:nil onLogined:^(bool isLogined) {
+            [[GUIManager shareInstance] showLoginDialogWithMessage:localizeUserProfileRequire() onOK:^
+            {
+                [SGData shareInstance].fScreen=SCREEN_CODE_SHOP_USER_COMMENT_SEND;
+                [[SGData shareInstance].fData setObject:_shop.idShop forKey:IDSHOP];
+            } onCancelled:nil onLogined:^(bool isLogined) {
                 if(isLogined)
                     [self.delegate userCommentUserComment:self comment:txt.text isShareFacebook:currentUser().allowShareCommentFB.boolValue];
             }];

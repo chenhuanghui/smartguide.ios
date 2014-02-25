@@ -226,7 +226,10 @@
     
     if(false && currentUser().enumDataMode==USER_DATA_TRY)
     {
-        [[GUIManager shareInstance] showLoginDialogWithMessage:localizeLoginRequire() onOK:nil onCancelled:^{
+        [[GUIManager shareInstance] showLoginDialogWithMessage:localizeLoginRequire() onOK:^
+        {
+            [SGData shareInstance].fScreen=[SGQRCodeViewController screenCode];
+        } onCancelled:^{
             [self close];
         } onLogined:^(bool isLogined) {
             if(isLogined)

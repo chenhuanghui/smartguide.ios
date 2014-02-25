@@ -30,6 +30,13 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    [SGData shareInstance].fScreen=[WelcomeViewController screenCode];
+}
+
++(NSString *)screenCode
+{
+    return SCREEN_CODE_WELCOME;
 }
 
 -(void)viewDidAppear:(BOOL)animated
