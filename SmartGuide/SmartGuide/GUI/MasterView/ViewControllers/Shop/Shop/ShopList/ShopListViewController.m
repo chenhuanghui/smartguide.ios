@@ -253,7 +253,15 @@
     }
     
     if(shop)
+    {
+        [SGData shareInstance].fScreen=[ShopListViewController screenCode];
         [[GUIManager shareInstance] presentShopUserWithShopList:shop];
+    }
+}
+
++(NSString *)screenCode
+{
+    return SCREEN_CODE_SHOP_LIST;
 }
 
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
@@ -630,6 +638,7 @@
     if(_keyword.length==0)
         _keyword=@"";
     
+    [SGData shareInstance].fScreen=[ShopListViewController screenCode];
     _operationShopSearch=[[ASIOperationShopSearch alloc] initWithKeywords:_keyword userLat:_location.latitude userLng:_location.longitude page:_page+1 sort:_sort];
     
     _operationShopSearch.delegatePost=self;
@@ -657,6 +666,7 @@
         _operationShopList=nil;
     }
     
+    [SGData shareInstance].fScreen=[ShopListViewController screenCode];
     [self requestShopList];
 }
 

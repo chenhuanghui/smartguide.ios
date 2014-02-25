@@ -351,6 +351,8 @@
                     return;
                 }
                 
+                [SGData shareInstance].fScreen=[HomeViewController screenCode];
+                [[SGData shareInstance].fData setObject:home.idPost forKey:@"idPost"];
                 [self.delegate homeControllerTouchedHome1:self home1:home.home1];
             }
                 break;
@@ -409,6 +411,10 @@
     {
         if([cell.currentHome isKindOfClass:[UserHome3 class]])
         {
+            UserHome3 *home3=cell.currentHome;
+            [SGData shareInstance].fScreen=[HomeViewController screenCode];
+            [[SGData shareInstance].fData setObject:home3.home.idPost forKey:@"idPost"];
+            
             [self.delegate homeControllerTouchedPlacelist:self home3:cell.currentHome];
         }
         else if([cell.currentHome isKindOfClass:[UserHome4 class]])

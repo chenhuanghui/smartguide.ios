@@ -521,6 +521,8 @@
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField
 {
+    [SGData shareInstance].fScreen=[self screenCode];
+    
     [self.delegate searchShopControllerSearch:self keyword:textField.text];
     
     return true;
@@ -657,6 +659,7 @@
 }
 
 - (IBAction)btnSearchTouchUpInside:(id)sender {
+    [SGData shareInstance].fScreen=[self screenCode];
     [self.delegate searchShopControllerSearch:self keyword:txt.text];
 }
 
