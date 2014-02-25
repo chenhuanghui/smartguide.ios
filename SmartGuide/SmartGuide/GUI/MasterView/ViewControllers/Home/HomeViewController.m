@@ -36,6 +36,13 @@
     _buttonScanSmallFrame=btnScanSmall.frame;
 }
 
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    [SGData shareInstance].fScreen=[HomeViewController screenCode];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -50,8 +57,6 @@
     [UserHome markDeleteAllObjects];
     [[DataManager shareInstance] save];
 
-    [self storeRect];
-    
     [tableFeed registerNib:[UINib nibWithNibName:[HomePromotionCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[HomePromotionCell reuseIdentifier]];
     [tableFeed registerNib:[UINib nibWithNibName:[HomeImagesCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[HomeImagesCell reuseIdentifier]];
     [tableFeed registerNib:[UINib nibWithNibName:[HomeListCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[HomeListCell reuseIdentifier]];
@@ -459,13 +464,6 @@
     [_operationShopUser.fData setObject:@(idPost) forKey:@"idPost"];
     
     [_operationShopUser startAsynchronous];
-}
-
--(void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    
-    [SGData shareInstance].fScreen=[HomeViewController screenCode];
 }
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView

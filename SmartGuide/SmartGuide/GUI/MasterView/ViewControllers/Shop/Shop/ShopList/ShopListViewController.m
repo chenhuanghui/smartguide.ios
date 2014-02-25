@@ -372,7 +372,7 @@
     [self.sgNavigationController pushViewController:vc animated:true];
 }
 
--(void) storePosition
+-(void) storeRect
 {
     _tableFrame=tableList.frame;
     _mapFrame=self.map.frame;
@@ -475,11 +475,10 @@
     rect.size.width=self.l_v_w;
     rect.origin.y=-tableList.l_v_h/SHOP_LIST_SCROLL_SPEED;
     self.map.frame=rect;
+    self.map.autoresizingMask=UIViewAutoresizingFlexibleBottomMargin|UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin|UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleWidth;
     
     _location.latitude=userLat();
     _location.longitude=userLng();
-    
-    [self storePosition];
     
     tableList.backgroundColor=COLOR_BACKGROUND_SHOP_SERIES;
     self.view.backgroundColor=COLOR_BACKGROUND_SHOP_SERIES;
@@ -558,9 +557,19 @@
             
             break;
     }
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
     
-    [self makeScrollSize];
-    [self makeSortLayout];
+    if(!_didMakeScrollSize)
+    {
+        _didMakeScrollSize=true;
+        
+        [self makeScrollSize];
+        [self makeSortLayout];
+    }
 }
 
 -(void) requestPlacelistGetDetail

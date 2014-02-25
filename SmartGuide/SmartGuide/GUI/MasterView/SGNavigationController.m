@@ -122,6 +122,12 @@ CATransition* transitionPushFromRight()
     _controllers=nil;
 }
 
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+}
+
 -(void) removeViewController:(UIViewController*) viewController
 {
     if(!viewController || ![self.viewControllers containsObject:viewController])

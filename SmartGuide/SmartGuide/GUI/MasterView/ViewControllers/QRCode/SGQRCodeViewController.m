@@ -245,12 +245,18 @@
     scanCodeView.hidden=false;
     btnCloseCamera.alpha=0;
     btnCloseCamera.hidden=false;
+    btnTorch.alpha=0;
+    btnTorch.hidden=false;
+    lblTorch.alpha=0;
+    lblTorch.hidden=false;
     
     [UIView animateWithDuration:DURATION_DEFAULT animations:^{
         bgResultView.alpha=0;
         scanCodeView.alpha=1;
         contentView.alpha=0;
         btnCloseCamera.alpha=1;
+        lblTorch.alpha=1;
+        btnTorch.alpha=1;
     } completion:^(BOOL finished) {
         
         [self addBarReaderView];
@@ -273,14 +279,22 @@
     bgResultView.hidden=false;
     contentView.alpha=0;
     contentView.hidden=false;
+    btnTorch.alpha=1;
+    btnTorch.hidden=false;
+    lblTorch.alpha=1;
+    lblTorch.hidden=false;
     
     [UIView animateWithDuration:DURATION_DEFAULT animations:^{
         bgResultView.alpha=0.7f;
         scanCodeView.alpha=0;
         contentView.alpha=1;
         btnCloseCamera.alpha=0;
+        lblTorch.alpha=0;
+        btnTorch.alpha=0;
     } completion:^(BOOL finished) {
         btnCloseCamera.hidden=true;
+        btnTorch.hidden=true;
+        lblTorch.hidden=true;
         [zbarReader.readerView stop];
         [zbarReader.readerView flushCache];
         [zbarReader.view removeFromSuperview];
@@ -513,6 +527,8 @@ static char SGQRControllerObjectKey;
     [controller setQrController:qr];
     
     [controller addChildViewController:qr];
+    
+    [qr.view l_v_setH:view.l_v_h];
     [view addSubview:qr.view];
 }
 

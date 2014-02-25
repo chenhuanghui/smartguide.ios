@@ -103,6 +103,8 @@ enum SHOP_LIST_VIEW_MODE {
     CLLocationCoordinate2D _location;
     
     NSIndexPath *_scrollerIndexPath;
+    
+    bool _didMakeScrollSize;
 }
 
 -(ShopListViewController*) initWithKeyword:(NSString*) keyword;

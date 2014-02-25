@@ -21,7 +21,7 @@
             <subviews>
                 <view userInteractionEnabled="NO" contentMode="scaleToFill" id="ErE-UK-OvV">
                     <rect key="frame" x="0.0" y="54" width="320" height="426"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <color key="backgroundColor" red="0.92156862745098034" green="0.92156862745098034" blue="0.92156862745098034" alpha="1" colorSpace="deviceRGB"/>
                 </view>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Raa-Jl-y5M">
@@ -35,7 +35,7 @@
                 </tableView>
                 <view contentMode="scaleToFill" id="w0E-6B-EKF" customClass="TouchView">
                     <rect key="frame" x="0.0" y="54" width="320" height="426"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <connections>
                         <outlet property="receiveView" destination="Raa-Jl-y5M" id="g3g-3W-fID"/>

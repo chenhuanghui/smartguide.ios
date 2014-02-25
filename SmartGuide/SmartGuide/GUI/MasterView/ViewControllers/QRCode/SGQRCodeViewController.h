@@ -51,8 +51,6 @@ enum QRCODE_ANIMATION_TYPE {
     __strong SGNavigationController *_navi;
     __weak SGQRCodeResultViewController *_resultController;
     
-    bool _viewWillAppear;
-    
     Reachability *_reach;
     bool _isScanningCode;
 }

@@ -298,7 +298,7 @@ enum CELL_POSITION
 
 @optional
 -(void) SGControllerLoadView:(SGViewController*) sgController;
--(void) SGControllerDidLoadView:(SGViewController*) sgController;
+-(void) SGControllerViewWillAppear:(SGViewController*) sgController;
 
 @end
 

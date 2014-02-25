@@ -134,7 +134,7 @@ static GUIManager *_shareInstance=nil;
     }
 }
 
--(void)SGControllerDidLoadView:(SGViewController *)sgController
+-(void)SGControllerViewWillAppear:(SGViewController *)sgController
 {
     if(sgController==rootViewController)
     {
@@ -406,7 +406,7 @@ static GUIManager *_shareInstance=nil;
     
     [self.contentNavigation addChildViewController:viewController];
     
-    [viewController view];
+    [viewController l_v_setH:self.contentNavigation.l_v_h];
     
     viewController.view.center=CGPointMake(self.contentNavigation.l_v_w/2, -self.contentNavigation.l_v_h/2);
     [viewController l_c_setY:-self.contentNavigation.l_v_h/2];

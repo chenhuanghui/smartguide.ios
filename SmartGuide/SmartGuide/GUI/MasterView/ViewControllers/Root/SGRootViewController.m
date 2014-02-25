@@ -29,11 +29,14 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    containFrame=self.containView.frame;
-    contentFrame=self.contentView.frame;
-    
     self.containView.layer.masksToBounds=true;
     self.contentView.layer.masksToBounds=true;
+}
+
+-(void)storeRect
+{
+    containFrame=self.containView.frame;
+    contentFrame=self.contentView.frame;
 }
 
 - (void)didReceiveMemoryWarning

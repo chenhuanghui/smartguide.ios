@@ -29,9 +29,6 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     
-    if([self respondDelegateSEL:@selector(SGControllerDidLoadView:)])
-        [self.delegate SGControllerDidLoadView:self];
-    
     for(NSString *notification in [self registerNotifications])
     {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveNotification:) name:notification object:nil];
@@ -86,6 +83,16 @@
     [super viewWillAppear:animated];
     
     [[UIApplication sharedApplication] setStatusBarHidden:true];
+    
+    if(!_viewWillAppear)
+    {
+        _viewWillAppear=true;
+        
+        [self storeRect];
+        
+        if([self respondDelegateSEL:@selector(SGControllerViewWillAppear:)])
+            [self.delegate SGControllerViewWillAppear:self];
+    }
 }
 
 -(void)viewWillDisappear:(BOOL)animated
@@ -113,6 +120,15 @@
 +(NSString *)screenCode
 {
     return SCREEN_CODE_UNKNOW;
+}
+
+-(NSUInteger)supportedInterfaceOrientations
+{
+    return UIInterfaceOrientationMaskPortrait | UIInterfaceOrientationMaskPortraitUpsideDown;
+}
+
+-(void)storeRect
+{
 }
 
 @end

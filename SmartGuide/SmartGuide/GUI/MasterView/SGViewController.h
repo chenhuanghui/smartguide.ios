@@ -70,8 +70,12 @@
 #define SCREEN_CODE_USER_PROMOTION_LIST @"S021"
 
 @interface SGViewController : UIViewController<SGViewControllerHandle>
+{
+    bool _viewWillAppear;
+}
 
 -(id) initWithDelegate:(id<SGViewControllerDelegate>) delegate;
+-(void) storeRect;
 
 -(NSArray*) registerNotifications;
 -(void) receiveNotification:(NSNotification*) notification;

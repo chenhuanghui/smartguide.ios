@@ -72,12 +72,7 @@
 {
     [super viewWillAppear:animated];
     
-    if(!_viewWillAppear)
-    {
-        _viewWillAppear=true;
-        
-        [txt becomeFirstResponder];
-    }
+    [txt becomeFirstResponder];
 }
 
 -(void) reloadData
