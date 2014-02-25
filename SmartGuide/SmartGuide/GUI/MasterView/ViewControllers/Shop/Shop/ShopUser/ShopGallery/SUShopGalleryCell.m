@@ -171,6 +171,7 @@
     
     _operationLoveShop=[[ASIOperationLoveShop alloc] initWithIDShop:idShop userLat:userLat() userLng:userLng() isLove:willLove];
     _operationLoveShop.delegatePost=self;
+    _operationLoveShop.fScreen=SCREEN_CODE_SHOP_USER;
     
     [_operationLoveShop startAsynchronous];
 }

@@ -85,8 +85,6 @@
 		9A0F762A187152DB00160E54 /* DDAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A0F75CB187152DB00160E54 /* DDAnnotationView.m */; };
 		9A0F762B187152DB00160E54 /* ShopMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A0F75CD187152DB00160E54 /* ShopMapViewController.m */; };
 		9A0F762C187152DB00160E54 /* ShopMapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A0F75CE187152DB00160E54 /* ShopMapViewController.xib */; };
-		9A0F762D187152DB00160E54 /* ShopScanQRCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A0F75D1187152DB00160E54 /* ShopScanQRCodeViewController.m */; };
-		9A0F762E187152DB00160E54 /* ShopScanQRCodeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A0F75D2187152DB00160E54 /* ShopScanQRCodeViewController.xib */; };
 		9A0F762F187152DB00160E54 /* SGShopLoadingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A0F75D5187152DB00160E54 /* SGShopLoadingCell.m */; };
 		9A0F7630187152DB00160E54 /* SGShopLoadingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A0F75D6187152DB00160E54 /* SGShopLoadingCell.xib */; };
 		9A0F7633187152DB00160E54 /* SUInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A0F75DB187152DB00160E54 /* SUInfoCell.m */; };
@@ -1184,9 +1182,6 @@
 		9A0F75CC187152DB00160E54 /* ShopMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopMapViewController.h; sourceTree = "<group>"; };
 		9A0F75CD187152DB00160E54 /* ShopMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopMapViewController.m; sourceTree = "<group>"; };
 		9A0F75CE187152DB00160E54 /* ShopMapViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShopMapViewController.xib; sourceTree = "<group>"; };
-		9A0F75D0187152DB00160E54 /* ShopScanQRCodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopScanQRCodeViewController.h; sourceTree = "<group>"; };
-		9A0F75D1187152DB00160E54 /* ShopScanQRCodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopScanQRCodeViewController.m; sourceTree = "<group>"; };
-		9A0F75D2187152DB00160E54 /* ShopScanQRCodeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShopScanQRCodeViewController.xib; sourceTree = "<group>"; };
 		9A0F75D4187152DB00160E54 /* SGShopLoadingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGShopLoadingCell.h; sourceTree = "<group>"; };
 		9A0F75D5187152DB00160E54 /* SGShopLoadingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGShopLoadingCell.m; sourceTree = "<group>"; };
 		9A0F75D6187152DB00160E54 /* SGShopLoadingCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SGShopLoadingCell.xib; sourceTree = "<group>"; };
@@ -2610,7 +2605,6 @@
 				9A0F75A7187152DB00160E54 /* ShopInfo */,
 				9A0F75C2187152DB00160E54 /* ShopKM */,
 				9A0F75C7187152DB00160E54 /* ShopMap */,
-				9A0F75CF187152DB00160E54 /* ShopQRCode */,
 				9A0F75F9187152DB00160E54 /* UserGallery */,
 				9A0F75D3187152DB00160E54 /* ShopUserCell */,
 				9A0F75F5187152DB00160E54 /* ShopUserViewController.h */,
@@ -2741,16 +2735,6 @@
 				9A0F75CE187152DB00160E54 /* ShopMapViewController.xib */,
 			);
 			path = ShopMap;
-			sourceTree = "<group>";
-		};
-		9A0F75CF187152DB00160E54 /* ShopQRCode */ = {
-			isa = PBXGroup;
-			children = (
-				9A0F75D0187152DB00160E54 /* ShopScanQRCodeViewController.h */,
-				9A0F75D1187152DB00160E54 /* ShopScanQRCodeViewController.m */,
-				9A0F75D2187152DB00160E54 /* ShopScanQRCodeViewController.xib */,
-			);
-			path = ShopQRCode;
 			sourceTree = "<group>";
 		};
 		9A0F75D3187152DB00160E54 /* ShopUserCell */ = {
@@ -5089,7 +5073,6 @@
 				9A98C90D188E83A30067EAD3 /* button_loading_big_07.png in Resources */,
 				9A29392E18447EAE00FD49E2 /* bgsort_right@2x.png in Resources */,
 				9AC4941818585B000042C535 /* IV-5-Address.jpg in Resources */,
-				9A0F762E187152DB00160E54 /* ShopScanQRCodeViewController.xib in Resources */,
 				9A9FCBB21854E1B6004A3CFB /* frame_ava_store@2x.png in Resources */,
 				9A96BB4C188044DD0081171B /* blur_top_home.png in Resources */,
 				9A7E5553183C72AA006D1798 /* icon_notice.png in Resources */,
@@ -5738,7 +5721,6 @@
 				9A29392218445DA000FD49E2 /* ShopKM1.m in Sources */,
 				A921B03517A8BCA500DC6D4D /* ShopProduct.m in Sources */,
 				A921B03817A8BCAB00DC6D4D /* _ShopProduct.m in Sources */,
-				9A0F762D187152DB00160E54 /* ShopScanQRCodeViewController.m in Sources */,
 				9A889BBD187AAE8F00602CBB /* ASIOperationUserProfile.m in Sources */,
 				9A0F7616187152DB00160E54 /* InfoTypeBGView.m in Sources */,
 				9ACF7A5A1869589900B0BC78 /* OperationGeoCoder.m in Sources */,

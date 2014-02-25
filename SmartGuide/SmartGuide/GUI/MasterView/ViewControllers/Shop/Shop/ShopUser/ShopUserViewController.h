@@ -13,7 +13,6 @@
 #import "ShopDetailInfoViewController.h"
 #import "ShopMapViewController.h"
 #import "ShopCameraViewController.h"
-#import "ShopScanQRCodeViewController.h"
 #import "FTCoreTextView.h"
 #import "PageControl.h"
 #import "SGTableTemplate.h"

@@ -61,6 +61,7 @@
     
     _operation=[[ASIOperationShopDetailInfo alloc] initWithIDShop:_shop.idShop.integerValue userLat:userLat() userLng:userLng()];
     _operation.delegatePost=self;
+    _operation.fScreen=SCREEN_CODE_SHOP_USER;
     
     [_operation startAsynchronous];
     
