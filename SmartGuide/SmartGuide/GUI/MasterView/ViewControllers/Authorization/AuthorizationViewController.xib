@@ -23,12 +23,12 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="3bG-IJ-mbl">
-                            <rect key="frame" x="0.0" y="0.0" width="72" height="54"/>
+                            <rect key="frame" x="0.0" y="0.0" width="54" height="54"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="14"/>
                             <inset key="titleEdgeInsets" minX="1" minY="0.0" maxX="0.0" maxY="0.0"/>
                             <inset key="imageEdgeInsets" minX="-9" minY="0.0" maxX="0.0" maxY="0.0"/>
-                            <state key="normal" title="Trở lại" image="icon_back.png">
+                            <state key="normal" image="button_backarrow.png">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <connections>
@@ -56,6 +56,6 @@
         </view>
     </objects>
     <resources>
-        <image name="icon_back.png" width="5" height="9"/>
+        <image name="button_backarrow.png" width="35" height="30"/>
     </resources>
 </document>

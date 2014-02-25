@@ -63,10 +63,10 @@
                     </connections>
                 </textField>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="tak-ih-g6j">
-                    <rect key="frame" x="0.0" y="7" width="50" height="38"/>
+                    <rect key="frame" x="0.0" y="0.0" width="54" height="54"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <state key="normal" title="Trở lại">
+                    <state key="normal" image="button_backarrow.png">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <connections>
@@ -79,6 +79,7 @@
         </view>
     </objects>
     <resources>
+        <image name="button_backarrow.png" width="35" height="30"/>
         <image name="button_search_home.png" width="232" height="39"/>
     </resources>
 </document>
