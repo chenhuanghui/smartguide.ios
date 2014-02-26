@@ -17,12 +17,12 @@
     return voucher;
 }
 
--(NSString *)condition
+-(NSString *)condition1
 {
     return @"Lorem ipsum dolor sit amet ";
 }
 
--(NSString *)name
+-(NSString *)name1
 {
     return @"ipsum dolor sit amet ipsum dolor sit amet";
 }
