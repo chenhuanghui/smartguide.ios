@@ -64,7 +64,7 @@
                                 <action selector="btnUserSettingTouchUpInside:" destination="-1" eventType="touchUpInside" id="gH8-qw-BI4"/>
                             </connections>
                         </button>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="h5W-C4-dWN">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="h5W-C4-dWN" customClass="ImageScaleCrop">
                             <rect key="frame" x="12" y="55" width="64" height="64"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <userDefinedRuntimeAttributes>

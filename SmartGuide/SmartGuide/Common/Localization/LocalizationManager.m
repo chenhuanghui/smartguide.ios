@@ -7,6 +7,7 @@
 //
 
 #import "LocalizationManager.h"
+#import <FacebookSDK/FacebookSDK.h>
 
 NSString* localizeOK()
 {
@@ -126,4 +127,16 @@ NSString* localizeSortList(enum SORT_LIST sort)
 NSString* localizeInvailActivationCode()
 {
     return @"Mã xác thực không hợp lệ";
+}
+
+NSString* localizeFacebookError(NSError* error)
+{
+    NSString *type=[error userInfo][@"com.facebook.sdk:ErrorLoginFailedReason"];
+    if(type && [type isKindOfClass:[NSString class]])
+    {
+        if([type isEqualToString:@"com.facebook.sdk:SystemLoginDisallowedWithoutError"])
+            return @"Setting disable";
+    }
+        
+    return @"Lỗi kết nối facebook";
 }

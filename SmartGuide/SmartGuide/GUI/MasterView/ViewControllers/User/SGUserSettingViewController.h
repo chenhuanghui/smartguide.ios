@@ -30,6 +30,7 @@
     __weak IBOutlet TPKeyboardAvoidingScrollView *scroll;
     __weak IBOutlet UIImageView *imgvBGAvatar;
     __weak IBOutlet UIButton *btnAvatar;
+    __weak IBOutlet UIImageView *imgvAvatar;
     __weak IBOutlet UITextField *txtName;
     __weak IBOutlet UILabel *lblDOB;
     __weak IBOutlet UIButton *btnEditDOB;

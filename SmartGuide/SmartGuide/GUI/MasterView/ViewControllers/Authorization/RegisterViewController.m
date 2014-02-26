@@ -30,7 +30,7 @@
 
 -(NSArray *)registerNotifications
 {
-    return @[NOTIFICATION_FACEBOOK_LOGIN_SUCCESS];
+    return @[NOTIFICATION_FACEBOOK_LOGIN_SUCCESS,NOTIFICATION_FACEBOOK_LOGIN_FAILED];
 }
 
 -(void)receiveNotification:(NSNotification *)notification
@@ -43,6 +43,10 @@
         _operationFBGetProfile.delegate=self;
         
         [_operationFBGetProfile start];
+    }
+    else if([notification.name isEqualToString:NOTIFICATION_FACEBOOK_LOGIN_FAILED])
+    {
+        [AlertView showAlertOKWithTitle:nil withMessage:localizeFacebookError(notification.object) onOK:nil];
     }
 }
 
@@ -252,6 +256,9 @@
 
 -(void) showAvatarController
 {
+    if([self.navigationController.visibleViewController isKindOfClass:[AvatarViewController class]])
+        return;
+    
     AvatarViewController *vc=[[AvatarViewController alloc] initWithAvatars:_avatars avatarImage:_registerInfo.selectedAvatar];
     vc.delegate=self;
     
@@ -349,6 +356,8 @@
         [btnConfirm setImage:[UIImage imageNamed:@"button_next_login.png"] forState:UIControlStateHighlighted];
     } completion:^(BOOL finished) {
         self.view.userInteractionEnabled=true;
+        
+        [registerStep1 focusName];
     }];
 }
 
@@ -526,6 +535,8 @@
         registerView.alpha=1;
     } completion:^(BOOL finished) {
         socialView.hidden=true;
+        
+        [registerStep1 focusName];
     }];
 }
 

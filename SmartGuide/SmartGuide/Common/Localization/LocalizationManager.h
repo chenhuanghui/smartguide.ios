@@ -28,3 +28,4 @@ NSString* localizeUserProfileRequire();
 NSString* localizeSortComment(enum SORT_SHOP_COMMENT sort);
 NSString* localizeSortList(enum SORT_LIST sort);
 NSString* localizeInvailActivationCode();
+NSString* localizeFacebookError(NSError* error);

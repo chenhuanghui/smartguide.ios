@@ -10,6 +10,7 @@
                 <outlet property="btnAvatar" destination="1GO-A3-Pua" id="uHD-l2-7GB"/>
                 <outlet property="btnName" destination="ZEe-Jw-Yh4" id="WFl-gf-sGs"/>
                 <outlet property="btnSelectAvatar" destination="YXJ-CL-OGz" id="bOr-mE-cRE"/>
+                <outlet property="imgvAvatar" destination="EY1-pg-p7g" id="rff-97-3r2"/>
                 <outlet property="txt" destination="xHd-iS-MOp" id="kyb-J1-Ce2"/>
                 <outlet property="view" destination="1" id="3"/>
             </connections>
@@ -23,13 +24,17 @@
                     <rect key="frame" x="124" y="7" width="73" height="75"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                    <state key="normal" image="pic_ava_login.png">
+                    <state key="normal">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <connections>
                         <action selector="btnAvatarTouchUpInside:" destination="-1" eventType="touchUpInside" id="V9M-Pm-wr3"/>
                     </connections>
                 </button>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pic_ava_login.png" id="EY1-pg-p7g" customClass="ImageScaleCrop">
+                    <rect key="frame" x="124" y="7" width="73" height="75"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                </imageView>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="frame_ava_login.png" id="h42-Il-Pcx">
                     <rect key="frame" x="124" y="7" width="73" height="75"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>

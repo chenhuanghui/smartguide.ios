@@ -70,6 +70,8 @@
     style.color=[UIColor redColor];
     
     [lblBottom addStyle:style];
+    
+    [self switchToActivationModeWithPhone:@"847741099582"];
 }
 
 -(void) switchToActivationModeWithPhone:(NSString*) phone
@@ -84,7 +86,7 @@
     
     lblTop.text=@"Nhập mã xác thực";
     
-    [btnLogin setTitle:@"Xác nhận" forState:UIControlStateNormal];
+    [btnLogin setDefaultImage:[UIImage imageNamed:@"button_confirm_login.png"] highlightImage:[UIImage imageNamed:@"button_confirm_login.png"]];
     
     _countdown=21;
     [self setCountdown];

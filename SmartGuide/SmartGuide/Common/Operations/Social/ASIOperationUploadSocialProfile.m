@@ -17,7 +17,7 @@
     
     [self.keyValue setObject:profile forKey:@"profile"];
     [self.keyValue setObject:accessToken forKey:@"accessToken"];
-    [self.keyValue setObject:@"socialType" forKey:@(socialType)];
+    [self.keyValue setObject:@(socialType) forKey:@"socialType"];
     
     return self;
 }

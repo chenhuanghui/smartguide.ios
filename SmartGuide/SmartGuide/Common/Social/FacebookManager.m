@@ -181,7 +181,7 @@ static FacebookManager *_facebookManager=nil;
         [FBSession openActiveSessionWithReadPermissions:FACEBOOK_READ_PERMISSION allowLoginUI:true completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
             
             if(error)
-                [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_FACEBOOK_LOGIN_FAILED object:nil];
+                [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_FACEBOOK_LOGIN_FAILED object:error];
             else
                 [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_FACEBOOK_LOGIN_SUCCESS object:nil];
         }];
@@ -217,7 +217,7 @@ static FacebookManager *_facebookManager=nil;
                 return;
             }
             
-            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_FACEBOOK_LOGIN_FAILED object:nil];
+            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_FACEBOOK_LOGIN_FAILED object:error];
         }];
     }
 }

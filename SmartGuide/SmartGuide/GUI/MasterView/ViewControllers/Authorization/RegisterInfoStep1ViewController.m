@@ -61,17 +61,14 @@
 
 -(void)setAvatarImage:(UIImage *)avatar
 {
-    [btnAvatar setImage:avatar forState:UIControlStateNormal];
+    [imgvAvatar setImage:avatar];
     btnSelectAvatar.hidden=true;
 }
 
 -(void)setAvatar:(NSString *)avatar
 {
     btnSelectAvatar.hidden=true;;
-    [btnAvatar.imageView loadAvatarWithURL:avatar completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
-        if(image)
-            [btnAvatar setImage:image forState:UIControlStateNormal];
-    }];
+    [imgvAvatar loadAvatarWithURL:avatar];
 }
 
 -(NSString *)name

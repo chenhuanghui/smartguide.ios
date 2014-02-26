@@ -32,7 +32,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    [btnAvatar loadImage:currentUser().avatar onCompleted:^(UIImage *image) {
+    [imgvAvatar loadAvatarWithURL:currentUser().avatar completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
         if(image)
             [imgvBGAvatar setImage:[[image blur] convertToGrayscale]];
     }];
@@ -44,6 +44,8 @@
     _selectedAvatar=currentUser().avatar;
     
     [contentView addSubview:_navi.view];
+    [_navi l_v_setH:contentView.l_v_h];
+    
     _avatars=[NSMutableArray new];
 }
 
@@ -246,13 +248,13 @@
     if(avatarImage)
     {
         _avatarImage=avatarImage;
-        [btnAvatar setDefaultImage:_avatarImage highlightImage:_avatarImage];
+        [imgvAvatar setImage:_avatarImage];
         [imgvBGAvatar setImage:[[_avatarImage blur] convertToGrayscale]];
     }
     else if(avatar.length>0)
     {
         [imgvBGAvatar setImage:nil];
-        [btnAvatar loadImage:avatar onCompleted:^(UIImage *image) {
+        [imgvAvatar loadAvatarWithURL:avatar completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
             if(image)
                 [imgvBGAvatar setImage:[[image blur] convertToGrayscale]];
         }];

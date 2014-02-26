@@ -19,6 +19,7 @@
 @interface RegisterInfoStep1ViewController : SGViewController
 {
     __weak IBOutlet UIButton *btnAvatar;
+    __weak IBOutlet UIImageView *imgvAvatar;
     __weak IBOutlet UITextField *txt;
     __weak IBOutlet UIButton *btnSelectAvatar;
     __weak IBOutlet UIButton *btnName;
