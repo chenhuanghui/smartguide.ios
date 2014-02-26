@@ -29,7 +29,6 @@
 
 @interface RegisterViewController : SGViewController<RegisterInfoStep1Contorller,OperationURLDelegate,ASIOperationPostDelegate>
 {
-    __weak IBOutlet UIButton *btnAvatar;
     __weak IBOutlet UIButton *btnConfirm;
     __weak IBOutlet UIButton *btnFacebook;
     __weak IBOutlet UIButton *btnGooglePlus;
@@ -37,7 +36,10 @@
     __weak IBOutlet UIButton *btnStep1;
     __weak IBOutlet UIButton *btnStep2;
     __weak IBOutlet UIView *stepView;
+    __weak IBOutlet UIButton *btnCreate;
     __weak IBOutlet UIView *socialView;
+    __weak IBOutlet UIView *registerView;
+    __weak IBOutlet UIView *displayPickerView;
     
     __weak SGNavigationController *registerNavi;
     

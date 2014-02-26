@@ -8,12 +8,15 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RegisterViewController">
             <connections>
                 <outlet property="btnConfirm" destination="igV-mY-Kkl" id="nwS-g6-a5d"/>
+                <outlet property="btnCreate" destination="lE1-48-n9E" id="Xi7-tM-PI1"/>
                 <outlet property="btnFacebook" destination="oa4-Zk-NPh" id="Zts-le-2lR"/>
                 <outlet property="btnGooglePlus" destination="Wuz-DL-nEM" id="idk-fI-ofN"/>
                 <outlet property="btnStep1" destination="HYw-yG-pT4" id="k2b-O4-228"/>
                 <outlet property="btnStep2" destination="aVh-M0-0Zk" id="dht-v8-Nca"/>
                 <outlet property="containNavi" destination="8sE-Hb-Ce4" id="Wfa-tC-bxS"/>
-                <outlet property="socialView" destination="NoK-cH-cUL" id="UEt-Bl-jsr"/>
+                <outlet property="displayPickerView" destination="y5e-QI-iYL" id="b1Y-JU-Ejd"/>
+                <outlet property="registerView" destination="AIF-Jc-V71" id="csm-TI-AuS"/>
+                <outlet property="socialView" destination="vGx-X5-xE1" id="wR3-GF-N23"/>
                 <outlet property="stepView" destination="hAI-6e-WkC" id="UP3-bV-GNM"/>
                 <outlet property="view" destination="1" id="3"/>
             </connections>
@@ -23,50 +26,12 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="426"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" id="NoK-cH-cUL">
-                    <rect key="frame" x="0.0" y="214" width="320" height="214"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <view contentMode="scaleToFill" id="vGx-X5-xE1" userLabel="socialView">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="426"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <subviews>
-                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hoặc" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="RKP-mM-tJe">
-                            <rect key="frame" x="54" y="47" width="42" height="21"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="16"/>
-                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="mạng xã hội" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="5Hc-3c-OM1">
-                            <rect key="frame" x="105" y="69" width="105" height="21"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="14"/>
-                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="khuyến mãi qua" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="xzm-0B-jY3">
-                            <rect key="frame" x="105" y="48" width="133" height="21"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="14"/>
-                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cùng chia sẻ" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="b33-tr-x2z">
-                            <rect key="frame" x="105" y="28" width="84" height="21"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="14"/>
-                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Wuz-DL-nEM">
-                            <rect key="frame" x="34" y="150" width="253" height="40"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <state key="normal" image="button_google_login.png">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                            <connections>
-                                <action selector="btnGooglePlusTouchUpInside:" destination="-1" eventType="touchUpInside" id="jjC-bf-02r"/>
-                            </connections>
-                        </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="oa4-Zk-NPh">
-                            <rect key="frame" x="34" y="105" width="253" height="40"/>
+                            <rect key="frame" x="33" y="120" width="253" height="40"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <state key="normal" image="button_facebook_login.png">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -75,82 +40,124 @@
                                 <action selector="btnFacebookTouchUpInside:" destination="-1" eventType="touchUpInside" id="klT-ac-AE4"/>
                             </connections>
                         </button>
-                        <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Llf-vR-6P9">
-                            <rect key="frame" x="34" y="24" width="253" height="66"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Wuz-DL-nEM">
+                            <rect key="frame" x="33" y="165" width="253" height="40"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <inset key="imageEdgeInsets" minX="0.0" minY="-6" maxX="34" maxY="3"/>
-                            <state key="normal" image="icon_sale_login.png">
+                            <state key="normal" image="button_google_login.png">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                        </button>
-                    </subviews>
-                    <color key="backgroundColor" red="0.2196078431372549" green="0.21568627450980393" blue="0.20784313725490194" alpha="1" colorSpace="deviceRGB"/>
-                </view>
-                <view contentMode="scaleToFill" id="8sE-Hb-Ce4">
-                    <rect key="frame" x="0.0" y="22" width="320" height="192"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" red="0.92156862745098034" green="0.92156862745098034" blue="0.92156862745098034" alpha="1" colorSpace="deviceRGB"/>
-                </view>
-                <view contentMode="scaleToFill" id="Zcn-04-qYc">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="23"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="HYw-yG-pT4">
-                            <rect key="frame" x="0.0" y="0.0" width="160" height="20"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="14"/>
-                            <state key="normal" title="Bước 1">
-                                <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                            <state key="selected">
-                                <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
-                            </state>
-                            <state key="highlighted">
-                                <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                             </state>
                             <connections>
-                                <action selector="btnStep1TouchUpInside:" destination="-1" eventType="touchUpInside" id="SEl-DH-Wxb"/>
+                                <action selector="btnGooglePlusTouchUpInside:" destination="-1" eventType="touchUpInside" id="jjC-bf-02r"/>
                             </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="aVh-M0-0Zk">
-                            <rect key="frame" x="160" y="2" width="160" height="20"/>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="line_comment.png" id="ZYK-gj-B5Y">
+                            <rect key="frame" x="0.0" y="222" width="320" height="1"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="14"/>
-                            <state key="normal" title="Bước 2">
-                                <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        </imageView>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hoặc" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="l4e-HE-WnU">
+                            <rect key="frame" x="0.0" y="241" width="320" height="21"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" name="Avenir-HeavyOblique" family="Avenir" pointSize="17"/>
+                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="lE1-48-n9E">
+                            <rect key="frame" x="0.0" y="280" width="320" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="15"/>
+                            <state key="normal" title="Tạo Tài Khoản Mới">
+                                <color key="titleColor" red="0.29019609093666077" green="0.65490198135375977" blue="0.96862751245498657" alpha="1" colorSpace="deviceRGB"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
-                            <state key="selected">
-                                <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
-                            </state>
-                            <state key="highlighted">
-                                <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
-                            </state>
                             <connections>
-                                <action selector="btnStep2TouchUpInside:" destination="-1" eventType="touchUpInside" id="6IR-vk-DfZ"/>
+                                <action selector="btnCreateTouchUpInside:" destination="-1" eventType="touchUpInside" id="f73-Rr-vtt"/>
                             </connections>
                         </button>
-                        <view contentMode="scaleToFill" id="hAI-6e-WkC">
-                            <rect key="frame" x="0.0" y="20" width="160" height="3"/>
+                        <view userInteractionEnabled="NO" contentMode="scaleToFill" id="vhN-gp-MBF">
+                            <rect key="frame" x="95" y="304" width="130" height="1"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" red="0.98823535442352295" green="0.37254902720451355" blue="0.28235295414924622" alpha="1" colorSpace="deviceRGB"/>
+                            <color key="backgroundColor" red="0.29019609089999998" green="0.6549019814" blue="0.96862751250000001" alpha="1" colorSpace="deviceRGB"/>
                         </view>
                     </subviews>
-                    <color key="backgroundColor" red="0.77647066116333008" green="0.7725490927696228" blue="0.76470595598220825" alpha="1" colorSpace="deviceRGB"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="igV-mY-Kkl">
-                    <rect key="frame" x="110" y="169" width="100" height="42"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <state key="normal" image="button_next_login.png">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="btnConfirmTouchUpInside:" destination="-1" eventType="touchUpInside" id="7js-uC-S2H"/>
-                    </connections>
-                </button>
+                <view hidden="YES" alpha="0.0" contentMode="scaleToFill" id="AIF-Jc-V71" userLabel="register">
+                    <rect key="frame" x="320" y="0.0" width="320" height="426"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" id="Zcn-04-qYc">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="23"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="HYw-yG-pT4">
+                                    <rect key="frame" x="0.0" y="0.0" width="160" height="20"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="14"/>
+                                    <state key="normal" title="Bước 1">
+                                        <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <state key="selected">
+                                        <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    </state>
+                                    <state key="highlighted">
+                                        <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="btnStep1TouchUpInside:" destination="-1" eventType="touchUpInside" id="SEl-DH-Wxb"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="aVh-M0-0Zk">
+                                    <rect key="frame" x="160" y="2" width="160" height="20"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="14"/>
+                                    <state key="normal" title="Bước 2">
+                                        <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <state key="selected">
+                                        <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    </state>
+                                    <state key="highlighted">
+                                        <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="btnStep2TouchUpInside:" destination="-1" eventType="touchUpInside" id="6IR-vk-DfZ"/>
+                                    </connections>
+                                </button>
+                                <view contentMode="scaleToFill" id="hAI-6e-WkC">
+                                    <rect key="frame" x="0.0" y="20" width="160" height="3"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <color key="backgroundColor" red="0.98823535442352295" green="0.37254902720451355" blue="0.28235295414924622" alpha="1" colorSpace="deviceRGB"/>
+                                </view>
+                            </subviews>
+                            <color key="backgroundColor" red="0.77647058823529413" green="0.77254901960784317" blue="0.76470588235294112" alpha="1" colorSpace="calibratedRGB"/>
+                        </view>
+                        <view contentMode="scaleToFill" id="8sE-Hb-Ce4">
+                            <rect key="frame" x="0.0" y="22" width="320" height="192"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        </view>
+                        <view userInteractionEnabled="NO" contentMode="scaleToFill" id="y5e-QI-iYL" userLabel="pickerView">
+                            <rect key="frame" x="0.0" y="214" width="320" height="212"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        </view>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="igV-mY-Kkl">
+                            <rect key="frame" x="110" y="169" width="100" height="42"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" image="button_next_login.png">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="btnConfirmTouchUpInside:" destination="-1" eventType="touchUpInside" id="7js-uC-S2H"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                </view>
             </subviews>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <color key="backgroundColor" red="0.92156862745098034" green="0.92156862745098034" blue="0.92156862745098034" alpha="1" colorSpace="calibratedRGB"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
         </view>
     </objects>
@@ -158,6 +165,6 @@
         <image name="button_facebook_login.png" width="253" height="40"/>
         <image name="button_google_login.png" width="253" height="40"/>
         <image name="button_next_login.png" width="100" height="42"/>
-        <image name="icon_sale_login.png" width="53" height="56"/>
+        <image name="line_comment.png" width="257" height="1"/>
     </resources>
 </document>

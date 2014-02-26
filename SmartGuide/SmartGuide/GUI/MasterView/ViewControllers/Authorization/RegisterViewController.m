@@ -456,7 +456,7 @@
 {
     _isShowedDatePicker=true;
     
-    UIDatePicker *datePicker=[[UIDatePicker alloc] initWithFrame:CGRectMake(0, socialView.l_v_y, socialView.l_v_w, socialView.l_v_h)];
+    UIDatePicker *datePicker=[[UIDatePicker alloc] initWithFrame:CGRectMake(0, displayPickerView.l_v_y, displayPickerView.l_v_w, displayPickerView.l_v_h)];
     datePicker.datePickerMode=UIDatePickerModeDate;
     datePicker.locale=[NSLocale localeWithLocaleIdentifier:@"vi-vn"];
     
@@ -469,11 +469,8 @@
     
     self.view.userInteractionEnabled=false;
     [UIView animateWithDuration:DURATION_DEFAULT animations:^{
-        socialView.alpha=0;
         datePicker.alpha=1;
     } completion:^(BOOL finished) {
-        socialView.hidden=true;
-        
         self.view.userInteractionEnabled=true;
     }];
     
@@ -498,12 +495,8 @@
         }
         
         self.view.userInteractionEnabled=false;
-        
-        socialView.alpha=0;
-        socialView.hidden=false;
-        
+
         [UIView animateWithDuration:DURATION_DEFAULT animations:^{
-            socialView.alpha=1;
             _datePicker.alpha=0;
         } completion:^(BOOL finished) {
             [_datePicker removeFromSuperview];
@@ -521,6 +514,27 @@
 -(NSString *)title
 {
     return @"Tạo tài khoản";
+}
+
+- (IBAction)btnCreateTouchUpInside:(id)sender {
+    registerView.hidden=false;
+    [UIView animateWithDuration:DURATION_DEFAULT animations:^{
+        [socialView l_v_setX:-socialView.l_v_w];
+        socialView.alpha=0;
+        
+        [registerView l_v_setX:0];
+        registerView.alpha=1;
+    } completion:^(BOOL finished) {
+        socialView.hidden=true;
+    }];
+}
+
+-(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [super touchesEnded:touches withEvent:event];
+    
+    if(_isShowedDatePicker)
+        [self removeDatePicker];
 }
 
 @end

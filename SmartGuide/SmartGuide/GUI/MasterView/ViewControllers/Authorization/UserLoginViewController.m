@@ -84,6 +84,8 @@
     
     lblTop.text=@"Nhập mã xác thực";
     
+    [btnLogin setTitle:@"Xác nhận" forState:UIControlStateNormal];
+    
     _countdown=21;
     [self setCountdown];
 }
