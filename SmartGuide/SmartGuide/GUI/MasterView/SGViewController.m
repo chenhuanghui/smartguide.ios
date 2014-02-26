@@ -91,11 +91,17 @@ static char presentSGViewControlelrKey;
     {
         _viewWillAppear=true;
         
+        [self viewWillAppearOnce];
         [self storeRect];
         
         if([self respondDelegateSEL:@selector(SGControllerViewWillAppear:)])
             [self.delegate SGControllerViewWillAppear:self];
     }
+}
+
+-(void)viewWillAppearOnce
+{
+    
 }
 
 -(void)viewWillDisappear:(BOOL)animated

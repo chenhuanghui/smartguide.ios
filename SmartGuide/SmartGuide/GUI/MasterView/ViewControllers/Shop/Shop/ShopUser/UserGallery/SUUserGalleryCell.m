@@ -17,6 +17,8 @@
 
 -(void)loadWithShop:(Shop *)shop
 {
+    _shop=shop;
+    
     imgvFirsttime.hidden=shop.userGalleriesObjects.count>0;
     
     _galleries=[shop.userGalleriesObjects mutableCopy];

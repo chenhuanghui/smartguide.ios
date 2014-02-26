@@ -93,6 +93,10 @@
                                 <rect key="frame" x="0.0" y="-100" width="290" height="531"/>
                                 <autoresizingMask key="autoresizingMask" heightSizable="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="-1" id="eaY-qt-wgA"/>
+                                    <outlet property="delegate" destination="-1" id="wMC-Hs-pFI"/>
+                                </connections>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="ILD-L8-qla">
                                 <rect key="frame" x="0.0" y="405" width="290" height="26"/>

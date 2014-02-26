@@ -83,6 +83,7 @@
 -(void) receiveNotification:(NSNotification*) notification;
 -(SGNavigationController*) sgNavigationController;
 -(bool) navigationWillBack;
+-(void) viewWillAppearOnce;
 
 +(NSString*) screenCode;
 

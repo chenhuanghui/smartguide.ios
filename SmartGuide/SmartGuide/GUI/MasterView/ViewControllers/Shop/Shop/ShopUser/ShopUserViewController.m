@@ -49,25 +49,54 @@
     _shopUserContentFrame=shopNavi.view.frame;
 }
 
+-(void) registerCell
+{
+    if(_shop)
+    {
+        if(![tableShopUser dequeueReusableCellWithIdentifier:[SUShopGalleryCell reuseIdentifier]])
+            [tableShopUser registerNib:[UINib nibWithNibName:[SUShopGalleryCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[SUShopGalleryCell reuseIdentifier]];
+        
+        if(![tableShopUser dequeueReusableCellWithIdentifier:[SUInfoCell reuseIdentifier]])
+            [tableShopUser registerNib:[UINib nibWithNibName:[SUInfoCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[SUInfoCell reuseIdentifier]];
+        
+        if(![tableShopUser dequeueReusableCellWithIdentifier:[SUUserGalleryCell reuseIdentifier]])
+            [tableShopUser registerNib:[UINib nibWithNibName:[SUUserGalleryCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[SUUserGalleryCell reuseIdentifier]];
+        
+        if(![tableShopUser dequeueReusableCellWithIdentifier:[SUUserCommentCell reuseIdentifier]])
+            [tableShopUser registerNib:[UINib nibWithNibName:[SUUserCommentCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[SUUserGalleryCell reuseIdentifier]];
+        
+        if(![tableShopUser dequeueReusableCellWithIdentifier:[SUUserCommentCell reuseIdentifier]])
+            [tableShopUser registerNib:[UINib nibWithNibName:[SUUserCommentCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[SUUserCommentCell reuseIdentifier]];
+        
+        if(_shop.promotionNew)
+        {
+            if(![tableShopUser dequeueReusableCellWithIdentifier:[SUKMNewsCell reuseIdentifier]])
+                [tableShopUser registerNib:[UINib nibWithNibName:[SUKMNewsCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[SUKMNewsCell reuseIdentifier]];
+        }
+        
+        switch (_shop.enumPromotionType) {
+            case SHOP_PROMOTION_KM1:
+                if(![tableShopUser dequeueReusableCellWithIdentifier:[SUKM1Cell reuseIdentifier]])
+                    [tableShopUser registerNib:[UINib nibWithNibName:[SUKM1Cell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[SUKM1Cell reuseIdentifier]];
+                break;
+                
+            case SHOP_PROMOTION_KM2:
+                if(![tableShopUser dequeueReusableCellWithIdentifier:[SUKM2Cell reuseIdentifier]])
+                    [tableShopUser registerNib:[UINib nibWithNibName:[SUKM2Cell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[SUKM2Cell reuseIdentifier]];
+                break;
+                
+            case SHOP_PROMOTION_NONE:
+                break;
+        }
+    }
+}
+
 -(void)viewDidLoad
 {
     [super viewDidLoad];
     
     [detailView addSubview:shopNavi.view];
     [shopNavi l_v_setS:detailView.l_v_s];
-    
-    [tableShopUser registerNib:[UINib nibWithNibName:[SUShopGalleryCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[SUShopGalleryCell reuseIdentifier]];
-    [tableShopUser registerNib:[UINib nibWithNibName:[SUKM1Cell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[SUKM1Cell reuseIdentifier]];
-    [tableShopUser registerNib:[UINib nibWithNibName:[SUKM2Cell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[SUKM2Cell reuseIdentifier]];
-    [tableShopUser registerNib:[UINib nibWithNibName:[SUKMNewsCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[SUKMNewsCell reuseIdentifier]];
-    [tableShopUser registerNib:[UINib nibWithNibName:[SUInfoCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[SUInfoCell reuseIdentifier]];
-    [tableShopUser registerNib:[UINib nibWithNibName:[SUUserGalleryCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[SUUserGalleryCell reuseIdentifier]];
-    [tableShopUser registerNib:[UINib nibWithNibName:[SUUserCommentCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[SUUserCommentCell reuseIdentifier]];
-    [tableShopUser registerNib:[UINib nibWithNibName:[SGShopLoadingCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[SGShopLoadingCell reuseIdentifier]];
-    [tableShopUser registerNib:[UINib nibWithNibName:[SGShopEmptyCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[SGShopEmptyCell reuseIdentifier]];
-    
-    tableShopUser.dataSource=self;
-    tableShopUser.delegate=self;
     
     switch (_shop.enumDataMode) {
         case SHOP_DATA_SHOP_LIST:
@@ -157,7 +186,6 @@
         if(!_isDiplayView)
             return;
         
-        NSLog(@"UIKeyboardWillHideNotification");
         float duration=[notification.userInfo floatForKey:UIKeyboardAnimationDurationUserInfoKey];
         [userCommentCell switchToNormailModeAnimate:true duration:duration];
     }
@@ -204,6 +232,8 @@
         tableShopUser.scrollEnabled=true;
         
         [self loadCells];
+        
+        [self scrollViewDidScroll:tableShopUser];
     }
     else if([operation isKindOfClass:[ASIOperationShopComment class]])
     {
@@ -511,9 +541,20 @@
     return [tableShopUser dequeueReusableCellWithIdentifier:[SGShopLoadingCell reuseIdentifier]];
 }
 
--(SGShopEmptyCell*) emptyCell
+-(UITableViewCell*) emptyCell
 {
-    return [tableShopUser dequeueReusableCellWithIdentifier:[SGShopEmptyCell reuseIdentifier]];
+    UITableViewCell *cell=[tableShopUser dequeueReusableCellWithIdentifier:@"emptyCell"];
+    
+    if(!cell)
+    {
+        cell=[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"emptyCell"];
+        cell.backgroundColor=[UIColor clearColor];
+        cell.contentView.backgroundColor=[UIColor clearColor];
+        [cell l_v_setH:0];
+        [cell.contentView l_v_setH:0];
+    }
+    
+    return cell;
 }
 
 -(SUKM1Cell*) km1Cell
@@ -570,6 +611,8 @@
     {
         cell=[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"btnNext"];
         [cell l_v_setS:CGSizeMake(tableShopUser.l_v_w, _btnNextFrame.size.height)];
+        cell.backgroundColor=[UIColor redColor];
+        cell.contentView.backgroundColor=[UIColor redColor];
     }
     
     return cell;
@@ -798,7 +841,7 @@
                     {
                         switch (_shop.enumPromotionType) {
                             case SHOP_PROMOTION_NONE:
-                                return [SGShopEmptyCell height];
+                                return 0;
                                 
                             case SHOP_PROMOTION_KM1:
                                 return [SUKM1Cell heightWithKM1:_shop.km1];
@@ -813,7 +856,7 @@
                         if(_shop.promotionNew)
                             return [SUKMNewsCell heightWithPromotionNews:_shop.promotionNew];
                         else
-                            return [SGShopEmptyCell height];
+                            return 0;
                     }
                         
                     case 3:

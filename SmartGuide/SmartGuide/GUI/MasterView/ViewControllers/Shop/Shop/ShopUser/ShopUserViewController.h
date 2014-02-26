@@ -21,7 +21,6 @@
 #import "ShopUserGalleryCell.h"
 #import "ShopUserCommentCell.h"
 #import "SUShopGalleryCell.h"
-#import "SGShopEmptyCell.h"
 #import "SUKM1Cell.h"
 #import "SUKM2Cell.h"
 #import "SUKMNewsCell.h"
