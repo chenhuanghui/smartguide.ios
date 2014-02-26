@@ -122,3 +122,8 @@ NSString* localizeSortList(enum SORT_LIST sort)
             return @"Lượt xem";
     }
 }
+
+NSString* localizeInvailActivationCode()
+{
+    return @"Mã xác thực không hợp lệ";
+}

@@ -76,7 +76,10 @@
 {
     _phone=phone;
     txtPhone.text=@"";
-    txtPhone.leftViewMode=UITextFieldViewModeNever;
+    
+    UILabel *lbl=(UILabel*)txtPhone.leftView;
+    lbl.text=@"";
+    [lbl l_v_setW:10];
     txtPhone.placeholder=@"Mã xác thực";
     
     lblTop.text=@"Nhập mã xác thực";
@@ -140,16 +143,30 @@
         [self.view removeLoading];
         
         ASIOperationUserCheck *ope=(ASIOperationUserCheck*) operation;
-
-        if(ope.message.length>0)
+        
+        if(ope.isSuccess)
         {
-            [AlertView showAlertOKWithTitle:nil withMessage:ope.message onOK:^{
+            if(ope.message.length>0)
+            {
+                [AlertView showAlertOKWithTitle:nil withMessage:ope.message onOK:^{
+                    [self finishLogin];
+                }];
+            }
+            else
                 [self finishLogin];
-            }];
         }
         else
-            [self finishLogin];
+        {
+            NSString *msg=localizeInvailActivationCode();
             
+            if(ope.message.length>0)
+                msg=ope.message;
+            
+            [AlertView showAlertOKWithTitle:nil withMessage:msg onOK:^{
+                [txtPhone becomeFirstResponder];
+            }];
+        }
+        
         _operationUserCheck=nil;
     }
 }
