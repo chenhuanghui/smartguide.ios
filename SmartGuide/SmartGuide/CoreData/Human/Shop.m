@@ -24,6 +24,20 @@ static NSMutableDictionary *_dictPinShop=nil;
     return [Shop queryShopObject:[NSPredicate predicateWithFormat:@"%K == %i",Shop_IdShop,idShop]];
 }
 
++(Shop *)makeWithIDShop:(int)idShop
+{
+    Shop *shop=[Shop shopWithIDShop:idShop];
+    
+    if(!shop)
+    {
+        shop=[Shop insert];
+        shop.idShop=@(idShop);
+        shop.dataMode=@(SHOP_DATA_IDSHOP);
+    }
+    
+    return shop;
+}
+
 -(CLLocationCoordinate2D)coordinate
 {
     if(isVailCLLocationCoordinate2D(_dragCoord))

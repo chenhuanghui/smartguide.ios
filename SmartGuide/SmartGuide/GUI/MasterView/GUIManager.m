@@ -496,6 +496,16 @@ static GUIManager *_shareInstance=nil;
     [self presentViewController:vc];
 }
 
+-(void)presentShopUserWithIDShop:(int)idShop
+{
+    ShopUserViewController *vc=[[ShopUserViewController alloc] initWithIDShop:idShop];
+    vc.delegate=self;
+    
+    shopUserController=vc;
+    
+    [self presentViewController:vc];
+}
+
 -(void)shopUserFinished:(ShopUserViewController *)controller
 {
     [self dismissShopUser];

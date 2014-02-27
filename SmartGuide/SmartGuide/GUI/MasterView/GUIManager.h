@@ -48,6 +48,7 @@
 -(void) presentShopUserWithShopList:(ShopList*) shopList;
 -(void) presentShopUserWithShopUser:(Shop*) shop;
 -(void) presentShopUserWithHome8:(UserHome8*) home8;
+-(void) presentShopUserWithIDShop:(int) idShop;
 -(void) dismissShopUser;
 -(void) showStoreWithStore:(StoreShop*) store;
 

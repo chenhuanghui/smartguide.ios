@@ -352,8 +352,6 @@
                 if(home.home1.shopList.length>0 && ![home.home1.shopList isContainString:@","])
                 {
                     [self requestShopUserWithIDShop:home.home1.idShop.integerValue idPost:home.idPost.integerValue];
-                    
-                    [self.view showLoading];
                     return;
                 }
                 
@@ -427,8 +425,6 @@
         {
             UserHome4 *home=cell.currentHome;
             [self requestShopUserWithIDShop:home.idShop.integerValue idPost:home.home.idPost.integerValue];
-            
-            [self.view showLoading];
         }
         else if([cell.currentHome isKindOfClass:[UserHome5 class]])
         {
@@ -446,8 +442,6 @@
         UserHome6 *home6=home;
         
         [self requestShopUserWithIDShop:home6.idShop.integerValue idPost:home6.home.idPost.integerValue];
-        
-        [self.view showLoading];
     }
     else if([home isKindOfClass:[UserHome7 class]])
     {
@@ -458,6 +452,12 @@
 
 -(void) requestShopUserWithIDShop:(int) idShop idPost:(int) idPost
 {
+    [[GUIManager shareInstance] presentShopUserWithIDShop:idShop];
+    
+    [SGData shareInstance].fScreen=[HomeViewController screenCode];
+    [[SGData shareInstance].fData setObject:@(idPost) forKey:@"idPost"];
+    
+    return;
     _operationShopUser=[[ASIOperationShopUser alloc] initWithIDShop:idShop userLat:userLat() userLng:userLng()];
     _operationShopUser.delegatePost=self;
     _operationShopUser.fScreen=[HomeViewController screenCode];

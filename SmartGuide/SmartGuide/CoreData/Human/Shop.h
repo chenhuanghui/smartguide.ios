@@ -14,6 +14,7 @@ enum SHOP_DATA_MODE {
     SHOP_DATA_SHOP_LIST = 0,
     SHOP_DATA_HOME_8 = 1,
     SHOP_DATA_FULL = 2,
+    SHOP_DATA_IDSHOP = 3,
 };
 
 
@@ -24,6 +25,7 @@ enum SHOP_DATA_MODE {
 
 +(Shop*) shopWithIDShop:(int) idShop;
 +(Shop*) makeShopWithDictionary:(NSDictionary*) dict;
++(Shop*) makeWithIDShop:(int) idShop;
 //+(Shop*) makeShopWithIDShop:(int) idShop withJSONShopInGroup:(NSDictionary*) data;
 //+(Shop*) makeShopWithIDShop:(int) idShop withJSONUserCollection:(NSDictionary*) data;
 

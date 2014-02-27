@@ -37,6 +37,20 @@
     return self;
 }
 
+-(ShopUserViewController *)initWithIDShop:(int)idShop
+{
+    self=[super initWithNibName:@"ShopUserViewController" bundle:nil];
+    
+    _idShop=idShop;
+    shopMode=SHOP_USER_FULL;
+    _shop=[Shop makeWithIDShop:_idShop];
+    
+    if(_shop.hasChanges)
+        [[DataManager shareInstance] save];
+    
+    return self;
+}
+
 - (IBAction)btnCloseTouchUpInside:(id)sender {
     [SGData shareInstance].fScreen=[ShopUserViewController screenCode];
     [[SGData shareInstance].fData setObject:_shop.idShop forKey:@"idShop"];
@@ -45,7 +59,6 @@
 
 -(void) storeRect
 {
-    _btnNextFrame=btnNext.frame;
     _shopUserContentFrame=shopNavi.view.frame;
 }
 
@@ -63,10 +76,10 @@
             [tableShopUser registerNib:[UINib nibWithNibName:[SUUserGalleryCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[SUUserGalleryCell reuseIdentifier]];
         
         if(![tableShopUser dequeueReusableCellWithIdentifier:[SUUserCommentCell reuseIdentifier]])
-            [tableShopUser registerNib:[UINib nibWithNibName:[SUUserCommentCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[SUUserGalleryCell reuseIdentifier]];
-        
-        if(![tableShopUser dequeueReusableCellWithIdentifier:[SUUserCommentCell reuseIdentifier]])
             [tableShopUser registerNib:[UINib nibWithNibName:[SUUserCommentCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[SUUserCommentCell reuseIdentifier]];
+        
+        if(![tableShopUser dequeueReusableCellWithIdentifier:[SGShopLoadingCell reuseIdentifier]])
+            [tableShopUser registerNib:[UINib nibWithNibName:[SGShopLoadingCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[SGShopLoadingCell reuseIdentifier]];
         
         if(_shop.promotionNew)
         {
@@ -95,6 +108,8 @@
 {
     [super viewDidLoad];
     
+    _btnNextFrame=btnNext.frame;
+    
     [detailView addSubview:shopNavi.view];
     [shopNavi l_v_setS:detailView.l_v_s];
     
@@ -102,10 +117,7 @@
         case SHOP_DATA_SHOP_LIST:
             tableShopUser.scrollEnabled=false;
             
-            _operationShopUser=[[ASIOperationShopUser alloc] initWithIDShop:_shop.idShop.integerValue userLat:userLat() userLng:userLng()];
-            _operationShopUser.delegatePost=self;
-            
-            [_operationShopUser startAsynchronous];
+            [self requestShopUser];
             
             break;
             
@@ -117,25 +129,40 @@
             
             _sortComment=SORT_SHOP_COMMENT_TOP_AGREED;
             
+            [self requestShopUser];
+            
             break;
             
         case SHOP_DATA_HOME_8:
             
             tableShopUser.scrollEnabled=false;
             
-            _operationShopUser=[[ASIOperationShopUser alloc] initWithIDShop:_shop.idShop.integerValue userLat:userLat() userLng:userLng()];
-            _operationShopUser.delegatePost=self;
-            
-            [_operationShopUser startAsynchronous];
+            [self requestShopUser];
             
             break;
+            
+        case SHOP_DATA_IDSHOP:
+            tableShopUser.scrollEnabled=false;
+            
+            [self requestShopUser];
+            break;
     }
+    
+    [self registerCell];
     
     [tableShopUser reloadData];
     
     [self loadCells];
     
     [SGData shareInstance].fScreen=[ShopUserViewController screenCode];
+}
+
+-(void) requestShopUser
+{
+    _operationShopUser=[[ASIOperationShopUser alloc] initWithIDShop:_shop.idShop.integerValue userLat:userLat() userLng:userLng()];
+    _operationShopUser.delegatePost=self;
+    
+    [_operationShopUser startAsynchronous];
 }
 
 +(NSString *)screenCode
@@ -228,6 +255,7 @@
         
         _sortComment=SORT_SHOP_COMMENT_TOP_AGREED;
         
+        [self registerCell];
         [tableShopUser reloadData];
         tableShopUser.scrollEnabled=true;
         
@@ -386,7 +414,7 @@
     float y=tableOffsetY-rect.origin.y+btnHeight;
     
     //vị trí khuyến mãi chưa scroll đến top của màn hình
-    if(y<0)
+    if((int)y<0)
     {
         [self scrollToInfoRow:true];
     }
@@ -485,6 +513,7 @@
         switch (_shop.enumDataMode) {
             case SHOP_DATA_SHOP_LIST:
             case SHOP_DATA_HOME_8:
+            case SHOP_DATA_IDSHOP:
                 
                 //shop gallery cell+loading cell
                 return 2;
@@ -611,8 +640,12 @@
     {
         cell=[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"btnNext"];
         [cell l_v_setS:CGSizeMake(tableShopUser.l_v_w, _btnNextFrame.size.height)];
-        cell.backgroundColor=[UIColor redColor];
-        cell.contentView.backgroundColor=[UIColor redColor];
+        
+        float y=[tableShopUser rectForRowAtIndexPath:SHOP_USER_BUTTON_CONTAIN_INDEX_PATH].origin.y+tableShopUser.l_v_y;
+        
+        y=MIN(shopNavi.l_v_h-_btnNextFrame.size.height, y);
+        
+        [btnNext l_v_setY:y];
     }
     
     return cell;
@@ -657,16 +690,19 @@
     
     SUUserCommentCell *cell=[tableShopUser dequeueReusableCellWithIdentifier:[SUUserCommentCell reuseIdentifier]];
     
-    float maxHeight=[self commentCellMaxHeight];
+    float height=[SUUserCommentCell heightWithShop:_shop sort:_sortComment];
+    float minHeight=[self commentCellMaxHeight];
+    
+    height=MAX(height,minHeight);
     
     switch (_sortComment) {
         case SORT_SHOP_COMMENT_TIME:
             
-            [cell loadWithShop:_shop sort:_sortComment maxHeight:maxHeight];
+            [cell loadWithShop:_shop sort:_sortComment maxHeight:height];
             break;
             
         case SORT_SHOP_COMMENT_TOP_AGREED:
-            [cell loadWithShop:_shop sort:_sortComment maxHeight:maxHeight];
+            [cell loadWithShop:_shop sort:_sortComment maxHeight:height];
             break;
     }
     
@@ -689,6 +725,7 @@
         switch (_shop.enumDataMode) {
             case SHOP_DATA_HOME_8:
             case SHOP_DATA_SHOP_LIST:
+            case SHOP_DATA_IDSHOP:
                 
                 if(indexPath.row==0)
                     return [self shopGalleryCell];
@@ -824,6 +861,7 @@
         switch (_shop.enumDataMode) {
             case SHOP_DATA_HOME_8:
             case SHOP_DATA_SHOP_LIST:
+            case SHOP_DATA_IDSHOP:
             {
                 if(indexPath.row==0)
                     return [SUShopGalleryCell height];
@@ -861,7 +899,7 @@
                         
                     case 3:
                         if(_shop.km1 || _shop.km2 || _shop.promotionNew)
-                            return [self buttonNextHeight]-4;
+                            return [self buttonNextHeight];
                         else
                         {
                             btnNext.hidden=true;

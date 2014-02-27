@@ -70,6 +70,7 @@
     {
         RegisterViewController *vc=[RegisterViewController new];
         vc.delegate=self;
+        vc.authorizationController=self;
         
         [authorNavi setRootViewController:vc animate:true];
     }

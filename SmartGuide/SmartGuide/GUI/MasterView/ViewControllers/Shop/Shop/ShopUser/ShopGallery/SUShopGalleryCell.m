@@ -20,6 +20,11 @@
     _shop=shop;
     
     switch (shop.enumDataMode) {
+            
+        case SHOP_DATA_IDSHOP:
+            
+            break;
+            
         case SHOP_DATA_HOME_8:
         case SHOP_DATA_SHOP_LIST:
             
@@ -91,6 +96,9 @@
             
         case SHOP_DATA_FULL:
             return _shop.shopGalleriesObjects.count;
+            
+        case SHOP_DATA_IDSHOP:
+            return 0;
     }
 }
 
@@ -115,6 +123,10 @@
             
             [cell loadImage:gallery.cover];
         }
+            break;
+            
+        case SHOP_DATA_IDSHOP:
+            break;
     }
     
     return cell;

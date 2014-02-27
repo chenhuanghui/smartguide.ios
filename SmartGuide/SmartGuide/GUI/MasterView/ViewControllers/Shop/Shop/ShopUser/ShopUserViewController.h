@@ -93,6 +93,7 @@ enum SHOP_USER_MODE {
     NSMutableArray *_km1Data;
     
     __weak Shop *_shop;
+    int _idShop;
     
     enum SORT_SHOP_COMMENT _sortComment;
     
@@ -110,6 +111,7 @@ enum SHOP_USER_MODE {
 }
 
 -(ShopUserViewController*) initWithShopUser:(Shop*) shop;
+-(ShopUserViewController*) initWithIDShop:(int) idShop;
 
 //-(void) setShop:(Shop*) shop;
 

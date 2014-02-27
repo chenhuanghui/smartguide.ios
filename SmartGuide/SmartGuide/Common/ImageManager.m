@@ -74,7 +74,7 @@ static ImageManager *_imageManager=nil;
 
 -(void) loadShopGalleryWithURL:(NSString*) url
 {
-    [self setImageWithURL:[NSURL URLWithString:url]];
+    [self setImageWithURL:[NSURL URLWithString:url] placeholderImage:nil options:SDWebImageProgressiveDownload];
 }
 
 -(void) loadShopUserGalleryWithURL:(NSString*) url
@@ -99,7 +99,7 @@ static ImageManager *_imageManager=nil;
 
 -(void)loadShopCoverWithURL:(NSString *)url
 {
-    [self setImageWithURL:[NSURL URLWithString:url]];
+    [self setImageWithURL:[NSURL URLWithString:url] placeholderImage:nil options:SDWebImageProgressiveDownload];
 }
 
 -(void)loadImageInfo3WithURL:(NSString *)url
@@ -119,7 +119,7 @@ static ImageManager *_imageManager=nil;
 
 -(void)loadImageHomeListWithURL:(NSString *)url
 {
-    [self setImageWithURL:[NSURL URLWithString:url] placeholderImage:nil options:SDWebImageProgressiveDownload progress:nil completed:nil];
+    [self setImageWithURL:[NSURL URLWithString:url] placeholderImage:nil options:SDWebImageProgressiveDownload];
 }
 
 -(void)loadImagePromotionNewsWithURL:(NSString *)url
