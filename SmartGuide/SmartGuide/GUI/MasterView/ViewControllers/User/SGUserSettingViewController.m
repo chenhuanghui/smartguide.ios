@@ -10,8 +10,9 @@
 #import "DataManager.h"
 #import "TokenManager.h"
 #import "GUIManager.h"
+#import "GooglePlusManager.h"
 
-@interface SGUserSettingViewController ()<UITextFieldDelegate,UIPickerViewDataSource,UIPickerViewDelegate,UIGestureRecognizerDelegate,AvatarControllerDelegate,ASIOperationPostDelegate>
+@interface SGUserSettingViewController ()<UITextFieldDelegate,UIPickerViewDataSource,UIPickerViewDelegate,UIGestureRecognizerDelegate,AvatarControllerDelegate,ASIOperationPostDelegate,OperationURLDelegate,GPPSignInDelegate>
 
 @end
 
@@ -32,6 +33,16 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
+    [self loadData];
+    
+    [contentView addSubview:_navi.view];
+    [_navi l_v_setH:contentView.l_v_h];
+    
+    _avatars=[NSMutableArray new];
+}
+
+-(void) loadData
+{
     [imgvAvatar loadAvatarWithURL:currentUser().avatar completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
         if(image)
             [imgvBGAvatar setImage:[[image blur] convertToGrayscale]];
@@ -43,11 +54,102 @@
     _selectedGender=currentUser().gender.integerValue;
     _selectedAvatar=currentUser().avatar;
     
-    [contentView addSubview:_navi.view];
-    [_navi l_v_setH:contentView.l_v_h];
+    btnFB.hidden=currentUser().enumSocialType!=SOCIAL_NONE;
+    btnGP.hidden=currentUser().enumSocialType!=SOCIAL_NONE;
     
-    _avatars=[NSMutableArray new];
+    btnCover.hidden=currentUser().enumDataMode!=USER_DATA_TRY;
 }
+
+- (IBAction)btnCoverTouchUpInside:(id)sender {
+    btnCover.enabled=false;
+    [[GUIManager shareInstance] showLoginDialogWithMessage:localizeLoginRequire() onOK:^{
+        btnCover.enabled=true;
+        [SGData shareInstance].fScreen=SCREEN_CODE_USER_SETTING;
+    } onCancelled:^
+    {
+        btnCover.enabled=true;
+    } onLogined:^(bool isLogined) {
+        btnCover.enabled=true;
+        
+        if(isLogined)
+        {
+            [[DataManager shareInstance].managedObjectContext refreshObject:currentUser() mergeChanges:false];
+            [self loadData];
+        }
+    }];
+}
+
+-(NSArray *)registerNotifications
+{
+    return @[NOTIFICATION_FACEBOOK_LOGIN_SUCCESS,NOTIFICATION_FACEBOOK_LOGIN_FAILED];
+}
+
+-(void)receiveNotification:(NSNotification *)notification
+{
+    if([notification.name isEqualToString:NOTIFICATION_FACEBOOK_LOGIN_SUCCESS])
+    {
+        [self.view showLoading];
+        
+        _operationFBGetProfile=[[OperationFBGetProfile alloc] initWithAccessToken:[[FBSession activeSession] accessTokenData].accessToken];
+        _operationFBGetProfile.delegate=self;
+        
+        [_operationFBGetProfile start];
+    }
+}
+
+-(void)operationURLFinished:(OperationURL *)operation
+{
+    if([operation isKindOfClass:[OperationFBGetProfile class]])
+    {
+        OperationFBGetProfile *ope=(OperationFBGetProfile*) operation;
+        
+        if(ope.jsonData.length>0)
+        {
+            _operationUploadSocialProfile=[[ASIOperationUploadSocialProfile alloc] initWithProfile:[ope.jsonData copy] socialType:SOCIAL_FACEBOOK accessToken:[FBSession activeSession].accessTokenData.accessToken];
+            _operationUploadSocialProfile.delegatePost=self;
+            
+            [_operationUploadSocialProfile startAsynchronous];
+        }
+        else
+            [self.view removeLoading];
+        
+        _operationFBGetProfile=nil;
+    }
+    else if([operation isKindOfClass:[OperationGPGetUserProfile class]])
+    {
+        OperationGPGetUserProfile *ope=(OperationGPGetUserProfile*) operation;
+        
+        if(ope.jsonData.length>0)
+        {
+            _operationUploadSocialProfile=[[ASIOperationUploadSocialProfile alloc] initWithProfile:[ope.jsonData copy] socialType:SOCIAL_GOOGLEPLUS accessToken:[GooglePlusManager shareInstance].authentication.accessToken];
+            _operationUploadSocialProfile.delegatePost=self;
+            
+            [_operationUploadSocialProfile startAsynchronous];
+        }
+        else
+            [self.view removeLoading];
+        
+        _operationGPGetUserProfile=nil;
+    }
+}
+
+-(void)operationURLFailed:(OperationURL *)operation
+{
+    if([operation isKindOfClass:[OperationFBGetProfile class]])
+    {
+        [self.view removeLoading];
+        
+        _operationFBGetProfile=nil;
+    }
+    else if([operation isKindOfClass:[OperationGPGetUserProfile class]])
+    {
+        [self.view removeLoading];
+        
+        _operationGPGetUserProfile=nil;
+    }
+}
+
+
 
 - (void)didReceiveMemoryWarning
 {
@@ -178,6 +280,31 @@
     {
         [[GUIManager shareInstance] logout];
     }
+    else if([operation isKindOfClass:[ASIOperationUploadSocialProfile class]])
+    {
+        [self.view removeLoading];
+        
+        ASIOperationUploadSocialProfile *ope=(ASIOperationUploadSocialProfile*) operation;
+        
+        int status=ope.status;
+        
+        if(ope.message.length>0)
+        {
+            [AlertView showAlertOKWithTitle:nil withMessage:ope.message onOK:^{
+                if(status==1)
+                    [self.delegate userSettingControllerFinished:self];
+            }];
+        }
+        else
+        {
+            if(status==1)
+            {
+                [self.delegate userSettingControllerFinished:self];
+            }
+        }
+        
+        _operationUploadSocialProfile=nil;
+    }
 }
 
 -(void)ASIOperaionPostFailed:(ASIOperationPost *)operation
@@ -188,6 +315,12 @@
         _operationUpdateUserProfile=nil;
         
         [[TokenManager shareInstance] setAccessToken:_accessToken];
+    }
+    else if([operation isKindOfClass:[ASIOperationUploadSocialProfile class]])
+    {
+        [self.view removeLoading];
+        
+        _operationUploadSocialProfile=nil;
     }
 }
 
@@ -460,6 +593,48 @@
     {
         [_operationUserProfile clearDelegatesAndCancel];
         _operationUserProfile=nil;
+    }
+    
+    if(_operationFBGetProfile)
+    {
+        [_operationFBGetProfile cancel];
+        _operationFBGetProfile=nil;
+    }
+    
+    if(_operationGPGetUserProfile)
+    {
+        [_operationGPGetUserProfile cancel];
+        _operationGPGetUserProfile=nil;
+    }
+}
+
+- (IBAction)btnFacebookTouchUpInside:(id)sender {
+    [[FacebookManager shareInstance] login];
+}
+
+- (IBAction)btnGooglePlusTouchUpInside:(id)sender {
+    GPPSignIn *gp = [GPPSignIn sharedInstance];
+    gp.clientID=kClientId;
+    gp.scopes=@[kGTLAuthScopePlusLogin,kGTLAuthScopePlusMe];
+    gp.delegate=self;
+    gp.shouldFetchGooglePlusUser=true;
+    gp.shouldFetchGoogleUserEmail=true;
+    
+    if(![gp trySilentAuthentication])
+        [gp authenticate];
+}
+
+-(void)finishedWithAuth:(GTMOAuth2Authentication *)auth error:(NSError *)error
+{
+    if(!error)
+    {
+        [self.self.view showLoading];
+        
+        [GooglePlusManager shareInstance].authentication=auth;
+        _operationGPGetUserProfile=[[OperationGPGetUserProfile alloc] initWithAccessToken:auth.accessToken clientID:kClientId];
+        _operationGPGetUserProfile.delegate=self;
+        
+        [_operationGPGetUserProfile start];
     }
 }
 

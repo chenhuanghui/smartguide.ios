@@ -42,6 +42,8 @@ void makePhoneCall(NSString* phone);
 int random_int(int from, int to);
 float UIScreenScale();
 
+NSUInteger UIViewAutoresizingAll();
+
 NSString *documentPath();
 
 @interface Utility : NSObject

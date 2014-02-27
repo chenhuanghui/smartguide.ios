@@ -12,6 +12,9 @@
 #import "AvatarViewController.h"
 #import "ASIOperationUpdateUserProfile.h"
 #import "ASIOperationUserProfile.h"
+#import "ASIOperationUploadSocialProfile.h"
+#import "OperationFBGetProfile.h"
+#import "OperationGPGetUserProfile.h"
 
 @class SGUserSettingViewController;
 
@@ -41,6 +44,9 @@
     __weak IBOutlet UIView *titleView;
     __weak IBOutlet UIView *backView;
     __weak IBOutlet UIButton *btnBack;
+    __weak IBOutlet UIButton *btnFB;
+    __weak IBOutlet UIButton *btnGP;
+    __weak IBOutlet UIButton *btnCover;
     
     IBOutlet SGNavigationController *_navi;
     __weak AvatarViewController *_avatarController;
@@ -53,6 +59,9 @@
     int _selectedGender;
     ASIOperationUpdateUserProfile *_operationUpdateUserProfile;
     ASIOperationUserProfile *_operationUserProfile;
+    ASIOperationUploadSocialProfile *_operationUploadSocialProfile;
+    OperationFBGetProfile *_operationFBGetProfile;
+    OperationGPGetUserProfile *_operationGPGetUserProfile;
     NSString *_accessToken;
 }
 

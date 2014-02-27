@@ -9,7 +9,6 @@
 #import "RegisterViewController.h"
 #import "AvatarViewController.h"
 #import "AuthorizationViewController.h"
-#import <GoogleOpenSource/GoogleOpenSource.h>
 #import "GooglePlusManager.h"
 
 @interface RegisterViewController ()<AvatarControllerDelegate,GPPSignInDelegate>

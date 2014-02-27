@@ -11,9 +11,12 @@
                 <outlet property="backView" destination="9gX-b5-DYm" id="DRA-pY-zmI"/>
                 <outlet property="btnAvatar" destination="PRE-5d-acU" id="vG3-K3-PfZ"/>
                 <outlet property="btnBack" destination="nsX-zp-VxS" id="6Cz-Mw-yKb"/>
+                <outlet property="btnCover" destination="fRQ-aH-0vf" id="C7c-5h-W5F"/>
                 <outlet property="btnDone" destination="W8b-Ni-QWD" id="jWd-T2-beg"/>
                 <outlet property="btnEditDOB" destination="SES-TW-7Im" id="yc3-9g-UXL"/>
                 <outlet property="btnEditGender" destination="smN-Vr-ygt" id="Aiu-ej-iWS"/>
+                <outlet property="btnFB" destination="Xap-6g-VpY" id="hyz-wm-ETw"/>
+                <outlet property="btnGP" destination="aTA-9I-cK6" id="gLS-TX-FAA"/>
                 <outlet property="btnLogout" destination="ueW-Ig-XiU" id="kAc-Qx-jqJ"/>
                 <outlet property="btnSetting" destination="j2c-qO-oYJ" id="s9h-uq-iwG"/>
                 <outlet property="contentView" destination="RdO-th-kLs" id="wQg-SR-TJg"/>
@@ -256,6 +259,9 @@
                                         <state key="normal" image="button_facebook_login.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <action selector="btnFacebookTouchUpInside:" destination="-1" eventType="touchUpInside" id="Y3g-se-Dda"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="aTA-9I-cK6">
                                         <rect key="frame" x="34" y="345" width="253" height="40"/>
@@ -263,10 +269,25 @@
                                         <state key="normal" image="button_google_login.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <action selector="btnGooglePlusTouchUpInside:" destination="-1" eventType="touchUpInside" id="C3n-75-uiu"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </scrollView>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="fRQ-aH-0vf">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="426"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <state key="normal">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="btnCoverTouchUpInside:" destination="-1" eventType="touchUpInside" id="ZKL-Co-Miz"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.92156862745098034" green="0.92156862745098034" blue="0.92156862745098034" alpha="1" colorSpace="calibratedRGB"/>
                     </view>

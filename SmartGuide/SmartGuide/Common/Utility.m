@@ -89,6 +89,11 @@ NSString *documentPath()
     return documentPath;
 }
 
+NSUInteger UIViewAutoresizingAll()
+{
+    return UIViewAutoresizingFlexibleBottomMargin|UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin|UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleWidth;
+}
+
 @implementation Utility
 
 +(CGRect) centerPinWithFrameAnnotation:(CGRect) rectAnn framePin:(CGRect) rectPin
