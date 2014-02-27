@@ -27,7 +27,12 @@
 -(void)setImage:(UIImage *)image
 {
     if(image)
-        image=[image scaleProportionalToSize:self.frame.size];
+    {
+        float screenScale=UIScreenScale();
+        image=[image scaleProportionalToSize:CGSizeMake(self.frame.size.width*screenScale, self.frame.size.height*screenScale)];
+        if(image.scale!=screenScale)
+            image=[UIImage imageWithCGImage:image.CGImage scale:screenScale orientation:image.imageOrientation];
+    }
     
     [super setImage:image];
 }

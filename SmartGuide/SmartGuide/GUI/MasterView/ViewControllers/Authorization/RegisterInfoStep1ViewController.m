@@ -44,6 +44,7 @@
 -(void) textFieldDidChangedText:(UITextField*) textField
 {
     btnName.hidden=textField.text.length>0;
+    registerController.registerInfo.name=txt.text;
 }
 
 - (IBAction)btnAvatarTouchUpInside:(id)sender {

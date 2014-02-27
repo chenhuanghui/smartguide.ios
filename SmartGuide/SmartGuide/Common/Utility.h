@@ -40,6 +40,7 @@ CGRect CGRectWithOrigin(CGRect rect, CGPoint pnt);
 bool isVailCLLocationCoordinate2D(CLLocationCoordinate2D location);
 void makePhoneCall(NSString* phone);
 int random_int(int from, int to);
+float UIScreenScale();
 
 NSString *documentPath();
 

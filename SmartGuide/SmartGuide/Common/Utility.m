@@ -76,6 +76,11 @@ int random_int(int from, int to)
     return from + rand() % (to-from);
 }
 
+float UIScreenScale()
+{
+    return [UIScreen mainScreen].scale;
+}
+
 NSString *documentPath()
 {
     NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
@@ -1393,6 +1398,7 @@ NSString *documentPath()
         size1=CGSizeMake(size1.width,(self.size.height/self.size.width)*size1.width);
     }
     
+    return [self resizedImage:size1 interpolationQuality:kCGInterpolationHigh];
     return [self scaleToSize:size1];
 }
 
