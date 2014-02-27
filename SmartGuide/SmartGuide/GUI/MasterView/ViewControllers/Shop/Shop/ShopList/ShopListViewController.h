@@ -105,6 +105,8 @@ enum SHOP_LIST_VIEW_MODE {
     NSIndexPath *_scrollerIndexPath;
     
     bool _didMakeScrollSize;
+    
+    bool _isNeedAnimationChangeTable;
 }
 
 -(ShopListViewController*) initWithKeyword:(NSString*) keyword;

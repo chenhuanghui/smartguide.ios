@@ -164,11 +164,14 @@ static char presentSGViewControlelrKey;
     [viewControllerToPresent l_v_setS:self.l_v_s];
     
     [viewControllerToPresent l_v_setY:-viewControllerToPresent.l_v_h];
+    [self.view alphaViewWithColor:[UIColor blackColor]];
+    self.view.alphaView.alpha=0;
     [self.view addSubview:viewControllerToPresent.view];
     [viewControllerToPresent viewWillAppear:true];
     
     [UIView animateWithDuration:DURATION_PRESENT_VIEW_CONTROLLER animations:^{
         [viewControllerToPresent l_v_setY:0];
+        self.view.alphaView.alpha=0.7f;
     } completion:^(BOOL finished) {
         [viewControllerToPresent viewDidAppear:true];
     }];
@@ -187,8 +190,10 @@ static char presentSGViewControlelrKey;
     [self.presentSGViewControlelr viewWillDisappear:true];
     [UIView animateWithDuration:DURATION_PRESENT_VIEW_CONTROLLER animations:^{
         [self.presentSGViewControlelr l_v_setY:-self.presentSGViewControlelr.l_v_h];
+        self.view.alphaView.alpha=0;
     } completion:^(BOOL finished) {
         
+        [self.view removeAlphaView];
         [self.presentSGViewControlelr viewDidDisappear:true];
         [self.presentSGViewControlelr.view removeFromSuperview];
         [self.presentSGViewControlelr removeFromParentViewController];

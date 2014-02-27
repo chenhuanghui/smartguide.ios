@@ -274,11 +274,33 @@
         _isLoadingMoreComment=false;
         _pageComment++;
         
-        [tableShopUser reloadRowsAtIndexPaths:@[SHOP_USER_USER_COMMENT_INDEX_PATH] withRowAnimation:UITableViewRowAnimationNone];
-        [userCommentCell l_v_setH:[tableShopUser rectForRowAtIndexPath:SHOP_USER_USER_COMMENT_INDEX_PATH].size.height];
-        [self scrollViewDidScroll:tableShopUser];
-        [tableShopUser setContentOffset:tableShopUser.contentOffset animated:true];
-        [userCommentCell loadWithShop:_shop sort:_sortComment maxHeight:-1];
+        if(_pageComment==0)
+        {
+            self.view.userInteractionEnabled=false;
+            [UIView animateWithDuration:DURATION_DEFAULT animations:^{
+                userCommentCell.table.alpha=0.5f;
+            } completion:^(BOOL finished) {
+                [tableShopUser reloadRowsAtIndexPaths:@[SHOP_USER_USER_COMMENT_INDEX_PATH] withRowAnimation:UITableViewRowAnimationNone];
+                [userCommentCell l_v_setH:[tableShopUser rectForRowAtIndexPath:SHOP_USER_USER_COMMENT_INDEX_PATH].size.height];
+                [self scrollViewDidScroll:tableShopUser];
+                [tableShopUser setContentOffset:tableShopUser.contentOffset animated:true];
+                [userCommentCell loadWithShop:_shop sort:_sortComment maxHeight:-1];
+                
+                [UIView animateWithDuration:DURATION_DEFAULT animations:^{
+                    userCommentCell.table.alpha=1;
+                } completion:^(BOOL finished) {
+                    self.view.userInteractionEnabled=true;
+                }];
+            }];
+        }
+        else
+        {
+            [tableShopUser reloadRowsAtIndexPaths:@[SHOP_USER_USER_COMMENT_INDEX_PATH] withRowAnimation:UITableViewRowAnimationNone];
+            [userCommentCell l_v_setH:[tableShopUser rectForRowAtIndexPath:SHOP_USER_USER_COMMENT_INDEX_PATH].size.height];
+            [self scrollViewDidScroll:tableShopUser];
+            [tableShopUser setContentOffset:tableShopUser.contentOffset animated:true];
+            [userCommentCell loadWithShop:_shop sort:_sortComment maxHeight:-1];
+        }
         
         _operationShopComment=nil;
     }
@@ -685,6 +707,7 @@
 {
     if(userCommentCell)
     {
+        [userCommentCell reloadData];
         return userCommentCell;
     }
     

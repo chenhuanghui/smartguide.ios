@@ -51,6 +51,7 @@
 +(float) tableY;
 -(void) focus;
 -(void) clearInput;
+-(void) reloadData;
 
 -(void) switchToNormailModeAnimate:(bool) animate duration:(float) duration;
 -(void) switchToEditingModeAnimate:(bool) animate duration:(float) duration;

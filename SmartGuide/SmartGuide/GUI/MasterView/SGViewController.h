@@ -93,9 +93,9 @@
 
 @interface UIViewController(PresentViewController)
 
-@property (nonatomic, readwrite, weak) SGViewController *presentSGViewControlelr;
+@property (nonatomic, readwrite, weak) UIViewController *presentSGViewControlelr;
 
--(void)presentSGViewController:(SGViewController *)viewControllerToPresent completion:(void (^)(void))completion;
+-(void)presentSGViewController:(UIViewController *)viewControllerToPresent completion:(void (^)(void))completion;
 -(void)dismissSGViewControllerCompletion:(void (^)(void))completion;
 
 @end

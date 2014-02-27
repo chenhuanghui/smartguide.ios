@@ -869,6 +869,7 @@ CATransition* transitionPushFromRight()
 {
     for(SGViewController *vc in self.viewControllers)
     {
+        if([vc isKindOfClass:[SGViewController class]])
         [vc navigationController:self willPopController:(SGViewController*)self.visibleViewController];
     }
     

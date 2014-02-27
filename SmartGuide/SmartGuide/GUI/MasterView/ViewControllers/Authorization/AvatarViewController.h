@@ -17,6 +17,9 @@
 
 -(void) avatarControllerTouched:(AvatarViewController*) controller avatar:(NSString*) avatar avatarImage:(UIImage*) avatarImage;
 
+@optional
+-(UIViewController*) avatarControllerPresentViewController;
+
 @end
 
 @interface AvatarViewController : SGViewController<GMGridViewDataSource,ASIOperationPostDelegate,GMGridViewActionDelegate>

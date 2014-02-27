@@ -683,6 +683,8 @@
     
     [SGData shareInstance].fScreen=[ShopListViewController screenCode];
     [self requestShopList];
+    
+    _isNeedAnimationChangeTable=true;
 }
 
 -(void) makeSortLayout
@@ -741,6 +743,8 @@
     
     _operationShopSearch.delegatePost=self;
     [_operationShopSearch startAsynchronous];
+    
+    _isNeedAnimationChangeTable=true;
 }
 
 -(void) changeSortPlace:(enum SORT_LIST) sort
@@ -780,6 +784,8 @@
     
     _operationPlaceListDetail.delegatePost=self;
     [_operationPlaceListDetail startAsynchronous];
+    
+    _isNeedAnimationChangeTable=true;
 }
 
 -(void) clearMap
@@ -806,8 +812,7 @@
         _canLoadMore=ope.shopsList.count==10;
         _isLoadingMore=false;
         
-        tableList.dataSource=self;
-        [tableList reloadData];
+        [self animationTableReload];
         
         NSMutableArray *coordinates=[NSMutableArray array];
         for(ShopList *shop in ope.shopsList)
@@ -843,8 +848,7 @@
         _canLoadMore=ope.shops.count==10;
         _isLoadingMore=false;
         
-        tableList.dataSource=self;
-        [tableList reloadData];
+        [self animationTableReload];
         
         NSMutableArray *coordinates=[NSMutableArray array];
         for(ShopList *shop in ope.shops)
@@ -879,8 +883,7 @@
         _canLoadMore=ope.shopsList.count==10;
         _isLoadingMore=false;
         
-        tableList.dataSource=self;
-        [tableList reloadData];
+        [self animationTableReload];
         
         NSMutableArray *coordinates=[NSMutableArray array];
         for(ShopList *shop in ope.shopsList)
@@ -915,10 +918,7 @@
         _isLoadingMore=false;
         _page++;
         
-        tableList.dataSource=self;
-        tableList.delegate=self;
-        
-        [tableList reloadData];
+        [self animationTableReload];
         
         NSMutableArray *coordinates=[NSMutableArray array];
         for(ShopList *shop in _shopsList)
@@ -1476,6 +1476,36 @@
     [scrollBar removeObserver:self forKeyPath:@"alpha"];
 }
 
+-(void) animationTableReload
+{
+    if(_isNeedAnimationChangeTable)
+    {
+        self.view.userInteractionEnabled=false;
+        [scroll alphaViewWithColor:COLOR_BACKGROUND_SHOP_SERIES belowView:tableList];
+        scroll.alphaView.frame=CGRectMake(tableList.l_v_x, tableList.l_v_y, tableList.l_cs_w, tableList.l_cs_h);
+        [UIView animateWithDuration:DURATION_DEFAULT animations:^{
+            tableList.alpha=0.5f;
+        } completion:^(BOOL finished) {
+            tableList.dataSource=self;
+            [tableList reloadData];
+            
+            [UIView animateWithDuration:DURATION_DEFAULT animations:^{
+                tableList.alpha=1;
+            } completion:^(BOOL finished) {
+                [scroll removeAlphaView];
+                self.view.userInteractionEnabled=true;
+            }];
+        }];
+        
+        _isNeedAnimationChangeTable=false;
+    }
+    else
+    {
+        tableList.dataSource=self;
+        [tableList reloadData];
+    }
+}
+
 -(bool)isZoomedMap
 {
     return _isZoomedMap;
@@ -1562,7 +1592,7 @@
         [_operationShopSearch clearDelegatesAndCancel];
         _operationShopSearch=nil;
     }
-
+    
     [SGData shareInstance].fScreen=SCREEN_CODE_SHOP_LIST;
     [self.delegate shopListControllerTouchedBack:self];
 }

@@ -34,7 +34,7 @@
             [imgvBGAvatar setImage:[[image blur] convertToGrayscale]];
     }];
     
-    lblName.text=currentUser().name;
+    lblName.text=[currentUser().name uppercaseString];
 }
 
 -(void)viewDidAppear:(BOOL)animated

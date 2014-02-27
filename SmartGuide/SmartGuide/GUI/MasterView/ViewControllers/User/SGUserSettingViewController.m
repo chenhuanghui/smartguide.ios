@@ -79,6 +79,11 @@
     }];
 }
 
+-(UIViewController *)avatarControllerPresentViewController
+{
+    return [GUIManager shareInstance].contentNavigation;
+}
+
 -(NSArray *)registerNotifications
 {
     return @[NOTIFICATION_FACEBOOK_LOGIN_SUCCESS,NOTIFICATION_FACEBOOK_LOGIN_FAILED];

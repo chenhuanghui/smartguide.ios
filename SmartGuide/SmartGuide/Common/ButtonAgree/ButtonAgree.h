@@ -19,3 +19,7 @@
 @property (nonatomic, readonly) enum AGREE_STATUS agreeStatus;
 
 @end
+
+@interface ImageAgreeView : UIView
+
+@end

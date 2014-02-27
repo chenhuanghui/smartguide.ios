@@ -1580,7 +1580,7 @@ NSUInteger UIViewAutoresizingAll()
 
 -(UIImage *)blur
 {
-    return [self blurWithInputRadius:8];
+    return [self blurWithInputRadius:6];
 }
 
 -(UIImage *)blurWithInputRadius:(float)inputRadius

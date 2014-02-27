@@ -48,6 +48,20 @@
         [btnShare setDefaultImage:[UIImage imageNamed:@"button_facebook_hidden.png"] highlightImage:[UIImage imageNamed:@"button_Facebook.png"]];
 }
 
+-(void)reloadData
+{
+    switch (_sort) {
+        case SORT_SHOP_COMMENT_TIME:
+            _comments=_shop.timeCommentsObjects;
+            break;
+            
+        case SORT_SHOP_COMMENT_TOP_AGREED:
+            _comments=_shop.topCommentsObjects;
+    }
+    
+    [table reloadData];
+}
+
 -(void)tableDidScroll:(UITableView *)tableUser cellRect:(CGRect)cellRect buttonNextHeight:(float)buttonHeight
 {
     float y=tableUser.l_co_y-tableUser.l_v_y;

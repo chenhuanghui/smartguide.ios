@@ -11,3 +11,7 @@
 @interface ImageScaleCrop : UIImageView
 
 @end
+
+@interface ImageScaleCropHeight : ImageScaleCrop
+
+@end

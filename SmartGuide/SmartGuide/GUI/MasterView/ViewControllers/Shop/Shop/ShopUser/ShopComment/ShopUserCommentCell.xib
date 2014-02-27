@@ -92,6 +92,6 @@
         <image name="button_agree.png" width="56" height="22"/>
         <image name="button_liked_comment.png" width="27" height="28"/>
         <image name="frame_avacomment.png" width="43" height="44"/>
-        <image name="line_comment.png" width="257" height="1"/>
+        <image name="line_comment.png" width="273" height="1"/>
     </resources>
 </document>

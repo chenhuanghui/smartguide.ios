@@ -40,3 +40,31 @@
 }
 
 @end
+
+@implementation ImageAgreeView
+
+-(void)awakeFromNib
+{
+    [super awakeFromNib];
+    
+    self.contentMode=UIViewContentModeRedraw;
+    self.backgroundColor=[UIColor clearColor];
+}
+
+- (void)drawRect:(CGRect)rect
+{
+    // Drawing code
+    
+    UIImage *left=BUTTON_AGREE_IMAGE_LEFT_NORMAL;
+    UIImage *right=BUTTON_AGREE_IMAGE_RIGHT_NORMAL;
+    UIImage *mid=BUTTON_AGREE_IMAGE_MID_NORMAL;
+    
+    [left drawAtPoint:CGPointZero];
+    [right drawAtPoint:CGPointMake(rect.origin.x+rect.size.width-right.size.width, 0)];
+    
+    rect.origin.x=left.size.width;
+    rect.size.width=rect.size.width-right.size.width-left.size.width;
+    [mid drawAsPatternInRect:rect];
+}
+
+@end

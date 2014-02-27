@@ -105,7 +105,7 @@ static GUIManager *_shareInstance=nil;
 
 -(void)SGLoadingFinished:(SGLoadingScreenViewController *)loadingScreen
 {
-    [self showFirstController];
+//    [self showFirstController];
 }
 
 -(void)welcomeControllerTouchedLogin:(WelcomeViewController *)viewController
@@ -402,6 +402,9 @@ static GUIManager *_shareInstance=nil;
 
 -(void)presentViewController:(SGViewController *)viewController
 {
+    if(self.contentNavigation.presentSGViewControlelr)
+        return;
+    
     [self.contentNavigation presentSGViewController:viewController completion:nil];
 //    [self.contentNavigation addChildViewController:viewController];
 //    

@@ -111,8 +111,19 @@
     imgPicker.editing=false;
     
     imagePicker=imgPicker;
-    
-    [self.navigationController presentModalViewController:imgPicker animated:true];
+
+    if([self.delegate respondsToSelector:@selector(avatarControllerPresentViewController)])
+        [[self.delegate avatarControllerPresentViewController] presentSGViewController:imgPicker completion:nil];
+    else
+        [self.navigationController presentSGViewController:imgPicker completion:nil];
+}
+
+-(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
+{
+    if([self.delegate respondsToSelector:@selector(avatarControllerPresentViewController)])
+        [[self.delegate avatarControllerPresentViewController] dismissSGViewControllerCompletion:nil];
+    else
+        [self.navigationController dismissSGViewControllerCompletion:nil];
 }
 
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
@@ -122,7 +133,10 @@
     [grid reloadData];
     [grid scrollToObjectAtIndex:0 atScrollPosition:GMGridViewScrollPositionTop animated:false];
     
-    [self.navigationController dismissModalViewControllerAnimated:true];
+    if([self.delegate respondsToSelector:@selector(avatarControllerPresentViewController)])
+        [[self.delegate avatarControllerPresentViewController] dismissSGViewControllerCompletion:nil];
+    else
+        [self.navigationController dismissSGViewControllerCompletion:nil];
 }
 
 - (IBAction)btnConfirmTouchUpInside:(id)sender {
