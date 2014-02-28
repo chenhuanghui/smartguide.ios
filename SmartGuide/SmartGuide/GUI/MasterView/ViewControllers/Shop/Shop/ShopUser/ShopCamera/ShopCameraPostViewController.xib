@@ -26,7 +26,7 @@
                 </imageView>
                 <view alpha="0.20000000000000001" contentMode="scaleToFill" id="QLX-5o-Wue">
                     <rect key="frame" x="0.0" y="0.0" width="290" height="431"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="blur_photoupload.png" id="i91-wT-5La">
@@ -65,7 +65,7 @@
                 </button>
                 <view contentMode="scaleToFill" id="IQt-yw-1Ps">
                     <rect key="frame" x="0.0" y="124" width="290" height="307"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <color key="backgroundColor" red="0.92156862745098034" green="0.92156862745098034" blue="0.92156862745098034" alpha="1" colorSpace="calibratedRGB"/>
                 </view>
                 <view contentMode="scaleToFill" id="3nI-gu-MBS">

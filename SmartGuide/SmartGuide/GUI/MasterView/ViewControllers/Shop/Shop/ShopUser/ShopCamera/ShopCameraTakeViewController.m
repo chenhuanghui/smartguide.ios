@@ -40,12 +40,16 @@
     picker.toolbarHidden=true;
     
     [picker l_v_setS:self.l_v_s];
-    
     [self.view insertSubview:picker.view atIndex:0];
     
     camera=picker;
     
     [self makeFlashStatus];
+}
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
 }
 
 -(void) makeFlashStatus

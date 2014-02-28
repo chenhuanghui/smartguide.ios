@@ -200,6 +200,11 @@
                 }
                 
                 userRouteLine=[self setRoutePoints:steps];
+                
+                if(userRouteLine)
+                {
+                    [self addOverlay:userRouteLine];
+                }
             }
         }
         else
@@ -294,7 +299,7 @@
     if(!userRouteLine)
         return nil;
     
-    return [self polylineViewWithOverlay:userRouteLine fillColor:[UIColor colorWithRed:0 green:1 blue:0 alpha:0.5f] strokeColor:[UIColor colorWithRed:0 green:1 blue:0 alpha:0.5f] lineWidth:4];
+    return [self polylineViewWithOverlay:userRouteLine fillColor:[UIColor colorWithRed:75.f/255 green:121.f/255 blue:213.f/255 alpha:1.f] strokeColor:[UIColor colorWithRed:75.f/255 green:121.f/255 blue:213.f/255 alpha:1.f] lineWidth:8];
 }
 
 -(void)addressAtCoordinate:(CLLocationCoordinate2D)coordinate withDelegate:(id<SGMapViewGeoCoderDelegate>)geoDelegate

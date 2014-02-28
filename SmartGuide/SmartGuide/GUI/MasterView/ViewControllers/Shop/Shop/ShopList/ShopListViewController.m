@@ -1664,6 +1664,10 @@
     [self showQRCodeWithContorller:self inView:self.view withAnimationType:QRCODE_ANIMATION_TOP_BOT screenCode:[ShopListViewController screenCode]];
 }
 
+-(void)shopPinDealloc:(ShopPinView *)pin
+{
+    [pin removeObserver:self forKeyPath:@"selected"];
+}
 
 @end
 

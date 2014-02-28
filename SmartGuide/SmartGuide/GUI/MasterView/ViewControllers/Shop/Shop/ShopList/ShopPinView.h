@@ -15,6 +15,7 @@
 @protocol ShopPinDelegate <NSObject>
 
 -(void) shopPinTouched:(ShopPinView*) pin;
+-(void) shopPinDealloc:(ShopPinView*) pin;
 
 @end
 
@@ -25,6 +26,7 @@
 }
 
 -(void) showInfoWithShop:(ShopList*) shop;
+-(void) showInfoWithShopUser:(Shop*) shop;
 -(void) hideInfo;
 -(ShopList*) shop;
 

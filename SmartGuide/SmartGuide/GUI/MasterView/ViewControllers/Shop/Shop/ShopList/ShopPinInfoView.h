@@ -20,6 +20,7 @@
 }
 
 -(void) setShop:(ShopList*) shop;
+-(void) setShopUser:(Shop*) shop;
 -(ShopList*) shop;
 
 @end

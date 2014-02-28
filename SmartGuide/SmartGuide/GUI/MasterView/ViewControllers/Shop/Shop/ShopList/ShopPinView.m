@@ -11,6 +11,32 @@
 
 @implementation ShopPinView
 
+-(void)showInfoWithShopUser:(Shop *)shop
+{
+    if(_pinInfo)
+    {
+        [_pinInfo setShopUser:shop];
+        return;
+    }
+    
+    ShopPinInfoView *pinInfo=[ShopPinInfoView new];
+    [pinInfo setShopUser:shop];
+    
+    [pinInfo l_v_setY:-pinInfo.l_v_h-3];
+    [pinInfo l_v_addX:self.l_v_w/2];
+    
+    [self addSubview:pinInfo];
+    
+    _pinInfo=pinInfo;
+}
+
+- (void)dealloc
+{
+    [self.delegate shopPinDealloc:self];
+    self.delegate=nil;
+}
+
+
 -(void)showInfoWithShop:(ShopList *)shop
 {
     _shop=shop;

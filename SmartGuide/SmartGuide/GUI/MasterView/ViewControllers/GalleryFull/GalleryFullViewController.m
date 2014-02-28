@@ -62,9 +62,11 @@
         self.view.alphaView.backgroundColor=[UIColor blackColor];
         self.view.alphaView.alpha=0;
 
-        grid.dataSource=self;
-        
+        [self.view l_v_setS:_parentController.view.l_v_s];
+        [self.view.alphaView l_v_setS:self.view.l_v_s];
         [_parentController.view addSubview:self.view];
+        
+        grid.dataSource=self;
         
         [UIView animateWithDuration:DURATION_DEFAULT animations:^{
             self.view.alpha=1;
@@ -183,6 +185,7 @@
     {
         UIImageView *imgv=[UIImageView new];
         imgv.contentMode=UIViewContentModeScaleAspectFit;
+        imgv.autoresizingMask=UIViewAutoresizingAll();
         
         self.contentView=imgv;
         

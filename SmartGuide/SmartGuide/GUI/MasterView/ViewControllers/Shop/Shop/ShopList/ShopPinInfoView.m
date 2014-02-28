@@ -40,6 +40,23 @@
     [self addShadow:cornerView.layer.cornerRadius];
 }
 
+-(void)setShopUser:(Shop *)shop
+{
+    lblShopName.text=shop.shopName;
+    [lblShopName sizeToFit];
+    
+    lblShopType.text=shop.shopTypeDisplay;
+    [lblShopName sizeToFit];
+    
+    [lblShopType l_v_setY:lblShopName.l_v_h];
+    
+    [self l_v_setH:lblShopType.l_v_y+lblShopType.l_v_h];
+    [self l_v_setW:MAX(lblShopType.l_v_w, lblShopName.l_v_w)+44+5];
+    [self l_v_setX:-self.l_v_w/2];
+    
+    [self addShadow:cornerView.layer.cornerRadius];
+}
+
 -(ShopList *)shop
 {
     return _shop;

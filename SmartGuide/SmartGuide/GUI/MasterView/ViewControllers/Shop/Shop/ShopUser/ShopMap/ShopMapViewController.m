@@ -8,8 +8,9 @@
 
 #import "ShopMapViewController.h"
 #import "DDAnnotationView.h"
+#import "ShopPinView.h"
 
-@interface ShopMapViewController ()<SGMapViewGeoCoderDelegate>
+@interface ShopMapViewController ()<SGMapViewGeoCoderDelegate,ShopPinDelegate>
 
 @end
 
@@ -24,6 +25,11 @@
         _shop=shop;
     }
     return self;
+}
+
+-(void)shopPinDealloc:(ShopPinView *)pin
+{
+    [pin removeObserver:self forKeyPath:@"selected"];
 }
 
 - (void)viewDidLoad
@@ -91,21 +97,56 @@
     if(overlay==map.polyRoute)
         return [map polylineRoute];
     else if(overlay==map.polyUser)
-    {
         return [map polylineRouteUser];
+    
+    return nil;
+}
+
+-(void)dealloc
+{
+    map.delegate=nil;
+}
+
+-(MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation
+{
+    if([annotation isKindOfClass:[Shop class]])
+    {
+        ShopPinView *pin=(ShopPinView*)[mapView dequeueReusableAnnotationViewWithIdentifier:@"shopPin"];
+        
+        if(!pin)
+        {
+            pin=[[ShopPinView alloc] initWithAnnotation:_shop reuseIdentifier:@"shopPin"];
+            pin.animatesDrop=false;
+        }
+        
+        pin.delegate=self;
+        pin.image=[[ImageManager sharedInstance] shopPinWithType:_shop.enumShopType];
+        
+        [pin addObserver:self forKeyPath:@"selected" options:NSKeyValueObservingOptionNew context:nil];
+        [pin showInfoWithShopUser:_shop];
+        
+        return pin;
     }
     
     return nil;
 }
 
--(MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-    if([annotation isKindOfClass:[TapAnnoun class]])
+    if([object isKindOfClass:[ShopPinView class]])
     {
-        return [DDAnnotationView annotationViewWithAnnotation:_shop reuseIdentifier:nil mapView:map];
+        ShopPinView *pin=object;
+        
+        if(!pin.selected)
+            [pin setSelected:true];
+        
+        [pin showInfoWithShopUser:_shop];
     }
+}
+
+-(void)shopPinTouched:(ShopPinView *)pin
+{
     
-    return nil;
 }
 
 -(void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation
@@ -135,16 +176,6 @@
     if(address.count>0)
     {
         _tapAnn.title=address[0];
-    }
-}
-
--(void)mapView:(MKMapView *)mapView didAddAnnotationViews:(NSArray *)views
-{
-    for(id<MKAnnotation> ann in views)
-    {
-        if([ann isKindOfClass:[DDAnnotationView class]])
-        {
-        }
     }
 }
 

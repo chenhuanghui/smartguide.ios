@@ -71,8 +71,8 @@
     
     [lblBottom addStyle:style];
     
-//    NSString *fakePhone=@"84902672327";
-//    [self switchToActivationModeWithPhone:fakePhone];
+    NSString *fakePhone=@"84169209616";
+    [self switchToActivationModeWithPhone:fakePhone];
 }
 
 -(void) switchToActivationModeWithPhone:(NSString*) phone
