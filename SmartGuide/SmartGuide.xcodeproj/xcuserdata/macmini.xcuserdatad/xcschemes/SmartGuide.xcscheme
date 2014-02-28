@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "A981984D178D02530009FCB6"
-               BuildableName = "SmartGuide.app"
+               BuildableName = "Infory.app"
                BlueprintName = "SmartGuide"
                ReferencedContainer = "container:SmartGuide.xcodeproj">
             </BuildableReference>
@@ -33,7 +33,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "A981984D178D02530009FCB6"
-            BuildableName = "SmartGuide.app"
+            BuildableName = "Infory.app"
             BlueprintName = "SmartGuide"
             ReferencedContainer = "container:SmartGuide.xcodeproj">
          </BuildableReference>
@@ -53,7 +53,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "A981984D178D02530009FCB6"
-            BuildableName = "SmartGuide.app"
+            BuildableName = "Infory.app"
             BlueprintName = "SmartGuide"
             ReferencedContainer = "container:SmartGuide.xcodeproj">
          </BuildableReference>
@@ -71,7 +71,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "A981984D178D02530009FCB6"
-            BuildableName = "SmartGuide.app"
+            BuildableName = "Infory.app"
             BlueprintName = "SmartGuide"
             ReferencedContainer = "container:SmartGuide.xcodeproj">
          </BuildableReference>

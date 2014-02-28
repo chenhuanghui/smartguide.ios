@@ -12,10 +12,12 @@
 #import "SGRootViewController.h"
 #import "EmptyDataView.h"
 #import "LoadingMoreCell.h"
+#import "ShopPinInfoView.h"
+#import "ShopPinView.h"
 
 #define SHOP_LIST_SCROLL_SPEED 3.f
 
-@interface ShopListViewController ()
+@interface ShopListViewController ()<ShopPinDelegate>
 
 @end
 
@@ -280,6 +282,20 @@
             scrollerView.alpha=new;
         }];
     }
+    else if([object isKindOfClass:[MKPinAnnotationView class]])
+    {
+        ShopPinView *pin=object;
+        
+        if(pin.selected)
+            [pin showInfoWithShop:pin.annotation];
+        else
+            [pin hideInfo];
+    }
+}
+
+-(void)shopPinTouched:(ShopPinView *)pin
+{
+    [[GUIManager shareInstance] presentShopUserWithShopList:pin.shop];
 }
 
 -(void) loadScroller
@@ -1551,22 +1567,34 @@
     {
         ShopList *shop=(ShopList*)annotation;
         UIImage *iconPin=[shop iconPin];
-        MKAnnotationView *ann = [mapView dequeueReusableAnnotationViewWithIdentifier:@"mapPin"];
+        ShopPinView *ann = (ShopPinView*)[mapView dequeueReusableAnnotationViewWithIdentifier:@"mapPin"];
         if(!ann)
         {
-            
-            ann=[[MKAnnotationView alloc] initWithFrame:CGRectMake(0, 0, iconPin.size.width, iconPin.size.height)];
+            ann=[[ShopPinView alloc] initWithAnnotation:shop reuseIdentifier:@"mapPin"];
+            ann.canShowCallout=false;
+            ann.animatesDrop=false;
+            ann.enabled=true;
         }
         
+        ann.delegate=self;
         ann.image=iconPin;
+        
+        [ann addObserver:self forKeyPath:@"selected" options:NSKeyValueObservingOptionNew context:nil];
         
         return ann;
     }
     
+    NSLog(@"ann %@",annotation);
+    
     return nil;
 }
 
--(void)mapView:(MKMapView *)mapView didAddAnnotationViews:(NSArray *)views
+-(void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view
+{
+    [mapView setRegion:MKCoordinateRegionMake([view.annotation coordinate], mapView.region.span) animated:true];
+}
+
+-(void)mapView:(MKMapView *)mapView didAddAnnotationViews1:(NSArray *)views
 {
     float count=2;
     

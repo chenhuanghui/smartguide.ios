@@ -33,7 +33,6 @@ enum SHOP_DATA_MODE {
 -(enum LOVE_STATUS) enumLoveStatus;
 -(enum SHOP_TYPE) enumShopType;
 -(enum SHOP_DATA_MODE) enumDataMode;
--(UIImage*) iconPin;
 
 @property (nonatomic, assign) float descHeight;
 @property (nonatomic, assign) float shopNameHeight;

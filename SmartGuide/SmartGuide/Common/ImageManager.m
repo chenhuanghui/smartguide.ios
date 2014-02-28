@@ -12,6 +12,7 @@
 
 static NSMutableArray *_loadingImages=nil;
 static NSMutableArray *_loadingMoreImages=nil;
+static NSMutableDictionary *_mapPins=nil;
 
 static ImageManager *_imageManager=nil;
 @implementation ImageManager
@@ -57,6 +58,35 @@ static ImageManager *_imageManager=nil;
 -(NSArray *)loadingMoreImages
 {
     return _loadingMoreImages;
+}
+
+-(NSMutableDictionary *)mapPins
+{
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _mapPins=[[NSMutableDictionary alloc] initWithCapacity:9];
+        
+        [_mapPins setObject:@"iconpin_education.png" forKey:[NSString stringWithFormat:@"%i",SHOP_TYPE_EDUCATION]];
+        [_mapPins setObject:@"iconpin_entertaiment.png" forKey:[NSString stringWithFormat:@"%i",SHOP_TYPE_ENTERTAIMENT]];
+        [_mapPins setObject:@"iconpin_fashion.png" forKey:[NSString stringWithFormat:@"%i",SHOP_TYPE_FASHION]];
+        [_mapPins setObject:@"iconpin_food.png" forKey:[NSString stringWithFormat:@"%i",SHOP_TYPE_FOOD]];
+        [_mapPins setObject:@"iconpin_healness.png" forKey:[NSString stringWithFormat:@"%i",SHOP_TYPE_HEALTH]];
+        [_mapPins setObject:@"iconpin_shopping.png" forKey:[NSString stringWithFormat:@"%i",SHOP_TYPE_PRODUCTION]];
+        [_mapPins setObject:@"iconpin_travel.png" forKey:[NSString stringWithFormat:@"%i",SHOP_TYPE_TRAVEL]];
+        [_mapPins setObject:@"iconpin_drink.png" forKey:[NSString stringWithFormat:@"%i",SHOP_TYPE_CAFE]];
+    });
+    
+    return _mapPins;
+}
+
+-(UIImage *)shopPinWithType:(enum SHOP_TYPE)shopType
+{
+    UIImage *img=[UIImage imageNamed:[ImageManager sharedInstance].mapPins[[NSString stringWithFormat:@"%i",shopType]]];
+    
+    if(!img)
+        NSLog(@"SHOP_TYPE unknow %i",shopType);
+    
+    return img;
 }
 
 @end

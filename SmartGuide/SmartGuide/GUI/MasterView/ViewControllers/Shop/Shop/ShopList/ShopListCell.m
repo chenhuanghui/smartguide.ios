@@ -30,6 +30,9 @@
     lblName.text=shopList.shopName;
     lblAddress.text=shopList.address;
     lblContent.text=shopList.desc;
+    [btnNumOfView setTitle:[NSString stringWithFormat:@"%@ đã xem",[_shop numOfView]] forState:UIControlStateNormal];
+    [btnNumOfLove setTitle:[NSString stringWithFormat:@"%@ lượt thích",[_shop numOfLove]] forState:UIControlStateNormal];
+    [btnNumOfComment setTitle:[NSString stringWithFormat:@"%@ bình luận",[_shop numOfComment]] forState:UIControlStateNormal];
 }
 
 -(void)setButtonTypeIsTypeAdded:(bool)isTypeAdded
@@ -59,10 +62,10 @@
 
 +(float)heightWithContent:(NSString *)content
 {
-    float height=[content sizeWithFont:[UIFont fontWithName:@"Avenir-Roman" size:13] constrainedToSize:CGSizeMake(249, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height+10;
+    float height=[content sizeWithFont:[UIFont fontWithName:@"Avenir-Roman" size:13] constrainedToSize:CGSizeMake(249, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height+20;
     
-    if(height>45)
-        height=45;
+    if(height>126)
+        height=126;
     
     return height+44;
 }

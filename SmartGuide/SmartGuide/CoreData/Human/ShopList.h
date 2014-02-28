@@ -24,6 +24,8 @@
 -(UIImage*) iconPin;
 
 @property (nonatomic, assign) float shopNameHeight;
+@property (nonatomic, assign) CGSize shopNameSize;
+@property (nonatomic, assign) CGSize shopTypeSize;
 @property (nonatomic, assign) float addressHeight;
 
 @end

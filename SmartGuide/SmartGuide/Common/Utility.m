@@ -1090,7 +1090,7 @@ NSUInteger UIViewAutoresizingAll()
     self.layer.masksToBounds=false;
     self.layer.shadowColor=[[UIColor blackColor] CGColor];
     self.layer.shadowOpacity=1;
-    self.layer.shadowRadius=10;
+    self.layer.shadowRadius=offset;
     self.layer.shadowOffset=CGSizeMake(0, 0);
     self.layer.shadowPath=[[UIBezierPath bezierPathWithRect:self.bounds] CGPath];
 }

@@ -36,6 +36,9 @@
     __weak IBOutlet UIView *leftView;
     __weak IBOutlet UIView *rightView;
     __weak IBOutlet UIButton *btnAddRemove;
+    __weak IBOutlet UIButton *btnNumOfView;
+    __weak IBOutlet UIButton *btnNumOfLove;
+    __weak IBOutlet UIButton *btnNumOfComment;
     
     __weak ShopList *_shop;
     ASIOperationLoveShop *_operationLove;

@@ -2,8 +2,6 @@
 #import "Utility.h"
 #import "Constant.h"
 
-static NSMutableDictionary *_dictPinShop=nil;
-
 @implementation Shop
 @synthesize descHeight,shopNameHeight,addressHeight;
 
@@ -262,25 +260,6 @@ static NSMutableDictionary *_dictPinShop=nil;
         default:
             return SHOP_TYPE_ALL;
     }
-}
-
--(UIImage *)iconPin
-{
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        _dictPinShop=[[NSMutableDictionary alloc] initWithCapacity:9];
-        
-        [_dictPinShop setObject:[UIImage imageNamed:@"iconpin_education.png"] forKey:[NSString stringWithFormat:@"%i",SHOP_TYPE_EDUCATION]];
-        [_dictPinShop setObject:[UIImage imageNamed:@"iconpin_entertaiment.png"] forKey:[NSString stringWithFormat:@"%i",SHOP_TYPE_ENTERTAIMENT]];
-        [_dictPinShop setObject:[UIImage imageNamed:@"iconpin_fashion.png"] forKey:[NSString stringWithFormat:@"%i",SHOP_TYPE_FASHION]];
-        [_dictPinShop setObject:[UIImage imageNamed:@"iconpin_food.png"] forKey:[NSString stringWithFormat:@"%i",SHOP_TYPE_FOOD]];
-        [_dictPinShop setObject:[UIImage imageNamed:@"iconpin_healness.png"] forKey:[NSString stringWithFormat:@"%i",SHOP_TYPE_HEALTH]];
-        [_dictPinShop setObject:[UIImage imageNamed:@"iconpin_shopping.png"] forKey:[NSString stringWithFormat:@"%i",SHOP_TYPE_PRODUCTION]];
-        [_dictPinShop setObject:[UIImage imageNamed:@"iconpin_travel.png"] forKey:[NSString stringWithFormat:@"%i",SHOP_TYPE_TRAVEL]];
-        [_dictPinShop setObject:[UIImage imageNamed:@"iconpin_drink.png"] forKey:[NSString stringWithFormat:@"%i",SHOP_TYPE_CAFE]];
-    });
-    
-    return _dictPinShop[[NSString stringWithFormat:@"%i",[self enumShopType]]];
 }
 
 -(NSString *)shopName1

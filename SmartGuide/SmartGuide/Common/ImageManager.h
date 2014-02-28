@@ -7,8 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-
 #import "SDWebImageManager.h"
+#import "ShopList.h"
 
 @interface ImageManager : NSObject
 
@@ -16,6 +16,8 @@
 
 -(NSArray*) loadingImages;
 -(NSArray*) loadingMoreImages;
+-(NSMutableDictionary*) mapPins;
+-(UIImage*) shopPinWithType:(enum SHOP_TYPE) shopType;
 
 @property (nonatomic, strong, readonly) NSMutableArray *shopLogos;
 @property (nonatomic, strong, readonly) NSMutableArray *shopGallery;

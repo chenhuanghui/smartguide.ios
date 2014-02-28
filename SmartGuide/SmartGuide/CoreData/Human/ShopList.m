@@ -1,8 +1,9 @@
 #import "ShopList.h"
 #import "Utility.h"
+#import "ImageManager.h"
 
 @implementation ShopList
-@synthesize shopNameHeight,addressHeight;
+@synthesize shopNameHeight,addressHeight,shopNameSize,shopTypeSize;
 
 +(ShopList *)shopListWithIDShop:(int)idShop
 {
@@ -125,7 +126,7 @@
 
 -(UIImage *)iconPin
 {
-    return self.shop.iconPin;
+    return [[ImageManager sharedInstance] shopPinWithType:self.shop.enumShopType];
 }
 
 @end
