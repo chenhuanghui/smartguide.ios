@@ -24,7 +24,11 @@
     lblUsername.text=comment.username;
     lblTime.text=comment.time;
     lblComment.text=comment.comment;
-    lblNumOfAgree.text=comment.numOfAgree;
+    
+    if([comment.numOfAgree isEqualToString:[@"0" trim]])
+        lblNumOfAgree.text=@"";
+    else
+        lblNumOfAgree.text=[NSString stringWithFormat:@"%@ lượt",comment.numOfAgree];
     
     [self makeButtonAgree];
 }
@@ -34,12 +38,12 @@
     switch (_comment.enumAgreeStatus) {
         case AGREE_STATUS_AGREED:
             btnAgree.tag=AGREE_STATUS_AGREED;
-            [btnAgree setDefaultImage:[UIImage imageNamed:@"button_liked_comment.png"] highlightImage:[UIImage imageNamed:@"button_like_comment.png"]];
+            [btnAgree setDefaultImage:[UIImage imageNamed:@"button_agree.png"] highlightImage:[UIImage imageNamed:@"button_agree.png"]];
             break;
             
         case AGREE_STATUS_NONE:
             btnAgree.tag=AGREE_STATUS_NONE;
-            [btnAgree setDefaultImage:[UIImage imageNamed:@"button_like_comment.png"] highlightImage:[UIImage imageNamed:@"button_liked_comment.png"]];
+            [btnAgree setDefaultImage:[UIImage imageNamed:@"button_agree_hidden.png"] highlightImage:[UIImage imageNamed:@"button_agree_hidden.png"]];
             break;
     }
 }

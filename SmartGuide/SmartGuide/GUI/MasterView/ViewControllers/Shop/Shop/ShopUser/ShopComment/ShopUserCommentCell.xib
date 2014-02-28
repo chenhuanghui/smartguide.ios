@@ -35,7 +35,7 @@
                         <rect key="frame" x="214" y="32" width="56" height="57"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="12"/>
-                        <state key="normal" image="button_liked_comment.png"/>
+                        <state key="normal" image="button_agree.png"/>
                         <state key="selected" image="button_agree.png"/>
                         <state key="highlighted" image="button_agree.png"/>
                         <connections>
@@ -89,8 +89,7 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="button_agree.png" width="56" height="22"/>
-        <image name="button_liked_comment.png" width="27" height="28"/>
+        <image name="button_agree.png" width="46" height="22"/>
         <image name="frame_avacomment.png" width="43" height="44"/>
         <image name="line_comment.png" width="273" height="1"/>
     </resources>

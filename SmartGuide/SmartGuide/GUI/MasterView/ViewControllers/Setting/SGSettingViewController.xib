@@ -224,20 +224,7 @@
     </objects>
     <resources>
         <image name="bg_button_navigation.png" width="320" height="65"/>
-        <image name="bg_button_navigation.png" width="320" height="65"/>
-        <image name="bg_button_navigation.png" width="320" height="65"/>
-        <image name="bg_button_navigation.png" width="320" height="65"/>
         <image name="bg_button_release_navigation.png" width="320" height="65"/>
-        <image name="bg_button_release_navigation.png" width="320" height="65"/>
-        <image name="bg_button_release_navigation.png" width="320" height="65"/>
-        <image name="bg_button_release_navigation.png" width="320" height="65"/>
-        <image name="bg_button_release_navigation.png" width="320" height="65"/>
-        <image name="bg_button_release_navigation.png" width="320" height="65"/>
-        <image name="bg_button_release_navigation.png" width="320" height="65"/>
-        <image name="bg_button_release_navigation.png" width="320" height="65"/>
-        <image name="button_arrow_navigation.png" width="6" height="11"/>
-        <image name="button_arrow_navigation.png" width="6" height="11"/>
-        <image name="button_arrow_navigation.png" width="6" height="11"/>
         <image name="button_arrow_navigation.png" width="6" height="11"/>
         <image name="button_setting_navigation.png" width="26" height="26"/>
         <image name="button_update.png" width="95" height="40"/>
@@ -247,8 +234,6 @@
         <image name="icon_promotion_navigation.png" width="26" height="24"/>
         <image name="icon_store_navigation.png" width="18" height="21"/>
         <image name="icon_tutorial_navigation.png" width="18" height="18"/>
-        <image name="pattern-navigation.jpg" width="300" height="300"/>
-        <image name="pattern-navigation.jpg" width="300" height="300"/>
         <image name="pattern-navigation.jpg" width="300" height="300"/>
     </resources>
 </document>

@@ -60,7 +60,7 @@
     if(self.shopTime)
         return self.shopTime;
     
-    return self.shopTime;
+    return self.shopTop;
 }
 
 @end
