@@ -89,6 +89,11 @@ NSString *documentPath()
     return documentPath;
 }
 
+NSString *avatarPath()
+{
+    return [[NSFileManager defaultManager] avatarsPath];
+}
+
 NSUInteger UIViewAutoresizingAll()
 {
     return UIViewAutoresizingFlexibleBottomMargin|UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin|UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleWidth;
@@ -1402,7 +1407,6 @@ NSUInteger UIViewAutoresizingAll()
     }
     
     return [self resizedImage:size1 interpolationQuality:kCGInterpolationHigh];
-    return [self scaleToSize:size1];
 }
 
 // Returns a copy of this image that is cropped to the given bounds.
@@ -1585,11 +1589,11 @@ NSUInteger UIViewAutoresizingAll()
 
 -(UIImage *)blurWithInputRadius:(float)inputRadius
 {
+    return [self imageWithGaussianBlur9];
     // ***********If you need re-orienting (e.g. trying to blur a photo taken from the device camera front facing camera in portrait mode)
     // theImage = [self reOrientIfNeeded:theImage];
-    
+
     // create our blurred image
-    CIContext *context = [CIContext contextWithOptions:nil];
     CIImage *inputImage = [CIImage imageWithCGImage:self.CGImage];
     
     // setting up Gaussian Blur (we could use one of many filters offered by Core Image)
@@ -1600,12 +1604,39 @@ NSUInteger UIViewAutoresizingAll()
     
     // CIGaussianBlur has a tendency to shrink the image a little,
     // this ensures it matches up exactly to the bounds of our original image
+    CIContext *context = [CIContext contextWithOptions:nil];
     CGImageRef cgImage = [context createCGImage:result fromRect:[inputImage extent]];
     
     UIImage *returnImage = [UIImage imageWithCGImage:cgImage];//create a UIImage for this function to "return" so that ARC can manage the memory of the blur... ARC can't manage CGImageRefs so we need to release it before this function "returns" and ends.
     CGImageRelease(cgImage);//release CGImageRef because ARC doesn't manage this on its own.
     
     return returnImage;
+}
+
+- (UIImage *)imageWithGaussianBlur9 {
+    
+    const int loop=5;
+    float weight[loop] = {0.2270270270, 0.1945945946, 0.1216216216, 0.0540540541, 0.0162162162};
+    // Blur horizontally
+    UIGraphicsBeginImageContextWithOptions(self.size, NO, self.scale);
+    [self drawInRect:CGRectMake(0, 0, self.size.width, self.size.height) blendMode:kCGBlendModePlusLighter alpha:weight[0]];
+    for (int x = 1; x < loop; ++x) {
+        [self drawInRect:CGRectMake(x, 0, self.size.width, self.size.height) blendMode:kCGBlendModePlusLighter alpha:weight[x]];
+        [self drawInRect:CGRectMake(-x, 0, self.size.width, self.size.height) blendMode:kCGBlendModePlusDarker alpha:weight[x]];
+    }
+    UIImage *horizBlurredImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    // Blur vertically
+    UIGraphicsBeginImageContextWithOptions(self.size, NO, self.scale);
+    [horizBlurredImage drawInRect:CGRectMake(0, 0, self.size.width, self.size.height) blendMode:kCGBlendModePlusLighter alpha:weight[0]];
+    for (int y = 1; y < loop; ++y) {
+        [horizBlurredImage drawInRect:CGRectMake(0, y, self.size.width, self.size.height) blendMode:kCGBlendModePlusLighter alpha:weight[y]];
+        [horizBlurredImage drawInRect:CGRectMake(0, -y, self.size.width, self.size.height) blendMode:kCGBlendModePlusLighter alpha:weight[y]];
+    }
+    UIImage *blurredImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    //
+    return blurredImage;
 }
 
 - (UIImage*)convertToGrayscale
@@ -2336,6 +2367,25 @@ static const NSString *KEY_HIT_TEST_EDGE_INSETS = @"HitTestEdgeInsets";
     }
     
     return false;
+}
+
+@end
+
+@implementation NSFileManager(Utility)
+
+-(NSString*)makeDirectory:(NSString *)path
+{
+    NSString *docPath=[documentPath() stringByAppendingPathExtension:path];
+    
+    if(![self fileExistsAtPath:docPath])
+        [self createDirectoryAtPath:docPath withIntermediateDirectories:true attributes:nil error:nil];
+    
+    return docPath;
+}
+
+-(NSString *)avatarsPath
+{
+    return [self makeDirectory:@"Avatars"];
 }
 
 @end

@@ -45,6 +45,7 @@ float UIScreenScale();
 NSUInteger UIViewAutoresizingAll();
 
 NSString *documentPath();
+NSString *avatarPath();
 
 @interface Utility : NSObject
 
@@ -380,5 +381,11 @@ NSString *documentPath();
 @interface NSObject(Utility)
 
 -(bool) isNullData;
+
+@end
+
+@interface NSFileManager(Utility)
+
+-(NSString*) avatarsPath;
 
 @end

@@ -42,8 +42,6 @@
 -(bool) isNullData:(NSArray*) data;
 -(void) restart;
 
--(void) keys;
-
 @property (nonatomic, weak) id<ASIOperationPostDelegate> delegatePost;
 @property (nonatomic, strong) NSMutableDictionary *keyValue;
 @property (nonatomic, strong) NSString *operationAccessToken;
@@ -52,5 +50,11 @@
 @property (nonatomic, strong) NSMutableDictionary *tData;
 @property (nonatomic, strong) NSString *fScreen;
 @property (nonatomic, strong) NSMutableDictionary *fData;
+
+@end
+
+@interface ASIOperationPost(MakeTest)
+
++(void) makeTest;
 
 @end

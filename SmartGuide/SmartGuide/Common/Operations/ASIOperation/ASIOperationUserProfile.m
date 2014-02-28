@@ -46,4 +46,11 @@
     [[DataManager shareInstance] save];
 }
 
++(void)makeTest
+{
+    ASIOperationUserProfile *ope=[[ASIOperationUserProfile alloc] initOperation];
+    
+    [ope startAsynchronous];
+}
+
 @end

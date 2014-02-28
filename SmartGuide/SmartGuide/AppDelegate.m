@@ -11,7 +11,6 @@
 #import "AFHTTPRequestOperation.h"
 #import "FacebookManager.h"
 #import "Flurry.h"
-#import "ASIOperationGetAds.h"
 #import "GUIManager.h"
 
 @implementation AppDelegate
@@ -20,7 +19,7 @@
 {
     CGRect rect=[[UIScreen mainScreen] bounds];
     self.window = [[UIWindow alloc] initWithFrame:rect];
-
+    
     [Flurry setAppVersion:@"0.0a"];
     [Flurry startSession:@"SG974KP6KXTQ8P4ZRYHN" withOptions:launchOptions];
     

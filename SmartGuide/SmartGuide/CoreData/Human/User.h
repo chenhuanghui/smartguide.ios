@@ -25,4 +25,16 @@ enum USER_DATA_MODE {
 
 -(enum USER_DATA_MODE) enumDataMode;
 
+-(UIImage*) avatarImage;
+-(UIImage*) avatarBlurImage;
+
+-(void) makeAvatarImage:(UIImage*) image;
+-(UIImage*) makeAvatarBlurImage:(UIImage*) image isEffected:(bool) isEffected;
+
+@end
+
+@interface UIImageView(SupportLoadAvatar)
+
+-(void) loadUserAvatar:(User*) user onCompleted:(void(^)(UIImage *avatar, UIImage *avatarBlurr)) completed;
+
 @end

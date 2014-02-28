@@ -43,9 +43,9 @@
 
 -(void) loadData
 {
-    [imgvAvatar loadAvatarWithURL:currentUser().avatar completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
-        if(image)
-            [imgvBGAvatar setImage:[[image blur] convertToGrayscale]];
+    [imgvAvatar loadUserAvatar:currentUser() onCompleted:^(UIImage *avatar, UIImage *avatarBlurr) {
+        if(avatarBlurr)
+            [imgvBGAvatar setImage:avatar];
     }];
     
     [txtName setText:currentUser().name];
@@ -163,6 +163,13 @@
 }
 
 - (IBAction)btnDoneTouchUpInside:(id)sender {
+    
+    if(currentUser().enumDataMode==USER_DATA_TRY)
+    {
+        [self.delegate userSettingControllerTouchedSetting:self];
+        return;
+    }
+    
     [self.view endEditing:true];
     [self finishUpdate];
 }
@@ -330,6 +337,13 @@
 }
 
 - (IBAction)btnSettingTouchUpInside:(id)sender {
+    
+    if(currentUser().enumDataMode==USER_DATA_TRY)
+    {
+        [self.delegate userSettingControllerTouchedSetting:self];
+        return;
+    }
+    
     [self.view endEditing:true];
     [self endEditing];
     

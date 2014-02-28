@@ -1207,50 +1207,42 @@ static NSOperationQueue *sharedQueue = nil;
 
     if([[[[self url] scheme] lowercaseString] isEqualToString:@"https"]) {       
        
-        NSDictionary *sslProperties = [[NSDictionary alloc] initWithObjectsAndKeys:
-                                       @"kCFStreamSocketSecurityLevelTLSv1_0SSLv3", (NSString *)kCFStreamSSLLevel,
-                                       nil];
-        
-        CFReadStreamSetProperty((CFReadStreamRef)[self readStream],
-                                kCFStreamPropertySSLSettings,
-                                (CFTypeRef)sslProperties);
-        
         // Tell CFNetwork not to validate SSL certificates
         if (![self validatesSecureCertificate]) {
             // see: http://iphonedevelopment.blogspot.com/2010/05/nsstream-tcp-and-ssl.html
             
             NSDictionary *sslProperties = [[NSDictionary alloc] initWithObjectsAndKeys:
-                                           [NSNumber numberWithBool:YES], kCFStreamSSLAllowsExpiredCertificates,
-                                           [NSNumber numberWithBool:YES], kCFStreamSSLAllowsAnyRoot,
-                                           [NSNumber numberWithBool:NO],  kCFStreamSSLValidatesCertificateChain,
-                                           kCFNull,kCFStreamSSLPeerName,
-                                           @"kCFStreamSocketSecurityLevelTLSv1_0SSLv3", (NSString *)kCFStreamSSLLevel,
-                                           nil];
+                                      [NSNumber numberWithBool:YES], kCFStreamSSLAllowsExpiredCertificates,
+                                      [NSNumber numberWithBool:YES], kCFStreamSSLAllowsAnyRoot,
+                                      [NSNumber numberWithBool:NO],  kCFStreamSSLValidatesCertificateChain,
+                                      kCFNull,kCFStreamSSLPeerName,
+                                      nil];
             
-            CFReadStreamSetProperty((CFReadStreamRef)[self readStream],
-                                    kCFStreamPropertySSLSettings,
+            CFReadStreamSetProperty((CFReadStreamRef)[self readStream], 
+                                    kCFStreamPropertySSLSettings, 
                                     (CFTypeRef)sslProperties);
-        }
+            [sslProperties release];
+        } 
         
         // Tell CFNetwork to use a client certificate
         if (clientCertificateIdentity) {
-            NSMutableDictionary *sslProperties = [NSMutableDictionary dictionaryWithCapacity:2];
+            NSMutableDictionary *sslProperties = [NSMutableDictionary dictionaryWithCapacity:1];
             
-            NSMutableArray *certificates = [NSMutableArray arrayWithCapacity:[clientCertificates count]+1];
-            
-            // The first object in the array is our SecIdentityRef
-            [certificates addObject:(id)clientCertificateIdentity];
-            
-            // If we've added any additional certificates, add them too
-            for (id cert in clientCertificates) {
-                [certificates addObject:cert];
-            }
+			NSMutableArray *certificates = [NSMutableArray arrayWithCapacity:[clientCertificates count]+1];
+
+			// The first object in the array is our SecIdentityRef
+			[certificates addObject:(id)clientCertificateIdentity];
+
+			// If we've added any additional certificates, add them too
+			for (id cert in clientCertificates) {
+				[certificates addObject:cert];
+			}
             
             [sslProperties setObject:certificates forKey:(NSString *)kCFStreamSSLCertificates];
-            [sslProperties setObject:@"kCFStreamSocketSecurityLevelTLSv1_0SSLv3" forKey:(NSString *)kCFStreamSSLLevel];
             
             CFReadStreamSetProperty((CFReadStreamRef)[self readStream], kCFStreamPropertySSLSettings, sslProperties);
         }
+        
     }
 
 	//
@@ -4576,7 +4568,8 @@ static NSOperationQueue *sharedQueue = nil;
 	for (NSNumber *bytes in bandwidthUsageTracker) {
 		totalBytes += [bytes unsignedLongValue];
 	}
-	averageBandwidthUsedPerSecond = totalBytes/measurements;		
+	if (measurements > 0)
+		averageBandwidthUsedPerSecond = totalBytes/measurements;
 }
 
 + (unsigned long)averageBandwidthUsedPerSecond
@@ -4874,7 +4867,15 @@ static NSOperationQueue *sharedQueue = nil;
   
 	// RFC 2612 says max-age must override any Expires header
 	if (maxAge) {
-		return [[NSDate date] dateByAddingTimeInterval:maxAge];
+		NSDate *date = [NSDate date];
+		if ([date respondsToSelector:@selector(dateByAddingTimeInterval:)]) {
+			return [date dateByAddingTimeInterval:maxAge];
+		} else {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+			return [date addTimeInterval:maxAge];
+#pragma clang diagnostic pop
+        }
 	} else {
 		NSString *expires = [responseHeaders objectForKey:@"Expires"];
 		if (expires) {

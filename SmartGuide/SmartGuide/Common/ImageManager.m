@@ -17,10 +17,6 @@ static ImageManager *_imageManager=nil;
 @implementation ImageManager
 @synthesize shopGallery,shopLogos,shopUserGallery,commentAvatar,storeLogo;
 
-+(void)load
-{
-}
-
 +(ImageManager*) sharedInstance
 {
     static dispatch_once_t onceToken;

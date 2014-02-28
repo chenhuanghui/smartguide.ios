@@ -105,7 +105,7 @@ static GUIManager *_shareInstance=nil;
 
 -(void)SGLoadingFinished:(SGLoadingScreenViewController *)loadingScreen
 {
-//    [self showFirstController];
+    [self showFirstController];
 }
 
 -(void)welcomeControllerTouchedLogin:(WelcomeViewController *)viewController

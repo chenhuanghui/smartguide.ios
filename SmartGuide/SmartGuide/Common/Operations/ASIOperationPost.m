@@ -11,7 +11,7 @@
 #import "TokenManager.h"
 #import "SGData.h"
 
-static NSMutableArray *asioperations=nil;
+static NSMutableArray *_asioperations=nil;
 
 @interface ASIOperationPost()
 {
@@ -148,12 +148,12 @@ static NSMutableArray *asioperations=nil;
                     }
                 }
                 
-                if(!asioperations)
+                if(!_asioperations)
                 {
-                    asioperations=[[NSMutableArray alloc] init];
+                    _asioperations=[[NSMutableArray alloc] init];
                 }
                 
-                [asioperations addObject:self];
+                [_asioperations addObject:self];
                 
                 [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshTokenSuccess:) name:NOTIFICATION_REFRESH_TOKEN_SUCCESS object:nil];
                 [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshTokenFailed:) name:NOTIFICATION_REFRESH_TOKEN_FAILED object:nil];
@@ -309,7 +309,7 @@ static NSMutableArray *asioperations=nil;
     NSLog(@"%@ restart %@ %@",NSStringFromClass([ope class]),ope.url,ope.keyValue);
     [ope startAsynchronous];
     
-    [asioperations removeObject:self];
+    [_asioperations removeObject:self];
 }
 
 -(void)onCompletedWithJSON:(NSArray *)json
@@ -356,11 +356,27 @@ static NSMutableArray *asioperations=nil;
     return ope;
 }
 
-CALL_DEALLOC_LOG
-
--(void)keys
+- (void)dealloc
 {
+    DEALLOC_LOG
     
+    self.keyValue=nil;
+    self.operationAccessToken=nil;
+    self.sourceURL=nil;
+    self.tScreen=nil;
+    self.tData=nil;
+    self.fScreen=nil;
+    self.fData=nil;
+    self.delegate=nil;
+    self.delegatePost=nil;
+}
+
+@end
+
+@implementation ASIOperationPost(MakeTest)
+
++(void)makeTest
+{
 }
 
 @end

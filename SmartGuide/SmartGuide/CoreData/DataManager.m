@@ -27,6 +27,16 @@ NSString *userAvatar()
     return [DataManager shareInstance].currentUser.avatar;
 }
 
+UIImage *userAvatarImage()
+{
+    return [[DataManager shareInstance].currentUser avatarImage];
+}
+
+UIImage *userAvatarBlurImage()
+{
+    return [[DataManager shareInstance].currentUser avatarBlurImage];
+}
+
 void setUserLocation(CLLocationCoordinate2D location)
 {
     [DataManager shareInstance].currentUser.coordinate=location;

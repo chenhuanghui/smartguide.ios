@@ -71,7 +71,8 @@
     
     [lblBottom addStyle:style];
     
-    [self switchToActivationModeWithPhone:@"84919913230"];
+//    NSString *fakePhone=@"84902672327";
+//    [self switchToActivationModeWithPhone:fakePhone];
 }
 
 -(void) switchToActivationModeWithPhone:(NSString*) phone
@@ -274,6 +275,21 @@
 -(NSString *)title
 {
     return @"Đăng nhập";
+}
+
+-(void)dealloc
+{
+    if(_operationGetActionCode)
+    {
+        [_operationGetActionCode cancel];
+        _operationGetActionCode=nil;
+    }
+    
+    if(_operationUserCheck)
+    {
+        [_operationUserCheck clearDelegatesAndCancel];
+        _operationUserCheck=nil;
+    }
 }
 
 @end

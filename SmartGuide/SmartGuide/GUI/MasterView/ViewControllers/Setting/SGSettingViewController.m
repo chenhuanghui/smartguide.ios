@@ -29,9 +29,9 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    [imgvAvatar loadAvatarWithURL:currentUser().avatar completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
-        if(image)
-            [imgvBGAvatar setImage:[[image blur] convertToGrayscale]];
+    [imgvAvatar loadUserAvatar:currentUser() onCompleted:^(UIImage *avatar, UIImage *avatarBlurr) {
+        if(avatarBlurr)
+            [imgvBGAvatar setImage:avatarBlurr];
     }];
     
     lblName.text=[currentUser().name uppercaseString];

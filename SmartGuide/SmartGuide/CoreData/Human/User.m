@@ -3,6 +3,7 @@
 #import "Flags.h"
 #import "TokenManager.h"
 #import "PhuongConfig.h"
+#import "ImageManager.h"
 
 @implementation User
 
@@ -110,6 +111,124 @@
             
         default:
             return SOCIAL_NONE;
+    }
+}
+
+-(NSString*) avatarPath
+{
+    return [avatarPath() stringByAppendingString:self.avatar];
+}
+
+-(NSString*) avatarBlurPath
+{
+    return [avatarPath() stringByAppendingFormat:@"%@blur",self.avatar];
+}
+
+-(UIImage *)avatarImage
+{
+    if(self.avatar.length>0)
+    {
+        NSString *path=[self avatarPath];
+        
+        if([[NSFileManager defaultManager] fileExistsAtPath:path])
+            return [UIImage imageWithContentsOfFile:path];
+    }
+    
+    return nil;
+}
+
+-(UIImage *)avatarBlurImage
+{
+    if(self.avatar.length>0)
+    {
+        NSString *path=[self avatarBlurPath];
+        
+        if([[NSFileManager defaultManager] fileExistsAtPath:path])
+            return [UIImage imageWithContentsOfFile:path];
+    }
+    
+    return nil;
+}
+
+-(void)makeAvatarImage:(UIImage *)image
+{
+    if(self.avatar.length>0)
+    {
+        NSData *data=UIImageJPEGRepresentation(image, 1);
+        [data writeToFile:[self avatarPath] atomically:true];
+    }
+}
+
+-(UIImage*) makeAvatarBlurImage:(UIImage *)image isEffected:(bool)isEffected
+{
+    if(self.avatar.length>0)
+    {
+        UIImage *img=image;
+        NSData *data=nil;
+        if(isEffected)
+            data=UIImageJPEGRepresentation(img, 1);
+        else
+        {
+            img=[[image blur] convertToGrayscale];
+            data=UIImageJPEGRepresentation(img, 1);
+        }
+        
+        [data writeToFile:[self avatarBlurPath] atomically:true];
+        
+        return img;
+    }
+    
+    return nil;
+}
+
+@end
+
+@implementation UIImageView(SupportLoadAvatar)
+
+-(void)loadUserAvatar:(User *)user onCompleted:(void (^)(UIImage *, UIImage *))completed
+{
+    UIImage *img=[user avatarImage];
+    
+    __block void(^_completed)(UIImage*,UIImage*)=nil;
+    
+    if(completed)
+        _completed=[completed copy];
+    
+    if(img)
+    {
+        self.image=img;
+        
+        if(_completed)
+        {
+            _completed(img,[user avatarBlurImage]);
+            _completed=nil;
+        }
+    }
+    else
+    {
+        [self loadAvatarWithURL:user.avatar completed:^(UIImage *avatar, NSError *error, SDImageCacheType cacheType) {
+            
+            if(avatar)
+            {
+                [user makeAvatarImage:avatar];
+                [user makeAvatarBlurImage:avatar isEffected:false];
+                
+                if(_completed)
+                {
+                    _completed(avatar,[user avatarBlurImage]);
+                    _completed=nil;
+                }
+            }
+            else
+            {
+                if(_completed)
+                {
+                    _completed(nil,nil);
+                    _completed=nil;
+                }
+            }
+            
+        }];
     }
 }
 

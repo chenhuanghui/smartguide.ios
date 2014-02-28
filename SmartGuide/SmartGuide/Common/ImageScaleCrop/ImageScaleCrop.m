@@ -28,10 +28,10 @@
 {
     if(image)
     {
-        float screenScale=UIScreenScale();
-        image=[image scaleProportionalToSize:CGSizeMake(self.frame.size.width*screenScale, self.frame.size.height*screenScale)];
-        if(image.scale!=screenScale)
-            image=[UIImage imageWithCGImage:image.CGImage scale:screenScale orientation:image.imageOrientation];
+//        float screenScale=UIScreenScale();
+//        image=[image scaleProportionalToSize:CGSizeMake(self.frame.size.width*screenScale, self.frame.size.height*screenScale)];
+//        if(image.scale!=screenScale)
+//            image=[UIImage imageWithCGImage:image.CGImage scale:screenScale orientation:image.imageOrientation];
     }
     
     [super setImage:image];
@@ -54,13 +54,17 @@
 {
     if(image)
     {
-        float screenScale=UIScreenScale();
-        
-        CGSize toSize=self.frame.size;
-        
-        image=[image scaleProportionalToSize:CGSizeMake(self.frame.size.width*screenScale, self.frame.size.height*screenScale)];
-        if(image.scale!=screenScale)
-            image=[UIImage imageWithCGImage:image.CGImage scale:screenScale orientation:image.imageOrientation];
+//        float screenScale=UIScreenScale();
+//        
+//        CGSize size=image.size;
+//        float size1=self.l_v_w/image.size.width;
+//        
+//        size.width=size1*screenScale;
+//        size.height*=size1*screenScale;
+//        
+//        image=[image resizedImage:size interpolationQuality:kCGInterpolationHigh];
+//        if(image.scale!=screenScale)
+//            image=[UIImage imageWithCGImage:image.CGImage scale:screenScale orientation:image.imageOrientation];
     }
     
     [super setImage:image];
