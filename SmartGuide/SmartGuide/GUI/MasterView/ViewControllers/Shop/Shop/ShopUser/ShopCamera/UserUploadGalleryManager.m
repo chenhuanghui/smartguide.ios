@@ -111,7 +111,7 @@ static UserUploadGalleryManager *_userUploadGalleryManager=nil;
     //Chưa up hình
     if(_currentUpload.idUserGallery.integerValue==0)
     {
-        ASIOperationUploadUserGallery *ope=[[ASIOperationUploadUserGallery alloc] initWithIDShop:_currentUpload.idShop.integerValue image:_currentUpload.image userLat:userLat() userLng:userLng()];
+        ASIOperationUploadUserGallery *ope=[[ASIOperationUploadUserGallery alloc] initWithIDShop:_currentUpload.idShop.integerValue image:_currentUpload.image userLat:_currentUpload.userLng.doubleValue userLng:_currentUpload.userLng.doubleValue];
         ope.delegatePost=self;
         
         [ope startAsynchronous];
@@ -146,7 +146,7 @@ static UserUploadGalleryManager *_userUploadGalleryManager=nil;
     
     if(_currentUpload && _currentUpload.desc.length>0 && _currentUpload.idUserGallery.integerValue>0)
     {
-        ASIOperationPostPicture *opePost=[[ASIOperationPostPicture alloc] initWithIDUserGallery:_currentUpload.idUserGallery.integerValue userLat:userLat() userLng:userLng() description:_currentUpload.desc];
+        ASIOperationPostPicture *opePost=[[ASIOperationPostPicture alloc] initWithIDUserGallery:_currentUpload.idUserGallery.integerValue userLat:_currentUpload.userLng.doubleValue userLng:_currentUpload.userLng.doubleValue description:_currentUpload.desc];
         opePost.delegatePost=self;
         [opePost startAsynchronous];
         
@@ -213,6 +213,8 @@ static UserUploadGalleryManager *_userUploadGalleryManager=nil;
                     [[DataManager shareInstance] save];
                     _currentUpload=nil;
                 }
+                
+                [self startUpload];
             }
         }
     }
@@ -222,7 +224,7 @@ static UserUploadGalleryManager *_userUploadGalleryManager=nil;
 {
     if(_currentUpload)
     {
-        ASIOperationUploadUserGallery *ope=[[ASIOperationUploadUserGallery alloc] initWithIDShop:_currentUpload.idShop.integerValue image:_currentUpload.image userLat:userLat() userLng:userLng()];
+        ASIOperationUploadUserGallery *ope=[[ASIOperationUploadUserGallery alloc] initWithIDShop:_currentUpload.idShop.integerValue image:_currentUpload.image userLat:_currentUpload.userLat.doubleValue userLng:_currentUpload.userLng.doubleValue];
         ope.delegatePost=self;
         
         [ope startAsynchronous];
@@ -235,7 +237,7 @@ static UserUploadGalleryManager *_userUploadGalleryManager=nil;
 {
     if(_currentUpload)
     {
-        ASIOperationPostPicture *opePost=[[ASIOperationPostPicture alloc] initWithIDUserGallery:_currentUpload.idUserGallery.integerValue userLat:userLat() userLng:userLng() description:_currentUpload.desc];
+        ASIOperationPostPicture *opePost=[[ASIOperationPostPicture alloc] initWithIDUserGallery:_currentUpload.idUserGallery.integerValue userLat:_currentUpload.userLat.doubleValue userLng:_currentUpload.userLng.doubleValue description:_currentUpload.desc];
         opePost.delegatePost=self;
         [opePost startAsynchronous];
         

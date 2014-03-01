@@ -859,24 +859,11 @@
         _isLoadingMore=false;
         
         [self animationTableReload];
-        
-        NSMutableArray *coordinates=[NSMutableArray array];
-        for(ShopList *shop in ope.shops)
-        {
-            [map addAnnotation:shop];
-            
-            [coordinates addObject:[NSValue valueWithMKCoordinate:shop.coordinate]];
-        }
-        
+
         if(!_isZoomedRegionMap)
-        {
-            _isZoomedRegionMap=true;
-            
-            if(isVailCLLocationCoordinate2D(map.userLocation.coordinate))
-                [coordinates addObject:[NSValue valueWithMKCoordinate:map.userLocation.coordinate]];
-            
-            [map zoomToCoordinates:coordinates animate:true span:0];
-        }
+            [map addShopLists:ope.shops];
+        else
+            [map addMoreShopLists:ope.shops];
         
         [self makeScrollSize];
         
@@ -904,14 +891,9 @@
         }
         
         if(!_isZoomedRegionMap)
-        {
-            _isZoomedRegionMap=true;
-            
-            if(isVailCLLocationCoordinate2D(map.userLocation.coordinate))
-                [coordinates addObject:[NSValue valueWithMKCoordinate:map.userLocation.coordinate]];
-            
-            [map zoomToCoordinates:coordinates animate:true span:0];
-        }
+            [map addShopLists:ope.shopsList];
+        else
+            [map addMoreShopLists:ope.shopsList];
         
         [self makeScrollSize];
         
@@ -939,14 +921,9 @@
         }
         
         if(!_isZoomedRegionMap)
-        {
-            _isZoomedRegionMap=true;
-            
-            if(isVailCLLocationCoordinate2D(map.userLocation.coordinate))
-                [coordinates addObject:[NSValue valueWithMKCoordinate:map.userLocation.coordinate]];
-            
-            [map zoomToCoordinates:coordinates animate:true span:0];
-        }
+            [map addShopLists:ope.shopLists];
+        else
+            [map addMoreShopLists:ope.shopLists];
         
         [self makeScrollSize];
         
@@ -1560,14 +1537,12 @@
         return ann;
     }
     
-    NSLog(@"ann %@",annotation);
-    
     return nil;
 }
 
 -(void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view
 {
-    [mapView setRegion:MKCoordinateRegionMake([view.annotation coordinate], mapView.region.span) animated:true];
+    [map zoomShopList:view.annotation];
 }
 
 -(void)mapView:(MKMapView *)mapView didAddAnnotationViews1:(NSArray *)views

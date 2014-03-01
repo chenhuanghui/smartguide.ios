@@ -9,6 +9,7 @@
 #import "SGMapView.h"
 #import "Constant.h"
 #import "Utility.h"
+#import "ShopList.h"
 
 @implementation SGMapView
 @synthesize routerDelegate,geoCoderDelegate;
@@ -92,6 +93,19 @@
         return;
     
     [self setRegion:MKCoordinateRegionMakeWithDistance(self.userLocation.location.coordinate, span, span) animated:animate];
+}
+
+-(void)zoomToFitCoordinates:(NSArray *)array animate:(bool)animate
+{
+    MKMapRect zoomRect = MKMapRectNull;
+    for (NSValue *coordinate in array)
+    {
+        MKMapPoint annotationPoint = MKMapPointForCoordinate([coordinate MKCoordinateValue]);
+        MKMapRect pointRect = MKMapRectMake(annotationPoint.x, annotationPoint.y, 0.1, 0.1);
+        zoomRect = MKMapRectUnion(zoomRect, pointRect);
+    }
+    
+    [self setVisibleMapRect:zoomRect animated:animate];
 }
 
 -(void)zoomToCoordinates:(NSArray *)array animate:(bool)animate span:(double)span
@@ -332,6 +346,55 @@
 -(MKPolyline *)polyUser
 {
     return userRouteLine;
+}
+
+@end
+
+@implementation SGMapView(SupportShop)
+
+-(void)addShopLists:(NSArray *)shops
+{
+    NSMutableArray *array=[NSMutableArray array];
+    
+    for(id<MKAnnotation> ann in self.annotations)
+    {
+        if([ann isKindOfClass:[ShopList class]])
+        {
+            [array addObject:ann];
+        }
+    }
+    
+    if(array.count>0)
+        [self removeAnnotations:array];
+    
+    [self addMoreShopLists:shops zoom:true];
+}
+
+-(void)addMoreShopLists:(NSArray *)shops zoom:(bool) isZoomed
+{
+    NSMutableArray *coordinates=[NSMutableArray array];
+    for(ShopList *shop in shops)
+    {
+        [self addAnnotation:shop];
+        
+        [coordinates addObject:[NSValue valueWithMKCoordinate:shop.coordinate]];
+    }
+    
+    if(isVailCLLocationCoordinate2D(self.userLocation.coordinate))
+        [coordinates addObject:[NSValue valueWithMKCoordinate:self.userLocation.coordinate]];
+    
+    if(isZoomed)
+        [self zoomToFitCoordinates:coordinates animate:false];
+}
+
+-(void)addMoreShopLists:(NSArray *)shops
+{
+    [self addMoreShopLists:shops zoom:false];
+}
+
+-(void)zoomShopList:(ShopList *)shoplist
+{
+    [self zoomToLocation:[shoplist coordinate] animate:true span:MAP_SPAN];
 }
 
 @end

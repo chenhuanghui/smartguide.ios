@@ -55,10 +55,21 @@
 -(void) zoomToLocation:(CLLocationCoordinate2D) location animate:(bool) animate span:(double) span;
 -(void) zoomToUserLocation:(bool) animate span:(double) span;
 -(void) zoomToCoordinates:(NSArray*) array animate:(bool) animate span:(double) span;
+-(void) zoomToFitCoordinates:(NSArray*) array animate:(bool) animate;
 
 -(void) addressAtCoordinate:(CLLocationCoordinate2D) coordinate withDelegate:(id<SGMapViewGeoCoderDelegate>) delegate;
 
 @property (nonatomic, weak) id<SGMapViewRouterDelegate> routerDelegate;
 @property (nonatomic, weak) id<SGMapViewGeoCoderDelegate> geoCoderDelegate;
+
+@end
+
+@class ShopList;
+
+@interface SGMapView(SupportShop)
+
+-(void) addShopLists:(NSArray*) shops;
+-(void) addMoreShopLists:(NSArray*) shops;
+-(void) zoomShopList:(ShopList*) shoplist;
 
 @end
