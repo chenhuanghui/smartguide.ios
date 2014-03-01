@@ -25,6 +25,7 @@
 @property (nonatomic, strong, readonly) NSMutableArray *shopUserGallery;
 @property (nonatomic, strong, readonly) NSMutableArray *commentAvatar;
 @property (nonatomic, strong, readonly) NSMutableArray *storeLogo;
+@property (nonatomic, strong, readonly) NSMutableDictionary *imageScaleCrop;
 
 @end
 
@@ -45,6 +46,9 @@
 -(void) loadImageHomeWithURL:(NSString*) url;
 -(void) loadImageHomeListWithURL:(NSString*) url;
 -(void) loadImagePromotionNewsWithURL:(NSString*) url;
+-(void) loadHome6CoverWithURL:(NSString*) url;
+-(void) loadHome7CoverWithURL:(NSString*) url;
+-(void) loadUserPromotionCoverWithURL:(NSString*) url;
 
 @end
 

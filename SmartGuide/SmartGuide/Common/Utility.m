@@ -81,6 +81,11 @@ float UIScreenScale()
     return [UIScreen mainScreen].scale;
 }
 
+NSURL* URL(NSString* url)
+{
+    return [NSURL URLWithString:url];
+}
+
 NSString *documentPath()
 {
     NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);

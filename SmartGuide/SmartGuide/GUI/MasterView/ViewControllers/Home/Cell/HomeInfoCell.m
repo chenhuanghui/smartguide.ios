@@ -20,7 +20,7 @@
     [imgvLogo loadImageHomeWithURL:home.logo];
     lblName.text=home.shopName;
     lblDate.text=home.date;
-    [imgvCover loadImageHomeWithURL:home.cover];
+    [imgvCover loadHome6CoverWithURL:home.cover];
     lblTitle.text=home.title;
     lblContent.text=home.content;
     
@@ -38,7 +38,7 @@
     [imgvLogo loadImageHomeWithURL:home.store.logo];
     lblName.text=home.storeName;
     lblDate.text=home.date;
-    [imgvCover loadImageHomeWithURL:home.cover];
+    [imgvCover loadHome7CoverWithURL:home.cover];
     lblTitle.text=home.title;
     lblContent.text=home.content;
     
@@ -56,7 +56,7 @@
     [imgvLogo loadImageHomeWithURL:obj.logo];
     lblName.text=obj.brandName;
     lblDate.text=obj.date;
-    [imgvCover loadImageHomeWithURL:obj.cover];
+    [imgvCover loadUserPromotionCoverWithURL:obj.cover];
     lblTitle.text=obj.title;
     lblContent.text=obj.desc;
     

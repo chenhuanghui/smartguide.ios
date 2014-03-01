@@ -41,6 +41,7 @@ bool isVailCLLocationCoordinate2D(CLLocationCoordinate2D location);
 void makePhoneCall(NSString* phone);
 int random_int(int from, int to);
 float UIScreenScale();
+NSURL* URL(NSString* url);
 
 NSUInteger UIViewAutoresizingAll();
 

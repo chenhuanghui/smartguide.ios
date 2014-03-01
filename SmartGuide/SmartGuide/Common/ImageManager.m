@@ -15,9 +15,15 @@ static NSMutableArray *_loadingImagesSmall=nil;
 static NSMutableArray *_loadingMoreImages=nil;
 static NSMutableDictionary *_mapPins=nil;
 
+#define trackImageScaleMode if(URL(url))[[ImageManager sharedInstance].imageScaleCrop setObject:[NSValue valueWithCGSize:self.l_v_s] forKey:URL(url)];
+
+@interface ImageManager()<SDWebImageManagerDelegate>
+
+@end
+
 static ImageManager *_imageManager=nil;
 @implementation ImageManager
-@synthesize shopGallery,shopLogos,shopUserGallery,commentAvatar,storeLogo;
+@synthesize shopGallery,shopLogos,shopUserGallery,commentAvatar,storeLogo,imageScaleCrop;
 
 +(ImageManager*) sharedInstance
 {
@@ -38,6 +44,7 @@ static ImageManager *_imageManager=nil;
         shopUserGallery=[NSMutableArray new];
         commentAvatar=[NSMutableArray new];
         storeLogo=[NSMutableArray new];
+        imageScaleCrop=[NSMutableDictionary new];
         
         _mapPins=[[NSMutableDictionary alloc] initWithCapacity:9];
         
@@ -49,8 +56,31 @@ static ImageManager *_imageManager=nil;
         [_mapPins setObject:@"iconpin_shopping.png" forKey:[NSString stringWithFormat:@"%i",SHOP_TYPE_PRODUCTION]];
         [_mapPins setObject:@"iconpin_travel.png" forKey:[NSString stringWithFormat:@"%i",SHOP_TYPE_TRAVEL]];
         [_mapPins setObject:@"iconpin_drink.png" forKey:[NSString stringWithFormat:@"%i",SHOP_TYPE_CAFE]];
+        
+        [SDWebImageManager sharedManager].delegate=self;
     }
     return self;
+}
+
+-(UIImage *)imageManager:(SDWebImageManager *)imageManager transformDownloadedImage:(UIImage *)image withURL:(NSURL *)imageURL
+{
+    NSLog(@"%@ %@",imageURL,imageScaleCrop[imageURL]);
+    
+    if(imageURL && image)
+    {
+        NSValue *value=imageScaleCrop[imageURL];
+
+        if(value)
+        {
+            float screenScale=UIScreenScale();
+            CGSize size=[value CGSizeValue];
+            image=[image scaleProportionalToSize:CGSizeMake(size.width*screenScale, size.height*screenScale)];
+            if(image.scale!=screenScale)
+                return [UIImage imageWithCGImage:image.CGImage scale:screenScale orientation:image.imageOrientation];
+        }
+    }
+    
+    return image;
 }
 
 -(NSArray *)loadingImages
@@ -155,6 +185,8 @@ static ImageManager *_imageManager=nil;
 
 -(void)loadImageHomeWithURL:(NSString *)url
 {
+    [[ImageManager sharedInstance].imageScaleCrop setObject:[NSValue valueWithCGSize:self.l_v_s] forKey:URL(url)];
+    
     UIViewContentMode mode=[self showLoadingImageSmall];
     __weak UIImageView *wself=self;
     [self setImageWithURL:[NSURL URLWithString:url] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
@@ -193,12 +225,35 @@ static ImageManager *_imageManager=nil;
 
 -(void)loadShopUserGalleryThumbnailWithURL:(NSString *)url
 {
+    trackImageScaleMode
     UIViewContentMode mode=[self showLoadingImageSmall];
     
     __weak UIImageView *wself=self;
     [self setImageWithURL:[NSURL URLWithString:url] completed:^(UIImage *_image, NSError *error, SDImageCacheType cacheType) {
         [wself stopLoadingImageSmall:mode];
     }];
+}
+
+-(void)loadImageScaleCrop:(NSString *)url
+{
+    trackImageScaleMode
+    
+    [self setImageWithURL:[NSURL URLWithString:url] placeholderImage:nil options:SDWebImageProgressiveDownload];
+}
+
+-(void) loadHome6CoverWithURL:(NSString*) url
+{
+    [self loadImageScaleCrop:url];
+}
+
+-(void) loadHome7CoverWithURL:(NSString*) url
+{
+    [self loadImageScaleCrop:url];
+}
+
+-(void) loadUserPromotionCoverWithURL:(NSString*) url
+{
+    [self loadImageScaleCrop:url];
 }
 
 -(UIViewContentMode) showLoadingImage

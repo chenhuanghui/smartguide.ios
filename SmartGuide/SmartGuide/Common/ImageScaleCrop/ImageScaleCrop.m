@@ -24,19 +24,6 @@
     [super setContentMode:UIViewContentModeCenter];
 }
 
--(void)setImage:(UIImage *)image
-{
-    if(image)
-    {
-//        float screenScale=UIScreenScale();
-//        image=[image scaleProportionalToSize:CGSizeMake(self.frame.size.width*screenScale, self.frame.size.height*screenScale)];
-//        if(image.scale!=screenScale)
-//            image=[UIImage imageWithCGImage:image.CGImage scale:screenScale orientation:image.imageOrientation];
-    }
-    
-    [super setImage:image];
-}
-
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
