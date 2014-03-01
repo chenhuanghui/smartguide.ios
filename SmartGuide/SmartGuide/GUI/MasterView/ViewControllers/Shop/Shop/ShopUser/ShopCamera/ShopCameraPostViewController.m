@@ -67,41 +67,7 @@
         return;
     }
     
-    _operation=[[ASIOperationUploadUserGallery alloc] initWithIDShop:_shop.idShop.integerValue desc:txt.text photo:UIImageJPEGRepresentation(_img, 1) shareFacebook:currentUser().allowShareCommentFB.boolValue userLat:userLat() userLng:userLng()];
-    _operation.delegate=self;
-    
-    [_operation startAsynchronous];
-    
-    [self.view showLoading];
-}
-
--(void)ASIOperaionPostFinished:(ASIOperationPost *)operation
-{
-    if([operation isKindOfClass:[ASIOperationUploadUserGallery class]])
-    {
-        [self.view removeLoading];
-        
-        ASIOperationUploadUserGallery *ope=(ASIOperationUploadUserGallery*)operation;
-        
-        if(ope.message.length==0)
-            [self.delegate shopCameraControllerDidSend:self];
-        else
-            [AlertView showAlertOKWithTitle:nil withMessage:ope.message onOK:^{
-                [self.delegate shopCameraControllerDidSend:self];
-            }];
-        
-        _operation=nil;
-    }
-}
-
--(void)ASIOperaionPostFailed:(ASIOperationPost *)operation
-{
-    if([operation isKindOfClass:[ASIOperationUploadUserGallery class]])
-    {
-        [self.view removeLoading];
-        
-        _operation=nil;
-    }
+    [self.delegate shopCameraControllerTouchedDone:self];
 }
 
 - (IBAction)btnShareTouchUpInside:(id)sender {
@@ -144,24 +110,15 @@
     }
 }
 
-- (void)dealloc
-{
-    if(_operation)
-    {
-        [_operation clearDelegatesAndCancel];
-        _operation=nil;
-    }
-}
-
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
--(BOOL)growingTextView:(HPGrowingTextView *)growingTextView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
+-(NSString *)desc
 {
-    return _operation==nil;
+    return txt.text;
 }
 
 @end

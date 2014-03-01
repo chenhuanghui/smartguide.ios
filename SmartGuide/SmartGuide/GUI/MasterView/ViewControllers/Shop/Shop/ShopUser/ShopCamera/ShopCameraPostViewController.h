@@ -15,11 +15,11 @@
 
 @protocol ShopCameraPostDelegae <SGViewControllerDelegate>
 
--(void) shopCameraControllerDidSend:(ShopCameraPostViewController*) controller;
+-(void) shopCameraControllerTouchedDone:(ShopCameraPostViewController*) controller;
 
 @end
 
-@interface ShopCameraPostViewController : SGViewController<HPGrowingTextViewDelegate,ASIOperationPostDelegate>
+@interface ShopCameraPostViewController : SGViewController<HPGrowingTextViewDelegate>
 {
     __weak IBOutlet UIImageView *imgvBG;
     __weak IBOutlet UIImageView *imgvPhoto;
@@ -28,11 +28,12 @@
     __weak IBOutlet HPGrowingTextView *txt;
     
     UIImage *_img;
-    ASIOperationUploadUserGallery *_operation;
     __weak Shop *_shop;
 }
 
 -(ShopCameraPostViewController*) initWithShop:(Shop*) shop image:(UIImage*) image;
+
+-(NSString*) desc;
 
 @property (nonatomic, weak) id<ShopCameraPostDelegae> delegate;
 

@@ -190,6 +190,10 @@
 		9A29393A1844803A00FD49E2 /* icon_distance@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A2939361844803A00FD49E2 /* icon_distance@2x.png */; };
 		9A29399C1844AA8F00FD49E2 /* icon_view.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A29399A1844AA8F00FD49E2 /* icon_view.png */; };
 		9A29399D1844AA8F00FD49E2 /* icon_view@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A29399B1844AA8F00FD49E2 /* icon_view@2x.png */; };
+		9A29574018C23D8C004C8FD5 /* ASIOperationPostPicture.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A29573F18C23D8C004C8FD5 /* ASIOperationPostPicture.m */; };
+		9A29574618C23FB1004C8FD5 /* UserGalleryUpload.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A29574518C23FB1004C8FD5 /* UserGalleryUpload.m */; };
+		9A29574918C23FB7004C8FD5 /* _UserGalleryUpload.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A29574818C23FB7004C8FD5 /* _UserGalleryUpload.m */; };
+		9A29574C18C243D9004C8FD5 /* UserUploadGalleryManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A29574B18C243D9004C8FD5 /* UserUploadGalleryManager.m */; };
 		9A2AB09C184ECFF4003FD2CE /* button_tickoff.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A2AB09A184ECFF4003FD2CE /* button_tickoff.png */; };
 		9A2AB09D184ECFF4003FD2CE /* button_tickoff@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A2AB09B184ECFF4003FD2CE /* button_tickoff@2x.png */; };
 		9A2F8CC1185569470024AE1A /* bg_animation.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9A2F8C95185569470024AE1A /* bg_animation.jpg */; };
@@ -1335,6 +1339,14 @@
 		9A2939361844803A00FD49E2 /* icon_distance@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_distance@2x.png"; sourceTree = "<group>"; };
 		9A29399A1844AA8F00FD49E2 /* icon_view.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_view.png; sourceTree = "<group>"; };
 		9A29399B1844AA8F00FD49E2 /* icon_view@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_view@2x.png"; sourceTree = "<group>"; };
+		9A29573E18C23D8C004C8FD5 /* ASIOperationPostPicture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIOperationPostPicture.h; sourceTree = "<group>"; };
+		9A29573F18C23D8C004C8FD5 /* ASIOperationPostPicture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIOperationPostPicture.m; sourceTree = "<group>"; };
+		9A29574418C23FB1004C8FD5 /* UserGalleryUpload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserGalleryUpload.h; sourceTree = "<group>"; };
+		9A29574518C23FB1004C8FD5 /* UserGalleryUpload.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserGalleryUpload.m; sourceTree = "<group>"; };
+		9A29574718C23FB7004C8FD5 /* _UserGalleryUpload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _UserGalleryUpload.h; sourceTree = "<group>"; };
+		9A29574818C23FB7004C8FD5 /* _UserGalleryUpload.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _UserGalleryUpload.m; sourceTree = "<group>"; };
+		9A29574A18C243D9004C8FD5 /* UserUploadGalleryManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserUploadGalleryManager.h; sourceTree = "<group>"; };
+		9A29574B18C243D9004C8FD5 /* UserUploadGalleryManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserUploadGalleryManager.m; sourceTree = "<group>"; };
 		9A2AB09A184ECFF4003FD2CE /* button_tickoff.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_tickoff.png; sourceTree = "<group>"; };
 		9A2AB09B184ECFF4003FD2CE /* button_tickoff@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_tickoff@2x.png"; sourceTree = "<group>"; };
 		9A2F8C95185569470024AE1A /* bg_animation.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = bg_animation.jpg; sourceTree = "<group>"; };
@@ -2663,6 +2675,8 @@
 				9A0F7599187152DB00160E54 /* ShopCameraViewController.h */,
 				9A0F759A187152DB00160E54 /* ShopCameraViewController.m */,
 				9A0F759B187152DB00160E54 /* ShopCameraViewController.xib */,
+				9A29574A18C243D9004C8FD5 /* UserUploadGalleryManager.h */,
+				9A29574B18C243D9004C8FD5 /* UserUploadGalleryManager.m */,
 			);
 			path = ShopCamera;
 			sourceTree = "<group>";
@@ -3603,6 +3617,8 @@
 		A91A674A1797F65000BEB8C5 /* Human */ = {
 			isa = PBXGroup;
 			children = (
+				9A29574418C23FB1004C8FD5 /* UserGalleryUpload.h */,
+				9A29574518C23FB1004C8FD5 /* UserGalleryUpload.m */,
 				9A1E234518B1CA720077F503 /* UserPromotion.h */,
 				9A1E234618B1CA720077F503 /* UserPromotion.m */,
 				9A06F9941885423B005C0377 /* UserPlacelist.h */,
@@ -3674,6 +3690,8 @@
 		A91A674D1797F65000BEB8C5 /* Machine */ = {
 			isa = PBXGroup;
 			children = (
+				9A29574718C23FB7004C8FD5 /* _UserGalleryUpload.h */,
+				9A29574818C23FB7004C8FD5 /* _UserGalleryUpload.m */,
 				9A1E234818B1CA790077F503 /* _UserPromotion.h */,
 				9A1E234918B1CA790077F503 /* _UserPromotion.m */,
 				9A06F99718854243005C0377 /* _UserPlacelist.m */,
@@ -3819,6 +3837,8 @@
 				A91CE6B017A93B9B00D29E87 /* ASIOperationPostComment.m */,
 				A925E3DA17B09B9400806617 /* ASIOperationUploadUserGallery.h */,
 				A925E3DB17B09B9400806617 /* ASIOperationUploadUserGallery.m */,
+				9A29573E18C23D8C004C8FD5 /* ASIOperationPostPicture.h */,
+				9A29573F18C23D8C004C8FD5 /* ASIOperationPostPicture.m */,
 				A94088D517B3918D00205145 /* ASIOperationGetAds.h */,
 				A94088D617B3918D00205145 /* ASIOperationGetAds.m */,
 				9ACBA9BA185D7745000B3D6B /* ASIOperationStoreAllStore.h */,
@@ -5611,9 +5631,11 @@
 				9A16926518C06FFF002B57BF /* ASIAuthenticationDialog.m in Sources */,
 				9ACAED441872714C0025B027 /* HomeImageCell.m in Sources */,
 				9A2F8D191855C0860024AE1A /* UIView+GMGridViewAdditions.m in Sources */,
+				9A29574918C23FB7004C8FD5 /* _UserGalleryUpload.m in Sources */,
 				A9A505A9178E8B8400F27E18 /* AlertView.m in Sources */,
 				9A0F7610187152DB00160E54 /* ShopUserCommentCell.m in Sources */,
 				A9A505E4178EC5EF00F27E18 /* UIColor+Tools.m in Sources */,
+				9A29574018C23D8C004C8FD5 /* ASIOperationPostPicture.m in Sources */,
 				A9A505E5178EC5EF00F27E18 /* UIView+Layout.m in Sources */,
 				9A0F7612187152DB00160E54 /* ShopGalleryCell.m in Sources */,
 				A9A505E6178EC5EF00F27E18 /* FTCoreTextStyle.m in Sources */,
@@ -5684,6 +5706,7 @@
 				9A06F98B18853BC2005C0377 /* PlaceListInfoCell.m in Sources */,
 				9A9ED30F187D09890081A16E /* OperationGPGetUserProfile.m in Sources */,
 				9A32F3CD184345AE00704D26 /* AuthorizationViewController.m in Sources */,
+				9A29574C18C243D9004C8FD5 /* UserUploadGalleryManager.m in Sources */,
 				A99089D7179926800025DC08 /* Shop.m in Sources */,
 				A99089DA179926880025DC08 /* _Shop.m in Sources */,
 				9A28390E1890CCDA00C7BB35 /* ShopGalleryFullViewController.m in Sources */,
@@ -5821,6 +5844,7 @@
 				A925479617AE3C2A00AD0BA9 /* OperationGetActionCode.m in Sources */,
 				9A3E768418532BDF00F596C1 /* UserCollectionViewController.m in Sources */,
 				A925479C17AE453F00AD0BA9 /* OperationGetToken.m in Sources */,
+				9A29574618C23FB1004C8FD5 /* UserGalleryUpload.m in Sources */,
 				9AC74E551860BE230033EB61 /* _Placelist.m in Sources */,
 				9A24781418B739B100BAAA7D /* EmptyDataView.m in Sources */,
 				A924A3C117AEB63F0042B28B /* OperationRefreshToken.m in Sources */,

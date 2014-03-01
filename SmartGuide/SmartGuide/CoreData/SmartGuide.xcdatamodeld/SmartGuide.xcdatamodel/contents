@@ -201,6 +201,16 @@
         <attribute name="phone" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="socialType" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
     </entity>
+    <entity name="UserGalleryUpload" representedClassName="UserGalleryUpload" syncable="YES">
+        <attribute name="desc" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="idShop" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="idUserGallery" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="image" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="sortOrder" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="status" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="userLat" optional="YES" attributeType="Double" defaultValueString="0" syncable="YES"/>
+        <attribute name="userLng" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+    </entity>
     <entity name="UserHome" representedClassName="UserHome" syncable="YES">
         <attribute name="idPost" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="sortOrder" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
@@ -305,7 +315,6 @@
         <attribute name="type" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Ads" positionX="0" positionY="0" width="0" height="0"/>
         <element name="City" positionX="0" positionY="0" width="0" height="0"/>
         <element name="KM1Voucher" positionX="0" positionY="0" width="0" height="0"/>
         <element name="KM2Voucher" positionX="0" positionY="0" width="0" height="0"/>
@@ -336,5 +345,7 @@
         <element name="UserHomeImage" positionX="0" positionY="0" width="0" height="0"/>
         <element name="UserPlacelist" positionX="0" positionY="0" width="0" height="0"/>
         <element name="UserPromotion" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="UserGalleryUpload" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Ads" positionX="0" positionY="0" width="0" height="0"/>
     </elements>
 </model>

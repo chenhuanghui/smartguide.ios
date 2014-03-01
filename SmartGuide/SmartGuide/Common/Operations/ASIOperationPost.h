@@ -20,6 +20,8 @@
 #define IDSTORE @"idStore"
 #define IDPLACELIST @"idPlacelist"
 #define DESCRIPTION @"description"
+#define STATUS @"status"
+#define MESSAGE @"message"
 
 @class ASIOperationPost;
 

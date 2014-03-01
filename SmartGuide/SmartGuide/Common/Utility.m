@@ -1589,6 +1589,7 @@ NSUInteger UIViewAutoresizingAll()
 
 -(UIImage *)blurWithInputRadius:(float)inputRadius
 {
+    return self;
     return [self imageWithGaussianBlur9];
     // ***********If you need re-orienting (e.g. trying to blur a photo taken from the device camera front facing camera in portrait mode)
     // theImage = [self reOrientIfNeeded:theImage];

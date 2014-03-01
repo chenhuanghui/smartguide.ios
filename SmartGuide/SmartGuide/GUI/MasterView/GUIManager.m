@@ -9,6 +9,7 @@
 #import "GUIManager.h"
 #import "TransportViewController.h"
 #import "PlacelistViewController.h"
+#import "UserUploadGalleryManager.h"
 
 static GUIManager *_shareInstance=nil;
 
@@ -39,7 +40,6 @@ static GUIManager *_shareInstance=nil;
 -(void)startupWithWindow:(UIWindow *)window
 {
     mainWindow=window;
-    
     
     [[UIApplication sharedApplication] setStatusBarHidden:true];
     
@@ -664,6 +664,14 @@ static GUIManager *_shareInstance=nil;
     vc.delegate=self;
     
     [contentNavigation pushViewController:vc animated:true];
+}
+
+-(void)homeControllerFinishedLoad:(HomeViewController *)controller
+{
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        [[UserUploadGalleryManager shareInstance] startUploads];
+    });
 }
 
 -(void)showStoreWithStore:(StoreShop *)store

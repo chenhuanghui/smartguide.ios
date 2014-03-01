@@ -80,7 +80,7 @@
             </navigationBar>
             <viewControllers>
                 <viewController id="5lb-ft-nI1" customClass="SGViewController">
-                    <view key="view" contentMode="scaleToFill" id="NGO-1E-5Fu">
+                    <view key="view" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="NGO-1E-5Fu">
                         <rect key="frame" x="0.0" y="0.0" width="290" height="431"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>

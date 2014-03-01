@@ -12,6 +12,7 @@
     obj.image=[NSString stringWithStringDefault:data[@"image"]];
     obj.desc=[NSString stringWithStringDefault:data[@"description"]];
     obj.time=[NSString stringWithStringDefault:data[@"time"]];
+    obj.idGallery=[NSNumber numberWithObject:data[@"idUserGallery"]];
     
     return obj;
 }

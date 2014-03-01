@@ -23,6 +23,7 @@
 -(void) homeControllerTouchedNavigation:(HomeViewController*) controller;
 -(void) homeControllerTouchedHome1:(HomeViewController*) contorller home1:(UserHome1*) home1;
 -(void) homeControllerTouchedPlacelist:(HomeViewController*) controller home3:(UserHome3*) home3;
+-(void) homeControllerFinishedLoad:(HomeViewController*) controller;
 
 @end
 
@@ -41,6 +42,8 @@
     ASIOperationShopUser *_operationShopUser;
     NSMutableArray *_homes;
     NSMutableArray *_ads;
+    
+    bool _isFinishedLoadData;
     
     int _page;
     bool _isLoadingMore;

@@ -10,6 +10,7 @@
 #import "SGNavigationController.h"
 #import "ShopCameraTakeViewController.h"
 #import "ShopCameraPostViewController.h"
+#import "UserUploadGalleryManager.h"
 
 @class ShopCameraViewController;
 
@@ -23,6 +24,8 @@
 {
     __weak SGNavigationController *cameraNavi;
     __weak Shop *_shop;
+    
+    UserGalleryUpload *_currentUpload;
 }
 
 -(ShopCameraViewController*) initWithShop:(Shop*) shop;

@@ -44,15 +44,31 @@
 
 -(void)shopCameraTakeDidCapture:(ShopCameraTakeViewController *)controller image:(UIImage *)image
 {
+    if(_currentUpload)
+    {
+        [[UserUploadGalleryManager shareInstance] cancelUpload:_currentUpload];
+        _currentUpload=nil;
+    }
+    
+    _currentUpload=[[UserUploadGalleryManager shareInstance] addUploadWithIDShop:_shop.idShop.integerValue image:image];
+    
     ShopCameraPostViewController *vc=[[ShopCameraPostViewController alloc] initWithShop:_shop image:image];
     vc.delegate=self;
     
     [cameraNavi pushViewController:vc animated:true];
 }
 
--(void)shopCameraControllerDidSend:(ShopCameraPostViewController *)controller
+-(void)shopCameraControllerTouchedDone:(ShopCameraPostViewController *)controller
 {
+    [[UserUploadGalleryManager shareInstance] updateDesc:_currentUpload desc:controller.desc];
+    _currentUpload=nil;
+    
     [self.delegate shopCameraControllerDidUploadPhoto:self];
+}
+
+-(void)dealloc
+{
+    _currentUpload=nil;
 }
 
 - (void)didReceiveMemoryWarning
@@ -63,6 +79,13 @@
 
 -(bool)navigationWillBack
 {
+    if(_currentUpload && _currentUpload.desc.length==0)
+    {
+        [[UserUploadGalleryManager shareInstance] cancelUpload:_currentUpload];
+    }
+    
+    _currentUpload=nil;
+    
     if([cameraNavi.visibleViewController isKindOfClass:[ShopCameraPostViewController class]])
     {
         [cameraNavi popViewControllerAnimated:true];

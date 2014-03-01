@@ -87,6 +87,16 @@
     [_operationUserHome startAsynchronous];
 }
 
+-(void) finishLoadData
+{
+    if(!_isFinishedLoadData)
+    {
+        _isFinishedLoadData=true;
+        
+        [self.delegate homeControllerFinishedLoad:self];
+    }
+}
+
 -(void)ASIOperaionPostFinished:(ASIOperationPost *)operation
 {
     if([operation isKindOfClass:[ASIOperationUserHome class]])
@@ -96,6 +106,8 @@
             [displayLoadingView removeFromSuperview];
             displayLoadingView=nil;
         }
+        
+        [self finishLoadData];
         
         ASIOperationUserHome *ope=(ASIOperationUserHome*) operation;
         
@@ -131,6 +143,8 @@
         }
         
         _operationUserHome=nil;
+        
+        [self finishLoadData];
     }
     else if([operation isKindOfClass:[ASIOperationShopUser class]])
     {

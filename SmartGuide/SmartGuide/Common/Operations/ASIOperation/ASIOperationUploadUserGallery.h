@@ -12,9 +12,9 @@
 
 @interface ASIOperationUploadUserGallery : ASIOperationPost
 
--(ASIOperationUploadUserGallery*) initWithIDShop:(int) idShop desc:(NSString*) desc photo:(NSData*) image shareFacebook:(bool) isSharedFacebook userLat:(double) userLat userLng:(double) userLng;
+-(ASIOperationUploadUserGallery*) initWithIDShop:(int) idShop image:(NSData*) image userLat:(double) userLat userLng:(double) userLng;
 
-@property (nonatomic, readonly) bool status;
-@property (nonatomic, readonly) NSString *message;
+@property (nonatomic, readonly) int status;
+@property (nonatomic, readonly) int idUserGallery;
 
 @end
