@@ -227,16 +227,16 @@
     if(false && currentUser().enumDataMode==USER_DATA_TRY)
     {
         [[GUIManager shareInstance] showLoginDialogWithMessage:localizeLoginRequire() onOK:^
-        {
-            [SGData shareInstance].fScreen=[SGQRCodeViewController screenCode];
-        } onCancelled:^{
-            [self close];
-        } onLogined:^(bool isLogined) {
-            if(isLogined)
-                [self displayScan];
-            else
-                [self close];
-        }];
+         {
+             [SGData shareInstance].fScreen=[SGQRCodeViewController screenCode];
+         } onCancelled:^{
+             [self close];
+         } onLogined:^(bool isLogined) {
+             if(isLogined)
+                 [self displayScan];
+             else
+                 [self close];
+         }];
         
         return;
     }
@@ -269,6 +269,7 @@
 
 -(void) displayResult:(id) result
 {
+    _result=result;
     _isScanningCode=false;
     SGQRCodeResultViewController *vc=[[SGQRCodeResultViewController alloc] initWithResult:result];
     
@@ -283,6 +284,11 @@
     btnTorch.hidden=false;
     lblTorch.alpha=1;
     lblTorch.hidden=false;
+    
+    if([_result isKindOfClass:[ScanQRCodeResult0 class]] || [_result isKindOfClass:[ScanQRCodeResult1 class]])
+        [btnScan setTitle:@"Quét tiếp" forState:UIControlStateNormal];
+    else
+        [btnScan setTitle:@"Đến cửa hàng" forState:UIControlStateNormal];
     
     [UIView animateWithDuration:DURATION_DEFAULT animations:^{
         bgResultView.alpha=0.7f;
@@ -313,6 +319,8 @@
 
 -(void)dealloc
 {
+    _result=nil;
+    
     [zbarReader.readerView.device removeObserver:self forKeyPath:@"torchAvailable"];
     [zbarReader.readerView.device removeObserver:self forKeyPath:@"torchMode"];
     
@@ -353,7 +361,7 @@
 
 - (IBAction)btnnext:(id)sender {
     UIButton *btn=sender;
-
+    
     if(btn.tag==0)
     {
         ScanQRCodeResult0 *result=[ScanQRCodeResult0 new];
@@ -367,7 +375,7 @@
         
         ScanQRCodeResult1 *result=[ScanQRCodeResult1 new];
         result.message=str;
-        result.idShop=18;
+        result.idShop=25;
         result.shopName=@"Lorem ipsum dolor sit amet, consectetuer";
         
         [self displayResult:result];
@@ -376,7 +384,7 @@
     {
         ScanQRCodeResult2 *result=[ScanQRCodeResult2 new];
         result.message=@"Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet";
-        result.idShop=18;
+        result.idShop=25;
         result.shopName=@"Lorem ipsum dolor sit amet, consectetuer";
         result.sgp=@"⁺5000";
         result.totalSGP=@"1.000";
@@ -392,6 +400,7 @@
         result.giftName=@"Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet";
         result.sgp=@"⁻5";
         result.totalSGP=@"999.999";
+        result.idShop=25;
         
         [self displayResult:result];
     }
@@ -401,7 +410,7 @@
         result.message=@"Lorem ipsum dolor sit amet";
         result.type=@"Loại B";
         result.voucherName=@"Lorem ipsum dolor sit amet";
-        result.idShop=18;
+        result.idShop=25;
         result.shopName=@"Lorem ipsum dolor sit amet, consectetuer";
         
         [self displayResult:result];
@@ -418,7 +427,29 @@
 }
 
 - (IBAction)btnScanTouchUpInside:(id)sender {
-    [self displayScan];
+    
+    if([_result isKindOfClass:[ScanQRCodeResult0 class]] || [_result isKindOfClass:[ScanQRCodeResult1 class]])
+        [self displayScan];
+    else
+    {
+        [self closeOnCompleted:^{
+            
+            int idShop=0;
+            
+            if([_result isKindOfClass:[ScanQRCodeResult2 class]])
+                idShop=[((ScanQRCodeResult2*)_result) idShop];
+            else if([_result isKindOfClass:[ScanQRCodeResult3 class]])
+                idShop=[((ScanQRCodeResult3*)_result) idShop];
+            else if([_result isKindOfClass:[ScanQRCodeResult4 class]])
+                idShop=[((ScanQRCodeResult4*)_result) idShop];
+            
+            if(idShop==0)
+                return;
+            
+            [SGData shareInstance].fScreen=[SGQRCodeViewController screenCode];
+            [[GUIManager shareInstance] presentShopUserWithIDShop:idShop];
+        }];
+    }
 }
 
 - (IBAction)btnCloseCameraTouchUpInside:(id)sender {
@@ -432,10 +463,26 @@
 
 -(void) close
 {
+    [self closeOnCompleted:nil];
+}
+
+-(void) closeOnCompleted:(void(^)()) completed
+{
+    __block void(^_completed)()=nil;
+    
+    if(completed)
+        _completed=[completed copy];
+    
     __block void(^_animationCompleted)()=^()
     {
         [SGData shareInstance].fScreen=[SGQRCodeViewController screenCode];
         [self.delegate qrcodeControllerFinished:self];
+        
+        if(_completed)
+        {
+            _completed();
+            _completed=nil;
+        }
         
         [self.view removeFromSuperview];
         [self removeFromParentViewController];

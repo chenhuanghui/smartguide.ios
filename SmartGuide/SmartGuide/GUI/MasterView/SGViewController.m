@@ -156,6 +156,7 @@ static char presentSGViewControlelrKey;
 
 -(void)presentSGViewController:(SGViewController *)viewControllerToPresent completion:(void (^)(void))completion
 {
+    self.view.userInteractionEnabled=false;
     self.presentSGViewControlelr=viewControllerToPresent;
     
     [self addChildViewController:viewControllerToPresent];
@@ -174,6 +175,7 @@ static char presentSGViewControlelrKey;
         self.view.alphaView.alpha=0.7f;
     } completion:^(BOOL finished) {
         [viewControllerToPresent viewDidAppear:true];
+        self.view.userInteractionEnabled=true;
     }];
 }
 

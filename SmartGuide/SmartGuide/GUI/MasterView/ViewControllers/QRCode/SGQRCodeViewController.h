@@ -47,6 +47,7 @@ enum QRCODE_ANIMATION_TYPE {
     
     __strong ZBarReaderViewController *zbarReader;
     ASIOperationScanQRCode *_operationScanCode;
+    __strong id _result;
     
     __strong SGNavigationController *_navi;
     __weak SGQRCodeResultViewController *_resultController;

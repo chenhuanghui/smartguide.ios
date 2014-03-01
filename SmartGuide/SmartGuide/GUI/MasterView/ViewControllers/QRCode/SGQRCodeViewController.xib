@@ -85,7 +85,7 @@
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="12"/>
-                            <state key="normal" title="Quét tiếp"/>
+                            <state key="normal" title="đến cửa hàng"/>
                             <connections>
                                 <action selector="btnScanTouchUpInside:" destination="-1" eventType="touchUpInside" id="yst-Xq-vNc"/>
                             </connections>

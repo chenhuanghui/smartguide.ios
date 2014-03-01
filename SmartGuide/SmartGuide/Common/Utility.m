@@ -1675,6 +1675,11 @@ NSUInteger UIViewAutoresizingAll()
     return [self resizedImage:size interpolationQuality:kCGInterpolationHigh];
 }
 
+-(UIImage *)convertAvatarToServer
+{
+    return [self scaleProportionalToSize:CGSizeMake(180, 180)];
+}
+
 #pragma mark -
 #pragma mark Private helper methods
 

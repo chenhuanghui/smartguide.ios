@@ -299,6 +299,7 @@ NSString *avatarPath();
 - (UIImage*) blurWithInputRadius:(float) inputRadius;
 - (UIImage*) convertToGrayscale;
 - (UIImage*) convertToServer;
+- (UIImage*) convertAvatarToServer;
 
 @end
 
