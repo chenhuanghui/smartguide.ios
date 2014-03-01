@@ -391,7 +391,7 @@
 -(void) storeRect
 {
     _tableFrame=tableList.frame;
-    _mapFrame=self.map.frame;
+    _mapFrame=map.frame;
     _qrFrame=qrCodeView.frame;
     _buttonMapFrame=btnMap.frame;
     _buttonSearchLocationFrame=btnSearchLocation.frame;
@@ -470,28 +470,22 @@
     [txt.leftView l_v_setS:CGSizeMake(24, txt.l_v_h)];
     txt.leftViewMode=UITextFieldViewModeAlways;
     
-    self.map.delegate=self;
-    [self clearMap];
-    
     _isAllowDiffScrollMap=true;
-    self.map.autoresizingMask=UIViewAutoresizingNone;
-    [scroll insertSubview:self.map belowSubview:tableList];
-    self.map.userInteractionEnabled=false;
-    self.map.scrollEnabled=false;
-    self.map.zoomEnabled=false;
+    map.userInteractionEnabled=false;
+    map.scrollEnabled=false;
+    map.zoomEnabled=false;
     
-    if([self.map respondsToSelector:@selector(setShowsBuildings:)])
-        self.map.showsBuildings=false;
+    if([map respondsToSelector:@selector(setShowsBuildings:)])
+        map.showsBuildings=false;
     
-    if([self.map respondsToSelector:@selector(setShowsPointsOfInterest:)])
-        self.map.showsPointsOfInterest=false;
+    if([map respondsToSelector:@selector(setShowsPointsOfInterest:)])
+        map.showsPointsOfInterest=false;
     
     CGRect rect=CGRectZero;
     rect.size.height=self.l_v_h-qrCodeView.l_v_h+QRCODE_RAY_HEIGHT;
     rect.size.width=self.l_v_w;
     rect.origin.y=-tableList.l_v_h/SHOP_LIST_SCROLL_SPEED;
-    self.map.frame=rect;
-    self.map.autoresizingMask=UIViewAutoresizingFlexibleBottomMargin|UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin|UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleWidth;
+    map.frame=rect;
     
     _location.latitude=userLat();
     _location.longitude=userLng();
@@ -806,12 +800,12 @@
 
 -(void) clearMap
 {
-    [self.map removeAnnotations:self.map.annotations];
-    [self.map removeOverlays:self.map.overlays];
+    [map removeAnnotations:map.annotations];
+    [map removeOverlays:map.overlays];
     
-    self.map.showsUserLocation=true;
-    self.map.showsUserLocation=false;
-    self.map.showsUserLocation=true;
+    map.showsUserLocation=true;
+    map.showsUserLocation=false;
+    map.showsUserLocation=true;
 }
 
 -(void)ASIOperaionPostFinished:(ASIOperationPost *)operation
@@ -833,7 +827,7 @@
         NSMutableArray *coordinates=[NSMutableArray array];
         for(ShopList *shop in ope.shopsList)
         {
-            [self.map addAnnotation:shop];
+            [map addAnnotation:shop];
             
             [coordinates addObject:[NSValue valueWithMKCoordinate:shop.coordinate]];
         }
@@ -842,10 +836,10 @@
         {
             _isZoomedRegionMap=true;
             
-            if(isVailCLLocationCoordinate2D(self.map.userLocation.coordinate))
-                [coordinates addObject:[NSValue valueWithMKCoordinate:self.map.userLocation.coordinate]];
+            if(isVailCLLocationCoordinate2D(map.userLocation.coordinate))
+                [coordinates addObject:[NSValue valueWithMKCoordinate:map.userLocation.coordinate]];
             
-            [self.map zoomToCoordinates:coordinates animate:true span:0];
+            [map zoomToCoordinates:coordinates animate:true span:0];
         }
         
         [self makeScrollSize];
@@ -869,7 +863,7 @@
         NSMutableArray *coordinates=[NSMutableArray array];
         for(ShopList *shop in ope.shops)
         {
-            [self.map addAnnotation:shop];
+            [map addAnnotation:shop];
             
             [coordinates addObject:[NSValue valueWithMKCoordinate:shop.coordinate]];
         }
@@ -878,10 +872,10 @@
         {
             _isZoomedRegionMap=true;
             
-            if(isVailCLLocationCoordinate2D(self.map.userLocation.coordinate))
-                [coordinates addObject:[NSValue valueWithMKCoordinate:self.map.userLocation.coordinate]];
+            if(isVailCLLocationCoordinate2D(map.userLocation.coordinate))
+                [coordinates addObject:[NSValue valueWithMKCoordinate:map.userLocation.coordinate]];
             
-            [self.map zoomToCoordinates:coordinates animate:true span:0];
+            [map zoomToCoordinates:coordinates animate:true span:0];
         }
         
         [self makeScrollSize];
@@ -904,7 +898,7 @@
         NSMutableArray *coordinates=[NSMutableArray array];
         for(ShopList *shop in ope.shopsList)
         {
-            [self.map addAnnotation:shop];
+            [map addAnnotation:shop];
             
             [coordinates addObject:[NSValue valueWithMKCoordinate:shop.coordinate]];
         }
@@ -913,10 +907,10 @@
         {
             _isZoomedRegionMap=true;
             
-            if(isVailCLLocationCoordinate2D(self.map.userLocation.coordinate))
-                [coordinates addObject:[NSValue valueWithMKCoordinate:self.map.userLocation.coordinate]];
+            if(isVailCLLocationCoordinate2D(map.userLocation.coordinate))
+                [coordinates addObject:[NSValue valueWithMKCoordinate:map.userLocation.coordinate]];
             
-            [self.map zoomToCoordinates:coordinates animate:true span:0];
+            [map zoomToCoordinates:coordinates animate:true span:0];
         }
         
         [self makeScrollSize];
@@ -939,7 +933,7 @@
         NSMutableArray *coordinates=[NSMutableArray array];
         for(ShopList *shop in _shopsList)
         {
-            [self.map addAnnotation:shop];
+            [map addAnnotation:shop];
             
             [coordinates addObject:[NSValue valueWithMKCoordinate:shop.coordinate]];
         }
@@ -948,10 +942,10 @@
         {
             _isZoomedRegionMap=true;
             
-            if(isVailCLLocationCoordinate2D(self.map.userLocation.coordinate))
-                [coordinates addObject:[NSValue valueWithMKCoordinate:self.map.userLocation.coordinate]];
+            if(isVailCLLocationCoordinate2D(map.userLocation.coordinate))
+                [coordinates addObject:[NSValue valueWithMKCoordinate:map.userLocation.coordinate]];
             
-            [self.map zoomToCoordinates:coordinates animate:true span:0];
+            [map zoomToCoordinates:coordinates animate:true span:0];
         }
         
         [self makeScrollSize];
@@ -1066,19 +1060,19 @@
 {
     if(scrollView==scroll)
     {
-        [self.map l_v_setY:_mapFrame.origin.y+scroll.contentOffset.y-scroll.contentOffset.y/SHOP_LIST_SCROLL_SPEED];
+        [map l_v_setY:_mapFrame.origin.y+scroll.contentOffset.y-scroll.contentOffset.y/SHOP_LIST_SCROLL_SPEED];
         
         float y=tableList.l_v_y-scrollView.l_co_y;
         
-        if(self.map.superview)
+        if(map.superview)
         {
             if(y<0)
-                [self.map removeFromSuperview];
+                [map removeFromSuperview];
         }
         else
         {
             if(y>0)
-                [scroll insertSubview:self.map belowSubview:tableList];
+                [scroll insertSubview:map belowSubview:tableList];
         }
         
         if(_tableFrame.origin.y-scrollView.l_co_y<=0)
@@ -1256,7 +1250,7 @@
     
     _isDidUpdateLocation=true;
     
-    [self.map setRegion:MKCoordinateRegionMakeWithDistance(userLocation.location.coordinate, MAP_SPAN, MAP_SPAN) animated:false];
+    [map setRegion:MKCoordinateRegionMakeWithDistance(userLocation.location.coordinate, MAP_SPAN, MAP_SPAN) animated:false];
 }
 
 -(void) scrollPanGes:(UIPanGestureRecognizer*) pan
@@ -1281,9 +1275,9 @@
                 {
                     [scroll setContentOffset:scroll.contentOffset animated:true];
                     self.view.userInteractionEnabled=false;
-                    self.map.userInteractionEnabled=false;
-                    self.map.scrollEnabled=false;
-                    self.map.zoomEnabled=false;
+                    map.userInteractionEnabled=false;
+                    map.scrollEnabled=false;
+                    map.zoomEnabled=false;
                     tableList.userInteractionEnabled=true;
                     
                     btnScanBig.alpha=0;
@@ -1317,9 +1311,9 @@
                 if(pnt.y>_tableFrame.origin.y+20)
                 {
                     self.view.userInteractionEnabled=false;
-                    self.map.userInteractionEnabled=true;
-                    self.map.scrollEnabled=true;
-                    self.map.zoomEnabled=true;
+                    map.userInteractionEnabled=true;
+                    map.scrollEnabled=true;
+                    map.zoomEnabled=true;
                     tableList.userInteractionEnabled=false;
                     
                     _isZoomedMap=true;
@@ -1380,9 +1374,9 @@
     _isZoomedMap=true;
     
     tableList.userInteractionEnabled=false;
-    self.map.userInteractionEnabled=true;
-    self.map.scrollEnabled=true;
-    self.map.zoomEnabled=true;
+    map.userInteractionEnabled=true;
+    map.scrollEnabled=true;
+    map.zoomEnabled=true;
     
     float height=[self heightForZoom];
     
@@ -1421,9 +1415,9 @@
 {
     _isZoomedMap=false;
     
-    self.map.userInteractionEnabled=false;
-    self.map.scrollEnabled=false;
-    self.map.zoomEnabled=false;
+    map.userInteractionEnabled=false;
+    map.scrollEnabled=false;
+    map.zoomEnabled=false;
     tableList.userInteractionEnabled=true;
     
     btnScanBig.alpha=0;
@@ -1462,7 +1456,8 @@
 
 - (void)dealloc
 {
-    self.map.delegate=nil;
+    map.delegate=nil;
+    map=nil;
     
     if(_operationPlaceListDetail)
     {
@@ -1527,20 +1522,6 @@
     return _isZoomedMap;
 }
 
--(void)willMoveToParentViewController:(UIViewController *)parent
-{
-    [super willMoveToParentViewController:parent];
-    
-    if(!parent)
-    {
-        if(_isZoomedMap)
-            [UIView animateWithDuration:DURATION_DEFAULT animations:^{
-                //                float y=-(QRCODE_BIG_HEIGHT-QRCODE_SMALL_HEIGHT);
-                
-            }];
-    }
-}
-
 -(void)showQRView
 {
     
@@ -1551,14 +1532,9 @@
     
 }
 
--(MapList*)map
-{
-    return [MapList shareInstance];
-}
-
 -(IBAction) btnLocationTouchUpInside:(id)sender
 {
-    [self changeLocation:self.map.centerCoordinate];
+    [self changeLocation:map.centerCoordinate];
 }
 
 -(MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation
@@ -1647,8 +1623,8 @@
 {
     [super didReceiveMemoryWarning];
     
-    self.map.mapType=MKMapTypeHybrid;
-    self.map.mapType=MKMapTypeStandard;
+    map.mapType=MKMapTypeHybrid;
+    map.mapType=MKMapTypeStandard;
 }
 
 -(void)placelistControllerTouchedTextField:(PlacelistViewController *)controller

@@ -13,7 +13,7 @@
 #import <MapKit/MapKit.h>
 #import "ShopSearchSortView.h"
 #import "Scroller.h"
-#import "MapList.h"
+#import "SGMapView.h"
 #import "ShopListCell.h"
 #import "ShopListPlaceCell.h"
 #import "SearchViewController.h"
@@ -52,7 +52,8 @@ enum SHOP_LIST_VIEW_MODE {
     __weak IBOutlet UIButton *btnScanSmall;
     __weak IBOutlet UITextField *txt;
     __weak IBOutlet UIView *loadingView;
-    
+    __strong IBOutlet SGMapView *map;
+
     CGRect _mapFrame;
     CGRect _tableFrame;
     CGRect _qrFrame;

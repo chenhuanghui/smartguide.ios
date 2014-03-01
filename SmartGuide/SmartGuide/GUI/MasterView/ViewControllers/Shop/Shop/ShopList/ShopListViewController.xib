@@ -12,6 +12,7 @@
                 <outlet property="btnScanSmall" destination="GXa-1X-Dey" id="fVU-E6-oJL"/>
                 <outlet property="btnSearchLocation" destination="vVs-Zn-Uvn" id="IKJ-Oj-lm1"/>
                 <outlet property="loadingView" destination="V1R-4A-6yh" id="Ulh-aS-OTa"/>
+                <outlet property="map" destination="9qA-pJ-drt" id="gVk-NU-32G"/>
                 <outlet property="qrCodeView" destination="wZi-TX-GZk" id="Omh-oR-Tsp"/>
                 <outlet property="scroll" destination="f21-IX-hgk" id="nOC-9n-U70"/>
                 <outlet property="scrollerContain" destination="xkE-2n-RVR" id="3Kt-Dg-daL"/>
@@ -30,6 +31,13 @@
                     <rect key="frame" x="0.0" y="44" width="320" height="436"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
                     <subviews>
+                        <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" pitchEnabled="NO" showsUserLocation="YES" id="9qA-pJ-drt" customClass="SGMapView">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="113"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <connections>
+                                <outlet property="delegate" destination="-1" id="MYI-gK-n5s"/>
+                            </connections>
+                        </mapView>
                         <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" style="plain" separatorStyle="none" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Yzp-w8-hbC">
                             <rect key="frame" x="0.0" y="113" width="320" height="432"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

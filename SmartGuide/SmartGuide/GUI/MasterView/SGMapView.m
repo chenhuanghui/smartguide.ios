@@ -62,6 +62,8 @@
         
         [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
     }
+    
+    DEALLOC_LOG
 }
 
 -(MKUserLocation *)userLocation
