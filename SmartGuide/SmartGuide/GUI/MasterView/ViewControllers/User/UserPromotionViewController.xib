@@ -73,7 +73,7 @@
                 </button>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="blur_bottom_home.png" id="df0-oS-gnY">
                     <rect key="frame" x="0.0" y="396" width="320" height="58"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                 </imageView>
                 <view contentMode="scaleToFill" id="h8A-V1-Rzx">
                     <rect key="frame" x="0.0" y="424" width="320" height="56"/>
@@ -118,7 +118,7 @@
         <image name="blur_bottom_home.png" width="320" height="41"/>
         <image name="blur_top_home.png" width="320" height="41"/>
         <image name="button_navigation.png" width="34" height="26"/>
-        <image name="button_scan.png" width="125" height="24"/>
+        <image name="button_scan.png" width="124" height="31"/>
         <image name="button_scan_small.png" width="63" height="17"/>
         <image name="button_search_home.png" width="232" height="39"/>
     </resources>

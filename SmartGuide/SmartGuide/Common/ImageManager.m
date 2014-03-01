@@ -216,7 +216,6 @@ static ImageManager *_imageManager=nil;
 
 -(void) stopLoadingImage:(UIViewContentMode) mode
 {
-    return;
     self.animationImages=nil;
     [self stopAnimating];
     self.contentMode=mode;
@@ -245,7 +244,6 @@ static ImageManager *_imageManager=nil;
 
 -(void) stopLoadingImageSmall:(UIViewContentMode) mode
 {
-    return;
     self.animationImages=nil;
     [self stopAnimating];
     self.contentMode=mode;

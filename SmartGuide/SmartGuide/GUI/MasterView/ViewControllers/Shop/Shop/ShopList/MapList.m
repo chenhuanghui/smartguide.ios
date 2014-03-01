@@ -16,7 +16,7 @@ static MapList *_mapList=nil;
     return _mapList;
 }
 
-+(void)load
++(void)load1
 {
     _mapList=[[MapList alloc] initWithFrame:[UIScreen mainScreen].bounds];
     _mapList.autoresizingMask=UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleTopMargin;

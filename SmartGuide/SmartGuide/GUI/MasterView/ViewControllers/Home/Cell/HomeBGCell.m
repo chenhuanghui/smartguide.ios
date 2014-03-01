@@ -38,6 +38,8 @@
     self=[super initWithCoder:aDecoder];
     
     self.contentMode=UIViewContentModeRedraw;
+    self.clearsContextBeforeDrawing=false;
+    self.opaque=true;
     
     return self;
 }
