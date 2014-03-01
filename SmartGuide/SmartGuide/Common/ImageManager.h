@@ -16,6 +16,7 @@
 
 -(NSArray*) loadingImages;
 -(NSArray*) loadingMoreImages;
+-(NSArray*) loadingImagesSmall;
 -(NSMutableDictionary*) mapPins;
 -(UIImage*) shopPinWithType:(enum SHOP_TYPE) shopType;
 

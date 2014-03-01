@@ -68,6 +68,10 @@
 }
 
 - (IBAction)btnStoreTouchUpInside:(id)sender {
+    
+    [AlertView showAlertOKWithTitle:nil withMessage:@"Coming soon!!!" onOK:nil];
+    return;
+    
     [self.delegate settingTouchedStore:self];
 }
 
