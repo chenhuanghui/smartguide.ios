@@ -132,7 +132,7 @@
 {
     if([[UserUploadAvatarManager shareInstance] avatarTempPath].length>0)
     {
-        return [[[UserUploadAvatarManager shareInstance] avatarTempPath] stringByAppendingPathComponent:@"blur"];
+        return [[[UserUploadAvatarManager shareInstance] avatarTempPath] stringByAppendingString:@"blur"];
     }
     
     NSString *path=[self.avatar stringByAppendingString:@"blur"];

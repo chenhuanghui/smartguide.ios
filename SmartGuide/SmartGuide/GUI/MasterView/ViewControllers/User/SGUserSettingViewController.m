@@ -74,6 +74,8 @@
         
         if(isLogined)
         {
+            imgvAvatar.image=nil;
+            imgvBGAvatar.image=nil;
             [[DataManager shareInstance].managedObjectContext refreshObject:currentUser() mergeChanges:false];
             [self loadData];
         }

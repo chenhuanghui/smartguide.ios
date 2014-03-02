@@ -127,7 +127,10 @@ static UserUploadAvatarManager* _userUploadAvatarManager=nil;
 
 -(NSString *)avatarTempPath
 {
-    return AVATAR_TEMP_PATH;
+    if([[NSFileManager defaultManager] fileExistsAtPath:AVATAR_TEMP_PATH])
+        return AVATAR_TEMP_PATH;
+    
+    return @"";
 }
 
 @end

@@ -128,7 +128,7 @@
 
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
-    _avatarImage=[info[UIImagePickerControllerOriginalImage] convertToServer];
+    _avatarImage=[info[UIImagePickerControllerOriginalImage] convertAvatarToServer];
     
     [grid reloadData];
     [grid scrollToObjectAtIndex:0 atScrollPosition:GMGridViewScrollPositionTop animated:false];

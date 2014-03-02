@@ -42,6 +42,7 @@
     user.avatar=[NSString stringWithStringDefault:dict[@"avatar"]];
     user.phone=[NSString stringWithStringDefault:dict[@"phone"]];
     user.socialType=[NSNumber numberWithObject:dict[@"socialType"]];
+    user.birthday=[NSString stringWithStringDefault:dict[@"dob"]];
     
     [[DataManager shareInstance] save];
 }
