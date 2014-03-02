@@ -15,7 +15,7 @@ static NSMutableArray *_loadingImagesSmall=nil;
 static NSMutableArray *_loadingMoreImages=nil;
 static NSMutableDictionary *_mapPins=nil;
 
-#define trackImageScaleMode if(URL(url))[[ImageManager sharedInstance].imageScaleCrop setObject:[NSValue valueWithCGSize:self.l_v_s] forKey:URL(url)];
+#define trackImageScaleMode //if(URL(url))[[ImageManager sharedInstance].imageScaleCrop setObject:[NSValue valueWithCGSize:self.l_v_s] forKey:URL(url)];
 
 @interface ImageManager()<SDWebImageManagerDelegate>
 
@@ -59,10 +59,11 @@ static ImageManager *_imageManager=nil;
         
         [SDWebImageManager sharedManager].delegate=self;
     }
+    
     return self;
 }
 
--(UIImage *)imageManager:(SDWebImageManager *)imageManager transformDownloadedImage:(UIImage *)image withURL:(NSURL *)imageURL
+-(UIImage *)imageManager1:(SDWebImageManager *)imageManager transformDownloadedImage:(UIImage *)image withURL:(NSURL *)imageURL
 {
     NSLog(@"%@ %@",imageURL,imageScaleCrop[imageURL]);
     

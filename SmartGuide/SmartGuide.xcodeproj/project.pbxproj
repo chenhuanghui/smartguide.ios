@@ -2440,7 +2440,7 @@
 		A961416B17A02E8800D30375 /* Flags.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Flags.m; sourceTree = "<group>"; };
 		A97C847217B0236400D9CEB9 /* ASIOperationShopProduct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIOperationShopProduct.h; sourceTree = "<group>"; };
 		A97C847317B0236400D9CEB9 /* ASIOperationShopProduct.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIOperationShopProduct.m; sourceTree = "<group>"; };
-		A981984E178D02530009FCB6 /* Infory.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Infory.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A981984E178D02530009FCB6 /* infory.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = infory.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A9819851178D02530009FCB6 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		A9819853178D02530009FCB6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		A9819855178D02530009FCB6 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -3976,7 +3976,7 @@
 		A981984F178D02530009FCB6 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				A981984E178D02530009FCB6 /* Infory.app */,
+				A981984E178D02530009FCB6 /* infory.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -4814,7 +4814,7 @@
 			);
 			name = SmartGuide;
 			productName = SmartGuide;
-			productReference = A981984E178D02530009FCB6 /* Infory.app */;
+			productReference = A981984E178D02530009FCB6 /* infory.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -6066,7 +6066,7 @@
 					"-all_load",
 					"-Objc",
 				);
-				PRODUCT_NAME = Infory;
+				PRODUCT_NAME = infory;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -6091,7 +6091,7 @@
 					"-all_load",
 					"-Objc",
 				);
-				PRODUCT_NAME = Infory;
+				PRODUCT_NAME = infory;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

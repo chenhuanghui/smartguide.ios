@@ -180,9 +180,9 @@ static UserUploadGalleryManager *_userUploadGalleryManager=nil;
                 }
                 else
                 {
+                    _currentUpload.status=@(USER_GALLERY_UPLOAD_STATUS_NEXT);
                     _currentUpload.objConnection=nil;
                     
-                    [_currentUpload markDeleted];
                     [[DataManager shareInstance] save];
 
                     _currentUpload=nil;
@@ -202,6 +202,7 @@ static UserUploadGalleryManager *_userUploadGalleryManager=nil;
                 
                 if(ope.status==1)
                 {
+                    
                     _currentUpload.objConnection=nil;
                     [_currentUpload markDeleted];
                     [[DataManager shareInstance] save];

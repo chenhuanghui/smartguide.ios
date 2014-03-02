@@ -1594,8 +1594,6 @@ NSUInteger UIViewAutoresizingAll()
 
 -(UIImage *)blurWithInputRadius:(float)inputRadius
 {
-    return self;
-    return [self imageWithGaussianBlur9];
     // ***********If you need re-orienting (e.g. trying to blur a photo taken from the device camera front facing camera in portrait mode)
     // theImage = [self reOrientIfNeeded:theImage];
 
@@ -2386,7 +2384,7 @@ static const NSString *KEY_HIT_TEST_EDGE_INSETS = @"HitTestEdgeInsets";
 
 -(NSString*)makeDirectory:(NSString *)path
 {
-    NSString *docPath=[documentPath() stringByAppendingPathExtension:path];
+    NSString *docPath=[documentPath() stringByAppendingPathComponent:path];
     
     if(![self fileExistsAtPath:docPath])
         [self createDirectoryAtPath:docPath withIntermediateDirectories:true attributes:nil error:nil];

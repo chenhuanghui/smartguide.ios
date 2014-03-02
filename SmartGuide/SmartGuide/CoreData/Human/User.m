@@ -116,12 +116,18 @@
 
 -(NSString*) avatarPath
 {
-    return [avatarPath() stringByAppendingString:self.avatar];
+    NSString *path=self.avatar;
+    path=[path stringByReplacingOccurrencesOfString:@"/" withString:@""];
+    
+    return [avatarPath() stringByAppendingPathComponent:path];
 }
 
 -(NSString*) avatarBlurPath
 {
-    return [avatarPath() stringByAppendingFormat:@"%@blur",self.avatar];
+    NSString *path=[self.avatar stringByAppendingString:@"blur"];
+    path=[path stringByReplacingOccurrencesOfString:@"/" withString:@""];
+    
+    return [avatarPath() stringByAppendingPathComponent:path];
 }
 
 -(UIImage *)avatarImage
@@ -155,7 +161,11 @@
     if(self.avatar.length>0)
     {
         NSData *data=UIImageJPEGRepresentation(image, 1);
-        [data writeToFile:[self avatarPath] atomically:true];
+        
+        NSError *error=nil;
+        [data writeToFile:[self avatarPath] options:NSDataWritingAtomic error:&error];
+        
+        NSLog(@"write %@ %@",self.avatar,error);
     }
 }
 
@@ -173,7 +183,10 @@
             data=UIImageJPEGRepresentation(img, 1);
         }
         
-        [data writeToFile:[self avatarBlurPath] atomically:true];
+        NSError *error=nil;
+        [data writeToFile:[self avatarBlurPath] options:NSDataWritingAtomic error:&error];
+        
+        NSLog(@"write %@ %@",[self avatarBlurPath],error);
         
         return img;
     }
@@ -211,11 +224,11 @@
             if(avatar)
             {
                 [user makeAvatarImage:avatar];
-                [user makeAvatarBlurImage:avatar isEffected:false];
+                UIImage *blur=[user makeAvatarBlurImage:avatar isEffected:false];
                 
                 if(_completed)
                 {
-                    _completed(avatar,[user avatarBlurImage]);
+                    _completed(avatar,blur);
                     _completed=nil;
                 }
             }
