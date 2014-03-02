@@ -11,6 +11,7 @@
 #import "TokenManager.h"
 #import "GUIManager.h"
 #import "GooglePlusManager.h"
+#import "UserUploadAvatarManager.h"
 
 @interface SGUserSettingViewController ()<UITextFieldDelegate,UIPickerViewDataSource,UIPickerViewDelegate,UIGestureRecognizerDelegate,AvatarControllerDelegate,ASIOperationPostDelegate,OperationURLDelegate,GPPSignInDelegate>
 
@@ -253,7 +254,12 @@
         if(_avatarImage)
             avatarBinary=UIImageJPEGRepresentation(_avatarImage, 1);
         
-        _operationUpdateUserProfile=[[ASIOperationUpdateUserProfile alloc] initWithName:currentUser().name cover:nil avatar:_selectedAvatar avatarImage:avatarBinary gender:currentUser().enumGender socialType:currentUser().enumSocialType birthday:currentUser().birthday];
+        if(avatarBinary)
+            [[UserUploadAvatarManager shareInstance] uploadAvatar:avatarBinary userLat:userLat() userLng:userLng()];
+        else
+            [[UserUploadAvatarManager shareInstance] cancelUpload];
+        
+        _operationUpdateUserProfile=[[ASIOperationUpdateUserProfile alloc] initWithName:currentUser().name avatar:_selectedAvatar gender:currentUser().enumGender socialType:currentUser().enumSocialType birthday:currentUser().birthday];
         _operationUpdateUserProfile.delegatePost=self;
         
         [_operationUpdateUserProfile startAsynchronous];

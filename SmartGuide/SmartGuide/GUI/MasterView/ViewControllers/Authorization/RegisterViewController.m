@@ -10,6 +10,7 @@
 #import "AvatarViewController.h"
 #import "AuthorizationViewController.h"
 #import "GooglePlusManager.h"
+#import "UserUploadAvatarManager.h"
 
 @interface RegisterViewController ()<AvatarControllerDelegate,GPPSignInDelegate>
 
@@ -242,7 +243,13 @@
         
         [self.authorizationController.view showLoading];
         
-        _operationUpdateUserProfile=[[ASIOperationUpdateUserProfile alloc] initWithName:_registerInfo.name cover:nil avatar:_registerInfo.avatar avatarImage:UIImagePNGRepresentation(_registerInfo.selectedAvatar) gender:_registerInfo.gender socialType:SOCIAL_NONE birthday:_registerInfo.birthday];
+        
+        if(_registerInfo.avatar.length==0 && _registerInfo.selectedAvatar)
+            [[UserUploadAvatarManager shareInstance] uploadAvatar:UIImageJPEGRepresentation(_registerInfo.selectedAvatar, 1) userLat:userLat() userLng:userLng()];
+        else
+            [[UserUploadAvatarManager shareInstance] cancelUpload];
+        
+        _operationUpdateUserProfile=[[ASIOperationUpdateUserProfile alloc] initWithName:_registerInfo.name avatar:_registerInfo.avatar gender:_registerInfo.gender socialType:SOCIAL_NONE birthday:_registerInfo.birthday];
         _operationUpdateUserProfile.delegatePost=self;
         
         [_operationUpdateUserProfile startAsynchronous];

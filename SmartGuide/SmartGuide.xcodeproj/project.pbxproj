@@ -1000,6 +1000,8 @@
 		9AEE6C4D189021EE0059B93C /* ShopGalleryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9AEE6C4B189021EE0059B93C /* ShopGalleryViewController.xib */; };
 		9AEE6C58189022B20059B93C /* GalleryFullViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AEE6C56189022B20059B93C /* GalleryFullViewController.m */; };
 		9AEE6C59189022B20059B93C /* GalleryFullViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9AEE6C57189022B20059B93C /* GalleryFullViewController.xib */; };
+		9AEE705018C2EB8200E8DDC9 /* ASIOperationUploadAvatar.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AEE704F18C2EB8200E8DDC9 /* ASIOperationUploadAvatar.m */; };
+		9AEE705318C2ED4900E8DDC9 /* UserUploadAvatarManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AEE705218C2ED4800E8DDC9 /* UserUploadAvatarManager.m */; };
 		9AEE83FC17FABD1500D92191 /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AEE83FB17FABD1500D92191 /* AddressBookUI.framework */; };
 		9AF0F90518BC920B0054EE20 /* button_backarrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AF0F90318BC920A0054EE20 /* button_backarrow.png */; };
 		9AF0F90618BC920B0054EE20 /* button_backarrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AF0F90418BC920B0054EE20 /* button_backarrow@2x.png */; };
@@ -2344,6 +2346,10 @@
 		9AEE6C55189022B20059B93C /* GalleryFullViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GalleryFullViewController.h; sourceTree = "<group>"; };
 		9AEE6C56189022B20059B93C /* GalleryFullViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GalleryFullViewController.m; sourceTree = "<group>"; };
 		9AEE6C57189022B20059B93C /* GalleryFullViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GalleryFullViewController.xib; sourceTree = "<group>"; };
+		9AEE704E18C2EB8200E8DDC9 /* ASIOperationUploadAvatar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIOperationUploadAvatar.h; sourceTree = "<group>"; };
+		9AEE704F18C2EB8200E8DDC9 /* ASIOperationUploadAvatar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIOperationUploadAvatar.m; sourceTree = "<group>"; };
+		9AEE705118C2ED4800E8DDC9 /* UserUploadAvatarManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserUploadAvatarManager.h; sourceTree = "<group>"; };
+		9AEE705218C2ED4800E8DDC9 /* UserUploadAvatarManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserUploadAvatarManager.m; sourceTree = "<group>"; };
 		9AEE83FB17FABD1500D92191 /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
 		9AF0F90318BC920A0054EE20 /* button_backarrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_backarrow.png; sourceTree = "<group>"; };
 		9AF0F90418BC920B0054EE20 /* button_backarrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_backarrow@2x.png"; sourceTree = "<group>"; };
@@ -2939,6 +2945,8 @@
 				9A1E234B18B1D2BD0077F503 /* UserPromotionViewController.h */,
 				9A1E234C18B1D2BD0077F503 /* UserPromotionViewController.m */,
 				9A1E234D18B1D2BD0077F503 /* UserPromotionViewController.xib */,
+				9AEE705118C2ED4800E8DDC9 /* UserUploadAvatarManager.h */,
+				9AEE705218C2ED4800E8DDC9 /* UserUploadAvatarManager.m */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -3871,6 +3879,8 @@
 				9A889BBC187AAE8F00602CBB /* ASIOperationUserProfile.m */,
 				9AEE41C8187C05F00000D515 /* ASIOperationUpdateUserProfile.h */,
 				9AEE41C9187C05F00000D515 /* ASIOperationUpdateUserProfile.m */,
+				9AEE704E18C2EB8200E8DDC9 /* ASIOperationUploadAvatar.h */,
+				9AEE704F18C2EB8200E8DDC9 /* ASIOperationUploadAvatar.m */,
 				9A06F98E188540DF005C0377 /* ASIOperationUserPlacelist.h */,
 				9A06F98F188540DF005C0377 /* ASIOperationUserPlacelist.m */,
 				9A9433661885A91400066DC3 /* ASIOperationCreatePlacelist.h */,
@@ -5663,6 +5673,7 @@
 				A9BF9474178FA7E700EF7E5F /* AFXMLRequestOperation.m in Sources */,
 				A9BF9489178FB87E00EF7E5F /* LocationManager.m in Sources */,
 				9A7E55AB183CEB30006D1798 /* UIButton+WebCache.m in Sources */,
+				9AEE705018C2EB8200E8DDC9 /* ASIOperationUploadAvatar.m in Sources */,
 				9ACF7AA518698E4100B0BC78 /* _UserHome5.m in Sources */,
 				A9E71DA6178FD2B200D7467E /* LocalizationManager.m in Sources */,
 				9A7EA8C8181A8C8C008D693A /* TransportViewController.m in Sources */,
@@ -5817,6 +5828,7 @@
 				9A32F3D5184345AE00704D26 /* UserLoginViewController.m in Sources */,
 				A91CE6AE17A93B8B00D29E87 /* ASIOperationShopComment.m in Sources */,
 				A91CE6B117A93B9B00D29E87 /* ASIOperationPostComment.m in Sources */,
+				9AEE705318C2ED4900E8DDC9 /* UserUploadAvatarManager.m in Sources */,
 				9A2F8D011855B6220024AE1A /* StoreShopItemCell.m in Sources */,
 				9AA2C56F187FCD85004F895B /* SearchShopHeaderCell.m in Sources */,
 				9AA2C58C187FF84C004F895B /* SearchShopPlacelistCell.m in Sources */,

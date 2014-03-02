@@ -10,6 +10,7 @@
 #import "TransportViewController.h"
 #import "PlacelistViewController.h"
 #import "UserUploadGalleryManager.h"
+#import "UserUploadAvatarManager.h"
 
 static GUIManager *_shareInstance=nil;
 
@@ -671,6 +672,7 @@ static GUIManager *_shareInstance=nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         [[UserUploadGalleryManager shareInstance] startUploads];
+        [[UserUploadAvatarManager shareInstance] startUploads];
     });
 }
 

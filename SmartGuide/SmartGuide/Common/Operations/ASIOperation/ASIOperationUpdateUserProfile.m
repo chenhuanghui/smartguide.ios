@@ -9,9 +9,9 @@
 #import "ASIOperationUpdateUserProfile.h"
 
 @implementation ASIOperationUpdateUserProfile
-@synthesize status,message,avatar,cover;
+@synthesize status,message;
 
--(ASIOperationUpdateUserProfile *)initWithName:(NSString *)name cover:(NSData *)_cover avatar:(NSString *)_avatar avatarImage:(NSData *)_avatarImage gender:(enum GENDER_TYPE)gender socialType:(enum SOCIAL_TYPE)socialType birthday:(NSString *)birthday
+-(ASIOperationUpdateUserProfile *) initWithName:(NSString *)name avatar:(NSString *)avatar gender:(enum GENDER_TYPE)gender socialType:(enum SOCIAL_TYPE)socialType birthday:(NSString *)birthday
 {
     self=[super initWithURL:[NSURL URLWithString:SERVER_API_MAKE(API_USER_UPDATE_PROFILE)]];
     
@@ -20,13 +20,8 @@
     [self.keyValue setObject:@(socialType) forKey:@"socialType"];
     [self.keyValue setObject:birthday forKey:@"dob"];
     
-    if(_cover && _cover.length>0)
-        [self addData:_cover withFileName:@"cover" andContentType:@"image/jpeg" forKey:@"cover"];
-    
-    if(_avatarImage.length>0)
-        [self addData:_avatarImage withFileName:@"image" andContentType:@"image/jpeg" forKey:@"image"];
-    else if(_avatar.length>0)
-        [self.keyValue setObject:_avatar forKey:@"avatar"];
+    if(avatar.length>0)
+        [self.keyValue setObject:avatar forKey:@"avatar"];
     
     return self;
 }
@@ -35,8 +30,6 @@
 {
     status=0;
     message=@"";
-    avatar=@"";
-    cover=@"";
     
     if([self isNullData:json])
         return;
@@ -54,14 +47,8 @@
         user.gender=self.keyValue[@"gender"];
         user.birthday=self.keyValue[@"dob"];
         
-        avatar=[NSString stringWithStringDefault:dict[@"avatar"]];
-        cover=[NSString stringWithStringDefault:dict[@"cover"]];
-        
-        if(avatar.length>0)
-            user.avatar=avatar;
-        
-        if(cover.length>0)
-            user.cover=cover;
+        if([self.keyValue[@"avatar"] length]>0)
+            user.avatar=self.keyValue[@"avatar"];
         
         [[DataManager shareInstance] save];
     }

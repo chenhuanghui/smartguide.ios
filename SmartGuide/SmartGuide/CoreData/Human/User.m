@@ -4,6 +4,7 @@
 #import "TokenManager.h"
 #import "PhuongConfig.h"
 #import "ImageManager.h"
+#import "UserUploadAvatarManager.h"
 
 @implementation User
 
@@ -116,6 +117,11 @@
 
 -(NSString*) avatarPath
 {
+    if([[UserUploadAvatarManager shareInstance] avatarTempPath].length>0)
+    {
+        return [[UserUploadAvatarManager shareInstance] avatarTempPath];
+    }
+    
     NSString *path=self.avatar;
     path=[path stringByReplacingOccurrencesOfString:@"/" withString:@""];
     
@@ -124,6 +130,11 @@
 
 -(NSString*) avatarBlurPath
 {
+    if([[UserUploadAvatarManager shareInstance] avatarTempPath].length>0)
+    {
+        return [[[UserUploadAvatarManager shareInstance] avatarTempPath] stringByAppendingPathComponent:@"blur"];
+    }
+    
     NSString *path=[self.avatar stringByAppendingString:@"blur"];
     path=[path stringByReplacingOccurrencesOfString:@"/" withString:@""];
     
@@ -132,7 +143,7 @@
 
 -(UIImage *)avatarImage
 {
-    if(self.avatar.length>0)
+    if([self avatarPath]>0)
     {
         NSString *path=[self avatarPath];
         
@@ -145,7 +156,7 @@
 
 -(UIImage *)avatarBlurImage
 {
-    if(self.avatar.length>0)
+    if([self avatarPath].length>0)
     {
         NSString *path=[self avatarBlurPath];
         
@@ -158,20 +169,20 @@
 
 -(void)makeAvatarImage:(UIImage *)image
 {
-    if(self.avatar.length>0)
+    if([self avatarPath].length>0)
     {
         NSData *data=UIImageJPEGRepresentation(image, 1);
         
         NSError *error=nil;
         [data writeToFile:[self avatarPath] options:NSDataWritingAtomic error:&error];
         
-        NSLog(@"write %@ %@",self.avatar,error);
+        NSLog(@"write %@ %@",[self avatarPath],error);
     }
 }
 
 -(UIImage*) makeAvatarBlurImage:(UIImage *)image isEffected:(bool)isEffected
 {
-    if(self.avatar.length>0)
+    if([self avatarPath].length>0)
     {
         UIImage *img=image;
         NSData *data=nil;

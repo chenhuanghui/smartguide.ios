@@ -13,6 +13,7 @@
         <attribute name="idCity" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
+    <entity name="Entity" syncable="YES"/>
     <entity name="KM1Voucher" representedClassName="KM1Voucher" syncable="YES">
         <attribute name="idVoucher" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="isAfford" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
@@ -315,6 +316,7 @@
         <attribute name="type" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
     </entity>
     <elements>
+        <element name="Ads" positionX="0" positionY="0" width="0" height="0"/>
         <element name="City" positionX="0" positionY="0" width="0" height="0"/>
         <element name="KM1Voucher" positionX="0" positionY="0" width="0" height="0"/>
         <element name="KM2Voucher" positionX="0" positionY="0" width="0" height="0"/>
@@ -333,6 +335,7 @@
         <element name="StoreShopItem" positionX="0" positionY="0" width="0" height="0"/>
         <element name="Tutorial" positionX="0" positionY="0" width="0" height="0"/>
         <element name="User" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="UserGalleryUpload" positionX="0" positionY="0" width="0" height="0"/>
         <element name="UserHome" positionX="0" positionY="0" width="0" height="0"/>
         <element name="UserHome1" positionX="0" positionY="0" width="0" height="0"/>
         <element name="UserHome2" positionX="0" positionY="0" width="0" height="0"/>
@@ -345,7 +348,6 @@
         <element name="UserHomeImage" positionX="0" positionY="0" width="0" height="0"/>
         <element name="UserPlacelist" positionX="0" positionY="0" width="0" height="0"/>
         <element name="UserPromotion" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="UserGalleryUpload" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="Ads" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Entity" positionX="0" positionY="0" width="0" height="0"/>
     </elements>
 </model>

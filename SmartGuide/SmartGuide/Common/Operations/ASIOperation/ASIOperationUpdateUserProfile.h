@@ -10,11 +10,9 @@
 
 @interface ASIOperationUpdateUserProfile : ASIOperationPost
 
--(ASIOperationUpdateUserProfile*) initWithName:(NSString*) name cover:(NSData*) cover avatar:(NSString*) avatar avatarImage:(NSData*) avatarImage gender:(enum GENDER_TYPE) gender socialType:(enum SOCIAL_TYPE) socialType birthday:(NSString*) birthday;
+-(ASIOperationUpdateUserProfile*) initWithName:(NSString*) name avatar:(NSString*) avatar gender:(enum GENDER_TYPE) gender socialType:(enum SOCIAL_TYPE) socialType birthday:(NSString*) birthday;
 
 @property (nonatomic, readonly) int status;
 @property (nonatomic, readonly) NSString *message;
-@property (nonatomic, readonly) NSString *avatar;
-@property (nonatomic, readonly) NSString *cover;
 
 @end

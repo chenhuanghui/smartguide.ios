@@ -102,6 +102,7 @@ static NSString * const kClientId = @"816218358288-msr055u6pvnlqep605ri3lu8tt5ev
 #define API_USER_PROMOTION @"user/promotion"
 #define API_USER_POST_PICTURE @"user/postpicture"
 #define API_USER_UPLOAD_USER_GALLERY @"user/uploadUserGallery"
+#define API_USER_UPLOAD_AVATAR @"user/uploadAvatar"
 
 #define API_GET_ACTIVE_CODE @"user/activation"
 #define API_USER_CHECK @"user/check_v2"
