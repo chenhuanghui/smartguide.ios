@@ -23,6 +23,7 @@
 {
     OperationNotifications *_notification;
     ASIOperationUserProfile *_operationUserProfile;
+    __weak IBOutlet UIImageView *imgv;
     
     bool _viewDidLoad;
     bool _finishedRequestNotification;

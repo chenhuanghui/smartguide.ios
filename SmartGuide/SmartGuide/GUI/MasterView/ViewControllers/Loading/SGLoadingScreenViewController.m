@@ -46,6 +46,9 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
+    if([UIScreen mainScreen].bounds.size.height==568.f)
+        imgv.image=[UIImage imageNamed:@"lauchR4.png"];
+    
     _viewDidLoad=true;
     
     [self finishRequestNotification];
