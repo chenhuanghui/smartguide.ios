@@ -49,9 +49,7 @@
     
     if(animate)
     {
-        self.userInteractionEnabled=false;
-        [UIView animateWithDuration:0.3f animations:^{
-            
+        [UIView animateKeyframesWithDuration:0.3f delay:0 options:UIViewKeyframeAnimationOptionAllowUserInteraction|UIViewKeyframeAnimationOptionBeginFromCurrentState animations:^{
             CGRect rect=btnLove.frame;
             rect.origin.x=0;
             btnLove.frame=rect;
@@ -74,14 +72,10 @@
             rect.origin.x=7;
             lblBot.frame=rect;
             lblBot.textColor=[UIColor whiteColor];
-            
-        } completion:^(BOOL finished) {
-            self.userInteractionEnabled=true;
-        }];
+        } completion:nil];
     }
     else
     {
-        self.userInteractionEnabled=true;
         CGRect rect=btnLove.frame;
         rect.origin.x=0;
         btnLove.frame=rect;
@@ -113,10 +107,7 @@
     
     if(animate)
     {
-        self.userInteractionEnabled=false;
-        
-        [UIView animateWithDuration:0.3f animations:^{
-            
+        [UIView animateKeyframesWithDuration:0.3f delay:0 options:UIViewKeyframeAnimationOptionAllowUserInteraction|UIViewKeyframeAnimationOptionBeginFromCurrentState animations:^{
             btnLove.frame=_buttonFrame;
             imgvLeft.frame=_leftFrame;
             midView.frame=_midFrame;
@@ -126,16 +117,22 @@
             lblBot.textColor=[UIColor darkGrayColor];
         } completion:^(BOOL finished) {
             
-            [btnLove setImage:BUTTON_LOVE_IMAGE_LOVE forState:UIControlStateNormal];
-            [btnLove setImage:BUTTON_LOVE_IMAGE_LOVE_HOVER forState:UIControlStateSelected];
-            [btnLove setImage:BUTTON_LOVE_IMAGE_LOVE_HOVER forState:UIControlStateHighlighted];
-            
-            self.userInteractionEnabled=true;
+            if(finished)
+            {
+                [btnLove setImage:BUTTON_LOVE_IMAGE_LOVE forState:UIControlStateNormal];
+                [btnLove setImage:BUTTON_LOVE_IMAGE_LOVE_HOVER forState:UIControlStateSelected];
+                [btnLove setImage:BUTTON_LOVE_IMAGE_LOVE_HOVER forState:UIControlStateHighlighted];
+            }
+            else
+            {
+                [btnLove setImage:BUTTON_LOVE_IMAGE_LOVE_HOVER forState:UIControlStateNormal];
+                [btnLove setImage:BUTTON_LOVE_IMAGE_LOVE_HOVER forState:UIControlStateSelected];
+                [btnLove setImage:BUTTON_LOVE_IMAGE_LOVE_HOVER forState:UIControlStateHighlighted];
+            }
         }];
     }
     else
     {
-        self.userInteractionEnabled=true;
         btnLove.frame=_buttonFrame;
         imgvLeft.frame=_leftFrame;
         midView.frame=_midFrame;

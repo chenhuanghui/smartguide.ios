@@ -25,11 +25,6 @@
     lblTime.text=comment.time;
     lblComment.text=comment.comment;
     
-    if([comment.numOfAgree isEqualToString:[@"0" trim]])
-        lblNumOfAgree.text=@"";
-    else
-        lblNumOfAgree.text=[NSString stringWithFormat:@"%@ lượt",comment.numOfAgree];
-    
     [self makeButtonAgree];
 }
 
@@ -37,15 +32,18 @@
 {
     switch (_comment.enumAgreeStatus) {
         case AGREE_STATUS_AGREED:
-            btnAgree.tag=AGREE_STATUS_AGREED;
             [btnAgree setDefaultImage:[UIImage imageNamed:@"button_agree.png"] highlightImage:[UIImage imageNamed:@"button_agree.png"]];
             break;
             
         case AGREE_STATUS_NONE:
-            btnAgree.tag=AGREE_STATUS_NONE;
             [btnAgree setDefaultImage:[UIImage imageNamed:@"button_agree_hidden.png"] highlightImage:[UIImage imageNamed:@"button_agree_hidden.png"]];
             break;
     }
+    
+    if([_comment.numOfAgree isEqualToString:[@"0" trim]])
+        lblNumOfAgree.text=@"";
+    else
+        lblNumOfAgree.text=[NSString stringWithFormat:@"%@ lượt",_comment.numOfAgree];
 }
 
 -(void)setCellPosition:(enum CELL_POSITION)cellPos
@@ -92,7 +90,31 @@
 
 -(void) agree
 {
+    switch (_comment.enumAgreeStatus) {
+        case AGREE_STATUS_AGREED:
+            _comment.agreeStatus=@(AGREE_STATUS_NONE);
+            _comment.totalAgree=MAX(@(0),@(_comment.totalAgree.integerValue-1));
+            break;
+            
+        case AGREE_STATUS_NONE:
+            _comment.agreeStatus=@(AGREE_STATUS_AGREED);
+            _comment.totalAgree=@(_comment.totalAgree.integerValue+1);
+            break;
+    }
+    _comment.numOfAgree=[NSNumberFormatter numberFromNSNumber:_comment.totalAgree];
     
+    [self makeButtonAgree];
+    
+    if(_operationAgree)
+    {
+        [_operationAgree clearDelegatesAndCancel];
+        _operationAgree=nil;
+    }
+    
+    _operationAgree=[[ASIOperationAgreeComment alloc] initWithIDComment:_comment.idComment.integerValue userLat:userLat() userLng:userLng() isAgree:_comment.enumAgreeStatus];
+    _operationAgree.delegatePost=self;
+    
+    [_operationAgree startAsynchronous];
 }
 
 -(IBAction) btnAgreeTouchUpInside:(id)sender
@@ -130,12 +152,17 @@
     if([operation isKindOfClass:[ASIOperationAgreeComment class]])
     {
         [self loadWithComment:_comment];
+        
+        _operationAgree=nil;
     }
 }
 
 -(void)ASIOperaionPostFailed:(ASIOperationPost *)operation
 {
-    
+    if([operation isKindOfClass:[ASIOperationAgreeComment class]])
+    {
+        _operationAgree=nil;
+    }
 }
 
 @end

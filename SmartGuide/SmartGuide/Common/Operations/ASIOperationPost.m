@@ -336,6 +336,8 @@ static NSMutableArray *_asioperations=nil;
 
 -(void)clearDelegatesAndCancel
 {
+    NSLog(@"%@ clearDelegatesAndCancel",CLASS_NAME);
+    
     self.delegatePost=nil;
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [super clearDelegatesAndCancel];

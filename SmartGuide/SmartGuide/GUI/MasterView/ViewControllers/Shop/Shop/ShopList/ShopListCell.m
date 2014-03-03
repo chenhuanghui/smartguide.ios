@@ -72,11 +72,24 @@
 
 -(void) love_unlove
 {
-    int isLove=0;
-    if(_shop.loveStatus.integerValue==0)
-        isLove=1;
+    if(_operationLove)
+    {
+        [_operationLove clearDelegatesAndCancel];
+        _operationLove=nil;
+    }
     
-    _operationLove=[[ASIOperationLoveShop alloc] initWithIDShop:_shop.idShop.integerValue userLat:userLat() userLng:userLng() isLove:isLove];
+    switch (_shop.enumLoveStatus) {
+        case LOVE_STATUS_LOVED:
+            _shop.shop.loveStatus=@(LOVE_STATUS_NONE);
+            break;
+            
+        case LOVE_STATUS_NONE:
+            _shop.shop.loveStatus=@(LOVE_STATUS_LOVED);
+            break;
+            
+    }
+    
+    _operationLove=[[ASIOperationLoveShop alloc] initWithIDShop:_shop.idShop.integerValue userLat:userLat() userLng:userLng() loveStatus:_shop.enumLoveStatus];
     [_operationLove startAsynchronous];
     
     imgvHeartAni.alpha=0;

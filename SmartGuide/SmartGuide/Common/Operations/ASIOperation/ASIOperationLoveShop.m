@@ -11,14 +11,14 @@
 @implementation ASIOperationLoveShop
 @synthesize status,message,loveStatus,numOfLove;
 
--(ASIOperationLoveShop *)initWithIDShop:(int)idShop userLat:(double)userLat userLng:(double)userLng isLove:(int)isLove
+-(ASIOperationLoveShop *)initWithIDShop:(int)idShop userLat:(double)userLat userLng:(double)userLng loveStatus:(enum LOVE_STATUS)_loveStatus
 {
     self=[super initWithURL:[NSURL URLWithString:SERVER_API_MAKE(API_LOVE_SHOP)]];
 
     [self.keyValue setObject:@(idShop) forKey:IDSHOP];
     [self.keyValue setObject:@(userLat) forKey:USER_LATITUDE];
     [self.keyValue setObject:@(userLng) forKey:USER_LONGITUDE];
-    [self.keyValue setObject:@(isLove) forKey:@"isLove"];
+    [self.keyValue setObject:@(_loveStatus) forKey:@"isLove"];
     
     return self;
 }
@@ -59,9 +59,9 @@
             shop.numOfLove=numOfLove;
             shop.totalLove=[NSNumber numberWithObject:dict[@"totalLove"]];
             shop.loveStatus=@(loveS);
+            
+            [[DataManager shareInstance] save];
         }
-   
-        [[DataManager shareInstance] save];
     }
 }
 

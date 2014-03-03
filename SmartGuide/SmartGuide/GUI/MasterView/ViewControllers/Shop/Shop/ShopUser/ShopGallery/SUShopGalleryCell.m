@@ -162,34 +162,37 @@
 -(void) love
 {
     if(_operationLoveShop)
-        return;
-    
-    int idShop=_shop.idShop.integerValue;
-    int willLove=_shop.enumLoveStatus==LOVE_STATUS_LOVED?false:true;
-    NSString *numOfLove=@"";
-    
-    if(willLove)
     {
-        numOfLove=[NSNumberFormatter numberFromNSNumber:@(_shop.totalLove.integerValue+1)];
-        [btnLove setNumOfLove:numOfLove];
-        [btnLove love:true ];
-    }
-    else
-    {
-        numOfLove=[NSNumberFormatter numberFromNSNumber:@(_shop.totalLove.integerValue-1)];
-        [btnLove setNumOfLove:numOfLove];
-        [btnLove unlove:true];
+        [_operationLoveShop clearDelegatesAndCancel];
+        _operationLoveShop=nil;
     }
     
-    _operationLoveShop=[[ASIOperationLoveShop alloc] initWithIDShop:idShop userLat:userLat() userLng:userLng() isLove:willLove];
+    switch (_shop.enumLoveStatus) {
+        case LOVE_STATUS_LOVED:
+            _shop.loveStatus=@(LOVE_STATUS_NONE);
+            _shop.totalLove=MAX(@(0),@(_shop.totalLove.integerValue-1));
+            _shop.numOfLove=[NSNumberFormatter numberFromNSNumber:_shop.totalLove];
+            break;
+            
+        case LOVE_STATUS_NONE:
+            _shop.loveStatus=@(LOVE_STATUS_LOVED);
+            _shop.totalLove=@(_shop.totalLove.integerValue+1);
+            _shop.numOfLove=[NSNumberFormatter numberFromNSNumber:_shop.totalLove];
+            break;
+    }
+    
+    [btnLove setLoveStatus:_shop.enumLoveStatus withNumOfLove:_shop.numOfLove animate:true];
+    
+    _operationLoveShop=[[ASIOperationLoveShop alloc] initWithIDShop:_shop.idShop.integerValue userLat:userLat() userLng:userLng() loveStatus:_shop.enumLoveStatus];
     _operationLoveShop.delegatePost=self;
     _operationLoveShop.fScreen=SCREEN_CODE_SHOP_USER;
-    
     [_operationLoveShop startAsynchronous];
 }
 
 -(void)buttonLoveTouched:(ButtonLove *)buttonLoveView
 {
+    [self love];
+    return;
     if(currentUser().enumDataMode==USER_DATA_TRY)
     {
         [[GUIManager shareInstance] showLoginDialogWithMessage:localizeLoginRequire() onOK:^

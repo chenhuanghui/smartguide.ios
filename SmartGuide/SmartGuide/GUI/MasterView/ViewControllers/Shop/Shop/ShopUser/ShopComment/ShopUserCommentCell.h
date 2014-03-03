@@ -23,6 +23,8 @@
     __weak IBOutlet UIButton *btnAgree;
     
     __weak ShopUserComment *_comment;
+    
+    ASIOperationAgreeComment *_operationAgree;
 }
 
 -(void) loadWithComment:(ShopUserComment*) comment;
