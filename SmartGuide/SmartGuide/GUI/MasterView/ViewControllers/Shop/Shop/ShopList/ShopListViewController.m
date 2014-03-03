@@ -274,8 +274,10 @@
 
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
+    return;
     if(object==scrollBar)
     {
+        
         float new=[change[NSKeyValueChangeNewKey] floatValue];
         
         [UIView animateWithDuration:0.1f animations:^{
@@ -300,30 +302,33 @@
     scrollBar=[scroll scrollBar];
     scrollBar.clipsToBounds=false;
     
-    [scrollBar addObserver:self forKeyPath:@"alpha" options:NSKeyValueObservingOptionNew context:nil];
-    
-    UIView *v=[[UIView alloc] initWithFrame:CGRectMake(0, 0, 315, 29)];
+    UIView *v=[[UIView alloc] initWithFrame:CGRectMake(-315, 0, 315, scrollBar.l_v_h)];
     v.layer.masksToBounds=true;
     v.backgroundColor=[UIColor clearColor];
     v.hidden=_isZoomedMap;
+    v.autoresizingMask=UIViewAutoresizingAll();
     
     scrollerView=v;
     
-    UIView *bg=[[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 29)];
+    UIView *bg=[[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, scrollBar.l_v_h)];
     bg.backgroundColor=[UIColor clearColor];
+    bg.autoresizingMask=UIViewAutoresizingAll();
     
     scrollerBGView=bg;
     
     [v addSubview:bg];
     
     UIImageView *slide_head=[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bgslide_head.png"]];
-    slide_head.frame=CGRectMake(0, 0, 30, 29);
-    slide_head.autoresizingMask=UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleTopMargin;
+    slide_head.frame=CGRectMake(0, 0, 30, scrollerView.l_v_h);
+    slide_head.contentMode=UIViewContentModeCenter;
+    slide_head.autoresizingMask=UIViewAutoresizingAll();
     
     [bg addSubview:slide_head];
     
     UIView *slide_mid=[[UIView alloc] initWithFrame:CGRectMake(slide_head.l_v_w, 0, bg.l_v_w-slide_head.l_v_w, bg.l_v_h)];
     slide_mid.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"bgslide_mid.png"]];
+    slide_head.autoresizingMask=UIViewAutoresizingFlexibleLeftMargin;
+    slide_head.contentMode=UIViewContentModeCenter;
     
     [bg addSubview:slide_mid];
     
@@ -348,11 +353,14 @@
     
     scrollerImageView=imageView;
     
-    [scrollerContain addSubview:scrollerView];
+    [scrollBar addSubview:scrollerView];
+    //[scrollerContain addSubview:scrollerView];
     
-    [scrollerBGView l_v_setX:scrollerView.l_v_w];
+    //[scrollerBGView l_v_setX:scrollerView.l_v_w];
     
     [self makeSortLayout];
+    
+    scrollerView.hidden=true;
 }
 
 -(void)shopListCellTouched:(ShopList *)shop
@@ -1028,6 +1036,7 @@
             [tableList l_co_setY:0];
         }
         
+        return;
         //begin scroller
         
         if(_isZoomedMap)
@@ -1041,9 +1050,9 @@
         y=MAX(36, y);
         y=MIN(scrollerContain.l_v_h-scrollerView.l_v_h-QRCODE_RAY_HEIGHT, y);
         
-        [UIView animateWithDuration:0.3f animations:^{
-            [scrollerView l_v_setY:y];
-        }];
+//        [UIView animateWithDuration:0.3f animations:^{
+//            [scrollerView l_v_setY:y];
+//        }];
         
         CGPoint pnt=scrollerView.l_v_o;
         pnt.x=0;
@@ -1060,7 +1069,7 @@
             scrollerLabel.text=scrollerText;
             
             [UIView animateWithDuration:0.1 animations:^{
-                [scrollerBGView l_v_setX:(scrollerBGView.l_v_w-size.width)-scrollerImageView.image.size.width-15];
+//                [scrollerBGView l_v_setX:(scrollerBGView.l_v_w-size.width)-scrollerImageView.image.size.width-15];
             } completion:^(BOOL finished) {
                 scrollerLabel.text=scrollerText;
             }];
@@ -1172,7 +1181,7 @@
             
             [UIView animateWithDuration:0.1 animations:^{
                 scrollerView.alpha=1;
-                [scrollerBGView l_v_setX:(scrollerBGView.l_v_w-size.width)-scrollerImageView.image.size.width-15];
+//                [scrollerBGView l_v_setX:(scrollerBGView.l_v_w-size.width)-scrollerImageView.image.size.width-15];
             } completion:^(BOOL finished) {
                 scrollerLabel.text=scrollerText;
             }];
@@ -1436,7 +1445,6 @@
     }
     
     scroll.delegate=nil;
-    [scrollBar removeObserver:self forKeyPath:@"alpha"];
 }
 
 -(void) animationTableReload
