@@ -75,15 +75,17 @@
     return self;
 }
 
--(void) storeRect
+- (void)dealloc
 {
+    [searchNavi.view removeFromSuperview];
+    searchNavi=nil;
 }
 
-- (void)viewDidLoad
+-(void)loadView
 {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+    [super loadView];
     
+    UIViewController *root=nil;
     switch (_viewMode) {
         case SEARCH_VIEW_MODE_LIST:
         {
@@ -93,11 +95,7 @@
             
             self.shopListController=vc;
             
-            SGNavigationController *navi=[[SGNavigationController alloc] initWithRootViewController:vc];
-            
-            searchNavi=navi;
-            
-            [self addChildViewController:searchNavi];
+            root=vc;
         }
             break;
             
@@ -109,11 +107,7 @@
             
             self.searchShopController=vc;
             
-            SGNavigationController *navi=[[SGNavigationController alloc] initWithRootViewController:vc];
-            
-            searchNavi=navi;
-            
-            [self addChildViewController:searchNavi];
+            root=vc;
         }
             break;
             
@@ -125,11 +119,7 @@
             
             self.shopListController=vc;
             
-            SGNavigationController *navi=[[SGNavigationController alloc] initWithRootViewController:vc];
-            
-            searchNavi=navi;
-            
-            [self addChildViewController:searchNavi];
+            root=vc;
         }
             break;
             
@@ -141,19 +131,24 @@
             
             self.shopListController=vc;
             
-            SGNavigationController *navi=[[SGNavigationController alloc] initWithRootViewController:vc];
-            
-            searchNavi=navi;
-            
-            [self addChildViewController:searchNavi];
+            root=vc;
         }
+            break;
+            
+        default:
             break;
     }
     
+    searchNavi=[[SGNavigationController alloc] initWithRootViewController:root];
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    // Do any additional setup after loading the view from its nib.
+    
     [contentView addSubview:searchNavi.view];
     [searchNavi l_v_setS:contentView.l_v_s];
-    
-    [self storeRect];
 }
 
 -(void)searchShopControllerTouchedBack:(SearchShopViewController *)controller
@@ -202,47 +197,35 @@
 
 -(void) showShopListWithKeyword:(NSString*) keyword
 {
-    if(self.shopListController)
-    {
-        [searchNavi removeViewController:self.shopListController];
-    }
-    
     ShopListViewController *vc=[[ShopListViewController alloc] initWithKeyword:keyword];
     vc.delegate=self;
     
-    self.shopListController=vc;
-    
-    [searchNavi pushViewController:vc animated:true];
+    [self showShopListController:vc];
 }
 
 -(void) showShopListWithIDPlacelist:(int) idPlacelist
 {
-    if(self.shopListController)
-    {
-        [searchNavi removeViewController:self.shopListController];
-    }
-    
     ShopListViewController *vc=[[ShopListViewController alloc] initWithIDPlacelist:idPlacelist];
     vc.delegate=self;
     
     self.shopListController=vc;
     
-    [searchNavi pushViewController:vc animated:true];
+    [self showShopListController:vc];
 }
 
 -(void) showShopListWithPlacelist:(Placelist*) placelist
 {
-    if(self.shopListController)
-    {
-        [searchNavi removeViewController:self.shopListController];
-    }
-    
     ShopListViewController *vc=[[ShopListViewController alloc] initWithPlaceList:placelist];
     vc.delegate=self;
     
-    self.shopListController=vc;
+    [self showShopListController:vc];
+}
+
+-(void) showShopListController:(ShopListViewController*) controller
+{
+    self.shopListController=controller;
     
-    [searchNavi pushViewController:vc animated:true];
+    [searchNavi setRootViewController:controller animate:true];
 }
 
 -(void)shopListControllerTouchedTextField:(ShopListViewController *)controller

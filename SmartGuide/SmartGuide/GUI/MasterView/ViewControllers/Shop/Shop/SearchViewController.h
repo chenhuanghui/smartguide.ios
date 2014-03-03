@@ -27,7 +27,7 @@ enum SEARCH_VIEW_MODE {
 
 @interface SearchViewController : SGViewController
 {
-    __weak SGNavigationController *searchNavi;
+    __strong SGNavigationController *searchNavi;
     __weak IBOutlet UIView *contentView;
     
     enum SEARCH_VIEW_MODE _viewMode;

@@ -284,12 +284,6 @@
     }
     else if([object isKindOfClass:[MKPinAnnotationView class]])
     {
-        ShopPinView *pin=object;
-        
-        if(pin.selected)
-            [pin showInfoWithShop:pin.annotation];
-        else
-            [pin hideInfo];
     }
 }
 
@@ -824,23 +818,10 @@
         
         [self animationTableReload];
         
-        NSMutableArray *coordinates=[NSMutableArray array];
-        for(ShopList *shop in ope.shopsList)
-        {
-            [map addAnnotation:shop];
-            
-            [coordinates addObject:[NSValue valueWithMKCoordinate:shop.coordinate]];
-        }
-        
         if(!_isZoomedRegionMap)
-        {
-            _isZoomedRegionMap=true;
-            
-            if(isVailCLLocationCoordinate2D(map.userLocation.coordinate))
-                [coordinates addObject:[NSValue valueWithMKCoordinate:map.userLocation.coordinate]];
-            
-            [map zoomToCoordinates:coordinates animate:true span:0];
-        }
+            [map addShopLists:ope.shopsList];
+        else
+            [map addMoreShopLists:ope.shopsList];
         
         [self makeScrollSize];
     }
@@ -859,7 +840,7 @@
         _isLoadingMore=false;
         
         [self animationTableReload];
-
+        
         if(!_isZoomedRegionMap)
             [map addShopLists:ope.shops];
         else
@@ -882,14 +863,6 @@
         
         [self animationTableReload];
         
-        NSMutableArray *coordinates=[NSMutableArray array];
-        for(ShopList *shop in ope.shopsList)
-        {
-            [map addAnnotation:shop];
-            
-            [coordinates addObject:[NSValue valueWithMKCoordinate:shop.coordinate]];
-        }
-        
         if(!_isZoomedRegionMap)
             [map addShopLists:ope.shopsList];
         else
@@ -911,14 +884,6 @@
         _page++;
         
         [self animationTableReload];
-        
-        NSMutableArray *coordinates=[NSMutableArray array];
-        for(ShopList *shop in _shopsList)
-        {
-            [map addAnnotation:shop];
-            
-            [coordinates addObject:[NSValue valueWithMKCoordinate:shop.coordinate]];
-        }
         
         if(!_isZoomedRegionMap)
             [map addShopLists:ope.shopLists];
@@ -1433,6 +1398,16 @@
 
 - (void)dealloc
 {
+    for(id<MKAnnotation> ann in map.annotations)
+    {
+        if([ann isKindOfClass:[ShopPinView class]])
+        {
+            MKAnnotationView *pin = [map viewForAnnotation:ann];
+            
+            [pin removeObserver:self forKeyPath:@"selected"];
+        }
+    }
+    
     map.delegate=nil;
     map=nil;
     
@@ -1532,8 +1507,6 @@
         ann.delegate=self;
         ann.image=iconPin;
         
-        [ann addObserver:self forKeyPath:@"selected" options:NSKeyValueObservingOptionNew context:nil];
-        
         return ann;
     }
     
@@ -1542,26 +1515,27 @@
 
 -(void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view
 {
-    [map zoomShopList:view.annotation];
-}
-
--(void)mapView:(MKMapView *)mapView didAddAnnotationViews1:(NSArray *)views
-{
-    float count=2;
-    
-    for(UIView *v in views)
+    if([view isKindOfClass:[ShopPinView class]])
     {
-        if([v isKindOfClass:[MKPinAnnotationView class]])
+        for(id<MKAnnotation> ann in mapView.annotations)
         {
-            [v l_v_addY:-50];
+            MKAnnotationView *pin=[mapView viewForAnnotation:ann];
             
-            [UIView animateWithDuration:0.15f*count animations:^{
-                [v l_v_addY:50];
-            }];
-            
-            count+=0.5f;
+            if([pin isKindOfClass:[ShopPinView class]])
+            {
+                [((ShopPinView*)pin) hideInfo];
+            }
         }
+        
+        ShopPinView *pin=(ShopPinView*)view;
+        
+        if(pin.selected)
+            [pin showInfoWithShop:pin.annotation];
+        else
+            [pin hideInfo];
     }
+    
+    [map zoomShopList:view.annotation];
 }
 
 -(IBAction) btnBackTouchUpInside:(id)sender
@@ -1617,7 +1591,6 @@
 
 -(void)shopPinDealloc:(ShopPinView *)pin
 {
-    [pin removeObserver:self forKeyPath:@"selected"];
 }
 
 @end

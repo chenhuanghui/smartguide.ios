@@ -234,6 +234,17 @@
             
             if(avatar)
             {
+                NSError *error=nil;
+                NSArray *avatars=[[NSFileManager defaultManager] contentsOfDirectoryAtPath:avatarPath() error:&error];
+                
+                if(!error && avatars && avatars.count>0)
+                {
+                    for(NSString *path in avatars)
+                    {
+                        [[NSFileManager defaultManager] removeItemAtPath:path error:nil];
+                    }
+                }
+                
                 [user makeAvatarImage:avatar];
                 UIImage *blur=[user makeAvatarBlurImage:avatar isEffected:false];
                 
