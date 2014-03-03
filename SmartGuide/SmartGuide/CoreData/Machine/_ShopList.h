@@ -7,6 +7,7 @@
 
 #define ShopList_Desc @"desc"
 #define ShopList_Distance @"distance"
+#define ShopList_IdShop @"idShop"
 #define ShopList_ShopName @"shopName"
 
 @class ShopList;
@@ -26,6 +27,7 @@
 
 @property (nonatomic, retain) NSString* desc;
 @property (nonatomic, retain) NSString* distance;
+@property (nonatomic, retain) NSNumber* idShop;
 @property (nonatomic, retain) NSString* shopName;
 
 #pragma mark Fetched property

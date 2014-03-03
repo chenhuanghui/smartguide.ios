@@ -7,23 +7,19 @@
 
 +(ShopList *)shopListWithIDShop:(int)idShop
 {
-    Shop *shop=[Shop shopWithIDShop:idShop];
-    
-    if(shop)
-        return shop.shopList;
-    
-    return nil;
+    return [ShopList queryShopListObject:[NSPredicate predicateWithFormat:@"%K== %i",ShopList_IdShop, idShop]];
 }
 
 +(ShopList *)makeWithDictionary:(NSDictionary *)dict
 {
     int idShop=[[NSNumber numberWithObject:dict[@"idShop"]] integerValue];
-    
+
     ShopList *obj=[ShopList shopListWithIDShop:idShop];
     
     if(!obj)
     {
         obj=[ShopList insert];
+        obj.idShop=@(idShop);
     }
     
     obj.shop=[Shop shopWithIDShop:idShop];
@@ -72,11 +68,6 @@
 -(NSString *)title
 {
     return self.shopName;
-}
-
--(NSNumber *)idShop
-{
-    return self.shop.idShop;
 }
 
 -(NSString *)shopTypeDisplay

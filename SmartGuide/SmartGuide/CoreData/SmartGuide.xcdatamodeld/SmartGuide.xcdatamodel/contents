@@ -122,6 +122,7 @@
     <entity name="ShopList" representedClassName="ShopList" syncable="YES">
         <attribute name="desc" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="distance" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="idShop" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="shopName" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="placeList" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Placelist" inverseName="shopsList" inverseEntity="Placelist" syncable="YES"/>
         <relationship name="shop" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Shop" inverseName="shopList" inverseEntity="Shop" syncable="YES"/>
@@ -318,6 +319,7 @@
     <elements>
         <element name="Ads" positionX="0" positionY="0" width="0" height="0"/>
         <element name="City" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Entity" positionX="0" positionY="0" width="0" height="0"/>
         <element name="KM1Voucher" positionX="0" positionY="0" width="0" height="0"/>
         <element name="KM2Voucher" positionX="0" positionY="0" width="0" height="0"/>
         <element name="Placelist" positionX="0" positionY="0" width="0" height="0"/>
@@ -348,6 +350,5 @@
         <element name="UserHomeImage" positionX="0" positionY="0" width="0" height="0"/>
         <element name="UserPlacelist" positionX="0" positionY="0" width="0" height="0"/>
         <element name="UserPromotion" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="Entity" positionX="0" positionY="0" width="0" height="0"/>
     </elements>
 </model>

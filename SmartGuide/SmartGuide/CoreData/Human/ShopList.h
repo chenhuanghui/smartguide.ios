@@ -10,7 +10,6 @@
 +(ShopList*) shopListWithIDShop:(int) idShop;
 +(ShopList*) makeWithDictionary:(NSDictionary*) dict;
 
--(NSNumber*) idShop;
 -(NSString*) shopTypeDisplay;
 -(NSString*) numOfComment;
 -(NSString*) numOfView;
