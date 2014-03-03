@@ -119,6 +119,9 @@
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
+    if([authorNavi.visibleViewController isKindOfClass:[UserLoginViewController class]])
+        return;
+    
     [self.view endEditing:true];
 }
 

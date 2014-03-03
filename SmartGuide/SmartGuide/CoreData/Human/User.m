@@ -92,7 +92,6 @@
 #if TEST_KHONG_NHAP_SO_DIEN_THOAI
     return USER_DATA_CREATING;
 #endif
-    return USER_DATA_FULL;
     if([self isDefaultUser])
         return USER_DATA_TRY;
     else if([self.name stringByTrimmingWhiteSpace].length==0 || [self.avatar stringByTrimmingWhiteSpace].length==0)

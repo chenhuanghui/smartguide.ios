@@ -39,8 +39,9 @@
     picker.navigationBarHidden=true;
     picker.toolbarHidden=true;
     
-    [picker l_v_setS:self.l_v_s];
-    [self.view insertSubview:picker.view atIndex:0];
+    [picker l_v_setS:cameraView.l_v_s];
+    [cameraView addSubview:picker.view];
+    picker.view.autoresizingMask=UIViewAutoresizingAll();
     
     camera=picker;
     

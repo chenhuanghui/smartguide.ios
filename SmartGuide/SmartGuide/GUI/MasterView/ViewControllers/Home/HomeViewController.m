@@ -488,6 +488,7 @@
         {
             [UIView animateWithDuration:0.3f animations:^{
                 [qrView l_v_setY:_qrFrame.origin.y+QRCODE_BIG_HEIGHT-QRCODE_SMALL_HEIGHT];
+                [blurBottom l_v_setY:_blurBottomFrame.origin.y+QRCODE_BIG_HEIGHT-QRCODE_SMALL_HEIGHT];
                 
                 btnScanSmall.alpha=1;
                 btnScanBig.alpha=0;
@@ -502,6 +503,7 @@
         {
             [UIView animateWithDuration:0.3f animations:^{
                 [qrView l_v_setY:_qrFrame.origin.y];
+                [blurBottom l_v_setY:_blurBottomFrame.origin.y];
                 
                 btnScanBig.alpha=1;
                 btnScanSmall.alpha=0;

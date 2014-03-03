@@ -70,3 +70,7 @@ enum QRCODE_ANIMATION_TYPE {
 -(void)qrcodeControllerFinished:(SGQRCodeViewController *)controller;
 
 @end
+
+@interface QRCodePattern : UIView
+
+@end

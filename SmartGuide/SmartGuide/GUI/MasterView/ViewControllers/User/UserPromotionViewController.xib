@@ -10,6 +10,7 @@
                 <outlet property="btnScanBig" destination="qgM-Ea-T3J" id="hfK-9O-NhB"/>
                 <outlet property="btnScanSmall" destination="oVj-DC-wN5" id="SCT-20-BtT"/>
                 <outlet property="btnSetting" destination="Z7A-bE-PMj" id="iRr-YT-5lC"/>
+                <outlet property="imgvBlurBottom" destination="df0-oS-gnY" id="VyL-Qz-vHc"/>
                 <outlet property="qrView" destination="h8A-V1-Rzx" id="3Hl-uy-9DD"/>
                 <outlet property="table" destination="yqH-yZ-hXl" id="cKY-F9-nBV"/>
                 <outlet property="txt" destination="o6V-7R-gku" id="Yvb-L6-n6n"/>
@@ -72,7 +73,7 @@
                     </connections>
                 </button>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="blur_bottom_home.png" id="df0-oS-gnY">
-                    <rect key="frame" x="0.0" y="396" width="320" height="58"/>
+                    <rect key="frame" x="0.0" y="396" width="320" height="37"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                 </imageView>
                 <view contentMode="scaleToFill" id="h8A-V1-Rzx">
@@ -115,7 +116,7 @@
     </objects>
     <resources>
         <image name="background_scan.png" width="320" height="56"/>
-        <image name="blur_bottom_home.png" width="320" height="41"/>
+        <image name="blur_bottom_home.png" width="320" height="37"/>
         <image name="blur_top_home.png" width="320" height="41"/>
         <image name="button_navigation.png" width="34" height="26"/>
         <image name="button_scan.png" width="124" height="31"/>

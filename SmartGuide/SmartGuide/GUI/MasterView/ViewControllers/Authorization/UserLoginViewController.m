@@ -30,7 +30,7 @@
 
 -(NSArray *)registerNotifications
 {
-    return @[UIApplicationWillResignActiveNotification];
+    return @[UIApplicationWillResignActiveNotification,UIKeyboardWillShowNotification];
 }
 
 -(void)receiveNotification:(NSNotification *)notification
@@ -38,6 +38,10 @@
     if([notification.name isEqualToString:UIApplicationWillResignActiveNotification])
     {
         [Flurry trackUserHideAppWhenLogin];
+    }
+    else if([notification.name isEqualToString:UIKeyboardWillShowNotification])
+    {
+        _keyboardHeight=[notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue].size.height;
     }
 }
 
@@ -71,8 +75,8 @@
     
     [lblBottom addStyle:style];
     
-    NSString *fakePhone=@"84169209616";
-    [self switchToActivationModeWithPhone:fakePhone];
+//    NSString *fakePhone=@"84169209616";
+//    [self switchToActivationModeWithPhone:fakePhone];
 }
 
 -(void) switchToActivationModeWithPhone:(NSString*) phone
@@ -228,7 +232,7 @@
         
         [_operationGetActionCode start];
         
-        [self.view showLoading];
+        [self.view showLoadingInsideFrame:CGRectMake(0, 0, self.l_v_w, self.l_v_h-_keyboardHeight)];
     }
     else
     {
@@ -243,11 +247,14 @@
         
         [_operationUserCheck startAsynchronous];
         
-        [self.view showLoading];
+        [self.view showLoadingInsideFrame:CGRectMake(0, 0, self.l_v_w, self.l_v_h-_keyboardHeight)];
     }
 }
 
 - (BOOL)textField:(UITextField *) textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    
+    if(_operationGetActionCode || _operationUserCheck)
+        return false;
     
     NSUInteger oldLength = [textField.text length];
     NSUInteger replacementLength = [string length];

@@ -21,6 +21,7 @@
     __weak UIImagePickerController *camera;
     UIImagePickerController *picker;
     __weak IBOutlet UILabel *lblFlashStatus;
+    __weak IBOutlet UIView *cameraView;
 }
 
 @property (nonatomic, weak) id<ShopCameraTakeDelegate> delegate;

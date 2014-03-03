@@ -79,7 +79,7 @@
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="blur_bottom_home.png" id="LCo-O1-eW2">
-                    <rect key="frame" x="0.0" y="396" width="320" height="58"/>
+                    <rect key="frame" x="0.0" y="396" width="320" height="37"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                 </imageView>
                 <view contentMode="scaleToFill" id="MVN-kQ-te1">
@@ -122,7 +122,7 @@
     </objects>
     <resources>
         <image name="background_scan.png" width="320" height="56"/>
-        <image name="blur_bottom_home.png" width="320" height="41"/>
+        <image name="blur_bottom_home.png" width="320" height="37"/>
         <image name="blur_top_home.png" width="320" height="41"/>
         <image name="button_navigation.png" width="34" height="26"/>
         <image name="button_scan.png" width="124" height="31"/>

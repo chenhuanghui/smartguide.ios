@@ -30,6 +30,7 @@
     _qrFrame=qrView.frame;
     _buttonScanBigFrame=btnScanBig.frame;
     _buttonScanSmallFrame=btnScanSmall.frame;
+    _blurBottomFrame=imgvBlurBottom.frame;
 }
 
 - (void)viewDidLoad
@@ -70,6 +71,7 @@
         {
             [UIView animateWithDuration:0.3f animations:^{
                 [qrView l_v_setY:_qrFrame.origin.y+QRCODE_BIG_HEIGHT-QRCODE_SMALL_HEIGHT];
+                [imgvBlurBottom l_v_setY:_blurBottomFrame.origin.y+QRCODE_BIG_HEIGHT-QRCODE_SMALL_HEIGHT];
                 
                 btnScanSmall.alpha=1;
                 btnScanBig.alpha=0;
@@ -84,6 +86,7 @@
         {
             [UIView animateWithDuration:0.3f animations:^{
                 [qrView l_v_setY:_qrFrame.origin.y];
+                [imgvBlurBottom l_v_setY:_blurBottomFrame.origin.y];
                 
                 btnScanBig.alpha=1;
                 btnScanSmall.alpha=0;

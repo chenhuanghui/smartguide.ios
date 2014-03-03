@@ -33,13 +33,17 @@
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
+                <view autoresizesSubviews="NO" clearsContextBeforeDrawing="NO" contentMode="redraw" id="ipL-UU-G49" customClass="QRCodePattern">
+                    <rect key="frame" x="0.0" y="50" width="336" height="380"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                </view>
                 <view contentMode="scaleToFill" id="iK6-MK-Yh6">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <subviews>
                         <view contentMode="scaleToFill" id="gS0-a1-Dt2">
                             <rect key="frame" x="0.0" y="50" width="320" height="380"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="scan.png" id="QRZ-qt-4aj">
                                     <rect key="frame" x="59" y="89" width="202" height="202"/>

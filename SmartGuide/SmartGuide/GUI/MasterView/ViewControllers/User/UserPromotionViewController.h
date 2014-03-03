@@ -26,10 +26,12 @@
     __weak IBOutlet UIView *qrView;
     __weak IBOutlet UIButton *btnScanSmall;
     __weak IBOutlet UIButton *btnScanBig;
+    __weak IBOutlet UIImageView *imgvBlurBottom;
     
     CGRect _qrFrame;
     CGRect _buttonScanBigFrame;
     CGRect _buttonScanSmallFrame;
+    CGRect _blurBottomFrame;
     
     ASIOperationUserPromotion *_operationUserPromotion;
     NSMutableArray *_userPromotions;

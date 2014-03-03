@@ -7,6 +7,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ShopCameraTakeViewController">
             <connections>
+                <outlet property="cameraView" destination="ZWQ-0H-k3n" id="DTd-kb-xaS"/>
                 <outlet property="lblFlashStatus" destination="s49-5D-Dmh" id="5zZ-3D-tz3"/>
                 <outlet property="view" destination="1" id="3"/>
             </connections>
@@ -16,6 +17,11 @@
             <rect key="frame" x="0.0" y="0.0" width="290" height="431"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <view contentMode="scaleToFill" id="ZWQ-0H-k3n">
+                    <rect key="frame" x="0.0" y="63" width="290" height="290"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                </view>
                 <view contentMode="scaleToFill" id="NyA-Kz-Bld">
                     <rect key="frame" x="0.0" y="0.0" width="290" height="63"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
@@ -49,7 +55,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
-                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.55000000000000004" colorSpace="calibratedRGB"/>
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
                 <view contentMode="scaleToFill" id="TvO-Mn-DaN">
                     <rect key="frame" x="0.0" y="353" width="290" height="78"/>
@@ -67,7 +73,7 @@
                             </connections>
                         </button>
                     </subviews>
-                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.55000000000000004" colorSpace="calibratedRGB"/>
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>

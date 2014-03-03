@@ -35,6 +35,8 @@
     ASIOperationUserCheck *_operationUserCheck;
     NSString *_activationCode;
     NSString *_phone;
+    
+    float _keyboardHeight;
 }
 
 @property (nonatomic, assign) id<UserLoginDelegate> delegate;

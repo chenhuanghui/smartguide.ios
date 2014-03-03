@@ -466,11 +466,6 @@
     
     scroll.minimumOffsetY=-1;
     
-    txt.leftView=[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_search.png"]];
-    txt.leftView.contentMode=UIViewContentModeCenter;
-    [txt.leftView l_v_setS:CGSizeMake(24, txt.l_v_h)];
-    txt.leftViewMode=UITextFieldViewModeAlways;
-    
     _isAllowDiffScrollMap=true;
     map.userInteractionEnabled=false;
     map.scrollEnabled=false;

@@ -110,8 +110,8 @@
                                 <action selector="btnBackTouchUpInside:" destination="-1" eventType="touchUpInside" id="xsp-Cc-TBf"/>
                             </connections>
                         </button>
-                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Tìm kiếm khuyến mãi" minimumFontSize="17" background="search_field.png" id="ray-CK-v4m">
-                            <rect key="frame" x="55" y="6" width="256" height="32"/>
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Tìm kiếm khuyến mãi" minimumFontSize="17" background="button_search_home.png" id="ray-CK-v4m" customClass="TextFieldSearch">
+                            <rect key="frame" x="52" y="7" width="239" height="39"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits"/>
@@ -168,6 +168,6 @@
         <image name="button_map.png" width="33" height="34"/>
         <image name="button_scan.png" width="124" height="31"/>
         <image name="button_scan_small.png" width="63" height="17"/>
-        <image name="search_field.png" width="255" height="32"/>
+        <image name="button_search_home.png" width="232" height="39"/>
     </resources>
 </document>

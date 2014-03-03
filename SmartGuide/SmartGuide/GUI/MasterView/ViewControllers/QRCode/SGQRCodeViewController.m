@@ -90,9 +90,11 @@
     
     [zbarReader.view l_v_setS:cameraView.l_v_s];
     
+    zbarReader.view.autoresizingMask=UIViewAutoresizingAll();
     for(UIView *subview in zbarReader.view.subviews)
     {
         [subview l_v_setS:cameraView.l_v_s];
+        zbarReader.view.autoresizingMask=UIViewAutoresizingAll();
     }
     
     [self displayScan];
@@ -582,6 +584,15 @@ static char SGQRControllerObjectKey;
 -(void)qrcodeControllerFinished:(SGQRCodeViewController *)controller
 {
     self.qrController=nil;
+}
+
+@end
+
+@implementation QRCodePattern
+
+-(void)drawRect:(CGRect)rect
+{
+    [[UIImage imageNamed:@"pattern-navigation.jpg"] drawAsPatternInRect:rect];
 }
 
 @end
