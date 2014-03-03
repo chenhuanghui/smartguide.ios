@@ -15,7 +15,7 @@
 {
     self=[super initWithURL:[NSURL URLWithString:SERVER_API_MAKE(API_GET_SHOP_LIST)]];
     
-    [self.keyValue setObject:idShops forKey:@"idShops"];
+    [self.keyValue setObject:idShops forKey:@"idShop"];
     [self.keyValue setObject:@(userLat) forKey:USER_LATITUDE];
     [self.keyValue setObject:@(userLng) forKey:USER_LONGITUDE];
     [self.keyValue setObject:@(sort) forKey:SORT];

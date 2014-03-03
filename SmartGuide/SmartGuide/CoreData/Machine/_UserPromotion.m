@@ -111,6 +111,32 @@
 	[self didChangeValueForKey:@"cover"];
 }
 
+- (NSNumber*)coverHeight {
+	[self willAccessValueForKey:@"coverHeight"];
+	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"coverHeight"];
+	[self didAccessValueForKey:@"coverHeight"];
+	return result;
+}
+
+- (void)setCoverHeight:(NSNumber*)value {
+	[self willChangeValueForKey:@"coverHeight"];
+	[self setPrimitiveValue:value forKey:@"coverHeight"];
+	[self didChangeValueForKey:@"coverHeight"];
+}
+
+- (NSNumber*)coverWidth {
+	[self willAccessValueForKey:@"coverWidth"];
+	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"coverWidth"];
+	[self didAccessValueForKey:@"coverWidth"];
+	return result;
+}
+
+- (void)setCoverWidth:(NSNumber*)value {
+	[self willChangeValueForKey:@"coverWidth"];
+	[self setPrimitiveValue:value forKey:@"coverWidth"];
+	[self didChangeValueForKey:@"coverWidth"];
+}
+
 - (NSString*)date {
 	[self willAccessValueForKey:@"date"];
 	NSString* result = (NSString*)[self primitiveValueForKey:@"date"];

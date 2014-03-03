@@ -14,5 +14,6 @@
 
 @property (nonatomic, readonly) int status;
 @property (nonatomic, readonly) NSString *message;
+@property (nonatomic, readonly) int errorCode;
 
 @end

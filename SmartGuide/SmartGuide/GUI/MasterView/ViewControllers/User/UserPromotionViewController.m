@@ -9,7 +9,7 @@
 #import "UserPromotionViewController.h"
 #import "GUIManager.h"
 
-@interface UserPromotionViewController ()<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate,ASIOperationPostDelegate>
+@interface UserPromotionViewController ()<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate,ASIOperationPostDelegate,homeInfoCellDelegate>
 
 @end
 
@@ -151,10 +151,34 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     HomeInfoCell *cell=[tableView dequeueReusableCellWithIdentifier:[HomeInfoCell reuseIdentifier]];
+    cell.delegate=self;
     
     [cell loadWithUserPromotion:_userPromotions[indexPath.row]];
     
     return cell;
+}
+
+-(void)homeInfoCellTouchedGoTo:(id)home
+{
+    if([home isKindOfClass:[UserPromotion class]])
+    {
+        UserPromotion *promotion=home;
+        
+        switch (promotion.promotionType) {
+            case USER_PROMOTION_BRAND:
+                [self.delegate userPromotionTouchedIDShops:self idShops:promotion.idShops];
+                break;
+                
+            case USER_PROMOTION_SHOP:
+                [[GUIManager shareInstance] presentShopUserWithIDShop:promotion.idShop.integerValue];
+                break;
+                
+            case USER_PROMOTION_ITEM_STORE:
+            case USER_PROMOTION_STORE:
+            case USER_PROMOTION_UNKNOW:
+                break;
+        }
+    }
 }
 
 -(void)ASIOperaionPostFinished:(ASIOperationPost *)operation

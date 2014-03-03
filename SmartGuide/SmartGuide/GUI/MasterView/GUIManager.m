@@ -329,6 +329,14 @@ static GUIManager *_shareInstance=nil;
     [self showLeftController];
 }
 
+-(void)userPromotionTouchedIDShops:(UserPromotionViewController *)controller idShops:(NSString *)idShops
+{
+    SearchViewController *vc=[[SearchViewController alloc] initWithIDShops:idShops];
+    vc.delegate=self;
+    
+    [contentNavigation pushViewController:vc animated:true];
+}
+
 -(void)toolbarUserCollection
 {
     //    if(userCollectionController)

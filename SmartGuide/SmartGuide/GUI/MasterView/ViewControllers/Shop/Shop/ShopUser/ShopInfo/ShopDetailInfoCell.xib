@@ -25,10 +25,10 @@
                     <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="vhS-Xk-OWt">
                         <rect key="frame" x="14" y="19" width="242" height="25"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <fontDescription key="fontDescription" name="Avenir-MediumOblique" family="Avenir" pointSize="12"/>
+                        <fontDescription key="fontDescription" name="Avenir-Oblique" family="Avenir" pointSize="12"/>
                         <inset key="titleEdgeInsets" minX="8" minY="9" maxX="0.0" maxY="0.0"/>
                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="8" maxY="0.0"/>
-                        <state key="normal" title="Coffee shop" image="icon_typecoffee.png">
+                        <state key="normal" image="icon_typecoffee.png">
                             <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                         </state>

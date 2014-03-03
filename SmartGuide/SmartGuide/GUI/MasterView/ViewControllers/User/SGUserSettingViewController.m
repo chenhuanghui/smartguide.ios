@@ -359,6 +359,12 @@
 
 - (IBAction)btnSettingTouchUpInside:(id)sender {
     
+    [currentUser() revert];
+    [SGData shareInstance].fScreen=[SGUserSettingViewController screenCode];
+    [self.delegate userSettingControllerTouchedSetting:self];
+    [self loadData];
+    return;
+    
     if(currentUser().enumDataMode==USER_DATA_TRY)
     {
         [self.delegate userSettingControllerTouchedSetting:self];

@@ -115,12 +115,26 @@
         ASIOperationUploadSocialProfile *ope=(ASIOperationUploadSocialProfile*) operation;
         
         int status=ope.status;
+        int errorCode=ope.errorCode;
         
         if(ope.message.length>0)
         {
             [AlertView showAlertOKWithTitle:nil withMessage:ope.message onOK:^{
                 if(status==1)
                     [self.delegate registerControllerFinished:self];
+                else if(errorCode==0)
+                {
+                    if([registerNavi.visibleViewController isKindOfClass:[RegisterInfoStep2ViewController class]])
+                    {
+                        [self showStep1];
+                    }
+                    else
+                        [registerStep1 focusName];
+                }
+                else if(errorCode==1)
+                {
+                    [registerStep2 showDOBPicker];
+                }
             }];
         }
         else
@@ -128,6 +142,22 @@
             if(status==1)
             {
                 [self.delegate registerControllerFinished:self];
+            }
+            else
+            {
+                if(errorCode==0)
+                {
+                    if([registerNavi.visibleViewController isKindOfClass:[RegisterInfoStep2ViewController class]])
+                    {
+                        [self showStep1];
+                    }
+                    else
+                        [registerStep1 focusName];
+                }
+                else if(errorCode==1)
+                {
+                    [registerStep2 showDOBPicker];
+                }
             }
         }
         
@@ -479,7 +509,6 @@
         datePicker.date=_registerInfo.selectedDate;
     
     datePicker.alpha=0;
-    
     [self.view insertSubview:datePicker belowSubview:btnConfirm];
     
     self.view.userInteractionEnabled=false;

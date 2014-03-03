@@ -7,6 +7,8 @@
 
 #define UserHome6_Content @"content"
 #define UserHome6_Cover @"cover"
+#define UserHome6_CoverHeight @"coverHeight"
+#define UserHome6_CoverWidth @"coverWidth"
 #define UserHome6_Date @"date"
 #define UserHome6_Gotoshop @"gotoshop"
 #define UserHome6_ShopName @"shopName"
@@ -29,6 +31,8 @@
 
 @property (nonatomic, retain) NSString* content;
 @property (nonatomic, retain) NSString* cover;
+@property (nonatomic, retain) NSNumber* coverHeight;
+@property (nonatomic, retain) NSNumber* coverWidth;
 @property (nonatomic, retain) NSString* date;
 @property (nonatomic, retain) NSString* gotoshop;
 @property (nonatomic, retain) NSString* shopName;

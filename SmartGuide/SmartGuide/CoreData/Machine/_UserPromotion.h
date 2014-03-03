@@ -7,6 +7,8 @@
 
 #define UserPromotion_BrandName @"brandName"
 #define UserPromotion_Cover @"cover"
+#define UserPromotion_CoverHeight @"coverHeight"
+#define UserPromotion_CoverWidth @"coverWidth"
 #define UserPromotion_Date @"date"
 #define UserPromotion_Desc @"desc"
 #define UserPromotion_GoTo @"goTo"
@@ -34,6 +36,8 @@
 
 @property (nonatomic, retain) NSString* brandName;
 @property (nonatomic, retain) NSString* cover;
+@property (nonatomic, retain) NSNumber* coverHeight;
+@property (nonatomic, retain) NSNumber* coverWidth;
 @property (nonatomic, retain) NSString* date;
 @property (nonatomic, retain) NSString* desc;
 @property (nonatomic, retain) NSString* goTo;

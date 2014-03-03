@@ -26,6 +26,8 @@
     obj.cover=[NSString stringWithStringDefault:dict[@"cover"]];
     obj.goTo=[NSString stringWithStringDefault:dict[@"goTo"]];
     obj.type=[NSNumber numberWithObject:dict[@"type"]];
+    obj.coverHeight=[NSNumber numberWithObject:dict[@"coverHeight"]];
+    obj.coverWidth=[NSNumber numberWithObject:dict[@"coverWidth"]];
     
     switch (obj.promotionType) {
         case USER_PROMOTION_BRAND:

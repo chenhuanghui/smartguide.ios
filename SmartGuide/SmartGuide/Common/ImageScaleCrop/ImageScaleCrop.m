@@ -33,6 +33,8 @@
         image=[image scaleProportionalToSize:CGSizeMake(size.width*screenScale, size.height*screenScale)];
         if(image.scale!=screenScale)
             [super setImage:[UIImage imageWithCGImage:image.CGImage scale:screenScale orientation:image.imageOrientation]];
+        else
+            [super setImage:image];
     }
     else
         [super setImage:image];
@@ -51,21 +53,24 @@
 
 @implementation ImageScaleCropHeight
 
--(void)setImage1:(UIImage *)image
+-(void)setImage:(UIImage *)image
 {
     if(image)
     {
-//        float screenScale=UIScreenScale();
-//        
-//        CGSize size=image.size;
-//        float size1=self.l_v_w/image.size.width;
-//        
-//        size.width=size1*screenScale;
-//        size.height*=size1*screenScale;
-//        
-//        image=[image resizedImage:size interpolationQuality:kCGInterpolationHigh];
-//        if(image.scale!=screenScale)
-//            image=[UIImage imageWithCGImage:image.CGImage scale:screenScale orientation:image.imageOrientation];
+        float screenScale=UIScreenScale();
+        
+        CGSize imageSize=image.size;
+        CGSize size=self.l_v_s;
+        
+        float w=size.width/imageSize.width;
+        imageSize.width*=w;
+        imageSize.height*=w;
+        
+        image=[image scaleProportionalToSize:CGSizeMake(imageSize.width*screenScale, imageSize.height*screenScale)];
+        if(image.scale!=screenScale)
+            [super setImage:[UIImage imageWithCGImage:image.CGImage scale:screenScale orientation:image.imageOrientation]];
+        else
+            [super setImage:image];
     }
     
     [super setImage:image];

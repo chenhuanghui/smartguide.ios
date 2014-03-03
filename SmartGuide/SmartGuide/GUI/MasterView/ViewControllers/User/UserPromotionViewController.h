@@ -15,6 +15,7 @@
 @protocol UserPromotionDelegate <SGViewControllerDelegate>
 
 -(void) userPromotionTouchedNavigation:(UserPromotionViewController*) controller;
+-(void) userPromotionTouchedIDShops:(UserPromotionViewController*) controller idShops:(NSString*) idShops;
 
 @end
 

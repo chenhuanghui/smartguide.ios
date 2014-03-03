@@ -17,8 +17,8 @@
 -(NSArray*) loadingImages;
 -(NSArray*) loadingMoreImages;
 -(NSArray*) loadingImagesSmall;
--(NSMutableDictionary*) mapPins;
 -(UIImage*) shopPinWithType:(enum SHOP_TYPE) shopType;
+-(UIImage*) shopImageTypeWithType:(enum SHOP_TYPE) shopType;
 
 @property (nonatomic, strong, readonly) NSMutableArray *shopLogos;
 @property (nonatomic, strong, readonly) NSMutableArray *shopGallery;

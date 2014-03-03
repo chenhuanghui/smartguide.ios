@@ -8,6 +8,7 @@
 
 #import "ShopDetailInfoCell.h"
 #import "Utility.h"
+#import "ImageManager.h"
 
 @implementation ShopDetailInfoCell
 
@@ -15,6 +16,7 @@
 {
     lblShopName.text=shop.shopName;
     [btnShopType setTitle:shop.shopTypeDisplay forState:UIControlStateNormal];
+    [btnShopType setImage:[[ImageManager sharedInstance] shopImageTypeWithType:shop.enumShopType] forState:UIControlStateNormal];
     lblFullAddress.text=shop.address;
     
     [line l_v_setY:44+shop.shopNameHeight];

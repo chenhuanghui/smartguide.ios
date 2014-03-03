@@ -10,6 +10,7 @@
 #import "Utility.h"
 #import "Constant.h"
 #import "GUIManager.h"
+#import "ImageManager.h"
 
 #define SHOP_LIST_CELL_BUTTON_TAG_ADD 0
 #define SHOP_LIST_CELL_BUTTON_TAG_REMOVE 1
@@ -21,6 +22,7 @@
 {
     _shop=shopList;
     imgvVoucher.highlighted=rand()%2==0;
+    [imgvType setImage:[[ImageManager sharedInstance] shopImageTypeWithType:shopList.shop.enumShopType]];
 
     [self makeScrollSize];
     

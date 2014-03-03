@@ -13,7 +13,6 @@
 static NSMutableArray *_loadingImages=nil;
 static NSMutableArray *_loadingImagesSmall=nil;
 static NSMutableArray *_loadingMoreImages=nil;
-static NSMutableDictionary *_mapPins=nil;
 
 #define trackImageScaleMode //if(URL(url))[[ImageManager sharedInstance].imageScaleCrop setObject:[NSValue valueWithCGSize:self.l_v_s] forKey:URL(url)];
 
@@ -45,18 +44,7 @@ static ImageManager *_imageManager=nil;
         commentAvatar=[NSMutableArray new];
         storeLogo=[NSMutableArray new];
         imageScaleCrop=[NSMutableDictionary new];
-        
-        _mapPins=[[NSMutableDictionary alloc] initWithCapacity:9];
-        
-        [_mapPins setObject:@"iconpin_education.png" forKey:[NSString stringWithFormat:@"%i",SHOP_TYPE_EDUCATION]];
-        [_mapPins setObject:@"iconpin_entertaiment.png" forKey:[NSString stringWithFormat:@"%i",SHOP_TYPE_ENTERTAIMENT]];
-        [_mapPins setObject:@"iconpin_fashion.png" forKey:[NSString stringWithFormat:@"%i",SHOP_TYPE_FASHION]];
-        [_mapPins setObject:@"iconpin_food.png" forKey:[NSString stringWithFormat:@"%i",SHOP_TYPE_FOOD]];
-        [_mapPins setObject:@"iconpin_healness.png" forKey:[NSString stringWithFormat:@"%i",SHOP_TYPE_HEALTH]];
-        [_mapPins setObject:@"iconpin_shopping.png" forKey:[NSString stringWithFormat:@"%i",SHOP_TYPE_PRODUCTION]];
-        [_mapPins setObject:@"iconpin_travel.png" forKey:[NSString stringWithFormat:@"%i",SHOP_TYPE_TRAVEL]];
-        [_mapPins setObject:@"iconpin_drink.png" forKey:[NSString stringWithFormat:@"%i",SHOP_TYPE_CAFE]];
-        
+
         [SDWebImageManager sharedManager].delegate=self;
     }
     
@@ -117,19 +105,68 @@ static ImageManager *_imageManager=nil;
     return _loadingMoreImages;
 }
 
--(NSMutableDictionary *)mapPins
-{
-    return _mapPins;
-}
-
 -(UIImage *)shopPinWithType:(enum SHOP_TYPE)shopType
 {
-    UIImage *img=[UIImage imageNamed:[ImageManager sharedInstance].mapPins[[NSString stringWithFormat:@"%i",shopType]]];
-    
-    if(!img)
-        NSLog(@"SHOP_TYPE unknow %i",shopType);
-    
-    return img;
+    switch (shopType) {
+        case SHOP_TYPE_TRAVEL:
+            return [UIImage imageNamed:@"iconpin_travel.png"];
+            
+        case SHOP_TYPE_PRODUCTION:
+            return [UIImage imageNamed:@"iconpin_shopping.png"];
+            
+        case SHOP_TYPE_HEALTH:
+            return [UIImage imageNamed:@"iconpin_healness.png"];
+            
+        case SHOP_TYPE_FOOD:
+            return [UIImage imageNamed:@"iconpin_food.png"];
+            
+        case SHOP_TYPE_FASHION:
+            return [UIImage imageNamed:@"iconpin_fashion.png"];
+            
+        case SHOP_TYPE_ENTERTAIMENT:
+            return [UIImage imageNamed:@"iconpin_entertaiment.png"];
+            
+        case SHOP_TYPE_EDUCATION:
+            return [UIImage imageNamed:@"iconpin_education.png"];
+            
+        case SHOP_TYPE_CAFE:
+            return [UIImage imageNamed:@"iconpin_drink.png"];
+            
+        case SHOP_TYPE_ALL:
+            return nil;
+    }
+}
+
+-(UIImage *)shopImageTypeWithType:(enum SHOP_TYPE)shopType
+{
+    switch (shopType) {
+        case SHOP_TYPE_ALL:
+            return nil;
+            
+        case SHOP_TYPE_CAFE:
+            return [UIImage imageNamed:@"icon_drink.png"];
+            
+        case SHOP_TYPE_EDUCATION:
+            return [UIImage imageNamed:@"icon_education.png"];
+            
+        case SHOP_TYPE_ENTERTAIMENT:
+            return [UIImage imageNamed:@"icon_entertaiment.png"];
+            
+        case SHOP_TYPE_FASHION:
+            return [UIImage imageNamed:@"icon_fashion.png"];
+            
+        case SHOP_TYPE_FOOD:
+            return [UIImage imageNamed:@"icon_food.png"];
+            
+        case SHOP_TYPE_HEALTH:
+            return [UIImage imageNamed:@"icon_healness.png"];
+            
+        case SHOP_TYPE_PRODUCTION:
+            return [UIImage imageNamed:@"icon_shopping.png"];
+            
+        case SHOP_TYPE_TRAVEL:
+            return [UIImage imageNamed:@"icon_travel.png"];
+    }
 }
 
 @end

@@ -64,6 +64,9 @@
 
 -(void) registerCell
 {
+    if(![tableShopUser dequeueReusableCellWithIdentifier:[SGShopLoadingCell reuseIdentifier]])
+        [tableShopUser registerNib:[UINib nibWithNibName:[SGShopLoadingCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[SGShopLoadingCell reuseIdentifier]];
+    
     if(_shop)
     {
         if(![tableShopUser dequeueReusableCellWithIdentifier:[SUShopGalleryCell reuseIdentifier]])
@@ -77,9 +80,6 @@
         
         if(![tableShopUser dequeueReusableCellWithIdentifier:[SUUserCommentCell reuseIdentifier]])
             [tableShopUser registerNib:[UINib nibWithNibName:[SUUserCommentCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[SUUserCommentCell reuseIdentifier]];
-        
-        if(![tableShopUser dequeueReusableCellWithIdentifier:[SGShopLoadingCell reuseIdentifier]])
-            [tableShopUser registerNib:[UINib nibWithNibName:[SGShopLoadingCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[SGShopLoadingCell reuseIdentifier]];
         
         if(_shop.promotionNew)
         {

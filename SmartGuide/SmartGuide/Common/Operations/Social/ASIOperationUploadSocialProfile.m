@@ -9,7 +9,7 @@
 #import "ASIOperationUploadSocialProfile.h"
 
 @implementation ASIOperationUploadSocialProfile
-@synthesize status,message;
+@synthesize status,message,errorCode;
 
 -(ASIOperationUploadSocialProfile *)initWithProfile:(NSString *)profile socialType:(enum SOCIAL_TYPE)socialType accessToken:(NSString *)accessToken
 {
@@ -41,6 +41,8 @@
         [[DataManager shareInstance] save];
         [DataManager shareInstance].currentUser=user;
     }
+    else
+        errorCode=[[NSNumber numberWithObject:dict[@"errorCode"]] integerValue];
 }
 
 @end
