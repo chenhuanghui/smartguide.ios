@@ -33,7 +33,7 @@
                     <subviews>
                         <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" pitchEnabled="NO" showsUserLocation="YES" id="9qA-pJ-drt" customClass="SGMapView">
                             <rect key="frame" x="0.0" y="0.0" width="320" height="436"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <connections>
                                 <outlet property="delegate" destination="-1" id="MYI-gK-n5s"/>
                             </connections>

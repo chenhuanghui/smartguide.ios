@@ -38,8 +38,14 @@
     
     [contentView addSubview:_navi.view];
     [_navi l_v_setH:contentView.l_v_h];
+    _navi.view.autoresizingMask=UIViewAutoresizingAll();
     
     _avatars=[NSMutableArray new];
+}
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
 }
 
 -(void) loadData
@@ -170,6 +176,7 @@
     if(currentUser().enumDataMode==USER_DATA_TRY)
     {
         [self.delegate userSettingControllerTouchedSetting:self];
+        [self loadData];
         return;
     }
     
@@ -272,6 +279,7 @@
     {
         [SGData shareInstance].fScreen=[SGUserSettingViewController screenCode];
         [self.delegate userSettingControllerFinished:self];
+        [self loadData];
     }
 }
 
@@ -292,6 +300,7 @@
         {
             [SGData shareInstance].fScreen=[SGUserSettingViewController screenCode];
             [self.delegate userSettingControllerFinished:self];
+            [self loadData];
         }
         
         _operationUpdateUserProfile=nil;
@@ -312,7 +321,10 @@
         {
             [AlertView showAlertOKWithTitle:nil withMessage:ope.message onOK:^{
                 if(status==1)
+                {
                     [self.delegate userSettingControllerFinished:self];
+                    [self loadData];
+                }
             }];
         }
         else
@@ -320,6 +332,7 @@
             if(status==1)
             {
                 [self.delegate userSettingControllerFinished:self];
+                [self loadData];
             }
         }
         
@@ -349,6 +362,7 @@
     if(currentUser().enumDataMode==USER_DATA_TRY)
     {
         [self.delegate userSettingControllerTouchedSetting:self];
+        [self loadData];
         return;
     }
     
@@ -367,12 +381,14 @@
             [currentUser() revert];
             [SGData shareInstance].fScreen=[SGUserSettingViewController screenCode];
             [self.delegate userSettingControllerTouchedSetting:self];
+            [self loadData];
         }];
     }
     else
     {
         [SGData shareInstance].fScreen=[SGUserSettingViewController screenCode];
         [self.delegate userSettingControllerTouchedSetting:self];
+        [self loadData];
     }
 }
 

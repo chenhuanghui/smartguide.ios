@@ -393,7 +393,6 @@
 -(void) storeRect
 {
     _tableFrame=tableList.frame;
-    _mapFrame=map.frame;
     _qrFrame=qrCodeView.frame;
     _buttonMapFrame=btnMap.frame;
     _buttonSearchLocationFrame=btnSearchLocation.frame;
@@ -488,6 +487,8 @@
     rect.size.width=self.l_v_w;
     rect.origin.y=-tableList.l_v_h/SHOP_LIST_SCROLL_SPEED;
     map.frame=rect;
+    
+    _mapFrame=rect;
     
     _location.latitude=userLat();
     _location.longitude=userLng();
@@ -1385,7 +1386,7 @@
         
         scrollerView.alpha=1;
     } completion:^(BOOL finished) {
-        scrollerView.hidden=false;
+        scrollerView.hidden=true;
         [self makeScrollSize];
     }];
 }

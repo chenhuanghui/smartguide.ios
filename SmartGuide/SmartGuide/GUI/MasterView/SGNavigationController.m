@@ -360,12 +360,14 @@ CATransition* transitionPushFromRight()
     leftSlideController.childController=viewController;
     [leftSlideController addChildViewController:viewController];
     [leftSlideController.view addSubview:viewController.view];
+    [viewController l_v_setH:self.l_v_h];
     
     [self.view makeAlphaViewBelowView:leftSlideController.view];
     
     [UIView animateWithDuration:DURATION_DEFAULT animations:^{
         [leftSlideController l_c_addX:SLIDE_POSITION_X];
         [previousViewController l_c_addX:SLIDE_POSITION_X];
+    } completion:^(BOOL finished) {
     }];
     
     UITapGestureRecognizer *tap=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(leftTapGes:)];

@@ -92,7 +92,7 @@
 #if TEST_KHONG_NHAP_SO_DIEN_THOAI
     return USER_DATA_CREATING;
 #endif
-    
+    return USER_DATA_FULL;
     if([self isDefaultUser])
         return USER_DATA_TRY;
     else if([self.name stringByTrimmingWhiteSpace].length==0 || [self.avatar stringByTrimmingWhiteSpace].length==0)
@@ -175,8 +175,6 @@
         
         NSError *error=nil;
         [data writeToFile:[self avatarPath] options:NSDataWritingAtomic error:&error];
-        
-        NSLog(@"write %@ %@",[self avatarPath],error);
     }
 }
 
@@ -196,9 +194,6 @@
         
         NSError *error=nil;
         [data writeToFile:[self avatarBlurPath] options:NSDataWritingAtomic error:&error];
-        
-        NSLog(@"write %@ %@",[self avatarBlurPath],error);
-        
         return img;
     }
     

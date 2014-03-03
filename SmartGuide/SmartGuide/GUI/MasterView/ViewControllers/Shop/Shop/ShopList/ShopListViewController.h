@@ -55,8 +55,6 @@ enum SHOP_LIST_VIEW_MODE {
     __strong IBOutlet SGMapView *map;
 
     CGRect _mapFrame;
-    CGSize _mapSmallSize;
-    CGSize _mapBigSize;
     CGRect _tableFrame;
     CGRect _qrFrame;
     CGRect _sortFrame;
