@@ -9,6 +9,57 @@
 #import "ImageScaleCrop.h"
 #import "Utility.h"
 
+@implementation ImageDefaultBGView
+
+-(id)initWithFrame:(CGRect)frame
+{
+    self=[super initWithFrame:frame];
+    
+    [self setting];
+    
+    return self;
+}
+
+-(void) setting
+{
+    self.contentMode=UIViewContentModeRedraw;
+    self.userInteractionEnabled=false;
+}
+
+-(void)drawRect:(CGRect)rect
+{
+    [[UIImage imageNamed:@"pattern_image.jpg"] drawAsPatternInRect:rect];
+}
+
+@end
+
+@implementation ImageDefault
+@synthesize bgView;
+
+-(void)awakeFromNib
+{
+    [super awakeFromNib];
+    
+    ImageDefaultBGView *bg=[[ImageDefaultBGView alloc] initWithFrame:CGRectMake(0, 0, self.l_v_w, self.l_v_h)];
+    bg.autoresizingMask=UIViewAutoresizingAll();
+    bg.alpha=0;
+    
+    [self addSubview:bg];
+    
+    bgView=bg;
+}
+
+-(void)setImage:(UIImage *)image
+{
+    [UIView animateKeyframesWithDuration:0.5f delay:0 options:UIViewKeyframeAnimationOptionBeginFromCurrentState animations:^{
+        bgView.alpha=image==nil?1:0;
+    } completion:nil];
+    
+    [super setImage:image];
+}
+
+@end
+
 @implementation ImageScaleCrop
 @synthesize viewWillSize;
 
@@ -69,8 +120,6 @@
     
     self.contentMode=UIViewContentModeCenter;
     self.clipsToBounds=true;
-    
-    self.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"pattern_image.jpg"]];
 }
 
 -(void)setContentMode:(UIViewContentMode)contentMode
@@ -98,11 +147,9 @@
             image=[UIImage imageWithCGImage:image.CGImage scale:UIScreenScale() orientation:image.imageOrientation];
         
         [super setImage:image];
-        self.backgroundColor=[UIColor clearColor];
     }
     else
     {
-        self.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"pattern_image.jpg"]];
         [super setImage:image];
     }
 }

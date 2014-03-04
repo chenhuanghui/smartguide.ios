@@ -209,7 +209,7 @@ static ImageManager *_imageManager=nil;
 
 -(void)loadShopCoverWithURL:(NSString *)url
 {
-    [self setImageWithURL:[NSURL URLWithString:url] placeholderImage:nil options:SDWebImageProgressiveDownload];
+    [self setImageWithURL:[NSURL URLWithString:url]];
 }
 
 -(void)loadImageInfo3WithURL:(NSString *)url

@@ -53,7 +53,10 @@
 
 - (IBAction)btnCloseTouchUpInside:(id)sender {
     [SGData shareInstance].fScreen=[ShopUserViewController screenCode];
-    [[SGData shareInstance].fData setObject:_shop.idShop forKey:@"idShop"];
+    
+    if(_shop)
+        [[SGData shareInstance].fData setObject:_shop.idShop forKey:@"idShop"];
+    
     [self.delegate shopUserFinished:self];
 }
 

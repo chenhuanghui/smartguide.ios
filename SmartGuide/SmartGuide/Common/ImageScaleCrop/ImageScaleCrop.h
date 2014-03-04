@@ -8,13 +8,23 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ImageScaleCrop : UIImageView
+@interface ImageDefaultBGView : UIView
+
+@end
+
+@interface ImageDefault : UIImageView
+
+@property (nonatomic, weak, readonly) ImageDefaultBGView *bgView;
+
+@end
+
+@interface ImageScaleCrop : ImageDefault
 
 @property (nonatomic, assign) CGSize viewWillSize;
 
 @end
 
-@interface ImageScaleCropHeight : UIImageView
+@interface ImageScaleCropHeight : ImageDefault
 
 @property (nonatomic, assign) CGSize viewWillSize;
 +(CGSize) makeSizeFromImageSize:(CGSize) imageSize willWidth:(float) willWidth;

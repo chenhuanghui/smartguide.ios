@@ -52,6 +52,8 @@ static GUIManager *_shareInstance=nil;
     SGNavigationController *rNavigation=[[SGNavigationController alloc] initWithRootViewController:loading];
     
     rootNavigation=rNavigation;
+    rootNavigation.view.layer.masksToBounds=true;
+    rootNavigation.view.layer.cornerRadius=4;
     
     mainWindow.rootViewController=rNavigation;
     [mainWindow makeKeyAndVisible];
@@ -327,6 +329,14 @@ static GUIManager *_shareInstance=nil;
 -(void)userPromotionTouchedNavigation:(UserPromotionViewController *)controller
 {
     [self showLeftController];
+}
+
+-(void)userPromotionTouchedTextField:(UserPromotionViewController *)controller
+{
+    SearchViewController *vc=[[SearchViewController alloc] init];
+    vc.delegate=self;
+    
+    [contentNavigation pushViewController:vc animated:true];
 }
 
 -(void)userPromotionTouchedIDShops:(UserPromotionViewController *)controller idShops:(NSString *)idShops

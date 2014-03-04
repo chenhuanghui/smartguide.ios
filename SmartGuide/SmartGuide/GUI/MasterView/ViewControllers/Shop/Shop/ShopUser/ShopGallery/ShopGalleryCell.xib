@@ -18,7 +18,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="290" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView autoresizesSubviews="NO" userInteractionEnabled="NO" contentMode="right" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="z13-9J-wjs">
+                            <imageView autoresizesSubviews="NO" userInteractionEnabled="NO" contentMode="right" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="z13-9J-wjs" customClass="ImageDefault">
                                 <rect key="frame" x="0.0" y="0.0" width="290" height="480"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </imageView>

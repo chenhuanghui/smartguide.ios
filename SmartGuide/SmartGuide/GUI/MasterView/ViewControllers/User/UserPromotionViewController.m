@@ -62,6 +62,8 @@
 
 -(BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {
+    [self.delegate userPromotionTouchedTextField:self];
+    
     return false;
 }
 

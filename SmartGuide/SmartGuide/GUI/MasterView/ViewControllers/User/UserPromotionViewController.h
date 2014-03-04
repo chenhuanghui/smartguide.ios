@@ -16,6 +16,7 @@
 
 -(void) userPromotionTouchedNavigation:(UserPromotionViewController*) controller;
 -(void) userPromotionTouchedIDShops:(UserPromotionViewController*) controller idShops:(NSString*) idShops;
+-(void) userPromotionTouchedTextField:(UserPromotionViewController*) controller;
 
 @end
 
