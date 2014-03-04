@@ -69,7 +69,7 @@
 
 - (IBAction)btnStoreTouchUpInside:(id)sender {
     
-    [AlertView showAlertOKWithTitle:nil withMessage:@"Coming soon!!!" onOK:nil];
+    [AlertView showAlertOKWithTitle:nil withMessage:@"Sẽ xuất hiện trong phiên bản kế tiếp!" onOK:nil];
     return;
     
     [self.delegate settingTouchedStore:self];

@@ -226,7 +226,7 @@
     if(_reach.currentReachabilityStatus==NotReachable)
         return;
     
-    if(false && currentUser().enumDataMode==USER_DATA_TRY)
+    if(currentUser().enumDataMode==USER_DATA_TRY)
     {
         [[GUIManager shareInstance] showLoginDialogWithMessage:localizeLoginRequire() onOK:^
          {

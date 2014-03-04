@@ -199,8 +199,6 @@
 
 -(void)buttonLoveTouched:(ButtonLove *)buttonLoveView
 {
-    [self love];
-    return;
     if(currentUser().enumDataMode==USER_DATA_TRY)
     {
         [[GUIManager shareInstance] showLoginDialogWithMessage:localizeLoginRequire() onOK:^
