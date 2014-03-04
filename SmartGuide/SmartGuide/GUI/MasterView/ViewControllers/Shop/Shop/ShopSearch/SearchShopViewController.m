@@ -11,6 +11,7 @@
 #import "SearchShopCell.h"
 #import "SearchShopHeaderCell.h"
 #import "SearchShopPlacelistCell.h"
+#import "LoadingMoreCell.h"
 
 #define SEARCH_SHOP_NUMBER_OF_HIGHLIGHT_PLACE_LIST 3
 
@@ -56,6 +57,7 @@
     [table registerNib:[UINib nibWithNibName:[SearchShopCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[SearchShopCell reuseIdentifier]];
     [table registerNib:[UINib nibWithNibName:[SearchShopHeaderCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[SearchShopHeaderCell reuseIdentifier]];
     [table registerNib:[UINib nibWithNibName:[SearchShopPlacelistCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[SearchShopPlacelistCell reuseIdentifier]];
+    [table registerLoadingMoreCell];
     
     _autocomplete=[[NSMutableDictionary alloc] init];
     
@@ -291,12 +293,12 @@
             if(section==0)
                 return SEARCH_SHOP_NUMBER_OF_HIGHLIGHT_PLACE_LIST;
             else
-                return _placeLists.count-SEARCH_SHOP_NUMBER_OF_HIGHLIGHT_PLACE_LIST;
+                return _placeLists.count-SEARCH_SHOP_NUMBER_OF_HIGHLIGHT_PLACE_LIST+(_canLoadMorePlaceList?1:0);
         }
         else
         {
             if(section==0)
-                return _placeLists.count;
+                return _placeLists.count+(_canLoadMorePlaceList?1:0);
             else
                 return 0;
         }
@@ -375,6 +377,18 @@
         }
         else
         {
+            if(_canLoadMorePlaceList && indexPath.row==_placeLists.count-SEARCH_SHOP_NUMBER_OF_HIGHLIGHT_PLACE_LIST)
+            {
+                if(!_isLoadingMore)
+                {
+                    _isLoadingMore=true;
+                    
+                    [self requestPlacelist];
+                }
+                
+                return [table loadingMoreCell];
+            }
+            
             SearchShopCell *cell=[tableView dequeueReusableCellWithIdentifier:[SearchShopCell reuseIdentifier]];
             
             [cell loadWithPlace:_placeLists[indexPath.row+SEARCH_SHOP_NUMBER_OF_HIGHLIGHT_PLACE_LIST]];
@@ -433,6 +447,9 @@
             if(indexPath.section==0)
                 return [SearchShopPlacelistCell heightWithPlace:_placeLists[indexPath.row]];
             else
+                if(_canLoadMorePlaceList && indexPath.row==_placeLists.count-SEARCH_SHOP_NUMBER_OF_HIGHLIGHT_PLACE_LIST)
+                    return 36;
+            
                 return [SearchShopCell heightWithPlace:_placeLists[indexPath.row+SEARCH_SHOP_NUMBER_OF_HIGHLIGHT_PLACE_LIST]];
             break;
     }

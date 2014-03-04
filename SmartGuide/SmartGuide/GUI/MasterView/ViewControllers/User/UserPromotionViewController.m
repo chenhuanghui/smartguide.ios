@@ -8,6 +8,7 @@
 
 #import "UserPromotionViewController.h"
 #import "GUIManager.h"
+#import "LoadingMoreCell.h"
 
 @interface UserPromotionViewController ()<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate,ASIOperationPostDelegate,homeInfoCellDelegate>
 
@@ -47,6 +48,7 @@
     [table l_v_addH:QRCODE_BIG_HEIGHT-QRCODE_SMALL_HEIGHT];
     
     [table registerNib:[UINib nibWithNibName:[HomeInfoCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[HomeInfoCell reuseIdentifier]];
+    [table registerLoadingMoreCell];
     
     _canLoadingMore=true;
     _isLoadingMore=false;
@@ -140,16 +142,31 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return _userPromotions.count;
+    return _userPromotions.count+(_canLoadingMore?1:0);
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if(_canLoadingMore && indexPath.row==_userPromotions.count)
+        return 80;
+    
     return [HomeInfoCell heightWithUserPromotion:_userPromotions[indexPath.row]];
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if(_canLoadingMore && indexPath.row==_userPromotions.count)
+    {
+        if(!_isLoadingMore)
+        {
+            _isLoadingMore=true;
+            
+            [self requestUserPromotion];
+        }
+        
+        return [tableView loadingMoreCell];
+    }
+    
     HomeInfoCell *cell=[tableView dequeueReusableCellWithIdentifier:[HomeInfoCell reuseIdentifier]];
     cell.delegate=self;
     

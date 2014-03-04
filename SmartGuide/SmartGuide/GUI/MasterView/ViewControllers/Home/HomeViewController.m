@@ -9,6 +9,7 @@
 #import "HomeViewController.h"
 #import "GUIManager.h"
 #import "StoreShopInfoViewController.h"
+#import "LoadingMoreCell.h"
 
 #define NEW_FEED_DELTA_SPEED 2.1f
 
@@ -61,6 +62,7 @@
     [tableFeed registerNib:[UINib nibWithNibName:[HomeImagesCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[HomeImagesCell reuseIdentifier]];
     [tableFeed registerNib:[UINib nibWithNibName:[HomeListCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[HomeListCell reuseIdentifier]];
     [tableFeed registerNib:[UINib nibWithNibName:[HomeInfoCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[HomeInfoCell reuseIdentifier]];
+    [tableFeed registerLoadingMoreCell];
     
     _page=-1;
     _homes=[NSMutableArray array];
@@ -211,7 +213,7 @@
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if(tableView==tableFeed)
-        return _homes.count;
+        return _homes.count+(_canLoadMore?1:0);
     
     return 0;
 }
@@ -220,6 +222,11 @@
 {
     if(tableView==tableFeed)
     {
+        if(_canLoadMore && indexPath.row==_homes.count)
+        {
+            return 80;
+        }
+        
         UserHome *home=_homes[indexPath.row];
         switch (home.enumType) {
             case USER_HOME_TYPE_1:
@@ -255,20 +262,19 @@
 {
     if(tableView==tableFeed)
     {
-        UserHome *home=_homes[indexPath.row];
-        
-        if(_canLoadMore)
+        if(_canLoadMore && indexPath.row==_homes.count)
         {
             if(!_isLoadingMore)
             {
-                if(indexPath.row==_homes.count-1)
-                {
-                    _isLoadingMore=true;
-                    
-                    [self requestNewFeed];
-                }
+                _isLoadingMore=true;
+                [self requestNewFeed];
             }
+            
+            return [tableView loadingMoreCell];
         }
+        
+        UserHome *home=_homes[indexPath.row];
+        
         switch (home.enumType) {
             case USER_HOME_TYPE_1:
             {

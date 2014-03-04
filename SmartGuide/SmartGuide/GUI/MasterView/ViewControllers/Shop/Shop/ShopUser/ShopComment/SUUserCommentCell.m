@@ -11,6 +11,7 @@
 #import "AlphaView.h"
 #import "ShopUserViewController.h"
 #import "GUIManager.h"
+#import "LoadingMoreCell.h"
 
 #define SU_USER_COMMENT_CELL_BOTTOM_NORMAL_Y 92.f
 #define SU_USER_COMMENT_CELL_BOTTOM_EDIT_Y 120.f
@@ -85,16 +86,29 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return _comments.count;
+    return _comments.count+([self.delegate userCommentCanLoadMore:self]?1:0);
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if([self.delegate userCommentCanLoadMore:self] && indexPath.row==_comments.count)
+        return 80;
+    
     return [ShopUserCommentCell heightWithComment:_comments[indexPath.row]];
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if([self.delegate userCommentCanLoadMore:self] && indexPath.row==_comments.count)
+    {
+        if(![self.delegate userCommentIsLoadingMore:self])
+        {
+            [self.delegate userCommentLoadMore:self];
+        }
+        
+        return [table loadingMoreCell];
+    }
+    
     ShopUserCommentCell *cell=[tableView dequeueReusableCellWithIdentifier:[ShopUserCommentCell reuseIdentifier]];
     [cell loadWithComment:_comments[indexPath.row]];
     
@@ -149,6 +163,7 @@
     [super awakeFromNib];
     
     [table registerNib:[UINib nibWithNibName:[ShopUserCommentCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[ShopUserCommentCell reuseIdentifier]];
+    [table registerLoadingMoreCell];
     
     [self switchToNormailModeAnimate:false duration:0];
     

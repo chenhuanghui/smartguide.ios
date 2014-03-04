@@ -36,13 +36,13 @@
 
 +(float)heightWithPlace:(Placelist *)place
 {
-    float height=83;
+    float height=104;
     
-    place.titleHeight=[place.title sizeWithFont:[UIFont fontWithName:@"Avenir-Medium" size:13] constrainedToSize:CGSizeMake(230, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height-18;
+    place.titleHeight=[place.title sizeWithFont:[UIFont fontWithName:@"Avenir-Roman" size:13] constrainedToSize:CGSizeMake(230, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height-18;
     place.titleHeight=MAX(0,place.titleHeight);
     height+=place.titleHeight;
     
-    place.contentHeight=[place.desc sizeWithFont:[UIFont fontWithName:@"Avenir-Light" size:11] constrainedToSize:CGSizeMake(230, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height-55;
+    place.contentHeight=[place.desc sizeWithFont:[UIFont fontWithName:@"Avenir-Roman" size:11] constrainedToSize:CGSizeMake(230, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height-55;
     place.contentHeight=MAX(0,place.contentHeight);
     height+=place.contentHeight;
     

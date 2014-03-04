@@ -833,6 +833,11 @@
     return _canLoadMoreComment;
 }
 
+-(bool)userCommentIsLoadingMore:(SUUserCommentCell *)cell
+{
+    return _isLoadingMoreComment;
+}
+
 -(void)userCommentLoadMore:(SUUserCommentCell *)cell
 {
     if(_isLoadingMoreComment)
@@ -937,7 +942,7 @@
                         
                     case 6:
                     {
-                        float height=[SUUserCommentCell heightWithShop:_shop sort:_sortComment];
+                        float height=[SUUserCommentCell heightWithShop:_shop sort:_sortComment] + (_canLoadMoreComment?80:0);
                         float minHeight=[self commentCellMaxHeight];
                         
                         height=MAX(height,minHeight);

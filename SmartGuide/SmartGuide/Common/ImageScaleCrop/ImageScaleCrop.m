@@ -36,7 +36,11 @@
         if(!CGSizeEqualToSize(self.viewWillSize, CGSizeZero))
             size=self.viewWillSize;
         
-        image=[image scaleProportionalToSize:CGSizeMake(size.width, size.height)];
+        image=[image scaleProportionalToSize:CGSizeMake(size.width*UIScreenScale(), size.height*UIScreenScale())];
+        
+        if(image.scale!=UIScreenScale())
+            image=[UIImage imageWithCGImage:image.CGImage scale:UIScreenScale() orientation:image.imageOrientation];
+        
         [super setImage:image];
     }
     else
@@ -88,7 +92,11 @@
         imageSize.width*=w;
         imageSize.height*=w;
         
-        image=[image scaleToSize:CGSizeMake(imageSize.width, imageSize.height)];
+        image=[image scaleToSize:CGSizeMake(imageSize.width*UIScreenScale(), imageSize.height*UIScreenScale())];
+        
+        if(image.scale!=UIScreenScale())
+            image=[UIImage imageWithCGImage:image.CGImage scale:UIScreenScale() orientation:image.imageOrientation];
+        
         [super setImage:image];
         self.backgroundColor=[UIColor clearColor];
     }
