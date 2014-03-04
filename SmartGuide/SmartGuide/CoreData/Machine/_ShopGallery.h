@@ -8,6 +8,8 @@
 #define ShopGallery_Cover @"cover"
 #define ShopGallery_IdGallery @"idGallery"
 #define ShopGallery_Image @"image"
+#define ShopGallery_ImageHeight @"imageHeight"
+#define ShopGallery_ImageWidth @"imageWidth"
 #define ShopGallery_SortOrder @"sortOrder"
 
 @class ShopGallery;
@@ -27,6 +29,8 @@
 @property (nonatomic, retain) NSString* cover;
 @property (nonatomic, retain) NSNumber* idGallery;
 @property (nonatomic, retain) NSString* image;
+@property (nonatomic, retain) NSNumber* imageHeight;
+@property (nonatomic, retain) NSNumber* imageWidth;
 @property (nonatomic, retain) NSNumber* sortOrder;
 
 #pragma mark Fetched property

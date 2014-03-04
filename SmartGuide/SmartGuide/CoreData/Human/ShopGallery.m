@@ -9,6 +9,8 @@
     
     obj.cover=[NSString stringWithStringDefault:data[@"cover"]];
     obj.image=[NSString stringWithStringDefault:data[@"image"]];
+    obj.imageWidth=[NSNumber numberWithObject:data[@"imageWidth"]];
+    obj.imageHeight=[NSNumber numberWithObject:data[@"imageHeight"]];
     
     return obj;
 }
