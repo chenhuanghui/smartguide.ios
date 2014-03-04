@@ -206,7 +206,7 @@
                             </state>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="G9Y-OP-4Gm">
-                            <rect key="frame" x="15" y="426" width="259" height="46"/>
+                            <rect key="frame" x="15" y="424" width="259" height="56"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <state key="normal" image="button_update.png">
@@ -226,7 +226,7 @@
         <image name="bg_button_release_navigation.png" width="320" height="65"/>
         <image name="button_arrow_navigation.png" width="6" height="11"/>
         <image name="button_setting_navigation.png" width="26" height="26"/>
-        <image name="button_update.png" width="112" height="46"/>
+        <image name="button_update.png" width="137" height="56"/>
         <image name="cover_blur.png" width="290" height="113"/>
         <image name="frame_avauser_navigation.png" width="71" height="71"/>
         <image name="icon_home_navigation.png" width="22" height="22"/>

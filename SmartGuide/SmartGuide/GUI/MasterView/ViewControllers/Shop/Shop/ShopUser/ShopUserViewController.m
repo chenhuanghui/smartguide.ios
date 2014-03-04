@@ -67,49 +67,20 @@
 
 -(void) registerCell
 {
-    if(![tableShopUser dequeueReusableCellWithIdentifier:[SGShopLoadingCell reuseIdentifier]])
-        [tableShopUser registerNib:[UINib nibWithNibName:[SGShopLoadingCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[SGShopLoadingCell reuseIdentifier]];
-    
-    if(_shop)
-    {
-        if(![tableShopUser dequeueReusableCellWithIdentifier:[SUShopGalleryCell reuseIdentifier]])
-            [tableShopUser registerNib:[UINib nibWithNibName:[SUShopGalleryCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[SUShopGalleryCell reuseIdentifier]];
-        
-        if(![tableShopUser dequeueReusableCellWithIdentifier:[SUInfoCell reuseIdentifier]])
-            [tableShopUser registerNib:[UINib nibWithNibName:[SUInfoCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[SUInfoCell reuseIdentifier]];
-        
-        if(![tableShopUser dequeueReusableCellWithIdentifier:[SUUserGalleryCell reuseIdentifier]])
-            [tableShopUser registerNib:[UINib nibWithNibName:[SUUserGalleryCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[SUUserGalleryCell reuseIdentifier]];
-        
-        if(![tableShopUser dequeueReusableCellWithIdentifier:[SUUserCommentCell reuseIdentifier]])
-            [tableShopUser registerNib:[UINib nibWithNibName:[SUUserCommentCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[SUUserCommentCell reuseIdentifier]];
-        
-        if(_shop.promotionNew)
-        {
-            if(![tableShopUser dequeueReusableCellWithIdentifier:[SUKMNewsCell reuseIdentifier]])
-                [tableShopUser registerNib:[UINib nibWithNibName:[SUKMNewsCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[SUKMNewsCell reuseIdentifier]];
-        }
-        
-        switch (_shop.enumPromotionType) {
-            case SHOP_PROMOTION_KM1:
-                if(![tableShopUser dequeueReusableCellWithIdentifier:[SUKM1Cell reuseIdentifier]])
-                    [tableShopUser registerNib:[UINib nibWithNibName:[SUKM1Cell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[SUKM1Cell reuseIdentifier]];
-                break;
-                
-            case SHOP_PROMOTION_KM2:
-                if(![tableShopUser dequeueReusableCellWithIdentifier:[SUKM2Cell reuseIdentifier]])
-                    [tableShopUser registerNib:[UINib nibWithNibName:[SUKM2Cell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[SUKM2Cell reuseIdentifier]];
-                break;
-                
-            case SHOP_PROMOTION_NONE:
-                break;
-        }
-    }
 }
 
 -(void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [tableShopUser registerNib:[UINib nibWithNibName:[SGShopLoadingCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[SGShopLoadingCell reuseIdentifier]];
+    [tableShopUser registerNib:[UINib nibWithNibName:[SUShopGalleryCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[SUShopGalleryCell reuseIdentifier]];
+    [tableShopUser registerNib:[UINib nibWithNibName:[SUInfoCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[SUInfoCell reuseIdentifier]];
+    [tableShopUser registerNib:[UINib nibWithNibName:[SUUserGalleryCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[SUUserGalleryCell reuseIdentifier]];
+    [tableShopUser registerNib:[UINib nibWithNibName:[SUUserCommentCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[SUUserCommentCell reuseIdentifier]];
+    [tableShopUser registerNib:[UINib nibWithNibName:[SUKMNewsCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[SUKMNewsCell reuseIdentifier]];
+    [tableShopUser registerNib:[UINib nibWithNibName:[SUKM1Cell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[SUKM1Cell reuseIdentifier]];
+    [tableShopUser registerNib:[UINib nibWithNibName:[SUKM2Cell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[SUKM2Cell reuseIdentifier]];
     
     _btnNextFrame=btnNext.frame;
     
