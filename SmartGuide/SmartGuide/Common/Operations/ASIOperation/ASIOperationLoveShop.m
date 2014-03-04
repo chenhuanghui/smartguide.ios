@@ -9,7 +9,7 @@
 #import "ASIOperationLoveShop.h"
 
 @implementation ASIOperationLoveShop
-@synthesize status,message,loveStatus,numOfLove;
+@synthesize status,message,loveStatus,numOfLove,shop;
 
 -(ASIOperationLoveShop *)initWithIDShop:(int)idShop userLat:(double)userLat userLng:(double)userLng loveStatus:(enum LOVE_STATUS)_loveStatus
 {
@@ -52,7 +52,7 @@
         }
         
         int idShop=[self.keyValue[IDSHOP] integerValue];
-        Shop *shop=[Shop shopWithIDShop:idShop];
+        shop=[Shop shopWithIDShop:idShop];
         
         if(shop)
         {

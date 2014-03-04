@@ -19,5 +19,6 @@
 @property (nonatomic, readonly) NSString *message;
 @property (nonatomic, readonly) enum LOVE_STATUS loveStatus;
 @property (nonatomic, readonly) NSString *numOfLove;
+@property (nonatomic, readonly) Shop *shop;
 
 @end

@@ -15,6 +15,10 @@
 #define SHOP_LIST_CELL_BUTTON_TAG_ADD 0
 #define SHOP_LIST_CELL_BUTTON_TAG_REMOVE 1
 
+@interface ShopListCell()<ASIOperationPostDelegate>
+
+@end
+
 @implementation ShopListCell
 @synthesize delegate;
 
@@ -92,6 +96,7 @@
     }
     
     _operationLove=[[ASIOperationLoveShop alloc] initWithIDShop:_shop.idShop.integerValue userLat:userLat() userLng:userLng() loveStatus:_shop.enumLoveStatus];
+    _operationLove.delegatePost=self;
     [_operationLove startAsynchronous];
     
     imgvHeartAni.alpha=0;
@@ -250,6 +255,24 @@
 -(ShopList *)shopList
 {
     return _shop;
+}
+
+-(void)ASIOperaionPostFinished:(ASIOperationPost *)operation
+{
+    if([operation isKindOfClass:[ASIOperationLoveShop class]])
+    {
+        [self loadWithShopList:_shop];
+        
+        _operationLove=nil;
+    }
+}
+
+-(void)ASIOperaionPostFailed:(ASIOperationPost *)operation
+{
+    if([operation isKindOfClass:[ASIOperationLoveShop class]])
+    {
+        _operationLove=nil;
+    }
 }
 
 @end

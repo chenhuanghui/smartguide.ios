@@ -1028,6 +1028,8 @@
 		9AF0F90618BC920B0054EE20 /* button_backarrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AF0F90418BC920B0054EE20 /* button_backarrow@2x.png */; };
 		9AF94E7718A9DE21002529BE /* KeyboardUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AF94E7618A9DE21002529BE /* KeyboardUtility.m */; };
 		9AFC69D117F2C0F500177476 /* OperationNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AFC69D017F2C0F500177476 /* OperationNotifications.m */; };
+		9AFE5A4A18C5AE0300E8EF53 /* pattern_image.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9AFE5A4818C5AE0300E8EF53 /* pattern_image.jpg */; };
+		9AFE5A4B18C5AE0300E8EF53 /* pattern_image@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9AFE5A4918C5AE0300E8EF53 /* pattern_image@2x.jpg */; };
 		9AFF5CB3181EBC4200F159F0 /* SGNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AFF5CB2181EBC4200F159F0 /* SGNavigationController.m */; };
 		A90ED8C917C1C701003D2D93 /* ButtonImageRight.m in Sources */ = {isa = PBXBuildFile; fileRef = A90ED8C817C1C701003D2D93 /* ButtonImageRight.m */; };
 		A90ED8CC17C1C711003D2D93 /* ButtonImageLeft.m in Sources */ = {isa = PBXBuildFile; fileRef = A90ED8CB17C1C711003D2D93 /* ButtonImageLeft.m */; };
@@ -2399,6 +2401,8 @@
 		9AF94E7618A9DE21002529BE /* KeyboardUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeyboardUtility.m; sourceTree = "<group>"; };
 		9AFC69CF17F2C0F500177476 /* OperationNotifications.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OperationNotifications.h; path = ../ASIOperation/OperationNotifications.h; sourceTree = "<group>"; };
 		9AFC69D017F2C0F500177476 /* OperationNotifications.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OperationNotifications.m; path = ../ASIOperation/OperationNotifications.m; sourceTree = "<group>"; };
+		9AFE5A4818C5AE0300E8EF53 /* pattern_image.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = pattern_image.jpg; sourceTree = "<group>"; };
+		9AFE5A4918C5AE0300E8EF53 /* pattern_image@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "pattern_image@2x.jpg"; sourceTree = "<group>"; };
 		9AFF5CB1181EBC4200F159F0 /* SGNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGNavigationController.h; sourceTree = "<group>"; };
 		9AFF5CB2181EBC4200F159F0 /* SGNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGNavigationController.m; sourceTree = "<group>"; };
 		A90ED8C717C1C701003D2D93 /* ButtonImageRight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ButtonImageRight.h; sourceTree = "<group>"; };
@@ -4174,6 +4178,8 @@
 		A98198BE178D44FB0009FCB6 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				9AFE5A4818C5AE0300E8EF53 /* pattern_image.jpg */,
+				9AFE5A4918C5AE0300E8EF53 /* pattern_image@2x.jpg */,
 				9A7A2F5018C4959700A3881B /* icon_fashion.png */,
 				9A7A2F5118C4959800A3881B /* icon_healness.png */,
 				9A7A2F5218C4959800A3881B /* icon_travel.png */,
@@ -5045,6 +5051,7 @@
 				9A9BDEE1187E8E3A00D45167 /* button_arrow_right_home@2x.png in Resources */,
 				9A5E66E418842E32003F33CD /* iconpin_shopping.png in Resources */,
 				9AC5380418684490009A000B /* bg_detail_info_bottom.png in Resources */,
+				9AFE5A4A18C5AE0300E8EF53 /* pattern_image.jpg in Resources */,
 				9A211EC018B52ADD00EBCCD9 /* icon_viewlist.png in Resources */,
 				9ACAED761872B1740025B027 /* ButtonLove.xib in Resources */,
 				9A079B2F18C0D0F400FDC0EC /* II-2-ListNew.jpg in Resources */,
@@ -5657,6 +5664,7 @@
 				9A98C92A188E83A30067EAD3 /* button_loading_small_05@2x.png in Resources */,
 				9A06F975188519E5005C0377 /* PlacelistViewController.xib in Resources */,
 				9A9DB986187BA42700091602 /* icon_sale_login.png in Resources */,
+				9AFE5A4B18C5AE0300E8EF53 /* pattern_image@2x.jpg in Resources */,
 				9AB1F04D183F136700A35422 /* arrowchat@2x.png in Resources */,
 				9A5DC47C183DBA9C0051375A /* button_call.png in Resources */,
 				9AB1F04C183F136700A35422 /* arrowchat.png in Resources */,

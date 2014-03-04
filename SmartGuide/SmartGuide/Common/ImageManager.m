@@ -276,7 +276,7 @@ static ImageManager *_imageManager=nil;
 {
     trackImageScaleMode
     
-    [self setImageWithURL:[NSURL URLWithString:url] placeholderImage:nil options:SDWebImageProgressiveDownload];
+    [self setImageWithURL:[NSURL URLWithString:url] placeholderImage:nil];
 }
 
 -(void) loadHome6CoverWithURL:(NSString*) url

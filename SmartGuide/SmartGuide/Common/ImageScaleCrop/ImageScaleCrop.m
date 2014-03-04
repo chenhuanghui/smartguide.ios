@@ -31,17 +31,13 @@
 {
     if(image)
     {
-        float screenScale=UIScreenScale();
         CGSize size=self.l_v_s;
         
         if(!CGSizeEqualToSize(self.viewWillSize, CGSizeZero))
             size=self.viewWillSize;
         
         image=[image scaleProportionalToSize:CGSizeMake(size.width, size.height)];
-        if(image.scale!=screenScale)
-            [super setImage:[UIImage imageWithCGImage:image.CGImage scale:screenScale orientation:image.imageOrientation]];
-        else
-            [super setImage:image];
+        [super setImage:image];
     }
     else
         [super setImage:image];
@@ -69,6 +65,8 @@
     
     self.contentMode=UIViewContentModeCenter;
     self.clipsToBounds=true;
+    
+    self.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"pattern_image.jpg"]];
 }
 
 -(void)setContentMode:(UIViewContentMode)contentMode
@@ -80,8 +78,6 @@
 {
     if(image)
     {
-        float screenScale=UIScreenScale();
-        
         CGSize imageSize=image.size;
         CGSize size=self.l_v_s;
         
@@ -93,13 +89,14 @@
         imageSize.height*=w;
         
         image=[image scaleToSize:CGSizeMake(imageSize.width, imageSize.height)];
-        if(image.scale!=screenScale)
-            [super setImage:[UIImage imageWithCGImage:image.CGImage scale:screenScale orientation:image.imageOrientation]];
-        else
-            [super setImage:image];
+        [super setImage:image];
+        self.backgroundColor=[UIColor clearColor];
     }
-    
-    [super setImage:image];
+    else
+    {
+        self.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"pattern_image.jpg"]];
+        [super setImage:image];
+    }
 }
 
 +(CGSize)makeSizeFromImageSize:(CGSize)imageSize willWidth:(float)willWidth
