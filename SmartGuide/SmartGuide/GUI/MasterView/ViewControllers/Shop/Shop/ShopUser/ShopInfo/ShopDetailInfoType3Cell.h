@@ -16,9 +16,11 @@
     __weak IBOutlet UILabel *lblTitle;
     __weak IBOutlet UILabel *lblContent;
     __weak IBOutlet UIImageView *line;
+    __weak Info3 *_info;
 }
 
 -(void) loadWithInfo3:(Info3*) info3;
+-(Info3*) info;
 -(void)setCellPos:(enum CELL_POSITION)cellPos;
 
 +(NSString *)reuseIdentifier;

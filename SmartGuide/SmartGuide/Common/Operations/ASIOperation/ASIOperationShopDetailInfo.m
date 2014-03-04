@@ -229,6 +229,7 @@
     obj.image=[NSString stringWithStringDefault:dict[@"image"]];
     obj.title=[NSString stringWithStringDefault:dict[@"title"]];
     obj.content=[NSString stringWithStringDefault:dict[@"content"]];
+    obj.idShop=[[NSNumber numberWithObject:dict[@"idShop"]] integerValue];
     
     return obj;
 }

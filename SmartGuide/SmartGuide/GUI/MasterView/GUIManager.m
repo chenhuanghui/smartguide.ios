@@ -510,6 +510,15 @@ static GUIManager *_shareInstance=nil;
 
 -(void)presentShopUserWithIDShop:(int)idShop
 {
+    if(shopUserController)
+    {
+        [self dimissShopUserOnCompleted:^{
+            [self presentShopUserWithIDShop:idShop];
+        }];
+        
+        return;
+    }
+    
     ShopUserViewController *vc=[[ShopUserViewController alloc] initWithIDShop:idShop];
     vc.delegate=self;
     
@@ -528,14 +537,24 @@ static GUIManager *_shareInstance=nil;
     
 }
 
--(void)dismissShopUser
+-(void) dimissShopUserOnCompleted:(void(^)()) onCompleted
 {
     if(shopUserController)
     {
         [self dismissPresentedViewController:^{
             shopUserController=nil;
+            
+            if(onCompleted)
+            {
+                onCompleted();
+            }
         }];
     }
+}
+
+-(void)dismissShopUser
+{
+    [self dimissShopUserOnCompleted:nil];
 }
 
 -(void) dimissShopUserAnimated:(bool) animated

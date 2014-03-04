@@ -72,6 +72,11 @@
     if(scrollView==table)
     {
         [pageControl scrollViewDidScroll:scrollView isHorizontal:true];
+        
+        for(ShopGalleryCell *cell in table.visibleCells)
+        {
+            [cell tableViewDidScroll];
+        }
     }
     else
     {
@@ -110,6 +115,9 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     ShopGalleryCell *cell=[tableView dequeueReusableCellWithIdentifier:[ShopGalleryCell reuseIdentifier]];
+    
+    cell.table=tableView;
+    cell.indexPath=indexPath;
     
     switch (_shop.enumDataMode) {
         case SHOP_DATA_HOME_8:

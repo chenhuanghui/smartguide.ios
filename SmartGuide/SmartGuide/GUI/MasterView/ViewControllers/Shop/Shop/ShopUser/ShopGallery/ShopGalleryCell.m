@@ -12,6 +12,7 @@
 #import "ImageManager.h"
 
 @implementation ShopGalleryCell
+@synthesize table;
 
 +(NSString *)reuseIdentifier
 {
@@ -21,6 +22,14 @@
 -(void)loadImage:(NSString *)url
 {
     [imgv loadShopCoverWithURL:url];
+}
+
+-(void)tableViewDidScroll
+{
+    float tableOffsetY=table.l_co_y;
+    CGRect rect=[table rectForRowAtIndexPath:self.indexPath];
+    
+    scroll.contentOffset=CGPointMake((rect.origin.y-tableOffsetY)/2, 0);
 }
 
 -(void)awakeFromNib

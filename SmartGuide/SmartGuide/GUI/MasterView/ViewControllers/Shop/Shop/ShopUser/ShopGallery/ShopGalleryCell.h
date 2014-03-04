@@ -10,9 +10,14 @@
 
 @interface ShopGalleryCell : UITableViewCell
 {
-    __weak IBOutlet UIImageView *imgv;}
+    __weak IBOutlet UIImageView *imgv;
+    __weak IBOutlet UIScrollView *scroll;
+}
 
 -(void) loadImage:(NSString*) url;
+-(void) tableViewDidScroll;
 +(NSString *)reuseIdentifier;
+@property (nonatomic, weak) UITableView *table;
+@property (nonatomic, strong) NSIndexPath *indexPath;
 
 @end

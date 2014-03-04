@@ -10,7 +10,7 @@
         <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="ShopDetailInfoType3Cell" rowHeight="86" id="scN-xA-Xc2" customClass="ShopDetailInfoType3Cell">
             <rect key="frame" x="0.0" y="0.0" width="270" height="86"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="scN-xA-Xc2" id="WFw-9p-KjV">
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" contentMode="center" tableViewCell="scN-xA-Xc2" id="WFw-9p-KjV">
                 <rect key="frame" x="0.0" y="0.0" width="270" height="85"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>

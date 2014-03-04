@@ -64,6 +64,7 @@ enum DETAIL_INFO_IS_TICKED {
 @property (nonatomic, strong) NSString *image;
 @property (nonatomic, strong) NSString *title;
 @property (nonatomic, strong) NSString *content;
+@property (nonatomic, assign) int idShop;
 
 @end
 

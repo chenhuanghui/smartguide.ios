@@ -7,6 +7,7 @@
 //
 
 #import "ShopDetailInfoViewController.h"
+#import "GUIManager.h"
 
 #define SHOP_DETAIL_INFO_TABLE_EMPTY_CELL_HEIGHT 23.f
 
@@ -73,6 +74,21 @@
     }
     
     [self reloadData];
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell=[tableView cellForRowAtIndexPath:indexPath];
+    
+    if([cell isKindOfClass:[ShopDetailInfoType3Cell class]])
+    {
+        ShopDetailInfoType3Cell *infoCell=(ShopDetailInfoType3Cell*)cell;
+
+        if(infoCell.info.idShop!=0)
+        {
+            [[GUIManager shareInstance] presentShopUserWithIDShop:infoCell.info.idShop];
+        }
+    }
 }
 
 -(void)ASIOperaionPostFinished:(ASIOperationPost *)operation

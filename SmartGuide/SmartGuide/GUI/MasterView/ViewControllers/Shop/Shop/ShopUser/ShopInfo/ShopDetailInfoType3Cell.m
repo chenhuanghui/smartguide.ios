@@ -17,9 +17,15 @@
 
 -(void)loadWithInfo3:(Info3 *)info3
 {
+    _info=info3;
     [imgv loadImageInfo3WithURL:info3.image];
     lblTitle.text=info3.title;
     lblContent.text=info3.content;
+}
+
+-(Info3 *)info
+{
+    return _info;
 }
 
 -(void)setCellPos:(enum CELL_POSITION)cellPos
