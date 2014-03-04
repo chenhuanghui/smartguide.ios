@@ -11,6 +11,7 @@
 #import "UserHome7.h"
 #import "UserPromotion.h"
 #import "LabelTopText.h"
+#import "ImageScaleCrop.h"
 
 @protocol homeInfoCellDelegate <NSObject>
 
@@ -25,7 +26,7 @@
     __weak IBOutlet UILabel *lblDate;
     __weak IBOutlet LabelTopText *lblTitle;
     __weak IBOutlet LabelTopText *lblContent;
-    __weak IBOutlet UIImageView *imgvCover;
+    __weak IBOutlet ImageScaleCropHeight *imgvCover;
     __weak IBOutlet UIButton *btnGoTo;
     __weak IBOutlet UILabel *lblGoTo;
 

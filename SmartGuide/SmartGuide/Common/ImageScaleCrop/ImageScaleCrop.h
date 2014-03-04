@@ -10,8 +10,13 @@
 
 @interface ImageScaleCrop : UIImageView
 
+@property (nonatomic, assign) CGSize viewWillSize;
+
 @end
 
-@interface ImageScaleCropHeight : ImageScaleCrop
+@interface ImageScaleCropHeight : UIImageView
+
+@property (nonatomic, assign) CGSize viewWillSize;
++(CGSize) makeSizeFromImageSize:(CGSize) imageSize willWidth:(float) willWidth;
 
 @end

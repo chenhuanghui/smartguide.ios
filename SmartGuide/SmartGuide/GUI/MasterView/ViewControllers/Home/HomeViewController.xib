@@ -91,7 +91,7 @@
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         </imageView>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="x6B-Va-eYj">
-                            <rect key="frame" x="0.0" y="1" width="320" height="56"/>
+                            <rect key="frame" x="100" y="0.0" width="120" height="56"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <inset key="contentEdgeInsets" minX="0.0" minY="-1" maxX="0.0" maxY="0.0"/>
                             <state key="normal" image="button_scan.png">
@@ -102,7 +102,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="top" lineBreakMode="middleTruncation" id="OIS-pB-zut">
-                            <rect key="frame" x="0.0" y="56" width="320" height="56"/>
+                            <rect key="frame" x="100" y="56" width="120" height="56"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <inset key="contentEdgeInsets" minX="13" minY="10" maxX="0.0" maxY="0.0"/>
                             <state key="normal" image="button_scan_small.png">

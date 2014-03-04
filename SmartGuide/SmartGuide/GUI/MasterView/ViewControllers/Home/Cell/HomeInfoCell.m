@@ -20,7 +20,6 @@
     [imgvLogo loadImageHomeWithURL:home.logo];
     lblName.text=home.shopName;
     lblDate.text=home.date;
-    [imgvCover loadHome6CoverWithURL:home.cover];
     lblTitle.text=home.title;
     lblContent.text=home.content;
     
@@ -28,14 +27,16 @@
     
     [self makeButtonSize];
     
+    imgvCover.viewWillSize=home.imageHomeSize;
     
-    
-    [imgvCover l_v_setH:home.coverHeight.floatValue];
+    [imgvCover l_v_setH:home.imageHomeSize.height];
     [lblTitle l_v_setY:imgvCover.l_v_y+imgvCover.l_v_h+10];
     [lblTitle l_v_setH:home.titleHeight];
     
     [lblContent l_v_setY:lblTitle.l_v_y+lblTitle.l_v_h+10];
     [lblContent l_v_setH:home.contentHeight];
+    
+    [imgvCover loadHome6CoverWithURL:home.cover];
 }
 
 -(void)loadWithHome7:(UserHome7 *)home
@@ -45,7 +46,6 @@
     [imgvLogo loadImageHomeWithURL:home.store.logo];
     lblName.text=home.storeName;
     lblDate.text=home.date;
-    [imgvCover loadHome7CoverWithURL:home.cover];
     lblTitle.text=home.title;
     lblContent.text=home.content;
     
@@ -53,22 +53,24 @@
     
     [self makeButtonSize];
 
-    [imgvCover l_v_setH:home.coverHeight.floatValue];
+    imgvCover.viewWillSize=home.imageHomeSize;
+    
+    [imgvCover l_v_setH:home.imageHomeSize.height];
     [lblTitle l_v_setY:imgvCover.l_v_y+imgvCover.l_v_h+10];
     [lblTitle l_v_setH:home.titleHeight];
     
     [lblContent l_v_setY:lblTitle.l_v_y+lblTitle.l_v_h+10];
     [lblContent l_v_setH:home.contentHeight];
+    
+    [imgvCover loadHome7CoverWithURL:home.cover];
 }
 
 -(void)loadWithUserPromotion:(UserPromotion *)obj
 {
     _obj=obj;
     
-    [imgvLogo loadImageHomeWithURL:obj.logo];
     lblName.text=obj.brandName;
     lblDate.text=obj.date;
-    [imgvCover loadUserPromotionCoverWithURL:obj.cover];
     lblTitle.text=obj.title;
     lblContent.text=obj.desc;
     
@@ -76,15 +78,16 @@
     
     [self makeButtonSize];
     
-    [imgvCover l_v_setH:obj.coverHeight.floatValue];
+    imgvCover.viewWillSize=obj.imageHomeSize;
+    
+    [imgvCover l_v_setH:obj.imageHomeSize.height];
     [lblTitle l_v_setY:imgvCover.l_v_y+imgvCover.l_v_h+10];
     [lblTitle l_v_setH:obj.titleHeight];
 
     [lblContent l_v_setY:lblTitle.l_v_y+lblTitle.l_v_h+10];
     [lblContent l_v_setH:obj.contentHeight];
-    
-//    lblTitle.backgroundColor=[UIColor redColor];
-//    lblContent.backgroundColor=[UIColor blueColor];
+
+    [imgvCover loadUserPromotionCoverWithURL:obj.cover];
 }
 
 -(void) makeButtonSize
@@ -111,7 +114,8 @@
         home.contentHeight=[home.content sizeWithFont:[UIFont fontWithName:@"Avenir-Roman" size:13] constrainedToSize:CGSizeMake(265, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height+5;
     
     height+=home.contentHeight;
-    height+=home.coverHeight.floatValue;
+    home.imageHomeSize=[ImageScaleCropHeight makeSizeFromImageSize:CGSizeMake(home.coverWidth.floatValue, home.coverHeight.floatValue) willWidth:296];
+    height+=home.imageHomeSize.height;
     
     return height;
 }
@@ -131,7 +135,8 @@
         home.contentHeight=[home.content sizeWithFont:[UIFont fontWithName:@"Avenir-Roman" size:13] constrainedToSize:CGSizeMake(265, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height+5;
     
     height+=home.contentHeight;
-    height+=home.coverHeight.floatValue;
+    home.imageHomeSize=[ImageScaleCropHeight makeSizeFromImageSize:CGSizeMake(home.coverWidth.floatValue, home.coverHeight.floatValue) willWidth:296];
+    height+=home.imageHomeSize.height;
     
     return height;
 }
@@ -151,7 +156,8 @@
         obj.contentHeight=[obj.desc sizeWithFont:[UIFont fontWithName:@"Avenir-Roman" size:13] constrainedToSize:CGSizeMake(265, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height+5;
     
     height+=obj.contentHeight;
-    height+=obj.coverHeight.floatValue;
+    obj.imageHomeSize=[ImageScaleCropHeight makeSizeFromImageSize:CGSizeMake(obj.coverWidth.floatValue, obj.coverHeight.floatValue) willWidth:296];
+    height+=obj.imageHomeSize.height;
     
     return height;
 }

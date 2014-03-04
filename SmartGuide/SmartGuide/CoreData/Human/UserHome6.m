@@ -2,7 +2,7 @@
 #import "Utility.h"
 
 @implementation UserHome6
-@synthesize contentHeight,titleHeight;
+@synthesize contentHeight,titleHeight,imageHomeSize;
 
 -(id)initWithEntity:(NSEntityDescription *)entity insertIntoManagedObjectContext:(NSManagedObjectContext *)context
 {

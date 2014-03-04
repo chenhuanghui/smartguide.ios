@@ -2,7 +2,7 @@
 #import "Utility.h"
 
 @implementation UserPromotion
-@synthesize titleHeight,contentHeight;
+@synthesize titleHeight,contentHeight,imageHomeSize;
 
 -(id)initWithEntity:(NSEntityDescription *)entity insertIntoManagedObjectContext:(NSManagedObjectContext *)context
 {

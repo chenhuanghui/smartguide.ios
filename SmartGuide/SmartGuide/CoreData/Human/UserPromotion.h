@@ -17,5 +17,6 @@ enum USER_PROMOTION_TYPE {
 
 @property (nonatomic, assign) float titleHeight;
 @property (nonatomic, assign) float contentHeight;
+@property (nonatomic, assign) CGSize imageHomeSize;
 
 @end
