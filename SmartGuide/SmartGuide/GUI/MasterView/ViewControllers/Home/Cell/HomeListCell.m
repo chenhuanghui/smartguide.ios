@@ -35,6 +35,17 @@
         }
             break;
     }
+    
+    if(_images.count==1)
+    {
+        tableSlide.bounces=false;
+        pageControl.hidden=true;
+    }
+    else
+    {
+        tableSlide.bounces=true;
+        pageControl.hidden=false;
+    }
 }
 
 -(void)loadWithHome3:(UserHome *)home
