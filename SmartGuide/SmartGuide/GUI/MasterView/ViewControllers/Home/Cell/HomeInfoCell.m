@@ -30,11 +30,12 @@
     
     
     
-//    [imgvCover l_v_setH:home.coverHeight.floatValue];
-    [lblContent l_v_setY:165+home.titleHeight+home.coverHeight.floatValue];
-    [lblTitle l_v_setY:145+home.coverHeight.floatValue];
-    [lblTitle l_v_addH:-home.coverHeight.floatValue];
-    [lblContent l_v_addH:-home.coverHeight.floatValue];
+    [imgvCover l_v_setH:home.coverHeight.floatValue];
+    [lblTitle l_v_setY:imgvCover.l_v_y+imgvCover.l_v_h+10];
+    [lblTitle l_v_setH:home.titleHeight];
+    
+    [lblContent l_v_setY:lblTitle.l_v_y+lblTitle.l_v_h+10];
+    [lblContent l_v_setH:home.contentHeight];
 }
 
 -(void)loadWithHome7:(UserHome7 *)home
@@ -52,11 +53,12 @@
     
     [self makeButtonSize];
 
-    //    [imgvCover l_v_setH:home.coverHeight.floatValue];
-    [lblContent l_v_setY:165+home.titleHeight+home.coverHeight.floatValue];
-    [lblTitle l_v_setY:145+home.coverHeight.floatValue];
-    [lblTitle l_v_addH:-home.coverHeight.floatValue];
-    [lblContent l_v_addH:-home.coverHeight.floatValue];
+    [imgvCover l_v_setH:home.coverHeight.floatValue];
+    [lblTitle l_v_setY:imgvCover.l_v_y+imgvCover.l_v_h+10];
+    [lblTitle l_v_setH:home.titleHeight];
+    
+    [lblContent l_v_setY:lblTitle.l_v_y+lblTitle.l_v_h+10];
+    [lblContent l_v_setH:home.contentHeight];
 }
 
 -(void)loadWithUserPromotion:(UserPromotion *)obj
@@ -74,16 +76,15 @@
     
     [self makeButtonSize];
     
-    NSLog(@"%f %f %f",obj.coverHeight.floatValue,obj.titleHeight,obj.contentHeight);
-    
-    [lblTitle l_v_setY:145+obj.coverHeight.floatValue];
-    [lblContent l_v_setY:165+obj.titleHeight+obj.coverHeight.floatValue];
-    [lblTitle l_v_setH:obj.titleHeight];
-    [lblContent l_v_setH:obj.contentHeight];
     [imgvCover l_v_setH:obj.coverHeight.floatValue];
+    [lblTitle l_v_setY:imgvCover.l_v_y+imgvCover.l_v_h+10];
+    [lblTitle l_v_setH:obj.titleHeight];
+
+    [lblContent l_v_setY:lblTitle.l_v_y+lblTitle.l_v_h+10];
+    [lblContent l_v_setH:obj.contentHeight];
     
-    lblTitle.backgroundColor=[UIColor redColor];
-    lblContent.backgroundColor=[UIColor blueColor];
+//    lblTitle.backgroundColor=[UIColor redColor];
+//    lblContent.backgroundColor=[UIColor blueColor];
 }
 
 -(void) makeButtonSize
@@ -97,14 +98,17 @@
 
 +(float)heightWithHome6:(UserHome6 *)home
 {
-    float height=164;
+    float height=154;
     
-    home.titleHeight=[home.title sizeWithFont:[UIFont fontWithName:@"Georgia-Bold" size:14] constrainedToSize:CGSizeMake(275, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height-20;
+    if(home.titleHeight==-1)
+        home.titleHeight=[home.title sizeWithFont:[UIFont fontWithName:@"Georgia-Bold" size:14] constrainedToSize:CGSizeMake(275, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height+5;
+    
     home.titleHeight=MAX(0,home.titleHeight);
     
     height+=home.titleHeight;
     
-    home.contentHeight=[home.content sizeWithFont:[UIFont fontWithName:@"Avenir-Roman" size:13] constrainedToSize:CGSizeMake(265, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height;
+    if(home.contentHeight==-1)
+        home.contentHeight=[home.content sizeWithFont:[UIFont fontWithName:@"Avenir-Roman" size:13] constrainedToSize:CGSizeMake(265, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height+5;
     
     height+=home.contentHeight;
     height+=home.coverHeight.floatValue;
@@ -114,14 +118,17 @@
 
 +(float)heightWithHome7:(UserHome7 *)home
 {
-    float height=164;
+    float height=154;
     
-    home.titleHeight=[home.title sizeWithFont:[UIFont fontWithName:@"Georgia-Bold" size:14] constrainedToSize:CGSizeMake(275, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height-20;
+    if(home.titleHeight==-1)
+        home.titleHeight=[home.title sizeWithFont:[UIFont fontWithName:@"Georgia-Bold" size:14] constrainedToSize:CGSizeMake(275, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height+5;
+    
     home.titleHeight=MAX(0,home.titleHeight);
     
     height+=home.titleHeight;
     
-    home.contentHeight=[home.content sizeWithFont:[UIFont fontWithName:@"Avenir-Roman" size:13] constrainedToSize:CGSizeMake(265, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height;
+    if(home.contentHeight==-1)
+        home.contentHeight=[home.content sizeWithFont:[UIFont fontWithName:@"Avenir-Roman" size:13] constrainedToSize:CGSizeMake(265, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height+5;
     
     height+=home.contentHeight;
     height+=home.coverHeight.floatValue;
@@ -131,17 +138,17 @@
 
 +(float) heightWithUserPromotion:(UserPromotion *)obj
 {
-    float height=164;
+    float height=154;
     
     if(obj.titleHeight==-1)
-        obj.titleHeight=[obj.title sizeWithFont:[UIFont fontWithName:@"Georgia-Bold" size:14] constrainedToSize:CGSizeMake(275, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height;
+        obj.titleHeight=[obj.title sizeWithFont:[UIFont fontWithName:@"Georgia-Bold" size:14] constrainedToSize:CGSizeMake(275, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height+5;
     
     obj.titleHeight=MAX(0,obj.titleHeight);
     
     height+=obj.titleHeight;
     
     if(obj.contentHeight==-1)
-        obj.contentHeight=[obj.desc sizeWithFont:[UIFont fontWithName:@"Avenir-Roman" size:13] constrainedToSize:CGSizeMake(265, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height;
+        obj.contentHeight=[obj.desc sizeWithFont:[UIFont fontWithName:@"Avenir-Roman" size:13] constrainedToSize:CGSizeMake(265, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height+5;
     
     height+=obj.contentHeight;
     height+=obj.coverHeight.floatValue;

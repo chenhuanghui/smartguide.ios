@@ -4,6 +4,16 @@
 @implementation UserHome6
 @synthesize contentHeight,titleHeight;
 
+-(id)initWithEntity:(NSEntityDescription *)entity insertIntoManagedObjectContext:(NSManagedObjectContext *)context
+{
+    self=[super initWithEntity:entity insertIntoManagedObjectContext:context];
+    
+    contentHeight=-1;
+    titleHeight=-1;
+    
+    return self;
+}
+
 +(UserHome6 *)makeWithDictionary:(NSDictionary *)dict
 {
     UserHome6 *home=[UserHome6 insert];
