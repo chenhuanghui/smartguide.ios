@@ -180,7 +180,7 @@ static NSString * const kClientId = @"816218358288-msr055u6pvnlqep605ri3lu8tt5ev
 #define DURATION_SETTING 0.2f
 #define DURATION_PRESENT_VIEW_CONTROLLER 0.3f
 
-#define MAP_SPAN 3000
+#define MAP_SPAN 1000
 
 enum SORT_STORE_SHOP_LIST_TYPE {
     SORT_STORE_SHOP_LIST_LATEST = 0,

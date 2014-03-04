@@ -798,6 +798,16 @@
 
 -(void) clearMap
 {
+    for(id<MKAnnotation> ann in map.annotations)
+    {
+        MKAnnotationView *pin=[map viewForAnnotation:ann];
+        
+        if([pin isKindOfClass:[ShopPinView class]])
+        {
+            [((ShopPinView*)pin) hideInfo];
+        }
+    }
+    
     [map removeAnnotations:map.annotations];
     [map removeOverlays:map.overlays];
     
@@ -1346,7 +1356,6 @@
         btnScanSmall.frame=_buttonScanBigFrame;
         
         scrollerView.alpha=true;
-        
     } completion:^(BOOL finished) {
         self.view.userInteractionEnabled=true;
         scrollerView.hidden=true;
