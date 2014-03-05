@@ -7,7 +7,7 @@
 //
 
 #import "SGViewController.h"
-#import "GMGridView.h"
+#import "GalleryFullCell.h"
 
 @class GalleryFullViewController,GalleryFullGridCell;
 
@@ -23,9 +23,9 @@
 
 @end
 
-@interface GalleryFullViewController : SGViewController<GMGridViewDataSource,GMGridViewActionDelegate,GalleryFullProtocol,UIScrollViewDelegate>
+@interface GalleryFullViewController : SGViewController<UITableViewDataSource,UITableViewDelegate,GalleryFullProtocol,UIScrollViewDelegate>
 {
-    __weak IBOutlet GMGridView *grid;
+    __weak IBOutlet UITableView *table;
     __weak SGViewController *_parentController;
 }
 
@@ -35,14 +35,5 @@
 -(id) selectedObject;
 
 @property (nonatomic, weak) id<GalleryFullControllerDelegate> delegate;
-
-@end
-
-@interface GalleryFullGridCell : GMGridViewCell
-{
-    __weak UIImageView *imageView;
-}
-
--(UIImageView*) imageView;
 
 @end

@@ -86,6 +86,11 @@ NSURL* URL(NSString* url)
     return [NSURL URLWithString:url];
 }
 
+NSIndexPath *indexPath(int row, int section)
+{
+    return [NSIndexPath indexPathForRow:row inSection:section];
+}
+
 NSString *documentPath()
 {
     NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);

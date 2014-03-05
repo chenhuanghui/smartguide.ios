@@ -36,7 +36,7 @@
         
         if(index!=NSNotFound)
         {
-            [grid scrollToObjectAtIndex:index atScrollPosition:GMGridViewScrollPositionNone animated:false];
+            [table scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] atScrollPosition:UITableViewScrollPositionNone animated:false];
         }
     }
 }
@@ -55,19 +55,18 @@
     // Dispose of any resources that can be recreated.
 }
 
--(NSInteger)numberOfItemsInGMGridView:(GMGridView *)gridView
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return _galleries.count;
 }
 
--(GMGridViewCell *)GMGridView:(GMGridView *)gridView cellForItemAtIndex:(NSInteger)index
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    GalleryFullGridCell *cell=(GalleryFullGridCell*)[super GMGridView:gridView cellForItemAtIndex:index];
-    ShopGallery *gallery=_galleries[index];
+    GalleryFullCell *cell=(GalleryFullCell*)[super tableView:tableView cellForRowAtIndexPath:indexPath];
+    ShopGallery *gallery=_galleries[indexPath.row];
     
-    [cell.imageView loadShopGalleryWithURL:gallery.image];
+    [cell loadImageURL:gallery.image];
     
     return cell;
 }
-
 @end

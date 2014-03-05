@@ -360,6 +360,8 @@
 		9A616D061843BE5000201642 /* background_scan@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A616D021843BE5000201642 /* background_scan@2x.png */; };
 		9A616D091843C19500201642 /* button_notification.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A616D071843C19500201642 /* button_notification.png */; };
 		9A616D0A1843C19500201642 /* button_notification@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A616D081843C19500201642 /* button_notification@2x.png */; };
+		9A63FA3F18C6E15A0083FE57 /* GalleryFullCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A63FA3E18C6E15A0083FE57 /* GalleryFullCell.m */; };
+		9A63FA4118C6E1640083FE57 /* GalleryFullCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A63FA4018C6E1640083FE57 /* GalleryFullCell.xib */; };
 		9A66893B184DC6F2006A9EB2 /* bg_detailcover.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A668937184DC6F2006A9EB2 /* bg_detailcover.png */; };
 		9A66893C184DC6F2006A9EB2 /* line_detail.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A668938184DC6F2006A9EB2 /* line_detail.png */; };
 		9A66893D184DC6F2006A9EB2 /* bg_detailcover@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A668939184DC6F2006A9EB2 /* bg_detailcover@2x.png */; };
@@ -1591,6 +1593,9 @@
 		9A616D021843BE5000201642 /* background_scan@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background_scan@2x.png"; sourceTree = "<group>"; };
 		9A616D071843C19500201642 /* button_notification.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_notification.png; sourceTree = "<group>"; };
 		9A616D081843C19500201642 /* button_notification@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_notification@2x.png"; sourceTree = "<group>"; };
+		9A63FA3D18C6E15A0083FE57 /* GalleryFullCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GalleryFullCell.h; sourceTree = "<group>"; };
+		9A63FA3E18C6E15A0083FE57 /* GalleryFullCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GalleryFullCell.m; sourceTree = "<group>"; };
+		9A63FA4018C6E1640083FE57 /* GalleryFullCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GalleryFullCell.xib; sourceTree = "<group>"; };
 		9A668937184DC6F2006A9EB2 /* bg_detailcover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_detailcover.png; sourceTree = "<group>"; };
 		9A668938184DC6F2006A9EB2 /* line_detail.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = line_detail.png; sourceTree = "<group>"; };
 		9A668939184DC6F2006A9EB2 /* bg_detailcover@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg_detailcover@2x.png"; sourceTree = "<group>"; };
@@ -3633,6 +3638,9 @@
 				9AEE6C55189022B20059B93C /* GalleryFullViewController.h */,
 				9AEE6C56189022B20059B93C /* GalleryFullViewController.m */,
 				9AEE6C57189022B20059B93C /* GalleryFullViewController.xib */,
+				9A63FA3D18C6E15A0083FE57 /* GalleryFullCell.h */,
+				9A63FA3E18C6E15A0083FE57 /* GalleryFullCell.m */,
+				9A63FA4018C6E1640083FE57 /* GalleryFullCell.xib */,
 				9A28390C1890CCDA00C7BB35 /* ShopGalleryFullViewController.h */,
 				9A28390D1890CCDA00C7BB35 /* ShopGalleryFullViewController.m */,
 				9A28390F1890CCE800C7BB35 /* UserGalleryFullViewController.h */,
@@ -5406,6 +5414,7 @@
 				9A889BE8187AC73D00602CBB /* background_login@2x.jpg in Resources */,
 				9A98C917188E83A30067EAD3 /* button_loading_big_01@2x.png in Resources */,
 				9A7E5570183C7F21006D1798 /* photo_firsttime@2x.png in Resources */,
+				9A63FA4118C6E1640083FE57 /* GalleryFullCell.xib in Resources */,
 				9A3986B0185B6A8A006C0961 /* pattern-navigation.jpg in Resources */,
 				9AC979FB186C273B00E5432D /* frame_avashop_home@2x.png in Resources */,
 				9AC979FC186C273B00E5432D /* icon_go.png in Resources */,
@@ -5901,6 +5910,7 @@
 				A921B03817A8BCAB00DC6D4D /* _ShopProduct.m in Sources */,
 				9A889BBD187AAE8F00602CBB /* ASIOperationUserProfile.m in Sources */,
 				9A0F7616187152DB00160E54 /* InfoTypeBGView.m in Sources */,
+				9A63FA3F18C6E15A0083FE57 /* GalleryFullCell.m in Sources */,
 				9ACF7A5A1869589900B0BC78 /* OperationGeoCoder.m in Sources */,
 				9AB3693D1888371E00551E03 /* ShopDetailInfoDescCell.m in Sources */,
 				9A0F7645187152DB00160E54 /* ShopUserViewController.m in Sources */,

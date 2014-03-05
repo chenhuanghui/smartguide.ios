@@ -42,6 +42,7 @@ void makePhoneCall(NSString* phone);
 int random_int(int from, int to);
 float UIScreenScale();
 NSURL* URL(NSString* url);
+NSIndexPath *indexPath(int row, int section);
 
 NSUInteger UIViewAutoresizingAll();
 

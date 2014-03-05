@@ -36,7 +36,7 @@
         
         if(index!=NSNotFound)
         {
-            [grid scrollToObjectAtIndex:index atScrollPosition:GMGridViewScrollPositionNone animated:false];
+            [table scrollToRowAtIndexPath:indexPath(index,0) atScrollPosition:UITableViewScrollPositionNone animated:false];
         }
     }
 }
@@ -49,17 +49,17 @@
     return nil;
 }
 
--(NSInteger)numberOfItemsInGMGridView:(GMGridView *)gridView
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return _galleries.count;
 }
 
--(GMGridViewCell *)GMGridView:(GMGridView *)gridView cellForItemAtIndex:(NSInteger)index
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    GalleryFullGridCell *cell=(GalleryFullGridCell*)[super GMGridView:gridView cellForItemAtIndex:index];
-    ShopUserGallery *gallery=_galleries[index];
+    GalleryFullCell *cell=(GalleryFullCell*)[super tableView:table cellForRowAtIndexPath:indexPath];
+    ShopUserGallery *gallery=_galleries[indexPath.row];
     
-    [cell.imageView loadShopGalleryWithURL:gallery.image];
+    [cell loadImageURL:gallery.image];
     
     return cell;
 }

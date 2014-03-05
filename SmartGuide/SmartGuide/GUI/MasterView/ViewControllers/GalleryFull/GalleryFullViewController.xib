@@ -7,7 +7,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="GalleryFullViewController">
             <connections>
-                <outlet property="grid" destination="phR-tZ-kZv" id="wb0-X9-YBn"/>
+                <outlet property="table" destination="5ZO-fo-Uj0" id="Wyq-uf-4LP"/>
                 <outlet property="view" destination="1" id="3"/>
             </connections>
         </placeholder>
@@ -16,15 +16,15 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="phR-tZ-kZv" customClass="GMGridView">
+                <tableView contentMode="scaleToFill" bounces="NO" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="5ZO-fo-Uj0">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <connections>
-                        <outlet property="actionDelegate" destination="-1" id="VP5-V2-s9T"/>
-                        <outlet property="delegate" destination="-1" id="s0m-Pe-cwZ"/>
+                        <outlet property="dataSource" destination="-1" id="lKP-Og-mRB"/>
+                        <outlet property="delegate" destination="-1" id="6Ng-M6-ctX"/>
                     </connections>
-                </scrollView>
+                </tableView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Xnu-eb-ZDT">
                     <rect key="frame" x="0.0" y="0.0" width="54" height="54"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>

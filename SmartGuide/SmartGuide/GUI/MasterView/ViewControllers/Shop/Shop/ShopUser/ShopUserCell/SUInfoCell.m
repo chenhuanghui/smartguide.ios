@@ -32,7 +32,7 @@
 {
     float height=187;
     
-    height+=[address sizeWithFont:[UIFont fontWithName:@"Avenir-Heavy" size:13] constrainedToSize:CGSizeMake(269, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height;
+    height+=[address sizeWithFont:[UIFont fontWithName:@"Avenir-Roman" size:13] constrainedToSize:CGSizeMake(269, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height;
     
     return height;
 }
