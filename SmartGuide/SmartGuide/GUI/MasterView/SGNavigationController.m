@@ -146,7 +146,7 @@ CATransition* transitionPushFromRight()
     }
 }
 
--(void)setRootViewController:(UIViewController *)viewController animate:(bool)animate
+-(void)setRootViewController:(UIViewController *)viewController animate:(bool)animate onCompleted:(void (^)())onCompleted
 {
     __block __weak SGNavigationController *weakSelf=self;
     _onPushedViewController=nil;
@@ -156,9 +156,19 @@ CATransition* transitionPushFromRight()
             [[weakSelf.viewControllers[0] view] removeFromSuperview];
             [weakSelf.viewControllers[0] removeFromParentViewController];
         }
+        
+        if(onCompleted)
+        {
+            onCompleted();
+        }
     };
     
     [self pushViewController:viewController animated:animate];
+}
+
+-(void)setRootViewController:(UIViewController *)viewController animate:(bool)animate
+{
+    [self setRootViewController:viewController animate:animate onCompleted:nil];
 }
 
 -(void)setRootViewControllers:(NSArray *)viewControllers animate:(bool)animate

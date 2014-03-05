@@ -36,9 +36,9 @@
     lblName.text=shopList.shopName;
     lblAddress.text=shopList.address;
     lblContent.text=shopList.desc;
-    [btnNumOfView setTitle:[NSString stringWithFormat:@"%@ đã xem",[_shop numOfView]] forState:UIControlStateNormal];
+    [btnNumOfView setTitle:[NSString stringWithFormat:@"%@ lượt xem",[_shop numOfView]] forState:UIControlStateNormal];
     [btnNumOfLove setTitle:[NSString stringWithFormat:@"%@ lượt thích",[_shop numOfLove]] forState:UIControlStateNormal];
-    [btnNumOfComment setTitle:[NSString stringWithFormat:@"%@ bình luận",[_shop numOfComment]] forState:UIControlStateNormal];
+    [btnNumOfComment setTitle:[NSString stringWithFormat:@"%@ nhận xét",[_shop numOfComment]] forState:UIControlStateNormal];
 }
 
 -(void)setButtonTypeIsTypeAdded:(bool)isTypeAdded

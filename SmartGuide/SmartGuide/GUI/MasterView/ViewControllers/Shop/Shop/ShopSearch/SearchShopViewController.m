@@ -64,6 +64,12 @@
     txt.text=_keyword;
     [txt addTarget:self action:@selector(textFieldDidChangedText:) forControlEvents:UIControlEventEditingChanged];
     
+    if(txt.text.length>0)
+    {
+        txt.text=TEXTFIELD_SEARCH_PLACEHOLDER_TEXT;
+        txt.placeholder=TEXTFIELD_SEARCH_PLACEHOLDER_TEXT;
+    }
+    
     _placeLists=[NSMutableArray array];
     
     _pagePlacelist=-1;
@@ -316,7 +322,7 @@
                 {
                     SearchShopHeaderCell *cell=[table dequeueReusableCellWithIdentifier:[SearchShopHeaderCell reuseIdentifier]];
                     
-                    [cell setHeaderText:@"Cửa hàng"];
+                    [cell setHeaderText:@"Địa điểm"];
                     
                     return cell;
                 }
@@ -341,7 +347,7 @@
                 {
                     SearchShopHeaderCell *cell=[table dequeueReusableCellWithIdentifier:[SearchShopHeaderCell reuseIdentifier]];
                     
-                    [cell setHeaderText:@"Placelist"];
+                    [cell setHeaderText:@"Danh sách địa điểm"];
                     
                     return cell;
                 }

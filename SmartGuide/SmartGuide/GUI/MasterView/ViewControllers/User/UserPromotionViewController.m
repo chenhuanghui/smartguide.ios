@@ -41,6 +41,9 @@
     
     [self storeRect];
     
+    txt.placeholder=TEXTFIELD_SEARCH_PLACEHOLDER_TEXT;
+    txt.text=TEXTFIELD_SEARCH_PLACEHOLDER_TEXT;
+    
     txt.leftView=[[UIView alloc] initWithFrame:CGRectMake(0, 0, 35, txt.frame.size.height)];
     txt.leftView.backgroundColor=[UIColor clearColor];
     txt.leftViewMode=UITextFieldViewModeAlways;

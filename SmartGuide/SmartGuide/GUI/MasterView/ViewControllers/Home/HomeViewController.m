@@ -48,6 +48,9 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+
+    txt.placeholder=TEXTFIELD_SEARCH_PLACEHOLDER_TEXT;
+    txt.text=TEXTFIELD_SEARCH_PLACEHOLDER_TEXT;
     
     txt.leftView=[[UIView alloc] initWithFrame:CGRectMake(0, 0, 35, txt.frame.size.height)];
     txt.leftView.backgroundColor=[UIColor clearColor];

@@ -42,7 +42,4 @@ enum SEARCH_VIEW_MODE {
 -(SearchViewController*) initWithPlace:(Placelist*) place;
 -(SearchViewController*) initWithIDShops:(NSString*) idShops;
 
-@property (nonatomic, weak) ShopListViewController *shopListController;
-@property (nonatomic, weak) SearchShopViewController *searchShopController;
-
 @end

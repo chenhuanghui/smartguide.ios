@@ -93,8 +93,6 @@
             vc.searchController=self;
             vc.delegate=self;
             
-            self.shopListController=vc;
-            
             root=vc;
         }
             break;
@@ -104,8 +102,6 @@
             SearchShopViewController *vc=[[SearchShopViewController alloc] initWithKeyword:_keyword];
             vc.searchController=self;
             vc.delegate=self;
-            
-            self.searchShopController=vc;
             
             root=vc;
         }
@@ -117,8 +113,6 @@
             vc.searchController=self;
             vc.delegate=self;
             
-            self.shopListController=vc;
-            
             root=vc;
         }
             break;
@@ -128,8 +122,6 @@
             ShopListViewController *vc=[[ShopListViewController alloc] initWithPlaceList:_home3.place];
             vc.searchController=self;
             vc.delegate=self;
-            
-            self.shopListController=vc;
             
             root=vc;
         }
@@ -177,24 +169,6 @@
     [self showShopListWithKeyword:keyword];
 }
 
--(void) showSearchShopWithKeyword:(NSString*) keyword
-{
-    if(self.searchShopController)
-    {
-        [self.searchShopController setKeyword:keyword];
-        [searchNavi makePushViewController:self.searchShopController animate:true];
-    }
-    else
-    {
-        SearchShopViewController *vc=[[SearchShopViewController alloc] initWithKeyword:keyword];
-        vc.delegate=self;
-        
-        self.searchShopController=vc;
-        
-        [searchNavi pushViewController:vc animated:true];
-    }
-}
-
 -(void) showShopListWithKeyword:(NSString*) keyword
 {
     ShopListViewController *vc=[[ShopListViewController alloc] initWithKeyword:keyword];
@@ -207,8 +181,6 @@
 {
     ShopListViewController *vc=[[ShopListViewController alloc] initWithIDPlacelist:idPlacelist];
     vc.delegate=self;
-    
-    self.shopListController=vc;
     
     [self showShopListController:vc];
 }
@@ -223,14 +195,40 @@
 
 -(void) showShopListController:(ShopListViewController*) controller
 {
-    self.shopListController=controller;
-    
-    [searchNavi setRootViewController:controller animate:true];
+    [searchNavi pushViewController:controller onCompleted:^{
+        
+        NSMutableArray *array=[NSMutableArray array];
+        for(UIViewController *vc in searchNavi.viewControllers)
+        {
+            if([vc isKindOfClass:[ShopListViewController class]])
+            {
+                if(vc !=controller)
+                    [searchNavi removeViewController:vc];
+            }
+            else if([vc isKindOfClass:[SearchShopViewController class]])
+            {
+                [array addObject:vc];
+            }
+        }
+        
+        if(array.count>=1)
+        {
+            [array removeLastObject];
+        }
+        
+        for(UIViewController *vc in array)
+        {
+            [searchNavi removeViewController:vc];
+        }
+    }];
 }
 
 -(void)shopListControllerTouchedTextField:(ShopListViewController *)controller
 {
-    [self showSearchShopWithKeyword:controller.keyword];
+    SearchShopViewController *vc=[[SearchShopViewController alloc] initWithKeyword:@""];
+    vc.delegate=self;
+    
+    [searchNavi pushViewController:vc animated:true];
 }
 
 -(void)shopListControllerTouchedBack:(ShopListViewController *)controller

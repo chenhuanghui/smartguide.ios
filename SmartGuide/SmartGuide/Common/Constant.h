@@ -26,6 +26,8 @@
 
 static NSString * const kClientId = @"816218358288-msr055u6pvnlqep605ri3lu8tt5ev8u7.apps.googleusercontent.com";
 
+#define TEXTFIELD_SEARCH_PLACEHOLDER_TEXT @"Tìm kiếm địa điểm"
+
 #define BUILD_MODE 0
 //0: developer
 //1: production
