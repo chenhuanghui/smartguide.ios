@@ -11,6 +11,7 @@
 #import "Utility.h"
 #import "ImageManager.h"
 #import "GUIManager.h"
+#import "LoadingMoreCellHori.h"
 
 @implementation SUShopGalleryCell
 @synthesize delegate;
@@ -18,6 +19,10 @@
 -(void)loadWithShop:(Shop *)shop
 {
     _shop=shop;
+    
+    _canLoadMore=shop.shopGalleriesObjects.count>0 && shop.shopGalleriesObjects.count%10==0;
+    _isLoadingMore=false;
+    _page=MAX(0,shop.shopGalleriesObjects.count/10-1);
     
     switch (shop.enumDataMode) {
             
@@ -67,6 +72,20 @@
     return 327;
 }
 
+-(void) requestShopGallery
+{
+    if(_operationShopGallery)
+    {
+        [_operationShopGallery clearDelegatesAndCancel];
+        _operationShopGallery=nil;
+    }
+    
+    _operationShopGallery=[[ASIOperationShopGallery alloc] initWithWithIDShop:_shop.idShop.integerValue userLat:userLat() userLng:userLng() page:_page+1];
+    _operationShopGallery.delegatePost=self;
+    
+    [_operationShopGallery startAsynchronous];
+}
+
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     if(scrollView==table)
@@ -75,7 +94,8 @@
         
         for(ShopGalleryCell *cell in table.visibleCells)
         {
-            [cell tableViewDidScroll];
+            if([cell isKindOfClass:[ShopGalleryCell class]])
+                [cell tableViewDidScroll];
         }
     }
     else
@@ -89,7 +109,7 @@
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
+    return _shop.shopGalleriesObjects.count==0?0:1;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -97,10 +117,11 @@
     switch (_shop.enumDataMode) {
         case SHOP_DATA_HOME_8:
         case SHOP_DATA_SHOP_LIST:
+            
             return 1;
             
         case SHOP_DATA_FULL:
-            return _shop.shopGalleriesObjects.count;
+            return _shop.shopGalleriesObjects.count+(_canLoadMore?1:0);
             
         case SHOP_DATA_IDSHOP:
             return 0;
@@ -114,6 +135,18 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if(_canLoadMore && indexPath.row==[tableView numberOfRowsInSection:indexPath.section]-1)
+    {
+        if(!_isLoadingMore)
+        {
+            _isLoadingMore=true;
+            
+            [self requestShopGallery];
+        }
+        
+        return [tableView loadingMoreCellHori];
+    }
+    
     ShopGalleryCell *cell=[tableView dequeueReusableCellWithIdentifier:[ShopGalleryCell reuseIdentifier]];
     
     cell.table=tableView;
@@ -157,6 +190,7 @@
     table.frame=rect;
     
     [table registerNib:[UINib nibWithNibName:[ShopGalleryCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[ShopGalleryCell reuseIdentifier]];
+    [table registerLoadingMoreCellHori];
     
     ButtonLove *love=[ButtonLove new];
     [love l_v_setO:CGPointMake(87, 288)];
@@ -239,6 +273,18 @@
         
         _operationLoveShop=nil;
     }
+    else if([operation isKindOfClass:[ASIOperationShopGallery class]])
+    {
+        ASIOperationShopGallery *ope=(ASIOperationShopGallery*) operation;
+        _canLoadMore=ope.galleries.count==10;
+        _isLoadingMore=false;
+        _page++;
+        
+        [table reloadData];
+        [self scrollViewDidScroll:table];
+        
+        _operationShopGallery=nil;
+    }
 }
 
 -(void)ASIOperaionPostFailed:(ASIOperationPost *)operation
@@ -246,6 +292,10 @@
     if([operation isKindOfClass:[ASIOperationLoveShop class]])
     {
         _operationLoveShop=nil;
+    }
+    else if([operation isKindOfClass:[ASIOperationShopGallery class]])
+    {
+        _operationShopGallery=nil;
     }
 }
 
@@ -256,11 +306,23 @@
         [_operationLoveShop clearDelegatesAndCancel];
         _operationLoveShop=nil;
     }
+    
+    if(_operationShopGallery)
+    {
+        [_operationShopGallery clearDelegatesAndCancel];
+        _operationShopGallery=nil;
+    }
 }
 
 -(IBAction) btnInfoTouchUpInside:(id)sender
 {
     [self.delegate suShopGalleryTouchedMoreInfo:self];
+}
+
+-(void)reloadImage
+{
+    [table reloadData];
+    [self scrollViewDidScroll:table];
 }
 
 @end

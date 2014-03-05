@@ -33,7 +33,7 @@
 #import "ASIOperationShopComment.h"
 #import "ASIOperationPostComment.h"
 #import "ASIOperationSocialShare.h"
-#import "ShopGalleryViewController.h"
+#import "GalleryViewController.h"
 #import "ButtonBackShopUser.h"
 #import "ShopGalleryFullViewController.h"
 #import "UserGalleryFullViewController.h"
@@ -84,7 +84,7 @@ enum SHOP_USER_MODE {
     __weak ShopGallery *_selectedShopGallery;
     __weak ShopUserGallery *_selectedUserGallery;
     
-    __weak ShopGalleryViewController *shopGalleryController;
+    __weak GalleryViewController *galleryController;
     
     CGRect _btnNextFrame;
     CGRect _cmtTypingFrame;

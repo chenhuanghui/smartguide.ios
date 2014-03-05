@@ -7,8 +7,9 @@
 //
 
 #import "ShopGalleryFullViewController.h"
+#import "LoadingMoreCellHori.h"
 
-@interface ShopGalleryFullViewController ()
+@interface ShopGalleryFullViewController ()<ASIOperationPostDelegate>
 
 @end
 
@@ -20,7 +21,10 @@
     
     _shop=shop;
     _selectedGallery=gallery;
-    _galleries=[_shop.shopGalleriesObjects mutableCopy];
+
+    _canLoadMore=shop.shopGalleriesObjects.count>0 && shop.shopGalleriesObjects.count%10==0;
+    _isLoadingMore=false;
+    _page=MAX(0,shop.shopGalleriesObjects.count/10-1);
     
     return self;
 }
@@ -30,9 +34,11 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     
+    [table registerLoadingMoreCellHori];
+    
     if(_selectedGallery)
     {
-        int index=[_galleries indexOfObject:_selectedGallery];
+        int index=[_shop.shopGalleriesObjects indexOfObject:_selectedGallery];
         
         if(index!=NSNotFound)
         {
@@ -43,8 +49,8 @@
 
 -(id)galleryItemAtIndex:(int)index
 {
-    if([_galleries isIndexInside:index])
-        return _galleries[index];
+    if([_shop.shopGalleriesObjects isIndexInside:index])
+        return _shop.shopGalleriesObjects[index];
     
     return nil;
 }
@@ -55,18 +61,69 @@
     // Dispose of any resources that can be recreated.
 }
 
+-(void) requestGalleries
+{
+    if(_operationShopGallery)
+    {
+        [_operationShopGallery clearDelegatesAndCancel];
+        _operationShopGallery=nil;
+    }
+    
+    _operationShopGallery=[[ASIOperationShopGallery alloc] initWithWithIDShop:_shop.idShop.integerValue userLat:userLat() userLng:userLng() page:_page+1];
+    _operationShopGallery.delegatePost=self;
+    
+    [_operationShopGallery startAsynchronous];
+}
+
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return _galleries.count;
+    return _shop.shopGalleriesObjects.count+(_canLoadMore?1:0);
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if(_canLoadMore && indexPath.row==[tableView numberOfRowsInSection:indexPath.section]-1)
+    {
+        if(!_isLoadingMore)
+        {
+            _isLoadingMore=true;
+            
+            [self requestGalleries];
+        }
+        
+        return [table loadingMoreCellHori];
+    }
+    
     GalleryFullCell *cell=(GalleryFullCell*)[super tableView:tableView cellForRowAtIndexPath:indexPath];
-    ShopGallery *gallery=_galleries[indexPath.row];
+    ShopGallery *gallery=_shop.shopGalleriesObjects[indexPath.row];
     
     [cell loadImageURL:gallery.image];
     
     return cell;
 }
+
+-(void)ASIOperaionPostFinished:(ASIOperationPost *)operation
+{
+    if([operation isKindOfClass:[ASIOperationShopGallery class]])
+    {
+        ASIOperationShopGallery *ope=(ASIOperationShopGallery*) operation;
+        
+        _canLoadMore=ope.galleries.count==10;
+        _isLoadingMore=false;
+        _page++;
+        
+        [self reloadData];
+        
+        _operationShopGallery=nil;
+    }
+}
+
+-(void)ASIOperaionPostFailed:(ASIOperationPost *)operation
+{
+    if([operation isKindOfClass:[ASIOperationShopGallery class]])
+    {
+        _operationShopGallery=nil;
+    }
+}
+
 @end

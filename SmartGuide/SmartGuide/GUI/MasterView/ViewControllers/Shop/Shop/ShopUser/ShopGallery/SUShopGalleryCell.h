@@ -12,6 +12,7 @@
 #import "ShopList.h"
 #import "Shop.h"
 #import "ASIOperationLoveShop.h"
+#import "ASIOperationShopGallery.h"
 
 @class SUShopGalleryCell;
 
@@ -38,9 +39,15 @@
     
     __weak Shop *_shop;
     ASIOperationLoveShop *_operationLoveShop;
+    ASIOperationShopGallery *_operationShopGallery;
+    
+    bool _canLoadMore;
+    bool _isLoadingMore;
+    int _page;
 }
 
 -(void) loadWithShop:(Shop*) shop;
+-(void) reloadImage;
 
 @property (nonatomic, weak) id<SUShopGalleryDelegate> delegate;
 

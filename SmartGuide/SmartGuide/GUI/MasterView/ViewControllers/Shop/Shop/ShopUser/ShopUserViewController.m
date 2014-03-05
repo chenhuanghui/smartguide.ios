@@ -948,13 +948,13 @@
 
 -(void)suShopGalleryTouchedCover:(SUShopGalleryCell *)cell object:(ShopGallery *)gallery
 {
-    ShopGalleryViewController *vc=[[ShopGalleryViewController alloc] initWithShop:_shop withMode:SHOP_GALLERY_VIEW_SHOP];
+    ShopGalleryViewController *vc=[[ShopGalleryViewController alloc] initWithShop:_shop];
     vc.delegate=self;
     
     _selectedShopGallery=gallery;
     
     [vc setSelectedGallery:_selectedShopGallery];
-    shopGalleryController=vc;
+    galleryController=vc;
     
     [self pushViewController:vc];
 }
@@ -964,13 +964,18 @@
     if([controller isKindOfClass:[ShopGalleryFullViewController class]])
     {
         _selectedShopGallery=[controller selectedObject];
-        [shopGalleryController setSelectedGallery:_selectedShopGallery];
+        [galleryController setSelectedGallery:_selectedShopGallery];
     }
     else if([controller isKindOfClass:[UserGalleryFullViewController class]])
     {
         _selectedUserGallery=[controller selectedObject];
-        [shopGalleryController setSelectedGallery:_selectedUserGallery];
+        [galleryController setSelectedGallery:_selectedUserGallery];
     }
+}
+
+-(void)galleryFullReloadData:(GalleryFullViewController *)controller
+{
+    [galleryController reloadImage];
 }
 
 -(void) pushViewController:(SGViewController*) vc
@@ -1004,19 +1009,19 @@
 
 -(void)userGalleryTouchedGallery:(SUUserGalleryCell *)cell gallery:(ShopUserGallery *)gallery
 {
-    ShopGalleryViewController *vc=[[ShopGalleryViewController alloc] initWithShop:_shop withMode:SHOP_GALLERY_VIEW_USER];
+    UserGalleryViewController *vc=[[UserGalleryViewController alloc] initWithShop:_shop];
     vc.delegate=self;
     
     _selectedUserGallery=gallery;
     
     [vc setSelectedGallery:_selectedUserGallery];
     
-    shopGalleryController=vc;
+    galleryController=vc;
     
     [self pushViewController:vc];
 }
 
--(void)shopGalleryTouchedGallery:(ShopGalleryViewController *)controller gallery:(id)gallery
+-(void)shopGalleryTouchedGallery:(GalleryViewController *)controller gallery:(id)gallery
 {
     if([gallery isKindOfClass:[ShopGallery class]])
     {
@@ -1050,6 +1055,14 @@
     {
         if(![vc navigationWillBack])
             return;
+    }
+    
+    if([shopNavi.visibleViewController isKindOfClass:[GalleryViewController class]])
+    {
+        if([galleryController isKindOfClass:[ShopGalleryViewController class]])
+            [shopGalleryCell reloadImage];
+        else if([galleryController isKindOfClass:[UserGalleryViewController class]])
+            [userGalleryCell reloadImage];
     }
     
     [btnBack startHideAnimateOnCompleted:^(UIButton *btn) {

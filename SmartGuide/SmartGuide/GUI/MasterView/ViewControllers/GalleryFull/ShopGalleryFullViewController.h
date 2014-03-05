@@ -8,12 +8,17 @@
 
 #import "GalleryFullViewController.h"
 #import "Shop.h"
+#import "ASIOperationShopGallery.h"
 
 @interface ShopGalleryFullViewController : GalleryFullViewController
 {
     __weak Shop* _shop;
     ShopGallery *_selectedGallery;
-    NSMutableArray *_galleries;
+
+    bool _canLoadMore;
+    bool _isLoadingMore;
+    int _page;
+    ASIOperationShopGallery *_operationShopGallery;
 }
 
 -(ShopGalleryFullViewController*) initWithShop:(Shop*) shop selectedGallery:(ShopGallery*) gallery;

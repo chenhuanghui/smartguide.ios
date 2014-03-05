@@ -20,6 +20,7 @@
 @protocol GalleryFullControllerDelegate <SGViewControllerDelegate>
 
 -(void) galleryFullTouchedBack:(GalleryFullViewController*) controller;
+-(void) galleryFullReloadData:(GalleryFullViewController*) controller;
 
 @end
 
@@ -30,6 +31,7 @@
 }
 
 -(GalleryFullViewController*) initWithParentController:(SGViewController*) parentControlelr;
+-(void) reloadData;
 
 -(void) setParentController:(SGViewController*) parentController;
 -(id) selectedObject;

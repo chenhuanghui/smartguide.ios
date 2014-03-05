@@ -207,6 +207,13 @@
     [grid l_co_addX:[ShopUserGalleryCell size].width animate:true];
 }
 
+-(void)reloadImage
+{
+    [grid reloadData];
+    
+    [self scrollViewDidScroll:grid];
+}
+
 @end
 
 @implementation UserGalleryGridView

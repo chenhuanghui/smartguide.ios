@@ -80,7 +80,8 @@
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     for(GalleryFullCell *cell in table.visibleCells)
-        [cell tableDidScroll];
+        if([cell isKindOfClass:[GalleryFullCell class]])
+            [cell tableDidScroll];
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -110,7 +111,7 @@
 
 -(id)selectedObject
 {
-    NSIndexPath *indexPath=[table indexPathForRowAtPoint:CGPointMake(table.l_co_x+table.l_v_w/2,table.l_v_h/2)];
+    NSIndexPath *indexPath=[table indexPathForRowAtPoint:CGPointMake(table.l_v_w/2,table.l_co_y+table.l_v_h/2)];
     
     if(indexPath)
     {
@@ -141,6 +142,13 @@
     }
     else
         [self.delegate galleryFullTouchedBack:self];
+}
+
+-(void)reloadData
+{
+    [table reloadData];
+    [self scrollViewDidScroll:table];
+    [self.delegate galleryFullReloadData:self];
 }
 
 @end

@@ -37,6 +37,7 @@
 }
 
 -(void) loadWithShop:(Shop*) shop;
+-(void) reloadImage;
 
 +(float) height;
 +(NSString *)reuseIdentifier;
