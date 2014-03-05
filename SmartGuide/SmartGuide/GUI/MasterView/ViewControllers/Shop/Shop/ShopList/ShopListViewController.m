@@ -843,6 +843,8 @@
         else
             [map addMoreShopLists:ope.shopsList];
         
+        _isZoomedRegionMap=true;
+        
         [self makeScrollSize];
     }
     else if([operation isKindOfClass:[ASIOperationPlacelistGetDetail class]])
@@ -866,6 +868,8 @@
         else
             [map addMoreShopLists:ope.shops];
         
+        _isZoomedRegionMap=true;
+        
         [self makeScrollSize];
         
     }
@@ -888,6 +892,8 @@
         else
             [map addMoreShopLists:ope.shopsList];
         
+        _isZoomedRegionMap=true;
+        
         [self makeScrollSize];
         
         _operationPlacelistGetDetail=nil;
@@ -909,6 +915,8 @@
             [map addShopLists:ope.shopLists];
         else
             [map addMoreShopLists:ope.shopLists];
+        
+        _isZoomedRegionMap=true;
         
         [self makeScrollSize];
         

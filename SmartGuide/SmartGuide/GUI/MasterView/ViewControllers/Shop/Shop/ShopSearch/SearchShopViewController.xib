@@ -53,7 +53,7 @@
                         <action selector="btnSearchTouchUpInside:" destination="-1" eventType="touchUpInside" id="QTE-xN-GYg"/>
                     </connections>
                 </button>
-                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Tìm kiếm khuyến mãi" minimumFontSize="17" background="button_search_home.png" id="U8H-kV-yHe" customClass="TextFieldSearch">
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Tìm kiếm địa điểm" minimumFontSize="17" background="button_search_home.png" id="U8H-kV-yHe" customClass="TextFieldSearch">
                     <rect key="frame" x="52" y="7" width="239" height="39"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="14"/>
