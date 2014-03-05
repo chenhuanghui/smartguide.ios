@@ -30,3 +30,10 @@
 +(CGSize) makeSizeFromImageSize:(CGSize) imageSize willWidth:(float) willWidth;
 
 @end
+
+@interface ImageScaleShopGallery : ImageDefault
+
+@property (nonatomic, assign) CGSize viewWillSize;
++(CGSize) makeSizeFromImageSize:(CGSize) imageSize willHeight:(float) willHeight;
+
+@end

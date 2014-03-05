@@ -1086,7 +1086,7 @@
 
 -(void)setContentOffset:(CGPoint)contentOffset
 {
-    if(contentOffset.y+SHOP_USER_ANIMATION_ALIGN_Y<0)
+    if(contentOffset.y<-SHOP_USER_ANIMATION_ALIGN_Y)
         contentOffset.y=-SHOP_USER_ANIMATION_ALIGN_Y;
     
     offset=CGPointMake(contentOffset.x-self.contentOffset.x, contentOffset.y-self.contentOffset.y);

@@ -232,9 +232,14 @@ static ImageManager *_imageManager=nil;
     }];
 }
 
--(void) loadShopLogoPromotionHome:(NSString*) url completed:(SDWebImageCompletedBlock)completedBlock
+-(void) loadShopLogoPromotionHome:(NSString*) url
 {
-    [self setImageWithURL:[NSURL URLWithString:url]  completed:completedBlock];
+    [self setImageWithURL:[NSURL URLWithString:url]];
+}
+
+-(void)loadShopLogoPromotionHome:(NSString *)url completed:(SDWebImageCompletedBlock)completedBlock
+{
+    [self setImageWithURL:URL(url) completed:completedBlock];
 }
 
 -(void)loadImageHomeListWithURL:(NSString *)url

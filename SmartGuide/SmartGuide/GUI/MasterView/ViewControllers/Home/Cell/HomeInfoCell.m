@@ -69,6 +69,7 @@
 {
     _obj=obj;
     
+    [imgvLogo loadShopLogoPromotionHome:obj.logo];
     lblName.text=obj.brandName;
     lblDate.text=obj.date;
     lblTitle.text=obj.title;
