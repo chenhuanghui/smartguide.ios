@@ -8,6 +8,7 @@
 
 #import "GalleryViewController.h"
 #import "ShopGalleryViewCell.h"
+#import "GalleryManager.h"
 
 @interface GalleryViewController ()
 
@@ -23,6 +24,16 @@
     _shop=shop;
     
     return self;
+}
+
+-(NSArray *)registerNotifications
+{
+    return @[NOTIFICATION_GALLERY_FINISED_USER,NOTIFICATION_GALLERY_FINISED_SHOP];
+}
+
+-(void)receiveNotification:(NSNotification *)notification
+{
+    [self reloadImage];
 }
 
 -(void)viewDidLoad
@@ -106,18 +117,54 @@
     [grid reloadData];
 }
 
+-(void)ASIOperaionPostFinished:(ASIOperationPost *)operation
+{
+    
+}
+
+-(void)ASIOperaionPostFailed:(ASIOperationPost *)operation
+{
+    
+}
+
 @end
 
 @implementation ShopGalleryViewController
 
+-(GalleryViewController *)initWithShop:(Shop *)shop
+{
+    self=[super initWithShop:shop];
+    
+    return self;
+}
+
+-(void) requestGalleries
+{
+    [[GalleryManager shareInstanceWithShop:_shop] requestShopGallery];
+}
+
 -(NSInteger)numberOfItemsInGMGridView:(GMGridView *)gridView
 {
-    return _shop.shopGalleriesObjects.count+(_canLoadMore?1:0);
+    return _shop.shopGalleriesObjects.count+([GalleryManager shareInstanceWithShop:_shop].canLoadMoreShopGallery?1:0);
 }
 
 -(GMGridViewCell *)GMGridView:(GMGridView *)gridView cellForItemAtIndex:(NSInteger)index
 {
     GMGridViewCell *cell=[super GMGridView:gridView cellForItemAtIndex:index];
+    
+    if([GalleryManager shareInstanceWithShop:_shop].canLoadMoreShopGallery && index==[self numberOfItemsInGMGridView:gridView]-1)
+    {
+        if(![GalleryManager shareInstanceWithShop:_shop].isLoadingMoreShopGallery)
+        {
+            [self requestGalleries];
+        }
+        
+        [cell showLoading];
+        
+        return cell;
+    }
+    
+    [cell removeLoading];
     
     ShopGalleryViewCell *gallery=(ShopGalleryViewCell*)cell.contentView;
     
@@ -140,14 +187,31 @@
 
 @implementation UserGalleryViewController
 
+-(void) requestGalleries
+{
+    [[GalleryManager shareInstanceWithShop:_shop] requestUserGallery];
+}
+
 -(NSInteger)numberOfItemsInGMGridView:(GMGridView *)gridView
 {
-    return _shop.userGalleriesObjects.count+(_canLoadMore?1:0);
+    return _shop.userGalleriesObjects.count+([GalleryManager shareInstanceWithShop:_shop].canLoadMoreUserGallery?1:0);
 }
 
 -(GMGridViewCell *)GMGridView:(GMGridView *)gridView cellForItemAtIndex:(NSInteger)index
 {
     GMGridViewCell *cell=[super GMGridView:gridView cellForItemAtIndex:index];
+    
+    if([GalleryManager shareInstanceWithShop:_shop].canLoadMoreUserGallery && index==[self numberOfItemsInGMGridView:gridView]-1)
+    {
+        if(![GalleryManager shareInstanceWithShop:_shop].isLoadingMoreUserGallery)
+        {
+            [self requestGalleries];
+        }
+        
+        [cell showLoading];
+        
+        return cell;
+    }
     
     ShopGalleryViewCell *gallery=(ShopGalleryViewCell*)cell.contentView;
     

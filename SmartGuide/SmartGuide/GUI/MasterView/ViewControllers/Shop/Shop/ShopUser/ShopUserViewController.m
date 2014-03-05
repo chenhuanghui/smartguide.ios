@@ -236,6 +236,8 @@
         [self loadCells];
         
         [self scrollViewDidScroll:tableShopUser];
+        
+        [GalleryManager shareInstanceWithShop:_shop];
     }
     else if([operation isKindOfClass:[ASIOperationShopComment class]])
     {
@@ -317,6 +319,8 @@
 
 - (void)dealloc
 {
+    [GalleryManager clean];
+    
     if(_operationShopUser)
     {
         [_operationShopUser clearDelegatesAndCancel];
@@ -973,11 +977,6 @@
     }
 }
 
--(void)galleryFullReloadData:(GalleryFullViewController *)controller
-{
-    [galleryController reloadImage];
-}
-
 -(void) pushViewController:(SGViewController*) vc
 {
     [UIView animateWithDuration:DURATION_NAVIGATION_PUSH animations:^{
@@ -1027,18 +1026,23 @@
     {
         _selectedShopGallery=gallery;
         
-        ShopGalleryFullViewController *vc=[[ShopGalleryFullViewController alloc] initWithShop:_shop selectedGallery:_selectedShopGallery];
+        ShopGalleryFullViewController *vc=[[ShopGalleryFullViewController alloc] initWithShop:_shop];
         vc.delegate=self;
+        
         [vc setParentController:self];
+        [vc setSelectedObject:_selectedShopGallery];
+        [vc show];
     }
     else if([gallery isKindOfClass:[ShopUserGallery class]])
     {
         _selectedUserGallery=gallery;
         
-        UserGalleryFullViewController *vc=[[UserGalleryFullViewController alloc] initWithShop:_shop selectedGallery:_selectedUserGallery];
+        UserGalleryFullViewController *vc=[[UserGalleryFullViewController alloc] initWithShop:_shop];
         vc.delegate=self;
         
         [vc setParentController:self];
+        [vc setSelectedObject:_selectedUserGallery];
+        [vc show];
     }
 }
 
@@ -1055,14 +1059,6 @@
     {
         if(![vc navigationWillBack])
             return;
-    }
-    
-    if([shopNavi.visibleViewController isKindOfClass:[GalleryViewController class]])
-    {
-        if([galleryController isKindOfClass:[ShopGalleryViewController class]])
-            [shopGalleryCell reloadImage];
-        else if([galleryController isKindOfClass:[UserGalleryViewController class]])
-            [userGalleryCell reloadImage];
     }
     
     [btnBack startHideAnimateOnCompleted:^(UIButton *btn) {

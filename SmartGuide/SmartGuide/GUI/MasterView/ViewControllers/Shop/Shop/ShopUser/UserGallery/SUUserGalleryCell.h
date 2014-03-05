@@ -30,14 +30,9 @@
 
     NSMutableArray *_galleries;
     int _galleriesCount;
-    
-    bool _canLoadMore;
-    bool _isLoadingMore;
-    bool _page;
 }
 
 -(void) loadWithShop:(Shop*) shop;
--(void) reloadImage;
 
 +(float) height;
 +(NSString *)reuseIdentifier;

@@ -12,6 +12,7 @@
 #import "ImageManager.h"
 #import "GUIManager.h"
 #import "LoadingMoreCellHori.h"
+#import "GalleryManager.h"
 
 @implementation SUShopGalleryCell
 @synthesize delegate;
@@ -19,10 +20,6 @@
 -(void)loadWithShop:(Shop *)shop
 {
     _shop=shop;
-    
-    _canLoadMore=shop.shopGalleriesObjects.count>0 && shop.shopGalleriesObjects.count%10==0;
-    _isLoadingMore=false;
-    _page=MAX(0,shop.shopGalleriesObjects.count/10-1);
     
     switch (shop.enumDataMode) {
             
@@ -74,16 +71,7 @@
 
 -(void) requestShopGallery
 {
-    if(_operationShopGallery)
-    {
-        [_operationShopGallery clearDelegatesAndCancel];
-        _operationShopGallery=nil;
-    }
-    
-    _operationShopGallery=[[ASIOperationShopGallery alloc] initWithWithIDShop:_shop.idShop.integerValue userLat:userLat() userLng:userLng() page:_page+1];
-    _operationShopGallery.delegatePost=self;
-    
-    [_operationShopGallery startAsynchronous];
+    [[GalleryManager shareInstanceWithShop:_shop] requestShopGallery];
 }
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
@@ -121,7 +109,7 @@
             return 1;
             
         case SHOP_DATA_FULL:
-            return _shop.shopGalleriesObjects.count+(_canLoadMore?1:0);
+            return _shop.shopGalleriesObjects.count+([GalleryManager shareInstanceWithShop:_shop].canLoadMoreShopGallery?1:0);
             
         case SHOP_DATA_IDSHOP:
             return 0;
@@ -135,12 +123,10 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if(_canLoadMore && indexPath.row==[tableView numberOfRowsInSection:indexPath.section]-1)
+    if([GalleryManager shareInstanceWithShop:_shop].canLoadMoreShopGallery && indexPath.row==[tableView numberOfRowsInSection:indexPath.section]-1)
     {
-        if(!_isLoadingMore)
+        if(![GalleryManager shareInstanceWithShop:_shop].canLoadMoreShopGallery)
         {
-            _isLoadingMore=true;
-            
             [self requestShopGallery];
         }
         
@@ -178,9 +164,17 @@
     [self.delegate suShopGalleryTouchedCover:self object:_shop.shopGalleriesObjects[indexPath.row]];
 }
 
+-(void) reloadImage:(NSNotification*) notification
+{
+    [table reloadData];
+    [self scrollViewDidScroll:table];
+}
+
 -(void)awakeFromNib
 {
     [super awakeFromNib];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadImage:) name:NOTIFICATION_GALLERY_FINISED_SHOP object:nil];
     
     pageControl.dotColorCurrentPage=[UIColor whiteColor];
     pageControl.dotColorOtherPage=[[UIColor whiteColor] colorWithAlphaComponent:0.5];
@@ -273,18 +267,6 @@
         
         _operationLoveShop=nil;
     }
-    else if([operation isKindOfClass:[ASIOperationShopGallery class]])
-    {
-        ASIOperationShopGallery *ope=(ASIOperationShopGallery*) operation;
-        _canLoadMore=ope.galleries.count==10;
-        _isLoadingMore=false;
-        _page++;
-        
-        [table reloadData];
-        [self scrollViewDidScroll:table];
-        
-        _operationShopGallery=nil;
-    }
 }
 
 -(void)ASIOperaionPostFailed:(ASIOperationPost *)operation
@@ -293,36 +275,22 @@
     {
         _operationLoveShop=nil;
     }
-    else if([operation isKindOfClass:[ASIOperationShopGallery class]])
-    {
-        _operationShopGallery=nil;
-    }
 }
 
 -(void)dealloc
 {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:NOTIFICATION_GALLERY_FINISED_SHOP object:nil];
+    
     if(_operationLoveShop)
     {
         [_operationLoveShop clearDelegatesAndCancel];
         _operationLoveShop=nil;
-    }
-    
-    if(_operationShopGallery)
-    {
-        [_operationShopGallery clearDelegatesAndCancel];
-        _operationShopGallery=nil;
     }
 }
 
 -(IBAction) btnInfoTouchUpInside:(id)sender
 {
     [self.delegate suShopGalleryTouchedMoreInfo:self];
-}
-
--(void)reloadImage
-{
-    [table reloadData];
-    [self scrollViewDidScroll:table];
 }
 
 @end

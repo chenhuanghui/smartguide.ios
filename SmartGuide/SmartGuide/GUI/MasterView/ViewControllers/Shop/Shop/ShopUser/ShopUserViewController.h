@@ -35,8 +35,8 @@
 #import "ASIOperationSocialShare.h"
 #import "GalleryViewController.h"
 #import "ButtonBackShopUser.h"
-#import "ShopGalleryFullViewController.h"
-#import "UserGalleryFullViewController.h"
+#import "GalleryFullViewController.h"
+#import "GalleryManager.h"
 
 //Vị trí y của table
 #define SHOP_USER_ANIMATION_ALIGN_Y 100.f // cần để thực hiện effect scroll giãn shop gallery
@@ -85,6 +85,7 @@ enum SHOP_USER_MODE {
     __weak ShopUserGallery *_selectedUserGallery;
     
     __weak GalleryViewController *galleryController;
+    __weak GalleryFullViewController *galleryFullController;
     
     CGRect _btnNextFrame;
     CGRect _cmtTypingFrame;

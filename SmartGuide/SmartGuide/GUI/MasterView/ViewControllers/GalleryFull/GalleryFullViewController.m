@@ -7,7 +7,8 @@
 //
 
 #import "GalleryFullViewController.h"
-#import "SGGridViewLayoutStrategies.h"
+#import "LoadingMoreCellHori.h"
+#import "GalleryManager.h"
 
 @interface GalleryFullViewController ()
 
@@ -16,22 +17,23 @@
 @implementation GalleryFullViewController
 @synthesize delegate;
 
-- (id)init
+-(GalleryFullViewController *)initWithShop:(Shop *)shop
 {
     self = [super initWithNibName:@"GalleryFullViewController" bundle:nil];
     if (self) {
+        _shop=shop;
     }
     return self;
 }
 
--(GalleryFullViewController *)initWithParentController:(SGViewController *)parentControlelr
+-(NSArray *)registerNotifications
 {
-    self=[[[GalleryFullViewController class] alloc] init];
-    
-    [parentControlelr addChildViewController:self];
-    _parentController=parentControlelr;
-    
-    return self;
+    return @[NOTIFICATION_GALLERY_FINISED_SHOP,NOTIFICATION_GALLERY_FINISED_USER];
+}
+
+-(void)receiveNotification:(NSNotification *)notification
+{
+    [self reloadData];
 }
 
 -(void)setParentController:(SGViewController *)parentController
@@ -39,8 +41,6 @@
     [self removeFromParentViewController];
     _parentController=parentController;
     [_parentController addChildViewController:self];
-    
-    [self view];
 }
 
 - (void)viewDidLoad
@@ -52,14 +52,17 @@
     table.transform=CGAffineTransformMakeRotation(DEGREES_TO_RADIANS(45)*6);
     table.frame=rect;
     [table registerNib:[UINib nibWithNibName:[GalleryFullCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[GalleryFullCell reuseIdentifier]];
-    
+}
+
+-(void) show
+{
     if(_parentController)
     {
         self.view.alpha=0;
         [self.view makeAlphaViewAtIndex:0];
         self.view.alphaView.backgroundColor=[UIColor blackColor];
         self.view.alphaView.alpha=0;
-
+        
         [self.view l_v_setS:_parentController.view.l_v_s];
         [self.view.alphaView l_v_setS:self.view.l_v_s];
         [_parentController.view addSubview:self.view];
@@ -69,6 +72,11 @@
             self.view.alphaView.alpha=0.9f;
         }];
     }
+}
+
+-(void)setSelectedObject:(id)selectedObject
+{
+    _selectedGallery=selectedObject;
 }
 
 - (void)didReceiveMemoryWarning
@@ -86,7 +94,7 @@
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
+    return 0;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -148,7 +156,144 @@
 {
     [table reloadData];
     [self scrollViewDidScroll:table];
-    [self.delegate galleryFullReloadData:self];
+}
+
+@end
+
+@implementation ShopGalleryFullViewController
+
+-(void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    [table registerLoadingMoreCellHori];
+}
+
+-(void)viewWillAppearOnce
+{
+    [super viewWillAppearOnce];
+    
+    if(_selectedGallery)
+    {
+        int index=[_shop.shopGalleriesObjects indexOfObject:_selectedGallery];
+        
+        if(index!=NSNotFound)
+        {
+            [table scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] atScrollPosition:UITableViewScrollPositionNone animated:false];
+        }
+    }
+}
+
+-(id)galleryItemAtIndex:(int)index
+{
+    if([_shop.shopGalleriesObjects isIndexInside:index])
+        return _shop.shopGalleriesObjects[index];
+    
+    return nil;
+}
+
+-(void) requestGalleries
+{
+    [[GalleryManager shareInstanceWithShop:_shop] requestShopGallery];
+}
+
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return _shop.shopGalleriesObjects.count==0?0:1;
+}
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return _shop.shopGalleriesObjects.count+([GalleryManager shareInstanceWithShop:_shop].canLoadMoreShopGallery?1:0);
+}
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if([GalleryManager shareInstanceWithShop:_shop].canLoadMoreShopGallery && indexPath.row==[tableView numberOfRowsInSection:indexPath.section]-1)
+    {
+        if(![GalleryManager shareInstanceWithShop:_shop].isLoadingMoreShopGallery)
+        {
+            [self requestGalleries];
+        }
+        
+        return [tableView loadingMoreCellHori];
+    }
+    
+    GalleryFullCell *cell=(GalleryFullCell*)[super tableView:tableView cellForRowAtIndexPath:indexPath];
+    ShopGallery *gallery=_shop.shopGalleriesObjects[indexPath.row];
+    
+    [cell loadImageURL:gallery.image];
+    
+    return cell;
+}
+
+@end
+
+@implementation UserGalleryFullViewController
+
+-(void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    [table registerLoadingMoreCellHori];
+}
+
+-(void)viewWillAppearOnce
+{
+    [super viewWillAppearOnce];
+    
+    if(_selectedGallery)
+    {
+        int index=[_shop.userGalleriesObjects indexOfObject:_selectedGallery];
+        
+        if(index!=NSNotFound)
+        {
+            [table scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] atScrollPosition:UITableViewScrollPositionNone animated:false];
+        }
+    }
+}
+
+-(id)galleryItemAtIndex:(int)index
+{
+    if([_shop.userGalleriesObjects isIndexInside:index])
+        return _shop.userGalleriesObjects[index];
+    
+    return nil;
+}
+
+-(void) requestGalleries
+{
+    [[GalleryManager shareInstanceWithShop:_shop] requestUserGallery];
+}
+
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return _shop.userGalleriesObjects.count==0?0:1;
+}
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return _shop.userGalleriesObjects.count+([GalleryManager shareInstanceWithShop:_shop].canLoadMoreUserGallery?1:0);
+}
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if([GalleryManager shareInstanceWithShop:_shop].canLoadMoreUserGallery && indexPath.row==[tableView numberOfRowsInSection:indexPath.section]-1)
+    {
+        if(![GalleryManager shareInstanceWithShop:_shop].canLoadMoreUserGallery)
+        {
+            [self requestGalleries];
+        }
+        
+        return [tableView loadingMoreCellHori];
+    }
+    
+    GalleryFullCell *cell=(GalleryFullCell*)[super tableView:tableView cellForRowAtIndexPath:indexPath];
+    ShopUserGallery *gallery=_shop.userGalleriesObjects[indexPath.row];
+    
+    [cell loadImageURL:gallery.image];
+    
+    return cell;
 }
 
 @end

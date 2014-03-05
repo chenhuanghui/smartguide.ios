@@ -23,15 +23,10 @@
     __weak IBOutlet GMGridView *grid;
     __weak Shop *_shop;
     id _selectedGallery;
-    
-    bool _canLoadMore;
-    bool _isLoadingMore;
-    int _page;
 }
 
 -(GalleryViewController*) initWithShop:(Shop*) shop;
 -(void) setSelectedGallery:(id) selectedGallery;
--(void) reloadImage;
 -(id) galleryAtIndex:(int) index;
 
 @property (nonatomic, weak) id<ShopGalleryControllerDelegate> delegate;

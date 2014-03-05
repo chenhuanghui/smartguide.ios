@@ -10,6 +10,7 @@
 #import "Utility.h"
 #import "ImageManager.h"
 #import "UIImageView+WebCache.h"
+#import "LoadingView.h"
 
 @implementation ShopUserGalleryCell
 
@@ -24,19 +25,33 @@
 
 -(void)loadWithURL:(NSString *)url state:(enum SHOP_USER_GALLERY_CELL_STATE)state
 {
+//    [loading removeLoading];
+    loading.hidden=true;
+    
     switch (state) {
         case SHOP_USER_GALLERY_STATE_THUMBNAIL:
-        {
+            
+            imgvThumbnail.hidden=false;
             [imgvThumbnail loadShopUserGalleryThumbnailWithURL:url];
             imgvState.image=nil;
-        }
             
             break;
             
         case SHOP_USER_GALLERY_STATE_EMPTY:
             
             imgvThumbnail.image=nil;
+            imgvThumbnail.hidden=true;
             imgvState.image=[UIImage imageNamed:@"icon_picture_photo.png"];
+            
+            break;
+            
+        case SHOP_USER_GALLERY_STATE_LOADING:
+            
+            imgvThumbnail.hidden=true;
+            imgvState.hidden=true;
+            
+            loading.hidden=false;
+//            [loading showLoading];
             
             break;
     }

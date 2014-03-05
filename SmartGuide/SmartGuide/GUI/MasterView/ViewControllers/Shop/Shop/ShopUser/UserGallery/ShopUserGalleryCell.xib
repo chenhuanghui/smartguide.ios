@@ -19,12 +19,18 @@
                     <rect key="frame" x="0.0" y="0.0" width="90" height="92"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 </imageView>
+                <view hidden="YES" autoresizesSubviews="NO" contentMode="scaleToFill" id="Z0U-vv-b87">
+                    <rect key="frame" x="0.0" y="0.0" width="92" height="90"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                </view>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="imgvState" destination="edP-vf-7ax" id="R2g-mB-bO9"/>
                 <outlet property="imgvThumbnail" destination="gi0-zx-xB9" id="hVd-eg-v5Y"/>
+                <outlet property="loading" destination="Z0U-vv-b87" id="v8T-MG-VT2"/>
             </connections>
         </view>
     </objects>

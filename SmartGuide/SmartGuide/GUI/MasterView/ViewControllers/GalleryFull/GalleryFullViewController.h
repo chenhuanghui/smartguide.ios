@@ -20,7 +20,6 @@
 @protocol GalleryFullControllerDelegate <SGViewControllerDelegate>
 
 -(void) galleryFullTouchedBack:(GalleryFullViewController*) controller;
--(void) galleryFullReloadData:(GalleryFullViewController*) controller;
 
 @end
 
@@ -28,14 +27,29 @@
 {
     __weak IBOutlet UITableView *table;
     __weak SGViewController *_parentController;
+    id _selectedGallery;
+    __weak Shop *_shop;
 }
 
--(GalleryFullViewController*) initWithParentController:(SGViewController*) parentControlelr;
--(void) reloadData;
+-(GalleryFullViewController*) initWithShop:(Shop*) shop;
 
 -(void) setParentController:(SGViewController*) parentController;
+-(void) show;
 -(id) selectedObject;
+-(void) setSelectedObject:(id) selectedObject;
 
 @property (nonatomic, weak) id<GalleryFullControllerDelegate> delegate;
+
+@end
+
+@interface ShopGalleryFullViewController : GalleryFullViewController
+{
+}
+
+@end
+
+@interface UserGalleryFullViewController : GalleryFullViewController
+{
+}
 
 @end

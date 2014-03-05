@@ -15,13 +15,9 @@
 @implementation SUUserGalleryCell
 @synthesize delegate;
 
--(void)loadWithShop:(Shop *)shop
+-(void) makeGalleries
 {
-    _shop=shop;
-    
-    imgvFirsttime.hidden=shop.userGalleriesObjects.count>0;
-    
-    _galleries=[shop.userGalleriesObjects mutableCopy];
+    _galleries=[_shop.userGalleriesObjects mutableCopy];
     _galleriesCount=_galleries.count;
     
     if(_galleries.count>0)
@@ -29,6 +25,15 @@
         [_galleries insertObject:@"" atIndex:0];
         [_galleries addObject:@""];
     }
+}
+
+-(void)loadWithShop:(Shop *)shop
+{
+    _shop=shop;
+    
+    imgvFirsttime.hidden=shop.userGalleriesObjects.count>0;
+    
+    [self makeGalleries];
     
     grid.delegate=self;
     grid.dataSource=self;
@@ -111,6 +116,16 @@
     if([obj isKindOfClass:[NSString class]])
     {
         state=SHOP_USER_GALLERY_STATE_EMPTY;
+        
+        if([GalleryManager shareInstanceWithShop:_shop].canLoadMoreUserGallery && index==[self numberOfItemsInGMGridView:gridView]-1)
+        {
+            if(![GalleryManager shareInstanceWithShop:_shop].isLoadingMoreUserGallery)
+            {
+                [[GalleryManager shareInstanceWithShop:_shop] requestUserGallery];
+            }
+            
+            state=SHOP_USER_GALLERY_STATE_LOADING;
+        }
     }
     else
     {
@@ -197,6 +212,13 @@
     grid.centerGrid=false;
     grid.layoutStrategy=[GMGridViewLayoutStrategyFactory strategyFromType:SGGridViewLayoutHorizontalPagedLTR];
     grid.minEdgeInsets=UIEdgeInsetsZero;
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadImage:) name:NOTIFICATION_GALLERY_FINISED_USER object:nil];
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:NOTIFICATION_GALLERY_FINISED_USER object:nil];
 }
 
 - (IBAction)btnLeftTouchUpInside:(id)sender {
@@ -207,10 +229,9 @@
     [grid l_co_addX:[ShopUserGalleryCell size].width animate:true];
 }
 
--(void)reloadImage
+-(void)reloadImage:(NSNotification*) notification
 {
     [grid reloadData];
-    
     [self scrollViewDidScroll:grid];
 }
 
