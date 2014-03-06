@@ -255,21 +255,6 @@
 {
     if(image)
     {
-        CGSize imageSize=image.size;
-        CGSize size=self.l_v_s;
-        size=CGSizeMake(size.height, size.width);
-        
-        if(!CGSizeEqualToSize(self.viewWillSize, CGSizeZero))
-            size=self.viewWillSize;
-        
-        float h=size.height/imageSize.height;
-        float w=size.width/imageSize.width;
-        
-        imageSize.width*=MIN(w,h);
-        imageSize.height*=MIN(w,h);
-
-        image=[image scaleToSize:CGSizeMake(imageSize.width*UIScreenScale(), imageSize.height*UIScreenScale())];
-        
         if(image.scale!=UIScreenScale())
             image=[UIImage imageWithCGImage:image.CGImage scale:UIScreenScale() orientation:image.imageOrientation];
         
