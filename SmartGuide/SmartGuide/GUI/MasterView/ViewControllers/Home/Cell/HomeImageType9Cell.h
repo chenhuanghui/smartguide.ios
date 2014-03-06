@@ -12,7 +12,7 @@
 
 @interface HomeImageType9Cell : UITableViewCell
 {
-    __weak IBOutlet ImageScaleCrop *imgv;
+    __weak IBOutlet ImageScaleCropAspectFit *imgv;
 }
 
 -(void) loadWithURL:(NSString*) url width:(float) width height:(float) height;

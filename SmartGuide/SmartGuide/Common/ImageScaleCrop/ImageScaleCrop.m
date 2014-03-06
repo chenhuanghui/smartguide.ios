@@ -60,6 +60,46 @@
 
 @end
 
+@implementation ImageScaleCropAspectFit
+@synthesize viewWillSize;
+
+-(void)awakeFromNib
+{
+    [super awakeFromNib];
+    
+    self.viewWillSize=CGSizeZero;
+    
+    self.contentMode=UIViewContentModeScaleAspectFit;
+    self.clipsToBounds=true;
+}
+
+-(void)setContentMode:(UIViewContentMode)contentMode
+{
+    [super setContentMode:UIViewContentModeScaleAspectFit];
+}
+
+-(void)setImage:(UIImage *)image
+{
+    if(image)
+    {
+        CGSize size=self.l_v_s;
+        
+        if(!CGSizeEqualToSize(self.viewWillSize, CGSizeZero))
+            size=self.viewWillSize;
+        
+        image=[image scaleProportionalToSize:CGSizeMake(size.width*UIScreenScale(), size.height*UIScreenScale())];
+        
+        if(image.scale!=UIScreenScale())
+            image=[UIImage imageWithCGImage:image.CGImage scale:UIScreenScale() orientation:image.imageOrientation];
+        
+        [super setImage:image];
+    }
+    else
+        [super setImage:image];
+}
+
+@end
+
 @implementation ImageScaleCrop
 @synthesize viewWillSize;
 

@@ -102,7 +102,7 @@
     <resources>
         <image name="button_call.png" width="275" height="46"/>
         <image name="frame_map_header.png" width="279" height="87"/>
-        <image name="icon_address.png" width="46" height="46"/>
+        <image name="icon_address.png" width="121" height="36"/>
         <image name="icon_call.png" width="19" height="19"/>
         <image name="icon_dottitle.png" width="12" height="12"/>
         <image name="line_blur_status.png" width="290" height="3"/>
