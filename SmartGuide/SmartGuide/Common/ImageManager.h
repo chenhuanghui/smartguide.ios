@@ -46,6 +46,7 @@
 -(void) loadShopLogoPromotionHome:(NSString*) url;
 -(void) loadImageHomeWithURL:(NSString*) url;
 -(void) loadImageHomeListWithURL:(NSString*) url;
+-(void) loadImageHomeListWithURL:(NSString*) url completed:(SDWebImageCompletedBlock) completedBlock;
 -(void) loadImagePromotionNewsWithURL:(NSString*) url;
 -(void) loadHome6CoverWithURL:(NSString*) url;
 -(void) loadHome7CoverWithURL:(NSString*) url;

@@ -13,7 +13,6 @@
         <attribute name="idCity" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
-    <entity name="Entity" syncable="YES"/>
     <entity name="KM1Voucher" representedClassName="KM1Voucher" syncable="YES">
         <attribute name="idVoucher" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="isAfford" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
@@ -217,6 +216,8 @@
     </entity>
     <entity name="UserHome" representedClassName="UserHome" syncable="YES">
         <attribute name="idPost" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="imageHeight" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="imageWidth" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <attribute name="sortOrder" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="type" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <relationship name="home1" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="UserHome1" inverseName="home" inverseEntity="UserHome1" syncable="YES"/>
@@ -327,7 +328,6 @@
     <elements>
         <element name="Ads" positionX="0" positionY="0" width="0" height="0"/>
         <element name="City" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="Entity" positionX="0" positionY="0" width="0" height="0"/>
         <element name="KM1Voucher" positionX="0" positionY="0" width="0" height="0"/>
         <element name="KM2Voucher" positionX="0" positionY="0" width="0" height="0"/>
         <element name="Placelist" positionX="0" positionY="0" width="0" height="0"/>

@@ -138,6 +138,32 @@
 	[self didChangeValueForKey:@"idPost"];
 }
 
+- (NSNumber*)imageHeight {
+	[self willAccessValueForKey:@"imageHeight"];
+	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"imageHeight"];
+	[self didAccessValueForKey:@"imageHeight"];
+	return result;
+}
+
+- (void)setImageHeight:(NSNumber*)value {
+	[self willChangeValueForKey:@"imageHeight"];
+	[self setPrimitiveValue:value forKey:@"imageHeight"];
+	[self didChangeValueForKey:@"imageHeight"];
+}
+
+- (NSNumber*)imageWidth {
+	[self willAccessValueForKey:@"imageWidth"];
+	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"imageWidth"];
+	[self didAccessValueForKey:@"imageWidth"];
+	return result;
+}
+
+- (void)setImageWidth:(NSNumber*)value {
+	[self willChangeValueForKey:@"imageWidth"];
+	[self setPrimitiveValue:value forKey:@"imageWidth"];
+	[self didChangeValueForKey:@"imageWidth"];
+}
+
 - (NSNumber*)sortOrder {
 	[self willAccessValueForKey:@"sortOrder"];
 	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"sortOrder"];

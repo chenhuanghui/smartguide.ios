@@ -89,7 +89,6 @@
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="12"/>
-                            <state key="normal" title="đến cửa hàng"/>
                             <connections>
                                 <action selector="btnScanTouchUpInside:" destination="-1" eventType="touchUpInside" id="yst-Xq-vNc"/>
                             </connections>
@@ -107,7 +106,7 @@
                         <action selector="btnnext:" destination="-1" eventType="touchUpInside" id="ZgY-rS-tGm"/>
                     </connections>
                 </button>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nhận thẻ và quà từ nhân viên cửa hàng" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="mdW-Cw-dcJ">
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nhận thẻ và quà từ nhân viên" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="mdW-Cw-dcJ">
                     <rect key="frame" x="0.0" y="17" width="322" height="21"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="12"/>

@@ -12,6 +12,7 @@
 #import "HomeImagesCell.h"
 #import "HomeListCell.h"
 #import "HomeInfoCell.h"
+#import "HomeImagesType9Cell.h"
 #import "ASIOperationShopUser.h"
 #import "SGQRCodeViewController.h"
 

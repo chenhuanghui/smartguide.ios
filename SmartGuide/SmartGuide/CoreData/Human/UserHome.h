@@ -19,6 +19,7 @@ enum USER_HOME_TYPE {
     USER_HOME_TYPE_6 = 6,
     USER_HOME_TYPE_7 = 7,
     USER_HOME_TYPE_8 = 8,
+    USER_HOME_TYPE_9 = 9,
     };
 
 @interface UserHome : _UserHome 
@@ -28,5 +29,7 @@ enum USER_HOME_TYPE {
 +(UserHome*) makeWithDictionary:(NSDictionary*) dict;
 
 -(enum USER_HOME_TYPE) enumType;
+
+@property (nonatomic, assign) CGSize home9Size;
 
 @end

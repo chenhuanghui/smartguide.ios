@@ -65,6 +65,7 @@
     [tableFeed registerNib:[UINib nibWithNibName:[HomeImagesCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[HomeImagesCell reuseIdentifier]];
     [tableFeed registerNib:[UINib nibWithNibName:[HomeListCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[HomeListCell reuseIdentifier]];
     [tableFeed registerNib:[UINib nibWithNibName:[HomeInfoCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[HomeInfoCell reuseIdentifier]];
+    [tableFeed registerNib:[UINib nibWithNibName:[HomeImagesType9Cell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[HomeImagesType9Cell reuseIdentifier]];
     [tableFeed registerLoadingMoreCell];
     
     _page=-1;
@@ -252,6 +253,10 @@
             case USER_HOME_TYPE_8:
                 return [HomePromotionCell heightWithHome8:home.home8];
                 
+            case USER_HOME_TYPE_9:
+                return home.home9Size.height;
+//                return home.imageHeight.floatValue;
+                
             case USER_HOME_TYPE_UNKNOW:
                 NSLog(@"USER_HOME_TYPE_UNKNOW heightForRowAtIndexPath");
                 return 0;
@@ -354,6 +359,16 @@
                 return cell;
             }
                 
+            case USER_HOME_TYPE_9:
+            {
+                HomeImagesType9Cell *cell=[tableFeed dequeueReusableCellWithIdentifier:[HomeImagesType9Cell reuseIdentifier]];
+                
+                [cell loadWithHome9:home];
+                
+                return cell;
+            }
+                break;
+                
             case USER_HOME_TYPE_UNKNOW:
                 NSLog(@"USER_HOME_TYPE_UNKNOW cellForRowAtIndexPath");
                 break;
@@ -424,6 +439,9 @@
             {
                 [[GUIManager shareInstance] presentShopUserWithHome8:home.home8];
             }
+                break;
+                
+            case USER_HOME_TYPE_9:
                 break;
                 
             case USER_HOME_TYPE_UNKNOW:
@@ -541,6 +559,21 @@
 +(NSString *)screenCode
 {
     return SCREEN_CODE_HOME;
+}
+
+-(void)dealloc
+{
+    if(_operationShopUser)
+    {
+        [_operationShopUser clearDelegatesAndCancel];
+        _operationShopUser=nil;
+    }
+    
+    if(_operationUserHome)
+    {
+        [_operationUserHome clearDelegatesAndCancel];
+        _operationUserHome=nil;
+    }
 }
 
 @end

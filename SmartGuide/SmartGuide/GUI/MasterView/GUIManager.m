@@ -24,7 +24,7 @@ static GUIManager *_shareInstance=nil;
 @end
 
 @implementation GUIManager
-@synthesize mainWindow,rootNavigation,rootViewController,toolbarController,contentNavigation,qrCodeController,userController,tutorialController,notificationController,storeController,userPromotionControlelr,userSettingController;
+@synthesize mainWindow,rootNavigation,rootViewController,toolbarController,contentNavigation,qrCodeController,userController,tutorialController,notificationController,storeController,userPromotionControlelr,userSettingController,homeController;
 @synthesize previousViewController;
 @synthesize shopUserController;
 
@@ -186,6 +186,19 @@ static GUIManager *_shareInstance=nil;
 
 -(void)settingTouchedCatalog:(SGSettingViewController *)settingController
 {
+    [self.rootNavigation removeLeftSlideViewController];
+    
+    if([self.contentNavigation.visibleViewController isKindOfClass:[HomeViewController class]])
+        return;
+    
+    [self.contentNavigation popToRootViewControllerAnimated:false];
+    
+    HomeViewController *vc=[[HomeViewController alloc] init];
+    vc.delegate=self;
+    
+    [self.contentNavigation setRootViewController:vc animate:true];
+    
+    return;
     [self.rootNavigation removeLeftSlideViewController];
     [self.contentNavigation popToRootViewControllerAnimated:false];
 }

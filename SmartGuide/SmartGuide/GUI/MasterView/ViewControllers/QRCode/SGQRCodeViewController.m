@@ -290,7 +290,7 @@
     if([_result isKindOfClass:[ScanQRCodeResult0 class]] || [_result isKindOfClass:[ScanQRCodeResult1 class]])
         [btnScan setTitle:@"Quét tiếp" forState:UIControlStateNormal];
     else
-        [btnScan setTitle:@"Đến cửa hàng" forState:UIControlStateNormal];
+        [btnScan setTitle:@"Đến địa điểm" forState:UIControlStateNormal];
     
     [UIView animateWithDuration:DURATION_DEFAULT animations:^{
         bgResultView.alpha=0.7f;

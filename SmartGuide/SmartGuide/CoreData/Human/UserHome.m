@@ -2,6 +2,7 @@
 #import "Utility.h"
 
 @implementation UserHome
+@synthesize home9Size;
 
 +(UserHome *)makeWithDictionary:(NSDictionary *)dict
 {
@@ -9,6 +10,8 @@
     
     home.type=[NSNumber numberWithObject:dict[@"type"]];
     home.idPost=[NSNumber numberWithObject:dict[@"idPost"]];
+    home.imageWidth=[NSNumber numberWithObject:dict[@"imageWidth"]];
+    home.imageHeight=[NSNumber numberWithObject:dict[@"imageHeight"]];
     
     NSArray *imgs=dict[@"images"];
 
@@ -25,35 +28,45 @@
         }
     }
     
+    if(home.enumType==USER_HOME_TYPE_9)
+    {
+        float frameWidthLayoutHome9=296;
+        float w=home.imageWidth.floatValue/frameWidthLayoutHome9;
+        home.home9Size=CGSizeMake(frameWidthLayoutHome9, home.imageHeight.floatValue/w);
+    }
+    
     return home;
 }
 
 -(enum USER_HOME_TYPE)enumType
 {
     switch (self.type.integerValue) {
-        case 1:
+        case USER_HOME_TYPE_1:
             return USER_HOME_TYPE_1;
             
-        case 2:
+        case USER_HOME_TYPE_2:
             return USER_HOME_TYPE_2;
             
-        case 3:
+        case USER_HOME_TYPE_3:
             return USER_HOME_TYPE_3;
             
-        case 4:
+        case USER_HOME_TYPE_4:
             return USER_HOME_TYPE_4;
             
-        case 5:
+        case USER_HOME_TYPE_5:
             return USER_HOME_TYPE_5;
             
-        case 6:
+        case USER_HOME_TYPE_6:
             return USER_HOME_TYPE_6;
             
-        case 7:
+        case USER_HOME_TYPE_7:
             return USER_HOME_TYPE_7;
         
-        case 8:
+        case USER_HOME_TYPE_8:
             return USER_HOME_TYPE_8;
+            
+        case USER_HOME_TYPE_9:
+            return USER_HOME_TYPE_9;
             
         default:
             return USER_HOME_TYPE_UNKNOW;

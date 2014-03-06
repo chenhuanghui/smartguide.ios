@@ -67,4 +67,5 @@
 @property (nonatomic, weak, readonly) StoreViewController *storeController;
 @property (nonatomic, weak, readonly) SGTutorialViewController *tutorialController;
 @property (nonatomic, weak, readonly) UserPromotionViewController *userPromotionControlelr;
+@property (nonatomic, weak, readonly) HomeViewController *homeController;
 @end

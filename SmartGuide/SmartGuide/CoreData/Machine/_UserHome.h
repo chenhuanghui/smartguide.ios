@@ -6,6 +6,8 @@
 #define UserHome_ClassName @"UserHome"
 
 #define UserHome_IdPost @"idPost"
+#define UserHome_ImageHeight @"imageHeight"
+#define UserHome_ImageWidth @"imageWidth"
 #define UserHome_SortOrder @"sortOrder"
 #define UserHome_Type @"type"
 
@@ -32,6 +34,8 @@
 
 
 @property (nonatomic, retain) NSNumber* idPost;
+@property (nonatomic, retain) NSNumber* imageHeight;
+@property (nonatomic, retain) NSNumber* imageWidth;
 @property (nonatomic, retain) NSNumber* sortOrder;
 @property (nonatomic, retain) NSNumber* type;
 

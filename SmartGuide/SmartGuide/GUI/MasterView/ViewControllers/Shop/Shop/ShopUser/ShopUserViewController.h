@@ -26,7 +26,6 @@
 #import "SUKMNewsCell.h"
 #import "SUInfoCell.h"
 #import "SUUserGalleryCell.h"
-#import "CommentTyping.h"
 #import "SUUserCommentCell.h"
 #import "ShopList.h"
 #import "ASIOperationShopUser.h"

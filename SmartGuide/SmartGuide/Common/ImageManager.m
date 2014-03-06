@@ -223,8 +223,6 @@ static ImageManager *_imageManager=nil;
 
 -(void)loadImageHomeWithURL:(NSString *)url
 {
-    [[ImageManager sharedInstance].imageScaleCrop setObject:[NSValue valueWithCGSize:self.l_v_s] forKey:URL(url)];
-    
     UIViewContentMode mode=[self showLoadingImageSmall];
     __weak UIImageView *wself=self;
     [self setImageWithURL:[NSURL URLWithString:url] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
@@ -245,6 +243,11 @@ static ImageManager *_imageManager=nil;
 -(void)loadImageHomeListWithURL:(NSString *)url
 {
     [self setImageWithURL:[NSURL URLWithString:url] placeholderImage:nil options:SDWebImageProgressiveDownload];
+}
+
+-(void)loadImageHomeListWithURL:(NSString *)url completed:(SDWebImageCompletedBlock)completedBlock
+{
+    [self setImageWithURL:[NSURL URLWithString:url] placeholderImage:nil options:SDWebImageProgressiveDownload completed:completedBlock];
 }
 
 -(void)loadImagePromotionNewsWithURL:(NSString *)url

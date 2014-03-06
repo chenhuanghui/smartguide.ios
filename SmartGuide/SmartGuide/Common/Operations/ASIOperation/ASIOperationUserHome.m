@@ -123,6 +123,10 @@
                 home.home8=[UserHome8 makeWithDictionary:dict];
                 break;
                 
+            case USER_HOME_TYPE_9:
+                // Xử lý trong [UserHome makeWithDictionary]
+                break;
+                
             case USER_HOME_TYPE_UNKNOW:
                 break;
         }
