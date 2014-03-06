@@ -205,6 +205,8 @@
     [super awakeFromNib];
     
     [scroll.panGestureRecognizer addTarget:self action:@selector(panGes:)];
+    scroll.panGestureRecognizer.minimumNumberOfTouches=1;
+    scroll.panGestureRecognizer.maximumNumberOfTouches=1;
     
     UITapGestureRecognizer *tap=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGes:)];
     tap.delegate=self;
@@ -276,6 +278,14 @@
     {
         _operationLove=nil;
     }
+}
+
+-(void)closeLove
+{
+    [scroll l_co_setX:0 animate:true];
+    scroll.contentSize=CGSizeMake(414, 0);
+    [scroll l_v_setW:320];
+    scroll.contentInset=UIEdgeInsetsZero;
 }
 
 @end

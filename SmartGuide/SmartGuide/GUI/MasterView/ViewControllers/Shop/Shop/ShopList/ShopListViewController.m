@@ -1026,6 +1026,17 @@
     return scroll;
 }
 
+-(void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset
+{
+    for(ShopListCell *cell in tableList.visibleCells)
+    {
+        if([cell isKindOfClass:[ShopListCell class]])
+        {
+            [cell closeLove];
+        }
+    }
+}
+
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     if(scrollView==scroll)
