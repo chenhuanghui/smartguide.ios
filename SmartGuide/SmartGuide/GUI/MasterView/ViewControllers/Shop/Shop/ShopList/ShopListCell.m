@@ -68,6 +68,9 @@
 
 +(float)heightWithContent:(NSString *)content
 {
+    if(content.length==0)
+        return 0;
+    
     float height=[content sizeWithFont:[UIFont fontWithName:@"Avenir-Roman" size:13] constrainedToSize:CGSizeMake(249, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height+20;
     
     if(height>126)

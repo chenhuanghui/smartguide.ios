@@ -25,7 +25,7 @@
 
 -(void)loadWithURL:(NSString *)url state:(enum SHOP_USER_GALLERY_CELL_STATE)state
 {
-//    [loading removeLoading];
+    [loading removeLoading];
     loading.hidden=true;
     
     switch (state) {
@@ -51,7 +51,7 @@
             imgvState.hidden=true;
             
             loading.hidden=false;
-//            [loading showLoading];
+            [loading showLoading];
             
             break;
     }

@@ -98,14 +98,45 @@
         [super setImage:image];
 }
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
+@end
+
+@implementation ImageScaleProportional
+@synthesize viewWillSize;
+
+-(void)awakeFromNib
 {
-    // Drawing code
+    [super awakeFromNib];
+    
+    self.viewWillSize=CGSizeZero;
+    
+    self.contentMode=UIViewContentModeCenter;
+    self.clipsToBounds=true;
 }
-*/
+
+-(void)setContentMode:(UIViewContentMode)contentMode
+{
+    [super setContentMode:UIViewContentModeCenter];
+}
+
+-(void)setImage:(UIImage *)image
+{
+    if(image)
+    {
+        CGSize size=self.l_v_s;
+        
+        if(!CGSizeEqualToSize(self.viewWillSize, CGSizeZero))
+            size=self.viewWillSize;
+        
+        image=[image scaleProportionalToSize:CGSizeMake(size.width*UIScreenScale(), size.height*UIScreenScale())];
+        
+        if(image.scale!=UIScreenScale())
+            image=[UIImage imageWithCGImage:image.CGImage scale:UIScreenScale() orientation:image.imageOrientation];
+        
+        [super setImage:image];
+    }
+    else
+        [super setImage:image];
+}
 
 @end
 

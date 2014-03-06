@@ -24,6 +24,12 @@
 
 @end
 
+@interface ImageScaleProportional : UIImageView
+
+@property (nonatomic, assign) CGSize viewWillSize;
+
+@end
+
 @interface ImageScaleCropHeight : ImageDefault
 
 @property (nonatomic, assign) CGSize viewWillSize;

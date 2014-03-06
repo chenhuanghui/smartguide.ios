@@ -231,6 +231,8 @@
 
 -(void)reloadImage:(NSNotification*) notification
 {
+    [self makeGalleries];
+    
     [grid reloadData];
     [self scrollViewDidScroll:grid];
 }

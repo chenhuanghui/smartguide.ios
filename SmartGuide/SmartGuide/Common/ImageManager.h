@@ -51,6 +51,8 @@
 -(void) loadHome7CoverWithURL:(NSString*) url;
 -(void) loadUserPromotionCoverWithURL:(NSString*) url;
 
+-(UIViewContentMode) showLoadingImageSmall;
+
 @end
 
 @interface UIButton(ImageManager)

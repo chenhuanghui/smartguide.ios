@@ -669,7 +669,10 @@
 -(SUUserGalleryCell*) userGalleryCell
 {
     if(userGalleryCell)
+    {
+        [userGalleryCell loadWithShop:_shop];
         return userGalleryCell;
+    }
     
     SUUserGalleryCell *cell=[tableShopUser dequeueReusableCellWithIdentifier:[SUUserGalleryCell reuseIdentifier]];
     
