@@ -12,9 +12,12 @@
 {
     __weak IBOutlet UIImageView *imgvFrame;
     __weak IBOutlet UIImageView *imgv;
+    __weak IBOutlet UIView *loading;
 }
 
 -(void) loadWithImage:(NSString*) url highlighted:(bool) isHighlighted;
+-(void) showLoading;
+-(void) hideLoading;
 
 -(UIImageView*) imgv;
 

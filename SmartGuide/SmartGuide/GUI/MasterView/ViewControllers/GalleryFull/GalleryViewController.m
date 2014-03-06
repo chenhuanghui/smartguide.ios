@@ -151,6 +151,7 @@
 -(GMGridViewCell *)GMGridView:(GMGridView *)gridView cellForItemAtIndex:(NSInteger)index
 {
     GMGridViewCell *cell=[super GMGridView:gridView cellForItemAtIndex:index];
+    ShopGalleryViewCell *gallery=(ShopGalleryViewCell*)cell.contentView;
     
     if([GalleryManager shareInstanceWithShop:_shop].canLoadMoreShopGallery && index==[self numberOfItemsInGMGridView:gridView]-1)
     {
@@ -159,14 +160,12 @@
             [self requestGalleries];
         }
         
-        [cell showLoading];
+        [gallery showLoading];
         
         return cell;
     }
     
-    [cell removeLoading];
-    
-    ShopGalleryViewCell *gallery=(ShopGalleryViewCell*)cell.contentView;
+    [gallery hideLoading];
     
     ShopGallery *obj=_shop.shopGalleriesObjects[index];
     
@@ -200,6 +199,7 @@
 -(GMGridViewCell *)GMGridView:(GMGridView *)gridView cellForItemAtIndex:(NSInteger)index
 {
     GMGridViewCell *cell=[super GMGridView:gridView cellForItemAtIndex:index];
+    ShopGalleryViewCell *gallery=(ShopGalleryViewCell*)cell.contentView;
     
     if([GalleryManager shareInstanceWithShop:_shop].canLoadMoreUserGallery && index==[self numberOfItemsInGMGridView:gridView]-1)
     {
@@ -208,12 +208,12 @@
             [self requestGalleries];
         }
         
-        [cell showLoading];
+        [gallery showLoading];
         
         return cell;
     }
     
-    ShopGalleryViewCell *gallery=(ShopGalleryViewCell*)cell.contentView;
+    [gallery hideLoading];
     
     ShopUserGallery *obj=_shop.userGalleriesObjects[index];
     [gallery loadWithImage:obj.thumbnail highlighted:_selectedGallery==obj];

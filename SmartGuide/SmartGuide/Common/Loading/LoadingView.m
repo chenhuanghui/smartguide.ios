@@ -27,7 +27,7 @@ static char loadingViewKey;
     bg.backgroundColor=[UIColor blackColor];
     bg.alpha=0.3f;
     
-    bg.autoresizingMask=UIViewAutoresizingFlexibleBottomMargin|UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin|UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleWidth;
+    bg.autoresizingMask=UIViewAutoresizingAll();
     
     bgView=bg;
     
@@ -37,7 +37,7 @@ static char loadingViewKey;
     [imgv l_v_setS:self.l_v_s];
     imgv.contentMode=UIViewContentModeCenter;
     
-    imgv.autoresizingMask=UIViewAutoresizingFlexibleBottomMargin|UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin|UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleWidth;
+    imgv.autoresizingMask=UIViewAutoresizingAll();
     
     [self addSubview:imgv];
     
@@ -47,7 +47,7 @@ static char loadingViewKey;
     
     imgvLoading=imgv;
 
-    self.autoresizingMask=UIViewAutoresizingFlexibleBottomMargin|UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin|UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleWidth;
+    self.autoresizingMask=UIViewAutoresizingAll();
     
     [view setLoadingView:self];
     

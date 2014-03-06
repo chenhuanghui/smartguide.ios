@@ -24,11 +24,17 @@
                     <rect key="frame" x="7" y="7" width="76" height="76"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </imageView>
+                <view hidden="YES" contentMode="scaleToFill" id="IIS-k6-vEk">
+                    <rect key="frame" x="0.0" y="0.0" width="91" height="91"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                </view>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <connections>
                 <outlet property="imgv" destination="CgH-2n-aCr" id="ABO-3U-L9t"/>
                 <outlet property="imgvFrame" destination="sfO-qd-Qb0" id="7M8-V1-iON"/>
+                <outlet property="loading" destination="IIS-k6-vEk" id="HpB-UQ-aBB"/>
             </connections>
         </view>
     </objects>

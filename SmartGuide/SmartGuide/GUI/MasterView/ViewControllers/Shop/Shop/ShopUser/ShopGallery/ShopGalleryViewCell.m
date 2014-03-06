@@ -8,12 +8,15 @@
 
 #import "ShopGalleryViewCell.h"
 #import "ImageManager.h"
+#import "LoadingView.h"
 
 @implementation ShopGalleryViewCell
 
 -(id)init
 {
     self=[[NSBundle mainBundle] loadNibNamed:@"ShopGalleryViewCell" owner:nil options:nil][0];
+ 
+    [loading showLoading];
     
     return self;
 }
@@ -22,6 +25,18 @@
 {
     [imgv loadShopGalleryWithURL:url];
     imgvFrame.highlighted=isHighlighted;
+}
+
+-(void)showLoading
+{
+    imgv.hidden=true;
+    loading.hidden=false;
+}
+
+-(void)hideLoading
+{
+    imgv.hidden=false;
+    loading.hidden=true;
 }
 
 +(float)height
