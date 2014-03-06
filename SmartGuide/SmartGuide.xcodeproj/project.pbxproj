@@ -192,6 +192,8 @@
 		9A29574618C23FB1004C8FD5 /* UserGalleryUpload.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A29574518C23FB1004C8FD5 /* UserGalleryUpload.m */; };
 		9A29574918C23FB7004C8FD5 /* _UserGalleryUpload.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A29574818C23FB7004C8FD5 /* _UserGalleryUpload.m */; };
 		9A29574C18C243D9004C8FD5 /* UserUploadGalleryManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A29574B18C243D9004C8FD5 /* UserUploadGalleryManager.m */; };
+		9A2A789618C8CD6C00324EF2 /* ShopListMapCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A2A789518C8CD6C00324EF2 /* ShopListMapCell.m */; };
+		9A2A789818C8CD7900324EF2 /* ShopListMapCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A2A789718C8CD7900324EF2 /* ShopListMapCell.xib */; };
 		9A2AB09C184ECFF4003FD2CE /* button_tickoff.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A2AB09A184ECFF4003FD2CE /* button_tickoff.png */; };
 		9A2AB09D184ECFF4003FD2CE /* button_tickoff@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A2AB09B184ECFF4003FD2CE /* button_tickoff@2x.png */; };
 		9A2F8CC1185569470024AE1A /* bg_animation.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9A2F8C95185569470024AE1A /* bg_animation.jpg */; };
@@ -1375,6 +1377,9 @@
 		9A29574818C23FB7004C8FD5 /* _UserGalleryUpload.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _UserGalleryUpload.m; sourceTree = "<group>"; };
 		9A29574A18C243D9004C8FD5 /* UserUploadGalleryManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserUploadGalleryManager.h; sourceTree = "<group>"; };
 		9A29574B18C243D9004C8FD5 /* UserUploadGalleryManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserUploadGalleryManager.m; sourceTree = "<group>"; };
+		9A2A789418C8CD6C00324EF2 /* ShopListMapCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopListMapCell.h; sourceTree = "<group>"; };
+		9A2A789518C8CD6C00324EF2 /* ShopListMapCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopListMapCell.m; sourceTree = "<group>"; };
+		9A2A789718C8CD7900324EF2 /* ShopListMapCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShopListMapCell.xib; sourceTree = "<group>"; };
 		9A2AB09A184ECFF4003FD2CE /* button_tickoff.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_tickoff.png; sourceTree = "<group>"; };
 		9A2AB09B184ECFF4003FD2CE /* button_tickoff@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_tickoff@2x.png"; sourceTree = "<group>"; };
 		9A2F8C95185569470024AE1A /* bg_animation.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = bg_animation.jpg; sourceTree = "<group>"; };
@@ -2703,6 +2708,9 @@
 				9A0F758C187152DB00160E54 /* ShopListViewController.h */,
 				9A0F758D187152DB00160E54 /* ShopListViewController.m */,
 				9A0F758E187152DB00160E54 /* ShopListViewController.xib */,
+				9A2A789418C8CD6C00324EF2 /* ShopListMapCell.h */,
+				9A2A789518C8CD6C00324EF2 /* ShopListMapCell.m */,
+				9A2A789718C8CD7900324EF2 /* ShopListMapCell.xib */,
 				9A9BE02C18C0FD6000F026CB /* ShopPinView.h */,
 				9A9BE02D18C0FD6000F026CB /* ShopPinView.m */,
 				9A1EA0B218C0E662005A30D1 /* ShopPinInfoView.h */,
@@ -3502,12 +3510,12 @@
 		9ACAED2E1872714B0025B027 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
-				9ACAED2F1872714B0025B027 /* HomeImageCell.h */,
-				9ACAED301872714B0025B027 /* HomeImageCell.m */,
-				9ACAED311872714B0025B027 /* HomeImageCell.xib */,
 				9ACAED321872714B0025B027 /* HomeImagesCell.h */,
 				9ACAED331872714B0025B027 /* HomeImagesCell.m */,
 				9ACAED341872714B0025B027 /* HomeImagesCell.xib */,
+				9ACAED2F1872714B0025B027 /* HomeImageCell.h */,
+				9ACAED301872714B0025B027 /* HomeImageCell.m */,
+				9ACAED311872714B0025B027 /* HomeImageCell.xib */,
 				9ACAED351872714B0025B027 /* HomeInfoCell.h */,
 				9ACAED361872714B0025B027 /* HomeInfoCell.m */,
 				9ACAED371872714B0025B027 /* HomeInfoCell.xib */,
@@ -5584,6 +5592,7 @@
 				9A9FCBE41854ED8C004A3CFB /* cover@2x.jpg in Resources */,
 				9AA90B541850EBA5002F40FF /* button_green_right.png in Resources */,
 				9A9FCBE51854ED8C004A3CFB /* coverdetail.jpg in Resources */,
+				9A2A789818C8CD7900324EF2 /* ShopListMapCell.xib in Resources */,
 				9A3B93F8185DFDAE004F94A4 /* StoreShopViewController.xib in Resources */,
 				9A98C91D188E83A30067EAD3 /* button_loading_big_07@2x.png in Resources */,
 				9A29393118447EAE00FD49E2 /* bgsort_tallmid.png in Resources */,
@@ -5815,6 +5824,7 @@
 				9A32F4041843469400704D26 /* SGNotificationViewController.m in Sources */,
 				9A32F4521843488F00704D26 /* Label.m in Sources */,
 				9ACFA6A318600AA50090E7A8 /* ShopList.m in Sources */,
+				9A2A789618C8CD6C00324EF2 /* ShopListMapCell.m in Sources */,
 				A91A675B1797F65000BEB8C5 /* DataManager.m in Sources */,
 				9ACF7AA418698E4100B0BC78 /* _UserHome4.m in Sources */,
 				9A3B93F7185DFDAE004F94A4 /* StoreShopViewController.m in Sources */,

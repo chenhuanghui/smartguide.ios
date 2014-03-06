@@ -12,6 +12,14 @@
 
 @implementation HomeImageCell
 
+-(void)tableDidScroll
+{
+    float tableOffsetY=self.table.l_co_y;
+    CGRect rect=[self.table rectForRowAtIndexPath:self.indexPath];
+    
+    scroll.contentOffset=CGPointMake((rect.origin.y-tableOffsetY)/2, 0);
+}
+
 -(void)loadImage:(NSString *)url
 {
     [imgv loadImageHomeListWithURL:url];

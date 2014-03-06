@@ -225,7 +225,7 @@
 
 -(void)shopListControllerTouchedTextField:(ShopListViewController *)controller
 {
-    SearchShopViewController *vc=[[SearchShopViewController alloc] initWithKeyword:@""];
+    SearchShopViewController *vc=[[SearchShopViewController alloc] initWithKeyword:controller.keyword];
     vc.delegate=self;
     
     [searchNavi pushViewController:vc animated:true];

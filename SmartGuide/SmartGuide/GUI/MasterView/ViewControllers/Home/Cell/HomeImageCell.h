@@ -11,10 +11,15 @@
 @interface HomeImageCell : UITableViewCell
 {
     __weak IBOutlet UIImageView *imgv;
+    __weak IBOutlet UIScrollView *scroll;
 }
 
+-(void) tableDidScroll;
 -(void) loadImage:(NSString*) url;
 
 +(NSString *)reuseIdentifier;
+
+@property (nonatomic, weak) UITableView *table;
+@property (nonatomic, strong) NSIndexPath *indexPath;
 
 @end

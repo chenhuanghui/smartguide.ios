@@ -42,6 +42,22 @@
     return home;
 }
 
+-(void)setCoverHeight:(NSNumber *)coverHeight
+{
+    if(coverHeight.floatValue==0)
+        coverHeight=@(0);
+    
+    [super setCoverHeight:coverHeight];
+}
+
+-(void)setCoverWidth:(NSNumber *)coverWidth
+{
+    if(coverWidth.floatValue==0)
+        coverWidth=@(0);
+    
+    [super setCoverWidth:coverWidth];
+}
+
 -(NSNumber *)idShop
 {
     return self.shop.idShop;
@@ -50,6 +66,22 @@
 -(NSString *)logo
 {
     return self.shop.logo;
+}
+
+-(float)titleHeight
+{
+    if(self.title.length==0)
+        return 0;
+    
+    return titleHeight;
+}
+
+-(float)contentHeight
+{
+    if(self.content.length==0)
+        return 0;
+    
+    return contentHeight;
 }
 
 @end

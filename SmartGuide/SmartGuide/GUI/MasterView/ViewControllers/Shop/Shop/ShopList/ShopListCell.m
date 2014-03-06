@@ -25,7 +25,6 @@
 -(void)loadWithShopList:(ShopList *)shopList
 {
     _shop=shopList;
-    imgvVoucher.highlighted=rand()%2==0;
     [imgvType setImage:[[ImageManager sharedInstance] shopImageTypeWithType:shopList.shop.enumShopType]];
 
     [self makeScrollSize];
@@ -266,7 +265,16 @@
 {
     if([operation isKindOfClass:[ASIOperationLoveShop class]])
     {
-        [self loadWithShopList:_shop];
+        lblName.text=_shop.shopName;
+        lblAddress.text=_shop.address;
+        lblContent.text=_shop.desc;
+        [btnNumOfView setTitle:[NSString stringWithFormat:@"%@ lượt xem",[_shop numOfView]] forState:UIControlStateNormal];
+        [btnNumOfLove setTitle:[NSString stringWithFormat:@"%@ lượt thích",[_shop numOfLove]] forState:UIControlStateNormal];
+        [btnNumOfComment setTitle:[NSString stringWithFormat:@"%@ nhận xét",[_shop numOfComment]] forState:UIControlStateNormal];
+        
+        [self closeLove];
+        
+        [imgvType setImage:[[ImageManager sharedInstance] shopImageTypeWithType:_shop.shop.enumShopType]];
         
         _operationLove=nil;
     }

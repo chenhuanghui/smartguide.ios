@@ -227,6 +227,9 @@
 
 +(CGSize)makeSizeFromImageSize:(CGSize)imageSize willWidth:(float)willWidth
 {
+    if(CGSizeEqualToSize(imageSize, CGSizeZero))
+        return CGSizeMake(0, 0);
+    
     float w=willWidth/imageSize.width;
     return CGSizeMake(imageSize.width*w, imageSize.height*w);
 }

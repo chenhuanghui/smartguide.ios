@@ -26,8 +26,7 @@
 {
     CGRect rect=[self.table rectForRowAtIndexPath:self.indexPath];
     [scroll l_v_setX:self.table.l_co_y-rect.origin.y];
-//    [scroll l_v_setW:320];
-    
+
     int idx=self.table.l_co_y/320;
     
     if(idx==self.indexPath.row)

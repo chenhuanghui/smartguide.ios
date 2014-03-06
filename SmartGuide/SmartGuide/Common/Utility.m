@@ -1378,6 +1378,9 @@ NSUInteger UIViewAutoresizingAll()
 
 - (UIImage *) scaleToSize: (CGSize)size
 {
+    if(CGSizeEqualToSize(size, CGSizeZero))
+        return nil;
+    
     // Scalling selected image to targeted size
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
     
@@ -1407,6 +1410,9 @@ NSUInteger UIViewAutoresizingAll()
 
 - (UIImage *) scaleProportionalToSize: (CGSize)size1
 {
+    if(CGSizeEqualToSize(size1, CGSizeZero))
+        return nil;
+    
     if(self.size.width>self.size.height)
     {
         size1=CGSizeMake((self.size.width/self.size.height)*size1.height,size1.height);

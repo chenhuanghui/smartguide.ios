@@ -14,14 +14,21 @@
                 <rect key="frame" x="0.0" y="0.0" width="302" height="174"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView autoresizesSubviews="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="WJj-6q-PeF">
+                    <scrollView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" bouncesZoom="NO" id="7Re-Wc-EH8">
                         <rect key="frame" x="0.0" y="0.0" width="302" height="175"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                    </imageView>
+                        <subviews>
+                            <imageView autoresizesSubviews="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="WJj-6q-PeF">
+                                <rect key="frame" x="0.0" y="0.0" width="302" height="175"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </imageView>
+                        </subviews>
+                    </scrollView>
                 </subviews>
             </tableViewCellContentView>
             <connections>
                 <outlet property="imgv" destination="WJj-6q-PeF" id="wdX-dx-58h"/>
+                <outlet property="scroll" destination="7Re-Wc-EH8" id="ZmW-9V-EMP"/>
             </connections>
         </tableViewCell>
     </objects>

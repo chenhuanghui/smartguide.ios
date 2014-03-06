@@ -231,6 +231,8 @@
         HomeListImageCell *cell=[tableView dequeueReusableCellWithIdentifier:[HomeListImageCell reuseIdentifier]];
         UserHomeImage *img=_images[indexPath.row];
         
+        cell.indexPath=indexPath;
+        cell.table=tableView;
         [cell loadImageWithURL:img.image];
         
         return cell;
@@ -243,6 +245,12 @@
 {
     if(scrollView==tableSlide)
     {
+        for(HomeListImageCell *cell in tableSlide.visibleCells)
+        {
+            if([cell isKindOfClass:[HomeListImageCell class]])
+                [cell tableDidScroll];
+        }
+        
         [pageControl scrollViewDidScroll:scrollView isHorizontal:true];
     }
 }

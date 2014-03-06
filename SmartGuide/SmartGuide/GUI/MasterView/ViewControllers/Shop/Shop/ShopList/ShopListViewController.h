@@ -23,8 +23,9 @@
 #import "ASIOperationGetShopList.h"
 #import "Placelist.h"
 #import "PlacelistViewController.h"
+#import "ShopListMapCell.h"
 
-@class ScrollShopList,ShopListContentView,ShopListViewController;
+@class ScrollShopList,ShopListContentView,ShopListViewController,TableShopList;
 
 enum SHOP_LIST_VIEW_MODE {
     SHOP_LIST_VIEW_LIST = 0,
@@ -42,9 +43,8 @@ enum SHOP_LIST_VIEW_MODE {
 
 @interface ShopListViewController : SGViewController<MKMapViewDelegate,UIScrollViewDelegate,ScrollerDelegate,UIGestureRecognizerDelegate,SortSearchDelegate,UIActionSheetDelegate,UITableViewDataSource,UITableViewDelegate,ShopListCellDelegate,SearchControllerHandle,ASIOperationPostDelegate,UITextFieldDelegate,PlacelistControllerDelegate>
 {
-    __weak IBOutlet UITableView *tableList;
+    __weak IBOutlet TableShopList *tableList;
     __weak IBOutlet ScrollShopList *scroll;
-    __weak IBOutlet UIButton *btnMap;
     __weak IBOutlet ShopSearchSortView *sortView;
     __weak IBOutlet UIButton *btnSearchLocation;
     __weak IBOutlet UIView *qrCodeView;
@@ -52,13 +52,14 @@ enum SHOP_LIST_VIEW_MODE {
     __weak IBOutlet UIButton *btnScanSmall;
     __weak IBOutlet UITextField *txt;
     __weak IBOutlet UIView *loadingView;
-    __strong IBOutlet SGMapView *map;
+    __strong ShopListMapCell *mapCell;
+    __weak SGMapView *map;
+    __weak IBOutlet UIView *visibleTableView;//dùng để tính vị trí animation
 
     CGRect _mapFrame;
     CGRect _tableFrame;
     CGRect _qrFrame;
     CGRect _sortFrame;
-    CGRect _buttonMapFrame;
     CGRect _buttonSearchLocationFrame;
     CGRect _buttonScanBigFrame;
     CGRect _buttonScanSmallFrame;
@@ -108,6 +109,8 @@ enum SHOP_LIST_VIEW_MODE {
     bool _didMakeScrollSize;
     
     bool _isNeedAnimationChangeTable;
+    
+    float _mapRowHeight;
 }
 
 -(ShopListViewController*) initWithKeyword:(NSString*) keyword;
@@ -125,7 +128,7 @@ enum SHOP_LIST_VIEW_MODE {
 
 @end
 
-@interface ScrollShopList : SGScrollView<UIGestureRecognizerDelegate>
+@interface ScrollShopList : UIScrollView<UIGestureRecognizerDelegate>
 
 @end
 
@@ -135,10 +138,11 @@ enum SHOP_LIST_VIEW_MODE {
 
 @end
 
-@interface ShopListContentView : UIView
+@interface TableShopList : UITableView
+{
+    float _offsetY;
+}
 
-@end
-
-@interface ShopListView : UIView
+-(float) offsetY;
 
 @end
