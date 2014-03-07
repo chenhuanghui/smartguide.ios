@@ -114,6 +114,8 @@
 		9A16926B18C06FFF002B57BF /* ASIInputStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A16926118C06FFF002B57BF /* ASIInputStream.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		9A16926C18C06FFF002B57BF /* ASINetworkQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A16926318C06FFF002B57BF /* ASINetworkQueue.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		9A1B010818BE5D27005FC9C1 /* ImageScaleCrop.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A1B010718BE5D27005FC9C1 /* ImageScaleCrop.m */; };
+		9A1B124518C9D97E004BDBB6 /* TutorialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A1B124318C9D97E004BDBB6 /* TutorialViewController.m */; };
+		9A1B124618C9D97E004BDBB6 /* TutorialViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A1B124418C9D97E004BDBB6 /* TutorialViewController.xib */; };
 		9A1CAD5618BB4239004C7A4A /* SGData.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A1CAD5518BB4239004C7A4A /* SGData.m */; };
 		9A1D330918AB60340008D9CE /* button_Facebook_hidden.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A1D330718AB60340008D9CE /* button_Facebook_hidden.png */; };
 		9A1D330A18AB60340008D9CE /* button_Facebook_hidden@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A1D330818AB60340008D9CE /* button_Facebook_hidden@2x.png */; };
@@ -1280,6 +1282,9 @@
 		9A16926418C06FFF002B57BF /* ASIProgressDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIProgressDelegate.h; sourceTree = "<group>"; };
 		9A1B010618BE5D27005FC9C1 /* ImageScaleCrop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageScaleCrop.h; sourceTree = "<group>"; };
 		9A1B010718BE5D27005FC9C1 /* ImageScaleCrop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageScaleCrop.m; sourceTree = "<group>"; };
+		9A1B124218C9D97E004BDBB6 /* TutorialViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TutorialViewController.h; sourceTree = "<group>"; };
+		9A1B124318C9D97E004BDBB6 /* TutorialViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TutorialViewController.m; sourceTree = "<group>"; };
+		9A1B124418C9D97E004BDBB6 /* TutorialViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TutorialViewController.xib; sourceTree = "<group>"; };
 		9A1CAD5418BB4239004C7A4A /* SGData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGData.h; sourceTree = "<group>"; };
 		9A1CAD5518BB4239004C7A4A /* SGData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGData.m; sourceTree = "<group>"; };
 		9A1D330718AB60340008D9CE /* button_Facebook_hidden.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_Facebook_hidden.png; sourceTree = "<group>"; };
@@ -3198,6 +3203,9 @@
 				9A32F48118434F2000704D26 /* SGSettingViewController.h */,
 				9A32F48218434F2000704D26 /* SGSettingViewController.m */,
 				9A32F48318434F2000704D26 /* SGSettingViewController.xib */,
+				9A1B124218C9D97E004BDBB6 /* TutorialViewController.h */,
+				9A1B124318C9D97E004BDBB6 /* TutorialViewController.m */,
+				9A1B124418C9D97E004BDBB6 /* TutorialViewController.xib */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -5618,6 +5626,7 @@
 				9A0F761A187152DB00160E54 /* ShopDetailInfoEmptyCell.xib in Resources */,
 				9A4E4B641887E0B800E4A1D2 /* line_blur_status.png in Resources */,
 				9A9DB985187BA42700091602 /* frame_ava_photo.png in Resources */,
+				9A1B124618C9D97E004BDBB6 /* TutorialViewController.xib in Resources */,
 				9ACAED6C1872B10E0025B027 /* text_addphoto@2x.png in Resources */,
 				9A0F760D187152DB00160E54 /* ShopCameraTakeViewController.xib in Resources */,
 				9A98C911188E83A30067EAD3 /* button_loading_small_04.png in Resources */,
@@ -5983,6 +5992,7 @@
 				A91CE6C617A93F6E00D29E87 /* _ShopUserGallery.m in Sources */,
 				9A7E55AC183CEB30006D1798 /* UIImage+GIF.m in Sources */,
 				9A912A47188F8B4D00BBD66C /* ShopKM2NonConditionCell.m in Sources */,
+				9A1B124518C9D97E004BDBB6 /* TutorialViewController.m in Sources */,
 				9A9211A2185AC39F0012F181 /* ASIOperationStoreShopItem.m in Sources */,
 				A9DCA90817AABCB200C56854 /* ShopUserComment.m in Sources */,
 				A9DCA90B17AABCBB00C56854 /* _ShopUserComment.m in Sources */,

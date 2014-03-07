@@ -20,6 +20,7 @@
 -(void) settingTouchedStore:(SGSettingViewController*) controller;
 -(void) settingTouchedOtherView:(SGSettingViewController*) controller;
 -(void) settingTouchedPromotion:(SGSettingViewController*) controller;
+-(void) settingTouchedTutorial:(SGSettingViewController*) controller;
 
 @end
 

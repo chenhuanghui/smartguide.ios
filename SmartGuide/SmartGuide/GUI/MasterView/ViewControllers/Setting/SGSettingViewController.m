@@ -79,4 +79,8 @@
     [self.delegate settingTouchedPromotion:self];
 }
 
+- (IBAction)btnTutorialTouchUpInside:(id)sender {
+    [self.delegate settingTouchedTutorial:self];
+}
+
 @end

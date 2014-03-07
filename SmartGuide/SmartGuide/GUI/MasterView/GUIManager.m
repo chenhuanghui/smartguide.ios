@@ -11,10 +11,11 @@
 #import "PlacelistViewController.h"
 #import "UserUploadGalleryManager.h"
 #import "UserUploadAvatarManager.h"
+#import "TutorialViewController.h"
 
 static GUIManager *_shareInstance=nil;
 
-@interface GUIManager()<UserPromotionDelegate>
+@interface GUIManager()<UserPromotionDelegate,TutorialDelegate>
 {
     
 }
@@ -182,6 +183,21 @@ static GUIManager *_shareInstance=nil;
 
 -(void)toolbarSetting
 {
+}
+
+-(void)settingTouchedTutorial:(SGSettingViewController *)controller
+{
+    TutorialViewController *vc=[TutorialViewController new];
+    vc.delegate=self;
+    
+    [self.rootNavigation presentSGViewController:vc completion:nil];
+}
+
+-(void)tutorialTouchedBack:(TutorialViewController *)controller
+{
+    [self.rootNavigation dismissSGViewControllerCompletion:^{
+        [self.rootNavigation.view makeAlphaViewBelowView:self.rootNavigation.leftSlideController.view];
+    }];
 }
 
 -(void)settingTouchedCatalog:(SGSettingViewController *)settingController

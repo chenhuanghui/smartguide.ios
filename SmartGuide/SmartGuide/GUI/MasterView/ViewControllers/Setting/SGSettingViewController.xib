@@ -172,6 +172,9 @@
                             <state key="highlighted" backgroundImage="bg_button_release_navigation.png">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
+                            <connections>
+                                <action selector="btnTutorialTouchUpInside:" destination="-1" eventType="touchUpInside" id="j1J-lV-cxW"/>
+                            </connections>
                         </button>
                         <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="ufW-jX-71f">
                             <rect key="frame" x="254" y="155" width="6" height="11"/>
