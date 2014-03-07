@@ -10,7 +10,7 @@
 
 @class TutorialViewController;
 
-@protocol TutorialDelegate <NSObject>
+@protocol TutorialDelegate <SGViewControllerDelegate>
 
 -(void) tutorialTouchedBack:(TutorialViewController*) controller;
 

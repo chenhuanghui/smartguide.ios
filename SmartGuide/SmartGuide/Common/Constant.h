@@ -42,8 +42,8 @@ static NSString * const kClientId = @"816218358288-msr055u6pvnlqep605ri3lu8tt5ev
 
 #else
 
-#define SERVER_API @"https://api.smartguide.vn/api"
-#define SERVER_IP @"https://api.smartguide.vn"
+#define SERVER_API @"https://api.infory.vn/api"
+#define SERVER_IP @"https://api.infory.vn"
 
 #define CLIENT_ID @"1_orazuv2dl3k8ossssg8804o4kwksw8kwcskkk404w40gwcwws"//product
 #define SECRET_ID @"4xvgf3r9dxs8k8g8o8k0gss0s0wc8so4g4wg40c8s44kgcwsks"//product

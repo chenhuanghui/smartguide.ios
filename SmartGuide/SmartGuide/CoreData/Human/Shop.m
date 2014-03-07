@@ -55,7 +55,7 @@
         shop=[Shop insert];
         shop.idShop=@(idShop);
     }
-
+    
     [shop removeAllTimeComments];
     [shop removeAllTopComments];
     [shop removeAllUserGalleries];
@@ -121,7 +121,7 @@
         for(NSDictionary *comment in array)
         {
             ShopUserComment *obj = [ShopUserComment makeWithJSON:comment];
-
+            
             obj.sortOrder=@(i++);
             
             [shop addTopCommentsObject:obj];
@@ -134,11 +134,21 @@
             break;
             
         case SHOP_PROMOTION_KM1:
-            shop.km1=[ShopKM1 makeWithJSON:dict[@"promotionDetail"]];
+            
+            if([dict[@"promotionDetail"] isNullData])
+                shop.promotionType=@(SHOP_PROMOTION_NONE);
+            else
+                shop.km1=[ShopKM1 makeWithJSON:dict[@"promotionDetail"]];
+            
             break;
             
         case SHOP_PROMOTION_KM2:
-            shop.km2=[ShopKM2 makeWithDictionary:dict[@"promotionDetail"]];
+            
+            if([dict[@"promotionDetail"] isNullData])
+                shop.promotionType=@(SHOP_PROMOTION_NONE);
+            else
+                shop.km2=[ShopKM2 makeWithDictionary:dict[@"promotionDetail"]];
+            
             break;
     }
     
