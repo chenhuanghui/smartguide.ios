@@ -17,7 +17,7 @@
 
 #define SHOP_LIST_SCROLL_SPEED 3.f
 
-@interface ShopListViewController ()<ShopPinDelegate>
+@interface ShopListViewController ()<ShopPinDelegate,ShopListMapDelegate>
 
 @end
 
@@ -67,18 +67,6 @@
 -(void) reloadTable
 {
     [tableList reloadData];
-}
-
--(NSArray *)registerNotifications
-{
-    return @[UIApplicationDidBecomeActiveNotification];
-}
-
--(void)receiveNotification:(NSNotification *)notification
-{
-    if([notification.name isEqualToString:UIApplicationDidBecomeActiveNotification])
-    {
-    }
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -146,11 +134,13 @@
         cell.indexPath=indexPath;
         sortView=cell.sortView;
         sortView.delegate=self;
+        cell.delegate=self;
         
         [self makeSortLayout];
         
         mapCell=cell;
         map=mapCell.map;
+        map.delegate=self;
         
         return cell;
     }
@@ -294,98 +284,12 @@
     return SCREEN_CODE_SHOP_LIST;
 }
 
--(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
-{
-    return;
-    if(object==scrollBar)
-    {
-        
-        float new=[change[NSKeyValueChangeNewKey] floatValue];
-        
-        [UIView animateWithDuration:0.1f animations:^{
-            scrollerView.alpha=new;
-        }];
-    }
-    else if([object isKindOfClass:[MKPinAnnotationView class]])
-    {
-    }
-}
-
 -(void)shopPinTouched:(ShopPinView *)pin
 {
     [[GUIManager shareInstance] presentShopUserWithShopList:pin.shop];
 }
 
--(void) loadScroller
-{
-    if(scrollerView)
-        return;
-    
-    scrollBar=[tableList scrollBar];
-    scrollBar.clipsToBounds=false;
-    
-    UIView *v=[[UIView alloc] initWithFrame:CGRectMake(-315, 0, 315, scrollBar.l_v_h)];
-    v.layer.masksToBounds=true;
-    v.backgroundColor=[UIColor clearColor];
-    v.hidden=_isZoomedMap;
-    v.autoresizingMask=UIViewAutoresizingAll();
-    
-    scrollerView=v;
-    
-    UIView *bg=[[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, scrollBar.l_v_h)];
-    bg.backgroundColor=[UIColor clearColor];
-    bg.autoresizingMask=UIViewAutoresizingAll();
-    
-    scrollerBGView=bg;
-    
-    [v addSubview:bg];
-    
-    UIImageView *slide_head=[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bgslide_head.png"]];
-    slide_head.frame=CGRectMake(0, 0, 30, scrollerView.l_v_h);
-    slide_head.contentMode=UIViewContentModeCenter;
-    slide_head.autoresizingMask=UIViewAutoresizingAll();
-    
-    [bg addSubview:slide_head];
-    
-    UIView *slide_mid=[[UIView alloc] initWithFrame:CGRectMake(slide_head.l_v_w, 0, bg.l_v_w-slide_head.l_v_w, bg.l_v_h)];
-    slide_mid.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"bgslide_mid.png"]];
-    slide_head.autoresizingMask=UIViewAutoresizingFlexibleLeftMargin;
-    slide_head.contentMode=UIViewContentModeCenter;
-    
-    [bg addSubview:slide_mid];
-    
-    UILabel *label=[[UILabel alloc] initWithFrame:CGRectMake(-3, 0, 315, 29)];
-    label.textAlignment=NSTextAlignmentRight;
-    label.backgroundColor=[UIColor clearColor];
-    label.textColor=[UIColor whiteColor];
-    label.font=[UIFont systemFontOfSize:12];
-    label.autoresizingMask=UIViewAutoresizingNone;
-    
-    scrollerLabel=label;
-    
-    [v addSubview:label];
-    
-    UIImageView *imageView=[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_heartscroll.png"]];
-    imageView.contentMode=UIViewContentModeLeft;
-    imageView.autoresizingMask=UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleTopMargin;
-    imageView.frame=bg.frame;
-    [imageView l_v_addX:3];
-    
-    [bg addSubview:imageView];
-    
-    scrollerImageView=imageView;
-    
-    [scrollBar addSubview:scrollerView];
-    //[scrollerContain addSubview:scrollerView];
-    
-    //[scrollerBGView l_v_setX:scrollerView.l_v_w];
-    
-    [self makeSortLayout];
-    
-    scrollerView.hidden=true;
-}
-
--(void)shopListCellTouched:(ShopList *)shop
+-(void)shopListCellTouched:(ShopListCell *)cell shop:(ShopList *)shop
 {
     if(_isZoomedMap)
     {
@@ -393,19 +297,22 @@
         return;
     }
     
+    [cell closeLove];
     [[GUIManager shareInstance] presentShopUserWithShopList:shop];
 }
 
--(void)shopListCellTouchedAdd:(ShopList *)shop
+-(void)shopListCellTouchedAdd:(ShopListCell *)cell shop:(ShopList *)shop
 {
+    [cell closeLove];
     PlacelistViewController *vc=[[PlacelistViewController alloc] initWithShopList:shop];
     vc.delegate=self;
     
     [self.sgNavigationController pushViewController:vc animated:true];
 }
 
--(void)shopListCellTouchedRemove:(ShopList *)shop
+-(void)shopListCellTouchedRemove:(ShopListCell *)cell shop:(ShopList *)shop
 {
+    [cell closeLove];
     PlacelistViewController *vc=[[PlacelistViewController alloc] initWithShopList:shop];
     vc.delegate=self;
     
@@ -417,8 +324,6 @@
     _mapFrame=map.frame;
     _tableFrame=tableList.frame;
     _qrFrame=qrCodeView.frame;
-    _buttonSearchLocationFrame=btnSearchLocation.frame;
-    _sortFrame=sortView.frame;
     _buttonScanBigFrame=btnScanBig.frame;
     _buttonScanSmallFrame=btnScanSmall.frame;
 }
@@ -486,8 +391,6 @@
     // Do any additional setup after loading the view from its nib.
     
     _mapRowHeight=[self mapNormalHeight];
-    
-    _isAllowDiffScrollMap=true;
     
     _location.latitude=userLat();
     _location.longitude=userLng();
@@ -635,6 +538,9 @@
     _location=coordinate;
     _viewMode=SHOP_LIST_VIEW_LIST;
     _sort=SORT_LIST_DISTANCE;
+    _placeList=nil;
+    _keyword=@"";
+    txt.text=@"";
     
     [self makeSortLayout];
     
@@ -711,7 +617,6 @@
     }
     
     [sortView setIcon:sortImage text:localizeSortList(_sort)];
-    scrollerImageView.image=sortScrollerImage;
 }
 
 -(void) changeSort:(enum SORT_LIST) sort
@@ -826,8 +731,6 @@
             [map addMoreShopLists:ope.shopsList];
         
         _isZoomedRegionMap=true;
-        
-        [self makeScrollSize];
     }
     else if([operation isKindOfClass:[ASIOperationPlacelistGetDetail class]])
     {
@@ -852,8 +755,6 @@
         
         _isZoomedRegionMap=true;
         
-        [self makeScrollSize];
-        
     }
     else if([operation isKindOfClass:[ASIOperationPlacelistGet class]])
     {
@@ -876,8 +777,6 @@
         
         _isZoomedRegionMap=true;
         
-        [self makeScrollSize];
-        
         _operationPlacelistGetDetail=nil;
     }
     else if([operation isKindOfClass:[ASIOperationGetShopList class]])
@@ -899,8 +798,6 @@
             [map addMoreShopLists:ope.shopLists];
         
         _isZoomedRegionMap=true;
-        
-        [self makeScrollSize];
         
         _operationShopList=nil;
     }
@@ -937,18 +834,6 @@
     loadingView.userInteractionEnabled=false;
 }
 
--(void) makeScrollSize
-{
-    return;}
-
--(void) tapTop:(UITapGestureRecognizer*) ges
-{
-    if(_isZoomedMap)
-        [self endZoomMap];
-    else
-        [self zoomMap];
-}
-
 -(void)viewWillAppearOnce
 {
     [super viewWillAppearOnce];
@@ -964,211 +849,7 @@
         {
             [mapCell tableDidScroll];
         }
-        
-        //        [sortView l_v_addY:-tableList.offsetY];
-        //        [btnSearchLocation l_v_addY:-tableList.offsetY];
-        
-        //        if(tableList.l_co_y<=0.01f && tableList.l_co_y>=-0.01f)
-        //            [sortView l_v_setY:_sortFrame.origin.y];
-        //
-        //        if(scrollView.l_co_y>_tableFrame.origin.y)
-        //        {
-        //            [tableList l_v_setY:scrollView.l_co_y];
-        //            [tableList l_co_setY:scrollView.l_co_y-_tableFrame.origin.y];
-        //        }
-        //        else
-        //        {
-        //            [tableList l_v_setY:_tableFrame.origin.y];
-        //            [tableList l_co_setY:0];
-        //        }
-        //
-        //        [map l_v_setY:_mapFrame.origin.y+scrollView.contentOffset.y/2];
     }
-    //    return;
-    //    if(scrollView==scroll)
-    //    {
-    //        [map l_v_setY:_mapFrame.origin.y+scroll.contentOffset.y-scroll.contentOffset.y/SHOP_LIST_SCROLL_SPEED];
-    //
-    //        float y=tableList.l_v_y-scrollView.l_co_y;
-    //
-    //        if(map.superview)
-    //        {
-    //            if(y<0)
-    //                [map removeFromSuperview];
-    //        }
-    //        else
-    //        {
-    //            if(y>0)
-    //                [scroll insertSubview:map belowSubview:tableList];
-    //        }
-    //
-    //        if(_tableFrame.origin.y-scrollView.l_co_y<=0)
-    //        {
-    //            [tableList l_v_setY:scrollView.l_co_y];
-    //            [tableList l_co_setY:scrollView.l_co_y-_tableFrame.origin.y];
-    //        }
-    //        else
-    //        {
-    //            [tableList l_v_setY:_tableFrame.origin.y];
-    //            [tableList l_co_setY:0];
-    //        }
-    //
-    //        return;
-    //        //begin scroller
-    //
-    //        if(_isZoomedMap)
-    //            return;
-    //
-    //        float height=(scroll.l_cs_h+scroll.contentInset.bottom-scroll.l_v_h);
-    //        float percent=(scroll.l_co_y)/height;
-    //
-    //        y=percent*(scrollerContain.l_v_h);
-    //
-    //        y=MAX(36, y);
-    //        y=MIN(scrollerContain.l_v_h-scrollerView.l_v_h-QRCODE_RAY_HEIGHT, y);
-    //
-    ////        [UIView animateWithDuration:0.3f animations:^{
-    ////            [scrollerView l_v_setY:y];
-    ////        }];
-    //
-    //        CGPoint pnt=scrollerView.l_v_o;
-    //        pnt.x=0;
-    //        pnt=[scrollerContain convertPoint:pnt toView:scroll];
-    //
-    //        NSString *scrollerText=@"Bản đồ";
-    //
-    //        if(pnt.y<_tableFrame.origin.y)
-    //        {
-    //            CGSize size=[scrollerText sizeWithFont:scrollerLabel.font];
-    //
-    //            size.height=scrollerLabel.l_v_h;
-    //
-    //            scrollerLabel.text=scrollerText;
-    //
-    //            [UIView animateWithDuration:0.1 animations:^{
-    ////                [scrollerBGView l_v_setX:(scrollerBGView.l_v_w-size.width)-scrollerImageView.image.size.width-15];
-    //            } completion:^(BOOL finished) {
-    //                scrollerLabel.text=scrollerText;
-    //            }];
-    //        }
-    //        else
-    //        {
-    //            pnt=[scroll convertPoint:pnt toView:tableList];
-    //
-    //            NSIndexPath *indexPath=[tableList indexPathForRowAtPoint:pnt];
-    //
-    //            if(!_scrollerIndexPath)
-    //                _scrollerIndexPath=indexPath;
-    //            else if(_scrollerIndexPath.row==indexPath.row)
-    //                return;
-    //
-    //            _scrollerIndexPath=indexPath;
-    //
-    //            if(!indexPath)
-    //            {
-    //                [UIView animateWithDuration:0.1f animations:^{
-    //                    scrollerView.alpha=0;
-    //                }];
-    //
-    //                return;
-    //            }
-    //
-    //            switch (_viewMode) {
-    //
-    //                case SHOP_LIST_VIEW_SHOP_LIST:
-    //                case SHOP_LIST_VIEW_LIST:
-    //                {
-    //                    if(indexPath.row==_shopsList.count)
-    //                    {
-    //                        scrollerText=@"Đang tải thêm dữ liệu";
-    //                    }
-    //                    else
-    //                    {
-    //                        ShopList *shop=_shopsList[indexPath.row];
-    //
-    //                        switch (_sort) {
-    //                            case SORT_LIST_DISTANCE:
-    //                                scrollerText=shop.distance;
-    //                                break;
-    //
-    //                            case SORT_LIST_LOVE:
-    //                                scrollerText=shop.numOfLove;
-    //                                break;
-    //
-    //                            case SORT_LIST_VIEW:
-    //                                scrollerText=shop.numOfView;
-    //                                break;
-    //
-    //                            case SORT_LIST_DEFAULT:
-    //                                scrollerText=shop.distance;
-    //                                break;
-    //                        }
-    //                    }
-    //                }
-    //                    break;
-    //
-    //                case SHOP_LIST_VIEW_PLACE:
-    //                case SHOP_LIST_VIEW_IDPLACE:
-    //
-    //                    switch (indexPath.row) {
-    //                        case 0:
-    //                            scrollerText=_placeList.title;
-    //                            break;
-    //
-    //                        default:
-    //                        {
-    //                            if(indexPath.row==_shopsList.count)
-    //                            {
-    //                                scrollerText=@"Đang tải thêm dữ liệu";
-    //                            }
-    //                            else
-    //                            {
-    //                                ShopList *shop=_shopsList[indexPath.row-1];
-    //
-    //                                switch (_sort) {
-    //                                    case SORT_LIST_DISTANCE:
-    //                                        scrollerText=shop.distance;
-    //                                        break;
-    //
-    //                                    case SORT_LIST_LOVE:
-    //                                        scrollerText=shop.numOfLove;
-    //                                        break;
-    //
-    //                                    case SORT_LIST_VIEW:
-    //                                        scrollerText=shop.numOfView;
-    //                                        break;
-    //
-    //                                    case SORT_LIST_DEFAULT:
-    //                                        scrollerText=shop.distance;
-    //                                        break;
-    //                                }
-    //                            }
-    //                        }
-    //                            break;
-    //                    }
-    //
-    //                    break;
-    //            }
-    //
-    //            CGSize size=[scrollerText sizeWithFont:scrollerLabel.font];
-    //
-    //            size.height=scrollerLabel.l_v_h;
-    //
-    //            scrollerLabel.text=scrollerText;
-    //
-    //            [UIView animateWithDuration:0.1 animations:^{
-    //                scrollerView.alpha=1;
-    ////                [scrollerBGView l_v_setX:(scrollerBGView.l_v_w-size.width)-scrollerImageView.image.size.width-15];
-    //            } completion:^(BOOL finished) {
-    //                scrollerLabel.text=scrollerText;
-    //            }];
-    //        }
-    //
-    //        //end scroller
-    //    }
-    //    else if(scrollView==tableList)
-    //    {
-    //    }
 }
 
 -(void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation
@@ -1178,7 +859,7 @@
     
     _isDidUpdateLocation=true;
     
-    [map setRegion:MKCoordinateRegionMakeWithDistance(userLocation.location.coordinate, MAP_SPAN, MAP_SPAN) animated:false];
+    [map setRegion:MKCoordinateRegionMakeWithDistance(mapView.userLocation.location.coordinate, MAP_SPAN, MAP_SPAN) animated:false];
 }
 
 -(float) heightForZoom
@@ -1202,17 +883,10 @@
     return height;
 }
 
--(bool) hasRow
-{
-    return tableList.numberOfSections>0 && [tableList numberOfRowsInSection:0]>0;
-}
-
 -(float) mapNormalHeight
 {
     return 115+150;
 }
-
-
 
 -(void) zoomMap
 {
@@ -1292,24 +966,8 @@
     }
 }
 
--(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
-{
-    if(scrollView==tableList)
-        [self loadScroller];
-}
-
 - (void)dealloc
 {
-    for(id<MKAnnotation> ann in map.annotations)
-    {
-        if([ann isKindOfClass:[ShopPinView class]])
-        {
-            MKAnnotationView *pin = [map viewForAnnotation:ann];
-            
-            [pin removeObserver:self forKeyPath:@"selected"];
-        }
-    }
-    
     map.delegate=nil;
     map=nil;
     
@@ -1382,7 +1040,7 @@
     
 }
 
--(IBAction) btnLocationTouchUpInside:(id)sender
+-(void)shopListMapTouchedLocation:(ShopListMapCell *)mapCell
 {
     [self changeLocation:map.centerCoordinate];
 }
@@ -1538,7 +1196,6 @@
         case UIGestureRecognizerStateCancelled:
         {
             [self.controller closeLove];
-            self.decelerationRate=0;
             
             CGPoint velocity=[pan velocityInView:pan.view];
             

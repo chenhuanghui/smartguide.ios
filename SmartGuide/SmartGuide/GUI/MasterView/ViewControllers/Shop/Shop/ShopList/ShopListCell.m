@@ -199,9 +199,9 @@
 -(void) add_removeShop
 {
     if(btnAddRemove.tag==SHOP_LIST_CELL_BUTTON_TAG_ADD)
-        [self.delegate shopListCellTouchedAdd:_shop];
+        [self.delegate shopListCellTouchedAdd:self shop:_shop];
     else
-        [self.delegate shopListCellTouchedRemove:_shop];
+        [self.delegate shopListCellTouchedRemove:self shop:_shop];
 }
 
 -(void)awakeFromNib
@@ -232,7 +232,7 @@
 
 -(void) tapGes:(UITapGestureRecognizer*) tap
 {
-    [self.delegate shopListCellTouched:_shop];
+    [self.delegate shopListCellTouched:self shop:_shop];
 }
 
 -(void) panGes:(UIPanGestureRecognizer*) pan

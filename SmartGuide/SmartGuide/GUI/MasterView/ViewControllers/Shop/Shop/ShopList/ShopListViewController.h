@@ -58,8 +58,6 @@ enum SHOP_LIST_VIEW_MODE {
     CGRect _mapFrame;
     CGRect _tableFrame;
     CGRect _qrFrame;
-    CGRect _sortFrame;
-    CGRect _buttonSearchLocationFrame;
     CGRect _buttonScanBigFrame;
     CGRect _buttonScanSmallFrame;
     
@@ -67,17 +65,7 @@ enum SHOP_LIST_VIEW_MODE {
     float _heightZoomedMap;
     bool _isAnimatingZoom;
     
-    __weak UIImageView *scrollBar;
-    __weak UILabel *scrollerLabel;
-    __weak UIImageView *scrollerImageView;
-    __weak UIView *scrollerView;
-    __weak UIView *scrollerBGView;
-    __weak IBOutlet UIView *scrollerContain;
-    
-    NSIndexPath *_lastScrollerIndexPath;
-    
     bool _isDidUpdateLocation;
-    bool _isAllowDiffScrollMap;
     
     ASIOperationShopSearch *_operationShopSearch;
     ASIOperationPlacelistGet *_operationPlaceListDetail;

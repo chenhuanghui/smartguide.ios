@@ -16,9 +16,9 @@
 
 @protocol ShopListCellDelegate <NSObject>
 
--(void) shopListCellTouched:(ShopList*) shop;
--(void) shopListCellTouchedAdd:(ShopList*) shop;
--(void) shopListCellTouchedRemove:(ShopList*) shop;
+-(void) shopListCellTouched:(ShopListCell*) cell shop:(ShopList*) shop;
+-(void) shopListCellTouchedAdd:(ShopListCell*) cell shop:(ShopList*) shop;
+-(void) shopListCellTouchedRemove:(ShopListCell*) cell shop:(ShopList*) shop;
 
 @end
 

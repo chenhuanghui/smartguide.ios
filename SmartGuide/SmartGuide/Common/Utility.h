@@ -13,6 +13,10 @@
 #import "Constant.h"
 
 #define IS_IPHONE_4 ([UIScreen mainScreen].bounds.size.height==480)
+#define IS_IPHONE_5 ([UIScreen mainScreen].bounds.size.height==568)
+#define IPHONE_5_HEIGHT 568.f
+#define IPHONE_4_HEIGHT 480.f
+
 #define IS_RETINA ([UIScreen mainScreen].scale==2)
 
 #define CGRECT_PHONE(rectIP4,rectIP5) (IS_IPHONE_4?rectIP4:rectIP5)

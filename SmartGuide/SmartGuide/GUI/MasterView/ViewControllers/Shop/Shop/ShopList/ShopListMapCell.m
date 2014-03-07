@@ -27,6 +27,11 @@
 -(void)awakeFromNib
 {
     [super awakeFromNib];
+
+    if(IS_IPHONE_5)
+    {
+        [btnLocation l_v_addY:IPHONE_4_HEIGHT-IPHONE_5_HEIGHT];
+    }
     
     [self disabelMap];
 }
@@ -55,6 +60,10 @@
     
     if([self.map respondsToSelector:@selector(setShowsPointsOfInterest:)])
         self.map.showsPointsOfInterest=false;
+}
+
+- (IBAction)btnLocationTouchUpInside:(id)sender {
+    [self.delegate shopListMapTouchedLocation:self];
 }
 
 @end

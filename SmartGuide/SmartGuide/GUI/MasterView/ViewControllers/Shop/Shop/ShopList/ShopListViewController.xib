@@ -11,7 +11,6 @@
                 <outlet property="btnScanSmall" destination="GXa-1X-Dey" id="fVU-E6-oJL"/>
                 <outlet property="loadingView" destination="V1R-4A-6yh" id="Ulh-aS-OTa"/>
                 <outlet property="qrCodeView" destination="wZi-TX-GZk" id="Omh-oR-Tsp"/>
-                <outlet property="scrollerContain" destination="xkE-2n-RVR" id="3Kt-Dg-daL"/>
                 <outlet property="tableList" destination="Yzp-w8-hbC" id="JoC-2F-5Qb"/>
                 <outlet property="txt" destination="ray-CK-v4m" id="tDG-jV-qFt"/>
                 <outlet property="view" destination="1" id="3"/>
@@ -38,11 +37,6 @@
                         <outlet property="delegate" destination="-1" id="GJ1-1h-wcc"/>
                     </connections>
                 </tableView>
-                <view userInteractionEnabled="NO" contentMode="scaleToFill" id="xkE-2n-RVR">
-                    <rect key="frame" x="0.0" y="47" width="320" height="387"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                </view>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background_blur.png" id="Y1h-Ug-p0M">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="91"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
