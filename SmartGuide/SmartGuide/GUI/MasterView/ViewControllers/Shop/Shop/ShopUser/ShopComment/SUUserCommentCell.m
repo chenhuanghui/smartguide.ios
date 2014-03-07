@@ -43,10 +43,10 @@
     
     [imgvAvatar loadAvatarWithURL:userAvatar()];
  
-    if(currentUser().allowShareCommentFB.boolValue)
-        [btnShare setDefaultImage:[UIImage imageNamed:@"button_Facebook.png"] highlightImage:[UIImage imageNamed:@"button_facebook_hidden.png"]];
-    else
-        [btnShare setDefaultImage:[UIImage imageNamed:@"button_facebook_hidden.png"] highlightImage:[UIImage imageNamed:@"button_Facebook.png"]];
+//    if(currentUser().allowShareCommentFB.boolValue)
+//        [btnShare setDefaultImage:[UIImage imageNamed:@"button_Facebook.png"] highlightImage:[UIImage imageNamed:@"button_facebook_hidden.png"]];
+//    else
+//        [btnShare setDefaultImage:[UIImage imageNamed:@"button_facebook_hidden.png"] highlightImage:[UIImage imageNamed:@"button_Facebook.png"]];
 }
 
 -(void)reloadData
@@ -171,7 +171,7 @@
     txt.contentInset=UIEdgeInsetsZero;
     txt.minNumberOfLines=1;
     txt.maxNumberOfLines=2;
-    txt.returnKeyType=UIReturnKeyDone;
+    txt.returnKeyType=UIReturnKeySend;
     txt.enablesReturnKeyAutomatically=true;
     txt.font=[UIFont fontWithName:@"Avenir-Roman" size:12];
     txt.delegate=self;
@@ -179,6 +179,7 @@
     txt.backgroundColor=[UIColor clearColor];
     txt.placeholder=@"Nhập nhận xét của bạn....";
     txt.keyboardType=UIKeyboardTypeDefault;
+    txt.internalTextView.autocorrectionType=UITextAutocorrectionTypeNo;
     
     UITapGestureRecognizer *tap=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapTouchView:)];
     [touchView addGestureRecognizer:tap];
@@ -219,8 +220,8 @@
         btnSort.hidden=false;
         btnSend.alpha=0;
         btnSend.hidden=false;
-        btnShare.alpha=0;
-        btnShare.hidden=false;
+//        btnShare.alpha=0;
+//        btnShare.hidden=false;
         [UIView animateWithDuration:duration animations:^{
             
             float h=7;
@@ -230,8 +231,8 @@
             [btnSort l_v_setY:containButtonView.l_v_h+btnSort.l_v_h];
             btnSort.alpha=0;
             
-            [btnShare l_v_setY:19];
-            btnShare.alpha=1;
+//            [btnShare l_v_setY:19];
+//            btnShare.alpha=1;
             
             [btnSend l_v_setY:0];
             btnSend.alpha=1;
@@ -249,9 +250,9 @@
         [bgView l_v_setH:SU_USER_COMMENT_CELL_BOTTOM_EDIT_Y-SU_USER_COMMENT_CELL_BOTTOM_NORMAL_Y+h];
         [typeCommentBot l_v_setY:SU_USER_COMMENT_CELL_BOTTOM_EDIT_Y];
         [btnSort l_v_setY:containButtonView.l_v_h+btnSort.l_v_h];
-        [btnShare l_v_setY:19];
-        btnShare.alpha=1;
-        btnShare.hidden=false;
+//        [btnShare l_v_setY:19];
+//        btnShare.alpha=1;
+//        btnShare.hidden=false;
         [btnSend l_v_setY:0];
         btnSend.alpha=1;
         btnSend.hidden=false;
@@ -275,8 +276,8 @@
         _isAnimating=true;
         btnSort.alpha=0;
         btnSort.hidden=false;
-        btnShare.alpha=1;
-        btnShare.hidden=false;
+//        btnShare.alpha=1;
+//        btnShare.hidden=false;
         btnSend.alpha=1;
         btnSend.hidden=false;
         
@@ -288,8 +289,8 @@
             btnSort.alpha=1;
             [btnSort l_v_setY:19];
             
-            [btnShare l_v_setY:containButtonView.l_v_h+btnShare.l_v_h];
-            btnShare.alpha=0;
+//            [btnShare l_v_setY:containButtonView.l_v_h+btnShare.l_v_h];
+//            btnShare.alpha=0;
             
             [btnSend l_v_setY:containButtonView.l_v_h+btnSend.l_v_h];
             btnSend.alpha=0;
@@ -298,7 +299,7 @@
             
         } completion:^(BOOL finished) {
             animationView.hidden=true;
-            btnShare.hidden=true;
+//            btnShare.hidden=true;
             btnSend.hidden=true;
             _isAnimating=false;
         }];
@@ -312,9 +313,9 @@
         btnSort.alpha=1;
         [btnSort l_v_setY:19];
         
-        [btnShare l_v_setY:containButtonView.l_v_h+btnShare.l_v_h];
-        btnShare.hidden=true;
-        btnShare.alpha=0;
+//        [btnShare l_v_setY:containButtonView.l_v_h+btnShare.l_v_h];
+//        btnShare.hidden=true;
+//        btnShare.alpha=0;
         
         [btnSend l_v_setY:containButtonView.l_v_h+btnSend.l_v_h];
         btnSend.hidden=true;
@@ -359,74 +360,89 @@
     currentUser().allowShareCommentFB=@(!currentUser().allowShareCommentFB.boolValue);
     [[DataManager shareInstance] save];
 
-    if(currentUser().allowShareCommentFB.boolValue)
-        [btnShare setDefaultImage:[UIImage imageNamed:@"button_Facebook.png"] highlightImage:[UIImage imageNamed:@"button_Facebook_hidden.png"]];
-    else
-        [btnShare setDefaultImage:[UIImage imageNamed:@"button_Facebook_hidden.png"] highlightImage:[UIImage imageNamed:@"button_Facebook.png"]];
+//    if(currentUser().allowShareCommentFB.boolValue)
+//        [btnShare setDefaultImage:[UIImage imageNamed:@"button_Facebook.png"] highlightImage:[UIImage imageNamed:@"button_Facebook_hidden.png"]];
+//    else
+//        [btnShare setDefaultImage:[UIImage imageNamed:@"button_Facebook_hidden.png"] highlightImage:[UIImage imageNamed:@"button_Facebook.png"]];
     
     if(currentUser().allowShareCommentFB.boolValue)
     {
-        btnShare.userInteractionEnabled=false;
+//        btnShare.userInteractionEnabled=false;
         
         if([[FacebookManager shareInstance] isLogined])
         {
             if([[FacebookManager shareInstance] permissionTypeForPostToWall]==FACEBOOK_PERMISSION_DENIED)
             {
                 [[FacebookManager shareInstance] requestPermissionPostToWallOnCompleted:^(enum FACEBOOK_PERMISSION_TYPE permissionType) {
-                    btnShare.userInteractionEnabled=true;
+//                    btnShare.userInteractionEnabled=true;
                 }];
             }
             else
-                btnShare.userInteractionEnabled=true;
+            {
+//                btnShare.userInteractionEnabled=true;
+            }
         }
         else
         {
             [[FacebookManager shareInstance] loginOnCompleted:^(enum FACEBOOK_PERMISSION_TYPE permissionType) {
                 if(permissionType==FACEBOOK_PERMISSION_GRANTED)
                 {
-                    [[FacebookManager shareInstance] requestPermissionPostToWallOnCompleted:^(enum FACEBOOK_PERMISSION_TYPE permissionType) {
-                        btnShare.userInteractionEnabled=true;
-                    }];
+//                    [[FacebookManager shareInstance] requestPermissionPostToWallOnCompleted:^(enum FACEBOOK_PERMISSION_TYPE permissionType) {
+//                        btnShare.userInteractionEnabled=true;
+//                    }];
                 }
                 else
-                    btnShare.userInteractionEnabled=true;
+                {
+//                    btnShare.userInteractionEnabled=true;
+                }
             }];
         }
     }
 }
 
-- (IBAction)btnSendTouchUpInside:(id)sender {
+-(void) sendComment
+{
     if([txt.text stringByTrimmingWhiteSpace].length>0)
     {
         if(currentUser().enumDataMode==USER_DATA_TRY)
         {
             [[GUIManager shareInstance] showLoginDialogWithMessage:localizeLoginRequire() onOK:^
-            {
-                [SGData shareInstance].fScreen=SCREEN_CODE_SHOP_USER_COMMENT_SEND;
-                [[SGData shareInstance].fData setObject:_shop.idShop forKey:IDSHOP];
-            } onCancelled:nil onLogined:^(bool isLogined) {
-                if(isLogined)
-                    [self.delegate userCommentUserComment:self comment:txt.text isShareFacebook:currentUser().allowShareCommentFB.boolValue];
-            }];
+             {
+                 [SGData shareInstance].fScreen=SCREEN_CODE_SHOP_USER_COMMENT_SEND;
+                 [[SGData shareInstance].fData setObject:_shop.idShop forKey:IDSHOP];
+             } onCancelled:nil onLogined:^(bool isLogined) {
+                 if(isLogined)
+                     [self.delegate userCommentUserComment:self comment:txt.text isShareFacebook:currentUser().allowShareCommentFB.boolValue];
+             }];
             
             return;
         }
         else if(currentUser().enumDataMode==USER_DATA_CREATING)
         {
             [[GUIManager shareInstance] showLoginDialogWithMessage:localizeUserProfileRequire() onOK:^
-            {
-                [SGData shareInstance].fScreen=SCREEN_CODE_SHOP_USER_COMMENT_SEND;
-                [[SGData shareInstance].fData setObject:_shop.idShop forKey:IDSHOP];
-            } onCancelled:nil onLogined:^(bool isLogined) {
-                if(isLogined)
-                    [self.delegate userCommentUserComment:self comment:txt.text isShareFacebook:currentUser().allowShareCommentFB.boolValue];
-            }];
+             {
+                 [SGData shareInstance].fScreen=SCREEN_CODE_SHOP_USER_COMMENT_SEND;
+                 [[SGData shareInstance].fData setObject:_shop.idShop forKey:IDSHOP];
+             } onCancelled:nil onLogined:^(bool isLogined) {
+                 if(isLogined)
+                     [self.delegate userCommentUserComment:self comment:txt.text isShareFacebook:currentUser().allowShareCommentFB.boolValue];
+             }];
             
             return;
         }
         
         [self.delegate userCommentUserComment:self comment:txt.text isShareFacebook:currentUser().allowShareCommentFB.boolValue];
     }
+}
+
+- (IBAction)btnSendTouchUpInside:(id)sender {
+    [self sendComment];
+}
+
+-(BOOL)growingTextViewShouldReturn:(HPGrowingTextView *)growingTextView
+{
+    [self sendComment];
+    return true;
 }
 
 -(BOOL)growingTextViewShouldBeginEditing:(HPGrowingTextView *)growingTextView
