@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "SGMapView.h"
+#import "ShopSearchSortView.h"
 
 @interface ShopListMapCell : UITableViewCell
 {
@@ -21,6 +22,7 @@
 
 +(NSString *)reuseIdentifier;
 
+@property (weak, nonatomic) IBOutlet ShopSearchSortView *sortView;
 @property (weak, nonatomic) IBOutlet SGMapView *map;
 @property (nonatomic, weak) UITableView *table;
 @property (nonatomic, weak) UIScrollView *scroll;

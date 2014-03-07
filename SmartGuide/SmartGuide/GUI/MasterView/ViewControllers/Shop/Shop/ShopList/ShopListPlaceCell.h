@@ -28,5 +28,6 @@
 
 +(NSString *)reuseIdentifier;
 +(float) heightWithContent:(NSString*) content;
++(float) titleHeight;
 
 @end

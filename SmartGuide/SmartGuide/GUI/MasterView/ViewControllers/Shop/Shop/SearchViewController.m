@@ -235,8 +235,23 @@
 {
     if(searchNavi.viewControllers.count==1)
         [self.navigationController popViewControllerAnimated:true];
+    else
+    {
+        int idx=[searchNavi.viewControllers indexOfObject:controller];
+        
+        if([searchNavi.viewControllers[idx-1] isKindOfClass:[SearchShopViewController class]])
+        {
+            SearchShopViewController *vc=searchNavi.viewControllers[idx-1];
+            [vc setKeyword:controller.keyword];
+        }
+        
+        [searchNavi popViewControllerAnimated:true];
+    }
+}
+
+-(void)viewWillAppearOnce
+{
     
-    [searchNavi popViewControllerAnimated:true];
 }
 
 - (void)didReceiveMemoryWarning

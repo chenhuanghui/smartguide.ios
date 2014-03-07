@@ -1012,6 +1012,23 @@ NSUInteger UIViewAutoresizingAll()
     return zoomScale;
 }
 
+-(void)killScroll
+{
+    CGPoint offset = self.contentOffset;
+    offset.x -= 1.0;
+    offset.y -= 1.0;
+    [self setContentOffset:offset animated:NO];
+    offset.x += 1.0;
+    offset.y += 1.0;
+    [self setContentOffset:offset animated:NO];
+    
+    offset = self.contentOffset;
+    [self setContentOffset:offset animated:NO];
+    
+    self.scrollEnabled = NO;
+    self.scrollEnabled = YES;
+}
+
 @end
 
 @implementation NSData(Utility)

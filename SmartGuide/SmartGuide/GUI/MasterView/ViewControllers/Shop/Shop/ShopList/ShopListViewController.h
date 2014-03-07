@@ -44,7 +44,6 @@ enum SHOP_LIST_VIEW_MODE {
 @interface ShopListViewController : SGViewController<MKMapViewDelegate,UIScrollViewDelegate,ScrollerDelegate,UIGestureRecognizerDelegate,SortSearchDelegate,UIActionSheetDelegate,UITableViewDataSource,UITableViewDelegate,ShopListCellDelegate,SearchControllerHandle,ASIOperationPostDelegate,UITextFieldDelegate,PlacelistControllerDelegate>
 {
     __weak IBOutlet TableShopList *tableList;
-    __weak IBOutlet ScrollShopList *scroll;
     __weak IBOutlet ShopSearchSortView *sortView;
     __weak IBOutlet UIButton *btnSearchLocation;
     __weak IBOutlet UIView *qrCodeView;
@@ -63,14 +62,10 @@ enum SHOP_LIST_VIEW_MODE {
     CGRect _buttonSearchLocationFrame;
     CGRect _buttonScanBigFrame;
     CGRect _buttonScanSmallFrame;
-    CGRect _scrollFrame;
     
     bool _isZoomedMap;
     float _heightZoomedMap;
     bool _isAnimatingZoom;
-
-    __weak UITapGestureRecognizer *_tapTop;
-    __weak UITapGestureRecognizer *_tapBot;
     
     __weak UIImageView *scrollBar;
     __weak UILabel *scrollerLabel;
@@ -99,6 +94,7 @@ enum SHOP_LIST_VIEW_MODE {
     enum SORT_LIST _sort;
     bool _canLoadMore;
     bool _isZoomedRegionMap;
+    bool _isAnimationZoom;
     bool _isLoadingMore;
     enum SHOP_LIST_VIEW_MODE _viewMode;
     
@@ -128,21 +124,19 @@ enum SHOP_LIST_VIEW_MODE {
 
 @end
 
-@interface ScrollShopList : UIScrollView<UIGestureRecognizerDelegate>
-
-@end
-
 @protocol ShopListScrollerDelegate <NSObject>
 
 -(UIScrollView*) scrollView;
 
 @end
 
-@interface TableShopList : UITableView
+@interface TableShopList : UITableView<UIGestureRecognizerDelegate>
 {
     float _offsetY;
 }
 
 -(float) offsetY;
+
+@property (nonatomic, weak) IBOutlet ShopListViewController *controller;
 
 @end

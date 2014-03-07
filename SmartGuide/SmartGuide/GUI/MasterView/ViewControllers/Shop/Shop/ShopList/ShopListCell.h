@@ -49,6 +49,7 @@
 -(ShopList*) shopList;
 +(NSString *)reuseIdentifier;
 +(float) heightWithContent:(NSString*) content;
++(float) addressHeight;
 -(void) closeLove;
 
 @property (nonatomic, weak) id<ShopListCellDelegate> delegate;

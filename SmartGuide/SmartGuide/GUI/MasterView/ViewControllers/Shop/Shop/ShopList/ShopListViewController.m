@@ -67,8 +67,6 @@
 -(void) reloadTable
 {
     [tableList reloadData];
-    
-    
 }
 
 -(NSArray *)registerNotifications
@@ -144,9 +142,12 @@
         
         ShopListMapCell *cell=[tableList dequeueReusableCellWithIdentifier:[ShopListMapCell reuseIdentifier]];
         
-        cell.scroll=scroll;
         cell.table=tableView;
         cell.indexPath=indexPath;
+        sortView=cell.sortView;
+        sortView.delegate=self;
+        
+        [self makeSortLayout];
         
         mapCell=cell;
         map=mapCell.map;
@@ -320,7 +321,7 @@
     if(scrollerView)
         return;
     
-    scrollBar=[scroll scrollBar];
+    scrollBar=[tableList scrollBar];
     scrollBar.clipsToBounds=false;
     
     UIView *v=[[UIView alloc] initWithFrame:CGRectMake(-315, 0, 315, scrollBar.l_v_h)];
@@ -420,7 +421,6 @@
     _sortFrame=sortView.frame;
     _buttonScanBigFrame=btnScanBig.frame;
     _buttonScanSmallFrame=btnScanSmall.frame;
-    _scrollFrame=scroll.frame;
 }
 
 -(void)sortViewTouchedSort:(ShopSearchSortView *)_sortView
@@ -488,7 +488,7 @@
     _mapRowHeight=[self mapNormalHeight];
     
     _isAllowDiffScrollMap=true;
-
+    
     _location.latitude=userLat();
     _location.longitude=userLng();
     
@@ -499,15 +499,6 @@
     [tableList registerNib:[UINib nibWithNibName:[ShopListPlaceCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[ShopListPlaceCell reuseIdentifier]];
     [tableList registerLoadingMoreCell];
     [tableList registerNib:[UINib nibWithNibName:[ShopListMapCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[ShopListMapCell reuseIdentifier]];
-    
-    UITapGestureRecognizer *tap=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapTop:)];
-    tap.delegate=self;
-    _tapTop=tap;
-    
-    [self.view addGestureRecognizer:tap];
-    
-    [scroll.panGestureRecognizer requireGestureRecognizerToFail:tap];
-    [scroll.panGestureRecognizer addTarget:self action:@selector(scrollPanGes:)];
     
     _shopsList=[NSMutableArray new];
     _page=-1;
@@ -574,19 +565,6 @@
     {
         txt.text=TEXTFIELD_SEARCH_PLACEHOLDER_TEXT;
         txt.placeholder=TEXTFIELD_SEARCH_PLACEHOLDER_TEXT;
-    }
-}
-
--(void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    
-    if(!_didMakeScrollSize)
-    {
-        _didMakeScrollSize=true;
-        
-//        [self makeScrollSize];
-        [self makeSortLayout];
     }
 }
 
@@ -959,65 +937,9 @@
     loadingView.userInteractionEnabled=false;
 }
 
--(BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
-{
-    return false;
-    if(gestureRecognizer==_tapTop)
-    {
-        if(_isZoomedMap)
-        {
-            CGPoint pnt=[gestureRecognizer locationInView:tableList];
-            
-            if(CGRectContainsPoint(CGRectMake(0, 0, tableList.l_v_w, tableList.l_v_h), pnt))
-                return true;
-            
-            return false;
-        }
-        else
-        {
-            CGPoint pnt=[gestureRecognizer locationInView:self.view];
-            CGRect rect=CGRectMake(0, 0, self.l_v_w, [scroll convertPoint:tableList.l_v_o toView:self.view].y-1);
-            
-            if(CGRectContainsPoint(rect, pnt))
-            {
-                if([sortView pointInside:[gestureRecognizer locationInView:sortView] withEvent:nil])
-                    return false;
-                
-                return true;
-            }
-            
-            return false;
-        }
-    }
-    
-    return true;
-}
-
 -(void) makeScrollSize
 {
-    return;
-    if(self.isZoomedMap)
-        return;
-    
-    float actuallyTableHeight=_scrollFrame.size.height-_tableFrame.origin.y-_qrFrame.size.height-QRCODE_RAY_HEIGHT;
-    
-    float height=_tableFrame.origin.y;
-    
-    if(tableList.l_cs_h>actuallyTableHeight)
-    {
-        height+=tableList.l_cs_h;
-        scroll.contentSize=CGSizeMake(scroll.l_v_w, height);
-        scroll.contentInset=UIEdgeInsetsMake(0, 0, QRCODE_BIG_HEIGHT-QRCODE_RAY_HEIGHT, 0);
-        scroll.scrollIndicatorInsets=scroll.contentInset;
-    }
-    else
-    {
-        height=_scrollFrame.size.height+1;
-        [scroll l_cs_setH:height];
-        scroll.contentInset=UIEdgeInsetsMake(0, 0, 0, 0);
-        scroll.scrollIndicatorInsets=scroll.contentInset;
-    }
-}
+    return;}
 
 -(void) tapTop:(UITapGestureRecognizer*) ges
 {
@@ -1027,26 +949,11 @@
         [self zoomMap];
 }
 
--(UIScrollView *)scrollView
-{
-    return scroll;
-}
-
--(void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset
-{
-    for(ShopListCell *cell in tableList.visibleCells)
-    {
-        if([cell isKindOfClass:[ShopListCell class]])
-        {
-            [cell closeLove];
-        }
-    }
-}
-
 -(void)viewWillAppearOnce
 {
     [super viewWillAppearOnce];
     
+    [self makeSortLayout];
 }
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
@@ -1058,208 +965,210 @@
             [mapCell tableDidScroll];
         }
         
-        [sortView l_v_addY:-tableList.offsetY];
-        [btnSearchLocation l_v_addY:-tableList.offsetY];
-        NSLog(@"%f",scrollView.l_co_y);
-//
-//        if(scrollView.l_co_y>_tableFrame.origin.y)
-//        {
-//            [tableList l_v_setY:scrollView.l_co_y];
-//            [tableList l_co_setY:scrollView.l_co_y-_tableFrame.origin.y];
-//        }
-//        else
-//        {
-//            [tableList l_v_setY:_tableFrame.origin.y];
-//            [tableList l_co_setY:0];
-//        }
-//        
-//        [map l_v_setY:_mapFrame.origin.y+scrollView.contentOffset.y/2];
+        //        [sortView l_v_addY:-tableList.offsetY];
+        //        [btnSearchLocation l_v_addY:-tableList.offsetY];
+        
+        //        if(tableList.l_co_y<=0.01f && tableList.l_co_y>=-0.01f)
+        //            [sortView l_v_setY:_sortFrame.origin.y];
+        //
+        //        if(scrollView.l_co_y>_tableFrame.origin.y)
+        //        {
+        //            [tableList l_v_setY:scrollView.l_co_y];
+        //            [tableList l_co_setY:scrollView.l_co_y-_tableFrame.origin.y];
+        //        }
+        //        else
+        //        {
+        //            [tableList l_v_setY:_tableFrame.origin.y];
+        //            [tableList l_co_setY:0];
+        //        }
+        //
+        //        [map l_v_setY:_mapFrame.origin.y+scrollView.contentOffset.y/2];
     }
-//    return;
-//    if(scrollView==scroll)
-//    {
-//        [map l_v_setY:_mapFrame.origin.y+scroll.contentOffset.y-scroll.contentOffset.y/SHOP_LIST_SCROLL_SPEED];
-//        
-//        float y=tableList.l_v_y-scrollView.l_co_y;
-//        
-//        if(map.superview)
-//        {
-//            if(y<0)
-//                [map removeFromSuperview];
-//        }
-//        else
-//        {
-//            if(y>0)
-//                [scroll insertSubview:map belowSubview:tableList];
-//        }
-//        
-//        if(_tableFrame.origin.y-scrollView.l_co_y<=0)
-//        {
-//            [tableList l_v_setY:scrollView.l_co_y];
-//            [tableList l_co_setY:scrollView.l_co_y-_tableFrame.origin.y];
-//        }
-//        else
-//        {
-//            [tableList l_v_setY:_tableFrame.origin.y];
-//            [tableList l_co_setY:0];
-//        }
-//        
-//        return;
-//        //begin scroller
-//        
-//        if(_isZoomedMap)
-//            return;
-//        
-//        float height=(scroll.l_cs_h+scroll.contentInset.bottom-scroll.l_v_h);
-//        float percent=(scroll.l_co_y)/height;
-//        
-//        y=percent*(scrollerContain.l_v_h);
-//        
-//        y=MAX(36, y);
-//        y=MIN(scrollerContain.l_v_h-scrollerView.l_v_h-QRCODE_RAY_HEIGHT, y);
-//        
-////        [UIView animateWithDuration:0.3f animations:^{
-////            [scrollerView l_v_setY:y];
-////        }];
-//        
-//        CGPoint pnt=scrollerView.l_v_o;
-//        pnt.x=0;
-//        pnt=[scrollerContain convertPoint:pnt toView:scroll];
-//        
-//        NSString *scrollerText=@"Bản đồ";
-//        
-//        if(pnt.y<_tableFrame.origin.y)
-//        {
-//            CGSize size=[scrollerText sizeWithFont:scrollerLabel.font];
-//            
-//            size.height=scrollerLabel.l_v_h;
-//            
-//            scrollerLabel.text=scrollerText;
-//            
-//            [UIView animateWithDuration:0.1 animations:^{
-////                [scrollerBGView l_v_setX:(scrollerBGView.l_v_w-size.width)-scrollerImageView.image.size.width-15];
-//            } completion:^(BOOL finished) {
-//                scrollerLabel.text=scrollerText;
-//            }];
-//        }
-//        else
-//        {
-//            pnt=[scroll convertPoint:pnt toView:tableList];
-//            
-//            NSIndexPath *indexPath=[tableList indexPathForRowAtPoint:pnt];
-//            
-//            if(!_scrollerIndexPath)
-//                _scrollerIndexPath=indexPath;
-//            else if(_scrollerIndexPath.row==indexPath.row)
-//                return;
-//            
-//            _scrollerIndexPath=indexPath;
-//            
-//            if(!indexPath)
-//            {
-//                [UIView animateWithDuration:0.1f animations:^{
-//                    scrollerView.alpha=0;
-//                }];
-//                
-//                return;
-//            }
-//            
-//            switch (_viewMode) {
-//                    
-//                case SHOP_LIST_VIEW_SHOP_LIST:
-//                case SHOP_LIST_VIEW_LIST:
-//                {
-//                    if(indexPath.row==_shopsList.count)
-//                    {
-//                        scrollerText=@"Đang tải thêm dữ liệu";
-//                    }
-//                    else
-//                    {
-//                        ShopList *shop=_shopsList[indexPath.row];
-//                        
-//                        switch (_sort) {
-//                            case SORT_LIST_DISTANCE:
-//                                scrollerText=shop.distance;
-//                                break;
-//                                
-//                            case SORT_LIST_LOVE:
-//                                scrollerText=shop.numOfLove;
-//                                break;
-//                                
-//                            case SORT_LIST_VIEW:
-//                                scrollerText=shop.numOfView;
-//                                break;
-//                                
-//                            case SORT_LIST_DEFAULT:
-//                                scrollerText=shop.distance;
-//                                break;
-//                        }
-//                    }
-//                }
-//                    break;
-//                    
-//                case SHOP_LIST_VIEW_PLACE:
-//                case SHOP_LIST_VIEW_IDPLACE:
-//                    
-//                    switch (indexPath.row) {
-//                        case 0:
-//                            scrollerText=_placeList.title;
-//                            break;
-//                            
-//                        default:
-//                        {
-//                            if(indexPath.row==_shopsList.count)
-//                            {
-//                                scrollerText=@"Đang tải thêm dữ liệu";
-//                            }
-//                            else
-//                            {
-//                                ShopList *shop=_shopsList[indexPath.row-1];
-//                                
-//                                switch (_sort) {
-//                                    case SORT_LIST_DISTANCE:
-//                                        scrollerText=shop.distance;
-//                                        break;
-//                                        
-//                                    case SORT_LIST_LOVE:
-//                                        scrollerText=shop.numOfLove;
-//                                        break;
-//                                        
-//                                    case SORT_LIST_VIEW:
-//                                        scrollerText=shop.numOfView;
-//                                        break;
-//                                        
-//                                    case SORT_LIST_DEFAULT:
-//                                        scrollerText=shop.distance;
-//                                        break;
-//                                }
-//                            }
-//                        }
-//                            break;
-//                    }
-//                    
-//                    break;
-//            }
-//            
-//            CGSize size=[scrollerText sizeWithFont:scrollerLabel.font];
-//            
-//            size.height=scrollerLabel.l_v_h;
-//            
-//            scrollerLabel.text=scrollerText;
-//            
-//            [UIView animateWithDuration:0.1 animations:^{
-//                scrollerView.alpha=1;
-////                [scrollerBGView l_v_setX:(scrollerBGView.l_v_w-size.width)-scrollerImageView.image.size.width-15];
-//            } completion:^(BOOL finished) {
-//                scrollerLabel.text=scrollerText;
-//            }];
-//        }
-//        
-//        //end scroller
-//    }
-//    else if(scrollView==tableList)
-//    {
-//    }
+    //    return;
+    //    if(scrollView==scroll)
+    //    {
+    //        [map l_v_setY:_mapFrame.origin.y+scroll.contentOffset.y-scroll.contentOffset.y/SHOP_LIST_SCROLL_SPEED];
+    //
+    //        float y=tableList.l_v_y-scrollView.l_co_y;
+    //
+    //        if(map.superview)
+    //        {
+    //            if(y<0)
+    //                [map removeFromSuperview];
+    //        }
+    //        else
+    //        {
+    //            if(y>0)
+    //                [scroll insertSubview:map belowSubview:tableList];
+    //        }
+    //
+    //        if(_tableFrame.origin.y-scrollView.l_co_y<=0)
+    //        {
+    //            [tableList l_v_setY:scrollView.l_co_y];
+    //            [tableList l_co_setY:scrollView.l_co_y-_tableFrame.origin.y];
+    //        }
+    //        else
+    //        {
+    //            [tableList l_v_setY:_tableFrame.origin.y];
+    //            [tableList l_co_setY:0];
+    //        }
+    //
+    //        return;
+    //        //begin scroller
+    //
+    //        if(_isZoomedMap)
+    //            return;
+    //
+    //        float height=(scroll.l_cs_h+scroll.contentInset.bottom-scroll.l_v_h);
+    //        float percent=(scroll.l_co_y)/height;
+    //
+    //        y=percent*(scrollerContain.l_v_h);
+    //
+    //        y=MAX(36, y);
+    //        y=MIN(scrollerContain.l_v_h-scrollerView.l_v_h-QRCODE_RAY_HEIGHT, y);
+    //
+    ////        [UIView animateWithDuration:0.3f animations:^{
+    ////            [scrollerView l_v_setY:y];
+    ////        }];
+    //
+    //        CGPoint pnt=scrollerView.l_v_o;
+    //        pnt.x=0;
+    //        pnt=[scrollerContain convertPoint:pnt toView:scroll];
+    //
+    //        NSString *scrollerText=@"Bản đồ";
+    //
+    //        if(pnt.y<_tableFrame.origin.y)
+    //        {
+    //            CGSize size=[scrollerText sizeWithFont:scrollerLabel.font];
+    //
+    //            size.height=scrollerLabel.l_v_h;
+    //
+    //            scrollerLabel.text=scrollerText;
+    //
+    //            [UIView animateWithDuration:0.1 animations:^{
+    ////                [scrollerBGView l_v_setX:(scrollerBGView.l_v_w-size.width)-scrollerImageView.image.size.width-15];
+    //            } completion:^(BOOL finished) {
+    //                scrollerLabel.text=scrollerText;
+    //            }];
+    //        }
+    //        else
+    //        {
+    //            pnt=[scroll convertPoint:pnt toView:tableList];
+    //
+    //            NSIndexPath *indexPath=[tableList indexPathForRowAtPoint:pnt];
+    //
+    //            if(!_scrollerIndexPath)
+    //                _scrollerIndexPath=indexPath;
+    //            else if(_scrollerIndexPath.row==indexPath.row)
+    //                return;
+    //
+    //            _scrollerIndexPath=indexPath;
+    //
+    //            if(!indexPath)
+    //            {
+    //                [UIView animateWithDuration:0.1f animations:^{
+    //                    scrollerView.alpha=0;
+    //                }];
+    //
+    //                return;
+    //            }
+    //
+    //            switch (_viewMode) {
+    //
+    //                case SHOP_LIST_VIEW_SHOP_LIST:
+    //                case SHOP_LIST_VIEW_LIST:
+    //                {
+    //                    if(indexPath.row==_shopsList.count)
+    //                    {
+    //                        scrollerText=@"Đang tải thêm dữ liệu";
+    //                    }
+    //                    else
+    //                    {
+    //                        ShopList *shop=_shopsList[indexPath.row];
+    //
+    //                        switch (_sort) {
+    //                            case SORT_LIST_DISTANCE:
+    //                                scrollerText=shop.distance;
+    //                                break;
+    //
+    //                            case SORT_LIST_LOVE:
+    //                                scrollerText=shop.numOfLove;
+    //                                break;
+    //
+    //                            case SORT_LIST_VIEW:
+    //                                scrollerText=shop.numOfView;
+    //                                break;
+    //
+    //                            case SORT_LIST_DEFAULT:
+    //                                scrollerText=shop.distance;
+    //                                break;
+    //                        }
+    //                    }
+    //                }
+    //                    break;
+    //
+    //                case SHOP_LIST_VIEW_PLACE:
+    //                case SHOP_LIST_VIEW_IDPLACE:
+    //
+    //                    switch (indexPath.row) {
+    //                        case 0:
+    //                            scrollerText=_placeList.title;
+    //                            break;
+    //
+    //                        default:
+    //                        {
+    //                            if(indexPath.row==_shopsList.count)
+    //                            {
+    //                                scrollerText=@"Đang tải thêm dữ liệu";
+    //                            }
+    //                            else
+    //                            {
+    //                                ShopList *shop=_shopsList[indexPath.row-1];
+    //
+    //                                switch (_sort) {
+    //                                    case SORT_LIST_DISTANCE:
+    //                                        scrollerText=shop.distance;
+    //                                        break;
+    //
+    //                                    case SORT_LIST_LOVE:
+    //                                        scrollerText=shop.numOfLove;
+    //                                        break;
+    //
+    //                                    case SORT_LIST_VIEW:
+    //                                        scrollerText=shop.numOfView;
+    //                                        break;
+    //
+    //                                    case SORT_LIST_DEFAULT:
+    //                                        scrollerText=shop.distance;
+    //                                        break;
+    //                                }
+    //                            }
+    //                        }
+    //                            break;
+    //                    }
+    //
+    //                    break;
+    //            }
+    //
+    //            CGSize size=[scrollerText sizeWithFont:scrollerLabel.font];
+    //
+    //            size.height=scrollerLabel.l_v_h;
+    //
+    //            scrollerLabel.text=scrollerText;
+    //
+    //            [UIView animateWithDuration:0.1 animations:^{
+    //                scrollerView.alpha=1;
+    ////                [scrollerBGView l_v_setX:(scrollerBGView.l_v_w-size.width)-scrollerImageView.image.size.width-15];
+    //            } completion:^(BOOL finished) {
+    //                scrollerLabel.text=scrollerText;
+    //            }];
+    //        }
+    //
+    //        //end scroller
+    //    }
+    //    else if(scrollView==tableList)
+    //    {
+    //    }
 }
 
 -(void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation
@@ -1272,112 +1181,22 @@
     [map setRegion:MKCoordinateRegionMakeWithDistance(userLocation.location.coordinate, MAP_SPAN, MAP_SPAN) animated:false];
 }
 
--(void) scrollPanGes:(UIPanGestureRecognizer*) pan
-{
-    return;
-    switch (pan.state) {
-        case UIGestureRecognizerStateEnded:
-        case UIGestureRecognizerStateFailed:
-        case UIGestureRecognizerStateCancelled:
-        {
-            if(_isZoomedMap)
-            {
-                CGPoint pnt=[scroll convertPoint:tableList.l_v_o toView:self.view];
-                
-                float y=tableList.l_v_y+25;
-                
-                if([self hasRow])
-                    y=[tableList rectForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]].size.height*1.5f;
-                else
-                    y+=44;
-                
-                if(self.l_v_h-pnt.y>y)
-                {
-                    [scroll setContentOffset:scroll.contentOffset animated:true];
-                    self.view.userInteractionEnabled=false;
-                    map.userInteractionEnabled=false;
-                    map.scrollEnabled=false;
-                    map.zoomEnabled=false;
-                    tableList.userInteractionEnabled=true;
-                    
-                    btnScanBig.alpha=0;
-                    btnScanBig.hidden=false;
-                    
-                    [UIView animateWithDuration:DURATION_DEFAULT animations:^{
-                        scroll.contentInset=UIEdgeInsetsMake(0, 0, 0, 0);
-                        [qrCodeView l_v_setY:_qrFrame.origin.y];
-                        
-                        btnScanBig.alpha=1;
-                        btnScanSmall.alpha=0;
-                        btnScanBig.frame=_buttonScanBigFrame;
-                        btnScanSmall.frame=_buttonScanSmallFrame;
-                    } completion:^(BOOL finished) {
-                        _isZoomedMap=false;
-                        [self makeScrollSize];
-                        
-                        self.view.userInteractionEnabled=true;
-                    }];
-                }
-            }
-            else
-            {
-                CGPoint pnt=[pan velocityInView:scroll];
-                
-                if(pnt.y<0)
-                    return;
-                
-                pnt=[scroll convertPoint:tableList.l_v_o toView:self.view];
-                
-                if(pnt.y>_tableFrame.origin.y+20)
-                {
-                    self.view.userInteractionEnabled=false;
-                    map.userInteractionEnabled=true;
-                    map.scrollEnabled=true;
-                    map.zoomEnabled=true;
-                    tableList.userInteractionEnabled=false;
-                    
-                    _isZoomedMap=true;
-                    
-                    float height=[self heightForZoom];
-                    _heightZoomedMap=height;
-                    
-                    btnScanSmall.alpha=0;
-                    btnScanSmall.hidden=false;
-                    
-                    [UIView animateWithDuration:DURATION_DEFAULT animations:^{
-                        [scroll setContentOffset:CGPointMake(0, -height) animated:false];
-                        [qrCodeView l_v_setY:_qrFrame.origin.y+QRCODE_BIG_HEIGHT-QRCODE_SMALL_HEIGHT];
-                        
-                        btnScanSmall.alpha=1;
-                        btnScanBig.alpha=0;
-                        btnScanBig.frame=_buttonScanSmallFrame;
-                        btnScanSmall.frame=_buttonScanBigFrame;
-                        
-                    } completion:^(BOOL finished) {
-                        [scroll l_cs_setH:scroll.l_v_h-height+1];
-                        scroll.contentInset=UIEdgeInsetsMake(height, 0, 0, 0);
-                        
-                        self.view.userInteractionEnabled=true;
-                    }];
-                }
-            }
-        }
-            break;
-            
-        default:
-            break;
-    }
-}
-
 -(float) heightForZoom
 {
     float height=visibleTableView.l_v_h;
+    height-=115;
     height+=QRCODE_BIG_HEIGHT-QRCODE_SMALL_HEIGHT;
-    height-=115;//map height
-    
     if(_placeList)
     {
-        height-=[tableList rectForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]].size.height;
+        float cellHeight=[tableList rectForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]].size.height;
+        height-=cellHeight;
+        height+=cellHeight-[ShopListPlaceCell titleHeight];
+    }
+    else if(_shopsList.count>0)
+    {
+        float cellHeight=[tableList rectForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]].size.height;
+        height-=cellHeight;
+        height+=cellHeight-[ShopListCell addressHeight];
     }
     
     return height;
@@ -1393,19 +1212,29 @@
     return 115+150;
 }
 
+
+
 -(void) zoomMap
 {
+    if(_isAnimatingZoom)
+        return;
+    
+    _isAnimatingZoom=true;
     _isZoomedMap=true;
+
+    [tableList killScroll];
     
     _mapRowHeight=[self heightForZoom]+[self mapNormalHeight];
     
     [tableList reloadRowsAtIndexPaths:@[indexPath(0, 0)] withRowAnimation:UITableViewRowAnimationNone];
+    
+    self.view.userInteractionEnabled=false;
     [UIView animateWithDuration:DURATION_DEFAULT animations:^{
         [qrCodeView l_v_setY:_qrFrame.origin.y+QRCODE_BIG_HEIGHT-QRCODE_SMALL_HEIGHT];
         [tableList l_v_setH:_tableFrame.size.height+QRCODE_BIG_HEIGHT-QRCODE_SMALL_HEIGHT];
+        [tableList l_co_setY:0];
         [mapCell l_v_setH:_mapRowHeight];
         [btnSearchLocation l_v_setY:75];
-        [sortView l_v_setY:_sortFrame.origin.y+_mapRowHeight-[self mapNormalHeight]];
         btnScanSmall.alpha=0;
         btnScanSmall.hidden=false;
         btnScanSmall.alpha=1;
@@ -1416,12 +1245,19 @@
         [mapCell enableMap];
         
         [tableList l_cs_setH:tableList.l_v_h];
+        self.view.userInteractionEnabled=true;
+        _isAnimatingZoom=false;
     }];
 }
 
 -(void) endZoomMap
 {
+    if(_isAnimatingZoom)
+        return;
+    
+    _isAnimatingZoom=true;
     _isZoomedMap=false;
+    [tableList killScroll];
     
     _mapRowHeight=[self mapNormalHeight];
     
@@ -1430,43 +1266,20 @@
     btnScanBig.alpha=0;
     btnScanBig.hidden=false;
     
+    self.view.userInteractionEnabled=false;
     [UIView animateWithDuration:DURATION_DEFAULT animations:^{
         [qrCodeView l_v_setY:_qrFrame.origin.y];
         [mapCell l_v_setH:_mapRowHeight];
-        [btnSearchLocation l_v_setY:_buttonSearchLocationFrame.origin.y];
+        [tableList l_co_setY:0];
         btnScanBig.alpha=1;
         btnScanSmall.alpha=0;
         btnScanBig.frame=_buttonScanBigFrame;
         btnScanSmall.frame=_buttonScanSmallFrame;
-        [sortView l_v_setY:_sortFrame.origin.y];
     } completion:^(BOOL finished) {
         [mapCell disabelMap];
         [tableList reloadData];
-    }];
-    return;
-    _isZoomedMap=false;
-    
-    map.userInteractionEnabled=false;
-    map.scrollEnabled=false;
-    map.zoomEnabled=false;
-    tableList.userInteractionEnabled=true;
-    
-    btnScanBig.alpha=0;
-    btnScanBig.hidden=false;
-    
-    [UIView animateWithDuration:DURATION_DEFAULT animations:^{
-        scroll.contentInset=UIEdgeInsetsMake(0, 0, 0, 0);
-        [qrCodeView l_v_setY:_qrFrame.origin.y];
-        
-        btnScanBig.alpha=1;
-        btnScanSmall.alpha=0;
-        btnScanBig.frame=_buttonScanBigFrame;
-        btnScanSmall.frame=_buttonScanSmallFrame;
-        
-        scrollerView.alpha=1;
-    } completion:^(BOOL finished) {
-        scrollerView.hidden=true;
-        [self makeScrollSize];
+        self.view.userInteractionEnabled=true;
+        _isAnimatingZoom=false;
     }];
 }
 
@@ -1481,7 +1294,7 @@
 
 -(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
-    if(scrollView==scroll)
+    if(scrollView==tableList)
         [self loadScroller];
 }
 
@@ -1524,7 +1337,7 @@
         _operationPlacelistGetDetail=nil;
     }
     
-    scroll.delegate=nil;
+    tableList.delegate=nil;
 }
 
 -(void) animationTableReload
@@ -1532,8 +1345,6 @@
     if(_isNeedAnimationChangeTable)
     {
         self.view.userInteractionEnabled=false;
-        [scroll alphaViewWithColor:COLOR_BACKGROUND_SHOP_SERIES belowView:tableList];
-        scroll.alphaView.frame=CGRectMake(tableList.l_v_x, tableList.l_v_y, tableList.l_cs_w, tableList.l_cs_h);
         [UIView animateWithDuration:DURATION_DEFAULT animations:^{
             tableList.alpha=0.5f;
         } completion:^(BOOL finished) {
@@ -1543,7 +1354,6 @@
             [UIView animateWithDuration:DURATION_DEFAULT animations:^{
                 tableList.alpha=1;
             } completion:^(BOOL finished) {
-                [scroll removeAlphaView];
                 self.view.userInteractionEnabled=true;
             }];
         }];
@@ -1681,16 +1491,15 @@
 {
 }
 
-@end
-
-@implementation ScrollShopList
-
--(void)setContentOffset:(CGPoint)contentOffset
+-(void) closeLove
 {
-    if(contentOffset.y<-50)
-        contentOffset.y=-50;
-    
-    [super setContentOffset:contentOffset];
+    for(ShopListCell *cell in tableList.visibleCells)
+    {
+        if([cell isKindOfClass:[ShopListCell class]])
+        {
+            [cell closeLove];
+        }
+    }
 }
 
 @end
@@ -1710,6 +1519,61 @@
 -(float)offsetY
 {
     return _offsetY;
+}
+
+-(void)awakeFromNib
+{
+    [super awakeFromNib];
+    
+    self.panGestureRecognizer.delegate=self;
+    
+    [self.panGestureRecognizer addTarget:self action:@selector(pan:)];
+}
+
+-(void) pan:(UIPanGestureRecognizer*) pan
+{
+    switch (pan.state) {
+        case UIGestureRecognizerStateEnded:
+        case UIGestureRecognizerStateFailed:
+        case UIGestureRecognizerStateCancelled:
+        {
+            [self.controller closeLove];
+            self.decelerationRate=0;
+            
+            CGPoint velocity=[pan velocityInView:pan.view];
+            
+            if(!self.controller.isZoomedMap)
+            {
+                if(self.l_co_y<0)
+                {
+                    if(velocity.y>VELOCITY_SLIDE)
+                        [self.controller zoomMap];
+                    else
+                    {
+                        if(self.l_co_y<-100)
+                        {
+                            [self.controller zoomMap];
+                        }
+                    }
+                }
+            }
+            else
+            {
+                if(self.l_co_y>0)
+                {
+                    if(velocity.y<-VELOCITY_SLIDE)
+                    {
+                        [self.controller endZoomMap];
+                    }
+                }
+            }
+            NSLog(@"velocity %@ %f",NSStringFromCGPoint(velocity),self.l_co_y);
+        }
+            break;
+            
+        default:
+            break;
+    }
 }
 
 @end

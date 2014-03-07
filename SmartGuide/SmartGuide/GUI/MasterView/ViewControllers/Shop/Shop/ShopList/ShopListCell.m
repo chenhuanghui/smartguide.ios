@@ -22,6 +22,11 @@
 @implementation ShopListCell
 @synthesize delegate;
 
++(float)addressHeight
+{
+    return 44;
+}
+
 -(void)loadWithShopList:(ShopList *)shopList
 {
     _shop=shopList;

@@ -69,4 +69,9 @@
     [lblAuthorName addStyles:array];
 }
 
++(float)titleHeight
+{
+    return 30;
+}
+
 @end

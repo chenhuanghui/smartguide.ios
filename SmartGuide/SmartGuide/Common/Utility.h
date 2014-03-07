@@ -211,6 +211,7 @@ NSString *avatarPath();
 -(float) contentOffSetY;
 
 -(float) makeZoomScaleWithSize:(CGSize) size;
+-(void) killScroll;
 
 @end
 
