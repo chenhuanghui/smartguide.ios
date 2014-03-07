@@ -70,17 +70,25 @@
     return @"ShopListCell";
 }
 
-+(float)heightWithContent:(NSString *)content
++(float)heightWithShopList:(ShopList*) shop
 {
-    if(content.length==0)
+    if(shop.desc.length==0)
         return 0;
     
-    float height=[content sizeWithFont:[UIFont fontWithName:@"Avenir-Roman" size:13] constrainedToSize:CGSizeMake(249, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height+20;
+    float height=90;
+    
+    if(shop.descHeight==0)
+        shop.descHeight=[shop.desc sizeWithFont:[UIFont fontWithName:@"Avenir-Roman" size:13] constrainedToSize:CGSizeMake(249, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height;
+    
+    if(shop.descHeight<36)
+        height+=shop.descHeight;
+    else
+        height+=36;
     
     if(height>126)
         height=126;
     
-    return height+44;
+    return height;
 }
 
 -(void) love_unlove
@@ -214,6 +222,8 @@
     
     UITapGestureRecognizer *tap=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGes:)];
     tap.delegate=self;
+    tap.numberOfTapsRequired=1;
+    tap.numberOfTouchesRequired=1;
     
     [scroll addGestureRecognizer:tap];
     
@@ -249,9 +259,7 @@
             }
             else
             {
-                [scroll setContentOffsetX:CGPointZero animated:true completed:^{
-                    //scroll.contentInset=UIEdgeInsetsZero;
-                }];
+                [scroll l_co_setX:0 animate:true];
             }
             
             break;
@@ -301,24 +309,30 @@
     scroll.contentInset=UIEdgeInsetsZero;
 }
 
+-(void)tableDidScroll
+{
+    float offsetX=MAX(0,scroll.l_co_x-fabsf(self.table.offsetY/2));
+    [scroll l_co_setX:offsetX];
+}
+
 @end
 
 @implementation ScrollListCell
 
--(void)didMoveToSuperview
+-(void)awakeFromNib
 {
-    [super didMoveToSuperview];
+    [super awakeFromNib];
     
-    if(self.superview)
-    {
-        self.panGestureRecognizer.delegate=self;
-    }
+    self.panGestureRecognizer.delegate=self;
 }
 
 -(BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
 {
     if(gestureRecognizer==self.panGestureRecognizer)
     {
+        if([self.cell.controller isZoomedMap])
+            return false;
+        
         CGPoint velocity=[self.panGestureRecognizer velocityInView:self.panGestureRecognizer.view];
         
         return fabsf(velocity.x)>fabsf(velocity.y);

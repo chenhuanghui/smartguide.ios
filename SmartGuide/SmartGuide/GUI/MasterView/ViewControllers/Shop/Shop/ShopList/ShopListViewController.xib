@@ -61,7 +61,7 @@
                                 <action selector="btnBackTouchUpInside:" destination="-1" eventType="touchUpInside" id="xsp-Cc-TBf"/>
                             </connections>
                         </button>
-                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Tìm kiếm khuyến mãi" minimumFontSize="17" background="button_search_home.png" id="ray-CK-v4m" customClass="TextFieldSearch">
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Tìm kiếm địa điểm" minimumFontSize="17" background="button_search_home.png" id="ray-CK-v4m" customClass="TextFieldSearch">
                             <rect key="frame" x="52" y="7" width="239" height="39"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>

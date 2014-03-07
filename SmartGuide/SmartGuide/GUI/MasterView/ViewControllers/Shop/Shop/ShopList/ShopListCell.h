@@ -11,6 +11,7 @@
 #import "ShopList.h"
 #import "SGScrollView.h"
 #import "ASIOperationLoveShop.h"
+#import "ShopListViewController.h"
 
 @class ScrollListCell,ShopListCell;
 
@@ -48,14 +49,21 @@
 -(void) setButtonTypeIsTypeAdded:(bool) isTypeAdded;
 -(ShopList*) shopList;
 +(NSString *)reuseIdentifier;
-+(float) heightWithContent:(NSString*) content;
++(float)heightWithShopList:(ShopList*) shop;
 +(float) addressHeight;
 -(void) closeLove;
 
+-(void) tableDidScroll;
+
 @property (nonatomic, weak) id<ShopListCellDelegate> delegate;
+@property (nonatomic, weak) TableShopList *table;
+@property (nonatomic, strong) NSIndexPath *indexPath;
+@property (nonatomic, weak) ShopListViewController *controller;
 
 @end
 
-@interface ScrollListCell : SGScrollView<UIGestureRecognizerDelegate>
+@interface ScrollListCell : UIScrollView<UIGestureRecognizerDelegate>
+
+@property (nonatomic, weak) IBOutlet ShopListCell *cell;
 
 @end

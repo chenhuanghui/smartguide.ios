@@ -14,7 +14,6 @@
 #import "ShopSearchSortView.h"
 #import "Scroller.h"
 #import "SGMapView.h"
-#import "ShopListCell.h"
 #import "ShopListPlaceCell.h"
 #import "SearchViewController.h"
 #import "ASIOperationShopSearch.h"
@@ -41,7 +40,7 @@ enum SHOP_LIST_VIEW_MODE {
 
 @end
 
-@interface ShopListViewController : SGViewController<MKMapViewDelegate,UIScrollViewDelegate,ScrollerDelegate,UIGestureRecognizerDelegate,SortSearchDelegate,UIActionSheetDelegate,UITableViewDataSource,UITableViewDelegate,ShopListCellDelegate,SearchControllerHandle,ASIOperationPostDelegate,UITextFieldDelegate,PlacelistControllerDelegate>
+@interface ShopListViewController : SGViewController<MKMapViewDelegate,UIScrollViewDelegate,ScrollerDelegate,UIGestureRecognizerDelegate,SortSearchDelegate,UIActionSheetDelegate,UITableViewDataSource,UITableViewDelegate,SearchControllerHandle,ASIOperationPostDelegate,UITextFieldDelegate,PlacelistControllerDelegate>
 {
     __weak IBOutlet TableShopList *tableList;
     __weak IBOutlet ShopSearchSortView *sortView;

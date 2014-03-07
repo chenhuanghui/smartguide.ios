@@ -10,6 +10,8 @@
 #import "UIImageView+WebCache.h"
 #import "Utility.h"
 
+#define IPHONE_IMAGE_DOWNLOAD_OPTIONS (IS_IPHONE_4?0:SDWebImageProgressiveDownload)
+
 static NSMutableArray *_loadingImages=nil;
 static NSMutableArray *_loadingImagesSmall=nil;
 static NSMutableArray *_loadingMoreImages=nil;
@@ -26,6 +28,7 @@ static ImageManager *_imageManager=nil;
 
 +(ImageManager*) sharedInstance
 {
+    
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         _imageManager=[[ImageManager alloc] init];
@@ -180,7 +183,7 @@ static ImageManager *_imageManager=nil;
 
 -(void) loadShopGalleryWithURL:(NSString*) url
 {
-    [self setImageWithURL:[NSURL URLWithString:url] placeholderImage:nil options:SDWebImageProgressiveDownload];
+    [self setImageWithURL:[NSURL URLWithString:url] placeholderImage:nil options:IPHONE_IMAGE_DOWNLOAD_OPTIONS];
 }
 
 -(void) loadShopUserGalleryWithURL:(NSString*) url
@@ -242,12 +245,12 @@ static ImageManager *_imageManager=nil;
 
 -(void)loadImageHomeListWithURL:(NSString *)url
 {
-    [self setImageWithURL:[NSURL URLWithString:url] placeholderImage:nil options:SDWebImageProgressiveDownload];
+    [self setImageWithURL:[NSURL URLWithString:url] placeholderImage:nil options:IPHONE_IMAGE_DOWNLOAD_OPTIONS];
 }
 
 -(void)loadImageHomeListWithURL:(NSString *)url completed:(SDWebImageCompletedBlock)completedBlock
 {
-    [self setImageWithURL:[NSURL URLWithString:url] placeholderImage:nil options:SDWebImageProgressiveDownload completed:completedBlock];
+    [self setImageWithURL:[NSURL URLWithString:url] placeholderImage:nil options:IPHONE_IMAGE_DOWNLOAD_OPTIONS completed:completedBlock];
 }
 
 -(void)loadImagePromotionNewsWithURL:(NSString *)url

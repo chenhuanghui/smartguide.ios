@@ -14,10 +14,11 @@
 #import "LoadingMoreCell.h"
 #import "ShopPinInfoView.h"
 #import "ShopPinView.h"
+#import "ShopListCell.h"
 
 #define SHOP_LIST_SCROLL_SPEED 3.f
 
-@interface ShopListViewController ()<ShopPinDelegate,ShopListMapDelegate>
+@interface ShopListViewController ()<ShopPinDelegate,ShopListMapDelegate,ShopListCellDelegate>
 
 @end
 
@@ -121,6 +122,21 @@
     }
 }
 
+-(ShopListCell*) cellWithShopList:(ShopList*) shop indexPath:(NSIndexPath*) indexPath
+{
+    ShopListCell *cell=[tableList dequeueReusableCellWithIdentifier:[ShopListCell reuseIdentifier]];
+    cell.delegate=self;
+    
+    [cell loadWithShopList:shop];
+    [cell setButtonTypeIsTypeAdded:true];
+    cell.table=tableList;
+    cell.indexPath=indexPath;
+    cell.controller=self;
+    
+    return cell;
+
+}
+
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if(indexPath.section==0)
@@ -160,13 +176,7 @@
                 return [tableList loadingMoreCell];
             }
             
-            ShopListCell *cell=[tableView dequeueReusableCellWithIdentifier:[ShopListCell reuseIdentifier]];
-            cell.delegate=self;
-            
-            [cell loadWithShopList:_shopsList[indexPath.row]];
-            [cell setButtonTypeIsTypeAdded:true];
-            
-            return cell;
+            return [self cellWithShopList:_shopsList[indexPath.row] indexPath:indexPath];
         }
             
         case SHOP_LIST_VIEW_PLACE:
@@ -195,13 +205,7 @@
                         return [tableList loadingMoreCell];
                     }
                     
-                    ShopListCell *cell=[tableView dequeueReusableCellWithIdentifier:[ShopListCell reuseIdentifier]];
-                    cell.delegate=self;
-                    
-                    [cell loadWithShopList:_shopsList[indexPath.row-1]];
-                    [cell setButtonTypeIsTypeAdded:_placeList.idAuthor.integerValue!=currentUser().idUser.integerValue];
-                    
-                    return cell;
+                    return [self cellWithShopList:_shopsList[indexPath.row-1] indexPath:indexPath];
                 }
             }
             
@@ -223,7 +227,7 @@
             if(_canLoadMore && indexPath.row==_shopsList.count)
                 return 88;
             
-            return [ShopListCell heightWithContent:[_shopsList[indexPath.row] desc]];
+            return [ShopListCell heightWithShopList:_shopsList[indexPath.row]];
             
         case SHOP_LIST_VIEW_PLACE:
         case SHOP_LIST_VIEW_IDPLACE:
@@ -237,7 +241,7 @@
                     if(_canLoadMore && indexPath.row==_shopsList.count)
                         return 88;
                     
-                    return [ShopListCell heightWithContent:[_shopsList[indexPath.row-1] desc]];
+                    return [ShopListCell heightWithShopList:_shopsList[indexPath.row-1]];
             }
         }
     }
@@ -540,7 +544,7 @@
     _sort=SORT_LIST_DISTANCE;
     _placeList=nil;
     _keyword=@"";
-    txt.text=@"";
+    txt.text=TEXTFIELD_SEARCH_PLACEHOLDER_TEXT;
     
     [self makeSortLayout];
     
@@ -848,6 +852,12 @@
         if(mapCell)
         {
             [mapCell tableDidScroll];
+        }
+        
+        for(ShopListCell *cell in tableList.visibleCells)
+        {
+            if([cell isKindOfClass:[ShopListCell class]])
+                [cell tableDidScroll];
         }
     }
 }
