@@ -1232,9 +1232,34 @@
                     {
                         [self.controller endZoomMap];
                     }
+                    else
+                    {
+                        if([self numberOfSections]>1 && [self numberOfRowsInSection:1]>0)
+                        {
+                            id cell=[self cellForRowAtIndexPath:indexPath(0, 1)];
+                            CGRect rect=[self rectForRowAtIndexPath:indexPath(0, 1)];
+                            float height=0;
+                            
+                            if([cell isKindOfClass:[ShopListCell class]])
+                            {
+                                height=[ShopListCell addressHeight];
+                            }
+                            else if([cell isKindOfClass:[ShopListPlaceCell class]])
+                            {
+                                height=[ShopListPlaceCell titleHeight];
+                            }
+                            
+                            rect.size.height-=height;
+                            rect.size.height-=5;
+                            
+                            if(self.l_co_y>rect.size.height)
+                                [self.controller endZoomMap];
+                        }
+                        else if(self.l_co_y>50)
+                            [self.controller endZoomMap];
+                    }
                 }
             }
-            NSLog(@"velocity %@ %f",NSStringFromCGPoint(velocity),self.l_co_y);
         }
             break;
             
