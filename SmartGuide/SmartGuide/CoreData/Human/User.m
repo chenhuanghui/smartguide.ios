@@ -13,9 +13,16 @@
     self=[super initWithEntity:entity insertIntoManagedObjectContext:context];
     
     _location=CLLocationCoordinate2DMake(-1, -1);
-    if([[NSUserDefaults standardUserDefaults] objectForKey:@"userCoordinate"])
+    id obj=[[NSUserDefaults standardUserDefaults] objectForKey:@"userCoordinate"];
+    if(obj && [obj length]>0)
     {
-        _location=[[[NSUserDefaults standardUserDefaults] objectForKey:@"userCoordinate"] MKCoordinateValue];
+        if([obj rangeOfString:@"|"].location!=NSNotFound)
+        {
+            NSString *coor=[[NSUserDefaults standardUserDefaults] objectForKey:@"userCoordinate"];
+            _location=CLLocationCoordinate2DMake([[coor componentsSeparatedByString:@"|"][0] floatValue], [[coor componentsSeparatedByString:@"|"][1] floatValue]);
+        }
+        else
+            [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"userCoordinate"];
     }
     
     return self;
@@ -63,7 +70,7 @@
     
     if(isVailCLLocationCoordinate2D(newCoordinate))
     {
-        [[NSUserDefaults standardUserDefaults] setObject:[NSValue valueWithMKCoordinate:newCoordinate] forKey:@"userCoordinate"];
+        [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%f|%f",newCoordinate.latitude,newCoordinate.longitude] forKey:@"userCoordinate"];
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
 }

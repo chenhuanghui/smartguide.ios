@@ -10,6 +10,7 @@
 #import "GUIManager.h"
 #import "StoreShopInfoViewController.h"
 #import "LoadingMoreCell.h"
+#import "LocationManager.h"
 
 #define NEW_FEED_DELTA_SPEED 2.1f
 
@@ -18,7 +19,7 @@
 @end
 
 @implementation HomeViewController
-@synthesize delegate;
+@synthesize delegate,homeLocation;
 
 - (id)init
 {
@@ -49,6 +50,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
 
+    homeLocation=currentUser().coordinate;
+    
     txt.placeholder=TEXTFIELD_SEARCH_PLACEHOLDER_TEXT;
     txt.text=TEXTFIELD_SEARCH_PLACEHOLDER_TEXT;
     
@@ -75,8 +78,49 @@
 
     [self requestNewFeed];
     
+    [self showLoading];
+    
+    if(!isVailCLLocationCoordinate2D(homeLocation))
+    {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userLocationChanged:) name:NOTIFICATION_USER_LOCATION_CHANGED object:nil];
+        [[LocationManager shareInstance] startTrackingLocation];
+    }
+}
+
+-(void) showLoading
+{
+    displayLoadingView.userInteractionEnabled=true;
     [displayLoadingView showLoading];
     displayLoadingView.loadingView.backgroundView.backgroundColor=self.view.backgroundColor;
+}
+
+-(void) removeLoading
+{
+    [displayLoadingView removeLoading];
+    displayLoadingView.userInteractionEnabled=false;
+}
+
+-(void) resetData
+{
+    [self showLoading];
+    
+    _page=-1;
+    _homes=[NSMutableArray array];
+    _isLoadingMore=false;
+    _canLoadMore=true;
+    
+    [self requestNewFeed];
+}
+
+-(void) userLocationChanged:(NSNotification*) notification
+{
+    if(!isVailCLLocationCoordinate2D(homeLocation))
+    {
+        homeLocation=[notification.object MKCoordinateValue];
+        [self resetData];
+    }
+    
+    [[LocationManager shareInstance] stopTrackingLcoation];
 }
 
 -(void) requestNewFeed
@@ -87,7 +131,7 @@
         _operationUserHome=nil;
     }
     
-    _operationUserHome=[[ASIOperationUserHome alloc] initWithPage:_page+1 userLat:userLat() userLng:userLng()];
+    _operationUserHome=[[ASIOperationUserHome alloc] initWithPage:_page+1 userLat:homeLocation.latitude userLng:homeLocation.longitude];
     _operationUserHome.delegatePost=self;
     
     [_operationUserHome startAsynchronous];
@@ -107,11 +151,7 @@
 {
     if([operation isKindOfClass:[ASIOperationUserHome class]])
     {
-        if(displayLoadingView)
-        {
-            [displayLoadingView removeFromSuperview];
-            displayLoadingView=nil;
-        }
+        [self removeLoading];
         
         [self finishLoadData];
         
@@ -125,16 +165,6 @@
         [tableFeed reloadData];
         
         _operationUserHome=nil;
-    }
-    else if([operation isKindOfClass:[ASIOperationShopUser class]])
-    {
-        [self.view removeLoading];
-        
-        ASIOperationShopUser *ope=(ASIOperationShopUser*) operation;
-        
-        [[GUIManager shareInstance] presentShopUserWithShopUser:ope.shop];
-        
-        _operationShopUser=nil;
     }
 }
 
@@ -151,24 +181,6 @@
         _operationUserHome=nil;
         
         [self finishLoadData];
-    }
-    else if([operation isKindOfClass:[ASIOperationShopUser class]])
-    {
-        [self.view removeLoading];
-        
-        _operationShopUser=nil;
-    }
-}
-
--(NSArray *)registerNotifications
-{
-    return @[UIApplicationDidBecomeActiveNotification];
-}
-
--(void)receiveNotification:(NSNotification *)notification
-{
-    if([notification.name isEqualToString:UIApplicationDidBecomeActiveNotification])
-    {
     }
 }
 
@@ -497,14 +509,6 @@
     
     [SGData shareInstance].fScreen=[HomeViewController screenCode];
     [[SGData shareInstance].fData setObject:@(idPost) forKey:@"idPost"];
-    
-    return;
-    _operationShopUser=[[ASIOperationShopUser alloc] initWithIDShop:idShop userLat:userLat() userLng:userLng()];
-    _operationShopUser.delegatePost=self;
-    _operationShopUser.fScreen=[HomeViewController screenCode];
-    [_operationShopUser.fData setObject:@(idPost) forKey:@"idPost"];
-    
-    [_operationShopUser startAsynchronous];
 }
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
@@ -563,12 +567,6 @@
 
 -(void)dealloc
 {
-    if(_operationShopUser)
-    {
-        [_operationShopUser clearDelegatesAndCancel];
-        _operationShopUser=nil;
-    }
-    
     if(_operationUserHome)
     {
         [_operationUserHome clearDelegatesAndCancel];

@@ -13,7 +13,6 @@
 #import "HomeListCell.h"
 #import "HomeInfoCell.h"
 #import "HomeImagesType9Cell.h"
-#import "ASIOperationShopUser.h"
 #import "SGQRCodeViewController.h"
 
 @class HomeViewController,TableHome;
@@ -40,7 +39,6 @@
     __weak IBOutlet UIImageView *blurBottom;
     
     ASIOperationUserHome *_operationUserHome;
-    ASIOperationShopUser *_operationShopUser;
     NSMutableArray *_homes;
     NSMutableArray *_ads;
     
@@ -57,6 +55,7 @@
 }
 
 @property (nonatomic, assign) id<HomeControllerDelegate> delegate;
+@property (nonatomic, readonly) CLLocationCoordinate2D homeLocation;
 
 @end
 

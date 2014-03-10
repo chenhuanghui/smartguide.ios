@@ -23,8 +23,6 @@
     [Flurry setAppVersion:@"0.0a"];
     [Flurry startSession:@"SG974KP6KXTQ8P4ZRYHN" withOptions:launchOptions];
     
-    [AFHTTPRequestOperation addAcceptableContentTypes:[NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript", @"text/html", nil]];
-    
     [[GUIManager shareInstance] startupWithWindow:self.window];
     
     return YES;
