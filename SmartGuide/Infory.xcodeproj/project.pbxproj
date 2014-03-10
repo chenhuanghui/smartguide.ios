@@ -4700,6 +4700,41 @@
 			knownRegions = (
 				en,
 				he,
+				ar,
+				ca,
+				cs,
+				da,
+				de,
+				el,
+				en_AU,
+				en_GB,
+				es,
+				es_MX,
+				fi,
+				fr,
+				hr,
+				hu,
+				id,
+				it,
+				iw,
+				ja,
+				ko,
+				ms,
+				nb,
+				nl,
+				pl,
+				pt,
+				pt_PT,
+				ro,
+				ru,
+				sk,
+				sv,
+				th,
+				tr,
+				uk,
+				vi,
+				zh_CN,
+				zh_TW,
 			);
 			mainGroup = A9819845178D02520009FCB6;
 			productRefGroup = A981984F178D02530009FCB6 /* Products */;
@@ -5865,6 +5900,7 @@
 					"$(inherited)",
 					"~/Documents/FacebookSDK",
 					"~/smartguide.ios/SmartGuide/google-plus-ios-sdk-1.5.0",
+					"/Users/macmini/smartguide.ios/SmartGuide/google-plus-ios-sdk-1.5.0",
 				);
 				GCC_PREFIX_HEADER = "SmartGuide/Infory-Prefix.pch";
 				INFOPLIST_FILE = "SmartGuide/Infory-Info.plist";
@@ -5891,6 +5927,7 @@
 					"$(inherited)",
 					"~/Documents/FacebookSDK",
 					"~/smartguide.ios/SmartGuide/google-plus-ios-sdk-1.5.0",
+					"/Users/macmini/smartguide.ios/SmartGuide/google-plus-ios-sdk-1.5.0",
 				);
 				GCC_PREFIX_HEADER = "SmartGuide/Infory-Prefix.pch";
 				INFOPLIST_FILE = "SmartGuide/Infory-Info.plist";
