@@ -48,11 +48,11 @@ static LocationManager *_locationManager=nil;
     
     _isTryGetUserLocationInfo=true;
     
-    if([self.locationManager respondsToSelector:@selector(purpose)])
-    {
-        //Remember set plist NSLocationUsageDescription
-        self.locationManager.purpose=@"";
-    }
+//    if([self.locationManager respondsToSelector:@selector(purpose)])
+//    {
+//        //Remember set plist NSLocationUsageDescription
+//        self.locationManager.purpose=@"";
+//    }
     
     //trigger CatalogueBlockViewController detect city
     self.locationManager.desiredAccuracy=kCLLocationAccuracyBest;

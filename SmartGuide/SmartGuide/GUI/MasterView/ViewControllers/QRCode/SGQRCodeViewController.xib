@@ -148,7 +148,7 @@
         <image name="background_scan.png" width="320" height="56"/>
         <image name="button_close.png" width="25" height="25"/>
         <image name="button_flashcamera.png" width="38" height="38"/>
-        <image name="button_scan.png" width="124" height="31"/>
+        <image name="button_scan.png" width="172" height="32"/>
         <image name="scan.png" width="202" height="202"/>
     </resources>
 </document>

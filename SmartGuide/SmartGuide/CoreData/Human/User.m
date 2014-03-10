@@ -13,6 +13,10 @@
     self=[super initWithEntity:entity insertIntoManagedObjectContext:context];
     
     _location=CLLocationCoordinate2DMake(-1, -1);
+    if([[NSUserDefaults standardUserDefaults] objectForKey:@"userCoordinate"])
+    {
+        _location=[[[NSUserDefaults standardUserDefaults] objectForKey:@"userCoordinate"] MKCoordinateValue];
+    }
     
     return self;
 }
@@ -56,6 +60,12 @@
 -(void)setCoordinate:(CLLocationCoordinate2D)newCoordinate
 {
     _location=newCoordinate;
+    
+    if(isVailCLLocationCoordinate2D(newCoordinate))
+    {
+        [[NSUserDefaults standardUserDefaults] setObject:[NSValue valueWithMKCoordinate:newCoordinate] forKey:@"userCoordinate"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
 }
 
 -(bool)save

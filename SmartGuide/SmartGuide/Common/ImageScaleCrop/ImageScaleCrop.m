@@ -51,7 +51,7 @@
 
 -(void)setImage:(UIImage *)image
 {
-    [UIView animateKeyframesWithDuration:0.5f delay:0 options:UIViewKeyframeAnimationOptionBeginFromCurrentState animations:^{
+    [UIView animateWithDuration:0.5f delay:0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
         bgView.alpha=image==nil?1:0;
     } completion:nil];
     

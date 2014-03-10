@@ -21,14 +21,14 @@
 #define FACEBOOK_READ_PERMISSION @[@"basic_info",@"user_about_me",@"user_birthday",@"user_work_history",@"email"]
 #define FACEBOOK_POST_TO_WALL_PERMISSION @"publish_actions"
 #define FACEBOOK_PUBLISH_PERMISSION @[FACEBOOK_POST_TO_WALL_PERMISSION]
-#define FACEBOOK_APPID @"1391698407719065"
+#define FACEBOOK_APPID @"642818172421223"
 #define FACEBOOK_GET_PROFILE @"https://graph.facebook.com/me/"
 
-static NSString * const kClientId = @"816218358288-msr055u6pvnlqep605ri3lu8tt5ev8u7.apps.googleusercontent.com";
+static NSString * const kClientId = @"790158294934-p5pnscmrt4avj698ncvhp14fit0f4qvb.apps.googleusercontent.com";
 
 #define TEXTFIELD_SEARCH_PLACEHOLDER_TEXT @"Tìm kiếm địa điểm"
 
-#define BUILD_MODE 0
+#define BUILD_MODE 1
 //0: developer
 //1: production
 

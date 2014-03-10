@@ -52,7 +52,7 @@
             
             lbl.textColor=[UIColor lightGrayColor];
             lbl.font=self.font;
-            lbl.textAlignment=UITextAlignmentLeft;
+            lbl.textAlignment=NSTextAlignmentLeft;
             
             [lbl l_v_setO:placeholderXY];
             
