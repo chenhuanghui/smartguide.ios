@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "PanDragViewHandle.h"
 #import "Constant.h"
 #import "Utility.h"
 #import "SGViewController.h"
