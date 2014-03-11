@@ -82,30 +82,35 @@
         
         if(scrollerView)
         {
-            float per=tableList.l_co_y/(tableList.l_cs_h-tableList.l_v_h);
-            
-            [scrollerView l_v_setY:_scrollerViewFrame.origin.y+tableList.l_co_y+per*(visibleScrollerView.l_v_h-29)];
-            
-            NSIndexPath *indexPath=[tableList indexPathForRowAtPoint:scrollerView.l_v_o];
-            
-            if(indexPath)
-            {
-                UITableViewCell *cell=[tableList cellForRowAtIndexPath:indexPath];
-                
-                if([cell isKindOfClass:[ShopListCell class]])
-                {
-                    ShopListCell *sCell=(ShopListCell*)cell;
-                    [scrollerView setTitle:sCell.shopList.distance];
-                }
-                else if([cell isKindOfClass:[ShopListMapCell class]])
-                {
-                    [scrollerView setTitle:@"Bản đồ"];
-                }
-                else if([cell isKindOfClass:[ShopListPlaceCell class]])
-                {
-                    [scrollerView setTitle:@"Danh sách địa điểm"];
-                }
-            }
+            [self makeScrollerTitle];
+        }
+    }
+}
+
+-(void) makeScrollerTitle
+{
+    float per=tableList.l_co_y/(tableList.l_cs_h-tableList.l_v_h);
+    
+    [scrollerView l_v_setY:_scrollerViewFrame.origin.y+tableList.l_co_y+per*(visibleScrollerView.l_v_h-29)];
+    
+    NSIndexPath *indexPath=[tableList indexPathForRowAtPoint:scrollerView.l_v_o];
+    
+    if(indexPath)
+    {
+        UITableViewCell *cell=[tableList cellForRowAtIndexPath:indexPath];
+        
+        if([cell isKindOfClass:[ShopListCell class]])
+        {
+            ShopListCell *sCell=(ShopListCell*)cell;
+            [scrollerView setTitle:sCell.shopList.distance];
+        }
+        else if([cell isKindOfClass:[ShopListMapCell class]])
+        {
+            [scrollerView setTitle:@"Bản đồ"];
+        }
+        else if([cell isKindOfClass:[ShopListPlaceCell class]])
+        {
+            [scrollerView setTitle:@"Danh sách địa điểm"];
         }
     }
 }
@@ -113,28 +118,6 @@
 -(void) reloadTable
 {
     [tableList reloadData];
-
-    if(scrollerView)
-    {
-        [scrollerView removeFromSuperview];
-        scrollerView=nil;
-    }
-    
-    if(_isZoomedMap)
-        return;
-    
-    if(!([tableList numberOfSections]>1 && [tableList numberOfRowsInSection:1]>0))
-        return;
-    
-    ScrollerShopList *sv=[[ScrollerShopList alloc] initWithTable:tableList];
-    [sv l_v_setY:[tableList rectForRowAtIndexPath:indexPath(0, 1)].origin.y];
-    [sv l_v_setH:29];
-    sv.userInteractionEnabled=false;
-    
-    [tableList addSubview:sv];
-
-    scrollerView=sv;
-    _scrollerViewFrame=scrollerView.frame;
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -645,6 +628,7 @@
     }
     
     [sortView setIcon:sortImage text:localizeSortList(_sort)];
+    [scrollerView setIcon:sortScrollerImage];
 }
 
 -(void) changeSort:(enum SORT_LIST) sort
@@ -1201,6 +1185,31 @@
 
 -(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
+    if(scrollerView)
+    {
+        [self showScroller];
+        return;
+    }
+    
+    if(_isZoomedMap)
+        return;
+    
+    if(!([tableList numberOfSections]>1 && [tableList numberOfRowsInSection:1]>0))
+        return;
+    
+    ScrollerShopList *sv=[[ScrollerShopList alloc] initWithTable:tableList];
+    [sv l_v_setY:[tableList rectForRowAtIndexPath:indexPath(0, 1)].origin.y];
+    [sv l_v_setH:29];
+    sv.userInteractionEnabled=false;
+    
+    [tableList addSubview:sv];
+    
+    scrollerView=sv;
+    _scrollerViewFrame=scrollerView.frame;
+    
+    [self makeScrollerTitle];
+    [self makeSortLayout];
+    
     [self showScroller];
 }
 
@@ -1361,7 +1370,7 @@
 
 -(ScrollerShopList *)initWithTable:(UITableView *)table
 {
-    self=[super initWithFrame:CGRectMake(0, 0, table.l_v_w-5, 29)];
+    self=[super initWithFrame:CGRectMake(0, 0, table.l_v_w, 29)];
     
     ShopListScrollerBG *bgView=[[ShopListScrollerBG alloc] initWithFrame:CGRectMake(0, 0, 0, 29)];
     [self addSubview:bgView];
@@ -1375,9 +1384,7 @@
     lbl=label;
     bg=bgView;
     
-    self.backgroundColor=[UIColor redColor];
-    
-    bg.icon=[UIImage imageNamed:@"icon_heartscroll.png"];
+    bg.icon=[UIImage imageNamed:@"icon_distancescroll.png"];
     
     lbl.text=@"";
     [lbl sizeToFit];

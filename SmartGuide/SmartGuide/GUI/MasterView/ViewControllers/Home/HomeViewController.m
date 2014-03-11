@@ -84,8 +84,6 @@
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userLocationChanged:) name:NOTIFICATION_USER_LOCATION_CHANGED object:nil];
         [[LocationManager shareInstance] startTrackingLocation];
     }
-    
-    [[GUIManager shareInstance] showShopListWithKeywork:@"a"];
 }
 
 -(void) showLoading
