@@ -32,7 +32,6 @@
     
     NSDictionary *dict=json[0];
     self.place=[Placelist makeWithDictionary:dict];
-    [self.place removeAllShopsList];
     
     for(NSDictionary *dictShop in dict[@"shops"])
     {

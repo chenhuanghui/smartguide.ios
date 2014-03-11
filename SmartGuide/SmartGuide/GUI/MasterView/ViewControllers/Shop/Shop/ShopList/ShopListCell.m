@@ -43,6 +43,7 @@
     [btnNumOfView setTitle:[NSString stringWithFormat:@"%@ lượt xem",[_shop numOfView]] forState:UIControlStateNormal];
     [btnNumOfLove setTitle:[NSString stringWithFormat:@"%@ lượt thích",[_shop numOfLove]] forState:UIControlStateNormal];
     [btnNumOfComment setTitle:[NSString stringWithFormat:@"%@ nhận xét",[_shop numOfComment]] forState:UIControlStateNormal];
+    lblKM.text=[NSString stringWithFormat:@"Cách bạn %@",shopList.distance];
 }
 
 -(void)setButtonTypeIsTypeAdded:(bool)isTypeAdded
@@ -75,7 +76,7 @@
     if(shop.desc.length==0)
         return 0;
     
-    float height=90;
+    float height=115;
     
     if(shop.descHeight==0)
         shop.descHeight=[shop.desc sizeWithFont:[UIFont fontWithName:@"Avenir-Roman" size:13] constrainedToSize:CGSizeMake(249, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height;
@@ -85,8 +86,8 @@
     else
         height+=36;
     
-    if(height>126)
-        height=126;
+    if(height>151)
+        height=151;
     
     return height;
 }

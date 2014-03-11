@@ -87,13 +87,14 @@ enum SHOP_LIST_VIEW_MODE {
     
     CLLocationCoordinate2D _location;
     
-    NSIndexPath *_scrollerIndexPath;
-    
     bool _didMakeScrollSize;
     
     bool _isNeedAnimationChangeTable;
     
     float _mapRowHeight;
+    
+    __weak UIView *scroller;
+    __weak UIView *bgScroller;
 }
 
 -(ShopListViewController*) initWithKeyword:(NSString*) keyword;
@@ -125,5 +126,9 @@ enum SHOP_LIST_VIEW_MODE {
 -(float) offsetY;
 
 @property (nonatomic, weak) IBOutlet ShopListViewController *controller;
+
+@end
+
+@interface ShopListScrollerBG : UIView
 
 @end

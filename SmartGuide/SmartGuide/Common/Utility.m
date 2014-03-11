@@ -2426,3 +2426,12 @@ static const NSString *KEY_HIT_TEST_EDGE_INSETS = @"HitTestEdgeInsets";
 }
 
 @end
+
+@implementation NSIndexPath(Utility)
+
+-(NSString *)description
+{
+    return [NSString stringWithFormat:@"indexPath section %i row %i",self.section,self.row];
+}
+
+@end

@@ -40,6 +40,7 @@
     __weak IBOutlet UIButton *btnNumOfView;
     __weak IBOutlet UIButton *btnNumOfLove;
     __weak IBOutlet UIButton *btnNumOfComment;
+    __weak IBOutlet UILabel *lblKM;
     
     __weak ShopList *_shop;
     ASIOperationLoveShop *_operationLove;

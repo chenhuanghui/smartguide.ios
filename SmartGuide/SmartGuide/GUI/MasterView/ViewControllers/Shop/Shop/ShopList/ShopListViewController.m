@@ -68,24 +68,65 @@
 -(void) reloadTable
 {
     [tableList reloadData];
+    
+    if([tableList l_cs_h]<tableList.l_v_h)
+    {
+        [tableList l_cs_setH:tableList.l_v_h+1];
+    }
+    
+//    tableList.scrollIndicatorInsets=UIEdgeInsetsMake([tableList rectForRowAtIndexPath:indexPath(0, 0)].size.height/2, 0, 0, 0);
+}
+
+-(void)scrollViewWillBeginDragging1:(UIScrollView *)scrollView
+{
+    if(scroller)
+        return;
+    
+    UIImageView *scrollBar=[scrollView scrollBar];
+    scrollBar.clipsToBounds=false;
+    
+    UIView *scrollerView=[[UIView alloc] init];
+    scrollerView.backgroundColor=[UIColor clearColor];
+    scrollerView.autoresizingMask=UIViewAutoresizingAll();
+    [scrollerView l_v_setS:CGSizeMake(self.l_v_w, scrollBar.l_v_h)];
+    [scrollerView l_v_setX:-scrollerView.l_v_w+1];
+    
+    [scrollBar addSubview:scrollerView];
+    
+    UIView *bgView=[[UIView alloc] init];
+    [bgView l_v_setW:scrollerView.l_v_w];
+    [bgView l_v_setH:scrollerView.l_v_h];
+    bgView.autoresizingMask=UIViewAutoresizingAll();
+    bgView.backgroundColor=[[UIColor redColor] colorWithAlphaComponent:0.1f];
+    
+    [scrollerView addSubview:bgView];
+    
+    ShopListScrollerBG *scrollerBG=[[ShopListScrollerBG alloc] init];
+    
+    [scrollerBG l_v_setS:CGSizeMake(bgView.l_v_w, 29)];
+    [scrollerBG l_v_setY:bgView.l_v_h-scrollerBG.l_v_h];
+    scrollerBG.autoresizingMask=UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleBottomMargin|UIViewAutoresizingFlexibleTopMargin;
+    
+    [bgView addSubview:scrollerBG];
+    
+    
+    scroller=scrollerView;
+    bgScroller=bgView;
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    switch (_viewMode) {
-        case SHOP_LIST_VIEW_LIST:
-        case SHOP_LIST_VIEW_SHOP_LIST:
-            return (_shopsList.count==0?0:1)+1;
-            
-        case SHOP_LIST_VIEW_PLACE:
-            return 1+1;
-            
-        case SHOP_LIST_VIEW_IDPLACE:
-            if(_placeList)
-                return 1+1;
-            else
-                return 0+1;
-    }
+    int count=0;
+    
+    count++;//map
+    
+    if(_placeList)
+        count++;
+    
+    if(_shopsList.count>0)
+        count++;
+    
+    return count;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -93,15 +134,34 @@
     if(section==0)
         return 1;
     
-    switch (_viewMode) {
-        case SHOP_LIST_VIEW_LIST:
-        case SHOP_LIST_VIEW_SHOP_LIST:
-            return _shopsList.count+(_canLoadMore?1:0);
-            
-        case SHOP_LIST_VIEW_PLACE:
-        case SHOP_LIST_VIEW_IDPLACE:
-            return _shopsList.count+1+(_canLoadMore?1:0);
+    if(section==1)
+    {
+        if(_placeList)
+            return 1;
     }
+    
+    return _shopsList.count+(_canLoadMore?1:0);
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if(indexPath.section==0)
+    {
+        return _mapRowHeight;;
+    }
+    
+    if(indexPath.section==1)
+    {
+        if(_placeList)
+        {
+            return [ShopListPlaceCell heightWithContent:_placeList.desc];
+        }
+    }
+    
+    if(_canLoadMore && indexPath.row==_shopsList.count)
+        return 88;
+    
+    return [ShopListCell heightWithShopList:_shopsList[indexPath.row]];
 }
 
 -(void) loadMore
@@ -134,7 +194,15 @@
     cell.controller=self;
     
     return cell;
+}
 
+-(ShopListPlaceCell*) placeCell
+{
+    ShopListPlaceCell *cell=[tableList dequeueReusableCellWithIdentifier:[ShopListPlaceCell reuseIdentifier]];
+    
+    [cell loadWithPlace:_placeList];
+    
+    return cell;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -161,90 +229,27 @@
         return cell;
     }
     
-    switch (_viewMode) {
-        case SHOP_LIST_VIEW_LIST:
-        case SHOP_LIST_VIEW_SHOP_LIST:
-        {
-            if(_canLoadMore && indexPath.row==_shopsList.count)
-            {
-                if(!_isLoadingMore)
-                {
-                    [self loadMore];
-                    _isLoadingMore=true;
-                }
-                
-                return [tableList loadingMoreCell];
-            }
-            
-            return [self cellWithShopList:_shopsList[indexPath.row] indexPath:indexPath];
-        }
-            
-        case SHOP_LIST_VIEW_PLACE:
-        case SHOP_LIST_VIEW_IDPLACE:
-            
-            switch (indexPath.row) {
-                case 0:
-                {
-                    ShopListPlaceCell *cell=[tableView dequeueReusableCellWithIdentifier:[ShopListPlaceCell reuseIdentifier]];
-                    
-                    [cell loadWithPlace:_placeList];
-                    
-                    return cell;
-                }
-                    
-                default:
-                {
-                    if(_canLoadMore && indexPath.row==_shopsList.count)
-                    {
-                        if(!_isLoadingMore)
-                        {
-                            [self loadMore];
-                            _isLoadingMore=true;
-                        }
-                        
-                        return [tableList loadingMoreCell];
-                    }
-                    
-                    return [self cellWithShopList:_shopsList[indexPath.row-1] indexPath:indexPath];
-                }
-            }
-            
-            break;
-    }
-}
-
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if(indexPath.section==0)
+    if(indexPath.section==1)
     {
-        return _mapRowHeight;;
+        if(_placeList)
+        {
+            return [self placeCell];
+        }
     }
     
-    switch (_viewMode) {
-        case SHOP_LIST_VIEW_LIST:
-        case SHOP_LIST_VIEW_SHOP_LIST:
-            
-            if(_canLoadMore && indexPath.row==_shopsList.count)
-                return 88;
-            
-            return [ShopListCell heightWithShopList:_shopsList[indexPath.row]];
-            
-        case SHOP_LIST_VIEW_PLACE:
-        case SHOP_LIST_VIEW_IDPLACE:
+    if(_canLoadMore && indexPath.row==[tableView numberOfRowsInSection:indexPath.section]-1)
+    {
+        if(!_isLoadingMore)
         {
-            switch (indexPath.row) {
-                case 0:
-                    return [ShopListPlaceCell heightWithContent:_placeList.desc];
-                    
-                default:
-                    
-                    if(_canLoadMore && indexPath.row==_shopsList.count)
-                        return 88;
-                    
-                    return [ShopListCell heightWithShopList:_shopsList[indexPath.row-1]];
-            }
+            _isLoadingMore=true;
+            
+            [self loadMore];
         }
+        
+        return [tableView loadingMoreCell];
     }
+    
+    return [self cellWithShopList:_shopsList[indexPath.row] indexPath:indexPath];
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -444,7 +449,7 @@
             tableList.dataSource=self;
             tableList.delegate=self;
             
-            [tableList reloadData];
+            [self reloadTable];
             
             [self showLoading];
             
@@ -459,7 +464,7 @@
             tableList.dataSource=self;
             tableList.delegate=self;
             
-            [tableList reloadData];
+            [self reloadTable];
             
             [self showLoading];
             
@@ -961,7 +966,7 @@
         btnScanSmall.frame=_buttonScanSmallFrame;
     } completion:^(BOOL finished) {
         [mapCell disabelMap];
-        [tableList reloadData];
+        [self reloadTable];
         self.view.userInteractionEnabled=true;
         _isAnimatingZoom=false;
     }];
@@ -1017,7 +1022,7 @@
             tableList.alpha=0.5f;
         } completion:^(BOOL finished) {
             tableList.dataSource=self;
-            [tableList reloadData];
+            [self reloadTable];
             
             [UIView animateWithDuration:DURATION_DEFAULT animations:^{
                 tableList.alpha=1;
@@ -1031,7 +1036,7 @@
     else
     {
         tableList.dataSource=self;
-        [tableList reloadData];
+        [self reloadTable];
     }
 }
 
@@ -1266,6 +1271,36 @@
         default:
             break;
     }
+}
+
+@end
+
+@implementation ShopListScrollerBG
+
+-(id)initWithFrame:(CGRect)frame
+{
+    self=[super initWithFrame:frame];
+    
+    self.contentMode=UIViewContentModeRedraw;
+    self.backgroundColor=[UIColor clearColor];
+    
+    return self;
+}
+
+-(id)init
+{
+    self=[super init];
+    
+    self.contentMode=UIViewContentModeRedraw;
+    self.backgroundColor=[UIColor clearColor];
+    
+    return self;
+}
+
+-(void)drawRect:(CGRect)rect
+{
+    [[UIImage imageNamed:@"bgslide_head.png"] drawAtPoint:CGPointZero];
+    [[UIImage imageNamed:@"bgslide_mid.png"] drawAsPatternInRect:CGRectMake(30, 0, rect.size.width-30, 29)];
 }
 
 @end
