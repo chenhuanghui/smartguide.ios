@@ -1204,9 +1204,21 @@
     [self showScroller];
 }
 
+-(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    [self makeHideScroller];
+}
+
+-(void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
+{
+    if(!decelerate)
+        [self makeHideScroller];
+}
+
+
 -(void) makeHideScroller
 {
-    
+    [self hideScrollerWithDelay:0];
 }
 
 @end
@@ -1245,7 +1257,6 @@
         case UIGestureRecognizerStateFailed:
         case UIGestureRecognizerStateCancelled:
         {
-            [self.controller makeHideScroller];
             [self.controller closeLove];
             
             CGPoint velocity=[pan velocityInView:pan.view];
