@@ -14,7 +14,8 @@ enum SEARCH_VIEW_MODE {
     SEARCH_VIEW_MODE_SEARCH = 0,
     SEARCH_VIEW_MODE_LIST = 1,
     SEARCH_VIEW_MODE_SHOP_LIST = 2,
-    SEARCH_VIEW_MODE_HOME_3 = 3
+    SEARCH_VIEW_MODE_HOME_3 = 3,
+    SEARCH_VIEW_MODE_KEYWORK_SHOP_LIST = 4
     };
 
 @class ShopListViewController,SearchViewController,SearchShopViewController,Placelist;
@@ -38,8 +39,8 @@ enum SEARCH_VIEW_MODE {
 }
 
 -(SearchViewController*) initWithKeyword:(NSString*) keyword;
--(SearchViewController*) initWithShop:(Shop*) shop mode:(enum SEARCH_VIEW_MODE) mode;
 -(SearchViewController*) initWithPlace:(Placelist*) place;
 -(SearchViewController*) initWithIDShops:(NSString*) idShops;
+-(SearchViewController*) initWithKeyword:(NSString*) keyword viewMode:(enum SEARCH_VIEW_MODE) viewMode;
 
 @end

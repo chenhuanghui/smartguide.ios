@@ -51,6 +51,7 @@
 -(void) presentShopUserWithIDShop:(int) idShop;
 -(void) dismissShopUser;
 -(void) showStoreWithStore:(StoreShop*) store;
+-(void) showShopListWithKeywork:(NSString*) keyword;
 
 -(void) showLoginDialogWithMessage:(NSString*) message onOK:(void(^)()) onOK onCancelled:(void(^)()) onCancelled onLogined:(void(^)(bool isLogined)) onLogin;
 

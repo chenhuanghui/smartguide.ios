@@ -24,7 +24,7 @@
 #import "PlacelistViewController.h"
 #import "ShopListMapCell.h"
 
-@class ScrollShopList,ShopListContentView,ShopListViewController,TableShopList;
+@class ScrollShopList,ShopListContentView,ShopListViewController,TableShopList,ScrollerShopList;
 
 enum SHOP_LIST_VIEW_MODE {
     SHOP_LIST_VIEW_LIST = 0,
@@ -53,6 +53,7 @@ enum SHOP_LIST_VIEW_MODE {
     __strong ShopListMapCell *mapCell;
     __weak SGMapView *map;
     __weak IBOutlet UIView *visibleTableView;//dùng để tính vị trí animation
+    __weak IBOutlet UIView *visibleScrollerView;//dùng để tính chiều cao scroller;
 
     CGRect _mapFrame;
     CGRect _tableFrame;
@@ -93,8 +94,11 @@ enum SHOP_LIST_VIEW_MODE {
     
     float _mapRowHeight;
     
-    __weak UIView *scroller;
-    __weak UIView *bgScroller;
+//    __weak UIView *scroller;
+//    __weak UIView *bgScroller;
+    
+    __weak ScrollerShopList *scrollerView;
+    CGRect _scrollerViewFrame;
 }
 
 -(ShopListViewController*) initWithKeyword:(NSString*) keyword;
@@ -130,5 +134,19 @@ enum SHOP_LIST_VIEW_MODE {
 @end
 
 @interface ShopListScrollerBG : UIView
+
+@property (nonatomic, strong) UIImage *icon;
+
+@end
+
+@interface ScrollerShopList : UIView
+{
+    __weak UILabel *lbl;
+    __weak ShopListScrollerBG* bg;
+}
+
+-(ScrollerShopList*) initWithTable:(UITableView*) table;
+-(void) setTitle:(NSString*) title;
+-(void) setIcon:(UIImage*) icon;
 
 @end

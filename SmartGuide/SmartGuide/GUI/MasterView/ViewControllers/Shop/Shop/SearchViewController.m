@@ -26,15 +26,6 @@
     return self;
 }
 
--(SearchViewController *)initWithShop:(Shop *)shop mode:(enum SEARCH_VIEW_MODE)mode
-{
-    self=[super initWithNibName:@"SearchViewController" bundle:nil];
-    
-    _viewMode=mode;
-    
-    return self;
-}
-
 -(SearchViewController *)initWithKeyword:(NSString *)keyword
 {
     self=[super initWithNibName:@"SearchViewController" bundle:nil];
@@ -75,6 +66,16 @@
     return self;
 }
 
+-(SearchViewController *)initWithKeyword:(NSString *)keyword viewMode:(enum SEARCH_VIEW_MODE)viewMode
+{
+    self=[super initWithNibName:@"SearchViewController" bundle:nil];
+    
+    _keyword=[keyword copy];
+    _viewMode=viewMode;
+    
+    return self;
+}
+
 - (void)dealloc
 {
     [searchNavi.view removeFromSuperview];
@@ -87,6 +88,17 @@
     
     UIViewController *root=nil;
     switch (_viewMode) {
+            
+        case SEARCH_VIEW_MODE_KEYWORK_SHOP_LIST:
+        {
+            ShopListViewController *vc=[[ShopListViewController alloc] initWithKeyword:_keyword];
+            vc.searchController=self;
+            vc.delegate=self;
+            
+            root=vc;
+        }
+            break;
+            
         case SEARCH_VIEW_MODE_LIST:
         {
             ShopListViewController *vc=[[ShopListViewController alloc] initWithPlaceList:_place];

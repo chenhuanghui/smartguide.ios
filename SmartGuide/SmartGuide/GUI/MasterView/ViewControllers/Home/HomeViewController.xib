@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4510" systemVersion="12F37" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
-        <deployment defaultVersion="1280" identifier="iOS"/>
+        <deployment defaultVersion="1536" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3742"/>
     </dependencies>
     <objects>
@@ -46,7 +46,7 @@
                     <rect key="frame" x="48" y="7" width="232" height="39"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </imageView>
-                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Tìm Kiếm Khuyến Mãi" minimumFontSize="17" id="Zxr-rq-3wh">
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="Zxr-rq-3wh">
                     <rect key="frame" x="48" y="8" width="232" height="39"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -85,7 +85,7 @@
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         </imageView>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="x6B-Va-eYj">
-                            <rect key="frame" x="100" y="0.0" width="120" height="56"/>
+                            <rect key="frame" x="74" y="12" width="172" height="31"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <inset key="contentEdgeInsets" minX="0.0" minY="-1" maxX="0.0" maxY="0.0"/>
                             <state key="normal" image="button_scan.png">
@@ -96,7 +96,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="top" lineBreakMode="middleTruncation" id="OIS-pB-zut">
-                            <rect key="frame" x="100" y="56" width="120" height="56"/>
+                            <rect key="frame" x="107" y="56" width="106" height="32"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <inset key="contentEdgeInsets" minX="13" minY="10" maxX="0.0" maxY="0.0"/>
                             <state key="normal" image="button_scan_small.png">
@@ -119,8 +119,8 @@
         <image name="blur_bottom_home.png" width="320" height="37"/>
         <image name="blur_top_home.png" width="320" height="41"/>
         <image name="button_navigation.png" width="34" height="26"/>
-        <image name="button_scan.png" width="124" height="31"/>
-        <image name="button_scan_small.png" width="63" height="17"/>
+        <image name="button_scan.png" width="172" height="32"/>
+        <image name="button_scan_small.png" width="93" height="17"/>
         <image name="button_search_home.png" width="232" height="39"/>
     </resources>
 </document>

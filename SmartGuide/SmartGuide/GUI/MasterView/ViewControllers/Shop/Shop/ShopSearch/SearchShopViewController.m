@@ -66,7 +66,6 @@
     
     if(txt.text.length>0)
     {
-        txt.text=TEXTFIELD_SEARCH_PLACEHOLDER_TEXT;
         txt.placeholder=TEXTFIELD_SEARCH_PLACEHOLDER_TEXT;
     }
     

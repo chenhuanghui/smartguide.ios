@@ -14,6 +14,7 @@
                 <outlet property="tableList" destination="Yzp-w8-hbC" id="JoC-2F-5Qb"/>
                 <outlet property="txt" destination="ray-CK-v4m" id="tDG-jV-qFt"/>
                 <outlet property="view" destination="1" id="3"/>
+                <outlet property="visibleScrollerView" destination="Lbw-mN-4Dq" id="24a-1c-iKu"/>
                 <outlet property="visibleTableView" destination="s4h-ec-JuQ" id="7qA-FU-nfT"/>
             </connections>
         </placeholder>
@@ -27,7 +28,12 @@
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" style="plain" separatorStyle="none" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Yzp-w8-hbC" customClass="TableShopList">
+                <view hidden="YES" autoresizesSubviews="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="Lbw-mN-4Dq">
+                    <rect key="frame" x="0.0" y="159" width="320" height="274"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                </view>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" style="plain" separatorStyle="none" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Yzp-w8-hbC" customClass="TableShopList">
                     <rect key="frame" x="0.0" y="-106" width="320" height="538"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -61,7 +67,7 @@
                                 <action selector="btnBackTouchUpInside:" destination="-1" eventType="touchUpInside" id="xsp-Cc-TBf"/>
                             </connections>
                         </button>
-                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Tìm kiếm địa điểm" minimumFontSize="17" background="button_search_home.png" id="ray-CK-v4m" customClass="TextFieldSearch">
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" background="button_search_home.png" id="ray-CK-v4m" customClass="TextFieldSearch">
                             <rect key="frame" x="52" y="7" width="239" height="39"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -82,7 +88,7 @@
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </imageView>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="aZ5-05-gw2">
-                            <rect key="frame" x="100" y="1" width="120" height="56"/>
+                            <rect key="frame" x="74" y="13" width="172" height="31"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <inset key="contentEdgeInsets" minX="0.0" minY="-1" maxX="0.0" maxY="0.0"/>
                             <state key="normal" image="button_scan.png">
@@ -93,7 +99,7 @@
                             </connections>
                         </button>
                         <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="top" lineBreakMode="middleTruncation" id="GXa-1X-Dey">
-                            <rect key="frame" x="100" y="56" width="120" height="56"/>
+                            <rect key="frame" x="107" y="56" width="106" height="32"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <inset key="contentEdgeInsets" minX="13" minY="10" maxX="0.0" maxY="0.0"/>
                             <state key="normal" image="button_scan_small.png">

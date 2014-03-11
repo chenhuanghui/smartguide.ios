@@ -53,7 +53,6 @@
     homeLocation=currentUser().coordinate;
     
     txt.placeholder=TEXTFIELD_SEARCH_PLACEHOLDER_TEXT;
-    txt.text=TEXTFIELD_SEARCH_PLACEHOLDER_TEXT;
     
     txt.leftView=[[UIView alloc] initWithFrame:CGRectMake(0, 0, 35, txt.frame.size.height)];
     txt.leftView.backgroundColor=[UIColor clearColor];
@@ -85,6 +84,8 @@
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userLocationChanged:) name:NOTIFICATION_USER_LOCATION_CHANGED object:nil];
         [[LocationManager shareInstance] startTrackingLocation];
     }
+    
+    [[GUIManager shareInstance] showShopListWithKeywork:@"a"];
 }
 
 -(void) showLoading

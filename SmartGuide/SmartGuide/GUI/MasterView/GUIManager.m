@@ -368,6 +368,19 @@ static GUIManager *_shareInstance=nil;
     [contentNavigation pushViewController:vc animated:true];
 }
 
+-(void)showShopListWithKeywork:(NSString *)keyword
+{
+    SearchViewController *vc=nil;
+    if(keyword.length>0)
+        vc=[[SearchViewController alloc] initWithKeyword:keyword viewMode:SEARCH_VIEW_MODE_KEYWORK_SHOP_LIST];
+    else
+        vc=[[SearchViewController alloc] init];
+    
+    vc.delegate=self;
+    
+    [contentNavigation pushViewController:vc animated:true];
+}
+
 -(void)userPromotionTouchedIDShops:(UserPromotionViewController *)controller idShops:(NSString *)idShops
 {
     SearchViewController *vc=[[SearchViewController alloc] initWithIDShops:idShops];
@@ -454,63 +467,63 @@ static GUIManager *_shareInstance=nil;
         return;
     
     [self.contentNavigation presentSGViewController:viewController completion:nil];
-//    [self.contentNavigation addChildViewController:viewController];
-//    
-//    [viewController l_v_setH:self.contentNavigation.l_v_h];
-//    
-//    viewController.view.center=CGPointMake(self.contentNavigation.l_v_w/2, -self.contentNavigation.l_v_h/2);
-//    [viewController l_c_setY:-self.contentNavigation.l_v_h/2];
-//    
-//    [self.contentNavigation.view alphaViewWithColor:[UIColor clearColor]];
-//    
-//    [self.contentNavigation.view addSubview:viewController.view];
-//    
-//    [UIView animateWithDuration:DURATION_DEFAULT animations:^{
-//        
-//        [viewController l_c_setY:self.contentNavigation.l_v_h/2];
-//    }];
+    //    [self.contentNavigation addChildViewController:viewController];
+    //
+    //    [viewController l_v_setH:self.contentNavigation.l_v_h];
+    //
+    //    viewController.view.center=CGPointMake(self.contentNavigation.l_v_w/2, -self.contentNavigation.l_v_h/2);
+    //    [viewController l_c_setY:-self.contentNavigation.l_v_h/2];
+    //
+    //    [self.contentNavigation.view alphaViewWithColor:[UIColor clearColor]];
+    //
+    //    [self.contentNavigation.view addSubview:viewController.view];
+    //
+    //    [UIView animateWithDuration:DURATION_DEFAULT animations:^{
+    //
+    //        [viewController l_c_setY:self.contentNavigation.l_v_h/2];
+    //    }];
 }
 
 -(void) dimissPresentedViewControllerAnimated:(bool) animated onCompleted:(void(^)()) onCompleted
 {
     [self.contentNavigation dismissSGViewControllerCompletion:onCompleted];
-//    if(!presentedViewController)
-//        return;
-//    
-//    [self.contentNavigation dismissModalViewControllerAnimated:true];
-//    
-//    void(^_onCompleted)()=[onCompleted copy];
-//    
-//    if(animated)
-//    {
-//        [UIView animateWithDuration:DURATION_DEFAULT animations:^{
-//            self.contentNavigation.view.alphaView.alpha=0;
-//            [presentedViewController l_c_setY:-self.contentNavigation.l_v_h/2];
-//        } completion:^(BOOL finished) {
-//            
-//            [self.contentNavigation.view removeAlphaView];
-//            
-//            [presentedViewController.view removeFromSuperview];
-//            [presentedViewController removeFromParentViewController];
-//            presentedViewController=nil;
-//            
-//            if(_onCompleted)
-//            {
-//                _onCompleted();
-//            }
-//        }];
-//    }
-//    else
-//    {
-//        [self.contentNavigation.view removeAlphaView];
-//        
-//        [presentedViewController.view removeFromSuperview];
-//        [presentedViewController removeFromParentViewController];
-//        presentedViewController=nil;
-//        
-//        if(_onCompleted)
-//            _onCompleted();
-//    }
+    //    if(!presentedViewController)
+    //        return;
+    //
+    //    [self.contentNavigation dismissModalViewControllerAnimated:true];
+    //
+    //    void(^_onCompleted)()=[onCompleted copy];
+    //
+    //    if(animated)
+    //    {
+    //        [UIView animateWithDuration:DURATION_DEFAULT animations:^{
+    //            self.contentNavigation.view.alphaView.alpha=0;
+    //            [presentedViewController l_c_setY:-self.contentNavigation.l_v_h/2];
+    //        } completion:^(BOOL finished) {
+    //
+    //            [self.contentNavigation.view removeAlphaView];
+    //
+    //            [presentedViewController.view removeFromSuperview];
+    //            [presentedViewController removeFromParentViewController];
+    //            presentedViewController=nil;
+    //
+    //            if(_onCompleted)
+    //            {
+    //                _onCompleted();
+    //            }
+    //        }];
+    //    }
+    //    else
+    //    {
+    //        [self.contentNavigation.view removeAlphaView];
+    //
+    //        [presentedViewController.view removeFromSuperview];
+    //        [presentedViewController removeFromParentViewController];
+    //        presentedViewController=nil;
+    //
+    //        if(_onCompleted)
+    //            _onCompleted();
+    //    }
 }
 
 -(void)dismissPresentedViewController:(void (^)())onCompleted
@@ -642,7 +655,7 @@ static GUIManager *_shareInstance=nil;
 {
     AuthorizationViewController *author=[AuthorizationViewController new];
     author.delegate=self;
-
+    
     if(transition)
         [self.rootNavigation pushViewController:author withTransition:transition];
     else

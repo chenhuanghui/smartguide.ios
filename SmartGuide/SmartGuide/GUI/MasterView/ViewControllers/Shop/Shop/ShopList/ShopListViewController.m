@@ -65,53 +65,76 @@
     return self;
 }
 
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    if(scrollView==tableList)
+    {
+        if(mapCell)
+        {
+            [mapCell tableDidScroll];
+        }
+        
+        for(ShopListCell *cell in tableList.visibleCells)
+        {
+            if([cell isKindOfClass:[ShopListCell class]])
+                [cell tableDidScroll];
+        }
+        
+        if(scrollerView)
+        {
+            float per=tableList.l_co_y/(tableList.l_cs_h-tableList.l_v_h);
+            
+            [scrollerView l_v_setY:_scrollerViewFrame.origin.y+tableList.l_co_y+per*(visibleScrollerView.l_v_h-29)];
+            
+            NSIndexPath *indexPath=[tableList indexPathForRowAtPoint:scrollerView.l_v_o];
+            
+            if(indexPath)
+            {
+                UITableViewCell *cell=[tableList cellForRowAtIndexPath:indexPath];
+                
+                if([cell isKindOfClass:[ShopListCell class]])
+                {
+                    ShopListCell *sCell=(ShopListCell*)cell;
+                    [scrollerView setTitle:sCell.shopList.distance];
+                }
+                else if([cell isKindOfClass:[ShopListMapCell class]])
+                {
+                    [scrollerView setTitle:@"Bản đồ"];
+                }
+                else if([cell isKindOfClass:[ShopListPlaceCell class]])
+                {
+                    [scrollerView setTitle:@"Danh sách địa điểm"];
+                }
+            }
+        }
+    }
+}
+
 -(void) reloadTable
 {
     [tableList reloadData];
-    
-    if([tableList l_cs_h]<tableList.l_v_h)
+
+    if(scrollerView)
     {
-        [tableList l_cs_setH:tableList.l_v_h+1];
+        [scrollerView removeFromSuperview];
+        scrollerView=nil;
     }
     
-//    tableList.scrollIndicatorInsets=UIEdgeInsetsMake([tableList rectForRowAtIndexPath:indexPath(0, 0)].size.height/2, 0, 0, 0);
-}
-
--(void)scrollViewWillBeginDragging1:(UIScrollView *)scrollView
-{
-    if(scroller)
+    if(_isZoomedMap)
         return;
     
-    UIImageView *scrollBar=[scrollView scrollBar];
-    scrollBar.clipsToBounds=false;
+    if(!([tableList numberOfSections]>1 && [tableList numberOfRowsInSection:1]>0))
+        return;
     
-    UIView *scrollerView=[[UIView alloc] init];
-    scrollerView.backgroundColor=[UIColor clearColor];
-    scrollerView.autoresizingMask=UIViewAutoresizingAll();
-    [scrollerView l_v_setS:CGSizeMake(self.l_v_w, scrollBar.l_v_h)];
-    [scrollerView l_v_setX:-scrollerView.l_v_w+1];
+    ScrollerShopList *sv=[[ScrollerShopList alloc] initWithTable:tableList];
+    [sv l_v_setY:[tableList rectForRowAtIndexPath:indexPath(0, 1)].origin.y];
+    [sv l_v_setH:29];
+    sv.userInteractionEnabled=false;
     
-    [scrollBar addSubview:scrollerView];
-    
-    UIView *bgView=[[UIView alloc] init];
-    [bgView l_v_setW:scrollerView.l_v_w];
-    [bgView l_v_setH:scrollerView.l_v_h];
-    bgView.autoresizingMask=UIViewAutoresizingAll();
-    bgView.backgroundColor=[[UIColor redColor] colorWithAlphaComponent:0.1f];
-    
-    [scrollerView addSubview:bgView];
-    
-    ShopListScrollerBG *scrollerBG=[[ShopListScrollerBG alloc] init];
-    
-    [scrollerBG l_v_setS:CGSizeMake(bgView.l_v_w, 29)];
-    [scrollerBG l_v_setY:bgView.l_v_h-scrollerBG.l_v_h];
-    scrollerBG.autoresizingMask=UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleBottomMargin|UIViewAutoresizingFlexibleTopMargin;
-    
-    [bgView addSubview:scrollerBG];
-    
-    
-    scroller=scrollerView;
-    bgScroller=bgView;
+    [tableList addSubview:sv];
+
+    scrollerView=sv;
+    _scrollerViewFrame=scrollerView.frame;
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -473,11 +496,7 @@
             break;
     }
     
-    if(txt.text.length==0)
-    {
-        txt.text=TEXTFIELD_SEARCH_PLACEHOLDER_TEXT;
-        txt.placeholder=TEXTFIELD_SEARCH_PLACEHOLDER_TEXT;
-    }
+    txt.placeholder=TEXTFIELD_SEARCH_PLACEHOLDER_TEXT;
 }
 
 -(void) requestPlacelistGetDetail
@@ -549,7 +568,7 @@
     _sort=SORT_LIST_DISTANCE;
     _placeList=nil;
     _keyword=@"";
-    txt.text=TEXTFIELD_SEARCH_PLACEHOLDER_TEXT;
+    txt.placeholder=TEXTFIELD_SEARCH_PLACEHOLDER_TEXT;
     
     [self makeSortLayout];
     
@@ -850,23 +869,6 @@
     [self makeSortLayout];
 }
 
--(void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
-    if(scrollView==tableList)
-    {
-        if(mapCell)
-        {
-            [mapCell tableDidScroll];
-        }
-        
-        for(ShopListCell *cell in tableList.visibleCells)
-        {
-            if([cell isKindOfClass:[ShopListCell class]])
-                [cell tableDidScroll];
-        }
-    }
-}
-
 -(void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation
 {
     if(_isDidUpdateLocation)
@@ -911,6 +913,8 @@
     _isAnimatingZoom=true;
     _isZoomedMap=true;
 
+    [scrollerView removeFromSuperview];
+    
     [tableList killScroll];
     
     _mapRowHeight=[self heightForZoom]+[self mapNormalHeight];
@@ -1175,6 +1179,36 @@
     }
 }
 
+-(void) showScroller
+{
+    if(!scrollerView)
+        return;
+    
+    [UIView animateWithDuration:0.3f delay:0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
+        scrollerView.alpha=1;
+    } completion:nil];
+}
+
+-(void) hideScrollerWithDelay:(float) delay
+{
+    if(!scrollerView)
+        return;
+    
+    [UIView animateWithDuration:0.3f delay:delay options:UIViewAnimationOptionBeginFromCurrentState animations:^{
+        scrollerView.alpha=0;
+    } completion:nil];
+}
+
+-(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    [self showScroller];
+}
+
+-(void) makeHideScroller
+{
+    
+}
+
 @end
 
 @implementation TableShopList
@@ -1206,10 +1240,12 @@
 -(void) pan:(UIPanGestureRecognizer*) pan
 {
     switch (pan.state) {
+            
         case UIGestureRecognizerStateEnded:
         case UIGestureRecognizerStateFailed:
         case UIGestureRecognizerStateCancelled:
         {
+            [self.controller makeHideScroller];
             [self.controller closeLove];
             
             CGPoint velocity=[pan velocityInView:pan.view];
@@ -1301,6 +1337,72 @@
 {
     [[UIImage imageNamed:@"bgslide_head.png"] drawAtPoint:CGPointZero];
     [[UIImage imageNamed:@"bgslide_mid.png"] drawAsPatternInRect:CGRectMake(30, 0, rect.size.width-30, 29)];
+    
+    if(self.icon)
+    {
+        [self.icon drawAtPoint:CGPointMake(4, 3)];
+    }
+}
+
+@end
+
+@implementation ScrollerShopList
+
+-(ScrollerShopList *)initWithTable:(UITableView *)table
+{
+    self=[super initWithFrame:CGRectMake(0, 0, table.l_v_w-5, 29)];
+    
+    ShopListScrollerBG *bgView=[[ShopListScrollerBG alloc] initWithFrame:CGRectMake(0, 0, 0, 29)];
+    [self addSubview:bgView];
+    
+    UILabel *label=[[UILabel alloc] initWithFrame:CGRectMake(0, 0, 0, 29)];
+    label.font=[UIFont fontWithName:@"Avenir-Roman" size:12];
+    label.textColor=[UIColor whiteColor];
+    label.textAlignment=NSTextAlignmentCenter;
+    [self addSubview:label];
+    
+    lbl=label;
+    bg=bgView;
+    
+    self.backgroundColor=[UIColor redColor];
+    
+    bg.icon=[UIImage imageNamed:@"icon_heartscroll.png"];
+    
+    lbl.text=@"";
+    [lbl sizeToFit];
+    [lbl l_v_setH:self.l_v_h];
+    [lbl l_v_setX:self.l_v_w-lbl.l_v_w];
+    
+    [bg l_v_setX:lbl.l_v_x-30];
+    [bg l_v_setW:MAX(30,self.l_v_w-bg.l_v_x)];
+    
+    bg.alpha=0;
+    lbl.alpha=0;
+    
+    return self;
+}
+
+-(void)setTitle:(NSString *)title
+{
+    lbl.text=title;
+    [lbl sizeToFit];
+    [lbl l_v_setH:self.l_v_h];
+    
+    [UIView animateWithDuration:0.1f delay:0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
+        
+        lbl.alpha=1;
+        bg.alpha=1;
+        
+        [lbl l_v_setX:self.l_v_w-lbl.l_v_w];
+        
+        [bg l_v_setX:lbl.l_v_x-30];
+        [bg l_v_setW:MAX(30,self.l_v_w-bg.l_v_x)];
+    } completion:nil];
+}
+
+-(void)setIcon:(UIImage *)icon
+{
+    bg.icon=icon;
 }
 
 @end
