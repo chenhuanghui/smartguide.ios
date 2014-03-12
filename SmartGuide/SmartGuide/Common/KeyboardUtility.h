@@ -18,6 +18,7 @@ enum KEYBOARD_STATE {
 @interface KeyboardUtility : NSObject
 
 +(KeyboardUtility*) shareInstance;
+-(bool) isKeyboardVisible;
 
 @property (nonatomic, readonly) enum KEYBOARD_STATE keyboardState;
 

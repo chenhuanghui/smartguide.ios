@@ -698,6 +698,8 @@ static GUIManager *_shareInstance=nil;
 
 -(void) showLeftController
 {
+//    [self.rootViewController showSettingController];
+    return;
     SGSettingViewController *settingController=[[SGSettingViewController alloc] init];
     settingController.delegate=self;
     

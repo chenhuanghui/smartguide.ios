@@ -39,9 +39,9 @@ static KeyboardUtility *_keyboardUtility=nil;
 -(void) registerNotification
 {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidShow:) name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidHide:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidShow:) name:UIKeyboardDidShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidHide:) name:UIKeyboardDidHideNotification object:nil];
 }
 
 -(void) keyboardWillShow:(NSNotification*) notification
@@ -62,6 +62,11 @@ static KeyboardUtility *_keyboardUtility=nil;
 -(void) keyboardDidShow:(NSNotification*) notification
 {
     keyboardState=KEYBOARD_STATE_SHOWED;
+}
+
+-(bool)isKeyboardVisible
+{
+    return keyboardState==KEYBOARD_STATE_SHOWED||keyboardState==KEYBOARD_STATE_WILL_SHOW;
 }
 
 @end

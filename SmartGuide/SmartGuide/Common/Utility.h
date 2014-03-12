@@ -45,6 +45,7 @@ bool isVailCLLocationCoordinate2D(CLLocationCoordinate2D location);
 void makePhoneCall(NSString* phone);
 int random_int(int from, int to);
 float UIScreenScale();
+CGSize UIScreenSize();
 NSURL* URL(NSString* url);
 NSIndexPath *indexPath(int row, int section);
 
@@ -52,6 +53,8 @@ NSUInteger UIViewAutoresizingAll();
 
 NSString *documentPath();
 NSString *avatarPath();
+
+float roundToN(float num, int decimals);
 
 @interface Utility : NSObject
 

@@ -81,6 +81,11 @@ float UIScreenScale()
     return [UIScreen mainScreen].scale;
 }
 
+CGSize UIScreenSize()
+{
+    return [UIScreen mainScreen].bounds.size;
+}
+
 NSURL* URL(NSString* url)
 {
     return [NSURL URLWithString:url];
@@ -107,6 +112,13 @@ NSString *avatarPath()
 NSUInteger UIViewAutoresizingAll()
 {
     return UIViewAutoresizingFlexibleBottomMargin|UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin|UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleWidth;
+}
+
+float roundToN(float num, int decimals)
+{
+    int tenpow = 1;
+    for (; decimals; tenpow *= 10, decimals--);
+    return round(tenpow * num) / tenpow;
 }
 
 @implementation Utility

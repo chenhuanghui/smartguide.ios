@@ -8,12 +8,19 @@
 
 #import "SGViewController.h"
 
+@class SGSettingViewController,ScrollViewRoot;
+
 @interface SGRootViewController : SGViewController
 {   
+    __weak IBOutlet ScrollViewRoot *scrollContent;
+    __weak IBOutlet UIView *leftView;
 }
 
 -(void) moveToTopView:(SGViewController*) displayView;
 -(void) removeTopView:(SGViewController*) displayView;
+
+-(void) showSettingController;
+-(void) hideSettingController;
 
 @property (weak, nonatomic) IBOutlet UIView *containView;
 @property (weak, nonatomic) IBOutlet UIView *contentView;
@@ -21,5 +28,13 @@
 
 @property (nonatomic, readonly, assign) CGRect containFrame;
 @property (nonatomic, readonly, assign) CGRect contentFrame;
+@property (nonatomic, strong) SGSettingViewController *settingController;
+
+@end
+
+@interface ScrollViewRoot : UIScrollView
+{
+    __weak UITapGestureRecognizer *tapGes;
+}
 
 @end

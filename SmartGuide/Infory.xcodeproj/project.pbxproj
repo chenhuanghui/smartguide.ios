@@ -2112,7 +2112,7 @@
 		9ACAED881872B1D10025B027 /* ButtonPrice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ButtonPrice.h; sourceTree = "<group>"; };
 		9ACAED891872B1D10025B027 /* ButtonPrice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ButtonPrice.m; sourceTree = "<group>"; };
 		9ACAED8C1872B1F90025B027 /* SGRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGRootViewController.h; sourceTree = "<group>"; };
-		9ACAED8D1872B1F90025B027 /* SGRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGRootViewController.m; sourceTree = "<group>"; };
+		9ACAED8D1872B1F90025B027 /* SGRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGRootViewController.m; sourceTree = "<group>"; wrapsLines = 0; };
 		9ACAED8E1872B1F90025B027 /* SGRootViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SGRootViewController.xib; sourceTree = "<group>"; };
 		9ACAED921872B2160025B027 /* ContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContentViewController.h; sourceTree = "<group>"; };
 		9ACAED931872B2160025B027 /* ContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContentViewController.m; sourceTree = "<group>"; };
