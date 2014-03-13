@@ -29,6 +29,11 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
+    [self loadData];
+}
+
+-(void)loadData
+{
     [imgvAvatar loadUserAvatar:currentUser() onCompleted:^(UIImage *avatar, UIImage *avatarBlurr) {
         if(avatarBlurr)
             [imgvBGAvatar setImage:avatarBlurr];
@@ -55,12 +60,8 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)btnUserTouchUpInside:(id)sender {
-    [self.delegate settingTouchedUser:self];
-}
-
 - (IBAction)btnHomeTouchUpInside:(id)sender {
-    [self.delegate settingTouchedCatalog:self];
+    [self.delegate settingTouchedHome:self];
 }
 
 -(IBAction)btnUserSettingTouchUpInside:(id)sender {

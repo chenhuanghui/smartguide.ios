@@ -16,7 +16,7 @@
 
 -(void) settingTouchedUser:(SGSettingViewController*) controller;
 -(void) settingTouchedUserSetting:(SGSettingViewController*) controller;
--(void) settingTouchedCatalog:(SGSettingViewController*) controller;
+-(void) settingTouchedHome:(SGSettingViewController*) controller;
 -(void) settingTouchedStore:(SGSettingViewController*) controller;
 -(void) settingTouchedOtherView:(SGSettingViewController*) controller;
 -(void) settingTouchedPromotion:(SGSettingViewController*) controller;
@@ -26,8 +26,6 @@
 
 @interface SGSettingViewController : SGViewController<UIGestureRecognizerDelegate,LeftControllerCallback>
 {
-    __weak IBOutlet UIButton *btnUser;
-    __weak IBOutlet UIButton *btnCatalog;
     __weak IBOutlet UIButton *btnPromotion;
     __weak IBOutlet UIView *containtView;
     __weak IBOutlet UILabel *lblName;
@@ -38,6 +36,8 @@
     __weak IBOutlet UIButton *btnStore;
     __weak IBOutlet UIButton *btnTutorial;
 }
+
+-(void) loadData;
 
 @property (nonatomic, assign) id<SGSettingDelegate> delegate;
 @property (nonatomic, assign) UIView *slideView;

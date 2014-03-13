@@ -160,7 +160,7 @@ static GUIManager *_shareInstance=nil;
 
 -(void) showUserController
 {
-    [self.rootNavigation removeLeftSlideViewController];
+    [self.rootViewController hideSettingController];
     
     if([self.contentNavigation.visibleViewController isKindOfClass:[SGUserViewController class]])
         return;
@@ -200,9 +200,9 @@ static GUIManager *_shareInstance=nil;
     }];
 }
 
--(void)settingTouchedCatalog:(SGSettingViewController *)settingController
+-(void)settingTouchedHome:(SGSettingViewController *)settingController
 {
-    [self.rootNavigation removeLeftSlideViewController];
+    [self.rootViewController hideSettingController];
     
     if([self.contentNavigation.visibleViewController isKindOfClass:[HomeViewController class]])
         return;
@@ -212,11 +212,7 @@ static GUIManager *_shareInstance=nil;
     HomeViewController *vc=[[HomeViewController alloc] init];
     vc.delegate=self;
     
-    [self.contentNavigation setRootViewController:vc animate:true];
-    
-    return;
-    [self.rootNavigation removeLeftSlideViewController];
-    [self.contentNavigation popToRootViewControllerAnimated:false];
+    [self.contentNavigation setRootViewController:vc animate:false];
 }
 
 -(void)settingTouchedUser:(SGSettingViewController *)settingController
@@ -226,7 +222,7 @@ static GUIManager *_shareInstance=nil;
 
 -(void)settingTouchedUserSetting:(SGSettingViewController *)settingController
 {
-    [self.rootNavigation removeLeftSlideViewController];
+    [self.rootViewController hideSettingController];
     
     if([self.contentNavigation.visibleViewController isKindOfClass:[SGUserSettingViewController class]])
         return;
@@ -259,7 +255,7 @@ static GUIManager *_shareInstance=nil;
 
 -(void) showStoreControllerWithStore:(StoreShop*) store animate:(bool) animate
 {
-    [self.rootNavigation removeLeftSlideViewController];
+    [self.rootViewController hideSettingController];
     
     if([self.contentNavigation.visibleViewController isKindOfClass:[StoreViewController class]])
         return;
@@ -311,7 +307,7 @@ static GUIManager *_shareInstance=nil;
 
 -(void)settingTouchedOtherView:(SGSettingViewController *)controller
 {
-    [self.rootNavigation removeLeftSlideViewController];
+    [self.rootViewController hideSettingController];
     
     if([self.contentNavigation.visibleViewController isKindOfClass:[SGTutorialViewController class]])
         return;
@@ -334,7 +330,7 @@ static GUIManager *_shareInstance=nil;
 
 -(void)settingTouchedPromotion:(SGSettingViewController *)controller
 {
-    [self.rootNavigation removeLeftSlideViewController];
+    [self.rootViewController hideSettingController];
     
     if([self.contentNavigation.visibleViewController isKindOfClass:[UserPromotionViewController class]])
         return;
@@ -686,24 +682,9 @@ static GUIManager *_shareInstance=nil;
     //    }];
 }
 
--(void)displayViewController:(SGViewController *)viewController
-{
-    [self.rootViewController moveToTopView:viewController];
-}
-
--(void)closeViewController:(SGViewController *)viewController
-{
-    [self.rootViewController removeTopView:viewController];
-}
-
 -(void) showLeftController
 {
-//    [self.rootViewController showSettingController];
-    return;
-    SGSettingViewController *settingController=[[SGSettingViewController alloc] init];
-    settingController.delegate=self;
-    
-    [self.rootNavigation showLeftSlideViewController:settingController animate:true];
+    [self.rootViewController showSettingController];
 }
 
 -(void) showRightController

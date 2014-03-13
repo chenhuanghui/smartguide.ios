@@ -9,6 +9,7 @@
 #import "SGRootViewController.h"
 #import "SGSettingViewController.h"
 #import "KeyboardUtility.h"
+#import "GUIManager.h"
 
 @interface SGRootViewController ()<SGSettingDelegate,UIScrollViewDelegate>
 
@@ -35,12 +36,61 @@
     self.contentView.layer.masksToBounds=true;
     
     self.settingController=[SGSettingViewController new];
-//    self.settingController.delegate=self;
+    self.settingController.delegate=self;
     
     [leftView addSubview:self.settingController.view];
     
     scrollContent.contentSize=CGSizeMake(640, UIScreenSize().height);
     [scrollContent l_co_setX:320];
+    
+    [scrollContent.panGestureRecognizer addTarget:self action:@selector(panGes:)];
+}
+
+-(void) panGes:(UIPanGestureRecognizer*) pan
+{
+    switch (pan.state) {
+        case UIGestureRecognizerStateBegan:
+            [self.settingController loadData];
+            break;
+            
+        default:
+            break;
+    }
+}
+
+-(void)settingTouchedHome:(SGSettingViewController *)controller
+{
+    [[GUIManager shareInstance] settingTouchedHome:controller];
+}
+
+-(void)settingTouchedOtherView:(SGSettingViewController *)controller
+{
+    [[GUIManager shareInstance] settingTouchedOtherView:controller];
+}
+
+-(void)settingTouchedPromotion:(SGSettingViewController *)controller
+{
+    [[GUIManager shareInstance] settingTouchedPromotion:controller];
+}
+
+-(void)settingTouchedStore:(SGSettingViewController *)controller
+{
+    [[GUIManager shareInstance] settingTouchedStore:controller];
+}
+
+-(void)settingTouchedTutorial:(SGSettingViewController *)controller
+{
+    [[GUIManager shareInstance] settingTouchedTutorial:controller];
+}
+
+-(void)settingTouchedUser:(SGSettingViewController *)controller
+{
+    [[GUIManager shareInstance] settingTouchedUser:controller];
+}
+
+-(void)settingTouchedUserSetting:(SGSettingViewController *)controller
+{
+    [[GUIManager shareInstance] settingTouchedUserSetting:controller];
 }
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
@@ -50,13 +100,13 @@
     
     float settingWidth=274.f;
     float x=320.f-scrollView.l_co_x;
-    float perX=x/settingWidth;
-    perX=0.8f+(perX/5);
-    perX=MAX(0.1f,perX);
+//    float perX=x/settingWidth;
+//    perX=0.8f+(perX/5);
+//    perX=MAX(0.1f,perX);
 
-    leftView.transform=CGAffineTransformMakeScale(perX, perX);
-    [leftView l_v_setX:scrollView.l_co_x-settingWidth/2+(320-scrollView.l_co_x)/2+(leftView.l_v_w*perX-leftView.l_v_w)];
-    [leftView l_v_setY:leftView.l_v_h*perX-leftView.l_v_h];
+//    leftView.transform=CGAffineTransformMakeScale(perX, perX);
+    [leftView l_v_setX:scrollView.l_co_x-settingWidth/2+(320-scrollView.l_co_x)/2];
+//    [leftView l_v_setY:leftView.l_v_h*perX-leftView.l_v_h];
     
     if(x<settingWidth/3)
         leftView.alpha=0.3f;
@@ -66,18 +116,29 @@
     [self endScroll];
 }
 
+-(void)showSettingController
+{
+    [self.settingController loadData];
+    [scrollContent setContentOffset:CGPointZero animated:true];
+}
+
+-(void) hideSettingController
+{
+    [scrollContent setContentOffset:CGPointMake(320, 0) animated:true];
+}
+
 -(void) endScroll
 {
-    if(scrollContent.currentPage==0)
-    {
-        self.contentView.userInteractionEnabled=false;
-        leftView.userInteractionEnabled=true;
-    }
-    else if(scrollContent.currentPage==1)
-    {
-        self.contentView.userInteractionEnabled=true;
-        leftView.userInteractionEnabled=false;
-    }
+//    if(scrollContent.l_co_x<320)
+//    {
+//        self.contentView.userInteractionEnabled=false;
+//        leftView.userInteractionEnabled=true;
+//    }
+//    else
+//    {
+//        self.contentView.userInteractionEnabled=true;
+//        leftView.userInteractionEnabled=false;
+//    }
 }
 
 -(void)storeRect

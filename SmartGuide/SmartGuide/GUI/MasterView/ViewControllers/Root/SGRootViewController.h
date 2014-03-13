@@ -16,9 +16,6 @@
     __weak IBOutlet UIView *leftView;
 }
 
--(void) moveToTopView:(SGViewController*) displayView;
--(void) removeTopView:(SGViewController*) displayView;
-
 -(void) showSettingController;
 -(void) hideSettingController;
 

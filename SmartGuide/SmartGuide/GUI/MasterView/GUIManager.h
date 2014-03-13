@@ -40,9 +40,6 @@
 -(void) startupWithWindow:(UIWindow*) window;
 -(void) logout;
 
--(void) displayViewController:(SGViewController*) viewController;
--(void) closeViewController:(SGViewController*) viewController;
-
 -(void) presentViewController:(SGViewController*) viewController;
 -(void) dismissPresentedViewController:(void(^)()) onCompleted;
 -(void) presentShopUserWithShopList:(ShopList*) shopList;
