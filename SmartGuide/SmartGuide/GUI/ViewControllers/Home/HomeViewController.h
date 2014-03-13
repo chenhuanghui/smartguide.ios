@@ -13,7 +13,7 @@
 #import "HomeListCell.h"
 #import "HomeInfoCell.h"
 #import "HomeImagesType9Cell.h"
-#import "SGQRCodeViewController.h"
+#import "QRCodeViewController.h"
 
 @class HomeViewController,TableHome;
 
@@ -30,7 +30,7 @@
 
 @end
 
-@interface HomeViewController : SGViewController<UITextFieldDelegate,ASIOperationPostDelegate,UITableViewDataSource,UITableViewDelegate,SGQRCodeControllerDelegate>
+@interface HomeViewController : SGViewController<UITextFieldDelegate,ASIOperationPostDelegate,UITableViewDataSource,UITableViewDelegate,QRCodeControllerDelegate>
 {
     __weak IBOutlet UITextField *txt;
     __weak IBOutlet UIView *displayLoadingView;

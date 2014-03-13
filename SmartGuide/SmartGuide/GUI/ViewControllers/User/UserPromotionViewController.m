@@ -9,7 +9,7 @@
 #import "UserPromotionViewController.h"
 #import "GUIManager.h"
 #import "LoadingMoreCell.h"
-#import "SGQRCodeViewController.h"
+#import "QRCodeViewController.h"
 
 @interface UserPromotionViewController ()<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate,ASIOperationPostDelegate,homeInfoCellDelegate>
 

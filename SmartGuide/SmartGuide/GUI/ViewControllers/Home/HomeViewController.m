@@ -8,7 +8,6 @@
 
 #import "HomeViewController.h"
 #import "GUIManager.h"
-#import "StoreShopInfoViewController.h"
 #import "LoadingMoreCell.h"
 #import "LocationManager.h"
 
@@ -551,7 +550,7 @@
         [self showQRCodeWithContorller:self inView:self.view withAnimationType:QRCODE_ANIMATION_TOP_BOT screenCode:[HomeViewController screenCode]];
 }
 
--(void)qrcodeControllerRequestClose:(SGQRCodeViewController *)controller
+-(void)qrcodeControllerRequestClose:(QRCodeViewController *)controller
 {
     
 }

@@ -321,15 +321,6 @@ float roundToN(float num, int decimals);
 
 @end
 
-@interface UILabel(Utility)
-
--(void) animationScoreWithDuration:(float) duration startValue:(int) startValue endValue:(int) endValue format:(NSNumberFormatter*) format;
--(void) stopAnimationScore;
--(void) startFlashLabel;
--(void) stopFlashLabel;
-
-@end
-
 @interface UITextView(Utility)
 
 -(void) setPlaceHolderText:(NSString*) str textColor:(UIColor*) color;

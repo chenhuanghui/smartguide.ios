@@ -9,7 +9,7 @@
 #import "GUIManager.h"
 #import "AlphaView.h"
 #import "WelcomeViewController.h"
-#import "SGLoadingScreenViewController.h"
+#import "LoadingScreenViewController.h"
 #import "AuthorizationViewController.h"
 #import "DataManager.h"
 
@@ -46,7 +46,7 @@ static GUIManager *_shareInstance=nil;
     
     [[TokenManager shareInstance] checkToken];
     
-    SGLoadingScreenViewController *loading=[[SGLoadingScreenViewController alloc] init];
+    LoadingScreenViewController *loading=[[LoadingScreenViewController alloc] init];
     loading.delegate=self;
     
     SGNavigationController *rNavigation=[[SGNavigationController alloc] initWithRootViewController:loading];
@@ -94,7 +94,7 @@ static GUIManager *_shareInstance=nil;
             
         case USER_DATA_FULL:
         {
-            SGRootViewController *root=[SGRootViewController new];
+            RootViewController *root=[RootViewController new];
             
             rootViewController=root;
             
@@ -110,7 +110,7 @@ static GUIManager *_shareInstance=nil;
 
 #pragma mark Loading controller
 
--(void)SGLoadingFinished:(SGLoadingScreenViewController *)loadingScreen
+-(void)SGLoadingFinished:(LoadingScreenViewController *)loadingScreen
 {
     [self showFirstController];
 }
@@ -131,7 +131,7 @@ static GUIManager *_shareInstance=nil;
 
 -(void) showRootControlelr
 {
-    SGRootViewController *root=[SGRootViewController new];
+    RootViewController *root=[RootViewController new];
     rootViewController=root;
     
     [self.rootNavigation setRootViewController:root animate:true];

@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "SGViewController.h"
-#import "SGRootViewController.h"
+#import "RootViewController.h"
 
 @interface GUIManager : NSObject
 {
@@ -27,5 +27,5 @@
 
 @property (nonatomic, readonly) UIWindow *mainWindow;
 @property (nonatomic, weak, readonly) SGNavigationController *rootNavigation;
-@property (nonatomic, weak, readonly) SGRootViewController *rootViewController;
+@property (nonatomic, weak, readonly) RootViewController *rootViewController;
 @end
