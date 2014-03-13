@@ -447,9 +447,7 @@
                 break;
                 
             case USER_HOME_TYPE_8:
-            {
-                [[GUIManager shareInstance] presentShopUserWithHome8:home.home8];
-            }
+                [self.delegate homeControllerTouchedHome8:self home8:home.home8];
                 break;
                 
             case USER_HOME_TYPE_9:
@@ -481,8 +479,7 @@
         else if([cell.currentHome isKindOfClass:[UserHome5 class]])
         {
             UserHome5 *home=cell.currentHome;
-            
-            [[GUIManager shareInstance] showStoreWithStore:home.store];
+            [self.delegate homeControllerTouchedStore:self store:home.store];
         }
     }
 }
@@ -498,16 +495,16 @@
     else if([home isKindOfClass:[UserHome7 class]])
     {
         UserHome7 *home7=home;
-        [[GUIManager shareInstance] showStoreWithStore:home7.store];
+        [self.delegate homeControllerTouchedStore:self store:home7.store];
     }
 }
 
 -(void) requestShopUserWithIDShop:(int) idShop idPost:(int) idPost
 {
-    [[GUIManager shareInstance] presentShopUserWithIDShop:idShop];
-    
     [SGData shareInstance].fScreen=[HomeViewController screenCode];
     [[SGData shareInstance].fData setObject:@(idPost) forKey:@"idPost"];
+    
+    [self.delegate homeControllerTouchedIDShop:self idShop:idShop];
 }
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView

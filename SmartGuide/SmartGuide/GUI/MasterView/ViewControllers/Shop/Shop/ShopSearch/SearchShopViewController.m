@@ -198,17 +198,6 @@
         
         [self reloadData];
     }
-    else if([operation isKindOfClass:[ASIOperationShopUser class]])
-    {
-        [self.view removeLoading];
-        
-        ASIOperationShopUser *ope=(ASIOperationShopUser*) operation;
-        
-        if(ope.shop)
-            [[GUIManager shareInstance] presentShopUserWithShopUser:ope.shop];
-        
-        _operationShopUser=nil;
-    }
 }
 
 -(void)ASIOperaionPostFailed:(ASIOperationPost *)operation
@@ -216,12 +205,6 @@
     if([operation isKindOfClass:[ASIOperationPlacelistGetList class]])
     {
         _operationPlacelistGetList=nil;
-    }
-    else if([operation isKindOfClass:[ASIOperationShopUser class]])
-    {
-        [self.view removeLoading];
-        
-        _operationShopUser=nil;
     }
 }
 
@@ -501,10 +484,8 @@
             [[SGData shareInstance].fData setObject:txt.text forKey:@"enterKeywords"];
             [[SGData shareInstance].fData setObject:shop.content forKey:@"chosenKeywords"];
             [[SGData shareInstance].fData setObject:@(3) forKey:@"type"];
-            _operationShopUser=[[ASIOperationShopUser alloc] initWithIDShop:shop.idShop userLat:userLat() userLng:userLng()];
-            _operationShopUser.delegatePost=self;
             
-            [_operationShopUser startAsynchronous];
+            [[GUIManager shareInstance].rootViewController presentShopUserWithIDShop:shop.idShop];
         }
         else if([sCell.value isKindOfClass:[Placelist class]])
         {
@@ -633,12 +614,6 @@
     {
         [_operationPlacelistGetList clearDelegatesAndCancel];
         _operationPlacelistGetList=nil;
-    }
-    
-    if(_operationShopUser)
-    {
-        [_operationShopUser clearDelegatesAndCancel];
-        _operationShopUser=nil;
     }
 }
 

@@ -10,27 +10,47 @@
 #import "SGSettingViewController.h"
 #import "KeyboardUtility.h"
 #import "GUIManager.h"
+#import "HomeViewController.h"
+#import "UserUploadAvatarManager.h"
+#import "UserUploadGalleryManager.h"
+#import "TutorialViewController.h"
+#import "ShopUserViewController.h"
+#import "UserPromotionViewController.h"
+#import "SGUserSettingViewController.h"
+#import "SearchShopViewController.h"
 
-@interface SGRootViewController ()<SGSettingDelegate,UIScrollViewDelegate>
+@interface SGRootViewController ()<SGSettingDelegate,UIScrollViewDelegate,HomeControllerDelegate,UserPromotionDelegate,SGUserSettingControllerDelegate,TutorialDelegate,ShopUserDelegate>
 
 @end
 
 @implementation SGRootViewController
 @synthesize containFrame,contentFrame;
 
-- (id)initWithDelegate:(id<SGViewControllerDelegate>)_delegate
+-(SGRootViewController *)init
 {
-    self = [super initWithNibName:@"SGRootViewController" bundle:nil];
-    if (self) {
-        self.delegate=_delegate;
-    }
+    self=[super initWithNibName:@"SGRootViewController" bundle:nil];
+    
     return self;
+}
+
+-(void)loadView
+{
+    [super loadView];
+    
+    HomeViewController *home=[HomeViewController new];
+    home.delegate=self;
+    
+    self.contentNavigation=[[SGNavigationController alloc] initWithRootViewController:home];
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    self.contentNavigation.view.autoresizingMask=UIViewAutoresizingAll();
+    [self.contentView addSubview:self.contentNavigation.view];
+    [self.contentNavigation.view l_v_setS:self.contentView.l_v_s];
     
     self.containView.layer.masksToBounds=true;
     self.contentView.layer.masksToBounds=true;
@@ -58,41 +78,6 @@
     }
 }
 
--(void)settingTouchedHome:(SGSettingViewController *)controller
-{
-    [[GUIManager shareInstance] settingTouchedHome:controller];
-}
-
--(void)settingTouchedOtherView:(SGSettingViewController *)controller
-{
-    [[GUIManager shareInstance] settingTouchedOtherView:controller];
-}
-
--(void)settingTouchedPromotion:(SGSettingViewController *)controller
-{
-    [[GUIManager shareInstance] settingTouchedPromotion:controller];
-}
-
--(void)settingTouchedStore:(SGSettingViewController *)controller
-{
-    [[GUIManager shareInstance] settingTouchedStore:controller];
-}
-
--(void)settingTouchedTutorial:(SGSettingViewController *)controller
-{
-    [[GUIManager shareInstance] settingTouchedTutorial:controller];
-}
-
--(void)settingTouchedUser:(SGSettingViewController *)controller
-{
-    [[GUIManager shareInstance] settingTouchedUser:controller];
-}
-
--(void)settingTouchedUserSetting:(SGSettingViewController *)controller
-{
-    [[GUIManager shareInstance] settingTouchedUserSetting:controller];
-}
-
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     if([KeyboardUtility shareInstance].isKeyboardVisible)
@@ -100,13 +85,8 @@
     
     float settingWidth=274.f;
     float x=320.f-scrollView.l_co_x;
-//    float perX=x/settingWidth;
-//    perX=0.8f+(perX/5);
-//    perX=MAX(0.1f,perX);
 
-//    leftView.transform=CGAffineTransformMakeScale(perX, perX);
     [leftView l_v_setX:scrollView.l_co_x-settingWidth/2+(320-scrollView.l_co_x)/2];
-//    [leftView l_v_setY:leftView.l_v_h*perX-leftView.l_v_h];
     
     if(x<settingWidth/3)
         leftView.alpha=0.3f;
@@ -184,6 +164,270 @@
         
         self.topView.hidden=true;
     }];
+}
+
+-(void)dealloc
+{
+    self.contentNavigation=nil;
+}
+
+#pragma mark HomeViewController delegate
+
+-(void)homeControllerFinishedLoad:(HomeViewController *)controller
+{
+    [self startUpload];
+}
+
+-(void)homeControllerTouchedHome1:(HomeViewController *)contorller home1:(UserHome1 *)home1
+{
+    SearchViewController *vc=[[SearchViewController alloc] initWithIDShops:home1.shopList];
+    
+    [self showSearchController:vc];
+}
+
+-(void)homeControllerTouchedNavigation:(HomeViewController *)controller
+{
+    [self showSettingController];
+}
+
+-(void)homeControllerTouchedPlacelist:(HomeViewController *)controller home3:(UserHome3 *)home3
+{
+    SearchViewController *vc=[[SearchViewController alloc] initWithPlace:home3.place];
+    
+    [self showSearchController:vc];
+}
+
+-(void)homeControllerTouchedTextField:(HomeViewController *)controller
+{
+    SearchViewController *vc=[SearchViewController new];
+    
+    [self showSearchController:vc];
+}
+
+-(void)homeControllerTouchedHome8:(HomeViewController *)controller home8:(UserHome8 *)home8
+{
+    [self presentShopUserWithHome8:home8];
+}
+
+-(void)homeControllerTouchedStore:(HomeViewController *)controller store:(StoreShop *)store
+{
+    
+}
+
+-(void)homeControllerTouchedIDShop:(HomeViewController *)controller idShop:(int)idShop
+{
+    [self presentShopUserWithIDShop:idShop];
+}
+
+-(void)shopUserRequestScanCode:(ShopUserViewController *)controller
+{
+    
+}
+
+#pragma mark SearchViewController
+
+#pragma mark SettingViewController
+
+-(void)settingTouchedHome:(SGSettingViewController *)controller
+{
+    [self hideSettingController];
+    
+    if([self.contentNavigation.visibleViewController isKindOfClass:[HomeViewController class]])
+        return;
+    
+    [self.contentNavigation setRootViewController:[self homeController] animate:false];
+}
+
+-(void)settingTouchedTutorial:(SGSettingViewController *)controller
+{
+    [[GUIManager shareInstance] presentSGViewController:[self tutorialController] completion:nil];
+}
+
+-(void)settingTouchedPromotion:(SGSettingViewController *)controller
+{
+    [self hideSettingController];
+    
+    if([self.contentNavigation.visibleViewController isKindOfClass:[UserPromotionViewController class]])
+        return;
+    
+    [self.contentNavigation setRootViewController:[self userPromotionController] animate:false];
+}
+
+-(void)settingTouchedStore:(SGSettingViewController *)controller
+{
+
+}
+
+-(void)settingTouchedUserSetting:(SGSettingViewController *)controller
+{
+    [self hideSettingController];
+    
+    if([self.contentNavigation.visibleViewController isKindOfClass:[SGUserSettingViewController class]])
+        return;
+    
+    [self.contentNavigation setRootViewController:[self userSettingController] animate:false];
+}
+
+#pragma mark UserSettingController
+
+-(void)userSettingControllerFinished:(SGUserSettingViewController *)controller
+{
+    [self hideSettingController];
+    
+    [self.contentNavigation setRootViewController:[self homeController] animate:false];
+}
+
+-(void)userSettingControllerTouchedSetting:(SGUserSettingViewController *)controller
+{
+    [self showSettingController];
+}
+
+#pragma mark UserPromotionController
+
+-(void)userPromotionTouchedIDShops:(UserPromotionViewController *)controller idShops:(NSString *)idShops
+{
+    SearchViewController *vc=[[SearchViewController alloc] initWithIDShops:idShops];
+    [self showSearchController:vc];
+}
+
+-(void)userPromotionTouchedNavigation:(UserPromotionViewController *)controller
+{
+    [self showSettingController];
+}
+
+-(void)userPromotionTouchedTextField:(UserPromotionViewController *)controller
+{
+    SearchViewController *vc=[SearchViewController new];
+    [self showSearchController:vc];
+}
+
+#pragma mark TutorialViewController
+
+-(void)tutorialTouchedBack:(TutorialViewController *)controller
+{
+    [[GUIManager shareInstance].rootNavigation dismissSGViewControllerCompletion:^{
+        [[GUIManager shareInstance].rootNavigation.view makeAlphaViewBelowView:[GUIManager shareInstance].rootNavigation.leftSlideController.view];
+    }];
+}
+
+#pragma mark ShopUserViewController
+
+-(void)shopUserFinished:(ShopUserViewController *)controller
+{
+    [self dismissShopUser];
+}
+
+#pragma RootViewController handle
+
+-(void) showSearchController:(SearchViewController*) controller
+{
+    controller.delegate=self;
+    
+    [self.contentNavigation pushViewController:controller animated:true];
+}
+
+-(void) startUpload
+{
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        [[UserUploadGalleryManager shareInstance] startUploads];
+        [[UserUploadAvatarManager shareInstance] startUploads];
+    });
+}
+
+-(void)presentSGViewController:(SGViewController *)viewController
+{
+    if(self.contentNavigation.presentSGViewControlelr)
+        return;
+    
+    [self.contentNavigation presentSGViewController:viewController completion:nil];
+}
+
+-(void) dismissSGPresentedViewController:(void (^)())onCompleted
+{
+    [self.contentNavigation dismissSGViewControllerCompletion:onCompleted];
+}
+
+-(void) presentShopUserWithShopUser:(Shop *)shop
+{
+    ShopUserViewController *vc=[[ShopUserViewController alloc] initWithShopUser:shop];
+    
+    [self presentShopUser:vc];
+}
+
+-(void) presentShopUserWithShopList:(ShopList *)shopList
+{
+    ShopUserViewController *shopUser=[[ShopUserViewController alloc] initWithShopUser:shopList.shop];
+    
+    [self presentShopUser:shopUser];
+}
+
+-(void)presentShopUserWithHome8:(UserHome8 *)home8
+{
+    ShopUserViewController *vc=[[ShopUserViewController alloc] initWithShopUser:home8.shop];
+
+    [self presentShopUser:vc];
+}
+
+-(void)presentShopUserWithIDShop:(int)idShop
+{
+    ShopUserViewController *vc=[[ShopUserViewController alloc] initWithIDShop:idShop];
+
+    [self presentShopUser:vc];
+}
+
+-(void) presentShopUser:(ShopUserViewController*) vc
+{
+    if(self.presentSGViewControlelr)
+    {
+        if([self.presentSGViewControlelr isKindOfClass:[ShopUserViewController class]])
+        {
+            [self dismissSGViewControllerCompletion:^{
+                [self presentShopUser:vc];
+            }];
+        }
+        
+        return;
+    }
+    
+    [self presentShopUser:vc];
+}
+
+-(void) dismissShopUser
+{
+    [self dismissSGViewControllerCompletion:nil];
+}
+
+-(HomeViewController*) homeController
+{
+    HomeViewController *vc=[HomeViewController new];
+    vc.delegate=self;
+    
+    return vc;
+}
+
+-(TutorialViewController*) tutorialController
+{
+    TutorialViewController *vc=[TutorialViewController new];
+    vc.delegate=self;
+    
+    return vc;
+}
+
+-(UserPromotionViewController*) userPromotionController
+{
+    UserPromotionViewController *vc=[UserPromotionViewController new];
+    vc.delegate=self;
+    
+    return vc;
+}
+
+-(SGUserSettingViewController*) userSettingController
+{
+    SGUserSettingViewController *vc=[SGUserSettingViewController new];
+    vc.delegate=self;
+    
+    return vc;
 }
 
 @end

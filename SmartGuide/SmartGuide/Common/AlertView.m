@@ -80,12 +80,16 @@
 {
     if(onOK)
         _onOk = [onOK copy];
+    else
+        _onOk=nil;
 }
 
 -(void)setCancel:(void (^)())onCancel
 {
     if(onCancel)
         _onCancel=[onCancel copy];
+    else
+        _onCancel=nil;
 }
 
 @end

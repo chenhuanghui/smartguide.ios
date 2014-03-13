@@ -9,6 +9,8 @@
 #import "ShopUserViewController.h"
 #import "GUIManager.h"
 #import "SGShopLoadingCell.h"
+#import "SGQRCodeViewController.h"
+#import "FacebookManager.h"
 
 #define SHOP_USER_SHOP_GALLERY_INDEX_PATH [NSIndexPath indexPathForRow:0 inSection:0]
 #define SHOP_USER_PROMOTION_INDEX_PATH [NSIndexPath indexPathForRow:1 inSection:0]

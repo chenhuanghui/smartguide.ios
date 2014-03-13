@@ -11,6 +11,7 @@
 #import "ShopUserGalleryCell.h"
 #import "SGGridViewLayoutStrategies.h"
 #import "GUIManager.h"
+#import "GalleryManager.h"
 
 @implementation SUUserGalleryCell
 @synthesize delegate;

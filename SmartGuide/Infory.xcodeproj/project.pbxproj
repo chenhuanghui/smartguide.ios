@@ -228,12 +228,8 @@
 		9A32F3D9184345AE00704D26 /* SGMapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A32F38B184345AE00704D26 /* SGMapViewController.xib */; };
 		9A32F4041843469400704D26 /* SGNotificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A32F4021843469400704D26 /* SGNotificationViewController.m */; };
 		9A32F4051843469400704D26 /* SGNotificationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A32F4031843469400704D26 /* SGNotificationViewController.xib */; };
-		9A32F4091843469A00704D26 /* SGTutorialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A32F4071843469A00704D26 /* SGTutorialViewController.m */; };
-		9A32F40A1843469A00704D26 /* SGTutorialViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A32F4081843469A00704D26 /* SGTutorialViewController.xib */; };
 		9A32F40E184346B400704D26 /* SGQRCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A32F40C184346B400704D26 /* SGQRCodeViewController.m */; };
 		9A32F40F184346B400704D26 /* SGQRCodeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A32F40D184346B400704D26 /* SGQRCodeViewController.xib */; };
-		9A32F413184346BA00704D26 /* SGToolbarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A32F411184346BA00704D26 /* SGToolbarViewController.m */; };
-		9A32F414184346BA00704D26 /* SGToolbarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A32F412184346BA00704D26 /* SGToolbarViewController.xib */; };
 		9A32F418184346C000704D26 /* WelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A32F416184346C000704D26 /* WelcomeViewController.m */; };
 		9A32F419184346C000704D26 /* WelcomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A32F417184346C000704D26 /* WelcomeViewController.xib */; };
 		9A32F420184346C800704D26 /* SGUserSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A32F41B184346C800704D26 /* SGUserSettingViewController.m */; };
@@ -849,8 +845,6 @@
 		9ACAED8A1872B1D10025B027 /* ButtonPrice.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ACAED891872B1D10025B027 /* ButtonPrice.m */; };
 		9ACAED8F1872B1F90025B027 /* SGRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ACAED8D1872B1F90025B027 /* SGRootViewController.m */; };
 		9ACAED901872B1F90025B027 /* SGRootViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9ACAED8E1872B1F90025B027 /* SGRootViewController.xib */; };
-		9ACAED951872B2160025B027 /* ContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ACAED931872B2160025B027 /* ContentViewController.m */; };
-		9ACAED961872B2160025B027 /* ContentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9ACAED941872B2160025B027 /* ContentViewController.xib */; };
 		9ACBA9BC185D7745000B3D6B /* ASIOperationStoreAllStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ACBA9BB185D7745000B3D6B /* ASIOperationStoreAllStore.m */; };
 		9ACBE8DB185A0A8C0004474F /* button_love_hover.png in Resources */ = {isa = PBXBuildFile; fileRef = 9ACBE8D1185A0A8C0004474F /* button_love_hover.png */; };
 		9ACBE8DC185A0A8C0004474F /* button_love_hover@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9ACBE8D2185A0A8C0004474F /* button_love_hover@2x.png */; };
@@ -1346,15 +1340,9 @@
 		9A32F4011843469400704D26 /* SGNotificationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGNotificationViewController.h; sourceTree = "<group>"; };
 		9A32F4021843469400704D26 /* SGNotificationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGNotificationViewController.m; sourceTree = "<group>"; };
 		9A32F4031843469400704D26 /* SGNotificationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SGNotificationViewController.xib; sourceTree = "<group>"; };
-		9A32F4061843469A00704D26 /* SGTutorialViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGTutorialViewController.h; sourceTree = "<group>"; };
-		9A32F4071843469A00704D26 /* SGTutorialViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGTutorialViewController.m; sourceTree = "<group>"; };
-		9A32F4081843469A00704D26 /* SGTutorialViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SGTutorialViewController.xib; sourceTree = "<group>"; };
 		9A32F40B184346B400704D26 /* SGQRCodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGQRCodeViewController.h; sourceTree = "<group>"; };
 		9A32F40C184346B400704D26 /* SGQRCodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGQRCodeViewController.m; sourceTree = "<group>"; };
 		9A32F40D184346B400704D26 /* SGQRCodeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SGQRCodeViewController.xib; sourceTree = "<group>"; };
-		9A32F410184346BA00704D26 /* SGToolbarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGToolbarViewController.h; sourceTree = "<group>"; };
-		9A32F411184346BA00704D26 /* SGToolbarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGToolbarViewController.m; sourceTree = "<group>"; };
-		9A32F412184346BA00704D26 /* SGToolbarViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SGToolbarViewController.xib; sourceTree = "<group>"; };
 		9A32F415184346C000704D26 /* WelcomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WelcomeViewController.h; sourceTree = "<group>"; };
 		9A32F416184346C000704D26 /* WelcomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WelcomeViewController.m; sourceTree = "<group>"; };
 		9A32F417184346C000704D26 /* WelcomeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WelcomeViewController.xib; sourceTree = "<group>"; };
@@ -2114,9 +2102,6 @@
 		9ACAED8C1872B1F90025B027 /* SGRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGRootViewController.h; sourceTree = "<group>"; };
 		9ACAED8D1872B1F90025B027 /* SGRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGRootViewController.m; sourceTree = "<group>"; wrapsLines = 0; };
 		9ACAED8E1872B1F90025B027 /* SGRootViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SGRootViewController.xib; sourceTree = "<group>"; };
-		9ACAED921872B2160025B027 /* ContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContentViewController.h; sourceTree = "<group>"; };
-		9ACAED931872B2160025B027 /* ContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContentViewController.m; sourceTree = "<group>"; };
-		9ACAED941872B2160025B027 /* ContentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContentViewController.xib; sourceTree = "<group>"; };
 		9ACBA9BA185D7745000B3D6B /* ASIOperationStoreAllStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIOperationStoreAllStore.h; sourceTree = "<group>"; };
 		9ACBA9BB185D7745000B3D6B /* ASIOperationStoreAllStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIOperationStoreAllStore.m; sourceTree = "<group>"; };
 		9ACBE8D1185A0A8C0004474F /* button_love_hover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_love_hover.png; sourceTree = "<group>"; };
@@ -2776,7 +2761,6 @@
 			children = (
 				9AEE6C54189022A80059B93C /* GalleryFull */,
 				9ACAED8B1872B1F90025B027 /* Root */,
-				9ACAED911872B2160025B027 /* Content */,
 				9ACAED05187270D10025B027 /* Home */,
 				9A0F757A187152DB00160E54 /* Shop */,
 				9A9FCB8518544C2C004A3CFB /* Store */,
@@ -2785,7 +2769,6 @@
 				9A32F3FC1843460F00704D26 /* Notification */,
 				9A32F3FD1843460F00704D26 /* Other */,
 				9A32F3FE1843460F00704D26 /* QRCode */,
-				9A32F3FF1843460F00704D26 /* Toolbar */,
 				9A32F4001843460F00704D26 /* Welcome */,
 				9A32F376184345AE00704D26 /* Authorization */,
 				9A32F386184345AE00704D26 /* Map */,
@@ -2877,9 +2860,6 @@
 		9A32F3FD1843460F00704D26 /* Other */ = {
 			isa = PBXGroup;
 			children = (
-				9A32F4061843469A00704D26 /* SGTutorialViewController.h */,
-				9A32F4071843469A00704D26 /* SGTutorialViewController.m */,
-				9A32F4081843469A00704D26 /* SGTutorialViewController.xib */,
 			);
 			path = Other;
 			sourceTree = "<group>";
@@ -2893,16 +2873,6 @@
 				9A32F40D184346B400704D26 /* SGQRCodeViewController.xib */,
 			);
 			path = QRCode;
-			sourceTree = "<group>";
-		};
-		9A32F3FF1843460F00704D26 /* Toolbar */ = {
-			isa = PBXGroup;
-			children = (
-				9A32F410184346BA00704D26 /* SGToolbarViewController.h */,
-				9A32F411184346BA00704D26 /* SGToolbarViewController.m */,
-				9A32F412184346BA00704D26 /* SGToolbarViewController.xib */,
-			);
-			path = Toolbar;
 			sourceTree = "<group>";
 		};
 		9A32F4001843460F00704D26 /* Welcome */ = {
@@ -3353,16 +3323,6 @@
 				9ACAED8E1872B1F90025B027 /* SGRootViewController.xib */,
 			);
 			path = Root;
-			sourceTree = "<group>";
-		};
-		9ACAED911872B2160025B027 /* Content */ = {
-			isa = PBXGroup;
-			children = (
-				9ACAED921872B2160025B027 /* ContentViewController.h */,
-				9ACAED931872B2160025B027 /* ContentViewController.m */,
-				9ACAED941872B2160025B027 /* ContentViewController.xib */,
-			);
-			path = Content;
 			sourceTree = "<group>";
 		};
 		9ACE90551875B508008FEA7E /* KM2 */ = {
@@ -4979,7 +4939,6 @@
 				9A3986C9185B7649006C0961 /* bg_button_release_navigation@2x.png in Resources */,
 				9ACE905A1875B508008FEA7E /* SUKM2Cell.xib in Resources */,
 				9A98C924188E83A30067EAD3 /* button_loading_big_14@2x.png in Resources */,
-				9A32F40A1843469A00704D26 /* SGTutorialViewController.xib in Resources */,
 				9A98C920188E83A30067EAD3 /* button_loading_big_10@2x.png in Resources */,
 				9A98C92D188E83A30067EAD3 /* button_loading_small_08@2x.png in Resources */,
 				9ACE904A1875B451008FEA7E /* SUShopGalleryCell.xib in Resources */,
@@ -5249,7 +5208,6 @@
 				9A7E554B183C702D006D1798 /* icon_dottitle.png in Resources */,
 				9A7A2F6418C4959800A3881B /* icon_education.png in Resources */,
 				9A7A2F6F18C4959800A3881B /* icon_travel@2x.png in Resources */,
-				9ACAED961872B2160025B027 /* ContentViewController.xib in Resources */,
 				9A943361188572DE00066DC3 /* PlacelistHeaderCell.xib in Resources */,
 				9A9DB988187BA42700091602 /* bg_numbbox_login@2x.png in Resources */,
 				9AC979EE186C273B00E5432D /* bg_feed_bottom_home.png in Resources */,
@@ -5348,7 +5306,6 @@
 				9ACBE8E8185A117B0004474F /* button_getgiffthidden@2x.png in Resources */,
 				9AE0174218B4B3E800A222FA /* button_close_search@2x.png in Resources */,
 				9A9DB98B187BA42700091602 /* icon_sale_login@2x.png in Resources */,
-				9A32F414184346BA00704D26 /* SGToolbarViewController.xib in Resources */,
 				9A5E66EC18842E32003F33CD /* iconpin_fashion@2x.png in Resources */,
 				9AA2C586187FE98C004F895B /* icon_promotion_search.png in Resources */,
 				9A98C91B188E83A30067EAD3 /* button_loading_big_05@2x.png in Resources */,
@@ -5531,8 +5488,6 @@
 				9A0F7602187152DB00160E54 /* Scroller.m in Sources */,
 				9A3DE85318B303EA006F473A /* TPKeyboardAvoidingScrollView.m in Sources */,
 				A9CFD3681797FCE60035E448 /* User.m in Sources */,
-				9A32F413184346BA00704D26 /* SGToolbarViewController.m in Sources */,
-				9A32F4091843469A00704D26 /* SGTutorialViewController.m in Sources */,
 				9ACF7A8F18698E3700B0BC78 /* UserHome7.m in Sources */,
 				9ACE90851875CE92008FEA7E /* _PromotionNews.m in Sources */,
 				9A3B93F5185DFDAE004F94A4 /* StoreShopCell.m in Sources */,
@@ -5648,7 +5603,6 @@
 				9AA18CA218CDA47A000FAC79 /* AFSecurityPolicy.m in Sources */,
 				9ACF7A8C18698E3700B0BC78 /* UserHome4.m in Sources */,
 				9ACE90961875D17E008FEA7E /* _KM2Voucher.m in Sources */,
-				9ACAED951872B2160025B027 /* ContentViewController.m in Sources */,
 				9A63FA4718C711BA0083FE57 /* ASIOperationShopGallery.m in Sources */,
 				9A63FA5718C73AB50083FE57 /* GalleryManager.m in Sources */,
 				9A06F97A1885203B005C0377 /* PlacelistCreateCell.m in Sources */,

@@ -12,6 +12,7 @@
 #import "ShopUserViewController.h"
 #import "GUIManager.h"
 #import "LoadingMoreCell.h"
+#import "FacebookManager.h"
 
 #define SU_USER_COMMENT_CELL_BOTTOM_NORMAL_Y 92.f
 #define SU_USER_COMMENT_CELL_BOTTOM_EDIT_Y 120.f

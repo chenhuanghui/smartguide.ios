@@ -14,11 +14,9 @@
 
 @protocol SGSettingDelegate <SGViewControllerDelegate>
 
--(void) settingTouchedUser:(SGSettingViewController*) controller;
 -(void) settingTouchedUserSetting:(SGSettingViewController*) controller;
 -(void) settingTouchedHome:(SGSettingViewController*) controller;
 -(void) settingTouchedStore:(SGSettingViewController*) controller;
--(void) settingTouchedOtherView:(SGSettingViewController*) controller;
 -(void) settingTouchedPromotion:(SGSettingViewController*) controller;
 -(void) settingTouchedTutorial:(SGSettingViewController*) controller;
 

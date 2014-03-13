@@ -10,7 +10,6 @@
 #import "SearchViewController.h"
 #import "ASIOperationPlacelistGetList.h"
 #import "OperationSearchAutocomplete.h"
-#import "ASIOperationShopUser.h"
 
 enum SEARCH_SHOP_VIEW_MODE {
     SEARCH_SHOP_VIEW_PLACELIST = 0,
@@ -48,7 +47,6 @@ enum SEARCH_SHOP_VIEW_MODE {
     NSMutableArray *_searchInQuery;
     
     ASIOperationPlacelistGetList *_operationPlacelistGetList;
-    ASIOperationShopUser *_operationShopUser;
     
     int _pagePlacelist;
     NSMutableArray *_placeLists;

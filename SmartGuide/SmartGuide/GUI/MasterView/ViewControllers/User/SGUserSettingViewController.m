@@ -10,6 +10,7 @@
 #import "DataManager.h"
 #import "TokenManager.h"
 #import "GUIManager.h"
+#import "FacebookManager.h"
 #import "GooglePlusManager.h"
 #import "UserUploadAvatarManager.h"
 
@@ -90,7 +91,7 @@
 
 -(UIViewController *)avatarControllerPresentViewController
 {
-    return [GUIManager shareInstance].contentNavigation;
+    return [GUIManager shareInstance].rootViewController.contentNavigation;
 }
 
 -(NSArray *)registerNotifications

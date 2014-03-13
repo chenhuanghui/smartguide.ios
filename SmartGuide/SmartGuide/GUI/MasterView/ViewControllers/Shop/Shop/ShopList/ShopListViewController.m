@@ -15,6 +15,7 @@
 #import "ShopPinInfoView.h"
 #import "ShopPinView.h"
 #import "ShopListCell.h"
+#import "SGQRCodeViewController.h"
 
 #define SHOP_LIST_SCROLL_SPEED 3.f
 
@@ -289,7 +290,7 @@
             if(_idShops.length>0)
                 [[SGData shareInstance].fData setObject:_idShops forKey:@"idShops"];
             
-            [[GUIManager shareInstance] presentShopUserWithShopList:cell.shopList];
+            [[GUIManager shareInstance].rootViewController presentShopUserWithShopList:cell.shopList];
         }
     }
 }
@@ -301,7 +302,7 @@
 
 -(void)shopPinTouched:(ShopPinView *)pin
 {
-    [[GUIManager shareInstance] presentShopUserWithShopList:pin.shop];
+    [[GUIManager shareInstance].rootViewController presentShopUserWithShopList:pin.shop];
 }
 
 -(void)shopListCellTouched:(ShopListCell *)cell shop:(ShopList *)shop
@@ -313,7 +314,7 @@
     }
     
     [cell closeLove];
-    [[GUIManager shareInstance] presentShopUserWithShopList:shop];
+    [[GUIManager shareInstance].rootViewController presentShopUserWithShopList:shop];
 }
 
 -(void)shopListCellTouchedAdd:(ShopListCell *)cell shop:(ShopList *)shop

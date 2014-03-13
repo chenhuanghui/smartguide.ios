@@ -86,7 +86,7 @@
 
         if(infoCell.info.idShop!=0)
         {
-            [[GUIManager shareInstance] presentShopUserWithIDShop:infoCell.info.idShop];
+            [[GUIManager shareInstance].rootViewController presentShopUserWithIDShop:infoCell.info.idShop];
         }
     }
 }

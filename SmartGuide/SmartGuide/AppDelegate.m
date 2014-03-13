@@ -10,6 +10,7 @@
 #import "AppDelegate.h"
 #import "AFHTTPRequestOperation.h"
 #import "FacebookManager.h"
+#import "GooglePlusManager.h"
 #import "Flurry.h"
 #import "GUIManager.h"
 

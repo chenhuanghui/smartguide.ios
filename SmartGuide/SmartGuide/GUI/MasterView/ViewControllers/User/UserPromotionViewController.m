@@ -9,6 +9,7 @@
 #import "UserPromotionViewController.h"
 #import "GUIManager.h"
 #import "LoadingMoreCell.h"
+#import "SGQRCodeViewController.h"
 
 @interface UserPromotionViewController ()<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate,ASIOperationPostDelegate,homeInfoCellDelegate>
 
@@ -191,7 +192,7 @@
                 break;
                 
             case USER_PROMOTION_SHOP:
-                [[GUIManager shareInstance] presentShopUserWithIDShop:promotion.idShop.integerValue];
+                [[GUIManager shareInstance].rootViewController presentShopUserWithIDShop:promotion.idShop.integerValue];
                 break;
                 
             case USER_PROMOTION_ITEM_STORE:

@@ -449,7 +449,8 @@
                 return;
             
             [SGData shareInstance].fScreen=[SGQRCodeViewController screenCode];
-            [[GUIManager shareInstance] presentShopUserWithIDShop:idShop];
+            
+            [[GUIManager shareInstance].rootViewController presentShopUserWithIDShop:idShop];
         }];
     }
 }
