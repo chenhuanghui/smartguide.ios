@@ -9,7 +9,6 @@
 #import "LoadingView.h"
 #import "Utility.h"
 #import <objc/runtime.h>
-#import "PhuongConfig.h"
 #import "ImageManager.h"
 
 

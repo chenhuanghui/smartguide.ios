@@ -183,6 +183,7 @@ static NSString * const kClientId = @"790158294934-p5pnscmrt4avj698ncvhp14fit0f4
 #define DURATION_SHOW_GALLERY_VIEW_INFO 0.5f
 #define DURATION_SETTING 0.2f
 #define DURATION_PRESENT_VIEW_CONTROLLER 0.3f
+#define DURATION_LOADING 1.f
 
 #define MAP_SPAN 1000
 

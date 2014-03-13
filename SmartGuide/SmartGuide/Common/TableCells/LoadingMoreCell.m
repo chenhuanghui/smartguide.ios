@@ -7,7 +7,6 @@
 //
 
 #import "LoadingMoreCell.h"
-#import "PhuongConfig.h"
 #import "ImageManager.h"
 
 @implementation LoadingMoreCell

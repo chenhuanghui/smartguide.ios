@@ -7,7 +7,6 @@
 //
 
 #import "LoadingMoreCellHori.h"
-#import "PhuongConfig.h"
 #import "ImageManager.h"
 #import "Utility.h"
 

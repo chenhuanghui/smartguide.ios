@@ -2,7 +2,6 @@
 #import "Constant.h"
 #import "Flags.h"
 #import "TokenManager.h"
-#import "PhuongConfig.h"
 #import "ImageManager.h"
 #import "UserUploadAvatarManager.h"
 
@@ -106,9 +105,6 @@
 
 -(enum USER_DATA_MODE)enumDataMode
 {
-#if TEST_KHONG_NHAP_SO_DIEN_THOAI
-    return USER_DATA_CREATING;
-#endif
     if([self isDefaultUser])
         return USER_DATA_TRY;
     else if([self.name stringByTrimmingWhiteSpace].length==0 || [self.avatar stringByTrimmingWhiteSpace].length==0)
