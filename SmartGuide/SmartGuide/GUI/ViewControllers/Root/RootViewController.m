@@ -69,13 +69,12 @@
     tap.numberOfTapsRequired=1;
     tap.numberOfTouchesRequired=1;
     tap.cancelsTouchesInView=false;
-    tap.delaysTouchesBegan=false;
-    tap.delaysTouchesEnded=false;
+    scrollContent.panGestureRecognizer.cancelsTouchesInView=false;
     
     tap.delegate=self;
     
     [scrollContent.panGestureRecognizer requireGestureRecognizerToFail:tap];
-    [scrollContent addGestureRecognizer:tap];
+    [self.view addGestureRecognizer:tap];
     
     tapGes=tap;
 }
