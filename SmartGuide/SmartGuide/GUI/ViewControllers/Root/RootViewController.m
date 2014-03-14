@@ -378,19 +378,23 @@
 
 -(void) presentShopUser:(ShopUserViewController*) vc
 {
+    vc.delegate=self;
+    
     if(self.presentSGViewControlelr)
     {
         if([self.presentSGViewControlelr isKindOfClass:[ShopUserViewController class]])
         {
+            __block ShopUserViewController *_vc=vc;
             [self dismissSGViewControllerCompletion:^{
-                [self presentShopUser:vc];
+                [self presentShopUser:_vc];
+                _vc=nil;
             }];
         }
         
         return;
     }
     
-    [self presentShopUser:vc];
+    [self presentSGViewController:vc completion:nil];
 }
 
 -(void) dismissShopUser

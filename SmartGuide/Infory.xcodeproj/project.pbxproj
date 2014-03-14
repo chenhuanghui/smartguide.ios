@@ -5543,7 +5543,6 @@
 					"$(inherited)",
 					"~/Documents/FacebookSDK",
 					"~/smartguide.ios/SmartGuide/google-plus-ios-sdk-1.5.0",
-					"/Users/macmini/smartguide.ios/SmartGuide/google-plus-ios-sdk-1.5.0",
 				);
 				GCC_PREFIX_HEADER = "SmartGuide/Infory-Prefix.pch";
 				INFOPLIST_FILE = "SmartGuide/Infory-Info.plist";
@@ -5571,7 +5570,6 @@
 					"$(inherited)",
 					"~/Documents/FacebookSDK",
 					"~/smartguide.ios/SmartGuide/google-plus-ios-sdk-1.5.0",
-					"/Users/macmini/smartguide.ios/SmartGuide/google-plus-ios-sdk-1.5.0",
 				);
 				GCC_PREFIX_HEADER = "SmartGuide/Infory-Prefix.pch";
 				INFOPLIST_FILE = "SmartGuide/Infory-Info.plist";
