@@ -518,7 +518,7 @@
                 
                 btnScanSmall.alpha=1;
                 btnScanBig.alpha=0;
-                btnScanBig.frame=_buttonScanSmallFrame;
+                btnScanBig.frame= _buttonScanSmallFrame;
                 btnScanSmall.frame=_buttonScanBigFrame;
             } completion:^(BOOL finished) {
                 btnScanBig.userInteractionEnabled=false;
