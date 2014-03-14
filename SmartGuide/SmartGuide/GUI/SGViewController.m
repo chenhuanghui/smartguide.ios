@@ -8,6 +8,8 @@
 
 #import "SGViewController.h"
 #import <objc/runtime.h>
+#import "GUIManager.h"
+#import "SGNavigationController.h"
 
 static char presentSGViewControlelrKey;
 
@@ -138,6 +140,11 @@ static char presentSGViewControlelrKey;
 
 -(void)storeRect
 {
+}
+
+-(void)showActionSheet:(UIActionSheet *)actionSheet
+{
+    [actionSheet showInView:[GUIManager shareInstance].rootNavigation.view];
 }
 
 @end

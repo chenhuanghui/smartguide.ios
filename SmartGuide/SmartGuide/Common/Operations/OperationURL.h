@@ -33,7 +33,6 @@
 -(bool) canManualHandleData:(id) responseObject;
 -(bool)isNullData:(NSArray *)data;
 
-@property (nonatomic, strong) NSError *error;
 @property (nonatomic, weak) id<OperationURLDelegate> delegate;
 @property (nonatomic, readonly) NSDictionary *params;
 @property (nonatomic, readonly) NSString *router;

@@ -476,8 +476,6 @@
         }
         else if([sCell.value isKindOfClass:[AutocompleteShop class]])
         {
-            [self.view showLoading];
-            
             AutocompleteShop *shop=sCell.value;
             
             [SGData shareInstance].fScreen=SCREEN_CODE_SUGGEST;

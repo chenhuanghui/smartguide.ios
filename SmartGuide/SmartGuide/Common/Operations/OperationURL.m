@@ -125,9 +125,7 @@
 
 -(void)notifyFailed:(NSError *)_error
 {
-    self.error=_error;
-    
-    NSLog(@"%@ error %@",NSStringFromClass([self class]),self.error);
+    NSLog(@"%@ error %@",NSStringFromClass([self class]),_error);
     
     if([self isRespondsSelector:@selector(operationURLFailed:)])
         [delegate operationURLFailed:self];

@@ -84,6 +84,7 @@
 -(SGNavigationController*) sgNavigationController;
 -(bool) navigationWillBack;
 -(void) viewWillAppearOnce;
+-(void) showActionSheet:(UIActionSheet*) actionSheet;
 
 +(NSString*) screenCode;
 

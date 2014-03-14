@@ -348,7 +348,7 @@
 {
     UIActionSheet *sheet=[[UIActionSheet alloc] initWithTitle:@"Tìm kiếm theo" delegate:self cancelButtonTitle:@"Đóng" destructiveButtonTitle:nil otherButtonTitles:localizeSortList(SORT_LIST_DISTANCE), localizeSortList(SORT_LIST_VIEW), localizeSortList(SORT_LIST_LOVE),localizeSortList(SORT_LIST_DEFAULT), nil];;
     
-    [sheet showInView:self.view];
+    [self showActionSheet:sheet];
 }
 
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
