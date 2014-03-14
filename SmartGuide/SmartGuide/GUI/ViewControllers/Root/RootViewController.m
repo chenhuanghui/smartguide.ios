@@ -19,7 +19,7 @@
 #import "UserSettingViewController.h"
 #import "SearchShopViewController.h"
 
-@interface RootViewController ()<NavigationControllerDelegate,UIScrollViewDelegate,HomeControllerDelegate,UserPromotionDelegate,SGUserSettingControllerDelegate,TutorialDelegate,ShopUserDelegate>
+@interface RootViewController ()<NavigationControllerDelegate,UIScrollViewDelegate,HomeControllerDelegate,UserPromotionDelegate,SGUserSettingControllerDelegate,TutorialDelegate,ShopUserDelegate,UIGestureRecognizerDelegate>
 
 @end
 
@@ -64,6 +64,20 @@
     [scrollContent l_co_setX:320];
     
     [scrollContent.panGestureRecognizer addTarget:self action:@selector(panGes:)];
+    
+    UITapGestureRecognizer *tap=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)];
+    tap.numberOfTapsRequired=1;
+    tap.numberOfTouchesRequired=1;
+    tap.cancelsTouchesInView=false;
+    tap.delaysTouchesBegan=false;
+    tap.delaysTouchesEnded=false;
+    
+    tap.delegate=self;
+    
+    [scrollContent.panGestureRecognizer requireGestureRecognizerToFail:tap];
+    [scrollContent addGestureRecognizer:tap];
+    
+    tapGes=tap;
 }
 
 -(void) panGes:(UIPanGestureRecognizer*) pan
@@ -99,26 +113,33 @@
 -(void)showSettingController
 {
     [self.settingController loadData];
-    [scrollContent setContentOffset:CGPointZero animated:true];
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [scrollContent setContentOffset:CGPointZero animated:true];
+    });
 }
 
 -(void) hideSettingController
 {
-    [scrollContent setContentOffset:CGPointMake(320, 0) animated:true];
+    double delayInSeconds = 0.1f;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        [scrollContent setContentOffset:CGPointMake(320, 0) animated:true];
+    });
 }
 
 -(void) endScroll
 {
-//    if(scrollContent.l_co_x<320)
-//    {
-//        self.contentView.userInteractionEnabled=false;
-//        leftView.userInteractionEnabled=true;
-//    }
-//    else
-//    {
-//        self.contentView.userInteractionEnabled=true;
-//        leftView.userInteractionEnabled=false;
-//    }
+    if(scrollContent.l_co_x<320)
+    {
+        self.contentView.userInteractionEnabled=false;
+        leftView.userInteractionEnabled=true;
+    }
+    else
+    {
+        self.contentView.userInteractionEnabled=true;
+        leftView.userInteractionEnabled=false;
+    }
 }
 
 -(void)storeRect
@@ -434,6 +455,30 @@
     return vc;
 }
 
+#pragma mark UIGestureDelegate
+
+-(BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
+{
+    if(gestureRecognizer==tapGes)
+    {
+        if(scrollContent.currentPage==0)
+        {
+            CGPoint pnt=[tapGes locationInView:self.view];
+            
+            return pnt.x>274.f;
+        }
+        
+        return false;
+    }
+
+    return true;
+}
+
+-(void) tap:(UITapGestureRecognizer*) tap
+{
+    [self hideSettingController];
+}
+
 @end
 
 @interface ScrollViewRoot()<UIGestureRecognizerDelegate>
@@ -447,30 +492,6 @@
     [super awakeFromNib];
     
     self.panGestureRecognizer.delegate=self;
-    
-    UITapGestureRecognizer *tap=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)];
-    tap.numberOfTapsRequired=1;
-    tap.numberOfTouchesRequired=1;
-    tap.cancelsTouchesInView=false;
-    tap.delaysTouchesBegan=false;
-    tap.delaysTouchesEnded=false;
-    
-    tap.delegate=self;
-    
-    [self.panGestureRecognizer requireGestureRecognizerToFail:tap];
-    [self addGestureRecognizer:tap];
-    
-    tapGes=tap;
-}
-
--(void) tap:(UITapGestureRecognizer*) tap
-{
-    double delayInSeconds = 0.0;
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-        [self killScroll];
-        [self setContentOffset:CGPointMake(320, 0) animated:true];
-    });
 }
 
 -(void)setContentOffset:(CGPoint)contentOffset
@@ -492,18 +513,6 @@
             
             return pnt.x<80;
         }
-    }
-    else if(gestureRecognizer==tapGes)
-    {
-        if(self.currentPage==0)
-        {
-            CGPoint pnt=[tapGes locationInView:self];
-            pnt.x-=49;
-            
-            return pnt.x>274.f;
-        }
-        
-        return false;
     }
     
     return true;

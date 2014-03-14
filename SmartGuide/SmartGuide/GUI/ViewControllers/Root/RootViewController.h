@@ -14,6 +14,7 @@
 {   
     __weak IBOutlet ScrollViewRoot *scrollContent;
     __weak IBOutlet UIView *leftView;
+    UITapGestureRecognizer *tapGes;
 }
 
 -(RootViewController*) init;
@@ -26,7 +27,6 @@
 -(void) presentShopUserWithHome8:(UserHome8*) home8;
 -(void) presentShopUserWithIDShop:(int) idShop;
 -(void) dismissShopUser;
-
 
 @property (weak, nonatomic) IBOutlet UIView *containView;
 @property (weak, nonatomic) IBOutlet UIView *contentView;
@@ -41,7 +41,6 @@
 
 @interface ScrollViewRoot : UIScrollView
 {
-    __weak UITapGestureRecognizer *tapGes;
 }
 
 @end
