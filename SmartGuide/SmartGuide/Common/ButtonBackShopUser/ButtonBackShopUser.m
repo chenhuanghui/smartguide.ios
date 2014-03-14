@@ -55,6 +55,7 @@
     [self.imageView stopAnimating];
     
     [self setDefaultImage:[UIImage imageNamed:@"button_back_10.png"] highlightImage:[UIImage imageNamed:@"button_back_10.png"]];
+    self.highlighted=false;
     
     NSMutableArray *array=[NSMutableArray array];
     
