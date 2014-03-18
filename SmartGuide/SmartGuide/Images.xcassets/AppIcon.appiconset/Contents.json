@@ -35,6 +35,18 @@
       "idiom" : "iphone",
       "filename" : "icon_60@2x.png",
       "scale" : "2x"
+    },
+    {
+      "size" : "76x76",
+      "idiom" : "ipad",
+      "filename" : "logo76.png",
+      "scale" : "1x"
+    },
+    {
+      "size" : "76x76",
+      "idiom" : "ipad",
+      "filename" : "logo152.png",
+      "scale" : "2x"
     }
   ],
   "info" : {

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="3396" systemVersion="12F37" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="5063" systemVersion="12F37" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="Ads" representedClassName="Ads" syncable="YES">
         <attribute name="begin_date" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="end_date" optional="YES" attributeType="String" syncable="YES"/>
@@ -326,37 +326,37 @@
         <attribute name="type" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Ads" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="City" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="KM1Voucher" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="KM2Voucher" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="Placelist" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="PromotionNews" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="Reward" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="Shop" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="ShopGallery" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="ShopKM1" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="ShopKM2" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="ShopList" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="ShopUserComment" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="ShopUserGallery" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="StoreCart" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="StoreShop" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="StoreShopItem" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="Tutorial" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="User" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="UserGalleryUpload" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="UserHome" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="UserHome1" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="UserHome2" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="UserHome3" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="UserHome4" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="UserHome5" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="UserHome6" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="UserHome7" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="UserHome8" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="UserHomeImage" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="UserPlacelist" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="UserPromotion" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Ads" positionX="0" positionY="0" width="128" height="150"/>
+        <element name="City" positionX="0" positionY="0" width="128" height="75"/>
+        <element name="KM1Voucher" positionX="0" positionY="0" width="128" height="150"/>
+        <element name="KM2Voucher" positionX="0" positionY="0" width="128" height="150"/>
+        <element name="Placelist" positionX="0" positionY="0" width="128" height="210"/>
+        <element name="PromotionNews" positionX="0" positionY="0" width="128" height="120"/>
+        <element name="Reward" positionX="0" positionY="0" width="128" height="120"/>
+        <element name="Shop" positionX="0" positionY="0" width="128" height="540"/>
+        <element name="ShopGallery" positionX="0" positionY="0" width="128" height="150"/>
+        <element name="ShopKM1" positionX="0" positionY="0" width="128" height="180"/>
+        <element name="ShopKM2" positionX="0" positionY="0" width="128" height="120"/>
+        <element name="ShopList" positionX="0" positionY="0" width="128" height="135"/>
+        <element name="ShopUserComment" positionX="0" positionY="0" width="128" height="225"/>
+        <element name="ShopUserGallery" positionX="0" positionY="0" width="128" height="165"/>
+        <element name="StoreCart" positionX="0" positionY="0" width="128" height="90"/>
+        <element name="StoreShop" positionX="0" positionY="0" width="128" height="240"/>
+        <element name="StoreShopItem" positionX="0" positionY="0" width="128" height="210"/>
+        <element name="Tutorial" positionX="0" positionY="0" width="128" height="90"/>
+        <element name="User" positionX="0" positionY="0" width="128" height="225"/>
+        <element name="UserGalleryUpload" positionX="0" positionY="0" width="128" height="165"/>
+        <element name="UserHome" positionX="0" positionY="0" width="128" height="255"/>
+        <element name="UserHome1" positionX="0" positionY="0" width="128" height="105"/>
+        <element name="UserHome2" positionX="0" positionY="0" width="128" height="90"/>
+        <element name="UserHome3" positionX="0" positionY="0" width="128" height="150"/>
+        <element name="UserHome4" positionX="0" positionY="0" width="128" height="135"/>
+        <element name="UserHome5" positionX="0" positionY="0" width="128" height="150"/>
+        <element name="UserHome6" positionX="0" positionY="0" width="128" height="195"/>
+        <element name="UserHome7" positionX="0" positionY="0" width="128" height="180"/>
+        <element name="UserHome8" positionX="0" positionY="0" width="128" height="105"/>
+        <element name="UserHomeImage" positionX="0" positionY="0" width="128" height="90"/>
+        <element name="UserPlacelist" positionX="0" positionY="0" width="128" height="120"/>
+        <element name="UserPromotion" positionX="0" positionY="0" width="128" height="270"/>
     </elements>
 </model>
