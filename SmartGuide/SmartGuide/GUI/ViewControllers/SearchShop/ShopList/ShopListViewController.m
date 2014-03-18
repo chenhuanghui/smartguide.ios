@@ -619,7 +619,7 @@
             
         case SORT_LIST_LOVE:
             sortImage=[UIImage imageNamed:@"icon_lovelist.png"];
-            sortScrollerImage=[UIImage imageNamed:@"icon_lovescroll.png"];
+            sortScrollerImage=[UIImage imageNamed:@"icon_heartscroll.png"];
             break;
             
         case SORT_LIST_VIEW:

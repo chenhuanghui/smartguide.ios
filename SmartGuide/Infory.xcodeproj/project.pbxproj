@@ -5550,7 +5550,7 @@
 				);
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Tran Huy (EBC7LYRN6Y)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Tran Huy (49BNYKS8B6)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"~/Documents/FacebookSDK",
@@ -5570,7 +5570,7 @@
 					"-Objc",
 				);
 				PRODUCT_NAME = infory;
-				PROVISIONING_PROFILE = "5823B48E-33CB-42E5-B665-6B66C62C42AB";
+				PROVISIONING_PROFILE = "152BB464-9FD2-4225-B400-9741ED0C41A9";
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
@@ -5586,7 +5586,7 @@
 				);
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Tran Huy (EBC7LYRN6Y)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Tran Huy (49BNYKS8B6)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"~/Documents/FacebookSDK",
@@ -5606,7 +5606,7 @@
 					"-Objc",
 				);
 				PRODUCT_NAME = infory;
-				PROVISIONING_PROFILE = "5823B48E-33CB-42E5-B665-6B66C62C42AB";
+				PROVISIONING_PROFILE = "152BB464-9FD2-4225-B400-9741ED0C41A9";
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};

@@ -317,7 +317,7 @@
     if(!userRouteLine)
         return nil;
     
-    return [self polylineViewWithOverlay:userRouteLine fillColor:[UIColor colorWithRed:75.f/255 green:121.f/255 blue:213.f/255 alpha:1.f] strokeColor:[UIColor colorWithRed:75.f/255 green:121.f/255 blue:213.f/255 alpha:1.f] lineWidth:8];
+    return [self polylineViewWithOverlay:userRouteLine fillColor:[UIColor colorWithRed:75.f/255 green:121.f/255 blue:213.f/255 alpha:0.6f] strokeColor:[UIColor colorWithRed:75.f/255 green:121.f/255 blue:213.f/255 alpha:0.6f] lineWidth:8];
 }
 
 -(void)addressAtCoordinate:(CLLocationCoordinate2D)coordinate withDelegate:(id<MapViewGeoCoderDelegate>)geoDelegate
