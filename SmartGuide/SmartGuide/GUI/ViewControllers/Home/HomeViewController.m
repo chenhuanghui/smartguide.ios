@@ -85,6 +85,13 @@
     }
 }
 
+-(void)viewWillAppearOnce
+{
+    [super viewWillAppearOnce];
+    
+    [self requestShopUserWithIDShop:7 idPost:1730514665];
+}
+
 -(void) showLoading
 {
     displayLoadingView.userInteractionEnabled=true;

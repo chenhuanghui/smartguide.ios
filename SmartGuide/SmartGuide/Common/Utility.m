@@ -120,6 +120,34 @@ float roundToN(float num, int decimals)
     return round(tenpow * num) / tenpow;
 }
 
+NSString *NSStringFromObject(NSObject* obj)
+{
+    return NSStringFromClass([obj class]);
+}
+
+NSString *NSStringFromUIGestureRecognizerState(UIGestureRecognizerState state)
+{
+    switch (state) {
+        case UIGestureRecognizerStateBegan:
+            return @"UIGestureRecognizerStateBegan";
+            
+        case UIGestureRecognizerStateCancelled:
+            return @"UIGestureRecognizerStateCancelled";
+            
+        case UIGestureRecognizerStateChanged:
+            return @"UIGestureRecognizerStateChanged";
+            
+        case UIGestureRecognizerStateEnded:
+            return @"UIGestureRecognizerStateEnded";
+            
+        case UIGestureRecognizerStateFailed:
+            return @"UIGestureRecognizerStateFailed";
+            
+        case UIGestureRecognizerStatePossible:
+            return @"UIGestureRecognizerStatePossible";
+    }
+}
+
 @implementation Utility
 
 +(CGRect) centerPinWithFrameAnnotation:(CGRect) rectAnn framePin:(CGRect) rectPin
@@ -246,7 +274,7 @@ float roundToN(float num, int decimals)
 
 +(int)idShopFromQRCode:(NSString *)url
 {
-//    return -1;
+    //    return -1;
     if(url.length>0 && [url isContainString:@"/"])
     {
         int index=[url rangeOfString:@"/" options:NSBackwardsSearch].location;
@@ -1168,7 +1196,7 @@ float roundToN(float num, int decimals)
         v=v.superview;
     }
     
-//    pnt=[v convertPoint:pnt toView:view];
+    //    pnt=[v convertPoint:pnt toView:view];
     
     return pnt;
 }
@@ -1635,7 +1663,7 @@ float roundToN(float num, int decimals)
 {
     // ***********If you need re-orienting (e.g. trying to blur a photo taken from the device camera front facing camera in portrait mode)
     // theImage = [self reOrientIfNeeded:theImage];
-
+    
     // create our blurred image
     CIImage *inputImage = [CIImage imageWithCGImage:self.CGImage];
     
@@ -1873,7 +1901,7 @@ float roundToN(float num, int decimals)
             transform = CGAffineTransformRotate(transform, -M_PI_2);
             break;
             
-            default:
+        default:
             break;
     }
     
@@ -1890,7 +1918,7 @@ float roundToN(float num, int decimals)
             transform = CGAffineTransformScale(transform, -1, 1);
             break;
             
-            default:
+        default:
             break;
     }
     
@@ -2075,7 +2103,7 @@ static const NSString *KEY_HIT_TEST_EDGE_INSETS = @"HitTestEdgeInsets";
 }
 
 +(NSString *)moneyFromNSNumber:(NSNumber *)number
-{    
+{
     return [NSString stringWithFormat:@"%@ vnđ",[[NSNumberFormatter moneyFormat] stringFromNumber:number]];
 }
 

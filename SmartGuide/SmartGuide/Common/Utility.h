@@ -53,6 +53,8 @@ NSUInteger UIViewAutoresizingAll();
 
 NSString *documentPath();
 NSString *avatarPath();
+NSString *NSStringFromObject(NSObject* obj);
+NSString *NSStringFromUIGestureRecognizerState(UIGestureRecognizerState state);
 
 float roundToN(float num, int decimals);
 

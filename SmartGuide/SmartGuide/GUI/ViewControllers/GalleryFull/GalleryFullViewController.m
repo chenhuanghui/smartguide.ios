@@ -48,10 +48,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    CGRect rect=table.frame;
-    table.transform=CGAffineTransformMakeRotation(DEGREES_TO_RADIANS(45)*6);
-    table.frame=rect;
-    [table registerNib:[UINib nibWithNibName:[GalleryFullCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[GalleryFullCell reuseIdentifier]];
+    [collView registerNib:[UINib nibWithNibName:[GalleryFullCell reuseIdentifier] bundle:nil] forCellWithReuseIdentifier:[GalleryFullCell reuseIdentifier]];
 }
 
 -(void) show
@@ -87,26 +84,26 @@
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    for(GalleryFullCell *cell in table.visibleCells)
+    for(GalleryFullCell *cell in collView.visibleCells)
         if([cell isKindOfClass:[GalleryFullCell class]])
-            [cell tableDidScroll];
+            [cell galleryDidScroll];
 }
 
--(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+-(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
     return 0;
 }
 
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+-(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     return 0;
 }
 
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+-(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    GalleryFullCell*cell=(GalleryFullCell*)[tableView dequeueReusableCellWithIdentifier:[GalleryFullCell reuseIdentifier]];
+    GalleryFullCell*cell=[collView dequeueReusableCellWithReuseIdentifier:[GalleryFullCell reuseIdentifier] forIndexPath:indexPath];
     
-    cell.table=tableView;
+    cell.collView=collectionView;
     cell.indexPath=indexPath;
     
     return cell;
@@ -119,7 +116,7 @@
 
 -(id)selectedObject
 {
-    NSIndexPath *indexPath=[table indexPathForRowAtPoint:CGPointMake(table.l_v_w/2,table.l_co_y+table.l_v_h/2)];
+    NSIndexPath *indexPath= [collView indexPathForItemAtPoint:CGPointMake(collView.l_v_w/2,collView.l_co_y+collView.l_v_h/2)];
     
     if(indexPath)
     {
@@ -154,8 +151,8 @@
 
 -(void)reloadData
 {
-    [table reloadData];
-    [self scrollViewDidScroll:table];
+    [collView reloadData];
+    [self scrollViewDidScroll:collView];
 }
 
 @end
@@ -166,7 +163,7 @@
 {
     [super viewDidLoad];
     
-    [table registerLoadingMoreCellHori];
+    [collView registerLoadingMoreCellHori];
 }
 
 -(void)viewWillAppearOnce
@@ -295,5 +292,13 @@
     
     return cell;
 }
+
+@end
+
+@interface TableGalleryFull()<UIGestureRecognizerDelegate>
+
+@end
+
+@implementation TableGalleryFull
 
 @end

@@ -482,6 +482,8 @@
 		9A889BF2187AC73D00602CBB /* button_trainghiem@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A889BD8187AC73D00602CBB /* button_trainghiem@2x.png */; };
 		9A889BF3187AC73D00602CBB /* frame_ava_login@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A889BD9187AC73D00602CBB /* frame_ava_login@2x.png */; };
 		9A889BF4187AC73D00602CBB /* text_SmartGuide@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A889BDA187AC73D00602CBB /* text_SmartGuide@2x.png */; };
+		9A88C2B818DC497F00B4E20A /* LoadingMoreCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A88C2B718DC497F00B4E20A /* LoadingMoreCollectionCell.m */; };
+		9A88C2BA18DC498700B4E20A /* LoadingMoreCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A88C2B918DC498700B4E20A /* LoadingMoreCollectionCell.xib */; };
 		9A8A1BD5187C493400FDF41D /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A8A1BD4187C493400FDF41D /* MediaPlayer.framework */; };
 		9A912A50188FBADE00BBD66C /* frame_map_bottom.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A912A4A188FBADE00BBD66C /* frame_map_bottom.png */; };
 		9A912A51188FBADF00BBD66C /* frame_map_header.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A912A4B188FBADE00BBD66C /* frame_map_header.png */; };
@@ -1595,6 +1597,9 @@
 		9A889BD8187AC73D00602CBB /* button_trainghiem@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_trainghiem@2x.png"; sourceTree = "<group>"; };
 		9A889BD9187AC73D00602CBB /* frame_ava_login@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "frame_ava_login@2x.png"; sourceTree = "<group>"; };
 		9A889BDA187AC73D00602CBB /* text_SmartGuide@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "text_SmartGuide@2x.png"; sourceTree = "<group>"; };
+		9A88C2B618DC497F00B4E20A /* LoadingMoreCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadingMoreCollectionCell.h; sourceTree = "<group>"; };
+		9A88C2B718DC497F00B4E20A /* LoadingMoreCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoadingMoreCollectionCell.m; sourceTree = "<group>"; };
+		9A88C2B918DC498700B4E20A /* LoadingMoreCollectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoadingMoreCollectionCell.xib; sourceTree = "<group>"; };
 		9A8A1BD4187C493400FDF41D /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		9A912A4A188FBADE00BBD66C /* frame_map_bottom.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = frame_map_bottom.png; sourceTree = "<group>"; };
 		9A912A4B188FBADE00BBD66C /* frame_map_header.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = frame_map_header.png; sourceTree = "<group>"; };
@@ -2390,6 +2395,9 @@
 				9A63FA4A18C7230F0083FE57 /* LoadingMoreCellHori.h */,
 				9A63FA4818C7230F0083FE57 /* LoadingMoreCellHori.m */,
 				9A63FA4918C7230F0083FE57 /* LoadingMoreCellHori.xib */,
+				9A88C2B618DC497F00B4E20A /* LoadingMoreCollectionCell.h */,
+				9A88C2B718DC497F00B4E20A /* LoadingMoreCollectionCell.m */,
+				9A88C2B918DC498700B4E20A /* LoadingMoreCollectionCell.xib */,
 			);
 			path = TableCells;
 			sourceTree = "<group>";
@@ -4822,6 +4830,7 @@
 				9A998A90188E47B400F59840 /* button_back_07@2x.png in Resources */,
 				9A889BF2187AC73D00602CBB /* button_trainghiem@2x.png in Resources */,
 				9A24D76818AC8A1400789D73 /* background_flag_arlet.png in Resources */,
+				9A88C2BA18DC498700B4E20A /* LoadingMoreCollectionCell.xib in Resources */,
 				9A5DC481183DBB940051375A /* background_shadow@2x.png in Resources */,
 				9AA90B581850EBA5002F40FF /* button_green_right@2x.png in Resources */,
 				9AC42EB218C478B700EBE5F4 /* icon_home_navigation.png in Resources */,
@@ -5177,6 +5186,7 @@
 				9A7AC1C118D1907B0043316D /* ShopGalleryViewCell.m in Sources */,
 				9A06F99918854243005C0377 /* _UserPlacelist.m in Sources */,
 				9A29391B18445D9900FD49E2 /* _KM1Voucher.m in Sources */,
+				9A88C2B818DC497F00B4E20A /* LoadingMoreCollectionCell.m in Sources */,
 				9A7AC22A18D191740043316D /* ShopListCell.m in Sources */,
 				9AF94E7718A9DE21002529BE /* KeyboardUtility.m in Sources */,
 				9A27BC0418D18BAD00E3EAC2 /* GalleryViewController.m in Sources */,

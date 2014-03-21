@@ -8,17 +8,17 @@
 
 #import <UIKit/UIKit.h>
 
-@interface GalleryFullCell : UITableViewCell
+@interface GalleryFullCell : UICollectionViewCell
 {
     __weak IBOutlet UIImageView *imgv;
     __weak IBOutlet UIScrollView *scroll;
 }
 
 -(void) loadImageURL:(NSString*) url;
--(void) tableDidScroll;
+-(void) galleryDidScroll;
 +(NSString *)reuseIdentifier;
 
-@property (nonatomic, weak) UITableView *table;
+@property (nonatomic, weak) UICollectionView *collView;
 @property (nonatomic, strong) NSIndexPath *indexPath;
 
 @end
