@@ -7,25 +7,51 @@
 //
 
 #import "LoadingMoreCollectionCell.h"
+#import "ImageManager.h"
 
 @implementation LoadingMoreCollectionCell
 
-- (id)initWithFrame:(CGRect)frame
+-(void)didMoveToSuperview
 {
-    self = [super initWithFrame:frame];
-    if (self) {
-        // Initialization code
-    }
-    return self;
+    [super didMoveToSuperview];
+    
+    if(self.superview)
+        [self.imgv startAnimating];
+    else
+        [self.imgv stopAnimating];
 }
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
+-(void)showLoading
 {
-    // Drawing code
+    [self.imgv startAnimating];
 }
-*/
+
+-(void)awakeFromNib
+{
+    [super awakeFromNib];
+    
+    self.imgv.animationDuration=DURATION_LOADING;
+    self.imgv.animationImages=[ImageManager sharedInstance].loadingImages;
+    self.imgv.animationRepeatCount=0;
+}
+
++(NSString *)reuseIdentifier
+{
+    return @"LoadingMoreCollectionCell";
+}
+
+@end
+
+@implementation UICollectionView(LoadingMoreCell)
+
+-(void) registerLoadingMoreCell
+{
+    [self registerNib:[UINib nibWithNibName:[LoadingMoreCollectionCell reuseIdentifier] bundle:nil] forCellWithReuseIdentifier:[LoadingMoreCollectionCell reuseIdentifier]];
+}
+
+-(LoadingMoreCollectionCell*) loadingMoreCellAtIndexPath:(NSIndexPath *)indexPath
+{
+    return [self dequeueReusableCellWithReuseIdentifier:[LoadingMoreCollectionCell reuseIdentifier] forIndexPath:indexPath];
+}
 
 @end

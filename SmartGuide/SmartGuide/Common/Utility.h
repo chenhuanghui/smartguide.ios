@@ -393,3 +393,10 @@ float roundToN(float num, int decimals);
 -(NSString*) avatarsPath;
 
 @end
+
+@interface UICollectionView(Utility)
+
+-(CGRect) rectForItemAtIndexPath:(NSIndexPath*) indexPath;
+-(UICollectionViewFlowLayout *)collectionViewFlowLayout;
+
+@end

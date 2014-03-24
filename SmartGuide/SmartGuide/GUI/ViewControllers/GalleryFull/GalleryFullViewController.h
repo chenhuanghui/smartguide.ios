@@ -25,7 +25,7 @@
 
 @interface GalleryFullViewController : SGViewController<UICollectionViewDataSource,UICollectionViewDelegate,GalleryFullProtocol,UIScrollViewDelegate>
 {
-    __weak IBOutlet CollectionViewGalleryFull *collView;
+    __weak IBOutlet UICollectionView *collView;
     __weak SGViewController *_parentController;
     id _selectedGallery;
     __weak Shop *_shop;
@@ -49,12 +49,6 @@
 @end
 
 @interface UserGalleryFullViewController : GalleryFullViewController
-{
-}
-
-@end
-
-@interface CollectionViewGalleryFull : UICollectionView
 {
 }
 

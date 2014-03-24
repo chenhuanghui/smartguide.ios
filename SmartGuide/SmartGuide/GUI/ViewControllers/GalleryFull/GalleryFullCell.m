@@ -10,6 +10,7 @@
 #import "ImageManager.h"
 #import "Utility.h"
 
+static NSMutableDictionary *_galleryFullURLSize=nil;
 @implementation GalleryFullCell
 
 +(NSString *)reuseIdentifier
@@ -17,36 +18,61 @@
     return @"GalleryFullCell";
 }
 
--(void)loadImageURL:(NSString *)url
+-(void)loadImageURL:(NSString *)url imageSize:(CGSize)imgSize
 {
-    [imgv loadShopGalleryWithURL:url];
-    [self zoomOut:false];
+    if(!_galleryFullURLSize)
+        _galleryFullURLSize=[[NSMutableDictionary alloc] init];
+    
+    [imgv loadShopGalleryFullWithURL:url process:^(NSString *imgUrl, CGSize imageSize) {
+        [self makeScrollScaleWithImageSize:imageSize imgUrl:imgUrl];
+    } completed:^(NSString *imgUrl, CGSize imageSize) {
+        [self makeScrollScaleWithImageSize:imageSize imgUrl:imgUrl];
+    }];
+    
+    scroll.zoomScale=1;
+}
+
+-(void) makeScrollScaleWithImageSize:(CGSize) imgSize imgUrl:(NSString*) imgUrl
+{
+    if(CGSizeEqualToSize(imgSize,CGSizeZero))
+    {
+        scroll.maximumZoomScale=1;
+        scroll.minimumZoomScale=1;
+        
+        return;
+    }
+    
+    //Hình nhỏ hơn khung
+    if(self.frame.size.width>imgSize.width || self.frame.size.height>imgSize.height)
+    {
+        scroll.minimumZoomScale=MIN(self.frame.size.width/imgSize.width,self.frame.size.height/imgSize.height);
+        scroll.maximumZoomScale=1;
+    }
+    //Hình lớn hơn khung
+    else
+    {
+        scroll.minimumZoomScale=1;
+        scroll.maximumZoomScale=MAX(imgSize.width/self.frame.size.width,imgSize.height/self.frame.size.height);
+    }
+    
+    NSLog(@"makeScrollScaleWithImageSize %f %f %@",scroll.maximumZoomScale,scroll.minimumZoomScale,NSStringFromCGSize(imgSize));
 }
 
 -(void)galleryDidScroll
 {
-    CGRect rect=[self.table rectForRowAtIndexPath:self.indexPath];
-    [scroll l_v_setX:self.table.l_co_y-rect.origin.y];
+    CGRect rect=[self.collView rectForItemAtIndexPath:self.indexPath];
+    [imgv l_v_setX:self.collView.l_co_x-rect.origin.x];
     
-    int idx=self.table.l_co_y/320;
+    int idx=self.collView.l_co_y/320;
     
     if(idx==self.indexPath.row)
         imgv.alpha=1;
     else
     {
-        float w=320-(rect.origin.y-self.table.l_co_y);
+        float w=320-(rect.origin.y-self.collView.l_co_y);
         
         imgv.alpha=(w/320)*2;
     }
-}
-
--(void)awakeFromNib
-{
-    [super awakeFromNib];
-    
-    CGRect rect=self.frame;
-    self.transform=CGAffineTransformMakeRotation(DEGREES_TO_RADIANS(45)*2);
-    self.frame=rect;
 }
 
 -(bool)isZoomed
@@ -89,6 +115,11 @@
         scroll.userInteractionEnabled=false;
         scroll.scrollEnabled=false;
     }
+}
+
+-(UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
+{
+    return imgv;
 }
 
 @end

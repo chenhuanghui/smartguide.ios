@@ -8,13 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-@interface GalleryFullCell : UICollectionViewCell
+@interface GalleryFullCell : UICollectionViewCell<UIScrollViewDelegate>
 {
     __weak IBOutlet UIImageView *imgv;
     __weak IBOutlet UIScrollView *scroll;
 }
 
--(void) loadImageURL:(NSString*) url;
+-(void) loadImageURL:(NSString*) url imageSize:(CGSize) imgSize;
 -(void) galleryDidScroll;
 +(NSString *)reuseIdentifier;
 

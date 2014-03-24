@@ -10,4 +10,16 @@
 
 @interface LoadingMoreCollectionCell : UICollectionViewCell
 
+-(void) showLoading;
++(NSString *)reuseIdentifier;
+
+@property (nonatomic, weak) IBOutlet UIImageView *imgv;
+
+@end
+
+@interface UICollectionView(LoadingMoreCell)
+
+-(void) registerLoadingMoreCell;
+-(LoadingMoreCollectionCell*) loadingMoreCellAtIndexPath:(NSIndexPath*) indexPath;
+
 @end

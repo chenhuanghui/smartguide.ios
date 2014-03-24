@@ -2340,3 +2340,17 @@ static const NSString *KEY_HIT_TEST_EDGE_INSETS = @"HitTestEdgeInsets";
 }
 
 @end
+
+@implementation UICollectionView(Utility)
+
+-(CGRect) rectForItemAtIndexPath:(NSIndexPath*) indexPath
+{
+    return [self layoutAttributesForItemAtIndexPath:indexPath].frame;
+}
+
+-(UICollectionViewFlowLayout *)collectionViewFlowLayout
+{
+    return (UICollectionViewFlowLayout*)self.collectionViewLayout;
+}
+
+@end

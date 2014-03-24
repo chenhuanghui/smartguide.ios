@@ -7,7 +7,7 @@
 //
 
 #import "GalleryFullViewController.h"
-#import "LoadingMoreCellHori.h"
+#import "LoadingMoreCollectionCell.h"
 #import "GalleryManager.h"
 
 @interface GalleryFullViewController ()
@@ -47,6 +47,8 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+ 
+    collView.collectionViewFlowLayout.itemSize=UIScreenSize();
     
     [collView registerNib:[UINib nibWithNibName:[GalleryFullCell reuseIdentifier] bundle:nil] forCellWithReuseIdentifier:[GalleryFullCell reuseIdentifier]];
 }
@@ -163,7 +165,7 @@
 {
     [super viewDidLoad];
     
-    [collView registerLoadingMoreCellHori];
+    [collView registerLoadingMoreCell];
 }
 
 -(void)viewWillAppearOnce
@@ -176,7 +178,7 @@
         
         if(index!=NSNotFound)
         {
-            [table scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] atScrollPosition:UITableViewScrollPositionNone animated:false];
+            [collView scrollToItemAtIndexPath:indexPath(index, 0) atScrollPosition:UICollectionViewScrollPositionNone animated:false];
         }
     }
 }
@@ -194,32 +196,32 @@
     [[GalleryManager shareInstanceWithShop:_shop] requestShopGallery];
 }
 
--(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+-(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
     return _shop.shopGalleriesObjects.count==0?0:1;
 }
 
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+-(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     return _shop.shopGalleriesObjects.count+([GalleryManager shareInstanceWithShop:_shop].canLoadMoreShopGallery?1:0);
 }
 
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+-(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    if([GalleryManager shareInstanceWithShop:_shop].canLoadMoreShopGallery && indexPath.row==[tableView numberOfRowsInSection:indexPath.section]-1)
+    if([GalleryManager shareInstanceWithShop:_shop].canLoadMoreShopGallery && indexPath.row==[collView numberOfItemsInSection:indexPath.section]-1)
     {
         if(![GalleryManager shareInstanceWithShop:_shop].isLoadingMoreShopGallery)
         {
             [self requestGalleries];
         }
         
-        return [tableView loadingMoreCellHori];
+        return [collView loadingMoreCellAtIndexPath:indexPath];
     }
     
-    GalleryFullCell *cell=(GalleryFullCell*)[super tableView:tableView cellForRowAtIndexPath:indexPath];
+    GalleryFullCell *cell=(GalleryFullCell*)[super collectionView:collectionView cellForItemAtIndexPath:indexPath];
     ShopGallery *gallery=_shop.shopGalleriesObjects[indexPath.row];
     
-    [cell loadImageURL:gallery.image];
+    [cell loadImageURL:gallery.image imageSize:CGSizeZero];
     
     return cell;
 }
@@ -232,7 +234,7 @@
 {
     [super viewDidLoad];
     
-    [table registerLoadingMoreCellHori];
+    [collView registerLoadingMoreCell];
 }
 
 -(void)viewWillAppearOnce
@@ -245,7 +247,7 @@
         
         if(index!=NSNotFound)
         {
-            [table scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] atScrollPosition:UITableViewScrollPositionNone animated:false];
+            [collView scrollToItemAtIndexPath:indexPath(index, 0) atScrollPosition:UICollectionViewScrollPositionNone animated:false];
         }
     }
 }
@@ -263,42 +265,34 @@
     [[GalleryManager shareInstanceWithShop:_shop] requestUserGallery];
 }
 
--(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+-(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
     return _shop.userGalleriesObjects.count==0?0:1;
 }
 
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+-(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     return _shop.userGalleriesObjects.count+([GalleryManager shareInstanceWithShop:_shop].canLoadMoreUserGallery?1:0);
 }
 
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+-(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    if([GalleryManager shareInstanceWithShop:_shop].canLoadMoreUserGallery && indexPath.row==[tableView numberOfRowsInSection:indexPath.section]-1)
+    if([GalleryManager shareInstanceWithShop:_shop].canLoadMoreUserGallery && indexPath.row==[collView numberOfItemsInSection:indexPath.section]-1)
     {
         if(![GalleryManager shareInstanceWithShop:_shop].canLoadMoreUserGallery)
         {
             [self requestGalleries];
         }
         
-        return [tableView loadingMoreCellHori];
+        return [collView loadingMoreCellAtIndexPath:indexPath];
     }
     
-    GalleryFullCell *cell=(GalleryFullCell*)[super tableView:tableView cellForRowAtIndexPath:indexPath];
+    GalleryFullCell *cell=(GalleryFullCell*)[super collectionView:collectionView cellForItemAtIndexPath:indexPath];
     ShopUserGallery *gallery=_shop.userGalleriesObjects[indexPath.row];
     
-    [cell loadImageURL:gallery.image];
+    [cell loadImageURL:gallery.image imageSize:CGSizeZero];
     
     return cell;
 }
-
-@end
-
-@interface TableGalleryFull()<UIGestureRecognizerDelegate>
-
-@end
-
-@implementation TableGalleryFull
 
 @end

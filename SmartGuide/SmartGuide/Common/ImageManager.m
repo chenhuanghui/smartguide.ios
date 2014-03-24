@@ -186,6 +186,19 @@ static ImageManager *_imageManager=nil;
     [self setImageWithURL:[NSURL URLWithString:url] placeholderImage:nil options:IPHONE_IMAGE_DOWNLOAD_OPTIONS];
 }
 
+-(void)loadShopGalleryFullWithURL:(NSString *)url process:(void(^)(NSString *url, CGSize imgSize)) onProgress completed:(void(^)(NSString *url, CGSize imageSize)) onCompleted
+{
+    __strong __block NSString *_url=[NSString stringWithStringDefault:url];
+    __weak UIImageView *wSelf=self;
+    [self setImageWithURL:URL(url) placeholderImage:nil options:SDWebImageProgressiveDownload|SDWebImageCacheMemoryOnly progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+        if(onProgress)
+            onProgress(_url,wSelf.image.size);
+    } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
+        if(onCompleted)
+            onCompleted(_url,image.size);
+    }];
+}
+
 -(void) loadShopUserGalleryWithURL:(NSString*) url
 {
     UIViewContentMode mode=[self showLoadingImageSmall];
