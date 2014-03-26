@@ -69,6 +69,7 @@ float roundToN(float num, int decimals);
 +(NSString*) documentPath;
 +(int) idShopFromQRCode:(NSString*) qrCode;
 +(CGSize) scaleProportionallyFromSize:(CGSize) fSize toSize:(CGSize) tSize;
++(CGSize) scaleProportionallyHeightFromSize:(CGSize) fSize toHeight:(float) height;
 +(CGSize)scaleUserPoseFromSize:(CGSize)fSize toSize:(CGSize)tSize;
 +(CGPoint) centerRect:(CGRect) rect;
 
@@ -285,6 +286,14 @@ float roundToN(float num, int decimals);
 
 -(bool) isAboutBlank;
 +(NSURLRequest*) aboutBlank;
+
+@end
+
+@interface UIImageView(Utility)
+
+-(CGRect) imageFrameWithContentMode:(UIViewContentMode) mode;
+-(CGRect) imageFrame;
+-(bool) isImageBigger;
 
 @end
 

@@ -284,36 +284,26 @@ NSString *NSStringFromUIGestureRecognizerState(UIGestureRecognizerState state)
     return -1;
 }
 
++(CGSize) scaleProportionallyHeightFromSize:(CGSize) fSize toHeight:(float)height
+{
+    float h=height/fSize.height;
+    fSize=CGSizeMake(fSize.width*h, height);
+    
+    return fSize;
+}
+
 +(CGSize)scaleProportionallyFromSize:(CGSize)fSize toSize:(CGSize)tSize
 {
-    if(fSize.width==fSize.height)
-    {
-        while (fSize.width<MIN(tSize.width, tSize.height)) {
-            fSize.width++;
-            fSize.height++;
-        }
-        return fSize;
-    }
-    
-    if(fSize.width>tSize.width&&fSize.height>tSize.height)
-    {
-        return [Utility scaleProportionallyFromSize:tSize toSize:fSize];
-    }
-    
     if(fSize.width>fSize.height)
     {
-        float oldWitdh=fSize.width;
-        float scaleFactor=tSize.width/oldWitdh;
-        
-        return CGSizeMake(oldWitdh*scaleFactor, fSize.height*scaleFactor);
+        tSize=CGSizeMake((fSize.width/fSize.height)*tSize.height,tSize.height);
     }
     else
     {
-        float oldHeight=fSize.height;
-        float scaleFactor=tSize.height/oldHeight;
-        
-        return CGSizeMake(fSize.width*scaleFactor, oldHeight*scaleFactor);
+        tSize=CGSizeMake(tSize.width,(fSize.height/fSize.width)*tSize.width);
     }
+    
+    return tSize;
 }
 
 +(CGSize)scaleUserPoseFromSize:(CGSize)fSize toSize:(CGSize)tSize
@@ -1410,6 +1400,35 @@ NSString *NSStringFromUIGestureRecognizerState(UIGestureRecognizerState state)
 
 @end
 
+@implementation UIImageView(Utility)
+
+-(CGRect)imageFrame
+{
+    return [self imageFrameWithContentMode:self.contentMode];
+}
+
+-(CGRect)imageFrameWithContentMode:(UIViewContentMode)mode
+{
+    if(mode==UIViewContentModeScaleAspectFit)
+    {
+        CGSize imageSize = self.image.size;
+        CGFloat imageScale = fminf(CGRectGetWidth(self.bounds)/imageSize.width, CGRectGetHeight(self.bounds)/imageSize.height);
+        CGSize scaledImageSize = CGSizeMake(imageSize.width*imageScale, imageSize.height*imageScale);
+        CGRect imageFrame = CGRectMake(roundf(0.5f*(CGRectGetWidth(self.bounds)-scaledImageSize.width)), roundf(0.5f*(CGRectGetHeight(self.bounds)-scaledImageSize.height)), roundf(scaledImageSize.width), roundf(scaledImageSize.height));
+        
+        return imageFrame;
+    }
+    
+    return CGRectZero;
+}
+
+-(bool)isImageBigger
+{
+    return self.image.size.width>self.frame.size.width && self.image.size.height>self.frame.size.height;
+}
+
+@end
+
 @implementation UIImage(Utility)
 
 -(UIImage *)loopImage
@@ -1469,15 +1488,7 @@ NSString *NSStringFromUIGestureRecognizerState(UIGestureRecognizerState state)
     if(CGSizeEqualToSize(size1, CGSizeZero))
         return nil;
     
-    if(self.size.width>self.size.height)
-    {
-        size1=CGSizeMake((self.size.width/self.size.height)*size1.height,size1.height);
-    }
-    else
-    {
-        size1=CGSizeMake(size1.width,(self.size.height/self.size.width)*size1.width);
-    }
-    
+    size1=[Utility scaleUserPoseFromSize:self.size toSize:size1];    
     return [self resizedImage:size1 interpolationQuality:kCGInterpolationHigh];
 }
 

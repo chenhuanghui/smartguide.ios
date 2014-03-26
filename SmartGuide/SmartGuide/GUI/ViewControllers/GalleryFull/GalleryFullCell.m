@@ -10,6 +10,8 @@
 #import "ImageManager.h"
 #import "Utility.h"
 
+#define GALLERY_FULL_CELL_BOUNCE 0.02f
+
 static NSMutableDictionary *_galleryFullURLSize=nil;
 @implementation GalleryFullCell
 
@@ -34,12 +36,24 @@ static NSMutableDictionary *_galleryFullURLSize=nil;
     {
         scroll.userInteractionEnabled=false;
         
+        CGRect rect=self.frame;
+        rect.origin=CGPointZero;
+        
+        float w=MAX(rect.size.height,rect.size.width)*GALLERY_FULL_CELL_BOUNCE;
+        
+        CGRect oriRect=rect;
+        rect.origin.x+=w/2;
+        rect.origin.y+=w/2;
+        rect.size.width-=w;
+        rect.size.height-=w;
+        
         [UIView animateWithDuration:0.15f animations:^{
-            CGRect rect=imgv.frame;
-            rect.size=self.frame.size;
-            
             imgv.frame=rect;
-            scroll.contentSize=rect.size;
+            scroll.contentSize=self.l_v_s;
+        } completion:^(BOOL finished) {
+            [UIView animateWithDuration:0.15f animations:^{
+                imgv.frame=oriRect;
+            }];
         }];
     }
     else
@@ -56,7 +70,10 @@ static NSMutableDictionary *_galleryFullURLSize=nil;
 
 -(void) zoomIn:(bool) animate point:(CGPoint) pnt
 {
-    CGRect imgFrame=[self imageFrame];
+    if(![imgv isImageBigger])
+        return;
+    
+    CGRect imgFrame=[imgv imageFrame];
     
     if(CGRectContainsPoint(imgFrame, pnt))
     {
@@ -72,22 +89,37 @@ static NSMutableDictionary *_galleryFullURLSize=nil;
     }
     
     CGRect rect=imgv.frame;
-    rect.size=imgv.image.size;
+    rect.size=[Utility scaleProportionallyHeightFromSize:imgv.image.size toHeight:imgv.l_v_h];
+    
+    float h=imgv.l_v_h/imgv.image.size.height;
+    CGRect visiRect=CGRectMake(pnt.x*h-scroll.frame.size.width/2, pnt.y*h-scroll.frame.size.height/2, scroll.frame.size.width, scroll.frame.size.height);
     
     scroll.contentSize=rect.size;
     scroll.userInteractionEnabled=true;
     
     if(animate)
     {
+        float w=MAX(rect.size.height,rect.size.width)*GALLERY_FULL_CELL_BOUNCE;
+        
+        CGRect oriRect=rect;
+        rect.origin.x-=w/2;
+        rect.origin.y-=w/2;
+        rect.size.width+=w;
+        rect.size.height+=w;
+        
         [UIView animateWithDuration:0.15f animations:^{
             imgv.frame=rect;
-            [scroll scrollRectToVisible:CGRectMake(pnt.x-scroll.frame.size.width/2, pnt.y-scroll.frame.size.height/2, scroll.frame.size.width, scroll.frame.size.height) animated:false];
+            [scroll scrollRectToVisible:visiRect animated:false];
+        } completion:^(BOOL finished) {
+            [UIView animateWithDuration:0.15f animations:^{
+                imgv.frame=oriRect;
+            }];
         }];
     }
     else
     {
         imgv.frame=rect;
-        [scroll scrollRectToVisible:CGRectMake(pnt.x-scroll.frame.size.width/2, pnt.y-scroll.frame.size.height/2, scroll.frame.size.width, scroll.frame.size.height) animated:false];
+        [scroll scrollRectToVisible:visiRect animated:false];
     }
 }
 
@@ -101,17 +133,6 @@ static NSMutableDictionary *_galleryFullURLSize=nil;
     {
         [self zoomIn:true point:pnt];
     }
-}
-
-- (CGRect)imageFrame
-{
-    UIImageView *iv=imgv; // your image view
-    CGSize imageSize = iv.image.size;
-    CGFloat imageScale = fminf(CGRectGetWidth(iv.bounds)/imageSize.width, CGRectGetHeight(iv.bounds)/imageSize.height);
-    CGSize scaledImageSize = CGSizeMake(imageSize.width*imageScale, imageSize.height*imageScale);
-    CGRect imageFrame = CGRectMake(roundf(0.5f*(CGRectGetWidth(iv.bounds)-scaledImageSize.width)), roundf(0.5f*(CGRectGetHeight(iv.bounds)-scaledImageSize.height)), roundf(scaledImageSize.width), roundf(scaledImageSize.height));
-    
-    return imageFrame;
 }
 
 -(void)collectionViewDidScroll
