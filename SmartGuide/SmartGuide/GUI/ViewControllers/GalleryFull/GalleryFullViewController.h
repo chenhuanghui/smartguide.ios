@@ -29,6 +29,7 @@
     __weak SGViewController *_parentController;
     id _selectedGallery;
     __weak Shop *_shop;
+    __weak UITapGestureRecognizer *tapCollView;
 }
 
 -(GalleryFullViewController*) initWithShop:(Shop*) shop;

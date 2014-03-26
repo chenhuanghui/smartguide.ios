@@ -35,7 +35,7 @@
 -(void) loadAvatarWithURL:(NSString*) url completed:(SDWebImageCompletedBlock)completedBlock;
 -(void) loadShopLogoWithURL:(NSString*) url;
 -(void) loadShopGalleryWithURL:(NSString*) url;
--(void)loadShopGalleryFullWithURL:(NSString *)url process:(void(^)(NSString *url, CGSize imgSize)) onProgress completed:(void(^)(NSString *url, CGSize imageSize)) onCompleted;
+-(void)loadShopGalleryFullWithURL:(NSString *)url;
 -(void) loadShopUserGalleryWithURL:(NSString*) url;
 -(void) loadShopUserGalleryThumbnailWithURL:(NSString*) url;
 -(void) loadCommentAvatarWithURL:(NSString*) url;

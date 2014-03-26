@@ -51,6 +51,24 @@
     collView.collectionViewFlowLayout.itemSize=UIScreenSize();
     
     [collView registerNib:[UINib nibWithNibName:[GalleryFullCell reuseIdentifier] bundle:nil] forCellWithReuseIdentifier:[GalleryFullCell reuseIdentifier]];
+    
+    UITapGestureRecognizer *tap=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapCollView:)];
+    
+    [collView addGestureRecognizer:tap];
+    [collView.panGestureRecognizer requireGestureRecognizerToFail:tap];
+    
+    tapCollView=tap;
+}
+
+-(void) tapCollView:(UITapGestureRecognizer*) tap
+{
+    CGPoint pnt=[tap locationInView:collView];
+    
+    NSIndexPath *indexPath=[collView indexPathForItemAtPoint:pnt];
+    GalleryFullCell *cell=(GalleryFullCell*)[collView cellForItemAtIndexPath:indexPath];
+    
+    pnt.x-=collView.contentOffset.x;
+    [cell zoom:pnt];
 }
 
 -(void) show
@@ -88,7 +106,7 @@
 {
     for(GalleryFullCell *cell in collView.visibleCells)
         if([cell isKindOfClass:[GalleryFullCell class]])
-            [cell galleryDidScroll];
+            [cell collectionViewDidScroll];
 }
 
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
