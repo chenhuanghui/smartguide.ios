@@ -2,6 +2,7 @@
 // Make changes to UserHome7.h instead.
 
 #import <CoreData/CoreData.h>
+#import "Utility.h"
 
 #define UserHome7_ClassName @"UserHome7"
 

@@ -2,6 +2,7 @@
 // Make changes to Placelist.h instead.
 
 #import <CoreData/CoreData.h>
+#import "Utility.h"
 
 #define Placelist_ClassName @"Placelist"
 

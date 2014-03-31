@@ -2,6 +2,7 @@
 // Make changes to UserGalleryUpload.h instead.
 
 #import <CoreData/CoreData.h>
+#import "Utility.h"
 
 #define UserGalleryUpload_ClassName @"UserGalleryUpload"
 

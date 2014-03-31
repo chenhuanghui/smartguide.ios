@@ -2,6 +2,7 @@
 // Make changes to PromotionNews.h instead.
 
 #import <CoreData/CoreData.h>
+#import "Utility.h"
 
 #define PromotionNews_ClassName @"PromotionNews"
 

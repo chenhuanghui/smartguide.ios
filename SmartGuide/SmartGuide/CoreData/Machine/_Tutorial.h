@@ -2,6 +2,7 @@
 // Make changes to Tutorial.h instead.
 
 #import <CoreData/CoreData.h>
+#import "Utility.h"
 
 #define Tutorial_ClassName @"Tutorial"
 

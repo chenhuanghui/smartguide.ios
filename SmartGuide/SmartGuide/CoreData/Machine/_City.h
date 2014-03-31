@@ -2,6 +2,7 @@
 // Make changes to City.h instead.
 
 #import <CoreData/CoreData.h>
+#import "Utility.h"
 
 #define City_ClassName @"City"
 

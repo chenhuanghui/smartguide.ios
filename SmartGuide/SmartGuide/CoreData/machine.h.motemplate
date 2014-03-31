@@ -2,6 +2,7 @@
 // Make changes to <$managedObjectClassName$>.h instead.
 
 #import <CoreData/CoreData.h>
+#import "Utility.h"
 
 #define <$managedObjectClassName$>_ClassName @"<$managedObjectClassName$>"
 <$foreach Attribute noninheritedAttributes do$>

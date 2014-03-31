@@ -2,6 +2,7 @@
 // Make changes to ShopUserComment.h instead.
 
 #import <CoreData/CoreData.h>
+#import "Utility.h"
 
 #define ShopUserComment_ClassName @"ShopUserComment"
 

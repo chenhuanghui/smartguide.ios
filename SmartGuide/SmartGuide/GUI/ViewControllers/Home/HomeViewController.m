@@ -10,6 +10,7 @@
 #import "GUIManager.h"
 #import "LoadingMoreCell.h"
 #import "LocationManager.h"
+#import "UserNotificationViewController.h"
 
 #define NEW_FEED_DELTA_SPEED 2.1f
 
@@ -89,7 +90,7 @@
 {
     [super viewWillAppearOnce];
     
-    [self requestShopUserWithIDShop:1 idPost:1730514665];
+//    [self requestShopUserWithIDShop:1 idPost:1730514665];
 }
 
 -(void) showLoading
@@ -574,6 +575,10 @@
         [_operationUserHome clearDelegatesAndCancel];
         _operationUserHome=nil;
     }
+}
+
+- (IBAction)btnNotificationTouchUpInside:(id)sender {
+    [self.navigationController pushViewController:[UserNotificationViewController new] animated:true];
 }
 
 @end

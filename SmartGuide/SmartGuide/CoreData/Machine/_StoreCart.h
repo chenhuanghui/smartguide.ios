@@ -2,6 +2,7 @@
 // Make changes to StoreCart.h instead.
 
 #import <CoreData/CoreData.h>
+#import "Utility.h"
 
 #define StoreCart_ClassName @"StoreCart"
 

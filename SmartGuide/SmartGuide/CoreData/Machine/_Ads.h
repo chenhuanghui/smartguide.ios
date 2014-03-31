@@ -2,6 +2,7 @@
 // Make changes to Ads.h instead.
 
 #import <CoreData/CoreData.h>
+#import "Utility.h"
 
 #define Ads_ClassName @"Ads"
 

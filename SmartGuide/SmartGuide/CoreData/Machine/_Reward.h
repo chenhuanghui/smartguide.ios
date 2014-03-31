@@ -2,6 +2,7 @@
 // Make changes to Reward.h instead.
 
 #import <CoreData/CoreData.h>
+#import "Utility.h"
 
 #define Reward_ClassName @"Reward"
 

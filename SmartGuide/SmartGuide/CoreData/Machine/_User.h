@@ -2,6 +2,7 @@
 // Make changes to User.h instead.
 
 #import <CoreData/CoreData.h>
+#import "Utility.h"
 
 #define User_ClassName @"User"
 

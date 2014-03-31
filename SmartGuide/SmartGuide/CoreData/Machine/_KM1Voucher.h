@@ -2,6 +2,7 @@
 // Make changes to KM1Voucher.h instead.
 
 #import <CoreData/CoreData.h>
+#import "Utility.h"
 
 #define KM1Voucher_ClassName @"KM1Voucher"
 

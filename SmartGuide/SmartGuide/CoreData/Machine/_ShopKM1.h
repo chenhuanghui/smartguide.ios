@@ -2,6 +2,7 @@
 // Make changes to ShopKM1.h instead.
 
 #import <CoreData/CoreData.h>
+#import "Utility.h"
 
 #define ShopKM1_ClassName @"ShopKM1"
 

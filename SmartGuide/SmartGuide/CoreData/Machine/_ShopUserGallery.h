@@ -2,6 +2,7 @@
 // Make changes to ShopUserGallery.h instead.
 
 #import <CoreData/CoreData.h>
+#import "Utility.h"
 
 #define ShopUserGallery_ClassName @"ShopUserGallery"
 

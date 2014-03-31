@@ -301,6 +301,29 @@
         <attribute name="sortOrder" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <relationship name="home" maxCount="1" deletionRule="Nullify" destinationEntity="UserHome" inverseName="images" inverseEntity="UserHome" syncable="YES"/>
     </entity>
+    <entity name="UserNotification" representedClassName="UserNotification" syncable="YES">
+        <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="highlight" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="idSender" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="sortOrder" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="status" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="time" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="detail" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="UserNotificationDetail" inverseName="userNotification" inverseEntity="UserNotificationDetail" syncable="YES"/>
+    </entity>
+    <entity name="UserNotificationDetail" representedClassName="UserNotificationDetail" syncable="YES">
+        <attribute name="actionDataIDPlace" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="actionDataIDShop" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="actionDataKeyword" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="actionScreen" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="actionTitle" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="desc" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="icon" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="idNotification" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="sortOrder" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="time" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="userNotification" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="UserNotification" inverseName="detail" inverseEntity="UserNotification" syncable="YES"/>
+    </entity>
     <entity name="UserPlacelist" representedClassName="UserPlacelist" syncable="YES">
         <attribute name="idPlacelist" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="idShops" optional="YES" attributeType="String" syncable="YES"/>
@@ -358,5 +381,7 @@
         <element name="UserHomeImage" positionX="0" positionY="0" width="128" height="90"/>
         <element name="UserPlacelist" positionX="0" positionY="0" width="128" height="120"/>
         <element name="UserPromotion" positionX="0" positionY="0" width="128" height="270"/>
+        <element name="UserNotification" positionX="9" positionY="153" width="128" height="148"/>
+        <element name="UserNotificationDetail" positionX="18" positionY="162" width="128" height="223"/>
     </elements>
 </model>
