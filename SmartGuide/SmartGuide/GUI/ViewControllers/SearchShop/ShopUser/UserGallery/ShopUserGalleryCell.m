@@ -34,6 +34,7 @@
             imgvThumbnail.hidden=false;
             [imgvThumbnail loadShopUserGalleryThumbnailWithURL:url];
             imgvState.image=nil;
+            imgvState.hidden=true;
             
             break;
             
@@ -41,6 +42,7 @@
             
             imgvThumbnail.image=nil;
             imgvThumbnail.hidden=true;
+            imgvState.hidden=false;
             imgvState.image=[UIImage imageNamed:@"icon_picture_photo.png"];
             
             break;
@@ -52,7 +54,7 @@
             
             loading.hidden=false;
             [loading showLoading];
-            
+             
             break;
     }
 }

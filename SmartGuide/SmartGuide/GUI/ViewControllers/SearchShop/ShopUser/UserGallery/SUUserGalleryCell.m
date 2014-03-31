@@ -100,14 +100,14 @@
 
 -(GMGridViewCell *)GMGridView:(GMGridView *)gridView cellForItemAtIndex:(NSInteger)index
 {
-    GMGridViewCell *gCell=[gridView dequeueReusableCellWithIdentifier:[ShopUserGalleryCell reuseIdentifier]];
+    GMGridViewCell *gCell=[gridView dequeueReusableCell];
     
     if(!gCell)
     {
         gCell=[GMGridViewCell new];
         gCell.contentView=[ShopUserGalleryCell new];
     }
-    
+
     ShopUserGalleryCell *cell=(ShopUserGalleryCell*) gCell.contentView;
     
     id obj=_galleries[index];

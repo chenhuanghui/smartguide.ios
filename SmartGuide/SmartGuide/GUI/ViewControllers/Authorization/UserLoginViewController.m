@@ -74,9 +74,6 @@
     style.color=[UIColor redColor];
     
     [lblBottom addStyle:style];
-    
-//    NSString *fakePhone=@"841656148907";
-//    [self switchToActivationModeWithPhone:fakePhone];
 }
 
 -(void) switchToActivationModeWithPhone:(NSString*) phone

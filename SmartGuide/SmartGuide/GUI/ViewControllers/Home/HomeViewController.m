@@ -89,7 +89,7 @@
 {
     [super viewWillAppearOnce];
     
-    [self requestShopUserWithIDShop:7 idPost:1730514665];
+    [self requestShopUserWithIDShop:1 idPost:1730514665];
 }
 
 -(void) showLoading
