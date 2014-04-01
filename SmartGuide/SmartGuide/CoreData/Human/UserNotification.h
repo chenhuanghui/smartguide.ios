@@ -14,6 +14,9 @@ enum USER_NOTIFICATION_STATUS
 
 -(enum USER_NOTIFICATION_STATUS) enumStatus;
 
+-(NSArray*) highlightIndex;
+
 @property (nonatomic, strong) NSNumber *contentHeight;
+@property (nonatomic, strong) NSMutableAttributedString *contentAttribute;
 
 @end

@@ -32,6 +32,7 @@
 }
 
 -(void) loadWithUserNotification:(UserNotification*) obj;
+-(UserNotification*) userNotification;
 +(NSString *)reuseIdentifier;
 +(float) heightWithUserNotification:(UserNotification*) obj;
 

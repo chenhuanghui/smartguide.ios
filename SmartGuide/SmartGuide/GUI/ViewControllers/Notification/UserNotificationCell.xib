@@ -7,34 +7,34 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="UserNotificationCell" rowHeight="72" id="KGk-i7-Jjw" customClass="UserNotificationCell">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="72"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="UserNotificationCell" rowHeight="54" id="KGk-i7-Jjw" customClass="UserNotificationCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="54"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="71"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="53"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" id="uBf-eO-EU4">
-                        <rect key="frame" x="0.0" y="5" width="320" height="67"/>
+                        <rect key="frame" x="0.0" y="4" width="320" height="50"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" id="Zi1-Aa-Ug2">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="67"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" id="FuB-96-NDd">
-                                        <rect key="frame" x="4" y="0.0" width="312" height="67"/>
+                                        <rect key="frame" x="4" y="0.0" width="312" height="50"/>
                                         <autoresizingMask key="autoresizingMask" heightSizable="YES"/>
                                         <subviews>
                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="PiA-sy-4Gp">
-                                                <rect key="frame" x="21" y="11" width="264" height="22"/>
+                                                <rect key="frame" x="20" y="8" width="264" height="22"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
                                                 <string key="text">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim </string>
                                                 <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="13"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="oZF-q2-GQl">
-                                                <rect key="frame" x="284" y="0.0" width="33" height="67"/>
+                                                <rect key="frame" x="284" y="0.0" width="33" height="50"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" heightSizable="YES"/>
                                                 <state key="normal" title=">">
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -43,13 +43,6 @@
                                                     <action selector="btnDetailTouchUpInside:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="kPr-ph-kFE"/>
                                                 </connections>
                                             </button>
-                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="eyz-dA-nV5" userLabel="time">
-                                                <rect key="frame" x="20" y="30" width="297" height="21"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="12"/>
-                                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                         <userDefinedRuntimeAttributes>
@@ -60,7 +53,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <view contentMode="scaleToFill" id="lHz-W8-T46">
-                                        <rect key="frame" x="0.0" y="7" width="5" height="49"/>
+                                        <rect key="frame" x="0.0" y="7" width="5" height="32"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
                                         <color key="backgroundColor" red="0.31372550129890442" green="0.61960786581039429" blue="0.89803928136825562" alpha="1" colorSpace="deviceRGB"/>
                                     </view>
@@ -68,11 +61,11 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
                             <view contentMode="scaleToFill" id="kXJ-7k-P8L">
-                                <rect key="frame" x="320" y="0.0" width="175" height="67"/>
+                                <rect key="frame" x="320" y="0.0" width="175" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="GRr-tK-9KN">
-                                        <rect key="frame" x="0.0" y="0.0" width="175" height="67"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="175" height="50"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
                                         <state key="normal" title="Xoá">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -94,7 +87,6 @@
                 <outlet property="btnRemove" destination="GRr-tK-9KN" id="NPM-uh-DUP"/>
                 <outlet property="displayContentView" destination="FuB-96-NDd" id="EpK-5R-VfT"/>
                 <outlet property="lblContent" destination="PiA-sy-4Gp" id="Yni-96-6mT"/>
-                <outlet property="lblTime" destination="eyz-dA-nV5" id="VJg-Wm-qXY"/>
                 <outlet property="leftView" destination="Zi1-Aa-Ug2" id="yyA-BO-WEP"/>
                 <outlet property="rightView" destination="kXJ-7k-P8L" id="XFT-0Y-hjg"/>
                 <outlet property="scroll" destination="uBf-eO-EU4" id="yVW-vg-FxQ"/>

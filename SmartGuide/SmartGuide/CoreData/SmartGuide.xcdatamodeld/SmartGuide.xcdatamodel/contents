@@ -304,7 +304,6 @@
     <entity name="UserNotification" representedClassName="UserNotification" syncable="YES">
         <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="highlight" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="idSender" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="sortOrder" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="status" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="time" optional="YES" attributeType="String" syncable="YES"/>
@@ -379,9 +378,9 @@
         <element name="UserHome7" positionX="0" positionY="0" width="128" height="180"/>
         <element name="UserHome8" positionX="0" positionY="0" width="128" height="105"/>
         <element name="UserHomeImage" positionX="0" positionY="0" width="128" height="90"/>
+        <element name="UserNotification" positionX="9" positionY="153" width="128" height="135"/>
+        <element name="UserNotificationDetail" positionX="18" positionY="162" width="128" height="223"/>
         <element name="UserPlacelist" positionX="0" positionY="0" width="128" height="120"/>
         <element name="UserPromotion" positionX="0" positionY="0" width="128" height="270"/>
-        <element name="UserNotification" positionX="9" positionY="153" width="128" height="148"/>
-        <element name="UserNotificationDetail" positionX="18" positionY="162" width="128" height="223"/>
     </elements>
 </model>

@@ -7,13 +7,7 @@
 //
 
 #import "SGViewController.h"
-
-enum USER_NOTIFICATION_DISPLAY_TYPE
-{
-    USER_NOTIFICATION_DISPLAY_ALL = 0,
-    USER_NOTIFICATION_DISPLAY_UNREAD = 1,
-    USER_NOTIFICATION_DISPLAY_READ = 2,
-};
+#import "ASIOperationUserNotification.h"
 
 @interface UserNotificationViewController : SGViewController
 {
@@ -22,6 +16,13 @@ enum USER_NOTIFICATION_DISPLAY_TYPE
     enum USER_NOTIFICATION_DISPLAY_TYPE _displayType;
     
     NSMutableArray *_userNotification;
+    NSArray *_userNotificationUnread;
+    NSArray *_userNotificationRead;
+    ASIOperationUserNotification *_operationUserNotification;
+    int _page;
+    bool _canLoadMore;
+    bool _isLoadingMore;
+    bool _isHasReadNotification;
 }
 
 @end

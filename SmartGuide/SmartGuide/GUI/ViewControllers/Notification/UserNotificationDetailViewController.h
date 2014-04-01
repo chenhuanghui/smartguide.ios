@@ -12,6 +12,8 @@
 @interface UserNotificationDetailViewController : SGViewController
 {
     __weak UserNotification *_obj;
+    __weak IBOutlet UITableView *table;
+    NSMutableArray *_userNotificationDetails;
 }
 
 -(UserNotificationDetailViewController*) initWithUserNotification:(UserNotification*) obj;

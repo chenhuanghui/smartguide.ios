@@ -8,7 +8,6 @@
 
 #define UserNotification_Content @"content"
 #define UserNotification_Highlight @"highlight"
-#define UserNotification_IdSender @"idSender"
 #define UserNotification_SortOrder @"sortOrder"
 #define UserNotification_Status @"status"
 #define UserNotification_Time @"time"
@@ -29,7 +28,6 @@
 
 @property (nonatomic, retain) NSString* content;
 @property (nonatomic, retain) NSString* highlight;
-@property (nonatomic, retain) NSNumber* idSender;
 @property (nonatomic, retain) NSNumber* sortOrder;
 @property (nonatomic, retain) NSNumber* status;
 @property (nonatomic, retain) NSString* time;

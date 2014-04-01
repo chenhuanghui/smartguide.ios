@@ -115,19 +115,6 @@
 	[self didChangeValueForKey:@"highlight"];
 }
 
-- (NSNumber*)idSender {
-	[self willAccessValueForKey:@"idSender"];
-	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"idSender"];
-	[self didAccessValueForKey:@"idSender"];
-	return result;
-}
-
-- (void)setIdSender:(NSNumber*)value {
-	[self willChangeValueForKey:@"idSender"];
-	[self setPrimitiveValue:value forKey:@"idSender"];
-	[self didChangeValueForKey:@"idSender"];
-}
-
 - (NSNumber*)sortOrder {
 	[self willAccessValueForKey:@"sortOrder"];
 	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"sortOrder"];

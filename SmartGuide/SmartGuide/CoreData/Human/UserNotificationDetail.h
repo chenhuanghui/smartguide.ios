@@ -4,4 +4,7 @@
 {
 }
 
+@property (nonatomic, strong) NSNumber *titleHeight;
+@property (nonatomic, strong) NSNumber *contentHeight;
+
 @end
