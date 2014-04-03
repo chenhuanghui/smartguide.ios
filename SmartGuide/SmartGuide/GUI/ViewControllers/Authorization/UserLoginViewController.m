@@ -74,6 +74,8 @@
     style.color=[UIColor redColor];
     
     [lblBottom addStyle:style];
+    
+//    [self switchToActivationModeWithPhone:@"841689938707"];
 }
 
 -(void) switchToActivationModeWithPhone:(NSString*) phone

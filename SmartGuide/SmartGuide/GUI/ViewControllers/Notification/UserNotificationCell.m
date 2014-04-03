@@ -21,7 +21,19 @@
     
     lblContent.attributedText=obj.contentAttribute;
     lblTime.text=obj.time;
-    displayContentView.backgroundColor=obj.enumStatus==USER_NOTIFICATION_STATUS_READ?[UIColor darkGrayColor]:[UIColor whiteColor];
+    
+    switch (obj.enumStatus) {
+        case USER_NOTIFICATION_STATUS_UNREAD:
+            displayContentView.backgroundColor=[UIColor whiteColor];
+            lineView.backgroundColor=[UIColor color255WithRed:61 green:165 blue:254 alpha:255];
+            break;
+            
+        case USER_NOTIFICATION_STATUS_READ:
+            displayContentView.backgroundColor=[UIColor color255WithRed:205 green:205 blue:205 alpha:255];
+            lineView.backgroundColor=[UIColor color255WithRed:146 green:146 blue:146 alpha:255];
+            break;
+    }
+    
     scroll.contentOffset=CGPointZero;
     scroll.contentSize=CGSizeMake(leftView.l_v_w+rightView.l_v_w, 0);
 }

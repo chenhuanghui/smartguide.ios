@@ -26,6 +26,7 @@
     __weak IBOutlet UILabel *lblTime;
     __weak IBOutlet UIButton *btnRemove;
     __weak IBOutlet UIView *displayContentView;
+    __weak IBOutlet UIView *lineView;
     
     __weak UserNotification* _obj;
 }

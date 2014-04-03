@@ -37,7 +37,7 @@
                                                 <rect key="frame" x="20" y="18" width="264" height="21"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                 <string key="text">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim</string>
-                                                <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="12"/>
+                                                <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="11"/>
                                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
@@ -100,6 +100,7 @@
                 <outlet property="lblContent" destination="PiA-sy-4Gp" id="Yni-96-6mT"/>
                 <outlet property="lblTime" destination="aSA-u7-3ac" id="KZW-49-8Qh"/>
                 <outlet property="leftView" destination="Zi1-Aa-Ug2" id="yyA-BO-WEP"/>
+                <outlet property="lineView" destination="lHz-W8-T46" id="QR9-01-aF7"/>
                 <outlet property="rightView" destination="kXJ-7k-P8L" id="XFT-0Y-hjg"/>
                 <outlet property="scroll" destination="uBf-eO-EU4" id="yVW-vg-FxQ"/>
             </connections>

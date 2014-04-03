@@ -33,6 +33,9 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
+    [UserNotification markDeleteAllObjects];
+    [[DataManager shareInstance] save];
+    
     _displayType=USER_NOTIFICATION_DISPLAY_ALL;
     
     [table registerNib:[UINib nibWithNibName:[UserNotificationCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[UserNotificationCell reuseIdentifier]];
@@ -88,10 +91,10 @@
 {
     switch (section) {
         case USER_NOTIFICATION_STATUS_UNREAD:
-            return [self userNotificationUnread].count;
+            return [self userNotificationUnread].count+((!_isHasReadNotification && _canLoadMore)?1:0);
             
         case USER_NOTIFICATION_STATUS_READ:
-            return [self userNotificationRead].count;
+            return [self userNotificationRead].count+(_canLoadMore?1:0);
             
         default:
             return 0;
@@ -104,7 +107,7 @@
     {
         if(_isHasReadNotification)
         {
-            if(indexPath.section==USER_NOTIFICATION_STATUS_READ && indexPath.row==[tableView numberOfRowsInSection:indexPath.section]-1)
+            if(indexPath.section==USER_NOTIFICATION_STATUS_READ && indexPath.row==[self userNotificationRead].count)
             {
                 if(!_isLoadingMore)
                 {
@@ -118,7 +121,7 @@
         }
         else
         {
-            if(indexPath.row==[tableView numberOfRowsInSection:indexPath.section]-1)
+            if(indexPath.row==[self userNotificationUnread].count)
             {
                 if(!_isLoadingMore)
                 {
@@ -177,12 +180,12 @@
     {
         if(_isHasReadNotification)
         {
-            if(indexPath.section==USER_NOTIFICATION_STATUS_READ && indexPath.row==[tableView numberOfRowsInSection:indexPath.section]-1)
+            if(indexPath.section==USER_NOTIFICATION_STATUS_READ && indexPath.row==[self userNotificationRead].count)
                 return 77;
         }
         else
         {
-            if(indexPath.row==[tableView numberOfRowsInSection:indexPath.section]-1)
+            if(indexPath.row==[self userNotificationUnread].count)
                 return 77;
         }
     }
@@ -252,7 +255,7 @@
         [_userNotification addObjectsFromArray:ope.userNotifications];
         
         _isLoadingMore=false;
-        _canLoadMore=ope.userNotifications.count==5;
+        _canLoadMore=ope.userNotifications.count==10;
         _page++;
         
         if(!_isHasReadNotification && _userNotification.count>0)
