@@ -8,12 +8,18 @@
 
 #import "SGViewController.h"
 #import "UserNotification.h"
+#import "ASIOperationUserNotificationContent.h"
 
 @interface UserNotificationDetailViewController : SGViewController
 {
     __weak UserNotification *_obj;
     __weak IBOutlet UITableView *table;
-    NSMutableArray *_userNotificationDetails;
+    NSMutableArray *_userNotificationContents;
+    
+    ASIOperationUserNotificationContent *_operationNotificationContent;
+    int _page;
+    bool _canLoadMore;
+    bool _isLoadingMore;
 }
 
 -(UserNotificationDetailViewController*) initWithUserNotification:(UserNotification*) obj;

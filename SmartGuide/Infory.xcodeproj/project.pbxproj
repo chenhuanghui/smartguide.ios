@@ -971,9 +971,7 @@
 		A992579F18E96F3A00D0993A /* UserNotificationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A992579D18E96F3A00D0993A /* UserNotificationCell.m */; };
 		A99257A018E96F3A00D0993A /* UserNotificationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A992579E18E96F3A00D0993A /* UserNotificationCell.xib */; };
 		A99257AB18E97BCE00D0993A /* _UserNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = A99257A818E97BCE00D0993A /* _UserNotification.m */; };
-		A99257AC18E97BCE00D0993A /* _UserNotificationDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = A99257AA18E97BCE00D0993A /* _UserNotificationDetail.m */; };
 		A99257B118E97BD400D0993A /* UserNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = A99257AE18E97BD400D0993A /* UserNotification.m */; };
-		A99257B218E97BD400D0993A /* UserNotificationDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = A99257B018E97BD400D0993A /* UserNotificationDetail.m */; };
 		A99257B518E9886800D0993A /* UserNotificationHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = A99257B418E9886800D0993A /* UserNotificationHeaderView.m */; };
 		A99257B718E9886E00D0993A /* UserNotificationHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A99257B618E9886E00D0993A /* UserNotificationHeaderView.xib */; };
 		A9A19CCA17C406A5000D0ECD /* FacebookManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A19CC917C406A5000D0ECD /* FacebookManager.m */; };
@@ -1006,8 +1004,7 @@
 		A9BF947F178FAF7400EF7E5F /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9BF947E178FAF7400EF7E5F /* MobileCoreServices.framework */; };
 		A9BF9489178FB87E00EF7E5F /* LocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A9BF9488178FB87E00EF7E5F /* LocationManager.m */; };
 		A9BFE85818E96323008C542E /* ASIOperationUserNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = A9BFE85718E96323008C542E /* ASIOperationUserNotification.m */; };
-		A9BFE85B18E96332008C542E /* ASIOperationUserNotificationGet.m in Sources */ = {isa = PBXBuildFile; fileRef = A9BFE85A18E96332008C542E /* ASIOperationUserNotificationGet.m */; };
-		A9BFE85E18E96343008C542E /* ASIOperationUserPromotionDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = A9BFE85D18E96343008C542E /* ASIOperationUserPromotionDetail.m */; };
+		A9BFE85E18E96343008C542E /* ASIOperationUserNotificationContent.m in Sources */ = {isa = PBXBuildFile; fileRef = A9BFE85D18E96343008C542E /* ASIOperationUserNotificationContent.m */; };
 		A9BFE86118E96819008C542E /* ASIOperationUserNotificationRead.m in Sources */ = {isa = PBXBuildFile; fileRef = A9BFE86018E96819008C542E /* ASIOperationUserNotificationRead.m */; };
 		A9BFE86618E96955008C542E /* UserNotificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9BFE86418E96955008C542E /* UserNotificationViewController.m */; };
 		A9BFE86718E96955008C542E /* UserNotificationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9BFE86518E96955008C542E /* UserNotificationViewController.xib */; };
@@ -1106,6 +1103,8 @@
 		A9CFD36D1797FF190035E448 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9CFD36C1797FF190035E448 /* CoreData.framework */; };
 		A9CFD3731797FFC20035E448 /* City.m in Sources */ = {isa = PBXBuildFile; fileRef = A9CFD3721797FFC20035E448 /* City.m */; };
 		A9CFD3761797FFCC0035E448 /* _City.m in Sources */ = {isa = PBXBuildFile; fileRef = A9CFD3751797FFCC0035E448 /* _City.m */; };
+		A9D53CDD18ED6DE100C0B5F3 /* _UserNotificationContent.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D53CDC18ED6DE100C0B5F3 /* _UserNotificationContent.m */; };
+		A9D53CE018ED6DE900C0B5F3 /* UserNotificationContent.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D53CDF18ED6DE900C0B5F3 /* UserNotificationContent.m */; };
 		A9DCA90817AABCB200C56854 /* ShopUserComment.m in Sources */ = {isa = PBXBuildFile; fileRef = A9DCA90717AABCB200C56854 /* ShopUserComment.m */; };
 		A9DCA90B17AABCBB00C56854 /* _ShopUserComment.m in Sources */ = {isa = PBXBuildFile; fileRef = A9DCA90A17AABCBB00C56854 /* _ShopUserComment.m */; };
 		A9E71DA6178FD2B200D7467E /* LocalizationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E71DA5178FD2B200D7467E /* LocalizationManager.m */; };
@@ -2389,12 +2388,8 @@
 		A992579E18E96F3A00D0993A /* UserNotificationCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserNotificationCell.xib; sourceTree = "<group>"; };
 		A99257A718E97BCE00D0993A /* _UserNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _UserNotification.h; sourceTree = "<group>"; };
 		A99257A818E97BCE00D0993A /* _UserNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _UserNotification.m; sourceTree = "<group>"; };
-		A99257A918E97BCE00D0993A /* _UserNotificationDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _UserNotificationDetail.h; sourceTree = "<group>"; };
-		A99257AA18E97BCE00D0993A /* _UserNotificationDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _UserNotificationDetail.m; sourceTree = "<group>"; };
 		A99257AD18E97BD400D0993A /* UserNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserNotification.h; sourceTree = "<group>"; };
 		A99257AE18E97BD400D0993A /* UserNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserNotification.m; sourceTree = "<group>"; };
-		A99257AF18E97BD400D0993A /* UserNotificationDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserNotificationDetail.h; sourceTree = "<group>"; };
-		A99257B018E97BD400D0993A /* UserNotificationDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserNotificationDetail.m; sourceTree = "<group>"; };
 		A99257B318E9886800D0993A /* UserNotificationHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserNotificationHeaderView.h; sourceTree = "<group>"; };
 		A99257B418E9886800D0993A /* UserNotificationHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserNotificationHeaderView.m; sourceTree = "<group>"; };
 		A99257B618E9886E00D0993A /* UserNotificationHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserNotificationHeaderView.xib; sourceTree = "<group>"; };
@@ -2440,10 +2435,8 @@
 		A9BF9488178FB87E00EF7E5F /* LocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationManager.m; sourceTree = "<group>"; };
 		A9BFE85618E96323008C542E /* ASIOperationUserNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIOperationUserNotification.h; sourceTree = "<group>"; };
 		A9BFE85718E96323008C542E /* ASIOperationUserNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIOperationUserNotification.m; sourceTree = "<group>"; };
-		A9BFE85918E96332008C542E /* ASIOperationUserNotificationGet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIOperationUserNotificationGet.h; sourceTree = "<group>"; };
-		A9BFE85A18E96332008C542E /* ASIOperationUserNotificationGet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIOperationUserNotificationGet.m; sourceTree = "<group>"; };
-		A9BFE85C18E96343008C542E /* ASIOperationUserPromotionDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIOperationUserPromotionDetail.h; sourceTree = "<group>"; };
-		A9BFE85D18E96343008C542E /* ASIOperationUserPromotionDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIOperationUserPromotionDetail.m; sourceTree = "<group>"; };
+		A9BFE85C18E96343008C542E /* ASIOperationUserNotificationContent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIOperationUserNotificationContent.h; sourceTree = "<group>"; };
+		A9BFE85D18E96343008C542E /* ASIOperationUserNotificationContent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIOperationUserNotificationContent.m; sourceTree = "<group>"; };
 		A9BFE85F18E96818008C542E /* ASIOperationUserNotificationRead.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIOperationUserNotificationRead.h; sourceTree = "<group>"; };
 		A9BFE86018E96819008C542E /* ASIOperationUserNotificationRead.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIOperationUserNotificationRead.m; sourceTree = "<group>"; };
 		A9BFE86318E96955008C542E /* UserNotificationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserNotificationViewController.h; sourceTree = "<group>"; };
@@ -2549,6 +2542,10 @@
 		A9CFD3721797FFC20035E448 /* City.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = City.m; sourceTree = "<group>"; };
 		A9CFD3741797FFCC0035E448 /* _City.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _City.h; sourceTree = "<group>"; };
 		A9CFD3751797FFCC0035E448 /* _City.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _City.m; sourceTree = "<group>"; };
+		A9D53CDB18ED6DE100C0B5F3 /* _UserNotificationContent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _UserNotificationContent.h; sourceTree = "<group>"; };
+		A9D53CDC18ED6DE100C0B5F3 /* _UserNotificationContent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _UserNotificationContent.m; sourceTree = "<group>"; };
+		A9D53CDE18ED6DE900C0B5F3 /* UserNotificationContent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserNotificationContent.h; sourceTree = "<group>"; };
+		A9D53CDF18ED6DE900C0B5F3 /* UserNotificationContent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserNotificationContent.m; sourceTree = "<group>"; };
 		A9DCA90617AABCB200C56854 /* ShopUserComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopUserComment.h; sourceTree = "<group>"; };
 		A9DCA90717AABCB200C56854 /* ShopUserComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopUserComment.m; sourceTree = "<group>"; };
 		A9DCA90917AABCBA00C56854 /* _ShopUserComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _ShopUserComment.h; sourceTree = "<group>"; };
@@ -3520,8 +3517,8 @@
 			children = (
 				A99257AD18E97BD400D0993A /* UserNotification.h */,
 				A99257AE18E97BD400D0993A /* UserNotification.m */,
-				A99257AF18E97BD400D0993A /* UserNotificationDetail.h */,
-				A99257B018E97BD400D0993A /* UserNotificationDetail.m */,
+				A9D53CDE18ED6DE900C0B5F3 /* UserNotificationContent.h */,
+				A9D53CDF18ED6DE900C0B5F3 /* UserNotificationContent.m */,
 				9A29574418C23FB1004C8FD5 /* UserGalleryUpload.h */,
 				9A29574518C23FB1004C8FD5 /* UserGalleryUpload.m */,
 				9A1E234518B1CA720077F503 /* UserPromotion.h */,
@@ -3597,8 +3594,8 @@
 			children = (
 				A99257A718E97BCE00D0993A /* _UserNotification.h */,
 				A99257A818E97BCE00D0993A /* _UserNotification.m */,
-				A99257A918E97BCE00D0993A /* _UserNotificationDetail.h */,
-				A99257AA18E97BCE00D0993A /* _UserNotificationDetail.m */,
+				A9D53CDB18ED6DE100C0B5F3 /* _UserNotificationContent.h */,
+				A9D53CDC18ED6DE100C0B5F3 /* _UserNotificationContent.m */,
 				9A29574718C23FB7004C8FD5 /* _UserGalleryUpload.h */,
 				9A29574818C23FB7004C8FD5 /* _UserGalleryUpload.m */,
 				9A1E234818B1CA790077F503 /* _UserPromotion.h */,
@@ -3740,10 +3737,8 @@
 				9A1E234018B1C76D0077F503 /* ASIOperationUserPromotion.m */,
 				A9BFE85618E96323008C542E /* ASIOperationUserNotification.h */,
 				A9BFE85718E96323008C542E /* ASIOperationUserNotification.m */,
-				A9BFE85918E96332008C542E /* ASIOperationUserNotificationGet.h */,
-				A9BFE85A18E96332008C542E /* ASIOperationUserNotificationGet.m */,
-				A9BFE85C18E96343008C542E /* ASIOperationUserPromotionDetail.h */,
-				A9BFE85D18E96343008C542E /* ASIOperationUserPromotionDetail.m */,
+				A9BFE85C18E96343008C542E /* ASIOperationUserNotificationContent.h */,
+				A9BFE85D18E96343008C542E /* ASIOperationUserNotificationContent.m */,
 				A9BFE85F18E96818008C542E /* ASIOperationUserNotificationRead.h */,
 				A9BFE86018E96819008C542E /* ASIOperationUserNotificationRead.m */,
 			);
@@ -5628,6 +5623,7 @@
 				9A29574918C23FB7004C8FD5 /* _UserGalleryUpload.m in Sources */,
 				A9A505A9178E8B8400F27E18 /* AlertView.m in Sources */,
 				9A7AC22E18D191740043316D /* ShopListPlaceCell.m in Sources */,
+				A9D53CE018ED6DE900C0B5F3 /* UserNotificationContent.m in Sources */,
 				9ADCD96518D19C3F004CB67E /* UIImage+WebP.m in Sources */,
 				9A29574018C23D8C004C8FD5 /* ASIOperationPostPicture.m in Sources */,
 				9ADCD94E18D19C3F004CB67E /* FTCoreTextStyle.m in Sources */,
@@ -5662,7 +5658,7 @@
 				9A7AC1C318D1907B0043316D /* SUShopGalleryCell.m in Sources */,
 				9A06F9961885423B005C0377 /* UserPlacelist.m in Sources */,
 				9ADCD94218D19C3F004CB67E /* AFURLResponseSerialization.m in Sources */,
-				A9BFE85E18E96343008C542E /* ASIOperationUserPromotionDetail.m in Sources */,
+				A9BFE85E18E96343008C542E /* ASIOperationUserNotificationContent.m in Sources */,
 				9A7AC1EB18D1907B0043316D /* SUInfoCell.m in Sources */,
 				A99257AB18E97BCE00D0993A /* _UserNotification.m in Sources */,
 				9AC494B31858B2390042C535 /* ASIOperationStoreShopList.m in Sources */,
@@ -5684,7 +5680,6 @@
 				9ACF7A8B18698E3700B0BC78 /* UserHome3.m in Sources */,
 				9ACF7A8D18698E3700B0BC78 /* UserHome5.m in Sources */,
 				A9CFD3681797FCE60035E448 /* User.m in Sources */,
-				A9BFE85B18E96332008C542E /* ASIOperationUserNotificationGet.m in Sources */,
 				9ACF7A8F18698E3700B0BC78 /* UserHome7.m in Sources */,
 				9ACE90851875CE92008FEA7E /* _PromotionNews.m in Sources */,
 				A9CFD36B1797FCEC0035E448 /* _User.m in Sources */,
@@ -5719,9 +5714,7 @@
 				9ADCD95C18D19C3F004CB67E /* SDWebImageCompat.m in Sources */,
 				9A998A67188E324500F59840 /* ASIOperationSocialShare.m in Sources */,
 				9A7AC23C18D192250043316D /* ShopPinView.m in Sources */,
-				A99257AC18E97BCE00D0993A /* _UserNotificationDetail.m in Sources */,
 				9A32F4311843486F00704D26 /* AlphaView.m in Sources */,
-				A99257B218E97BD400D0993A /* UserNotificationDetail.m in Sources */,
 				9A7AC24718D192490043316D /* PlacelistCreateCell.m in Sources */,
 				9A7AC1DA18D1907B0043316D /* SUKM1Cell.m in Sources */,
 				9A27BCAF18D18BAD00E3EAC2 /* WelcomeViewController.m in Sources */,
@@ -5761,6 +5754,7 @@
 				9A9ED30E187D09890081A16E /* OperationFBGetProfile.m in Sources */,
 				9A22E84418B6056E00CECD3C /* EmptyDataCell.m in Sources */,
 				9A9211A6185AC7AB0012F181 /* LoadingView.m in Sources */,
+				A9D53CDD18ED6DE100C0B5F3 /* _UserNotificationContent.m in Sources */,
 				9ADCD94418D19C3F004CB67E /* ASIAuthenticationDialog.m in Sources */,
 				9A24781018B7364F00BAAA7D /* ASIOperationPlacelistGetDetail.m in Sources */,
 				9A7AC19818D1907B0043316D /* PlacelistViewController.m in Sources */,

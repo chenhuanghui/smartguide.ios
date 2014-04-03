@@ -26,13 +26,9 @@
                     </connections>
                 </tableView>
                 <view contentMode="scaleToFill" id="C0o-ui-7HK">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="91"/>
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="54"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background_blur.png" id="hT9-ET-xAD">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="91"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        </imageView>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Jfa-3g-K5T">
                             <rect key="frame" x="0.0" y="0.0" width="54" height="54"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -62,7 +58,7 @@
                             </connections>
                         </button>
                     </subviews>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" red="0.2196078431372549" green="0.21568627450980393" blue="0.20784313725490194" alpha="1" colorSpace="calibratedRGB"/>
                 </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -70,7 +66,6 @@
         </view>
     </objects>
     <resources>
-        <image name="background_blur.png" width="320" height="91"/>
         <image name="button_backarrow.png" width="35" height="30"/>
     </resources>
 </document>

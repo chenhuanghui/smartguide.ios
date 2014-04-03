@@ -5,13 +5,9 @@
 #import "UserNotification.h"
 
 #import "DataManager.h"
-#import "UserNotificationDetail.h"
 
 
 @implementation _UserNotification
-
-
-
 
 
 +(UserNotification*) insert
@@ -115,6 +111,32 @@
 	[self didChangeValueForKey:@"highlight"];
 }
 
+- (NSNumber*)idNotification {
+	[self willAccessValueForKey:@"idNotification"];
+	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"idNotification"];
+	[self didAccessValueForKey:@"idNotification"];
+	return result;
+}
+
+- (void)setIdNotification:(NSNumber*)value {
+	[self willChangeValueForKey:@"idNotification"];
+	[self setPrimitiveValue:value forKey:@"idNotification"];
+	[self didChangeValueForKey:@"idNotification"];
+}
+
+- (NSString*)sender {
+	[self willAccessValueForKey:@"sender"];
+	NSString* result = (NSString*)[self primitiveValueForKey:@"sender"];
+	[self didAccessValueForKey:@"sender"];
+	return result;
+}
+
+- (void)setSender:(NSString*)value {
+	[self willChangeValueForKey:@"sender"];
+	[self setPrimitiveValue:value forKey:@"sender"];
+	[self didChangeValueForKey:@"sender"];
+}
+
 - (NSNumber*)sortOrder {
 	[self willAccessValueForKey:@"sortOrder"];
 	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"sortOrder"];
@@ -156,74 +178,6 @@
 
 #pragma mark Relationships
     
-#pragma mark Detail
-- (NSSet*)detail {
-	[self willAccessValueForKey:@"detail"];
-	NSSet *result = [self primitiveValueForKey:@"detail"];
-	[self didAccessValueForKey:@"detail"];
-	return result;
-}
-
--(NSArray*) detailObjects
-{
-    NSSet *set=[self detail];
-    if(set)
-        return [set allObjects];
-    
-    return [NSArray array];
-}
-
-- (void)setDetail:(NSSet*)value {
-	[self willChangeValueForKey:@"detail" withSetMutation:NSKeyValueSetSetMutation usingObjects:value];
-	[[self primitiveValueForKey:@"detail"] setSet:value];
-	[self didChangeValueForKey:@"detail" withSetMutation:NSKeyValueSetSetMutation usingObjects:value];
-}
-
-- (void)addDetail:(NSSet*)value {
-	[self willChangeValueForKey:@"detail" withSetMutation:NSKeyValueUnionSetMutation usingObjects:value];
-	[[self primitiveValueForKey:@"detail"] unionSet:value];
-	[self didChangeValueForKey:@"detail" withSetMutation:NSKeyValueUnionSetMutation usingObjects:value];
-}
-
--(void)removeDetail:(NSSet*)value {
-
-    for(NSManagedObject *obj in value.allObjects)
-        [self.managedObjectContext deleteObject:obj];
-
-	[self willChangeValueForKey:@"detail" withSetMutation:NSKeyValueMinusSetMutation usingObjects:value];
-	[[self primitiveValueForKey:@"detail"] minusSet:value];
-	[self didChangeValueForKey:@"detail" withSetMutation:NSKeyValueMinusSetMutation usingObjects:value];
-}
-	
-- (void)addDetailObject:(UserNotificationDetail*)value {
-	NSSet *changedObjects = [[NSSet alloc] initWithObjects:&value count:1];
-	[self willChangeValueForKey:@"detail" withSetMutation:NSKeyValueUnionSetMutation usingObjects:changedObjects];
-	[[self primitiveValueForKey:@"detail"] addObject:value];
-	[self didChangeValueForKey:@"detail" withSetMutation:NSKeyValueUnionSetMutation usingObjects:changedObjects];
-}
-
-- (void)removeDetailObject:(UserNotificationDetail*)value {
-
-    [self.managedObjectContext deleteObject:value];
-
-	NSSet *changedObjects = [[NSSet alloc] initWithObjects:&value count:1];
-	[self willChangeValueForKey:@"detail" withSetMutation:NSKeyValueMinusSetMutation usingObjects:changedObjects];
-	[[self primitiveValueForKey:@"detail"] removeObject:value];
-	[self didChangeValueForKey:@"detail" withSetMutation:NSKeyValueMinusSetMutation usingObjects:changedObjects];
-}
-
-- (void) removeAllDetail
-{
-    [self removeDetail:self.detail];
-}
-
-- (NSMutableSet*)detailSet {
-	[self willAccessValueForKey:@"detail"];
-	NSMutableSet *result = [self mutableSetValueForKey:@"detail"];
-	[self didAccessValueForKey:@"detail"];
-	return result;
-}
-
 
 #pragma mark Utility
 

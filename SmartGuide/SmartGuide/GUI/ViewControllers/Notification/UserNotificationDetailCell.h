@@ -7,13 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "UserNotificationDetail.h"
+#import "UserNotificationContent.h"
 
 @class UserNotificationDetailCell;
 
 @protocol UserNotificationDetailCellDelegate <NSObject>
 
--(void) userNotificationDetailCellTouchedGo:(UserNotificationDetailCell*) cell userNotificationDetail:(UserNotificationDetail*) obj;
+-(void) userNotificationDetailCellTouchedGo:(UserNotificationDetailCell*) cell userNotificationDetail:(UserNotificationContent*) obj;
 
 @end
 
@@ -25,15 +25,16 @@
     __weak IBOutlet UIButton *btnGo;
     __weak IBOutlet UIView *displayView;
     __weak IBOutlet UIImageView *imgvIcon;
+    __weak IBOutlet UILabel *lblGoTo;
     
-    __weak UserNotificationDetail *_obj;
+    __weak UserNotificationContent *_obj;
 }
 
--(void) loadWithUserNotificationDetail:(UserNotificationDetail*) obj;
--(UserNotificationDetail*) userNotificationDetail;
+-(void) loadWithUserNotificationDetail:(UserNotificationContent*) obj;
+-(UserNotificationContent*) userNotificationDetail;
 
 +(NSString *)reuseIdentifier;
-+(float) heightWithUserNotificationDetail:(UserNotificationDetail*) obj;
++(float) heightWithUserNotificationDetail:(UserNotificationContent*) obj;
 
 @property (nonatomic, weak) id<UserNotificationDetailCellDelegate> delegate;
 

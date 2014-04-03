@@ -18,9 +18,11 @@
 {
     UserNotification *obj=[UserNotification insert];
 
+    obj.idNotification=[NSNumber numberWithObject:data[@"idNotification"]];
     obj.content=[NSString stringWithStringDefault:data[@"content"]];
     obj.time=[NSString stringWithStringDefault:data[@"time"]];
     obj.status=[NSNumber numberWithObject:data[@"status"]];
+    obj.sender=[NSString stringWithStringDefault:data[@"sender"]];
     
     obj.highlight=@"";
     NSMutableArray *array=data[@"highlight"];

@@ -8,12 +8,13 @@
 
 #define UserNotification_Content @"content"
 #define UserNotification_Highlight @"highlight"
+#define UserNotification_IdNotification @"idNotification"
+#define UserNotification_Sender @"sender"
 #define UserNotification_SortOrder @"sortOrder"
 #define UserNotification_Status @"status"
 #define UserNotification_Time @"time"
 
 @class UserNotification;
-@class UserNotificationDetail;
 
 @interface _UserNotification : NSManagedObject
 
@@ -28,6 +29,8 @@
 
 @property (nonatomic, retain) NSString* content;
 @property (nonatomic, retain) NSString* highlight;
+@property (nonatomic, retain) NSNumber* idNotification;
+@property (nonatomic, retain) NSString* sender;
 @property (nonatomic, retain) NSNumber* sortOrder;
 @property (nonatomic, retain) NSNumber* status;
 @property (nonatomic, retain) NSString* time;
@@ -36,15 +39,6 @@
 
     
 #pragma mark Relationships
-
-#pragma mark Detail
-- (NSSet*) detail;
-- (NSArray*) detailObjects;
-- (void) addDetail:(NSSet*)value;
-- (void) removeDetail:(NSSet*)value;
-- (void) addDetailObject:(UserNotificationDetail*)value;
-- (void) removeDetailObject:(UserNotificationDetail*)value;
-- (void) removeAllDetail;
 
 
 
