@@ -112,6 +112,7 @@
 
 - (IBAction)btnRemoveTouchUpInside:(id)sender {
     [scroll setContentOffset:CGPointZero animated:true];
+    [self.delegate userNotificationCellTouchedRemove:self obj:_obj];
 }
 
 -(UserNotification *)userNotification

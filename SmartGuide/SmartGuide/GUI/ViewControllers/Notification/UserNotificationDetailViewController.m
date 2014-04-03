@@ -142,8 +142,15 @@
     return cell;
 }
 
++(NSString *)screenCode
+{
+    return @"S00601";
+}
+
 -(void)userNotificationDetailCellTouchedGo:(UserNotificationDetailCell *)cell userNotificationDetail:(UserNotificationContent *)obj
 {
+    [SGData shareInstance].fScreen=@"S00601";
+    
     switch (obj.enumType) {
         case USER_NOTIFICATION_CONTENT_TYPE_SHOP_DETAIL:
             [[GUIManager shareInstance].rootViewController presentShopUserWithIDShop:obj.idShop.integerValue];

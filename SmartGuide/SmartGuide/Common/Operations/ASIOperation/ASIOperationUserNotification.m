@@ -34,8 +34,11 @@
     {
         UserNotification *obj=[UserNotification makeWithDictionary:dict];
         obj.sortOrder=@(count++);
-        
+
         [self.userNotifications addObject:obj];
+        
+        if(obj.enumStatus==USER_NOTIFICATION_STATUS_READ)
+            break;
     }
     
     [[DataManager shareInstance] save];

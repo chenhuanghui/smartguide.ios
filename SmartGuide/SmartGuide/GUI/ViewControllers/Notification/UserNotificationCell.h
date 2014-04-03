@@ -14,6 +14,7 @@
 @protocol UserNotificationCellDelegate <NSObject>
 
 -(void) userNotificationCellTouchedDetail:(UserNotificationCell*) cell obj:(UserNotification*) obj;
+-(void) userNotificationCellTouchedRemove:(UserNotificationCell*) cell obj:(UserNotification*) obj;
 
 @end
 

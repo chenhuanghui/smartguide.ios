@@ -92,7 +92,7 @@
 
 -(NSString *)logo
 {
-    return @"https://trello-avatars.s3.amazonaws.com/07f2507dfa4cc9da9fa65a7c4b0ab9de/30.png";
+    return @"https://trello-avatars.s3.amazonaws.com/53696f6a46925e81408ac1f96f6a7701/30.png";
 }
 
 -(NSString *)time

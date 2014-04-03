@@ -8,6 +8,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HomeViewController">
             <connections>
                 <outlet property="blurBottom" destination="LCo-O1-eW2" id="3Gp-6G-AHt"/>
+                <outlet property="btnNumOfNotification" destination="L8l-9k-kzR" id="6Ry-X7-Sgb"/>
                 <outlet property="btnScanBig" destination="x6B-Va-eYj" id="iwd-yJ-YHk"/>
                 <outlet property="btnScanSmall" destination="OIS-pB-zut" id="bgb-MN-Gls"/>
                 <outlet property="displayLoadingView" destination="Qvy-Tv-IgG" id="0IJ-xq-EXi"/>
@@ -107,15 +108,24 @@
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="MWW-xr-20m">
-                    <rect key="frame" x="266" y="0.0" width="54" height="54"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="MWW-xr-20m">
+                    <rect key="frame" x="270" y="0.0" width="54" height="54"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <state key="normal" title="NO">
+                    <state key="normal" image="icon_notification.png">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <connections>
                         <action selector="btnNotificationTouchUpInside:" destination="-1" eventType="touchUpInside" id="678-zE-6Sm"/>
                     </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="L8l-9k-kzR">
+                    <rect key="frame" x="293" y="3" width="25" height="25"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="12"/>
+                    <inset key="titleEdgeInsets" minX="0.0" minY="2" maxX="0.0" maxY="0.0"/>
+                    <state key="normal" title="99" backgroundImage="bg_number_notice.png">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
                 </button>
             </subviews>
             <color key="backgroundColor" red="0.93361367979999998" green="0.93361367979999998" blue="0.93361367979999998" alpha="1" colorSpace="calibratedRGB"/>
@@ -124,11 +134,13 @@
     </objects>
     <resources>
         <image name="background_scan.png" width="320" height="56"/>
+        <image name="bg_number_notice.png" width="25" height="25"/>
         <image name="blur_bottom_home.png" width="320" height="37"/>
         <image name="blur_top_home.png" width="320" height="41"/>
         <image name="button_navigation.png" width="34" height="26"/>
         <image name="button_scan.png" width="172" height="32"/>
         <image name="button_scan_small.png" width="93" height="17"/>
         <image name="button_search_home.png" width="232" height="39"/>
+        <image name="icon_notification.png" width="31" height="26"/>
     </resources>
 </document>

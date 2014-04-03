@@ -47,12 +47,14 @@
                                     <action selector="btnGoTouchUpInside:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="6QX-qD-hHn"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="cfK-rK-HOJ">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Đi đến địa điểm" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="37B-o2-faQ">
                                 <rect key="frame" x="71" y="70" width="147" height="42"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="17"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="14"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
+                                <color key="shadowColor" red="0.35642538270000002" green="0.031077005410000001" blue="0.071378173719999993" alpha="1" colorSpace="calibratedRGB"/>
+                                <size key="shadowOffset" width="0.0" height="1"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -68,17 +70,21 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="bTN-Zz-SJY">
-                                <rect key="frame" x="2" y="2" width="36" height="36"/>
+                                <rect key="frame" x="4" y="3" width="32" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBound" value="YES"/>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="13"/>
+                                        <integer key="value" value="16"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="frame_avauser.png" id="mSI-DE-O6n">
+                                <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -95,7 +101,7 @@
                 <outlet property="displayView" destination="2wF-GB-OOJ" id="r1S-Hc-8KC"/>
                 <outlet property="imgvIcon" destination="bTN-Zz-SJY" id="jbx-zu-wkW"/>
                 <outlet property="lblContent" destination="TcL-vZ-Tpf" id="Eny-ZM-AjZ"/>
-                <outlet property="lblGoTo" destination="cfK-rK-HOJ" id="8t4-ab-5Kl"/>
+                <outlet property="lblGoTo" destination="37B-o2-faQ" id="sI4-Nf-hYA"/>
                 <outlet property="lblTime" destination="xvX-NK-6rd" id="tQk-hq-cg9"/>
                 <outlet property="lblTitle" destination="yhi-C8-LIf" id="Fbm-w9-bOy"/>
             </connections>
@@ -103,5 +109,6 @@
     </objects>
     <resources>
         <image name="button_gotoshop_home.png" width="196" height="44"/>
+        <image name="frame_avauser.png" width="43" height="44"/>
     </resources>
 </document>

@@ -12,8 +12,10 @@
 #import "UserNotificationHeaderView.h"
 #import "UserNotificationDetailViewController.h"
 #import "LoadingMoreCell.h"
+#import "GUIManager.h"
+#import "SGNavigationController.h"
 
-@interface UserNotificationViewController ()<UITableViewDataSource,UITableViewDelegate,UserNotificationCellDelegate,ASIOperationPostDelegate>
+@interface UserNotificationViewController ()<UITableViewDataSource,UITableViewDelegate,UserNotificationCellDelegate,ASIOperationPostDelegate,UIActionSheetDelegate>
 
 @end
 
@@ -167,8 +169,37 @@
     [self showUserNotificationDetail:obj];
 }
 
+-(void)userNotificationCellTouchedRemove:(UserNotificationCell *)cell obj:(UserNotification *)obj
+{
+    bool isHasReadNotification=_isHasReadNotification;
+    bool _willRemoveSectionRead=false;
+    [_userNotification removeObject:obj];
+    
+    [self makeData];
+    
+    if(!_isHasReadNotification && isHasReadNotification)
+        _willRemoveSectionRead=true;
+    
+    [table beginUpdates];
+    
+    if(_willRemoveSectionRead)
+        [table deleteSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationAutomatic];
+    else
+        [table deleteRowsAtIndexPaths:@[[table indexPathForCell:cell]] withRowAnimation:UITableViewRowAnimationAutomatic];
+    
+    [table endUpdates];
+}
+
++(NSString *)screenCode
+{
+    return @"S006";
+}
+
 -(void) showUserNotificationDetail:(UserNotification*) obj
 {
+    [SGData shareInstance].fScreen=@"S006";
+    [SGData shareInstance].fData=[NSMutableDictionary dictionaryWithObject:obj.idNotification forKey:@"idNotification"];
+    
     UserNotificationDetailViewController *vc=[[UserNotificationDetailViewController alloc] initWithUserNotification:obj];
     
     [self.navigationController pushViewController:vc animated:true];
@@ -219,7 +250,12 @@
 {
     switch (section) {
         case USER_NOTIFICATION_STATUS_READ:
-            return [UserNotificationHeaderView new];
+        {
+            UserNotificationHeaderView *headerView=[UserNotificationHeaderView new];
+            _headerView=headerView;
+            
+            return _headerView;
+        }
             
         default:
             return [UIView new];
@@ -241,7 +277,64 @@
 }
 
 - (IBAction)btnSettingTouchUpInside:(id)sender {
+    UIActionSheet *sheet=nil;
     
+    switch (_displayType) {
+        case USER_NOTIFICATION_DISPLAY_ALL:
+            sheet=[[UIActionSheet alloc] initWithTitle:@"Setting" delegate:self cancelButtonTitle:@"Đóng" destructiveButtonTitle:nil otherButtonTitles:@"Chưa đọc",@"Đã đọc", nil];
+            break;
+            
+        case USER_NOTIFICATION_DISPLAY_READ:
+            sheet=[[UIActionSheet alloc] initWithTitle:@"Setting" delegate:self cancelButtonTitle:@"Đóng" destructiveButtonTitle:nil otherButtonTitles:@"Tất cả",@"Chưa đọc", nil];
+            break;
+            
+        case USER_NOTIFICATION_DISPLAY_UNREAD:
+            sheet=[[UIActionSheet alloc] initWithTitle:@"Setting" delegate:self cancelButtonTitle:@"Đóng" destructiveButtonTitle:nil otherButtonTitles:@"Tất cả",@"Đã đọc", nil];
+            break;
+    }
+
+    [sheet showInView:[GUIManager shareInstance].rootNavigation.view];
+}
+
+-(void) resetData
+{
+    _canLoadMore=true;
+    _isLoadingMore=false;
+    _page=-1;
+    
+    _userNotification=[NSMutableArray new];
+    _userNotificationRead=[NSArray new];
+    _userNotificationUnread=[NSArray new];
+}
+
+-(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    NSString *buttonTitle=[actionSheet buttonTitleAtIndex:buttonIndex];
+    
+    if([buttonTitle isEqualToString:@"Tất cả"])
+    {
+        [table showLoading];
+        
+        [self resetData];
+        _displayType=USER_NOTIFICATION_DISPLAY_ALL;
+        [self requestUserNotification];
+    }
+    else if([buttonTitle isEqualToString:@"Chưa đọc"])
+    {
+        [table showLoading];
+        
+        [self resetData];
+        _displayType=USER_NOTIFICATION_DISPLAY_UNREAD;
+        [self requestUserNotification];
+    }
+    else if([buttonTitle isEqualToString:@"Đã đọc"])
+    {
+        [table showLoading];
+        
+        [self resetData];
+        _displayType=USER_NOTIFICATION_DISPLAY_READ;
+        [self requestUserNotification];
+    }
 }
 
 -(void)ASIOperaionPostFinished:(ASIOperationPost *)operation
@@ -257,11 +350,6 @@
         _isLoadingMore=false;
         _canLoadMore=ope.userNotifications.count==10;
         _page++;
-        
-        if(!_isHasReadNotification && _userNotification.count>0)
-        {
-            _isHasReadNotification=[_userNotification filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"%K==%i",UserNotification_Status,USER_NOTIFICATION_STATUS_READ]].count>0;
-        }
         
         [self reloadData];
         
@@ -290,7 +378,7 @@
     _userNotification=nil;
 }
 
--(void) reloadData
+-(void) makeData
 {
     _userNotificationRead=[NSArray new];
     _userNotificationUnread=_userNotification;
@@ -299,6 +387,13 @@
         _userNotificationUnread=[_userNotification filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"%K==%i",UserNotification_Status,USER_NOTIFICATION_STATUS_UNREAD]];
         _userNotificationRead=[_userNotification filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"%K==%i",UserNotification_Status,USER_NOTIFICATION_STATUS_READ]];
     }
+    
+    _isHasReadNotification=_userNotificationRead.count>0;
+}
+
+-(void) reloadData
+{
+    [self makeData];
     
     [table reloadData];
 }

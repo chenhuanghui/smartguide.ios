@@ -9,6 +9,8 @@
 #import "SGViewController.h"
 #import "ASIOperationUserNotification.h"
 
+@class  UserNotificationHeaderView;
+
 @interface UserNotificationViewController : SGViewController
 {
     __weak IBOutlet UITableView *table;
@@ -23,6 +25,8 @@
     bool _canLoadMore;
     bool _isLoadingMore;
     bool _isHasReadNotification;
+    
+    __weak UserNotificationHeaderView *_headerView;
 }
 
 @end

@@ -40,6 +40,7 @@
     __weak IBOutlet UIButton *btnScanSmall;
     __weak IBOutlet UIView *blackView;
     __weak IBOutlet UIImageView *blurBottom;
+    __weak IBOutlet UIButton *btnNumOfNotification;
     
     ASIOperationUserHome *_operationUserHome;
     NSMutableArray *_homes;
