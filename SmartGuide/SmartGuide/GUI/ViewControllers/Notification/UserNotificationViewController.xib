@@ -19,7 +19,7 @@
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="hDa-6y-Rzp">
                     <rect key="frame" x="0.0" y="54" width="320" height="426"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" red="0.92156862745098034" green="0.92156862745098034" blue="0.92156862745098034" alpha="1" colorSpace="deviceRGB"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="IVh-Cs-LyQ"/>
                         <outlet property="delegate" destination="-1" id="AAC-k1-SB7"/>

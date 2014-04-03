@@ -7,6 +7,11 @@
 //
 
 #import "UserNotificationCell.h"
+#import <CoreText/CoreText.h>
+
+@interface UserNotificationCell()<UIScrollViewDelegate>
+
+@end
 
 @implementation UserNotificationCell
 
@@ -15,13 +20,31 @@
     _obj=obj;
     
     lblContent.attributedText=obj.contentAttribute;
-    lblContent.backgroundColor=[UIColor redColor];
-    [lblContent l_v_setH:obj.contentHeight.floatValue];
-//    lblTime.text=obj.time;
-    
+    lblTime.text=obj.time;
     displayContentView.backgroundColor=obj.enumStatus==USER_NOTIFICATION_STATUS_READ?[UIColor darkGrayColor]:[UIColor whiteColor];
     scroll.contentOffset=CGPointZero;
     scroll.contentSize=CGSizeMake(leftView.l_v_w+rightView.l_v_w, 0);
+}
+
+-(void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset
+{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self scrollViewDidEndDragged];
+    });
+}
+
+-(void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
+{
+    [self scrollViewDidEndDragged];
+}
+
+-(void) scrollViewDidEndDragged
+{
+    [scroll killScroll];
+    if(scroll.l_co_x>rightView.l_v_w/2)
+        [scroll l_co_setX:rightView.l_v_w animate:true];
+    else
+        [scroll l_co_setX:0 animate:true];
 }
 
 +(NSString *)reuseIdentifier
@@ -31,7 +54,7 @@
 
 +(float)heightWithUserNotification:(UserNotification *)obj
 {
-    float height=77;
+    float height=56;
     
     if(!obj.contentAttribute)
     {
@@ -51,17 +74,7 @@
             NSRange range=NSMakeRange([highlightIndex[i] integerValue], [highlightIndex[i+1] integerValue]);
             [attStr setAttributes:dict range:range];
         }
-
-        [contentAttribute appendAttributedString:attStr];
         
-        [dict setObject:[UIFont fontWithName:@"Avenir-Roman" size:1] forKey:NSFontAttributeName];
-        attStr=[[NSMutableAttributedString alloc] initWithString:@"\n\n" attributes:dict];
-        [contentAttribute appendAttributedString:attStr];
-        
-        [dict removeAllObjects];
-        [dict setObject:[UIFont fontWithName:@"Avenir-Roman" size:12] forKey:NSFontAttributeName];
-        [dict setObject:[UIColor blackColor] forKey:NSForegroundColorAttributeName];
-        attStr=[[NSMutableAttributedString alloc] initWithString:obj.time attributes:dict];
         [contentAttribute appendAttributedString:attStr];
         
         obj.contentAttribute=contentAttribute;
@@ -69,17 +82,20 @@
     
     if(obj.contentHeight.floatValue==-1)
     {
-        obj.contentHeight=@([obj.contentAttribute boundingRectWithSize:CGSizeMake(264, 9999) options:NSStringDrawingUsesFontLeading|NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingTruncatesLastVisibleLine context:nil].size.height);
+        CGRect rect=[obj.contentAttribute boundingRectWithSize:CGSizeMake(264, MAXFLOAT) options:(NSStringDrawingUsesLineFragmentOrigin) context:nil];
+        rect.size.height+=10;
+        
+        if(rect.size.height<36)
+            rect.size.height=21;
+        else
+            rect.size.height=50;
+        
+        obj.contentHeight=@(rect.size.height);
     }
     
-    height+=MAX(0,obj.contentHeight.floatValue-22);
-
+    height+=obj.contentHeight.floatValue;
+    
     return height;
-}
-
-- (IBAction)btnDetailTouchUpInside:(id)sender {
-    [scroll setContentOffset:CGPointZero animated:true];
-    [[self delegate] userNotificationCellTouchedDetail:self obj:_obj];
 }
 
 - (IBAction)btnRemoveTouchUpInside:(id)sender {
@@ -104,6 +120,17 @@
 -(void) tap:(UITapGestureRecognizer*) tap
 {
     [self.delegate userNotificationCellTouchedDetail:self obj:_obj];
+}
+
+@end
+
+@implementation ScrollUserNotification
+
+-(void)setContentOffset:(CGPoint)contentOffset
+{
+    contentOffset.x=MAX(0,contentOffset.x);
+    
+    [super setContentOffset:contentOffset];
 }
 
 @end

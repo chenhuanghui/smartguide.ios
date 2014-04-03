@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "UserNotification.h"
 
-@class UserNotificationCell;
+@class UserNotificationCell,ScrollUserNotification;
 
 @protocol UserNotificationCellDelegate <NSObject>
 
@@ -19,11 +19,10 @@
 
 @interface UserNotificationCell : UITableViewCell
 {
-    __weak IBOutlet UIScrollView *scroll;
+    __weak IBOutlet ScrollUserNotification *scroll;
     __weak IBOutlet UIView *leftView;
     __weak IBOutlet UIView *rightView;
     __weak IBOutlet UILabel *lblContent;
-    __weak IBOutlet UIButton *btnDetail;
     __weak IBOutlet UILabel *lblTime;
     __weak IBOutlet UIButton *btnRemove;
     __weak IBOutlet UIView *displayContentView;
@@ -37,5 +36,9 @@
 +(float) heightWithUserNotification:(UserNotification*) obj;
 
 @property (nonatomic, weak) id<UserNotificationCellDelegate> delegate;
+
+@end
+
+@interface ScrollUserNotification : UIScrollView
 
 @end
