@@ -478,6 +478,31 @@
     [self hideSettingController];
 }
 
+-(void)showShopListWithIDPlace:(int)idPlacelist
+{
+    SearchViewController *vc=[[SearchViewController alloc] initWithIDPlace:idPlacelist];
+    [self showSearchController:vc];
+}
+
+-(void)showShopListWithIDShops:(NSString *)idShops
+{
+    SearchViewController *vc=[[SearchViewController alloc] initWithIDShops:idShops];
+    [self showSearchController:vc];
+}
+
+-(void)showShopListWithKeywords:(NSString *)keywords
+{
+    SearchViewController *vc=[[SearchViewController alloc] initWithKeyword:keywords];
+    [self showSearchController:vc];
+}
+
+-(void)showTutorialWithURL:(NSString *)url
+{
+    TutorialViewController *vc=[[TutorialViewController alloc] initWithURL:url];
+    vc.delegate=self;
+    [[GUIManager shareInstance] presentSGViewController:vc completion:nil];
+}
+
 @end
 
 @interface ScrollViewRoot()<UIGestureRecognizerDelegate>

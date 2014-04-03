@@ -27,6 +27,10 @@
 -(void) presentShopUserWithHome8:(UserHome8*) home8;
 -(void) presentShopUserWithIDShop:(int) idShop;
 -(void) dismissShopUser;
+-(void) showShopListWithKeywords:(NSString*) keywords;
+-(void) showShopListWithIDPlace:(int) idPlacelist;
+-(void) showShopListWithIDShops:(NSString*) idShops;
+-(void) showTutorialWithURL:(NSString*) url;
 
 @property (weak, nonatomic) IBOutlet UIView *containView;
 @property (weak, nonatomic) IBOutlet UIView *contentView;

@@ -43,9 +43,16 @@
                     break;
                     
                 case USER_NOTIFICATION_CONTENT_TYPE_SHOP_LIST:
-                    obj.idPlacelist=[NSNumber numberWithObject:data[@"idPlacelist"]];
-                    obj.keywords=[NSString stringWithStringDefault:data[@"keywords"]];
-                    obj.idShops=[NSString stringWithStringDefault:data[@"idShops"]];
+                    
+                    if(data[@"idPlacelist"])
+                        obj.idPlacelist=[NSNumber numberWithObject:data[@"idPlacelist"]];
+                    
+                    if(data[@"keywords"])
+                        obj.keywords=[NSString stringWithStringDefault:data[@"keywords"]];
+                    
+                    if(data[@"idShops"])
+                        obj.idShops=[NSString stringWithStringDefault:data[@"idShops"]];
+                    
                     break;
                     
                 case USER_NOTIFICATION_CONTENT_TYPE_TUTORIAL:

@@ -9,8 +9,9 @@
 #import "UserNotificationDetailViewController.h"
 #import "UserNotificationDetailCell.h"
 #import "LoadingMoreCell.h"
+#import "GUIManager.h"
 
-@interface UserNotificationDetailViewController ()<UITableViewDataSource,UITableViewDelegate,ASIOperationPostDelegate>
+@interface UserNotificationDetailViewController ()<UITableViewDataSource,UITableViewDelegate,ASIOperationPostDelegate,UserNotificationDetailCellDelegate>
 
 @end
 
@@ -136,8 +137,37 @@
     UserNotificationDetailCell *cell=[tableView dequeueReusableCellWithIdentifier:[UserNotificationDetailCell reuseIdentifier]];
     
     [cell loadWithUserNotificationDetail:_userNotificationContents[indexPath.row]];
+    cell.delegate=self;
     
     return cell;
+}
+
+-(void)userNotificationDetailCellTouchedGo:(UserNotificationDetailCell *)cell userNotificationDetail:(UserNotificationContent *)obj
+{
+    switch (obj.enumType) {
+        case USER_NOTIFICATION_CONTENT_TYPE_SHOP_DETAIL:
+            [[GUIManager shareInstance].rootViewController presentShopUserWithIDShop:obj.idShop.integerValue];
+            break;
+            
+        case USER_NOTIFICATION_CONTENT_TYPE_SHOP_LIST:
+            
+            if(obj.idPlacelist)
+                [[GUIManager shareInstance].rootViewController showShopListWithIDPlace:obj.idPlacelist.integerValue];
+            else if(obj.keywords.length>0)
+                [[GUIManager shareInstance].rootViewController showShopListWithKeywords:obj.keywords];
+            else if(obj.idShops.length>0)
+                [[GUIManager shareInstance].rootViewController showShopListWithIDShops:obj.idShops];
+            
+            break;
+            
+        case USER_NOTIFICATION_CONTENT_TYPE_TUTORIAL:
+            if(obj.urlTutorial.length>0)
+                [[GUIManager shareInstance].rootViewController showTutorialWithURL:obj.urlTutorial];
+            break;
+            
+        case USER_NOTIFICATION_CONTENT_TYPE_NONE:
+            break;
+    }
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

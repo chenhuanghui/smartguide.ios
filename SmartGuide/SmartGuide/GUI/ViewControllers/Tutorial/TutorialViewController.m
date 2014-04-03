@@ -24,12 +24,25 @@
     return self;
 }
 
+-(TutorialViewController *)initWithURL:(NSString *)url
+{
+    self = [super initWithNibName:@"TutorialViewController" bundle:nil];
+    if (self) {
+        // Custom initialization
+        _url=[NSString stringWithStringDefault:url];
+    }
+    return self;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    NSURL *url=[NSURL URLWithString:@"http://infory.vn/mobile/guide"];
+    if(_url.length==0)
+        _url=@"http://infory.vn/mobile/guide";
+    
+    NSURL *url=[NSURL URLWithString:_url];
     NSURLRequest *request=[NSURLRequest requestWithURL:url];
     [self.webview loadRequest:request];
 }

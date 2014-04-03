@@ -17,6 +17,11 @@
 @end
 
 @interface TutorialViewController : SGViewController
+{
+    NSString *_url;
+}
+
+-(TutorialViewController*) initWithURL:(NSString*) url;
 
 @property (weak, nonatomic) IBOutlet UIWebView *webview;
 @property (nonatomic, weak) id<TutorialDelegate> delegate;

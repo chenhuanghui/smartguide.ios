@@ -94,4 +94,8 @@
     [self.delegate userNotificationDetailCellTouchedGo:self userNotificationDetail:_obj];
 }
 
+- (IBAction)btnGoToTouchUpInside:(id)sender {
+    [self.delegate userNotificationDetailCellTouchedGo:self userNotificationDetail:_obj];
+}
+
 @end

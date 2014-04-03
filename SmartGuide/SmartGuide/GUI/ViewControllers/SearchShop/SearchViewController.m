@@ -46,6 +46,16 @@
     return self;
 }
 
+-(SearchViewController *)initWithIDPlace:(int)idPlace
+{
+    self=[super initWithNibName:@"SearchViewController" bundle:nil];
+    
+    _viewMode=SEARCH_VIEW_MODE_LIST;
+    _idPlacelist=idPlace;
+    
+    return self;
+}
+
 -(SearchViewController *)initWithIDShops:(NSString *)idShops
 {
     self=[super initWithNibName:@"SearchViewController" bundle:nil];
@@ -88,6 +98,16 @@
     
     UIViewController *root=nil;
     switch (_viewMode) {
+            
+        case SEARCH_VIEW_MODE_IDPLACE:
+        {
+            ShopListViewController *vc=[[ShopListViewController alloc] initWithIDPlacelist:_idPlacelist];
+            vc.searchController=self;
+            vc.delegate=self;
+            
+            root=vc;
+        }
+            break;
             
         case SEARCH_VIEW_MODE_KEYWORK_SHOP_LIST:
         {
