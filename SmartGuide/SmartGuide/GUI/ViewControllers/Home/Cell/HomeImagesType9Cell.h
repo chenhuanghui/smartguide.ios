@@ -10,9 +10,9 @@
 #import "UserHome.h"
 #import "PageControl.h"
 
-@interface HomeImagesType9Cell : UITableViewCell<UITableViewDataSource,UITableViewDelegate>
+@interface HomeImagesType9Cell : UITableViewCell
 {
-    __weak IBOutlet UITableView *table;
+    __weak IBOutlet UICollectionView *collView;
     __weak UserHome *_home;
     __weak IBOutlet PageControlNext *page;
 }

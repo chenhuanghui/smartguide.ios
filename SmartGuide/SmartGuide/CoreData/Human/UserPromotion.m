@@ -2,7 +2,7 @@
 #import "Utility.h"
 
 @implementation UserPromotion
-@synthesize titleHeight,contentHeight,imageHomeSize;
+@synthesize titleHeight,contentHeight,homeSize;
 
 -(id)initWithEntity:(NSEntityDescription *)entity insertIntoManagedObjectContext:(NSManagedObjectContext *)context
 {
@@ -28,6 +28,9 @@
     obj.type=[NSNumber numberWithObject:dict[@"type"]];
     obj.coverHeight=[NSNumber numberWithObject:dict[@"coverHeight"]];
     obj.coverWidth=[NSNumber numberWithObject:dict[@"coverWidth"]];
+    
+    float fixWidth=296;
+    obj.homeSize=CGSizeMake(fixWidth, MAX(0,fixWidth*obj.coverHeight.floatValue/obj.coverWidth.floatValue));
     
     switch (obj.promotionType) {
         case USER_PROMOTION_BRAND:

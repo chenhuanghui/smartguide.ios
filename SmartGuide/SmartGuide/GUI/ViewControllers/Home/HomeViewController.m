@@ -272,8 +272,7 @@
                 return [HomePromotionCell heightWithHome8:home.home8];
                 
             case USER_HOME_TYPE_9:
-                return home.home9Size.height;
-//                return home.imageHeight.floatValue;
+                return home.home9Size.height+15;
                 
             case USER_HOME_TYPE_UNKNOW:
                 NSLog(@"USER_HOME_TYPE_UNKNOW heightForRowAtIndexPath");

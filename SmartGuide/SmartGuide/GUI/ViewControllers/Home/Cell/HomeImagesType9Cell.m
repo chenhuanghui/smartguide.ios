@@ -10,6 +10,10 @@
 #import "Utility.h"
 #import "HomeImageType9Cell.h"
 
+@interface HomeImagesType9Cell()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout>
+
+@end
+
 @implementation HomeImagesType9Cell
 
 -(void)loadWithHome9:(UserHome *)home
@@ -18,39 +22,39 @@
     page.numberOfPages=_home.imagesObjects.count;
     page.hidden=_home.imagesObjects.count==1;
     
-    [table reloadData];
+    [collView reloadData];
 }
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    [page scrollViewDidScroll:scrollView isHorizontal:true];
+    [page scrollViewDidScroll:scrollView isHorizontal:false];
 }
 
--(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+-(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
     return _home.imagesObjects.count==0?0:1;
 }
 
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+-(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     return _home.imagesObjects.count;
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+-(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    return tableView.l_v_w;
+    return CGSizeMake(collectionView.l_v_w, _home.home9Size.height);
 }
 
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+-(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    HomeImageType9Cell *cell=(HomeImageType9Cell*)[tableView dequeueReusableCellWithIdentifier:[HomeImageType9Cell reuseIdentifier]];
-    UserHomeImage *img=_home.imagesObjects[0];
+    HomeImageType9Cell *cell=(HomeImageType9Cell*)[collView dequeueReusableCellWithReuseIdentifier:[HomeImageType9Cell reuseIdentifier] forIndexPath:indexPath];
+    UserHomeImage *img=_home.imagesObjects[indexPath.row];
     
-    cell.table=tableView;
+    cell.collView=collectionView;
     cell.indexPath=indexPath;
     cell.home=_home;
     
-    [cell loadWithURL:img.image width:_home.imageWidth.floatValue height:_home.imageHeight.floatValue];
+    [cell loadWithURL:img.image size:CGSizeMake(collectionView.l_v_w, _home.imageHeight.floatValue)];
     
     return cell;
 }
@@ -59,11 +63,7 @@
 {
     [super awakeFromNib];
  
-    CGRect rect=table.frame;
-    table.transform=CGAffineTransformMakeRotation(DEGREES_TO_RADIANS(45)*6);
-    table.frame=rect;
-    
-    [table registerNib:[UINib nibWithNibName:[HomeImageType9Cell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[HomeImageType9Cell reuseIdentifier]];
+    [collView registerNib:[UINib nibWithNibName:[HomeImageType9Cell reuseIdentifier] bundle:nil] forCellWithReuseIdentifier:[HomeImageType9Cell reuseIdentifier]];
     
     page.dotColorCurrentPage=[UIColor whiteColor];
     page.dotColorOtherPage=[[UIColor whiteColor] colorWithAlphaComponent:0.5];

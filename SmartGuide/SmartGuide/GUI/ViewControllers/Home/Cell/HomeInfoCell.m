@@ -26,10 +26,8 @@
     lblGoTo.text=home.gotoshop;
     
     [self makeButtonSize];
-    
-    imgvCover.viewWillSize=home.imageHomeSize;
-    
-    [imgvCover l_v_setH:home.imageHomeSize.height];
+
+    [imgvCover l_v_setH:home.homeSize.height];
     [lblTitle l_v_setY:imgvCover.l_v_y+imgvCover.l_v_h+10];
     [lblTitle l_v_setH:home.titleHeight];
     
@@ -37,6 +35,8 @@
     [lblContent l_v_setH:home.contentHeight];
     
     [imgvCover loadHome6CoverWithURL:home.cover];
+    
+    NSLog(@"%@ %@",home.shopName,home.cover);
 }
 
 -(void)loadWithHome7:(UserHome7 *)home
@@ -53,9 +53,7 @@
     
     [self makeButtonSize];
 
-    imgvCover.viewWillSize=home.imageHomeSize;
-    
-    [imgvCover l_v_setH:home.imageHomeSize.height];
+    [imgvCover l_v_setH:home.homeSize.height];
     [lblTitle l_v_setY:imgvCover.l_v_y+imgvCover.l_v_h+10];
     [lblTitle l_v_setH:home.titleHeight];
     
@@ -63,6 +61,8 @@
     [lblContent l_v_setH:home.contentHeight];
     
     [imgvCover loadHome7CoverWithURL:home.cover];
+    
+    NSLog(@"%@ %@",home.title,home.cover);
 }
 
 -(void)loadWithUserPromotion:(UserPromotion *)obj
@@ -79,9 +79,7 @@
     
     [self makeButtonSize];
     
-    imgvCover.viewWillSize=obj.imageHomeSize;
-    
-    [imgvCover l_v_setH:obj.imageHomeSize.height];
+    [imgvCover l_v_setH:obj.homeSize.height];
     [lblTitle l_v_setY:imgvCover.l_v_y+imgvCover.l_v_h+10];
     [lblTitle l_v_setH:obj.titleHeight];
 
@@ -115,8 +113,7 @@
         home.contentHeight=[home.content sizeWithFont:[UIFont fontWithName:@"Avenir-Roman" size:13] constrainedToSize:CGSizeMake(265, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height+5;
     
     height+=home.contentHeight;
-    home.imageHomeSize=[ImageScaleCropHeight makeSizeFromImageSize:CGSizeMake(home.coverWidth.floatValue, home.coverHeight.floatValue) willWidth:296];
-    height+=home.imageHomeSize.height;
+    height+=home.homeSize.height;
     
     return height;
 }
@@ -136,8 +133,7 @@
         home.contentHeight=[home.content sizeWithFont:[UIFont fontWithName:@"Avenir-Roman" size:13] constrainedToSize:CGSizeMake(265, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height+5;
     
     height+=home.contentHeight;
-    home.imageHomeSize=[ImageScaleCropHeight makeSizeFromImageSize:CGSizeMake(home.coverWidth.floatValue, home.coverHeight.floatValue) willWidth:296];
-    height+=home.imageHomeSize.height;
+    height+=home.homeSize.height;
     
     return height;
 }
@@ -157,8 +153,7 @@
         obj.contentHeight=[obj.desc sizeWithFont:[UIFont fontWithName:@"Avenir-Roman" size:13] constrainedToSize:CGSizeMake(265, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height+5;
     
     height+=obj.contentHeight;
-    obj.imageHomeSize=[ImageScaleCropHeight makeSizeFromImageSize:CGSizeMake(obj.coverWidth.floatValue, obj.coverHeight.floatValue) willWidth:296];
-    height+=obj.imageHomeSize.height;
+    height+=obj.homeSize.height;
     
     return height;
 }

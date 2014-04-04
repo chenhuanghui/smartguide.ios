@@ -13,6 +13,7 @@
 #import "GooglePlusManager.h"
 #import "Flurry.h"
 #import "GUIManager.h"
+#import "SDWebImageManager.h"
 
 @implementation AppDelegate
 
@@ -21,6 +22,7 @@
     CGRect rect=[[UIScreen mainScreen] bounds];
     self.window = [[UIWindow alloc] initWithFrame:rect];
     
+    [[SDWebImageManager sharedManager].imageCache clearDisk];
     [Flurry setAppVersion:@"0.0a"];
     [Flurry startSession:@"SG974KP6KXTQ8P4ZRYHN" withOptions:launchOptions];
     

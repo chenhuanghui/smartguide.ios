@@ -2,7 +2,7 @@
 #import "Utility.h"
 
 @implementation UserHome7
-@synthesize contentHeight,titleHeight,imageHomeSize;
+@synthesize contentHeight,titleHeight,homeSize;
 
 -(id)initWithEntity:(NSEntityDescription *)entity insertIntoManagedObjectContext:(NSManagedObjectContext *)context
 {
@@ -27,6 +27,9 @@
     home.gotostore=[NSString stringWithStringDefault:dict[@"goto"]];
     home.coverHeight=[NSNumber numberWithObject:dict[@"coverHeight"]];
     home.coverWidth=[NSNumber numberWithObject:dict[@"coverWidth"]];
+    
+    float fixWidth=296;
+    home.homeSize=CGSizeMake(fixWidth, MAX(0,fixWidth*home.coverHeight.floatValue/home.coverWidth.floatValue));
     
     return home;
 }

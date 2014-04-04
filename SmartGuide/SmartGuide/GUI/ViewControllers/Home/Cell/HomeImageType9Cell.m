@@ -7,36 +7,20 @@
 //
 
 #import "HomeImageType9Cell.h"
-#import "ImageManager.h"
+#import "ImageCacheManager.h"
 #import "Utility.h"
+#import "ImageManager.h"
 
 @implementation HomeImageType9Cell
 
--(void)loadWithURL:(NSString *)url width:(float)width height:(float)height
+-(void)loadWithURL:(NSString *)url size:(CGSize)size
 {
-    imgv.viewWillSize=CGSizeMake(self.home.home9Size.height, self.home.home9Size.width);
-    
-    [imgv loadImageHomeListWithURL:url];
+    [imgv loadImageHomeWithURL:url];
 }
 
 +(NSString *)reuseIdentifier
 {
     return @"HomeImageType9Cell";
-}
-
--(void)setFrame:(CGRect)frame
-{
-    frame.size.width=self.home.home9Size.height;
-    [super setFrame:frame];
-}
-
--(void)awakeFromNib
-{   
-    [super awakeFromNib];
-    
-    CGRect rect=self.frame;
-    self.transform=CGAffineTransformMakeRotation(DEGREES_TO_RADIANS(45)*2);
-    self.frame=rect;
 }
 
 @end

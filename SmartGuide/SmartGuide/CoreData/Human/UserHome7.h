@@ -11,6 +11,6 @@
 
 @property (nonatomic, assign) float titleHeight;
 @property (nonatomic, assign) float contentHeight;
-@property (nonatomic, assign) CGSize imageHomeSize;
+@property (nonatomic, assign) CGSize homeSize;
 
 @end

@@ -381,8 +381,8 @@
         <element name="UserHome8" positionX="0" positionY="0" width="128" height="105"/>
         <element name="UserHomeImage" positionX="0" positionY="0" width="128" height="90"/>
         <element name="UserNotification" positionX="9" positionY="153" width="128" height="148"/>
+        <element name="UserNotificationContent" positionX="9" positionY="153" width="128" height="238"/>
         <element name="UserPlacelist" positionX="0" positionY="0" width="128" height="120"/>
         <element name="UserPromotion" positionX="0" positionY="0" width="128" height="270"/>
-        <element name="UserNotificationContent" positionX="9" positionY="153" width="128" height="238"/>
     </elements>
 </model>

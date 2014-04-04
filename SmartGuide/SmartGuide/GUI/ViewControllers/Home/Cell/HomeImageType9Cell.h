@@ -8,17 +8,16 @@
 
 #import <UIKit/UIKit.h>
 #import "UserHome.h"
-#import "ImageScaleCrop.h"
 
-@interface HomeImageType9Cell : UITableViewCell
+@interface HomeImageType9Cell : UICollectionViewCell
 {
-    __weak IBOutlet ImageScaleCropAspectFit *imgv;
+    __weak IBOutlet UIImageView *imgv;
 }
 
--(void) loadWithURL:(NSString*) url width:(float) width height:(float) height;
+-(void) loadWithURL:(NSString*) url size:(CGSize) size;
 +(NSString *)reuseIdentifier;
 
-@property (nonatomic, weak,readwrite) UITableView *table;
+@property (nonatomic, weak,readwrite) UICollectionView *collView;
 @property (nonatomic, strong) NSIndexPath *indexPath;
 @property (nonatomic, weak, readwrite) UserHome *home;
 

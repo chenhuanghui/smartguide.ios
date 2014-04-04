@@ -55,6 +55,8 @@
 
 -(UIViewContentMode) showLoadingImageSmall;
 
+-(void) requestImageWithURL:(NSString*) url size:(CGSize) size onCompleted:(void(^)(UIImage *img)) onCompleted;
+
 @end
 
 @interface UIButton(ImageManager)

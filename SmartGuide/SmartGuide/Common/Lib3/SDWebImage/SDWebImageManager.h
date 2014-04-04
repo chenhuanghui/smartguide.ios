@@ -11,6 +11,13 @@
 #import "SDWebImageDownloader.h"
 #import "SDImageCache.h"
 
+@interface ResizeImageObject : NSObject
+
+@property (nonatomic, strong) UIImage *resizeImage;
+@property (nonatomic, strong) NSString *key;
+
+@end
+
 typedef NS_OPTIONS(NSUInteger, SDWebImageOptions) {
     /**
      * By default, when a URL fail to be downloaded, the URL is blacklisted so the library won't keep trying.
@@ -177,6 +184,12 @@ SDWebImageManager *manager = [SDWebImageManager sharedManager];
                                    progress:(SDWebImageDownloaderProgressBlock)progressBlock
                                   completed:(SDWebImageCompletedWithFinishedBlock)completedBlock;
 
+- (id <SDWebImageOperation>)downloadWithURL:(NSURL *)url
+                                    options:(SDWebImageOptions)options
+                                   progress:(SDWebImageDownloaderProgressBlock)progressBlock
+                                 storeImage:(ResizeImageObject*(^)(UIImage* downloadedImage)) onStoreImage
+                                  completed:(SDWebImageCompletedWithFinishedBlock)completedBlock;
+
 /**
  * Cancel all current opreations
  */
@@ -191,5 +204,6 @@ SDWebImageManager *manager = [SDWebImageManager sharedManager];
  * Check if image has already been cached
  */
 - (BOOL)diskImageExistsForURL:(NSURL *)url;
+- (BOOL)diskImageResizeExistsForURL:(NSString*) url;
 
 @end

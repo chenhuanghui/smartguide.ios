@@ -31,8 +31,7 @@
     if(home.enumType==USER_HOME_TYPE_9)
     {
         float frameWidthLayoutHome9=296;
-        float w=home.imageWidth.floatValue/frameWidthLayoutHome9;
-        home.home9Size=CGSizeMake(frameWidthLayoutHome9, home.imageHeight.floatValue/w);
+        home.home9Size=CGSizeMake(frameWidthLayoutHome9, MAX(0,frameWidthLayoutHome9*home.imageHeight.floatValue/home.imageWidth.floatValue));
     }
     
     return home;

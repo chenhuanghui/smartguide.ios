@@ -358,6 +358,11 @@ static ImageManager *_imageManager=nil;
     self.contentMode=mode;
 }
 
+-(void)requestImageWithURL:(NSString *)url size:(CGSize)size onCompleted:(void (^)(UIImage *))onCompleted
+{
+    
+}
+
 @end
 
 @implementation UIButton(ImageManager)
