@@ -35,8 +35,6 @@
     [lblContent l_v_setH:home.contentHeight];
     
     [imgvCover loadHome6CoverWithURL:home.cover];
-    
-    NSLog(@"%@ %@",home.shopName,home.cover);
 }
 
 -(void)loadWithHome7:(UserHome7 *)home
@@ -61,8 +59,6 @@
     [lblContent l_v_setH:home.contentHeight];
     
     [imgvCover loadHome7CoverWithURL:home.cover];
-    
-    NSLog(@"%@ %@",home.title,home.cover);
 }
 
 -(void)loadWithUserPromotion:(UserPromotion *)obj

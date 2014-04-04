@@ -41,17 +41,23 @@
     [super awakeFromNib];
     
     ImageDefaultBGView *bg=[[ImageDefaultBGView alloc] initWithFrame:CGRectMake(0, 0, self.l_v_w, self.l_v_h)];
-    bg.autoresizingMask=UIViewAutoresizingAll();
-    bg.alpha=0;
+    bg.alpha=1;
     
     [self addSubview:bg];
     
     bgView=bg;
 }
 
+-(void)setFrame:(CGRect)frame
+{
+    [super setFrame:frame];
+    frame.origin=CGPointZero;
+    bgView.frame=frame;
+}
+
 -(void)setImage:(UIImage *)image
 {
-    [UIView animateWithDuration:0.5f delay:0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
+    [UIView animateWithDuration:0.3f delay:0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
         bgView.alpha=image==nil?1:0;
     } completion:nil];
     

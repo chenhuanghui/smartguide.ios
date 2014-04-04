@@ -10,7 +10,7 @@
 #import "UIImageView+WebCache.h"
 #import "Utility.h"
 
-#define IPHONE_IMAGE_DOWNLOAD_OPTIONS (IS_IPHONE_4?0:SDWebImageProgressiveDownload)
+#define IPHONE_IMAGE_DOWNLOAD_OPTIONS (IS_IPHONE_4?0:0)
 
 static NSMutableArray *_loadingImages=nil;
 static NSMutableArray *_loadingImagesSmall=nil;

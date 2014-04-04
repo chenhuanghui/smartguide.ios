@@ -982,6 +982,7 @@
 		A9A19D5F17C4088E000D0ECD /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9A19D5E17C4088E000D0ECD /* MessageUI.framework */; };
 		A9A505A9178E8B8400F27E18 /* AlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A505A8178E8B8400F27E18 /* AlertView.m */; };
 		A9A505E9178EC60300F27E18 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9A505E8178EC60300F27E18 /* CoreText.framework */; };
+		A9AC694A18EEC28F006279FE /* ImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = A9AC694918EEC28F006279FE /* ImageView.m */; };
 		A9B6D24A18EE52CE00D9BA5D /* ImageResizedCache.m in Sources */ = {isa = PBXBuildFile; fileRef = A9B6D24918EE52CE00D9BA5D /* ImageResizedCache.m */; };
 		A9B807F2179FC0E400C8E003 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9B807F1179FC0E400C8E003 /* CFNetwork.framework */; };
 		A9B807F4179FC1B900C8E003 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A9B807F3179FC1B900C8E003 /* libz.dylib */; };
@@ -2393,6 +2394,8 @@
 		A9A505A7178E8B8400F27E18 /* AlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlertView.h; sourceTree = "<group>"; };
 		A9A505A8178E8B8400F27E18 /* AlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlertView.m; sourceTree = "<group>"; };
 		A9A505E8178EC60300F27E18 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
+		A9AC694818EEC28F006279FE /* ImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageView.h; sourceTree = "<group>"; };
+		A9AC694918EEC28F006279FE /* ImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageView.m; sourceTree = "<group>"; };
 		A9B6D24818EE52CE00D9BA5D /* ImageResizedCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageResizedCache.h; sourceTree = "<group>"; };
 		A9B6D24918EE52CE00D9BA5D /* ImageResizedCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageResizedCache.m; sourceTree = "<group>"; };
 		A9B807F1179FC0E400C8E003 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
@@ -3895,6 +3898,7 @@
 		A98198B4178D3FA70009FCB6 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				A9AC694718EEC27D006279FE /* ImageView */,
 				9ADCD8B018D19C3F004CB67E /* Lib3 */,
 				9A7AC23018D191D90043316D /* Map */,
 				9A1B010518BE5D1C005FC9C1 /* ImageScaleCrop */,
@@ -4537,6 +4541,15 @@
 				9A9ED305187D06D00081A16E /* GooglePlusManager.m */,
 			);
 			path = Social;
+			sourceTree = "<group>";
+		};
+		A9AC694718EEC27D006279FE /* ImageView */ = {
+			isa = PBXGroup;
+			children = (
+				A9AC694818EEC28F006279FE /* ImageView.h */,
+				A9AC694918EEC28F006279FE /* ImageView.m */,
+			);
+			path = ImageView;
 			sourceTree = "<group>";
 		};
 		A9BF9486178FB87300EF7E5F /* Location */ = {
@@ -5804,6 +5817,7 @@
 				9ADCD95718D19C3F004CB67E /* HPTextViewInternal.m in Sources */,
 				A9BFE86B18E96972008C542E /* UserNotificationDetailViewController.m in Sources */,
 				9ADCD96818D19C3F004CB67E /* TPKeyboardAvoidingScrollView.m in Sources */,
+				A9AC694A18EEC28F006279FE /* ImageView.m in Sources */,
 				A97C847417B0236400D9CEB9 /* ASIOperationShopProduct.m in Sources */,
 				A925E3CF17B089EB00806617 /* TokenManager.m in Sources */,
 				A925E3DC17B09B9400806617 /* ASIOperationUploadUserGallery.m in Sources */,

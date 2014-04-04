@@ -14,7 +14,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="302" height="154"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView autoresizesSubviews="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="xge-lj-74i">
+                    <imageView autoresizesSubviews="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="xge-lj-74i" customClass="ImageView">
                         <rect key="frame" x="0.0" y="0.0" width="302" height="155"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     </imageView>
