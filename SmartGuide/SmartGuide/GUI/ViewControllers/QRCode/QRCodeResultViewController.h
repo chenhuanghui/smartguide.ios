@@ -20,19 +20,19 @@
     __weak IBOutlet UIView *result0View;
     __weak IBOutlet UIView *disconnectView;
     __weak IBOutlet UILabel *lbl0Message;
-    __weak IBOutlet UILabel *lbl1Message;
+    __weak IBOutlet UITextView *lbl1Message;
     __weak IBOutlet UILabel *lbl1ShopName;
-    __weak IBOutlet UILabel *lbl2Message;
+    __weak IBOutlet UITextView *lbl2Message;
     __weak IBOutlet FTCoreTextView *lbl2SGP;
     __weak IBOutlet UILabel *lbl2ShopName;
-    __weak IBOutlet UILabel *lbl3Message;
+    __weak IBOutlet UITextView *lbl3Message;
     __weak IBOutlet UILabel *lbl3Type;
-    __weak IBOutlet UILabel *lbl3Gift;
+    __weak IBOutlet UITextView *lbl3Gift;
     __weak IBOutlet FTCoreTextView *lbl3SGP;
     __weak IBOutlet UILabel *lbl3ShopName;
-    __weak IBOutlet UILabel *lbl4Message;
+    __weak IBOutlet UITextView *lbl4Message;
     __weak IBOutlet UILabel *lbl4Type;
-    __weak IBOutlet UILabel *lbl4VoucherName;
+    __weak IBOutlet UITextView *lbl4VoucherName;
     __weak IBOutlet UILabel *lbl4ShopName;
 }
 

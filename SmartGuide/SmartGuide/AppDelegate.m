@@ -22,7 +22,13 @@
     CGRect rect=[[UIScreen mainScreen] bounds];
     self.window = [[UIWindow alloc] initWithFrame:rect];
     
-    [[SDWebImageManager sharedManager].imageCache clearDisk];
+    if(![[NSUserDefaults standardUserDefaults] boolForKey:@"isCleanDisk"])
+    {
+        [[NSUserDefaults standardUserDefaults] setObject:@(true) forKey:@"isCleanDisk"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        [[SDWebImageManager sharedManager].imageCache clearDisk];
+    }
+    
     [Flurry setAppVersion:@"0.0a"];
     [Flurry startSession:@"SG974KP6KXTQ8P4ZRYHN" withOptions:launchOptions];
     

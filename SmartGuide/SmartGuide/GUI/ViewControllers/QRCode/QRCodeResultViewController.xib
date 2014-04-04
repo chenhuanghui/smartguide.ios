@@ -9,20 +9,20 @@
             <connections>
                 <outlet property="disconnectView" destination="z6Z-Zj-K95" id="NXu-Sr-3GK"/>
                 <outlet property="lbl0Message" destination="ftH-tF-FJe" id="o4X-mH-YzJ"/>
-                <outlet property="lbl1Message" destination="Ibs-xU-jxJ" id="vxl-ZQ-aiG"/>
+                <outlet property="lbl1Message" destination="7iO-uK-2Rv" id="pQI-Qs-f9c"/>
                 <outlet property="lbl1ShopName" destination="YIL-sX-uWz" id="Mtk-4t-O3s"/>
-                <outlet property="lbl2Message" destination="Edt-2a-WxS" id="Of0-JM-CWd"/>
+                <outlet property="lbl2Message" destination="m7I-fy-oi8" id="Sfu-iI-a58"/>
                 <outlet property="lbl2SGP" destination="U65-Sp-ESz" id="EpD-eI-LxQ"/>
                 <outlet property="lbl2ShopName" destination="Jtu-uD-TjJ" id="0mJ-Io-cqA"/>
-                <outlet property="lbl3Gift" destination="GAe-mu-y8H" id="yaB-6v-tMB"/>
-                <outlet property="lbl3Message" destination="YOp-2b-K0B" id="NQP-rF-2cg"/>
+                <outlet property="lbl3Gift" destination="LK0-zN-KGj" id="qkE-hJ-T3b"/>
+                <outlet property="lbl3Message" destination="Uj5-fx-68Y" id="Wmq-Nk-7n3"/>
                 <outlet property="lbl3SGP" destination="ogu-db-5sQ" id="wbr-6N-Qjg"/>
                 <outlet property="lbl3ShopName" destination="icV-mP-579" id="Hgy-kn-1iC"/>
                 <outlet property="lbl3Type" destination="y5q-Eq-kiC" id="65V-dG-MDy"/>
-                <outlet property="lbl4Message" destination="012-os-Mup" id="gUo-qd-VJI"/>
+                <outlet property="lbl4Message" destination="eBO-bU-43Z" id="O9R-nX-bOk"/>
                 <outlet property="lbl4ShopName" destination="sqm-iL-avN" id="BC9-Ce-hua"/>
                 <outlet property="lbl4Type" destination="2oG-iu-iJy" id="4pD-8f-D4E"/>
-                <outlet property="lbl4VoucherName" destination="jTX-B9-yCp" id="kMy-Wx-SgS"/>
+                <outlet property="lbl4VoucherName" destination="eSe-Sd-BJh" id="22K-ki-Ils"/>
                 <outlet property="result0View" destination="XlD-sp-ctM" id="GEJ-Yn-9LB"/>
                 <outlet property="result1View" destination="3cI-ZY-r09" id="4k3-NT-l8Q"/>
                 <outlet property="result2View" destination="WGl-O2-JXV" id="dnp-Pa-D4U"/>
@@ -92,13 +92,14 @@
                             <rect key="frame" x="128" y="158" width="64" height="64"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
                         </imageView>
-                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Thẻ không hợp lệ" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Ibs-xU-jxJ">
+                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" textAlignment="center" id="7iO-uK-2Rv">
                             <rect key="frame" x="64" y="223" width="190" height="85"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
-                            <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="13"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                            <nil key="highlightedColor"/>
-                        </label>
+                            <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="13"/>
+                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                        </textView>
                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SMARTGUIDE" textAlignment="center" lineBreakMode="middleTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="YIL-sX-uWz">
                             <rect key="frame" x="105" y="44" width="110" height="67"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -115,13 +116,14 @@
                 <view hidden="YES" contentMode="scaleToFill" id="WGl-O2-JXV" userLabel="2">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="380"/>
                     <subviews>
-                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bạn nhận được" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Edt-2a-WxS">
-                            <rect key="frame" x="65" y="150" width="190" height="50"/>
+                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" textAlignment="center" id="m7I-fy-oi8">
+                            <rect key="frame" x="65" y="150" width="190" height="45"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="12"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                            <nil key="highlightedColor"/>
-                        </label>
+                            <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="12"/>
+                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                        </textView>
                         <view contentMode="center" id="U65-Sp-ESz" customClass="FTCoreTextView">
                             <rect key="frame" x="65" y="197" width="190" height="50"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -154,13 +156,14 @@
                 <view hidden="YES" contentMode="scaleToFill" id="a8v-Xy-g7q" userLabel="3">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="380"/>
                     <subviews>
-                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bạn nhận được quà" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="YOp-2b-K0B">
-                            <rect key="frame" x="65" y="144" width="190" height="50"/>
+                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" textAlignment="center" id="Uj5-fx-68Y">
+                            <rect key="frame" x="65" y="144" width="190" height="45"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="12"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                            <nil key="highlightedColor"/>
-                        </label>
+                            <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="12"/>
+                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                        </textView>
                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loại A" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="y5q-Eq-kiC">
                             <rect key="frame" x="65" y="175" width="190" height="50"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -168,13 +171,14 @@
                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Giảm 5% cho thức uống" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="GAe-mu-y8H">
+                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" textAlignment="center" id="LK0-zN-KGj">
                             <rect key="frame" x="65" y="211" width="190" height="38"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="12"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                            <nil key="highlightedColor"/>
-                        </label>
+                            <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="12"/>
+                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                        </textView>
                         <view contentMode="scaleToFill" id="ogu-db-5sQ" customClass="FTCoreTextView">
                             <rect key="frame" x="65" y="246" width="190" height="50"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -207,13 +211,14 @@
                 <view hidden="YES" contentMode="scaleToFill" id="Pgz-gb-StA" userLabel="4">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="380"/>
                     <subviews>
-                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="012-os-Mup">
-                            <rect key="frame" x="65" y="150" width="190" height="50"/>
+                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" textAlignment="center" id="eBO-bU-43Z">
+                            <rect key="frame" x="65" y="150" width="190" height="45"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="12"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                            <nil key="highlightedColor"/>
-                        </label>
+                            <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="12"/>
+                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                        </textView>
                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loại A" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="2oG-iu-iJy">
                             <rect key="frame" x="65" y="200" width="190" height="25"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -221,13 +226,14 @@
                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Giảm 5% cho thức uống" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="jTX-B9-yCp" customClass="LabelTopText">
+                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" id="eSe-Sd-BJh">
                             <rect key="frame" x="65" y="225" width="190" height="80"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="12"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                            <nil key="highlightedColor"/>
-                        </label>
+                            <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="12"/>
+                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                        </textView>
                         <imageView userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background_flag_arlet.png" id="Gxs-l7-axp">
                             <rect key="frame" x="40" y="38" width="240" height="128"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>

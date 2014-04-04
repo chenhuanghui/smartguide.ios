@@ -271,6 +271,8 @@
 
 -(void) displayResult:(id) result
 {
+    NSLog(@"%@",result);
+    
     _result=result;
     _isScanningCode=false;
     QRCodeResultViewController *vc=[[QRCodeResultViewController alloc] initWithResult:result];
@@ -367,27 +369,27 @@
     if(btn.tag==0)
     {
         ScanQRCodeResult0 *result=[ScanQRCodeResult0 new];
-        result.message=@"Lorem ipsum dolor sit";
+        result.message=@"Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat";
         
         [self displayResult:result];
     }
     else if(btn.tag==1)
     {
-        NSString *str=@"Lorem ipsum dolor sit amet, consectetuer Lorem ";
+        NSString *str=@"Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat";
         
         ScanQRCodeResult1 *result=[ScanQRCodeResult1 new];
         result.message=str;
         result.idShop=25;
-        result.shopName=@"Lorem ipsum dolor sit amet, consectetuer";
+        result.shopName=@"Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat";
         
         [self displayResult:result];
     }
     else if(btn.tag==2)
     {
         ScanQRCodeResult2 *result=[ScanQRCodeResult2 new];
-        result.message=@"Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet";
+        result.message=@"Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat";
         result.idShop=25;
-        result.shopName=@"Lorem ipsum dolor sit amet, consectetuer";
+        result.shopName=@"Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat";
         result.sgp=@"⁺5000";
         result.totalSGP=@"1.000";
         
@@ -397,9 +399,9 @@
     {
         
         ScanQRCodeResult3 *result=[ScanQRCodeResult3 new];
-        result.message=@"Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet";
+        result.message=@"Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat";
         result.type=@"Loại A";
-        result.giftName=@"Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet";
+        result.giftName=@"Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat";
         result.sgp=@"⁻5";
         result.totalSGP=@"999.999";
         result.idShop=25;
@@ -409,11 +411,11 @@
     else if(btn.tag==4)
     {
         ScanQRCodeResult4 *result=[ScanQRCodeResult4 new];
-        result.message=@"Lorem ipsum dolor sit amet";
+        result.message=@"Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat";
         result.type=@"Loại B";
-        result.voucherName=@"Lorem ipsum dolor sit amet";
+        result.voucherName=@"Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat";
         result.idShop=25;
-        result.shopName=@"Lorem ipsum dolor sit amet, consectetuer";
+        result.shopName=@"Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat";
         
         [self displayResult:result];
     }
