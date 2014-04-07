@@ -17,7 +17,7 @@
 }
 
 -(void) loadImageURL:(NSString*) url imageSize:(CGSize) imgSize;
--(void) zoom:(CGPoint) pnt;
+-(void) zoom:(CGPoint) pnt completed:(void(^)()) onCompleted;
 -(bool) isZoomed;
 -(void) collectionViewDidScroll;
 +(NSString *)reuseIdentifier;

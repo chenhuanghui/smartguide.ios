@@ -27,10 +27,10 @@ static NSMutableDictionary *_galleryFullURLSize=nil;
     
     [imgv loadShopGalleryFullWithURL:url];
     
-    [self zoomOut:false];
+    [self zoomOut:false completed:nil];
 }
 
--(void) zoomOut:(bool) animate
+-(void) zoomOut:(bool) animate completed:(void(^)()) onCompleted
 {
     if(animate)
     {
@@ -53,6 +53,9 @@ static NSMutableDictionary *_galleryFullURLSize=nil;
         } completion:^(BOOL finished) {
             [UIView animateWithDuration:0.15f animations:^{
                 imgv.frame=oriRect;
+            } completion:^(BOOL finished) {
+                if(onCompleted)
+                    onCompleted();
             }];
         }];
     }
@@ -65,10 +68,13 @@ static NSMutableDictionary *_galleryFullURLSize=nil;
         
         imgv.frame=rect;
         scroll.contentSize=rect.size;
+        
+        if(onCompleted)
+            onCompleted();
     }
 }
 
--(void) zoomIn:(bool) animate point:(CGPoint) pnt
+-(void) zoomIn:(bool) animate point:(CGPoint) pnt completed:(void(^)()) onCompleted
 {
     if(![imgv isImageBigger])
         return;
@@ -113,6 +119,9 @@ static NSMutableDictionary *_galleryFullURLSize=nil;
         } completion:^(BOOL finished) {
             [UIView animateWithDuration:0.15f animations:^{
                 imgv.frame=oriRect;
+            } completion:^(BOOL finished) {
+                if(onCompleted)
+                    onCompleted();
             }];
         }];
     }
@@ -120,18 +129,20 @@ static NSMutableDictionary *_galleryFullURLSize=nil;
     {
         imgv.frame=rect;
         [scroll scrollRectToVisible:visiRect animated:false];
+        if(onCompleted)
+            onCompleted();
     }
 }
 
--(void)zoom:(CGPoint)pnt
+-(void)zoom:(CGPoint)pnt completed:(void (^)())onCompleted
 {
     if(scroll.userInteractionEnabled)
     {
-        [self zoomOut:true];
+        [self zoomOut:true completed:onCompleted];
     }
     else
     {
-        [self zoomIn:true point:pnt];
+        [self zoomIn:true point:pnt completed:onCompleted];
     }
 }
 
@@ -178,7 +189,7 @@ static NSMutableDictionary *_galleryFullURLSize=nil;
 
 -(void)zoomOut
 {
-    [self zoomOut:true];
+    [self zoomOut:true completed:nil];
 }
 
 -(UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView

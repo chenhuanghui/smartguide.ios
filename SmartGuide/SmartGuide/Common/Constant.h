@@ -92,7 +92,7 @@ static NSString * const kClientId = @"790158294934-p5pnscmrt4avj698ncvhp14fit0f4
 #define API_USER_HOME @"user/home"
 #define API_GET_SHOP_LIST @"shop/getShopList"
 #define API_ELASTIC_AUTOCOMPLETE @"elastic/autocomplete"
-#define API_ELASTIC_AUTOCOMPLETE_NATIVE [NSString stringWithFormat:@"%@:9200/data/_search",SERVER_IP]
+#define API_ELASTIC_AUTOCOMPLETE_NATIVE [NSString stringWithFormat:@"http://api.infory.vn:9200/data/_search",SERVER_IP]
 #define API_USER_PROFILE @"user/profile"
 #define API_USER_UPDATE_PROFILE @"user/updateProfile"
 #define API_USER_UPLOAD_SOCIAL_PROFILE @"user/uploadSocialProfile"

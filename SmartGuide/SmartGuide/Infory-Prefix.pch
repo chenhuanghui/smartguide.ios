@@ -14,4 +14,4 @@
 #endif
 
 
-//#define NSLog(...)
+#define NSLog(...)

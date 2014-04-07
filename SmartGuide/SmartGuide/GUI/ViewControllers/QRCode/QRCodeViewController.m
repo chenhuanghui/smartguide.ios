@@ -84,7 +84,17 @@
     zbarReader.cameraFlashMode=UIImagePickerControllerCameraFlashModeAuto;
     zbarReader.wantsFullScreenLayout=true;
     zbarReader.readerDelegate=self;
-    zbarReader.supportedOrientationsMask=ZBarOrientationMask(UIInterfaceOrientationMaskPortrait);
+    zbarReader.supportedOrientationsMask=ZBarOrientationMaskAll;
+//    zbarReader.readerView.showsFPS=true;
+//    zbarReader.readerView.zoom=1.25f;
+    zbarReader.videoQuality=UIImagePickerControllerQualityTypeHigh;
+
+    [zbarReader.readerView.device lockForConfiguration:nil];
+    
+    if([zbarReader.readerView.device supportsAVCaptureSessionPreset:AVCaptureFocusModeLocked])
+        zbarReader.readerView.device.focusMode=AVCaptureFocusModeLocked;
+    
+    [zbarReader.readerView.device unlockForConfiguration];
     
     [zbarReader.scanner setSymbology:ZBAR_I25|ZBAR_QRCODE config: ZBAR_CFG_ENABLE to:0];
     

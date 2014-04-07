@@ -67,8 +67,11 @@
     NSIndexPath *indexPath=[collView indexPathForItemAtPoint:pnt];
     GalleryFullCell *cell=(GalleryFullCell*)[collView cellForItemAtIndexPath:indexPath];
     
+    tap.enabled=false;
     pnt.x-=collView.contentOffset.x;
-    [cell zoom:pnt];
+    [cell zoom:pnt completed:^{
+        tap.enabled=true;
+    }];
 }
 
 -(void) show

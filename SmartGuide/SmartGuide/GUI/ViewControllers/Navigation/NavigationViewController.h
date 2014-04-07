@@ -33,6 +33,7 @@
     __weak IBOutlet UIButton *btnHome;
     __weak IBOutlet UIButton *btnStore;
     __weak IBOutlet UIButton *btnTutorial;
+    __weak IBOutlet UIButton *btnUpdate;
 }
 
 -(void) loadData;
