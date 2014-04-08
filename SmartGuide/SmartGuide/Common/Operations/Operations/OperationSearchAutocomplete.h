@@ -21,7 +21,7 @@
 
 @interface AutocompletePlacelist : NSObject
 
-@property (nonatomic, assign) int idPlacelist;
+@property (nonatomic, strong) NSNumber *idPlacelist;
 @property (nonatomic, strong) NSString *content;
 @property (nonatomic, strong) NSString *highlight;
 
@@ -29,9 +29,9 @@
 
 @interface AutocompleteShop : NSObject
 
-@property (nonatomic, assign) int idShop;
+@property (nonatomic, strong) NSNumber *idShop;
 @property (nonatomic, strong) NSString *content;
 @property (nonatomic, strong) NSString *highlight;
-@property (nonatomic, assign) bool hasPromotion;
+@property (nonatomic, strong) NSNumber *hasPromotion;
 
 @end

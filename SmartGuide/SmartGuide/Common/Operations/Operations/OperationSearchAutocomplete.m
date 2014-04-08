@@ -68,7 +68,7 @@
                 continue;
             
             AutocompletePlacelist *place=[AutocompletePlacelist new];
-            place.idPlacelist=idPlacelist;
+            place.idPlacelist=@(idPlacelist);
             place.content=[NSString stringWithStringDefault:kvp[@"name"]];
             
             [placelists addObject:place];
@@ -93,9 +93,9 @@
                 continue;
             
             AutocompleteShop *shop=[AutocompleteShop new];
-            shop.idShop=idShop;
+            shop.idShop=@(idShop);
             shop.content=[NSString stringWithStringDefault:kvp[@"shop_name"]];
-            shop.hasPromotion=[[NSNumber numberWithObject:kvp[@"hasPromotion"]] boolValue];
+            shop.hasPromotion=@([[NSNumber numberWithObject:kvp[@"hasPromotion"]] boolValue]);
             
             [shops addObject:shop];
             

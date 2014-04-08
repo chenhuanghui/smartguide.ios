@@ -472,7 +472,7 @@
             [[SGData shareInstance].fData setObject:place.content forKey:@"chosenKeywords"];
             [[SGData shareInstance].fData setObject:@(0) forKey:@"type"];
             
-            [self.delegate searchShopControllerTouchedIDPlacelist:self idPlacelist:place.idPlacelist];
+            [self.delegate searchShopControllerTouchedIDPlacelist:self idPlacelist:[place.idPlacelist integerValue]];
         }
         else if([sCell.value isKindOfClass:[AutocompleteShop class]])
         {
@@ -483,7 +483,7 @@
             [[SGData shareInstance].fData setObject:shop.content forKey:@"chosenKeywords"];
             [[SGData shareInstance].fData setObject:@(3) forKey:@"type"];
             
-            [[GUIManager shareInstance].rootViewController presentShopUserWithIDShop:shop.idShop];
+            [[GUIManager shareInstance].rootViewController presentShopUserWithIDShop:[shop.idShop integerValue]];
         }
         else if([sCell.value isKindOfClass:[Placelist class]])
         {

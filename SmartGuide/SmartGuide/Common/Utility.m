@@ -1427,6 +1427,11 @@ NSString *NSStringFromUIGestureRecognizerState(UIGestureRecognizerState state)
     return self.image.size.width>self.frame.size.width && self.image.size.height>self.frame.size.height;
 }
 
+-(bool)isImageSmaller
+{
+    return self.image.size.width<self.frame.size.width && self.image.size.height<self.frame.size.height;
+}
+
 @end
 
 @implementation UIImage(Utility)

@@ -242,7 +242,22 @@
     GalleryFullCell *cell=(GalleryFullCell*)[super collectionView:collectionView cellForItemAtIndexPath:indexPath];
     ShopGallery *gallery=_shop.shopGalleriesObjects[indexPath.row];
     
-    [cell loadImageURL:gallery.image imageSize:CGSizeZero];
+    NSString *url=gallery.image;
+    
+//    if(indexPath.row==0)
+//        url=@"http://art.ngfiles.com/images/107/taykrongames_space-twirl-portal-background.jpg";
+//    else if(indexPath.row==1)
+//        url=@"http://images.all-free-download.com/images/graphiclarge/seamless_background_quotoctobe_31640.jpg";
+//    else if(indexPath.row==2)
+//        url=@"http://fc01.deviantart.net/fs70/f/2014/024/a/4/costom_box_background__my_use_only__by_amber_emerald-d73lut2.jpg";
+//    else if(indexPath.row==3)
+//        url=@"http://positiveimperative.com/wp-content/uploads/2009/10/ripple_effect.jpg";
+//    else if(indexPath.row==4)
+//        url=@"http://www.redwolfmarketing.net/wp-content/uploads/2012/05/wordpress-web-design-denver-background-03.jpg";
+//    else if(indexPath.row==5)
+//        url=@"http://allthingseblog.com/wp-content/uploads/2013/11/leaves-background.png";
+    
+    [cell loadImageURL:url imageSize:CGSizeZero];
     
     return cell;
 }

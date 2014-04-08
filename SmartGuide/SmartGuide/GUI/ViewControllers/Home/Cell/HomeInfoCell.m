@@ -18,7 +18,7 @@
     _obj=home;
     
     [imgvLogo loadImageHomeWithURL:home.logo];
-    lblName.text=home.shopName;
+    [btnName setTitle:home.shopName forState:UIControlStateNormal];
     lblDate.text=home.date;
     lblTitle.text=home.title;
     lblContent.text=home.content;
@@ -42,7 +42,7 @@
     _obj=home;
     
     [imgvLogo loadImageHomeWithURL:home.store.logo];
-    lblName.text=home.storeName;
+    [btnName setTitle:home.storeName forState:UIControlStateNormal];
     lblDate.text=home.date;
     lblTitle.text=home.title;
     lblContent.text=home.content;
@@ -66,7 +66,7 @@
     _obj=obj;
     
     [imgvLogo loadShopLogoPromotionHome:obj.logo];
-    lblName.text=obj.brandName;
+    [btnName setTitle:obj.brandName forState:UIControlStateNormal];
     lblDate.text=obj.date;
     lblTitle.text=obj.title;
     lblContent.text=obj.desc;
@@ -160,6 +160,14 @@
 }
 
 - (IBAction)btnGoToTouchUpInside:(id)sender {
+    [self.delegate homeInfoCellTouchedGoTo:_obj];
+}
+
+- (IBAction)btnNameTouchUpInside:(id)sender {
+    [self.delegate homeInfoCellTouchedGoTo:_obj];
+}
+
+- (IBAction)btnLogoTouchUpInside:(id)sender {
     [self.delegate homeInfoCellTouchedGoTo:_obj];
 }
 

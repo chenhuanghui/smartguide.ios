@@ -21,7 +21,7 @@
 @interface HomeInfoCell : UITableViewCell
 {
     __weak IBOutlet UIImageView *imgvLogo;
-    __weak IBOutlet UILabel *lblName;
+    __weak IBOutlet UIButton *btnName;
     __weak IBOutlet UILabel *lblDate;
     __weak IBOutlet LabelTopText *lblTitle;
     __weak IBOutlet LabelTopText *lblContent;

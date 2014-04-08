@@ -294,6 +294,7 @@ float roundToN(float num, int decimals);
 -(CGRect) imageFrameWithContentMode:(UIViewContentMode) mode;
 -(CGRect) imageFrame;
 -(bool) isImageBigger;
+-(bool) isImageSmaller;
 
 @end
 

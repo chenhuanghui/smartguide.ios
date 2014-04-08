@@ -76,43 +76,53 @@ static NSMutableDictionary *_galleryFullURLSize=nil;
 
 -(void) zoomIn:(bool) animate point:(CGPoint) pnt completed:(void(^)()) onCompleted
 {
-    if(![imgv isImageBigger])
+    // Nếu width và height của hình nhỏ hơn frame thì ko zoom do bị vỡ pixcel
+    if([imgv isImageSmaller])
+    {
+        if(onCompleted)
+            onCompleted();
+        
         return;
+    }
     
     CGRect imgFrame=[imgv imageFrame];
     
     if(CGRectContainsPoint(imgFrame, pnt))
     {
+        // Vị trí tương đối giữa hình trước và sau khi zoom;
         float perX=pnt.x/self.collView.frame.size.width;
         float perY=pnt.y/self.collView.frame.size.height;
         
-        pnt.x=(imgv.image.size.width*perX);
-        pnt.y=(imgv.image.size.height*perY);
+        pnt.x=imgv.image.size.width*perX;
+        pnt.y=imgv.image.size.height*perY;
     }
     else
     {
+        // Touch vào vùng đen ngoài hình->mặc định zoom vào top left;
         pnt=CGPointZero;
     }
     
-    CGRect rect=imgv.frame;
-    rect.size=[Utility scaleProportionallyHeightFromSize:imgv.image.size toHeight:imgv.l_v_h];
+    CGRect visiRect=CGRectMake(pnt.x-scroll.frame.size.width/2, pnt.y-scroll.frame.size.height/2, scroll.frame.size.width, scroll.frame.size.height);
     
-    float h=imgv.l_v_h/imgv.image.size.height;
-    CGRect visiRect=CGRectMake(pnt.x*h-scroll.frame.size.width/2, pnt.y*h-scroll.frame.size.height/2, scroll.frame.size.width, scroll.frame.size.height);
-    
-    scroll.contentSize=rect.size;
+    scroll.contentSize=imgv.image.size;
     scroll.userInteractionEnabled=true;
+    
+    CGRect rect=imgv.frame;
+    
+    //Center hình nếu 1 cạnh nhỏ hơn frame
+    rect.size.width=MAX(imgv.image.size.width,scroll.frame.size.width);
+    rect.size.height=MAX(imgv.image.size.height,scroll.frame.size.height);
     
     if(animate)
     {
         float w=MAX(rect.size.height,rect.size.width)*GALLERY_FULL_CELL_BOUNCE;
         
         CGRect oriRect=rect;
+        
         rect.origin.x-=w/2;
         rect.origin.y-=w/2;
         rect.size.width+=w;
         rect.size.height+=w;
-        
         [UIView animateWithDuration:0.15f animations:^{
             imgv.frame=rect;
             [scroll scrollRectToVisible:visiRect animated:false];
@@ -174,17 +184,6 @@ static NSMutableDictionary *_galleryFullURLSize=nil;
 -(bool)isZoomed
 {
     return scroll.userInteractionEnabled;
-}
-
--(void)zoomInAtPoint:(CGPoint)pnt
-{
-    [UIView animateWithDuration:0.3f animations:^{
-        [imgv l_v_setS:imgv.image.size];
-    } completion:^(BOOL finished) {
-        scroll.contentSize=imgv.image.size;
-        scroll.userInteractionEnabled=true;
-        scroll.scrollEnabled=true;
-    }];
 }
 
 -(void)zoomOut

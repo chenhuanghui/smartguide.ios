@@ -27,14 +27,28 @@
                         <rect key="frame" x="11" y="8" width="37" height="39"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     </imageView>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SmartGuide" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Wfs-Jf-5ZZ">
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="zV0-In-h52">
+                        <rect key="frame" x="11" y="8" width="37" height="39"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <state key="normal">
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                        <connections>
+                            <action selector="btnLogoTouchUpInside:" destination="8wt-FS-583" eventType="touchUpInside" id="c2t-0u-XFL"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="NYO-C8-gc4">
                         <rect key="frame" x="56" y="10" width="243" height="21"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="13"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
+                        <state key="normal">
+                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                        <connections>
+                            <action selector="btnNameTouchUpInside:" destination="8wt-FS-583" eventType="touchUpInside" id="Ej0-cu-jMF"/>
+                        </connections>
+                    </button>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="23 tháng 12, 2013" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="8eo-6j-xR1">
                         <rect key="frame" x="56" y="26" width="243" height="21"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -95,12 +109,12 @@
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <connections>
                 <outlet property="btnGoTo" destination="m6T-kj-FJN" id="OK4-lJ-hBp"/>
+                <outlet property="btnName" destination="NYO-C8-gc4" id="GO4-kY-XWb"/>
                 <outlet property="imgvCover" destination="86e-wO-UuX" id="dYI-vv-eo5"/>
                 <outlet property="imgvLogo" destination="Lk2-e4-H4O" id="M6J-ZC-z9g"/>
                 <outlet property="lblContent" destination="w7N-eo-ObW" id="nzp-Xw-p5W"/>
                 <outlet property="lblDate" destination="8eo-6j-xR1" id="Gph-uT-rkx"/>
                 <outlet property="lblGoTo" destination="n2Z-zN-CZR" id="ATH-5A-1l5"/>
-                <outlet property="lblName" destination="Wfs-Jf-5ZZ" id="dCE-CL-4ML"/>
                 <outlet property="lblTitle" destination="6pt-5m-XHK" id="nWp-cZ-aIM"/>
             </connections>
         </tableViewCell>

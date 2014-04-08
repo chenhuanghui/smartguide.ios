@@ -814,9 +814,11 @@
         
         _operationShopList=nil;
     }
-    
+
     if(!_placeList && _shopsList.count==0)
-        [tableList showEmptyDataWithText:@"Không tìm thấy dữ liệu" align:EMPTY_DATA_ALIGN_TEXT_TOP];
+    {
+//        [tableList showEmptyDataWithText:@"Không tìm thấy dữ liệu" align:EMPTY_DATA_ALIGN_TEXT_TOP];
+    }
 }
 
 -(void)ASIOperaionPostFailed:(ASIOperationPost *)operation
@@ -906,11 +908,11 @@
     
     [tableList reloadRowsAtIndexPaths:@[indexPath(0, 0)] withRowAnimation:UITableViewRowAnimationNone];
     
+    [tableList l_co_setY:0 animate:true];
     self.view.userInteractionEnabled=false;
     [UIView animateWithDuration:DURATION_DEFAULT animations:^{
         [qrCodeView l_v_setY:_qrFrame.origin.y+QRCODE_BIG_HEIGHT-QRCODE_SMALL_HEIGHT];
         [tableList l_v_setH:_tableFrame.size.height+QRCODE_BIG_HEIGHT-QRCODE_SMALL_HEIGHT];
-        [tableList l_co_setY:0];
         [mapCell l_v_setH:_mapRowHeight];
         [btnSearchLocation l_v_setY:75];
         btnScanSmall.alpha=0;
@@ -945,10 +947,10 @@
     btnScanBig.hidden=false;
     
     self.view.userInteractionEnabled=false;
+    [tableList l_co_setY:0 animate:true];
     [UIView animateWithDuration:DURATION_DEFAULT animations:^{
         [qrCodeView l_v_setY:_qrFrame.origin.y];
         [mapCell l_v_setH:_mapRowHeight];
-        [tableList l_co_setY:0];
         btnScanBig.alpha=1;
         btnScanSmall.alpha=0;
         btnScanBig.frame=_buttonScanBigFrame;
