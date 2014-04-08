@@ -21,6 +21,7 @@
 #import "Placelist.h"
 #import "PlacelistViewController.h"
 #import "ShopListMapCell.h"
+#import "ASIOperationRemoveShopPlacelist.h"
 
 @class ScrollShopList,ShopListContentView,ShopListViewController,TableShopList,ScrollerShopList;
 
@@ -69,6 +70,9 @@ enum SHOP_LIST_VIEW_MODE {
     ASIOperationPlacelistGet *_operationPlaceListDetail;
     ASIOperationGetShopList *_operationShopList;
     ASIOperationPlacelistGetDetail *_operationPlacelistGetDetail;
+    ASIOperationRemoveShopPlacelist *_operationRemoveShopPlacelist;
+    NSIndexPath *_indexPathWillRemove;
+    ShopList *_shopListWillRemove;
     
     NSString *_keyword;
     __weak Placelist *_placeList;

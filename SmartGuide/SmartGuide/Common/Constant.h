@@ -28,7 +28,7 @@ static NSString * const kClientId = @"790158294934-p5pnscmrt4avj698ncvhp14fit0f4
 
 #define TEXTFIELD_SEARCH_PLACEHOLDER_TEXT @"Tìm kiếm địa điểm"
 
-#define BUILD_MODE 1
+#define BUILD_MODE 0
 //0: developer
 //1: production
 
@@ -99,6 +99,7 @@ static NSString * const kClientId = @"790158294934-p5pnscmrt4avj698ncvhp14fit0f4
 #define API_USER_PLACELIST @"user/getPlacelist"
 #define API_CREATE_PLACELIST @"placelist/create"
 #define API_ADD_SHOP_PLACELISTS @"placelist/addShopPlacelists"
+#define API_REMOVE_SHOP_PLACELISTS @"placelist/removeShop"
 #define API_SOCIAL_SHARE @"social/share"
 #define API_SCAN_CODE @"user/scanSGCode_v2"
 #define API_USER_PROMOTION @"user/promotion"

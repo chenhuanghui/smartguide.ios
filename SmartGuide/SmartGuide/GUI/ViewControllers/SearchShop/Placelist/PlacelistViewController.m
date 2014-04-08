@@ -320,6 +320,15 @@
     }
 }
 
+-(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if(bg1)
+        [tableView sendSubviewToBack:bg1];
+    
+    if(bg2)
+        [tableView sendSubviewToBack:bg2];
+}
+
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     switch (indexPath.section) {
@@ -399,7 +408,12 @@
     }
 }
 
-- (IBAction)btnBackTouchUpInside:(id)sender {
+-(IBAction) btnBackTouchUpInside:(id)sender
+{
+    [self.navigationController popViewControllerAnimated:true];
+}
+
+- (IBAction)btnDoneTouchUpInside:(id)sender {
     
     if(_shoplist)
     {

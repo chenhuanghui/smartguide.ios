@@ -36,13 +36,8 @@
     [self reloadImage];
 }
 
--(void)viewDidLoad
+-(void)viewWillAppearOnce
 {
-    [super viewDidLoad];
-    
-    grid.layoutStrategy=[GMGridViewLayoutStrategyFactory strategyFromType:GMGridViewLayoutVertical];
-    grid.centerGrid=false;
-    
     int numOfColumn=3;
     int numOfRow=4;
     float itemSpacing=2;
@@ -50,10 +45,10 @@
     
     UIEdgeInsets insets=UIEdgeInsetsZero;
     
-    insets.top=(grid.l_v_h-(numOfRow*cellHeight)-itemSpacing*(numOfRow-1))/2;
+    insets.top=(grid.l_v_h-(numOfRow*cellHeight)-itemSpacing*((float)numOfRow-1))/2;
     insets.bottom=insets.top;
     
-    insets.left=(grid.l_v_w-(numOfColumn*cellHeight)-itemSpacing*(numOfColumn-1))/2;
+    insets.left=(grid.l_v_w-(numOfColumn*cellHeight)-itemSpacing*((float)numOfColumn-1))/2;
     insets.right=insets.left;
     
     grid.itemSpacing=itemSpacing;
@@ -61,6 +56,14 @@
     
     grid.dataSource=self;
     grid.actionDelegate=self;
+}
+
+-(void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    grid.layoutStrategy=[GMGridViewLayoutStrategyFactory strategyFromType:GMGridViewLayoutVertical];
+    grid.centerGrid=false;
     
     if(_selectedGallery)
     {

@@ -13,6 +13,6 @@
 
 -(ASIOperationUserPlacelist*) initWithUserLat:(double) userLat userLng:(double) userLng page:(int) page;
 
-@property (nonatomic, readonly) NSMutableArray *userPlacelists;
+@property (nonatomic, strong) NSMutableArray *userPlacelists;
 
 @end

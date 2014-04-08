@@ -49,7 +49,7 @@
     
     if(animate)
     {
-        [UIView animateKeyframesWithDuration:0.3f delay:0 options:UIViewKeyframeAnimationOptionAllowUserInteraction|UIViewKeyframeAnimationOptionBeginFromCurrentState animations:^{
+        [UIView animateWithDuration:0.3f delay:0 options:UIViewAnimationOptionAllowUserInteraction|UIViewAnimationOptionBeginFromCurrentState animations:^{
             CGRect rect=btnLove.frame;
             rect.origin.x=0;
             btnLove.frame=rect;
@@ -107,7 +107,7 @@
     
     if(animate)
     {
-        [UIView animateKeyframesWithDuration:0.3f delay:0 options:UIViewKeyframeAnimationOptionAllowUserInteraction|UIViewKeyframeAnimationOptionBeginFromCurrentState animations:^{
+        [UIView animateWithDuration:0.3f delay:0 options:UIViewAnimationOptionAllowUserInteraction|UIViewAnimationOptionBeginFromCurrentState animations:^{
             btnLove.frame=_buttonFrame;
             imgvLeft.frame=_leftFrame;
             midView.frame=_midFrame;

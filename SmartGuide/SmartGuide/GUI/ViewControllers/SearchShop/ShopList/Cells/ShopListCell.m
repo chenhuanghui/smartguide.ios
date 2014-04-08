@@ -44,6 +44,16 @@
     [btnNumOfLove setTitle:[NSString stringWithFormat:@"%@ lượt thích",[_shop numOfLove]] forState:UIControlStateNormal];
     [btnNumOfComment setTitle:[NSString stringWithFormat:@"%@ nhận xét",[_shop numOfComment]] forState:UIControlStateNormal];
     lblKM.text=[NSString stringWithFormat:@"Cách bạn %@",shopList.distance];
+    
+    if(shopList.placeList)
+    {
+        if(shopList.placeList.idAuthor.intValue==currentUser().idUser.integerValue)
+            [self setButtonTypeIsTypeAdded:false];
+        else
+            [self setButtonTypeIsTypeAdded:true];
+    }
+    else
+        [self setButtonTypeIsTypeAdded:false];
 }
 
 -(void)setButtonTypeIsTypeAdded:(bool)isTypeAdded

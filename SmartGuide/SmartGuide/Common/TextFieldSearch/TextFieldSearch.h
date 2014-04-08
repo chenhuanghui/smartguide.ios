@@ -8,6 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
+@class TextFieldBGView;
+
 @interface TextFieldSearch : UITextField
+{
+    __weak TextFieldBGView *bgView;
+}
+
+@end
+
+@interface TextFieldBGView : UIView
 
 @end

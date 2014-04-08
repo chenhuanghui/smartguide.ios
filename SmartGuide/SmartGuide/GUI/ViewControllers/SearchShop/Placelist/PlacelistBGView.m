@@ -26,6 +26,7 @@
 {
     [super awakeFromNib];
     
+    self.userInteractionEnabled=false;
     self.contentMode=UIViewContentModeRedraw;
     self.backgroundColor=[UIColor clearColor];
     
@@ -39,6 +40,7 @@
 {
     self=[super initWithFrame:frame];
     
+    self.userInteractionEnabled=false;
     self.contentMode=UIViewContentModeRedraw;
     self.backgroundColor=[UIColor clearColor];
     

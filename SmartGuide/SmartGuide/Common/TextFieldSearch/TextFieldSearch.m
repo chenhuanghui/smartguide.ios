@@ -21,9 +21,18 @@
 
 -(void) commonInit
 {
-    self.background=[UIImage imageNamed:@"button_search_home.png"];
+    TextFieldBGView *bg=[[TextFieldBGView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
     
-    self.leftView=[[UIView alloc] initWithFrame:CGRectMake(0, 0, 35, self.frame.size.height)];
+    bgView=bg;
+    
+    [self addSubview:bg];
+    [self sendSubviewToBack:bg];
+    
+    UIImageView *imgv=[[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 38, self.frame.size.height)];
+    imgv.image=[UIImage imageNamed:@"icon_search.png"];
+    imgv.contentMode=UIViewContentModeCenter;
+    
+    self.leftView=imgv;
     self.leftView.backgroundColor=[UIColor clearColor];
     self.leftViewMode=UITextFieldViewModeAlways;
     
@@ -42,6 +51,17 @@
     self.textColor=[UIColor colorWithRed:91.f/225 green:91.f/255 blue:91.f/255 alpha:1];
     
     [self addTarget:self action:@selector(textChanged:) forControlEvents:UIControlEventEditingChanged];
+    
+    self.background=nil;
+    self.borderStyle=UITextBorderStyleNone;
+}
+
+-(void)setFrame:(CGRect)frame
+{
+    [super setFrame:frame];
+    
+    frame.origin=CGPointZero;
+    bgView.frame=frame;
 }
 
 -(void) textChanged:(UITextField*) txt
@@ -53,6 +73,33 @@
 {
     self.text=@"";
     [self sendActionsForControlEvents:UIControlEventEditingChanged];
+}
+
+@end
+
+@implementation TextFieldBGView
+
+-(id)initWithFrame:(CGRect)frame
+{
+    self=[super initWithFrame:frame];
+    
+    self.contentMode=UIViewContentModeRedraw;
+    self.backgroundColor=[UIColor clearColor];
+    self.userInteractionEnabled=false;
+    
+    return self;
+}
+
+-(void)drawRect:(CGRect)rect
+{
+    float y=0;
+    
+    if(rect.size.height>38)
+        y=(rect.size.height-38)/2;
+    
+    [[UIImage imageNamed:@"bg_search_left.png"] drawAtPoint:CGPointMake(0, y)];
+    [[UIImage imageNamed:@"bg_search_mid.png"] drawAsPatternInRect:CGRectMake(19, y, rect.size.width-19-19, rect.size.height)];
+    [[UIImage imageNamed:@"bg_search_right.png"] drawAtPoint:CGPointMake(rect.size.width-19, y)];
 }
 
 @end

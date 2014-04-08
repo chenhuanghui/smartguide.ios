@@ -24,7 +24,7 @@
 
 -(void)onCompletedWithJSON:(NSArray *)json
 {
-    userPlacelists=[NSMutableArray array];
+    self.userPlacelists=[NSMutableArray new];
     
     if([self isNullData:json])
         return;

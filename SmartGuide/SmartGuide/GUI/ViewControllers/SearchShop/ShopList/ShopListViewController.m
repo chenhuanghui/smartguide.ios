@@ -195,7 +195,6 @@
     cell.delegate=self;
     
     [cell loadWithShopList:shop];
-    [cell setButtonTypeIsTypeAdded:true];
     cell.table=tableList;
     cell.indexPath=indexPath;
     cell.controller=self;
@@ -329,10 +328,16 @@
 -(void)shopListCellTouchedRemove:(ShopListCell *)cell shop:(ShopList *)shop
 {
     [cell closeLove];
-    PlacelistViewController *vc=[[PlacelistViewController alloc] initWithShopList:shop];
-    vc.delegate=self;
     
-    [self.sgNavigationController pushViewController:vc animated:true];
+    [self showLoading];
+    
+    _indexPathWillRemove=cell.indexPath;
+    _shopListWillRemove=shop;
+    
+    _operationRemoveShopPlacelist=[[ASIOperationRemoveShopPlacelist alloc] initWithIDPlacelist:_placeList.idPlacelist.integerValue idShops:[NSString stringWithFormat:@"%i",shop.idShop.integerValue] userLat:userLat() userLng:userLng()];
+    _operationRemoveShopPlacelist.delegatePost=self;
+    
+    [_operationRemoveShopPlacelist startAsynchronous];
 }
 
 -(void) storeRect
@@ -814,10 +819,57 @@
         
         _operationShopList=nil;
     }
-
+    else if([operation isKindOfClass:[ASIOperationRemoveShopPlacelist class]])
+    {
+        [self removeLoading];
+        
+        ASIOperationRemoveShopPlacelist *ope=(ASIOperationRemoveShopPlacelist*) operation;
+        NSString *message=ope.message;
+        int status=ope.status;
+        
+        if(message.length>0)
+        {
+            [AlertView showAlertOKWithTitle:nil withMessage:message onOK:^{
+                
+                if(status==1)
+                {
+                    [_shopsList removeObject:_shopListWillRemove];
+                    
+                    [tableList beginUpdates];
+                    [tableList deleteRowsAtIndexPaths:@[_indexPathWillRemove] withRowAnimation:UITableViewRowAnimationAutomatic];
+                    [tableList endUpdates];
+                    
+                    _indexPathWillRemove=nil;
+                }
+                else
+                    _indexPathWillRemove=nil;
+            }];
+        }
+        else
+        {
+            if(status==1)
+            {
+                [_shopsList removeObject:_shopListWillRemove];
+                
+                [tableList beginUpdates];
+                if(_shopsList.count==0)
+                    [tableList deleteSections:[NSIndexSet indexSetWithIndex:_indexPathWillRemove.section] withRowAnimation:UITableViewRowAnimationAutomatic];
+                else
+                    [tableList deleteRowsAtIndexPaths:@[_indexPathWillRemove] withRowAnimation:UITableViewRowAnimationAutomatic];
+                [tableList endUpdates];
+                
+                _indexPathWillRemove=nil;
+            }
+            else
+                _indexPathWillRemove=nil;
+        }
+        
+        _operationRemoveShopPlacelist=nil;
+    }
+    
     if(!_placeList && _shopsList.count==0)
     {
-//        [tableList showEmptyDataWithText:@"Không tìm thấy dữ liệu" align:EMPTY_DATA_ALIGN_TEXT_TOP];
+        //        [tableList showEmptyDataWithText:@"Không tìm thấy dữ liệu" align:EMPTY_DATA_ALIGN_TEXT_TOP];
     }
 }
 
@@ -834,6 +886,12 @@
         [self removeLoading];
         
         _operationPlaceListDetail=nil;
+    }
+    else if ([operation isKindOfClass:[ASIOperationRemoveShopPlacelist class]])
+    {
+        [self removeLoading];
+        
+        _operationRemoveShopPlacelist=nil;
     }
 }
 
@@ -899,7 +957,7 @@
     
     _isAnimatingZoom=true;
     _isZoomedMap=true;
-
+    
     [scrollerView removeFromSuperview];
     
     [tableList killScroll];
@@ -999,6 +1057,12 @@
     {
         [_operationPlacelistGetDetail clearDelegatesAndCancel];
         _operationPlacelistGetDetail=nil;
+    }
+    
+    if(_operationRemoveShopPlacelist)
+    {
+        [_operationRemoveShopPlacelist clearDelegatesAndCancel];
+        _operationRemoveShopPlacelist=nil;
     }
     
     tableList.delegate=nil;
@@ -1382,6 +1446,7 @@
     label.font=[UIFont fontWithName:@"Avenir-Roman" size:12];
     label.textColor=[UIColor whiteColor];
     label.textAlignment=NSTextAlignmentCenter;
+    label.backgroundColor=[UIColor clearColor];
     [self addSubview:label];
     
     lbl=label;

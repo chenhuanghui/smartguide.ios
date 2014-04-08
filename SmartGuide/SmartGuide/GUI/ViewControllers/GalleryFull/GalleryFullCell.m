@@ -11,6 +11,7 @@
 #import "Utility.h"
 
 #define GALLERY_FULL_CELL_BOUNCE 0.02f
+#define DURATION_ZOOM_GALLERY 0.25f
 
 static NSMutableDictionary *_galleryFullURLSize=nil;
 @implementation GalleryFullCell
@@ -47,11 +48,11 @@ static NSMutableDictionary *_galleryFullURLSize=nil;
         rect.size.width-=w;
         rect.size.height-=w;
         
-        [UIView animateWithDuration:0.15f animations:^{
+        [UIView animateWithDuration:DURATION_ZOOM_GALLERY animations:^{
             imgv.frame=rect;
             scroll.contentSize=self.l_v_s;
         } completion:^(BOOL finished) {
-            [UIView animateWithDuration:0.15f animations:^{
+            [UIView animateWithDuration:DURATION_ZOOM_GALLERY animations:^{
                 imgv.frame=oriRect;
             } completion:^(BOOL finished) {
                 if(onCompleted)
@@ -123,11 +124,11 @@ static NSMutableDictionary *_galleryFullURLSize=nil;
         rect.origin.y-=w/2;
         rect.size.width+=w;
         rect.size.height+=w;
-        [UIView animateWithDuration:0.15f animations:^{
+        [UIView animateWithDuration:DURATION_ZOOM_GALLERY animations:^{
             imgv.frame=rect;
             [scroll scrollRectToVisible:visiRect animated:false];
         } completion:^(BOOL finished) {
-            [UIView animateWithDuration:0.15f animations:^{
+            [UIView animateWithDuration:DURATION_ZOOM_GALLERY animations:^{
                 imgv.frame=oriRect;
             } completion:^(BOOL finished) {
                 if(onCompleted)
@@ -210,8 +211,6 @@ static NSMutableDictionary *_galleryFullURLSize=nil;
 
 -(void)setContentOffset1:(CGPoint)contentOffset
 {
-    NSLog(@"%@ %@",NSStringFromCGPoint(contentOffset),NSStringFromCGPoint(self.limitScrollOffset));
-    
     if(limitScrollOffset.x!=-1 && fabsf(contentOffset.x)<limitScrollOffset.x)
         contentOffset.x=limitScrollOffset.x*(contentOffset.x==0? 1 : (contentOffset.x/contentOffset.x));
     if(limitScrollOffset.y!=-1)

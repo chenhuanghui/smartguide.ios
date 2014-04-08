@@ -453,6 +453,14 @@
     return [UIView new];
 }
 
+-(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if(bg1)
+        [tableView sendSubviewToBack:bg1];
+    if(bg2)
+        [tableView sendSubviewToBack:bg2];
+}
+
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [self.view endEditing:true];

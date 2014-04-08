@@ -353,7 +353,7 @@ static NSMutableArray *_asioperations=nil;
 {
     ASIOperationPost *ope=[super copyWithZone:zone];
     
-    [ope setKeyValue:self.keyValue];
+    ope.keyValue=self.keyValue;
     
     return ope;
 }
