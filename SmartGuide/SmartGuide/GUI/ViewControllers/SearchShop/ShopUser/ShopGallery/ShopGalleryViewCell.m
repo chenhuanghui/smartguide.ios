@@ -21,7 +21,13 @@
     return self;
 }
 
--(void)loadWithImage:(NSString *)url highlighted:(bool)isHighlighted
+-(void)loadWithImage:(UIImage *)image highlighted:(bool)isHighlighted
+{
+    imgv.image=image;
+    imgvFrame.highlighted=isHighlighted;
+}
+
+-(void)loadWithURL:(NSString *)url highlighted:(bool)isHighlighted
 {
     [imgv loadShopGalleryWithURL:url];
     imgvFrame.highlighted=isHighlighted;

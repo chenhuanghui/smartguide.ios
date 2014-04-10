@@ -15,7 +15,8 @@
     __weak IBOutlet UIView *loading;
 }
 
--(void) loadWithImage:(NSString*) url highlighted:(bool) isHighlighted;
+-(void) loadWithURL:(NSString*) url highlighted:(bool) isHighlighted;
+-(void) loadWithImage:(UIImage*) image highlighted:(bool) isHighlighted;
 -(void) showLoading;
 -(void) hideLoading;
 

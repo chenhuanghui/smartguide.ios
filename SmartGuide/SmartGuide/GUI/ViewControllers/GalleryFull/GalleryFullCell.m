@@ -13,7 +13,6 @@
 #define GALLERY_FULL_CELL_BOUNCE 0.02f
 #define DURATION_ZOOM_GALLERY 0.25f
 
-static NSMutableDictionary *_galleryFullURLSize=nil;
 @implementation GalleryFullCell
 
 +(NSString *)reuseIdentifier
@@ -21,13 +20,16 @@ static NSMutableDictionary *_galleryFullURLSize=nil;
     return @"GalleryFullCell";
 }
 
--(void)loadImageURL:(NSString *)url imageSize:(CGSize)imgSize
+-(void)loadImageURL:(NSString *)url
 {
-    if(!_galleryFullURLSize)
-        _galleryFullURLSize=[[NSMutableDictionary alloc] init];
-    
     [imgv loadShopGalleryFullWithURL:url];
     
+    [self zoomOut:false completed:nil];
+}
+
+-(void)loadWithImage:(UIImage *)image
+{
+    imgv.image=image;
     [self zoomOut:false completed:nil];
 }
 

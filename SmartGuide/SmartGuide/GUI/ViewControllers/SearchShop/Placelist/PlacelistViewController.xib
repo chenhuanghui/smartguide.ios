@@ -47,7 +47,7 @@
                             </connections>
                         </button>
                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Tìm kiếm địa điểm" minimumFontSize="17" id="oWD-A9-Ow5" customClass="TextFieldSearch">
-                            <rect key="frame" x="54" y="7" width="212" height="38"/>
+                            <rect key="frame" x="48" y="8" width="232" height="38"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="14"/>
                             <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="search" enablesReturnKeyAutomatically="YES"/>
@@ -56,7 +56,7 @@
                             </connections>
                         </textField>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="XBH-K6-naQ">
-                            <rect key="frame" x="266" y="0.0" width="54" height="54"/>
+                            <rect key="frame" x="270" y="0.0" width="54" height="54"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" name="Avenir-MediumOblique" family="Avenir" pointSize="15"/>
                             <state key="normal" image="button_done.png">

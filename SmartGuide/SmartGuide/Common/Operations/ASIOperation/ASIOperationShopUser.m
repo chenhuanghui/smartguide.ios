@@ -11,6 +11,7 @@
 #import "ShopUserComment.h"
 #import "ShopUserGallery.h"
 #import "ShopGallery.h"
+#import "UserUploadGalleryManager.h"
 
 @implementation ASIOperationShopUser
 @synthesize shop;
@@ -33,6 +34,11 @@
         return;
     
     shop=[Shop makeShopWithDictionary:json[0]];
+    
+    for(UserGalleryUpload *upload in [[UserUploadGalleryManager shareInstance] uploadFinishedWithIDShop:shop.idShop.integerValue])
+    {
+        [[DataManager shareInstance].managedObjectContext deleteObject:upload];
+    }
     
     [[DataManager shareInstance] save];
 }

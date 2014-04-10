@@ -26,5 +26,6 @@
 -(void) removeLoading;
 -(void) removeLoading:(bool) animate;
 -(void) showLoadingInsideFrame:(CGRect) rect;
+-(void) cleanLoadingBackground;
 
 @end

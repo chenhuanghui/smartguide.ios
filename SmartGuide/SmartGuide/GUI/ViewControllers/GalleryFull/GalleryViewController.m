@@ -9,6 +9,7 @@
 #import "GalleryViewController.h"
 #import "ShopGalleryViewCell.h"
 #import "GalleryManager.h"
+#import "UserUploadGalleryManager.h"
 
 @interface GalleryViewController ()
 
@@ -39,13 +40,15 @@
 -(void)viewWillAppearOnce
 {
     int numOfColumn=3;
-    int numOfRow=4;
+//    int numOfRow=4;
     float itemSpacing=2;
     float cellHeight=[ShopGalleryViewCell height];
     
     UIEdgeInsets insets=UIEdgeInsetsZero;
     
-    insets.top=(grid.l_v_h-(numOfRow*cellHeight)-itemSpacing*((float)numOfRow-1))/2;
+//    insets.top=(grid.l_v_h-(numOfRow*cellHeight)-itemSpacing*((float)numOfRow-1))/2;
+    float top=15;
+    insets.top=top;
     insets.bottom=insets.top;
     
     insets.left=(grid.l_v_w-(numOfColumn*cellHeight)-itemSpacing*((float)numOfColumn-1))/2;
@@ -172,7 +175,7 @@
     
     ShopGallery *obj=_shop.shopGalleriesObjects[index];
     
-    [gallery loadWithImage:obj.cover highlighted:[_selectedGallery sortOrder].integerValue==obj.sortOrder.integerValue];
+    [gallery loadWithURL:obj.cover highlighted:[_selectedGallery sortOrder].integerValue==obj.sortOrder.integerValue];
     
     return cell;
 }
@@ -194,9 +197,14 @@
     [[GalleryManager shareInstanceWithShop:_shop] requestUserGallery];
 }
 
+-(NSArray*) shopUserGalleries
+{
+    return [[GalleryManager shareInstanceWithShop:_shop] shopUserGalleries];
+}
+
 -(NSInteger)numberOfItemsInGMGridView:(GMGridView *)gridView
 {
-    return _shop.userGalleriesObjects.count+([GalleryManager shareInstanceWithShop:_shop].canLoadMoreUserGallery?1:0);
+    return [self shopUserGalleries].count+([GalleryManager shareInstanceWithShop:_shop].canLoadMoreUserGallery?1:0);
 }
 
 -(GMGridViewCell *)GMGridView:(GMGridView *)gridView cellForItemAtIndex:(NSInteger)index
@@ -218,16 +226,26 @@
     
     [gallery hideLoading];
     
-    ShopUserGallery *obj=_shop.userGalleriesObjects[index];
-    [gallery loadWithImage:obj.thumbnail highlighted:_selectedGallery==obj];
+    id obj=[self shopUserGalleries][index];
+    
+    if([obj isKindOfClass:[ShopUserGallery class]])
+    {
+        ShopUserGallery *gal=obj;
+        [gallery loadWithURL:gal.thumbnail highlighted:_selectedGallery==gal];
+    }
+    else if([obj isKindOfClass:[UserGalleryUpload class]])
+    {
+        UserGalleryUpload *gal=obj;
+        [gallery loadWithImage:[UIImage imageWithData:gal.image] highlighted:_selectedGallery==gal];
+    }
     
     return cell;
 }
 
 -(id)galleryAtIndex:(int)index
 {
-    if([_shop.userGalleriesObjects isIndexInside:index])
-        return _shop.userGalleriesObjects[index];
+    if([[self shopUserGalleries] isIndexInside:index])
+        return [self shopUserGalleries][index];
     
     return nil;
 }

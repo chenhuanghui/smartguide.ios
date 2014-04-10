@@ -11,7 +11,7 @@
     bool hasChanged=false;
     for(UserGalleryUpload *obj in objs)
     {
-        if(obj.desc.length==0)
+        if(obj.desc.length==0 || obj.enumStatus==USER_GALLERY_UPLOAD_STATUS_MAKRED_DELETE)
         {
             [obj markDeleted];
             hasChanged=true;

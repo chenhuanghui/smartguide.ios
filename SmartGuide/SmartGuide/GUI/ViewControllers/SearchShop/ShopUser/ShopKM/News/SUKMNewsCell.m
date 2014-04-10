@@ -17,6 +17,7 @@
     lblTitle.text=news.title;
     lblContent.text=news.content;
     [cover loadImagePromotionNewsWithURL:news.image];
+    lblDuration.text=news.duration;
     
     [lblContent l_v_setY:133+news.titleHeight];
 }

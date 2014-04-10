@@ -48,6 +48,7 @@ static UserUploadGalleryManager *_userUploadGalleryManager=nil;
     obj.userLat=@(userLat());
     obj.userLng=@(userLng());
     obj.status=@(USER_GALLERY_UPLOAD_STATUS_LISTED);
+    obj.sortOrder=@([UserGalleryUpload allObjects].count+1);
     
     [[DataManager shareInstance] save];
     
@@ -132,7 +133,7 @@ static UserUploadGalleryManager *_userUploadGalleryManager=nil;
     
     for(UserGalleryUpload *upload in array)
     {
-        if(upload.enumStatus!=USER_GALLERY_UPLOAD_STATUS_NEXT)
+        if(upload.enumStatus==USER_GALLERY_UPLOAD_STATUS_LISTED)
             return upload;
     }
     
@@ -204,13 +205,13 @@ static UserUploadGalleryManager *_userUploadGalleryManager=nil;
                 {
                     
                     _currentUpload.objConnection=nil;
-                    [_currentUpload markDeleted];
+                    _currentUpload.status=@(USER_GALLERY_UPLOAD_STATUS_MAKRED_DELETE);
                     [[DataManager shareInstance] save];
                     _currentUpload=nil;
                 }
                 else
                 {
-                    [_currentUpload markDeleted];
+                    _currentUpload.status=@(USER_GALLERY_UPLOAD_STATUS_MAKRED_DELETE);
                     [[DataManager shareInstance] save];
                     _currentUpload=nil;
                 }
@@ -280,6 +281,27 @@ static UserUploadGalleryManager *_userUploadGalleryManager=nil;
             }
         }
     }
+}
+
+-(NSArray *)uploadFinishedWithIDShop:(int)idShop
+{
+    NSArray *uploads=[UserGalleryUpload queryUserGalleryUpload:[NSPredicate predicateWithFormat:@"%K==%i && %K==%i",UserGalleryUpload_IdShop,idShop,UserGalleryUpload_Status,USER_GALLERY_UPLOAD_STATUS_MAKRED_DELETE]];
+    
+    return uploads?:[NSArray array];
+}
+
+@end
+
+@implementation Shop(Upload)
+
+-(NSArray *)userGalleriesUpload
+{
+    NSArray *uploads=[UserGalleryUpload allObjects];
+
+    if(uploads.count>0)
+        return [uploads filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"%K==%i",UserGalleryUpload_IdShop,self.idShop.intValue]];
+    
+    return [NSArray new];
 }
 
 @end

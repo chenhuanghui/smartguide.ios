@@ -16,7 +16,8 @@
     __weak IBOutlet ScrollFullCell *scroll;
 }
 
--(void) loadImageURL:(NSString*) url imageSize:(CGSize) imgSize;
+-(void) loadImageURL:(NSString*) url;
+-(void) loadWithImage:(UIImage*) image;
 -(void) zoom:(CGPoint) pnt completed:(void(^)()) onCompleted;
 -(bool) isZoomed;
 -(void) collectionViewDidScroll;

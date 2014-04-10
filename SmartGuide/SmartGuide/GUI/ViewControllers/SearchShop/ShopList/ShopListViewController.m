@@ -332,8 +332,7 @@
     [self showLoading];
     
     _indexPathWillRemove=cell.indexPath;
-    _shopListWillRemove=shop;
-    
+
     _operationRemoveShopPlacelist=[[ASIOperationRemoveShopPlacelist alloc] initWithIDPlacelist:_placeList.idPlacelist.integerValue idShops:[NSString stringWithFormat:@"%i",shop.idShop.integerValue] userLat:userLat() userLng:userLng()];
     _operationRemoveShopPlacelist.delegatePost=self;
     
@@ -833,11 +832,19 @@
                 
                 if(status==1)
                 {
-                    [_shopsList removeObject:_shopListWillRemove];
+                    ShopList *shop=[((ShopListCell*)[tableList cellForRowAtIndexPath:_indexPathWillRemove]) shopList];
+                    
+                    [_shopsList removeObject:shop];
                     
                     [tableList beginUpdates];
-                    [tableList deleteRowsAtIndexPaths:@[_indexPathWillRemove] withRowAnimation:UITableViewRowAnimationAutomatic];
+                    
+                    if(_shopsList.count==0)
+                        [tableList deleteSections:[NSIndexSet indexSetWithIndex:_indexPathWillRemove.section] withRowAnimation:UITableViewRowAnimationAutomatic];
+                    else
+                        [tableList deleteRowsAtIndexPaths:@[_indexPathWillRemove] withRowAnimation:UITableViewRowAnimationAutomatic];
+                    
                     [tableList endUpdates];
+                    [tableList reloadData];
                     
                     _indexPathWillRemove=nil;
                 }
@@ -849,14 +856,20 @@
         {
             if(status==1)
             {
-                [_shopsList removeObject:_shopListWillRemove];
                 
                 [tableList beginUpdates];
+
+                ShopList *shop=[((ShopListCell*)[tableList cellForRowAtIndexPath:_indexPathWillRemove]) shopList];
+                
+                [_shopsList removeObject:shop];
+                
                 if(_shopsList.count==0)
                     [tableList deleteSections:[NSIndexSet indexSetWithIndex:_indexPathWillRemove.section] withRowAnimation:UITableViewRowAnimationAutomatic];
                 else
                     [tableList deleteRowsAtIndexPaths:@[_indexPathWillRemove] withRowAnimation:UITableViewRowAnimationAutomatic];
+                
                 [tableList endUpdates];
+                [tableList reloadData];
                 
                 _indexPathWillRemove=nil;
             }
@@ -878,6 +891,8 @@
     if([operation isKindOfClass:[ASIOperationShopSearch class]])
     {
         [self removeLoading];
+        
+        [tableList reloadData];
         
         _operationShopSearch=nil;
     }
@@ -1295,6 +1310,26 @@
 -(void) makeHideScroller
 {
     [self hideScrollerWithDelay:0];
+}
+
+-(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if([cell isKindOfClass:[ShopListCell class]])
+    {
+        ShopListCell *lCell=(ShopListCell*)cell;
+        
+        [lCell addObserverLove];
+    }
+}
+
+-(void)tableView:(UITableView *)tableView didEndDisplayingCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if([cell isKindOfClass:[ShopListCell class]])
+    {
+        ShopListCell *lCell=(ShopListCell*)cell;
+        
+        [lCell removeObserverLove];
+    }
 }
 
 @end

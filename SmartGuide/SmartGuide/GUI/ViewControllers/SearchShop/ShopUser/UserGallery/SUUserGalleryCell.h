@@ -11,12 +11,13 @@
 #import "ShopUserGallery.h"
 #import "GMGridView.h"
 
-@class SUUserGalleryCell,UserGalleryGridView;
+@class SUUserGalleryCell,UserGalleryGridView,UserGalleryUpload;
 
 @protocol UserGalleryDelegate <NSObject>
 
 -(void) userGalleryTouchedMakePicture:(SUUserGalleryCell*) cell;
 -(void) userGalleryTouchedGallery:(SUUserGalleryCell*) cell gallery:(ShopUserGallery*) gallery;
+-(void) userGalleryTouchedUpload:(SUUserGalleryCell*) cell gallery:(UserGalleryUpload*) upload;
 
 @end
 

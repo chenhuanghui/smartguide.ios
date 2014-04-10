@@ -12,13 +12,14 @@
 #import "SGGridViewLayoutStrategies.h"
 #import "GUIManager.h"
 #import "GalleryManager.h"
+#import "UserUploadGalleryManager.h"
 
 @implementation SUUserGalleryCell
 @synthesize delegate;
 
 -(void) makeGalleries
 {
-    _galleries=[_shop.userGalleriesObjects mutableCopy];
+    _galleries=[[[GalleryManager shareInstanceWithShop:_shop] shopUserGalleries] mutableCopy];
     _galleriesCount=_galleries.count;
     
     if(_galleries.count>0)
@@ -32,7 +33,7 @@
 {
     _shop=shop;
     
-    imgvFirsttime.hidden=shop.userGalleriesObjects.count>0;
+    imgvFirsttime.hidden=shop.userGalleriesObjects.count>0 || [shop userGalleriesUpload].count>0;
     
     [self makeGalleries];
     
@@ -113,6 +114,7 @@
     id obj=_galleries[index];
     NSString *url=@"";
     enum SHOP_USER_GALLERY_CELL_STATE state=SHOP_USER_GALLERY_STATE_THUMBNAIL;
+    UIImage *image=nil;
     
     if([obj isKindOfClass:[NSString class]])
     {
@@ -128,14 +130,22 @@
             state=SHOP_USER_GALLERY_STATE_LOADING;
         }
     }
-    else
+    else if([obj isKindOfClass:[ShopUserGallery class]])
     {
         ShopUserGallery *gallery=obj;
         url=gallery.thumbnail;
         state=SHOP_USER_GALLERY_STATE_THUMBNAIL;
     }
+    else if([obj isKindOfClass:[UserGalleryUpload class]])
+    {
+        UserGalleryUpload *upload=obj;
+        image=[UIImage imageWithData:upload.image];
+    }
     
-    [cell loadWithURL:url state:state];
+    if(image)
+        [cell loadWithImage:image];
+    else
+        [cell loadWithURL:url state:state];
     
     return  gCell;
 }
@@ -151,6 +161,9 @@
         
         if([obj isKindOfClass:[ShopUserGallery class]])
             [self.delegate userGalleryTouchedGallery:self gallery:obj];
+        else if([obj isKindOfClass:[UserGalleryUpload class]])
+            [self.delegate userGalleryTouchedUpload:self gallery:obj];
+            
     }
 }
 
@@ -223,11 +236,37 @@
 }
 
 - (IBAction)btnLeftTouchUpInside:(id)sender {
-    [grid l_co_addX:-[ShopUserGalleryCell size].width animate:true];
+    CGPoint pnt=CGPointMake(grid.l_co_x+[ShopUserGalleryCell size].width*1.5f, [ShopUserGalleryCell size].height/2);
+    
+    int index=[grid.layoutStrategy itemPositionFromLocation:pnt];
+    pnt=[grid.layoutStrategy originForItemAtPosition:index];
+    pnt.x-=[ShopUserGalleryCell size].width*2;
+    pnt.x=MAX(0,pnt.x);
+//    [grid scrollToObjectAtIndex:index-1 atScrollPosition:GMGridViewScrollPositionNone animated:true];
+    
+    NSLog(@"itemPositionFromLocation %@ %i",NSStringFromCGPoint(pnt),index);
+    
+    [grid setContentOffset:pnt animated:true];
+//    [grid l_co_addX:-[ShopUserGalleryCell size].width animate:true];
 }
 
 - (IBAction)btnRightTouchUpInside:(id)sender {
-    [grid l_co_addX:[ShopUserGalleryCell size].width animate:true];
+    
+    CGPoint pnt=CGPointMake(grid.l_co_x+[ShopUserGalleryCell size].width*1.5f, [ShopUserGalleryCell size].height/2);
+    
+    int index=[grid.layoutStrategy itemPositionFromLocation:pnt];
+    pnt=[grid.layoutStrategy originForItemAtPosition:index];
+    pnt.x=MIN(grid.l_cs_w-[ShopUserGalleryCell size].width*2,pnt.x);
+    
+    NSLog(@"itemPositionFromLocation %@ %i",NSStringFromCGPoint(pnt),index);
+    [grid setContentOffset:pnt animated:true];
+//    [grid scrollToObjectAtIndex:index atScrollPosition:GMGridViewScrollPositionNone animated:true];
+//    [grid l_co_addX:[ShopUserGalleryCell size].width animate:true];
+}
+
+-(void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
+{
+    
 }
 
 -(void)reloadImage:(NSNotification*) notification

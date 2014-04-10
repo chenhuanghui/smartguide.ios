@@ -147,4 +147,9 @@ static char loadingViewKey;
     self.loadingView.frame=rect;
 }
 
+-(void)cleanLoadingBackground
+{
+    self.loadingView.backgroundView.hidden=true;
+}
+
 @end

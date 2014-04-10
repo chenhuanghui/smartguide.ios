@@ -80,7 +80,7 @@ enum SHOP_USER_MODE {
     __strong SUUserCommentCell *userCommentCell;
     
     __weak ShopGallery *_selectedShopGallery;
-    __weak ShopUserGallery *_selectedUserGallery;
+    __weak id _selectedUserGallery;
     
     __weak GalleryViewController *galleryController;
     __weak GalleryFullViewController *galleryFullController;

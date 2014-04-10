@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "UserGalleryUpload.h"
+#import "Shop.h"
 
 @interface UserUploadGalleryManager : NSObject
 {
@@ -17,8 +18,16 @@
 +(UserUploadGalleryManager*) shareInstance;
 -(void) startUploads;
 
+-(NSArray*) uploadFinishedWithIDShop:(int) idShop;
+
 -(UserGalleryUpload*) addUploadWithIDShop:(int) idShop image:(UIImage*) image;
 -(void) updateDesc:(UserGalleryUpload*) upload desc:(NSString*) desc;
 -(void) cancelUpload:(UserGalleryUpload*) upload;
+
+@end
+
+@interface Shop(Upload)
+
+-(NSArray*) userGalleriesUpload;
 
 @end

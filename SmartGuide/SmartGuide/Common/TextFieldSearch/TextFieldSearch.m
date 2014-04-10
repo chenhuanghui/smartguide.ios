@@ -54,6 +54,8 @@
     
     self.background=nil;
     self.borderStyle=UITextBorderStyleNone;
+    
+    self.font=[UIFont fontWithName:@"Avenir-Roman" size:14];
 }
 
 -(void)setFrame:(CGRect)frame

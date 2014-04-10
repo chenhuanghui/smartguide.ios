@@ -26,6 +26,8 @@
     __weak Shop *_shop;
     
     UserGalleryUpload *_currentUpload;
+    
+    bool _idPostDone;
 }
 
 -(ShopCameraViewController*) initWithShop:(Shop*) shop;

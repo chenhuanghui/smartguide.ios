@@ -62,6 +62,7 @@
 {
     [[UserUploadGalleryManager shareInstance] updateDesc:_currentUpload desc:controller.desc];
     _currentUpload=nil;
+    _idPostDone=true;
     
     [self.delegate shopCameraControllerDidUploadPhoto:self];
 }
@@ -86,7 +87,7 @@
     
     _currentUpload=nil;
     
-    if([cameraNavi.visibleViewController isKindOfClass:[ShopCameraPostViewController class]])
+    if(!_idPostDone && [cameraNavi.visibleViewController isKindOfClass:[ShopCameraPostViewController class]])
     {
         [cameraNavi popViewControllerAnimated:true];
         return false;

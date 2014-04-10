@@ -45,7 +45,7 @@
     txt.contentInset=UIEdgeInsetsZero;
     txt.minNumberOfLines=1;
     txt.maxNumberOfLines=2;
-    txt.returnKeyType=UIReturnKeyDone;
+    txt.returnKeyType=UIReturnKeyDefault;
     txt.enablesReturnKeyAutomatically=true;
     txt.font=[UIFont fontWithName:@"Avenir-Roman" size:12];
     txt.delegate=self;
@@ -53,6 +53,7 @@
     txt.backgroundColor=[UIColor clearColor];
     txt.placeholder=@"Mô tả hình ảnh...";
     txt.keyboardType=UIKeyboardTypeDefault;
+    txt.internalTextView.autocorrectionType=UITextAutocapitalizationTypeNone;
     
     [txt becomeFirstResponder];
 }

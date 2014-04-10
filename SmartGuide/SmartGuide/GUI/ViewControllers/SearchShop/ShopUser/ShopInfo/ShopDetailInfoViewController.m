@@ -89,6 +89,11 @@
             [[GUIManager shareInstance].rootViewController presentShopUserWithIDShop:infoCell.info.idShop];
         }
     }
+    else if([cell isKindOfClass:[ShopDetailInfoDescCell class]])
+    {
+        _descMode=_descMode==SHOP_DETAIL_INFO_DESCRIPTION_NORMAL?SHOP_DETAIL_INFO_DESCRIPTION_FULL:SHOP_DETAIL_INFO_DESCRIPTION_NORMAL;
+        [self reloadData];
+    }
 }
 
 -(void)ASIOperaionPostFinished:(ASIOperationPost *)operation
@@ -442,6 +447,13 @@
         
         [table insertSubview:bg atIndex:0];
     }
+}
+
+-(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    for(UIView *bg in tableView.subviews)
+        if([bg isKindOfClass:[ShopDetailBGView class]])
+            [tableView sendSubviewToBack:bg];
 }
 
 -(void) clearBGView

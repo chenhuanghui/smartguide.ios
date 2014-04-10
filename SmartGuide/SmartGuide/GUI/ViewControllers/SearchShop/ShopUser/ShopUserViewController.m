@@ -88,6 +88,7 @@
     
     [detailView addSubview:shopNavi.view];
     [shopNavi l_v_setS:detailView.l_v_s];
+    shopNavi.visibleViewController.title=@"ROOT";
     
     switch (_shop.enumDataMode) {
         case SHOP_DATA_SHOP_LIST:
@@ -168,6 +169,9 @@
     if([notification.name isEqualToString:UIKeyboardWillShowNotification])
     {
         if(!_isDiplayView)
+            return;
+        
+        if(![shopNavi.visibleViewController.title isEqualToString:@"ROOT"])
             return;
         
         float duration=[notification.userInfo floatForKey:UIKeyboardAnimationDurationUserInfoKey];
@@ -1011,6 +1015,20 @@
     [tableShopUser reloadRowsAtIndexPaths:@[SHOP_USER_USER_GALLERY_INDEX_PATH] withRowAnimation:UITableViewRowAnimationNone];
 }
 
+-(void)userGalleryTouchedUpload:(SUUserGalleryCell *)cell gallery:(UserGalleryUpload *)upload
+{
+    UserGalleryViewController *vc=[[UserGalleryViewController alloc] initWithShop:_shop];
+    vc.delegate=self;
+    
+    _selectedUserGallery=upload;
+    
+    [vc setSelectedGallery:_selectedUserGallery];
+    
+    galleryController=vc;
+    
+    [self pushViewController:vc];
+}
+
 -(void)userGalleryTouchedGallery:(SUUserGalleryCell *)cell gallery:(ShopUserGallery *)gallery
 {
     UserGalleryViewController *vc=[[UserGalleryViewController alloc] initWithShop:_shop];
@@ -1038,7 +1056,7 @@
         [vc setSelectedObject:_selectedShopGallery];
         [vc show];
     }
-    else if([gallery isKindOfClass:[ShopUserGallery class]])
+    else if([gallery isKindOfClass:[ShopUserGallery class]] || [gallery isKindOfClass:[UserGalleryUpload class]])
     {
         _selectedUserGallery=gallery;
         

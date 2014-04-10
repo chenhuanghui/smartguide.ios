@@ -34,6 +34,7 @@
 +(void) clean;
 
 -(Shop*) shop;
+-(NSArray*) shopUserGalleries;
 -(void) requestUserGallery;
 -(void) requestShopGallery;
 

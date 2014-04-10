@@ -82,7 +82,7 @@ static NSString * const kClientId = @"790158294934-p5pnscmrt4avj698ncvhp14fit0f4
 #define API_STORE_ALL_STORE @"store/getAll"
 #define API_STORE_GET_LIST @"store/getList"
 #define API_STORE_GET_ITEMS @"store/getItem"
-#define API_SHOP_SEARCH @"shop/search_v2_1"
+#define API_SHOP_SEARCH @"elastic/searchV2"
 #define API_PLACELIST_GET_LIST @"placelist/getList"
 #define API_PLACELIST_GET @"placelist/get"
 #define API_PLACELIST_GET_DETAIL @"placelist/getDetail"

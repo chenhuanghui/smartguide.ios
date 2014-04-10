@@ -72,7 +72,6 @@ enum SHOP_LIST_VIEW_MODE {
     ASIOperationPlacelistGetDetail *_operationPlacelistGetDetail;
     ASIOperationRemoveShopPlacelist *_operationRemoveShopPlacelist;
     NSIndexPath *_indexPathWillRemove;
-    ShopList *_shopListWillRemove;
     
     NSString *_keyword;
     __weak Placelist *_placeList;

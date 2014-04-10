@@ -60,7 +60,8 @@
     
     [self requestUserPromotion];
     
-    [self.view showLoadingInsideFrame:CGRectMake(0, 54, self.view.l_v_w, self.view.l_v_h-54)];
+    [self.view showLoadingInsideFrame:CGRectMake(0, 54, self.view.l_v_w, self.view.l_v_h-52)];
+    [self.view cleanLoadingBackground];
 }
 
 -(BOOL)textFieldShouldBeginEditing:(UITextField *)textField

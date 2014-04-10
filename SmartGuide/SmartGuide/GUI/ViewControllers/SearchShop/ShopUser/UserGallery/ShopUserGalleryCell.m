@@ -23,6 +23,18 @@
     return self;
 }
 
+-(void)loadWithImage:(UIImage *)image
+{
+    [loading removeLoading];
+    loading.hidden=true;
+    
+    imgvThumbnail.hidden=false;
+    [imgvThumbnail setImage:image];
+    [imgvThumbnail setNeedsLayout];
+    imgvState.image=nil;
+    imgvState.hidden=true;
+}
+
 -(void)loadWithURL:(NSString *)url state:(enum SHOP_USER_GALLERY_CELL_STATE)state
 {
     [loading removeLoading];
@@ -44,6 +56,7 @@
             imgvThumbnail.hidden=true;
             imgvState.hidden=false;
             imgvState.image=[UIImage imageNamed:@"icon_picture_photo.png"];
+            [imgvState setNeedsLayout];
             
             break;
             

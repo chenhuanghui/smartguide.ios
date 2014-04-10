@@ -22,6 +22,7 @@ enum SHOP_USER_GALLERY_CELL_STATE {
 }
 
 -(void) loadWithURL:(NSString*) url state:(enum SHOP_USER_GALLERY_CELL_STATE) state;
+-(void) loadWithImage:(UIImage*) image;
 
 +(NSString *)reuseIdentifier;
 +(CGSize) size;

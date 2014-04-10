@@ -44,16 +44,47 @@
     [btnNumOfLove setTitle:[NSString stringWithFormat:@"%@ lượt thích",[_shop numOfLove]] forState:UIControlStateNormal];
     [btnNumOfComment setTitle:[NSString stringWithFormat:@"%@ nhận xét",[_shop numOfComment]] forState:UIControlStateNormal];
     lblKM.text=[NSString stringWithFormat:@"Cách bạn %@",shopList.distance];
-    
-    if(shopList.placeList)
+    btnLove.alpha=shopList.enumLoveStatus==LOVE_STATUS_LOVED?1:0.3f;
+
+    [self makeButtonType];
+}
+
+-(void) addObserverLove
+{
+    [_shop.shop addObserver:self forKeyPath:Shop_LoveStatus options:NSKeyValueObservingOptionNew context:nil];
+    _didAddedObsLove=true;
+}
+
+-(void)removeObserverLove
+{
+    if(_didAddedObsLove && _shop.shop.observationInfo)
+        [_shop.shop removeObserver:self forKeyPath:Shop_LoveStatus];
+}
+
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    btnLove.alpha=_shop.enumLoveStatus==LOVE_STATUS_LOVED?1:0.3f;
+}
+
+-(void) makeButtonType
+{
+    if(_shop.placeList)
     {
-        if(shopList.placeList.idAuthor.intValue==currentUser().idUser.integerValue)
-            [self setButtonTypeIsTypeAdded:false];
-        else
-            [self setButtonTypeIsTypeAdded:true];
+        switch (currentUser().enumDataMode) {
+            case USER_DATA_TRY:
+                [self setButtonTypeIsTypeAdded:true];
+                break;
+                
+            case USER_DATA_CREATING:
+            case USER_DATA_FULL:
+                [self setButtonTypeIsTypeAdded:currentUser().idUser.integerValue!=_shop.placeList.idAuthor.integerValue];
+                break;
+        }
     }
     else
-        [self setButtonTypeIsTypeAdded:false];
+    {
+        [self setButtonTypeIsTypeAdded:true];
+    }
 }
 
 -(void)setButtonTypeIsTypeAdded:(bool)isTypeAdded

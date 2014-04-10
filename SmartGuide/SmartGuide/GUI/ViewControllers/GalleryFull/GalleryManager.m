@@ -7,6 +7,7 @@
 //
 
 #import "GalleryManager.h"
+#import "UserUploadGalleryManager.h"
 
 static GalleryManager *_galleryManager;
 @implementation GalleryManager
@@ -56,6 +57,18 @@ static GalleryManager *_galleryManager;
     _canLoadMoreUserGallery=_shop.userGalleries.count==10;
     _isLoadingMoreUserGallery=false;
     _pageUserGallery=0;
+}
+
+-(NSArray *)shopUserGalleries
+{
+    NSMutableArray *galleries=[[_shop userGalleriesUpload] mutableCopy];
+    
+    if(galleries.count>0)
+        [galleries sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:UserGalleryUpload_SortOrder ascending:false]]];
+    
+    [galleries addObjectsFromArray:_shop.userGalleriesObjects];
+    
+    return galleries;
 }
 
 -(void)requestShopGallery

@@ -17,6 +17,7 @@
     __weak IBOutlet UILabel *lblTitle;
     __weak IBOutlet LabelTopText *lblContent;
     __weak IBOutlet UIImageView *lineStatus;
+    __weak IBOutlet UILabel *lblDuration;
 }
 
 -(void) loadWithPromotionNews:(PromotionNews*) news;
