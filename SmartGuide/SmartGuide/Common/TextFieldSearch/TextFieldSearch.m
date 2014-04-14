@@ -7,6 +7,7 @@
 //
 
 #import "TextFieldSearch.h"
+#import "Utility.h"
 
 @implementation TextFieldSearch
 
@@ -27,7 +28,6 @@
     
     [self addSubview:bg];
     [self sendSubviewToBack:bg];
-    
     UIImageView *imgv=[[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 38, self.frame.size.height)];
     imgv.image=[UIImage imageNamed:@"icon_search.png"];
     imgv.contentMode=UIViewContentModeCenter;
@@ -75,6 +75,26 @@
 {
     self.text=@"";
     [self sendActionsForControlEvents:UIControlEventEditingChanged];
+}
+
+-(void)setAngle:(float)angle
+{
+    UIImageView *imgv=(UIImageView*)self.leftView;
+    NSLog(@"angle %f",angle);
+    if(angle==-1)
+    {
+        imgv.image=[UIImage imageNamed:@"icon_search.png"];
+        imgv.frame=CGRectMake(0, 0, 38, self.frame.size.height);
+        imgv.transform=CGAffineTransformIdentity;
+        imgv.contentMode=UIViewContentModeCenter;
+    }
+    else
+    {
+        imgv.image=[UIImage imageNamed:@"icon_refresh_new.png"];
+//        imgv.contentMode=UIViewContentModeScaleAspectFit;
+        imgv.transform=CGAffineTransformMakeRotation(angle);
+        imgv.frame=CGRectMake(0, 0, 18, 18);
+    }
 }
 
 @end

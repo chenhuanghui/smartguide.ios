@@ -136,6 +136,11 @@
 
 -(void) requestShopUser
 {
+    int idShop=_idShop;
+    
+    if(_shop)
+        idShop=_shop.idShop.integerValue;
+    
     _operationShopUser=[[ASIOperationShopUser alloc] initWithIDShop:_shop.idShop.integerValue userLat:userLat() userLng:userLng()];
     _operationShopUser.delegatePost=self;
     

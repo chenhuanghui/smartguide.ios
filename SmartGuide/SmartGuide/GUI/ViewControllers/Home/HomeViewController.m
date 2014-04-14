@@ -540,6 +540,25 @@
                 btnScanSmall.userInteractionEnabled=false;
             }];
         }
+        
+        CGSize imgSize=CGSizeMake(19, 38);
+        float y=scrollView.l_co_y+54;
+        [txtAni l_v_setX:y/2];
+        [txtAni l_v_setW:MAX(imgSize.width*2, 320-y)];
+        
+        if(txtAni.l_v_w==imgSize.width*2)
+        {
+            if(_startAngleY==0)
+                _startAngleY=y;
+            
+            [txtAni setAngle:DEGREES_TO_RADIANS(y-_startAngleY)];
+        }
+        else
+        {
+            [txtAni setAngle:-1];
+        }
+        
+        NSLog(@"%f %f %f",scrollView.l_co_y,txtAni.l_v_x,txtAni.l_v_w);
     }
 }
 

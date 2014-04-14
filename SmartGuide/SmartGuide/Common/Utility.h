@@ -321,7 +321,9 @@ float roundToN(float num, int decimals);
 - (UIImage*) blurWithInputRadius:(float) inputRadius;
 - (UIImage*) convertToGrayscale;
 - (UIImage*) convertToServer;
-- (UIImage*) convertAvatarToServer;
+-(UIImage*) convertAvatarToServer;
+- (UIImage *)imageRotatedByRadians:(CGFloat)radians;
+- (UIImage *)imageRotatedByDegrees:(CGFloat)degrees;
 
 @end
 

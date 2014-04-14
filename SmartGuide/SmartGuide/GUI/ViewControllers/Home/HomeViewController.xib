@@ -15,6 +15,7 @@
                 <outlet property="qrView" destination="MVN-kQ-te1" id="X6K-xY-xc6"/>
                 <outlet property="tableFeed" destination="Ney-Bf-iDE" id="RhK-f1-eD4"/>
                 <outlet property="txt" destination="Zxr-rq-3wh" id="wKt-3d-52E"/>
+                <outlet property="txtAni" destination="YMe-El-zUG" id="gAe-gC-U4A"/>
                 <outlet property="view" destination="1" id="3"/>
             </connections>
         </placeholder>
@@ -133,6 +134,17 @@
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
+                <view userInteractionEnabled="NO" alpha="0.5" contentMode="scaleToFill" id="2q1-33-QXT">
+                    <rect key="frame" x="0.0" y="225" width="320" height="38"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                </view>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="YMe-El-zUG" customClass="TextFieldSearch">
+                    <rect key="frame" x="0.0" y="225" width="320" height="38"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
             </subviews>
             <color key="backgroundColor" red="0.93361367979999998" green="0.93361367979999998" blue="0.93361367979999998" alpha="1" colorSpace="calibratedRGB"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>

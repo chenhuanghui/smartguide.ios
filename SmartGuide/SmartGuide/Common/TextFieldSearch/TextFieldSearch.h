@@ -15,6 +15,8 @@
     __weak TextFieldBGView *bgView;
 }
 
+-(void) setAngle:(float) angle;
+
 @end
 
 @interface TextFieldBGView : UIView

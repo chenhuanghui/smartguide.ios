@@ -14,6 +14,7 @@
 #import "HomeInfoCell.h"
 #import "HomeImagesType9Cell.h"
 #import "QRCodeViewController.h"
+#import "TextFieldSearch.h"
 
 @class HomeViewController,TableHome;
 
@@ -56,6 +57,8 @@
     CGRect _blurBottomFrame;
     CGRect _buttonScanBigFrame;
     CGRect _buttonScanSmallFrame;
+    __weak IBOutlet TextFieldSearch *txtAni;
+    float _startAngleY;
 }
 
 @property (nonatomic, assign) id<HomeControllerDelegate> delegate;

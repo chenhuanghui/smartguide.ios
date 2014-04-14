@@ -1010,6 +1010,10 @@
 		A9BDD06F18FBD0E9006C6CA6 /* icon_arrowdown_uc@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A9BDD00E18FBD0E8006C6CA6 /* icon_arrowdown_uc@2x.png */; };
 		A9BDD07018FBD0E9006C6CA6 /* line_info_uc.png in Resources */ = {isa = PBXBuildFile; fileRef = A9BDD00F18FBD0E8006C6CA6 /* line_info_uc.png */; };
 		A9BDD07118FBD0E9006C6CA6 /* line_info_uc@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A9BDD01018FBD0E8006C6CA6 /* line_info_uc@2x.png */; };
+		A9BDD0D018FBEE64006C6CA6 /* icon_refresh.png in Resources */ = {isa = PBXBuildFile; fileRef = A9BDD0CE18FBEE64006C6CA6 /* icon_refresh.png */; };
+		A9BDD0D118FBEE64006C6CA6 /* icon_refresh@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A9BDD0CF18FBEE64006C6CA6 /* icon_refresh@2x.png */; };
+		A9BDD0D418FBFA26006C6CA6 /* icon_refresh_new@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A9BDD0D218FBFA26006C6CA6 /* icon_refresh_new@2x.png */; };
+		A9BDD0D518FBFA26006C6CA6 /* icon_refresh_new.png in Resources */ = {isa = PBXBuildFile; fileRef = A9BDD0D318FBFA26006C6CA6 /* icon_refresh_new.png */; };
 		A9BF947B178FAEF200EF7E5F /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9BF947A178FAEF200EF7E5F /* CoreLocation.framework */; };
 		A9BF947D178FAF0600EF7E5F /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9BF947C178FAF0600EF7E5F /* SystemConfiguration.framework */; };
 		A9BF947F178FAF7400EF7E5F /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9BF947E178FAF7400EF7E5F /* MobileCoreServices.framework */; };
@@ -2344,6 +2348,10 @@
 		A9BDD00E18FBD0E8006C6CA6 /* icon_arrowdown_uc@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_arrowdown_uc@2x.png"; sourceTree = "<group>"; };
 		A9BDD00F18FBD0E8006C6CA6 /* line_info_uc.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = line_info_uc.png; sourceTree = "<group>"; };
 		A9BDD01018FBD0E8006C6CA6 /* line_info_uc@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "line_info_uc@2x.png"; sourceTree = "<group>"; };
+		A9BDD0CE18FBEE64006C6CA6 /* icon_refresh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_refresh.png; sourceTree = "<group>"; };
+		A9BDD0CF18FBEE64006C6CA6 /* icon_refresh@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_refresh@2x.png"; sourceTree = "<group>"; };
+		A9BDD0D218FBFA26006C6CA6 /* icon_refresh_new@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_refresh_new@2x.png"; sourceTree = "<group>"; };
+		A9BDD0D318FBFA26006C6CA6 /* icon_refresh_new.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_refresh_new.png; sourceTree = "<group>"; };
 		A9BF947A178FAEF200EF7E5F /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		A9BF947C178FAF0600EF7E5F /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		A9BF947E178FAF7400EF7E5F /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
@@ -3783,6 +3791,10 @@
 		A98198BE178D44FB0009FCB6 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				A9BDD0D218FBFA26006C6CA6 /* icon_refresh_new@2x.png */,
+				A9BDD0D318FBFA26006C6CA6 /* icon_refresh_new.png */,
+				A9BDD0CE18FBEE64006C6CA6 /* icon_refresh.png */,
+				A9BDD0CF18FBEE64006C6CA6 /* icon_refresh@2x.png */,
 				A9BDD00D18FBD0E8006C6CA6 /* icon_arrowdown_uc.png */,
 				A9BDD00E18FBD0E8006C6CA6 /* icon_arrowdown_uc@2x.png */,
 				A9BDD00F18FBD0E8006C6CA6 /* line_info_uc.png */,
@@ -4813,6 +4825,7 @@
 				9A98C8FB188E83A30067EAD3 /* button_loading_big_12.png in Resources */,
 				9A998A93188E47B400F59840 /* button_back_10@2x.png in Resources */,
 				9AC42EB818C4790000EBE5F4 /* button_update.png in Resources */,
+				A9BDD0D018FBEE64006C6CA6 /* icon_refresh.png in Resources */,
 				9A98C91F188E83A30067EAD3 /* button_loading_big_09@2x.png in Resources */,
 				9A98C900188E83A30067EAD3 /* button_loading_small_06.png in Resources */,
 				9A2F8D131855BC3C0024AE1A /* button_more@2x.png in Resources */,
@@ -5010,6 +5023,7 @@
 				9A96BB4A188044DD0081171B /* button_search_home.png in Resources */,
 				9ACFAE7618621D10006131DC /* frame_takephoto.png in Resources */,
 				9A7AC21B18D191550043316D /* SearchShopCell.xib in Resources */,
+				A9BDD0D518FBFA26006C6CA6 /* icon_refresh_new.png in Resources */,
 				9A2F8D091855BB9A0024AE1A /* bg_price_left@2x.png in Resources */,
 				9A96DC0C1886421E00AD0EEC /* line_detail_placelist@2x.png in Resources */,
 				A9BD83EA18ED40BD000375BD /* button_config.png in Resources */,
@@ -5074,6 +5088,7 @@
 				9A98C92E188E83A30067EAD3 /* button_loading_small_09@2x.png in Resources */,
 				9A98C91E188E83A30067EAD3 /* button_loading_big_08@2x.png in Resources */,
 				9AA026E1183674CF0087B2DA /* line_hordot.png in Resources */,
+				A9BDD0D118FBEE64006C6CA6 /* icon_refresh@2x.png in Resources */,
 				9AA2C585187FE98C004F895B /* icon_playlist_search.png in Resources */,
 				9A27BC1218D18BAD00E3EAC2 /* HomeListCell.xib in Resources */,
 				9A889BEF187AC73D00602CBB /* button_google_login@2x.png in Resources */,
@@ -5219,6 +5234,7 @@
 				9A211EAF18B522EA00EBCCD9 /* icon_bestmatch@2x.png in Resources */,
 				9A3986CD185B7CAF006C0961 /* frame_avauser_navigation@2x.png in Resources */,
 				9A96BB4F188044DD0081171B /* blur_top_home@2x.png in Resources */,
+				A9BDD0D418FBFA26006C6CA6 /* icon_refresh_new@2x.png in Resources */,
 				9AB3694C1888551500551E03 /* pattern_home@2x.png in Resources */,
 				9ACBE8E3185A0A8C0004474F /* button_love.png in Resources */,
 				9A7AC1F218D1907B0043316D /* SUUserGalleryCell.xib in Resources */,
