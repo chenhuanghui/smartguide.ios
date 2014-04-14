@@ -11,7 +11,7 @@
 #import "GalleryManager.h"
 #import "UserUploadGalleryManager.h"
 
-@interface GalleryFullViewController ()
+@interface GalleryFullViewController ()<GalleryFullCellDelegate>
 
 @end
 
@@ -129,6 +129,7 @@
     
     cell.collView=collectionView;
     cell.indexPath=indexPath;
+    cell.delegate=self;
     
     return cell;
 }
@@ -177,6 +178,11 @@
 {
     [collView reloadData];
     [self scrollViewDidScroll:collView];
+}
+
+-(void)galleryFullCellTouchedOutsideImage:(GalleryFullCell *)cell
+{
+    [self.delegate galleryFullTouchedBack:self];
 }
 
 @end

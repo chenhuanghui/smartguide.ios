@@ -9,6 +9,8 @@
 #define PromotionNews_Content @"content"
 #define PromotionNews_Duration @"duration"
 #define PromotionNews_Image @"image"
+#define PromotionNews_ImageHeight @"imageHeight"
+#define PromotionNews_ImageWidth @"imageWidth"
 #define PromotionNews_Title @"title"
 
 @class PromotionNews;
@@ -28,6 +30,8 @@
 @property (nonatomic, retain) NSString* content;
 @property (nonatomic, retain) NSString* duration;
 @property (nonatomic, retain) NSString* image;
+@property (nonatomic, retain) NSNumber* imageHeight;
+@property (nonatomic, retain) NSNumber* imageWidth;
 @property (nonatomic, retain) NSString* title;
 
 #pragma mark Fetched property

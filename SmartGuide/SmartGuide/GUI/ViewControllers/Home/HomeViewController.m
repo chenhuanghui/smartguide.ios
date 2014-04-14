@@ -49,7 +49,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-
+    
     homeLocation=currentUser().coordinate;
     
     txt.placeholder=TEXTFIELD_SEARCH_PLACEHOLDER_TEXT;
@@ -58,7 +58,7 @@
     
     [UserHome markDeleteAllObjects];
     [[DataManager shareInstance] save];
-
+    
     [tableFeed registerNib:[UINib nibWithNibName:[HomePromotionCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[HomePromotionCell reuseIdentifier]];
     [tableFeed registerNib:[UINib nibWithNibName:[HomeImagesCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[HomeImagesCell reuseIdentifier]];
     [tableFeed registerNib:[UINib nibWithNibName:[HomeListCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[HomeListCell reuseIdentifier]];
@@ -70,23 +70,20 @@
     _homes=[NSMutableArray array];
     _isLoadingMore=false;
     _canLoadMore=true;
-
+    
     [self requestNewFeed];
     
     [self showLoading];
     
-    if(!isVailCLLocationCoordinate2D(homeLocation))
-    {
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userLocationChanged:) name:NOTIFICATION_USER_LOCATION_CHANGED object:nil];
-        [[LocationManager shareInstance] startTrackingLocation];
-    }
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userLocationChanged:) name:NOTIFICATION_USER_LOCATION_CHANGED object:nil];
+    [[LocationManager shareInstance] startTrackingLocation];
 }
 
 -(void)viewWillAppearOnce
 {
     [super viewWillAppearOnce];
     
-    [self requestShopUserWithIDShop:8 idPost:1730514665];
+    //    [self requestShopUserWithIDShop:8 idPost:1730514665];
 }
 
 -(void) showLoading

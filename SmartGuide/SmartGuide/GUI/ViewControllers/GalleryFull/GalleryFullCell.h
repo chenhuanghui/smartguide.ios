@@ -9,6 +9,13 @@
 #import <UIKit/UIKit.h>
 
 @class ScrollFullCell;
+@class GalleryFullCell;
+
+@protocol GalleryFullCellDelegate <NSObject>
+
+-(void) galleryFullCellTouchedOutsideImage:(GalleryFullCell*) cell;
+
+@end
 
 @interface GalleryFullCell : UICollectionViewCell<UIScrollViewDelegate>
 {
@@ -25,6 +32,7 @@
 
 @property (nonatomic, weak) UICollectionView *collView;
 @property (nonatomic, strong) NSIndexPath *indexPath;
+@property (nonatomic, weak) id<GalleryFullCellDelegate> delegate;
 
 @end
 

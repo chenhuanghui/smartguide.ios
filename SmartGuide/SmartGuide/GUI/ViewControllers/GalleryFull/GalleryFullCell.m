@@ -103,6 +103,9 @@
     {
         // Touch vào vùng đen ngoài hình->mặc định zoom vào top left;
         pnt=CGPointZero;
+        
+        [self.delegate galleryFullCellTouchedOutsideImage:self];
+        return;
     }
     
     CGRect visiRect=CGRectMake(pnt.x-scroll.frame.size.width/2, pnt.y-scroll.frame.size.height/2, scroll.frame.size.width, scroll.frame.size.height);

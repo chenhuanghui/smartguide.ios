@@ -19,7 +19,13 @@
     [cover loadImagePromotionNewsWithURL:news.image];
     lblDuration.text=news.duration;
     
-    [lblContent l_v_setY:133+news.titleHeight];
+    [cover l_v_setH:news.newsSize.height];
+    
+    [lblTitle l_v_setY:20+news.newsSize.height];
+    [lblTitle l_v_setH:news.titleHeight];
+    
+    [lblContent l_v_setY:lblTitle.l_v_y+lblTitle.l_v_h+20];
+    [lblContent l_v_setH:news.contentHeight];
 }
 
 -(void)hideLine
@@ -34,13 +40,15 @@
 
 +(float)heightWithPromotionNews:(PromotionNews *)news
 {
-    float height=195;
+    float height=90;
     
     news.titleHeight=[news.title sizeWithFont:[UIFont fontWithName:@"Avenir-Heavy" size:14] constrainedToSize:CGSizeMake(234, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height;
     height+=news.titleHeight;
     
     news.contentHeight=[news.content sizeWithFont:[UIFont fontWithName:@"Avenir-Roman" size:13] constrainedToSize:CGSizeMake(234, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height;
     height+=news.contentHeight;
+    
+    height+=news.newsSize.height;
     
     return height;
 }

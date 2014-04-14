@@ -48,6 +48,8 @@
         <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="duration" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="image" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="imageHeight" optional="YES" attributeType="Float" defaultValueString="0" syncable="YES"/>
+        <attribute name="imageWidth" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="shop" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Shop" inverseName="promotionNew" inverseEntity="Shop" syncable="YES"/>
     </entity>
@@ -355,7 +357,7 @@
         <element name="KM1Voucher" positionX="0" positionY="0" width="128" height="150"/>
         <element name="KM2Voucher" positionX="0" positionY="0" width="128" height="150"/>
         <element name="Placelist" positionX="0" positionY="0" width="128" height="210"/>
-        <element name="PromotionNews" positionX="0" positionY="0" width="128" height="120"/>
+        <element name="PromotionNews" positionX="0" positionY="0" width="128" height="150"/>
         <element name="Reward" positionX="0" positionY="0" width="128" height="120"/>
         <element name="Shop" positionX="0" positionY="0" width="128" height="540"/>
         <element name="ShopGallery" positionX="0" positionY="0" width="128" height="150"/>

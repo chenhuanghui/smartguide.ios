@@ -36,20 +36,20 @@
     
     [[GUIManager shareInstance] startupWithWindow:self.window];
     
-    [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge |UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
+//    [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge |UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
     
     return YES;
 }
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 {
-    NSString *str = [NSString stringWithFormat:@"Token: %@", deviceToken];
-    NSLog(@"%@", str);
+//    NSString *str = [NSString stringWithFormat:@"Token: %@", deviceToken];
+//    NSLog(@"%@", str);
 }
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)err
 {
-    NSString *str = [NSString stringWithFormat:@"Error %@", err];
-    NSLog(@"%@", str);
+//    NSString *str = [NSString stringWithFormat:@"Error %@", err];
+//    NSLog(@"%@", str);
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
