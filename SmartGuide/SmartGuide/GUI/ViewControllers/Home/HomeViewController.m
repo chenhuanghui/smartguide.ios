@@ -13,6 +13,7 @@
 #import "UserNotificationViewController.h"
 
 #define NEW_FEED_DELTA_SPEED 2.1f
+#define HOME_TEXT_FIELD_SEARCH_MIN_Y 8.f
 
 @interface HomeViewController ()<homeListDelegate,homeInfoCellDelegate>
 
@@ -50,9 +51,11 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
+    _isUserReleaseTouched=true;
+    _startYAngle=-999;
     homeLocation=currentUser().coordinate;
     
-    txt.placeholder=TEXTFIELD_SEARCH_PLACEHOLDER_TEXT;
+    txt.text=TEXTFIELD_SEARCH_PLACEHOLDER_TEXT;
     
     [tableFeed l_v_addH:QRCODE_BIG_HEIGHT-QRCODE_SMALL_HEIGHT];
     
@@ -77,6 +80,186 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userLocationChanged:) name:NOTIFICATION_USER_LOCATION_CHANGED object:nil];
     [[LocationManager shareInstance] startTrackingLocation];
+    
+    tableFeed.delegate=nil;
+    float y=48;
+    //    y+=4;//align
+    
+    [txt l_v_setY:y];
+    _txtPerWidth=TEXT_FIELD_SEARCH_DEFAULT_WIDTH/txt.l_v_w;
+    
+    y+=txt.l_v_h;
+    y+=4;//align
+    
+    tableFeed.contentInset=UIEdgeInsetsMake(y, 0, 30, 0);
+    tableFeed.delegate=self;
+    
+    _scrollDistanceHeight=txt.l_v_y-HOME_TEXT_FIELD_SEARCH_MIN_Y;
+    
+    
+}
+
+-(void) startTrackingUserDrag
+{
+    [tableFeed.panGestureRecognizer addTarget:self action:@selector(tableFeedPan:)];
+}
+
+-(void) tableFeedPan:(UIPanGestureRecognizer*) pan
+{
+    switch (pan.state) {
+        case UIGestureRecognizerStateBegan:
+            _isUserReleaseTouched=false;
+            NSLog(@"UIGestureRecognizerStateBegan");
+            break;
+            
+        case UIGestureRecognizerStateCancelled:
+        case UIGestureRecognizerStateEnded:
+        case UIGestureRecognizerStateFailed:
+            
+            NSLog(@"UIGestureRecognizerStateCancelled");
+            
+            _isUserReleaseTouched=true;
+            _isCanRefresh=true;
+            
+            [self callReloadTable];
+            
+            [tableFeed.panGestureRecognizer removeTarget:self action:@selector(tableFeedPan:)];
+            break;
+            
+        default:
+            break;
+    }
+}
+
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    if(scrollView==tableFeed)
+    {
+        if(tableFeed.l_co_y+tableFeed.contentInset.top>100)
+        {
+            [UIView animateWithDuration:0.3f animations:^{
+                [qrView l_v_setY:_qrFrame.origin.y+QRCODE_BIG_HEIGHT-QRCODE_SMALL_HEIGHT];
+                [blurBottom l_v_setY:_blurBottomFrame.origin.y+QRCODE_BIG_HEIGHT-QRCODE_SMALL_HEIGHT];
+                
+                btnScanSmall.alpha=1;
+                btnScanBig.alpha=0;
+                btnScanBig.frame= _buttonScanSmallFrame;
+                btnScanSmall.frame=_buttonScanBigFrame;
+            } completion:^(BOOL finished) {
+                btnScanBig.userInteractionEnabled=false;
+                btnScanSmall.userInteractionEnabled=true;
+            }];
+        }
+        else
+        {
+            [UIView animateWithDuration:0.3f animations:^{
+                [qrView l_v_setY:_qrFrame.origin.y];
+                [blurBottom l_v_setY:_blurBottomFrame.origin.y];
+                
+                btnScanBig.alpha=1;
+                btnScanSmall.alpha=0;
+                btnScanBig.frame=_buttonScanBigFrame;
+                btnScanSmall.frame=_buttonScanSmallFrame;
+            } completion:^(BOOL finished) {
+                btnScanBig.userInteractionEnabled=true;
+                btnScanSmall.userInteractionEnabled=false;
+            }];
+        }
+        
+        if(CGRectIsEmpty(_textFieldFrame))
+            _textFieldFrame=txt.frame;
+        if(CGRectIsEmpty(_logoFrame))
+            _logoFrame=imgvLogo.frame;
+        
+        float y=tableFeed.offsetYWithInsetTop;
+        float perY=y/_scrollDistanceHeight;
+        
+        float txtY=_textFieldFrame.origin.y-y;
+        txtY=MAX(8,txtY);
+        
+        if(txtY>_textFieldFrame.origin.y)
+            txtY=_textFieldFrame.origin.y;
+        
+        [txt l_v_setY:txtY];
+        
+        if(_isRefreshing)
+        {
+            
+        }
+        else
+        {
+            if(y>0)
+            {
+                if(y<_scrollDistanceHeight)
+                {
+                    float w=_textFieldFrame.size.width+perY*(TEXT_FIELD_SEARCH_DEFAULT_WIDTH-_textFieldFrame.size.width);
+                    [txt l_v_setW:w];
+                    [txt l_v_setX:_textFieldFrame.origin.x-(perY*(TEXT_FIELD_SEARCH_DEFAULT_WIDTH-_textFieldFrame.size.width))/2+4.f*perY];
+                }
+                else
+                {
+                    txt.frame=CGRectMake((self.l_v_w-TEXT_FIELD_SEARCH_DEFAULT_WIDTH)/2+MIN(4.f*perY,4), HOME_TEXT_FIELD_SEARCH_MIN_Y, TEXT_FIELD_SEARCH_DEFAULT_WIDTH, _textFieldFrame.size.height);
+                }
+            }
+            else
+            {
+                CGRect rect=_textFieldFrame;
+                
+                float yy=rect.size.width*perY;
+                yy*=1.5f;
+                
+                rect.size.width+=yy;
+                
+                if(rect.size.width<TEXT_FIELD_SEARCH_MIN_WIDTH)
+                {
+                    rect.size.width=TEXT_FIELD_SEARCH_MIN_WIDTH;
+                    rect.origin.x=(self.l_v_w-rect.size.width)/2;
+                    
+                    if(_startYAngle==-999)
+                        _startYAngle=y;
+                    
+                    float angle=180-((perY+0.5f)*180.f)*3.5f;
+                    angle=DEGREES_TO_RADIANS(angle);
+                    
+                    if(angle>M_PI*3)
+                    {
+                        angle=M_PI*3;
+
+                        _isUserReleaseTouched=false;
+                        [self startTrackingUserDrag];
+                        tableFeed.maxY=-tableFeed.contentInset.top;
+                        [txt startRefresh];
+                        [self reloadData];
+                    }
+                    
+                    [txt setAngle:angle];
+                }
+                else
+                {
+                    rect.origin.x-=yy/2;
+                    rect.size.width=MAX(TEXT_FIELD_SEARCH_MIN_WIDTH,rect.size.width);
+                    
+                    [txt setAngle:-999];
+                }
+                
+                txt.frame=rect;
+            }
+        }
+        
+        if(txt.l_v_w<95.f)
+            txt.text=@"";
+        else
+            txt.text=TEXTFIELD_SEARCH_PLACEHOLDER_TEXT;
+        
+        float logoY=_logoFrame.origin.y-y/4;
+        logoY=MIN(_logoFrame.origin.y,logoY);
+        
+        [imgvLogo l_v_setY:logoY];
+        imgvLogo.alpha=1-perY*2.f;
+        float scaleLogo=MAX(0.1f,1-perY);
+        scaleLogo=MIN(1.2f,scaleLogo);
+        imgvLogo.transform=CGAffineTransformMakeScale(scaleLogo, scaleLogo);
+    }
 }
 
 -(void)viewWillAppearOnce
@@ -136,6 +319,17 @@
     [_operationUserHome startAsynchronous];
 }
 
+-(void) reloadData
+{
+    _isRefreshing=true;
+    _page=-1;
+    _isLoadingMore=false;
+    _canLoadMore=true;
+    _isAPIFinished=false;
+    
+    [self requestNewFeed];
+}
+
 -(void) finishLoadData
 {
     if(!_isFinishedLoadData)
@@ -156,15 +350,26 @@
         
         ASIOperationUserHome *ope=(ASIOperationUserHome*) operation;
         
+        if(_isRefreshing)
+            _homes=[NSMutableArray new];
+        
         [_homes addObjectsFromArray:ope.homes];
         _canLoadMore=ope.homes.count==10;
         _isLoadingMore=false;
         _page++;
+        _isRefreshing=false;
+        _isAPIFinished=true;
         
-        [tableFeed reloadData];
+        [self callReloadTable];
         
         _operationUserHome=nil;
     }
+}
+
+-(void) callReloadTable
+{
+    if(_isUserReleaseTouched && _isAPIFinished)
+        [tableFeed reloadData];
 }
 
 -(void)ASIOperaionPostFailed:(ASIOperationPost *)operation
@@ -186,7 +391,6 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [blackView l_v_setH:5];
 }
 
 - (void)didReceiveMemoryWarning
@@ -197,16 +401,10 @@
 
 -(BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {
-    self.view.userInteractionEnabled=false;
+    self.view.userInteractionEnabled=true;
+    [SGData shareInstance].fScreen=[HomeViewController screenCode];
     
-    [UIView animateWithDuration:0.15f animations:^{
-        [blackView l_v_setH:54];
-    } completion:^(BOOL finished) {
-        self.view.userInteractionEnabled=true;
-        [SGData shareInstance].fScreen=[HomeViewController screenCode];
-        
-        [self.delegate homeControllerTouchedTextField:self];
-    }];
+    [self.delegate homeControllerTouchedTextField:self];
     
     return false;
 }
@@ -506,62 +704,6 @@
     [self.delegate homeControllerTouchedIDShop:self idShop:idShop];
 }
 
--(void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
-    if(scrollView==tableFeed)
-    {
-        if(tableFeed.l_co_y+tableFeed.contentInset.top>100)
-        {
-            [UIView animateWithDuration:0.3f animations:^{
-                [qrView l_v_setY:_qrFrame.origin.y+QRCODE_BIG_HEIGHT-QRCODE_SMALL_HEIGHT];
-                [blurBottom l_v_setY:_blurBottomFrame.origin.y+QRCODE_BIG_HEIGHT-QRCODE_SMALL_HEIGHT];
-                
-                btnScanSmall.alpha=1;
-                btnScanBig.alpha=0;
-                btnScanBig.frame= _buttonScanSmallFrame;
-                btnScanSmall.frame=_buttonScanBigFrame;
-            } completion:^(BOOL finished) {
-                btnScanBig.userInteractionEnabled=false;
-                btnScanSmall.userInteractionEnabled=true;
-            }];
-        }
-        else
-        {
-            [UIView animateWithDuration:0.3f animations:^{
-                [qrView l_v_setY:_qrFrame.origin.y];
-                [blurBottom l_v_setY:_blurBottomFrame.origin.y];
-                
-                btnScanBig.alpha=1;
-                btnScanSmall.alpha=0;
-                btnScanBig.frame=_buttonScanBigFrame;
-                btnScanSmall.frame=_buttonScanSmallFrame;
-            } completion:^(BOOL finished) {
-                btnScanBig.userInteractionEnabled=true;
-                btnScanSmall.userInteractionEnabled=false;
-            }];
-        }
-        
-        CGSize imgSize=CGSizeMake(19, 38);
-        float y=scrollView.l_co_y+54;
-        [txtAni l_v_setX:y/2];
-        [txtAni l_v_setW:MAX(imgSize.width*2, 320-y)];
-        
-        if(txtAni.l_v_w==imgSize.width*2)
-        {
-            if(_startAngleY==0)
-                _startAngleY=y;
-            
-            [txtAni setAngle:DEGREES_TO_RADIANS(y-_startAngleY)];
-        }
-        else
-        {
-            [txtAni setAngle:-1];
-        }
-        
-        NSLog(@"%f %f %f",scrollView.l_co_y,txtAni.l_v_x,txtAni.l_v_w);
-    }
-}
-
 - (IBAction)btnShowQRCodeTouchUpInside:(id)sender {
     if(sender==btnScanBig)
         [self showQRCodeWithContorller:self inView:self.view withAnimationType:QRCODE_ANIMATION_TOP screenCode:[HomeViewController screenCode]];
@@ -612,17 +754,22 @@
 
 @implementation TableHome
 
--(void)setContentOffset:(CGPoint)contentOffset
+-(void)awakeFromNib
 {
-    _offset.x=contentOffset.x-self.contentOffset.x;
-    _offset.y=contentOffset.y-self.contentOffset.y;
+    [super awakeFromNib];
     
-    [super setContentOffset:contentOffset];
+    self.maxY=-1;
 }
 
--(CGPoint)offset
+-(void)setContentOffset:(CGPoint)contentOffset
 {
-    return _offset;
+    if(self.maxY!=-1)
+    {
+        if(contentOffset.y>self.maxY)
+            contentOffset.y=self.maxY;
+    }
+    
+    [super setContentOffset:contentOffset];
 }
 
 @end

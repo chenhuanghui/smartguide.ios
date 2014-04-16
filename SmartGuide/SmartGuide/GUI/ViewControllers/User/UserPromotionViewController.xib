@@ -46,8 +46,8 @@
                     <rect key="frame" x="48" y="7" width="232" height="39"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </imageView>
-                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Tìm Kiếm Khuyến Mãi" minimumFontSize="17" id="o6V-7R-gku">
-                    <rect key="frame" x="48" y="8" width="232" height="39"/>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Tìm Kiếm Khuyến Mãi" minimumFontSize="17" id="o6V-7R-gku" customClass="TextFieldSearch">
+                    <rect key="frame" x="48" y="9" width="232" height="38"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="14"/>

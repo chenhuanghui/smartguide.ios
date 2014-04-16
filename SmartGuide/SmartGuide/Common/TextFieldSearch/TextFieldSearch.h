@@ -8,14 +8,21 @@
 
 #import <UIKit/UIKit.h>
 
+#define TEXT_FIELD_SEARCH_DEFAULT_WIDTH 232.f
+#define TEXT_FIELD_SEARCH_MIN_WIDTH 38.f //icon_refresh.png width * 2
+
+
 @class TextFieldBGView;
 
 @interface TextFieldSearch : UITextField
 {
     __weak TextFieldBGView *bgView;
+    bool _isRefresh;
 }
 
 -(void) setAngle:(float) angle;
+-(void) startRefresh;
+-(void) stopRefresh:(void(^)()) onCompleted;
 
 @end
 

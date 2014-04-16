@@ -33,15 +33,15 @@
 
 @interface HomeViewController : SGViewController<UITextFieldDelegate,ASIOperationPostDelegate,UITableViewDataSource,UITableViewDelegate,QRCodeControllerDelegate>
 {
-    __weak IBOutlet UITextField *txt;
+    __weak IBOutlet TextFieldSearch *txt;
     __weak IBOutlet UIView *displayLoadingView;
     __weak IBOutlet TableHome *tableFeed;
     __weak IBOutlet UIView *qrView;
     __weak IBOutlet UIButton *btnScanBig;
     __weak IBOutlet UIButton *btnScanSmall;
-    __weak IBOutlet UIView *blackView;
     __weak IBOutlet UIImageView *blurBottom;
     __weak IBOutlet UIButton *btnNumOfNotification;
+    __weak IBOutlet UIImageView *imgvLogo;
     
     ASIOperationUserHome *_operationUserHome;
     NSMutableArray *_homes;
@@ -52,13 +52,22 @@
     int _page;
     bool _isLoadingMore;
     bool _canLoadMore;
+    bool _isRefreshing;
+    bool _isCanRefresh;
+    bool _isAPIFinished;
+    bool _isUserReleaseTouched;
     
     CGRect _qrFrame;
     CGRect _blurBottomFrame;
     CGRect _buttonScanBigFrame;
     CGRect _buttonScanSmallFrame;
-    __weak IBOutlet TextFieldSearch *txtAni;
-    float _startAngleY;
+    CGRect _textFieldFrame;
+    CGRect _logoFrame;
+    
+    float _txtPerWidth;
+    float _scrollPerY;
+    float _scrollDistanceHeight;
+    float _startYAngle;
 }
 
 @property (nonatomic, assign) id<HomeControllerDelegate> delegate;
@@ -68,10 +77,9 @@
 
 @interface TableHome : UITableView
 {
-    CGPoint _offset;
 }
 
--(CGPoint) offset;
+@property (nonatomic, assign) float maxY;
 
 @end
 

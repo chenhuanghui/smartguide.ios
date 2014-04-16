@@ -1030,6 +1030,11 @@ NSString *NSStringFromUIGestureRecognizerState(UIGestureRecognizerState state)
     return offset.y + bounds.size.height - inset.bottom;
 }
 
+-(float)offsetYWithInsetTop
+{
+    return self.contentOffset.y+self.contentInset.top;
+}
+
 -(float)makeZoomScaleWithSize:(CGSize)size
 {
     CGFloat widthScale = size.width / self.frame.size.width;

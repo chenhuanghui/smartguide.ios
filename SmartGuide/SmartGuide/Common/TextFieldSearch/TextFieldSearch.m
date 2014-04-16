@@ -32,8 +32,11 @@
     imgv.image=[UIImage imageNamed:@"icon_search.png"];
     imgv.contentMode=UIViewContentModeCenter;
     
-    self.leftView=imgv;
-    self.leftView.backgroundColor=[UIColor clearColor];
+    UIView *lv=[[UIView alloc] initWithFrame:CGRectMake(0, 0, 38, self.l_v_h)];
+    lv.backgroundColor=[UIColor clearColor];
+    [lv addSubview:imgv];
+    
+    self.leftView=lv;
     self.leftViewMode=UITextFieldViewModeAlways;
     
     UIButton *btn=[[UIButton alloc] initWithFrame:CGRectMake(0, 0, 36, 21)];
@@ -79,22 +82,89 @@
 
 -(void)setAngle:(float)angle
 {
-    UIImageView *imgv=(UIImageView*)self.leftView;
-    NSLog(@"angle %f",angle);
-    if(angle==-1)
+    if(_isRefresh)
+        return;
+    
+    UIImageView *imgv=(UIImageView*)self.leftView.subviews[0];
+
+    if(angle==-999)
     {
         imgv.image=[UIImage imageNamed:@"icon_search.png"];
-        imgv.frame=CGRectMake(0, 0, 38, self.frame.size.height);
         imgv.transform=CGAffineTransformIdentity;
-        imgv.contentMode=UIViewContentModeCenter;
     }
     else
     {
-        imgv.image=[UIImage imageNamed:@"icon_refresh_new.png"];
-//        imgv.contentMode=UIViewContentModeScaleAspectFit;
+        imgv.image=[UIImage imageNamed:@"icon_refresh.png"];
         imgv.transform=CGAffineTransformMakeRotation(angle);
-        imgv.frame=CGRectMake(0, 0, 18, 18);
     }
+}
+
+-(void)startRefresh
+{
+    self.imgv.image=[UIImage imageNamed:@"icon_refresh_blue.png"];
+    _isRefresh=true;
+    self.imgv.transform=CGAffineTransformMakeRotation(0);
+    [self rotate:M_PI*2];
+}
+
+-(void) rotate:(float) rotate
+{
+    if(!_isRefresh)
+        return;
+    
+    __weak TextFieldSearch *wSelf=self;
+    
+    [UIView animateWithDuration:0.15f delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
+        self.imgv.transform=CGAffineTransformMakeRotation(rotate);
+    } completion:^(BOOL finished) {
+        if(_isRefresh && wSelf)
+            [wSelf rotate:rotate+M_PI/4];
+    }];
+}
+
+-(void)stopRefresh:(void (^)())onCompleted
+{
+    _isRefresh=false;
+    
+    if(!onCompleted)
+        return;
+    
+    UIImage *doneImage=[UIImage imageNamed:@"icon_refresh_done.png"];
+    UIImageView *imgvDone=[[UIImageView alloc] initWithImage:doneImage];
+    imgvDone.frame=CGRectMake(self.l_v_x-(doneImage.size.width-self.l_v_w)/2, self.l_v_y-(doneImage.size.height-self.l_v_h)/2, doneImage.size.width, doneImage.size.height);
+    imgvDone.alpha=0;
+    
+    [self.superview addSubview:imgvDone];
+    
+    [UIView animateWithDuration:0.3f animations:^{
+        imgvDone.transform=CGAffineTransformMakeScale(1.2f, 1.2f);
+        imgvDone.alpha=1;
+    } completion:^(BOOL finished) {
+        
+        [UIView animateWithDuration:0.3f animations:^{
+            imgvDone.transform=CGAffineTransformMakeScale(1, 1);
+            imgvDone.alpha=0;
+        } completion:^(BOOL finished) {
+            [imgvDone removeFromSuperview];
+            
+            [self setAngle:-999];
+            
+            if(onCompleted)
+                onCompleted();
+        }];
+    }];
+}
+
+-(UIImageView*) imgv
+{
+    return (UIImageView*)self.leftView.subviews[0];
+}
+
+-(void)removeFromSuperview
+{
+    [self stopRefresh:nil];
+    
+    [super removeFromSuperview];
 }
 
 @end

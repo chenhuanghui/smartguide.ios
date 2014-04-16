@@ -219,6 +219,7 @@ float roundToN(float num, int decimals);
 -(void) scrollToPageForHoriTable:(int) page;
 -(void) scrollToPageForHoriTable:(int)page animated:(bool) animated;
 -(float) contentOffSetY;
+-(float) offsetYWithInsetTop;
 
 -(float) makeZoomScaleWithSize:(CGSize) size;
 -(void) killScroll;
