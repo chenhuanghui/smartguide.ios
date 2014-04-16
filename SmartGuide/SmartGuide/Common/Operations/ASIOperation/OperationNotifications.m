@@ -16,6 +16,8 @@
     NSMutableDictionary *dict=[NSMutableDictionary dictionary];
     [dict setObject:accessToken forKey:@"access_token"];
     [dict setObject:version forKey:@"version"];
+    [dict setObject:[[UIDevice currentDevice] platformRawString] forKey:@"deviceInfo"];
+    
     self=[super initWithRouter:SERVER_IP_MAKE(API_NOTIFICATIONS) params:dict];
     
     return self;

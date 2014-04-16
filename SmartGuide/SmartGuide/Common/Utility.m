@@ -13,6 +13,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "Constant.h"
 #import <objc/runtime.h>
+#import <sys/sysctl.h>
 
 NSString* NSStringFromCoordinate(CLLocationCoordinate2D coordinate)
 {
@@ -2400,6 +2401,20 @@ static const NSString *KEY_HIT_TEST_EDGE_INSETS = @"HitTestEdgeInsets";
 -(UICollectionViewFlowLayout *)collectionViewFlowLayout
 {
     return (UICollectionViewFlowLayout*)self.collectionViewLayout;
+}
+
+@end
+
+@implementation UIDevice(Utility)
+
+- (NSString *)platformRawString {
+    size_t size;
+    sysctlbyname("hw.machine", NULL, &size, NULL, 0);
+    char *machine = malloc(size);
+    sysctlbyname("hw.machine", machine, &size, NULL, 0);
+    NSString *platform = [NSString stringWithUTF8String:machine];
+    free(machine);
+    return platform;
 }
 
 @end

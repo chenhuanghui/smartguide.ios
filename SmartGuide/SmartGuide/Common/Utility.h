@@ -412,3 +412,9 @@ float roundToN(float num, int decimals);
 -(UICollectionViewFlowLayout *)collectionViewFlowLayout;
 
 @end
+
+@interface UIDevice(Utility)
+
+- (NSString *)platformRawString;
+
+@end
