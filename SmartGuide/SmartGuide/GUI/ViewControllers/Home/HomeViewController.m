@@ -52,6 +52,9 @@
     // Do any additional setup after loading the view from its nib.
     
     _isUserReleaseTouched=true;
+    _isEndAnimateRefresh=true;
+    _isCanRefresh=TRUE;
+    _isAPIFinished=false;
     _startYAngle=-999;
     homeLocation=currentUser().coordinate;
     
@@ -95,40 +98,29 @@
     tableFeed.delegate=self;
     
     _scrollDistanceHeight=txt.l_v_y-HOME_TEXT_FIELD_SEARCH_MIN_Y;
-    
-    
 }
 
--(void) startTrackingUserDrag
+-(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
-    [tableFeed.panGestureRecognizer addTarget:self action:@selector(tableFeedPan:)];
-}
-
--(void) tableFeedPan:(UIPanGestureRecognizer*) pan
-{
-    switch (pan.state) {
-        case UIGestureRecognizerStateBegan:
-            _isUserReleaseTouched=false;
-            NSLog(@"UIGestureRecognizerStateBegan");
-            break;
-            
-        case UIGestureRecognizerStateCancelled:
-        case UIGestureRecognizerStateEnded:
-        case UIGestureRecognizerStateFailed:
-            
-            NSLog(@"UIGestureRecognizerStateCancelled");
-            
-            _isUserReleaseTouched=true;
-            _isCanRefresh=true;
-            
-            [self callReloadTable];
-            
-            [tableFeed.panGestureRecognizer removeTarget:self action:@selector(tableFeedPan:)];
-            break;
-            
-        default:
-            break;
+    if(_isTrackingTouch)
+    {
+        _isUserReleaseTouched=true;
+        [self callReloadTable];
     }
+}
+
+-(void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
+{
+    if(!decelerate && _isTrackingTouch)
+    {
+        _isUserReleaseTouched=true;
+        [self callReloadTable];
+    }
+}
+
+-(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    _isUserReleaseTouched=false;
 }
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
@@ -182,7 +174,7 @@
         
         [txt l_v_setY:txtY];
         
-        if(_isRefreshing)
+        if(!_isEndAnimateRefresh)
         {
             
         }
@@ -224,15 +216,22 @@
                     if(angle>M_PI*3)
                     {
                         angle=M_PI*3;
-
-                        _isUserReleaseTouched=false;
-                        [self startTrackingUserDrag];
-                        tableFeed.maxY=-tableFeed.contentInset.top;
-                        [txt startRefresh];
-                        [self reloadData];
+                        
+                        if(_isCanRefresh && !_isRefreshing)
+                        {
+                            _isTrackingTouch=true;
+                            _isCanRefresh=FALSE;
+                            tableFeed.maxY=-tableFeed.contentInset.top;
+                            _isEndAnimateRefresh=false;
+                            [txt startRefresh];
+                            [self reloadData];
+                        }
                     }
                     
-                    [txt setAngle:angle];
+                    if(_isRefreshing)
+                        [txt setAngle:-999];
+                    else
+                        [txt setAngle:angle];
                 }
                 else
                 {
@@ -351,13 +350,21 @@
         ASIOperationUserHome *ope=(ASIOperationUserHome*) operation;
         
         if(_isRefreshing)
+        {
             _homes=[NSMutableArray new];
+            
+            __weak HomeViewController *wSelf=self;
+            [txt stopRefresh:^{
+                _isEndAnimateRefresh=true;
+                if(wSelf)
+                    [wSelf callReloadTable];
+            }];
+        }
         
         [_homes addObjectsFromArray:ope.homes];
         _canLoadMore=ope.homes.count==10;
         _isLoadingMore=false;
         _page++;
-        _isRefreshing=false;
         _isAPIFinished=true;
         
         [self callReloadTable];
@@ -368,8 +375,27 @@
 
 -(void) callReloadTable
 {
-    if(_isUserReleaseTouched && _isAPIFinished)
-        [tableFeed reloadData];
+    if(_isUserReleaseTouched && _isAPIFinished && _isEndAnimateRefresh)
+    {
+        _isTrackingTouch=false;
+        _isRefreshing=false;
+        _isCanRefresh=true;
+        tableFeed.maxY=-1;
+        
+        [UIView animateWithDuration:0.15f animations:^{
+            tableFeed.alpha=0.5f;
+        } completion:^(BOOL finished) {
+            [tableFeed reloadData];
+            
+            [UIView animateWithDuration:0.15f animations:^{
+                tableFeed.alpha=1;
+            }];
+        }];
+        
+        [UIView animateWithDuration:0.3f animations:^{
+            [self scrollViewDidScroll:tableFeed];
+        }];
+    }
 }
 
 -(void)ASIOperaionPostFailed:(ASIOperationPost *)operation

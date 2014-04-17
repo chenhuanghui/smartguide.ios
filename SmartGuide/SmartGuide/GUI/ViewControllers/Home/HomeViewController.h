@@ -56,6 +56,8 @@
     bool _isCanRefresh;
     bool _isAPIFinished;
     bool _isUserReleaseTouched;
+    bool _isEndAnimateRefresh;
+    bool _isTrackingTouch;
     
     CGRect _qrFrame;
     CGRect _blurBottomFrame;
