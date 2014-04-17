@@ -382,14 +382,22 @@
         _isCanRefresh=true;
         tableFeed.maxY=-1;
         
-        [UIView animateWithDuration:0.15f animations:^{
-            tableFeed.alpha=0.5f;
+        UIImage *img=[tableFeed captureView];
+        
+        UIImageView *imgv=[[UIImageView alloc] initWithImage:img];
+        imgv.frame=tableFeed.frame;
+        [imgv l_v_addY:tableFeed.contentInset.top];
+        
+        [self.view insertSubview:imgv aboveSubview:tableFeed];
+        tableFeed.alpha=0;
+        [tableFeed reloadData];
+        
+        [UIView animateWithDuration:0.3f animations:^{
+            imgv.alpha=0;
+            tableFeed.alpha=1;
         } completion:^(BOOL finished) {
-            [tableFeed reloadData];
             
-            [UIView animateWithDuration:0.15f animations:^{
-                tableFeed.alpha=1;
-            }];
+            [imgv removeFromSuperview];
         }];
         
         [UIView animateWithDuration:0.3f animations:^{

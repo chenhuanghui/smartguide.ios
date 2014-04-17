@@ -1197,6 +1197,15 @@ NSString *NSStringFromUIGestureRecognizerState(UIGestureRecognizerState state)
     return pnt;
 }
 
+-(UIImage *)captureView
+{
+    UIGraphicsBeginImageContextWithOptions(self.l_v_s,false,0.0f);
+    [self.layer renderInContext:UIGraphicsGetCurrentContext()];
+    UIImage *img=UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return img;
+}
+
 @end
 
 @implementation MKUserLocation(Utility)

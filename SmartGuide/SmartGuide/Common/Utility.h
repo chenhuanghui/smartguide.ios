@@ -256,6 +256,8 @@ float roundToN(float num, int decimals);
 -(UIView*) childViewWithTag:(NSUInteger) childTag;
 -(CGPoint)convertPoint:(CGPoint)point untilView:(UIView *)view;
 
+-(UIImage*) captureView;
+
 @end
 
 @interface UIAlertView(Utility)
