@@ -92,7 +92,7 @@
     
     y+=txt.l_v_h;
     y+=4;//align
-    
+
     tableFeed.contentInset=UIEdgeInsetsMake(y, 0, 30, 0);
     tableFeed.delegate=self;
     
@@ -455,6 +455,21 @@
             [displayLoadingView removeFromSuperview];
             displayLoadingView=nil;
         }
+        
+        if(txt.refreshState==TEXT_FIELD_SEARCH_REFRESH_STATE_REFRESHING)
+        {
+            _homes=[NSMutableArray new];
+            
+            __weak HomeViewController *wSelf=self;
+            [txt setRefreshState:TEXT_FIELD_SEARCH_REFRESH_STATE_DONE animated:true completed:^(enum TEXT_FIELD_SEARCH_REFRESH_STATE state) {
+                if(wSelf)
+                    [wSelf callReloadTable];
+            }];
+        }
+        
+        _isAPIFinished=true;
+        
+        [self callReloadTable];
         
         _operationUserHome=nil;
         
