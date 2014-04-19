@@ -348,6 +348,7 @@
 -(void) reloadData
 {
     _page=-1;
+    tableFeed.userInteractionEnabled=false;
     _isLoadingMore=false;
     _canLoadMore=true;
     _isAPIFinished=false;
@@ -405,6 +406,7 @@
         _isTrackingTouch=false;
         _isCanRefresh=true;
         tableFeed.maxY=-1;
+        tableFeed.userInteractionEnabled=true;
         
         [txt setRefreshState:TEXT_FIELD_SEARCH_REFRESH_STATE_SEARCH animated:false completed:nil];
         [UIView animateWithDuration:0.3f animations:^{
