@@ -52,7 +52,6 @@
     // Do any additional setup after loading the view from its nib.
     
     _isUserReleaseTouched=true;
-    _isEndAnimateRefresh=true;
     _isCanRefresh=TRUE;
     _isAPIFinished=false;
     _startYAngle=-999;
@@ -98,6 +97,7 @@
     tableFeed.delegate=self;
     
     _scrollDistanceHeight=txt.l_v_y-HOME_TEXT_FIELD_SEARCH_MIN_Y;
+    [txt setRefreshState:TEXT_FIELD_SEARCH_REFRESH_STATE_SEARCH animated:false completed:nil];
 }
 
 -(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
@@ -174,9 +174,12 @@
         
         [txt l_v_setY:txtY];
         
-        if(!_isEndAnimateRefresh)
+        if(txt.refreshState==TEXT_FIELD_SEARCH_REFRESH_STATE_REFRESHING || txt.refreshState==TEXT_FIELD_SEARCH_REFRESH_STATE_DONE)
         {
-            
+            CGRect rect=txt.frame;
+            rect.size.width=TEXT_FIELD_SEARCH_MIN_WIDTH;
+            rect.origin.x=(self.l_v_w-rect.size.width)/2;
+            txt.frame=rect;
         }
         else
         {
@@ -210,35 +213,59 @@
                     if(_startYAngle==-999)
                         _startYAngle=y;
                     
-                    float angle=180-((perY+0.5f)*180.f)*3.5f;
-                    angle=DEGREES_TO_RADIANS(angle);
-                    
-                    if(angle>M_PI*3)
-                    {
-                        angle=M_PI*3;
-                        
-                        if(_isCanRefresh && !_isRefreshing)
+                    switch (txt.refreshState) {
+                        case TEXT_FIELD_SEARCH_REFRESH_STATE_REFRESHING:
+                            break;
+                            
+                        case TEXT_FIELD_SEARCH_REFRESH_STATE_SEARCH:
                         {
-                            _isTrackingTouch=true;
-                            _isCanRefresh=FALSE;
-                            tableFeed.maxY=-tableFeed.contentInset.top;
-                            _isEndAnimateRefresh=false;
-                            [txt startRefresh];
-                            [self reloadData];
+                            float angle=180-((perY+0.5f)*180.f)*3.5f;
+                            angle=DEGREES_TO_RADIANS(angle);
+                            
+                            [txt setRefreshState:TEXT_FIELD_SEARCH_REFRESH_STATE_ROTATE animated:false completed:nil];
+                            
+                            [txt setAngle:angle];
                         }
+                            break;
+                            
+                        case TEXT_FIELD_SEARCH_REFRESH_STATE_ROTATE:
+                        {
+                            float angle=180-((perY+0.5f)*180.f)*3.5f;
+                            angle=DEGREES_TO_RADIANS(angle);
+                            
+                            [txt setAngle:angle];
+                            
+                            if(angle>M_PI*3)
+                            {
+                                angle=M_PI*3;
+                                
+                                if(_isCanRefresh)
+                                {
+                                    _isTrackingTouch=true;
+                                    _isCanRefresh=FALSE;
+                                    tableFeed.maxY=-tableFeed.contentInset.top;
+                                    [txt setRefreshState:TEXT_FIELD_SEARCH_REFRESH_STATE_REFRESHING animated:true completed:nil];
+                                    [self reloadData];
+                                    
+                                    [UIView animateWithDuration:0.3f animations:^{
+                                        tableFeed.alpha=0.1f;
+                                    }];
+                                }
+                            }
+                        }
+                            break;
+                            
+                        case TEXT_FIELD_SEARCH_REFRESH_STATE_DONE:
+                            
+                            break;
                     }
-                    
-                    if(_isRefreshing)
-                        [txt setAngle:-999];
-                    else
-                        [txt setAngle:angle];
                 }
                 else
                 {
                     rect.origin.x-=yy/2;
                     rect.size.width=MAX(TEXT_FIELD_SEARCH_MIN_WIDTH,rect.size.width);
                     
-                    [txt setAngle:-999];
+                    [txt setRefreshState:TEXT_FIELD_SEARCH_REFRESH_STATE_SEARCH animated:false completed:nil];
                 }
                 
                 txt.frame=rect;
@@ -320,7 +347,6 @@
 
 -(void) reloadData
 {
-    _isRefreshing=true;
     _page=-1;
     _isLoadingMore=false;
     _canLoadMore=true;
@@ -349,13 +375,12 @@
         
         ASIOperationUserHome *ope=(ASIOperationUserHome*) operation;
         
-        if(_isRefreshing)
+        if(txt.refreshState==TEXT_FIELD_SEARCH_REFRESH_STATE_REFRESHING)
         {
             _homes=[NSMutableArray new];
             
             __weak HomeViewController *wSelf=self;
-            [txt stopRefresh:^{
-                _isEndAnimateRefresh=true;
+            [txt setRefreshState:TEXT_FIELD_SEARCH_REFRESH_STATE_DONE animated:true completed:^(enum TEXT_FIELD_SEARCH_REFRESH_STATE state) {
                 if(wSelf)
                     [wSelf callReloadTable];
             }];
@@ -375,12 +400,24 @@
 
 -(void) callReloadTable
 {
-    if(_isUserReleaseTouched && _isAPIFinished && _isEndAnimateRefresh)
+    if(_isUserReleaseTouched && _isAPIFinished && txt.refreshState!=TEXT_FIELD_SEARCH_REFRESH_STATE_REFRESHING)
     {
         _isTrackingTouch=false;
-        _isRefreshing=false;
         _isCanRefresh=true;
         tableFeed.maxY=-1;
+        
+        [txt setRefreshState:TEXT_FIELD_SEARCH_REFRESH_STATE_SEARCH animated:false completed:nil];
+        [UIView animateWithDuration:0.3f animations:^{
+            [self scrollViewDidScroll:tableFeed];
+        }];
+        
+        [UIView animateWithDuration:0.3f animations:^{
+            tableFeed.alpha=1;
+        }];
+        
+        [tableFeed reloadData];
+        
+        return;
         
         UIImage *img=[tableFeed captureView];
         
@@ -400,6 +437,7 @@
             [imgv removeFromSuperview];
         }];
         
+        [txt setRefreshState:TEXT_FIELD_SEARCH_REFRESH_STATE_SEARCH animated:false completed:nil];
         [UIView animateWithDuration:0.3f animations:^{
             [self scrollViewDidScroll:tableFeed];
         }];

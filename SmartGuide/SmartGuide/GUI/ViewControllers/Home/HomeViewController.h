@@ -52,11 +52,9 @@
     int _page;
     bool _isLoadingMore;
     bool _canLoadMore;
-    bool _isRefreshing;
     bool _isCanRefresh;
     bool _isAPIFinished;
     bool _isUserReleaseTouched;
-    bool _isEndAnimateRefresh;
     bool _isTrackingTouch;
     
     CGRect _qrFrame;

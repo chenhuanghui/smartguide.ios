@@ -15,9 +15,14 @@
 {
     self=[super initWithCoder:aDecoder];
     
-    [self commonInit];
-    
     return self;
+}
+
+-(void)awakeFromNib
+{
+    [super awakeFromNib];
+    
+    [self commonInit];
 }
 
 -(void) commonInit
@@ -82,77 +87,92 @@
 
 -(void)setAngle:(float)angle
 {
-    if(_isRefresh)
-        return;
-    
     UIImageView *imgv=(UIImageView*)self.leftView.subviews[0];
-
-    if(angle==-999)
-    {
-        imgv.image=[UIImage imageNamed:@"icon_search.png"];
-        imgv.transform=CGAffineTransformIdentity;
-    }
-    else
-    {
-        imgv.image=[UIImage imageNamed:@"icon_refresh.png"];
-        imgv.transform=CGAffineTransformMakeRotation(angle);
-    }
-}
-
--(void)startRefresh
-{
-    self.imgv.image=[UIImage imageNamed:@"icon_refresh_blue.png"];
-    _isRefresh=true;
-    self.imgv.transform=CGAffineTransformMakeRotation(0);
-    [self rotate:M_PI*2];
+    imgv.transform=CGAffineTransformMakeRotation(angle);
 }
 
 -(void) rotate:(float) rotate
 {
-    if(!_isRefresh)
-        return;
-    
-    __weak TextFieldSearch *wSelf=self;
-    
-    [UIView animateWithDuration:0.15f delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
-        self.imgv.transform=CGAffineTransformMakeRotation(rotate);
-    } completion:^(BOOL finished) {
-        if(_isRefresh && wSelf)
-            [wSelf rotate:rotate+M_PI/4];
-    }];
+    if(_refreshState==TEXT_FIELD_SEARCH_REFRESH_STATE_REFRESHING)
+    {
+        __weak TextFieldSearch *wSelf=self;
+        
+        [UIView animateWithDuration:0.15f delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
+            self.imgv.transform=CGAffineTransformMakeRotation(rotate);
+        } completion:^(BOOL finished) {
+            if(wSelf)
+                [wSelf rotate:rotate+M_PI/4];
+        }];
+    }
 }
 
--(void)stopRefresh:(void (^)())onCompleted
+-(void)setRefreshState:(enum TEXT_FIELD_SEARCH_REFRESH_STATE)state animated:(bool)isAnimate completed:(void (^)(enum TEXT_FIELD_SEARCH_REFRESH_STATE))completed
 {
-    _isRefresh=false;
-    
-    if(!onCompleted)
+    if(_refreshState==state)
         return;
     
-    UIImage *doneImage=[UIImage imageNamed:@"icon_refresh_done.png"];
-    UIImageView *imgvDone=[[UIImageView alloc] initWithImage:doneImage];
-    imgvDone.frame=CGRectMake(self.l_v_x-(doneImage.size.width-self.l_v_w)/2, self.l_v_y-(doneImage.size.height-self.l_v_h)/2, doneImage.size.width, doneImage.size.height);
-    imgvDone.alpha=0;
+    if(imgvDone)
+        [imgvDone removeFromSuperview];
     
-    [self.superview addSubview:imgvDone];
-    
-    [UIView animateWithDuration:0.3f animations:^{
-        imgvDone.transform=CGAffineTransformMakeScale(1.2f, 1.2f);
-        imgvDone.alpha=1;
-    } completion:^(BOOL finished) {
-        
-        [UIView animateWithDuration:0.3f animations:^{
-            imgvDone.transform=CGAffineTransformMakeScale(1, 1);
-            imgvDone.alpha=0;
-        } completion:^(BOOL finished) {
-            [imgvDone removeFromSuperview];
+    switch (state) {
+        case TEXT_FIELD_SEARCH_REFRESH_STATE_SEARCH:
+        {
+            _refreshState=state;
             
-            [self setAngle:-999];
+            UIImageView *imgv=(UIImageView*)self.leftView.subviews[0];
+            imgv.image=[UIImage imageNamed:@"icon_search.png"];
+            imgv.transform=CGAffineTransformIdentity;
+        }
+            break;
             
-            if(onCompleted)
-                onCompleted();
-        }];
-    }];
+        case TEXT_FIELD_SEARCH_REFRESH_STATE_ROTATE:
+            _refreshState=state;
+            self.imgv.image=[UIImage imageNamed:@"icon_refresh.png"];
+            break;
+            
+        case TEXT_FIELD_SEARCH_REFRESH_STATE_REFRESHING:
+        {
+            _refreshState=state;
+            self.imgv.image=[UIImage imageNamed:@"icon_refresh_blue.png"];
+            self.imgv.transform=CGAffineTransformMakeRotation(0);
+            [self rotate:M_PI*2];
+        }
+            break;
+            
+        case TEXT_FIELD_SEARCH_REFRESH_STATE_DONE:
+        {
+            if(isAnimate)
+            {
+                UIImage *doneImage=[UIImage imageNamed:@"icon_refresh_done.png"];
+                UIImageView *imgv=[[UIImageView alloc] initWithImage:doneImage];
+                imgv.frame=CGRectMake(self.l_v_x-(doneImage.size.width-self.l_v_w)/2, self.l_v_y-(doneImage.size.height-self.l_v_h)/2, doneImage.size.width, doneImage.size.height);
+                imgv.alpha=0;
+                
+                [self.superview addSubview:imgv];
+                
+                imgvDone=imgv;
+                
+                [UIView animateWithDuration:0.3f animations:^{
+                    imgv.transform=CGAffineTransformMakeScale(1.2f, 1.2f);
+                    imgv.alpha=1;
+                } completion:^(BOOL finished) {
+                    
+                    [UIView animateWithDuration:0.3f animations:^{
+                        imgv.transform=CGAffineTransformMakeScale(1, 1);
+                    } completion:^(BOOL finished) {
+                        
+                        _refreshState=state;
+                        
+                        if(completed)
+                            completed(_refreshState);
+                    }];
+                }];
+            }
+            else
+                _refreshState=state;
+        }
+            break;
+    }
 }
 
 -(UIImageView*) imgv
@@ -162,9 +182,14 @@
 
 -(void)removeFromSuperview
 {
-    [self stopRefresh:nil];
+    _refreshState=TEXT_FIELD_SEARCH_REFRESH_STATE_SEARCH;
     
     [super removeFromSuperview];
+}
+
+-(enum TEXT_FIELD_SEARCH_REFRESH_STATE)refreshState
+{
+    return _refreshState;
 }
 
 @end
