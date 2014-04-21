@@ -371,6 +371,8 @@
     _qrFrame=qrCodeView.frame;
     _buttonScanBigFrame=btnScanBig.frame;
     _buttonScanSmallFrame=btnScanSmall.frame;
+    
+    [self bigQRCode];
 }
 
 -(void)sortViewTouchedSort:(ShopListSortView *)_sortView
@@ -1029,21 +1031,23 @@
 -(void) smallQRCode
 {
     [qrCodeView l_v_setY:_qrFrame.origin.y+QRCODE_BIG_HEIGHT-QRCODE_SMALL_HEIGHT];
-    btnScanSmall.alpha=0;
-    btnScanSmall.hidden=false;
+    
     btnScanSmall.alpha=1;
+    btnScanSmall.frame=_buttonScanBigFrame;
+    
     btnScanBig.alpha=0;
     btnScanBig.frame=_buttonScanSmallFrame;
-    btnScanSmall.frame=_buttonScanBigFrame;
 }
 
 -(void) bigQRCode
 {
     [qrCodeView l_v_setY:_qrFrame.origin.y];
-    btnScanBig.alpha=1;
+    
     btnScanSmall.alpha=0;
-    btnScanBig.frame=_buttonScanBigFrame;
     btnScanSmall.frame=_buttonScanSmallFrame;
+    
+    btnScanBig.alpha=1;
+    btnScanBig.frame=_buttonScanBigFrame;
 }
 
 -(void) endZoomMap
