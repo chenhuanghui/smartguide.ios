@@ -19,6 +19,7 @@
                 <outlet property="btnGP" destination="aTA-9I-cK6" id="gLS-TX-FAA"/>
                 <outlet property="btnLogout" destination="ueW-Ig-XiU" id="kAc-Qx-jqJ"/>
                 <outlet property="btnSetting" destination="j2c-qO-oYJ" id="s9h-uq-iwG"/>
+                <outlet property="btnTerms" destination="i2h-L7-roB" id="i3z-6t-5Wp"/>
                 <outlet property="contentView" destination="RdO-th-kLs" id="wQg-SR-TJg"/>
                 <outlet property="imgvAvatar" destination="6WF-GJ-p4b" id="Vgc-w4-ZhM"/>
                 <outlet property="imgvBGAvatar" destination="JdG-Wc-gQt" id="IDb-HG-MLA"/>
@@ -297,6 +298,16 @@
                                 </state>
                                 <connections>
                                     <action selector="btnCoverTouchUpInside:" destination="-1" eventType="touchUpInside" id="ZKL-Co-Miz"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="i2h-L7-roB">
+                                <rect key="frame" x="0.0" y="396" width="320" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <state key="normal" title="Điều khoản sử dụng">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="btnTermsTouchUpInside:" destination="-1" eventType="touchUpInside" id="KmW-fp-P61"/>
                                 </connections>
                             </button>
                         </subviews>

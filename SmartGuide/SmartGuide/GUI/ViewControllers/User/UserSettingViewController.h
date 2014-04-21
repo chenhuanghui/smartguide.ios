@@ -47,6 +47,7 @@
     __weak IBOutlet UIButton *btnFB;
     __weak IBOutlet UIButton *btnGP;
     __weak IBOutlet UIButton *btnCover;
+    __weak IBOutlet UIButton *btnTerms;
     
     IBOutlet SGNavigationController *_navi;
     __weak AvatarViewController *_avatarController;
