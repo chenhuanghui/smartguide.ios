@@ -118,6 +118,12 @@
 
 -(void) reloadTable
 {
+    for(ShopListCell *cell in tableList.visibleCells)
+    {
+        if([cell isKindOfClass:[ShopListCell class]])
+            [cell removeObserverLove];
+    }
+    
     [tableList reloadData];
 }
 
@@ -557,6 +563,7 @@
     _placeList=nil;
     _keyword=@"";
     txt.placeholder=TEXTFIELD_SEARCH_PLACEHOLDER_TEXT;
+    txt.text=@"";
     
     [self makeSortLayout];
     
@@ -844,7 +851,7 @@
                         [tableList deleteRowsAtIndexPaths:@[_indexPathWillRemove] withRowAnimation:UITableViewRowAnimationAutomatic];
                     
                     [tableList endUpdates];
-                    [tableList reloadData];
+                    [self reloadTable];
                     
                     _indexPathWillRemove=nil;
                 }
@@ -869,7 +876,7 @@
                     [tableList deleteRowsAtIndexPaths:@[_indexPathWillRemove] withRowAnimation:UITableViewRowAnimationAutomatic];
                 
                 [tableList endUpdates];
-                [tableList reloadData];
+                [self reloadTable];
                 
                 _indexPathWillRemove=nil;
             }
@@ -892,7 +899,7 @@
     {
         [self removeLoading];
         
-        [tableList reloadData];
+        [self reloadTable];
         
         _operationShopSearch=nil;
     }
@@ -956,6 +963,8 @@
         height-=cellHeight;
         height+=cellHeight-[ShopListCell addressHeight];
     }
+    else
+        height-=40;
     
     return height;
 }
