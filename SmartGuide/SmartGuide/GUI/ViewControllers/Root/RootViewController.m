@@ -13,13 +13,13 @@
 #import "HomeViewController.h"
 #import "UserUploadAvatarManager.h"
 #import "UserUploadGalleryManager.h"
-#import "TutorialViewController.h"
+#import "WebViewController.h"
 #import "ShopUserViewController.h"
 #import "UserPromotionViewController.h"
 #import "UserSettingViewController.h"
 #import "SearchShopViewController.h"
 
-@interface RootViewController ()<NavigationControllerDelegate,UIScrollViewDelegate,HomeControllerDelegate,UserPromotionDelegate,SGUserSettingControllerDelegate,TutorialDelegate,ShopUserDelegate,UIGestureRecognizerDelegate>
+@interface RootViewController ()<NavigationControllerDelegate,UIScrollViewDelegate,HomeControllerDelegate,UserPromotionDelegate,SGUserSettingControllerDelegate,WebViewDelegate,ShopUserDelegate,UIGestureRecognizerDelegate>
 
 @end
 
@@ -323,7 +323,7 @@
 
 #pragma mark TutorialViewController
 
--(void)tutorialTouchedBack:(TutorialViewController *)controller
+-(void)webviewTouchedBack:(WebViewController *)controller
 {
     [[GUIManager shareInstance].rootNavigation dismissSGViewControllerCompletion:^{
         [[GUIManager shareInstance].rootNavigation.view makeAlphaViewBelowView:[GUIManager shareInstance].rootNavigation.leftSlideController.view];
@@ -496,10 +496,26 @@
     [self showSearchController:vc];
 }
 
--(void)showTutorialWithURL:(NSString *)url
+-(void)showTutorial
 {
-    TutorialViewController *vc=[[TutorialViewController alloc] initWithURL:url];
+    TutorialViewController *vc=[TutorialViewController new];
     vc.delegate=self;
+    [[GUIManager shareInstance] presentSGViewController:vc completion:nil];
+}
+
+-(void)showTerms
+{
+    TermsViewController *vc=[TermsViewController new];
+    vc.delegate=self;
+    
+    [[GUIManager shareInstance] presentSGViewController:vc completion:nil];
+}
+
+-(void)showWebviewWithURL:(NSURL *)url
+{
+    WebViewController *vc=[[WebViewController alloc] initWithURL:url];
+    vc.delegate=self;
+    
     [[GUIManager shareInstance] presentSGViewController:vc completion:nil];
 }
 

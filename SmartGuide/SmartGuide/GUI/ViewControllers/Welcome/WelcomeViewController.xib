@@ -7,6 +7,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WelcomeViewController">
             <connections>
+                <outlet property="btnDk" destination="tIx-oq-T3q" id="6eZ-G1-xF9"/>
                 <outlet property="btnLogin" destination="XGZ-kd-M4A" id="rt0-KZ-FEJ"/>
                 <outlet property="btnTry" destination="X5G-9s-Ava" id="OA2-yb-9HF"/>
                 <outlet property="view" destination="1" id="3"/>
@@ -56,6 +57,15 @@
                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="tIx-oq-T3q">
+                    <rect key="frame" x="0.0" y="417" width="320" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="15"/>
+                    <state key="normal" title="Điều khoản sử dụng"/>
+                    <connections>
+                        <action selector="btnTermTouchUpInside:" destination="-1" eventType="touchUpInside" id="HTn-ei-GD0"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>

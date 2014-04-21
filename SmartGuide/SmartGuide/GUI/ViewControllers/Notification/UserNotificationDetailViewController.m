@@ -169,7 +169,7 @@
             
         case USER_NOTIFICATION_CONTENT_TYPE_TUTORIAL:
             if(obj.urlTutorial.length>0)
-                [[GUIManager shareInstance].rootViewController showTutorialWithURL:obj.urlTutorial];
+                [[GUIManager shareInstance].rootViewController showWebviewWithURL:URL(obj.urlTutorial)];
             break;
             
         case USER_NOTIFICATION_CONTENT_TYPE_NONE:

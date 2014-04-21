@@ -43,7 +43,7 @@
     
     [map addAnnotation:_shop];
     
-    [map zoomToLocation:_shop.coordinate animate:false span:MAP_SPAN];
+    [map zoomToLocation:_shop.coordinate animate:false span:MKCoordinateSpanMake(MAP_SPAN, MAP_SPAN)];
     
     if(isVailCLLocationCoordinate2D(map.userLocation.coordinate))
     {

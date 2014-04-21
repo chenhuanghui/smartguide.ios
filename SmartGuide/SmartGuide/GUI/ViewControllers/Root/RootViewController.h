@@ -30,7 +30,9 @@
 -(void) showShopListWithKeywords:(NSString*) keywords;
 -(void) showShopListWithIDPlace:(int) idPlacelist;
 -(void) showShopListWithIDShops:(NSString*) idShops;
--(void) showTutorialWithURL:(NSString*) url;
+-(void) showTutorial;
+-(void) showTerms;
+-(void) showWebviewWithURL:(NSURL*) url;
 
 @property (weak, nonatomic) IBOutlet UIView *containView;
 @property (weak, nonatomic) IBOutlet UIView *contentView;

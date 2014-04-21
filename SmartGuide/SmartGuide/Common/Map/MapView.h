@@ -52,7 +52,7 @@
 -(void) routerToUserLocation:(id<MKAnnotation>) fromAnno;
 -(void) cancelRouter;
 
--(void) zoomToLocation:(CLLocationCoordinate2D) location animate:(bool) animate span:(double) span;
+-(void) zoomToLocation:(CLLocationCoordinate2D) location animate:(bool) animate span:(MKCoordinateSpan) span;
 -(void) zoomToUserLocation:(bool) animate span:(double) span;
 -(void) zoomToCoordinates:(NSArray*) array animate:(bool) animate span:(double) span;
 -(void) zoomToFitCoordinates:(NSArray*) array animate:(bool) animate;

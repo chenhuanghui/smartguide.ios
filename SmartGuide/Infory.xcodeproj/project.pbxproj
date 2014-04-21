@@ -314,8 +314,6 @@
 		9A7A2F6F18C4959800A3881B /* icon_travel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A7A2F5F18C4959800A3881B /* icon_travel@2x.png */; };
 		9A7ABFD018D18E820043316D /* QRCodeResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A7ABFCE18D18E820043316D /* QRCodeResultViewController.m */; };
 		9A7ABFD118D18E820043316D /* QRCodeResultViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A7ABFCF18D18E820043316D /* QRCodeResultViewController.xib */; };
-		9A7ABFD618D18EA70043316D /* TutorialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A7ABFD418D18EA70043316D /* TutorialViewController.m */; };
-		9A7ABFD718D18EA70043316D /* TutorialViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A7ABFD518D18EA70043316D /* TutorialViewController.xib */; };
 		9A7ABFDC18D18FF00043316D /* NavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A7ABFDA18D18FF00043316D /* NavigationViewController.m */; };
 		9A7ABFDD18D18FF00043316D /* NavigationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A7ABFDB18D18FF00043316D /* NavigationViewController.xib */; };
 		9A7AC19118D1907B0043316D /* PlacelistBGView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A7AC0EB18D1907B0043316D /* PlacelistBGView.m */; };
@@ -972,6 +970,8 @@
 		A99257B118E97BD400D0993A /* UserNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = A99257AE18E97BD400D0993A /* UserNotification.m */; };
 		A99257B518E9886800D0993A /* UserNotificationHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = A99257B418E9886800D0993A /* UserNotificationHeaderView.m */; };
 		A99257B718E9886E00D0993A /* UserNotificationHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A99257B618E9886E00D0993A /* UserNotificationHeaderView.xib */; };
+		A9941C8E1904D7570055582A /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9941C8C1904D7570055582A /* WebViewController.m */; };
+		A9941C8F1904D7570055582A /* WebViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9941C8D1904D7570055582A /* WebViewController.xib */; };
 		A9A19CCA17C406A5000D0ECD /* FacebookManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A19CC917C406A5000D0ECD /* FacebookManager.m */; };
 		A9A19D5B17C40858000D0ECD /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9A19D5A17C40858000D0ECD /* Twitter.framework */; };
 		A9A19D5F17C4088E000D0ECD /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9A19D5E17C4088E000D0ECD /* MessageUI.framework */; };
@@ -1409,9 +1409,6 @@
 		9A7ABFCD18D18E820043316D /* QRCodeResultViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QRCodeResultViewController.h; sourceTree = "<group>"; };
 		9A7ABFCE18D18E820043316D /* QRCodeResultViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QRCodeResultViewController.m; sourceTree = "<group>"; };
 		9A7ABFCF18D18E820043316D /* QRCodeResultViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QRCodeResultViewController.xib; sourceTree = "<group>"; };
-		9A7ABFD318D18EA70043316D /* TutorialViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TutorialViewController.h; sourceTree = "<group>"; };
-		9A7ABFD418D18EA70043316D /* TutorialViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TutorialViewController.m; sourceTree = "<group>"; };
-		9A7ABFD518D18EA70043316D /* TutorialViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TutorialViewController.xib; sourceTree = "<group>"; };
 		9A7ABFD918D18FF00043316D /* NavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationViewController.h; sourceTree = "<group>"; };
 		9A7ABFDA18D18FF00043316D /* NavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationViewController.m; sourceTree = "<group>"; };
 		9A7ABFDB18D18FF00043316D /* NavigationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NavigationViewController.xib; sourceTree = "<group>"; };
@@ -2311,6 +2308,9 @@
 		A99257B318E9886800D0993A /* UserNotificationHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserNotificationHeaderView.h; sourceTree = "<group>"; };
 		A99257B418E9886800D0993A /* UserNotificationHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserNotificationHeaderView.m; sourceTree = "<group>"; };
 		A99257B618E9886E00D0993A /* UserNotificationHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserNotificationHeaderView.xib; sourceTree = "<group>"; };
+		A9941C8B1904D7570055582A /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
+		A9941C8C1904D7570055582A /* WebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
+		A9941C8D1904D7570055582A /* WebViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WebViewController.xib; sourceTree = "<group>"; };
 		A9A19CC817C406A5000D0ECD /* FacebookManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FacebookManager.h; sourceTree = "<group>"; };
 		A9A19CC917C406A5000D0ECD /* FacebookManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FacebookManager.m; sourceTree = "<group>"; };
 		A9A19D5A17C40858000D0ECD /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
@@ -2495,8 +2495,8 @@
 		9A27BAA418D18BAD00E3EAC2 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				A9941C8A1904D7570055582A /* Webview */,
 				A9BFE86218E96936008C542E /* Notification */,
-				9A7ABFD218D18EA70043316D /* Tutorial */,
 				9A27BAA518D18BAD00E3EAC2 /* Authorization */,
 				9A27BABB18D18BAD00E3EAC2 /* GalleryFull */,
 				9A27BAC718D18BAD00E3EAC2 /* Home */,
@@ -2678,16 +2678,6 @@
 				9A32F478184348C100704D26 /* PageControl.m */,
 			);
 			path = PageConrol;
-			sourceTree = "<group>";
-		};
-		9A7ABFD218D18EA70043316D /* Tutorial */ = {
-			isa = PBXGroup;
-			children = (
-				9A7ABFD318D18EA70043316D /* TutorialViewController.h */,
-				9A7ABFD418D18EA70043316D /* TutorialViewController.m */,
-				9A7ABFD518D18EA70043316D /* TutorialViewController.xib */,
-			);
-			path = Tutorial;
 			sourceTree = "<group>";
 		};
 		9A7ABFD818D18FF00043316D /* Navigation */ = {
@@ -4412,6 +4402,16 @@
 			path = SmartGuide/Resources;
 			sourceTree = "<group>";
 		};
+		A9941C8A1904D7570055582A /* Webview */ = {
+			isa = PBXGroup;
+			children = (
+				A9941C8B1904D7570055582A /* WebViewController.h */,
+				A9941C8C1904D7570055582A /* WebViewController.m */,
+				A9941C8D1904D7570055582A /* WebViewController.xib */,
+			);
+			path = Webview;
+			sourceTree = "<group>";
+		};
 		A9A19CC717C406A5000D0ECD /* Social */ = {
 			isa = PBXGroup;
 			children = (
@@ -4757,6 +4757,7 @@
 				9ACF309C183E0A0A002FAE80 /* icon_flag@2x.png in Resources */,
 				9ACF4F491859C39D00D98BA7 /* line_status.png in Resources */,
 				9A4E4B6D1887E2EE00E4A1D2 /* button_getgift@2x.png in Resources */,
+				A9941C8F1904D7570055582A /* WebViewController.xib in Resources */,
 				A9AF890418F40A1F00845616 /* bg_search_right@2x.png in Resources */,
 				9A26AC7618ABD3B7004AA168 /* scan.png in Resources */,
 				9A211EC718B52C7400EBCCD9 /* icon_lovelist@2x.png in Resources */,
@@ -4893,7 +4894,6 @@
 				9A4E4B651887E0B800E4A1D2 /* line_blur_status@2x.png in Resources */,
 				9AA90B561850EBA5002F40FF /* button_green_left@2x.png in Resources */,
 				9A29392F18447EAE00FD49E2 /* bgsort_smallmid.png in Resources */,
-				9A7ABFD718D18EA70043316D /* TutorialViewController.xib in Resources */,
 				A9BD83EF18ED40BD000375BD /* icon_remove@2x.png in Resources */,
 				9A2F8CC6185569470024AE1A /* button_addcart@2x.png in Resources */,
 				9A29393018447EAE00FD49E2 /* bgsort_smallmid@2x.png in Resources */,
@@ -5497,11 +5497,11 @@
 				9ADCD93E18D19C3F004CB67E /* AFNetworkReachabilityManager.m in Sources */,
 				9A9ED312187D09B20081A16E /* ASIOperationUploadSocialProfile.m in Sources */,
 				9A7AC1E018D1907B0043316D /* SUKM2Cell.m in Sources */,
-				9A7ABFD618D18EA70043316D /* TutorialViewController.m in Sources */,
 				9A54B64218D2FAB40065C89F /* NSData+ImageContentType.m in Sources */,
 				9A5113D6186C772C008E1418 /* Tutorial.m in Sources */,
 				9A9ED306187D06D00081A16E /* GooglePlusManager.m in Sources */,
 				9ADCD95D18D19C3F004CB67E /* SDWebImageDecoder.m in Sources */,
+				A9941C8E1904D7570055582A /* WebViewController.m in Sources */,
 				A925479617AE3C2A00AD0BA9 /* OperationGetActionCode.m in Sources */,
 				9ADCD94718D19C3F004CB67E /* ASIDownloadCache.m in Sources */,
 				9A7AC1E718D1907B0043316D /* ShopMapViewController.m in Sources */,

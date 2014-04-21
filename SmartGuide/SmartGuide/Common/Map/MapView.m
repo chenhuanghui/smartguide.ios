@@ -81,12 +81,12 @@
     return location;
 }
 
--(void)zoomToLocation:(CLLocationCoordinate2D)location animate:(bool)animate span:(double)span
+-(void)zoomToLocation:(CLLocationCoordinate2D)location animate:(bool)animate span:(MKCoordinateSpan) span
 {
     if(!isVailCLLocationCoordinate2D(location))
         return;
-    
-    [self setRegion:MKCoordinateRegionMakeWithDistance(location, span, span) animated:animate];
+
+    [self setRegion:MKCoordinateRegionMakeWithDistance(location, span.latitudeDelta, span.longitudeDelta) animated:animate];
 }
 
 -(void)zoomToUserLocation:(bool)animate span:(double)span
@@ -396,7 +396,12 @@
 
 -(void)zoomShopList:(ShopList *)shoplist
 {
-    [self zoomToLocation:[shoplist coordinate] animate:true span:MAP_SPAN];
+    if(!isVailCLLocationCoordinate2D([shoplist coordinate]))
+        return;
+    
+    [self setRegion:MKCoordinateRegionMake(shoplist.coordinate, self.region.span) animated:true];
+    
+//    [self zoomToLocation:[shoplist coordinate] animate:true span:self.region.spasn];
 }
 
 @end

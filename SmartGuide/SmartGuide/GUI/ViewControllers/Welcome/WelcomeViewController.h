@@ -7,6 +7,7 @@
 //
 
 #import "SGViewController.h"
+#import "WebViewController.h"
 
 @class WelcomeViewController;
 
@@ -21,6 +22,7 @@
 {
     __weak IBOutlet UIButton *btnTry;
     __weak IBOutlet UIButton *btnLogin;
+    __weak IBOutlet UIButton *btnDk;
 }
 
 @property (nonatomic, assign) id<WelcomeControllerDelegate> delegate;

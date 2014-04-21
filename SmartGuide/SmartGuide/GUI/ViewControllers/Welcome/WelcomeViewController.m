@@ -10,7 +10,7 @@
 #import "Flags.h"
 #import "TokenManager.h"
 
-@interface WelcomeViewController ()
+@interface WelcomeViewController ()<WebViewDelegate>
 
 @end
 
@@ -32,6 +32,14 @@
     // Do any additional setup after loading the view from its nib.
     
     [SGData shareInstance].fScreen=[WelcomeViewController screenCode];
+    
+    NSMutableDictionary *dict=[NSMutableDictionary dictionary];
+    
+    [dict setObject:[UIFont fontWithName:@"Avenir-Oblique" size:13] forKey:NSFontAttributeName];
+    [dict setObject:[UIColor color255WithRed:53 green:158 blue:239 alpha:255] forKey:NSForegroundColorAttributeName];
+    
+    NSAttributedString *attStr=[[NSAttributedString alloc] initWithString:@"Điều khoản sử dụng" attributes:dict];
+    [btnDk setAttributedTitle:attStr forState:UIControlStateNormal];
 }
 
 +(NSString *)screenCode
@@ -58,4 +66,18 @@
     
     [self.delegate welcomeControllerTouchedLogin:self];
 }
+
+- (IBAction)btnTermTouchUpInside:(id)sender
+{
+    TermsViewController *vc=[TermsViewController new];
+    vc.delegate=self;
+    
+    [self presentSGViewController:vc completion:nil];
+}
+
+-(void)webviewTouchedBack:(WebViewController *)controller
+{
+    [self dismissSGViewControllerCompletion:nil];
+}
+
 @end

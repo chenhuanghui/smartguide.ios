@@ -224,14 +224,19 @@
             txtPhone.text=[txtPhone.text deleteCharacterAtIndex:0];
         
         NSString *phone=txtPhone.text;
+        NSString *inputPhone=[phone copy];
         phone=[@"84" stringByAppendingString:phone];
         
-        _operationGetActionCode=[[OperationGetActionCode alloc] initWithPhone:phone fScreen:[SGData shareInstance].fScreen fData:[SGData shareInstance].fData];
-        _operationGetActionCode.delegate=self;
-        
-        [_operationGetActionCode start];
-        
-        [self.view showLoadingInsideFrame:CGRectMake(0, 0, self.l_v_w, self.l_v_h-_keyboardHeight)];
+        [AlertView showAlertOKCancelWithTitle:[@"(+84) " stringByAppendingString:inputPhone] withMessage:@"Mã xác thực Infory sẽ được gửi đến số điện thoại trên qua tin nhắn. Chọn Đồng ý để tiếp tục hoặc huỷ để thay đổi số điện thoại" onOK:^{
+            _operationGetActionCode=[[OperationGetActionCode alloc] initWithPhone:phone fScreen:[SGData shareInstance].fScreen fData:[SGData shareInstance].fData];
+            _operationGetActionCode.delegate=self;
+            
+            [_operationGetActionCode start];
+            
+            [self.view showLoadingInsideFrame:CGRectMake(0, 0, self.l_v_w, self.l_v_h-_keyboardHeight)];
+        } onCancel:^{
+            [txtPhone becomeFirstResponder];
+        }];
     }
     else
     {
