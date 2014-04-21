@@ -85,6 +85,25 @@
         {
             [self makeScrollerTitle];
         }
+        
+        if(!_isAnimatingZoom && !_isZoomedMap)
+        {
+            if(_placeList || _shopsList.count>0)
+            {
+                if(tableList.offsetYWithInsetTop>115)
+                {
+                    [UIView animateWithDuration:0.3f animations:^{
+                        [self smallQRCode];
+                    }];
+                }
+                else
+                {
+                    [UIView animateWithDuration:0.3f animations:^{
+                        [self bigQRCode];
+                    }];
+                }
+            }
+        }
     }
 }
 
@@ -338,7 +357,7 @@
     [self showLoading];
     
     _indexPathWillRemove=cell.indexPath;
-
+    
     _operationRemoveShopPlacelist=[[ASIOperationRemoveShopPlacelist alloc] initWithIDPlacelist:_placeList.idPlacelist.integerValue idShops:[NSString stringWithFormat:@"%i",shop.idShop.integerValue] userLat:userLat() userLng:userLng()];
     _operationRemoveShopPlacelist.delegatePost=self;
     
@@ -865,7 +884,7 @@
             {
                 
                 [tableList beginUpdates];
-
+                
                 ShopList *shop=[((ShopListCell*)[tableList cellForRowAtIndexPath:_indexPathWillRemove]) shopList];
                 
                 [_shopsList removeObject:shop];
@@ -993,16 +1012,11 @@
     [tableList l_co_setY:0 animate:true];
     self.view.userInteractionEnabled=false;
     [UIView animateWithDuration:DURATION_DEFAULT animations:^{
-        [qrCodeView l_v_setY:_qrFrame.origin.y+QRCODE_BIG_HEIGHT-QRCODE_SMALL_HEIGHT];
         [tableList l_v_setH:_tableFrame.size.height+QRCODE_BIG_HEIGHT-QRCODE_SMALL_HEIGHT];
         [mapCell l_v_setH:_mapRowHeight];
         [btnSearchLocation l_v_setY:75];
-        btnScanSmall.alpha=0;
-        btnScanSmall.hidden=false;
-        btnScanSmall.alpha=1;
-        btnScanBig.alpha=0;
-        btnScanBig.frame=_buttonScanSmallFrame;
-        btnScanSmall.frame=_buttonScanBigFrame;
+        
+        [self smallQRCode];
     } completion:^(BOOL finished) {
         [mapCell enableMap];
         
@@ -1010,6 +1024,26 @@
         self.view.userInteractionEnabled=true;
         _isAnimatingZoom=false;
     }];
+}
+
+-(void) smallQRCode
+{
+    [qrCodeView l_v_setY:_qrFrame.origin.y+QRCODE_BIG_HEIGHT-QRCODE_SMALL_HEIGHT];
+    btnScanSmall.alpha=0;
+    btnScanSmall.hidden=false;
+    btnScanSmall.alpha=1;
+    btnScanBig.alpha=0;
+    btnScanBig.frame=_buttonScanSmallFrame;
+    btnScanSmall.frame=_buttonScanBigFrame;
+}
+
+-(void) bigQRCode
+{
+    [qrCodeView l_v_setY:_qrFrame.origin.y];
+    btnScanBig.alpha=1;
+    btnScanSmall.alpha=0;
+    btnScanBig.frame=_buttonScanBigFrame;
+    btnScanSmall.frame=_buttonScanSmallFrame;
 }
 
 -(void) endZoomMap
@@ -1031,12 +1065,9 @@
     self.view.userInteractionEnabled=false;
     [tableList l_co_setY:0 animate:true];
     [UIView animateWithDuration:DURATION_DEFAULT animations:^{
-        [qrCodeView l_v_setY:_qrFrame.origin.y];
         [mapCell l_v_setH:_mapRowHeight];
-        btnScanBig.alpha=1;
-        btnScanSmall.alpha=0;
-        btnScanBig.frame=_buttonScanBigFrame;
-        btnScanSmall.frame=_buttonScanSmallFrame;
+        
+        [self bigQRCode];
     } completion:^(BOOL finished) {
         [mapCell disabelMap];
         [self reloadTable];

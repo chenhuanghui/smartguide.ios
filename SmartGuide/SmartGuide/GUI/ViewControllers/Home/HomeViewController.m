@@ -126,9 +126,7 @@
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     if(scrollView==tableFeed)
-    {
-        NSLog(@"y %f",scrollView.l_co_y);
-        
+    {        
         if(tableFeed.l_co_y+tableFeed.contentInset.top>100)
         {
             [UIView animateWithDuration:0.3f animations:^{
