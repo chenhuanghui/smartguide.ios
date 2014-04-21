@@ -135,9 +135,27 @@
 -(BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {
     [SGData shareInstance].fScreen=[UserPromotionViewController screenCode];
-    [self.delegate userPromotionTouchedTextField:self];
+    
+    if(table.l_co_y<-54)
+    {
+        table.userInteractionEnabled=false;
+        _isTouchedTextField=true;
+        [table l_co_setY:-54 animate:true];
+    }
+    else
+        [self.delegate userPromotionTouchedTextField:self];
     
     return false;
+}
+
+-(void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
+{
+    if(_isTouchedTextField)
+    {
+        _isTouchedTextField=false;
+        table.userInteractionEnabled=true;
+        [self.delegate userPromotionTouchedTextField:self];
+    }
 }
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView

@@ -127,6 +127,8 @@
 {
     if(scrollView==tableFeed)
     {
+        NSLog(@"y %f",scrollView.l_co_y);
+        
         if(tableFeed.l_co_y+tableFeed.contentInset.top>100)
         {
             [UIView animateWithDuration:0.3f animations:^{
@@ -493,9 +495,26 @@
     self.view.userInteractionEnabled=true;
     [SGData shareInstance].fScreen=[HomeViewController screenCode];
     
-    [self.delegate homeControllerTouchedTextField:self];
+    if(tableFeed.l_co_y<-54)
+    {
+        tableFeed.userInteractionEnabled=false;
+        _isTouchedTextField=true;
+        [tableFeed l_co_setY:-54 animate:true];
+    }
+    else
+        [self.delegate homeControllerTouchedTextField:self];
     
     return false;
+}
+
+-(void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
+{
+    if(_isTouchedTextField)
+    {
+        _isTouchedTextField=false;
+        tableFeed.userInteractionEnabled=true;
+        [self.delegate homeControllerTouchedTextField:self];
+    }
 }
 
 -(IBAction) btnNavigationTouchedUpInside:(id)sender

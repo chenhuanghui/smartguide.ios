@@ -68,6 +68,7 @@
     float _scrollPerY;
     float _scrollDistanceHeight;
     float _startYAngle;
+    bool _isTouchedTextField;
 }
 
 @property (nonatomic, assign) id<HomeControllerDelegate> delegate;

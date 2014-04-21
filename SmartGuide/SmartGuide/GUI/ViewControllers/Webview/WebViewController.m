@@ -63,7 +63,7 @@
 
 - (instancetype)init
 {
-    self = [super initWithURL:URL(@"http://infory.vn/dieu-khoan.html")];
+    self = [super initWithURL:URL(@"http://infory.vn/dieu-khoan-nguoi-dung.html")];
     if (self) {
         
     }

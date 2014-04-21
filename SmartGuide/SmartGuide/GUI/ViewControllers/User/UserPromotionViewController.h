@@ -54,6 +54,7 @@
     bool _isAPIFinished;
     bool _isUserReleaseTouched;
     bool _isTrackingTouch;
+    bool _isTouchedTextField;
 }
 
 @property (nonatomic, weak) id<UserPromotionDelegate> delegate;
