@@ -56,7 +56,7 @@
 
 -(void) zoomToLocation:(CLLocationCoordinate2D) location animate:(bool) animate span:(MKCoordinateSpan) span;
 -(void) zoomToUserLocation:(bool) animate span:(double) span;
--(void) zoomToCoordinates:(NSArray*) array animate:(bool) animate span:(double) span;
+-(void) zoomToCoordinates:(NSArray*) array animate:(bool) animate span:(MKCoordinateSpan) span;
 -(void) zoomToFitCoordinates:(NSArray*) array animate:(bool) animate;
 
 -(void) addressAtCoordinate:(CLLocationCoordinate2D) coordinate withDelegate:(id<MapViewGeoCoderDelegate>) delegate;

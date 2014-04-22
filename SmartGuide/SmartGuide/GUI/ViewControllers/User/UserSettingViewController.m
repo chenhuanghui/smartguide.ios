@@ -70,6 +70,12 @@
     _selectedGender=currentUser().gender.integerValue;
     _selectedAvatar=currentUser().avatar;
     
+    NSString *bd=[currentUser().birthday copy];
+    bd=[bd stringByRemoveString:@"/",@"-",@" ",nil];
+    
+    if(bd.length>0)
+        _selectedDate=[bd toDateWithFormat:@"ddMMyyyy"];
+    
     btnFB.hidden=currentUser().enumSocialType!=SOCIAL_NONE;
     btnGP.hidden=currentUser().enumSocialType!=SOCIAL_NONE;
     
@@ -497,6 +503,8 @@
     datePicker.datePickerMode=UIDatePickerModeDate;
     datePicker.locale=[NSLocale localeWithLocaleIdentifier:@"vi-vn"];
     datePicker.contentMode=UIViewContentModeCenter;
+    datePicker.maximumDate=[NSDate date];
+    
     [datePicker l_v_setY:(self.l_v_h-datePicker.l_v_h)/2];
     
     if(_selectedDate)
@@ -557,6 +565,7 @@
     picker.dataSource=self;
     picker.delegate=self;
     picker.showsSelectionIndicator=true;
+    [picker selectRow:_selectedGender inComponent:0 animated:false];
     
     [picker l_v_setY:(self.l_v_h-picker.l_v_h)/2];
     

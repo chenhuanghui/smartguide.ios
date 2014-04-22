@@ -43,8 +43,6 @@
     
     [map addAnnotation:_shop];
     
-    [map zoomToLocation:_shop.coordinate animate:false span:MKCoordinateSpanMake(MAP_SPAN, MAP_SPAN)];
-    
     if(isVailCLLocationCoordinate2D(map.userLocation.coordinate))
     {
         if(!_didRouterUserLocation)
@@ -53,6 +51,12 @@
             
             [map routerToUserLocation:_shop];
         }
+        
+        [map showAnnotations:@[_shop,map.userLocation] animated:false];
+    }
+    else
+    {
+        [map zoomToLocation:_shop.coordinate animate:false span:MKCoordinateSpanMake(MAP_SPAN, MAP_SPAN)];
     }
 }
 
@@ -157,6 +161,8 @@
             _didRouterUserLocation=true;
             
             [map routerToUserLocation:_shop];
+            
+            [map showAnnotations:@[_shop,map.userLocation] animated:true];
         }
     }
 }

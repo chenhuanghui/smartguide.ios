@@ -2029,6 +2029,21 @@ CGFloat radiansToDegrees(CGFloat radians) {return radians * 180/M_PI;};
     return [component minute];
 }
 
++(NSDate *)endDateOfYear:(int)year
+{
+    NSDate *curDate = [NSDate date];
+    NSCalendar* calendar = [NSCalendar currentCalendar];
+    NSDateComponents* comps = [calendar components:NSYearCalendarUnit|NSMonthCalendarUnit|NSWeekCalendarUnit|NSWeekdayCalendarUnit fromDate:curDate]; // Get necessary date components
+    
+    // set last of month
+    [comps setYear:year];
+    [comps setMonth:13];
+    [comps setDay:0];
+    NSDate *tDateMonth = [calendar dateFromComponents:comps];
+    
+    return tDateMonth;
+}
+
 -(NSDate *)toServer
 {
     NSTimeZone *zone=[NSTimeZone systemTimeZone];

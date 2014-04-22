@@ -234,6 +234,7 @@ float roundToN(float num, int decimals);
 -(int) month;
 -(int) day;
 -(int) minute;
++(NSDate*) endDateOfYear:(int) year;
 
 -(NSDate*) toServer;
 +(NSDate*) toClient:(NSString*) dateStr;

@@ -121,7 +121,7 @@
     [self setVisibleMapRect:zoomRect animated:animate];
 }
 
--(void)zoomToCoordinates:(NSArray *)array animate:(bool)animate span:(double)span
+-(void)zoomToCoordinates:(NSArray *)array animate:(bool)animate span:(MKCoordinateSpan)span
 {
     if(array.count==0)
         return;
@@ -153,7 +153,7 @@
 	region.span.latitudeDelta  = maxLat - minLat;
 	region.span.longitudeDelta = maxLon - minLon;
     
-    double miles = span*0.000621371f;
+    double miles = (span.latitudeDelta+span.longitudeDelta)/2 * 0.000621371f;
     double scalingFactor = ABS( (cos(2 * M_PI * region.center.latitude / 360.0) ));
     
     region.span=MKCoordinateSpanMake(miles/69, miles/(scalingFactor*69));
@@ -399,6 +399,21 @@
     if(isZoomed)
         [self showAnnotations:shops animated:false];
     //        [self zoomToFitCoordinates:coordinates animate:false];
+}
+
+-(void)showAnnotations:(NSArray *)annotations animated:(BOOL)animated
+{
+    if(NSFoundationVersionNumber>NSFoundationVersionNumber_iOS_6_1)
+        [super showAnnotations:annotations animated:animated];
+    else
+    {
+        NSMutableArray *array=[NSMutableArray array];
+        for(id<MKAnnotation> ann in annotations)
+        {
+            [array addObject:[NSValue valueWithMKCoordinate:[ann coordinate]]];
+        }
+        [self zoomToFitCoordinates:array animate:animated];
+    }
 }
 
 -(void)addMoreShopLists:(NSArray *)shops

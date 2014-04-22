@@ -8,6 +8,7 @@
 
 #import "NavigationViewController.h"
 #import "DataManager.h"
+#import "GUIManager.h"
 
 @interface NavigationViewController ()
 
@@ -67,7 +68,30 @@
 }
 
 -(IBAction)btnUserSettingTouchUpInside:(id)sender {
-    [self.delegate navigationTouchedUserSetting:self];
+    
+    switch (currentUser().enumDataMode) {
+        case USER_DATA_TRY:
+        {
+            [[GUIManager shareInstance] showLoginDialogWithMessage:localizeLoginRequire() onOK:^{
+                btnUserSetting.userInteractionEnabled=false;
+            } onCancelled:^{
+                btnUserSetting.userInteractionEnabled=true;
+            } onLogined:^(bool isLogined) {
+                btnUserSetting.userInteractionEnabled=true;
+                
+                if(isLogined)
+                {
+                    [self.delegate navigationTouchedUserSetting:self];
+                }
+            }];
+        }
+            break;
+            
+        case USER_DATA_CREATING:
+        case USER_DATA_FULL:
+            [self.delegate navigationTouchedUserSetting:self];
+            break;
+    }
 }
 
 - (IBAction)btnStoreTouchUpInside:(id)sender {
