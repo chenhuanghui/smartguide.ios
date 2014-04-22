@@ -52,6 +52,7 @@
     
     [self storeRect];
     
+    txt.hiddenClearButton=true;
     txt.text=TEXTFIELD_SEARCH_PLACEHOLDER_TEXT;
     
     [table l_v_addH:QRCODE_BIG_HEIGHT-QRCODE_SMALL_HEIGHT];

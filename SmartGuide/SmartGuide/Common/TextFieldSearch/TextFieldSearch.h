@@ -33,6 +33,8 @@ enum TEXT_FIELD_SEARCH_REFRESH_STATE
 -(void) setRefreshState:(enum TEXT_FIELD_SEARCH_REFRESH_STATE) state animated:(bool) isAnimate completed:(void(^)(enum TEXT_FIELD_SEARCH_REFRESH_STATE state)) completed;
 -(enum TEXT_FIELD_SEARCH_REFRESH_STATE) refreshState;
 
+@property (nonatomic, assign) bool hiddenClearButton;
+
 @end
 
 @interface TextFieldBGView : UIView

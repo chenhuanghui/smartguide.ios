@@ -10,6 +10,7 @@
 #import "Utility.h"
 
 @implementation TextFieldSearch
+@synthesize hiddenClearButton;
 
 -(id)initWithCoder:(NSCoder *)aDecoder
 {
@@ -46,7 +47,7 @@
     
     UIButton *btn=[[UIButton alloc] initWithFrame:CGRectMake(0, 0, 36, 21)];
     [btn setImage:[UIImage imageNamed:@"button_close_search.png"] forState:UIControlStateNormal];
-    btn.hidden=self.text.length==0;
+    btn.hidden=self.text.length==0 && self.hiddenClearButton;
     
     btn.contentMode=UIViewContentModeLeft;
     self.rightView=btn;
@@ -66,6 +67,20 @@
     self.font=[UIFont fontWithName:@"Avenir-Roman" size:14];
 }
 
+-(void)setText:(NSString *)text
+{
+    [super setText:text];
+    
+    if(self.hiddenClearButton)
+    {
+        self.rightViewMode=UITextFieldViewModeNever;
+    }
+    else
+    {
+        self.rightViewMode=text.length>0?UITextFieldViewModeAlways:UITextFieldViewModeNever;
+    }
+}
+
 -(void)setFrame:(CGRect)frame
 {
     [super setFrame:frame];
@@ -76,7 +91,7 @@
 
 -(void) textChanged:(UITextField*) txt
 {
-    self.rightView.hidden=self.text.length==0;
+    self.rightViewMode=(self.text.length==0 || self.hiddenClearButton)?UITextFieldViewModeNever:UITextFieldViewModeAlways;
 }
 
 -(void) btn:(UIButton*) btn
@@ -190,6 +205,16 @@
 -(enum TEXT_FIELD_SEARCH_REFRESH_STATE)refreshState
 {
     return _refreshState;
+}
+
+-(void)setHiddenClearButton:(bool)hiddenClearButton_
+{
+    hiddenClearButton=hiddenClearButton_;
+    
+    if(hiddenClearButton)
+        self.rightViewMode=UITextFieldViewModeNever;
+    else
+        self.rightViewMode=self.text.length>0?UITextFieldViewModeAlways:UITextFieldViewModeNever;
 }
 
 @end

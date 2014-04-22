@@ -510,7 +510,8 @@
             
             break;
     }
-    
+ 
+    txt.hiddenClearButton=true;
     txt.placeholder=TEXTFIELD_SEARCH_PLACEHOLDER_TEXT;
 }
 

@@ -22,6 +22,7 @@
 #import "PlacelistViewController.h"
 #import "ShopListMapCell.h"
 #import "ASIOperationRemoveShopPlacelist.h"
+#import "TextFieldSearch.h"
 
 @class ScrollShopList,ShopListContentView,ShopListViewController,TableShopList,ScrollerShopList;
 
@@ -47,7 +48,7 @@ enum SHOP_LIST_VIEW_MODE {
     __weak IBOutlet UIView *qrCodeView;
     __weak IBOutlet UIButton *btnScanBig;
     __weak IBOutlet UIButton *btnScanSmall;
-    __weak IBOutlet UITextField *txt;
+    __weak IBOutlet TextFieldSearch *txt;
     __weak IBOutlet UIView *loadingView;
     __strong ShopListMapCell *mapCell;
     __weak MapView *map;
