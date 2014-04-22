@@ -13,7 +13,6 @@ NSString* localizeOK();
 NSString* localizeCancel();
 NSString* localizeLocationServicesDisabled();
 NSString* localizeLocationAuthorationDenied();
-NSString* localizeErrorPhoneLength();
 NSString* localizeRequireSGP();
 NSString* localizeUpdateProfileFailed();
 NSString* localizeConnectToServerFailed();

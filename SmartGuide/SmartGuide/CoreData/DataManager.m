@@ -39,6 +39,12 @@ UIImage *userAvatarBlurImage()
 
 void setUserLocation(CLLocationCoordinate2D location)
 {
+    if(!isVailCLLocationCoordinate2D(location))
+    {
+        location.latitude=-1;
+        location.longitude=-1;
+    }
+    
     [DataManager shareInstance].currentUser.coordinate=location;
 }
 

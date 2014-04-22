@@ -12,6 +12,7 @@
 #import "LoadingScreenViewController.h"
 #import "AuthorizationViewController.h"
 #import "DataManager.h"
+#import "LocationManager.h"
 
 static GUIManager *_shareInstance=nil;
 
@@ -112,6 +113,8 @@ static GUIManager *_shareInstance=nil;
 
 -(void)SGLoadingFinished:(LoadingScreenViewController *)loadingScreen
 {
+    [[LocationManager shareInstance] startTrackingLocation];
+    
     [self showFirstController];
 }
 

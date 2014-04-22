@@ -157,7 +157,11 @@
 }
 
 - (IBAction)btnBackTouchUpInside:(id)sender {
-    
+    [self back];
+}
+
+-(void) back
+{
     if(_parentController)
     {
         [UIView animateWithDuration:DURATION_DEFAULT animations:^{
@@ -182,7 +186,7 @@
 
 -(void)galleryFullCellTouchedOutsideImage:(GalleryFullCell *)cell
 {
-    [self.delegate galleryFullTouchedBack:self];
+    [self back];
 }
 
 @end

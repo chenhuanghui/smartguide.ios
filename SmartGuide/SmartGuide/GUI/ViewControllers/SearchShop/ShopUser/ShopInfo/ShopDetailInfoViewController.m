@@ -228,7 +228,7 @@
                     return [ShopDetailInfoType2Cell heightWithContent:[obj.items[indexPath.row] content]];
                     
                 case DETAIL_INFO_TYPE_3:
-                    return [ShopDetailInfoType3Cell heightWithContent:[obj.items[indexPath.row] content]];
+                    return [ShopDetailInfoType3Cell heightWithInfo3:obj.items[indexPath.row]];
                     
                 case DETAIL_INFO_TYPE_4:
                     return [ShopDetailInfoType4Cell heightWithContent:[obj.items[indexPath.row] content]];

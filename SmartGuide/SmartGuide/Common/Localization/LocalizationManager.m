@@ -11,12 +11,12 @@
 
 NSString* localizeOK()
 {
-    return @"OK";
+    return @"Đồng ý";
 }
 
 NSString* localizeCancel()
 {
-    return @"Cancel";
+    return @"Huỷ";
 }
 
 NSString* localizeLocationServicesDisabled()
@@ -27,11 +27,6 @@ NSString* localizeLocationServicesDisabled()
 NSString* localizeLocationAuthorationDenied()
 {
     return @"Location authorization denied";
-}
-
-NSString* localizeErrorPhoneLength()
-{
-    return @"Phone length <= 12";
 }
 
 NSString* localizeRequireSGP()

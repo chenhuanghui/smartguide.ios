@@ -35,7 +35,7 @@
     
     NSMutableDictionary *dict=[NSMutableDictionary dictionary];
     
-    [dict setObject:[UIFont fontWithName:@"Avenir-Oblique" size:13] forKey:NSFontAttributeName];
+    [dict setObject:[UIFont fontWithName:@"Georgia-Italic" size:13] forKey:NSFontAttributeName];
     [dict setObject:[UIColor color255WithRed:53 green:158 blue:239 alpha:255] forKey:NSForegroundColorAttributeName];
     
     NSAttributedString *attStr=[[NSAttributedString alloc] initWithString:@"Điều khoản sử dụng" attributes:dict];

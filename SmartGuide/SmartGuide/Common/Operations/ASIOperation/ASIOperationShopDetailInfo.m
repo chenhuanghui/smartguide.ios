@@ -231,7 +231,20 @@
     obj.content=[NSString stringWithStringDefault:dict[@"content"]];
     obj.idShop=[[NSNumber numberWithObject:dict[@"idShop"]] integerValue];
     
+    obj.titleHeight=-1;
+    obj.contentHeight=-1;
+    
     return obj;
+}
+
+-(NSString *)title1
+{
+    return @"";
+}
+
+-(NSString *)content1
+{
+    return @"Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat";
 }
 
 @end

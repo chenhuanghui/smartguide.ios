@@ -45,7 +45,7 @@
     
     NSMutableDictionary *dict=[NSMutableDictionary dictionary];
     
-    [dict setObject:[UIFont fontWithName:@"Avenir-Oblique" size:13] forKey:NSFontAttributeName];
+    [dict setObject:[UIFont fontWithName:@"Georgia-Italic" size:13] forKey:NSFontAttributeName];
     [dict setObject:[UIColor color255WithRed:53 green:158 blue:239 alpha:255] forKey:NSForegroundColorAttributeName];
     
     NSAttributedString *attStr=[[NSAttributedString alloc] initWithString:@"Điều khoản sử dụng" attributes:dict];
@@ -477,8 +477,22 @@
     [self.view showLoading];
 }
 
+-(void) enabledButtons:(bool) enable
+{
+    btnSetting.userInteractionEnabled=enable;
+    btnDone.userInteractionEnabled=enable;
+    btnAvatar.userInteractionEnabled=enable;
+    txtName.userInteractionEnabled=enable;
+    btnLogout.userInteractionEnabled=enable;
+    btnEditDOB.userInteractionEnabled=enable;
+    btnEditGender.userInteractionEnabled=enable;
+    btnTerms.userInteractionEnabled=enable;
+}
+
 -(void) showDOBPicker
 {
+    [self enabledButtons:false];
+    
     UIDatePicker *datePicker=[[UIDatePicker alloc] initWithFrame:self.view.frame];
     datePicker.datePickerMode=UIDatePickerModeDate;
     datePicker.locale=[NSLocale localeWithLocaleIdentifier:@"vi-vn"];
@@ -497,7 +511,7 @@
     self.view.userInteractionEnabled=false;
     [UIView animateWithDuration:DURATION_DEFAULT animations:^{
         datePicker.alpha=1;
-        self.view.alphaView.alpha=0.7f;
+        self.view.alphaView.alpha=0.9f;
     } completion:^(BOOL finished) {
         self.view.userInteractionEnabled=true;
     }];
@@ -537,6 +551,8 @@
 
 -(void) showGenderPicker
 {
+    [self enabledButtons:false];
+    
     UIPickerView *picker=[[UIPickerView alloc] initWithFrame:self.view.frame];
     picker.dataSource=self;
     picker.delegate=self;
@@ -554,7 +570,7 @@
     
     [UIView animateWithDuration:DURATION_DEFAULT animations:^{
         picker.alpha=1;
-        self.view.alphaView.alpha=0.7f;
+        self.view.alphaView.alpha=0.9f;
     } completion:^(BOOL finished) {
         self.view.userInteractionEnabled=true;
     }];
@@ -583,6 +599,8 @@
             [_pickerView removeFromSuperview];
             _pickerView=nil;
             self.view.userInteractionEnabled=true;
+            
+            [self enabledButtons:true];
         }];
     }
 }

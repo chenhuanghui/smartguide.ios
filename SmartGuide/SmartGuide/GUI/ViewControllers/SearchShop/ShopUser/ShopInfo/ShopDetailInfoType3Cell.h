@@ -24,6 +24,6 @@
 -(void)setCellPos:(enum CELL_POSITION)cellPos;
 
 +(NSString *)reuseIdentifier;
-+(float) heightWithContent:(NSString*) content;
++(float) heightWithInfo3:(Info3*) info3;
 
 @end

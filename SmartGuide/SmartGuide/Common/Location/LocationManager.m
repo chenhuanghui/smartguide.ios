@@ -61,6 +61,12 @@ static LocationManager *_locationManager=nil;
     }
 }
 
+-(void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
+{
+    setUserLocation(manager.location.coordinate);
+    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_USER_LOCATION_CHANGED object:[NSValue valueWithMKCoordinate:manager.location.coordinate]];
+}
+
 -(void)stopTrackingLcoation
 {
     if(!_locationManager)

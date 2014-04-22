@@ -245,7 +245,8 @@
                                     _isCanRefresh=FALSE;
                                     tableFeed.maxY=-tableFeed.contentInset.top;
                                     [txt setRefreshState:TEXT_FIELD_SEARCH_REFRESH_STATE_REFRESHING animated:true completed:nil];
-                                    [self reloadData];
+                                    [[LocationManager shareInstance] startTrackingLocation];
+                                    tableFeed.userInteractionEnabled=false;
                                     
                                     [UIView animateWithDuration:0.3f animations:^{
                                         tableFeed.alpha=0.1f;
@@ -322,13 +323,20 @@
 
 -(void) userLocationChanged:(NSNotification*) notification
 {
+    [[LocationManager shareInstance] stopTrackingLcoation];
+    
+    homeLocation=[notification.object MKCoordinateValue];
+    
     if(!isVailCLLocationCoordinate2D(homeLocation))
     {
-        homeLocation=[notification.object MKCoordinateValue];
-        [self resetData];
+        homeLocation.latitude=-1;
+        homeLocation.longitude=-1;
     }
     
-    [[LocationManager shareInstance] stopTrackingLcoation];
+    if(!tableFeed.userInteractionEnabled && txt.refreshState==TEXT_FIELD_SEARCH_REFRESH_STATE_REFRESHING)
+    {
+        [self reloadData];
+    }
 }
 
 -(void) requestNewFeed
@@ -834,6 +842,8 @@
         [_operationUserHome clearDelegatesAndCancel];
         _operationUserHome=nil;
     }
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:NOTIFICATION_USER_LOCATION_CHANGED object:nil];
 }
 
 - (IBAction)btnNotificationTouchUpInside:(id)sender {
