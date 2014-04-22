@@ -91,6 +91,11 @@
     }
     else if([cell isKindOfClass:[ShopDetailInfoDescCell class]])
     {
+        ShopDetailInfoDescCell *descCell=(ShopDetailInfoDescCell*) cell;
+        
+        if(!descCell.canReadMore)
+            return;
+        
         _descMode=_descMode==SHOP_DETAIL_INFO_DESCRIPTION_NORMAL?SHOP_DETAIL_INFO_DESCRIPTION_FULL:SHOP_DETAIL_INFO_DESCRIPTION_NORMAL;
         [self reloadData];
     }

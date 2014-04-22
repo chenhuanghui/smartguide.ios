@@ -36,6 +36,7 @@
 #define CGPOINT_Y(cgpnt,py) CGPointMake(cgpnt.x,py)
 #define SCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
 #define SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
+#define CLLocationCoordinateInvail CLLocationCoordinate2DMake(-1, -1)
 
 NSString* NSStringFromCoordinate(CLLocationCoordinate2D coordinate);
 CGPathRef CGPathCreateRoundRect( const CGRect r, const CGFloat cornerRadius );

@@ -7,6 +7,7 @@
 //
 
 #import "DataManager.h"
+#import "LocationManager.h"
 #import "Utility.h"
 #import "Constant.h"
 #import "Flags.h"
@@ -14,12 +15,12 @@
 
 double userLat()
 {
-    return [DataManager shareInstance].currentUser.coordinate.latitude;
+    return [[LocationManager shareInstance] userlocation].latitude;
 }
 
 double userLng()
 {
-    return [DataManager shareInstance].currentUser.coordinate.longitude;
+    return [[LocationManager shareInstance] userlocation].longitude;
 }
 
 NSString *userAvatar()
@@ -35,27 +36,6 @@ UIImage *userAvatarImage()
 UIImage *userAvatarBlurImage()
 {
     return [[DataManager shareInstance].currentUser avatarBlurImage];
-}
-
-void setUserLocation(CLLocationCoordinate2D location)
-{
-    if(!isVailCLLocationCoordinate2D(location))
-    {
-        location.latitude=-1;
-        location.longitude=-1;
-    }
-    
-    [DataManager shareInstance].currentUser.coordinate=location;
-}
-
-void setUserLat(double newLat)
-{
-    [DataManager shareInstance].currentUser.coordinate=CLLocationCoordinate2DMake(newLat, userLng());
-}
-
-void setUserLng(double newLng)
-{
-    [DataManager shareInstance].currentUser.coordinate=CLLocationCoordinate2DMake(userLat(), newLng);
 }
 
 User *currentUser()
@@ -77,6 +57,14 @@ static DataManager *_dataManager=nil;
     });
     
     return _dataManager;
+}
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+    }
+    return self;
 }
 
 -(void) loadDatabase

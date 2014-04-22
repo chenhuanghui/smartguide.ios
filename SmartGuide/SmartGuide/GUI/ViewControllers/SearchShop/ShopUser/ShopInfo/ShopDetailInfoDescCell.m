@@ -78,4 +78,9 @@
     blur.transform=CGAffineTransformMakeRotation(DEGREES_TO_RADIANS(180));
 }
 
+-(bool)canReadMore
+{
+    return !btn.hidden;
+}
+
 @end

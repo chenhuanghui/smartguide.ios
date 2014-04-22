@@ -7,9 +7,8 @@ enum USER_DATA_MODE {
     USER_DATA_FULL = 2,
     };
 
-@interface User : _User<MKAnnotation>
+@interface User : _User
 {
-    CLLocationCoordinate2D _location;
 }
 
 +(User*) userWithIDUser:(int) idUser;
@@ -20,8 +19,6 @@ enum USER_DATA_MODE {
 -(enum SOCIAL_TYPE)enumSocialType;
 
 -(NSString *) accessToken;
-
--(void)setCoordinate:(CLLocationCoordinate2D)newCoordinate;
 
 -(enum USER_DATA_MODE) enumDataMode;
 

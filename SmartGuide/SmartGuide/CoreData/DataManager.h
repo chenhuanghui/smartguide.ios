@@ -13,9 +13,6 @@
 double userLat();
 double userLng();
 NSString *userAvatar();
-void setUserLocation(CLLocationCoordinate2D location);
-void setUserLat(double newLat);
-void setUserLng(double newLng);
 UIImage *userAvatarImage();
 UIImage *userAvatarBlurImage();
 

@@ -10,6 +10,7 @@
 #import "Constant.h"
 #import "Utility.h"
 #import "ShopList.h"
+#import "LocationManager.h"
 
 @implementation MapView
 @synthesize routerDelegate,geoCoderDelegate;
@@ -23,7 +24,27 @@
         _didAddNotification=true;
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveMemoryWarning:) name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
+
+        _lastUserLocation=self.userLocation.coordinate;
+        [self performSelectorInBackground:@selector(userLocationChanged) withObject:nil];
     }
+}
+
+-(void) userLocationChanged
+{
+    if(_lastUserLocation.latitude!=self.userLocation.coordinate.latitude && _lastUserLocation.longitude!=self.userLocation.coordinate.longitude)
+    {
+        _lastUserLocation=self.userLocation.coordinate;
+        [[LocationManager shareInstance] updateLocation:self.userLocation.coordinate];
+    }
+    
+    NSLog(@"userLocationChanged");
+    
+    __weak MapView *wSelf=self;
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        if(wSelf)
+            [wSelf userLocationChanged];
+    });
 }
 
 -(void) receiveMemoryWarning:(NSNotification*) notification
@@ -64,28 +85,18 @@
         [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
     }
     
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(userLocationChanged) object:nil];
+    
     self.delegate=nil;
     
     DEALLOC_LOG
-}
-
--(MKUserLocation *)userLocation
-{
-    MKUserLocation *location=[super userLocation];
-    
-    if(isVailCLLocationCoordinate2D(location.coordinate) && (location.coordinate.latitude!=userLat() || location.coordinate.longitude!=userLng()))
-    {
-        setUserLocation(location.coordinate);
-    }
-    
-    return location;
 }
 
 -(void)zoomToLocation:(CLLocationCoordinate2D)location animate:(bool)animate span:(MKCoordinateSpan) span
 {
     if(!isVailCLLocationCoordinate2D(location))
         return;
-
+    
     [self setRegion:MKCoordinateRegionMakeWithDistance(location, span.latitudeDelta, span.longitudeDelta) animated:animate];
 }
 
@@ -163,7 +174,7 @@
 -(void)routerToUserLocation:(id<MKAnnotation>)fromAnno
 {
     [self cancelUserRouter];
- 
+    
     if(!isVailCLLocationCoordinate2D(self.userLocation.coordinate))
         return;
     
@@ -386,7 +397,8 @@
         [coordinates addObject:[NSValue valueWithMKCoordinate:self.userLocation.coordinate]];
     
     if(isZoomed)
-        [self zoomToFitCoordinates:coordinates animate:false];
+        [self showAnnotations:shops animated:false];
+    //        [self zoomToFitCoordinates:coordinates animate:false];
 }
 
 -(void)addMoreShopLists:(NSArray *)shops
@@ -401,7 +413,7 @@
     
     [self setRegion:MKCoordinateRegionMake(shoplist.coordinate, self.region.span) animated:true];
     
-//    [self zoomToLocation:[shoplist coordinate] animate:true span:self.region.spasn];
+    //    [self zoomToLocation:[shoplist coordinate] animate:true span:self.region.spasn];
 }
 
 @end

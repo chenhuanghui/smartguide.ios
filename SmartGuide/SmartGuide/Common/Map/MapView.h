@@ -39,6 +39,8 @@
     bool _didAddObs;
     bool _didAddNotification;
     bool _changingMapType;
+    
+    CLLocationCoordinate2D _lastUserLocation;
 }
 
 -(MKPolylineView *)polylineViewWithOverlay:(id<MKOverlay>)overlay fillColor:(UIColor*) fillColor strokeColor:(UIColor*) strokeColor lineWidth:(double) lineWidth;

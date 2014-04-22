@@ -114,7 +114,6 @@ static GUIManager *_shareInstance=nil;
 -(void)SGLoadingFinished:(LoadingScreenViewController *)loadingScreen
 {
     [[LocationManager shareInstance] startTrackingLocation];
-    
     [self showFirstController];
 }
 

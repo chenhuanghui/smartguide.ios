@@ -72,7 +72,6 @@
 }
 
 @property (nonatomic, assign) id<HomeControllerDelegate> delegate;
-@property (nonatomic, readonly) CLLocationCoordinate2D homeLocation;
 
 @end
 

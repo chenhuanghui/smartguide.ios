@@ -20,7 +20,7 @@
 @end
 
 @implementation HomeViewController
-@synthesize delegate,homeLocation;
+@synthesize delegate;
 
 - (id)init
 {
@@ -55,7 +55,6 @@
     _isCanRefresh=TRUE;
     _isAPIFinished=false;
     _startYAngle=-999;
-    homeLocation=currentUser().coordinate;
     
     txt.text=TEXTFIELD_SEARCH_PLACEHOLDER_TEXT;
     
@@ -325,14 +324,6 @@
 {
     [[LocationManager shareInstance] stopTrackingLcoation];
     
-    homeLocation=[notification.object MKCoordinateValue];
-    
-    if(!isVailCLLocationCoordinate2D(homeLocation))
-    {
-        homeLocation.latitude=-1;
-        homeLocation.longitude=-1;
-    }
-    
     if(!tableFeed.userInteractionEnabled && txt.refreshState==TEXT_FIELD_SEARCH_REFRESH_STATE_REFRESHING)
     {
         [self reloadData];
@@ -347,7 +338,7 @@
         _operationUserHome=nil;
     }
     
-    _operationUserHome=[[ASIOperationUserHome alloc] initWithPage:_page+1 userLat:homeLocation.latitude userLng:homeLocation.longitude];
+    _operationUserHome=[[ASIOperationUserHome alloc] initWithPage:_page+1 userLat:HOME_LOCATION().latitude userLng:HOME_LOCATION().longitude];
     _operationUserHome.delegatePost=self;
     
     [_operationUserHome startAsynchronous];

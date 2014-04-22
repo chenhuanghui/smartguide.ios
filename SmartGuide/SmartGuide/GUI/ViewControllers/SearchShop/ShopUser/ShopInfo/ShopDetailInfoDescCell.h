@@ -34,6 +34,7 @@ enum SHOP_DETAIL_INFO_DESCRIPTION_MODE {
 }
 
 -(void) loadWithShop:(Shop*) shop mode:(enum SHOP_DETAIL_INFO_DESCRIPTION_MODE) mode;
+-(bool) canReadMore;
 
 +(float) heightWithShop:(Shop*) shop withMode:(enum SHOP_DETAIL_INFO_DESCRIPTION_MODE) mode;
 +(NSString *)reuseIdentifier;

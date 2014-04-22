@@ -175,6 +175,8 @@
 -(void)dealloc
 {
     _operationLove=nil;
+    
+    [self removeObserverLove];
 }
 
 - (IBAction)btnLoveTouchUpInside:(id)sender {
