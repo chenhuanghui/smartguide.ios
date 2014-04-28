@@ -112,15 +112,8 @@ enum SHOP_USER_MODE {
 -(ShopUserViewController*) initWithShopUser:(Shop*) shop;
 -(ShopUserViewController*) initWithIDShop:(int) idShop;
 
-//-(void) setShop:(Shop*) shop;
-
-
 @property (nonatomic, assign) id<ShopUserDelegate> delegate;
 @property (nonatomic, readonly) enum SHOP_USER_MODE shopMode;
-
-//-(IBAction) btnInfoTouchUpInside:(id)sender;
-//-(IBAction) btnNextPageTouchUpInside:(id)sender;
-//-(IBAction) btnSendCommentTouchUpInside:(id)sender;
 
 @end
 

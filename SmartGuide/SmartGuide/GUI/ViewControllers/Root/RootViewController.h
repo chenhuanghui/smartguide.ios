@@ -15,6 +15,7 @@
     __weak IBOutlet ScrollViewRoot *scrollContent;
     __weak IBOutlet UIView *leftView;
     UITapGestureRecognizer *tapGes;
+    bool _isAnimatingSetting;
 }
 
 -(RootViewController*) init;
