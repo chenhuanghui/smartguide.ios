@@ -114,8 +114,11 @@
     [self.settingController loadData];
     
     _isAnimatingSetting=true;
-    [scrollContent setContentOffset:CGPointZero animated:true];
-    scrollContent.userInteractionEnabled=false;
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [scrollContent setContentOffset:CGPointZero animated:true];
+        scrollContent.userInteractionEnabled=false;
+    });
 }
 
 -(void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
@@ -130,8 +133,11 @@
 -(void) hideSettingController
 {
     _isAnimatingSetting=true;
-    [scrollContent setContentOffset:CGPointMake(320, 0) animated:true];
-    scrollContent.userInteractionEnabled=false;
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [scrollContent setContentOffset:CGPointMake(320, 0) animated:true];
+        scrollContent.userInteractionEnabled=false;
+    });
 }
 
 -(void) endScroll
