@@ -11,11 +11,13 @@
 #import "LoadingMoreCell.h"
 #import "LocationManager.h"
 #import "UserNotificationViewController.h"
+#import "UserNoticeObject.h"
+#import "UserNoticeView.h"
 
 #define NEW_FEED_DELTA_SPEED 2.1f
 #define HOME_TEXT_FIELD_SEARCH_MIN_Y 8.f
 
-@interface HomeViewController ()<homeListDelegate,homeInfoCellDelegate>
+@interface HomeViewController ()<homeListDelegate,homeInfoCellDelegate,UserNoticeDelegate>
 
 @end
 
@@ -289,11 +291,41 @@
     }
 }
 
+-(void) receiveUserNotice:(NSNotification*) notification
+{
+    if([SGData shareInstance].userNotice.length>0)
+    {
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:NOTIFICATION_USER_NOTICE_FINISHED object:nil];
+        _isRegisterNotificationUserNotice=false;
+
+        [AlertView showWithTitle:@"Thông báo" withMessage:[SGData shareInstance].userNotice withLeftTitle:@"Thoát" withRightTitle:nil onOK:^{
+            [SGData shareInstance].isShowedNotice=@(true);
+        } onCancel:nil];
+        
+        return;
+        UserNoticeView *notice=[[UserNoticeView alloc] initWithNotice:[SGData shareInstance].userNotice];
+        
+        [notice showUserNoticeWithView:self.view delegate:self];
+    }
+}
+
+-(void)userNoticeDidShowed:(UserNoticeView *)userNoticeView
+{
+    [SGData shareInstance].isShowedNotice=@(true);
+}
+
 -(void)viewWillAppearOnce
 {
     [super viewWillAppearOnce];
     
     //    [self requestShopUserWithIDShop:8 idPost:1730514665];
+    if(![[SGData shareInstance].isShowedNotice boolValue])
+    {
+        _isRegisterNotificationUserNotice=true;
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveUserNotice:) name:NOTIFICATION_USER_NOTICE_FINISHED object:nil];
+        
+        [UserNoticeObject requestUserNotice];
+    }
 }
 
 -(void) showLoading
@@ -833,6 +865,13 @@
     {
         [_operationUserHome clearDelegatesAndCancel];
         _operationUserHome=nil;
+    }
+    
+    if(_isRegisterNotificationUserNotice)
+    {
+        _isRegisterNotificationUserNotice=false;
+        
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:NOTIFICATION_USER_NOTICE_FINISHED object:nil];
     }
     
     [[NSNotificationCenter defaultCenter] removeObserver:self name:NOTIFICATION_USER_LOCATION_CHANGED object:nil];

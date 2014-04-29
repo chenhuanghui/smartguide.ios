@@ -28,7 +28,7 @@ static NSString * const kClientId = @"790158294934-p5pnscmrt4avj698ncvhp14fit0f4
 
 #define TEXTFIELD_SEARCH_PLACEHOLDER_TEXT @"Tìm kiếm địa điểm"
 
-#define BUILD_MODE 1
+#define BUILD_MODE 0
 //0: developer
 //1: production
 
@@ -108,9 +108,11 @@ static NSString * const kClientId = @"790158294934-p5pnscmrt4avj698ncvhp14fit0f4
 #define API_USER_UPLOAD_AVATAR @"user/uploadAvatar"
 #define API_GET_SHOP_GALLERY @"images/getShopGallery"
 #define API_GET_USER_GALLERY @"images/getUserGallery"
+#define API_USER_NOTIFICATION_CHECK @"user/notificationCheck"
 #define API_USER_NOTIFICATION @"user/notification"
 #define API_USER_NOTIFICATION_CONTENT @"user/notificationContent"
 #define API_USER_NOTIFICATION_READ @"user/notificationRead"
+#define API_USER_NOTICE @"user/notice"
 
 #define API_GET_ACTIVE_CODE @"user/activation"
 #define API_USER_CHECK @"user/check_v2"
@@ -157,6 +159,8 @@ static NSString * const kClientId = @"790158294934-p5pnscmrt4avj698ncvhp14fit0f4
 #define NOTIFICATION_USER_FINISHED_TUTORIAL_SLIDE_LIST @"userFinishedReadTutorial"
 #define NOTIFICATION_USER_FINISHED_READ_FIRST_TUTORIAL @"userFinishedReadFirstTutorial"
 #define NOTIFICATION_USER_UPDATED_INFO @"userUpdatedInfo"
+#define NOTIFICATION_USER_NOTIFICATION_CHECK @"userNotificationCheck"
+#define NOTIFICATION_USER_NOTICE_FINISHED @"userNoticeFinished"
 
 #define COLOR_BACKGROUND_APP_ALPHA(a) [UIColor colorWithRed:40.f/255 green:46.f/255 blue:58.f/255 alpha:a]
 #define COLOR_BACKGROUND_APP COLOR_BACKGROUND_APP_ALPHA(1)

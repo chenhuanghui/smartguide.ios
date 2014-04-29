@@ -22,6 +22,18 @@ static SGData *_sgData=nil;
     return _sgData;
 }
 
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        self.numOfNotification=@"...";
+        self.totalNotification=@(0);
+        self.isShowedNotice=@(false);
+        self.userNotice=@"";
+    }
+    return self;
+}
+
 -(void)setFScreen:(NSString *)_fScreen
 {
     fScreen=[[NSString alloc] initWithString:_fScreen];
