@@ -161,6 +161,9 @@ static NSString * const kClientId = @"790158294934-p5pnscmrt4avj698ncvhp14fit0f4
 #define NOTIFICATION_USER_UPDATED_INFO @"userUpdatedInfo"
 #define NOTIFICATION_USER_NOTIFICATION_CHECK @"userNotificationCheck"
 #define NOTIFICATION_USER_NOTICE_FINISHED @"userNoticeFinished"
+#define NOTIFICATION_USER_LOGIN @"userLogin"
+#define NOTIFICATION_USER_LOGOUT @"userLogout"
+#define NOTIFICATION_INFORY_LAUNCHED @"inforyLaunched"
 
 #define COLOR_BACKGROUND_APP_ALPHA(a) [UIColor colorWithRed:40.f/255 green:46.f/255 blue:58.f/255 alpha:a]
 #define COLOR_BACKGROUND_APP COLOR_BACKGROUND_APP_ALPHA(1)

@@ -1041,7 +1041,6 @@
 		A9D84CE118FE90C300654438 /* icon_refresh_done@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A9D84CDF18FE90C300654438 /* icon_refresh_done@2x.png */; };
 		A9DCA90817AABCB200C56854 /* ShopUserComment.m in Sources */ = {isa = PBXBuildFile; fileRef = A9DCA90717AABCB200C56854 /* ShopUserComment.m */; };
 		A9DCA90B17AABCBB00C56854 /* _ShopUserComment.m in Sources */ = {isa = PBXBuildFile; fileRef = A9DCA90A17AABCBB00C56854 /* _ShopUserComment.m */; };
-		A9E35F80190F8358008498E5 /* BackgroundJobsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E35F7F190F8358008498E5 /* BackgroundJobsManager.m */; };
 		A9E35F83190F8417008498E5 /* ASIOperationNotificationCheck.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E35F82190F8417008498E5 /* ASIOperationNotificationCheck.m */; };
 		A9E35F86190F8EB3008498E5 /* ASIOperationUserNotice.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E35F85190F8EB3008498E5 /* ASIOperationUserNotice.m */; };
 		A9E35F89190F9008008498E5 /* UserNoticeObject.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E35F88190F9008008498E5 /* UserNoticeObject.m */; };
@@ -1054,6 +1053,7 @@
 		A9E725A818ED9AA8007FA91A /* bg_number_notice@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A9E725A618ED9AA8007FA91A /* bg_number_notice@2x.png */; };
 		B9874444187D537D004FC17B /* GoogleOpenSource.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AB6CF4A187C499400B8DEA2 /* GoogleOpenSource.framework */; };
 		B9874445187D537E004FC17B /* GooglePlus.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AB6CF4C187C49A100B8DEA2 /* GooglePlus.framework */; };
+		CDF5EF501910BE0E006FD360 /* BackgroundJobsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CDF5EF4F1910BE0E006FD360 /* BackgroundJobsManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -2405,8 +2405,6 @@
 		A9DCA90717AABCB200C56854 /* ShopUserComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopUserComment.m; sourceTree = "<group>"; };
 		A9DCA90917AABCBA00C56854 /* _ShopUserComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _ShopUserComment.h; sourceTree = "<group>"; };
 		A9DCA90A17AABCBB00C56854 /* _ShopUserComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _ShopUserComment.m; sourceTree = "<group>"; };
-		A9E35F7E190F8358008498E5 /* BackgroundJobsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackgroundJobsManager.h; sourceTree = "<group>"; };
-		A9E35F7F190F8358008498E5 /* BackgroundJobsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BackgroundJobsManager.m; sourceTree = "<group>"; };
 		A9E35F81190F8417008498E5 /* ASIOperationNotificationCheck.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIOperationNotificationCheck.h; sourceTree = "<group>"; };
 		A9E35F82190F8417008498E5 /* ASIOperationNotificationCheck.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIOperationNotificationCheck.m; sourceTree = "<group>"; };
 		A9E35F84190F8EB3008498E5 /* ASIOperationUserNotice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIOperationUserNotice.h; sourceTree = "<group>"; };
@@ -2422,6 +2420,8 @@
 		A9E725A218ED9A36007FA91A /* icon_notification@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_notification@2x.png"; sourceTree = "<group>"; };
 		A9E725A518ED9AA8007FA91A /* bg_number_notice.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_number_notice.png; sourceTree = "<group>"; };
 		A9E725A618ED9AA8007FA91A /* bg_number_notice@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg_number_notice@2x.png"; sourceTree = "<group>"; };
+		CDF5EF4E1910BE0E006FD360 /* BackgroundJobsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackgroundJobsManager.h; sourceTree = "<group>"; };
+		CDF5EF4F1910BE0E006FD360 /* BackgroundJobsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BackgroundJobsManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -3770,6 +3770,8 @@
 		A98198B4178D3FA70009FCB6 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				CDF5EF4E1910BE0E006FD360 /* BackgroundJobsManager.h */,
+				CDF5EF4F1910BE0E006FD360 /* BackgroundJobsManager.m */,
 				A9E35F8A190F94E4008498E5 /* UserNotice */,
 				A9AC694718EEC27D006279FE /* ImageView */,
 				9ADCD8B018D19C3F004CB67E /* Lib3 */,
@@ -3808,8 +3810,6 @@
 				9A7E55B1183CEB88006D1798 /* ImageManager.m */,
 				9A1CAD5418BB4239004C7A4A /* SGData.h */,
 				9A1CAD5518BB4239004C7A4A /* SGData.m */,
-				A9E35F7E190F8358008498E5 /* BackgroundJobsManager.h */,
-				A9E35F7F190F8358008498E5 /* BackgroundJobsManager.m */,
 				A9E35F87190F9008008498E5 /* UserNoticeObject.h */,
 				A9E35F88190F9008008498E5 /* UserNoticeObject.m */,
 			);
@@ -5351,7 +5351,6 @@
 				9ADCD94E18D19C3F004CB67E /* FTCoreTextStyle.m in Sources */,
 				9A27BC2418D18BAD00E3EAC2 /* QRCodeViewController.m in Sources */,
 				9A27BBF118D18BAD00E3EAC2 /* AuthorizationViewController.m in Sources */,
-				A9E35F80190F8358008498E5 /* BackgroundJobsManager.m in Sources */,
 				9A27BC1118D18BAD00E3EAC2 /* HomeListCell.m in Sources */,
 				9ADCD96218D19C3F004CB67E /* UIButton+WebCache.m in Sources */,
 				9AC66F86186447B300890F80 /* ASIOperationAgreeComment.m in Sources */,
@@ -5599,6 +5598,7 @@
 				A920E1D317CBBC59003FAA80 /* Reward.m in Sources */,
 				A920E1D617CBBC64003FAA80 /* _Reward.m in Sources */,
 				A95B119B18EDCE470020477D /* ImageDownloaded.m in Sources */,
+				CDF5EF501910BE0E006FD360 /* BackgroundJobsManager.m in Sources */,
 				9A7AC23318D191F10043316D /* MapView.m in Sources */,
 				9ACE90901875D176008FEA7E /* KM2Voucher.m in Sources */,
 				9A1E234118B1C76D0077F503 /* ASIOperationUserPromotion.m in Sources */,
@@ -5752,16 +5752,12 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"~/Documents/FacebookSDK",
-					"~/smartguide.ios/SmartGuide/google-plus-ios-sdk-1.5.0",
+					"\"$(SRCROOT)/google-plus-ios-sdk-1.5.0\"",
 				);
 				GCC_PREFIX_HEADER = "SmartGuide/Infory-Prefix.pch";
 				INFOPLIST_FILE = "SmartGuide/Infory-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"~/smartguide.ios/SmartGuide",
-					/Users/macmini/smartguide.ios/SmartGuide/SmartGuide/Common/Lib3/ZBarSDK,
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
 					"-all_load",
@@ -5783,16 +5779,12 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"~/Documents/FacebookSDK",
-					"~/smartguide.ios/SmartGuide/google-plus-ios-sdk-1.5.0",
+					"\"$(SRCROOT)/google-plus-ios-sdk-1.5.0\"",
 				);
 				GCC_PREFIX_HEADER = "SmartGuide/Infory-Prefix.pch";
 				INFOPLIST_FILE = "SmartGuide/Infory-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"~/smartguide.ios/SmartGuide",
-					/Users/macmini/smartguide.ios/SmartGuide/SmartGuide/Common/Lib3/ZBarSDK,
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
 					"-all_load",

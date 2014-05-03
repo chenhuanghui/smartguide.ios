@@ -512,6 +512,9 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
+    btnNotification.hidden=currentUser().enumDataMode==USER_DATA_TRY;
+    btnNumOfNotification.hidden=btnNotification.hidden;
 }
 
 - (void)didReceiveMemoryWarning

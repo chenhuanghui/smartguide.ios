@@ -41,6 +41,7 @@
     __weak IBOutlet UIButton *btnScanSmall;
     __weak IBOutlet UIImageView *blurBottom;
     __weak IBOutlet UIButton *btnNumOfNotification;
+    __weak IBOutlet UIButton *btnNotification;
     __weak IBOutlet UIImageView *imgvLogo;
     
     ASIOperationUserHome *_operationUserHome;

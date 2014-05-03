@@ -62,6 +62,7 @@ static GUIManager *_shareInstance=nil;
 
 -(void)logout
 {
+    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_USER_LOGOUT object:nil];
     [self showFirstController];
 }
 
@@ -113,6 +114,7 @@ static GUIManager *_shareInstance=nil;
 
 -(void)SGLoadingFinished:(LoadingScreenViewController *)loadingScreen
 {
+    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_INFORY_LAUNCHED object:nil];
     [self showFirstController];
 }
 

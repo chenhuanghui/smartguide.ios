@@ -181,6 +181,7 @@
 
 -(void) finishLogin
 {
+    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_USER_LOGIN object:nil];
     [SGData shareInstance].fScreen=[UserLoginViewController screenCode];
     [self.delegate userLoginSuccessed];
 }

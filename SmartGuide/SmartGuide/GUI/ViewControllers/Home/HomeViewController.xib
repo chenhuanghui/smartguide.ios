@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="5053" systemVersion="12F37" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="5056" systemVersion="12F37" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
         <deployment defaultVersion="1536" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
@@ -8,6 +8,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HomeViewController">
             <connections>
                 <outlet property="blurBottom" destination="LCo-O1-eW2" id="3Gp-6G-AHt"/>
+                <outlet property="btnNotification" destination="MWW-xr-20m" id="jPL-7m-V5V"/>
                 <outlet property="btnNumOfNotification" destination="L8l-9k-kzR" id="6Ry-X7-Sgb"/>
                 <outlet property="btnScanBig" destination="x6B-Va-eYj" id="iwd-yJ-YHk"/>
                 <outlet property="btnScanSmall" destination="OIS-pB-zut" id="bgb-MN-Gls"/>
