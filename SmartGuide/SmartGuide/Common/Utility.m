@@ -149,6 +149,19 @@ NSString *NSStringFromUIGestureRecognizerState(UIGestureRecognizerState state)
     }
 }
 
+NSString* UUID()
+{
+    NSString *uuid=[[NSUserDefaults standardUserDefaults] stringForKey:@"uuid"];
+    if(uuid.length==0)
+    {
+        uuid=[[NSUUID UUID] UUIDString];
+        [[NSUserDefaults standardUserDefaults] setObject:uuid forKey:@"uuid"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
+    
+    return uuid;
+}
+
 @implementation Utility
 
 +(CGRect) centerPinWithFrameAnnotation:(CGRect) rectAnn framePin:(CGRect) rectPin

@@ -14,12 +14,18 @@
 #import "Flurry.h"
 #import "GUIManager.h"
 #import "SDWebImageManager.h"
+#import "NotificationManager.h"
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     NSLog(@"launchOptions %@",launchOptions);
+    
+    if(launchOptions)
+    {
+        [AlertView showAlertOKWithTitle:@"LAUNCH OPTIONS" withMessage:[NSString stringWithFormat:@"%@",launchOptions] onOK:nil];
+    }
     
     CGRect rect=[[UIScreen mainScreen] bounds];
     self.window = [[UIWindow alloc] initWithFrame:rect];
@@ -31,12 +37,9 @@
         [[SDWebImageManager sharedManager].imageCache clearDisk];
     }
     
-    [Flurry setAppVersion:@"0.0a"];
-    [Flurry startSession:@"SG974KP6KXTQ8P4ZRYHN" withOptions:launchOptions];
+//    [[GUIManager shareInstance] startupWithWindow:self.window];
     
-    [[GUIManager shareInstance] startupWithWindow:self.window];
-    
-//    [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge |UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
+    [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge |UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
     
     return YES;
 }
@@ -45,16 +48,16 @@
 {
 //    NSString *str = [NSString stringWithFormat:@"Token: %@", deviceToken];
 //    NSLog(@"%@", str);
+    [[NotificationManager shareInstance] receiveDeviceToken:deviceToken];
 }
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)err
 {
-//    NSString *str = [NSString stringWithFormat:@"Error %@", err];
-//    NSLog(@"%@", str);
+    NSLog(@"didFailToRegisterForRemoteNotificationsWithError %@",err);
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
-    //
+    [[NotificationManager shareInstance] receiveRemoteNotification:userInfo];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application

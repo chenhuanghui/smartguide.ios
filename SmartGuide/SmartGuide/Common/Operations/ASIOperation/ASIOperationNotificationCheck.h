@@ -10,7 +10,7 @@
 
 @interface ASIOperationNotificationCheck : ASIOperationPost
 
--(ASIOperationNotificationCheck*) initWithUserLat:(double) userLat userLng:(double) userLng;
+-(ASIOperationNotificationCheck*) initWithUserLat:(double) userLat userLng:(double) userLng uuid:(NSString*) uuid;
 
 @property (nonatomic, strong) NSString *numOfNotification;
 @property (nonatomic, strong) NSNumber *totalNotification;

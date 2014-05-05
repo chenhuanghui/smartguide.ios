@@ -10,12 +10,13 @@
 
 @implementation ASIOperationNotificationCheck
 
--(ASIOperationNotificationCheck *)initWithUserLat:(double)userLat userLng:(double)userLng
+-(ASIOperationNotificationCheck *)initWithUserLat:(double)userLat userLng:(double)userLng uuid:(NSString *)uuid
 {
     self=[super initWithURL:SERVER_API_URL_MAKE(API_USER_NOTIFICATION_CHECK)];
     
     [self.keyValue setObject:@(userLat) forKey:USER_LATITUDE];
     [self.keyValue setObject:@(userLng) forKey:USER_LONGITUDE];
+    [self.keyValue setObject:uuid forKey:@"uuid"];
     
     return self;
 }

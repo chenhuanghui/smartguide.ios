@@ -57,6 +57,8 @@ NSString *avatarPath();
 NSString *NSStringFromObject(NSObject* obj);
 NSString *NSStringFromUIGestureRecognizerState(UIGestureRecognizerState state);
 
+NSString *UUID();
+
 float roundToN(float num, int decimals);
 
 @interface Utility : NSObject
