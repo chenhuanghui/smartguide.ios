@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+@class NotificationInfo;
+
 enum NOTIFICATION_CHECK_STATE
 {
     NOTIFICATION_CHECK_STATE_INIT=0,
@@ -28,14 +30,48 @@ enum NOTIFICATION_CHECK_STATE
 
 -(void) receiveDeviceToken:(NSData*) deviceToken;
 -(void) receiveRemoteNotification:(NSDictionary*) userInfo;
+-(void) receiveLaunchNotification:(NSDictionary*) launchOptions;
 
 @property (nonatomic, strong) NSNumber *totalNotification;
 @property (nonatomic, strong) NSString *numOfNotification;
 @property (nonatomic, strong) NSString *notificationToken;
+@property (nonatomic, strong) NSMutableArray *notifications;
+@property (nonatomic, strong) NotificationInfo *launchNotification;
 
 @end
 
 @interface UIViewController(Notification)
 
+
+@end
+
+@interface NotificationInfo : NSObject
+
++(NotificationInfo*) notificationInfoWithDictionary:(NSDictionary*) dict;
+
+@property (nonatomic, strong) NSString *badge;
+@property (nonatomic, strong) NSString *message;
+@property (nonatomic, strong) NSString *data;
+@property (nonatomic, strong) NSDictionary *dataJson;
+
+@end
+
+@interface NotificationInfo(Type1)
+
+-(int) idShop;
+
+@end
+
+@interface NotificationInfo(Type2)
+
+-(int) idPlacelist;
+-(NSString*) keywords;
+-(NSString*) idShops;
+
+@end
+
+@interface NotificationInfo(Type3)
+
+-(NSString*) url;
 
 @end

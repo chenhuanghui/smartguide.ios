@@ -20,11 +20,9 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    NSLog(@"launchOptions %@",launchOptions);
-    
     if(launchOptions)
     {
-        [AlertView showAlertOKWithTitle:@"LAUNCH OPTIONS" withMessage:[NSString stringWithFormat:@"%@",launchOptions] onOK:nil];
+        [[NotificationManager shareInstance] receiveLaunchNotification:launchOptions];
     }
     
     CGRect rect=[[UIScreen mainScreen] bounds];
@@ -37,7 +35,7 @@
         [[SDWebImageManager sharedManager].imageCache clearDisk];
     }
     
-//    [[GUIManager shareInstance] startupWithWindow:self.window];
+    [[GUIManager shareInstance] startupWithWindow:self.window];
     
     [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge |UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
     

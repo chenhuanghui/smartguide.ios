@@ -8,12 +8,15 @@
 
 #import "NotificationManager.h"
 #import "ASIOperationNotificationCheck.h"
+#import "ASIOperationUploadNotificationToken.h"
+#import "Utility.h"
 
 static NotificationManager *_notificationManager=nil;
 
 @interface NotificationManager()<ASIOperationPostDelegate>
 {
     ASIOperationNotificationCheck *_operationNotificationCheck;
+    ASIOperationUploadNotificationToken *_operationUploadNotiToken;
 }
 
 @end
@@ -36,6 +39,7 @@ static NotificationManager *_notificationManager=nil;
     if (self) {
         self.numOfNotification=@"";
         self.totalNotification=@(0);
+        self.notifications=[NSMutableArray new];
         _notificationState=NOTIFICATION_CHECK_STATE_INIT;
     }
     return self;
@@ -53,6 +57,20 @@ static NotificationManager *_notificationManager=nil;
     [_operationNotificationCheck startAsynchronous];
 }
 
+-(void) uploadToken:(NSString*) notificationToken
+{
+    if(_operationUploadNotiToken)
+    {
+        [_operationUploadNotiToken clearDelegatesAndCancel];
+        _operationUploadNotiToken=nil;
+    }
+    
+    _operationUploadNotiToken=[[ASIOperationUploadNotificationToken alloc] initWithNotificationToken:notificationToken uuid:UUID()];
+    _operationUploadNotiToken.delegatePost=self;
+    
+    [_operationUploadNotiToken startAsynchronous];
+}
+
 -(void)ASIOperaionPostFinished:(ASIOperationPost *)operation
 {
     if([operation isKindOfClass:[ASIOperationNotificationCheck class]])
@@ -68,6 +86,10 @@ static NotificationManager *_notificationManager=nil;
         
         _operationNotificationCheck=nil;
     }
+    else if([operation isKindOfClass:[ASIOperationUploadNotificationToken class]])
+    {
+        _operationUploadNotiToken=nil;
+    }
 }
 
 -(void)ASIOperaionPostFailed:(ASIOperationPost *)operation
@@ -80,6 +102,10 @@ static NotificationManager *_notificationManager=nil;
         
         _operationNotificationCheck=nil;
     }
+    else if([operation isKindOfClass:[ASIOperationUploadNotificationToken class]])
+    {
+        _operationUploadNotiToken=nil;
+    }
 }
 
 -(enum NOTIFICATION_CHECK_STATE)notificationState
@@ -89,7 +115,13 @@ static NotificationManager *_notificationManager=nil;
 
 -(void)receiveRemoteNotification:(NSDictionary *)userInfo
 {
-    NSLog(@"receiveRemoteNotification %@",userInfo);
+    id info=userInfo[@"aps"];
+    
+    if(info && [info isKindOfClass:[NSDictionary class]])
+    {
+        NotificationInfo *obj=[NotificationInfo notificationInfoWithDictionary:info];
+        [self.notifications addObject:obj];
+    }
 }
 
 -(void)receiveDeviceToken:(NSData *)deviceToken
@@ -99,7 +131,18 @@ static NotificationManager *_notificationManager=nil;
                           ntohl(tokenBytes[0]), ntohl(tokenBytes[1]), ntohl(tokenBytes[2]),
                           ntohl(tokenBytes[3]), ntohl(tokenBytes[4]), ntohl(tokenBytes[5]),
                           ntohl(tokenBytes[6]), ntohl(tokenBytes[7])];
-    NSLog(@"receiveDeviceToken %@",hexToken);
+
+    [self uploadToken:hexToken];
+}
+
+-(void)receiveLaunchNotification:(NSDictionary *)launchOptions
+{
+    NSDictionary *remote=launchOptions[UIApplicationLaunchOptionsRemoteNotificationKey];
+    NSDictionary *apsInfo=remote[@"aps"];
+    
+    NotificationInfo *obj=[NotificationInfo notificationInfoWithDictionary:apsInfo];
+    
+    self.launchNotification=obj;
 }
 
 @end
@@ -107,5 +150,72 @@ static NotificationManager *_notificationManager=nil;
 @implementation UIViewController(Notification)
 
 
+
+@end
+
+@implementation NotificationInfo
+
++(NotificationInfo *)notificationInfoWithDictionary:(NSDictionary *)dict
+{
+    NotificationInfo *obj=[NotificationInfo new];
+    
+    obj.message=dict[@"alert"];
+    obj.badge=dict[@"badge"];
+    obj.data=dict[@"data"];
+    
+    if(obj.data && obj.data.length>0)
+    {
+        NSData *dataBytes=[obj.data dataUsingEncoding:NSUTF8StringEncoding];
+        NSError *error=nil;
+        obj.dataJson=[NSJSONSerialization JSONObjectWithData:dataBytes options:NSJSONReadingAllowFragments|NSJSONReadingMutableContainers error:&error];
+    }
+    
+    if(!obj.dataJson)
+        obj.dataJson=[NSDictionary dictionary];
+    
+    return obj;
+}
+
+-(NSString *)description
+{
+    return [NSString stringWithFormat:@"%@ %@ %@ %@",self.message,self.badge,self.data,self.dataJson];
+}
+
+@end
+
+@implementation NotificationInfo(Type1)
+
+-(int)idShop
+{
+    return [[NSNumber numberWithObject:self.dataJson[@"idShop"]] integerValue];
+}
+
+@end
+
+@implementation NotificationInfo(Type2)
+
+-(int)idPlacelist
+{
+    return [[NSNumber numberWithObject:self.dataJson[@"idPlacelist"]] integerValue];
+}
+
+-(NSString *)keywords
+{
+    return [NSString stringWithStringDefault:self.dataJson[@"keywords"]];
+}
+
+-(NSString *)idShops
+{
+    return [NSString stringWithStringDefault:self.dataJson[@"idShops"]];
+}
+
+@end
+
+@implementation NotificationInfo(Type3)
+
+-(NSString *)url
+{
+    return [NSString stringWithStringDefault:self.dataJson[@"url"]];
+}
 
 @end

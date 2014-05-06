@@ -227,7 +227,19 @@
 
 -(void)operationURLFailed:(OperationURL *)operation
 {
-    
+    if([operation isKindOfClass:[OperationSearchAutocomplete class]])
+    {
+        OperationSearchAutocomplete *ope=(OperationSearchAutocomplete*) operation;
+        
+        [_autocomplete setObject:@[ope.shops,ope.placelists] forKey:ope.keyword];
+        [_searchInQuery removeObject:ope.keyword];
+        
+        if([_operationsAutocompleted objectForKey:ope.keyword])
+            [_operationsAutocompleted removeObjectForKey:ope.keyword];
+        
+        if([[txt.text lowercaseString] isEqualToString:[ope.keyword lowercaseString]])
+            [self reloadData];
+    }
 }
 
 - (void)didReceiveMemoryWarning
