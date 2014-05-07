@@ -755,7 +755,6 @@
 		9ACA42F5186D3BF3008D89BC /* _UserHome8.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ACA42F4186D3BF3008D89BC /* _UserHome8.m */; };
 		9ACA42F8186D3BFB008D89BC /* UserHome8.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ACA42F7186D3BFB008D89BC /* UserHome8.m */; };
 		9ACA8BFD1876ABE00018C8E3 /* OperationSearchAutocomplete.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ACA8BFC1876ABE00018C8E3 /* OperationSearchAutocomplete.m */; };
-		9ACA8C011876ACED0018C8E3 /* es_search.txt in Resources */ = {isa = PBXBuildFile; fileRef = 9ACA8C001876ACED0018C8E3 /* es_search.txt */; };
 		9ACAED611872B10E0025B027 /* icon_flag_gift.png in Resources */ = {isa = PBXBuildFile; fileRef = 9ACAED551872B10E0025B027 /* icon_flag_gift.png */; };
 		9ACAED621872B10E0025B027 /* icon_flag_gift@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9ACAED561872B10E0025B027 /* icon_flag_gift@2x.png */; };
 		9ACAED631872B10E0025B027 /* icon_flag_promotion.png in Resources */ = {isa = PBXBuildFile; fileRef = 9ACAED571872B10E0025B027 /* icon_flag_promotion.png */; };
@@ -1941,7 +1940,6 @@
 		9ACA42F7186D3BFB008D89BC /* UserHome8.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserHome8.m; sourceTree = "<group>"; };
 		9ACA8BFB1876ABE00018C8E3 /* OperationSearchAutocomplete.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OperationSearchAutocomplete.h; sourceTree = "<group>"; };
 		9ACA8BFC1876ABE00018C8E3 /* OperationSearchAutocomplete.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OperationSearchAutocomplete.m; sourceTree = "<group>"; };
-		9ACA8C001876ACED0018C8E3 /* es_search.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = es_search.txt; sourceTree = "<group>"; };
 		9ACAED551872B10E0025B027 /* icon_flag_gift.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_flag_gift.png; sourceTree = "<group>"; };
 		9ACAED561872B10E0025B027 /* icon_flag_gift@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_flag_gift@2x.png"; sourceTree = "<group>"; };
 		9ACAED571872B10E0025B027 /* icon_flag_promotion.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_flag_promotion.png; sourceTree = "<group>"; };
@@ -3634,7 +3632,6 @@
 				9ACF7A591869589900B0BC78 /* OperationGeoCoder.m */,
 				9ACA8BFB1876ABE00018C8E3 /* OperationSearchAutocomplete.h */,
 				9ACA8BFC1876ABE00018C8E3 /* OperationSearchAutocomplete.m */,
-				9ACA8C001876ACED0018C8E3 /* es_search.txt */,
 			);
 			path = Operations;
 			sourceTree = "<group>";
@@ -5190,7 +5187,6 @@
 				A9BD83EB18ED40BD000375BD /* button_config@2x.png in Resources */,
 				9A2F8CC1185569470024AE1A /* bg_animation.jpg in Resources */,
 				9A211EC118B52ADD00EBCCD9 /* icon_viewlist@2x.png in Resources */,
-				9ACA8C011876ACED0018C8E3 /* es_search.txt in Resources */,
 				9A27BC0818D18BAD00E3EAC2 /* HomeImageCell.xib in Resources */,
 				9A3DE86118B322BA006F473A /* bg_textbox_login@2x.png in Resources */,
 				9A3DE85D18B30B88006F473A /* button_logout@2x.png in Resources */,

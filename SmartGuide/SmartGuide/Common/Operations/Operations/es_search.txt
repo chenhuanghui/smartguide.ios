@@ -1,1 +1,0 @@
-http://116.251.210.100:9200/data/_search?source={"query":{"query_string":{"query":"%@","fields":["shop_name_auto_complete","name_auto_complete"]}},"highlight":{"fields":{"shop_name_auto_complete":{},"name_auto_complete":{}}},"from":0,"size":5,"fields":["shop_name","name","id"]}

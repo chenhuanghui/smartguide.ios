@@ -13,6 +13,7 @@
 #import "AuthorizationViewController.h"
 #import "DataManager.h"
 #import "LocationManager.h"
+#import "NotificationManager.h"
 
 static GUIManager *_shareInstance=nil;
 
@@ -66,7 +67,38 @@ static GUIManager *_shareInstance=nil;
     [self showFirstController];
 }
 
-//-(UIViewController*) viewControllerFrom
+-(void)processNotificationInfo:(NotificationInfo *)noti
+{
+    switch (noti.enumType) {
+        case NOTIFICATION_INFO_TYPE_NONE:
+            [AlertView showAlertOKWithTitle:@"Thông báo" withMessage:noti.message onOK:nil];
+            break;
+            
+        case NOTIFICATION_INFO_TYPE_SHOP_DETAIL:
+            [AlertView showAlertOKCancelWithTitle:@"Thông báo" withMessage:noti.message onOK:^{
+                
+            } onCancel:^{
+                
+            }];
+            break;
+            
+        case NOTIFICATION_INFO_TYPE_SHOP_LIST:
+            [AlertView showAlertOKCancelWithTitle:@"Thông báo" withMessage:noti.message onOK:^{
+                
+            } onCancel:^{
+                
+            }];
+            break;
+            
+        case NOTIFICATION_INFO_TYPE_URL:
+            [AlertView showAlertOKCancelWithTitle:@"Thông báo" withMessage:noti.message onOK:^{
+                
+            } onCancel:^{
+                
+            }];
+            break;
+    }
+}
 
 -(void) showFirstController
 {

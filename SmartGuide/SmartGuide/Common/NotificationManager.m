@@ -175,6 +175,7 @@ static NotificationManager *_notificationManager=nil;
     obj.message=dict[@"alert"];
     obj.badge=dict[@"badge"];
     obj.data=dict[@"data"];
+    obj.type=dict[@"type"];
     
     if(obj.data && obj.data.length>0)
     {
@@ -187,6 +188,26 @@ static NotificationManager *_notificationManager=nil;
         obj.dataJson=[NSDictionary dictionary];
     
     return obj;
+}
+
+-(enum NOTIFICATION_INFO_TYPE)enumType
+{
+    switch (self.type.integerValue) {
+        case NOTIFICATION_INFO_TYPE_NONE:
+            return NOTIFICATION_INFO_TYPE_NONE;
+            
+        case NOTIFICATION_INFO_TYPE_SHOP_DETAIL:
+            return NOTIFICATION_INFO_TYPE_SHOP_DETAIL;
+            
+        case NOTIFICATION_INFO_TYPE_SHOP_LIST:
+            return NOTIFICATION_INFO_TYPE_SHOP_LIST;
+            
+        case NOTIFICATION_INFO_TYPE_URL:
+            return NOTIFICATION_INFO_TYPE_URL;
+            
+        default:
+            return NOTIFICATION_INFO_TYPE_NONE;
+    }
 }
 
 -(NSString *)description

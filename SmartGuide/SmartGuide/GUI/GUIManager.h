@@ -10,6 +10,8 @@
 #import "SGViewController.h"
 #import "RootViewController.h"
 
+@class NotificationInfo;
+
 @interface GUIManager : NSObject
 {
     void(^_onLoginedCompleted)(bool isLogined);
@@ -19,6 +21,8 @@
 +(GUIManager*) shareInstance;
 -(void) startupWithWindow:(UIWindow*) window;
 -(void) logout;
+
+-(void) processNotificationInfo:(NotificationInfo*) noti;
 
 -(void) presentSGViewController:(UIViewController*) controller completion:(void(^)()) completed;
 -(void)dismissSGViewControllerCompletion:(void (^)())onCompleted;

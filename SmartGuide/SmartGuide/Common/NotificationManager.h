@@ -17,6 +17,14 @@ enum NOTIFICATION_CHECK_STATE
     NOTIFICATION_CHECK_STATE_DONE=2,
 };
 
+enum NOTIFICATION_INFO_TYPE
+{
+    NOTIFICATION_INFO_TYPE_NONE=0,
+    NOTIFICATION_INFO_TYPE_SHOP_DETAIL=1,
+    NOTIFICATION_INFO_TYPE_SHOP_LIST=2,
+    NOTIFICATION_INFO_TYPE_URL=3
+};
+
 @interface NotificationManager : NSObject
 {
     enum NOTIFICATION_CHECK_STATE _notificationState;
@@ -55,10 +63,13 @@ enum NOTIFICATION_CHECK_STATE
 
 +(NotificationInfo*) notificationInfoWithDictionary:(NSDictionary*) dict;
 
+-(enum NOTIFICATION_INFO_TYPE) enumType;
+
 @property (nonatomic, strong) NSString *badge;
 @property (nonatomic, strong) NSString *message;
 @property (nonatomic, strong) NSString *data;
 @property (nonatomic, strong) NSDictionary *dataJson;
+@property (nonatomic, strong) NSNumber *type;
 
 @end
 
