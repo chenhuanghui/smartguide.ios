@@ -51,6 +51,7 @@
     if([self isNullData:hits])
         return;
     
+    NSArray *array=nil;
     for(NSDictionary *hit in hits)
     {
         NSDictionary *kvp=hit[@"fields"];
@@ -62,14 +63,22 @@
         
         if([type isEqualToString:@"placelist"])
         {
-            int idPlacelist=[[NSNumber numberWithObject:kvp[@"id"]] integerValue];
+            array=kvp[@"id"];
             
-            if(idPlacelist==0)
+            if([array isNullData])
                 continue;
+            
+            int idPlacelist=[[NSNumber numberWithObject:array[0]] integerValue];
             
             AutocompletePlacelist *place=[AutocompletePlacelist new];
             place.idPlacelist=@(idPlacelist);
-            place.content=[NSString stringWithStringDefault:kvp[@"name"]];
+            
+            array=kvp[@"name"];
+            
+            if([array isNullData])
+                continue;
+            
+            place.content=[NSString stringWithStringDefault:array[0]];
             
             [placelists addObject:place];
             
@@ -87,15 +96,28 @@
         }
         else if([type isEqualToString:@"shop"])
         {
-            int idShop=[[NSNumber numberWithObject:kvp[@"id"]] integerValue];
+            array=kvp[@"id"];
             
-            if(idShop==0)
+            if([array isNullData])
                 continue;
+            
+            int idShop=[[NSNumber numberWithObject:array[0]] integerValue];
             
             AutocompleteShop *shop=[AutocompleteShop new];
             shop.idShop=@(idShop);
-            shop.content=[NSString stringWithStringDefault:kvp[@"shop_name"]];
-            shop.hasPromotion=@([[NSNumber numberWithObject:kvp[@"hasPromotion"]] boolValue]);
+            
+            array=kvp[@"shop_name"];
+            
+            if([array isNullData])
+                continue;
+            
+            shop.content=[NSString stringWithStringDefault:array[0]];
+            
+            array=kvp[@"hasPromotion"];
+            
+            shop.hasPromotion=@(false);
+            if(![array isNullData])
+                shop.hasPromotion=@([[NSNumber numberWithObject:array[0]] boolValue]);
             
             [shops addObject:shop];
             

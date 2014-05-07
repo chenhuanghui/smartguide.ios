@@ -22,6 +22,7 @@ static NotificationManager *_notificationManager=nil;
 @end
 
 @implementation NotificationManager
+@synthesize totalNotification;
 
 +(NotificationManager *)shareInstance
 {
@@ -80,6 +81,7 @@ static NotificationManager *_notificationManager=nil;
         self.totalNotification=[ope.totalNotification copy];
         self.numOfNotification=[ope.numOfNotification copy];
         
+        [[UIApplication sharedApplication] setApplicationIconBadgeNumber:self.totalNotification.integerValue];
         _notificationState=NOTIFICATION_CHECK_STATE_DONE;
         
         [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_USER_NOTIFICATION_CHECK object:nil];
@@ -121,6 +123,7 @@ static NotificationManager *_notificationManager=nil;
     {
         NotificationInfo *obj=[NotificationInfo notificationInfoWithDictionary:info];
         [self.notifications addObject:obj];
+        self.totalNotification=@(self.totalNotification.integerValue+1);
     }
 }
 
@@ -143,6 +146,16 @@ static NotificationManager *_notificationManager=nil;
     NotificationInfo *obj=[NotificationInfo notificationInfoWithDictionary:apsInfo];
     
     self.launchNotification=obj;
+}
+
+-(void)setTotalNotification:(NSNumber *)totalNotification_
+{
+    bool hasChange=totalNotification.integerValue!=totalNotification_.integerValue;
+    
+    totalNotification=totalNotification_;
+    
+    if(hasChange)
+        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_TOTAL_NOTIFICATION_CHANGED object:nil];
 }
 
 @end
@@ -216,6 +229,27 @@ static NotificationManager *_notificationManager=nil;
 -(NSString *)url
 {
     return [NSString stringWithStringDefault:self.dataJson[@"url"]];
+}
+
+@end
+
+@implementation NotificationView
+
+-(void) totalNotificationChanged:(NSNotification*) notification
+{
+    [self.btnNumberOfNotification setTitle:[NotificationManager shareInstance].numOfNotification forState:UIControlStateNormal];
+}
+
+-(void)awakeFromNib
+{
+    [super awakeFromNib];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(totalNotificationChanged:) name:NOTIFICATION_TOTAL_NOTIFICATION_CHANGED object:nil];
+}
+
+-(void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:NOTIFICATION_TOTAL_NOTIFICATION_CHANGED object:nil];
 }
 
 @end

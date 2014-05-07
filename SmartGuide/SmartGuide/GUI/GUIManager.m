@@ -66,6 +66,8 @@ static GUIManager *_shareInstance=nil;
     [self showFirstController];
 }
 
+//-(UIViewController*) viewControllerFrom
+
 -(void) showFirstController
 {
     NSMutableArray *viewControllers=[NSMutableArray array];

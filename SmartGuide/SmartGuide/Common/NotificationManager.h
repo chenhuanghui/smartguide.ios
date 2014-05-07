@@ -40,6 +40,12 @@ enum NOTIFICATION_CHECK_STATE
 
 @end
 
+@interface NotificationView : UIView
+
+@property (nonatomic, weak) IBOutlet UIButton *btnNumberOfNotification;
+
+@end
+
 @interface UIViewController(Notification)
 
 

@@ -34,11 +34,11 @@
 {
     if(_lastUserLocation.latitude!=self.userLocation.coordinate.latitude && _lastUserLocation.longitude!=self.userLocation.coordinate.longitude)
     {
+        NSLog(@"userLocationChanged");
+        
         _lastUserLocation=self.userLocation.coordinate;
         [[LocationManager shareInstance] updateLocation:self.userLocation.coordinate];
     }
-    
-    NSLog(@"userLocationChanged");
     
     __weak MapView *wSelf=self;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
