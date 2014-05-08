@@ -9,6 +9,7 @@
 #import "NotificationManager.h"
 #import "ASIOperationNotificationCheck.h"
 #import "ASIOperationUploadNotificationToken.h"
+#import "ASIOperationUserNotificationRead.h"
 #import "Utility.h"
 
 static NotificationManager *_notificationManager=nil;
@@ -78,8 +79,8 @@ static NotificationManager *_notificationManager=nil;
     {
         ASIOperationNotificationCheck *ope=(ASIOperationNotificationCheck*) operation;
         
-        self.totalNotification=[ope.totalNotification copy];
         self.numOfNotification=[ope.numOfNotification copy];
+        self.totalNotification=[ope.totalNotification copy];
         
         [[UIApplication sharedApplication] setApplicationIconBadgeNumber:self.totalNotification.integerValue];
         _notificationState=NOTIFICATION_CHECK_STATE_DONE;
@@ -121,7 +122,7 @@ static NotificationManager *_notificationManager=nil;
     
     if(info && [info isKindOfClass:[NSDictionary class]])
     {
-        NotificationInfo *obj=[NotificationInfo notificationInfoWithDictionary:info];
+        NotificationInfo *obj=[NotificationInfo notificationInfoWithRemoteNotification:info];
         [self.notifications addObject:obj];
         self.totalNotification=@(self.totalNotification.integerValue+1);
     }
@@ -143,7 +144,7 @@ static NotificationManager *_notificationManager=nil;
     NSDictionary *remote=launchOptions[UIApplicationLaunchOptionsRemoteNotificationKey];
     NSDictionary *apsInfo=remote[@"aps"];
     
-    NotificationInfo *obj=[NotificationInfo notificationInfoWithDictionary:apsInfo];
+    NotificationInfo *obj=[NotificationInfo notificationInfoWithRemoteNotification:apsInfo];
     
     self.launchNotification=obj;
 }
@@ -166,26 +167,45 @@ static NotificationManager *_notificationManager=nil;
 
 @end
 
+@interface NotificationInfo()<ASIOperationPostDelegate>
+{
+    ASIOperationUserNotificationRead *_operationRead;
+}
+
+@end
+
 @implementation NotificationInfo
 
-+(NotificationInfo *)notificationInfoWithDictionary:(NSDictionary *)dict
++(NotificationInfo *)notificationInfoWithRemoteNotification:(NSDictionary *)dict
 {
     NotificationInfo *obj=[NotificationInfo new];
     
-    obj.message=dict[@"alert"];
-    obj.badge=dict[@"badge"];
-    obj.data=dict[@"data"];
-    obj.type=dict[@"type"];
+    obj.message=[NSString stringWithStringDefault:dict[@"alert"]];
+    obj.badge=[NSString stringWithStringDefault:dict[@"badge"]];
+    obj.data=[NSString stringWithStringDefault:dict[@"data"]];
+    obj.type=[NSNumber numberWithObject:dict[@"type"]];
     
     if(obj.data && obj.data.length>0)
     {
         NSData *dataBytes=[obj.data dataUsingEncoding:NSUTF8StringEncoding];
         NSError *error=nil;
         obj.dataJson=[NSJSONSerialization JSONObjectWithData:dataBytes options:NSJSONReadingAllowFragments|NSJSONReadingMutableContainers error:&error];
+        
+        obj.idNotification=[NSNumber numberWithObject:obj.dataJson[@"idNotification"]];
     }
     
     if(!obj.dataJson)
         obj.dataJson=[NSDictionary dictionary];
+    
+    return obj;
+}
+
++(NotificationInfo *)notificationInfoWithNotificationContent:(NSDictionary *)dict
+{
+    NotificationInfo *obj=[NotificationInfo new];
+    
+    obj.idNotification=[NSNumber numberWithObject:dict[@"idNotification"]];
+    
     
     return obj;
 }
@@ -196,17 +216,68 @@ static NotificationManager *_notificationManager=nil;
         case NOTIFICATION_INFO_TYPE_NONE:
             return NOTIFICATION_INFO_TYPE_NONE;
             
-        case NOTIFICATION_INFO_TYPE_SHOP_DETAIL:
-            return NOTIFICATION_INFO_TYPE_SHOP_DETAIL;
+        case NOTIFICATION_INFO_TYPE_SHOP_USER:
+            return NOTIFICATION_INFO_TYPE_SHOP_USER;
             
         case NOTIFICATION_INFO_TYPE_SHOP_LIST:
             return NOTIFICATION_INFO_TYPE_SHOP_LIST;
             
-        case NOTIFICATION_INFO_TYPE_URL:
-            return NOTIFICATION_INFO_TYPE_URL;
+        case NOTIFICATION_INFO_TYPE_POPUP_URL:
+            return NOTIFICATION_INFO_TYPE_POPUP_URL;
+            
+        case NOTIFICATION_INFO_TYPE_SCAN_CODE:
+            return NOTIFICATION_INFO_TYPE_SCAN_CODE;
+            
+        case NOTIFICATION_INFO_TYPE_LOGIN:
+            return NOTIFICATION_INFO_TYPE_LOGIN;
+            
+        case NOTIFICATION_INFO_TYPE_USER_PROMOTION:
+            return NOTIFICATION_INFO_TYPE_USER_PROMOTION;
+            
+        case NOTIFICATION_INFO_TYPE_USER_SETTING:
+            return NOTIFICATION_INFO_TYPE_USER_SETTING;
             
         default:
             return NOTIFICATION_INFO_TYPE_NONE;
+    }
+}
+
+-(void)sendRead
+{
+    if(_isSentRead || _operationRead)
+        return;
+    
+    _operationRead=[[ASIOperationUserNotificationRead alloc] initWithIDNotification:self.idNotification.integerValue userLat:userLat() userLng:userLng() uuid:UUID()];
+    _operationRead.delegatePost=self;
+    
+    [_operationRead startAsynchronous];
+}
+
+-(void)ASIOperaionPostFinished:(ASIOperationPost *)operation
+{
+    _operationRead=nil;
+    _isSentRead=true;
+    
+    [self finished];
+}
+
+-(void)ASIOperaionPostFailed:(ASIOperationPost *)operation
+{
+    _operationRead=nil;
+    _isSentRead=true;
+    
+    [self finished];
+}
+
+-(void) finished
+{
+    if([NotificationManager shareInstance].launchNotification==self)
+    {
+        [NotificationManager shareInstance].launchNotification=nil;
+    }
+    else
+    {
+        [[NotificationManager shareInstance].notifications removeObject:self];
     }
 }
 

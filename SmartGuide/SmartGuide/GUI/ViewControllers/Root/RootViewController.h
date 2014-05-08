@@ -10,6 +10,8 @@
 
 @class NavigationViewController,ScrollViewRoot,SGNavigationController;
 
+@class NotificationInfo;
+
 @interface RootViewController : SGViewController
 {   
     __weak IBOutlet ScrollViewRoot *scrollContent;

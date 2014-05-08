@@ -18,6 +18,7 @@
 #import "UserPromotionViewController.h"
 #import "UserSettingViewController.h"
 #import "SearchShopViewController.h"
+#import "NotificationManager.h"
 
 @interface RootViewController ()<NavigationControllerDelegate,UIScrollViewDelegate,HomeControllerDelegate,UserPromotionDelegate,SGUserSettingControllerDelegate,WebViewDelegate,ShopUserDelegate,UIGestureRecognizerDelegate>
 
@@ -37,10 +38,21 @@
 {
     [super loadView];
     
+    NSMutableArray *array=[NSMutableArray array];
+    
     HomeViewController *home=[HomeViewController new];
     home.delegate=self;
     
-    self.contentNavigation=[[SGNavigationController alloc] initWithRootViewController:home];
+    [array addObject:home];
+    
+    if([NotificationManager shareInstance].launchNotification)
+    {
+    }
+    
+    if(array.count==1)
+        self.contentNavigation=[[SGNavigationController alloc] initWithRootViewController:home];
+    else
+        self.contentNavigation=[[SGNavigationController alloc] initWithViewControllers:array];
 }
 
 - (void)viewDidLoad
@@ -77,6 +89,8 @@
     [self.view addGestureRecognizer:tap];
     
     tapGes=tap;
+    
+    [[NotificationManager shareInstance] requestNotificationCheck];
 }
 
 -(void) panGes:(UIPanGestureRecognizer*) pan

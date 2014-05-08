@@ -7,6 +7,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="UserPromotionViewController">
             <connections>
+                <outlet property="btnNotification" destination="aWf-Ss-ebJ" id="1HN-6r-Ac0"/>
+                <outlet property="btnNumOfNotification" destination="Cxs-ZW-Zrk" id="SxY-Sh-MYa"/>
                 <outlet property="btnScanBig" destination="qgM-Ea-T3J" id="hfK-9O-NhB"/>
                 <outlet property="btnScanSmall" destination="oVj-DC-wN5" id="SCT-20-BtT"/>
                 <outlet property="btnSetting" destination="PZn-qY-p0z" id="yhk-ct-Bbp"/>
@@ -98,22 +100,35 @@
                                 <action selector="btnSettingTouchUpInside:" destination="-1" eventType="touchUpInside" id="YEP-AZ-Cs1"/>
                             </connections>
                         </button>
-                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="ct5-LD-a2Z">
+                        <view contentMode="scaleToFill" id="naa-zf-5jG">
                             <rect key="frame" x="270" y="0.0" width="54" height="54"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <state key="normal" image="icon_notification.png">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                        </button>
-                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="u36-J1-Ahx">
-                            <rect key="frame" x="293" y="3" width="25" height="25"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="12"/>
-                            <inset key="titleEdgeInsets" minX="0.0" minY="2" maxX="0.0" maxY="0.0"/>
-                            <state key="normal" title="99" backgroundImage="bg_number_notice.png">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                        </button>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="aWf-Ss-ebJ">
+                                    <rect key="frame" x="0.0" y="0.0" width="54" height="54"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <state key="normal" image="icon_notification.png">
+                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="btnNotificationTouchUpInside:" destination="-1" eventType="touchUpInside" id="qxQ-lE-Dcr"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Cxs-ZW-Zrk">
+                                    <rect key="frame" x="23" y="3" width="25" height="25"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="12"/>
+                                    <inset key="titleEdgeInsets" minX="0.0" minY="2" maxX="0.0" maxY="0.0"/>
+                                    <state key="normal" title="99" backgroundImage="bg_number_notice.png">
+                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="btnNotificationTouchUpInside:" destination="-1" eventType="touchUpInside" id="zLP-Gq-387"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        </view>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>

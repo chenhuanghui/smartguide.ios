@@ -23,7 +23,7 @@
 
 -(void)onCompletedWithJSON:(NSArray *)json
 {
-    self.numOfNotification=@"0";
+    self.numOfNotification=@"";
     self.totalNotification=@(0);
     
     if([self isNullData:json])

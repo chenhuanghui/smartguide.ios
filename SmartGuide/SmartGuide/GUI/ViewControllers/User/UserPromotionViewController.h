@@ -31,6 +31,8 @@
     __weak IBOutlet UIButton *btnScanBig;
     __weak IBOutlet UIImageView *imgvBlurBottom;
     __weak IBOutlet UIImageView *imgvLogo;
+    __weak IBOutlet UIButton *btnNumOfNotification;
+    __weak IBOutlet UIButton *btnNotification;
     
     CGRect _qrFrame;
     CGRect _buttonScanBigFrame;

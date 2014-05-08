@@ -10,4 +10,6 @@
 
 @interface ASIOperationUserNotificationRead : ASIOperationPost
 
+-(ASIOperationUserNotificationRead*) initWithIDNotification:(int) idNotification userLat:(double) userLat userLng:(double) userLng uuid:(NSString*) uuid;
+
 @end

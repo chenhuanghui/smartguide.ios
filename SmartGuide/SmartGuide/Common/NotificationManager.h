@@ -20,9 +20,13 @@ enum NOTIFICATION_CHECK_STATE
 enum NOTIFICATION_INFO_TYPE
 {
     NOTIFICATION_INFO_TYPE_NONE=0,
-    NOTIFICATION_INFO_TYPE_SHOP_DETAIL=1,
+    NOTIFICATION_INFO_TYPE_SHOP_USER=1,
     NOTIFICATION_INFO_TYPE_SHOP_LIST=2,
-    NOTIFICATION_INFO_TYPE_URL=3
+    NOTIFICATION_INFO_TYPE_POPUP_URL=3,
+    NOTIFICATION_INFO_TYPE_USER_SETTING=4,
+    NOTIFICATION_INFO_TYPE_LOGIN=5,
+    NOTIFICATION_INFO_TYPE_SCAN_CODE=6,
+    NOTIFICATION_INFO_TYPE_USER_PROMOTION=7,
 };
 
 @interface NotificationManager : NSObject
@@ -60,11 +64,18 @@ enum NOTIFICATION_INFO_TYPE
 @end
 
 @interface NotificationInfo : NSObject
+{
+    bool _isSentRead;
+}
 
-+(NotificationInfo*) notificationInfoWithDictionary:(NSDictionary*) dict;
++(NotificationInfo*) notificationInfoWithRemoteNotification:(NSDictionary*) dict;
++(NotificationInfo*) notificationInfoWithNotificationContent:(NSDictionary*) dict;
 
 -(enum NOTIFICATION_INFO_TYPE) enumType;
 
+-(void) sendRead;
+
+@property (nonatomic, strong) NSNumber *idNotification;
 @property (nonatomic, strong) NSString *badge;
 @property (nonatomic, strong) NSString *message;
 @property (nonatomic, strong) NSString *data;
@@ -73,13 +84,13 @@ enum NOTIFICATION_INFO_TYPE
 
 @end
 
-@interface NotificationInfo(Type1)
+@interface NotificationInfo(ShopUser)
 
 -(int) idShop;
 
 @end
 
-@interface NotificationInfo(Type2)
+@interface NotificationInfo(ShopList)
 
 -(int) idPlacelist;
 -(NSString*) keywords;
@@ -87,7 +98,7 @@ enum NOTIFICATION_INFO_TYPE
 
 @end
 
-@interface NotificationInfo(Type3)
+@interface NotificationInfo(PopupURL)
 
 -(NSString*) url;
 

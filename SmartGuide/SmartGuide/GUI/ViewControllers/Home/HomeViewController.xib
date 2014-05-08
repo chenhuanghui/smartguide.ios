@@ -100,7 +100,7 @@
                                 <action selector="btnNavigationTouchedUpInside:" destination="-1" eventType="touchUpInside" id="jHf-gE-uya"/>
                             </connections>
                         </button>
-                        <view contentMode="scaleToFill" id="mrK-iG-c1y" customClass="NotificationView">
+                        <view contentMode="scaleToFill" id="mrK-iG-c1y">
                             <rect key="frame" x="270" y="0.0" width="54" height="54"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
@@ -128,9 +128,6 @@
                                 </button>
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                            <connections>
-                                <outlet property="btnNumberOfNotification" destination="L8l-9k-kzR" id="giZ-6F-1TG"/>
-                            </connections>
                         </view>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>

@@ -10,6 +10,8 @@
 #import "GUIManager.h"
 #import "LoadingMoreCell.h"
 #import "QRCodeViewController.h"
+#import "NotificationManager.h"
+#import "UserNotificationViewController.h"
 
 #define USER_PROMOTION_TEXT_FIELD_SEARCH_MIN_Y 8.f
 
@@ -85,6 +87,26 @@
     
     _scrollDistanceHeight=txt.l_v_y-USER_PROMOTION_TEXT_FIELD_SEARCH_MIN_Y;
     [txt setRefreshState:TEXT_FIELD_SEARCH_REFRESH_STATE_SEARCH animated:false completed:nil];
+    
+    [self displayNotification];
+}
+
+-(NSArray *)registerNotifications
+{
+    return @[NOTIFICATION_TOTAL_NOTIFICATION_CHANGED];
+}
+
+-(void)receiveNotification:(NSNotification *)notification
+{
+    if([notification.name isEqualToString:NOTIFICATION_TOTAL_NOTIFICATION_CHANGED])
+        [self displayNotification];
+}
+
+-(void) displayNotification
+{
+    NSString *numNoti=[NotificationManager shareInstance].numOfNotification;
+    [btnNumOfNotification setTitle:numNoti forState:UIControlStateNormal];
+    btnNumOfNotification.hidden=numNoti.length==0 || [NotificationManager shareInstance].totalNotification.integerValue==0;
 }
 
 -(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
@@ -484,6 +506,10 @@
         
         _operationUserPromotion=nil;
     }
+}
+
+- (IBAction)btnNotificationTouchUpInside:(id)sender {
+    [self.navigationController pushViewController:[UserNotificationViewController new] animated:true];
 }
 
 @end
