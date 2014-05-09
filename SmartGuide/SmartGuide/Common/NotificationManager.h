@@ -17,18 +17,6 @@ enum NOTIFICATION_CHECK_STATE
     NOTIFICATION_CHECK_STATE_DONE=2,
 };
 
-enum NOTIFICATION_INFO_TYPE
-{
-    NOTIFICATION_INFO_TYPE_NONE=0,
-    NOTIFICATION_INFO_TYPE_SHOP_USER=1,
-    NOTIFICATION_INFO_TYPE_SHOP_LIST=2,
-    NOTIFICATION_INFO_TYPE_POPUP_URL=3,
-    NOTIFICATION_INFO_TYPE_USER_SETTING=4,
-    NOTIFICATION_INFO_TYPE_LOGIN=5,
-    NOTIFICATION_INFO_TYPE_SCAN_CODE=6,
-    NOTIFICATION_INFO_TYPE_USER_PROMOTION=7,
-};
-
 @interface NotificationManager : NSObject
 {
     enum NOTIFICATION_CHECK_STATE _notificationState;
@@ -63,43 +51,43 @@ enum NOTIFICATION_INFO_TYPE
 
 @end
 
+enum NOTI_ACTION_TYPE
+{
+    NOTI_ACTION_TYPE_GO_CONTENT=0,
+    NOTI_ACTION_TYPE_SHOP_USER=1,
+    NOTI_ACTION_TYPE_SHOP_LIST=2,
+    NOTI_ACTION_TYPE_POPUP_URL=3,
+    NOTI_ACTION_TYPE_USER_SETTING=4,
+    NOTI_ACTION_TYPE_LOGIN=5,
+    NOTI_ACTION_TYPE_SCAN_CODE=6,
+    NOTI_ACTION_TYPE_USER_PROMOTION=7
+};;
+
+enum NOTI_READ_ACTION
+{
+    NOTI_READ_ACTION_TOUCH=0,
+    NOTI_READ_ACTION_GO_TO=1,
+};
+
 @interface NotificationInfo : NSObject
 {
     bool _isSentRead;
 }
 
 +(NotificationInfo*) notificationInfoWithRemoteNotification:(NSDictionary*) dict;
-+(NotificationInfo*) notificationInfoWithNotificationContent:(NSDictionary*) dict;
-
--(enum NOTIFICATION_INFO_TYPE) enumType;
 
 -(void) sendRead;
+
+-(enum NOTI_ACTION_TYPE) enumActionType;
+-(enum NOTI_READ_ACTION) enumReadAction;
 
 @property (nonatomic, strong) NSNumber *idNotification;
 @property (nonatomic, strong) NSString *badge;
 @property (nonatomic, strong) NSString *message;
 @property (nonatomic, strong) NSString *data;
 @property (nonatomic, strong) NSDictionary *dataJson;
-@property (nonatomic, strong) NSNumber *type;
-
-@end
-
-@interface NotificationInfo(ShopUser)
-
--(int) idShop;
-
-@end
-
-@interface NotificationInfo(ShopList)
-
--(int) idPlacelist;
--(NSString*) keywords;
--(NSString*) idShops;
-
-@end
-
-@interface NotificationInfo(PopupURL)
-
--(NSString*) url;
+@property (nonatomic, strong) NSNumber *timer;
+@property (nonatomic, strong) NSNumber *actionType;
+@property (nonatomic, strong) NSNumber *readAction;
 
 @end

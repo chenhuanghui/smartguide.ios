@@ -5,9 +5,14 @@
 #import "UserNotificationContent.h"
 
 #import "DataManager.h"
+#import "UserNotification.h"
 
 
 @implementation _UserNotificationContent
+
+
+@dynamic notification;
+
 
 
 +(UserNotificationContent*) insert
@@ -85,30 +90,43 @@
 
 
 
-- (NSString*)desc {
-	[self willAccessValueForKey:@"desc"];
-	NSString* result = (NSString*)[self primitiveValueForKey:@"desc"];
-	[self didAccessValueForKey:@"desc"];
+- (NSString*)actionTitle {
+	[self willAccessValueForKey:@"actionTitle"];
+	NSString* result = (NSString*)[self primitiveValueForKey:@"actionTitle"];
+	[self didAccessValueForKey:@"actionTitle"];
 	return result;
 }
 
-- (void)setDesc:(NSString*)value {
-	[self willChangeValueForKey:@"desc"];
-	[self setPrimitiveValue:value forKey:@"desc"];
-	[self didChangeValueForKey:@"desc"];
+- (void)setActionTitle:(NSString*)value {
+	[self willChangeValueForKey:@"actionTitle"];
+	[self setPrimitiveValue:value forKey:@"actionTitle"];
+	[self didChangeValueForKey:@"actionTitle"];
 }
 
-- (NSString*)goTo {
-	[self willAccessValueForKey:@"goTo"];
-	NSString* result = (NSString*)[self primitiveValueForKey:@"goTo"];
-	[self didAccessValueForKey:@"goTo"];
+- (NSNumber*)actionType {
+	[self willAccessValueForKey:@"actionType"];
+	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"actionType"];
+	[self didAccessValueForKey:@"actionType"];
 	return result;
 }
 
-- (void)setGoTo:(NSString*)value {
-	[self willChangeValueForKey:@"goTo"];
-	[self setPrimitiveValue:value forKey:@"goTo"];
-	[self didChangeValueForKey:@"goTo"];
+- (void)setActionType:(NSNumber*)value {
+	[self willChangeValueForKey:@"actionType"];
+	[self setPrimitiveValue:value forKey:@"actionType"];
+	[self didChangeValueForKey:@"actionType"];
+}
+
+- (NSString*)content {
+	[self willAccessValueForKey:@"content"];
+	NSString* result = (NSString*)[self primitiveValueForKey:@"content"];
+	[self didAccessValueForKey:@"content"];
+	return result;
+}
+
+- (void)setContent:(NSString*)value {
+	[self willChangeValueForKey:@"content"];
+	[self setPrimitiveValue:value forKey:@"content"];
+	[self didChangeValueForKey:@"content"];
 }
 
 - (NSNumber*)idNotification {
@@ -150,6 +168,19 @@
 	[self didChangeValueForKey:@"idShop"];
 }
 
+- (NSNumber*)idShopLogo {
+	[self willAccessValueForKey:@"idShopLogo"];
+	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"idShopLogo"];
+	[self didAccessValueForKey:@"idShopLogo"];
+	return result;
+}
+
+- (void)setIdShopLogo:(NSNumber*)value {
+	[self willChangeValueForKey:@"idShopLogo"];
+	[self setPrimitiveValue:value forKey:@"idShopLogo"];
+	[self didChangeValueForKey:@"idShopLogo"];
+}
+
 - (NSString*)idShops {
 	[self willAccessValueForKey:@"idShops"];
 	NSString* result = (NSString*)[self primitiveValueForKey:@"idShops"];
@@ -189,17 +220,30 @@
 	[self didChangeValueForKey:@"logo"];
 }
 
-- (NSNumber*)sortOrder {
-	[self willAccessValueForKey:@"sortOrder"];
-	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"sortOrder"];
-	[self didAccessValueForKey:@"sortOrder"];
+- (NSNumber*)readAction {
+	[self willAccessValueForKey:@"readAction"];
+	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"readAction"];
+	[self didAccessValueForKey:@"readAction"];
 	return result;
 }
 
-- (void)setSortOrder:(NSNumber*)value {
-	[self willChangeValueForKey:@"sortOrder"];
-	[self setPrimitiveValue:value forKey:@"sortOrder"];
-	[self didChangeValueForKey:@"sortOrder"];
+- (void)setReadAction:(NSNumber*)value {
+	[self willChangeValueForKey:@"readAction"];
+	[self setPrimitiveValue:value forKey:@"readAction"];
+	[self didChangeValueForKey:@"readAction"];
+}
+
+- (NSNumber*)status {
+	[self willAccessValueForKey:@"status"];
+	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"status"];
+	[self didAccessValueForKey:@"status"];
+	return result;
+}
+
+- (void)setStatus:(NSNumber*)value {
+	[self willChangeValueForKey:@"status"];
+	[self setPrimitiveValue:value forKey:@"status"];
+	[self didChangeValueForKey:@"status"];
 }
 
 - (NSString*)time {
@@ -228,34 +272,29 @@
 	[self didChangeValueForKey:@"title"];
 }
 
-- (NSNumber*)type {
-	[self willAccessValueForKey:@"type"];
-	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"type"];
-	[self didAccessValueForKey:@"type"];
+- (NSString*)url {
+	[self willAccessValueForKey:@"url"];
+	NSString* result = (NSString*)[self primitiveValueForKey:@"url"];
+	[self didAccessValueForKey:@"url"];
 	return result;
 }
 
-- (void)setType:(NSNumber*)value {
-	[self willChangeValueForKey:@"type"];
-	[self setPrimitiveValue:value forKey:@"type"];
-	[self didChangeValueForKey:@"type"];
-}
-
-- (NSString*)urlTutorial {
-	[self willAccessValueForKey:@"urlTutorial"];
-	NSString* result = (NSString*)[self primitiveValueForKey:@"urlTutorial"];
-	[self didAccessValueForKey:@"urlTutorial"];
-	return result;
-}
-
-- (void)setUrlTutorial:(NSString*)value {
-	[self willChangeValueForKey:@"urlTutorial"];
-	[self setPrimitiveValue:value forKey:@"urlTutorial"];
-	[self didChangeValueForKey:@"urlTutorial"];
+- (void)setUrl:(NSString*)value {
+	[self willChangeValueForKey:@"url"];
+	[self setPrimitiveValue:value forKey:@"url"];
+	[self didChangeValueForKey:@"url"];
 }
 
 #pragma mark Relationships
     
+#pragma mark Notification
+- (UserNotification*)notification {
+	[self willAccessValueForKey:@"notification"];
+	UserNotification *result = [self primitiveValueForKey:@"notification"];
+	[self didAccessValueForKey:@"notification"];
+	return result;
+}
+
 
 #pragma mark Utility
 

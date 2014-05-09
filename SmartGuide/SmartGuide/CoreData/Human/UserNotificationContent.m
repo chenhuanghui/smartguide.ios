@@ -17,102 +17,129 @@
 {
     UserNotificationContent *obj=[UserNotificationContent insert];
     
-    obj.idNotification=[NSNumber numberWithObject:data[UserNotificationContent_IdNotification]];
-    obj.logo=[NSString stringWithStringDefault:data[UserNotificationContent_Logo]];
-    obj.time=[NSString stringWithStringDefault:data[UserNotificationContent_Time]];
-    obj.title=[NSString stringWithStringDefault:data[UserNotificationContent_Title]];
-    obj.desc=[NSString stringWithStringDefault:data[@"description"]];
-    obj.type=[NSNumber numberWithObject:data[@"type"]];
+    obj.idNotification=[NSNumber numberWithObject:data[@"idNotification"]];
+    obj.logo=[NSString stringWithStringDefault:data[@"logo"]];
     
-    obj.goTo=rand()%2!=0?@"Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat":@"";
+    if(data[@"idShopLogo"])
+        obj.idShopLogo=[NSNumber numberWithObject:data[@"idShopLogo"]];
+    obj.time=[NSString stringWithStringDefault:data[@"time"]];
+    obj.title=[NSString stringWithStringDefault:data[@"title"]];
+    obj.content=[NSString stringWithStringDefault:data[@"content"]];
+    obj.status=[NSNumber numberWithObject:data[@"status"]];
+    obj.readAction=[NSNumber numberWithObject:data[@"readAction"]];
+    obj.actionTitle=[NSString stringWithStringDefault:data[@"actionTitle"]];
+    obj.actionType=[NSNumber numberWithObject:data[@"actionType"]];
     
-    if(obj.enumType!=USER_NOTIFICATION_CONTENT_TYPE_NONE)
-    {
-        NSDictionary *dict=data[@"data"];
-        
-        if(![dict isNullData])
-        {
-            obj.goTo=[NSString stringWithStringDefault:dict[@"goTo"]];
+    switch (obj.enumActionType) {
             
-            switch (obj.enumType) {
-                case USER_NOTIFICATION_CONTENT_TYPE_NONE:
-                    break;
-                    
-                case USER_NOTIFICATION_CONTENT_TYPE_SHOP_DETAIL:
-                    obj.idShop=[NSNumber numberWithObject:data[@"idShop"]];
-                    break;
-                    
-                case USER_NOTIFICATION_CONTENT_TYPE_SHOP_LIST:
-                    
-                    if(data[@"idPlacelist"])
-                        obj.idPlacelist=[NSNumber numberWithObject:data[@"idPlacelist"]];
-                    
-                    if(data[@"keywords"])
-                        obj.keywords=[NSString stringWithStringDefault:data[@"keywords"]];
-                    
-                    if(data[@"idShops"])
-                        obj.idShops=[NSString stringWithStringDefault:data[@"idShops"]];
-                    
-                    break;
-                    
-                case USER_NOTIFICATION_CONTENT_TYPE_TUTORIAL:
-                    obj.urlTutorial=[NSString stringWithStringDefault:data[@"url"]];
-                    break;
-            }
-        }
+        case USER_NOTIFICATION_CONTENT_ACTION_TYPE_SHOP_USER:
+            obj.idShop=[NSNumber numberWithObject:data[@"idShop"]];
+            break;
+            
+        case USER_NOTIFICATION_CONTENT_ACTION_TYPE_SHOP_LIST:
+            
+            if(data[@"idPlacelist"])
+                obj.idPlacelist=[NSNumber numberWithObject:data[@"idPlacelist"]];
+            else if(data[@"keywords"])
+                obj.keywords=[NSString stringWithStringDefault:data[@"keywords"]];
+            else if(data[@"idShops"])
+                obj.idShops=[NSString stringWithStringDefault:data[@"idShops"]];
+            
+            break;
+            
+        case USER_NOTIFICATION_CONTENT_ACTION_TYPE_POPUP_URL:
+            obj.url=[NSString stringWithStringDefault:data[@"url"]];
+            break;
+            
+        case USER_NOTIFICATION_CONTENT_ACTION_TYPE_CONTENT:
+        case USER_NOTIFICATION_CONTENT_ACTION_TYPE_LOGIN:
+        case USER_NOTIFICATION_CONTENT_ACTION_TYPE_SCAN_CODE:
+        case USER_NOTIFICATION_CONTENT_ACTION_TYPE_USER_PROMOTION:
+        case USER_NOTIFICATION_CONTENT_ACTION_TYPE_USER_SETTING:
+            break;
     }
     
     return obj;
 }
 
--(enum USER_NOTIFICATION_CONTENT_TYPE)enumType
+-(enum USER_NOTIFICATION_CONTENT_STATUS)enumStatus
 {
-    switch (self.type.integerValue) {
-        case USER_NOTIFICATION_CONTENT_TYPE_NONE:
-            return USER_NOTIFICATION_CONTENT_TYPE_NONE;
+    switch (self.status.integerValue) {
+        case USER_NOTIFICATION_CONTENT_STATUS_READ:
+            return USER_NOTIFICATION_CONTENT_STATUS_READ;
             
-        case USER_NOTIFICATION_CONTENT_TYPE_SHOP_DETAIL:
-            return USER_NOTIFICATION_CONTENT_TYPE_SHOP_DETAIL;
-            
-        case USER_NOTIFICATION_CONTENT_TYPE_SHOP_LIST:
-            return USER_NOTIFICATION_CONTENT_TYPE_SHOP_LIST;
-            
-        case USER_NOTIFICATION_CONTENT_TYPE_TUTORIAL:
-            return USER_NOTIFICATION_CONTENT_TYPE_TUTORIAL;
+        case USER_NOTIFICATION_CONTENT_STATUS_UNREAD:
+            return USER_NOTIFICATION_CONTENT_STATUS_UNREAD;
             
         default:
-            return USER_NOTIFICATION_CONTENT_TYPE_NONE;
+            return USER_NOTIFICATION_CONTENT_STATUS_READ;
     }
 }
 
--(NSNumber *)idNotification
+-(enum USER_NOTIFICATION_CONTENT_ACTION_TYPE)enumActionType
+{
+    switch (self.actionType.integerValue) {
+        case USER_NOTIFICATION_CONTENT_ACTION_TYPE_CONTENT:
+            return USER_NOTIFICATION_CONTENT_ACTION_TYPE_CONTENT;
+            
+        case USER_NOTIFICATION_CONTENT_ACTION_TYPE_LOGIN:
+            return USER_NOTIFICATION_CONTENT_ACTION_TYPE_LOGIN;
+            
+        case USER_NOTIFICATION_CONTENT_ACTION_TYPE_POPUP_URL:
+            return USER_NOTIFICATION_CONTENT_ACTION_TYPE_POPUP_URL;
+            
+        case USER_NOTIFICATION_CONTENT_ACTION_TYPE_SCAN_CODE:
+            return USER_NOTIFICATION_CONTENT_ACTION_TYPE_SCAN_CODE;
+            
+        case USER_NOTIFICATION_CONTENT_ACTION_TYPE_SHOP_LIST:
+            return USER_NOTIFICATION_CONTENT_ACTION_TYPE_SHOP_LIST;
+            
+        case USER_NOTIFICATION_CONTENT_ACTION_TYPE_SHOP_USER:
+            return USER_NOTIFICATION_CONTENT_ACTION_TYPE_SHOP_USER;
+            
+        case USER_NOTIFICATION_CONTENT_ACTION_TYPE_USER_PROMOTION:
+            return USER_NOTIFICATION_CONTENT_ACTION_TYPE_USER_PROMOTION;
+            
+        case USER_NOTIFICATION_CONTENT_ACTION_TYPE_USER_SETTING:
+            return USER_NOTIFICATION_CONTENT_ACTION_TYPE_USER_SETTING;
+            
+        default:
+            return USER_NOTIFICATION_CONTENT_ACTION_TYPE_CONTENT;
+    }
+}
+
+-(enum USER_NOTIFICATION_CONTENT_READ_ACTION)enumReadAction
+{
+    switch (self.readAction.integerValue) {
+        case USER_NOTIFICATION_CONTENT_READ_ACTION_GOTO:
+            return USER_NOTIFICATION_CONTENT_READ_ACTION_GOTO;
+            
+        case USER_NOTIFICATION_CONTENT_READ_ACTION_TOUCH:
+            return USER_NOTIFICATION_CONTENT_READ_ACTION_TOUCH;
+            
+        default:
+            return USER_NOTIFICATION_CONTENT_READ_ACTION_TOUCH;
+    }
+}
+
+-(NSNumber *)idNotification1
 {
     return @(1);
 }
 
--(NSString *)logo
+-(NSString *)logo1
 {
     return @"https://trello-avatars.s3.amazonaws.com/53696f6a46925e81408ac1f96f6a7701/30.png";
 }
 
--(NSString *)time
+-(NSString *)time1
 {
     return @"Nov 22, 2013 11:23 AM";
 }
 
--(NSString *)desc
-{
-    return @"Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat";
-}
-
--(NSString *)title
+-(NSString *)title1
 {
     return @"Lorem ipsum dolor sit amet, consectetuer adipiscing elit, ";
-}
-
--(NSString *)goTo1
-{
-    return @"Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat";
 }
 
 @end

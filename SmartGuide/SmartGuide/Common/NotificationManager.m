@@ -210,38 +210,6 @@ static NotificationManager *_notificationManager=nil;
     return obj;
 }
 
--(enum NOTIFICATION_INFO_TYPE)enumType
-{
-    switch (self.type.integerValue) {
-        case NOTIFICATION_INFO_TYPE_NONE:
-            return NOTIFICATION_INFO_TYPE_NONE;
-            
-        case NOTIFICATION_INFO_TYPE_SHOP_USER:
-            return NOTIFICATION_INFO_TYPE_SHOP_USER;
-            
-        case NOTIFICATION_INFO_TYPE_SHOP_LIST:
-            return NOTIFICATION_INFO_TYPE_SHOP_LIST;
-            
-        case NOTIFICATION_INFO_TYPE_POPUP_URL:
-            return NOTIFICATION_INFO_TYPE_POPUP_URL;
-            
-        case NOTIFICATION_INFO_TYPE_SCAN_CODE:
-            return NOTIFICATION_INFO_TYPE_SCAN_CODE;
-            
-        case NOTIFICATION_INFO_TYPE_LOGIN:
-            return NOTIFICATION_INFO_TYPE_LOGIN;
-            
-        case NOTIFICATION_INFO_TYPE_USER_PROMOTION:
-            return NOTIFICATION_INFO_TYPE_USER_PROMOTION;
-            
-        case NOTIFICATION_INFO_TYPE_USER_SETTING:
-            return NOTIFICATION_INFO_TYPE_USER_SETTING;
-            
-        default:
-            return NOTIFICATION_INFO_TYPE_NONE;
-    }
-}
-
 -(void)sendRead
 {
     if(_isSentRead || _operationRead)
@@ -281,46 +249,55 @@ static NotificationManager *_notificationManager=nil;
     }
 }
 
+-(enum NOTI_ACTION_TYPE)enumActionType
+{
+    switch (self.actionType.integerValue) {
+        case NOTI_ACTION_TYPE_GO_CONTENT:
+            return NOTI_ACTION_TYPE_GO_CONTENT;
+            
+        case NOTI_ACTION_TYPE_LOGIN:
+            return NOTI_ACTION_TYPE_LOGIN;
+            
+        case NOTI_ACTION_TYPE_POPUP_URL:
+            return NOTI_ACTION_TYPE_POPUP_URL;
+            
+        case NOTI_ACTION_TYPE_SCAN_CODE:
+            return NOTI_ACTION_TYPE_SCAN_CODE;
+            
+        case NOTI_ACTION_TYPE_SHOP_LIST:
+            return NOTI_ACTION_TYPE_SHOP_LIST;
+            
+        case NOTI_ACTION_TYPE_SHOP_USER:
+            return NOTI_ACTION_TYPE_SHOP_USER;
+            
+        case NOTI_ACTION_TYPE_USER_PROMOTION:
+            return NOTI_ACTION_TYPE_USER_PROMOTION;
+            
+        case NOTI_ACTION_TYPE_USER_SETTING:
+            return NOTI_ACTION_TYPE_USER_SETTING;
+            
+        default:
+            return NOTI_ACTION_TYPE_GO_CONTENT;
+    }
+}
+
+-(enum NOTI_READ_ACTION)enumReadAction
+{
+    switch (self.readAction.integerValue) {
+        case NOTI_READ_ACTION_GO_TO:
+            return NOTI_READ_ACTION_GO_TO;
+            
+        case NOTI_READ_ACTION_TOUCH:
+            return NOTI_READ_ACTION_TOUCH;
+            
+        default:
+            return NOTI_READ_ACTION_TOUCH;
+    }
+}
+
 -(NSString *)description
 {
     return [NSString stringWithFormat:@"%@ %@ %@ %@",self.message,self.badge,self.data,self.dataJson];
-}
-
-@end
-
-@implementation NotificationInfo(Type1)
-
--(int)idShop
-{
-    return [[NSNumber numberWithObject:self.dataJson[@"idShop"]] integerValue];
-}
-
-@end
-
-@implementation NotificationInfo(Type2)
-
--(int)idPlacelist
-{
-    return [[NSNumber numberWithObject:self.dataJson[@"idPlacelist"]] integerValue];
-}
-
--(NSString *)keywords
-{
-    return [NSString stringWithStringDefault:self.dataJson[@"keywords"]];
-}
-
--(NSString *)idShops
-{
-    return [NSString stringWithStringDefault:self.dataJson[@"idShops"]];
-}
-
-@end
-
-@implementation NotificationInfo(Type3)
-
--(NSString *)url
-{
-    return [NSString stringWithStringDefault:self.dataJson[@"url"]];
 }
 
 @end

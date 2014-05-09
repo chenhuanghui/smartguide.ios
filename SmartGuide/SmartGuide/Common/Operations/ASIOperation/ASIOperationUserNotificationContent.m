@@ -33,8 +33,7 @@
     for(NSDictionary *dict in json)
     {
         UserNotificationContent *obj=[UserNotificationContent makeWithDictionary:dict];
-        obj.sortOrder=@(count++);
-        
+
         [self.notifications addObject:obj];
     }
     

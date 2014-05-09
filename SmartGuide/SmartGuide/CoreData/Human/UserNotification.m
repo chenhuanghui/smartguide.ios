@@ -19,10 +19,12 @@
     UserNotification *obj=[UserNotification insert];
 
     obj.idNotification=[NSNumber numberWithObject:data[@"idNotification"]];
+    obj.sender=[NSString stringWithStringDefault:data[@"sender"]];
     obj.content=[NSString stringWithStringDefault:data[@"content"]];
     obj.time=[NSString stringWithStringDefault:data[@"time"]];
     obj.status=[NSNumber numberWithObject:data[@"status"]];
-    obj.sender=[NSString stringWithStringDefault:data[@"sender"]];
+    obj.actionType=[NSNumber numberWithObject:data[@"actionType"]];
+    obj.readAction=[NSNumber numberWithObject:data[@"readAction"]];
     
     obj.highlight=@"";
     NSMutableArray *array=data[@"highlight"];
@@ -32,7 +34,46 @@
         obj.highlight=[array componentsJoinedByString:@";"];
     }
     
+    switch (obj.enumActionType) {
+        case USER_NOTIFICATION_ACTION_TYPE_SHOP_USER:
+            obj.idShop=[NSNumber numberWithObject:data[@"idShop"]];
+            break;
+            
+        case USER_NOTIFICATION_ACTION_TYPE_SHOP_LIST:
+            
+            if(data[@"idPlacelist"])
+                obj.idPlacelist=[NSNumber numberWithObject:data[@"idPlacelist"]];
+            else if(data[@"keywords"])
+                obj.keywords=[NSString stringWithStringDefault:data[@"keywords"]];
+            else if(data[@"idShops"])
+                obj.idShops=[NSString stringWithStringDefault:data[@"idShops"]];
+            
+            break;
+            
+        case USER_NOTIFICATION_ACTION_TYPE_POPUP_URL:
+            obj.url=[NSString stringWithStringDefault:@"url"];
+            
+        case USER_NOTIFICATION_ACTION_TYPE_CONTENT:
+        case USER_NOTIFICATION_ACTION_TYPE_USER_SETTING:
+        case USER_NOTIFICATION_ACTION_TYPE_LOGIN:
+        case USER_NOTIFICATION_ACTION_TYPE_SCAN_CODE:
+        case USER_NOTIFICATION_ACTION_TYPE_USER_PROMOTION:
+            break;
+    }
+    
     return obj;
+}
+
+-(enum USER_NOTIFICATION_SHOP_LIST_DATA_TYPE)enumShopListDataType
+{
+    if(self.idPlacelist)
+        return USER_NOTIFICATION_SHOP_LIST_DATA_TYPE_PLACELIST;
+    else if(self.keywords.length>0)
+        return USER_NOTIFICATION_SHOP_LIST_DATA_TYPE_KEYWORDS;
+    else if(self.idShops.length>0)
+        return USER_NOTIFICATION_SHOP_LIST_DATA_TYPE_IDSHOPS;
+    
+    return USER_NOTIFICATION_SHOP_LIST_DATA_TYPE_UNKNOW;
 }
 
 -(NSArray *)highlightIndex
@@ -69,6 +110,52 @@
             
         default:
             return USER_NOTIFICATION_STATUS_READ;
+    }
+}
+
+-(enum USER_NOTIFICATION_ACTION_TYPE)enumActionType
+{
+    switch (self.actionType.integerValue) {
+        case USER_NOTIFICATION_ACTION_TYPE_CONTENT:
+            return USER_NOTIFICATION_ACTION_TYPE_CONTENT;
+            
+        case USER_NOTIFICATION_ACTION_TYPE_LOGIN:
+            return USER_NOTIFICATION_ACTION_TYPE_LOGIN;
+            
+        case USER_NOTIFICATION_ACTION_TYPE_POPUP_URL:
+            return USER_NOTIFICATION_ACTION_TYPE_POPUP_URL;
+            
+        case USER_NOTIFICATION_ACTION_TYPE_SCAN_CODE:
+            return USER_NOTIFICATION_ACTION_TYPE_SCAN_CODE;
+            
+        case USER_NOTIFICATION_ACTION_TYPE_SHOP_LIST:
+            return USER_NOTIFICATION_ACTION_TYPE_SHOP_LIST;
+            
+        case USER_NOTIFICATION_ACTION_TYPE_SHOP_USER:
+            return USER_NOTIFICATION_ACTION_TYPE_SHOP_USER;
+            
+        case USER_NOTIFICATION_ACTION_TYPE_USER_PROMOTION:
+            return USER_NOTIFICATION_ACTION_TYPE_USER_PROMOTION;
+            
+        case USER_NOTIFICATION_ACTION_TYPE_USER_SETTING:
+            return USER_NOTIFICATION_ACTION_TYPE_USER_SETTING;
+            
+        default:
+            return USER_NOTIFICATION_ACTION_TYPE_CONTENT;
+    }
+}
+
+-(enum USER_NOTIFICATION_READ_ACTION)enumReadAction
+{
+    switch (self.readAction.integerValue) {
+        case USER_NOTIFICATION_READ_ACTION_GOTO:
+            return USER_NOTIFICATION_READ_ACTION_GOTO;
+            
+        case USER_NOTIFICATION_READ_ACTION_TOUCH:
+            return USER_NOTIFICATION_READ_ACTION_TOUCH;
+            
+        default:
+            return USER_NOTIFICATION_READ_ACTION_TOUCH;
     }
 }
 
