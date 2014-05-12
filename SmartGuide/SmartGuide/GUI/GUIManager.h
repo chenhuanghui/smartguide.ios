@@ -24,6 +24,7 @@
 -(void)dismissSGViewControllerCompletion:(void (^)())onCompleted;
 
 -(void) showLoginDialogWithMessage:(NSString*) message onOK:(void(^)()) onOK onCancelled:(void(^)()) onCancelled onLogined:(void(^)(bool isLogined)) onLogin;
+-(void) showLoginControll:(void(^)(bool isLogin)) onLogin;
 
 @property (nonatomic, readonly) UIWindow *mainWindow;
 @property (nonatomic, weak, readonly) SGNavigationController *rootNavigation;

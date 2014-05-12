@@ -68,7 +68,7 @@
                             <rect key="frame" x="0.0" y="0.0" width="54" height="54"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                            <state key="normal" image="button_navigation.png">
+                            <state key="normal" image="button_backarrow.png">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <connections>
@@ -329,11 +329,11 @@
     <resources>
         <image name="bg_textbox_login.png" width="253" height="56"/>
         <image name="blur_photoupload.png" width="290" height="83"/>
+        <image name="button_backarrow.png" width="35" height="30"/>
         <image name="button_done.png" width="26" height="21"/>
         <image name="button_facebook_login.png" width="253" height="40"/>
         <image name="button_google_login.png" width="253" height="40"/>
         <image name="button_logout.png" width="16" height="17"/>
-        <image name="button_navigation.png" width="34" height="26"/>
         <image name="frame_avauser_uc.png" width="73" height="75"/>
         <image name="icon_back.png" width="5" height="9"/>
         <image name="line_comment.png" width="273" height="1"/>

@@ -39,11 +39,20 @@
         case USER_NOTIFICATION_CONTENT_ACTION_TYPE_SHOP_LIST:
             
             if(data[@"idPlacelist"])
+            {
+                obj.shopListType=@(USER_NOTIFICATION_CONTENT_SHOP_LIST_DATA_TYPE_PLACELIST);
                 obj.idPlacelist=[NSNumber numberWithObject:data[@"idPlacelist"]];
+            }
             else if(data[@"keywords"])
+            {
+                obj.shopListType=@(USER_NOTIFICATION_CONTENT_SHOP_LIST_DATA_TYPE_KEYWORDS);
                 obj.keywords=[NSString stringWithStringDefault:data[@"keywords"]];
+            }
             else if(data[@"idShops"])
+            {
+                obj.shopListType=@(USER_NOTIFICATION_CONTENT_SHOP_LIST_DATA_TYPE_IDSHOPS);
                 obj.idShops=[NSString stringWithStringDefault:data[@"idShops"]];
+            }
             
             break;
             
@@ -119,6 +128,26 @@
             
         default:
             return USER_NOTIFICATION_CONTENT_READ_ACTION_TOUCH;
+    }
+}
+
+-(enum USER_NOTIFICATION_CONTENT_SHOP_LIST_DATA_TYPE)enumShopListDataType
+{
+    switch (self.shopListType.integerValue) {
+        case USER_NOTIFICATION_CONTENT_SHOP_LIST_DATA_TYPE_IDSHOPS:
+            return USER_NOTIFICATION_CONTENT_SHOP_LIST_DATA_TYPE_IDSHOPS;
+            
+        case USER_NOTIFICATION_CONTENT_SHOP_LIST_DATA_TYPE_KEYWORDS:
+            return USER_NOTIFICATION_CONTENT_SHOP_LIST_DATA_TYPE_KEYWORDS;
+            
+        case USER_NOTIFICATION_CONTENT_SHOP_LIST_DATA_TYPE_PLACELIST:
+            return USER_NOTIFICATION_CONTENT_SHOP_LIST_DATA_TYPE_PLACELIST;
+            
+        case USER_NOTIFICATION_CONTENT_SHOP_LIST_DATA_TYPE_UNKNOW:
+            return USER_NOTIFICATION_CONTENT_SHOP_LIST_DATA_TYPE_UNKNOW;
+            
+        default:
+            return USER_NOTIFICATION_CONTENT_SHOP_LIST_DATA_TYPE_UNKNOW;
     }
 }
 

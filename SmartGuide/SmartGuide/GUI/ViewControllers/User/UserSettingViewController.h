@@ -21,7 +21,7 @@
 @protocol SGUserSettingControllerDelegate <SGViewControllerDelegate>
 
 -(void) userSettingControllerFinished:(UserSettingViewController*) controller;
--(void) userSettingControllerTouchedSetting:(UserSettingViewController*) controller;
+-(void) userSettingControllerTouchedBack:(UserSettingViewController*) controller;
 
 @end
 

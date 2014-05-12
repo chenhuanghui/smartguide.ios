@@ -1,4 +1,12 @@
 #import "UserNotification.h"
+#import "ASIOperationUserNotificationRead.h"
+
+@interface UserNotification()<ASIOperationPostDelegate>
+{
+    ASIOperationUserNotificationRead *_operation;
+}
+
+@end
 
 @implementation UserNotification
 @synthesize contentHeight;
@@ -12,6 +20,11 @@
     self.contentAttribute=nil;
     
     return self;
+}
+
++(UserNotification *)userNotificationWithIDNotification:(int)idNotification
+{
+    return [UserNotification queryUserNotificationObject:[NSPredicate predicateWithFormat:@"%K==%i",UserNotification_IdNotification,idNotification]];
 }
 
 +(UserNotification *)makeWithDictionary:(NSDictionary *)data
@@ -42,22 +55,32 @@
         case USER_NOTIFICATION_ACTION_TYPE_SHOP_LIST:
             
             if(data[@"idPlacelist"])
+            {
+                obj.shopListType=@(USER_NOTIFICATION_SHOP_LIST_DATA_TYPE_PLACELIST);
                 obj.idPlacelist=[NSNumber numberWithObject:data[@"idPlacelist"]];
+            }
             else if(data[@"keywords"])
+            {
+                obj.shopListType=@(USER_NOTIFICATION_SHOP_LIST_DATA_TYPE_KEYWORDS);
                 obj.keywords=[NSString stringWithStringDefault:data[@"keywords"]];
+            }
             else if(data[@"idShops"])
+            {
+                obj.shopListType=@(USER_NOTIFICATION_SHOP_LIST_DATA_TYPE_IDSHOPS);
                 obj.idShops=[NSString stringWithStringDefault:data[@"idShops"]];
+            }
             
             break;
             
         case USER_NOTIFICATION_ACTION_TYPE_POPUP_URL:
-            obj.url=[NSString stringWithStringDefault:@"url"];
+            obj.url=[NSString stringWithStringDefault:data[@"url"]];
             
         case USER_NOTIFICATION_ACTION_TYPE_CONTENT:
         case USER_NOTIFICATION_ACTION_TYPE_USER_SETTING:
         case USER_NOTIFICATION_ACTION_TYPE_LOGIN:
         case USER_NOTIFICATION_ACTION_TYPE_SCAN_CODE:
         case USER_NOTIFICATION_ACTION_TYPE_USER_PROMOTION:
+            //Nothing do in here
             break;
     }
     
@@ -66,14 +89,22 @@
 
 -(enum USER_NOTIFICATION_SHOP_LIST_DATA_TYPE)enumShopListDataType
 {
-    if(self.idPlacelist)
-        return USER_NOTIFICATION_SHOP_LIST_DATA_TYPE_PLACELIST;
-    else if(self.keywords.length>0)
-        return USER_NOTIFICATION_SHOP_LIST_DATA_TYPE_KEYWORDS;
-    else if(self.idShops.length>0)
-        return USER_NOTIFICATION_SHOP_LIST_DATA_TYPE_IDSHOPS;
-    
-    return USER_NOTIFICATION_SHOP_LIST_DATA_TYPE_UNKNOW;
+    switch (self.shopListType.integerValue) {
+        case USER_NOTIFICATION_SHOP_LIST_DATA_TYPE_IDSHOPS:
+            return USER_NOTIFICATION_SHOP_LIST_DATA_TYPE_IDSHOPS;
+            
+        case USER_NOTIFICATION_SHOP_LIST_DATA_TYPE_KEYWORDS:
+            return USER_NOTIFICATION_SHOP_LIST_DATA_TYPE_KEYWORDS;
+            
+        case USER_NOTIFICATION_SHOP_LIST_DATA_TYPE_PLACELIST:
+            return USER_NOTIFICATION_SHOP_LIST_DATA_TYPE_PLACELIST;
+            
+        case USER_NOTIFICATION_SHOP_LIST_DATA_TYPE_UNKNOW:
+            return USER_NOTIFICATION_SHOP_LIST_DATA_TYPE_UNKNOW;
+            
+        default:
+            return USER_NOTIFICATION_SHOP_LIST_DATA_TYPE_UNKNOW;
+    }
 }
 
 -(NSArray *)highlightIndex
@@ -115,6 +146,8 @@
 
 -(enum USER_NOTIFICATION_ACTION_TYPE)enumActionType
 {
+    return USER_NOTIFICATION_ACTION_TYPE_CONTENT;
+    
     switch (self.actionType.integerValue) {
         case USER_NOTIFICATION_ACTION_TYPE_CONTENT:
             return USER_NOTIFICATION_ACTION_TYPE_CONTENT;
@@ -157,6 +190,61 @@
         default:
             return USER_NOTIFICATION_READ_ACTION_TOUCH;
     }
+}
+
+-(void)markAndSendRead
+{
+    if(_operation || self.enumStatus==USER_NOTIFICATION_STATUS_READ)
+        return;
+    
+    self.status=@(USER_NOTIFICATION_STATUS_READ);
+    [[DataManager shareInstance] save];
+    
+    _operation=[[ASIOperationUserNotificationRead alloc] initWithIDNotification:self.idNotification.integerValue userLat:userLat() userLng:userLng() uuid:UUID()];
+    _operation.delegatePost=self;
+    
+    [_operation startAsynchronous];
+}
+
+-(void)ASIOperaionPostFinished:(ASIOperationPost *)operation
+{
+    _operation=nil;
+}
+
+-(void)ASIOperaionPostFailed:(ASIOperationPost *)operation
+{
+    _operation=nil;
+}
+
+-(void)dealloc
+{
+    _operation.delegatePost=nil;
+    _operation=nil;
+}
+
+-(NSString *)description
+{
+    return [NSString stringWithFormat:@"%@ id %i status %i action %i read %i idShop %i idPlacelist %i keywords %@ idShops %@ url %@",CLASS_NAME,self.idNotification.integerValue,self.status.integerValue,self.actionType.integerValue,self.readAction.integerValue,self.idShop.integerValue,self.idPlacelist.integerValue,self.keywords,self.idShops,self.url];
+}
+
+-(NSString *)url1
+{
+    return @"http://google.com";
+}
+
+-(NSNumber *)idPlacelist1
+{
+    return @(-1);
+}
+
+-(NSNumber *)shopListType1
+{
+    return @(USER_NOTIFICATION_SHOP_LIST_DATA_TYPE_IDSHOPS);
+}
+
+-(NSString *)idShops1
+{
+    return @"112,113,114";
 }
 
 @end

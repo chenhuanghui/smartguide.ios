@@ -233,6 +233,19 @@
 	[self didChangeValueForKey:@"readAction"];
 }
 
+- (NSNumber*)shopListType {
+	[self willAccessValueForKey:@"shopListType"];
+	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"shopListType"];
+	[self didAccessValueForKey:@"shopListType"];
+	return result;
+}
+
+- (void)setShopListType:(NSNumber*)value {
+	[self willChangeValueForKey:@"shopListType"];
+	[self setPrimitiveValue:value forKey:@"shopListType"];
+	[self didChangeValueForKey:@"shopListType"];
+}
+
 - (NSNumber*)status {
 	[self willAccessValueForKey:@"status"];
 	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"status"];

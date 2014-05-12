@@ -182,16 +182,18 @@ static NotificationManager *_notificationManager=nil;
     
     obj.message=[NSString stringWithStringDefault:dict[@"alert"]];
     obj.badge=[NSString stringWithStringDefault:dict[@"badge"]];
-    obj.data=[NSString stringWithStringDefault:dict[@"data"]];
-    obj.type=[NSNumber numberWithObject:dict[@"type"]];
+    NSString *data=[NSString stringWithStringDefault:dict[@"data"]];
     
-    if(obj.data && obj.data.length>0)
+    if(data.length>0)
     {
-        NSData *dataBytes=[obj.data dataUsingEncoding:NSUTF8StringEncoding];
+        NSData *dataBytes=[data dataUsingEncoding:NSUTF8StringEncoding];
         NSError *error=nil;
         obj.dataJson=[NSJSONSerialization JSONObjectWithData:dataBytes options:NSJSONReadingAllowFragments|NSJSONReadingMutableContainers error:&error];
         
         obj.idNotification=[NSNumber numberWithObject:obj.dataJson[@"idNotification"]];
+        obj.timer=[NSNumber numberWithObject:obj.dataJson[@"timer"]];
+        obj.actionType=[NSNumber numberWithObject:obj.dataJson[@"actionType"]];
+        obj.readAction=[NSNumber numberWithObject:obj.dataJson[@"readAction"]];
     }
     
     if(!obj.dataJson)
@@ -297,7 +299,7 @@ static NotificationManager *_notificationManager=nil;
 
 -(NSString *)description
 {
-    return [NSString stringWithFormat:@"%@ %@ %@ %@",self.message,self.badge,self.data,self.dataJson];
+    return [NSString stringWithFormat:@"%@ %@ %@",self.message,self.badge,self.dataJson];
 }
 
 @end

@@ -52,7 +52,7 @@ static LocationManager *_locationManager=nil;
         {
             if([obj rangeOfString:@"|"].location!=NSNotFound)
             {
-                NSString *coor=[[NSUserDefaults standardUserDefaults] objectForKey:@"userCoordinate"];
+                NSString *coor=[[NSUserDefaults standardUserDefaults] objectForKey:LOCATION_MANAGER_LAST_LOCATION_KEY];
                 userlocation=CLLocationCoordinate2DMake([[coor componentsSeparatedByString:@"|"][0] floatValue], [[coor componentsSeparatedByString:@"|"][1] floatValue]);
             }
             else

@@ -239,4 +239,12 @@ static GUIManager *_shareInstance=nil;
         [self.rootNavigation pushViewController:author animated:true];
 }
 
+-(void) showLoginControll:(void(^)(bool isLogin)) onLogin
+{
+    if(onLogin)
+        _onLoginedCompleted=[onLogin copy];
+    
+    [self showLoginController];
+}
+
 @end

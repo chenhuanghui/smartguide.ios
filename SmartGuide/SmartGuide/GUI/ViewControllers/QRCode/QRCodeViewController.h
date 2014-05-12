@@ -23,6 +23,7 @@ enum QRCODE_ANIMATION_TYPE {
 
 @protocol QRCodeControllerDelegate <SGViewControllerDelegate>
 
+@optional
 -(void) qrcodeControllerFinished:(QRCodeViewController*) controller;
 
 @end

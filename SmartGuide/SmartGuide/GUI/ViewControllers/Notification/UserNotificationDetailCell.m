@@ -32,19 +32,19 @@
     [dict setObject:[UIColor darkGrayColor] forKey:NSForegroundColorAttributeName];
     [dict setObject:[UIFont fontWithName:@"Avenir-Roman" size:13] forKey:NSFontAttributeName];
     
-    att=[[NSAttributedString alloc] initWithString:obj.desc attributes:dict];
-    lblContent.attributedText=att;
-
-    lblTime.text=obj.time;
-    [lblContent l_v_setY:39+obj.titleHeight.floatValue];
-    lblGoTo.text=obj.goTo;
-    [imgvIcon loadShopLogoWithURL:obj.logo];
-    
-    [lblTitle l_v_setH:obj.titleHeight.floatValue];
-    [lblContent l_v_setH:obj.descHeight.floatValue];
-    
-    btnGo.hidden=obj.goTo.length==0;
-    lblGoTo.hidden=obj.goTo.length==0;
+//    att=[[NSAttributedString alloc] initWithString:obj.desc attributes:dict];
+//    lblContent.attributedText=att;
+//
+//    lblTime.text=obj.time;
+//    [lblContent l_v_setY:39+obj.titleHeight.floatValue];
+//    lblGoTo.text=obj.goTo;
+//    [imgvIcon loadShopLogoWithURL:obj.logo];
+//    
+//    [lblTitle l_v_setH:obj.titleHeight.floatValue];
+//    [lblContent l_v_setH:obj.descHeight.floatValue];
+//    
+//    btnGo.hidden=obj.goTo.length==0;
+//    lblGoTo.hidden=obj.goTo.length==0;
 }
 
 -(void)awakeFromNib
@@ -79,13 +79,13 @@
     
     if(obj.descHeight.floatValue==-1)
     {
-        CGSize size=[obj.desc sizeWithFont:[UIFont fontWithName:@"Avenir-Roman" size:13] constrainedToSize:CGSizeMake(274, MAXFLOAT) lineBreakMode:NSLineBreakByTruncatingTail];
-        obj.descHeight=@(size.height);
+//        CGSize size=[obj.desc sizeWithFont:[UIFont fontWithName:@"Avenir-Roman" size:13] constrainedToSize:CGSizeMake(274, MAXFLOAT) lineBreakMode:NSLineBreakByTruncatingTail];
+//        obj.descHeight=@(size.height);
     }
     
     height+=obj.descHeight.floatValue;
     
-    height-=obj.goTo.length==0?44:0;
+//    height-=obj.goTo.length==0?44:0;
     
     return height;
 }

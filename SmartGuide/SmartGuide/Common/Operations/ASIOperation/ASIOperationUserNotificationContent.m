@@ -28,11 +28,13 @@
     
     if([self isNullData:json])
         return;
+
+    UserNotification *noti=[UserNotification userNotificationWithIDNotification:[self.keyValue[@"idNotification"] integerValue]];
     
-    int count=0;
     for(NSDictionary *dict in json)
     {
         UserNotificationContent *obj=[UserNotificationContent makeWithDictionary:dict];
+        obj.notification=noti;
 
         [self.notifications addObject:obj];
     }

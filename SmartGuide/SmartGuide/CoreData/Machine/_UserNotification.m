@@ -11,7 +11,6 @@
 @implementation _UserNotification
 
 
-@dynamic notificationContents;
 
 
 
@@ -220,6 +219,19 @@
 	[self didChangeValueForKey:@"sender"];
 }
 
+- (NSNumber*)shopListType {
+	[self willAccessValueForKey:@"shopListType"];
+	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"shopListType"];
+	[self didAccessValueForKey:@"shopListType"];
+	return result;
+}
+
+- (void)setShopListType:(NSNumber*)value {
+	[self willChangeValueForKey:@"shopListType"];
+	[self setPrimitiveValue:value forKey:@"shopListType"];
+	[self didChangeValueForKey:@"shopListType"];
+}
+
 - (NSNumber*)status {
 	[self willAccessValueForKey:@"status"];
 	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"status"];
@@ -262,9 +274,69 @@
 #pragma mark Relationships
     
 #pragma mark NotificationContents
-- (UserNotificationContent*)notificationContents {
+- (NSSet*)notificationContents {
 	[self willAccessValueForKey:@"notificationContents"];
-	UserNotificationContent *result = [self primitiveValueForKey:@"notificationContents"];
+	NSSet *result = [self primitiveValueForKey:@"notificationContents"];
+	[self didAccessValueForKey:@"notificationContents"];
+	return result;
+}
+
+-(NSArray*) notificationContentsObjects
+{
+    NSSet *set=[self notificationContents];
+    if(set)
+        return [set allObjects];
+    
+    return [NSArray array];
+}
+
+- (void)setNotificationContents:(NSSet*)value {
+	[self willChangeValueForKey:@"notificationContents" withSetMutation:NSKeyValueSetSetMutation usingObjects:value];
+	[[self primitiveValueForKey:@"notificationContents"] setSet:value];
+	[self didChangeValueForKey:@"notificationContents" withSetMutation:NSKeyValueSetSetMutation usingObjects:value];
+}
+
+- (void)addNotificationContents:(NSSet*)value {
+	[self willChangeValueForKey:@"notificationContents" withSetMutation:NSKeyValueUnionSetMutation usingObjects:value];
+	[[self primitiveValueForKey:@"notificationContents"] unionSet:value];
+	[self didChangeValueForKey:@"notificationContents" withSetMutation:NSKeyValueUnionSetMutation usingObjects:value];
+}
+
+-(void)removeNotificationContents:(NSSet*)value {
+
+    for(NSManagedObject *obj in value.allObjects)
+        [self.managedObjectContext deleteObject:obj];
+
+	[self willChangeValueForKey:@"notificationContents" withSetMutation:NSKeyValueMinusSetMutation usingObjects:value];
+	[[self primitiveValueForKey:@"notificationContents"] minusSet:value];
+	[self didChangeValueForKey:@"notificationContents" withSetMutation:NSKeyValueMinusSetMutation usingObjects:value];
+}
+	
+- (void)addNotificationContentsObject:(UserNotificationContent*)value {
+	NSSet *changedObjects = [[NSSet alloc] initWithObjects:&value count:1];
+	[self willChangeValueForKey:@"notificationContents" withSetMutation:NSKeyValueUnionSetMutation usingObjects:changedObjects];
+	[[self primitiveValueForKey:@"notificationContents"] addObject:value];
+	[self didChangeValueForKey:@"notificationContents" withSetMutation:NSKeyValueUnionSetMutation usingObjects:changedObjects];
+}
+
+- (void)removeNotificationContentsObject:(UserNotificationContent*)value {
+
+    [self.managedObjectContext deleteObject:value];
+
+	NSSet *changedObjects = [[NSSet alloc] initWithObjects:&value count:1];
+	[self willChangeValueForKey:@"notificationContents" withSetMutation:NSKeyValueMinusSetMutation usingObjects:changedObjects];
+	[[self primitiveValueForKey:@"notificationContents"] removeObject:value];
+	[self didChangeValueForKey:@"notificationContents" withSetMutation:NSKeyValueMinusSetMutation usingObjects:changedObjects];
+}
+
+- (void) removeAllNotificationContents
+{
+    [self removeNotificationContents:self.notificationContents];
+}
+
+- (NSMutableSet*)notificationContentsSet {
+	[self willAccessValueForKey:@"notificationContents"];
+	NSMutableSet *result = [self mutableSetValueForKey:@"notificationContents"];
 	[self didAccessValueForKey:@"notificationContents"];
 	return result;
 }

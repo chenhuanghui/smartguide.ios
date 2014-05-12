@@ -37,6 +37,7 @@ enum USER_NOTIFICATION_READ_ACTION
 }
 
 +(UserNotification*) makeWithDictionary:(NSDictionary*) data;
++(UserNotification*) userNotificationWithIDNotification:(int) idNotification;
 
 -(enum USER_NOTIFICATION_STATUS) enumStatus;
 -(enum USER_NOTIFICATION_ACTION_TYPE) enumActionType;
@@ -44,6 +45,7 @@ enum USER_NOTIFICATION_READ_ACTION
 -(enum USER_NOTIFICATION_SHOP_LIST_DATA_TYPE) enumShopListDataType;
 
 -(NSArray*) highlightIndex;
+-(void) markAndSendRead;
 
 @property (nonatomic, strong) NSNumber *contentHeight;
 @property (nonatomic, strong) NSMutableAttributedString *contentAttribute;

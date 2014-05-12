@@ -112,7 +112,7 @@
     
     float settingWidth=274.f;
     float x=320.f-scrollView.l_co_x;
-
+    
     [leftView l_v_setX:scrollView.l_co_x-settingWidth/2+(320-scrollView.l_co_x)/2];
     
     if(x<settingWidth/3)
@@ -302,7 +302,7 @@
 
 -(void)navigationTouchedStore:(NavigationViewController *)controller
 {
-
+    
 }
 
 -(void)navigationTouchedUserSetting:(NavigationViewController *)controller
@@ -319,14 +319,24 @@
 
 -(void)userSettingControllerFinished:(UserSettingViewController *)controller
 {
-    [self hideSettingController];
-    
-    [self.contentNavigation setRootViewController:[self homeController] animate:false];
+    if(self.contentNavigation.viewControllers.count==1)
+    {
+        [self hideSettingController];
+        
+        [self.contentNavigation setRootViewController:[self homeController] animate:false];
+    }
+    else
+    {
+        [self.contentNavigation popViewControllerAnimated:true];
+    }
 }
 
--(void)userSettingControllerTouchedSetting:(UserSettingViewController *)controller
+-(void)userSettingControllerTouchedBack:(UserSettingViewController *)controller
 {
-    [self showSettingController];
+    if(self.contentNavigation.viewControllers.count==1)
+        [self showSettingController];
+    else
+        [self.contentNavigation popViewControllerAnimated:true];
 }
 
 #pragma mark UserPromotionController
@@ -412,14 +422,14 @@
 -(void)presentShopUserWithHome8:(UserHome8 *)home8
 {
     ShopUserViewController *vc=[[ShopUserViewController alloc] initWithShopUser:home8.shop];
-
+    
     [self presentShopUser:vc];
 }
 
 -(void)presentShopUserWithIDShop:(int)idShop
 {
     ShopUserViewController *vc=[[ShopUserViewController alloc] initWithIDShop:idShop];
-
+    
     [self presentShopUser:vc];
 }
 
@@ -496,7 +506,7 @@
         
         return false;
     }
-
+    
     return true;
 }
 
@@ -517,9 +527,25 @@
     [self showSearchController:vc];
 }
 
--(void)showShopListWithKeywords:(NSString *)keywords
+-(void)showUserPromotion
 {
-    SearchViewController *vc=[[SearchViewController alloc] initWithKeyword:keywords];
+    [self.contentNavigation pushViewController:[self userPromotionController] animated:true];
+}
+
+-(void)showUserSetting
+{
+    [self.contentNavigation pushViewController:[self userSettingController] animated:true];
+}
+
+-(void)showShopListWithKeywordsSearch:(NSString *)keywords
+{
+    SearchViewController *vc=[[SearchViewController alloc] initWithKeywordSearch:keywords];
+    [self showSearchController:vc];
+}
+
+-(void)showShopListWithKeywordsShopList:(NSString *)keywords
+{
+    SearchViewController *vc=[[SearchViewController alloc] initWithKeywordShopList:keywords];
     [self showSearchController:vc];
 }
 
@@ -540,6 +566,9 @@
 
 -(void)showWebviewWithURL:(NSURL *)url
 {
+    if(!url || url.description.length==0)
+        return;
+    
     WebViewController *vc=[[WebViewController alloc] initWithURL:url];
     vc.delegate=self;
     

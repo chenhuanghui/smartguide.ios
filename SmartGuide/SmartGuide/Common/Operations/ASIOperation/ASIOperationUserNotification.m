@@ -29,11 +29,9 @@
     if([self isNullData:json])
         return;
     
-    int count=0;
     for(NSDictionary *dict in json)
     {
         UserNotification *obj=[UserNotification makeWithDictionary:dict];
-        obj.sortOrder=@(count++);
 
         [self.userNotifications addObject:obj];
         

@@ -17,6 +17,7 @@
 #define UserNotificationContent_Keywords @"keywords"
 #define UserNotificationContent_Logo @"logo"
 #define UserNotificationContent_ReadAction @"readAction"
+#define UserNotificationContent_ShopListType @"shopListType"
 #define UserNotificationContent_Status @"status"
 #define UserNotificationContent_Time @"time"
 #define UserNotificationContent_Title @"title"
@@ -47,6 +48,7 @@
 @property (nonatomic, retain) NSString* keywords;
 @property (nonatomic, retain) NSString* logo;
 @property (nonatomic, retain) NSNumber* readAction;
+@property (nonatomic, retain) NSNumber* shopListType;
 @property (nonatomic, retain) NSNumber* status;
 @property (nonatomic, retain) NSString* time;
 @property (nonatomic, retain) NSString* title;

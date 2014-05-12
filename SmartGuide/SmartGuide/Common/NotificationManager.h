@@ -84,7 +84,6 @@ enum NOTI_READ_ACTION
 @property (nonatomic, strong) NSNumber *idNotification;
 @property (nonatomic, strong) NSString *badge;
 @property (nonatomic, strong) NSString *message;
-@property (nonatomic, strong) NSString *data;
 @property (nonatomic, strong) NSDictionary *dataJson;
 @property (nonatomic, strong) NSNumber *timer;
 @property (nonatomic, strong) NSNumber *actionType;

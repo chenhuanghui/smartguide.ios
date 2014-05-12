@@ -190,7 +190,7 @@
     
     if(currentUser().enumDataMode==USER_DATA_TRY)
     {
-        [self.delegate userSettingControllerTouchedSetting:self];
+        [self.delegate userSettingControllerTouchedBack:self];
         [self loadData];
         return;
     }
@@ -376,13 +376,13 @@
     
     [currentUser() revert];
     [SGData shareInstance].fScreen=[UserSettingViewController screenCode];
-    [self.delegate userSettingControllerTouchedSetting:self];
+    [self.delegate userSettingControllerTouchedBack:self];
     [self loadData];
     return;
     
     if(currentUser().enumDataMode==USER_DATA_TRY)
     {
-        [self.delegate userSettingControllerTouchedSetting:self];
+        [self.delegate userSettingControllerTouchedBack:self];
         [self loadData];
         return;
     }
@@ -401,14 +401,14 @@
         } onCancel:^{
             [currentUser() revert];
             [SGData shareInstance].fScreen=[UserSettingViewController screenCode];
-            [self.delegate userSettingControllerTouchedSetting:self];
+            [self.delegate userSettingControllerTouchedBack:self];
             [self loadData];
         }];
     }
     else
     {
         [SGData shareInstance].fScreen=[UserSettingViewController screenCode];
-        [self.delegate userSettingControllerTouchedSetting:self];
+        [self.delegate userSettingControllerTouchedBack:self];
         [self loadData];
     }
 }

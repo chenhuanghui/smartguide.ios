@@ -151,30 +151,30 @@
 {
     [SGData shareInstance].fScreen=@"S00601";
     
-    switch (obj.enumType) {
-        case USER_NOTIFICATION_CONTENT_TYPE_SHOP_DETAIL:
-            [[GUIManager shareInstance].rootViewController presentShopUserWithIDShop:obj.idShop.integerValue];
-            break;
-            
-        case USER_NOTIFICATION_CONTENT_TYPE_SHOP_LIST:
-            
-            if(obj.idPlacelist)
-                [[GUIManager shareInstance].rootViewController showShopListWithIDPlace:obj.idPlacelist.integerValue];
-            else if(obj.keywords.length>0)
-                [[GUIManager shareInstance].rootViewController showShopListWithKeywords:obj.keywords];
-            else if(obj.idShops.length>0)
-                [[GUIManager shareInstance].rootViewController showShopListWithIDShops:obj.idShops];
-            
-            break;
-            
-        case USER_NOTIFICATION_CONTENT_TYPE_TUTORIAL:
-            if(obj.urlTutorial.length>0)
-                [[GUIManager shareInstance].rootViewController showWebviewWithURL:URL(obj.urlTutorial)];
-            break;
-            
-        case USER_NOTIFICATION_CONTENT_TYPE_NONE:
-            break;
-    }
+//    switch (obj.enumActionType) {
+//        case USER_NOTIFICATION_CONTENT_TYPE_SHOP_DETAIL:
+//            [[GUIManager shareInstance].rootViewController presentShopUserWithIDShop:obj.idShop.integerValue];
+//            break;
+//            
+//        case USER_NOTIFICATION_CONTENT_TYPE_SHOP_LIST:
+//            
+//            if(obj.idPlacelist)
+//                [[GUIManager shareInstance].rootViewController showShopListWithIDPlace:obj.idPlacelist.integerValue];
+//            else if(obj.keywords.length>0)
+//                [[GUIManager shareInstance].rootViewController showShopListWithKeywords:obj.keywords];
+//            else if(obj.idShops.length>0)
+//                [[GUIManager shareInstance].rootViewController showShopListWithIDShops:obj.idShops];
+//            
+//            break;
+//            
+//        case USER_NOTIFICATION_CONTENT_TYPE_TUTORIAL:
+//            if(obj.urlTutorial.length>0)
+//                [[GUIManager shareInstance].rootViewController showWebviewWithURL:URL(obj.urlTutorial)];
+//            break;
+//            
+//        case USER_NOTIFICATION_CONTENT_TYPE_NONE:
+//            break;
+//    }
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

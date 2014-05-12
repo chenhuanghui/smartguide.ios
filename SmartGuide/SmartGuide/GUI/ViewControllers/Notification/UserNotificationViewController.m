@@ -14,8 +14,14 @@
 #import "LoadingMoreCell.h"
 #import "GUIManager.h"
 #import "SGNavigationController.h"
+#import "QRCodeViewController.h"
+#import "ASIOperationUserNotification.h"
 
 @interface UserNotificationViewController ()<UITableViewDataSource,UITableViewDelegate,UserNotificationCellDelegate,ASIOperationPostDelegate,UIActionSheetDelegate>
+{
+    enum USER_NOTIFICATION_DISPLAY_TYPE _displayType;
+    ASIOperationUserNotification *_operationUserNotification;
+}
 
 @end
 
@@ -71,6 +77,26 @@
     [_operationUserNotification startAsynchronous];
 }
 
+-(void) resetData
+{
+    if(_operationUserNotification)
+    {
+        [_operationUserNotification clearDelegatesAndCancel];
+        _operationUserNotification=nil;
+    }
+    
+    _page=-1;
+    _userNotification=[NSMutableArray new];
+    _userNotificationRead=[NSMutableArray new];
+    _userNotificationUnread=[NSMutableArray new];
+    _canLoadMore=true;
+    _isHasReadNotification=false;
+    _isLoadingMore=false;
+    
+    [self requestUserNotification];
+    [table showLoading];
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -79,6 +105,9 @@
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
+    if(_userNotification.count==0)
+        return 0;
+    
     switch (_displayType) {
         case USER_NOTIFICATION_DISPLAY_ALL:
             return _isHasReadNotification?2:1;
@@ -161,12 +190,86 @@
 {
     UserNotificationCell *cell=(UserNotificationCell*)[tableView cellForRowAtIndexPath:indexPath];
     
-    [self showUserNotificationDetail:cell.userNotification];
+    [self processUserNotification:cell.userNotification];
+}
+
+-(void) processUserNotification:(UserNotification*) userNotification
+{
+    [SGData shareInstance].fScreen=@"S006";
+    [SGData shareInstance].fData=[NSMutableDictionary dictionaryWithObject:userNotification.idNotification forKey:@"idNotification"];
+    
+    NSLog(@"processUserNotification %@",userNotification);
+    
+    if(userNotification.enumStatus==USER_NOTIFICATION_STATUS_UNREAD || userNotification.enumReadAction==USER_NOTIFICATION_READ_ACTION_GOTO)
+    {
+        [userNotification markAndSendRead];
+    }
+    
+    switch (userNotification.enumActionType) {
+        case USER_NOTIFICATION_ACTION_TYPE_CONTENT:
+        {
+            UserNotificationDetailViewController *vc=[[UserNotificationDetailViewController alloc] initWithUserNotification:userNotification];
+            vc.delegate=self;
+            
+            [self.navigationController pushViewController:vc animated:true];
+        }
+            break;
+            
+        case USER_NOTIFICATION_ACTION_TYPE_LOGIN:
+        {
+            [[GUIManager shareInstance] showLoginControll:^(bool isLogin) {
+                if(isLogin)
+                    [self resetData];
+            }];
+        }
+            break;
+            
+        case USER_NOTIFICATION_ACTION_TYPE_POPUP_URL:
+            [[GUIManager shareInstance].rootViewController showWebviewWithURL:[NSURL URLWithString:userNotification.url]];
+            break;
+            
+        case USER_NOTIFICATION_ACTION_TYPE_SCAN_CODE:
+            [self showQRCodeWithContorller:self inView:self.view withAnimationType:QRCODE_ANIMATION_TOP_BOT screenCode:[UserNotificationViewController screenCode]];
+            break;
+            
+        case USER_NOTIFICATION_ACTION_TYPE_SHOP_LIST:
+            switch (userNotification.enumShopListDataType) {
+                case USER_NOTIFICATION_SHOP_LIST_DATA_TYPE_PLACELIST:
+                    [[GUIManager shareInstance].rootViewController showShopListWithIDPlace:userNotification.idPlacelist.integerValue];
+                    break;
+                    
+                case USER_NOTIFICATION_SHOP_LIST_DATA_TYPE_KEYWORDS:
+                    [[GUIManager shareInstance].rootViewController showShopListWithKeywordsShopList:userNotification.keywords];
+                    break;
+                    
+                case USER_NOTIFICATION_SHOP_LIST_DATA_TYPE_IDSHOPS:
+                    [[GUIManager shareInstance].rootViewController showShopListWithIDShops:userNotification.idShops];
+                    break;
+                    
+                case USER_NOTIFICATION_SHOP_LIST_DATA_TYPE_UNKNOW:
+                    NSLog(@"UserNotificationViewController USER_NOTIFICATION_SHOP_LIST_DATA_TYPE_UNKNOW");
+                    break;
+            }
+            break;
+            
+        case USER_NOTIFICATION_ACTION_TYPE_SHOP_USER:
+            [[GUIManager shareInstance].rootViewController presentShopUserWithIDShop:userNotification.idShop.integerValue];
+            break;
+            
+        case USER_NOTIFICATION_ACTION_TYPE_USER_PROMOTION:
+            NSLog(@"UserNotificationViewController USER_NOTIFICATION_ACTION_TYPE_USER_PROMOTION");
+//            [[GUIManager shareInstance].rootViewController showUserPromotion];
+            break;
+            
+        case USER_NOTIFICATION_ACTION_TYPE_USER_SETTING:
+            [[GUIManager shareInstance].rootViewController showUserSetting];
+            break;
+    }
 }
 
 -(void)userNotificationCellTouchedDetail:(UserNotificationCell *)cell obj:(UserNotification *)obj
 {
-    [self showUserNotificationDetail:obj];
+    [self processUserNotification:obj];
 }
 
 -(void)userNotificationCellTouchedRemove:(UserNotificationCell *)cell obj:(UserNotification *)obj
@@ -193,16 +296,6 @@
 +(NSString *)screenCode
 {
     return @"S006";
-}
-
--(void) showUserNotificationDetail:(UserNotification*) obj
-{
-    [SGData shareInstance].fScreen=@"S006";
-    [SGData shareInstance].fData=[NSMutableDictionary dictionaryWithObject:obj.idNotification forKey:@"idNotification"];
-    
-    UserNotificationDetailViewController *vc=[[UserNotificationDetailViewController alloc] initWithUserNotification:obj];
-    
-    [self.navigationController pushViewController:vc animated:true];
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -294,17 +387,6 @@
     }
 
     [sheet showInView:[GUIManager shareInstance].rootNavigation.view];
-}
-
--(void) resetData
-{
-    _canLoadMore=true;
-    _isLoadingMore=false;
-    _page=-1;
-    
-    _userNotification=[NSMutableArray new];
-    _userNotificationRead=[NSArray new];
-    _userNotificationUnread=[NSArray new];
 }
 
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex

@@ -8,11 +8,10 @@
 
 #import "OperationSearchAutocomplete.h"
 @implementation OperationSearchAutocomplete
-@synthesize shops,placelists,keyword,highlightTag;
 
--(OperationSearchAutocomplete *)initWithKeyword:(NSString *)_keyword
+-(OperationSearchAutocomplete *)initWithKeyword:(NSString *)keyword_
 {
-    NSString *key=[_keyword lowercaseString];
+    NSString *key=[keyword_ lowercaseString];
     
     NSString *esQuery=@"{\"query\":{\"query_string\":{\"query\":\"%@\",\"fields\":[\"shop_name_auto_complete\",\"name_auto_complete\"]}},\"highlight\":{\"fields\":{\"shop_name_auto_complete\":{},\"name_auto_complete\":{}}},\"from\":0,\"size\":5,\"fields\":[\"shop_name\",\"hasPromotion\",\"name\",\"id\"]}";
     
@@ -25,16 +24,19 @@
     
     self=[super initWithRouter:API_ELASTIC_AUTOCOMPLETE_NATIVE params:dict];
     
-    keyword=[[NSString alloc] initWithString:key];
+    self.keyword=[[NSString alloc] initWithString:key];
+    self.shops=[NSMutableArray new];
+    self.placelists=[NSMutableArray new];
+    self.highlightTag=@"em";
     
     return self;
 }
 
 -(void)onCompletedWithJSON:(NSArray *)json
 {
-    shops=[NSMutableArray array];
-    placelists=[NSMutableArray array];
-    highlightTag=@"em";
+    self.shops=[NSMutableArray new];
+    self.placelists=[NSMutableArray new];
+    self.highlightTag=@"em";
     
     if([self isNullData:json])
         return;
@@ -80,7 +82,7 @@
             
             place.content=[NSString stringWithStringDefault:array[0]];
             
-            [placelists addObject:place];
+            [self.placelists addObject:place];
             
             kvp=hit[@"highlight"];
             
@@ -119,7 +121,7 @@
             if(![array isNullData])
                 shop.hasPromotion=@([[NSNumber numberWithObject:array[0]] boolValue]);
             
-            [shops addObject:shop];
+            [self.shops addObject:shop];
             
             kvp=hit[@"highlight"];
             

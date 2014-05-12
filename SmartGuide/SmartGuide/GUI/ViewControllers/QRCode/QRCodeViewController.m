@@ -149,46 +149,40 @@
     _isScanningCode=true;
 }
 
--(void)viewWillAppear:(BOOL)animated
+-(void)viewWillAppearOnce
 {
-    [super viewWillAppear:animated];
-    
-    if(!_viewWillAppear)
-    {
-        switch (animationType) {
-            case QRCODE_ANIMATION_TOP_BOT:
-            {
-                [imgvScanTop l_v_addY:-imgvScanTop.l_v_h];
-                [imgvScanBot l_v_addY:imgvScanBot.l_v_h];
-                self.view.alpha=0;
+    switch (animationType) {
+        case QRCODE_ANIMATION_TOP_BOT:
+        {
+            [imgvScanTop l_v_addY:-imgvScanTop.l_v_h];
+            [imgvScanBot l_v_addY:imgvScanBot.l_v_h];
+            self.view.alpha=0;
+            
+            [UIView animateWithDuration:DURATION_DEFAULT animations:^{
+                [imgvScanTop l_v_addY:imgvScanTop.l_v_h];
+                [imgvScanBot l_v_addY:-imgvScanBot.l_v_h];
+                self.view.alpha=1;
                 
-                [UIView animateWithDuration:DURATION_DEFAULT animations:^{
-                    [imgvScanTop l_v_addY:imgvScanTop.l_v_h];
-                    [imgvScanBot l_v_addY:-imgvScanBot.l_v_h];
-                    self.view.alpha=1;
-                    
-                    [_reach startNotifier];
-                }];
-            }
-                break;
-                
-            case QRCODE_ANIMATION_TOP:
-            {
-                [imgvScanTop l_v_addY:-imgvScanTop.l_v_h];
-                self.view.alpha=0;
-                
-                [UIView animateWithDuration:DURATION_DEFAULT animations:^{
-                    [imgvScanTop l_v_addY:imgvScanTop.l_v_h];
-                    self.view.alpha=1;
-                    
-                    [_reach startNotifier];
-                }];
-            }
-                break;
+                [_reach startNotifier];
+            }];
         }
-        
-        _viewWillAppear=true;
+            break;
+            
+        case QRCODE_ANIMATION_TOP:
+        {
+            [imgvScanTop l_v_addY:-imgvScanTop.l_v_h];
+            self.view.alpha=0;
+            
+            [UIView animateWithDuration:DURATION_DEFAULT animations:^{
+                [imgvScanTop l_v_addY:imgvScanTop.l_v_h];
+                self.view.alpha=1;
+                
+                [_reach startNotifier];
+            }];
+        }
+            break;
     }
+
 }
 
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info

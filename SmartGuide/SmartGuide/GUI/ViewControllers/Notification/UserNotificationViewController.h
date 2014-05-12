@@ -7,7 +7,6 @@
 //
 
 #import "SGViewController.h"
-#import "ASIOperationUserNotification.h"
 
 @class  UserNotificationHeaderView;
 
@@ -15,12 +14,10 @@
 {
     __weak IBOutlet UITableView *table;
     
-    enum USER_NOTIFICATION_DISPLAY_TYPE _displayType;
-    
     NSMutableArray *_userNotification;
     NSArray *_userNotificationUnread;
     NSArray *_userNotificationRead;
-    ASIOperationUserNotification *_operationUserNotification;
+    
     int _page;
     bool _canLoadMore;
     bool _isLoadingMore;

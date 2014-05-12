@@ -16,6 +16,7 @@
 #define UserNotification_Keywords @"keywords"
 #define UserNotification_ReadAction @"readAction"
 #define UserNotification_Sender @"sender"
+#define UserNotification_ShopListType @"shopListType"
 #define UserNotification_Status @"status"
 #define UserNotification_Time @"time"
 #define UserNotification_Url @"url"
@@ -44,6 +45,7 @@
 @property (nonatomic, retain) NSString* keywords;
 @property (nonatomic, retain) NSNumber* readAction;
 @property (nonatomic, retain) NSString* sender;
+@property (nonatomic, retain) NSNumber* shopListType;
 @property (nonatomic, retain) NSNumber* status;
 @property (nonatomic, retain) NSString* time;
 @property (nonatomic, retain) NSString* url;
@@ -54,7 +56,13 @@
 #pragma mark Relationships
 
 #pragma mark NotificationContents
-@property (nonatomic, retain) UserNotificationContent* notificationContents;
+- (NSSet*) notificationContents;
+- (NSArray*) notificationContentsObjects;
+- (void) addNotificationContents:(NSSet*)value;
+- (void) removeNotificationContents:(NSSet*)value;
+- (void) addNotificationContentsObject:(UserNotificationContent*)value;
+- (void) removeNotificationContentsObject:(UserNotificationContent*)value;
+- (void) removeAllNotificationContents;
 
 
 

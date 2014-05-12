@@ -40,10 +40,10 @@ enum SEARCH_VIEW_MODE {
     int _idPlacelist;
 }
 
--(SearchViewController*) initWithKeyword:(NSString*) keyword;
+-(SearchViewController*) initWithKeywordSearch:(NSString*) keyword;
 -(SearchViewController*) initWithPlace:(Placelist*) place;
 -(SearchViewController*) initWithIDPlace:(int) idPlace;
 -(SearchViewController*) initWithIDShops:(NSString*) idShops;
--(SearchViewController*) initWithKeyword:(NSString*) keyword viewMode:(enum SEARCH_VIEW_MODE) viewMode;
+-(SearchViewController*) initWithKeywordShopList:(NSString*) keyword;
 
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "ASIOperationPost.h"
+#import "UserNotification.h"
 #import "UserNotificationContent.h"
 
 @interface ASIOperationUserNotificationContent : ASIOperationPost

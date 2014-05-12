@@ -13,9 +13,9 @@
 -(OperationSearchAutocomplete*) initWithKeyword:(NSString*) keyword;
 
 @property (nonatomic, strong) NSString *keyword;
-@property (nonatomic, readonly) NSMutableArray *placelists;
-@property (nonatomic, readonly) NSMutableArray *shops;
-@property (nonatomic, readonly) NSString *highlightTag;
+@property (nonatomic, strong) NSMutableArray *placelists;
+@property (nonatomic, strong) NSMutableArray *shops;
+@property (nonatomic, strong) NSString *highlightTag;
 
 @end
 

@@ -26,7 +26,7 @@
     return self;
 }
 
--(SearchViewController *)initWithKeyword:(NSString *)keyword
+-(SearchViewController *)initWithKeywordSearch:(NSString *)keyword
 {
     self=[super initWithNibName:@"SearchViewController" bundle:nil];
     
@@ -50,9 +50,9 @@
 {
     self=[super initWithNibName:@"SearchViewController" bundle:nil];
     
-    _viewMode=SEARCH_VIEW_MODE_LIST;
+    _viewMode=SEARCH_VIEW_MODE_IDPLACE;
     _idPlacelist=idPlace;
-    
+
     return self;
 }
 
@@ -76,12 +76,12 @@
     return self;
 }
 
--(SearchViewController *)initWithKeyword:(NSString *)keyword viewMode:(enum SEARCH_VIEW_MODE)viewMode
+-(SearchViewController *)initWithKeywordShopList:(NSString *)keyword
 {
     self=[super initWithNibName:@"SearchViewController" bundle:nil];
     
     _keyword=[keyword copy];
-    _viewMode=viewMode;
+    _viewMode=SEARCH_VIEW_MODE_KEYWORK_SHOP_LIST;
     
     return self;
 }
