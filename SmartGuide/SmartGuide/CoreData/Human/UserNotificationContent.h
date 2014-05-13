@@ -2,7 +2,7 @@
 
 enum USER_NOTIFICATION_CONTENT_ACTION_TYPE
 {
-    USER_NOTIFICATION_CONTENT_ACTION_TYPE_CONTENT=0,
+    USER_NOTIFICATION_CONTENT_ACTION_TYPE_MARK_READ=0,
     USER_NOTIFICATION_CONTENT_ACTION_TYPE_SHOP_USER=1,
     USER_NOTIFICATION_CONTENT_ACTION_TYPE_SHOP_LIST=2,
     USER_NOTIFICATION_CONTENT_ACTION_TYPE_POPUP_URL=3,
@@ -43,7 +43,11 @@ enum USER_NOTIFICATION_CONTENT_STATUS
 -(enum USER_NOTIFICATION_CONTENT_READ_ACTION) enumReadAction;
 -(enum USER_NOTIFICATION_CONTENT_SHOP_LIST_DATA_TYPE) enumShopListDataType;
 
+-(void)markAndSendRead;
+
 @property (nonatomic, strong) NSNumber *titleHeight;
-@property (nonatomic, strong) NSNumber *descHeight;
+@property (nonatomic, strong) NSNumber *contentHeight;
+@property (nonatomic, strong) NSAttributedString *titleAttribute;
+@property (nonatomic, strong) NSAttributedString *contentAttribute;
 
 @end

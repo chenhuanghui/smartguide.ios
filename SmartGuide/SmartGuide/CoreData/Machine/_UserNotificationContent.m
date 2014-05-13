@@ -129,6 +129,19 @@
 	[self didChangeValueForKey:@"content"];
 }
 
+- (NSNumber*)displayType {
+	[self willAccessValueForKey:@"displayType"];
+	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"displayType"];
+	[self didAccessValueForKey:@"displayType"];
+	return result;
+}
+
+- (void)setDisplayType:(NSNumber*)value {
+	[self willChangeValueForKey:@"displayType"];
+	[self setPrimitiveValue:value forKey:@"displayType"];
+	[self didChangeValueForKey:@"displayType"];
+}
+
 - (NSNumber*)idNotification {
 	[self willAccessValueForKey:@"idNotification"];
 	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"idNotification"];

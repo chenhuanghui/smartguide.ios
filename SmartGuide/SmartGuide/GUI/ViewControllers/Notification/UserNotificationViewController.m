@@ -189,7 +189,7 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UserNotificationCell *cell=(UserNotificationCell*)[tableView cellForRowAtIndexPath:indexPath];
-    
+
     [self processUserNotification:cell.userNotification];
 }
 
@@ -200,7 +200,7 @@
     
     NSLog(@"processUserNotification %@",userNotification);
     
-    if(userNotification.enumStatus==USER_NOTIFICATION_STATUS_UNREAD || userNotification.enumReadAction==USER_NOTIFICATION_READ_ACTION_GOTO)
+    if(userNotification.enumStatus==USER_NOTIFICATION_STATUS_UNREAD || userNotification.enumReadAction==USER_NOTIFICATION_READ_ACTION_TOUCH)
     {
         [userNotification markAndSendRead];
     }

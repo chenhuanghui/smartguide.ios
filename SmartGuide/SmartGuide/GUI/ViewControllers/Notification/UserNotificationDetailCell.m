@@ -11,48 +11,37 @@
 
 @implementation UserNotificationDetailCell
 
--(void)loadWithUserNotificationDetail:(UserNotificationContent *)obj
+-(void)loadWithUserNotificationDetail:(UserNotificationContent *)obj displayType:(enum USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE)displayType
 {
     _obj=obj;
+    _displayType=displayType;
     
-    NSMutableDictionary *dict=[NSMutableDictionary dictionary];
-    [dict setObject:[UIFont fontWithName:@"Avenir-Heavy" size:13] forKey:NSFontAttributeName];
-    [dict setObject:[UIColor darkTextColor] forKey:NSForegroundColorAttributeName];
+    lblTime.text=obj.time;
+    lblTitle.attributedText=obj.titleAttribute;
+    lblContent.attributedText=obj.contentAttribute;
+    lblGoTo.text=obj.actionTitle;
+    [imgvIcon loadShopLogoWithURL:obj.logo];
     
-    NSMutableParagraphStyle *paraStyle=[NSMutableParagraphStyle new];
-    paraStyle.alignment=NSTextAlignmentJustified;
-    paraStyle.firstLineHeadIndent=0;
+    [lblTitle l_v_setH:obj.titleHeight.floatValue];
+    lblTitle.backgroundColor=[[UIColor redColor] colorWithAlphaComponent:0.3f];
     
-    [dict setObject:paraStyle forKey:NSParagraphStyleAttributeName];
+    [lblContent l_v_setY:lblTitle.l_v_y+lblTitle.l_v_h+5];
+    [lblContent l_v_setH:obj.contentHeight.floatValue];
+    lblContent.backgroundColor=[[UIColor blueColor] colorWithAlphaComponent:0.3f];
     
-    NSAttributedString *att=[[NSAttributedString alloc] initWithString:obj.title attributes:dict];
+    lblContent.hidden=displayType==USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE_TITLE;
     
-    lblTitle.attributedText=att;
+    bool hiddenButton=obj.actionTitle.length==0 || displayType==USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE_TITLE;
     
-    [dict setObject:[UIColor darkGrayColor] forKey:NSForegroundColorAttributeName];
-    [dict setObject:[UIFont fontWithName:@"Avenir-Roman" size:13] forKey:NSFontAttributeName];
+    lblGoTo.hidden=hiddenButton;
+    btnGo.hidden=hiddenButton;
     
-//    att=[[NSAttributedString alloc] initWithString:obj.desc attributes:dict];
-//    lblContent.attributedText=att;
-//
-//    lblTime.text=obj.time;
-//    [lblContent l_v_setY:39+obj.titleHeight.floatValue];
-//    lblGoTo.text=obj.goTo;
-//    [imgvIcon loadShopLogoWithURL:obj.logo];
-//    
-//    [lblTitle l_v_setH:obj.titleHeight.floatValue];
-//    [lblContent l_v_setH:obj.descHeight.floatValue];
-//    
-//    btnGo.hidden=obj.goTo.length==0;
-//    lblGoTo.hidden=obj.goTo.length==0;
+    btnLogo.userInteractionEnabled=obj.idShopLogo!=nil;
 }
 
--(void)awakeFromNib
+-(enum USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE)displayType
 {
-    [super awakeFromNib];
-    
-    lblTitle.textAlignment=NSTextAlignmentJustified;
-    lblContent.textAlignment=NSTextAlignmentJustified;
+    return _displayType;
 }
 
 -(UserNotificationContent *)userNotificationDetail
@@ -65,37 +54,79 @@
     return @"UserNotificationDetailCell";
 }
 
-+(float)heightWithUserNotificationDetail:(UserNotificationContent *)obj
++(float)heightWithUserNotificationDetail:(UserNotificationContent *)obj displayType:(enum USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE)displayType
 {
-    float height=129;
+    float height=85;
+    
+    if(!obj.titleAttribute)
+    {
+        NSMutableDictionary *dict=[NSMutableDictionary dictionary];
+        [dict setObject:[UIFont fontWithName:@"Avenir-Heavy" size:14] forKey:NSFontAttributeName];
+        [dict setObject:[UIColor darkTextColor] forKey:NSForegroundColorAttributeName];
+        
+        NSMutableParagraphStyle *paraStyle=[NSMutableParagraphStyle new];
+        paraStyle.alignment=NSTextAlignmentJustified;
+        
+        [dict setObject:paraStyle forKey:NSParagraphStyleAttributeName];
+        obj.titleAttribute=[[NSAttributedString alloc] initWithString:obj.title attributes:dict];
+    }
     
     if(obj.titleHeight.floatValue==-1)
     {
-        CGSize size=[obj.title sizeWithFont:[UIFont fontWithName:@"Avenir-Heavy" size:13] constrainedToSize:CGSizeMake(274, MAXFLOAT) lineBreakMode:NSLineBreakByTruncatingTail];
-        obj.titleHeight=@(size.height);
+        if(obj.title.length==0)
+            obj.titleHeight=@(0);
+        else
+        {
+            CGRect rect=[obj.titleAttribute boundingRectWithSize:CGSizeMake(274, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading context:nil];
+            obj.titleHeight=@(rect.size.height);
+        }
     }
     
-    height+=obj.titleHeight.floatValue;
-    
-    if(obj.descHeight.floatValue==-1)
+    if(!obj.contentAttribute)
     {
-//        CGSize size=[obj.desc sizeWithFont:[UIFont fontWithName:@"Avenir-Roman" size:13] constrainedToSize:CGSizeMake(274, MAXFLOAT) lineBreakMode:NSLineBreakByTruncatingTail];
-//        obj.descHeight=@(size.height);
+        NSMutableDictionary *dict=[NSMutableDictionary dictionary];
+        [dict setObject:[UIFont fontWithName:@"Avenir-Roman" size:13] forKey:NSFontAttributeName];
+        [dict setObject:[UIColor darkTextColor] forKey:NSForegroundColorAttributeName];
+        
+        NSMutableParagraphStyle *paraStyle=[NSMutableParagraphStyle new];
+        paraStyle.alignment=NSTextAlignmentJustified;
+        [dict setObject:paraStyle forKey:NSParagraphStyleAttributeName];
+        
+        obj.contentAttribute=[[NSAttributedString alloc] initWithString:obj.content attributes:dict];
     }
     
-    height+=obj.descHeight.floatValue;
+    if(obj.contentHeight.floatValue==-1)
+    {
+        if(obj.content.length==0)
+            obj.contentHeight=@(0);
+        else
+            obj.contentHeight=@([obj.content sizeWithFont:[UIFont fontWithName:@"Avenir-Roman" size:13] constrainedToSize:CGSizeMake(274, MAXFLOAT) lineBreakMode:NSLineBreakByTruncatingTail].height);
+    }
     
-//    height-=obj.goTo.length==0?44:0;
+    switch (displayType) {
+        case USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE_FULL:
+            height+=obj.titleHeight.floatValue+obj.contentHeight.floatValue;
+            
+            if(obj.actionTitle.length>0)
+                height+=44;
+            
+            break;
+            
+        case USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE_TITLE:
+            height+=obj.titleHeight.floatValue;
+            height-=10;
+            break;
+    }
     
     return height;
 }
 
 - (IBAction)btnGoTouchUpInside:(id)sender {
-    [self.delegate userNotificationDetailCellTouchedGo:self userNotificationDetail:_obj];
+    [self.delegate userNotificationDetailCellTouchedGo:self];
 }
 
-- (IBAction)btnGoToTouchUpInside:(id)sender {
-    [self.delegate userNotificationDetailCellTouchedGo:self userNotificationDetail:_obj];
+- (IBAction)btnLogoTouchUpInside:(id)sender {
+    [self.delegate userNotificationDetailCellTouchedLogo:self];
 }
 
 @end

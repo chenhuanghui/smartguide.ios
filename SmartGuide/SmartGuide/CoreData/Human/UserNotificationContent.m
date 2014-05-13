@@ -1,14 +1,22 @@
 #import "UserNotificationContent.h"
+#import "ASIOperationUserNotificationRead.h"
+
+@interface UserNotificationContent()<ASIOperationPostDelegate>
+{
+    ASIOperationUserNotificationRead *_operation;
+}
+
+@end
 
 @implementation UserNotificationContent
-@synthesize titleHeight,descHeight;
+@synthesize titleHeight,contentHeight,titleAttribute,contentAttribute;
 
 -(id)initWithEntity:(NSEntityDescription *)entity insertIntoManagedObjectContext:(NSManagedObjectContext *)context
 {
     self=[super initWithEntity:entity insertIntoManagedObjectContext:context];
     
     self.titleHeight=@(-1);
-    self.descHeight=@(-1);
+    self.contentHeight=@(-1);
     
     return self;
 }
@@ -60,7 +68,7 @@
             obj.url=[NSString stringWithStringDefault:data[@"url"]];
             break;
             
-        case USER_NOTIFICATION_CONTENT_ACTION_TYPE_CONTENT:
+        case USER_NOTIFICATION_CONTENT_ACTION_TYPE_MARK_READ:
         case USER_NOTIFICATION_CONTENT_ACTION_TYPE_LOGIN:
         case USER_NOTIFICATION_CONTENT_ACTION_TYPE_SCAN_CODE:
         case USER_NOTIFICATION_CONTENT_ACTION_TYPE_USER_PROMOTION:
@@ -88,8 +96,8 @@
 -(enum USER_NOTIFICATION_CONTENT_ACTION_TYPE)enumActionType
 {
     switch (self.actionType.integerValue) {
-        case USER_NOTIFICATION_CONTENT_ACTION_TYPE_CONTENT:
-            return USER_NOTIFICATION_CONTENT_ACTION_TYPE_CONTENT;
+        case USER_NOTIFICATION_CONTENT_ACTION_TYPE_MARK_READ:
+            return USER_NOTIFICATION_CONTENT_ACTION_TYPE_MARK_READ;
             
         case USER_NOTIFICATION_CONTENT_ACTION_TYPE_LOGIN:
             return USER_NOTIFICATION_CONTENT_ACTION_TYPE_LOGIN;
@@ -113,7 +121,7 @@
             return USER_NOTIFICATION_CONTENT_ACTION_TYPE_USER_SETTING;
             
         default:
-            return USER_NOTIFICATION_CONTENT_ACTION_TYPE_CONTENT;
+            return USER_NOTIFICATION_CONTENT_ACTION_TYPE_MARK_READ;
     }
 }
 
@@ -166,9 +174,49 @@
     return @"Nov 22, 2013 11:23 AM";
 }
 
--(NSString *)title1
+-(NSString *)title
 {
-    return @"Lorem ipsum dolor sit amet, consectetuer adipiscing elit, ";
+    return @"Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim";
+}
+
+-(NSString *)actionTitle
+{
+    return @"";
+}
+
+-(NSString *)content
+{
+    return @"Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim";
+}
+
+-(void)markAndSendRead
+{
+    if(_operation || self.enumStatus==USER_NOTIFICATION_CONTENT_STATUS_READ)
+        return;
+    
+    self.status=@(USER_NOTIFICATION_CONTENT_STATUS_READ);
+    [[DataManager shareInstance] save];
+    
+    _operation=[[ASIOperationUserNotificationRead alloc] initWithIDNotification:self.idNotification.integerValue userLat:userLat() userLng:userLng() uuid:UUID()];
+    _operation.delegatePost=self;
+    
+    [_operation startAsynchronous];
+}
+
+-(void)ASIOperaionPostFinished:(ASIOperationPost *)operation
+{
+    _operation=nil;
+}
+
+-(void)ASIOperaionPostFailed:(ASIOperationPost *)operation
+{
+    _operation=nil;
+}
+
+-(void)dealloc
+{
+    _operation.delegatePost=nil;
+    _operation=nil;
 }
 
 @end

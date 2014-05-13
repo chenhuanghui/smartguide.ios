@@ -9,6 +9,7 @@
 #define UserNotificationContent_ActionTitle @"actionTitle"
 #define UserNotificationContent_ActionType @"actionType"
 #define UserNotificationContent_Content @"content"
+#define UserNotificationContent_DisplayType @"displayType"
 #define UserNotificationContent_IdNotification @"idNotification"
 #define UserNotificationContent_IdPlacelist @"idPlacelist"
 #define UserNotificationContent_IdShop @"idShop"
@@ -40,6 +41,7 @@
 @property (nonatomic, retain) NSString* actionTitle;
 @property (nonatomic, retain) NSNumber* actionType;
 @property (nonatomic, retain) NSString* content;
+@property (nonatomic, retain) NSNumber* displayType;
 @property (nonatomic, retain) NSNumber* idNotification;
 @property (nonatomic, retain) NSNumber* idPlacelist;
 @property (nonatomic, retain) NSNumber* idShop;

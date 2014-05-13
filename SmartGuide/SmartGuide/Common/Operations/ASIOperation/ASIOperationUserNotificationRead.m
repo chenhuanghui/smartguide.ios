@@ -7,6 +7,8 @@
 //
 
 #import "ASIOperationUserNotificationRead.h"
+#import "UserNotification.h"
+#import "UserNotificationContent.h"
 
 @implementation ASIOperationUserNotificationRead
 
@@ -24,7 +26,32 @@
 
 -(void)onCompletedWithJSON:(NSArray *)json
 {
+    NSArray *array=[UserNotification allObjects];
+    bool hasChanged=false;
+    int idNotification=[self.keyValue[@"idNotification"] integerValue];
     
+    for(UserNotification *obj in array)
+    {
+        if(obj.idNotification.integerValue==idNotification && obj.enumStatus==USER_NOTIFICATION_STATUS_UNREAD)
+        {
+            obj.status=@(USER_NOTIFICATION_STATUS_READ);
+            hasChanged=true;
+        }
+    }
+    
+    array=[UserNotificationContent allObjects];
+    
+    for(UserNotificationContent *obj in array)
+    {
+        if(obj.idNotification.integerValue==idNotification && obj.enumStatus==USER_NOTIFICATION_CONTENT_STATUS_UNREAD)
+        {
+            obj.status=@(USER_NOTIFICATION_CONTENT_STATUS_READ);
+            hasChanged=true;
+        }
+    }
+    
+    if(hasChanged)
+        [[DataManager shareInstance] save];
 }
 
 @end

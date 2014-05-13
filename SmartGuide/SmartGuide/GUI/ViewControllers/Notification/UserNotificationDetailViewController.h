@@ -25,3 +25,9 @@
 -(UserNotificationDetailViewController*) initWithUserNotification:(UserNotification*) obj;
 
 @end
+
+@interface UserNotificationContent(DisplayType)
+
+-(enum USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE) enumDisplayType;
+
+@end
