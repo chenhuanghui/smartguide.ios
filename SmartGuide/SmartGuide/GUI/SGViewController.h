@@ -69,7 +69,7 @@
 #define SCREEN_CODE_RECOMMENDATION @"S020" //màn hình Search lúc chưa nhập keyword
 #define SCREEN_CODE_USER_PROMOTION_LIST @"S021"
 
-@class SGViewController;
+@class SGViewController,NotificationInfo;
 
 @interface SGViewController : UIViewController<SGViewControllerHandle>
 {
@@ -87,6 +87,7 @@
 -(void) showActionSheet:(UIActionSheet*) actionSheet;
 
 +(NSString*) screenCode;
+-(void) receiveRemoteNotification:(NotificationInfo*) obj;
 
 @property (nonatomic, weak) id<SGViewControllerDelegate> delegate;
 

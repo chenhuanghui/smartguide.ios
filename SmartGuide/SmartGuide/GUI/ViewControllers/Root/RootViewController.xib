@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4510" systemVersion="12F37" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="5053" systemVersion="12F37" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
         <deployment defaultVersion="1536" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3742"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RootViewController">
             <connections>
+                <outlet property="btnNoti" destination="i44-9T-ZGn" id="ZOc-pi-5q7"/>
                 <outlet property="containView" destination="clU-Nc-up4" id="pz2-XN-V9B"/>
                 <outlet property="contentView" destination="RQU-48-iTN" id="LzY-Oz-Za0"/>
                 <outlet property="leftView" destination="C1G-2n-zEl" id="aoR-19-5lQ"/>
                 <outlet property="scrollContent" destination="L4b-Ry-4aM" id="7yP-tI-2R8"/>
-                <outlet property="topView" destination="c5x-Wd-VX5" id="hD5-97-UWt"/>
+                <outlet property="txtNoti" destination="7G8-o1-0Yc" id="1pe-Xb-kZb"/>
                 <outlet property="view" destination="1" id="3"/>
             </connections>
         </placeholder>
@@ -43,9 +44,27 @@
                                 <outlet property="delegate" destination="-1" id="2HB-sV-ObX"/>
                             </connections>
                         </scrollView>
-                        <view hidden="YES" contentMode="scaleToFill" id="c5x-Wd-VX5" userLabel="topView">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <view hidden="YES" contentMode="scaleToFill" id="FIt-Vi-Cdf">
+                            <rect key="frame" x="0.0" y="442" width="320" height="38"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                            <subviews>
+                                <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="7G8-o1-0Yc" customClass="TextFieldSearch">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="38"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="14"/>
+                                    <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="search" enablesReturnKeyAutomatically="YES"/>
+                                </textField>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="i44-9T-ZGn">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="38"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <state key="normal">
+                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="btnNotiTouchUpInside:" destination="-1" eventType="touchUpInside" id="GyP-PO-Uuy"/>
+                                    </connections>
+                                </button>
+                            </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         </view>
                     </subviews>

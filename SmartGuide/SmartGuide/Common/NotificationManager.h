@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@class NotificationInfo;
+@class NotificationInfo,UserNotification;
 
 enum NOTIFICATION_CHECK_STATE
 {
@@ -69,7 +69,7 @@ enum NOTI_READ_ACTION
     NOTI_READ_ACTION_GO_TO=1,
 };
 
-@interface NotificationInfo : NSObject
+@interface NotificationInfo : NSObject<NSCopying>
 {
     bool _isSentRead;
 }
@@ -88,5 +88,10 @@ enum NOTI_READ_ACTION
 @property (nonatomic, strong) NSNumber *timer;
 @property (nonatomic, strong) NSNumber *actionType;
 @property (nonatomic, strong) NSNumber *readAction;
+@property (nonatomic, strong) NSNumber *idShop;
+@property (nonatomic, strong) NSNumber *idPlacelist;
+@property (nonatomic, strong) NSString *keywords;
+@property (nonatomic, strong) NSString *idShops;
+@property (nonatomic, strong) NSString *url;
 
 @end

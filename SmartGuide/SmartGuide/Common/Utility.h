@@ -404,6 +404,7 @@ float roundToN(float num, int decimals);
 @interface NSObject(Utility)
 
 -(bool) isNullData;
+-(bool) isHasString;
 
 @end
 

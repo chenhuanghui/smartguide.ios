@@ -147,6 +147,11 @@ static char presentSGViewControlelrKey;
     [actionSheet showInView:[GUIManager shareInstance].rootNavigation.view];
 }
 
+-(void)receiveRemoteNotification:(NotificationInfo *)obj
+{
+    
+}
+
 @end
 
 @implementation UIViewController(PresentViewController)

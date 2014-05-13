@@ -19,6 +19,9 @@
 #import "UserSettingViewController.h"
 #import "SearchShopViewController.h"
 #import "NotificationManager.h"
+#import "UserNotificationViewController.h"
+#import "UserNotificationDetailViewController.h"
+#import "QRCodeViewController.h"
 
 @interface RootViewController ()<NavigationControllerDelegate,UIScrollViewDelegate,HomeControllerDelegate,UserPromotionDelegate,SGUserSettingControllerDelegate,WebViewDelegate,ShopUserDelegate,UIGestureRecognizerDelegate>
 
@@ -178,39 +181,6 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
--(void)moveToTopView:(SGViewController *)displayView
-{
-    self.topView.alpha=0;
-    self.topView.hidden=false;
-    
-    [self.topView l_v_setO:displayView.l_v_o];
-    
-    [displayView l_v_setO:CGPointZero];
-    [self.topView l_v_setS:displayView.l_v_s];
-    
-    [self addChildViewController:displayView];
-    [self.topView addSubview:displayView.view];
-    
-    [UIView animateWithDuration:DURATION_DEFAULT animations:^{
-        self.topView.alpha=1;
-    } completion:^(BOOL finished) {
-        
-    }];
-}
-
--(void)removeTopView:(SGViewController *)displayView
-{
-    [UIView animateWithDuration:DURATION_DEFAULT animations:^{
-        self.topView.alpha=0;
-    } completion:^(BOOL finished) {
-        
-        [displayView.view removeFromSuperview];
-        [displayView removeFromParentViewController];
-        
-        self.topView.hidden=true;
-    }];
 }
 
 -(void)dealloc
@@ -573,6 +543,107 @@
     vc.delegate=self;
     
     [[GUIManager shareInstance] presentSGViewController:vc completion:nil];
+}
+
+-(void)processNotificationInfo:(NotificationInfo *)obj
+{
+    switch (obj.enumActionType) {
+        case NOTI_ACTION_TYPE_GO_CONTENT:
+        {
+            UserNotificationViewController *vc=[[UserNotificationViewController alloc] init];
+            vc.delegate=self;
+            
+            [self.contentNavigation pushViewController:vc animated:true];
+        }
+            break;
+            
+        case NOTI_ACTION_TYPE_LOGIN:
+            [[GUIManager shareInstance] showLoginControll:^(bool isLogin) {
+                
+            }];
+            break;
+            
+        case NOTI_ACTION_TYPE_POPUP_URL:
+            [self showWebviewWithURL:URL(obj.url)];
+            break;
+            
+        case NOTI_ACTION_TYPE_SCAN_CODE:
+        {
+            [self showQRCodeWithContorller:self inView:self.view withAnimationType:QRCODE_ANIMATION_TOP_BOT screenCode:@""];
+        }
+            break;
+            
+        case NOTI_ACTION_TYPE_SHOP_LIST:
+            if(obj.idPlacelist)
+                [self showShopListWithIDPlace:obj.idPlacelist.integerValue];
+            else if(obj.keywords.length>0)
+                [self showShopListWithKeywordsShopList:obj.keywords];
+            else if(obj.idShops.length>0)
+                [self showShopListWithIDShops:obj.idShops];
+            break;
+            
+        case NOTI_ACTION_TYPE_SHOP_USER:
+            [self presentShopUserWithIDShop:obj.idShop.integerValue];
+            break;
+            
+        case NOTI_ACTION_TYPE_USER_PROMOTION:
+            break;
+            
+        case NOTI_ACTION_TYPE_USER_SETTING:
+            [self showUserSetting];
+            break;
+    }
+}
+
+-(void) autoHideNotificationInfo
+{
+    [UIView animateWithDuration:0.3f animations:^{
+        [notiView l_v_setX:320];
+    } completion:^(BOOL finished) {
+        notiView.hidden=true;
+    }];
+}
+
+-(void)showNotificationInfo:(NotificationInfo *)obj
+{
+    if(self.visibleNotificaitonInfo)
+        return;
+    
+    self.visibleNotificaitonInfo=obj;
+    [notiView l_v_setX:320];
+    notiView.hidden=false;
+    txtNoti.text=obj.message;
+    
+    [UIView animateWithDuration:0.3f animations:^{
+        [notiView l_v_setX:0];
+    } completion:^(BOOL finished) {
+        if(self.visibleNotificaitonInfo.timer.integerValue!=0)
+        {
+            [self performSelector:@selector(autoHideNotificationInfo) withObject:nil afterDelay:self.visibleNotificaitonInfo.timer.integerValue];
+        }
+    }];
+}
+
+- (IBAction)btnNotiTouchUpInside:(id)sender {
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(autoHideNotificationInfo) object:nil];
+    
+    [self autoHideNotificationInfo];
+
+    for(SGViewController *vc in self.contentNavigation.viewControllers)
+    {
+//        if([vc respondsToSelector:@selector(receiveRemoteNotification:)])
+//            [vc receiveRemoteNotification:<#(NotificationInfo *)#>]
+            
+    }
+    
+    if(!([self.contentNavigation.visibleViewController isKindOfClass:[UserNotificationViewController class]]
+       || [self.contentNavigation.visibleViewController isKindOfClass:[UserNotificationDetailViewController class]]))
+    {
+        UserNotificationViewController *vc=[[UserNotificationViewController alloc] init];
+        vc.delegate=self;
+        
+        [self.contentNavigation pushViewController:vc animated:true];
+    }
 }
 
 @end

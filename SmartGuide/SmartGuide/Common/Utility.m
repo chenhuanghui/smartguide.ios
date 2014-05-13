@@ -2403,6 +2403,22 @@ static const NSString *KEY_HIT_TEST_EDGE_INSETS = @"HitTestEdgeInsets";
     return false;
 }
 
+-(bool)isHasString
+{
+    if(!self)
+        return false;
+    
+    if([self isKindOfClass:[NSNull class]])
+        return false;
+    
+    if([self isKindOfClass:[NSString class]])
+    {
+        return [((NSString*)self) length]>0;
+    }
+    
+    return false;
+}
+
 @end
 
 @implementation NSFileManager(Utility)

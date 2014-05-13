@@ -7,6 +7,7 @@
 //
 
 #import "SGViewController.h"
+#import "TextFieldSearch.h"
 
 @class NavigationViewController,ScrollViewRoot,SGNavigationController;
 
@@ -18,6 +19,9 @@
     __weak IBOutlet UIView *leftView;
     UITapGestureRecognizer *tapGes;
     bool _isAnimatingSetting;
+    __weak IBOutlet UIView *notiView;
+    __weak IBOutlet TextFieldSearch *txtNoti;
+    __weak IBOutlet UIButton *btnNoti;
 }
 
 -(RootViewController*) init;
@@ -39,15 +43,17 @@
 -(void) showTutorial;
 -(void) showTerms;
 -(void) showWebviewWithURL:(NSURL*) url;
+-(void) processNotificationInfo:(NotificationInfo*) obj;
+-(void) showNotificationInfo:(NotificationInfo*) obj;
 
 @property (weak, nonatomic) IBOutlet UIView *containView;
 @property (weak, nonatomic) IBOutlet UIView *contentView;
-@property (weak, nonatomic) IBOutlet UIView *topView;
 @property (nonatomic, strong) SGNavigationController *contentNavigation;
 
 @property (nonatomic, readonly, assign) CGRect containFrame;
 @property (nonatomic, readonly, assign) CGRect contentFrame;
 @property (nonatomic, strong) NavigationViewController *settingController;
+@property (nonatomic, strong) NotificationInfo* visibleNotificaitonInfo;
 
 @end
 
