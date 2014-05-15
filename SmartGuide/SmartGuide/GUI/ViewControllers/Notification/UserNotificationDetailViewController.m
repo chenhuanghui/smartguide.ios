@@ -11,6 +11,7 @@
 #import "LoadingMoreCell.h"
 #import "GUIManager.h"
 #import "QRCodeViewController.h"
+#import "UserNotificationViewController.h"
 
 @interface UserNotificationDetailViewController ()<UITableViewDataSource,UITableViewDelegate,ASIOperationPostDelegate,UserNotificationDetailCellDelegate>
 
@@ -298,6 +299,15 @@
         case USER_NOTIFICATION_ACTION_TYPE_USER_SETTING:
             [[GUIManager shareInstance].rootViewController showUserSetting];
             break;
+    }
+}
+
+-(void)processRemoteNotification:(NotificationInfo *)obj
+{
+    if(self.navigationController.visibleViewController==self)
+    {
+        [self.navigationController popViewControllerAnimated:true];
+        [self.notificationController scrollToTop:true];
     }
 }
 

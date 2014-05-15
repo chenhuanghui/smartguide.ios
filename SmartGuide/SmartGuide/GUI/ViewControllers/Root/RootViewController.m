@@ -63,6 +63,10 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
+#if !DEBUG
+    btnMakeNotification.hidden=true;
+#endif
+    
     self.contentNavigation.view.autoresizingMask=UIViewAutoresizingAll();
     [self.contentView addSubview:self.contentNavigation.view];
     [self.contentNavigation.view l_v_setS:self.contentView.l_v_s];
@@ -94,6 +98,19 @@
     tapGes=tap;
     
     [[NotificationManager shareInstance] requestNotificationCheck];
+}
+
+-(NSArray *)registerNotifications
+{
+    return @[NOTIFICATION_RECEIVED_REMOTE_NOTIFICATION];
+}
+
+-(void)receiveNotification:(NSNotification *)notification
+{
+    if([notification.name isEqualToString:NOTIFICATION_RECEIVED_REMOTE_NOTIFICATION])
+    {
+        [self showNotificationInfo];
+    }
 }
 
 -(void) panGes:(UIPanGestureRecognizer*) pan
@@ -601,18 +618,48 @@
         [notiView l_v_setX:320];
     } completion:^(BOOL finished) {
         notiView.hidden=true;
+        [[NotificationManager shareInstance].notifications removeObject:self.visibleNotificaitonInfo];
+        self.visibleNotificaitonInfo=nil;
+        
+        [self showNotificationInfo];
     }];
 }
 
--(void)showNotificationInfo:(NotificationInfo *)obj
+-(void)presentSGViewControllerFinished
 {
-    if(self.visibleNotificaitonInfo)
+    [self showNotificationInfo];
+}
+
+-(bool) isShowingNotification
+{
+    return !notiView.hidden;
+}
+
+-(void)showNotificationInfo
+{
+    // Check đang hiển thị notification hoặc popup
+    if([self isShowingNotification] || self.presentSGViewControlelr)
         return;
     
-    self.visibleNotificaitonInfo=obj;
+    if([NotificationManager shareInstance].notifications.count==0)
+        return;
+    
+    self.visibleNotificaitonInfo=[NotificationManager shareInstance].notifications[0];
+    
+    [self displayNotification];
+
+    for(SGViewController *vc in self.contentNavigation.viewControllers)
+    {
+        if([vc respondsToSelector:@selector(receiveRemoteNotification:)])
+            [vc receiveRemoteNotification:self.visibleNotificaitonInfo];
+    }
+}
+
+-(void) displayNotification
+{
     [notiView l_v_setX:320];
     notiView.hidden=false;
-    txtNoti.text=obj.message;
+    txtNoti.text=self.visibleNotificaitonInfo.message;
     
     [UIView animateWithDuration:0.3f animations:^{
         [notiView l_v_setX:0];
@@ -627,13 +674,13 @@
 - (IBAction)btnNotiTouchUpInside:(id)sender {
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(autoHideNotificationInfo) object:nil];
     
+    NotificationInfo *obj=[self.visibleNotificaitonInfo copy];
     [self autoHideNotificationInfo];
-
+    
     for(SGViewController *vc in self.contentNavigation.viewControllers)
     {
-//        if([vc respondsToSelector:@selector(receiveRemoteNotification:)])
-//            [vc receiveRemoteNotification:<#(NotificationInfo *)#>]
-            
+        if([vc respondsToSelector:@selector(processNotificationInfo:)])
+            [vc processRemoteNotification:obj];
     }
     
     if(!([self.contentNavigation.visibleViewController isKindOfClass:[UserNotificationViewController class]]
@@ -644,6 +691,48 @@
         
         [self.contentNavigation pushViewController:vc animated:true];
     }
+}
+
+- (IBAction)btnMakeNotificationTouchUpInside:(id)sender {
+#if DEBUG
+    
+    NSMutableDictionary *dict=[NSMutableDictionary dictionary];
+    
+    [dict setObject:@(rand()) forKey:@"idNotification"];
+    [dict setObject:@"sender" forKey:@"sender"];
+    [dict setObject:@"Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat" forKey:@"content"];
+    [dict setObject:rand()%2==0?@"":@"0,3,5,10" forKey:@"highlight"];
+    [dict setObject:[NSString stringWithFormat:@"%@",[NSDate date]] forKey:@"time"];
+    [dict setObject:@(rand()%2==0?0:random_int(3, 10)) forKey:@"timer"];
+    
+    [dict setObject:@(_loopMakeNotification) forKey:@"actionType"];
+    
+    if(_loopMakeNotification==1)
+        [dict setObject:@(123) forKey:@"idShop"];
+    else if(_loopMakeNotification==2)
+    {
+        int rd=random_int(0, 2);
+        
+        if(rd==0)
+            [dict setObject:@(0) forKey:@"idPlacelist"];
+        else if(rd==1)
+            [dict setObject:@"a" forKey:@"keywords"];
+        else if(rd==2)
+            [dict setObject:@"123,124,125" forKey:@"idShops"];
+    }
+    else if(_loopMakeNotification==3)
+        [dict setObject:@"http:\\infory.vn" forKey:@"url"];
+    
+    _loopMakeNotification++;
+    
+    if(_loopMakeNotification==7)
+        _loopMakeNotification=0;
+    
+    NSLog(@"make random notification %@",dict);
+    
+    [[NotificationManager shareInstance] receiveRemoteNotification:[NSDictionary dictionaryWithObject:dict forKey:@"aps"]];
+    
+#endif
 }
 
 @end

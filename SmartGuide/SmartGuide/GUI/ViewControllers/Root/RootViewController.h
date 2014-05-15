@@ -22,6 +22,11 @@
     __weak IBOutlet UIView *notiView;
     __weak IBOutlet TextFieldSearch *txtNoti;
     __weak IBOutlet UIButton *btnNoti;
+    __weak IBOutlet UIButton *btnMakeNotification;
+    
+#if DEBUG
+    int _loopMakeNotification;
+#endif
 }
 
 -(RootViewController*) init;
@@ -44,7 +49,6 @@
 -(void) showTerms;
 -(void) showWebviewWithURL:(NSURL*) url;
 -(void) processNotificationInfo:(NotificationInfo*) obj;
--(void) showNotificationInfo:(NotificationInfo*) obj;
 
 @property (weak, nonatomic) IBOutlet UIView *containView;
 @property (weak, nonatomic) IBOutlet UIView *contentView;

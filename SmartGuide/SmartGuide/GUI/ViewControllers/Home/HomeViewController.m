@@ -104,13 +104,12 @@
     
     [self displayNotification];
     
-    [[GUIManager shareInstance].rootViewController showNotificationInfo:[[NotificationManager shareInstance].launchNotification copy]];
-    [NotificationManager shareInstance].launchNotification=nil;
     if([NotificationManager shareInstance].launchNotification)
     {
         NotificationInfo *obj=[[NotificationManager shareInstance].launchNotification copy];
-        [[GUIManager shareInstance].rootViewController showNotificationInfo:obj];
         [NotificationManager shareInstance].launchNotification=nil;
+        
+        [[GUIManager shareInstance].rootViewController processNotificationInfo:obj];
     }
 }
 

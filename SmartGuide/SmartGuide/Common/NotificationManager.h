@@ -93,5 +93,10 @@ enum NOTI_READ_ACTION
 @property (nonatomic, strong) NSString *keywords;
 @property (nonatomic, strong) NSString *idShops;
 @property (nonatomic, strong) NSString *url;
+@property (nonatomic, strong) NSString *sender;
+@property (nonatomic, strong) NSString *highlight;
+@property (nonatomic, strong) NSString *time;
+@property (nonatomic, strong) NSString *content;
+@property (nonatomic, strong) NSArray *highlightIndex;
 
 @end

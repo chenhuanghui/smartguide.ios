@@ -16,6 +16,7 @@
 #import "SGNavigationController.h"
 #import "QRCodeViewController.h"
 #import "ASIOperationUserNotification.h"
+#import "NotificationManager.h"
 
 @interface UserNotificationViewController ()<UITableViewDataSource,UITableViewDelegate,UserNotificationCellDelegate,ASIOperationPostDelegate,UIActionSheetDelegate>
 {
@@ -478,6 +479,34 @@
     [self makeData];
     
     [table reloadData];
+}
+
+-(void)receiveRemoteNotification:(NotificationInfo *)obj
+{
+    UserNotification *noti=[UserNotification makeWithNotificationInfo:obj];
+    [[DataManager shareInstance] save];
+    
+    [table beginUpdates];
+    
+    if(_userNotification.count==0)
+        [_userNotification addObject:noti];
+    else
+        [_userNotification insertObject:noti atIndex:0];
+    
+    [table insertRowsAtIndexPaths:@[indexPath(0, 0)] withRowAnimation:UITableViewRowAnimationAutomatic];
+    
+    [table endUpdates];
+}
+
+-(void)processRemoteNotification:(NotificationInfo *)obj
+{
+    if(self.navigationController.visibleViewController==self)
+        [table setContentOffset:CGPointZero animated:true];
+}
+
+-(void)scrollToTop:(bool)animated
+{
+    [table setContentOffset:CGPointZero animated:animated];
 }
 
 @end

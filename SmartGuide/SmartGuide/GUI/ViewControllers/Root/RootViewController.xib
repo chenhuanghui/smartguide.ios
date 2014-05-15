@@ -7,6 +7,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RootViewController">
             <connections>
+                <outlet property="btnMakeNotification" destination="quv-Xv-3mE" id="U1I-1L-jxH"/>
                 <outlet property="btnNoti" destination="i44-9T-ZGn" id="ZOc-pi-5q7"/>
                 <outlet property="containView" destination="clU-Nc-up4" id="pz2-XN-V9B"/>
                 <outlet property="contentView" destination="RQU-48-iTN" id="LzY-Oz-Za0"/>
@@ -67,6 +68,14 @@
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         </view>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="quv-Xv-3mE">
+                            <rect key="frame" x="0.0" y="404" width="120" height="38"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <state key="normal" title="Make Notification"/>
+                            <connections>
+                                <action selector="btnMakeNotificationTouchUpInside:" destination="-1" eventType="touchUpInside" id="5Ha-tP-XYm"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>

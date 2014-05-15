@@ -25,7 +25,6 @@ static NotificationManager *_notificationManager=nil;
 @end
 
 @implementation NotificationManager
-@synthesize totalNotification;
 
 +(NotificationManager *)shareInstance
 {
@@ -128,15 +127,7 @@ static NotificationManager *_notificationManager=nil;
         [self.notifications addObject:obj];
         self.totalNotification=@(self.totalNotification.integerValue+1);
         
-        [self startShowNotification];
-    }
-}
-
--(void) startShowNotification
-{
-    if(self.notifications.count>0)
-    {
-        [[GUIManager shareInstance].rootViewController showNotificationInfo:self.notifications[0]];
+        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_RECEIVED_REMOTE_NOTIFICATION object:nil];
     }
 }
 
@@ -166,16 +157,6 @@ static NotificationManager *_notificationManager=nil;
     NotificationInfo *obj=[NotificationInfo notificationInfoWithRemoteNotification:apsInfo];
     
     self.launchNotification=obj;
-}
-
--(void)setTotalNotification:(NSNumber *)totalNotification_
-{
-    bool hasChange=totalNotification.integerValue!=totalNotification_.integerValue;
-    
-    totalNotification=totalNotification_;
-    
-    if(hasChange)
-        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_TOTAL_NOTIFICATION_CHANGED object:nil];
 }
 
 @end
@@ -213,6 +194,15 @@ static NotificationManager *_notificationManager=nil;
         obj.timer=[NSNumber numberWithObject:obj.dataJson[@"timer"]];
         obj.actionType=[NSNumber numberWithObject:obj.dataJson[@"actionType"]];
         obj.readAction=[NSNumber numberWithObject:obj.dataJson[@"readAction"]];
+        obj.sender=[NSString stringWithStringDefault:obj.dataJson[@"sender"]];
+        obj.content=[NSString stringWithStringDefault:obj.dataJson[@"content"]];
+        obj.highlight=[NSString stringWithStringDefault:obj.dataJson[@"highlight"]];
+        obj.time=[NSString stringWithStringDefault:obj.dataJson[@"time"]];
+        
+        if(obj.highlight.length>0)
+        {
+            obj.highlightIndex=[obj.highlight componentsSeparatedByString:@","];
+        }
         
         switch (obj.enumActionType) {
             case NOTI_ACTION_TYPE_SHOP_USER:
@@ -239,16 +229,6 @@ static NotificationManager *_notificationManager=nil;
     
     if(!obj.dataJson)
         obj.dataJson=[NSDictionary dictionary];
-    
-    return obj;
-}
-
-+(NotificationInfo *)notificationInfoWithNotificationContent:(NSDictionary *)dict
-{
-    NotificationInfo *obj=[NotificationInfo new];
-    
-    obj.idNotification=[NSNumber numberWithObject:dict[@"idNotification"]];
-    
     
     return obj;
 }

@@ -32,6 +32,8 @@ enum USER_NOTIFICATION_READ_ACTION
     USER_NOTIFICATION_READ_ACTION_GOTO=1,
 };
 
+@class NotificationInfo;
+
 @interface UserNotification : _UserNotification 
 {
 }
@@ -49,5 +51,11 @@ enum USER_NOTIFICATION_READ_ACTION
 
 @property (nonatomic, strong) NSNumber *contentHeight;
 @property (nonatomic, strong) NSMutableAttributedString *contentAttribute;
+
+@end
+
+@interface UserNotification(NotificationInfo)
+
++(UserNotification*) makeWithNotificationInfo:(NotificationInfo*) info;
 
 @end

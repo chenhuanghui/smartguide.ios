@@ -88,6 +88,7 @@
 
 +(NSString*) screenCode;
 -(void) receiveRemoteNotification:(NotificationInfo*) obj;
+-(void) processRemoteNotification:(NotificationInfo*) obj;//user touch notification
 
 @property (nonatomic, weak) id<SGViewControllerDelegate> delegate;
 
@@ -99,5 +100,6 @@
 
 -(void)presentSGViewController:(UIViewController *)viewControllerToPresent completion:(void (^)(void))completion;
 -(void)dismissSGViewControllerCompletion:(void (^)(void))completion;
+-(void) presentSGViewControllerFinished;
 
 @end

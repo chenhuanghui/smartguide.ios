@@ -152,6 +152,11 @@ static char presentSGViewControlelrKey;
     
 }
 
+-(void)processRemoteNotification:(NotificationInfo *)obj
+{
+    
+}
+
 @end
 
 @implementation UIViewController(PresentViewController)
@@ -218,7 +223,14 @@ static char presentSGViewControlelrKey;
             _completion();
             _completion=nil;
         }
+        
+        [self presentSGViewControllerFinished];
     }];
+}
+
+-(void)presentSGViewControllerFinished
+{
+    
 }
 
 @end

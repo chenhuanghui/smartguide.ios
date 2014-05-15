@@ -10,6 +10,8 @@
 #import "UserNotification.h"
 #import "ASIOperationUserNotificationContent.h"
 
+@class UserNotificationViewController;
+
 @interface UserNotificationDetailViewController : SGViewController
 {
     __weak UserNotification *_obj;
@@ -23,6 +25,8 @@
 }
 
 -(UserNotificationDetailViewController*) initWithUserNotification:(UserNotification*) obj;
+
+@property (nonatomic, weak) UserNotificationViewController *notificationController;
 
 @end
 
