@@ -109,7 +109,13 @@
 {
     if([notification.name isEqualToString:NOTIFICATION_RECEIVED_REMOTE_NOTIFICATION])
     {
-        [self showNotificationInfo];
+        for(SGViewController *vc in self.contentNavigation.viewControllers)
+        {
+            if([vc respondsToSelector:@selector(receiveRemoteNotification:)])
+                [vc receiveRemoteNotification:notification.object];
+        }
+        
+        [self showNotificationInfo:notification.object];
     }
 }
 
@@ -562,10 +568,10 @@
     [[GUIManager shareInstance] presentSGViewController:vc completion:nil];
 }
 
--(void)processNotificationInfo:(NotificationInfo *)obj
+-(void)processNotificationInfo:(UserNotification *)obj
 {
     switch (obj.enumActionType) {
-        case NOTI_ACTION_TYPE_GO_CONTENT:
+        case USER_NOTIFICATION_ACTION_TYPE_CONTENT:
         {
             UserNotificationViewController *vc=[[UserNotificationViewController alloc] init];
             vc.delegate=self;
@@ -574,23 +580,23 @@
         }
             break;
             
-        case NOTI_ACTION_TYPE_LOGIN:
+        case USER_NOTIFICATION_ACTION_TYPE_LOGIN:
             [[GUIManager shareInstance] showLoginControll:^(bool isLogin) {
                 
             }];
             break;
             
-        case NOTI_ACTION_TYPE_POPUP_URL:
+        case USER_NOTIFICATION_ACTION_TYPE_POPUP_URL:
             [self showWebviewWithURL:URL(obj.url)];
             break;
             
-        case NOTI_ACTION_TYPE_SCAN_CODE:
+        case USER_NOTIFICATION_ACTION_TYPE_SCAN_CODE:
         {
             [self showQRCodeWithContorller:self inView:self.view withAnimationType:QRCODE_ANIMATION_TOP_BOT screenCode:@""];
         }
             break;
             
-        case NOTI_ACTION_TYPE_SHOP_LIST:
+        case USER_NOTIFICATION_ACTION_TYPE_SHOP_LIST:
             if(obj.idPlacelist)
                 [self showShopListWithIDPlace:obj.idPlacelist.integerValue];
             else if(obj.keywords.length>0)
@@ -599,14 +605,14 @@
                 [self showShopListWithIDShops:obj.idShops];
             break;
             
-        case NOTI_ACTION_TYPE_SHOP_USER:
+        case USER_NOTIFICATION_ACTION_TYPE_SHOP_USER:
             [self presentShopUserWithIDShop:obj.idShop.integerValue];
             break;
             
-        case NOTI_ACTION_TYPE_USER_PROMOTION:
+        case USER_NOTIFICATION_ACTION_TYPE_USER_PROMOTION:
             break;
             
-        case NOTI_ACTION_TYPE_USER_SETTING:
+        case USER_NOTIFICATION_ACTION_TYPE_USER_SETTING:
             [self showUserSetting];
             break;
     }
@@ -621,13 +627,19 @@
         [[NotificationManager shareInstance].notifications removeObject:self.visibleNotificaitonInfo];
         self.visibleNotificaitonInfo=nil;
         
-        [self showNotificationInfo];
+        if([NotificationManager shareInstance].notifications.count>0)
+        {
+            [self showNotificationInfo:[NotificationManager shareInstance].notifications[0]];
+        }
     }];
 }
 
 -(void)presentSGViewControllerFinished
 {
-    [self showNotificationInfo];
+    if([NotificationManager shareInstance].notifications.count>0)
+    {
+        [self showNotificationInfo:[NotificationManager shareInstance].notifications[0]];
+    }
 }
 
 -(bool) isShowingNotification
@@ -635,31 +647,24 @@
     return !notiView.hidden;
 }
 
--(void)showNotificationInfo
+-(void)showNotificationInfo:(UserNotification*) obj
 {
     // Check đang hiển thị notification hoặc popup
     if([self isShowingNotification] || self.presentSGViewControlelr)
         return;
     
-    if([NotificationManager shareInstance].notifications.count==0)
-        return;
-    
-    self.visibleNotificaitonInfo=[NotificationManager shareInstance].notifications[0];
+    self.visibleNotificaitonInfo=obj;
     
     [self displayNotification];
-
-    for(SGViewController *vc in self.contentNavigation.viewControllers)
-    {
-        if([vc respondsToSelector:@selector(receiveRemoteNotification:)])
-            [vc receiveRemoteNotification:self.visibleNotificaitonInfo];
-    }
 }
 
 -(void) displayNotification
 {
+    txtNoti.hiddenSearchIcon=true;
+    txtNoti.hiddenClearButton=true;
     [notiView l_v_setX:320];
     notiView.hidden=false;
-    txtNoti.text=self.visibleNotificaitonInfo.message;
+    txtNoti.text=self.visibleNotificaitonInfo.content;
     
     [UIView animateWithDuration:0.3f animations:^{
         [notiView l_v_setX:0];
@@ -674,19 +679,19 @@
 - (IBAction)btnNotiTouchUpInside:(id)sender {
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(autoHideNotificationInfo) object:nil];
     
-    NotificationInfo *obj=[self.visibleNotificaitonInfo copy];
+    UserNotification *obj=[self.visibleNotificaitonInfo copy];
     [self autoHideNotificationInfo];
     
     for(SGViewController *vc in self.contentNavigation.viewControllers)
     {
-        if([vc respondsToSelector:@selector(processNotificationInfo:)])
+        if([vc respondsToSelector:@selector(processRemoteNotification:)])
             [vc processRemoteNotification:obj];
     }
     
     if(!([self.contentNavigation.visibleViewController isKindOfClass:[UserNotificationViewController class]]
        || [self.contentNavigation.visibleViewController isKindOfClass:[UserNotificationDetailViewController class]]))
     {
-        UserNotificationViewController *vc=[[UserNotificationViewController alloc] init];
+        UserNotificationViewController *vc=[UserNotificationViewController new];
         vc.delegate=self;
         
         [self.contentNavigation pushViewController:vc animated:true];
@@ -701,9 +706,9 @@
     [dict setObject:@(rand()) forKey:@"idNotification"];
     [dict setObject:@"sender" forKey:@"sender"];
     [dict setObject:@"Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat" forKey:@"content"];
-    [dict setObject:rand()%2==0?@"":@"0,3,5,10" forKey:@"highlight"];
+    [dict setObject:rand()%2==0?@"":@"0;3;5;10" forKey:@"highlight"];
     [dict setObject:[NSString stringWithFormat:@"%@",[NSDate date]] forKey:@"time"];
-    [dict setObject:@(rand()%2==0?0:random_int(3, 10)) forKey:@"timer"];
+    [dict setObject:@(random_int(0, 10)) forKey:@"timer"];
     
     [dict setObject:@(_loopMakeNotification) forKey:@"actionType"];
     
@@ -723,14 +728,23 @@
     else if(_loopMakeNotification==3)
         [dict setObject:@"http:\\infory.vn" forKey:@"url"];
     
+    NSLog(@"make random notification %@",dict);
+    
+    NSData *data=[NSJSONSerialization dataWithJSONObject:dict options:NSJSONWritingPrettyPrinted error:nil];
+    NSString *dataJson=[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    
+    dict=[NSMutableDictionary dictionaryWithObject:dataJson forKey:@"data"];
+    [dict setObject:[NSString stringWithFormat:@"Alert %02i",_loopMakeNotification] forKey:@"alert"];
+    [dict setObject:[NSString stringWithFormat:@"Badge %02i",_loopMakeNotification] forKey:@"badge"];
+    
+    dict=[NSMutableDictionary dictionaryWithObject:dict forKey:@"aps"];
+    
+    [[NotificationManager shareInstance] receiveRemoteNotification:dict];
+    
     _loopMakeNotification++;
     
     if(_loopMakeNotification==7)
         _loopMakeNotification=0;
-    
-    NSLog(@"make random notification %@",dict);
-    
-    [[NotificationManager shareInstance] receiveRemoteNotification:[NSDictionary dictionaryWithObject:dict forKey:@"aps"]];
     
 #endif
 }

@@ -106,7 +106,7 @@
     
     if([NotificationManager shareInstance].launchNotification)
     {
-        NotificationInfo *obj=[[NotificationManager shareInstance].launchNotification copy];
+        UserNotification *obj=[[NotificationManager shareInstance].launchNotification copy];
         [NotificationManager shareInstance].launchNotification=nil;
         
         [[GUIManager shareInstance].rootViewController processNotificationInfo:obj];

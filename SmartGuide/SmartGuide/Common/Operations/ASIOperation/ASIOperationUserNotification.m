@@ -32,11 +32,9 @@
     for(NSDictionary *dict in json)
     {
         UserNotification *obj=[UserNotification makeWithDictionary:dict];
+        obj.status=@(USER_NOTIFICATION_STATUS_READ);
 
         [self.userNotifications addObject:obj];
-        
-        if(obj.enumStatus==USER_NOTIFICATION_STATUS_READ)
-            break;
     }
     
     [[DataManager shareInstance] save];

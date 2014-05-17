@@ -102,6 +102,19 @@
 	[self didChangeValueForKey:@"actionType"];
 }
 
+- (NSString*)badge {
+	[self willAccessValueForKey:@"badge"];
+	NSString* result = (NSString*)[self primitiveValueForKey:@"badge"];
+	[self didAccessValueForKey:@"badge"];
+	return result;
+}
+
+- (void)setBadge:(NSString*)value {
+	[self willChangeValueForKey:@"badge"];
+	[self setPrimitiveValue:value forKey:@"badge"];
+	[self didChangeValueForKey:@"badge"];
+}
+
 - (NSString*)content {
 	[self willAccessValueForKey:@"content"];
 	NSString* result = (NSString*)[self primitiveValueForKey:@"content"];
@@ -256,6 +269,19 @@
 	[self willChangeValueForKey:@"time"];
 	[self setPrimitiveValue:value forKey:@"time"];
 	[self didChangeValueForKey:@"time"];
+}
+
+- (NSNumber*)timer {
+	[self willAccessValueForKey:@"timer"];
+	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"timer"];
+	[self didAccessValueForKey:@"timer"];
+	return result;
+}
+
+- (void)setTimer:(NSNumber*)value {
+	[self willChangeValueForKey:@"timer"];
+	[self setPrimitiveValue:value forKey:@"timer"];
+	[self didChangeValueForKey:@"timer"];
 }
 
 - (NSString*)url {

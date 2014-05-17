@@ -302,7 +302,7 @@
     }
 }
 
--(void)processRemoteNotification:(NotificationInfo *)obj
+-(void)processRemoteNotification:(UserNotification *)obj
 {
     if(self.navigationController.visibleViewController==self)
     {

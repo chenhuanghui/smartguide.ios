@@ -2,13 +2,6 @@
 #import "ASIOperationUserNotificationRead.h"
 #import "NotificationManager.h"
 
-@interface UserNotification()<ASIOperationPostDelegate>
-{
-    ASIOperationUserNotificationRead *_operation;
-}
-
-@end
-
 @implementation UserNotification
 @synthesize contentHeight;
 @synthesize contentAttribute;
@@ -111,7 +104,7 @@
 -(NSArray *)highlightIndex
 {
     if(self.highlight.length>0)
-        return [self.highlight componentsSeparatedByString:@","];
+        return [self.highlight componentsSeparatedByString:@";"];
     
     return [NSArray new];
 }
@@ -193,36 +186,6 @@
     }
 }
 
--(void)markAndSendRead
-{
-    if(_operation || self.enumStatus==USER_NOTIFICATION_STATUS_READ)
-        return;
-    
-    self.status=@(USER_NOTIFICATION_STATUS_READ);
-    [[DataManager shareInstance] save];
-    
-    _operation=[[ASIOperationUserNotificationRead alloc] initWithIDNotification:self.idNotification.integerValue userLat:userLat() userLng:userLng() uuid:UUID()];
-    _operation.delegatePost=self;
-    
-    [_operation startAsynchronous];
-}
-
--(void)ASIOperaionPostFinished:(ASIOperationPost *)operation
-{
-    _operation=nil;
-}
-
--(void)ASIOperaionPostFailed:(ASIOperationPost *)operation
-{
-    _operation=nil;
-}
-
--(void)dealloc
-{
-    _operation.delegatePost=nil;
-    _operation=nil;
-}
-
 -(NSString *)description
 {
     return [NSString stringWithFormat:@"%@ id %i status %i action %i read %i idShop %i idPlacelist %i keywords %@ idShops %@ url %@",CLASS_NAME,self.idNotification.integerValue,self.status.integerValue,self.actionType.integerValue,self.readAction.integerValue,self.idShop.integerValue,self.idPlacelist.integerValue,self.keywords,self.idShops,self.url];
@@ -246,31 +209,6 @@
 -(NSString *)idShops1
 {
     return @"112,113,114";
-}
-
-@end
-
-@implementation UserNotification(NotificationInfo)
-
-+(UserNotification *)makeWithNotificationInfo:(NotificationInfo *)info
-{
-    UserNotification *obj=[UserNotification insert];
-    
-    obj.idNotification=info.idNotification;
-    obj.sender=info.sender;
-    obj.content=info.content;
-    obj.highlight=info.highlight;
-    obj.time=info.time;
-    obj.status=@(USER_NOTIFICATION_STATUS_UNREAD);
-    obj.actionType=info.actionType;
-    obj.readAction=info.readAction;
-    obj.idShop=info.idShop;
-    obj.idPlacelist=info.idPlacelist;
-    obj.keywords=info.keywords;
-    obj.idShops=info.idShops;
-    obj.url=info.url;
-    
-    return obj;
 }
 
 @end

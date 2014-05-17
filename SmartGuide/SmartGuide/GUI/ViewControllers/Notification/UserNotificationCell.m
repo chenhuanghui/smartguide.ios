@@ -79,12 +79,16 @@
         
         NSArray *highlightIndex=obj.highlightIndex;
         int count=highlightIndex.count;
-        for(int i=0;i<count;i+=2)
+        
+        if(count%2==0)
         {
-            [dict setObject:[UIFont fontWithName:@"Avenir-Heavy" size:13] forKey:NSFontAttributeName];
-            
-            NSRange range=NSMakeRange([highlightIndex[i] integerValue], [highlightIndex[i+1] integerValue]);
-            [attStr setAttributes:dict range:range];
+            for(int i=0;i<count;i+=2)
+            {
+                [dict setObject:[UIFont fontWithName:@"Avenir-Heavy" size:13] forKey:NSFontAttributeName];
+                
+                NSRange range=NSMakeRange([highlightIndex[i] integerValue], [highlightIndex[i+1] integerValue]);
+                [attStr setAttributes:dict range:range];
+            }
         }
         
         [contentAttribute appendAttributedString:attStr];

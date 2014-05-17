@@ -34,6 +34,7 @@ enum TEXT_FIELD_SEARCH_REFRESH_STATE
 -(enum TEXT_FIELD_SEARCH_REFRESH_STATE) refreshState;
 
 @property (nonatomic, assign) bool hiddenClearButton;
+@property (nonatomic, assign) bool hiddenSearchIcon;
 
 @end
 

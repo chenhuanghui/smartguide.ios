@@ -13,6 +13,7 @@
 #import "Utility.h"
 #import "UserNotification.h"
 #import "GUIManager.h"
+#import <objc/runtime.h>
 
 static NotificationManager *_notificationManager=nil;
 
@@ -123,11 +124,13 @@ static NotificationManager *_notificationManager=nil;
     
     if(info && [info isKindOfClass:[NSDictionary class]])
     {
-        NotificationInfo *obj=[NotificationInfo notificationInfoWithRemoteNotification:info];
+        UserNotification *obj=[UserNotification makeWithRemoteNotification:info];
+        [[DataManager shareInstance] save];
+        
         [self.notifications addObject:obj];
         self.totalNotification=@(self.totalNotification.integerValue+1);
         
-        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_RECEIVED_REMOTE_NOTIFICATION object:nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_RECEIVED_REMOTE_NOTIFICATION object:obj];
     }
 }
 
@@ -154,108 +157,62 @@ static NotificationManager *_notificationManager=nil;
     if(!apsInfo)
         return;
     
-    NotificationInfo *obj=[NotificationInfo notificationInfoWithRemoteNotification:apsInfo];
+    UserNotification *obj=[UserNotification makeWithRemoteNotification:apsInfo];
+    [[DataManager shareInstance] save];
     
     self.launchNotification=obj;
 }
 
 @end
 
-@implementation UIViewController(Notification)
+static char UserNotificationOperationReadKey;
+static char UserNotificationIsSentReadKey;
 
+@implementation UserNotification(ASIOperation)
 
-
-@end
-
-@interface NotificationInfo()<ASIOperationPostDelegate>
+-(void)setOperationRead:(ASIOperationUserNotificationRead *)operationRead
 {
-    ASIOperationUserNotificationRead *_operationRead;
+    objc_setAssociatedObject(self, &UserNotificationOperationReadKey, operationRead, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
-@end
-
-@implementation NotificationInfo
-
-+(NotificationInfo *)notificationInfoWithRemoteNotification:(NSDictionary *)dict
+-(ASIOperationUserNotificationRead *)operationRead
 {
-    NotificationInfo *obj=[NotificationInfo new];
-    
-    obj.message=[NSString stringWithStringDefault:dict[@"alert"]];
-    obj.badge=[NSString stringWithStringDefault:dict[@"badge"]];
-    NSString *data=[NSString stringWithStringDefault:dict[@"data"]];
-    
-    if(data.length>0)
-    {
-        NSData *dataBytes=[data dataUsingEncoding:NSUTF8StringEncoding];
-        NSError *error=nil;
-        obj.dataJson=[NSJSONSerialization JSONObjectWithData:dataBytes options:NSJSONReadingAllowFragments|NSJSONReadingMutableContainers error:&error];
-        
-        obj.idNotification=[NSNumber numberWithObject:obj.dataJson[@"idNotification"]];
-        obj.timer=[NSNumber numberWithObject:obj.dataJson[@"timer"]];
-        obj.actionType=[NSNumber numberWithObject:obj.dataJson[@"actionType"]];
-        obj.readAction=[NSNumber numberWithObject:obj.dataJson[@"readAction"]];
-        obj.sender=[NSString stringWithStringDefault:obj.dataJson[@"sender"]];
-        obj.content=[NSString stringWithStringDefault:obj.dataJson[@"content"]];
-        obj.highlight=[NSString stringWithStringDefault:obj.dataJson[@"highlight"]];
-        obj.time=[NSString stringWithStringDefault:obj.dataJson[@"time"]];
-        
-        if(obj.highlight.length>0)
-        {
-            obj.highlightIndex=[obj.highlight componentsSeparatedByString:@","];
-        }
-        
-        switch (obj.enumActionType) {
-            case NOTI_ACTION_TYPE_SHOP_USER:
-                obj.idShop=[NSNumber numberWithObject:obj.dataJson[@"idShops"]];
-                break;
-                
-            case NOTI_ACTION_TYPE_SHOP_LIST:
-                if(obj.dataJson[@"idPlacelist"])
-                    obj.idPlacelist=[NSNumber numberWithObject:obj.dataJson[@"idPlacelist"]];
-                else if([obj.dataJson[@"keywords"] isHasString])
-                    obj.keywords=[NSString stringWithStringDefault:obj.dataJson[@"keywords"]];
-                else if([obj.dataJson[@"idShops"] isHasString])
-                    obj.idShops=[NSString stringWithStringDefault:obj.dataJson[@"idShops"]];
-                    
-                break;
-                
-            case NOTI_ACTION_TYPE_POPUP_URL:
-                obj.url=[NSString stringWithStringDefault:obj.dataJson[@"url"]];
-                
-            default:
-                break;
-        }
-    }
-    
-    if(!obj.dataJson)
-        obj.dataJson=[NSDictionary dictionary];
-    
-    return obj;
+    return objc_getAssociatedObject(self, &UserNotificationOperationReadKey);
 }
 
--(void)sendRead
+-(void)setIsSentRead:(NSNumber *)isSentRead
 {
-    if(_isSentRead || _operationRead)
+    objc_setAssociatedObject(self, &UserNotificationIsSentReadKey, isSentRead, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+-(NSNumber *)isSentRead
+{
+    return objc_getAssociatedObject(self, &UserNotificationIsSentReadKey);
+}
+
+-(void)markAndSendRead
+{
+    if(self.isSentRead.boolValue || self.operationRead)
         return;
     
-    _operationRead=[[ASIOperationUserNotificationRead alloc] initWithIDNotification:self.idNotification.integerValue userLat:userLat() userLng:userLng() uuid:UUID()];
-    _operationRead.delegatePost=self;
+    self.operationRead=[[ASIOperationUserNotificationRead alloc] initWithIDNotification:self.idNotification.integerValue userLat:userLat() userLng:userLng() uuid:UUID()];
+    self.operationRead.delegatePost=self;
     
-    [_operationRead startAsynchronous];
+    [self.operationRead startAsynchronous];
 }
 
 -(void)ASIOperaionPostFinished:(ASIOperationPost *)operation
 {
-    _operationRead=nil;
-    _isSentRead=true;
+    self.operationRead=nil;
+    self.isSentRead=@(true);
     
     [self finished];
 }
 
 -(void)ASIOperaionPostFailed:(ASIOperationPost *)operation
 {
-    _operationRead=nil;
-    _isSentRead=true;
+    self.operationRead=nil;
+    self.isSentRead=@(true);
     
     [self finished];
 }
@@ -272,73 +229,60 @@ static NotificationManager *_notificationManager=nil;
     }
 }
 
--(enum NOTI_ACTION_TYPE)enumActionType
-{
-    switch (self.actionType.integerValue) {
-        case NOTI_ACTION_TYPE_GO_CONTENT:
-            return NOTI_ACTION_TYPE_GO_CONTENT;
-            
-        case NOTI_ACTION_TYPE_LOGIN:
-            return NOTI_ACTION_TYPE_LOGIN;
-            
-        case NOTI_ACTION_TYPE_POPUP_URL:
-            return NOTI_ACTION_TYPE_POPUP_URL;
-            
-        case NOTI_ACTION_TYPE_SCAN_CODE:
-            return NOTI_ACTION_TYPE_SCAN_CODE;
-            
-        case NOTI_ACTION_TYPE_SHOP_LIST:
-            return NOTI_ACTION_TYPE_SHOP_LIST;
-            
-        case NOTI_ACTION_TYPE_SHOP_USER:
-            return NOTI_ACTION_TYPE_SHOP_USER;
-            
-        case NOTI_ACTION_TYPE_USER_PROMOTION:
-            return NOTI_ACTION_TYPE_USER_PROMOTION;
-            
-        case NOTI_ACTION_TYPE_USER_SETTING:
-            return NOTI_ACTION_TYPE_USER_SETTING;
-            
-        default:
-            return NOTI_ACTION_TYPE_GO_CONTENT;
-    }
-}
 
--(enum NOTI_READ_ACTION)enumReadAction
-{
-    switch (self.readAction.integerValue) {
-        case NOTI_READ_ACTION_GO_TO:
-            return NOTI_READ_ACTION_GO_TO;
-            
-        case NOTI_READ_ACTION_TOUCH:
-            return NOTI_READ_ACTION_TOUCH;
-            
-        default:
-            return NOTI_READ_ACTION_TOUCH;
-    }
-}
+@end
 
--(NSString *)description
-{
-    return [NSString stringWithFormat:@"%@ %@ %@",self.message,self.badge,self.dataJson];
-}
+@implementation UserNotification(RemoteNotification)
 
--(id)copyWithZone:(NSZone *)zone
++(UserNotification *)makeWithRemoteNotification:(NSDictionary *)dict
 {
-    NotificationInfo *obj=[NotificationInfo new];
+    UserNotification *obj=[UserNotification insert];
     
-    obj.idNotification=[self.idNotification copy];
-    obj.badge=[self.badge copy];
-    obj.message=[self.message copy];
-    obj.dataJson=[self.dataJson copy];
-    obj.timer=[self.timer copy];
-    obj.actionType=[self.actionType copy];
-    obj.readAction=[self.actionType copy];
-    obj.idShop=[self.idShop copy];
-    obj.idPlacelist=[self.idPlacelist copy];
-    obj.keywords=[self.keywords copy];
-    obj.idShops=[self.idShops copy];
-    obj.url=[self.url copy];
+    obj.content=[NSString stringWithStringDefault:dict[@"alert"]];
+    obj.badge=[NSString stringWithStringDefault:dict[@"badge"]];
+    NSString *data=[NSString stringWithStringDefault:dict[@"data"]];
+    
+    if(data.length>0)
+    {
+        NSData *dataBytes=[data dataUsingEncoding:NSUTF8StringEncoding];
+        NSError *error=nil;
+        NSDictionary *dataJson=[NSJSONSerialization JSONObjectWithData:dataBytes options:NSJSONReadingAllowFragments|NSJSONReadingMutableContainers error:&error];
+        
+        obj.idNotification=[NSNumber numberWithObject:dataJson[@"idNotification"]];
+        obj.timer=[NSNumber numberWithObject:dataJson[@"timer"]];
+        obj.actionType=[NSNumber numberWithObject:dataJson[@"actionType"]];
+        obj.readAction=[NSNumber numberWithObject:dataJson[@"readAction"]];
+        obj.sender=[NSString stringWithStringDefault:dataJson[@"sender"]];
+        obj.content=[NSString stringWithStringDefault:dataJson[@"content"]];
+        obj.highlight=[NSString stringWithStringDefault:dataJson[@"highlight"]];
+        obj.time=[NSString stringWithStringDefault:dataJson[@"time"]];\
+        
+        switch (obj.enumActionType) {
+            case USER_NOTIFICATION_ACTION_TYPE_SHOP_USER:
+                obj.idShop=[NSNumber numberWithObject:dataJson[@"idShops"]];
+                break;
+                
+            case USER_NOTIFICATION_ACTION_TYPE_SHOP_LIST:
+                if(dataJson[@"idPlacelist"])
+                    obj.idPlacelist=[NSNumber numberWithObject:dataJson[@"idPlacelist"]];
+                else if([dataJson[@"keywords"] isHasString])
+                    obj.keywords=[NSString stringWithStringDefault:dataJson[@"keywords"]];
+                else if([dataJson[@"idShops"] isHasString])
+                    obj.idShops=[NSString stringWithStringDefault:dataJson[@"idShops"]];
+                
+                break;
+                
+            case USER_NOTIFICATION_ACTION_TYPE_POPUP_URL:
+                obj.url=[NSString stringWithStringDefault:dataJson[@"url"]];
+                
+            case NOTI_ACTION_TYPE_GO_CONTENT:
+            case NOTI_ACTION_TYPE_LOGIN:
+            case NOTI_ACTION_TYPE_SCAN_CODE:
+            case NOTI_ACTION_TYPE_USER_PROMOTION:
+            case NOTI_ACTION_TYPE_USER_SETTING:
+                break;
+        }
+    }
     
     return obj;
 }

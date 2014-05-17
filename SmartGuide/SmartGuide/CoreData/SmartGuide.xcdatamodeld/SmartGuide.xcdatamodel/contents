@@ -304,37 +304,39 @@
         <relationship name="home" maxCount="1" deletionRule="Nullify" destinationEntity="UserHome" inverseName="images" inverseEntity="UserHome" syncable="YES"/>
     </entity>
     <entity name="UserNotification" representedClassName="UserNotification" syncable="YES">
-        <attribute name="actionType" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="actionType" optional="YES" attributeType="Integer 32" syncable="YES"/>
+        <attribute name="badge" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="highlight" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="idNotification" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="idPlacelist" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="idShop" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="idNotification" optional="YES" attributeType="Integer 32" syncable="YES"/>
+        <attribute name="idPlacelist" optional="YES" attributeType="Integer 32" syncable="YES"/>
+        <attribute name="idShop" optional="YES" attributeType="Integer 32" syncable="YES"/>
         <attribute name="idShops" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="keywords" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="readAction" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="readAction" optional="YES" attributeType="Integer 32" syncable="YES"/>
         <attribute name="sender" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="shopListType" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="status" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="shopListType" optional="YES" attributeType="Integer 32" syncable="YES"/>
+        <attribute name="status" optional="YES" attributeType="Integer 32" syncable="YES"/>
         <attribute name="time" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="timer" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="url" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="notificationContents" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="UserNotificationContent" inverseName="notification" inverseEntity="UserNotificationContent" syncable="YES"/>
     </entity>
     <entity name="UserNotificationContent" representedClassName="UserNotificationContent" syncable="YES">
         <attribute name="actionTitle" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="actionType" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="actionType" optional="YES" attributeType="Integer 32" syncable="YES"/>
         <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="displayType" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="idNotification" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="idPlacelist" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="idShop" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="displayType" optional="YES" attributeType="Integer 32" syncable="YES"/>
+        <attribute name="idNotification" optional="YES" attributeType="Integer 32" syncable="YES"/>
+        <attribute name="idPlacelist" optional="YES" attributeType="Integer 32" syncable="YES"/>
+        <attribute name="idShop" optional="YES" attributeType="Integer 32" syncable="YES"/>
         <attribute name="idShopLogo" optional="YES" attributeType="Integer 32" syncable="YES"/>
         <attribute name="idShops" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="keywords" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="logo" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="readAction" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="shopListType" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="status" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="readAction" optional="YES" attributeType="Integer 32" syncable="YES"/>
+        <attribute name="shopListType" optional="YES" attributeType="Integer 32" syncable="YES"/>
+        <attribute name="status" optional="YES" attributeType="Integer 32" syncable="YES"/>
         <attribute name="time" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="url" optional="YES" attributeType="String" syncable="YES"/>
@@ -395,8 +397,8 @@
         <element name="UserHome7" positionX="0" positionY="0" width="128" height="180"/>
         <element name="UserHome8" positionX="0" positionY="0" width="128" height="105"/>
         <element name="UserHomeImage" positionX="0" positionY="0" width="128" height="90"/>
-        <element name="UserNotification" positionX="9" positionY="153" width="128" height="268"/>
-        <element name="UserNotificationContent" positionX="9" positionY="153" width="128" height="315"/>
+        <element name="UserNotification" positionX="9" positionY="153" width="128" height="298"/>
+        <element name="UserNotificationContent" positionX="9" positionY="153" width="128" height="313"/>
         <element name="UserPlacelist" positionX="0" positionY="0" width="128" height="120"/>
         <element name="UserPromotion" positionX="0" positionY="0" width="128" height="270"/>
     </elements>

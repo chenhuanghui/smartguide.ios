@@ -11,8 +11,6 @@
 
 @class NavigationViewController,ScrollViewRoot,SGNavigationController;
 
-@class NotificationInfo;
-
 @interface RootViewController : SGViewController
 {   
     __weak IBOutlet ScrollViewRoot *scrollContent;
@@ -48,7 +46,7 @@
 -(void) showTutorial;
 -(void) showTerms;
 -(void) showWebviewWithURL:(NSURL*) url;
--(void) processNotificationInfo:(NotificationInfo*) obj;
+-(void) processNotificationInfo:(UserNotification*) obj;
 
 @property (weak, nonatomic) IBOutlet UIView *containView;
 @property (weak, nonatomic) IBOutlet UIView *contentView;
@@ -57,7 +55,7 @@
 @property (nonatomic, readonly, assign) CGRect containFrame;
 @property (nonatomic, readonly, assign) CGRect contentFrame;
 @property (nonatomic, strong) NavigationViewController *settingController;
-@property (nonatomic, strong) NotificationInfo* visibleNotificaitonInfo;
+@property (nonatomic, strong) UserNotification* visibleNotificaitonInfo;
 
 @end
 

@@ -10,7 +10,7 @@
 #import "Utility.h"
 
 @implementation TextFieldSearch
-@synthesize hiddenClearButton;
+@synthesize hiddenClearButton,hiddenSearchIcon;
 
 -(id)initWithCoder:(NSCoder *)aDecoder
 {
@@ -41,6 +41,7 @@
     UIView *lv=[[UIView alloc] initWithFrame:CGRectMake(0, 0, 38, self.l_v_h)];
     lv.backgroundColor=[UIColor clearColor];
     [lv addSubview:imgv];
+    lv.hidden=self.hiddenSearchIcon;
     
     self.leftView=lv;
     self.leftViewMode=UITextFieldViewModeAlways;
@@ -215,6 +216,18 @@
         self.rightViewMode=UITextFieldViewModeNever;
     else
         self.rightViewMode=self.text.length>0?UITextFieldViewModeAlways:UITextFieldViewModeNever;
+}
+
+-(void)setHiddenSearchIcon:(bool)hiddenSearchIcon_
+{
+    hiddenSearchIcon=hiddenSearchIcon_;
+ 
+    if(hiddenSearchIcon)
+        [self.leftView l_v_setW:20];
+    else
+        [self.leftView l_v_setW:38];
+    
+    self.leftView.hidden=hiddenSearchIcon;
 }
 
 @end

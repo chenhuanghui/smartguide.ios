@@ -481,27 +481,29 @@
     [table reloadData];
 }
 
--(void)receiveRemoteNotification:(NotificationInfo *)obj
+-(void)receiveRemoteNotification:(UserNotification *)obj
 {
-    UserNotification *noti=[UserNotification makeWithNotificationInfo:obj];
-    [[DataManager shareInstance] save];
-    
     [table beginUpdates];
     
     if(_userNotification.count==0)
-        [_userNotification addObject:noti];
+        [_userNotification addObject:obj];
     else
-        [_userNotification insertObject:noti atIndex:0];
+        [_userNotification insertObject:obj atIndex:0];
+
+    [self makeData];
     
     [table insertRowsAtIndexPaths:@[indexPath(0, 0)] withRowAnimation:UITableViewRowAnimationAutomatic];
     
     [table endUpdates];
 }
 
--(void)processRemoteNotification:(NotificationInfo *)obj
+-(void)processRemoteNotification:(UserNotification *)obj
 {
     if(self.navigationController.visibleViewController==self)
+    {
+        
         [table setContentOffset:CGPointZero animated:true];
+    }
 }
 
 -(void)scrollToTop:(bool)animated

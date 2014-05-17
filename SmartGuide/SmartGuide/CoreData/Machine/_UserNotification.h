@@ -7,6 +7,7 @@
 #define UserNotification_ClassName @"UserNotification"
 
 #define UserNotification_ActionType @"actionType"
+#define UserNotification_Badge @"badge"
 #define UserNotification_Content @"content"
 #define UserNotification_Highlight @"highlight"
 #define UserNotification_IdNotification @"idNotification"
@@ -19,6 +20,7 @@
 #define UserNotification_ShopListType @"shopListType"
 #define UserNotification_Status @"status"
 #define UserNotification_Time @"time"
+#define UserNotification_Timer @"timer"
 #define UserNotification_Url @"url"
 
 @class UserNotification;
@@ -36,6 +38,7 @@
 
 
 @property (nonatomic, retain) NSNumber* actionType;
+@property (nonatomic, retain) NSString* badge;
 @property (nonatomic, retain) NSString* content;
 @property (nonatomic, retain) NSString* highlight;
 @property (nonatomic, retain) NSNumber* idNotification;
@@ -48,6 +51,7 @@
 @property (nonatomic, retain) NSNumber* shopListType;
 @property (nonatomic, retain) NSNumber* status;
 @property (nonatomic, retain) NSString* time;
+@property (nonatomic, retain) NSNumber* timer;
 @property (nonatomic, retain) NSString* url;
 
 #pragma mark Fetched property

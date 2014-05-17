@@ -7,8 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-
-@class NotificationInfo,UserNotification;
+#import "UserNotification.h"
+#import "ASIOperationUserNotificationRead.h"
 
 enum NOTIFICATION_CHECK_STATE
 {
@@ -36,18 +36,13 @@ enum NOTIFICATION_CHECK_STATE
 @property (nonatomic, strong) NSString *numOfNotification;
 @property (nonatomic, strong) NSString *notificationToken;
 @property (nonatomic, strong) NSMutableArray *notifications;
-@property (nonatomic, strong) NotificationInfo *launchNotification;
+@property (nonatomic, strong) UserNotification *launchNotification;
 
 @end
 
 @interface NotificationView : UIView
 
 @property (nonatomic, weak) IBOutlet UIButton *btnNumberOfNotification;
-
-@end
-
-@interface UIViewController(Notification)
-
 
 @end
 
@@ -69,34 +64,17 @@ enum NOTI_READ_ACTION
     NOTI_READ_ACTION_GO_TO=1,
 };
 
-@interface NotificationInfo : NSObject<NSCopying>
-{
-    bool _isSentRead;
-}
+@interface UserNotification(RemoteNotification)
 
-+(NotificationInfo*) notificationInfoWithRemoteNotification:(NSDictionary*) dict;
++(UserNotification*) makeWithRemoteNotification:(NSDictionary*) dict;
 
--(void) sendRead;
+@end
 
--(enum NOTI_ACTION_TYPE) enumActionType;
--(enum NOTI_READ_ACTION) enumReadAction;
+@interface UserNotification(ASIOperation)<ASIOperationPostDelegate>
 
-@property (nonatomic, strong) NSNumber *idNotification;
-@property (nonatomic, strong) NSString *badge;
-@property (nonatomic, strong) NSString *message;
-@property (nonatomic, strong) NSDictionary *dataJson;
-@property (nonatomic, strong) NSNumber *timer;
-@property (nonatomic, strong) NSNumber *actionType;
-@property (nonatomic, strong) NSNumber *readAction;
-@property (nonatomic, strong) NSNumber *idShop;
-@property (nonatomic, strong) NSNumber *idPlacelist;
-@property (nonatomic, strong) NSString *keywords;
-@property (nonatomic, strong) NSString *idShops;
-@property (nonatomic, strong) NSString *url;
-@property (nonatomic, strong) NSString *sender;
-@property (nonatomic, strong) NSString *highlight;
-@property (nonatomic, strong) NSString *time;
-@property (nonatomic, strong) NSString *content;
-@property (nonatomic, strong) NSArray *highlightIndex;
+-(void) markAndSendRead;
+
+@property (nonatomic, readwrite, strong) ASIOperationUserNotificationRead *operationRead;
+@property (nonatomic, readwrite, strong) NSNumber *isSentRead;
 
 @end
