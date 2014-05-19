@@ -175,7 +175,7 @@ static GUIManager *_shareInstance=nil;
         }
     
     if(found)
-        [self.rootNavigation popViewControllerWithTransition:transitionPushFromBottom()];
+        [self.rootNavigation popSGViewControllerWithTransition:transitionPushFromBottom()];
     else
         [self.rootNavigation popViewControllerAnimated:true];
 }

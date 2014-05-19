@@ -1264,7 +1264,7 @@
 
 -(void)placelistControllerTouchedTextField:(PlacelistViewController *)controller
 {
-    [self.sgNavigationController popViewControllerWithTransition:transitionPushFromRight()];
+    [self.sgNavigationController popSGViewControllerWithTransition:transitionPushFromRight()];
 }
 
 - (IBAction)btnScanBigTouchUpInside:(id)sender {

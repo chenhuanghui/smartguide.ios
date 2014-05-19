@@ -894,7 +894,7 @@ CATransition* transitionPushFromRight()
     return [super popViewControllerAnimated:animated];
 }
 
--(UIViewController *)popViewControllerWithTransition:(CATransition *)transition
+-(UIViewController *)popSGViewControllerWithTransition:(CATransition *)transition
 {
     [self.view.layer addAnimation:transition forKey:nil];
     

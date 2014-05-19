@@ -568,7 +568,7 @@
     [[GUIManager shareInstance] presentSGViewController:vc completion:nil];
 }
 
--(void)processNotificationInfo:(UserNotification *)obj
+-(void)processUserNotification:(UserNotification *)obj
 {
     switch (obj.enumActionType) {
         case USER_NOTIFICATION_ACTION_TYPE_CONTENT:
@@ -679,7 +679,7 @@
 - (IBAction)btnNotiTouchUpInside:(id)sender {
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(autoHideNotificationInfo) object:nil];
     
-    UserNotification *obj=[self.visibleNotificaitonInfo copy];
+    UserNotification *obj=self.visibleNotificaitonInfo;
     [self autoHideNotificationInfo];
     
     for(SGViewController *vc in self.contentNavigation.viewControllers)
@@ -688,8 +688,20 @@
             [vc processRemoteNotification:obj];
     }
     
-    if(!([self.contentNavigation.visibleViewController isKindOfClass:[UserNotificationViewController class]]
-       || [self.contentNavigation.visibleViewController isKindOfClass:[UserNotificationDetailViewController class]]))
+    bool hasNotiController=false;
+    for(int i=0;i<self.contentNavigation.viewControllers.count;i++)
+    {
+        UIViewController *vc=self.contentNavigation.viewControllers[i];
+        
+        if([vc isKindOfClass:[UserNotificationViewController class]])
+        {
+            [self.contentNavigation popToViewController:vc animated:true];
+            hasNotiController=true;
+            break;
+        }
+    }
+    
+    if(!hasNotiController)
     {
         UserNotificationViewController *vc=[UserNotificationViewController new];
         vc.delegate=self;

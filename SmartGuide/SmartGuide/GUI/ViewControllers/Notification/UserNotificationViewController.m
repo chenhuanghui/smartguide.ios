@@ -42,8 +42,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    [UserNotification markDeleteAllObjects];
-    [[DataManager shareInstance] save];
+    //    [UserNotification markDeleteAllObjects];
+    //    [[DataManager shareInstance] save];
     
     _displayType=USER_NOTIFICATION_DISPLAY_ALL;
     
@@ -190,7 +190,7 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UserNotificationCell *cell=(UserNotificationCell*)[tableView cellForRowAtIndexPath:indexPath];
-
+    
     [self processUserNotification:cell.userNotification];
 }
 
@@ -259,7 +259,7 @@
             
         case USER_NOTIFICATION_ACTION_TYPE_USER_PROMOTION:
             NSLog(@"UserNotificationViewController USER_NOTIFICATION_ACTION_TYPE_USER_PROMOTION");
-//            [[GUIManager shareInstance].rootViewController showUserPromotion];
+            //            [[GUIManager shareInstance].rootViewController showUserPromotion];
             break;
             
         case USER_NOTIFICATION_ACTION_TYPE_USER_SETTING:
@@ -386,7 +386,7 @@
             sheet=[[UIActionSheet alloc] initWithTitle:@"Setting" delegate:self cancelButtonTitle:@"Đóng" destructiveButtonTitle:nil otherButtonTitles:@"Tất cả",@"Đã đọc", nil];
             break;
     }
-
+    
     [sheet showInView:[GUIManager shareInstance].rootNavigation.view];
 }
 
@@ -489,7 +489,7 @@
         [_userNotification addObject:obj];
     else
         [_userNotification insertObject:obj atIndex:0];
-
+    
     [self makeData];
     
     [table insertRowsAtIndexPaths:@[indexPath(0, 0)] withRowAnimation:UITableViewRowAnimationAutomatic];
@@ -499,16 +499,46 @@
 
 -(void)processRemoteNotification:(UserNotification *)obj
 {
-    if(self.navigationController.visibleViewController==self)
+    bool animated=self.navigationController.visibleViewController==self;
+    int idx=[_userNotificationUnread indexOfObject:obj];
+    
+    if(idx!=NSNotFound)
     {
+        [table scrollToRowAtIndexPath:indexPath(idx, 0) atScrollPosition:UITableViewScrollPositionMiddle animated:animated];
         
-        [table setContentOffset:CGPointZero animated:true];
+        return;
+    }
+    
+    idx=[_userNotificationRead indexOfObject:obj];
+    
+    if(idx!=NSNotFound)
+    {
+        [table scrollToRowAtIndexPath:indexPath(idx, 1) atScrollPosition:UITableViewScrollPositionMiddle animated:animated];
+        
+        return;
+    }
+    
+    [table setContentOffset:CGPointZero animated:animated];
+}
+
+-(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if([cell isKindOfClass:[UserNotificationCell class]])
+    {
+        UserNotificationCell *cellNoti=(UserNotificationCell*) cell;
+        
+        [cellNoti addObserverStatus];
     }
 }
 
--(void)scrollToTop:(bool)animated
+-(void)tableView:(UITableView *)tableView didEndDisplayingCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [table setContentOffset:CGPointZero animated:animated];
+    if([cell isKindOfClass:[UserNotificationCell class]])
+    {
+        UserNotificationCell *cellNoti=(UserNotificationCell*) cell;
+        
+        [cellNoti removeObserverStatus];
+    }
 }
 
 @end

@@ -46,7 +46,7 @@
 -(void) showTutorial;
 -(void) showTerms;
 -(void) showWebviewWithURL:(NSURL*) url;
--(void) processNotificationInfo:(UserNotification*) obj;
+-(void) processUserNotification:(UserNotification*) obj;
 
 @property (weak, nonatomic) IBOutlet UIView *containView;
 @property (weak, nonatomic) IBOutlet UIView *contentView;

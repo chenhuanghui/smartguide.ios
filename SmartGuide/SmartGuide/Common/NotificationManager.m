@@ -12,6 +12,7 @@
 #import "ASIOperationUserNotificationRead.h"
 #import "Utility.h"
 #import "UserNotification.h"
+#import "UserNotificationContent.h"
 #import "GUIManager.h"
 #import <objc/runtime.h>
 
@@ -26,6 +27,13 @@ static NotificationManager *_notificationManager=nil;
 @end
 
 @implementation NotificationManager
+
++(void)load
+{
+    [UserNotification markDeleteAllObjects];
+    [UserNotificationContent markDeleteAllObjects];
+    [[DataManager shareInstance] save];
+}
 
 +(NotificationManager *)shareInstance
 {
@@ -125,10 +133,12 @@ static NotificationManager *_notificationManager=nil;
     if(info && [info isKindOfClass:[NSDictionary class]])
     {
         UserNotification *obj=[UserNotification makeWithRemoteNotification:info];
+        obj.status=@(USER_NOTIFICATION_STATUS_UNREAD);
         [[DataManager shareInstance] save];
         
         [self.notifications addObject:obj];
-        self.totalNotification=@(self.totalNotification.integerValue+1);
+        self.totalNotification=[NSNumber numberWithObject:obj.badge];
+        [UIApplication sharedApplication].applicationIconBadgeNumber=self.totalNotification.integerValue;
         
         [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_RECEIVED_REMOTE_NOTIFICATION object:obj];
     }

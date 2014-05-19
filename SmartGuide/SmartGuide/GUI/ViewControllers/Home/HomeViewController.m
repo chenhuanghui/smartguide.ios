@@ -109,7 +109,7 @@
         UserNotification *obj=[[NotificationManager shareInstance].launchNotification copy];
         [NotificationManager shareInstance].launchNotification=nil;
         
-        [[GUIManager shareInstance].rootViewController processNotificationInfo:obj];
+        [[GUIManager shareInstance].rootViewController processUserNotification:obj];
     }
 }
 

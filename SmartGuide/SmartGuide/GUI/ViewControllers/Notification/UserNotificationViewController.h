@@ -26,6 +26,4 @@
     __weak UserNotificationHeaderView *_headerView;
 }
 
--(void) scrollToTop:(bool) animated;
-
 @end

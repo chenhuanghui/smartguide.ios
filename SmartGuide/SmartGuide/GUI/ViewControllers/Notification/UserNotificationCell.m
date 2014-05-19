@@ -139,6 +139,34 @@
     [self.delegate userNotificationCellTouchedDetail:self obj:_obj];
 }
 
+-(void) addObserverStatus
+{
+    _isAddedObserverStatus=true;
+    [_obj addObserver:self forKeyPath:UserNotification_Status options:NSKeyValueObservingOptionNew context:nil];
+    
+}
+
+-(void) removeObserverStatus
+{
+    if(_isAddedObserverStatus && _obj.observationInfo)
+    {
+        [_obj removeObserver:self forKeyPath:UserNotification_Status];
+    }
+}
+
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    if([keyPath isEqualToString:UserNotification_Status])
+    {
+        NSLog(@"observeValueForKeyPath %@",_obj);
+    }
+}
+
+-(void)dealloc
+{
+    [self removeObserverStatus];
+}
+
 @end
 
 @implementation ScrollUserNotification

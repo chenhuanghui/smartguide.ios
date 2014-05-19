@@ -174,17 +174,17 @@
     return @"Nov 22, 2013 11:23 AM";
 }
 
--(NSString *)title
+-(NSString *)title1
 {
     return @"Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim";
 }
 
--(NSString *)actionTitle
+-(NSString *)actionTitle1
 {
     return @"";
 }
 
--(NSString *)content
+-(NSString *)content1
 {
     return @"Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim";
 }

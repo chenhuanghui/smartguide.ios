@@ -23,11 +23,11 @@
     [imgvIcon loadShopLogoWithURL:obj.logo];
     
     [lblTitle l_v_setH:obj.titleHeight.floatValue];
-    lblTitle.backgroundColor=[[UIColor redColor] colorWithAlphaComponent:0.3f];
+//    lblTitle.backgroundColor=[[UIColor redColor] colorWithAlphaComponent:0.3f];
     
     [lblContent l_v_setY:lblTitle.l_v_y+lblTitle.l_v_h+5];
     [lblContent l_v_setH:obj.contentHeight.floatValue];
-    lblContent.backgroundColor=[[UIColor blueColor] colorWithAlphaComponent:0.3f];
+//    lblContent.backgroundColor=[[UIColor blueColor] colorWithAlphaComponent:0.3f];
     
     lblContent.hidden=displayType==USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE_TITLE;
     

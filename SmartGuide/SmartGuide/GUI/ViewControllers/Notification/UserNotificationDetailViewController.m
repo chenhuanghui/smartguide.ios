@@ -302,15 +302,6 @@
     }
 }
 
--(void)processRemoteNotification:(UserNotification *)obj
-{
-    if(self.navigationController.visibleViewController==self)
-    {
-        [self.navigationController popViewControllerAnimated:true];
-        [self.notificationController scrollToTop:true];
-    }
-}
-
 @end
 
 @implementation UserNotificationContent(DisplayType)

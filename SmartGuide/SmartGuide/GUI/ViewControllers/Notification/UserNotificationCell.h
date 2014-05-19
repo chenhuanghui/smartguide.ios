@@ -30,10 +30,14 @@
     __weak IBOutlet UIView *lineView;
     
     __weak UserNotification* _obj;
+    bool _isAddedObserverStatus;
 }
 
 -(void) loadWithUserNotification:(UserNotification*) obj;
 -(UserNotification*) userNotification;
+-(void) addObserverStatus;
+-(void) removeObserverStatus;
+
 +(NSString *)reuseIdentifier;
 +(float) heightWithUserNotification:(UserNotification*) obj;
 
