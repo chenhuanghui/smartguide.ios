@@ -621,14 +621,14 @@
 
 -(void) autoHideNotificationInfo
 {
-//    [notiView hide];
+    [remoteNotiView hide];
 }
 
 -(void)remoteNotificationDidHide:(RemoteNotificationView *)remoteView
 {
-//    notiView.hidden=true;
-    [[NotificationManager shareInstance].notifications removeObject:self.visibleNotificaitonInfo];
-    self.visibleNotificaitonInfo=nil;
+    [[NotificationManager shareInstance].notifications removeObject:remoteView.userNotification];
+    [remoteNotiView removeFromSuperview];
+    remoteNotiView=nil;
     
     if([NotificationManager shareInstance].notifications.count>0)
     {
@@ -654,20 +654,20 @@
     // Check đang hiển thị notification hoặc popup
     if([self isShowingNotification] || self.presentSGViewControlelr)
         return;
-    
-    self.visibleNotificaitonInfo=obj;
-    
-    [self displayNotification];
+
+    [self displayNotification:obj];
 }
 
--(void) displayNotification
+-(void) displayNotification:(UserNotification*) obj
 {
     RemoteNotificationView *notiView =[RemoteNotificationView new];
     notiView.hidden=true;
+    notiView.delegate=self;
+    
     [self.contentView addSubview:notiView];
     
     remoteNotiView=notiView;
-    [remoteNotiView setUserNotification:self.visibleNotificaitonInfo];
+    [remoteNotiView setUserNotification:obj];
     [remoteNotiView show];
 }
 
@@ -684,7 +684,7 @@
         return;
     }
     
-    UserNotification *obj=self.visibleNotificaitonInfo;
+    __strong UserNotification *obj=remoteView.userNotification;
     [self autoHideNotificationInfo];
     
     for(SGViewController *vc in self.contentNavigation.viewControllers)
@@ -713,6 +713,8 @@
         
         [self.contentNavigation pushViewController:vc animated:true];
     }
+    
+    obj=nil;
 }
 
 -(void)remoteNotificationDidShow:(RemoteNotificationView *)remoteView

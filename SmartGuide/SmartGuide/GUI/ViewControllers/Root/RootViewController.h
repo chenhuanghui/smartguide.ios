@@ -55,7 +55,6 @@
 @property (nonatomic, readonly, assign) CGRect containFrame;
 @property (nonatomic, readonly, assign) CGRect contentFrame;
 @property (nonatomic, strong) NavigationViewController *settingController;
-@property (nonatomic, strong) UserNotification* visibleNotificaitonInfo;
 
 @end
 
