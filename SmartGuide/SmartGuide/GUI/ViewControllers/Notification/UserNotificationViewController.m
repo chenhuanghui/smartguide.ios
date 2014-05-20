@@ -17,11 +17,14 @@
 #import "QRCodeViewController.h"
 #import "ASIOperationUserNotification.h"
 #import "NotificationManager.h"
+#import "RefreshingView.h"
 
-@interface UserNotificationViewController ()<UITableViewDataSource,UITableViewDelegate,UserNotificationCellDelegate,ASIOperationPostDelegate,UIActionSheetDelegate>
+@interface UserNotificationViewController ()<UITableViewDataSource,UITableViewDelegate,UserNotificationCellDelegate,ASIOperationPostDelegate,UIActionSheetDelegate,RefreshingViewDelegate>
 {
     enum USER_NOTIFICATION_DISPLAY_TYPE _displayType;
     ASIOperationUserNotification *_operationUserNotification;
+    
+    __weak RefreshingView *refreshView;
 }
 
 @end
@@ -61,7 +64,56 @@
     
     [self requestUserNotification];
     
-    [table showLoading];
+    [self showLoading];
+    
+    RefreshingView *rv=[[RefreshingView alloc] initWithTableView:table];
+    rv.delegate=self;
+    refreshView=rv;
+    
+    [table l_v_addY:-[RefreshingView height]];
+    [table l_v_addH:[RefreshingView height]*2];
+}
+
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    [refreshView tableDidScroll:table];
+}
+
+-(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    [refreshView tableDidEndDecelerating:table];
+}
+
+-(void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
+{
+    [refreshView tableDidEndDragging:table willDecelerate:decelerate];
+}
+
+-(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    [refreshView tableWillBeginDragging:table];
+}
+
+-(void)refreshingViewNeedRefresh:(RefreshingView *)refreshView
+{
+    [self refreshData];
+    
+    NSLog(@"refreshingViewNeedRefresh");
+}
+
+-(void)refreshingViewFinished:(RefreshingView *)refreshView
+{
+    [self.view removeLoading];
+    
+    _isLoadingMore=false;
+    _canLoadMore=_userNotificationFromAPI.count==10;
+    _page++;
+    
+    _userNotification=[_userNotificationFromAPI mutableCopy];
+    
+    [self reloadData];
+    
+    NSLog(@"refreshingViewFinished");
 }
 
 -(void) requestUserNotification
@@ -76,6 +128,27 @@
     _operationUserNotification.delegatePost=self;
     
     [_operationUserNotification startAsynchronous];
+}
+
+-(void) refreshData
+{
+    if(_operationUserNotification)
+    {
+        [_operationUserNotification clearDelegatesAndCancel];
+        _operationUserNotification=nil;
+    }
+    
+    _page=-1;
+    _isLoadingMore=true;
+    _canLoadMore=false;
+    
+    [self requestUserNotification];
+    [self showLoading];
+}
+
+-(void) showLoading
+{
+    [self.view showLoadingInsideFrame:CGRectMake(0, 54, self.l_v_w, self.l_v_h-54)];
 }
 
 -(void) resetData
@@ -95,7 +168,7 @@
     _isLoadingMore=false;
     
     [self requestUserNotification];
-    [table showLoading];
+    [self showLoading];
 }
 
 - (void)didReceiveMemoryWarning
@@ -402,7 +475,7 @@
     
     if([buttonTitle isEqualToString:@"Tất cả"])
     {
-        [table showLoading];
+        [self showLoading];
         
         [self resetData];
         _displayType=USER_NOTIFICATION_DISPLAY_ALL;
@@ -410,7 +483,7 @@
     }
     else if([buttonTitle isEqualToString:@"Chưa đọc"])
     {
-        [table showLoading];
+        [self showLoading];
         
         [self resetData];
         _displayType=USER_NOTIFICATION_DISPLAY_UNREAD;
@@ -418,7 +491,7 @@
     }
     else if([buttonTitle isEqualToString:@"Đã đọc"])
     {
-        [table showLoading];
+        [self showLoading];
         
         [self resetData];
         _displayType=USER_NOTIFICATION_DISPLAY_READ;
@@ -430,17 +503,22 @@
 {
     if([operation isKindOfClass:[ASIOperationUserNotification class]])
     {
-        [table removeLoading];
-        
         ASIOperationUserNotification *ope=(ASIOperationUserNotification*) operation;
         
-        [_userNotification addObjectsFromArray:ope.userNotifications];
-        
-        _isLoadingMore=false;
-        _canLoadMore=ope.userNotifications.count==10;
-        _page++;
-        
-        [self reloadData];
+        if(refreshView.refreshState==REFRESH_VIEW_STATE_NORMAL)
+        {
+            [self.view removeLoading];
+            
+            [_userNotification addObjectsFromArray:ope.userNotifications];
+            
+            [self reloadData];
+        }
+        else if(refreshView.refreshState==REFRESH_VIEW_STATE_REFRESHING)
+        {
+            _userNotificationFromAPI=[[NSMutableArray alloc] initWithArray:ope.userNotifications];
+
+            [refreshView markRefreshDone:table];
+        }
         
         _operationUserNotification=nil;
     }
@@ -450,7 +528,7 @@
 {
     if([operation isKindOfClass:[ASIOperationUserNotification class]])
     {
-        [table removeLoading];
+        [self.view removeLoading];
         _operationUserNotification=nil;
     }
 }

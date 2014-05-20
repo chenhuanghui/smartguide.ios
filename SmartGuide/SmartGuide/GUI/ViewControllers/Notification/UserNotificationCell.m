@@ -73,7 +73,7 @@
     [dict setObject:[UIFont fontWithName:@"Avenir-Roman" size:13] forKey:NSFontAttributeName];
     
     if(obj.enumStatus==USER_NOTIFICATION_STATUS_UNREAD)
-        [dict setObject:obj.highlightUnread.boolValue?[UIColor darkTextColor]:[UIColor redColor] forKey:NSForegroundColorAttributeName];
+        [dict setObject:obj.highlightUnread.boolValue?[UIColor darkTextColor]:[UIColor grayColor] forKey:NSForegroundColorAttributeName];
     else
         [dict setObject:[UIColor darkTextColor] forKey:NSForegroundColorAttributeName];
     

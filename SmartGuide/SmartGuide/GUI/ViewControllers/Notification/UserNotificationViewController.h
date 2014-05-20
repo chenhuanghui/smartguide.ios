@@ -17,6 +17,7 @@
     NSMutableArray *_userNotification;
     NSArray *_userNotificationUnread;
     NSArray *_userNotificationRead;
+    NSArray *_userNotificationFromAPI;
     
     int _page;
     bool _canLoadMore;
