@@ -928,6 +928,10 @@
 		A91CE6C017A93F6500D29E87 /* ShopUserGallery.m in Sources */ = {isa = PBXBuildFile; fileRef = A91CE6BE17A93F6500D29E87 /* ShopUserGallery.m */; };
 		A91CE6C517A93F6E00D29E87 /* _ShopGallery.m in Sources */ = {isa = PBXBuildFile; fileRef = A91CE6C217A93F6E00D29E87 /* _ShopGallery.m */; };
 		A91CE6C617A93F6E00D29E87 /* _ShopUserGallery.m in Sources */ = {isa = PBXBuildFile; fileRef = A91CE6C417A93F6E00D29E87 /* _ShopUserGallery.m */; };
+		A9200B041929D8F100F46B8D /* TextFieldSearchBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = A9200B031929D8F100F46B8D /* TextFieldSearchBackgroundView.m */; };
+		A9200B081929D96E00F46B8D /* RemoteNotificationView.m in Sources */ = {isa = PBXBuildFile; fileRef = A9200B071929D96E00F46B8D /* RemoteNotificationView.m */; };
+		A9200B0B1929EF6900F46B8D /* icon_alertnotice.png in Resources */ = {isa = PBXBuildFile; fileRef = A9200B091929EF6900F46B8D /* icon_alertnotice.png */; };
+		A9200B0C1929EF6900F46B8D /* icon_alertnotice@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A9200B0A1929EF6900F46B8D /* icon_alertnotice@2x.png */; };
 		A920E1D317CBBC59003FAA80 /* Reward.m in Sources */ = {isa = PBXBuildFile; fileRef = A920E1D217CBBC59003FAA80 /* Reward.m */; };
 		A920E1D617CBBC64003FAA80 /* _Reward.m in Sources */ = {isa = PBXBuildFile; fileRef = A920E1D517CBBC64003FAA80 /* _Reward.m */; };
 		A921B02F17A8B68200DC6D4D /* ASIOperationShopUser.m in Sources */ = {isa = PBXBuildFile; fileRef = A921B02E17A8B68100DC6D4D /* ASIOperationShopUser.m */; };
@@ -1027,6 +1031,7 @@
 		A9BFE86718E96955008C542E /* UserNotificationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9BFE86518E96955008C542E /* UserNotificationViewController.xib */; };
 		A9BFE86B18E96972008C542E /* UserNotificationDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9BFE86918E96972008C542E /* UserNotificationDetailViewController.m */; };
 		A9BFE86C18E96972008C542E /* UserNotificationDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9BFE86A18E96972008C542E /* UserNotificationDetailViewController.xib */; };
+		A9CD3501192AF43200A4B506 /* RemoteNotificationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9CD3500192AF43200A4B506 /* RemoteNotificationView.xib */; };
 		A9CFD3621797FC4B0035E448 /* SmartGuide.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A9CFD3601797FC4B0035E448 /* SmartGuide.xcdatamodeld */; };
 		A9CFD3681797FCE60035E448 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = A9CFD3671797FCE60035E448 /* User.m */; };
 		A9CFD36B1797FCEC0035E448 /* _User.m in Sources */ = {isa = PBXBuildFile; fileRef = A9CFD36A1797FCEC0035E448 /* _User.m */; };
@@ -2237,6 +2242,12 @@
 		A91CE6C217A93F6E00D29E87 /* _ShopGallery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _ShopGallery.m; sourceTree = "<group>"; };
 		A91CE6C317A93F6E00D29E87 /* _ShopUserGallery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _ShopUserGallery.h; sourceTree = "<group>"; };
 		A91CE6C417A93F6E00D29E87 /* _ShopUserGallery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _ShopUserGallery.m; sourceTree = "<group>"; };
+		A9200B021929D8F100F46B8D /* TextFieldSearchBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextFieldSearchBackgroundView.h; sourceTree = "<group>"; };
+		A9200B031929D8F100F46B8D /* TextFieldSearchBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextFieldSearchBackgroundView.m; sourceTree = "<group>"; };
+		A9200B061929D96E00F46B8D /* RemoteNotificationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RemoteNotificationView.h; sourceTree = "<group>"; };
+		A9200B071929D96E00F46B8D /* RemoteNotificationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RemoteNotificationView.m; sourceTree = "<group>"; };
+		A9200B091929EF6900F46B8D /* icon_alertnotice.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_alertnotice.png; sourceTree = "<group>"; };
+		A9200B0A1929EF6900F46B8D /* icon_alertnotice@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_alertnotice@2x.png"; sourceTree = "<group>"; };
 		A920E1D117CBBC59003FAA80 /* Reward.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reward.h; sourceTree = "<group>"; };
 		A920E1D217CBBC59003FAA80 /* Reward.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reward.m; sourceTree = "<group>"; };
 		A920E1D417CBBC64003FAA80 /* _Reward.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _Reward.h; sourceTree = "<group>"; };
@@ -2384,6 +2395,7 @@
 		A9BFE86818E96972008C542E /* UserNotificationDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserNotificationDetailViewController.h; sourceTree = "<group>"; };
 		A9BFE86918E96972008C542E /* UserNotificationDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserNotificationDetailViewController.m; sourceTree = "<group>"; };
 		A9BFE86A18E96972008C542E /* UserNotificationDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserNotificationDetailViewController.xib; sourceTree = "<group>"; };
+		A9CD3500192AF43200A4B506 /* RemoteNotificationView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RemoteNotificationView.xib; sourceTree = "<group>"; };
 		A9CFD3611797FC4B0035E448 /* SmartGuide.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SmartGuide.xcdatamodel; sourceTree = "<group>"; };
 		A9CFD3661797FCE60035E448 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		A9CFD3671797FCE60035E448 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
@@ -3049,6 +3061,8 @@
 			children = (
 				9A96BB531880475F0081171B /* TextFieldSearch.h */,
 				9A96BB541880475F0081171B /* TextFieldSearch.m */,
+				A9200B021929D8F100F46B8D /* TextFieldSearchBackgroundView.h */,
+				A9200B031929D8F100F46B8D /* TextFieldSearchBackgroundView.m */,
 			);
 			path = TextFieldSearch;
 			sourceTree = "<group>";
@@ -3528,6 +3542,16 @@
 			path = Machine;
 			sourceTree = "<group>";
 		};
+		A9200B051929D96700F46B8D /* RemoteNotificationView */ = {
+			isa = PBXGroup;
+			children = (
+				A9200B061929D96E00F46B8D /* RemoteNotificationView.h */,
+				A9200B071929D96E00F46B8D /* RemoteNotificationView.m */,
+				A9CD3500192AF43200A4B506 /* RemoteNotificationView.xib */,
+			);
+			path = RemoteNotificationView;
+			sourceTree = "<group>";
+		};
 		A922662F17A1133B00BCFF7E /* ASIOperation */ = {
 			isa = PBXGroup;
 			children = (
@@ -3772,6 +3796,7 @@
 		A98198B4178D3FA70009FCB6 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				A9200B051929D96700F46B8D /* RemoteNotificationView */,
 				A9E35F8A190F94E4008498E5 /* UserNotice */,
 				A9AC694718EEC27D006279FE /* ImageView */,
 				9ADCD8B018D19C3F004CB67E /* Lib3 */,
@@ -3821,6 +3846,8 @@
 		A98198BE178D44FB0009FCB6 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				A9200B091929EF6900F46B8D /* icon_alertnotice.png */,
+				A9200B0A1929EF6900F46B8D /* icon_alertnotice@2x.png */,
 				A9D84CDE18FE90C300654438 /* icon_refresh_done.png */,
 				A9D84CDF18FE90C300654438 /* icon_refresh_done@2x.png */,
 				A9D84CDA18FE891700654438 /* icon_refresh_blue.png */,
@@ -4710,6 +4737,7 @@
 				9ACFAE6A1861B893006131DC /* icon_playlist@2x.png in Resources */,
 				9A1B124A18CC1825004BDBB6 /* map@2x.png in Resources */,
 				9A7AC1DF18D1907B0043316D /* ShopKM2NonConditionCell.xib in Resources */,
+				A9200B0C1929EF6900F46B8D /* icon_alertnotice@2x.png in Resources */,
 				A91A675C1797F65000BEB8C5 /* human.h.motemplate in Resources */,
 				9A98C928188E83A30067EAD3 /* button_loading_small_03@2x.png in Resources */,
 				9A26AC7718ABD3B7004AA168 /* scan@2x.png in Resources */,
@@ -5081,6 +5109,7 @@
 				9AE0174118B4B3E800A222FA /* button_close_search.png in Resources */,
 				A9BDD06F18FBD0E9006C6CA6 /* icon_arrowdown_uc@2x.png in Resources */,
 				9A5DC471183DB1A50051375A /* pattern_promotion@2x.png in Resources */,
+				A9200B0B1929EF6900F46B8D /* icon_alertnotice.png in Resources */,
 				9A96BB4A188044DD0081171B /* button_search_home.png in Resources */,
 				9ACFAE7618621D10006131DC /* frame_takephoto.png in Resources */,
 				9A7AC21B18D191550043316D /* SearchShopCell.xib in Resources */,
@@ -5282,6 +5311,7 @@
 				9AB1F04D183F136700A35422 /* arrowchat@2x.png in Resources */,
 				9A5DC47C183DBA9C0051375A /* button_call.png in Resources */,
 				9AB1F04C183F136700A35422 /* arrowchat.png in Resources */,
+				A9CD3501192AF43200A4B506 /* RemoteNotificationView.xib in Resources */,
 				9A7AC1EE18D1907B0043316D /* ShopUserViewController.xib in Resources */,
 				9AA90B6C1850EF0F002F40FF /* bg_typecomment_head.png in Resources */,
 				9A75E7741847509400A4C3A0 /* bgslide_mid@2x.png in Resources */,
@@ -5363,6 +5393,7 @@
 				9A29391B18445D9900FD49E2 /* _KM1Voucher.m in Sources */,
 				9A88C2B818DC497F00B4E20A /* LoadingMoreCollectionCell.m in Sources */,
 				9A7AC22A18D191740043316D /* ShopListCell.m in Sources */,
+				A9200B081929D96E00F46B8D /* RemoteNotificationView.m in Sources */,
 				9AF94E7718A9DE21002529BE /* KeyboardUtility.m in Sources */,
 				9A27BC0418D18BAD00E3EAC2 /* GalleryViewController.m in Sources */,
 				9A7AC1E318D1907B0043316D /* SUKMNewsCell.m in Sources */,
@@ -5380,6 +5411,7 @@
 				9A27BBF518D18BAD00E3EAC2 /* AvatarViewController.m in Sources */,
 				A9B6D24A18EE52CE00D9BA5D /* ImageResizedCache.m in Sources */,
 				9A7AC1C318D1907B0043316D /* SUShopGalleryCell.m in Sources */,
+				A9200B041929D8F100F46B8D /* TextFieldSearchBackgroundView.m in Sources */,
 				9A06F9961885423B005C0377 /* UserPlacelist.m in Sources */,
 				9ADCD94218D19C3F004CB67E /* AFURLResponseSerialization.m in Sources */,
 				A9BFE85E18E96343008C542E /* ASIOperationUserNotificationContent.m in Sources */,

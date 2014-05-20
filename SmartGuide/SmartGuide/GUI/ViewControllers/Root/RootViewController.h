@@ -7,7 +7,8 @@
 //
 
 #import "SGViewController.h"
-#import "TextFieldSearch.h"
+
+@class RemoteNotificationView;
 
 @class NavigationViewController,ScrollViewRoot,SGNavigationController;
 
@@ -17,10 +18,9 @@
     __weak IBOutlet UIView *leftView;
     UITapGestureRecognizer *tapGes;
     bool _isAnimatingSetting;
-    __weak IBOutlet UIView *notiView;
-    __weak IBOutlet TextFieldSearch *txtNoti;
-    __weak IBOutlet UIButton *btnNoti;
     __weak IBOutlet UIButton *btnMakeNotification;
+    
+    __weak RemoteNotificationView *remoteNotiView;
     
 #if DEBUG
     int _loopMakeNotification;
@@ -60,7 +60,5 @@
 @end
 
 @interface ScrollViewRoot : UIScrollView
-{
-}
 
 @end

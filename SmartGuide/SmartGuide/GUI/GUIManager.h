@@ -21,7 +21,7 @@
 -(void) logout;
 
 -(void) presentSGViewController:(UIViewController*) controller completion:(void(^)()) completed;
--(void)dismissSGViewControllerCompletion:(void (^)())onCompleted;
+-(void) dismissSGViewControllerCompletion:(void (^)())onCompleted;
 
 -(void) showLoginDialogWithMessage:(NSString*) message onOK:(void(^)()) onOK onCancelled:(void(^)()) onCancelled onLogined:(void(^)(bool isLogined)) onLogin;
 -(void) showLoginControll:(void(^)(bool isLogin)) onLogin;

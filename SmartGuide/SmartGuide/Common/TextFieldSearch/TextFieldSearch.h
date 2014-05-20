@@ -19,11 +19,11 @@ enum TEXT_FIELD_SEARCH_REFRESH_STATE
 #define TEXT_FIELD_SEARCH_DEFAULT_WIDTH 232.f
 #define TEXT_FIELD_SEARCH_MIN_WIDTH 38.f //icon_refresh.png width * 2
 
-@class TextFieldBGView;
+@class TextFieldSearchBackgroundView;
 
 @interface TextFieldSearch : UITextField
 {
-    __weak TextFieldBGView *bgView;
+    __weak TextFieldSearchBackgroundView *bgView;
     __weak UIImageView *imgvDone;
     enum TEXT_FIELD_SEARCH_REFRESH_STATE _refreshState;
 }
@@ -35,9 +35,5 @@ enum TEXT_FIELD_SEARCH_REFRESH_STATE
 
 @property (nonatomic, assign) bool hiddenClearButton;
 @property (nonatomic, assign) bool hiddenSearchIcon;
-
-@end
-
-@interface TextFieldBGView : UIView
 
 @end

@@ -22,8 +22,9 @@
 #import "UserNotificationViewController.h"
 #import "UserNotificationDetailViewController.h"
 #import "QRCodeViewController.h"
+#import "RemoteNotificationView.h"
 
-@interface RootViewController ()<NavigationControllerDelegate,UIScrollViewDelegate,HomeControllerDelegate,UserPromotionDelegate,SGUserSettingControllerDelegate,WebViewDelegate,ShopUserDelegate,UIGestureRecognizerDelegate>
+@interface RootViewController ()<NavigationControllerDelegate,UIScrollViewDelegate,HomeControllerDelegate,UserPromotionDelegate,SGUserSettingControllerDelegate,WebViewDelegate,ShopUserDelegate,UIGestureRecognizerDelegate,RemoteNotificationDelegate>
 
 @end
 
@@ -430,12 +431,12 @@
 {
     vc.delegate=self;
     
-    if(self.presentSGViewControlelr)
+    if(self.contentNavigation.presentSGViewControlelr)
     {
-        if([self.presentSGViewControlelr isKindOfClass:[ShopUserViewController class]])
+        if([self.contentNavigation.presentSGViewControlelr isKindOfClass:[ShopUserViewController class]])
         {
             __block ShopUserViewController *_vc=vc;
-            [self dismissSGViewControllerCompletion:^{
+            [self.contentNavigation dismissSGViewControllerCompletion:^{
                 [self presentShopUser:_vc];
                 _vc=nil;
             }];
@@ -444,12 +445,12 @@
         return;
     }
     
-    [self presentSGViewController:vc completion:nil];
+    [self.contentNavigation presentSGViewController:vc completion:nil];
 }
 
 -(void) dismissShopUser
 {
-    [self dismissSGViewControllerCompletion:nil];
+    [self.contentNavigation dismissSGViewControllerCompletion:nil];
 }
 
 -(HomeViewController*) homeController
@@ -620,18 +621,19 @@
 
 -(void) autoHideNotificationInfo
 {
-    [UIView animateWithDuration:0.3f animations:^{
-        [notiView l_v_setX:320];
-    } completion:^(BOOL finished) {
-        notiView.hidden=true;
-        [[NotificationManager shareInstance].notifications removeObject:self.visibleNotificaitonInfo];
-        self.visibleNotificaitonInfo=nil;
-        
-        if([NotificationManager shareInstance].notifications.count>0)
-        {
-            [self showNotificationInfo:[NotificationManager shareInstance].notifications[0]];
-        }
-    }];
+//    [notiView hide];
+}
+
+-(void)remoteNotificationDidHide:(RemoteNotificationView *)remoteView
+{
+//    notiView.hidden=true;
+    [[NotificationManager shareInstance].notifications removeObject:self.visibleNotificaitonInfo];
+    self.visibleNotificaitonInfo=nil;
+    
+    if([NotificationManager shareInstance].notifications.count>0)
+    {
+        [self showNotificationInfo:[NotificationManager shareInstance].notifications[0]];
+    }
 }
 
 -(void)presentSGViewControllerFinished
@@ -644,7 +646,7 @@
 
 -(bool) isShowingNotification
 {
-    return !notiView.hidden;
+    return remoteNotiView!=nil;
 }
 
 -(void)showNotificationInfo:(UserNotification*) obj
@@ -660,24 +662,27 @@
 
 -(void) displayNotification
 {
-    txtNoti.hiddenSearchIcon=true;
-    txtNoti.hiddenClearButton=true;
-    [notiView l_v_setX:320];
-    notiView.hidden=false;
-    txtNoti.text=self.visibleNotificaitonInfo.content;
+    RemoteNotificationView *notiView =[RemoteNotificationView new];
+    notiView.hidden=true;
+    [self.contentView addSubview:notiView];
     
-    [UIView animateWithDuration:0.3f animations:^{
-        [notiView l_v_setX:0];
-    } completion:^(BOOL finished) {
-        if(self.visibleNotificaitonInfo.timer.integerValue!=0)
-        {
-            [self performSelector:@selector(autoHideNotificationInfo) withObject:nil afterDelay:self.visibleNotificaitonInfo.timer.integerValue];
-        }
-    }];
+    remoteNotiView=notiView;
+    [remoteNotiView setUserNotification:self.visibleNotificaitonInfo];
+    [remoteNotiView show];
 }
 
-- (IBAction)btnNotiTouchUpInside:(id)sender {
+-(void)remoteNotificationViewTouched:(RemoteNotificationView *)remoteView
+{
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(autoHideNotificationInfo) object:nil];
+    
+    if(self.contentNavigation.presentSGViewControlelr)
+    {
+        [self.contentNavigation dismissSGViewControllerCompletion:^{
+            [self remoteNotificationViewTouched:remoteView];
+        }];
+        
+        return;
+    }
     
     UserNotification *obj=self.visibleNotificaitonInfo;
     [self autoHideNotificationInfo];
@@ -708,6 +713,12 @@
         
         [self.contentNavigation pushViewController:vc animated:true];
     }
+}
+
+-(void)remoteNotificationDidShow:(RemoteNotificationView *)remoteView
+{
+    if(remoteView.userNotification.timer.integerValue>0)
+        [self performSelector:@selector(autoHideNotificationInfo) withObject:nil afterDelay:remoteView.userNotification.timer.integerValue];
 }
 
 - (IBAction)btnMakeNotificationTouchUpInside:(id)sender {

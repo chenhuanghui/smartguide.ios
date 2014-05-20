@@ -7,6 +7,7 @@
 //
 
 #import "TextFieldSearch.h"
+#import "TextFieldSearchBackgroundView.h"
 #import "Utility.h"
 
 @implementation TextFieldSearch
@@ -28,7 +29,7 @@
 
 -(void) commonInit
 {
-    TextFieldBGView *bg=[[TextFieldBGView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
+    TextFieldSearchBackgroundView *bg=[[TextFieldSearchBackgroundView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
     
     bgView=bg;
     
@@ -228,33 +229,6 @@
         [self.leftView l_v_setW:38];
     
     self.leftView.hidden=hiddenSearchIcon;
-}
-
-@end
-
-@implementation TextFieldBGView
-
--(id)initWithFrame:(CGRect)frame
-{
-    self=[super initWithFrame:frame];
-    
-    self.contentMode=UIViewContentModeRedraw;
-    self.backgroundColor=[UIColor clearColor];
-    self.userInteractionEnabled=false;
-    
-    return self;
-}
-
--(void)drawRect:(CGRect)rect
-{
-    float y=0;
-    
-    if(rect.size.height>38)
-        y=(rect.size.height-38)/2;
-    
-    [[UIImage imageNamed:@"bg_search_left.png"] drawAtPoint:CGPointMake(0, y)];
-    [[UIImage imageNamed:@"bg_search_mid.png"] drawAsPatternInRect:CGRectMake(19, y, rect.size.width-19-19, rect.size.height)];
-    [[UIImage imageNamed:@"bg_search_right.png"] drawAtPoint:CGPointMake(rect.size.width-19, y)];
 }
 
 @end
