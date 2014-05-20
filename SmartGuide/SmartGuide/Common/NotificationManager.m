@@ -151,7 +151,7 @@ static NotificationManager *_notificationManager=nil;
                           ntohl(tokenBytes[0]), ntohl(tokenBytes[1]), ntohl(tokenBytes[2]),
                           ntohl(tokenBytes[3]), ntohl(tokenBytes[4]), ntohl(tokenBytes[5]),
                           ntohl(tokenBytes[6]), ntohl(tokenBytes[7])];
-
+    
     [self uploadToken:hexToken];
 }
 
@@ -177,6 +177,8 @@ static NotificationManager *_notificationManager=nil;
 
 static char UserNotificationOperationReadKey;
 static char UserNotificationIsSentReadKey;
+static char UserNotificationOperationRemoveKey;
+static char USerNotificationIsSentRemoveKey;
 
 @implementation UserNotification(ASIOperation)
 
@@ -190,6 +192,16 @@ static char UserNotificationIsSentReadKey;
     return objc_getAssociatedObject(self, &UserNotificationOperationReadKey);
 }
 
+-(void)setOperationRemove:(ASIOperationUserNotificationRemove *)operationRemove
+{
+    objc_setAssociatedObject(self, &UserNotificationOperationRemoveKey, operationRemove, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+-(ASIOperationUserNotificationRemove *)operationRemove
+{
+    return objc_getAssociatedObject(self, &UserNotificationOperationRemoveKey);
+}
+
 -(void)setIsSentRead:(NSNumber *)isSentRead
 {
     objc_setAssociatedObject(self, &UserNotificationIsSentReadKey, isSentRead, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
@@ -200,10 +212,23 @@ static char UserNotificationIsSentReadKey;
     return objc_getAssociatedObject(self, &UserNotificationIsSentReadKey);
 }
 
+-(void)setIsSentRemove:(NSNumber *)isSentRemove
+{
+    objc_setAssociatedObject(self, &USerNotificationIsSentRemoveKey, isSentRemove, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+-(NSNumber *)isSentRemove
+{
+    return objc_getAssociatedObject(self, &USerNotificationIsSentRemoveKey);
+}
+
 -(void)markAndSendRead
 {
     if(self.isSentRead.boolValue || self.operationRead)
         return;
+    
+    self.highlightUnread=@(false);
+    [[DataManager shareInstance] save];
     
     self.operationRead=[[ASIOperationUserNotificationRead alloc] initWithIDNotification:self.idNotification.integerValue userLat:userLat() userLng:userLng() uuid:UUID()];
     self.operationRead.delegatePost=self;
@@ -211,23 +236,52 @@ static char UserNotificationIsSentReadKey;
     [self.operationRead startAsynchronous];
 }
 
+-(void)sendDelete
+{
+    if(self.isSentRemove.boolValue || self.operationRemove)
+        return;
+    
+    self.isSentRemove=@(true);
+    
+    self.operationRemove=[[ASIOperationUserNotificationRemove alloc] initWithIDNotification:self.idNotification.integerValue userLat:userLat() userLng:userLng() uuid:UUID()];
+    self.operationRemove.delegatePost=self;
+    
+    [self.operationRemove startAsynchronous];
+}
+
 -(void)ASIOperaionPostFinished:(ASIOperationPost *)operation
 {
-    self.operationRead=nil;
-    self.isSentRead=@(true);
-    
-    [self finished];
+    if([operation isKindOfClass:[ASIOperationUserNotificationRead class]])
+    {
+        self.operationRead=nil;
+        self.isSentRead=@(true);
+        
+        [self finishedRead];
+    }
+    else if([operation isKindOfClass:[ASIOperationUserNotificationRemove class]])
+    {
+        self.operationRemove=nil;
+        self.isSentRemove=@(true);
+    }
 }
 
 -(void)ASIOperaionPostFailed:(ASIOperationPost *)operation
 {
-    self.operationRead=nil;
-    self.isSentRead=@(true);
-    
-    [self finished];
+    if([operation isKindOfClass:[ASIOperationUserNotificationRead class]])
+    {
+        self.operationRead=nil;
+        self.isSentRead=@(true);
+        
+        [self finishedRead];
+    }
+    else if([operation isKindOfClass:[ASIOperationUserNotificationRemove class]])
+    {
+        self.operationRemove=nil;
+        self.isSentRemove=@(true);
+    }
 }
 
--(void) finished
+-(void) finishedRead
 {
     if([NotificationManager shareInstance].launchNotification==self)
     {
@@ -266,6 +320,9 @@ static char UserNotificationIsSentReadKey;
         obj.content=[NSString stringWithStringDefault:dataJson[@"content"]];
         obj.highlight=[NSString stringWithStringDefault:dataJson[@"highlight"]];
         obj.time=[NSString stringWithStringDefault:dataJson[@"time"]];\
+        
+        if(obj.enumStatus==USER_NOTIFICATION_STATUS_UNREAD)
+            obj.highlightUnread=@(true);
         
         switch (obj.enumActionType) {
             case USER_NOTIFICATION_ACTION_TYPE_SHOP_USER:

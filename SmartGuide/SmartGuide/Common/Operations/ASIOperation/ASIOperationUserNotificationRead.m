@@ -32,9 +32,9 @@
     
     for(UserNotification *obj in array)
     {
-        if(obj.idNotification.integerValue==idNotification && obj.enumStatus==USER_NOTIFICATION_STATUS_UNREAD)
+        if(obj.idNotification.integerValue==idNotification && obj.enumStatus==USER_NOTIFICATION_STATUS_UNREAD && !obj.highlightUnread.boolValue)
         {
-            obj.status=@(USER_NOTIFICATION_STATUS_READ);
+            obj.highlightUnread=@(false);
             hasChanged=true;
         }
     }

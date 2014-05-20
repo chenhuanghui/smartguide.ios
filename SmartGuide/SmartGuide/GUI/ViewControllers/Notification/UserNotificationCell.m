@@ -64,36 +64,45 @@
     return @"UserNotificationCell";
 }
 
++(NSMutableAttributedString*) contentAttribute:(UserNotification*) obj
+{
+    if(!obj)
+        return [[NSMutableAttributedString alloc] initWithString:@"" attributes:nil];
+    
+    NSMutableDictionary *dict=[NSMutableDictionary new];
+    [dict setObject:[UIFont fontWithName:@"Avenir-Roman" size:13] forKey:NSFontAttributeName];
+    
+    if(obj.enumStatus==USER_NOTIFICATION_STATUS_UNREAD)
+        [dict setObject:obj.highlightUnread.boolValue?[UIColor darkTextColor]:[UIColor redColor] forKey:NSForegroundColorAttributeName];
+    else
+        [dict setObject:[UIColor darkTextColor] forKey:NSForegroundColorAttributeName];
+    
+    NSMutableAttributedString *attStr=[[NSMutableAttributedString alloc] initWithString:obj.content attributes:dict];
+    
+    NSArray *highlightIndex=obj.highlightIndex;
+    int count=highlightIndex.count;
+    
+    if(count%2==0)
+    {
+        for(int i=0;i<count;i+=2)
+        {
+            [dict setObject:[UIFont fontWithName:@"Avenir-Heavy" size:13] forKey:NSFontAttributeName];
+            
+            NSRange range=NSMakeRange([highlightIndex[i] integerValue], [highlightIndex[i+1] integerValue]);
+            [attStr setAttributes:dict range:range];
+        }
+    }
+    
+    return attStr;
+}
+
 +(float)heightWithUserNotification:(UserNotification *)obj
 {
     float height=56;
     
     if(!obj.contentAttribute)
     {
-        NSMutableDictionary *dict=[NSMutableDictionary new];
-        [dict setObject:[UIFont fontWithName:@"Avenir-Roman" size:13] forKey:NSFontAttributeName];
-        [dict setObject:[UIColor darkTextColor] forKey:NSForegroundColorAttributeName];
-        
-        NSMutableAttributedString *contentAttribute=[NSMutableAttributedString new];
-        NSMutableAttributedString *attStr=[[NSMutableAttributedString alloc] initWithString:obj.content attributes:dict];
-        
-        NSArray *highlightIndex=obj.highlightIndex;
-        int count=highlightIndex.count;
-        
-        if(count%2==0)
-        {
-            for(int i=0;i<count;i+=2)
-            {
-                [dict setObject:[UIFont fontWithName:@"Avenir-Heavy" size:13] forKey:NSFontAttributeName];
-                
-                NSRange range=NSMakeRange([highlightIndex[i] integerValue], [highlightIndex[i+1] integerValue]);
-                [attStr setAttributes:dict range:range];
-            }
-        }
-        
-        [contentAttribute appendAttributedString:attStr];
-        
-        obj.contentAttribute=contentAttribute;
+        obj.contentAttribute=[UserNotificationCell contentAttribute:obj];
     }
     
     if(obj.contentHeight.floatValue==-1)
@@ -115,7 +124,7 @@
 }
 
 - (IBAction)btnRemoveTouchUpInside:(id)sender {
-    [scroll setContentOffset:CGPointZero animated:true];
+    [self removeObserverHighlightUnread];
     [self.delegate userNotificationCellTouchedRemove:self obj:_obj];
 }
 
@@ -139,32 +148,34 @@
     [self.delegate userNotificationCellTouchedDetail:self obj:_obj];
 }
 
--(void) addObserverStatus
+-(void) addObserverHighlightUnread
 {
-    _isAddedObserverStatus=true;
-    [_obj addObserver:self forKeyPath:UserNotification_Status options:NSKeyValueObservingOptionNew context:nil];
+    _isAddedObserverHighlightUnread=true;
+    [_obj addObserver:self forKeyPath:UserNotification_HighlightUnread options:NSKeyValueObservingOptionNew context:nil];
     
 }
 
--(void) removeObserverStatus
+-(void) removeObserverHighlightUnread
 {
-    if(_isAddedObserverStatus && _obj.observationInfo)
+    if(_isAddedObserverHighlightUnread && _obj.observationInfo)
     {
-        [_obj removeObserver:self forKeyPath:UserNotification_Status];
+        [_obj removeObserver:self forKeyPath:UserNotification_HighlightUnread];
     }
 }
 
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-    if([keyPath isEqualToString:UserNotification_Status])
+    if([keyPath isEqualToString:UserNotification_HighlightUnread])
     {
         NSLog(@"observeValueForKeyPath %@",_obj);
+        _obj.contentAttribute=[UserNotificationCell contentAttribute:_obj];
+        [self loadWithUserNotification:_obj];
     }
 }
 
 -(void)dealloc
 {
-    [self removeObserverStatus];
+    [self removeObserverHighlightUnread];
 }
 
 @end

@@ -275,6 +275,9 @@
 
 -(void)userNotificationCellTouchedRemove:(UserNotificationCell *)cell obj:(UserNotification *)obj
 {
+    [obj sendDelete];
+    
+    [[GUIManager shareInstance].rootViewController removeUserNotification:obj];
     bool isHasReadNotification=_isHasReadNotification;
     bool _willRemoveSectionRead=false;
     [_userNotification removeObject:obj];
@@ -289,7 +292,10 @@
     if(_willRemoveSectionRead)
         [table deleteSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationAutomatic];
     else
-        [table deleteRowsAtIndexPaths:@[[table indexPathForCell:cell]] withRowAnimation:UITableViewRowAnimationAutomatic];
+    {
+        NSIndexPath *idx=[table indexPathForCell:cell];
+        [table deleteRowsAtIndexPaths:@[idx] withRowAnimation:UITableViewRowAnimationFade];
+    }
     
     [table endUpdates];
 }
@@ -527,7 +533,7 @@
     {
         UserNotificationCell *cellNoti=(UserNotificationCell*) cell;
         
-        [cellNoti addObserverStatus];
+        [cellNoti addObserverHighlightUnread];
     }
 }
 
@@ -537,7 +543,7 @@
     {
         UserNotificationCell *cellNoti=(UserNotificationCell*) cell;
         
-        [cellNoti removeObserverStatus];
+        [cellNoti removeObserverHighlightUnread];
     }
 }
 

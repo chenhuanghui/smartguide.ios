@@ -1004,6 +1004,7 @@
 		A9B8083E179FEAC300C8E003 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9B8083D179FEAC300C8E003 /* CoreMedia.framework */; };
 		A9B80840179FEACA00C8E003 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9B8083F179FEAC900C8E003 /* CoreVideo.framework */; };
 		A9B80842179FEAD900C8E003 /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A9B80841179FEAD900C8E003 /* libiconv.dylib */; };
+		A9BABB3C192B3EFA00C417F3 /* ASIOperationUserNotificationRemove.m in Sources */ = {isa = PBXBuildFile; fileRef = A9BABB3B192B3EFA00C417F3 /* ASIOperationUserNotificationRemove.m */; };
 		A9BD83EA18ED40BD000375BD /* button_config.png in Resources */ = {isa = PBXBuildFile; fileRef = A9BD83E218ED40BD000375BD /* button_config.png */; };
 		A9BD83EB18ED40BD000375BD /* button_config@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A9BD83E318ED40BD000375BD /* button_config@2x.png */; };
 		A9BD83EC18ED40BD000375BD /* icon_arrow_notification.png in Resources */ = {isa = PBXBuildFile; fileRef = A9BD83E418ED40BD000375BD /* icon_arrow_notification.png */; };
@@ -2362,6 +2363,8 @@
 		A9B8083D179FEAC300C8E003 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		A9B8083F179FEAC900C8E003 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
 		A9B80841179FEAD900C8E003 /* libiconv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libiconv.dylib; path = usr/lib/libiconv.dylib; sourceTree = SDKROOT; };
+		A9BABB3A192B3EFA00C417F3 /* ASIOperationUserNotificationRemove.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIOperationUserNotificationRemove.h; sourceTree = "<group>"; };
+		A9BABB3B192B3EFA00C417F3 /* ASIOperationUserNotificationRemove.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIOperationUserNotificationRemove.m; sourceTree = "<group>"; };
 		A9BD83E218ED40BD000375BD /* button_config.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_config.png; sourceTree = "<group>"; };
 		A9BD83E318ED40BD000375BD /* button_config@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_config@2x.png"; sourceTree = "<group>"; };
 		A9BD83E418ED40BD000375BD /* icon_arrow_notification.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_arrow_notification.png; sourceTree = "<group>"; };
@@ -3635,6 +3638,8 @@
 				A9E35F85190F8EB3008498E5 /* ASIOperationUserNotice.m */,
 				A9D70F7C191743BF007FA43A /* ASIOperationUploadNotificationToken.h */,
 				A9D70F7D191743BF007FA43A /* ASIOperationUploadNotificationToken.m */,
+				A9BABB3A192B3EFA00C417F3 /* ASIOperationUserNotificationRemove.h */,
+				A9BABB3B192B3EFA00C417F3 /* ASIOperationUserNotificationRemove.m */,
 			);
 			path = ASIOperation;
 			sourceTree = "<group>";
@@ -5527,6 +5532,7 @@
 				A921B03517A8BCA500DC6D4D /* ShopProduct.m in Sources */,
 				9ADCD94B18D19C3F004CB67E /* ASINetworkQueue.m in Sources */,
 				A921B03817A8BCAB00DC6D4D /* _ShopProduct.m in Sources */,
+				A9BABB3C192B3EFA00C417F3 /* ASIOperationUserNotificationRemove.m in Sources */,
 				9A889BBD187AAE8F00602CBB /* ASIOperationUserProfile.m in Sources */,
 				9A7AC1EF18D1907B0043316D /* ShopUserGalleryCell.m in Sources */,
 				9A63FA5418C735EA0083FE57 /* ASIOperationUserGallery.m in Sources */,

@@ -569,6 +569,17 @@
     [[GUIManager shareInstance] presentSGViewController:vc completion:nil];
 }
 
+-(void)removeUserNotification:(UserNotification *)obj
+{
+    if(remoteNotiView.userNotification==obj)
+    {
+        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(autoHideNotificationInfo) object:nil];
+        [remoteNotiView hide];
+    }
+    else if([[NotificationManager shareInstance].notifications containsObject:obj])
+        [[NotificationManager shareInstance].notifications removeObject:obj];
+}
+
 -(void)processUserNotification:(UserNotification *)obj
 {
     switch (obj.enumActionType) {

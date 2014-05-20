@@ -8,7 +8,7 @@
 
 #import "SGViewController.h"
 
-@class  UserNotificationHeaderView;
+@class  UserNotificationHeaderView,UserNotificationViewController;
 
 @interface UserNotificationViewController : SGViewController
 {

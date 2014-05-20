@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "UserNotification.h"
 #import "ASIOperationUserNotificationRead.h"
+#import "ASIOperationUserNotificationRemove.h"
 
 enum NOTIFICATION_CHECK_STATE
 {
@@ -31,6 +32,7 @@ enum NOTIFICATION_CHECK_STATE
 -(void) receiveDeviceToken:(NSData*) deviceToken;
 -(void) receiveRemoteNotification:(NSDictionary*) userInfo;
 -(void) receiveLaunchNotification:(NSDictionary*) launchOptions;
+-(void) removeUserNotification:(UserNotification*) obj;
 
 @property (nonatomic, strong) NSNumber *totalNotification;
 @property (nonatomic, strong) NSString *numOfNotification;
@@ -73,8 +75,11 @@ enum NOTI_READ_ACTION
 @interface UserNotification(ASIOperation)<ASIOperationPostDelegate>
 
 -(void) markAndSendRead;
+-(void) sendDelete;
 
 @property (nonatomic, readwrite, strong) ASIOperationUserNotificationRead *operationRead;
+@property (nonatomic, readwrite, strong) ASIOperationUserNotificationRemove *operationRemove;
 @property (nonatomic, readwrite, strong) NSNumber *isSentRead;
+@property (nonatomic, readwrite, strong) NSNumber *isSentRemove;
 
 @end

@@ -308,6 +308,7 @@
         <attribute name="badge" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="highlight" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="highlightUnread" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="idNotification" optional="YES" attributeType="Integer 32" syncable="YES"/>
         <attribute name="idPlacelist" optional="YES" attributeType="Integer 32" syncable="YES"/>
         <attribute name="idShop" optional="YES" attributeType="Integer 32" syncable="YES"/>
@@ -397,7 +398,7 @@
         <element name="UserHome7" positionX="0" positionY="0" width="128" height="180"/>
         <element name="UserHome8" positionX="0" positionY="0" width="128" height="105"/>
         <element name="UserHomeImage" positionX="0" positionY="0" width="128" height="90"/>
-        <element name="UserNotification" positionX="9" positionY="153" width="128" height="298"/>
+        <element name="UserNotification" positionX="9" positionY="153" width="128" height="313"/>
         <element name="UserNotificationContent" positionX="9" positionY="153" width="128" height="313"/>
         <element name="UserPlacelist" positionX="0" positionY="0" width="128" height="120"/>
         <element name="UserPromotion" positionX="0" positionY="0" width="128" height="270"/>

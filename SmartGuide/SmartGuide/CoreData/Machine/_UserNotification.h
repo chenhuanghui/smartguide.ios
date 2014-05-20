@@ -10,6 +10,7 @@
 #define UserNotification_Badge @"badge"
 #define UserNotification_Content @"content"
 #define UserNotification_Highlight @"highlight"
+#define UserNotification_HighlightUnread @"highlightUnread"
 #define UserNotification_IdNotification @"idNotification"
 #define UserNotification_IdPlacelist @"idPlacelist"
 #define UserNotification_IdShop @"idShop"
@@ -41,6 +42,7 @@
 @property (nonatomic, retain) NSString* badge;
 @property (nonatomic, retain) NSString* content;
 @property (nonatomic, retain) NSString* highlight;
+@property (nonatomic, retain) NSNumber* highlightUnread;
 @property (nonatomic, retain) NSNumber* idNotification;
 @property (nonatomic, retain) NSNumber* idPlacelist;
 @property (nonatomic, retain) NSNumber* idShop;

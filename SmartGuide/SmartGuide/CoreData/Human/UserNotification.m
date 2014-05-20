@@ -33,6 +33,9 @@
     obj.actionType=[NSNumber numberWithObject:data[@"actionType"]];
     obj.readAction=[NSNumber numberWithObject:data[@"readAction"]];
     
+    if(obj.enumStatus==USER_NOTIFICATION_STATUS_UNREAD)
+        obj.highlightUnread=@(true);
+    
     obj.highlight=@"";
     NSMutableArray *array=data[@"highlight"];
     
@@ -132,7 +135,7 @@
 
         case USER_NOTIFICATION_STATUS_UNREAD:
             return USER_NOTIFICATION_STATUS_UNREAD;
-            
+
         default:
             return USER_NOTIFICATION_STATUS_READ;
     }
@@ -209,6 +212,11 @@
 -(NSString *)idShops1
 {
     return @"112,113,114";
+}
+
+-(NSString *)content
+{
+    return [NSString stringWithFormat:@"%i %@",self.idNotification.integerValue, [super content]];
 }
 
 @end
