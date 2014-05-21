@@ -15,6 +15,7 @@ double userLng();
 NSString *userAvatar();
 UIImage *userAvatarImage();
 UIImage *userAvatarBlurImage();
+int userIDCity();
 
 User *currentUser();
 

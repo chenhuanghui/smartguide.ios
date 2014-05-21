@@ -60,6 +60,8 @@ NSString *NSStringFromUIGestureRecognizerState(UIGestureRecognizerState state);
 NSString *UUID();
 
 float roundToN(float num, int decimals);
+NSCache *shareCached();
+NSArray *CITY_LIST();
 
 @interface Utility : NSObject
 
@@ -209,6 +211,7 @@ float roundToN(float num, int decimals);
 -(BOOL) containsString:(NSString*)aString;
 -(NSString*) urlEncode;
 -(NSString*) sha1;
+-(NSString*) ASIString;
 
 @end
 

@@ -43,6 +43,11 @@ User *currentUser()
     return [DataManager shareInstance].currentUser;
 }
 
+int userIDCity()
+{
+    return [currentUser().idCity integerValue];
+}
+
 static DataManager *_dataManager=nil;
 @implementation DataManager
 @synthesize managedObjectContext,managedObjectModel,persistentStoreCoordinator;

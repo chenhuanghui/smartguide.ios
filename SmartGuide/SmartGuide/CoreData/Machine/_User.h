@@ -14,6 +14,7 @@
 #define User_FacebookToken @"facebookToken"
 #define User_Gender @"gender"
 #define User_GoogleplusToken @"googleplusToken"
+#define User_IdCity @"idCity"
 #define User_IdUser @"idUser"
 #define User_Name @"name"
 #define User_Phone @"phone"
@@ -40,6 +41,7 @@
 @property (nonatomic, retain) NSString* facebookToken;
 @property (nonatomic, retain) NSNumber* gender;
 @property (nonatomic, retain) NSString* googleplusToken;
+@property (nonatomic, retain) NSNumber* idCity;
 @property (nonatomic, retain) NSNumber* idUser;
 @property (nonatomic, retain) NSString* name;
 @property (nonatomic, retain) NSString* phone;

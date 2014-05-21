@@ -162,6 +162,35 @@ NSString* UUID()
     return uuid;
 }
 
+static NSCache *_shareCache=nil;
+NSCache *shareCached()
+{
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _shareCache=[[NSCache alloc] init];
+    });
+    
+    return _shareCache;
+}
+
+NSArray *CITY_LIST()
+{
+    if(![shareCached() objectForKey:@"cityList"])
+    {
+        NSString *path=[[NSBundle mainBundle] pathForResource:@"city_list" ofType:@"txt"];
+        NSData *data=[[NSFileManager defaultManager] contentsAtPath:path];
+        NSError *error=nil;
+        NSArray *array=[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
+        
+        if(error)
+            [shareCached() setObject:[NSArray array] forKey:@"cityList"];
+        else
+            [shareCached() setObject:array forKey:@"cityList"];
+    }
+    
+    return [shareCached() objectForKey:@"cityList"];
+}
+
 @implementation Utility
 
 +(CGRect) centerPinWithFrameAnnotation:(CGRect) rectAnn framePin:(CGRect) rectPin
@@ -981,6 +1010,16 @@ NSString* UUID()
 	return [d hexString];
 }
 
+-(NSString *)ASIString
+{
+    NSData *data=[self dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:true];
+    NSMutableString *str=[[NSMutableString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    
+    [str replaceOccurrencesOfString:@"đ" withString:@"d" options:0 range:NSMakeRange(0, str.length)];
+    
+    return str;
+}
+
 @end
 
 @implementation UIScrollView(Utility)
@@ -1192,7 +1231,6 @@ NSString* UUID()
     maskLayer.path=maskPath.CGPath;
     self.layer.mask=maskLayer;
     self.layer.masksToBounds=false;
-    self.layer.shouldRasterize=true;
 }
 
 -(CGPoint)convertPoint:(CGPoint)point untilView:(UIView *)view

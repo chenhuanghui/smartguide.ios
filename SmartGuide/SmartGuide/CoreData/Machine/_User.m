@@ -189,6 +189,19 @@
 	[self didChangeValueForKey:@"googleplusToken"];
 }
 
+- (NSNumber*)idCity {
+	[self willAccessValueForKey:@"idCity"];
+	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"idCity"];
+	[self didAccessValueForKey:@"idCity"];
+	return result;
+}
+
+- (void)setIdCity:(NSNumber*)value {
+	[self willChangeValueForKey:@"idCity"];
+	[self setPrimitiveValue:value forKey:@"idCity"];
+	[self didChangeValueForKey:@"idCity"];
+}
+
 - (NSNumber*)idUser {
 	[self willAccessValueForKey:@"idUser"];
 	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"idUser"];
