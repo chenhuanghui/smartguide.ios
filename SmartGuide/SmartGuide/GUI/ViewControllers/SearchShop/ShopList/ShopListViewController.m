@@ -16,10 +16,11 @@
 #import "ShopPinView.h"
 #import "ShopListCell.h"
 #import "QRCodeViewController.h"
+#import "CityViewController.h"
 
 #define SHOP_LIST_SCROLL_SPEED 3.f
 
-@interface ShopListViewController ()<ShopPinDelegate,ShopListMapDelegate,ShopListCellDelegate>
+@interface ShopListViewController ()<ShopPinDelegate,ShopListMapDelegate,ShopListCellDelegate,TextFieldDelegate,CityControllerDelegate>
 
 @end
 
@@ -511,8 +512,20 @@
             break;
     }
  
-    txt.hiddenClearButton=true;
+    txt.rightViewType=TEXTFIELD_RIGHTVIEW_LOCATION;
+    txt.leftViewType=TEXTFIELD_LEFTVIEW_SEARCH;
     txt.placeholder=TEXTFIELD_SEARCH_PLACEHOLDER_TEXT;
+    _idCity=currentUser().idCity.integerValue;
+}
+
+-(NSArray *)registerNotifications
+{
+    return @[NOTIFICATION_USER_CITY_CHANGED];
+}
+
+-(void)textFieldTouchedRightView:(TextField *)textField
+{
+    [self showCityController];
 }
 
 -(void) requestPlacelistGetDetail
@@ -565,7 +578,7 @@
         _operationShopSearch=nil;
     }
     
-    _operationShopSearch=[[ASIOperationShopSearch alloc] initWithKeywords:_keyword userLat:_location.latitude userLng:_location.longitude page:_page+1 sort:_sort];
+    _operationShopSearch=[[ASIOperationShopSearch alloc] initWithKeywords:_keyword userLat:_location.latitude userLng:_location.longitude page:_page+1 sort:_sort idCity:_idCity];
     _operationShopSearch.delegatePost=self;
     
     [_operationShopSearch startAsynchronous];
@@ -575,7 +588,7 @@
 {
     [self showLoading];
     
-    [tableList setContentOffset:tableList.contentOffset animated:true];
+    [tableList setContentOffset:CGPointZero animated:true];
     
     _shopsList=[NSMutableArray new];
     _page=-1;
@@ -601,7 +614,7 @@
         _keyword=@"";
     
     [SGData shareInstance].fScreen=[ShopListViewController screenCode];
-    _operationShopSearch=[[ASIOperationShopSearch alloc] initWithKeywords:_keyword userLat:_location.latitude userLng:_location.longitude page:_page+1 sort:_sort];
+    _operationShopSearch=[[ASIOperationShopSearch alloc] initWithKeywords:_keyword userLat:_location.latitude userLng:_location.longitude page:_page+1 sort:_sort idCity:_idCity];
     
     _operationShopSearch.delegatePost=self;
     [_operationShopSearch startAsynchronous];
@@ -686,7 +699,7 @@
         _operationShopSearch=nil;
     }
     
-    _operationShopSearch=[[ASIOperationShopSearch alloc] initWithKeywords:_keyword userLat:_location.latitude userLng:_location.longitude page:_page+1 sort:sort];
+    _operationShopSearch=[[ASIOperationShopSearch alloc] initWithKeywords:_keyword userLat:_location.latitude userLng:_location.longitude page:_page+1 sort:sort idCity:_idCity];
     
     _operationShopSearch.delegatePost=self;
     [_operationShopSearch startAsynchronous];
@@ -1375,6 +1388,48 @@
         
         [lCell removeObserverLove];
     }
+}
+
+- (IBAction)btnCityTouchUpInside:(id)sender {
+    [self showCityController];
+}
+
+-(void) showCityController
+{
+    CityViewController *vc=[[CityViewController alloc] initWithSelectedIDCity:_idCity];
+    vc.delegate=self;
+    
+    [self.navigationController pushViewController:vc animated:true];
+}
+
+-(void)cityControllerDidTouchedCity:(CityViewController *)controller idCity:(int)idCity name:(NSString *)name
+{
+    if(_idCity==idCity)
+        return;
+    
+    _idCity=idCity;
+    [btnCity setTitle:name forState:UIControlStateNormal];
+    
+    [self changeCity];
+}
+
+-(void)receiveNotification:(NSNotification *)notification
+{
+    if([notification.name isEqualToString:NOTIFICATION_USER_CITY_CHANGED])
+    {
+        if(_idCity==[notification.userInfo integerForKey:@"id"])
+            return;
+        
+        _idCity=[notification.userInfo integerForKey:@"id"];
+        [btnCity setTitle:notification.userInfo[@"name"] forState:UIControlStateNormal];
+        
+        [self changeCity];
+    }
+}
+
+-(void) changeCity
+{
+    [self changeLocation:map.centerCoordinate];
 }
 
 @end

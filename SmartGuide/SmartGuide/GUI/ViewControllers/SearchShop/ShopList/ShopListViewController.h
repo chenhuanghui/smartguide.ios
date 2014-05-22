@@ -22,7 +22,7 @@
 #import "PlacelistViewController.h"
 #import "ShopListMapCell.h"
 #import "ASIOperationRemoveShopPlacelist.h"
-#import "TextFieldSearch.h"
+#import "TextField.h"
 
 @class ScrollShopList,ShopListContentView,ShopListViewController,TableShopList,ScrollerShopList;
 
@@ -48,13 +48,14 @@ enum SHOP_LIST_VIEW_MODE {
     __weak IBOutlet UIView *qrCodeView;
     __weak IBOutlet UIButton *btnScanBig;
     __weak IBOutlet UIButton *btnScanSmall;
-    __weak IBOutlet TextFieldSearch *txt;
+    __weak IBOutlet SearchTextField *txt;
     __weak IBOutlet UIView *loadingView;
     __strong ShopListMapCell *mapCell;
     __weak MapView *map;
     __weak IBOutlet UIView *visibleTableView;//dùng để tính vị trí animation
     __weak IBOutlet UIView *visibleScrollerView;//dùng để tính chiều cao scroller;
 
+    __weak IBOutlet UIButton *btnCity;
     CGRect _mapFrame;
     CGRect _tableFrame;
     CGRect _qrFrame;
@@ -101,6 +102,7 @@ enum SHOP_LIST_VIEW_MODE {
     
     __weak ScrollerShopList *scrollerView;
     CGRect _scrollerViewFrame;
+    int _idCity;
 }
 
 -(ShopListViewController*) initWithKeyword:(NSString*) keyword;

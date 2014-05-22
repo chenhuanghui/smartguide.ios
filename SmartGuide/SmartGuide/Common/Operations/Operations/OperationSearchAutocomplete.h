@@ -10,7 +10,7 @@
 
 @interface OperationSearchAutocomplete : OperationURL
 
--(OperationSearchAutocomplete*) initWithKeyword:(NSString*) keyword;
+-(OperationSearchAutocomplete*) initWithKeyword:(NSString*) keyword idCity:(int) idCity;
 
 @property (nonatomic, strong) NSString *keyword;
 @property (nonatomic, strong) NSMutableArray *placelists;

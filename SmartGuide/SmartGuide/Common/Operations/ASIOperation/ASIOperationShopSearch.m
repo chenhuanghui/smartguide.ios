@@ -11,7 +11,7 @@
 @implementation ASIOperationShopSearch
 @synthesize shopsList;
 
--(ASIOperationShopSearch *)initWithKeywords:(NSString *)keywords userLat:(double)userLat userLng:(double)userLng page:(NSUInteger)page sort:(enum SORT_LIST)sort
+-(ASIOperationShopSearch *)initWithKeywords:(NSString *)keywords userLat:(double)userLat userLng:(double)userLng page:(NSUInteger)page sort:(enum SORT_LIST)sort idCity:(int)idCity
 {
     self=[super initWithURL:[NSURL URLWithString:SERVER_API_MAKE(API_SHOP_SEARCH)]];
     
@@ -20,6 +20,7 @@
     [self.keyValue setObject:@(userLng) forKey:USER_LONGITUDE];
     [self.keyValue setObject:@(page) forKey:PAGE];
     [self.keyValue setObject:@(sort) forKey:SORT];
+    [self.keyValue setObject:@(idCity) forKey:@"idCity"];
     
     return self;
 }

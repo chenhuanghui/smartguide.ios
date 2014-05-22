@@ -580,7 +580,7 @@
 {
     NSLog(@"callAutocomplete %@",keyword);
     
-    OperationSearchAutocomplete *ope=[[OperationSearchAutocomplete alloc] initWithKeyword:keyword];
+    OperationSearchAutocomplete *ope=[[OperationSearchAutocomplete alloc] initWithKeyword:keyword idCity:userIDCity()];
     ope.delegate=self;
     
     [ope start];

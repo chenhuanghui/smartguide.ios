@@ -83,6 +83,7 @@
 }
 
 - (IBAction)btnBackTouchUpInside:(id)sender {
+    [self.navigationController popViewControllerAnimated:true];
 }
 
 - (IBAction)txtSearchTextChanged:(id)sender {
@@ -135,7 +136,8 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     CityObject *obj=_filterCities[indexPath.row];
-    [self.delegate cityControllerDidTouchedCity:obj.idCity.integerValue name:obj.name];
+    [self.delegate cityControllerDidTouchedCity:self idCity:obj.idCity.integerValue name:obj.name];
+    [self.navigationController popViewControllerAnimated:true];
 }
 
 -(void)dealloc

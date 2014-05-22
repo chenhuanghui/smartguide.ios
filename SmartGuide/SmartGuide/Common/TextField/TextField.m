@@ -70,6 +70,12 @@
     }
 }
 
+-(void) btnRightTouchUpInside:(id) sender
+{
+    if([self.delegate respondsToSelector:@selector(textFieldTouchedRightView:)])
+        [self.delegate textFieldTouchedRightView:self];
+}
+
 -(void)setRightViewType:(enum TEXTFIELD_RIGHTVIEW_TYPE)rightViewType_
 {
     rightViewType=rightViewType_;
@@ -80,7 +86,19 @@
             UIImageView *imgv=[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"button_close_search.png"]];
             imgv.contentMode=UIViewContentModeCenter;
             [imgv l_v_setS:CGSizeMake(38, 38)];
-            self.rightView=imgv;
+            
+            UIButton *btn=[UIButton buttonWithType:UIButtonTypeCustom];
+            [btn l_v_setS:CGSizeMake(38, 38)];
+            btn.backgroundColor=[UIColor clearColor];
+            [btn addTarget:self action:@selector(btnRightTouchUpInside:) forControlEvents:UIControlEventTouchUpInside];
+            
+            UIView *view=[[UIView alloc] initWithFrame:CGRectMake(0, 0, 38, 38)];
+            view.backgroundColor=[UIColor clearColor];
+            
+            [view addSubview:imgv];
+            [view addSubview:btn];
+            
+            self.rightView=view;
             self.rightViewMode=UITextFieldViewModeAlways;
         }
             break;
@@ -90,7 +108,19 @@
             UIImageView *imgv=[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_location.png"]];
             imgv.contentMode=UIViewContentModeCenter;
             [imgv l_v_setS:CGSizeMake(38, 38)];
-            self.rightView=imgv;
+            
+            UIButton *btn=[UIButton buttonWithType:UIButtonTypeCustom];
+            [btn l_v_setS:CGSizeMake(38, 38)];
+            btn.backgroundColor=[UIColor clearColor];
+            [btn addTarget:self action:@selector(btnRightTouchUpInside:) forControlEvents:UIControlEventTouchUpInside];
+            
+            UIView *view=[[UIView alloc] initWithFrame:CGRectMake(0, 0, 38, 38)];
+            view.backgroundColor=[UIColor clearColor];
+            
+            [view addSubview:imgv];
+            [view addSubview:btn];
+            
+            self.rightView=view;
             self.rightViewMode=UITextFieldViewModeAlways;
         }
             break;

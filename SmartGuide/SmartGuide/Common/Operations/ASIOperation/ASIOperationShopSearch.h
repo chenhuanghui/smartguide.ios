@@ -11,7 +11,7 @@
 
 @interface ASIOperationShopSearch : ASIOperationPost
 
--(ASIOperationShopSearch*) initWithKeywords:(NSString*) keywords userLat:(double) userLat userLng:(double) userLng page:(NSUInteger) page sort:(enum SORT_LIST) sort;
+-(ASIOperationShopSearch*) initWithKeywords:(NSString*) keywords userLat:(double) userLat userLng:(double) userLng page:(NSUInteger) page sort:(enum SORT_LIST) sort idCity:(int) idCity;
 
 @property (nonatomic, readonly) NSMutableArray *shopsList;
 

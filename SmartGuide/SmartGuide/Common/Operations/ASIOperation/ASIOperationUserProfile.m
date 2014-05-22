@@ -43,6 +43,10 @@
     user.phone=[NSString stringWithStringDefault:dict[@"phone"]];
     user.socialType=[NSNumber numberWithObject:dict[@"socialType"]];
     user.birthday=[NSString stringWithStringDefault:dict[@"dob"]];
+    user.idCity=[NSNumber numberWithObject:dict[@"idCity"]];
+    
+    if(user.idCity.integerValue==0)
+        user.idCity=@(1);
     
     [[DataManager shareInstance] save];
 }

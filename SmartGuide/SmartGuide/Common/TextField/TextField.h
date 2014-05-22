@@ -27,11 +27,22 @@ enum TEXTFIELD_DISPLAY_TYPE
     TEXTFIELD_DISPLAY_TYPE_SEARCH=0,
 };
 
+@class TextField;
+
+@protocol TextFieldDelegate <UITextFieldDelegate>
+
+@optional
+-(void) textFieldTouchedRightView:(TextField*) textField;
+-(void) textFieldTouchedLeftView:(TextField*) textField;
+
+@end
+
 @interface TextField : UITextField
 
 @property (nonatomic, assign) enum TEXTFIELD_DISPLAY_TYPE displayType;
 @property (nonatomic, assign) enum TEXTFIELD_LEFTVIEW_TYPE leftViewType;
 @property (nonatomic, assign) enum TEXTFIELD_RIGHTVIEW_TYPE rightViewType;
+@property (nonatomic, weak) IBOutlet id<TextFieldDelegate> delegate;
 
 @end
 

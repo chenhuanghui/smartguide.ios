@@ -90,6 +90,7 @@
 
 -(enum SOCIAL_TYPE)enumSocialType
 {
+    return SOCIAL_NONE;
     switch (self.socialType.integerValue) {
         case SOCIAL_FACEBOOK:
             return SOCIAL_FACEBOOK;

@@ -7,15 +7,17 @@
 //
 
 #import "OperationSearchAutocomplete.h"
+#define QUERY @"{\"query\":{\"filtered\":{\"query\":{\"query_string\":{\"query\":\"%@\",\"fields\":[\"shop_name_auto_complete\",\"name_auto_complete\"]}},\"filter\":{\"term\":{\"city\":%i}}}},\"highlight\":{\"fields\":{\"shop_name_auto_complete\":{},\"name_auto_complete\":{}}},\"from\":0,\"size\":5,\"fields\":[\"shop_name\",\"hasPromotion\",\"name\",\"id\"]}"
+
 @implementation OperationSearchAutocomplete
 
--(OperationSearchAutocomplete *)initWithKeyword:(NSString *)keyword_
+-(OperationSearchAutocomplete *)initWithKeyword:(NSString *)keyword_ idCity:(int)idCity
 {
     NSString *key=[keyword_ lowercaseString];
     
-    NSString *esQuery=@"{\"query\":{\"query_string\":{\"query\":\"%@\",\"fields\":[\"shop_name_auto_complete\",\"name_auto_complete\"]}},\"highlight\":{\"fields\":{\"shop_name_auto_complete\":{},\"name_auto_complete\":{}}},\"from\":0,\"size\":5,\"fields\":[\"shop_name\",\"hasPromotion\",\"name\",\"id\"]}";
+    NSString *esQuery=QUERY;
     
-    NSString *query=[NSString stringWithFormat:esQuery,key];
+    NSString *query=[NSString stringWithFormat:esQuery,key,idCity];
     query=[query stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     
     NSMutableDictionary *dict=[NSMutableDictionary dictionary];

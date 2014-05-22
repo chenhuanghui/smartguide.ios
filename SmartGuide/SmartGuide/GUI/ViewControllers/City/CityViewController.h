@@ -9,9 +9,11 @@
 #import "SGViewController.h"
 #import "TextField.h"
 
+@class CityViewController;
+
 @protocol CityControllerDelegate <SGViewControllerDelegate>
 
--(void) cityControllerDidTouchedCity:(int) idCity name:(NSString*) name;
+-(void) cityControllerDidTouchedCity:(CityViewController*) controller idCity:(int) idCity name:(NSString*) name;
 
 @end
 

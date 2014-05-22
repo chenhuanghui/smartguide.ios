@@ -40,6 +40,8 @@ static NSString * const kClientId = @"790158294934-p5pnscmrt4avj698ncvhp14fit0f4
 #define CLIENT_ID @"1_orazuv2dl3k8ossssg8804o4kwksw8kwcskkk404w40gwcwws"//dev2
 #define SECRET_ID @"4xvgf3r9dxs8k8g8o8k0gss0s0wc8so4g4wg40c8s44kgcwsks"//dev2
 
+#define API_ELASTIC_AUTOCOMPLETE_NATIVE @"http://dev2.smartguide.vn:9200/data/_search"
+
 #else
 
 #define SERVER_API @"https://api.infory.vn/api"
@@ -47,6 +49,8 @@ static NSString * const kClientId = @"790158294934-p5pnscmrt4avj698ncvhp14fit0f4
 
 #define CLIENT_ID @"1_orazuv2dl3k8ossssg8804o4kwksw8kwcskkk404w40gwcwws"//product
 #define SECRET_ID @"4xvgf3r9dxs8k8g8o8k0gss0s0wc8so4g4wg40c8s44kgcwsks"//product
+
+#define API_ELASTIC_AUTOCOMPLETE_NATIVE @"http://dev2.smartguide.vn:9200/data/_search"
 
 #endif
 
@@ -91,8 +95,6 @@ static NSString * const kClientId = @"790158294934-p5pnscmrt4avj698ncvhp14fit0f4
 #define API_SHOP_DETAIL_INFO @"shop/detailinfo"
 #define API_USER_HOME @"user/home"
 #define API_GET_SHOP_LIST @"shop/getShopList"
-#define API_ELASTIC_AUTOCOMPLETE @"elastic/autocomplete"
-#define API_ELASTIC_AUTOCOMPLETE_NATIVE @"http://api.infory.vn:9200/data/_search"
 #define API_USER_PROFILE @"user/profile"
 #define API_USER_UPDATE_PROFILE @"user/updateProfile"
 #define API_USER_UPLOAD_SOCIAL_PROFILE @"user/uploadSocialProfile"
@@ -168,6 +170,7 @@ static NSString * const kClientId = @"790158294934-p5pnscmrt4avj698ncvhp14fit0f4
 #define NOTIFICATION_INFORY_LAUNCHED @"inforyLaunched"
 #define NOTIFICATION_TOTAL_NOTIFICATION_CHANGED @"totalNotificationChanged"
 #define NOTIFICATION_RECEIVED_REMOTE_NOTIFICATION @"receivedRemoteNotification"
+#define NOTIFICATION_USER_CITY_CHANGED @"userCityChangedNotification"
 
 #define COLOR_BACKGROUND_APP_ALPHA(a) [UIColor colorWithRed:40.f/255 green:46.f/255 blue:58.f/255 alpha:a]
 #define COLOR_BACKGROUND_APP COLOR_BACKGROUND_APP_ALPHA(1)
