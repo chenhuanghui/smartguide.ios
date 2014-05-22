@@ -46,7 +46,7 @@
     user.idCity=[NSNumber numberWithObject:dict[@"idCity"]];
     
     if(user.idCity.integerValue==0)
-        user.idCity=@(1);
+        user.idCity=@(IDCITY_HCM());
     
     [[DataManager shareInstance] save];
 }

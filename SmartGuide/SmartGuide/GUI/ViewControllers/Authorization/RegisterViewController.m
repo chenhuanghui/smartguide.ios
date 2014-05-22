@@ -279,7 +279,7 @@
         else
             [[UserUploadAvatarManager shareInstance] cancelUpload];
         
-        _operationUpdateUserProfile=[[ASIOperationUpdateUserProfile alloc] initWithName:_registerInfo.name avatar:_registerInfo.avatar gender:_registerInfo.gender socialType:SOCIAL_NONE birthday:_registerInfo.birthday];
+        _operationUpdateUserProfile=[[ASIOperationUpdateUserProfile alloc] initWithName:_registerInfo.name avatar:_registerInfo.avatar gender:_registerInfo.gender socialType:SOCIAL_NONE birthday:_registerInfo.birthday idCity:IDCITY_HCM()];
         _operationUpdateUserProfile.delegatePost=self;
         
         [_operationUpdateUserProfile startAsynchronous];

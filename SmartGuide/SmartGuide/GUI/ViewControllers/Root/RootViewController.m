@@ -176,8 +176,9 @@
     _isAnimatingSetting=true;
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        _isAnimatingSetting=scrollContent.l_co_x!=320;
         [scrollContent setContentOffset:CGPointMake(320, 0) animated:true];
-        scrollContent.userInteractionEnabled=false;
+        scrollContent.userInteractionEnabled=scrollContent.l_co_x==320;
     });
 }
 
@@ -306,7 +307,10 @@
     if([self.contentNavigation.visibleViewController isKindOfClass:[UserSettingViewController class]])
         return;
     
-    [self.contentNavigation setRootViewController:[self userSettingController] animate:false];
+    UserSettingViewController *vc=[self userSettingController];
+    vc.isNavigationButton=true;
+    
+    [self.contentNavigation setRootViewController:vc animate:false];
 }
 
 #pragma mark UserSettingController

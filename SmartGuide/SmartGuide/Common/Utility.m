@@ -191,6 +191,35 @@ NSArray *CITY_LIST()
     return [shareCached() objectForKey:@"cityList"];
 }
 
+NSString *CITY_NAME(int idCity)
+{
+    NSArray *cities=CITY_LIST();
+    
+    if(cities.count==0)
+        return @"";
+    
+    id obj=nil;
+    for(NSDictionary *dict in cities)
+    {
+        obj=dict[@"id"];
+        
+        if(obj && [obj integerValue]==idCity)
+            return [NSString stringWithStringDefault:dict[@"name"]];
+    }
+    
+    return @"";
+}
+
+int IDCITY_HCM()
+{
+    return 1;
+}
+
+int IDCITY_DANANG()
+{
+    return 140;
+}
+
 @implementation Utility
 
 +(CGRect) centerPinWithFrameAnnotation:(CGRect) rectAnn framePin:(CGRect) rectPin

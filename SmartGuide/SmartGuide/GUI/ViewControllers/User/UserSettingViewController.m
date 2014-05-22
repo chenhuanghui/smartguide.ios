@@ -13,8 +13,9 @@
 #import "FacebookManager.h"
 #import "GooglePlusManager.h"
 #import "UserUploadAvatarManager.h"
+#import "CityViewController.h"
 
-@interface UserSettingViewController ()<UITextFieldDelegate,UIPickerViewDataSource,UIPickerViewDelegate,UIGestureRecognizerDelegate,AvatarControllerDelegate,ASIOperationPostDelegate,OperationURLDelegate,GPPSignInDelegate>
+@interface UserSettingViewController ()<UITextFieldDelegate,UIPickerViewDataSource,UIPickerViewDelegate,UIGestureRecognizerDelegate,AvatarControllerDelegate,ASIOperationPostDelegate,OperationURLDelegate,GPPSignInDelegate,CityControllerDelegate>
 
 @end
 
@@ -57,6 +58,14 @@
     [super viewWillDisappear:animated];
 }
 
+-(void)viewWillAppearOnce
+{
+    if(self.isNavigationButton)
+        [btnSetting setImage:[UIImage imageNamed:@"button_navigation.png"] forState:UIControlStateNormal];
+    else
+        [btnSetting setImage:[UIImage imageNamed:@"button_backarrow.png"] forState:UIControlStateNormal];
+}
+
 -(void) loadData
 {
     [imgvAvatar loadUserAvatar:currentUser() onCompleted:^(UIImage *avatar, UIImage *avatarBlurr) {
@@ -69,6 +78,7 @@
     [lblGender setText:localizeGender(currentUser().gender.integerValue)];
     _selectedGender=currentUser().gender.integerValue;
     _selectedAvatar=currentUser().avatar;
+    lblCity.text=CITY_NAME(currentUser().idCity.integerValue);
     
     NSString *bd=[currentUser().birthday copy];
     bd=[bd stringByRemoveString:@"/",@"-",@" ",nil];
@@ -80,27 +90,33 @@
     btnGP.hidden=currentUser().enumSocialType!=SOCIAL_NONE;
     
     btnCover.hidden=currentUser().enumDataMode!=USER_DATA_TRY;
+    
+    [scroll contentSizeToFit];
 }
 
-- (IBAction)btnCoverTouchUpInside:(id)sender {
-    btnCover.enabled=false;
-    [[GUIManager shareInstance] showLoginDialogWithMessage:localizeLoginRequire() onOK:^{
-        btnCover.enabled=true;
-        [SGData shareInstance].fScreen=SCREEN_CODE_USER_SETTING;
-    } onCancelled:^
-    {
-        btnCover.enabled=true;
-    } onLogined:^(bool isLogined) {
-        btnCover.enabled=true;
-        
-        if(isLogined)
+-(bool) validateAllowEdit
+{
+    switch (currentUser().enumDataMode) {
+        case USER_DATA_FULL:
+        case USER_DATA_CREATING:
+            return true;
+            
+        case USER_DATA_TRY:
         {
-            imgvAvatar.image=nil;
-            imgvBGAvatar.image=nil;
-            [[DataManager shareInstance].managedObjectContext refreshObject:currentUser() mergeChanges:false];
-            [self loadData];
+            [[GUIManager shareInstance] showLoginDialogWithMessage:localizeLoginRequire() onOK:^{
+                [SGData shareInstance].fScreen=SCREEN_CODE_USER_SETTING;
+            } onCancelled:nil onLogined:^(bool isLogined) {
+                if(isLogined)
+                {
+                    imgvAvatar.image=nil;
+                    imgvBGAvatar.image=nil;
+                    [[DataManager shareInstance].managedObjectContext refreshObject:currentUser() mergeChanges:false];
+                    [self loadData];
+                }
+            }];
         }
-    }];
+            return false;
+    }
 }
 
 -(UIViewController *)avatarControllerPresentViewController
@@ -177,8 +193,6 @@
         _operationGPGetUserProfile=nil;
     }
 }
-
-
 
 - (void)didReceiveMemoryWarning
 {
@@ -283,7 +297,7 @@
         else
             [[UserUploadAvatarManager shareInstance] cancelUpload];
         
-        _operationUpdateUserProfile=[[ASIOperationUpdateUserProfile alloc] initWithName:currentUser().name avatar:_selectedAvatar gender:currentUser().enumGender socialType:currentUser().enumSocialType birthday:currentUser().birthday];
+        _operationUpdateUserProfile=[[ASIOperationUpdateUserProfile alloc] initWithName:currentUser().name avatar:_selectedAvatar gender:currentUser().enumGender socialType:currentUser().enumSocialType birthday:currentUser().birthday idCity:currentUser().idCity.integerValue];
         _operationUpdateUserProfile.delegatePost=self;
         
         [_operationUpdateUserProfile startAsynchronous];
@@ -414,7 +428,8 @@
 }
 
 - (IBAction)btnAvatarTouchUpInside:(id)sender {
-    [self showAvatars];
+    if([self validateAllowEdit])
+        [self showAvatars];
 }
 
 -(void) showAvatars
@@ -464,14 +479,44 @@
 }
 
 - (IBAction)btnEditDOBTouchUpInside:(id)sender {
-    [self showDOBPicker];
+    
+    if([self validateAllowEdit])
+        [self showDOBPicker];
 }
 
 - (IBAction)btnEditGenderTouchUpInside:(id)sender {
-    [self showGenderPicker];
+    if([self validateAllowEdit])
+        [self showGenderPicker];
+}
+
+- (IBAction)btnEditCityTouchUpInside:(id)sender
+{
+    if(![self validateAllowEdit])
+        return;
+    
+    CityViewController *vc=[[CityViewController alloc] initWithSelectedIDCity:userIDCity()];
+    vc.delegate=self;
+    
+    [_navi pushViewController:vc animated:true];
+}
+
+-(void)cityControllerDidTouchedCity:(CityViewController *)controller idCity:(int)idCity name:(NSString *)name
+{
+    if(idCity==userIDCity())
+        return;
+    
+    currentUser().idCity=@(idCity);
+    lblCity.text=name;
 }
 
 - (IBAction)btnLogoutTouchUpInside:(id)sender {
+    
+    if(currentUser().enumDataMode==USER_DATA_TRY)
+    {
+        [self.delegate userSettingControllerTouchedBack:self];
+        return;
+    }
+    
     _accessToken=[[TokenManager shareInstance].accessToken copy];
     [[TokenManager shareInstance] setAccessToken:DEFAULT_USER_ACCESS_TOKEN];
     
@@ -694,10 +739,15 @@
 }
 
 - (IBAction)btnFacebookTouchUpInside:(id)sender {
-    [[FacebookManager shareInstance] login];
+    if([self validateAllowEdit])
+        [[FacebookManager shareInstance] login];
 }
 
 - (IBAction)btnGooglePlusTouchUpInside:(id)sender {
+    
+    if(![self validateAllowEdit])
+        return;
+    
     GPPSignIn *gp = [GPPSignIn sharedInstance];
     gp.clientID=kClientId;
     gp.scopes=@[kGTLAuthScopePlusLogin,kGTLAuthScopePlusMe];
@@ -713,7 +763,7 @@
 {
     if(!error)
     {
-        [self.self.view showLoading];
+        [self.view showLoading];
         
         [GooglePlusManager shareInstance].authentication=auth;
         _operationGPGetUserProfile=[[OperationGPGetUserProfile alloc] initWithAccessToken:auth.accessToken clientID:kClientId];
@@ -726,6 +776,11 @@
 -(IBAction)btnTermsTouchUpInside:(id)sender
 {
     [[GUIManager shareInstance].rootViewController showTerms];
+}
+
+-(BOOL)textFieldShouldBeginEditing:(UITextField *)textField
+{
+    return [self validateAllowEdit];
 }
 
 @end

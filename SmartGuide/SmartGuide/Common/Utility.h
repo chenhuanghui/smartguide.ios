@@ -62,6 +62,9 @@ NSString *UUID();
 float roundToN(float num, int decimals);
 NSCache *shareCached();
 NSArray *CITY_LIST();
+NSString *CITY_NAME(int idCity);
+int IDCITY_HCM();
+int IDCITY_DANANG();
 
 @interface Utility : NSObject
 

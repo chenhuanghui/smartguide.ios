@@ -143,8 +143,6 @@
 
 -(enum USER_NOTIFICATION_ACTION_TYPE)enumActionType
 {
-    return USER_NOTIFICATION_ACTION_TYPE_CONTENT;
-    
     switch (self.actionType.integerValue) {
         case USER_NOTIFICATION_ACTION_TYPE_CONTENT:
             return USER_NOTIFICATION_ACTION_TYPE_CONTENT;
@@ -212,11 +210,6 @@
 -(NSString *)idShops1
 {
     return @"112,113,114";
-}
-
--(NSString *)content
-{
-    return [NSString stringWithFormat:@"%i %@",self.idNotification.integerValue, [super content]];
 }
 
 @end

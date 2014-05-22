@@ -202,6 +202,31 @@ static const int kStateKey;
     }
 }
 
+-(CGSize)TPKeyboardAvoiding_calculatedContentSizeFromSubviewFramesExceptView:(UIView *)exceptView {
+    
+    if(!exceptView)
+        return [self TPKeyboardAvoiding_calculatedContentSizeFromSubviewFrames];
+    
+    BOOL wasShowingVerticalScrollIndicator = self.showsVerticalScrollIndicator;
+    BOOL wasShowingHorizontalScrollIndicator = self.showsHorizontalScrollIndicator;
+    
+    self.showsVerticalScrollIndicator = NO;
+    self.showsHorizontalScrollIndicator = NO;
+    
+    CGRect rect = CGRectZero;
+    for ( UIView *view in self.subviews ) {
+        if(view==exceptView)
+            continue;
+        rect = CGRectUnion(rect, view.frame);
+    }
+    rect.size.height += kCalculatedContentPadding;
+    
+    self.showsVerticalScrollIndicator = wasShowingVerticalScrollIndicator;
+    self.showsHorizontalScrollIndicator = wasShowingHorizontalScrollIndicator;
+    
+    return rect.size;
+}
+
 -(CGSize)TPKeyboardAvoiding_calculatedContentSizeFromSubviewFrames {
     
     BOOL wasShowingVerticalScrollIndicator = self.showsVerticalScrollIndicator;

@@ -47,7 +47,7 @@
 }
 
 - (void)contentSizeToFit {
-    self.contentSize = [self TPKeyboardAvoiding_calculatedContentSizeFromSubviewFrames];
+    self.contentSize = [self TPKeyboardAvoiding_calculatedContentSizeFromSubviewFramesExceptView:self.exceptView];
 }
 
 - (BOOL)focusNextTextField {

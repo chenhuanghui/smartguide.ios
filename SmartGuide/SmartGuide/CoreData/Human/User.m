@@ -39,7 +39,7 @@
     user.idCity=[NSNumber numberWithObject:dict[@"idCity"]];
     
     if(user.idCity.integerValue==0)
-        user.idCity=@(1);// Ho Chi Minh City
+        user.idCity=@(IDCITY_HCM());
     
     return user;
 }

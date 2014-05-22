@@ -48,6 +48,7 @@
     __weak IBOutlet UIButton *btnGP;
     __weak IBOutlet UIButton *btnCover;
     __weak IBOutlet UIButton *btnTerms;
+    __weak IBOutlet UILabel *lblCity;
     
     IBOutlet SGNavigationController *_navi;
     __weak AvatarViewController *_avatarController;
@@ -67,5 +68,6 @@
 }
 
 @property (nonatomic, weak) id<SGUserSettingControllerDelegate> delegate;
+@property (nonatomic, assign) bool isNavigationButton;
 
 @end
