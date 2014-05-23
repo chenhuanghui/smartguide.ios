@@ -232,19 +232,6 @@
 	[self didChangeValueForKey:@"readAction"];
 }
 
-- (NSString*)sender {
-	[self willAccessValueForKey:@"sender"];
-	NSString* result = (NSString*)[self primitiveValueForKey:@"sender"];
-	[self didAccessValueForKey:@"sender"];
-	return result;
-}
-
-- (void)setSender:(NSString*)value {
-	[self willChangeValueForKey:@"sender"];
-	[self setPrimitiveValue:value forKey:@"sender"];
-	[self didChangeValueForKey:@"sender"];
-}
-
 - (NSNumber*)shopListType {
 	[self willAccessValueForKey:@"shopListType"];
 	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"shopListType"];

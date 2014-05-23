@@ -17,7 +17,6 @@
 #define UserNotification_IdShops @"idShops"
 #define UserNotification_Keywords @"keywords"
 #define UserNotification_ReadAction @"readAction"
-#define UserNotification_Sender @"sender"
 #define UserNotification_ShopListType @"shopListType"
 #define UserNotification_Status @"status"
 #define UserNotification_Time @"time"
@@ -49,7 +48,6 @@
 @property (nonatomic, retain) NSString* idShops;
 @property (nonatomic, retain) NSString* keywords;
 @property (nonatomic, retain) NSNumber* readAction;
-@property (nonatomic, retain) NSString* sender;
 @property (nonatomic, retain) NSNumber* shopListType;
 @property (nonatomic, retain) NSNumber* status;
 @property (nonatomic, retain) NSString* time;

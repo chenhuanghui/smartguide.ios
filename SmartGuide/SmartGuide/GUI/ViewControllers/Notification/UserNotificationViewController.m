@@ -71,7 +71,7 @@
     refreshView=rv;
     
     [table l_v_addY:-[RefreshingView height]];
-    [table l_v_addH:[RefreshingView height]*2];
+    [table l_v_addH:[RefreshingView height]];
 }
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
@@ -219,9 +219,9 @@
                     _isLoadingMore=true;
                     
                     [self requestUserNotification];
-                    
-                    return [tableView loadingMoreCell];
                 }
+                
+                return [tableView loadingMoreCell];
             }
         }
         else
@@ -233,9 +233,9 @@
                     _isLoadingMore=true;
                     
                     [self requestUserNotification];
-                    
-                    return [tableView loadingMoreCell];
                 }
+                
+                return [tableView loadingMoreCell];
             }
         }
     }
@@ -509,6 +509,9 @@
         {
             [self.view removeLoading];
             
+            _isLoadingMore=false;
+            _canLoadMore=ope.userNotifications.count==10;
+            _page++;
             [_userNotification addObjectsFromArray:ope.userNotifications];
             
             [self reloadData];

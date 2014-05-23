@@ -316,7 +316,6 @@ static char USerNotificationIsSentRemoveKey;
         obj.timer=[NSNumber numberWithObject:dataJson[@"timer"]];
         obj.actionType=[NSNumber numberWithObject:dataJson[@"actionType"]];
         obj.readAction=[NSNumber numberWithObject:dataJson[@"readAction"]];
-        obj.sender=[NSString stringWithStringDefault:dataJson[@"sender"]];
         obj.content=[NSString stringWithStringDefault:dataJson[@"content"]];
         obj.highlight=[NSString stringWithStringDefault:dataJson[@"highlight"]];
         obj.time=[NSString stringWithStringDefault:dataJson[@"time"]];\

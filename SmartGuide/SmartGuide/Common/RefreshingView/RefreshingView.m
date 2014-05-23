@@ -59,7 +59,7 @@
             refreshState=REFRESH_VIEW_STATE_REFRESHING;
             _isMarkRefreshDone=false;
             [self.delegate refreshingViewNeedRefresh:self];
-            table.contentInset=UIEdgeInsetsMake(self.l_v_h, 0, 0, 0);
+            table.contentInset=UIEdgeInsetsMake(self.l_v_h, 0, -self.l_v_h, 0);
             
             [self animationRefreshing:M_PI*2];
         }
