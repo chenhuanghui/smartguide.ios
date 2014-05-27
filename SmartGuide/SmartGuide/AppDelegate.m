@@ -20,6 +20,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    
+    [[NotificationManager shareInstance] removeAllNotification];
     if(launchOptions)
     {
         [[NotificationManager shareInstance] receiveLaunchNotification:launchOptions];

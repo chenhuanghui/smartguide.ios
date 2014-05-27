@@ -173,6 +173,13 @@ static NotificationManager *_notificationManager=nil;
     self.launchNotification=obj;
 }
 
+-(void)removeAllNotification
+{
+    [UserNotification markDeleteAllObjects];
+    [UserNotificationContent markDeleteAllObjects];
+    [[DataManager shareInstance] save];
+}
+
 @end
 
 static char UserNotificationOperationReadKey;

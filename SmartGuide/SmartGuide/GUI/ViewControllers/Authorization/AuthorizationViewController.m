@@ -54,8 +54,6 @@
     
     [navi.view l_v_setS:containView.l_v_s];
     
-    
-    
     authorNavi=navi;
 }
 

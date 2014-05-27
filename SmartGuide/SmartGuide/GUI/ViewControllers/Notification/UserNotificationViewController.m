@@ -366,8 +366,13 @@
         [table deleteSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationAutomatic];
     else
     {
-        NSIndexPath *idx=[table indexPathForCell:cell];
-        [table deleteRowsAtIndexPaths:@[idx] withRowAnimation:UITableViewRowAnimationFade];
+        if(_userNotification.count==0)
+            [table deleteSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
+        else
+        {
+            NSIndexPath *idx=[table indexPathForCell:cell];
+            [table deleteRowsAtIndexPaths:@[idx] withRowAnimation:UITableViewRowAnimationAutomatic];
+        }
     }
     
     [table endUpdates];
@@ -519,7 +524,7 @@
         else if(refreshView.refreshState==REFRESH_VIEW_STATE_REFRESHING)
         {
             _userNotificationFromAPI=[[NSMutableArray alloc] initWithArray:ope.userNotifications];
-
+            
             [refreshView markRefreshDone:table];
         }
         
@@ -571,15 +576,26 @@
 -(void)receiveRemoteNotification:(UserNotification *)obj
 {
     [table beginUpdates];
-    
+ 
+    bool willAddSectionUnread=false;
     if(_userNotification.count==0)
+    {
+        willAddSectionUnread=true;
         [_userNotification addObject:obj];
+    }
     else
         [_userNotification insertObject:obj atIndex:0];
     
     [self makeData];
     
-    [table insertRowsAtIndexPaths:@[indexPath(0, 0)] withRowAnimation:UITableViewRowAnimationAutomatic];
+    if(willAddSectionUnread)
+    {
+        [table insertSections:[NSIndexSet indexSetWithIndex:USER_NOTIFICATION_STATUS_UNREAD] withRowAnimation:UITableViewRowAnimationAutomatic];
+    }
+    else
+    {
+        [table insertRowsAtIndexPaths:@[indexPath(0, 0)] withRowAnimation:UITableViewRowAnimationAutomatic];
+    }
     
     [table endUpdates];
 }

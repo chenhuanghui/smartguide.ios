@@ -581,7 +581,9 @@
         [remoteNotiView hide];
     }
     else if([[NotificationManager shareInstance].notifications containsObject:obj])
+    {
         [[NotificationManager shareInstance].notifications removeObject:obj];
+    }
 }
 
 -(void)processUserNotification:(UserNotification *)obj
@@ -669,7 +671,7 @@
     // Check đang hiển thị notification hoặc popup
     if([self isShowingNotification] || self.presentSGViewControlelr)
         return;
-
+    
     [self displayNotification:obj];
 }
 

@@ -19,7 +19,7 @@
     table.tableHeaderView=self;
     [table.tableHeaderView l_v_setH:[RefreshingView height]];
     
-    self.backgroundColor=[UIColor whiteColor];
+    self.backgroundColor=[UIColor clearColor];
     
     UIImageView *imgv=[[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.l_v_w, self.l_v_h)];
     imgv.autoresizingMask=UIViewAutoresizingAll();

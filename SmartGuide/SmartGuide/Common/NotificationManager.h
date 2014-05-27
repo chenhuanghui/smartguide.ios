@@ -33,6 +33,8 @@ enum NOTIFICATION_CHECK_STATE
 -(void) receiveRemoteNotification:(NSDictionary*) userInfo;
 -(void) receiveLaunchNotification:(NSDictionary*) launchOptions;
 
+-(void) removeAllNotification;
+
 @property (nonatomic, strong) NSNumber *totalNotification;
 @property (nonatomic, strong) NSString *numOfNotification;
 @property (nonatomic, strong) NSString *notificationToken;
