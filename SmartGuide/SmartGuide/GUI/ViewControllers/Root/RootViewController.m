@@ -711,16 +711,26 @@
     }
     
     bool hasNotiController=false;
+    bool hasNotiContentController=false;
+    UserNotificationViewController *notiController=nil;
+    UserNotificationDetailViewController *notiDetailController=nil;
     for(int i=0;i<self.contentNavigation.viewControllers.count;i++)
     {
         UIViewController *vc=self.contentNavigation.viewControllers[i];
         
         if([vc isKindOfClass:[UserNotificationViewController class]])
         {
-            [self.contentNavigation popToViewController:vc animated:true];
             hasNotiController=true;
-            break;
+            notiController=(UserNotificationViewController*) vc;
         }
+        else if([vc isKindOfClass:[UserNotificationDetailViewController class]])
+        {
+            hasNotiContentController=true;
+            notiDetailController=(UserNotificationDetailViewController*)vc;
+        }
+        
+        if(hasNotiController && hasNotiContentController)
+            break;
     }
     
     if(!hasNotiController)
@@ -729,6 +739,13 @@
         vc.delegate=self;
         
         [self.contentNavigation pushViewController:vc animated:true];
+    }
+    else
+    {
+        if(hasNotiContentController)
+            [self.contentNavigation popToViewController:notiDetailController animated:true];
+        else
+            [self.contentNavigation popToViewController:notiController animated:true];
     }
     
     obj=nil;
@@ -746,7 +763,6 @@
     NSMutableDictionary *dict=[NSMutableDictionary dictionary];
     
     [dict setObject:@(rand()) forKey:@"idNotification"];
-    [dict setObject:@"sender" forKey:@"sender"];
     [dict setObject:@"Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat" forKey:@"content"];
     [dict setObject:rand()%2==0?@"":@"0;3;5;10" forKey:@"highlight"];
     [dict setObject:[NSString stringWithFormat:@"%@",[NSDate date]] forKey:@"time"];
@@ -769,14 +785,14 @@
     }
     else if(_loopMakeNotification==3)
         [dict setObject:@"http:\\infory.vn" forKey:@"url"];
-    
-    NSLog(@"make random notification %@",dict);
-    
+
     NSData *data=[NSJSONSerialization dataWithJSONObject:dict options:NSJSONWritingPrettyPrinted error:nil];
     NSString *dataJson=[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+
+    NSLog(@"make random notification %@ json %@",dict,dataJson);
     
     dict=[NSMutableDictionary dictionaryWithObject:dataJson forKey:@"data"];
-    [dict setObject:[NSString stringWithFormat:@"Alert %02i",_loopMakeNotification] forKey:@"alert"];
+    [dict setObject:[NSString stringWithFormat:@"Alert %02i",_loopMakeNotification] forKey:@"message"];
     [dict setObject:[NSString stringWithFormat:@"Badge %02i",_loopMakeNotification] forKey:@"badge"];
     
     dict=[NSMutableDictionary dictionaryWithObject:dict forKey:@"aps"];

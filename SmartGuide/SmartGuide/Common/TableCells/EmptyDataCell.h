@@ -18,3 +18,11 @@
 @property (weak, nonatomic) IBOutlet UILabel *lblDesc;
 
 @end
+
+@interface UITableView(EmptyData)
+
+-(void) registerEmptyDataCell;
+-(EmptyDataCell*) emptyDataCell;
+-(EmptyDataCell*) emptyDataCellWithDesc:(NSString*) desc;
+
+@end

@@ -206,6 +206,19 @@
 	[self didChangeValueForKey:@"idShops"];
 }
 
+- (NSNumber*)isRemoteNotification {
+	[self willAccessValueForKey:@"isRemoteNotification"];
+	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"isRemoteNotification"];
+	[self didAccessValueForKey:@"isRemoteNotification"];
+	return result;
+}
+
+- (void)setIsRemoteNotification:(NSNumber*)value {
+	[self willChangeValueForKey:@"isRemoteNotification"];
+	[self setPrimitiveValue:value forKey:@"isRemoteNotification"];
+	[self didChangeValueForKey:@"isRemoteNotification"];
+}
+
 - (NSString*)keywords {
 	[self willAccessValueForKey:@"keywords"];
 	NSString* result = (NSString*)[self primitiveValueForKey:@"keywords"];
@@ -217,6 +230,19 @@
 	[self willChangeValueForKey:@"keywords"];
 	[self setPrimitiveValue:value forKey:@"keywords"];
 	[self didChangeValueForKey:@"keywords"];
+}
+
+- (NSString*)message {
+	[self willAccessValueForKey:@"message"];
+	NSString* result = (NSString*)[self primitiveValueForKey:@"message"];
+	[self didAccessValueForKey:@"message"];
+	return result;
+}
+
+- (void)setMessage:(NSString*)value {
+	[self willChangeValueForKey:@"message"];
+	[self setPrimitiveValue:value forKey:@"message"];
+	[self didChangeValueForKey:@"message"];
 }
 
 - (NSNumber*)readAction {

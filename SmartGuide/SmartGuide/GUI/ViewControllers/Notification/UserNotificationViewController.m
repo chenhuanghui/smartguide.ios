@@ -363,15 +363,15 @@
     [table beginUpdates];
     
     if(_willRemoveSectionRead)
-        [table deleteSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationAutomatic];
+        [table deleteSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationNone];
     else
     {
         if(_userNotification.count==0)
-            [table deleteSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
+            [table deleteSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationNone];
         else
         {
             NSIndexPath *idx=[table indexPathForCell:cell];
-            [table deleteRowsAtIndexPaths:@[idx] withRowAnimation:UITableViewRowAnimationAutomatic];
+            [table deleteRowsAtIndexPaths:@[idx] withRowAnimation:UITableViewRowAnimationNone];
         }
     }
     
@@ -575,6 +575,7 @@
 
 -(void)receiveRemoteNotification:(UserNotification *)obj
 {
+    return;
     [table beginUpdates];
  
     bool willAddSectionUnread=false;
@@ -602,6 +603,8 @@
 
 -(void)processRemoteNotification:(UserNotification *)obj
 {
+    [self resetData];
+    return;
     bool animated=self.navigationController.visibleViewController==self;
     int idx=[_userNotificationUnread indexOfObject:obj];
     

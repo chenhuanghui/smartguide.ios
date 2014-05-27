@@ -16,3 +16,25 @@
 }
 
 @end
+
+@implementation UITableView(EmptyData)
+
+-(void)registerEmptyDataCell
+{
+    [self registerNib:[UINib nibWithNibName:[EmptyDataCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[EmptyDataCell reuseIdentifier]];
+}
+
+-(EmptyDataCell *)emptyDataCell
+{
+    return [self dequeueReusableCellWithIdentifier:[EmptyDataCell reuseIdentifier]];
+}
+
+-(EmptyDataCell *)emptyDataCellWithDesc:(NSString *)desc
+{
+    EmptyDataCell *cell=[self emptyDataCell];
+    cell.lblDesc.text=desc;
+    
+    return cell;
+}
+
+@end

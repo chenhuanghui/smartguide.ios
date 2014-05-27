@@ -18,7 +18,7 @@
                         <rect key="frame" x="0.0" y="6" width="320" height="50"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" id="Zi1-Aa-Ug2">
+                            <view clipsSubviews="YES" contentMode="scaleToFill" id="Zi1-Aa-Ug2">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
                                 <subviews>
@@ -66,7 +66,7 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
-                            <view contentMode="scaleToFill" id="kXJ-7k-P8L">
+                            <view clipsSubviews="YES" contentMode="scaleToFill" id="kXJ-7k-P8L">
                                 <rect key="frame" x="320" y="0.0" width="80" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
                                 <subviews>

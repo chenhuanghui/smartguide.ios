@@ -23,7 +23,16 @@
 {
     self=[super initWithNibName:@"UserNotificationDetailViewController" bundle:nil];
     
-    _obj=obj;
+    _idNotification=obj.idNotification.integerValue;
+    
+    return self;
+}
+
+-(UserNotificationDetailViewController *)initWithIDNotification:(int)idNotification
+{
+    self=[super initWithNibName:@"UserNotificationDetailViewController" bundle:nil];
+    
+    _idNotification=idNotification;
     
     return self;
 }
@@ -45,7 +54,7 @@
     [table registerLoadingMoreCell];
     
     [self requestNotification];
-    [table showLoading];
+    [self showLoading];
 }
 
 -(void) requestNotification
@@ -56,7 +65,7 @@
         _operationNotificationContent=nil;
     }
     
-    _operationNotificationContent=[[ASIOperationUserNotificationContent alloc] initWithIDNotification:_obj.idNotification.integerValue page:_page+1 userLat:userLat() userLng:userLng()];
+    _operationNotificationContent=[[ASIOperationUserNotificationContent alloc] initWithIDNotification:_idNotification page:_page+1 userLat:userLat() userLng:userLng()];
     _operationNotificationContent.delegatePost=self;
     
     [_operationNotificationContent startAsynchronous];
@@ -75,15 +84,20 @@
     _canLoadMore=true;
     _userNotificationContents=[NSMutableArray new];
     
-    [table showLoading];
+    [self showLoading];
     [self requestNotification];
+}
+
+-(void) showLoading
+{
+    [self.view showLoadingInsideFrame:CGRectMake(0, 54, self.l_v_w, self.l_v_h-54)];
 }
 
 -(void)ASIOperaionPostFinished:(ASIOperationPost *)operation
 {
     if([operation isKindOfClass:[ASIOperationUserNotificationContent class]])
     {
-        [table removeLoading];
+        [self.view removeLoading];
         
         ASIOperationUserNotificationContent *ope=(ASIOperationUserNotificationContent*) operation;
         
@@ -117,7 +131,7 @@
 {
     if([operation isKindOfClass:[ASIOperationUserNotificationContent class]])
     {
-        [table removeLoading];
+        [self.view removeLoading];
         
         _operationNotificationContent=nil;
     }
@@ -236,6 +250,12 @@
                 [self processUserNotification:obj];
             break;
     }
+}
+
+-(void)processRemoteNotification:(UserNotification *)obj
+{
+    _idNotification=obj.idNotification.integerValue;
+    [self resetData];
 }
 
 -(void) processUserNotification:(UserNotificationContent*) userNotification

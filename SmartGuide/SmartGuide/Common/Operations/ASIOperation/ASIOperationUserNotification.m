@@ -32,7 +32,6 @@
     for(NSDictionary *dict in json)
     {
         UserNotification *obj=[UserNotification makeWithDictionary:dict];
-
         [self.userNotifications addObject:obj];
     }
     

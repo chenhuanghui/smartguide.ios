@@ -15,7 +15,9 @@
 #define UserNotification_IdPlacelist @"idPlacelist"
 #define UserNotification_IdShop @"idShop"
 #define UserNotification_IdShops @"idShops"
+#define UserNotification_IsRemoteNotification @"isRemoteNotification"
 #define UserNotification_Keywords @"keywords"
+#define UserNotification_Message @"message"
 #define UserNotification_ReadAction @"readAction"
 #define UserNotification_ShopListType @"shopListType"
 #define UserNotification_Status @"status"
@@ -46,7 +48,9 @@
 @property (nonatomic, retain) NSNumber* idPlacelist;
 @property (nonatomic, retain) NSNumber* idShop;
 @property (nonatomic, retain) NSString* idShops;
+@property (nonatomic, retain) NSNumber* isRemoteNotification;
 @property (nonatomic, retain) NSString* keywords;
+@property (nonatomic, retain) NSString* message;
 @property (nonatomic, retain) NSNumber* readAction;
 @property (nonatomic, retain) NSNumber* shopListType;
 @property (nonatomic, retain) NSNumber* status;

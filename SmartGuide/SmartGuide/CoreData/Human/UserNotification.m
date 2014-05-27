@@ -31,6 +31,7 @@
     obj.status=[NSNumber numberWithObject:data[@"status"]];
     obj.actionType=[NSNumber numberWithObject:data[@"actionType"]];
     obj.readAction=[NSNumber numberWithObject:data[@"readAction"]];
+    obj.isRemoteNotification=@(false);
     
     if(obj.enumStatus==USER_NOTIFICATION_STATUS_UNREAD)
         obj.highlightUnread=@(true);

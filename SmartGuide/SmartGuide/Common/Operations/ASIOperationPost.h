@@ -52,6 +52,7 @@
 @property (nonatomic, strong) NSMutableDictionary *tData;
 @property (nonatomic, strong) NSString *fScreen;
 @property (nonatomic, strong) NSMutableDictionary *fData;
+@property (nonatomic, strong) NSFetchedResultsController *fetchedController;
 
 @end
 

@@ -46,7 +46,7 @@ static char loadingViewKey;
     
     imgvLoading=imgv;
 
-    self.autoresizingMask=UIViewAutoresizingAll();
+    self.autoresizingMask=UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
     
     [view setLoadingView:self];
     
@@ -73,6 +73,11 @@ static char loadingViewKey;
 -(UIView *)backgroundView
 {
     return bgView;
+}
+
+-(void)setFrame:(CGRect)frame
+{
+    [super setFrame:frame];
 }
 
 @end

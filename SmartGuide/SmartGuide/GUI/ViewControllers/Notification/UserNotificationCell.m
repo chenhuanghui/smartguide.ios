@@ -145,8 +145,7 @@
 
 -(void) tap:(UITapGestureRecognizer*) tap
 {
-    [self.delegate userNotificationCellTouchedRemove:self obj:_obj];
-//    [self.delegate userNotificationCellTouchedDetail:self obj:_obj];
+    [self.delegate userNotificationCellTouchedDetail:self obj:_obj];
 }
 
 -(void) addObserverHighlightUnread

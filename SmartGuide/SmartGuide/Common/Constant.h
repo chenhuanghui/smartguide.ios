@@ -116,7 +116,7 @@ static NSString * const kClientId = @"790158294934-p5pnscmrt4avj698ncvhp14fit0f4
 #define API_USER_NOTIFICATION_READ @"user/notificationRead"
 #define API_USER_NOTIFICATION_REMOVE @"user/notificationRemove"
 #define API_USER_NOTICE @"user/notice"
-#define API_NOTIFICATION_TOKEN @"notificationToken"
+#define API_USER_NOTIFICATION_TOKEN @"user/notificationToken"
 
 #define API_GET_ACTIVE_CODE @"user/activation"
 #define API_USER_CHECK @"user/check_v2"
