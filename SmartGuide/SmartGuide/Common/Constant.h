@@ -144,6 +144,7 @@ static NSString * const kClientId = @"790158294934-p5pnscmrt4avj698ncvhp14fit0f4
 #define NOTIFICATION_ANNOUNCEMENT_SHOWED @"AnnouncemtnShowed"
 #define NOTIFICATION_DETECTED_USER_CITY @"DetectedUserCity"
 #define NOTIFICATION_USER_CHANGED_CITY @"UserChangedCity"
+#define NOTIFICATION_USER_CHANGED_CITY_SEARCH @"UserChangedCitySearch"
 #define NOTIFICATION_FACEBOOK_UPLOAD_PROFILE_FINISHED @"FacebookMiningFinished"
 #define NOTIFICATION_FILTER_CHANGED @"FilterChanged"
 #define NOTIFICATION_GET_SGP @"GetSGP"

@@ -14,6 +14,7 @@
 #import "GooglePlusManager.h"
 #import "UserUploadAvatarManager.h"
 #import "CityViewController.h"
+#import "CityManager.h"
 
 @interface UserSettingViewController ()<UITextFieldDelegate,UIPickerViewDataSource,UIPickerViewDelegate,UIGestureRecognizerDelegate,AvatarControllerDelegate,ASIOperationPostDelegate,OperationURLDelegate,GPPSignInDelegate,CityControllerDelegate>
 
@@ -327,6 +328,7 @@
         
         if(ope.status==1)
         {
+            [[CityManager shareInstance] setIdCitySearch:currentUser().idCity];
             [SGData shareInstance].fScreen=[UserSettingViewController screenCode];
             [self.delegate userSettingControllerFinished:self];
             [self loadData];

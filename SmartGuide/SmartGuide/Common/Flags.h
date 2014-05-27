@@ -24,5 +24,7 @@
 
 +(NSString*) keywordSearch;
 +(void) setKeywordSearch:(NSString*) key;
++(NSNumber*) idCitySearch;
++(void) setIDCitySearch:(int) idCity;
 
 @end

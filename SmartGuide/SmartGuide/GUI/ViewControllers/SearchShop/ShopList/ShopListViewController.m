@@ -17,6 +17,7 @@
 #import "ShopListCell.h"
 #import "QRCodeViewController.h"
 #import "CityViewController.h"
+#import "CityManager.h"
 
 #define SHOP_LIST_SCROLL_SPEED 3.f
 
@@ -438,6 +439,12 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
+    if([CityManager shareInstance].idCitySearch)
+        _idCity=[[CityManager shareInstance].idCitySearch integerValue];
+    else
+        _idCity=currentUser().idCity.integerValue;
+    [btnCity setTitle:CITY_NAME(_idCity) forState:UIControlStateNormal];
+    
     _mapRowHeight=[self mapNormalHeight];
     
     _location.latitude=userLat();
@@ -515,12 +522,11 @@
     txt.rightViewType=TEXTFIELD_RIGHTVIEW_LOCATION;
     txt.leftViewType=TEXTFIELD_LEFTVIEW_SEARCH;
     txt.placeholder=TEXTFIELD_SEARCH_PLACEHOLDER_TEXT;
-    _idCity=currentUser().idCity.integerValue;
 }
 
 -(NSArray *)registerNotifications
 {
-    return @[NOTIFICATION_USER_CITY_CHANGED];
+    return @[NOTIFICATION_USER_CITY_CHANGED,NOTIFICATION_USER_CHANGED_CITY_SEARCH];
 }
 
 -(void)textFieldTouchedRightView:(TextField *)textField
@@ -1404,6 +1410,7 @@
 
 -(void)cityControllerDidTouchedCity:(CityViewController *)controller idCity:(int)idCity name:(NSString *)name
 {
+    [[CityManager shareInstance] setIdCitySearch:@(idCity)];
     if(_idCity==idCity)
         return;
     
@@ -1417,11 +1424,21 @@
 {
     if([notification.name isEqualToString:NOTIFICATION_USER_CITY_CHANGED])
     {
-        if(_idCity==[notification.userInfo integerForKey:@"id"])
+        if(_idCity==currentUser().idCity.integerValue)
             return;
         
-        _idCity=[notification.userInfo integerForKey:@"id"];
-        [btnCity setTitle:notification.userInfo[@"name"] forState:UIControlStateNormal];
+        _idCity=currentUser().idCity.integerValue;
+        [btnCity setTitle:CITY_NAME(_idCity) forState:UIControlStateNormal];
+        
+        [self changeCity];
+    }
+    else if([notification.name isEqualToString:NOTIFICATION_USER_CHANGED_CITY_SEARCH])
+    {
+        if(_idCity==[CityManager shareInstance].idCitySearch.integerValue)
+            return;
+        
+        _idCity=[[CityManager shareInstance].idCitySearch integerValue];
+        [btnCity setTitle:CITY_NAME(_idCity) forState:UIControlStateNormal];
         
         [self changeCity];
     }

@@ -12,10 +12,12 @@
 #import "SearchShopHeaderCell.h"
 #import "SearchShopPlacelistCell.h"
 #import "LoadingMoreCell.h"
+#import "CityViewController.h"
+#import "CityManager.h"
 
 #define SEARCH_SHOP_NUMBER_OF_HIGHLIGHT_PLACE_LIST 3
 
-@interface SearchShopViewController ()
+@interface SearchShopViewController ()<CityControllerDelegate>
 {
     SearchShopBGView *bg1;
     SearchShopBGView *bg2;
@@ -73,6 +75,31 @@
     
     _pagePlacelist=-1;
     [self requestPlacelist];
+    
+    if([CityManager shareInstance].idCitySearch)
+        _idCity=[[CityManager shareInstance].idCitySearch integerValue];
+    else
+        _idCity=currentUser().idCity.integerValue;
+    [btnCity setTitle:CITY_NAME(_idCity) forState:UIControlStateNormal];
+}
+
+-(NSArray *)registerNotifications
+{
+    return @[NOTIFICATION_USER_CHANGED_CITY_SEARCH,NOTIFICATION_USER_CHANGED_CITY];
+}
+
+-(void)receiveNotification:(NSNotification *)notification
+{
+    if([notification.name isEqualToString:NOTIFICATION_USER_CHANGED_CITY_SEARCH])
+    {
+        int idCity=[CityManager shareInstance].idCitySearch.integerValue;
+        [self changeCity:idCity name:CITY_NAME(idCity)];
+    }
+    else if([notification.name isEqualToString:NOTIFICATION_USER_CHANGED_CITY])
+    {
+        int idCity=currentUser().idCity.integerValue;
+        [self changeCity:idCity name:CITY_NAME(idCity)];
+    }
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -580,7 +607,7 @@
 {
     NSLog(@"callAutocomplete %@",keyword);
     
-    OperationSearchAutocomplete *ope=[[OperationSearchAutocomplete alloc] initWithKeyword:keyword idCity:userIDCity()];
+    OperationSearchAutocomplete *ope=[[OperationSearchAutocomplete alloc] initWithKeyword:keyword idCity:_idCity];
     ope.delegate=self;
     
     [ope start];
@@ -679,6 +706,48 @@
         return SCREEN_CODE_RECOMMENDATION;
     else
         return SCREEN_CODE_SUGGEST;
+}
+
+- (IBAction)btnCityTouchUpInside:(id)sender {
+    [self showCityController];
+}
+
+-(void) showCityController
+{
+    CityViewController *vc=[[CityViewController alloc] initWithSelectedIDCity:_idCity];
+    vc.delegate=self;
+    
+    [self.navigationController pushViewController:vc animated:true];
+}
+
+-(void)cityControllerDidTouchedCity:(CityViewController *)controller idCity:(int)idCity name:(NSString *)name
+{
+    [[CityManager shareInstance] setIdCitySearch:@(idCity)];
+    [self changeCity:idCity name:name];
+}
+
+-(void) changeCity:(int) idCity name:(NSString*) name
+{
+    if(_idCity==idCity)
+        return;
+    
+    _idCity=idCity;
+    [btnCity setTitle:name forState:UIControlStateNormal];
+    
+    for(OperationSearchAutocomplete *ope in _operationsAutocompleted)
+    {
+        ope.delegate=nil;
+        [ope cancel];
+    }
+
+    _keyword=@"";
+    _searchDisplayKey=@"";
+    _searchKey=@"";
+    [_autocomplete removeAllObjects];
+    [_searchInQuery removeAllObjects];
+    txt.text=@"";
+    
+    [self textFieldDidChangedText:txt];
 }
 
 @end

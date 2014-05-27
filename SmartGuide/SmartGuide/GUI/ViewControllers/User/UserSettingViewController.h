@@ -56,6 +56,7 @@
     NSMutableArray *_avatars;
     UIImage *_avatarImage;
     NSString *_selectedAvatar;
+    bool _hasChangedCity;
     
     __weak UIView *_pickerView;
     int _selectedGender;

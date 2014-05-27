@@ -16,6 +16,7 @@
 -(void) clean;
 
 @property (nonatomic, strong) NSMutableArray *cities;
+@property (nonatomic, readwrite) NSNumber *idCitySearch;
 
 @end
 

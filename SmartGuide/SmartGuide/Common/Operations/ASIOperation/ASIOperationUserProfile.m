@@ -47,7 +47,7 @@
     
     if(user.idCity.integerValue==0)
         user.idCity=@(IDCITY_HCM());
-    
+
     [[DataManager shareInstance] save];
 }
 

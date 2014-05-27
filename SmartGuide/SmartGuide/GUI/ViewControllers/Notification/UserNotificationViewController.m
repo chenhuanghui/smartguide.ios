@@ -353,7 +353,7 @@
 -(void)userNotificationCellTouchedRemove:(UserNotificationCell *)cell obj:(UserNotification *)obj
 {
     [cell removeObserverHighlightUnread];
-//    [obj sendDelete];
+    [obj sendDelete];
     
     [[GUIManager shareInstance].rootViewController removeUserNotification:obj];
     bool isHasReadNotification=_isHasReadNotification;

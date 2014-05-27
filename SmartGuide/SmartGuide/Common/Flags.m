@@ -26,6 +26,7 @@
 #define FLAG_IS_READ_TUTORIAL_PLACE @"isReadTutorialPlace"
 #define FLAG_IS_READ_TUTORIAL_SHOP_LIST @"isReadTutorialShopList"
 #define FLAG_IS_READ_TUTORIAL_STORE_LIST @"isReadTutorialStoreList"
+#define FLAG_IDCITY_SEARCH @"idCitySearch"
 
 @implementation Flags
 
@@ -258,6 +259,17 @@
 +(void) setIsUserReadTutorialStoreList:(bool) isRead
 {
     [[NSUserDefaults standardUserDefaults] setBool:isRead forKey:FLAG_IS_READ_TUTORIAL_STORE_LIST];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
++(NSNumber *)idCitySearch
+{
+    return [[NSUserDefaults standardUserDefaults] objectForKey:FLAG_IDCITY_SEARCH];
+}
+
++(void)setIDCitySearch:(int)idCity
+{
+    [[NSUserDefaults standardUserDefaults] setInteger:idCity forKey:FLAG_IDCITY_SEARCH];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 

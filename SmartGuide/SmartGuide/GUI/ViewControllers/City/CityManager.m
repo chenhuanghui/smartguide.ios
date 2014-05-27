@@ -8,6 +8,7 @@
 
 #import "CityManager.h"
 #import "Utility.h"
+#import "Flags.h"
 
 static CityManager *_cityManager=nil;
 @implementation CityManager
@@ -18,6 +19,14 @@ static CityManager *_cityManager=nil;
         _cityManager=[CityManager new];
     
     return _cityManager;
+}
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+    }
+    return self;
 }
 
 -(void)load
@@ -52,6 +61,21 @@ static CityManager *_cityManager=nil;
     _cityManager=nil;
     [self.cities removeAllObjects];
     self.cities=nil;
+}
+
+-(void)setIdCitySearch:(NSNumber *)idCitySearch_
+{
+    if(![Flags idCitySearch] || [[Flags idCitySearch] integerValue]!=idCitySearch_.integerValue)
+    {
+        [Flags setIDCitySearch:idCitySearch_.integerValue];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_USER_CHANGED_CITY_SEARCH object:idCitySearch_];
+    }
+}
+
+-(NSNumber *)idCitySearch
+{
+    return [Flags idCitySearch];
 }
 
 @end
