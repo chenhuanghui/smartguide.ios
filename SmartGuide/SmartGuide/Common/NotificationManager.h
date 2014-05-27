@@ -35,6 +35,10 @@ enum NOTIFICATION_CHECK_STATE
 
 -(void) removeAllNotification;
 
+#if DEBUG
+-(NSDictionary*) makeNotification:(enum USER_NOTIFICATION_ACTION_TYPE) actionType;
+#endif
+
 @property (nonatomic, strong) NSNumber *totalNotification;
 @property (nonatomic, strong) NSString *numOfNotification;
 @property (nonatomic, strong) NSString *notificationToken;

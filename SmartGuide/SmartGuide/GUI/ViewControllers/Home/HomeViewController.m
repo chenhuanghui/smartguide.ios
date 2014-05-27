@@ -103,14 +103,6 @@
     [txt setRefreshState:TEXT_FIELD_SEARCH_REFRESH_STATE_SEARCH animated:false completed:nil];
     
     [self displayNotification];
-    
-    if([NotificationManager shareInstance].launchNotification)
-    {
-        UserNotification *obj=[[NotificationManager shareInstance].launchNotification copy];
-        [NotificationManager shareInstance].launchNotification=nil;
-        
-        [[GUIManager shareInstance].rootViewController processUserNotification:obj];
-    }
 }
 
 -(NSArray *)registerNotifications

@@ -180,6 +180,49 @@ static NotificationManager *_notificationManager=nil;
     [[DataManager shareInstance] save];
 }
 
+-(NSDictionary*) makeNotification:(enum USER_NOTIFICATION_ACTION_TYPE) actionType
+{
+    NSMutableDictionary *dict=[NSMutableDictionary dictionary];
+    
+    [dict setObject:@(rand()) forKey:@"idNotification"];
+    [dict setObject:@"Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat" forKey:@"content"];
+    [dict setObject:rand()%2==0?@"":@"0;3;5;10" forKey:@"highlight"];
+    [dict setObject:[NSString stringWithFormat:@"%@",[NSDate date]] forKey:@"time"];
+    [dict setObject:@(random_int(0, 10)) forKey:@"timer"];
+    
+    [dict setObject:@(actionType) forKey:@"actionType"];
+    
+    if(actionType==USER_NOTIFICATION_ACTION_TYPE_SHOP_USER)
+        [dict setObject:@(123) forKey:@"idShop"];
+    else if(actionType==USER_NOTIFICATION_ACTION_TYPE_SHOP_LIST)
+    {
+        int rd=random_int(0, 2);
+        
+        if(rd==0)
+            [dict setObject:@(0) forKey:@"idPlacelist"];
+        else if(rd==1)
+            [dict setObject:@"a" forKey:@"keywords"];
+        else if(rd==2)
+            [dict setObject:@"123,124,125" forKey:@"idShops"];
+    }
+    else if(USER_NOTIFICATION_ACTION_TYPE_POPUP_URL==3)
+        [dict setObject:@"http:\\infory.vn" forKey:@"url"];
+    
+    NSData *data=[NSJSONSerialization dataWithJSONObject:dict options:NSJSONWritingPrettyPrinted error:nil];
+    NSString *dataJson=[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    
+    NSLog(@"make random notification %@ json %@",dict,dataJson);
+    
+    dict=[NSMutableDictionary dictionaryWithObject:dataJson forKey:@"data"];
+    [dict setObject:[NSString stringWithFormat:@"Alert %02i",actionType] forKey:@"message"];
+    [dict setObject:[NSString stringWithFormat:@"Badge %02i",actionType] forKey:@"badge"];
+    [dict setObject:@(1) forKey:@"id"];
+    
+    dict=[NSMutableDictionary dictionaryWithObject:dict forKey:@"aps"];
+    
+    return dict;
+}
+
 @end
 
 static char UserNotificationOperationReadKey;
