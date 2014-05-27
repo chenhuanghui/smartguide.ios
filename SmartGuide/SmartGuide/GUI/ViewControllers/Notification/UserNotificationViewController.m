@@ -159,6 +159,9 @@
         _operationUserNotification=nil;
     }
     
+    for(UserNotificationCell *cell in [table visibleCells])
+        [cell removeObserverHighlightUnread];
+    
     _page=-1;
     _userNotification=[NSMutableArray new];
     _userNotificationRead=[NSMutableArray new];

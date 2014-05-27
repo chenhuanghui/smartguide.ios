@@ -161,7 +161,7 @@
 {
     if(indexPath.row==_userNotificationContents.count)
         return 80;
-
+    
     UserNotificationContent *obj=_userNotificationContents[indexPath.row];
     
     return [UserNotificationDetailCell heightWithUserNotificationDetail:_userNotificationContents[indexPath.row] displayType:obj.enumDisplayType];
@@ -229,7 +229,7 @@
 {
     UserNotificationDetailCell *cell=(UserNotificationDetailCell*)[table cellForRowAtIndexPath:indexPath];
     UserNotificationContent *obj=cell.userNotificationDetail;
-
+    
     switch (obj.enumDisplayType) {
         case USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE_TITLE:
         {
@@ -254,8 +254,11 @@
 
 -(void)processRemoteNotification:(UserNotification *)obj
 {
-    _idNotification=obj.idNotification.integerValue;
-    [self resetData];
+    if(obj.idNotification)
+    {
+        _idNotification=obj.idNotification.integerValue;
+        [self resetData];
+    }
 }
 
 -(void) processUserNotification:(UserNotificationContent*) userNotification

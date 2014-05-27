@@ -312,7 +312,8 @@ static char USerNotificationIsSentRemoveKey;
     obj.message=[NSString stringWithStringDefault:dict[@"message"]];
     obj.badge=[NSString stringWithStringDefault:dict[@"badge"]];
     obj.isRemoteNotification=@(true);
-    obj.idNotification=[NSNumber numberWithObject:dict[@"id"]];
+    if(dict[@"id"])
+        obj.idNotification=[NSNumber numberWithObject:dict[@"id"]];
     
     return obj;
     NSString *data=[NSString stringWithStringDefault:dict[@"data"]];

@@ -51,6 +51,11 @@
     
     if([NotificationManager shareInstance].launchNotification)
     {
+        if([NotificationManager shareInstance].launchNotification.idNotification)
+        {
+            [array addObject:[UserNotificationViewController new]];
+            [array addObject:[[UserNotificationDetailViewController alloc] initWithIDNotification:[NotificationManager shareInstance].launchNotification.idNotification.integerValue]];
+        }
     }
     
     if(array.count==1)
@@ -742,7 +747,7 @@
     }
     else
     {
-        if(hasNotiContentController)
+        if(hasNotiContentController && remoteView.userNotification.idNotification)
             [self.contentNavigation popToViewController:notiDetailController animated:true];
         else
             [self.contentNavigation popToViewController:notiController animated:true];

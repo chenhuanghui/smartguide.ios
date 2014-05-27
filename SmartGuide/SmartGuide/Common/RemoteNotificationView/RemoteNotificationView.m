@@ -107,6 +107,7 @@
 {
     [self.delegate remoteNotificationViewTouched:self];
     
+    self.userInteractionEnabled=false;
     [self hide];
 }
 
