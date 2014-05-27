@@ -28,9 +28,9 @@
     }
     
 #if DEBUG
-    NSMutableDictionary *dict=[[[NotificationManager shareInstance] makeNotification:USER_NOTIFICATION_ACTION_TYPE_SHOP_USER] mutableCopy];
-    dict=[NSMutableDictionary dictionaryWithObject:dict forKey:UIApplicationLaunchOptionsRemoteNotificationKey];
-    [[NotificationManager shareInstance] receiveLaunchNotification:dict];
+//    NSMutableDictionary *dict=[[[NotificationManager shareInstance] makeNotification:USER_NOTIFICATION_ACTION_TYPE_SHOP_USER] mutableCopy];
+//    dict=[NSMutableDictionary dictionaryWithObject:dict forKey:UIApplicationLaunchOptionsRemoteNotificationKey];
+//    [[NotificationManager shareInstance] receiveLaunchNotification:dict];
 #endif
     
     CGRect rect=[[UIScreen mainScreen] bounds];

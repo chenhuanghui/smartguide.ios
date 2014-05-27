@@ -120,7 +120,7 @@
     self.hidden=false;
     self.frame=CGRectMake(UIScreenSize().width-38, UIScreenSize().height-38, 38, 38);
     lblMessage.alpha=0;
-    lblMessage.text=_noti.message;
+    lblMessage.text=_noti.alert;
     
     [UIView animateWithDuration:0.5f animations:^{
         self.alpha=1;

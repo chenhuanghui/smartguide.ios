@@ -102,6 +102,19 @@
 	[self didChangeValueForKey:@"actionType"];
 }
 
+- (NSString*)alert {
+	[self willAccessValueForKey:@"alert"];
+	NSString* result = (NSString*)[self primitiveValueForKey:@"alert"];
+	[self didAccessValueForKey:@"alert"];
+	return result;
+}
+
+- (void)setAlert:(NSString*)value {
+	[self willChangeValueForKey:@"alert"];
+	[self setPrimitiveValue:value forKey:@"alert"];
+	[self didChangeValueForKey:@"alert"];
+}
+
 - (NSString*)badge {
 	[self willAccessValueForKey:@"badge"];
 	NSString* result = (NSString*)[self primitiveValueForKey:@"badge"];
@@ -230,19 +243,6 @@
 	[self willChangeValueForKey:@"keywords"];
 	[self setPrimitiveValue:value forKey:@"keywords"];
 	[self didChangeValueForKey:@"keywords"];
-}
-
-- (NSString*)message {
-	[self willAccessValueForKey:@"message"];
-	NSString* result = (NSString*)[self primitiveValueForKey:@"message"];
-	[self didAccessValueForKey:@"message"];
-	return result;
-}
-
-- (void)setMessage:(NSString*)value {
-	[self willChangeValueForKey:@"message"];
-	[self setPrimitiveValue:value forKey:@"message"];
-	[self didChangeValueForKey:@"message"];
 }
 
 - (NSNumber*)readAction {

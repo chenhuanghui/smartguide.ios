@@ -214,7 +214,7 @@ static NotificationManager *_notificationManager=nil;
     NSLog(@"make random notification %@ json %@",dict,dataJson);
     
     dict=[NSMutableDictionary dictionaryWithObject:dataJson forKey:@"data"];
-    [dict setObject:[NSString stringWithFormat:@"Alert %02i",actionType] forKey:@"message"];
+    [dict setObject:[NSString stringWithFormat:@"Alert %02i",actionType] forKey:@"alert"];
     [dict setObject:[NSString stringWithFormat:@"Badge %02i",actionType] forKey:@"badge"];
     [dict setObject:@(1) forKey:@"id"];
     
@@ -352,7 +352,7 @@ static char USerNotificationIsSentRemoveKey;
 {
     UserNotification *obj=[UserNotification insert];
     
-    obj.message=[NSString stringWithStringDefault:dict[@"message"]];
+    obj.alert=[NSString stringWithStringDefault:dict[@"alert"]];
     obj.badge=[NSString stringWithStringDefault:dict[@"badge"]];
     obj.isRemoteNotification=@(true);
     if(dict[@"id"])

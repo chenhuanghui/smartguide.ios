@@ -58,7 +58,7 @@
     _userNotificationUnread=[NSArray new];
     
     _isLoadingMore=false;
-    _canLoadMore=true;
+    _canLoadMore=false;
     _page=-1;
     _isHasReadNotification=false;
     
@@ -182,9 +182,7 @@
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    if(_userNotification.count==0)
-        return 0;
-    
+    return 2;
     switch (_displayType) {
         case USER_NOTIFICATION_DISPLAY_ALL:
             return _isHasReadNotification?2:1;
@@ -202,7 +200,10 @@
             return [self userNotificationUnread].count+((!_isHasReadNotification && _canLoadMore)?1:0);
             
         case USER_NOTIFICATION_STATUS_READ:
-            return [self userNotificationRead].count+(_canLoadMore?1:0);
+            if([self userNotificationRead].count>0)
+                return [self userNotificationRead].count+(_canLoadMore?1:0);
+            else
+                return 0;
             
         default:
             return 0;
@@ -351,7 +352,8 @@
 
 -(void)userNotificationCellTouchedRemove:(UserNotificationCell *)cell obj:(UserNotification *)obj
 {
-    [obj sendDelete];
+    [cell removeObserverHighlightUnread];
+//    [obj sendDelete];
     
     [[GUIManager shareInstance].rootViewController removeUserNotification:obj];
     bool isHasReadNotification=_isHasReadNotification;
@@ -363,20 +365,11 @@
     if(!_isHasReadNotification && isHasReadNotification)
         _willRemoveSectionRead=true;
     
+    [cell.superview sendSubviewToBack:cell];
     [table beginUpdates];
     
-    if(_willRemoveSectionRead)
-        [table deleteSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationNone];
-    else
-    {
-        if(_userNotification.count==0)
-            [table deleteSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationNone];
-        else
-        {
-            NSIndexPath *idx=[table indexPathForCell:cell];
-            [table deleteRowsAtIndexPaths:@[idx] withRowAnimation:UITableViewRowAnimationNone];
-        }
-    }
+    NSIndexPath *idx=[table indexPathForCell:cell];
+    [table deleteRowsAtIndexPaths:@[idx] withRowAnimation:UITableViewRowAnimationNone];
     
     [table endUpdates];
 }
@@ -432,10 +425,15 @@
     switch (section) {
         case USER_NOTIFICATION_STATUS_READ:
         {
-            UserNotificationHeaderView *headerView=[UserNotificationHeaderView new];
-            _headerView=headerView;
+            if(_userNotificationRead.count>0)
+            {
+                UserNotificationHeaderView *headerView=[UserNotificationHeaderView new];
+                _headerView=headerView;
+                
+                return _headerView;
+            }
             
-            return _headerView;
+            return [UIView new];
         }
             
         default:
@@ -580,7 +578,7 @@
 {
     return;
     [table beginUpdates];
- 
+    
     bool willAddSectionUnread=false;
     if(_userNotification.count==0)
     {

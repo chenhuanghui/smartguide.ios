@@ -7,6 +7,7 @@
 #define UserNotification_ClassName @"UserNotification"
 
 #define UserNotification_ActionType @"actionType"
+#define UserNotification_Alert @"alert"
 #define UserNotification_Badge @"badge"
 #define UserNotification_Content @"content"
 #define UserNotification_Highlight @"highlight"
@@ -17,7 +18,6 @@
 #define UserNotification_IdShops @"idShops"
 #define UserNotification_IsRemoteNotification @"isRemoteNotification"
 #define UserNotification_Keywords @"keywords"
-#define UserNotification_Message @"message"
 #define UserNotification_ReadAction @"readAction"
 #define UserNotification_ShopListType @"shopListType"
 #define UserNotification_Status @"status"
@@ -40,6 +40,7 @@
 
 
 @property (nonatomic, retain) NSNumber* actionType;
+@property (nonatomic, retain) NSString* alert;
 @property (nonatomic, retain) NSString* badge;
 @property (nonatomic, retain) NSString* content;
 @property (nonatomic, retain) NSString* highlight;
@@ -50,7 +51,6 @@
 @property (nonatomic, retain) NSString* idShops;
 @property (nonatomic, retain) NSNumber* isRemoteNotification;
 @property (nonatomic, retain) NSString* keywords;
-@property (nonatomic, retain) NSString* message;
 @property (nonatomic, retain) NSNumber* readAction;
 @property (nonatomic, retain) NSNumber* shopListType;
 @property (nonatomic, retain) NSNumber* status;
