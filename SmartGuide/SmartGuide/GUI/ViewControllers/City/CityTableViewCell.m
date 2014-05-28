@@ -33,19 +33,19 @@
         case CELL_POSITION_TOP:
             imgvTop.hidden=true;
             imgvBot.hidden=false;
-            [self cornerRadiusWithRounding:UIRectCornerTopLeft|UIRectCornerTopRight cornerRad:CGSizeMake(2, 2)];
+            [bg cornerRadiusWithRounding:UIRectCornerTopLeft|UIRectCornerTopRight cornerRad:CGSizeMake(2, 2)];
             break;
             
         case CELL_POSITION_MIDDLE:
             imgvTop.hidden=false;
             imgvBot.hidden=false;
-            self.layer.masksToBounds=false;
+            bg.layer.masksToBounds=false;
             break;
             
         case CELL_POSITION_BOTTOM:
             imgvTop.hidden=false;
             imgvBot.hidden=true;
-            [self cornerRadiusWithRounding:UIRectCornerBottomLeft|UIRectCornerBottomRight cornerRad:CGSizeMake(2, 2)];
+            [bg cornerRadiusWithRounding:UIRectCornerBottomLeft|UIRectCornerBottomRight cornerRad:CGSizeMake(2, 2)];
             break;
             
     }

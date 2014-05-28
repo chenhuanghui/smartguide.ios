@@ -75,7 +75,7 @@
     
     [lblBottom addStyle:style];
     
-    [self switchToActivationModeWithPhone:@"84989284842"];
+//    [self switchToActivationModeWithPhone:@"84989284842"];
 }
 
 -(void) switchToActivationModeWithPhone:(NSString*) phone
@@ -88,7 +88,7 @@
     [lbl l_v_setW:10];
     txtPhone.placeholder=@"Mã xác thực";
     
-    lblTop.text=@"Nhập mã xác thực";
+    lblTop.text=[@"Mã xác thực đã được gởi cho " stringByAppendingString:phone];
     
     [btnLogin setDefaultImage:[UIImage imageNamed:@"button_confirm_login.png"] highlightImage:[UIImage imageNamed:@"button_confirm_login.png"]];
     
@@ -232,15 +232,15 @@
         NSString *inputPhone=[phone copy];
         phone=[@"84" stringByAppendingString:phone];
         
-        [AlertView showAlertOKCancelWithTitle:[@"(+84) " stringByAppendingString:inputPhone] withMessage:@"Mã xác thực Infory sẽ được gửi đến số điện thoại trên qua tin nhắn. Chọn Đồng ý để tiếp tục hoặc huỷ để thay đổi số điện thoại" onOK:^{
+        [AlertView showWithTitle:[@"(+84) " stringByAppendingString:inputPhone] withMessage:@"Mã xác thực Infory sẽ được gửi đến số điện thoại trên qua tin nhắn. Chọn Đồng ý để tiếp tục hoặc huỷ để thay đổi số điện thoại" withLeftTitle:@"Huỷ" withRightTitle:@"Đồng ý" onOK:^{
+            [txtPhone becomeFirstResponder];
+        } onCancel:^{
             _operationGetActionCode=[[OperationGetActionCode alloc] initWithPhone:phone fScreen:[SGData shareInstance].fScreen fData:[SGData shareInstance].fData];
             _operationGetActionCode.delegate=self;
             
             [_operationGetActionCode start];
             
             [self.view showLoadingInsideFrame:CGRectMake(0, 0, self.l_v_w, self.l_v_h-_keyboardHeight)];
-        } onCancel:^{
-            [txtPhone becomeFirstResponder];
         }];
     }
     else

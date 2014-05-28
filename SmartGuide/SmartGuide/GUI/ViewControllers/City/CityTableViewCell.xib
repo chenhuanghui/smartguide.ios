@@ -14,6 +14,11 @@
                 <rect key="frame" x="0.0" y="0.0" width="295" height="35"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
+                    <view contentMode="scaleToFill" id="4ea-fq-ntj">
+                        <rect key="frame" x="0.0" y="0.0" width="295" height="36"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="line_content_search.png" id="MtJ-bL-215">
                         <rect key="frame" x="0.0" y="-2" width="295" height="5"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -39,10 +44,11 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     </imageView>
                 </subviews>
-                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </tableViewCellContentView>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <connections>
+                <outlet property="bg" destination="4ea-fq-ntj" id="f37-km-9Vu"/>
                 <outlet property="imgvBot" destination="ESc-iK-MoQ" id="nh1-C5-XdU"/>
                 <outlet property="imgvIcon" destination="fbs-gm-xT0" id="4gT-Fg-tjN"/>
                 <outlet property="imgvTop" destination="MtJ-bL-215" id="zRN-uv-w0M"/>

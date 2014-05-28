@@ -30,7 +30,8 @@
     
     SGNavigationController *navi=nil;
     
-    if(currentUser().enumDataMode==USER_DATA_CREATING)
+    if(currentUser().enumDataMode==USER_DATA_CREATING
+       || currentUser().enumDataMode==USER_DATA_FULL)
     {
         RegisterViewController *vc=[RegisterViewController new];
         vc.delegate=self;
@@ -59,6 +60,8 @@
 
 -(void)registerControllerFinished:(RegisterViewController *)controller
 {
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"RegisterWillOpen"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
     [self.delegate authorizationSuccessed];
 }
 

@@ -17,6 +17,7 @@
     __weak IBOutlet UIImageView *imgvTop;
     __weak IBOutlet UIImageView *imgvBot;
     __weak IBOutlet UIImageView *imgvIcon;
+    __weak IBOutlet UIView *bg;
     
     __weak CityObject *_obj;
 }

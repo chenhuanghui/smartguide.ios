@@ -91,18 +91,26 @@ static GUIManager *_shareInstance=nil;
             
         case USER_DATA_FULL:
         {
-            [Flags setIDCitySearch:currentUser().idCity.integerValue];
-            
-            RegisterViewController *reg=[RegisterViewController new];
-            reg.delegate=self;
-            
-            [viewControllers addObject:reg];
-            
-            RootViewController *root=[RootViewController new];
-            
-            rootViewController=root;
-            
-            [viewControllers addObject:rootViewController];
+            if([[NSUserDefaults standardUserDefaults] boolForKey:@"RegisterWillOpen"])
+            {
+                [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"RegisterWillOpen"];
+                [[NSUserDefaults standardUserDefaults] synchronize];
+                
+                AuthorizationViewController *author=[[AuthorizationViewController alloc] init];
+                author.delegate=self;
+                
+                [viewControllers addObject:author];
+            }
+            else
+            {
+                [Flags setIDCitySearch:currentUser().idCity.integerValue];
+                
+                RootViewController *root=[RootViewController new];
+                
+                rootViewController=root;
+                
+                [viewControllers addObject:rootViewController];
+            }
         }
             break;
     }
@@ -111,11 +119,6 @@ static GUIManager *_shareInstance=nil;
 }
 
 #pragma mark View Controller Delegate
-
--(void)registerControllerFinished:(RegisterViewController *)controller
-{
-    
-}
 
 #pragma mark Loading controller
 

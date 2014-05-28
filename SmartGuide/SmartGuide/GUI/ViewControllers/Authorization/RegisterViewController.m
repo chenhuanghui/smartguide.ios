@@ -30,7 +30,7 @@
 
 -(NSArray *)registerNotifications
 {
-    return @[NOTIFICATION_FACEBOOK_LOGIN_SUCCESS,NOTIFICATION_FACEBOOK_LOGIN_FAILED];
+    return @[NOTIFICATION_FACEBOOK_LOGIN_SUCCESS,NOTIFICATION_FACEBOOK_LOGIN_FAILED,UIApplicationWillTerminateNotification];
 }
 
 -(void)receiveNotification:(NSNotification *)notification
@@ -247,7 +247,12 @@
             [dict setObject:[UIFont fontWithName:@"Avenir-Roman" size:14] forKey:NSFontAttributeName];
             [dict setObject:[UIColor darkTextColor] forKey:NSForegroundColorAttributeName];
             
-            NSAttributedString *att=[[NSAttributedString alloc] initWithString:@"Bạn đã đăng nhập với tài khoản: " attributes:dict];
+            NSMutableParagraphStyle *paraStyle=[NSMutableParagraphStyle new];
+            paraStyle.alignment=NSTextAlignmentCenter;
+            
+            [dict setObject:paraStyle forKey:NSParagraphStyleAttributeName];
+            
+            NSAttributedString *att=[[NSAttributedString alloc] initWithString:@"Đăng nhập với tài khoản: \n" attributes:dict];
             NSMutableAttributedString *attStr=[[NSMutableAttributedString alloc] initWithAttributedString:att];
             
             [dict setObject:[UIColor color255WithRed:74 green:167 blue:247 alpha:255] forKey:NSForegroundColorAttributeName];
@@ -257,6 +262,9 @@
             [attStr appendAttributedString:att];
             
             lblProfileName.attributedText=attStr;
+            
+            [[NSUserDefaults standardUserDefaults] setObject:@(true) forKey:@"RegisterWillOpen"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
             
             break;
     }
@@ -577,7 +585,7 @@
         }
         
         self.view.userInteractionEnabled=false;
-
+        
         [UIView animateWithDuration:DURATION_DEFAULT animations:^{
             _datePicker.alpha=0;
         } completion:^(BOOL finished) {
