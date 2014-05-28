@@ -75,7 +75,7 @@
     
     [lblBottom addStyle:style];
     
-    [self switchToActivationModeWithPhone:@"841267082519"];
+    [self switchToActivationModeWithPhone:@"84919192425"];
 }
 
 -(void) switchToActivationModeWithPhone:(NSString*) phone
@@ -205,6 +205,10 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (IBAction)btnBackTouchUpInside:(id)sender {
+    [self.delegate userLoginCancelled];
 }
 
 - (IBAction)btnLoginTouchUpInside:(id)sender {

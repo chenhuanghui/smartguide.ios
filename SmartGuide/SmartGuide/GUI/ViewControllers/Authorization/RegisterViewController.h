@@ -40,11 +40,12 @@
     __weak IBOutlet UIView *socialView;
     __weak IBOutlet UIView *registerView;
     __weak IBOutlet UIView *displayPickerView;
-    
+    __weak IBOutlet UIView *profileView;
+    __weak IBOutlet UIImageView *imgvAvatar;
     __weak SGNavigationController *registerNavi;
-    
     __weak RegisterInfoStep1ViewController *registerStep1;
     __weak RegisterInfoStep2ViewController *registerStep2;
+    __weak IBOutlet UIButton *btnBack;
     
     RegisterInfo *_registerInfo;
     

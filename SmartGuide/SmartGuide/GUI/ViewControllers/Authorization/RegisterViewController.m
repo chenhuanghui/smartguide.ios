@@ -209,6 +209,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
+    btnBack.hidden=true;
     _registerInfo=[RegisterInfo new];
     
     RegisterInfoStep1ViewController *vc=[RegisterInfoStep1ViewController new];
@@ -226,6 +227,18 @@
     registerNavi=navi;
     
     [self settingButtonStep];
+    
+    switch (currentUser().enumDataMode) {
+        case USER_DATA_CREATING:
+        case USER_DATA_TRY:
+            profileView.hidden=true;
+            break;
+            
+        case USER_DATA_FULL:
+            profileView.hidden=false;
+            [imgvAvatar loadAvatarWithURL:currentUser().avatar];
+            break;
+    }
 }
 
 -(void)navigationController:(SGNavigationController *)navigationController willPopController:(SGViewController *)controller
@@ -299,7 +312,6 @@
     vc.delegate=self;
     
     //Không có selectedAvatarImage vì index 0 là hình user đã chọn từ device
-    
     if(_registerInfo.avatar)
         [vc setSelectedAvatar:_registerInfo.avatar];
     
@@ -334,6 +346,11 @@
         
         [_operationGPGetUserProfile start];
     }
+}
+
+-(void)avatarControllerTouchedBack:(AvatarViewController *)controller
+{
+    [self.navigationController popViewControllerAnimated:true];
 }
 
 -(void)avatarControllerTouched:(AvatarViewController *)controller avatar:(NSString *)avatar avatarImage:(UIImage *)avatarImage
@@ -561,17 +578,64 @@
 }
 
 - (IBAction)btnCreateTouchUpInside:(id)sender {
+    
+    btnBack.alpha=0;
+    btnBack.hidden=false;
+    
+    registerView.alpha=0;
     registerView.hidden=false;
+    
+    socialView.alpha=1;
+    socialView.hidden=false;
+    
     [UIView animateWithDuration:DURATION_DEFAULT animations:^{
         [socialView l_v_setX:-socialView.l_v_w];
         socialView.alpha=0;
         
         [registerView l_v_setX:0];
         registerView.alpha=1;
+        btnBack.alpha=1;
     } completion:^(BOOL finished) {
         socialView.hidden=true;
         
         [registerStep1 focusName];
+    }];
+}
+
+- (IBAction)btnBackTouchUpInside:(id)sender {
+    
+    [self.view endEditing:true];
+    
+    socialView.alpha=0;
+    socialView.hidden=false;
+    
+    registerView.alpha=1;
+    registerView.hidden=false;
+    
+    
+    [UIView animateWithDuration:DURATION_DEFAULT animations:^{
+        btnBack.alpha=0;
+        btnBack.hidden=true;
+        [socialView l_v_setX:0];
+        socialView.alpha=1;
+        
+        registerView.alpha=0;
+        [registerView l_v_setX:320];
+        
+        if(_isShowedDatePicker)
+        {
+            _datePicker.alpha=0;
+        }
+        
+    } completion:^(BOOL finished) {
+        registerView.hidden=true;
+        
+        if(_datePicker)
+        {
+            _isShowedDatePicker=false;
+            [_datePicker removeFromSuperview];
+            _datePicker=nil;
+        }
     }];
 }
 
@@ -581,6 +645,11 @@
     
     if(_isShowedDatePicker)
         [self removeDatePicker];
+}
+
+-(IBAction) btnContinuesTouchUpInside:(id)sender
+{
+    
 }
 
 @end

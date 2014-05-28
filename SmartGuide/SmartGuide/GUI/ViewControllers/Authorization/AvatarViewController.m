@@ -161,6 +161,11 @@
     _avatarImage=nil;
 }
 
+-(IBAction) btnBackTouchUpInside:(id)sender
+{
+    [self.delegate avatarControllerTouchedBack:self];
+}
+
 -(NSInteger)numberOfItemsInGMGridView:(GMGridView *)gridView
 {
     return _avatars.count + (_avatarImage?1:0);

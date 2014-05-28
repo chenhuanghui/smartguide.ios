@@ -16,7 +16,7 @@
 
 static GUIManager *_shareInstance=nil;
 
-@interface GUIManager()<WelcomeControllerDelegate,SGLoadingScreenDelegate,AuthorizationDelegate,UINavigationControllerDelegate,UIGestureRecognizerDelegate>
+@interface GUIManager()<WelcomeControllerDelegate,SGLoadingScreenDelegate,AuthorizationDelegate,UINavigationControllerDelegate,UIGestureRecognizerDelegate,RegisterControllerDelegate>
 {
     
 }
@@ -82,13 +82,6 @@ static GUIManager *_shareInstance=nil;
             
         case USER_DATA_CREATING:
         {
-            [Flags setIDCitySearch:currentUser().idCity.integerValue];
-            
-            WelcomeViewController *welcome=[[WelcomeViewController alloc] init];
-            welcome.delegate=self;
-            
-            [viewControllers addObject:welcome];
-            
             AuthorizationViewController *author=[[AuthorizationViewController alloc] init];
             author.delegate=self;
             
@@ -99,6 +92,11 @@ static GUIManager *_shareInstance=nil;
         case USER_DATA_FULL:
         {
             [Flags setIDCitySearch:currentUser().idCity.integerValue];
+            
+            RegisterViewController *reg=[RegisterViewController new];
+            reg.delegate=self;
+            
+            [viewControllers addObject:reg];
             
             RootViewController *root=[RootViewController new];
             
@@ -113,6 +111,11 @@ static GUIManager *_shareInstance=nil;
 }
 
 #pragma mark View Controller Delegate
+
+-(void)registerControllerFinished:(RegisterViewController *)controller
+{
+    
+}
 
 #pragma mark Loading controller
 

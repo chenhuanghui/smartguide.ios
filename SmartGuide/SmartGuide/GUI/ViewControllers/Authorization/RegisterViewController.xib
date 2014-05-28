@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4510" systemVersion="12F37" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="5053" systemVersion="12F37" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
-        <deployment defaultVersion="1280" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3742"/>
+        <deployment defaultVersion="1536" identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RegisterViewController">
             <connections>
+                <outlet property="btnBack" destination="Mhi-eE-BrR" id="P2Q-X6-Hc4"/>
                 <outlet property="btnConfirm" destination="igV-mY-Kkl" id="nwS-g6-a5d"/>
                 <outlet property="btnCreate" destination="lE1-48-n9E" id="Xi7-tM-PI1"/>
                 <outlet property="btnFacebook" destination="oa4-Zk-NPh" id="Zts-le-2lR"/>
@@ -15,6 +16,8 @@
                 <outlet property="btnStep2" destination="aVh-M0-0Zk" id="dht-v8-Nca"/>
                 <outlet property="containNavi" destination="8sE-Hb-Ce4" id="Wfa-tC-bxS"/>
                 <outlet property="displayPickerView" destination="y5e-QI-iYL" id="b1Y-JU-Ejd"/>
+                <outlet property="imgvAvatar" destination="dYv-5s-hZo" id="YrL-Sn-Xgb"/>
+                <outlet property="profileView" destination="i1J-gx-2S0" id="VdX-h2-aqL"/>
                 <outlet property="registerView" destination="AIF-Jc-V71" id="csm-TI-AuS"/>
                 <outlet property="socialView" destination="vGx-X5-xE1" id="wR3-GF-N23"/>
                 <outlet property="stepView" destination="hAI-6e-WkC" id="UP3-bV-GNM"/>
@@ -23,13 +26,34 @@
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="1">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="426"/>
+            <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" id="vGx-X5-xE1" userLabel="socialView">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="426"/>
+                    <rect key="frame" x="0.0" y="54" width="320" height="426"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <subviews>
+                        <view contentMode="scaleToFill" id="i1J-gx-2S0" userLabel="Profile View">
+                            <rect key="frame" x="33" y="75" width="253" height="40"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="9BH-SA-FrV">
+                                    <rect key="frame" x="0.0" y="0.0" width="253" height="40"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <state key="normal" image="button_lastaccount_login.png">
+                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="btnContinuesTouchUpInside:" destination="-1" eventType="touchUpInside" id="ide-8I-ScR"/>
+                                    </connections>
+                                </button>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="dYv-5s-hZo">
+                                    <rect key="frame" x="41" y="5" width="29" height="29"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                </imageView>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        </view>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="oa4-Zk-NPh">
                             <rect key="frame" x="33" y="120" width="253" height="40"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -82,7 +106,7 @@
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
                 <view hidden="YES" alpha="0.0" contentMode="scaleToFill" id="AIF-Jc-V71" userLabel="register">
-                    <rect key="frame" x="320" y="0.0" width="320" height="426"/>
+                    <rect key="frame" x="320" y="54" width="320" height="426"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <subviews>
                         <view contentMode="scaleToFill" id="Zcn-04-qYc">
@@ -156,14 +180,43 @@
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
+                <view contentMode="scaleToFill" id="Jy9-dV-BCR">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="54"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Mhi-eE-BrR">
+                            <rect key="frame" x="0.0" y="0.0" width="54" height="54"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="14"/>
+                            <inset key="titleEdgeInsets" minX="1" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            <inset key="imageEdgeInsets" minX="-9" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            <state key="normal" image="button_backarrow.png">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="btnBackTouchUpInside:" destination="-1" eventType="touchUpInside" id="zSB-op-har"/>
+                            </connections>
+                        </button>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Đăng ký thông tin" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Zh2-lk-R3K">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="54"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="17"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" red="0.22352941179999999" green="0.2156862745" blue="0.20784313730000001" alpha="1" colorSpace="calibratedRGB"/>
+                </view>
             </subviews>
             <color key="backgroundColor" red="0.92156862745098034" green="0.92156862745098034" blue="0.92156862745098034" alpha="1" colorSpace="calibratedRGB"/>
-            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
         </view>
     </objects>
     <resources>
+        <image name="button_backarrow.png" width="35" height="30"/>
         <image name="button_facebook_login.png" width="253" height="40"/>
         <image name="button_google_login.png" width="253" height="40"/>
+        <image name="button_lastaccount_login.png" width="253" height="41"/>
         <image name="button_next_login.png" width="100" height="42"/>
         <image name="line_comment.png" width="273" height="1"/>
     </resources>

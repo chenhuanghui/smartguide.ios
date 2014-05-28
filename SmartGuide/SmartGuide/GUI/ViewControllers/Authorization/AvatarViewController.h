@@ -16,6 +16,7 @@
 @protocol AvatarControllerDelegate <SGViewControllerDelegate>
 
 -(void) avatarControllerTouched:(AvatarViewController*) controller avatar:(NSString*) avatar avatarImage:(UIImage*) avatarImage;
+-(void) avatarControllerTouchedBack:(AvatarViewController*) controller;
 
 @optional
 -(UIViewController*) avatarControllerPresentViewController;
