@@ -21,5 +21,6 @@ enum KEYBOARD_STATE {
 -(bool) isKeyboardVisible;
 
 @property (nonatomic, readonly) enum KEYBOARD_STATE keyboardState;
+@property (nonatomic, assign) CGRect keyboardFrame;
 
 @end

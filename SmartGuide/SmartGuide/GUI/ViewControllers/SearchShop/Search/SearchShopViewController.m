@@ -81,6 +81,7 @@
     else
         _idCity=currentUser().idCity.integerValue;
     [btnCity setTitle:CITY_NAME(_idCity) forState:UIControlStateNormal];
+    [bgCity addShadow:1];
 }
 
 -(NSArray *)registerNotifications

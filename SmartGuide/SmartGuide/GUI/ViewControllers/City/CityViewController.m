@@ -9,6 +9,7 @@
 #import "CityViewController.h"
 #import "CityTableViewCell.h"
 #import "CityManager.h"
+#import "KeyboardUtility.h"
 
 @interface CityViewController ()<UITableViewDataSource,UITableViewDelegate>
 
@@ -33,11 +34,12 @@
     [[CityManager shareInstance] load];
     _filterCities=[CityManager shareInstance].cities;
     
-    lblCity.text=@"";
+    [btnCity setTitle:@"" forState:UIControlStateNormal];
+    [bgCity addShadow:1];
     
     NSArray *array=[_filterCities filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"idCity==%i",_selectedIDCity]];
     if(array.count>0)
-        lblCity.text=[array[0] name];
+        [btnCity setTitle:[array[0] name] forState:UIControlStateNormal];
     
     [table registerNib:[UINib nibWithNibName:[CityTableViewCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[CityTableViewCell reuseIdentifier]];
     
@@ -49,6 +51,11 @@
 -(void)viewWillAppearOnce
 {
     _tableFrame=table.frame;
+    
+    if([[KeyboardUtility shareInstance] keyboardState]==KEYBOARD_STATE_SHOWED)
+    {
+        [table l_v_setH:_tableFrame.size.height-[KeyboardUtility shareInstance].keyboardFrame.size.height];
+    }
 }
 
 -(NSArray *)registerNotifications

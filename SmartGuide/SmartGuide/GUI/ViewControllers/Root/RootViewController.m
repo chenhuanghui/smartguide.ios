@@ -105,7 +105,7 @@
     
     tapGes=tap;
     
-    [[NotificationManager shareInstance] requestNotificationCheck];
+//    [[NotificationManager shareInstance] requestNotificationCheck];
 }
 
 -(NSArray *)registerNotifications

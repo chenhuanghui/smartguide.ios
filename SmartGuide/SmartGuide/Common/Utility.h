@@ -66,6 +66,8 @@ NSString *CITY_NAME(int idCity);
 int IDCITY_HCM();
 int IDCITY_DANANG();
 
+NSAttributedString *APPLY_QUOTATION_MARK(NSString* text, NSAttributedString *textAttribute);
+
 #pragma mark LAZY_INIT
 
 NSString* LAZY_STRING_INT(int i);

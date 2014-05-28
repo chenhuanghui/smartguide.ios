@@ -220,6 +220,21 @@ int IDCITY_DANANG()
     return 140;
 }
 
+NSAttributedString *APPLY_QUOTATION_MARK(NSString* text, NSAttributedString *textAttribute)
+{
+    return [NSAttributedString new];
+//    NSMutableAttributedString *attStr=[[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"“%@”"]];
+//    
+//    NSMutableDictionary *dict=[NSMutableDictionary dictionary];
+//    [dict setObject:[UIFont fontWithName:@"Avenir-Roman" size:18] forKey:NSFontAttributeName];
+//    [dict setObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName];
+//    
+//    [attStr setAttributes:dict range:NSMakeRange(0, 1)];
+//    [attStr setAttributes:dict range:NSMakeRange(text.length+1, 1)];
+//    
+//    return attStr;
+}
+
 #pragma mark LAZY_INIT
 
 NSString* LAZY_STRING_INT(int i)

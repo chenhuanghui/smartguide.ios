@@ -21,7 +21,8 @@
 {
     __weak IBOutlet SearchTextField *txtSearch;
     __weak IBOutlet UITableView *table;
-    __weak IBOutlet UILabel *lblCity;
+    __weak IBOutlet UIButton *btnCity;
+    __weak IBOutlet UIView *bgCity;
     
     NSArray *_filterCities;
     CGRect _tableFrame;

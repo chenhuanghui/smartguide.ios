@@ -22,10 +22,10 @@
 {
     
     [[NotificationManager shareInstance] removeAllNotification];
-    if(launchOptions)
-    {
-        [[NotificationManager shareInstance] receiveLaunchNotification:launchOptions];
-    }
+//    if(launchOptions)
+//    {
+//        [[NotificationManager shareInstance] receiveLaunchNotification:launchOptions];
+//    }
     
 #if DEBUG
 //    NSMutableDictionary *dict=[[[NotificationManager shareInstance] makeNotification:USER_NOTIFICATION_ACTION_TYPE_SHOP_USER] mutableCopy];
@@ -45,7 +45,7 @@
     
     [[GUIManager shareInstance] startupWithWindow:self.window];
     
-    [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge |UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
+//    [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge |UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
     
     return YES;
 }

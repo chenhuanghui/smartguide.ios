@@ -103,6 +103,8 @@
     [txt setRefreshState:TEXT_FIELD_SEARCH_REFRESH_STATE_SEARCH animated:false completed:nil];
     
     [self displayNotification];
+    btnNotification.hidden=true;
+    btnNumOfNotification.hidden=true;
 }
 
 -(NSArray *)registerNotifications

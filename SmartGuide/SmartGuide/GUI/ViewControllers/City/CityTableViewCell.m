@@ -25,7 +25,7 @@
     }
     else
     {
-        imgvIcon.backgroundColor=[UIColor grayColor];
+        imgvIcon.backgroundColor=[UIColor color255WithRed:206 green:206 blue:206 alpha:255];
         imgvIcon.image=nil;
     }
     

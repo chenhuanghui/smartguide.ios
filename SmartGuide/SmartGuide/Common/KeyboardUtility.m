@@ -47,6 +47,7 @@ static KeyboardUtility *_keyboardUtility=nil;
 -(void) keyboardWillShow:(NSNotification*) notification
 {
     keyboardState=KEYBOARD_STATE_WILL_SHOW;
+    self.keyboardFrame=[[notification.userInfo valueForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
 }
 
 -(void) keyboardWillHide:(NSNotification*) notification
@@ -62,6 +63,7 @@ static KeyboardUtility *_keyboardUtility=nil;
 -(void) keyboardDidShow:(NSNotification*) notification
 {
     keyboardState=KEYBOARD_STATE_SHOWED;
+    self.keyboardFrame=[[notification.userInfo valueForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
 }
 
 -(bool)isKeyboardVisible

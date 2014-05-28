@@ -35,6 +35,7 @@ enum SEARCH_SHOP_VIEW_MODE {
     __weak IBOutlet UIView *topView;
     __weak IBOutlet UIButton *btnSearch;
     __weak IBOutlet UIButton *btnCity;
+    __weak IBOutlet UIView *bgCity;
     int _idCity;
     
     NSString *_keyword;

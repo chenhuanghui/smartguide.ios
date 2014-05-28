@@ -50,7 +50,7 @@ static NSString * const kClientId = @"790158294934-p5pnscmrt4avj698ncvhp14fit0f4
 #define CLIENT_ID @"1_orazuv2dl3k8ossssg8804o4kwksw8kwcskkk404w40gwcwws"//product
 #define SECRET_ID @"4xvgf3r9dxs8k8g8o8k0gss0s0wc8so4g4wg40c8s44kgcwsks"//product
 
-#define API_ELASTIC_AUTOCOMPLETE_NATIVE @"http://dev2.smartguide.vn:9200/data/_search"
+#define API_ELASTIC_AUTOCOMPLETE_NATIVE @"https://api.infory.vn:9200/data/_search"
 
 #endif
 

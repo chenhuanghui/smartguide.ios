@@ -7,6 +7,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CityViewController">
             <connections>
+                <outlet property="bgCity" destination="X2z-5N-Rgt" id="aSF-YT-6co"/>
+                <outlet property="btnCity" destination="eP4-dd-3rI" id="vhW-60-X1y"/>
                 <outlet property="table" destination="5Lj-ke-Tw1" id="KsE-1s-9R8"/>
                 <outlet property="txtSearch" destination="qro-PM-Aqw" id="btb-7S-cCj"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -18,21 +20,22 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view userInteractionEnabled="NO" contentMode="scaleToFill" id="xX6-4q-M9G">
-                    <rect key="frame" x="0.0" y="54" width="320" height="426"/>
+                    <rect key="frame" x="0.0" y="84" width="320" height="396"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <color key="backgroundColor" red="0.92156862750000001" green="0.92156862750000001" blue="0.92156862750000001" alpha="1" colorSpace="deviceRGB"/>
                 </view>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="5Lj-ke-Tw1">
-                    <rect key="frame" x="13" y="76" width="295" height="404"/>
+                    <rect key="frame" x="13" y="84" width="295" height="396"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <inset key="contentInset" minX="0.0" minY="10" maxX="0.0" maxY="0.0"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="WAk-Ty-STv"/>
                         <outlet property="delegate" destination="-1" id="Wfb-u9-L3P"/>
                     </connections>
                 </tableView>
                 <view contentMode="scaleToFill" id="PhY-ee-dtE" customClass="TouchView">
-                    <rect key="frame" x="0.0" y="54" width="320" height="426"/>
+                    <rect key="frame" x="0.0" y="84" width="320" height="396"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <connections>
@@ -67,13 +70,21 @@
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hồ Chí Minh City" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="bKh-Bd-wxn">
-                    <rect key="frame" x="0.0" y="54" width="320" height="22"/>
+                <view userInteractionEnabled="NO" contentMode="scaleToFill" id="X2z-5N-Rgt">
+                    <rect key="frame" x="0.0" y="54" width="320" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                </view>
+                <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="eP4-dd-3rI">
+                    <rect key="frame" x="0.0" y="54" width="320" height="30"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="14"/>
-                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                    <nil key="highlightedColor"/>
-                </label>
+                    <inset key="imageEdgeInsets" minX="-5" minY="-2" maxX="0.0" maxY="0.0"/>
+                    <state key="normal" title="Hồ Chí Minh city" image="icon_location.png">
+                        <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                </button>
             </subviews>
             <color key="backgroundColor" red="0.2196078431372549" green="0.21568627450980393" blue="0.20784313725490194" alpha="1" colorSpace="deviceRGB"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
@@ -81,5 +92,6 @@
     </objects>
     <resources>
         <image name="button_backarrow.png" width="35" height="30"/>
+        <image name="icon_location.png" width="14" height="14"/>
     </resources>
 </document>
