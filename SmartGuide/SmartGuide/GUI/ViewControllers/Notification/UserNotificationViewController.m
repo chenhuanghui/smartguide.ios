@@ -353,7 +353,7 @@
 -(void)userNotificationCellTouchedRemove:(UserNotificationCell *)cell obj:(UserNotification *)obj
 {
     [cell removeObserverHighlightUnread];
-    [obj sendDelete];
+//    [obj sendDelete];
     
     [[GUIManager shareInstance].rootViewController removeUserNotification:obj];
     bool isHasReadNotification=_isHasReadNotification;
@@ -369,9 +369,11 @@
     [table beginUpdates];
     
     NSIndexPath *idx=[table indexPathForCell:cell];
+    
     [table deleteRowsAtIndexPaths:@[idx] withRowAnimation:UITableViewRowAnimationNone];
     
     [table endUpdates];
+    [table killScroll];
 }
 
 +(NSString *)screenCode
@@ -413,7 +415,9 @@
 {
     switch (section) {
         case USER_NOTIFICATION_STATUS_READ:
-            return [UserNotificationHeaderView height];
+            if(_userNotificationRead.count>0)
+                return [UserNotificationHeaderView height];
+            return 0;
             
         default:
             return 0;
