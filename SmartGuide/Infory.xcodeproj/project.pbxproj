@@ -1070,6 +1070,7 @@
 		A9E725A418ED9A36007FA91A /* icon_notification@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A9E725A218ED9A36007FA91A /* icon_notification@2x.png */; };
 		A9E725A718ED9AA8007FA91A /* bg_number_notice.png in Resources */ = {isa = PBXBuildFile; fileRef = A9E725A518ED9AA8007FA91A /* bg_number_notice.png */; };
 		A9E725A818ED9AA8007FA91A /* bg_number_notice@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A9E725A618ED9AA8007FA91A /* bg_number_notice@2x.png */; };
+		A9EF13CE193583A60062A9BF /* TableTemplateData.m in Sources */ = {isa = PBXBuildFile; fileRef = A9EF13CD193583A60062A9BF /* TableTemplateData.m */; };
 		B9874444187D537D004FC17B /* GoogleOpenSource.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AB6CF4A187C499400B8DEA2 /* GoogleOpenSource.framework */; };
 		B9874445187D537E004FC17B /* GooglePlus.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AB6CF4C187C49A100B8DEA2 /* GooglePlus.framework */; };
 /* End PBXBuildFile section */
@@ -2467,6 +2468,8 @@
 		A9E725A218ED9A36007FA91A /* icon_notification@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_notification@2x.png"; sourceTree = "<group>"; };
 		A9E725A518ED9AA8007FA91A /* bg_number_notice.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_number_notice.png; sourceTree = "<group>"; };
 		A9E725A618ED9AA8007FA91A /* bg_number_notice@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg_number_notice@2x.png"; sourceTree = "<group>"; };
+		A9EF13CC193583A60062A9BF /* TableTemplateData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableTemplateData.h; sourceTree = "<group>"; };
+		A9EF13CD193583A60062A9BF /* TableTemplateData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableTemplateData.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -3831,6 +3834,7 @@
 		A98198B4178D3FA70009FCB6 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				A9EF13CB193583930062A9BF /* TemplateData */,
 				A9BABB49192C4E8700C417F3 /* TextField */,
 				A9BABB3D192B43A300C417F3 /* RefreshingView */,
 				A9200B051929D96700F46B8D /* RemoteNotificationView */,
@@ -4610,6 +4614,15 @@
 				A9E71DA5178FD2B200D7467E /* LocalizationManager.m */,
 			);
 			path = Localization;
+			sourceTree = "<group>";
+		};
+		A9EF13CB193583930062A9BF /* TemplateData */ = {
+			isa = PBXGroup;
+			children = (
+				A9EF13CC193583A60062A9BF /* TableTemplateData.h */,
+				A9EF13CD193583A60062A9BF /* TableTemplateData.m */,
+			);
+			path = TemplateData;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -5708,6 +5721,7 @@
 				9ACE90821875CE8C008FEA7E /* PromotionNews.m in Sources */,
 				A925508717B74BAC0096C411 /* OperationRouterMap.m in Sources */,
 				9A1E234A18B1CA790077F503 /* _UserPromotion.m in Sources */,
+				A9EF13CE193583A60062A9BF /* TableTemplateData.m in Sources */,
 				9AC494BE1858B48A0042C535 /* _StoreShop.m in Sources */,
 				9A5113D9186C7754008E1418 /* ASIOperationGetTutorial.m in Sources */,
 				9A24781918B74A4100BAAA7D /* LoadingMoreCell.m in Sources */,

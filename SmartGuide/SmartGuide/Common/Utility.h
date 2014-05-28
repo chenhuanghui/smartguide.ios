@@ -66,6 +66,10 @@ NSString *CITY_NAME(int idCity);
 int IDCITY_HCM();
 int IDCITY_DANANG();
 
+#pragma mark LAZY_INIT
+
+NSString* LAZY_STRING_INT(int i);
+
 @interface Utility : NSObject
 
 +(CGRect) centerPinWithFrameAnnotation:(CGRect) rectAnn framePin:(CGRect) rectPin;

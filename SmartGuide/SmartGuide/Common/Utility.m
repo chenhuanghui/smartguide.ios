@@ -220,6 +220,13 @@ int IDCITY_DANANG()
     return 140;
 }
 
+#pragma mark LAZY_INIT
+
+NSString* LAZY_STRING_INT(int i)
+{
+    return [NSString stringWithFormat:@"%i",i];
+}
+
 @implementation Utility
 
 +(CGRect) centerPinWithFrameAnnotation:(CGRect) rectAnn framePin:(CGRect) rectPin
