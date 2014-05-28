@@ -280,4 +280,12 @@ static FacebookManager *_facebookManager=nil;
         [_needPermission addObject:FACEBOOK_POST_TO_WALL_PERMISSION];
 }
 
+-(void)clean
+{
+    if([[FBSession activeSession] isOpen])
+    {
+        [[FBSession activeSession] closeAndClearTokenInformation];
+    }
+}
+
 @end

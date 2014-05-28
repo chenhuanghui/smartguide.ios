@@ -74,7 +74,11 @@
     }
     else if(currentUser().enumDataMode==USER_DATA_FULL)
     {
-        [self.delegate authorizationSuccessed];
+        RegisterViewController *vc=[RegisterViewController new];
+        vc.delegate=self;
+        vc.authorizationController=self;
+        
+        [authorNavi setRootViewController:vc animate:true];
     }
 }
 

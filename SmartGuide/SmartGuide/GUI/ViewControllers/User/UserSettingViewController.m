@@ -38,11 +38,7 @@
     // Do any additional setup after loading the view from its nib.
     
     [self loadData];
-    
-    [contentView addSubview:_navi.view];
-    [_navi l_v_setH:contentView.l_v_h];
-    _navi.view.autoresizingMask=UIViewAutoresizingAll();
-    
+
     _avatars=[NSMutableArray new];
     
     NSMutableDictionary *dict=[NSMutableDictionary dictionary];
@@ -90,8 +86,6 @@
     btnFB.hidden=currentUser().enumSocialType!=SOCIAL_NONE;
     btnGP.hidden=currentUser().enumSocialType!=SOCIAL_NONE;
     
-    btnCover.hidden=currentUser().enumDataMode!=USER_DATA_TRY;
-    
     [scroll contentSizeToFit];
 }
 
@@ -120,9 +114,9 @@
     }
 }
 
--(UIViewController *)avatarControllerPresentViewController
+-(void)avatarControllerTouchedBack:(AvatarViewController *)controller
 {
-    return [GUIManager shareInstance].rootViewController.contentNavigation;
+    [self.navigationController popViewControllerAnimated:true];
 }
 
 -(NSArray *)registerNotifications
@@ -134,6 +128,9 @@
 {
     if([notification.name isEqualToString:NOTIFICATION_FACEBOOK_LOGIN_SUCCESS])
     {
+        if([[FBSession activeSession] accessTokenData].accessToken.length==0)
+            return;
+        
         [self.view showLoading];
         
         _operationFBGetProfile=[[OperationFBGetProfile alloc] initWithAccessToken:[[FBSession activeSession] accessTokenData].accessToken];
@@ -184,6 +181,9 @@
     if([operation isKindOfClass:[OperationFBGetProfile class]])
     {
         [self.view removeLoading];
+        
+        [[FacebookManager shareInstance] clean];
+        [AlertView showAlertOKWithTitle:nil withMessage:operation.error.description onOK:nil];
         
         _operationFBGetProfile=nil;
     }
@@ -442,19 +442,7 @@
     [vc setSelectedAvatar:_selectedAvatar];
     
     _avatarController=vc;
-    [_navi pushViewController:vc animated:true];
-    
-    backView.alpha=0;
-    backView.hidden=false;
-    
-    [UIView animateWithDuration:DURATION_NAVIGATION_PUSH animations:^{
-        titleView.alpha=0;
-        [titleView l_v_setX:-320];
-        backView.alpha=1;
-        [backView l_v_setX:0];
-    } completion:^(BOOL finished) {
-        titleView.hidden=true;
-    }];
+    [self.navigationController pushViewController:vc animated:true];
 }
 
 -(void)avatarControllerTouched:(AvatarViewController *)controller avatar:(NSString *)avatar avatarImage:(UIImage *)avatarImage
@@ -499,7 +487,7 @@
     CityViewController *vc=[[CityViewController alloc] initWithSelectedIDCity:userIDCity()];
     vc.delegate=self;
     
-    [_navi pushViewController:vc animated:true];
+    [self.navigationController pushViewController:vc animated:true];
 }
 
 -(void)cityControllerDidTouchedCity:(CityViewController *)controller idCity:(int)idCity name:(NSString *)name
@@ -698,19 +686,7 @@
 
 -(void) popNavi
 {
-    [_navi popViewControllerAnimated:true];
-    
-    titleView.alpha=0;
-    titleView.hidden=false;
-    
-    [UIView animateWithDuration:DURATION_NAVIGATION_PUSH animations:^{
-        titleView.alpha=1;
-        [titleView l_v_setX:0];
-        backView.alpha=0;
-        [backView l_v_setX:320];
-    } completion:^(BOOL finished) {
-        backView.hidden=true;
-    }];
+    [self.navigationController popViewControllerAnimated:true];
 }
 
 -(void)dealloc

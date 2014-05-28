@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import <FacebookSDK/FacebookSDK.h>
-#import "OperationFBGetProfile.h"
 #import <Social/Social.h>
 
 #define NOTIFICATION_FACEBOOK_USER_GRANTED_PERMISSION @"fbUserGrantedPermission"
@@ -42,5 +41,6 @@ enum FACEBOOK_PERMISSION_TYPE {
 +(void) handleDidBecomeActive;
 +(void) handleWillTerminate;
 +(BOOL)handleOpenURL:(NSURL*)url sourceApplication:(NSString *)sourceApplication annotation:(NSString *)annotation;
+-(void) clean;
 
 @end

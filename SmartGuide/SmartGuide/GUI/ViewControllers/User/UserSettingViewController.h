@@ -42,15 +42,11 @@
     __weak IBOutlet UIButton *btnLogout;
     __weak IBOutlet UIView *contentView;
     __weak IBOutlet UIView *titleView;
-    __weak IBOutlet UIView *backView;
-    __weak IBOutlet UIButton *btnBack;
     __weak IBOutlet UIButton *btnFB;
     __weak IBOutlet UIButton *btnGP;
-    __weak IBOutlet UIButton *btnCover;
     __weak IBOutlet UIButton *btnTerms;
     __weak IBOutlet UILabel *lblCity;
     
-    IBOutlet SGNavigationController *_navi;
     __weak AvatarViewController *_avatarController;
     NSDate *_selectedDate;
     NSMutableArray *_avatars;

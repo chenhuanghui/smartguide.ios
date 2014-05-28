@@ -37,6 +37,9 @@
 {
     if([notification.name isEqualToString:NOTIFICATION_FACEBOOK_LOGIN_SUCCESS])
     {
+        if([[FBSession activeSession] accessTokenData].accessToken.length==0)
+            return;
+        
         [authorizationController.view showLoading];
         
         _operationFBGetProfile=[[OperationFBGetProfile alloc] initWithAccessToken:[[FBSession activeSession] accessTokenData].accessToken];
@@ -93,6 +96,8 @@
     if([operation isKindOfClass:[OperationFBGetProfile class]])
     {
         [authorizationController.view removeLoading];
+        
+        [AlertView showAlertOKWithTitle:nil withMessage:operation.error.description onOK:nil];
         
         _operationFBGetProfile=nil;
     }
@@ -237,6 +242,22 @@
         case USER_DATA_FULL:
             profileView.hidden=false;
             [imgvAvatar loadAvatarWithURL:currentUser().avatar];
+            
+            NSMutableDictionary *dict=[NSMutableDictionary dictionary];
+            [dict setObject:[UIFont fontWithName:@"Avenir-Roman" size:14] forKey:NSFontAttributeName];
+            [dict setObject:[UIColor darkTextColor] forKey:NSForegroundColorAttributeName];
+            
+            NSAttributedString *att=[[NSAttributedString alloc] initWithString:@"Bạn đã đăng nhập với tài khoản: " attributes:dict];
+            NSMutableAttributedString *attStr=[[NSMutableAttributedString alloc] initWithAttributedString:att];
+            
+            [dict setObject:[UIColor color255WithRed:74 green:167 blue:247 alpha:255] forKey:NSForegroundColorAttributeName];
+            
+            att=[[NSAttributedString alloc] initWithString:currentUser().name attributes:dict];
+            
+            [attStr appendAttributedString:att];
+            
+            lblProfileName.attributedText=attStr;
+            
             break;
     }
 }
@@ -649,7 +670,7 @@
 
 -(IBAction) btnContinuesTouchUpInside:(id)sender
 {
-    
+    [self.delegate registerControllerFinished:self];
 }
 
 @end

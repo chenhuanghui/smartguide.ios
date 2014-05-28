@@ -41,6 +41,7 @@
     __weak IBOutlet UIView *registerView;
     __weak IBOutlet UIView *displayPickerView;
     __weak IBOutlet UIView *profileView;
+    __weak IBOutlet UILabel *lblProfileName;
     __weak IBOutlet UIImageView *imgvAvatar;
     __weak SGNavigationController *registerNavi;
     __weak RegisterInfoStep1ViewController *registerStep1;
