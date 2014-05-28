@@ -82,6 +82,8 @@ static GUIManager *_shareInstance=nil;
             
         case USER_DATA_CREATING:
         {
+            [Flags setIDCitySearch:currentUser().idCity.integerValue];
+            
             WelcomeViewController *welcome=[[WelcomeViewController alloc] init];
             welcome.delegate=self;
             
@@ -96,6 +98,8 @@ static GUIManager *_shareInstance=nil;
             
         case USER_DATA_FULL:
         {
+            [Flags setIDCitySearch:currentUser().idCity.integerValue];
+            
             RootViewController *root=[RootViewController new];
             
             rootViewController=root;
