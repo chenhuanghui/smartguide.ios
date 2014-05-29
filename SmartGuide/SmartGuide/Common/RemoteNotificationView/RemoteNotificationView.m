@@ -9,7 +9,7 @@
 #import "RemoteNotificationView.h"
 #import "TextFieldSearchBackgroundView.h"
 #import "Utility.h"
-#import "UserNotification.h"
+#import "NotificationManager.h"
 
 @interface RemoteNotificationPatternView : UIView
 {
@@ -46,63 +46,6 @@
     midView.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"bg_search_mid.png"]];
 }
 
--(void)awakeFromNib1
-{
-    [super awakeFromNib];
-    
-    CGRect rect=self.frame;
-    rect.origin=CGPointZero;
-
-    UIImageView *imgv=[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bg_search_left.png"]];
-    [imgv l_v_setS:CGSizeMake(19, 38)];
-    imgv.autoresizingMask=UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleLeftMargin;
-    
-    [self addSubview:imgv];
-    
-    imgvLeft=imgv;
-    
-    RemoteNotificationPatternView *view=[[RemoteNotificationPatternView alloc] init];
-    [view l_v_setH:38];
-    view.contentMode=UIViewContentModeRedraw;
-    view.autoresizesSubviews=false;
-    view.backgroundColor=[UIColor clearColor];
-    view.autoresizingMask=UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleRightMargin;
-    
-    [self addSubview:view];
-    
-    midView=view;
-    
-    imgv=[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bg_search_right.png"]];
-    [imgv l_v_setS:CGSizeMake(19, 38)];
-    imgv.autoresizingMask=UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleRightMargin;
-    
-    [self addSubview:imgv];
-    
-    imgvRight=imgv;
-    
-    imgv=[[UIImageView alloc] initWithFrame:rect];
-    imgv.contentMode=UIViewContentModeCenter;
-    imgv.image=[UIImage imageNamed:@"icon_alertnotice.png"];
-    [imgv l_v_setW:8];
-    
-    [self addSubview:imgv];
-    
-    imgvRed=imgv;
-    
-    UILabel *lbl=[[UILabel alloc] initWithFrame:rect];
-    [self addSubview:lbl];
-    
-    lblMessage=lbl;
-    
-    UIButton *btn=[[UIButton alloc] initWithFrame:rect];
-    [btn addTarget:self action:@selector(btnTouchUpInside:) forControlEvents:UIControlEventTouchUpInside];
-    btn.backgroundColor=[UIColor clearColor];
-    
-    [self addSubview:btn];
-    
-    btnNoti=btn;
-}
-
 -(IBAction) btnTouchUpInside:(id) sender
 {
     [self.delegate remoteNotificationViewTouched:self];
@@ -120,7 +63,7 @@
     self.hidden=false;
     self.frame=CGRectMake(UIScreenSize().width-38, UIScreenSize().height-38, 38, 38);
     lblMessage.alpha=0;
-    lblMessage.text=_noti.alert;
+    lblMessage.text=_noti.message;
     
     [UIView animateWithDuration:0.5f animations:^{
         self.alpha=1;
@@ -159,12 +102,12 @@
     }];
 }
 
--(void)setUserNotification:(UserNotification *)noti
+-(void)setRemoteNotification:(RemoteNotification *)noti
 {
     _noti=noti;
 }
 
--(UserNotification *)userNotification
+-(RemoteNotification *)remoteNotification
 {
     return _noti;
 }

@@ -52,7 +52,7 @@ static NotificationManager *_notificationManager=nil;
     if (self) {
         self.numOfNotification=@"";
         self.totalNotification=@(0);
-        self.notifications=[NSMutableArray new];
+        self.remoteNotifications=[NSMutableArray new];
         _notificationState=NOTIFICATION_CHECK_STATE_INIT;
     }
     return self;
@@ -133,16 +133,21 @@ static NotificationManager *_notificationManager=nil;
     
     if(info && [info isKindOfClass:[NSDictionary class]])
     {
-        UserNotification *obj=[UserNotification makeWithRemoteNotification:info];
-        obj.status=@(USER_NOTIFICATION_STATUS_UNREAD);
-        [[DataManager shareInstance] save];
+        RemoteNotification *obj=[RemoteNotification makeWithRemoteNotification:info];
         
-        [self.notifications addObject:obj];
+        [self.remoteNotifications addObject:obj];
         self.totalNotification=[NSNumber numberWithObject:obj.badge];
         [UIApplication sharedApplication].applicationIconBadgeNumber=self.totalNotification.integerValue;
         
         [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_RECEIVED_REMOTE_NOTIFICATION object:obj];
+        
+        [self postTotalNotificationChanged];
     }
+}
+
+-(void) postTotalNotificationChanged
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_TOTAL_NOTIFICATION_CHANGED object:nil];
 }
 
 -(void)receiveDeviceToken:(NSData *)deviceToken
@@ -173,7 +178,7 @@ static NotificationManager *_notificationManager=nil;
     if(!apsInfo)
         return;
     
-    UserNotification *obj=[UserNotification makeWithRemoteNotification:apsInfo];
+    RemoteNotification *obj=[RemoteNotification makeWithRemoteNotification:apsInfo];
     [[DataManager shareInstance] save];
     
     self.launchNotification=obj;
@@ -186,7 +191,7 @@ static NotificationManager *_notificationManager=nil;
     [[DataManager shareInstance] save];
 }
 
--(NSDictionary*) makeNotification:(enum USER_NOTIFICATION_ACTION_TYPE) actionType
+-(NSDictionary*) makeNotification:(enum NOTIFICATION_ACTION_TYPE) actionType
 {
     NSMutableDictionary *dict=[NSMutableDictionary dictionary];
     
@@ -198,9 +203,9 @@ static NotificationManager *_notificationManager=nil;
     
     [dict setObject:@(actionType) forKey:@"actionType"];
     
-    if(actionType==USER_NOTIFICATION_ACTION_TYPE_SHOP_USER)
+    if(actionType==NOTIFICATION_ACTION_TYPE_SHOP_USER)
         [dict setObject:@(123) forKey:@"idShop"];
-    else if(actionType==USER_NOTIFICATION_ACTION_TYPE_SHOP_LIST)
+    else if(actionType==NOTIFICATION_ACTION_TYPE_SHOP_LIST)
     {
         int rd=random_int(0, 2);
         
@@ -211,7 +216,7 @@ static NotificationManager *_notificationManager=nil;
         else if(rd==2)
             [dict setObject:@"123,124,125" forKey:@"idShops"];
     }
-    else if(USER_NOTIFICATION_ACTION_TYPE_POPUP_URL==3)
+    else if(NOTIFICATION_ACTION_TYPE_POPUP_URL==3)
         [dict setObject:@"http:\\infory.vn" forKey:@"url"];
     
     NSData *data=[NSJSONSerialization dataWithJSONObject:dict options:NSJSONWritingPrettyPrinted error:nil];
@@ -236,186 +241,39 @@ static NotificationManager *_notificationManager=nil;
 
 @end
 
-static char UserNotificationOperationReadKey;
-static char UserNotificationIsSentReadKey;
-static char UserNotificationOperationRemoveKey;
-static char USerNotificationIsSentRemoveKey;
+@implementation RemoteNotification
 
-@implementation UserNotification(ASIOperation)
-
--(void)setOperationRead:(ASIOperationUserNotificationMarkRead *)operationRead
++(RemoteNotification *)makeWithRemoteNotification:(NSDictionary *)dict
 {
-    objc_setAssociatedObject(self, &UserNotificationOperationReadKey, operationRead, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
--(ASIOperationUserNotificationMarkRead *)operationRead
-{
-    return objc_getAssociatedObject(self, &UserNotificationOperationReadKey);
-}
-
--(void)setOperationRemove:(ASIOperationUserNotificationRemove *)operationRemove
-{
-    objc_setAssociatedObject(self, &UserNotificationOperationRemoveKey, operationRemove, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
--(ASIOperationUserNotificationRemove *)operationRemove
-{
-    return objc_getAssociatedObject(self, &UserNotificationOperationRemoveKey);
-}
-
--(void)setIsSentRead:(NSNumber *)isSentRead
-{
-    objc_setAssociatedObject(self, &UserNotificationIsSentReadKey, isSentRead, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
--(NSNumber *)isSentRead
-{
-    return objc_getAssociatedObject(self, &UserNotificationIsSentReadKey);
-}
-
--(void)setIsSentRemove:(NSNumber *)isSentRemove
-{
-    objc_setAssociatedObject(self, &USerNotificationIsSentRemoveKey, isSentRemove, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
--(NSNumber *)isSentRemove
-{
-    return objc_getAssociatedObject(self, &USerNotificationIsSentRemoveKey);
-}
-
--(void)markAndSendRead
-{
-    if(self.isSentRead.boolValue || self.operationRead)
-        return;
+    RemoteNotification *obj=[RemoteNotification new];
     
-    self.highlightUnread=@(false);
-    [[DataManager shareInstance] save];
-    
-    self.operationRead=[[ASIOperationUserNotificationMarkRead alloc] initWithIDNotification:self.idNotification.integerValue userLat:userLat() userLng:userLng() uuid:UUID()];
-    self.operationRead.delegatePost=self;
-    
-    [self.operationRead startAsynchronous];
-}
-
--(void)sendDelete
-{
-    if(self.isSentRemove.boolValue || self.operationRemove)
-        return;
-    
-    self.isSentRemove=@(true);
-    
-    self.operationRemove=[[ASIOperationUserNotificationRemove alloc] initWithIDNotification:self.idNotification.integerValue userLat:userLat() userLng:userLng() uuid:UUID()];
-    self.operationRemove.delegatePost=self;
-    
-    [self.operationRemove startAsynchronous];
-}
-
--(void)ASIOperaionPostFinished:(ASIOperationPost *)operation
-{
-    if([operation isKindOfClass:[ASIOperationUserNotificationMarkRead class]])
-    {
-        self.operationRead=nil;
-        self.isSentRead=@(true);
-        
-        [self finishedRead];
-    }
-    else if([operation isKindOfClass:[ASIOperationUserNotificationRemove class]])
-    {
-        self.operationRemove=nil;
-        self.isSentRemove=@(true);
-    }
-}
-
--(void)ASIOperaionPostFailed:(ASIOperationPost *)operation
-{
-    if([operation isKindOfClass:[ASIOperationUserNotificationMarkRead class]])
-    {
-        self.operationRead=nil;
-        self.isSentRead=@(true);
-        
-        [self finishedRead];
-    }
-    else if([operation isKindOfClass:[ASIOperationUserNotificationRemove class]])
-    {
-        self.operationRemove=nil;
-        self.isSentRemove=@(true);
-    }
-}
-
--(void) finishedRead
-{
-    if([NotificationManager shareInstance].launchNotification==self)
-    {
-        [NotificationManager shareInstance].launchNotification=nil;
-    }
-    else
-    {
-        [[NotificationManager shareInstance].notifications removeObject:self];
-    }
-}
-
-
-@end
-
-@implementation UserNotification(RemoteNotification)
-
-+(UserNotification *)makeWithRemoteNotification:(NSDictionary *)dict
-{
-    UserNotification *obj=[UserNotification insert];
-    
-    obj.alert=[NSString stringWithStringDefault:dict[@"alert"]];
+    obj.message=[NSString stringWithStringDefault:dict[@"message"]];
     obj.badge=[NSString stringWithStringDefault:dict[@"badge"]];
-    obj.isRemoteNotification=@(true);
-    if(dict[@"id"])
-        obj.idNotification=[NSNumber numberWithObject:dict[@"id"]];
-    obj.timer=[NSNumber numberWithObject:dict[@"timer"]];
+    
+    if(dict[@"idNotification"])
+    {
+        obj.idNotification=[NSNumber numberWithObject:dict[@"idNotification"]];
+        obj.idSender=[NSNumber numberWithObject:dict[@"idSender"]];
+    }
+    
+    obj.timer=@(0);
+    if(dict[@"timer"])
+        obj.timer=[NSNumber numberWithObject:dict[@"timer"]];
     
     return obj;
-    NSString *data=[NSString stringWithStringDefault:dict[@"data"]];
+}
+
+-(id)copyWithZone:(NSZone *)zone
+{
+    RemoteNotification *obj=[RemoteNotification new];
     
-    if(data.length>0)
-    {
-        NSData *dataBytes=[data dataUsingEncoding:NSUTF8StringEncoding];
-        NSError *error=nil;
-        NSDictionary *dataJson=[NSJSONSerialization JSONObjectWithData:dataBytes options:NSJSONReadingAllowFragments|NSJSONReadingMutableContainers error:&error];
-        
-        obj.idNotification=[NSNumber numberWithObject:dataJson[@"idNotification"]];
-        obj.timer=[NSNumber numberWithObject:dataJson[@"timer"]];
-        obj.actionType=[NSNumber numberWithObject:dataJson[@"actionType"]];
-        obj.readAction=[NSNumber numberWithObject:dataJson[@"readAction"]];
-        obj.content=[NSString stringWithStringDefault:dataJson[@"content"]];
-        obj.highlight=[NSString stringWithStringDefault:dataJson[@"highlight"]];
-        obj.time=[NSString stringWithStringDefault:dataJson[@"time"]];\
-        
-        if(obj.enumStatus==USER_NOTIFICATION_STATUS_UNREAD)
-            obj.highlightUnread=@(true);
-        
-        switch (obj.enumActionType) {
-            case USER_NOTIFICATION_ACTION_TYPE_SHOP_USER:
-                obj.idShop=[NSNumber numberWithObject:dataJson[@"idShops"]];
-                break;
-                
-            case USER_NOTIFICATION_ACTION_TYPE_SHOP_LIST:
-                if(dataJson[@"idPlacelist"])
-                    obj.idPlacelist=[NSNumber numberWithObject:dataJson[@"idPlacelist"]];
-                else if([dataJson[@"keywords"] isHasString])
-                    obj.keywords=[NSString stringWithStringDefault:dataJson[@"keywords"]];
-                else if([dataJson[@"idShops"] isHasString])
-                    obj.idShops=[NSString stringWithStringDefault:dataJson[@"idShops"]];
-                
-                break;
-                
-            case USER_NOTIFICATION_ACTION_TYPE_POPUP_URL:
-                obj.url=[NSString stringWithStringDefault:dataJson[@"url"]];
-                
-            case NOTI_ACTION_TYPE_GO_CONTENT:
-            case NOTI_ACTION_TYPE_LOGIN:
-            case NOTI_ACTION_TYPE_SCAN_CODE:
-            case NOTI_ACTION_TYPE_USER_PROMOTION:
-            case NOTI_ACTION_TYPE_USER_SETTING:
-                break;
-        }
-    }
+    obj.message=self.message;
+    obj.badge=self.badge;
+    
+    if(self.idNotification)
+        obj.idNotification=self.idNotification;
+    
+    obj.timer=self.timer;
     
     return obj;
 }

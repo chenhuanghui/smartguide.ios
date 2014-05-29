@@ -30,28 +30,28 @@
     bool hasChanged=false;
     int idNotification=[self.keyValue[@"idNotification"] integerValue];
     
-    for(UserNotification *obj in array)
-    {
-        if(obj.idNotification.integerValue==idNotification && obj.enumStatus==USER_NOTIFICATION_STATUS_UNREAD && !obj.highlightUnread.boolValue)
-        {
-            obj.highlightUnread=@(false);
-            hasChanged=true;
-        }
-    }
-    
-    array=[UserNotificationContent allObjects];
-    
-    for(UserNotificationContent *obj in array)
-    {
-        if(obj.idNotification.integerValue==idNotification && obj.enumStatus==USER_NOTIFICATION_CONTENT_STATUS_UNREAD)
-        {
-            obj.status=@(USER_NOTIFICATION_CONTENT_STATUS_READ);
-            hasChanged=true;
-        }
-    }
-    
-    if(hasChanged)
-        [[DataManager shareInstance] save];
+//    for(UserNotification *obj in array)
+//    {
+//        if(obj.idNotification.integerValue==idNotification && obj.enumStatus==USER_NOTIFICATION_STATUS_UNREAD && !obj.highlightUnread.boolValue)
+//        {
+//            obj.highlightUnread=@(false);
+//            hasChanged=true;
+//        }
+//    }
+//    
+//    array=[UserNotificationContent allObjects];
+//    
+//    for(UserNotificationContent *obj in array)
+//    {
+//        if(obj.idNotification.integerValue==idNotification && obj.enumStatus==USER_NOTIFICATION_CONTENT_STATUS_UNREAD)
+//        {
+//            obj.status=@(USER_NOTIFICATION_CONTENT_STATUS_READ);
+//            hasChanged=true;
+//        }
+//    }
+//    
+//    if(hasChanged)
+//        [[DataManager shareInstance] save];
 }
 
 @end

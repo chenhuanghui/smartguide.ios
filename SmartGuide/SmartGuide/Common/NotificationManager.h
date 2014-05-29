@@ -11,6 +11,8 @@
 #import "ASIOperationUserNotificationMarkRead.h"
 #import "ASIOperationUserNotificationRemove.h"
 
+@class RemoteNotification;
+
 enum NOTIFICATION_CHECK_STATE
 {
     NOTIFICATION_CHECK_STATE_INIT=0,
@@ -37,14 +39,14 @@ enum NOTIFICATION_CHECK_STATE
 -(void) removeAllNotification;
 
 #if DEBUG
--(NSDictionary*) makeNotification:(enum USER_NOTIFICATION_ACTION_TYPE) actionType;
+-(NSDictionary*) makeNotification:(enum NOTIFICATION_ACTION_TYPE) actionType;
 #endif
 
 @property (nonatomic, strong) NSNumber *totalNotification;
 @property (nonatomic, strong) NSString *numOfNotification;
 @property (nonatomic, strong) NSString *notificationToken;
-@property (nonatomic, strong) NSMutableArray *notifications;
-@property (nonatomic, strong) UserNotification *launchNotification;
+@property (nonatomic, strong) NSMutableArray *remoteNotifications;
+@property (nonatomic, strong) RemoteNotification *launchNotification;
 
 @end
 
@@ -72,20 +74,14 @@ enum NOTI_READ_ACTION
     NOTI_READ_ACTION_GO_TO=1,
 };
 
-@interface UserNotification(RemoteNotification)
+@interface RemoteNotification : NSObject<NSCopying>
 
-+(UserNotification*) makeWithRemoteNotification:(NSDictionary*) dict;
++(RemoteNotification*) makeWithRemoteNotification:(NSDictionary*) dict;
 
-@end
-
-@interface UserNotification(ASIOperation)<ASIOperationPostDelegate>
-
--(void) markAndSendRead;
--(void) sendDelete;
-
-@property (nonatomic, readwrite, strong) ASIOperationUserNotificationMarkRead *operationRead;
-@property (nonatomic, readwrite, strong) ASIOperationUserNotificationRemove *operationRemove;
-@property (nonatomic, readwrite, strong) NSNumber *isSentRead;
-@property (nonatomic, readwrite, strong) NSNumber *isSentRemove;
+@property (nonatomic, strong) NSString *message;
+@property (nonatomic, strong) NSString *badge;
+@property (nonatomic, strong) NSNumber *idNotification;
+@property (nonatomic, strong) NSNumber *idSender;
+@property (nonatomic, strong) NSNumber *timer;
 
 @end

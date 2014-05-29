@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@class RemoteNotificationView,UserNotification,RemoteNotificationPatternView;
+@class RemoteNotificationView,RemoteNotification,RemoteNotificationPatternView;
 
 @protocol RemoteNotificationDelegate <NSObject>
 
@@ -31,13 +31,13 @@
     __weak IBOutlet UIButton *btnNoti;
     __weak IBOutlet UIImageView *imgvRed;
     
-    __strong UserNotification *_noti;
+    __strong RemoteNotification *_noti;
 }
 
--(void) setUserNotification:(UserNotification*) noti;
+-(void) setRemoteNotification:(RemoteNotification*) noti;
 -(void) show;
 -(void) hide;
--(UserNotification*) userNotification;
+-(RemoteNotification*) remoteNotification;
 
 @property (nonatomic, weak) IBOutlet id<RemoteNotificationDelegate> delegate;
 

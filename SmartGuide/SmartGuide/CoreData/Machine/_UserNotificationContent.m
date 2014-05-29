@@ -5,10 +5,14 @@
 #import "UserNotificationContent.h"
 
 #import "DataManager.h"
+#import "UserNotificationAction.h"
 #import "UserNotification.h"
 
 
 @implementation _UserNotificationContent
+
+
+
 
 
 @dynamic notification;
@@ -90,32 +94,6 @@
 
 
 
-- (NSString*)actionTitle {
-	[self willAccessValueForKey:@"actionTitle"];
-	NSString* result = (NSString*)[self primitiveValueForKey:@"actionTitle"];
-	[self didAccessValueForKey:@"actionTitle"];
-	return result;
-}
-
-- (void)setActionTitle:(NSString*)value {
-	[self willChangeValueForKey:@"actionTitle"];
-	[self setPrimitiveValue:value forKey:@"actionTitle"];
-	[self didChangeValueForKey:@"actionTitle"];
-}
-
-- (NSNumber*)actionType {
-	[self willAccessValueForKey:@"actionType"];
-	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"actionType"];
-	[self didAccessValueForKey:@"actionType"];
-	return result;
-}
-
-- (void)setActionType:(NSNumber*)value {
-	[self willChangeValueForKey:@"actionType"];
-	[self setPrimitiveValue:value forKey:@"actionType"];
-	[self didChangeValueForKey:@"actionType"];
-}
-
 - (NSString*)content {
 	[self willAccessValueForKey:@"content"];
 	NSString* result = (NSString*)[self primitiveValueForKey:@"content"];
@@ -155,30 +133,17 @@
 	[self didChangeValueForKey:@"idNotification"];
 }
 
-- (NSNumber*)idPlacelist {
-	[self willAccessValueForKey:@"idPlacelist"];
-	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"idPlacelist"];
-	[self didAccessValueForKey:@"idPlacelist"];
+- (NSNumber*)idSender {
+	[self willAccessValueForKey:@"idSender"];
+	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"idSender"];
+	[self didAccessValueForKey:@"idSender"];
 	return result;
 }
 
-- (void)setIdPlacelist:(NSNumber*)value {
-	[self willChangeValueForKey:@"idPlacelist"];
-	[self setPrimitiveValue:value forKey:@"idPlacelist"];
-	[self didChangeValueForKey:@"idPlacelist"];
-}
-
-- (NSNumber*)idShop {
-	[self willAccessValueForKey:@"idShop"];
-	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"idShop"];
-	[self didAccessValueForKey:@"idShop"];
-	return result;
-}
-
-- (void)setIdShop:(NSNumber*)value {
-	[self willChangeValueForKey:@"idShop"];
-	[self setPrimitiveValue:value forKey:@"idShop"];
-	[self didChangeValueForKey:@"idShop"];
+- (void)setIdSender:(NSNumber*)value {
+	[self willChangeValueForKey:@"idSender"];
+	[self setPrimitiveValue:value forKey:@"idSender"];
+	[self didChangeValueForKey:@"idSender"];
 }
 
 - (NSNumber*)idShopLogo {
@@ -194,32 +159,6 @@
 	[self didChangeValueForKey:@"idShopLogo"];
 }
 
-- (NSString*)idShops {
-	[self willAccessValueForKey:@"idShops"];
-	NSString* result = (NSString*)[self primitiveValueForKey:@"idShops"];
-	[self didAccessValueForKey:@"idShops"];
-	return result;
-}
-
-- (void)setIdShops:(NSString*)value {
-	[self willChangeValueForKey:@"idShops"];
-	[self setPrimitiveValue:value forKey:@"idShops"];
-	[self didChangeValueForKey:@"idShops"];
-}
-
-- (NSString*)keywords {
-	[self willAccessValueForKey:@"keywords"];
-	NSString* result = (NSString*)[self primitiveValueForKey:@"keywords"];
-	[self didAccessValueForKey:@"keywords"];
-	return result;
-}
-
-- (void)setKeywords:(NSString*)value {
-	[self willChangeValueForKey:@"keywords"];
-	[self setPrimitiveValue:value forKey:@"keywords"];
-	[self didChangeValueForKey:@"keywords"];
-}
-
 - (NSString*)logo {
 	[self willAccessValueForKey:@"logo"];
 	NSString* result = (NSString*)[self primitiveValueForKey:@"logo"];
@@ -231,32 +170,6 @@
 	[self willChangeValueForKey:@"logo"];
 	[self setPrimitiveValue:value forKey:@"logo"];
 	[self didChangeValueForKey:@"logo"];
-}
-
-- (NSNumber*)readAction {
-	[self willAccessValueForKey:@"readAction"];
-	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"readAction"];
-	[self didAccessValueForKey:@"readAction"];
-	return result;
-}
-
-- (void)setReadAction:(NSNumber*)value {
-	[self willChangeValueForKey:@"readAction"];
-	[self setPrimitiveValue:value forKey:@"readAction"];
-	[self didChangeValueForKey:@"readAction"];
-}
-
-- (NSNumber*)shopListType {
-	[self willAccessValueForKey:@"shopListType"];
-	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"shopListType"];
-	[self didAccessValueForKey:@"shopListType"];
-	return result;
-}
-
-- (void)setShopListType:(NSNumber*)value {
-	[self willChangeValueForKey:@"shopListType"];
-	[self setPrimitiveValue:value forKey:@"shopListType"];
-	[self didChangeValueForKey:@"shopListType"];
 }
 
 - (NSNumber*)status {
@@ -298,21 +211,76 @@
 	[self didChangeValueForKey:@"title"];
 }
 
-- (NSString*)url {
-	[self willAccessValueForKey:@"url"];
-	NSString* result = (NSString*)[self primitiveValueForKey:@"url"];
-	[self didAccessValueForKey:@"url"];
+#pragma mark Relationships
+    
+#pragma mark Actions
+- (NSSet*)actions {
+	[self willAccessValueForKey:@"actions"];
+	NSSet *result = [self primitiveValueForKey:@"actions"];
+	[self didAccessValueForKey:@"actions"];
 	return result;
 }
 
-- (void)setUrl:(NSString*)value {
-	[self willChangeValueForKey:@"url"];
-	[self setPrimitiveValue:value forKey:@"url"];
-	[self didChangeValueForKey:@"url"];
+-(NSArray*) actionsObjects
+{
+    NSSet *set=[self actions];
+    if(set)
+        return [set allObjects];
+    
+    return [NSArray array];
 }
 
-#pragma mark Relationships
-    
+- (void)setActions:(NSSet*)value {
+	[self willChangeValueForKey:@"actions" withSetMutation:NSKeyValueSetSetMutation usingObjects:value];
+	[[self primitiveValueForKey:@"actions"] setSet:value];
+	[self didChangeValueForKey:@"actions" withSetMutation:NSKeyValueSetSetMutation usingObjects:value];
+}
+
+- (void)addActions:(NSSet*)value {
+	[self willChangeValueForKey:@"actions" withSetMutation:NSKeyValueUnionSetMutation usingObjects:value];
+	[[self primitiveValueForKey:@"actions"] unionSet:value];
+	[self didChangeValueForKey:@"actions" withSetMutation:NSKeyValueUnionSetMutation usingObjects:value];
+}
+
+-(void)removeActions:(NSSet*)value {
+
+    for(NSManagedObject *obj in value.allObjects)
+        [self.managedObjectContext deleteObject:obj];
+
+	[self willChangeValueForKey:@"actions" withSetMutation:NSKeyValueMinusSetMutation usingObjects:value];
+	[[self primitiveValueForKey:@"actions"] minusSet:value];
+	[self didChangeValueForKey:@"actions" withSetMutation:NSKeyValueMinusSetMutation usingObjects:value];
+}
+	
+- (void)addActionsObject:(UserNotificationAction*)value {
+	NSSet *changedObjects = [[NSSet alloc] initWithObjects:&value count:1];
+	[self willChangeValueForKey:@"actions" withSetMutation:NSKeyValueUnionSetMutation usingObjects:changedObjects];
+	[[self primitiveValueForKey:@"actions"] addObject:value];
+	[self didChangeValueForKey:@"actions" withSetMutation:NSKeyValueUnionSetMutation usingObjects:changedObjects];
+}
+
+- (void)removeActionsObject:(UserNotificationAction*)value {
+
+    [self.managedObjectContext deleteObject:value];
+
+	NSSet *changedObjects = [[NSSet alloc] initWithObjects:&value count:1];
+	[self willChangeValueForKey:@"actions" withSetMutation:NSKeyValueMinusSetMutation usingObjects:changedObjects];
+	[[self primitiveValueForKey:@"actions"] removeObject:value];
+	[self didChangeValueForKey:@"actions" withSetMutation:NSKeyValueMinusSetMutation usingObjects:changedObjects];
+}
+
+- (void) removeAllActions
+{
+    [self removeActions:self.actions];
+}
+
+- (NSMutableSet*)actionsSet {
+	[self willAccessValueForKey:@"actions"];
+	NSMutableSet *result = [self mutableSetValueForKey:@"actions"];
+	[self didAccessValueForKey:@"actions"];
+	return result;
+}
+
 #pragma mark Notification
 - (UserNotification*)notification {
 	[self willAccessValueForKey:@"notification"];

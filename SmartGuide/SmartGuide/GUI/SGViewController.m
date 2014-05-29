@@ -147,12 +147,12 @@ static char presentSGViewControlelrKey;
     [actionSheet showInView:[GUIManager shareInstance].rootNavigation.view];
 }
 
--(void)receiveRemoteNotification:(UserNotification *)obj
+-(void)receiveRemoteNotification:(RemoteNotification *)obj
 {
     
 }
 
--(void)processRemoteNotification:(UserNotification *)obj
+-(void)processRemoteNotification:(RemoteNotification *)obj
 {
     
 }

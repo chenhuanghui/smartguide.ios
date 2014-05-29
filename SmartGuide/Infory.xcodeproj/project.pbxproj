@@ -916,6 +916,8 @@
 		9AFC69D117F2C0F500177476 /* OperationNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AFC69D017F2C0F500177476 /* OperationNotifications.m */; };
 		9AFE5A4A18C5AE0300E8EF53 /* pattern_image.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9AFE5A4818C5AE0300E8EF53 /* pattern_image.jpg */; };
 		9AFE5A4B18C5AE0300E8EF53 /* pattern_image@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9AFE5A4918C5AE0300E8EF53 /* pattern_image@2x.jpg */; };
+		A90E2D321936E7BD001B6A20 /* _UserNotificationAction.m in Sources */ = {isa = PBXBuildFile; fileRef = A90E2D311936E7BD001B6A20 /* _UserNotificationAction.m */; };
+		A90E2D351936E7C2001B6A20 /* UserNotificationAction.m in Sources */ = {isa = PBXBuildFile; fileRef = A90E2D341936E7C2001B6A20 /* UserNotificationAction.m */; };
 		A91A675B1797F65000BEB8C5 /* DataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A91A67491797F65000BEB8C5 /* DataManager.m */; };
 		A91A675C1797F65000BEB8C5 /* human.h.motemplate in Resources */ = {isa = PBXBuildFile; fileRef = A91A674B1797F65000BEB8C5 /* human.h.motemplate */; };
 		A91A675D1797F65000BEB8C5 /* human.m.motemplate in Resources */ = {isa = PBXBuildFile; fileRef = A91A674C1797F65000BEB8C5 /* human.m.motemplate */; };
@@ -2237,6 +2239,10 @@
 		9AFC69D017F2C0F500177476 /* OperationNotifications.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OperationNotifications.m; path = ../ASIOperation/OperationNotifications.m; sourceTree = "<group>"; };
 		9AFE5A4818C5AE0300E8EF53 /* pattern_image.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = pattern_image.jpg; sourceTree = "<group>"; };
 		9AFE5A4918C5AE0300E8EF53 /* pattern_image@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "pattern_image@2x.jpg"; sourceTree = "<group>"; };
+		A90E2D301936E7BD001B6A20 /* _UserNotificationAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _UserNotificationAction.h; sourceTree = "<group>"; };
+		A90E2D311936E7BD001B6A20 /* _UserNotificationAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _UserNotificationAction.m; sourceTree = "<group>"; };
+		A90E2D331936E7C2001B6A20 /* UserNotificationAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserNotificationAction.h; sourceTree = "<group>"; };
+		A90E2D341936E7C2001B6A20 /* UserNotificationAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserNotificationAction.m; sourceTree = "<group>"; };
 		A91A67481797F65000BEB8C5 /* DataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataManager.h; sourceTree = "<group>"; };
 		A91A67491797F65000BEB8C5 /* DataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataManager.m; sourceTree = "<group>"; };
 		A91A674B1797F65000BEB8C5 /* human.h.motemplate */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = human.h.motemplate; sourceTree = "<group>"; };
@@ -3428,6 +3434,8 @@
 		A91A674A1797F65000BEB8C5 /* Human */ = {
 			isa = PBXGroup;
 			children = (
+				A90E2D331936E7C2001B6A20 /* UserNotificationAction.h */,
+				A90E2D341936E7C2001B6A20 /* UserNotificationAction.m */,
 				A99257AD18E97BD400D0993A /* UserNotification.h */,
 				A99257AE18E97BD400D0993A /* UserNotification.m */,
 				A9D53CDE18ED6DE900C0B5F3 /* UserNotificationContent.h */,
@@ -3505,6 +3513,8 @@
 		A91A674D1797F65000BEB8C5 /* Machine */ = {
 			isa = PBXGroup;
 			children = (
+				A90E2D301936E7BD001B6A20 /* _UserNotificationAction.h */,
+				A90E2D311936E7BD001B6A20 /* _UserNotificationAction.m */,
 				A99257A718E97BCE00D0993A /* _UserNotification.h */,
 				A99257A818E97BCE00D0993A /* _UserNotification.m */,
 				A9D53CDB18ED6DE100C0B5F3 /* _UserNotificationContent.h */,
@@ -5482,6 +5492,7 @@
 				9A27BBF118D18BAD00E3EAC2 /* AuthorizationViewController.m in Sources */,
 				9A27BC1118D18BAD00E3EAC2 /* HomeListCell.m in Sources */,
 				9ADCD96218D19C3F004CB67E /* UIButton+WebCache.m in Sources */,
+				A90E2D351936E7C2001B6A20 /* UserNotificationAction.m in Sources */,
 				9AC66F86186447B300890F80 /* ASIOperationAgreeComment.m in Sources */,
 				9A94336518859B6600066DC3 /* TextView.m in Sources */,
 				9ADCD94618D19C3F004CB67E /* ASIDataDecompressor.m in Sources */,
@@ -5551,6 +5562,7 @@
 				9AC53810186855AC009A000B /* LabelURL.m in Sources */,
 				9ACA42F5186D3BF3008D89BC /* _UserHome8.m in Sources */,
 				9ADCD96118D19C3F004CB67E /* SDWebImagePrefetcher.m in Sources */,
+				A90E2D321936E7BD001B6A20 /* _UserNotificationAction.m in Sources */,
 				9ACF7AA718698E4100B0BC78 /* _UserHome7.m in Sources */,
 				9ACF7A8918698E3700B0BC78 /* UserHome1.m in Sources */,
 				9A94116C187B20C200863DFA /* TouchView.m in Sources */,

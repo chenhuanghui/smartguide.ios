@@ -19,7 +19,7 @@
     lblTime.text=obj.time;
     lblTitle.attributedText=obj.titleAttribute;
     lblContent.attributedText=obj.contentAttribute;
-    lblGoTo.text=obj.actionTitle;
+//    lblGoTo.text=obj.actionTitle;
     [imgvIcon loadShopLogoWithURL:obj.logo];
     
     [lblTitle l_v_setH:obj.titleHeight.floatValue];
@@ -31,10 +31,10 @@
     
     lblContent.hidden=displayType==USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE_TITLE;
     
-    bool hiddenButton=obj.actionTitle.length==0 || displayType==USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE_TITLE;
+//    bool hiddenButton=obj.actionTitle.length==0 || displayType==USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE_TITLE;
     
-    lblGoTo.hidden=hiddenButton;
-    btnGo.hidden=hiddenButton;
+//    lblGoTo.hidden=hiddenButton;
+//    btnGo.hidden=hiddenButton;
     
     btnLogo.userInteractionEnabled=obj.idShopLogo!=nil;
 }
@@ -107,8 +107,8 @@
         case USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE_FULL:
             height+=obj.titleHeight.floatValue+obj.contentHeight.floatValue;
             
-            if(obj.actionTitle.length>0)
-                height+=44;
+//            if(obj.actionTitle.length>0)
+//                height+=44;
             
             break;
             

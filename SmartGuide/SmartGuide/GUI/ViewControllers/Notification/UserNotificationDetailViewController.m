@@ -202,14 +202,19 @@
     return @"S00601";
 }
 
+-(void) markReadNotification:(UserNotificationContent*) obj
+{
+    
+}
+
 -(void)userNotificationDetailCellTouchedGo:(UserNotificationDetailCell *)cell
 {
     [SGData shareInstance].fScreen=@"S00601";
     UserNotificationContent *obj=[cell userNotificationDetail];
     
-    if(obj.enumStatus==USER_NOTIFICATION_CONTENT_STATUS_UNREAD)
+    if(obj.enumStatus==NOTIFICATION_STATUS_UNREAD)
     {
-        [obj markAndSendRead];
+        [self markReadNotification:obj];
     }
     
     [self processUserNotification:obj];
@@ -237,17 +242,12 @@
             [[DataManager shareInstance] save];
             
             [table reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-            
-            if(obj.enumStatus==USER_NOTIFICATION_CONTENT_STATUS_UNREAD && obj.enumReadAction==USER_NOTIFICATION_CONTENT_READ_ACTION_TOUCH)
-            {
-                [obj markAndSendRead];
-            }
         }
             break;
             
         case USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE_FULL:
-            if(obj.actionTitle.length==0)
-                [self processUserNotification:obj];
+//            if(obj.actionTitle.length==0)
+//                [self processUserNotification:obj];
             break;
     }
 }
@@ -265,64 +265,64 @@
 {
     NSLog(@"processUserNotification %@",userNotification);
     
-    switch (userNotification.enumActionType) {
-        case USER_NOTIFICATION_CONTENT_ACTION_TYPE_MARK_READ:
-        {
-            if(userNotification.enumStatus==USER_NOTIFICATION_CONTENT_STATUS_UNREAD)
-                [userNotification markAndSendRead];
-        }
-            break;
-            
-        case USER_NOTIFICATION_ACTION_TYPE_LOGIN:
-        {
-            [[GUIManager shareInstance] showLoginControll:^(bool isLogin) {
-                if(isLogin)
-                    [self resetData];
-            }];
-        }
-            break;
-            
-        case USER_NOTIFICATION_CONTENT_ACTION_TYPE_POPUP_URL:
-            [[GUIManager shareInstance].rootViewController showWebviewWithURL:[NSURL URLWithString:userNotification.url]];
-            break;
-            
-        case USER_NOTIFICATION_CONTENT_ACTION_TYPE_SCAN_CODE:
-            [self showQRCodeWithContorller:self inView:self.view withAnimationType:QRCODE_ANIMATION_TOP_BOT screenCode:[UserNotificationDetailViewController screenCode]];
-            break;
-            
-        case USER_NOTIFICATION_CONTENT_ACTION_TYPE_SHOP_LIST:
-            switch (userNotification.enumShopListDataType) {
-                case USER_NOTIFICATION_CONTENT_SHOP_LIST_DATA_TYPE_PLACELIST:
-                    [[GUIManager shareInstance].rootViewController showShopListWithIDPlace:userNotification.idPlacelist.integerValue];
-                    break;
-                    
-                case USER_NOTIFICATION_CONTENT_SHOP_LIST_DATA_TYPE_KEYWORDS:
-                    [[GUIManager shareInstance].rootViewController showShopListWithKeywordsShopList:userNotification.keywords];
-                    break;
-                    
-                case USER_NOTIFICATION_CONTENT_SHOP_LIST_DATA_TYPE_IDSHOPS:
-                    [[GUIManager shareInstance].rootViewController showShopListWithIDShops:userNotification.idShops];
-                    break;
-                    
-                case USER_NOTIFICATION_CONTENT_SHOP_LIST_DATA_TYPE_UNKNOW:
-                    NSLog(@"UserNotificationDetailViewController USER_NOTIFICATION_SHOP_LIST_DATA_TYPE_UNKNOW");
-                    break;
-            }
-            break;
-            
-        case USER_NOTIFICATION_CONTENT_ACTION_TYPE_SHOP_USER:
-            [[GUIManager shareInstance].rootViewController presentShopUserWithIDShop:userNotification.idShop.integerValue];
-            break;
-            
-        case USER_NOTIFICATION_CONTENT_ACTION_TYPE_USER_PROMOTION:
-            NSLog(@"UserNotificationDetailViewController USER_NOTIFICATION_ACTION_TYPE_USER_PROMOTION");
-            //            [[GUIManager shareInstance].rootViewController showUserPromotion];
-            break;
-            
-        case USER_NOTIFICATION_ACTION_TYPE_USER_SETTING:
-            [[GUIManager shareInstance].rootViewController showUserSetting];
-            break;
-    }
+//    switch (userNotification.enumActionType) {
+//        case USER_NOTIFICATION_CONTENT_ACTION_TYPE_MARK_READ:
+//        {
+//            if(userNotification.enumStatus==USER_NOTIFICATION_CONTENT_STATUS_UNREAD)
+//                [userNotification markAndSendRead];
+//        }
+//            break;
+//            
+//        case USER_NOTIFICATION_ACTION_TYPE_LOGIN:
+//        {
+//            [[GUIManager shareInstance] showLoginControll:^(bool isLogin) {
+//                if(isLogin)
+//                    [self resetData];
+//            }];
+//        }
+//            break;
+//            
+//        case USER_NOTIFICATION_CONTENT_ACTION_TYPE_POPUP_URL:
+//            [[GUIManager shareInstance].rootViewController showWebviewWithURL:[NSURL URLWithString:userNotification.url]];
+//            break;
+//            
+//        case USER_NOTIFICATION_CONTENT_ACTION_TYPE_SCAN_CODE:
+//            [self showQRCodeWithContorller:self inView:self.view withAnimationType:QRCODE_ANIMATION_TOP_BOT screenCode:[UserNotificationDetailViewController screenCode]];
+//            break;
+//            
+//        case USER_NOTIFICATION_CONTENT_ACTION_TYPE_SHOP_LIST:
+//            switch (userNotification.enumShopListDataType) {
+//                case USER_NOTIFICATION_CONTENT_SHOP_LIST_DATA_TYPE_PLACELIST:
+//                    [[GUIManager shareInstance].rootViewController showShopListWithIDPlace:userNotification.idPlacelist.integerValue];
+//                    break;
+//                    
+//                case USER_NOTIFICATION_CONTENT_SHOP_LIST_DATA_TYPE_KEYWORDS:
+//                    [[GUIManager shareInstance].rootViewController showShopListWithKeywordsShopList:userNotification.keywords];
+//                    break;
+//                    
+//                case USER_NOTIFICATION_CONTENT_SHOP_LIST_DATA_TYPE_IDSHOPS:
+//                    [[GUIManager shareInstance].rootViewController showShopListWithIDShops:userNotification.idShops];
+//                    break;
+//                    
+//                case USER_NOTIFICATION_CONTENT_SHOP_LIST_DATA_TYPE_UNKNOW:
+//                    NSLog(@"UserNotificationDetailViewController USER_NOTIFICATION_SHOP_LIST_DATA_TYPE_UNKNOW");
+//                    break;
+//            }
+//            break;
+//            
+//        case USER_NOTIFICATION_CONTENT_ACTION_TYPE_SHOP_USER:
+//            [[GUIManager shareInstance].rootViewController presentShopUserWithIDShop:userNotification.idShop.integerValue];
+//            break;
+//            
+//        case USER_NOTIFICATION_CONTENT_ACTION_TYPE_USER_PROMOTION:
+//            NSLog(@"UserNotificationDetailViewController USER_NOTIFICATION_ACTION_TYPE_USER_PROMOTION");
+//            //            [[GUIManager shareInstance].rootViewController showUserPromotion];
+//            break;
+//            
+//        case USER_NOTIFICATION_ACTION_TYPE_USER_SETTING:
+//            [[GUIManager shareInstance].rootViewController showUserSetting];
+//            break;
+//    }
 }
 
 @end
