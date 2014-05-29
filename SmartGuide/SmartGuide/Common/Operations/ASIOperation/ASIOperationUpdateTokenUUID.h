@@ -8,8 +8,8 @@
 
 #import "ASIOperationPost.h"
 
-@interface ASIOperationUploadNotificationToken : ASIOperationPost
+@interface ASIOperationUpdateTokenUUID : ASIOperationPost
 
--(ASIOperationUploadNotificationToken*) initWithNotificationToken:(NSString*) token uuid:(NSString*) uuid;
+-(ASIOperationUpdateTokenUUID*) initWithNotificationToken:(NSString*) token uuid:(NSString*) uuid;
 
 @end

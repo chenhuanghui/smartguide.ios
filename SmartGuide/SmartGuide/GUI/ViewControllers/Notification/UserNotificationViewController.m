@@ -15,14 +15,14 @@
 #import "GUIManager.h"
 #import "SGNavigationController.h"
 #import "QRCodeViewController.h"
-#import "ASIOperationUserNotification.h"
+#import "ASIOperationUserNotificationNewest.h"
 #import "NotificationManager.h"
 #import "RefreshingView.h"
 
 @interface UserNotificationViewController ()<UITableViewDataSource,UITableViewDelegate,UserNotificationCellDelegate,ASIOperationPostDelegate,UIActionSheetDelegate,RefreshingViewDelegate>
 {
     enum USER_NOTIFICATION_DISPLAY_TYPE _displayType;
-    ASIOperationUserNotification *_operationUserNotification;
+    ASIOperationUserNotificationNewest *_operationUserNotification;
     
     __weak RefreshingView *refreshView;
 }
@@ -124,7 +124,7 @@
         _operationUserNotification=nil;
     }
     
-    _operationUserNotification=[[ASIOperationUserNotification alloc] initWithPage:_page+1 userLat:userLat() userLng:userLng() type:_displayType];
+    _operationUserNotification=[[ASIOperationUserNotificationNewest alloc] initWithPage:_page+1 userLat:userLat() userLng:userLng() type:_displayType];
     _operationUserNotification.delegatePost=self;
     
     [_operationUserNotification startAsynchronous];
@@ -511,9 +511,9 @@
 
 -(void)ASIOperaionPostFinished:(ASIOperationPost *)operation
 {
-    if([operation isKindOfClass:[ASIOperationUserNotification class]])
+    if([operation isKindOfClass:[ASIOperationUserNotificationNewest class]])
     {
-        ASIOperationUserNotification *ope=(ASIOperationUserNotification*) operation;
+        ASIOperationUserNotificationNewest *ope=(ASIOperationUserNotificationNewest*) operation;
         
         if(refreshView.refreshState==REFRESH_VIEW_STATE_NORMAL)
         {
@@ -539,7 +539,7 @@
 
 -(void)ASIOperaionPostFailed:(ASIOperationPost *)operation
 {
-    if([operation isKindOfClass:[ASIOperationUserNotification class]])
+    if([operation isKindOfClass:[ASIOperationUserNotificationNewest class]])
     {
         [self.view removeLoading];
         _operationUserNotification=nil;

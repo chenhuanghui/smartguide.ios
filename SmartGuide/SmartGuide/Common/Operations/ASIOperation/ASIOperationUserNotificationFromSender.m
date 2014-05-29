@@ -6,11 +6,11 @@
 //  Copyright (c) 2014 Redbase. All rights reserved.
 //
 
-#import "ASIOperationUserNotificationContent.h"
+#import "ASIOperationUserNotificationFromSender.h"
 
-@implementation ASIOperationUserNotificationContent
+@implementation ASIOperationUserNotificationFromSender
 
--(ASIOperationUserNotificationContent *)initWithIDNotification:(int)idNotification page:(int)page userLat:(double)userLat userLng:(double)userLng
+-(ASIOperationUserNotificationFromSender *)initWithIDNotification:(int)idNotification page:(int)page userLat:(double)userLat userLng:(double)userLng
 {
     self=[super initWithURL:SERVER_API_URL_MAKE(API_USER_NOTIFICATION_CONTENT)];
     

@@ -8,9 +8,9 @@
 
 #import "ASIOperationPost.h"
 
-@interface ASIOperationNotificationCheck : ASIOperationPost
+@interface ASIOperationNotificationCount : ASIOperationPost
 
--(ASIOperationNotificationCheck*) initWithUserLat:(double) userLat userLng:(double) userLng uuid:(NSString*) uuid;
+-(ASIOperationNotificationCount*) initWithUserLat:(double) userLat userLng:(double) userLng uuid:(NSString*) uuid;
 
 @property (nonatomic, strong) NSString *numOfNotification;
 @property (nonatomic, strong) NSNumber *totalNotification;

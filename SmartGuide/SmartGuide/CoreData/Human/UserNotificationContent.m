@@ -1,9 +1,9 @@
 #import "UserNotificationContent.h"
-#import "ASIOperationUserNotificationRead.h"
+#import "ASIOperationUserNotificationMarkRead.h"
 
 @interface UserNotificationContent()<ASIOperationPostDelegate>
 {
-    ASIOperationUserNotificationRead *_operation;
+    ASIOperationUserNotificationMarkRead *_operation;
 }
 
 @end
@@ -197,7 +197,7 @@
     self.status=@(USER_NOTIFICATION_CONTENT_STATUS_READ);
     [[DataManager shareInstance] save];
     
-    _operation=[[ASIOperationUserNotificationRead alloc] initWithIDNotification:self.idNotification.integerValue userLat:userLat() userLng:userLng() uuid:UUID()];
+    _operation=[[ASIOperationUserNotificationMarkRead alloc] initWithIDNotification:self.idNotification.integerValue userLat:userLat() userLng:userLng() uuid:UUID()];
     _operation.delegatePost=self;
     
     [_operation startAsynchronous];

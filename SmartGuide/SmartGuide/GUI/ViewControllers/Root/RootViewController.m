@@ -104,8 +104,6 @@
     [self.view addGestureRecognizer:tap];
     
     tapGes=tap;
-    
-//    [[NotificationManager shareInstance] requestNotificationCheck];
 }
 
 -(NSArray *)registerNotifications

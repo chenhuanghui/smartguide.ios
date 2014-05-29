@@ -10,9 +10,9 @@
 #import "UserNotification.h"
 #import "UserNotificationContent.h"
 
-@interface ASIOperationUserNotificationContent : ASIOperationPost
+@interface ASIOperationUserNotificationFromSender : ASIOperationPost
 
--(ASIOperationUserNotificationContent*) initWithIDNotification:(int) idNotification page:(int) page userLat:(double) userLat userLng:(double) userLng;
+-(ASIOperationUserNotificationFromSender*) initWithIDNotification:(int) idNotification page:(int) page userLat:(double) userLat userLng:(double) userLng;
 
 @property (nonatomic, strong) NSMutableArray *notifications;
 

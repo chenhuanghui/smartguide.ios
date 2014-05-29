@@ -6,13 +6,13 @@
 //  Copyright (c) 2014 Redbase. All rights reserved.
 //
 
-#import "ASIOperationUserNotificationRead.h"
+#import "ASIOperationUserNotificationMarkRead.h"
 #import "UserNotification.h"
 #import "UserNotificationContent.h"
 
-@implementation ASIOperationUserNotificationRead
+@implementation ASIOperationUserNotificationMarkRead
 
--(ASIOperationUserNotificationRead *)initWithIDNotification:(int)idNotification userLat:(double)userLat userLng:(double)userLng uuid:(NSString *)uuid
+-(ASIOperationUserNotificationMarkRead *)initWithIDNotification:(int)idNotification userLat:(double)userLat userLng:(double)userLng uuid:(NSString *)uuid
 {
     self=[super initWithURL:SERVER_API_URL_MAKE(API_USER_NOTIFICATION_READ)];
     

@@ -8,7 +8,7 @@
 
 #import "SGViewController.h"
 #import "UserNotification.h"
-#import "ASIOperationUserNotificationContent.h"
+#import "ASIOperationUserNotificationFromSender.h"
 
 @class UserNotificationViewController;
 
@@ -18,7 +18,7 @@
     __weak IBOutlet UITableView *table;
     NSMutableArray *_userNotificationContents;
     
-    ASIOperationUserNotificationContent *_operationNotificationContent;
+    ASIOperationUserNotificationFromSender *_operationNotificationContent;
     int _page;
     bool _canLoadMore;
     bool _isLoadingMore;

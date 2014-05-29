@@ -16,9 +16,9 @@ enum USER_NOTIFICATION_DISPLAY_TYPE
     USER_NOTIFICATION_DISPLAY_READ = 2,
 };
 
-@interface ASIOperationUserNotification : ASIOperationPost
+@interface ASIOperationUserNotificationNewest : ASIOperationPost
 
--(ASIOperationUserNotification*) initWithPage:(int) page userLat:(double) userLat userLng:(double) userLng type:(enum USER_NOTIFICATION_DISPLAY_TYPE) type;
+-(ASIOperationUserNotificationNewest*) initWithPage:(int) page userLat:(double) userLat userLng:(double) userLng type:(enum USER_NOTIFICATION_DISPLAY_TYPE) type;
 
 @property (nonatomic, strong) NSMutableArray *userNotifications;
 

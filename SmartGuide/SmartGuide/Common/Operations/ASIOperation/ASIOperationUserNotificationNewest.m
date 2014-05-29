@@ -6,11 +6,11 @@
 //  Copyright (c) 2014 Redbase. All rights reserved.
 //
 
-#import "ASIOperationUserNotification.h"
+#import "ASIOperationUserNotificationNewest.h"
 
-@implementation ASIOperationUserNotification
+@implementation ASIOperationUserNotificationNewest
 
--(ASIOperationUserNotification *)initWithPage:(int)page userLat:(double)userLat userLng:(double)userLng type:(enum USER_NOTIFICATION_DISPLAY_TYPE)type
+-(ASIOperationUserNotificationNewest *)initWithPage:(int)page userLat:(double)userLat userLng:(double)userLng type:(enum USER_NOTIFICATION_DISPLAY_TYPE)type
 {
     self=[super initWithURL:SERVER_API_URL_MAKE(API_USER_NOTIFICATION)];
     

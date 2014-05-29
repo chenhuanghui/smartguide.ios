@@ -7,9 +7,9 @@
 //
 
 #import "NotificationManager.h"
-#import "ASIOperationNotificationCheck.h"
-#import "ASIOperationUploadNotificationToken.h"
-#import "ASIOperationUserNotificationRead.h"
+#import "ASIOperationNotificationCount.h"
+#import "ASIOperationUpdateTokenUUID.h"
+#import "ASIOperationUserNotificationMarkRead.h"
 #import "Utility.h"
 #import "UserNotification.h"
 #import "UserNotificationContent.h"
@@ -20,8 +20,9 @@ static NotificationManager *_notificationManager=nil;
 
 @interface NotificationManager()<ASIOperationPostDelegate>
 {
-    ASIOperationNotificationCheck *_operationNotificationCheck;
-    ASIOperationUploadNotificationToken *_operationUploadNotiToken;
+    ASIOperationNotificationCount *_operationNotificationCheck;
+    ASIOperationUpdateTokenUUID *_operationUploadNotiToken;
+    bool _isUploadNotificationToken;
 }
 
 @end
@@ -57,13 +58,13 @@ static NotificationManager *_notificationManager=nil;
     return self;
 }
 
--(void)requestNotificationCheck
+-(void)requestNotificationCount
 {
     if(_notificationState==NOTIFICATION_CHECK_STATE_CHECKING)
         return;
     
     _notificationState=NOTIFICATION_CHECK_STATE_CHECKING;
-    _operationNotificationCheck=[[ASIOperationNotificationCheck alloc] initWithUserLat:userLat() userLng:userLng() uuid:UUID()];
+    _operationNotificationCheck=[[ASIOperationNotificationCount alloc] initWithUserLat:userLat() userLng:userLng() uuid:UUID()];
     _operationNotificationCheck.delegatePost=self;
     
     [_operationNotificationCheck startAsynchronous];
@@ -71,13 +72,10 @@ static NotificationManager *_notificationManager=nil;
 
 -(void) uploadToken:(NSString*) notificationToken
 {
-    if(_operationUploadNotiToken)
-    {
-        [_operationUploadNotiToken clearDelegatesAndCancel];
-        _operationUploadNotiToken=nil;
-    }
-    
-    _operationUploadNotiToken=[[ASIOperationUploadNotificationToken alloc] initWithNotificationToken:notificationToken uuid:UUID()];
+    if(_isUploadNotificationToken || _operationUploadNotiToken)
+        return;
+
+    _operationUploadNotiToken=[[ASIOperationUpdateTokenUUID alloc] initWithNotificationToken:notificationToken uuid:UUID()];
     _operationUploadNotiToken.delegatePost=self;
     
     [_operationUploadNotiToken startAsynchronous];
@@ -85,9 +83,9 @@ static NotificationManager *_notificationManager=nil;
 
 -(void)ASIOperaionPostFinished:(ASIOperationPost *)operation
 {
-    if([operation isKindOfClass:[ASIOperationNotificationCheck class]])
+    if([operation isKindOfClass:[ASIOperationNotificationCount class]])
     {
-        ASIOperationNotificationCheck *ope=(ASIOperationNotificationCheck*) operation;
+        ASIOperationNotificationCount *ope=(ASIOperationNotificationCount*) operation;
         
         self.numOfNotification=[ope.numOfNotification copy];
         self.totalNotification=[ope.totalNotification copy];
@@ -99,15 +97,18 @@ static NotificationManager *_notificationManager=nil;
         
         _operationNotificationCheck=nil;
     }
-    else if([operation isKindOfClass:[ASIOperationUploadNotificationToken class]])
+    else if([operation isKindOfClass:[ASIOperationUpdateTokenUUID class]])
     {
+        _isUploadNotificationToken=true;
         _operationUploadNotiToken=nil;
+        
+        [self requestNotificationCount];
     }
 }
 
 -(void)ASIOperaionPostFailed:(ASIOperationPost *)operation
 {
-    if([operation isKindOfClass:[ASIOperationNotificationCheck class]])
+    if([operation isKindOfClass:[ASIOperationNotificationCount class]])
     {
         _notificationState=NOTIFICATION_CHECK_STATE_DONE;
         
@@ -115,7 +116,7 @@ static NotificationManager *_notificationManager=nil;
         
         _operationNotificationCheck=nil;
     }
-    else if([operation isKindOfClass:[ASIOperationUploadNotificationToken class]])
+    else if([operation isKindOfClass:[ASIOperationUpdateTokenUUID class]])
     {
         _operationUploadNotiToken=nil;
     }
@@ -157,6 +158,11 @@ static NotificationManager *_notificationManager=nil;
 
 -(void)receiveLaunchNotification:(NSDictionary *)launchOptions
 {
+    [[NotificationManager shareInstance] removeAllNotification];
+    
+    if(!launchOptions)
+        return;
+    
     NSDictionary *remote=launchOptions[UIApplicationLaunchOptionsRemoteNotificationKey];
     
     if(!remote)
@@ -223,6 +229,11 @@ static NotificationManager *_notificationManager=nil;
     return dict;
 }
 
+-(void)registerRemoteNotificaion
+{
+    [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge |UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
+}
+
 @end
 
 static char UserNotificationOperationReadKey;
@@ -232,12 +243,12 @@ static char USerNotificationIsSentRemoveKey;
 
 @implementation UserNotification(ASIOperation)
 
--(void)setOperationRead:(ASIOperationUserNotificationRead *)operationRead
+-(void)setOperationRead:(ASIOperationUserNotificationMarkRead *)operationRead
 {
     objc_setAssociatedObject(self, &UserNotificationOperationReadKey, operationRead, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
--(ASIOperationUserNotificationRead *)operationRead
+-(ASIOperationUserNotificationMarkRead *)operationRead
 {
     return objc_getAssociatedObject(self, &UserNotificationOperationReadKey);
 }
@@ -280,7 +291,7 @@ static char USerNotificationIsSentRemoveKey;
     self.highlightUnread=@(false);
     [[DataManager shareInstance] save];
     
-    self.operationRead=[[ASIOperationUserNotificationRead alloc] initWithIDNotification:self.idNotification.integerValue userLat:userLat() userLng:userLng() uuid:UUID()];
+    self.operationRead=[[ASIOperationUserNotificationMarkRead alloc] initWithIDNotification:self.idNotification.integerValue userLat:userLat() userLng:userLng() uuid:UUID()];
     self.operationRead.delegatePost=self;
     
     [self.operationRead startAsynchronous];
@@ -301,7 +312,7 @@ static char USerNotificationIsSentRemoveKey;
 
 -(void)ASIOperaionPostFinished:(ASIOperationPost *)operation
 {
-    if([operation isKindOfClass:[ASIOperationUserNotificationRead class]])
+    if([operation isKindOfClass:[ASIOperationUserNotificationMarkRead class]])
     {
         self.operationRead=nil;
         self.isSentRead=@(true);
@@ -317,7 +328,7 @@ static char USerNotificationIsSentRemoveKey;
 
 -(void)ASIOperaionPostFailed:(ASIOperationPost *)operation
 {
-    if([operation isKindOfClass:[ASIOperationUserNotificationRead class]])
+    if([operation isKindOfClass:[ASIOperationUserNotificationMarkRead class]])
     {
         self.operationRead=nil;
         self.isSentRead=@(true);

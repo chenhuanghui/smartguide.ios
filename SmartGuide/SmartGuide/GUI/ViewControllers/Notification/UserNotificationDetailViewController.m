@@ -65,7 +65,7 @@
         _operationNotificationContent=nil;
     }
     
-    _operationNotificationContent=[[ASIOperationUserNotificationContent alloc] initWithIDNotification:_idNotification page:_page+1 userLat:userLat() userLng:userLng()];
+    _operationNotificationContent=[[ASIOperationUserNotificationFromSender alloc] initWithIDNotification:_idNotification page:_page+1 userLat:userLat() userLng:userLng()];
     _operationNotificationContent.delegatePost=self;
     
     [_operationNotificationContent startAsynchronous];
@@ -95,11 +95,11 @@
 
 -(void)ASIOperaionPostFinished:(ASIOperationPost *)operation
 {
-    if([operation isKindOfClass:[ASIOperationUserNotificationContent class]])
+    if([operation isKindOfClass:[ASIOperationUserNotificationFromSender class]])
     {
         [self.view removeLoading];
         
-        ASIOperationUserNotificationContent *ope=(ASIOperationUserNotificationContent*) operation;
+        ASIOperationUserNotificationFromSender *ope=(ASIOperationUserNotificationFromSender*) operation;
         
         [_userNotificationContents addObjectsFromArray:ope.notifications];
         _canLoadMore=ope.notifications.count==10;
@@ -129,7 +129,7 @@
 
 -(void)ASIOperaionPostFailed:(ASIOperationPost *)operation
 {
-    if([operation isKindOfClass:[ASIOperationUserNotificationContent class]])
+    if([operation isKindOfClass:[ASIOperationUserNotificationFromSender class]])
     {
         [self.view removeLoading];
         

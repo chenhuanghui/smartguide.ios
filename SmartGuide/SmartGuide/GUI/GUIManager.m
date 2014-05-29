@@ -16,7 +16,7 @@
 
 static GUIManager *_shareInstance=nil;
 
-@interface GUIManager()<WelcomeControllerDelegate,SGLoadingScreenDelegate,AuthorizationDelegate,UINavigationControllerDelegate,UIGestureRecognizerDelegate,RegisterControllerDelegate>
+@interface GUIManager()<WelcomeControllerDelegate,SGLoadingScreenDelegate,AuthorizationDelegate,UINavigationControllerDelegate,UIGestureRecognizerDelegate>
 {
     
 }

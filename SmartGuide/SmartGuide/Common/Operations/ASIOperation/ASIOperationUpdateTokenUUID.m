@@ -6,11 +6,11 @@
 //  Copyright (c) 2014 Redbase. All rights reserved.
 //
 
-#import "ASIOperationUploadNotificationToken.h"
+#import "ASIOperationUpdateTokenUUID.h"
 
-@implementation ASIOperationUploadNotificationToken
+@implementation ASIOperationUpdateTokenUUID
 
--(ASIOperationUploadNotificationToken *)initWithNotificationToken:(NSString *)token uuid:(NSString *)uuid
+-(ASIOperationUpdateTokenUUID *)initWithNotificationToken:(NSString *)token uuid:(NSString *)uuid
 {
     self=[super initWithURL:SERVER_API_URL_MAKE(API_USER_NOTIFICATION_TOKEN)];
     

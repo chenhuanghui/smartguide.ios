@@ -21,17 +21,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     
-    [[NotificationManager shareInstance] removeAllNotification];
-//    if(launchOptions)
-//    {
-//        [[NotificationManager shareInstance] receiveLaunchNotification:launchOptions];
-//    }
-    
-#if DEBUG
-//    NSMutableDictionary *dict=[[[NotificationManager shareInstance] makeNotification:USER_NOTIFICATION_ACTION_TYPE_SHOP_USER] mutableCopy];
-//    dict=[NSMutableDictionary dictionaryWithObject:dict forKey:UIApplicationLaunchOptionsRemoteNotificationKey];
-//    [[NotificationManager shareInstance] receiveLaunchNotification:dict];
-#endif
+    [[NotificationManager shareInstance] receiveLaunchNotification:launchOptions];
     
     CGRect rect=[[UIScreen mainScreen] bounds];
     self.window = [[UIWindow alloc] initWithFrame:rect];
@@ -45,7 +35,7 @@
     
     [[GUIManager shareInstance] startupWithWindow:self.window];
     
-//    [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge |UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
+    [[NotificationManager shareInstance] registerRemoteNotificaion];
     
     return YES;
 }

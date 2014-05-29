@@ -6,11 +6,11 @@
 //  Copyright (c) 2014 Redbase. All rights reserved.
 //
 
-#import "ASIOperationNotificationCheck.h"
+#import "ASIOperationNotificationCount.h"
 
-@implementation ASIOperationNotificationCheck
+@implementation ASIOperationNotificationCount
 
--(ASIOperationNotificationCheck *)initWithUserLat:(double)userLat userLng:(double)userLng uuid:(NSString *)uuid
+-(ASIOperationNotificationCount *)initWithUserLat:(double)userLat userLng:(double)userLng uuid:(NSString *)uuid
 {
     self=[super initWithURL:SERVER_API_URL_MAKE(API_USER_NOTIFICATION_CHECK)];
     

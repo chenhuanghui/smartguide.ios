@@ -1,5 +1,5 @@
 #import "UserNotification.h"
-#import "ASIOperationUserNotificationRead.h"
+#import "ASIOperationUserNotificationMarkRead.h"
 #import "NotificationManager.h"
 
 @implementation UserNotification
