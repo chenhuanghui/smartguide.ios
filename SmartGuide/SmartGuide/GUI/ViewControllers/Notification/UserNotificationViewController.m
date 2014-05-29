@@ -267,17 +267,14 @@
     return cell;
 }
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    UserNotificationCell *cell=(UserNotificationCell*)[tableView cellForRowAtIndexPath:indexPath];
-    
-    [self processUserNotification:cell.userNotification];
-}
-
 -(void) processUserNotification:(UserNotification*) userNotification
 {
     [SGData shareInstance].fScreen=@"S006";
     [SGData shareInstance].fData=[NSMutableDictionary dictionaryWithObject:userNotification.idNotification forKey:@"idNotification"];
+    
+    userNotification.status=@(NOTIFICATION_STATUS_READ);
+    userNotification.highlightUnread=@(false);
+    [[DataManager shareInstance] save];
     
     NSLog(@"processUserNotification %@",userNotification);
 //    

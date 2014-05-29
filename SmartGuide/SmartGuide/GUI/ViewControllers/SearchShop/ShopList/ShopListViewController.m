@@ -434,6 +434,16 @@
     
 }
 
+-(void) setCityName:(NSString*) cityName
+{
+    NSMutableParagraphStyle *paraStyle=[NSMutableParagraphStyle new];
+    paraStyle.alignment=NSTextAlignmentCenter;
+    
+    NSAttributedString *attStr=APPLY_QUOTATION_MARK(cityName, @{NSFontAttributeName:[UIFont fontWithName:@"Avenir-Roman" size:13],NSForegroundColorAttributeName:[UIColor whiteColor],NSParagraphStyleAttributeName:paraStyle}, @{NSFontAttributeName:[UIFont systemFontOfSize:13],NSForegroundColorAttributeName:[UIColor whiteColor],NSParagraphStyleAttributeName:paraStyle});
+    
+    [btnCity setAttributedTitle:attStr forState:UIControlStateNormal];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -443,7 +453,7 @@
         _idCity=[[CityManager shareInstance].idCitySearch integerValue];
     else
         _idCity=currentUser().idCity.integerValue;
-    [btnCity setTitle:CITY_NAME(_idCity) forState:UIControlStateNormal];
+    [self setCityName:CITY_NAME(_idCity)];
     
     _mapRowHeight=[self mapNormalHeight];
     
@@ -1415,7 +1425,7 @@
         return;
     
     _idCity=idCity;
-    [btnCity setTitle:name forState:UIControlStateNormal];
+    [self setCityName:name];
     
     [self changeCity];
 }
@@ -1428,7 +1438,7 @@
             return;
         
         _idCity=currentUser().idCity.integerValue;
-        [btnCity setTitle:CITY_NAME(_idCity) forState:UIControlStateNormal];
+        [self setCityName:CITY_NAME(_idCity)];
         
         [self changeCity];
     }
@@ -1438,7 +1448,7 @@
             return;
         
         _idCity=[[CityManager shareInstance].idCitySearch integerValue];
-        [btnCity setTitle:CITY_NAME(_idCity) forState:UIControlStateNormal];
+        [self setCityName:CITY_NAME(_idCity)];
         
         [self changeCity];
     }

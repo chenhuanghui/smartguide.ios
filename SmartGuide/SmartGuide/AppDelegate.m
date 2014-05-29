@@ -20,7 +20,6 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    
     [[NotificationManager shareInstance] receiveLaunchNotification:launchOptions];
     
     CGRect rect=[[UIScreen mainScreen] bounds];

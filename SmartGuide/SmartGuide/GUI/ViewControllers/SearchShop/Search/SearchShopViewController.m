@@ -80,8 +80,18 @@
         _idCity=[[CityManager shareInstance].idCitySearch integerValue];
     else
         _idCity=currentUser().idCity.integerValue;
-    [btnCity setTitle:CITY_NAME(_idCity) forState:UIControlStateNormal];
+    [self setCityName:CITY_NAME(_idCity)];
     [bgCity addShadow:1];
+}
+
+-(void) setCityName:(NSString*) cityName
+{
+    NSMutableParagraphStyle *paraStyle=[NSMutableParagraphStyle new];
+    paraStyle.alignment=NSTextAlignmentCenter;
+    
+    NSAttributedString *attStr=APPLY_QUOTATION_MARK(cityName, @{NSFontAttributeName:[UIFont fontWithName:@"Avenir-Roman" size:13],NSForegroundColorAttributeName:[UIColor darkGrayColor],NSParagraphStyleAttributeName:paraStyle}, @{NSFontAttributeName:[UIFont systemFontOfSize:13],NSForegroundColorAttributeName:[UIColor darkGrayColor],NSParagraphStyleAttributeName:paraStyle});
+    
+    [btnCity setAttributedTitle:attStr forState:UIControlStateNormal];
 }
 
 -(NSArray *)registerNotifications
@@ -733,7 +743,7 @@
         return;
     
     _idCity=idCity;
-    [btnCity setTitle:name forState:UIControlStateNormal];
+    [self setCityName:name];
     
     for(OperationSearchAutocomplete *ope in _operationsAutocompleted)
     {

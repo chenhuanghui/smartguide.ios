@@ -34,12 +34,19 @@
     [[CityManager shareInstance] load];
     _filterCities=[CityManager shareInstance].cities;
     
-    [btnCity setTitle:@"" forState:UIControlStateNormal];
+    NSString *cityName=@"";
     [bgCity addShadow:1];
     
     NSArray *array=[_filterCities filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"idCity==%i",_selectedIDCity]];
     if(array.count>0)
-        [btnCity setTitle:[array[0] name] forState:UIControlStateNormal];
+        cityName=[array[0] name];
+    
+    NSMutableParagraphStyle *paraStyle=[NSMutableParagraphStyle new];
+    paraStyle.alignment=NSTextAlignmentCenter;
+    
+    NSAttributedString *attStr=APPLY_QUOTATION_MARK(cityName, @{NSFontAttributeName:[UIFont fontWithName:@"Avenir-Roman" size:13],NSForegroundColorAttributeName:[UIColor darkGrayColor],NSParagraphStyleAttributeName:paraStyle}, @{NSFontAttributeName:[UIFont systemFontOfSize:13],NSForegroundColorAttributeName:[UIColor darkGrayColor],NSParagraphStyleAttributeName:paraStyle});
+    
+    [btnCity setAttributedTitle:attStr forState:UIControlStateNormal];
     
     [table registerNib:[UINib nibWithNibName:[CityTableViewCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[CityTableViewCell reuseIdentifier]];
     

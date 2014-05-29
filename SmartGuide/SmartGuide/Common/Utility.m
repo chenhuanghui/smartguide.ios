@@ -222,7 +222,7 @@ int IDCITY_DANANG()
 
 NSAttributedString *APPLY_QUOTATION_MARK(NSString* text, NSDictionary *textAttribute, NSDictionary *quotationAttribute)
 {
-    text=[NSString stringWithFormat:@"  %@  ",text];
+    text=[NSString stringWithFormat:@" %@ ",text];
     NSMutableAttributedString *attStr=[[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"\xE2\x80\x9C%@\xE2\x80\x9D",text]];
     
     [attStr setAttributes:quotationAttribute range:NSMakeRange(0, 1)];

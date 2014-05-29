@@ -211,17 +211,7 @@ static GUIManager *_shareInstance=nil;
     if(onCancelled)
         _onCancelled=[onCancelled copy];
     
-    [AlertView showAlertOKCancelWithTitle:nil withMessage:message onOK:^{
-        
-        if(_onOK)
-        {
-            _onOK();
-            _onOK=nil;
-        }
-        
-        [self showLoginController];
-    } onCancel:^{
-        
+    [AlertView showWithTitle:@"Thông báo" withMessage:message withLeftTitle:@"Huỷ" withRightTitle:@"Đồng ý" onOK:^{
         if(_onCancelled)
         {
             _onCancelled();
@@ -230,6 +220,14 @@ static GUIManager *_shareInstance=nil;
         
         _onLoginedCompleted(false);
         _onLoginedCompleted=nil;
+    } onCancel:^{
+        if(_onOK)
+        {
+            _onOK();
+            _onOK=nil;
+        }
+        
+        [self showLoginController];
     }];
 }
 

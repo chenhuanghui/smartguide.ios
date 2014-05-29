@@ -33,7 +33,6 @@
     {
         UserNotification *obj=[UserNotification makeWithDictionary:dict];
         [self.userNotifications addObject:obj];
-        break;
     }
     
     [[DataManager shareInstance] save];

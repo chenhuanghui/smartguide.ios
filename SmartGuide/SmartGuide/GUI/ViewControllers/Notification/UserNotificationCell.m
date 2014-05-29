@@ -9,7 +9,7 @@
 #import "UserNotificationCell.h"
 #import <CoreText/CoreText.h>
 
-@interface UserNotificationCell()<UIScrollViewDelegate>
+@interface UserNotificationCell()<UIScrollViewDelegate,UIGestureRecognizerDelegate>
 
 @end
 
@@ -22,16 +22,15 @@
     lblContent.attributedText=obj.displayContentAttribute;
     lblTime.text=obj.time;
     
-    switch (obj.enumStatus) {
-        case NOTIFICATION_STATUS_UNREAD:
-            displayContentView.backgroundColor=[UIColor whiteColor];
-            lineView.backgroundColor=[UIColor color255WithRed:61 green:165 blue:254 alpha:255];
-            break;
-            
-        case NOTIFICATION_STATUS_READ:
-            displayContentView.backgroundColor=[UIColor color255WithRed:205 green:205 blue:205 alpha:255];
-            lineView.backgroundColor=[UIColor color255WithRed:146 green:146 blue:146 alpha:255];
-            break;
+    if(obj.enumStatus==NOTIFICATION_STATUS_UNREAD && obj.highlightUnread.boolValue)
+    {
+        displayContentView.backgroundColor=[UIColor whiteColor];
+        lineView.backgroundColor=[UIColor color255WithRed:61 green:165 blue:254 alpha:255];
+    }
+    else
+    {
+        displayContentView.backgroundColor=[UIColor color255WithRed:205 green:205 blue:205 alpha:255];
+        lineView.backgroundColor=[UIColor color255WithRed:146 green:146 blue:146 alpha:255];
     }
     
     scroll.contentOffset=CGPointZero;
@@ -64,62 +63,61 @@
     return @"UserNotificationCell";
 }
 
-+(NSMutableAttributedString*) contentAttribute:(UserNotification*) obj
-{
-    return nil;
-//    if(!obj)
-//        return [[NSMutableAttributedString alloc] initWithString:@"" attributes:nil];
-//    
-//    NSMutableDictionary *dict=[NSMutableDictionary new];
-//    [dict setObject:[UIFont fontWithName:@"Avenir-Roman" size:13] forKey:NSFontAttributeName];
-//    
-//    if(obj.enumStatus==NOTIFICATION_STATUS_UNREAD)
-//        [dict setObject:obj.highlightUnread.boolValue?[UIColor darkTextColor]:[UIColor grayColor] forKey:NSForegroundColorAttributeName];
-//    else
-//        [dict setObject:[UIColor darkTextColor] forKey:NSForegroundColorAttributeName];
-//    
-//    NSMutableAttributedString *attStr=[[NSMutableAttributedString alloc] initWithString:obj.content attributes:dict];
-//    
-//    NSArray *highlightIndex=obj.highlightIndex;
-//    int count=highlightIndex.count;
-//    
-//    if(count%2==0)
-//    {
-//        for(int i=0;i<count;i+=2)
-//        {
-//            [dict setObject:[UIFont fontWithName:@"Avenir-Heavy" size:13] forKey:NSFontAttributeName];
-//            
-//            NSRange range=NSMakeRange([highlightIndex[i] integerValue], [highlightIndex[i+1] integerValue]);
-//            [attStr setAttributes:dict range:range];
-//        }
-//    }
-//    
-//    return attStr;
-}
-
 +(float)heightWithUserNotification:(UserNotification *)obj
 {
     float height=56;
     
-//    if(!obj.contentAttribute)
-//    {
-//        obj.contentAttribute=[UserNotificationCell contentAttribute:obj];
-//    }
-//    
-//    if(obj.contentHeight.floatValue==-1)
-//    {
-//        CGRect rect=[obj.contentAttribute boundingRectWithSize:CGSizeMake(264, MAXFLOAT) options:(NSStringDrawingUsesLineFragmentOrigin) context:nil];
-//        rect.size.height+=10;
-//        
-//        if(rect.size.height<36)
-//            rect.size.height=21;
-//        else
-//            rect.size.height=50;
-//        
-//        obj.contentHeight=@(rect.size.height);
-//    }
-//    
-//    height+=obj.contentHeight.floatValue;
+    if(!obj.displayContentAttribute)
+    {
+        obj.displayContentAttribute=[NSMutableAttributedString new];
+        
+        NSAttributedString *attStr=[[NSAttributedString alloc] initWithString:[obj.sender stringByAppendingString:@" "]
+                                                                   attributes:@{
+                                                                                NSFontAttributeName:[UIFont fontWithName:@"Avenir-Heavy" size:13]
+                                                                                , NSForegroundColorAttributeName:[UIColor darkTextColor]}];
+        [obj.displayContentAttribute appendAttributedString:attStr];
+        
+        attStr=[[NSAttributedString alloc] initWithString:obj.content
+                                               attributes:@{
+                                                            NSFontAttributeName:[UIFont fontWithName:@"Avenir-Roman" size:13]
+                                                            , NSForegroundColorAttributeName:[UIColor darkTextColor]}];
+        
+        [obj.displayContentAttribute appendAttributedString:attStr];
+        
+        attStr=[[NSAttributedString alloc] initWithString:@"\nĐồng ý"
+                                               attributes:@{
+                                                            NSFontAttributeName:[UIFont fontWithName:@"Avenir-Roman" size:12]
+                                                            , NSForegroundColorAttributeName:[UIColor color255WithRed:61 green:165 blue:254 alpha:255]
+                                                            , NSUnderlineStyleAttributeName:@(true)
+                                                            , NSUnderlineStyleAttributeName:@(NSUnderlineStyleSingle)}];
+        
+        [obj.displayContentAttribute appendAttributedString:attStr];
+        
+        [obj.displayContentAttribute appendAttributedString:[[NSAttributedString alloc] initWithString:@" " attributes:nil]];
+        
+        attStr=[[NSAttributedString alloc] initWithString:@"Từ chối"
+                                               attributes:@{
+                                                            NSFontAttributeName:[UIFont fontWithName:@"Avenir-Roman" size:13]
+                                                            , NSForegroundColorAttributeName:[UIColor color255WithRed:61 green:165 blue:254 alpha:255]
+                                                            , NSUnderlineStyleAttributeName:@(true)}];
+        
+        [obj.displayContentAttribute appendAttributedString:attStr];
+    }
+    
+    if(obj.displayContentHeight.floatValue==-1)
+    {
+        CGRect rect=[obj.displayContentAttribute boundingRectWithSize:CGSizeMake(264, MAXFLOAT) options:(NSStringDrawingUsesLineFragmentOrigin) context:nil];
+        rect.size.height+=10;
+        
+        if(rect.size.height<36)
+            rect.size.height=21;
+        else
+            rect.size.height=50;
+        
+        obj.displayContentHeight=@(rect.size.height);
+    }
+    
+    height+=obj.displayContentHeight.floatValue;
     
     return height;
 }
@@ -139,9 +137,20 @@
     [super awakeFromNib];
     
     UITapGestureRecognizer *tap=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)];
+    tap.delegate=self;
     
     [scroll.panGestureRecognizer requireGestureRecognizerToFail:tap];
     [leftView addGestureRecognizer:tap];
+}
+
+-(BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
+{
+    if([gestureRecognizer isKindOfClass:[UITapGestureRecognizer class]])
+    {
+        return (int)scroll.l_co_x==0;
+    }
+    
+    return true;
 }
 
 -(void) tap:(UITapGestureRecognizer*) tap
@@ -153,7 +162,6 @@
 {
     _isAddedObserverHighlightUnread=true;
     [_obj addObserver:self forKeyPath:UserNotification_HighlightUnread options:NSKeyValueObservingOptionNew context:nil];
-    
 }
 
 -(void) removeObserverHighlightUnread
@@ -168,9 +176,9 @@
 {
     if([keyPath isEqualToString:UserNotification_HighlightUnread])
     {
-        NSLog(@"observeValueForKeyPath %@",_obj);
-        _obj.displayContentAttribute=[UserNotificationCell contentAttribute:_obj];
-        [self loadWithUserNotification:_obj];
+        [UIView animateWithDuration:DURATION_DEFAULT animations:^{
+            [self loadWithUserNotification:_obj];
+        }];
     }
 }
 

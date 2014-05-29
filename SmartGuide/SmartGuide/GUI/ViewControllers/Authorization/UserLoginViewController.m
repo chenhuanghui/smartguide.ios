@@ -75,7 +75,7 @@
     
     [lblBottom addStyle:style];
     
-//    [self switchToActivationModeWithPhone:@"84989284842"];
+    [self switchToActivationModeWithPhone:@"841225372227"];
 }
 
 -(void) switchToActivationModeWithPhone:(NSString*) phone
@@ -88,7 +88,30 @@
     [lbl l_v_setW:10];
     txtPhone.placeholder=@"Mã xác thực";
     
-    lblTop.text=[@"Mã xác thực đã được gởi cho " stringByAppendingString:phone];
+    NSMutableAttributedString *attStr=[NSMutableAttributedString new];
+    
+    NSMutableParagraphStyle *paraStyle=[NSMutableParagraphStyle new];
+    paraStyle.alignment=NSTextAlignmentCenter;
+    
+    NSAttributedString *att=[[NSAttributedString alloc] initWithString:@"Mã xác thực sẽ gởi đến "
+                                                            attributes:@{
+                                                                         NSFontAttributeName:[UIFont fontWithName:@"Avenir-Roman" size:13],
+                                                                         NSForegroundColorAttributeName:[UIColor darkTextColor],
+                                                                         NSParagraphStyleAttributeName:paraStyle}];
+    
+    [attStr appendAttributedString:att];
+    
+    att=[[NSAttributedString alloc] initWithString:phone
+                                        attributes:@{
+                                                     NSFontAttributeName:[UIFont fontWithName:@"Avenir-Roman" size:13],
+                                                     NSForegroundColorAttributeName:[UIColor darkTextColor],
+                                                     NSUnderlineStyleAttributeName:@(true),
+                                                     NSParagraphStyleAttributeName:paraStyle}];
+    
+    [attStr appendAttributedString:att];
+    
+    lblTop.attributedText=attStr;
+//    lblTop.text=[@"Mã xác thực sẽ gởi đến " stringByAppendingString:phone];
     
     [btnLogin setDefaultImage:[UIImage imageNamed:@"button_confirm_login.png"] highlightImage:[UIImage imageNamed:@"button_confirm_login.png"]];
     

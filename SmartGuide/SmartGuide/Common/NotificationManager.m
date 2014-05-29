@@ -29,13 +29,6 @@ static NotificationManager *_notificationManager=nil;
 
 @implementation NotificationManager
 
-+(void)load
-{
-    [UserNotification markDeleteAllObjects];
-    [UserNotificationContent markDeleteAllObjects];
-    [[DataManager shareInstance] save];
-}
-
 +(NotificationManager *)shareInstance
 {
     static dispatch_once_t onceToken;
@@ -236,6 +229,7 @@ static NotificationManager *_notificationManager=nil;
 
 -(void)registerRemoteNotificaion
 {
+    return;
     [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge |UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
 }
 

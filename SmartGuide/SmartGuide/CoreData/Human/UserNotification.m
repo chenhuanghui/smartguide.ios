@@ -33,6 +33,9 @@
     obj.content=[NSString stringWithStringDefault:data[@"content"]];
     obj.status=[NSNumber numberWithObject:data[@"status"]];
     
+    if(obj.enumStatus==NOTIFICATION_STATUS_UNREAD)
+        obj.highlightUnread=@(true);
+    
     NSArray *actions=data[@"actions"];
     
     if(![actions isNullData])
@@ -62,6 +65,11 @@
         default:
             return NOTIFICATION_STATUS_READ;
     }
+}
+
+-(void)didSave
+{
+    [super didSave];
 }
 
 @end
