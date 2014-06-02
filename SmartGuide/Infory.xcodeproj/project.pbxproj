@@ -982,6 +982,10 @@
 		A9A19D5F17C4088E000D0ECD /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9A19D5E17C4088E000D0ECD /* MessageUI.framework */; };
 		A9A505A9178E8B8400F27E18 /* AlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A505A8178E8B8400F27E18 /* AlertView.m */; };
 		A9A505E9178EC60300F27E18 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9A505E8178EC60300F27E18 /* CoreText.framework */; };
+		A9A98157193C6BFC00B8512E /* JSBackspaceReportingTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A98150193C6BFC00B8512E /* JSBackspaceReportingTextField.m */; };
+		A9A98158193C6BFC00B8512E /* JSTokenButton.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A98152193C6BFC00B8512E /* JSTokenButton.m */; };
+		A9A98159193C6BFC00B8512E /* JSTokenField.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A98154193C6BFC00B8512E /* JSTokenField.m */; };
+		A9A9815A193C6BFC00B8512E /* TokenView.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A98156193C6BFC00B8512E /* TokenView.m */; };
 		A9AC694A18EEC28F006279FE /* ImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = A9AC694918EEC28F006279FE /* ImageView.m */; };
 		A9AF88FA18F3F42F00845616 /* ASIOperationRemoveShopPlacelist.m in Sources */ = {isa = PBXBuildFile; fileRef = A9AF88F918F3F42F00845616 /* ASIOperationRemoveShopPlacelist.m */; };
 		A9AF890118F40A1F00845616 /* bg_search_left@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A9AF88FB18F40A1E00845616 /* bg_search_left@2x.png */; };
@@ -2355,6 +2359,14 @@
 		A9A505A7178E8B8400F27E18 /* AlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlertView.h; sourceTree = "<group>"; };
 		A9A505A8178E8B8400F27E18 /* AlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlertView.m; sourceTree = "<group>"; };
 		A9A505E8178EC60300F27E18 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
+		A9A9814F193C6BFC00B8512E /* JSBackspaceReportingTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSBackspaceReportingTextField.h; sourceTree = "<group>"; };
+		A9A98150193C6BFC00B8512E /* JSBackspaceReportingTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSBackspaceReportingTextField.m; sourceTree = "<group>"; };
+		A9A98151193C6BFC00B8512E /* JSTokenButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSTokenButton.h; sourceTree = "<group>"; };
+		A9A98152193C6BFC00B8512E /* JSTokenButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSTokenButton.m; sourceTree = "<group>"; };
+		A9A98153193C6BFC00B8512E /* JSTokenField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSTokenField.h; sourceTree = "<group>"; };
+		A9A98154193C6BFC00B8512E /* JSTokenField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSTokenField.m; sourceTree = "<group>"; };
+		A9A98155193C6BFC00B8512E /* TokenView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TokenView.h; sourceTree = "<group>"; };
+		A9A98156193C6BFC00B8512E /* TokenView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TokenView.m; sourceTree = "<group>"; };
 		A9AC694818EEC28F006279FE /* ImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageView.h; sourceTree = "<group>"; };
 		A9AC694918EEC28F006279FE /* ImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageView.m; sourceTree = "<group>"; };
 		A9AF88F818F3F42F00845616 /* ASIOperationRemoveShopPlacelist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIOperationRemoveShopPlacelist.h; sourceTree = "<group>"; };
@@ -3843,6 +3855,7 @@
 		A98198B4178D3FA70009FCB6 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				A9A9814E193C6BF400B8512E /* Tokens */,
 				A9EF13CB193583930062A9BF /* TemplateData */,
 				A9BABB49192C4E8700C417F3 /* TextField */,
 				A9BABB3D192B43A300C417F3 /* RefreshingView */,
@@ -4533,6 +4546,21 @@
 				9A9ED305187D06D00081A16E /* GooglePlusManager.m */,
 			);
 			path = Social;
+			sourceTree = "<group>";
+		};
+		A9A9814E193C6BF400B8512E /* Tokens */ = {
+			isa = PBXGroup;
+			children = (
+				A9A9814F193C6BFC00B8512E /* JSBackspaceReportingTextField.h */,
+				A9A98150193C6BFC00B8512E /* JSBackspaceReportingTextField.m */,
+				A9A98151193C6BFC00B8512E /* JSTokenButton.h */,
+				A9A98152193C6BFC00B8512E /* JSTokenButton.m */,
+				A9A98153193C6BFC00B8512E /* JSTokenField.h */,
+				A9A98154193C6BFC00B8512E /* JSTokenField.m */,
+				A9A98155193C6BFC00B8512E /* TokenView.h */,
+				A9A98156193C6BFC00B8512E /* TokenView.m */,
+			);
+			path = Tokens;
 			sourceTree = "<group>";
 		};
 		A9AC694718EEC27D006279FE /* ImageView */ = {
@@ -5467,6 +5495,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9A7AC1CE18D1907B0043316D /* ShopDetailInfoType1Cell.m in Sources */,
+				A9A98158193C6BFC00B8512E /* JSTokenButton.m in Sources */,
 				A981985E178D02530009FCB6 /* main.mm in Sources */,
 				9ACBA9BC185D7745000B3D6B /* ASIOperationStoreAllStore.m in Sources */,
 				A9819862178D02530009FCB6 /* AppDelegate.m in Sources */,
@@ -5572,6 +5601,7 @@
 				9A693CAF186D483C00114597 /* _UserHomeImage.m in Sources */,
 				9A7AC1B418D1907B0043316D /* ShopCameraPostViewController.m in Sources */,
 				9ACAED751872B1740025B027 /* ButtonLove.m in Sources */,
+				A9A9815A193C6BFC00B8512E /* TokenView.m in Sources */,
 				9A1CAD5618BB4239004C7A4A /* SGData.m in Sources */,
 				9A7AC1D618D1907B0043316D /* ShopDetailInfoViewController.m in Sources */,
 				9A27BCAE18D18BAD00E3EAC2 /* UserUploadAvatarManager.m in Sources */,
@@ -5596,6 +5626,7 @@
 				9A7AC1CA18D1907B0043316D /* ShopDetailInfoEmptyCell.m in Sources */,
 				9A27BC1318D18BAD00E3EAC2 /* HomeListImageCell.m in Sources */,
 				9ADCD95E18D19C3F004CB67E /* SDWebImageDownloader.m in Sources */,
+				A9A98159193C6BFC00B8512E /* JSTokenField.m in Sources */,
 				9ADCD96918D19C3F004CB67E /* TPKeyboardAvoidingTableView.m in Sources */,
 				A9BFE86618E96955008C542E /* UserNotificationViewController.m in Sources */,
 				9A7AC1CC18D1907B0043316D /* ShopDetailInfoHeaderView.m in Sources */,
@@ -5621,6 +5652,7 @@
 				9ADCD95F18D19C3F004CB67E /* SDWebImageDownloaderOperation.m in Sources */,
 				9A9ED30E187D09890081A16E /* OperationFBGetProfile.m in Sources */,
 				9A22E84418B6056E00CECD3C /* EmptyDataCell.m in Sources */,
+				A9A98157193C6BFC00B8512E /* JSBackspaceReportingTextField.m in Sources */,
 				9A9211A6185AC7AB0012F181 /* LoadingView.m in Sources */,
 				A9D53CDD18ED6DE100C0B5F3 /* _UserNotificationContent.m in Sources */,
 				9ADCD94418D19C3F004CB67E /* ASIAuthenticationDialog.m in Sources */,

@@ -8,11 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "UserNotification.h"
+#import "TokenView.h"
 
 @class UserNotificationCell,ScrollUserNotification;
 
 @protocol UserNotificationCellDelegate <NSObject>
 
+-(void) userNotificationCellTouchedAction:(UserNotificationCell*) cell action:(UserNotificationAction*) action;
 -(void) userNotificationCellTouchedDetail:(UserNotificationCell*) cell obj:(UserNotification*) obj;
 -(void) userNotificationCellTouchedRemove:(UserNotificationCell*) cell obj:(UserNotification*) obj;
 
@@ -28,6 +30,7 @@
     __weak IBOutlet UIButton *btnRemove;
     __weak IBOutlet UIView *displayContentView;
     __weak IBOutlet UIView *lineView;
+    __weak IBOutlet TokenView *tokensView;
     
     __weak UserNotification* _obj;
     bool _isAddedObserverHighlightUnread;

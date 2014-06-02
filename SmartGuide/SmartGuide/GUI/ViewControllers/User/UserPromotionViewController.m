@@ -90,8 +90,8 @@
     
     [self displayNotification];
     
-    btnNotification.hidden=true;
-    btnNumOfNotification.hidden=true;
+//    btnNotification.hidden=true;
+//    btnNumOfNotification.hidden=true;
 }
 
 -(NSArray *)registerNotifications

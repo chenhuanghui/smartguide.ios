@@ -9,7 +9,7 @@
 #import "UserNotificationCell.h"
 #import <CoreText/CoreText.h>
 
-@interface UserNotificationCell()<UIScrollViewDelegate,UIGestureRecognizerDelegate>
+@interface UserNotificationCell()<UIScrollViewDelegate,UIGestureRecognizerDelegate,TokenViewDelegate>
 
 @end
 
@@ -22,19 +22,31 @@
     lblContent.attributedText=obj.displayContentAttribute;
     lblTime.text=obj.time;
     
+    [lblContent l_v_setH:obj.displayContentHeight.floatValue];
+    
+    [tokensView l_v_setY:lblContent.l_v_y + obj.displayContentHeight.floatValue+5];
+    [tokensView l_v_setH:obj.actionsHeight.floatValue];
+    tokensView.delegate=self;
+    [tokensView setTokens:obj.actionTitles objects:obj.actionsObjects];
+    
     if(obj.enumStatus==NOTIFICATION_STATUS_UNREAD && obj.highlightUnread.boolValue)
     {
         displayContentView.backgroundColor=[UIColor whiteColor];
-        lineView.backgroundColor=[UIColor color255WithRed:61 green:165 blue:254 alpha:255];
+        lineView.backgroundColor=COLOR255(61, 165, 254, 255);
     }
     else
     {
         displayContentView.backgroundColor=[UIColor color255WithRed:205 green:205 blue:205 alpha:255];
-        lineView.backgroundColor=[UIColor color255WithRed:146 green:146 blue:146 alpha:255];
+        lineView.backgroundColor=COLOR255(146, 146, 146, 255);
     }
     
     scroll.contentOffset=CGPointZero;
     scroll.contentSize=CGSizeMake(leftView.l_v_w+rightView.l_v_w, 0);
+}
+
+-(void)tokenViewTouchedToken:(TokenView *)token object:(id)obj
+{
+    [self.delegate userNotificationCellTouchedAction:self action:obj];
 }
 
 -(void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset
@@ -73,33 +85,14 @@
         
         NSAttributedString *attStr=[[NSAttributedString alloc] initWithString:[obj.sender stringByAppendingString:@" "]
                                                                    attributes:@{
-                                                                                NSFontAttributeName:[UIFont fontWithName:@"Avenir-Heavy" size:13]
+                                                                                NSFontAttributeName:FONT_SIZE_BOLD(13)
                                                                                 , NSForegroundColorAttributeName:[UIColor darkTextColor]}];
         [obj.displayContentAttribute appendAttributedString:attStr];
         
         attStr=[[NSAttributedString alloc] initWithString:obj.content
                                                attributes:@{
-                                                            NSFontAttributeName:[UIFont fontWithName:@"Avenir-Roman" size:13]
+                                                            NSFontAttributeName:FONT_SIZE_NORMAL(13)
                                                             , NSForegroundColorAttributeName:[UIColor darkTextColor]}];
-        
-        [obj.displayContentAttribute appendAttributedString:attStr];
-        
-        attStr=[[NSAttributedString alloc] initWithString:@"\nĐồng ý"
-                                               attributes:@{
-                                                            NSFontAttributeName:[UIFont fontWithName:@"Avenir-Roman" size:12]
-                                                            , NSForegroundColorAttributeName:[UIColor color255WithRed:61 green:165 blue:254 alpha:255]
-                                                            , NSUnderlineStyleAttributeName:@(true)
-                                                            , NSUnderlineStyleAttributeName:@(NSUnderlineStyleSingle)}];
-        
-        [obj.displayContentAttribute appendAttributedString:attStr];
-        
-        [obj.displayContentAttribute appendAttributedString:[[NSAttributedString alloc] initWithString:@" " attributes:nil]];
-        
-        attStr=[[NSAttributedString alloc] initWithString:@"Từ chối"
-                                               attributes:@{
-                                                            NSFontAttributeName:[UIFont fontWithName:@"Avenir-Roman" size:13]
-                                                            , NSForegroundColorAttributeName:[UIColor color255WithRed:61 green:165 blue:254 alpha:255]
-                                                            , NSUnderlineStyleAttributeName:@(true)}];
         
         [obj.displayContentAttribute appendAttributedString:attStr];
     }
@@ -118,6 +111,13 @@
     }
     
     height+=obj.displayContentHeight.floatValue;
+    
+    if(obj.actionsHeight.floatValue==-1)
+    {
+        obj.actionsHeight=@([TokenView heightWithTokens:obj.actionTitles forWidth:264]);
+    }
+    
+    height+=obj.actionsHeight.floatValue;
     
     return height;
 }
@@ -176,9 +176,7 @@
 {
     if([keyPath isEqualToString:UserNotification_HighlightUnread])
     {
-        [UIView animateWithDuration:DURATION_DEFAULT animations:^{
-            [self loadWithUserNotification:_obj];
-        }];
+        [self loadWithUserNotification:_obj];
     }
 }
 

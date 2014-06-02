@@ -232,6 +232,11 @@ NSAttributedString *APPLY_QUOTATION_MARK(NSString* text, NSDictionary *textAttri
     return attStr;
 }
 
+UIColor* COLOR255(float r, float g, float b, float a)
+{
+    return [UIColor color255WithRed:r green:g blue:b alpha:a];
+}
+
 #pragma mark LAZY_INIT
 
 NSString* LAZY_STRING_INT(int i)
@@ -2470,13 +2475,16 @@ static const NSString *KEY_HIT_TEST_EDGE_INSETS = @"HitTestEdgeInsets";
 
 -(bool)isNullData
 {
-    if(!self || (id)self==[NSNull null])
+    if(!self)
+        return true;
+    
+    if((id)self==[NSNull null])
         return true;
     
     if([self isKindOfClass:[NSArray class]])
     {
         NSArray *data=(NSArray*)self;
-        if(data.count==0 || [data objectAtIndex:0]==[NSNull null])
+        if(data.count==0 || [data[0] isNullData])
             return true;
     }
     else if([self isKindOfClass:[NSDictionary class]])

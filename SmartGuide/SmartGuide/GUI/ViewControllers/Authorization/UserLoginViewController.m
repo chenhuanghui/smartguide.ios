@@ -75,7 +75,7 @@
     
     [lblBottom addStyle:style];
     
-    [self switchToActivationModeWithPhone:@"841225372227"];
+//    [self switchToActivationModeWithPhone:@"841225372227"];
 }
 
 -(void) switchToActivationModeWithPhone:(NSString*) phone

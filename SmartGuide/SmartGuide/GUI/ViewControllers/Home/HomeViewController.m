@@ -104,8 +104,8 @@
     
     [self displayNotification];
     
-    btnNumOfNotification.hidden=true;
-    btnNotification.hidden=true;
+//    btnNumOfNotification.hidden=true;
+//    btnNotification.hidden=true;
 }
 
 -(NSArray *)registerNotifications

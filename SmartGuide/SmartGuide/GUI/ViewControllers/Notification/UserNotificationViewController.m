@@ -340,6 +340,33 @@
 //    }
 }
 
+-(void)userNotificationCellTouchedAction:(UserNotificationCell *)cell action:(UserNotificationAction *)action
+{
+    switch (action.enumActionType) {
+        case NOTIFICATION_ACTION_TYPE_CALL_API:
+            
+            break;
+            
+        case NOTIFICATION_ACTION_TYPE_POPUP_URL:
+            break;
+            
+        case NOTIFICATION_ACTION_TYPE_SHOP_LIST:
+            break;
+            
+        case NOTIFICATION_ACTION_TYPE_SHOP_USER:
+            break;
+            
+        case NOTIFICATION_ACTION_TYPE_USER_PROMOTION:
+            break;
+            
+        case NOTIFICATION_ACTION_TYPE_USER_SETTING:
+            break;
+            
+        default:
+            break;
+    }
+}
+
 -(void)userNotificationCellTouchedDetail:(UserNotificationCell *)cell obj:(UserNotification *)obj
 {
     [self processUserNotification:obj];

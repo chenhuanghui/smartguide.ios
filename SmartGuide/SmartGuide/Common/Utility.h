@@ -68,6 +68,8 @@ int IDCITY_DANANG();
 
 NSAttributedString *APPLY_QUOTATION_MARK(NSString* text, NSDictionary *textAttribute, NSDictionary *quotationAttribute);
 
+UIColor* COLOR255(float r, float g, float b, float a);
+
 #pragma mark LAZY_INIT
 
 NSString* LAZY_STRING_INT(int i);

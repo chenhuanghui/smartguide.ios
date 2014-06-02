@@ -28,7 +28,7 @@ static NSString * const kClientId = @"790158294934-p5pnscmrt4avj698ncvhp14fit0f4
 
 #define TEXTFIELD_SEARCH_PLACEHOLDER_TEXT @"Tìm kiếm địa điểm"
 
-#define BUILD_MODE 1
+#define BUILD_MODE 0
 //0: developer
 //1: production
 
@@ -111,8 +111,8 @@ static NSString * const kClientId = @"790158294934-p5pnscmrt4avj698ncvhp14fit0f4
 #define API_GET_SHOP_GALLERY @"images/getShopGallery"
 #define API_GET_USER_GALLERY @"images/getUserGallery"
 #define API_USER_NOTIFICATION_CHECK @"user/notificationCheck"
-#define API_USER_NOTIFICATION @"user/notification"
-#define API_USER_NOTIFICATION_CONTENT @"user/notificationContent"
+#define API_USER_NOTIFICATION @"user/notification/getNewest"
+#define API_USER_NOTIFICATION_CONTENT @"user/notification/listBySender"
 #define API_USER_NOTIFICATION_READ @"user/notificationRead"
 #define API_USER_NOTIFICATION_REMOVE @"user/notificationRemove"
 #define API_USER_NOTICE @"user/notice"
@@ -206,6 +206,16 @@ static NSString * const kClientId = @"790158294934-p5pnscmrt4avj698ncvhp14fit0f4
 #define DURATION_LOADING 1.f
 
 #define MAP_SPAN 1000
+
+#pragma mark FONTS
+
+#define FONT_NAME_NORMAL @"Avenir-Roman"
+#define FONT_NAME_BOLD @"Avenir-Heavy"
+
+#define FONT_SIZE_NORMAL(fSize) [UIFont fontWithName:FONT_NAME_NORMAL size:fSize]
+#define FONT_SIZE_BOLD(fSize) [UIFont fontWithName:FONT_NAME_BOLD size:fSize]
+
+#define FONT_TOKEN FONT_SIZE_NORMAL(13)
 
 enum SORT_STORE_SHOP_LIST_TYPE {
     SORT_STORE_SHOP_LIST_LATEST = 0,
