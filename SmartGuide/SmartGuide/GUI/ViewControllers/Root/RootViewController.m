@@ -540,7 +540,7 @@
     [self.contentNavigation pushViewController:[self userSettingController] animated:true];
 }
 
--(void)showShopListWithKeywordsSearch:(NSString *)keywords
+-(void)showSearchShopWithKeywordsSearch:(NSString *)keywords
 {
     SearchViewController *vc=[[SearchViewController alloc] initWithKeywordSearch:keywords];
     [self showSearchController:vc];

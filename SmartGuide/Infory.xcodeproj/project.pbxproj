@@ -986,6 +986,8 @@
 		A9A98158193C6BFC00B8512E /* JSTokenButton.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A98152193C6BFC00B8512E /* JSTokenButton.m */; };
 		A9A98159193C6BFC00B8512E /* JSTokenField.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A98154193C6BFC00B8512E /* JSTokenField.m */; };
 		A9A9815A193C6BFC00B8512E /* TokenView.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A98156193C6BFC00B8512E /* TokenView.m */; };
+		A9A98160193C812A00B8512E /* AFOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A9815F193C812A00B8512E /* AFOperation.m */; };
+		A9A98163193C835400B8512E /* OperationNotificationAction.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A98162193C835400B8512E /* OperationNotificationAction.m */; };
 		A9AC694A18EEC28F006279FE /* ImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = A9AC694918EEC28F006279FE /* ImageView.m */; };
 		A9AF88FA18F3F42F00845616 /* ASIOperationRemoveShopPlacelist.m in Sources */ = {isa = PBXBuildFile; fileRef = A9AF88F918F3F42F00845616 /* ASIOperationRemoveShopPlacelist.m */; };
 		A9AF890118F40A1F00845616 /* bg_search_left@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A9AF88FB18F40A1E00845616 /* bg_search_left@2x.png */; };
@@ -2367,6 +2369,10 @@
 		A9A98154193C6BFC00B8512E /* JSTokenField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSTokenField.m; sourceTree = "<group>"; };
 		A9A98155193C6BFC00B8512E /* TokenView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TokenView.h; sourceTree = "<group>"; };
 		A9A98156193C6BFC00B8512E /* TokenView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TokenView.m; sourceTree = "<group>"; };
+		A9A9815E193C812A00B8512E /* AFOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFOperation.h; sourceTree = "<group>"; };
+		A9A9815F193C812A00B8512E /* AFOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFOperation.m; sourceTree = "<group>"; };
+		A9A98161193C835400B8512E /* OperationNotificationAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OperationNotificationAction.h; sourceTree = "<group>"; };
+		A9A98162193C835400B8512E /* OperationNotificationAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OperationNotificationAction.m; sourceTree = "<group>"; };
 		A9AC694818EEC28F006279FE /* ImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageView.h; sourceTree = "<group>"; };
 		A9AC694918EEC28F006279FE /* ImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageView.m; sourceTree = "<group>"; };
 		A9AF88F818F3F42F00845616 /* ASIOperationRemoveShopPlacelist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIOperationRemoveShopPlacelist.h; sourceTree = "<group>"; };
@@ -3717,6 +3723,8 @@
 				9ACF7A591869589900B0BC78 /* OperationGeoCoder.m */,
 				9ACA8BFB1876ABE00018C8E3 /* OperationSearchAutocomplete.h */,
 				9ACA8BFC1876ABE00018C8E3 /* OperationSearchAutocomplete.m */,
+				A9A98161193C835400B8512E /* OperationNotificationAction.h */,
+				A9A98162193C835400B8512E /* OperationNotificationAction.m */,
 			);
 			path = Operations;
 			sourceTree = "<group>";
@@ -3747,6 +3755,8 @@
 				A922663117A1137D00BCFF7E /* ASIOperationPost.m */,
 				A925E3CD17B089EB00806617 /* TokenManager.h */,
 				A925E3CE17B089EB00806617 /* TokenManager.m */,
+				A9A9815E193C812A00B8512E /* AFOperation.h */,
+				A9A9815F193C812A00B8512E /* AFOperation.m */,
 			);
 			path = Operations;
 			sourceTree = "<group>";
@@ -5566,6 +5576,7 @@
 				9ACF7AA418698E4100B0BC78 /* _UserHome4.m in Sources */,
 				9A7AC1C818D1907B0043316D /* ShopDetailInfoDescCell.m in Sources */,
 				9A27BC0318D18BAD00E3EAC2 /* GalleryManager.m in Sources */,
+				A9A98160193C812A00B8512E /* AFOperation.m in Sources */,
 				9A7AC24918D192490043316D /* PlacelistHeaderCell.m in Sources */,
 				A9CFD3621797FC4B0035E448 /* SmartGuide.xcdatamodeld in Sources */,
 				A95B119218EDCE090020477D /* ImageDB.xcdatamodeld in Sources */,
@@ -5707,6 +5718,7 @@
 				A91CE6C617A93F6E00D29E87 /* _ShopUserGallery.m in Sources */,
 				9A7AC1D218D1907B0043316D /* ShopDetailInfoType3Cell.m in Sources */,
 				9A9211A2185AC39F0012F181 /* ASIOperationStoreShopItem.m in Sources */,
+				A9A98163193C835400B8512E /* OperationNotificationAction.m in Sources */,
 				A95B119118EDCE090020477D /* ImageCacheManager.m in Sources */,
 				A9DCA90817AABCB200C56854 /* ShopUserComment.m in Sources */,
 				A9DCA90B17AABCBB00C56854 /* _ShopUserComment.m in Sources */,

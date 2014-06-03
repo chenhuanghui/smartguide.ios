@@ -50,8 +50,8 @@
         
         switch ([dict[@"actionType"] integerValue]) {
             case 0:
-                [dict setObject:@"user/notification/markRead" forKey:@"url"];
-                [dict setObject:@"method" forKey:@"POST"];
+                [dict setObject:SERVER_API_MAKE(@"user/notification/markRead") forKey:@"url"];
+                [dict setObject:@(NOTIFICATION_METHOD_TYPE_POST) forKey:@"method"];
                 
                 
                 [dict setObject:[@{@"idNotification":obj.idNotification,@"userLat":@(userLat()),@"userLng":@(userLng())} jsonString] forKey:@"params"];

@@ -97,4 +97,29 @@
     }
 }
 
+-(NSString *)methodName
+{
+    switch (self.enumMethodType) {
+        case NOTIFICATION_METHOD_TYPE_GET:
+            return @"GET";
+            
+        case NOTIFICATION_METHOD_TYPE_POST:
+            return @"POST";
+            
+        case NOTIFICATION_METHOD_TYPE_UNKNOW:
+            return @"";
+    }
+}
+
+-(enum NOTIFICATION_ACTION_SHOP_LIST_TYPE)enumShopListDataType
+{
+    if(self.idPlacelist)
+        return NOTIFICATION_ACTION_SHOP_LIST_TYPE_IDPLACELIST;
+    
+    if(self.idShops.length>0)
+        return NOTIFICATION_ACTION_SHOP_LIST_TYPE_IDSHOPS;
+    
+    return NOTIFICATION_ACTION_SHOP_LIST_TYPE_KEYWORDS;
+}
+
 @end

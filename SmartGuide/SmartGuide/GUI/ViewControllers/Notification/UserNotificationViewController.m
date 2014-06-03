@@ -18,6 +18,7 @@
 #import "ASIOperationUserNotificationNewest.h"
 #import "NotificationManager.h"
 #import "RefreshingView.h"
+#import "OperationNotificationAction.h"
 
 @interface UserNotificationViewController ()<UITableViewDataSource,UITableViewDelegate,UserNotificationCellDelegate,ASIOperationPostDelegate,UIActionSheetDelegate,RefreshingViewDelegate>
 {
@@ -345,24 +346,47 @@
     switch (action.enumActionType) {
         case NOTIFICATION_ACTION_TYPE_CALL_API:
             
+            [OperationNotificationAction operationWithURL:action.url method:action.methodName params:action.params];
+            
             break;
             
         case NOTIFICATION_ACTION_TYPE_POPUP_URL:
+            
+            [[GUIManager shareInstance].rootViewController showWebviewWithURL:URL(action.url)];
+            
             break;
             
         case NOTIFICATION_ACTION_TYPE_SHOP_LIST:
+            
+            switch (action.enumShopListDataType) {
+                case NOTIFICATION_ACTION_SHOP_LIST_TYPE_IDPLACELIST:
+                    [[GUIManager shareInstance].rootViewController showShopListWithIDPlace:action.idPlacelist.integerValue];
+                    break;
+                    
+                case NOTIFICATION_ACTION_SHOP_LIST_TYPE_KEYWORDS:
+                    [[GUIManager shareInstance].rootViewController showShopListWithKeywordsShopList:action.keywords];
+                    break;
+                    
+                case NOTIFICATION_ACTION_SHOP_LIST_TYPE_IDSHOPS:
+                    [[GUIManager shareInstance].rootViewController showShopListWithIDShops:action.idShops];
+                    break;
+            }
+            
             break;
             
         case NOTIFICATION_ACTION_TYPE_SHOP_USER:
+            [[GUIManager shareInstance].rootViewController presentShopUserWithIDShop:action.idShop.integerValue];
             break;
             
         case NOTIFICATION_ACTION_TYPE_USER_PROMOTION:
+            [[GUIManager shareInstance].rootViewController showUserPromotion];
             break;
             
         case NOTIFICATION_ACTION_TYPE_USER_SETTING:
+            [[GUIManager shareInstance].rootViewController showUserSetting];
             break;
             
-        default:
+        case NOTIFICATION_ACTION_TYPE_UNKNOW:
             break;
     }
 }

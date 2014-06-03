@@ -37,7 +37,7 @@
 -(void) presentShopUserWithHome8:(UserHome8*) home8;
 -(void) presentShopUserWithIDShop:(int) idShop;
 -(void) dismissShopUser;
--(void) showShopListWithKeywordsSearch:(NSString*) keywords;
+-(void) showSearchShopWithKeywordsSearch:(NSString*) keywords;
 -(void) showShopListWithKeywordsShopList:(NSString*) keywords;
 -(void) showShopListWithIDPlace:(int) idPlacelist;
 -(void) showShopListWithIDShops:(NSString*) idShops;

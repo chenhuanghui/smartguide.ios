@@ -15,6 +15,8 @@ enum NOTIFICATION_METHOD_TYPE
 +(UserNotificationAction*) makeWithAction:(NSDictionary*) action;
 
 -(enum NOTIFICATION_ACTION_TYPE) enumActionType;
+-(NSString*) methodName;
 -(enum NOTIFICATION_METHOD_TYPE) enumMethodType;
+-(enum NOTIFICATION_ACTION_SHOP_LIST_TYPE) enumShopListDataType;
 
 @end

@@ -223,6 +223,7 @@ NSString* LAZY_STRING_INT(int i);
 -(NSString*) urlEncode;
 -(NSString*) sha1;
 -(NSString*) ASIString;
+-(NSDictionary*) jsonDictionary;
 
 @end
 

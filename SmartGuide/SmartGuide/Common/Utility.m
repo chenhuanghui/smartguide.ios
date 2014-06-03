@@ -1073,6 +1073,18 @@ NSString* LAZY_STRING_INT(int i)
     return str;
 }
 
+-(NSDictionary *)jsonDictionary
+{
+    NSError *error=nil;
+    
+    NSDictionary *dict=[NSJSONSerialization JSONObjectWithData:[self dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingMutableContainers|NSJSONReadingAllowFragments error:&error];
+    
+    if(error)
+        NSLog(@"jsonDictionary error %@",error);
+    
+    return dict;
+}
+
 @end
 
 @implementation UIScrollView(Utility)
