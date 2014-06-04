@@ -23,7 +23,7 @@
     [[NotificationManager shareInstance] receiveLaunchNotification:launchOptions];
     
     CGRect rect=[[UIScreen mainScreen] bounds];
-    self.window = [[UIWindow alloc] initWithFrame:rect];
+    self.window = [[TrackingWindow alloc] initWithFrame:rect];
     
     if(![[NSUserDefaults standardUserDefaults] boolForKey:@"isCleanDisk"])
     {
@@ -100,6 +100,39 @@
 -(NSUInteger)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window
 {
     return UIInterfaceOrientationPortrait|UIInterfaceOrientationPortraitUpsideDown;
+}
+
+@end
+
+@implementation TrackingWindow
+
+-(void) makeViewAtPoint:(CGPoint) pnt
+{
+    UIView *view=[[UIView alloc] initWithFrame:CGRectMake(pnt.x-15, pnt.y-15, 30, 30)];
+    view.layer.masksToBounds=true;
+    view.layer.cornerRadius=view.l_v_w/2;
+    view.alpha=0;
+    view.backgroundColor=[UIColor redColor];
+    view.userInteractionEnabled=false;
+    
+    [self addSubview:view];
+    
+    [UIView animateWithDuration:0.3f animations:^{
+        view.alpha=1;
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:0.3f animations:^{
+            view.alpha=0;
+        } completion:^(BOOL finished) {
+            [view removeFromSuperview];
+        }];
+    }];
+}
+
+-(BOOL)pointInside1:(CGPoint)point withEvent:(UIEvent *)event
+{
+    [self makeViewAtPoint:point];
+    
+    return [super pointInside:point withEvent:event];
 }
 
 @end
