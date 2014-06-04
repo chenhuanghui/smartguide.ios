@@ -25,7 +25,6 @@
 {
     enum USER_NOTIFICATION_DISPLAY_TYPE _displayType;
     ASIOperationUserNotificationNewest *_operationUserNotification;
-    ASIOperationUserNotificationRemove *_operationUserNotificationRemove;
     
     __weak RefreshingView *refreshView;
 }
@@ -332,13 +331,9 @@
 
 -(void) deleteUserNotification:(int) idSender
 {
-    if(_operationUserNotificationRemove)
-        return;
+    ASIOperationUserNotificationRemove *operationUserNotificationRemove=[[ASIOperationUserNotificationRemove alloc] initWithIDNotification:nil idSender:@(idSender) userLat:userLat() userLng:userLng()];
     
-    _operationUserNotificationRemove=[[ASIOperationUserNotificationRemove alloc] initWithIDNotification:nil idSender:@(idSender) userLat:userLat() userLng:userLng()];
-    _operationUserNotificationRemove.delegatePost=self;
-    
-    [_operationUserNotificationRemove startAsynchronous];
+    [operationUserNotificationRemove startAsynchronous];
 }
 
 -(void)userNotificationCellTouchedRemove:(UserNotificationCell *)cell obj:(UserNotification *)obj

@@ -16,6 +16,7 @@
 #import "ASIOperationUserNotificationFromSender.h"
 #import "ASIOperationUserNotificationMarkRead.h"
 #import "OperationNotificationAction.h"
+#import "ASIOperationUserNotificationRemove.h"
 
 @interface UserNotificationDetailViewController ()<UITableViewDataSource,UITableViewDelegate,ASIOperationPostDelegate,UserNotificationDetailCellDelegate>
 {
@@ -276,9 +277,30 @@
     }
 }
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+-(void)userNotificationDetailCellTouchedRemove:(UserNotificationDetailCell *)cell
 {
-    UserNotificationDetailCell *cell=(UserNotificationDetailCell*)[table cellForRowAtIndexPath:indexPath];
+    if(currentUser().enumDataMode!=USER_DATA_FULL)
+        return;
+    
+    ASIOperationUserNotificationRemove *ope=[[ASIOperationUserNotificationRemove alloc] initWithIDNotification:cell.userNotificationDetail.idNotification idSender:nil userLat:userLat() userLng:userLng()];
+    [ope startAsynchronous];
+    
+    [_userNotificationContents removeObject:cell.userNotificationDetail];
+    
+    NSIndexPath *idx=[table indexPathForCell:cell];
+    
+    [cell.superview sendSubviewToBack:cell];
+    
+    [table beginUpdates];
+    
+    [table deleteRowsAtIndexPaths:@[idx] withRowAnimation:UITableViewRowAnimationAutomatic];
+    
+    [table endUpdates];
+}
+
+-(void)userNotificationDetailCellTouchedDetail:(UserNotificationDetailCell *)cell
+{
+    NSIndexPath *indexPath=[table indexPathForCell:cell];
     UserNotificationContent *obj=cell.userNotificationDetail;
     
     switch (obj.enumDisplayType) {
@@ -308,9 +330,9 @@
             break;
     }
     
-    if(![tableView isCellCompletionVisibility:indexPath])
+    if(![table isCellCompletionVisibility:indexPath])
     {
-        [tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionMiddle animated:true];
+        [table scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionMiddle animated:true];
     }
 }
 

@@ -8,8 +8,9 @@
 
 #import "UserNotificationDetailCell.h"
 #import "ImageManager.h"
+#import "DataManager.h"
 
-@interface UserNotificationDetailCell()<TokenViewDelegate>
+@interface UserNotificationDetailCell()<TokenViewDelegate,UIScrollViewDelegate,UIGestureRecognizerDelegate>
 
 @end
 
@@ -42,6 +43,12 @@
     lblContent.hidden=displayType==USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE_TITLE;
     
     btnLogo.userInteractionEnabled=obj.idShopLogo!=nil;
+    
+    scroll.contentOffset=CGPointZero;
+    scroll.contentSize=CGSizeMake(leftView.l_v_w+rightView.l_v_w, 0);
+    
+    //Chỉ user có tài khoản mới được phép remove notification
+//    scroll.scrollEnabled=currentUser().enumDataMode==USER_DATA_FULL;
 }
 
 -(enum USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE)displayType
@@ -123,6 +130,70 @@
 
 - (IBAction)btnLogoTouchUpInside:(id)sender {
     [self.delegate userNotificationDetailCellTouchedLogo:self];
+}
+
+- (IBAction)btnRemoveTouchUpInsde:(id)sender
+{
+    [self.delegate userNotificationDetailCellTouchedRemove:self];
+}
+
+-(void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset
+{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self scrollViewDidEndDragged];
+    });
+}
+
+-(void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
+{
+    [self scrollViewDidEndDragged];
+}
+
+-(void) scrollViewDidEndDragged
+{
+    [scroll killScroll];
+    if(scroll.l_co_x>rightView.l_v_w/2)
+        [scroll l_co_setX:rightView.l_v_w animate:true];
+    else
+        [scroll l_co_setX:0 animate:true];
+}
+
+-(void)awakeFromNib
+{
+    [super awakeFromNib];
+    
+    UITapGestureRecognizer *tap=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)];
+    tap.delegate=self;
+    
+    [scroll.panGestureRecognizer requireGestureRecognizerToFail:tap];
+    [leftView addGestureRecognizer:tap];
+}
+
+-(BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
+{
+    if([gestureRecognizer isKindOfClass:[UITapGestureRecognizer class]])
+    {
+        return (int)scroll.l_co_x==0;
+    }
+    
+    return true;
+}
+
+-(void) tap:(UITapGestureRecognizer*) tap
+{
+    [self.delegate userNotificationDetailCellTouchedDetail:self];
+}
+
+
+@end
+
+@implementation ScrollNotificationContent
+
+-(void)setContentOffset:(CGPoint)contentOffset
+{
+    contentOffset.x=MAX(0,contentOffset.x);
+    
+    [super setContentOffset:contentOffset];
 }
 
 @end

@@ -449,6 +449,9 @@
         _page++;
         _isAPIFinished=true;
         
+        _canLoadMore=true;
+        _page=-1;
+        
         [self callReloadTable];
         
         _operationUserHome=nil;
