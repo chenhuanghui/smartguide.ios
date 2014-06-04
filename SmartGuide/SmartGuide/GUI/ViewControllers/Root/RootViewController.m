@@ -590,56 +590,6 @@
 //    }
 }
 
--(void)processUserNotification:(UserNotification *)obj
-{
-//    switch (obj.enumActionType) {
-//        case USER_NOTIFICATION_ACTION_TYPE_CONTENT:
-//        {
-//            UserNotificationViewController *vc=[[UserNotificationViewController alloc] init];
-//            vc.delegate=self;
-//            
-//            [self.contentNavigation pushViewController:vc animated:true];
-//        }
-//            break;
-//            
-//        case USER_NOTIFICATION_ACTION_TYPE_LOGIN:
-//            [[GUIManager shareInstance] showLoginControll:^(bool isLogin) {
-//                
-//            }];
-//            break;
-//            
-//        case USER_NOTIFICATION_ACTION_TYPE_POPUP_URL:
-//            [self showWebviewWithURL:URL(obj.url)];
-//            break;
-//            
-//        case USER_NOTIFICATION_ACTION_TYPE_SCAN_CODE:
-//        {
-//            [self showQRCodeWithContorller:self inView:self.view withAnimationType:QRCODE_ANIMATION_TOP_BOT screenCode:@""];
-//        }
-//            break;
-//            
-//        case USER_NOTIFICATION_ACTION_TYPE_SHOP_LIST:
-//            if(obj.idPlacelist)
-//                [self showShopListWithIDPlace:obj.idPlacelist.integerValue];
-//            else if(obj.keywords.length>0)
-//                [self showShopListWithKeywordsShopList:obj.keywords];
-//            else if(obj.idShops.length>0)
-//                [self showShopListWithIDShops:obj.idShops];
-//            break;
-//            
-//        case USER_NOTIFICATION_ACTION_TYPE_SHOP_USER:
-//            [self presentShopUserWithIDShop:obj.idShop.integerValue];
-//            break;
-//            
-//        case USER_NOTIFICATION_ACTION_TYPE_USER_PROMOTION:
-//            break;
-//            
-//        case USER_NOTIFICATION_ACTION_TYPE_USER_SETTING:
-//            [self showUserSetting];
-//            break;
-//    }
-}
-
 -(void) autoHideNotificationInfo
 {
     [remoteNotiView hide];
@@ -647,22 +597,22 @@
 
 -(void)remoteNotificationDidHide:(RemoteNotificationView *)remoteView
 {
-//    [[NotificationManager shareInstance].notifications removeObject:remoteView.userNotification];
+    [[NotificationManager shareInstance].remoteNotifications removeObject:remoteView.remoteNotification];
     [remoteNotiView removeFromSuperview];
     remoteNotiView=nil;
     
-//    if([NotificationManager shareInstance].notifications.count>0)
-//    {
-//        [self showNotificationInfo:[NotificationManager shareInstance].notifications[0]];
-//    }
+    if([NotificationManager shareInstance].remoteNotifications.count>0)
+    {
+        [self showNotificationInfo:[NotificationManager shareInstance].remoteNotifications[0]];
+    }
 }
 
 -(void)presentSGViewControllerFinished
 {
-//    if([NotificationManager shareInstance].notifications.count>0)
-//    {
-//        [self showNotificationInfo:[NotificationManager shareInstance].notifications[0]];
-//    }
+    if([NotificationManager shareInstance].remoteNotifications.count>0)
+    {
+        [self showNotificationInfo:[NotificationManager shareInstance].remoteNotifications[0]];
+    }
 }
 
 -(bool) isShowingNotification
@@ -746,7 +696,7 @@
     }
     else
     {
-        if(hasNotiContentController && remoteView.remoteNotification.idNotification)
+        if(hasNotiContentController && remoteView.remoteNotification.idSender)
             [self.contentNavigation popToViewController:notiDetailController animated:true];
         else
             [self.contentNavigation popToViewController:notiController animated:true];
