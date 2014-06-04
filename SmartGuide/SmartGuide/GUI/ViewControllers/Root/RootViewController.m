@@ -108,7 +108,7 @@
 
 -(NSArray *)registerNotifications
 {
-    return @[NOTIFICATION_RECEIVED_REMOTE_NOTIFICATION];
+    return @[NOTIFICATION_RECEIVED_REMOTE_NOTIFICATION,NOTIFICATION_HOME_FINISHED_LOAD];
 }
 
 -(void)receiveNotification:(NSNotification *)notification
@@ -122,6 +122,10 @@
         }
         
         [self showNotificationInfo:notification.object];
+    }
+    else if([notification.name isEqualToString:NOTIFICATION_HOME_FINISHED_LOAD])
+    {
+        [self startUpload];
     }
 }
 
@@ -219,11 +223,6 @@
 }
 
 #pragma mark HomeViewController delegate
-
--(void)homeControllerFinishedLoad:(HomeViewController *)controller
-{
-    [self startUpload];
-}
 
 -(void)homeControllerTouchedHome1:(HomeViewController *)contorller home1:(UserHome1 *)home1
 {

@@ -27,6 +27,13 @@ enum TEXTFIELD_DISPLAY_TYPE
     TEXTFIELD_DISPLAY_TYPE_SEARCH=0,
 };
 
+enum TEXTFIELD_REFRESH_STATE
+{
+    TEXTFIELD_REFRESH_STATE_NORMAL=0,
+    TEXTFIELD_REFRESH_STATE_REFRESHING=1,
+    TEXTFIELD_REFRESH_STATE_DONE=2
+};
+
 @class TextField;
 
 @protocol TextFieldDelegate <UITextFieldDelegate>
@@ -52,5 +59,42 @@ enum TEXTFIELD_DISPLAY_TYPE
     __weak UIImageView *imgvRight;
     __weak UIView *midView;
 }
+
+@end
+
+@protocol TextFieldRefreshDelegate <TextFieldDelegate>
+
+-(void) textFieldNeedRefresh:(TextField*) txt;
+-(void) textFieldRefreshFinished:(TextField*) txt;
+
+@end
+
+@interface HomeTextField : SearchTextField
+{
+    __weak UIImageView *imgvRefresh;
+    bool _isUserDragging;
+    bool _isMarkRefreshDone;
+    
+    CGRect _txtFrame;
+    float _distanceMinY_Y;
+    float _startRotationY;
+    NSString *_text;
+}
+
+-(void) tableDidScroll:(UITableView*) table;
+-(void) tableDidEndDecelerating:(UITableView*) table;
+-(void) tableDidEndDragging:(UITableView*) table willDecelerate:(BOOL) decelerate;
+-(void) tableWillBeginDragging:(UITableView*) table;
+-(void) markRefreshDone:(UITableView*) table;
+
+@property (nonatomic, readonly) enum TEXTFIELD_REFRESH_STATE refreshState;
+@property (nonatomic, weak) id<TextFieldRefreshDelegate> delegate;
+@property (nonatomic, assign) float maximumWidth;
+@property (nonatomic, assign) float minimumWidth;
+@property (nonatomic, assign) float minimumY;
+
+@end
+
+@interface UserPromotionTextField : HomeTextField
 
 @end

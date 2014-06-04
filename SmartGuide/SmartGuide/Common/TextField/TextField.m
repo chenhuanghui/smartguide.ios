@@ -180,3 +180,223 @@
 }
 
 @end
+
+@implementation HomeTextField
+@synthesize refreshState;
+
+-(void)awakeFromNib
+{
+    [super awakeFromNib];
+    
+    self.autoresizesSubviews=true;
+    self.font=FONT_SIZE_NORMAL(14);
+    self.autoresizingMask=UIViewAutoresizingAll();
+    
+    imgvLeft.autoresizingMask=UIViewAutoresizingNone;
+    imgvRight.autoresizingMask=UIViewAutoresizingNone;
+    midView.autoresizingMask=UIViewAutoresizingNone;
+    
+    _distanceMinY_Y=-1;
+    [self setLeftViewType:TEXTFIELD_LEFTVIEW_SEARCH];
+    [self setRightViewType:TEXTFIELD_RIGHTVIEW_NONE];
+    
+    refreshState=TEXTFIELD_REFRESH_STATE_NORMAL;
+    _startRotationY=-1;
+    
+//    float icon_refresh_width=19;
+    UIImageView *imgv=[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_refresh.png"]];
+    imgv.frame=CGRectMake(0, 0, self.l_v_w, self.l_v_h);
+    imgv.autoresizingMask=UIViewAutoresizingAll();
+    imgv.contentMode=UIViewContentModeCenter;
+    imgv.hidden=true;
+    
+    [self addSubview:imgv];
+    imgvRefresh=imgv;
+}
+
+-(void) animationRefreshing:(float) angle
+{
+    if(self.refreshState!=TEXTFIELD_REFRESH_STATE_REFRESHING)
+        return;
+    
+    __weak HomeTextField *wSelf=self;
+    
+    [UIView animateWithDuration:0.15f animations:^{
+        imgvRefresh.transform=CGAffineTransformMakeRotation(angle);
+    } completion:^(BOOL finished) {
+        if(wSelf)
+            [wSelf animationRefreshing:angle+M_PI_4];
+    }];
+}
+
+-(void)tableDidScroll:(UITableView *)table
+{
+    if(refreshState==TEXTFIELD_REFRESH_STATE_REFRESHING
+       || refreshState==TEXTFIELD_REFRESH_STATE_DONE)
+    {
+        CGRect rect=self.frame;
+        rect.size.width=self.minimumWidth;
+        rect.origin.x=(UIScreenSize().width-rect.size.width)/2;
+        self.frame=rect;
+        return;
+    }
+    
+    if(CGRectIsEmpty(_txtFrame))
+        _txtFrame=self.frame;
+    if(_distanceMinY_Y==-1)
+    {
+        _distanceMinY_Y=_txtFrame.origin.y-self.minimumY;
+    }
+    
+    float y=table.offsetYWithInsetTop;
+    float perY=y/_distanceMinY_Y;
+    float txtY=_txtFrame.origin.y-y;
+    txtY=MAX(self.minimumY,txtY);
+    
+    [self l_v_setY:txtY];
+    
+    if(y>0)
+    {
+        if(y<_distanceMinY_Y)
+        {
+            CGRect rect=self.frame;
+            rect.size.width=_txtFrame.size.width+perY*(self.maximumWidth-_txtFrame.size.width);
+            rect.origin.x=_txtFrame.origin.x-(perY*(self.maximumWidth-_txtFrame.size.width))/2+4.f*perY;
+            
+            self.frame=rect;
+        }
+        else
+        {
+            CGRect rect=self.frame;
+            rect.origin.x=(UIScreenSize().width-self.maximumWidth)/2+MIN(4.f*perY,4);
+            rect.origin.y=self.minimumY;
+            rect.size.width=self.maximumWidth;
+            
+            self.frame=rect;
+        }
+    }
+    else
+    {
+        CGRect rect=_txtFrame;
+        float inscreaseY=(rect.size.width*perY)*1.5f;
+        
+        if(rect.size.width+inscreaseY<self.minimumWidth)
+        {
+            if(_startRotationY==-1)
+                _startRotationY=self.l_v_y;
+            
+            self.leftViewMode=UITextFieldViewModeNever;
+            imgvRefresh.hidden=false;
+            
+            float angle=DEGREES_TO_RADIANS(self.l_v_y-_startRotationY);
+            angle*=4.5f;
+
+            if(angle>M_PI*2)
+            {
+                imgvRefresh.transform=CGAffineTransformIdentity;
+                imgvRefresh.image=[UIImage imageNamed:@"icon_refresh_blue.png"];
+                refreshState=TEXTFIELD_REFRESH_STATE_REFRESHING;
+                _isMarkRefreshDone=false;
+                
+                [self animationRefreshing:M_PI*2];
+                [self.delegate textFieldNeedRefresh:self];
+            }
+            else
+            {
+                imgvRefresh.transform=CGAffineTransformMakeRotation(M_PI+angle);
+            }
+            
+            rect.size.width=self.minimumWidth;
+            rect.origin.x=(UIScreenSize().width-rect.size.width)/2;
+            
+            self.frame=rect;
+        }
+        else
+        {
+            self.leftViewMode=UITextFieldViewModeAlways;
+            imgvRefresh.hidden=true;
+            imgvRefresh.transform=CGAffineTransformIdentity;
+            
+            rect.size.width+=inscreaseY;
+
+            rect.size.width=MAX(self.minimumWidth,rect.size.width);
+            rect.origin.x-=inscreaseY/2;
+            
+            self.frame=rect;
+        }
+    }
+    
+    if(!_text)
+        _text=self.text;
+    
+    if(self.l_v_w<95)
+        self.text=@"";
+    else
+        self.text=_text;
+}
+
+-(void)tableWillBeginDragging:(UITableView *)table
+{
+    _isUserDragging=true;
+}
+
+-(void)tableDidEndDecelerating:(UITableView *)table
+{
+    _isUserDragging=false;
+    
+    if(self.refreshState==TEXTFIELD_REFRESH_STATE_DONE)
+        [self callRefreshFinished:table];
+}
+
+-(void)tableDidEndDragging:(UITableView *)table willDecelerate:(BOOL)decelerate
+{
+    if(!decelerate)
+    {
+        _isUserDragging=false;
+        
+        if(self.refreshState==TEXTFIELD_REFRESH_STATE_DONE)
+            [self callRefreshFinished:table];
+    }
+}
+
+-(void)setFrame:(CGRect)frame
+{
+    [super setFrame:frame];
+    
+    [imgvLeft l_v_setX:0];
+    [imgvRight l_v_setX:frame.size.width-imgvRight.l_v_w];
+    [midView l_v_setW:MAX(0,frame.size.width-imgvLeft.l_v_w-imgvRight.l_v_w)];
+}
+
+-(void)markRefreshDone:(UITableView *)table
+{
+    _isMarkRefreshDone=true;
+    refreshState=TEXTFIELD_REFRESH_STATE_DONE;
+    table.userInteractionEnabled=false;
+    
+    imgvRefresh.transform=CGAffineTransformIdentity;
+    imgvRefresh.image=[UIImage imageNamed:@"icon_refresh_done.png"];
+    
+    [self callRefreshFinished:table];
+}
+
+-(void) callRefreshFinished:(UITableView*) table
+{
+    if(_isMarkRefreshDone && !_isUserDragging)
+    {
+        _isMarkRefreshDone=false;
+        table.userInteractionEnabled=true;
+        refreshState=TEXTFIELD_REFRESH_STATE_NORMAL;
+        imgvRefresh.image=[UIImage imageNamed:@"icon_refresh.png"];
+        
+        [self.delegate textFieldRefreshFinished:self];
+    }
+}
+
+@end
+
+@implementation UserPromotionTextField
+
+
+
+@end

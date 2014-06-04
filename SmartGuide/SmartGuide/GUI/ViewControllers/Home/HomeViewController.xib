@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="5053" systemVersion="12F37" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="5056" systemVersion="13D65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
         <deployment defaultVersion="1536" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
@@ -16,7 +16,7 @@
                 <outlet property="imgvLogo" destination="APP-Vg-vTa" id="ZMa-Bj-Wt5"/>
                 <outlet property="qrView" destination="MVN-kQ-te1" id="X6K-xY-xc6"/>
                 <outlet property="tableFeed" destination="Ney-Bf-iDE" id="RhK-f1-eD4"/>
-                <outlet property="txt" destination="Zxr-rq-3wh" id="wKt-3d-52E"/>
+                <outlet property="txtRefresh" destination="Zxr-rq-3wh" id="IcX-lj-Rmu"/>
                 <outlet property="view" destination="1" id="3"/>
             </connections>
         </placeholder>
@@ -136,7 +136,7 @@
                     <rect key="frame" x="133" y="16" width="54" height="22"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </imageView>
-                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="Zxr-rq-3wh" customClass="TextFieldSearch">
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="Zxr-rq-3wh" customClass="HomeTextField">
                     <rect key="frame" x="85" y="66" width="150" height="38"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
