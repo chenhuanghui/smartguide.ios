@@ -9,7 +9,7 @@
 #import "SGViewController.h"
 #import "HomeInfoCell.h"
 #import "ASIOperationUserPromotion.h"
-#import "TextFieldSearch.h"
+#import "TextField.h"
 
 @class UserPromotionViewController,TableUserPromotion;
 
@@ -24,7 +24,7 @@
 @interface UserPromotionViewController : SGViewController
 {
     __weak IBOutlet TableUserPromotion *table;
-    __weak IBOutlet TextFieldSearch *txt;
+    __weak IBOutlet UserPromotionTextField *txtRefresh;
     __weak IBOutlet UIButton *btnSetting;
     __weak IBOutlet UIView *qrView;
     __weak IBOutlet UIButton *btnScanSmall;
@@ -43,19 +43,13 @@
     
     ASIOperationUserPromotion *_operationUserPromotion;
     NSMutableArray *_userPromotions;
+    NSMutableArray *_userPromotionsAPI;
+    
     int _page;
     bool _isLoadingMore;
     bool _canLoadingMore;
     
-    float _txtPerWidth;
-    float _scrollPerY;
     float _scrollDistanceHeight;
-    float _startYAngle;
-    
-    bool _isCanRefresh;
-    bool _isAPIFinished;
-    bool _isUserReleaseTouched;
-    bool _isTrackingTouch;
     bool _isTouchedTextField;
 }
 
@@ -66,7 +60,5 @@
 @interface TableUserPromotion : UITableView
 {
 }
-
-@property (nonatomic, assign) float maxY;
 
 @end

@@ -15,7 +15,6 @@
 #import "UserNoticeView.h"
 #import "NotificationManager.h"
 
-#define NEW_FEED_DELTA_SPEED 2.1f
 #define HOME_TEXT_FIELD_SEARCH_MIN_Y 8.f
 
 @interface HomeViewController ()<homeListDelegate,homeInfoCellDelegate,UserNoticeDelegate,TextFieldRefreshDelegate>
@@ -88,12 +87,11 @@
         y+=4;//align
     
     [txtRefresh l_v_setY:y];
-    _txtPerWidth=232.f/txtRefresh.l_v_w;
     
     y+=txtRefresh.l_v_h;
     y+=4;//align
 
-    tableFeed.contentInset=UIEdgeInsetsMake(y, 0, 30, 0);
+    tableFeed.contentInset=UIEdgeInsetsMake(y, 0, 0, 0);
     tableFeed.delegate=self;
     
     _scrollDistanceHeight=txtRefresh.l_v_y-HOME_TEXT_FIELD_SEARCH_MIN_Y;

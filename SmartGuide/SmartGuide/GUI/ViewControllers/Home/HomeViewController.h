@@ -58,8 +58,6 @@
     CGRect _textFieldFrame;
     CGRect _logoFrame;
     
-    float _txtPerWidth;
-    float _scrollPerY;
     float _scrollDistanceHeight;
     bool _isTouchedTextField;
     

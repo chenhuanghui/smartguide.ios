@@ -15,7 +15,7 @@
 
 #define USER_PROMOTION_TEXT_FIELD_SEARCH_MIN_Y 8.f
 
-@interface UserPromotionViewController ()<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate,ASIOperationPostDelegate,homeInfoCellDelegate>
+@interface UserPromotionViewController ()<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate,ASIOperationPostDelegate,homeInfoCellDelegate,TextFieldRefreshDelegate>
 
 @end
 
@@ -44,18 +44,15 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    _isUserReleaseTouched=true;
-    _isCanRefresh=TRUE;
-    _isAPIFinished=false;
-    _startYAngle=-999;
+    txtRefresh.text=TEXTFIELD_SEARCH_PLACEHOLDER_TEXT;
+    txtRefresh.maximumWidth=232;
+    txtRefresh.minimumWidth=38;
+    txtRefresh.minimumY=8;
     
     [UserPromotion markDeleteAllObjects];
     [[DataManager shareInstance] save];
     
     [self storeRect];
-    
-    txt.hiddenClearButton=true;
-    txt.text=TEXTFIELD_SEARCH_PLACEHOLDER_TEXT;
     
     [table l_v_addH:QRCODE_BIG_HEIGHT-QRCODE_SMALL_HEIGHT];
     
@@ -76,22 +73,49 @@
     float y=48;
     //    y+=4;//align
     
-    [txt l_v_setY:y];
-    _txtPerWidth=TEXT_FIELD_SEARCH_DEFAULT_WIDTH/txt.l_v_w;
-    
-    y+=txt.l_v_h;
+    [txtRefresh l_v_setY:y];
+
+    y+=txtRefresh.l_v_h;
     y+=4;//align
     
-    table.contentInset=UIEdgeInsetsMake(y, 0, 30, 0);
+    table.contentInset=UIEdgeInsetsMake(y, 0, 0, 0);
     table.delegate=self;
     
-    _scrollDistanceHeight=txt.l_v_y-USER_PROMOTION_TEXT_FIELD_SEARCH_MIN_Y;
-    [txt setRefreshState:TEXT_FIELD_SEARCH_REFRESH_STATE_SEARCH animated:false completed:nil];
+    _scrollDistanceHeight=txtRefresh.l_v_y-USER_PROMOTION_TEXT_FIELD_SEARCH_MIN_Y;
     
     [self displayNotification];
+}
+
+-(void)textFieldRefreshFinished:(TextField *)txt
+{
+    _userPromotions=[[NSMutableArray alloc] initWithArray:_userPromotionsAPI];
+    _userPromotionsAPI=nil;
+    _isLoadingMore=false;
+    _canLoadingMore=_userPromotions.count==10;
+    _page++;
     
-//    btnNotification.hidden=true;
-//    btnNumOfNotification.hidden=true;
+    [UIView animateWithDuration:DURATION_DEFAULT animations:^{
+        table.alpha=1;
+    }];
+    
+    [table reloadData];
+}
+
+-(void)textFieldNeedRefresh:(TextField *)txt
+{
+    if(_isLoadingMore)
+    {
+        [_operationUserPromotion clearDelegatesAndCancel];
+        _operationUserPromotion=nil;
+    }
+    
+    _page=-1;
+    
+    [self requestUserPromotion];
+    
+    [UIView animateWithDuration:DURATION_DEFAULT animations:^{
+        table.alpha=0.1f;
+    }];
 }
 
 -(NSArray *)registerNotifications
@@ -114,48 +138,17 @@
 
 -(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
-    if(_isTrackingTouch)
-    {
-        _isUserReleaseTouched=true;
-        [self callReloadTable];
-    }
+    [txtRefresh tableDidEndDecelerating:table];
 }
 
 -(void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
-    if(!decelerate && _isTrackingTouch)
-    {
-        _isUserReleaseTouched=true;
-        [self callReloadTable];
-    }
+    [txtRefresh tableDidEndDragging:table willDecelerate:decelerate];
 }
-
--(void) callReloadTable
-{
-    if(_isUserReleaseTouched && _isAPIFinished && txt.refreshState!=TEXT_FIELD_SEARCH_REFRESH_STATE_REFRESHING)
-    {
-        _isTrackingTouch=false;
-        _isCanRefresh=true;
-        table.maxY=-1;
-        table.userInteractionEnabled=true;
-        
-        [txt setRefreshState:TEXT_FIELD_SEARCH_REFRESH_STATE_SEARCH animated:false completed:nil];
-        [UIView animateWithDuration:0.3f animations:^{
-            [self scrollViewDidScroll:table];
-        }];
-        
-        [UIView animateWithDuration:0.3f animations:^{
-            table.alpha=1;
-        }];
-        
-        [table reloadData];
-    }
-}
-
 
 -(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
-    _isUserReleaseTouched=false;
+    [txtRefresh tableWillBeginDragging:table];
 }
 
 -(BOOL)textFieldShouldBeginEditing:(UITextField *)textField
@@ -218,125 +211,14 @@
                 btnScanSmall.userInteractionEnabled=false;
             }];
         }
-
-        if(CGRectIsEmpty(_textFieldFrame))
-            _textFieldFrame=txt.frame;
+        
+        [txtRefresh tableDidScroll:table];
+        
         if(CGRectIsEmpty(_logoFrame))
             _logoFrame=imgvLogo.frame;
         
         float y=table.offsetYWithInsetTop;
         float perY=y/_scrollDistanceHeight;
-        
-        float txtY=_textFieldFrame.origin.y-y;
-        txtY=MAX(8,txtY);
-        
-        if(txtY>_textFieldFrame.origin.y)
-            txtY=_textFieldFrame.origin.y;
-        
-        [txt l_v_setY:txtY];
-        
-        if(txt.refreshState==TEXT_FIELD_SEARCH_REFRESH_STATE_REFRESHING || txt.refreshState==TEXT_FIELD_SEARCH_REFRESH_STATE_DONE)
-        {
-            CGRect rect=txt.frame;
-            rect.size.width=TEXT_FIELD_SEARCH_MIN_WIDTH;
-            rect.origin.x=(self.l_v_w-rect.size.width)/2;
-            txt.frame=rect;
-        }
-        else
-        {
-            if(y>0)
-            {
-                if(y<_scrollDistanceHeight)
-                {
-                    float w=_textFieldFrame.size.width+perY*(TEXT_FIELD_SEARCH_DEFAULT_WIDTH-_textFieldFrame.size.width);
-                    [txt l_v_setW:w];
-                    [txt l_v_setX:_textFieldFrame.origin.x-(perY*(TEXT_FIELD_SEARCH_DEFAULT_WIDTH-_textFieldFrame.size.width))/2+4.f*perY];
-                }
-                else
-                {
-                    txt.frame=CGRectMake((self.l_v_w-TEXT_FIELD_SEARCH_DEFAULT_WIDTH)/2+MIN(4.f*perY,4), USER_PROMOTION_TEXT_FIELD_SEARCH_MIN_Y, TEXT_FIELD_SEARCH_DEFAULT_WIDTH, _textFieldFrame.size.height);
-                }
-            }
-            else
-            {
-                CGRect rect=_textFieldFrame;
-                
-                float yy=rect.size.width*perY;
-                yy*=1.5f;
-                
-                rect.size.width+=yy;
-                
-                if(rect.size.width<TEXT_FIELD_SEARCH_MIN_WIDTH)
-                {
-                    rect.size.width=TEXT_FIELD_SEARCH_MIN_WIDTH;
-                    rect.origin.x=(self.l_v_w-rect.size.width)/2;
-                    
-                    if(_startYAngle==-999)
-                        _startYAngle=y;
-                    
-                    switch (txt.refreshState) {
-                        case TEXT_FIELD_SEARCH_REFRESH_STATE_REFRESHING:
-                            break;
-                            
-                        case TEXT_FIELD_SEARCH_REFRESH_STATE_SEARCH:
-                        {
-                            float angle=180-((perY+0.5f)*180.f)*3.5f;
-                            angle=DEGREES_TO_RADIANS(angle);
-                            
-                            [txt setRefreshState:TEXT_FIELD_SEARCH_REFRESH_STATE_ROTATE animated:false completed:nil];
-                            
-                            [txt setAngle:angle];
-                        }
-                            break;
-                            
-                        case TEXT_FIELD_SEARCH_REFRESH_STATE_ROTATE:
-                        {
-                            float angle=180-((perY+0.5f)*180.f)*3.5f;
-                            angle=DEGREES_TO_RADIANS(angle);
-                            
-                            [txt setAngle:angle];
-                            
-                            if(angle>M_PI*3)
-                            {
-                                angle=M_PI*3;
-                                
-                                if(_isCanRefresh)
-                                {
-                                    _isTrackingTouch=true;
-                                    _isCanRefresh=FALSE;
-                                    table.maxY=-table.contentInset.top;
-                                    [txt setRefreshState:TEXT_FIELD_SEARCH_REFRESH_STATE_REFRESHING animated:true completed:nil];
-                                    [self reloadData];
-                                    
-                                    [UIView animateWithDuration:0.3f animations:^{
-                                        table.alpha=0.1f;
-                                    }];
-                                }
-                            }
-                        }
-                            break;
-                            
-                        case TEXT_FIELD_SEARCH_REFRESH_STATE_DONE:
-                            
-                            break;
-                    }
-                }
-                else
-                {
-                    rect.origin.x-=yy/2;
-                    rect.size.width=MAX(TEXT_FIELD_SEARCH_MIN_WIDTH,rect.size.width);
-                    
-                    [txt setRefreshState:TEXT_FIELD_SEARCH_REFRESH_STATE_SEARCH animated:false completed:nil];
-                }
-                
-                txt.frame=rect;
-            }
-        }
-        
-        if(txt.l_v_w<95.f)
-            txt.text=@"";
-        else
-            txt.text=TEXTFIELD_SEARCH_PLACEHOLDER_TEXT;
         
         float logoY=_logoFrame.origin.y-y/4;
         logoY=MIN(_logoFrame.origin.y,logoY);
@@ -346,16 +228,15 @@
         float scaleLogo=MAX(0.1f,1-perY);
         scaleLogo=MIN(1.2f,scaleLogo);
         imgvLogo.transform=CGAffineTransformMakeScale(scaleLogo, scaleLogo);
+
     }
 }
 
 -(void) reloadData
 {
     _page=-1;
-    table.userInteractionEnabled=false;
     _isLoadingMore=false;
     _canLoadingMore=true;
-    _isAPIFinished=false;
     
     [self requestUserPromotion];
 }
@@ -463,24 +344,20 @@
         
         ASIOperationUserPromotion* ope=(ASIOperationUserPromotion*) operation;
         
-        if(txt.refreshState==TEXT_FIELD_SEARCH_REFRESH_STATE_REFRESHING)
+        if(txtRefresh.refreshState==TEXTFIELD_REFRESH_STATE_REFRESHING)
         {
-            _userPromotions=[NSMutableArray new];
-            
-            __weak UserPromotionViewController *wSelf=self;
-            [txt setRefreshState:TEXT_FIELD_SEARCH_REFRESH_STATE_DONE animated:true completed:^(enum TEXT_FIELD_SEARCH_REFRESH_STATE state) {
-                if(wSelf)
-                    [wSelf callReloadTable];
-            }];
+            _userPromotionsAPI=[[NSMutableArray alloc] initWithArray:ope.userPromotions];
+            [txtRefresh markRefreshDone:table];
         }
-
-        _isLoadingMore=false;
-        _canLoadingMore=ope.userPromotions.count==10;
-        _page++;
-        _isAPIFinished=true;
-        [_userPromotions addObjectsFromArray:ope.userPromotions];
-        
-        [self callReloadTable];
+        else if(txtRefresh.refreshState==TEXTFIELD_REFRESH_STATE_NORMAL)
+        {
+            [_userPromotions addObjectsFromArray:ope.userPromotions];
+            _canLoadingMore=ope.userPromotions.count==10;
+            _isLoadingMore=false;
+            _page++;
+            
+            [table reloadData];
+        }
         
         _operationUserPromotion=nil;
     }
@@ -491,22 +368,6 @@
     if([operation isKindOfClass:[ASIOperationUserPromotion class]])
     {
         [self.view removeLoading];
-        
-        if(txt.refreshState==TEXT_FIELD_SEARCH_REFRESH_STATE_REFRESHING)
-        {
-            _userPromotions=[NSMutableArray new];
-            
-            __weak UserPromotionViewController *wSelf=self;
-            [txt setRefreshState:TEXT_FIELD_SEARCH_REFRESH_STATE_DONE animated:true completed:^(enum TEXT_FIELD_SEARCH_REFRESH_STATE state) {
-                if(wSelf)
-                    [wSelf callReloadTable];
-            }];
-        }
-        
-        _isAPIFinished=true;
-        
-        [self callReloadTable];
-        
         _operationUserPromotion=nil;
     }
 }
@@ -518,23 +379,5 @@
 @end
 
 @implementation TableUserPromotion
-
--(void)awakeFromNib
-{
-    [super awakeFromNib];
-    
-    self.maxY=-1;
-}
-
--(void)setContentOffset:(CGPoint)contentOffset
-{
-    if(self.maxY!=-1)
-    {
-        if(contentOffset.y>self.maxY)
-            contentOffset.y=self.maxY;
-    }
-    
-    [super setContentOffset:contentOffset];
-}
 
 @end
