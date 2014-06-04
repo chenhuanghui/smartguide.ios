@@ -8,6 +8,7 @@
 
 #import "UserNotificationCell.h"
 #import <CoreText/CoreText.h>
+#import "DataManager.h"
 
 @interface UserNotificationCell()<UIScrollViewDelegate,UIGestureRecognizerDelegate,TokenViewDelegate>
 
@@ -42,6 +43,9 @@
     
     scroll.contentOffset=CGPointZero;
     scroll.contentSize=CGSizeMake(leftView.l_v_w+rightView.l_v_w, 0);
+    
+    //Chỉ user có tài khoản mới được phép remove notification
+    scroll.scrollEnabled=currentUser().enumDataMode==USER_DATA_FULL;
 }
 
 -(void)tokenViewTouchedToken:(TokenView *)token object:(id)obj

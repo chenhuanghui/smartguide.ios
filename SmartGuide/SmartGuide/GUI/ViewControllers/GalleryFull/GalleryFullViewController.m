@@ -210,7 +210,7 @@
         
         if(index!=NSNotFound)
         {
-            [collView scrollToItemAtIndexPath:indexPath(index, 0) atScrollPosition:UICollectionViewScrollPositionNone animated:false];
+            [collView scrollToItemAtIndexPath:makeIndexPath(index, 0) atScrollPosition:UICollectionViewScrollPositionNone animated:false];
         }
     }
 }
@@ -286,7 +286,7 @@
         
         if(index!=NSNotFound)
         {
-            [collView scrollToItemAtIndexPath:indexPath(index, 0) atScrollPosition:UICollectionViewScrollPositionNone animated:false];
+            [collView scrollToItemAtIndexPath:makeIndexPath(index, 0) atScrollPosition:UICollectionViewScrollPositionNone animated:false];
         }
     }
 }

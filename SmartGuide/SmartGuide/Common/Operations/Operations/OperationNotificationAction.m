@@ -12,7 +12,7 @@
 
 +(AFOperation *)operationWithURL:(NSString *)url method:(NSString *)method params:(NSString *)params
 {
-    return [[AFHTTPRequestOperationManager manager] requestWithMethod:method url:url parameters:[params jsonDictionary] delegate:nil];
+    return [[AFOperationManager shareInstance] requestWithMethod:method url:url parameters:[params jsonDictionary] delegate:nil];
 }
 
 @end

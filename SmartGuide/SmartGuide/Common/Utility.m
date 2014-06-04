@@ -91,7 +91,7 @@ NSURL* URL(NSString* url)
     return [NSURL URLWithString:url];
 }
 
-NSIndexPath *indexPath(int row, int section)
+NSIndexPath *makeIndexPath(int row, int section)
 {
     return [NSIndexPath indexPathForRow:row inSection:section];
 }

@@ -48,7 +48,7 @@ int random_int(int from, int to);
 float UIScreenScale();
 CGSize UIScreenSize();
 NSURL* URL(NSString* url);
-NSIndexPath *indexPath(int row, int section);
+NSIndexPath *makeIndexPath(int row, int section);
 
 NSUInteger UIViewAutoresizingAll();
 

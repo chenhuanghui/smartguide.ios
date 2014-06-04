@@ -19,11 +19,13 @@
 #import "NotificationManager.h"
 #import "RefreshingView.h"
 #import "OperationNotificationAction.h"
+#import "ASIOperationUserNotificationRemove.h"
 
 @interface UserNotificationViewController ()<UITableViewDataSource,UITableViewDelegate,UserNotificationCellDelegate,ASIOperationPostDelegate,UIActionSheetDelegate,RefreshingViewDelegate>
 {
     enum USER_NOTIFICATION_DISPLAY_TYPE _displayType;
     ASIOperationUserNotificationNewest *_operationUserNotification;
+    ASIOperationUserNotificationRemove *_operationUserNotificationRemove;
     
     __weak RefreshingView *refreshView;
 }
@@ -396,29 +398,70 @@
     [self processUserNotification:obj];
 }
 
+-(void) deleteUserNotification:(int) idSender
+{
+    if(_operationUserNotificationRemove)
+        return;
+    
+    _operationUserNotificationRemove=[[ASIOperationUserNotificationRemove alloc] initWithIDNotification:nil idSender:@(idSender) userLat:userLat() userLng:userLng()];
+    _operationUserNotificationRemove.delegatePost=self;
+    
+    [_operationUserNotificationRemove startAsynchronous];
+}
+
 -(void)userNotificationCellTouchedRemove:(UserNotificationCell *)cell obj:(UserNotification *)obj
 {
-    [cell removeObserverHighlightUnread];
-    [self removeUserNotification:obj];
+    if(currentUser().enumDataMode!=USER_DATA_FULL)
+        return;
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_USER_REMOVE_NOTIFICATION object:nil userInfo:@{@"idNotification": obj.idNotification,@"idSender": obj.idSender}];
-    bool isHasReadNotification=_isHasReadNotification;
-    bool _willRemoveSectionRead=false;
-    [_userNotification removeObject:obj];
+    NSArray *notificationRemoved=[_userNotification filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"%K==%@",UserNotification_IdSender,obj.idSender]];
     
+    [self deleteUserNotification:obj.idSender.integerValue];
+
+    //Tạo danh sách các row sẽ bị remove từ table view
+    NSMutableArray *arrIdx=[NSMutableArray array];
+    
+    for(UserNotification *noti in notificationRemoved)
+    {
+        int idx=[_userNotificationUnread indexOfObject:noti];
+        
+        if(idx!=NSNotFound)
+        {
+            NSIndexPath *indexPath=makeIndexPath(idx, NOTIFICATION_STATUS_UNREAD);
+            
+            UserNotificationCell *notiCell=(UserNotificationCell*)[table cellForRowAtIndexPath:indexPath];
+            [notiCell removeObserverHighlightUnread];
+            [notiCell.superview sendSubviewToBack:notiCell];
+            
+            [arrIdx addObject:indexPath];
+        }
+        else
+        {
+            idx=[_userNotificationRead indexOfObject:noti];
+            
+            if(idx!=NSNotFound)
+            {
+                NSIndexPath *indexPath=makeIndexPath(idx, NOTIFICATION_STATUS_READ);
+                
+                UserNotificationCell *notiCell=(UserNotificationCell*)[table cellForRowAtIndexPath:indexPath];
+                [notiCell removeObserverHighlightUnread];
+                [notiCell.superview sendSubviewToBack:notiCell];
+                
+                [arrIdx addObject:indexPath];
+            }
+        }
+    }
+    
+    [_userNotification removeObjectsInArray:notificationRemoved];
     [self makeData];
     
-    if(!_isHasReadNotification && isHasReadNotification)
-        _willRemoveSectionRead=true;
-    
-    [cell.superview sendSubviewToBack:cell];
     [table beginUpdates];
     
-    NSIndexPath *idx=[table indexPathForCell:cell];
-    
-    [table deleteRowsAtIndexPaths:@[idx] withRowAnimation:UITableViewRowAnimationNone];
+    [table deleteRowsAtIndexPaths:arrIdx withRowAnimation:UITableViewRowAnimationAutomatic];
     
     [table endUpdates];
+    
+    //Dùng để remove table section view
     [table killScroll];
 }
 
@@ -646,7 +689,7 @@
     }
     else
     {
-        [table insertRowsAtIndexPaths:@[indexPath(0, 0)] withRowAnimation:UITableViewRowAnimationAutomatic];
+        [table insertRowsAtIndexPaths:@[makeIndexPath(0, 0)] withRowAnimation:UITableViewRowAnimationAutomatic];
     }
     
     [table endUpdates];
@@ -661,7 +704,7 @@
     
     if(idx!=NSNotFound)
     {
-        [table scrollToRowAtIndexPath:indexPath(idx, 0) atScrollPosition:UITableViewScrollPositionMiddle animated:animated];
+        [table scrollToRowAtIndexPath:makeIndexPath(idx, 0) atScrollPosition:UITableViewScrollPositionMiddle animated:animated];
         
         return;
     }
@@ -670,7 +713,7 @@
     
     if(idx!=NSNotFound)
     {
-        [table scrollToRowAtIndexPath:indexPath(idx, 1) atScrollPosition:UITableViewScrollPositionMiddle animated:animated];
+        [table scrollToRowAtIndexPath:makeIndexPath(idx, 1) atScrollPosition:UITableViewScrollPositionMiddle animated:animated];
         
         return;
     }

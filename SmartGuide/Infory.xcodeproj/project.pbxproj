@@ -956,6 +956,7 @@
 		A95B119B18EDCE470020477D /* ImageDownloaded.m in Sources */ = {isa = PBXBuildFile; fileRef = A95B119A18EDCE470020477D /* ImageDownloaded.m */; };
 		A9601BF019178E2500E8CDEE /* NotificationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A9601BEF19178E2500E8CDEE /* NotificationManager.m */; };
 		A961416C17A02E8800D30375 /* Flags.m in Sources */ = {isa = PBXBuildFile; fileRef = A961416B17A02E8800D30375 /* Flags.m */; };
+		A969D04F193DCA3800CBA4AD /* AFOperation+API.m in Sources */ = {isa = PBXBuildFile; fileRef = A969D04E193DCA3800CBA4AD /* AFOperation+API.m */; };
 		A971296018EA794B0065EAA7 /* UserNotificationDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A971295E18EA794B0065EAA7 /* UserNotificationDetailCell.m */; };
 		A971296118EA794B0065EAA7 /* UserNotificationDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A971295F18EA794B0065EAA7 /* UserNotificationDetailCell.xib */; };
 		A97C847417B0236400D9CEB9 /* ASIOperationShopProduct.m in Sources */ = {isa = PBXBuildFile; fileRef = A97C847317B0236400D9CEB9 /* ASIOperationShopProduct.m */; };
@@ -2317,6 +2318,8 @@
 		A9601BEF19178E2500E8CDEE /* NotificationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationManager.m; sourceTree = "<group>"; };
 		A961416A17A02E8800D30375 /* Flags.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flags.h; sourceTree = "<group>"; };
 		A961416B17A02E8800D30375 /* Flags.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Flags.m; sourceTree = "<group>"; };
+		A969D04D193DCA3800CBA4AD /* AFOperation+API.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AFOperation+API.h"; sourceTree = "<group>"; };
+		A969D04E193DCA3800CBA4AD /* AFOperation+API.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AFOperation+API.m"; sourceTree = "<group>"; };
 		A971295D18EA794B0065EAA7 /* UserNotificationDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserNotificationDetailCell.h; sourceTree = "<group>"; };
 		A971295E18EA794B0065EAA7 /* UserNotificationDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserNotificationDetailCell.m; sourceTree = "<group>"; };
 		A971295F18EA794B0065EAA7 /* UserNotificationDetailCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserNotificationDetailCell.xib; sourceTree = "<group>"; };
@@ -3757,6 +3760,8 @@
 				A925E3CE17B089EB00806617 /* TokenManager.m */,
 				A9A9815E193C812A00B8512E /* AFOperation.h */,
 				A9A9815F193C812A00B8512E /* AFOperation.m */,
+				A969D04D193DCA3800CBA4AD /* AFOperation+API.h */,
+				A969D04E193DCA3800CBA4AD /* AFOperation+API.m */,
 			);
 			path = Operations;
 			sourceTree = "<group>";
@@ -5794,6 +5799,7 @@
 				9A7AC23318D191F10043316D /* MapView.m in Sources */,
 				9ACE90901875D176008FEA7E /* KM2Voucher.m in Sources */,
 				9A1E234118B1C76D0077F503 /* ASIOperationUserPromotion.m in Sources */,
+				A969D04F193DCA3800CBA4AD /* AFOperation+API.m in Sources */,
 				9ADCD95118D19C3F004CB67E /* GMGridViewCell.m in Sources */,
 				9A7AC1E218D1907B0043316D /* KMBGView.m in Sources */,
 				9ADCD94518D19C3F004CB67E /* ASIDataCompressor.m in Sources */,

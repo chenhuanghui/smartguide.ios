@@ -111,10 +111,10 @@ static NSString * const kClientId = @"790158294934-p5pnscmrt4avj698ncvhp14fit0f4
 #define API_GET_SHOP_GALLERY @"images/getShopGallery"
 #define API_GET_USER_GALLERY @"images/getUserGallery"
 #define API_USER_NOTIFICATION_CHECK @"user/notificationCheck"
-#define API_USER_NOTIFICATION @"user/notification/getNewest"
+#define API_USER_NOTIFICATION_NEWEST @"user/notification/getNewest"
 #define API_USER_NOTIFICATION_CONTENT @"user/notification/listBySender"
 #define API_USER_NOTIFICATION_READ @"user/notificationRead"
-#define API_USER_NOTIFICATION_REMOVE @"user/notificationRemove"
+#define API_USER_NOTIFICATION_REMOVE @"user/notification/remove"
 #define API_USER_NOTICE @"user/notice"
 #define API_USER_NOTIFICATION_TOKEN @"user/notificationToken"
 

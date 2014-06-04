@@ -10,14 +10,18 @@
 
 @implementation ASIOperationUserNotificationRemove
 
--(ASIOperationUserNotificationRemove *)initWithIDNotification:(int)idNotification userLat:(double)userLat userLng:(double)userLng uuid:(NSString *)uuid
+-(ASIOperationUserNotificationRemove *)initWithIDNotification:(NSNumber *)idNotification idSender:(NSNumber *)idSender userLat:(double)userLat userLng:(double)userLng
 {
     self=[super initWithURL:SERVER_API_URL_MAKE(API_USER_NOTIFICATION_REMOVE)];
     
-    [self.keyValue setObject:@(idNotification) forKey:@"idNotification"];
+    if(idSender)
+        [self.keyValue setObject:idSender forKey:@"idSender"];
+    
+    if(idNotification)
+        [self.keyValue setObject:idNotification forKey:@"idNotification"];
+    
     [self.keyValue setObject:@(userLat) forKey:USER_LATITUDE];
     [self.keyValue setObject:@(userLng) forKey:USER_LONGITUDE];
-    [self.keyValue setObject:UUID() forKey:@"uuid"];
     
     return self;
 }

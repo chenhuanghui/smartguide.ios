@@ -241,4 +241,9 @@
     return HTTPClient;
 }
 
+-(void)dealloc
+{
+    NSLog(@"%@",NSStringFromClass([self class]));
+}
+
 @end

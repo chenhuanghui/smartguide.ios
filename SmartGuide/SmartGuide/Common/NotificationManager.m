@@ -229,7 +229,6 @@ static NotificationManager *_notificationManager=nil;
 
 -(void)registerRemoteNotificaion
 {
-    return;
     [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge |UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
 }
 

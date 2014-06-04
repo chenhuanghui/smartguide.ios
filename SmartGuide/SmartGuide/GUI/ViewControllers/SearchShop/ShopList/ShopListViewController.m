@@ -1039,7 +1039,7 @@
     
     _mapRowHeight=[self heightForZoom]+[self mapNormalHeight];
     
-    [tableList reloadRowsAtIndexPaths:@[indexPath(0, 0)] withRowAnimation:UITableViewRowAnimationNone];
+    [tableList reloadRowsAtIndexPaths:@[makeIndexPath(0, 0)] withRowAnimation:UITableViewRowAnimationNone];
     
     [tableList l_co_setY:0 animate:true];
     self.view.userInteractionEnabled=false;
@@ -1091,7 +1091,7 @@
     
     _mapRowHeight=[self mapNormalHeight];
     
-    [tableList reloadRowsAtIndexPaths:@[indexPath(0, 0)] withRowAnimation:UITableViewRowAnimationNone];
+    [tableList reloadRowsAtIndexPaths:@[makeIndexPath(0, 0)] withRowAnimation:UITableViewRowAnimationNone];
     
     btnScanBig.alpha=0;
     btnScanBig.hidden=false;
@@ -1354,7 +1354,7 @@
         return;
     
     ScrollerShopList *sv=[[ScrollerShopList alloc] initWithTable:tableList];
-    [sv l_v_setY:[tableList rectForRowAtIndexPath:indexPath(0, 1)].origin.y];
+    [sv l_v_setY:[tableList rectForRowAtIndexPath:makeIndexPath(0, 1)].origin.y];
     [sv l_v_setH:29];
     sv.userInteractionEnabled=false;
     
@@ -1526,8 +1526,8 @@
                     {
                         if([self numberOfSections]>1 && [self numberOfRowsInSection:1]>0)
                         {
-                            id cell=[self cellForRowAtIndexPath:indexPath(0, 1)];
-                            CGRect rect=[self rectForRowAtIndexPath:indexPath(0, 1)];
+                            id cell=[self cellForRowAtIndexPath:makeIndexPath(0, 1)];
+                            CGRect rect=[self rectForRowAtIndexPath:makeIndexPath(0, 1)];
                             float height=0;
                             
                             if([cell isKindOfClass:[ShopListCell class]])
