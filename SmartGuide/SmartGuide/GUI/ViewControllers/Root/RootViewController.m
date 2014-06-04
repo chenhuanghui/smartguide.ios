@@ -54,7 +54,7 @@
         if([NotificationManager shareInstance].launchNotification.idNotification)
         {
             [array addObject:[UserNotificationViewController new]];
-            [array addObject:[[UserNotificationDetailViewController alloc] initWithIDNotification:[NotificationManager shareInstance].launchNotification.idNotification.integerValue]];
+            [array addObject:[[UserNotificationDetailViewController alloc] initWithIDSender:[NotificationManager shareInstance].launchNotification.idSender.integerValue]];
         }
         
         [NotificationManager shareInstance].launchNotification=nil;

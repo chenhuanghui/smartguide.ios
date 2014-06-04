@@ -25,6 +25,6 @@
 +(float) heightWithTokens:(NSArray*) tokens forWidth:(float) forWidth;
 
 @property (nonatomic, weak) JSTokenButton *selectedToken;
-@property (nonatomic, weak) id<TokenViewDelegate> delegate;
+@property (nonatomic, weak) IBOutlet id<TokenViewDelegate> delegate;
 
 @end

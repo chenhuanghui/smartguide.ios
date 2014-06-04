@@ -2582,3 +2582,14 @@ static const NSString *KEY_HIT_TEST_EDGE_INSETS = @"HitTestEdgeInsets";
 }
 
 @end
+
+@implementation UITableView(Utility)
+
+-(bool) isCellCompletionVisibility:(NSIndexPath *) indexPath
+{
+    CGRect cellRect=[self convertRect:[self rectForRowAtIndexPath:indexPath] toView:self.superview];
+    
+    return CGRectContainsRect(self.frame, cellRect);
+}
+
+@end

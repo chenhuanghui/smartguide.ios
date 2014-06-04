@@ -9,9 +9,12 @@
 +(UserNotificationContent*) makeWithDictionary:(NSDictionary*) data;
 
 -(enum NOTIFICATION_STATUS) enumStatus;
+-(NSArray*) actionTitles;
+-(UserNotificationAction*) actionFromTitle:(NSString*) title;
 
 @property (nonatomic, strong) NSNumber *titleHeight;
 @property (nonatomic, strong) NSNumber *contentHeight;
+@property (nonatomic, strong) NSNumber *actionsHeight;
 @property (nonatomic, strong) NSAttributedString *titleAttribute;
 @property (nonatomic, strong) NSAttributedString *contentAttribute;
 

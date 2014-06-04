@@ -12,27 +12,25 @@
 #import "GUIManager.h"
 #import "QRCodeViewController.h"
 #import "UserNotificationViewController.h"
+#import "NotificationManager.h"
+#import "ASIOperationUserNotificationFromSender.h"
+#import "ASIOperationUserNotificationMarkRead.h"
+#import "OperationNotificationAction.h"
 
 @interface UserNotificationDetailViewController ()<UITableViewDataSource,UITableViewDelegate,ASIOperationPostDelegate,UserNotificationDetailCellDelegate>
+{
+    ASIOperationUserNotificationFromSender *_operationNotificationContent;
+}
 
 @end
 
 @implementation UserNotificationDetailViewController
 
--(UserNotificationDetailViewController *)initWithUserNotification:(UserNotification *)obj
+-(UserNotificationDetailViewController *)initWithIDSender:(int)idSender
 {
     self=[super initWithNibName:@"UserNotificationDetailViewController" bundle:nil];
     
-    _idNotification=obj.idNotification.integerValue;
-    
-    return self;
-}
-
--(UserNotificationDetailViewController *)initWithIDNotification:(int)idNotification
-{
-    self=[super initWithNibName:@"UserNotificationDetailViewController" bundle:nil];
-    
-    _idNotification=idNotification;
+    _idSender=idSender;
     
     return self;
 }
@@ -65,7 +63,7 @@
         _operationNotificationContent=nil;
     }
     
-    _operationNotificationContent=[[ASIOperationUserNotificationFromSender alloc] initWithIDNotification:_idNotification page:_page+1 userLat:userLat() userLng:userLng()];
+    _operationNotificationContent=[[ASIOperationUserNotificationFromSender alloc] initWithIDSender:_idSender page:_page+1 userLat:userLat() userLng:userLng()];
     _operationNotificationContent.delegatePost=self;
     
     [_operationNotificationContent startAsynchronous];
@@ -116,7 +114,8 @@
                 }
             }
             
-            [_userNotificationContents[0] setDisplayType:@(USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE_FULL)];
+            if(_page==0)
+                [_userNotificationContents[0] setDisplayType:@(USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE_FULL)];
             
             [[DataManager shareInstance] save];
         }
@@ -186,11 +185,8 @@
     
     UserNotificationContent *obj=_userNotificationContents[indexPath.row];
     UserNotificationDetailCell *cell=[tableView dequeueReusableCellWithIdentifier:[UserNotificationDetailCell reuseIdentifier]];
-    
-    if(indexPath.row==0)
-        [cell loadWithUserNotificationDetail:obj displayType:USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE_FULL];
-    else
-        [cell loadWithUserNotificationDetail:obj displayType:obj.enumDisplayType];
+
+    [cell loadWithUserNotificationDetail:obj displayType:obj.enumDisplayType];
     
     cell.delegate=self;
     
@@ -204,20 +200,70 @@
 
 -(void) markReadNotification:(UserNotificationContent*) obj
 {
+    if(obj.enumStatus==NOTIFICATION_STATUS_READ)
+        return;
     
+    obj.status=@(NOTIFICATION_STATUS_READ);
+    [[DataManager shareInstance] save];
+    
+    ASIOperationUserNotificationMarkRead *ope=[[ASIOperationUserNotificationMarkRead alloc] initWithIDNotification:obj.idNotification.integerValue userLat:userLat() userLng:userLng()];
+    [ope startAsynchronous];
 }
 
--(void)userNotificationDetailCellTouchedGo:(UserNotificationDetailCell *)cell
+-(void)userNotificationDetailCellTouchedAction:(UserNotificationDetailCell *)cell action:(UserNotificationAction *)action
 {
     [SGData shareInstance].fScreen=@"S00601";
-    UserNotificationContent *obj=[cell userNotificationDetail];
     
-    if(obj.enumStatus==NOTIFICATION_STATUS_UNREAD)
-    {
-        [self markReadNotification:obj];
+    if(cell.userNotificationDetail.idSender)
+        [[SGData shareInstance].fData setObject:cell.userNotificationDetail.idSender forKey:@"idSender"];
+    [[SGData shareInstance].fData setObject:cell.userNotificationDetail.idNotification forKey:@"idNotification"];
+    
+    switch (action.enumActionType) {
+        case NOTIFICATION_ACTION_TYPE_CALL_API:
+            
+            [OperationNotificationAction operationWithURL:action.url method:action.methodName params:action.params];
+            
+            break;
+            
+        case NOTIFICATION_ACTION_TYPE_POPUP_URL:
+            
+            [[GUIManager shareInstance].rootViewController showWebviewWithURL:URL(action.url)];
+            
+            break;
+            
+        case NOTIFICATION_ACTION_TYPE_SHOP_LIST:
+            
+            switch (action.enumShopListDataType) {
+                case NOTIFICATION_ACTION_SHOP_LIST_TYPE_IDPLACELIST:
+                    [[GUIManager shareInstance].rootViewController showShopListWithIDPlace:action.idPlacelist.integerValue];
+                    break;
+                    
+                case NOTIFICATION_ACTION_SHOP_LIST_TYPE_KEYWORDS:
+                    [[GUIManager shareInstance].rootViewController showShopListWithKeywordsShopList:action.keywords];
+                    break;
+                    
+                case NOTIFICATION_ACTION_SHOP_LIST_TYPE_IDSHOPS:
+                    [[GUIManager shareInstance].rootViewController showShopListWithIDShops:action.idShops];
+                    break;
+            }
+            
+            break;
+            
+        case NOTIFICATION_ACTION_TYPE_SHOP_USER:
+            [[GUIManager shareInstance].rootViewController presentShopUserWithIDShop:action.idShop.integerValue];
+            break;
+            
+        case NOTIFICATION_ACTION_TYPE_USER_PROMOTION:
+            [[GUIManager shareInstance].rootViewController showUserPromotion];
+            break;
+            
+        case NOTIFICATION_ACTION_TYPE_USER_SETTING:
+            [[GUIManager shareInstance].rootViewController showUserSetting];
+            break;
+            
+        case NOTIFICATION_ACTION_TYPE_UNKNOW:
+            break;
     }
-    
-    [self processUserNotification:obj];
 }
 
 -(void)userNotificationDetailCellTouchedLogo:(UserNotificationDetailCell *)cell
@@ -238,91 +284,56 @@
     switch (obj.enumDisplayType) {
         case USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE_TITLE:
         {
+            NSArray *array=[_userNotificationContents filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"%K==%@",UserNotificationContent_DisplayType,@(USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE_FULL)]];
+            
+            NSMutableArray *arrIdx=[NSMutableArray array];
+            
+            if(array>0)
+            {
+                UserNotificationContent *objFull=array[0];
+                objFull.displayType=@(USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE_TITLE);
+                
+                [arrIdx addObject:makeIndexPath([_userNotificationContents indexOfObject:objFull], 0)];
+            }
+            
+            [arrIdx addObject:indexPath];
             obj.displayType=@(USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE_FULL);
             [[DataManager shareInstance] save];
             
-            [table reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+            [table reloadRowsAtIndexPaths:arrIdx withRowAnimation:UITableViewRowAnimationAutomatic];
         }
             break;
             
         case USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE_FULL:
-//            if(obj.actionTitle.length==0)
-//                [self processUserNotification:obj];
             break;
     }
-}
-
--(void)processRemoteNotification:(UserNotification *)obj
-{
-    if(obj.idNotification)
+    
+    if(![tableView isCellCompletionVisibility:indexPath])
     {
-        _idNotification=obj.idNotification.integerValue;
-        [self resetData];
+        [tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionMiddle animated:true];
     }
 }
 
--(void) processUserNotification:(UserNotificationContent*) userNotification
+-(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"processUserNotification %@",userNotification);
-    
-//    switch (userNotification.enumActionType) {
-//        case USER_NOTIFICATION_CONTENT_ACTION_TYPE_MARK_READ:
-//        {
-//            if(userNotification.enumStatus==USER_NOTIFICATION_CONTENT_STATUS_UNREAD)
-//                [userNotification markAndSendRead];
-//        }
-//            break;
-//            
-//        case USER_NOTIFICATION_ACTION_TYPE_LOGIN:
-//        {
-//            [[GUIManager shareInstance] showLoginControll:^(bool isLogin) {
-//                if(isLogin)
-//                    [self resetData];
-//            }];
-//        }
-//            break;
-//            
-//        case USER_NOTIFICATION_CONTENT_ACTION_TYPE_POPUP_URL:
-//            [[GUIManager shareInstance].rootViewController showWebviewWithURL:[NSURL URLWithString:userNotification.url]];
-//            break;
-//            
-//        case USER_NOTIFICATION_CONTENT_ACTION_TYPE_SCAN_CODE:
-//            [self showQRCodeWithContorller:self inView:self.view withAnimationType:QRCODE_ANIMATION_TOP_BOT screenCode:[UserNotificationDetailViewController screenCode]];
-//            break;
-//            
-//        case USER_NOTIFICATION_CONTENT_ACTION_TYPE_SHOP_LIST:
-//            switch (userNotification.enumShopListDataType) {
-//                case USER_NOTIFICATION_CONTENT_SHOP_LIST_DATA_TYPE_PLACELIST:
-//                    [[GUIManager shareInstance].rootViewController showShopListWithIDPlace:userNotification.idPlacelist.integerValue];
-//                    break;
-//                    
-//                case USER_NOTIFICATION_CONTENT_SHOP_LIST_DATA_TYPE_KEYWORDS:
-//                    [[GUIManager shareInstance].rootViewController showShopListWithKeywordsShopList:userNotification.keywords];
-//                    break;
-//                    
-//                case USER_NOTIFICATION_CONTENT_SHOP_LIST_DATA_TYPE_IDSHOPS:
-//                    [[GUIManager shareInstance].rootViewController showShopListWithIDShops:userNotification.idShops];
-//                    break;
-//                    
-//                case USER_NOTIFICATION_CONTENT_SHOP_LIST_DATA_TYPE_UNKNOW:
-//                    NSLog(@"UserNotificationDetailViewController USER_NOTIFICATION_SHOP_LIST_DATA_TYPE_UNKNOW");
-//                    break;
-//            }
-//            break;
-//            
-//        case USER_NOTIFICATION_CONTENT_ACTION_TYPE_SHOP_USER:
-//            [[GUIManager shareInstance].rootViewController presentShopUserWithIDShop:userNotification.idShop.integerValue];
-//            break;
-//            
-//        case USER_NOTIFICATION_CONTENT_ACTION_TYPE_USER_PROMOTION:
-//            NSLog(@"UserNotificationDetailViewController USER_NOTIFICATION_ACTION_TYPE_USER_PROMOTION");
-//            //            [[GUIManager shareInstance].rootViewController showUserPromotion];
-//            break;
-//            
-//        case USER_NOTIFICATION_ACTION_TYPE_USER_SETTING:
-//            [[GUIManager shareInstance].rootViewController showUserSetting];
-//            break;
-//    }
+    if([cell isKindOfClass:[UserNotificationDetailCell class]])
+    {
+        UserNotificationDetailCell *dCell=(UserNotificationDetailCell*)cell;
+        
+        if(dCell.userNotificationDetail.enumStatus==NOTIFICATION_STATUS_UNREAD)
+        {
+            [self markReadNotification:dCell.userNotificationDetail];
+        }
+    }
+}
+
+-(void)processRemoteNotification:(RemoteNotification *)obj
+{
+    if(obj.idSender)
+    {
+        _idSender=obj.idSender.integerValue;
+        [self resetData];
+    }
 }
 
 @end

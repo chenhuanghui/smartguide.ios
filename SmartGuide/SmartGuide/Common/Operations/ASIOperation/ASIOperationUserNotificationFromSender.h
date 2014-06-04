@@ -12,7 +12,7 @@
 
 @interface ASIOperationUserNotificationFromSender : ASIOperationPost
 
--(ASIOperationUserNotificationFromSender*) initWithIDNotification:(int) idNotification page:(int) page userLat:(double) userLat userLng:(double) userLng;
+-(ASIOperationUserNotificationFromSender*) initWithIDSender:(int) idSender page:(int) page userLat:(double) userLat userLng:(double) userLng;
 
 @property (nonatomic, strong) NSMutableArray *notifications;
 

@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "UserNotificationContent.h"
+#import "TokenView.h"
 
 enum USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE
 {
@@ -19,7 +20,7 @@ enum USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE
 
 @protocol UserNotificationDetailCellDelegate <NSObject>
 
--(void) userNotificationDetailCellTouchedGo:(UserNotificationDetailCell*) cell;
+-(void) userNotificationDetailCellTouchedAction:(UserNotificationDetailCell*) cell action:(UserNotificationAction*) action;
 -(void) userNotificationDetailCellTouchedLogo:(UserNotificationDetailCell*) cell;
 
 @end
@@ -29,11 +30,10 @@ enum USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE
     __weak IBOutlet UILabel *lblTime;
     __weak IBOutlet UILabel *lblTitle;
     __weak IBOutlet UILabel *lblContent;
-    __weak IBOutlet UIButton *btnGo;
     __weak IBOutlet UIView *displayView;
     __weak IBOutlet UIImageView *imgvIcon;
-    __weak IBOutlet UILabel *lblGoTo;
     __weak IBOutlet UIButton *btnLogo;
+    __weak IBOutlet TokenView *tokens;
     
     __weak UserNotificationContent *_obj;
     enum USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE _displayType;

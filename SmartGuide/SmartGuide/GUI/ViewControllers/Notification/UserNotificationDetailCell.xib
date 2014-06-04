@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="5053" systemVersion="12F37" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="5056" systemVersion="13D65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
         <deployment defaultVersion="1536" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
@@ -8,14 +8,14 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="UserNotificationDetailCell" rowHeight="149" id="KGk-i7-Jjw" customClass="UserNotificationDetailCell">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="132"/>
+            <rect key="frame" x="0.0" y="0.0" width="320" height="88"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="131"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="87"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" id="2wF-GB-OOJ">
-                        <rect key="frame" x="4" y="23" width="312" height="149"/>
+                        <rect key="frame" x="4" y="23" width="312" height="105"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="xvX-NK-6rd" userLabel="time">
@@ -37,25 +37,14 @@
                                 <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="13"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="OBc-tY-fov">
-                                <rect key="frame" x="58" y="53" width="196" height="44"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <state key="normal" image="button_gotoshop_home.png">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
+                            <view contentMode="scaleToFill" id="SPj-V4-wjF" customClass="TokenView">
+                                <rect key="frame" x="0.0" y="64" width="312" height="0.0"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <connections>
-                                    <action selector="btnGoTouchUpInside:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="6QX-qD-hHn"/>
+                                    <outlet property="delegate" destination="KGk-i7-Jjw" id="gzq-ja-iP5"/>
                                 </connections>
-                            </button>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Đi đến địa điểm" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="37B-o2-faQ">
-                                <rect key="frame" x="71" y="53" width="147" height="42"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="14"/>
-                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                                <color key="shadowColor" red="0.35642538270000002" green="0.031077005410000001" blue="0.071378173719999993" alpha="1" colorSpace="calibratedRGB"/>
-                                <size key="shadowOffset" width="0.0" height="1"/>
-                            </label>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <userDefinedRuntimeAttributes>
@@ -103,19 +92,17 @@
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <connections>
-                <outlet property="btnGo" destination="OBc-tY-fov" id="gvW-oz-S6l"/>
                 <outlet property="btnLogo" destination="cdj-Vh-264" id="yi5-SW-z7w"/>
                 <outlet property="displayView" destination="2wF-GB-OOJ" id="r1S-Hc-8KC"/>
                 <outlet property="imgvIcon" destination="bTN-Zz-SJY" id="jbx-zu-wkW"/>
                 <outlet property="lblContent" destination="TcL-vZ-Tpf" id="Eny-ZM-AjZ"/>
-                <outlet property="lblGoTo" destination="37B-o2-faQ" id="sI4-Nf-hYA"/>
                 <outlet property="lblTime" destination="xvX-NK-6rd" id="tQk-hq-cg9"/>
                 <outlet property="lblTitle" destination="yhi-C8-LIf" id="Fbm-w9-bOy"/>
+                <outlet property="tokens" destination="SPj-V4-wjF" id="Ukf-vC-XKX"/>
             </connections>
         </tableViewCell>
     </objects>
     <resources>
-        <image name="button_gotoshop_home.png" width="196" height="44"/>
         <image name="frame_avauser.png" width="43" height="44"/>
     </resources>
 </document>

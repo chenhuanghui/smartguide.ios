@@ -10,11 +10,11 @@
 
 @implementation ASIOperationUserNotificationFromSender
 
--(ASIOperationUserNotificationFromSender *)initWithIDNotification:(int)idNotification page:(int)page userLat:(double)userLat userLng:(double)userLng
+-(ASIOperationUserNotificationFromSender *)initWithIDSender:(int)idSender page:(int)page userLat:(double)userLat userLng:(double)userLng
 {
-    self=[super initWithURL:SERVER_API_URL_MAKE(API_USER_NOTIFICATION_CONTENT)];
+    self=[super initWithURL:SERVER_API_URL_MAKE(API_USER_NOTIFICATION_LIST_BY_SENDER)];
     
-    [self.keyValue setObject:@(idNotification) forKey:@"idNotification"];
+    [self.keyValue setObject:@(idSender) forKey:@"idSender"];
     [self.keyValue setObject:@(page) forKey:PAGE];
     [self.keyValue setObject:@(userLat) forKey:USER_LATITUDE];
     [self.keyValue setObject:@(userLng) forKey:USER_LONGITUDE];
@@ -35,6 +35,7 @@
     {
         UserNotificationContent *obj=[UserNotificationContent makeWithDictionary:dict];
         obj.notification=noti;
+        obj.idSender=noti.idSender;
 
         [self.notifications addObject:obj];
     }

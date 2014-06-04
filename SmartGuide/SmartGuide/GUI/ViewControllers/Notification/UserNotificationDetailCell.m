@@ -9,7 +9,16 @@
 #import "UserNotificationDetailCell.h"
 #import "ImageManager.h"
 
+@interface UserNotificationDetailCell()<TokenViewDelegate>
+
+@end
+
 @implementation UserNotificationDetailCell
+
+-(void)tokenViewTouchedToken:(TokenView *)token object:(id)obj
+{
+    [self.delegate userNotificationDetailCellTouchedAction:self action:obj];
+}
 
 -(void)loadWithUserNotificationDetail:(UserNotificationContent *)obj displayType:(enum USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE)displayType
 {
@@ -19,22 +28,18 @@
     lblTime.text=obj.time;
     lblTitle.attributedText=obj.titleAttribute;
     lblContent.attributedText=obj.contentAttribute;
-//    lblGoTo.text=obj.actionTitle;
+    [tokens setTokens:obj.actionTitles objects:obj.actionsObjects];
     [imgvIcon loadShopLogoWithURL:obj.logo];
     
     [lblTitle l_v_setH:obj.titleHeight.floatValue];
-//    lblTitle.backgroundColor=[[UIColor redColor] colorWithAlphaComponent:0.3f];
     
     [lblContent l_v_setY:lblTitle.l_v_y+lblTitle.l_v_h+5];
     [lblContent l_v_setH:obj.contentHeight.floatValue];
-//    lblContent.backgroundColor=[[UIColor blueColor] colorWithAlphaComponent:0.3f];
+    
+    [tokens l_v_setY:lblContent.l_v_y+lblContent.l_v_h+5];
+    [tokens l_v_setH:obj.actionsHeight.floatValue];
     
     lblContent.hidden=displayType==USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE_TITLE;
-    
-//    bool hiddenButton=obj.actionTitle.length==0 || displayType==USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE_TITLE;
-    
-//    lblGoTo.hidden=hiddenButton;
-//    btnGo.hidden=hiddenButton;
     
     btnLogo.userInteractionEnabled=obj.idShopLogo!=nil;
 }
@@ -56,7 +61,7 @@
 
 +(float)heightWithUserNotificationDetail:(UserNotificationContent *)obj displayType:(enum USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE)displayType
 {
-    float height=85;
+    float height=88;
     
     if(!obj.titleAttribute)
     {
@@ -73,13 +78,8 @@
     
     if(obj.titleHeight.floatValue==-1)
     {
-        if(obj.title.length==0)
-            obj.titleHeight=@(0);
-        else
-        {
             CGRect rect=[obj.titleAttribute boundingRectWithSize:CGSizeMake(274, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading context:nil];
-            obj.titleHeight=@(rect.size.height);
-        }
+        obj.titleHeight=@(rect.size.height);
     }
     
     if(!obj.contentAttribute)
@@ -97,18 +97,18 @@
     
     if(obj.contentHeight.floatValue==-1)
     {
-        if(obj.content.length==0)
-            obj.contentHeight=@(0);
-        else
-            obj.contentHeight=@([obj.content sizeWithFont:[UIFont fontWithName:@"Avenir-Roman" size:13] constrainedToSize:CGSizeMake(274, MAXFLOAT) lineBreakMode:NSLineBreakByTruncatingTail].height);
+        obj.contentHeight=@([obj.content sizeWithFont:[UIFont fontWithName:@"Avenir-Roman" size:13] constrainedToSize:CGSizeMake(274, MAXFLOAT) lineBreakMode:NSLineBreakByTruncatingTail].height);
+    }
+    
+    if(obj.actionsHeight.floatValue==-1)
+    {
+        obj.actionsHeight=@([TokenView heightWithTokens:obj.actionTitles forWidth:312]);
     }
     
     switch (displayType) {
         case USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE_FULL:
             height+=obj.titleHeight.floatValue+obj.contentHeight.floatValue;
-            
-//            if(obj.actionTitle.length>0)
-//                height+=44;
+            height+=obj.actionsHeight.floatValue;
             
             break;
             
@@ -119,10 +119,6 @@
     }
     
     return height;
-}
-
-- (IBAction)btnGoTouchUpInside:(id)sender {
-    [self.delegate userNotificationDetailCellTouchedGo:self];
 }
 
 - (IBAction)btnLogoTouchUpInside:(id)sender {

@@ -38,66 +38,7 @@
         obj.highlightUnread=@(true);
     
     NSArray *actions=data[@"actions"];
-    
-    NSMutableArray *array=[NSMutableArray array];
-    
-    for(int i=0;i<5;i++)
-    {
-        NSMutableDictionary *dict=[NSMutableDictionary dictionary];
         
-        [dict setObject:[NSString stringWithFormat:@"action %i",i] forKey:@"actionTitle"];
-        [dict setObject:@(i) forKey:@"actionType"];
-        
-        switch ([dict[@"actionType"] integerValue]) {
-            case 0:
-                [dict setObject:SERVER_API_MAKE(@"user/notification/markRead") forKey:@"url"];
-                [dict setObject:@(NOTIFICATION_METHOD_TYPE_POST) forKey:@"method"];
-                
-                
-                [dict setObject:[@{@"idNotification":obj.idNotification,@"userLat":@(userLat()),@"userLng":@(userLng())} jsonString] forKey:@"params"];
-                break;
-                
-            case 1:
-                [dict setObject:@(1000) forKey:@"idShop"];
-                break;
-                
-            case 2:
-                
-                switch (random_int(0, 2)) {
-                    case 0:
-                        [dict setObject:[dict[@"actionTitle"] stringByAppendingString:@" placelist" ] forKey:@"actionTitle"];
-                        [dict setObject:@"-1" forKey:@"idPlacelist"];
-                        break;
-                        
-                    case 1:
-                        [dict setObject:[dict[@"actionTitle"] stringByAppendingString:@" keywords" ] forKey:@"actionTitle"];
-                        [dict setObject:@"a" forKey:@"keywords"];
-                        break;
-                        
-                    case 2:
-                        [dict setObject:[dict[@"actionTitle"] stringByAppendingString:@" idShops" ] forKey:@"actionTitle"];
-                        [dict setObject:@"111,112,113" forKey:@"isShops"];
-                        break;
-                        
-                    default:
-                        break;
-                }
-                
-                break;
-                
-            case 3:
-                [dict setObject:@"google.com" forKey:@"url"];
-                break;
-                
-            default:
-                break;
-        }
-        
-        [array addObject:dict];
-    }
-    
-    actions=array;
-    
     if(![actions isNullData])
     {
         int i=0;

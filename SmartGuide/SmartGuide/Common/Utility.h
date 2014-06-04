@@ -441,3 +441,9 @@ NSString* LAZY_STRING_INT(int i);
 - (NSString *)platformRawString;
 
 @end
+
+@interface UITableView(Utility)
+
+-(bool) isCellCompletionVisibility:(NSIndexPath *) indexPath;
+
+@end

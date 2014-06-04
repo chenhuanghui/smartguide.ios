@@ -22,6 +22,9 @@
 {
     [self removeAllTokens];
     
+    if(tokens.count==0)
+        return;
+    
     NSArray *__tokens=[tokens copy];
     __tokens=[[tokens componentsJoinedByString:@"||"] componentsSeparatedByString:@"|"];
     
@@ -46,6 +49,9 @@
 -(void)setTokens:(NSArray *)tokens objects:(NSArray *)objs
 {
     [self removeAllTokens];
+    
+    if(tokens.count==0)
+        return;
     
     NSArray *__tokens=[tokens copy];
     __tokens=[[tokens componentsJoinedByString:@"||"] componentsSeparatedByString:@"|"];
@@ -76,6 +82,9 @@
 
 +(float)heightWithTokens:(NSArray *)tokens forWidth:(float)forWidth
 {
+    if(tokens.count==0)
+        return 0;
+    
     NSArray *_tokens=[tokens copy];
     _tokens=[[tokens componentsJoinedByString:@"||"] componentsSeparatedByString:@"|"];
     
@@ -102,17 +111,22 @@
 
 -(void)toggle:(id)sender
 {
+    NSLog(@"toggle");
+    
     JSTokenButton *btn=sender;
     
     if(btn.isSeperatorToken)
         return;
     
+    self.userInteractionEnabled=false;
     [super toggle:sender];
     
     self.selectedToken=sender;
     
     if([self.delegate respondsToSelector:@selector(tokenViewTouchedToken:object:)])
         [self.delegate tokenViewTouchedToken:self object:self.selectedToken.representedObject];
+    
+    self.userInteractionEnabled=true;
 }
 
 -(void)layoutSubviews
@@ -134,6 +148,25 @@
             btn.hidden=btn.isSeperatorToken;
         }
     }
+}
+
+-(BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event
+{
+    if(self.tokens.count==0)
+        return false;
+    
+    bool isPointInside=[super pointInside:point withEvent:event];
+    
+    if(isPointInside)
+    {
+        for(JSTokenButton *btn in self.tokens)
+        {
+            if([btn pointInside:[self convertPoint:point toView:btn] withEvent:event])
+                return true;
+        }
+    }
+    
+    return false;
 }
 
 @end

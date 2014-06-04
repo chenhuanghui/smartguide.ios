@@ -8,24 +8,22 @@
 
 #import "SGViewController.h"
 #import "UserNotification.h"
-#import "ASIOperationUserNotificationFromSender.h"
+#import "UserNotificationContent.h"
 
 @class UserNotificationViewController;
 
 @interface UserNotificationDetailViewController : SGViewController
 {
-    int _idNotification;
+    int _idSender;
     __weak IBOutlet UITableView *table;
     NSMutableArray *_userNotificationContents;
     
-    ASIOperationUserNotificationFromSender *_operationNotificationContent;
     int _page;
     bool _canLoadMore;
     bool _isLoadingMore;
 }
 
--(UserNotificationDetailViewController*) initWithUserNotification:(UserNotification*) obj;
--(UserNotificationDetailViewController*) initWithIDNotification:(int) idNotification;
+-(UserNotificationDetailViewController*) initWithIDSender:(int) idSender;
 
 @property (nonatomic, weak) UserNotificationViewController *notificationController;
 

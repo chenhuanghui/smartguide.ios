@@ -270,81 +270,11 @@
     return cell;
 }
 
--(void) processUserNotification:(UserNotification*) userNotification
-{
-    [SGData shareInstance].fScreen=@"S006";
-    [SGData shareInstance].fData=[NSMutableDictionary dictionaryWithObject:userNotification.idNotification forKey:@"idNotification"];
-    
-    userNotification.status=@(NOTIFICATION_STATUS_READ);
-    userNotification.highlightUnread=@(false);
-    [[DataManager shareInstance] save];
-    
-    NSLog(@"processUserNotification %@",userNotification);
-//    
-//    switch (userNotification.enumActionType) {
-//        case USER_NOTIFICATION_ACTION_TYPE_CONTENT:
-//        {
-//            UserNotificationDetailViewController *vc=[[UserNotificationDetailViewController alloc] initWithUserNotification:userNotification];
-//            vc.delegate=self;
-//            
-//            [self.navigationController pushViewController:vc animated:true];
-//        }
-//            break;
-//            
-//        case USER_NOTIFICATION_ACTION_TYPE_LOGIN:
-//        {
-//            [[GUIManager shareInstance] showLoginControll:^(bool isLogin) {
-//                if(isLogin)
-//                    [self resetData];
-//            }];
-//        }
-//            break;
-//            
-//        case USER_NOTIFICATION_ACTION_TYPE_POPUP_URL:
-//            [[GUIManager shareInstance].rootViewController showWebviewWithURL:[NSURL URLWithString:userNotification.url]];
-//            break;
-//            
-//        case USER_NOTIFICATION_ACTION_TYPE_SCAN_CODE:
-//            [self showQRCodeWithContorller:self inView:self.view withAnimationType:QRCODE_ANIMATION_TOP_BOT screenCode:[UserNotificationViewController screenCode]];
-//            break;
-//            
-//        case USER_NOTIFICATION_ACTION_TYPE_SHOP_LIST:
-//            switch (userNotification.enumShopListDataType) {
-//                case USER_NOTIFICATION_SHOP_LIST_DATA_TYPE_PLACELIST:
-//                    [[GUIManager shareInstance].rootViewController showShopListWithIDPlace:userNotification.idPlacelist.integerValue];
-//                    break;
-//                    
-//                case USER_NOTIFICATION_SHOP_LIST_DATA_TYPE_KEYWORDS:
-//                    [[GUIManager shareInstance].rootViewController showShopListWithKeywordsShopList:userNotification.keywords];
-//                    break;
-//                    
-//                case USER_NOTIFICATION_SHOP_LIST_DATA_TYPE_IDSHOPS:
-//                    [[GUIManager shareInstance].rootViewController showShopListWithIDShops:userNotification.idShops];
-//                    break;
-//                    
-//                case USER_NOTIFICATION_SHOP_LIST_DATA_TYPE_UNKNOW:
-//                    NSLog(@"UserNotificationViewController USER_NOTIFICATION_SHOP_LIST_DATA_TYPE_UNKNOW");
-//                    break;
-//            }
-//            break;
-//            
-//        case USER_NOTIFICATION_ACTION_TYPE_SHOP_USER:
-//            [[GUIManager shareInstance].rootViewController presentShopUserWithIDShop:userNotification.idShop.integerValue];
-//            break;
-//            
-//        case USER_NOTIFICATION_ACTION_TYPE_USER_PROMOTION:
-//            NSLog(@"UserNotificationViewController USER_NOTIFICATION_ACTION_TYPE_USER_PROMOTION");
-//            //            [[GUIManager shareInstance].rootViewController showUserPromotion];
-//            break;
-//            
-//        case USER_NOTIFICATION_ACTION_TYPE_USER_SETTING:
-//            [[GUIManager shareInstance].rootViewController showUserSetting];
-//            break;
-//    }
-}
-
 -(void)userNotificationCellTouchedAction:(UserNotificationCell *)cell action:(UserNotificationAction *)action
 {
+    [SGData shareInstance].fScreen=@"S006";
+    [SGData shareInstance].fData=[NSMutableDictionary dictionaryWithObject:cell.userNotification.idNotification forKey:@"idNotification"];
+    
     switch (action.enumActionType) {
         case NOTIFICATION_ACTION_TYPE_CALL_API:
             
@@ -395,7 +325,9 @@
 
 -(void)userNotificationCellTouchedDetail:(UserNotificationCell *)cell obj:(UserNotification *)obj
 {
-    [self processUserNotification:obj];
+    UserNotificationDetailViewController *vc=[[UserNotificationDetailViewController alloc] initWithIDSender:obj.idSender.integerValue];
+    
+    [self.navigationController pushViewController:vc animated:true];
 }
 
 -(void) deleteUserNotification:(int) idSender
@@ -698,27 +630,6 @@
 -(void)processRemoteNotification:(UserNotification *)obj
 {
     [self resetData];
-    return;
-    bool animated=self.navigationController.visibleViewController==self;
-    int idx=[_userNotificationUnread indexOfObject:obj];
-    
-    if(idx!=NSNotFound)
-    {
-        [table scrollToRowAtIndexPath:makeIndexPath(idx, 0) atScrollPosition:UITableViewScrollPositionMiddle animated:animated];
-        
-        return;
-    }
-    
-    idx=[_userNotificationRead indexOfObject:obj];
-    
-    if(idx!=NSNotFound)
-    {
-        [table scrollToRowAtIndexPath:makeIndexPath(idx, 1) atScrollPosition:UITableViewScrollPositionMiddle animated:animated];
-        
-        return;
-    }
-    
-    [table setContentOffset:CGPointZero animated:animated];
 }
 
 -(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
@@ -739,11 +650,6 @@
         
         [cellNoti removeObserverHighlightUnread];
     }
-}
-
--(void) removeUserNotification:(UserNotification*) obj
-{
-    
 }
 
 @end
