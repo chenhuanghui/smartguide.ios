@@ -17,5 +17,6 @@
 @property (nonatomic, strong) NSNumber *actionsHeight;
 @property (nonatomic, strong) NSAttributedString *titleAttribute;
 @property (nonatomic, strong) NSAttributedString *contentAttribute;
+@property (nonatomic, strong) NSNumber *imageHeightForNoti;
 
 @end

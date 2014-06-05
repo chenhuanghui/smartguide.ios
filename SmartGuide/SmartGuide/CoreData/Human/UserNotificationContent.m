@@ -1,7 +1,7 @@
 #import "UserNotificationContent.h"
 
 @implementation UserNotificationContent
-@synthesize titleHeight,contentHeight,titleAttribute,contentAttribute,actionsHeight;
+@synthesize titleHeight,contentHeight,titleAttribute,contentAttribute,actionsHeight,imageHeightForNoti;
 
 -(id)initWithEntity:(NSEntityDescription *)entity insertIntoManagedObjectContext:(NSManagedObjectContext *)context
 {
@@ -10,6 +10,7 @@
     self.titleHeight=@(-1);
     self.contentHeight=@(-1);
     self.actionsHeight=@(-1);
+    self.imageHeightForNoti=@(-1);
     
     return self;
 }
@@ -35,6 +36,10 @@
         obj.imageWidth=[NSNumber numberWithObject:data[@"imageWidth"]];
         obj.imageHeight=[NSNumber numberWithObject:data[@"imageHeight"]];
     }
+    
+    obj.image=@"http://www.menucool.com/slider/prod/image-slider-5.jpg";
+    obj.imageWidth=@(960.f);
+    obj.imageHeight=@(420);
     
     if(data[@"video"])
     {

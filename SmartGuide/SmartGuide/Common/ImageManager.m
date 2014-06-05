@@ -310,6 +310,11 @@ static ImageManager *_imageManager=nil;
     [self loadImageScaleCrop:url];
 }
 
+-(void)loadUserNotificationContentWithURL:(NSString *)url
+{
+    [self setImageWithURL:URL(url)];
+}
+
 -(UIViewContentMode) showLoadingImage
 {
     self.animationImages=[ImageManager sharedInstance].loadingImages;

@@ -33,6 +33,10 @@
                                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="AgB-7R-fyV">
+                                                <rect key="frame" x="19" y="30" width="274" height="0.0"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            </imageView>
                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="yhi-C8-LIf" userLabel="title">
                                                 <rect key="frame" x="19" y="30" width="274" height="0.0"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -131,6 +135,7 @@
                 <outlet property="btnLogo" destination="cdj-Vh-264" id="yi5-SW-z7w"/>
                 <outlet property="displayView" destination="2wF-GB-OOJ" id="r1S-Hc-8KC"/>
                 <outlet property="imgvIcon" destination="bTN-Zz-SJY" id="jbx-zu-wkW"/>
+                <outlet property="imgvImage" destination="AgB-7R-fyV" id="WEY-I7-H2c"/>
                 <outlet property="lblContent" destination="TcL-vZ-Tpf" id="Eny-ZM-AjZ"/>
                 <outlet property="lblTime" destination="xvX-NK-6rd" id="tQk-hq-cg9"/>
                 <outlet property="lblTitle" destination="yhi-C8-LIf" id="Fbm-w9-bOy"/>

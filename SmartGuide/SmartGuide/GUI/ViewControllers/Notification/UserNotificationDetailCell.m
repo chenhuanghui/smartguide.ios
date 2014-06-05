@@ -32,6 +32,15 @@
     [tokens setTokens:obj.actionTitles objects:obj.actionsObjects];
     [imgvIcon loadShopLogoWithURL:obj.logo];
     
+    float imgvHeight=obj.imageHeightForNoti.floatValue;
+    
+    if(displayType==USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE_TITLE)
+        imgvHeight=0;
+    
+    [imgvImage loadUserNotificationContentWithURL:obj.image];
+    [imgvImage l_v_setH:imgvHeight];
+    
+    [lblTitle l_v_setY:imgvImage.l_v_y+imgvImage.l_v_h];
     [lblTitle l_v_setH:obj.titleHeight.floatValue];
     
     [lblContent l_v_setY:lblTitle.l_v_y+lblTitle.l_v_h+5];
@@ -41,6 +50,7 @@
     [tokens l_v_setH:obj.actionsHeight.floatValue];
     
     lblContent.hidden=displayType==USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE_TITLE;
+    imgvImage.hidden=displayType==USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE_TITLE;
     
     btnLogo.userInteractionEnabled=obj.idShopLogo!=nil;
     
@@ -112,10 +122,22 @@
         obj.actionsHeight=@([TokenView heightWithTokens:obj.actionTitles forWidth:312]);
     }
     
+    if(obj.imageHeightForNoti.floatValue==-1)
+    {
+        if(obj.image.length==0)
+            obj.imageHeightForNoti=@(0);
+        else
+        {
+            float imageWidth=274;
+            obj.imageHeightForNoti=@(MAX(0, imageWidth*obj.imageHeight.floatValue/obj.imageWidth.floatValue));
+        }
+    }
+    
     switch (displayType) {
         case USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE_FULL:
             height+=obj.titleHeight.floatValue+obj.contentHeight.floatValue;
             height+=obj.actionsHeight.floatValue;
+            height+=obj.imageHeightForNoti.floatValue;
             
             break;
             

@@ -52,6 +52,7 @@
 -(void) loadHome6CoverWithURL:(NSString*) url;
 -(void) loadHome7CoverWithURL:(NSString*) url;
 -(void) loadUserPromotionCoverWithURL:(NSString*) url;
+-(void) loadUserNotificationContentWithURL:(NSString*) url;
 
 -(UIViewContentMode) showLoadingImageSmall;
 

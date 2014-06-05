@@ -110,7 +110,7 @@ static NSString * const kClientId = @"790158294934-p5pnscmrt4avj698ncvhp14fit0f4
 #define API_USER_UPLOAD_AVATAR @"user/uploadAvatar"
 #define API_GET_SHOP_GALLERY @"images/getShopGallery"
 #define API_GET_USER_GALLERY @"images/getUserGallery"
-#define API_USER_NOTIFICATION_CHECK @"user/notificationCheck"
+#define API_USER_NOTIFICATION_COUNT @"user/notification/count"
 #define API_USER_NOTIFICATION_NEWEST @"user/notification/getNewest"
 #define API_USER_NOTIFICATION_LIST_BY_SENDER @"user/notification/listBySender"
 #define API_USER_NOTIFICATION_MARK_READ @"user/notification/markRead"

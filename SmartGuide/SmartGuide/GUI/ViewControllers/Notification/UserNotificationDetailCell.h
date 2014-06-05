@@ -39,6 +39,7 @@ enum USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE
     __weak IBOutlet ScrollNotificationContent *scroll;
     __weak IBOutlet UIView *leftView;
     __weak IBOutlet UIView *rightView;
+    __weak IBOutlet UIImageView *imgvImage;
     
     __weak UserNotificationContent *_obj;
     enum USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE _displayType;
