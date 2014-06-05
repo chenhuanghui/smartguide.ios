@@ -30,7 +30,7 @@
     obj.status=[NSNumber numberWithObject:data[@"status"]];
     
     NSArray *actions=data[@"actions"];
-    
+    /*
     NSMutableArray *array=[NSMutableArray array];
     
     for(int i=0;i<5;i++)
@@ -89,6 +89,7 @@
     }
     
     actions=array;
+     */
     
     if(![actions isNullData])
     {

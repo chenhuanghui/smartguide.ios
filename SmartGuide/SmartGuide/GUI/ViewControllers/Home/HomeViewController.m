@@ -83,8 +83,8 @@
     [[LocationManager shareInstance] startTrackingLocation];
     
     tableFeed.delegate=nil;
-    float y=48;
-        y+=4;//align
+    float y=54;
+    y+=4;//align
     
     [txtRefresh l_v_setY:y];
     
