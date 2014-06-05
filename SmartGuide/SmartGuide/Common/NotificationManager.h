@@ -83,5 +83,6 @@ enum NOTI_READ_ACTION
 @property (nonatomic, strong) NSNumber *idNotification;
 @property (nonatomic, strong) NSNumber *idSender;
 @property (nonatomic, strong) NSNumber *timer;
+@property (nonatomic, strong) NSNumber *isFromBG;
 
 @end

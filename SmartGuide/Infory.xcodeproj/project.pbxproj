@@ -6007,7 +6007,7 @@
 				A93F20791797F1FD00622D75 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		A9819849178D02530009FCB6 /* Build configuration list for PBXProject "Infory" */ = {
 			isa = XCConfigurationList;
@@ -6016,7 +6016,7 @@
 				A981986A178D02530009FCB6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		A981986B178D02530009FCB6 /* Build configuration list for PBXNativeTarget "Infory" */ = {
 			isa = XCConfigurationList;
@@ -6025,7 +6025,7 @@
 				A981986D178D02530009FCB6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 

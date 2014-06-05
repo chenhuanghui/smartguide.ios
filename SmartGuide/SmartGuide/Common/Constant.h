@@ -28,7 +28,7 @@ static NSString * const kClientId = @"790158294934-p5pnscmrt4avj698ncvhp14fit0f4
 
 #define TEXTFIELD_SEARCH_PLACEHOLDER_TEXT @"Tìm kiếm địa điểm"
 
-#define BUILD_MODE 1
+#define BUILD_MODE 0
 //0: developer
 //1: production
 
@@ -116,7 +116,7 @@ static NSString * const kClientId = @"790158294934-p5pnscmrt4avj698ncvhp14fit0f4
 #define API_USER_NOTIFICATION_MARK_READ @"user/notification/markRead"
 #define API_USER_NOTIFICATION_REMOVE @"user/notification/remove"
 #define API_USER_NOTICE @"user/notice"
-#define API_USER_NOTIFICATION_TOKEN @"user/notificationToken"
+#define API_USER_NOTIFICATION_TOKEN @"user/notification/updateUUID"
 
 #define API_GET_ACTIVE_CODE @"user/activation"
 #define API_USER_CHECK @"user/check_v2"

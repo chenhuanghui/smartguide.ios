@@ -127,8 +127,11 @@ static NotificationManager *_notificationManager=nil;
     if(info && [info isKindOfClass:[NSDictionary class]])
     {
         RemoteNotification *obj=[RemoteNotification makeWithRemoteNotification:info];
+        obj.isFromBG=@([UIApplication sharedApplication].applicationState==UIApplicationStateInactive);
         
-        [self.remoteNotifications addObject:obj];
+        if(!obj.isFromBG.boolValue)
+            [self.remoteNotifications addObject:obj];
+        
         self.totalNotification=[NSNumber numberWithObject:obj.badge];
         [UIApplication sharedApplication].applicationIconBadgeNumber=self.totalNotification.integerValue;
         
@@ -216,10 +219,10 @@ static NotificationManager *_notificationManager=nil;
     obj.badge=[NSString stringWithStringDefault:dict[@"badge"]];
     
     if(dict[@"idNotification"])
-    {
         obj.idNotification=[NSNumber numberWithObject:dict[@"idNotification"]];
+    
+    if(dict[@"idSender"])
         obj.idSender=[NSNumber numberWithObject:dict[@"idSender"]];
-    }
     
     obj.timer=@(0);
     if(dict[@"timer"])
@@ -238,6 +241,10 @@ static NotificationManager *_notificationManager=nil;
     if(self.idNotification)
         obj.idNotification=self.idNotification;
     
+    if(self.idSender)
+        obj.idSender=self.idSender;
+    
+    obj.isFromBG=self.isFromBG;
     obj.timer=self.timer;
     
     return obj;

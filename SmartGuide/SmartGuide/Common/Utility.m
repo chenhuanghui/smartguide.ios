@@ -151,6 +151,7 @@ NSString *NSStringFromUIGestureRecognizerState(UIGestureRecognizerState state)
 
 NSString* UUID()
 {
+    return [[[UIDevice currentDevice] identifierForVendor] UUIDString];
     NSString *uuid=[[NSUserDefaults standardUserDefaults] stringForKey:@"uuid"];
     if(uuid.length==0)
     {

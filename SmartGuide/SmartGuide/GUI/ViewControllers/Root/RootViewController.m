@@ -121,7 +121,12 @@
                 [vc receiveRemoteNotification:notification.object];
         }
         
-        [self showNotificationInfo:notification.object];
+        if([notification.object isFromBG].boolValue)
+        {
+            [self handleRemoteNotification:notification.object];
+        }
+        else
+            [self showRemoteNotification:notification.object];
     }
     else if([notification.name isEqualToString:NOTIFICATION_HOME_FINISHED_LOAD])
     {
@@ -579,15 +584,15 @@
 
 -(void)removeUserNotification:(UserNotification *)obj
 {
-//    if(remoteNotiView.userNotification==obj)
-//    {
-//        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(autoHideNotificationInfo) object:nil];
-//        [remoteNotiView hide];
-//    }
-//    else if([[NotificationManager shareInstance].notifications containsObject:obj])
-//    {
-//        [[NotificationManager shareInstance].notifications removeObject:obj];
-//    }
+    //    if(remoteNotiView.userNotification==obj)
+    //    {
+    //        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(autoHideNotificationInfo) object:nil];
+    //        [remoteNotiView hide];
+    //    }
+    //    else if([[NotificationManager shareInstance].notifications containsObject:obj])
+    //    {
+    //        [[NotificationManager shareInstance].notifications removeObject:obj];
+    //    }
 }
 
 -(void) autoHideNotificationInfo
@@ -603,7 +608,7 @@
     
     if([NotificationManager shareInstance].remoteNotifications.count>0)
     {
-        [self showNotificationInfo:[NotificationManager shareInstance].remoteNotifications[0]];
+        [self showRemoteNotification:[NotificationManager shareInstance].remoteNotifications[0]];
     }
 }
 
@@ -611,7 +616,7 @@
 {
     if([NotificationManager shareInstance].remoteNotifications.count>0)
     {
-        [self showNotificationInfo:[NotificationManager shareInstance].remoteNotifications[0]];
+        [self showRemoteNotification:[NotificationManager shareInstance].remoteNotifications[0]];
     }
 }
 
@@ -620,7 +625,7 @@
     return remoteNotiView!=nil;
 }
 
--(void)showNotificationInfo:(RemoteNotification*) obj
+-(void)showRemoteNotification:(RemoteNotification*) obj
 {
     // Check đang hiển thị notification hoặc popup
     if([self isShowingNotification] || self.presentSGViewControlelr)
@@ -631,6 +636,9 @@
 
 -(void) displayNotification:(RemoteNotification*) obj
 {
+    if(obj.isFromBG.boolValue)
+        return;
+    
     RemoteNotificationView *notiView =[RemoteNotificationView new];
     notiView.hidden=true;
     notiView.delegate=self;
@@ -642,21 +650,21 @@
     [remoteNotiView show];
 }
 
--(void)remoteNotificationViewTouched:(RemoteNotificationView *)remoteView
+-(void) handleRemoteNotification:(RemoteNotification*) remoteNotification
 {
-    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(autoHideNotificationInfo) object:nil];
-    
     if(self.contentNavigation.presentSGViewControlelr)
     {
         [self.contentNavigation dismissSGViewControllerCompletion:^{
-            [self remoteNotificationViewTouched:remoteView];
+            [self handleRemoteNotification:remoteNotification];
         }];
         
         return;
     }
     
-    __strong RemoteNotification *obj=remoteView.remoteNotification;
-    [self autoHideNotificationInfo];
+    __strong RemoteNotification *obj=remoteNotification;
+    
+    if(!remoteNotification.isFromBG.boolValue)
+        [self autoHideNotificationInfo];
     
     for(SGViewController *vc in self.contentNavigation.viewControllers)
     {
@@ -694,15 +702,33 @@
         
         [self.contentNavigation pushViewController:vc animated:true];
     }
+    
+    if(remoteNotification.idSender)
+    {
+        if(!hasNotiContentController)
+        {
+            UserNotificationDetailViewController *vc=[[UserNotificationDetailViewController alloc] initWithIDSender:remoteNotification.idSender.integerValue];
+            vc.delegate=self;
+            
+            [self.contentNavigation pushViewController:vc animated:true];
+        }
+        else
+            [self.contentNavigation popToViewController:notiDetailController animated:true];
+    }
     else
     {
-        if(hasNotiContentController && remoteView.remoteNotification.idSender)
-            [self.contentNavigation popToViewController:notiDetailController animated:true];
-        else
+        if(hasNotiController)
             [self.contentNavigation popToViewController:notiController animated:true];
     }
     
     obj=nil;
+}
+
+-(void)remoteNotificationViewTouched:(RemoteNotificationView *)remoteView
+{
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(autoHideNotificationInfo) object:nil];
+    
+    [self handleRemoteNotification:remoteNotiView.remoteNotification];
 }
 
 -(void)remoteNotificationDidShow:(RemoteNotificationView *)remoteView
