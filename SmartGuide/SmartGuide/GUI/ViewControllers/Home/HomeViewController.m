@@ -57,7 +57,7 @@
     txtRefresh.maximumWidth=232;
     txtRefresh.minimumWidth=38;
     txtRefresh.minimumY=8;
-
+    
     [tableFeed l_v_addH:QRCODE_BIG_HEIGHT-QRCODE_SMALL_HEIGHT];
     
     [UserHome markDeleteAllObjects];
@@ -83,14 +83,14 @@
     [[LocationManager shareInstance] startTrackingLocation];
     
     tableFeed.delegate=nil;
-    float y=54;
+    float y=48;
     y+=4;//align
     
     [txtRefresh l_v_setY:y];
     
     y+=txtRefresh.l_v_h;
     y+=4;//align
-
+    
     tableFeed.contentInset=UIEdgeInsetsMake(y, 0, 0, 0);
     tableFeed.delegate=self;
     
@@ -145,6 +145,10 @@
 -(void) displayNotification
 {
     NSString *numNoti=[NotificationManager shareInstance].numOfNotification;
+    
+    if(currentUser().enumDataMode!=USER_DATA_FULL)
+        numNoti=@"";
+    
     [btnNumOfNotification setTitle:numNoti forState:UIControlStateNormal];
     btnNumOfNotification.hidden=numNoti.length==0 || [NotificationManager shareInstance].totalNotification.integerValue==0;
 }
@@ -152,7 +156,7 @@
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     if(scrollView==tableFeed)
-    {        
+    {
         if(tableFeed.l_co_y+tableFeed.contentInset.top>100)
         {
             [UIView animateWithDuration:0.3f animations:^{
@@ -224,7 +228,7 @@
     {
         [[NSNotificationCenter defaultCenter] removeObserver:self name:NOTIFICATION_USER_NOTICE_FINISHED object:nil];
         _isRegisterNotificationUserNotice=false;
-
+        
         [AlertView showWithTitle:@"Thông báo" withMessage:[SGData shareInstance].userNotice withLeftTitle:@"Thoát" withRightTitle:nil onOK:^{
             [SGData shareInstance].isShowedNotice=@(true);
         } onCancel:nil];
@@ -329,7 +333,7 @@
             
             [tableFeed reloadData];
         }
-
+        
         _operationUserHome=nil;
     }
 }
@@ -712,7 +716,19 @@
 }
 
 - (IBAction)btnNotificationTouchUpInside:(id)sender {
-    [self.navigationController pushViewController:[UserNotificationViewController new] animated:true];
+    
+    if(currentUser().enumDataMode!=USER_DATA_FULL)
+    {
+        [[GUIManager shareInstance] showLoginDialogWithMessage:localizeLoginRequire() onOK:^{
+            [SGData shareInstance].fScreen=[HomeViewController screenCode];
+        } onCancelled:nil onLogined:^(bool isLogined)
+        {
+            if(isLogined)
+                [self.navigationController pushViewController:[UserNotificationViewController new] animated:true];
+        }];
+    }
+    else
+        [self.navigationController pushViewController:[UserNotificationViewController new] animated:true];
 }
 
 @end

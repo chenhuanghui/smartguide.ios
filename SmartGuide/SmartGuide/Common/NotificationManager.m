@@ -122,6 +122,9 @@ static NotificationManager *_notificationManager=nil;
 
 -(void)receiveRemoteNotification:(NSDictionary *)userInfo
 {
+    if(currentUser().enumDataMode!=USER_DATA_FULL)
+        return;
+    
     id info=userInfo[@"aps"];
     
     if(info && [info isKindOfClass:[NSDictionary class]])
@@ -172,6 +175,9 @@ static NotificationManager *_notificationManager=nil;
     NSDictionary *apsInfo=remote[@"aps"];
     
     if(!apsInfo)
+        return;
+    
+    if(currentUser().enumDataMode!=USER_DATA_FULL)
         return;
     
     RemoteNotification *obj=[RemoteNotification makeWithRemoteNotification:apsInfo];

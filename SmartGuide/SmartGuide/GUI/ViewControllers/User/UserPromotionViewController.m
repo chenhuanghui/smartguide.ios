@@ -132,6 +132,10 @@
 -(void) displayNotification
 {
     NSString *numNoti=[NotificationManager shareInstance].numOfNotification;
+    
+    if(currentUser().enumDataMode!=USER_DATA_FULL)
+        numNoti=@"";
+    
     [btnNumOfNotification setTitle:numNoti forState:UIControlStateNormal];
     btnNumOfNotification.hidden=numNoti.length==0 || [NotificationManager shareInstance].totalNotification.integerValue==0;
 }
@@ -373,7 +377,17 @@
 }
 
 - (IBAction)btnNotificationTouchUpInside:(id)sender {
-    [self.navigationController pushViewController:[UserNotificationViewController new] animated:true];
+    if(currentUser().enumDataMode!=USER_DATA_FULL)
+    {
+        [[GUIManager shareInstance] showLoginDialogWithMessage:localizeLoginRequire() onOK:^{
+            [SGData shareInstance].fScreen=[UserPromotionViewController screenCode];
+        } onCancelled:nil onLogined:^(bool isLogined) {
+            if(isLogined)
+                [self.navigationController pushViewController:[UserNotificationViewController new] animated:true];
+        }];
+    }
+    else
+        [self.navigationController pushViewController:[UserNotificationViewController new] animated:true];
 }
 
 @end

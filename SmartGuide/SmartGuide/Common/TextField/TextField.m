@@ -190,7 +190,6 @@
     
     self.autoresizesSubviews=true;
     self.font=FONT_SIZE_NORMAL(14);
-    self.autoresizingMask=UIViewAutoresizingAll();
     
     imgvLeft.autoresizingMask=UIViewAutoresizingNone;
     imgvRight.autoresizingMask=UIViewAutoresizingNone;
