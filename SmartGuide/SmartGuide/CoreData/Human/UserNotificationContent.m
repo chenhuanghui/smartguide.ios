@@ -29,6 +29,20 @@
     obj.content=[NSString stringWithStringDefault:data[@"content"]];
     obj.status=[NSNumber numberWithObject:data[@"status"]];
     
+    if(data[@"image"])
+    {
+        obj.image=[NSString stringWithStringDefault:data[@"image"]];
+        obj.imageWidth=[NSNumber numberWithObject:data[@"imageWidth"]];
+        obj.imageHeight=[NSNumber numberWithObject:data[@"imageHeight"]];
+    }
+    
+    if(data[@"video"])
+    {
+        obj.video=[NSString stringWithStringDefault:data[@"video"]];
+        obj.videoWidth=[NSNumber numberWithObject:data[@"videoWidth"]];
+        obj.videoHeight=[NSNumber numberWithObject:data[@"videoWidth"]];
+    }
+    
     NSArray *actions=data[@"actions"];
     /*
     NSMutableArray *array=[NSMutableArray array];

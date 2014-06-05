@@ -11,10 +11,16 @@
 #define UserNotificationContent_IdNotification @"idNotification"
 #define UserNotificationContent_IdSender @"idSender"
 #define UserNotificationContent_IdShopLogo @"idShopLogo"
+#define UserNotificationContent_Image @"image"
+#define UserNotificationContent_ImageHeight @"imageHeight"
+#define UserNotificationContent_ImageWidth @"imageWidth"
 #define UserNotificationContent_Logo @"logo"
 #define UserNotificationContent_Status @"status"
 #define UserNotificationContent_Time @"time"
 #define UserNotificationContent_Title @"title"
+#define UserNotificationContent_Video @"video"
+#define UserNotificationContent_VideoHeight @"videoHeight"
+#define UserNotificationContent_VideoWidth @"videoWidth"
 
 @class UserNotificationContent;
 @class UserNotificationAction;
@@ -36,10 +42,16 @@
 @property (nonatomic, retain) NSNumber* idNotification;
 @property (nonatomic, retain) NSNumber* idSender;
 @property (nonatomic, retain) NSNumber* idShopLogo;
+@property (nonatomic, retain) NSString* image;
+@property (nonatomic, retain) NSNumber* imageHeight;
+@property (nonatomic, retain) NSNumber* imageWidth;
 @property (nonatomic, retain) NSString* logo;
 @property (nonatomic, retain) NSNumber* status;
 @property (nonatomic, retain) NSString* time;
 @property (nonatomic, retain) NSString* title;
+@property (nonatomic, retain) NSString* video;
+@property (nonatomic, retain) NSNumber* videoHeight;
+@property (nonatomic, retain) NSNumber* videoWidth;
 
 #pragma mark Fetched property
 

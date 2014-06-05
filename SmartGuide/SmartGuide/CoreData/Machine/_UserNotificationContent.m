@@ -159,6 +159,45 @@
 	[self didChangeValueForKey:@"idShopLogo"];
 }
 
+- (NSString*)image {
+	[self willAccessValueForKey:@"image"];
+	NSString* result = (NSString*)[self primitiveValueForKey:@"image"];
+	[self didAccessValueForKey:@"image"];
+	return result;
+}
+
+- (void)setImage:(NSString*)value {
+	[self willChangeValueForKey:@"image"];
+	[self setPrimitiveValue:value forKey:@"image"];
+	[self didChangeValueForKey:@"image"];
+}
+
+- (NSNumber*)imageHeight {
+	[self willAccessValueForKey:@"imageHeight"];
+	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"imageHeight"];
+	[self didAccessValueForKey:@"imageHeight"];
+	return result;
+}
+
+- (void)setImageHeight:(NSNumber*)value {
+	[self willChangeValueForKey:@"imageHeight"];
+	[self setPrimitiveValue:value forKey:@"imageHeight"];
+	[self didChangeValueForKey:@"imageHeight"];
+}
+
+- (NSNumber*)imageWidth {
+	[self willAccessValueForKey:@"imageWidth"];
+	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"imageWidth"];
+	[self didAccessValueForKey:@"imageWidth"];
+	return result;
+}
+
+- (void)setImageWidth:(NSNumber*)value {
+	[self willChangeValueForKey:@"imageWidth"];
+	[self setPrimitiveValue:value forKey:@"imageWidth"];
+	[self didChangeValueForKey:@"imageWidth"];
+}
+
 - (NSString*)logo {
 	[self willAccessValueForKey:@"logo"];
 	NSString* result = (NSString*)[self primitiveValueForKey:@"logo"];
@@ -209,6 +248,45 @@
 	[self willChangeValueForKey:@"title"];
 	[self setPrimitiveValue:value forKey:@"title"];
 	[self didChangeValueForKey:@"title"];
+}
+
+- (NSString*)video {
+	[self willAccessValueForKey:@"video"];
+	NSString* result = (NSString*)[self primitiveValueForKey:@"video"];
+	[self didAccessValueForKey:@"video"];
+	return result;
+}
+
+- (void)setVideo:(NSString*)value {
+	[self willChangeValueForKey:@"video"];
+	[self setPrimitiveValue:value forKey:@"video"];
+	[self didChangeValueForKey:@"video"];
+}
+
+- (NSNumber*)videoHeight {
+	[self willAccessValueForKey:@"videoHeight"];
+	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"videoHeight"];
+	[self didAccessValueForKey:@"videoHeight"];
+	return result;
+}
+
+- (void)setVideoHeight:(NSNumber*)value {
+	[self willChangeValueForKey:@"videoHeight"];
+	[self setPrimitiveValue:value forKey:@"videoHeight"];
+	[self didChangeValueForKey:@"videoHeight"];
+}
+
+- (NSNumber*)videoWidth {
+	[self willAccessValueForKey:@"videoWidth"];
+	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"videoWidth"];
+	[self didAccessValueForKey:@"videoWidth"];
+	return result;
+}
+
+- (void)setVideoWidth:(NSNumber*)value {
+	[self willChangeValueForKey:@"videoWidth"];
+	[self setPrimitiveValue:value forKey:@"videoWidth"];
+	[self didChangeValueForKey:@"videoWidth"];
 }
 
 #pragma mark Relationships

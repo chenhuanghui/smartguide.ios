@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="5063" systemVersion="12F37" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="5064" systemVersion="13D65" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="Ads" representedClassName="Ads" syncable="YES">
         <attribute name="begin_date" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="end_date" optional="YES" attributeType="String" syncable="YES"/>
@@ -337,10 +337,16 @@
         <attribute name="idNotification" optional="YES" attributeType="Integer 32" syncable="YES"/>
         <attribute name="idSender" optional="YES" attributeType="Integer 32" syncable="YES"/>
         <attribute name="idShopLogo" optional="YES" attributeType="Integer 32" syncable="YES"/>
+        <attribute name="image" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="imageHeight" optional="YES" attributeType="Float" syncable="YES"/>
+        <attribute name="imageWidth" optional="YES" attributeType="Float" syncable="YES"/>
         <attribute name="logo" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="status" optional="YES" attributeType="Integer 32" syncable="YES"/>
         <attribute name="time" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="video" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="videoHeight" optional="YES" attributeType="Float" syncable="YES"/>
+        <attribute name="videoWidth" optional="YES" attributeType="Float" syncable="YES"/>
         <relationship name="actions" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="UserNotificationAction" inverseName="userNotificationContent" inverseEntity="UserNotificationAction" syncable="YES"/>
         <relationship name="notification" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="UserNotification" inverseName="notificationContents" inverseEntity="UserNotification" syncable="YES"/>
     </entity>
@@ -400,9 +406,9 @@
         <element name="UserHome8" positionX="0" positionY="0" width="128" height="105"/>
         <element name="UserHomeImage" positionX="0" positionY="0" width="128" height="90"/>
         <element name="UserNotification" positionX="9" positionY="153" width="128" height="208"/>
-        <element name="UserNotificationContent" positionX="9" positionY="153" width="128" height="208"/>
+        <element name="UserNotificationAction" positionX="18" positionY="153" width="128" height="223"/>
+        <element name="UserNotificationContent" positionX="9" positionY="153" width="128" height="300"/>
         <element name="UserPlacelist" positionX="0" positionY="0" width="128" height="120"/>
         <element name="UserPromotion" positionX="0" positionY="0" width="128" height="270"/>
-        <element name="UserNotificationAction" positionX="18" positionY="153" width="128" height="223"/>
     </elements>
 </model>
