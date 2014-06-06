@@ -46,7 +46,11 @@
         }
         else if(obj.video.length>0)
         {
+            imgvVideoThumbnail.hidden=false;
             topHeight=obj.videoHeightForNoti.floatValue;
+            
+            [videoContain l_v_setH:topHeight];
+            [imgvVideoThumbnail loadVideoThumbnailWithURL:obj.videoThumbnail];
         }
     }
     
@@ -61,7 +65,7 @@
     
     lblContent.hidden=displayType==USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE_TITLE;
     imgvImage.hidden=displayType==USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE_TITLE;
-    _player.view.hidden=displayType==USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE_TITLE;
+    videoContain.hidden=displayType==USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE_TITLE;
     
     btnLogo.userInteractionEnabled=obj.idShopLogo!=nil;
     
@@ -69,34 +73,7 @@
     scroll.contentSize=CGSizeMake(leftView.l_v_w+rightView.l_v_w, 0);
     
     //Chỉ user có tài khoản mới được phép remove notification
-    //    scroll.scrollEnabled=currentUser().enumDataMode==USER_DATA_FULL;
-}
-
--(void)addMoviePlayer:(UserNotificationContent *)obj
-{
-    if(obj.video.length==0)
-        return;
-    
-    if(!_player)
-    {
-        _player=[[MPMoviePlayerController alloc] init];
-        _player.shouldAutoplay=false;
-        [imgvImage.superview insertSubview:_player.view aboveSubview:imgvImage];
-    }
-    
-    _player.view.frame=CGRectMake(19, 30, 274, obj.videoHeightForNoti.floatValue);
-    [_player setContentURL:URL(obj.video)];
-    [_player prepareToPlay];
-}
-
--(void)removeMoviePlayer
-{
-    if(_player)
-    {
-        [_player stop];
-        [_player.view removeFromSuperview];
-        _player=nil;
-    }
+    scroll.scrollEnabled=currentUser().enumDataMode==USER_DATA_FULL;
 }
 
 -(enum USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE)displayType
@@ -186,8 +163,11 @@
         case USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE_FULL:
             height+=obj.titleHeight.floatValue+obj.contentHeight.floatValue;
             height+=obj.actionsHeight.floatValue;
-            height+=obj.imageHeightForNoti.floatValue;
-            height+=obj.videoHeightForNoti.floatValue;
+            
+            if(obj.video.length>0)
+                height+=obj.videoHeightForNoti.floatValue;
+            else if(obj.image.length>0)
+                height+=obj.imageHeightForNoti.floatValue;
             
             break;
             
@@ -241,11 +221,6 @@
     [leftView addGestureRecognizer:tap];
 }
 
--(void)dealloc
-{
-    _player=nil;
-}
-
 -(BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
 {
     if([gestureRecognizer isKindOfClass:[UITapGestureRecognizer class]])
@@ -261,6 +236,25 @@
     [self.delegate userNotificationDetailCellTouchedDetail:self];
 }
 
+- (IBAction)btnMovieTouchUpInside:(id)sender {
+    if(_obj.video.length==0)
+        return;
+    
+    imgvVideoThumbnail.hidden=true;
+    
+    MPMoviePlayerController *player=[self.delegate userNotificationDetailCellRequestPlayer:self];
+    [player stop];
+    [player.view removeFromSuperview];
+    
+    [videoContain addSubview:player.view];
+    
+    CGRect rect=videoContain.frame;
+    rect.origin=CGPointZero;
+    player.view.frame=rect;
+    [player setContentURL:URL(_obj.video)];
+    
+    [player play];
+}
 
 @end
 

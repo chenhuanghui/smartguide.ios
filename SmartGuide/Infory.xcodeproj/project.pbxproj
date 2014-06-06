@@ -1024,6 +1024,9 @@
 		A9BABB58192C5FEB00C417F3 /* icon_location_city.png in Resources */ = {isa = PBXBuildFile; fileRef = A9BABB54192C5FEB00C417F3 /* icon_location_city.png */; };
 		A9BABB59192C5FEB00C417F3 /* icon_location_city@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A9BABB55192C5FEB00C417F3 /* icon_location_city@2x.png */; };
 		A9BABB5C192C664500C417F3 /* CityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A9BABB5B192C664500C417F3 /* CityManager.m */; };
+		A9BCA3DC1941D94B00C93F5D /* SUKMNewsContaintCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A9BCA3DA1941D94B00C93F5D /* SUKMNewsContaintCell.m */; };
+		A9BCA3DD1941D94B00C93F5D /* SUKMNewsContaintCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9BCA3DB1941D94B00C93F5D /* SUKMNewsContaintCell.xib */; };
+		A9BCA3E1194201F600C93F5D /* MoviePlayerThumbnail.m in Sources */ = {isa = PBXBuildFile; fileRef = A9BCA3E0194201F600C93F5D /* MoviePlayerThumbnail.m */; };
 		A9BD06051935A746005840CA /* button_lastaccount_login.png in Resources */ = {isa = PBXBuildFile; fileRef = A9BD06031935A746005840CA /* button_lastaccount_login.png */; };
 		A9BD06061935A746005840CA /* button_lastaccount_login@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A9BD06041935A746005840CA /* button_lastaccount_login@2x.png */; };
 		A9BD83EA18ED40BD000375BD /* button_config.png in Resources */ = {isa = PBXBuildFile; fileRef = A9BD83E218ED40BD000375BD /* button_config.png */; };
@@ -2418,6 +2421,11 @@
 		A9BABB55192C5FEB00C417F3 /* icon_location_city@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_location_city@2x.png"; sourceTree = "<group>"; };
 		A9BABB5A192C664500C417F3 /* CityManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CityManager.h; sourceTree = "<group>"; };
 		A9BABB5B192C664500C417F3 /* CityManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CityManager.m; sourceTree = "<group>"; };
+		A9BCA3D91941D94B00C93F5D /* SUKMNewsContaintCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUKMNewsContaintCell.h; sourceTree = "<group>"; };
+		A9BCA3DA1941D94B00C93F5D /* SUKMNewsContaintCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUKMNewsContaintCell.m; sourceTree = "<group>"; };
+		A9BCA3DB1941D94B00C93F5D /* SUKMNewsContaintCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SUKMNewsContaintCell.xib; sourceTree = "<group>"; };
+		A9BCA3DF194201F600C93F5D /* MoviePlayerThumbnail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoviePlayerThumbnail.h; sourceTree = "<group>"; };
+		A9BCA3E0194201F600C93F5D /* MoviePlayerThumbnail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoviePlayerThumbnail.m; sourceTree = "<group>"; };
 		A9BD06031935A746005840CA /* button_lastaccount_login.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_lastaccount_login.png; sourceTree = "<group>"; };
 		A9BD06041935A746005840CA /* button_lastaccount_login@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_lastaccount_login@2x.png"; sourceTree = "<group>"; };
 		A9BD83E218ED40BD000375BD /* button_config.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_config.png; sourceTree = "<group>"; };
@@ -2969,6 +2977,9 @@
 				9A7AC17518D1907B0043316D /* SUKMNewsCell.h */,
 				9A7AC17618D1907B0043316D /* SUKMNewsCell.m */,
 				9A7AC17718D1907B0043316D /* SUKMNewsCell.xib */,
+				A9BCA3D91941D94B00C93F5D /* SUKMNewsContaintCell.h */,
+				A9BCA3DA1941D94B00C93F5D /* SUKMNewsContaintCell.m */,
+				A9BCA3DB1941D94B00C93F5D /* SUKMNewsContaintCell.xib */,
 			);
 			path = News;
 			sourceTree = "<group>";
@@ -3865,6 +3876,7 @@
 		A98198B4178D3FA70009FCB6 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				A9BCA3DE194201E200C93F5D /* MoviePlayerThumbnail */,
 				A9A9814E193C6BF400B8512E /* Tokens */,
 				A9EF13CB193583930062A9BF /* TemplateData */,
 				A9BABB49192C4E8700C417F3 /* TextField */,
@@ -4613,6 +4625,15 @@
 				A9BABB4B192C4E9100C417F3 /* TextField.m */,
 			);
 			path = TextField;
+			sourceTree = "<group>";
+		};
+		A9BCA3DE194201E200C93F5D /* MoviePlayerThumbnail */ = {
+			isa = PBXGroup;
+			children = (
+				A9BCA3DF194201F600C93F5D /* MoviePlayerThumbnail.h */,
+				A9BCA3E0194201F600C93F5D /* MoviePlayerThumbnail.m */,
+			);
+			path = MoviePlayerThumbnail;
 			sourceTree = "<group>";
 		};
 		A9BF9486178FB87300EF7E5F /* Location */ = {
@@ -5441,6 +5462,7 @@
 				9A4E4B701887E60700E4A1D2 /* line_promotion.png in Resources */,
 				9A889BEB187AC73D00602CBB /* bg_white_login@2x.png in Resources */,
 				9A2F8D0F1855BBF60024AE1A /* button_buy@2x.png in Resources */,
+				A9BCA3DD1941D94B00C93F5D /* SUKMNewsContaintCell.xib in Resources */,
 				9AC979FA186C273B00E5432D /* frame_avashop_home.png in Resources */,
 				9A079B3918C0D34600FDC0EC /* icon_address_list@2x.png in Resources */,
 				9A889BEC187AC73D00602CBB /* button_chosephoto_login@2x.png in Resources */,
@@ -5518,6 +5540,7 @@
 				9ADCD95B18D19C3F004CB67E /* SDImageCache.m in Sources */,
 				9A7AC22C18D191740043316D /* ShopListMapCell.m in Sources */,
 				9A27BBF318D18BAD00E3EAC2 /* AvatarCell.m in Sources */,
+				A9BCA3DC1941D94B00C93F5D /* SUKMNewsContaintCell.m in Sources */,
 				9A7AC1FA18D190EA0043316D /* ShopListSortView.m in Sources */,
 				9A27BBFD18D18BAD00E3EAC2 /* UserLoginViewController.m in Sources */,
 				9A29574918C23FB7004C8FD5 /* _UserGalleryUpload.m in Sources */,
@@ -5750,6 +5773,7 @@
 				9ADCD96318D19C3F004CB67E /* UIImage+GIF.m in Sources */,
 				9A7AC19118D1907B0043316D /* PlacelistBGView.m in Sources */,
 				9A27BBFB18D18BAD00E3EAC2 /* RegisterViewController.m in Sources */,
+				A9BCA3E1194201F600C93F5D /* MoviePlayerThumbnail.m in Sources */,
 				9A27BCA018D18BAD00E3EAC2 /* UserSettingViewController.m in Sources */,
 				9A1B010818BE5D27005FC9C1 /* ImageScaleCrop.m in Sources */,
 				9ADCD95218D19C3F004CB67E /* GMGridViewLayoutStrategies.m in Sources */,

@@ -338,6 +338,11 @@ static char ImageViewLoadingBigKey;
     [self setImageWithURL:URL(url)];
 }
 
+-(void)loadVideoThumbnailWithURL:(NSString *)url
+{
+    [self setImageWithURL:URL(url)];
+}
+
 -(UIViewContentMode) showLoadingImage
 {
     self.animationImages=[ImageManager sharedInstance].loadingImages;

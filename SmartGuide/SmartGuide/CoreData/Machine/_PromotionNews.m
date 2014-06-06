@@ -155,6 +155,19 @@
 	[self didChangeValueForKey:@"imageWidth"];
 }
 
+- (NSNumber*)sortOrder {
+	[self willAccessValueForKey:@"sortOrder"];
+	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"sortOrder"];
+	[self didAccessValueForKey:@"sortOrder"];
+	return result;
+}
+
+- (void)setSortOrder:(NSNumber*)value {
+	[self willChangeValueForKey:@"sortOrder"];
+	[self setPrimitiveValue:value forKey:@"sortOrder"];
+	[self didChangeValueForKey:@"sortOrder"];
+}
+
 - (NSString*)title {
 	[self willAccessValueForKey:@"title"];
 	NSString* result = (NSString*)[self primitiveValueForKey:@"title"];
@@ -166,6 +179,58 @@
 	[self willChangeValueForKey:@"title"];
 	[self setPrimitiveValue:value forKey:@"title"];
 	[self didChangeValueForKey:@"title"];
+}
+
+- (NSString*)video {
+	[self willAccessValueForKey:@"video"];
+	NSString* result = (NSString*)[self primitiveValueForKey:@"video"];
+	[self didAccessValueForKey:@"video"];
+	return result;
+}
+
+- (void)setVideo:(NSString*)value {
+	[self willChangeValueForKey:@"video"];
+	[self setPrimitiveValue:value forKey:@"video"];
+	[self didChangeValueForKey:@"video"];
+}
+
+- (NSNumber*)videoHeight {
+	[self willAccessValueForKey:@"videoHeight"];
+	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"videoHeight"];
+	[self didAccessValueForKey:@"videoHeight"];
+	return result;
+}
+
+- (void)setVideoHeight:(NSNumber*)value {
+	[self willChangeValueForKey:@"videoHeight"];
+	[self setPrimitiveValue:value forKey:@"videoHeight"];
+	[self didChangeValueForKey:@"videoHeight"];
+}
+
+- (NSString*)videoThumbnail {
+	[self willAccessValueForKey:@"videoThumbnail"];
+	NSString* result = (NSString*)[self primitiveValueForKey:@"videoThumbnail"];
+	[self didAccessValueForKey:@"videoThumbnail"];
+	return result;
+}
+
+- (void)setVideoThumbnail:(NSString*)value {
+	[self willChangeValueForKey:@"videoThumbnail"];
+	[self setPrimitiveValue:value forKey:@"videoThumbnail"];
+	[self didChangeValueForKey:@"videoThumbnail"];
+}
+
+- (NSNumber*)videoWidth {
+	[self willAccessValueForKey:@"videoWidth"];
+	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"videoWidth"];
+	[self didAccessValueForKey:@"videoWidth"];
+	return result;
+}
+
+- (void)setVideoWidth:(NSNumber*)value {
+	[self willChangeValueForKey:@"videoWidth"];
+	[self setPrimitiveValue:value forKey:@"videoWidth"];
+	[self didChangeValueForKey:@"videoWidth"];
 }
 
 #pragma mark Relationships

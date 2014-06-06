@@ -7,7 +7,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SUKMNewsCell" rowHeight="1372" id="UuM-rw-Uln" customClass="SUKMNewsCell">
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="SUKMNewsCell" rowHeight="1372" id="UuM-rw-Uln" customClass="SUKMNewsCell">
             <rect key="frame" x="0.0" y="0.0" width="290" height="90"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="UuM-rw-Uln" id="tMK-7T-1cK">
@@ -49,6 +49,27 @@
                                 <rect key="frame" x="0.0" y="0.0" width="274" height="0.0"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
+                            <view contentMode="scaleToFill" id="MLg-en-LuO">
+                                <rect key="frame" x="0.0" y="0.0" width="274" height="0.0"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="8xi-L7-pgb">
+                                        <rect key="frame" x="0.0" y="0.0" width="274" height="0.0"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Hvo-sQ-S0f">
+                                        <rect key="frame" x="0.0" y="0.0" width="274" height="0.0"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        <state key="normal">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="btnMovieTouchUpInside:" destination="UuM-rw-Uln" eventType="touchUpInside" id="NVR-nE-JKo"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </view>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="KHUYẾN MÃI TẾT 2014" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="XGd-YP-6hL" customClass="LabelTopText">
                                 <rect key="frame" x="20" y="10" width="234" height="0.0"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -83,14 +104,18 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     </imageView>
                 </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </tableViewCellContentView>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <connections>
                 <outlet property="containView" destination="VgX-bD-riX" id="2uP-or-nNs"/>
                 <outlet property="cover" destination="k2T-aU-a3x" id="Yxd-c1-NLF"/>
+                <outlet property="imgvMovieThumbnail" destination="8xi-L7-pgb" id="kKO-5D-n33"/>
                 <outlet property="lblContent" destination="PjU-bt-OXc" id="jM5-ms-pXf"/>
                 <outlet property="lblDuration" destination="QEv-tJ-Csd" id="iFE-tq-SJf"/>
                 <outlet property="lblTitle" destination="XGd-YP-6hL" id="haD-4F-s1B"/>
                 <outlet property="lineStatus" destination="ZYU-mm-f7D" id="6rr-wE-iRZ"/>
+                <outlet property="videoContain" destination="MLg-en-LuO" id="FuZ-Yy-qFS"/>
             </connections>
         </tableViewCell>
     </objects>

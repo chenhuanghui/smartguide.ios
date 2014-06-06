@@ -10,7 +10,7 @@
 #import "UserNotification.h"
 #import "UserNotificationContent.h"
 
-@class UserNotificationViewController;
+@class UserNotificationViewController,MPMoviePlayerController;
 
 @interface UserNotificationDetailViewController : SGViewController
 {
@@ -23,6 +23,8 @@
     bool _isLoadingMore;
     
     NSMutableDictionary *_timerMovide;
+    
+    __strong MPMoviePlayerController *_player;
 }
 
 -(UserNotificationDetailViewController*) initWithIDSender:(int) idSender;

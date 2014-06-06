@@ -38,7 +38,6 @@
 
 
 
-@dynamic promotionNew;
 
 
 
@@ -642,9 +641,69 @@
 }
 
 #pragma mark PromotionNew
-- (PromotionNews*)promotionNew {
+- (NSSet*)promotionNew {
 	[self willAccessValueForKey:@"promotionNew"];
-	PromotionNews *result = [self primitiveValueForKey:@"promotionNew"];
+	NSSet *result = [self primitiveValueForKey:@"promotionNew"];
+	[self didAccessValueForKey:@"promotionNew"];
+	return result;
+}
+
+-(NSArray*) promotionNewObjects
+{
+    NSSet *set=[self promotionNew];
+    if(set)
+        return [set allObjects];
+    
+    return [NSArray array];
+}
+
+- (void)setPromotionNew:(NSSet*)value {
+	[self willChangeValueForKey:@"promotionNew" withSetMutation:NSKeyValueSetSetMutation usingObjects:value];
+	[[self primitiveValueForKey:@"promotionNew"] setSet:value];
+	[self didChangeValueForKey:@"promotionNew" withSetMutation:NSKeyValueSetSetMutation usingObjects:value];
+}
+
+- (void)addPromotionNew:(NSSet*)value {
+	[self willChangeValueForKey:@"promotionNew" withSetMutation:NSKeyValueUnionSetMutation usingObjects:value];
+	[[self primitiveValueForKey:@"promotionNew"] unionSet:value];
+	[self didChangeValueForKey:@"promotionNew" withSetMutation:NSKeyValueUnionSetMutation usingObjects:value];
+}
+
+-(void)removePromotionNew:(NSSet*)value {
+
+    for(NSManagedObject *obj in value.allObjects)
+        [self.managedObjectContext deleteObject:obj];
+
+	[self willChangeValueForKey:@"promotionNew" withSetMutation:NSKeyValueMinusSetMutation usingObjects:value];
+	[[self primitiveValueForKey:@"promotionNew"] minusSet:value];
+	[self didChangeValueForKey:@"promotionNew" withSetMutation:NSKeyValueMinusSetMutation usingObjects:value];
+}
+	
+- (void)addPromotionNewObject:(PromotionNews*)value {
+	NSSet *changedObjects = [[NSSet alloc] initWithObjects:&value count:1];
+	[self willChangeValueForKey:@"promotionNew" withSetMutation:NSKeyValueUnionSetMutation usingObjects:changedObjects];
+	[[self primitiveValueForKey:@"promotionNew"] addObject:value];
+	[self didChangeValueForKey:@"promotionNew" withSetMutation:NSKeyValueUnionSetMutation usingObjects:changedObjects];
+}
+
+- (void)removePromotionNewObject:(PromotionNews*)value {
+
+    [self.managedObjectContext deleteObject:value];
+
+	NSSet *changedObjects = [[NSSet alloc] initWithObjects:&value count:1];
+	[self willChangeValueForKey:@"promotionNew" withSetMutation:NSKeyValueMinusSetMutation usingObjects:changedObjects];
+	[[self primitiveValueForKey:@"promotionNew"] removeObject:value];
+	[self didChangeValueForKey:@"promotionNew" withSetMutation:NSKeyValueMinusSetMutation usingObjects:changedObjects];
+}
+
+- (void) removeAllPromotionNew
+{
+    [self removePromotionNew:self.promotionNew];
+}
+
+- (NSMutableSet*)promotionNewSet {
+	[self willAccessValueForKey:@"promotionNew"];
+	NSMutableSet *result = [self mutableSetValueForKey:@"promotionNew"];
 	[self didAccessValueForKey:@"promotionNew"];
 	return result;
 }

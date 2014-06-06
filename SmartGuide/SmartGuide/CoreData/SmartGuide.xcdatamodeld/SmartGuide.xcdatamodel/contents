@@ -50,7 +50,12 @@
         <attribute name="image" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="imageHeight" optional="YES" attributeType="Float" defaultValueString="0" syncable="YES"/>
         <attribute name="imageWidth" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="sortOrder" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="video" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="videoHeight" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="videoThumbnail" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="videoWidth" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <relationship name="shop" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Shop" inverseName="promotionNew" inverseEntity="Shop" syncable="YES"/>
     </entity>
     <entity name="Reward" representedClassName="Reward" syncable="YES">
@@ -88,7 +93,7 @@
         <relationship name="home8" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="UserHome8" inverseName="shop" inverseEntity="UserHome8" syncable="YES"/>
         <relationship name="km1" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="ShopKM1" inverseName="shop" inverseEntity="ShopKM1" syncable="YES"/>
         <relationship name="km2" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="ShopKM2" inverseName="shop" inverseEntity="ShopKM2" syncable="YES"/>
-        <relationship name="promotionNew" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="PromotionNews" inverseName="shop" inverseEntity="PromotionNews" syncable="YES"/>
+        <relationship name="promotionNew" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="PromotionNews" inverseName="shop" inverseEntity="PromotionNews" syncable="YES"/>
         <relationship name="shopGalleries" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ShopGallery" inverseName="shop" inverseEntity="ShopGallery" syncable="YES"/>
         <relationship name="shopList" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="ShopList" inverseName="shop" inverseEntity="ShopList" syncable="YES"/>
         <relationship name="timeComments" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ShopUserComment" inverseName="shopTime" inverseEntity="ShopUserComment" syncable="YES"/>
@@ -346,6 +351,7 @@
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="video" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="videoHeight" optional="YES" attributeType="Float" syncable="YES"/>
+        <attribute name="videoThumbnail" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="videoWidth" optional="YES" attributeType="Float" syncable="YES"/>
         <relationship name="actions" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="UserNotificationAction" inverseName="userNotificationContent" inverseEntity="UserNotificationAction" syncable="YES"/>
         <relationship name="notification" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="UserNotification" inverseName="notificationContents" inverseEntity="UserNotification" syncable="YES"/>
@@ -380,7 +386,7 @@
         <element name="KM1Voucher" positionX="0" positionY="0" width="128" height="150"/>
         <element name="KM2Voucher" positionX="0" positionY="0" width="128" height="150"/>
         <element name="Placelist" positionX="0" positionY="0" width="128" height="210"/>
-        <element name="PromotionNews" positionX="0" positionY="0" width="128" height="150"/>
+        <element name="PromotionNews" positionX="0" positionY="0" width="128" height="225"/>
         <element name="Reward" positionX="0" positionY="0" width="128" height="120"/>
         <element name="Shop" positionX="0" positionY="0" width="128" height="540"/>
         <element name="ShopGallery" positionX="0" positionY="0" width="128" height="150"/>
@@ -407,7 +413,7 @@
         <element name="UserHomeImage" positionX="0" positionY="0" width="128" height="90"/>
         <element name="UserNotification" positionX="9" positionY="153" width="128" height="208"/>
         <element name="UserNotificationAction" positionX="18" positionY="153" width="128" height="223"/>
-        <element name="UserNotificationContent" positionX="9" positionY="153" width="128" height="300"/>
+        <element name="UserNotificationContent" positionX="9" positionY="153" width="128" height="315"/>
         <element name="UserPlacelist" positionX="0" positionY="0" width="128" height="120"/>
         <element name="UserPromotion" positionX="0" positionY="0" width="128" height="270"/>
     </elements>

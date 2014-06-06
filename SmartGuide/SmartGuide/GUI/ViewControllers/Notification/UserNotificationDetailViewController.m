@@ -268,6 +268,17 @@
     [ope startAsynchronous];
 }
 
+-(MPMoviePlayerController *)userNotificationDetailCellRequestPlayer:(UserNotificationDetailCell *)cell
+{
+    if(!_player)
+    {
+        _player=[MPMoviePlayerController new];
+        _player.shouldAutoplay=false;
+    }
+    
+    return _player;
+}
+
 -(void)userNotificationDetailCellTouchedAction:(UserNotificationDetailCell *)cell action:(UserNotificationAction *)action
 {
     [SGData shareInstance].fScreen=@"S00601";
@@ -363,6 +374,13 @@
     switch (obj.enumDisplayType) {
         case USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE_TITLE:
         {
+            if(_player)
+            {
+                [_player stop];
+                [_player setContentURL:nil];
+                [_player.view removeFromSuperview];
+            }
+            
             NSArray *array=[_userNotificationContents filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"%K==%@",UserNotificationContent_DisplayType,@(USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE_FULL)]];
             
             NSMutableArray *arrIdx=[NSMutableArray array];
@@ -403,25 +421,12 @@
         {
             [self markReadNotification:dCell.userNotificationDetail];
         }
-        
-        if(dCell.userNotificationDetail.video.length>0)
-        {
-            if(dCell.displayType==USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE_FULL)
-                [dCell addMoviePlayer:dCell.userNotificationDetail];
-            else
-                [dCell removeMoviePlayer];
-        }
     }
 }
 
 -(void)tableView:(UITableView *)tableView didEndDisplayingCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if([cell isKindOfClass:[UserNotificationDetailCell class]])
-    {
-        UserNotificationDetailCell *dCell=(UserNotificationDetailCell*)cell;
-        
-        [dCell removeMoviePlayer];
-    }
+
 }
 
 -(void)processRemoteNotification:(RemoteNotification *)obj
@@ -430,6 +435,16 @@
     {
         _idSender=obj.idSender.integerValue;
         [self resetData];
+    }
+}
+
+-(void)dealloc
+{
+    if(_player)
+    {
+        [_player stop];
+        [_player.view removeFromSuperview];
+        _player=nil;
     }
 }
 

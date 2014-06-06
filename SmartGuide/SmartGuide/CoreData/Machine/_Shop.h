@@ -115,7 +115,13 @@
 @property (nonatomic, retain) ShopKM2* km2;
 
 #pragma mark PromotionNew
-@property (nonatomic, retain) PromotionNews* promotionNew;
+- (NSSet*) promotionNew;
+- (NSArray*) promotionNewObjects;
+- (void) addPromotionNew:(NSSet*)value;
+- (void) removePromotionNew:(NSSet*)value;
+- (void) addPromotionNewObject:(PromotionNews*)value;
+- (void) removePromotionNewObject:(PromotionNews*)value;
+- (void) removeAllPromotionNew;
 
 #pragma mark ShopGalleries
 - (NSSet*) shopGalleries;

@@ -82,7 +82,7 @@
     [tableShopUser registerNib:[UINib nibWithNibName:[SUInfoCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[SUInfoCell reuseIdentifier]];
     [tableShopUser registerNib:[UINib nibWithNibName:[SUUserGalleryCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[SUUserGalleryCell reuseIdentifier]];
     [tableShopUser registerNib:[UINib nibWithNibName:[SUUserCommentCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[SUUserCommentCell reuseIdentifier]];
-    [tableShopUser registerNib:[UINib nibWithNibName:[SUKMNewsCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[SUKMNewsCell reuseIdentifier]];
+    [tableShopUser registerSUKMNewsContaintCell];
     [tableShopUser registerNib:[UINib nibWithNibName:[SUKM1Cell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[SUKM1Cell reuseIdentifier]];
     [tableShopUser registerNib:[UINib nibWithNibName:[SUKM2Cell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[SUKM2Cell reuseIdentifier]];
     
@@ -509,6 +509,8 @@
         {
             [userCommentCell tableDidScroll:tableShopUser cellRect:rect buttonNextHeight:[self buttonNextHeight]-2];
         }
+        if(kmNewsCell)
+            [kmNewsCell tableDidScroll:tableShopUser];
         
         if(_isKeyboardShowed)
             [self.view endEditing:true];
@@ -630,17 +632,17 @@
     return cell;
 }
 
--(SUKMNewsCell*) promotionNewsCell
+-(SUKMNewsContaintCell*) promotionNewsCell
 {
     if(kmNewsCell)
+    {
+        [kmNewsCell loadWithKMNews:_shop.promotionNewObjects];
         return kmNewsCell;
+    }
     
-    SUKMNewsCell *cell=[tableShopUser dequeueReusableCellWithIdentifier:[SUKMNewsCell reuseIdentifier]];
+    SUKMNewsContaintCell *cell=[tableShopUser SUKMNewsContaintCell];
     
-    [cell loadWithPromotionNews:_shop.promotionNew];
-    
-    if(_shop.enumPromotionType!=SHOP_PROMOTION_NONE)
-        [cell hideLine];
+    [cell loadWithKMNews:_shop.promotionNewObjects];
     
     kmNewsCell=cell;
     
@@ -736,6 +738,11 @@
     return _shopUserContentFrame.size.height-_btnNextFrame.size.height-[SUUserCommentCell tableY]+SHOP_USER_ANIMATION_ALIGN_Y;
 }
 
+-(float) kmNewsMaxHeight
+{
+    return _shopUserContentFrame.size.height-_btnNextFrame.size.height+SHOP_USER_ANIMATION_ALIGN_Y;
+}
+
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if(tableView==tableShopUser)
@@ -799,6 +806,14 @@
     }
     
     return [UITableViewCell new];
+}
+
+-(void)tableView:(UITableView *)tableView didEndDisplayingCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if(cell==kmNewsCell)
+    {
+        [kmNewsCell tableDidEndDisplayCell:tableView];
+    }
 }
 
 -(void)userCommentChangeSort:(SUUserCommentCell *)cell sort:(enum SORT_SHOP_COMMENT)sort
@@ -914,8 +929,15 @@
                         
                     case 2:
                     {
-                        if(_shop.promotionNew)
-                            return [SUKMNewsCell heightWithPromotionNews:_shop.promotionNew];
+                        if(_shop.promotionNewObjects.count>0)
+                        {
+                            float height=[SUKMNewsContaintCell heightWithKMNews:_shop.promotionNewObjects];
+//                            float minHHeight=[self kmNewsMaxHeight];
+                            
+//                            height=MIN(height, minHHeight);
+                            
+                            return height;
+                        }
                         else
                             return 0;
                     }

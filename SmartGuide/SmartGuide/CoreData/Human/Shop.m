@@ -3,7 +3,7 @@
 #import "Constant.h"
 
 @implementation Shop
-@synthesize descHeight,shopNameHeight,addressHeight;
+@synthesize descHeight,shopNameHeight,addressHeight,kmNewsHeight;
 
 -(id)initWithEntity:(NSEntityDescription *)entity insertIntoManagedObjectContext:(NSManagedObjectContext *)context
 {
@@ -11,6 +11,7 @@
     
     self.shopLat=[NSNumber numberWithDouble:-1];
     self.shopLng=[NSNumber numberWithDouble:-1];
+    self.kmNewsHeight=@(-1);
     
     _dragCoord=CLLocationCoordinate2DMake(-1, -1);
     
@@ -152,10 +153,30 @@
             break;
     }
     
-    shop.promotionNew=nil;
+    [shop removeAllPromotionNew];
     
-    if(![dict[@"promotionNews"] isNullData])
-        shop.promotionNew=[PromotionNews makeWithDictionary:dict[@"promotionNews"]];
+    PromotionNews *proNews=[PromotionNews makeWithDictionary:dict[@"promotionNews"]];
+    proNews.sortOrder=@(0);
+    proNews.video=@"http://r6---sn-a8au-co5e.googlevideo.com/videoplayback?expire=1402083205&sver=3&source=youtube&id=o-ABepgfksTi2pNtrLL5a41KLXJ2hFefr8soWuJXrtn1zW&upn=G9-pKKMxnOo&mt=1402059822&itag=22&ipbits=0&ratebypass=yes&mv=m&signature=3588CB4B93B442E1FD1EA3F7391F6C8E0C1D7802.D8F666D73EC13EB02C9933930A4AFDF8AFB44C57&sparams=id%2Cip%2Cipbits%2Citag%2Cratebypass%2Csource%2Cupn%2Cexpire&fexp=904722%2C912301%2C913434%2C914073%2C923341%2C930008%2C931327%2C932106%2C932617%2C945533&mws=yes&ms=au&ip=2607%3A5300%3A60%3A513c%3A%3A34&key=yt5&signature=&title=Video";
+    proNews.videoHeight=@(420);
+    proNews.videoWidth=@(960);
+    proNews.videoThumbnail=@"http://www.menucool.com/slider/prod/image-slider-5.jpg";
+    
+    [shop addPromotionNewObject:proNews];
+    
+    proNews=[PromotionNews makeWithDictionary:dict[@"promotionNews"]];
+    proNews.sortOrder=@(1);
+    
+    [shop addPromotionNewObject:proNews];
+    
+    proNews=[PromotionNews makeWithDictionary:dict[@"promotionNews"]];
+    proNews.sortOrder=@(2);
+    proNews.video=@"http://r6---sn-a8au-co5e.googlevideo.com/videoplayback?expire=1402083205&sver=3&source=youtube&id=o-ABepgfksTi2pNtrLL5a41KLXJ2hFefr8soWuJXrtn1zW&upn=G9-pKKMxnOo&mt=1402059822&itag=22&ipbits=0&ratebypass=yes&mv=m&signature=3588CB4B93B442E1FD1EA3F7391F6C8E0C1D7802.D8F666D73EC13EB02C9933930A4AFDF8AFB44C57&sparams=id%2Cip%2Cipbits%2Citag%2Cratebypass%2Csource%2Cupn%2Cexpire&fexp=904722%2C912301%2C913434%2C914073%2C923341%2C930008%2C931327%2C932106%2C932617%2C945533&mws=yes&ms=au&ip=2607%3A5300%3A60%3A513c%3A%3A34&key=yt5&signature=&title=Video";
+    proNews.videoHeight=@(420);
+    proNews.videoWidth=@(960);
+    proNews.videoThumbnail=@"http://www.menucool.com/slider/prod/image-slider-5.jpg";
+    
+    [shop addPromotionNewObject:proNews];
     
     return shop;
 }
@@ -285,6 +306,14 @@
 -(NSString *)desc1
 {
     return @"Lorem ipsum dolor sit amet, consectetuer adipiscing  ";
+}
+
+-(NSArray *)promotionNewObjects
+{
+    NSArray *array=[super promotionNewObjects];
+    if(array.count>0)
+        return [array sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:PromotionNews_SortOrder ascending:true]]];
+    return [NSArray array];
 }
 
 @end

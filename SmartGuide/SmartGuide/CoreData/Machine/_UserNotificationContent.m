@@ -276,6 +276,19 @@
 	[self didChangeValueForKey:@"videoHeight"];
 }
 
+- (NSString*)videoThumbnail {
+	[self willAccessValueForKey:@"videoThumbnail"];
+	NSString* result = (NSString*)[self primitiveValueForKey:@"videoThumbnail"];
+	[self didAccessValueForKey:@"videoThumbnail"];
+	return result;
+}
+
+- (void)setVideoThumbnail:(NSString*)value {
+	[self willChangeValueForKey:@"videoThumbnail"];
+	[self setPrimitiveValue:value forKey:@"videoThumbnail"];
+	[self didChangeValueForKey:@"videoThumbnail"];
+}
+
 - (NSNumber*)videoWidth {
 	[self willAccessValueForKey:@"videoWidth"];
 	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"videoWidth"];

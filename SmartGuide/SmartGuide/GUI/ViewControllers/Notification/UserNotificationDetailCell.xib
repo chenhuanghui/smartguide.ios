@@ -37,6 +37,27 @@
                                                 <rect key="frame" x="19" y="30" width="274" height="0.0"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             </imageView>
+                                            <view contentMode="scaleToFill" id="2Ej-o6-1rx">
+                                                <rect key="frame" x="19" y="30" width="274" height="0.0"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <subviews>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="pI2-i8-Jt9">
+                                                        <rect key="frame" x="0.0" y="0.0" width="274" height="0.0"/>
+                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                    </imageView>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="hzy-YB-5FS">
+                                                        <rect key="frame" x="0.0" y="0.0" width="274" height="0.0"/>
+                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                        <state key="normal">
+                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="btnMovieTouchUpInside:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="12M-Ho-G3a"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                            </view>
                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="yhi-C8-LIf" userLabel="title">
                                                 <rect key="frame" x="19" y="30" width="274" height="0.0"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -133,9 +154,11 @@
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <connections>
                 <outlet property="btnLogo" destination="cdj-Vh-264" id="yi5-SW-z7w"/>
+                <outlet property="btnMovie" destination="hzy-YB-5FS" id="Vaj-Li-nYn"/>
                 <outlet property="displayView" destination="2wF-GB-OOJ" id="r1S-Hc-8KC"/>
                 <outlet property="imgvIcon" destination="bTN-Zz-SJY" id="jbx-zu-wkW"/>
                 <outlet property="imgvImage" destination="AgB-7R-fyV" id="WEY-I7-H2c"/>
+                <outlet property="imgvVideoThumbnail" destination="pI2-i8-Jt9" id="jhQ-j4-S0Q"/>
                 <outlet property="lblContent" destination="TcL-vZ-Tpf" id="Eny-ZM-AjZ"/>
                 <outlet property="lblTime" destination="xvX-NK-6rd" id="tQk-hq-cg9"/>
                 <outlet property="lblTitle" destination="yhi-C8-LIf" id="Fbm-w9-bOy"/>
@@ -143,6 +166,7 @@
                 <outlet property="rightView" destination="KFf-gf-6IM" id="1Jl-Ii-Fhg"/>
                 <outlet property="scroll" destination="Ko2-NF-IFa" id="IzR-WL-tfI"/>
                 <outlet property="tokens" destination="SPj-V4-wjF" id="Ukf-vC-XKX"/>
+                <outlet property="videoContain" destination="2Ej-o6-1rx" id="Be8-L2-bO0"/>
             </connections>
         </tableViewCell>
     </objects>

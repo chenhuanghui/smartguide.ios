@@ -20,6 +20,7 @@
 #define UserNotificationContent_Title @"title"
 #define UserNotificationContent_Video @"video"
 #define UserNotificationContent_VideoHeight @"videoHeight"
+#define UserNotificationContent_VideoThumbnail @"videoThumbnail"
 #define UserNotificationContent_VideoWidth @"videoWidth"
 
 @class UserNotificationContent;
@@ -51,6 +52,7 @@
 @property (nonatomic, retain) NSString* title;
 @property (nonatomic, retain) NSString* video;
 @property (nonatomic, retain) NSNumber* videoHeight;
+@property (nonatomic, retain) NSString* videoThumbnail;
 @property (nonatomic, retain) NSNumber* videoWidth;
 
 #pragma mark Fetched property

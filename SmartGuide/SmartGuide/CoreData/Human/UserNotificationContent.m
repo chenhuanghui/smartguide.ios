@@ -47,12 +47,14 @@
     {
         obj.video=[NSString stringWithStringDefault:data[@"video"]];
         obj.videoWidth=[NSNumber numberWithObject:data[@"videoWidth"]];
-        obj.videoHeight=[NSNumber numberWithObject:data[@"videoWidth"]];
+        obj.videoHeight=[NSNumber numberWithObject:data[@"videoHeight"]];
+        obj.videoThumbnail=[NSString stringWithStringDefault:data[@"videoThumbnail"]];
     }
     
-//    obj.video=@"http://r6---sn-a8au-naje.googlevideo.com/videoplayback?mws=yes&ipbits=0&signature=73CD5D683CA37F9A34C4ABA86BDE38A1B99FB2BB.7F6A31D109C8C46BA8B84470FCC690FA7C89A476&fexp=913434%2C916611%2C923341%2C923343%2C924613%2C930008%2C931328%2C932617%2C938412%2C945301&mt=1402026385&sparams=id%2Cip%2Cipbits%2Citag%2Cratebypass%2Csource%2Cupn%2Cexpire&expire=1402047205&upn=HLFIiPuRewc&ip=2607%3A5300%3A60%3A513c%3A%3A160&key=yt5&id=o-ANr8VDR4tkOx7l-80cq-flfY54RlvRN2BAK0186ZRLBE&sver=3&ratebypass=yes&source=youtube&ms=au&itag=22&mv=m&signature=&title=Video";
+//    obj.video=@"http://r6---sn-a8au-co5e.googlevideo.com/videoplayback?signature=D2C23CFE203364FA199CDB2F93E9E031A1F5966C.624A9DFAB653D3EBB9A5F196464558407D88ACDA&ip=2607%3A5300%3A60%3A513c%3A%3A105&ipbits=0&sver=3&mt=1402073898&mws=yes&hightc=yes&key=yt5&id=o-AMOyBU4MuL9DzG8tNBxCliINacs5Th4JtpKOOfwup3WQ&expire=1402094005&sparams=hightc%2Cid%2Cip%2Cipbits%2Citag%2Cratebypass%2Csource%2Cupn%2Cexpire&upn=bSng2p0dsC0&itag=22&ms=au&fexp=904833%2C913434%2C914005%2C916625%2C923341%2C924203%2C930008%2C932617%2C936100%2C942449&mv=m&source=youtube&ratebypass=yes&signature=&title=Video";
 //    obj.videoHeight=@(420);
 //    obj.videoWidth=@(960);
+//    obj.videoThumbnail=@"http://www.menucool.com/slider/prod/image-slider-5.jpg";
     
     NSArray *actions=data[@"actions"];
     /*
@@ -182,5 +184,25 @@
     return @"Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod";
 }
 #endif
+
+-(NSNumber *)imageWidth
+{
+    NSNumber *num=[super imageWidth];
+    
+    if(num.floatValue==0)
+        return @(1);
+    
+    return num;
+}
+
+-(NSNumber *)videoWidth
+{
+    NSNumber *num=[super videoWidth];
+    
+    if(num.floatValue==0)
+        return @(1);
+    
+    return num;
+}
 
 @end

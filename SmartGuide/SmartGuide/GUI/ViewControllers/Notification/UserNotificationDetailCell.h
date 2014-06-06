@@ -25,6 +25,7 @@ enum USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE
 -(void) userNotificationDetailCellTouchedLogo:(UserNotificationDetailCell*) cell;
 -(void) userNotificationDetailCellTouchedRemove:(UserNotificationDetailCell*) cell;
 -(void) userNotificationDetailCellTouchedDetail:(UserNotificationDetailCell*) cell;
+-(MPMoviePlayerController*) userNotificationDetailCellRequestPlayer:(UserNotificationDetailCell*) cell;
 
 @end
 
@@ -41,14 +42,14 @@ enum USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE
     __weak IBOutlet UIView *leftView;
     __weak IBOutlet UIView *rightView;
     __weak IBOutlet UIImageView *imgvImage;
-    __strong MPMoviePlayerController *_player;
+    __weak IBOutlet UIView *videoContain;
+    __weak IBOutlet UIImageView *imgvVideoThumbnail;
+    __weak IBOutlet UIButton *btnMovie;
     
     __weak UserNotificationContent *_obj;
     enum USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE _displayType;
 }
 
--(void) addMoviePlayer:(UserNotificationContent*) obj;
--(void) removeMoviePlayer;
 -(void) loadWithUserNotificationDetail:(UserNotificationContent*) obj displayType:(enum USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE) displayType;
 -(UserNotificationContent*) userNotificationDetail;
 -(enum USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE) displayType;

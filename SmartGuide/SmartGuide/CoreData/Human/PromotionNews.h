@@ -6,9 +6,10 @@
 
 +(PromotionNews*) makeWithDictionary:(NSDictionary*) dict;
 
--(CGSize) newsSize;
-
-@property (nonatomic, assign) float titleHeight;
-@property (nonatomic, assign) float contentHeight;
+@property (nonatomic, strong) NSNumber *titleHeight;
+@property (nonatomic, strong) NSNumber *contentHeight;
+@property (nonatomic, strong) NSNumber *videoHeightForShop;
+@property (nonatomic, strong) NSNumber *imageHeightForShop;
+@property (nonatomic, strong) NSNumber *kmHeight;
 
 @end
