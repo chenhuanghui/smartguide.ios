@@ -231,8 +231,8 @@
     obj.content=[NSString stringWithStringDefault:dict[@"content"]];
     obj.idShop=[[NSNumber numberWithObject:dict[@"idShop"]] integerValue];
     
-    obj.titleHeight=-1;
-    obj.contentHeight=-1;
+    obj.titleHeight=@(-1);
+    obj.contentHeight=@(-1);
     
     return obj;
 }

@@ -243,7 +243,6 @@
 {
     [super viewWillAppearOnce];
     
-    //    [self requestShopUserWithIDShop:8 idPost:1730514665];
     if(![[SGData shareInstance].isShowedNotice boolValue])
     {
         _isRegisterNotificationUserNotice=true;
@@ -334,6 +333,10 @@
         }
         
         _operationUserHome=nil;
+        
+#if DEBUG
+        [[GUIManager shareInstance].rootViewController presentShopUserWithIDShop:24];
+#endif
     }
 }
 

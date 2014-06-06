@@ -65,8 +65,8 @@ enum DETAIL_INFO_IS_TICKED {
 @property (nonatomic, strong) NSString *title;
 @property (nonatomic, strong) NSString *content;
 @property (nonatomic, assign) int idShop;
-@property (nonatomic, assign) float titleHeight;
-@property (nonatomic, assign) float contentHeight;
+@property (nonatomic, strong) NSNumber *titleHeight;
+@property (nonatomic, strong) NSNumber *contentHeight;
 
 @end
 
