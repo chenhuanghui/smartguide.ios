@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "UserNotificationContent.h"
 #import "TokenView.h"
+#import <MediaPlayer/MediaPlayer.h>
 
 enum USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE
 {
@@ -40,11 +41,14 @@ enum USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE
     __weak IBOutlet UIView *leftView;
     __weak IBOutlet UIView *rightView;
     __weak IBOutlet UIImageView *imgvImage;
+    __strong MPMoviePlayerController *_player;
     
     __weak UserNotificationContent *_obj;
     enum USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE _displayType;
 }
 
+-(void) addMoviePlayer:(UserNotificationContent*) obj;
+-(void) removeMoviePlayer;
 -(void) loadWithUserNotificationDetail:(UserNotificationContent*) obj displayType:(enum USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE) displayType;
 -(UserNotificationContent*) userNotificationDetail;
 -(enum USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE) displayType;

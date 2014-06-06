@@ -17,6 +17,7 @@
 #import "ASIOperationUserNotificationMarkRead.h"
 #import "OperationNotificationAction.h"
 #import "ASIOperationUserNotificationRemove.h"
+#import "AppDelegate.h"
 
 @interface UserNotificationDetailViewController ()<UITableViewDataSource,UITableViewDelegate,ASIOperationPostDelegate,UserNotificationDetailCellDelegate>
 {
@@ -54,6 +55,62 @@
     
     [self requestNotification];
     [self showLoading];
+}
+
+-(NSArray *)registerNotifications
+{
+    return @[MPMoviePlayerWillEnterFullscreenNotification,MPMoviePlayerWillExitFullscreenNotification,MPMoviePlayerPlaybackStateDidChangeNotification,MPMovieDurationAvailableNotification];
+}
+
+-(void)receiveNotification:(NSNotification *)notification
+{
+    if([notification.name isEqualToString:MPMoviePlayerWillExitFullscreenNotification])
+    {
+        AppDelegate *app=[UIApplication sharedApplication].delegate;
+        
+        app.allowRotation=false;
+    }
+    else if([notification.name isEqualToString:MPMoviePlayerWillEnterFullscreenNotification])
+    {
+        AppDelegate *app=[UIApplication sharedApplication].delegate;
+        
+        app.allowRotation=true;
+    }
+    else if([notification.name isEqualToString:MPMoviePlayerPlaybackStateDidChangeNotification])
+    {
+        //        MPMoviePlayerController *player=notification.object;
+        //
+        //        if(player && [player isKindOfClass:[MPMoviePlayerController class]])
+        //        {
+        //            if(!player.contentURL)
+        //                return;
+        //
+        //            if(!_timerMovide)
+        //                _timerMovide=[NSMutableDictionary new];
+        //
+        //            switch (player.playbackState) {
+        //                case MPMoviePlaybackStatePaused:
+        //                case MPMoviePlaybackStateStopped:
+        //                case MPMoviePlaybackStateInterrupted:
+        //                    if(player.currentPlaybackTime>0)
+        //                        [_timerMovide setObject:@(player.currentPlaybackTime) forKey:[NSString stringWithFormat:@"%@",player.contentURL]];
+        //                    break;
+        //            }
+        //        }
+    }
+    else if([notification.name isEqualToString:MPMovieDurationAvailableNotification])
+    {
+        //        MPMoviePlayerController *player=notification.object;
+        //
+        //        if(player && [player isKindOfClass:[MPMoviePlayerController class]])
+        //        {
+        //            if(!player.contentURL || ![_timerMovide objectForKey:[NSString stringWithFormat:@"%@",player.contentURL]])
+        //                return;
+        //
+        //            if(player.currentPlaybackTime==0)
+        //                [player setCurrentPlaybackTime:[_timerMovide[player.contentURL] doubleValue]];
+        //        }
+    }
 }
 
 -(void) requestNotification
@@ -186,7 +243,7 @@
     
     UserNotificationContent *obj=_userNotificationContents[indexPath.row];
     UserNotificationDetailCell *cell=[tableView dequeueReusableCellWithIdentifier:[UserNotificationDetailCell reuseIdentifier]];
-
+    
     [cell loadWithUserNotificationDetail:obj displayType:obj.enumDisplayType];
     
     cell.delegate=self;
@@ -346,6 +403,24 @@
         {
             [self markReadNotification:dCell.userNotificationDetail];
         }
+        
+        if(dCell.userNotificationDetail.video.length>0)
+        {
+            if(dCell.displayType==USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE_FULL)
+                [dCell addMoviePlayer:dCell.userNotificationDetail];
+            else
+                [dCell removeMoviePlayer];
+        }
+    }
+}
+
+-(void)tableView:(UITableView *)tableView didEndDisplayingCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if([cell isKindOfClass:[UserNotificationDetailCell class]])
+    {
+        UserNotificationDetailCell *dCell=(UserNotificationDetailCell*)cell;
+        
+        [dCell removeMoviePlayer];
     }
 }
 

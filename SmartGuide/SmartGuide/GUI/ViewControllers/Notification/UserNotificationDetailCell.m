@@ -32,15 +32,25 @@
     [tokens setTokens:obj.actionTitles objects:obj.actionsObjects];
     [imgvIcon loadShopLogoWithURL:obj.logo];
     
-    float imgvHeight=obj.imageHeightForNoti.floatValue;
+    float topHeight=0;
+    float topY=30;
     
-    if(displayType==USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE_TITLE)
-        imgvHeight=0;
+    if(displayType==USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE_FULL)
+    {
+        if(obj.image.length>0)
+        {
+            topHeight=obj.imageHeightForNoti.floatValue;
+            
+            [imgvImage loadUserNotificationContentWithURL:obj.image];
+            [imgvImage l_v_setH:topHeight];
+        }
+        else if(obj.video.length>0)
+        {
+            topHeight=obj.videoHeightForNoti.floatValue;
+        }
+    }
     
-    [imgvImage loadUserNotificationContentWithURL:obj.image];
-    [imgvImage l_v_setH:imgvHeight];
-    
-    [lblTitle l_v_setY:imgvImage.l_v_y+imgvImage.l_v_h];
+    [lblTitle l_v_setY:topY+topHeight];
     [lblTitle l_v_setH:obj.titleHeight.floatValue];
     
     [lblContent l_v_setY:lblTitle.l_v_y+lblTitle.l_v_h+5];
@@ -51,6 +61,7 @@
     
     lblContent.hidden=displayType==USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE_TITLE;
     imgvImage.hidden=displayType==USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE_TITLE;
+    _player.view.hidden=displayType==USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE_TITLE;
     
     btnLogo.userInteractionEnabled=obj.idShopLogo!=nil;
     
@@ -58,7 +69,34 @@
     scroll.contentSize=CGSizeMake(leftView.l_v_w+rightView.l_v_w, 0);
     
     //Chỉ user có tài khoản mới được phép remove notification
-//    scroll.scrollEnabled=currentUser().enumDataMode==USER_DATA_FULL;
+    //    scroll.scrollEnabled=currentUser().enumDataMode==USER_DATA_FULL;
+}
+
+-(void)addMoviePlayer:(UserNotificationContent *)obj
+{
+    if(obj.video.length==0)
+        return;
+    
+    if(!_player)
+    {
+        _player=[[MPMoviePlayerController alloc] init];
+        _player.shouldAutoplay=false;
+        [imgvImage.superview insertSubview:_player.view aboveSubview:imgvImage];
+    }
+    
+    _player.view.frame=CGRectMake(19, 30, 274, obj.videoHeightForNoti.floatValue);
+    [_player setContentURL:URL(obj.video)];
+    [_player prepareToPlay];
+}
+
+-(void)removeMoviePlayer
+{
+    if(_player)
+    {
+        [_player stop];
+        [_player.view removeFromSuperview];
+        _player=nil;
+    }
 }
 
 -(enum USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE)displayType
@@ -95,7 +133,7 @@
     
     if(obj.titleHeight.floatValue==-1)
     {
-            CGRect rect=[obj.titleAttribute boundingRectWithSize:CGSizeMake(274, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading context:nil];
+        CGRect rect=[obj.titleAttribute boundingRectWithSize:CGSizeMake(274, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading context:nil];
         obj.titleHeight=@(rect.size.height);
     }
     
@@ -133,11 +171,23 @@
         }
     }
     
+    if(obj.videoHeightForNoti.floatValue==-1)
+    {
+        if(obj.video.length==0)
+            obj.videoHeightForNoti=@(0);
+        else
+        {
+            float videoWidth=274;
+            obj.videoHeightForNoti=@(MAX(0, videoWidth*obj.videoHeight.floatValue/obj.videoWidth.floatValue));
+        }
+    }
+    
     switch (displayType) {
         case USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE_FULL:
             height+=obj.titleHeight.floatValue+obj.contentHeight.floatValue;
             height+=obj.actionsHeight.floatValue;
             height+=obj.imageHeightForNoti.floatValue;
+            height+=obj.videoHeightForNoti.floatValue;
             
             break;
             
@@ -189,6 +239,11 @@
     
     [scroll.panGestureRecognizer requireGestureRecognizerToFail:tap];
     [leftView addGestureRecognizer:tap];
+}
+
+-(void)dealloc
+{
+    _player=nil;
 }
 
 -(BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer

@@ -21,6 +21,8 @@
     int _page;
     bool _canLoadMore;
     bool _isLoadingMore;
+    
+    NSMutableDictionary *_timerMovide;
 }
 
 -(UserNotificationDetailViewController*) initWithIDSender:(int) idSender;

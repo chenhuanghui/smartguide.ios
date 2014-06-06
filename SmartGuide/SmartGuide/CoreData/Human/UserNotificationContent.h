@@ -18,5 +18,7 @@
 @property (nonatomic, strong) NSAttributedString *titleAttribute;
 @property (nonatomic, strong) NSAttributedString *contentAttribute;
 @property (nonatomic, strong) NSNumber *imageHeightForNoti;
+@property (nonatomic, strong) NSNumber *videoHeightForNoti;
+@property (nonatomic, strong) NSNumber *videoPlaytime;
 
 @end

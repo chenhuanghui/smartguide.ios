@@ -1,7 +1,7 @@
 #import "UserNotificationContent.h"
 
 @implementation UserNotificationContent
-@synthesize titleHeight,contentHeight,titleAttribute,contentAttribute,actionsHeight,imageHeightForNoti;
+@synthesize titleHeight,contentHeight,titleAttribute,contentAttribute,actionsHeight,imageHeightForNoti,videoHeightForNoti,videoPlaytime;
 
 -(id)initWithEntity:(NSEntityDescription *)entity insertIntoManagedObjectContext:(NSManagedObjectContext *)context
 {
@@ -11,6 +11,8 @@
     self.contentHeight=@(-1);
     self.actionsHeight=@(-1);
     self.imageHeightForNoti=@(-1);
+    self.videoHeightForNoti=@(-1);
+    self.videoPlaytime=@(0);
     
     return self;
 }
@@ -47,6 +49,10 @@
         obj.videoWidth=[NSNumber numberWithObject:data[@"videoWidth"]];
         obj.videoHeight=[NSNumber numberWithObject:data[@"videoWidth"]];
     }
+    
+//    obj.video=@"http://r6---sn-a8au-naje.googlevideo.com/videoplayback?mws=yes&ipbits=0&signature=73CD5D683CA37F9A34C4ABA86BDE38A1B99FB2BB.7F6A31D109C8C46BA8B84470FCC690FA7C89A476&fexp=913434%2C916611%2C923341%2C923343%2C924613%2C930008%2C931328%2C932617%2C938412%2C945301&mt=1402026385&sparams=id%2Cip%2Cipbits%2Citag%2Cratebypass%2Csource%2Cupn%2Cexpire&expire=1402047205&upn=HLFIiPuRewc&ip=2607%3A5300%3A60%3A513c%3A%3A160&key=yt5&id=o-ANr8VDR4tkOx7l-80cq-flfY54RlvRN2BAK0186ZRLBE&sver=3&ratebypass=yes&source=youtube&ms=au&itag=22&mv=m&signature=&title=Video";
+//    obj.videoHeight=@(420);
+//    obj.videoWidth=@(960);
     
     NSArray *actions=data[@"actions"];
     /*
