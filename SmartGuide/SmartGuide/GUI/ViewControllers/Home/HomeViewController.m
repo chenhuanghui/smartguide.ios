@@ -111,6 +111,12 @@
     }];
     
     [tableFeed reloadData];
+    
+    [tableFeed setContentOffset:CGPointMake(0, -tableFeed.contentInset.top) animated:false];
+    
+    [UIView animateWithDuration:0.15f animations:^{
+        [tableFeed killScroll];
+    }];
 }
 
 -(void)textFieldNeedRefresh:(TextField *)txt
@@ -333,10 +339,6 @@
         }
         
         _operationUserHome=nil;
-        
-#if DEBUG
-        [[GUIManager shareInstance].rootViewController presentShopUserWithIDShop:24];
-#endif
     }
 }
 

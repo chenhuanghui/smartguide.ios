@@ -75,6 +75,8 @@
 {
     [super viewDidLoad];
     
+    btnNext.hidden=true;
+    
     [tableShopUser registerNib:[UINib nibWithNibName:[SGShopLoadingCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[SGShopLoadingCell reuseIdentifier]];
     [tableShopUser registerNib:[UINib nibWithNibName:[SUShopGalleryCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[SUShopGalleryCell reuseIdentifier]];
     [tableShopUser registerNib:[UINib nibWithNibName:[SUInfoCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[SUInfoCell reuseIdentifier]];
@@ -84,6 +86,7 @@
     [tableShopUser registerNib:[UINib nibWithNibName:[SUKM1Cell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[SUKM1Cell reuseIdentifier]];
     [tableShopUser registerNib:[UINib nibWithNibName:[SUKM2Cell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[SUKM2Cell reuseIdentifier]];
     
+    btnNext.frame=CGRectZero;
     _btnNextFrame=btnNext.frame;
     
     [detailView addSubview:shopNavi.view];

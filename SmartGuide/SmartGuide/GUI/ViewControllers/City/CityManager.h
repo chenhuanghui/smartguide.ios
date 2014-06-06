@@ -27,5 +27,6 @@
 @property (nonatomic, strong) NSNumber *idCity;
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSNumber *nameHeight;
+@property (nonatomic, strong) NSString *nameACI;
 
 @end

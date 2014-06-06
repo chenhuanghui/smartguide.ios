@@ -9,14 +9,13 @@
 #import "ImageManager.h"
 #import "UIImageView+WebCache.h"
 #import "Utility.h"
+#import <objc/runtime.h>
 
 #define IPHONE_IMAGE_DOWNLOAD_OPTIONS (IS_IPHONE_4?0:0)
 
 static NSMutableArray *_loadingImages=nil;
 static NSMutableArray *_loadingImagesSmall=nil;
 static NSMutableArray *_loadingMoreImages=nil;
-
-#define trackImageScaleMode //if(URL(url))[[ImageManager sharedInstance].imageScaleCrop setObject:[NSValue valueWithCGSize:self.l_v_s] forKey:URL(url)];
 
 @interface ImageManager()<SDWebImageManagerDelegate>
 
@@ -174,7 +173,30 @@ static ImageManager *_imageManager=nil;
 
 @end
 
+static char ImageViewLoadingSmallKey;
+static char ImageViewLoadingBigKey;
+
 @implementation UIImageView(ImageManager)
+
+-(UIImageView *)loadingSmall
+{
+    return objc_getAssociatedObject(self, &ImageViewLoadingSmallKey);
+}
+
+-(void)setLoadingSmall:(UIImageView *)loadingSmall_
+{
+    objc_setAssociatedObject(self, &ImageViewLoadingSmallKey, loadingSmall_, OBJC_ASSOCIATION_ASSIGN);
+}
+
+-(UIImageView *)loadingBig
+{
+    return objc_getAssociatedObject(self, &ImageViewLoadingBigKey);
+}
+
+-(void)setLoadingBig:(UIImageView *)loadingBig_
+{
+    objc_setAssociatedObject(self, &ImageViewLoadingBigKey, loadingBig_, OBJC_ASSOCIATION_ASSIGN);
+}
 
 -(void) loadShopLogoWithURL:(NSString*) url
 {
@@ -193,10 +215,11 @@ static ImageManager *_imageManager=nil;
 
 -(void) loadShopUserGalleryWithURL:(NSString*) url
 {
-    UIViewContentMode mode=[self showLoadingImageSmall];
+    [self showLoadingImageSmall];
     __weak UIImageView *wself=self;
     [self setImageWithURL:[NSURL URLWithString:url] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
-        [wself stopLoadingImageSmall:mode];
+        if(wself)
+            [wself stopLoadingImageSmall];
     }];
 }
 
@@ -222,19 +245,20 @@ static ImageManager *_imageManager=nil;
 
 -(void)loadImageInfo3WithURL:(NSString *)url
 {
-    UIViewContentMode mode=[self showLoadingImageSmall];
+    [self showLoadingImageSmall];
     __weak UIImageView *wself=self;
     [self setImageWithURL:[NSURL URLWithString:url] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
-        [wself stopLoadingImageSmall:mode];
+        if(wself)
+            [wself stopLoadingImageSmall];
     }];
 }
 
 -(void)loadImageHomeWithURL:(NSString *)url
 {
-    UIViewContentMode mode=[self showLoadingImageSmall];
+    [self showLoadingImageSmall];
     __weak UIImageView *wself=self;
     [self setImageWithURL:[NSURL URLWithString:url] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
-        [wself stopLoadingImageSmall:mode];
+        [wself stopLoadingImageSmall];
     }];
 }
 
@@ -260,10 +284,11 @@ static ImageManager *_imageManager=nil;
 
 -(void)loadImagePromotionNewsWithURL:(NSString *)url
 {
-    UIViewContentMode mode=[self showLoadingImageSmall];
+    [self showLoadingImageSmall];
     __weak UIImageView *wself=self;
     [self setImageWithURL:[NSURL URLWithString:url] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
-        [wself stopLoadingImageSmall:mode];
+        if(wself)
+            [wself stopLoadingImageSmall];
     }];
 }
 
@@ -279,19 +304,17 @@ static ImageManager *_imageManager=nil;
 
 -(void)loadShopUserGalleryThumbnailWithURL:(NSString *)url
 {
-    trackImageScaleMode
-    UIViewContentMode mode=[self showLoadingImageSmall];
+    [self showLoadingImageSmall];
     
     __weak UIImageView *wself=self;
     [self setImageWithURL:[NSURL URLWithString:url] completed:^(UIImage *_image, NSError *error, SDImageCacheType cacheType) {
-        [wself stopLoadingImageSmall:mode];
+        if(wself)
+            [wself stopLoadingImageSmall];
     }];
 }
 
 -(void)loadImageScaleCrop:(NSString *)url
 {
-    trackImageScaleMode
-    
     [self setImageWithURL:[NSURL URLWithString:url] placeholderImage:nil];
 }
 
@@ -335,32 +358,33 @@ static ImageManager *_imageManager=nil;
     self.contentMode=mode;
 }
 
--(UIViewContentMode) showLoadingImageSmall
+-(void) showLoadingImageSmall
 {
-    if(self.isAnimating)
-        return self.contentMode;
+    if(self.loadingSmall)
+        return;
     
-    self.animationImages=[ImageManager sharedInstance].loadingImagesSmall;
-    self.animationDuration=0.7f;
-    self.animationRepeatCount=0;
+    UIImageView *imgv=[[UIImageView alloc] initWithFrame:self.frame];
+    imgv.autoresizingMask=UIViewAutoresizingDefault();
+    imgv.contentMode=UIViewContentModeCenter;
+    imgv.animationImages=[ImageManager sharedInstance].loadingImagesSmall;
+    imgv.animationDuration=0.7f;
+    imgv.animationRepeatCount=0;
     
-    UIViewContentMode mode=self.contentMode;
+    [imgv startAnimating];
     
-    if(self.l_v_w<39 || self.l_v_h<14)
-        self.contentMode=UIViewContentModeScaleToFill;
-    else
-        self.contentMode=UIViewContentModeCenter;
+    [self addSubview:imgv];
     
-    [self startAnimating];
-    
-    return mode;
+    self.loadingSmall=imgv;
 }
 
--(void) stopLoadingImageSmall:(UIViewContentMode) mode
+-(void) stopLoadingImageSmall
 {
-    self.animationImages=nil;
-    [self stopAnimating];
-    self.contentMode=mode;
+    if(self.loadingSmall)
+    {
+        [self.loadingSmall stopAnimating];
+        [self.loadingSmall removeFromSuperview];
+        self.loadingSmall=nil;
+    }
 }
 
 -(void)requestImageWithURL:(NSString *)url size:(CGSize)size onCompleted:(void (^)(UIImage *))onCompleted

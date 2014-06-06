@@ -108,7 +108,7 @@
         _filterCities=[CityManager shareInstance].cities;
     else
     {
-        _filterCities=[[CityManager shareInstance].cities filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name contains[cd] %@",keyword]];
+        _filterCities=[[CityManager shareInstance].cities filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"nameACI contains[cd] %@",keyword]];
     }
     
     [table reloadData];

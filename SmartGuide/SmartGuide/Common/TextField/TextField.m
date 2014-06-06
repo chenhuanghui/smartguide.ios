@@ -256,6 +256,8 @@
     
     if(y>0)
     {
+        imgvRefresh.hidden=true;
+        
         if(y<_distanceMinY_Y)
         {
             CGRect rect=self.frame;

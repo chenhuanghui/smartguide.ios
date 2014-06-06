@@ -88,6 +88,8 @@ static CityManager *_cityManager=nil;
     
     obj.idCity=[NSNumber numberWithObject:dict[@"id"]];
     obj.name=[NSString stringWithStringDefault:dict[@"name"]];
+    obj.nameACI=[obj.name ASIString];
+
     obj.nameHeight=@(-1);
     
     return obj;

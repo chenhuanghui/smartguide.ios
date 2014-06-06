@@ -51,6 +51,7 @@ NSURL* URL(NSString* url);
 NSIndexPath *makeIndexPath(int row, int section);
 
 NSUInteger UIViewAutoresizingAll();
+NSUInteger UIViewAutoresizingDefault();
 
 NSString *documentPath();
 NSString *avatarPath();

@@ -54,9 +54,12 @@
 -(void) loadUserPromotionCoverWithURL:(NSString*) url;
 -(void) loadUserNotificationContentWithURL:(NSString*) url;
 
--(UIViewContentMode) showLoadingImageSmall;
+-(void) showLoadingImageSmall;
 
 -(void) requestImageWithURL:(NSString*) url size:(CGSize) size onCompleted:(void(^)(UIImage *img)) onCompleted;
+
+@property (nonatomic, readwrite, weak) UIImageView *loadingSmall;
+@property (nonatomic, readwrite, weak) UIImageView *loadingBig;
 
 @end
 

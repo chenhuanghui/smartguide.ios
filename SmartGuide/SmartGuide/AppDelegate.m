@@ -25,13 +25,6 @@
     CGRect rect=[[UIScreen mainScreen] bounds];
     self.window = [[TrackingWindow alloc] initWithFrame:rect];
     
-    if(![[NSUserDefaults standardUserDefaults] boolForKey:@"isCleanDisk"])
-    {
-        [[NSUserDefaults standardUserDefaults] setObject:@(true) forKey:@"isCleanDisk"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-        [[SDWebImageManager sharedManager].imageCache clearDisk];
-    }
-    
     [[GUIManager shareInstance] startupWithWindow:self.window];
     
     [[NotificationManager shareInstance] registerRemoteNotificaion];

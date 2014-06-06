@@ -114,6 +114,11 @@ NSUInteger UIViewAutoresizingAll()
     return UIViewAutoresizingFlexibleBottomMargin|UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin|UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleWidth;
 }
 
+NSUInteger UIViewAutoresizingDefault()
+{
+    return UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+}
+
 float roundToN(float num, int decimals)
 {
     int tenpow = 1;
@@ -1069,7 +1074,7 @@ NSString* LAZY_STRING_INT(int i)
     NSData *data=[self dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:true];
     NSMutableString *str=[[NSMutableString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     
-    [str replaceOccurrencesOfString:@"đ" withString:@"d" options:0 range:NSMakeRange(0, str.length)];
+    [str replaceOccurrencesOfString:@"?" withString:@"d" options:0 range:NSMakeRange(0, str.length)];
     
     return str;
 }

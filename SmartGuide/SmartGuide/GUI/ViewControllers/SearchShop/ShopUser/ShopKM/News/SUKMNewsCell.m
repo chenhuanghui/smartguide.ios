@@ -42,10 +42,10 @@
 {
     float height=90;
     
-    news.titleHeight=[news.title sizeWithFont:[UIFont fontWithName:@"Avenir-Heavy" size:14] constrainedToSize:CGSizeMake(234, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height;
+    news.titleHeight=[news.title sizeWithFont:FONT_SIZE_BOLD(14) constrainedToSize:CGSizeMake(234, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height;
     height+=news.titleHeight;
     
-    news.contentHeight=[news.content sizeWithFont:[UIFont fontWithName:@"Avenir-Roman" size:13] constrainedToSize:CGSizeMake(234, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height;
+    news.contentHeight=[news.content sizeWithFont:FONT_SIZE_NORMAL(13) constrainedToSize:CGSizeMake(234, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height;
     height+=news.contentHeight;
     
     height+=news.newsSize.height;

@@ -99,6 +99,12 @@
     }];
     
     [table reloadData];
+    
+    [table setContentOffset:CGPointMake(0, -table.contentInset.top) animated:false];
+    
+    [UIView animateWithDuration:0.15f animations:^{
+        [table killScroll];
+    }];
 }
 
 -(void)textFieldNeedRefresh:(TextField *)txt
