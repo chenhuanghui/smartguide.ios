@@ -69,7 +69,10 @@ static LocationManager *_locationManager=nil;
 -(void)startTrackingLocation
 {
     if(_locationManager)
+    {
+        [self stopTrackingLcoation];
         return;
+    }
  
     NSLog(@"startTrackingLocation");
     
@@ -92,9 +95,9 @@ static LocationManager *_locationManager=nil;
 
 -(void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
 {
-    self.homeLocation=CLLocationCoordinateInvail;//Khi thông tin vị trí không xác định thì giử lại vị trí user, cập nhật vị trí home
+    self.homeLocation=CLLocationCoordinateInvail;//Khi thông tin vị trí không xác định thì giữ lại vị trí user, cập nhật vị trí home
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_USER_LOCATION_CHANGED object:[NSValue valueWithMKCoordinate:manager.location.coordinate]];
+//    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_USER_LOCATION_CHANGED object:[NSValue valueWithMKCoordinate:manager.location.coordinate]];
 }
 
 -(void)stopTrackingLcoation

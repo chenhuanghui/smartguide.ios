@@ -79,7 +79,6 @@
     
     [self showLoading];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userLocationChanged:) name:NOTIFICATION_USER_LOCATION_CHANGED object:nil];
     [[LocationManager shareInstance] startTrackingLocation];
     
     tableFeed.delegate=nil;
@@ -133,7 +132,7 @@
 
 -(NSArray *)registerNotifications
 {
-    return @[NOTIFICATION_TOTAL_NOTIFICATION_CHANGED];
+    return @[NOTIFICATION_TOTAL_NOTIFICATION_CHANGED,NOTIFICATION_USER_LOCATION_CHANGED];
 }
 
 -(void)receiveNotification:(NSNotification *)notification
