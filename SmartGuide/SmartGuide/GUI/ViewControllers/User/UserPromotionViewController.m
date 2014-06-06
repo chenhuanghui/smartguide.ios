@@ -159,11 +159,11 @@
 {
     [SGData shareInstance].fScreen=[UserPromotionViewController screenCode];
     
-    if(table.l_co_y<-54)
+    if(table.l_co_y<-48)
     {
         table.userInteractionEnabled=false;
         _isTouchedTextField=true;
-        [table l_co_setY:-54 animate:true];
+        [table l_co_setY:-48 animate:true];
     }
     else
         [self.delegate userPromotionTouchedTextField:self];

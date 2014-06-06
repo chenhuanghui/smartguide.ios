@@ -23,7 +23,15 @@ static NSMutableArray *_asioperations=nil;
 
 +(NSURL*) makeURL:(NSURL*) sourceURL accessToken:(NSString*) accessToken
 {
-    return [NSURL URLWithString:[NSString stringWithFormat:@"%@?access_token=%@",sourceURL,accessToken]];
+    NSString *url=[NSString stringWithFormat:@"%@",sourceURL];
+    
+    NSRange range=[url rangeOfString:@"access_token"];
+    if(range.location!=NSNotFound)
+    {
+        url=[url substringWithRange:NSMakeRange(0, range.location-1)];
+    }
+    
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@?access_token=%@",url,accessToken]];
 }
 
 -(ASIOperationPost *)initWithRouter:(NSURL *)_url
@@ -45,8 +53,6 @@ static NSMutableArray *_asioperations=nil;
     self=[super initWithURL:_url];
     
     [self commonInit];
-    
-    self.operationAccessToken=[[NSString alloc] initWithString:accessToken];
     
     self.sourceURL=[_url copy];
     self.delegate=self;
@@ -133,21 +139,6 @@ static NSMutableArray *_asioperations=nil;
         {
             if([key isEqualToString:@"invalid_grant"])
             {
-                NSLog(@"handleToken %@ %@ %@",CLASS_NAME,self.operationAccessToken,[TokenManager shareInstance].accessToken);
-                
-                if(![TokenManager shareInstance].isRefreshingToken)
-                {
-                    //Token có thể đã được refresh bởi 1 operation khác, nếu token operation (bị lỗi) trùng với token hiện tại->refresh token
-                    if([self.operationAccessToken isEqualToString:[TokenManager shareInstance].accessToken])
-                        [[TokenManager shareInstance] refreshToken];
-                    else
-                    {
-                        //Token đã được refresh bởi operation khác và token hiện tại của operation khác với token app->restart để apply token mới
-                        [self restart];
-                        return true;
-                    }
-                }
-                
                 if(!_asioperations)
                 {
                     _asioperations=[[NSMutableArray alloc] init];
@@ -157,6 +148,11 @@ static NSMutableArray *_asioperations=nil;
                 
                 [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshTokenSuccess:) name:NOTIFICATION_REFRESH_TOKEN_SUCCESS object:nil];
                 [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshTokenFailed:) name:NOTIFICATION_REFRESH_TOKEN_FAILED object:nil];
+                
+                if(![TokenManager shareInstance].isRefreshingToken)
+                {
+                    [[TokenManager shareInstance] refresh];
+                }
                 
                 return true;
             }
@@ -299,7 +295,6 @@ static NSMutableArray *_asioperations=nil;
     ope.sourceURL=[self.sourceURL copy];
     
     NSString *accessToken=[NSString stringWithString:[TokenManager shareInstance].accessToken];
-    ope.operationAccessToken=[accessToken copy];
     ope.url=[ASIOperationPost makeURL:ope.sourceURL accessToken:accessToken];
     
     ope.delegate=ope;
@@ -363,7 +358,6 @@ static NSMutableArray *_asioperations=nil;
     DEALLOC_LOG
     
     self.keyValue=nil;
-    self.operationAccessToken=nil;
     self.sourceURL=nil;
     self.tScreen=nil;
     self.tData=nil;

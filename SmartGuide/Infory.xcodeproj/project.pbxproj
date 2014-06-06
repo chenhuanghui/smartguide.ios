@@ -942,7 +942,6 @@
 		A922663217A1137D00BCFF7E /* ASIOperationPost.m in Sources */ = {isa = PBXBuildFile; fileRef = A922663117A1137D00BCFF7E /* ASIOperationPost.m */; };
 		A924A3C117AEB63F0042B28B /* OperationRefreshToken.m in Sources */ = {isa = PBXBuildFile; fileRef = A924A3C017AEB63F0042B28B /* OperationRefreshToken.m */; };
 		A925479617AE3C2A00AD0BA9 /* OperationGetActionCode.m in Sources */ = {isa = PBXBuildFile; fileRef = A925479517AE3C2A00AD0BA9 /* OperationGetActionCode.m */; };
-		A925479C17AE453F00AD0BA9 /* OperationGetToken.m in Sources */ = {isa = PBXBuildFile; fileRef = A925479B17AE453F00AD0BA9 /* OperationGetToken.m */; };
 		A925508717B74BAC0096C411 /* OperationRouterMap.m in Sources */ = {isa = PBXBuildFile; fileRef = A925508617B74BAC0096C411 /* OperationRouterMap.m */; };
 		A925E3CF17B089EB00806617 /* TokenManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A925E3CE17B089EB00806617 /* TokenManager.m */; };
 		A925E3DC17B09B9400806617 /* ASIOperationUploadUserGallery.m in Sources */ = {isa = PBXBuildFile; fileRef = A925E3DB17B09B9400806617 /* ASIOperationUploadUserGallery.m */; };
@@ -2292,8 +2291,6 @@
 		A924A3C017AEB63F0042B28B /* OperationRefreshToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OperationRefreshToken.m; sourceTree = "<group>"; };
 		A925479417AE3C2A00AD0BA9 /* OperationGetActionCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OperationGetActionCode.h; sourceTree = "<group>"; };
 		A925479517AE3C2A00AD0BA9 /* OperationGetActionCode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OperationGetActionCode.m; sourceTree = "<group>"; };
-		A925479A17AE453E00AD0BA9 /* OperationGetToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OperationGetToken.h; sourceTree = "<group>"; };
-		A925479B17AE453F00AD0BA9 /* OperationGetToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OperationGetToken.m; sourceTree = "<group>"; };
 		A925508517B74BAC0096C411 /* OperationRouterMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OperationRouterMap.h; sourceTree = "<group>"; };
 		A925508617B74BAC0096C411 /* OperationRouterMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OperationRouterMap.m; sourceTree = "<group>"; };
 		A925E3CD17B089EB00806617 /* TokenManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TokenManager.h; sourceTree = "<group>"; };
@@ -3714,8 +3711,6 @@
 			children = (
 				A925479417AE3C2A00AD0BA9 /* OperationGetActionCode.h */,
 				A925479517AE3C2A00AD0BA9 /* OperationGetActionCode.m */,
-				A925479A17AE453E00AD0BA9 /* OperationGetToken.h */,
-				A925479B17AE453F00AD0BA9 /* OperationGetToken.m */,
 				A924A3BF17AEB63F0042B28B /* OperationRefreshToken.h */,
 				A924A3C017AEB63F0042B28B /* OperationRefreshToken.m */,
 				A925508517B74BAC0096C411 /* OperationRouterMap.h */,
@@ -5741,7 +5736,6 @@
 				A925479617AE3C2A00AD0BA9 /* OperationGetActionCode.m in Sources */,
 				9ADCD94718D19C3F004CB67E /* ASIDownloadCache.m in Sources */,
 				9A7AC1E718D1907B0043316D /* ShopMapViewController.m in Sources */,
-				A925479C17AE453F00AD0BA9 /* OperationGetToken.m in Sources */,
 				9A29574618C23FB1004C8FD5 /* UserGalleryUpload.m in Sources */,
 				A992579F18E96F3A00D0993A /* UserNotificationCell.m in Sources */,
 				9AC74E551860BE230033EB61 /* _Placelist.m in Sources */,

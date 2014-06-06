@@ -362,11 +362,11 @@
     self.view.userInteractionEnabled=true;
     [SGData shareInstance].fScreen=[HomeViewController screenCode];
     
-    if(tableFeed.l_co_y<-54)
+    if(tableFeed.l_co_y<-48)
     {
         tableFeed.userInteractionEnabled=false;
         _isTouchedTextField=true;
-        [tableFeed l_co_setY:-54 animate:true];
+        [tableFeed l_co_setY:-48 animate:true];
     }
     else
         [self.delegate homeControllerTouchedTextField:self];

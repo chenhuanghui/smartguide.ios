@@ -17,7 +17,7 @@
 
 static TokenManager *_tokenManager=nil;
 @implementation TokenManager
-@synthesize refreshToken,retryCount,accessToken,activeCode,phone,retryGetTokenCount;
+@synthesize refreshToken,accessToken,activeCode,phone;
 
 +(TokenManager *)shareInstance
 {
@@ -42,11 +42,9 @@ static TokenManager *_tokenManager=nil;
     if(_isRefreshingToken)
         return;
     
-    retryCount++;
-    
     _isRefreshingToken=true;
     
-    _operationRefreshToken=[[OperationRefreshToken alloc] initWithClientID:CLIENT_ID secretID:SECRET_ID refreshToken:self.refreshTokenString];
+    _operationRefreshToken=[[OperationRefreshToken alloc] initWithClientID:CLIENT_ID secretID:SECRET_ID refreshToken:self.refreshToken];
     _operationRefreshToken.delegate=self;
     [_operationRefreshToken start];
 }
@@ -58,39 +56,8 @@ static TokenManager *_tokenManager=nil;
         _isRefreshingToken=false;
         _operationRefreshToken=nil;
         
-        if(retryCount<2)
-            [self refreshToken];
-        else
-        {
-            retryGetTokenCount=0;
-            _isGettingToken=false;
-            
-            [self getToken];
-        }
+        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_REFRESH_TOKEN_FAILED object:nil];
     }
-    else if([operation isKindOfClass:[OperationGetToken class]])
-    {
-        _isGettingToken=false;
-        _operationGetToken=nil;
-        
-        if(retryGetTokenCount<2)
-            [self getToken];
-        else
-            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_REFRESH_TOKEN_FAILED object:nil];
-    }
-}
-
--(void) getToken
-{
-    if(_isGettingToken)
-        return;
-    
-    _isGettingToken=true;
-    retryGetTokenCount++;
-    
-    _operationGetToken=[[OperationGetToken alloc] initWithPhone:self.phone activeCode:self.activeCode];
-    _operationGetToken.delegate=self;
-    [_operationGetToken start];
 }
 
 -(void)operationURLFinished:(OperationURL *)operation
@@ -98,27 +65,13 @@ static TokenManager *_tokenManager=nil;
     if([operation isKindOfClass:[OperationRefreshToken class]])
     {
         OperationRefreshToken *refresh=(OperationRefreshToken*)operation;
-        
-        retryCount=0;
+
         _isRefreshingToken=false;
         
         self.accessToken=[refresh.accessToken copy];
-        self.refreshTokenString=[refresh.refreshToken copy];
+        self.refreshToken=[refresh.refreshToken copy];
         
         _operationRefreshToken=nil;
-        
-        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_REFRESH_TOKEN_SUCCESS object:self.accessToken];
-    }
-    else if([operation isKindOfClass:[OperationGetToken class]])
-    {
-        _isGettingToken=false;
-        
-        OperationGetToken *ope=(OperationGetToken*)operation;
-        
-        self.accessToken=[ope.accessToken copy];
-        self.refreshTokenString=[ope.refreshToken copy];
-        
-        _operationGetToken=nil;
         
         [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_REFRESH_TOKEN_SUCCESS object:self.accessToken];
     }
@@ -134,12 +87,12 @@ static TokenManager *_tokenManager=nil;
     [Flags setAccessToken:_accessToken];
 }
 
--(NSString *)refreshTokenString
+-(NSString *)refreshToken
 {
     return [Flags refreshToken];
 }
 
--(void)setRefreshTokenString:(NSString *)_refreshToken
+-(void) setRefreshToken:(NSString *)_refreshToken
 {
     [Flags setRefreshToken:_refreshToken];
 }

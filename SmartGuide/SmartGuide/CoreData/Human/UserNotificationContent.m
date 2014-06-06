@@ -37,9 +37,9 @@
         obj.imageHeight=[NSNumber numberWithObject:data[@"imageHeight"]];
     }
     
-    obj.image=@"http://www.menucool.com/slider/prod/image-slider-5.jpg";
-    obj.imageWidth=@(960.f);
-    obj.imageHeight=@(420);
+//    obj.image=@"http://www.menucool.com/slider/prod/image-slider-5.jpg";
+//    obj.imageWidth=@(960.f);
+//    obj.imageHeight=@(420);
     
     if(data[@"video"])
     {
