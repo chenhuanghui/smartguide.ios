@@ -566,7 +566,10 @@
 -(SUShopGalleryCell*) shopGalleryCell
 {
     if(shopGalleryCell)
+    {
+        [shopGalleryCell loadWithShop:_shop];
         return shopGalleryCell;
+    }
     
     SUShopGalleryCell *cell=[tableShopUser dequeueReusableCellWithIdentifier:[SUShopGalleryCell reuseIdentifier]];
     cell.delegate=self;

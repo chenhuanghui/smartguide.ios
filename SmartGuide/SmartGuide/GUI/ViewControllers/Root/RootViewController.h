@@ -59,4 +59,6 @@
 
 @interface ScrollViewRoot : UIScrollView
 
+@property (nonatomic, weak) RootViewController *root;
+
 @end

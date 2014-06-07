@@ -344,3 +344,15 @@
 }
 
 @end
+
+@implementation GalleryFullCollectionView
+
+-(void)setContentOffset:(CGPoint)contentOffset
+{
+    if(contentOffset.x<0)
+        contentOffset.x=0;
+    
+    [super setContentOffset:contentOffset];
+}
+
+@end

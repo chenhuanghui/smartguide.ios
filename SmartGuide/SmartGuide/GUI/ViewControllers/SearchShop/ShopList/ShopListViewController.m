@@ -142,7 +142,7 @@
     for(ShopListCell *cell in tableList.visibleCells)
     {
         if([cell isKindOfClass:[ShopListCell class]])
-            [cell removeObserverLove];
+            [cell removeObserver];
     }
     
     [tableList reloadData];
@@ -1392,7 +1392,7 @@
     {
         ShopListCell *lCell=(ShopListCell*)cell;
         
-        [lCell addObserverLove];
+        [lCell addObserver];
     }
 }
 
@@ -1402,7 +1402,7 @@
     {
         ShopListCell *lCell=(ShopListCell*)cell;
         
-        [lCell removeObserverLove];
+        [lCell removeObserver];
     }
 }
 

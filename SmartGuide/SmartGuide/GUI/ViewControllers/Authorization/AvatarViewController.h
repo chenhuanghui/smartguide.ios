@@ -11,7 +11,7 @@
 #import "TouchView.h"
 #import "GMGridView.h"
 
-@class AvatarViewController;
+@class AvatarViewController, AvatarGridView;
 
 @protocol AvatarControllerDelegate <SGViewControllerDelegate>
 
@@ -27,7 +27,7 @@
 {
     __weak IBOutlet UIButton *btnUpPhoto;
     __weak IBOutlet UIButton *btnConfirm;
-    __weak IBOutlet GMGridView *grid;
+    __weak IBOutlet AvatarGridView *grid;
     __weak IBOutlet TouchView *touchView;
     
     ASIOperationGetAvatars *_operationGetAvatars;
@@ -47,5 +47,9 @@
 -(void) setSelectedAvatar:(NSString*) selectedAvatar;
 
 @property (nonatomic, weak) id<AvatarControllerDelegate> delegate;
+
+@end
+
+@interface AvatarGridView : GMGridView
 
 @end

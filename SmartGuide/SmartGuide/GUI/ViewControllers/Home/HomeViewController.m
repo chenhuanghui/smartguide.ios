@@ -112,11 +112,7 @@
     
     [tableFeed reloadData];
     
-    [tableFeed setContentOffset:CGPointMake(0, -tableFeed.contentInset.top) animated:false];
-    
-    [UIView animateWithDuration:0.15f animations:^{
-        [tableFeed killScroll];
-    }];
+    [tableFeed setContentOffset:CGPointMake(0, -48) animated:true];
 }
 
 -(void)textFieldNeedRefresh:(TextField *)txt

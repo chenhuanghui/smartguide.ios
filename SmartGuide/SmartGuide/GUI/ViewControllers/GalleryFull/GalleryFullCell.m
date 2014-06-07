@@ -183,7 +183,12 @@
         if(hasZoom)
             imgv.frame=CGRectMake(0, 0, imgv.frame.size.width, imgv.frame.size.height);
         else
-            imgv.frame=CGRectMake(self.collView.contentOffset.x-rect.origin.x, 0, imgv.frame.size.width, imgv.frame.size.height);
+        {
+            if([self.collView indexPathForCell:self].row==0)
+                imgv.frame=CGRectMake(0, 0, imgv.frame.size.width, imgv.frame.size.height);
+            else
+                imgv.frame=CGRectMake(self.collView.contentOffset.x-rect.origin.x, 0, imgv.frame.size.width, imgv.frame.size.height);
+        }
     }
 }
 

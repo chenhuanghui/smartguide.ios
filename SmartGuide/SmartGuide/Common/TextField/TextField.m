@@ -389,6 +389,7 @@
         table.userInteractionEnabled=true;
         refreshState=TEXTFIELD_REFRESH_STATE_NORMAL;
         imgvRefresh.image=[UIImage imageNamed:@"icon_refresh.png"];
+        self.leftViewMode=UITextFieldViewModeAlways;
         
         [self.delegate textFieldRefreshFinished:self];
     }

@@ -49,21 +49,30 @@
     [self makeButtonType];
 }
 
--(void) addObserverLove
+-(void) addObserver
 {
     [_shop.shop addObserver:self forKeyPath:Shop_LoveStatus options:NSKeyValueObservingOptionNew context:nil];
-    _didAddedObsLove=true;
+    [_shop.shop addObserver:self forKeyPath:Shop_NumOfView options:NSKeyValueObservingOptionNew context:nil];
+    [_shop.shop addObserver:self forKeyPath:Shop_NumOfComment options:NSKeyValueObservingOptionNew context:nil];
+    _didAddedObserver=true;
 }
 
--(void)removeObserverLove
+-(void)removeObserver
 {
-    if(_didAddedObsLove && _shop.shop.observationInfo)
+    if(_didAddedObserver && _shop.shop.observationInfo)
+    {
         [_shop.shop removeObserver:self forKeyPath:Shop_LoveStatus];
+        [_shop.shop removeObserver:self forKeyPath:Shop_NumOfView];
+        [_shop.shop removeObserver:self forKeyPath:Shop_NumOfComment];
+    }
 }
 
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
     btnLove.alpha=_shop.enumLoveStatus==LOVE_STATUS_LOVED?1:0.3f;
+    [btnNumOfView setTitle:[NSString stringWithFormat:@"%@ lượt xem",[_shop numOfView]] forState:UIControlStateNormal];
+    [btnNumOfLove setTitle:[NSString stringWithFormat:@"%@ lượt thích",[_shop numOfLove]] forState:UIControlStateNormal];
+    [btnNumOfComment setTitle:[NSString stringWithFormat:@"%@ nhận xét",[_shop numOfComment]] forState:UIControlStateNormal];
 }
 
 -(void) makeButtonType
@@ -176,7 +185,7 @@
 {
     _operationLove=nil;
     
-    [self removeObserverLove];
+    [self removeObserver];
 }
 
 - (IBAction)btnLoveTouchUpInside:(id)sender {

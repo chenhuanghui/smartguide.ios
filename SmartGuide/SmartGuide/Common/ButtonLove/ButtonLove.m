@@ -140,6 +140,10 @@
         lblTop.textColor=[UIColor darkGrayColor];
         lblBot.frame=_lblBotFrame;
         lblBot.textColor=[UIColor darkGrayColor];
+        
+        [btnLove setImage:BUTTON_LOVE_IMAGE_LOVE forState:UIControlStateNormal];
+        [btnLove setImage:BUTTON_LOVE_IMAGE_LOVE_HOVER forState:UIControlStateSelected];
+        [btnLove setImage:BUTTON_LOVE_IMAGE_LOVE_HOVER forState:UIControlStateHighlighted];
     }
 }
 

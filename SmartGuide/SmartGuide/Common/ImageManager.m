@@ -358,6 +358,7 @@ static char ImageViewLoadingBigKey;
 
 -(void) stopLoadingImage:(UIViewContentMode) mode
 {
+    return;
     self.animationImages=nil;
     [self stopAnimating];
     self.contentMode=mode;
@@ -368,7 +369,9 @@ static char ImageViewLoadingBigKey;
     if(self.loadingSmall)
         return;
     
-    UIImageView *imgv=[[UIImageView alloc] initWithFrame:self.frame];
+    CGRect rect=self.frame;
+    rect.origin=CGPointZero;
+    UIImageView *imgv=[[UIImageView alloc] initWithFrame:rect];
     imgv.autoresizingMask=UIViewAutoresizingDefault();
     imgv.contentMode=UIViewContentModeCenter;
     imgv.animationImages=[ImageManager sharedInstance].loadingImagesSmall;
@@ -384,7 +387,6 @@ static char ImageViewLoadingBigKey;
 
 -(void) stopLoadingImageSmall
 {
-//    return;
     if(self.loadingSmall)
     {
         [self.loadingSmall stopAnimating];

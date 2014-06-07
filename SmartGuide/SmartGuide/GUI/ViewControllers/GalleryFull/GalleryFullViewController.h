@@ -9,7 +9,7 @@
 #import "SGViewController.h"
 #import "GalleryFullCell.h"
 
-@class GalleryFullViewController,GalleryFullGridCell,CollectionViewGalleryFull;
+@class GalleryFullViewController,GalleryFullGridCell,GalleryFullCollectionView;
 
 @protocol GalleryFullProtocol <NSObject>
 
@@ -25,7 +25,7 @@
 
 @interface GalleryFullViewController : SGViewController<UICollectionViewDataSource,UICollectionViewDelegate,GalleryFullProtocol,UIScrollViewDelegate>
 {
-    __weak IBOutlet UICollectionView *collView;
+    __weak IBOutlet GalleryFullCollectionView *collView;
     __weak SGViewController *_parentController;
     id _selectedGallery;
     __weak Shop *_shop;
@@ -40,6 +40,10 @@
 -(void) setSelectedObject:(id) selectedObject;
 
 @property (nonatomic, weak) id<GalleryFullControllerDelegate> delegate;
+
+@end
+
+@interface GalleryFullCollectionView : UICollectionView
 
 @end
 

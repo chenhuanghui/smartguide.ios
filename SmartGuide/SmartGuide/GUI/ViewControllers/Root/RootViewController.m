@@ -46,6 +46,7 @@
     
     HomeViewController *home=[HomeViewController new];
     home.delegate=self;
+    scrollContent.root=self;
     
     [array addObject:home];
     
@@ -771,6 +772,12 @@
 
 -(void)setContentOffset:(CGPoint)contentOffset
 {
+    if(self.currentPage==1)
+    {
+        if([self.root.contentNavigation presentSGViewControlelr] || [self.root.contentNavigation.visibleViewController isKindOfClass:[AvatarViewController class]])
+            contentOffset.x=320;
+    }
+    
     if(contentOffset.x<320.f-274)
         contentOffset.x=320.f-274;
     
@@ -783,6 +790,9 @@
     {
         if(self.currentPage==1)
         {
+            if([self.root.contentNavigation presentSGViewControlelr] || [self.root.contentNavigation.visibleViewController isKindOfClass:[AvatarViewController class]])
+                return false;
+            
             CGPoint pnt=[self.panGestureRecognizer locationInView:self];
             pnt.x-=320;
             

@@ -43,7 +43,7 @@
     
     __weak ShopList *_shop;
     ASIOperationLoveShop *_operationLove;
-    bool _didAddedObsLove;
+    bool _didAddedObserver;
 }
 
 -(void) loadWithShopList:(ShopList*) shopList;
@@ -56,8 +56,8 @@
 
 -(void) tableDidScroll;
 
--(void) addObserverLove;
--(void) removeObserverLove;
+-(void) addObserver;
+-(void) removeObserver;
 
 @property (nonatomic, weak) id<ShopListCellDelegate> delegate;
 @property (nonatomic, weak) TableShopList *table;
