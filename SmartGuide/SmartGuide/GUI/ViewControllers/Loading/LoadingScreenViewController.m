@@ -47,7 +47,9 @@
     // Do any additional setup after loading the view from its nib.
     
     if([UIScreen mainScreen].bounds.size.height==568.f)
-        imgv.image=[UIImage imageNamed:@"lauchR4.png"];
+        imgv.image=[UIImage imageNamed:@"bg_5sosmart.jpg"];
+    else
+        imgv.image=[UIImage imageNamed:@"bg_sosmart.jpg"];
     
     _viewDidLoad=true;
     

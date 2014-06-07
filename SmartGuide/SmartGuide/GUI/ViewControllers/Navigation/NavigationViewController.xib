@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="5053" systemVersion="12F37" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="5056" systemVersion="13D65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
         <deployment defaultVersion="1536" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
@@ -213,8 +213,8 @@
                             <rect key="frame" x="15" y="424" width="259" height="56"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <fontDescription key="fontDescription" name="Avenir-Oblique" family="Avenir" pointSize="12"/>
-                            <inset key="titleEdgeInsets" minX="2" minY="-1" maxX="0.0" maxY="0.0"/>
-                            <state key="normal" title="v1.0.1" image="button_update.png">
+                            <inset key="titleEdgeInsets" minX="-40" minY="-2" maxX="0.0" maxY="0.0"/>
+                            <state key="normal" title="v1.0.1" image="icon_logoupdate.png">
                                 <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
@@ -232,10 +232,10 @@
         <image name="bg_button_release_navigation.png" width="320" height="65"/>
         <image name="button_arrow_navigation.png" width="6" height="11"/>
         <image name="button_setting_navigation.png" width="26" height="26"/>
-        <image name="button_update.png" width="104" height="48"/>
         <image name="cover_blur.png" width="290" height="113"/>
         <image name="frame_avauser_navigation.png" width="71" height="71"/>
         <image name="icon_home_navigation.png" width="22" height="22"/>
+        <image name="icon_logoupdate.png" width="223" height="46"/>
         <image name="icon_promotion_navigation.png" width="34" height="23"/>
         <image name="icon_store_navigation.png" width="18" height="21"/>
         <image name="icon_tutorial_navigation.png" width="18" height="18"/>
