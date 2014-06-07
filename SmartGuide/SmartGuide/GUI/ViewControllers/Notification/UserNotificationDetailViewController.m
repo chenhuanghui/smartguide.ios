@@ -18,6 +18,7 @@
 #import "OperationNotificationAction.h"
 #import "ASIOperationUserNotificationRemove.h"
 #import "AppDelegate.h"
+#import "EmptyDataView.h"
 
 @interface UserNotificationDetailViewController ()<UITableViewDataSource,UITableViewDelegate,ASIOperationPostDelegate,UserNotificationDetailCellDelegate>
 {
@@ -54,7 +55,7 @@
     [UserNotificationContent markDeleteAllObjects];
     [[DataManager shareInstance] save];
     
-    _canLoadMore=true;
+    _canLoadMore=false;
     _isLoadingMore=false;
     _page=-1;
     _userNotificationContents=[NSMutableArray new];
@@ -190,7 +191,20 @@
         
         [table reloadData];
         
+        [self showEmptyView];
+        
         _operationNotificationContent=nil;
+    }
+}
+
+-(void) showEmptyView
+{
+    [table removeEmptyDataView];
+    
+    if(_userNotificationContents.count==0)
+    {
+        [table showEmptyDataViewWithText:@"Không có dữ liệu" textColor:[UIColor grayColor]];
+        [table.emptyDataView l_v_setY:30];
     }
 }
 
@@ -217,7 +231,7 @@
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return _userNotificationContents.count==0?0:1;
+    return 1;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -375,6 +389,8 @@
     [table deleteRowsAtIndexPaths:@[idx] withRowAnimation:UITableViewRowAnimationAutomatic];
     
     [table endUpdates];
+    
+    [self showEmptyView];
 }
 
 -(void)userNotificationDetailCellTouchedDetail:(UserNotificationDetailCell *)cell

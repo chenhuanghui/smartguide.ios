@@ -54,7 +54,7 @@
         }
     }
     
-    displayView.backgroundColor=obj.highlightUnread.boolValue?COLOR255(61, 165, 254, 255):COLOR255(205, 205, 205, 255);
+    displayView.backgroundColor=obj.highlightUnread.boolValue?[UIColor whiteColor]:COLOR255(205, 205, 205, 255);
     
     [lblTitle l_v_setY:topY+topHeight];
     [lblTitle l_v_setH:obj.titleHeight.floatValue];

@@ -15,7 +15,7 @@
 {
     self = [[NSBundle mainBundle] loadNibNamed:@"EmptyDataView" owner:nil options:nil][0];
     if (self) {
-        
+        self.userInteractionEnabled=false;
     }
     return self;
 }
@@ -49,6 +49,22 @@
     }
 }
 
+-(void)showEmptyDataWithAttributeText:(NSAttributedString *)attributeText
+{
+    [self removeEmptyDataView];
+    
+    EmptyDataView *view=[EmptyDataView new];
+    view.lblContent.attributedText=attributeText;
+    [view l_v_setS:self.l_v_s];
+    
+    view.alpha=0;
+    [self addSubview:view];
+    
+    [UIView animateWithDuration:DURATION_DEFAULT animations:^{
+        view.alpha=1;
+    }];
+}
+
 -(void)showEmptyDataWithText:(NSString *)text align:(enum EMPTY_DATA_ALIGN_TEXT)contentMode
 {
     [self removeEmptyDataView];
@@ -57,18 +73,17 @@
     view.lblContent.text=text;
     [view l_v_setS:self.l_v_s];
     
-//    switch (contentMode) {
-//        case EMPTY_DATA_ALIGN_TEXT_MIDDLE:
-//            [view l_v_setS:self.l_v_s];
-//            break;
-//            
-//        case EMPTY_DATA_ALIGN_TEXT_TOP:
-//            [view l_v_setH:[text sizeWithFont:view.lblContent.font constrainedToSize:CGSizeMake(self.l_v_w, 9999) lineBreakMode:view.lblContent.lineBreakMode].height+5];
-//            [view l_v_setW:self.l_v_w];
-//            break;
-//    }
-    
     [self addSubview:view];
+}
+
+-(void)showEmptyDataViewWithText:(NSString *)text textColor:(UIColor *)textColor
+{
+    NSMutableParagraphStyle *para=[NSMutableParagraphStyle new];
+    para.alignment=NSTextAlignmentCenter;
+    
+    NSAttributedString *attStr=[[NSAttributedString alloc] initWithString:text attributes:@{NSFontAttributeName:FONT_SIZE_NORMAL(14),NSForegroundColorAttributeName:textColor,NSParagraphStyleAttributeName:para}];
+    
+    [self showEmptyDataWithAttributeText:attStr];
 }
 
 @end

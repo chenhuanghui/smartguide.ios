@@ -20,6 +20,7 @@
 #import "RefreshingView.h"
 #import "OperationNotificationAction.h"
 #import "ASIOperationUserNotificationRemove.h"
+#import "EmptyDataView.h"
 
 @interface UserNotificationViewController ()<UITableViewDataSource,UITableViewDelegate,UserNotificationCellDelegate,ASIOperationPostDelegate,UIActionSheetDelegate,RefreshingViewDelegate>
 {
@@ -393,6 +394,14 @@
     
     //Dùng để remove table section view
     [table killScroll];
+    
+    [table removeEmptyDataView];
+    
+    if(_userNotification.count==0)
+    {
+        [table showEmptyDataViewWithText:@"Không có dữ liệu" textColor:[UIColor grayColor]];
+        [table.emptyDataView l_v_setY:table.tableHeaderView.l_v_h+30];
+    }
 }
 
 +(NSString *)screenCode
@@ -597,7 +606,14 @@
 {
     [self makeData];
     
+    [table removeEmptyDataView];
     [table reloadData];
+    
+    if(_userNotification.count==0)
+    {
+        [table showEmptyDataViewWithText:@"Không có dữ liệu" textColor:[UIColor grayColor]];
+        [table.emptyDataView l_v_setY:table.tableHeaderView.l_v_h+30];
+    }
 }
 
 -(void)receiveRemoteNotification:(UserNotification *)obj

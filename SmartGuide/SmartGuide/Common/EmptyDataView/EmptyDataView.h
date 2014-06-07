@@ -24,6 +24,8 @@ enum EMPTY_DATA_ALIGN_TEXT {
 -(EmptyDataView*) emptyDataView;
 -(void) removeEmptyDataView;
 -(void) showEmptyDataWithText:(NSString*) text align:(enum EMPTY_DATA_ALIGN_TEXT) contentMode;
+-(void) showEmptyDataWithAttributeText:(NSAttributedString*) attributeText;
+-(void) showEmptyDataViewWithText:(NSString*) text textColor:(UIColor*) textColor;
 
 -(UILabel*) emptyDataLabel;
 
