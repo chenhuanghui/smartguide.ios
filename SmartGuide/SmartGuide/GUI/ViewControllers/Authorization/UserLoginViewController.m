@@ -240,7 +240,7 @@
     {
         if(txtPhone.text.length<9)
         {
-            [AlertView showAlertOKWithTitle:nil withMessage:@"Số điện thoại không họp lệ" onOK:nil];
+            [AlertView showAlertOKWithTitle:nil withMessage:@"Số điện thoại không hợp lệ" onOK:nil];
             return;
         }
         

@@ -631,15 +631,21 @@
 
 -(SUKMNewsContaintCell*) promotionNewsCell
 {
+    float height=[SUKMNewsContaintCell heightWithKMNews:_shop.promotionNewObjects];
+    float minHHeight=[self kmNewsMaxHeight];
+    
+    height=MIN(height, minHHeight);
+    
     if(kmNewsCell)
     {
-        [kmNewsCell loadWithKMNews:_shop.promotionNewObjects];
+        [kmNewsCell l_v_setH:[SUKMNewsContaintCell heightWithKMNews:_shop.promotionNewObjects]];
+        [kmNewsCell loadWithKMNews:_shop.promotionNewObjects maxHeight:height];
         return kmNewsCell;
     }
     
     SUKMNewsContaintCell *cell=[tableShopUser SUKMNewsContaintCell];
     
-    [cell loadWithKMNews:_shop.promotionNewObjects];
+    [cell loadWithKMNews:_shop.promotionNewObjects maxHeight:height];
     
     kmNewsCell=cell;
     
@@ -929,9 +935,9 @@
                         if(_shop.promotionNewObjects.count>0)
                         {
                             float height=[SUKMNewsContaintCell heightWithKMNews:_shop.promotionNewObjects];
-                            float minHHeight=[self kmNewsMaxHeight];
+//                            float minHHeight=[self kmNewsMaxHeight];
                             
-                            height=MIN(height, minHHeight);
+//                            height=MIN(height, minHHeight);
                             
                             return height;
                         }

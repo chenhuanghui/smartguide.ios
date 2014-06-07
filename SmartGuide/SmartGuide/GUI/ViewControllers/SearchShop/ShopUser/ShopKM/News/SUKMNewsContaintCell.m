@@ -28,8 +28,10 @@
     return height;
 }
 
--(void)loadWithKMNews:(NSArray *)kms
+-(void)loadWithKMNews:(NSArray *)kms maxHeight:(float)maxHeight
 {
+    [tableKM l_v_setH:maxHeight];
+    
     _kmNews=kms;
     [tableKM reloadData];
 }
@@ -96,8 +98,16 @@
     NSIndexPath *idx=[table indexPathForCell:self];
     CGRect rect=[table rectForRowAtIndexPath:idx];
     
-//    NSLog(@"%f %f %f",self.l_v_y,rect.origin.y,table.l_co_y);
-    
+    if(table.l_co_y+100-rect.origin.y>0)
+    {
+        [self l_v_setY:table.l_co_y+100];
+        [tableKM l_co_setY:table.l_co_y+100-rect.origin.y];
+    }
+    else
+    {
+        [self l_v_setY:rect.origin.y];
+        [tableKM l_co_setY:0];
+    }
 }
 
 -(void)tableDidEndDisplayCell:(UITableView *)table

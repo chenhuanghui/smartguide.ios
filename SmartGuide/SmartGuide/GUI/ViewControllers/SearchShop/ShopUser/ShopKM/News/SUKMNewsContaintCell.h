@@ -13,12 +13,13 @@
 @interface SUKMNewsContaintCell : UITableViewCell
 {
     __weak IBOutlet UITableView *tableKM;
+    __weak IBOutlet UIView *bg;
     NSArray *_kmNews;
     
     __strong MPMoviePlayerController *_player;
 }
 
--(void) loadWithKMNews:(NSArray*) kms;
+-(void) loadWithKMNews:(NSArray*) kms maxHeight:(float) maxHeight;
 -(void) tableDidScroll:(UITableView*) table;
 -(void) tableDidEndDisplayCell:(UITableView*) table;
 
