@@ -118,7 +118,7 @@
     
     [self reloadData];
     
-    NSLog(@"refreshingViewFinished");
+    [[NotificationManager shareInstance] requestNotificationCount];
 }
 
 -(void) requestUserNotification
@@ -325,6 +325,7 @@
 -(void)userNotificationCellTouchedDetail:(UserNotificationCell *)cell obj:(UserNotification *)obj
 {
     UserNotificationDetailViewController *vc=[[UserNotificationDetailViewController alloc] initWithIDSender:obj.idSender.integerValue];
+    vc.title=[obj.sender uppercaseString];
     
     [self.navigationController pushViewController:vc animated:true];
 }
@@ -541,6 +542,9 @@
             [_userNotification addObjectsFromArray:ope.userNotifications];
             
             [self reloadData];
+            
+            if(_page==0)
+                [[NotificationManager shareInstance] requestNotificationCount];
         }
         else if(refreshView.refreshState==REFRESH_VIEW_STATE_REFRESHING)
         {

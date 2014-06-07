@@ -25,13 +25,17 @@
 -(void)onCompletedWithJSON:(NSArray *)json
 {
     self.notifications=[NSMutableArray new];
+    self.sender=@"";
     
     if([self isNullData:json])
         return;
 
+    NSDictionary *data=json[0];
+    
+    self.sender=[NSString stringWithStringDefault:data[@"title"]];
     UserNotification *noti=[UserNotification userNotificationWithIDNotification:[self.keyValue[@"idNotification"] integerValue]];
     
-    for(NSDictionary *dict in json)
+    for(NSDictionary *dict in data[@"notifications"])
     {
         UserNotificationContent *obj=[UserNotificationContent makeWithDictionary:dict];
         obj.notification=noti;

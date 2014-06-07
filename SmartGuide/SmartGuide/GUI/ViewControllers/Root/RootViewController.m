@@ -71,8 +71,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-#if !DEBUG
-    btnMakeNotification.hidden=true;
+#if BUILD_MODE==0
+    btnMakeNotification.hidden=false;
 #endif
     
     self.contentNavigation.view.autoresizingMask=UIViewAutoresizingAll();
@@ -104,6 +104,8 @@
     [self.view addGestureRecognizer:tap];
     
     tapGes=tap;
+    
+    [[NotificationManager shareInstance] requestNotificationCount];
 }
 
 -(NSArray *)registerNotifications
@@ -738,7 +740,7 @@
 }
 
 - (IBAction)btnMakeNotificationTouchUpInside:(id)sender {
-#if DEBUG
+#if BUILD_MODE==0
     
     NSDictionary *dict=[[NotificationManager shareInstance] makeNotification:_loopMakeNotification];
     

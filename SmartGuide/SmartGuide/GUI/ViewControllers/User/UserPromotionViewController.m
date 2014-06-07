@@ -137,6 +137,8 @@
 
 -(void) displayNotification
 {
+#if BUILD_MODE==1
+    
     NSString *numNoti=[NotificationManager shareInstance].numOfNotification;
     
     if(currentUser().enumDataMode!=USER_DATA_FULL)
@@ -144,6 +146,15 @@
     
     [btnNumOfNotification setTitle:numNoti forState:UIControlStateNormal];
     btnNumOfNotification.hidden=numNoti.length==0 || [NotificationManager shareInstance].totalNotification.integerValue==0;
+    
+#else
+    
+    NSString *numNoti=[NotificationManager shareInstance].numOfNotification;
+    
+    [btnNumOfNotification setTitle:numNoti forState:UIControlStateNormal];
+    btnNumOfNotification.hidden=numNoti.length==0 || [NotificationManager shareInstance].totalNotification.integerValue==0;
+    
+#endif
 }
 
 -(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView

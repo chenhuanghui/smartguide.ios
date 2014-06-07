@@ -155,51 +155,62 @@
     
     [shop removeAllPromotionNew];
     
-    PromotionNews *proNews=[PromotionNews makeWithDictionary:dict[@"promotionNews"]];
-    proNews.sortOrder=@(0);
-    proNews.video=@"http://r6---sn-a8au-co5e.googlevideo.com/videoplayback?expire=1402083205&sver=3&source=youtube&id=o-ABepgfksTi2pNtrLL5a41KLXJ2hFefr8soWuJXrtn1zW&upn=G9-pKKMxnOo&mt=1402059822&itag=22&ipbits=0&ratebypass=yes&mv=m&signature=3588CB4B93B442E1FD1EA3F7391F6C8E0C1D7802.D8F666D73EC13EB02C9933930A4AFDF8AFB44C57&sparams=id%2Cip%2Cipbits%2Citag%2Cratebypass%2Csource%2Cupn%2Cexpire&fexp=904722%2C912301%2C913434%2C914073%2C923341%2C930008%2C931327%2C932106%2C932617%2C945533&mws=yes&ms=au&ip=2607%3A5300%3A60%3A513c%3A%3A34&key=yt5&signature=&title=Video";
-    proNews.videoHeight=@(420);
-    proNews.videoWidth=@(960);
-    proNews.videoThumbnail=@"http://www.menucool.com/slider/prod/image-slider-5.jpg";
+    array=dict[@"promotionNews"];
     
-    [shop addPromotionNewObject:proNews];
+    int count=0;
+    for(NSDictionary *kmNew in array)
+    {
+        PromotionNews *km=[PromotionNews makeWithDictionary:kmNew];
+        km.sortOrder=@(count++);
+        
+        [shop addPromotionNewObject:km];
+    }
     
-    proNews=[PromotionNews makeWithDictionary:dict[@"promotionNews"]];
-    proNews.sortOrder=@(1);
-    
-    [shop addPromotionNewObject:proNews];
-    
-    proNews=[PromotionNews makeWithDictionary:dict[@"promotionNews"]];
-    proNews.sortOrder=@(2);
-    proNews.video=@"http://r6---sn-a8au-co5e.googlevideo.com/videoplayback?expire=1402083205&sver=3&source=youtube&id=o-ABepgfksTi2pNtrLL5a41KLXJ2hFefr8soWuJXrtn1zW&upn=G9-pKKMxnOo&mt=1402059822&itag=22&ipbits=0&ratebypass=yes&mv=m&signature=3588CB4B93B442E1FD1EA3F7391F6C8E0C1D7802.D8F666D73EC13EB02C9933930A4AFDF8AFB44C57&sparams=id%2Cip%2Cipbits%2Citag%2Cratebypass%2Csource%2Cupn%2Cexpire&fexp=904722%2C912301%2C913434%2C914073%2C923341%2C930008%2C931327%2C932106%2C932617%2C945533&mws=yes&ms=au&ip=2607%3A5300%3A60%3A513c%3A%3A34&key=yt5&signature=&title=Video";
-    proNews.videoHeight=@(420);
-    proNews.videoWidth=@(960);
-    proNews.videoThumbnail=@"http://www.menucool.com/slider/prod/image-slider-5.jpg";
-    
-    [shop addPromotionNewObject:proNews];
-    
-    proNews=[PromotionNews makeWithDictionary:dict[@"promotionNews"]];
-    proNews.sortOrder=@(3);
-    proNews.video=@"http://r6---sn-a8au-co5e.googlevideo.com/videoplayback?expire=1402083205&sver=3&source=youtube&id=o-ABepgfksTi2pNtrLL5a41KLXJ2hFefr8soWuJXrtn1zW&upn=G9-pKKMxnOo&mt=1402059822&itag=22&ipbits=0&ratebypass=yes&mv=m&signature=3588CB4B93B442E1FD1EA3F7391F6C8E0C1D7802.D8F666D73EC13EB02C9933930A4AFDF8AFB44C57&sparams=id%2Cip%2Cipbits%2Citag%2Cratebypass%2Csource%2Cupn%2Cexpire&fexp=904722%2C912301%2C913434%2C914073%2C923341%2C930008%2C931327%2C932106%2C932617%2C945533&mws=yes&ms=au&ip=2607%3A5300%3A60%3A513c%3A%3A34&key=yt5&signature=&title=Video";
-    proNews.videoHeight=@(420);
-    proNews.videoWidth=@(960);
-    proNews.videoThumbnail=@"http://www.menucool.com/slider/prod/image-slider-5.jpg";
-    
-    [shop addPromotionNewObject:proNews];
-    
-    proNews=[PromotionNews makeWithDictionary:dict[@"promotionNews"]];
-    proNews.sortOrder=@(4);
-    
-    [shop addPromotionNewObject:proNews];
-    
-    proNews=[PromotionNews makeWithDictionary:dict[@"promotionNews"]];
-    proNews.sortOrder=@(5);
-    proNews.video=@"http://r6---sn-a8au-co5e.googlevideo.com/videoplayback?expire=1402083205&sver=3&source=youtube&id=o-ABepgfksTi2pNtrLL5a41KLXJ2hFefr8soWuJXrtn1zW&upn=G9-pKKMxnOo&mt=1402059822&itag=22&ipbits=0&ratebypass=yes&mv=m&signature=3588CB4B93B442E1FD1EA3F7391F6C8E0C1D7802.D8F666D73EC13EB02C9933930A4AFDF8AFB44C57&sparams=id%2Cip%2Cipbits%2Citag%2Cratebypass%2Csource%2Cupn%2Cexpire&fexp=904722%2C912301%2C913434%2C914073%2C923341%2C930008%2C931327%2C932106%2C932617%2C945533&mws=yes&ms=au&ip=2607%3A5300%3A60%3A513c%3A%3A34&key=yt5&signature=&title=Video";
-    proNews.videoHeight=@(420);
-    proNews.videoWidth=@(960);
-    proNews.videoThumbnail=@"http://www.menucool.com/slider/prod/image-slider-5.jpg";
-    
-    [shop addPromotionNewObject:proNews];
+//    PromotionNews *proNews=[PromotionNews makeWithDictionary:dict[@"promotionNews"]];
+//    proNews.sortOrder=@(0);
+//    proNews.video=@"http://r6---sn-a8au-co5e.googlevideo.com/videoplayback?expire=1402083205&sver=3&source=youtube&id=o-ABepgfksTi2pNtrLL5a41KLXJ2hFefr8soWuJXrtn1zW&upn=G9-pKKMxnOo&mt=1402059822&itag=22&ipbits=0&ratebypass=yes&mv=m&signature=3588CB4B93B442E1FD1EA3F7391F6C8E0C1D7802.D8F666D73EC13EB02C9933930A4AFDF8AFB44C57&sparams=id%2Cip%2Cipbits%2Citag%2Cratebypass%2Csource%2Cupn%2Cexpire&fexp=904722%2C912301%2C913434%2C914073%2C923341%2C930008%2C931327%2C932106%2C932617%2C945533&mws=yes&ms=au&ip=2607%3A5300%3A60%3A513c%3A%3A34&key=yt5&signature=&title=Video";
+//    proNews.videoHeight=@(420);
+//    proNews.videoWidth=@(960);
+//    proNews.videoThumbnail=@"http://www.menucool.com/slider/prod/image-slider-5.jpg";
+//    
+//    [shop addPromotionNewObject:proNews];
+//    
+//    proNews=[PromotionNews makeWithDictionary:dict[@"promotionNews"]];
+//    proNews.sortOrder=@(1);
+//    
+//    [shop addPromotionNewObject:proNews];
+//    
+//    proNews=[PromotionNews makeWithDictionary:dict[@"promotionNews"]];
+//    proNews.sortOrder=@(2);
+//    proNews.video=@"http://r6---sn-a8au-co5e.googlevideo.com/videoplayback?expire=1402083205&sver=3&source=youtube&id=o-ABepgfksTi2pNtrLL5a41KLXJ2hFefr8soWuJXrtn1zW&upn=G9-pKKMxnOo&mt=1402059822&itag=22&ipbits=0&ratebypass=yes&mv=m&signature=3588CB4B93B442E1FD1EA3F7391F6C8E0C1D7802.D8F666D73EC13EB02C9933930A4AFDF8AFB44C57&sparams=id%2Cip%2Cipbits%2Citag%2Cratebypass%2Csource%2Cupn%2Cexpire&fexp=904722%2C912301%2C913434%2C914073%2C923341%2C930008%2C931327%2C932106%2C932617%2C945533&mws=yes&ms=au&ip=2607%3A5300%3A60%3A513c%3A%3A34&key=yt5&signature=&title=Video";
+//    proNews.videoHeight=@(420);
+//    proNews.videoWidth=@(960);
+//    proNews.videoThumbnail=@"http://www.menucool.com/slider/prod/image-slider-5.jpg";
+//    
+//    [shop addPromotionNewObject:proNews];
+//    
+//    proNews=[PromotionNews makeWithDictionary:dict[@"promotionNews"]];
+//    proNews.sortOrder=@(3);
+//    proNews.video=@"http://r6---sn-a8au-co5e.googlevideo.com/videoplayback?expire=1402083205&sver=3&source=youtube&id=o-ABepgfksTi2pNtrLL5a41KLXJ2hFefr8soWuJXrtn1zW&upn=G9-pKKMxnOo&mt=1402059822&itag=22&ipbits=0&ratebypass=yes&mv=m&signature=3588CB4B93B442E1FD1EA3F7391F6C8E0C1D7802.D8F666D73EC13EB02C9933930A4AFDF8AFB44C57&sparams=id%2Cip%2Cipbits%2Citag%2Cratebypass%2Csource%2Cupn%2Cexpire&fexp=904722%2C912301%2C913434%2C914073%2C923341%2C930008%2C931327%2C932106%2C932617%2C945533&mws=yes&ms=au&ip=2607%3A5300%3A60%3A513c%3A%3A34&key=yt5&signature=&title=Video";
+//    proNews.videoHeight=@(420);
+//    proNews.videoWidth=@(960);
+//    proNews.videoThumbnail=@"http://www.menucool.com/slider/prod/image-slider-5.jpg";
+//    
+//    [shop addPromotionNewObject:proNews];
+//    
+//    proNews=[PromotionNews makeWithDictionary:dict[@"promotionNews"]];
+//    proNews.sortOrder=@(4);
+//    
+//    [shop addPromotionNewObject:proNews];
+//    
+//    proNews=[PromotionNews makeWithDictionary:dict[@"promotionNews"]];
+//    proNews.sortOrder=@(5);
+//    proNews.video=@"http://r6---sn-a8au-co5e.googlevideo.com/videoplayback?expire=1402083205&sver=3&source=youtube&id=o-ABepgfksTi2pNtrLL5a41KLXJ2hFefr8soWuJXrtn1zW&upn=G9-pKKMxnOo&mt=1402059822&itag=22&ipbits=0&ratebypass=yes&mv=m&signature=3588CB4B93B442E1FD1EA3F7391F6C8E0C1D7802.D8F666D73EC13EB02C9933930A4AFDF8AFB44C57&sparams=id%2Cip%2Cipbits%2Citag%2Cratebypass%2Csource%2Cupn%2Cexpire&fexp=904722%2C912301%2C913434%2C914073%2C923341%2C930008%2C931327%2C932106%2C932617%2C945533&mws=yes&ms=au&ip=2607%3A5300%3A60%3A513c%3A%3A34&key=yt5&signature=&title=Video";
+//    proNews.videoHeight=@(420);
+//    proNews.videoWidth=@(960);
+//    proNews.videoThumbnail=@"http://www.menucool.com/slider/prod/image-slider-5.jpg";
+//    
+//    [shop addPromotionNewObject:proNews];
     
     return shop;
 }

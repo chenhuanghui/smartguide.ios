@@ -37,10 +37,19 @@
     return self;
 }
 
+-(void)setTitle:(NSString *)title
+{
+    [super setTitle:title];
+    
+    lblTitle.text=title;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    lblTitle.text=self.title;
     
     [UserNotificationContent markDeleteAllObjects];
     [[DataManager shareInstance] save];
@@ -157,6 +166,7 @@
         
         ASIOperationUserNotificationFromSender *ope=(ASIOperationUserNotificationFromSender*) operation;
         
+        self.title=ope.sender;
         [_userNotificationContents addObjectsFromArray:ope.notifications];
         _canLoadMore=ope.notifications.count==10;
         _isLoadingMore=false;
@@ -201,6 +211,7 @@
 }
 
 - (IBAction)btnBackTouchUpInside:(id)sender {
+    [[NotificationManager shareInstance] requestNotificationCount];
     [self.navigationController popViewControllerAnimated:true];
 }
 

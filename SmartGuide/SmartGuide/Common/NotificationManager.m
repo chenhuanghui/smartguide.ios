@@ -86,7 +86,7 @@ static NotificationManager *_notificationManager=nil;
         [[UIApplication sharedApplication] setApplicationIconBadgeNumber:self.totalNotification.integerValue];
         _notificationState=NOTIFICATION_CHECK_STATE_DONE;
         
-        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_USER_NOTIFICATION_CHECK object:nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_TOTAL_NOTIFICATION_CHANGED object:nil];
         
         _operationNotificationCheck=nil;
     }
@@ -94,8 +94,6 @@ static NotificationManager *_notificationManager=nil;
     {
         _isUploadNotificationToken=true;
         _operationUploadNotiToken=nil;
-        
-        [self requestNotificationCount];
     }
 }
 
@@ -105,7 +103,7 @@ static NotificationManager *_notificationManager=nil;
     {
         _notificationState=NOTIFICATION_CHECK_STATE_DONE;
         
-        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_USER_NOTIFICATION_CHECK object:nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_TOTAL_NOTIFICATION_CHANGED object:nil];
         
         _operationNotificationCheck=nil;
     }

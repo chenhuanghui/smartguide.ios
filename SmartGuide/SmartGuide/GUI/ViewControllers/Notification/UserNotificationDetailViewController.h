@@ -16,6 +16,7 @@
 {
     int _idSender;
     __weak IBOutlet UITableView *table;
+    __weak IBOutlet UILabel *lblTitle;
     NSMutableArray *_userNotificationContents;
     
     int _page;
