@@ -173,6 +173,6 @@
     <resources>
         <image name="frame_avauser.png" width="43" height="44"/>
         <image name="icon_remove.png" width="15" height="16"/>
-        <image name="play_icon.png" width="128" height="128"/>
+        <image name="play_icon.png" width="64" height="64"/>
     </resources>
 </document>

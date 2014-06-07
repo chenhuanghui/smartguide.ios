@@ -47,8 +47,43 @@ static NotificationManager *_notificationManager=nil;
         self.totalNotification=@(0);
         self.remoteNotifications=[NSMutableArray new];
         _notificationState=NOTIFICATION_CHECK_STATE_INIT;
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userLogin:) name:NOTIFICATION_USER_LOGIN object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userLogout:) name:NOTIFICATION_USER_LOGOUT object:nil];
     }
     return self;
+}
+
+-(void) userLogin:(NSNotification*) notification
+{
+    if(_operationNotificationCheck)
+    {
+        [_operationNotificationCheck clearDelegatesAndCancel];
+        _operationNotificationCheck=nil;
+    }
+    
+    self.numOfNotification=@"";
+    self.totalNotification=@(0);
+    
+    [self requestNotificationCount];
+}
+
+-(void) userLogout:(NSNotification*) notification
+{
+    if(_operationNotificationCheck)
+    {
+        [_operationNotificationCheck clearDelegatesAndCancel];
+        _operationNotificationCheck=nil;
+    }
+    
+    if(_operationUploadNotiToken)
+    {
+        [_operationUploadNotiToken clearDelegatesAndCancel];
+        _operationUploadNotiToken=nil;
+    }
+    
+    self.numOfNotification=@"";
+    self.totalNotification=@(0);
 }
 
 -(void)requestNotificationCount
@@ -80,8 +115,11 @@ static NotificationManager *_notificationManager=nil;
     {
         ASIOperationNotificationCount *ope=(ASIOperationNotificationCount*) operation;
         
-        self.numOfNotification=[ope.numOfNotification copy];
         self.totalNotification=[ope.totalNotification copy];
+        self.numOfNotification=[ope.numOfNotification copy];
+        
+        if(self.totalNotification.integerValue==0)
+            self.numOfNotification=@"";
         
         [[UIApplication sharedApplication] setApplicationIconBadgeNumber:self.totalNotification.integerValue];
         _notificationState=NOTIFICATION_CHECK_STATE_DONE;
@@ -220,6 +258,10 @@ static NotificationManager *_notificationManager=nil;
     RemoteNotification *obj=[RemoteNotification new];
     
     obj.message=[NSString stringWithStringDefault:dict[@"message"]];
+    
+    if(obj.message.length==0)
+        obj.message=[NSString stringWithStringDefault:dict[@"alert"]];
+    
     obj.badge=[NSString stringWithStringDefault:dict[@"badge"]];
     
     if(dict[@"idNotification"])
