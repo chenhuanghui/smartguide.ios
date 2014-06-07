@@ -30,7 +30,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    [btnUpdate setTitle:[@"v" stringByAppendingString:SMARTUIDE_VERSION] forState:UIControlStateNormal];
+//    [btnUpdate setTitle:[@"v" stringByAppendingString:SMARTUIDE_VERSION] forState:UIControlStateNormal];
+    lblVersion.text=[@"v" stringByAppendingString:SMARTUIDE_VERSION];
     
     [self loadData];
 }

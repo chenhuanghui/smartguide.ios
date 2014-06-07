@@ -17,6 +17,7 @@
                 <outlet property="imgvAvatar" destination="h5W-C4-dWN" id="IRR-Ul-eiV"/>
                 <outlet property="imgvBGAvatar" destination="e92-7z-QZ5" id="1LP-r8-VMQ"/>
                 <outlet property="lblName" destination="Qtb-WW-kak" id="hTy-rZ-ja3"/>
+                <outlet property="lblVersion" destination="OVv-CX-voG" id="7iy-cO-bgU"/>
                 <outlet property="view" destination="1" id="3"/>
             </connections>
         </placeholder>
@@ -214,11 +215,18 @@
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <fontDescription key="fontDescription" name="Avenir-Oblique" family="Avenir" pointSize="12"/>
                             <inset key="titleEdgeInsets" minX="-40" minY="-2" maxX="0.0" maxY="0.0"/>
-                            <state key="normal" title="v1.0.1" image="icon_logoupdate.png">
+                            <state key="normal" image="icon_logoupdate.png">
                                 <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                         </button>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="OVv-CX-voG">
+                            <rect key="frame" x="60" y="453" width="214" height="21"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <fontDescription key="fontDescription" name="Avenir-Oblique" family="Avenir" pointSize="10"/>
+                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                     </subviews>
                     <color key="backgroundColor" red="0.14901960784313725" green="0.1764705882352941" blue="0.27450980392156865" alpha="1" colorSpace="deviceRGB"/>
                 </view>

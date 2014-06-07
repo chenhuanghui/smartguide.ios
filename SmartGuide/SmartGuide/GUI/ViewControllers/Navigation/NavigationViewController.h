@@ -34,6 +34,7 @@
     __weak IBOutlet UIButton *btnStore;
     __weak IBOutlet UIButton *btnTutorial;
     __weak IBOutlet UIButton *btnUpdate;
+    __weak IBOutlet UILabel *lblVersion;
 }
 
 -(void) loadData;

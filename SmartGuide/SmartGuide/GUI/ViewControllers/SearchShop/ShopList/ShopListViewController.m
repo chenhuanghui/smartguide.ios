@@ -1043,8 +1043,13 @@
     
     [tableList l_co_setY:0 animate:true];
     self.view.userInteractionEnabled=false;
+    
+    [tableList removeEmptyDataView];
+    
     [UIView animateWithDuration:DURATION_DEFAULT animations:^{
+        
         [tableList l_v_setH:_tableFrame.size.height+QRCODE_BIG_HEIGHT-QRCODE_SMALL_HEIGHT];
+        
         [mapCell l_v_setH:_mapRowHeight];
         [btnSearchLocation l_v_setY:75];
         
@@ -1055,6 +1060,8 @@
         [tableList l_cs_setH:tableList.l_v_h];
         self.view.userInteractionEnabled=true;
         _isAnimatingZoom=false;
+        
+        [self showEmptyDataView];
     }];
 }
 
@@ -1098,6 +1105,9 @@
     
     self.view.userInteractionEnabled=false;
     [tableList l_co_setY:0 animate:true];
+    
+    [tableList removeEmptyDataView];
+    
     [UIView animateWithDuration:DURATION_DEFAULT animations:^{
         [mapCell l_v_setH:_mapRowHeight];
         
@@ -1107,6 +1117,8 @@
         [self reloadTable];
         self.view.userInteractionEnabled=true;
         _isAnimatingZoom=false;
+
+        [self showEmptyDataView];
     }];
 }
 
@@ -1168,6 +1180,8 @@
             tableList.dataSource=self;
             [self reloadTable];
             
+            [self showEmptyDataView];
+            
             [UIView animateWithDuration:DURATION_DEFAULT animations:^{
                 tableList.alpha=1;
             } completion:^(BOOL finished) {
@@ -1181,6 +1195,49 @@
     {
         tableList.dataSource=self;
         [self reloadTable];
+        
+        [self showEmptyDataView];
+    }
+}
+
+-(void) showEmptyDataView
+{
+    [tableList removeEmptyDataView];
+    
+    if(_shopsList.count>0)
+        return;
+    
+    if(_placeList)
+    {
+        [tableList showEmptyDataViewWithText:@"Không có dữ liệu" textColor:[UIColor grayColor]];
+        
+        CGRect rect=[tableList rectForSection:1];
+        
+        [tableList.emptyDataView l_v_setY:rect.origin.y+rect.size.height+15];
+    }
+    else
+    {
+        [tableList showEmptyDataViewWithText:@"Không có dữ liệu" textColor:[UIColor grayColor]];
+        int count=[tableList numberOfSections];
+        
+        if(count==1)
+        {
+            CGRect rect=[tableList rectForSection:0];
+            
+            if(_isZoomedMap)
+            {
+                [tableList.emptyDataView l_v_setY:rect.size.height+5];
+            }
+            else
+            {
+                [tableList.emptyDataView l_v_setY:rect.size.height+30];
+            }
+        }
+        else
+        {
+            CGRect rect=[tableList rectForSection:1];
+            [tableList.emptyDataView l_v_setY:rect.origin.y];
+        }
     }
 }
 
