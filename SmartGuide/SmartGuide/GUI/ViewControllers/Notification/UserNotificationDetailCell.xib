@@ -48,7 +48,7 @@
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="hzy-YB-5FS">
                                                         <rect key="frame" x="0.0" y="0.0" width="274" height="0.0"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                        <state key="normal">
+                                                        <state key="normal" image="play_icon.png">
                                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                         </state>
                                                         <connections>
@@ -173,5 +173,6 @@
     <resources>
         <image name="frame_avauser.png" width="43" height="44"/>
         <image name="icon_remove.png" width="15" height="16"/>
+        <image name="play_icon.png" width="128" height="128"/>
     </resources>
 </document>

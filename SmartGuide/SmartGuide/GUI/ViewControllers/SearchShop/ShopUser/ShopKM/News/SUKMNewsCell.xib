@@ -60,7 +60,7 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Hvo-sQ-S0f">
                                         <rect key="frame" x="0.0" y="0.0" width="274" height="0.0"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                        <state key="normal">
+                                        <state key="normal" image="play_icon.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -124,5 +124,6 @@
         <image name="icon_promotion.png" width="16" height="16"/>
         <image name="line_blur_status.png" width="290" height="3"/>
         <image name="line_promotion.png" width="273" height="5"/>
+        <image name="play_icon.png" width="128" height="128"/>
     </resources>
 </document>
