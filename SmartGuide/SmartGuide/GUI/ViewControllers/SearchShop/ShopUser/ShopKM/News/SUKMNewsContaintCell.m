@@ -93,6 +93,11 @@
 
 -(void)tableDidScroll:(UITableView *)table
 {
+    NSIndexPath *idx=[table indexPathForCell:self];
+    CGRect rect=[table rectForRowAtIndexPath:idx];
+    
+//    NSLog(@"%f %f %f",self.l_v_y,rect.origin.y,table.l_co_y);
+    
 }
 
 -(void)tableDidEndDisplayCell:(UITableView *)table

@@ -67,10 +67,6 @@
     _shopUserContentFrame=shopNavi.view.frame;
 }
 
--(void) registerCell
-{
-}
-
 -(void)viewDidLoad
 {
     [super viewDidLoad];
@@ -128,13 +124,15 @@
             break;
     }
     
-    [self registerCell];
-    
+    [SGData shareInstance].fScreen=[ShopUserViewController screenCode];
+}
+
+-(void)viewWillAppearOnce
+{
+    [self storeRect];
     [tableShopUser reloadData];
     
     [self loadCells];
-    
-    [SGData shareInstance].fScreen=[ShopUserViewController screenCode];
 }
 
 -(void) requestShopUser
@@ -243,7 +241,6 @@
         
         _sortComment=SORT_SHOP_COMMENT_TOP_AGREED;
         
-        [self registerCell];
         [tableShopUser reloadData];
         tableShopUser.scrollEnabled=true;
         
@@ -932,9 +929,9 @@
                         if(_shop.promotionNewObjects.count>0)
                         {
                             float height=[SUKMNewsContaintCell heightWithKMNews:_shop.promotionNewObjects];
-//                            float minHHeight=[self kmNewsMaxHeight];
+                            float minHHeight=[self kmNewsMaxHeight];
                             
-//                            height=MIN(height, minHHeight);
+                            height=MIN(height, minHHeight);
                             
                             return height;
                         }
