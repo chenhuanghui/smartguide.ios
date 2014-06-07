@@ -325,7 +325,9 @@
 -(void)userNotificationCellTouchedDetail:(UserNotificationCell *)cell obj:(UserNotification *)obj
 {
     UserNotificationDetailViewController *vc=[[UserNotificationDetailViewController alloc] initWithIDSender:obj.idSender.integerValue];
-    vc.title=[obj.sender uppercaseString];
+    vc.title=obj.sender;
+    obj.highlightUnread=@(false);
+    [[DataManager shareInstance] save];
     
     [self.navigationController pushViewController:vc animated:true];
 }
@@ -636,8 +638,7 @@
     if([cell isKindOfClass:[UserNotificationCell class]])
     {
         UserNotificationCell *cellNoti=(UserNotificationCell*) cell;
-        
-        [cellNoti addObserverHighlightUnread];
+        [cellNoti tableWillDisplayCell];
     }
 }
 
@@ -647,7 +648,7 @@
     {
         UserNotificationCell *cellNoti=(UserNotificationCell*) cell;
         
-        [cellNoti removeObserverHighlightUnread];
+        [cellNoti tableDidEndDisplayCell];
     }
 }
 

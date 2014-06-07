@@ -8,6 +8,7 @@
 
 #define UserNotificationContent_Content @"content"
 #define UserNotificationContent_DisplayType @"displayType"
+#define UserNotificationContent_HighlightUnread @"highlightUnread"
 #define UserNotificationContent_IdNotification @"idNotification"
 #define UserNotificationContent_IdSender @"idSender"
 #define UserNotificationContent_IdShopLogo @"idShopLogo"
@@ -40,6 +41,7 @@
 
 @property (nonatomic, retain) NSString* content;
 @property (nonatomic, retain) NSNumber* displayType;
+@property (nonatomic, retain) NSNumber* highlightUnread;
 @property (nonatomic, retain) NSNumber* idNotification;
 @property (nonatomic, retain) NSNumber* idSender;
 @property (nonatomic, retain) NSNumber* idShopLogo;

@@ -37,7 +37,7 @@
     }
     else
     {
-        displayContentView.backgroundColor=[UIColor color255WithRed:205 green:205 blue:205 alpha:255];
+        displayContentView.backgroundColor=COLOR255(205, 205, 205, 255);
         lineView.backgroundColor=COLOR255(146, 146, 146, 255);
     }
     
@@ -160,6 +160,16 @@
 -(void) tap:(UITapGestureRecognizer*) tap
 {
     [self.delegate userNotificationCellTouchedDetail:self obj:_obj];
+}
+
+-(void)tableWillDisplayCell
+{
+    [self addObserverHighlightUnread];
+}
+
+-(void)tableDidEndDisplayCell
+{
+    [self removeObserverHighlightUnread];
 }
 
 -(void) addObserverHighlightUnread

@@ -32,7 +32,7 @@
 
     NSDictionary *data=json[0];
     
-    self.sender=[NSString stringWithStringDefault:data[@"title"]];
+    self.sender=[NSString stringWithStringDefault:data[@"sender"]];
     UserNotification *noti=[UserNotification userNotificationWithIDNotification:[self.keyValue[@"idNotification"] integerValue]];
     
     for(NSDictionary *dict in data[@"notifications"])

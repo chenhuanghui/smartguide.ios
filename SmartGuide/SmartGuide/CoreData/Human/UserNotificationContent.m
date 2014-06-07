@@ -32,6 +32,9 @@
     obj.content=[NSString stringWithStringDefault:data[@"content"]];
     obj.status=[NSNumber numberWithObject:data[@"status"]];
     
+    if(obj.enumStatus==NOTIFICATION_STATUS_UNREAD)
+        obj.highlightUnread=@(true);
+    
     if(data[@"image"])
     {
         obj.image=[NSString stringWithStringDefault:data[@"image"]];
@@ -109,7 +112,7 @@
 }
 
 #if DEBUG
--(NSString *)title
+-(NSString *)title1
 {
     return @"Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod";
 }

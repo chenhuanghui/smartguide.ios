@@ -406,6 +406,7 @@
             
             [arrIdx addObject:indexPath];
             obj.displayType=@(USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE_FULL);
+            obj.highlightUnread=@(false);
             [[DataManager shareInstance] save];
             
             [table reloadRowsAtIndexPaths:arrIdx withRowAnimation:UITableViewRowAnimationAutomatic];

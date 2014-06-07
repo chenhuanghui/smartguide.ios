@@ -28,7 +28,7 @@ static NSString * const kClientId = @"790158294934-p5pnscmrt4avj698ncvhp14fit0f4
 
 #define TEXTFIELD_SEARCH_PLACEHOLDER_TEXT @"Tìm kiếm địa điểm"
 
-#define BUILD_MODE 0
+#define BUILD_MODE 1
 //0: developer
 //1: production
 
@@ -64,7 +64,7 @@ static NSString * const kClientId = @"790158294934-p5pnscmrt4avj698ncvhp14fit0f4
 #define API_CITY @"city/list"
 #define API_GROUP_IN_CITY @"group"
 #define API_SHOP_IN_GROUP(userID,cityID,groupID,pageIndex,userLat,userLong) [NSString stringWithFormat:@"promotion/%i/%i/%i/%i/%f/%f",userID,cityID,groupID,pageIndex,userLat,userLong]
-#define API_SHOP_DETAIL @"shop/user_v2"
+#define API_SHOP_DETAIL @"shop/user_v3"
 #define API_SHOP_IN_GROUP_POST @"shop/list"
 #define API_SHOP_GALLERY @"images/gallery/get"
 #define API_SHOP_USER_GALLERY @"images/user/get"

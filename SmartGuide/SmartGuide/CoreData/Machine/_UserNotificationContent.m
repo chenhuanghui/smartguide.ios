@@ -120,6 +120,19 @@
 	[self didChangeValueForKey:@"displayType"];
 }
 
+- (NSNumber*)highlightUnread {
+	[self willAccessValueForKey:@"highlightUnread"];
+	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"highlightUnread"];
+	[self didAccessValueForKey:@"highlightUnread"];
+	return result;
+}
+
+- (void)setHighlightUnread:(NSNumber*)value {
+	[self willChangeValueForKey:@"highlightUnread"];
+	[self setPrimitiveValue:value forKey:@"highlightUnread"];
+	[self didChangeValueForKey:@"highlightUnread"];
+}
+
 - (NSNumber*)idNotification {
 	[self willAccessValueForKey:@"idNotification"];
 	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"idNotification"];

@@ -38,6 +38,8 @@
 
 -(void) loadWithUserNotification:(UserNotification*) obj;
 -(UserNotification*) userNotification;
+-(void) tableDidEndDisplayCell;
+-(void) tableWillDisplayCell;
 -(void) addObserverHighlightUnread;
 -(void) removeObserverHighlightUnread;
 

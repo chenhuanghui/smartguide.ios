@@ -17,6 +17,7 @@
     [self.keyValue setObject:@(userLat) forKey:USER_LATITUDE];
     [self.keyValue setObject:@(userLng) forKey:USER_LONGITUDE];
     [self.keyValue setObject:uuid forKey:@"uuid"];
+    [self.keyValue setObject:@(1) forKey:@"type"];
     
     return self;
 }

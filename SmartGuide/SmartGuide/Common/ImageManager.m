@@ -384,6 +384,7 @@ static char ImageViewLoadingBigKey;
 
 -(void) stopLoadingImageSmall
 {
+//    return;
     if(self.loadingSmall)
     {
         [self.loadingSmall stopAnimating];
