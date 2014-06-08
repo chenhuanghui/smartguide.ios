@@ -56,6 +56,7 @@
         
         lblTitle.textColor=[UIColor blackColor];
         avatarMaskView.hidden=true;
+        lblTime.textColor=[UIColor blackColor];
     }
     else
     {
@@ -63,15 +64,20 @@
         {
             avatarMaskView.hidden=false;
             lblTitle.textColor=[UIColor blackColor];
+            lblTime.textColor=[UIColor blackColor];
         }
         else
         {
             avatarMaskView.hidden=true;
             lblTitle.textColor=[UIColor grayColor];
+            lblTime.textColor=[UIColor grayColor];
         }
     }
     
-//    displayView.backgroundColor=obj.highlightUnread.boolValue?[UIColor whiteColor]:COLOR255(205, 205, 205, 255);
+    if(displayType==USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE_FULL)
+        displayView.backgroundColor=[UIColor whiteColor];
+    else
+        displayView.backgroundColor=obj.highlightUnread.boolValue?[UIColor whiteColor]:COLOR255(205, 205, 205, 255);
     
     if(topHeight>0)
         topHeight+=5;

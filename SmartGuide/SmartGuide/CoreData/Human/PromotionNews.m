@@ -63,14 +63,4 @@
     return num;
 }
 
--(NSString *)title1
-{
-    return @"Lorem ipsum dolor sit amet, consectetuer";
-}
-
--(NSString *)title
-{
-    return [[super title] stringByAppendingFormat:@" %i",self.sortOrder.integerValue];
-}
-
 @end

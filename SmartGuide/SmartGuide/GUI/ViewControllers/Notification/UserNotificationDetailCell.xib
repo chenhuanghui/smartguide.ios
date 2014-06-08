@@ -45,7 +45,7 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="274" height="0.0"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     </imageView>
-                                                    <view userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="scaleToFill" id="gPf-o2-GOr">
+                                                    <view userInteractionEnabled="NO" alpha="0.29999999999999999" contentMode="scaleToFill" id="gPf-o2-GOr">
                                                         <rect key="frame" x="0.0" y="0.0" width="274" height="0.0"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>

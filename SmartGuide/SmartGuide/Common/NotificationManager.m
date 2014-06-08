@@ -212,13 +212,8 @@ static NotificationManager *_notificationManager=nil;
     
     if(!apsInfo)
         return;
-    
-    if(currentUser().enumDataMode!=USER_DATA_FULL)
-        return;
-    
+
     RemoteNotification *obj=[RemoteNotification makeWithRemoteNotification:apsInfo];
-    [[DataManager shareInstance] save];
-    
     self.launchNotification=obj;
 }
 

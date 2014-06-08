@@ -40,6 +40,8 @@
         UserNotificationContent *obj=[UserNotificationContent makeWithDictionary:dict];
         obj.notification=noti;
         obj.idSender=noti.idSender;
+//        obj.status=(NOTIFICATION_STATUS_UNREAD);
+//        obj.highlightUnread=@(true);
 
         [self.notifications addObject:obj];
     }

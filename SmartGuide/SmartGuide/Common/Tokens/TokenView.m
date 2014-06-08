@@ -63,7 +63,7 @@
         
         NSAttributedString *str=[[NSAttributedString alloc] initWithString:(token.length==0?@"|":token)
                                                                 attributes:@{
-                                                                             NSFontAttributeName:FONT_SIZE_NORMAL(13),
+                                                                             NSFontAttributeName:FONT_SIZE_NORMAL(15),
                                                                              NSUnderlineStyleAttributeName:@(true)}];
         
         id obj=nil;

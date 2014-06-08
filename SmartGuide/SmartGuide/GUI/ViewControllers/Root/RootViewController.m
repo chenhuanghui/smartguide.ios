@@ -50,14 +50,22 @@
     
     [array addObject:home];
     
-    if([NotificationManager shareInstance].launchNotification)
+    if(currentUser().enumDataMode==USER_DATA_FULL)
     {
-        if([NotificationManager shareInstance].launchNotification.idNotification)
+        if([NotificationManager shareInstance].launchNotification)
         {
             [array addObject:[UserNotificationViewController new]];
-            [array addObject:[[UserNotificationDetailViewController alloc] initWithIDSender:[NotificationManager shareInstance].launchNotification.idSender.integerValue]];
+            
+            if([NotificationManager shareInstance].launchNotification.idSender)
+            {
+                [array addObject:[[UserNotificationDetailViewController alloc] initWithIDSender:[NotificationManager shareInstance].launchNotification.idSender.integerValue]];
+            }
+            
+            [NotificationManager shareInstance].launchNotification=nil;
         }
-        
+    }
+    else
+    {
         [NotificationManager shareInstance].launchNotification=nil;
     }
     
@@ -75,7 +83,7 @@
 #if BUILD_MODE==0
     btnMakeNotification.hidden=false;
 #endif
-//    btnMakeNotification.hidden=true;
+    //    btnMakeNotification.hidden=true;
     
     self.contentNavigation.view.autoresizingMask=UIViewAutoresizingAll();
     [self.contentView addSubview:self.contentNavigation.view];
