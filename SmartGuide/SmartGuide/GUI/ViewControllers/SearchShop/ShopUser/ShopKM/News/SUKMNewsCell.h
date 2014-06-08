@@ -30,6 +30,7 @@
     __weak IBOutlet UILabel *lblDuration;
     __weak IBOutlet UIView *videoContain;
     __weak IBOutlet UIImageView *imgvMovieThumbnail;
+    __weak IBOutlet UIView *movieBGView;
     PromotionNews *_km;
 }
 

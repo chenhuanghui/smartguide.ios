@@ -69,7 +69,7 @@
 
 -(NSArray *)registerNotifications
 {
-    return @[MPMoviePlayerWillEnterFullscreenNotification,MPMoviePlayerWillExitFullscreenNotification,MPMoviePlayerPlaybackStateDidChangeNotification,MPMovieDurationAvailableNotification];
+    return @[MPMoviePlayerWillEnterFullscreenNotification,MPMoviePlayerWillExitFullscreenNotification];
 }
 
 -(void)receiveNotification:(NSNotification *)notification
@@ -85,43 +85,7 @@
         AppDelegate *app=[UIApplication sharedApplication].delegate;
         
         app.allowRotation=true;
-    }
-    else if([notification.name isEqualToString:MPMoviePlayerPlaybackStateDidChangeNotification])
-    {
-        //        MPMoviePlayerController *player=notification.object;
-        //
-        //        if(player && [player isKindOfClass:[MPMoviePlayerController class]])
-        //        {
-        //            if(!player.contentURL)
-        //                return;
-        //
-        //            if(!_timerMovide)
-        //                _timerMovide=[NSMutableDictionary new];
-        //
-        //            switch (player.playbackState) {
-        //                case MPMoviePlaybackStatePaused:
-        //                case MPMoviePlaybackStateStopped:
-        //                case MPMoviePlaybackStateInterrupted:
-        //                    if(player.currentPlaybackTime>0)
-        //                        [_timerMovide setObject:@(player.currentPlaybackTime) forKey:[NSString stringWithFormat:@"%@",player.contentURL]];
-        //                    break;
-        //            }
-        //        }
-    }
-    else if([notification.name isEqualToString:MPMovieDurationAvailableNotification])
-    {
-        //        MPMoviePlayerController *player=notification.object;
-        //
-        //        if(player && [player isKindOfClass:[MPMoviePlayerController class]])
-        //        {
-        //            if(!player.contentURL || ![_timerMovide objectForKey:[NSString stringWithFormat:@"%@",player.contentURL]])
-        //                return;
-        //
-        //            if(player.currentPlaybackTime==0)
-        //                [player setCurrentPlaybackTime:[_timerMovide[player.contentURL] doubleValue]];
-        //        }
-    }
-}
+    }}
 
 -(void) requestNotification
 {
@@ -184,7 +148,16 @@
             }
             
             if(_page==0)
-                [_userNotificationContents[0] setDisplayType:@(USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE_FULL)];
+            {
+                UserNotificationContent *obj=_userNotificationContents[0];
+                
+                if(obj.enumStatus==NOTIFICATION_STATUS_UNREAD)
+                {
+                    [self markReadNotification:obj];
+                }
+                
+                [obj setDisplayType:@(USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE_FULL)];
+            }
             
             [[DataManager shareInstance] save];
         }
@@ -416,13 +389,19 @@
             {
                 UserNotificationContent *objFull=array[0];
                 objFull.displayType=@(USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE_TITLE);
+                objFull.highlightUnread=@(false);
+                
+                if(objFull.enumStatus==NOTIFICATION_STATUS_UNREAD)
+                {
+                    [self markReadNotification:objFull];
+                }
                 
                 [arrIdx addObject:makeIndexPath([_userNotificationContents indexOfObject:objFull], 0)];
             }
             
             [arrIdx addObject:indexPath];
+            
             obj.displayType=@(USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE_FULL);
-            obj.highlightUnread=@(false);
             [[DataManager shareInstance] save];
             
             [table reloadRowsAtIndexPaths:arrIdx withRowAnimation:UITableViewRowAnimationAutomatic];
@@ -439,18 +418,22 @@
     }
 }
 
+
+/*
 -(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if([cell isKindOfClass:[UserNotificationDetailCell class]])
     {
         UserNotificationDetailCell *dCell=(UserNotificationDetailCell*)cell;
         
-        if(dCell.userNotificationDetail.enumStatus==NOTIFICATION_STATUS_UNREAD)
+        if(dCell.userNotificationDetail.enumStatus==NOTIFICATION_STATUS_UNREAD
+           && dCell.userNotificationDetail.enumDisplayType==USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE_FULL)
         {
             [self markReadNotification:dCell.userNotificationDetail];
         }
     }
 }
+ */
 
 -(void)tableView:(UITableView *)tableView didEndDisplayingCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {

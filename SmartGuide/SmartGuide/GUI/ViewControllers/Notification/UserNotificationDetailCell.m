@@ -37,24 +37,44 @@
     
     if(displayType==USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE_FULL)
     {
-        if(obj.image.length>0)
+        if(obj.video.length>0)
+        {
+            imgvVideoThumbnail.hidden=false;
+            movideBGView.hidden=false;
+            topHeight=obj.videoHeightForNoti.floatValue;
+            
+            [videoContain l_v_setH:topHeight];
+            [imgvVideoThumbnail loadVideoThumbnailWithURL:obj.videoThumbnail];
+        }
+        else if(obj.image.length>0)
         {
             topHeight=obj.imageHeightForNoti.floatValue;
             
             [imgvImage loadUserNotificationContentWithURL:obj.image];
             [imgvImage l_v_setH:topHeight];
         }
-        else if(obj.video.length>0)
+        
+        lblTitle.textColor=[UIColor blackColor];
+        avatarMaskView.hidden=true;
+    }
+    else
+    {
+        if(obj.highlightUnread.boolValue)
         {
-            imgvVideoThumbnail.hidden=false;
-            topHeight=obj.videoHeightForNoti.floatValue;
-            
-            [videoContain l_v_setH:topHeight];
-            [imgvVideoThumbnail loadVideoThumbnailWithURL:obj.videoThumbnail];
+            avatarMaskView.hidden=false;
+            lblTitle.textColor=[UIColor blackColor];
+        }
+        else
+        {
+            avatarMaskView.hidden=true;
+            lblTitle.textColor=[UIColor grayColor];
         }
     }
     
-    displayView.backgroundColor=obj.highlightUnread.boolValue?[UIColor whiteColor]:COLOR255(205, 205, 205, 255);
+//    displayView.backgroundColor=obj.highlightUnread.boolValue?[UIColor whiteColor]:COLOR255(205, 205, 205, 255);
+    
+    if(topHeight>0)
+        topHeight+=5;
     
     [lblTitle l_v_setY:topY+topHeight];
     [lblTitle l_v_setH:obj.titleHeight.floatValue];
@@ -243,6 +263,7 @@
         return;
     
     imgvVideoThumbnail.hidden=true;
+    movideBGView.hidden=true;
     
     MPMoviePlayerController *player=[self.delegate userNotificationDetailCellRequestPlayer:self];
     [player stop];

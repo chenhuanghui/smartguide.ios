@@ -57,6 +57,11 @@
                                         <rect key="frame" x="0.0" y="0.0" width="274" height="0.0"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     </imageView>
+                                    <view alpha="0.69999999999999996" contentMode="scaleToFill" id="h78-JD-Zg1">
+                                        <rect key="frame" x="0.0" y="0.0" width="274" height="0.0"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                    </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Hvo-sQ-S0f">
                                         <rect key="frame" x="0.0" y="0.0" width="274" height="0.0"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -115,6 +120,7 @@
                 <outlet property="lblDuration" destination="QEv-tJ-Csd" id="iFE-tq-SJf"/>
                 <outlet property="lblTitle" destination="XGd-YP-6hL" id="haD-4F-s1B"/>
                 <outlet property="lineStatus" destination="ZYU-mm-f7D" id="6rr-wE-iRZ"/>
+                <outlet property="movieBGView" destination="h78-JD-Zg1" id="KKW-Ev-Kjy"/>
                 <outlet property="videoContain" destination="MLg-en-LuO" id="FuZ-Yy-qFS"/>
             </connections>
         </tableViewCell>
@@ -124,6 +130,6 @@
         <image name="icon_promotion.png" width="16" height="16"/>
         <image name="line_blur_status.png" width="290" height="3"/>
         <image name="line_promotion.png" width="273" height="5"/>
-        <image name="play_icon.png" width="128" height="128"/>
+        <image name="play_icon.png" width="64" height="64"/>
     </resources>
 </document>

@@ -29,6 +29,7 @@
         cover.hidden=true;
         videoContain.hidden=false;
         imgvMovieThumbnail.hidden=false;
+        movieBGView.hidden=false;
         [imgvMovieThumbnail loadVideoThumbnailWithURL:news.videoThumbnail];
         [videoContain l_v_setH:news.videoHeightForShop.floatValue];
     }
@@ -113,6 +114,7 @@
         return;
     
     imgvMovieThumbnail.hidden=true;
+    movieBGView.hidden=true;
     
     MPMoviePlayerController *player=[self.delegate SUKMNewsCellRequestPlayer:self];
     [player stop];

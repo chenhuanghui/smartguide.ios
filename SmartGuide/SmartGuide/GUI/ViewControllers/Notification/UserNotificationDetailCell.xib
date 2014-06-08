@@ -45,6 +45,11 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="274" height="0.0"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     </imageView>
+                                                    <view userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="scaleToFill" id="gPf-o2-GOr">
+                                                        <rect key="frame" x="0.0" y="0.0" width="274" height="0.0"/>
+                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                                    </view>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="hzy-YB-5FS">
                                                         <rect key="frame" x="0.0" y="0.0" width="274" height="0.0"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -101,6 +106,17 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </imageView>
+                                            <view userInteractionEnabled="NO" alpha="0.5" contentMode="scaleToFill" id="Lkm-As-r54">
+                                                <rect key="frame" x="4" y="3" width="32" height="32"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBound" value="YES"/>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                        <integer key="value" value="16"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </view>
                                             <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" id="cdj-Vh-264">
                                                 <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -153,6 +169,7 @@
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <connections>
+                <outlet property="avatarMaskView" destination="Lkm-As-r54" id="7RL-nd-Ati"/>
                 <outlet property="btnLogo" destination="cdj-Vh-264" id="yi5-SW-z7w"/>
                 <outlet property="btnMovie" destination="hzy-YB-5FS" id="Vaj-Li-nYn"/>
                 <outlet property="displayView" destination="2wF-GB-OOJ" id="r1S-Hc-8KC"/>
@@ -163,6 +180,7 @@
                 <outlet property="lblTime" destination="xvX-NK-6rd" id="tQk-hq-cg9"/>
                 <outlet property="lblTitle" destination="yhi-C8-LIf" id="Fbm-w9-bOy"/>
                 <outlet property="leftView" destination="kI2-he-YXp" id="hcD-gX-bL0"/>
+                <outlet property="movideBGView" destination="gPf-o2-GOr" id="mnX-wd-Bxz"/>
                 <outlet property="rightView" destination="KFf-gf-6IM" id="1Jl-Ii-Fhg"/>
                 <outlet property="scroll" destination="Ko2-NF-IFa" id="IzR-WL-tfI"/>
                 <outlet property="tokens" destination="SPj-V4-wjF" id="Ukf-vC-XKX"/>

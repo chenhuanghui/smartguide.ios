@@ -75,6 +75,7 @@
 #if BUILD_MODE==0
     btnMakeNotification.hidden=false;
 #endif
+//    btnMakeNotification.hidden=true;
     
     self.contentNavigation.view.autoresizingMask=UIViewAutoresizingAll();
     [self.contentView addSubview:self.contentNavigation.view];

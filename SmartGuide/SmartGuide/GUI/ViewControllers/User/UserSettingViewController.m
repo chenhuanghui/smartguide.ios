@@ -87,6 +87,8 @@
     btnGP.hidden=currentUser().enumSocialType!=SOCIAL_NONE;
     
     [scroll contentSizeToFit];
+    
+    [btnTerms l_v_setY:btnTerms.superview.l_v_h-btnTerms.l_v_h];
 }
 
 -(bool) validateAllowEdit
