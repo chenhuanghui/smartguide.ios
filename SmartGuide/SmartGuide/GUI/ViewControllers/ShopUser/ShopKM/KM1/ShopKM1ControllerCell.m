@@ -9,6 +9,10 @@
 #import "ShopKM1ControllerCell.h"
 #import "Utility.h"
 
+@interface ShopKM1ControllerCell()<UITableViewDataSource,UITableViewDelegate>
+
+@end
+
 @implementation ShopKM1ControllerCell
 @synthesize delegate;
 
@@ -103,16 +107,16 @@
 
 @end
 
-@implementation UITableView(ShopKM1ControllerCell)
+@implementation UICollectionView(ShopKM1ControllerCell)
 
 -(void)registerShopKM1ControllerCell
 {
-    [self registerNib:[UINib nibWithNibName:[ShopKM1ControllerCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[ShopKM1ControllerCell reuseIdentifier]];
+    [self registerNib:[UINib nibWithNibName:[ShopKM1ControllerCell reuseIdentifier] bundle:nil] forCellWithReuseIdentifier:[ShopKM1ControllerCell reuseIdentifier]];
 }
 
--(ShopKM1ControllerCell *)shopKM1ControllerCell
+-(ShopKM1ControllerCell *)shopKM1ControllerCellForIndexPath:(NSIndexPath *)indexPath
 {
-    return [self dequeueReusableCellWithIdentifier:[ShopKM1ControllerCell reuseIdentifier]];
+    return [self dequeueReusableCellWithReuseIdentifier:[ShopKM1ControllerCell reuseIdentifier] forIndexPath:indexPath];
 }
 
 @end

@@ -23,6 +23,8 @@
     int _pageGalleryShop;
     int _pageCommentsTopAgreed;
     int _pageCommentsTime;
+    
+    enum SORT_SHOP_COMMENT _sortComments;
 }
 
 +(ShopManager*) shareInstanceWithShop:(Shop*) shop;
@@ -33,8 +35,10 @@
 
 -(void) requestUserGallery;
 -(void) requestShopGallery;
+-(void) requestComments;
 -(void) requestCommentWithSort:(enum SORT_SHOP_COMMENT) sortType;
 -(NSArray*) commentWithSort:(enum SORT_SHOP_COMMENT) sortType;
+-(enum SORT_SHOP_COMMENT) sortComments;
 
 @property (nonatomic, readonly) bool canLoadMoreCommentTopAgreed;
 @property (nonatomic, readonly) bool canLoadMoreCommentTime;

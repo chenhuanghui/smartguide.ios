@@ -37,13 +37,10 @@
 -(ShopUserViewController*) initWithShopUser:(Shop*) shop;
 -(ShopUserViewController*) initWithIDShop:(int) idShop;
 
--(UITableView*) table;
-
 @property (nonatomic, weak) id<ShopUserViewControllerDelegate> delegate;
 
 @end
 
-@interface TableShopUser : UITableView
-@property (nonatomic, readonly) CGPoint offset;
+@interface TableShopUser : UICollectionView
 
 @end

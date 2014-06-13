@@ -282,16 +282,16 @@
 
 @end
 
-@implementation UITableView(ShopUserGalleryControllerCell)
+@implementation UICollectionView(ShopUserGalleryControllerCell)
 
 -(void)registerShopUserGalleryControllerCell
 {
-    [self registerNib:[UINib nibWithNibName:[ShopUserGalleryControllerCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[ShopUserGalleryControllerCell reuseIdentifier]];
+    [self registerNib:[UINib nibWithNibName:[ShopUserGalleryControllerCell reuseIdentifier] bundle:nil] forCellWithReuseIdentifier:[ShopUserGalleryControllerCell reuseIdentifier]];
 }
 
--(ShopUserGalleryControllerCell *)shopUserGalleryControllerCell
+-(ShopUserGalleryControllerCell *)shopUserGalleryControllerCellForIndexPath:(NSIndexPath *)indexPath
 {
-    return [self dequeueReusableCellWithIdentifier:[ShopUserGalleryControllerCell reuseIdentifier]];
+    return [self dequeueReusableCellWithReuseIdentifier:[ShopUserGalleryControllerCell reuseIdentifier] forIndexPath:indexPath];
 }
 
 @end

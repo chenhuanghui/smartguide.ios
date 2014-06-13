@@ -93,24 +93,24 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
--(void)tableDidScroll:(UITableView *)table
+-(void)tableDidScroll:(UICollectionView *)table
 {
     NSIndexPath *idx=[table indexPathForCell:self];
-    CGRect rect=[table rectForRowAtIndexPath:idx];
+    CGRect rect=[table rectForItemAtIndexPath:idx];
     
     if(table.l_co_y+100-rect.origin.y>0)
     {
-        [self l_v_setY:table.l_co_y+100];
+        [tableKM l_v_setY:table.l_co_y+100-rect.origin.y];
         [tableKM l_co_setY:table.l_co_y+100-rect.origin.y];
     }
     else
     {
-        [self l_v_setY:rect.origin.y];
+        [tableKM l_v_setY:0];
         [tableKM l_co_setY:0];
     }
 }
 
--(void)tableDidEndDisplayCell:(UITableView *)table
+-(void)tableDidEndDisplayCell:(UICollectionView *)table
 {
     if(_player.view.superview)
     {
@@ -152,16 +152,16 @@
 
 @end
 
-@implementation UITableView(SUKMNewsContaintCell)
+@implementation UICollectionView(ShopKMNewsControllerCell)
 
 -(void)registerShopKMNewsControllerCell
 {
-    [self registerNib:[UINib nibWithNibName:[ShopKMNewsControllerCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[ShopKMNewsControllerCell reuseIdentifier]];
+    [self registerNib:[UINib nibWithNibName:[ShopKMNewsControllerCell reuseIdentifier] bundle:nil] forCellWithReuseIdentifier:[ShopKMNewsControllerCell reuseIdentifier]];
 }
 
--(ShopKMNewsControllerCell *)shopKMNewsControllerCell
+-(ShopKMNewsControllerCell *)shopKMNewsControllerCellForIndexPath:(NSIndexPath *)indexPath
 {
-    return [self dequeueReusableCellWithIdentifier:[ShopKMNewsControllerCell reuseIdentifier]];
+    return [self dequeueReusableCellWithReuseIdentifier:[ShopKMNewsControllerCell reuseIdentifier] forIndexPath:indexPath];
 }
 
 @end

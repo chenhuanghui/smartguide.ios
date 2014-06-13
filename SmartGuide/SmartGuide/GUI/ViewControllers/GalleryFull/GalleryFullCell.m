@@ -14,6 +14,8 @@
 #define DURATION_ZOOM_GALLERY 0.25f
 
 @interface GalleryFullCell()<UIScrollViewDelegate>
+{
+}
 
 @end
 

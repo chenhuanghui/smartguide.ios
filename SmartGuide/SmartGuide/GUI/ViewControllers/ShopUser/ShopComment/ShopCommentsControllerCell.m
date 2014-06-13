@@ -18,6 +18,7 @@
 #import "ButtonAgree.h"
 #import "DataManager.h"
 #import "ShopManager.h"
+#import "KeyboardUtility.h"
 
 #define SU_USER_COMMENT_CELL_BOTTOM_NORMAL_Y 92.f
 #define SU_USER_COMMENT_CELL_BOTTOM_EDIT_Y 120.f
@@ -28,11 +29,10 @@
 
 @implementation ShopCommentsControllerCell
 
--(void)loadWithShop:(Shop *)shop sort:(enum SORT_SHOP_COMMENT)sort maxHeight:(float)height
+-(void)loadWithShop:(Shop *)shop maxHeight:(float)height
 {
     _shop=shop;
-    _sort=sort;
-    [btnSort setTitle:localizeSortComment(_sort) forState:UIControlStateNormal];
+    [btnSort setTitle:localizeSortComment([ShopManager shareInstanceWithShop:_shop].sortComments) forState:UIControlStateNormal];
     
     [table reloadData];
     
@@ -40,6 +40,11 @@
         [table l_v_setH:height];
     
     [imgvAvatar loadAvatarWithURL:userAvatar()];
+    
+    if([KeyboardUtility shareInstance].isKeyboardVisible)
+        [self switchToEditingModeAnimate:false duration:0];
+    else
+        [self switchToNormailModeAnimate:false duration:0];
 }
 
 -(void)reloadData
@@ -47,18 +52,21 @@
     [table reloadData];
 }
 
--(void)tableDidScroll:(UITableView *)tableUser cellRect:(CGRect)cellRect buttonNextHeight:(float)buttonHeight
+-(void)tableDidScroll:(UICollectionView *)tableUser
 {
-    float y=tableUser.l_co_y-tableUser.l_v_y;
+    NSIndexPath *idx=[tableUser indexPathForCell:self];
+    CGRect rect=[tableUser rectForItemAtIndexPath:idx];
     
-    if(y>cellRect.origin.y-buttonHeight)
+    float y=tableUser.l_co_y+100-rect.origin.y;
+    
+    if(y>0)
     {
-        [self l_v_setY:y+buttonHeight];
-        [table l_co_setY:y-cellRect.origin.y-table.contentInset.top+buttonHeight];
+        [self l_v_setY:rect.origin.y+y];
+        [table l_co_setY:y-table.contentInset.top];
     }
     else
     {
-        [self l_v_setY:cellRect.origin.y];
+        [self l_v_setY:rect.origin.y];
         [table l_co_setY:-table.contentInset.top];
     }
 }
@@ -70,7 +78,7 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    switch (_sort) {
+    switch ([ShopManager shareInstanceWithShop:_shop].sortComments) {
         case SORT_SHOP_COMMENT_TIME:
             return [ShopManager shareInstanceWithShop:_shop].timeComments.count+([ShopManager shareInstanceWithShop:_shop].canLoadMoreCommentTime?1:0);
             
@@ -83,7 +91,7 @@
 {
     NSArray *comments=@[];
     bool canLoadMore=false;
-    switch (_sort) {
+    switch ([ShopManager shareInstanceWithShop:_shop].sortComments) {
         case SORT_SHOP_COMMENT_TIME:
             comments=[ShopManager shareInstanceWithShop:_shop].timeComments;
             canLoadMore=[ShopManager shareInstanceWithShop:_shop].canLoadMoreCommentTime;
@@ -106,7 +114,7 @@
     NSArray *comments=@[];
     bool canLoadMore=false;
     bool isLoadingMore=true;
-    switch (_sort) {
+    switch ([ShopManager shareInstanceWithShop:_shop].sortComments) {
         case SORT_SHOP_COMMENT_TIME:
             comments=[ShopManager shareInstanceWithShop:_shop].timeComments;
             canLoadMore=[ShopManager shareInstanceWithShop:_shop].canLoadMoreCommentTime;
@@ -124,7 +132,7 @@
     {
         if(!isLoadingMore)
         {
-            [[ShopManager shareInstanceWithShop:_shop] requestCommentWithSort:_sort];
+            [[ShopManager shareInstanceWithShop:_shop] requestComments];
         }
 
         return [table loadingMoreCell];
@@ -169,6 +177,7 @@
     [table registerShopUserCommentCell];
     [table registerLoadingMoreCell];
     
+    _isEditing=true;
     [self switchToNormailModeAnimate:false duration:0];
     
     txt.isScrollable=false;
@@ -211,6 +220,10 @@
 
 -(void) switchToEditingModeAnimate:(bool) animate duration:(float) duration
 {
+    if(_isEditing)
+        return;
+    
+    _isEditing=true;
     _isAnimating=false;
     
     if(animate)
@@ -261,7 +274,11 @@
 
 -(void) switchToNormailModeAnimate:(bool) animate duration:(float) duration
 {
+    if(!_isEditing)
+        return;
+    
     _isAnimating=false;
+    _isEditing=false;
     
     if(animate)
     {
@@ -313,7 +330,7 @@
 - (IBAction)btnSortTouchUpInside:(id)sender {
     UIActionSheet *sheet=nil;
     
-    switch (_sort) {
+    switch ([ShopManager shareInstanceWithShop:_shop].sortComments) {
         case SORT_SHOP_COMMENT_TIME:
             sheet=[[UIActionSheet alloc] initWithTitle:@"Sắp xếp" delegate:self cancelButtonTitle:@"Đóng" destructiveButtonTitle:nil otherButtonTitles:localizeSortComment(SORT_SHOP_COMMENT_TOP_AGREED), nil];
             break;
@@ -331,11 +348,12 @@
     if(buttonIndex==actionSheet.cancelButtonIndex)
         return;
     
-    _sort=_sort==SORT_SHOP_COMMENT_TIME?SORT_SHOP_COMMENT_TOP_AGREED:SORT_SHOP_COMMENT_TIME;
+    enum SORT_SHOP_COMMENT sort=[ShopManager shareInstanceWithShop:_shop].sortComments;
+    sort=sort==SORT_SHOP_COMMENT_TIME?SORT_SHOP_COMMENT_TOP_AGREED:SORT_SHOP_COMMENT_TIME;
     
-    [btnSort setTitle:localizeSortComment(_sort) forState:UIControlStateNormal];
+    [btnSort setTitle:localizeSortComment(sort) forState:UIControlStateNormal];
     
-    [self.delegate shopCommentsControllerCellChangeSort:self sort:_sort];
+    [self.delegate shopCommentsControllerCellChangeSort:self sort:sort];
 }
 
 -(void) sendComment
@@ -412,16 +430,16 @@
 
 @end
 
-@implementation UITableView(ShopCommentsControllerCell)
+@implementation UICollectionView(ShopCommentsControllerCell)
 
 -(void)registerShopCommentsControllerCell
 {
-    [self registerNib:[UINib nibWithNibName:[ShopCommentsControllerCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[ShopCommentsControllerCell reuseIdentifier]];
+    [self registerNib:[UINib nibWithNibName:[ShopCommentsControllerCell reuseIdentifier] bundle:nil] forCellWithReuseIdentifier:[ShopCommentsControllerCell reuseIdentifier]];
 }
 
--(ShopCommentsControllerCell *)shopCommentsControllerCell
+-(ShopCommentsControllerCell *)shopCommentsControllerCellForIndexPath:(NSIndexPath *)indexPath
 {
-    return [self dequeueReusableCellWithIdentifier:[ShopCommentsControllerCell reuseIdentifier]];
+    return [self dequeueReusableCellWithReuseIdentifier:[ShopCommentsControllerCell reuseIdentifier] forIndexPath:indexPath];
 }
 
 @end

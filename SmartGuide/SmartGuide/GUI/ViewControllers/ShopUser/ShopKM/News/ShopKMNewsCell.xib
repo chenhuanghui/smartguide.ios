@@ -14,11 +14,6 @@
                 <rect key="frame" x="0.0" y="0.0" width="290" height="89"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view contentMode="scaleToFill" id="dwy-4i-xVP" customClass="KMBGView">
-                        <rect key="frame" x="0.0" y="0.0" width="290" height="89"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    </view>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="line_promotion.png" id="WGP-ql-KqG">
                         <rect key="frame" x="27" y="22" width="237" height="5"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>

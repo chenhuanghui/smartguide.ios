@@ -102,16 +102,16 @@
 
 @end
 
-@implementation UITableView(ShopKM2ControllerCell)
+@implementation UICollectionView(ShopKM2ControllerCell)
 
 -(void)registerShopKM2ControllerCell
 {
-    [self registerNib:[UINib nibWithNibName:[ShopKM2ControllerCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[ShopKM2ControllerCell reuseIdentifier]];
+    [self registerNib:[UINib nibWithNibName:[ShopKM2ControllerCell reuseIdentifier] bundle:nil] forCellWithReuseIdentifier:[ShopKM2ControllerCell reuseIdentifier]];
 }
 
--(ShopKM2ControllerCell *)shopKM2ControllerCell
+-(ShopKM2ControllerCell *)shopKM2ControllerCellForIndexPath:(NSIndexPath *)indexPath
 {
-    return [self dequeueReusableCellWithIdentifier:[ShopKM2ControllerCell reuseIdentifier]];
+    return [self dequeueReusableCellWithReuseIdentifier:[ShopKM2ControllerCell reuseIdentifier] forIndexPath:indexPath];
 }
 
 @end

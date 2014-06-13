@@ -7,11 +7,11 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="ShopInfoControllerCell" rowHeight="187" id="8is-hV-NE2" customClass="ShopInfoControllerCell">
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ShopInfoControllerCell" id="u3w-3D-rYh" customClass="ShopInfoControllerCell">
             <rect key="frame" x="0.0" y="0.0" width="290" height="187"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="8is-hV-NE2" id="K0p-za-bvd">
-                <rect key="frame" x="0.0" y="0.0" width="290" height="186"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="290" height="187"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" id="mzI-0H-5Tx" userLabel="info">
@@ -45,9 +45,6 @@
                                 <state key="normal" image="icon_address.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <connections>
-                                    <action selector="btnMapTouchUpInside:" destination="8is-hV-NE2" eventType="touchUpInside" id="6f5-ZE-Vq0"/>
-                                </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="frame_map_header.png" id="puu-pY-9bt">
                                 <rect key="frame" x="7" y="31" width="279" height="87"/>
@@ -77,27 +74,15 @@
                                     <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <connections>
-                                    <action selector="btnMakeCallTouchUpInside:" destination="8is-hV-NE2" eventType="touchUpInside" id="dJP-cF-Kot"/>
-                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </view>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="line_blur_status.png" id="o1x-rN-FBL">
-                        <rect key="frame" x="0.0" y="-1" width="290" height="3"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    </imageView>
                 </subviews>
-                <color key="backgroundColor" red="0.92156862745098034" green="0.92156862745098034" blue="0.92156862745098034" alpha="1" colorSpace="calibratedRGB"/>
-            </tableViewCellContentView>
-            <color key="backgroundColor" red="0.92156862745098034" green="0.92156862745098034" blue="0.92156862745098034" alpha="1" colorSpace="calibratedRGB"/>
-            <connections>
-                <outlet property="btnTel" destination="OxC-P5-kvZ" id="urg-xD-Hob"/>
-                <outlet property="lblAddress" destination="D5F-fJ-93H" id="48M-MQ-UrB"/>
-                <outlet property="line" destination="o1x-rN-FBL" id="KyB-Vc-5dj"/>
-            </connections>
-        </tableViewCell>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            </view>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+        </collectionViewCell>
     </objects>
     <resources>
         <image name="button_call.png" width="275" height="46"/>
@@ -105,7 +90,6 @@
         <image name="icon_address.png" width="121" height="36"/>
         <image name="icon_call.png" width="19" height="19"/>
         <image name="icon_dottitle.png" width="12" height="12"/>
-        <image name="line_blur_status.png" width="290" height="3"/>
         <image name="line_shopdetail.png" width="272" height="3"/>
         <image name="map.png" width="261" height="69"/>
     </resources>

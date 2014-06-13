@@ -71,16 +71,16 @@
 
 @end
 
-@implementation UITableView(ShopInfoControllerCell)
+@implementation UICollectionView(ShopInfoControllerCell)
 
 -(void)registerShopInfoControllerCell
 {
-    [self registerNib:[UINib nibWithNibName:[ShopInfoControllerCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[ShopInfoControllerCell reuseIdentifier]];
+    [self registerNib:[UINib nibWithNibName:[ShopInfoControllerCell reuseIdentifier] bundle:nil] forCellWithReuseIdentifier:[ShopInfoControllerCell reuseIdentifier]];
 }
 
--(ShopInfoControllerCell *)shopInfoControllerCell
+-(ShopInfoControllerCell *)shopInfoControllerCellWithIndexPath:(NSIndexPath *)indexPath
 {
-    return [self dequeueReusableCellWithIdentifier:[ShopInfoControllerCell reuseIdentifier]];
+    return [self dequeueReusableCellWithReuseIdentifier:[ShopInfoControllerCell reuseIdentifier] forIndexPath:indexPath];
 }
 
 @end

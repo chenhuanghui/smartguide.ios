@@ -7,11 +7,11 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="ShopKM2ControllerCell" rowHeight="589" id="EKW-Su-4WS" customClass="ShopKM2ControllerCell">
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ShopKM2ControllerCell" id="DvX-Xc-XSP" customClass="ShopKM2ControllerCell">
             <rect key="frame" x="0.0" y="0.0" width="290" height="161"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="EKW-Su-4WS" id="eex-Ky-83P">
-                <rect key="frame" x="0.0" y="0.0" width="290" height="160"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="290" height="161"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" id="7fh-Zw-TRg" customClass="KMBGView">
@@ -57,9 +57,6 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="16"/>
                                 <state key="normal" image="button_getgift_voucher.png"/>
-                                <connections>
-                                    <action selector="scanTouchUpInside:" destination="EKW-Su-4WS" eventType="touchUpInside" id="XXt-Es-P0b"/>
-                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="mi1-TX-Jy4">
                                 <rect key="frame" x="50" y="16" width="56" height="56"/>
@@ -84,14 +81,10 @@
                         <rect key="frame" x="8" y="151" width="275" height="0.0"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                        <connections>
-                            <outlet property="dataSource" destination="EKW-Su-4WS" id="Fif-sv-WLq"/>
-                            <outlet property="delegate" destination="EKW-Su-4WS" id="dQW-Tc-mk7"/>
-                        </connections>
                     </tableView>
                 </subviews>
-            </tableViewCellContentView>
-            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            </view>
             <connections>
                 <outlet property="btnCode" destination="mi1-TX-Jy4" id="eg1-LJ-eFz"/>
                 <outlet property="btnScan" destination="yfn-Wy-d0U" id="9s7-yL-hEi"/>
@@ -100,7 +93,7 @@
                 <outlet property="lblText" destination="nK8-IH-vJI" id="RiU-42-oDl"/>
                 <outlet property="table" destination="n92-IZ-8qR" id="zuo-4n-DyC"/>
             </connections>
-        </tableViewCell>
+        </collectionViewCell>
     </objects>
     <resources>
         <image name="button_getgift_voucher.png" width="135" height="77"/>

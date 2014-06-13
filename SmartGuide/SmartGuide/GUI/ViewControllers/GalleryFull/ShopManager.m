@@ -105,6 +105,8 @@ static ShopManager *_galleryManager;
     isLoadingMoreCommentTime=false;
     _pageCommentsTime=-1;
     
+    _sortComments=SORT_SHOP_COMMENT_TOP_AGREED;
+    
     if(!self.shopGalleries)
         self.shopGalleries=[NSMutableArray new];
     
@@ -161,8 +163,45 @@ static ShopManager *_galleryManager;
     }
 }
 
+-(enum SORT_SHOP_COMMENT)sortComments
+{
+    return _sortComments;
+}
+
+-(void) requestComments
+{
+    [self requestCommentWithSort:_sortComments];
+}
+
 -(void)requestCommentWithSort:(enum SORT_SHOP_COMMENT)sortType
 {
+    if(_sortComments!=sortType)
+    {
+        self.timeComments=[NSMutableArray new];
+        self.topAgreedComments=[NSMutableArray new];
+        
+        canLoadMoreCommentTime=false;
+        canLoadMoreCommentTopAgreed=false;
+        isLoadingMoreCommentTime=false;
+        isLoadingMoreCommentTopAgreed=false;
+        _pageCommentsTime=-1;
+        _pageCommentsTopAgreed=-1;
+        
+        if(_operationTimeComment)
+        {
+            [_operationTimeComment clearDelegatesAndCancel];
+            _operationTimeComment=nil;
+        }
+        
+        if(_operationTopAgreedComment)
+        {
+            [_operationTopAgreedComment clearDelegatesAndCancel];
+            _operationTopAgreedComment=nil;
+        }
+        
+        _sortComments=sortType;
+    }
+    
     switch (sortType) {
         case SORT_SHOP_COMMENT_TIME:
             if(isLoadingMoreCommentTime)

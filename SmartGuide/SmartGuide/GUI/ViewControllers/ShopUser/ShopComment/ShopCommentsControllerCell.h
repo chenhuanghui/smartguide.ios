@@ -18,7 +18,7 @@
 
 @end
 
-@interface ShopCommentsControllerCell : UITableViewCell
+@interface ShopCommentsControllerCell : UICollectionViewCell
 {
     __weak IBOutlet UITableView *table;
     __weak IBOutlet UIView *touchView;
@@ -29,16 +29,15 @@
     __weak IBOutlet UIImageView *imgvAvatar;
     __weak IBOutlet UIView *containButtonView;
     __weak IBOutlet ButtonAgree *btnSort;
-    __weak IBOutlet UIButton *btnShare;
     __weak IBOutlet ButtonAgree *btnSend;
     __weak IBOutlet UIView *animationView;
-    enum SORT_SHOP_COMMENT _sort;
     bool _isAnimating;
     __weak Shop* _shop;
+    bool _isEditing;
 }
 
--(void) loadWithShop:(Shop*) shop sort:(enum SORT_SHOP_COMMENT) sort maxHeight:(float) height;
--(void) tableDidScroll:(UITableView*) tableUser cellRect:(CGRect) cellRect buttonNextHeight:(float) buttonHeight;
+-(void) loadWithShop:(Shop*) shop maxHeight:(float) height;
+-(void) tableDidScroll:(UICollectionView*) tableUser;
 
 +(NSString *)reuseIdentifier;
 +(float) heightWithShop:(Shop*) shop sort:(enum SORT_SHOP_COMMENT) sort;
@@ -60,9 +59,9 @@
 
 @end
 
-@interface UITableView(ShopCommentsControllerCell)
+@interface UICollectionView(ShopCommentsControllerCell)
 
 -(void) registerShopCommentsControllerCell;
--(ShopCommentsControllerCell*) shopCommentsControllerCell;
+-(ShopCommentsControllerCell*) shopCommentsControllerCellForIndexPath:(NSIndexPath*) indexPath;
 
 @end

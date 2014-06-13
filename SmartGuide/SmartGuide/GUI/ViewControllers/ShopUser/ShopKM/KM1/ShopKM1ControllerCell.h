@@ -20,7 +20,7 @@
 
 @end
 
-@interface ShopKM1ControllerCell : UITableViewCell<UITableViewDataSource,UITableViewDelegate>
+@interface ShopKM1ControllerCell : UICollectionViewCell
 {
     __weak IBOutlet UITableView *table;
     __weak IBOutlet FTCoreTextView *lbl100K;
@@ -41,9 +41,9 @@
 
 @end
 
-@interface UITableView(ShopKM1ControllerCell)
+@interface UICollectionView(ShopKM1ControllerCell)
 
 -(void) registerShopKM1ControllerCell;
--(ShopKM1ControllerCell*) shopKM1ControllerCell;
+-(ShopKM1ControllerCell*) shopKM1ControllerCellForIndexPath:(NSIndexPath*) indexPath;
 
 @end

@@ -10,7 +10,7 @@
 
 @class MPMoviePlayerController;
 
-@interface ShopKMNewsControllerCell : UITableViewCell
+@interface ShopKMNewsControllerCell : UICollectionViewCell
 {
     __weak IBOutlet UITableView *tableKM;
     __weak IBOutlet UIView *bg;
@@ -20,17 +20,17 @@
 }
 
 -(void) loadWithKMNews:(NSArray*) kms maxHeight:(float) maxHeight;
--(void) tableDidScroll:(UITableView*) table;
--(void) tableDidEndDisplayCell:(UITableView*) table;
+-(void) tableDidScroll:(UICollectionView*) table;
+-(void) tableDidEndDisplayCell:(UICollectionView*) table;
 
 +(float) heightWithKMNews:(NSArray*) kms;
 +(NSString *)reuseIdentifier;
 
 @end
 
-@interface UITableView(SUKMNewsContaintCell)
+@interface UICollectionView(ShopKMNewsControllerCell)
 
 -(void) registerShopKMNewsControllerCell;
--(ShopKMNewsControllerCell*) shopKMNewsControllerCell;
+-(ShopKMNewsControllerCell*) shopKMNewsControllerCellForIndexPath:(NSIndexPath*) indexPath;
 
 @end
