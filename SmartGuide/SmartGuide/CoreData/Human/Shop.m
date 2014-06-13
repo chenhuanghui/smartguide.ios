@@ -12,6 +12,9 @@
     self.shopLat=[NSNumber numberWithDouble:-1];
     self.shopLng=[NSNumber numberWithDouble:-1];
     self.kmNewsHeight=@(-1);
+    self.descHeight=@(-1);
+    self.shopNameHeight=@(-1);
+    self.addressHeight=@(-1);
     
     _dragCoord=CLLocationCoordinate2DMake(-1, -1);
     
@@ -279,17 +282,20 @@
 -(enum SHOP_DATA_MODE)enumDataMode
 {
     switch (self.dataMode.integerValue) {
-        case 0:
+        case SHOP_DATA_SHOP_LIST:
             return SHOP_DATA_SHOP_LIST;
             
-        case 1:
+        case SHOP_DATA_HOME_8:
             return SHOP_DATA_HOME_8;
             
-        case 2:
+        case SHOP_DATA_FULL:
             return SHOP_DATA_FULL;
+            
+        case SHOP_DATA_IDSHOP:
+            return SHOP_DATA_IDSHOP;
     }
     
-    return SHOP_DATA_HOME_8;
+    return SHOP_DATA_IDSHOP;
 }
 
 -(enum SHOP_TYPE)enumShopType
@@ -348,6 +354,11 @@
     if(array.count>0)
         return [array sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:PromotionNews_SortOrder ascending:true]]];
     return [NSArray array];
+}
+
+-(void)setDataMode:(NSNumber *)dataMode
+{
+    [super setDataMode:dataMode];
 }
 
 @end

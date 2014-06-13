@@ -316,7 +316,7 @@
             if(_idShops.length>0)
                 [[SGData shareInstance].fData setObject:_idShops forKey:@"idShops"];
             
-            [[GUIManager shareInstance].rootViewController presentShopUserWithShopList:cell.shopList];
+            [[GUIManager shareInstance].rootViewController presentShopUserWithShop:cell.shopList.shop];
         }
     }
 }
@@ -328,7 +328,7 @@
 
 -(void)shopPinTouched:(ShopPinView *)pin
 {
-    [[GUIManager shareInstance].rootViewController presentShopUserWithShopList:pin.shop];
+    [[GUIManager shareInstance].rootViewController presentShopUserWithShop:pin.shop.shop];
 }
 
 -(void)shopListCellTouched:(ShopListCell *)cell shop:(ShopList *)shop
@@ -340,7 +340,7 @@
     }
     
     [cell closeLove];
-    [[GUIManager shareInstance].rootViewController presentShopUserWithShopList:shop];
+    [[GUIManager shareInstance].rootViewController presentShopUserWithShop:shop.shop];
 }
 
 -(void)shopListCellTouchedAdd:(ShopListCell *)cell shop:(ShopList *)shop
@@ -478,7 +478,7 @@
             
             txt.text=_keyword;
             
-            _sort=SORT_LIST_DISTANCE;
+            _sort=SORT_LIST_DEFAULT;
             [self requestShopSearch];
             [self showLoading];
             
@@ -610,7 +610,7 @@
     _page=-1;
     _location=coordinate;
     _viewMode=SHOP_LIST_VIEW_LIST;
-    _sort=SORT_LIST_DISTANCE;
+    _sort=SORT_LIST_DEFAULT;
     _placeList=nil;
     _keyword=@"";
     txt.placeholder=TEXTFIELD_SEARCH_PLACEHOLDER_TEXT;

@@ -2,6 +2,16 @@
 #import "Utility.h"
 
 @implementation KM1Voucher
+@synthesize nameHeight;
+
+-(id)initWithEntity:(NSEntityDescription *)entity insertIntoManagedObjectContext:(NSManagedObjectContext *)context
+{
+    self=[super initWithEntity:entity insertIntoManagedObjectContext:context];
+    
+    self.nameHeight=@(-1);
+    
+    return self;
+}
 
 +(KM1Voucher *)makeWithJSON:(NSDictionary *)data
 {

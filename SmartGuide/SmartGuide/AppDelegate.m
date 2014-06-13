@@ -20,6 +20,12 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    
+#if DEBUG
+    [[SDWebImageManager sharedManager].imageCache clearDisk];
+    [[SDWebImageManager sharedManager].imageCache clearMemory];
+#endif
+    
     [[NotificationManager shareInstance] receiveLaunchNotification:launchOptions];
     
     CGRect rect=[[UIScreen mainScreen] bounds];

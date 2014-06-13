@@ -34,9 +34,9 @@ enum SHOP_DATA_MODE {
 -(enum SHOP_TYPE) enumShopType;
 -(enum SHOP_DATA_MODE) enumDataMode;
 
-@property (nonatomic, assign) float descHeight;
-@property (nonatomic, assign) float shopNameHeight;
-@property (nonatomic, assign) float addressHeight;
+@property (nonatomic, strong) NSNumber *descHeight;
+@property (nonatomic, strong) NSNumber *shopNameHeight;
+@property (nonatomic, strong) NSNumber *addressHeight;
 @property (nonatomic, strong) NSNumber *kmNewsHeight;
 
 @end

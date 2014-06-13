@@ -31,6 +31,10 @@ CATransition* transitionPushFromRight();
 
 @end
 
+@protocol SGNavigationControllerDelegate <UINavigationControllerDelegate>
+
+@end
+
 @interface SGNavigationController : UINavigationController<UINavigationControllerDelegate,UIGestureRecognizerDelegate>
 {
     void(^_onPushedViewController)(UIViewController* vc);
@@ -70,6 +74,7 @@ CATransition* transitionPushFromRight();
 @property (nonatomic, assign) bool isAllowDragBackPreviouseView;
 @property (nonatomic, weak) UIPanGestureRecognizer *panPrevious;
 @property (nonatomic, weak) UILabel *lblTitle;
+@property (nonatomic, weak) id<SGNavigationControllerDelegate> navigationDelegate;
 
 @end
 

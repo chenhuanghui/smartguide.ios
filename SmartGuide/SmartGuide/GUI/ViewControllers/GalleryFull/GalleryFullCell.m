@@ -13,6 +13,10 @@
 #define GALLERY_FULL_CELL_BOUNCE 0.02f
 #define DURATION_ZOOM_GALLERY 0.25f
 
+@interface GalleryFullCell()<UIScrollViewDelegate>
+
+@end
+
 @implementation GalleryFullCell
 
 +(NSString *)reuseIdentifier
@@ -22,13 +26,14 @@
 
 -(void)loadImageURL:(NSString *)url
 {
-    [imgv loadShopGalleryFullWithURL:url];
+    [imgv loadGalleryFullWithURL:url];
     
     [self zoomOut:false completed:nil];
 }
 
 -(void)loadWithImage:(UIImage *)image
 {
+    [imgv removeDefaultBackground];
     imgv.image=image;
     [self zoomOut:false completed:nil];
 }
@@ -93,8 +98,8 @@
     if(CGRectContainsPoint(imgFrame, pnt))
     {
         // Vị trí tương đối giữa hình trước và sau khi zoom;
-        float perX=pnt.x/self.collView.frame.size.width;
-        float perY=pnt.y/self.collView.frame.size.height;
+        float perX=pnt.x/self.frame.size.width;
+        float perY=pnt.y/self.frame.size.height;
         
         pnt.x=imgv.image.size.width*perX;
         pnt.y=imgv.image.size.height*perY;
@@ -162,16 +167,16 @@
     }
 }
 
--(void)collectionViewDidScroll
+-(void)collectionViewDidScroll:(UICollectionView *)collectionView indexPath:(NSIndexPath *)indexPath
 {
-    CGRect rect=[self.collView layoutAttributesForItemAtIndexPath:self.indexPath].frame;
+    CGRect rect=[collectionView rectForItemAtIndexPath:indexPath];
     
     if(scroll.userInteractionEnabled)
         imgv.frame=CGRectMake(0, 0, imgv.frame.size.width, imgv.frame.size.height);
     else
     {
         bool hasZoom=false;;
-        for(GalleryFullCell *cell in self.collView.visibleCells)
+        for(GalleryFullCell *cell in collectionView.visibleCells)
         {
             if(cell.isZoomed)
             {
@@ -184,10 +189,10 @@
             imgv.frame=CGRectMake(0, 0, imgv.frame.size.width, imgv.frame.size.height);
         else
         {
-            if([self.collView indexPathForCell:self].row==0)
-                imgv.frame=CGRectMake(0, 0, imgv.frame.size.width, imgv.frame.size.height);
+            if([collectionView indexPathForCell:self].row==0)
+                imgv.frame=CGRectMake(MAX(0,collectionView.contentOffset.x-rect.origin.x), 0, imgv.frame.size.width, imgv.frame.size.height);
             else
-                imgv.frame=CGRectMake(self.collView.contentOffset.x-rect.origin.x, 0, imgv.frame.size.width, imgv.frame.size.height);
+                imgv.frame=CGRectMake(collectionView.contentOffset.x-rect.origin.x, 0, imgv.frame.size.width, imgv.frame.size.height);
         }
     }
 }
@@ -232,6 +237,20 @@
     }
     
     [super setContentOffset:contentOffset];
+}
+
+@end
+
+@implementation UICollectionView(GalleryFullCell)
+
+-(void)registerGalleryFullCell
+{
+    [self registerNib:[UINib nibWithNibName:[GalleryFullCell reuseIdentifier] bundle:nil] forCellWithReuseIdentifier:[GalleryFullCell reuseIdentifier]];
+}
+
+-(GalleryFullCell *)galleryFullCellForIndexPath:(NSIndexPath *)indexPath
+{
+    return [self dequeueReusableCellWithReuseIdentifier:[GalleryFullCell reuseIdentifier] forIndexPath:indexPath];
 }
 
 @end

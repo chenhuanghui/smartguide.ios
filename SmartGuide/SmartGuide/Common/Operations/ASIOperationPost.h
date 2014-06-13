@@ -24,6 +24,8 @@
 #define STATUS @"status"
 #define MESSAGE @"message"
 
+#define REFRESH_TOKEN_ERROR_CODE 1000
+
 @class ASIOperationPost;
 
 @protocol ASIOperationPostDelegate <NSObject>

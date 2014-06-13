@@ -2,7 +2,17 @@
 #import "Utility.h"
 
 @implementation KM2Voucher
-@synthesize nameHeight,conditionHeight,voucherHeight;
+@synthesize nameHeight,conditionHeight;
+
+-(id)initWithEntity:(NSEntityDescription *)entity insertIntoManagedObjectContext:(NSManagedObjectContext *)context
+{
+    self=[super initWithEntity:entity insertIntoManagedObjectContext:context];
+    
+    self.nameHeight=@(-1);
+    self.conditionHeight=@(-1);
+    
+    return self;
+}
 
 +(KM2Voucher *)makeWithDictionary:(NSDictionary *)dict
 {
@@ -15,16 +25,6 @@
     voucher.isAfford=[NSNumber numberWithObject:dict[@"isAfford"]];
     
     return voucher;
-}
-
--(NSString *)condition1
-{
-    return @"Lorem ipsum dolor sit amet ";
-}
-
--(NSString *)name1
-{
-    return @"ipsum dolor sit amet ipsum dolor sit amet";
 }
 
 @end

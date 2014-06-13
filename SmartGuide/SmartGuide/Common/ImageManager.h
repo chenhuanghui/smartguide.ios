@@ -10,6 +10,8 @@
 #import "SDWebImageManager.h"
 #import "ShopList.h"
 
+@class ImageDefaultBackgroundView;
+
 @interface ImageManager : NSObject
 
 +(ImageManager*) sharedInstance;
@@ -35,13 +37,14 @@
 -(void) loadAvatarWithURL:(NSString*) url completed:(SDWebImageCompletedBlock)completedBlock;
 -(void) loadShopLogoWithURL:(NSString*) url;
 -(void) loadShopGalleryWithURL:(NSString*) url;
--(void)loadShopGalleryFullWithURL:(NSString *)url;
+-(void) loadGalleryFullWithURL:(NSString *)url;
 -(void) loadShopUserGalleryWithURL:(NSString*) url;
--(void) loadShopUserGalleryThumbnailWithURL:(NSString*) url;
+-(void) loadShopUserGalleryThumbnailWithURL:(NSString*) url size:(CGSize) size;
 -(void) loadCommentAvatarWithURL:(NSString*) url;
 -(void) loadStoreLogoWithURL:(NSString*) url;
 -(void) loadPlaceAuthorAvatarWithURL:(NSString*) url;
 -(void) loadShopCoverWithURL:(NSString*) url;
+-(void) loadShopCoverWithURL:(NSString*) url resize:(CGSize) size;
 -(void) loadImageInfo3WithURL:(NSString*) url;
 -(void) loadShopLogoPromotionHome:(NSString*) url completed:(SDWebImageCompletedBlock) completedBlock;
 -(void) loadShopLogoPromotionHome:(NSString*) url;
@@ -54,13 +57,15 @@
 -(void) loadUserPromotionCoverWithURL:(NSString*) url;
 -(void) loadUserNotificationContentWithURL:(NSString*) url;
 -(void) loadVideoThumbnailWithURL:(NSString*) url;
+-(void) loadGalleryThumbnailWithURL:(NSString*) url resize:(CGSize) size;
 
 -(void) showLoadingImageSmall;
-
--(void) requestImageWithURL:(NSString*) url size:(CGSize) size onCompleted:(void(^)(UIImage *img)) onCompleted;
+-(void) stopLoadingImageSmall;
+-(void) showDefaultBackground;
+-(void) removeDefaultBackground;
 
 @property (nonatomic, readwrite, weak) UIImageView *loadingSmall;
-@property (nonatomic, readwrite, weak) UIImageView *loadingBig;
+@property (nonatomic, readwrite, weak) ImageDefaultBackgroundView *defaultBackground;
 
 @end
 
@@ -68,5 +73,9 @@
 
 -(void) loadImage:(NSString*) url;
 -(void) loadImage:(NSString*) url onCompleted:(void(^)(UIImage *image)) onCompleted;
+
+@end
+
+@interface ImageDefaultBackgroundView : UIView
 
 @end

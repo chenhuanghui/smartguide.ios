@@ -336,6 +336,7 @@
 -(void) deleteUserNotification:(int) idSender
 {
     ASIOperationUserNotificationRemove *operationUserNotificationRemove=[[ASIOperationUserNotificationRemove alloc] initWithIDNotification:nil idSender:@(idSender) userLat:userLat() userLng:userLng()];
+    operationUserNotificationRemove.delegatePost=self;
     
     [operationUserNotificationRemove startAsynchronous];
 }
@@ -484,6 +485,7 @@
 }
 
 - (IBAction)btnBackTouchUpInside:(id)sender {
+    [[NotificationManager shareInstance] requestNotificationCount];
     [self.navigationController popViewControllerAnimated:true];
 }
 
@@ -566,6 +568,10 @@
         
         _operationUserNotification=nil;
     }
+    else if([operation isKindOfClass:[ASIOperationUserNotificationRemove class]])
+    {
+        [[NotificationManager shareInstance] requestNotificationCount];
+    }
 }
 
 -(void)ASIOperaionPostFailed:(ASIOperationPost *)operation
@@ -574,6 +580,10 @@
     {
         [self.view removeLoading];
         _operationUserNotification=nil;
+    }
+    else if([operation isKindOfClass:[ASIOperationUserNotificationRemove class]])
+    {
+        [[NotificationManager shareInstance] requestNotificationCount];
     }
 }
 

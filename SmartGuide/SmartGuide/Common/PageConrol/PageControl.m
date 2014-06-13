@@ -112,9 +112,9 @@
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView isHorizontal:(bool)isHorizontal
 {
     if(isHorizontal)
-    {
         self.currentPage=[scrollView currentPageForHoriTable];
-    }
+    else
+        self.currentPage=[scrollView currentPage];
 }
 
 @end

@@ -17,7 +17,7 @@
 
 @end
 
-@interface GalleryFullCell : UICollectionViewCell<UIScrollViewDelegate>
+@interface GalleryFullCell : UICollectionViewCell
 {
     __weak IBOutlet UIImageView *imgv;
     __weak IBOutlet ScrollFullCell *scroll;
@@ -27,11 +27,9 @@
 -(void) loadWithImage:(UIImage*) image;
 -(void) zoom:(CGPoint) pnt completed:(void(^)()) onCompleted;
 -(bool) isZoomed;
--(void) collectionViewDidScroll;
+-(void) collectionViewDidScroll:(UICollectionView*) collectionView indexPath:(NSIndexPath*) indexPath;
 +(NSString *)reuseIdentifier;
 
-@property (nonatomic, weak) UICollectionView *collView;
-@property (nonatomic, strong) NSIndexPath *indexPath;
 @property (nonatomic, weak) id<GalleryFullCellDelegate> delegate;
 
 @end
@@ -39,5 +37,12 @@
 @interface ScrollFullCell : UIScrollView
 
 @property (nonatomic, assign) CGPoint limitScrollOffset;
+
+@end
+
+@interface UICollectionView(GalleryFullCell)
+
+-(void) registerGalleryFullCell;
+-(GalleryFullCell*) galleryFullCellForIndexPath:(NSIndexPath*) indexPath;
 
 @end

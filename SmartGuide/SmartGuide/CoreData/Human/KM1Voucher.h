@@ -6,4 +6,6 @@
 
 +(KM1Voucher*) makeWithJSON:(NSDictionary*) data;
 
+@property (nonatomic, strong) NSNumber *nameHeight;
+
 @end

@@ -2573,6 +2573,26 @@ static const NSString *KEY_HIT_TEST_EDGE_INSETS = @"HitTestEdgeInsets";
     return (UICollectionViewFlowLayout*)self.collectionViewLayout;
 }
 
+-(void)reloadVisibleItems
+{
+    if(self.visibleCells && self.visibleCells.count>0)
+    {
+        NSMutableArray *array=[NSMutableArray array];
+        
+        for(UICollectionViewCell *cell in self.visibleCells)
+        {
+            NSIndexPath *idx=[self indexPathForCell:cell];
+            if(idx)
+                [array addObject:idx];
+        }
+        
+        if(array.count>0)
+        {
+            [self reloadItemsAtIndexPaths:array];
+        }
+    }
+}
+
 @end
 
 @implementation UIDevice(Utility)

@@ -14,6 +14,38 @@ static char operationArrayKey;
 
 @implementation UIImageView (WebCache)
 
+-(void)setImageWithURL:(NSURL *)url onDownload:(void (^)())onDownload completed:(SDWebImageCompletedBlock)completedBlock
+{
+    [self setImageWithURL:url onDownload:onDownload completed:completedBlock resize:nil willSize:CGSizeZero];
+}
+
+-(void)setImageWithURL:(NSURL *)url onDownload:(void (^)())onDownload completed:(SDWebImageCompletedBlock)completedBlock resize:(UIImage *(^)(UIImage *))resizeMethod willSize:(CGSize) willSize
+{
+    [self cancelCurrentImageLoad];
+    
+    self.image=nil;
+    
+    if (url) {
+        __weak UIImageView *wself = self;
+        
+        id <SDWebImageOperation> operation = [[SDWebImageManager sharedManager] downloadWithURL:url options:0 download:onDownload progress:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished) {
+            if (!wself) return;
+            dispatch_main_sync_safe(^{
+                if (!wself) return;
+                if (image) {
+                    wself.image = image;
+                    [wself setNeedsLayout];
+                }
+                if (completedBlock && finished) {
+                    completedBlock(image, error, cacheType);
+                }
+            });
+        } willSize:willSize resize:resizeMethod];
+        
+        objc_setAssociatedObject(self, &operationKey, operation, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    }
+}
+
 - (void)setImageWithURL:(NSURL *)url {
     [self setImageWithURL:url placeholderImage:nil options:0 progress:nil completed:nil];
 }
@@ -40,9 +72,9 @@ static char operationArrayKey;
 
 - (void)setImageWithURL:(NSURL *)url placeholderImage:(UIImage *)placeholder options:(SDWebImageOptions)options progress:(SDWebImageDownloaderProgressBlock)progressBlock completed:(SDWebImageCompletedBlock)completedBlock {
     [self cancelCurrentImageLoad];
-
+    
     self.image = placeholder;
-
+    
     if (url) {
         __weak UIImageView *wself = self;
         id <SDWebImageOperation> operation = [SDWebImageManager.sharedManager downloadWithURL:url options:options progress:progressBlock completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished) {
@@ -65,9 +97,9 @@ static char operationArrayKey;
 - (void)setAnimationImagesWithURLs:(NSArray *)arrayOfURLs {
     [self cancelCurrentArrayLoad];
     __weak UIImageView *wself = self;
-
+    
     NSMutableArray *operationsArray = [[NSMutableArray alloc] init];
-
+    
     for (NSURL *logoImageURL in arrayOfURLs) {
         id <SDWebImageOperation> operation = [SDWebImageManager.sharedManager downloadWithURL:logoImageURL options:0 progress:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished) {
             if (!wself) return;
@@ -80,7 +112,7 @@ static char operationArrayKey;
                         currentImages = [[NSMutableArray alloc] init];
                     }
                     [currentImages addObject:image];
-
+                    
                     sself.animationImages = currentImages;
                     [sself setNeedsLayout];
                 }
@@ -89,7 +121,7 @@ static char operationArrayKey;
         }];
         [operationsArray addObject:operation];
     }
-
+    
     objc_setAssociatedObject(self, &operationArrayKey, [NSArray arrayWithArray:operationsArray], OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 

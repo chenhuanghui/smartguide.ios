@@ -26,8 +26,7 @@
  
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:MyIdentifier];
  
-    if (cell == nil)
-    {
+    if (cell == nil) {
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:MyIdentifier]
                  autorelease];
     }
@@ -44,6 +43,9 @@
  * @endcode
  */
 @interface UIImageView (WebCache)
+
+-(void) setImageWithURL:(NSURL*) url onDownload:(void(^)()) onDownload completed:(SDWebImageCompletedBlock)completedBlock;
+-(void) setImageWithURL:(NSURL*) url onDownload:(void(^)()) onDownload completed:(SDWebImageCompletedBlock)completedBlock resize:(UIImage*(^)(UIImage *downloadImage)) resizeMethod willSize:(CGSize) willSize;
 
 /**
  * Set the imageView `image` with an `url`.

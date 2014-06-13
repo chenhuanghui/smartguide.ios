@@ -11,7 +11,10 @@
 #import "UIImage+MultiFormat.h"
 #import <ImageIO/ImageIO.h>
 
-@interface SDWebImageDownloaderOperation ()
+@interface SDWebImageDownloaderOperation () {
+    BOOL _executing;
+    BOOL _finished;
+}
 
 @property (copy, nonatomic) SDWebImageDownloaderProgressBlock progressBlock;
 @property (copy, nonatomic) SDWebImageDownloaderCompletedBlock completedBlock;
@@ -35,6 +38,9 @@
     UIImageOrientation orientation;
     BOOL responseFromCached;
 }
+
+@synthesize executing = _executing;
+@synthesize finished = _finished;
 
 - (id)initWithRequest:(NSURLRequest *)request options:(SDWebImageDownloaderOptions)options progress:(void (^)(NSInteger, NSInteger))progressBlock completed:(void (^)(UIImage *, NSData *, NSError *, BOOL))completedBlock cancelled:(void (^)())cancelBlock {
     if ((self = [super init])) {
@@ -80,6 +86,7 @@
         self.thread = [NSThread currentThread];
     }
 
+    NSLog(@"%@ download start",self.connection.currentRequest.URL);
     [self.connection start];
 
     if (self.connection) {
@@ -108,6 +115,13 @@
             self.completedBlock(nil, nil, [NSError errorWithDomain:NSURLErrorDomain code:0 userInfo:@{NSLocalizedDescriptionKey : @"Connection can't be initialized"}], YES);
         }
     }
+
+#if TARGET_OS_IPHONE && __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_4_0
+    if (self.backgroundTaskId != UIBackgroundTaskInvalid) {
+        [[UIApplication sharedApplication] endBackgroundTask:self.backgroundTaskId];
+        self.backgroundTaskId = UIBackgroundTaskInvalid;
+    }
+#endif
 }
 
 - (void)cancel {
@@ -122,6 +136,7 @@
 }
 
 - (void)cancelInternalAndStop {
+    if (self.isFinished) return;
     [self cancelInternal];
     CFRunLoopStop(CFRunLoopGetCurrent());
 }
@@ -165,10 +180,20 @@
     [self didChangeValueForKey:@"isFinished"];
 }
 
+- (BOOL)isFinished
+{
+    return _finished;
+}
+
 - (void)setExecuting:(BOOL)executing {
     [self willChangeValueForKey:@"isExecuting"];
     _executing = executing;
     [self didChangeValueForKey:@"isExecuting"];
+}
+
+- (BOOL)isExecuting
+{
+    return _executing;
 }
 
 - (BOOL)isConcurrent {
@@ -195,7 +220,7 @@
         if (self.completedBlock) {
             self.completedBlock(nil, nil, [NSError errorWithDomain:NSURLErrorDomain code:[((NSHTTPURLResponse *)response) statusCode] userInfo:nil], YES);
         }
-
+        CFRunLoopStop(CFRunLoopGetCurrent());
         [self done];
     }
 }
@@ -309,12 +334,18 @@
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)aConnection {
     CFRunLoopStop(CFRunLoopGetCurrent());
+    
+    NSLog(@"%@ download finished %i",self.connection.currentRequest.URL, self.imageData.length);
     self.connection = nil;
 
     [[NSNotificationCenter defaultCenter] postNotificationName:SDWebImageDownloadStopNotification object:nil];
 
     SDWebImageDownloaderCompletedBlock completionBlock = self.completedBlock;
-
+    
+    if (![[NSURLCache sharedURLCache] cachedResponseForRequest:_request]) {
+        responseFromCached = NO;
+    }
+    
     if (completionBlock) {
         if (self.options & SDWebImageDownloaderIgnoreCachedResponse && responseFromCached) {
             completionBlock(nil, nil, nil, YES);

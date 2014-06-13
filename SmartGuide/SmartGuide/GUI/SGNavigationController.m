@@ -122,12 +122,6 @@ CATransition* transitionPushFromRight()
     _controllers=nil;
 }
 
--(void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    
-}
-
 -(void) removeViewController:(UIViewController*) viewController
 {
     if(!viewController || ![self.viewControllers containsObject:viewController])
@@ -203,6 +197,15 @@ CATransition* transitionPushFromRight()
     
 }
 
+-(void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated
+{
+    if(lblTitle)
+        lblTitle.text=viewController.title;
+    
+    if([self.navigationDelegate respondsToSelector:@selector(navigationController:willShowViewController:animated:)])
+        [self.navigationDelegate navigationController:navigationController willShowViewController:viewController animated:animated];
+}
+
 -(void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated
 {
     if(_onPushedViewController)
@@ -212,6 +215,9 @@ CATransition* transitionPushFromRight()
         _onPushedViewController(weakController);
         _onPushedViewController=nil;
     }
+    
+    if([self.navigationDelegate respondsToSelector:@selector(navigationController:didShowViewController:animated:)])
+        [self.navigationDelegate navigationController:self didShowViewController:viewController animated:animated];
 }
 
 -(void)dealloc
@@ -686,12 +692,12 @@ CATransition* transitionPushFromRight()
 {
     viewController.wantsFullScreenLayout=true;
     
-    if(animated)
-    {
-        [self.view.layer addAnimation:transitionPushFromRight() forKey:nil];
-        [super pushViewController:viewController animated:false];
-        return;
-    }
+//    if(animated)
+//    {
+//        [self.view.layer addAnimation:transitionPushFromRight() forKey:nil];
+//        [super pushViewController:viewController animated:false];
+//        return;
+//    }
     
     [super pushViewController:viewController animated:animated];
 }
@@ -917,12 +923,6 @@ CATransition* transitionPushFromRight()
     self.viewControllers=array;
     
     [self pushViewController:viewController animated:animate];
-}
-
--(void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated
-{
-    if(lblTitle)
-        lblTitle.text=viewController.title;
 }
 
 -(void)setLblTitle:(UILabel *)_lblTitle

@@ -122,4 +122,9 @@ static TokenManager *_tokenManager=nil;
     return [Flags lastPhoneUser];
 }
 
+-(void)useDefaultToken
+{
+    [self setAccessToken:DEFAULT_USER_ACCESS_TOKEN];
+}
+
 @end

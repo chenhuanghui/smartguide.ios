@@ -130,14 +130,14 @@ static LocationManager *_locationManager=nil;
     [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%f|%f",userlocation_.latitude,userlocation_.longitude] forKey:LOCATION_MANAGER_LAST_LOCATION_KEY];
     [[NSUserDefaults standardUserDefaults] synchronize];
     
-    NSLog(@"LocationManager userLocation (%f, %f)->(%f, %f)",self.userlocation.latitude,self.userlocation.longitude,userlocation_.latitude,userlocation_.longitude);
+//    NSLog(@"LocationManager userLocation (%f, %f)->(%f, %f)",self.userlocation.latitude,self.userlocation.longitude,userlocation_.latitude,userlocation_.longitude);
     
     userlocation=userlocation_;
 }
 
 -(void)setHomeLocation:(CLLocationCoordinate2D)homeLocation_
 {
-    NSLog(@"LocationManager homeLocation (%f, %f)->(%f, %f)",self.homeLocation.latitude,self.homeLocation.longitude,homeLocation_.latitude,homeLocation_.longitude);
+//    NSLog(@"LocationManager homeLocation (%f, %f)->(%f, %f)",self.homeLocation.latitude,self.homeLocation.longitude,homeLocation_.latitude,homeLocation_.longitude);
     
     homeLocation=homeLocation_;
 }

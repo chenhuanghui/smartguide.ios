@@ -10,6 +10,7 @@
 #import "OperationRefreshToken.h"
 #import "TokenManager.h"
 #import "SGData.h"
+#import "ASIDownloadCache.h"
 
 static NSMutableArray *_asioperations=nil;
 
@@ -62,6 +63,8 @@ static NSMutableArray *_asioperations=nil;
 
 -(void) commonInit
 {
+    [[ASIDownloadCache sharedCache] removeCachedDataForRequest:self];
+    
     self.numberOfTimesToRetryOnTimeout=3;
     self.shouldContinueWhenAppEntersBackground=true;
     self.persistentConnectionTimeoutSeconds=60*5;
@@ -276,7 +279,7 @@ static NSMutableArray *_asioperations=nil;
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
-    self.error=[NSError errorWithDomain:@"Refresh token failed" code:0 userInfo:nil];
+    self.error=[NSError errorWithDomain:@"Refresh token failed" code:REFRESH_TOKEN_ERROR_CODE userInfo:nil];
     [self onFailed:self.error];
     [self notifyFailed:self.error];
 }

@@ -14,6 +14,7 @@
 #import "UserNoticeObject.h"
 #import "UserNoticeView.h"
 #import "NotificationManager.h"
+#import "ShopUserController.h"
 
 #define HOME_TEXT_FIELD_SEARCH_MIN_Y 8.f
 
@@ -48,10 +49,25 @@
     [SGData shareInstance].fScreen=[HomeViewController screenCode];
 }
 
+#if DEBUG
+-(void) tapTest:(UITapGestureRecognizer*) tap
+{
+    NSArray *ids=@[@(12),@(23),@(360)];
+    
+    [[[GUIManager shareInstance] rootViewController] presentShopUserWithIDShop:[ids[random_int(0, 2)] integerValue]];
+}
+#endif
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+#if DEBUG
+    UITapGestureRecognizer *tap=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapTest:)];
+    [self.view makeAlphaView];
+    [self.view.alphaView addGestureRecognizer:tap];
+#endif
     
     txtRefresh.text=TEXTFIELD_SEARCH_PLACEHOLDER_TEXT;
     txtRefresh.maximumWidth=232;

@@ -21,6 +21,8 @@
 -(bool) isRefreshingToken;
 -(void) refresh;
 
+-(void) useDefaultToken;
+
 @property (nonatomic, strong) NSString *accessToken;
 @property (nonatomic, strong) NSString *refreshToken;
 @property (nonatomic, strong) NSString *activeCode;

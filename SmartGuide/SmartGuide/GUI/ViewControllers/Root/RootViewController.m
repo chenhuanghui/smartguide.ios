@@ -23,8 +23,13 @@
 #import "UserNotificationDetailViewController.h"
 #import "QRCodeViewController.h"
 #import "RemoteNotificationView.h"
+#import "ShopUserController.h"
+#import "TokenManager.h"
 
-@interface RootViewController ()<NavigationControllerDelegate,UIScrollViewDelegate,HomeControllerDelegate,UserPromotionDelegate,SGUserSettingControllerDelegate,WebViewDelegate,ShopUserDelegate,UIGestureRecognizerDelegate,RemoteNotificationDelegate>
+@interface RootViewController ()<NavigationControllerDelegate,UIScrollViewDelegate,HomeControllerDelegate,UserPromotionDelegate,SGUserSettingControllerDelegate,WebViewDelegate,ShopUserControllerDelegate,UIGestureRecognizerDelegate,RemoteNotificationDelegate,ASIOperationPostDelegate>
+{
+    ASIOperationUserProfile *_operationUserProfile;
+}
 
 @end
 
@@ -80,11 +85,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-#if BUILD_MODE==0
-    btnMakeNotification.hidden=false;
-#endif
-    //    btnMakeNotification.hidden=true;
-    
     self.contentNavigation.view.autoresizingMask=UIViewAutoresizingAll();
     [self.contentView addSubview:self.contentNavigation.view];
     [self.contentNavigation.view l_v_setS:self.contentView.l_v_s];
@@ -120,7 +120,7 @@
 
 -(NSArray *)registerNotifications
 {
-    return @[NOTIFICATION_RECEIVED_REMOTE_NOTIFICATION,NOTIFICATION_HOME_FINISHED_LOAD];
+    return @[NOTIFICATION_RECEIVED_REMOTE_NOTIFICATION,NOTIFICATION_HOME_FINISHED_LOAD,NOTIFICATION_REFRESH_TOKEN_FAILED];
 }
 
 -(void)receiveNotification:(NSNotification *)notification
@@ -143,6 +143,45 @@
     else if([notification.name isEqualToString:NOTIFICATION_HOME_FINISHED_LOAD])
     {
         [self startUpload];
+    }
+    else if([notification.name isEqualToString:NOTIFICATION_REFRESH_TOKEN_FAILED])
+    {
+        [[TokenManager shareInstance] useDefaultToken];
+        _operationUserProfile=[[ASIOperationUserProfile alloc] initOperation];
+        _operationUserProfile.delegatePost=self;
+        
+        [_operationUserProfile startAsynchronous];
+        
+        [self.view showLoading];
+    }
+}
+
+-(void)ASIOperaionPostFinished:(ASIOperationPost *)operation
+{
+    if([operation isKindOfClass:[ASIOperationUserProfile class]])
+    {
+        _operationUserProfile=nil;
+        
+        [self.view removeLoading];
+        [[GUIManager shareInstance] logout];
+    }
+}
+
+-(void)ASIOperaionPostFailed:(ASIOperationPost *)operation
+{
+    if([operation isKindOfClass:[ASIOperationUserProfile class]])
+    {
+        _operationUserProfile=nil;
+        
+        [[DataManager shareInstance].currentUser markDeleted];
+        
+        [DataManager shareInstance].currentUser=[User insert];
+        [DataManager shareInstance].currentUser.idUser=@(DEFAULT_USER_ID);
+        [DataManager shareInstance].currentUser.idCity=@(DEFAULT_USER_IDCITY);
+        [[DataManager shareInstance] save];
+        
+        [self.view removeLoading];
+        [[GUIManager shareInstance] logout];
     }
 }
 
@@ -269,7 +308,7 @@
 
 -(void)homeControllerTouchedHome8:(HomeViewController *)controller home8:(UserHome8 *)home8
 {
-    [self presentShopUserWithHome8:home8];
+    [self presentShopUserWithShop:home8.shop];
 }
 
 -(void)homeControllerTouchedStore:(HomeViewController *)controller store:(StoreShop *)store
@@ -282,7 +321,7 @@
     [self presentShopUserWithIDShop:idShop];
 }
 
--(void)shopUserRequestScanCode:(ShopUserViewController *)controller
+-(void)shopUserControllerTouchedScanQRCode:(ShopUserController *)controller
 {
     
 }
@@ -388,7 +427,7 @@
 
 #pragma mark ShopUserViewController
 
--(void)shopUserFinished:(ShopUserViewController *)controller
+-(void)shopUserControllerTouchedClose:(ShopUserController *)controller
 {
     [self dismissShopUser];
 }
@@ -424,35 +463,21 @@
     [self.contentNavigation dismissSGViewControllerCompletion:onCompleted];
 }
 
--(void) presentShopUserWithShopUser:(Shop *)shop
+-(void) presentShopUserWithShop:(Shop *)shop
 {
-    ShopUserViewController *vc=[[ShopUserViewController alloc] initWithShopUser:shop];
-    
-    [self presentShopUser:vc];
-}
-
--(void) presentShopUserWithShopList:(ShopList *)shopList
-{
-    ShopUserViewController *shopUser=[[ShopUserViewController alloc] initWithShopUser:shopList.shop];
-    
-    [self presentShopUser:shopUser];
-}
-
--(void)presentShopUserWithHome8:(UserHome8 *)home8
-{
-    ShopUserViewController *vc=[[ShopUserViewController alloc] initWithShopUser:home8.shop];
+    ShopUserController *vc=[[ShopUserController alloc] initWithShop:shop];
     
     [self presentShopUser:vc];
 }
 
 -(void)presentShopUserWithIDShop:(int)idShop
 {
-    ShopUserViewController *vc=[[ShopUserViewController alloc] initWithIDShop:idShop];
+    ShopUserController *vc=[[ShopUserController alloc] initWithIDShop:idShop];
     
     [self presentShopUser:vc];
 }
 
--(void) presentShopUser:(ShopUserViewController*) vc
+-(void) presentShopUser:(ShopUserController*) vc
 {
     vc.delegate=self;
     
@@ -460,7 +485,7 @@
     {
         if([self.contentNavigation.presentSGViewControlelr isKindOfClass:[ShopUserViewController class]])
         {
-            __block ShopUserViewController *_vc=vc;
+            __block ShopUserController *_vc=vc;
             [self.contentNavigation dismissSGViewControllerCompletion:^{
                 [self presentShopUser:_vc];
                 _vc=nil;

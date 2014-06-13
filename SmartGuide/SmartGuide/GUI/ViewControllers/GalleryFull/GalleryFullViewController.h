@@ -7,15 +7,8 @@
 //
 
 #import "SGViewController.h"
-#import "GalleryFullCell.h"
 
-@class GalleryFullViewController,GalleryFullGridCell,GalleryFullCollectionView;
-
-@protocol GalleryFullProtocol <NSObject>
-
--(id) galleryItemAtIndex:(int) index;
-
-@end
+@class GalleryFullViewController,GalleryFullCollectionView;
 
 @protocol GalleryFullControllerDelegate <SGViewControllerDelegate>
 
@@ -23,21 +16,16 @@
 
 @end
 
-@interface GalleryFullViewController : SGViewController<UICollectionViewDataSource,UICollectionViewDelegate,GalleryFullProtocol,UIScrollViewDelegate>
+@interface GalleryFullViewController : SGViewController
 {
     __weak IBOutlet GalleryFullCollectionView *collView;
-    __weak SGViewController *_parentController;
-    id _selectedGallery;
     __weak Shop *_shop;
     __weak UITapGestureRecognizer *tapCollView;
 }
 
 -(GalleryFullViewController*) initWithShop:(Shop*) shop;
-
--(void) setParentController:(SGViewController*) parentController;
--(void) show;
--(id) selectedObject;
--(void) setSelectedObject:(id) selectedObject;
+-(id) galleryAtIndex:(int) index;
+-(id) currentGallery;
 
 @property (nonatomic, weak) id<GalleryFullControllerDelegate> delegate;
 

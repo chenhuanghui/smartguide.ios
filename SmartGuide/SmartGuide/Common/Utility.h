@@ -434,6 +434,7 @@ NSString* LAZY_STRING_INT(int i);
 
 -(CGRect) rectForItemAtIndexPath:(NSIndexPath*) indexPath;
 -(UICollectionViewFlowLayout *)collectionViewFlowLayout;
+-(void) reloadVisibleItems;
 
 @end
 

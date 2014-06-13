@@ -7,7 +7,6 @@
 //
 
 #import "HomeImageType9Cell.h"
-#import "ImageCacheManager.h"
 #import "Utility.h"
 #import "ImageManager.h"
 

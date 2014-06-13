@@ -7,29 +7,25 @@
 //
 
 #import "SGViewController.h"
-#import "GMGridView.h"
-#import "Shop.h"
 
-@class GalleryViewController;
+@class GalleryViewController,Shop;
 
-@protocol ShopGalleryControllerDelegate <SGViewControllerDelegate>
+@protocol GalleryControllerDelegate <SGViewControllerDelegate>
 
--(void) shopGalleryTouchedGallery:(GalleryViewController*) controller gallery:(id) gallery;
+-(void) galleryControllerTouchedGallery:(GalleryViewController*) controller gallery:(id) gallery;
 
 @end
 
-@interface GalleryViewController : SGViewController<GMGridViewActionDelegate,GMGridViewDataSource,UIScrollViewDelegate>
+@interface GalleryViewController : SGViewController
 {
-    __weak IBOutlet GMGridView *grid;
+    __weak IBOutlet UICollectionView *collection;
     __weak Shop *_shop;
-    id _selectedGallery;
 }
 
 -(GalleryViewController*) initWithShop:(Shop*) shop;
--(void) setSelectedGallery:(id) selectedGallery;
 -(id) galleryAtIndex:(int) index;
 
-@property (nonatomic, weak) id<ShopGalleryControllerDelegate> delegate;
+@property (nonatomic, weak) id<GalleryControllerDelegate> delegate;
 
 @end
 

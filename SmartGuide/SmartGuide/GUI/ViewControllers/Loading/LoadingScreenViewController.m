@@ -46,10 +46,18 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
+#if BUILD_SOSMART
+    
     if([UIScreen mainScreen].bounds.size.height==568.f)
         imgv.image=[UIImage imageNamed:@"bg_5sosmart.jpg"];
     else
         imgv.image=[UIImage imageNamed:@"bg_sosmart.jpg"];
+#else
+    if([UIScreen mainScreen].bounds.size.height==568.f)
+        imgv.image=[UIImage imageNamed:@"lauchR4.png"];
+    else
+        imgv.image=[UIImage imageNamed:@"lauch.png"];
+#endif
     
     _viewDidLoad=true;
     
@@ -107,9 +115,14 @@
 {
     if([operation isKindOfClass:[ASIOperationUserProfile class]])
     {
-        _operationUserProfile=nil;
-        
         double delayInSeconds = 3.0;
+        
+        if(operation.error.code==REFRESH_TOKEN_ERROR_CODE)
+        {
+            [[TokenManager shareInstance] useDefaultToken];
+            delayInSeconds=0;
+        }
+        
         dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
         dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
             [self requestUserProfile];

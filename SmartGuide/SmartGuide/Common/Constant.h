@@ -13,6 +13,7 @@
 
 #define DEFAULT_USER_ID 1
 #define DEFAULT_USER_ACCESS_TOKEN @"abc"
+#define DEFAULT_USER_IDCITY 1
 
 #define CLASS_NAME NSStringFromClass([self class])
 #define DEALLOC_LOG NSLog(@"dealloc %@",CLASS_NAME);
@@ -28,19 +29,19 @@ static NSString * const kClientId = @"790158294934-p5pnscmrt4avj698ncvhp14fit0f4
 
 #define TEXTFIELD_SEARCH_PLACEHOLDER_TEXT @"Tìm kiếm địa điểm"
 
-#define BUILD_MODE 1
+#define BUILD_MODE 0
 //0: developer
 //1: production
 
 #if BUILD_MODE==0   
 
-#define SERVER_API @"http://dev2.smartguide.vn/api"
-#define SERVER_IP @"http://dev2.smartguide.vn"
+#define SERVER_API @"http://dev.infory.vn/api"
+#define SERVER_IP @"http://dev.infory.vn"
 
 #define CLIENT_ID @"1_orazuv2dl3k8ossssg8804o4kwksw8kwcskkk404w40gwcwws"//dev2
 #define SECRET_ID @"4xvgf3r9dxs8k8g8o8k0gss0s0wc8so4g4wg40c8s44kgcwsks"//dev2
 
-#define API_ELASTIC_AUTOCOMPLETE_NATIVE @"http://dev2.smartguide.vn:9200/data/_search"
+#define API_ELASTIC_AUTOCOMPLETE_NATIVE @"http://dev.infory.vn:9200/data/_search"
 
 #else
 
@@ -50,7 +51,7 @@ static NSString * const kClientId = @"790158294934-p5pnscmrt4avj698ncvhp14fit0f4
 #define CLIENT_ID @"1_orazuv2dl3k8ossssg8804o4kwksw8kwcskkk404w40gwcwws"//product
 #define SECRET_ID @"4xvgf3r9dxs8k8g8o8k0gss0s0wc8so4g4wg40c8s44kgcwsks"//product
 
-#define API_ELASTIC_AUTOCOMPLETE_NATIVE @"https://api.infory.vn:9200/data/_search"
+#define API_ELASTIC_AUTOCOMPLETE_NATIVE @"http://api.infory.vn:9200/data/_search"
 
 #endif
 

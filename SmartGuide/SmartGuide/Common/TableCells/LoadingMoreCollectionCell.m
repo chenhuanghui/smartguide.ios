@@ -16,23 +16,14 @@
     [super didMoveToSuperview];
     
     if(self.superview)
-        [self.imgv startAnimating];
+        [self.imgv showLoadingImageSmall];
     else
-        [self.imgv stopAnimating];
+        [self.imgv stopLoadingImageSmall];
 }
 
 -(void)showLoading
 {
-    [self.imgv startAnimating];
-}
-
--(void)awakeFromNib
-{
-    [super awakeFromNib];
-    
-    self.imgv.animationDuration=DURATION_LOADING;
-    self.imgv.animationImages=[ImageManager sharedInstance].loadingImages;
-    self.imgv.animationRepeatCount=0;
+    [self.imgv showLoadingImageSmall];
 }
 
 +(NSString *)reuseIdentifier

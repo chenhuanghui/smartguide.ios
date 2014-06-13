@@ -32,9 +32,7 @@
 -(void) hideSettingController;
 -(void) presentSGViewController:(SGViewController*) viewController;
 -(void) dismissSGPresentedViewController:(void(^)()) onCompleted;
--(void) presentShopUserWithShopList:(ShopList*) shopList;
--(void) presentShopUserWithShopUser:(Shop*) shop;
--(void) presentShopUserWithHome8:(UserHome8*) home8;
+-(void) presentShopUserWithShop:(Shop*) shop;
 -(void) presentShopUserWithIDShop:(int) idShop;
 -(void) dismissShopUser;
 -(void) showSearchShopWithKeywordsSearch:(NSString*) keywords;
