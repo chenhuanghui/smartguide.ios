@@ -21,7 +21,7 @@
     
     if(mode==SHOP_DETAIL_INFO_DESCRIPTION_NORMAL)
     {
-        if(shop.descHeight>SHOP_DETAIL_INFO_DESC_HEIGHT_MAX_NORMAL)
+        if(shop.descHeight.floatValue>SHOP_DETAIL_INFO_DESC_HEIGHT_MAX_NORMAL)
         {
             [btn setTitle:@"Xem thêm" forState:UIControlStateNormal];
             btn.hidden=false;
@@ -58,7 +58,7 @@
     float height=25;
     
     height+=[shop.desc sizeWithFont:[UIFont fontWithName:@"Avenir-Roman" size:13] constrainedToSize:CGSizeMake(244, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height;
-    shop.descHeight=height;
+    shop.descHeight=@(height);
     
     if(mode==SHOP_DETAIL_INFO_DESCRIPTION_NORMAL)
         height=MIN(SHOP_DETAIL_INFO_DESC_HEIGHT_MAX_NORMAL,height);

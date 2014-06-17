@@ -160,6 +160,16 @@ static char presentSGViewControlelrKey;
     
 }
 
+-(BOOL)prefersStatusBarHidden
+{
+    return false;
+}
+
+-(UIStatusBarStyle)preferredStatusBarStyle
+{
+    return UIStatusBarStyleDefault;
+}
+
 @end
 
 @implementation UIViewController(PresentViewController)
@@ -259,6 +269,7 @@ static char presentSGViewControlelrKey;
     
     if(animation)
     {
+        self.view.userInteractionEnabled=false;
         BasicAnimation *animate=animation();
         
         [animate addToLayer:self.presentSGViewControlelr.view.layer onStart:^(BasicAnimation *bsAnimation) {
@@ -275,6 +286,7 @@ static char presentSGViewControlelrKey;
             [self.presentSGViewControlelr.view removeFromSuperview];
             [self.presentSGViewControlelr removeFromParentViewController];
             self.presentSGViewControlelr=nil;
+            self.view.userInteractionEnabled=true;
             
             if(_completion)
             {

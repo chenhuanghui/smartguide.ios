@@ -82,7 +82,7 @@
     zbarReader.showsZBarControls=false;
     zbarReader.showsCameraControls=false;
     zbarReader.cameraFlashMode=UIImagePickerControllerCameraFlashModeAuto;
-    zbarReader.wantsFullScreenLayout=true;
+    zbarReader.wantsFullScreenLayout=false;
     zbarReader.readerDelegate=self;
     zbarReader.supportedOrientationsMask=ZBarOrientationMaskAll;
 //    zbarReader.readerView.showsFPS=true;

@@ -23,10 +23,10 @@
 #import "UserNotificationDetailViewController.h"
 #import "QRCodeViewController.h"
 #import "RemoteNotificationView.h"
-#import "ShopUserController.h"
+#import "ShopUserViewController.h"
 #import "TokenManager.h"
 
-@interface RootViewController ()<NavigationControllerDelegate,UIScrollViewDelegate,HomeControllerDelegate,UserPromotionDelegate,SGUserSettingControllerDelegate,WebViewDelegate,ShopUserControllerDelegate,UIGestureRecognizerDelegate,RemoteNotificationDelegate,ASIOperationPostDelegate>
+@interface RootViewController ()<NavigationControllerDelegate,UIScrollViewDelegate,HomeControllerDelegate,UserPromotionDelegate,SGUserSettingControllerDelegate,WebViewDelegate,ShopUserDelegate,UIGestureRecognizerDelegate,RemoteNotificationDelegate,ASIOperationPostDelegate>
 {
     ASIOperationUserProfile *_operationUserProfile;
 }
@@ -327,11 +327,6 @@
     [self presentShopUserWithIDShop:idShop];
 }
 
--(void)shopUserControllerTouchedScanQRCode:(ShopUserController *)controller
-{
-    
-}
-
 #pragma mark SearchViewController
 
 #pragma mark SettingViewController
@@ -433,9 +428,14 @@
 
 #pragma mark ShopUserViewController
 
--(void)shopUserControllerTouchedClose:(ShopUserController *)controller
+-(void)shopUserFinished:(ShopUserViewController *)controller
 {
     [self dismissShopUser];
+}
+
+-(void)shopUserRequestScanCode:(ShopUserViewController *)controller
+{
+    [self showQRCodeWithContorller:self inView:self.view withAnimationType:QRCODE_ANIMATION_TOP_BOT screenCode:[ShopUserViewController screenCode]];
 }
 
 #pragma RootViewController handle
@@ -471,19 +471,19 @@
 
 -(void) presentShopUserWithShop:(Shop *)shop
 {
-    ShopUserController *vc=[[ShopUserController alloc] initWithShop:shop];
+    ShopUserViewController *vc=[[ShopUserViewController alloc] initWithShopUser:shop];
     
     [self presentShopUser:vc];
 }
 
 -(void)presentShopUserWithIDShop:(int)idShop
 {
-    ShopUserController *vc=[[ShopUserController alloc] initWithIDShop:idShop];
+    ShopUserViewController *vc=[[ShopUserViewController alloc] initWithIDShop:idShop];
     
     [self presentShopUser:vc];
 }
 
--(void) presentShopUser:(ShopUserController*) vc
+-(void) presentShopUser:(ShopUserViewController*) vc
 {
     vc.delegate=self;
     
@@ -491,7 +491,7 @@
     {
         if([self.contentNavigation.presentSGViewControlelr isKindOfClass:[ShopUserViewController class]])
         {
-            __block ShopUserController *_vc=vc;
+            __block ShopUserViewController *_vc=vc;
             [self.contentNavigation dismissSGViewControllerCompletion:^{
                 [self presentShopUser:_vc];
                 _vc=nil;
@@ -781,7 +781,7 @@
 }
 
 - (IBAction)btnMakeNotificationTouchUpInside:(id)sender {
-#if BUILD_MODE==0
+#if DEBUG
     
     NSDictionary *dict=[[NotificationManager shareInstance] makeNotification:_loopMakeNotification];
     

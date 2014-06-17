@@ -44,7 +44,7 @@
         case SHOP_USER_GALLERY_STATE_THUMBNAIL:
             
             imgvThumbnail.hidden=false;
-            [imgvThumbnail loadShopUserGalleryThumbnailWithURL:url];
+            [imgvThumbnail loadShopUserGalleryThumbnailWithURL:url size:CGSizeMake(90, 90) ];
             imgvState.image=nil;
             imgvState.hidden=true;
             

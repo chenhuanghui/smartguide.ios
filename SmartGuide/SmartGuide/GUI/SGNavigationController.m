@@ -685,7 +685,7 @@ CATransition* transitionPushFromRight()
 
 -(void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated
 {
-    viewController.wantsFullScreenLayout=true;
+//    viewController.wantsFullScreenLayout=true;
     
 //    if(animated)
 //    {
@@ -970,9 +970,14 @@ CATransition* transitionPushFromRight()
     }
 }
 
--(void)viewWillAppear:(BOOL)animated
+-(BOOL)prefersStatusBarHidden
 {
-    [super viewWillAppear:animated];
+    return false;
+}
+
+-(UIStatusBarStyle)preferredStatusBarStyle
+{
+    return UIStatusBarStyleDefault;
 }
 
 @end

@@ -19,9 +19,9 @@
     [btnShopType setImage:[[ImageManager sharedInstance] shopImageTypeWithType:shop.enumShopType] forState:UIControlStateNormal];
     lblFullAddress.text=shop.address;
     
-    [line l_v_setY:44+shop.shopNameHeight];
-    [btnShopType l_v_setY:19+shop.shopNameHeight];
-    [lblFullAddress l_v_setY:55+shop.shopNameHeight];
+    [line l_v_setY:44+shop.shopNameHeight.floatValue];
+    [btnShopType l_v_setY:19+shop.shopNameHeight.floatValue];
+    [lblFullAddress l_v_setY:55+shop.shopNameHeight.floatValue];
 }
 
 +(NSString *)reuseIdentifier
@@ -33,11 +33,15 @@
 {
     float height=75;
     
-    shop.shopNameHeight=[shop.shopName sizeWithFont:[UIFont fontWithName:@"Avenir-Heavy" size:14] constrainedToSize:CGSizeMake(242, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height;
-    height+=shop.shopNameHeight;
+    if(shop.shopNameHeight.floatValue==-1)
+        shop.shopNameHeight=@([shop.shopName sizeWithFont:[UIFont fontWithName:@"Avenir-Heavy" size:14] constrainedToSize:CGSizeMake(242, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height);
     
-    shop.addressHeight=[shop.address sizeWithFont:[UIFont fontWithName:@"Avenir-Roman" size:12] constrainedToSize:CGSizeMake(242, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height;
-    height+=shop.addressHeight;
+    height+=shop.shopNameHeight.floatValue;
+    
+    if(shop.addressHeight.floatValue==-1)
+        shop.addressHeight=@([shop.address sizeWithFont:[UIFont fontWithName:@"Avenir-Roman" size:12] constrainedToSize:CGSizeMake(242, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height);
+    
+    height+=shop.addressHeight.floatValue;
     
     return height;
 }

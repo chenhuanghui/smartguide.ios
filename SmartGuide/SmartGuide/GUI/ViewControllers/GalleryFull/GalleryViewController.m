@@ -8,7 +8,7 @@
 
 #import "GalleryViewController.h"
 #import "GalleryViewCell.h"
-#import "ShopManager.h"
+#import "GalleryManager.h"
 #import "UserUploadGalleryManager.h"
 #import "LoadingMoreCollectionCell.h"
 
@@ -48,10 +48,15 @@
 {
     [super viewDidLoad];
     
-    collection.contentInset=UIEdgeInsetsMake(15, 10, 15, 10);
+    collection.contentInset=UIEdgeInsetsMake(15, 0, 15, 0);
     
     [collection registerGalleryViewCell];
     [collection registerLoadingMoreCell];
+}
+
+-(void)viewWillAppearOnce
+{
+    [super viewWillAppearOnce];
 }
 
 -(id)galleryAtIndex:(int)index
@@ -98,9 +103,9 @@
 {
     [super viewDidLoad];
     
-    if([ShopManager shareInstanceWithShop:_shop].selectedShopGallery)
+    if([GalleryManager shareInstanceWithShop:_shop].selectedShopGallery)
     {
-        int idx=[[self galleries] indexOfObject:[ShopManager shareInstanceWithShop:_shop].selectedShopGallery];
+        int idx=[[self galleries] indexOfObject:[GalleryManager shareInstanceWithShop:_shop].selectedShopGallery];
         
         if(idx!=NSNotFound)
         {
@@ -111,24 +116,24 @@
 
 -(void) requestGalleries
 {
-    [[ShopManager shareInstanceWithShop:_shop] requestShopGallery];
+    [[GalleryManager shareInstanceWithShop:_shop] requestShopGallery];
 }
 
 -(NSArray*) galleries
 {
-    return [ShopManager shareInstanceWithShop:_shop].shopGalleries;
+    return [GalleryManager shareInstanceWithShop:_shop].shopGalleries;
 }
 
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return [self galleries].count+([ShopManager shareInstanceWithShop:_shop].canLoadMoreShopGallery?1:0);
+    return [self galleries].count+([GalleryManager shareInstanceWithShop:_shop].canLoadMoreShopGallery?1:0);
 }
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    if([ShopManager shareInstanceWithShop:_shop].canLoadMoreShopGallery && indexPath.row==[self galleries].count)
+    if([GalleryManager shareInstanceWithShop:_shop].canLoadMoreShopGallery && indexPath.row==[self galleries].count)
     {
-        if(![ShopManager shareInstanceWithShop:_shop].isLoadingMoreShopGallery)
+        if(![GalleryManager shareInstanceWithShop:_shop].isLoadingMoreShopGallery)
         {
             [self requestGalleries];
         }
@@ -139,7 +144,7 @@
     GalleryViewCell *cell=(GalleryViewCell*)[super collectionView:collectionView cellForItemAtIndexPath:indexPath];
     ShopGallery *obj=[self galleries][indexPath.row];
     
-    [cell loadWithURL:obj.cover highlighted:[ShopManager shareInstanceWithShop:_shop].selectedShopGallery==obj];
+    [cell loadWithURL:obj.cover highlighted:[GalleryManager shareInstanceWithShop:_shop].selectedShopGallery==obj];
     
     return cell;
 }
@@ -160,9 +165,9 @@
 {
     [super viewDidLoad];
     
-    if([ShopManager shareInstanceWithShop:_shop].selectedUserGallery)
+    if([GalleryManager shareInstanceWithShop:_shop].selectedUserGallery)
     {
-        int idx=[[self galleries] indexOfObject:[ShopManager shareInstanceWithShop:_shop].selectedUserGallery];
+        int idx=[[self galleries] indexOfObject:[GalleryManager shareInstanceWithShop:_shop].selectedUserGallery];
         
         if(idx!=NSNotFound)
         {
@@ -173,24 +178,24 @@
 
 -(void) requestGalleries
 {
-    [[ShopManager shareInstanceWithShop:_shop] requestUserGallery];
+    [[GalleryManager shareInstanceWithShop:_shop] requestUserGallery];
 }
 
 -(NSArray*) galleries
 {
-    return [ShopManager shareInstanceWithShop:_shop].userGalleries;
+    return [GalleryManager shareInstanceWithShop:_shop].shopUserGalleries;
 }
 
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return [self galleries].count+([ShopManager shareInstanceWithShop:_shop].canLoadMoreUserGallery?1:0);
+    return [self galleries].count+([GalleryManager shareInstanceWithShop:_shop].canLoadMoreUserGallery?1:0);
 }
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    if([ShopManager shareInstanceWithShop:_shop].canLoadMoreUserGallery && indexPath.row==[self galleries].count)
+    if([GalleryManager shareInstanceWithShop:_shop].canLoadMoreUserGallery && indexPath.row==[self galleries].count)
     {
-        if(![ShopManager shareInstanceWithShop:_shop].isLoadingMoreUserGallery)
+        if(![GalleryManager shareInstanceWithShop:_shop].isLoadingMoreUserGallery)
         {
             [self requestGalleries];
         }
@@ -205,12 +210,12 @@
     if([obj isKindOfClass:[ShopUserGallery class]])
     {
         ShopUserGallery *gal=obj;
-        [cell loadWithURL:gal.thumbnail highlighted:[ShopManager shareInstanceWithShop:_shop].selectedUserGallery==gal];
+        [cell loadWithURL:gal.thumbnail highlighted:[GalleryManager shareInstanceWithShop:_shop].selectedUserGallery==gal];
     }
     else if([obj isKindOfClass:[UserGalleryUpload class]])
     {
         UserGalleryUpload *gal=obj;
-        [cell loadWithImage:[UIImage imageWithData:gal.image] highlighted:[ShopManager shareInstanceWithShop:_shop].selectedUserGallery==gal];
+        [cell loadWithImage:[UIImage imageWithData:gal.image] highlighted:[GalleryManager shareInstanceWithShop:_shop].selectedUserGallery==gal];
     }
     
     return cell;

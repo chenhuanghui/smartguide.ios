@@ -67,7 +67,7 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     KM2Voucher *voucher=_vouchers[indexPath.row];
-    return voucher.voucherHeight;
+    return voucher.voucherHeight.floatValue;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath

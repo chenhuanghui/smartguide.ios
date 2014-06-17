@@ -25,7 +25,7 @@
     
     icon.highlighted=voucher.isAfford.integerValue==0;
     
-    [lblCondition l_v_setY:lblTitle.l_v_y+voucher.nameHeight+12];
+    [lblCondition l_v_setY:lblTitle.l_v_y+voucher.nameHeight.floatValue+12];
 }
 
 +(NSString *)reuseIdentifier
@@ -35,17 +35,23 @@
 
 +(float)heightWithKM2:(KM2Voucher *)voucher
 {
-    voucher.voucherHeight=65;
+    if(voucher.voucherHeight.floatValue!=-1)
+        return voucher.voucherHeight.floatValue;
     
-    voucher.nameHeight=[voucher.name sizeWithFont:[UIFont fontWithName:@"Georgia" size:14] constrainedToSize:CGSizeMake(189, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height;
+    float height=65;
     
-    voucher.voucherHeight+=MAX(voucher.nameHeight-16,0);
+    if(voucher.nameHeight.floatValue==-1)
+        voucher.nameHeight=@([voucher.name sizeWithFont:[UIFont fontWithName:@"Georgia" size:14] constrainedToSize:CGSizeMake(189, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height);
     
-    voucher.conditionHeight=[voucher.condition sizeWithFont:[UIFont fontWithName:@"Avenir-Roman" size:11] constrainedToSize:CGSizeMake(189, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height;
+    height+=MAX(voucher.nameHeight.floatValue-16,0);
     
-    voucher.voucherHeight+=MAX(voucher.conditionHeight-16,0);
+    if(voucher.conditionHeight.floatValue==-1)
+        voucher.conditionHeight=@([voucher.condition sizeWithFont:[UIFont fontWithName:@"Avenir-Roman" size:11] constrainedToSize:CGSizeMake(189, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height);
     
-    return voucher.voucherHeight;
+    height+=MAX(voucher.conditionHeight.floatValue-16,0);
+    voucher.voucherHeight=@(height);
+    
+    return voucher.voucherHeight.floatValue;
 }
 
 -(void)awakeFromNib

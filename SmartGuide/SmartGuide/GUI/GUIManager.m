@@ -42,6 +42,7 @@ static GUIManager *_shareInstance=nil;
 -(void)startupWithWindow:(UIWindow *)window
 {
     mainWindow=window;
+    mainWindow.backgroundColor=[UIColor whiteColor];
     
     [[TokenManager shareInstance] checkToken];
     

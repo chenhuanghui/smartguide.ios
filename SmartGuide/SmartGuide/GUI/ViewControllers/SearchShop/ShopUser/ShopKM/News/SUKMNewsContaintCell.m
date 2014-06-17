@@ -100,12 +100,12 @@
     
     if(table.l_co_y+100-rect.origin.y>0)
     {
-        [self l_v_setY:table.l_co_y+100];
+        [tableKM l_v_setY:table.l_co_y+100-rect.origin.y];
         [tableKM l_co_setY:table.l_co_y+100-rect.origin.y];
     }
     else
     {
-        [self l_v_setY:rect.origin.y];
+        [tableKM l_v_setY:0];
         [tableKM l_co_setY:0];
     }
 }

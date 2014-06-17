@@ -2,7 +2,7 @@
 #import "Utility.h"
 
 @implementation KM2Voucher
-@synthesize nameHeight,conditionHeight;
+@synthesize nameHeight,conditionHeight,voucherHeight;
 
 -(id)initWithEntity:(NSEntityDescription *)entity insertIntoManagedObjectContext:(NSManagedObjectContext *)context
 {
@@ -10,6 +10,7 @@
     
     self.nameHeight=@(-1);
     self.conditionHeight=@(-1);
+    self.voucherHeight=@(-1);
     
     return self;
 }

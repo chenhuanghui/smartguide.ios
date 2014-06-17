@@ -59,7 +59,7 @@ enum SHOP_USER_MODE {
 
 @end
 
-@interface ShopUserViewController : SGViewController<UIScrollViewDelegate,UINavigationControllerDelegate,UITableViewDataSource,UITableViewDelegate,UITextViewDelegate,UIGestureRecognizerDelegate,SUShopGalleryDelegate,UserGalleryDelegate,InfoCelLDelegate,ASIOperationPostDelegate,UserCommentDelegate,ShopGalleryControllerDelegate,GalleryFullControllerDelegate,ShopCameraControllerDelegate>
+@interface ShopUserViewController : SGViewController<UIScrollViewDelegate,UINavigationControllerDelegate,UITableViewDataSource,UITableViewDelegate,UITextViewDelegate,UIGestureRecognizerDelegate,SUShopGalleryDelegate,UserGalleryDelegate,InfoCelLDelegate,ASIOperationPostDelegate,UserCommentDelegate,GalleryControllerDelegate,GalleryFullControllerDelegate,ShopCameraControllerDelegate>
 {
     __strong IBOutlet SGNavigationController *shopNavi;
     __weak IBOutlet SGViewController *detailController;
@@ -78,9 +78,6 @@ enum SHOP_USER_MODE {
     __strong SUInfoCell *infoCell;
     __strong SUUserGalleryCell *userGalleryCell;
     __strong SUUserCommentCell *userCommentCell;
-    
-    __weak ShopGallery *_selectedShopGallery;
-    __weak id _selectedUserGallery;
     
     __weak GalleryViewController *galleryController;
     __weak GalleryFullViewController *galleryFullController;

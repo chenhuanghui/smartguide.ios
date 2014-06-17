@@ -48,10 +48,11 @@
     
 #if BUILD_SOSMART
     
+    imgv.contentMode=UIViewContentModeBottom;
     if([UIScreen mainScreen].bounds.size.height==568.f)
-        imgv.image=[UIImage imageNamed:@"bg_5sosmart.jpg"];
+        imgv.image=[UIImage imageNamed:@"bg_5sosmart.png"];
     else
-        imgv.image=[UIImage imageNamed:@"bg_sosmart.jpg"];
+        imgv.image=[UIImage imageNamed:@"bg_sosmart.png"];
 #else
     if([UIScreen mainScreen].bounds.size.height==568.f)
         imgv.image=[UIImage imageNamed:@"lauchR4.png"];

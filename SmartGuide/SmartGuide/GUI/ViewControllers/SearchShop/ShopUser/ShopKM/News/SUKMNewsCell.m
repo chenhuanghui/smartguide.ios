@@ -39,7 +39,7 @@
         
         videoContain.hidden=true;
         cover.hidden=false;
-        [cover loadImagePromotionNewsWithURL:news.image];
+        [cover loadImagePromotionNewsWithURL:news.image size:CGSizeMake(cover.l_v_w, news.imageHeightForShop.floatValue)];
         [cover l_v_setH:news.imageHeightForShop.floatValue];
     }
     

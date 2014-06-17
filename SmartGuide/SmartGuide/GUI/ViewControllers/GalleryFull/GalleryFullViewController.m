@@ -8,7 +8,7 @@
 
 #import "GalleryFullViewController.h"
 #import "LoadingMoreCollectionCell.h"
-#import "ShopManager.h"
+#import "GalleryManager.h"
 #import "UserUploadGalleryManager.h"
 #import "GalleryFullCell.h"
 
@@ -136,9 +136,9 @@
 {
     [super viewWillAppearOnce];
     
-    if([ShopManager shareInstanceWithShop:_shop].selectedShopGallery)
+    if([GalleryManager shareInstanceWithShop:_shop].selectedShopGallery)
     {
-        int index=[[self galleries] indexOfObject:[ShopManager shareInstanceWithShop:_shop].selectedShopGallery];
+        int index=[[self galleries] indexOfObject:[GalleryManager shareInstanceWithShop:_shop].selectedShopGallery];
         
         if(index!=NSNotFound)
         {
@@ -157,12 +157,12 @@
 
 -(void) requestGalleries
 {
-    [[ShopManager shareInstanceWithShop:_shop] requestShopGallery];
+    [[GalleryManager shareInstanceWithShop:_shop] requestShopGallery];
 }
 
 -(NSArray*) galleries
 {
-    return [[ShopManager shareInstanceWithShop:_shop] shopGalleries];
+    return [[GalleryManager shareInstanceWithShop:_shop] shopGalleries];
 }
 
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
@@ -172,14 +172,14 @@
 
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return [self galleries].count+([ShopManager shareInstanceWithShop:_shop].canLoadMoreShopGallery?1:0);
+    return [self galleries].count+([GalleryManager shareInstanceWithShop:_shop].canLoadMoreShopGallery?1:0);
 }
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    if([ShopManager shareInstanceWithShop:_shop].canLoadMoreShopGallery && indexPath.row==[self galleries].count)
+    if([GalleryManager shareInstanceWithShop:_shop].canLoadMoreShopGallery && indexPath.row==[self galleries].count)
     {
-        if(![ShopManager shareInstanceWithShop:_shop].isLoadingMoreShopGallery)
+        if(![GalleryManager shareInstanceWithShop:_shop].isLoadingMoreShopGallery)
         {
             [self requestGalleries];
         }
@@ -203,20 +203,20 @@
 
 -(NSArray*) galleries
 {
-    return [[ShopManager shareInstanceWithShop:_shop] userGalleries];
+    return [[GalleryManager shareInstanceWithShop:_shop] shopUserGalleries];
 }
 
 -(void)viewWillAppearOnce
 {
     [super viewWillAppearOnce];
     
-    if([ShopManager shareInstanceWithShop:_shop].selectedUserGallery)
+    if([GalleryManager shareInstanceWithShop:_shop].selectedUserGallery)
     {
-        int index=[[self galleries] indexOfObject:[ShopManager shareInstanceWithShop:_shop].selectedUserGallery];
+        int index=[[self galleries] indexOfObject:[GalleryManager shareInstanceWithShop:_shop].selectedUserGallery];
         
         if(index!=NSNotFound)
         {
-            [collView scrollToItemAtIndexPath:makeIndexPath(index, 0) atScrollPosition:UICollectionViewScrollPositionCenteredVertically animated:false];
+            [collView scrollToItemAtIndexPath:makeIndexPath(index, 0) atScrollPosition:UICollectionViewScrollPositionNone animated:false];
         }
     }
 }
@@ -231,7 +231,7 @@
 
 -(void) requestGalleries
 {
-    [[ShopManager shareInstanceWithShop:_shop] requestUserGallery];
+    [[GalleryManager shareInstanceWithShop:_shop] requestUserGallery];
 }
 
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
@@ -241,14 +241,14 @@
 
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return [self galleries].count+([ShopManager shareInstanceWithShop:_shop].canLoadMoreUserGallery?1:0);
+    return [self galleries].count+([GalleryManager shareInstanceWithShop:_shop].canLoadMoreUserGallery?1:0);
 }
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    if([ShopManager shareInstanceWithShop:_shop].canLoadMoreUserGallery && indexPath.row==[self galleries].count)
+    if([GalleryManager shareInstanceWithShop:_shop].canLoadMoreUserGallery && indexPath.row==[self galleries].count)
     {
-        if(![ShopManager shareInstanceWithShop:_shop].canLoadMoreUserGallery)
+        if(![GalleryManager shareInstanceWithShop:_shop].canLoadMoreUserGallery)
         {
             [self requestGalleries];
         }

@@ -22,7 +22,11 @@
 {
     
     [[UIApplication sharedApplication] setStatusBarHidden:false];
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackOpaque];
+    
+    if(NSFoundationVersionNumber>NSFoundationVersionNumber_iOS_6_1)
+        [UIApplication sharedApplication].statusBarStyle=UIStatusBarStyleBlackTranslucent;
+    else
+        [UIApplication sharedApplication].statusBarStyle=UIStatusBarStyleDefault;
     
 #if DEBUG
     [[SDWebImageManager sharedManager].imageCache clearDisk];
@@ -31,7 +35,7 @@
     
     [[NotificationManager shareInstance] receiveLaunchNotification:launchOptions];
     
-    CGRect rect=[[UIScreen mainScreen] applicationFrame];
+    CGRect rect=[[UIScreen mainScreen] bounds];
     self.window = [[TrackingWindow alloc] initWithFrame:rect];
     
     [[GUIManager shareInstance] startupWithWindow:self.window];

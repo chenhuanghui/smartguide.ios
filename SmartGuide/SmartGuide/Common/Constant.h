@@ -29,7 +29,9 @@ static NSString * const kClientId = @"790158294934-p5pnscmrt4avj698ncvhp14fit0f4
 
 #define TEXTFIELD_SEARCH_PLACEHOLDER_TEXT @"Tìm kiếm địa điểm"
 
-#define BUILD_MODE 0
+#define BUILD_SOSMART 1
+
+#define BUILD_MODE 1
 //0: developer
 //1: production
 

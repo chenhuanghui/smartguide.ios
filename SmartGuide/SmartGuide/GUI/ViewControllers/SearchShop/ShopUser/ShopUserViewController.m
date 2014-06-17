@@ -1000,9 +1000,7 @@
     ShopGalleryViewController *vc=[[ShopGalleryViewController alloc] initWithShop:_shop];
     vc.delegate=self;
     
-    _selectedShopGallery=gallery;
-    
-    [vc setSelectedGallery:_selectedShopGallery];
+    [[GalleryManager shareInstanceWithShop:_shop] setSelectedShopGallery:gallery];
     galleryController=vc;
     
     [self pushViewController:vc];
@@ -1012,14 +1010,23 @@
 {
     if([controller isKindOfClass:[ShopGalleryFullViewController class]])
     {
-        _selectedShopGallery=[controller selectedObject];
-        [galleryController setSelectedGallery:_selectedShopGallery];
+        [[GalleryManager shareInstanceWithShop:_shop] setSelectedShopGallery:[controller currentGallery]];
     }
     else if([controller isKindOfClass:[UserGalleryFullViewController class]])
     {
-        _selectedUserGallery=[controller selectedObject];
-        [galleryController setSelectedGallery:_selectedUserGallery];
+        [[GalleryManager shareInstanceWithShop:_shop] setSelectedUserGallery:[controller currentGallery]];
     }
+    
+    [self dismissSGViewControllerAnimation:^BasicAnimation *{
+        BasicAnimation *animation=[BasicAnimation animationWithKeyPath:@"opacity"];
+        animation.fromValue=@(1);
+        animation.toValue=@(0);
+        animation.fillMode=kCAFillModeForwards;
+        animation.timingFunction=[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
+        animation.removedOnCompletion=true;
+        
+        return animation;
+    } completion:nil];
 }
 
 -(void) pushViewController:(SGViewController*) vc
@@ -1053,12 +1060,10 @@
 
 -(void)userGalleryTouchedUpload:(SUUserGalleryCell *)cell gallery:(UserGalleryUpload *)upload
 {
+    [[GalleryManager shareInstanceWithShop:_shop] setSelectedUserGallery:upload];
+    
     UserGalleryViewController *vc=[[UserGalleryViewController alloc] initWithShop:_shop];
     vc.delegate=self;
-    
-    _selectedUserGallery=upload;
-    
-    [vc setSelectedGallery:_selectedUserGallery];
     
     galleryController=vc;
     
@@ -1067,42 +1072,58 @@
 
 -(void)userGalleryTouchedGallery:(SUUserGalleryCell *)cell gallery:(ShopUserGallery *)gallery
 {
+    [[GalleryManager shareInstanceWithShop:_shop] setSelectedUserGallery:gallery];
+    
     UserGalleryViewController *vc=[[UserGalleryViewController alloc] initWithShop:_shop];
     vc.delegate=self;
-    
-    _selectedUserGallery=gallery;
-    
-    [vc setSelectedGallery:_selectedUserGallery];
     
     galleryController=vc;
     
     [self pushViewController:vc];
 }
 
--(void)shopGalleryTouchedGallery:(GalleryViewController *)controller gallery:(id)gallery
+-(void)galleryControllerTouchedGallery:(GalleryViewController *)controller gallery:(id)gallery
 {
     if([gallery isKindOfClass:[ShopGallery class]])
     {
-        _selectedShopGallery=gallery;
+        [[GalleryManager shareInstanceWithShop:_shop] setSelectedShopGallery:gallery];
         
         ShopGalleryFullViewController *vc=[[ShopGalleryFullViewController alloc] initWithShop:_shop];
         vc.delegate=self;
         
-        [vc setParentController:self];
-        [vc setSelectedObject:_selectedShopGallery];
-        [vc show];
+        [self presentGalleryFull:vc];
     }
     else if([gallery isKindOfClass:[ShopUserGallery class]] || [gallery isKindOfClass:[UserGalleryUpload class]])
     {
-        _selectedUserGallery=gallery;
+        [[GalleryManager shareInstanceWithShop:_shop] setSelectedUserGallery:gallery];
         
         UserGalleryFullViewController *vc=[[UserGalleryFullViewController alloc] initWithShop:_shop];
         vc.delegate=self;
         
-        [vc setParentController:self];
-        [vc setSelectedObject:_selectedUserGallery];
-        [vc show];
+        [self presentGalleryFull:vc];
     }
+}
+
+-(float)alphaForPresentView
+{
+    return 0.7f;
+}
+
+-(void) presentGalleryFull:(GalleryFullViewController*) controller
+{
+    controller.delegate=self;
+    galleryFullController=controller;
+    
+    [self presentSGViewController:controller animation:^BasicAnimation *{
+        BasicAnimation *ani=[BasicAnimation animationWithKeyPath:@"opacity"];
+        ani.fromValue=@(0);
+        ani.toValue=@(1);
+        ani.timingFunction=[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
+        ani.removedOnCompletion=true;
+        ani.fillMode=kCAFillModeForwards;
+        
+        return ani;
+    } completion:nil];
 }
 
 -(void)infoCellTouchedMap:(SUInfoCell *)cell
@@ -1119,6 +1140,9 @@
         if(![vc navigationWillBack])
             return;
     }
+    
+    [tableShopUser killScroll];
+    [self scrollViewDidScroll:tableShopUser];
     
     [btnBack startHideAnimateOnCompleted:^(UIButton *btn) {
         [shopNavi popViewControllerAnimated:true];

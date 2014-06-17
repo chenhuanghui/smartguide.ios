@@ -13,7 +13,6 @@
 #import "UserNotificationViewController.h"
 #import "UserNoticeObject.h"
 #import "NotificationManager.h"
-#import "ShopUserController.h"
 
 #define HOME_TEXT_FIELD_SEARCH_MIN_Y 8.f
 

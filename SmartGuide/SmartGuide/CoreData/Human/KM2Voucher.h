@@ -8,5 +8,6 @@
 
 @property (nonatomic, strong) NSNumber* nameHeight;
 @property (nonatomic, strong) NSNumber* conditionHeight;
+@property (nonatomic, strong) NSNumber* voucherHeight;
 
 @end

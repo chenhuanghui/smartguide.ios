@@ -21,15 +21,20 @@
 
 +(float)heightWithVoucher:(KM2Voucher *)voucher
 {
-    voucher.voucherHeight=44;
+    if(voucher.voucherHeight.floatValue!=-1)
+        return voucher.voucherHeight.floatValue;
     
-    voucher.nameHeight=[voucher.name sizeWithFont:[UIFont fontWithName:@"Georgia" size:14] constrainedToSize:CGSizeMake(198, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height;
+    float height=44;
     
-    voucher.voucherHeight+=voucher.nameHeight;
+    if(voucher.nameHeight.floatValue==-1)
+        voucher.nameHeight=@([voucher.name sizeWithFont:[UIFont fontWithName:@"Georgia" size:14] constrainedToSize:CGSizeMake(198, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height);
     
+    height+=voucher.nameHeight.floatValue;
     voucher.conditionHeight=0;
     
-    return voucher.voucherHeight;
+    voucher.voucherHeight=@(height);
+    
+    return voucher.voucherHeight.floatValue;
 }
 
 +(NSString *)reuseIdentifier
