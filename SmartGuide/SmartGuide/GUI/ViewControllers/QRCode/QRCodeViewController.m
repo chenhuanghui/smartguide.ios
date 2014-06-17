@@ -575,7 +575,18 @@ static char SGQRControllerObjectKey;
 
 -(void)showQRCodeWithContorller:(SGViewController<QRCodeControllerDelegate> *)controller inView:(UIView *)view withAnimationType:(enum QRCODE_ANIMATION_TYPE)animationType screenCode:(NSString *)screenCode
 {
-    [SGData shareInstance].fScreen=screenCode;
+    if(currentUser().enumDataMode!=USER_DATA_FULL)
+    {
+        [[GUIManager shareInstance] showLoginDialogWithMessage:localizeLoginRequire() onOK:^{
+            [SGData shareInstance].fScreen=screenCode;
+        } onCancelled:nil onLogined:^(bool isLogined) {
+            if(isLogined)
+                [self showQRCodeWithContorller:controller inView:view withAnimationType:animationType screenCode:screenCode];
+        }];
+        
+        return;
+    }
+
     QRCodeViewController *qr=[QRCodeViewController new];
     qr.delegate=controller;
     qr.containView=view;

@@ -42,7 +42,10 @@ static GUIManager *_shareInstance=nil;
 -(void)startupWithWindow:(UIWindow *)window
 {
     mainWindow=window;
-    mainWindow.backgroundColor=[UIColor whiteColor];
+    if(NSFoundationVersionNumber>NSFoundationVersionNumber_iOS_6_1)
+        mainWindow.backgroundColor=[UIColor blackColor];
+    else
+        mainWindow.backgroundColor=[UIColor whiteColor];
     
     [[TokenManager shareInstance] checkToken];
     
@@ -52,7 +55,16 @@ static GUIManager *_shareInstance=nil;
     SGNavigationController *rNavigation=[[SGNavigationController alloc] initWithRootViewController:loading];
 
     rootNavigation=rNavigation;
-    [rootNavigation l_v_setS:window.l_v_s];
+    
+    if(NSFoundationVersionNumber>NSFoundationVersionNumber_iOS_6_1)
+    {
+        CGRect rect=CGRectZero;
+        rect.origin=CGPointMake(0, UIStatusBarHeight());
+        rect.size=UIApplicationSize();
+        rootNavigation.view.frame=rect;
+    }
+    else
+        [rootNavigation l_v_setS:window.l_v_s];
     rootNavigation.view.layer.masksToBounds=true;
 
     [mainWindow addSubview:rootNavigation.view];
