@@ -47,6 +47,8 @@ void makePhoneCall(NSString* phone);
 int random_int(int from, int to);
 float UIScreenScale();
 CGSize UIScreenSize();
+CGSize UIApplicationSize();
+float UIStatusBarHeight();
 NSURL* URL(NSString* url);
 NSIndexPath *makeIndexPath(int row, int section);
 

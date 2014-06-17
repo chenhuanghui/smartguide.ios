@@ -61,7 +61,7 @@
     
     self.alpha=0;
     self.hidden=false;
-    self.frame=CGRectMake(UIScreenSize().width-38, UIScreenSize().height-38, 38, 38);
+    self.frame=CGRectMake(UIApplicationSize().width-38, UIApplicationSize().height-38, 38, 38);
     lblMessage.alpha=0;
     lblMessage.text=_noti.message;
     
@@ -69,7 +69,7 @@
         self.alpha=1;
     } completion:^(BOOL finished) {
         [UIView animateWithDuration:1.f animations:^{
-            self.frame=CGRectMake(UIScreenSize().width/2, self.l_v_y, UIScreenSize().width/2, 38);
+            self.frame=CGRectMake(UIApplicationSize().width/2, self.l_v_y, UIApplicationSize().width/2, 38);
             lblMessage.alpha=1;
             [lblMessage l_v_setW:160-27];
             [imgvRed l_v_setX:7];
@@ -86,7 +86,7 @@
         [self.delegate remoteNotificationWillHide:self];
     
     [UIView animateWithDuration:1.f animations:^{
-        self.frame=CGRectMake(UIScreenSize().width-38, self.l_v_y, 38, 38);
+        self.frame=CGRectMake(UIApplicationSize().width-38, self.l_v_y, 38, 38);
         lblMessage.alpha=0;
         lblMessage.layer.frame=CGRectMake(20, 0, 0, 38);
         [imgvRed l_v_setX:15];

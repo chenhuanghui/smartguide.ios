@@ -85,6 +85,12 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
+#if DEBUG
+    btnMakeNotification.hidden=false;
+#endif
+    
+    scrollContent.scrollsToTop=false;
+    
     self.contentNavigation.view.autoresizingMask=UIViewAutoresizingAll();
     [self.contentView addSubview:self.contentNavigation.view];
     [self.contentNavigation.view l_v_setS:self.contentView.l_v_s];
@@ -97,8 +103,8 @@
     
     [leftView addSubview:self.settingController.view];
     
-    scrollContent.contentSize=CGSizeMake(640, UIScreenSize().height);
-    [scrollContent l_co_setX:320];
+    scrollContent.contentSize=CGSizeMake(UIApplicationSize().width*2, UIApplicationSize().height);
+    [scrollContent l_co_setX:UIApplicationSize().width];
     
     [scrollContent.panGestureRecognizer addTarget:self action:@selector(panGes:)];
     
@@ -203,9 +209,9 @@
         [self.view endEditing:true];
     
     float settingWidth=274.f;
-    float x=320.f-scrollView.l_co_x;
+    float x=UIScreenSize().width-scrollView.l_co_x;
     
-    [leftView l_v_setX:scrollView.l_co_x-settingWidth/2+(320-scrollView.l_co_x)/2];
+    [leftView l_v_setX:scrollView.l_co_x-settingWidth/2+(UIScreenSize().width-scrollView.l_co_x)/2];
     
     if(x<settingWidth/3)
         leftView.alpha=0.3f;
@@ -241,15 +247,15 @@
     _isAnimatingSetting=true;
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        _isAnimatingSetting=scrollContent.l_co_x!=320;
-        [scrollContent setContentOffset:CGPointMake(320, 0) animated:true];
-        scrollContent.userInteractionEnabled=scrollContent.l_co_x==320;
+        _isAnimatingSetting=scrollContent.l_co_x!=UIScreenSize().width;
+        [scrollContent setContentOffset:CGPointMake(UIScreenSize().width, 0) animated:true];
+        scrollContent.userInteractionEnabled=scrollContent.l_co_x==UIScreenSize().width;
     });
 }
 
 -(void) endScroll
 {
-    if(scrollContent.l_co_x<320)
+    if(scrollContent.l_co_x<UIScreenSize().width)
     {
         self.contentView.userInteractionEnabled=false;
         leftView.userInteractionEnabled=true;
@@ -789,6 +795,11 @@
 #endif
 }
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+}
+
 @end
 
 @interface ScrollViewRoot()<UIGestureRecognizerDelegate>
@@ -809,11 +820,11 @@
     if(self.currentPage==1)
     {
         if([self.root.contentNavigation presentSGViewControlelr] || [self.root.contentNavigation.visibleViewController isKindOfClass:[AvatarViewController class]])
-            contentOffset.x=320;
+            contentOffset.x=UIScreenSize().width;
     }
     
-    if(contentOffset.x<320.f-274)
-        contentOffset.x=320.f-274;
+    if(contentOffset.x<UIScreenSize().width-274)
+        contentOffset.x=UIScreenSize().width-274;
     
     [super setContentOffset:contentOffset];
 }
@@ -828,13 +839,18 @@
                 return false;
             
             CGPoint pnt=[self.panGestureRecognizer locationInView:self];
-            pnt.x-=320;
+            pnt.x-=UIScreenSize().width;
             
             return pnt.x<80;
         }
     }
     
     return true;
+}
+
+-(void)setContentSize:(CGSize)contentSize
+{
+    [super setContentSize:contentSize];
 }
 
 @end

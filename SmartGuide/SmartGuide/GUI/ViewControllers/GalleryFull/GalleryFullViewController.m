@@ -12,7 +12,7 @@
 #import "UserUploadGalleryManager.h"
 #import "GalleryFullCell.h"
 
-@interface GalleryFullViewController ()<GalleryFullCellDelegate,UICollectionViewDataSource,UICollectionViewDelegate,UIScrollViewDelegate>
+@interface GalleryFullViewController ()<GalleryFullCellDelegate,UICollectionViewDataSource,UICollectionViewDelegate,UIScrollViewDelegate,UICollectionViewDelegateFlowLayout>
 
 @end
 
@@ -41,9 +41,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
- 
-    collView.collectionViewFlowLayout.itemSize=UIScreenSize();
-    
+
     [collView registerLoadingMoreCell];
     [collView registerGalleryFullCell];
     
@@ -94,9 +92,9 @@
     return cell;
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+-(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    return tableView.l_v_w;
+    return self.l_v_s;
 }
 
 -(id)galleryAtIndex:(int)index
@@ -121,7 +119,7 @@
 
 -(id)currentGallery
 {
-    CGPoint pnt=CGPointMake(collView.l_co_x+UIScreenSize().width/2, UIScreenSize().height/2);
+    CGPoint pnt=CGPointMake(collView.l_co_x+UIApplicationSize().width/2, UIApplicationSize().height/2);
     NSIndexPath *idx=[collView indexPathForItemAtPoint:pnt];
     
     if(idx)

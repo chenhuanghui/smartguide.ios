@@ -86,6 +86,16 @@ CGSize UIScreenSize()
     return [UIScreen mainScreen].bounds.size;
 }
 
+CGSize UIApplicationSize()
+{
+    return [UIScreen mainScreen].applicationFrame.size;
+}
+
+float UIStatusBarHeight()
+{
+    return [UIApplication sharedApplication].statusBarFrame.size.height;
+}
+
 NSURL* URL(NSString* url)
 {
     return [NSURL URLWithString:url];

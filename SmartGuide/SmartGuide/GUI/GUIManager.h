@@ -27,6 +27,6 @@
 -(void) showLoginControll:(void(^)(bool isLogin)) onLogin;
 
 @property (nonatomic, readonly) UIWindow *mainWindow;
-@property (nonatomic, weak, readonly) SGNavigationController *rootNavigation;
+@property (nonatomic, strong, readonly) SGNavigationController *rootNavigation;
 @property (nonatomic, weak, readonly) RootViewController *rootViewController;
 @end

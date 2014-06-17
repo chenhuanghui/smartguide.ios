@@ -227,11 +227,6 @@ CATransition* transitionPushFromRight()
     _prepareViewController=nil;
 }
 
--(BOOL)prefersStatusBarHidden
-{
-    return true;
-}
-
 -(void)showRightSlideViewController:(UIViewController *)viewController animate:(bool)animated
 {
     if(self.rightSlideController)
@@ -973,6 +968,11 @@ CATransition* transitionPushFromRight()
         _didCallPushPrepareViewController=false;
         _didLoadPrepareViewController=false;
     }
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
 }
 
 @end

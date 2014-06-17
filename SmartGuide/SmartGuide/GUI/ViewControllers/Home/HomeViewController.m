@@ -12,13 +12,12 @@
 #import "LocationManager.h"
 #import "UserNotificationViewController.h"
 #import "UserNoticeObject.h"
-#import "UserNoticeView.h"
 #import "NotificationManager.h"
 #import "ShopUserController.h"
 
 #define HOME_TEXT_FIELD_SEARCH_MIN_Y 8.f
 
-@interface HomeViewController ()<homeListDelegate,homeInfoCellDelegate,UserNoticeDelegate,TextFieldRefreshDelegate>
+@interface HomeViewController ()<homeListDelegate,homeInfoCellDelegate,TextFieldRefreshDelegate>
 
 @end
 
@@ -64,10 +63,12 @@
     // Do any additional setup after loading the view from its nib.
     
 #if DEBUG
-    UITapGestureRecognizer *tap=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapTest:)];
-    [self.view makeAlphaView];
-    [self.view.alphaView addGestureRecognizer:tap];
+//    UITapGestureRecognizer *tap=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapTest:)];
+//    [self.view makeAlphaView];
+//    [self.view.alphaView addGestureRecognizer:tap];
 #endif
+    
+    tableFeed.scrollsToTop=true;
     
     txtRefresh.text=TEXTFIELD_SEARCH_PLACEHOLDER_TEXT;
     txtRefresh.maximumWidth=232;
@@ -261,11 +262,6 @@
             [SGData shareInstance].isShowedNotice=@(true);
         } onCancel:nil];
     }
-}
-
--(void)userNoticeDidShowed:(UserNoticeView *)userNoticeView
-{
-    [SGData shareInstance].isShowedNotice=@(true);
 }
 
 -(void)viewWillAppearOnce

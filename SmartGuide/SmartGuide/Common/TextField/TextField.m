@@ -235,7 +235,7 @@
     {
         CGRect rect=self.frame;
         rect.size.width=self.minimumWidth;
-        rect.origin.x=(UIScreenSize().width-rect.size.width)/2;
+        rect.origin.x=(UIApplicationSize().width-rect.size.width)/2;
         self.frame=rect;
         return;
     }
@@ -269,7 +269,7 @@
         else
         {
             CGRect rect=self.frame;
-            rect.origin.x=(UIScreenSize().width-self.maximumWidth)/2+MIN(4.f*perY,4);
+            rect.origin.x=(UIApplicationSize().width-self.maximumWidth)/2+MIN(4.f*perY,4);
             rect.origin.y=self.minimumY;
             rect.size.width=self.maximumWidth;
             
@@ -308,7 +308,7 @@
             }
             
             rect.size.width=self.minimumWidth;
-            rect.origin.x=(UIScreenSize().width-rect.size.width)/2;
+            rect.origin.x=(UIApplicationSize().width-rect.size.width)/2;
             
             self.frame=rect;
         }

@@ -43,20 +43,19 @@ static GUIManager *_shareInstance=nil;
 {
     mainWindow=window;
     
-    [[UIApplication sharedApplication] setStatusBarHidden:true];
-    
     [[TokenManager shareInstance] checkToken];
     
     LoadingScreenViewController *loading=[[LoadingScreenViewController alloc] init];
     loading.delegate=self;
     
     SGNavigationController *rNavigation=[[SGNavigationController alloc] initWithRootViewController:loading];
-    
+
     rootNavigation=rNavigation;
+    [rootNavigation l_v_setS:window.l_v_s];
     rootNavigation.view.layer.masksToBounds=true;
-    rootNavigation.view.layer.cornerRadius=4;
-    
-    mainWindow.rootViewController=rNavigation;
+
+    [mainWindow addSubview:rootNavigation.view];
+//    mainWindow.rootViewController=rNavigation;
     [mainWindow makeKeyAndVisible];
 }
 
@@ -77,6 +76,8 @@ static GUIManager *_shareInstance=nil;
             welcome.delegate=self;
             
             [viewControllers addObject:welcome];
+            
+            [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
         }
             break;
             

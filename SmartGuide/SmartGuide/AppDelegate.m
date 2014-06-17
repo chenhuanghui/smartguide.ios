@@ -21,6 +21,9 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     
+    [[UIApplication sharedApplication] setStatusBarHidden:false];
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackOpaque];
+    
 #if DEBUG
     [[SDWebImageManager sharedManager].imageCache clearDisk];
     [[SDWebImageManager sharedManager].imageCache clearMemory];
@@ -28,7 +31,7 @@
     
     [[NotificationManager shareInstance] receiveLaunchNotification:launchOptions];
     
-    CGRect rect=[[UIScreen mainScreen] bounds];
+    CGRect rect=[[UIScreen mainScreen] applicationFrame];
     self.window = [[TrackingWindow alloc] initWithFrame:rect];
     
     [[GUIManager shareInstance] startupWithWindow:self.window];

@@ -649,7 +649,7 @@
         socialView.alpha=1;
         
         registerView.alpha=0;
-        [registerView l_v_setX:320];
+        [registerView l_v_setX:UIScreenSize().width];
         
         if(_isShowedDatePicker)
         {

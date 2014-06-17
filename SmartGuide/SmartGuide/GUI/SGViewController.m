@@ -73,11 +73,6 @@ static char presentSGViewControlelrKey;
     DEALLOC_LOG
 }
 
--(BOOL)prefersStatusBarHidden
-{
-    return true;
-}
-
 -(bool) respondDelegateSEL:(SEL) sel
 {
     return self.delegate && [self.delegate respondsToSelector:sel];
@@ -86,8 +81,6 @@ static char presentSGViewControlelrKey;
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
-    [[UIApplication sharedApplication] setStatusBarHidden:true];
     
     if(!_viewWillAppear)
     {
@@ -110,7 +103,17 @@ static char presentSGViewControlelrKey;
 {
     [super viewWillDisappear:animated];
     
-    [[UIApplication sharedApplication] setStatusBarHidden:true];
+    if(!_viewWillDisappear)
+    {
+        _viewWillDisappear=true;
+        
+        [self viewWillDisappearOnce];
+    }
+}
+
+-(void)viewWillDisappearOnce
+{
+    
 }
 
 -(void)navigationController:(SGNavigationController *)navigationController willPopController:(SGViewController *)controller

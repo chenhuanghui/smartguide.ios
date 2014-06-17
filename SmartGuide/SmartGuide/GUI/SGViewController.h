@@ -75,6 +75,7 @@
 @interface SGViewController : UIViewController<SGViewControllerHandle>
 {
     bool _viewWillAppear;
+    bool _viewWillDisappear;
 }
 
 -(id) initWithDelegate:(id<SGViewControllerDelegate>) delegate;
@@ -85,6 +86,7 @@
 -(SGNavigationController*) sgNavigationController;
 -(bool) navigationWillBack;
 -(void) viewWillAppearOnce;
+-(void) viewWillDisappearOnce;
 -(void) showActionSheet:(UIActionSheet*) actionSheet;
 
 +(NSString*) screenCode;

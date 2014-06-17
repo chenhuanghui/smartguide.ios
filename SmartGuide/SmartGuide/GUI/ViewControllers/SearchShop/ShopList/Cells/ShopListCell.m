@@ -358,7 +358,7 @@
 {
     [scroll l_co_setX:0 animate:true];
     scroll.contentSize=CGSizeMake(414, 0);
-    [scroll l_v_setW:320];
+    [scroll l_v_setW:UIScreenSize().width];
     scroll.contentInset=UIEdgeInsetsZero;
 }
 
