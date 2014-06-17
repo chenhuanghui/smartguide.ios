@@ -31,7 +31,7 @@ static NSString * const kClientId = @"790158294934-p5pnscmrt4avj698ncvhp14fit0f4
 
 #define BUILD_SOSMART 1
 
-#define BUILD_MODE 1
+#define BUILD_MODE 0
 //0: developer
 //1: production
 
@@ -214,9 +214,11 @@ static NSString * const kClientId = @"790158294934-p5pnscmrt4avj698ncvhp14fit0f4
 
 #define FONT_NAME_NORMAL @"Avenir-Roman"
 #define FONT_NAME_BOLD @"Avenir-Heavy"
+#define FONT_NAME_OBLIQUE @"Avenir-Oblique"
 
 #define FONT_SIZE_NORMAL(fSize) [UIFont fontWithName:FONT_NAME_NORMAL size:fSize]
 #define FONT_SIZE_BOLD(fSize) [UIFont fontWithName:FONT_NAME_BOLD size:fSize]
+#define FONT_SIZE_OBLIQUE(fSize) [UIFont fontWithName:FONT_NAME_OBLIQUE size:fSize]
 
 #define FONT_TOKEN FONT_SIZE_NORMAL(13)
 

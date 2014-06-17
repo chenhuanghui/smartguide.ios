@@ -38,7 +38,8 @@
         obj.highlightUnread=@(true);
     
     NSArray *actions=data[@"actions"];
-        
+    actions=@[];
+    
     if(![actions isNullData])
     {
         int i=0;
