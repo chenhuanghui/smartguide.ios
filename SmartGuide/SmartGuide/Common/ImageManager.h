@@ -51,7 +51,7 @@
 -(void) loadImageHomeWithURL:(NSString*) url;
 -(void) loadImageHomeListWithURL:(NSString*) url;
 -(void) loadImageHomeListWithURL:(NSString*) url completed:(SDWebImageCompletedBlock) completedBlock;
--(void) loadImagePromotionNewsWithURL:(NSString*) url;
+-(void) loadImagePromotionNewsWithURL:(NSString*) url size:(CGSize) size;
 -(void) loadHome6CoverWithURL:(NSString*) url;
 -(void) loadHome7CoverWithURL:(NSString*) url;
 -(void) loadUserPromotionCoverWithURL:(NSString*) url;

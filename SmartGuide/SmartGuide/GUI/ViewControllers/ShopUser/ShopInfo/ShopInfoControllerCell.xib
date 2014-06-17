@@ -82,6 +82,9 @@
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <connections>
+                <outlet property="lblAddress" destination="D5F-fJ-93H" id="pc2-WY-j9R"/>
+            </connections>
         </collectionViewCell>
     </objects>
     <resources>

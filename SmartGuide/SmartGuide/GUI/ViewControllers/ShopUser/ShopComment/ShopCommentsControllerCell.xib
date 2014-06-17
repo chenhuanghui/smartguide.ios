@@ -30,7 +30,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     </imageView>
                     <tableView clipsSubviews="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="BSm-TN-SA8">
-                        <rect key="frame" x="8" y="61" width="272" height="121"/>
+                        <rect key="frame" x="8" y="61" width="272" height="80"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <inset key="contentInset" minX="0.0" minY="60" maxX="0.0" maxY="-60"/>
@@ -50,7 +50,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     </imageView>
                     <view hidden="YES" contentMode="scaleToFill" id="Y2u-kh-psR" userLabel="animationView">
-                        <rect key="frame" x="9" y="61" width="273" height="79"/>
+                        <rect key="frame" x="9" y="61" width="273" height="80"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -81,6 +81,7 @@
                         <rect key="frame" x="130" y="84" width="34" height="34"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                 <integer key="value" value="17"/>
                             </userDefinedRuntimeAttribute>

@@ -316,14 +316,22 @@ static char ImageViewDefaultBackgroundKey;
     [self setImageWithURL:[NSURL URLWithString:url] placeholderImage:nil options:IPHONE_IMAGE_DOWNLOAD_OPTIONS completed:completedBlock];
 }
 
--(void)loadImagePromotionNewsWithURL:(NSString *)url
+-(void)loadImagePromotionNewsWithURL:(NSString *)url size:(CGSize)size
 {
-    [self showLoadingImageSmall];
-    __weak UIImageView *wself=self;
-    [self setImageWithURL:[NSURL URLWithString:url] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
-        if(wself)
-            [wself stopLoadingImageSmall];
-    }];
+    __weak UIImageView *wSelf=self;
+    
+    [self setImageWithURL:URL(url) onDownload:^{
+        if(wSelf)
+            [wSelf showLoadingImageSmall];
+    } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
+        if(wSelf)
+            [wSelf stopLoadingImageSmall];
+    } resize:^UIImage *(UIImage *downloadImage) {
+        if(wSelf)
+            return resizeProportionalImage(downloadImage, size);
+        
+        return nil;
+    } willSize:size];
 }
 
 -(void)loadAvatarWithURL:(NSString *)url
