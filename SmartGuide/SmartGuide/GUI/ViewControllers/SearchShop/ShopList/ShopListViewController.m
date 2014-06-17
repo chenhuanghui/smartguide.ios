@@ -124,7 +124,7 @@
         if([cell isKindOfClass:[ShopListCell class]])
         {
             ShopListCell *sCell=(ShopListCell*)cell;
-            [scrollerView setTitle:sCell.shopList.distance];
+            [scrollerView setTitle:(sCell.shopList.distance.length==0?sCell.shopList.numOfView:sCell.shopList.distance)];
         }
         else if([cell isKindOfClass:[ShopListMapCell class]])
         {
