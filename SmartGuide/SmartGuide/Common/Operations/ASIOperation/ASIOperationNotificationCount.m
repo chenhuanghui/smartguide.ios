@@ -27,7 +27,7 @@
     self.numOfNotification=@"";
     self.totalNotification=@(0);
     
-    if([self isNullData:json])
+    if([json isNullData])
         return;
     
     NSDictionary *dict=json[0];

@@ -26,7 +26,7 @@
 -(void)onCompletedWithJSON:(NSArray *)json
 {
     status=-1;
-    if([self isNullData:json])
+    if([json isNullData])
         return;
     
     NSDictionary *dict=json[0];

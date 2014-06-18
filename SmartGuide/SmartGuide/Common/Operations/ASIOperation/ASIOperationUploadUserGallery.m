@@ -21,13 +21,14 @@
     [self.keyValue setObject:@(userLat) forKey:USER_LATITUDE];
     [self.keyValue setObject:@(userLng) forKey:USER_LONGITUDE];
     
-    [self addData:image withFileName:@"image" andContentType:@"image/jpeg" forKey:@"image"];
+    [self addImage:image withKey:@"image"];
+    
     return self;
 }
 
 -(void)onCompletedWithJSON:(NSArray *)json
 {
-    if([self isNullData:json])
+    if([json isNullData])
         return;
     
     NSDictionary *dict=json[0];

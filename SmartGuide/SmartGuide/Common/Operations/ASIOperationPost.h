@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 Redbase. All rights reserved.
 //
 
-#import "ASIFormDataRequest.h"
+#import "AFHTTPRequestOperation.h"
 #import "Constant.h"
 #import "Utility.h"
 #import "DataManager.h"
@@ -35,7 +35,7 @@
 
 @end
 
-@interface ASIOperationPost : ASIFormDataRequest<ASIHTTPRequestDelegate>
+@interface ASIOperationPost : AFHTTPRequestOperation
 
 -(ASIOperationPost*) initWithURL:(NSURL*) url;
 -(ASIOperationPost*) initWithRouter:(NSURL*) url;
@@ -44,10 +44,14 @@
 -(void) onFailed:(NSError *)error;
 -(void) notifyCompleted;
 -(void) notifyFailed:(NSError*) error;
--(bool) isNullData:(NSArray*) data;
 -(void) restart;
 
-@property (nonatomic, weak) id<ASIOperationPostDelegate> delegatePost;
+-(void) addToQueue;
+-(void) clearDelegatesAndCancel;
+
+-(void) addImage:(NSData*) binary withKey:(NSString*) key;
+
+@property (nonatomic, weak) id<ASIOperationPostDelegate> delegate;
 @property (nonatomic, strong) NSMutableDictionary *keyValue;
 //@property (nonatomic, strong) NSString *operationAccessToken;
 @property (nonatomic, strong) NSURL *sourceURL;
@@ -56,11 +60,18 @@
 @property (nonatomic, strong) NSString *fScreen;
 @property (nonatomic, strong) NSMutableDictionary *fData;
 @property (nonatomic, strong) NSFetchedResultsController *fetchedController;
+@property (nonatomic, strong) NSMutableDictionary *imagesData;
 
 @end
 
-@interface ASIOperationPost(MakeTest)
+@interface ASIOperationManager : AFHTTPRequestOperationManager
 
-+(void) makeTest;
++(ASIOperationManager*) shareInstance;
+-(NSMutableURLRequest*) createPOST:(NSString*) urlString parameters:(NSDictionary*) parameters;
+-(NSMutableURLRequest*) createGET:(NSString*) urlString parameters:(NSDictionary*) parameters;
+
+-(void) addOperation:(ASIOperationPost*) operation;
+
+-(void) clearAllOperation;
 
 @end

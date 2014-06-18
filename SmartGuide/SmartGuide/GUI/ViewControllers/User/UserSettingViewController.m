@@ -151,9 +151,9 @@
         if(ope.jsonData.length>0)
         {
             _operationUploadSocialProfile=[[ASIOperationUploadSocialProfile alloc] initWithProfile:[ope.jsonData copy] socialType:SOCIAL_FACEBOOK accessToken:[FBSession activeSession].accessTokenData.accessToken];
-            _operationUploadSocialProfile.delegatePost=self;
+            _operationUploadSocialProfile.delegate=self;
             
-            [_operationUploadSocialProfile startAsynchronous];
+            [_operationUploadSocialProfile addToQueue];
         }
         else
             [self.view removeLoading];
@@ -167,9 +167,9 @@
         if(ope.jsonData.length>0)
         {
             _operationUploadSocialProfile=[[ASIOperationUploadSocialProfile alloc] initWithProfile:[ope.jsonData copy] socialType:SOCIAL_GOOGLEPLUS accessToken:[GooglePlusManager shareInstance].authentication.accessToken];
-            _operationUploadSocialProfile.delegatePost=self;
+            _operationUploadSocialProfile.delegate=self;
             
-            [_operationUploadSocialProfile startAsynchronous];
+            [_operationUploadSocialProfile addToQueue];
         }
         else
             [self.view removeLoading];
@@ -301,9 +301,9 @@
             [[UserUploadAvatarManager shareInstance] cancelUpload];
         
         _operationUpdateUserProfile=[[ASIOperationUpdateUserProfile alloc] initWithName:currentUser().name avatar:_selectedAvatar gender:currentUser().enumGender socialType:currentUser().enumSocialType birthday:currentUser().birthday idCity:currentUser().idCity.integerValue];
-        _operationUpdateUserProfile.delegatePost=self;
+        _operationUpdateUserProfile.delegate=self;
         
-        [_operationUpdateUserProfile startAsynchronous];
+        [_operationUpdateUserProfile addToQueue];
         
         [self.view showLoading];
     }
@@ -513,9 +513,9 @@
     [[TokenManager shareInstance] setAccessToken:DEFAULT_USER_ACCESS_TOKEN];
     
     _operationUserProfile=[[ASIOperationUserProfile alloc] initOperation];
-    _operationUserProfile.delegatePost=self;
+    _operationUserProfile.delegate=self;
     
-    [_operationUserProfile startAsynchronous];
+    [_operationUserProfile addToQueue];
     
     [self.view showLoading];
 }

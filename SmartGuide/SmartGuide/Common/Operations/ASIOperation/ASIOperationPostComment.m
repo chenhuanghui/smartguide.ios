@@ -30,7 +30,7 @@
 
 -(void)onCompletedWithJSON:(NSArray *)json
 {
-    if([self isNullData:json])
+    if([json isNullData])
         return;
     
     int sort=[self.keyValue[SORT] integerValue];

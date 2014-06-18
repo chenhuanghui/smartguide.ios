@@ -41,7 +41,6 @@
 -(void) loadShopUserGalleryWithURL:(NSString*) url;
 -(void) loadShopUserGalleryThumbnailWithURL:(NSString*) url size:(CGSize) size;
 -(void) loadCommentAvatarWithURL:(NSString*) url;
--(void) loadStoreLogoWithURL:(NSString*) url;
 -(void) loadPlaceAuthorAvatarWithURL:(NSString*) url;
 -(void) loadShopCoverWithURL:(NSString*) url;
 -(void) loadShopCoverWithURL:(NSString*) url resize:(CGSize) size;

@@ -81,7 +81,7 @@ static char presentSGViewControlelrKey;
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
+
     if(!_viewWillAppear)
     {
         _viewWillAppear=true;

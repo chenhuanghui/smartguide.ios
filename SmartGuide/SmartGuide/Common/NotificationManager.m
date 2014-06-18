@@ -93,9 +93,9 @@ static NotificationManager *_notificationManager=nil;
     
     _notificationState=NOTIFICATION_CHECK_STATE_CHECKING;
     _operationNotificationCheck=[[ASIOperationNotificationCount alloc] initWithUserLat:userLat() userLng:userLng() uuid:UUID()];
-    _operationNotificationCheck.delegatePost=self;
+    _operationNotificationCheck.delegate=self;
     
-    [_operationNotificationCheck startAsynchronous];
+    [_operationNotificationCheck addToQueue];
 }
 
 -(void) uploadToken:(NSString*) notificationToken
@@ -104,9 +104,9 @@ static NotificationManager *_notificationManager=nil;
         return;
 
     _operationUploadNotiToken=[[ASIOperationUpdateTokenUUID alloc] initWithNotificationToken:notificationToken uuid:UUID()];
-    _operationUploadNotiToken.delegatePost=self;
+    _operationUploadNotiToken.delegate=self;
     
-    [_operationUploadNotiToken startAsynchronous];
+    [_operationUploadNotiToken addToQueue];
 }
 
 -(void)ASIOperaionPostFinished:(ASIOperationPost *)operation

@@ -29,7 +29,7 @@
     message=@"";
     placelits=[NSMutableArray array];
     
-    if([self isNullData:json])
+    if([json isNullData])
         return;
     
     NSDictionary *dict=json[0];
@@ -41,7 +41,7 @@
     {
         NSArray *array=dict[@"placelists"];
         
-        if(![self isNullData:array])
+        if(![array isNullData])
         {
             for(NSDictionary *place in array)
             {

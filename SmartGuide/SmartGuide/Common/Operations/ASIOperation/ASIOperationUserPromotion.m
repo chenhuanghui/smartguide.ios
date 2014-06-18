@@ -25,7 +25,7 @@
 -(void)onCompletedWithJSON:(NSArray *)json
 {
     userPromotions=[NSMutableArray array];
-    if([self isNullData:json])
+    if([json isNullData])
         return;
     
     int count=0;

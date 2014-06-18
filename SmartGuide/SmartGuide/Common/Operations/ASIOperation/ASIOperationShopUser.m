@@ -30,7 +30,7 @@
 
 -(void)onCompletedWithJSON:(NSArray *)json
 {
-    if([self isNullData:json])
+    if([json isNullData])
         return;
     
     shop=[Shop makeShopWithDictionary:json[0]];

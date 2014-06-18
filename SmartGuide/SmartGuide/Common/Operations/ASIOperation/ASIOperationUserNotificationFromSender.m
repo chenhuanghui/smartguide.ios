@@ -27,7 +27,7 @@
     self.notifications=[NSMutableArray new];
     self.sender=@"";
     
-    if([self isNullData:json])
+    if([json isNullData])
         return;
 
     NSDictionary *data=json[0];

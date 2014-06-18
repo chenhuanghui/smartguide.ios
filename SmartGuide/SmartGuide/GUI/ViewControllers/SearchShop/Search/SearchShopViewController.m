@@ -214,9 +214,9 @@
     }
     
     _operationPlacelistGetList = [[ASIOperationPlacelistGetList alloc] initWithUserLat:userLat() userLng:userLng() page:_pagePlacelist+1];
-    _operationPlacelistGetList.delegatePost=self;
+    _operationPlacelistGetList.delegate=self;
     
-    [_operationPlacelistGetList startAsynchronous];
+    [_operationPlacelistGetList addToQueue];
 }
 
 -(void)ASIOperaionPostFinished:(ASIOperationPost *)operation
@@ -228,7 +228,7 @@
         [_placeLists addObjectsFromArray:ope.placeLists];
         _pagePlacelist++;
         
-        _canLoadMorePlaceList=ope.placeLists.count==10;
+        _canLoadMorePlaceList=ope.placeLists.count>=10;
         _isLoadingMore=false;
         
         _operationPlacelistGetList=nil;

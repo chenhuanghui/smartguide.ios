@@ -24,7 +24,7 @@
 {
     avatars=[NSMutableArray array];
     
-    if([self isNullData:json])
+    if([json isNullData])
         return;
     
     for(NSString *str in json)

@@ -12,12 +12,13 @@
 
 @implementation HomeImageCell
 
--(void)tableDidScroll
+-(void)tableDidScroll:(UITableView *)table
 {
-    float tableOffsetY=self.table.l_co_y;
-    CGRect rect=[self.table rectForRowAtIndexPath:self.indexPath];
+    float tableOffsetY=table.l_co_y;
+    NSIndexPath *indexPath=[table indexPathForCell:self];
+    CGRect rect=[table rectForRowAtIndexPath:indexPath];
     
-    scroll.contentOffset=CGPointMake((rect.origin.y-tableOffsetY)/2, 0);
+    [imgv l_v_setX:(rect.origin.y-tableOffsetY)/2];
 }
 
 -(void)loadImage:(NSString *)url

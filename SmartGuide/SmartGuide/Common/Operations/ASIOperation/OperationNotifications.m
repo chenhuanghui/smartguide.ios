@@ -26,7 +26,7 @@
 -(void)onCompletedWithJSON:(NSArray *)json
 {
     object=nil;
-    if([self isNullData:json])
+    if([json isNullData])
         return;
     
     NSDictionary *dict=json[0];
@@ -44,7 +44,7 @@
     {
         NSArray *array=dict[@"notify_list"];
         
-        if(![self isNullData:array])
+        if(![array isNullData])
         {
             for(NSDictionary *dictNoti in array)
             {

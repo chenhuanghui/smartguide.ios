@@ -13,12 +13,13 @@
 #import "AuthorizationViewController.h"
 #import "DataManager.h"
 #import "LocationManager.h"
+#import "ASIOperationUserProfile.h"
 
 static GUIManager *_shareInstance=nil;
 
-@interface GUIManager()<WelcomeControllerDelegate,SGLoadingScreenDelegate,AuthorizationDelegate,UINavigationControllerDelegate,UIGestureRecognizerDelegate>
+@interface GUIManager()<WelcomeControllerDelegate,SGLoadingScreenDelegate,AuthorizationDelegate,UINavigationControllerDelegate,UIGestureRecognizerDelegate,ASIOperationPostDelegate>
 {
-    
+    ASIOperationUserProfile *_opeUserProfile;
 }
 
 @property (nonatomic, weak) UIViewController *previousViewController;
@@ -37,6 +38,73 @@ static GUIManager *_shareInstance=nil;
     });
     
     return _shareInstance;
+}
+
+- (instancetype)init
+{
+    self = [super init];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveNotification:) name:NOTIFICATION_REFRESH_TOKEN_FAILED object:nil];
+    
+    return self;
+}
+
+-(void)receiveNotification:(NSNotification*) notification
+{
+    if([notification.name isEqualToString:NOTIFICATION_REFRESH_TOKEN_FAILED])
+    {
+        [[ASIOperationManager shareInstance] clearAllOperation];
+        [[TokenManager shareInstance] useDefaultToken];
+        [User markDeleteAllObjects];
+        [[DataManager shareInstance] save];
+        [DataManager shareInstance].currentUser=nil;
+        
+        [self.mainWindow showLoading];
+        
+        [self requestUserProfile];
+    }
+}
+
+-(void)ASIOperaionPostFinished:(ASIOperationPost *)operation
+{
+    if([operation isKindOfClass:[ASIOperationUserProfile class]])
+    {
+        [self.mainWindow removeLoading];
+        [self showFirstController];
+        _opeUserProfile=nil;
+    }
+}
+
+-(void)ASIOperaionPostFailed:(ASIOperationPost *)operation
+{
+    if([operation isKindOfClass:[ASIOperationUserProfile class]])
+    {
+        User *user=[User insert];
+        user.idUser=@(DEFAULT_USER_ID);
+        user.idCity=@(DEFAULT_USER_IDCITY);
+        
+        [[DataManager shareInstance] save];
+        
+        [DataManager shareInstance].currentUser=user;
+        
+        [self.mainWindow removeLoading];
+        [self showFirstController];
+        _opeUserProfile=nil;
+    }
+}
+
+-(void) requestUserProfile
+{
+    if(_opeUserProfile)
+    {
+        [_opeUserProfile clearDelegatesAndCancel];
+        _opeUserProfile=nil;
+    }
+    
+    _opeUserProfile=[[ASIOperationUserProfile alloc] initOperation];
+    _opeUserProfile.delegate=self;
+    
+    [_opeUserProfile addToQueue];
 }
 
 -(void)startupWithWindow:(UIWindow *)window

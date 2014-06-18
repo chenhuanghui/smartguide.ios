@@ -124,9 +124,9 @@
 {
     NSString *idShops=[NSString stringWithFormat:@"%i",_shoplist.idShop.integerValue];
     _operationCreatePlacelist=[[ASIOperationCreatePlacelist alloc] initWithName:name desc:desc idShop:idShops userLat:userLat() userLng:userLng()];
-    _operationCreatePlacelist.delegatePost=self;
+    _operationCreatePlacelist.delegate=self;
     
-    [_operationCreatePlacelist startAsynchronous];
+    [_operationCreatePlacelist addToQueue];
     
     [self.view showLoading];
 }
@@ -168,9 +168,9 @@
 -(void) requestUserPlacelist
 {
     _operationUserPlacelist=[[ASIOperationUserPlacelist alloc] initWithUserLat:userLat() userLng:userLng() page:_page+1];
-    _operationUserPlacelist.delegatePost=self;
+    _operationUserPlacelist.delegate=self;
     
-    [_operationUserPlacelist startAsynchronous];
+    [_operationUserPlacelist addToQueue];
 }
 
 -(void) clearInfo
@@ -238,7 +238,7 @@
             [[DataManager shareInstance] save];
         }
         
-        _isCanLoadMore=_placelists.count==10;
+        _isCanLoadMore=_placelists.count>=10;
         _isLoadingMore=false;
         _page++;
         
@@ -431,9 +431,9 @@
         {
             NSString *idPlacelists=[array componentsJoinedByString:@","];
             _operationAddShopPlacelists=[[ASIOperationAddShopPlacelists alloc] initWithIDShop:_shoplist.idShop.integerValue idPlacelists:idPlacelists userLat:userLat() userLng:userLng()];
-            _operationAddShopPlacelists.delegatePost=self;
+            _operationAddShopPlacelists.delegate=self;
             
-            [_operationAddShopPlacelists startAsynchronous];
+            [_operationAddShopPlacelists addToQueue];
             
             [self.view showLoading];
             

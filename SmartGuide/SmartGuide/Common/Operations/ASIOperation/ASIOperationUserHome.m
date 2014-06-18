@@ -26,7 +26,7 @@
 {
     homes=[NSMutableArray array];
     
-    if([self isNullData:json])
+    if([json isNullData])
         return;
     
     for(NSDictionary *dict in json)
@@ -42,7 +42,7 @@
             {
                 NSArray *array=dict[@"images"];
                 
-                if([self isNullData:array])
+                if([array isNullData])
                     continue;
                 
                 int sort=0;
@@ -61,7 +61,7 @@
             {
                 NSArray *array=dict[@"placelists"];
                 
-                if([self isNullData:array])
+                if([array isNullData])
                     continue;
                 
                 int sort=0;
@@ -79,7 +79,7 @@
             {
                 NSArray *array=dict[@"shops"];
                 
-                if([self isNullData:array])
+                if([array isNullData])
                     continue;
                 
                 int sort=0;
@@ -97,7 +97,7 @@
             {
                 NSArray *array=dict[@"stores"];
                 
-                if([self isNullData:array])
+                if([array isNullData])
                     continue;
                 
                 int sort=0;
@@ -140,7 +140,7 @@
 +(void)makeTest
 {
     ASIOperationUserHome *ope=[[ASIOperationUserHome alloc] initWithPage:0 userLat:userLat() userLng:userLng()];
-    [ope startAsynchronous];
+    [ope addToQueue];
 }
 
 @end

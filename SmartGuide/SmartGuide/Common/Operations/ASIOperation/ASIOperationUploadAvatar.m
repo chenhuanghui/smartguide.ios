@@ -18,14 +18,14 @@
     [self.keyValue setObject:@(userLat) forKey:USER_LATITUDE];
     [self.keyValue setObject:@(userLng) forKey:USER_LONGITUDE];
     
-    [self addData:avatarBinary withFileName:@"avatar" andContentType:@"image/jpeg" forKey:@"avatar"];
+    [self addImage:avatarBinary withKey:@"avatar"];
     
     return self;
 }
 
 -(void)onCompletedWithJSON:(NSArray *)json
 {
-    if([self isNullData:json])
+    if([json isNullData])
         return;
     
     NSDictionary *dict=json[0];

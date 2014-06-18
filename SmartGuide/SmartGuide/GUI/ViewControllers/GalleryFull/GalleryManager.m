@@ -51,11 +51,11 @@ static GalleryManager *_galleryManager;
 
 -(void) makeData
 {
-    _canLoadMoreShopGallery=_shop.shopGalleriesObjects.count==10;
+    _canLoadMoreShopGallery=_shop.shopGalleriesObjects.count>=10;
     _isLoadingMoreShopGallery=false;
     _pageShopGallery=0;
     
-    _canLoadMoreUserGallery=_shop.userGalleries.count==10;
+    _canLoadMoreUserGallery=_shop.userGalleries.count>=10;
     _isLoadingMoreUserGallery=false;
     _pageUserGallery=0;
 }
@@ -88,9 +88,9 @@ static GalleryManager *_galleryManager;
     _isLoadingMoreShopGallery=true;
     
     _operationShopGallery=[[ASIOperationShopGallery alloc] initWithWithIDShop:_shop.idShop.integerValue userLat:userLat() userLng:userLng() page:_pageShopGallery+1];
-    _operationShopGallery.delegatePost=self;
+    _operationShopGallery.delegate=self;
     
-    [_operationShopGallery startAsynchronous];
+    [_operationShopGallery addToQueue];
 }
 
 -(void)requestUserGallery
@@ -104,9 +104,9 @@ static GalleryManager *_galleryManager;
     _isLoadingMoreUserGallery=true;
     
     _operationUserGallery=[[ASIOperationUserGallery alloc] initWithIDShop:_shop.idShop.integerValue userLat:userLat() userLng:userLng() page:_pageUserGallery+1];
-    _operationUserGallery.delegatePost=self;
+    _operationUserGallery.delegate=self;
     
-    [_operationUserGallery startAsynchronous];
+    [_operationUserGallery addToQueue];
 }
 
 -(void)ASIOperaionPostFinished:(ASIOperationPost *)operation
@@ -115,7 +115,7 @@ static GalleryManager *_galleryManager;
     {
         ASIOperationShopGallery *ope=(ASIOperationShopGallery*) operation;
         
-        _canLoadMoreShopGallery=ope.galleries.count==10;
+        _canLoadMoreShopGallery=ope.galleries.count>=10;
         _isLoadingMoreShopGallery=false;
         _pageShopGallery++;
         
@@ -127,7 +127,7 @@ static GalleryManager *_galleryManager;
     {
         ASIOperationUserGallery *ope=(ASIOperationUserGallery*) operation;
         
-        _canLoadMoreUserGallery=ope.galleries.count==10;
+        _canLoadMoreUserGallery=ope.galleries.count>=10;
         _isLoadingMoreUserGallery=false;
         _pageUserGallery++;
         

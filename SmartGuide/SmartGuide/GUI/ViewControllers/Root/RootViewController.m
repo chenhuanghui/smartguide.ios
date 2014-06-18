@@ -26,9 +26,8 @@
 #import "ShopUserViewController.h"
 #import "TokenManager.h"
 
-@interface RootViewController ()<NavigationControllerDelegate,UIScrollViewDelegate,HomeControllerDelegate,UserPromotionDelegate,SGUserSettingControllerDelegate,WebViewDelegate,ShopUserDelegate,UIGestureRecognizerDelegate,RemoteNotificationDelegate,ASIOperationPostDelegate>
+@interface RootViewController ()<NavigationControllerDelegate,UIScrollViewDelegate,HomeControllerDelegate,UserPromotionDelegate,SGUserSettingControllerDelegate,WebViewDelegate,ShopUserDelegate,UIGestureRecognizerDelegate,RemoteNotificationDelegate>
 {
-    ASIOperationUserProfile *_operationUserProfile;
 }
 
 @end
@@ -84,9 +83,11 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    
+
 #if DEBUG
-    btnMakeNotification.hidden=false;
+    [SGData shareInstance].buildMode=@([[NSUserDefaults standardUserDefaults] integerForKey:@"buildMode"]);
+    btnBuildMode.hidden=false;
+    [btnBuildMode setTitle:([SGData shareInstance].buildMode.boolValue?@"PRO":@"DEV") forState:UIControlStateNormal];
 #endif
     
     scrollContent.scrollsToTop=false;
@@ -126,7 +127,7 @@
 
 -(NSArray *)registerNotifications
 {
-    return @[NOTIFICATION_RECEIVED_REMOTE_NOTIFICATION,NOTIFICATION_HOME_FINISHED_LOAD,NOTIFICATION_REFRESH_TOKEN_FAILED];
+    return @[NOTIFICATION_RECEIVED_REMOTE_NOTIFICATION,NOTIFICATION_HOME_FINISHED_LOAD];
 }
 
 -(void)receiveNotification:(NSNotification *)notification
@@ -149,45 +150,6 @@
     else if([notification.name isEqualToString:NOTIFICATION_HOME_FINISHED_LOAD])
     {
         [self startUpload];
-    }
-    else if([notification.name isEqualToString:NOTIFICATION_REFRESH_TOKEN_FAILED])
-    {
-        [[TokenManager shareInstance] useDefaultToken];
-        _operationUserProfile=[[ASIOperationUserProfile alloc] initOperation];
-        _operationUserProfile.delegatePost=self;
-        
-        [_operationUserProfile startAsynchronous];
-        
-        [self.view showLoading];
-    }
-}
-
--(void)ASIOperaionPostFinished:(ASIOperationPost *)operation
-{
-    if([operation isKindOfClass:[ASIOperationUserProfile class]])
-    {
-        _operationUserProfile=nil;
-        
-        [self.view removeLoading];
-        [[GUIManager shareInstance] logout];
-    }
-}
-
--(void)ASIOperaionPostFailed:(ASIOperationPost *)operation
-{
-    if([operation isKindOfClass:[ASIOperationUserProfile class]])
-    {
-        _operationUserProfile=nil;
-        
-        [[DataManager shareInstance].currentUser markDeleted];
-        
-        [DataManager shareInstance].currentUser=[User insert];
-        [DataManager shareInstance].currentUser.idUser=@(DEFAULT_USER_ID);
-        [DataManager shareInstance].currentUser.idCity=@(DEFAULT_USER_IDCITY);
-        [[DataManager shareInstance] save];
-        
-        [self.view removeLoading];
-        [[GUIManager shareInstance] logout];
     }
 }
 
@@ -780,24 +742,13 @@
         [self performSelector:@selector(autoHideNotificationInfo) withObject:nil afterDelay:remoteView.remoteNotification.timer.integerValue];
 }
 
-- (IBAction)btnMakeNotificationTouchUpInside:(id)sender {
+- (IBAction)btnBuildModeTouchUpInside:(id)sender {
 #if DEBUG
-    
-    NSDictionary *dict=[[NotificationManager shareInstance] makeNotification:_loopMakeNotification];
-    
-    [[NotificationManager shareInstance] receiveRemoteNotification:dict];
-    
-    _loopMakeNotification++;
-    
-    if(_loopMakeNotification==7)
-        _loopMakeNotification=0;
-    
+    [SGData shareInstance].buildMode=@(![SGData shareInstance].buildMode.boolValue);
+    [btnBuildMode setTitle:([SGData shareInstance].buildMode.boolValue?@"PRO":@"DEV") forState:UIControlStateNormal];
+    [[NSUserDefaults standardUserDefaults] setInteger:[SGData shareInstance].buildMode.integerValue forKey:@"buildMode"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 #endif
-}
-
--(void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
 }
 
 @end

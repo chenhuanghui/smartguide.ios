@@ -64,9 +64,9 @@
         if(ope.jsonData.length>0)
         {
             _operationUploadSocialProfile=[[ASIOperationUploadSocialProfile alloc] initWithProfile:[ope.jsonData copy] socialType:SOCIAL_FACEBOOK accessToken:[FBSession activeSession].accessTokenData.accessToken];
-            _operationUploadSocialProfile.delegatePost=self;
+            _operationUploadSocialProfile.delegate=self;
             
-            [_operationUploadSocialProfile startAsynchronous];
+            [_operationUploadSocialProfile addToQueue];
         }
         else
             [authorizationController.view removeLoading];
@@ -80,9 +80,9 @@
         if(ope.jsonData.length>0)
         {
             _operationUploadSocialProfile=[[ASIOperationUploadSocialProfile alloc] initWithProfile:[ope.jsonData copy] socialType:SOCIAL_GOOGLEPLUS accessToken:[GooglePlusManager shareInstance].authentication.accessToken];
-            _operationUploadSocialProfile.delegatePost=self;
+            _operationUploadSocialProfile.delegate=self;
             
-            [_operationUploadSocialProfile startAsynchronous];
+            [_operationUploadSocialProfile addToQueue];
         }
         else
             [authorizationController.view removeLoading];
@@ -322,9 +322,9 @@
             [[UserUploadAvatarManager shareInstance] cancelUpload];
         
         _operationUpdateUserProfile=[[ASIOperationUpdateUserProfile alloc] initWithName:_registerInfo.name avatar:_registerInfo.avatar gender:_registerInfo.gender socialType:SOCIAL_NONE birthday:_registerInfo.birthday idCity:IDCITY_HCM()];
-        _operationUpdateUserProfile.delegatePost=self;
+        _operationUpdateUserProfile.delegate=self;
         
-        [_operationUpdateUserProfile startAsynchronous];
+        [_operationUpdateUserProfile addToQueue];
     }
     else
     {

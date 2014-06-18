@@ -26,7 +26,7 @@
 {
     status=0;
     message=@"";
-    if([self isNullData:json])
+    if([json isNullData])
         return;
     
     NSDictionary *dict=json[0];

@@ -26,7 +26,7 @@
 {
     self.userNotifications=[NSMutableArray new];
     
-    if([self isNullData:json])
+    if([json isNullData])
         return;
     
     for(NSDictionary *dict in json)

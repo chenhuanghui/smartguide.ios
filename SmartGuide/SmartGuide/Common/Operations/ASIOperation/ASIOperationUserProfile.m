@@ -19,7 +19,7 @@
 
 -(void)onCompletedWithJSON:(NSArray *)json
 {
-    if([self isNullData:json])
+    if([json isNullData])
         return;
     
     NSDictionary *dict=json[0];
@@ -55,7 +55,7 @@
 {
     ASIOperationUserProfile *ope=[[ASIOperationUserProfile alloc] initOperation];
     
-    [ope startAsynchronous];
+    [ope addToQueue];
 }
 
 @end

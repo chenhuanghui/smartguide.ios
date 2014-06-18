@@ -32,9 +32,9 @@ static UserNoticeObject *_userNoticeObject=nil;
     
     _userNoticeObject=[[UserNoticeObject alloc] init];
     ASIOperationUserNotice *operation=[[ASIOperationUserNotice alloc] initWithUserLat:userLat() userLng:userLng()];
-    operation.delegatePost=_userNoticeObject;
+    operation.delegate=_userNoticeObject;
     
-    [operation startAsynchronous];
+    [operation addToQueue];
 }
 
 -(void)ASIOperaionPostFinished:(ASIOperationPost *)operation

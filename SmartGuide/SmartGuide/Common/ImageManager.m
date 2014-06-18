@@ -209,49 +209,25 @@ static char ImageViewDefaultBackgroundKey;
 
 -(void) loadShopLogoWithURL:(NSString*) url
 {
-    [self showLoadingImageSmall];
-    
-    __weak UIImageView* wSelf=self;
-    [self setImageWithURL:URL(url) completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
-        if(wSelf)
-            [wSelf stopLoadingImageSmall];
-    }];
+    [self loadImageWithDefaultLoading:url];
 }
 
 -(void) loadShopGalleryWithURL:(NSString*) url
 {
-    [self setImageWithURL:[NSURL URLWithString:url] placeholderImage:nil options:IPHONE_IMAGE_DOWNLOAD_OPTIONS];
+    [self loadImageWithDefaultLoading:url];
 }
 
 -(void)loadGalleryFullWithURL:(NSString *)url
 {
-    __weak UIImageView *wSelf=self;
-    
-    [self setImageWithURL:URL(url) onDownload:^{
-        if(wSelf)
-            [wSelf showDefaultBackground];
-    } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
-        if(wSelf)
-            [wSelf removeDefaultBackground];
-    }];
+    [self loadImageWithDefaultBackground:url];
 }
 
 -(void) loadShopUserGalleryWithURL:(NSString*) url
 {
-    [self showLoadingImageSmall];
-    __weak UIImageView *wself=self;
-    [self setImageWithURL:[NSURL URLWithString:url] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
-        if(wself)
-            [wself stopLoadingImageSmall];
-    }];
+    [self loadImageWithDefaultLoading:url];
 }
 
 -(void) loadCommentAvatarWithURL:(NSString*) url
-{
-    [self setImageWithURL:[NSURL URLWithString:url]];
-}
-
--(void)loadStoreLogoWithURL:(NSString *)url
 {
     [self setImageWithURL:[NSURL URLWithString:url]];
 }
@@ -279,21 +255,12 @@ static char ImageViewDefaultBackgroundKey;
 
 -(void)loadImageInfo3WithURL:(NSString *)url
 {
-    [self showLoadingImageSmall];
-    __weak UIImageView *wself=self;
-    [self setImageWithURL:[NSURL URLWithString:url] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
-        if(wself)
-            [wself stopLoadingImageSmall];
-    }];
+    [self loadImageWithDefaultLoading:url];
 }
 
 -(void)loadImageHomeWithURL:(NSString *)url
 {
-    [self showLoadingImageSmall];
-    __weak UIImageView *wself=self;
-    [self setImageWithURL:[NSURL URLWithString:url] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
-        [wself stopLoadingImageSmall];
-    }];
+    [self loadImageWithDefaultLoadingAndBackground:url];
 }
 
 -(void) loadShopLogoPromotionHome:(NSString*) url
@@ -308,7 +275,7 @@ static char ImageViewDefaultBackgroundKey;
 
 -(void)loadImageHomeListWithURL:(NSString *)url
 {
-    [self setImageWithURL:[NSURL URLWithString:url] placeholderImage:nil options:IPHONE_IMAGE_DOWNLOAD_OPTIONS];
+    [self loadImageWithDefaultLoadingAndBackground:url];
 }
 
 -(void)loadImageHomeListWithURL:(NSString *)url completed:(SDWebImageCompletedBlock)completedBlock
@@ -364,24 +331,19 @@ static char ImageViewDefaultBackgroundKey;
     } willSize:size];
 }
 
--(void)loadImageScaleCrop:(NSString *)url
-{
-    [self setImageWithURL:[NSURL URLWithString:url] placeholderImage:nil];
-}
-
 -(void) loadHome6CoverWithURL:(NSString*) url
 {
-    [self loadImageScaleCrop:url];
+    [self loadImageWithDefaultLoadingAndBackground:url];
 }
 
 -(void) loadHome7CoverWithURL:(NSString*) url
 {
-    [self loadImageScaleCrop:url];
+    [self loadImageWithDefaultLoading:url];
 }
 
 -(void) loadUserPromotionCoverWithURL:(NSString*) url
 {
-    [self loadImageScaleCrop:url];
+    [self loadImageWithDefaultLoading:url];
 }
 
 -(void)loadUserNotificationContentWithURL:(NSString *)url
@@ -418,7 +380,13 @@ static char ImageViewDefaultBackgroundKey;
     rect.origin=CGPointZero;
     UIImageView *imgv=[[UIImageView alloc] initWithFrame:rect];
     imgv.autoresizingMask=UIViewAutoresizingDefault();
-    imgv.contentMode=UIViewContentModeCenter;
+    
+    CGSize loadingSize=CGSizeMake(39, 14);
+    if(rect.size.width<loadingSize.width || rect.size.height<loadingSize.height)
+        imgv.contentMode=UIViewContentModeScaleAspectFit;
+    else
+        imgv.contentMode=UIViewContentModeCenter;
+    
     imgv.animationImages=[ImageManager sharedInstance].loadingImagesSmall;
     imgv.animationDuration=0.7f;
     imgv.animationRepeatCount=0;
@@ -483,6 +451,19 @@ static char ImageViewDefaultBackgroundKey;
     }
 }
 
+-(void) loadImageWithDefaultBackground:(NSString*) url
+{
+    __weak UIImageView *wSelf=self;
+    
+    [self setImageWithURL:URL(url) onDownload:^{
+        if(wSelf)
+            [wSelf showDefaultBackground];
+    } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
+        if(wSelf && image)
+            [wSelf removeDefaultBackground];
+    }];
+}
+
 -(void) loadImageWithDefaultLoading:(NSString*) url
 {
     __weak UIImageView *wSelf=self;
@@ -512,6 +493,29 @@ static char ImageViewDefaultBackgroundKey;
         
         return nil;
     } willSize:willSize];
+}
+
+-(void) loadImageWithDefaultLoadingAndBackground:(NSString*) url
+{
+    __weak UIImageView *wSelf=self;
+    
+    [self setImageWithURL:URL(url) onDownload:^{
+        if(wSelf)
+        {
+            [wSelf showDefaultBackground];
+            [wSelf showLoadingImageSmall];
+        }
+    } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
+        if(wSelf)
+        {
+            [wSelf stopLoadingImageSmall];
+            
+            if(image)
+                [wSelf removeDefaultBackground];
+            else
+                [wSelf showDefaultBackground];
+        }
+    }];
 }
 
 @end

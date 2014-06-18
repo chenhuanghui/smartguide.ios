@@ -35,7 +35,7 @@
     isSuccess=false;
     message=@"";
     phone=self.params[@"phone"];
-    if([self isNullData:json])
+    if([json isNullData])
         return;
     
     NSDictionary *dict=json[0];

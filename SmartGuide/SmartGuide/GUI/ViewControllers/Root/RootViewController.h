@@ -18,13 +18,9 @@
     __weak IBOutlet UIView *leftView;
     UITapGestureRecognizer *tapGes;
     bool _isAnimatingSetting;
-    __weak IBOutlet UIButton *btnMakeNotification;
+    __weak IBOutlet UIButton *btnBuildMode;
     
     __weak RemoteNotificationView *remoteNotiView;
-    
-#if DEBUG
-    int _loopMakeNotification;
-#endif
 }
 
 -(RootViewController*) init;

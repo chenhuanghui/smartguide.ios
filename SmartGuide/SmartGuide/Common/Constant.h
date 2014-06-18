@@ -7,6 +7,7 @@
 //
 
 #import "Flurry.h"
+#import "SGData.h"
 
 #define SMARTUIDE_VERSION ((NSString*)[[NSBundle mainBundle] infoDictionary][(NSString*)kCFBundleVersionKey])
 #define VELOCITY_SLIDE 800.f
@@ -31,31 +32,12 @@ static NSString * const kClientId = @"790158294934-p5pnscmrt4avj698ncvhp14fit0f4
 
 #define BUILD_SOSMART 1
 
-#define BUILD_MODE 0
-//0: developer
-//1: production
+#define SERVER_API [[SGData shareInstance] serverAPI]
+#define SERVER_IP [[SGData shareInstance] serverIP]
 
-#if BUILD_MODE==0   
-
-#define SERVER_API @"http://dev.infory.vn/api"
-#define SERVER_IP @"http://dev.infory.vn"
-
-#define CLIENT_ID @"1_orazuv2dl3k8ossssg8804o4kwksw8kwcskkk404w40gwcwws"//dev2
-#define SECRET_ID @"4xvgf3r9dxs8k8g8o8k0gss0s0wc8so4g4wg40c8s44kgcwsks"//dev2
-
-#define API_ELASTIC_AUTOCOMPLETE_NATIVE @"http://dev.infory.vn:9200/data/_search"
-
-#else
-
-#define SERVER_API @"https://api.infory.vn/api"
-#define SERVER_IP @"https://api.infory.vn"
-
-#define CLIENT_ID @"1_orazuv2dl3k8ossssg8804o4kwksw8kwcskkk404w40gwcwws"//product
-#define SECRET_ID @"4xvgf3r9dxs8k8g8o8k0gss0s0wc8so4g4wg40c8s44kgcwsks"//product
-
-#define API_ELASTIC_AUTOCOMPLETE_NATIVE @"http://api.infory.vn:9200/data/_search"
-
-#endif
+#define CLIENT_ID [[SGData shareInstance] clientID]
+#define SECRET_ID [[SGData shareInstance] secrectID]
+#define API_ELASTIC_AUTOCOMPLETE_NATIVE [[SGData shareInstance] elasticAPI]
 
 #define SERVER_IP_MAKE(api) [NSString stringWithFormat:@"%@/%@",SERVER_IP,api]
 #define SERVER_API_MAKE(api) [NSString stringWithFormat:@"%@/%@",SERVER_API,api]

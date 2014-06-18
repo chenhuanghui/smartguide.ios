@@ -162,8 +162,8 @@
     }
     
     _operationLove=[[ASIOperationLoveShop alloc] initWithIDShop:_shop.idShop.integerValue userLat:userLat() userLng:userLng() loveStatus:_shop.enumLoveStatus];
-    _operationLove.delegatePost=self;
-    [_operationLove startAsynchronous];
+    _operationLove.delegate=self;
+    [_operationLove addToQueue];
     
     imgvHeartAni.alpha=0;
     imgvHeartAni.hidden=false;

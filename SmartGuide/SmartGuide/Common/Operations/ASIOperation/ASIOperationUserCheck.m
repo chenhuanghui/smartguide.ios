@@ -20,8 +20,6 @@
 
 -(ASIOperationUserCheck *)initWithPhone:(NSString *)_phone aciveCode:(NSString *)_activeCode
 {
-    NSLog(@"%@ %@ %@",SERVER_IP,API_USER_CHECK,SERVER_API);
-    
     self=[super initWithURL:[NSURL URLWithString:SERVER_IP_MAKE(API_USER_CHECK)]];
     
     [self.keyValue setObject:_phone forKey:@"phone"];
@@ -37,7 +35,7 @@
     isSuccess=false;
     accessToken=@"";
     refreshToken=@"";
-    if([self isNullData:json])
+    if([json isNullData])
         return;
     
     NSDictionary *dict=json[0];

@@ -196,9 +196,9 @@
     zbarReader.readerDelegate=nil;
     
     _operationScanCode=[[ASIOperationScanQRCode alloc] initWithCode:sym.data userLat:userLat() userLng:userLng()];
-    _operationScanCode.delegatePost=self;
+    _operationScanCode.delegate=self;
     
-    [_operationScanCode startAsynchronous];
+    [_operationScanCode addToQueue];
     
     [self.view showLoading];
 }

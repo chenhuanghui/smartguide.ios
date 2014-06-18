@@ -11,12 +11,15 @@
 #import "TokenManager.h"
 #import "SGData.h"
 #import "ASIDownloadCache.h"
+#import <ImageIO/ImageIO.h>
 
 static NSMutableArray *_asioperations=nil;
 
 @interface ASIOperationPost()
 {
 }
+
+@property (nonatomic, strong) NSURLRequest *requestURL;
 
 @end
 
@@ -37,12 +40,13 @@ static NSMutableArray *_asioperations=nil;
 
 -(ASIOperationPost *)initWithRouter:(NSURL *)_url
 {
-    self=[super initWithURL:_url];
+    NSURLRequest *request=[[ASIOperationManager shareInstance] createPOST:_url.absoluteString parameters:nil];
+    self=[super initWithRequest:request];
     
     [self commonInit];
     
     self.sourceURL=[_url copy];
-    self.delegate=self;
+    self.requestURL=request;
     
     return self;
 }
@@ -51,46 +55,64 @@ static NSMutableArray *_asioperations=nil;
 {
     NSString *accessToken=[NSString stringWithString:[TokenManager shareInstance].accessToken];
     _url=[ASIOperationPost makeURL:_url accessToken:accessToken];
-    self=[super initWithURL:_url];
+    
+    NSURLRequest *request=[[ASIOperationManager shareInstance] createPOST:_url.absoluteString parameters:nil];
+    
+    self=[super initWithRequest:request];
     
     [self commonInit];
     
     self.sourceURL=[_url copy];
-    self.delegate=self;
+    self.requestURL=request;
     
     return self;
 }
 
+-(NSURLRequest *)request
+{
+    return self.requestURL?:[super request];
+}
+
 -(void) commonInit
 {
-    [[ASIDownloadCache sharedCache] removeCachedDataForRequest:self];
-    
-    self.numberOfTimesToRetryOnTimeout=3;
-    self.shouldContinueWhenAppEntersBackground=true;
-    self.persistentConnectionTimeoutSeconds=60*5;
-    self.responseEncoding=NSUTF8StringEncoding;
-    [self setValidatesSecureCertificate:false];
-    
     self.keyValue=[NSMutableDictionary dictionary];
     self.fData=[NSMutableDictionary dictionary];
 }
 
--(void)startAsynchronous
+-(void)addImage:(NSData *)binary withKey:(NSString *)key
 {
-    [self applyPostValue];
+    if(!self.imagesData)
+        self.imagesData=[NSMutableDictionary new];
     
-    NSLog(@"%@ start async %@ %@ %@",CLASS_NAME,self.url,self.keyValue.allKeys,self.keyValue.allValues);
-    
-    [super startAsynchronous];
+    [self.imagesData setObject:binary forKey:key];
 }
 
--(void)startSynchronous
+-(void)start
+{
+    NSLog(@"%@ %@ start %@ %@ %@ %@",CLASS_NAME, self.request.HTTPMethod,self.request.URL, self.keyValue.allKeys, self.keyValue.allValues,self.imagesData.allKeys?:@"");
+    
+    [self applyPostValue];
+    
+    __weak ASIOperationPost *wSelf=self;
+    [self setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        if(wSelf)
+        {
+            [wSelf requestFinished:operation];
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        if(wSelf)
+            [wSelf requestFailed:operation];
+    }];
+    
+    [super start];
+}
+
+-(void)addToQueue
 {
     [self applyPostValue];
     
-    NSLog(@"%@ start sync %@ %@ %@",CLASS_NAME,self.url,self.keyValue.allKeys,self.keyValue.allValues);
-    
-    [super startSynchronous];
+    [[ASIOperationManager shareInstance] addOperation:self];
+    //    NSLog(@"%@ start async %@ %@ %@",CLASS_NAME,self.url,self.keyValue.allKeys,self.keyValue.allValues);
 }
 
 -(void) applyPostValue
@@ -116,9 +138,35 @@ static NSMutableArray *_asioperations=nil;
         [self.keyValue setObject:jsonString forKey:@"fData"];
     }
     
-    for(NSString *key in self.keyValue.allKeys)
+    if(![self.keyValue isNullData])
     {
-        [self setPostValue:self.keyValue[key] forKey:key];
+        NSError *error=nil;;
+        
+        if(self.imagesData.count>0)
+        {
+            self.requestURL=[[ASIOperationManager shareInstance].requestSerializer multipartFormRequestWithMethod:self.requestURL.HTTPMethod URLString:self.requestURL.URL.absoluteString parameters:self.keyValue constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+                for(NSString *key in self.imagesData.allKeys)
+                {
+                    NSData *data=self.imagesData[key];
+                    
+                    CGImageSourceRef imgSourceRef=CGImageSourceCreateWithData((__bridge CFDataRef)data, NULL);
+                    CFStringRef imgType=CGImageSourceGetType(imgSourceRef);
+                    NSString *imageType=@"jpeg";
+                    
+                    if([((__bridge NSString*)imgType) isContainString:@"png"])
+                        imageType=@"png";
+                    
+                    [formData appendPartWithFileData:self.imagesData[key] name:key fileName:key mimeType:imageType];
+                    
+                    CFRelease(imgSourceRef);
+                    CFRelease(imgType);
+                }
+            } error:&error];
+        }
+        else
+        {
+            self.requestURL=[[ASIOperationManager shareInstance].requestSerializer requestBySerializingRequest:self.requestURL withParameters:self.keyValue error:&error];
+        }
     }
 }
 
@@ -126,11 +174,10 @@ static NSMutableArray *_asioperations=nil;
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
-    self.error=errorr;
-    NSLog(@"%@ failed %@",CLASS_NAME,self.responseStatusMessage?self.responseStatusMessage:self.error);
+    NSLog(@"%@ failed %@",CLASS_NAME,[NSHTTPURLResponse localizedStringForStatusCode:self.response.statusCode]);
     
     if([self isRespondsToSelector:@selector(ASIOperaionPostFailed:)])
-        [self.delegatePost ASIOperaionPostFailed:self];
+        [self.delegate ASIOperaionPostFailed:self];
 }
 
 -(bool) handleTokenError:(NSDictionary*) json
@@ -165,12 +212,12 @@ static NSMutableArray *_asioperations=nil;
     return false;
 }
 
--(void)requestFinished:(ASIHTTPRequest *)request
+-(void)requestFinished:(AFHTTPRequestOperation *)request
 {
-    NSLog(@"%@ requestFinished %@",CLASS_NAME,self.responseStatusMessage);
+    NSLog(@"%@ requestFinished %@",CLASS_NAME,[NSHTTPURLResponse localizedStringForStatusCode:self.response.statusCode]);
     if(self.responseString.length>0)
     {
-        NSData *data=[self.responseString dataUsingEncoding:NSUTF8StringEncoding];
+        NSData *data=[self.responseString dataUsingEncoding:self.responseStringEncoding];
         NSError *jsonError=nil;
         
         id json = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers|NSJSONReadingAllowFragments error:&jsonError];
@@ -250,12 +297,12 @@ static NSMutableArray *_asioperations=nil;
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
     if([self isRespondsToSelector:@selector(ASIOperaionPostFinished:)])
-        [self.delegatePost ASIOperaionPostFinished:self];
+        [self.delegate ASIOperaionPostFinished:self];
 }
 
--(void)requestFailed:(ASIHTTPRequest *)request
+-(void)requestFailed:(AFHTTPRequestOperation *)request
 {
-    NSLog(@"%@ requestFailed %@",CLASS_NAME,self.responseStatusMessage);
+    NSLog(@"%@ requestFailed %@",CLASS_NAME, [NSHTTPURLResponse localizedStringForStatusCode:self.response.statusCode]);
     
     if(self.responseString.length>0)
     {
@@ -268,8 +315,6 @@ static NSMutableArray *_asioperations=nil;
             if([self handleTokenError:(NSDictionary*)json])
                 return;
         }
-        
-        self.error=jsonError;
     }
     [self onFailed:self.error];
     [self notifyFailed:self.error];
@@ -279,7 +324,6 @@ static NSMutableArray *_asioperations=nil;
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
-    self.error=[NSError errorWithDomain:@"Refresh token failed" code:REFRESH_TOKEN_ERROR_CODE userInfo:nil];
     [self onFailed:self.error];
     [self notifyFailed:self.error];
 }
@@ -297,17 +341,19 @@ static NSMutableArray *_asioperations=nil;
     
     ope.sourceURL=[self.sourceURL copy];
     
-    NSString *accessToken=[NSString stringWithString:[TokenManager shareInstance].accessToken];
-    ope.url=[ASIOperationPost makeURL:ope.sourceURL accessToken:accessToken];
-    
-    ope.delegate=ope;
-    ope.delegatePost=self.delegatePost;
-    self.delegatePost=nil;
-    
-    NSLog(@"%@ restart %@ %@",NSStringFromClass([ope class]),ope.url,ope.keyValue);
-    [ope startAsynchronous];
-    
-    [_asioperations removeObject:self];
+    /*
+     NSString *accessToken=[NSString stringWithString:[TokenManager shareInstance].accessToken];
+     ope.url=[ASIOperationPost makeURL:ope.sourceURL accessToken:accessToken];
+     
+     ope.delegate=ope;
+     ope.delegate=self.delegate;
+     self.delegate=nil;
+     
+     NSLog(@"%@ restart %@ %@",NSStringFromClass([ope class]),ope.url,ope.keyValue);
+     [ope startAsynchronous];
+     
+     [_asioperations removeObject:self];
+     */
 }
 
 -(void)onCompletedWithJSON:(NSArray *)json
@@ -322,23 +368,16 @@ static NSMutableArray *_asioperations=nil;
 
 -(BOOL) isRespondsToSelector:(SEL)aSelector
 {
-    return self.delegatePost && [self.delegatePost respondsToSelector:aSelector];
-}
-
--(bool)isNullData:(NSArray *)data
-{
-    if((id)data==[NSNull null] ||  data.count==0 || [data objectAtIndex:0]==[NSNull null])
-        return true;
-    return false;
+    return self.delegate && [self.delegate respondsToSelector:aSelector];
 }
 
 -(void)clearDelegatesAndCancel
 {
     NSLog(@"%@ clearDelegatesAndCancel",CLASS_NAME);
     
-    self.delegatePost=nil;
+    self.delegate=nil;
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    [super clearDelegatesAndCancel];
+    [self cancel];
 }
 
 // If a delegate implements one of these, it will be asked to supply credentials when none are available
@@ -367,15 +406,67 @@ static NSMutableArray *_asioperations=nil;
     self.fScreen=nil;
     self.fData=nil;
     self.delegate=nil;
-    self.delegatePost=nil;
 }
 
 @end
 
-@implementation ASIOperationPost(MakeTest)
+static ASIOperationManager *_operationManager=nil;
+@implementation ASIOperationManager
 
-+(void)makeTest
++(ASIOperationManager *)shareInstance
 {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _operationManager=[[ASIOperationManager alloc] init];
+    });
+    
+    return _operationManager;
+}
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        self.responseSerializer=[AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments|NSJSONReadingMutableContainers|NSJSONReadingMutableLeaves];
+    }
+    return self;
+}
+
+-(NSMutableURLRequest *)createPOST:(NSString *)urlString parameters:(NSDictionary *)parameters
+{
+    NSError *error=nil;
+    NSMutableURLRequest *urlRequest=[self.requestSerializer requestWithMethod:@"POST" URLString:urlString parameters:parameters error:&error];
+    
+    if(error)
+        NSLog(@"%@ createPOST %@ parameters %@ error %@", CLASS_NAME, urlString, parameters, error);
+    
+    return urlRequest;
+}
+
+-(NSMutableURLRequest *)createGET:(NSString *)urlString parameters:(NSDictionary *)parameters
+{
+    NSError *error=nil;
+    NSMutableURLRequest *urlRequest=[self.requestSerializer requestWithMethod:@"GET" URLString:urlString parameters:parameters error:&error];
+    
+    if(error)
+        NSLog(@"%@ createGET %@ parameters %@ error %@", CLASS_NAME, urlString, parameters, error);
+    
+    return urlRequest;
+}
+
+-(void)addOperation:(ASIOperationPost *)operation
+{
+    operation.responseSerializer = self.responseSerializer;
+    operation.shouldUseCredentialStorage = self.shouldUseCredentialStorage;
+    operation.credential = self.credential;
+    operation.securityPolicy = self.securityPolicy;
+    
+    [self.operationQueue addOperation:operation];
+}
+
+-(void)clearAllOperation
+{
+    [self.operationQueue cancelAllOperations];
 }
 
 @end

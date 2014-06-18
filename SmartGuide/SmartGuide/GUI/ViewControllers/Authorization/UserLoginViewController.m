@@ -277,9 +277,9 @@
         }
         
         _operationUserCheck=[[ASIOperationUserCheck alloc] initWithPhone:_phone aciveCode:txtPhone.text];
-        _operationUserCheck.delegatePost=self;
+        _operationUserCheck.delegate=self;
         
-        [_operationUserCheck startAsynchronous];
+        [_operationUserCheck addToQueue];
         
         [self.view showLoadingInsideFrame:CGRectMake(0, 0, self.l_v_w, self.l_v_h-_keyboardHeight)];
     }

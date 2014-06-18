@@ -35,14 +35,14 @@
     if(obj.enumStatus==NOTIFICATION_STATUS_UNREAD)
         obj.highlightUnread=@(true);
     
-    if(data[@"image"])
+    if(![data[@"image"] isNullData])
     {
         obj.image=[NSString stringWithStringDefault:data[@"image"]];
         obj.imageWidth=[NSNumber numberWithObject:data[@"imageWidth"]];
         obj.imageHeight=[NSNumber numberWithObject:data[@"imageHeight"]];
     }
     
-    if(data[@"video"])
+    if(![data[@"video"] isNullData])
     {
         obj.video=[NSString stringWithStringDefault:data[@"video"]];
         obj.videoWidth=[NSNumber numberWithObject:data[@"videoWidth"]];

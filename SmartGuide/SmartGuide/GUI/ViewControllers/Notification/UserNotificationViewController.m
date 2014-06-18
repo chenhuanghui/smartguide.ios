@@ -112,7 +112,7 @@
     [self.view removeLoading];
     
     _isLoadingMore=false;
-    _canLoadMore=_userNotificationFromAPI.count==10;
+    _canLoadMore=_userNotificationFromAPI.count>=10;
     _page++;
     
     _userNotification=[_userNotificationFromAPI mutableCopy];
@@ -131,9 +131,9 @@
     }
     
     _operationUserNotification=[[ASIOperationUserNotificationNewest alloc] initWithPage:_page+1 userLat:userLat() userLng:userLng() type:_displayType];
-    _operationUserNotification.delegatePost=self;
+    _operationUserNotification.delegate=self;
     
-    [_operationUserNotification startAsynchronous];
+    [_operationUserNotification addToQueue];
 }
 
 -(void) refreshData
@@ -336,9 +336,9 @@
 -(void) deleteUserNotification:(int) idSender
 {
     ASIOperationUserNotificationRemove *operationUserNotificationRemove=[[ASIOperationUserNotificationRemove alloc] initWithIDNotification:nil idSender:@(idSender) userLat:userLat() userLng:userLng()];
-    operationUserNotificationRemove.delegatePost=self;
+    operationUserNotificationRemove.delegate=self;
     
-    [operationUserNotificationRemove startAsynchronous];
+    [operationUserNotificationRemove addToQueue];
 }
 
 -(void)userNotificationCellTouchedRemove:(UserNotificationCell *)cell obj:(UserNotification *)obj
@@ -550,7 +550,7 @@
             [self.view removeLoading];
             
             _isLoadingMore=false;
-            _canLoadMore=ope.userNotifications.count==10;
+            _canLoadMore=ope.userNotifications.count>=10;
             _page++;
             [_userNotification addObjectsFromArray:ope.userNotifications];
             

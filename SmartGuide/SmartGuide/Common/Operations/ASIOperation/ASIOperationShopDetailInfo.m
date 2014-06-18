@@ -25,7 +25,7 @@
 -(void)onCompletedWithJSON:(NSArray *)json
 {
     infos=[NSMutableArray array];
-    if([self isNullData:json])
+    if([json isNullData])
         return;
     
     for(NSDictionary *dict in json)
@@ -36,7 +36,7 @@
         {
             NSArray *items=dict[@"items"];
             
-            if([self isNullData:items])
+            if([items isNullData])
                 continue;
             
             switch (info.type) {

@@ -7,7 +7,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RootViewController">
             <connections>
-                <outlet property="btnMakeNotification" destination="quv-Xv-3mE" id="U1I-1L-jxH"/>
+                <outlet property="btnBuildMode" destination="D6z-e1-UO6" id="saJ-7q-fUI"/>
                 <outlet property="containView" destination="clU-Nc-up4" id="pz2-XN-V9B"/>
                 <outlet property="contentView" destination="RQU-48-iTN" id="LzY-Oz-Za0"/>
                 <outlet property="leftView" destination="C1G-2n-zEl" id="aoR-19-5lQ"/>
@@ -49,17 +49,22 @@
                                 <outlet property="delegate" destination="-1" id="2HB-sV-ObX"/>
                             </connections>
                         </scrollView>
-                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="quv-Xv-3mE">
-                            <rect key="frame" x="0.0" y="404" width="120" height="38"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                            <state key="normal" title="Make Notification"/>
-                            <connections>
-                                <action selector="btnMakeNotificationTouchUpInside:" destination="-1" eventType="touchUpInside" id="5Ha-tP-XYm"/>
-                            </connections>
-                        </button>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="D6z-e1-UO6">
+                    <rect key="frame" x="0.0" y="426" width="54" height="54"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                    <state key="normal" title="DEV">
+                        <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="btnBuildModeTouchUpInside:" destination="-1" eventType="touchUpInside" id="cBi-0n-DgB"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>

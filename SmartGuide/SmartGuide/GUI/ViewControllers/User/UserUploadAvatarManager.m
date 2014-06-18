@@ -76,10 +76,10 @@ static UserUploadAvatarManager* _userUploadAvatarManager=nil;
     }
     
     _operationUploadAvatar=[[ASIOperationUploadAvatar alloc] initWithAvatar:avatar userLat:userLat userLng:userLng];
-    _operationUploadAvatar.delegatePost=self;
+    _operationUploadAvatar.delegate=self;
     _operationUploadAvatar.fScreen=@"background";
     
-    [_operationUploadAvatar startAsynchronous];
+    [_operationUploadAvatar addToQueue];
 }
 
 -(void)cancelUpload

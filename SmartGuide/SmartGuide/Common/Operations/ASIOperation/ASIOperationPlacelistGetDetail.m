@@ -27,7 +27,7 @@
     self.place=nil;
     self.shops=[NSMutableArray array];
     
-    if([self isNullData:json])
+    if([json isNullData])
         return;
     
     NSDictionary *dict=json[0];

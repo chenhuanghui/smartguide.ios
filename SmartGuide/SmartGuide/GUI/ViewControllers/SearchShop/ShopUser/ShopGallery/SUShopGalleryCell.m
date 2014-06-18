@@ -220,9 +220,9 @@
     [btnLove setLoveStatus:_shop.enumLoveStatus withNumOfLove:_shop.numOfLove animate:true];
     
     _operationLoveShop=[[ASIOperationLoveShop alloc] initWithIDShop:_shop.idShop.integerValue userLat:userLat() userLng:userLng() loveStatus:_shop.enumLoveStatus];
-    _operationLoveShop.delegatePost=self;
+    _operationLoveShop.delegate=self;
     _operationLoveShop.fScreen=SCREEN_CODE_SHOP_USER;
-    [_operationLoveShop startAsynchronous];
+    [_operationLoveShop addToQueue];
 }
 
 -(void)buttonLoveTouched:(ButtonLove *)buttonLoveView

@@ -40,7 +40,7 @@
     self.placelists=[NSMutableArray new];
     self.highlightTag=@"em";
     
-    if([self isNullData:json])
+    if([json isNullData])
         return;
     
     NSDictionary *dict=json[0];

@@ -36,9 +36,12 @@
     [_notification start];
 }
 
--(void)viewDidAppear:(BOOL)animated
+-(void)viewWillAppear:(BOOL)animated
 {
-    [super viewDidAppear:animated];
+    [super viewWillAppear:animated];
+    
+    [imgv l_v_setY:-UIStatusBarHeight()];
+    [imgv l_v_setS:UIScreenSize()];
 }
 
 - (void)viewDidLoad
@@ -48,7 +51,6 @@
     
 #if BUILD_SOSMART
     
-    imgv.contentMode=UIViewContentModeBottom;
     if([UIScreen mainScreen].bounds.size.height==568.f)
         imgv.image=[UIImage imageNamed:@"bg_5sosmart.png"];
     else
@@ -134,9 +136,9 @@
 -(void) requestUserProfile
 {
     _operationUserProfile=[[ASIOperationUserProfile alloc] initOperation];
-    _operationUserProfile.delegatePost=self;
+    _operationUserProfile.delegate=self;
     
-    [_operationUserProfile startAsynchronous];
+    [_operationUserProfile addToQueue];
 }
 
 -(void) processNotification:(NotificationObject*) notiObj

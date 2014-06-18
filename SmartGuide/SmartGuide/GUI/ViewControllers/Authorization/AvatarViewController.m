@@ -38,9 +38,9 @@
         _avatars=[NSMutableArray new];
         
         _operationGetAvatars=[[ASIOperationGetAvatars alloc] initGetAvatars];
-        _operationGetAvatars.delegatePost=self;
+        _operationGetAvatars.delegate=self;
         
-        [_operationGetAvatars startAsynchronous];
+        [_operationGetAvatars addToQueue];
         
         [touchView showLoading];
     }
@@ -120,6 +120,11 @@
 
 -(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
 {
+    if(NSFoundationVersionNumber>NSFoundationVersionNumber_iOS_6_1)
+        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    else
+        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
+    
     if([self.delegate respondsToSelector:@selector(avatarControllerPresentViewController)])
         [[self.delegate avatarControllerPresentViewController] dismissSGViewControllerCompletion:nil];
     else
@@ -128,6 +133,11 @@
 
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
+    if(NSFoundationVersionNumber>NSFoundationVersionNumber_iOS_6_1)
+        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    else
+        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
+    
     _avatarImage=[info[UIImagePickerControllerOriginalImage] convertAvatarToServer];
     
     [grid reloadData];

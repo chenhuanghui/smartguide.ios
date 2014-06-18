@@ -12,11 +12,18 @@
 
 +(SGData*) shareInstance;
 
+-(NSString*) serverAPI;
+-(NSString*) serverIP;
+-(NSString*) clientID;
+-(NSString*) secrectID;
+-(NSString*) elasticAPI;
+
 @property (nonatomic, strong) NSString *fScreen;
 @property (nonatomic, strong) NSMutableDictionary *fData;
 @property (nonatomic, strong) NSString *numOfNotification;
 @property (nonatomic, strong) NSNumber *totalNotification;
 @property (nonatomic, strong) NSNumber *isShowedNotice;
 @property (nonatomic, strong) NSString *userNotice;
+@property (nonatomic, strong) NSNumber *buildMode;
 
 @end

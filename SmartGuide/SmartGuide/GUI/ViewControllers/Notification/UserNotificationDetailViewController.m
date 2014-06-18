@@ -96,9 +96,9 @@
     }
     
     _operationNotificationContent=[[ASIOperationUserNotificationFromSender alloc] initWithIDSender:_idSender page:_page+1 userLat:userLat() userLng:userLng()];
-    _operationNotificationContent.delegatePost=self;
+    _operationNotificationContent.delegate=self;
     
-    [_operationNotificationContent startAsynchronous];
+    [_operationNotificationContent addToQueue];
 }
 
 -(void) resetData
@@ -133,7 +133,7 @@
         
         self.title=ope.sender;
         [_userNotificationContents addObjectsFromArray:ope.notifications];
-        _canLoadMore=ope.notifications.count==10;
+        _canLoadMore=ope.notifications.count>=10;
         _isLoadingMore=false;
         _page++;
         
@@ -263,7 +263,7 @@
     [[DataManager shareInstance] save];
     
     ASIOperationUserNotificationMarkRead *ope=[[ASIOperationUserNotificationMarkRead alloc] initWithIDNotification:obj.idNotification.integerValue userLat:userLat() userLng:userLng()];
-    [ope startAsynchronous];
+    [ope addToQueue];
 }
 
 -(MPMoviePlayerController *)userNotificationDetailCellRequestPlayer:(UserNotificationDetailCell *)cell
@@ -349,7 +349,7 @@
         return;
     
     ASIOperationUserNotificationRemove *ope=[[ASIOperationUserNotificationRemove alloc] initWithIDNotification:cell.userNotificationDetail.idNotification idSender:nil userLat:userLat() userLng:userLng()];
-    [ope startAsynchronous];
+    [ope addToQueue];
     
     [_userNotificationContents removeObject:cell.userNotificationDetail];
     
@@ -402,6 +402,8 @@
             [arrIdx addObject:indexPath];
             
             obj.displayType=@(USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE_FULL);
+            [self markReadNotification:obj];
+            
             [[DataManager shareInstance] save];
             
             [table reloadRowsAtIndexPaths:arrIdx withRowAnimation:UITableViewRowAnimationAutomatic];

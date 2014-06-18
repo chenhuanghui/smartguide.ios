@@ -361,9 +361,9 @@
     _indexPathWillRemove=cell.indexPath;
     
     _operationRemoveShopPlacelist=[[ASIOperationRemoveShopPlacelist alloc] initWithIDPlacelist:_placeList.idPlacelist.integerValue idShops:[NSString stringWithFormat:@"%i",shop.idShop.integerValue] userLat:userLat() userLng:userLng()];
-    _operationRemoveShopPlacelist.delegatePost=self;
+    _operationRemoveShopPlacelist.delegate=self;
     
-    [_operationRemoveShopPlacelist startAsynchronous];
+    [_operationRemoveShopPlacelist addToQueue];
 }
 
 -(void) storeRect
@@ -553,9 +553,9 @@
     }
     
     _operationPlacelistGetDetail=[[ASIOperationPlacelistGetDetail alloc] initWithIDPlacelist:_idPlacelist userLat:userLat() userLng:userLng() sort:_sort];
-    _operationPlacelistGetDetail.delegatePost=self;
+    _operationPlacelistGetDetail.delegate=self;
     
-    [_operationPlacelistGetDetail startAsynchronous];
+    [_operationPlacelistGetDetail addToQueue];
 }
 
 -(void) requestPlacelistDetail
@@ -567,9 +567,9 @@
     }
     
     _operationPlaceListDetail=[[ASIOperationPlacelistGet alloc] initWithIDPlacelist:_placeList.idPlacelist.integerValue userLat:_location.latitude userLng:_location.longitude sort:_sort page:_page+1];
-    _operationPlaceListDetail.delegatePost=self;
+    _operationPlaceListDetail.delegate=self;
     
-    [_operationPlaceListDetail startAsynchronous];
+    [_operationPlaceListDetail addToQueue];
 }
 
 -(void) requestShopList
@@ -581,9 +581,9 @@
     }
     
     _operationShopList=[[ASIOperationGetShopList alloc] initWithIDShops:_idShops userLat:userLat() userLng:userLng() page:_page+1 sort:_sort];
-    _operationShopList.delegatePost=self;
+    _operationShopList.delegate=self;
     
-    [_operationShopList startAsynchronous];
+    [_operationShopList addToQueue];
 }
 
 -(void) requestShopSearch
@@ -595,9 +595,9 @@
     }
     
     _operationShopSearch=[[ASIOperationShopSearch alloc] initWithKeywords:_keyword userLat:_location.latitude userLng:_location.longitude page:_page+1 sort:_sort idCity:_idCity];
-    _operationShopSearch.delegatePost=self;
+    _operationShopSearch.delegate=self;
     
-    [_operationShopSearch startAsynchronous];
+    [_operationShopSearch addToQueue];
 }
 
 -(void) changeLocation:(CLLocationCoordinate2D) coordinate
@@ -632,8 +632,8 @@
     [SGData shareInstance].fScreen=[ShopListViewController screenCode];
     _operationShopSearch=[[ASIOperationShopSearch alloc] initWithKeywords:_keyword userLat:_location.latitude userLng:_location.longitude page:_page+1 sort:_sort idCity:_idCity];
     
-    _operationShopSearch.delegatePost=self;
-    [_operationShopSearch startAsynchronous];
+    _operationShopSearch.delegate=self;
+    [_operationShopSearch addToQueue];
 }
 
 -(void) changeSortShopList:(enum SORT_LIST) sort
@@ -717,8 +717,8 @@
     
     _operationShopSearch=[[ASIOperationShopSearch alloc] initWithKeywords:_keyword userLat:_location.latitude userLng:_location.longitude page:_page+1 sort:sort idCity:_idCity];
     
-    _operationShopSearch.delegatePost=self;
-    [_operationShopSearch startAsynchronous];
+    _operationShopSearch.delegate=self;
+    [_operationShopSearch addToQueue];
     
     _isNeedAnimationChangeTable=true;
 }
@@ -758,8 +758,8 @@
     
     _operationPlaceListDetail=[[ASIOperationPlacelistGet alloc] initWithIDPlacelist:idPlacelist userLat:_location.latitude userLng:_location.longitude sort:_sort page:_page+1];
     
-    _operationPlaceListDetail.delegatePost=self;
-    [_operationPlaceListDetail startAsynchronous];
+    _operationPlaceListDetail.delegate=self;
+    [_operationPlaceListDetail addToQueue];
     
     _isNeedAnimationChangeTable=true;
 }
@@ -795,7 +795,7 @@
         [_shopsList addObjectsFromArray:ope.shopsList];
         
         _page++;
-        _canLoadMore=ope.shopsList.count==10;
+        _canLoadMore=ope.shopsList.count>=10;
         _isLoadingMore=false;
         
         [self animationTableReload];
@@ -818,7 +818,7 @@
         [_shopsList addObjectsFromArray:ope.shops];
         
         _page++;
-        _canLoadMore=ope.shops.count==10;
+        _canLoadMore=ope.shops.count>=10;
         _isLoadingMore=false;
         
         [self animationTableReload];
@@ -840,7 +840,7 @@
         [_shopsList addObjectsFromArray:ope.shopsList];
         
         _page++;
-        _canLoadMore=ope.shopsList.count==10;
+        _canLoadMore=ope.shopsList.count>=10;
         _isLoadingMore=false;
         
         [self animationTableReload];
@@ -861,7 +861,7 @@
         ASIOperationGetShopList *ope=(ASIOperationGetShopList*) operation;
         
         [_shopsList addObjectsFromArray:ope.shopLists];
-        _canLoadMore=ope.shopLists.count==10;
+        _canLoadMore=ope.shopLists.count>=10;
         _isLoadingMore=false;
         _page++;
         

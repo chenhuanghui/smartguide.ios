@@ -61,10 +61,10 @@
     _descMode=SHOP_DETAIL_INFO_DESCRIPTION_NORMAL;
     
     _operation=[[ASIOperationShopDetailInfo alloc] initWithIDShop:_shop.idShop.integerValue userLat:userLat() userLng:userLng()];
-    _operation.delegatePost=self;
+    _operation.delegate=self;
     _operation.fScreen=SCREEN_CODE_SHOP_USER;
     
-    [_operation startAsynchronous];
+    [_operation addToQueue];
     
     if(_shop.shopGalleriesObjects.count>0)
     {

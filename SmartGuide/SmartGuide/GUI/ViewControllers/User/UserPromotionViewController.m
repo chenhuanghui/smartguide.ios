@@ -91,7 +91,7 @@
     _userPromotions=[[NSMutableArray alloc] initWithArray:_userPromotionsAPI];
     _userPromotionsAPI=nil;
     _isLoadingMore=false;
-    _canLoadingMore=_userPromotions.count==10;
+    _canLoadingMore=_userPromotions.count>=10;
     _page++;
     
     [UIView animateWithDuration:DURATION_DEFAULT animations:^{
@@ -261,9 +261,9 @@
 -(void) requestUserPromotion
 {
     _operationUserPromotion=[[ASIOperationUserPromotion alloc] initWithPage:_page+1 userLat:userLat() userLng:userLng()];
-    _operationUserPromotion.delegatePost=self;
+    _operationUserPromotion.delegate=self;
     
-    [_operationUserPromotion startAsynchronous];
+    [_operationUserPromotion addToQueue];
 }
 
 - (void)didReceiveMemoryWarning
@@ -369,7 +369,7 @@
         else if(txtRefresh.refreshState==TEXTFIELD_REFRESH_STATE_NORMAL)
         {
             [_userPromotions addObjectsFromArray:ope.userPromotions];
-            _canLoadingMore=ope.userPromotions.count==10;
+            _canLoadingMore=ope.userPromotions.count>=10;
             _isLoadingMore=false;
             _page++;
             

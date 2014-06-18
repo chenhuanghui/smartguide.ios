@@ -13,8 +13,10 @@
 @interface ShopDetailInfoType2Cell : UITableViewCell
 {
     __weak IBOutlet UILabel *lblLeft;
-    __weak IBOutlet UILabel *lblRight;
+    __weak IBOutlet UIButton *btnURL;
     __weak IBOutlet UIImageView *line;
+    
+    __weak Info2 *_info;
 }
 
 -(void) loadWithInfo2:(Info2*) info2;

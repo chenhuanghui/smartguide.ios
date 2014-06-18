@@ -30,7 +30,7 @@
     self.idShops=self.keyValue[@"idShops"];
     self.idPlace=self.keyValue[IDPLACELIST];
     
-    if([self isNullData:json])
+    if([json isNullData])
         return;
     
     NSDictionary *dict=json[0];

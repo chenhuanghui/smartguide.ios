@@ -101,7 +101,7 @@
             
             _pageComment=0;
             _isLoadingMoreComment=false;
-            _canLoadMoreComment=_shop.topCommentsObjects.count==10;
+            _canLoadMoreComment=_shop.topCommentsObjects.count>=10;
             
             _sortComment=SORT_SHOP_COMMENT_TOP_AGREED;
             
@@ -143,9 +143,9 @@
         idShop=_shop.idShop.integerValue;
     
     _operationShopUser=[[ASIOperationShopUser alloc] initWithIDShop:_shop.idShop.integerValue userLat:userLat() userLng:userLng()];
-    _operationShopUser.delegatePost=self;
+    _operationShopUser.delegate=self;
     
-    [_operationShopUser startAsynchronous];
+    [_operationShopUser addToQueue];
 }
 
 +(NSString *)screenCode
@@ -237,7 +237,7 @@
         
         _pageComment=0;
         _isLoadingMoreComment=false;
-        _canLoadMoreComment=_shop.topCommentsObjects.count==10;
+        _canLoadMoreComment=_shop.topCommentsObjects.count>=10;
         
         _sortComment=SORT_SHOP_COMMENT_TOP_AGREED;
         
@@ -257,7 +257,7 @@
         
         ASIOperationShopComment *ope=(ASIOperationShopComment*)operation;
         
-        _canLoadMoreComment=ope.comments.count==10;
+        _canLoadMoreComment=ope.comments.count>=10;
         _isLoadingMoreComment=false;
         _pageComment++;
         
@@ -839,9 +839,9 @@
 -(void) requestComments
 {
     _operationShopComment=[[ASIOperationShopComment alloc] initWithIDShop:_shop.idShop.integerValue page:_pageComment+1 sort:_sortComment];
-    _operationShopComment.delegatePost=self;
+    _operationShopComment.delegate=self;
     
-    [_operationShopComment startAsynchronous];
+    [_operationShopComment addToQueue];
 }
 
 -(bool)userCommentCanLoadMore:(SUUserCommentCell *)cell
@@ -869,16 +869,16 @@
     [self.view showLoading];
     
     _opeartionPostComment=[[ASIOperationPostComment alloc] initWithIDShop:_shop.idShop.integerValue userLat:userLat() userLng:userLng() comment:comment sort:_sortComment];
-    _opeartionPostComment.delegatePost=self;
+    _opeartionPostComment.delegate=self;
     
-    [_opeartionPostComment startAsynchronous];
+    [_opeartionPostComment addToQueue];
     
     if([[FacebookManager shareInstance] permissionTypeForPostToWall]==FACEBOOK_PERMISSION_GRANTED)
     {
         _operationSocialShare=[[ASIOperationSocialShare alloc] initWithContent:comment url:nil image:nil accessToken:[FBSession activeSession].accessTokenData.accessToken socialType:SOCIAL_FACEBOOK];
-        _operationSocialShare.delegatePost=self;
+        _operationSocialShare.delegate=self;
         
-        [_operationSocialShare startAsynchronous];
+        [_operationSocialShare addToQueue];
     }
 }
 

@@ -62,9 +62,7 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     HomeImageCell *cell=[tableView dequeueReusableCellWithIdentifier:[HomeImageCell reuseIdentifier]];
-    
-    cell.table=tableView;
-    cell.indexPath=indexPath;
+
     [cell loadImage:_images[indexPath.row]];
     
     return cell;
@@ -75,7 +73,7 @@
     for(HomeImageCell *cell in table.visibleCells)
     {
         if([cell isKindOfClass:[HomeImageCell class]])
-            [cell tableDidScroll];
+            [cell tableDidScroll:table];
     }
 }
 

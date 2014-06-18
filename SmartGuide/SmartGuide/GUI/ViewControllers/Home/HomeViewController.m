@@ -119,7 +119,7 @@
     _homes=[[NSMutableArray alloc] initWithArray:_homesAPI];
     _homesAPI=nil;
     _isLoadingMore=false;
-    _canLoadMore=_homes.count==10;
+    _canLoadMore=_homes.count>=10;
     _page++;
     
     [UIView animateWithDuration:DURATION_DEFAULT animations:^{
@@ -261,6 +261,12 @@
             [SGData shareInstance].isShowedNotice=@(true);
         } onCancel:nil];
     }
+    else
+    {
+        [SGData shareInstance].isShowedNotice=@(true);
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:NOTIFICATION_USER_NOTICE_FINISHED object:nil];
+        _isRegisterNotificationUserNotice=false;
+    }
 }
 
 -(void)viewWillAppearOnce
@@ -317,9 +323,9 @@
     }
     
     _operationUserHome=[[ASIOperationUserHome alloc] initWithPage:_page+1 userLat:HOME_LOCATION().latitude userLng:HOME_LOCATION().longitude];
-    _operationUserHome.delegatePost=self;
+    _operationUserHome.delegate=self;
     
-    [_operationUserHome startAsynchronous];
+    [_operationUserHome addToQueue];
 }
 
 -(void) reloadData
@@ -349,7 +355,7 @@
         else if(txtRefresh.refreshState==TEXTFIELD_REFRESH_STATE_NORMAL)
         {
             [_homes addObjectsFromArray:ope.homes];
-            _canLoadMore=ope.homes.count==10;
+            _canLoadMore=ope.homes.count>=10;
             _isLoadingMore=false;
             _page++;
             

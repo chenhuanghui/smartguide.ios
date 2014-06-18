@@ -39,7 +39,7 @@
     status=0;
     message=@"";
     
-    if([self isNullData:json])
+    if([json isNullData])
         return;
     
     status=[[NSNumber numberWithObject:json[0][@"status"]] integerValue];

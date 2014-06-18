@@ -33,7 +33,7 @@
 -(void)onCompletedWithJSON:(NSArray *)json
 {
     jsonData=@"";
-    if([self isNullData:json])
+    if([json isNullData])
         return;
     
     NSData* data = [json objectAtIndex:0];

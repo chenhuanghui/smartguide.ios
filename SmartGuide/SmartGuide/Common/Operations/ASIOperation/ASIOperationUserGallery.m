@@ -25,7 +25,7 @@
 -(void)onCompletedWithJSON:(NSArray *)json
 {
     self.galleries=[NSMutableArray new];
-    if([self isNullData:json])
+    if([json isNullData])
         return;
     
     Shop *shop=[Shop shopWithIDShop:[self.keyValue[IDSHOP] integerValue]];
