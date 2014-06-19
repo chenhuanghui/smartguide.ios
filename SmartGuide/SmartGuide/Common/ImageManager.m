@@ -477,24 +477,6 @@ static char ImageViewDefaultBackgroundKey;
     }];
 }
 
--(void) loadImageWithDefaultLoading:(NSString*) url resize:(UIImage*(^)(UIImage *downloadImage)) resize willSize:(CGSize) willSize
-{
-    __weak UIImageView *wSelf=self;
-    
-    [self setImageWithURL:URL(url) onDownload:^{
-        if(wSelf)
-            [wSelf showLoadingImageSmall];
-    } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
-        if(wSelf)
-            [wSelf stopLoadingImageSmall];
-    } resize:^UIImage *(UIImage *downloadImage) {
-        if(wSelf && resize)
-            return resize(downloadImage);
-        
-        return nil;
-    } willSize:willSize];
-}
-
 -(void) loadImageWithDefaultLoadingAndBackground:(NSString*) url
 {
     __weak UIImageView *wSelf=self;
@@ -516,6 +498,80 @@ static char ImageViewDefaultBackgroundKey;
                 [wSelf showDefaultBackground];
         }
     }];
+}
+
+-(void) loadImageWithDefaultLoading:(NSString*) url resize:(UIImage*(^)(UIImage *downloadImage)) resize willSize:(CGSize) willSize
+{
+    __weak UIImageView *wSelf=self;
+    
+    [self setImageWithURL:URL(url) onDownload:^{
+        if(wSelf)
+            [wSelf showLoadingImageSmall];
+    } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
+        if(wSelf)
+            [wSelf stopLoadingImageSmall];
+    } resize:^UIImage *(UIImage *downloadImage) {
+        if(wSelf && resize)
+            return resize(downloadImage);
+        
+        return nil;
+    } willSize:willSize];
+}
+
+-(void) loadImageWithDefaultBackground:(NSString*) url resize:(UIImage*(^)(UIImage *downloadImage)) resize willSize:(CGSize) willSize
+{
+    __weak UIImageView *wSelf=self;
+    
+    [self setImageWithURL:URL(url) onDownload:^{
+        if(wSelf)
+        {
+            [wSelf showDefaultBackground];
+            [wSelf showLoadingImageSmall];
+        }
+    } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
+        if(wSelf)
+        {
+            [wSelf stopLoadingImageSmall];
+            
+            if(image)
+                [wSelf removeDefaultBackground];
+            else
+                [wSelf showDefaultBackground];
+        }
+    } resize:^UIImage *(UIImage *downloadImage) {
+        if(wSelf && resize)
+            return resize(downloadImage);
+        
+        return nil;
+    } willSize:willSize];
+}
+
+-(void) loadImageWithDefaultLoadingAndBackground:(NSString*) url resize:(UIImage*(^)(UIImage *downloadImage)) resize willSize:(CGSize) willSize
+{
+    __weak UIImageView *wSelf=self;
+    
+    [self setImageWithURL:URL(url) onDownload:^{
+        if(wSelf)
+        {
+            [wSelf showDefaultBackground];
+            [wSelf showLoadingImageSmall];
+        }
+    } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
+        if(wSelf)
+        {
+            [wSelf stopLoadingImageSmall];
+            
+            if(image)
+                [wSelf removeDefaultBackground];
+            else
+                [wSelf showDefaultBackground];
+        }
+    } resize:^UIImage *(UIImage *downloadImage) {
+        if(wSelf && resize)
+            return resize(downloadImage);
+        
+        return nil;
+    } willSize:willSize];
 }
 
 @end

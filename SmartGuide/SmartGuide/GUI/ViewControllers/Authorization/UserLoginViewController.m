@@ -119,6 +119,13 @@
     
     _countdown=21;
     [self setCountdown];
+    
+#if DEBUG
+    if([SGData shareInstance].buildMode.integerValue==0)
+        txtPhone.text=@"2946";
+    else
+        txtPhone.text=@"6320";
+#endif
 }
 
 -(void)viewDidAppear:(BOOL)animated

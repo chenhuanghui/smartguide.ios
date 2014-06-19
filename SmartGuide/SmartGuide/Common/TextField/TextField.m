@@ -290,7 +290,7 @@
             imgvRefresh.hidden=false;
             
             float angle=DEGREES_TO_RADIANS(self.l_v_y-_startRotationY);
-            angle*=4.5f;
+            angle*=10.5f;
 
             if(angle>M_PI*2)
             {

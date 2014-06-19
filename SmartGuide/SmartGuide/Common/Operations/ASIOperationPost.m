@@ -45,8 +45,8 @@ static NSMutableArray *_asioperations=nil;
     
     [self commonInit];
     
-    self.sourceURL=[_url copy];
     self.requestURL=request;
+    self.sourceURL=[_url copy];
     
     return self;
 }
@@ -62,8 +62,8 @@ static NSMutableArray *_asioperations=nil;
     
     [self commonInit];
     
-    self.sourceURL=[_url copy];
     self.requestURL=request;
+    self.sourceURL=[_url copy];
     
     return self;
 }
@@ -165,7 +165,7 @@ static NSMutableArray *_asioperations=nil;
         }
         else
         {
-            self.requestURL=[[ASIOperationManager shareInstance].requestSerializer requestBySerializingRequest:self.requestURL withParameters:self.keyValue error:&error];
+            self.requestURL=[[ASIOperationManager shareInstance].requestSerializer requestBySerializingRequest:self.request withParameters:self.keyValue error:&error];
         }
     }
 }
@@ -337,23 +337,16 @@ static NSMutableArray *_asioperations=nil;
 
 -(void)restart
 {
-    ASIOperationPost *ope=[self copy];
+    ASIOperationPost *ope=[[[self class] alloc] initWithURL:self.sourceURL];
+    ope.delegate=self.delegate;
+    ope.keyValue=self.keyValue;
+    ope.imagesData=self.imagesData;
     
-    ope.sourceURL=[self.sourceURL copy];
-    
-    /*
-     NSString *accessToken=[NSString stringWithString:[TokenManager shareInstance].accessToken];
-     ope.url=[ASIOperationPost makeURL:ope.sourceURL accessToken:accessToken];
-     
-     ope.delegate=ope;
-     ope.delegate=self.delegate;
-     self.delegate=nil;
-     
-     NSLog(@"%@ restart %@ %@",NSStringFromClass([ope class]),ope.url,ope.keyValue);
-     [ope startAsynchronous];
+    NSLog(@"%@ %@ restart %@ %@ %@",NSStringFromClass([ope class]),ope.request.HTTPMethod,ope.request.URL,ope.keyValue, ope.imagesData.allKeys?:@"");
      
      [_asioperations removeObject:self];
-     */
+    
+    [ope addToQueue];
 }
 
 -(void)onCompletedWithJSON:(NSArray *)json
@@ -391,6 +384,8 @@ static NSMutableArray *_asioperations=nil;
     ASIOperationPost *ope=[super copyWithZone:zone];
     
     ope.keyValue=self.keyValue;
+    ope.imagesData=self.imagesData;
+    ope.sourceURL=self.sourceURL;
     
     return ope;
 }
