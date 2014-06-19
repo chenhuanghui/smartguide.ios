@@ -32,7 +32,7 @@ static SGData *_sgData=nil;
         self.userNotice=@"";
         
 #if DEBUG
-        self.buildMode=@(0);
+        self.buildMode=@([[NSUserDefaults standardUserDefaults] integerForKey:@"buildMode"]);
 #else
         self.buildMode=@(1);
 #endif
