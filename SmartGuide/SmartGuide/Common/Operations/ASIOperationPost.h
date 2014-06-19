@@ -65,7 +65,6 @@ enum OPERATION_METHOD_TYPE
 
 @property (nonatomic, weak) id<ASIOperationPostDelegate> delegate;
 @property (nonatomic, strong) NSMutableDictionary *keyValue;
-//@property (nonatomic, strong) NSString *operationAccessToken;
 @property (nonatomic, strong) NSURL *sourceURL;
 @property (nonatomic, strong) NSString *tScreen;
 @property (nonatomic, strong) NSMutableDictionary *tData;
