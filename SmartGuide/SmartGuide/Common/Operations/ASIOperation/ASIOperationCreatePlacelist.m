@@ -13,7 +13,7 @@
 
 -(ASIOperationCreatePlacelist *)initWithName:(NSString *)name desc:(NSString *)desc idShop:(NSString *)idShops userLat:(double)userLat userLng:(double)userLng
 {
-    self=[super initWithURL:[NSURL URLWithString:SERVER_API_MAKE(API_CREATE_PLACELIST)]];
+    self=[super initPOSTWithURL:[NSURL URLWithString:SERVER_API_MAKE(API_CREATE_PLACELIST)]];
     
     [self.keyValue setObject:name forKey:@"name"];
     [self.keyValue setObject:desc forKey:@"description"];

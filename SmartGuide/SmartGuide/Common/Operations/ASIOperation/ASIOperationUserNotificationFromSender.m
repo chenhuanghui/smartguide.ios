@@ -12,7 +12,7 @@
 
 -(ASIOperationUserNotificationFromSender *)initWithIDSender:(int)idSender page:(int)page userLat:(double)userLat userLng:(double)userLng
 {
-    self=[super initWithURL:SERVER_API_URL_MAKE(API_USER_NOTIFICATION_LIST_BY_SENDER)];
+    self=[super initPOSTWithURL:SERVER_API_URL_MAKE(API_USER_NOTIFICATION_LIST_BY_SENDER)];
     
     [self.keyValue setObject:@(idSender) forKey:@"idSender"];
     [self.keyValue setObject:@(page) forKey:PAGE];

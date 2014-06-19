@@ -13,7 +13,7 @@
 
 -(ASIOperationSocialShare *)initWithContent:(NSString *)content url:(NSString *)_url image:(UIImage *)image accessToken:(NSString *)accessToken socialType:(enum SOCIAL_TYPE)socialType
 {
-    self=[super initWithURL:[NSURL URLWithString:SERVER_API_MAKE(API_SOCIAL_SHARE)]];
+    self=[super initPOSTWithURL:[NSURL URLWithString:SERVER_API_MAKE(API_SOCIAL_SHARE)]];
 
     NSMutableDictionary *dict=[NSMutableDictionary dictionary];
     

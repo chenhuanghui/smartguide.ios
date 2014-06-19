@@ -9,11 +9,10 @@
 #import "ASIOperationUploadSocialProfile.h"
 
 @implementation ASIOperationUploadSocialProfile
-@synthesize status,message,errorCode;
 
 -(ASIOperationUploadSocialProfile *)initWithProfile:(NSString *)profile socialType:(enum SOCIAL_TYPE)socialType accessToken:(NSString *)accessToken
 {
-    self=[super initWithURL:[NSURL URLWithString:SERVER_API_MAKE(API_USER_UPLOAD_SOCIAL_PROFILE)]];
+    self=[super initPOSTWithURL:[NSURL URLWithString:SERVER_API_MAKE(API_USER_UPLOAD_SOCIAL_PROFILE)]];
     
     [self.keyValue setObject:profile forKey:@"profile"];
     [self.keyValue setObject:accessToken forKey:@"accessToken"];
@@ -22,19 +21,24 @@
     return self;
 }
 
+-(void)onFinishLoading
+{
+    self.status=@(0);
+    self.message=@"";
+    self.errorCode=@(0);
+}
+
 -(void)onCompletedWithJSON:(NSArray *)json
 {
-    status=0;
-    message=@"";
     if([json isNullData])
         return;
     
     NSDictionary *dict=json[0];
     
-    status=[[NSNumber numberWithObject:dict[@"status"]] integerValue];
-    message=[NSString stringWithStringDefault:dict[@"message"]];
+    self.status=[NSNumber numberWithObject:dict[@"status"]];
+    self.message=[NSString stringWithStringDefault:dict[@"message"]];
     
-    if(status==1)
+    if(self.status.integerValue==1)
     {
         User *user=[User makeWithDictionary:dict[@"profile"]];
         
@@ -42,7 +46,7 @@
         [DataManager shareInstance].currentUser=user;
     }
     else
-        errorCode=[[NSNumber numberWithObject:dict[@"errorCode"]] integerValue];
+        self.errorCode=[NSNumber numberWithObject:dict[@"errorCode"]];
 }
 
 @end

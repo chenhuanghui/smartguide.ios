@@ -13,7 +13,7 @@
 
 -(ASIOperationLoveShop *)initWithIDShop:(int)idShop userLat:(double)userLat userLng:(double)userLng loveStatus:(enum LOVE_STATUS)_loveStatus
 {
-    self=[super initWithURL:[NSURL URLWithString:SERVER_API_MAKE(API_LOVE_SHOP)]];
+    self=[super initPOSTWithURL:[NSURL URLWithString:SERVER_API_MAKE(API_LOVE_SHOP)]];
 
     [self.keyValue setObject:@(idShop) forKey:IDSHOP];
     [self.keyValue setObject:@(userLat) forKey:USER_LATITUDE];

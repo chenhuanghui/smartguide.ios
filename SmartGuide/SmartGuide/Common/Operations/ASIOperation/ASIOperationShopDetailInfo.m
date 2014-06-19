@@ -13,7 +13,7 @@
 
 -(ASIOperationShopDetailInfo *)initWithIDShop:(int)idShop userLat:(double)userLat userLng:(double)userLng
 {
-    self=[super initWithURL:[NSURL URLWithString:SERVER_API_MAKE(API_SHOP_DETAIL_INFO)]];
+    self=[super initPOSTWithURL:[NSURL URLWithString:SERVER_API_MAKE(API_SHOP_DETAIL_INFO)]];
     
     [self.keyValue setObject:@(idShop) forKey:IDSHOP];
     [self.keyValue setObject:@(userLat) forKey:USER_LATITUDE];

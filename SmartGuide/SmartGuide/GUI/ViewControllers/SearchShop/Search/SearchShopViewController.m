@@ -14,13 +14,17 @@
 #import "LoadingMoreCell.h"
 #import "CityViewController.h"
 #import "CityManager.h"
+#import "ASIOperationPlacelistGetList.h"
+#import "OperationSearchAutocomplete.h"
 
 #define SEARCH_SHOP_NUMBER_OF_HIGHLIGHT_PLACE_LIST 3
 
-@interface SearchShopViewController ()<CityControllerDelegate>
+@interface SearchShopViewController ()<CityControllerDelegate,UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate,ASIOperationPostDelegate,UISearchBarDelegate,UISearchDisplayDelegate>
 {
     SearchShopBGView *bg1;
     SearchShopBGView *bg2;
+    
+    ASIOperationPlacelistGetList *_operationPlacelistGetList;
 }
 
 @end
@@ -236,25 +240,13 @@
         
         [self reloadData];
     }
-}
-
--(void)ASIOperaionPostFailed:(ASIOperationPost *)operation
-{
-    if([operation isKindOfClass:[ASIOperationPlacelistGetList class]])
-    {
-        _operationPlacelistGetList=nil;
-    }
-}
-
--(void)operationURLFinished:(OperationURL *)operation
-{
-    if([operation isKindOfClass:[OperationSearchAutocomplete class]])
+    else if([operation isKindOfClass:[OperationSearchAutocomplete class]])
     {
         OperationSearchAutocomplete *ope=(OperationSearchAutocomplete*) operation;
         
         [_autocomplete setObject:@[ope.shops,ope.placelists] forKey:ope.keyword];
         [_searchInQuery removeObject:ope.keyword];
-
+        
         if([_operationsAutocompleted objectForKey:ope.keyword])
             [_operationsAutocompleted removeObjectForKey:ope.keyword];
         
@@ -263,9 +255,13 @@
     }
 }
 
--(void)operationURLFailed:(OperationURL *)operation
+-(void)ASIOperaionPostFailed:(ASIOperationPost *)operation
 {
-    if([operation isKindOfClass:[OperationSearchAutocomplete class]])
+    if([operation isKindOfClass:[ASIOperationPlacelistGetList class]])
+    {
+        _operationPlacelistGetList=nil;
+    }
+    else if([operation isKindOfClass:[OperationSearchAutocomplete class]])
     {
         OperationSearchAutocomplete *ope=(OperationSearchAutocomplete*) operation;
         
@@ -621,7 +617,7 @@
     OperationSearchAutocomplete *ope=[[OperationSearchAutocomplete alloc] initWithKeyword:keyword idCity:_idCity];
     ope.delegate=self;
     
-    [ope start];
+    [ope addToQueue];
     
     if(!_operationsAutocompleted)
         _operationsAutocompleted=[NSMutableDictionary new];
@@ -658,9 +654,8 @@
     {
         while (_operationsAutocompleted.allKeys.count>0) {
             NSString *key=_operationsAutocompleted.allKeys[0];
-            OperationURL *ope=[_operationsAutocompleted objectForKey:key];
-            ope.delegate=nil;
-            [ope cancel];
+            ASIOperationPost *ope=[_operationsAutocompleted objectForKey:key];
+            [ope clearDelegatesAndCancel];
             
             [_operationsAutocompleted removeObjectForKey:key];
         }

@@ -8,8 +8,6 @@
 
 #import "SGViewController.h"
 #import "SearchViewController.h"
-#import "ASIOperationPlacelistGetList.h"
-#import "OperationSearchAutocomplete.h"
 
 enum SEARCH_SHOP_VIEW_MODE {
     SEARCH_SHOP_VIEW_PLACELIST = 0,
@@ -27,7 +25,7 @@ enum SEARCH_SHOP_VIEW_MODE {
 
 @end
 
-@interface SearchShopViewController : SGViewController<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate,SearchControllerHandle,ASIOperationPostDelegate,OperationURLDelegate,UISearchBarDelegate,UISearchDisplayDelegate>
+@interface SearchShopViewController : SGViewController<SearchControllerHandle>
 {
     __weak IBOutlet UITableView *table;
     __weak IBOutlet UITextField *txt;
@@ -48,8 +46,6 @@ enum SEARCH_SHOP_VIEW_MODE {
     //value 2: key placelist value array placelist-dictionary từ api
     NSMutableDictionary *_autocomplete;
     NSMutableArray *_searchInQuery;
-    
-    ASIOperationPlacelistGetList *_operationPlacelistGetList;
     
     int _pagePlacelist;
     NSMutableArray *_placeLists;

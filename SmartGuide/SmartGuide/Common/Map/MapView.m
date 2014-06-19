@@ -11,6 +11,17 @@
 #import "Utility.h"
 #import "ShopList.h"
 #import "LocationManager.h"
+#import "OperationRouterMap.h"
+#import "OperationGeoCoder.h"
+
+@interface MapView()<ASIOperationPostDelegate>
+{
+    OperationRouterMap *_operationRouter;
+    OperationRouterMap *_operationRouterUserLocation;
+    OperationGeoCoder *_operationGeoCoder;
+}
+
+@end
 
 @implementation MapView
 @synthesize routerDelegate,geoCoderDelegate;
@@ -62,19 +73,19 @@
 {
     if(_operationGeoCoder)
     {
-        [_operationGeoCoder cancel];
+        [_operationGeoCoder clearDelegatesAndCancel];
         _operationGeoCoder=nil;
     }
     
     if(_operationRouter)
     {
-        [_operationRouter cancel];
+        [_operationRouter clearDelegatesAndCancel];
         _operationRouter=nil;
     }
     
     if(_operationRouterUserLocation)
     {
-        [_operationRouterUserLocation cancel];
+        [_operationRouterUserLocation clearDelegatesAndCancel];
         _operationRouterUserLocation=nil;
     }
     
@@ -168,7 +179,7 @@
     _operationRouter=[[OperationRouterMap alloc] initWithSource:[fromAnno coordinate] destination:[toAnn coordinate] localeIdentifier:@"vn-vi"];
     _operationRouter.delegate=self;
     
-    [_operationRouter start];
+    [_operationRouter addToQueue];
 }
 
 -(void)routerToUserLocation:(id<MKAnnotation>)fromAnno
@@ -181,7 +192,7 @@
     _operationRouterUserLocation=[[OperationRouterMap alloc] initWithSource:self.userLocation.coordinate destination:[fromAnno coordinate] localeIdentifier:@"vn-vi"];
     _operationRouterUserLocation.delegate=self;
     
-    [_operationRouterUserLocation start];
+    [_operationRouterUserLocation addToQueue];
 }
 
 -(void)cancelUserRouter
@@ -204,7 +215,7 @@
     }
 }
 
--(void)operationURLFinished:(OperationURL *)operation
+-(void)ASIOperaionPostFinished:(ASIOperationPost *)operation
 {
     if([operation isKindOfClass:[OperationRouterMap class]])
     {
@@ -261,7 +272,7 @@
     }
 }
 
--(void)operationURLFailed:(OperationURL *)operation
+-(void)ASIOperaionPostFailed:(ASIOperationPost *)operation
 {
     if([operation isKindOfClass:[OperationRouterMap class]])
     {
@@ -335,8 +346,7 @@
 {
     if(_operationGeoCoder)
     {
-        _operationGeoCoder.delegate=nil;
-        [_operationGeoCoder cancel];
+        [_operationGeoCoder clearDelegatesAndCancel];
         _operationGeoCoder=nil;
     }
     
@@ -345,7 +355,7 @@
     _operationGeoCoder=[[OperationGeoCoder alloc] initWithLat:coordinate.latitude lng:coordinate.longitude language:GEOCODER_LANGUAGE_VN];
     _operationGeoCoder.delegate=self;
     
-    [_operationGeoCoder start];
+    [_operationGeoCoder addToQueue];
     
     if(self.geoCoderDelegate && [self.geoCoderDelegate respondsToSelector:@selector(mapViewGeoCoderStarted:)])
         [self.geoCoderDelegate mapViewGeoCoderStarted:self];

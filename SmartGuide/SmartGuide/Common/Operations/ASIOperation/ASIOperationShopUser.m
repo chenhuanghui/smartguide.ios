@@ -19,7 +19,7 @@
 -(ASIOperationShopUser *) initWithIDShop:(int)idShop userLat:(double)userLat userLng:(double)userLng
 {
     NSURL *_url=[NSURL URLWithString:SERVER_API_MAKE(API_SHOP_DETAIL)];
-    self=[super initWithURL:_url];
+    self=[super initPOSTWithURL:_url];
     
     [self.keyValue setObject:@(idShop) forKey:IDSHOP];
     [self.keyValue setObject:@(userLat) forKey:USER_LATITUDE];

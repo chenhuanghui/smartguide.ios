@@ -6,13 +6,13 @@
 //  Copyright (c) 2014 Redbase. All rights reserved.
 //
 
-#import "OperationURL.h"
+#import "ASIOperationPost.h"
 
-@interface OperationSearchAutocomplete : OperationURL
+@interface OperationSearchAutocomplete : ASIOperationPost
 
 -(OperationSearchAutocomplete*) initWithKeyword:(NSString*) keyword idCity:(int) idCity;
 
-@property (nonatomic, strong) NSString *keyword;
+-(NSString*) keyword;
 @property (nonatomic, strong) NSMutableArray *placelists;
 @property (nonatomic, strong) NSMutableArray *shops;
 @property (nonatomic, strong) NSString *highlightTag;

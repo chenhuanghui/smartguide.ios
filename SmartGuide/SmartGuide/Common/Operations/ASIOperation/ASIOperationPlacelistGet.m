@@ -13,7 +13,7 @@
 
 -(ASIOperationPlacelistGet *)initWithIDPlacelist:(int)idPlaceList userLat:(double)userLat userLng:(double)userLng sort:(enum SORT_LIST)sort page:(NSUInteger)page
 {
-    self=[super initWithURL:[NSURL URLWithString:SERVER_API_MAKE(API_PLACELIST_GET)]];
+    self=[super initPOSTWithURL:[NSURL URLWithString:SERVER_API_MAKE(API_PLACELIST_GET)]];
     
     [self.keyValue setObject:@(idPlaceList) forKey:@"idPlacelist"];
     [self.keyValue setObject:@(userLat) forKey:@"userLat"];

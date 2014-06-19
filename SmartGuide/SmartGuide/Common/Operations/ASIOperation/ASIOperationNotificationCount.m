@@ -12,7 +12,7 @@
 
 -(ASIOperationNotificationCount *)initWithUserLat:(double)userLat userLng:(double)userLng uuid:(NSString *)uuid
 {
-    self=[super initWithURL:SERVER_API_URL_MAKE(API_USER_NOTIFICATION_COUNT)];
+    self=[super initPOSTWithURL:SERVER_API_URL_MAKE(API_USER_NOTIFICATION_COUNT)];
     
     [self.keyValue setObject:@(userLat) forKey:USER_LATITUDE];
     [self.keyValue setObject:@(userLng) forKey:USER_LONGITUDE];

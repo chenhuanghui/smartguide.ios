@@ -15,7 +15,7 @@
 {
     NSURL *_url=[NSURL URLWithString:SERVER_API_MAKE(API_GET_AVATARS)];
     
-    self=[super initWithURL:_url];
+    self=[super initPOSTWithURL:_url];
 
     return self;
 }

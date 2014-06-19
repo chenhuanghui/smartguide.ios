@@ -12,7 +12,7 @@
 
 -(ASIOperationPlacelistGetDetail *)initWithIDPlacelist:(int)idPlacelist userLat:(double)userLat userLng:(double)userLng sort:(enum SORT_LIST)sort
 {
-    self=[super initWithURL:SERVER_API_URL_MAKE(API_PLACELIST_GET_DETAIL)];
+    self=[super initPOSTWithURL:SERVER_API_URL_MAKE(API_PLACELIST_GET_DETAIL)];
     
     [self.keyValue setObject:@(idPlacelist) forKey:IDPLACELIST];
     [self.keyValue setObject:@(userLat) forKey:USER_LATITUDE];

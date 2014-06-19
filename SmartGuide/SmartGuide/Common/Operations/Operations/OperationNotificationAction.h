@@ -6,10 +6,11 @@
 //  Copyright (c) 2014 Redbase. All rights reserved.
 //
 
-#import "AFOperation.h"
+#import "ASIOperationPost.h"
 
-@interface OperationNotificationAction : AFOperation
+@interface OperationNotificationAction : ASIOperationPost
 
-+(AFOperation*) operationWithURL:(NSString*) url method:(NSString*) method params:(NSString*) params;
++(OperationNotificationAction*) operationWithURL:(NSString*) url method:(NSString*) method params:(NSString*) params;
+-(OperationNotificationAction*) initWithURL:(NSString*) url method:(NSString*) method params:(NSString*) params;
 
 @end

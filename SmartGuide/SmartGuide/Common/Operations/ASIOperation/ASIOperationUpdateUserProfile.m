@@ -13,7 +13,7 @@
 
 -(ASIOperationUpdateUserProfile *) initWithName:(NSString *)name avatar:(NSString *)avatar gender:(enum GENDER_TYPE)gender socialType:(enum SOCIAL_TYPE)socialType birthday:(NSString *)birthday idCity:(int)idCity
 {
-    self=[super initWithURL:[NSURL URLWithString:SERVER_API_MAKE(API_USER_UPDATE_PROFILE)]];
+    self=[super initPOSTWithURL:[NSURL URLWithString:SERVER_API_MAKE(API_USER_UPDATE_PROFILE)]];
     
     [self.keyValue setObject:name forKey:@"name"];
     [self.keyValue setObject:@(gender) forKey:@"gender"];

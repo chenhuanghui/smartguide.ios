@@ -6,14 +6,15 @@
 //  Copyright (c) 2013 Redbase. All rights reserved.
 //
 
-#import "OperationURL.h"
+#import "ASIOperationPost.h"
 
-@interface OperationGetActionCode : OperationURL
+@interface OperationGetActionCode : ASIOperationPost
 
--(OperationGetActionCode*) initWithPhone:(NSString*) phone fScreen:(NSString*) fScreen fData:(NSDictionary*) fData;
+-(OperationGetActionCode*) initWithPhone:(NSString*) phone;
 
-@property (nonatomic, readonly) bool isSuccess;
-@property (nonatomic, readonly) NSString *message;
-@property (nonatomic, readonly) NSString *phone;
+-(NSString*) phone;
+
+@property (nonatomic, strong) NSNumber *isSuccess;
+@property (nonatomic, strong) NSString *message;
 
 @end

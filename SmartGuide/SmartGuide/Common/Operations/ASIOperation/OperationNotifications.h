@@ -6,15 +6,15 @@
 //  Copyright (c) 2013 Redbase. All rights reserved.
 //
 
-#import "OperationURL.h"
+#import "ASIOperationPost.h"
 
 @class NotificationObject,NotificationItem;
 
-@interface OperationNotifications : OperationURL
+@interface OperationNotifications : ASIOperationPost
 
--(OperationNotifications*) initNotificationsWithAccessToken:(NSString*) accessToken version:(NSString*) version;
+-(OperationNotifications*) initVersion:(NSString*) version;
 
-@property (nonatomic, readonly) NotificationObject *object;
+@property (nonatomic, strong) NotificationObject *object;
 
 @end
 

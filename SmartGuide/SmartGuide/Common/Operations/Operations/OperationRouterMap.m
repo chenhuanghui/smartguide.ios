@@ -9,51 +9,48 @@
 #import "OperationRouterMap.h"
 
 @implementation OperationRouterMap
-@synthesize steps;
 
 -(OperationRouterMap *)initWithSource:(CLLocationCoordinate2D)source destination:(CLLocationCoordinate2D)destination localeIdentifier:(NSString *)localeIdentifier
 {
+    self=[super initGETWithRouter:URL(@"http://maps.google.com/maps")];
+    
     NSString* saddr = [NSString stringWithFormat:@"%f,%f", source.latitude, source.longitude];
 	NSString* daddr = [NSString stringWithFormat:@"%f,%f", destination.latitude, destination.longitude];
     
-    NSMutableDictionary *dict=[NSMutableDictionary dictionary];
-    [dict setObject:@"dragdir" forKey:@"output"];
-    [dict setObject:saddr forKey:@"saddr"];
-    [dict setObject:daddr forKey:@"daddr"];
-    [dict setObject:localeIdentifier forKey:@"hl"];
-    
-    self=[super initWithRouter:@"http://maps.google.com/maps" params:dict];
+    [self.keyValue setObject:@"dragdir" forKey:@"output"];
+    [self.keyValue setObject:saddr forKey:@"saddr"];
+    [self.keyValue setObject:daddr forKey:@"daddr"];
+    [self.keyValue setObject:localeIdentifier forKey:@"hl"];
     
     return self;
 }
 
--(bool)canManualHandleData:(id)responseObject
+-(void)addToQueue
 {
-    return true;
+    [super addToQueue];
+    
+    self.responseSerializer=[AFHTTPResponseSerializer serializer];
 }
 
--(void)onCompletedWithJSON:(NSArray *)json
+-(bool)isApplySGData
 {
-    steps=[NSMutableArray array];
+    return false;
+}
+
+-(void)onFinishLoading
+{
+    self.steps=[NSMutableArray array];
+}
+
+-(bool)isHandleResponseString:(NSString *)resString error:(NSError *__autoreleasing *)error
+{
+    resString=resString?:@"";
     
-    NSData* data = [json objectAtIndex:0];
-    NSString* responseString = [[NSString alloc] initWithData:data encoding:self.responseStringEncoding];
+    if(!([resString containsString:@"points"] && [resString containsString:@"levels"]))
+        return true;
     
-    if(!responseString || responseString.length==0)
-    {
-        responseString=[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-    }
-    
-    if(!responseString)
-        responseString=@"";
-    
-    // TODO: better parsing. Regular expression?
-    
-    if(!([responseString containsString:@"points"] && [responseString containsString:@"levels"]))
-        return;
-    
-    NSInteger a = [responseString indexOf:@"points:\"" from:0];
-    NSInteger b = [responseString indexOf:@"\",levels:\"" from:a] - 10;
+    NSInteger a = [resString indexOf:@"points:\"" from:0];
+    NSInteger b = [resString indexOf:@"\",levels:\"" from:a] - 10;
     
     //        NSInteger c = [responseString indexOf:@"tooltipHtml:\"" from:0];
     //        NSInteger d = [responseString indexOf:@"(" from:c];
@@ -61,8 +58,10 @@
     
     //        NSString* info = [[responseString substringFrom:d to:e] stringByReplacingOccurrencesOfString:@"\\x26#160;" withString:@""];
     
-    NSString* encodedPoints = [responseString substringFrom:a to:b];
-    steps=[Utility decodePolyLine:[encodedPoints mutableCopy]];
+    NSString* encodedPoints = [resString substringFrom:a to:b];
+    self.steps=[Utility decodePolyLine:[encodedPoints mutableCopy]];
+    
+    return true;
 }
 
 @end

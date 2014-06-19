@@ -9,43 +9,29 @@
 #import "OperationGPGetUserProfile.h"
 
 @implementation OperationGPGetUserProfile
-@synthesize jsonData;
 
 -(OperationGPGetUserProfile *)initWithAccessToken:(NSString *)accessToken clientID:(NSString *)clientID
 {
     NSString *router=@"https://www.googleapis.com/plus/v1/people/me";
+    self=[super initGETWithRouter:URL(router)];
     
-    NSMutableDictionary *dict=[NSMutableDictionary dictionary];
-    
-    [dict setObject:accessToken forKey:@"access_token"];
-    [dict setObject:clientID forKey:@"key"];
-    
-    self=[super initWithRouter:router params:dict];
+    [self.keyValue setObject:accessToken forKey:@"access_token"];
+    [self.keyValue setObject:clientID forKey:@"key"];
     
     return self;
 }
 
--(bool)canManualHandleData:(id)responseObject
+-(void)onFinishLoading
 {
-    return true;
+    self.jsonData=@"";
 }
 
 -(void)onCompletedWithJSON:(NSArray *)json
 {
-    jsonData=@"";
     if([json isNullData])
         return;
     
-    NSData* data = [json objectAtIndex:0];
-    jsonData = [[NSString alloc] initWithData:data encoding:self.responseStringEncoding];
-    
-    if(!jsonData || jsonData.length==0)
-    {
-        jsonData=[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-    }
-    
-    if(!jsonData)
-        jsonData=@"";
+    self.jsonData = [NSString stringWithStringDefault:json[0]];
 }
 
 @end

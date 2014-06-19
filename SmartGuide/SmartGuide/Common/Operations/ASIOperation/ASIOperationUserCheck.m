@@ -20,7 +20,7 @@
 
 -(ASIOperationUserCheck *)initWithPhone:(NSString *)_phone aciveCode:(NSString *)_activeCode
 {
-    self=[super initWithURL:[NSURL URLWithString:SERVER_IP_MAKE(API_USER_CHECK)]];
+    self=[super initPOSTWithURL:[NSURL URLWithString:SERVER_IP_MAKE(API_USER_CHECK)]];
     
     [self.keyValue setObject:_phone forKey:@"phone"];
     [self.keyValue setObject:_activeCode forKey:@"activeCode"];

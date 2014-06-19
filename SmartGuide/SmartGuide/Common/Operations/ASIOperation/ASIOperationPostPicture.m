@@ -13,7 +13,7 @@
 
 -(ASIOperationPostPicture *)initWithIDUserGallery:(int)idUserGallery userLat:(double)userLat userLng:(double)userLng description:(NSString *)desc
 {
-    self=[super initWithURL:SERVER_API_URL_MAKE(API_USER_POST_PICTURE)];
+    self=[super initPOSTWithURL:SERVER_API_URL_MAKE(API_USER_POST_PICTURE)];
     
     [self.keyValue setObject:@(idUserGallery) forKey:@"idUserGallery"];
     [self.keyValue setObject:@(userLat) forKey:USER_LATITUDE];

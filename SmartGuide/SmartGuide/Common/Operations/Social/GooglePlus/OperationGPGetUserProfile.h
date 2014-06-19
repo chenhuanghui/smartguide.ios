@@ -6,12 +6,12 @@
 //  Copyright (c) 2014 Redbase. All rights reserved.
 //
 
-#import "OperationURL.h"
+#import "ASIOperationPost.h"
 
-@interface OperationGPGetUserProfile : OperationURL
+@interface OperationGPGetUserProfile : ASIOperationPost
 
 -(OperationGPGetUserProfile*) initWithAccessToken:(NSString*) accessToken clientID:(NSString*) clientID;
 
-@property (nonatomic, readonly) NSString *jsonData;
+@property (nonatomic, strong) NSString *jsonData;
 
 @end

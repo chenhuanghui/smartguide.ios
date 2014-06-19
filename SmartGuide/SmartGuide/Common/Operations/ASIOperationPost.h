@@ -28,6 +28,12 @@
 
 @class ASIOperationPost;
 
+enum OPERATION_METHOD_TYPE
+{
+    OPERATION_METHOD_TYPE_GET=0,
+    OPERATION_METHOD_TYPE_POST=1
+};
+
 @protocol ASIOperationPostDelegate <NSObject>
 
 -(void) ASIOperaionPostFinished:(ASIOperationPost*) operation;
@@ -37,14 +43,20 @@
 
 @interface ASIOperationPost : AFHTTPRequestOperation
 
--(ASIOperationPost*) initWithURL:(NSURL*) url;
--(ASIOperationPost*) initWithRouter:(NSURL*) url;
+-(ASIOperationPost*) initPOSTWithURL:(NSURL*) url;
+-(ASIOperationPost*) initPOSTWithRouter:(NSURL*) url;
+-(ASIOperationPost*) initGETWithURL:(NSURL*) url;
+-(ASIOperationPost*) initGETWithRouter:(NSURL*) url;
+-(ASIOperationPost*) initRouterWithMethod:(enum OPERATION_METHOD_TYPE) methodType url:(NSString*) url;
 
+-(void) onFinishLoading;
 -(void) onCompletedWithJSON:(NSArray*) json;
 -(void) onFailed:(NSError *)error;
 -(void) notifyCompleted;
 -(void) notifyFailed:(NSError*) error;
 -(void) restart;
+-(bool) isApplySGData;
+-(bool) isHandleResponseString:(NSString*) resString error:(NSError**) error;
 
 -(void) addToQueue;
 -(void) clearDelegatesAndCancel;
@@ -61,6 +73,7 @@
 @property (nonatomic, strong) NSMutableDictionary *fData;
 @property (nonatomic, strong) NSFetchedResultsController *fetchedController;
 @property (nonatomic, strong) NSMutableDictionary *imagesData;
+@property (nonatomic, strong) NSMutableDictionary *storeData;
 
 @end
 
@@ -73,5 +86,9 @@
 -(void) addOperation:(ASIOperationPost*) operation;
 
 -(void) clearAllOperation;
+
+@end
+
+@interface ASIOperationResponseSerializer : AFJSONResponseSerializer
 
 @end

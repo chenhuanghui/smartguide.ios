@@ -8,10 +8,13 @@
 
 #import "TokenManager.h"
 #import "Flags.h"
+#import "OperationRefreshToken.h"
 
-@interface TokenManager()
-
-
+@interface TokenManager()<ASIOperationPostDelegate>
+{
+    bool _isRefreshingToken;
+    OperationRefreshToken *_operationRefreshToken;
+}
 
 @end
 
@@ -46,10 +49,10 @@ static TokenManager *_tokenManager=nil;
     
     _operationRefreshToken=[[OperationRefreshToken alloc] initWithClientID:CLIENT_ID secretID:SECRET_ID refreshToken:self.refreshToken];
     _operationRefreshToken.delegate=self;
-    [_operationRefreshToken start];
+    [_operationRefreshToken addToQueue];
 }
 
--(void)operationURLFailed:(OperationURL *)operation
+-(void)ASIOperaionPostFailed:(ASIOperationPost *)operation
 {
     if([operation isKindOfClass:[OperationRefreshToken class]])
     {
@@ -60,7 +63,7 @@ static TokenManager *_tokenManager=nil;
     }
 }
 
--(void)operationURLFinished:(OperationURL *)operation
+-(void)ASIOperaionPostFinished:(ASIOperationPost *)operation
 {
     if([operation isKindOfClass:[OperationRefreshToken class]])
     {

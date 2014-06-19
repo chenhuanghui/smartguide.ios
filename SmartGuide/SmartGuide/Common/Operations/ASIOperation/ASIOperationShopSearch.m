@@ -13,7 +13,7 @@
 
 -(ASIOperationShopSearch *)initWithKeywords:(NSString *)keywords userLat:(double)userLat userLng:(double)userLng page:(NSUInteger)page sort:(enum SORT_LIST)sort idCity:(int)idCity
 {
-    self=[super initWithURL:[NSURL URLWithString:SERVER_API_MAKE(API_SHOP_SEARCH)]];
+    self=[super initPOSTWithURL:[NSURL URLWithString:SERVER_API_MAKE(API_SHOP_SEARCH)]];
     
     [self.keyValue setObject:keywords forKey:@"keyWords"];
     [self.keyValue setObject:@(userLat) forKey:USER_LATITUDE];

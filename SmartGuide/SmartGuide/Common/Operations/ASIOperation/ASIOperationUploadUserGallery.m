@@ -15,7 +15,7 @@
 
 -(ASIOperationUploadUserGallery *) initWithIDShop:(int)idShop image:(NSData *)image userLat:(double)userLat userLng:(double)userLng
 {
-    self=[super initWithURL:[NSURL URLWithString:SERVER_API_MAKE(API_USER_UPLOAD_USER_GALLERY)]];
+    self=[super initPOSTWithURL:[NSURL URLWithString:SERVER_API_MAKE(API_USER_UPLOAD_USER_GALLERY)]];
     
     [self.keyValue setObject:@(idShop) forKey:IDSHOP];
     [self.keyValue setObject:@(userLat) forKey:USER_LATITUDE];

@@ -6,12 +6,12 @@
 //  Copyright (c) 2013 Redbase. All rights reserved.
 //
 
-#import "OperationURL.h"
+#import "ASIOperationPost.h"
 
-@interface OperationRouterMap : OperationURL
+@interface OperationRouterMap : ASIOperationPost
 
 -(OperationRouterMap*) initWithSource:(CLLocationCoordinate2D) source destination:(CLLocationCoordinate2D) destination localeIdentifier:(NSString*) localeIdentifier;
 
-@property (nonatomic, readonly) NSMutableArray *steps;
+@property (nonatomic, strong) NSMutableArray *steps;
 
 @end

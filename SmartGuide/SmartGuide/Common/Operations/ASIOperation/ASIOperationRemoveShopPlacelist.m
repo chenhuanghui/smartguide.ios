@@ -12,7 +12,7 @@
 
 -(ASIOperationRemoveShopPlacelist *)initWithIDPlacelist:(int)idPlace idShops:(NSString*)idShops userLat:(double)userLat userLng:(double)userLng
 {
-    self=[super initWithURL:SERVER_API_URL_MAKE(API_REMOVE_SHOP_PLACELISTS)];
+    self=[super initPOSTWithURL:SERVER_API_URL_MAKE(API_REMOVE_SHOP_PLACELISTS)];
     
     [self.keyValue setObject:@(idPlace) forKey:IDPLACELIST];
     [self.keyValue setObject:idShops forKey:@"idShops"];

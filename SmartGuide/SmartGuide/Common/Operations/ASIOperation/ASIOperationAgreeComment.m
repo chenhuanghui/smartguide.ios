@@ -14,7 +14,7 @@
 
 -(ASIOperationAgreeComment *)initWithIDComment:(int)idCmt userLat:(double)userLat userLng:(double)userLng isAgree:(enum AGREE_STATUS)isAgree
 {
-    self=[super initWithURL:[NSURL URLWithString:SERVER_API_MAKE(API_AGREE_COMMENT)]];
+    self=[super initPOSTWithURL:[NSURL URLWithString:SERVER_API_MAKE(API_AGREE_COMMENT)]];
     
     [self.keyValue setObject:@(idCmt) forKey:@"idComment"];
     [self.keyValue setObject:@(userLat) forKey:@"userLat"];

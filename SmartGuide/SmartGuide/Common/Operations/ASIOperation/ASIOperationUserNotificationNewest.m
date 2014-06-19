@@ -12,7 +12,7 @@
 
 -(ASIOperationUserNotificationNewest *)initWithPage:(int)page userLat:(double)userLat userLng:(double)userLng type:(enum USER_NOTIFICATION_DISPLAY_TYPE)type
 {
-    self=[super initWithURL:SERVER_API_URL_MAKE(API_USER_NOTIFICATION_NEWEST)];
+    self=[super initPOSTWithURL:SERVER_API_URL_MAKE(API_USER_NOTIFICATION_NEWEST)];
     
     [self.keyValue setObject:@(page) forKey:PAGE];
     [self.keyValue setObject:@(userLat) forKey:USER_LATITUDE];

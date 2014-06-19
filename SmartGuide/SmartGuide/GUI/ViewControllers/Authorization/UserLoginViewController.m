@@ -7,14 +7,22 @@
 //
 
 #import "UserLoginViewController.h"
+#import "OperationGetActionCode.h"
+#import "ASIOperationUserCheck.h"
+#import "TokenManager.h"
+#import "Flags.h"
 
 #define DURATION_RESET_SMS 30
 
 #if DEBUG
-#define SKIP_INPUT_PHONE 1
+#define USING_MY_PHONE 1
 #endif
 
-@interface UserLoginViewController ()
+@interface UserLoginViewController ()<ASIOperationPostDelegate,UITextFieldDelegate>
+{
+    OperationGetActionCode *_operationGetActionCode;
+    ASIOperationUserCheck *_operationUserCheck;
+}
 
 @end
 
@@ -75,7 +83,7 @@
     
     [lblBottom addStyle:style];
     
-#if DEBUG
+#if DEBUG && USING_MY_PHONE
     [self switchToActivationModeWithPhone:@"841225372227"];
 #endif
 }
@@ -120,9 +128,9 @@
     _countdown=21;
     [self setCountdown];
     
-#if DEBUG
+#if DEBUG && USING_MY_PHONE
     if([SGData shareInstance].buildMode.integerValue==0)
-        txtPhone.text=@"2946";
+        txtPhone.text=@"8915";
     else
         txtPhone.text=@"6320";
 #endif
@@ -135,26 +143,6 @@
     [txtPhone becomeFirstResponder];
 }
 
--(void)operationURLFinished:(OperationURL *)operation
-{
-    if([operation isKindOfClass:[OperationGetActionCode class]])
-    {
-        [self.view removeLoading];
-        
-        OperationGetActionCode *ope=(OperationGetActionCode*) operation;
-        
-        if(ope.isSuccess)
-        {
-            [self switchToActivationModeWithPhone:ope.phone];
-        }
-        
-        if(ope.message.length>0)
-            [AlertView showAlertOKWithTitle:nil withMessage:ope.message onOK:nil];
-        
-        _operationGetActionCode=nil;
-    }
-}
-
 -(void) setCountdown
 {
     if(_countdown<0)
@@ -163,17 +151,6 @@
     [lblBottom setText:[NSString stringWithFormat:@"<text>Bạn sẽ nhận được mã xác thực sau <bold>%i</bold> giây</text>",_countdown--]];
     
     [self performSelector:@selector(setCountdown) withObject:nil afterDelay:1];
-}
-
--(void)operationURLFailed:(OperationURL *)operation
-{
-    if([operation isKindOfClass:[OperationGetActionCode class]])
-    {
-        _operationGetActionCode=nil;
-        
-        [self.view removeLoading];
-        [AlertView showAlertOKWithTitle:nil withMessage:@"Lỗi kết nối hệ thống" onOK:nil];
-    }
 }
 
 -(void)ASIOperaionPostFinished:(ASIOperationPost *)operation
@@ -209,6 +186,22 @@
         
         _operationUserCheck=nil;
     }
+    else if([operation isKindOfClass:[OperationGetActionCode class]])
+    {
+        [self.view removeLoading];
+        
+        OperationGetActionCode *ope=(OperationGetActionCode*) operation;
+        
+        if(ope.isSuccess)
+        {
+            [self switchToActivationModeWithPhone:ope.phone];
+        }
+        
+        if(ope.message.length>0)
+            [AlertView showAlertOKWithTitle:nil withMessage:ope.message onOK:nil];
+        
+        _operationGetActionCode=nil;
+    }
 }
 
 -(void) finishLogin
@@ -230,6 +223,13 @@
         [self.view removeLoading];
         
         _operationUserCheck=nil;
+    }
+    else if([operation isKindOfClass:[OperationGetActionCode class]])
+    {
+        _operationGetActionCode=nil;
+        
+        [self.view removeLoading];
+        [AlertView showAlertOKWithTitle:nil withMessage:@"Lỗi kết nối hệ thống" onOK:nil];
     }
 }
 
@@ -267,10 +267,10 @@
         [AlertView showWithTitle:[@"(+84) " stringByAppendingString:inputPhone] withMessage:@"Mã xác thực Infory sẽ được gửi đến số điện thoại trên qua tin nhắn. Chọn Đồng ý để tiếp tục hoặc huỷ để thay đổi số điện thoại" withLeftTitle:@"Huỷ" withRightTitle:@"Đồng ý" onOK:^{
             [txtPhone becomeFirstResponder];
         } onCancel:^{
-            _operationGetActionCode=[[OperationGetActionCode alloc] initWithPhone:phone fScreen:[SGData shareInstance].fScreen fData:[SGData shareInstance].fData];
+            _operationGetActionCode=[[OperationGetActionCode alloc] initWithPhone:phone];
             _operationGetActionCode.delegate=self;
             
-            [_operationGetActionCode start];
+            [_operationGetActionCode addToQueue];
             
             [self.view showLoadingInsideFrame:CGRectMake(0, 0, self.l_v_w, self.l_v_h-_keyboardHeight)];
         }];
@@ -329,7 +329,7 @@
 {
     if(_operationGetActionCode)
     {
-        [_operationGetActionCode cancel];
+        [_operationGetActionCode clearDelegatesAndCancel];
         _operationGetActionCode=nil;
     }
     

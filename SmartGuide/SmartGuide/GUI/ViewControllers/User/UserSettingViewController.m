@@ -16,7 +16,7 @@
 #import "CityViewController.h"
 #import "CityManager.h"
 
-@interface UserSettingViewController ()<UITextFieldDelegate,UIPickerViewDataSource,UIPickerViewDelegate,UIGestureRecognizerDelegate,AvatarControllerDelegate,ASIOperationPostDelegate,OperationURLDelegate,GPPSignInDelegate,CityControllerDelegate>
+@interface UserSettingViewController ()<UITextFieldDelegate,UIPickerViewDataSource,UIPickerViewDelegate,UIGestureRecognizerDelegate,AvatarControllerDelegate,ASIOperationPostDelegate,GPPSignInDelegate,CityControllerDelegate>
 
 @end
 
@@ -139,61 +139,6 @@
         _operationFBGetProfile.delegate=self;
         
         [_operationFBGetProfile start];
-    }
-}
-
--(void)operationURLFinished:(OperationURL *)operation
-{
-    if([operation isKindOfClass:[OperationFBGetProfile class]])
-    {
-        OperationFBGetProfile *ope=(OperationFBGetProfile*) operation;
-        
-        if(ope.jsonData.length>0)
-        {
-            _operationUploadSocialProfile=[[ASIOperationUploadSocialProfile alloc] initWithProfile:[ope.jsonData copy] socialType:SOCIAL_FACEBOOK accessToken:[FBSession activeSession].accessTokenData.accessToken];
-            _operationUploadSocialProfile.delegate=self;
-            
-            [_operationUploadSocialProfile addToQueue];
-        }
-        else
-            [self.view removeLoading];
-        
-        _operationFBGetProfile=nil;
-    }
-    else if([operation isKindOfClass:[OperationGPGetUserProfile class]])
-    {
-        OperationGPGetUserProfile *ope=(OperationGPGetUserProfile*) operation;
-        
-        if(ope.jsonData.length>0)
-        {
-            _operationUploadSocialProfile=[[ASIOperationUploadSocialProfile alloc] initWithProfile:[ope.jsonData copy] socialType:SOCIAL_GOOGLEPLUS accessToken:[GooglePlusManager shareInstance].authentication.accessToken];
-            _operationUploadSocialProfile.delegate=self;
-            
-            [_operationUploadSocialProfile addToQueue];
-        }
-        else
-            [self.view removeLoading];
-        
-        _operationGPGetUserProfile=nil;
-    }
-}
-
--(void)operationURLFailed:(OperationURL *)operation
-{
-    if([operation isKindOfClass:[OperationFBGetProfile class]])
-    {
-        [self.view removeLoading];
-        
-        [[FacebookManager shareInstance] clean];
-        [AlertView showAlertOKWithTitle:nil withMessage:operation.error.description onOK:nil];
-        
-        _operationFBGetProfile=nil;
-    }
-    else if([operation isKindOfClass:[OperationGPGetUserProfile class]])
-    {
-        [self.view removeLoading];
-        
-        _operationGPGetUserProfile=nil;
     }
 }
 
@@ -348,7 +293,7 @@
         
         ASIOperationUploadSocialProfile *ope=(ASIOperationUploadSocialProfile*) operation;
         
-        int status=ope.status;
+        int status=ope.status.intValue;
         
         if(ope.message.length>0)
         {
@@ -371,6 +316,38 @@
         
         _operationUploadSocialProfile=nil;
     }
+    else if([operation isKindOfClass:[OperationFBGetProfile class]])
+    {
+        OperationFBGetProfile *ope=(OperationFBGetProfile*) operation;
+        
+        if(ope.jsonData.length>0)
+        {
+            _operationUploadSocialProfile=[[ASIOperationUploadSocialProfile alloc] initWithProfile:[ope.jsonData copy] socialType:SOCIAL_FACEBOOK accessToken:[FBSession activeSession].accessTokenData.accessToken];
+            _operationUploadSocialProfile.delegate=self;
+            
+            [_operationUploadSocialProfile addToQueue];
+        }
+        else
+            [self.view removeLoading];
+        
+        _operationFBGetProfile=nil;
+    }
+    else if([operation isKindOfClass:[OperationGPGetUserProfile class]])
+    {
+        OperationGPGetUserProfile *ope=(OperationGPGetUserProfile*) operation;
+        
+        if(ope.jsonData.length>0)
+        {
+            _operationUploadSocialProfile=[[ASIOperationUploadSocialProfile alloc] initWithProfile:[ope.jsonData copy] socialType:SOCIAL_GOOGLEPLUS accessToken:[GooglePlusManager shareInstance].authentication.accessToken];
+            _operationUploadSocialProfile.delegate=self;
+            
+            [_operationUploadSocialProfile addToQueue];
+        }
+        else
+            [self.view removeLoading];
+        
+        _operationGPGetUserProfile=nil;
+    }
 }
 
 -(void)ASIOperaionPostFailed:(ASIOperationPost *)operation
@@ -387,6 +364,21 @@
         [self.view removeLoading];
         
         _operationUploadSocialProfile=nil;
+    }
+    else if([operation isKindOfClass:[OperationFBGetProfile class]])
+    {
+        [self.view removeLoading];
+        
+        [[FacebookManager shareInstance] clean];
+        [AlertView showAlertOKWithTitle:nil withMessage:operation.error.description onOK:nil];
+        
+        _operationFBGetProfile=nil;
+    }
+    else if([operation isKindOfClass:[OperationGPGetUserProfile class]])
+    {
+        [self.view removeLoading];
+        
+        _operationGPGetUserProfile=nil;
     }
 }
 

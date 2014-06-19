@@ -9,7 +9,7 @@
 #import "ShopMapViewController.h"
 #import "ShopPinView.h"
 
-@interface ShopMapViewController ()<MapViewGeoCoderDelegate,ShopPinDelegate>
+@interface ShopMapViewController ()<MapViewGeoCoderDelegate,ShopPinDelegate, MKMapViewDelegate,UIGestureRecognizerDelegate>
 
 @end
 
@@ -71,28 +71,6 @@
     {
         _didRouterUserLocation=false;
     }
-}
-
--(void) addTapAnnAtPoint:(CGPoint) pnt
-{
-    CLLocationCoordinate2D touchMapCoordinate =
-    [map convertPoint:pnt toCoordinateFromView:map];
-    
-    if(_tapAnn)
-    {
-        [map removeAnnotation:_tapAnn];
-        _tapAnn=nil;
-    }
-    
-    TapAnnoun *annot = [TapAnnoun new];
-    annot.coordinate = touchMapCoordinate;
-    [map addAnnotation:annot];
-    
-    _tapAnn=annot;
-    
-    [map routerFromAnnotation:annot toAnnotation:_shop];
-    
-    [map addressAtCoordinate:[annot coordinate] withDelegate:self];
 }
 
 -(MKOverlayView *)mapView:(MKMapView *)mapView viewForOverlay:(id<MKOverlay>)overlay
@@ -167,92 +145,10 @@
     }
 }
 
--(void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view didChangeDragState:(MKAnnotationViewDragState)newState fromOldState:(MKAnnotationViewDragState)oldState
-{
-    if(newState==MKAnnotationViewDragStateEnding)
-    {
-        [map routerFromAnnotation:view.annotation toAnnotation:_shop];
-        [map addressAtCoordinate:[view.annotation coordinate] withDelegate:self];
-    }
-}
-
--(void)mapViewGeoCoderFinished:(MapView *)sgMap address:(NSArray *)address error:(NSError *)error
-{
-    if(address.count>0)
-    {
-        _tapAnn.title=address[0];
-    }
-}
-
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
--(IBAction) btnLocationTouchUpInside:(id)sender
-{
-}
-
--(IBAction) btnPinDragInside:(id)sender withEvent:(UIEvent*) event
-{
-    btnPinInvs.hidden=false;
-    
-    UITouch *touch=[[event allTouches] anyObject];
-    
-    [btnPinDrag setCenter:[touch locationInView:self.view]];
-}
-
--(IBAction) btnPinTouchDown:(id)sender withEvent:(UIEvent*) event
-{
-    
-}
-
--(IBAction) btnPinTouchUpInside:(id)sender withEvent:(UIEvent*) event
-{
-    UITouch *touch=[[event allTouches] anyObject];
-    btnPinDrag.hidden=true;
-    
-    [self addTapAnnAtPoint:[touch locationInView:map]];
-}
-
-@end
-
-@implementation TapAnnoun
-@synthesize title, coordinate, subtitle;
-
-- (id)init
-{
-    self = [super init];
-    if (self) {
-        _title=@"Custom location";
-    }
-    return self;
-}
-
--(NSString *)title
-{
-    return _title;
-}
-
--(NSString *)subtitle
-{
-    return @"";
-}
-
--(void)setCoordinate:(CLLocationCoordinate2D)newCoordinate
-{
-    _coordinate=newCoordinate;
-}
-
--(CLLocationCoordinate2D)coordinate
-{
-    return _coordinate;
-}
-
--(void)setTitle:(NSString *)xtitle
-{
-    _title=[xtitle copy];
 }
 
 @end

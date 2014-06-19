@@ -9,38 +9,35 @@
 #import "OperationGetActionCode.h"
 
 @implementation OperationGetActionCode
-@synthesize isSuccess,message,phone;
 
--(OperationGetActionCode *)initWithPhone:(NSString *)_phone fScreen:(NSString *)fScreen fData:(NSDictionary *)fData
+-(OperationGetActionCode *)initWithPhone:(NSString *)phone
 {
-    NSMutableDictionary *dict=[NSMutableDictionary dictionary];
-    [dict setObject:_phone forKey:@"phone"];
+    self=[super initGETWithRouter:SERVER_IP_MAKE_URL(API_GET_ACTIVE_CODE)];
     
-    if(fScreen.length>0)
-    {
-        [dict setObject:fScreen forKey:@"fScreen"];
-        
-        NSString *fDataString=[fData jsonString];
-        if(fDataString.length>0)
-            [dict setObject:[fDataString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] forKey:@"fData"];
-    }
-    
-    self=[super initWithRouter:SERVER_IP_MAKE(API_GET_ACTIVE_CODE) params:dict];
+    [self.keyValue setObject:phone forKey:@"phone"];
     
     return self;
 }
 
+-(void)onFinishLoading
+{
+    self.isSuccess=@(false);
+    self.message=@"";
+}
+
 -(void)onCompletedWithJSON:(NSArray *)json
 {
-    isSuccess=false;
-    message=@"";
-    phone=self.params[@"phone"];
     if([json isNullData])
         return;
     
     NSDictionary *dict=json[0];
-    isSuccess=[[NSNumber numberWithObject:dict[@"result"]] boolValue];
-    message=[NSString stringWithStringDefault:dict[@"message"]];
+    self.isSuccess=[NSNumber numberWithObject:dict[@"result"]];
+    self.message=[NSString stringWithStringDefault:dict[@"message"]];
+}
+
+-(NSString *)phone
+{
+    return self.keyValue[@"phone"]?:@"";
 }
 
 @end

@@ -12,7 +12,7 @@
 
 -(ASIOperationShopGallery *)initWithWithIDShop:(int)idShop userLat:(double)userLat userLng:(double)userLng page:(int)page
 {
-    self=[super initWithURL:SERVER_API_URL_MAKE(API_GET_SHOP_GALLERY)];
+    self=[super initPOSTWithURL:SERVER_API_URL_MAKE(API_GET_SHOP_GALLERY)];
     
     [self.keyValue setObject:@(idShop) forKey:IDSHOP];
     [self.keyValue setObject:@(userLat) forKey:USER_LATITUDE];

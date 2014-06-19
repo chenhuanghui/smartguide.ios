@@ -431,7 +431,7 @@ NSArray * AFQueryStringPairsFromKeyAndValue(NSString *key, id value) {
         }
         
         if ([self.HTTPMethodsEncodingParametersInURI containsObject:[[request HTTPMethod] uppercaseString]]) {
-            mutableRequest.URL = [NSURL URLWithString:[[mutableRequest.URL absoluteString] stringByAppendingFormat:mutableRequest.URL.query ? @"&%@" : @"?%@", query]];
+            mutableRequest.URL = [NSURL URLWithString:[[mutableRequest.URL absoluteString] stringByAppendingFormat:mutableRequest.URL.query.length>0 ? @"&%@" : @"?%@", query]];
         } else {
             if (![mutableRequest valueForHTTPHeaderField:@"Content-Type"]) {
                 NSString *charset = (__bridge NSString *)CFStringConvertEncodingToIANACharSetName(CFStringConvertNSStringEncodingToEncoding(self.stringEncoding));

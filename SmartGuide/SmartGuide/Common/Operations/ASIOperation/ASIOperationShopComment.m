@@ -16,7 +16,7 @@
 -(ASIOperationShopComment *)initWithIDShop:(int)idShop page:(int)page sort:(enum SORT_SHOP_COMMENT)sort
 {
     NSURL *_url=[NSURL URLWithString:SERVER_API_MAKE(API_SHOP_COMMENTS)];
-    self=[super initWithURL:_url];
+    self=[super initPOSTWithURL:_url];
     
     [self.keyValue setObject:@(idShop) forKey:IDSHOP];
     [self.keyValue setObject:@(page) forKey:PAGE];

@@ -12,7 +12,7 @@
 
 -(ASIOperationUserNotificationRemove *)initWithIDNotification:(NSNumber *)idNotification idSender:(NSNumber *)idSender userLat:(double)userLat userLng:(double)userLng
 {
-    self=[super initWithURL:SERVER_API_URL_MAKE(API_USER_NOTIFICATION_REMOVE)];
+    self=[super initPOSTWithURL:SERVER_API_URL_MAKE(API_USER_NOTIFICATION_REMOVE)];
     
     if(idSender)
         [self.keyValue setObject:idSender forKey:@"idSender"];

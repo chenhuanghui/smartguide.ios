@@ -7,8 +7,6 @@
 //
 
 #import <MapKit/MapKit.h>
-#import "OperationRouterMap.h"
-#import "OperationGeoCoder.h"
 
 @class MapView;
 
@@ -28,11 +26,8 @@
 
 @end
 
-@interface MapView : MKMapView<OperationURLDelegate>
+@interface MapView : MKMapView
 {
-    OperationRouterMap *_operationRouter;
-    OperationRouterMap *_operationRouterUserLocation;
-    OperationGeoCoder *_operationGeoCoder;
     __weak MKPolyline *routeLine;
     __weak MKPolyline *userRouteLine;
     
@@ -59,7 +54,7 @@
 -(void) zoomToCoordinates:(NSArray*) array animate:(bool) animate span:(MKCoordinateSpan) span;
 -(void) zoomToFitCoordinates:(NSArray*) array animate:(bool) animate;
 
--(void) addressAtCoordinate:(CLLocationCoordinate2D) coordinate withDelegate:(id<MapViewGeoCoderDelegate>) delegate;
+//-(void) addressAtCoordinate:(CLLocationCoordinate2D) coordinate withDelegate:(id<MapViewGeoCoderDelegate>) delegate;
 
 @property (nonatomic, weak) id<MapViewRouterDelegate> routerDelegate;
 @property (nonatomic, weak) id<MapViewGeoCoderDelegate> geoCoderDelegate;

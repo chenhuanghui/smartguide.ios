@@ -7,7 +7,6 @@
 //
 
 #import "ASIOperationPost.h"
-#import "User.h"
 
 @interface ASIOperationUserProfile : ASIOperationPost
 

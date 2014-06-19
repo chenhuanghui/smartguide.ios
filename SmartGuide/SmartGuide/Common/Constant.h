@@ -40,6 +40,7 @@ static NSString * const kClientId = @"790158294934-p5pnscmrt4avj698ncvhp14fit0f4
 #define API_ELASTIC_AUTOCOMPLETE_NATIVE [[SGData shareInstance] elasticAPI]
 
 #define SERVER_IP_MAKE(api) [NSString stringWithFormat:@"%@/%@",SERVER_IP,api]
+#define SERVER_IP_MAKE_URL(api) [NSURL URLWithString:SERVER_IP_MAKE(api)]
 #define SERVER_API_MAKE(api) [NSString stringWithFormat:@"%@/%@",SERVER_API,api]
 #define SERVER_API_URL_MAKE(api) [NSURL URLWithString:SERVER_API_MAKE(api)]
 #define SERVER_API_IMAGE SERVER_API_MAKE(@"photo/upload")

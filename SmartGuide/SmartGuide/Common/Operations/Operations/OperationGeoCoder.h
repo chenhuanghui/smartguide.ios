@@ -6,16 +6,16 @@
 //  Copyright (c) 2013 Redbase. All rights reserved.
 //
 
-#import "OperationURL.h"
+#import "ASIOperationPOST.h"
 
 enum GEOCODER_LANGUAGE {
     GEOCODER_LANGUAGE_VN = 0,
     };
 
-@interface OperationGeoCoder : OperationURL
+@interface OperationGeoCoder : ASIOperationPost
 
 -(OperationGeoCoder*) initWithLat:(double) lat lng:(double) lng language:(enum GEOCODER_LANGUAGE) language;
 
-@property (nonatomic, readonly) NSMutableArray *address;
+@property (nonatomic, strong) NSMutableArray *address;
 
 @end

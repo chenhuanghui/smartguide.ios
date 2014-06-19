@@ -7,10 +7,6 @@
 //
 
 #import "SGViewController.h"
-#import "OperationGetActionCode.h"
-#import "ASIOperationUserCheck.h"
-#import "TokenManager.h"
-#import "Flags.h"
 #import "FTCoreTextView.h"
 
 @class AuthorizationViewController;
@@ -22,7 +18,7 @@
 
 @end
 
-@interface UserLoginViewController : SGViewController<OperationURLDelegate,ASIOperationPostDelegate,UITextFieldDelegate>
+@interface UserLoginViewController : SGViewController
 {
     __weak IBOutlet UIButton *btnLogin;
     __weak IBOutlet UITextField *txtPhone;
@@ -31,8 +27,6 @@
     
     int _countdown;
     
-    OperationGetActionCode *_operationGetActionCode;
-    ASIOperationUserCheck *_operationUserCheck;
     NSString *_activationCode;
     NSString *_phone;
     

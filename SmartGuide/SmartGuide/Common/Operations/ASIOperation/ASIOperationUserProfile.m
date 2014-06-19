@@ -7,12 +7,13 @@
 //
 
 #import "ASIOperationUserProfile.h"
+#import "User.h"
 
 @implementation ASIOperationUserProfile
 
 -(ASIOperationUserProfile *)initOperation
 {
-    self=[super initWithURL:[NSURL URLWithString:SERVER_API_MAKE(API_USER_PROFILE)]];
+    self=[super initPOSTWithURL:[NSURL URLWithString:SERVER_API_MAKE(API_USER_PROFILE)]];
     
     return self;
 }

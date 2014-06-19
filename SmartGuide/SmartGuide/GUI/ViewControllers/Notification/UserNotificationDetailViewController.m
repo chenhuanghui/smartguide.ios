@@ -287,9 +287,9 @@
     
     switch (action.enumActionType) {
         case NOTIFICATION_ACTION_TYPE_CALL_API:
-            
-            [OperationNotificationAction operationWithURL:action.url method:action.methodName params:action.params];
-            
+        {
+            [[OperationNotificationAction operationWithURL:action.url method:action.methodName params:action.params] addToQueue];
+        }
             break;
             
         case NOTIFICATION_ACTION_TYPE_POPUP_URL:

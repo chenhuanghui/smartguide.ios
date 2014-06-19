@@ -17,7 +17,7 @@
 {
     NSURL *_url=[NSURL URLWithString:SERVER_API_MAKE(API_SHOP_POST_COMMENT)];
     
-    self=[super initWithURL:_url];
+    self=[super initPOSTWithURL:_url];
 
     [self.keyValue setObject:@(idShop) forKey:IDSHOP];
     [self.keyValue setObject:@(userLat) forKey:USER_LATITUDE];

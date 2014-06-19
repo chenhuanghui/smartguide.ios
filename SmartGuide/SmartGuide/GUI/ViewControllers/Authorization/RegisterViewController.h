@@ -7,19 +7,8 @@
 //
 
 #import "SGViewController.h"
-#import "SGNavigationController.h"
-#import "RegisterInfoStep1ViewController.h"
-#import "RegisterInfoStep2ViewController.h"
-#import "FacebookManager.h"
-#import "OperationFBGetProfile.h"
-#import "OperationGPGetUserProfile.h"
-#import "ASIOperationUploadSocialProfile.h"
-#import "ASIOperationUpdateUserProfile.h"
-#import <GooglePlus/GooglePlus.h>
 
-@class AuthorizationViewController;
-@class RegisterViewController;
-@class RegisterInfo;
+@class AuthorizationViewController, RegisterViewController, RegisterInfo, RegisterInfoStep1ViewController, RegisterInfoStep2ViewController;
 
 @protocol RegisterControllerDelegate <SGViewControllerDelegate>
 
@@ -27,7 +16,7 @@
 
 @end
 
-@interface RegisterViewController : SGViewController<RegisterInfoStep1Contorller,OperationURLDelegate,ASIOperationPostDelegate>
+@interface RegisterViewController : SGViewController
 {
     __weak IBOutlet UIButton *btnConfirm;
     __weak IBOutlet UIButton *btnFacebook;
@@ -49,11 +38,6 @@
     __weak IBOutlet UIButton *btnBack;
     
     RegisterInfo *_registerInfo;
-    
-    OperationFBGetProfile *_operationFBGetProfile;
-    OperationGPGetUserProfile *_operationGPGetUserProfile;
-    ASIOperationUploadSocialProfile *_operationUploadSocialProfile;
-    ASIOperationUpdateUserProfile *_operationUpdateUserProfile;
     
     NSMutableArray *_avatars;
     

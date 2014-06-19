@@ -14,7 +14,7 @@
 
 -(ASIOperationScanQRCode *)initWithCode:(NSString *)code userLat:(double)userLat userLng:(double)userLng
 {
-    self=[super initWithURL:[NSURL URLWithString:SERVER_API_MAKE(API_SCAN_CODE)]];
+    self=[super initPOSTWithURL:[NSURL URLWithString:SERVER_API_MAKE(API_SCAN_CODE)]];
     
     [self.keyValue setObject:code forKey:@"code"];
     [self.keyValue setObject:@(userLat) forKey:USER_LATITUDE];

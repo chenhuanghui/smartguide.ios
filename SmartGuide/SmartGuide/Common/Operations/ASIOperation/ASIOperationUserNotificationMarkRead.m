@@ -14,7 +14,7 @@
 
 -(ASIOperationUserNotificationMarkRead *)initWithIDNotification:(int)idNotification userLat:(double)userLat userLng:(double)userLng
 {
-    self=[super initWithURL:SERVER_API_URL_MAKE(API_USER_NOTIFICATION_MARK_READ)];
+    self=[super initPOSTWithURL:SERVER_API_URL_MAKE(API_USER_NOTIFICATION_MARK_READ)];
     
     [self.keyValue setObject:@(idNotification) forKey:@"idNotification"];
     [self.keyValue setObject:@(userLat) forKey:USER_LATITUDE];

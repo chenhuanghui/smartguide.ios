@@ -13,7 +13,7 @@
 
 -(ASIOperationUserPromotion *)initWithPage:(int)page userLat:(double)userLat userLng:(double)userLng
 {
-    self=[super initWithURL:SERVER_API_URL_MAKE(API_USER_PROMOTION)];
+    self=[super initPOSTWithURL:SERVER_API_URL_MAKE(API_USER_PROMOTION)];
  
     [self.keyValue setObject:@(page) forKey:PAGE];
     [self.keyValue setObject:@(userLat) forKey:USER_LATITUDE];

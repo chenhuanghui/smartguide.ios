@@ -7,12 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "OperationRefreshToken.h"
 
-@interface TokenManager : NSObject<OperationURLDelegate>
+@interface TokenManager : NSObject
 {
-    bool _isRefreshingToken;
-    OperationRefreshToken *_operationRefreshToken;
 }
 
 +(TokenManager*) shareInstance;

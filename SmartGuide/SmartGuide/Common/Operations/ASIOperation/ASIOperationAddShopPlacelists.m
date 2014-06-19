@@ -13,7 +13,7 @@
 
 -(ASIOperationAddShopPlacelists *)initWithIDShop:(int)idShop idPlacelists:(NSString *)idPlacelists userLat:(double)userLat userLng:(double)userLng
 {
-    self=[super initWithURL:[NSURL URLWithString:SERVER_API_MAKE(API_ADD_SHOP_PLACELISTS)]];
+    self=[super initPOSTWithURL:[NSURL URLWithString:SERVER_API_MAKE(API_ADD_SHOP_PLACELISTS)]];
     
     [self.keyValue setObject:@(idShop) forKey:IDSHOP];
     [self.keyValue setObject:idPlacelists forKey:@"idPlacelists"];

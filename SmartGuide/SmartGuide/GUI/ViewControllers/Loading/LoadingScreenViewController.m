@@ -8,8 +8,16 @@
 
 #import "LoadingScreenViewController.h"
 #import "TokenManager.h"
+#import "OperationNotifications.h"
+#import "ASIOperationUserProfile.h"
 
-@interface LoadingScreenViewController ()
+@interface LoadingScreenViewController ()<ASIOperationPostDelegate>
+{
+    OperationNotifications *_notification;
+    ASIOperationUserProfile *_operationUserProfile;
+    bool _finishedRequestNotification;
+    NotificationObject *_notifiObject;
+}
 
 @end
 
@@ -27,13 +35,12 @@
 {
     [super loadView];
     
-    NSString *accessToken=[TokenManager shareInstance].accessToken;
     NSString *version=[NSString stringWithFormat:@"ios%@_%@",[UIDevice currentDevice].systemVersion,SMARTUIDE_VERSION];
     
-    _notification=[[OperationNotifications alloc] initNotificationsWithAccessToken:accessToken version:version];
+    _notification=[[OperationNotifications alloc] initVersion:version];
     _notification.delegate=self;
     
-    [_notification start];
+    [_notification addToQueue];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -83,26 +90,6 @@
     }
 }
 
--(void)operationURLFinished:(OperationURL *)operation
-{
-    _finishedRequestNotification=true;
-    OperationNotifications *ope=(OperationNotifications*)operation;
-    
-    _notifiObject=ope.object;
-    
-    [self finishRequestNotification];
-    
-    _notification=nil;
-}
-
--(void)operationURLFailed:(OperationURL *)operation
-{
-    _finishedRequestNotification=true;
-    [self finishRequestNotification];
-    
-    _notification=nil;
-}
-
 -(void)ASIOperaionPostFinished:(ASIOperationPost *)operation
 {
     if([operation isKindOfClass:[ASIOperationUserProfile class]])
@@ -111,6 +98,17 @@
         [self.delegate SGLoadingFinished:self];
         
         _operationUserProfile=nil;
+    }
+    else if([operation isKindOfClass:[OperationNotifications class]])
+    {
+        _finishedRequestNotification=true;
+        OperationNotifications *ope=(OperationNotifications*)operation;
+        
+        _notifiObject=ope.object;
+        
+        [self finishRequestNotification];
+        
+        _notification=nil;
     }
 }
 
@@ -130,6 +128,13 @@
         dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
             [self requestUserProfile];
         });
+    }
+    else if([operation isKindOfClass:[OperationNotifications class]])
+    {
+        _finishedRequestNotification=true;
+        [self finishRequestNotification];
+        
+        _notification=nil;
     }
 }
 

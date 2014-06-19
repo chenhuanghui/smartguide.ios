@@ -9,71 +9,57 @@
 #import "OperationGeoCoder.h"
 
 @implementation OperationGeoCoder
-@synthesize address;
 
 -(OperationGeoCoder *)initWithLat:(double)lat lng:(double)lng language:(enum GEOCODER_LANGUAGE)language
 {
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://maps.googleapis.com/maps/api/geocode/json"]];
-    NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                       [NSString stringWithFormat:@"%f,%f", lat, lng], @"latlng", nil];
+    self=[super initGETWithRouter:URL(@"http://maps.googleapis.com/maps/api/geocode/json")];
     
-    [parameters setValue:@"true" forKey:@"sensor"];
+    [self.keyValue setObject:@"true" forKey:@"sensor"];
     
-    switch (language) {
-        case GEOCODER_LANGUAGE_VN:
-        {
-            NSLocale *locale=[NSLocale localeWithLocaleIdentifier:@"vi-vn"];
-            [parameters setValue:[locale objectForKey:NSLocaleLanguageCode] forKey:@"language"];
-        }
-            break;
-            
-        default:
-            break;
-    }
-    NSMutableArray *paramStringsArray = [NSMutableArray arrayWithCapacity:[[parameters allKeys] count]];
-    
-    for(NSString *key in [parameters allKeys]) {
-        NSObject *paramValue = [parameters valueForKey:key];
-        [paramStringsArray addObject:[NSString stringWithFormat:@"%@=%@", key, paramValue]];
-    }
-    
-    NSString *paramsString = [paramStringsArray componentsJoinedByString:@"&"];
-    NSString *baseAddress = request.URL.absoluteString;
-    baseAddress = [baseAddress stringByAppendingFormat:@"?%@", paramsString];
-    [request setURL:[NSURL URLWithString:baseAddress]];
-    
-    self=[super initWithRequest:request];
+    NSLocale *locale=[NSLocale localeWithLocaleIdentifier:@"vi-vn"];
+    [self.keyValue setObject:[locale objectForKey:NSLocaleLanguageCode] forKey:@"language"];
+    [self.keyValue setObject:[NSString stringWithFormat:@"%f,%f", lat, lng] forKey:@"latlng"];
     
     return self;
 }
 
--(void)onCompletedWithJSON:(NSArray *)json
+-(bool)isApplySGData
 {
-    address=[NSMutableArray array];
+    return false;
+}
+
+-(void)onFinishLoading
+{
+    self.address=[NSMutableArray array];
+}
+
+-(bool)isHandleResponseString:(NSString *)resString error:(NSError *__autoreleasing *)error
+{
+//    if([json isNullData])
+//        return true;
+//    
+//    NSDictionary *dict=json[0];
+//    
+//    if(![dict isKindOfClass:[NSDictionary class]])
+//        return;
+//    
+//    NSArray *result=dict[@"results"];
+//    
+//    if([self isNullData:result])
+//        return;
+//    
+//    for(NSDictionary *item in result)
+//    {
+//        if(![item isKindOfClass:[NSDictionary class]])
+//            continue;
+//        
+//        NSString *addressFormatted=[NSString stringWithStringDefault:item[@"formatted_address"]];
+//        
+//        if(addressFormatted.length>0)
+//            [address addObject:addressFormatted];
+//    }
     
-    if([json isNullData])
-        return;
-    
-    NSDictionary *dict=json[0];
-    
-    if(![dict isKindOfClass:[NSDictionary class]])
-        return;
-    
-    NSArray *result=dict[@"results"];
-    
-    if([self isNullData:result])
-        return;
-    
-    for(NSDictionary *item in result)
-    {
-        if(![item isKindOfClass:[NSDictionary class]])
-            continue;
-        
-        NSString *addressFormatted=[NSString stringWithStringDefault:item[@"formatted_address"]];
-        
-        if(addressFormatted.length>0)
-            [address addObject:addressFormatted];
-    }
+    return true;
 }
 
 @end

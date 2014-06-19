@@ -12,8 +12,8 @@
 
 -(ASIOperationUploadSocialProfile*) initWithProfile:(NSString*) profile socialType:(enum SOCIAL_TYPE) socialType accessToken:(NSString*) accessToken;
 
-@property (nonatomic, readonly) int status;
-@property (nonatomic, readonly) NSString *message;
-@property (nonatomic, readonly) int errorCode;
+@property (nonatomic, strong) NSNumber *status;
+@property (nonatomic, strong) NSString *message;
+@property (nonatomic, strong) NSNumber *errorCode;
 
 @end

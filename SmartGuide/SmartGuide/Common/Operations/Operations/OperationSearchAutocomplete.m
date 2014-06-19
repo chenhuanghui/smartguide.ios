@@ -18,20 +18,30 @@
     NSString *esQuery=QUERY;
     
     NSString *query=[NSString stringWithFormat:esQuery,key,idCity];
-    query=[query stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+
+    self=[super initGETWithRouter:URL(API_ELASTIC_AUTOCOMPLETE_NATIVE)];
     
-    NSMutableDictionary *dict=[NSMutableDictionary dictionary];
+    [self.keyValue setObject:query forKey:@"source"];
+    [self.storeData setObject:key forKey:@"key"];
     
-    [dict setObject:query forKey:@"source"];
-    
-    self=[super initWithRouter:API_ELASTIC_AUTOCOMPLETE_NATIVE params:dict];
-    
-    self.keyword=[[NSString alloc] initWithString:key];
+    return self;
+}
+
+-(bool)isApplySGData
+{
+    return false;
+}
+
+-(NSString *)keyword
+{
+    return [NSString stringWithStringDefault:self.storeData[@"key"]];
+}
+
+-(void)onFailed:(NSError *)error
+{
     self.shops=[NSMutableArray new];
     self.placelists=[NSMutableArray new];
     self.highlightTag=@"em";
-    
-    return self;
 }
 
 -(void)onCompletedWithJSON:(NSArray *)json
@@ -52,7 +62,7 @@
     
     NSArray *hits=dict[@"hits"];
     
-    if([self isNullData:hits])
+    if([hits isNullData])
         return;
     
     NSArray *array=nil;
@@ -93,7 +103,7 @@
             
             NSArray *highlightArray=kvp[@"name_auto_complete"];
             
-            if([self isNullData:highlightArray])
+            if([highlightArray isNullData])
                 continue;
             
             place.highlight=[NSString stringWithStringDefault:highlightArray[0]];
@@ -132,21 +142,12 @@
             
             NSArray *highlightArray=kvp[@"shop_name_auto_complete"];
             
-            if([self isNullData:highlightArray])
+            if([highlightArray isNullData])
                 continue;
             
             shop.highlight=[NSString stringWithStringDefault:highlightArray[0]];
         }
     }
-}
-
--(id)copyWithZone:(NSZone *)zone
-{
-    OperationSearchAutocomplete *ope=[super copyWithZone:zone];
-    
-    ope.keyword=self.keyword;
-    
-    return ope;
 }
 
 @end

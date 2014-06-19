@@ -13,7 +13,7 @@
 
 -(ASIOperationUserHome *)initWithPage:(NSUInteger)page userLat:(double)userLat userLng:(double)userLng
 {
-    self=[super initWithURL:[NSURL URLWithString:SERVER_API_MAKE(API_USER_HOME)]];
+    self=[super initPOSTWithURL:[NSURL URLWithString:SERVER_API_MAKE(API_USER_HOME)]];
 
     [self.keyValue setObject:@(page) forKey:@"page"];
     [self.keyValue setObject:@(userLat) forKey:@"userLat"];

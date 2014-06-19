@@ -9,43 +9,30 @@
 #import "OperationFBGetProfile.h"
 
 @implementation OperationFBGetProfile
-@synthesize jsonData;
 
 -(OperationFBGetProfile *)initWithAccessToken:(NSString *)accessToken
 {
+    self=[super initGETWithRouter:URL(FACEBOOK_GET_PROFILE)];
+    
     NSString *fieldParams=@"picture.width(100).height(100),birthday,email,gender,id,name,name_format,first_name,last_name,work";
-
-    NSMutableDictionary *dict=[NSMutableDictionary dictionary];
-    [dict setObject:fieldParams forKey:@"fields"];
-    [dict setObject:accessToken forKey:@"access_token"];
     
-    self=[super initWithRouter:FACEBOOK_GET_PROFILE params:dict];
-    
-    _accessToken=[[NSString alloc] initWithString:accessToken];
+    [self.keyValue setObject:fieldParams forKey:@"fields"];
+    [self.keyValue setObject:accessToken forKey:@"access_token"];
     
     return self;
 }
 
--(bool)canManualHandleData:(id)responseObject
+-(void)onFinishLoading
 {
-    return true;
+    self.jsonData=@"";
 }
 
 -(void)onCompletedWithJSON:(NSArray *)json
 {
-    jsonData=@"";
     if([json isNullData])
         return;
     
-    NSData* data = [json objectAtIndex:0];
-    jsonData = [[NSString alloc] initWithData:data encoding:self.responseStringEncoding];
-    
-    if(!jsonData || jsonData.length==0)
-    {
-        jsonData=[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-    }
-    
-    if(!jsonData)
-        jsonData=@"";}
+    self.jsonData=[NSString stringWithStringDefault:json[0]];
+}
 
 @end

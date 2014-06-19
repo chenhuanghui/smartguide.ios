@@ -6,17 +6,16 @@
 //  Copyright (c) 2013 Redbase. All rights reserved.
 //
 
-#import "OperationURL.h"
+#import "ASIOperationPost.h"
 
 @class FBProfile;
 
-@interface OperationFBGetProfile : OperationURL
+@interface OperationFBGetProfile : ASIOperationPost
 {
-    NSString *_accessToken;
 }
 
 -(OperationFBGetProfile*) initWithAccessToken:(NSString*) accessToken;
 
-@property (nonatomic, readonly) NSString *jsonData;
+@property (nonatomic, strong) NSString *jsonData;
 
 @end

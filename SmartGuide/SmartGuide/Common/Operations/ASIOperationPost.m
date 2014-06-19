@@ -10,7 +10,6 @@
 #import "OperationRefreshToken.h"
 #import "TokenManager.h"
 #import "SGData.h"
-#import "ASIDownloadCache.h"
 #import <ImageIO/ImageIO.h>
 
 static NSMutableArray *_asioperations=nil;
@@ -38,7 +37,7 @@ static NSMutableArray *_asioperations=nil;
     return [NSURL URLWithString:[NSString stringWithFormat:@"%@?access_token=%@",url,accessToken]];
 }
 
--(ASIOperationPost *)initWithRouter:(NSURL *)_url
+-(ASIOperationPost *)initPOSTWithRouter:(NSURL *)_url
 {
     NSURLRequest *request=[[ASIOperationManager shareInstance] createPOST:_url.absoluteString parameters:nil];
     self=[super initWithRequest:request];
@@ -51,7 +50,7 @@ static NSMutableArray *_asioperations=nil;
     return self;
 }
 
--(ASIOperationPost *)initWithURL:(NSURL *)_url
+-(ASIOperationPost *)initPOSTWithURL:(NSURL *)_url
 {
     NSString *accessToken=[NSString stringWithString:[TokenManager shareInstance].accessToken];
     _url=[ASIOperationPost makeURL:_url accessToken:accessToken];
@@ -68,6 +67,60 @@ static NSMutableArray *_asioperations=nil;
     return self;
 }
 
+-(ASIOperationPost *)initGETWithRouter:(NSURL *)_url
+{
+    NSURLRequest *request=[[ASIOperationManager shareInstance] createGET:_url.absoluteString parameters:nil];
+    self=[super initWithRequest:request];
+    
+    [self commonInit];
+    
+    self.requestURL=request;
+    self.sourceURL=[_url copy];
+    
+    return self;
+}
+
+-(ASIOperationPost *)initGETWithURL:(NSURL *)_url
+{
+    NSString *accessToken=[NSString stringWithString:[TokenManager shareInstance].accessToken];
+    _url=[ASIOperationPost makeURL:_url accessToken:accessToken];
+    
+    NSURLRequest *request=[[ASIOperationManager shareInstance] createGET:_url.absoluteString parameters:nil];
+    
+    self=[super initWithRequest:request];
+    
+    [self commonInit];
+    
+    self.requestURL=request;
+    self.sourceURL=[_url copy];
+    
+    return self;
+}
+
+-(ASIOperationPost *)initRouterWithMethod:(enum OPERATION_METHOD_TYPE)methodType url:(NSString *)url
+{
+    NSURLRequest *request=nil;
+    
+    switch (methodType) {
+        case OPERATION_METHOD_TYPE_GET:
+            request=[[ASIOperationManager shareInstance] createGET:url parameters:nil];
+            break;
+            
+        case OPERATION_METHOD_TYPE_POST:
+            request=[[ASIOperationManager shareInstance] createPOST:url parameters:nil];
+            break;
+    }
+    
+    self=[super initWithRequest:request];
+    
+    [self commonInit];
+    
+    self.requestURL=request;
+    self.sourceURL=[url copy];
+    
+    return self;
+}
+
 -(NSURLRequest *)request
 {
     return self.requestURL?:[super request];
@@ -77,6 +130,7 @@ static NSMutableArray *_asioperations=nil;
 {
     self.keyValue=[NSMutableDictionary dictionary];
     self.fData=[NSMutableDictionary dictionary];
+    self.storeData=[NSMutableDictionary dictionary];
 }
 
 -(void)addImage:(NSData *)binary withKey:(NSString *)key
@@ -89,16 +143,14 @@ static NSMutableArray *_asioperations=nil;
 
 -(void)start
 {
-    NSLog(@"%@ %@ start %@ %@ %@ %@",CLASS_NAME, self.request.HTTPMethod,self.request.URL, self.keyValue.allKeys, self.keyValue.allValues,self.imagesData.allKeys?:@"");
-    
     [self applyPostValue];
+    
+    NSLog(@"%@ %@ start %@ %@ %@ %@",CLASS_NAME, self.requestURL.HTTPMethod,self.requestURL.URL, self.keyValue.allKeys, self.keyValue.allValues,self.imagesData.allKeys?:@"");
     
     __weak ASIOperationPost *wSelf=self;
     [self setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         if(wSelf)
-        {
             [wSelf requestFinished:operation];
-        }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if(wSelf)
             [wSelf requestFailed:operation];
@@ -112,30 +164,32 @@ static NSMutableArray *_asioperations=nil;
     [self applyPostValue];
     
     [[ASIOperationManager shareInstance] addOperation:self];
-    //    NSLog(@"%@ start async %@ %@ %@",CLASS_NAME,self.url,self.keyValue.allKeys,self.keyValue.allValues);
 }
 
 -(void) applyPostValue
 {
-    if([self fScreen].length==0 && [SGData shareInstance].fScreen.length>0)
-        self.fScreen=[SGData shareInstance].fScreen;
-    if([self fData].allKeys.count==0 && [SGData shareInstance].fData.allKeys.count>0)
-        self.fData=[SGData shareInstance].fData;
-    
-    if([self tScreen].length>0)
-        [self.keyValue setObject:[self tScreen] forKey:@"tScreen"];
-    if([self tData].allKeys.count>0)
+    if([self isApplySGData])
     {
-        NSString *jsonString=[[NSString alloc] initWithData:[[self tData] json] encoding:NSUTF8StringEncoding];
-        [self.keyValue setObject:jsonString forKey:@"tData"];
-    }
-    
-    if([self fScreen].length>0)
-        [self.keyValue setObject:[self fScreen] forKey:@"fScreen"];
-    if([self fData].allKeys.count>0)
-    {
-        NSString *jsonString=[[NSString alloc] initWithData:[[self fData] json] encoding:NSUTF8StringEncoding];
-        [self.keyValue setObject:jsonString forKey:@"fData"];
+        if([self fScreen].length==0 && [SGData shareInstance].fScreen.length>0)
+            self.fScreen=[SGData shareInstance].fScreen;
+        if([self fData].allKeys.count==0 && [SGData shareInstance].fData.allKeys.count>0)
+            self.fData=[SGData shareInstance].fData;
+        
+        if([self tScreen].length>0)
+            [self.keyValue setObject:[self tScreen] forKey:@"tScreen"];
+        if([self tData].allKeys.count>0)
+        {
+            NSString *jsonString=[[NSString alloc] initWithData:[[self tData] json] encoding:NSUTF8StringEncoding];
+            [self.keyValue setObject:jsonString forKey:@"tData"];
+        }
+        
+        if([self fScreen].length>0)
+            [self.keyValue setObject:[self fScreen] forKey:@"fScreen"];
+        if([self fData].allKeys.count>0)
+        {
+            NSString *jsonString=[[NSString alloc] initWithData:[[self fData] json] encoding:NSUTF8StringEncoding];
+            [self.keyValue setObject:jsonString forKey:@"fData"];
+        }
     }
     
     if(![self.keyValue isNullData])
@@ -212,77 +266,105 @@ static NSMutableArray *_asioperations=nil;
     return false;
 }
 
+-(void)onFinishLoading
+{
+    
+}
+
+-(bool)isHandleResponseString:(NSString *)resString error:(NSError *__autoreleasing *)error
+{
+    return false;
+}
+
 -(void)requestFinished:(AFHTTPRequestOperation *)request
 {
     NSLog(@"%@ requestFinished %@",CLASS_NAME,[NSHTTPURLResponse localizedStringForStatusCode:self.response.statusCode]);
+    
+    [self onFinishLoading];
     if(self.responseString.length>0)
     {
-        NSData *data=[self.responseString dataUsingEncoding:self.responseStringEncoding];
-        NSError *jsonError=nil;
-        
-        id json = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers|NSJSONReadingAllowFragments error:&jsonError];
-        
-        if(jsonError)
+        NSError *error=nil;
+        bool isHandleResponString=[self isHandleResponseString:self.responseString error:&error];
+        if(isHandleResponString)
         {
-            [self onFailed:jsonError];
-            [self notifyFailed:jsonError];
-        }
-        else
-        {
-            if([json isKindOfClass:[NSArray class]])
+            if(error)
             {
-                NSMutableArray *jsonArray=json;
-                
-                if(jsonArray.count==0 || [jsonArray objectAtIndex:0] == [NSNull null])
-                    [self onCompletedWithJSON:[NSArray array]];
-                else
-                    [self onCompletedWithJSON:jsonArray];
-                
-                [self notifyCompleted];
-            }
-            else if([json isKindOfClass:[NSDictionary class]])
-            {
-                NSDictionary *jsonDict=json;
-                
-                if([self handleTokenError:jsonDict])
-                    return;
-                
-                if(jsonDict.count==0)
-                    [self onCompletedWithJSON:[NSArray array]];
-                else
-                    [self onCompletedWithJSON:[NSArray arrayWithObject:jsonDict]];
-                
-                [self notifyCompleted];
-            }
-            else if(json==[NSNull null])
-            {
-                @try {
-                    [self onCompletedWithJSON:@[[NSNull null]]];
-                }
-                @catch (NSException *exception) {
-                    NSLog(@"%@ process null error %@",CLASS_NAME,exception);
-                }
-                @finally {
-                    [self notifyCompleted];
-                }
-            }
-            else if([json isKindOfClass:[NSNumber class]])
-            {
-                @try {
-                    [self onCompletedWithJSON:@[json]];
-                }
-                @catch (NSException *exception) {
-                    NSLog(@"%@ process number error %@",CLASS_NAME,exception);
-                }
-                @finally {
-                    [self notifyCompleted];
-                }
+                [self notifyFailed:error];
             }
             else
             {
-                NSLog(@"%@ unknow json class %@",CLASS_NAME,NSStringFromClass([json class]));
-                
                 [self notifyCompleted];
+            }
+        }
+        else
+        {
+            NSData *data=[self.responseString dataUsingEncoding:self.responseStringEncoding];
+            NSError *jsonError=nil;
+            
+            id json = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers|NSJSONReadingAllowFragments error:&jsonError];
+            
+            if(jsonError)
+            {
+                [self onFailed:jsonError];
+                [self notifyFailed:jsonError];
+            }
+            else
+            {
+                if([json isKindOfClass:[NSArray class]])
+                {
+                    NSMutableArray *jsonArray=json;
+                    
+                    if(jsonArray.count==0 || [jsonArray objectAtIndex:0] == [NSNull null])
+                        [self onCompletedWithJSON:[NSArray array]];
+                    else
+                        [self onCompletedWithJSON:jsonArray];
+                    
+                    [self notifyCompleted];
+                }
+                else if([json isKindOfClass:[NSDictionary class]])
+                {
+                    NSDictionary *jsonDict=json;
+                    
+                    if([self handleTokenError:jsonDict])
+                        return;
+                    
+                    if(jsonDict.count==0)
+                        [self onCompletedWithJSON:[NSArray array]];
+                    else
+                        [self onCompletedWithJSON:[NSArray arrayWithObject:jsonDict]];
+                    
+                    [self notifyCompleted];
+                }
+                else if(json==[NSNull null])
+                {
+                    @try {
+                        [self onCompletedWithJSON:@[[NSNull null]]];
+                    }
+                    @catch (NSException *exception) {
+                        NSLog(@"%@ process null error %@",CLASS_NAME,exception);
+                    }
+                    @finally {
+                        [self notifyCompleted];
+                    }
+                }
+                else if([json isKindOfClass:[NSNumber class]])
+                {
+                    @try {
+                        [self onCompletedWithJSON:@[json]];
+                    }
+                    @catch (NSException *exception) {
+                        NSLog(@"%@ process number error %@",CLASS_NAME,exception);
+                    }
+                    @finally {
+                        [self notifyCompleted];
+                    }
+                }
+                else
+                {
+                    NSLog(@"%@ unknow json class %@",CLASS_NAME,NSStringFromClass([json class]));
+                    
+                    [self notifyCompleted];
+                }
             }
         }
     }
@@ -316,6 +398,8 @@ static NSMutableArray *_asioperations=nil;
                 return;
         }
     }
+    
+    [self onFinishLoading];
     [self onFailed:self.error];
     [self notifyFailed:self.error];
 }
@@ -337,14 +421,15 @@ static NSMutableArray *_asioperations=nil;
 
 -(void)restart
 {
-    ASIOperationPost *ope=[[[self class] alloc] initWithURL:self.sourceURL];
+    ASIOperationPost *ope=[[[self class] alloc] initPOSTWithURL:self.sourceURL];
     ope.delegate=self.delegate;
     ope.keyValue=self.keyValue;
     ope.imagesData=self.imagesData;
+    ope.storeData=self.storeData;
     
     NSLog(@"%@ %@ restart %@ %@ %@",NSStringFromClass([ope class]),ope.request.HTTPMethod,ope.request.URL,ope.keyValue, ope.imagesData.allKeys?:@"");
-     
-     [_asioperations removeObject:self];
+    
+    [_asioperations removeObject:self];
     
     [ope addToQueue];
 }
@@ -386,8 +471,14 @@ static NSMutableArray *_asioperations=nil;
     ope.keyValue=self.keyValue;
     ope.imagesData=self.imagesData;
     ope.sourceURL=self.sourceURL;
+    ope.storeData=self.storeData;
     
     return ope;
+}
+
+-(bool)isApplySGData
+{
+    return true;
 }
 
 - (void)dealloc
@@ -463,5 +554,11 @@ static ASIOperationManager *_operationManager=nil;
 {
     [self.operationQueue cancelAllOperations];
 }
+
+@end
+
+@implementation ASIOperationResponseSerializer
+
+
 
 @end

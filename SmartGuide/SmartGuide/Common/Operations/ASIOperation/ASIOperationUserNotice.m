@@ -12,7 +12,7 @@
 
 -(ASIOperationUserNotice *)initWithUserLat:(double)userLat userLng:(double)userLng
 {
-    self=[super initWithURL:SERVER_API_URL_MAKE(API_USER_NOTICE)];
+    self=[super initPOSTWithURL:SERVER_API_URL_MAKE(API_USER_NOTICE)];
     
     [self.keyValue setObject:@(userLat) forKey:USER_LATITUDE];
     [self.keyValue setObject:@(userLng) forKey:USER_LONGITUDE];
