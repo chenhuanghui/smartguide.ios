@@ -138,7 +138,7 @@
         _operationFBGetProfile=[[OperationFBGetProfile alloc] initWithAccessToken:[[FBSession activeSession] accessTokenData].accessToken];
         _operationFBGetProfile.delegate=self;
         
-        [_operationFBGetProfile start];
+        [_operationFBGetProfile addToQueue];
     }
 }
 
@@ -699,13 +699,13 @@
     
     if(_operationFBGetProfile)
     {
-        [_operationFBGetProfile cancel];
+        [_operationFBGetProfile clearDelegatesAndCancel];
         _operationFBGetProfile=nil;
     }
     
     if(_operationGPGetUserProfile)
     {
-        [_operationGPGetUserProfile cancel];
+        [_operationGPGetUserProfile clearDelegatesAndCancel];
         _operationGPGetUserProfile=nil;
     }
 }
@@ -741,7 +741,7 @@
         _operationGPGetUserProfile=[[OperationGPGetUserProfile alloc] initWithAccessToken:auth.accessToken clientID:kClientId];
         _operationGPGetUserProfile.delegate=self;
         
-        [_operationGPGetUserProfile start];
+        [_operationGPGetUserProfile addToQueue];
     }
 }
 

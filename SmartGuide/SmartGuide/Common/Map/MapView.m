@@ -199,8 +199,7 @@
 {
     if(_operationRouterUserLocation)
     {
-        _operationRouterUserLocation.delegate=nil;
-        [_operationRouterUserLocation cancel];
+        [_operationRouterUserLocation clearDelegatesAndCancel];
         _operationRouterUserLocation=nil;
     }
 }
@@ -209,8 +208,7 @@
 {
     if(_operationRouter)
     {
-        _operationRouter.delegate=nil;
-        [_operationRouter cancel];
+        [_operationRouter clearDelegatesAndCancel];
         _operationRouter=nil;
     }
 }

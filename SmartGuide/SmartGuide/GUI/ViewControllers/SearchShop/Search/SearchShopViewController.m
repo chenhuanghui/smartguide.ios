@@ -742,8 +742,7 @@
     
     for(OperationSearchAutocomplete *ope in _operationsAutocompleted)
     {
-        ope.delegate=nil;
-        [ope cancel];
+        [ope clearDelegatesAndCancel];
     }
 
     _keyword=@"";
