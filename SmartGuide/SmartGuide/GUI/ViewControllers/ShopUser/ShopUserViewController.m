@@ -186,9 +186,9 @@ enum SHOP_USER_CELL_TYPE
         return;
     
     _opeShopUser=[[ASIOperationShopUser alloc] initWithIDShop:_idShop userLat:userLat() userLng:userLng()];
-    _opeShopUser.delegatePost=self;
+    _opeShopUser.delegate=self;
     
-    [_opeShopUser startAsynchronous];
+    [_opeShopUser addToQueue];
 }
 
 -(void)ASIOperaionPostFinished:(ASIOperationPost *)operation

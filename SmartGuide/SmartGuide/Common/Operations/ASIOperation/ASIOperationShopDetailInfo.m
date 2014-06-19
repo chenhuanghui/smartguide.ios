@@ -9,7 +9,6 @@
 #import "ASIOperationShopDetailInfo.h"
 
 @implementation ASIOperationShopDetailInfo
-@synthesize infos;
 
 -(ASIOperationShopDetailInfo *)initWithIDShop:(int)idShop userLat:(double)userLat userLng:(double)userLng
 {
@@ -22,9 +21,13 @@
     return self;
 }
 
+-(void)onFinishLoading
+{
+    self.infos=[NSMutableArray array];
+}
+
 -(void)onCompletedWithJSON:(NSArray *)json
 {
-    infos=[NSMutableArray array];
     if([json isNullData])
         return;
     
@@ -39,7 +42,7 @@
             if([items isNullData])
                 continue;
             
-            switch (info.type) {
+            switch (info.enumType) {
                 case DETAIL_INFO_TYPE_1:
                     for(NSDictionary *item in items)
                     {
@@ -72,7 +75,7 @@
                     continue;
             }
             
-            [infos addObject:info];
+            [self.infos addObject:info];
         }
     }
 }
@@ -80,17 +83,38 @@
 @end
 
 @implementation InfoTypeObject
-@synthesize type,header,items;
 
 - (id)init
 {
     self = [super init];
     if (self) {
-        type=DETAIL_INFO_TYPE_UNKNOW;
-        header=@"";
-        items=[NSMutableArray array];
+        self.type=DETAIL_INFO_TYPE_UNKNOW;
+        self.header=@"";
+        self.items=[NSMutableArray array];
     }
     return self;
+}
+
+-(enum DETAIL_INFO_TYPE)enumType
+{
+    switch (self.type.integerValue) {
+        case DETAIL_INFO_TYPE_1:
+            return DETAIL_INFO_TYPE_1;
+            
+        case DETAIL_INFO_TYPE_2:
+            return DETAIL_INFO_TYPE_2;
+            
+        case DETAIL_INFO_TYPE_3:
+            return DETAIL_INFO_TYPE_3;
+            
+        case DETAIL_INFO_TYPE_4:
+            return DETAIL_INFO_TYPE_4;
+            
+        case DETAIL_INFO_TYPE_UNKNOW:
+            return DETAIL_INFO_TYPE_UNKNOW;
+    }
+    
+    return DETAIL_INFO_TYPE_UNKNOW;
 }
 
 +(InfoTypeObject *)infoWithDictionary:(NSDictionary *)dict
@@ -98,30 +122,7 @@
     InfoTypeObject *obj = [InfoTypeObject new];
     
     obj.header=[NSString stringWithStringDefault:dict[@"header"]];
-    
-    int type=[[NSNumber numberWithObject:dict[@"type"]] integerValue];
-    
-    switch (type) {
-        case 1:
-            obj.type=DETAIL_INFO_TYPE_1;
-            break;
-
-        case 2:
-            obj.type=DETAIL_INFO_TYPE_2;
-            break;
-            
-        case 3:
-            obj.type=DETAIL_INFO_TYPE_3;
-            break;
-            
-        case 4:
-            obj.type=DETAIL_INFO_TYPE_4;
-            break;
-            
-        default:
-            obj.type=DETAIL_INFO_TYPE_UNKNOW;
-            break;
-    }
+    obj.type=[NSNumber numberWithObject:dict[@"type"]];
     
     return obj;
 }
@@ -129,69 +130,52 @@
 @end
 
 @implementation Info1
-@synthesize isTicked,content;
 
 - (id)init
 {
     self = [super init];
     if (self) {
-        isTicked=DETAIL_INFO_TICKED_NONE;
-        content=@"";
+        self.ticked=@(DETAIL_INFO_TICKED_NONE);
+        self.content=@"";
+        self.contentHeight=@(-1);
     }
     return self;
+}
+
+-(enum DETAIL_INFO_IS_TICKED)enumTickedType
+{
+    switch (self.ticked.integerValue) {
+        case DETAIL_INFO_TICKED_NONE:
+            return DETAIL_INFO_TICKED_NONE;
+            
+        case DETAIL_INFO_TICKED:
+            return DETAIL_INFO_TICKED;
+    }
+    
+    return DETAIL_INFO_TICKED_NONE;
 }
 
 +(Info1 *)infoWithDictionary:(NSDictionary *)dict
 {
     Info1 *obj=[Info1 new];
     
-    int isTicked=[[NSNumber numberWithObject:dict[@"isTicked"]] integerValue];
-    
-    switch (isTicked) {
-        case 0:
-            obj.isTicked=DETAIL_INFO_TICKED_NONE;
-            break;
-            
-        case 1:
-            obj.isTicked=DETAIL_INFO_TICKED;
-            break;
-            
-        default:
-            obj.isTicked=DETAIL_INFO_TICKED_NONE;
-            break;
-    }
-    
+    obj.ticked=[NSNumber numberWithObject:dict[@"isTicked"]];
     obj.content=[NSString stringWithStringDefault:dict[@"content"]];
     
     return obj;
 }
 
--(NSString *)content1
-{
-    return @"Lorem ipsum dolor sit amet, consectetuer adipiscing elit,sed diam nonummy nibh euismod tincidunt ut la sed diam nonummy nibh euismod tincidunt ut la Lorem ipsum dolor sit amet, consectetuer adipiscing elit,sed diam nonummy nibh euismod tincidunt ut la sed diam nonummy nibh euismod tincidunt ut la";
-}
-
 @end
 
 @implementation Info2
-@synthesize title,content;
-
--(NSString *)content1
-{
-    return @"Lorem ipsum dolor sit amet consectetuer adipiscing elit nibh euismod tincidunt ut la sed";
-}
-
--(NSString *)title1
-{
-    return @"Lorem ipsum dolor sit amet";
-}
 
 - (id)init
 {
     self = [super init];
     if (self) {
-        title=@"";
-        content=@"";
+        self.title=@"";
+        self.content=@"";
+        self.contentHeight=@(-1);
     }
     return self;
 }
@@ -209,15 +193,16 @@
 @end
 
 @implementation Info3
-@synthesize content,title,image;
 
 - (id)init
 {
     self = [super init];
     if (self) {
-        content=@"";
-        title=@"";
-        image=@"";
+        self.content=@"";
+        self.title=@"";
+        self.image=@"";
+        self.contentHeight=@(-1);
+        self.titleHeight=@(-1);
     }
     return self;
 }
@@ -229,36 +214,24 @@
     obj.image=[NSString stringWithStringDefault:dict[@"image"]];
     obj.title=[NSString stringWithStringDefault:dict[@"title"]];
     obj.content=[NSString stringWithStringDefault:dict[@"content"]];
-    obj.idShop=[[NSNumber numberWithObject:dict[@"idShop"]] integerValue];
-    
-    obj.titleHeight=@(-1);
-    obj.contentHeight=@(-1);
+    obj.idShop=[NSNumber numberWithObject:dict[@"idShop"]];
     
     return obj;
-}
-
--(NSString *)title1
-{
-    return @"";
-}
-
--(NSString *)content1
-{
-    return @"Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat";
 }
 
 @end
 
 @implementation Info4
-@synthesize content,date,title;
 
 - (id)init
 {
     self = [super init];
     if (self) {
-        content=@"";
-        date=@"";
-        title=@"";
+        self.content=@"";
+        self.date=@"";
+        self.title=@"";
+        self.contentHeight=@(-1);
+        self.titleHeight=@(-1);
     }
     return self;
 }
@@ -272,11 +245,6 @@
     obj.content=[NSString stringWithStringDefault:dict[@"content"]];
     
     return obj;
-}
-
--(NSString *)content1
-{
-    return @"Lorem ipsum dolor sit amet, consectetuer adipiscing elit,sed diam nonummy nibh euismod tincidunt";
 }
 
 @end

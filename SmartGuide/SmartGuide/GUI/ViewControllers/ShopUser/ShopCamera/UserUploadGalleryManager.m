@@ -113,9 +113,9 @@ static UserUploadGalleryManager *_userUploadGalleryManager=nil;
     if(_currentUpload.idUserGallery.integerValue==0)
     {
         ASIOperationUploadUserGallery *ope=[[ASIOperationUploadUserGallery alloc] initWithIDShop:_currentUpload.idShop.integerValue image:_currentUpload.image userLat:_currentUpload.userLng.doubleValue userLng:_currentUpload.userLng.doubleValue];
-        ope.delegatePost=self;
+        ope.delegate=self;
         
-        [ope startAsynchronous];
+        [ope addToQueue];
         
         _currentUpload.objConnection=ope;
     }
@@ -148,8 +148,8 @@ static UserUploadGalleryManager *_userUploadGalleryManager=nil;
     if(_currentUpload && _currentUpload.desc.length>0 && _currentUpload.idUserGallery.integerValue>0)
     {
         ASIOperationPostPicture *opePost=[[ASIOperationPostPicture alloc] initWithIDUserGallery:_currentUpload.idUserGallery.integerValue userLat:_currentUpload.userLng.doubleValue userLng:_currentUpload.userLng.doubleValue description:_currentUpload.desc];
-        opePost.delegatePost=self;
-        [opePost startAsynchronous];
+        opePost.delegate=self;
+        [opePost addToQueue];
         
         _currentUpload.objConnection=opePost;
     }
@@ -227,9 +227,9 @@ static UserUploadGalleryManager *_userUploadGalleryManager=nil;
     if(_currentUpload)
     {
         ASIOperationUploadUserGallery *ope=[[ASIOperationUploadUserGallery alloc] initWithIDShop:_currentUpload.idShop.integerValue image:_currentUpload.image userLat:_currentUpload.userLat.doubleValue userLng:_currentUpload.userLng.doubleValue];
-        ope.delegatePost=self;
+        ope.delegate=self;
         
-        [ope startAsynchronous];
+        [ope addToQueue];
         
         _currentUpload.objConnection=ope;
     }
@@ -240,8 +240,8 @@ static UserUploadGalleryManager *_userUploadGalleryManager=nil;
     if(_currentUpload)
     {
         ASIOperationPostPicture *opePost=[[ASIOperationPostPicture alloc] initWithIDUserGallery:_currentUpload.idUserGallery.integerValue userLat:_currentUpload.userLat.doubleValue userLng:_currentUpload.userLng.doubleValue description:_currentUpload.desc];
-        opePost.delegatePost=self;
-        [opePost startAsynchronous];
+        opePost.delegate=self;
+        [opePost addToQueue];
         
         _currentUpload.objConnection=opePost;
     }

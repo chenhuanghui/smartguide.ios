@@ -36,10 +36,14 @@
     return @"ShopDetailInfoType4Cell";
 }
 
-+(float)heightWithContent:(NSString *)content
++(float)heightWithInfo4:(Info4 *)info4
 {
     float height=70;
-    height+=MAX(0,[content sizeWithFont:[UIFont fontWithName:@"Avenir-Roman" size:12] constrainedToSize:CGSizeMake(244, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height-20);
+    
+    if(info4.contentHeight.floatValue==-1)
+        info4.contentHeight=@([info4.content sizeWithFont:[UIFont fontWithName:@"Avenir-Roman" size:12] constrainedToSize:CGSizeMake(244, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height);
+    
+    height+=MAX(0,info4.contentHeight.floatValue-20);
     
     return height;
 }

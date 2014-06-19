@@ -25,7 +25,7 @@ enum DETAIL_INFO_IS_TICKED {
 
 -(ASIOperationShopDetailInfo*) initWithIDShop:(int) idShop userLat:(double) userLat userLng:(double) userLng;
 
-@property (nonatomic, readonly) NSMutableArray *infos;
+@property (nonatomic, strong) NSMutableArray *infos;
 
 @end
 
@@ -33,7 +33,9 @@ enum DETAIL_INFO_IS_TICKED {
 
 +(InfoTypeObject*) infoWithDictionary:(NSDictionary*) dict;
 
-@property (nonatomic, assign) enum DETAIL_INFO_TYPE type;
+-(enum DETAIL_INFO_TYPE) enumType;
+
+@property (nonatomic, strong) NSNumber *type;
 @property (nonatomic, strong) NSString *header;
 @property (nonatomic, strong) NSMutableArray *items;
 
@@ -43,8 +45,11 @@ enum DETAIL_INFO_IS_TICKED {
 
 +(Info1*) infoWithDictionary:(NSDictionary*) dict;
 
-@property (nonatomic, assign) enum DETAIL_INFO_IS_TICKED isTicked;
+-(enum DETAIL_INFO_IS_TICKED) enumTickedType;
+
+@property (nonatomic, strong) NSNumber *ticked;
 @property (nonatomic, strong) NSString *content;
+@property (nonatomic, strong) NSNumber *contentHeight;
 
 @end
 
@@ -54,6 +59,7 @@ enum DETAIL_INFO_IS_TICKED {
 
 @property (nonatomic, strong) NSString *title;
 @property (nonatomic, strong) NSString *content;
+@property (nonatomic, strong) NSNumber *contentHeight;
 
 @end
 
@@ -64,7 +70,7 @@ enum DETAIL_INFO_IS_TICKED {
 @property (nonatomic, strong) NSString *image;
 @property (nonatomic, strong) NSString *title;
 @property (nonatomic, strong) NSString *content;
-@property (nonatomic, assign) int idShop;
+@property (nonatomic, strong) NSNumber* idShop;
 @property (nonatomic, strong) NSNumber *titleHeight;
 @property (nonatomic, strong) NSNumber *contentHeight;
 
@@ -77,5 +83,7 @@ enum DETAIL_INFO_IS_TICKED {
 @property (nonatomic, strong) NSString *date;
 @property (nonatomic, strong) NSString *title;
 @property (nonatomic, strong) NSString *content;
+@property (nonatomic, strong) NSNumber *titleHeight;
+@property (nonatomic, strong) NSNumber *contentHeight;
 
 @end

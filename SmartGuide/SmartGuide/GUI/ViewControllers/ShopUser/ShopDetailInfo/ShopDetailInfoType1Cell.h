@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "InfoTypeBGView.h"
-#import "ASIOperationShopDetailInfo.h"
+#import "Constant.h"
+
+@class Info1;
 
 @interface ShopDetailInfoType1Cell : UITableViewCell
 {
@@ -21,6 +22,6 @@
 -(void) setCellPos:(enum CELL_POSITION) cellPos;
 
 +(NSString *)reuseIdentifier;
-+(float) heightWithContent:(NSString*) content;
++(float) heightWithInfo1:(Info1*) info1;
 
 @end

@@ -874,7 +874,6 @@
 		A93F20611797CF7600622D75 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A93F20601797CF7600622D75 /* AddressBook.framework */; };
 		A94088DD17B3950A00205145 /* Ads.m in Sources */ = {isa = PBXBuildFile; fileRef = A94088DC17B3950A00205145 /* Ads.m */; };
 		A94088E017B3951300205145 /* _Ads.m in Sources */ = {isa = PBXBuildFile; fileRef = A94088DF17B3951300205145 /* _Ads.m */; };
-		A958794E195005C000DD4A57 /* GalleryManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A958794D195005C000DD4A57 /* GalleryManager.m */; };
 		A958795219500B4100DD4A57 /* bg_sosmart.png in Resources */ = {isa = PBXBuildFile; fileRef = A958794F19500B4100DD4A57 /* bg_sosmart.png */; };
 		A958795319500B4100DD4A57 /* bg_5sosmart.png in Resources */ = {isa = PBXBuildFile; fileRef = A958795019500B4100DD4A57 /* bg_5sosmart.png */; };
 		A958795419500B4100DD4A57 /* bg_sosmart@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A958795119500B4100DD4A57 /* bg_sosmart@2x.png */; };
@@ -1074,6 +1073,7 @@
 		A9EB14A51952D79C00191767 /* ShopUserGalleryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9EB14671952D79C00191767 /* ShopUserGalleryCell.xib */; };
 		A9EB14A61952D79C00191767 /* ShopUserGalleryControllerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A9EB14691952D79C00191767 /* ShopUserGalleryControllerCell.m */; };
 		A9EB14A71952D79C00191767 /* ShopUserGalleryControllerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9EB146A1952D79C00191767 /* ShopUserGalleryControllerCell.xib */; };
+		A9EB14AD1952DA4500191767 /* ShopManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A9EB14AC1952DA4500191767 /* ShopManager.m */; };
 		A9EF13CE193583A60062A9BF /* TableTemplateData.m in Sources */ = {isa = PBXBuildFile; fileRef = A9EF13CD193583A60062A9BF /* TableTemplateData.m */; };
 		A9F8D4841942BA8100174E90 /* play_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = A9F8D4821942BA8100174E90 /* play_icon.png */; };
 		A9F8D4851942BA8100174E90 /* play_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A9F8D4831942BA8100174E90 /* play_icon@2x.png */; };
@@ -2178,8 +2178,6 @@
 		A94088DC17B3950A00205145 /* Ads.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Ads.m; sourceTree = "<group>"; };
 		A94088DE17B3951300205145 /* _Ads.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _Ads.h; sourceTree = "<group>"; };
 		A94088DF17B3951300205145 /* _Ads.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _Ads.m; sourceTree = "<group>"; };
-		A958794C195005C000DD4A57 /* GalleryManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GalleryManager.h; sourceTree = "<group>"; };
-		A958794D195005C000DD4A57 /* GalleryManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GalleryManager.m; sourceTree = "<group>"; };
 		A958794F19500B4100DD4A57 /* bg_sosmart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_sosmart.png; sourceTree = "<group>"; };
 		A958795019500B4100DD4A57 /* bg_5sosmart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_5sosmart.png; sourceTree = "<group>"; };
 		A958795119500B4100DD4A57 /* bg_sosmart@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg_sosmart@2x.png"; sourceTree = "<group>"; };
@@ -2466,6 +2464,8 @@
 		A9EB14681952D79C00191767 /* ShopUserGalleryControllerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopUserGalleryControllerCell.h; sourceTree = "<group>"; };
 		A9EB14691952D79C00191767 /* ShopUserGalleryControllerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopUserGalleryControllerCell.m; sourceTree = "<group>"; };
 		A9EB146A1952D79C00191767 /* ShopUserGalleryControllerCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShopUserGalleryControllerCell.xib; sourceTree = "<group>"; };
+		A9EB14AB1952DA4500191767 /* ShopManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopManager.h; sourceTree = "<group>"; };
+		A9EB14AC1952DA4500191767 /* ShopManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopManager.m; sourceTree = "<group>"; };
 		A9EF13CC193583A60062A9BF /* TableTemplateData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableTemplateData.h; sourceTree = "<group>"; };
 		A9EF13CD193583A60062A9BF /* TableTemplateData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableTemplateData.m; sourceTree = "<group>"; };
 		A9F8D4821942BA8100174E90 /* play_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = play_icon.png; sourceTree = "<group>"; };
@@ -2612,8 +2612,6 @@
 		9A27BABB18D18BAD00E3EAC2 /* GalleryFull */ = {
 			isa = PBXGroup;
 			children = (
-				A958794C195005C000DD4A57 /* GalleryManager.h */,
-				A958794D195005C000DD4A57 /* GalleryManager.m */,
 				9A27BABC18D18BAD00E3EAC2 /* GalleryFullCell.h */,
 				9A27BABD18D18BAD00E3EAC2 /* GalleryFullCell.m */,
 				9A27BABE18D18BAD00E3EAC2 /* GalleryFullCell.xib */,
@@ -4446,6 +4444,8 @@
 				A9EB14611952D79C00191767 /* ShopUserViewController.h */,
 				A9EB14621952D79C00191767 /* ShopUserViewController.m */,
 				A9EB14631952D79C00191767 /* ShopUserViewController.xib */,
+				A9EB14AB1952DA4500191767 /* ShopManager.h */,
+				A9EB14AC1952DA4500191767 /* ShopManager.m */,
 				A9EB14641952D79C00191767 /* UserGallery */,
 			);
 			path = ShopUser;
@@ -5531,7 +5531,6 @@
 				9ACFA6A318600AA50090E7A8 /* ShopList.m in Sources */,
 				A9EB149A1952D79C00191767 /* ShopKMNewsCell.m in Sources */,
 				9A27BC1718D18BAD00E3EAC2 /* HomePromotionCell.m in Sources */,
-				A958794E195005C000DD4A57 /* GalleryManager.m in Sources */,
 				9ADCD96718D19C3F004CB67E /* TPKeyboardAvoidingCollectionView.m in Sources */,
 				A91A675B1797F65000BEB8C5 /* DataManager.m in Sources */,
 				9A27BC0718D18BAD00E3EAC2 /* HomeImageCell.m in Sources */,
@@ -5772,6 +5771,7 @@
 				A9EB14A21952D79C00191767 /* ShopUserViewController.m in Sources */,
 				9A27BC0F18D18BAD00E3EAC2 /* HomeInfoCell.m in Sources */,
 				9A27BC1518D18BAD00E3EAC2 /* HomeListObjectCell.m in Sources */,
+				A9EB14AD1952DA4500191767 /* ShopManager.m in Sources */,
 				9ADCD94118D19C3F004CB67E /* AFURLRequestSerialization.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

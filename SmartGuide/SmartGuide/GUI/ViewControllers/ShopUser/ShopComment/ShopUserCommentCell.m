@@ -122,9 +122,9 @@
     }
     
     _operationAgree=[[ASIOperationAgreeComment alloc] initWithIDComment:_comment.idComment.integerValue userLat:userLat() userLng:userLng() isAgree:_comment.enumAgreeStatus];
-    _operationAgree.delegatePost=self;
+    _operationAgree.delegate=self;
     
-    [_operationAgree startAsynchronous];
+    [_operationAgree addToQueue];
 }
 
 -(IBAction) btnAgreeTouchUpInside:(id)sender

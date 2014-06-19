@@ -23,10 +23,10 @@
 #import "UserNotificationDetailViewController.h"
 #import "QRCodeViewController.h"
 #import "RemoteNotificationView.h"
-#import "ShopUserViewController.h"
+#import "ShopUserController.h"
 #import "TokenManager.h"
 
-@interface RootViewController ()<NavigationControllerDelegate,UIScrollViewDelegate,HomeControllerDelegate,UserPromotionDelegate,SGUserSettingControllerDelegate,WebViewDelegate,ShopUserDelegate,UIGestureRecognizerDelegate,RemoteNotificationDelegate>
+@interface RootViewController ()<NavigationControllerDelegate,UIScrollViewDelegate,HomeControllerDelegate,UserPromotionDelegate,SGUserSettingControllerDelegate,WebViewDelegate,ShopUserControllerDelegate,UIGestureRecognizerDelegate,RemoteNotificationDelegate>
 {
 }
 
@@ -390,12 +390,12 @@
 
 #pragma mark ShopUserViewController
 
--(void)shopUserFinished:(ShopUserViewController *)controller
+-(void)shopUserControllerTouchedClose:(ShopUserController *)controller
 {
     [self dismissShopUser];
 }
 
--(void)shopUserRequestScanCode:(ShopUserViewController *)controller
+-(void)shopUserControllerTouchedScanQRCode:(ShopUserController *)controller
 {
     [self showQRCodeWithContorller:self inView:self.view withAnimationType:QRCODE_ANIMATION_TOP_BOT screenCode:[ShopUserViewController screenCode]];
 }
@@ -433,27 +433,27 @@
 
 -(void) presentShopUserWithShop:(Shop *)shop
 {
-    ShopUserViewController *vc=[[ShopUserViewController alloc] initWithShopUser:shop];
+    ShopUserController *vc=[[ShopUserController alloc] initWithShop:shop];
     
     [self presentShopUser:vc];
 }
 
 -(void)presentShopUserWithIDShop:(int)idShop
 {
-    ShopUserViewController *vc=[[ShopUserViewController alloc] initWithIDShop:idShop];
+    ShopUserController *vc=[[ShopUserController alloc] initWithIDShop:idShop];
     
     [self presentShopUser:vc];
 }
 
--(void) presentShopUser:(ShopUserViewController*) vc
+-(void) presentShopUser:(ShopUserController*) vc
 {
     vc.delegate=self;
     
     if(self.contentNavigation.presentSGViewControlelr)
     {
-        if([self.contentNavigation.presentSGViewControlelr isKindOfClass:[ShopUserViewController class]])
+        if([self.contentNavigation.presentSGViewControlelr isKindOfClass:[ShopUserController class]])
         {
-            __block ShopUserViewController *_vc=vc;
+            __block ShopUserController *_vc=vc;
             [self.contentNavigation dismissSGViewControllerCompletion:^{
                 [self presentShopUser:_vc];
                 _vc=nil;

@@ -22,7 +22,7 @@
 -(void) loadWithInfo4:(Info4*) info4;
 -(void)setCellPos:(enum CELL_POSITION)cellPos;
 
-+(float) heightWithContent:(NSString*) content;
++(float) heightWithInfo4:(Info4*) info4;
 +(NSString *)reuseIdentifier;
 
 @end

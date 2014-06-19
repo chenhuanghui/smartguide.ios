@@ -7,13 +7,15 @@
 //
 
 #import "ShopDetailInfoType1Cell.h"
+#import "InfoTypeBGView.h"
+#import "ASIOperationShopDetailInfo.h"
 
 @implementation ShopDetailInfoType1Cell
 
 -(void) loadWithInfo1:(Info1 *)info1
 {
     lblContent.text=info1.content;
-    btnTick.enabled=info1.isTicked==DETAIL_INFO_TICKED;
+    btnTick.enabled=info1.enumTickedType==DETAIL_INFO_TICKED;
 }
 
 -(void)setCellPos:(enum CELL_POSITION)cellPos
@@ -35,10 +37,13 @@
     return @"ShopDetailInfoType1Cell";
 }
 
-+(float)heightWithContent:(NSString *)content
++(float)heightWithInfo1:(Info1 *)info1
 {
     float height=40;
-    height+=MAX(0,[content sizeWithFont:[UIFont fontWithName:@"Avenir-Light" size:12] constrainedToSize:CGSizeMake(230, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height-30);
+    
+    if(info1.contentHeight.floatValue==-1)
+        info1.contentHeight=@([info1.content sizeWithFont:FONT_SIZE_LIGHT(12) constrainedToSize:CGSizeMake(230, MAXFLOAT) lineBreakMode:NSLineBreakByTruncatingTail].height);
+    height+=MAX(0,info1.contentHeight.floatValue-30);
     
     return height;
 }

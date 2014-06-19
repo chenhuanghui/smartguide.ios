@@ -131,9 +131,9 @@ static ShopManager *_galleryManager;
     isLoadingMoreShopGallery=true;
     
     _operationShopGallery=[[ASIOperationShopGallery alloc] initWithWithIDShop:_shop.idShop.integerValue userLat:userLat() userLng:userLng() page:_pageGalleryShop+1];
-    _operationShopGallery.delegatePost=self;
+    _operationShopGallery.delegate=self;
     
-    [_operationShopGallery startAsynchronous];
+    [_operationShopGallery addToQueue];
 }
 
 -(void)requestUserGallery
@@ -147,9 +147,9 @@ static ShopManager *_galleryManager;
     isLoadingMoreUserGallery=true;
     
     _operationUserGallery=[[ASIOperationUserGallery alloc] initWithIDShop:_shop.idShop.integerValue userLat:userLat() userLng:userLng() page:_pageGalleryUser+1];
-    _operationUserGallery.delegatePost=self;
+    _operationUserGallery.delegate=self;
     
-    [_operationUserGallery startAsynchronous];
+    [_operationUserGallery addToQueue];
 }
 
 -(NSArray *)commentWithSort:(enum SORT_SHOP_COMMENT)sortType
@@ -213,9 +213,9 @@ static ShopManager *_galleryManager;
             isLoadingMoreCommentTime=true;
             
             _operationTimeComment=[[ASIOperationShopComment alloc] initWithIDShop:_shop.idShop.integerValue page:_pageCommentsTime+1 sort:SORT_SHOP_COMMENT_TIME];
-            _operationTimeComment.delegatePost=self;
+            _operationTimeComment.delegate=self;
             
-            [_operationTimeComment startAsynchronous];
+            [_operationTimeComment addToQueue];
             break;
             
         case SORT_SHOP_COMMENT_TOP_AGREED:
@@ -228,9 +228,9 @@ static ShopManager *_galleryManager;
             isLoadingMoreCommentTopAgreed=true;
             
             _operationTopAgreedComment=[[ASIOperationShopComment alloc] initWithIDShop:_shop.idShop.integerValue page:_pageCommentsTopAgreed+1 sort:SORT_SHOP_COMMENT_TOP_AGREED];
-            _operationTopAgreedComment.delegatePost=self;
+            _operationTopAgreedComment.delegate=self;
             
-            [_operationTopAgreedComment startAsynchronous];
+            [_operationTopAgreedComment addToQueue];
             break;
     }
 }

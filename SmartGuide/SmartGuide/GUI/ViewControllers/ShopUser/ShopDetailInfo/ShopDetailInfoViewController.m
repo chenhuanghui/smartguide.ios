@@ -76,10 +76,10 @@
     _descMode=SHOP_DETAIL_INFO_DESCRIPTION_NORMAL;
     
     _operation=[[ASIOperationShopDetailInfo alloc] initWithIDShop:_shop.idShop.integerValue userLat:userLat() userLng:userLng()];
-    _operation.delegatePost=self;
+    _operation.delegate=self;
     _operation.fScreen=SCREEN_CODE_SHOP_USER;
     
-    [_operation startAsynchronous];
+    [_operation addToQueue];
     
     if(_shop.shopGalleriesObjects.count>0)
     {
@@ -101,7 +101,7 @@
 
         if(infoCell.info.idShop!=0)
         {
-            [[GUIManager shareInstance].rootViewController presentShopUserWithIDShop:infoCell.info.idShop];
+            [[GUIManager shareInstance].rootViewController presentShopUserWithIDShop:infoCell.info.idShop.integerValue];
         }
     }
     else if([cell isKindOfClass:[ShopDetailInfoDescCell class]])
@@ -240,18 +240,18 @@
             if(indexPath.row==obj.items.count)
                 return SHOP_DETAIL_INFO_TABLE_EMPTY_CELL_HEIGHT;
             
-            switch (obj.type) {
+            switch (obj.enumType) {
                 case DETAIL_INFO_TYPE_1:
-                    return [ShopDetailInfoType1Cell heightWithContent:[obj.items[indexPath.row] content]];
+                    return [ShopDetailInfoType1Cell heightWithInfo1:obj.items[indexPath.row]];
                     
                 case DETAIL_INFO_TYPE_2:
-                    return [ShopDetailInfoType2Cell heightWithContent:[obj.items[indexPath.row] content]];
+                    return [ShopDetailInfoType2Cell heightWithInfo2:obj.items[indexPath.row]];
                     
                 case DETAIL_INFO_TYPE_3:
                     return [ShopDetailInfoType3Cell heightWithInfo3:obj.items[indexPath.row]];
                     
                 case DETAIL_INFO_TYPE_4:
-                    return [ShopDetailInfoType4Cell heightWithContent:[obj.items[indexPath.row] content]];
+                    return [ShopDetailInfoType4Cell heightWithInfo4:obj.items[indexPath.row]];
                     
                 default:
                     return 0;
@@ -356,7 +356,7 @@
         return [self emptyCell];
     }
     
-    switch (obj.type) {
+    switch (obj.enumType) {
         case DETAIL_INFO_TYPE_1:
         {
             Info1 *item=obj.items[indexPath.row];
