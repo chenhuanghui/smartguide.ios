@@ -5,15 +5,10 @@
 #import "UserNotificationAction.h"
 
 #import "DataManager.h"
-#import "UserNotification.h"
 #import "UserNotificationContent.h"
 
 
 @implementation _UserNotificationAction
-
-
-@dynamic userNotification;
-
 
 
 @dynamic userNotificationContent;
@@ -227,14 +222,6 @@
 
 #pragma mark Relationships
     
-#pragma mark UserNotification
-- (UserNotification*)userNotification {
-	[self willAccessValueForKey:@"userNotification"];
-	UserNotification *result = [self primitiveValueForKey:@"userNotification"];
-	[self didAccessValueForKey:@"userNotification"];
-	return result;
-}
-
 #pragma mark UserNotificationContent
 - (UserNotificationContent*)userNotificationContent {
 	[self willAccessValueForKey:@"userNotificationContent"];

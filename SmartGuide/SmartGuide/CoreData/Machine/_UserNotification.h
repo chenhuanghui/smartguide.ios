@@ -6,18 +6,18 @@
 
 #define UserNotification_ClassName @"UserNotification"
 
-#define UserNotification_Content @"content"
 #define UserNotification_HighlightUnread @"highlightUnread"
-#define UserNotification_IdNotification @"idNotification"
 #define UserNotification_IdSender @"idSender"
-#define UserNotification_Logo @"logo"
+#define UserNotification_NumberAll @"numberAll"
+#define UserNotification_NumberRead @"numberRead"
+#define UserNotification_NumberUnread @"numberUnread"
 #define UserNotification_Sender @"sender"
 #define UserNotification_Status @"status"
-#define UserNotification_Time @"time"
-#define UserNotification_Title @"title"
+#define UserNotification_TotalAll @"totalAll"
+#define UserNotification_TotalRead @"totalRead"
+#define UserNotification_TotalUnread @"totalUnread"
 
 @class UserNotification;
-@class UserNotificationAction;
 @class UserNotificationContent;
 
 @interface _UserNotification : NSManagedObject
@@ -31,29 +31,21 @@
 -(void) markDeleted;
 
 
-@property (nonatomic, retain) NSString* content;
 @property (nonatomic, retain) NSNumber* highlightUnread;
-@property (nonatomic, retain) NSNumber* idNotification;
 @property (nonatomic, retain) NSNumber* idSender;
-@property (nonatomic, retain) NSString* logo;
+@property (nonatomic, retain) NSNumber* numberAll;
+@property (nonatomic, retain) NSNumber* numberRead;
+@property (nonatomic, retain) NSNumber* numberUnread;
 @property (nonatomic, retain) NSString* sender;
 @property (nonatomic, retain) NSNumber* status;
-@property (nonatomic, retain) NSString* time;
-@property (nonatomic, retain) NSString* title;
+@property (nonatomic, retain) NSString* totalAll;
+@property (nonatomic, retain) NSString* totalRead;
+@property (nonatomic, retain) NSString* totalUnread;
 
 #pragma mark Fetched property
 
     
 #pragma mark Relationships
-
-#pragma mark Actions
-- (NSSet*) actions;
-- (NSArray*) actionsObjects;
-- (void) addActions:(NSSet*)value;
-- (void) removeActions:(NSSet*)value;
-- (void) addActionsObject:(UserNotificationAction*)value;
-- (void) removeActionsObject:(UserNotificationAction*)value;
-- (void) removeAllActions;
 
 #pragma mark NotificationContents
 - (NSSet*) notificationContents;

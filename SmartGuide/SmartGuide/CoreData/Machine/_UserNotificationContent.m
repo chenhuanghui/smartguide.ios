@@ -133,17 +133,17 @@
 	[self didChangeValueForKey:@"highlightUnread"];
 }
 
-- (NSNumber*)idNotification {
-	[self willAccessValueForKey:@"idNotification"];
-	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"idNotification"];
-	[self didAccessValueForKey:@"idNotification"];
+- (NSNumber*)idMessage {
+	[self willAccessValueForKey:@"idMessage"];
+	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"idMessage"];
+	[self didAccessValueForKey:@"idMessage"];
 	return result;
 }
 
-- (void)setIdNotification:(NSNumber*)value {
-	[self willChangeValueForKey:@"idNotification"];
-	[self setPrimitiveValue:value forKey:@"idNotification"];
-	[self didChangeValueForKey:@"idNotification"];
+- (void)setIdMessage:(NSNumber*)value {
+	[self willChangeValueForKey:@"idMessage"];
+	[self setPrimitiveValue:value forKey:@"idMessage"];
+	[self didChangeValueForKey:@"idMessage"];
 }
 
 - (NSNumber*)idSender {
@@ -222,6 +222,45 @@
 	[self willChangeValueForKey:@"logo"];
 	[self setPrimitiveValue:value forKey:@"logo"];
 	[self didChangeValueForKey:@"logo"];
+}
+
+- (NSNumber*)page {
+	[self willAccessValueForKey:@"page"];
+	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"page"];
+	[self didAccessValueForKey:@"page"];
+	return result;
+}
+
+- (void)setPage:(NSNumber*)value {
+	[self willChangeValueForKey:@"page"];
+	[self setPrimitiveValue:value forKey:@"page"];
+	[self didChangeValueForKey:@"page"];
+}
+
+- (NSString*)sender {
+	[self willAccessValueForKey:@"sender"];
+	NSString* result = (NSString*)[self primitiveValueForKey:@"sender"];
+	[self didAccessValueForKey:@"sender"];
+	return result;
+}
+
+- (void)setSender:(NSString*)value {
+	[self willChangeValueForKey:@"sender"];
+	[self setPrimitiveValue:value forKey:@"sender"];
+	[self didChangeValueForKey:@"sender"];
+}
+
+- (NSNumber*)sortOrder {
+	[self willAccessValueForKey:@"sortOrder"];
+	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"sortOrder"];
+	[self didAccessValueForKey:@"sortOrder"];
+	return result;
+}
+
+- (void)setSortOrder:(NSNumber*)value {
+	[self willChangeValueForKey:@"sortOrder"];
+	[self setPrimitiveValue:value forKey:@"sortOrder"];
+	[self didChangeValueForKey:@"sortOrder"];
 }
 
 - (NSNumber*)status {

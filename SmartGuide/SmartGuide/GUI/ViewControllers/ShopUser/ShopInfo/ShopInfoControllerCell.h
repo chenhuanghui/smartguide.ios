@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "Shop.h"
-#import "LabelTopText.h"
 
 @class ShopInfoControllerCell;
 
@@ -20,7 +19,7 @@
 
 @interface ShopInfoControllerCell : UICollectionViewCell
 {
-    __weak IBOutlet LabelTopText *lblAddress;
+    __weak IBOutlet UILabel *lblAddress;
     __weak IBOutlet UIButton *btnTel;
     __weak IBOutlet UIImageView *line;
     

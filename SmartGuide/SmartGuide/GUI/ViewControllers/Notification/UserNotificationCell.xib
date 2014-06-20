@@ -33,20 +33,21 @@
                                                 <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="13"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <view contentMode="scaleToFill" id="4mf-9l-ANb" customClass="TokenView">
-                                                <rect key="frame" x="20" y="39" width="264" height="0.0"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                            </view>
-                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="aSA-u7-3ac">
+                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="aSA-u7-3ac" userLabel="Time">
                                                 <rect key="frame" x="20" y="45" width="264" height="21"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                <string key="text">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim</string>
                                                 <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="11"/>
                                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="oZF-q2-GQl">
+                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="azD-cP-lyE" userLabel="Number">
+                                                <rect key="frame" x="20" y="45" width="264" height="21"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                                                <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="11"/>
+                                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="oZF-q2-GQl">
                                                 <rect key="frame" x="292" y="0.0" width="16" height="77"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" heightSizable="YES"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -103,12 +104,12 @@
                 <outlet property="btnRemove" destination="GRr-tK-9KN" id="NPM-uh-DUP"/>
                 <outlet property="displayContentView" destination="FuB-96-NDd" id="EpK-5R-VfT"/>
                 <outlet property="lblContent" destination="PiA-sy-4Gp" id="Yni-96-6mT"/>
-                <outlet property="lblTime" destination="aSA-u7-3ac" id="KZW-49-8Qh"/>
+                <outlet property="lblNumber" destination="azD-cP-lyE" id="sqo-k3-LpJ"/>
+                <outlet property="lblTime" destination="aSA-u7-3ac" id="tBS-cM-04B"/>
                 <outlet property="leftView" destination="Zi1-Aa-Ug2" id="yyA-BO-WEP"/>
                 <outlet property="lineView" destination="lHz-W8-T46" id="QR9-01-aF7"/>
                 <outlet property="rightView" destination="kXJ-7k-P8L" id="XFT-0Y-hjg"/>
                 <outlet property="scroll" destination="uBf-eO-EU4" id="yVW-vg-FxQ"/>
-                <outlet property="tokensView" destination="4mf-9l-ANb" id="75G-wu-8Pd"/>
             </connections>
         </tableViewCell>
     </objects>

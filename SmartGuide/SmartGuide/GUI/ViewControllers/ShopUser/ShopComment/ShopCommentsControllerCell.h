@@ -11,6 +11,12 @@
 
 @class ShopCommentsControllerCell,UserCommentBGMidView,HPGrowingTextView,Shop, ButtonAgree;
 
+enum SHOP_COMMENT_MODE
+{
+    SHOP_COMMENT_MODE_NORMAL=0,
+    SHOP_COMMENT_MODE_EDIT=1
+};
+
 @protocol ShopCommentsControllerCellDelegate <NSObject>
 
 -(void) shopCommentsControllerCellChangeSort:(ShopCommentsControllerCell*) cell sort:(enum SORT_SHOP_COMMENT) sort;
@@ -46,8 +52,7 @@
 -(void) clearInput;
 -(void) reloadData;
 
--(void) switchToNormailModeAnimate:(bool) animate duration:(float) duration;
--(void) switchToEditingModeAnimate:(bool) animate duration:(float) duration;
+-(void) switchToMode:(enum SHOP_COMMENT_MODE) mode animate:(bool) animate duration:(float) duration;
 
 -(UITableView*) table;
 

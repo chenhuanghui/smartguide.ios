@@ -422,6 +422,7 @@ NSString* LAZY_STRING_INT(int i);
 @interface NSObject(Utility)
 
 -(bool) isNullData;
+-(bool) hasData;
 -(bool) isHasString;
 
 @end
@@ -437,6 +438,7 @@ NSString* LAZY_STRING_INT(int i);
 -(CGRect) rectForItemAtIndexPath:(NSIndexPath*) indexPath;
 -(UICollectionViewFlowLayout *)collectionViewFlowLayout;
 -(void) reloadVisibleItems;
+-(CGRect) rectForSection:(int) section;
 
 @end
 

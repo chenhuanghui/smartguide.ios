@@ -7,12 +7,8 @@
 //
 
 #import "SGViewController.h"
-#import "SGNavigationController.h"
-#import "ShopCameraTakeViewController.h"
-#import "ShopCameraPostViewController.h"
-#import "UserUploadGalleryManager.h"
 
-@class ShopCameraViewController;
+@class ShopCameraViewController, SGNavigationController, UserGalleryUpload;
 
 @protocol ShopCameraControllerDelegate <SGViewControllerDelegate>
 
@@ -20,7 +16,7 @@
 
 @end
 
-@interface ShopCameraViewController : SGViewController<ShopCameraTakeDelegate,ShopCameraPostDelegae>
+@interface ShopCameraViewController : SGViewController
 {
     __weak SGNavigationController *cameraNavi;
     __weak Shop *_shop;

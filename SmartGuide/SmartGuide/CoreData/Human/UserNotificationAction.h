@@ -19,4 +19,6 @@ enum NOTIFICATION_METHOD_TYPE
 -(enum NOTIFICATION_METHOD_TYPE) enumMethodType;
 -(enum NOTIFICATION_ACTION_SHOP_LIST_TYPE) enumShopListDataType;
 
+@property (nonatomic, strong) NSNumber *actionTitleHeight;
+
 @end

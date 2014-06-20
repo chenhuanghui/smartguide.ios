@@ -9,8 +9,9 @@
 #import "UserNotificationCell.h"
 #import <CoreText/CoreText.h>
 #import "DataManager.h"
+#import "UserNotification.h"
 
-@interface UserNotificationCell()<UIScrollViewDelegate,UIGestureRecognizerDelegate,TokenViewDelegate>
+@interface UserNotificationCell()<UIScrollViewDelegate,UIGestureRecognizerDelegate>
 
 @end
 
@@ -21,14 +22,14 @@
     _obj=obj;
     
     lblContent.attributedText=obj.displayContentAttribute;
+    
+    NSMutableParagraphStyle *paraStyle=[NSMutableParagraphStyle new];
+    paraStyle.alignment=NSTextAlignmentLeft;
+    
     lblTime.text=obj.time;
+    lblNumber.text=obj.displayCount;
     
     [lblContent l_v_setH:obj.displayContentHeight.floatValue];
-    
-    [tokensView l_v_setY:lblContent.l_v_y + obj.displayContentHeight.floatValue+5];
-    [tokensView l_v_setH:obj.actionsHeight.floatValue];
-    tokensView.delegate=self;
-    [tokensView setTokens:obj.actionTitles objects:obj.actionsObjects];
     
     if(obj.enumStatus==NOTIFICATION_STATUS_UNREAD && obj.highlightUnread.boolValue)
     {
@@ -37,6 +38,7 @@
     }
     else
     {
+        [lblContent setTextColor:[UIColor grayColor]];
         displayContentView.backgroundColor=COLOR255(205, 205, 205, 255);
         lineView.backgroundColor=COLOR255(146, 146, 146, 255);
     }
@@ -46,11 +48,6 @@
     
     //Chỉ user có tài khoản mới được phép remove notification
     scroll.scrollEnabled=currentUser().enumDataMode==USER_DATA_FULL;
-}
-
--(void)tokenViewTouchedToken:(TokenView *)token object:(id)obj
-{
-    [self.delegate userNotificationCellTouchedAction:self action:obj];
 }
 
 -(void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset
@@ -115,13 +112,6 @@
     }
     
     height+=obj.displayContentHeight.floatValue;
-    
-    if(obj.actionsHeight.floatValue==-1)
-    {
-        obj.actionsHeight=@([TokenView heightWithTokens:obj.actionTitles forWidth:264]);
-    }
-    
-    height+=obj.actionsHeight.floatValue;
     
     return height;
 }

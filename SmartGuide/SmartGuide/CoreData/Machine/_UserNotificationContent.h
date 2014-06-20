@@ -9,13 +9,16 @@
 #define UserNotificationContent_Content @"content"
 #define UserNotificationContent_DisplayType @"displayType"
 #define UserNotificationContent_HighlightUnread @"highlightUnread"
-#define UserNotificationContent_IdNotification @"idNotification"
+#define UserNotificationContent_IdMessage @"idMessage"
 #define UserNotificationContent_IdSender @"idSender"
 #define UserNotificationContent_IdShopLogo @"idShopLogo"
 #define UserNotificationContent_Image @"image"
 #define UserNotificationContent_ImageHeight @"imageHeight"
 #define UserNotificationContent_ImageWidth @"imageWidth"
 #define UserNotificationContent_Logo @"logo"
+#define UserNotificationContent_Page @"page"
+#define UserNotificationContent_Sender @"sender"
+#define UserNotificationContent_SortOrder @"sortOrder"
 #define UserNotificationContent_Status @"status"
 #define UserNotificationContent_Time @"time"
 #define UserNotificationContent_Title @"title"
@@ -42,13 +45,16 @@
 @property (nonatomic, retain) NSString* content;
 @property (nonatomic, retain) NSNumber* displayType;
 @property (nonatomic, retain) NSNumber* highlightUnread;
-@property (nonatomic, retain) NSNumber* idNotification;
+@property (nonatomic, retain) NSNumber* idMessage;
 @property (nonatomic, retain) NSNumber* idSender;
 @property (nonatomic, retain) NSNumber* idShopLogo;
 @property (nonatomic, retain) NSString* image;
 @property (nonatomic, retain) NSNumber* imageHeight;
 @property (nonatomic, retain) NSNumber* imageWidth;
 @property (nonatomic, retain) NSString* logo;
+@property (nonatomic, retain) NSNumber* page;
+@property (nonatomic, retain) NSString* sender;
+@property (nonatomic, retain) NSNumber* sortOrder;
 @property (nonatomic, retain) NSNumber* status;
 @property (nonatomic, retain) NSString* time;
 @property (nonatomic, retain) NSString* title;

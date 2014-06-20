@@ -10,6 +10,6 @@
 
 @interface ASIOperationUserNotificationMarkRead : ASIOperationPost
 
--(ASIOperationUserNotificationMarkRead*) initWithIDNotification:(int) idNotification userLat:(double) userLat userLng:(double) userLng;
+-(ASIOperationUserNotificationMarkRead*) initWithIDMessage:(int) idMessage userLat:(double) userLat userLng:(double) userLng;
 
 @end

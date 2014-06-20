@@ -6,6 +6,7 @@
 {
 }
 
++(UserNotificationContent*) userNotifcationContentWithIDSender:(int) idSender IDMessage:(int) idMessage;
 +(UserNotificationContent*) makeWithDictionary:(NSDictionary*) data;
 
 -(enum NOTIFICATION_STATUS) enumStatus;

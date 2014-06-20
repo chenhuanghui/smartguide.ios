@@ -11,7 +11,6 @@
 #import "Shop.h"
 
 @implementation ASIOperationPostComment
-@synthesize status,message,time,idComment,sortComment,userComment;
 
 -(ASIOperationPostComment *)initWithIDShop:(int)idShop userLat:(double)userLat userLng:(double)userLng comment:(NSString *)comment sort:(enum SORT_SHOP_COMMENT)sort
 {
@@ -28,35 +27,34 @@
     return self;
 }
 
+-(enum SORT_SHOP_COMMENT)sortComment
+{
+    switch ([self.keyValue[SORT] integerValue]) {
+        case SORT_SHOP_COMMENT_TIME:
+            return SORT_SHOP_COMMENT_TIME;
+            
+        case SORT_SHOP_COMMENT_TOP_AGREED:
+            return SORT_SHOP_COMMENT_TOP_AGREED;
+            
+        default:
+            return SORT_SHOP_COMMENT_TOP_AGREED;
+    }
+}
+
 -(void)onCompletedWithJSON:(NSArray *)json
 {
     if([json isNullData])
         return;
-    
-    int sort=[self.keyValue[SORT] integerValue];
+
     NSDictionary *dict=json[0];
     
-    status=[[NSNumber numberWithObject:dict[@"status"]] integerValue];
-    message=[NSString stringWithStringDefault:dict[@"message"]];
+    self.status=[NSNumber numberWithObject:dict[@"status"]];
+    self.message=[NSString stringWithStringDefault:dict[@"message"]];
     
-    if(status==1)
+    if(self.status.integerValue==1)
     {
-        idComment=[[NSNumber numberWithObject:dict[@"idComment"]] integerValue];
-        time=[NSString stringWithStringDefault:dict[@"time"]];
-        
-        switch (sort) {
-            case 0:
-                sortComment=SORT_SHOP_COMMENT_TOP_AGREED;
-                break;
-                
-            case 1:
-                sortComment=SORT_SHOP_COMMENT_TIME;
-                break;
-                
-            default:
-                sortComment=SORT_SHOP_COMMENT_TOP_AGREED;
-                break;
-        }
+        self.idComment=[NSNumber numberWithObject:dict[@"idComment"]];
+        self.time=[NSString stringWithStringDefault:dict[@"time"]];
         
         int idShop=[self.keyValue[IDSHOP] integerValue];
         Shop *shop=[Shop shopWithIDShop:idShop];
@@ -64,26 +62,27 @@
         if(!shop)
             return;
         
-        userComment=[ShopUserComment insert];
+        self.userComment=[ShopUserComment insert];
 
-        userComment.idComment=@(idComment);
-        userComment.username=[NSString stringWithStringDefault:[DataManager shareInstance].currentUser.name];
-        userComment.comment=self.keyValue[@"comment"];
-        userComment.avatar=[DataManager shareInstance].currentUser.avatar;
-        userComment.numOfAgree=@"0";
-        userComment.time=time;
-        userComment.agreeStatus=@(0);
+        self.userComment.idComment=self.idComment;
+        self.userComment.username=[NSString stringWithStringDefault:[DataManager shareInstance].currentUser.name];
+        self.userComment.comment=self.keyValue[@"comment"];
+        self.userComment.avatar=[DataManager shareInstance].currentUser.avatar;
+        self.userComment.numOfAgree=@"0";
+        self.userComment.time=self.time;
+        self.userComment.agreeStatus=@(0);
         
         int sortOrder=0;
         
-        switch (sortComment) {
+        switch ([self sortComment]) {
             case SORT_SHOP_COMMENT_TIME:
                 
                 if(shop.timeCommentsObjects.count>0)
                     sortOrder=[[shop.timeCommentsObjects valueForKeyPath:[NSString stringWithFormat:@"@min.%@",ShopUserComment_SortOrder]] integerValue]-1;
                 
-                userComment.sortOrder=@(sortOrder);
-                [shop addTimeCommentsObject:userComment];
+                self.userComment.sortOrder=@(sortOrder);
+                [shop addTimeCommentsObject:self.userComment];
+                
                 break;
                 
             case SORT_SHOP_COMMENT_TOP_AGREED:
@@ -91,9 +90,9 @@
                 if(shop.topCommentsObjects.count>0)
                     sortOrder=[[shop.topCommentsObjects valueForKeyPath:[NSString stringWithFormat:@"@min.%@",ShopUserComment_SortOrder]] integerValue]-1;
                 
-                userComment.sortOrder=@(sortOrder);
+                self.userComment.sortOrder=@(sortOrder);
+                [shop addTopCommentsObject:self.userComment];
                 
-                [shop addTopCommentsObject:userComment];
                 break;
         }
         

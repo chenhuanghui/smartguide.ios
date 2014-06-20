@@ -75,55 +75,32 @@
     [containView addSubview:_navi.view];
 }
 
-- (IBAction)btnCloseTouchUpInside:(id)sender {
+- (IBAction)btnCloseTouchUpInside:(id)sender
+{
     [ShopManager clean];
     [self.delegate shopUserControllerTouchedClose:self];
 }
 
-- (IBAction)btnBackTouchUpInside:(id)sender {
-    
-    for(SGViewController *vc in _navi.viewControllers)
-    {
-        if(![vc navigationWillBack])
-            return;
-    }
-    
-    [btnBack startHideAnimateOnCompleted:^(UIButton *btn) {
-        
-        [_navi popViewControllerAnimated:true];
-        btnBack.hidden=true;
-        
-        btnClose.hidden=false;
-        btnClose.alpha=0;
-        [UIView animateWithDuration:DURATION_NAVIGATION_PUSH animations:^{
-            btnClose.alpha=1;
-        }];
-    }];}
-
--(void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated
+- (IBAction)btnBackTouchUpInside:(id)sender
 {
-    if([viewController isKindOfClass:[ShopUserViewController class]])
+    if(_navi.viewControllers.count>1)
     {
+        for(SGViewController *vc in _navi.viewControllers)
+        {
+            if(![vc navigationWillBack])
+                return;
+        }
+        
+        btnBack.userInteractionEnabled=false;
+        
+        [_navi popViewControllerAnimated:true onCompleted:^{
+            btnBack.userInteractionEnabled=true;
+        }];
     }
     else
     {
-        [UIView animateWithDuration:DURATION_NAVIGATION_PUSH animations:^{
-            btnClose.alpha=0;
-        } completion:^(BOOL finished) {
-            btnClose.hidden=true;
-        }];
-    }
-}
-
--(void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated
-{
-    if([viewController isKindOfClass:[ShopUserViewController class]])
-        return;
-    
-    if(btnBack.hidden)
-    {
-        btnBack.hidden=false;
-        [btnBack startShowAnimateOnCompleted:nil];
+        [ShopManager clean];
+        [self.navigationController popViewControllerAnimated:true];
     }
 }
 

@@ -310,16 +310,16 @@
         <relationship name="home" maxCount="1" deletionRule="Nullify" destinationEntity="UserHome" inverseName="images" inverseEntity="UserHome" syncable="YES"/>
     </entity>
     <entity name="UserNotification" representedClassName="UserNotification" syncable="YES">
-        <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="highlightUnread" optional="YES" attributeType="Boolean" syncable="YES"/>
-        <attribute name="idNotification" optional="YES" attributeType="Integer 32" syncable="YES"/>
         <attribute name="idSender" optional="YES" attributeType="Integer 32" syncable="YES"/>
-        <attribute name="logo" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="numberAll" optional="YES" attributeType="Integer 32" syncable="YES"/>
+        <attribute name="numberRead" optional="YES" attributeType="Integer 32" syncable="YES"/>
+        <attribute name="numberUnread" optional="YES" attributeType="Integer 32" syncable="YES"/>
         <attribute name="sender" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="status" optional="YES" attributeType="Integer 32" syncable="YES"/>
-        <attribute name="time" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="actions" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="UserNotificationAction" inverseName="userNotification" inverseEntity="UserNotificationAction" syncable="YES"/>
+        <attribute name="totalAll" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="totalRead" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="totalUnread" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="notificationContents" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="UserNotificationContent" inverseName="notification" inverseEntity="UserNotificationContent" syncable="YES"/>
     </entity>
     <entity name="UserNotificationAction" representedClassName="UserNotificationAction" syncable="YES">
@@ -333,20 +333,22 @@
         <attribute name="params" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="sortOrder" optional="YES" attributeType="Integer 32" syncable="YES"/>
         <attribute name="url" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="userNotification" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="UserNotification" inverseName="actions" inverseEntity="UserNotification" syncable="YES"/>
         <relationship name="userNotificationContent" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="UserNotificationContent" inverseName="actions" inverseEntity="UserNotificationContent" syncable="YES"/>
     </entity>
     <entity name="UserNotificationContent" representedClassName="UserNotificationContent" syncable="YES">
         <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="displayType" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="highlightUnread" optional="YES" attributeType="Boolean" syncable="YES"/>
-        <attribute name="idNotification" optional="YES" attributeType="Integer 32" syncable="YES"/>
+        <attribute name="idMessage" optional="YES" attributeType="Integer 32" syncable="YES"/>
         <attribute name="idSender" optional="YES" attributeType="Integer 32" syncable="YES"/>
         <attribute name="idShopLogo" optional="YES" attributeType="Integer 32" syncable="YES"/>
         <attribute name="image" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="imageHeight" optional="YES" attributeType="Float" syncable="YES"/>
         <attribute name="imageWidth" optional="YES" attributeType="Float" syncable="YES"/>
         <attribute name="logo" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="page" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="sender" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sortOrder" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="status" optional="YES" attributeType="Integer 32" syncable="YES"/>
         <attribute name="time" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
@@ -413,8 +415,8 @@
         <element name="UserHome8" positionX="0" positionY="0" width="128" height="105"/>
         <element name="UserHomeImage" positionX="0" positionY="0" width="128" height="90"/>
         <element name="UserNotification" positionX="9" positionY="153" width="128" height="208"/>
-        <element name="UserNotificationAction" positionX="18" positionY="153" width="128" height="223"/>
-        <element name="UserNotificationContent" positionX="9" positionY="153" width="128" height="330"/>
+        <element name="UserNotificationAction" positionX="18" positionY="153" width="128" height="208"/>
+        <element name="UserNotificationContent" positionX="9" positionY="153" width="128" height="373"/>
         <element name="UserPlacelist" positionX="0" positionY="0" width="128" height="120"/>
         <element name="UserPromotion" positionX="0" positionY="0" width="128" height="270"/>
     </elements>

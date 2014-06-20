@@ -38,10 +38,10 @@
     
     height+=shop.shopNameHeight.floatValue;
     
-    if(shop.addressHeight.floatValue==-1)
-    shop.addressHeight=@([shop.address sizeWithFont:FONT_SIZE_NORMAL(12) constrainedToSize:CGSizeMake(242, MAXFLOAT) lineBreakMode:NSLineBreakByTruncatingTail].height);
+    if(shop.addressHeightforShopDetailInfo.floatValue==-1)
+    shop.addressHeightforShopDetailInfo=@([shop.address sizeWithFont:FONT_SIZE_NORMAL(12) constrainedToSize:CGSizeMake(242, MAXFLOAT) lineBreakMode:NSLineBreakByTruncatingTail].height);
     
-    height+=shop.addressHeight.floatValue;
+    height+=shop.addressHeightforShopDetailInfo.floatValue;
     
     return height;
 }

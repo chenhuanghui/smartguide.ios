@@ -16,11 +16,12 @@
 
 -(ASIOperationPostComment*) initWithIDShop:(int) idShop userLat:(double) userLat userLng:(double) userLng comment:(NSString*) comment sort:(enum SORT_SHOP_COMMENT) sort;
 
-@property (nonatomic, readonly) int status;
-@property (nonatomic, readonly) NSString *message;
-@property (nonatomic, readonly) NSString *time;
-@property (nonatomic, readonly) int idComment;
-@property (nonatomic, readonly) enum SORT_SHOP_COMMENT sortComment;
-@property (nonatomic, readonly) ShopUserComment *userComment;
+-(enum SORT_SHOP_COMMENT) sortComment;
+
+@property (nonatomic, strong) NSNumber *status;
+@property (nonatomic, strong) NSString *message;
+@property (nonatomic, strong) NSString *time;
+@property (nonatomic, strong) NSNumber *idComment;
+@property (nonatomic, strong) ShopUserComment *userComment;
 
 @end

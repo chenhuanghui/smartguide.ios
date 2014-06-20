@@ -7,6 +7,8 @@
 //
 
 #import "ASIOperationUserNotificationFromSender.h"
+#import "UserNotification.h"
+#import "UserNotificationContent.h"
 
 @implementation ASIOperationUserNotificationFromSender
 
@@ -33,15 +35,21 @@
     NSDictionary *data=json[0];
     
     self.sender=[NSString stringWithStringDefault:data[@"sender"]];
-    UserNotification *noti=[UserNotification userNotificationWithIDNotification:[self.keyValue[@"idNotification"] integerValue]];
+    UserNotification *noti=[UserNotification userNotificationWithIDSender:[self.keyValue[@"idSender"] integerValue]];
+    NSNumber *page=self.keyValue[PAGE];
     
-    for(NSDictionary *dict in data[@"notifications"])
+    int count=0;
+    for(NSDictionary *dict in data[@"messages"])
     {
         UserNotificationContent *obj=[UserNotificationContent makeWithDictionary:dict];
+        obj.page=page;
+        obj.sortOrder=@(count++);
         obj.notification=noti;
         obj.idSender=noti.idSender;
-//        obj.status=(NOTIFICATION_STATUS_UNREAD);
-//        obj.highlightUnread=@(true);
+        obj.sender=self.sender;
+        
+        noti.sender=self.sender;
+        [noti addNotificationContentsObject:obj];
 
         [self.notifications addObject:obj];
     }

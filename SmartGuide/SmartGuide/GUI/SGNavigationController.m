@@ -216,6 +216,13 @@ CATransition* transitionPushFromRight()
         _onPushedViewController=nil;
     }
     
+    if(_onPoppedViewController)
+    {
+        __weak UIViewController *wController=viewController;
+        _onPoppedViewController(wController);
+        _onPoppedViewController=nil;
+    }
+    
     if([self.navigationDelegate respondsToSelector:@selector(navigationController:didShowViewController:animated:)])
         [self.navigationDelegate navigationController:self didShowViewController:viewController animated:animated];
 }
@@ -876,6 +883,20 @@ CATransition* transitionPushFromRight()
     
     [self.view.layer addAnimation:transition forKey:nil];
     [self pushViewController:viewController animated:false];
+}
+
+-(UIViewController *)popViewControllerAnimated:(BOOL)animated onCompleted:(void (^)())completed
+{
+    if(completed)
+        _onPoppedViewController=[completed copy];
+    
+    for(SGViewController *vc in self.viewControllers)
+    {
+        if([vc isKindOfClass:[SGViewController class]])
+            [vc navigationController:self willPopController:(SGViewController*)self.visibleViewController];
+    }
+    
+    return [super popViewControllerAnimated:animated];
 }
 
 -(UIViewController *)popViewControllerAnimated:(BOOL)animated

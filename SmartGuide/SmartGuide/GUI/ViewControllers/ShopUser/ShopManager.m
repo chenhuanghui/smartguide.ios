@@ -11,6 +11,7 @@
 #import "ASIOperationShopGallery.h"
 #import "ASIOperationUserGallery.h"
 #import "ASIOperationShopComment.h"
+#import "ASIOperationPostComment.h"
 
 static ShopManager *_galleryManager;
 
@@ -20,6 +21,7 @@ static ShopManager *_galleryManager;
     ASIOperationUserGallery *_operationUserGallery;
     ASIOperationShopComment *_operationTimeComment;
     ASIOperationShopComment *_operationTopAgreedComment;
+    ASIOperationPostComment *_operationPostComment;
     
     NSFetchedResultsController *_fetchedController;
 }
@@ -168,6 +170,17 @@ static ShopManager *_galleryManager;
     return _sortComments;
 }
 
+-(void)newCommentWithComment:(NSString *)comment
+{
+    if(_operationPostComment)
+        return;
+    
+    _operationPostComment=[[ASIOperationPostComment alloc] initWithIDShop:_shop.idShop.integerValue userLat:userLat() userLng:userLng() comment:comment sort:_sortComments];
+    _operationPostComment.delegate=self;
+    
+    [_operationPostComment addToQueue];
+}
+
 -(void) requestComments
 {
     [self requestCommentWithSort:_sortComments];
@@ -292,6 +305,31 @@ static ShopManager *_galleryManager;
             _operationTopAgreedComment=nil;
         }
     }
+    else if([operation isKindOfClass:[ASIOperationPostComment class]])
+    {
+        switch (_operationPostComment.sortComment) {
+            case SORT_SHOP_COMMENT_TIME:
+                
+                if(self.timeComments.count==0)
+                    [self.timeComments addObject:_operationPostComment.userComment];
+                else
+                    [self.timeComments insertObject:_operationPostComment.userComment atIndex:0];
+                
+                break;
+                
+            case SORT_SHOP_COMMENT_TOP_AGREED:
+                
+                if(self.topAgreedComments.count==0)
+                    [self.topAgreedComments addObject:_operationPostComment.userComment];
+                else
+                    [self.topAgreedComments insertObject:_operationPostComment.userComment atIndex:0];
+                
+                break;
+        }
+        
+        _operationPostComment=nil;
+        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_COMMENTS_FINISHED_NEW_COMMENT object:nil];
+    }
 }
 
 -(void)ASIOperaionPostFailed:(ASIOperationPost *)operation
@@ -314,6 +352,11 @@ static ShopManager *_galleryManager;
         {
             _operationTopAgreedComment=nil;
         }
+    }
+    else if([operation isKindOfClass:[ASIOperationPostComment class]])
+    {
+        _operationPostComment=nil;
+        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_COMMENTS_FINISHED_NEW_COMMENT object:operation.error];
     }
 }
 
@@ -343,6 +386,12 @@ static ShopManager *_galleryManager;
     {
         [_operationTopAgreedComment clearDelegatesAndCancel];
         _operationTopAgreedComment=nil;
+    }
+    
+    if(_operationPostComment)
+    {
+        _operationPostComment.delegate=nil;
+        _operationPostComment=nil;
     }
     
     self.userGalleries=nil;

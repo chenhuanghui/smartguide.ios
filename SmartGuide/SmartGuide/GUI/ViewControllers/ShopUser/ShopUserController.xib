@@ -7,9 +7,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ShopUserController">
             <connections>
-                <outlet property="btnBack" destination="ham-M4-e1z" id="dGR-Ju-01T"/>
-                <outlet property="btnClose" destination="i1C-TY-3bO" id="V5v-CL-Xv6"/>
-                <outlet property="containView" destination="0bY-xG-zwX" id="A3q-Gk-cXy"/>
+                <outlet property="btnBack" destination="ali-VW-fgQ" id="197-f6-ihT"/>
+                <outlet property="containView" destination="aJm-Wh-W7L" id="RNq-Dh-1PC"/>
                 <outlet property="view" destination="bcB-5j-3XS" id="8ts-Kb-1kt"/>
             </connections>
         </placeholder>
@@ -18,38 +17,22 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView hidden="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background_shadow.png" id="UYW-z7-edq">
+                <view contentMode="scaleToFill" id="aJm-Wh-W7L">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
-                </imageView>
-                <view clipsSubviews="YES" contentMode="scaleToFill" id="0bY-xG-zwX">
-                    <rect key="frame" x="15" y="20" width="290" height="432"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
-                    <color key="backgroundColor" red="0.92156862750000001" green="0.92156862750000001" blue="0.92156862750000001" alpha="1" colorSpace="calibratedRGB"/>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
-                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                            <integer key="value" value="12"/>
-                        </userDefinedRuntimeAttribute>
-                    </userDefinedRuntimeAttributes>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                 </view>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="bottom" lineBreakMode="middleTruncation" id="i1C-TY-3bO">
-                    <rect key="frame" x="283" y="0.0" width="55" height="38"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="ali-VW-fgQ">
+                    <rect key="frame" x="0.0" y="0.0" width="54" height="54"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                    <state key="normal" image="button_close.png">
+                    <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="14"/>
+                    <inset key="titleEdgeInsets" minX="1" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    <inset key="imageEdgeInsets" minX="-9" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    <state key="normal" image="button_backarrow.png">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <connections>
-                        <action selector="btnCloseTouchUpInside:" destination="-1" eventType="touchUpInside" id="eei-ak-bFo"/>
-                    </connections>
-                </button>
-                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="ham-M4-e1z" customClass="ButtonBackShopUser">
-                    <rect key="frame" x="2" y="31" width="39" height="47"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="14"/>
-                    <connections>
-                        <action selector="btnBackTouchUpInside:" destination="-1" eventType="touchUpInside" id="z2g-Ep-WpV"/>
+                        <action selector="btnBackTouchUpInside:" destination="-1" eventType="touchUpInside" id="D4z-sl-JV8"/>
                     </connections>
                 </button>
             </subviews>
@@ -58,7 +41,6 @@
         </view>
     </objects>
     <resources>
-        <image name="background_shadow.png" width="304" height="439"/>
-        <image name="button_close.png" width="25" height="25"/>
+        <image name="button_backarrow.png" width="35" height="30"/>
     </resources>
 </document>

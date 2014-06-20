@@ -7,13 +7,12 @@
 //
 
 #import "ASIOperationPost.h"
-#import "UserNotification.h"
 
 enum USER_NOTIFICATION_DISPLAY_TYPE
 {
-    USER_NOTIFICATION_DISPLAY_ALL = 0,
-    USER_NOTIFICATION_DISPLAY_UNREAD = 1,
-    USER_NOTIFICATION_DISPLAY_READ = 2,
+    USER_NOTIFICATION_DISPLAY_UNREAD = 0,
+    USER_NOTIFICATION_DISPLAY_READ = 1,
+    USER_NOTIFICATION_DISPLAY_ALL = 2,
 };
 
 @interface ASIOperationUserNotificationNewest : ASIOperationPost

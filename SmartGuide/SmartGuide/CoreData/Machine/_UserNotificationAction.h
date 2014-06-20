@@ -18,7 +18,6 @@
 #define UserNotificationAction_Url @"url"
 
 @class UserNotificationAction;
-@class UserNotification;
 @class UserNotificationContent;
 
 @interface _UserNotificationAction : NSManagedObject
@@ -47,9 +46,6 @@
 
     
 #pragma mark Relationships
-
-#pragma mark UserNotification
-@property (nonatomic, retain) UserNotification* userNotification;
 
 #pragma mark UserNotificationContent
 @property (nonatomic, retain) UserNotificationContent* userNotificationContent;

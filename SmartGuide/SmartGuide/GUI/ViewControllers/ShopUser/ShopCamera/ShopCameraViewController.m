@@ -7,8 +7,12 @@
 //
 
 #import "ShopCameraViewController.h"
+#import "SGNavigationController.h"
+#import "ShopCameraTakeViewController.h"
+#import "ShopCameraPostViewController.h"
+#import "UserUploadGalleryManager.h"
 
-@interface ShopCameraViewController ()
+@interface ShopCameraViewController ()<ShopCameraTakeDelegate,ShopCameraPostDelegae>
 
 @end
 

@@ -1012,6 +1012,9 @@
 		A9E725A418ED9A36007FA91A /* icon_notification@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A9E725A218ED9A36007FA91A /* icon_notification@2x.png */; };
 		A9E725A718ED9AA8007FA91A /* bg_number_notice.png in Resources */ = {isa = PBXBuildFile; fileRef = A9E725A518ED9AA8007FA91A /* bg_number_notice.png */; };
 		A9E725A818ED9AA8007FA91A /* bg_number_notice@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A9E725A618ED9AA8007FA91A /* bg_number_notice@2x.png */; };
+		A9E9492219541362005DC465 /* OperationNotificationCountBySender.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E9492119541362005DC465 /* OperationNotificationCountBySender.m */; };
+		A9E94926195481D3005DC465 /* UserNotificationDetailButtonTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E94924195481D3005DC465 /* UserNotificationDetailButtonTableViewCell.m */; };
+		A9E94927195481D3005DC465 /* UserNotificationDetailButtonTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9E94925195481D3005DC465 /* UserNotificationDetailButtonTableViewCell.xib */; };
 		A9EB146B1952D79C00191767 /* ShopCameraPostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9EB14051952D79C00191767 /* ShopCameraPostViewController.m */; };
 		A9EB146C1952D79C00191767 /* ShopCameraPostViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9EB14061952D79C00191767 /* ShopCameraPostViewController.xib */; };
 		A9EB146D1952D79C00191767 /* ShopCameraTakeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9EB14081952D79C00191767 /* ShopCameraTakeViewController.m */; };
@@ -2371,6 +2374,11 @@
 		A9E725A218ED9A36007FA91A /* icon_notification@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_notification@2x.png"; sourceTree = "<group>"; };
 		A9E725A518ED9AA8007FA91A /* bg_number_notice.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_number_notice.png; sourceTree = "<group>"; };
 		A9E725A618ED9AA8007FA91A /* bg_number_notice@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg_number_notice@2x.png"; sourceTree = "<group>"; };
+		A9E9492019541362005DC465 /* OperationNotificationCountBySender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OperationNotificationCountBySender.h; sourceTree = "<group>"; };
+		A9E9492119541362005DC465 /* OperationNotificationCountBySender.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OperationNotificationCountBySender.m; sourceTree = "<group>"; };
+		A9E94923195481D3005DC465 /* UserNotificationDetailButtonTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserNotificationDetailButtonTableViewCell.h; sourceTree = "<group>"; };
+		A9E94924195481D3005DC465 /* UserNotificationDetailButtonTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserNotificationDetailButtonTableViewCell.m; sourceTree = "<group>"; };
+		A9E94925195481D3005DC465 /* UserNotificationDetailButtonTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserNotificationDetailButtonTableViewCell.xib; sourceTree = "<group>"; };
 		A9EB14041952D79C00191767 /* ShopCameraPostViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopCameraPostViewController.h; sourceTree = "<group>"; };
 		A9EB14051952D79C00191767 /* ShopCameraPostViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopCameraPostViewController.m; sourceTree = "<group>"; };
 		A9EB14061952D79C00191767 /* ShopCameraPostViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShopCameraPostViewController.xib; sourceTree = "<group>"; };
@@ -3450,6 +3458,8 @@
 				A9BFE86018E96819008C542E /* ASIOperationUserNotificationMarkRead.m */,
 				A9E35F81190F8417008498E5 /* ASIOperationNotificationCount.h */,
 				A9E35F82190F8417008498E5 /* ASIOperationNotificationCount.m */,
+				A9E9492019541362005DC465 /* OperationNotificationCountBySender.h */,
+				A9E9492119541362005DC465 /* OperationNotificationCountBySender.m */,
 				A9E35F84190F8EB3008498E5 /* ASIOperationUserNotice.h */,
 				A9E35F85190F8EB3008498E5 /* ASIOperationUserNotice.m */,
 				A9D70F7C191743BF007FA43A /* ASIOperationUpdateTokenUUID.h */,
@@ -4403,6 +4413,9 @@
 				A971295D18EA794B0065EAA7 /* UserNotificationDetailCell.h */,
 				A971295E18EA794B0065EAA7 /* UserNotificationDetailCell.m */,
 				A971295F18EA794B0065EAA7 /* UserNotificationDetailCell.xib */,
+				A9E94923195481D3005DC465 /* UserNotificationDetailButtonTableViewCell.h */,
+				A9E94924195481D3005DC465 /* UserNotificationDetailButtonTableViewCell.m */,
+				A9E94925195481D3005DC465 /* UserNotificationDetailButtonTableViewCell.xib */,
 				A99257B318E9886800D0993A /* UserNotificationHeaderView.h */,
 				A99257B418E9886800D0993A /* UserNotificationHeaderView.m */,
 				A99257B618E9886E00D0993A /* UserNotificationHeaderView.xib */,
@@ -4431,6 +4444,7 @@
 		A9EB14021952D79C00191767 /* ShopUser */ = {
 			isa = PBXGroup;
 			children = (
+				A9EB14641952D79C00191767 /* UserGallery */,
 				A9EB14031952D79C00191767 /* ShopCamera */,
 				A9EB140F1952D79C00191767 /* ShopComment */,
 				A9EB14161952D79C00191767 /* ShopDetailInfo */,
@@ -4446,7 +4460,6 @@
 				A9EB14631952D79C00191767 /* ShopUserViewController.xib */,
 				A9EB14AB1952DA4500191767 /* ShopManager.h */,
 				A9EB14AC1952DA4500191767 /* ShopManager.m */,
-				A9EB14641952D79C00191767 /* UserGallery */,
 			);
 			path = ShopUser;
 			sourceTree = "<group>";
@@ -4472,12 +4485,12 @@
 		A9EB140F1952D79C00191767 /* ShopComment */ = {
 			isa = PBXGroup;
 			children = (
-				A9EB14101952D79C00191767 /* ShopCommentsControllerCell.h */,
-				A9EB14111952D79C00191767 /* ShopCommentsControllerCell.m */,
-				A9EB14121952D79C00191767 /* ShopCommentsControllerCell.xib */,
 				A9EB14131952D79C00191767 /* ShopUserCommentCell.h */,
 				A9EB14141952D79C00191767 /* ShopUserCommentCell.m */,
 				A9EB14151952D79C00191767 /* ShopUserCommentCell.xib */,
+				A9EB14101952D79C00191767 /* ShopCommentsControllerCell.h */,
+				A9EB14111952D79C00191767 /* ShopCommentsControllerCell.m */,
+				A9EB14121952D79C00191767 /* ShopCommentsControllerCell.xib */,
 			);
 			path = ShopComment;
 			sourceTree = "<group>";
@@ -4569,15 +4582,15 @@
 		A9EB14471952D79C00191767 /* KM2 */ = {
 			isa = PBXGroup;
 			children = (
+				A9EB144E1952D79C00191767 /* ShopKM2NonConditionCell.h */,
+				A9EB144F1952D79C00191767 /* ShopKM2NonConditionCell.m */,
+				A9EB14501952D79C00191767 /* ShopKM2NonConditionCell.xib */,
 				A9EB14481952D79C00191767 /* ShopKM2ConditionCell.h */,
 				A9EB14491952D79C00191767 /* ShopKM2ConditionCell.m */,
 				A9EB144A1952D79C00191767 /* ShopKM2ConditionCell.xib */,
 				A9EB144B1952D79C00191767 /* ShopKM2ControllerCell.h */,
 				A9EB144C1952D79C00191767 /* ShopKM2ControllerCell.m */,
 				A9EB144D1952D79C00191767 /* ShopKM2ControllerCell.xib */,
-				A9EB144E1952D79C00191767 /* ShopKM2NonConditionCell.h */,
-				A9EB144F1952D79C00191767 /* ShopKM2NonConditionCell.m */,
-				A9EB14501952D79C00191767 /* ShopKM2NonConditionCell.xib */,
 			);
 			path = KM2;
 			sourceTree = "<group>";
@@ -5099,6 +5112,7 @@
 				9A5E66E518842E32003F33CD /* iconpin_education.png in Resources */,
 				A9F8D4841942BA8100174E90 /* play_icon.png in Resources */,
 				9A4E4B6C1887E2EE00E4A1D2 /* button_getgift_voucher@2x.png in Resources */,
+				A9E94927195481D3005DC465 /* UserNotificationDetailButtonTableViewCell.xib in Resources */,
 				9AA2C57A187FE3A7004F895B /* bg_mid_search.png in Resources */,
 				9A889BF4187AC73D00602CBB /* text_SmartGuide@2x.png in Resources */,
 				9AA2C57B187FE3A7004F895B /* bg_mid_search@2x.png in Resources */,
@@ -5677,6 +5691,7 @@
 				9ADCD93E18D19C3F004CB67E /* AFNetworkReachabilityManager.m in Sources */,
 				9A9ED312187D09B20081A16E /* ASIOperationUploadSocialProfile.m in Sources */,
 				9A54B64218D2FAB40065C89F /* NSData+ImageContentType.m in Sources */,
+				A9E94926195481D3005DC465 /* UserNotificationDetailButtonTableViewCell.m in Sources */,
 				A9E35F86190F8EB3008498E5 /* ASIOperationUserNotice.m in Sources */,
 				9A5113D6186C772C008E1418 /* Tutorial.m in Sources */,
 				9A9ED306187D06D00081A16E /* GooglePlusManager.m in Sources */,
@@ -5722,6 +5737,7 @@
 				9ADCD96618D19C3F004CB67E /* UIImageView+WebCache.m in Sources */,
 				A94088DD17B3950A00205145 /* Ads.m in Sources */,
 				A9BABB50192C5ADB00C417F3 /* CityTableViewCell.m in Sources */,
+				A9E9492219541362005DC465 /* OperationNotificationCountBySender.m in Sources */,
 				A94088E017B3951300205145 /* _Ads.m in Sources */,
 				9ADCD95818D19C3F004CB67E /* Reachability.m in Sources */,
 				9ACE90821875CE8C008FEA7E /* PromotionNews.m in Sources */,

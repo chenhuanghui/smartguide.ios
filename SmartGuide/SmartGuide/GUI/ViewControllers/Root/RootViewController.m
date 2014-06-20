@@ -449,26 +449,13 @@
 {
     vc.delegate=self;
     
-    if(self.contentNavigation.presentSGViewControlelr)
-    {
-        if([self.contentNavigation.presentSGViewControlelr isKindOfClass:[ShopUserController class]])
-        {
-            __block ShopUserController *_vc=vc;
-            [self.contentNavigation dismissSGViewControllerCompletion:^{
-                [self presentShopUser:_vc];
-                _vc=nil;
-            }];
-        }
-        
-        return;
-    }
-    
-    [self.contentNavigation presentSGViewController:vc completion:nil];
+    [self.contentNavigation pushViewController:vc animated:true];
 }
 
 -(void) dismissShopUser
 {
-    [self.contentNavigation dismissSGViewControllerCompletion:nil];
+    if([self.contentNavigation.visibleViewController isKindOfClass:[ShopUserController class]])
+        [self.contentNavigation popViewControllerAnimated:true];
 }
 
 -(HomeViewController*) homeController

@@ -96,11 +96,11 @@ static NSString * const kClientId = @"790158294934-p5pnscmrt4avj698ncvhp14fit0f4
 #define API_USER_UPLOAD_AVATAR @"user/uploadAvatar"
 #define API_GET_SHOP_GALLERY @"images/getShopGallery"
 #define API_GET_USER_GALLERY @"images/getUserGallery"
-#define API_USER_NOTIFICATION_COUNT @"user/notification/count"
-#define API_USER_NOTIFICATION_NEWEST @"user/notification/getNewest"
-#define API_USER_NOTIFICATION_LIST_BY_SENDER @"user/notification/listBySender"
-#define API_USER_NOTIFICATION_MARK_READ @"user/notification/markRead"
-#define API_USER_NOTIFICATION_REMOVE @"user/notification/remove"
+#define API_USER_NOTIFICATION_COUNT @"user/notification/count_v2"
+#define API_USER_NOTIFICATION_NEWEST @"user/notification/getNewest_v2"
+#define API_USER_NOTIFICATION_LIST_BY_SENDER @"user/notification/listBySender_v2"
+#define API_USER_NOTIFICATION_MARK_READ @"user/notification/markRead_v2"
+#define API_USER_NOTIFICATION_REMOVE @"user/notification/remove_v2"
 #define API_USER_NOTICE @"user/notice"
 #define API_USER_NOTIFICATION_TOKEN @"user/notification/updateUUID"
 
@@ -307,6 +307,14 @@ enum NOTIFICATION_ACTION_SHOP_LIST_TYPE
      NOTIFICATION_ACTION_SHOP_LIST_TYPE_IDPLACELIST=0,
      NOTIFICATION_ACTION_SHOP_LIST_TYPE_KEYWORDS=1,
      NOTIFICATION_ACTION_SHOP_LIST_TYPE_IDSHOPS=2,
+};
+
+enum NOTIFICATION_COUNT_TYPE
+{
+    NOTIFICATION_COUNT_TYPE_UNREAD=0,
+    NOTIFICATION_COUNT_TYPE_READ=1,
+    NOTIFICATION_COUNT_TYPE_TOTAL=2,
+    NOTIFICATION_COUNT_TYPE_ALL=3,
 };
 
 @class ShopCatalog;

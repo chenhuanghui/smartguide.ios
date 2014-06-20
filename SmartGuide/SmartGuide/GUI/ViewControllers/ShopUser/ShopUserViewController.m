@@ -23,6 +23,7 @@
 #import "GalleryFullViewController.h"
 #import "EmptyCollectionCell.h"
 #import "KeyboardUtility.h"
+#import "ShopCameraViewController.h"
 
 enum SHOP_USER_CELL_TYPE
 {
@@ -34,7 +35,7 @@ enum SHOP_USER_CELL_TYPE
     SHOP_USER_CELL_TYPE_SHOP_COMMENT=5,
 };
 
-@interface ShopUserViewController()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,ASIOperationPostDelegate,ShopGalleryControllerCellDelegate,ShopKM1ControllerCellDelegate,ShopKM2ControllerCellDelegate,ShopInfoControllerCellDelegate,ShopCommentsControllerCellDelegate,ShopUserGalleryControllerCellDelegate,GalleryControllerDelegate>
+@interface ShopUserViewController()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,ASIOperationPostDelegate,ShopGalleryControllerCellDelegate,ShopKM1ControllerCellDelegate,ShopKM2ControllerCellDelegate,ShopInfoControllerCellDelegate,ShopCommentsControllerCellDelegate,ShopUserGalleryControllerCellDelegate,GalleryControllerDelegate,ShopCameraControllerDelegate>
 {
     __weak ShopGalleryControllerCell *shopGalleryCell;
     __weak ShopKMNewsControllerCell *shopKMNews;
@@ -62,6 +63,16 @@ enum SHOP_USER_CELL_TYPE
     self=[super initWithNibName:@"ShopUserViewController" bundle:nil];
     
     _idShop=idShop;
+    
+#if DEBUG
+    _shop=[Shop shopWithIDShop:_idShop];
+    if(_shop)
+    {
+        [_shop markDeleted];
+        [[DataManager shareInstance] save];
+    }
+#endif
+    
     _shop=[Shop makeWithIDShop:_idShop];
     if([_shop hasChanges])
         [[DataManager shareInstance] save];
@@ -103,25 +114,34 @@ enum SHOP_USER_CELL_TYPE
 
 -(NSArray *)registerNotifications
 {
-    return @[UIKeyboardWillShowNotification, UIKeyboardWillHideNotification,NOTIFICATION_COMMENTS_FINISHED_TIME,NOTIFICATION_COMMENTS_FINISHED_TOP_AGREED];
+    return @[UIKeyboardWillShowNotification, UIKeyboardWillHideNotification,NOTIFICATION_COMMENTS_FINISHED_TIME,NOTIFICATION_COMMENTS_FINISHED_TOP_AGREED,NOTIFICATION_COMMENTS_FINISHED_NEW_COMMENT];
 }
 
 -(void)receiveNotification:(NSNotification *)notification
 {
     if([notification.name isEqualToString:UIKeyboardWillShowNotification])
     {
-        [table scrollToItemAtIndexPath:makeIndexPath(SHOP_USER_CELL_TYPE_SHOP_COMMENT, 0) atScrollPosition:UICollectionViewScrollPositionTop animated:true];
-        float duration=[notification.userInfo[UIKeyboardAnimationDurationUserInfoKey] floatValue];
+        if(self.navigationController.visibleViewController!=self)
+            return;
         
         if(shopComments)
-            [shopComments switchToEditingModeAnimate:true duration:duration];
+        {
+            NSIndexPath *idx=[table indexPathForCell:shopComments];
+            [table scrollToItemAtIndexPath:idx atScrollPosition:UICollectionViewScrollPositionNone animated:true];
+            float duration=[notification.userInfo[UIKeyboardAnimationDurationUserInfoKey] floatValue];
+            
+            [shopComments switchToMode:SHOP_COMMENT_MODE_EDIT animate:true duration:duration];
+        }
     }
     else if([notification.name isEqualToString:UIKeyboardWillHideNotification])
     {
+        if(self.navigationController.visibleViewController!=self)
+            return;
+        
         float duration=[notification.userInfo[UIKeyboardAnimationDurationUserInfoKey] floatValue];
         
         if(shopComments)
-            [shopComments switchToNormailModeAnimate:true duration:duration];
+            [shopComments switchToMode:SHOP_COMMENT_MODE_NORMAL animate:true duration:duration];
     }
     else if([notification.name isEqualToString:NOTIFICATION_COMMENTS_FINISHED_TIME])
     {
@@ -141,11 +161,18 @@ enum SHOP_USER_CELL_TYPE
             [table reloadItemsAtIndexPaths:@[[table indexPathForCell:shopComments]]];
         }
     }
-}
-
--(void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
-{
-    [shopComments switchToEditingModeAnimate:true duration:DURATION_DEFAULT];
+    else if([notification.name isEqualToString:NOTIFICATION_COMMENTS_FINISHED_NEW_COMMENT])
+    {
+        [self.view removeLoading];
+        
+        [self.view endEditing:true];
+        
+        if(shopComments)
+        {
+            NSIndexPath *idx=[table indexPathForCell:shopComments];
+            [table reloadItemsAtIndexPaths:@[idx]];
+        }
+    }
 }
 
 -(void) loadCells
@@ -158,20 +185,20 @@ enum SHOP_USER_CELL_TYPE
 
 -(void) showLoading
 {
-//    if([table numberOfSections]==0)
-//    {
-//        [self.view showLoading];
-//    }
-//    else if([table numberOfSections]>0)
-//    {
-//        if(_shop.enumDataMode!=SHOP_DATA_FULL)
-//        {
-//            CGRect rect=[table rectForSection:0];
-//            rect.origin.y+=rect.size.height;
-//            rect.size.height=MAX(table.contentSize.height,table.l_v_h)-rect.size.height;
-//            [table showLoadingInsideFrame:rect];
-//        }
-//    }
+    if([table numberOfSections]==0)
+    {
+        [self.view showLoading];
+    }
+    else if([table numberOfSections]>0)
+    {
+        if(_shop.enumDataMode!=SHOP_DATA_FULL)
+        {
+            CGRect rect=[table rectForSection:0];
+            rect.origin.y+=rect.size.height;
+            rect.size.height=MAX(table.contentSize.height,table.l_v_h)-rect.size.height;
+            [table showLoadingInsideFrame:rect];
+        }
+    }
 }
 
 -(void) removeLoading
@@ -254,7 +281,7 @@ enum SHOP_USER_CELL_TYPE
 {
     switch (indexPath.row) {
         case SHOP_USER_CELL_TYPE_SHOP_GALLERY:
-            return CGSizeMake(290,[ShopGalleryControllerCell height]);
+            return CGSizeMake(collectionView.l_v_w,[ShopGalleryControllerCell height]);
             
         case SHOP_USER_CELL_TYPE_SHOP_KM1_KM2_NONE:
             switch (_shop.enumPromotionType) {
@@ -262,10 +289,10 @@ enum SHOP_USER_CELL_TYPE
                     break;
                     
                 case SHOP_PROMOTION_KM1:
-                    return CGSizeMake(290,[ShopKM1ControllerCell heightWithKM1:_shop.km1]);
+                    return CGSizeMake(collectionView.l_v_w,[ShopKM1ControllerCell heightWithKM1:_shop.km1]);
                     
                 case  SHOP_PROMOTION_KM2:
-                    return CGSizeMake(290,[ShopKM2ControllerCell heightWithKM2:_shop.km2]);
+                    return CGSizeMake(collectionView.l_v_w,[ShopKM2ControllerCell heightWithKM2:_shop.km2]);
             }
             break;
             
@@ -273,19 +300,16 @@ enum SHOP_USER_CELL_TYPE
             if(_shop.promotionNewObjects.count==0)
                 break;
             else
-                return CGSizeMake(290,[ShopKMNewsControllerCell heightWithKMNews:_shop.promotionNewObjects]);
+                return CGSizeMake(collectionView.l_v_w,[ShopKMNewsControllerCell heightWithKMNews:_shop.promotionNewObjects]);
             
         case SHOP_USER_CELL_TYPE_SHOP_INFO:
-            return CGSizeMake(290, [ShopInfoControllerCell heightWithShop:_shop]);
+            return CGSizeMake(collectionView.l_v_w, [ShopInfoControllerCell heightWithShop:_shop]);
 
         case SHOP_USER_CELL_TYPE_USER_GALLERY:
-            return CGSizeMake(290, [ShopUserGalleryControllerCell height]);
+            return CGSizeMake(collectionView.l_v_w, [ShopUserGalleryControllerCell height]);
             
         case SHOP_USER_CELL_TYPE_SHOP_COMMENT:
-            return CGSizeMake(290, MAX([ShopCommentsControllerCell heightWithShop:_shop sort:SORT_SHOP_COMMENT_TOP_AGREED], self.l_v_h));
-            
-        default:
-            break;
+            return CGSizeMake(collectionView.l_v_w, MAX([ShopCommentsControllerCell heightWithShop:_shop sort:SORT_SHOP_COMMENT_TOP_AGREED], self.l_v_h));
     }
     
     return CGSizeMake(1, 0);
@@ -389,15 +413,37 @@ enum SHOP_USER_CELL_TYPE
 }
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
-{    
+{
+    NSIndexPath *idx=nil;
+    CGRect rect=CGRectZero;
     if(shopGalleryCell)
-        [shopGalleryCell scrollViewDidScroll:scrollView];
+    {
+        idx=[table indexPathForCell:shopGalleryCell];
+        rect=[table rectForItemAtIndexPath:idx];
+        
+        [shopGalleryCell.superview bringSubviewToFront:shopGalleryCell];
+        
+        if(idx)
+            [shopGalleryCell scrollViewDidScroll:scrollView];
+    }
     
     if(shopKMNews)
-        [shopKMNews tableDidScroll:table];
+    {
+        idx=[table indexPathForCell:shopKMNews];
+        rect=[table rectForItemAtIndexPath:idx];
+        
+        if(idx)
+            [shopKMNews tableDidScroll:table];
+    }
     
     if(shopComments)
-        [shopComments tableDidScroll:table];
+    {
+        idx=[table indexPathForCell:shopComments];
+        rect=[table rectForItemAtIndexPath:idx];
+        
+        if(idx)
+            [shopComments tableDidScroll:table];
+    }
 }
 
 #pragma mark SHOP USER CELL DELEGATE
@@ -445,7 +491,7 @@ enum SHOP_USER_CELL_TYPE
         return;
     
     if(shopComments)
-        [table scrollToItemAtIndexPath:[table indexPathForCell:shopComments] atScrollPosition:UICollectionViewScrollPositionTop animated:true];
+        [table scrollToItemAtIndexPath:[table indexPathForCell:shopComments] atScrollPosition:UICollectionViewScrollPositionNone animated:true];
     
     [self.view showLoading];
     [[ShopManager shareInstanceWithShop:_shop] requestCommentWithSort:sort];
@@ -453,7 +499,9 @@ enum SHOP_USER_CELL_TYPE
 
 -(void)shopCommentsControllerCellUserComment:(ShopCommentsControllerCell *)cell comment:(NSString *)comment
 {
+    [self.view showLoading];
     
+    [[ShopManager shareInstanceWithShop:_shop] newCommentWithComment:comment];
 }
 
 -(void)shopUserGalleryControllerCellTouchedGallery:(ShopUserGalleryControllerCell *)cell gallery:(ShopUserGallery *)gallery
@@ -465,6 +513,14 @@ enum SHOP_USER_CELL_TYPE
 }
 
 -(void)shopUserGalleryControllerCellTouchedMakePicture:(ShopUserGalleryControllerCell *)cell
+{
+    ShopCameraViewController *vc=[[ShopCameraViewController alloc] initWithShop:_shop];
+    vc.delegate=self;
+    
+    [self.navigationController pushViewController:vc animated:true];
+}
+
+-(void)shopCameraControllerDidUploadPhoto:(ShopCameraViewController *)controller
 {
     
 }

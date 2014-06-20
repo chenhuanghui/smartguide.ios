@@ -90,10 +90,10 @@
     
     if(comment.commentHeight==-1)
     {
-        comment.commentHeight=[comment.comment sizeWithFont:FONT_SIZE_NORMAL(11) constrainedToSize:CGSizeMake(189, MAXFLOAT) lineBreakMode:NSLineBreakByTruncatingTail].height;
+        comment.commentHeight=[comment.comment sizeWithFont:FONT_SIZE_NORMAL(11) constrainedToSize:CGSizeMake(236, MAXFLOAT) lineBreakMode:NSLineBreakByTruncatingTail].height;
     }
     
-    comment.cellCommentHeight+=MAX(0,comment.commentHeight-32);
+    comment.cellCommentHeight+=comment.commentHeight;
     
     return comment.cellCommentHeight;
 }

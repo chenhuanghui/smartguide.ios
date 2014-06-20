@@ -3,7 +3,7 @@
 #import "Constant.h"
 
 @implementation Shop
-@synthesize descHeight,shopNameHeight,addressHeight,kmNewsHeight;
+@synthesize descHeight,shopNameHeight,addressHeightforShopDetailInfo,addressHeightForShopInfo,kmNewsHeight;
 
 -(id)initWithEntity:(NSEntityDescription *)entity insertIntoManagedObjectContext:(NSManagedObjectContext *)context
 {
@@ -14,7 +14,8 @@
     self.kmNewsHeight=@(-1);
     self.descHeight=@(-1);
     self.shopNameHeight=@(-1);
-    self.addressHeight=@(-1);
+    self.addressHeightForShopInfo=@(-1);
+    self.addressHeightforShopDetailInfo=@(-1);
     
     _dragCoord=CLLocationCoordinate2DMake(-1, -1);
     
@@ -71,6 +72,7 @@
     
     shop.shopName=[NSString stringWithStringDefault:dict[@"shopName"]];
     shop.shopType=[NSNumber numberWithObject:dict[@"shopType"]];
+    shop.shopTypeDisplay=[NSString stringWithStringDefault:dict[@"shopTypeDisplay"]];
     shop.shopLat=[NSNumber numberWithObject:dict[@"shopLat"]];
     shop.shopLng=[NSNumber numberWithObject:dict[@"shopLng"]];
     shop.logo=[NSString stringWithStringDefault:dict[@"logo"]];

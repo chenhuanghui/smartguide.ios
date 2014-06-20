@@ -31,10 +31,10 @@
 {
     float height=187;
     
-    if(shop.addressHeight.floatValue==-1)
-        shop.addressHeight=@([shop.address sizeWithFont:[UIFont fontWithName:@"Avenir-Roman" size:13] constrainedToSize:CGSizeMake(269, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height);
+    if(shop.addressHeightForShopInfo.floatValue==-1)
+        shop.addressHeightForShopInfo=@([shop.address sizeWithFont:FONT_SIZE_NORMAL(13) constrainedToSize:CGSizeMake(269, MAXFLOAT) lineBreakMode:NSLineBreakByTruncatingTail].height);
     
-    height+=shop.addressHeight.floatValue;
+    height+=shop.addressHeightForShopInfo.floatValue;
     
     return height;
 }

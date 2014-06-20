@@ -161,8 +161,6 @@ static NSMutableArray *_asioperations=nil;
 
 -(void)addToQueue
 {
-    [self applyPostValue];
-    
     [[ASIOperationManager shareInstance] addOperation:self];
 }
 
@@ -268,7 +266,8 @@ static NSMutableArray *_asioperations=nil;
 
 -(void)onFinishLoading
 {
-    
+    if(self.delegate && [self.delegate respondsToSelector:@selector(ASIOperationPostFinishedLoading:)])
+        [self.delegate ASIOperationPostFinishedLoading:self];
 }
 
 -(bool)isHandleResponseString:(NSString *)resString error:(NSError *__autoreleasing *)error
@@ -298,15 +297,12 @@ static NSMutableArray *_asioperations=nil;
         }
         else
         {
-            NSData *data=[self.responseString dataUsingEncoding:self.responseStringEncoding];
-            NSError *jsonError=nil;
+            id json = self.responseObject;
             
-            id json = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers|NSJSONReadingAllowFragments error:&jsonError];
-            
-            if(jsonError)
+            if(self.error)
             {
-                [self onFailed:jsonError];
-                [self notifyFailed:jsonError];
+                [self onFailed:self.error];
+                [self notifyFailed:self.error];
             }
             else
             {
@@ -388,11 +384,9 @@ static NSMutableArray *_asioperations=nil;
     
     if(self.responseString.length>0)
     {
-        NSData *data=[self.responseString dataUsingEncoding:NSUTF8StringEncoding];
-        NSError *jsonError=nil;
-        NSArray *json=[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments|NSJSONReadingMutableContainers error:&jsonError];
+        NSArray *json=self.responseObject;
         
-        if(!jsonError && [json isKindOfClass:[NSDictionary class]] && json.count>0)
+        if([json isKindOfClass:[NSDictionary class]] && json.count>0)
         {
             if([self handleTokenError:(NSDictionary*)json])
                 return;

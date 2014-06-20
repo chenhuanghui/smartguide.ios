@@ -21,11 +21,13 @@
 #import "OperationNotificationAction.h"
 #import "ASIOperationUserNotificationRemove.h"
 #import "EmptyDataView.h"
+#import "ASIOperationNotificationCount.h"
 
 @interface UserNotificationViewController ()<UITableViewDataSource,UITableViewDelegate,UserNotificationCellDelegate,ASIOperationPostDelegate,UIActionSheetDelegate,RefreshingViewDelegate>
 {
     enum USER_NOTIFICATION_DISPLAY_TYPE _displayType;
     ASIOperationUserNotificationNewest *_operationUserNotification;
+    ASIOperationNotificationCount *_operationNotificationCount;
     
     __weak RefreshingView *refreshView;
 }
@@ -78,6 +80,28 @@
     
     [table l_v_addY:-[RefreshingView height]];
     [table l_v_addH:[RefreshingView height]];
+    
+    [self requestNotificationCount:true];
+}
+
+-(void) requestNotificationCount:(bool) force
+{
+    if(force)
+    {
+        if(_operationNotificationCount)
+        {
+            [_operationNotificationCount clearDelegatesAndCancel];
+            _operationNotificationCount=nil;
+        }
+    }
+    
+    if(_operationNotificationCount || _operationNotificationCount)
+        return;
+    
+    _operationNotificationCount=[[ASIOperationNotificationCount alloc] initWithCountType:NOTIFICATION_COUNT_TYPE_ALL userLat:userLat() userLng:userLng() uuid:UUID()];
+    _operationNotificationCount.delegate=self;
+    
+    [_operationNotificationCount addToQueue];
 }
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
@@ -103,6 +127,7 @@
 -(void)refreshingViewNeedRefresh:(RefreshingView *)refreshView
 {
     [self refreshData];
+    [self requestNotificationCount:true];
     
     NSLog(@"refreshingViewNeedRefresh");
 }
@@ -273,7 +298,7 @@
 -(void)userNotificationCellTouchedAction:(UserNotificationCell *)cell action:(UserNotificationAction *)action
 {
     [SGData shareInstance].fScreen=@"S006";
-    [SGData shareInstance].fData=[NSMutableDictionary dictionaryWithObject:cell.userNotification.idNotification forKey:@"idNotification"];
+    [SGData shareInstance].fData=[NSMutableDictionary dictionaryWithObject:cell.userNotification.idSender forKey:@"idSender"];
     
     switch (action.enumActionType) {
         case NOTIFICATION_ACTION_TYPE_CALL_API:
@@ -335,7 +360,7 @@
 
 -(void) deleteUserNotification:(int) idSender
 {
-    ASIOperationUserNotificationRemove *operationUserNotificationRemove=[[ASIOperationUserNotificationRemove alloc] initWithIDNotification:nil idSender:@(idSender) userLat:userLat() userLng:userLng()];
+    ASIOperationUserNotificationRemove *operationUserNotificationRemove=[[ASIOperationUserNotificationRemove alloc] initWithIDMessage:nil idSender:@(idSender) userLat:userLat() userLng:userLng()];
     operationUserNotificationRemove.delegate=self;
     
     [operationUserNotificationRemove addToQueue];
@@ -349,7 +374,7 @@
     NSArray *notificationRemoved=[_userNotification filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"%K==%@",UserNotification_IdSender,obj.idSender]];
     
     [self deleteUserNotification:obj.idSender.integerValue];
-
+    
     //Tạo danh sách các row sẽ bị remove từ table view
     NSMutableArray *arrIdx=[NSMutableArray array];
     
@@ -572,6 +597,10 @@
     {
         [[NotificationManager shareInstance] requestNotificationCount];
     }
+    else if([operation isKindOfClass:[ASIOperationNotificationCount class]])
+    {
+        [self finishedNotificationCount:(ASIOperationNotificationCount*)operation];
+    }
 }
 
 -(void)ASIOperaionPostFailed:(ASIOperationPost *)operation
@@ -585,6 +614,48 @@
     {
         [[NotificationManager shareInstance] requestNotificationCount];
     }
+    else if([operation isKindOfClass:[ASIOperationNotificationCount class]])
+    {
+        [self finishedNotificationCount:(ASIOperationNotificationCount*)operation];
+    }
+}
+
+-(void) finishedNotificationCount:(ASIOperationNotificationCount*) operation
+{
+    _numberNotificationRead=_operationNotificationCount.number.integerValue;
+    _totalNotificationRead=_operationNotificationCount.string;
+    
+#if DEBUG
+    _numberNotificationRead=10;
+    _numberNotificationUnread=10;
+    _totalNotificationUnread=@"10";
+    _totalNotificationRead=@"10";
+#endif
+    
+    if(_numberNotificationUnread>0 || _numberNotificationRead>0)
+    {
+        NSMutableAttributedString *titleAttStr=[NSMutableAttributedString new];
+        
+        [titleAttStr appendAttributedString:[[NSAttributedString alloc] initWithString:@"Thông báo " attributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:17]
+                                                                                                                , NSForegroundColorAttributeName:[UIColor whiteColor]}]];
+        
+        [titleAttStr appendAttributedString:[[NSAttributedString alloc] initWithString:@"( " attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:11]
+                                                                                                         , NSForegroundColorAttributeName:[UIColor whiteColor]
+                                                                                                         , NSBaselineOffsetAttributeName:@(2)}]];
+        
+        NSString *displayTotal=[NSString stringWithFormat:@"%@/%@",_totalNotificationUnread,_totalNotificationRead];
+        [titleAttStr appendAttributedString:[[NSAttributedString alloc] initWithString:displayTotal attributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:13]
+                                                                                                                 , NSForegroundColorAttributeName:[UIColor whiteColor]
+                                                                                                                 , NSBaselineOffsetAttributeName:@(1.4f)}]];
+        
+        [titleAttStr appendAttributedString:[[NSAttributedString alloc] initWithString:@" )" attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:11]
+                                                                                                         , NSForegroundColorAttributeName:[UIColor whiteColor]
+                                                                                                         , NSBaselineOffsetAttributeName:@(2)}]];
+        
+        lblTitle.attributedText=titleAttStr;
+    }
+    
+    _operationNotificationCount=nil;
 }
 
 -(void)dealloc

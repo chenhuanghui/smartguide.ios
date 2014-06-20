@@ -24,7 +24,7 @@
     float height=44.f;
     
     if(voucher.nameHeight.floatValue==-1)
-        voucher.nameHeight=@([voucher.name sizeWithFont:[UIFont fontWithName:@"Georgia" size:14] constrainedToSize:CGSizeMake(198, MAXFLOAT) lineBreakMode:NSLineBreakByTruncatingTail].height);
+        voucher.nameHeight=@([voucher.name sizeWithFont:[UIFont fontWithName:@"Georgia" size:14] constrainedToSize:CGSizeMake(228, MAXFLOAT) lineBreakMode:NSLineBreakByTruncatingTail].height);
     
     height+=voucher.nameHeight.floatValue;
     voucher.conditionHeight=@(0);

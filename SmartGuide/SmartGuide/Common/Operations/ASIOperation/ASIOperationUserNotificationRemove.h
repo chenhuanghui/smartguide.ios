@@ -10,6 +10,6 @@
 
 @interface ASIOperationUserNotificationRemove : ASIOperationPost
 
--(ASIOperationUserNotificationRemove*) initWithIDNotification:(NSNumber*) idNotification idSender:(NSNumber*) idSender userLat:(double) userLat userLng:(double) userLng;
+-(ASIOperationUserNotificationRemove*) initWithIDMessage:(NSNumber*) idMessage idSender:(NSNumber*) idSender userLat:(double) userLat userLng:(double) userLng;
 
 @end

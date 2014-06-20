@@ -69,12 +69,12 @@
     float height=90;
     
     if(news.titleHeight.floatValue==-1)
-        news.titleHeight=@([news.title sizeWithFont:FONT_SIZE_BOLD(14) constrainedToSize:CGSizeMake(234, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height);
+        news.titleHeight=@([news.title sizeWithFont:FONT_SIZE_BOLD(14) constrainedToSize:CGSizeMake(264, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height);
     
     height+=news.titleHeight.floatValue;
     
     if(news.contentHeight.floatValue==-1)
-        news.contentHeight=@([news.content sizeWithFont:FONT_SIZE_NORMAL(13) constrainedToSize:CGSizeMake(234, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height);
+        news.contentHeight=@([news.content sizeWithFont:FONT_SIZE_NORMAL(13) constrainedToSize:CGSizeMake(264, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height);
     
     height+=news.contentHeight.floatValue;
     
@@ -84,7 +84,7 @@
             news.videoHeightForShop=@(0);
         else
         {
-            float frameWidthLayoutNews=274;
+            float frameWidthLayoutNews=304;
             news.videoHeightForShop=@(frameWidthLayoutNews*news.videoHeight.floatValue/news.videoWidth.floatValue);
         }
     }
@@ -95,7 +95,7 @@
             news.imageHeightForShop=@(0);
         else
         {
-            float frameWidthLayoutNews=274;
+            float frameWidthLayoutNews=304;
             news.imageHeightForShop=@(frameWidthLayoutNews*news.imageHeight.floatValue/news.imageWidth.floatValue);
         }
     }

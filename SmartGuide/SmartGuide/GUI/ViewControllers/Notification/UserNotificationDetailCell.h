@@ -37,7 +37,6 @@ enum USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE
     __weak IBOutlet UIView *displayView;
     __weak IBOutlet UIImageView *imgvIcon;
     __weak IBOutlet UIButton *btnLogo;
-    __weak IBOutlet TokenView *tokens;
     __weak IBOutlet ScrollNotificationContent *scroll;
     __weak IBOutlet UIView *leftView;
     __weak IBOutlet UIView *rightView;
@@ -47,8 +46,10 @@ enum USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE
     __weak IBOutlet UIButton *btnMovie;
     __weak IBOutlet UIView *movideBGView;
     __weak IBOutlet UIView *avatarMaskView;
+    __weak IBOutlet UITableView *tableButtons;
     
     __weak UserNotificationContent *_obj;
+    NSArray *_actions;
     enum USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE _displayType;
 }
 

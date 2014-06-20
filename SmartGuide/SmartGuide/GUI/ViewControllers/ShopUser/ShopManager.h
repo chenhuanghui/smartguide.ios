@@ -14,6 +14,7 @@
 #define NOTIFICATION_GALLERY_SELECTED_CHANGE @"gallerySelectedChange"
 #define NOTIFICATION_COMMENTS_FINISHED_TOP_AGREED @"commentsFinishedTopAgreed"
 #define NOTIFICATION_COMMENTS_FINISHED_TIME @"commentsFinishedTime"
+#define NOTIFICATION_COMMENTS_FINISHED_NEW_COMMENT @"commentsFinishedNewComment"
 
 @interface ShopManager : NSObject
 {
@@ -35,6 +36,7 @@
 
 -(void) requestUserGallery;
 -(void) requestShopGallery;
+-(void) newCommentWithComment:(NSString*) comment;
 -(void) requestComments;
 -(void) requestCommentWithSort:(enum SORT_SHOP_COMMENT) sortType;
 -(NSArray*) commentWithSort:(enum SORT_SHOP_COMMENT) sortType;

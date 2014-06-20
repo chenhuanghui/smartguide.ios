@@ -10,9 +10,12 @@
 
 @interface ASIOperationNotificationCount : ASIOperationPost
 
--(ASIOperationNotificationCount*) initWithUserLat:(double) userLat userLng:(double) userLng uuid:(NSString*) uuid;
+-(ASIOperationNotificationCount*) initWithCountType:(enum NOTIFICATION_COUNT_TYPE) countType userLat:(double) userLat userLng:(double) userLng uuid:(NSString*) uuid;
 
-@property (nonatomic, strong) NSString *numOfNotification;
-@property (nonatomic, strong) NSNumber *totalNotification;
+-(NSNumber*) number;
+-(NSString*) string;
+
+@property (nonatomic, strong) NSArray *numbers;
+@property (nonatomic, strong) NSArray *strings;
 
 @end

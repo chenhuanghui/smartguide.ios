@@ -196,7 +196,7 @@
     [collection registerLoadingMoreCell];
     
     ButtonLove *love=[ButtonLove new];
-    [love l_v_setO:CGPointMake(87, 288)];
+    [love l_v_setO:CGPointMake(98, 288)];
     love.delegate=self;
     
     [self.contentView addSubview:love];

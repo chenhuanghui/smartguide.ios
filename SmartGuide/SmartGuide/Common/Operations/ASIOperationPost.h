@@ -39,6 +39,9 @@ enum OPERATION_METHOD_TYPE
 -(void) ASIOperaionPostFinished:(ASIOperationPost*) operation;
 -(void) ASIOperaionPostFailed:(ASIOperationPost*) operation;
 
+@optional
+-(void) ASIOperationPostFinishedLoading:(ASIOperationPost*) operation;
+
 @end
 
 @interface ASIOperationPost : AFHTTPRequestOperation
@@ -57,6 +60,7 @@ enum OPERATION_METHOD_TYPE
 -(void) restart;
 -(bool) isApplySGData;
 -(bool) isHandleResponseString:(NSString*) resString error:(NSError**) error;
+-(bool) handleTokenError:(NSDictionary*) json;
 
 -(void) addToQueue;
 -(void) clearDelegatesAndCancel;

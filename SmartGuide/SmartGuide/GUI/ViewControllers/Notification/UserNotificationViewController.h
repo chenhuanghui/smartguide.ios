@@ -13,11 +13,17 @@
 @interface UserNotificationViewController : SGViewController
 {
     __weak IBOutlet UITableView *table;
+    __weak IBOutlet UILabel *lblTitle;
     
     NSMutableArray *_userNotification;
     NSArray *_userNotificationUnread;
     NSArray *_userNotificationRead;
     NSArray *_userNotificationFromAPI;
+    
+    int _numberNotificationUnread;
+    NSString *_totalNotificationUnread;
+    int _numberNotificationRead;
+    NSString *_totalNotificationRead;
     
     int _page;
     bool _canLoadMore;

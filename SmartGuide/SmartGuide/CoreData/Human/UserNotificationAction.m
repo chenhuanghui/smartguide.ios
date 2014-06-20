@@ -1,6 +1,16 @@
 #import "UserNotificationAction.h"
 
 @implementation UserNotificationAction
+@synthesize actionTitleHeight;
+
+-(id)initWithEntity:(NSEntityDescription *)entity insertIntoManagedObjectContext:(NSManagedObjectContext *)context
+{
+    self=[super initWithEntity:entity insertIntoManagedObjectContext:context];
+    
+    self.actionTitleHeight=@(-1);
+    
+    return self;
+}
 
 +(UserNotificationAction *)makeWithAction:(NSDictionary *)action
 {

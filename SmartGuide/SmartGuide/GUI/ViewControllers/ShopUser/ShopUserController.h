@@ -20,8 +20,7 @@
 @interface ShopUserController : SGViewController
 {
     __weak IBOutlet UIView *containView;
-    __weak IBOutlet UIButton *btnClose;
-    __weak IBOutlet ButtonBackShopUser *btnBack;
+    __weak IBOutlet UIButton *btnBack;
     SGNavigationController *_navi;
     
     int _idShop;

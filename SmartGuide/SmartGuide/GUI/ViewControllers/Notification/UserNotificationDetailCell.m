@@ -9,8 +9,9 @@
 #import "UserNotificationDetailCell.h"
 #import "ImageManager.h"
 #import "DataManager.h"
+#import "UserNotificationDetailButtonTableViewCell.h"
 
-@interface UserNotificationDetailCell()<TokenViewDelegate,UIScrollViewDelegate,UIGestureRecognizerDelegate>
+@interface UserNotificationDetailCell()<TokenViewDelegate,UIScrollViewDelegate,UIGestureRecognizerDelegate,UserNotificationDetailButtonTableViewCellDelegate,UITableViewDataSource,UITableViewDelegate>
 
 @end
 
@@ -25,12 +26,13 @@
 {
     _obj=obj;
     _displayType=displayType;
+    _actions=obj.actionsObjects;
     
     lblTime.text=obj.time;
     lblTitle.attributedText=obj.titleAttribute;
     lblContent.attributedText=obj.contentAttribute;
-    [tokens setTokens:obj.actionTitles objects:obj.actionsObjects];
     [imgvIcon loadShopLogoWithURL:obj.logo];
+    [tableButtons reloadData];
     
     float topHeight=0;
     float topY=30;
@@ -88,8 +90,8 @@
     [lblContent l_v_setY:lblTitle.l_v_y+lblTitle.l_v_h+5];
     [lblContent l_v_setH:obj.contentHeight.floatValue];
     
-    [tokens l_v_setY:lblContent.l_v_y+lblContent.l_v_h+5];
-    [tokens l_v_setH:obj.actionsHeight.floatValue];
+    [tableButtons l_v_setY:lblContent.l_v_y+lblContent.l_v_h+5];
+    [tableButtons l_v_setH:obj.actionsHeight.floatValue];
     
     lblContent.hidden=displayType==USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE_TITLE;
     imgvImage.hidden=displayType==USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE_TITLE;
@@ -104,6 +106,11 @@
     scroll.scrollEnabled=currentUser().enumDataMode==USER_DATA_FULL;
 }
 
+-(void)userNotificationDetailButtonTableViewCellTouchedAction:(UserNotificationDetailButtonTableViewCell *)cell
+{
+    [self.delegate userNotificationDetailCellTouchedAction:self action:cell.action];
+}
+
 -(enum USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE)displayType
 {
     return _displayType;
@@ -112,6 +119,37 @@
 -(UserNotificationContent *)userNotificationDetail
 {
     return _obj;
+}
+
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return _actions.count==0?0:1;
+}
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return _actions.count;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return [UserNotificationDetailButtonTableViewCell heightWithAction:_actions[indexPath.row]];
+}
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UserNotificationDetailButtonTableViewCell *cell=[tableButtons userNotificationDetailButtonTableViewCell];
+    [cell loadWithAction:_actions[indexPath.row]];
+    cell.delegate=self;
+    
+    return cell;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UserNotificationDetailButtonTableViewCell *cell=(UserNotificationDetailButtonTableViewCell*)[tableView cellForRowAtIndexPath:indexPath];
+    
+    [self.delegate userNotificationDetailCellTouchedAction:self action:cell.action];
 }
 
 +(NSString *)reuseIdentifier
@@ -126,7 +164,7 @@
     if(!obj.titleAttribute)
     {
         NSMutableDictionary *dict=[NSMutableDictionary dictionary];
-        [dict setObject:[UIFont fontWithName:@"Avenir-Heavy" size:14] forKey:NSFontAttributeName];
+        [dict setObject:FONT_SIZE_BOLD(14) forKey:NSFontAttributeName];
         [dict setObject:[UIColor darkTextColor] forKey:NSForegroundColorAttributeName];
         
         NSMutableParagraphStyle *paraStyle=[NSMutableParagraphStyle new];
@@ -145,7 +183,7 @@
     if(!obj.contentAttribute)
     {
         NSMutableDictionary *dict=[NSMutableDictionary dictionary];
-        [dict setObject:[UIFont fontWithName:@"Avenir-Roman" size:13] forKey:NSFontAttributeName];
+        [dict setObject:FONT_SIZE_NORMAL(13) forKey:NSFontAttributeName];
         [dict setObject:[UIColor darkTextColor] forKey:NSForegroundColorAttributeName];
         
         NSMutableParagraphStyle *paraStyle=[NSMutableParagraphStyle new];
@@ -157,12 +195,17 @@
     
     if(obj.contentHeight.floatValue==-1)
     {
-        obj.contentHeight=@([obj.content sizeWithFont:[UIFont fontWithName:@"Avenir-Roman" size:13] constrainedToSize:CGSizeMake(274, MAXFLOAT) lineBreakMode:NSLineBreakByTruncatingTail].height);
+        obj.contentHeight=@([obj.content sizeWithFont:FONT_SIZE_NORMAL(13) constrainedToSize:CGSizeMake(274, MAXFLOAT) lineBreakMode:NSLineBreakByTruncatingTail].height);
     }
     
     if(obj.actionsHeight.floatValue==-1)
     {
-        obj.actionsHeight=@([TokenView heightWithTokens:obj.actionTitles forWidth:312]);
+        float actionsHeight=0;
+        
+        for(UserNotificationAction *action in obj.actionsObjects)
+            actionsHeight+=[UserNotificationDetailButtonTableViewCell heightWithAction:action];
+        
+        obj.actionsHeight=@(actionsHeight);
     }
     
     if(obj.imageHeightForNoti.floatValue==-1)
@@ -196,6 +239,7 @@
                 height+=obj.videoHeightForNoti.floatValue;
             else if(obj.image.length>0)
                 height+=obj.imageHeightForNoti.floatValue;
+            height-=30;
             
             break;
             
@@ -247,6 +291,8 @@
     
     [scroll.panGestureRecognizer requireGestureRecognizerToFail:tap];
     [leftView addGestureRecognizer:tap];
+    
+    [tableButtons registerUserNotificationDetailButtonTableViewCell];
 }
 
 -(BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer

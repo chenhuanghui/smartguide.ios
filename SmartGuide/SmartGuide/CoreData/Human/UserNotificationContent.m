@@ -17,15 +17,21 @@
     return self;
 }
 
++(UserNotificationContent *)userNotifcationContentWithIDSender:(int)idSender IDMessage:(int)idMessage
+{
+    return [self queryUserNotificationContentObject:[NSPredicate predicateWithFormat:@"%K==%i && %K==%i", UserNotificationContent_IdSender, idSender, UserNotificationContent_IdMessage, idMessage]];
+}
+
 +(UserNotificationContent *)makeWithDictionary:(NSDictionary *)data
 {
     UserNotificationContent *obj=[UserNotificationContent insert];
     
-    obj.idNotification=[NSNumber numberWithObject:data[@"idNotification"]];
+    obj.sender=[NSString stringWithStringDefault:data[@"sender"]];
+    obj.idMessage=[NSNumber numberWithObject:data[@"idMessage"]];
     obj.logo=[NSString stringWithStringDefault:data[@"logo"]];
     
-    if(data[@"idShopLogo"])
-        obj.idShopLogo=[NSNumber numberWithObject:data[@"idShopLogo"]];
+    if(data[@"idShop"])
+        obj.idShopLogo=[NSNumber numberWithObject:data[@"idShop"]];
     
     obj.time=[NSString stringWithStringDefault:data[@"time"]];
     obj.title=[NSString stringWithStringDefault:data[@"title"]];
@@ -35,14 +41,14 @@
     if(obj.enumStatus==NOTIFICATION_STATUS_UNREAD)
         obj.highlightUnread=@(true);
     
-    if(![data[@"image"] isNullData])
+    if([data[@"image"] hasData])
     {
         obj.image=[NSString stringWithStringDefault:data[@"image"]];
         obj.imageWidth=[NSNumber numberWithObject:data[@"imageWidth"]];
         obj.imageHeight=[NSNumber numberWithObject:data[@"imageHeight"]];
     }
     
-    if(![data[@"video"] isNullData])
+    if([data[@"video"] hasData])
     {
         obj.video=[NSString stringWithStringDefault:data[@"video"]];
         obj.videoWidth=[NSNumber numberWithObject:data[@"videoWidth"]];
@@ -50,10 +56,12 @@
         obj.videoThumbnail=[NSString stringWithStringDefault:data[@"videoThumbnail"]];
     }
     
-    NSArray *actions=data[@"actions"];    
-    if(![actions isNullData])
+    NSArray *actions=data[@"buttons"];
+    if([actions hasData])
     {
         int i=0;
+        
+        
         for(NSDictionary *dict in actions)
         {
             UserNotificationAction *action=[UserNotificationAction makeWithAction:dict];

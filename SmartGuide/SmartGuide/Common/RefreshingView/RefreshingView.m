@@ -54,12 +54,15 @@
         
         if(angle>M_PI*2)
         {
+            [self.delegate refreshingViewNeedRefresh:self];
             imgvRefresh.transform=CGAffineTransformIdentity;
             imgvRefresh.image=[UIImage imageNamed:@"icon_refresh_blue.png"];
             refreshState=REFRESH_VIEW_STATE_REFRESHING;
             _isMarkRefreshDone=false;
-            [self.delegate refreshingViewNeedRefresh:self];
-            table.contentInset=UIEdgeInsetsMake(self.l_v_h, 0, -self.l_v_h, 0);
+            
+            [UIView animateWithDuration:0.1f animations:^{
+                table.contentInset=UIEdgeInsetsMake(self.l_v_h, 0, -self.l_v_h, 0);
+            }];
             
             [self animationRefreshing:M_PI*2];
         }
@@ -109,7 +112,11 @@
     if(_isMarkRefreshDone && !_isUserDragging)
     {
         _isMarkRefreshDone=false;
-        table.contentInset=UIEdgeInsetsZero;
+        
+        [UIView animateWithDuration:0.3f animations:^{
+            table.contentInset=UIEdgeInsetsZero;
+        }];
+        
         table.userInteractionEnabled=true;
         refreshState=REFRESH_VIEW_STATE_NORMAL;
         imgvRefresh.image=[UIImage imageNamed:@"icon_refresh.png"];

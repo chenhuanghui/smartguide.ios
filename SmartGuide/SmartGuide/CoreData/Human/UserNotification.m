@@ -1,9 +1,8 @@
 #import "UserNotification.h"
-#import "ASIOperationUserNotificationMarkRead.h"
-#import "NotificationManager.h"
+#import "UserNotificationContent.h"
 
 @implementation UserNotification
-@synthesize displayContentHeight,displayContentAttribute,actionsHeight;
+@synthesize displayContentHeight,displayContentAttribute;
 
 -(id)initWithEntity:(NSEntityDescription *)entity insertIntoManagedObjectContext:(NSManagedObjectContext *)context
 {
@@ -11,14 +10,13 @@
     
     self.displayContentHeight=@(-1);
     self.displayContentAttribute=nil;
-    self.actionsHeight=@(-1);
     
     return self;
 }
 
-+(UserNotification *)userNotificationWithIDNotification:(int)idNotification
++(UserNotification *)userNotificationWithIDSender:(int)idSender
 {
-    return [UserNotification queryUserNotificationObject:[NSPredicate predicateWithFormat:@"%K==%i",UserNotification_IdNotification,idNotification]];
+    return [UserNotification queryUserNotificationObject:[NSPredicate predicateWithFormat:@"%K==%i",UserNotification_IdSender,idSender]];
 }
 
 +(UserNotification *)makeWithDictionary:(NSDictionary *)data
@@ -27,31 +25,47 @@
 
     obj.idSender=[NSNumber numberWithObject:data[@"idSender"]];
     obj.sender=[NSString stringWithStringDefault:data[@"sender"]];
-    obj.idNotification=[NSNumber numberWithObject:data[@"idNotification"]];
-    obj.logo=[NSString stringWithStringDefault:data[@"logo"]];
-    obj.time=[NSString stringWithStringDefault:data[@"time"]];
-    obj.title=[NSString stringWithStringDefault:data[@"title"]];
-    obj.content=[NSString stringWithStringDefault:data[@"content"]];
+    
+    NSDictionary *dictCount=data[@"count"];
+    
+    if([dictCount hasData] && [dictCount isKindOfClass:[NSDictionary class]])
+    {
+        NSArray *array=dictCount[@"number"];
+        
+        if([array hasData] && array.count==3)
+        {
+            obj.numberUnread=[NSNumber numberWithObject:array[0]];
+            obj.numberRead=[NSNumber numberWithObject:array[1]];
+            obj.numberAll=[NSNumber numberWithObject:array[2]];
+        }
+        else
+        {
+            obj.numberUnread=@(0);
+            obj.numberRead=@(0);
+            obj.numberAll=@(0);
+        }
+        
+        array=dictCount[@"string"];
+        
+        if([array hasData] && array.count==3)
+        {
+            obj.totalUnread=[NSString stringWithStringDefault:array[0]];
+            obj.totalRead=[NSString stringWithStringDefault:array[1]];
+            obj.totalAll=[NSString stringWithStringDefault:array[2]];
+        }
+        else
+        {
+            obj.totalUnread=@"";
+            obj.totalRead=@"";
+            obj.totalAll=@"";
+        }
+    }
+    
     obj.status=[NSNumber numberWithObject:data[@"status"]];
     
     if(obj.enumStatus==NOTIFICATION_STATUS_UNREAD)
         obj.highlightUnread=@(true);
-    
-    NSArray *actions=data[@"actions"];
-    actions=@[];
-    
-    if(![actions isNullData])
-    {
-        int i=0;
-        for(NSDictionary *dict in actions)
-        {
-            UserNotificationAction *action=[UserNotificationAction makeWithAction:dict];
-            action.sortOrder=@(i++);
-            
-            [obj addActionsObject:action];
-        }
-    }
-    
+        
     return obj;
 }
 
@@ -69,35 +83,64 @@
     }
 }
 
--(NSArray *)actionTitles
+-(NSArray *)notificationContentsObjects
 {
-    if(self.actionsObjects.count>0)
-        return [self.actionsObjects valueForKey:UserNotificationAction_ActionTitle];
+    NSArray *array=[super notificationContentsObjects];
     
-    return [NSArray array];
-}
-
--(NSArray *)actionsObjects
-{
-    if([super actionsObjects].count>0)
+    if([array hasData])
     {
-        return [[super actionsObjects] sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:UserNotificationAction_SortOrder ascending:true]]];
+        return [array sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:UserNotificationContent_Page ascending:true], [NSSortDescriptor sortDescriptorWithKey:UserNotificationContent_SortOrder ascending:true]]];
     }
     
-    return [NSArray array];
+    return array?:@[];
 }
 
--(UserNotificationAction *)actionFromTitle:(NSString *)title
+-(UserNotificationContent*) firstNotificationContent
 {
-    if([super actionsObjects].count>0)
-    {
-        NSArray *array=[[super actionsObjects] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"%K LIKE %@",UserNotificationAction_ActionTitle,title]];
-        
-        if(array.count>0)
-            return array[0];
-    }
+    NSArray *array=[self notificationContentsObjects];
+    
+    if([array hasData])
+        return array[0];
     
     return nil;
 }
+
+-(NSString *)time
+{
+    UserNotificationContent *obj=[self firstNotificationContent];
+    if(obj)
+        return obj.time;
+    
+    return @"";
+}
+
+-(NSString *)content
+{
+    UserNotificationContent *obj=[self firstNotificationContent];
+    if(obj)
+        return obj.content;
+    
+    return @"";
+}
+
+-(NSString *)displayCount
+{
+    if(self.totalUnread.length>0 && self.numberUnread.integerValue>0)
+        return [NSString stringWithFormat:@"%@ tin chưa đọc",self.totalUnread];
+    
+    return @"";
+}
+
+#if DEBUG
+-(NSString *)totalUnread
+{
+    return @"1";
+}
+-(NSNumber *)numberUnread
+{
+    return @(1);
+}
+
+#endif
 
 @end

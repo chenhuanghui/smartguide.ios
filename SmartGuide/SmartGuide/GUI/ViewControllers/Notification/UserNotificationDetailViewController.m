@@ -132,10 +132,17 @@
         ASIOperationUserNotificationFromSender *ope=(ASIOperationUserNotificationFromSender*) operation;
         
         self.title=ope.sender;
-        [_userNotificationContents addObjectsFromArray:ope.notifications];
+        
+        _page++;
+        
+        if(_page==0)
+            _userNotificationContents=ope.notifications;
+        else
+            [_userNotificationContents addObjectsFromArray:ope.notifications];
+        
         _canLoadMore=ope.notifications.count>=10;
         _isLoadingMore=false;
-        _page++;
+        
         
         if(_userNotificationContents.count>0)
         {
@@ -262,7 +269,7 @@
     obj.status=@(NOTIFICATION_STATUS_READ);
     [[DataManager shareInstance] save];
     
-    ASIOperationUserNotificationMarkRead *ope=[[ASIOperationUserNotificationMarkRead alloc] initWithIDNotification:obj.idNotification.integerValue userLat:userLat() userLng:userLng()];
+    ASIOperationUserNotificationMarkRead *ope=[[ASIOperationUserNotificationMarkRead alloc] initWithIDMessage:obj.idMessage.integerValue userLat:userLat() userLng:userLng()];
     [ope addToQueue];
 }
 
@@ -283,7 +290,7 @@
     
     if(cell.userNotificationDetail.idSender)
         [[SGData shareInstance].fData setObject:cell.userNotificationDetail.idSender forKey:@"idSender"];
-    [[SGData shareInstance].fData setObject:cell.userNotificationDetail.idNotification forKey:@"idNotification"];
+    [[SGData shareInstance].fData setObject:cell.userNotificationDetail.idMessage forKey:@"idMessage"];
     
     switch (action.enumActionType) {
         case NOTIFICATION_ACTION_TYPE_CALL_API:
@@ -348,7 +355,7 @@
     if(currentUser().enumDataMode!=USER_DATA_FULL)
         return;
     
-    ASIOperationUserNotificationRemove *ope=[[ASIOperationUserNotificationRemove alloc] initWithIDNotification:cell.userNotificationDetail.idNotification idSender:nil userLat:userLat() userLng:userLng()];
+    ASIOperationUserNotificationRemove *ope=[[ASIOperationUserNotificationRemove alloc] initWithIDMessage:cell.userNotificationDetail.idMessage idSender:nil userLat:userLat() userLng:userLng()];
     [ope addToQueue];
     
     [_userNotificationContents removeObject:cell.userNotificationDetail];

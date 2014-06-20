@@ -32,4 +32,9 @@
     refreshToken=[NSString stringWithStringDefault:dict[@"refresh_token"]];
 }
 
+-(bool)handleTokenError:(NSDictionary *)json
+{
+    return false;
+}
+
 @end

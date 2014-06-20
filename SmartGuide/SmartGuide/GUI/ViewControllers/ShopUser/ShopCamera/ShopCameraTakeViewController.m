@@ -31,11 +31,15 @@
     picker=[[UIImagePickerController alloc] init];
     picker.delegate=self;
 
+#if TARGET_IPHONE_SIMULATOR
+    picker.sourceType=UIImagePickerControllerSourceTypePhotoLibrary;
+#else
     picker.sourceType=UIImagePickerControllerSourceTypeCamera;
     picker.cameraDevice=UIImagePickerControllerCameraDeviceRear;
     picker.cameraCaptureMode=UIImagePickerControllerCameraCaptureModePhoto;
     picker.cameraFlashMode=UIImagePickerControllerCameraFlashModeAuto;
     picker.showsCameraControls=false;
+#endif
     picker.navigationBarHidden=true;
     picker.toolbarHidden=true;
     
@@ -55,6 +59,7 @@
 
 -(void) makeFlashStatus
 {
+#if !TARGET_IPHONE_SIMULATOR
     switch (picker.cameraFlashMode) {
         case UIImagePickerControllerCameraFlashModeAuto:
             lblFlashStatus.text=@"Auto";
@@ -68,6 +73,7 @@
             lblFlashStatus.text=@"On";
             break;
     }
+#endif
 }
 
 - (void)didReceiveMemoryWarning

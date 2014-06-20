@@ -38,6 +38,7 @@ CATransition* transitionPushFromRight();
 @interface SGNavigationController : UINavigationController<UINavigationControllerDelegate,UIGestureRecognizerDelegate>
 {
     void(^_onPushedViewController)(UIViewController* vc);
+    void(^_onPoppedViewController)(UIViewController* vc);
 
     NSMutableArray *_controllers;
     
@@ -53,6 +54,7 @@ CATransition* transitionPushFromRight();
 -(void) pushViewController:(SGViewController*) viewController andPopWithTransition:(CATransition*) transition;
 -(void) pushViewController:(SGViewController*) viewController onCompleted:(void(^)()) completed;
 -(UIViewController *)popSGViewControllerWithTransition:(CATransition*) transition;
+-(UIViewController *)popViewControllerAnimated:(BOOL)animated onCompleted:(void(^)()) completed;
 
 -(void) preparePushController:(SGViewController*) viewController;
 -(void) pushViewControllerPrepared;

@@ -2501,6 +2501,37 @@ static const NSString *KEY_HIT_TEST_EDGE_INSETS = @"HitTestEdgeInsets";
 
 @implementation NSObject(Utility)
 
+-(bool)hasData
+{
+    if(self==nil)
+        return false;
+    
+    if((id)self==[NSNull null])
+        return false;
+    
+    if([self isKindOfClass:[NSArray class]])
+    {
+        NSArray *data=(NSArray*)self;
+        if(data.count==0 || [data[0] isNullData])
+            return false;
+    }
+    else if([self isKindOfClass:[NSDictionary class]])
+    {
+        NSDictionary *dict=(NSDictionary*)self;
+        if(dict.count==0)
+            return false;
+    }
+    else if([self isKindOfClass:[NSString class]])
+    {
+        NSString *str=(NSString*) self;
+        
+        if(str.length==0)
+            return false;
+    }
+    
+    return true;
+}
+
 -(bool)isNullData
 {
     if(!self)
@@ -2601,6 +2632,32 @@ static const NSString *KEY_HIT_TEST_EDGE_INSETS = @"HitTestEdgeInsets";
             [self reloadItemsAtIndexPaths:array];
         }
     }
+}
+
+-(CGRect)rectForSection:(int)section
+{
+    CGRect rect=CGRectZero;
+    if(section<=[self numberOfSections]-1)
+    {
+        int itemCount=[self numberOfItemsInSection:section];
+        
+        if(itemCount>0)
+        {
+            for(int i=0;i<itemCount;i++)
+            {
+                CGRect itemRect=[self rectForItemAtIndexPath:makeIndexPath(i, section)];
+                if(CGPointEqualToPoint(rect.origin, CGPointZero))
+                    rect.origin=itemRect.origin;
+                
+                if(itemRect.size.width>rect.size.width)
+                    rect.size.width=itemRect.size.width;
+                
+                rect.size.height+=itemRect.size.height;
+            }
+        }
+    }
+    
+    return rect;
 }
 
 @end

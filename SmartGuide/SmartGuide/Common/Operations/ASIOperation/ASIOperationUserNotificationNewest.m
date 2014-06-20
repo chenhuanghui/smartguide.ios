@@ -7,6 +7,8 @@
 //
 
 #import "ASIOperationUserNotificationNewest.h"
+#import "UserNotification.h"
+#import "UserNotificationContent.h"
 
 @implementation ASIOperationUserNotificationNewest
 
@@ -31,7 +33,17 @@
     
     for(NSDictionary *dict in json)
     {
+        if(!([dict hasData] && [dict isKindOfClass:[NSDictionary class]]))
+            continue;
+        
         UserNotification *obj=[UserNotification makeWithDictionary:dict];
+
+        NSDictionary *dictContent=dict[@"newestMessage"];
+        UserNotificationContent *objContent=[UserNotificationContent makeWithDictionary:dictContent];
+        objContent.page=@(0);
+        objContent.sortOrder=@(0);
+        
+        [obj addNotificationContentsObject:objContent];
         
         [self.userNotifications addObject:obj];
     }

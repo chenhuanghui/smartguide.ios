@@ -20,7 +20,7 @@ static NotificationManager *_notificationManager=nil;
 
 @interface NotificationManager()<ASIOperationPostDelegate>
 {
-    ASIOperationNotificationCount *_operationNotificationCheck;
+    ASIOperationNotificationCount *_operationNotificationCount;
     ASIOperationUpdateTokenUUID *_operationUploadNotiToken;
     bool _isUploadNotificationToken;
 }
@@ -56,10 +56,10 @@ static NotificationManager *_notificationManager=nil;
 
 -(void) userLogin:(NSNotification*) notification
 {
-    if(_operationNotificationCheck)
+    if(_operationNotificationCount)
     {
-        [_operationNotificationCheck clearDelegatesAndCancel];
-        _operationNotificationCheck=nil;
+        [_operationNotificationCount clearDelegatesAndCancel];
+        _operationNotificationCount=nil;
     }
     
     self.numOfNotification=@"";
@@ -70,10 +70,10 @@ static NotificationManager *_notificationManager=nil;
 
 -(void) userLogout:(NSNotification*) notification
 {
-    if(_operationNotificationCheck)
+    if(_operationNotificationCount)
     {
-        [_operationNotificationCheck clearDelegatesAndCancel];
-        _operationNotificationCheck=nil;
+        [_operationNotificationCount clearDelegatesAndCancel];
+        _operationNotificationCount=nil;
     }
     
     if(_operationUploadNotiToken)
@@ -92,10 +92,10 @@ static NotificationManager *_notificationManager=nil;
         return;
     
     _notificationState=NOTIFICATION_CHECK_STATE_CHECKING;
-    _operationNotificationCheck=[[ASIOperationNotificationCount alloc] initWithUserLat:userLat() userLng:userLng() uuid:UUID()];
-    _operationNotificationCheck.delegate=self;
+    _operationNotificationCount=[[ASIOperationNotificationCount alloc] initWithCountType:NOTIFICATION_COUNT_TYPE_UNREAD userLat:userLat() userLng:userLng() uuid:UUID()];
+    _operationNotificationCount.delegate=self;
     
-    [_operationNotificationCheck addToQueue];
+    [_operationNotificationCount addToQueue];
 }
 
 -(void) uploadToken:(NSString*) notificationToken
@@ -115,8 +115,8 @@ static NotificationManager *_notificationManager=nil;
     {
         ASIOperationNotificationCount *ope=(ASIOperationNotificationCount*) operation;
         
-        self.totalNotification=[ope.totalNotification copy];
-        self.numOfNotification=[ope.numOfNotification copy];
+        self.totalNotification=[ope.number copy];
+        self.numOfNotification=[ope.string copy];
         
         if(self.totalNotification.integerValue==0)
             self.numOfNotification=@"";
@@ -126,7 +126,7 @@ static NotificationManager *_notificationManager=nil;
         
         [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_TOTAL_NOTIFICATION_CHANGED object:nil];
         
-        _operationNotificationCheck=nil;
+        _operationNotificationCount=nil;
     }
     else if([operation isKindOfClass:[ASIOperationUpdateTokenUUID class]])
     {
@@ -143,7 +143,7 @@ static NotificationManager *_notificationManager=nil;
         
         [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_TOTAL_NOTIFICATION_CHANGED object:nil];
         
-        _operationNotificationCheck=nil;
+        _operationNotificationCount=nil;
     }
     else if([operation isKindOfClass:[ASIOperationUpdateTokenUUID class]])
     {

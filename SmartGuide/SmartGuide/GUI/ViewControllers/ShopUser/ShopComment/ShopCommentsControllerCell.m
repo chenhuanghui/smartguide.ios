@@ -41,10 +41,10 @@
     
     [imgvAvatar loadAvatarWithURL:userAvatar()];
     
-    if([KeyboardUtility shareInstance].isKeyboardVisible)
-        [self switchToEditingModeAnimate:false duration:0];
-    else
-        [self switchToNormailModeAnimate:false duration:0];
+//    if([KeyboardUtility shareInstance].isKeyboardVisible)
+//        [self switchToEditingModeAnimate:false duration:0];
+//    else
+//        [self switchToNormailModeAnimate:false duration:0];
 }
 
 -(void)reloadData
@@ -58,7 +58,7 @@
     CGRect rect=[tableUser rectForItemAtIndexPath:idx];
     
     float y=tableUser.l_co_y+100-rect.origin.y;
-    
+ 
     if(y>0)
     {
         [self l_v_setY:rect.origin.y+y];
@@ -196,6 +196,8 @@
     
     UITapGestureRecognizer *tap=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapTouchView:)];
     [touchView addGestureRecognizer:tap];
+    
+    [self switchToNormailModeAnimate:false duration:0];
 }
 
 -(void) tapTouchView:(UITapGestureRecognizer*) tap
@@ -216,6 +218,19 @@
 -(UITableView *)table
 {
     return table;
+}
+
+-(void)switchToMode:(enum SHOP_COMMENT_MODE)mode animate:(bool)animate duration:(float)duration
+{
+    switch (mode) {
+        case SHOP_COMMENT_MODE_EDIT:
+            [self switchToEditingModeAnimate:animate duration:duration];
+            break;
+            
+        case SHOP_COMMENT_MODE_NORMAL:
+            [self switchToNormailModeAnimate:animate duration:duration];
+            break;
+    }
 }
 
 -(void) switchToEditingModeAnimate:(bool) animate duration:(float) duration
