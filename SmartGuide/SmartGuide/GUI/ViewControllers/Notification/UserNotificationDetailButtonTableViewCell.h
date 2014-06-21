@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Constant.h"
 
 @class UserNotificationAction, UserNotificationDetailButtonTableViewCell;
 
@@ -19,11 +20,12 @@
 @interface UserNotificationDetailButtonTableViewCell : UITableViewCell
 {
     __weak IBOutlet UIButton *btn;
+    __weak IBOutlet UIImageView *imgvLine;
 
     __weak UserNotificationAction *_action;
 }
 
--(void) loadWithAction:(UserNotificationAction*) action;
+-(void) loadWithAction:(UserNotificationAction*) action cellPos:(enum CELL_POSITION) cellPos;
 -(UserNotificationAction*) action;
 +(float) heightWithAction:(UserNotificationAction*) action;
 +(NSString *)reuseIdentifier;

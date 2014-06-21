@@ -400,7 +400,10 @@
         }];
     }
     else
+    {
+        [txtRefresh markTableDidEndScroll:table];
         [self.navigationController pushViewController:[UserNotificationViewController new] animated:true];
+    }
 }
 
 @end

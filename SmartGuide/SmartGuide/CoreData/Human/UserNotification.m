@@ -132,14 +132,14 @@
 }
 
 #if DEBUG
--(NSString *)totalUnread
-{
-    return @"1";
-}
--(NSNumber *)numberUnread
-{
-    return @(1);
-}
+//-(NSString *)totalUnread
+//{
+//    return @"1";
+//}
+//-(NSNumber *)numberUnread
+//{
+//    return @(1);
+//}
 
 #endif
 

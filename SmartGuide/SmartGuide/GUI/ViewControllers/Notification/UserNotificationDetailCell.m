@@ -11,18 +11,13 @@
 #import "DataManager.h"
 #import "UserNotificationDetailButtonTableViewCell.h"
 
-@interface UserNotificationDetailCell()<TokenViewDelegate,UIScrollViewDelegate,UIGestureRecognizerDelegate,UserNotificationDetailButtonTableViewCellDelegate,UITableViewDataSource,UITableViewDelegate>
+@interface UserNotificationDetailCell()<UIScrollViewDelegate,UIGestureRecognizerDelegate,UserNotificationDetailButtonTableViewCellDelegate,UITableViewDataSource,UITableViewDelegate>
 
 @end
 
 @implementation UserNotificationDetailCell
 
--(void)tokenViewTouchedToken:(TokenView *)token object:(id)obj
-{
-    [self.delegate userNotificationDetailCellTouchedAction:self action:obj];
-}
-
--(void)loadWithUserNotificationDetail:(UserNotificationContent *)obj displayType:(enum USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE)displayType
+-(void)loadWithUserNotificationDetail:(UserNotificationContent *)obj displayType:(enum USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE)displayType cellHeight:(float)cellHeight
 {
     _obj=obj;
     _displayType=displayType;
@@ -32,7 +27,6 @@
     lblTitle.attributedText=obj.titleAttribute;
     lblContent.attributedText=obj.contentAttribute;
     [imgvIcon loadShopLogoWithURL:obj.logo];
-    [tableButtons reloadData];
     
     float topHeight=0;
     float topY=30;
@@ -84,6 +78,9 @@
     if(topHeight>0)
         topHeight+=5;
     
+    if(displayType==USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE_TITLE)
+        topY-=5;
+    
     [lblTitle l_v_setY:topY+topHeight];
     [lblTitle l_v_setH:obj.titleHeight.floatValue];
     
@@ -92,6 +89,7 @@
     
     [tableButtons l_v_setY:lblContent.l_v_y+lblContent.l_v_h+5];
     [tableButtons l_v_setH:obj.actionsHeight.floatValue];
+    tableButtons.hidden=displayType==USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE_TITLE;
     
     lblContent.hidden=displayType==USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE_TITLE;
     imgvImage.hidden=displayType==USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE_TITLE;
@@ -104,6 +102,7 @@
     
     //Chỉ user có tài khoản mới được phép remove notification
     scroll.scrollEnabled=currentUser().enumDataMode==USER_DATA_FULL;
+    [tableButtons reloadData];
 }
 
 -(void)userNotificationDetailButtonTableViewCellTouchedAction:(UserNotificationDetailButtonTableViewCell *)cell
@@ -139,7 +138,16 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UserNotificationDetailButtonTableViewCell *cell=[tableButtons userNotificationDetailButtonTableViewCell];
-    [cell loadWithAction:_actions[indexPath.row]];
+    enum CELL_POSITION cellPos=CELL_POSITION_TOP;
+    
+    if(indexPath.row==_actions.count-1)
+        cellPos=CELL_POSITION_BOTTOM;
+    else if(indexPath.row==0)
+        cellPos=CELL_POSITION_TOP;
+    else
+        cellPos=CELL_POSITION_MIDDLE;
+    
+    [cell loadWithAction:_actions[indexPath.row] cellPos:cellPos];
     cell.delegate=self;
     
     return cell;
@@ -159,7 +167,7 @@
 
 +(float)heightWithUserNotificationDetail:(UserNotificationContent *)obj displayType:(enum USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE)displayType
 {
-    float height=88;
+    float height=53;
     
     if(!obj.titleAttribute)
     {
@@ -232,20 +240,22 @@
     
     switch (displayType) {
         case USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE_FULL:
-            height+=obj.titleHeight.floatValue+obj.contentHeight.floatValue;
-            height+=obj.actionsHeight.floatValue;
             
-            if(obj.video.length>0)
-                height+=obj.videoHeightForNoti.floatValue;
-            else if(obj.image.length>0)
-                height+=obj.imageHeightForNoti.floatValue;
-            height-=30;
+            if(obj.video.length>0 && obj.videoHeightForNoti.floatValue>0)
+                height+=obj.videoHeightForNoti.floatValue+5;
+            else if(obj.image.length>0 && obj.imageHeightForNoti.floatValue>0)
+                height+=obj.imageHeightForNoti.floatValue+5;
+            
+            height+=obj.titleHeight.floatValue+5;
+            height+=obj.contentHeight.floatValue+5;
+            
+            if(obj.actionsHeight.floatValue>0)
+                height+=obj.actionsHeight.floatValue;
             
             break;
             
         case USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE_TITLE:
             height+=obj.titleHeight.floatValue;
-            height-=10;
             break;
     }
     

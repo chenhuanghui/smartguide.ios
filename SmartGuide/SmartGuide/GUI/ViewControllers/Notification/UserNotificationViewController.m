@@ -626,10 +626,10 @@
     _totalNotificationRead=_operationNotificationCount.string;
     
 #if DEBUG
-    _numberNotificationRead=10;
-    _numberNotificationUnread=10;
-    _totalNotificationUnread=@"10";
-    _totalNotificationRead=@"10";
+//    _numberNotificationRead=10;
+//    _numberNotificationUnread=10;
+//    _totalNotificationUnread=@"10";
+//    _totalNotificationRead=@"10";
 #endif
     
     if(_numberNotificationUnread>0 || _numberNotificationRead>0)

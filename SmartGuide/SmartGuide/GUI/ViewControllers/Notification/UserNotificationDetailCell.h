@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "UserNotificationContent.h"
-#import "TokenView.h"
 #import <MediaPlayer/MediaPlayer.h>
 
 enum USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE
@@ -53,7 +52,7 @@ enum USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE
     enum USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE _displayType;
 }
 
--(void) loadWithUserNotificationDetail:(UserNotificationContent*) obj displayType:(enum USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE) displayType;
+-(void) loadWithUserNotificationDetail:(UserNotificationContent*) obj displayType:(enum USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE) displayType cellHeight:(float) cellHeight;
 -(UserNotificationContent*) userNotificationDetail;
 -(enum USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE) displayType;
 

@@ -85,6 +85,7 @@ enum TEXTFIELD_REFRESH_STATE
 -(void) tableDidEndDecelerating:(UITableView*) table;
 -(void) tableDidEndDragging:(UITableView*) table willDecelerate:(BOOL) decelerate;
 -(void) tableWillBeginDragging:(UITableView*) table;
+-(void) markTableDidEndScroll:(UITableView*) table;
 -(void) markRefreshDone:(UITableView*) table;
 
 @property (nonatomic, readonly) enum TEXTFIELD_REFRESH_STATE refreshState;

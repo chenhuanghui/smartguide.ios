@@ -760,7 +760,10 @@
         }];
     }
     else
+    {
+        [txtRefresh markTableDidEndScroll:tableFeed];
         [self.navigationController pushViewController:[UserNotificationViewController new] animated:true];
+    }
 }
 
 @end

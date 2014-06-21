@@ -11,10 +11,12 @@
 
 @implementation UserNotificationDetailButtonTableViewCell
 
--(void)loadWithAction:(UserNotificationAction *)action
+-(void)loadWithAction:(UserNotificationAction *)action cellPos:(enum CELL_POSITION)cellPos
 {
     _action=action;
     [btn setTitle:action.actionTitle forState:UIControlStateNormal];
+    
+    imgvLine.hidden=cellPos==CELL_POSITION_BOTTOM;
 }
 
 -(UserNotificationAction *)action

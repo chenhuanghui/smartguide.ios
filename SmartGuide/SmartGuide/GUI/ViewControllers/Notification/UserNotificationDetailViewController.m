@@ -249,7 +249,7 @@
     UserNotificationContent *obj=_userNotificationContents[indexPath.row];
     UserNotificationDetailCell *cell=[tableView dequeueReusableCellWithIdentifier:[UserNotificationDetailCell reuseIdentifier]];
     
-    [cell loadWithUserNotificationDetail:obj displayType:obj.enumDisplayType];
+    [cell loadWithUserNotificationDetail:obj displayType:obj.enumDisplayType cellHeight:[tableView rectForRowAtIndexPath:indexPath].size.height];
     
     cell.delegate=self;
     

@@ -336,13 +336,23 @@
         self.text=_text;
 }
 
+#define LOG_TEXTFIELD_REFRESH 1
+
 -(void)tableWillBeginDragging:(UITableView *)table
 {
+#if LOG_TEXTFIELD_REFRESH
+    NSLog(@"tableWillBeginDragging");
+#endif
+    
     _isUserDragging=true;
 }
 
 -(void)tableDidEndDecelerating:(UITableView *)table
 {
+#if LOG_TEXTFIELD_REFRESH
+    NSLog(@"tableDidEndDecelerating");
+#endif
+    
     _isUserDragging=false;
     
     if(self.refreshState==TEXTFIELD_REFRESH_STATE_DONE)
@@ -351,6 +361,10 @@
 
 -(void)tableDidEndDragging:(UITableView *)table willDecelerate:(BOOL)decelerate
 {
+#if LOG_TEXTFIELD_REFRESH
+    NSLog(@"tableDidEndDragging %i %i %i %i", decelerate, [table isDecelerating], [table isTracking], [table isDragging]);
+#endif
+    
     if(!decelerate)
     {
         _isUserDragging=false;
@@ -358,6 +372,14 @@
         if(self.refreshState==TEXTFIELD_REFRESH_STATE_DONE)
             [self callRefreshFinished:table];
     }
+}
+
+-(void)markTableDidEndScroll:(UITableView *)table
+{
+    _isUserDragging=false;
+    
+    if(self.refreshState==TEXTFIELD_REFRESH_STATE_DONE)
+        [self callRefreshFinished:table];
 }
 
 -(void)setFrame:(CGRect)frame
@@ -377,6 +399,9 @@
     
     imgvRefresh.transform=CGAffineTransformIdentity;
     imgvRefresh.image=[UIImage imageNamed:@"icon_refresh_done.png"];
+
+    if(!([table isTracking] || [table isDragging] || [table isDecelerating]))
+        _isUserDragging=false;
     
     [self callRefreshFinished:table];
 }
