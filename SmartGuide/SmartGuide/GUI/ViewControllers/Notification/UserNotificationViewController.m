@@ -350,7 +350,7 @@
 
 -(void)userNotificationCellTouchedDetail:(UserNotificationCell *)cell obj:(UserNotification *)obj
 {
-    UserNotificationDetailViewController *vc=[[UserNotificationDetailViewController alloc] initWithIDSender:obj.idSender.integerValue];
+    UserNotificationDetailViewController *vc=[[UserNotificationDetailViewController alloc] initWithUserNotification:obj];
     vc.title=obj.sender;
     obj.highlightUnread=@(false);
     [[DataManager shareInstance] save];

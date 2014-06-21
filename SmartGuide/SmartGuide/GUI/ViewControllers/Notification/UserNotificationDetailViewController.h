@@ -18,6 +18,7 @@
     __weak IBOutlet UITableView *table;
     __weak IBOutlet UILabel *lblTitle;
     NSMutableArray *_userNotificationContents;
+    __weak UserNotification *_userNotification;
     
     int _page;
     bool _canLoadMore;
@@ -29,6 +30,7 @@
 }
 
 -(UserNotificationDetailViewController*) initWithIDSender:(int) idSender;
+-(UserNotificationDetailViewController*) initWithUserNotification:(UserNotification*) obj;
 
 @property (nonatomic, weak) UserNotificationViewController *notificationController;
 

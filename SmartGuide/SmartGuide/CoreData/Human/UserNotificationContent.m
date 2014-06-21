@@ -13,6 +13,7 @@
     self.imageHeightForNoti=@(-1);
     self.videoHeightForNoti=@(-1);
     self.videoPlaytime=@(0);
+    self.displayType=@(0);
     
     return self;
 }

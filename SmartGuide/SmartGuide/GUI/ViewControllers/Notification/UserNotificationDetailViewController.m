@@ -38,6 +38,16 @@
     return self;
 }
 
+-(UserNotificationDetailViewController *)initWithUserNotification:(UserNotification *)obj
+{
+    self=[super initWithNibName:@"UserNotificationDetailViewController" bundle:nil];
+    
+    _idSender=obj.idSender.integerValue;
+    _userNotification=obj;
+    
+    return self;
+}
+
 -(void)setTitle:(NSString *)title
 {
     [super setTitle:title];
@@ -52,13 +62,18 @@
     
     lblTitle.text=self.title;
     
-    [UserNotificationContent markDeleteAllObjects];
-    [[DataManager shareInstance] save];
-    
     _canLoadMore=false;
     _isLoadingMore=false;
     _page=-1;
-    _userNotificationContents=[NSMutableArray new];
+    
+    if(_userNotification && _userNotification.notificationContentsObjects.count>0)
+    {
+        _userNotificationContents=[[NSMutableArray alloc] initWithObjects:_userNotification.notificationContentsObjects[0],nil];
+        [_userNotificationContents[0] setDisplayType:@(USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE_FULL)];
+        [[DataManager shareInstance] save];
+    }
+    else
+        _userNotificationContents=[NSMutableArray new];
     
     [table registerNib:[UINib nibWithNibName:[UserNotificationDetailCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[UserNotificationDetailCell reuseIdentifier]];
     [table registerLoadingMoreCell];
@@ -112,6 +127,7 @@
     _page=-1;
     _isLoadingMore=false;
     _canLoadMore=true;
+    _userNotification=nil;
     _userNotificationContents=[NSMutableArray new];
     
     [self showLoading];
@@ -120,14 +136,27 @@
 
 -(void) showLoading
 {
-    [self.view showLoadingInsideFrame:CGRectMake(0, 54, self.l_v_w, self.l_v_h-54)];
+    if([table numberOfRowsInSection:0]==0)
+        [table showLoading];
+    else
+    {
+        CGRect rect=[table rectForSection:0];
+        rect.origin.y=rect.size.height;
+        rect.size.height=table.l_v_h-rect.size.height;
+        [table showLoadingInsideFrame:rect];
+    }
+}
+
+-(void) removeLoading
+{
+    [table removeLoading];
 }
 
 -(void)ASIOperaionPostFinished:(ASIOperationPost *)operation
 {
     if([operation isKindOfClass:[ASIOperationUserNotificationFromSender class]])
     {
-        [self.view removeLoading];
+        [self removeLoading];
         
         ASIOperationUserNotificationFromSender *ope=(ASIOperationUserNotificationFromSender*) operation;
         
@@ -146,14 +175,6 @@
         
         if(_userNotificationContents.count>0)
         {
-            for(UserNotificationContent *obj in _userNotificationContents)
-            {
-                if(!obj.displayType)
-                {
-                    obj.displayType=@(USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE_TITLE);
-                }
-            }
-            
             if(_page==0)
             {
                 UserNotificationContent *obj=_userNotificationContents[0];
@@ -164,9 +185,9 @@
                 }
                 
                 [obj setDisplayType:@(USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE_FULL)];
+                
+                [[DataManager shareInstance] save];
             }
-            
-            [[DataManager shareInstance] save];
         }
         
         [table reloadData];
@@ -192,7 +213,7 @@
 {
     if([operation isKindOfClass:[ASIOperationUserNotificationFromSender class]])
     {
-        [self.view removeLoading];
+        [self removeLoading];
         
         _operationNotificationContent=nil;
     }
@@ -453,6 +474,7 @@
 {
     if(obj.idSender)
     {
+        _userNotification=nil;
         _idSender=obj.idSender.integerValue;
         [self resetData];
     }
