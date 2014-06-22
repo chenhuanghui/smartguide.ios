@@ -15,7 +15,7 @@
 {
     lblTitle.text=place.title;
     lblContent.text=place.desc;
-    [imgvAuthorAvatar loadCommentAvatarWithURL:place.authorAvatar];
+    [imgvAuthorAvatar loadCommentAvatarWithURL:place.authorAvatar size:CGSizeMake(40, 40)];
     lblNumOfView.text=[NSString stringWithFormat:@"%@ lượt xem", place.numOfView];
     
     [lblAuthorName setText:[NSString stringWithFormat:@"<text>by <author>%@</author></text>",place.authorName]];
@@ -25,7 +25,7 @@
 {
     lblTitle.text=home.place.title;
     lblContent.text=home.content;
-    [imgvAuthorAvatar loadCommentAvatarWithURL:home.place.authorAvatar];
+    [imgvAuthorAvatar loadCommentAvatarWithURL:home.place.authorAvatar size:CGSizeMake(40, 40)];
     lblNumOfView.text=[NSString stringWithFormat:@"%@ lượt xem", home.place.numOfView];
     
     [lblAuthorName setText:[NSString stringWithFormat:@"<text>by <author>%@</author></text>",home.place.authorName]];

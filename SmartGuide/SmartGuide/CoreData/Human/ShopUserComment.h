@@ -12,7 +12,6 @@
 
 -(Shop*) shop;
 
-@property (nonatomic, assign) float commentHeight;
-@property (nonatomic, assign) float cellCommentHeight;
+@property (nonatomic, strong) NSNumber *commentHeight;
 
 @end

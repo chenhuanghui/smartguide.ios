@@ -34,7 +34,7 @@ static ShopManager *_galleryManager;
 @synthesize selectedUserGallery,selectedShopGallery;
 
 +(ShopManager *)shareInstanceWithShop:(Shop *)shop
-{ 
+{
     if(_galleryManager)
     {
         if(_galleryManager.shop==shop)
@@ -42,14 +42,14 @@ static ShopManager *_galleryManager;
         
         _galleryManager=nil;
     }
-
+    
     _galleryManager=[[ShopManager alloc] initWithShop:shop];
     
     return _galleryManager;
 }
 
 +(void)clean
-{    
+{
     _galleryManager=nil;
 }
 
@@ -307,25 +307,15 @@ static ShopManager *_galleryManager;
     }
     else if([operation isKindOfClass:[ASIOperationPostComment class]])
     {
-        switch (_operationPostComment.sortComment) {
-            case SORT_SHOP_COMMENT_TIME:
-                
-                if(self.timeComments.count==0)
-                    [self.timeComments addObject:_operationPostComment.userComment];
-                else
-                    [self.timeComments insertObject:_operationPostComment.userComment atIndex:0];
-                
-                break;
-                
-            case SORT_SHOP_COMMENT_TOP_AGREED:
-                
-                if(self.topAgreedComments.count==0)
-                    [self.topAgreedComments addObject:_operationPostComment.userComment];
-                else
-                    [self.topAgreedComments insertObject:_operationPostComment.userComment atIndex:0];
-                
-                break;
-        }
+        if(self.timeComments.count==0)
+            [self.timeComments addObject:_operationPostComment.userComment];
+        else
+            [self.timeComments insertObject:_operationPostComment.userComment atIndex:0];
+        
+        if(self.topAgreedComments.count==0)
+            [self.topAgreedComments addObject:_operationPostComment.userComment];
+        else
+            [self.topAgreedComments insertObject:_operationPostComment.userComment atIndex:0];
         
         _operationPostComment=nil;
         [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_COMMENTS_FINISHED_NEW_COMMENT object:nil];

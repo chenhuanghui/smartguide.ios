@@ -33,6 +33,7 @@ enum SHOP_USER_CELL_TYPE
     SHOP_USER_CELL_TYPE_SHOP_INFO=3,
     SHOP_USER_CELL_TYPE_USER_GALLERY=4,
     SHOP_USER_CELL_TYPE_SHOP_COMMENT=5,
+    SHOP_USER_CELL_TYPE_EMPTY_FILL=6,
 };
 
 @interface ShopUserViewController()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,ASIOperationPostDelegate,ShopGalleryControllerCellDelegate,ShopKM1ControllerCellDelegate,ShopKM2ControllerCellDelegate,ShopInfoControllerCellDelegate,ShopCommentsControllerCellDelegate,ShopUserGalleryControllerCellDelegate,GalleryControllerDelegate,ShopCameraControllerDelegate>
@@ -112,6 +113,11 @@ enum SHOP_USER_CELL_TYPE
     }
 }
 
+-(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    [self.view endEditing:true];
+}
+
 -(NSArray *)registerNotifications
 {
     return @[UIKeyboardWillShowNotification, UIKeyboardWillHideNotification,NOTIFICATION_COMMENTS_FINISHED_TIME,NOTIFICATION_COMMENTS_FINISHED_TOP_AGREED,NOTIFICATION_COMMENTS_FINISHED_NEW_COMMENT];
@@ -138,10 +144,11 @@ enum SHOP_USER_CELL_TYPE
         if(self.navigationController.visibleViewController!=self)
             return;
         
-        float duration=[notification.userInfo[UIKeyboardAnimationDurationUserInfoKey] floatValue];
-        
         if(shopComments)
+        {
+            float duration=[notification.userInfo[UIKeyboardAnimationDurationUserInfoKey] floatValue];
             [shopComments switchToMode:SHOP_COMMENT_MODE_NORMAL animate:true duration:duration];
+        }
     }
     else if([notification.name isEqualToString:NOTIFICATION_COMMENTS_FINISHED_TIME])
     {
@@ -164,11 +171,11 @@ enum SHOP_USER_CELL_TYPE
     else if([notification.name isEqualToString:NOTIFICATION_COMMENTS_FINISHED_NEW_COMMENT])
     {
         [self.view removeLoading];
-        
         [self.view endEditing:true];
         
         if(shopComments)
         {
+            [shopComments clearInput];
             NSIndexPath *idx=[table indexPathForCell:shopComments];
             [table reloadItemsAtIndexPaths:@[idx]];
         }
@@ -274,6 +281,9 @@ enum SHOP_USER_CELL_TYPE
     // comments
     count++;
     
+    // fill empty cell - dùng để scroll comment lên top
+    count++;
+    
     return count;
 }
 
@@ -309,7 +319,17 @@ enum SHOP_USER_CELL_TYPE
             return CGSizeMake(collectionView.l_v_w, [ShopUserGalleryControllerCell height]);
             
         case SHOP_USER_CELL_TYPE_SHOP_COMMENT:
-            return CGSizeMake(collectionView.l_v_w, MAX([ShopCommentsControllerCell heightWithShop:_shop sort:SORT_SHOP_COMMENT_TOP_AGREED], self.l_v_h));
+            return CGSizeMake(collectionView.l_v_w, [ShopCommentsControllerCell heightWithShop:_shop sort:[ShopManager shareInstanceWithShop:_shop].sortComments]);
+            
+        case SHOP_USER_CELL_TYPE_EMPTY_FILL:
+        {
+            float cmtHeight=[ShopCommentsControllerCell heightWithShop:_shop sort:[ShopManager shareInstanceWithShop:_shop].sortComments];
+            
+            if(cmtHeight>collectionView.l_v_h+collectionView.l_v_y)
+                return CGSizeMake(collectionView.l_v_w, 0);
+            else
+                return CGSizeMake(collectionView.l_v_w, table.l_v_h+table.l_v_y-cmtHeight);
+        }
     }
     
     return CGSizeMake(1, 0);
@@ -397,7 +417,7 @@ enum SHOP_USER_CELL_TYPE
             ShopCommentsControllerCell *cell=[tableView shopCommentsControllerCellForIndexPath:indexPath];
             cell.delegate=self;
             
-            [cell loadWithShop:_shop maxHeight:MAX(tableView.l_v_h,self.l_v_h)];
+            [cell loadWithShop:_shop maxHeight:MAX(self.l_v_h,table.l_v_h)];
             
             shopComments=cell;
             
@@ -405,8 +425,25 @@ enum SHOP_USER_CELL_TYPE
         }
             break;
             
-        default:
-            break;
+        case SHOP_USER_CELL_TYPE_EMPTY_FILL:
+        {
+            EmptyCollectionCell *cell=[tableView emptyCollectionCellForIndexPath:indexPath];
+            
+            cell.backgroundColor=[UIColor clearColor];
+            
+            CGRect rect=CGRectZero;
+            rect.origin.x=(table.l_v_w-shopComments.table.l_v_w)/2;
+            rect.size.width=shopComments.table.l_v_w;
+            rect.size.height=cell.l_v_h;
+
+            UIView *view=[[UIView alloc] initWithFrame:rect];
+            view.backgroundColor=[UIColor whiteColor];
+            view.autoresizingMask=UIViewAutoresizingDefault();
+            
+            [cell.contentView addSubview:view];
+            
+            return cell;
+        }
     }
     
     return [tableView emptyCollectionCellForIndexPath:indexPath];
@@ -430,7 +467,6 @@ enum SHOP_USER_CELL_TYPE
     if(shopKMNews)
     {
         idx=[table indexPathForCell:shopKMNews];
-        rect=[table rectForItemAtIndexPath:idx];
         
         if(idx)
             [shopKMNews tableDidScroll:table];
@@ -439,7 +475,6 @@ enum SHOP_USER_CELL_TYPE
     if(shopComments)
     {
         idx=[table indexPathForCell:shopComments];
-        rect=[table rectForItemAtIndexPath:idx];
         
         if(idx)
             [shopComments tableDidScroll:table];

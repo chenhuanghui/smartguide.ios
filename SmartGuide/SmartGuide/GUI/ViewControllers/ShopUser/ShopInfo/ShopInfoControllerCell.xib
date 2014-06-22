@@ -29,6 +29,9 @@
                                 <state key="normal" image="icon_address.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="btnMapTouchUpInside:" destination="u3w-3D-rYh" eventType="touchUpInside" id="csk-EC-kt4"/>
+                                </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="frame_map_header.png" id="puu-pY-9bt">
                                 <rect key="frame" x="7" y="31" width="279" height="87"/>
@@ -58,6 +61,9 @@
                                     <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="btnMakeCallTouchUpInside:" destination="u3w-3D-rYh" eventType="touchUpInside" id="jeC-Ra-MEc"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -83,7 +89,9 @@
             </view>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <connections>
+                <outlet property="btnTel" destination="OxC-P5-kvZ" id="tK0-vp-9zL"/>
                 <outlet property="lblAddress" destination="D5F-fJ-93H" id="pc2-WY-j9R"/>
+                <outlet property="line" destination="1OG-fL-dhP" id="rfv-fQ-xBJ"/>
             </connections>
         </collectionViewCell>
     </objects>

@@ -18,5 +18,6 @@
 
 -(void) registerEmptyCollectionCell;
 -(EmptyCollectionCell*) emptyCollectionCellForIndexPath:(NSIndexPath*) indexPath;
+-(EmptyCollectionCell*) emptyCollectionCellForIndexPath:(NSIndexPath*) indexPath withColor:(UIColor*) color;
 
 @end

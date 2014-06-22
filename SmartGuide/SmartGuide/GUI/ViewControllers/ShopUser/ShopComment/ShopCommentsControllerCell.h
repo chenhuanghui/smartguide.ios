@@ -37,6 +37,7 @@ enum SHOP_COMMENT_MODE
     __weak IBOutlet ButtonAgree *btnSort;
     __weak IBOutlet ButtonAgree *btnSend;
     __weak IBOutlet UIView *animationView;
+    __weak IBOutlet UIView *containView;
     bool _isAnimating;
     __weak Shop* _shop;
     bool _isEditing;

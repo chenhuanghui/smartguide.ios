@@ -29,11 +29,12 @@
 {
     _comment=comment;
     
-    [imgvAvatar loadCommentAvatarWithURL:comment.avatar];
+    [imgvAvatar loadCommentAvatarWithURL:comment.avatar size:CGSizeMake(44, 44)];
     
     lblUsername.text=comment.username;
     lblTime.text=comment.time;
     lblComment.text=comment.comment;
+    [lblComment l_v_setH:comment.commentHeight.floatValue];
     
     [self makeButtonAgree];
 }
@@ -83,19 +84,14 @@
 
 +(float)heightWithComment:(ShopUserComment *)comment
 {
-    if(comment.cellCommentHeight!=-1)
-        return comment.cellCommentHeight;
+    float height=65;
     
-    comment.cellCommentHeight=80;
+    if(comment.commentHeight.floatValue==-1)
+        comment.commentHeight=@([comment.comment sizeWithFont:FONT_SIZE_NORMAL(11) constrainedToSize:CGSizeMake(236, MAXFLOAT) lineBreakMode:NSLineBreakByTruncatingTail].height);
     
-    if(comment.commentHeight==-1)
-    {
-        comment.commentHeight=[comment.comment sizeWithFont:FONT_SIZE_NORMAL(11) constrainedToSize:CGSizeMake(236, MAXFLOAT) lineBreakMode:NSLineBreakByTruncatingTail].height;
-    }
+    height+=comment.commentHeight.floatValue-17;
     
-    comment.cellCommentHeight+=comment.commentHeight;
-    
-    return comment.cellCommentHeight;
+    return MAX(65,height);
 }
 
 -(void) agree

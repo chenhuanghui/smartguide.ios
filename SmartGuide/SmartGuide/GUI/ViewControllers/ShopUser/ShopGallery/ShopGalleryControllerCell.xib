@@ -146,6 +146,7 @@
             </view>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <connections>
+                <outlet property="bgLineStatus" destination="CZw-zI-4Rx" id="ysg-27-XDg"/>
                 <outlet property="collection" destination="h54-76-tlN" id="bUL-pw-jzl"/>
                 <outlet property="imgvShopLogo" destination="c0L-cN-Uf3" id="Nsf-ic-DF9"/>
                 <outlet property="lblNumOfComment" destination="McN-Zw-DFA" id="FIz-PS-whU"/>

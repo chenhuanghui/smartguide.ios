@@ -24,7 +24,7 @@
 -(void)loadWithURL:(NSString *)url
 {
     _url=[url copy];
-    [imgv loadCommentAvatarWithURL:_url];
+    [imgv loadCommentAvatarWithURL:_url size:CGSizeMake(136, 136)];
 }
 
 -(void)loadWithImage:(UIImage *)image

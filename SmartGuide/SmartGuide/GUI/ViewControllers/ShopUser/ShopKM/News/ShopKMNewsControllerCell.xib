@@ -32,6 +32,7 @@
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
             <connections>
+                <outlet property="bg" destination="aXu-A4-06Q" id="pW7-q0-2JK"/>
                 <outlet property="tableKM" destination="jY4-BE-Apd" id="qUA-PX-hAB"/>
             </connections>
         </collectionViewCell>

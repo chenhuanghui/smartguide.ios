@@ -29,4 +29,12 @@
     return [self dequeueReusableCellWithReuseIdentifier:[EmptyCollectionCell reuseIdentifier] forIndexPath:indexPath];
 }
 
+-(EmptyCollectionCell *)emptyCollectionCellForIndexPath:(NSIndexPath *)indexPath withColor:(UIColor *)color
+{
+    EmptyCollectionCell *cell=[self emptyCollectionCellForIndexPath:indexPath];
+    cell.backgroundColor=color;
+    
+    return cell;
+}
+
 @end

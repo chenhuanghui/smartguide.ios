@@ -227,9 +227,11 @@ static char ImageViewDefaultBackgroundKey;
     [self loadImageWithDefaultLoading:url];
 }
 
--(void) loadCommentAvatarWithURL:(NSString*) url
+-(void) loadCommentAvatarWithURL:(NSString*) url size:(CGSize)size
 {
-    [self setImageWithURL:[NSURL URLWithString:url]];
+    [self loadImageWithDefaultLoading:url resize:^UIImage *(UIImage *downloadImage) {
+        return resizeProportionalImage(downloadImage, size);
+    } willSize:size];
 }
 
 -(void)loadPlaceAuthorAvatarWithURL:(NSString *)url

@@ -34,17 +34,10 @@
     _shop=shop;
     [btnSort setTitle:localizeSortComment([ShopManager shareInstanceWithShop:_shop].sortComments) forState:UIControlStateNormal];
     
+    [table l_v_setH:height];
     [table reloadData];
     
-    if(height!=-1)
-        [table l_v_setH:height];
-    
     [imgvAvatar loadAvatarWithURL:userAvatar()];
-    
-//    if([KeyboardUtility shareInstance].isKeyboardVisible)
-//        [self switchToEditingModeAnimate:false duration:0];
-//    else
-//        [self switchToNormailModeAnimate:false duration:0];
 }
 
 -(void)reloadData
@@ -57,16 +50,16 @@
     NSIndexPath *idx=[tableUser indexPathForCell:self];
     CGRect rect=[tableUser rectForItemAtIndexPath:idx];
     
-    float y=tableUser.l_co_y+100-rect.origin.y;
+    float y=tableUser.l_co_y-tableUser.l_v_y-rect.origin.y;
  
     if(y>0)
     {
-        [self l_v_setY:rect.origin.y+y];
+        [containView l_v_setY:y];
         [table l_co_setY:y-table.contentInset.top];
     }
     else
     {
-        [self l_v_setY:rect.origin.y];
+        [containView l_v_setY:0];
         [table l_co_setY:-table.contentInset.top];
     }
 }

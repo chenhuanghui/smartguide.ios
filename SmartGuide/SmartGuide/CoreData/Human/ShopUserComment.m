@@ -2,14 +2,13 @@
 #import "Utility.h"
 
 @implementation ShopUserComment
-@synthesize commentHeight,cellCommentHeight;
+@synthesize commentHeight;
 
 -(id)initWithEntity:(NSEntityDescription *)entity insertIntoManagedObjectContext:(NSManagedObjectContext *)context
 {
     self=[super initWithEntity:entity insertIntoManagedObjectContext:context];
     
-    commentHeight=-1;
-    cellCommentHeight=-1;
+    self.commentHeight=@(-1);
     
     return self;
 }

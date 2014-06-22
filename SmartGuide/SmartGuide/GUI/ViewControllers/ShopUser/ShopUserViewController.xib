@@ -28,7 +28,7 @@
                     </collectionViewFlowLayout>
                     <cells/>
                     <connections>
-                        <outlet property="dataSource" destination="-1" id="jvC-0X-ktC"/>
+                        <outlet property="dataSource" destination="-1" id="LRR-kb-a0k"/>
                         <outlet property="delegate" destination="-1" id="H4E-tz-PuE"/>
                     </connections>
                 </collectionView>

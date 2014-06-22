@@ -745,11 +745,7 @@
 
 - (IBAction)btnNotificationTouchUpInside:(id)sender {
     
-#if DEBUG
-    if(false)
-#else
     if(currentUser().enumDataMode!=USER_DATA_FULL)
-#endif
     {
         [[GUIManager shareInstance] showLoginDialogWithMessage:localizeLoginRequire() onOK:^{
             [SGData shareInstance].fScreen=[HomeViewController screenCode];
