@@ -19,6 +19,7 @@
 #import "ASIOperationShopDetailInfo.h"
 #import "Shop.h"
 #import "ShopList.h"
+#import "ShopDetailBGView.h"
 
 #define SHOP_DETAIL_INFO_TABLE_EMPTY_CELL_HEIGHT 23.f
 
@@ -101,7 +102,7 @@
 
         if(infoCell.info.idShop!=0)
         {
-            [[GUIManager shareInstance].rootViewController presentShopUserWithIDShop:infoCell.info.idShop.integerValue];
+            [self.delegate shopDetailInfoControllerTouchedShop:self idShop:infoCell.info.idShop.integerValue];
         }
     }
     else if([cell isKindOfClass:[ShopDetailInfoDescCell class]])
@@ -139,7 +140,7 @@
     }
 }
 
--(void)scrollViewDidScroll1:(UIScrollView *)scrollView
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     if(scrollView==table)
     {
@@ -318,13 +319,14 @@
             else
                 title=[_infos[section-2] header];
             
-            ShopDetailInfoHeaderView *headerView=[[ShopDetailInfoHeaderView alloc] initWithTitle:title];
-
             CGRect rect=[table rectForSection:section];
+            ShopDetailInfoHeaderView *headerView=[[ShopDetailInfoHeaderView alloc] initWithTitle:title];
             
+            headerView.originFrame=rect;
             rect.size.height-=(SHOP_DETAIL_INFO_TABLE_EMPTY_CELL_HEIGHT+[ShopDetailInfoHeaderView height]-2);
             
             headerView.maxY=rect.origin.y+rect.size.height;
+            headerView.offsetY=tableView.contentInset.top;
 
             return headerView;
         }
@@ -365,10 +367,10 @@
             
             [cell loadWithInfo1:item];
             
-            if(indexPath.row==0)
-                [cell setCellPos:CELL_POSITION_TOP];
-            else if(indexPath.row==obj.items.count-1)
+            if(indexPath.row==obj.items.count-1)
                 [cell setCellPos:CELL_POSITION_BOTTOM];
+            else if(indexPath.row==0)
+                [cell setCellPos:CELL_POSITION_TOP];
             else
                 [cell setCellPos:CELL_POSITION_MIDDLE];
             
@@ -383,10 +385,10 @@
             
             [cell loadWithInfo2:item];
             
-            if(indexPath.row==0)
-                [cell setCellPos:CELL_POSITION_TOP];
-            else if(indexPath.row==obj.items.count-1)
+            if(indexPath.row==obj.items.count-1)
                 [cell setCellPos:CELL_POSITION_BOTTOM];
+            else if(indexPath.row==0)
+                [cell setCellPos:CELL_POSITION_TOP];
             else
                 [cell setCellPos:CELL_POSITION_MIDDLE];
             
@@ -401,10 +403,10 @@
             
             [cell loadWithInfo3:item];
             
-            if(indexPath.row==0)
-                [cell setCellPos:CELL_POSITION_TOP];
-            else if(indexPath.row==obj.items.count-1)
+            if(indexPath.row==obj.items.count-1)
                 [cell setCellPos:CELL_POSITION_BOTTOM];
+            else if(indexPath.row==0)
+                [cell setCellPos:CELL_POSITION_TOP];
             else
                 [cell setCellPos:CELL_POSITION_MIDDLE];
             
@@ -419,10 +421,10 @@
             
             [cell loadWithInfo4:item];
             
-            if(indexPath.row==0)
-                [cell setCellPos:CELL_POSITION_TOP];
-            else if(indexPath.row==obj.items.count-1)
+            if(indexPath.row==obj.items.count-1)
                 [cell setCellPos:CELL_POSITION_BOTTOM];
+            else if(indexPath.row==0)
+                [cell setCellPos:CELL_POSITION_TOP];
             else
                 [cell setCellPos:CELL_POSITION_MIDDLE];
             
@@ -492,40 +494,5 @@
         [self clearBGView];
     }
 }
-
-@end
-
-@implementation ShopDetailBGView
-
--(id)initWithFrame:(CGRect)frame
-{
-    self=[super initWithFrame:frame];
-    
-    self.contentMode=UIViewContentModeRedraw;
-    self.backgroundColor=[UIColor clearColor];
-    
-    return self;
-}
-
--(void)drawRect:(CGRect)rect
-{
-    if(!imgMid)
-    {
-        imgTop=[UIImage imageNamed:@"bg_detail_placelist_header.png"];
-        imgMid=[UIImage imageNamed:@"bg_detail_info_mid.png"];
-        imgBottom=[UIImage imageNamed:@"bg_detail_info_bottom.png"];
-    }
-    
-    [imgTop drawInRect:CGRectMake(0, 0, imgTop.size.width, imgTop.size.height)];
-    [imgBottom drawAtPoint:CGPointMake(0, rect.size.height-imgTop.size.height)];
-    
-    rect.origin.y=imgTop.size.height;
-    rect.origin.x=0;
-    rect.size.height-=(imgTop.size.height+imgBottom.size.height-1);
-    
-    [imgMid drawAsPatternInRect:rect];
-}
-
-
 
 @end

@@ -8,6 +8,14 @@
 
 #import "SGViewController.h"
 
+@class ShopDetailInfoViewController;
+
+@protocol ShopDetailInfoControllerDelegate <SGViewControllerDelegate>
+
+-(void) shopDetailInfoControllerTouchedShop:(ShopDetailInfoViewController*) controller idShop:(int) idShop;
+
+@end
+
 @interface ShopDetailInfoViewController : SGViewController
 {
     __weak IBOutlet UIImageView *imgvCover;
@@ -26,13 +34,6 @@
 
 -(ShopDetailInfoViewController*) initWithShop:(Shop*) shop;
 
-@end
-
-@interface ShopDetailBGView : UIView
-{
-    UIImage *imgMid;
-    UIImage *imgTop;
-    UIImage *imgBottom;
-}
+@property (nonatomic, weak) id<ShopDetailInfoControllerDelegate> delegate;
 
 @end

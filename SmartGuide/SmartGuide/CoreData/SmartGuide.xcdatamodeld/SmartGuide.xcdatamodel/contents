@@ -159,39 +159,6 @@
         <attribute name="username" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="shop" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Shop" inverseName="userGalleries" inverseEntity="Shop" syncable="YES"/>
     </entity>
-    <entity name="StoreCart" representedClassName="StoreCart" syncable="YES">
-        <attribute name="idItem" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="quantity" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <relationship name="item" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="StoreShopItem" inverseName="cart" inverseEntity="StoreShopItem" syncable="YES"/>
-    </entity>
-    <entity name="StoreShop" representedClassName="StoreShop" syncable="YES">
-        <attribute name="condition" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="conditionPair" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="desc" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="idStore" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="logo" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="sortOrder" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="storeName" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="storeType" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="total" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="home5" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="UserHome5" inverseName="store" inverseEntity="UserHome5" syncable="YES"/>
-        <relationship name="home7" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="UserHome7" inverseName="store" inverseEntity="UserHome7" syncable="YES"/>
-        <relationship name="latestItems" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="StoreShopItem" inverseName="shopLatest" inverseEntity="StoreShopItem" syncable="YES"/>
-        <relationship name="topSellerItems" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="StoreShopItem" inverseName="shopTopSeller" inverseEntity="StoreShopItem" syncable="YES"/>
-    </entity>
-    <entity name="StoreShopItem" representedClassName="StoreShopItem" syncable="YES">
-        <attribute name="desc" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="idItem" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="image" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="money" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="p" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="price" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="sortOrderLatest" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="sortOrderTopSeller" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <relationship name="cart" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="StoreCart" inverseName="item" inverseEntity="StoreCart" syncable="YES"/>
-        <relationship name="shopLatest" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="StoreShop" inverseName="latestItems" inverseEntity="StoreShop" syncable="YES"/>
-        <relationship name="shopTopSeller" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="StoreShop" inverseName="topSellerItems" inverseEntity="StoreShop" syncable="YES"/>
-    </entity>
     <entity name="Tutorial" representedClassName="Tutorial" syncable="YES">
         <attribute name="idTutorial" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="image" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
@@ -232,9 +199,7 @@
         <relationship name="home2" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="UserHome2" inverseName="home" inverseEntity="UserHome2" syncable="YES"/>
         <relationship name="home3" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="UserHome3" inverseName="home" inverseEntity="UserHome3" syncable="YES"/>
         <relationship name="home4" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="UserHome4" inverseName="home" inverseEntity="UserHome4" syncable="YES"/>
-        <relationship name="home5" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="UserHome5" inverseName="home" inverseEntity="UserHome5" syncable="YES"/>
         <relationship name="home6" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="UserHome6" inverseName="home" inverseEntity="UserHome6" syncable="YES"/>
-        <relationship name="home7" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="UserHome7" inverseName="home" inverseEntity="UserHome7" syncable="YES"/>
         <relationship name="home8" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="UserHome8" inverseName="home" inverseEntity="UserHome8" syncable="YES"/>
         <relationship name="images" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="UserHomeImage" inverseName="home" inverseEntity="UserHomeImage" syncable="YES"/>
     </entity>
@@ -266,15 +231,6 @@
         <relationship name="home" maxCount="1" deletionRule="Nullify" destinationEntity="UserHome" inverseName="home4" inverseEntity="UserHome" syncable="YES"/>
         <relationship name="shop" maxCount="1" deletionRule="Nullify" destinationEntity="Shop" inverseName="home4" inverseEntity="Shop" syncable="YES"/>
     </entity>
-    <entity name="UserHome5" representedClassName="UserHome5" syncable="YES">
-        <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="cover" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="numOfPurchase" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="sortOrder" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="storeName" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="home" maxCount="1" deletionRule="Nullify" destinationEntity="UserHome" inverseName="home5" inverseEntity="UserHome" syncable="YES"/>
-        <relationship name="store" maxCount="1" deletionRule="Nullify" destinationEntity="StoreShop" inverseName="home5" inverseEntity="StoreShop" syncable="YES"/>
-    </entity>
     <entity name="UserHome6" representedClassName="UserHome6" syncable="YES">
         <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="cover" optional="YES" attributeType="String" syncable="YES"/>
@@ -286,17 +242,6 @@
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="home" maxCount="1" deletionRule="Nullify" destinationEntity="UserHome" inverseName="home6" inverseEntity="UserHome" syncable="YES"/>
         <relationship name="shop" maxCount="1" deletionRule="Nullify" destinationEntity="Shop" inverseName="home6" inverseEntity="Shop" syncable="YES"/>
-    </entity>
-    <entity name="UserHome7" representedClassName="UserHome7" syncable="YES">
-        <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="cover" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="coverHeight" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
-        <attribute name="coverWidth" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
-        <attribute name="date" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="gotostore" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="home" maxCount="1" deletionRule="Nullify" destinationEntity="UserHome" inverseName="home7" inverseEntity="UserHome" syncable="YES"/>
-        <relationship name="store" maxCount="1" deletionRule="Nullify" destinationEntity="StoreShop" inverseName="home7" inverseEntity="StoreShop" syncable="YES"/>
     </entity>
     <entity name="UserHome8" representedClassName="UserHome8" syncable="YES">
         <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>
@@ -398,20 +343,15 @@
         <element name="ShopList" positionX="0" positionY="0" width="128" height="135"/>
         <element name="ShopUserComment" positionX="0" positionY="0" width="128" height="225"/>
         <element name="ShopUserGallery" positionX="0" positionY="0" width="128" height="165"/>
-        <element name="StoreCart" positionX="0" positionY="0" width="128" height="90"/>
-        <element name="StoreShop" positionX="0" positionY="0" width="128" height="240"/>
-        <element name="StoreShopItem" positionX="0" positionY="0" width="128" height="210"/>
         <element name="Tutorial" positionX="0" positionY="0" width="128" height="90"/>
         <element name="User" positionX="0" positionY="0" width="128" height="240"/>
         <element name="UserGalleryUpload" positionX="0" positionY="0" width="128" height="165"/>
-        <element name="UserHome" positionX="0" positionY="0" width="128" height="255"/>
+        <element name="UserHome" positionX="0" positionY="0" width="128" height="225"/>
         <element name="UserHome1" positionX="0" positionY="0" width="128" height="105"/>
         <element name="UserHome2" positionX="0" positionY="0" width="128" height="90"/>
         <element name="UserHome3" positionX="0" positionY="0" width="128" height="150"/>
         <element name="UserHome4" positionX="0" positionY="0" width="128" height="135"/>
-        <element name="UserHome5" positionX="0" positionY="0" width="128" height="150"/>
         <element name="UserHome6" positionX="0" positionY="0" width="128" height="195"/>
-        <element name="UserHome7" positionX="0" positionY="0" width="128" height="180"/>
         <element name="UserHome8" positionX="0" positionY="0" width="128" height="105"/>
         <element name="UserHomeImage" positionX="0" positionY="0" width="128" height="90"/>
         <element name="UserNotification" positionX="9" positionY="153" width="128" height="208"/>

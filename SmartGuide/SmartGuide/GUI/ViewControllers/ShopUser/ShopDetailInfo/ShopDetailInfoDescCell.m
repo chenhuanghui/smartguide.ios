@@ -8,6 +8,7 @@
 
 #import "ShopDetailInfoDescCell.h"
 #import "Utility.h"
+#import "Shop.h"
 
 #define SHOP_DETAIL_INFO_DESC_HEIGHT_MAX_NORMAL 80.f
 
@@ -18,6 +19,11 @@
 {
     _mode=mode;
     lbl.text=shop.desc;
+    
+    NSMutableParagraphStyle *paraStyle=[NSMutableParagraphStyle new];
+    paraStyle.alignment=NSTextAlignmentJustified;
+    lbl.attributedText=[[NSAttributedString alloc] initWithString:shop.desc attributes:@{NSFontAttributeName:FONT_SIZE_NORMAL(13)
+                                                                                         , NSParagraphStyleAttributeName:paraStyle}];
     
     if(mode==SHOP_DETAIL_INFO_DESCRIPTION_NORMAL)
     {

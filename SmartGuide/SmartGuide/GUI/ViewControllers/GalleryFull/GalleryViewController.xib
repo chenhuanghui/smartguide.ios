@@ -20,7 +20,6 @@
                     <rect key="frame" x="0.0" y="0.0" width="290" height="432"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    <inset key="contentInset" minX="0.0" minY="54" maxX="0.0" maxY="0.0"/>
                     <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="L7q-j7-l5N">
                         <size key="itemSize" width="90" height="90"/>
                         <size key="headerReferenceSize" width="0.0" height="0.0"/>

@@ -36,7 +36,7 @@ enum SHOP_USER_CELL_TYPE
     SHOP_USER_CELL_TYPE_EMPTY_FILL=6,
 };
 
-@interface ShopUserViewController()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,ASIOperationPostDelegate,ShopGalleryControllerCellDelegate,ShopKM1ControllerCellDelegate,ShopKM2ControllerCellDelegate,ShopInfoControllerCellDelegate,ShopCommentsControllerCellDelegate,ShopUserGalleryControllerCellDelegate,GalleryControllerDelegate,ShopCameraControllerDelegate>
+@interface ShopUserViewController()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,ASIOperationPostDelegate,ShopGalleryControllerCellDelegate,ShopKM1ControllerCellDelegate,ShopKM2ControllerCellDelegate,ShopInfoControllerCellDelegate,ShopCommentsControllerCellDelegate,ShopUserGalleryControllerCellDelegate,GalleryControllerDelegate,ShopCameraControllerDelegate,ShopDetailInfoControllerDelegate>
 {
     __weak ShopGalleryControllerCell *shopGalleryCell;
     __weak ShopKMNewsControllerCell *shopKMNews;
@@ -508,6 +508,9 @@ enum SHOP_USER_CELL_TYPE
 
 -(void)shopGalleryControllerCellTouchedMoreInfo:(ShopGalleryControllerCell *)cell
 {
+    if(_shop.enumDataMode!=SHOP_DATA_FULL)
+        return;
+    
     ShopDetailInfoViewController *vc=[[ShopDetailInfoViewController alloc] initWithShop:_shop];
     vc.delegate=self;
     
@@ -593,6 +596,11 @@ enum SHOP_USER_CELL_TYPE
         UserGalleryFullViewController *vc=[[UserGalleryFullViewController alloc] initWithShop:_shop];
         [self.delegate shopUserViewControllerPresentGallery:self galleryController:vc];
     }
+}
+
+-(void)shopDetailInfoControllerTouchedShop:(ShopDetailInfoViewController *)controller idShop:(int)idShop
+{
+    [self.delegate shopUserViewControllerTouchedIDShop:self idShop:idShop];
 }
 
 @end

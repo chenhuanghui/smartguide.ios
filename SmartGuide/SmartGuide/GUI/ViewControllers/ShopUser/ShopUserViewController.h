@@ -17,6 +17,7 @@
 
 -(void) shopUserViewControllerTouchedQRCode:(ShopUserViewController*) controller;
 -(void) shopUserViewControllerPresentGallery:(ShopUserViewController*) controller galleryController:(GalleryFullViewController*) galleryController;
+-(void) shopUserViewControllerTouchedIDShop:(ShopUserViewController*) controller idShop:(int) idShop;
 
 @optional
 -(void) shopUserViewControllerTouchedDetail:(ShopUserViewController*) controller;

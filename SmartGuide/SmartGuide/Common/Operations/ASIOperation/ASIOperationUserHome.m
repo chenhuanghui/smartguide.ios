@@ -93,30 +93,8 @@
             }
                 break;
                 
-            case USER_HOME_TYPE_5:
-            {
-                NSArray *array=dict[@"stores"];
-                
-                if([array isNullData])
-                    continue;
-                
-                int sort=0;
-                for(NSDictionary *store in array)
-                {
-                    UserHome5 *home5=[UserHome5 makeWithDictionary:store];
-                    home5.sortOrder=@(sort++);
-                    
-                    [home addHome5Object:home5];
-                }
-            }
-                break;
-                
             case USER_HOME_TYPE_6:
                 home.home6=[UserHome6 makeWithDictionary:dict];
-                break;
-                
-            case USER_HOME_TYPE_7:
-                home.home7=[UserHome7 makeWithDictionary:dict];
                 break;
                 
             case USER_HOME_TYPE_8:

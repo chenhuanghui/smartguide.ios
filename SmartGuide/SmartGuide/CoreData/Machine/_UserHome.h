@@ -17,9 +17,7 @@
 @class UserHome2;
 @class UserHome3;
 @class UserHome4;
-@class UserHome5;
 @class UserHome6;
-@class UserHome7;
 @class UserHome8;
 @class UserHomeImage;
 
@@ -75,20 +73,8 @@
 - (void) removeHome4Object:(UserHome4*)value;
 - (void) removeAllHome4;
 
-#pragma mark Home5
-- (NSSet*) home5;
-- (NSArray*) home5Objects;
-- (void) addHome5:(NSSet*)value;
-- (void) removeHome5:(NSSet*)value;
-- (void) addHome5Object:(UserHome5*)value;
-- (void) removeHome5Object:(UserHome5*)value;
-- (void) removeAllHome5;
-
 #pragma mark Home6
 @property (nonatomic, retain) UserHome6* home6;
-
-#pragma mark Home7
-@property (nonatomic, retain) UserHome7* home7;
 
 #pragma mark Home8
 @property (nonatomic, retain) UserHome8* home8;

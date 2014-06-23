@@ -52,14 +52,8 @@
         case USER_HOME_TYPE_4:
             return USER_HOME_TYPE_4;
             
-        case USER_HOME_TYPE_5:
-            return USER_HOME_TYPE_5;
-            
         case USER_HOME_TYPE_6:
             return USER_HOME_TYPE_6;
-            
-        case USER_HOME_TYPE_7:
-            return USER_HOME_TYPE_7;
         
         case USER_HOME_TYPE_8:
             return USER_HOME_TYPE_8;
@@ -98,16 +92,6 @@
     
     if(array.count>0)
         return [array sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:UserHome4_SortOrder ascending:true]]];
-    
-    return [NSArray array];
-}
-
--(NSArray *)home5Objects
-{
-    NSArray *array=[super home5Objects];
-    
-    if(array.count>0)
-        return [array sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:UserHome5_SortOrder ascending:true]]];
     
     return [NSArray array];
 }

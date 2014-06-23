@@ -454,14 +454,10 @@
                 
             case USER_HOME_TYPE_3:
             case USER_HOME_TYPE_4:
-            case USER_HOME_TYPE_5:
                 return [HomeListCell heightWithHome:home];
                 
             case USER_HOME_TYPE_6:
                 return [HomeInfoCell heightWithHome6:home.home6];
-                
-            case USER_HOME_TYPE_7:
-                return [HomeInfoCell heightWithHome7:home.home7];
                 
             case USER_HOME_TYPE_8:
                 return [HomePromotionCell heightWithHome8:home.home8];
@@ -532,15 +528,6 @@
                 
                 return cell;
             }
-            case USER_HOME_TYPE_5:
-            {
-                HomeListCell *cell=[tableView dequeueReusableCellWithIdentifier:[HomeListCell reuseIdentifier]];
-                cell.delegate=self;
-                
-                [cell loadWithHome5:home];
-                
-                return cell;
-            }
                 
             case USER_HOME_TYPE_6:
             {
@@ -548,16 +535,6 @@
                 cell.delegate=self;
                 
                 [cell loadWithHome6:home.home6];
-                
-                return cell;
-            }
-                
-            case USER_HOME_TYPE_7:
-            {
-                HomeInfoCell *cell=[tableView dequeueReusableCellWithIdentifier:[HomeInfoCell reuseIdentifier]];
-                cell.delegate=self;
-                
-                [cell loadWithHome7:home.home7];
                 
                 return cell;
             }
@@ -629,19 +606,7 @@
             }
                 break;
                 
-            case USER_HOME_TYPE_5:
-            {
-                // using homeListTouched
-            }
-                break;
-                
             case USER_HOME_TYPE_6:
-            {
-                // using homeInfoCellTouchedGoTo
-            }
-                break;
-                
-            case USER_HOME_TYPE_7:
             {
                 // using homeInfoCellTouchedGoTo
             }
@@ -677,11 +642,6 @@
             UserHome4 *home=cell.currentHome;
             [self requestShopUserWithIDShop:home.idShop.integerValue idPost:home.home.idPost.integerValue];
         }
-        else if([cell.currentHome isKindOfClass:[UserHome5 class]])
-        {
-            UserHome5 *home=cell.currentHome;
-            [self.delegate homeControllerTouchedStore:self store:home.store];
-        }
     }
 }
 
@@ -692,11 +652,6 @@
         UserHome6 *home6=home;
         
         [self requestShopUserWithIDShop:home6.idShop.integerValue idPost:home6.home.idPost.integerValue];
-    }
-    else if([home isKindOfClass:[UserHome7 class]])
-    {
-        UserHome7 *home7=home;
-        [self.delegate homeControllerTouchedStore:self store:home7.store];
     }
 }
 

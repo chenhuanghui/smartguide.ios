@@ -74,7 +74,7 @@
         height+=(info3.titleHeight.floatValue+info3.contentHeight.floatValue)-66;
     }
     
-    return height;
+    return MAX(86, height);
 }
 
 @end

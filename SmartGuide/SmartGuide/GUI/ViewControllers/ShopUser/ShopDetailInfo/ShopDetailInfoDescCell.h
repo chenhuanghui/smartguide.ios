@@ -7,15 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "LabelTopText.h"
-#import "Shop.h"
 
 enum SHOP_DETAIL_INFO_DESCRIPTION_MODE {
     SHOP_DETAIL_INFO_DESCRIPTION_NORMAL = 0,
     SHOP_DETAIL_INFO_DESCRIPTION_FULL = 1,
 };
 
-@class ShopDetailInfoDescCell;
+@class ShopDetailInfoDescCell, Shop;
 
 @protocol ShopDetailInfoDescCellDelegate <NSObject>
 
@@ -26,7 +24,7 @@ enum SHOP_DETAIL_INFO_DESCRIPTION_MODE {
 
 @interface ShopDetailInfoDescCell : UITableViewCell
 {
-    __weak IBOutlet LabelTopText *lbl;
+    __weak IBOutlet UILabel *lbl;
     __weak IBOutlet UIButton *btn;
     __weak IBOutlet UIImageView *blur;
     

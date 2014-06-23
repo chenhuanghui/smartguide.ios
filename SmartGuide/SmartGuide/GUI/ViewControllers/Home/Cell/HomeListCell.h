@@ -13,7 +13,6 @@
 enum NEW_FEED_LIST_DATA_MODE {
     NEW_FEED_LIST_DATA_HOME3 = 0,
     NEW_FEED_LIST_DATA_HOME4 = 1,
-    NEW_FEED_LIST_DATA_HOME5 = 2,
     };
 
 enum NEW_FEED_LIST_DISPLAY_MODE {
@@ -49,7 +48,6 @@ enum NEW_FEED_LIST_DISPLAY_MODE {
 
 -(void) loadWithHome3:(UserHome*) home;
 -(void) loadWithHome4:(UserHome*) home;
--(void) loadWithHome5:(UserHome*) home;
 
 -(id) currentHome;
 

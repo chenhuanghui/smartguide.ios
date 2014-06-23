@@ -37,30 +37,6 @@
     [imgvCover loadHome6CoverWithURL:home.cover];
 }
 
--(void)loadWithHome7:(UserHome7 *)home
-{
-    _obj=home;
-    
-    [imgvLogo loadImageHomeWithURL:home.store.logo];
-    [btnName setTitle:home.storeName forState:UIControlStateNormal];
-    lblDate.text=home.date;
-    lblTitle.text=home.title;
-    lblContent.text=home.content;
-    
-    lblGoTo.text=home.gotostore;
-    
-    [self makeButtonSize];
-
-    [imgvCover l_v_setH:home.homeSize.height];
-    [lblTitle l_v_setY:imgvCover.l_v_y+imgvCover.l_v_h+10];
-    [lblTitle l_v_setH:home.titleHeight];
-    
-    [lblContent l_v_setY:lblTitle.l_v_y+lblTitle.l_v_h+10];
-    [lblContent l_v_setH:home.contentHeight];
-    
-    [imgvCover loadHome7CoverWithURL:home.cover];
-}
-
 -(void)loadWithUserPromotion:(UserPromotion *)obj
 {
     _obj=obj;
@@ -95,26 +71,6 @@
 }
 
 +(float)heightWithHome6:(UserHome6 *)home
-{
-    float height=154;
-    
-    if(home.titleHeight==-1)
-        home.titleHeight=[home.title sizeWithFont:[UIFont fontWithName:@"Georgia-Bold" size:14] constrainedToSize:CGSizeMake(275, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height+5;
-    
-    home.titleHeight=MAX(0,home.titleHeight);
-    
-    height+=home.titleHeight;
-    
-    if(home.contentHeight==-1)
-        home.contentHeight=[home.content sizeWithFont:[UIFont fontWithName:@"Avenir-Roman" size:13] constrainedToSize:CGSizeMake(265, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height+5;
-    
-    height+=home.contentHeight;
-    height+=home.homeSize.height;
-    
-    return height;
-}
-
-+(float)heightWithHome7:(UserHome7 *)home
 {
     float height=154;
     

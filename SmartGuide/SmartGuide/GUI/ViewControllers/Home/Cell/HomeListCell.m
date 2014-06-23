@@ -78,21 +78,6 @@
     [tablePlace reloadData];
 }
 
--(void)loadWithHome5:(UserHome *)home
-{
-    _home=home;
-    
-    _dataMode=NEW_FEED_LIST_DATA_HOME5;
-    _homes=home.home5Objects;
-    _displayMode=home.imagesObjects.count==0?NEW_FEED_LIST_DISPLAY_USED:NEW_FEED_LIST_DISPLAY_SLIDE;
-    _images=home.imagesObjects;
-    pageControl.numberOfPages=_images.count;
-    
-    [self config];
-    
-    [tablePlace reloadData];
-}
-
 +(float)heightWithHome:(UserHome *)home
 {
     if(home.imagesObjects.count==0)
@@ -213,14 +198,6 @@
             {
                 UserHome4 *home=_homes[indexPath.row];
                 [cell setImage:home.cover title:home.shopName numOfShop:home.numOfView content:home.content];
-                
-                return cell;
-            }
-                
-            case NEW_FEED_LIST_DATA_HOME5:
-            {
-                UserHome5 *home=_homes[indexPath.row];
-                [cell setImage:home.cover title:home.storeName numOfShop:home.numOfPurchase content:home.content];
                 
                 return cell;
             }

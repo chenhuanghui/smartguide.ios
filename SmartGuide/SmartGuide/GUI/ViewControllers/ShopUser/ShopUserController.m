@@ -156,4 +156,12 @@
     [self showQRCodeWithContorller:self inView:self.view withAnimationType:QRCODE_ANIMATION_TOP_BOT screenCode:[ShopUserViewController screenCode]];
 }
 
+-(void)shopUserViewControllerTouchedIDShop:(ShopUserViewController *)controller idShop:(int)idShop
+{
+    ShopUserViewController *vc=[[ShopUserViewController alloc] initWithIDShop:idShop];
+    vc.delegate=self;
+    
+    [_navi setRootViewController:vc animate:true];
+}
+
 @end

@@ -15,7 +15,7 @@
 {
     __weak IBOutlet UILabel *lblTitle;
     __weak IBOutlet UILabel *lblDate;
-    __weak IBOutlet LabelTopText *lblContent;
+    __weak IBOutlet UILabel *lblContent;
     __weak IBOutlet UIImageView *line;
 }
 

@@ -279,11 +279,6 @@
     [self presentShopUserWithShop:home8.shop];
 }
 
--(void)homeControllerTouchedStore:(HomeViewController *)controller store:(StoreShop *)store
-{
-    
-}
-
 -(void)homeControllerTouchedIDShop:(HomeViewController *)controller idShop:(int)idShop
 {
     [self presentShopUserWithIDShop:idShop];
@@ -305,7 +300,7 @@
 
 -(void)navigationTouchedTutorial:(NavigationViewController *)controller
 {
-    [[GUIManager shareInstance] presentSGViewController:[self tutorialController] completion:nil];
+    [self showTutorial];
 }
 
 -(void)navigationTouchedPromotion:(NavigationViewController *)controller
@@ -383,9 +378,10 @@
 
 -(void)webviewTouchedBack:(WebViewController *)controller
 {
-    [[GUIManager shareInstance].rootNavigation dismissSGViewControllerCompletion:^{
-        [[GUIManager shareInstance].rootNavigation.view makeAlphaViewBelowView:[GUIManager shareInstance].rootNavigation.leftSlideController.view];
-    }];
+    if(self.contentNavigation.visibleViewController==controller)
+    {
+        [self dismissSGPresentedViewController:nil];
+    }
 }
 
 #pragma mark ShopUserViewController
@@ -550,17 +546,12 @@
 
 -(void)showTutorial
 {
-    TutorialViewController *vc=[TutorialViewController new];
-    vc.delegate=self;
-    [[GUIManager shareInstance] presentSGViewController:vc completion:nil];
+    [self showWebviewWithURL:URL(@"http://infory.vn/mobile/guide")];
 }
 
 -(void)showTerms
 {
-    TermsViewController *vc=[TermsViewController new];
-    vc.delegate=self;
-    
-    [[GUIManager shareInstance] presentSGViewController:vc completion:nil];
+    [self showWebviewWithURL:URL(@"http://infory.vn/dieu-khoan-nguoi-dung.html")];
 }
 
 -(void)showWebviewWithURL:(NSURL *)url
@@ -571,7 +562,7 @@
     WebViewController *vc=[[WebViewController alloc] initWithURL:url];
     vc.delegate=self;
     
-    [[GUIManager shareInstance] presentSGViewController:vc completion:nil];
+    [self presentSGViewController:vc];
 }
 
 -(void)removeUserNotification:(UserNotification *)obj

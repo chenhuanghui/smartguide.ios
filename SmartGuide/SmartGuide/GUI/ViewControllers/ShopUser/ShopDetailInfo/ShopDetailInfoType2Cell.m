@@ -23,10 +23,14 @@
     
     if(isURL)
     {
+        NSMutableParagraphStyle *paraStyle=[NSMutableParagraphStyle new];
+        paraStyle.alignment=NSTextAlignmentCenter;
+        
         NSAttributedString *attStr=[[NSAttributedString alloc] initWithString:info2.content attributes:@{
                                                                                                          NSFontAttributeName:FONT_SIZE_NORMAL(12)
                                                                                                          , NSUnderlineStyleAttributeName:@(true)
-                                                                                                         , NSForegroundColorAttributeName:[UIColor blueColor]}];
+                                                                                                         , NSForegroundColorAttributeName:[UIColor blueColor]
+                                                                                                         , NSParagraphStyleAttributeName:paraStyle}];
         [btnURL setAttributedTitle:attStr forState:UIControlStateNormal];
     }
     else
@@ -74,7 +78,7 @@
     
     height+=info2.contentHeight.floatValue;
     
-    return height;
+    return MAX(37, height);
 }
 
 @end
