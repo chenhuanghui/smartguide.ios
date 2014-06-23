@@ -65,10 +65,10 @@
 -(void)shopCameraControllerTouchedDone:(ShopCameraPostViewController *)controller
 {
     [[UserUploadGalleryManager shareInstance] updateDesc:_currentUpload desc:controller.desc];
-    _currentUpload=nil;
     _idPostDone=true;
     
-    [self.delegate shopCameraControllerDidUploadPhoto:self];
+    [self.delegate shopCameraControllerDidUploadPhoto:self upload:_currentUpload];
+    _currentUpload=nil;
 }
 
 -(void)dealloc

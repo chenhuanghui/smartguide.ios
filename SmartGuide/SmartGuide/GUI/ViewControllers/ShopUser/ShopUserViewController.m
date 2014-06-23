@@ -571,10 +571,11 @@ enum SHOP_USER_CELL_TYPE
     [self.navigationController pushViewController:vc animated:true];
 }
 
--(void)shopCameraControllerDidUploadPhoto:(ShopCameraViewController *)controller
+-(void)shopCameraControllerDidUploadPhoto:(ShopCameraViewController *)controller upload:(UserGalleryUpload *)upload
 {
     [self.navigationController popToRootViewControllerAnimated:true];
     
+    [[ShopManager shareInstanceWithShop:_shop] addUploadUserGallery:upload];
     [table reloadVisibleItems];
 }
 
@@ -582,7 +583,10 @@ enum SHOP_USER_CELL_TYPE
 {
     [ShopManager shareInstanceWithShop:_shop].selectedUserGallery=upload;
     
+    UserGalleryViewController *vc=[[UserGalleryViewController alloc] initWithShop:_shop];
+    vc.delegate=self;
     
+    [self.navigationController pushViewController:vc animated:true];
 }
 
 -(void)galleryControllerTouchedGallery:(GalleryViewController *)controller gallery:(id)gallery

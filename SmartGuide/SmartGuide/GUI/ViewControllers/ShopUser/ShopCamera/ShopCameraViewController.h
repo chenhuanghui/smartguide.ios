@@ -12,7 +12,7 @@
 
 @protocol ShopCameraControllerDelegate <SGViewControllerDelegate>
 
--(void) shopCameraControllerDidUploadPhoto:(ShopCameraViewController*) controller;
+-(void) shopCameraControllerDidUploadPhoto:(ShopCameraViewController*) controller upload:(UserGalleryUpload*) upload;
 
 @end
 

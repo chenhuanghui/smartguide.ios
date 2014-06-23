@@ -16,6 +16,8 @@
 #define NOTIFICATION_COMMENTS_FINISHED_TIME @"commentsFinishedTime"
 #define NOTIFICATION_COMMENTS_FINISHED_NEW_COMMENT @"commentsFinishedNewComment"
 
+@class UserGalleryUpload;
+
 @interface ShopManager : NSObject
 {
     __strong Shop *_shop;
@@ -41,6 +43,7 @@
 -(void) requestCommentWithSort:(enum SORT_SHOP_COMMENT) sortType;
 -(NSArray*) commentWithSort:(enum SORT_SHOP_COMMENT) sortType;
 -(enum SORT_SHOP_COMMENT) sortComments;
+-(void) addUploadUserGallery:(UserGalleryUpload*) upload;
 
 @property (nonatomic, readonly) bool canLoadMoreCommentTopAgreed;
 @property (nonatomic, readonly) bool canLoadMoreCommentTime;

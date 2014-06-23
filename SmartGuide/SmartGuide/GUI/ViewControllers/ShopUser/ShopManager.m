@@ -149,6 +149,14 @@ static ShopManager *_galleryManager;
     return _sortComments;
 }
 
+-(void)addUploadUserGallery:(UserGalleryUpload *)upload
+{
+    if(self.userGalleries.count==0)
+        [self.userGalleries addObject:upload];
+    else
+        [self.userGalleries insertObject:upload atIndex:0];
+}
+
 -(void)newCommentWithComment:(NSString *)comment
 {
     if(_operationPostComment)
