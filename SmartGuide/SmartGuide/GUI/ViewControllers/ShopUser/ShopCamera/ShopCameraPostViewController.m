@@ -32,14 +32,14 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    
-    [imgvBG setImage:[_img blur]];
+
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+        _img=[_img scaleProportionalToSize:CGSizeMake(102, 102)];
+        [imgvPhoto setImage:_img];
+        [imgvBG setImage:[_img blur]];
+    });
+
     [imgvPhoto setImage:_img];
-    
-    if(currentUser().allowShareCommentFB.boolValue)
-        [btnShare setDefaultImage:[UIImage imageNamed:@"button_Facebook.png"] highlightImage:[UIImage imageNamed:@"button_facebook_hidden.png"]];
-    else
-        [btnShare setDefaultImage:[UIImage imageNamed:@"button_facebook_hidden.png"] highlightImage:[UIImage imageNamed:@"button_Facebook.png"]];
     
     txt.isScrollable=false;
     txt.contentInset=UIEdgeInsetsZero;
@@ -69,46 +69,6 @@
     }
     
     [self.delegate shopCameraControllerTouchedDone:self];
-}
-
-- (IBAction)btnShareTouchUpInside:(id)sender {
-    currentUser().allowShareCommentFB=@(!currentUser().allowShareCommentFB.boolValue);
-    [[DataManager shareInstance] save];
-    
-    if(currentUser().allowShareCommentFB.boolValue)
-        [btnShare setDefaultImage:[UIImage imageNamed:@"button_Facebook.png"] highlightImage:[UIImage imageNamed:@"button_Facebook_hidden.png"]];
-    else
-        [btnShare setDefaultImage:[UIImage imageNamed:@"button_Facebook_hidden.png"] highlightImage:[UIImage imageNamed:@"button_Facebook.png"]];
-    
-    if(currentUser().allowShareCommentFB.boolValue)
-    {
-        btnShare.userInteractionEnabled=false;
-        
-        if([[FacebookManager shareInstance] isLogined])
-        {
-            if([[FacebookManager shareInstance] permissionTypeForPostToWall]==FACEBOOK_PERMISSION_DENIED)
-            {
-                [[FacebookManager shareInstance] requestPermissionPostToWallOnCompleted:^(enum FACEBOOK_PERMISSION_TYPE permissionType) {
-                    btnShare.userInteractionEnabled=true;
-                }];
-            }
-            else
-                btnShare.userInteractionEnabled=true;
-        }
-        else
-        {
-            [[FacebookManager shareInstance] loginOnCompleted:^(enum FACEBOOK_PERMISSION_TYPE permissionType) {
-                if(permissionType==FACEBOOK_PERMISSION_GRANTED)
-                {
-                    [[FacebookManager shareInstance] requestPermissionPostToWallOnCompleted:^(enum FACEBOOK_PERMISSION_TYPE permissionType) {
-                        btnShare.userInteractionEnabled=true;
-                    }];
-                }
-                else
-                    btnShare.userInteractionEnabled=true;
-            }];
-        }
-    }
 }
 
 - (void)didReceiveMemoryWarning

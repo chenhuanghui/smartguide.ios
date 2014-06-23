@@ -112,12 +112,20 @@ static UserUploadGalleryManager *_userUploadGalleryManager=nil;
     //Chưa up hình
     if(_currentUpload.idUserGallery.integerValue==0)
     {
-        ASIOperationUploadUserGallery *ope=[[ASIOperationUploadUserGallery alloc] initWithIDShop:_currentUpload.idShop.integerValue image:_currentUpload.image userLat:_currentUpload.userLng.doubleValue userLng:_currentUpload.userLng.doubleValue];
+        ASIOperationUploadUserGallery *ope=[[ASIOperationUploadUserGallery alloc] initWithIDShop:_currentUpload.idShop.integerValue userLat:_currentUpload.userLng.doubleValue userLng:_currentUpload.userLng.doubleValue];
         ope.delegate=self;
-        
-        [ope addToQueue];
-        
+
         _currentUpload.objConnection=ope;
+
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+            
+            UIImage *img=[UIImage imageWithData:_currentUpload.image];
+            img=[img convertToServer];
+            NSData *data=UIImageJPEGRepresentation(img, 1);
+            [ope addImage:data withKey:@"image"];
+            
+            [ope addToQueue];
+        });
     }
     //Đã up hình chưa up description
     else if(_currentUpload.desc.length>0)
@@ -167,9 +175,9 @@ static UserUploadGalleryManager *_userUploadGalleryManager=nil;
             {
                 ASIOperationUploadUserGallery *ope=(ASIOperationUploadUserGallery*)operation;
                 
-                if(ope.status==1)
+                if(ope.status.integerValue==1)
                 {
-                    _currentUpload.idUserGallery=@(ope.idUserGallery);
+                    _currentUpload.idUserGallery=ope.idUserGallery;
                     [[DataManager shareInstance] save];
 
                     _currentUpload.objConnection=nil;
@@ -226,12 +234,18 @@ static UserUploadGalleryManager *_userUploadGalleryManager=nil;
 {
     if(_currentUpload)
     {
-        ASIOperationUploadUserGallery *ope=[[ASIOperationUploadUserGallery alloc] initWithIDShop:_currentUpload.idShop.integerValue image:_currentUpload.image userLat:_currentUpload.userLat.doubleValue userLng:_currentUpload.userLng.doubleValue];
+        ASIOperationUploadUserGallery *ope=[[ASIOperationUploadUserGallery alloc] initWithIDShop:_currentUpload.idShop.integerValue userLat:_currentUpload.userLat.doubleValue userLng:_currentUpload.userLng.doubleValue];
         ope.delegate=self;
-        
-        [ope addToQueue];
-        
         _currentUpload.objConnection=ope;
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            UIImage *img=[UIImage imageWithData:_currentUpload.image];
+            img=[img convertToServer];
+            [ope addImage:UIImageJPEGRepresentation(img, 1) withKey:@"image"];
+            
+            [ope addToQueue];
+        });
     }
 }
 

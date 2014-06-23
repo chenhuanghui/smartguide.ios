@@ -24,7 +24,6 @@
     __weak IBOutlet UIImageView *imgvBG;
     __weak IBOutlet UIImageView *imgvPhoto;
     __weak IBOutlet UIButton *btnSend;
-    __weak IBOutlet UIButton *btnShare;
     __weak IBOutlet HPGrowingTextView *txt;
     
     UIImage *_img;

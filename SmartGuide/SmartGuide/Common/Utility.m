@@ -1899,7 +1899,7 @@ NSString* LAZY_STRING_INT(int i)
 -(UIImage *)convertToServer
 {
     CGSize size=self.size;
-    float hdSize=2073600;
+    float hdSize=207360;
     float scale=hdSize/(size.width*size.height);
     
     size.width*=scale;

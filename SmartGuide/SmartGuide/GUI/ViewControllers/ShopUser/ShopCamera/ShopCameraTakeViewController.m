@@ -88,7 +88,7 @@
 
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
-    UIImage *img=[info[UIImagePickerControllerOriginalImage] convertToServer];
+    UIImage *img=info[UIImagePickerControllerOriginalImage];
     
     [self.delegate shopCameraTakeDidCapture:self image:img];
 }

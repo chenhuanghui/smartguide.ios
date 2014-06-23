@@ -208,7 +208,7 @@ static NSMutableArray *_asioperations=nil;
                     if([((__bridge NSString*)imgType) isContainString:@"png"])
                         imageType=@"png";
                     
-                    [formData appendPartWithFileData:self.imagesData[key] name:key fileName:key mimeType:imageType];
+                    [formData appendPartWithFileData:data name:key fileName:key mimeType:imageType];
                     
                     CFRelease(imgSourceRef);
                     CFRelease(imgType);

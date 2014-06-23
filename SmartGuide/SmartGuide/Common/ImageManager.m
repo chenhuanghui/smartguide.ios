@@ -311,21 +311,8 @@ static char ImageViewDefaultBackgroundKey;
 
 -(void)loadShopUserGalleryThumbnailWithURL:(NSString *)url size:(CGSize)size
 {
-    [self showLoadingImageSmall];
-    
-    __weak UIImageView *wSelf=self;
-    
-    [self setImageWithURL:URL(url) onDownload:^{
-        if(wSelf)
-            [wSelf showLoadingImageSmall];
-    } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
-        if(wSelf)
-            [wSelf stopLoadingImageSmall];
-    } resize:^UIImage *(UIImage *downloadImage) {
-        if(wSelf)
-            return resizeProportionalImage(downloadImage, size);
-        
-        return nil;
+    [self loadImageWithDefaultLoading:url resize:^UIImage *(UIImage *downloadImage) {
+        return resizeProportionalImage(downloadImage, size);
     } willSize:size];
 }
 

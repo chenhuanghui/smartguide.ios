@@ -499,7 +499,6 @@ enum SHOP_USER_CELL_TYPE
 {
     [ShopManager shareInstanceWithShop:_shop].selectedShopGallery=gallery;
     
-    
     ShopGalleryViewController *vc=[[ShopGalleryViewController alloc] initWithShop:_shop];
     vc.delegate=self;
     
@@ -556,6 +555,8 @@ enum SHOP_USER_CELL_TYPE
 
 -(void)shopUserGalleryControllerCellTouchedGallery:(ShopUserGalleryControllerCell *)cell gallery:(ShopUserGallery *)gallery
 {
+    [ShopManager shareInstanceWithShop:_shop].selectedUserGallery=gallery;
+    
     UserGalleryViewController *vc=[[UserGalleryViewController alloc] initWithShop:_shop];
     vc.delegate=self;
     
@@ -572,11 +573,15 @@ enum SHOP_USER_CELL_TYPE
 
 -(void)shopCameraControllerDidUploadPhoto:(ShopCameraViewController *)controller
 {
+    [self.navigationController popToRootViewControllerAnimated:true];
     
+    [table reloadVisibleItems];
 }
 
 -(void)shopUserGalleryControllerCellTouchedUpload:(ShopUserGalleryControllerCell *)cell gallery:(UserGalleryUpload *)upload
 {
+    [ShopManager shareInstanceWithShop:_shop].selectedUserGallery=upload;
+    
     
 }
 
@@ -601,6 +606,11 @@ enum SHOP_USER_CELL_TYPE
 -(void)shopDetailInfoControllerTouchedShop:(ShopDetailInfoViewController *)controller idShop:(int)idShop
 {
     [self.delegate shopUserViewControllerTouchedIDShop:self idShop:idShop];
+}
+
+-(void)dealloc
+{
+    table.delegate=nil;
 }
 
 @end

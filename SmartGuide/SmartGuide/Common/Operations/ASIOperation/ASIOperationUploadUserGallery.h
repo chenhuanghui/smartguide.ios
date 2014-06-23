@@ -12,9 +12,9 @@
 
 @interface ASIOperationUploadUserGallery : ASIOperationPost
 
--(ASIOperationUploadUserGallery*) initWithIDShop:(int) idShop image:(NSData*) image userLat:(double) userLat userLng:(double) userLng;
+-(ASIOperationUploadUserGallery*) initWithIDShop:(int) idShop userLat:(double) userLat userLng:(double) userLng;
 
-@property (nonatomic, readonly) int status;
-@property (nonatomic, readonly) int idUserGallery;
+@property (nonatomic, strong) NSNumber *status;
+@property (nonatomic, strong) NSNumber *idUserGallery;
 
 @end
