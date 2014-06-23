@@ -58,7 +58,7 @@
     float height=25;
     
     if(shop.descHeight.floatValue==-1)
-        shop.descHeight=@([shop.desc sizeWithFont:FONT_SIZE_NORMAL(13) constrainedToSize:CGSizeMake(244, MAXFLOAT) lineBreakMode:NSLineBreakByTruncatingTail].height);
+        shop.descHeight=@([shop.desc sizeWithFont:FONT_SIZE_NORMAL(13) constrainedToSize:CGSizeMake(274, MAXFLOAT) lineBreakMode:NSLineBreakByTruncatingTail].height);
     
     height+=shop.descHeight.floatValue;
     

@@ -34,12 +34,12 @@
     float height=75;
     
     if(shop.shopNameHeight.floatValue==-1)
-    shop.shopNameHeight=@([shop.shopName sizeWithFont:FONT_SIZE_BOLD(14) constrainedToSize:CGSizeMake(242, MAXFLOAT) lineBreakMode:NSLineBreakByTruncatingTail].height);
+    shop.shopNameHeight=@([shop.shopName sizeWithFont:FONT_SIZE_BOLD(14) constrainedToSize:CGSizeMake(272, MAXFLOAT) lineBreakMode:NSLineBreakByTruncatingTail].height);
     
     height+=shop.shopNameHeight.floatValue;
     
     if(shop.addressHeightforShopDetailInfo.floatValue==-1)
-    shop.addressHeightforShopDetailInfo=@([shop.address sizeWithFont:FONT_SIZE_NORMAL(12) constrainedToSize:CGSizeMake(242, MAXFLOAT) lineBreakMode:NSLineBreakByTruncatingTail].height);
+    shop.addressHeightforShopDetailInfo=@([shop.address sizeWithFont:FONT_SIZE_NORMAL(12) constrainedToSize:CGSizeMake(272, MAXFLOAT) lineBreakMode:NSLineBreakByTruncatingTail].height);
     
     height+=shop.addressHeightforShopDetailInfo.floatValue;
     

@@ -180,7 +180,7 @@
         bool hasZoom=false;;
         for(GalleryFullCell *cell in collectionView.visibleCells)
         {
-            if(cell.isZoomed)
+            if([cell isKindOfClass:[GalleryFullCell class]] && cell.isZoomed)
             {
                 hasZoom=true;
                 break;

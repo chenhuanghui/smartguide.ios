@@ -7,6 +7,7 @@
 //
 
 #import "ShopDetailInfoType2Cell.h"
+#import "GUIManager.h"
 
 @implementation ShopDetailInfoType2Cell
 
@@ -53,7 +54,10 @@
     NSURL *url=URL(_info.content);
     
     if(url)
-        [[UIApplication sharedApplication] openURL:url];
+    {
+        [[GUIManager shareInstance].rootViewController showWebviewWithURL:url];
+//        [[UIApplication sharedApplication] openURL:url];
+    }
 }
 
 +(NSString *)reuseIdentifier
@@ -66,7 +70,7 @@
     float height=0;
     
     if(info2.contentHeight.floatValue==-1)
-        info2.contentHeight=@([info2.content sizeWithFont:FONT_SIZE_NORMAL(12) constrainedToSize:CGSizeMake(140, MAXFLOAT) lineBreakMode:NSLineBreakByTruncatingTail].height);
+        info2.contentHeight=@([info2.content sizeWithFont:FONT_SIZE_NORMAL(12) constrainedToSize:CGSizeMake(170, MAXFLOAT) lineBreakMode:NSLineBreakByTruncatingTail].height);
     
     height+=info2.contentHeight.floatValue;
     

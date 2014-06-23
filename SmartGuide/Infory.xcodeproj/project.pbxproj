@@ -3526,7 +3526,6 @@
 			isa = PBXGroup;
 			children = (
 				A9819857178D02530009FCB6 /* SmartGuide */,
-				A98198BE178D44FB0009FCB6 /* Resources */,
 				A9819850178D02530009FCB6 /* Frameworks */,
 				A981984F178D02530009FCB6 /* Products */,
 				A9819858178D02530009FCB6 /* Supporting Files */,
@@ -3593,6 +3592,7 @@
 				A9819860178D02530009FCB6 /* AppDelegate.h */,
 				A9819861178D02530009FCB6 /* AppDelegate.m */,
 				9AA026F318367E840087B2DA /* Images.xcassets */,
+				A98198BE178D44FB0009FCB6 /* Resources */,
 			);
 			path = SmartGuide;
 			sourceTree = "<group>";
@@ -4298,8 +4298,7 @@
 				9A5DC46E183DB1A50051375A /* pattern_promotion.png */,
 				9A5DC46F183DB1A50051375A /* pattern_promotion@2x.png */,
 			);
-			name = Resources;
-			path = SmartGuide/Resources;
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		A9941C8A1904D7570055582A /* Webview */ = {

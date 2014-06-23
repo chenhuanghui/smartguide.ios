@@ -139,15 +139,15 @@
     }
 }
 
--(void)scrollViewDidScroll:(UIScrollView *)scrollView
+-(void)scrollViewDidScroll1:(UIScrollView *)scrollView
 {
     if(scrollView==table)
     {
-        if(scrollView.l_co_y<0)
-            [coverView l_v_setY:_coverFrame.origin.y+scrollView.l_co_y/4];
+        if(scrollView.offsetYWithInsetTop<0)
+            [coverView l_v_setY:_coverFrame.origin.y+scrollView.offsetYWithInsetTop/4];
         else
         {
-            float y=_coverFrame.origin.y+scrollView.l_co_y/4;
+            float y=_coverFrame.origin.y+scrollView.offsetYWithInsetTop/4;
             
             y=MIN(0,y);
             

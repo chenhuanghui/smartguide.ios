@@ -26,6 +26,7 @@
     {
         home.shop=[Shop insert];
         home.shop.idShop=@(idShop);
+        home.shop.dataMode=@(SHOP_DATA_HOME_6);
     }
 
     home.shop.logo=[NSString stringWithStringDefault:dict[@"logo"]];

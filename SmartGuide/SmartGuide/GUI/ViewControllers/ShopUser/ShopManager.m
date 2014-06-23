@@ -15,15 +15,13 @@
 
 static ShopManager *_galleryManager;
 
-@interface ShopManager()<ASIOperationPostDelegate,NSFetchedResultsControllerDelegate>
+@interface ShopManager()<ASIOperationPostDelegate>
 {
     ASIOperationShopGallery *_operationShopGallery;
     ASIOperationUserGallery *_operationUserGallery;
     ASIOperationShopComment *_operationTimeComment;
     ASIOperationShopComment *_operationTopAgreedComment;
     ASIOperationPostComment *_operationPostComment;
-    
-    NSFetchedResultsController *_fetchedController;
 }
 
 @end
@@ -62,28 +60,9 @@ static ShopManager *_galleryManager;
 {
     self=[super init];
     
-    NSFetchRequest *fetchRequest=[NSFetchRequest fetchRequestWithEntityName:Shop_ClassName];
-    [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"%K==%i",Shop_IdShop,shop.idShop.integerValue]];
-    [fetchRequest setSortDescriptors:@[]];
-    
-    _fetchedController=[[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:[DataManager shareInstance].managedObjectContext sectionNameKeyPath:nil cacheName:@"ShopManager"];
-    _fetchedController.delegate=self;
-    
-    NSError *error=nil;
-    [_fetchedController performFetch:&error];
-    _shop=_fetchedController.fetchedObjects[0];
+    _shop=shop;
     
     return self;
-}
-
--(void)controllerDidChangeContent:(NSFetchedResultsController *)controller
-{
-    
-}
-
--(void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath
-{
-    
 }
 
 -(void) makeData

@@ -9,7 +9,7 @@
 #import "WebViewController.h"
 #import "GUIManager.h"
 
-@interface WebViewController ()
+@interface WebViewController ()<UIWebViewDelegate>
 
 @end
 
@@ -41,7 +41,10 @@
 }
 
 - (IBAction)btnBackTouchUpInside:(id)sender {
-    [self.delegate webviewTouchedBack:self];
+    if([self.webview canGoBack])
+        [self.webview goBack];
+    else
+        [self.delegate webviewTouchedBack:self];
 }
 
 @end

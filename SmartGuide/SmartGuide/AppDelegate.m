@@ -20,7 +20,6 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    
     [[UIApplication sharedApplication] setStatusBarHidden:false];
     
     if(NSFoundationVersionNumber>NSFoundationVersionNumber_iOS_6_1)

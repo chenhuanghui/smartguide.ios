@@ -191,7 +191,8 @@
     }
     
     for(UserNotificationCell *cell in [table visibleCells])
-        [cell removeObserverHighlightUnread];
+        if([cell isKindOfClass:[UserNotificationCell class]])
+            [cell removeObserverHighlightUnread];
     
     _page=-1;
     _userNotification=[NSMutableArray new];

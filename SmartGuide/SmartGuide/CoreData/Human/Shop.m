@@ -91,7 +91,7 @@
     
     NSArray *array=dict[@"shopGallery"];
     
-    if(![array isNullData])
+    if([array hasData])
     {
         int i=0;
         for(NSDictionary *gallery in array)
@@ -105,7 +105,7 @@
     
     array=dict[@"userGallery"];
     
-    if(![array isNullData])
+    if([array hasData])
     {
         int i=0;
         
@@ -120,7 +120,11 @@
     
     array=dict[@"comments"];
     
-    if(![array isNullData])
+#if DEBUG
+//    array=@[];
+#endif
+    
+    if([array hasData])
     {
         int i=0;
         
@@ -222,19 +226,18 @@
 
 -(enum SHOP_PROMOTION_TYPE)enumPromotionType
 {
-    switch (self.promotionType.integerValue) {
-        case 0:
+    switch ((enum SHOP_PROMOTION_TYPE)self.promotionType.integerValue) {
+        case SHOP_PROMOTION_NONE:
             return SHOP_PROMOTION_NONE;
             
-        case 1:
+        case SHOP_PROMOTION_KM1:
             return SHOP_PROMOTION_KM1;
             
-        case 2:
+        case SHOP_PROMOTION_KM2:
             return SHOP_PROMOTION_KM2;
-            
-        default:
-            return SHOP_PROMOTION_NONE;
     }
+    
+    return SHOP_PROMOTION_NONE;
 }
 
 -(NSArray *) topCommentsObjects
@@ -259,16 +262,15 @@
 
 -(enum LOVE_STATUS)enumLoveStatus
 {
-    switch (self.loveStatus.integerValue) {
-        case 0:
+    switch ((enum LOVE_STATUS)self.loveStatus.integerValue) {
+        case LOVE_STATUS_NONE:
             return LOVE_STATUS_NONE;
             
-        case 1:
+        case LOVE_STATUS_LOVED:
             return LOVE_STATUS_LOVED;
-            
-        default:
-            return LOVE_STATUS_NONE;
     }
+    
+    return LOVE_STATUS_NONE;
 }
 
 -(NSString *)title
@@ -283,7 +285,7 @@
 
 -(enum SHOP_DATA_MODE)enumDataMode
 {
-    switch (self.dataMode.integerValue) {
+    switch ((enum SHOP_DATA_MODE)self.dataMode.integerValue) {
         case SHOP_DATA_SHOP_LIST:
             return SHOP_DATA_SHOP_LIST;
             
@@ -295,6 +297,12 @@
             
         case SHOP_DATA_IDSHOP:
             return SHOP_DATA_IDSHOP;
+            
+        case SHOP_DATA_HOME_6:
+            return SHOP_DATA_HOME_6;
+            
+        case SHOP_DATA_HOME_4:
+            return SHOP_DATA_HOME_4;
     }
     
     return SHOP_DATA_IDSHOP;
@@ -302,7 +310,7 @@
 
 -(enum SHOP_TYPE)enumShopType
 {
-    switch (self.shopType.integerValue) {
+    switch ((enum SHOP_TYPE)self.shopType.integerValue) {
         case SHOP_TYPE_ALL:
             return SHOP_TYPE_ALL;
             
@@ -329,12 +337,12 @@
             
         case SHOP_TYPE_EDUCATION:
             return SHOP_TYPE_EDUCATION;
-            
-        default:
-            return SHOP_TYPE_ALL;
     }
+    
+    return SHOP_TYPE_ALL;
 }
 
+#if DEBUG
 -(NSString *)shopName1
 {
     return @"Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh";
@@ -342,13 +350,14 @@
 
 -(NSString *)address1
 {
-    return @"Võ Văn Kiệt\nHồ Chí Minh";
+    return @"Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh";
 }
 
 -(NSString *)desc1
 {
     return @"Lorem ipsum dolor sit amet, consectetuer adipiscing  ";
 }
+#endif
 
 -(NSArray *)promotionNewObjects
 {
@@ -356,11 +365,6 @@
     if(array.count>0)
         return [array sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:PromotionNews_SortOrder ascending:true]]];
     return [NSArray array];
-}
-
--(void)setDataMode:(NSNumber *)dataMode
-{
-    [super setDataMode:dataMode];
 }
 
 @end

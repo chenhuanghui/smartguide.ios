@@ -15,6 +15,7 @@
     {
         home.shop=[Shop insert];
         home.shop.idShop=@(idShop);
+        home.shop.dataMode=@(SHOP_DATA_HOME_4);
     }
     
     home.shop.numOfView=[NSString stringWithStringDefault:dict[@"numOfView"]];

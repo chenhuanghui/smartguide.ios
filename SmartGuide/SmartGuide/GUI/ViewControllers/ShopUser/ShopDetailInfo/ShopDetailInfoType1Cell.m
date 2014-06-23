@@ -42,7 +42,7 @@
     float height=40;
     
     if(info1.contentHeight.floatValue==-1)
-        info1.contentHeight=@([info1.content sizeWithFont:FONT_SIZE_LIGHT(12) constrainedToSize:CGSizeMake(230, MAXFLOAT) lineBreakMode:NSLineBreakByTruncatingTail].height);
+        info1.contentHeight=@([info1.content sizeWithFont:FONT_SIZE_LIGHT(12) constrainedToSize:CGSizeMake(234, MAXFLOAT) lineBreakMode:NSLineBreakByTruncatingTail].height);
     height+=MAX(0,info1.contentHeight.floatValue-30);
     
     return height;

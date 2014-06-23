@@ -58,7 +58,7 @@
         if([info3.title stringByTrimmingWhiteSpace].length==0)
             info3.titleHeight=@(0);
         else
-            info3.titleHeight=@([info3.title sizeWithFont:FONT_SIZE_BOLD(14) constrainedToSize:CGSizeMake(161, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height);
+            info3.titleHeight=@([info3.title sizeWithFont:FONT_SIZE_BOLD(14) constrainedToSize:CGSizeMake(191, MAXFLOAT) lineBreakMode:NSLineBreakByTruncatingTail].height);
     }
     
     if(info3.contentHeight.floatValue==-1)
@@ -66,7 +66,7 @@
         if([info3.content stringByTrimmingWhiteSpace].length==0)
             info3.contentHeight=@(0);
         else
-            info3.contentHeight=@([info3.content sizeWithFont:FONT_SIZE_NORMAL(12) constrainedToSize:CGSizeMake(161, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height);
+            info3.contentHeight=@([info3.content sizeWithFont:FONT_SIZE_NORMAL(12) constrainedToSize:CGSizeMake(191, MAXFLOAT) lineBreakMode:NSLineBreakByTruncatingTail].height);
     }
     
     if(info3.titleHeight.floatValue+info3.contentHeight.floatValue>66)

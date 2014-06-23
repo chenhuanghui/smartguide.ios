@@ -22,14 +22,14 @@
     [self.keyValue setObject:@(userLat) forKey:USER_LATITUDE];
     [self.keyValue setObject:@(userLng) forKey:USER_LONGITUDE];
     [self.keyValue setObject:comment forKey:@"comment"];
-    [self.keyValue setObject:@(sort) forKey:SORT];
+    [self.storeData setObject:@(sort) forKey:SORT];
     
     return self;
 }
 
 -(enum SORT_SHOP_COMMENT)sortComment
 {
-    switch ([self.keyValue[SORT] integerValue]) {
+    switch ([self.storeData[SORT] integerValue]) {
         case SORT_SHOP_COMMENT_TIME:
             return SORT_SHOP_COMMENT_TIME;
             

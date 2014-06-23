@@ -27,6 +27,8 @@
     switch (shop.enumDataMode) {
             
         case SHOP_DATA_IDSHOP:
+        case SHOP_DATA_HOME_4:
+        case SHOP_DATA_HOME_6:
             
             break;
             
@@ -123,6 +125,8 @@
             return [ShopManager shareInstanceWithShop:_shop].shopGalleries.count+[ShopManager shareInstanceWithShop:_shop].canLoadMoreShopGallery;
             
         case SHOP_DATA_IDSHOP:
+        case SHOP_DATA_HOME_6:
+        case SHOP_DATA_HOME_4:
             return 0;
     }
 }
@@ -156,6 +160,8 @@
             break;
             
         case SHOP_DATA_IDSHOP:
+        case SHOP_DATA_HOME_4:
+        case SHOP_DATA_HOME_6:
             break;
     }
     

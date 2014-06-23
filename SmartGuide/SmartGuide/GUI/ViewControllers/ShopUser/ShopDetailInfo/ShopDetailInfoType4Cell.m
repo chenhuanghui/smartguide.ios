@@ -41,7 +41,7 @@
     float height=70;
     
     if(info4.contentHeight.floatValue==-1)
-        info4.contentHeight=@([info4.content sizeWithFont:[UIFont fontWithName:@"Avenir-Roman" size:12] constrainedToSize:CGSizeMake(244, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height);
+        info4.contentHeight=@([info4.content sizeWithFont:FONT_SIZE_NORMAL(12) constrainedToSize:CGSizeMake(274, MAXFLOAT) lineBreakMode:NSLineBreakByTruncatingTail].height);
     
     height+=MAX(0,info4.contentHeight.floatValue-20);
     

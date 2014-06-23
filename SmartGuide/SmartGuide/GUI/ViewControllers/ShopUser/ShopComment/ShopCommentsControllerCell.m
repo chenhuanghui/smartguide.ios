@@ -34,7 +34,7 @@
     _shop=shop;
     [btnSort setTitle:localizeSortComment([ShopManager shareInstanceWithShop:_shop].sortComments) forState:UIControlStateNormal];
     
-    [table l_v_setH:height];
+    [containComments l_v_setH:height];
     [table reloadData];
     
     [imgvAvatar loadAvatarWithURL:userAvatar()];

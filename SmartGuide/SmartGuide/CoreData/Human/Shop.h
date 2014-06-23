@@ -15,6 +15,8 @@ enum SHOP_DATA_MODE {
     SHOP_DATA_HOME_8 = 1,
     SHOP_DATA_FULL = 2,
     SHOP_DATA_IDSHOP = 3,
+    SHOP_DATA_HOME_6 = 4,
+    SHOP_DATA_HOME_4 = 5,
 };
 
 

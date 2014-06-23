@@ -246,12 +246,8 @@ static char ImageViewDefaultBackgroundKey;
 
 -(void)loadShopCoverWithURL:(NSString *)url resize:(CGSize)size
 {
-    __weak UIImageView *wSelf=self;
-    [self loadImageWithDefaultLoading:url resize:^UIImage *(UIImage *downloadImage) {
-        if(wSelf)
-            return resizeProportionalImage(downloadImage,size);
-        
-        return nil;
+    [self loadImageWithDefaultLoadingAndBackground:url resize:^UIImage *(UIImage *downloadImage) {
+        return resizeProportionalImage(downloadImage, size);
     } willSize:size];
 }
 
