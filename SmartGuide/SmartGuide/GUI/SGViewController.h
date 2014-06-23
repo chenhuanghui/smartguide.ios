@@ -100,6 +100,7 @@
 @interface UIViewController(PresentViewController)
 
 @property (nonatomic, readwrite, weak) UIViewController *presentSGViewControlelr;
+@property (nonatomic, readwrite, weak) UIViewController *presentingSGViewController;
 
 -(void)presentSGViewController:(UIViewController *)viewControllerToPresent completion:(void (^)(void))completion;
 -(void)presentSGViewController:(UIViewController *)viewControllerToPresent animate:(bool) animated completion:(void (^)(void))completion;

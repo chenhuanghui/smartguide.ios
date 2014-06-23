@@ -12,6 +12,7 @@
 #import "SGNavigationController.h"
 
 static char presentSGViewControlelrKey;
+static char presentingSGViewControlelrKey;
 
 @interface SGViewController ()
 
@@ -184,6 +185,16 @@ static char presentSGViewControlelrKey;
     objc_setAssociatedObject(self, &presentSGViewControlelrKey, presentSGViewControlelr, OBJC_ASSOCIATION_ASSIGN);
 }
 
+-(UIViewController *)presentingSGViewController
+{
+    return objc_getAssociatedObject(self, &presentingSGViewControlelrKey);
+}
+
+-(void)setPresentingSGViewController:(UIViewController *)presentingSGViewController_
+{
+    objc_setAssociatedObject(self, &presentingSGViewControlelrKey, presentingSGViewController_, OBJC_ASSOCIATION_ASSIGN);
+}
+
 -(void)presentSGViewController:(UIViewController *)viewControllerToPresent animate:(bool)animated completion:(void (^)(void))completion
 {
     if(animated)
@@ -217,6 +228,7 @@ static char presentSGViewControlelrKey;
 -(void)presentSGViewController:(UIViewController *)viewControllerToPresent animation:(BasicAnimation* (^)())animation completion:(void (^)())completion
 {
     self.presentSGViewControlelr=viewControllerToPresent;
+    viewControllerToPresent.presentingSGViewController=self;
     
     [self addChildViewController:viewControllerToPresent];
     
@@ -242,6 +254,8 @@ static char presentSGViewControlelrKey;
         } onStop:^(BasicAnimation *bsAnimation, bool isFinished) {
             [viewControllerToPresent viewDidAppear:true];
             self.view.userInteractionEnabled=true;
+            if(completion)
+                completion();
         }];
     }
     else
@@ -252,6 +266,9 @@ static char presentSGViewControlelrKey;
         [viewControllerToPresent viewWillAppear:false];
         [self.view addSubview:viewControllerToPresent.view];
         [viewControllerToPresent viewDidAppear:false];
+        
+        if(completion)
+            completion();
     }
 }
 
@@ -282,6 +299,8 @@ static char presentSGViewControlelrKey;
         } onStop:^(BasicAnimation *bsAnimation, bool isFinished) {
             
             [self.view removeAlphaView];
+            
+            self.presentSGViewControlelr.presentingSGViewController=nil;
             [self.presentSGViewControlelr viewDidDisappear:true];
             [self.presentSGViewControlelr.view removeFromSuperview];
             [self.presentSGViewControlelr removeFromParentViewController];
@@ -300,6 +319,7 @@ static char presentSGViewControlelrKey;
     else
     {
         [self.view removeAlphaView];
+        self.presentSGViewControlelr.presentingSGViewController=nil;
         [self.presentSGViewControlelr viewDidDisappear:true];
         [self.presentSGViewControlelr.view removeFromSuperview];
         [self.presentSGViewControlelr removeFromParentViewController];

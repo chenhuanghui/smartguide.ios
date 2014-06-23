@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "UserHome6.h"
 #import "UserPromotion.h"
-#import "LabelTopText.h"
 
 @protocol homeInfoCellDelegate <NSObject>
 
@@ -22,8 +21,8 @@
     __weak IBOutlet UIImageView *imgvLogo;
     __weak IBOutlet UIButton *btnName;
     __weak IBOutlet UILabel *lblDate;
-    __weak IBOutlet LabelTopText *lblTitle;
-    __weak IBOutlet LabelTopText *lblContent;
+    __weak IBOutlet UILabel *lblTitle;
+    __weak IBOutlet UILabel *lblContent;
     __weak IBOutlet UIImageView *imgvCover;
     __weak IBOutlet UIButton *btnGoTo;
     __weak IBOutlet UILabel *lblGoTo;

@@ -44,7 +44,10 @@
     if([self.webview canGoBack])
         [self.webview goBack];
     else
-        [self.delegate webviewTouchedBack:self];
+    {
+        if(self.presentingSGViewController)
+            [self.presentingSGViewController dismissSGViewControllerAnimated:true completion:nil];
+    }
 }
 
 @end
@@ -53,7 +56,7 @@
 
 - (instancetype)init
 {
-    self = [super initWithURL:URL(@"http://infory.vn/mobile/guide")];
+    self = [super initWithURL:URL(URL_TUTORIAL)];
     if (self) {
         
     }
@@ -66,7 +69,7 @@
 
 - (instancetype)init
 {
-    self = [super initWithURL:URL(@"http://infory.vn/dieu-khoan-nguoi-dung.html")];
+    self = [super initWithURL:URL(URL_TERM)];
     if (self) {
         
     }

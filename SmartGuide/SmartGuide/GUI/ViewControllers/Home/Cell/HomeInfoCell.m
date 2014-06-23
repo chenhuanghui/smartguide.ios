@@ -21,17 +21,21 @@
     [btnName setTitle:home.shopName forState:UIControlStateNormal];
     lblDate.text=home.date;
     lblTitle.text=home.title;
-    lblContent.text=home.content;
+//    lblContent.text=home.content;
+    
+    NSMutableParagraphStyle *paraStyle=[NSMutableParagraphStyle new];
+    paraStyle.alignment=NSTextAlignmentJustified;
+    lblContent.attributedText=[[NSAttributedString alloc] initWithString:home.content attributes:@{NSParagraphStyleAttributeName:paraStyle}];
     
     lblGoTo.text=home.gotoshop;
     
     [self makeButtonSize];
 
     [imgvCover l_v_setH:home.homeSize.height];
-    [lblTitle l_v_setY:imgvCover.l_v_y+imgvCover.l_v_h+10];
+    [lblTitle l_v_setY:imgvCover.l_v_y+imgvCover.l_v_h+5];
     [lblTitle l_v_setH:home.titleHeight];
     
-    [lblContent l_v_setY:lblTitle.l_v_y+lblTitle.l_v_h+10];
+    [lblContent l_v_setY:lblTitle.l_v_y+lblTitle.l_v_h+5];
     [lblContent l_v_setH:home.contentHeight];
     
     [imgvCover loadHome6CoverWithURL:home.cover];
@@ -45,17 +49,19 @@
     [btnName setTitle:obj.brandName forState:UIControlStateNormal];
     lblDate.text=obj.date;
     lblTitle.text=obj.title;
-    lblContent.text=obj.desc;
+    NSMutableParagraphStyle *paraStyle=[NSMutableParagraphStyle new];
+    paraStyle.alignment=NSTextAlignmentJustified;
+    lblContent.attributedText=[[NSAttributedString alloc] initWithString:obj.desc attributes:@{NSParagraphStyleAttributeName:paraStyle}];
     
     lblGoTo.text=obj.goTo;
     
     [self makeButtonSize];
     
     [imgvCover l_v_setH:obj.homeSize.height];
-    [lblTitle l_v_setY:imgvCover.l_v_y+imgvCover.l_v_h+10];
+    [lblTitle l_v_setY:imgvCover.l_v_y+imgvCover.l_v_h+5];
     [lblTitle l_v_setH:obj.titleHeight];
 
-    [lblContent l_v_setY:lblTitle.l_v_y+lblTitle.l_v_h+10];
+    [lblContent l_v_setY:lblTitle.l_v_y+lblTitle.l_v_h+5];
     [lblContent l_v_setH:obj.contentHeight];
 
     [imgvCover loadUserPromotionCoverWithURL:obj.cover];

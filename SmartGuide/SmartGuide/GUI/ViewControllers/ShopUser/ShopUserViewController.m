@@ -85,7 +85,7 @@ enum SHOP_USER_CELL_TYPE
 -(void)viewDidLoad
 {
     [super viewDidLoad];
-
+    
     [table registerShopGalleryControllerCell];
     [table registerShopKM1ControllerCell];
     [table registerShopKM2ControllerCell];
@@ -114,6 +114,18 @@ enum SHOP_USER_CELL_TYPE
         case SHOP_DATA_SHOP_LIST:
             break;
     }
+}
+
+-(void) reloadData
+{
+    [table reloadData];
+    
+    [self loadCells];
+}
+
+-(void) reloadVisibleItems
+{
+    [table reloadVisibleItems];
 }
 
 -(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
@@ -168,7 +180,7 @@ enum SHOP_USER_CELL_TYPE
         [self.view removeLoading];
         
         [shopComments clearInput];
-        [table reloadVisibleItems];
+        [self reloadVisibleItems];
         
         if(shopComments)
         {
@@ -182,7 +194,7 @@ enum SHOP_USER_CELL_TYPE
         [self.view endEditing:true];
         
         [shopComments clearInput];
-        [table reloadVisibleItems];
+        [self reloadVisibleItems];
     }
 }
 
@@ -239,7 +251,7 @@ enum SHOP_USER_CELL_TYPE
         [ShopManager shareInstanceWithShop:_shop];
         [[ShopManager shareInstanceWithShop:_shop] makeData];
 
-        [table reloadData];
+        [self reloadData];
         
         _opeShopUser=nil;
     }
@@ -445,8 +457,6 @@ enum SHOP_USER_CELL_TYPE
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    NSLog(@"%f",scrollView.l_co_y);
-    
     NSIndexPath *idx=nil;
     CGRect rect=CGRectZero;
     if(shopGalleryCell)
@@ -576,7 +586,7 @@ enum SHOP_USER_CELL_TYPE
     [self.navigationController popToRootViewControllerAnimated:true];
     
     [[ShopManager shareInstanceWithShop:_shop] addUploadUserGallery:upload];
-    [table reloadVisibleItems];
+    [self reloadVisibleItems];
 }
 
 -(void)shopUserGalleryControllerCellTouchedUpload:(ShopUserGalleryControllerCell *)cell gallery:(UserGalleryUpload *)upload

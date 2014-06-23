@@ -31,8 +31,6 @@
     
     __strong Shop *_shop;
     int _idShop;
-    
-    bool _isRegisterCells;
 }
 
 -(ShopUserViewController*) initWithShopUser:(Shop*) shop;

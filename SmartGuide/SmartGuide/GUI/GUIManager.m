@@ -17,7 +17,7 @@
 
 static GUIManager *_shareInstance=nil;
 
-@interface GUIManager()<WelcomeControllerDelegate,SGLoadingScreenDelegate,AuthorizationDelegate,UINavigationControllerDelegate,UIGestureRecognizerDelegate,ASIOperationPostDelegate>
+@interface GUIManager()<WelcomeControllerDelegate,SGLoadingScreenDelegate,AuthorizationDelegate,UINavigationControllerDelegate,UIGestureRecognizerDelegate,ASIOperationPostDelegate,WebViewDelegate>
 {
     ASIOperationUserProfile *_opeUserProfile;
 }
@@ -335,6 +335,11 @@ static GUIManager *_shareInstance=nil;
         _onLoginedCompleted=[onLogin copy];
     
     [self showLoginController];
+}
+
+-(void)webviewTouchedBack:(WebViewController *)controller
+{
+    [self.rootNavigation dismissSGViewControllerAnimated:true completion:nil];
 }
 
 @end

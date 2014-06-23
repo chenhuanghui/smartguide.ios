@@ -12,6 +12,9 @@
 #define SMARTUIDE_VERSION ((NSString*)[[NSBundle mainBundle] infoDictionary][(NSString*)kCFBundleVersionKey])
 #define VELOCITY_SLIDE 800.f
 
+#define URL_TUTORIAL @"http://infory.vn/mobile/guide"
+#define URL_TERM @"http://infory.vn/dieu-khoan-nguoi-dung.html"
+
 #define DEFAULT_USER_ID 1
 #define DEFAULT_USER_ACCESS_TOKEN @"abc"
 #define DEFAULT_USER_IDCITY 1

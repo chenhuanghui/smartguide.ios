@@ -32,7 +32,7 @@
     float height=187;
     
     if(shop.addressHeightForShopInfo.floatValue==-1)
-        shop.addressHeightForShopInfo=@([shop.address sizeWithFont:FONT_SIZE_NORMAL(13) constrainedToSize:CGSizeMake(269, MAXFLOAT) lineBreakMode:NSLineBreakByTruncatingTail].height);
+        shop.addressHeightForShopInfo=@([shop.address sizeWithFont:FONT_SIZE_NORMAL(13) constrainedToSize:CGSizeMake(264, MAXFLOAT) lineBreakMode:NSLineBreakByTruncatingTail].height);
     
     height+=shop.addressHeightForShopInfo.floatValue;
     

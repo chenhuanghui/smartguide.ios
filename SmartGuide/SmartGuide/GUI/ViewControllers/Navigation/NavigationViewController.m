@@ -9,6 +9,7 @@
 #import "NavigationViewController.h"
 #import "DataManager.h"
 #import "GUIManager.h"
+#import "WebViewController.h"
 
 @interface NavigationViewController ()
 
@@ -108,7 +109,14 @@
 }
 
 - (IBAction)btnTutorialTouchUpInside:(id)sender {
-    [self.delegate navigationTouchedTutorial:self];
+
+    WebViewController *vc=[[WebViewController alloc] initWithURL:URL(URL_TUTORIAL)];
+    [[GUIManager shareInstance].rootNavigation presentSGViewController:vc animate:true completion:^{
+        
+        CGRect rect=[GUIManager shareInstance].rootViewController.view.frame;
+        rect.origin.y=UIScreenSize().height-UIApplicationSize().height;
+        vc.view.frame=rect;
+    }];
 }
 
 @end
