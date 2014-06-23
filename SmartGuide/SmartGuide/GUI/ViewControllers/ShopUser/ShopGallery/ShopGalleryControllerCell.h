@@ -22,7 +22,7 @@
 
 @end
 
-@interface ShopGalleryControllerCell : UICollectionViewCell
+@interface ShopGalleryControllerCell : UITableViewCell
 {
     __weak IBOutlet UICollectionView *collection;
     __weak IBOutlet PageControlNext *pageControl;
@@ -50,10 +50,10 @@
 
 @end
 
-@interface UICollectionView(ShopGalleryController)
+@interface UITableView(ShopGalleryController)
 
 -(void) registerShopGalleryControllerCell;
--(ShopGalleryControllerCell*) shopGalleryControllerCellForIndexPath:(NSIndexPath*) indexPath;
+-(ShopGalleryControllerCell*) shopGalleryControllerCell;
 
 @end
 

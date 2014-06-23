@@ -17,7 +17,7 @@
 
 @end
 
-@interface ShopInfoControllerCell : UICollectionViewCell
+@interface ShopInfoControllerCell : UITableViewCell
 {
     __weak IBOutlet UILabel *lblAddress;
     __weak IBOutlet UIButton *btnTel;
@@ -39,9 +39,9 @@
 
 @end
 
-@interface UICollectionView(ShopInfoControllerCell)
+@interface UITableView(ShopInfoControllerCell)
 
 -(void) registerShopInfoControllerCell;
--(ShopInfoControllerCell*) shopInfoControllerCellWithIndexPath:(NSIndexPath*) indexPath;
+-(ShopInfoControllerCell*) shopInfoControllerCell;
 
 @end

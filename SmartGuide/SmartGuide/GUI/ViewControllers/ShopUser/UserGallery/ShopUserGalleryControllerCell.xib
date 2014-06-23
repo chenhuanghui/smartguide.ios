@@ -7,11 +7,11 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ShopUserGalleryControllerCell" id="WMf-RA-Ny9" customClass="ShopUserGalleryControllerCell">
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="ShopUserGalleryControllerCell" id="sgw-lz-vXi" customClass="ShopUserGalleryControllerCell">
             <rect key="frame" x="0.0" y="0.0" width="320" height="182"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="182"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="sgw-lz-vXi" id="C63-Ao-kyw">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="181"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" id="1Tk-G9-R47" userLabel="gallery">
@@ -64,7 +64,7 @@
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="btnLeftTouchUpInside:" destination="WMf-RA-Ny9" eventType="touchUpInside" id="PEh-dd-1eN"/>
+                                                    <action selector="btnLeftTouchUpInside:" destination="sgw-lz-vXi" eventType="touchUpInside" id="mZq-5i-jCW"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" id="Ghd-AX-hRm">
@@ -75,7 +75,7 @@
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="btnRightTouchUpInside:" destination="WMf-RA-Ny9" eventType="touchUpInside" id="AJn-8R-G9d"/>
+                                                    <action selector="btnRightTouchUpInside:" destination="sgw-lz-vXi" eventType="touchUpInside" id="epM-hz-74d"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -103,7 +103,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="btnMakePictureTouchUpInside:" destination="WMf-RA-Ny9" eventType="touchUpInside" id="MTc-5M-ehW"/>
+                                    <action selector="btnMakePictureTouchUpInside:" destination="sgw-lz-vXi" eventType="touchUpInside" id="no4-Cc-5Vz"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -111,14 +111,15 @@
                     </view>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-            </view>
+            </tableViewCellContentView>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <connections>
-                <outlet property="btnLeft" destination="e1z-YQ-2xT" id="ZKZ-zL-HzG"/>
-                <outlet property="btnRight" destination="Ghd-AX-hRm" id="519-OW-HRQ"/>
-                <outlet property="grid" destination="a3d-gZ-tIZ" id="imI-tz-hiS"/>
-                <outlet property="imgvFirsttime" destination="Q5l-25-O5v" id="FHH-Ll-HMd"/>
+                <outlet property="btnLeft" destination="e1z-YQ-2xT" id="ENY-dq-a41"/>
+                <outlet property="btnRight" destination="Ghd-AX-hRm" id="skx-3L-1YG"/>
+                <outlet property="grid" destination="a3d-gZ-tIZ" id="9TU-MJ-Bwk"/>
+                <outlet property="imgvFirsttime" destination="Q5l-25-O5v" id="iA9-7V-WNw"/>
             </connections>
-        </collectionViewCell>
+        </tableViewCell>
     </objects>
     <resources>
         <image name="button_addphoto.png" width="279" height="50"/>

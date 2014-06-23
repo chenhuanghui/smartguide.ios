@@ -21,7 +21,7 @@
 
 @end
 
-@interface ShopUserGalleryControllerCell : UICollectionViewCell<GMGridViewActionDelegate,GMGridViewDataSource,UIScrollViewDelegate>
+@interface ShopUserGalleryControllerCell : UITableViewCell<GMGridViewActionDelegate,GMGridViewDataSource,UIScrollViewDelegate>
 {
     __weak Shop* _shop;
     __weak IBOutlet UserGalleryGridView *grid;
@@ -46,9 +46,9 @@
 
 @end
 
-@interface UICollectionView(ShopUserGalleryControllerCell)
+@interface UITableView(ShopUserGalleryControllerCell)
 
 -(void) registerShopUserGalleryControllerCell;
--(ShopUserGalleryControllerCell*) shopUserGalleryControllerCellForIndexPath:(NSIndexPath*) indexPath;
+-(ShopUserGalleryControllerCell*) shopUserGalleryControllerCell;
 
 @end

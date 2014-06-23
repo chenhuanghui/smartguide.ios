@@ -24,7 +24,7 @@ enum SHOP_COMMENT_MODE
 
 @end
 
-@interface ShopCommentsControllerCell : UICollectionViewCell
+@interface ShopCommentsControllerCell : UITableViewCell
 {
     __weak IBOutlet UITableView *table;
     __weak IBOutlet UIView *touchView;
@@ -45,7 +45,7 @@ enum SHOP_COMMENT_MODE
 }
 
 -(void) loadWithShop:(Shop*) shop maxHeight:(float) height;
--(void) tableDidScroll:(UICollectionView*) tableUser;
+-(void) tableDidScroll:(UITableView*) tableUser;
 
 +(NSString *)reuseIdentifier;
 +(float) heightWithShop:(Shop*) shop sort:(enum SORT_SHOP_COMMENT) sort;
@@ -66,9 +66,9 @@ enum SHOP_COMMENT_MODE
 
 @end
 
-@interface UICollectionView(ShopCommentsControllerCell)
+@interface UITableView(ShopCommentsControllerCell)
 
 -(void) registerShopCommentsControllerCell;
--(ShopCommentsControllerCell*) shopCommentsControllerCellForIndexPath:(NSIndexPath*) indexPath;
+-(ShopCommentsControllerCell*) shopCommentsControllerCell;
 
 @end

@@ -40,6 +40,6 @@
 
 @end
 
-@interface TableShopUser : UICollectionView
+@interface TableShopUser : UITableView
 
 @end

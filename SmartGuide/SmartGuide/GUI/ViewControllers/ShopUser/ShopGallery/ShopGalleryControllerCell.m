@@ -326,16 +326,16 @@
 
 @end
 
-@implementation UICollectionView(ShopGalleryController)
+@implementation UITableView(ShopGalleryController)
 
 -(void)registerShopGalleryControllerCell
 {
-    [self registerNib:[UINib nibWithNibName:[ShopGalleryControllerCell reuseIdentifier] bundle:nil] forCellWithReuseIdentifier:[ShopGalleryControllerCell reuseIdentifier]];
+    [self registerNib:[UINib nibWithNibName:[ShopGalleryControllerCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[ShopGalleryControllerCell reuseIdentifier]];
 }
 
--(ShopGalleryControllerCell *)shopGalleryControllerCellForIndexPath:(NSIndexPath *)indexPath
+-(ShopGalleryControllerCell *)shopGalleryControllerCell
 {
-    return [self dequeueReusableCellWithReuseIdentifier:[ShopGalleryControllerCell reuseIdentifier] forIndexPath:indexPath];
+    return [self dequeueReusableCellWithIdentifier:[ShopGalleryControllerCell reuseIdentifier]];
 }
 
 @end

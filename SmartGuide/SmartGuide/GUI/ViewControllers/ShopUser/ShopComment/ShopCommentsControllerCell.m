@@ -45,10 +45,10 @@
     [table reloadData];
 }
 
--(void)tableDidScroll:(UICollectionView *)tableUser
+-(void)tableDidScroll:(UITableView *)tableUser
 {
     NSIndexPath *idx=[tableUser indexPathForCell:self];
-    CGRect rect=[tableUser rectForItemAtIndexPath:idx];
+    CGRect rect=[tableUser rectForRowAtIndexPath:idx];
     
     float y=tableUser.l_co_y-tableUser.l_v_y-rect.origin.y;
  
@@ -438,16 +438,16 @@
 
 @end
 
-@implementation UICollectionView(ShopCommentsControllerCell)
+@implementation UITableView(ShopCommentsControllerCell)
 
 -(void)registerShopCommentsControllerCell
 {
-    [self registerNib:[UINib nibWithNibName:[ShopCommentsControllerCell reuseIdentifier] bundle:nil] forCellWithReuseIdentifier:[ShopCommentsControllerCell reuseIdentifier]];
+    [self registerNib:[UINib nibWithNibName:[ShopCommentsControllerCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[ShopCommentsControllerCell reuseIdentifier]];
 }
 
--(ShopCommentsControllerCell *)shopCommentsControllerCellForIndexPath:(NSIndexPath *)indexPath
+-(ShopCommentsControllerCell *)shopCommentsControllerCell
 {
-    return [self dequeueReusableCellWithReuseIdentifier:[ShopCommentsControllerCell reuseIdentifier] forIndexPath:indexPath];
+    return [self dequeueReusableCellWithIdentifier:[ShopCommentsControllerCell reuseIdentifier]];
 }
 
 @end

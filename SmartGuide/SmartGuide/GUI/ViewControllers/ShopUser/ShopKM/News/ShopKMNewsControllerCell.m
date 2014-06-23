@@ -93,10 +93,10 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
--(void)tableDidScroll:(UICollectionView *)table
+-(void)tableDidScroll:(UITableView *)table
 {
     NSIndexPath *idx=[table indexPathForCell:self];
-    CGRect rect=[table rectForItemAtIndexPath:idx];
+    CGRect rect=[table rectForRowAtIndexPath:idx];
     
     if(table.l_co_y+100-rect.origin.y>0)
     {
@@ -152,16 +152,16 @@
 
 @end
 
-@implementation UICollectionView(ShopKMNewsControllerCell)
+@implementation UITableView(ShopKMNewsControllerCell)
 
 -(void)registerShopKMNewsControllerCell
 {
-    [self registerNib:[UINib nibWithNibName:[ShopKMNewsControllerCell reuseIdentifier] bundle:nil] forCellWithReuseIdentifier:[ShopKMNewsControllerCell reuseIdentifier]];
+    [self registerNib:[UINib nibWithNibName:[ShopKMNewsControllerCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[ShopKMNewsControllerCell reuseIdentifier]];
 }
 
--(ShopKMNewsControllerCell *)shopKMNewsControllerCellForIndexPath:(NSIndexPath *)indexPath
+-(ShopKMNewsControllerCell *)shopKMNewsControllerCell
 {
-    return [self dequeueReusableCellWithReuseIdentifier:[ShopKMNewsControllerCell reuseIdentifier] forIndexPath:indexPath];
+    return [self dequeueReusableCellWithIdentifier:[ShopKMNewsControllerCell reuseIdentifier]];
 }
 
 @end

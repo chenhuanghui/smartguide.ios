@@ -17,7 +17,7 @@
 
 @end
 
-@interface ShopKM2ControllerCell : UICollectionViewCell<UITableViewDataSource,UITableViewDelegate>
+@interface ShopKM2ControllerCell : UITableViewCell<UITableViewDataSource,UITableViewDelegate>
 {
     __weak IBOutlet UILabel *lblDuration;
     __weak IBOutlet UILabel *lblText;
@@ -39,9 +39,9 @@
 
 @end
 
-@interface UICollectionView(ShopKM2ControllerCell)
+@interface UITableView(ShopKM2ControllerCell)
 
 -(void) registerShopKM2ControllerCell;
--(ShopKM2ControllerCell*) shopKM2ControllerCellForIndexPath:(NSIndexPath*) indexPath;
+-(ShopKM2ControllerCell*) shopKM2ControllerCell;
 
 @end
