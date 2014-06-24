@@ -14,6 +14,7 @@
 
 #define URL_TUTORIAL @"http://infory.vn/mobile/guide"
 #define URL_TERM @"http://infory.vn/dieu-khoan-nguoi-dung.html"
+#define QRCODE_DOMAIN_INFORY @"page.infory.vn"
 
 #define DEFAULT_USER_ID 1
 #define DEFAULT_USER_ACCESS_TOKEN @"abc"

@@ -89,6 +89,8 @@
 -(void) viewWillDisappearOnce;
 -(void) showActionSheet:(UIActionSheet*) actionSheet;
 
+-(bool) allowDragToNavigation;
+
 +(NSString*) screenCode;
 -(void) receiveRemoteNotification:(RemoteNotification*) obj;
 -(void) processRemoteNotification:(RemoteNotification*) obj;//user touch notification

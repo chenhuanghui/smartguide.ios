@@ -164,4 +164,12 @@
     [_navi setRootViewController:vc animate:true];
 }
 
+-(bool)allowDragToNavigation
+{
+    if([_navi.visibleViewController isKindOfClass:[GalleryFullViewController class]])
+        return false;
+    
+    return true;
+}
+
 @end

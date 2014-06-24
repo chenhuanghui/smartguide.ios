@@ -71,7 +71,7 @@
 
 +(float)height
 {
-    return 328;
+    return 327;
 }
 
 -(void) requestShopGallery

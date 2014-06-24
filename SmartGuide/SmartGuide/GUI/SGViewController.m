@@ -30,6 +30,11 @@ static char presentingSGViewControlelrKey;
     return self;
 }
 
+-(bool)allowDragToNavigation
+{
+    return true;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];

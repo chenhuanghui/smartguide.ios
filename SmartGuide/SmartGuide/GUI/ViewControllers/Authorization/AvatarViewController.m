@@ -61,6 +61,11 @@
     }
 }
 
+-(bool)allowDragToNavigation
+{
+    return false;
+}
+
 -(void)ASIOperaionPostFinished:(ASIOperationPost *)operation
 {
     if([operation isKindOfClass:[ASIOperationGetAvatars class]])

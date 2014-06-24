@@ -193,6 +193,16 @@
         break;
     }
     
+    NSString *data=[NSString stringWithStringDefault:sym.data];
+    
+    if(data.length==0)
+        return;
+    
+    if([data containsString:QRCODE_DOMAIN_INFORY])
+    {
+        
+    }
+    
     zbarReader.readerDelegate=nil;
     
     _operationScanCode=[[ASIOperationScanQRCode alloc] initWithCode:sym.data userLat:userLat() userLng:userLng()];

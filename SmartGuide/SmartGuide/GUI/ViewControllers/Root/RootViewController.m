@@ -748,8 +748,15 @@
 {
     if(self.currentPage==1)
     {
-        if([self.root.contentNavigation presentSGViewControlelr] || [self.root.contentNavigation.visibleViewController isKindOfClass:[AvatarViewController class]])
-            contentOffset.x=UIScreenSize().width;
+        if([self.root presentSGViewControlelr]
+           || [self.root.contentNavigation presentSGViewControlelr]
+           || ![self.root allowDragToNavigation])
+        {
+            SGViewController *vc=(SGViewController*)self.root.contentNavigation.visibleViewController;
+            
+            if(!vc.allowDragToNavigation)
+                contentOffset.x=UIApplicationSize().width;
+        }
     }
     
     if(contentOffset.x<UIScreenSize().width-274)
@@ -764,9 +771,6 @@
     {
         if(self.currentPage==1)
         {
-            if([self.root.contentNavigation presentSGViewControlelr] || [self.root.contentNavigation.visibleViewController isKindOfClass:[AvatarViewController class]])
-                return false;
-            
             CGPoint pnt=[self.panGestureRecognizer locationInView:self];
             pnt.x-=UIScreenSize().width;
             
@@ -775,11 +779,6 @@
     }
     
     return true;
-}
-
--(void)setContentSize:(CGSize)contentSize
-{
-    [super setContentSize:contentSize];
 }
 
 @end
