@@ -13,6 +13,7 @@
 @protocol RemoteNotificationDelegate <NSObject>
 
 -(void) remoteNotificationViewTouched:(RemoteNotificationView*) remoteView;
+-(void) remoteNotificationViewTouchedClose:(RemoteNotificationView*) remoteView;
 
 @optional
 -(void) remoteNotificationWillShow:(RemoteNotificationView*) remoteView;
@@ -24,12 +25,8 @@
 
 @interface RemoteNotificationView : UIView
 {
-    __weak IBOutlet UIImageView *imgvLeft;
-    __weak IBOutlet UIImageView *imgvRight;
-    __weak IBOutlet UIView *midView;
-    __weak IBOutlet UILabel *lblMessage;
     __weak IBOutlet UIButton *btnNoti;
-    __weak IBOutlet UIImageView *imgvRed;
+    __weak IBOutlet UIView *bgView;
     
     __strong RemoteNotification *_noti;
 }

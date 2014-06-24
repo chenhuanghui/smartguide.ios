@@ -99,6 +99,9 @@ float UIStatusBarHeight()
 
 NSURL* URL(NSString* url)
 {
+    if([url isKindOfClass:[NSURL class]])
+        return [NSURL URLWithString:((NSURL*)url).absoluteString];
+    
     return [NSURL URLWithString:url];
 }
 

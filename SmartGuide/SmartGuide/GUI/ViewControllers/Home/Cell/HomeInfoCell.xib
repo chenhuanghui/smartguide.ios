@@ -61,6 +61,16 @@
                         <rect key="frame" x="3" y="53" width="296" height="0.0"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     </imageView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="kmn-4T-mwf">
+                        <rect key="frame" x="3" y="53" width="296" height="0.0"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <state key="normal">
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                        <connections>
+                            <action selector="btnCoverTouchRepear:event:" destination="8wt-FS-583" eventType="touchDownRepeat" id="hp1-z2-hYG"/>
+                        </connections>
+                    </button>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="6pt-5m-XHK">
                         <rect key="frame" x="16" y="145" width="275" height="0.0"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -108,6 +118,7 @@
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <connections>
+                <outlet property="btnCover" destination="kmn-4T-mwf" id="itq-oB-0BZ"/>
                 <outlet property="btnGoTo" destination="m6T-kj-FJN" id="OK4-lJ-hBp"/>
                 <outlet property="btnName" destination="NYO-C8-gc4" id="GO4-kY-XWb"/>
                 <outlet property="imgvCover" destination="86e-wO-UuX" id="dYI-vv-eo5"/>

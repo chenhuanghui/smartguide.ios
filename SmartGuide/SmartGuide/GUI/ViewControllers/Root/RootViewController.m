@@ -88,6 +88,7 @@
     [SGData shareInstance].buildMode=@([[NSUserDefaults standardUserDefaults] integerForKey:@"buildMode"]);
     btnBuildMode.hidden=false;
     [btnBuildMode setTitle:([SGData shareInstance].buildMode.boolValue?@"PRO":@"DEV") forState:UIControlStateNormal];
+    btnNoti.hidden=false;
 #endif
     
     scrollContent.scrollsToTop=false;
@@ -759,6 +760,12 @@
     [self handleRemoteNotification:remoteNotiView.remoteNotification];
 }
 
+-(void)remoteNotificationViewTouchedClose:(RemoteNotificationView *)remoteView
+{
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(autoHideNotificationInfo) object:nil];
+    [remoteView hide];
+}
+
 -(void)remoteNotificationDidShow:(RemoteNotificationView *)remoteView
 {
     if(remoteView.remoteNotification.timer.integerValue>0)
@@ -771,6 +778,13 @@
     [btnBuildMode setTitle:([SGData shareInstance].buildMode.boolValue?@"PRO":@"DEV") forState:UIControlStateNormal];
     [[NSUserDefaults standardUserDefaults] setInteger:[SGData shareInstance].buildMode.integerValue forKey:@"buildMode"];
     [[NSUserDefaults standardUserDefaults] synchronize];
+#endif
+}
+
+- (IBAction)btnNotiTouchUpInside:(id)sender {
+#if DEBUG
+    NSDictionary *dict=[[NotificationManager shareInstance] makeNotification:NOTIFICATION_ACTION_TYPE_POPUP_URL];
+    [[NotificationManager shareInstance] receiveRemoteNotification:dict];
 #endif
 }
 

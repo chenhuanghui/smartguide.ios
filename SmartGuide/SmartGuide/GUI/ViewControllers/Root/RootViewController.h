@@ -19,6 +19,7 @@
     UITapGestureRecognizer *tapGes;
     bool _isAnimatingSetting;
     __weak IBOutlet UIButton *btnBuildMode;
+    __weak IBOutlet UIButton *btnNoti;
     
     __weak RemoteNotificationView *remoteNotiView;
 }

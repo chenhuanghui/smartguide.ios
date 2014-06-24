@@ -13,7 +13,7 @@
 
 @interface RemoteNotificationPatternView : UIView
 {
-
+    
 }
 
 @end
@@ -39,13 +39,6 @@
     return self;
 }
 
--(void)awakeFromNib
-{
-    [super awakeFromNib];
-    
-    midView.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"bg_search_mid.png"]];
-}
-
 -(IBAction) btnTouchUpInside:(id) sender
 {
     [self.delegate remoteNotificationViewTouched:self];
@@ -54,29 +47,28 @@
     [self hide];
 }
 
+-(IBAction) btnCloseTouchUpInside:(id)sender
+{
+    [self.delegate remoteNotificationViewTouchedClose:self];
+}
+
 -(void)show
 {
     if([self.delegate respondsToSelector:@selector(remoteNotificationWillShow:)])
         [self.delegate remoteNotificationWillShow:self];
     
+    [bgView addShadow:1];
     self.alpha=0;
     self.hidden=false;
-    self.frame=CGRectMake(UIApplicationSize().width-38, UIApplicationSize().height-38, 38, 38);
-    lblMessage.alpha=0;
-    lblMessage.text=_noti.message;
+    [self l_v_setY:-self.l_v_h];
+    [btnNoti setTitle:_noti.message forState:UIControlStateNormal];
     
     [UIView animateWithDuration:0.5f animations:^{
+        [self l_v_setY:0];
         self.alpha=1;
     } completion:^(BOOL finished) {
-        [UIView animateWithDuration:1.f animations:^{
-            self.frame=CGRectMake(UIApplicationSize().width/2, self.l_v_y, UIApplicationSize().width/2, 38);
-            lblMessage.alpha=1;
-            [lblMessage l_v_setW:160-27];
-            [imgvRed l_v_setX:7];
-        } completion:^(BOOL finished) {
-            if([self.delegate respondsToSelector:@selector(remoteNotificationDidShow:)])
-                [self.delegate remoteNotificationDidShow:self];
-        }];
+        if([self.delegate respondsToSelector:@selector(remoteNotificationDidShow:)])
+            [self.delegate remoteNotificationDidShow:self];
     }];
 }
 
@@ -85,20 +77,12 @@
     if([self.delegate respondsToSelector:@selector(remoteNotificationWillHide:)])
         [self.delegate remoteNotificationWillHide:self];
     
-    [UIView animateWithDuration:1.f animations:^{
-        self.frame=CGRectMake(UIApplicationSize().width-38, self.l_v_y, 38, 38);
-        lblMessage.alpha=0;
-        lblMessage.layer.frame=CGRectMake(20, 0, 0, 38);
-        [imgvRed l_v_setX:15];
+    [UIView animateWithDuration:0.5f animations:^{
+        [self l_v_setY:-self.l_v_h];
+        self.alpha=0;
     } completion:^(BOOL finished) {
-        [UIView animateWithDuration:0.5f animations:^{
-            self.alpha=0;
-        } completion:^(BOOL finished) {
-            self.hidden=true;
-            
-            if([self.delegate respondsToSelector:@selector(remoteNotificationDidHide:)])
-                [self.delegate remoteNotificationDidHide:self];
-        }];
+        if([self.delegate respondsToSelector:@selector(remoteNotificationDidHide:)])
+            [self.delegate remoteNotificationDidHide:self];
     }];
 }
 

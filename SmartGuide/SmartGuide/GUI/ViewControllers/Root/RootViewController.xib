@@ -8,6 +8,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RootViewController">
             <connections>
                 <outlet property="btnBuildMode" destination="D6z-e1-UO6" id="saJ-7q-fUI"/>
+                <outlet property="btnNoti" destination="ppP-wD-eLs" id="sWl-pd-hgb"/>
                 <outlet property="containView" destination="clU-Nc-up4" id="pz2-XN-V9B"/>
                 <outlet property="contentView" destination="RQU-48-iTN" id="LzY-Oz-Za0"/>
                 <outlet property="leftView" destination="C1G-2n-zEl" id="aoR-19-5lQ"/>
@@ -63,6 +64,19 @@
                     </state>
                     <connections>
                         <action selector="btnBuildModeTouchUpInside:" destination="-1" eventType="touchUpInside" id="cBi-0n-DgB"/>
+                    </connections>
+                </button>
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="ppP-wD-eLs">
+                    <rect key="frame" x="54" y="426" width="54" height="54"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                    <state key="normal" title="NOTI">
+                        <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="btnNotiTouchUpInside:" destination="-1" eventType="touchUpInside" id="qJJ-M8-AMd"/>
                     </connections>
                 </button>
             </subviews>

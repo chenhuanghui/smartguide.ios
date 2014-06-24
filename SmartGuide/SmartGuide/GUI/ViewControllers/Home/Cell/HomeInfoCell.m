@@ -32,6 +32,7 @@
     [self makeButtonSize];
 
     [imgvCover l_v_setH:home.homeSize.height];
+    [btnCover l_v_setH:home.homeSize.height];
     [lblTitle l_v_setY:imgvCover.l_v_y+imgvCover.l_v_h+5];
     [lblTitle l_v_setH:home.titleHeight];
     
@@ -58,6 +59,7 @@
     [self makeButtonSize];
     
     [imgvCover l_v_setH:obj.homeSize.height];
+    [btnCover l_v_setH:obj.homeSize.height];
     [lblTitle l_v_setY:imgvCover.l_v_y+imgvCover.l_v_h+5];
     [lblTitle l_v_setH:obj.titleHeight];
 
@@ -65,6 +67,13 @@
     [lblContent l_v_setH:obj.contentHeight];
 
     [imgvCover loadUserPromotionCoverWithURL:obj.cover];
+}
+
+-(IBAction) btnCoverTouchRepear:(id) sender event:(UIEvent*) event
+{
+    UITouch *touch=[[event allTouches] anyObject];
+    if(touch.tapCount==2)
+        [self btnGoToTouchUpInside:btnGoTo];
 }
 
 -(void) makeButtonSize

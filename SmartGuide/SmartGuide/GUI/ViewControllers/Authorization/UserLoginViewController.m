@@ -111,7 +111,7 @@
     
     [attStr appendAttributedString:att];
     
-    att=[[NSAttributedString alloc] initWithString:[phone stringByReplacingOccurrencesOfString:@"84" withString:@"+84"]
+    att=[[NSAttributedString alloc] initWithString:[@"+" stringByAppendingString:phone]
                                         attributes:@{
                                                      NSFontAttributeName:[UIFont fontWithName:@"Avenir-Roman" size:13],
                                                      NSForegroundColorAttributeName:[UIColor darkTextColor],
