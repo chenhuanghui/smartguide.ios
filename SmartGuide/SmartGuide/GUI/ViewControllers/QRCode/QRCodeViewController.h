@@ -7,32 +7,9 @@
 //
 
 #import "SGViewController.h"
-#import "ZBarReaderViewController.h"
-#import "ZBarReaderView.h"
-#import "ASIOperationScanQRCode.h"
-#import "SGNavigationController.h"
-#import "Reachability.h"
-#import "QRCodeResultViewController.h"
+#import "Constant.h"
 
-enum QRCODE_ANIMATION_TYPE {
-    QRCODE_ANIMATION_TOP_BOT = 0,
-    QRCODE_ANIMATION_TOP = 1
-    };
-
-@class QRCodeViewController;
-
-@protocol QRCodeControllerDelegate <SGViewControllerDelegate>
-
--(void) qrCodeController:(QRCodeViewController*) controller scannedIDShop:(int) idShop;
--(void) qrCodeController:(QRCodeViewController*) controller scannedIDPlacelist:(int) idPlacelist;
--(void) qrCodeController:(QRCodeViewController*) controller scannedIDBranch:(int) idBranch;
-
-@optional
--(void) qrcodeControllerFinished:(QRCodeViewController*) controller;
-
-@end
-
-@interface QRCodeViewController : SGViewController<ZBarReaderDelegate,ASIOperationPostDelegate>
+@interface QRCodeViewController : SGViewController
 {
     bool _isShowed;
     __weak IBOutlet UIImageView *imgvScanTop;
@@ -48,17 +25,13 @@ enum QRCODE_ANIMATION_TYPE {
     __weak IBOutlet UIButton *btnScan;
     __weak IBOutlet UIButton *btnTorch;
     __weak IBOutlet UILabel *lblTorch;
-    
-    __strong ZBarReaderViewController *zbarReader;
-    ASIOperationScanQRCode *_operationScanCode;
-    __strong id _result;
+    __weak IBOutlet UIButton *btnMakeQRCode;
     
     __strong SGNavigationController *_navi;
-    __weak QRCodeResultViewController *_resultController;
-    
-    Reachability *_reach;
-    bool _isScanningCode;
 }
+
+-(void) close;
+-(void) closeOnCompleted:(void(^)()) completed;
 
 @property (nonatomic, weak) id<QRCodeControllerDelegate> delegate;
 @property (nonatomic, weak) UIView *containView;
@@ -69,9 +42,15 @@ enum QRCODE_ANIMATION_TYPE {
 
 @interface SGViewController(QRCode)<QRCodeControllerDelegate>
 @property (nonatomic, readwrite, weak) QRCodeViewController *qrController;
+@property (nonatomic, readwrite, weak) SGViewController<QRCodeControllerDelegate> *qrCodeControllerHandle;
 
--(void) showQRCodeWithContorller:(SGViewController<QRCodeControllerDelegate>*) controller inView:(UIView*) view withAnimationType:(enum QRCODE_ANIMATION_TYPE) animationType screenCode:(NSString*) screenCode;
+-(void) showQRCodeWithController:(SGViewController<QRCodeControllerDelegate>*) controller inView:(UIView*) view withAnimationType:(enum QRCODE_ANIMATION_TYPE) animationType screenCode:(NSString*) screenCode;
 -(void)qrcodeControllerFinished:(QRCodeViewController *)controller;
+-(void)qrCodeController:(QRCodeViewController *)controller scannedIDBranch:(int)idBranch;
+-(void)qrCodeController:(QRCodeViewController *)controller scannedIDPlacelist:(int)idPlacelist;
+-(void)qrCodeController:(QRCodeViewController *)controller scannedIDShop:(int)idShop;
+-(void)qrCodeController:(QRCodeViewController *)controller scannedIDShops:(NSString *)idShops;
+-(void)qrCodeController:(QRCodeViewController *)controller scannedURL:(NSURL *)url;
 
 @end
 

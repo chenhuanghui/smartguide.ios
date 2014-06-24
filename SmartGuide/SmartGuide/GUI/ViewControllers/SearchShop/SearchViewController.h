@@ -17,6 +17,7 @@ enum SEARCH_VIEW_MODE {
     SEARCH_VIEW_MODE_HOME_3 = 3,
     SEARCH_VIEW_MODE_KEYWORK_SHOP_LIST = 4,
     SEARCH_VIEW_MODE_IDPLACE = 5,
+    SEARCH_VIEW_MODE_IDBRANCH = 6,
     };
 
 @class ShopListViewController,SearchViewController,SearchShopViewController,Placelist;
@@ -36,6 +37,7 @@ enum SEARCH_VIEW_MODE {
     __weak Placelist *_place;
     __weak UserHome3 *_home3;
     NSString *_idShops;
+    int _idBranch;
     NSString *_keyword;
     int _idPlacelist;
 }
@@ -45,5 +47,6 @@ enum SEARCH_VIEW_MODE {
 -(SearchViewController*) initWithIDPlace:(int) idPlace;
 -(SearchViewController*) initWithIDShops:(NSString*) idShops;
 -(SearchViewController*) initWithKeywordShopList:(NSString*) keyword;
+-(SearchViewController*) initWithIDBranch:(int) idBranch;
 
 @end

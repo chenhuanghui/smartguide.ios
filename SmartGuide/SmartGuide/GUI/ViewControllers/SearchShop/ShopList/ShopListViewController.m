@@ -18,10 +18,32 @@
 #import "QRCodeViewController.h"
 #import "CityViewController.h"
 #import "CityManager.h"
+#import "Constant.h"
+#import "ShopUserViewController.h"
+#import <MapKit/MapKit.h>
+#import "ShopListSortView.h"
+#import "MapView.h"
+#import "ShopListPlaceCell.h"
+#import "ASIOperationShopSearch.h"
+#import "ASIOperationPlacelistGet.h"
+#import "ASIOperationPlacelistGetDetail.h"
+#import "ASIOperationGetShopList.h"
+#import "Placelist.h"
+#import "PlacelistViewController.h"
+#import "ShopListMapCell.h"
+#import "ASIOperationRemoveShopPlacelist.h"
+#import "TextField.h"
 
 #define SHOP_LIST_SCROLL_SPEED 3.f
 
-@interface ShopListViewController ()<ShopPinDelegate,ShopListMapDelegate,ShopListCellDelegate,TextFieldDelegate,CityControllerDelegate>
+@interface ShopListViewController ()<ShopPinDelegate,ShopListMapDelegate,ShopListCellDelegate,TextFieldDelegate,CityControllerDelegate,MKMapViewDelegate,UIScrollViewDelegate,UIGestureRecognizerDelegate,SortSearchDelegate,UIActionSheetDelegate,UITableViewDataSource,UITableViewDelegate,ASIOperationPostDelegate,UITextFieldDelegate,PlacelistControllerDelegate>
+{
+    ASIOperationShopSearch *_operationShopSearch;
+    ASIOperationPlacelistGet *_operationPlaceListDetail;
+    ASIOperationGetShopList *_operationShopList;
+    ASIOperationPlacelistGetDetail *_operationPlacelistGetDetail;
+    ASIOperationRemoveShopPlacelist *_operationRemoveShopPlacelist;
+}
 
 @end
 
@@ -64,6 +86,17 @@
     
     _idShops=[NSString stringWithStringDefault:idShops];
     _viewMode=SHOP_LIST_VIEW_SHOP_LIST;
+    
+    return self;
+}
+
+-(ShopListViewController *)initWithIDBranch:(int)idBranch
+{
+    self=[super initWithNibName:@"ShopListViewController" bundle:nil];
+
+    _idShops=@"";
+    _idBranch=idBranch;
+    _viewMode=SHOP_LIST_VIEW_BRANCH;
     
     return self;
 }
@@ -211,6 +244,7 @@
             break;
             
         case SHOP_LIST_VIEW_SHOP_LIST:
+        case SHOP_LIST_VIEW_BRANCH:
             [self requestShopList];
             break;
     }
@@ -419,6 +453,7 @@
     switch (_viewMode) {
             
         case SHOP_LIST_VIEW_SHOP_LIST:
+        case SHOP_LIST_VIEW_BRANCH:
             [self changeSortShopList:sort];
             break;
             
@@ -448,6 +483,8 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    self.qrCodeControllerHandle=self.searchController;
     
     if([CityManager shareInstance].idCitySearch)
         _idCity=[[CityManager shareInstance].idCitySearch integerValue];
@@ -485,6 +522,7 @@
             break;
             
         case SHOP_LIST_VIEW_SHOP_LIST:
+        case SHOP_LIST_VIEW_BRANCH:
             
             _canLoadMore=false;
             _page=-1;
@@ -580,7 +618,7 @@
         _operationShopList=nil;
     }
     
-    _operationShopList=[[ASIOperationGetShopList alloc] initWithIDShops:_idShops userLat:userLat() userLng:userLng() page:_page+1 sort:_sort];
+    _operationShopList=[[ASIOperationGetShopList alloc] initWithIDShops:_idShops userLat:userLat() userLng:userLng() page:_page+1 sort:_sort idBranch:_idBranch];
     _operationShopList.delegate=self;
     
     [_operationShopList addToQueue];
@@ -613,6 +651,8 @@
     _sort=SORT_LIST_DEFAULT;
     _placeList=nil;
     _keyword=@"";
+    _idBranch=0;
+    _idShops=@"";
     txt.placeholder=TEXTFIELD_SEARCH_PLACEHOLDER_TEXT;
     txt.text=@"";
     
@@ -753,6 +793,7 @@
             
         case SHOP_LIST_VIEW_LIST:
         case SHOP_LIST_VIEW_SHOP_LIST:
+        case SHOP_LIST_VIEW_BRANCH:
             break;
     }
     
@@ -1354,11 +1395,11 @@
 }
 
 - (IBAction)btnScanBigTouchUpInside:(id)sender {
-    [self showQRCodeWithContorller:self inView:self.view withAnimationType:QRCODE_ANIMATION_TOP screenCode:[ShopListViewController screenCode]];
+    [self showQRCodeWithController:self inView:self.view withAnimationType:QRCODE_ANIMATION_TOP screenCode:[ShopListViewController screenCode]];
 }
 
 - (IBAction)btnScanSmallTouchUpInside:(id)sender {
-    [self showQRCodeWithContorller:self inView:self.view withAnimationType:QRCODE_ANIMATION_TOP_BOT screenCode:[ShopListViewController screenCode]];
+    [self showQRCodeWithController:self inView:self.view withAnimationType:QRCODE_ANIMATION_TOP_BOT screenCode:[ShopListViewController screenCode]];
 }
 
 -(void)shopPinDealloc:(ShopPinView *)pin

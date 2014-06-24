@@ -35,6 +35,7 @@
 -(void) showShopListWithKeywordsShopList:(NSString*) keywords;
 -(void) showShopListWithIDPlace:(int) idPlacelist;
 -(void) showShopListWithIDShops:(NSString*) idShops;
+-(void) showShopListWithIDBranch:(int) idBranch;
 -(void) showUserPromotion;
 -(void) showUserSetting;
 -(void) showTutorial;

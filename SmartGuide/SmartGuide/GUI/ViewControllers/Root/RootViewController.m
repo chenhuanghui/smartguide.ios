@@ -393,7 +393,44 @@
 
 -(void)shopUserControllerTouchedScanQRCode:(ShopUserController *)controller
 {
-    [self showQRCodeWithContorller:self inView:self.view withAnimationType:QRCODE_ANIMATION_TOP_BOT screenCode:[ShopUserViewController screenCode]];
+    [self showQRCodeWithController:self inView:self.view withAnimationType:QRCODE_ANIMATION_TOP_BOT screenCode:[ShopUserViewController screenCode]];
+}
+
+#pragma mark QRCodeController
+
+-(UIView *)qrCodeControllerDisplayView
+{
+    return self.view;
+}
+
+-(void)qrCodeController:(QRCodeViewController *)controller scannedURL:(NSURL *)url
+{
+    [controller close];
+    [self showWebviewWithURL:url];
+}
+
+-(void) qrCodeController:(QRCodeViewController *)controller scannedIDShops:(NSString *)idShops
+{
+    [controller close];
+    [self showShopListWithIDShops:idShops];
+}
+
+-(void)qrCodeController:(QRCodeViewController *)controller scannedIDShop:(int)idShop
+{
+    [controller close];
+    [self presentShopUserWithIDShop:idShop];
+}
+
+-(void)qrCodeController:(QRCodeViewController *)controller scannedIDPlacelist:(int)idPlacelist
+{
+    [controller close];
+    [self showShopListWithIDPlace:idPlacelist];
+}
+
+-(void)qrCodeController:(QRCodeViewController *)controller scannedIDBranch:(int)idBranch
+{
+    [controller close];
+    [self showShopListWithIDBranch:idBranch];
 }
 
 #pragma RootViewController handle
@@ -519,6 +556,12 @@
 -(void)showShopListWithIDShops:(NSString *)idShops
 {
     SearchViewController *vc=[[SearchViewController alloc] initWithIDShops:idShops];
+    [self showSearchController:vc];
+}
+
+-(void)showShopListWithIDBranch:(int)idBranch
+{
+    SearchViewController *vc=[[SearchViewController alloc] initWithIDBranch:idBranch];
     [self showSearchController:vc];
 }
 

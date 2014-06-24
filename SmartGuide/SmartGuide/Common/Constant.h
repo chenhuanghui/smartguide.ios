@@ -15,6 +15,11 @@
 #define URL_TUTORIAL @"http://infory.vn/mobile/guide"
 #define URL_TERM @"http://infory.vn/dieu-khoan-nguoi-dung.html"
 #define QRCODE_DOMAIN_INFORY @"page.infory.vn"
+#define QRCODE_INFORY_SHOPS [QRCODE_DOMAIN_INFORY stringByAppendingPathComponent:@"shops"]
+#define QRCODE_INFORY_PLACELIST [QRCODE_DOMAIN_INFORY stringByAppendingPathComponent:@"placelist"]
+#define QRCODE_INFORY_SHOP [QRCODE_DOMAIN_INFORY stringByAppendingPathComponent:@"shop"]
+#define QRCODE_INFORY_BRANCH [QRCODE_DOMAIN_INFORY stringByAppendingPathComponent:@"branch"]
+#define QRCODE_INFORY_CODE [QRCODE_DOMAIN_INFORY stringByAppendingPathComponent:@"qrcode"]
 
 #define DEFAULT_USER_ID 1
 #define DEFAULT_USER_ACCESS_TOKEN @"abc"
@@ -370,5 +375,27 @@ enum NOTIFICATION_COUNT_TYPE
 
 -(void) authorizationSuccessed;
 -(void) authorizationCancelled;
+
+@end
+
+enum QRCODE_ANIMATION_TYPE {
+    QRCODE_ANIMATION_TOP_BOT = 0,
+    QRCODE_ANIMATION_TOP = 1
+};
+
+@class QRCodeViewController;
+
+@protocol QRCodeControllerDelegate <SGViewControllerDelegate>
+
+-(void) qrCodeController:(QRCodeViewController*) controller scannedIDShop:(int) idShop;
+-(void) qrCodeController:(QRCodeViewController*) controller scannedIDPlacelist:(int) idPlacelist;
+-(void) qrCodeController:(QRCodeViewController*) controller scannedIDBranch:(int) idBranch;
+-(void) qrCodeController:(QRCodeViewController*) controller scannedIDShops:(NSString*) idShops;
+-(void) qrCodeController:(QRCodeViewController*) controller scannedURL:(NSURL*) url;
+
+@optional
+-(void) qrcodeControllerFinished:(QRCodeViewController*) controller;
+-(UIView*) qrCodeControllerDisplayView;
+-(enum QRCODE_ANIMATION_TYPE) qrCodeAnimationType;
 
 @end

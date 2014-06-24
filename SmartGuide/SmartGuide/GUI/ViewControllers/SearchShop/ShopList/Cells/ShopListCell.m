@@ -11,6 +11,7 @@
 #import "Constant.h"
 #import "GUIManager.h"
 #import "ImageManager.h"
+#import "Placelist.h"
 
 #define SHOP_LIST_CELL_BUTTON_TAG_ADD 0
 #define SHOP_LIST_CELL_BUTTON_TAG_REMOVE 1

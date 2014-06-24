@@ -7,10 +7,10 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="QRCodeViewController">
             <connections>
-                <outlet property="bgResultView" destination="H5S-1a-qDf" id="MUj-ez-pO1"/>
                 <outlet property="bgtView" destination="Ei3-p4-wuk" id="oqu-1d-50y"/>
                 <outlet property="btnClose" destination="MOx-nK-zrT" id="Lyf-qH-pmt"/>
                 <outlet property="btnCloseCamera" destination="7mM-Dd-4TV" id="Yte-a7-Edx"/>
+                <outlet property="btnMakeQRCode" destination="1WB-yT-Miz" id="rX4-E3-Gui"/>
                 <outlet property="btnScan" destination="euz-4A-j7J" id="Lbw-07-U3e"/>
                 <outlet property="btnTorch" destination="mvp-sC-Xnq" id="AIB-43-I4G"/>
                 <outlet property="cameraView" destination="gS0-a1-Dt2" id="Jxg-Uh-1xr"/>
@@ -96,14 +96,14 @@
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="1WB-yT-Miz">
-                    <rect key="frame" x="137" y="430" width="46" height="30"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <state key="normal" title="Button">
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="1WB-yT-Miz">
+                    <rect key="frame" x="85" y="430" width="150" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <state key="normal" title="Make QRCode">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <connections>
-                        <action selector="btnnext:" destination="-1" eventType="touchUpInside" id="ZgY-rS-tGm"/>
+                        <action selector="btnMakeQRCodeTouchUpInside:" destination="-1" eventType="touchUpInside" id="D1D-Ck-Ezk"/>
                     </connections>
                 </button>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nhận thẻ và quà từ nhân viên" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="mdW-Cw-dcJ">

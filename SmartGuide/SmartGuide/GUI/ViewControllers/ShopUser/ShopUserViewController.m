@@ -23,6 +23,7 @@
 #import "GalleryFullViewController.h"
 #import "KeyboardUtility.h"
 #import "ShopCameraViewController.h"
+#import "ShopUserController.h"
 
 enum SHOP_USER_CELL_TYPE
 {
@@ -85,6 +86,8 @@ enum SHOP_USER_CELL_TYPE
 -(void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.qrCodeControllerHandle=self.userController;
     
     [table registerShopGalleryControllerCell];
     [table registerShopKM1ControllerCell];

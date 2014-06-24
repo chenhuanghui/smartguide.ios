@@ -11,11 +11,15 @@
 #import "SGNavigationController.h"
 #import "ShopUserViewController.h"
 #import "ShopManager.h"
-#import "QRCodeViewController.h"
 #import "GalleryFullViewController.h"
 #import "TouchView.h"
+#import "DataManager.h"
+#import "GUIManager.h"
+#import "WebViewController.h"
+#import "Constant.h"
+#import "QRCodeViewController.h"
 
-@interface ShopUserController ()<SGNavigationControllerDelegate,ShopUserViewControllerDelegate,GalleryFullControllerDelegate>
+@interface ShopUserController ()<SGNavigationControllerDelegate,ShopUserViewControllerDelegate,GalleryFullControllerDelegate,WebViewDelegate>
 
 @end
 
@@ -24,6 +28,10 @@
 -(ShopUserController *)initWithIDShop:(int)idShop
 {
     self=[super initWithNibName:@"ShopUserController" bundle:nil];
+    
+#if DEBUG
+    idShop=360;
+#endif
     
     _idShop=idShop;
     _shop=[Shop makeWithIDShop:_idShop];
@@ -55,6 +63,7 @@
         vc=[[ShopUserViewController alloc] initWithIDShop:_idShop];
     
     vc.delegate=self;
+    vc.userController=self;
     self.shopController=vc;
     
     _navi=[[SGNavigationController alloc] initWithRootViewController:vc];
@@ -73,6 +82,22 @@
     
     [_navi.view l_v_setS:containView.l_v_s];
     [containView addSubview:_navi.view];
+}
+
+-(void) showShopWithIDShop:(int) idShop
+{
+    ShopUserViewController *vc=[[ShopUserViewController alloc] initWithIDShop:idShop];
+    
+    [self showShopUserViewController:vc];
+}
+
+-(void) showShopUserViewController:(ShopUserViewController*) controller
+{
+    controller.delegate=self;
+    controller.userController=self;
+    self.shopController=controller;
+    
+    [_navi pushViewController:controller animated:true];
 }
 
 - (IBAction)btnCloseTouchUpInside:(id)sender
@@ -153,7 +178,7 @@
 
 -(void)shopUserViewControllerTouchedQRCode:(ShopUserViewController *)controller
 {
-    [self showQRCodeWithContorller:self inView:self.view withAnimationType:QRCODE_ANIMATION_TOP_BOT screenCode:[ShopUserViewController screenCode]];
+    [self showQRCodeWithController:self inView:self.view withAnimationType:QRCODE_ANIMATION_TOP_BOT screenCode:[ShopUserViewController screenCode]];
 }
 
 -(void)shopUserViewControllerTouchedIDShop:(ShopUserViewController *)controller idShop:(int)idShop
@@ -170,6 +195,45 @@
         return false;
     
     return true;
+}
+
+-(void)qrCodeController:(QRCodeViewController *)controller scannedIDBranch:(int)idBranch
+{
+    [controller close];
+    [[GUIManager shareInstance].rootViewController showShopListWithIDBranch:idBranch];
+}
+
+-(void)qrCodeController:(QRCodeViewController *)controller scannedIDPlacelist:(int)idPlacelist
+{
+    [controller close];
+    [[GUIManager shareInstance].rootViewController showShopListWithIDPlace:idPlacelist];
+}
+
+-(void)qrCodeController:(QRCodeViewController *)controller scannedIDShop:(int)idShop
+{
+    [controller close];
+    [self showShopWithIDShop:idShop];
+}
+
+-(void)qrCodeController:(QRCodeViewController *)controller scannedIDShops:(NSString *)idShops
+{
+    [controller close];
+    [[GUIManager shareInstance].rootViewController showShopListWithIDShops:idShops];
+}
+
+-(void)qrCodeController:(QRCodeViewController *)controller scannedURL:(NSURL *)url
+{
+    [controller close];
+    
+    WebViewController *vc=[[WebViewController alloc] initWithURL:url];
+    vc.delegate=self;
+    
+    [self presentSGViewController:vc animate:true completion:nil];
+}
+
+-(void)webviewTouchedBack:(WebViewController *)controller
+{
+    [self dismissSGViewControllerAnimated:true completion:nil];
 }
 
 @end

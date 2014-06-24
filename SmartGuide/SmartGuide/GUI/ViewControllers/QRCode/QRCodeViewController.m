@@ -9,8 +9,22 @@
 #import "QRCodeViewController.h"
 #import "GUIManager.h"
 #import <AVFoundation/AVFoundation.h>
+#import "ZBarReaderViewController.h"
+#import "ZBarReaderView.h"
+#import "ASIOperationScanQRCode.h"
+#import "SGNavigationController.h"
+#import "Reachability.h"
+#import "QRCodeResultViewController.h"
 
-@interface QRCodeViewController ()
+@interface QRCodeViewController ()<ZBarReaderDelegate,ASIOperationPostDelegate>
+{
+    __weak QRCodeResultViewController *_resultController;
+    __strong ZBarReaderViewController *zbarReader;
+    ASIOperationScanQRCode *_operationScanCode;
+    Reachability *_reach;
+    bool _isScanningCode;
+    __strong id _result;
+}
 
 @end
 
@@ -70,6 +84,10 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
+#if DEBUG
+    btnMakeQRCode.hidden=false;
+#endif
+    
     [_navi l_v_setS:contentView.l_v_s];
     [contentView insertSubview:_navi.view atIndex:0];
     
@@ -85,10 +103,10 @@
     zbarReader.wantsFullScreenLayout=false;
     zbarReader.readerDelegate=self;
     zbarReader.supportedOrientationsMask=ZBarOrientationMaskAll;
-//    zbarReader.readerView.showsFPS=true;
-//    zbarReader.readerView.zoom=1.25f;
+    //    zbarReader.readerView.showsFPS=true;
+    //    zbarReader.readerView.zoom=1.25f;
     zbarReader.videoQuality=UIImagePickerControllerQualityTypeHigh;
-
+    
     [zbarReader.readerView.device lockForConfiguration:nil];
     
     if([zbarReader.readerView.device supportsAVCaptureSessionPreset:AVCaptureFocusModeLocked])
@@ -182,7 +200,73 @@
         }
             break;
     }
+    
+}
 
+-(void) processCode:(NSString*) data
+{
+    if([data containsString:QRCODE_DOMAIN_INFORY])
+    {
+        NSURL *url=[NSURL URLWithString:data];
+        if([data containsString:QRCODE_INFORY_SHOPS])
+        {
+            NSString *idShops=[url query];
+            if(idShops.length>0)
+            {
+                NSArray *array=[idShops componentsSeparatedByString:@"="];
+                if(array.count>1)
+                {
+                    idShops=array[1];
+                    
+                    [self.delegate qrCodeController:self scannedIDShops:idShops];
+                    return;
+                }
+            }
+            
+            [self requestScanCodeWithCode:data];
+        }
+        else if([data containsString:QRCODE_INFORY_SHOP])
+        {
+            int idShop=[[url lastPathComponent] integerValue];
+            
+            [self.delegate qrCodeController:self scannedIDShop:idShop];
+        }
+        else if([data containsString:QRCODE_INFORY_PLACELIST])
+        {
+            int idPlacelist=[[url lastPathComponent] integerValue];
+            
+            [self.delegate qrCodeController:self scannedIDPlacelist:idPlacelist];
+        }
+        else if([data containsString:QRCODE_INFORY_CODE])
+        {
+            NSString *hash=[url lastPathComponent];
+            
+            [self requestScanCodeWithCode:hash];
+        }
+        else if([data containsString:QRCODE_INFORY_BRANCH])
+        {
+            int idBranch=[[url lastPathComponent] integerValue];
+            
+            [self.delegate qrCodeController:self scannedIDBranch:idBranch];
+        }
+        else
+        {
+            [self requestScanCodeWithCode:data];
+        }
+    }
+    else
+    {
+        NSDataDetector *dataDetector=[NSDataDetector dataDetectorWithTypes:NSTextCheckingTypeLink error:nil];
+        
+        if([dataDetector numberOfMatchesInString:data options:0 range:NSMakeRange(0, data.length)]!=0)
+        {
+            [self.delegate qrCodeController:self scannedURL:URL(data)];
+        }
+        else
+        {
+            [self requestScanCodeWithCode:data];
+        }
+    }
 }
 
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
@@ -198,14 +282,27 @@
     if(data.length==0)
         return;
     
-    if([data containsString:QRCODE_DOMAIN_INFORY])
-    {
-        
-    }
-    
     zbarReader.readerDelegate=nil;
     
-    _operationScanCode=[[ASIOperationScanQRCode alloc] initWithCode:sym.data userLat:userLat() userLng:userLng()];
+    [self processCode:data];
+}
+
+-(void) requestScanCodeWithCode:(NSString*) code
+{
+    if(currentUser().enumDataMode!=USER_DATA_FULL)
+    {
+        [[GUIManager shareInstance] showLoginDialogWithMessage:@"Bạn cần đăng nhập để xem thông tin này" onOK:^{
+            [SGData shareInstance].fScreen=[QRCodeViewController screenCode];
+        } onCancelled:nil onLogined:^(bool isLogined) {
+            if(isLogined)
+            {
+                [self requestScanCodeWithCode:code];
+            }
+        }];
+        return;
+    }
+    
+    _operationScanCode=[[ASIOperationScanQRCode alloc] initWithCode:code userLat:userLat() userLng:userLng()];
     _operationScanCode.delegate=self;
     
     [_operationScanCode addToQueue];
@@ -239,8 +336,9 @@
 {
     if(_reach.currentReachabilityStatus==NotReachable)
         return;
-    
-    if(currentUser().enumDataMode==USER_DATA_TRY)
+
+    bool validateUserLogined=false;
+    if(validateUserLogined && currentUser().enumDataMode==USER_DATA_TRY)
     {
         [[GUIManager shareInstance] showLoginDialogWithMessage:localizeLoginRequire() onOK:^
          {
@@ -377,8 +475,32 @@
     containViewFrame=containView.frame;
 }
 
-- (IBAction)btnnext:(id)sender {
+- (IBAction)btnMakeQRCodeTouchUpInside:(id) sender
+{
     UIButton *btn=sender;
+    
+    btn.tag=RANDOM(0, 5);
+    
+    if(btn.tag==0)
+        [self processCode:[QRCODE_INFORY_CODE stringByAppendingPathComponent:@"123829038120"]];
+    else if(btn.tag==1)
+        [self processCode:[QRCODE_INFORY_PLACELIST stringByAppendingPathComponent:@"1"]];
+    else if(btn.tag==2)
+        [self processCode:[QRCODE_INFORY_SHOP stringByAppendingPathComponent:@"1"]];
+    else if(btn.tag==3)
+        [self processCode:[QRCODE_INFORY_BRANCH stringByAppendingPathComponent:@"1"]];
+    else if(btn.tag==4)
+        [self processCode:[QRCODE_INFORY_SHOPS stringByAppendingPathComponent:@"?id=1,2,3,4,5,6"]];
+    else if(btn.tag==5)
+        [self processCode:@"http://infory.vn"];
+    
+    btn.tag++;
+    
+    if(btn.tag>=5)
+        btn.tag=0;
+    
+    return;
+    
     
     if(btn.tag==0)
     {
@@ -570,12 +692,13 @@
 #import <objc/runtime.h>
 
 static char SGQRControllerObjectKey;
+static char SGQRControllerHandleObjectKey;
 
 @implementation SGViewController(QRCode)
 
--(void)setQrController:(QRCodeViewController *)qrController
+-(void)setQrController:(QRCodeViewController *)qrController_
 {
-    objc_setAssociatedObject(self, &SGQRControllerObjectKey, qrController, OBJC_ASSOCIATION_ASSIGN);
+    objc_setAssociatedObject(self, &SGQRControllerObjectKey, qrController_, OBJC_ASSOCIATION_ASSIGN);
 }
 
 -(QRCodeViewController *)qrController
@@ -583,20 +706,33 @@ static char SGQRControllerObjectKey;
     return objc_getAssociatedObject(self, &SGQRControllerObjectKey);
 }
 
--(void)showQRCodeWithContorller:(SGViewController<QRCodeControllerDelegate> *)controller inView:(UIView *)view withAnimationType:(enum QRCODE_ANIMATION_TYPE)animationType screenCode:(NSString *)screenCode
+-(void)setQrCodeControllerHandle:(SGViewController<QRCodeControllerDelegate> *)qrCodeControllerHandle_
 {
-    if(currentUser().enumDataMode!=USER_DATA_FULL)
+    objc_setAssociatedObject(self, &SGQRControllerHandleObjectKey, qrCodeControllerHandle_, OBJC_ASSOCIATION_ASSIGN);
+}
+
+-(SGViewController<QRCodeControllerDelegate> *)qrCodeControllerHandle
+{
+    return objc_getAssociatedObject(self, &SGQRControllerHandleObjectKey);
+}
+
+-(void)showQRCodeWithController:(SGViewController<QRCodeControllerDelegate> *)controller inView:(UIView *)view withAnimationType:(enum QRCODE_ANIMATION_TYPE)animationType screenCode:(NSString *)screenCode
+{
+    if(self.qrCodeControllerHandle)
     {
-        [[GUIManager shareInstance] showLoginDialogWithMessage:localizeLoginRequire() onOK:^{
-            [SGData shareInstance].fScreen=screenCode;
-        } onCancelled:nil onLogined:^(bool isLogined) {
-            if(isLogined)
-                [self showQRCodeWithContorller:controller inView:view withAnimationType:animationType screenCode:screenCode];
-        }];
+        UIView *displayView=self.qrCodeControllerHandle.view;
+        if([self.qrCodeControllerHandle respondsToSelector:@selector(qrCodeControllerDisplayView)])
+            displayView=[self.qrCodeControllerHandle qrCodeControllerDisplayView];
         
+        enum QRCODE_ANIMATION_TYPE qrCodeAnimationType=QRCODE_ANIMATION_TOP_BOT;
+        
+        if([self.qrCodeControllerHandle respondsToSelector:@selector(qrCodeAnimationType)])
+            qrCodeAnimationType=[self.qrCodeControllerHandle qrCodeAnimationType];
+            
+        [self.qrCodeControllerHandle showQRCodeWithController:self.qrCodeControllerHandle inView:displayView withAnimationType:qrCodeAnimationType screenCode:@""];
         return;
     }
-
+    
     QRCodeViewController *qr=[QRCodeViewController new];
     qr.delegate=controller;
     qr.containView=view;
@@ -607,6 +743,31 @@ static char SGQRControllerObjectKey;
     
     [qr.view l_v_setH:view.l_v_h];
     [view addSubview:qr.view];
+}
+
+-(void)qrCodeController:(QRCodeViewController *)controller scannedIDBranch:(int)idBranch
+{
+    //un support
+    [controller closeOnCompleted:nil];
+}
+
+-(void)qrCodeController:(QRCodeViewController *)controller scannedIDPlacelist:(int)idPlacelist
+{
+}
+
+-(void)qrCodeController:(QRCodeViewController *)controller scannedIDShop:(int)idShop
+{
+    
+}
+
+-(void)qrCodeController:(QRCodeViewController *)controller scannedIDShops:(NSString *)idShops
+{
+    
+}
+
+-(void)qrCodeController:(QRCodeViewController *)controller scannedURL:(NSURL *)url
+{
+    
 }
 
 -(void)qrcodeControllerFinished:(QRCodeViewController *)controller

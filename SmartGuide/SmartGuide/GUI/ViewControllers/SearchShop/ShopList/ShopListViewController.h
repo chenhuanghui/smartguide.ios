@@ -7,30 +7,16 @@
 //
 
 #import "SGViewController.h"
-#import "Constant.h"
-#import "ShopUserViewController.h"
-#import <MapKit/MapKit.h>
-#import "ShopListSortView.h"
-#import "MapView.h"
-#import "ShopListPlaceCell.h"
 #import "SearchViewController.h"
-#import "ASIOperationShopSearch.h"
-#import "ASIOperationPlacelistGet.h"
-#import "ASIOperationPlacelistGetDetail.h"
-#import "ASIOperationGetShopList.h"
-#import "Placelist.h"
-#import "PlacelistViewController.h"
-#import "ShopListMapCell.h"
-#import "ASIOperationRemoveShopPlacelist.h"
-#import "TextField.h"
 
-@class ScrollShopList,ShopListContentView,ShopListViewController,TableShopList,ScrollerShopList;
+@class ScrollShopList,ShopListContentView,ShopListViewController,TableShopList,ScrollerShopList, ShopListSortView, ShopListMapCell, MapView, SearchTextField;
 
 enum SHOP_LIST_VIEW_MODE {
     SHOP_LIST_VIEW_LIST = 0,
     SHOP_LIST_VIEW_PLACE = 1,
     SHOP_LIST_VIEW_SHOP_LIST = 2,
     SHOP_LIST_VIEW_IDPLACE = 3,
+    SHOP_LIST_VIEW_BRANCH = 4,
     };
 
 @protocol ShopListControllerDelegate <SGViewControllerDelegate>
@@ -40,7 +26,7 @@ enum SHOP_LIST_VIEW_MODE {
 
 @end
 
-@interface ShopListViewController : SGViewController<MKMapViewDelegate,UIScrollViewDelegate,UIGestureRecognizerDelegate,SortSearchDelegate,UIActionSheetDelegate,UITableViewDataSource,UITableViewDelegate,SearchControllerHandle,ASIOperationPostDelegate,UITextFieldDelegate,PlacelistControllerDelegate>
+@interface ShopListViewController : SGViewController<SearchControllerHandle>
 {
     __weak IBOutlet TableShopList *tableList;
     __weak IBOutlet ShopListSortView *sortView;
@@ -67,12 +53,7 @@ enum SHOP_LIST_VIEW_MODE {
     bool _isAnimatingZoom;
     
     bool _isDidUpdateLocation;
-    
-    ASIOperationShopSearch *_operationShopSearch;
-    ASIOperationPlacelistGet *_operationPlaceListDetail;
-    ASIOperationGetShopList *_operationShopList;
-    ASIOperationPlacelistGetDetail *_operationPlacelistGetDetail;
-    ASIOperationRemoveShopPlacelist *_operationRemoveShopPlacelist;
+
     NSIndexPath *_indexPathWillRemove;
     
     NSString *_keyword;
@@ -80,6 +61,7 @@ enum SHOP_LIST_VIEW_MODE {
     NSMutableArray *_shopsList;
     NSString *_idShops;
     int _idPlacelist;
+    int _idBranch;
     
     NSUInteger _page;
     enum SORT_LIST _sort;
@@ -92,13 +74,8 @@ enum SHOP_LIST_VIEW_MODE {
     CLLocationCoordinate2D _location;
     
     bool _didMakeScrollSize;
-    
     bool _isNeedAnimationChangeTable;
-    
     float _mapRowHeight;
-    
-//    __weak UIView *scroller;
-//    __weak UIView *bgScroller;
     
     __weak ScrollerShopList *scrollerView;
     CGRect _scrollerViewFrame;
@@ -109,6 +86,7 @@ enum SHOP_LIST_VIEW_MODE {
 -(ShopListViewController*) initWithPlaceList:(Placelist*) placeList;
 -(ShopListViewController*) initWithIDShops:(NSString*) idShops;
 -(ShopListViewController*) initWithIDPlacelist:(int) idPlacelist;
+-(ShopListViewController*) initWithIDBranch:(int) idBranch;
 
 -(NSString*) keyword;
 -(Placelist*) placelist;

@@ -67,6 +67,8 @@
 //    [self.view.alphaView addGestureRecognizer:tap];
 #endif
     
+    self.qrCodeControllerHandle=[GUIManager shareInstance].rootViewController;
+    
     tableFeed.scrollsToTop=true;
     
     txtRefresh.text=TEXTFIELD_SEARCH_PLACEHOLDER_TEXT;
@@ -665,14 +667,9 @@
 
 - (IBAction)btnShowQRCodeTouchUpInside:(id)sender {
     if(sender==btnScanBig)
-        [self showQRCodeWithContorller:self inView:self.view withAnimationType:QRCODE_ANIMATION_TOP screenCode:[HomeViewController screenCode]];
+        [self showQRCodeWithController:self inView:self.view withAnimationType:QRCODE_ANIMATION_TOP screenCode:[HomeViewController screenCode]];
     else
-        [self showQRCodeWithContorller:self inView:self.view withAnimationType:QRCODE_ANIMATION_TOP_BOT screenCode:[HomeViewController screenCode]];
-}
-
--(void)qrcodeControllerRequestClose:(QRCodeViewController *)controller
-{
-    
+        [self showQRCodeWithController:self inView:self.view withAnimationType:QRCODE_ANIMATION_TOP_BOT screenCode:[HomeViewController screenCode]];
 }
 
 +(NSString *)screenCode

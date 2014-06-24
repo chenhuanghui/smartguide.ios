@@ -31,7 +31,7 @@
     if([json isNullData])
         return;
     
-    self.jsonData = [NSString stringWithStringDefault:json[0]];
+    self.jsonData = [NSString stringWithStringDefault:self.responseString];
 }
 
 @end

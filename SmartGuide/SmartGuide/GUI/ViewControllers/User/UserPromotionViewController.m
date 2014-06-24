@@ -44,6 +44,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
+    self.qrCodeControllerHandle=[GUIManager shareInstance].rootViewController;
+    
     txtRefresh.text=TEXTFIELD_SEARCH_PLACEHOLDER_TEXT;
     txtRefresh.maximumWidth=232;
     txtRefresh.minimumWidth=38;
@@ -273,11 +275,11 @@
 }
 
 - (IBAction)btnScanBigTouchUpInside:(id)sender {
-    [self showQRCodeWithContorller:self inView:self.view withAnimationType:QRCODE_ANIMATION_TOP screenCode:[UserPromotionViewController screenCode]];
+    [self showQRCodeWithController:self inView:self.view withAnimationType:QRCODE_ANIMATION_TOP screenCode:[UserPromotionViewController screenCode]];
 }
 
 - (IBAction)btnScanSmallTouchUpInside:(id)sender {
-    [self showQRCodeWithContorller:self inView:self.view withAnimationType:QRCODE_ANIMATION_TOP_BOT screenCode:[UserPromotionViewController screenCode]];
+    [self showQRCodeWithController:self inView:self.view withAnimationType:QRCODE_ANIMATION_TOP_BOT screenCode:[UserPromotionViewController screenCode]];
 }
 
 +(NSString *)screenCode

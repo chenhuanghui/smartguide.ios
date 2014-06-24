@@ -9,8 +9,10 @@
 #import "SearchViewController.h"
 #import "ShopListViewController.h"
 #import "SearchShopViewController.h"
+#import "QRCodeViewController.h"
+#import "GUIManager.h"
 
-@interface SearchViewController ()<SearchShopControllerDelegate,ShopListControllerDelegate>
+@interface SearchViewController ()<SearchShopControllerDelegate,ShopListControllerDelegate,QRCodeControllerDelegate>
 
 @end
 
@@ -62,6 +64,17 @@
     
     _viewMode=SEARCH_VIEW_MODE_SHOP_LIST;
     _idShops=[NSString stringWithStringDefault:idShops];
+    
+    return self;
+}
+
+-(SearchViewController *)initWithIDBranch:(int)idBranch
+{
+    self=[super initWithNibName:@"SearchViewController" bundle:nil];
+    
+    _viewMode=SEARCH_VIEW_MODE_SHOP_LIST;
+    _idBranch=idBranch;
+    _idShops=@"";
     
     return self;
 }
@@ -159,7 +172,14 @@
         }
             break;
             
-        default:
+        case SEARCH_VIEW_MODE_IDBRANCH:
+        {
+            ShopListViewController *vc=[[ShopListViewController alloc] initWithIDBranch:_idBranch];
+            vc.searchController=self;
+            vc.delegate=self;
+            
+            root=vc;
+        }
             break;
     }
     
@@ -225,7 +245,23 @@
     [self showShopListController:vc];
 }
 
--(void) showShopListController:(ShopListViewController*) controller
+-(void) showShopListWithIDShops:(NSString*) idShops
+{
+    ShopListViewController *vc=[[ShopListViewController alloc] initWithIDShops:idShops];
+    vc.delegate=self;
+    
+    [self showShopListController:vc];
+}
+
+-(void) showShopListWithIDBranch:(int) idBranch
+{
+    ShopListViewController *vc=[[ShopListViewController alloc] initWithIDBranch:idBranch];
+    vc.delegate=self;
+    
+    [self showShopListController:vc];
+}
+
+-(void) showShopListController:(ShopListViewController*) controller onCompleted:(void(^)()) completed
 {
     [searchNavi pushViewController:controller onCompleted:^{
         
@@ -252,7 +288,15 @@
         {
             [searchNavi removeViewController:vc];
         }
+        
+        if(completed)
+            completed();
     }];
+}
+
+-(void) showShopListController:(ShopListViewController*) controller
+{
+    [self showShopListController:controller onCompleted:nil];
 }
 
 -(void)shopListControllerTouchedTextField:(ShopListViewController *)controller
@@ -290,6 +334,36 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(void)qrCodeController:(QRCodeViewController *)controller scannedIDBranch:(int)idBranch
+{
+    [controller close];
+    [self showShopListWithIDBranch:idBranch];
+}
+
+-(void)qrCodeController:(QRCodeViewController *)controller scannedIDPlacelist:(int)idPlacelist
+{
+    [controller close];
+    [self showShopListWithIDPlacelist:idPlacelist];
+}
+
+-(void)qrCodeController:(QRCodeViewController *)controller scannedIDShop:(int)idShop
+{
+    [controller close];
+    [[GUIManager shareInstance].rootViewController presentShopUserWithIDShop:idShop];
+}
+
+-(void)qrCodeController:(QRCodeViewController *)controller scannedIDShops:(NSString *)idShops
+{
+    [controller close];
+    [self showShopListWithIDShops:idShops];
+}
+
+-(void)qrCodeController:(QRCodeViewController *)controller scannedURL:(NSURL *)url
+{
+    [controller close];
+    [[GUIManager shareInstance].rootViewController showWebviewWithURL:url];
 }
 
 @end
