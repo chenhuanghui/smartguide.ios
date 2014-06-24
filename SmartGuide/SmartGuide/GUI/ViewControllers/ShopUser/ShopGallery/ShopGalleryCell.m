@@ -20,7 +20,7 @@
 
 -(void)loadImage:(NSString *)url
 {
-    [imgv loadShopCoverWithURL:url resize:CGSizeMake(290, 285)];
+    [imgv loadShopCoverWithURL:url resize:imgv.l_v_s];
 }
 
 -(void)collectionViewDidScroll:(UICollectionView *)collectionView indexPath:(NSIndexPath *)idx

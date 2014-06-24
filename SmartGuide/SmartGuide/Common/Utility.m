@@ -2697,4 +2697,15 @@ static const NSString *KEY_HIT_TEST_EDGE_INSETS = @"HitTestEdgeInsets";
     return self.loadingView;
 }
 
+-(UIView *)showLoadingBelowIndexPath:(NSIndexPath *)indexPath
+{
+    CGRect rect=[self rectForRowAtIndexPath:indexPath];
+    rect.origin.y+=rect.size.height;
+    rect.size.height=MAX(self.l_v_h,self.l_cs_h)-rect.size.height;
+    
+    [self showLoadingInsideFrame:rect];
+    
+    return self.loadingView;
+}
+
 @end

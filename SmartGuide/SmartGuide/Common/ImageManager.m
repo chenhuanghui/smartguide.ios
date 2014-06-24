@@ -263,7 +263,7 @@ static char ImageViewDefaultBackgroundKey;
 
 -(void) loadShopLogoPromotionHome:(NSString*) url
 {
-    [self setImageWithURL:[NSURL URLWithString:url]];
+    [self loadImageWithDefaultLoadingAndBackground:[NSURL URLWithString:url]];
 }
 
 -(void)loadShopLogoPromotionHome:(NSString *)url completed:(SDWebImageCompletedBlock)completedBlock
@@ -328,7 +328,7 @@ static char ImageViewDefaultBackgroundKey;
 
 -(void) loadUserPromotionCoverWithURL:(NSString*) url
 {
-    [self loadImageWithDefaultLoading:url];
+    [self loadImageWithDefaultLoadingAndBackground:url];
 }
 
 -(void)loadUserNotificationContentWithURL:(NSString *)url

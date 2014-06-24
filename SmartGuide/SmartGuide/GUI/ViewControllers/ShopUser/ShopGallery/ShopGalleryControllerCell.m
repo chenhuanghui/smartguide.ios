@@ -71,7 +71,7 @@
 
 +(float)height
 {
-    return 327;
+    return 328;
 }
 
 -(void) requestShopGallery
@@ -93,7 +93,8 @@
     }
     else
     {
-        [collection l_v_setY:43.f+scrollView.contentOffset.y/2];
+        [collection l_v_setY:44+scrollView.l_co_y/2];
+        NSLog(@"%f %f",scrollView.contentOffset.y/2,collection.l_v_y);
     }
 }
 

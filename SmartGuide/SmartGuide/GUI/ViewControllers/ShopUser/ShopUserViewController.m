@@ -216,8 +216,7 @@ enum SHOP_USER_CELL_TYPE
     {
         if(_shop.enumDataMode!=SHOP_DATA_FULL)
         {
-            [table showLoadingBelowSection:0];
-            [table.loadingView l_v_addY:-100];
+            [table showLoadingBelowIndexPath:makeIndexPath(0, 0)];
         }
     }
 }
@@ -455,50 +454,17 @@ enum SHOP_USER_CELL_TYPE
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    NSIndexPath *idx=nil;
-    CGRect rect=CGRectZero;
     if(shopGalleryCell)
     {
-        idx=[table indexPathForCell:shopGalleryCell];
-
         [shopGalleryCell.superview bringSubviewToFront:shopGalleryCell];
-        
-        if(idx)
-        {
-            rect=[table rectForRowAtIndexPath:idx];
-            [shopGalleryCell scrollViewDidScroll:scrollView];
-        }
+        [shopGalleryCell scrollViewDidScroll:scrollView];
     }
     
     if(shopKMNews)
-    {
-        idx=[table indexPathForCell:shopKMNews];
-        
-        if(idx)
-            [shopKMNews tableDidScroll:table];
-    }
+        [shopKMNews tableDidScroll:table];
     
     if(shopComments)
-    {
-        idx=[table indexPathForCell:shopComments];
-        
-        if(idx)
-            [shopComments tableDidScroll:table];
-    }
-    
-//    if(emptyCell)
-//    {
-//        idx=[table indexPathForCell:emptyCell];
-//        
-//        [emptyCell.superview sendSubviewToBack:emptyCell];
-//        
-//        if(idx)
-//        {
-//            rect=[table rectForRowAtIndexPath:idx];
-//            
-//            [emptyCell l_v_setY:table.l_co_y];
-//        }
-//    }
+        [shopComments tableDidScroll:table];
 }
 
 #pragma mark SHOP USER CELL DELEGATE

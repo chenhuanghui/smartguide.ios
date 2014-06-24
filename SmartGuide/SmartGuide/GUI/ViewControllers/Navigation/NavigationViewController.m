@@ -114,7 +114,12 @@
     [[GUIManager shareInstance].rootNavigation presentSGViewController:vc animate:true completion:^{
         
         CGRect rect=[GUIManager shareInstance].rootViewController.view.frame;
-        rect.origin.y=UIScreenSize().height-UIApplicationSize().height;
+        
+        if(NSFoundationVersionNumber<=NSFoundationVersionNumber_iOS_6_1)
+            rect.origin.y=UIStatusBarHeight();
+        else
+            rect.origin.y=0;
+        
         vc.view.frame=rect;
     }];
 }

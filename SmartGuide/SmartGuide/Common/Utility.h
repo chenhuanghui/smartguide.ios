@@ -452,5 +452,6 @@ NSString* LAZY_STRING_INT(int i);
 
 -(bool) isCellCompletionVisibility:(NSIndexPath *) indexPath;
 -(UIView*) showLoadingBelowSection:(int) section;
+-(UIView*) showLoadingBelowIndexPath:(NSIndexPath*) indexPath;
 
 @end
