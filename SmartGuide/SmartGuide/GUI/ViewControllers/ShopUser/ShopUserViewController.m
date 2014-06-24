@@ -42,6 +42,8 @@ enum SHOP_USER_CELL_TYPE
     __weak ShopCommentsControllerCell *shopComments;
     
     ASIOperationShopUser *_opeShopUser;
+    
+    NSMutableArray *_cacheCells;
 }
 
 @end
@@ -96,7 +98,6 @@ enum SHOP_USER_CELL_TYPE
     
     switch (_shop.enumDataMode) {
         case SHOP_DATA_FULL:
-            [self loadCells];
             break;
             
         case SHOP_DATA_HOME_8:
@@ -116,8 +117,6 @@ enum SHOP_USER_CELL_TYPE
 -(void) reloadData
 {
     [table reloadData];
-    
-    [self loadCells];
 }
 
 -(void) reloadVisibleItems
@@ -195,12 +194,22 @@ enum SHOP_USER_CELL_TYPE
     }
 }
 
--(void) loadCells
+-(void) cacheCells
 {
+    if(!_cacheCells)
+        _cacheCells=[NSMutableArray new];
+    
     for(int i=0;i<[table numberOfRowsInSection:0];i++)
     {
-        [table cellForRowAtIndexPath:makeIndexPath(i, 0)];
+        UITableViewCell *cell=[table cellForRowAtIndexPath:makeIndexPath(i, 0)];
+        
+        if([cell isKindOfClass:[ShopUserGalleryControllerCell class]])
+            [_cacheCells addObject:cell];
+        else
+            [_cacheCells addObject:[NSNull null]];
     }
+    
+    _cacheCells=nil;
 }
 
 -(void) showLoading
@@ -249,6 +258,7 @@ enum SHOP_USER_CELL_TYPE
         [[ShopManager shareInstanceWithShop:_shop] makeData];
 
         [self reloadData];
+        [self cacheCells];
         
         _opeShopUser=nil;
     }

@@ -10,7 +10,7 @@
         <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="ShopGalleryControllerCell" id="gn3-CB-Xoi" customClass="ShopGalleryControllerCell">
             <rect key="frame" x="0.0" y="0.0" width="320" height="328"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gn3-CB-Xoi" id="6D2-3x-TKX">
+            <tableViewCellContentView key="contentView" opaque="NO" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gn3-CB-Xoi" id="6D2-3x-TKX">
                 <rect key="frame" x="0.0" y="0.0" width="320" height="327"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>

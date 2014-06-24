@@ -29,7 +29,9 @@
                         </connections>
                     </tableView>
                 </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </tableViewCellContentView>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <connections>
                 <outlet property="bg" destination="aXu-A4-06Q" id="1Kg-hd-k32"/>
                 <outlet property="tableKM" destination="jY4-BE-Apd" id="eSK-5x-xW3"/>
