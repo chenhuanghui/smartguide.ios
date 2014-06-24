@@ -93,10 +93,7 @@
     }
     else
     {
-        if(CGRectIsEmpty(_tableFrame))
-            _tableFrame=collection.frame;
-        
-        [collection l_v_setY:_tableFrame.origin.y+scrollView.contentOffset.y/2];
+        [collection l_v_setY:43.f+scrollView.contentOffset.y/2];
     }
 }
 

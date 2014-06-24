@@ -110,6 +110,7 @@ static NSString * const kClientId = @"790158294934-p5pnscmrt4avj698ncvhp14fit0f4
 #define API_USER_NOTIFICATION_LIST_BY_SENDER @"user/notification/listBySender_v2"
 #define API_USER_NOTIFICATION_MARK_READ @"user/notification/markRead_v2"
 #define API_USER_NOTIFICATION_REMOVE @"user/notification/remove_v2"
+#define API_USER_NOTIFICATION_COUNT_BY_SENDER @"user/notification/countBySender_v2"
 #define API_USER_NOTICE @"user/notice"
 #define API_USER_NOTIFICATION_TOKEN @"user/notification/updateUUID"
 

@@ -134,6 +134,8 @@
 {
     if([notification.name isEqualToString:NOTIFICATION_RECEIVED_REMOTE_NOTIFICATION])
     {
+        [[NotificationManager shareInstance] requestNotificationCount];
+        
         for(SGViewController *vc in self.contentNavigation.viewControllers)
         {
             if([vc respondsToSelector:@selector(receiveRemoteNotification:)])
@@ -772,6 +774,26 @@
 #endif
 }
 
+-(bool)allowDragToNavigation
+{
+    if([self presentSGViewControlelr])
+        return false;
+    if([self.contentNavigation presentSGViewControlelr])
+        return false;
+    if([self.contentNavigation.visibleViewController presentSGViewControlelr])
+        return false;
+    
+    SGViewController *vc=(SGViewController*)self.contentNavigation.visibleViewController;
+    
+    if([vc isKindOfClass:[SGViewController class]])
+    {
+        if(![vc allowDragToNavigation])
+            return false;
+    }
+    
+    return true;
+}
+
 @end
 
 @interface ScrollViewRoot()<UIGestureRecognizerDelegate>
@@ -791,14 +813,9 @@
 {
     if(self.currentPage==1)
     {
-        if([self.root presentSGViewControlelr]
-           || [self.root.contentNavigation presentSGViewControlelr]
-           || ![self.root allowDragToNavigation])
+        if(![self.root allowDragToNavigation])
         {
-            SGViewController *vc=(SGViewController*)self.root.contentNavigation.visibleViewController;
-            
-            if(!vc.allowDragToNavigation)
-                contentOffset.x=UIApplicationSize().width;
+            contentOffset.x=UIApplicationSize().width;
         }
     }
     

@@ -115,8 +115,8 @@ static NotificationManager *_notificationManager=nil;
     {
         ASIOperationNotificationCount *ope=(ASIOperationNotificationCount*) operation;
         
-        self.totalNotification=[ope.number copy];
-        self.numOfNotification=[ope.string copy];
+        self.totalNotification=ope.numbers[0];
+        self.numOfNotification=ope.strings[0];
         
         if(self.totalNotification.integerValue==0)
             self.numOfNotification=@"";

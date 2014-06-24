@@ -34,8 +34,6 @@
     __weak IBOutlet UILabel *lblNumOfComment;
     __weak IBOutlet UIImageView *imgvShopLogo;
     
-    CGRect _tableFrame;
-    
     __weak Shop *_shop;
     ASIOperationLoveShop *_operationLoveShop;
 }

@@ -27,16 +27,6 @@
     self.strings=@[@""];
 }
 
--(NSNumber *)number
-{
-    return self.numbers[0];
-}
-
--(NSString *)string
-{
-    return self.strings[0];
-}
-
 -(void)onCompletedWithJSON:(NSArray *)json
 {
     if([json isNullData])

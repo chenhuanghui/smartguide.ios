@@ -17,12 +17,14 @@
 #import "ASIOperationUserNotificationMarkRead.h"
 #import "OperationNotificationAction.h"
 #import "ASIOperationUserNotificationRemove.h"
+#import "OperationNotificationCountBySender.h"
 #import "AppDelegate.h"
 #import "EmptyDataView.h"
 
 @interface UserNotificationDetailViewController ()<UITableViewDataSource,UITableViewDelegate,ASIOperationPostDelegate,UserNotificationDetailCellDelegate>
 {
     ASIOperationUserNotificationFromSender *_operationNotificationContent;
+    OperationNotificationCountBySender *_opeCountBySender;
 }
 
 @end
@@ -196,6 +198,29 @@
         
         _operationNotificationContent=nil;
     }
+    else if([operation isKindOfClass:[ASIOperationUserNotificationMarkRead class]])
+    {
+        ASIOperationUserNotificationMarkRead *ope=(ASIOperationUserNotificationMarkRead*) operation;
+        [self requestCountBySender:ope.idSender];
+    }
+    else if([operation isKindOfClass:[OperationNotificationCountBySender class]])
+    {
+        _opeCountBySender=nil;
+    }
+}
+
+-(void) requestCountBySender:(int) idSender
+{
+    if(_opeCountBySender)
+    {
+        [_opeCountBySender clearDelegatesAndCancel];
+        _opeCountBySender=nil;
+    }
+    
+    _opeCountBySender=[[OperationNotificationCountBySender alloc] initWithIDSender:idSender type:NOTIFICATION_COUNT_TYPE_ALL userLat:userLat() userLng:userLng()];
+    _opeCountBySender.delegate=self;
+    
+    [_opeCountBySender addToQueue];
 }
 
 -(void) showEmptyView
@@ -216,6 +241,14 @@
         [self removeLoading];
         
         _operationNotificationContent=nil;
+    }
+    else if([operation isKindOfClass:[ASIOperationUserNotificationMarkRead class]])
+    {
+        [self requestCountBySender:((ASIOperationUserNotificationMarkRead*)operation).idSender];
+    }
+    else if([operation isKindOfClass:[OperationNotificationCountBySender class]])
+    {
+        _opeCountBySender=nil;
     }
 }
 
@@ -290,7 +323,9 @@
     obj.status=@(NOTIFICATION_STATUS_READ);
     [[DataManager shareInstance] save];
     
-    ASIOperationUserNotificationMarkRead *ope=[[ASIOperationUserNotificationMarkRead alloc] initWithIDMessage:obj.idMessage.integerValue userLat:userLat() userLng:userLng()];
+    ASIOperationUserNotificationMarkRead *ope=[[ASIOperationUserNotificationMarkRead alloc] initWithIDMessage:obj.idMessage.integerValue userLat:userLat() userLng:userLng() idSender:obj.idSender.integerValue];
+    ope.delegate=self;
+    
     [ope addToQueue];
 }
 

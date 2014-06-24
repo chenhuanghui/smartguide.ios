@@ -12,4 +12,7 @@
 
 -(OperationNotificationCountBySender*) initWithIDSender:(int) idSender type:(enum NOTIFICATION_COUNT_TYPE) type userLat:(double) userLat userLng:(double) userLng;
 
+@property (nonatomic, strong) NSArray *numbers;
+@property (nonatomic, strong) NSArray *strings;
+
 @end

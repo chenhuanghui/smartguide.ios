@@ -192,7 +192,7 @@
     
     for(UserNotificationCell *cell in [table visibleCells])
         if([cell isKindOfClass:[UserNotificationCell class]])
-            [cell removeObserverHighlightUnread];
+            [cell removeObserver];
     
     _page=-1;
     _userNotification=[NSMutableArray new];
@@ -388,7 +388,7 @@
             NSIndexPath *indexPath=makeIndexPath(idx, NOTIFICATION_STATUS_UNREAD);
             
             UserNotificationCell *notiCell=(UserNotificationCell*)[table cellForRowAtIndexPath:indexPath];
-            [notiCell removeObserverHighlightUnread];
+            [notiCell removeObserver];
             [notiCell.superview sendSubviewToBack:notiCell];
             
             [arrIdx addObject:indexPath];
@@ -402,7 +402,7 @@
                 NSIndexPath *indexPath=makeIndexPath(idx, NOTIFICATION_STATUS_READ);
                 
                 UserNotificationCell *notiCell=(UserNotificationCell*)[table cellForRowAtIndexPath:indexPath];
-                [notiCell removeObserverHighlightUnread];
+                [notiCell removeObserver];
                 [notiCell.superview sendSubviewToBack:notiCell];
                 
                 [arrIdx addObject:indexPath];
@@ -623,8 +623,10 @@
 
 -(void) finishedNotificationCount:(ASIOperationNotificationCount*) operation
 {
-    _numberNotificationRead=_operationNotificationCount.number.integerValue;
-    _totalNotificationRead=_operationNotificationCount.string;
+    _numberNotificationUnread=[_operationNotificationCount.numbers[0] integerValue];
+    _numberNotificationRead=[_operationNotificationCount.numbers[1] integerValue];
+    _totalNotificationUnread=_operationNotificationCount.strings[0];
+    _totalNotificationRead=_operationNotificationCount.strings[1];
     
 #if DEBUG
 //    _numberNotificationRead=10;

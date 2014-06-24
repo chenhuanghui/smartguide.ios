@@ -8,6 +8,9 @@
 +(UserNotification*) makeWithDictionary:(NSDictionary*) data;
 +(UserNotification*) userNotificationWithIDSender:(int) idSender;
 
+-(void) updateNumbers:(NSArray*) numbers;
+-(void) updateTotals:(NSArray*) totals;
+
 -(NSString*) time;
 -(NSString*) content;
 -(enum NOTIFICATION_STATUS) enumStatus;

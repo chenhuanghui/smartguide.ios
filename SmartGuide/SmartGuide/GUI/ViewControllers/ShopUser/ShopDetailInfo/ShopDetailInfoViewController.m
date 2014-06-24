@@ -90,6 +90,18 @@
     }
     
     [self reloadData];
+    
+    [self showLoading];
+}
+
+-(void) showLoading
+{
+    
+}
+
+-(void) removeLoading
+{
+    
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -121,6 +133,7 @@
 {
     if([operation isKindOfClass:[ASIOperationShopDetailInfo class]])
     {
+        [self removeLoading];
         ASIOperationShopDetailInfo *ope=(ASIOperationShopDetailInfo*) operation;
         
         [_infos addObjectsFromArray:ope.infos];

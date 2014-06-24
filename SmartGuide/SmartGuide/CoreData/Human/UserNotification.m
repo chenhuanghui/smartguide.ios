@@ -19,6 +19,38 @@
     return [UserNotification queryUserNotificationObject:[NSPredicate predicateWithFormat:@"%K==%i",UserNotification_IdSender,idSender]];
 }
 
+-(void)updateNumbers:(NSArray *)array
+{
+    if([array hasData] && array.count==3)
+    {
+        self.numberUnread=[NSNumber numberWithObject:array[0]];
+        self.numberRead=[NSNumber numberWithObject:array[1]];
+        self.numberAll=[NSNumber numberWithObject:array[2]];
+    }
+    else
+    {
+        self.numberUnread=@(0);
+        self.numberRead=@(0);
+        self.numberAll=@(0);
+    }
+}
+
+-(void)updateTotals:(NSArray *)array
+{
+    if([array hasData] && array.count==3)
+    {
+        self.totalUnread=[NSString stringWithStringDefault:array[0]];
+        self.totalRead=[NSString stringWithStringDefault:array[1]];
+        self.totalAll=[NSString stringWithStringDefault:array[2]];
+    }
+    else
+    {
+        self.totalUnread=@"";
+        self.totalRead=@"";
+        self.totalAll=@"";
+    }
+}
+
 +(UserNotification *)makeWithDictionary:(NSDictionary *)data
 {
     UserNotification *obj=[UserNotification insert];
@@ -32,33 +64,11 @@
     {
         NSArray *array=dictCount[@"number"];
         
-        if([array hasData] && array.count==3)
-        {
-            obj.numberUnread=[NSNumber numberWithObject:array[0]];
-            obj.numberRead=[NSNumber numberWithObject:array[1]];
-            obj.numberAll=[NSNumber numberWithObject:array[2]];
-        }
-        else
-        {
-            obj.numberUnread=@(0);
-            obj.numberRead=@(0);
-            obj.numberAll=@(0);
-        }
+        [obj updateNumbers:array];
         
         array=dictCount[@"string"];
         
-        if([array hasData] && array.count==3)
-        {
-            obj.totalUnread=[NSString stringWithStringDefault:array[0]];
-            obj.totalRead=[NSString stringWithStringDefault:array[1]];
-            obj.totalAll=[NSString stringWithStringDefault:array[2]];
-        }
-        else
-        {
-            obj.totalUnread=@"";
-            obj.totalRead=@"";
-            obj.totalAll=@"";
-        }
+        [obj updateTotals:array];
     }
     
     obj.status=[NSNumber numberWithObject:data[@"status"]];

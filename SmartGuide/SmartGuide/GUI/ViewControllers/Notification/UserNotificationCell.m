@@ -117,7 +117,7 @@
 }
 
 - (IBAction)btnRemoveTouchUpInside:(id)sender {
-    [self removeObserverHighlightUnread];
+    [self removeObserver];
     [self.delegate userNotificationCellTouchedRemove:self obj:_obj];
 }
 
@@ -154,39 +154,38 @@
 
 -(void)tableWillDisplayCell
 {
-    [self addObserverHighlightUnread];
+    [self addObserver];
 }
 
 -(void)tableDidEndDisplayCell
 {
-    [self removeObserverHighlightUnread];
+    [self removeObserver];
 }
 
--(void) addObserverHighlightUnread
+-(void) addObserver
 {
-    _isAddedObserverHighlightUnread=true;
+    _isAddedObserver=true;
     [_obj addObserver:self forKeyPath:UserNotification_HighlightUnread options:NSKeyValueObservingOptionNew context:nil];
+    [_obj addObserver:self forKeyPath:UserNotification_NumberUnread options:NSKeyValueObservingOptionNew context:nil];
 }
 
--(void) removeObserverHighlightUnread
+-(void) removeObserver
 {
-    if(_isAddedObserverHighlightUnread && _obj.observationInfo)
+    if(_isAddedObserver && _obj.observationInfo)
     {
         [_obj removeObserver:self forKeyPath:UserNotification_HighlightUnread];
+        [_obj removeObserver:self forKeyPath:UserNotification_NumberUnread];
     }
 }
 
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-    if([keyPath isEqualToString:UserNotification_HighlightUnread])
-    {
-        [self loadWithUserNotification:_obj];
-    }
+    [self loadWithUserNotification:_obj];
 }
 
 -(void)dealloc
 {
-    [self removeObserverHighlightUnread];
+    [self removeObserver];
 }
 
 @end

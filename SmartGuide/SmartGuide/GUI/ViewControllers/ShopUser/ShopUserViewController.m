@@ -66,16 +66,7 @@ enum SHOP_USER_CELL_TYPE
     self=[super initWithNibName:@"ShopUserViewController" bundle:nil];
     
     _idShop=idShop;
-    
-#if DEBUG
-    _shop=[Shop shopWithIDShop:_idShop];
-    if(_shop)
-    {
-        [_shop markDeleted];
-        [[DataManager shareInstance] save];
-    }
-#endif
-    
+
     _shop=[Shop makeWithIDShop:_idShop];
     if([_shop hasChanges])
         [[DataManager shareInstance] save];
@@ -225,10 +216,8 @@ enum SHOP_USER_CELL_TYPE
     {
         if(_shop.enumDataMode!=SHOP_DATA_FULL)
         {
-            CGRect rect=[table rectForSection:0];
-            rect.origin.y+=rect.size.height;
-            rect.size.height=MAX(table.contentSize.height,table.l_v_h)-rect.size.height;
-            [table showLoadingInsideFrame:rect];
+            [table showLoadingBelowSection:0];
+            [table.loadingView l_v_addY:-100];
         }
     }
 }

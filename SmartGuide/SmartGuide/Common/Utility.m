@@ -14,6 +14,7 @@
 #import "Constant.h"
 #import <objc/runtime.h>
 #import <sys/sysctl.h>
+#import "LoadingView.h"
 
 NSString* NSStringFromCoordinate(CLLocationCoordinate2D coordinate)
 {
@@ -2683,6 +2684,17 @@ static const NSString *KEY_HIT_TEST_EDGE_INSETS = @"HitTestEdgeInsets";
     CGRect cellRect=[self convertRect:[self rectForRowAtIndexPath:indexPath] toView:self.superview];
     
     return CGRectContainsRect(self.frame, cellRect);
+}
+
+-(UIView *)showLoadingBelowSection:(int)section
+{
+    CGRect rect=[self rectForSection:section];
+    rect.origin.y+=rect.size.height;
+    rect.size.height=MAX(self.l_v_h,self.l_cs_h)-rect.size.height;
+    
+    [self showLoadingInsideFrame:rect];
+    
+    return self.loadingView;
 }
 
 @end

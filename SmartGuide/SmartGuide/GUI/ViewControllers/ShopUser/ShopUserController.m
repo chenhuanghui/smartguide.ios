@@ -29,10 +29,6 @@
 {
     self=[super initWithNibName:@"ShopUserController" bundle:nil];
     
-#if DEBUG
-    idShop=360;
-#endif
-    
     _idShop=idShop;
     _shop=[Shop makeWithIDShop:_idShop];
     
@@ -74,11 +70,6 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    
-#if DEBUG
-    [[SDWebImageManager sharedManager].imageCache clearDisk];
-    [[SDWebImageManager sharedManager].imageCache clearMemory];
-#endif
     
     [_navi.view l_v_setS:containView.l_v_s];
     [containView addSubview:_navi.view];
