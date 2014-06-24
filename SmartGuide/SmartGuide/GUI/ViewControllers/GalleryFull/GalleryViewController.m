@@ -48,7 +48,7 @@
 {
     [super viewDidLoad];
     
-    collection.contentInset=UIEdgeInsetsMake(54, 0, 54, 0);
+    collection.contentInset=UIEdgeInsetsMake(54, 25, 54, 25);
     
     [collection registerGalleryViewCell];
     [collection registerLoadingMoreCell];
