@@ -30,6 +30,7 @@ static SGData *_sgData=nil;
         self.totalNotification=@(0);
         self.isShowedNotice=@(false);
         self.userNotice=@"";
+        self.openURL=nil;
         
 #if DEBUG
         self.buildMode=@([[NSUserDefaults standardUserDefaults] integerForKey:@"buildMode"]);

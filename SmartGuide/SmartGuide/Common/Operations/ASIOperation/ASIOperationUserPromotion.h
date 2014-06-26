@@ -13,6 +13,6 @@
 
 -(ASIOperationUserPromotion*) initWithPage:(int) page userLat:(double) userLat userLng:(double) userLng;
 
-@property (nonatomic, readonly) NSMutableArray *userPromotions;
+@property (nonatomic, strong) NSMutableArray *userPromotions;
 
 @end

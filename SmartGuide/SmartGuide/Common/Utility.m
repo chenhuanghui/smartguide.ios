@@ -2704,7 +2704,11 @@ static const NSString *KEY_HIT_TEST_EDGE_INSETS = @"HitTestEdgeInsets";
 {
     CGRect rect=[self rectForRowAtIndexPath:indexPath];
     rect.origin.y+=rect.size.height;
-    rect.size.height=MAX(self.l_v_h,self.l_cs_h)-rect.size.height;
+    
+    if(MAX(self.l_v_h, self.l_cs_h)>rect.size.height)
+        rect.size.height=MAX(self.l_v_h,self.l_cs_h)-rect.size.height+1;
+    else
+        rect.size.height=0;
     
     [self showLoadingInsideFrame:rect];
     

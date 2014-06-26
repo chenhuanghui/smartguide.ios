@@ -22,7 +22,6 @@ static NotificationManager *_notificationManager=nil;
 {
     ASIOperationNotificationCount *_operationNotificationCount;
     ASIOperationUpdateTokenUUID *_operationUploadNotiToken;
-    bool _isUploadNotificationToken;
 }
 
 @end
@@ -62,6 +61,9 @@ static NotificationManager *_notificationManager=nil;
         _operationNotificationCount=nil;
     }
     
+    if([SGData shareInstance].remoteToken.length>0)
+    [self uploadToken:[SGData shareInstance].remoteToken];
+    
     self.numOfNotification=@"";
     self.totalNotification=@(0);
     
@@ -100,7 +102,9 @@ static NotificationManager *_notificationManager=nil;
 
 -(void) uploadToken:(NSString*) notificationToken
 {
-    if(_isUploadNotificationToken || _operationUploadNotiToken)
+    [SGData shareInstance].remoteToken=notificationToken;
+    
+    if(_operationUploadNotiToken)
         return;
 
     _operationUploadNotiToken=[[ASIOperationUpdateTokenUUID alloc] initWithNotificationToken:notificationToken uuid:UUID()];
@@ -130,7 +134,6 @@ static NotificationManager *_notificationManager=nil;
     }
     else if([operation isKindOfClass:[ASIOperationUpdateTokenUUID class]])
     {
-        _isUploadNotificationToken=true;
         _operationUploadNotiToken=nil;
     }
 }

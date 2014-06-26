@@ -648,11 +648,12 @@
     _page=-1;
     _location=coordinate;
     _viewMode=SHOP_LIST_VIEW_LIST;
-    _sort=SORT_LIST_DEFAULT;
+    _sort=SORT_LIST_DISTANCE;
     _placeList=nil;
     _keyword=@"";
     _idBranch=0;
     _idShops=@"";
+    _isZoomedRegionMap=false;
     txt.placeholder=TEXTFIELD_SEARCH_PLACEHOLDER_TEXT;
     txt.text=@"";
     
@@ -841,10 +842,10 @@
         
         [self animationTableReload];
         
-        if(!_isZoomedRegionMap)
-            [map addShopLists:ope.shopsList];
-        else
+        if(_isZoomedRegionMap)
             [map addMoreShopLists:ope.shopsList];
+        else
+            [map addShopLists:ope.shopsList];
         
         _isZoomedRegionMap=true;
     }
@@ -864,10 +865,10 @@
         
         [self animationTableReload];
         
-        if(!_isZoomedRegionMap)
-            [map addShopLists:ope.shops];
-        else
+        if(_isZoomedRegionMap)
             [map addMoreShopLists:ope.shops];
+        else
+            [map addShopLists:ope.shops];
         
         _isZoomedRegionMap=true;
         
@@ -886,10 +887,10 @@
         
         [self animationTableReload];
         
-        if(!_isZoomedRegionMap)
-            [map addShopLists:ope.shopsList];
-        else
+        if(_isZoomedRegionMap)
             [map addMoreShopLists:ope.shopsList];
+        else
+            [map addShopLists:ope.shopsList];
         
         _isZoomedRegionMap=true;
         
@@ -908,10 +909,10 @@
         
         [self animationTableReload];
         
-        if(!_isZoomedRegionMap)
-            [map addShopLists:ope.shopLists];
-        else
+        if(_isZoomedRegionMap)
             [map addMoreShopLists:ope.shopLists];
+        else
+            [map addShopLists:ope.shopLists];
         
         _isZoomedRegionMap=true;
         

@@ -142,10 +142,7 @@
         [table showLoading];
     else
     {
-        CGRect rect=[table rectForSection:0];
-        rect.origin.y=rect.size.height;
-        rect.size.height=table.l_v_h-rect.size.height;
-        [table showLoadingInsideFrame:rect];
+        [table showLoadingBelowIndexPath:makeIndexPath(0, 0)];
     }
 }
 

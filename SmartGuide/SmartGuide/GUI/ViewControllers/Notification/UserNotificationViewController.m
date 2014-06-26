@@ -84,6 +84,13 @@
     [self requestNotificationCount:true];
 }
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    [self requestNotificationCount:false];
+}
+
 -(void) requestNotificationCount:(bool) force
 {
     if(force)
@@ -95,7 +102,7 @@
         }
     }
     
-    if(_operationNotificationCount || _operationNotificationCount)
+    if(_operationNotificationCount)
         return;
     
     _operationNotificationCount=[[ASIOperationNotificationCount alloc] initWithCountType:NOTIFICATION_COUNT_TYPE_ALL userLat:userLat() userLng:userLng() uuid:UUID()];
@@ -597,6 +604,7 @@
     else if([operation isKindOfClass:[ASIOperationUserNotificationRemove class]])
     {
         [[NotificationManager shareInstance] requestNotificationCount];
+        [self requestNotificationCount:true];
     }
     else if([operation isKindOfClass:[ASIOperationNotificationCount class]])
     {
@@ -617,16 +625,16 @@
     }
     else if([operation isKindOfClass:[ASIOperationNotificationCount class]])
     {
-        [self finishedNotificationCount:(ASIOperationNotificationCount*)operation];
+//        [self finishedNotificationCount:(ASIOperationNotificationCount*)operation];
     }
 }
 
 -(void) finishedNotificationCount:(ASIOperationNotificationCount*) operation
 {
     _numberNotificationUnread=[_operationNotificationCount.numbers[0] integerValue];
-    _numberNotificationRead=[_operationNotificationCount.numbers[1] integerValue];
+    _numberNotificationAll=[_operationNotificationCount.numbers[2] integerValue];
     _totalNotificationUnread=_operationNotificationCount.strings[0];
-    _totalNotificationRead=_operationNotificationCount.strings[1];
+    _totalNotificationAll=_operationNotificationCount.strings[2];
     
 #if DEBUG
 //    _numberNotificationRead=10;
@@ -635,7 +643,7 @@
 //    _totalNotificationRead=@"10";
 #endif
     
-    if(_numberNotificationUnread>0 || _numberNotificationRead>0)
+    if(_numberNotificationUnread>0 || _numberNotificationAll>0)
     {
         NSMutableAttributedString *titleAttStr=[NSMutableAttributedString new];
         
@@ -646,7 +654,7 @@
                                                                                                          , NSForegroundColorAttributeName:[UIColor whiteColor]
                                                                                                          , NSBaselineOffsetAttributeName:@(2)}]];
         
-        NSString *displayTotal=[NSString stringWithFormat:@"%@/%@",_totalNotificationUnread,_totalNotificationRead];
+        NSString *displayTotal=[NSString stringWithFormat:@"%@/%@",_totalNotificationUnread,_totalNotificationAll];
         [titleAttStr appendAttributedString:[[NSAttributedString alloc] initWithString:displayTotal attributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:13]
                                                                                                                  , NSForegroundColorAttributeName:[UIColor whiteColor]
                                                                                                                  , NSBaselineOffsetAttributeName:@(1.4f)}]];
@@ -656,6 +664,11 @@
                                                                                                          , NSBaselineOffsetAttributeName:@(2)}]];
         
         lblTitle.attributedText=titleAttStr;
+    }
+    else
+    {
+        lblTitle.attributedText=[[NSAttributedString alloc] initWithString:@"Thông báo " attributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:17]
+                                                                                                      , NSForegroundColorAttributeName:[UIColor whiteColor]}];
     }
     
     _operationNotificationCount=nil;

@@ -405,8 +405,7 @@
         [coordinates addObject:[NSValue valueWithMKCoordinate:self.userLocation.coordinate]];
     
     if(isZoomed)
-        [self showAnnotations:shops animated:false];
-    //        [self zoomToFitCoordinates:coordinates animate:false];
+        [self showAnnotations:shops animated:true];
 }
 
 -(void)showAnnotations:(NSArray *)annotations animated:(BOOL)animated

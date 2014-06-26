@@ -25,5 +25,7 @@
 @property (nonatomic, strong) NSNumber *isShowedNotice;
 @property (nonatomic, strong) NSString *userNotice;
 @property (nonatomic, strong) NSNumber *buildMode;
+@property (nonatomic, strong) NSString *remoteToken;
+@property (nonatomic, strong) NSURL *openURL;
 
 @end

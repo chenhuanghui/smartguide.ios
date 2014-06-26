@@ -132,7 +132,7 @@
     if([SGData shareInstance].buildMode.integerValue==0)
         txtPhone.text=@"8915";
     else
-        txtPhone.text=@"6320";
+        txtPhone.text=@"0670";
 #endif
 }
 

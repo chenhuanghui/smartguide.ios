@@ -9,7 +9,6 @@
 #import "ASIOperationUserPromotion.h"
 
 @implementation ASIOperationUserPromotion
-@synthesize userPromotions;
 
 -(ASIOperationUserPromotion *)initWithPage:(int)page userLat:(double)userLat userLng:(double)userLng
 {
@@ -22,9 +21,13 @@
     return self;
 }
 
+-(void)onFinishLoading
+{
+    self.userPromotions=[NSMutableArray array];
+}
+
 -(void)onCompletedWithJSON:(NSArray *)json
 {
-    userPromotions=[NSMutableArray array];
     if([json isNullData])
         return;
     
@@ -43,7 +46,7 @@
         
         obj.sortOrder=@(count++);
         
-        [userPromotions addObject:obj];
+        [self.userPromotions addObject:obj];
     }
     
     [[DataManager shareInstance] save];

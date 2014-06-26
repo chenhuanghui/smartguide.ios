@@ -29,6 +29,11 @@ static FacebookManager *_facebookManager=nil;
     return _facebookManager;
 }
 
+-(void)logout
+{
+    [[FBSession activeSession] closeAndClearTokenInformation];
+}
+
 -(void)login
 {
     if([[FBSession activeSession] isOpen])
@@ -39,43 +44,6 @@ static FacebookManager *_facebookManager=nil;
     
     [self openSession];
 }
-
--(void)loginOnCompleted:(void (^)(enum FACEBOOK_PERMISSION_TYPE))completed
-{
-    if([[FBSession activeSession] isOpen])
-    {
-        completed(FACEBOOK_PERMISSION_GRANTED);
-        return;
-    }
-    
-    __block void(^_completed)(enum FACEBOOK_PERMISSION_TYPE)=[completed copy];
-    
-    __block id obsGranted=nil;
-    __block id obsDenied=nil;
-    
-    obsGranted=[[NSNotificationCenter defaultCenter] addObserverForName:NOTIFICATION_FACEBOOK_LOGIN_SUCCESS object:nil queue:[NSOperationQueue currentQueue] usingBlock:^(NSNotification *note) {
-        
-        _completed(FACEBOOK_PERMISSION_GRANTED);
-        _completed=nil;
-        
-        [[NSNotificationCenter defaultCenter] removeObserver:obsGranted];
-        [[NSNotificationCenter defaultCenter] removeObserver:obsDenied];
-    }];
-    
-    obsDenied=[[NSNotificationCenter defaultCenter] addObserverForName:NOTIFICATION_FACEBOOK_LOGIN_FAILED object:nil queue:[NSOperationQueue currentQueue] usingBlock:^(NSNotification *note) {
-        
-        [[FBSession activeSession] closeAndClearTokenInformation];
-        
-        _completed(FACEBOOK_PERMISSION_DENIED);
-        _completed=nil;
-        
-        [[NSNotificationCenter defaultCenter] removeObserver:obsGranted];
-        [[NSNotificationCenter defaultCenter] removeObserver:obsDenied];
-    }];
-    
-    [self openSession];
-}
-
 
 -(bool)isLogined
 {

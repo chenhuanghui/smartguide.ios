@@ -27,6 +27,11 @@
     else
         [UIApplication sharedApplication].statusBarStyle=UIStatusBarStyleDefault;
     
+    if(launchOptions && launchOptions.count>0)
+    {
+        [SGData shareInstance].openURL=launchOptions[UIApplicationLaunchOptionsURLKey];
+    }
+    
 #if DEBUG
     [[SDWebImageManager sharedManager].imageCache clearDisk];
     [[SDWebImageManager sharedManager].imageCache clearMemory];
@@ -39,15 +44,11 @@
     
     [[GUIManager shareInstance] startupWithWindow:self.window];
     
-    [[NotificationManager shareInstance] registerRemoteNotificaion];
-    
     return YES;
 }
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 {
-//    NSString *str = [NSString stringWithFormat:@"Token: %@", deviceToken];
-//    NSLog(@"%@", str);
     [[NotificationManager shareInstance] receiveDeviceToken:deviceToken];
 }
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)err

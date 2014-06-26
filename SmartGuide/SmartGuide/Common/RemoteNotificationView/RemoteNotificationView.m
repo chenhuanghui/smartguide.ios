@@ -61,7 +61,7 @@
     self.alpha=0;
     self.hidden=false;
     [self l_v_setY:-self.l_v_h];
-    [btnNoti setTitle:_noti.message forState:UIControlStateNormal];
+//    [btnNoti setTitle:_noti.message forState:UIControlStateNormal];
     
     [UIView animateWithDuration:0.5f animations:^{
         [self l_v_setY:0];

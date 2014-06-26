@@ -353,6 +353,7 @@
 }
 
 - (IBAction)btnFacebookTouchUpInside:(id)sender {
+    [[FacebookManager shareInstance] logout];
     [[FacebookManager shareInstance] login];
 }
 

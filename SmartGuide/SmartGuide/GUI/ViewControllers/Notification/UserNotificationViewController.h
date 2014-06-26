@@ -22,8 +22,8 @@
     
     int _numberNotificationUnread;
     NSString *_totalNotificationUnread;
-    int _numberNotificationRead;
-    NSString *_totalNotificationRead;
+    int _numberNotificationAll;
+    NSString *_totalNotificationAll;
     
     int _page;
     bool _canLoadMore;
