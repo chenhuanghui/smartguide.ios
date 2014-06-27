@@ -145,7 +145,9 @@ static NSMutableArray *_asioperations=nil;
 {
     [self applyPostValue];
     
-    NSLog(@"%@ %@ start %@ %@ %@ %@",CLASS_NAME, self.requestURL.HTTPMethod,self.requestURL.URL, self.keyValue.allKeys, self.keyValue.allValues,self.imagesData.allKeys?:@"");
+    DLogDebug(^NSString *{
+        return [NSString stringWithFormat:@"%@ %@ start %@ %@ %@ %@",CLASS_NAME, self.requestURL.HTTPMethod,self.requestURL.URL, self.keyValue.allKeys, self.keyValue.allValues,self.imagesData.allKeys?:@""];
+    });
     
     __weak ASIOperationPost *wSelf=self;
     [self setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -226,8 +228,10 @@ static NSMutableArray *_asioperations=nil;
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
-    NSLog(@"%@ failed %@",CLASS_NAME,[NSHTTPURLResponse localizedStringForStatusCode:self.response.statusCode]);
-    
+    DLogDebug(^NSString *{
+        return [NSString stringWithFormat:@"%@ failed %@",CLASS_NAME,[NSHTTPURLResponse localizedStringForStatusCode:self.response.statusCode]];
+    });
+              
     if([self isRespondsToSelector:@selector(ASIOperaionPostFailed:)])
         [self.delegate ASIOperaionPostFailed:self];
 }
@@ -277,7 +281,9 @@ static NSMutableArray *_asioperations=nil;
 
 -(void)requestFinished:(AFHTTPRequestOperation *)request
 {
-    NSLog(@"%@ requestFinished %@",CLASS_NAME,[NSHTTPURLResponse localizedStringForStatusCode:self.response.statusCode]);
+    DLogDebug(^NSString *{
+        return [NSString stringWithFormat:@"%@ requestFinished %@",CLASS_NAME,[NSHTTPURLResponse localizedStringForStatusCode:self.response.statusCode]];
+    });
     
     [self onFinishLoading];
     if(self.responseString.length>0)
@@ -337,7 +343,9 @@ static NSMutableArray *_asioperations=nil;
                         [self onCompletedWithJSON:@[[NSNull null]]];
                     }
                     @catch (NSException *exception) {
-                        NSLog(@"%@ process null error %@",CLASS_NAME,exception);
+                        DLogDebug(^NSString *{
+                            return [NSString stringWithFormat:@"%@ process null error %@",CLASS_NAME,exception];
+                        });
                     }
                     @finally {
                         [self notifyCompleted];
@@ -349,7 +357,9 @@ static NSMutableArray *_asioperations=nil;
                         [self onCompletedWithJSON:@[json]];
                     }
                     @catch (NSException *exception) {
-                        NSLog(@"%@ process number error %@",CLASS_NAME,exception);
+                        DLogDebug(^NSString *{
+                            return[NSString stringWithFormat:@"%@ process number error %@",CLASS_NAME,exception];
+                        });
                     }
                     @finally {
                         [self notifyCompleted];
@@ -357,7 +367,9 @@ static NSMutableArray *_asioperations=nil;
                 }
                 else
                 {
-                    NSLog(@"%@ unknow json class %@",CLASS_NAME,NSStringFromClass([json class]));
+                    DLogDebug(^NSString *{
+                        return [NSString stringWithFormat:@"%@ unknow json class %@",CLASS_NAME,NSStringFromClass([json class])];
+                    });
                     
                     [self notifyCompleted];
                 }
@@ -370,7 +382,9 @@ static NSMutableArray *_asioperations=nil;
 
 -(void)notifyCompleted
 {
-    NSLog(@"%@ finished %i",CLASS_NAME,self.responseString.length);
+    DLogDebug(^NSString *{
+        return [NSString stringWithFormat:@"%@ finished %i",CLASS_NAME,self.responseString.length];
+    });
     
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
@@ -380,7 +394,9 @@ static NSMutableArray *_asioperations=nil;
 
 -(void)requestFailed:(AFHTTPRequestOperation *)request
 {
-    NSLog(@"%@ requestFailed %@",CLASS_NAME, [NSHTTPURLResponse localizedStringForStatusCode:self.response.statusCode]);
+    DLogDebug(^NSString *{
+        return [NSString stringWithFormat:@"%@ requestFailed %@",CLASS_NAME, [NSHTTPURLResponse localizedStringForStatusCode:self.response.statusCode]];
+    });
     
     if(self.responseString.length>0)
     {
@@ -421,7 +437,9 @@ static NSMutableArray *_asioperations=nil;
     ope.imagesData=self.imagesData;
     ope.storeData=self.storeData;
     
-    NSLog(@"%@ %@ restart %@ %@ %@",NSStringFromClass([ope class]),ope.request.HTTPMethod,ope.request.URL,ope.keyValue, ope.imagesData.allKeys?:@"");
+    DLogDebug(^NSString *{
+        return [NSString stringWithFormat:@"%@ %@ restart %@ %@ %@",NSStringFromClass([ope class]),ope.request.HTTPMethod,ope.request.URL,ope.keyValue, ope.imagesData.allKeys?:@""];
+    });
     
     [_asioperations removeObject:self];
     
@@ -445,7 +463,9 @@ static NSMutableArray *_asioperations=nil;
 
 -(void)clearDelegatesAndCancel
 {
-    NSLog(@"%@ clearDelegatesAndCancel",CLASS_NAME);
+    DLogDebug(^NSString *{
+        return [NSString stringWithFormat:@"%@ clearDelegatesAndCancel",CLASS_NAME];
+    });
     
     self.delegate=nil;
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -518,7 +538,9 @@ static ASIOperationManager *_operationManager=nil;
     NSMutableURLRequest *urlRequest=[self.requestSerializer requestWithMethod:@"POST" URLString:urlString parameters:parameters error:&error];
     
     if(error)
-        NSLog(@"%@ createPOST %@ parameters %@ error %@", CLASS_NAME, urlString, parameters, error);
+        DLogDebug(^NSString *{
+            return [NSString stringWithFormat:@"%@ createPOST %@ parameters %@ error %@", CLASS_NAME, urlString, parameters, error];
+        });
     
     return urlRequest;
 }
@@ -529,7 +551,9 @@ static ASIOperationManager *_operationManager=nil;
     NSMutableURLRequest *urlRequest=[self.requestSerializer requestWithMethod:@"GET" URLString:urlString parameters:parameters error:&error];
     
     if(error)
-        NSLog(@"%@ createGET %@ parameters %@ error %@", CLASS_NAME, urlString, parameters, error);
+        DLogDebug(^NSString *{
+            return [NSString stringWithFormat:@"%@ createGET %@ parameters %@ error %@", CLASS_NAME, urlString, parameters, error];
+        });
     
     return urlRequest;
 }
