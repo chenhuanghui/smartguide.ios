@@ -74,8 +74,6 @@ static LocationManager *_locationManager=nil;
         return;
     }
  
-    NSLog(@"startTrackingLocation");
-    
     _locationManager=[[CLLocationManager alloc] init];
     _locationManager.delegate=self;
     _locationManager.distanceFilter=kCLLocationAccuracyBest;
@@ -105,8 +103,6 @@ static LocationManager *_locationManager=nil;
     if(!_locationManager)
         return;
     
-    NSLog(@"stopTrackingLcoation");
-    
     _locationManager.delegate=nil;
     [_locationManager stopUpdatingLocation];
     _locationManager=nil;
@@ -130,15 +126,11 @@ static LocationManager *_locationManager=nil;
     [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%f|%f",userlocation_.latitude,userlocation_.longitude] forKey:LOCATION_MANAGER_LAST_LOCATION_KEY];
     [[NSUserDefaults standardUserDefaults] synchronize];
     
-//    NSLog(@"LocationManager userLocation (%f, %f)->(%f, %f)",self.userlocation.latitude,self.userlocation.longitude,userlocation_.latitude,userlocation_.longitude);
-    
     userlocation=userlocation_;
 }
 
 -(void)setHomeLocation:(CLLocationCoordinate2D)homeLocation_
 {
-//    NSLog(@"LocationManager homeLocation (%f, %f)->(%f, %f)",self.homeLocation.latitude,self.homeLocation.longitude,homeLocation_.latitude,homeLocation_.longitude);
-    
     homeLocation=homeLocation_;
 }
 

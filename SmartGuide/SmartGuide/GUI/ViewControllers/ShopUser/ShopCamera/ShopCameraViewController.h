@@ -8,7 +8,7 @@
 
 #import "SGViewController.h"
 
-@class ShopCameraViewController, SGNavigationController, UserGalleryUpload;
+@class ShopCameraViewController, SGNavigationController, UserGalleryUpload, Shop;
 
 @protocol ShopCameraControllerDelegate <SGViewControllerDelegate>
 

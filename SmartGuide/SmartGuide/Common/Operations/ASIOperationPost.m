@@ -497,7 +497,9 @@ static NSMutableArray *_asioperations=nil;
 
 - (void)dealloc
 {
-    DEALLOC_LOG
+    DLogDebug(^NSString *{
+        return [NSString stringWithFormat:@"dealloc %@",CLASS_NAME];
+    });
     
     self.keyValue=nil;
     self.sourceURL=nil;

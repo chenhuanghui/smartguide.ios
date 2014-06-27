@@ -15,6 +15,7 @@
 #import "ASIOperationAgreeComment.h"
 #import "ShopUserComment.h"
 #import "ButtonAgree.h"
+#import "Shop.h"
 
 @interface ShopUserCommentCell()<ASIOperationPostDelegate>
 {

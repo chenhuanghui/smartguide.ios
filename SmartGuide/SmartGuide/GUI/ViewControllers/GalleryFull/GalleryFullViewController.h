@@ -8,7 +8,7 @@
 
 #import "SGViewController.h"
 
-@class GalleryFullViewController,GalleryFullCollectionView;
+@class GalleryFullViewController,GalleryFullCollectionView, Shop;
 
 @protocol GalleryFullControllerDelegate <SGViewControllerDelegate>
 

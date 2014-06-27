@@ -229,7 +229,10 @@ CATransition* transitionPushFromRight()
 
 -(void)dealloc
 {
-    DEALLOC_LOG
+    DLogDebug(^NSString *{
+        return [NSString stringWithFormat:@"dealloc %@",CLASS_NAME];
+    });
+            
     
     _prepareViewController=nil;
 }

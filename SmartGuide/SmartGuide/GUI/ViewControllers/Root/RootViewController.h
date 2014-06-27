@@ -10,7 +10,7 @@
 
 @class RemoteNotificationView;
 
-@class NavigationViewController,ScrollViewRoot,SGNavigationController;
+@class NavigationViewController,ScrollViewRoot,SGNavigationController, Shop;
 
 @interface RootViewController : SGViewController
 {   

@@ -11,12 +11,12 @@
 #import "Utility.h"
 #import "LocalizationManager.h"
 #import "AlertView.h"
-#import "ImageManager.h"
 #import "LoadingView.h"
 #import "Flags.h"
 #import "AlphaView.h"
 #import "SGData.h"
 #import "BasicAnimation.h"
+#import "DLog.h"
 
 @class SGViewController,SGNavigationController;
 

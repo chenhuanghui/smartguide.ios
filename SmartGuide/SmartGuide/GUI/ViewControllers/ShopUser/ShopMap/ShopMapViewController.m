@@ -8,6 +8,7 @@
 
 #import "ShopMapViewController.h"
 #import "ShopPinView.h"
+#import "ImageManager.h"
 
 @interface ShopMapViewController ()<MapViewGeoCoderDelegate,ShopPinDelegate, MKMapViewDelegate,UIGestureRecognizerDelegate>
 

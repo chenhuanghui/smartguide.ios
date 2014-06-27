@@ -8,6 +8,7 @@
 
 #import "RegisterInfoStep1ViewController.h"
 #import "RegisterViewController.h"
+#import "ImageManager.h"
 
 @interface RegisterInfoStep1ViewController ()
 

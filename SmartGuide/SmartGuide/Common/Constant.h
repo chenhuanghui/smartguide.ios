@@ -26,8 +26,6 @@
 #define DEFAULT_USER_IDCITY 1
 
 #define CLASS_NAME NSStringFromClass([self class])
-#define DEALLOC_LOG NSLog(@"dealloc %@",CLASS_NAME);
-#define CALL_DEALLOC_LOG -(void) dealloc{DEALLOC_LOG}
 
 #define FACEBOOK_READ_PERMISSION @[@"basic_info",@"user_about_me",@"user_birthday",@"user_work_history",@"email"]
 #define FACEBOOK_POST_TO_WALL_PERMISSION @"publish_actions"

@@ -75,8 +75,10 @@ static char presentingSGViewControlelrKey;
     for (NSString *notification in [self registerNotifications]) {
         [[NSNotificationCenter defaultCenter] removeObserver:self name:notification object:nil];
     }
-    
-    DEALLOC_LOG
+
+    DLogDebug(^NSString *{
+        return [NSString stringWithFormat:@"dealloc %@", NSStringFromClass([self class])];
+    });
 }
 
 -(bool) respondDelegateSEL:(SEL) sel

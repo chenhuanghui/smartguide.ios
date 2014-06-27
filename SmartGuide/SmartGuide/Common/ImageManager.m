@@ -10,6 +10,8 @@
 #import "UIImageView+WebCache.h"
 #import "Utility.h"
 #import <objc/runtime.h>
+#import "SDWebImageManager.h"
+#import "DLog.h"
 
 UIImage* resizeProportionalImage(UIImage* downloadImage, CGSize size)
 {
@@ -61,27 +63,6 @@ static ImageManager *_imageManager=nil;
     }
     
     return self;
-}
-
--(UIImage *)imageManager1:(SDWebImageManager *)imageManager transformDownloadedImage:(UIImage *)image withURL:(NSURL *)imageURL
-{
-    NSLog(@"%@ %@",imageURL,imageScaleCrop[imageURL]);
-    
-    if(imageURL && image)
-    {
-        NSValue *value=imageScaleCrop[imageURL];
-        
-        if(value)
-        {
-            float screenScale=UIScreenScale();
-            CGSize size=[value CGSizeValue];
-            image=[image scaleProportionalToSize:CGSizeMake(size.width*screenScale, size.height*screenScale)];
-            if(image.scale!=screenScale)
-                return [UIImage imageWithCGImage:image.CGImage scale:screenScale orientation:image.imageOrientation];
-        }
-    }
-    
-    return image;
 }
 
 -(NSArray *)loadingImages
@@ -347,7 +328,9 @@ static char ImageViewDefaultBackgroundKey;
     
     [self loadImageWithDefaultLoading:url resize:^UIImage *(UIImage *downloadImage) {
         
-        NSLog(@"resize gallery thumbnail %@ %@",url,NSStringFromCGSize(size));
+        DLogDebug(^NSString *{
+            return [NSString stringWithFormat:@"resize gallery thumbnail %@ %@",url,NSStringFromCGSize(size)];
+        });
         
         if(wSelf)
             return resizeProportionalImage(downloadImage, size);

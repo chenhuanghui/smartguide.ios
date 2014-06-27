@@ -8,7 +8,7 @@
 
 #import "SGViewController.h"
 
-@class ShopDetailInfoViewController;
+@class ShopDetailInfoViewController, Shop;
 
 @protocol ShopDetailInfoControllerDelegate <SGViewControllerDelegate>
 

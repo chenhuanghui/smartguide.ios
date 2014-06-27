@@ -100,7 +100,9 @@
     
     self.delegate=nil;
     
-    DEALLOC_LOG
+    DLogDebug(^NSString *{
+        return [NSString stringWithFormat:@"dealloc %@",CLASS_NAME];
+    });
 }
 
 -(void)zoomToLocation:(CLLocationCoordinate2D)location animate:(bool)animate span:(MKCoordinateSpan) span

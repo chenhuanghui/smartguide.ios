@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import "User.h"
-#import "City.h"
 
 double userLat();
 double userLng();

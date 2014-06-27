@@ -11,7 +11,7 @@
 #define SHOP_USER_ANIMATION_ALIGN_Y 100.f // cần để thực hiện effect scroll giãn shop gallery
 #define SHOP_USER_BUTTON_NEXT_HEIGHT 25.f
 
-@class TableShopUser, ShopUserViewController, GalleryFullViewController, ShopUserController;
+@class TableShopUser, ShopUserViewController, GalleryFullViewController, ShopUserController, Shop;
 
 @protocol ShopUserViewControllerDelegate <SGViewControllerDelegate>
 

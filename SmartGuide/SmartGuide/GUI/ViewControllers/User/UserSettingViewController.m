@@ -15,6 +15,7 @@
 #import "UserUploadAvatarManager.h"
 #import "CityViewController.h"
 #import "CityManager.h"
+#import "ImageManager.h"
 
 @interface UserSettingViewController ()<UITextFieldDelegate,UIPickerViewDataSource,UIPickerViewDelegate,UIGestureRecognizerDelegate,AvatarControllerDelegate,ASIOperationPostDelegate,GPPSignInDelegate,CityControllerDelegate>
 

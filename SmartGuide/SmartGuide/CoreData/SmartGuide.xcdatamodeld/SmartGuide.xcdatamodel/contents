@@ -1,18 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="5064" systemVersion="13D65" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
-    <entity name="Ads" representedClassName="Ads" syncable="YES">
-        <attribute name="begin_date" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="end_date" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="idAds" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="image" optional="YES" attributeType="Binary" syncable="YES"/>
-        <attribute name="image_url" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="url" optional="YES" attributeType="String" syncable="YES"/>
-    </entity>
-    <entity name="City" representedClassName="City" syncable="YES">
-        <attribute name="idCity" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
-    </entity>
     <entity name="KM1Voucher" representedClassName="KM1Voucher" syncable="YES">
         <attribute name="idVoucher" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="isAfford" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
@@ -57,13 +44,6 @@
         <attribute name="videoThumbnail" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="videoWidth" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <relationship name="shop" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Shop" inverseName="promotionNew" inverseEntity="Shop" syncable="YES"/>
-    </entity>
-    <entity name="Reward" representedClassName="Reward" syncable="YES">
-        <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="idReward" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="score" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="status" optional="YES" attributeType="Boolean" syncable="YES"/>
-        <attribute name="thumbnail" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="Shop" representedClassName="Shop" syncable="YES">
         <attribute name="address" optional="YES" attributeType="String" syncable="YES"/>
@@ -158,11 +138,6 @@
         <attribute name="time" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="username" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="shop" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Shop" inverseName="userGalleries" inverseEntity="Shop" syncable="YES"/>
-    </entity>
-    <entity name="Tutorial" representedClassName="Tutorial" syncable="YES">
-        <attribute name="idTutorial" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="image" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="sortOrder" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
     </entity>
     <entity name="User" representedClassName="User" syncable="YES">
         <attribute name="activationCode" optional="YES" attributeType="String" syncable="YES"/>
@@ -329,13 +304,10 @@
         <attribute name="type" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Ads" positionX="0" positionY="0" width="128" height="150"/>
-        <element name="City" positionX="0" positionY="0" width="128" height="75"/>
         <element name="KM1Voucher" positionX="0" positionY="0" width="128" height="150"/>
         <element name="KM2Voucher" positionX="0" positionY="0" width="128" height="150"/>
         <element name="Placelist" positionX="0" positionY="0" width="128" height="210"/>
         <element name="PromotionNews" positionX="0" positionY="0" width="128" height="225"/>
-        <element name="Reward" positionX="0" positionY="0" width="128" height="120"/>
         <element name="Shop" positionX="0" positionY="0" width="128" height="540"/>
         <element name="ShopGallery" positionX="0" positionY="0" width="128" height="150"/>
         <element name="ShopKM1" positionX="0" positionY="0" width="128" height="180"/>
@@ -343,7 +315,6 @@
         <element name="ShopList" positionX="0" positionY="0" width="128" height="135"/>
         <element name="ShopUserComment" positionX="0" positionY="0" width="128" height="225"/>
         <element name="ShopUserGallery" positionX="0" positionY="0" width="128" height="165"/>
-        <element name="Tutorial" positionX="0" positionY="0" width="128" height="90"/>
         <element name="User" positionX="0" positionY="0" width="128" height="240"/>
         <element name="UserGalleryUpload" positionX="0" positionY="0" width="128" height="165"/>
         <element name="UserHome" positionX="0" positionY="0" width="128" height="225"/>

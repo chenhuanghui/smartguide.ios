@@ -19,6 +19,7 @@
 #import "DataManager.h"
 #import "ShopManager.h"
 #import "KeyboardUtility.h"
+#import "ImageManager.h"
 
 #define SU_USER_COMMENT_CELL_BOTTOM_NORMAL_Y 92.f
 #define SU_USER_COMMENT_CELL_BOTTOM_EDIT_Y 120.f

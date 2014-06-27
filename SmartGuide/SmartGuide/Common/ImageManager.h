@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "SDWebImageManager.h"
-#import "ShopList.h"
+#import "Constant.h"
 
 @class ImageDefaultBackgroundView;
 
@@ -34,7 +34,7 @@
 @interface UIImageView(ImageManager)
 
 -(void) loadAvatarWithURL:(NSString*) url;
--(void) loadAvatarWithURL:(NSString*) url completed:(SDWebImageCompletedBlock)completedBlock;
+-(void) loadAvatarWithURL:(NSString*) url completed:(SDWebImageCompletedBlock) completedBlock;
 -(void) loadShopLogoWithURL:(NSString*) url;
 -(void) loadShopGalleryWithURL:(NSString*) url;
 -(void) loadGalleryFullWithURL:(NSString *)url;

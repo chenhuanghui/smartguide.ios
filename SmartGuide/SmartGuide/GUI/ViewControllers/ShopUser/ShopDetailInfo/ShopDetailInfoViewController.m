@@ -20,6 +20,7 @@
 #import "Shop.h"
 #import "ShopList.h"
 #import "ShopDetailBGView.h"
+#import "ImageManager.h"
 
 #define SHOP_DETAIL_INFO_TABLE_EMPTY_CELL_HEIGHT 23.f
 

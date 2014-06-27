@@ -20,6 +20,7 @@
 #import "FacebookManager.h"
 #import <GooglePlus/GooglePlus.h>
 #import "SGNavigationController.h"
+#import "ImageManager.h"
 
 @interface RegisterViewController ()<AvatarControllerDelegate,GPPSignInDelegate,RegisterInfoStep1Contorller,ASIOperationPostDelegate>
 {
