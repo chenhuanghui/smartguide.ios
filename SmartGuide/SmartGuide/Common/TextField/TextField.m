@@ -341,7 +341,7 @@
 -(void)tableWillBeginDragging:(UITableView *)table
 {
 #if LOG_TEXTFIELD_REFRESH
-    NSLog(@"tableWillBeginDragging");
+    DLOG_DEBUG(@"tableWillBeginDragging");
 #endif
     
     _isUserDragging=true;
@@ -350,7 +350,7 @@
 -(void)tableDidEndDecelerating:(UITableView *)table
 {
 #if LOG_TEXTFIELD_REFRESH
-    NSLog(@"tableDidEndDecelerating");
+    DLOG_DEBUG(@"tableDidEndDecelerating");
 #endif
     
     _isUserDragging=false;
@@ -362,7 +362,7 @@
 -(void)tableDidEndDragging:(UITableView *)table willDecelerate:(BOOL)decelerate
 {
 #if LOG_TEXTFIELD_REFRESH
-    NSLog(@"tableDidEndDragging %i %i %i %i", decelerate, [table isDecelerating], [table isTracking], [table isDragging]);
+    DLOG_DEBUG(@"tableDidEndDragging %i %i %i %i", decelerate, [table isDecelerating], [table isTracking], [table isDragging]);
 #endif
     
     if(!decelerate)

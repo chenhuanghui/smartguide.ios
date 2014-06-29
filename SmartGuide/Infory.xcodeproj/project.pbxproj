@@ -847,8 +847,6 @@
 		A9200B0B1929EF6900F46B8D /* icon_alertnotice.png in Resources */ = {isa = PBXBuildFile; fileRef = A9200B091929EF6900F46B8D /* icon_alertnotice.png */; };
 		A9200B0C1929EF6900F46B8D /* icon_alertnotice@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A9200B0A1929EF6900F46B8D /* icon_alertnotice@2x.png */; };
 		A921B02F17A8B68200DC6D4D /* ASIOperationShopUser.m in Sources */ = {isa = PBXBuildFile; fileRef = A921B02E17A8B68100DC6D4D /* ASIOperationShopUser.m */; };
-		A921B03517A8BCA500DC6D4D /* ShopProduct.m in Sources */ = {isa = PBXBuildFile; fileRef = A921B03417A8BCA500DC6D4D /* ShopProduct.m */; };
-		A921B03817A8BCAB00DC6D4D /* _ShopProduct.m in Sources */ = {isa = PBXBuildFile; fileRef = A921B03717A8BCAB00DC6D4D /* _ShopProduct.m */; };
 		A92221BB17CE041300B4E305 /* libFlurry_4.2.3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A92221BA17CE041300B4E305 /* libFlurry_4.2.3.a */; };
 		A922663217A1137D00BCFF7E /* ASIOperationPost.m in Sources */ = {isa = PBXBuildFile; fileRef = A922663117A1137D00BCFF7E /* ASIOperationPost.m */; };
 		A924A3C117AEB63F0042B28B /* OperationRefreshToken.m in Sources */ = {isa = PBXBuildFile; fileRef = A924A3C017AEB63F0042B28B /* OperationRefreshToken.m */; };
@@ -874,7 +872,6 @@
 		A971296118EA794B0065EAA7 /* UserNotificationDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A971295F18EA794B0065EAA7 /* UserNotificationDetailCell.xib */; };
 		A97A751C19495ABE00C0CD28 /* GalleryViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A97A751A19495ABE00C0CD28 /* GalleryViewCell.m */; };
 		A97A751D19495ABE00C0CD28 /* GalleryViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A97A751B19495ABE00C0CD28 /* GalleryViewCell.xib */; };
-		A97C847417B0236400D9CEB9 /* ASIOperationShopProduct.m in Sources */ = {isa = PBXBuildFile; fileRef = A97C847317B0236400D9CEB9 /* ASIOperationShopProduct.m */; };
 		A97F7FD0194AEE2400F288A6 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A673CF6187C490E00189F81 /* CoreMotion.framework */; };
 		A9819854178D02530009FCB6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9819853178D02530009FCB6 /* Foundation.framework */; };
 		A9819856178D02530009FCB6 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9819855178D02530009FCB6 /* CoreGraphics.framework */; };
@@ -2111,10 +2108,6 @@
 		A9200B0A1929EF6900F46B8D /* icon_alertnotice@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_alertnotice@2x.png"; sourceTree = "<group>"; };
 		A921B02D17A8B68100DC6D4D /* ASIOperationShopUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIOperationShopUser.h; sourceTree = "<group>"; };
 		A921B02E17A8B68100DC6D4D /* ASIOperationShopUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIOperationShopUser.m; sourceTree = "<group>"; };
-		A921B03317A8BCA500DC6D4D /* ShopProduct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopProduct.h; sourceTree = "<group>"; };
-		A921B03417A8BCA500DC6D4D /* ShopProduct.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopProduct.m; sourceTree = "<group>"; };
-		A921B03617A8BCAB00DC6D4D /* _ShopProduct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _ShopProduct.h; sourceTree = "<group>"; };
-		A921B03717A8BCAB00DC6D4D /* _ShopProduct.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _ShopProduct.m; sourceTree = "<group>"; };
 		A92221BA17CE041300B4E305 /* libFlurry_4.2.3.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurry_4.2.3.a; sourceTree = "<group>"; };
 		A92221BC17CE041F00B4E305 /* Flurry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flurry.h; sourceTree = "<group>"; };
 		A922663017A1137D00BCFF7E /* ASIOperationPost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIOperationPost.h; sourceTree = "<group>"; };
@@ -2152,8 +2145,6 @@
 		A97A751919495ABE00C0CD28 /* GalleryViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GalleryViewCell.h; sourceTree = "<group>"; };
 		A97A751A19495ABE00C0CD28 /* GalleryViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GalleryViewCell.m; sourceTree = "<group>"; };
 		A97A751B19495ABE00C0CD28 /* GalleryViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GalleryViewCell.xib; sourceTree = "<group>"; };
-		A97C847217B0236400D9CEB9 /* ASIOperationShopProduct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIOperationShopProduct.h; sourceTree = "<group>"; };
-		A97C847317B0236400D9CEB9 /* ASIOperationShopProduct.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIOperationShopProduct.m; sourceTree = "<group>"; };
 		A981984E178D02530009FCB6 /* infory.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = infory.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A9819851178D02530009FCB6 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		A9819853178D02530009FCB6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -3219,8 +3210,6 @@
 				A91CE6BC17A93F6500D29E87 /* ShopGallery.m */,
 				A91CE6BD17A93F6500D29E87 /* ShopUserGallery.h */,
 				A91CE6BE17A93F6500D29E87 /* ShopUserGallery.m */,
-				A921B03317A8BCA500DC6D4D /* ShopProduct.h */,
-				A921B03417A8BCA500DC6D4D /* ShopProduct.m */,
 				A99089D5179926800025DC08 /* Shop.h */,
 				A99089D6179926800025DC08 /* Shop.m */,
 				A9CFD3661797FCE60035E448 /* User.h */,
@@ -3280,8 +3269,6 @@
 				A91CE6C217A93F6E00D29E87 /* _ShopGallery.m */,
 				A91CE6C317A93F6E00D29E87 /* _ShopUserGallery.h */,
 				A91CE6C417A93F6E00D29E87 /* _ShopUserGallery.m */,
-				A921B03617A8BCAB00DC6D4D /* _ShopProduct.h */,
-				A921B03717A8BCAB00DC6D4D /* _ShopProduct.m */,
 				A99089D8179926880025DC08 /* _Shop.h */,
 				A99089D9179926880025DC08 /* _Shop.m */,
 				A9CFD3691797FCEC0035E448 /* _User.h */,
@@ -3309,8 +3296,6 @@
 				9A46B6B317F0B1D100410408 /* ASIOperationGetAvatars.m */,
 				A921B02D17A8B68100DC6D4D /* ASIOperationShopUser.h */,
 				A921B02E17A8B68100DC6D4D /* ASIOperationShopUser.m */,
-				A97C847217B0236400D9CEB9 /* ASIOperationShopProduct.h */,
-				A97C847317B0236400D9CEB9 /* ASIOperationShopProduct.m */,
 				A91CE6AC17A93B8B00D29E87 /* ASIOperationShopComment.h */,
 				A91CE6AD17A93B8B00D29E87 /* ASIOperationShopComment.m */,
 				9A63FA4518C711BA0083FE57 /* ASIOperationShopGallery.h */,
@@ -5552,10 +5537,8 @@
 				9A7ABFDC18D18FF00043316D /* NavigationViewController.m in Sources */,
 				9A29392218445DA000FD49E2 /* ShopKM1.m in Sources */,
 				9ADCD95918D19C3F004CB67E /* MKAnnotationView+WebCache.m in Sources */,
-				A921B03517A8BCA500DC6D4D /* ShopProduct.m in Sources */,
 				A9EB149C1952D79C00191767 /* ShopKMNewsControllerCell.m in Sources */,
 				A9BABB40192B43AD00C417F3 /* RefreshingView.m in Sources */,
-				A921B03817A8BCAB00DC6D4D /* _ShopProduct.m in Sources */,
 				A9BABB3C192B3EFA00C417F3 /* ASIOperationUserNotificationRemove.m in Sources */,
 				9A889BBD187AAE8F00602CBB /* ASIOperationUserProfile.m in Sources */,
 				9A63FA5418C735EA0083FE57 /* ASIOperationUserGallery.m in Sources */,
@@ -5631,7 +5614,6 @@
 				9ADCD96818D19C3F004CB67E /* TPKeyboardAvoidingScrollView.m in Sources */,
 				A9EB149E1952D79C00191767 /* ShopMapViewController.m in Sources */,
 				A9AC694A18EEC28F006279FE /* ImageView.m in Sources */,
-				A97C847417B0236400D9CEB9 /* ASIOperationShopProduct.m in Sources */,
 				A925E3CF17B089EB00806617 /* TokenManager.m in Sources */,
 				A925E3DC17B09B9400806617 /* ASIOperationUploadUserGallery.m in Sources */,
 				9ACF7AA018698E4100B0BC78 /* _UserHome.m in Sources */,

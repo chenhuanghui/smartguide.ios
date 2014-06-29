@@ -243,7 +243,7 @@
 
 -(void)dealloc
 {
-    NSLog(@"%@",NSStringFromClass([self class]));
+    DLOG_DEBUG(@"dealloc AFHTTPRequestOperationManager");
 }
 
 @end

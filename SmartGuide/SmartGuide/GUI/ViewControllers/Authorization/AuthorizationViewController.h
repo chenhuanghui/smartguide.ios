@@ -17,15 +17,9 @@
 
 @interface AuthorizationViewController : SGViewController<UserLoginDelegate,RegisterControllerDelegate>
 {
-    __weak SGNavigationController *authorNavi;
+    __strong SGNavigationController *authorNavi;
     __weak IBOutlet UIView *containView;
-    __weak IBOutlet UIButton *btnBack;
-    __weak IBOutlet UILabel *lblTitle;
 }
-
--(UIButton*) buttonBack;
-
--(SGViewController*) visibleController;
 
 @property (nonatomic, weak) id<AuthorizationDelegate> delegate;
 

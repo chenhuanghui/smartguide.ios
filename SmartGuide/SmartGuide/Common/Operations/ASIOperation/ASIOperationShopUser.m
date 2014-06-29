@@ -7,7 +7,6 @@
 //
 
 #import "ASIOperationShopUser.h"
-#import "ShopProduct.h"
 #import "ShopUserComment.h"
 #import "ShopUserGallery.h"
 #import "ShopGallery.h"

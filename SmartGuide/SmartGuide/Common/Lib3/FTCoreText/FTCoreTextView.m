@@ -698,7 +698,7 @@ NSTextAlignment UITextAlignmentFromCoreTextAlignment(FTCoreTextAlignement alignm
 		
 		if (tagRange.location == NSNotFound) {
 			if (currentSupernode != rootNode && !currentSupernode.isClosed) {
-				if (_verbose) NSLog(@"FTCoreTextView :%@ - Couldn't parse text because tag '%@' at position %d is not closed - aborting rendering", self, currentSupernode.style.name, currentSupernode.startLocation);
+				if (_verbose) DLOG_DEBUG(@"FTCoreTextView :%@ - Couldn't parse text because tag '%@' at position %d is not closed - aborting rendering", self, currentSupernode.style.name, currentSupernode.startLocation);
 				return;
 			}
 			finished = YES;
@@ -727,7 +727,7 @@ NSTextAlignment UITextAlignmentFromCoreTextAlignment(FTCoreTextAlignement alignm
         
         if (style == nil) {
             style = [_styles objectForKey:[self defaultTagNameForKey:FTCoreTextTagDefault]];
-            if (_verbose) NSLog(@"FTCoreTextView :%@ - Couldn't find style for tag '%@'", self, tagName);
+            if (_verbose) DLOG_DEBUG(@"FTCoreTextView :%@ - Couldn't find style for tag '%@'", self, tagName);
         }
 		
         switch (tagType) {
@@ -737,7 +737,7 @@ NSTextAlignment UITextAlignmentFromCoreTextAlignment(FTCoreTextAlignement alignm
                     NSString *predefinedTag = nil;
                     if (currentSupernode.isLink) predefinedTag = [self defaultTagNameForKey:FTCoreTextTagLink];
                     else if (currentSupernode.isImage) predefinedTag = [self defaultTagNameForKey:FTCoreTextTagImage];
-                    if (_verbose) NSLog(@"FTCoreTextView :%@ - You can't open a new tag inside a '%@' tag - aborting rendering", self, predefinedTag);
+                    if (_verbose) DLOG_DEBUG(@"FTCoreTextView :%@ - You can't open a new tag inside a '%@' tag - aborting rendering", self, predefinedTag);
                     return;
                 }
                 
@@ -785,7 +785,7 @@ NSTextAlignment UITextAlignmentFromCoreTextAlignment(FTCoreTextAlignement alignm
             case FTCoreTextTagTypeClose:
             {
                 if ((![currentSupernode.style.name isEqualToString:[self defaultTagNameForKey:FTCoreTextTagDefault]] && ![currentSupernode.style.name isEqualToString:tagName]) ) {
-                    if (_verbose) NSLog(@"FTCoreTextView :%@ - Closing tag '%@' at range %@ doesn't match open tag '%@' - aborting rendering", self, fullTag, NSStringFromRange(tagRange), currentSupernode.style.name);
+                    if (_verbose) DLOG_DEBUG(@"FTCoreTextView :%@ - Closing tag '%@' at range %@ doesn't match open tag '%@' - aborting rendering", self, fullTag, NSStringFromRange(tagRange), currentSupernode.style.name);
                     return;
                 }
                 
@@ -834,7 +834,7 @@ NSTextAlignment UITextAlignmentFromCoreTextAlignment(FTCoreTextAlignement alignm
 						
                     }
                     else {
-                        if (_verbose) NSLog(@"FTCoreTextView :%@ - Couldn't find image '%@' in main bundle", self, [NSValue valueWithRange:elementContentRange]);
+                        if (_verbose) DLOG_DEBUG(@"FTCoreTextView :%@ - Couldn't find image '%@' in main bundle", self, [NSValue valueWithRange:elementContentRange]);
                         [processedString replaceCharactersInRange:tagRange withString:@""];
                     }
                 }
@@ -1231,7 +1231,7 @@ NSTextAlignment UITextAlignmentFromCoreTextAlignment(FTCoreTextAlignement alignm
 	CTFrameRef drawFrame = CTFramesetterCreateFrame(_framesetter, CFRangeMake(0, 0), mainPath, NULL);
 	
 	if (drawFrame == NULL) {
-		if (_verbose) NSLog(@"f: %@", self.processedString);
+		if (_verbose) DLOG_DEBUG(@"f: %@", self.processedString);
 	}
 	else {
 		//draw images

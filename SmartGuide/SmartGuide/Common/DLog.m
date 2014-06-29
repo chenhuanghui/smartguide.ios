@@ -44,20 +44,34 @@ NSString* DLOG_STRING(enum DLOG_LEVEL_TYPE logType)
     }
 }
 
-void DLog(NSString*(^log)(), enum DLOG_LEVEL_TYPE logLevel)
+NSString* STRING_FORMAT(NSString* format, ...)
+{
+    va_list args;
+    va_start(args, format);
+    
+    NSString *str=[[NSString alloc] initWithFormat:format arguments:args];
+    
+    va_end(args);
+    
+    return str;
+}
+
+void DLog(enum DLOG_LEVEL_TYPE logLevel, NSString*(^logString)())
 {
 #if DEBUG
-    if(logLevel<=DLOG_LEVEL)
-        NSLog(@"%@ %@",DLOG_STRING(logLevel),log());
+    if(logLevel <= DLOG_LEVEL)
+    {
+        NSLog(@"%@",logString());
+    }
 #endif
 }
 
-void DLogDebug(NSString*(^log)())
+void DLogDebug(NSString*(^logString)())
 {
-    DLog(log, DLOG_LEVEL_TYPE_DEBUG);
+    DLog(DLOG_LEVEL_TYPE_DEBUG, logString);
 }
 
-void DLogInfo(NSString*(^log)())
+void DLogError(NSString*(^logString)())
 {
-    DLog(log, DLOG_LEVEL_TYPE_INFO);
+    DLog(DLOG_LEVEL_TYPE_ERR, logString);
 }

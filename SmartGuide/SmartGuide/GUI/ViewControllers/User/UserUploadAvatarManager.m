@@ -68,7 +68,7 @@ static UserUploadAvatarManager* _userUploadAvatarManager=nil;
     [avatar writeToFile:AVATAR_TEMP_PATH options:NSDataWritingAtomic error:&error];
     
     if(error)
-        NSLog(@"avatarTemp error %@",error);
+        DLOG_DEBUG(@"avatarTemp error %@",error);
     else
     {
         [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%f&%f",userLat,userLng] forKey:@"userAvatarTemp"];

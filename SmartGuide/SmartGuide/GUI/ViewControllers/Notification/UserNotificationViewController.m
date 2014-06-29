@@ -136,7 +136,7 @@
     [self refreshData];
     [self requestNotificationCount:true];
     
-    NSLog(@"refreshingViewNeedRefresh");
+    DLOG_DEBUG(@"refreshingViewNeedRefresh");
 }
 
 -(void)refreshingViewFinished:(RefreshingView *)refreshView

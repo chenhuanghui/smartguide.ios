@@ -468,7 +468,7 @@
                 return home.home9Size.height+15;
                 
             case USER_HOME_TYPE_UNKNOW:
-                NSLog(@"USER_HOME_TYPE_UNKNOW heightForRowAtIndexPath");
+                DLOG_DEBUG(@"USER_HOME_TYPE_UNKNOW heightForRowAtIndexPath");
                 return 0;
         }
     }
@@ -561,7 +561,7 @@
                 break;
                 
             case USER_HOME_TYPE_UNKNOW:
-                NSLog(@"USER_HOME_TYPE_UNKNOW cellForRowAtIndexPath");
+                DLOG_DEBUG(@"USER_HOME_TYPE_UNKNOW cellForRowAtIndexPath");
                 break;
         }
     }

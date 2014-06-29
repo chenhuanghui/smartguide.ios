@@ -45,7 +45,7 @@
 {
     if(_lastUserLocation.latitude!=self.userLocation.coordinate.latitude && _lastUserLocation.longitude!=self.userLocation.coordinate.longitude)
     {
-        NSLog(@"userLocationChanged");
+        DLOG_DEBUG(@"userLocationChanged");
         
         _lastUserLocation=self.userLocation.coordinate;
         [[LocationManager shareInstance] updateLocation:self.userLocation.coordinate];
@@ -100,9 +100,7 @@
     
     self.delegate=nil;
     
-    DLogDebug(^NSString *{
-        return [NSString stringWithFormat:@"dealloc %@",CLASS_NAME];
-    });
+    DLOG_DEBUG(@"dealloc %@",CLASS_NAME);
 }
 
 -(void)zoomToLocation:(CLLocationCoordinate2D)location animate:(bool)animate span:(MKCoordinateSpan) span

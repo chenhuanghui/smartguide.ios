@@ -10,7 +10,6 @@
 #import "SDWebImageDecoder.h"
 #import "UIImage+MultiFormat.h"
 #import <ImageIO/ImageIO.h>
-#import "DLog.h"
 
 @interface SDWebImageDownloaderOperation () {
     BOOL _executing;
@@ -87,9 +86,7 @@
         self.thread = [NSThread currentThread];
     }
 
-    DLogDebug(^NSString *{
-        return [NSString stringWithFormat:@"%@ download start",self.connection.currentRequest.URL];
-    });
+    DLOG_DEBUG(@"%@ download start",self.connection.currentRequest.URL);
     
     [self.connection start];
 
@@ -339,9 +336,7 @@
 - (void)connectionDidFinishLoading:(NSURLConnection *)aConnection {
     CFRunLoopStop(CFRunLoopGetCurrent());
     
-    DLogDebug(^NSString *{
-        return [NSString stringWithFormat:@"%@ download finished %i",self.connection.currentRequest.URL, self.imageData.length];
-    });
+    DLOG_DEBUG(@"%@ download finished %i",self.connection.currentRequest.URL, self.imageData.length);
     
     self.connection = nil;
 
@@ -387,9 +382,7 @@
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
     
-    DLogDebug(^NSString *{
-        return [NSString stringWithFormat:@"%@ download error %@",self.connection.currentRequest.URL, error];
-    });
+    DLOG_DEBUG(@"%@ download error %@",self.connection.currentRequest.URL, error);
     
     CFRunLoopStop(CFRunLoopGetCurrent());
     [[NSNotificationCenter defaultCenter] postNotificationName:SDWebImageDownloadStopNotification object:nil];

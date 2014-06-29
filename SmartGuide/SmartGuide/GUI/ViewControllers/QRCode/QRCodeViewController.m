@@ -383,7 +383,7 @@
 
 -(void) displayResult:(id) result
 {
-    NSLog(@"%@",result);
+    DLOG_DEBUG(@"%@",result);
     
     _result=result;
     _isScanningCode=false;

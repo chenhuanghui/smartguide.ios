@@ -94,7 +94,7 @@
     else
     {
         [collection l_v_setY:44+scrollView.l_co_y/2];
-        NSLog(@"%f %f",scrollView.contentOffset.y/2,collection.l_v_y);
+        DLOG_DEBUG(@"%f %f",scrollView.contentOffset.y/2,collection.l_v_y);
     }
 }
 

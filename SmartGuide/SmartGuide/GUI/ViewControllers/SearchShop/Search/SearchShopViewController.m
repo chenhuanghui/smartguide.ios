@@ -612,7 +612,7 @@
 
 -(void) callAutocomplete:(NSString*) keyword
 {
-    NSLog(@"callAutocomplete %@",keyword);
+    DLOG_DEBUG(@"callAutocomplete %@",keyword);
     
     OperationSearchAutocomplete *ope=[[OperationSearchAutocomplete alloc] initWithKeyword:keyword idCity:_idCity];
     ope.delegate=self;
@@ -642,7 +642,7 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
 //    float duration=[notification.userInfo[UIKeyboardAnimationDurationUserInfoKey] floatValue];
  
-//    NSLog(@"XXX");
+//    DLOG_DEBUG(@"XXX");
 //    [UIView animateWithDuration:duration animations:^{
 //        [table l_v_setH:_tableFrame.size.height];
 //    }];

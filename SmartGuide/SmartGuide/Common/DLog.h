@@ -6,5 +6,9 @@
 //  Copyright (c) 2014 Redbase. All rights reserved.
 //
 
-void DLogDebug(NSString*(^log)());
-void DLogInfo(NSString*(^log)());
+#define DLOG_DEBUG(dFormat, ...) DLogDebug(^NSString *{ return STRING_FORMAT(dFormat, ##__VA_ARGS__);})
+#define DLOG_ERROR(dFormat, ...) DLogError(^NSString *{ return STRING_FORMAT(dFormat, ##__VA_ARGS__);})
+
+NSString* STRING_FORMAT(NSString* format, ...);
+void DLogDebug(NSString*(^)());
+void DLogError(NSString*(^)());

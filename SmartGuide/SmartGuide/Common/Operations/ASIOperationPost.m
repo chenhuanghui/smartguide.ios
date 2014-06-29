@@ -145,9 +145,7 @@ static NSMutableArray *_asioperations=nil;
 {
     [self applyPostValue];
     
-    DLogDebug(^NSString *{
-        return [NSString stringWithFormat:@"%@ %@ start %@ %@ %@ %@",CLASS_NAME, self.requestURL.HTTPMethod,self.requestURL.URL, self.keyValue.allKeys, self.keyValue.allValues,self.imagesData.allKeys?:@""];
-    });
+    DLOG_DEBUG(@"%@ %@ start %@ %@ %@ %@",CLASS_NAME, self.requestURL.HTTPMethod,self.requestURL.URL, self.keyValue.allKeys, self.keyValue.allValues,self.imagesData.allKeys?:@"");
     
     __weak ASIOperationPost *wSelf=self;
     [self setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -228,9 +226,7 @@ static NSMutableArray *_asioperations=nil;
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
-    DLogDebug(^NSString *{
-        return [NSString stringWithFormat:@"%@ failed %@",CLASS_NAME,[NSHTTPURLResponse localizedStringForStatusCode:self.response.statusCode]];
-    });
+    DLOG_DEBUG(@"%@ failed %@",CLASS_NAME,[NSHTTPURLResponse localizedStringForStatusCode:self.response.statusCode]);
               
     if([self isRespondsToSelector:@selector(ASIOperaionPostFailed:)])
         [self.delegate ASIOperaionPostFailed:self];
@@ -281,9 +277,7 @@ static NSMutableArray *_asioperations=nil;
 
 -(void)requestFinished:(AFHTTPRequestOperation *)request
 {
-    DLogDebug(^NSString *{
-        return [NSString stringWithFormat:@"%@ requestFinished %@",CLASS_NAME,[NSHTTPURLResponse localizedStringForStatusCode:self.response.statusCode]];
-    });
+    DLOG_DEBUG(@"%@ requestFinished %@",CLASS_NAME,[NSHTTPURLResponse localizedStringForStatusCode:self.response.statusCode]);
     
     [self onFinishLoading];
     if(self.responseString.length>0)
@@ -343,9 +337,7 @@ static NSMutableArray *_asioperations=nil;
                         [self onCompletedWithJSON:@[[NSNull null]]];
                     }
                     @catch (NSException *exception) {
-                        DLogDebug(^NSString *{
-                            return [NSString stringWithFormat:@"%@ process null error %@",CLASS_NAME,exception];
-                        });
+                        DLOG_DEBUG(@"%@ process null error %@",CLASS_NAME,exception);
                     }
                     @finally {
                         [self notifyCompleted];
@@ -357,9 +349,7 @@ static NSMutableArray *_asioperations=nil;
                         [self onCompletedWithJSON:@[json]];
                     }
                     @catch (NSException *exception) {
-                        DLogDebug(^NSString *{
-                            return[NSString stringWithFormat:@"%@ process number error %@",CLASS_NAME,exception];
-                        });
+                        DLOG_DEBUG(@"%@ process number error %@",CLASS_NAME,exception);
                     }
                     @finally {
                         [self notifyCompleted];

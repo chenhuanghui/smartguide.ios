@@ -111,7 +111,7 @@
 
 -(void)toggle:(id)sender
 {
-    NSLog(@"toggle");
+    DLOG_DEBUG(@"toggle");
     
     JSTokenButton *btn=sender;
     

@@ -12,7 +12,6 @@
 #import "DataManager.h"
 #import "AFNetworking.h"
 #import "Flags.h"
-#import "DLog.h"
 
 #define USER_LATITUDE @"userLat"
 #define USER_LONGITUDE @"userLng"

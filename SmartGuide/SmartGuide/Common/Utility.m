@@ -1100,7 +1100,7 @@ NSString* LAZY_STRING_INT(int i)
     NSDictionary *dict=[NSJSONSerialization JSONObjectWithData:[self dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingMutableContainers|NSJSONReadingAllowFragments error:&error];
     
     if(error)
-        NSLog(@"jsonDictionary error %@",error);
+        DLOG_DEBUG(@"jsonDictionary error %@",error);
     
     return dict;
 }
@@ -1427,7 +1427,7 @@ NSString* LAZY_STRING_INT(int i)
     if(btn)
         [btn sendActionsForControlEvents:UIControlEventTouchUpInside];
     else
-        NSLog(@"btn %@ not found",title);
+        DLOG_DEBUG(@"btn %@ not found",title);
 }
 
 -(UIImageView *)backgroundView
@@ -1514,7 +1514,7 @@ NSString* LAZY_STRING_INT(int i)
     if(error)
     {
         data=nil;
-        NSLog(@"NSDictionary json error %@ %@",error,self);
+        DLOG_DEBUG(@"NSDictionary json error %@ %@",error,self);
     }
     
     return data;

@@ -16,7 +16,6 @@
 #import "AlphaView.h"
 #import "SGData.h"
 #import "BasicAnimation.h"
-#import "DLog.h"
 
 @class SGViewController,SGNavigationController;
 

@@ -73,7 +73,7 @@
             break;
             
         default:
-            NSLog(@"ASIOperationScanQRCode unknow status %i",status);
+            DLOG_DEBUG(@"ASIOperationScanQRCode unknow status %i", status);
             return;
     }
     

@@ -91,7 +91,7 @@ static DataManager *_dataManager=nil;
     
     if(error)
     {
-        NSLog(@"persistentStoreCoordinator error %@",error);
+        DLOG_ERROR(@"persistentStoreCoordinator error %@",error);
         [[NSFileManager defaultManager] removeItemAtURL:[self storeURL] error:nil];
         [self loadDatabase];
         return;
@@ -115,7 +115,7 @@ static DataManager *_dataManager=nil;
     [self.managedObjectContext save:&error];
     if(error)
     {
-        NSLog(@"DataManager save error %@",error);
+        DLOG_ERROR(@"DataManager save error %@",error);
         return false;
     }
     

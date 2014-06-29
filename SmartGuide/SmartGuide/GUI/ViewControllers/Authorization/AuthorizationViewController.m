@@ -48,12 +48,8 @@
         navi=[[SGNavigationController alloc] initWithRootViewController:vc];
     }
     
-    navi.lblTitle=lblTitle;
-    
-    [self addChildViewController:navi];
-    [containView addSubview:navi.view];
-    
     [navi.view l_v_setS:containView.l_v_s];
+    [containView addSubview:navi.view];
     
     authorNavi=navi;
 }
@@ -100,23 +96,6 @@
     [self.delegate authorizationSuccessed];
 }
 
--(IBAction) btnBackTouchUpInside:(id)sender
-{
-    if(authorNavi.viewControllers.count==1)
-    {
-        [self.delegate authorizationCancelled];
-    }
-    else
-    {
-        [authorNavi popViewControllerAnimated:true];
-    }
-}
-
--(UIButton *)buttonBack
-{
-    return btnBack;
-}
-
 -(SGViewController *)visibleController
 {
     return (SGViewController*)authorNavi.visibleViewController;
@@ -128,6 +107,11 @@
         return;
     
     [self.view endEditing:true];
+}
+
+-(void)dealloc
+{
+    authorNavi=nil;
 }
 
 @end

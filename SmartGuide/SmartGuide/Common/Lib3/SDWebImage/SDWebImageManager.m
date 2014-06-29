@@ -347,7 +347,7 @@
                             {
                                 downloadedImage=img;
                                 
-                                NSLog(@"%@ resize %@ -> %@",key,NSStringFromCGSize(downloadedImage.size),NSStringFromCGSize(willSize));
+                                DLOG_DEBUG(@"%@ resize %@ -> %@",key,NSStringFromCGSize(downloadedImage.size),NSStringFromCGSize(willSize));
                                 
                                 [self.imageCache storeImage:downloadedImage recalculateFromImage:NO imageData:UIImagePNGRepresentation(downloadedImage) forKey:[key stringByAppendingString:NSStringFromCGSize(willSize)] toDisk:true];
                             }
@@ -376,7 +376,7 @@
             {
                 if(![doneKey isEqualToString:[key stringByAppendingString:NSStringFromCGSize(willSize)]])
                 {
-                    NSLog(@"%@ disk|memory resize %@ -> %@",key,NSStringFromCGSize(image.size),NSStringFromCGSize(willSize));
+                    DLOG_DEBUG(@"%@ disk|memory resize %@ -> %@",key,NSStringFromCGSize(image.size),NSStringFromCGSize(willSize));
                     
                     image=resizeMethod(image);
                     

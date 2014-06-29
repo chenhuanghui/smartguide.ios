@@ -11,7 +11,6 @@
 #import "Utility.h"
 #import <objc/runtime.h>
 #import "SDWebImageManager.h"
-#import "DLog.h"
 
 UIImage* resizeProportionalImage(UIImage* downloadImage, CGSize size)
 {

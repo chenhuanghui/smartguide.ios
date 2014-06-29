@@ -38,9 +38,6 @@
     NSError *error=nil;
     NSArray *result=[context executeFetchRequest:fetchRequest error:&error];
     
-    if(error)
-        NSLog(@"UserHomeImage query error %@ predicate %@",error,predicate);
-    
     return result?result:[NSArray array];
 }
 
@@ -55,9 +52,6 @@
 
     NSError *error=nil;
     NSArray *result=[context executeFetchRequest:fetchRequest error:&error];
-    
-    if(error)
-        NSLog(@"UserHomeImage query error %@ predicate %@",error,predicate);
     
     if(result && result.count>0)
         return [result objectAtIndex:0];
