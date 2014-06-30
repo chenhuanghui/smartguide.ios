@@ -16,6 +16,7 @@
 #import "CityViewController.h"
 #import "CityManager.h"
 #import "ImageManager.h"
+#import "WebViewController.h"
 
 @interface UserSettingViewController ()<UITextFieldDelegate,UIPickerViewDataSource,UIPickerViewDelegate,UIGestureRecognizerDelegate,AvatarControllerDelegate,ASIOperationPostDelegate,GPPSignInDelegate,CityControllerDelegate>
 
@@ -748,7 +749,7 @@
 
 -(IBAction)btnTermsTouchUpInside:(id)sender
 {
-    [[GUIManager shareInstance].rootViewController showTerms];
+    [self showWebViewWithURL:URL(URL_TERM) onCompleted:nil];
 }
 
 -(BOOL)textFieldShouldBeginEditing:(UITextField *)textField

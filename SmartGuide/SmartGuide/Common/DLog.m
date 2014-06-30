@@ -64,6 +64,8 @@ void DLog(enum DLOG_LEVEL_TYPE logLevel, NSString*(^logString)())
         NSLog(@"%@",logString());
     }
 #endif
+    
+    logString=nil;
 }
 
 void DLogDebug(NSString*(^logString)())

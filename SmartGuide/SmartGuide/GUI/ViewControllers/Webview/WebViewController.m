@@ -77,3 +77,50 @@
 }
 
 @end
+
+@implementation UIViewController(WebView)
+
+-(void)showWebViewWithURL:(NSURL *)url onCompleted:(void(^)(WebViewController* webviewController)) completed
+{
+    WebViewController *vc=[[WebViewController alloc] initWithURL:url];
+    vc.delegate=self;
+    
+    [self presentSGViewController:vc animation:^BasicAnimation *{
+        BasicAnimation *animation=[BasicAnimation animationWithKeyPath:@"position"];
+        
+        CGPoint pnt=vc.view.layer.position;
+        animation.fromValue=[NSValue valueWithCGPoint:CGPointMake(vc.view.layer.position.x, vc.view.layer.position.y+vc.view.l_v_h)];
+        animation.toValue=[NSValue valueWithCGPoint:pnt];
+        animation.fillMode=kCAFillModeForwards;
+        animation.removedOnCompletion=true;
+        animation.timingFunction=[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+        return animation;
+    } completion:^{
+        if(completed)
+            completed(vc);
+    }];
+}
+
+-(void)webviewTouchedBack:(WebViewController *)controller
+{
+    [self dismissWebView];
+}
+
+-(void)dismissWebView
+{
+    if(self.presentSGViewControlelr && [[self presentSGViewControlelr] isKindOfClass:[WebViewController class]])
+    {
+        [self dismissSGViewControllerAnimation:^BasicAnimation *{
+            BasicAnimation *animation=[BasicAnimation animationWithKeyPath:@"position"];
+            
+            animation.fromValue=[NSValue valueWithCGPoint:self.presentSGViewControlelr.view.layer.position];
+            animation.toValue=[NSValue valueWithCGPoint:CGPointMake(self.presentSGViewControlelr.view.layer.position.x, self.presentSGViewControlelr.view.layer.position.y+self.presentSGViewControlelr.view.l_v_h)];
+            animation.fillMode=kCAFillModeForwards;
+            animation.removedOnCompletion=true;
+            animation.timingFunction=[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+            return animation;
+        } completion:nil];
+    }
+}
+
+@end

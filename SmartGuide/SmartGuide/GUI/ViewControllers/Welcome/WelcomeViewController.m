@@ -69,10 +69,7 @@
 
 - (IBAction)btnTermTouchUpInside:(id)sender
 {
-    TermsViewController *vc=[TermsViewController new];
-    vc.delegate=self;
-    
-    [self presentSGViewController:vc completion:nil];
+    [self showWebViewWithURL:URL(URL_TERM) onCompleted:nil];
 }
 
 -(void)webviewTouchedBack:(WebViewController *)controller

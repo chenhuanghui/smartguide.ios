@@ -109,10 +109,7 @@
 }
 
 - (IBAction)btnTutorialTouchUpInside:(id)sender {
-
-    WebViewController *vc=[[WebViewController alloc] initWithURL:URL(URL_TUTORIAL)];
-    [[GUIManager shareInstance].rootNavigation presentSGViewController:vc animate:true completion:^{
-        
+    [[GUIManager shareInstance].rootNavigation showWebViewWithURL:URL(URL_TUTORIAL) onCompleted:^(WebViewController *webviewController) {
         CGRect rect=[GUIManager shareInstance].rootViewController.view.frame;
         
         if(NSFoundationVersionNumber<=NSFoundationVersionNumber_iOS_6_1)
@@ -120,7 +117,7 @@
         else
             rect.origin.y=0;
         
-        vc.view.frame=rect;
+        webviewController.view.frame=rect;
     }];
 }
 

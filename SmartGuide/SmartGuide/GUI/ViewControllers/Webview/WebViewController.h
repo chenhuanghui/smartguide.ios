@@ -35,3 +35,10 @@
 @interface TermsViewController : WebViewController
 
 @end
+
+@interface UIViewController(WebView)<WebViewDelegate>
+
+-(void) showWebViewWithURL:(NSURL*) url onCompleted:(void(^)(WebViewController* webviewController)) completed;
+-(void) dismissWebView;
+
+@end

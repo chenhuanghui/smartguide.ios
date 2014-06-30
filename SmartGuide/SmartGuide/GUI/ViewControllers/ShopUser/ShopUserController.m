@@ -215,11 +215,8 @@
 -(void)qrCodeController:(QRCodeViewController *)controller scannedURL:(NSURL *)url
 {
     [controller close];
-    
-    WebViewController *vc=[[WebViewController alloc] initWithURL:url];
-    vc.delegate=self;
-    
-    [self presentSGViewController:vc animate:true completion:nil];
+
+    [self showWebViewWithURL:url onCompleted:nil];
 }
 
 -(void)webviewTouchedBack:(WebViewController *)controller

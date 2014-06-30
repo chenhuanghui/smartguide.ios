@@ -608,7 +608,7 @@
     WebViewController *vc=[[WebViewController alloc] initWithURL:url];
     vc.delegate=self;
     
-    [self presentSGViewController:vc];
+    [self showWebviewWithURL:url];
 }
 
 -(void)removeUserNotification:(UserNotification *)obj
