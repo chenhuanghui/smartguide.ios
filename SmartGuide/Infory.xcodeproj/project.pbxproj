@@ -896,6 +896,8 @@
 		A9A19D5F17C4088E000D0ECD /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9A19D5E17C4088E000D0ECD /* MessageUI.framework */; };
 		A9A45D6E19610E5E00119430 /* UserNotificationController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A45D6C19610E5E00119430 /* UserNotificationController.m */; };
 		A9A45D6F19610E5E00119430 /* UserNotificationController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9A45D6D19610E5E00119430 /* UserNotificationController.xib */; };
+		A9A45D73196130E500119430 /* ScanCodeController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A45D71196130E500119430 /* ScanCodeController.m */; };
+		A9A45D74196130E500119430 /* ScanCodeController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9A45D72196130E500119430 /* ScanCodeController.xib */; };
 		A9A505A9178E8B8400F27E18 /* AlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A505A8178E8B8400F27E18 /* AlertView.m */; };
 		A9A505E9178EC60300F27E18 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9A505E8178EC60300F27E18 /* CoreText.framework */; };
 		A9A98157193C6BFC00B8512E /* JSBackspaceReportingTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A98150193C6BFC00B8512E /* JSBackspaceReportingTextField.m */; };
@@ -2187,6 +2189,9 @@
 		A9A45D6B19610E5E00119430 /* UserNotificationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserNotificationController.h; sourceTree = "<group>"; };
 		A9A45D6C19610E5E00119430 /* UserNotificationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserNotificationController.m; sourceTree = "<group>"; };
 		A9A45D6D19610E5E00119430 /* UserNotificationController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserNotificationController.xib; sourceTree = "<group>"; };
+		A9A45D70196130E500119430 /* ScanCodeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScanCodeController.h; sourceTree = "<group>"; };
+		A9A45D71196130E500119430 /* ScanCodeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScanCodeController.m; sourceTree = "<group>"; };
+		A9A45D72196130E500119430 /* ScanCodeController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScanCodeController.xib; sourceTree = "<group>"; };
 		A9A505A7178E8B8400F27E18 /* AlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlertView.h; sourceTree = "<group>"; };
 		A9A505A8178E8B8400F27E18 /* AlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlertView.m; sourceTree = "<group>"; };
 		A9A505E8178EC60300F27E18 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
@@ -2647,6 +2652,9 @@
 				9A7ABFCD18D18E820043316D /* QRCodeResultViewController.h */,
 				9A7ABFCE18D18E820043316D /* QRCodeResultViewController.m */,
 				9A7ABFCF18D18E820043316D /* QRCodeResultViewController.xib */,
+				A9A45D70196130E500119430 /* ScanCodeController.h */,
+				A9A45D71196130E500119430 /* ScanCodeController.m */,
+				A9A45D72196130E500119430 /* ScanCodeController.xib */,
 			);
 			path = QRCode;
 			sourceTree = "<group>";
@@ -4960,6 +4968,7 @@
 				A960365419431FCC00469F35 /* icon_29.png in Resources */,
 				9AB1F04A183F136700A35422 /* arrowchat_smallgray.png in Resources */,
 				9A5DC489183DC16A0051375A /* icon_promotion@2x.png in Resources */,
+				A9A45D74196130E500119430 /* ScanCodeController.xib in Resources */,
 				9ACBE8F1185A16EA0004474F /* bg_content_head.png in Resources */,
 				9A2F8CFD1855711D0024AE1A /* slide_ads.png in Resources */,
 				9AA2C56C187FC6DF004F895B /* line_content_search@2x.png in Resources */,
@@ -5458,6 +5467,7 @@
 				9ACF7AA418698E4100B0BC78 /* _UserHome4.m in Sources */,
 				9A7AC24918D192490043316D /* PlacelistHeaderCell.m in Sources */,
 				A9CFD3621797FC4B0035E448 /* SmartGuide.xcdatamodeld in Sources */,
+				A9A45D73196130E500119430 /* ScanCodeController.m in Sources */,
 				9A7AC21C18D191550043316D /* SearchShopHeaderCell.m in Sources */,
 				9ADCD95318D19C3F004CB67E /* SGGridViewLayoutStrategies.m in Sources */,
 				9ACA8BFD1876ABE00018C8E3 /* OperationSearchAutocomplete.m in Sources */,

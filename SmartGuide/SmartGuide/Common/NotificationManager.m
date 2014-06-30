@@ -234,7 +234,7 @@ static NotificationManager *_notificationManager=nil;
     NSMutableDictionary *dict=[NSMutableDictionary dictionary];
     
     [dict setObject:@(rand()) forKey:@"idNotification"];
-//    [dict setObject:@(36837) forKey:@"idSender"];
+    [dict setObject:@(36837) forKey:@"idSender"];
     [dict setObject:@(random_int(0, 10)) forKey:@"timer"];
     [dict setObject:[NSString stringWithFormat:@"Alert %02i",actionType] forKey:@"message"];
     [dict setObject:[NSString stringWithFormat:@"Badge %02i",actionType] forKey:@"badge"];
