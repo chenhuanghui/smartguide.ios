@@ -31,7 +31,7 @@
 }
 
 +(ShopManager*) shareInstanceWithShop:(Shop*) shop;
-+(void) clean;
++(void) clean:(Shop*) shop;
 
 -(void) makeData;
 -(Shop*) shop;

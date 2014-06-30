@@ -36,8 +36,9 @@
 -(ShopUserViewController*) initWithShopUser:(Shop*) shop;
 -(ShopUserViewController*) initWithIDShop:(int) idShop;
 
+-(Shop*) shop;
+
 @property (nonatomic, weak) id<ShopUserViewControllerDelegate> delegate;
-@property (nonatomic, weak) ShopUserController *userController;
 
 @end
 

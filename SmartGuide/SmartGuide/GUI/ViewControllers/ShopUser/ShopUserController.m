@@ -29,11 +29,7 @@
 {
     self=[super initWithNibName:@"ShopUserController" bundle:nil];
     
-    _idShop=idShop;
-    _shop=[Shop makeWithIDShop:_idShop];
-    
-    if([_shop hasChanges])
-        [[DataManager shareInstance] save];
+    [self initNavigationWithIDShop:idShop];
     
     return self;
 }
@@ -42,28 +38,43 @@
 {
     self=[super initWithNibName:@"ShopUserController" bundle:nil];
     
-    _shop=shop;
-    _idShop=_shop.idShop.integerValue;
+    [self initNavigationWithShop:shop];
     
     return self;
 }
 
--(void)loadView
+-(void) initNavigationWithShop:(Shop*) shop
 {
-    [super loadView];
-    
-    ShopUserViewController *vc=nil;
-    if(_shop)
-        vc=[[ShopUserViewController alloc] initWithShopUser:_shop];
-    else
-        vc=[[ShopUserViewController alloc] initWithIDShop:_idShop];
-    
+    ShopUserViewController *vc=[[ShopUserViewController alloc] initWithShopUser:shop];
     vc.delegate=self;
-    vc.userController=self;
-    self.shopController=vc;
     
     _navi=[[SGNavigationController alloc] initWithRootViewController:vc];
     _navi.navigationDelegate=self;
+}
+
+-(void) initNavigationWithIDShop:(int) idShop
+{
+    ShopUserViewController *vc=[[ShopUserViewController alloc] initWithIDShop:idShop];
+    vc.delegate=self;
+    
+    _navi=[[SGNavigationController alloc] initWithRootViewController:vc];
+    _navi.navigationDelegate=self;
+}
+
+-(ShopUserViewController*) shopUserViewControllerWithIDShop:(int) idShop
+{
+    ShopUserViewController *vc=[[ShopUserViewController alloc] initWithIDShop:idShop];
+    vc.delegate=self;
+    
+    return vc;
+}
+
+-(ShopUserViewController*) shopUserViewControllerWithShop:(Shop*) shop
+{
+    ShopUserViewController *vc=[[ShopUserViewController alloc] initWithShopUser:shop];
+    vc.delegate=self;
+    
+    return vc;
 }
 
 - (void)viewDidLoad
@@ -85,16 +96,8 @@
 -(void) showShopUserViewController:(ShopUserViewController*) controller
 {
     controller.delegate=self;
-    controller.userController=self;
-    self.shopController=controller;
     
     [_navi pushViewController:controller animated:true];
-}
-
-- (IBAction)btnCloseTouchUpInside:(id)sender
-{
-    [ShopManager clean];
-    [self.delegate shopUserControllerTouchedClose:self];
 }
 
 - (IBAction)btnBackTouchUpInside:(id)sender
@@ -115,7 +118,6 @@
     }
     else
     {
-        [ShopManager clean];
         [self.navigationController popViewControllerAnimated:true];
     }
 }
@@ -148,10 +150,10 @@
     if(gallery)
     {
         if([gallery isKindOfClass:[ShopGallery class]])
-            [ShopManager shareInstanceWithShop:_shop].selectedShopGallery=gallery;
+            [ShopManager shareInstanceWithShop:controller.shop].selectedShopGallery=gallery;
         else
         {
-            [ShopManager shareInstanceWithShop:_shop].selectedUserGallery=gallery;
+            [ShopManager shareInstanceWithShop:controller.shop].selectedUserGallery=gallery;
         }
     }
     
@@ -174,9 +176,7 @@
 
 -(void)shopUserViewControllerTouchedIDShop:(ShopUserViewController *)controller idShop:(int)idShop
 {
-    ShopUserViewController *vc=[[ShopUserViewController alloc] initWithIDShop:idShop];
-    vc.delegate=self;
-    
+    ShopUserViewController *vc=[self shopUserViewControllerWithIDShop:idShop];
     [_navi setRootViewController:vc animate:true];
 }
 

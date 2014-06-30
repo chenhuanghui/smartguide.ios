@@ -26,6 +26,7 @@
 -(GalleryFullViewController*) initWithShop:(Shop*) shop;
 -(id) galleryAtIndex:(int) index;
 -(id) currentGallery;
+-(Shop*) shop;
 
 @property (nonatomic, weak) id<GalleryFullControllerDelegate> delegate;
 

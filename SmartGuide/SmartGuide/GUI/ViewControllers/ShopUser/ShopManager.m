@@ -13,7 +13,7 @@
 #import "ASIOperationShopComment.h"
 #import "ASIOperationPostComment.h"
 
-static ShopManager *_galleryManager;
+NSMutableArray * _shopManagers=nil;
 
 @interface ShopManager()<ASIOperationPostDelegate>
 {
@@ -33,22 +33,33 @@ static ShopManager *_galleryManager;
 
 +(ShopManager *)shareInstanceWithShop:(Shop *)shop
 {
-    if(_galleryManager)
-    {
-        if(_galleryManager.shop==shop)
-            return _galleryManager;
-        
-        _galleryManager=nil;
-    }
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _shopManagers=[NSMutableArray new];
+    });
     
-    _galleryManager=[[ShopManager alloc] initWithShop:shop];
+    ShopManager *obj=nil;
+    for(obj in _shopManagers)
+        if(obj.shop.idShop.integerValue==shop.idShop.integerValue)
+            return obj;
     
-    return _galleryManager;
+    obj=[[ShopManager alloc] initWithShop:shop];
+    [_shopManagers addObject:obj];
+    
+    return obj;
 }
 
-+(void)clean
++(void)clean:(Shop *)shop
 {
-    _galleryManager=nil;
+    ShopManager *obj=nil;
+    for(obj in _shopManagers)
+        if(obj.shop.idShop.integerValue==shop.idShop.integerValue)
+            break;
+    
+    if(obj.shop.idShop.integerValue==shop.idShop.integerValue)
+    {
+        [_shopManagers removeObject:obj];
+    }
 }
 
 -(Shop *)shop
@@ -375,6 +386,8 @@ static ShopManager *_galleryManager;
     self.shopGalleries=nil;
     self.timeComments=nil;
     self.topAgreedComments=nil;
+    
+    DLOG_DEBUG(@"dealloc %@", CLASS_NAME);
 }
 
 -(void)setSelectedShopGallery:(id)selectedShopGallery_

@@ -19,7 +19,6 @@
 #import "GalleryViewController.h"
 #import "ShopDetailInfoViewController.h"
 #import "ShopMap/ShopMapViewController.h"
-#import "QRCodeViewController.h"
 #import "GalleryFullViewController.h"
 #import "KeyboardUtility.h"
 #import "ShopCameraViewController.h"
@@ -77,8 +76,6 @@ enum SHOP_USER_CELL_TYPE
 -(void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    self.qrCodeControllerHandle=self.userController;
     
     [table registerShopGalleryControllerCell];
     [table registerShopKM1ControllerCell];
@@ -588,7 +585,13 @@ enum SHOP_USER_CELL_TYPE
 
 -(void)dealloc
 {
+    [ShopManager clean:_shop];
     table.delegate=nil;
+}
+
+-(Shop *)shop
+{
+    return _shop;
 }
 
 @end

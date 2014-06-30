@@ -22,15 +22,11 @@
     __weak IBOutlet UIView *containView;
     __weak IBOutlet UIButton *btnBack;
     SGNavigationController *_navi;
-    
-    int _idShop;
-    Shop *_shop;
 }
 
 -(ShopUserController*) initWithIDShop:(int) idShop;
 -(ShopUserController*) initWithShop:(Shop*) shop;
 
 @property (nonatomic, weak) id<ShopUserControllerDelegate> delegate;
-@property (nonatomic, weak) ShopUserViewController* shopController;
 
 @end

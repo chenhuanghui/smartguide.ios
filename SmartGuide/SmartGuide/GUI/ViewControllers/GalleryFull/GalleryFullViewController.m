@@ -128,6 +128,11 @@
     return nil;
 }
 
+-(Shop *)shop
+{
+    return _shop;
+}
+
 @end
 
 @implementation ShopGalleryFullViewController
