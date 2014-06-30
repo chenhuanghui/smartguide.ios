@@ -199,7 +199,7 @@ static char ImageViewDefaultBackgroundKey;
 
 -(void)loadGalleryFullWithURL:(NSString *)url
 {
-    [self loadImageWithDefaultBackground:url];
+    [self loadImageWithDefaultLoading:url];
 }
 
 -(void) loadShopUserGalleryWithURL:(NSString*) url
