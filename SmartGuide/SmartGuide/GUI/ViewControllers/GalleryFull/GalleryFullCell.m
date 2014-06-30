@@ -89,8 +89,21 @@
     // Nếu width và height của hình nhỏ hơn frame thì ko zoom do bị vỡ pixcel
     if([imgv isImageSmaller])
     {
-        if(onCompleted)
-            onCompleted();
+        CGRect imgFrame=[imgv imageFrame];
+        
+        if(CGRectContainsPoint(imgFrame, pnt))
+        {
+            if(onCompleted)
+                onCompleted();
+        }
+        else
+        {
+            // Touch vào vùng đen ngoài hình->mặc định zoom vào top left;
+            pnt=CGPointZero;
+            
+            [self.delegate galleryFullCellTouchedOutsideImage:self];
+            return;
+        }
         
         return;
     }
