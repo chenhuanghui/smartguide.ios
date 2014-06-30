@@ -124,7 +124,7 @@
 {
     galleryController.delegate=self;
     
-    [self presentSGViewController:galleryController animation:^BasicAnimation *{
+    [_navi.visibleViewController presentSGViewController:galleryController animation:^BasicAnimation *{
         BasicAnimation *ani=[BasicAnimation animationWithKeyPath:@"opacity"];
         ani.fromValue=@(0);
         ani.toValue=@(1);
@@ -155,7 +155,7 @@
         }
     }
     
-    [self dismissSGViewControllerAnimation:^BasicAnimation *{
+    [_navi.visibleViewController dismissSGViewControllerAnimation:^BasicAnimation *{
         BasicAnimation *animation=[BasicAnimation animationWithKeyPath:@"opacity"];
         animation.fromValue=@(1);
         animation.toValue=@(0);

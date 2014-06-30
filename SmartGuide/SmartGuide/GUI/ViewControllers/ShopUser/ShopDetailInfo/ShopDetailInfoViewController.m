@@ -21,10 +21,11 @@
 #import "ShopList.h"
 #import "ShopDetailBGView.h"
 #import "ImageManager.h"
+#import "WebViewController.h"
 
 #define SHOP_DETAIL_INFO_TABLE_EMPTY_CELL_HEIGHT 23.f
 
-@interface ShopDetailInfoViewController ()<ShopDetailInfoDescCellDelegate,UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate,ASIOperationPostDelegate>
+@interface ShopDetailInfoViewController ()<ShopDetailInfoDescCellDelegate,UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate,ASIOperationPostDelegate,ShopDetailInfoType2Delegate>
 {
     ASIOperationShopDetailInfo *_operation;
     enum SHOP_DETAIL_INFO_DESCRIPTION_MODE _descMode;
@@ -113,7 +114,7 @@
     {
         ShopDetailInfoType3Cell *infoCell=(ShopDetailInfoType3Cell*)cell;
 
-        if(infoCell.info.idShop!=0)
+        if(infoCell.info.idShop.integerValue!=0)
         {
             [self.delegate shopDetailInfoControllerTouchedShop:self idShop:infoCell.info.idShop.integerValue];
         }
@@ -397,6 +398,7 @@
             
             ShopDetailInfoType2Cell *cell=[table dequeueReusableCellWithIdentifier:[ShopDetailInfoType2Cell reuseIdentifier]];
             
+            cell.delegate=self;
             [cell loadWithInfo2:item];
             
             if(indexPath.row==obj.items.count-1)
@@ -450,6 +452,11 @@
     }
     
     return [UITableViewCell new];
+}
+
+-(void)shopDetailInfoType2TouchedURL:(ShopDetailInfoType2Cell *)cell url:(NSURL *)url
+{
+    [self showWebViewWithURL:url onCompleted:nil];
 }
 
 -(void)shopDetailInfoDescCellTouchedReadLess:(ShopDetailInfoDescCell *)cell

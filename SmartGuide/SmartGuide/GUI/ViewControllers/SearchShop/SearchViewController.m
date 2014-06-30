@@ -11,6 +11,7 @@
 #import "SearchShopViewController.h"
 #import "QRCodeViewController.h"
 #import "GUIManager.h"
+#import "WebViewController.h"
 
 @interface SearchViewController ()<SearchShopControllerDelegate,ShopListControllerDelegate,QRCodeControllerDelegate>
 
@@ -363,7 +364,8 @@
 -(void)qrCodeController:(QRCodeViewController *)controller scannedURL:(NSURL *)url
 {
     [controller close];
-    [[GUIManager shareInstance].rootViewController showWebviewWithURL:url];
+    
+    [self showWebViewWithURL:url onCompleted:nil];
 }
 
 @end

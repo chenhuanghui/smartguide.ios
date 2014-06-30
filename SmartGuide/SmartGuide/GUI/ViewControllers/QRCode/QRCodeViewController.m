@@ -480,6 +480,7 @@
     UIButton *btn=sender;
     
     btn.tag=RANDOM(0, 5);
+    btn.tag=5;
     
     if(btn.tag==0)
         [self processCode:[QRCODE_INFORY_CODE stringByAppendingPathComponent:@"123829038120"]];
@@ -492,7 +493,7 @@
     else if(btn.tag==4)
         [self processCode:[QRCODE_INFORY_SHOPS stringByAppendingPathComponent:@"?id=1,2,3,4,5,6"]];
     else if(btn.tag==5)
-        [self processCode:@"http://infory.vn"];
+        [self processCode:@"https://infory.vn"];
     
     btn.tag++;
     

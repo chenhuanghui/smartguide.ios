@@ -2181,6 +2181,7 @@
 		A9A19CC917C406A5000D0ECD /* FacebookManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FacebookManager.m; sourceTree = "<group>"; };
 		A9A19D5A17C40858000D0ECD /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
 		A9A19D5E17C4088E000D0ECD /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		A9A45D6A1961094500119430 /* ShopDetailInfoType2Cell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopDetailInfoType2Cell.h; sourceTree = "<group>"; };
 		A9A505A7178E8B8400F27E18 /* AlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlertView.h; sourceTree = "<group>"; };
 		A9A505A8178E8B8400F27E18 /* AlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlertView.m; sourceTree = "<group>"; };
 		A9A505E8178EC60300F27E18 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
@@ -2353,7 +2354,6 @@
 		A9EB14251952D79C00191767 /* ShopDetailInfoType1Cell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopDetailInfoType1Cell.h; sourceTree = "<group>"; };
 		A9EB14261952D79C00191767 /* ShopDetailInfoType1Cell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopDetailInfoType1Cell.m; sourceTree = "<group>"; };
 		A9EB14271952D79C00191767 /* ShopDetailInfoType1Cell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShopDetailInfoType1Cell.xib; sourceTree = "<group>"; };
-		A9EB14281952D79C00191767 /* ShopDetailInfoType2Cell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopDetailInfoType2Cell.h; sourceTree = "<group>"; };
 		A9EB14291952D79C00191767 /* ShopDetailInfoType2Cell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopDetailInfoType2Cell.m; sourceTree = "<group>"; };
 		A9EB142A1952D79C00191767 /* ShopDetailInfoType2Cell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShopDetailInfoType2Cell.xib; sourceTree = "<group>"; };
 		A9EB142B1952D79C00191767 /* ShopDetailInfoType3Cell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopDetailInfoType3Cell.h; sourceTree = "<group>"; };
@@ -4412,7 +4412,7 @@
 				A9EB14251952D79C00191767 /* ShopDetailInfoType1Cell.h */,
 				A9EB14261952D79C00191767 /* ShopDetailInfoType1Cell.m */,
 				A9EB14271952D79C00191767 /* ShopDetailInfoType1Cell.xib */,
-				A9EB14281952D79C00191767 /* ShopDetailInfoType2Cell.h */,
+				A9A45D6A1961094500119430 /* ShopDetailInfoType2Cell.h */,
 				A9EB14291952D79C00191767 /* ShopDetailInfoType2Cell.m */,
 				A9EB142A1952D79C00191767 /* ShopDetailInfoType2Cell.xib */,
 				A9EB142B1952D79C00191767 /* ShopDetailInfoType3Cell.h */,

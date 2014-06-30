@@ -41,7 +41,6 @@
 -(void) showUserSetting;
 -(void) showTutorial;
 -(void) showTerms;
--(void) showWebviewWithURL:(NSURL*) url;
 
 @property (weak, nonatomic) IBOutlet UIView *containView;
 @property (weak, nonatomic) IBOutlet UIView *contentView;

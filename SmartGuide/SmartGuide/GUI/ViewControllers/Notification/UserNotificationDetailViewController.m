@@ -20,6 +20,7 @@
 #import "OperationNotificationCountBySender.h"
 #import "AppDelegate.h"
 #import "EmptyDataView.h"
+#import "WebViewController.h"
 
 @interface UserNotificationDetailViewController ()<UITableViewDataSource,UITableViewDelegate,ASIOperationPostDelegate,UserNotificationDetailCellDelegate>
 {
@@ -354,7 +355,7 @@
             
         case NOTIFICATION_ACTION_TYPE_POPUP_URL:
             
-            [[GUIManager shareInstance].rootViewController showWebviewWithURL:URL(action.url)];
+            [self showWebViewWithURL:URL(action.url) onCompleted:nil];
             
             break;
             

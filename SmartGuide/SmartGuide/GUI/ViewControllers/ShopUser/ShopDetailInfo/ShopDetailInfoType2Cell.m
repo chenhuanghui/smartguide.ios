@@ -59,8 +59,7 @@
     
     if(url)
     {
-        [[GUIManager shareInstance].rootViewController showWebviewWithURL:url];
-//        [[UIApplication sharedApplication] openURL:url];
+        [self.delegate shopDetailInfoType2TouchedURL:self url:url];
     }
 }
 

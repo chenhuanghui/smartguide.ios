@@ -10,6 +10,14 @@
 #import "ASIOperationShopDetailInfo.h"
 #import "InfoTypeBGView.h"
 
+@class ShopDetailInfoType2Cell;
+
+@protocol ShopDetailInfoType2Delegate <NSObject>
+
+-(void) shopDetailInfoType2TouchedURL:(ShopDetailInfoType2Cell*) cell url:(NSURL*) url;
+
+@end
+
 @interface ShopDetailInfoType2Cell : UITableViewCell
 {
     __weak IBOutlet UILabel *lblLeft;
@@ -24,5 +32,7 @@
 
 +(NSString *)reuseIdentifier;
 +(float) heightWithInfo2:(Info2*) info2;
+
+@property (nonatomic, weak) id<ShopDetailInfoType2Delegate> delegate;
 
 @end

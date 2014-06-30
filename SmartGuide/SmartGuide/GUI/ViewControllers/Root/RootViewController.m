@@ -409,7 +409,7 @@
 -(void)qrCodeController:(QRCodeViewController *)controller scannedURL:(NSURL *)url
 {
     [controller close];
-    [self showWebviewWithURL:url];
+    [self showWebViewWithURL:url onCompleted:nil];
 }
 
 -(void) qrCodeController:(QRCodeViewController *)controller scannedIDShops:(NSString *)idShops
@@ -592,23 +592,12 @@
 
 -(void)showTutorial
 {
-    [self showWebviewWithURL:URL(@"http://infory.vn/mobile/guide")];
+    [self showWebViewWithURL:URL(@"http://infory.vn/mobile/guide") onCompleted:nil];
 }
 
 -(void)showTerms
 {
-    [self showWebviewWithURL:URL(@"http://infory.vn/dieu-khoan-nguoi-dung.html")];
-}
-
--(void)showWebviewWithURL:(NSURL *)url
-{
-    if(!url || url.description.length==0)
-        return;
-    
-    WebViewController *vc=[[WebViewController alloc] initWithURL:url];
-    vc.delegate=self;
-    
-    [self showWebviewWithURL:url];
+    [self showWebViewWithURL:URL(@"http://infory.vn/dieu-khoan-nguoi-dung.html") onCompleted:nil];
 }
 
 -(void)removeUserNotification:(UserNotification *)obj

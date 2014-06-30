@@ -22,6 +22,7 @@
 #import "ASIOperationUserNotificationRemove.h"
 #import "EmptyDataView.h"
 #import "ASIOperationNotificationCount.h"
+#import "WebViewController.h"
 
 @interface UserNotificationViewController ()<UITableViewDataSource,UITableViewDelegate,UserNotificationCellDelegate,ASIOperationPostDelegate,UIActionSheetDelegate,RefreshingViewDelegate>
 {
@@ -317,7 +318,7 @@
             
         case NOTIFICATION_ACTION_TYPE_POPUP_URL:
             
-            [[GUIManager shareInstance].rootViewController showWebviewWithURL:URL(action.url)];
+            [self showWebViewWithURL:URL(action.url) onCompleted:nil];
             
             break;
             
