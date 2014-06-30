@@ -145,7 +145,7 @@ static NSMutableArray *_asioperations=nil;
 {
     [self applyPostValue];
     
-    DLOG_DEBUG(@"%@ %@ start %@ %@ %@ %@",CLASS_NAME, self.requestURL.HTTPMethod,self.requestURL.URL, self.keyValue.allKeys, self.keyValue.allValues,self.imagesData.allKeys?:@"");
+    DLOG_DEBUG(@"%@ %@ start %@ params %@ %@ %@",CLASS_NAME, self.requestURL.HTTPMethod,self.requestURL.URL, self.keyValue.allKeys, self.keyValue.allValues,self.imagesData.allKeys?:@"");
     
     __weak ASIOperationPost *wSelf=self;
     [self setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {

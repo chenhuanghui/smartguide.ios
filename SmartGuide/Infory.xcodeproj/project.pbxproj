@@ -894,6 +894,8 @@
 		A9A19CCA17C406A5000D0ECD /* FacebookManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A19CC917C406A5000D0ECD /* FacebookManager.m */; };
 		A9A19D5B17C40858000D0ECD /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9A19D5A17C40858000D0ECD /* Twitter.framework */; };
 		A9A19D5F17C4088E000D0ECD /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9A19D5E17C4088E000D0ECD /* MessageUI.framework */; };
+		A9A45D6E19610E5E00119430 /* UserNotificationController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A45D6C19610E5E00119430 /* UserNotificationController.m */; };
+		A9A45D6F19610E5E00119430 /* UserNotificationController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9A45D6D19610E5E00119430 /* UserNotificationController.xib */; };
 		A9A505A9178E8B8400F27E18 /* AlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A505A8178E8B8400F27E18 /* AlertView.m */; };
 		A9A505E9178EC60300F27E18 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9A505E8178EC60300F27E18 /* CoreText.framework */; };
 		A9A98157193C6BFC00B8512E /* JSBackspaceReportingTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A98150193C6BFC00B8512E /* JSBackspaceReportingTextField.m */; };
@@ -2182,6 +2184,9 @@
 		A9A19D5A17C40858000D0ECD /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
 		A9A19D5E17C4088E000D0ECD /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		A9A45D6A1961094500119430 /* ShopDetailInfoType2Cell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopDetailInfoType2Cell.h; sourceTree = "<group>"; };
+		A9A45D6B19610E5E00119430 /* UserNotificationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserNotificationController.h; sourceTree = "<group>"; };
+		A9A45D6C19610E5E00119430 /* UserNotificationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserNotificationController.m; sourceTree = "<group>"; };
+		A9A45D6D19610E5E00119430 /* UserNotificationController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserNotificationController.xib; sourceTree = "<group>"; };
 		A9A505A7178E8B8400F27E18 /* AlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlertView.h; sourceTree = "<group>"; };
 		A9A505A8178E8B8400F27E18 /* AlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlertView.m; sourceTree = "<group>"; };
 		A9A505E8178EC60300F27E18 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
@@ -4316,6 +4321,9 @@
 				A99257B318E9886800D0993A /* UserNotificationHeaderView.h */,
 				A99257B418E9886800D0993A /* UserNotificationHeaderView.m */,
 				A99257B618E9886E00D0993A /* UserNotificationHeaderView.xib */,
+				A9A45D6B19610E5E00119430 /* UserNotificationController.h */,
+				A9A45D6C19610E5E00119430 /* UserNotificationController.m */,
+				A9A45D6D19610E5E00119430 /* UserNotificationController.xib */,
 			);
 			path = Notification;
 			sourceTree = "<group>";
@@ -4855,6 +4863,7 @@
 				9A1B124918CC1825004BDBB6 /* map.png in Resources */,
 				9AC979FD186C273B00E5432D /* icon_go@2x.png in Resources */,
 				9A3986C6185B7649006C0961 /* bg_button_navigation.png in Resources */,
+				A9A45D6F19610E5E00119430 /* UserNotificationController.xib in Resources */,
 				9A079B3818C0D34600FDC0EC /* icon_address_list.png in Resources */,
 				9AA026CF183674CF0087B2DA /* button_scan.png in Resources */,
 				9AA026D4183674CF0087B2DA /* icon_heartslide@2x.png in Resources */,
@@ -5652,6 +5661,7 @@
 				9ADCD93B18D19C3F004CB67E /* AFHTTPRequestOperation.m in Sources */,
 				9ADCD94018D19C3F004CB67E /* AFURLConnectionOperation.m in Sources */,
 				9A693CB2186D484300114597 /* UserHomeImage.m in Sources */,
+				A9A45D6E19610E5E00119430 /* UserNotificationController.m in Sources */,
 				A9EB146B1952D79C00191767 /* ShopCameraPostViewController.m in Sources */,
 				9ACF7AA218698E4100B0BC78 /* _UserHome2.m in Sources */,
 				9A27BC0618D18BAD00E3EAC2 /* HomeBGCell.m in Sources */,

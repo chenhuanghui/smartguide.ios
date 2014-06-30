@@ -10,7 +10,7 @@
 #import "GUIManager.h"
 #import "LoadingMoreCell.h"
 #import "LocationManager.h"
-#import "UserNotificationViewController.h"
+#import "UserNotificationController.h"
 #import "UserNoticeObject.h"
 #import "NotificationManager.h"
 
@@ -704,13 +704,13 @@
         } onCancelled:nil onLogined:^(bool isLogined)
         {
             if(isLogined)
-                [self.navigationController pushViewController:[UserNotificationViewController new] animated:true];
+                [self.navigationController pushViewController:[UserNotificationController new] animated:true];
         }];
     }
     else
     {
         [txtRefresh markTableDidEndScroll:tableFeed];
-        [self.navigationController pushViewController:[UserNotificationViewController new] animated:true];
+        [self.navigationController pushViewController:[UserNotificationController new] animated:true];
     }
 }
 

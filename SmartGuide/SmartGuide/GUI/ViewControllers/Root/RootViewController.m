@@ -19,8 +19,7 @@
 #import "UserSettingViewController.h"
 #import "SearchShopViewController.h"
 #import "NotificationManager.h"
-#import "UserNotificationViewController.h"
-#import "UserNotificationDetailViewController.h"
+#import "UserNotificationController.h"
 #import "QRCodeViewController.h"
 #import "RemoteNotificationView.h"
 #import "ShopUserController.h"
@@ -58,11 +57,16 @@
     {
         if([NotificationManager shareInstance].launchNotification)
         {
-            [array addObject:[UserNotificationViewController new]];
-            
             if([NotificationManager shareInstance].launchNotification.idSender)
             {
-                [array addObject:[[UserNotificationDetailViewController alloc] initWithIDSender:[NotificationManager shareInstance].launchNotification.idSender.integerValue]];
+                UserNotificationController *vc=[[UserNotificationController alloc] initWithIDSender:[NotificationManager shareInstance].launchNotification.idSender];
+                [array addObject:vc];
+            }
+            else
+            {
+                UserNotificationController *vc=[UserNotificationController new];
+                
+                [array addObject:vc];
             }
             
             [NotificationManager shareInstance].launchNotification=nil;
@@ -83,7 +87,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-
+    
 #if DEBUG
     [SGData shareInstance].buildMode=@([[NSUserDefaults standardUserDefaults] integerForKey:@"buildMode"]);
     btnBuildMode.hidden=false;
@@ -137,16 +141,8 @@
     {
         [[NotificationManager shareInstance] requestNotificationCount];
         
-        for(SGViewController *vc in self.contentNavigation.viewControllers)
-        {
-            if([vc respondsToSelector:@selector(receiveRemoteNotification:)])
-                [vc receiveRemoteNotification:notification.object];
-        }
-        
         if([notification.object isFromBG].boolValue)
-        {
-            [self handleRemoteNotification:notification.object];
-        }
+            [self processRemoteNotification:notification.object];
         else
             [self showRemoteNotification:notification.object];
     }
@@ -668,75 +664,40 @@
     [remoteNotiView show];
 }
 
--(void) handleRemoteNotification:(RemoteNotification*) remoteNotification
+-(void)processRemoteNotification:(RemoteNotification *)obj
 {
     if(self.contentNavigation.presentSGViewControlelr)
     {
         [self.contentNavigation dismissSGViewControllerCompletion:^{
-            [self handleRemoteNotification:remoteNotification];
+            [self processRemoteNotification:obj];
         }];
         
         return;
     }
     
-    __strong RemoteNotification *obj=remoteNotification;
-    
-    if(!remoteNotification.isFromBG.boolValue)
+    if(!obj.isFromBG.boolValue)
         [self autoHideNotificationInfo];
     
-    for(SGViewController *vc in self.contentNavigation.viewControllers)
-    {
-        if([vc respondsToSelector:@selector(processRemoteNotification:)])
-            [vc processRemoteNotification:obj];
-    }
+    UserNotificationController *vc=nil;
     
-    bool hasNotiController=false;
-    bool hasNotiContentController=false;
-    UserNotificationViewController *notiController=nil;
-    UserNotificationDetailViewController *notiDetailController=nil;
-    for(int i=0;i<self.contentNavigation.viewControllers.count;i++)
+    for(vc in self.contentNavigation.viewControllers)
     {
-        UIViewController *vc=self.contentNavigation.viewControllers[i];
-        
-        if([vc isKindOfClass:[UserNotificationViewController class]])
-        {
-            hasNotiController=true;
-            notiController=(UserNotificationViewController*) vc;
-        }
-        else if([vc isKindOfClass:[UserNotificationDetailViewController class]])
-        {
-            hasNotiContentController=true;
-            notiDetailController=(UserNotificationDetailViewController*)vc;
-        }
-        
-        if(hasNotiController && hasNotiContentController)
+        if([vc isKindOfClass:[UserNotificationController class]])
             break;
     }
     
-    if(!hasNotiController)
+    if([vc isKindOfClass:[UserNotificationController class]])
     {
-        UserNotificationViewController *vc=[UserNotificationViewController new];
-        vc.delegate=self;
-        
-        [self.contentNavigation pushViewController:vc animated:true];
-    }
-    
-    if(remoteNotification.idSender)
-    {
-        if(!hasNotiContentController)
-        {
-            UserNotificationDetailViewController *vc=[[UserNotificationDetailViewController alloc] initWithIDSender:remoteNotification.idSender.integerValue];
-            vc.delegate=self;
-            
-            [self.contentNavigation pushViewController:vc animated:true];
-        }
-        else
-            [self.contentNavigation popToViewController:notiDetailController animated:true];
+        [self.contentNavigation popToViewController:vc animated:true];
     }
     else
     {
-        if(hasNotiController)
-            [self.contentNavigation popToViewController:notiController animated:true];
+        if(obj.idSender)
+            vc=[[UserNotificationController alloc] initWithIDSender:obj.idSender];
+        else
+            vc=[UserNotificationController new];
+        
+        [self.contentNavigation pushViewController:vc animated:true];
     }
     
     obj=nil;
@@ -746,7 +707,7 @@
 {
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(autoHideNotificationInfo) object:nil];
     
-    [self handleRemoteNotification:remoteNotiView.remoteNotification];
+    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_TOUCHED_REMOTE_NOTIFICATION object:remoteView.remoteNotification];
 }
 
 -(void)remoteNotificationViewTouchedClose:(RemoteNotificationView *)remoteView

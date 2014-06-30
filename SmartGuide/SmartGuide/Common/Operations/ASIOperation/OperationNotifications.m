@@ -7,6 +7,7 @@
 //
 
 #import "OperationNotifications.h"
+#import "TokenManager.h"
 
 @implementation OperationNotifications
 
@@ -17,9 +18,10 @@
 //    [dict setObject:version forKey:@"version"];
 //    [dict setObject:[[UIDevice currentDevice] platformRawString] forKey:@"deviceInfo"];
     
-    self=[super initGETWithURL:SERVER_IP_MAKE_URL(API_NOTIFICATIONS)];
+    self=[super initRouterWithMethod:OPERATION_METHOD_TYPE_GET url:SERVER_IP_MAKE(API_NOTIFICATIONS)];
     
     [self.keyValue setObject:version forKey:@"version"];
+    [self.keyValue setObject:[TokenManager shareInstance].accessToken forKey:@"accessToken"];
     
     return self;
 }

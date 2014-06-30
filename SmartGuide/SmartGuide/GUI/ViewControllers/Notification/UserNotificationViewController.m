@@ -10,6 +10,7 @@
 #import "UserNotificationCell.h"
 #import "UserNotification.h"
 #import "UserNotificationHeaderView.h"
+#import "UserNotificationContent.h"
 #import "UserNotificationDetailViewController.h"
 #import "LoadingMoreCell.h"
 #import "GUIManager.h"
@@ -89,7 +90,8 @@
 {
     [super viewWillAppear:animated];
     
-    [self requestNotificationCount:false];
+    [self requestNotificationCount:true];
+    [[NotificationManager shareInstance] requestNotificationCount];
 }
 
 -(void) requestNotificationCount:(bool) force
@@ -135,9 +137,6 @@
 -(void)refreshingViewNeedRefresh:(RefreshingView *)refreshView
 {
     [self refreshData];
-    [self requestNotificationCount:true];
-    
-    DLOG_DEBUG(@"refreshingViewNeedRefresh");
 }
 
 -(void)refreshingViewFinished:(RefreshingView *)refreshView
@@ -153,6 +152,7 @@
     [self reloadData];
     
     [[NotificationManager shareInstance] requestNotificationCount];
+    [self requestNotificationCount:true];
 }
 
 -(void) requestUserNotification
@@ -359,12 +359,10 @@
 
 -(void)userNotificationCellTouchedDetail:(UserNotificationCell *)cell obj:(UserNotification *)obj
 {
-    UserNotificationDetailViewController *vc=[[UserNotificationDetailViewController alloc] initWithUserNotification:obj];
-    vc.title=obj.sender;
     obj.highlightUnread=@(false);
     [[DataManager shareInstance] save];
     
-    [self.navigationController pushViewController:vc animated:true];
+    [self.delegate userNotificationViewControllerTouchedNotification:self userNotification:obj];
 }
 
 -(void) deleteUserNotification:(int) idSender
@@ -519,8 +517,7 @@
 }
 
 - (IBAction)btnBackTouchUpInside:(id)sender {
-    [[NotificationManager shareInstance] requestNotificationCount];
-    [self.navigationController popViewControllerAnimated:true];
+    [self.delegate userNotificationViewControllerTouchedBack:self];
 }
 
 - (IBAction)btnSettingTouchUpInside:(id)sender {
@@ -589,9 +586,6 @@
             [_userNotification addObjectsFromArray:ope.userNotifications];
             
             [self reloadData];
-            
-            if(_page==0)
-                [[NotificationManager shareInstance] requestNotificationCount];
         }
         else if(refreshView.refreshState==REFRESH_VIEW_STATE_REFRESHING)
         {
@@ -712,34 +706,6 @@
         [table showEmptyDataViewWithText:@"Không có dữ liệu" textColor:[UIColor grayColor]];
         [table.emptyDataView l_v_setY:table.tableHeaderView.l_v_h+30];
     }
-}
-
--(void)receiveRemoteNotification:(UserNotification *)obj
-{
-    return;
-    [table beginUpdates];
-    
-    bool willAddSectionUnread=false;
-    if(_userNotification.count==0)
-    {
-        willAddSectionUnread=true;
-        [_userNotification addObject:obj];
-    }
-    else
-        [_userNotification insertObject:obj atIndex:0];
-    
-    [self makeData];
-    
-    if(willAddSectionUnread)
-    {
-        [table insertSections:[NSIndexSet indexSetWithIndex:NOTIFICATION_STATUS_UNREAD] withRowAnimation:UITableViewRowAnimationAutomatic];
-    }
-    else
-    {
-        [table insertRowsAtIndexPaths:@[makeIndexPath(0, 0)] withRowAnimation:UITableViewRowAnimationAutomatic];
-    }
-    
-    [table endUpdates];
 }
 
 -(void)processRemoteNotification:(UserNotification *)obj

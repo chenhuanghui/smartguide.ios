@@ -10,11 +10,17 @@
 #import "UserNotification.h"
 #import "UserNotificationContent.h"
 
-@class UserNotificationViewController,MPMoviePlayerController;
+@class UserNotificationViewController,MPMoviePlayerController, UserNotificationDetailViewController;
+
+@protocol UserNotificationDetailViewControllerDelegate <SGViewControllerDelegate>
+
+-(void) userNotificationDetailControllerTouchedBack:(UserNotificationDetailViewController*) controller;
+
+@end
 
 @interface UserNotificationDetailViewController : SGViewController
 {
-    int _idSender;
+    NSNumber *_idSender;
     __weak IBOutlet UITableView *table;
     __weak IBOutlet UILabel *lblTitle;
     NSMutableArray *_userNotificationContents;
@@ -29,10 +35,10 @@
     __strong MPMoviePlayerController *_player;
 }
 
--(UserNotificationDetailViewController*) initWithIDSender:(int) idSender;
+-(UserNotificationDetailViewController*) initWithIDSender:(NSNumber*) idSender;
 -(UserNotificationDetailViewController*) initWithUserNotification:(UserNotification*) obj;
 
-@property (nonatomic, weak) UserNotificationViewController *notificationController;
+@property (nonatomic, weak) id<UserNotificationDetailViewControllerDelegate> delegate;
 
 @end
 

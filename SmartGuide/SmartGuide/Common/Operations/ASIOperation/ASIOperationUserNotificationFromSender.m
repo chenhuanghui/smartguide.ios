@@ -12,11 +12,11 @@
 
 @implementation ASIOperationUserNotificationFromSender
 
--(ASIOperationUserNotificationFromSender *)initWithIDSender:(int)idSender page:(int)page userLat:(double)userLat userLng:(double)userLng
+-(ASIOperationUserNotificationFromSender *)initWithIDSender:(NSNumber*)idSender page:(int)page userLat:(double)userLat userLng:(double)userLng
 {
     self=[super initPOSTWithURL:SERVER_API_URL_MAKE(API_USER_NOTIFICATION_LIST_BY_SENDER)];
     
-    [self.keyValue setObject:@(idSender) forKey:@"idSender"];
+    [self.keyValue setObject:idSender forKey:@"idSender"];
     [self.keyValue setObject:@(page) forKey:PAGE];
     [self.keyValue setObject:@(userLat) forKey:USER_LATITUDE];
     [self.keyValue setObject:@(userLng) forKey:USER_LONGITUDE];

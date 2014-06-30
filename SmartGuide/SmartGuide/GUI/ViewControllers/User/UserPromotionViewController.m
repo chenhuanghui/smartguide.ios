@@ -11,7 +11,7 @@
 #import "LoadingMoreCell.h"
 #import "QRCodeViewController.h"
 #import "NotificationManager.h"
-#import "UserNotificationViewController.h"
+#import "UserNotificationController.h"
 
 #define USER_PROMOTION_TEXT_FIELD_SEARCH_MIN_Y 8.f
 
@@ -398,13 +398,13 @@
             [SGData shareInstance].fScreen=[UserPromotionViewController screenCode];
         } onCancelled:nil onLogined:^(bool isLogined) {
             if(isLogined)
-                [self.navigationController pushViewController:[UserNotificationViewController new] animated:true];
+                [self.navigationController pushViewController:[UserNotificationController new] animated:true];
         }];
     }
     else
     {
         [txtRefresh markTableDidEndScroll:table];
-        [self.navigationController pushViewController:[UserNotificationViewController new] animated:true];
+        [self.navigationController pushViewController:[UserNotificationController new] animated:true];
     }
 }
 

@@ -44,6 +44,11 @@ static char presentingSGViewControlelrKey;
     {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveNotification:) name:notification object:nil];
     }
+    
+    for(NSString *notification in [self defaultRegisterNotification])
+    {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveDefaultNotification:) name:notification object:nil];
+    }
 }
 
 -(void)loadView
@@ -60,6 +65,23 @@ static char presentingSGViewControlelrKey;
     // Dispose of any resources that can be recreated.
 }
 
+-(NSArray*) defaultRegisterNotification
+{
+    return @[NOTIFICATION_RECEIVED_REMOTE_NOTIFICATION, NOTIFICATION_TOUCHED_REMOTE_NOTIFICATION];
+}
+
+-(void) receiveDefaultNotification:(NSNotification*) notification
+{
+    if([notification.name isEqualToString:NOTIFICATION_RECEIVED_REMOTE_NOTIFICATION])
+    {
+        [self receiveRemoteNotification:notification.object];
+    }
+    else if([notification.name isEqualToString:NOTIFICATION_TOUCHED_REMOTE_NOTIFICATION])
+    {
+        [self processRemoteNotification:notification.object];
+    }
+}
+
 -(NSArray *)registerNotifications
 {
     return @[];
@@ -73,6 +95,10 @@ static char presentingSGViewControlelrKey;
 -(void)dealloc
 {
     for (NSString *notification in [self registerNotifications]) {
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:notification object:nil];
+    }
+    
+    for (NSString *notification in [self defaultRegisterNotification]) {
         [[NSNotificationCenter defaultCenter] removeObserver:self name:notification object:nil];
     }
 

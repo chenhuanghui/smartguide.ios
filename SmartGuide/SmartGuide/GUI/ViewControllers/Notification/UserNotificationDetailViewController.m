@@ -32,7 +32,7 @@
 
 @implementation UserNotificationDetailViewController
 
--(UserNotificationDetailViewController *)initWithIDSender:(int)idSender
+-(UserNotificationDetailViewController *)initWithIDSender:(NSNumber *)idSender
 {
     self=[super initWithNibName:@"UserNotificationDetailViewController" bundle:nil];
     
@@ -45,17 +45,10 @@
 {
     self=[super initWithNibName:@"UserNotificationDetailViewController" bundle:nil];
     
-    _idSender=obj.idSender.integerValue;
+    _idSender=obj.idSender;
     _userNotification=obj;
     
     return self;
-}
-
--(void)setTitle:(NSString *)title
-{
-    [super setTitle:title];
-    
-    lblTitle.text=title;
 }
 
 - (void)viewDidLoad
@@ -63,7 +56,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    lblTitle.text=self.title;
+    lblTitle.text=_userNotification.sender?:@"";
     
     _canLoadMore=false;
     _isLoadingMore=false;
@@ -129,10 +122,11 @@
     
     _page=-1;
     _isLoadingMore=false;
-    _canLoadMore=true;
+    _canLoadMore=false;
     _userNotification=nil;
     _userNotificationContents=[NSMutableArray new];
     
+    [table reloadData];
     [self showLoading];
     [self requestNotification];
 }
@@ -160,7 +154,7 @@
         
         ASIOperationUserNotificationFromSender *ope=(ASIOperationUserNotificationFromSender*) operation;
         
-        self.title=ope.sender;
+        lblTitle.text=ope.sender;
         
         _page++;
         
@@ -257,8 +251,7 @@
 }
 
 - (IBAction)btnBackTouchUpInside:(id)sender {
-    [[NotificationManager shareInstance] requestNotificationCount];
-    [self.navigationController popViewControllerAnimated:true];
+    [self.delegate userNotificationDetailControllerTouchedBack:self];
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -508,7 +501,7 @@
     if(obj.idSender)
     {
         _userNotification=nil;
-        _idSender=obj.idSender.integerValue;
+        _idSender=obj.idSender;
         [self resetData];
     }
 }

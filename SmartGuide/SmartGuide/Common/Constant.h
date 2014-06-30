@@ -164,6 +164,7 @@ static NSString * const kClientId = @"790158294934-p5pnscmrt4avj698ncvhp14fit0f4
 #define NOTIFICATION_INFORY_LAUNCHED @"inforyLaunched"
 #define NOTIFICATION_TOTAL_NOTIFICATION_CHANGED @"totalNotificationChanged"
 #define NOTIFICATION_RECEIVED_REMOTE_NOTIFICATION @"receivedRemoteNotification"
+#define NOTIFICATION_TOUCHED_REMOTE_NOTIFICATION @"touchedRemoteNotification"
 #define NOTIFICATION_USER_CITY_CHANGED @"userCityChangedNotification"
 #define NOTIFICATION_USER_REMOVE_NOTIFICATION @"userRemoteNotification" //userInfo: [idNotification,idSender]
 #define NOTIFICATION_HOME_FINISHED_LOAD @"homeControllerFinishedLoadData"

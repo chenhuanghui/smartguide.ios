@@ -8,7 +8,14 @@
 
 #import "SGViewController.h"
 
-@class  UserNotificationHeaderView,UserNotificationViewController;
+@class  UserNotificationHeaderView,UserNotificationViewController, UserNotification;
+
+@protocol UserNotificationViewControllerDelegate <SGViewControllerDelegate>
+
+-(void) userNotificationViewControllerTouchedBack:(UserNotificationViewController*) controller;
+-(void) userNotificationViewControllerTouchedNotification:(UserNotificationViewController*) controlelr userNotification:(UserNotification*) obj;
+
+@end
 
 @interface UserNotificationViewController : SGViewController
 {
@@ -32,5 +39,7 @@
     
     __weak UserNotificationHeaderView *_headerView;
 }
+
+@property (nonatomic, weak) id<UserNotificationViewControllerDelegate> delegate;
 
 @end
