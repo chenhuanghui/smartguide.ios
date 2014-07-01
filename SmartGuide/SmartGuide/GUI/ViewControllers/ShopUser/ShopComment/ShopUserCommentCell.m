@@ -35,7 +35,7 @@
     lblUsername.text=comment.username;
     lblTime.text=comment.time;
     lblComment.text=comment.comment;
-    [lblComment l_v_setH:comment.commentHeight.floatValue];
+    [lblComment l_v_setH:comment.commentHeight.floatValue+22];
     
     [self makeButtonAgree];
 }
@@ -86,11 +86,12 @@
 +(float)heightWithComment:(ShopUserComment *)comment
 {
     float height=65;
-    
+
     if(comment.commentHeight.floatValue==-1)
-        comment.commentHeight=@([comment.comment sizeWithFont:FONT_SIZE_NORMAL(11) constrainedToSize:CGSizeMake(236, MAXFLOAT) lineBreakMode:NSLineBreakByTruncatingTail].height);
+        comment.commentHeight=@([comment.comment sizeWithFont:FONT_SIZE_NORMAL(11) constrainedToSize:CGSizeMake(236, MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping].height);
     
-    height+=comment.commentHeight.floatValue-17;
+    height+=comment.commentHeight.floatValue;
+    height+=3;
     
     return MAX(65,height);
 }
