@@ -8,7 +8,7 @@
 
 #import "ASIOperationPost.h"
 
-@class QRCodeDecode;
+@class QRCodeDecode, UserNotificationAction;
 
 @interface OperationQRCodeDecode : ASIOperationPost
 
@@ -18,10 +18,23 @@
 
 @end
 
+enum QRCODE_DECODE_TYPE
+{
+    QRCODE_DECODE_TYPE_UNKNOW=-1,
+    QRCODE_DECODE_TYPE_HEADER=0,
+    QRCODE_DECODE_TYPE_TITLE=1,
+    QRCODE_DECODE_TYPE_TEXT=2,
+    QRCODE_DECODE_TYPE_IMAGE=3,
+    QRCODE_DECODE_TYPE_VIDEO=4,
+    QRCODE_DECODE_TYPE_BUTTON=5,
+};
+
 @interface QRCodeDecode : NSObject
 
-@property (nonatomic, strong) NSString *title;
-@property (nonatomic, strong) NSString *content;
+-(enum QRCODE_DECODE_TYPE) enumType;
+
+@property (nonatomic, strong) NSNumber *type;
+@property (nonatomic, strong) NSString *text;
 @property (nonatomic, strong) NSString *image;
 @property (nonatomic, strong) NSNumber *imageWidth;
 @property (nonatomic, strong) NSNumber *imageHeight;
@@ -29,6 +42,6 @@
 @property (nonatomic, strong) NSString *videoThumbnail;
 @property (nonatomic, strong) NSNumber *videoWidth;
 @property (nonatomic, strong) NSNumber *videoHeight;
-@property (nonatomic, strong) NSMutableArray *buttons;
+@property (nonatomic, strong) UserNotificationAction *action;
 
 @end

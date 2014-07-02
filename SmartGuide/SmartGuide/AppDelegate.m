@@ -15,6 +15,7 @@
 #import "GUIManager.h"
 #import "SDWebImageManager.h"
 #import "NotificationManager.h"
+#import "ScanResultViewController.h"
 
 @implementation AppDelegate
 
@@ -41,7 +42,9 @@
     
     CGRect rect=[[UIScreen mainScreen] bounds];
     self.window = [[TrackingWindow alloc] initWithFrame:rect];
-    
+    self.window.rootViewController=[[ScanResultViewController alloc] initWithCode:@""];
+    [self.window makeKeyAndVisible];
+    return true;
     [[GUIManager shareInstance] startupWithWindow:self.window];
     
     return YES;

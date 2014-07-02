@@ -9,9 +9,14 @@
 #import <UIKit/UIKit.h>
 
 @interface ScanResultInforyCell : UITableViewCell
+{
+    __weak IBOutlet UITableView *table;
+    NSArray *_items;
+}
 
+-(void) loadWithDecode:(NSArray*) array;
 +(NSString *)reuseIdentifier;
-+(float) height;
++(float) heightWithDecode:(NSArray*) array;
 
 @end
 

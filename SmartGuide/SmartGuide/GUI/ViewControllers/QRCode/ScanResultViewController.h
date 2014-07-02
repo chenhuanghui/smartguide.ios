@@ -62,9 +62,7 @@ enum SCAN_RESULT_CODE_TYPE
 -(enum SCAN_RESULT_CODE_TYPE) enumType;
 
 @property (nonatomic, strong) NSNumber *type;
-@property (nonatomic, strong) NSString *title;
-@property (nonatomic, strong) NSString *content;
-@property (nonatomic, strong) QRCodeDecode *qrCodeDecode;
+@property (nonatomic, strong) NSMutableArray *qrCodeDecodes;
 @property (nonatomic, strong) NSMutableArray *related;
 
 @end

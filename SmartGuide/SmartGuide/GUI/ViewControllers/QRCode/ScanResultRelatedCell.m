@@ -7,6 +7,7 @@
 //
 
 #import "ScanResultRelatedCell.h"
+#import "ScanResultObjectCell.h"
 
 @interface ScanResultRelatedCell()<UITableViewDataSource,UITableViewDelegate>
 
@@ -14,11 +15,13 @@
 
 @implementation ScanResultRelatedCell
 
--(void)loadWithRelaties:(NSArray *)relaties
+-(void)loadWithRelaties:(NSString *)relaties
 {
     _relaties=relaties;
     
     [table reloadData];
+    table.userInteractionEnabled=false;
+    table.scrollEnabled=false;
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -28,10 +31,32 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return _relaties.count;
+    return 20;
 }
 
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return [ScanResultObjectCell height];
+}
 
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    ScanResultObjectCell *cell=[tableView scanResultObjectCell];
+    
+    return cell;
+}
+
+-(void)awakeFromNib
+{
+    [super awakeFromNib];
+    
+    [table registerScanResultObjectCell];
+}
+
++(float)height
+{
+    return 20*80;
+}
 
 +(NSString *)reuseIdentifier
 {

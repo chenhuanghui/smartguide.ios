@@ -8,10 +8,23 @@
 
 #import <UIKit/UIKit.h>
 
+@class ScanResultDisconnectCell;
+
+@protocol ScanResultDisconnectCellDelegate <NSObject>
+
+-(void) scanResultDisconnectCellTouchedTry:(ScanResultDisconnectCell*) cell;
+
+@end
+
 @interface ScanResultDisconnectCell : UITableViewCell
+{
+    __weak IBOutlet UIButton *btn;
+}
 
 +(NSString *)reuseIdentifier;
 +(float) height;
+
+@property (nonatomic, weak) id<ScanResultDisconnectCellDelegate> delegate;
 
 @end
 

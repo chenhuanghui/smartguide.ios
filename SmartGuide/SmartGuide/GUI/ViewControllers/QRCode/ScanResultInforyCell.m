@@ -7,15 +7,26 @@
 //
 
 #import "ScanResultInforyCell.h"
+#import "OperationQRCodeDecode.h"
+#import "ScanResultInforyHeaderCell.h"
+#import "ScanResultInforyTitleCell.h"
+#import "ScanResultInfory
 
 @implementation ScanResultInforyCell
+
+-(void)loadWithDecode:(NSArray *) array
+{
+    _items=array;
+    
+    [table reloadData];
+}
 
 +(NSString *)reuseIdentifier
 {
     return @"ScanResultInforyCell";
 }
 
-+(float)height
++(float)heightWithDecode:(NSArray *) array
 {
     return 386;
 }

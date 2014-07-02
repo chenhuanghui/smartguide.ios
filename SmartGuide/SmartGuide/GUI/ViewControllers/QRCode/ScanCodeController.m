@@ -280,7 +280,7 @@
 
 -(enum SCAN_OBJECT_TYPE)enumType
 {
-    switch ((enum SCAN_OBJECT_TYPE)self.type) {
+    switch ((enum SCAN_OBJECT_TYPE)self.type.integerValue) {
         case SCAN_OBJECT_TYPE_IDBRANCH:
             return SCAN_OBJECT_TYPE_IDBRANCH;
             

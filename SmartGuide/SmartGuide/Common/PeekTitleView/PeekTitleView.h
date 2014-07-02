@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@class PeekTitleView;
+@class PeekTitleView, ScrollPeek;
 
 @protocol PeekTitleViewDelegate <NSObject>
 
@@ -18,12 +18,14 @@
 
 @interface PeekTitleView : UIView
 {
-    __weak IBOutlet UIScrollView *scroll;
+    __weak IBOutlet ScrollPeek *scroll;
     
     NSMutableArray *_titles;
 }
 
+-(void) addTitles:(NSArray*) titles;
 -(void) addTitle:(NSString*) title;
+-(void)setTitleIndex:(int)index animate:(bool)animate;
 
 @property (nonatomic, weak) id<PeekTitleViewDelegate> delegate;
 
@@ -32,5 +34,9 @@
 @interface PeekTouchView : UIView
 
 @property (nonatomic, weak) IBOutlet UIView *receiveView;
+
+@end
+
+@interface ScrollPeek : UIScrollView
 
 @end

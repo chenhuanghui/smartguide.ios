@@ -17,7 +17,20 @@
 
 +(float)height
 {
-    return 226;
+    return 200;
+}
+
+- (IBAction)btnTouchUpInside:(id)sender {
+    [self.delegate scanResultDisconnectCellTouchedTry:self];
+}
+
+-(void)awakeFromNib
+{
+    [super awakeFromNib];
+    
+    UIImage *img=[[UIImage imageNamed:@"bg_viewer_button.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(23, 23, 23, 23)];
+    
+    [btn setBackgroundImage:img forState:UIControlStateNormal];
 }
 
 @end

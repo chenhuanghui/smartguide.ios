@@ -174,6 +174,7 @@ static NSString * const kClientId = @"790158294934-p5pnscmrt4avj698ncvhp14fit0f4
 #define COLOR_BACKGROUND_APP_ALPHA(a) [UIColor colorWithRed:40.f/255 green:46.f/255 blue:58.f/255 alpha:a]
 #define COLOR_BACKGROUND_APP COLOR_BACKGROUND_APP_ALPHA(1)
 #define COLOR_BACKGROUND_SHOP_SERIES [UIColor colorWithRed:57.f/255 green:55.f/255 blue:53.f/255 alpha:1]
+#define COLOR_TEXT_HEADLINE_CONTENT [UIColor colorWithRed:130.f/255 green:130.f/255 blue:130.f/255 alpha:1]
 
 #define QRCODE_BIG_HEIGHT 56
 #define QRCODE_SMALL_HEIGHT 32

@@ -7,6 +7,7 @@
 //
 
 #import "PeekTitleView.h"
+#import "Constant.h"
 
 @interface PeekTitleView()<UIScrollViewDelegate>
 
@@ -25,6 +26,8 @@
     [self addGestureRecognizer:tap];
     [scroll.panGestureRecognizer requireGestureRecognizerToFail:tap];
     
+    scroll.scrollEnabled=false;
+    
     return self;
 }
 
@@ -35,11 +38,15 @@
 
 -(void) scrollToIndex:(int) index
 {
+    [self scrollToIndex:index animate:true];
+}
+
+-(void) scrollToIndex:(int) index animate:(BOOL) animate
+{
     if(index<0 || index>=_titles.count)
         return;
     
-    [self.delegate peekTitleView:self touchedIndex:index];
-    [scroll setContentOffset:CGPointMake(index*scroll.frame.size.width, 0) animated:true];
+    [scroll setContentOffset:CGPointMake(index*scroll.frame.size.width, 0) animated:animate];
 }
 
 -(void) scrollNextIndex
@@ -65,11 +72,28 @@
         [self scrollToIndex:self.currentIndex];
 }
 
+-(void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
+{
+    [self.delegate peekTitleView:self touchedIndex:self.currentIndex];
+}
+
 -(void)addTitle:(NSString *)title
 {
     [_titles addObject:title];
     
     [self makeLayout];
+}
+
+-(void)addTitles:(NSArray *)titles
+{
+    [_titles addObjectsFromArray:titles];
+    
+    [self makeLayout];
+}
+
+-(void)setTitleIndex:(int)index animate:(bool)animate
+{
+    [self scrollToIndex:index animate:animate];
 }
 
 -(void) makeLayout
@@ -84,8 +108,8 @@
         UIButton *btn=[[UIButton alloc] initWithFrame:rect];
         
         [btn setTitle:title forState:UIControlStateNormal];
-        [btn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
-        btn.titleLabel.font=[UIFont fontWithName:@"Avenir-Roman" size:14];
+        [btn setTitleColor:COLOR_TEXT_HEADLINE_CONTENT forState:UIControlStateNormal];
+        btn.titleLabel.font=[UIFont fontWithName:@"AvenirNext-DemiBold" size:15];
         btn.contentHorizontalAlignment=UIControlContentHorizontalAlignmentCenter;
         btn.userInteractionEnabled=false;
         
@@ -111,6 +135,15 @@
     }
     
     return view;
+}
+
+@end
+
+@implementation ScrollPeek
+
+-(void)setFrame:(CGRect)frame
+{
+    [super setFrame:frame];
 }
 
 @end
