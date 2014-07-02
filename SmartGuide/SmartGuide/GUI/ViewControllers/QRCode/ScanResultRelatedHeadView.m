@@ -19,4 +19,9 @@
     return self;
 }
 
++(float)height
+{
+    return 67;
+}
+
 @end

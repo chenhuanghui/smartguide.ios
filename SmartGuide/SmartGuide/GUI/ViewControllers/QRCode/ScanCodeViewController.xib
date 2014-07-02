@@ -19,32 +19,33 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <view contentMode="scaleToFill" id="3iS-KH-pCv" customClass="ScanCodeBackgroundView">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                </view>
                 <view contentMode="scaleToFill" id="2Ub-LA-wbC">
-                    <rect key="frame" x="0.0" y="50" width="320" height="380"/>
+                    <rect key="frame" x="0.0" y="56" width="320" height="368"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                     <subviews>
-                        <view contentMode="scaleToFill" id="3iS-KH-pCv" customClass="ScanCodeBackgroundView">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="380"/>
+                        <view clipsSubviews="YES" contentMode="scaleToFill" id="1bf-TO-wTl">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="368"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         </view>
-                        <view clipsSubviews="YES" contentMode="scaleToFill" id="1bf-TO-wTl">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="380"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                        </view>
                         <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="scan.png" id="BfP-QG-VGg">
-                            <rect key="frame" x="59" y="89" width="202" height="202"/>
+                            <rect key="frame" x="59" y="83" width="202" height="202"/>
                         </imageView>
                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Auto" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="XNq-kI-NED">
-                            <rect key="frame" x="59" y="291" width="162" height="38"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
+                            <rect key="frame" x="59" y="285" width="162" height="38"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="13"/>
                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="meD-5e-4iR">
-                            <rect key="frame" x="223" y="291" width="38" height="38"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
+                            <rect key="frame" x="223" y="285" width="38" height="38"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <state key="normal" image="button_flashcamera.png">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -53,10 +54,11 @@
                                 <action selector="btnTorchTouchUpInside:" destination="-1" eventType="touchUpInside" id="0tX-ka-1nU"/>
                             </connections>
                         </button>
-                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Iyr-aQ-gC8">
-                            <rect key="frame" x="0.0" y="350" width="320" height="30"/>
+                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Iyr-aQ-gC8">
+                            <rect key="frame" x="0.0" y="338" width="320" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                             <state key="normal" title="Make code">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <connections>

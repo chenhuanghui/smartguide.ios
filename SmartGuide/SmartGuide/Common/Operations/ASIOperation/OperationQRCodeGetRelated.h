@@ -23,6 +23,7 @@ enum QRCODE_RELATED_TYPE
 @property (nonatomic, strong) NSMutableArray *shops;
 @property (nonatomic, strong) NSMutableArray *promotions;
 @property (nonatomic, strong) NSMutableArray *placelists;
+@property (nonatomic, strong) NSArray *order;
 
 @end
 

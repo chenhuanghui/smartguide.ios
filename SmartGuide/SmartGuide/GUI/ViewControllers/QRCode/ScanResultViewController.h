@@ -8,16 +8,21 @@
 
 #import "SGViewController.h"
 
-@class ScanResultViewController, ScanResult;
+@class ScanResultViewController, ScanResult, QRCodeDecode;
 
 @protocol ScanResultControllerDelegate <SGViewControllerDelegate>
 
 -(void) scanResultController:(ScanResultViewController*) controller touchedObject:(ScanResult*) object;
+-(void) scanResultControllerTouchedBack:(ScanResultViewController*) controller;
 
 @end
 
 @interface ScanResultViewController : SGViewController
 {
+    __weak IBOutlet UITableView *table;
+    __weak IBOutlet UIButton *btnBack;
+    __weak IBOutlet UILabel *lblTitle;
+    
     NSString *_code;
 }
 
@@ -42,5 +47,24 @@ enum SCAN_RESULT_TYPE
 @property (nonatomic, strong) NSNumber* type;
 @property (nonatomic, strong) NSNumber* idShop;
 @property (nonatomic, strong) NSNumber* idPlacelist;
+
+@end
+
+enum SCAN_RESULT_CODE_TYPE
+{
+    SCAN_RESULT_CODE_TYPE_ERROR=0,
+    SCAN_RESULT_CODE_TYPE_INFORY=1,
+    SCAN_RESULT_CODE_TYPE_NON_INFORY=2,
+};
+
+@interface ScanQRCodeObject : NSObject
+
+-(enum SCAN_RESULT_CODE_TYPE) enumType;
+
+@property (nonatomic, strong) NSNumber *type;
+@property (nonatomic, strong) NSString *title;
+@property (nonatomic, strong) NSString *content;
+@property (nonatomic, strong) QRCodeDecode *qrCodeDecode;
+@property (nonatomic, strong) NSMutableArray *related;
 
 @end

@@ -29,6 +29,7 @@
     self.placelists=[NSMutableArray new];
     self.shops=[NSMutableArray new];
     self.promotions=[NSMutableArray new];
+    self.order=[NSArray new];
 }
 
 -(void)onCompletedWithJSON:(NSArray *)json
@@ -44,17 +45,26 @@
         {
             [self.shops addObject:[RelatedShop makeWithDictionary:dict]];
         }
-        
+    }
+    
+    if([dictJson[@"relatedPromotions"] hasData])
+    {
         for(NSDictionary *dict in dictJson[@"relatedPromotions"])
         {
             [self.promotions addObject:[RelatedPromotion makeWithDictionary:dict]];
         }
-        
+    }
+    
+    if([dictJson[@"relatedPlacelists"] hasData])
+    {
         for(NSDictionary *dict in dictJson[@"relatedPlacelists"])
         {
             [self.placelists addObject:[RelatedPlacelist makeWithDictionary:dict]];
         }
     }
+    
+    if([dictJson[@"order"] hasData])
+        self.order=[NSArray makeArray:dictJson[@"order"]];
 }
 
 @end

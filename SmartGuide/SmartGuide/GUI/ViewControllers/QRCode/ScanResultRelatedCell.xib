@@ -7,31 +7,29 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="ScanResultDisconnectCell" rowHeight="226" id="KGk-i7-Jjw" customClass="ScanResultDisconnectCell">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="226"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="ScanResultRelatedCell" id="KGk-i7-Jjw" customClass="ScanResultRelatedCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="225"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view clipsSubviews="YES" contentMode="scaleToFill" id="ANf-pF-YAa">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="226"/>
+                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="7KU-MH-upx">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="QrCode-Viewer-Disconnect.png" id="TGf-Vy-g2Z">
-                                <rect key="frame" x="0.0" y="-56" width="320" height="568"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                        </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    </view>
+                        <connections>
+                            <outlet property="dataSource" destination="KGk-i7-Jjw" id="hco-il-oq2"/>
+                            <outlet property="delegate" destination="KGk-i7-Jjw" id="zZQ-eU-0BI"/>
+                        </connections>
+                    </tableView>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <connections>
+                <outlet property="table" destination="7KU-MH-upx" id="kX2-nc-evj"/>
+            </connections>
         </tableViewCell>
     </objects>
-    <resources>
-        <image name="QrCode-Viewer-Disconnect.png" width="640" height="1136"/>
-    </resources>
 </document>

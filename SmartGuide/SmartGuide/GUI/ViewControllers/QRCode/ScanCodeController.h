@@ -22,12 +22,13 @@
 @interface ScanCodeController : SGViewController
 {
     __weak IBOutlet UIView *contentView;
-    __weak IBOutlet UIView *scanView;
     __weak IBOutlet UIImageView *imgvScanTop;
     __weak IBOutlet UIImageView *imgvScanBot;
     __weak IBOutlet UIImageView *imgvScan;
     __weak IBOutlet UIButton *btnClose;
     __weak IBOutlet UILabel *lblTitle;
+    __weak IBOutlet UIView *topView;
+    __weak IBOutlet UIView *botView;
     
     __strong SGNavigationController *_navi;
 }

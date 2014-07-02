@@ -194,7 +194,7 @@
 -(void)drawRect:(CGRect)rect
 {
     rect.origin=CGPointZero;
-    [[UIImage imageNamed:@"pattern-navigation.jpg"] drawAsPatternInRect:rect];
+    [[UIImage imageNamed:@"pattern-navigation.jpg"] drawInRect:rect];
 }
 
 @end

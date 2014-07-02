@@ -10,4 +10,6 @@
 
 @interface ScanResultRelatedHeadView : UIView
 
++(float) height;
+
 @end

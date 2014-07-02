@@ -975,6 +975,8 @@
 		A9BF14A41963C1D200D30EAA /* QrCode-Viewer-NonInfory.png in Resources */ = {isa = PBXBuildFile; fileRef = A9BF14A11963C1D200D30EAA /* QrCode-Viewer-NonInfory.png */; };
 		A9BF14A71963C45300D30EAA /* ScanResultRelatedHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = A9BF14A61963C45300D30EAA /* ScanResultRelatedHeadView.m */; };
 		A9BF14A91963C46100D30EAA /* ScanResultRelatedHeadView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9BF14A81963C46100D30EAA /* ScanResultRelatedHeadView.xib */; };
+		A9BF14AD1963C5FD00D30EAA /* ScanResultRelatedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A9BF14AB1963C5FD00D30EAA /* ScanResultRelatedCell.m */; };
+		A9BF14AE1963C5FD00D30EAA /* ScanResultRelatedCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9BF14AC1963C5FD00D30EAA /* ScanResultRelatedCell.xib */; };
 		A9BF947B178FAEF200EF7E5F /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9BF947A178FAEF200EF7E5F /* CoreLocation.framework */; };
 		A9BF947D178FAF0600EF7E5F /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9BF947C178FAF0600EF7E5F /* SystemConfiguration.framework */; };
 		A9BF947F178FAF7400EF7E5F /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9BF947E178FAF7400EF7E5F /* MobileCoreServices.framework */; };
@@ -2313,6 +2315,9 @@
 		A9BF14A51963C45300D30EAA /* ScanResultRelatedHeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScanResultRelatedHeadView.h; sourceTree = "<group>"; };
 		A9BF14A61963C45300D30EAA /* ScanResultRelatedHeadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScanResultRelatedHeadView.m; sourceTree = "<group>"; };
 		A9BF14A81963C46100D30EAA /* ScanResultRelatedHeadView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScanResultRelatedHeadView.xib; sourceTree = "<group>"; };
+		A9BF14AA1963C5FD00D30EAA /* ScanResultRelatedCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScanResultRelatedCell.h; sourceTree = "<group>"; };
+		A9BF14AB1963C5FD00D30EAA /* ScanResultRelatedCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScanResultRelatedCell.m; sourceTree = "<group>"; };
+		A9BF14AC1963C5FD00D30EAA /* ScanResultRelatedCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScanResultRelatedCell.xib; sourceTree = "<group>"; };
 		A9BF947A178FAEF200EF7E5F /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		A9BF947C178FAF0600EF7E5F /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		A9BF947E178FAF7400EF7E5F /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
@@ -2714,6 +2719,9 @@
 				A9E0F5C91962A58E005ABAA0 /* ScanResultViewController.h */,
 				A9E0F5CA1962A58E005ABAA0 /* ScanResultViewController.m */,
 				A9E0F5CB1962A58E005ABAA0 /* ScanResultViewController.xib */,
+				A9BF14AA1963C5FD00D30EAA /* ScanResultRelatedCell.h */,
+				A9BF14AB1963C5FD00D30EAA /* ScanResultRelatedCell.m */,
+				A9BF14AC1963C5FD00D30EAA /* ScanResultRelatedCell.xib */,
 				A9BF13D61963C11600D30EAA /* ScanResultDisconnectCell.h */,
 				A9BF13D71963C11600D30EAA /* ScanResultDisconnectCell.m */,
 				A9BF13D81963C11600D30EAA /* ScanResultDisconnectCell.xib */,
@@ -5353,6 +5361,7 @@
 				9ACBE8DC185A0A8C0004474F /* button_love_hover@2x.png in Resources */,
 				9A98C916188E83A30067EAD3 /* button_loading_big_00@2x.png in Resources */,
 				9AA2C579187FE3A7004F895B /* bg_bottom_search@2x.png in Resources */,
+				A9BF14AE1963C5FD00D30EAA /* ScanResultRelatedCell.xib in Resources */,
 				9A7E557B183CA8B8006D1798 /* button_info.png in Resources */,
 				9ACFAE7518621D10006131DC /* button_rotatecamera.png in Resources */,
 				9AC5380718684490009A000B /* bg_blur_detail_info@2x.png in Resources */,
@@ -5662,6 +5671,7 @@
 				9A24781018B7364F00BAAA7D /* ASIOperationPlacelistGetDetail.m in Sources */,
 				9A7AC19818D1907B0043316D /* PlacelistViewController.m in Sources */,
 				A9EB14931952D79C00191767 /* ShopKM2ConditionCell.m in Sources */,
+				A9BF14AD1963C5FD00D30EAA /* ScanResultRelatedCell.m in Sources */,
 				9A7AC1F618D190B50043316D /* SearchViewController.m in Sources */,
 				9A9433681885A91400066DC3 /* ASIOperationCreatePlacelist.m in Sources */,
 				A921B02F17A8B68200DC6D4D /* ASIOperationShopUser.m in Sources */,

@@ -11,7 +11,7 @@
 #import "SGNavigationController.h"
 #import "ScanResultViewController.h"
 
-@interface ScanCodeController ()<ScanCodeViewControllerDelegate>
+@interface ScanCodeController ()<ScanCodeViewControllerDelegate, ScanResultControllerDelegate>
 
 @end
 
@@ -57,15 +57,13 @@
     switch (self.scanAnimationType) {
         case QRCODE_ANIMATION_TOP_BOT:
         {
-            [imgvScanTop l_v_addY:-imgvScanTop.l_v_h];
-            [imgvScanBot l_v_addY:imgvScanBot.l_v_h];
-            [imgvScan l_v_addY:imgvScan.l_v_h];
+            [topView l_v_addY:-topView.l_v_h];
+            [botView l_v_addY:botView.l_v_h];
             self.view.alpha=0;
             
             [UIView animateWithDuration:DURATION_DEFAULT animations:^{
-                [imgvScanTop l_v_addY:imgvScanTop.l_v_h];
-                [imgvScanBot l_v_addY:-imgvScanBot.l_v_h];
-                [imgvScan l_v_addY:-imgvScan.l_v_h];
+                [topView l_v_addY:topView.l_v_h];
+                [botView l_v_addY:-botView.l_v_h];
                 self.view.alpha=1;
             }];
         }
@@ -73,11 +71,11 @@
             
         case QRCODE_ANIMATION_TOP:
         {
-            [imgvScanTop l_v_addY:-imgvScanTop.l_v_h];
+            [topView l_v_addY:-topView.l_v_h];
             self.view.alpha=0;
             
             [UIView animateWithDuration:DURATION_DEFAULT animations:^{
-                [imgvScanTop l_v_addY:imgvScanTop.l_v_h];
+                [topView l_v_addY:imgvScanTop.l_v_h];
                 self.view.alpha=1;
             }];
         }
@@ -106,9 +104,8 @@
         case QRCODE_ANIMATION_TOP_BOT:
         {
             [UIView animateWithDuration:DURATION_DEFAULT animations:^{
-                [imgvScanTop l_v_addY:-imgvScanTop.l_v_h];
-                [imgvScanBot l_v_addY:imgvScanBot.l_v_h];
-                [imgvScan l_v_addY:imgvScan.l_v_h];
+                [topView l_v_addY:-topView.l_v_h];
+                [botView l_v_addY:botView.l_v_h];
             } completion:^(BOOL finished) {
                 _animationCompleted();
                 _animationCompleted=nil;
@@ -119,7 +116,7 @@
         case QRCODE_ANIMATION_TOP:
         {
             [UIView animateWithDuration:DURATION_DEFAULT animations:^{
-                [imgvScanTop l_v_addY:-imgvScanTop.l_v_h];
+                [topView l_v_addY:-topView.l_v_h];
             } completion:^(BOOL finished) {
                 _animationCompleted();
                 _animationCompleted=nil;
@@ -127,6 +124,24 @@
         }
             break;
     }
+}
+
+-(void) animationShowScan
+{
+    [UIView animateWithDuration:DURATION_DEFAULT animations:^{
+        [topView l_v_setY:0];
+        [botView l_v_setY:self.l_v_h-botView.l_v_h];
+        self.view.alpha=1;
+    }];
+}
+
+-(void) animationHideScan
+{
+    [UIView animateWithDuration:DURATION_DEFAULT animations:^{
+        [topView l_v_setY:-topView.l_v_h];
+        [botView l_v_setY:self.l_v_h+botView.l_v_h];
+    } completion:^(BOOL finished) {
+    }];
 }
 
 -(void)scanCodeViewController:(ScanCodeViewController *)controller scannedText:(NSString *)text
@@ -213,7 +228,18 @@
 
 -(void) showScanCodeResultWithCode:(NSString*) code
 {
+    [self animationHideScan];
     
+    ScanResultViewController *vc=[[ScanResultViewController alloc] initWithCode:code];
+    vc.delegate=self;
+    
+    [_navi pushViewController:vc animated:true];
+}
+
+-(void)scanResultControllerTouchedBack:(ScanResultViewController *)controller
+{
+    [_navi popViewControllerAnimated:true];
+    [self animationShowScan];
 }
 
 @end
