@@ -990,6 +990,23 @@ NSString* LAZY_STRING_INT(int i)
     return @"";
 }
 
++(NSString *)makeString:(id)obj
+{
+    if(obj==nil)
+        return @"";
+    
+    if(obj==[NSNull null])
+        return @"";
+    
+    if([obj isKindOfClass:[NSNumber class]])
+        return [NSString stringWithFormat:@"%@",obj];
+    
+    if([obj isKindOfClass:[NSString class]])
+        return [obj copy];
+    
+    return @"";
+}
+
 -(NSString *)stringByAppendingStringDefault:(NSString *)aString
 {
     if(aString && aString.length>0)
@@ -2386,6 +2403,20 @@ static const NSString *KEY_HIT_TEST_EDGE_INSETS = @"HitTestEdgeInsets";
         return true;
     
     return false;
+}
+
++(NSArray *)makeArray:(id)obj
+{
+    if(obj==nil)
+        return @[];
+    
+    if(obj==[NSNull null])
+        return @[];
+    
+    if([obj isKindOfClass:[NSArray class]])
+        return obj;
+    
+    return @[];
 }
 
 @end

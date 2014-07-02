@@ -208,6 +208,7 @@ NSString* LAZY_STRING_INT(int i);
 -(NSString*) deleteStringAtRange:(NSRange) range;
 
 +(NSString*)stringWithStringDefault:(NSString *)string;
++(NSString*) makeString:(id) obj;
 -(NSString*) stringByTrimmingWhiteSpace;
 -(bool) isContainString:(NSString*) string;
 -(bool) isMatchedByRegex:(NSString*) regex;
@@ -390,6 +391,8 @@ NSString* LAZY_STRING_INT(int i);
 -(id) firstObject;
 -(id) secondObject;//neu ko thi se chuyen ve firstObject
 -(bool) isIndexInside:(int) index;
+
++(NSArray*) makeArray:(id) obj;
 
 @end
 

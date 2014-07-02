@@ -7,7 +7,13 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ScanCodeController">
             <connections>
+                <outlet property="btnClose" destination="dsQ-Sc-rT1" id="6yl-rh-8qJ"/>
                 <outlet property="contentView" destination="Fke-4c-AE0" id="fZF-Cp-kj7"/>
+                <outlet property="imgvScan" destination="1qb-Sd-dhx" id="ZYT-h0-w6n"/>
+                <outlet property="imgvScanBot" destination="51r-PJ-J35" id="Fsb-hZ-J6l"/>
+                <outlet property="imgvScanTop" destination="e4R-AK-yIH" id="zbH-J2-NN2"/>
+                <outlet property="lblTitle" destination="jxp-WO-NML" id="XAb-sd-A2b"/>
+                <outlet property="scanView" destination="c4j-OS-eKZ" id="KiB-ZW-n5J"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -21,10 +27,49 @@
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
+                <view contentMode="scaleToFill" id="c4j-OS-eKZ" userLabel="ScanView">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background_scan.png" id="e4R-AK-yIH">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="56"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
+                        </imageView>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background_scan.png" id="51r-PJ-J35">
+                            <rect key="frame" x="0.0" y="426" width="320" height="56"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                        </imageView>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nhận thẻ và quà từ nhân viên" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="jxp-WO-NML">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="56"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="12"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="button_scan.png" id="1qb-Sd-dhx">
+                            <rect key="frame" x="0.0" y="426" width="320" height="56"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                        </imageView>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="dsQ-Sc-rT1">
+                            <rect key="frame" x="264" y="0.0" width="56" height="56"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <state key="normal" image="button_close.png"/>
+                            <connections>
+                                <action selector="btnCloseTouchUpInside:" destination="-1" eventType="touchUpInside" id="vid-V3-mg5"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                </view>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
         </view>
     </objects>
+    <resources>
+        <image name="background_scan.png" width="320" height="56"/>
+        <image name="button_close.png" width="25" height="25"/>
+        <image name="button_scan.png" width="172" height="32"/>
+    </resources>
 </document>

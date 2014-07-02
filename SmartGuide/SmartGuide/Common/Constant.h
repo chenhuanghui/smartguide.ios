@@ -111,6 +111,8 @@ static NSString * const kClientId = @"790158294934-p5pnscmrt4avj698ncvhp14fit0f4
 #define API_USER_NOTIFICATION_COUNT_BY_SENDER @"user/notification/countBySender_v2"
 #define API_USER_NOTICE @"user/notice"
 #define API_USER_NOTIFICATION_TOKEN @"user/notification/updateUUID"
+#define API_QRCODE_DECODE @"QRCode/decode"
+#define API_QRCODE_GET_RELATED @"QRCode/getRelated"
 
 #define API_GET_ACTIVE_CODE @"user/activation"
 #define API_USER_CHECK @"user/check_v2"
@@ -399,3 +401,8 @@ enum QRCODE_ANIMATION_TYPE {
 -(enum QRCODE_ANIMATION_TYPE) qrCodeAnimationType;
 
 @end
+
+enum SCANCODE_ANIMATION_TYPE {
+    SCANCODE_ANIMATION_TOP_BOT = 0,
+    SCANCODE_ANIMATION_TOP = 1
+};

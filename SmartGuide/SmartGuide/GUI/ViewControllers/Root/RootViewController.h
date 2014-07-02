@@ -41,6 +41,7 @@
 -(void) showUserSetting;
 -(void) showTutorial;
 -(void) showTerms;
+-(void) showScanCodeWithAnimation:(enum SCANCODE_ANIMATION_TYPE) animation;
 
 @property (weak, nonatomic) IBOutlet UIView *containView;
 @property (weak, nonatomic) IBOutlet UIView *contentView;

@@ -24,8 +24,9 @@
 #import "RemoteNotificationView.h"
 #import "ShopUserController.h"
 #import "TokenManager.h"
+#import "ScanCodeController.h"
 
-@interface RootViewController ()<NavigationControllerDelegate,UIScrollViewDelegate,HomeControllerDelegate,UserPromotionDelegate,SGUserSettingControllerDelegate,WebViewDelegate,ShopUserControllerDelegate,UIGestureRecognizerDelegate,RemoteNotificationDelegate>
+@interface RootViewController ()<NavigationControllerDelegate,UIScrollViewDelegate,HomeControllerDelegate,UserPromotionDelegate,SGUserSettingControllerDelegate,WebViewDelegate,ShopUserControllerDelegate,UIGestureRecognizerDelegate,RemoteNotificationDelegate, ScanCodeControllerDelegate>
 {
 }
 
@@ -594,6 +595,21 @@
 -(void)showTerms
 {
     [self showWebViewWithURL:URL(@"http://infory.vn/dieu-khoan-nguoi-dung.html") onCompleted:nil];
+}
+
+-(void)showScanCodeWithAnimation:(enum SCANCODE_ANIMATION_TYPE)animation
+{
+    [self showScanCodeWithDelegate:self animationType:animation];
+}
+
+-(void)scanCodeControllerTouchedClose:(ScanCodeController *)controller
+{
+    [self closeScanCode];
+}
+
+-(void)scanCodeController:(ScanCodeController *)controller scannedObject:(ScanObject *)obj
+{
+    
 }
 
 -(void)removeUserNotification:(UserNotification *)obj

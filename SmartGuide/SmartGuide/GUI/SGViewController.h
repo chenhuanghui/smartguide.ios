@@ -16,6 +16,8 @@
 #import "AlphaView.h"
 #import "SGData.h"
 #import "BasicAnimation.h"
+#import "SGViewController+PresentViewController.h"
+#import "SGViewController+DialogViewController.h"
 
 @class SGViewController,SGNavigationController;
 
@@ -95,22 +97,5 @@
 -(void) processRemoteNotification:(RemoteNotification*) obj;//user touch notification
 
 @property (nonatomic, weak) id<SGViewControllerDelegate> delegate;
-
-@end
-
-@interface UIViewController(PresentViewController)
-
-@property (nonatomic, readwrite, weak) UIViewController *presentSGViewControlelr;
-@property (nonatomic, readwrite, weak) UIViewController *presentingSGViewController;
-
--(void)presentSGViewController:(UIViewController *)viewControllerToPresent completion:(void (^)(void))completion;
--(void)presentSGViewController:(UIViewController *)viewControllerToPresent animate:(bool) animated completion:(void (^)(void))completion;
--(void)presentSGViewController:(UIViewController *)viewControllerToPresent animation:(BasicAnimation*(^)()) animation completion:(void(^)()) completion;
-
--(void)dismissSGViewControllerCompletion:(void (^)(void))completion;
--(void)dismissSGViewControllerAnimated:(bool) animate completion:(void (^)(void))completion;
--(void)dismissSGViewControllerAnimation:(BasicAnimation*(^)()) animation completion:(void(^)()) completion;
--(void) presentSGViewControllerFinished;
--(float) alphaForPresentView;
 
 @end
