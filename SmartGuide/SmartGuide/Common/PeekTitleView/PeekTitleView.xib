@@ -19,7 +19,7 @@
                         <outlet property="delegate" destination="iN0-l3-epB" id="UFP-3g-6sI"/>
                     </connections>
                 </scrollView>
-                <view autoresizesSubviews="NO" contentMode="scaleToFill" id="UAV-96-YJJ" customClass="PeekTouchView">
+                <view hidden="YES" autoresizesSubviews="NO" contentMode="scaleToFill" id="UAV-96-YJJ" customClass="PeekTouchView">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="80"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -27,11 +27,11 @@
                         <outlet property="receiveView" destination="1zK-gV-3wE" id="5gF-jg-15t"/>
                     </connections>
                 </view>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="blur_viewer_left.png" id="Rx4-OL-Tn7">
+                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="blur_viewer_left.png" id="Rx4-OL-Tn7">
                     <rect key="frame" x="0.0" y="0.0" width="73" height="80"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
                 </imageView>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="blur_viewer_right.png" id="Zkw-Fc-G8v">
+                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="blur_viewer_right.png" id="Zkw-Fc-G8v">
                     <rect key="frame" x="247" y="0.0" width="73" height="80"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" heightSizable="YES"/>
                 </imageView>
@@ -40,6 +40,7 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="scroll" destination="1zK-gV-3wE" id="hh3-ch-HV0"/>
+                <outlet property="touchView" destination="UAV-96-YJJ" id="6gz-X6-EDR"/>
             </connections>
         </view>
     </objects>

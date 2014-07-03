@@ -24,7 +24,7 @@
     _relatedContain=relatedContain;
     
     [table reloadData];
-    table.userInteractionEnabled=false;
+    table.userInteractionEnabled=true;
     table.scrollEnabled=false;
 }
 
@@ -40,7 +40,7 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if(_relatedContain.canLoadMore.boolValue && indexPath.row==[tableView numberOfRowsInSection:indexPath.section]-1)
+    if(_relatedContain.canLoadMore.boolValue && indexPath.row==_relatedContain.relatiesObjects.count)
         return 94;
     
     ScanCodeRelated *obj=_relatedContain.relatiesObjects[indexPath.row];
@@ -50,7 +50,7 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if(_relatedContain.canLoadMore.boolValue && indexPath.row==[tableView numberOfRowsInSection:indexPath.section]-1)
+    if(_relatedContain.canLoadMore.boolValue && indexPath.row==_relatedContain.relatiesObjects.count)
     {
         if(!_relatedContain.isLoadingMore.boolValue)
         {
@@ -70,6 +70,16 @@
     return cell;
 }
 
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    ScanResultObjectCell *cell=(ScanResultObjectCell*)[table cellForRowAtIndexPath:indexPath];
+    
+    if([cell isKindOfClass:[ScanResultObjectCell class]])
+    {
+        [self.delegate scanResultRelatedCell:self touchedObject:cell.obj];
+    }
+}
+
 -(void)awakeFromNib
 {
     [super awakeFromNib];
@@ -78,11 +88,11 @@
     [table registerLoadingMoreCell];
 }
 
-+(float)heightWithRelated:(NSArray *)data
++(float)heightWithRelated:(ScanCodeRelatedContain *)relatedContain
 {
     float height=0;
     
-    for(ScanCodeRelated *obj in data)
+    for(ScanCodeRelated *obj in relatedContain.relatiesObjects)
     {
         height+=[ScanResultObjectCell heightWithRelated:obj];
     }

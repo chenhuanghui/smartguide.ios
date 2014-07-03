@@ -19,6 +19,7 @@
 @interface PeekTitleView : UIView
 {
     __weak IBOutlet ScrollPeek *scroll;
+    __weak IBOutlet UIView *touchView;
     
     NSMutableArray *_titles;
 }
@@ -33,7 +34,7 @@
 
 @interface PeekTouchView : UIView
 
-@property (nonatomic, weak) IBOutlet UIView *receiveView;
+@property (nonatomic, weak) IBOutlet UIScrollView *receiveView;
 
 @end
 

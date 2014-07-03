@@ -19,6 +19,7 @@
 #import "ShopUserController.h"
 #import "UserPromotionViewController.h"
 #import "GUIManager.h"
+#import "ScanCodeRelated.h"
 
 @interface ScanCodeController ()<ScanCodeViewControllerDelegate, ScanResultControllerDelegate,SGUserSettingControllerDelegate,WebViewDelegate,ShopUserControllerDelegate,SGNavigationControllerDelegate>
 
@@ -241,6 +242,26 @@
     [_navi popViewControllerAnimated:true];
 }
 
+-(void)scanResultController:(ScanResultViewController *)controller touchedRelated:(ScanCodeRelated *)related
+{
+    switch (related.enumType) {
+        case SCANCODE_RELATED_TYPE_PLACELISTS:
+            [self showShopListWithIDPlace:related.idPlacelist.integerValue];
+            break;
+            
+        case SCANCODE_RELATED_TYPE_PROMOTIONS:
+            [self showShopListWithIDShops:related.idShops];
+            break;
+            
+        case SCANCODE_RELATED_TYPE_SHOPS:
+            [self presentShopUserWithIDShop:related.idShop.integerValue];
+            break;
+            
+        case SCANCODE_RELATED_TYPE_UNKNOW:
+            break;
+    }
+}
+
 -(void)scanResultController:(ScanResultViewController *)controller touchedAction:(UserNotificationAction *)action
 {
     switch (action.enumActionType) {
@@ -423,8 +444,9 @@
 
 -(void) scanCodeController:(ScanCodeController*) controller scannedURL:(NSURL*) url
 {
-    [self closeScanCode];
-    [self showWebViewWithURL:url onCompleted:nil];
+    [self showWebViewWithURL:url onCompleted:^(WebViewController *webviewController) {
+        [self closeScanCode];
+    }];
 }
 
 @end

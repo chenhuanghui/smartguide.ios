@@ -13,12 +13,12 @@
 
 -(OperationQRCodeGetRelated *)initWithCode:(NSString *)code type:(enum QRCODE_RELATED_TYPE)type page:(int)page userLat:(double)userLat userLng:(double)userLng groupIndex:(int)groupIndex
 {
-    self=[super initPOSTWithRouter:SERVER_API_URL_MAKE(API_QRCODE_GET_RELATED)];
+    self=[super initPOSTWithURL:SERVER_API_URL_MAKE(API_QRCODE_GET_RELATED)];
     
     [self.keyValue setObject:code forKey:@"code"];
     [self.keyValue setObject:@(type) forKey:@"type"];
     [self.keyValue setObject:@(page) forKey:@"page"];
-    [self.keyValue setObject:@(5) forKey:@"pageSize"];
+    [self.keyValue setObject:@(15) forKey:@"pageSize"];
     [self.keyValue setObject:@(userLat) forKey:USER_LATITUDE];
     [self.keyValue setObject:@(userLng) forKey:USER_LONGITUDE];
     
@@ -95,7 +95,7 @@
                 int count=0;
                 for(NSDictionary *place in places)
                 {
-                    ScanCodeRelated *obj=[ScanCodeRelated makeWithPromotionDictionary:place];
+                    ScanCodeRelated *obj=[ScanCodeRelated makeWithPlacelistDictionary:place];
                     obj.order=@(count++);
                     obj.page=@(page);
                     

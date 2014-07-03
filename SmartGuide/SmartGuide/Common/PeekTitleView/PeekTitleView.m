@@ -22,11 +22,9 @@
         _titles=[NSMutableArray new];
     }
     
-    UITapGestureRecognizer *tap=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)];
-    [self addGestureRecognizer:tap];
-    [scroll.panGestureRecognizer requireGestureRecognizerToFail:tap];
-    
-    scroll.scrollEnabled=false;
+//    UITapGestureRecognizer *tap=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)];
+//    [scroll addGestureRecognizer:tap];
+//    [scroll.panGestureRecognizer requireGestureRecognizerToFail:tap];
     
     return self;
 }
@@ -72,6 +70,11 @@
         [self scrollToIndex:self.currentIndex];
 }
 
+-(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    [self.delegate peekTitleView:self touchedIndex:self.currentIndex];
+}
+
 -(void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
 {
     [self.delegate peekTitleView:self touchedIndex:self.currentIndex];
@@ -111,7 +114,10 @@
         [btn setTitleColor:COLOR_TEXT_HEADLINE_CONTENT forState:UIControlStateNormal];
         btn.titleLabel.font=[UIFont fontWithName:@"AvenirNext-DemiBold" size:15];
         btn.contentHorizontalAlignment=UIControlContentHorizontalAlignmentCenter;
-        btn.userInteractionEnabled=false;
+        [btn addTarget:self action:@selector(btnTouchUpInside:) forControlEvents:UIControlEventTouchUpInside];
+        btn.backgroundColor=[UIColor redColor];
+        btn.enabled=true;
+        btn.userInteractionEnabled=true;
         
         [scroll addSubview:btn];
         
@@ -121,16 +127,30 @@
     scroll.contentSize=CGSizeMake(scroll.frame.size.width*_titles.count, scroll.contentSize.height);
 }
 
+-(void) btnTouchUpInside:(UIButton*) btn
+{
+    [self scrollToIndex:[scroll.subviews indexOfObject:btn] animate:true];
+}
+
 @end
 
 @implementation PeekTouchView
 
--(UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event
+-(UIView *)hitTest1:(CGPoint)point withEvent:(UIEvent *)event
 {
     UIView *view=[super hitTest:point withEvent:event];
     
     if(view==self)
     {
+        for(UIButton *btn in self.receiveView.subviews)
+        {
+            CGRect rect=btn.frame;
+            rect.origin.x-=self.receiveView.contentOffset.x-80;
+            
+            if(CGRectContainsPoint(rect, point))
+                return btn;
+        }
+        
         return self.receiveView;
     }
     
@@ -140,10 +160,5 @@
 @end
 
 @implementation ScrollPeek
-
--(void)setFrame:(CGRect)frame
-{
-    [super setFrame:frame];
-}
 
 @end

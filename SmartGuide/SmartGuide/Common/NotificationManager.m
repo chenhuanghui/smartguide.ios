@@ -104,6 +104,12 @@ static NotificationManager *_notificationManager=nil;
 {
     [SGData shareInstance].remoteToken=notificationToken;
     
+    if(currentUser()==nil)
+        return;
+    
+    if(currentUser().enumDataMode==USER_DATA_TRY)
+        return;
+    
     if(_operationUploadNotiToken)
         return;
 

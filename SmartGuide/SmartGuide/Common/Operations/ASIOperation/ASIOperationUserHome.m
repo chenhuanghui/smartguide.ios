@@ -115,10 +115,4 @@
     [[DataManager shareInstance] save];
 }
 
-+(void)makeTest
-{
-    ASIOperationUserHome *ope=[[ASIOperationUserHome alloc] initWithPage:0 userLat:userLat() userLng:userLng()];
-    [ope addToQueue];
-}
-
 @end

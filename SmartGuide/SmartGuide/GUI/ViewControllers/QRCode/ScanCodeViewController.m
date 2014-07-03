@@ -44,7 +44,10 @@
 #if DEBUG
     btnMakeCode.hidden=false;
 #endif
-    
+}
+
+-(void)viewWillAppearOnce
+{
     AVCaptureDevice *device=_zbarReaderController.readerView.device;
     
     btnTorch.enabled=device.torchAvailable;
@@ -166,7 +169,8 @@
 -(IBAction) btnMakeCodeTouchUpInside:(id) sender
 {
 #if DEBUG
-    [self.delegate scanCodeViewController:self scannedText:@"http://google.com"];
+#define QRCODE_TEST @"e649f7f9806b67623335e43a8d82ecb7"
+    [self.delegate scanCodeViewController:self scannedText:QRCODE_TEST];
 #endif
 }
 
@@ -185,6 +189,14 @@
     [_zbarReaderController removeFromParentViewController];
     _zbarReaderController.readerDelegate=nil;
     _zbarReaderController=nil;
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    _zbarReaderController.readerDelegate=self;
+    [_zbarReaderController.readerView start];
 }
 
 @end

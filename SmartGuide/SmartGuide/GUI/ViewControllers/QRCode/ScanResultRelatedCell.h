@@ -10,9 +10,11 @@
 
 @class ScanCodeRelatedContain;
 
-@class MPMoviePlayerController, ScanResultRelatedCell;
+@class MPMoviePlayerController, ScanResultRelatedCell, ScanCodeRelated;
 
 @protocol ScanResultRelatedCellDelegate <NSObject>
+
+-(void) scanResultRelatedCell:(ScanResultRelatedCell*) cell touchedObject:(ScanCodeRelated*) obj;
 
 @end
 
@@ -24,7 +26,7 @@
 
 -(void) loadWithRelatedContain:(ScanCodeRelatedContain*) relatedContain;
 
-+(float) heightWithRelated:(ScanCodeRelatedContain*) reltedContain;
++(float) heightWithRelated:(ScanCodeRelatedContain*) relatedContain;
 +(NSString *)reuseIdentifier;
 
 @property (nonatomic, weak) id<ScanResultRelatedCellDelegate> delegate;

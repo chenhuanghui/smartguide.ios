@@ -20,6 +20,7 @@
 }
 
 -(void) loadWithRelated:(ScanCodeRelated*) obj;
+-(ScanCodeRelated*) obj;
 
 +(NSString *)reuseIdentifier;
 +(float) heightWithRelated:(ScanCodeRelated*) obj;

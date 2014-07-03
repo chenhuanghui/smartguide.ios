@@ -32,7 +32,7 @@ enum SCAN_RESULT_SECTION_TYPE
     SCAN_RESULT_SECTION_TYPE_RELATED=1,
 };
 
-@interface ScanResultViewController ()<UITableViewDataSource,UITableViewDelegate,ASIOperationPostDelegate, ScanResultRelatedHeadViewDelegate, ScanResultInforyCellDelegate>
+@interface ScanResultViewController ()<UITableViewDataSource,UITableViewDelegate,ASIOperationPostDelegate, ScanResultRelatedHeadViewDelegate, ScanResultInforyCellDelegate,ScanResultRelatedCellDelegate>
 {
     OperationQRCodeDecode *_opeQRCodeDecode;
     OperationQRCodeGetRelated *_opeQRCodeGetRelated;
@@ -42,6 +42,7 @@ enum SCAN_RESULT_SECTION_TYPE
     int _currentRelatedIndex;
     
     ScanCodeResult *_scanResult;
+    __weak ScanResultRelatedHeadView *headView;
     
     NSArray *_order;
     NSMutableArray *_shops;
@@ -58,10 +59,6 @@ enum SCAN_RESULT_SECTION_TYPE
 -(ScanResultViewController *)initWithCode:(NSString *)code
 {
     self=[super initWithNibName:@"ScanResultViewController" bundle:nil];
-    
-#if DEBUG
-    code=@"e649f7f9806b67623335e43a8d82ecb7";
-#endif
     
     _scanResult=[ScanCodeResult resultWithCode:code];
     [_scanResult markDeleted];
@@ -86,10 +83,28 @@ enum SCAN_RESULT_SECTION_TYPE
     [table registerScanResultNonInforyCell];
     [table registerScanResultRelatedCell];
     
-    [self requestDecode];
-    [self requestRelaties:QRCODE_RELATED_TYPE_ALL page:0 groupIndex:-1];
-    
-    [self showLoading];
+    if(currentUser().enumDataMode==USER_DATA_FULL)
+    {
+        [self requestDecode];
+        [self requestRelaties:QRCODE_RELATED_TYPE_ALL page:0 groupIndex:-1];
+        
+        [self showLoading];
+    }
+    else
+    {
+        [[GUIManager shareInstance] showLoginDialogWithMessage:localizeLoginRequire() onOK:nil onCancelled:^
+         {
+             [self.delegate scanResultControllerTouchedBack:self];
+         } onLogined:^(bool isLogined) {
+            if(isLogined)
+            {
+                [self requestDecode];
+                [self requestRelaties:QRCODE_RELATED_TYPE_ALL page:0 groupIndex:-1];
+                
+                [self showLoading];
+            }
+        }];
+    }
 }
 
 -(NSArray *)registerNotifications
@@ -139,6 +154,11 @@ enum SCAN_RESULT_SECTION_TYPE
     [_opeQRCodeGetRelated addToQueue];
 }
 
+-(void)scanResultRelatedCell:(ScanResultRelatedCell *)cell touchedObject:(ScanCodeRelated *)obj
+{
+    [self.delegate scanResultController:self touchedRelated:obj];
+}
+
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 2;
@@ -164,7 +184,7 @@ enum SCAN_RESULT_SECTION_TYPE
             break;
             
         case SCAN_RESULT_SECTION_TYPE_RELATED:
-            return [ScanResultRelatedCell heightWithRelated:[_scanResult relatedContaintWithIndex:_currentRelatedIndex]];
+            return [_scanResult relatedContaintWithIndex:_currentRelatedIndex].relatiesObjects.count==0?0:1;
     }
     
     return 0;
@@ -225,6 +245,7 @@ enum SCAN_RESULT_SECTION_TYPE
         case SCAN_RESULT_SECTION_TYPE_RELATED:
         {
             ScanResultRelatedCell *cell=[tableView scanResultRelatedCell];
+            cell.delegate=self;
             
             [cell loadWithRelatedContain:[_scanResult relatedContaintWithIndex:_currentRelatedIndex]];
             
@@ -265,12 +286,23 @@ enum SCAN_RESULT_SECTION_TYPE
             NSArray *titles=[_scanResult.relatedContainObjects valueForKeyPath:ScanCodeRelatedContain_Title];
             
             [head loadWithTitles:titles];
+            [head setTitleIndex:_currentRelatedIndex animate:false];
+            
+            headView=head;
             
             return head;
         }
     }
     
     return [UIView new];
+}
+
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    if(headView)
+    {
+        [headView.superview bringSubviewToFront:headView];
+    }
 }
 
 -(void)scanResultInforyCell:(ScanResultInforyCell *)cell touchedAction:(UserNotificationAction *)action
@@ -304,7 +336,6 @@ enum SCAN_RESULT_SECTION_TYPE
 }
 
 - (IBAction)btnBackTouchUpInside:(id)sender {
-    [table reloadData];
     [self.delegate scanResultControllerTouchedBack:self];
 }
 
@@ -324,7 +355,7 @@ enum SCAN_RESULT_SECTION_TYPE
         [_scanResult addDecode:[NSSet setWithArray:_opeQRCodeDecode.decodes]];
 
 #if DEBUG
-        
+        /*
         ScanCodeDecode *obj=[ScanCodeDecode insert];
         obj.type=@(SCANCODE_DECODE_TYPE_BUTTONS);
         
@@ -354,6 +385,7 @@ enum SCAN_RESULT_SECTION_TYPE
         obj.video=@"http://r5---sn-a8au-hjpe.googlevideo.com/videoplayback?fexp=902408%2C914071%2C916612%2C924213%2C924217%2C924222%2C930008%2C934024%2C934030%2C935661%2C937425%2C945005&mws=yes&itag=17&key=yt5&ip=2607%3A5300%3A60%3A513c%3A%3A54&upn=AeFo326xodo&signature=112CE0F27F82254222962C1FFC27C1AB2056C59E.69035C034E1C946CE0289E1AA80EEC7C5A834A66&ipbits=0&ms=au&sparams=id%2Cip%2Cipbits%2Citag%2Csource%2Cupn%2Cexpire&source=youtube&mv=m&id=o-AGS9P4TUfJtT-bnDVcazqDe26lT_FpnFuibrmd40_Ptx&expire=1404421200&sver=3&mt=1404397575&signature=&title=Video";
         
         [_scanResult addDecodeObject:obj];
+        */
 #endif
         
         [[DataManager shareInstance] save];
@@ -440,7 +472,8 @@ enum SCAN_RESULT_SECTION_TYPE
                 break;
         }
         
-        [table reloadData];
+        if(_isRequestedDecode)
+            [table reloadData];
         
         _isRequestedRelated=true;
         _opeQRCodeGetRelated=nil;
@@ -465,7 +498,6 @@ enum SCAN_RESULT_SECTION_TYPE
     }
     else if([operation isKindOfClass:[OperationQRCodeGetRelated class]])
     {
-        
         _isRequestedRelated=true;
         _opeQRCodeGetRelated=nil;
     }

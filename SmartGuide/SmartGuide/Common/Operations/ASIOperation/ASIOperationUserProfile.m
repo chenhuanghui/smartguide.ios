@@ -52,11 +52,4 @@
     [[DataManager shareInstance] save];
 }
 
-+(void)makeTest
-{
-    ASIOperationUserProfile *ope=[[ASIOperationUserProfile alloc] initOperation];
-    
-    [ope addToQueue];
-}
-
 @end

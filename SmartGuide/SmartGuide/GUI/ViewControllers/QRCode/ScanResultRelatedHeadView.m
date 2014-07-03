@@ -56,6 +56,13 @@
     [peekTitle setTitleIndex:index animate:animate];
 }
 
+-(UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event
+{
+    UIView *view=[super hitTest:point withEvent:event];
+    
+    return view;
+}
+
 +(float)height
 {
     return 67;
