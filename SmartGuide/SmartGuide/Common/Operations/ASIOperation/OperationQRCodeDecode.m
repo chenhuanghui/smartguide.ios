@@ -7,7 +7,7 @@
 //
 
 #import "OperationQRCodeDecode.h"
-#import "UserNotificationAction.h"
+#import "ScanCodeDecode.h"
 
 @implementation OperationQRCodeDecode
 
@@ -22,11 +22,30 @@
     return self;
 }
 
+-(void)onFinishLoading
+{
+    self.decodes=[NSMutableArray new];
+}
+
 -(void)onCompletedWithJSON:(NSArray *)json
 {
     if(![json hasData])
         return;
     
+    int count=0;
+    for(NSDictionary *dict in json)
+    {
+        if([dict isKindOfClass:[NSDictionary class]])
+        {
+            ScanCodeDecode *obj=[ScanCodeDecode makeWithDictionary:dict];
+            
+            obj.order=@(count++);
+            
+            [self.decodes addObject:obj];
+        }
+    }
+    
+    [[DataManager shareInstance] save];
 }
 
 @end

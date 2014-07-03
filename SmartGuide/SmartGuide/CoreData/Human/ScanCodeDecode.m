@@ -54,6 +54,8 @@
     {
         NSArray *buttons=dict[@"buttons"];
         
+        obj.type=@(SCANCODE_DECODE_TYPE_BUTTONS);
+        
         int count=0;
         for(NSDictionary *button in buttons)
         {

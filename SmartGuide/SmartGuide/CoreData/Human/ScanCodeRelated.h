@@ -12,7 +12,9 @@ enum SCANCODE_RELATED_TYPE
 {
 }
 
-+(ScanCodeRelated*) makeWithDictionary:(NSDictionary*) dict;
++(ScanCodeRelated*) makeWithShopDictionary:(NSDictionary*) dict;
++(ScanCodeRelated*) makeWithPromotionDictionary:(NSDictionary*) dict;
++(ScanCodeRelated*) makeWithPlacelistDictionary:(NSDictionary*) dict;
 
 -(enum SCANCODE_RELATED_TYPE) enumType;
 

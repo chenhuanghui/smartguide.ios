@@ -2576,7 +2576,7 @@ static const NSString *KEY_HIT_TEST_EDGE_INSETS = @"HitTestEdgeInsets";
     if([self isKindOfClass:[NSArray class]])
     {
         NSArray *data=(NSArray*)self;
-        if(data.count==0 || [data[0] isNullData])
+        if(data.count==0)
             return false;
     }
     else if([self isKindOfClass:[NSDictionary class]])

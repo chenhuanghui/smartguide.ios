@@ -7,6 +7,7 @@
 //
 
 #import "OperationQRCodeGetRelated.h"
+#import "ScanCodeRelated.h"
 
 @implementation OperationQRCodeGetRelated
 
@@ -33,6 +34,69 @@
 {
     if(![json hasData])
         return;
+    
+    int page=[self.keyValue[@"page"] integerValue];
+    
+    for(NSDictionary *dict in json)
+    {
+        if([dict isKindOfClass:[NSDictionary class]])
+        {
+            if([dict[@"relatedShops"] hasData])
+            {
+                NSArray *shops=dict[@"relatedShops"];
+                
+                NSMutableArray *array=[NSMutableArray array];
+                int count=0;
+                for(NSDictionary *shop in shops)
+                {
+                    ScanCodeRelated *obj=[ScanCodeRelated makeWithShopDictionary:shop];
+                    obj.order=@(count++);
+                    obj.page=@(page);
+                    
+                    [array addObject:obj];
+                }
+                
+                [self.relaties addObject:array];
+            }
+            else if([dict[@"relatedPromotions"] hasData])
+            {
+                NSArray *promotions=dict[@"relatedPromotions"];
+                
+                NSMutableArray *array=[NSMutableArray array];
+                int count=0;
+                for(NSDictionary *promotion in promotions)
+                {
+                    ScanCodeRelated *obj=[ScanCodeRelated makeWithPromotionDictionary:promotion];
+                    obj.order=@(count++);
+                    obj.page=@(page);
+                    
+                    [array addObject:obj];
+                }
+                
+                [self.relaties addObject:array];
+            }
+            else if([dict[@"relatedPlacelists"] hasData])
+            {
+                NSArray *places=dict[@"relatedPlacelists"];
+                
+                NSMutableArray *array=[NSMutableArray array];
+                int count=0;
+                for(NSDictionary *place in places)
+                {
+                    ScanCodeRelated *obj=[ScanCodeRelated makeWithPromotionDictionary:place];
+                    obj.order=@(count++);
+                    obj.page=@(page);
+                    
+                    [array addObject:obj];
+                }
+                
+                [self.relaties addObject:array];
+            }
+        }
+    }
+    
+    if(self.relaties.count>0)
+        [[DataManager shareInstance] save];
 }
 
 @end

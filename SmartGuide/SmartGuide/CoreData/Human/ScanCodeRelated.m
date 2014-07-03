@@ -2,48 +2,48 @@
 
 @implementation ScanCodeRelated
 
-
-+(ScanCodeRelated *)makeWithDictionary:(NSDictionary *)dict
++(ScanCodeRelated *)makeWithShopDictionary:(NSDictionary *)dict
 {
     ScanCodeRelated *obj=[ScanCodeRelated insert];
     
-    if([dict[@"relatedShops"] hasData])
-    {
-        NSDictionary *relatedShops=dict[@"relatedShops"];
-        
-        obj.type=@(SCANCODE_RELATED_TYPE_SHOPS);
-        obj.idShop=[NSNumber makeNumber:relatedShops[@"idShop"]];
-        obj.shopName=[NSString makeString:relatedShops[@"shopName"]];
-        obj.logo=[NSString makeString:relatedShops[@"logo"]];
-        obj.desc=[NSString makeString:relatedShops[@"description"]];
-        obj.distance=[NSString makeString:relatedShops[@"distance"]];
-    }
-    else if([dict[@"relatedPromotions"] hasData])
-    {
-        NSDictionary *relatedPromotions=dict[@"relatedPromotions"];
-        
-        obj.type=@(SCANCODE_RELATED_TYPE_PROMOTIONS);
-        
-        NSArray *idShops=relatedPromotions[@"idShops"];
-        
-        if([idShops hasData])
-            obj.idShops=[idShops componentsJoinedByString:@","];
-        
-        obj.promotionName=[NSString makeString:relatedPromotions[@"promotionName"]];
-        obj.logo=[NSString makeString:relatedPromotions[@"logo"]];
-        obj.time=[NSString makeString:relatedPromotions[@"time"]];
-        obj.desc=[NSString makeString:relatedPromotions[@"description"]];
-    }
-    else if([dict[@"relatedPlacelists"] hasData])
-    {
-        NSDictionary *relatedPlacelists=dict[@"relatedPlacelists"];
-        
-        obj.type=@(SCANCODE_RELATED_TYPE_PLACELISTS);
-        obj.idPlacelist=[NSNumber makeNumber:relatedPlacelists[@"placelistId"]];
-        obj.placelistName=[NSString makeString:relatedPlacelists[@"placelistName"]];
-        obj.authorAvatar=[NSString makeString:relatedPlacelists[@"authorAvatar"]];
-        obj.desc=[NSString makeString:relatedPlacelists[@"description"]];
-    }
+    obj.type=@(SCANCODE_RELATED_TYPE_SHOPS);
+    obj.idShop=[NSNumber makeNumber:dict[@"idShop"]];
+    obj.shopName=[NSString makeString:dict[@"shopName"]];
+    obj.logo=[NSString makeString:dict[@"logo"]];
+    obj.desc=[NSString makeString:dict[@"description"]];
+    obj.distance=[NSString makeString:dict[@"distance"]];
+    
+    return obj;
+}
+
++(ScanCodeRelated *)makeWithPromotionDictionary:(NSDictionary *)dict
+{
+    ScanCodeRelated *obj=[ScanCodeRelated insert];
+    
+    obj.type=@(SCANCODE_RELATED_TYPE_PROMOTIONS);
+    
+    NSArray *idShops=dict[@"idShops"];
+    
+    if([idShops hasData])
+        obj.idShops=[idShops componentsJoinedByString:@","];
+    
+    obj.promotionName=[NSString makeString:dict[@"promotionName"]];
+    obj.logo=[NSString makeString:dict[@"logo"]];
+    obj.time=[NSString makeString:dict[@"time"]];
+    obj.desc=[NSString makeString:dict[@"description"]];
+    
+    return obj;
+}
+
++(ScanCodeRelated *)makeWithPlacelistDictionary:(NSDictionary *)dict
+{
+    ScanCodeRelated *obj=[ScanCodeRelated insert];
+    
+    obj.type=@(SCANCODE_RELATED_TYPE_PLACELISTS);
+    obj.idPlacelist=[NSNumber makeNumber:dict[@"placelistId"]];
+    obj.placelistName=[NSString makeString:dict[@"placelistName"]];
+    obj.authorAvatar=[NSString makeString:dict[@"authorAvatar"]];
+    obj.desc=[NSString makeString:dict[@"description"]];
     
     return obj;
 }

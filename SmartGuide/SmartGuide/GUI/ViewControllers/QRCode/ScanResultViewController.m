@@ -25,7 +25,7 @@ enum SCAN_RESULT_SECTION_TYPE
 @interface ScanResultViewController ()<UITableViewDataSource,UITableViewDelegate,ASIOperationPostDelegate, ScanResultRelatedHeadViewDelegate>
 {
     OperationQRCodeDecode *_opeQRCodeDecode;
-    OperationQRCodeDecode *_opeQRCodeGetRelated;
+    OperationQRCodeGetRelated *_opeQRCodeGetRelated;
     
     ScanQRCodeObject *_qrCodeObject;
     int _currentIndex;
@@ -54,6 +54,10 @@ enum SCAN_RESULT_SECTION_TYPE
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
+#if DEBUG
+    _code=@"e649f7f9806b67623335e43a8d82ecb7";
+#endif
+    
     [table registerScanResultDisconnectCell];
     [table registerScanResultInforyCell];
     [table registerScanResultNonInforyCell];
@@ -69,12 +73,18 @@ enum SCAN_RESULT_SECTION_TYPE
 
 -(void) requestDecode
 {
+    _opeQRCodeDecode=[[OperationQRCodeDecode alloc] initWithCode:_code userLat:userLat() userLng:userLng()];
+    _opeQRCodeDecode.delegate=self;
     
+    [_opeQRCodeDecode addToQueue];
 }
 
 -(void) requestRelaties
 {
+    _opeQRCodeGetRelated=[[OperationQRCodeGetRelated alloc] initWithCode:_code type:QRCODE_RELATED_TYPE_ALL page:0 userLat:userLat() userLng:userLng()];
+    _opeQRCodeGetRelated.delegate=self;
     
+    [_opeQRCodeGetRelated addToQueue];
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
