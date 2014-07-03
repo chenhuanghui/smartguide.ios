@@ -8,6 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+@class MPMoviePlayerController, ScanResultInforyCell;
+
+@protocol ScanResultInforyCellDelegate <NSObject>
+
+-(MPMoviePlayerController*) scanResultInforyCellRequestMoviePlayer:(ScanResultInforyCell*) cell;
+
+@end
+
 @interface ScanResultInforyCell : UITableViewCell
 {
     __weak IBOutlet UITableView *table;
@@ -17,6 +25,8 @@
 -(void) loadWithDecode:(NSArray*) array;
 +(NSString *)reuseIdentifier;
 +(float) heightWithDecode:(NSArray*) array;
+
+@property (nonatomic, weak) id<ScanResultInforyCellDelegate> delegate;
 
 @end
 

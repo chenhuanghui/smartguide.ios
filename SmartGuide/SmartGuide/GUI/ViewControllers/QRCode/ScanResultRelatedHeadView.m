@@ -33,7 +33,17 @@
 
 -(void)loadWithTitles:(NSArray *)titles
 {
-    [peekTitle addTitles:titles];
+    if(titles.count==0)
+    {
+        imgvLineBot.hidden=true;
+        peekTitle.hidden=true;
+    }
+    else
+    {
+        imgvLineBot.hidden=false;
+        peekTitle.hidden=false;
+        [peekTitle addTitles:titles];
+    }
 }
 
 -(void)peekTitleView:(PeekTitleView *)peekView touchedIndex:(int)index
@@ -49,6 +59,11 @@
 +(float)height
 {
     return 67;
+}
+
++(float)heightEmptyTitles
+{
+    return 29;
 }
 
 @end

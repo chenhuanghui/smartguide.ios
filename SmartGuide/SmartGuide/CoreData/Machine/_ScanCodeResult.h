@@ -7,10 +7,11 @@
 #define ScanCodeResult_ClassName @"ScanCodeResult"
 
 #define ScanCodeResult_Code @"code"
+#define ScanCodeResult_Type @"type"
 
 @class ScanCodeResult;
 @class ScanCodeDecode;
-@class ScanCodeRelated;
+@class ScanCodeRelatedContain;
 
 @interface _ScanCodeResult : NSManagedObject
 
@@ -24,6 +25,7 @@
 
 
 @property (nonatomic, retain) NSString* code;
+@property (nonatomic, retain) NSNumber* type;
 
 #pragma mark Fetched property
 
@@ -39,19 +41,20 @@
 - (void) removeDecodeObject:(ScanCodeDecode*)value;
 - (void) removeAllDecode;
 
-#pragma mark Relaties
-- (NSSet*) relaties;
-- (NSArray*) relatiesObjects;
-- (void) addRelaties:(NSSet*)value;
-- (void) removeRelaties:(NSSet*)value;
-- (void) addRelatiesObject:(ScanCodeRelated*)value;
-- (void) removeRelatiesObject:(ScanCodeRelated*)value;
-- (void) removeAllRelaties;
+#pragma mark RelatedContain
+- (NSSet*) relatedContain;
+- (NSArray*) relatedContainObjects;
+- (void) addRelatedContain:(NSSet*)value;
+- (void) removeRelatedContain:(NSSet*)value;
+- (void) addRelatedContainObject:(ScanCodeRelatedContain*)value;
+- (void) removeRelatedContainObject:(ScanCodeRelatedContain*)value;
+- (void) removeAllRelatedContain;
 
 
 
 #pragma mark Utility
 
 -(void) revert;
+-(void) save;
 
 @end

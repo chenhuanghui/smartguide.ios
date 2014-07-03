@@ -15,7 +15,7 @@
 #import "ScanResultInforyVideoCell.h"
 #import "ScanResultInforyButtonCell.h"
 
-@interface ScanResultInforyCell()<UITableViewDataSource, UITableViewDelegate>
+@interface ScanResultInforyCell()<UITableViewDataSource, UITableViewDelegate,ScanResultInforyVideoCellDelegate>
 
 @end
 
@@ -123,6 +123,8 @@
         {
             ScanResultInforyVideoCell *cell=[tableView scanResultInforyVideoCell];
             
+            cell.delegate=self;
+            
             [cell loadWithDecode:decode];
             
             return cell;
@@ -135,6 +137,11 @@
     return [UITableViewCell new];
 }
 
+-(MPMoviePlayerController *)scanResultInforyVideoCellRequestMoviePlayer:(ScanResultInforyVideoCell *)cell
+{
+    return [self.delegate scanResultInforyCellRequestMoviePlayer:self];
+}
+
 +(NSString *)reuseIdentifier
 {
     return @"ScanResultInforyCell";
@@ -142,6 +149,9 @@
 
 +(float)heightWithDecode:(NSArray *) array
 {
+    if(![array hasData])
+        return 0;
+    
     float height=0;
     for(ScanCodeDecode *decode in array)
     {

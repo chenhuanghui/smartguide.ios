@@ -8,16 +8,26 @@
 
 #import <UIKit/UIKit.h>
 
-@class ScanCodeDecode;
+@class ScanCodeDecode, ScanResultInforyButtonCell, UserNotificationAction;
+
+@protocol ScanResultInforyButtonCellDelegate <NSObject>
+
+-(void) scanResultInforyButtonCellTouchedAction:(ScanResultInforyButtonCell*) cell action:(UserNotificationAction*) action;
+
+@end
 
 @interface ScanResultInforyButtonCell : UITableViewCell
 {
-    __weak IBOutlet UIButton *btn;
+    __weak IBOutlet UICollectionView *collection;
+    
+    __weak ScanCodeDecode *_decode;
 }
 
 -(void) loadWithDecode:(ScanCodeDecode*) decode;
 +(NSString *)reuseIdentifier;
 +(float) heightWithDecode:(ScanCodeDecode*) decode;
+
+@property (nonatomic, weak) id<ScanResultInforyButtonCellDelegate> delegate;
 
 @end
 

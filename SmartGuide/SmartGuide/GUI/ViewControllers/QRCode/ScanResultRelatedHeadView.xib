@@ -36,6 +36,7 @@
             <color key="backgroundColor" red="0.92156862745098034" green="0.92156862745098034" blue="0.92156862745098034" alpha="1" colorSpace="calibratedRGB"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
+                <outlet property="imgvLineBot" destination="2xe-7M-Cln" id="uRY-5b-Jol"/>
                 <outlet property="lblTitle" destination="BWd-Dd-DL1" id="Pza-oi-2PI"/>
                 <outlet property="titlesView" destination="9Q1-eO-xt6" id="7Ro-XH-r7z"/>
             </connections>

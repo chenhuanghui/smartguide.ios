@@ -9,18 +9,67 @@
 #import "ScanResultInforyButtonCell.h"
 #import "ScanCodeDecode.h"
 #import "UserNotificationAction.h"
+#import "ScanButtonCollectionCell.h"
+
+@interface ScanResultInforyButtonCell()<UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, ScanButtonCollectionCellDelegate>
+
+@end
 
 @implementation ScanResultInforyButtonCell
 
 -(void)loadWithDecode:(ScanCodeDecode *)decode
 {
-//    float textWidth=decode.action.actionTitleWidth.floatValue+30;
-//    
-//    btn.frame=CGRectMake((self.l_v_w-textWidth)/2, btn.l_v_y, textWidth, btn.l_v_h);
-//    [btn setTitle:decode.action.actionTitle forState:UIControlStateNormal];
-//    
-//    UIImage *img=[[UIImage imageNamed:@"bg_viewer_button.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(23, 23, 23, 23)];
-//    [btn setBackgroundImage:img forState:UIControlStateNormal];
+    _decode=decode;
+    
+    if(decode.actionObjects.count==1)
+    {
+        float textWidth=[ScanButtonCollectionCell widthWithAction:decode.actionObjects[0]];
+        
+        collection.contentInset=UIEdgeInsetsMake(0, (collection.l_v_w-textWidth)/2, 0, 0);
+    }
+    else
+    {
+        collection.contentInset=UIEdgeInsetsZero;
+    }
+    
+    [collection reloadData];
+}
+
+-(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
+{
+    return 1;
+}
+
+-(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+    return _decode.actionObjects.count;
+}
+
+-(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    return CGSizeMake([ScanButtonCollectionCell widthWithAction:_decode.actionObjects[indexPath.row]], 47);
+}
+
+-(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    ScanButtonCollectionCell *cell=[collectionView scanButtonCollectionCellForIndexPath:indexPath];
+    
+    cell.delegate=self;
+    [cell loadWithAction:_decode.actionObjects[indexPath.row]];
+    
+    return cell;
+}
+
+-(void)scanButtonCollectionCellTouchedAction:(ScanButtonCollectionCell *)cell
+{
+    [self.delegate scanResultInforyButtonCellTouchedAction:self action:cell.action];
+}
+
+-(void)awakeFromNib
+{
+    [super awakeFromNib];
+    
+    [collection registerScanButtonCollectionCell];
 }
 
 -(IBAction)btnTouchUpInside:(id)sender
@@ -34,12 +83,7 @@
 }
 
 +(float)heightWithDecode:(ScanCodeDecode *)decode
-{
-//    if(decode.action.actionTitleWidth.floatValue==-1)
-//    {
-//        decode.action.actionTitleWidth=@([decode.action.actionTitle sizeWithFont:FONT_SIZE_REGULAR(12) constrainedToSize:CGSizeMake(MAXFLOAT, 47) lineBreakMode:NSLineBreakByWordWrapping].width);
-//    }
-    
+{    
     return 47+20;
 }
 

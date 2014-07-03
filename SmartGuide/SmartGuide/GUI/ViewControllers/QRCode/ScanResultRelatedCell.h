@@ -8,16 +8,26 @@
 
 #import <UIKit/UIKit.h>
 
+@class ScanCodeRelatedContain;
+
+@class MPMoviePlayerController, ScanResultRelatedCell;
+
+@protocol ScanResultRelatedCellDelegate <NSObject>
+
+@end
+
 @interface ScanResultRelatedCell : UITableViewCell
 {
     __weak IBOutlet UITableView *table;
-    NSArray *_related;
+    ScanCodeRelatedContain *_relatedContain;
 }
 
--(void) loadWithRelated:(NSArray*) data;
+-(void) loadWithRelatedContain:(ScanCodeRelatedContain*) relatedContain;
 
-+(float) heightWithRelated:(NSArray*) data;
++(float) heightWithRelated:(ScanCodeRelatedContain*) reltedContain;
 +(NSString *)reuseIdentifier;
+
+@property (nonatomic, weak) id<ScanResultRelatedCellDelegate> delegate;
 
 @end
 

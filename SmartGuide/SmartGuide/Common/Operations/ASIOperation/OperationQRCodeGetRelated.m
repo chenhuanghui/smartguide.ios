@@ -11,7 +11,7 @@
 
 @implementation OperationQRCodeGetRelated
 
--(OperationQRCodeGetRelated *)initWithCode:(NSString *)code type:(enum QRCODE_RELATED_TYPE)type page:(int)page userLat:(double)userLat userLng:(double)userLng
+-(OperationQRCodeGetRelated *)initWithCode:(NSString *)code type:(enum QRCODE_RELATED_TYPE)type page:(int)page userLat:(double)userLat userLng:(double)userLng groupIndex:(int)groupIndex
 {
     self=[super initPOSTWithRouter:SERVER_API_URL_MAKE(API_QRCODE_GET_RELATED)];
     
@@ -22,12 +22,24 @@
     [self.keyValue setObject:@(userLat) forKey:USER_LATITUDE];
     [self.keyValue setObject:@(userLng) forKey:USER_LONGITUDE];
     
+    [self.storeData setObject:@(groupIndex) forKey:@"groupIndex"];
+    
     return self;
+}
+
+-(int)groupIndex
+{
+    return [self.storeData[@"groupIndex"] integerValue];
 }
 
 -(void)onFinishLoading
 {
     self.relaties=[NSMutableArray new];
+}
+
+-(enum QRCODE_RELATED_TYPE)type
+{
+    return (enum QRCODE_RELATED_TYPE)[self.keyValue[@"type"] integerValue];
 }
 
 -(void)onCompletedWithJSON:(NSArray *)json

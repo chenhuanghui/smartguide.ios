@@ -5,13 +5,13 @@
 #import "ScanCodeRelated.h"
 
 #import "DataManager.h"
-#import "ScanCodeResult.h"
+#import "ScanCodeRelatedContain.h"
 
 
 @implementation _ScanCodeRelated
 
 
-@dynamic result;
+@dynamic relatedContain;
 
 
 
@@ -320,11 +320,11 @@
 
 #pragma mark Relationships
     
-#pragma mark Result
-- (ScanCodeResult*)result {
-	[self willAccessValueForKey:@"result"];
-	ScanCodeResult *result = [self primitiveValueForKey:@"result"];
-	[self didAccessValueForKey:@"result"];
+#pragma mark RelatedContain
+- (ScanCodeRelatedContain*)relatedContain {
+	[self willAccessValueForKey:@"relatedContain"];
+	ScanCodeRelatedContain *result = [self primitiveValueForKey:@"relatedContain"];
+	[self didAccessValueForKey:@"relatedContain"];
 	return result;
 }
 
@@ -334,6 +334,11 @@
 -(void) revert
 {
     [[[DataManager shareInstance] managedObjectContext] refreshObject:self mergeChanges:false];
+}
+
+-(void) save
+{
+    [[DataManager shareInstance] save];
 }
 
 -(BOOL) hasChanges

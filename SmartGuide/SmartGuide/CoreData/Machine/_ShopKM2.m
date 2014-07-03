@@ -213,6 +213,11 @@
     [[[DataManager shareInstance] managedObjectContext] refreshObject:self mergeChanges:false];
 }
 
+-(void) save
+{
+    [[DataManager shareInstance] save];
+}
+
 -(BOOL) hasChanges
 {
     return self.changedValues.count>0;

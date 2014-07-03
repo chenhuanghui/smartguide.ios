@@ -7,6 +7,7 @@
 #define UserNotificationAction_ClassName @"UserNotificationAction"
 
 #define UserNotificationAction_ActionTitle @"actionTitle"
+#define UserNotificationAction_ActionTitleWidth @"actionTitleWidth"
 #define UserNotificationAction_ActionType @"actionType"
 #define UserNotificationAction_Color @"color"
 #define UserNotificationAction_IdPlacelist @"idPlacelist"
@@ -34,6 +35,7 @@
 
 
 @property (nonatomic, retain) NSString* actionTitle;
+@property (nonatomic, retain) NSNumber* actionTitleWidth;
 @property (nonatomic, retain) NSNumber* actionType;
 @property (nonatomic, retain) NSNumber* color;
 @property (nonatomic, retain) NSNumber* idPlacelist;
@@ -61,5 +63,6 @@
 #pragma mark Utility
 
 -(void) revert;
+-(void) save;
 
 @end

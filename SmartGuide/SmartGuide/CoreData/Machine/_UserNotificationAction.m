@@ -102,6 +102,19 @@
 	[self didChangeValueForKey:@"actionTitle"];
 }
 
+- (NSNumber*)actionTitleWidth {
+	[self willAccessValueForKey:@"actionTitleWidth"];
+	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"actionTitleWidth"];
+	[self didAccessValueForKey:@"actionTitleWidth"];
+	return result;
+}
+
+- (void)setActionTitleWidth:(NSNumber*)value {
+	[self willChangeValueForKey:@"actionTitleWidth"];
+	[self setPrimitiveValue:value forKey:@"actionTitleWidth"];
+	[self didChangeValueForKey:@"actionTitleWidth"];
+}
+
 - (NSNumber*)actionType {
 	[self willAccessValueForKey:@"actionType"];
 	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"actionType"];
@@ -256,6 +269,11 @@
 -(void) revert
 {
     [[[DataManager shareInstance] managedObjectContext] refreshObject:self mergeChanges:false];
+}
+
+-(void) save
+{
+    [[DataManager shareInstance] save];
 }
 
 -(BOOL) hasChanges

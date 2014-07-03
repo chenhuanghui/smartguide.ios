@@ -8,16 +8,28 @@
 
 #import <UIKit/UIKit.h>
 
-@class ScanCodeDecode;
+@class ScanCodeDecode, ScanResultInforyVideoCell, MPMoviePlayerController;
+
+@protocol ScanResultInforyVideoCellDelegate <NSObject>
+
+-(MPMoviePlayerController*) scanResultInforyVideoCellRequestMoviePlayer:(ScanResultInforyVideoCell*) cell;
+
+@end
 
 @interface ScanResultInforyVideoCell : UITableViewCell
 {
     __weak IBOutlet UIImageView *imgv;
+    __weak IBOutlet UIButton *btn;
+    __weak IBOutlet UIView *videoView;
+    
+    __weak ScanCodeDecode *_decode;
 }
 
 -(void) loadWithDecode:(ScanCodeDecode*) decode;
 +(NSString *)reuseIdentifier;
 +(float) heightWithDecode:(ScanCodeDecode*) decode;
+
+@property (nonatomic, weak) id<ScanResultInforyVideoCellDelegate> delegate;
 
 @end
 

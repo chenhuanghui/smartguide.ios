@@ -102,4 +102,9 @@
     return SCANCODE_DECODE_TYPE_UNKNOW;
 }
 
+-(NSArray *)actionObjects
+{
+    return [[super actionObjects] sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:UserNotificationAction_SortOrder ascending:true]]];
+}
+
 @end

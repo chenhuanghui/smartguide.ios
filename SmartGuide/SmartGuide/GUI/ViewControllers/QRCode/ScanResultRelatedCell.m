@@ -9,6 +9,9 @@
 #import "ScanResultRelatedCell.h"
 #import "ScanResultObjectCell.h"
 #import "ScanCodeRelated.h"
+#import "ScanCodeRelatedContain.h"
+#import "ScanResultViewController.h"
+#import "LoadingMoreCell.h"
 
 @interface ScanResultRelatedCell()<UITableViewDataSource,UITableViewDelegate>
 
@@ -16,9 +19,9 @@
 
 @implementation ScanResultRelatedCell
 
--(void)loadWithRelated:(NSArray *)data
+-(void)loadWithRelatedContain:(ScanCodeRelatedContain *)relatedContain
 {
-    _related=data;
+    _relatedContain=relatedContain;
     
     [table reloadData];
     table.userInteractionEnabled=false;
@@ -27,26 +30,42 @@
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return _related.count==0?0:1;
+    return _relatedContain.relatiesObjects.count==0?0:1;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return _related.count;
+    return _relatedContain.relatiesObjects.count+(_relatedContain.canLoadMore.boolValue?1:0);
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    ScanCodeRelated *obj=_related[indexPath.row];
+    if(_relatedContain.canLoadMore.boolValue && indexPath.row==[tableView numberOfRowsInSection:indexPath.section]-1)
+        return 94;
+    
+    ScanCodeRelated *obj=_relatedContain.relatiesObjects[indexPath.row];
     
     return [ScanResultObjectCell heightWithRelated:obj];
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if(_relatedContain.canLoadMore.boolValue && indexPath.row==[tableView numberOfRowsInSection:indexPath.section]-1)
+    {
+        if(!_relatedContain.isLoadingMore.boolValue)
+        {
+            _relatedContain.isLoadingMore=@(true);
+            [_relatedContain save];
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_SCAN_RELATED_REQUEST_LOADMORE object:_relatedContain];
+        }
+        
+        return [table loadingMoreCell];
+    }
+    
     ScanResultObjectCell *cell=[tableView scanResultObjectCell];
     
-    [cell loadWithRelated:_related[indexPath.row]];
+    [cell loadWithRelated:_relatedContain.relatiesObjects[indexPath.row]];
     
     return cell;
 }
@@ -56,6 +75,7 @@
     [super awakeFromNib];
     
     [table registerScanResultObjectCell];
+    [table registerLoadingMoreCell];
 }
 
 +(float)heightWithRelated:(NSArray *)data

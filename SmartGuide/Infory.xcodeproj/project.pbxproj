@@ -860,6 +860,10 @@
 		A939215219652F0E0091E804 /* _ScanCodeDecode.m in Sources */ = {isa = PBXBuildFile; fileRef = A939214D19652F0E0091E804 /* _ScanCodeDecode.m */; };
 		A939215319652F0E0091E804 /* _ScanCodeRelated.m in Sources */ = {isa = PBXBuildFile; fileRef = A939214F19652F0E0091E804 /* _ScanCodeRelated.m */; };
 		A939215419652F0E0091E804 /* _ScanCodeResult.m in Sources */ = {isa = PBXBuildFile; fileRef = A939215119652F0E0091E804 /* _ScanCodeResult.m */; };
+		A939215A19656C0C0091E804 /* _ScanCodeRelatedContain.m in Sources */ = {isa = PBXBuildFile; fileRef = A939215919656C0C0091E804 /* _ScanCodeRelatedContain.m */; };
+		A939215D19656C120091E804 /* ScanCodeRelatedContain.m in Sources */ = {isa = PBXBuildFile; fileRef = A939215C19656C120091E804 /* ScanCodeRelatedContain.m */; };
+		A939216319659A790091E804 /* ScanButtonCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A939216219659A790091E804 /* ScanButtonCollectionCell.m */; };
+		A939216519659A820091E804 /* ScanButtonCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A939216419659A820091E804 /* ScanButtonCollectionCell.xib */; };
 		A93F20611797CF7600622D75 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A93F20601797CF7600622D75 /* AddressBook.framework */; };
 		A958795219500B4100DD4A57 /* bg_sosmart.png in Resources */ = {isa = PBXBuildFile; fileRef = A958794F19500B4100DD4A57 /* bg_sosmart.png */; };
 		A958795319500B4100DD4A57 /* bg_5sosmart.png in Resources */ = {isa = PBXBuildFile; fileRef = A958795019500B4100DD4A57 /* bg_5sosmart.png */; };
@@ -2191,6 +2195,13 @@
 		A939214F19652F0E0091E804 /* _ScanCodeRelated.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _ScanCodeRelated.m; sourceTree = "<group>"; };
 		A939215019652F0E0091E804 /* _ScanCodeResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _ScanCodeResult.h; sourceTree = "<group>"; };
 		A939215119652F0E0091E804 /* _ScanCodeResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _ScanCodeResult.m; sourceTree = "<group>"; };
+		A939215819656C0C0091E804 /* _ScanCodeRelatedContain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _ScanCodeRelatedContain.h; sourceTree = "<group>"; };
+		A939215919656C0C0091E804 /* _ScanCodeRelatedContain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _ScanCodeRelatedContain.m; sourceTree = "<group>"; };
+		A939215B19656C120091E804 /* ScanCodeRelatedContain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScanCodeRelatedContain.h; sourceTree = "<group>"; };
+		A939215C19656C120091E804 /* ScanCodeRelatedContain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScanCodeRelatedContain.m; sourceTree = "<group>"; };
+		A939216119659A790091E804 /* ScanButtonCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScanButtonCollectionCell.h; sourceTree = "<group>"; };
+		A939216219659A790091E804 /* ScanButtonCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScanButtonCollectionCell.m; sourceTree = "<group>"; };
+		A939216419659A820091E804 /* ScanButtonCollectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScanButtonCollectionCell.xib; sourceTree = "<group>"; };
 		A93F20601797CF7600622D75 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		A958794F19500B4100DD4A57 /* bg_sosmart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_sosmart.png; sourceTree = "<group>"; };
 		A958795019500B4100DD4A57 /* bg_5sosmart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_5sosmart.png; sourceTree = "<group>"; };
@@ -2822,6 +2833,9 @@
 				A979100719649E3D00719E27 /* ScanResultInforyButtonCell.h */,
 				A979100819649E3D00719E27 /* ScanResultInforyButtonCell.m */,
 				A979100919649E3D00719E27 /* ScanResultInforyButtonCell.xib */,
+				A939216119659A790091E804 /* ScanButtonCollectionCell.h */,
+				A939216219659A790091E804 /* ScanButtonCollectionCell.m */,
+				A939216419659A820091E804 /* ScanButtonCollectionCell.xib */,
 				A9BF13E01963C18900D30EAA /* ScanResultNonInforyCell.h */,
 				A9BF13E11963C18900D30EAA /* ScanResultNonInforyCell.m */,
 				A9BF13E21963C18900D30EAA /* ScanResultNonInforyCell.xib */,
@@ -3348,6 +3362,8 @@
 		A91A674A1797F65000BEB8C5 /* Human */ = {
 			isa = PBXGroup;
 			children = (
+				A939215B19656C120091E804 /* ScanCodeRelatedContain.h */,
+				A939215C19656C120091E804 /* ScanCodeRelatedContain.m */,
 				A939214319652F050091E804 /* ScanCodeDecode.h */,
 				A939214419652F050091E804 /* ScanCodeDecode.m */,
 				A939214519652F050091E804 /* ScanCodeRelated.h */,
@@ -3413,6 +3429,8 @@
 		A91A674D1797F65000BEB8C5 /* Machine */ = {
 			isa = PBXGroup;
 			children = (
+				A939215819656C0C0091E804 /* _ScanCodeRelatedContain.h */,
+				A939215919656C0C0091E804 /* _ScanCodeRelatedContain.m */,
 				A939214C19652F0E0091E804 /* _ScanCodeDecode.h */,
 				A939214D19652F0E0091E804 /* _ScanCodeDecode.m */,
 				A939214E19652F0E0091E804 /* _ScanCodeRelated.h */,
@@ -5397,6 +5415,7 @@
 				9A7AC21B18D191550043316D /* SearchShopCell.xib in Resources */,
 				A9BDD0D518FBFA26006C6CA6 /* icon_refresh_new.png in Resources */,
 				9A2F8D091855BB9A0024AE1A /* bg_price_left@2x.png in Resources */,
+				A939216519659A820091E804 /* ScanButtonCollectionCell.xib in Resources */,
 				9A96DC0C1886421E00AD0EEC /* line_detail_placelist@2x.png in Resources */,
 				A9BD83EA18ED40BD000375BD /* button_config.png in Resources */,
 				A9790FFC19649DF800719E27 /* ScanResultInforyTitleCell.xib in Resources */,
@@ -5818,6 +5837,7 @@
 				A921B02F17A8B68200DC6D4D /* ASIOperationShopUser.m in Sources */,
 				A9E35F89190F9008008498E5 /* UserNoticeObject.m in Sources */,
 				9A24D75318AC723900789D73 /* ASIOperationScanQRCode.m in Sources */,
+				A939215D19656C120091E804 /* ScanCodeRelatedContain.m in Sources */,
 				9A7ABFDC18D18FF00043316D /* NavigationViewController.m in Sources */,
 				9A29392218445DA000FD49E2 /* ShopKM1.m in Sources */,
 				9ADCD95918D19C3F004CB67E /* MKAnnotationView+WebCache.m in Sources */,
@@ -5905,6 +5925,7 @@
 				A9BFE86B18E96972008C542E /* UserNotificationDetailViewController.m in Sources */,
 				9ADCD96818D19C3F004CB67E /* TPKeyboardAvoidingScrollView.m in Sources */,
 				A9EB149E1952D79C00191767 /* ShopMapViewController.m in Sources */,
+				A939216319659A790091E804 /* ScanButtonCollectionCell.m in Sources */,
 				A9E0F5CC1962A58E005ABAA0 /* ScanResultViewController.m in Sources */,
 				A9AC694A18EEC28F006279FE /* ImageView.m in Sources */,
 				A925E3CF17B089EB00806617 /* TokenManager.m in Sources */,
@@ -5927,6 +5948,7 @@
 				A9D8576F194A0BB400BABD0B /* BasicAnimation.m in Sources */,
 				A9BF13D91963C11600D30EAA /* ScanResultDisconnectCell.m in Sources */,
 				9A24781918B74A4100BAAA7D /* LoadingMoreCell.m in Sources */,
+				A939215A19656C0C0091E804 /* _ScanCodeRelatedContain.m in Sources */,
 				9A27BC0918D18BAD00E3EAC2 /* HomeImagesCell.m in Sources */,
 				9A7AC20E18D191250043316D /* SearchShopViewController.m in Sources */,
 				A9AF88FA18F3F42F00845616 /* ASIOperationRemoveShopPlacelist.m in Sources */,

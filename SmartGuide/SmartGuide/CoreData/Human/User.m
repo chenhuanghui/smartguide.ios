@@ -49,11 +49,6 @@
     return @"You here";
 }
 
--(bool)save
-{
-    return [[NSUserDefaults standardUserDefaults] synchronize];
-}
-
 -(enum GENDER_TYPE)enumGender
 {
     switch (self.gender.integerValue) {

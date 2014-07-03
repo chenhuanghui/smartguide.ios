@@ -26,7 +26,7 @@
 #define ScanCodeRelated_Type @"type"
 
 @class ScanCodeRelated;
-@class ScanCodeResult;
+@class ScanCodeRelatedContain;
 
 @interface _ScanCodeRelated : NSManagedObject
 
@@ -63,13 +63,14 @@
     
 #pragma mark Relationships
 
-#pragma mark Result
-@property (nonatomic, retain) ScanCodeResult* result;
+#pragma mark RelatedContain
+@property (nonatomic, retain) ScanCodeRelatedContain* relatedContain;
 
 
 
 #pragma mark Utility
 
 -(void) revert;
+-(void) save;
 
 @end

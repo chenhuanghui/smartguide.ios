@@ -63,6 +63,7 @@ enum SCAN_OBJECT_TYPE
 -(enum SCAN_OBJECT_TYPE) enumType;
 
 @property (nonatomic, strong) NSNumber *type;
+@property (nonatomic, strong) NSString *text;
 @property (nonatomic, strong) NSURL *url;
 @property (nonatomic, strong) NSNumber *idShop;
 @property (nonatomic, strong) NSNumber *idPlacelist;

@@ -609,7 +609,32 @@
 
 -(void)scanCodeController:(ScanCodeController *)controller scannedObject:(ScanObject *)obj
 {
+    [self closeScanCode];
     
+    switch (obj.enumType) {
+        case SCAN_OBJECT_TYPE_URL:
+            [self showWebViewWithURL:obj.url onCompleted:nil];
+            break;
+            
+        case SCAN_OBJECT_TYPE_IDBRANCH:
+            [self showShopListWithIDBranch:obj.idBranch.integerValue];
+            break;
+            
+        case SCAN_OBJECT_TYPE_IDPLACELIST:
+            [self showShopListWithIDPlace:obj.idPlacelist.integerValue];
+            break;
+            
+        case SCAN_OBJECT_TYPE_IDSHOP:
+            [self presentShopUserWithIDShop:obj.idShop.integerValue];
+            break;
+            
+        case SCAN_OBJECT_TYPE_IDSHOPS:
+            [self showShopListWithIDShops:obj.idShops];
+            break;
+            
+        case SCAN_OBJECT_TYPE_TEXT:
+            break;
+    }
 }
 
 -(void)removeUserNotification:(UserNotification *)obj

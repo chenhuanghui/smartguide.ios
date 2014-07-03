@@ -96,7 +96,8 @@
         AppDelegate *app=[UIApplication sharedApplication].delegate;
         
         app.allowRotation=true;
-    }}
+    }
+}
 
 -(void) requestNotification
 {

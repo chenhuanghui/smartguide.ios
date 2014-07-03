@@ -6,7 +6,7 @@
 
 #import "DataManager.h"
 #import "ScanCodeDecode.h"
-#import "ScanCodeRelated.h"
+#import "ScanCodeRelatedContain.h"
 
 
 @implementation _ScanCodeResult
@@ -100,6 +100,19 @@
 	[self didChangeValueForKey:@"code"];
 }
 
+- (NSNumber*)type {
+	[self willAccessValueForKey:@"type"];
+	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"type"];
+	[self didAccessValueForKey:@"type"];
+	return result;
+}
+
+- (void)setType:(NSNumber*)value {
+	[self willChangeValueForKey:@"type"];
+	[self setPrimitiveValue:value forKey:@"type"];
+	[self didChangeValueForKey:@"type"];
+}
+
 #pragma mark Relationships
     
 #pragma mark Decode
@@ -170,71 +183,71 @@
 	return result;
 }
 
-#pragma mark Relaties
-- (NSSet*)relaties {
-	[self willAccessValueForKey:@"relaties"];
-	NSSet *result = [self primitiveValueForKey:@"relaties"];
-	[self didAccessValueForKey:@"relaties"];
+#pragma mark RelatedContain
+- (NSSet*)relatedContain {
+	[self willAccessValueForKey:@"relatedContain"];
+	NSSet *result = [self primitiveValueForKey:@"relatedContain"];
+	[self didAccessValueForKey:@"relatedContain"];
 	return result;
 }
 
--(NSArray*) relatiesObjects
+-(NSArray*) relatedContainObjects
 {
-    NSSet *set=[self relaties];
+    NSSet *set=[self relatedContain];
     if(set)
         return [set allObjects];
     
     return [NSArray array];
 }
 
-- (void)setRelaties:(NSSet*)value {
-	[self willChangeValueForKey:@"relaties" withSetMutation:NSKeyValueSetSetMutation usingObjects:value];
-	[[self primitiveValueForKey:@"relaties"] setSet:value];
-	[self didChangeValueForKey:@"relaties" withSetMutation:NSKeyValueSetSetMutation usingObjects:value];
+- (void)setRelatedContain:(NSSet*)value {
+	[self willChangeValueForKey:@"relatedContain" withSetMutation:NSKeyValueSetSetMutation usingObjects:value];
+	[[self primitiveValueForKey:@"relatedContain"] setSet:value];
+	[self didChangeValueForKey:@"relatedContain" withSetMutation:NSKeyValueSetSetMutation usingObjects:value];
 }
 
-- (void)addRelaties:(NSSet*)value {
-	[self willChangeValueForKey:@"relaties" withSetMutation:NSKeyValueUnionSetMutation usingObjects:value];
-	[[self primitiveValueForKey:@"relaties"] unionSet:value];
-	[self didChangeValueForKey:@"relaties" withSetMutation:NSKeyValueUnionSetMutation usingObjects:value];
+- (void)addRelatedContain:(NSSet*)value {
+	[self willChangeValueForKey:@"relatedContain" withSetMutation:NSKeyValueUnionSetMutation usingObjects:value];
+	[[self primitiveValueForKey:@"relatedContain"] unionSet:value];
+	[self didChangeValueForKey:@"relatedContain" withSetMutation:NSKeyValueUnionSetMutation usingObjects:value];
 }
 
--(void)removeRelaties:(NSSet*)value {
+-(void)removeRelatedContain:(NSSet*)value {
 
     for(NSManagedObject *obj in value.allObjects)
         [self.managedObjectContext deleteObject:obj];
 
-	[self willChangeValueForKey:@"relaties" withSetMutation:NSKeyValueMinusSetMutation usingObjects:value];
-	[[self primitiveValueForKey:@"relaties"] minusSet:value];
-	[self didChangeValueForKey:@"relaties" withSetMutation:NSKeyValueMinusSetMutation usingObjects:value];
+	[self willChangeValueForKey:@"relatedContain" withSetMutation:NSKeyValueMinusSetMutation usingObjects:value];
+	[[self primitiveValueForKey:@"relatedContain"] minusSet:value];
+	[self didChangeValueForKey:@"relatedContain" withSetMutation:NSKeyValueMinusSetMutation usingObjects:value];
 }
 	
-- (void)addRelatiesObject:(ScanCodeRelated*)value {
+- (void)addRelatedContainObject:(ScanCodeRelatedContain*)value {
 	NSSet *changedObjects = [[NSSet alloc] initWithObjects:&value count:1];
-	[self willChangeValueForKey:@"relaties" withSetMutation:NSKeyValueUnionSetMutation usingObjects:changedObjects];
-	[[self primitiveValueForKey:@"relaties"] addObject:value];
-	[self didChangeValueForKey:@"relaties" withSetMutation:NSKeyValueUnionSetMutation usingObjects:changedObjects];
+	[self willChangeValueForKey:@"relatedContain" withSetMutation:NSKeyValueUnionSetMutation usingObjects:changedObjects];
+	[[self primitiveValueForKey:@"relatedContain"] addObject:value];
+	[self didChangeValueForKey:@"relatedContain" withSetMutation:NSKeyValueUnionSetMutation usingObjects:changedObjects];
 }
 
-- (void)removeRelatiesObject:(ScanCodeRelated*)value {
+- (void)removeRelatedContainObject:(ScanCodeRelatedContain*)value {
 
     [self.managedObjectContext deleteObject:value];
 
 	NSSet *changedObjects = [[NSSet alloc] initWithObjects:&value count:1];
-	[self willChangeValueForKey:@"relaties" withSetMutation:NSKeyValueMinusSetMutation usingObjects:changedObjects];
-	[[self primitiveValueForKey:@"relaties"] removeObject:value];
-	[self didChangeValueForKey:@"relaties" withSetMutation:NSKeyValueMinusSetMutation usingObjects:changedObjects];
+	[self willChangeValueForKey:@"relatedContain" withSetMutation:NSKeyValueMinusSetMutation usingObjects:changedObjects];
+	[[self primitiveValueForKey:@"relatedContain"] removeObject:value];
+	[self didChangeValueForKey:@"relatedContain" withSetMutation:NSKeyValueMinusSetMutation usingObjects:changedObjects];
 }
 
-- (void) removeAllRelaties
+- (void) removeAllRelatedContain
 {
-    [self removeRelaties:self.relaties];
+    [self removeRelatedContain:self.relatedContain];
 }
 
-- (NSMutableSet*)relatiesSet {
-	[self willAccessValueForKey:@"relaties"];
-	NSMutableSet *result = [self mutableSetValueForKey:@"relaties"];
-	[self didAccessValueForKey:@"relaties"];
+- (NSMutableSet*)relatedContainSet {
+	[self willAccessValueForKey:@"relatedContain"];
+	NSMutableSet *result = [self mutableSetValueForKey:@"relatedContain"];
+	[self didAccessValueForKey:@"relatedContain"];
 	return result;
 }
 
@@ -244,6 +257,11 @@
 -(void) revert
 {
     [[[DataManager shareInstance] managedObjectContext] refreshObject:self mergeChanges:false];
+}
+
+-(void) save
+{
+    [[DataManager shareInstance] save];
 }
 
 -(BOOL) hasChanges

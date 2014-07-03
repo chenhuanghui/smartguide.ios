@@ -167,7 +167,7 @@
                 }
             }
             
-            [self.delegate scanCodeControllerTouchedClose:self];
+            [self showScanCodeResultWithCode:text];
         }
         else if([text containsString:QRCODE_INFORY_SHOP])
         {
@@ -204,7 +204,7 @@
         }
         else
         {
-            [self.delegate scanCodeControllerTouchedClose:self];
+            [self showScanCodeResultWithCode:text];
         }
     }
     else
@@ -240,6 +240,11 @@
 {
     [_navi popViewControllerAnimated:true];
     [self animationShowScan];
+}
+
+-(void)scanResultController:(ScanResultViewController *)controller touchedObject:(ScanResult *)object
+{
+    
 }
 
 @end
