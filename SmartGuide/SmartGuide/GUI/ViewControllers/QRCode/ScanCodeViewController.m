@@ -166,7 +166,7 @@
 -(IBAction) btnMakeCodeTouchUpInside:(id) sender
 {
 #if DEBUG
-    [self.delegate scanCodeViewController:self scannedText:@"abc"];
+    [self.delegate scanCodeViewController:self scannedText:@"http://google.com"];
 #endif
 }
 

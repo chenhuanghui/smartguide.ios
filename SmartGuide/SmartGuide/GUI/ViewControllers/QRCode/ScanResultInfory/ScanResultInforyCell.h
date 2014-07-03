@@ -8,11 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@class MPMoviePlayerController, ScanResultInforyCell;
+@class MPMoviePlayerController, ScanResultInforyCell, UserNotificationAction;
 
 @protocol ScanResultInforyCellDelegate <NSObject>
 
 -(MPMoviePlayerController*) scanResultInforyCellRequestMoviePlayer:(ScanResultInforyCell*) cell;
+-(void) scanResultInforyCell:(ScanResultInforyCell*) cell touchedAction:(UserNotificationAction*) action;
 
 @end
 

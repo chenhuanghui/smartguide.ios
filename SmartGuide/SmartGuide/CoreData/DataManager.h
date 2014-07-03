@@ -24,6 +24,7 @@ User *currentUser();
 }
 
 +(DataManager*) shareInstance;
+-(void) clean;
 
 -(bool) save;
 

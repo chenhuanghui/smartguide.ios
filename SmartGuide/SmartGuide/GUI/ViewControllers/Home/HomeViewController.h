@@ -7,16 +7,8 @@
 //
 
 #import "SGViewController.h"
-#import "ASIOperationUserHome.h"
-#import "HomePromotionCell.h"
-#import "HomeImagesCell.h"
-#import "HomeListCell.h"
-#import "HomeInfoCell.h"
-#import "HomeImagesType9Cell.h"
-#import "QRCodeViewController.h"
-#import "TextField.h"
 
-@class HomeViewController,TableHome;
+@class HomeViewController,TableHome, UserHome1, UserHome3, UserHome8, HomeTextField;
 
 @protocol HomeControllerDelegate <SGViewControllerDelegate>
 
@@ -29,7 +21,7 @@
 
 @end
 
-@interface HomeViewController : SGViewController<UITextFieldDelegate,ASIOperationPostDelegate,UITableViewDataSource,UITableViewDelegate,QRCodeControllerDelegate>
+@interface HomeViewController : SGViewController
 {
     __weak IBOutlet HomeTextField *txtRefresh;
     __weak IBOutlet UIView *displayLoadingView;
@@ -42,7 +34,6 @@
     __weak IBOutlet UIButton *btnNotification;
     __weak IBOutlet UIImageView *imgvLogo;
     
-    ASIOperationUserHome *_operationUserHome;
     NSMutableArray *_homes;
     NSMutableArray *_homesAPI;
     

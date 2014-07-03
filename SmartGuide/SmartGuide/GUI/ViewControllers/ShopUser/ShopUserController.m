@@ -17,9 +17,9 @@
 #import "GUIManager.h"
 #import "WebViewController.h"
 #import "Constant.h"
-#import "QRCodeViewController.h"
+#import "ScanCodeController.h"
 
-@interface ShopUserController ()<SGNavigationControllerDelegate,ShopUserViewControllerDelegate,GalleryFullControllerDelegate,WebViewDelegate>
+@interface ShopUserController ()<SGNavigationControllerDelegate,ShopUserViewControllerDelegate,GalleryFullControllerDelegate,WebViewDelegate,ScanCodeControllerDelegate>
 
 @end
 
@@ -171,7 +171,7 @@
 
 -(void)shopUserViewControllerTouchedQRCode:(ShopUserViewController *)controller
 {
-    [self showQRCodeWithController:self inView:self.view withAnimationType:QRCODE_ANIMATION_TOP_BOT screenCode:[ShopUserViewController screenCode]];
+    [self showScanCodeWithDelegate:self animationType:SCANCODE_ANIMATION_TOP_BOT];
 }
 
 -(void)shopUserViewControllerTouchedIDShop:(ShopUserViewController *)controller idShop:(int)idShop
@@ -185,43 +185,7 @@
     if([_navi.visibleViewController isKindOfClass:[GalleryFullViewController class]])
         return false;
     
-    return true;
-}
-
--(void)qrCodeController:(QRCodeViewController *)controller scannedIDBranch:(int)idBranch
-{
-    [controller close];
-    [[GUIManager shareInstance].rootViewController showShopListWithIDBranch:idBranch];
-}
-
--(void)qrCodeController:(QRCodeViewController *)controller scannedIDPlacelist:(int)idPlacelist
-{
-    [controller close];
-    [[GUIManager shareInstance].rootViewController showShopListWithIDPlace:idPlacelist];
-}
-
--(void)qrCodeController:(QRCodeViewController *)controller scannedIDShop:(int)idShop
-{
-    [controller close];
-    [self showShopWithIDShop:idShop];
-}
-
--(void)qrCodeController:(QRCodeViewController *)controller scannedIDShops:(NSString *)idShops
-{
-    [controller close];
-    [[GUIManager shareInstance].rootViewController showShopListWithIDShops:idShops];
-}
-
--(void)qrCodeController:(QRCodeViewController *)controller scannedURL:(NSURL *)url
-{
-    [controller close];
-
-    [self showWebViewWithURL:url onCompleted:nil];
-}
-
--(void)webviewTouchedBack:(WebViewController *)controller
-{
-    [self dismissSGViewControllerAnimated:true completion:nil];
+    return [super allowDragToNavigation];
 }
 
 @end

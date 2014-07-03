@@ -48,9 +48,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    [UserPlacelist markDeleteAllObjects];
-    [[DataManager shareInstance] save];
-    
     _tableFrame=table.frame;
     
     _createCellMode=PLACELIST_CREATE_CELL_SMALL;

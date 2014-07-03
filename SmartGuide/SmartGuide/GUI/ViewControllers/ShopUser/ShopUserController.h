@@ -13,7 +13,6 @@
 @protocol ShopUserControllerDelegate <SGViewControllerDelegate>
 
 -(void) shopUserControllerTouchedClose:(ShopUserController*) controller;
--(void) shopUserControllerTouchedScanQRCode:(ShopUserController*) controller;
 
 @end
 

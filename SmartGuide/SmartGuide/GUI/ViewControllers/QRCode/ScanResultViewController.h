@@ -10,12 +10,12 @@
 
 #define NOTIFICATION_SCAN_RELATED_REQUEST_LOADMORE @"scanRelatedRequestLoadMore"
 
-@class ScanResultViewController, ScanResult;
+@class ScanResultViewController, UserNotificationAction;
 
 @protocol ScanResultControllerDelegate <SGViewControllerDelegate>
 
--(void) scanResultController:(ScanResultViewController*) controller touchedObject:(ScanResult*) object;
 -(void) scanResultControllerTouchedBack:(ScanResultViewController*) controller;
+-(void) scanResultController:(ScanResultViewController*) controller touchedAction:(UserNotificationAction*) action;
 
 @end
 

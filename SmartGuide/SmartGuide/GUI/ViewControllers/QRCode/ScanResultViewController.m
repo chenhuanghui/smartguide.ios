@@ -21,6 +21,10 @@
 #import "ScanCodeRelatedContain.h"
 #import <MediaPlayer/MediaPlayer.h>
 #import "AppDelegate.h"
+#import "OperationNotificationAction.h"
+#import "WebViewController.h"
+#import "GUIManager.h"
+#import "SearchViewController.h"
 
 enum SCAN_RESULT_SECTION_TYPE
 {
@@ -269,6 +273,11 @@ enum SCAN_RESULT_SECTION_TYPE
     return [UIView new];
 }
 
+-(void)scanResultInforyCell:(ScanResultInforyCell *)cell touchedAction:(UserNotificationAction *)action
+{
+    [self.delegate scanResultController:self touchedAction:action];
+}
+
 -(MPMoviePlayerController *)scanResultInforyCellRequestMoviePlayer:(ScanResultInforyCell *)cell
 {
     if(!_player)
@@ -321,12 +330,16 @@ enum SCAN_RESULT_SECTION_TYPE
         
         UserNotificationAction *action=[UserNotificationAction insert];
         action.actionTitle=@"Đồng ý";
+        action.actionType=@(NOTIFICATION_ACTION_TYPE_USER_SETTING);
+        action.idPlacelist=@(1);
         action.sortOrder=@(0);
         
         [obj addActionObject:action];
         
         action=[UserNotificationAction insert];
         action.actionTitle=@"Từ chối";
+        action.actionType=@(NOTIFICATION_ACTION_TYPE_SHOP_USER);
+        action.idShop=@(1);
         action.sortOrder=@(1);
         
         [obj addActionObject:action];
@@ -455,6 +468,16 @@ enum SCAN_RESULT_SECTION_TYPE
         
         _isRequestedRelated=true;
         _opeQRCodeGetRelated=nil;
+    }
+}
+
+-(void)dealloc
+{
+    if(_player)
+    {
+        [_player stop];
+        [_player.view removeFromSuperview];
+        _player=nil;
     }
 }
 

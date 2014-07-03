@@ -12,6 +12,9 @@
 #import "Constant.h"
 #import "Flags.h"
 #import "TokenManager.h"
+#import "UserHome.h"
+#import "UserPromotion.h"
+#import "UserNotification.h"
 
 double userLat()
 {
@@ -70,6 +73,13 @@ static DataManager *_dataManager=nil;
     if (self) {
     }
     return self;
+}
+
+-(void)clean
+{
+    [UserHome markDeleteAllObjects];
+    [UserPromotion markDeleteAllObjects];
+    [UserNotification markDeleteAllObjects];
 }
 
 -(void) loadDatabase

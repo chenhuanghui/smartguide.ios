@@ -40,19 +40,19 @@
 
 @end
 
-@interface SGViewController(QRCode)<QRCodeControllerDelegate>
-@property (nonatomic, readwrite, weak) QRCodeViewController *qrController;
-@property (nonatomic, readwrite, weak) SGViewController<QRCodeControllerDelegate> *qrCodeControllerHandle;
-
--(void) showQRCodeWithController:(SGViewController<QRCodeControllerDelegate>*) controller inView:(UIView*) view withAnimationType:(enum QRCODE_ANIMATION_TYPE) animationType screenCode:(NSString*) screenCode;
--(void)qrcodeControllerFinished:(QRCodeViewController *)controller;
--(void)qrCodeController:(QRCodeViewController *)controller scannedIDBranch:(int)idBranch;
--(void)qrCodeController:(QRCodeViewController *)controller scannedIDPlacelist:(int)idPlacelist;
--(void)qrCodeController:(QRCodeViewController *)controller scannedIDShop:(int)idShop;
--(void)qrCodeController:(QRCodeViewController *)controller scannedIDShops:(NSString *)idShops;
--(void)qrCodeController:(QRCodeViewController *)controller scannedURL:(NSURL *)url;
-
-@end
+//@interface SGViewController(QRCode)<QRCodeControllerDelegate>
+//@property (nonatomic, readwrite, weak) QRCodeViewController *qrController;
+//@property (nonatomic, readwrite, weak) SGViewController<QRCodeControllerDelegate> *qrCodeControllerHandle;
+//
+//-(void) showQRCodeWithController:(SGViewController<QRCodeControllerDelegate>*) controller inView:(UIView*) view withAnimationType:(enum QRCODE_ANIMATION_TYPE) animationType screenCode:(NSString*) screenCode;
+//-(void)qrcodeControllerFinished:(QRCodeViewController *)controller;
+//-(void)qrCodeController:(QRCodeViewController *)controller scannedIDBranch:(int)idBranch;
+//-(void)qrCodeController:(QRCodeViewController *)controller scannedIDPlacelist:(int)idPlacelist;
+//-(void)qrCodeController:(QRCodeViewController *)controller scannedIDShop:(int)idShop;
+//-(void)qrCodeController:(QRCodeViewController *)controller scannedIDShops:(NSString *)idShops;
+//-(void)qrCodeController:(QRCodeViewController *)controller scannedURL:(NSURL *)url;
+//
+//@end
 
 @interface QRCodePattern : UIView
 

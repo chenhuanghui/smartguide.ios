@@ -28,7 +28,7 @@
 
 -(bool)allowDragToNavigation
 {
-    return true;
+    return self.presentingSGViewController==nil && self.dialogController==nil;
 }
 
 - (void)viewDidLoad

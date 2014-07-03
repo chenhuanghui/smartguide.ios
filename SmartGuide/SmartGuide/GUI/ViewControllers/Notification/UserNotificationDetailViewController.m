@@ -10,7 +10,6 @@
 #import "UserNotificationDetailCell.h"
 #import "LoadingMoreCell.h"
 #import "GUIManager.h"
-#import "QRCodeViewController.h"
 #import "UserNotificationViewController.h"
 #import "NotificationManager.h"
 #import "ASIOperationUserNotificationFromSender.h"

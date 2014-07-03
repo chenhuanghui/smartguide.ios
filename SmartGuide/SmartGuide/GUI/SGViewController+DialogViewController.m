@@ -77,6 +77,8 @@ static char DialogControllerCharKey;
             [self.dialogController viewDidDisappear:true];
             [self.dialogController.view removeFromSuperview];
             self.dialogController=nil;
+             
+             [self dialogControllerFinished];
         }];
     }
     else
@@ -85,7 +87,14 @@ static char DialogControllerCharKey;
         [self.dialogController.view removeFromSuperview];
         [self.dialogController viewDidDisappear:false];
         self.dialogController=nil;
+        
+        [self dialogControllerFinished];
     }
+}
+
+-(void)dialogControllerFinished
+{
+    
 }
 
 -(BasicAnimation*)dialogControllerDefaultAnimationShow

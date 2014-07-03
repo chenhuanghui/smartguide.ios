@@ -8,14 +8,13 @@
 
 #import "SGViewController.h"
 
-@class SGNavigationController, ScanCodeController, ScanObject;
+@class SGNavigationController, ScanCodeController;
 
 @protocol ScanCodeControllerDelegate <SGViewControllerDelegate>
 
--(void) scanCodeController:(ScanCodeController*) controller scannedObject:(ScanObject*) obj;
-
 @optional
 -(void) scanCodeControllerTouchedClose:(ScanCodeController*) controller;
+-(void) scanCodeController:(ScanCodeController*) controller scannedURL:(NSURL*) url;
 
 @end
 
@@ -45,29 +44,5 @@
 -(void) showScanCodeWithDelegate:(id<ScanCodeControllerDelegate>) delegate;
 -(void) showScanCodeWithDelegate:(id<ScanCodeControllerDelegate>) delegate animationType:(enum SCANCODE_ANIMATION_TYPE) animationType;
 -(void) closeScanCode;
-
-@end
-
-enum SCAN_OBJECT_TYPE
-{
-    SCAN_OBJECT_TYPE_TEXT=0,
-    SCAN_OBJECT_TYPE_URL=1,
-    SCAN_OBJECT_TYPE_IDSHOP=2,
-    SCAN_OBJECT_TYPE_IDPLACELIST=3,
-    SCAN_OBJECT_TYPE_IDBRANCH=4,
-    SCAN_OBJECT_TYPE_IDSHOPS=5
-};
-
-@interface ScanObject : NSObject
-
--(enum SCAN_OBJECT_TYPE) enumType;
-
-@property (nonatomic, strong) NSNumber *type;
-@property (nonatomic, strong) NSString *text;
-@property (nonatomic, strong) NSURL *url;
-@property (nonatomic, strong) NSNumber *idShop;
-@property (nonatomic, strong) NSNumber *idPlacelist;
-@property (nonatomic, strong) NSNumber *idBranch;
-@property (nonatomic, strong) NSString *idShops;
 
 @end

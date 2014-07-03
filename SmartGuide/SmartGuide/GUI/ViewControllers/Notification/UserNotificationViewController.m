@@ -15,7 +15,6 @@
 #import "LoadingMoreCell.h"
 #import "GUIManager.h"
 #import "SGNavigationController.h"
-#import "QRCodeViewController.h"
 #import "ASIOperationUserNotificationNewest.h"
 #import "NotificationManager.h"
 #import "RefreshingView.h"
@@ -51,11 +50,6 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    
-    [UserNotification markDeleteAllObjects];
-    [UserNotificationContent markDeleteAllObjects];
-    
-    [[DataManager shareInstance] save];
     
     _displayType=USER_NOTIFICATION_DISPLAY_ALL;
     

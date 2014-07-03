@@ -20,7 +20,6 @@
 #import "SearchShopViewController.h"
 #import "NotificationManager.h"
 #import "UserNotificationController.h"
-#import "QRCodeViewController.h"
 #import "RemoteNotificationView.h"
 #import "ShopUserController.h"
 #import "TokenManager.h"
@@ -374,63 +373,11 @@
     [self showSearchController:vc];
 }
 
-#pragma mark TutorialViewController
-
--(void)webviewTouchedBack:(WebViewController *)controller
-{
-    if(self.contentNavigation.visibleViewController==controller)
-    {
-        [self dismissSGPresentedViewController:nil];
-    }
-}
-
 #pragma mark ShopUserViewController
 
 -(void)shopUserControllerTouchedClose:(ShopUserController *)controller
 {
     [self dismissShopUser];
-}
-
--(void)shopUserControllerTouchedScanQRCode:(ShopUserController *)controller
-{
-    [self showQRCodeWithController:self inView:self.view withAnimationType:QRCODE_ANIMATION_TOP_BOT screenCode:[ShopUserViewController screenCode]];
-}
-
-#pragma mark QRCodeController
-
--(UIView *)qrCodeControllerDisplayView
-{
-    return self.view;
-}
-
--(void)qrCodeController:(QRCodeViewController *)controller scannedURL:(NSURL *)url
-{
-    [controller close];
-    [self showWebViewWithURL:url onCompleted:nil];
-}
-
--(void) qrCodeController:(QRCodeViewController *)controller scannedIDShops:(NSString *)idShops
-{
-    [controller close];
-    [self showShopListWithIDShops:idShops];
-}
-
--(void)qrCodeController:(QRCodeViewController *)controller scannedIDShop:(int)idShop
-{
-    [controller close];
-    [self presentShopUserWithIDShop:idShop];
-}
-
--(void)qrCodeController:(QRCodeViewController *)controller scannedIDPlacelist:(int)idPlacelist
-{
-    [controller close];
-    [self showShopListWithIDPlace:idPlacelist];
-}
-
--(void)qrCodeController:(QRCodeViewController *)controller scannedIDBranch:(int)idBranch
-{
-    [controller close];
-    [self showShopListWithIDBranch:idBranch];
 }
 
 #pragma RootViewController handle
@@ -494,14 +441,6 @@
 -(HomeViewController*) homeController
 {
     HomeViewController *vc=[HomeViewController new];
-    vc.delegate=self;
-    
-    return vc;
-}
-
--(TutorialViewController*) tutorialController
-{
-    TutorialViewController *vc=[TutorialViewController new];
     vc.delegate=self;
     
     return vc;
@@ -597,46 +536,6 @@
     [self showWebViewWithURL:URL(@"http://infory.vn/dieu-khoan-nguoi-dung.html") onCompleted:nil];
 }
 
--(void)showScanCodeWithAnimation:(enum SCANCODE_ANIMATION_TYPE)animation
-{
-    [self showScanCodeWithDelegate:self animationType:animation];
-}
-
--(void)scanCodeControllerTouchedClose:(ScanCodeController *)controller
-{
-    [self closeScanCode];
-}
-
--(void)scanCodeController:(ScanCodeController *)controller scannedObject:(ScanObject *)obj
-{
-    [self closeScanCode];
-    
-    switch (obj.enumType) {
-        case SCAN_OBJECT_TYPE_URL:
-            [self showWebViewWithURL:obj.url onCompleted:nil];
-            break;
-            
-        case SCAN_OBJECT_TYPE_IDBRANCH:
-            [self showShopListWithIDBranch:obj.idBranch.integerValue];
-            break;
-            
-        case SCAN_OBJECT_TYPE_IDPLACELIST:
-            [self showShopListWithIDPlace:obj.idPlacelist.integerValue];
-            break;
-            
-        case SCAN_OBJECT_TYPE_IDSHOP:
-            [self presentShopUserWithIDShop:obj.idShop.integerValue];
-            break;
-            
-        case SCAN_OBJECT_TYPE_IDSHOPS:
-            [self showShopListWithIDShops:obj.idShops];
-            break;
-            
-        case SCAN_OBJECT_TYPE_TEXT:
-            break;
-    }
-}
-
 -(void)removeUserNotification:(UserNotification *)obj
 {
     //    if(remoteNotiView.userNotification==obj)
@@ -669,6 +568,16 @@
 
 -(void)presentSGViewControllerFinished
 {
+    [self showNextRemoteNotification];
+}
+
+-(void)dialogControllerFinished
+{
+    [self showNextRemoteNotification];
+}
+
+-(void) showNextRemoteNotification
+{
     if([NotificationManager shareInstance].remoteNotifications.count>0)
     {
         [self showRemoteNotification:[NotificationManager shareInstance].remoteNotifications[0]];
@@ -683,7 +592,7 @@
 -(void)showRemoteNotification:(RemoteNotification*) obj
 {
     // Check đang hiển thị notification hoặc popup
-    if([self isShowingNotification] || self.presentSGViewControlelr)
+    if([self isShowingNotification] || self.presentSGViewControlelr || self.dialogController)
         return;
     
     [self displayNotification:obj];

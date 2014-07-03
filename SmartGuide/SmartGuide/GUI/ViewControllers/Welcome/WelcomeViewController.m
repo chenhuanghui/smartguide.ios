@@ -72,9 +72,4 @@
     [self showWebViewWithURL:URL(URL_TERM) onCompleted:nil];
 }
 
--(void)webviewTouchedBack:(WebViewController *)controller
-{
-    [self dismissSGViewControllerCompletion:nil];
-}
-
 @end

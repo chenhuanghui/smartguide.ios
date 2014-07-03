@@ -391,28 +391,6 @@ enum NOTIFICATION_COUNT_TYPE
 
 @end
 
-enum QRCODE_ANIMATION_TYPE {
-    QRCODE_ANIMATION_TOP_BOT = 0,
-    QRCODE_ANIMATION_TOP = 1
-};
-
-@class QRCodeViewController;
-
-@protocol QRCodeControllerDelegate <SGViewControllerDelegate>
-
--(void) qrCodeController:(QRCodeViewController*) controller scannedIDShop:(int) idShop;
--(void) qrCodeController:(QRCodeViewController*) controller scannedIDPlacelist:(int) idPlacelist;
--(void) qrCodeController:(QRCodeViewController*) controller scannedIDBranch:(int) idBranch;
--(void) qrCodeController:(QRCodeViewController*) controller scannedIDShops:(NSString*) idShops;
--(void) qrCodeController:(QRCodeViewController*) controller scannedURL:(NSURL*) url;
-
-@optional
--(void) qrcodeControllerFinished:(QRCodeViewController*) controller;
--(UIView*) qrCodeControllerDisplayView;
--(enum QRCODE_ANIMATION_TYPE) qrCodeAnimationType;
-
-@end
-
 enum SCANCODE_ANIMATION_TYPE {
     SCANCODE_ANIMATION_TOP_BOT = 0,
     SCANCODE_ANIMATION_TOP = 1

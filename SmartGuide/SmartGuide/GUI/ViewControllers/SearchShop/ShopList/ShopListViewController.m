@@ -15,7 +15,6 @@
 #import "ShopPinInfoView.h"
 #import "ShopPinView.h"
 #import "ShopListCell.h"
-#import "QRCodeViewController.h"
 #import "CityViewController.h"
 #import "CityManager.h"
 #import "Constant.h"
@@ -33,10 +32,11 @@
 #import "ShopListMapCell.h"
 #import "ASIOperationRemoveShopPlacelist.h"
 #import "TextField.h"
+#import "ScanCodeController.h"
 
 #define SHOP_LIST_SCROLL_SPEED 3.f
 
-@interface ShopListViewController ()<ShopPinDelegate,ShopListMapDelegate,ShopListCellDelegate,TextFieldDelegate,CityControllerDelegate,MKMapViewDelegate,UIScrollViewDelegate,UIGestureRecognizerDelegate,SortSearchDelegate,UIActionSheetDelegate,UITableViewDataSource,UITableViewDelegate,ASIOperationPostDelegate,UITextFieldDelegate,PlacelistControllerDelegate>
+@interface ShopListViewController ()<ShopPinDelegate,ShopListMapDelegate,ShopListCellDelegate,TextFieldDelegate,CityControllerDelegate,MKMapViewDelegate,UIScrollViewDelegate,UIGestureRecognizerDelegate,SortSearchDelegate,UIActionSheetDelegate,UITableViewDataSource,UITableViewDelegate,ASIOperationPostDelegate,UITextFieldDelegate,PlacelistControllerDelegate,ScanCodeControllerDelegate>
 {
     ASIOperationShopSearch *_operationShopSearch;
     ASIOperationPlacelistGet *_operationPlaceListDetail;
@@ -483,8 +483,6 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    
-    self.qrCodeControllerHandle=self.searchController;
     
     if([CityManager shareInstance].idCitySearch)
         _idCity=[[CityManager shareInstance].idCitySearch integerValue];
@@ -1396,11 +1394,11 @@
 }
 
 - (IBAction)btnScanBigTouchUpInside:(id)sender {
-    [self showQRCodeWithController:self inView:self.view withAnimationType:QRCODE_ANIMATION_TOP screenCode:[ShopListViewController screenCode]];
+    [self showScanCodeWithDelegate:self animationType:SCANCODE_ANIMATION_TOP];
 }
 
 - (IBAction)btnScanSmallTouchUpInside:(id)sender {
-    [self showQRCodeWithController:self inView:self.view withAnimationType:QRCODE_ANIMATION_TOP_BOT screenCode:[ShopListViewController screenCode]];
+    [self showScanCodeWithDelegate:self animationType:SCANCODE_ANIMATION_TOP_BOT];
 }
 
 -(void)shopPinDealloc:(ShopPinView *)pin

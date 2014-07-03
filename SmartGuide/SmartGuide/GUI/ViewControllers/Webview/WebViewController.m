@@ -45,35 +45,8 @@
         [self.webview goBack];
     else
     {
-        if(self.presentingSGViewController)
-            [self.presentingSGViewController dismissSGViewControllerAnimated:true completion:nil];
+        [self.delegate webviewTouchedBack:self];
     }
-}
-
-@end
-
-@implementation TutorialViewController
-
-- (instancetype)init
-{
-    self = [super initWithURL:URL(URL_TUTORIAL)];
-    if (self) {
-        
-    }
-    return self;
-}
-
-@end
-
-@implementation TermsViewController
-
-- (instancetype)init
-{
-    self = [super initWithURL:URL(URL_TERM)];
-    if (self) {
-        
-    }
-    return self;
 }
 
 @end

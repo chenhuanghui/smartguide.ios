@@ -13,10 +13,21 @@
 #import "UserNotificationController.h"
 #import "UserNoticeObject.h"
 #import "NotificationManager.h"
+#import "ASIOperationUserHome.h"
+#import "HomePromotionCell.h"
+#import "HomeImagesCell.h"
+#import "HomeListCell.h"
+#import "HomeInfoCell.h"
+#import "HomeImagesType9Cell.h"
+#import "TextField.h"
+#import "ScanCodeController.h"
 
 #define HOME_TEXT_FIELD_SEARCH_MIN_Y 8.f
 
-@interface HomeViewController ()<homeListDelegate,homeInfoCellDelegate,TextFieldRefreshDelegate>
+@interface HomeViewController ()<homeListDelegate,homeInfoCellDelegate,TextFieldRefreshDelegate,UITextFieldDelegate,ASIOperationPostDelegate,UITableViewDataSource,UITableViewDelegate,ScanCodeControllerDelegate>
+{
+    ASIOperationUserHome *_operationUserHome;
+}
 
 @end
 
@@ -67,8 +78,6 @@
 //    [self.view.alphaView addGestureRecognizer:tap];
 #endif
     
-    self.qrCodeControllerHandle=[GUIManager shareInstance].rootViewController;
-    
     tableFeed.scrollsToTop=true;
     
     txtRefresh.text=TEXTFIELD_SEARCH_PLACEHOLDER_TEXT;
@@ -77,9 +86,6 @@
     txtRefresh.minimumY=8;
     
     [tableFeed l_v_addH:QRCODE_BIG_HEIGHT-QRCODE_SMALL_HEIGHT];
-    
-    [UserHome markDeleteAllObjects];
-    [[DataManager shareInstance] save];
     
     [tableFeed registerNib:[UINib nibWithNibName:[HomePromotionCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[HomePromotionCell reuseIdentifier]];
     [tableFeed registerNib:[UINib nibWithNibName:[HomeImagesCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[HomeImagesCell reuseIdentifier]];
@@ -667,9 +673,9 @@
 
 - (IBAction)btnShowQRCodeTouchUpInside:(id)sender {
     if(sender==btnScanBig)
-        [[GUIManager shareInstance].rootViewController showScanCodeWithAnimation:SCANCODE_ANIMATION_TOP];
+        [self showScanCodeWithDelegate:self animationType:SCANCODE_ANIMATION_TOP];
     else
-        [[GUIManager shareInstance].rootViewController showScanCodeWithAnimation:SCANCODE_ANIMATION_TOP_BOT];
+        [self showScanCodeWithDelegate:self animationType:SCANCODE_ANIMATION_TOP_BOT];
 }
 
 +(NSString *)screenCode

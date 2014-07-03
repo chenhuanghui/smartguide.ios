@@ -9,13 +9,13 @@
 #import "UserPromotionViewController.h"
 #import "GUIManager.h"
 #import "LoadingMoreCell.h"
-#import "QRCodeViewController.h"
 #import "NotificationManager.h"
 #import "UserNotificationController.h"
+#import "ScanCodeController.h"
 
 #define USER_PROMOTION_TEXT_FIELD_SEARCH_MIN_Y 8.f
 
-@interface UserPromotionViewController ()<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate,ASIOperationPostDelegate,homeInfoCellDelegate,TextFieldRefreshDelegate>
+@interface UserPromotionViewController ()<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate,ASIOperationPostDelegate,homeInfoCellDelegate,TextFieldRefreshDelegate, ScanCodeControllerDelegate>
 
 @end
 
@@ -44,15 +44,10 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    self.qrCodeControllerHandle=[GUIManager shareInstance].rootViewController;
-    
     txtRefresh.text=TEXTFIELD_SEARCH_PLACEHOLDER_TEXT;
     txtRefresh.maximumWidth=232;
     txtRefresh.minimumWidth=38;
     txtRefresh.minimumY=8;
-    
-    [UserPromotion markDeleteAllObjects];
-    [[DataManager shareInstance] save];
     
     [self storeRect];
     
@@ -275,11 +270,11 @@
 }
 
 - (IBAction)btnScanBigTouchUpInside:(id)sender {
-    [self showQRCodeWithController:self inView:self.view withAnimationType:QRCODE_ANIMATION_TOP screenCode:[UserPromotionViewController screenCode]];
+    [self showScanCodeWithDelegate:self animationType:SCANCODE_ANIMATION_TOP];
 }
 
 - (IBAction)btnScanSmallTouchUpInside:(id)sender {
-    [self showQRCodeWithController:self inView:self.view withAnimationType:QRCODE_ANIMATION_TOP_BOT screenCode:[UserPromotionViewController screenCode]];
+    [self showScanCodeWithDelegate:self animationType:SCANCODE_ANIMATION_TOP_BOT];
 }
 
 +(NSString *)screenCode

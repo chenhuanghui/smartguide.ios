@@ -9,11 +9,10 @@
 #import "SearchViewController.h"
 #import "ShopListViewController.h"
 #import "SearchShopViewController.h"
-#import "QRCodeViewController.h"
 #import "GUIManager.h"
 #import "WebViewController.h"
 
-@interface SearchViewController ()<SearchShopControllerDelegate,ShopListControllerDelegate,QRCodeControllerDelegate>
+@interface SearchViewController ()<SearchShopControllerDelegate,ShopListControllerDelegate>
 
 @end
 
@@ -335,37 +334,6 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
--(void)qrCodeController:(QRCodeViewController *)controller scannedIDBranch:(int)idBranch
-{
-    [controller close];
-    [self showShopListWithIDBranch:idBranch];
-}
-
--(void)qrCodeController:(QRCodeViewController *)controller scannedIDPlacelist:(int)idPlacelist
-{
-    [controller close];
-    [self showShopListWithIDPlacelist:idPlacelist];
-}
-
--(void)qrCodeController:(QRCodeViewController *)controller scannedIDShop:(int)idShop
-{
-    [controller close];
-    [[GUIManager shareInstance].rootViewController presentShopUserWithIDShop:idShop];
-}
-
--(void)qrCodeController:(QRCodeViewController *)controller scannedIDShops:(NSString *)idShops
-{
-    [controller close];
-    [self showShopListWithIDShops:idShops];
-}
-
--(void)qrCodeController:(QRCodeViewController *)controller scannedURL:(NSURL *)url
-{
-    [controller close];
-    
-    [self showWebViewWithURL:url onCompleted:nil];
 }
 
 @end

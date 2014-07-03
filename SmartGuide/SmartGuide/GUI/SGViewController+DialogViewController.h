@@ -14,6 +14,7 @@
 
 -(void) showDialogController:(SGViewController*) dialogController withAnimation:(BasicAnimation*) animation onCompleted:(void(^)(SGViewController* controller))completed;
 -(void) closeDialogControllerWithAnimation:(BasicAnimation*) animation onCompleted:(void(^)(SGViewController* controller)) completed;
+-(void) dialogControllerFinished;
 
 -(BasicAnimation*) dialogControllerDefaultAnimationShow;
 -(BasicAnimation*) dialogControllerDefaultAnimationClose;

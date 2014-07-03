@@ -10,8 +10,17 @@
 #import "ScanCodeViewController.h"
 #import "SGNavigationController.h"
 #import "ScanResultViewController.h"
+#import "UserNotificationAction.h"
+#import "OperationNotificationAction.h"
+#import "WebViewController.h"
+#import "UserSettingViewController.h"
+#import "ShopUserViewController.h"
+#import "SearchShopViewController.h"
+#import "ShopUserController.h"
+#import "UserPromotionViewController.h"
+#import "GUIManager.h"
 
-@interface ScanCodeController ()<ScanCodeViewControllerDelegate, ScanResultControllerDelegate>
+@interface ScanCodeController ()<ScanCodeViewControllerDelegate, ScanResultControllerDelegate,SGUserSettingControllerDelegate,WebViewDelegate,ShopUserControllerDelegate,SGNavigationControllerDelegate>
 
 @end
 
@@ -46,6 +55,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
+    _navi.navigationDelegate=self;
     [_navi.view l_v_setS:contentView.l_v_s];
     [contentView addSubview:_navi.view];
     
@@ -55,7 +65,7 @@
 -(void)viewWillAppearOnce
 {
     switch (self.scanAnimationType) {
-        case QRCODE_ANIMATION_TOP_BOT:
+        case SCANCODE_ANIMATION_TOP_BOT:
         {
             [topView l_v_addY:-topView.l_v_h];
             [botView l_v_addY:botView.l_v_h];
@@ -69,7 +79,7 @@
         }
             break;
             
-        case QRCODE_ANIMATION_TOP:
+        case SCANCODE_ANIMATION_TOP:
         {
             [topView l_v_addY:-topView.l_v_h];
             self.view.alpha=0;
@@ -101,7 +111,7 @@
     };
     
     switch (self.scanAnimationType) {
-        case QRCODE_ANIMATION_TOP_BOT:
+        case SCANCODE_ANIMATION_TOP_BOT:
         {
             [UIView animateWithDuration:DURATION_DEFAULT animations:^{
                 [topView l_v_addY:-topView.l_v_h];
@@ -113,7 +123,7 @@
         }
             break;
             
-        case QRCODE_ANIMATION_TOP:
+        case SCANCODE_ANIMATION_TOP:
         {
             [UIView animateWithDuration:DURATION_DEFAULT animations:^{
                 [topView l_v_addY:-topView.l_v_h];
@@ -159,10 +169,8 @@
                 {
                     idShops=array[1];
                     
-                    ScanObject *obj=[ScanObject new];
-                    obj.idShops=idShops;
-                    obj.type=@(SCAN_OBJECT_TYPE_IDSHOPS);
-                    [self.delegate scanCodeController:self scannedObject:obj];
+                    [self animationHideScan];
+                    [self showShopListWithIDShops:idShops];
                     return;
                 }
             }
@@ -173,37 +181,33 @@
         {
             int idShop=[[url lastPathComponent] integerValue];
             
-            ScanObject *obj=[ScanObject new];
-            obj.type=@(SCAN_OBJECT_TYPE_IDSHOP);
-            obj.idShop=@(idShop);
-            [self.delegate scanCodeController:self scannedObject:obj];
+            [self animationHideScan];
+            [self presentShopUserWithIDShop:idShop];
         }
         else if([text containsString:QRCODE_INFORY_PLACELIST])
         {
             int idPlacelist=[[url lastPathComponent] integerValue];
             
-            ScanObject *obj=[ScanObject new];
-            obj.type=@(SCAN_OBJECT_TYPE_IDPLACELIST);
-            obj.idPlacelist=@(idPlacelist);
-            [self.delegate scanCodeController:self scannedObject:obj];
+            [self animationHideScan];
+            [self showShopListWithIDPlace:idPlacelist];
         }
         else if([text containsString:QRCODE_INFORY_CODE])
         {
             NSString *hash=[url lastPathComponent];
             
+            [self animationHideScan];
             [self showScanCodeResultWithCode:hash];
         }
         else if([text containsString:QRCODE_INFORY_BRANCH])
         {
             int idBranch=[[url lastPathComponent] integerValue];
             
-            ScanObject *obj=[ScanObject new];
-            obj.type=@(SCAN_OBJECT_TYPE_IDBRANCH);
-            obj.idBranch=@(idBranch);
-            [self.delegate scanCodeController:self scannedObject:obj];
+            [self animationHideScan];
+            [self showShopListWithIDBranch:idBranch];
         }
         else
         {
+            [self animationHideScan];
             [self showScanCodeResultWithCode:text];
         }
     }
@@ -213,11 +217,7 @@
         
         if([dataDetector numberOfMatchesInString:text options:0 range:NSMakeRange(0, text.length)]!=0)
         {
-            ScanObject *obj=[ScanObject new];
-            obj.type=@(SCAN_OBJECT_TYPE_URL);
-            obj.url=URL(text);
-            
-            [self.delegate scanCodeController:self scannedObject:obj];
+            [self.delegate scanCodeController:self scannedURL:URL(text)];
         }
         else
         {
@@ -239,12 +239,149 @@
 -(void)scanResultControllerTouchedBack:(ScanResultViewController *)controller
 {
     [_navi popViewControllerAnimated:true];
-    [self animationShowScan];
 }
 
--(void)scanResultController:(ScanResultViewController *)controller touchedObject:(ScanResult *)object
+-(void)scanResultController:(ScanResultViewController *)controller touchedAction:(UserNotificationAction *)action
 {
+    switch (action.enumActionType) {
+        case NOTIFICATION_ACTION_TYPE_CALL_API:
+        {
+            [[OperationNotificationAction operationWithURL:action.url method:action.methodName params:action.params] addToQueue];
+        }
+            break;
+            
+        case NOTIFICATION_ACTION_TYPE_POPUP_URL:
+            
+            [self showWebViewWithURL:URL(action.url) onCompleted:nil];
+            
+            break;
+            
+        case NOTIFICATION_ACTION_TYPE_SHOP_LIST:
+            
+            switch (action.enumShopListDataType) {
+                case NOTIFICATION_ACTION_SHOP_LIST_TYPE_IDPLACELIST:
+                    [self showShopListWithIDPlace:action.idPlacelist.integerValue];
+                    break;
+                    
+                case NOTIFICATION_ACTION_SHOP_LIST_TYPE_KEYWORDS:
+                    [self showShopListWithKeywordsShopList:action.keywords];
+                    break;
+                    
+                case NOTIFICATION_ACTION_SHOP_LIST_TYPE_IDSHOPS:
+                    [self showShopListWithIDShops:action.idShops];
+                    break;
+            }
+            
+            break;
+            
+        case NOTIFICATION_ACTION_TYPE_SHOP_USER:
+            [self presentShopUserWithIDShop:action.idShop.integerValue];
+            break;
+            
+        case NOTIFICATION_ACTION_TYPE_USER_PROMOTION:
+            [self showUserPromotion];
+            break;
+            
+        case NOTIFICATION_ACTION_TYPE_USER_SETTING:
+            [self showUserSetting];
+            break;
+            
+        case NOTIFICATION_ACTION_TYPE_UNKNOW:
+            break;
+    }
+}
+
+-(void) showUserPromotion
+{
+}
+
+-(void) presentShopUserWithIDShop:(int) idShop
+{
+    ShopUserController *vc=[[ShopUserController alloc] initWithIDShop:idShop];
+    vc.delegate=self;
     
+    [_navi pushViewController:vc animated:true];
+}
+
+-(void)shopUserControllerTouchedClose:(ShopUserController *)controller
+{
+    [_navi popViewControllerAnimated:true];
+}
+
+-(void)shopUserControllerTouchedScanQRCode:(ShopUserController *)controller
+{
+    [_navi popToRootViewControllerAnimated:true];
+}
+
+-(void) showUserSetting
+{
+    if(currentUser().enumDataMode==USER_DATA_TRY)
+    {
+        [[GUIManager shareInstance] showLoginDialogWithMessage:localizeLoginRequire() onOK:nil onCancelled:nil onLogined:^(bool isLogined) {
+            if(isLogined)
+                [self showUserSetting];
+        }];
+        return;
+    }
+    
+    [_navi pushViewController:[self userSettingController] animated:true];
+}
+
+-(UserSettingViewController*) userSettingController
+{
+    UserSettingViewController *vc=[UserSettingViewController new];
+    vc.delegate=self;
+    
+    return vc;
+}
+
+-(void)userSettingControllerFinished:(UserSettingViewController *)controller
+{
+    [_navi popViewControllerAnimated:true];
+}
+
+-(void)userSettingControllerTouchedBack:(UserSettingViewController *)controller
+{
+    [_navi popViewControllerAnimated:true];
+}
+
+-(void) showShopListWithKeywordsShopList:(NSString*) keywords
+{
+    SearchViewController *vc=[[SearchViewController alloc] initWithKeywordShopList:keywords];
+    [self showSearchController:vc];
+}
+
+-(void)showShopListWithIDPlace:(int)idPlacelist
+{
+    SearchViewController *vc=[[SearchViewController alloc] initWithIDPlace:idPlacelist];
+    [self showSearchController:vc];
+}
+
+-(void)showShopListWithIDShops:(NSString *)idShops
+{
+    SearchViewController *vc=[[SearchViewController alloc] initWithIDShops:idShops];
+    [self showSearchController:vc];
+}
+
+-(void)showShopListWithIDBranch:(int)idBranch
+{
+    SearchViewController *vc=[[SearchViewController alloc] initWithIDBranch:idBranch];
+    [self showSearchController:vc];
+}
+
+-(void) showSearchController:(SearchViewController*) controller
+{
+    controller.delegate=self;
+    
+    [_navi pushViewController:controller animated:true];
+}
+
+-(void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated
+{
+    if([viewController isKindOfClass:[ScanCodeViewController class]])
+    {
+        [self animationShowScan];
+    }
 }
 
 @end
@@ -279,33 +416,15 @@
     }
 }
 
-@end
-
-@implementation ScanObject
-
--(enum SCAN_OBJECT_TYPE)enumType
+-(void) scanCodeControllerTouchedClose:(ScanCodeController*) controller
 {
-    switch ((enum SCAN_OBJECT_TYPE)self.type.integerValue) {
-        case SCAN_OBJECT_TYPE_IDBRANCH:
-            return SCAN_OBJECT_TYPE_IDBRANCH;
-            
-        case SCAN_OBJECT_TYPE_IDPLACELIST:
-            return SCAN_OBJECT_TYPE_IDPLACELIST;
-            
-        case SCAN_OBJECT_TYPE_IDSHOP:
-            return SCAN_OBJECT_TYPE_IDSHOP;
-            
-        case SCAN_OBJECT_TYPE_IDSHOPS:
-            return SCAN_OBJECT_TYPE_IDSHOPS;
-            
-        case SCAN_OBJECT_TYPE_URL:
-            return SCAN_OBJECT_TYPE_URL;
-            
-        case SCAN_OBJECT_TYPE_TEXT:
-            return SCAN_OBJECT_TYPE_TEXT;
-    }
-    
-    return SCAN_OBJECT_TYPE_URL;
+    [self closeScanCode];
+}
+
+-(void) scanCodeController:(ScanCodeController*) controller scannedURL:(NSURL*) url
+{
+    [self closeScanCode];
+    [self showWebViewWithURL:url onCompleted:nil];
 }
 
 @end
