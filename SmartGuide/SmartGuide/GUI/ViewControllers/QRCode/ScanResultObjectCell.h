@@ -8,15 +8,21 @@
 
 #import <UIKit/UIKit.h>
 
+@class ScanCodeRelated;
+
 @interface ScanResultObjectCell : UITableViewCell
 {
     __weak IBOutlet UIImageView *imgvLogo;
     __weak IBOutlet UILabel *lblTitle;
     __weak IBOutlet UILabel *lblContent;
+    
+    __weak ScanCodeRelated *_related;
 }
 
+-(void) loadWithRelated:(ScanCodeRelated*) obj;
+
 +(NSString *)reuseIdentifier;
-+(float) height;
++(float) heightWithRelated:(ScanCodeRelated*) obj;
 
 @end
 

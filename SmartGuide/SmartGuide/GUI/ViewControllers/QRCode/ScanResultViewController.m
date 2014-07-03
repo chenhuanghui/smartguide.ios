@@ -63,61 +63,18 @@ enum SCAN_RESULT_SECTION_TYPE
     
     [self.view showLoading];
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self.view removeLoading];
-        [self displayResult];
-    });
+    [self requestDecode];
+    [self requestRelaties];
 }
 
--(void) displayResult
+-(void) requestDecode
 {
-    _qrCodeObject=[ScanQRCodeObject new];
-    _qrCodeObject.type=@(SCAN_RESULT_CODE_TYPE_INFORY);
     
-    _qrCodeObject.qrCodeDecodes=[NSMutableArray new];
+}
+
+-(void) requestRelaties
+{
     
-    QRCodeDecode *obj=[QRCodeDecode new];
-    obj.type=@(QRCODE_DECODE_TYPE_HEADER);
-    obj.text=@"Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat";
-    
-    [_qrCodeObject.qrCodeDecodes addObject:obj];
-    
-    obj=[QRCodeDecode new];
-    obj.type=@(QRCODE_DECODE_TYPE_TITLE);
-    obj.text=@"Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat";
-    
-    [_qrCodeObject.qrCodeDecodes addObject:obj];
-    
-    obj=[QRCodeDecode new];
-    obj.type=@(QRCODE_DECODE_TYPE_TEXT);
-    obj.text=@"Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat";
-    
-    [_qrCodeObject.qrCodeDecodes addObject:obj];
-    
-    obj=[QRCodeDecode new];
-    obj.type=@(QRCODE_DECODE_TYPE_IMAGE);
-    obj.image=@"http://bglabs.evade.netdna-cdn.com/wp-content/uploads/2013/02/slide012.jpg";
-    obj.imageWidth=@(581);
-    obj.imageHeight=@(250);
-    
-    obj=[QRCodeDecode new];
-    obj.type=@(QRCODE_DECODE_TYPE_VIDEO);
-    obj.video=@"http://r6---sn-a8au-naje.googlevideo.com/videoplayback?expire=1404356400&ipbits=0&sparams=id%2Cip%2Cipbits%2Citag%2Csource%2Cupn%2Cexpire&mws=yes&id=o-AN1biUoqvIt-DB2wc4yXR6-LGC8ZZlOvwhJWvrACTxUz&upn=zhNP263k5Pg&signature=098B95001E43329A3A4DF7C75ECEF191618B54F7.1B3E4FED14AB45C8B70CF174241A6581641A20C2&ms=au&mt=1404331201&mv=m&source=youtube&itag=17&sver=3&fexp=902408%2C902533%2C924213%2C924217%2C924222%2C930008%2C934024%2C934030%2C936117%2C941297&key=yt5&ip=2607%3A5300%3A60%3A513c%3A%3A229&signature=&title=Video";
-    obj.videoThumbnail=@"http://bglabs.evade.netdna-cdn.com/wp-content/uploads/2013/02/slide012.jpg";
-    obj.videoWidth=@(581);
-    obj.videoHeight=@(250);
-    
-    [_qrCodeObject.qrCodeDecodes addObject:obj];
-    
-    obj=[QRCodeDecode new];
-    obj.action=[UserNotificationAction insert];
-    obj.action.actionTitle=@"Go to Shop";
-    
-    [_qrCodeObject.qrCodeDecodes addObject:obj];
-    
-    [[DataManager shareInstance] save];
-    
-    [table reloadData];
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -150,7 +107,7 @@ enum SCAN_RESULT_SECTION_TYPE
             break;
             
         case SCAN_RESULT_SECTION_TYPE_RELATED:
-            return [ScanResultRelatedCell height];
+            return [ScanResultRelatedCell heightWithRelated:nil];
     }
     
     return 0;
@@ -165,7 +122,13 @@ enum SCAN_RESULT_SECTION_TYPE
                     return [tableView scanResultDisconnectCell];
                     
                 case SCAN_RESULT_CODE_TYPE_INFORY:
-                    return [tableView scanResultInforyCell];
+                {
+                    ScanResultInforyCell *cell=[table scanResultInforyCell];
+                    
+                    [cell loadWithDecode:_qrCodeObject.qrCodeDecodes];
+                    
+                    return cell;
+                }
                     
                 case SCAN_RESULT_CODE_TYPE_NON_INFORY:
                     return [tableView scanResultNonInforyCell];
@@ -176,7 +139,7 @@ enum SCAN_RESULT_SECTION_TYPE
         {
             ScanResultRelatedCell *cell=[tableView scanResultRelatedCell];
             
-            [cell loadWithRelaties:[NSString stringWithFormat:@"%i ",_currentIndex]];
+            [cell loadWithRelated:nil];
             
             return cell;
         }
@@ -232,6 +195,7 @@ enum SCAN_RESULT_SECTION_TYPE
 }
 
 - (IBAction)btnBackTouchUpInside:(id)sender {
+    [table reloadData];
     [self.delegate scanResultControllerTouchedBack:self];
 }
 
@@ -284,7 +248,11 @@ enum SCAN_RESULT_SECTION_TYPE
 {
     self = [super init];
     if (self) {
-        self.related=[NSMutableArray new];
+        self.relaties=[NSMutableDictionary new];
+        
+        [self.relaties setObject:[NSMutableArray array] forKey:@"relatedShops"];
+        [self.relaties setObject:[NSMutableArray array] forKey:@"relatedPlacelist"];
+        [self.relaties setObject:[NSMutableArray array] forKey:@"relatedPromotions"];
     }
     return self;
 }
@@ -303,6 +271,21 @@ enum SCAN_RESULT_SECTION_TYPE
     }
     
     return SCAN_RESULT_CODE_TYPE_ERROR;
+}
+
+-(void) addRelatedShops:(NSArray*) shops
+{
+    [self.relaties[@"relatedShops"] addObjectsFromArray:shops];
+}
+
+-(void) addRelatedPromotions:(NSArray*) promotions
+{
+    
+}
+
+-(void) addRelatedPlacelists:(NSArray*) plcelists
+{
+    
 }
 
 @end

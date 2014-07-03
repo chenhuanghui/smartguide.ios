@@ -51,6 +51,7 @@ CGSize UIApplicationSize();
 float UIStatusBarHeight();
 NSURL* URL(NSString* url);
 NSIndexPath *makeIndexPath(int row, int section);
+CGSize makeSizeProportional(float width, CGSize size);
 
 NSUInteger UIViewAutoresizingAll();
 NSUInteger UIViewAutoresizingDefault();
@@ -399,6 +400,7 @@ NSString* LAZY_STRING_INT(int i);
 @interface NSNumber(Utility)
 
 +(id) numberWithObject:(id) obj;
++(NSNumber*) makeNumber:(id) obj;
 
 @end
 
@@ -456,5 +458,11 @@ NSString* LAZY_STRING_INT(int i);
 -(bool) isCellCompletionVisibility:(NSIndexPath *) indexPath;
 -(UIView*) showLoadingBelowSection:(int) section;
 -(UIView*) showLoadingBelowIndexPath:(NSIndexPath*) indexPath;
+
+@end
+
+@interface NSMutableParagraphStyle(Utility)
+
++(NSMutableParagraphStyle*) paraStyleWithTextAlign:(NSTextAlignment) textAlign;
 
 @end

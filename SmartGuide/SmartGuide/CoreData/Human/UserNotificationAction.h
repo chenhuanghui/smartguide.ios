@@ -20,5 +20,6 @@ enum NOTIFICATION_METHOD_TYPE
 -(enum NOTIFICATION_ACTION_SHOP_LIST_TYPE) enumShopListDataType;
 
 @property (nonatomic, strong) NSNumber *actionTitleHeight;
+@property (nonatomic, strong) NSNumber *actionTitleWidth;
 
 @end

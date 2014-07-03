@@ -8,14 +8,17 @@
 
 #import <UIKit/UIKit.h>
 
-@class QRCodeDecode;
+@class ScanCodeDecode;
 
 @interface ScanResultInforyTextCell : UITableViewCell
+{
+    __weak IBOutlet UILabel *lbl;
+}
 
--(void) loadWithDecode:(QRCodeDecode*) obj;
+-(void) loadWithDecode:(ScanCodeDecode*) obj;
 
 +(NSString *)reuseIdentifier;
-+(float) heightWithDecode:(QRCodeDecode*) obj;
++(float) heightWithDecode:(ScanCodeDecode*) obj;
 
 @end
 

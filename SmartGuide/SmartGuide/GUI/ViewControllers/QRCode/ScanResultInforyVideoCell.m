@@ -7,23 +7,27 @@
 //
 
 #import "ScanResultInforyVideoCell.h"
-#import "OperationQRCodeDecode.h"
+#import "ScanCodeDecode.h"
+#import "ImageManager.h"
 
 @implementation ScanResultInforyVideoCell
 
--(void)loadWithDecode:(QRCodeDecode *)decode
+-(void)loadWithDecode:(ScanCodeDecode *)decode
 {
-    
+    [imgv loadScanVideoThumbnailWithURL:decode.videoThumbnail];
 }
 
 +(NSString *)reuseIdentifier
 {
-    return @"ScanResultInforyTitleCell";
+    return @"ScanResultInforyVideoCell";
 }
 
-+(float)heightWithDecode:(QRCodeDecode *)decode
++(float)heightWithDecode:(ScanCodeDecode *)decode
 {
-    return 0;
+    if(CGSizeEqualToSize(decode.videoSize,CGSizeZero))
+        decode.videoSize=makeSizeProportional(320, CGSizeMake(decode.videoWidth.floatValue, decode.videoHeight.floatValue));
+    
+    return decode.videoSize.height+6;
 }
 
 @end

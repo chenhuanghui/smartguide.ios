@@ -7,13 +7,14 @@
 //
 
 #import "ScanResultInforyImageCell.h"
-#import "OperationQRCodeDecode.h"
+#import "ScanCodeDecode.h"
+#import "ImageManager.h"
 
 @implementation ScanResultInforyImageCell
 
--(void)loadWithDecode:(QRCodeDecode *)decode
+-(void)loadWithDecode:(ScanCodeDecode *)decode
 {
-    
+    [imgv loadScanImageWithURL:decode.image];
 }
 
 +(NSString *)reuseIdentifier
@@ -21,9 +22,14 @@
     return @"ScanResultInforyImageCell";
 }
 
-+(float)heightWithDecode:(QRCodeDecode *)decode
++(float)heightWithDecode:(ScanCodeDecode *)decode
 {
-    return 0;
+    if(CGSizeEqualToSize(decode.imageSize, CGSizeZero))
+    {
+        decode.imageSize=makeSizeProportional(320, CGSizeMake(decode.imageWidth.floatValue, decode.imageHeight.floatValue));
+    }
+    
+    return decode.imageSize.height+6;
 }
 
 @end

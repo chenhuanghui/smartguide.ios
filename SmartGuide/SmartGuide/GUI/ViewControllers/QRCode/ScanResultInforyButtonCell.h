@@ -8,19 +8,22 @@
 
 #import <UIKit/UIKit.h>
 
-@class QRCodeDecode;
+@class ScanCodeDecode;
 
 @interface ScanResultInforyButtonCell : UITableViewCell
+{
+    __weak IBOutlet UIButton *btn;
+}
 
--(void) loadWithDecode:(QRCodeDecode*) decode;
+-(void) loadWithDecode:(ScanCodeDecode*) decode;
 +(NSString *)reuseIdentifier;
-+(float) heightWithDecode:(QRCodeDecode*) decode;
++(float) heightWithDecode:(ScanCodeDecode*) decode;
 
 @end
 
 @interface UITableView(ScanResultInforyButtonCell)
 
 -(void) registerScanResultInforyButtonCell;
--(ScanResultInforyButtonCell*) ScanResultInforyButtonCell;
+-(ScanResultInforyButtonCell*) scanResultInforyButtonCell;
 
 @end

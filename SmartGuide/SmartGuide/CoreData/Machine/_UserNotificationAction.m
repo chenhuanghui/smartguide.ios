@@ -5,10 +5,15 @@
 #import "UserNotificationAction.h"
 
 #import "DataManager.h"
+#import "ScanCodeDecode.h"
 #import "UserNotificationContent.h"
 
 
 @implementation _UserNotificationAction
+
+
+@dynamic decode;
+
 
 
 @dynamic userNotificationContent;
@@ -108,6 +113,19 @@
 	[self willChangeValueForKey:@"actionType"];
 	[self setPrimitiveValue:value forKey:@"actionType"];
 	[self didChangeValueForKey:@"actionType"];
+}
+
+- (NSNumber*)color {
+	[self willAccessValueForKey:@"color"];
+	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"color"];
+	[self didAccessValueForKey:@"color"];
+	return result;
+}
+
+- (void)setColor:(NSNumber*)value {
+	[self willChangeValueForKey:@"color"];
+	[self setPrimitiveValue:value forKey:@"color"];
+	[self didChangeValueForKey:@"color"];
 }
 
 - (NSNumber*)idPlacelist {
@@ -216,6 +234,14 @@
 
 #pragma mark Relationships
     
+#pragma mark Decode
+- (ScanCodeDecode*)decode {
+	[self willAccessValueForKey:@"decode"];
+	ScanCodeDecode *result = [self primitiveValueForKey:@"decode"];
+	[self didAccessValueForKey:@"decode"];
+	return result;
+}
+
 #pragma mark UserNotificationContent
 - (UserNotificationContent*)userNotificationContent {
 	[self willAccessValueForKey:@"userNotificationContent"];

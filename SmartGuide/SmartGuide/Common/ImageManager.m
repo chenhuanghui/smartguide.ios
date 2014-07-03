@@ -338,6 +338,21 @@ static char ImageViewDefaultBackgroundKey;
     } willSize:size];
 }
 
+-(void) loadScanImageWithURL:(NSString*) url
+{
+    [self loadImageWithDefaultLoading:url];
+}
+
+-(void) loadScanVideoThumbnailWithURL:(NSString*) url
+{
+    [self loadImageWithDefaultLoading:url];
+}
+
+-(void) loadScanRelatedImageWithURL:(NSString*) url
+{
+    [self loadImageWithDefaultLoading:url];
+}
+
 -(void) showLoadingImageSmall
 {
     if(self.loadingSmall)

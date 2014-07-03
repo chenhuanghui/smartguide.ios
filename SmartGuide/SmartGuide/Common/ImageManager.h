@@ -57,6 +57,9 @@
 -(void) loadUserNotificationContentWithURL:(NSString*) url;
 -(void) loadVideoThumbnailWithURL:(NSString*) url;
 -(void) loadGalleryThumbnailWithURL:(NSString*) url resize:(CGSize) size;
+-(void) loadScanImageWithURL:(NSString*) url;
+-(void) loadScanVideoThumbnailWithURL:(NSString*) url;
+-(void) loadScanRelatedImageWithURL:(NSString*) url;
 
 -(void) showLoadingImageSmall;
 -(void) stopLoadingImageSmall;

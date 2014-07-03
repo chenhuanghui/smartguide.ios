@@ -8,6 +8,7 @@
 
 #import "ScanResultRelatedCell.h"
 #import "ScanResultObjectCell.h"
+#import "ScanCodeRelated.h"
 
 @interface ScanResultRelatedCell()<UITableViewDataSource,UITableViewDelegate>
 
@@ -15,9 +16,9 @@
 
 @implementation ScanResultRelatedCell
 
--(void)loadWithRelaties:(NSString *)relaties
+-(void)loadWithRelated:(NSArray *)data
 {
-    _relaties=relaties;
+    _related=data;
     
     [table reloadData];
     table.userInteractionEnabled=false;
@@ -26,22 +27,26 @@
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
+    return _related.count==0?0:1;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 20;
+    return _related.count;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return [ScanResultObjectCell height];
+    ScanCodeRelated *obj=_related[indexPath.row];
+    
+    return [ScanResultObjectCell heightWithRelated:obj];
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     ScanResultObjectCell *cell=[tableView scanResultObjectCell];
+    
+    [cell loadWithRelated:_related[indexPath.row]];
     
     return cell;
 }
@@ -53,9 +58,16 @@
     [table registerScanResultObjectCell];
 }
 
-+(float)height
++(float)heightWithRelated:(NSArray *)data
 {
-    return 20*80;
+    float height=0;
+    
+    for(ScanCodeRelated *obj in data)
+    {
+        height+=[ScanResultObjectCell heightWithRelated:obj];
+    }
+    
+    return height;
 }
 
 +(NSString *)reuseIdentifier

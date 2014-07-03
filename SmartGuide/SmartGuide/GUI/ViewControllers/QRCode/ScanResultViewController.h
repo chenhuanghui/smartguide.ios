@@ -61,8 +61,12 @@ enum SCAN_RESULT_CODE_TYPE
 
 -(enum SCAN_RESULT_CODE_TYPE) enumType;
 
+-(void) addRelatedShops:(NSArray*) shops;
+-(void) addRelatedPromotions:(NSArray*) promotions;
+-(void) addRelatedPlacelists:(NSArray*) plcelists;
+
 @property (nonatomic, strong) NSNumber *type;
 @property (nonatomic, strong) NSMutableArray *qrCodeDecodes;
-@property (nonatomic, strong) NSMutableArray *related;
+@property (nonatomic, strong) NSMutableDictionary *relaties;
 
 @end

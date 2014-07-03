@@ -45,6 +45,47 @@
         <attribute name="videoWidth" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <relationship name="shop" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Shop" inverseName="promotionNew" inverseEntity="Shop" syncable="YES"/>
     </entity>
+    <entity name="ScanCodeDecode" representedClassName="ScanCodeDecode" syncable="YES">
+        <attribute name="image" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="imageHeight" optional="YES" attributeType="Float" defaultValueString="-1" syncable="YES"/>
+        <attribute name="imageWidth" optional="YES" attributeType="Float" defaultValueString="-1" syncable="YES"/>
+        <attribute name="order" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="text" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="textHeight" optional="YES" attributeType="Float" defaultValueString="-1" syncable="YES"/>
+        <attribute name="type" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="video" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="videoHeight" optional="YES" attributeType="Float" defaultValueString="-1" syncable="YES"/>
+        <attribute name="videoThumbnail" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="videoWidth" optional="YES" attributeType="Float" defaultValueString="-1" syncable="YES"/>
+        <relationship name="action" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="UserNotificationAction" inverseName="decode" inverseEntity="UserNotificationAction" syncable="YES"/>
+        <relationship name="result" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ScanCodeResult" inverseName="decode" inverseEntity="ScanCodeResult" syncable="YES"/>
+    </entity>
+    <entity name="ScanCodeRelated" representedClassName="ScanCodeRelated" syncable="YES">
+        <attribute name="authorAvatar" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="desc" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="descHeight" optional="YES" attributeType="Float" defaultValueString="-1" syncable="YES"/>
+        <attribute name="distance" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="idPlacelist" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="idShop" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="idShops" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="logo" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="order" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="page" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="placelistName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="placelistNameHeight" optional="YES" attributeType="Float" defaultValueString="-1" syncable="YES"/>
+        <attribute name="promotioNameHeight" optional="YES" attributeType="Float" defaultValueString="-1" syncable="YES"/>
+        <attribute name="promotionName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="shopName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="shopNameHeight" optional="YES" attributeType="Float" defaultValueString="-1" syncable="YES"/>
+        <attribute name="time" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="type" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <relationship name="result" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ScanCodeResult" inverseName="relaties" inverseEntity="ScanCodeResult" syncable="YES"/>
+    </entity>
+    <entity name="ScanCodeResult" representedClassName="ScanCodeResult" syncable="YES">
+        <attribute name="code" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="decode" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ScanCodeDecode" inverseName="result" inverseEntity="ScanCodeDecode" syncable="YES"/>
+        <relationship name="relaties" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ScanCodeRelated" inverseName="result" inverseEntity="ScanCodeRelated" syncable="YES"/>
+    </entity>
     <entity name="Shop" representedClassName="Shop" syncable="YES">
         <attribute name="address" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="city" optional="YES" attributeType="String" syncable="YES"/>
@@ -245,6 +286,7 @@
     <entity name="UserNotificationAction" representedClassName="UserNotificationAction" syncable="YES">
         <attribute name="actionTitle" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="actionType" optional="YES" attributeType="Integer 32" syncable="YES"/>
+        <attribute name="color" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="idPlacelist" optional="YES" attributeType="Integer 32" syncable="YES"/>
         <attribute name="idShop" optional="YES" attributeType="Integer 32" syncable="YES"/>
         <attribute name="idShops" optional="YES" attributeType="String" syncable="YES"/>
@@ -253,6 +295,7 @@
         <attribute name="params" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="sortOrder" optional="YES" attributeType="Integer 32" syncable="YES"/>
         <attribute name="url" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="decode" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ScanCodeDecode" inverseName="action" inverseEntity="ScanCodeDecode" syncable="YES"/>
         <relationship name="userNotificationContent" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="UserNotificationContent" inverseName="actions" inverseEntity="UserNotificationContent" syncable="YES"/>
     </entity>
     <entity name="UserNotificationContent" representedClassName="UserNotificationContent" syncable="YES">
@@ -326,9 +369,12 @@
         <element name="UserHome8" positionX="0" positionY="0" width="128" height="105"/>
         <element name="UserHomeImage" positionX="0" positionY="0" width="128" height="90"/>
         <element name="UserNotification" positionX="9" positionY="153" width="128" height="208"/>
-        <element name="UserNotificationAction" positionX="18" positionY="153" width="128" height="208"/>
+        <element name="UserNotificationAction" positionX="18" positionY="153" width="128" height="238"/>
         <element name="UserNotificationContent" positionX="9" positionY="153" width="128" height="373"/>
         <element name="UserPlacelist" positionX="0" positionY="0" width="128" height="120"/>
         <element name="UserPromotion" positionX="0" positionY="0" width="128" height="270"/>
+        <element name="ScanCodeResult" positionX="18" positionY="153" width="128" height="88"/>
+        <element name="ScanCodeDecode" positionX="27" positionY="162" width="128" height="238"/>
+        <element name="ScanCodeRelated" positionX="36" positionY="171" width="128" height="328"/>
     </elements>
 </model>

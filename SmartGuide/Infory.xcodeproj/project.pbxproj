@@ -854,6 +854,12 @@
 		A925508717B74BAC0096C411 /* OperationRouterMap.m in Sources */ = {isa = PBXBuildFile; fileRef = A925508617B74BAC0096C411 /* OperationRouterMap.m */; };
 		A925E3CF17B089EB00806617 /* TokenManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A925E3CE17B089EB00806617 /* TokenManager.m */; };
 		A925E3DC17B09B9400806617 /* ASIOperationUploadUserGallery.m in Sources */ = {isa = PBXBuildFile; fileRef = A925E3DB17B09B9400806617 /* ASIOperationUploadUserGallery.m */; };
+		A939214919652F060091E804 /* ScanCodeDecode.m in Sources */ = {isa = PBXBuildFile; fileRef = A939214419652F050091E804 /* ScanCodeDecode.m */; };
+		A939214A19652F060091E804 /* ScanCodeRelated.m in Sources */ = {isa = PBXBuildFile; fileRef = A939214619652F050091E804 /* ScanCodeRelated.m */; };
+		A939214B19652F060091E804 /* ScanCodeResult.m in Sources */ = {isa = PBXBuildFile; fileRef = A939214819652F060091E804 /* ScanCodeResult.m */; };
+		A939215219652F0E0091E804 /* _ScanCodeDecode.m in Sources */ = {isa = PBXBuildFile; fileRef = A939214D19652F0E0091E804 /* _ScanCodeDecode.m */; };
+		A939215319652F0E0091E804 /* _ScanCodeRelated.m in Sources */ = {isa = PBXBuildFile; fileRef = A939214F19652F0E0091E804 /* _ScanCodeRelated.m */; };
+		A939215419652F0E0091E804 /* _ScanCodeResult.m in Sources */ = {isa = PBXBuildFile; fileRef = A939215119652F0E0091E804 /* _ScanCodeResult.m */; };
 		A93F20611797CF7600622D75 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A93F20601797CF7600622D75 /* AddressBook.framework */; };
 		A958795219500B4100DD4A57 /* bg_sosmart.png in Resources */ = {isa = PBXBuildFile; fileRef = A958794F19500B4100DD4A57 /* bg_sosmart.png */; };
 		A958795319500B4100DD4A57 /* bg_5sosmart.png in Resources */ = {isa = PBXBuildFile; fileRef = A958795019500B4100DD4A57 /* bg_5sosmart.png */; };
@@ -2173,6 +2179,18 @@
 		A925E3CE17B089EB00806617 /* TokenManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TokenManager.m; sourceTree = "<group>"; };
 		A925E3DA17B09B9400806617 /* ASIOperationUploadUserGallery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIOperationUploadUserGallery.h; sourceTree = "<group>"; };
 		A925E3DB17B09B9400806617 /* ASIOperationUploadUserGallery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIOperationUploadUserGallery.m; sourceTree = "<group>"; };
+		A939214319652F050091E804 /* ScanCodeDecode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScanCodeDecode.h; sourceTree = "<group>"; };
+		A939214419652F050091E804 /* ScanCodeDecode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScanCodeDecode.m; sourceTree = "<group>"; };
+		A939214519652F050091E804 /* ScanCodeRelated.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScanCodeRelated.h; sourceTree = "<group>"; };
+		A939214619652F050091E804 /* ScanCodeRelated.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScanCodeRelated.m; sourceTree = "<group>"; };
+		A939214719652F060091E804 /* ScanCodeResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScanCodeResult.h; sourceTree = "<group>"; };
+		A939214819652F060091E804 /* ScanCodeResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScanCodeResult.m; sourceTree = "<group>"; };
+		A939214C19652F0E0091E804 /* _ScanCodeDecode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _ScanCodeDecode.h; sourceTree = "<group>"; };
+		A939214D19652F0E0091E804 /* _ScanCodeDecode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _ScanCodeDecode.m; sourceTree = "<group>"; };
+		A939214E19652F0E0091E804 /* _ScanCodeRelated.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _ScanCodeRelated.h; sourceTree = "<group>"; };
+		A939214F19652F0E0091E804 /* _ScanCodeRelated.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _ScanCodeRelated.m; sourceTree = "<group>"; };
+		A939215019652F0E0091E804 /* _ScanCodeResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _ScanCodeResult.h; sourceTree = "<group>"; };
+		A939215119652F0E0091E804 /* _ScanCodeResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _ScanCodeResult.m; sourceTree = "<group>"; };
 		A93F20601797CF7600622D75 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		A958794F19500B4100DD4A57 /* bg_sosmart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_sosmart.png; sourceTree = "<group>"; };
 		A958795019500B4100DD4A57 /* bg_5sosmart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_5sosmart.png; sourceTree = "<group>"; };
@@ -3330,6 +3348,12 @@
 		A91A674A1797F65000BEB8C5 /* Human */ = {
 			isa = PBXGroup;
 			children = (
+				A939214319652F050091E804 /* ScanCodeDecode.h */,
+				A939214419652F050091E804 /* ScanCodeDecode.m */,
+				A939214519652F050091E804 /* ScanCodeRelated.h */,
+				A939214619652F050091E804 /* ScanCodeRelated.m */,
+				A939214719652F060091E804 /* ScanCodeResult.h */,
+				A939214819652F060091E804 /* ScanCodeResult.m */,
 				A90E2D331936E7C2001B6A20 /* UserNotificationAction.h */,
 				A90E2D341936E7C2001B6A20 /* UserNotificationAction.m */,
 				A99257AD18E97BD400D0993A /* UserNotification.h */,
@@ -3389,6 +3413,12 @@
 		A91A674D1797F65000BEB8C5 /* Machine */ = {
 			isa = PBXGroup;
 			children = (
+				A939214C19652F0E0091E804 /* _ScanCodeDecode.h */,
+				A939214D19652F0E0091E804 /* _ScanCodeDecode.m */,
+				A939214E19652F0E0091E804 /* _ScanCodeRelated.h */,
+				A939214F19652F0E0091E804 /* _ScanCodeRelated.m */,
+				A939215019652F0E0091E804 /* _ScanCodeResult.h */,
+				A939215119652F0E0091E804 /* _ScanCodeResult.m */,
 				A90E2D301936E7BD001B6A20 /* _UserNotificationAction.h */,
 				A90E2D311936E7BD001B6A20 /* _UserNotificationAction.m */,
 				A99257A718E97BCE00D0993A /* _UserNotification.h */,
@@ -5656,6 +5686,7 @@
 				9A27BC1118D18BAD00E3EAC2 /* HomeListCell.m in Sources */,
 				A979100A19649E3D00719E27 /* ScanResultInforyButtonCell.m in Sources */,
 				9ADCD96218D19C3F004CB67E /* UIButton+WebCache.m in Sources */,
+				A939215319652F0E0091E804 /* _ScanCodeRelated.m in Sources */,
 				A90E2D351936E7C2001B6A20 /* UserNotificationAction.m in Sources */,
 				9AC66F86186447B300890F80 /* ASIOperationAgreeComment.m in Sources */,
 				A9E0F5C71962A3C3005ABAA0 /* ScanCodeViewController.m in Sources */,
@@ -5745,6 +5776,7 @@
 				A971296018EA794B0065EAA7 /* UserNotificationDetailCell.m in Sources */,
 				9A27BC1318D18BAD00E3EAC2 /* HomeListImageCell.m in Sources */,
 				9ADCD95E18D19C3F004CB67E /* SDWebImageDownloader.m in Sources */,
+				A939214A19652F060091E804 /* ScanCodeRelated.m in Sources */,
 				A9A98159193C6BFC00B8512E /* JSTokenField.m in Sources */,
 				A9EB146F1952D79C00191767 /* ShopCameraViewController.m in Sources */,
 				9ADCD96918D19C3F004CB67E /* TPKeyboardAvoidingTableView.m in Sources */,
@@ -5778,6 +5810,7 @@
 				9A24781018B7364F00BAAA7D /* ASIOperationPlacelistGetDetail.m in Sources */,
 				9A7AC19818D1907B0043316D /* PlacelistViewController.m in Sources */,
 				A979100519649E2500719E27 /* ScanResultInforyVideoCell.m in Sources */,
+				A939215219652F0E0091E804 /* _ScanCodeDecode.m in Sources */,
 				A9EB14931952D79C00191767 /* ShopKM2ConditionCell.m in Sources */,
 				A9BF14AD1963C5FD00D30EAA /* ScanResultRelatedCell.m in Sources */,
 				9A7AC1F618D190B50043316D /* SearchViewController.m in Sources */,
@@ -5802,6 +5835,7 @@
 				9A32F479184348C100704D26 /* PageControl.m in Sources */,
 				A9BABB4C192C4E9100C417F3 /* TextField.m in Sources */,
 				9AFC69D117F2C0F500177476 /* OperationNotifications.m in Sources */,
+				A939214B19652F060091E804 /* ScanCodeResult.m in Sources */,
 				9A27BBF918D18BAD00E3EAC2 /* RegisterInfoStep2ViewController.m in Sources */,
 				9A27BC1B18D18BAD00E3EAC2 /* LoadingScreenViewController.m in Sources */,
 				9ACF7A8818698E3700B0BC78 /* UserHome.m in Sources */,
@@ -5854,6 +5888,7 @@
 				9A27BC0D18D18BAD00E3EAC2 /* HomeImageType9Cell.m in Sources */,
 				9A27BBF718D18BAD00E3EAC2 /* RegisterInfoStep1ViewController.m in Sources */,
 				9ACF7AA118698E4100B0BC78 /* _UserHome1.m in Sources */,
+				A939215419652F0E0091E804 /* _ScanCodeResult.m in Sources */,
 				9ADCD93F18D19C3F004CB67E /* AFSecurityPolicy.m in Sources */,
 				9ACF7A8A18698E3700B0BC78 /* UserHome2.m in Sources */,
 				9ADCD96318D19C3F004CB67E /* UIImage+GIF.m in Sources */,
@@ -5874,6 +5909,7 @@
 				A9AC694A18EEC28F006279FE /* ImageView.m in Sources */,
 				A925E3CF17B089EB00806617 /* TokenManager.m in Sources */,
 				A925E3DC17B09B9400806617 /* ASIOperationUploadUserGallery.m in Sources */,
+				A939214919652F060091E804 /* ScanCodeDecode.m in Sources */,
 				9ACF7AA018698E4100B0BC78 /* _UserHome.m in Sources */,
 				9ACAED861872B1B40025B027 /* ButtonAgree.m in Sources */,
 				9ADCD96418D19C3F004CB67E /* UIImage+MultiFormat.m in Sources */,

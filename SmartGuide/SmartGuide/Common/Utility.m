@@ -110,6 +110,14 @@ NSIndexPath *makeIndexPath(int row, int section)
     return [NSIndexPath indexPathForRow:row inSection:section];
 }
 
+CGSize makeSizeProportional(float width, CGSize size)
+{
+    if(size.width==0)
+        return CGSizeZero;
+    
+    return CGSizeMake(width, MAX(0, width*size.height/size.width));
+}
+
 NSString *documentPath()
 {
     NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
@@ -2442,6 +2450,27 @@ static const NSString *KEY_HIT_TEST_EDGE_INSETS = @"HitTestEdgeInsets";
     return obj;
 }
 
++(NSNumber *)makeNumber:(id)obj
+{
+    if(obj==nil)
+        return @(0);
+    
+    if(obj==[NSNull null])
+        return @(0);
+    
+    if([obj isKindOfClass:[NSString class]])
+    {
+        return @([obj floatValue]);
+    }
+    
+    if([obj isKindOfClass:[NSNumber class]])
+    {
+        return [obj copy];
+    }
+    
+    return @(0);
+}
+
 @end
 
 @implementation Flurry(SmartGuide)
@@ -2744,6 +2773,19 @@ static const NSString *KEY_HIT_TEST_EDGE_INSETS = @"HitTestEdgeInsets";
     [self showLoadingInsideFrame:rect];
     
     return self.loadingView;
+}
+
+@end
+
+@implementation NSMutableParagraphStyle(Utility)
+
++(NSMutableParagraphStyle*) paraStyleWithTextAlign:(NSTextAlignment) textAlign
+{
+    NSMutableParagraphStyle *obj=[NSMutableParagraphStyle new];
+    
+    obj.alignment=textAlign;
+    
+    return obj;
 }
 
 @end

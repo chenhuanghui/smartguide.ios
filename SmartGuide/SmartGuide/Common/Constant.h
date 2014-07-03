@@ -111,8 +111,8 @@ static NSString * const kClientId = @"790158294934-p5pnscmrt4avj698ncvhp14fit0f4
 #define API_USER_NOTIFICATION_COUNT_BY_SENDER @"user/notification/countBySender_v2"
 #define API_USER_NOTICE @"user/notice"
 #define API_USER_NOTIFICATION_TOKEN @"user/notification/updateUUID"
-#define API_QRCODE_DECODE @"QRCode/decode"
-#define API_QRCODE_GET_RELATED @"QRCode/getRelated"
+#define API_QRCODE_DECODE @"qrcode/decode"
+#define API_QRCODE_GET_RELATED @"qrcode/getRelated"
 
 #define API_GET_ACTIVE_CODE @"user/activation"
 #define API_USER_CHECK @"user/check_v2"
@@ -211,6 +211,16 @@ static NSString * const kClientId = @"790158294934-p5pnscmrt4avj698ncvhp14fit0f4
 #define FONT_NAME_BOLD @"Avenir-Heavy"
 #define FONT_NAME_OBLIQUE @"Avenir-Oblique"
 #define FONT_NAME_LIGHT @"Avenir-Light"
+
+#define FONT_NAME_REGULAR @"AvenirNext-Regular"
+#define FONT_NAME_MEDIUM @"AvenirNext-Medium"
+#define FONT_NAME_DEMIBOLD @"AvenirNext-DemiBold"
+#define FONT_NAME_ITALIC @"AvenirNext-Italic"
+
+#define FONT_SIZE_REGULAR(fSize) [UIFont fontWithName:FONT_NAME_REGULAR size:fSize]
+#define FONT_SIZE_MEDIUM(fSize) [UIFont fontWithName:FONT_NAME_MEDIUM size:fSize]
+#define FONT_SIZE_DEMIBOLD(fSize) [UIFont fontWithName:FONT_NAME_DEMIBOLD size:fSize]
+#define FONT_SIZE_ITALIC(fSize) [UIFont fontWithName:FONT_NAME_ITALIC size:fSize]
 
 #define FONT_SIZE_NORMAL(fSize) [UIFont fontWithName:FONT_NAME_NORMAL size:fSize]
 #define FONT_SIZE_BOLD(fSize) [UIFont fontWithName:FONT_NAME_BOLD size:fSize]

@@ -54,7 +54,6 @@
     
     [UserNotification markDeleteAllObjects];
     [UserNotificationContent markDeleteAllObjects];
-    [UserNotificationAction markDeleteAllObjects];
     
     [[DataManager shareInstance] save];
     

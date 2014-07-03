@@ -8,13 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
-@class QRCodeDecode;
+@class ScanCodeDecode;
 
 @interface ScanResultInforyVideoCell : UITableViewCell
+{
+    __weak IBOutlet UIImageView *imgv;
+}
 
--(void) loadWithDecode:(QRCodeDecode*) decode;
+-(void) loadWithDecode:(ScanCodeDecode*) decode;
 +(NSString *)reuseIdentifier;
-+(float) heightWithDecode:(QRCodeDecode*) decode;
++(float) heightWithDecode:(ScanCodeDecode*) decode;
 
 @end
 

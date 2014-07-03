@@ -7,13 +7,13 @@
 //
 
 #import "ScanResultInforyTitleCell.h"
-#import "OperationQRCodeDecode.h"
+#import "ScanCodeDecode.h"
 
 @implementation ScanResultInforyTitleCell
 
--(void)loadWithDecode:(QRCodeDecode *)decode
+-(void)loadWithDecode:(ScanCodeDecode *)decode
 {
-    
+    lbl.attributedText=decode.textAttribute;
 }
 
 +(NSString *)reuseIdentifier
@@ -21,9 +21,20 @@
     return @"ScanResultInforyTitleCell";
 }
 
-+(float)heightWithDecode:(QRCodeDecode *)decode
++(float)heightWithDecode:(ScanCodeDecode *)decode
 {
-    return 0;
+    if(!decode.textAttribute)
+    {
+        decode.textAttribute=[[NSAttributedString alloc] initWithString:decode.text attributes:@{NSFontAttributeName:FONT_SIZE_REGULAR(13)
+                                                                                                 , NSParagraphStyleAttributeName:[NSMutableParagraphStyle paraStyleWithTextAlign:NSTextAlignmentJustified]}];
+    }
+    
+    if(decode.textHeight.floatValue==-1)
+    {
+        decode.textHeight=@([decode.textAttribute boundingRectWithSize:CGSizeMake(270, MAXFLOAT) options:NSStringDrawingUsesFontLeading|NSStringDrawingUsesLineFragmentOrigin context:nil].size.height);
+    }
+    
+    return decode.textHeight.floatValue+10;
 }
 
 @end

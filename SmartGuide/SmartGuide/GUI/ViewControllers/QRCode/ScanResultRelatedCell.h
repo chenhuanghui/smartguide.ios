@@ -11,12 +11,12 @@
 @interface ScanResultRelatedCell : UITableViewCell
 {
     __weak IBOutlet UITableView *table;
-    NSString *_relaties;
+    NSArray *_related;
 }
 
--(void) loadWithRelaties:(NSString*) relaties;
+-(void) loadWithRelated:(NSArray*) data;
 
-+(float) height;
++(float) heightWithRelated:(NSArray*) data;
 +(NSString *)reuseIdentifier;
 
 @end
