@@ -10,13 +10,14 @@
 
 #define NOTIFICATION_SCAN_RELATED_REQUEST_LOADMORE @"scanRelatedRequestLoadMore"
 
-@class ScanResultViewController, UserNotificationAction, ScanCodeRelated;
+@class ScanResultViewController, UserNotificationAction, ScanCodeRelated, ScanCodeRelatedContain;
 
 @protocol ScanResultControllerDelegate <SGViewControllerDelegate>
 
 -(void) scanResultControllerTouchedBack:(ScanResultViewController*) controller;
 -(void) scanResultController:(ScanResultViewController*) controller touchedAction:(UserNotificationAction*) action;
 -(void) scanResultController:(ScanResultViewController*) controller touchedRelated:(ScanCodeRelated*) related;
+-(void) scanResultController:(ScanResultViewController*) controller touchedMore:(ScanCodeRelatedContain*) object;
 
 @end
 
@@ -33,3 +34,6 @@
 
 @end
 
+@interface TableResult : UITableView
+
+@end

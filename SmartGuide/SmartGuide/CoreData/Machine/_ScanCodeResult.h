@@ -7,7 +7,8 @@
 #define ScanCodeResult_ClassName @"ScanCodeResult"
 
 #define ScanCodeResult_Code @"code"
-#define ScanCodeResult_Type @"type"
+#define ScanCodeResult_DecodeType @"decodeType"
+#define ScanCodeResult_RelatedStatus @"relatedStatus"
 
 @class ScanCodeResult;
 @class ScanCodeDecode;
@@ -25,7 +26,8 @@
 
 
 @property (nonatomic, retain) NSString* code;
-@property (nonatomic, retain) NSNumber* type;
+@property (nonatomic, retain) NSNumber* decodeType;
+@property (nonatomic, retain) NSNumber* relatedStatus;
 
 #pragma mark Fetched property
 

@@ -20,8 +20,9 @@
 #import "UserPromotionViewController.h"
 #import "GUIManager.h"
 #import "ScanCodeRelated.h"
+#import "ScanResultRelatedViewController.h"
 
-@interface ScanCodeController ()<ScanCodeViewControllerDelegate, ScanResultControllerDelegate,SGUserSettingControllerDelegate,WebViewDelegate,ShopUserControllerDelegate,SGNavigationControllerDelegate>
+@interface ScanCodeController ()<ScanCodeViewControllerDelegate, ScanResultControllerDelegate,SGUserSettingControllerDelegate,WebViewDelegate,ShopUserControllerDelegate,SGNavigationControllerDelegate, ScanResultRelatedControllerDelegate>
 
 @end
 
@@ -310,6 +311,19 @@
         case NOTIFICATION_ACTION_TYPE_UNKNOW:
             break;
     }
+}
+
+-(void)scanResultController:(ScanResultViewController *)controller touchedMore:(ScanCodeRelatedContain *)object
+{
+    ScanResultRelatedViewController *vc=[[ScanResultRelatedViewController alloc] initWithRelatedContain:object];
+    vc.delegate=self;
+    
+    [_navi pushViewController:vc animated:true];
+}
+
+-(void)scanResultRelatedControllerTouchedBack:(ScanResultRelatedViewController *)controller
+{
+    [_navi popViewControllerAnimated:true];
 }
 
 -(void) showUserPromotion

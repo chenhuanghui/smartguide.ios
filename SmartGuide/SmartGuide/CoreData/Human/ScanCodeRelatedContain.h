@@ -4,6 +4,8 @@
 {
 }
 
+-(enum QRCODE_RELATED_TYPE) enumType;
 
+-(NSString*) title;
 
 @end

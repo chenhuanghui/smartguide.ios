@@ -2413,6 +2413,18 @@ static const NSString *KEY_HIT_TEST_EDGE_INSETS = @"HitTestEdgeInsets";
     return false;
 }
 
+-(NSArray*) objectsAtRange:(NSRange) range
+{
+    NSMutableArray *array=[NSMutableArray array];
+    for(int i=range.location;i<=range.location+range.length;i++)
+    {
+        if(i<self.count)
+            [array addObject:self[i]];
+    }
+    
+    return array;
+}
+
 +(NSArray *)makeArray:(id)obj
 {
     if(obj==nil)

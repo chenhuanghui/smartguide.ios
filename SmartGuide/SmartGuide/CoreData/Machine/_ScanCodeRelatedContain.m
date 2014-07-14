@@ -140,19 +140,6 @@
 	[self didChangeValueForKey:@"order"];
 }
 
-- (NSString*)title {
-	[self willAccessValueForKey:@"title"];
-	NSString* result = (NSString*)[self primitiveValueForKey:@"title"];
-	[self didAccessValueForKey:@"title"];
-	return result;
-}
-
-- (void)setTitle:(NSString*)value {
-	[self willChangeValueForKey:@"title"];
-	[self setPrimitiveValue:value forKey:@"title"];
-	[self didChangeValueForKey:@"title"];
-}
-
 - (NSNumber*)type {
 	[self willAccessValueForKey:@"type"];
 	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"type"];

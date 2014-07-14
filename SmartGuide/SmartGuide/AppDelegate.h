@@ -15,7 +15,3 @@
 @property (nonatomic, assign) bool allowRotation;
 
 @end
-
-@interface TrackingWindow : UIWindow
-
-@end

@@ -1,12 +1,20 @@
 #import "_ScanCodeResult.h"
 #import "ScanCodeRelated.h"
 
-enum SCAN_CODE_RESULT_TYPE
+enum SCAN_CODE_DECODE_TYPE
 {
-    SCAN_CODE_RESULT_TYPE_IDENTIFYING=0,
-    SCAN_CODE_RESULT_TYPE_INFORY=1,
-    SCAN_CODE_RESULT_TYPE_NON_INFORY=2,
-    SCAN_CODE_RESULT_TYPE_ERROR=3,
+    SCAN_CODE_DECODE_TYPE_UNKNOW=-1,
+    SCAN_CODE_DECODE_TYPE_IDENTIFYING=0,
+    SCAN_CODE_DECODE_TYPE_INFORY=1,
+    SCAN_CODE_DECODE_TYPE_NON_INFORY=2,
+    SCAN_CODE_DECODE_TYPE_ERROR=3,
+};
+
+enum SCAN_CODE_RELATED_STATUS
+{
+    SCAN_CODE_RELATED_STATUS_UNKNOW=-1,
+    SCAN_CODE_RELATED_STATUS_QUERYING=0,
+    SCAN_CODE_RELATED_STATUS_DONE=1,
 };
 
 @interface ScanCodeResult : _ScanCodeResult 
@@ -15,8 +23,8 @@ enum SCAN_CODE_RESULT_TYPE
 
 +(ScanCodeResult*) resultWithCode:(NSString*) code;
 +(ScanCodeResult*) makeWithCode:(NSString*) code;
--(enum SCAN_CODE_RESULT_TYPE) enumType;
+-(enum SCAN_CODE_DECODE_TYPE) enumDecodeType;
+-(enum SCAN_CODE_RELATED_STATUS) enumRelatedStatus;
 
--(ScanCodeRelatedContain*) relatedContaintWithIndex:(int) index;
 
 @end

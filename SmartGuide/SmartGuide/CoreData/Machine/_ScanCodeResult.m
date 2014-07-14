@@ -100,17 +100,30 @@
 	[self didChangeValueForKey:@"code"];
 }
 
-- (NSNumber*)type {
-	[self willAccessValueForKey:@"type"];
-	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"type"];
-	[self didAccessValueForKey:@"type"];
+- (NSNumber*)decodeType {
+	[self willAccessValueForKey:@"decodeType"];
+	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"decodeType"];
+	[self didAccessValueForKey:@"decodeType"];
 	return result;
 }
 
-- (void)setType:(NSNumber*)value {
-	[self willChangeValueForKey:@"type"];
-	[self setPrimitiveValue:value forKey:@"type"];
-	[self didChangeValueForKey:@"type"];
+- (void)setDecodeType:(NSNumber*)value {
+	[self willChangeValueForKey:@"decodeType"];
+	[self setPrimitiveValue:value forKey:@"decodeType"];
+	[self didChangeValueForKey:@"decodeType"];
+}
+
+- (NSNumber*)relatedStatus {
+	[self willAccessValueForKey:@"relatedStatus"];
+	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"relatedStatus"];
+	[self didAccessValueForKey:@"relatedStatus"];
+	return result;
+}
+
+- (void)setRelatedStatus:(NSNumber*)value {
+	[self willChangeValueForKey:@"relatedStatus"];
+	[self setPrimitiveValue:value forKey:@"relatedStatus"];
+	[self didChangeValueForKey:@"relatedStatus"];
 }
 
 #pragma mark Relationships

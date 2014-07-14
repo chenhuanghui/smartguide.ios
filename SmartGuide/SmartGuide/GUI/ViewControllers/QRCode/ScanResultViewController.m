@@ -10,21 +10,23 @@
 #import "ScanResultDisconnectCell.h"
 #import "ScanResultInforyCell.h"
 #import "ScanResultNonInforyCell.h"
-#import "ScanResultRelatedHeadView.h"
 #import "ScanResultRelatedCell.h"
 #import "OperationQRCodeDecode.h"
-#import "OperationQRCodeGetRelated.h"
+#import "OperationQRCodeGetAllRelated.h"
 #import "UserNotificationAction.h"
 #import "ScanCodeResult.h"
 #import "ScanCodeRelated.h"
 #import "ScanCodeDecode.h"
 #import "ScanCodeRelatedContain.h"
+#import "LoadingMoreCell.h"
 #import <MediaPlayer/MediaPlayer.h>
 #import "AppDelegate.h"
 #import "OperationNotificationAction.h"
 #import "WebViewController.h"
 #import "GUIManager.h"
 #import "SearchViewController.h"
+#import "ScanResultRelatedHeadView.h"
+#import "ScanResultObjectHeaderView.h"
 
 enum SCAN_RESULT_SECTION_TYPE
 {
@@ -32,17 +34,15 @@ enum SCAN_RESULT_SECTION_TYPE
     SCAN_RESULT_SECTION_TYPE_RELATED=1,
 };
 
-@interface ScanResultViewController ()<UITableViewDataSource,UITableViewDelegate,ASIOperationPostDelegate, ScanResultRelatedHeadViewDelegate, ScanResultInforyCellDelegate,ScanResultRelatedCellDelegate>
+@interface ScanResultViewController ()<UITableViewDataSource,UITableViewDelegate,ASIOperationPostDelegate, ScanResultInforyCellDelegate,ScanResultRelatedCellDelegate>
 {
     OperationQRCodeDecode *_opeQRCodeDecode;
-    OperationQRCodeGetRelated *_opeQRCodeGetRelated;
-    
-    bool _isRequestedDecode;
-    bool _isRequestedRelated;
-    int _currentRelatedIndex;
+    OperationQRCodeGetAllRelated *_opeQRCodeGetAllRelated;
     
     ScanCodeResult *_scanResult;
-    __weak ScanResultRelatedHeadView *headView;
+    NSString *_code;
+    
+    __weak ScanResultRelatedCell *_relatedCell;
     
     NSArray *_order;
     NSMutableArray *_shops;
@@ -61,32 +61,61 @@ enum SCAN_RESULT_SECTION_TYPE
     self=[super initWithNibName:@"ScanResultViewController" bundle:nil];
     
     _scanResult=[ScanCodeResult resultWithCode:code];
-    [_scanResult markDeleted];
     
-    [[DataManager shareInstance] save];
+    if(_scanResult)
+    {
+        [_scanResult markDeleted];
+        [[DataManager shareInstance] save];
+    }
     
-    _scanResult=[ScanCodeResult makeWithCode:code];
-    [[DataManager shareInstance] save];
+    _code=[code copy];
+    [self createScanResultWithCode:code];
     
     return self;
+}
+
+-(void) createScanResultWithCode:(NSString*) code
+{
+    _scanResult=[ScanCodeResult makeWithCode:code];
+    _scanResult.decodeType=@(SCAN_CODE_DECODE_TYPE_UNKNOW);
+    _scanResult.relatedStatus=@(SCAN_CODE_RELATED_STATUS_UNKNOW);
+    [[DataManager shareInstance] save];
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    if(_scanResult.managedObjectContext==nil)
+    {
+        [self createScanResultWithCode:_code];
+        
+        [self requestDecode];
+        [self requestRelaties];
+        
+        [self showLoading];
+    }
+    else
+    {
+        [table reloadData];
+    }
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    
-    _currentRelatedIndex=0;
-    
+
     [table registerScanResultDisconnectCell];
     [table registerScanResultInforyCell];
     [table registerScanResultNonInforyCell];
     [table registerScanResultRelatedCell];
+    [table registerLoadingMoreCell];
     
     if(currentUser().enumDataMode==USER_DATA_FULL)
     {
         [self requestDecode];
-        [self requestRelaties:QRCODE_RELATED_TYPE_ALL page:0 groupIndex:-1];
+        [self requestRelaties];
         
         [self showLoading];
     }
@@ -99,7 +128,7 @@ enum SCAN_RESULT_SECTION_TYPE
             if(isLogined)
             {
                 [self requestDecode];
-                [self requestRelaties:QRCODE_RELATED_TYPE_ALL page:0 groupIndex:-1];
+                [self requestRelaties];
                 
                 [self showLoading];
             }
@@ -146,17 +175,22 @@ enum SCAN_RESULT_SECTION_TYPE
     [_opeQRCodeDecode addToQueue];
 }
 
--(void) requestRelaties:(enum QRCODE_RELATED_TYPE) relatedType page:(int) page groupIndex:(int) groupIndex
+-(void) requestRelaties
 {
-    _opeQRCodeGetRelated=[[OperationQRCodeGetRelated alloc] initWithCode:_scanResult.code type:relatedType page:page userLat:userLat() userLng:userLng() groupIndex:groupIndex];
-    _opeQRCodeGetRelated.delegate=self;
+    _opeQRCodeGetAllRelated=[[OperationQRCodeGetAllRelated alloc] initWithCode:_scanResult.code userLat:userLat() userLng:userLng()];
+    _opeQRCodeGetAllRelated.delegate=self;
     
-    [_opeQRCodeGetRelated addToQueue];
+    [_opeQRCodeGetAllRelated addToQueue];
 }
 
 -(void)scanResultRelatedCell:(ScanResultRelatedCell *)cell touchedObject:(ScanCodeRelated *)obj
 {
     [self.delegate scanResultController:self touchedRelated:obj];
+}
+
+-(void)scanResultRelatedCellTouchedMore:(ScanResultRelatedCell *)cell object:(ScanCodeRelatedContain *)object
+{
+    [self.delegate scanResultController:self touchedMore:object];
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -168,23 +202,22 @@ enum SCAN_RESULT_SECTION_TYPE
 {
     switch ((enum SCAN_RESULT_SECTION_TYPE)section) {
         case SCAN_RESULT_SECTION_TYPE_DECODE:
-            switch (_scanResult.enumType) {
-                case SCAN_CODE_RESULT_TYPE_ERROR:
+            switch (_scanResult.enumDecodeType) {
+                case SCAN_CODE_DECODE_TYPE_ERROR:
+                case SCAN_CODE_DECODE_TYPE_NON_INFORY:
+                case SCAN_CODE_DECODE_TYPE_IDENTIFYING:
                     return 1;
                     
-                case SCAN_CODE_RESULT_TYPE_INFORY:
+                case SCAN_CODE_DECODE_TYPE_INFORY:
                     return _scanResult.decodeObjects.count==0?0:1;
                     
-                case SCAN_CODE_RESULT_TYPE_NON_INFORY:
-                    return 1;
-                    
-                case SCAN_CODE_RESULT_TYPE_IDENTIFYING:
+                case SCAN_CODE_DECODE_TYPE_UNKNOW:
                     return 0;
             }
             break;
             
         case SCAN_RESULT_SECTION_TYPE_RELATED:
-            return [_scanResult relatedContaintWithIndex:_currentRelatedIndex].relatiesObjects.count==0?0:1;
+            return 1;
     }
     
     return 0;
@@ -194,23 +227,37 @@ enum SCAN_RESULT_SECTION_TYPE
 {
     switch ((enum SCAN_RESULT_SECTION_TYPE)indexPath.section) {
         case SCAN_RESULT_SECTION_TYPE_DECODE:
-            switch (_scanResult.enumType) {
-                case SCAN_CODE_RESULT_TYPE_ERROR:
+            switch (_scanResult.enumDecodeType) {
+                case SCAN_CODE_DECODE_TYPE_ERROR:
                     return [ScanResultDisconnectCell height];
                     
-                case SCAN_CODE_RESULT_TYPE_INFORY:
+                case SCAN_CODE_DECODE_TYPE_INFORY:
                     return [ScanResultInforyCell heightWithDecode:_scanResult.decodeObjects];
                     
-                case SCAN_CODE_RESULT_TYPE_NON_INFORY:
+                case SCAN_CODE_DECODE_TYPE_NON_INFORY:
                     return [ScanResultNonInforyCell height];
                     
-                case SCAN_CODE_RESULT_TYPE_IDENTIFYING:
+                case SCAN_CODE_DECODE_TYPE_IDENTIFYING:
+                    return 97;
+                    
+                case SCAN_CODE_DECODE_TYPE_UNKNOW:
                     return 0;
             }
             break;
             
         case SCAN_RESULT_SECTION_TYPE_RELATED:
-            return [ScanResultRelatedCell heightWithRelated:[_scanResult relatedContaintWithIndex:_currentRelatedIndex]];
+        {
+            switch (_scanResult.enumRelatedStatus) {
+                case SCAN_CODE_RELATED_STATUS_QUERYING:
+                    return 97;
+                    
+                case SCAN_CODE_RELATED_STATUS_DONE:
+                    return [ScanResultRelatedCell heightWithResult:_scanResult];
+                    
+                case SCAN_CODE_RELATED_STATUS_UNKNOW:
+                    return 0;
+            }
+        }
     }
     
     return 0;
@@ -220,11 +267,11 @@ enum SCAN_RESULT_SECTION_TYPE
 {
     switch ((enum SCAN_RESULT_SECTION_TYPE)indexPath.section) {
         case SCAN_RESULT_SECTION_TYPE_DECODE:
-            switch (_scanResult.enumType) {
-                case SCAN_CODE_RESULT_TYPE_ERROR:
+            switch (_scanResult.enumDecodeType) {
+                case SCAN_CODE_DECODE_TYPE_ERROR:
                     return [tableView scanResultDisconnectCell];
                     
-                case SCAN_CODE_RESULT_TYPE_INFORY:
+                case SCAN_CODE_DECODE_TYPE_INFORY:
                 {
                     ScanResultInforyCell *cell=[table scanResultInforyCell];
                     cell.delegate=self;
@@ -234,22 +281,41 @@ enum SCAN_RESULT_SECTION_TYPE
                     return cell;
                 }
                     
-                case SCAN_CODE_RESULT_TYPE_NON_INFORY:
+                case SCAN_CODE_DECODE_TYPE_NON_INFORY:
                     return [tableView scanResultNonInforyCell];
                     
-                case SCAN_CODE_RESULT_TYPE_IDENTIFYING:
+                case SCAN_CODE_DECODE_TYPE_IDENTIFYING:
+                    return [tableView loadingMoreCell];
+                    
+                case SCAN_CODE_DECODE_TYPE_UNKNOW:
                     return [UITableViewCell new];
             }
             break;
             
         case SCAN_RESULT_SECTION_TYPE_RELATED:
         {
-            ScanResultRelatedCell *cell=[tableView scanResultRelatedCell];
-            cell.delegate=self;
-            
-            [cell loadWithRelatedContain:[_scanResult relatedContaintWithIndex:_currentRelatedIndex]];
-            
-            return cell;
+            switch (_scanResult.enumRelatedStatus) {
+                case SCAN_CODE_RELATED_STATUS_QUERYING:
+                    return [tableView loadingMoreCell];
+                    
+                case SCAN_CODE_RELATED_STATUS_UNKNOW:
+                    return [UITableViewCell new];
+                    
+                case SCAN_CODE_RELATED_STATUS_DONE:
+                {
+                    ScanResultRelatedCell *cell=[tableView scanResultRelatedCell];
+                    cell.delegate=self;
+                    
+                    float height=[ScanResultRelatedCell heightWithResult:_scanResult];
+                    height=MIN(height,tableView.l_v_h);
+                    
+                    [cell loadWithResult:_scanResult height:height];
+                    _relatedCell=cell;
+                    
+                    return cell;
+                }
+                    break;
+            }
         }
     }
     
@@ -263,10 +329,9 @@ enum SCAN_RESULT_SECTION_TYPE
             return 0;
             
         case SCAN_RESULT_SECTION_TYPE_RELATED:
-        {
-            if(_scanResult.relatedContainObjects.count==0)
-                return [ScanResultRelatedHeadView heightEmptyTitles];
-        }
+            if(_scanResult.enumRelatedStatus==SCAN_CODE_RELATED_STATUS_UNKNOW)
+                return 0;
+            
             return [ScanResultRelatedHeadView height];
     }
 }
@@ -278,20 +343,7 @@ enum SCAN_RESULT_SECTION_TYPE
             return [UIView new];
             
         case SCAN_RESULT_SECTION_TYPE_RELATED:
-        {
-            ScanResultRelatedHeadView *head=[ScanResultRelatedHeadView new];
-            
-            head.delegate=self;
-            
-            NSArray *titles=[_scanResult.relatedContainObjects valueForKeyPath:ScanCodeRelatedContain_Title];
-            
-            [head loadWithTitles:titles];
-            [head setTitleIndex:_currentRelatedIndex animate:false];
-            
-            headView=head;
-            
-            return head;
-        }
+            return [ScanResultRelatedHeadView new];
     }
     
     return [UIView new];
@@ -299,9 +351,9 @@ enum SCAN_RESULT_SECTION_TYPE
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    if(headView)
+    if(_relatedCell)
     {
-        [headView.superview bringSubviewToFront:headView];
+        [_relatedCell tableDidScroll:table];
     }
 }
 
@@ -321,20 +373,6 @@ enum SCAN_RESULT_SECTION_TYPE
     return _player;
 }
 
--(void)scanResultRelatedHeadView:(ScanResultRelatedHeadView *)headView selectedIndex:(int)index
-{
-    _currentRelatedIndex=index;
-
-    [table reloadData];
-    
-    CGRect rect=[table rectForSection:0];
-    
-    if(table.contentOffset.y>rect.size.height)
-    {
-        [table setContentOffset:CGPointMake(0, rect.size.height)];
-    }
-}
-
 - (IBAction)btnBackTouchUpInside:(id)sender {
     [self.delegate scanResultControllerTouchedBack:self];
 }
@@ -347,136 +385,30 @@ enum SCAN_RESULT_SECTION_TYPE
     {
         [self removeLoading];
         
-        _scanResult.type=@(SCAN_CODE_RESULT_TYPE_INFORY);
+        _scanResult.decodeType=@(SCAN_CODE_DECODE_TYPE_INFORY);
         
         [_scanResult removeAllDecode];
         [[DataManager shareInstance] save];
         
         [_scanResult addDecode:[NSSet setWithArray:_opeQRCodeDecode.decodes]];
 
-#if DEBUG
-        /*
-        ScanCodeDecode *obj=[ScanCodeDecode insert];
-        obj.type=@(SCANCODE_DECODE_TYPE_BUTTONS);
-        
-        UserNotificationAction *action=[UserNotificationAction insert];
-        action.actionTitle=@"Đồng ý";
-        action.actionType=@(NOTIFICATION_ACTION_TYPE_USER_SETTING);
-        action.idPlacelist=@(1);
-        action.sortOrder=@(0);
-        
-        [obj addActionObject:action];
-        
-        action=[UserNotificationAction insert];
-        action.actionTitle=@"Từ chối";
-        action.actionType=@(NOTIFICATION_ACTION_TYPE_SHOP_USER);
-        action.idShop=@(1);
-        action.sortOrder=@(1);
-        
-        [obj addActionObject:action];
-        
-        [_scanResult addDecodeObject:obj];
-        
-        obj=[ScanCodeDecode insert];
-        obj.type=@(SCANCODE_DECODE_TYPE_VIDEO);
-        obj.videoThumbnail=@"http://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Video_image_stabilization.ogv/480px-seek%3D8-Video_image_stabilization.ogv.jpg";
-        obj.videoWidth=@(480);
-        obj.videoHeight=@(176);
-        obj.video=@"http://r5---sn-a8au-hjpe.googlevideo.com/videoplayback?fexp=902408%2C914071%2C916612%2C924213%2C924217%2C924222%2C930008%2C934024%2C934030%2C935661%2C937425%2C945005&mws=yes&itag=17&key=yt5&ip=2607%3A5300%3A60%3A513c%3A%3A54&upn=AeFo326xodo&signature=112CE0F27F82254222962C1FFC27C1AB2056C59E.69035C034E1C946CE0289E1AA80EEC7C5A834A66&ipbits=0&ms=au&sparams=id%2Cip%2Cipbits%2Citag%2Csource%2Cupn%2Cexpire&source=youtube&mv=m&id=o-AGS9P4TUfJtT-bnDVcazqDe26lT_FpnFuibrmd40_Ptx&expire=1404421200&sver=3&mt=1404397575&signature=&title=Video";
-        
-        [_scanResult addDecodeObject:obj];
-        */
-#endif
-        
         [[DataManager shareInstance] save];
         
         [table reloadData];
         
-        _isRequestedDecode=true;
         _opeQRCodeDecode=nil;
     }
-    else if([operation isKindOfClass:[OperationQRCodeGetRelated class]])
+    else if([operation isKindOfClass:[OperationQRCodeGetAllRelated class]])
     {
-        switch (_opeQRCodeGetRelated.type) {
-            case QRCODE_RELATED_TYPE_ALL:
-            {
-                [_scanResult removeAllRelatedContain];
-                [[DataManager shareInstance] save];
-                
-                int order=0;
-                for(NSArray* array in _opeQRCodeGetRelated.relaties)
-                {
-                    ScanCodeRelated *related=array[0];
-                    
-                    switch (related.enumType) {
-                        case SCANCODE_RELATED_TYPE_SHOPS:
-                        {
-                            ScanCodeRelatedContain *contain=[ScanCodeRelatedContain insert];
-                            contain.order=@(order++);
-                            contain.title=@"Cửa hàng";
-                            [contain addRelaties:[NSSet setWithArray:array]];
-                            contain.currentPage=@(0);
-                            contain.canLoadMore=@(array.count>=5);
-                            
-                            [_scanResult addRelatedContainObject:contain];
-                        }
-                            break;
-                            
-                        case SCANCODE_RELATED_TYPE_PLACELISTS:
-                        {
-                            ScanCodeRelatedContain *contain=[ScanCodeRelatedContain insert];
-                            contain.order=@(order++);
-                            contain.title=@"Địa điểm";
-                            [contain addRelaties:[NSSet setWithArray:array]];
-                            contain.currentPage=@(0);
-                            contain.canLoadMore=@(array.count>=5);
-                            
-                            [_scanResult addRelatedContainObject:contain];
-                        }
-                            break;
-                            
-                        case SCANCODE_RELATED_TYPE_PROMOTIONS:
-                        {
-                            ScanCodeRelatedContain *contain=[ScanCodeRelatedContain insert];
-                            contain.order=@(order++);
-                            contain.title=@"Khuyến mãi";
-                            [contain addRelaties:[NSSet setWithArray:array]];
-                            contain.currentPage=@(0);
-                            contain.canLoadMore=@(array.count>=5);
-                            
-                            [_scanResult addRelatedContainObject:contain];
-                        }
-                            break;
-                            
-                        case SCANCODE_RELATED_TYPE_UNKNOW:
-                            break;
-                    }
-                }
-            }
-                break;
-                
-            default:
-            {
-                ScanCodeRelatedContain *containt=[_scanResult relatedContaintWithIndex:_opeQRCodeGetRelated.groupIndex];
-                NSArray *array=[_opeQRCodeGetRelated.relaties firstObject];
-                
-                if(containt && [array hasData])
-                {
-                    containt.currentPage=@(containt.currentPage.integerValue+1);
-                    containt.canLoadMore=@(array.count>=5);
-                    [containt addRelaties:[NSSet setWithArray:array]];
-                    
-                    [[DataManager shareInstance] save];
-                }
-            }
-                break;
-        }
+        [_scanResult removeAllRelatedContain];
+        [[DataManager shareInstance] save];
         
-        if(_isRequestedDecode)
-            [table reloadData];
+        _scanResult.relatedStatus=@(SCAN_CODE_RELATED_STATUS_DONE);
+        [_scanResult addRelatedContain:[NSSet setWithArray:_opeQRCodeGetAllRelated.relatedContains]];
         
-        _isRequestedRelated=true;
-        _opeQRCodeGetRelated=nil;
+        [table reloadData];
+        
+        _opeQRCodeGetAllRelated=nil;
     }
 }
 
@@ -486,20 +418,27 @@ enum SCAN_RESULT_SECTION_TYPE
     {
         [self removeLoading];
         
-        _scanResult.type=@(SCAN_CODE_RESULT_TYPE_ERROR);
+        _scanResult.decodeType=@(SCAN_CODE_DECODE_TYPE_ERROR);
         [_scanResult removeAllRelatedContain];
         
         [[DataManager shareInstance] save];
         
         [table reloadData];
-        
-        _isRequestedDecode=true;
+
         _opeQRCodeDecode=nil;
     }
-    else if([operation isKindOfClass:[OperationQRCodeGetRelated class]])
+    else if([operation isKindOfClass:[OperationQRCodeGetAllRelated class]])
     {
-        _isRequestedRelated=true;
-        _opeQRCodeGetRelated=nil;
+        [_scanResult removeAllRelatedContain];
+        [[DataManager shareInstance] save];
+        
+        _scanResult.relatedStatus=@(SCAN_CODE_RELATED_STATUS_UNKNOW);
+        
+        [[DataManager shareInstance] save];
+        
+        [table reloadData];
+        
+        _opeQRCodeGetAllRelated=nil;
     }
 }
 
@@ -511,12 +450,67 @@ enum SCAN_RESULT_SECTION_TYPE
         [_player.view removeFromSuperview];
         _player=nil;
     }
+    
+    if(_opeQRCodeDecode)
+    {
+        [_opeQRCodeDecode clearDelegatesAndCancel];
+        _opeQRCodeDecode=nil;
+    }
+    
+    if(_opeQRCodeGetAllRelated)
+    {
+        [_opeQRCodeGetAllRelated clearDelegatesAndCancel];
+        _opeQRCodeGetAllRelated=nil;
+    }
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    UITouch *touch=[touches anyObject];
+    UIView *hitTestView=[table hitTest:[touch locationInView:table] withEvent:event];
+    
+    // Fix khi table scroll vượt qua header section view thì không thể detect touch - không biết lý do tại sao
+    // Touch nhận được lúc này lại là controller view
+    if(hitTestView)
+    {
+        if([hitTestView isKindOfClass:[ScanResultObjectHeaderView class]])
+        {
+            ScanResultObjectHeaderView *headerView=(ScanResultObjectHeaderView*)hitTestView;
+            
+            [self.delegate scanResultController:self touchedMore:headerView.object];
+        }
+    }
+}
+
+@end
+
+@interface TableResult()<UIGestureRecognizerDelegate>
+
+@end
+
+@implementation TableResult
+
+-(void)awakeFromNib
+{
+    [super awakeFromNib];
+    
+    self.panGestureRecognizer.delegate=self;
+}
+
+-(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
+{
+    return true;
+}
+
+-(BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
+{
+    return true;
 }
 
 @end

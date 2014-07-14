@@ -86,14 +86,14 @@
         <attribute name="currentPage" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="isLoadingMore" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="order" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="type" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <relationship name="relaties" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ScanCodeRelated" inverseName="relatedContain" inverseEntity="ScanCodeRelated" syncable="YES"/>
         <relationship name="result" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ScanCodeResult" inverseName="relatedContain" inverseEntity="ScanCodeResult" syncable="YES"/>
     </entity>
     <entity name="ScanCodeResult" representedClassName="ScanCodeResult" syncable="YES">
         <attribute name="code" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="type" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="decodeType" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="relatedStatus" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <relationship name="decode" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ScanCodeDecode" inverseName="result" inverseEntity="ScanCodeDecode" syncable="YES"/>
         <relationship name="relatedContain" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ScanCodeRelatedContain" inverseName="result" inverseEntity="ScanCodeRelatedContain" syncable="YES"/>
     </entity>
@@ -363,6 +363,10 @@
         <element name="KM2Voucher" positionX="0" positionY="0" width="128" height="150"/>
         <element name="Placelist" positionX="0" positionY="0" width="128" height="210"/>
         <element name="PromotionNews" positionX="0" positionY="0" width="128" height="225"/>
+        <element name="ScanCodeDecode" positionX="27" positionY="162" width="128" height="238"/>
+        <element name="ScanCodeRelated" positionX="36" positionY="171" width="128" height="328"/>
+        <element name="ScanCodeRelatedContain" positionX="45" positionY="180" width="128" height="150"/>
+        <element name="ScanCodeResult" positionX="18" positionY="153" width="128" height="120"/>
         <element name="Shop" positionX="0" positionY="0" width="128" height="540"/>
         <element name="ShopGallery" positionX="0" positionY="0" width="128" height="150"/>
         <element name="ShopKM1" positionX="0" positionY="0" width="128" height="180"/>
@@ -385,9 +389,5 @@
         <element name="UserNotificationContent" positionX="9" positionY="153" width="128" height="373"/>
         <element name="UserPlacelist" positionX="0" positionY="0" width="128" height="120"/>
         <element name="UserPromotion" positionX="0" positionY="0" width="128" height="270"/>
-        <element name="ScanCodeResult" positionX="18" positionY="153" width="128" height="103"/>
-        <element name="ScanCodeDecode" positionX="27" positionY="162" width="128" height="238"/>
-        <element name="ScanCodeRelated" positionX="36" positionY="171" width="128" height="328"/>
-        <element name="ScanCodeRelatedContain" positionX="45" positionY="180" width="128" height="163"/>
     </elements>
 </model>

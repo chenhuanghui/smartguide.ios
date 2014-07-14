@@ -8,27 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@class PeekTitleView, ScanResultRelatedHeadView;
-
-@protocol ScanResultRelatedHeadViewDelegate <NSObject>
-
--(void) scanResultRelatedHeadView:(ScanResultRelatedHeadView*) headView selectedIndex:(int) index;
-
-@end
-
 @interface ScanResultRelatedHeadView : UIView
 {
     __weak IBOutlet UILabel *lblTitle;
-    __weak IBOutlet UIView *titlesView;
-    __weak IBOutlet UIImageView *imgvLineBot;
-    __weak PeekTitleView *peekTitle;
 }
 
--(void) loadWithTitles:(NSArray*) titles;
--(void) setTitleIndex:(int) index animate:(bool) animate;
-+(float) height;
-+(float) heightEmptyTitles;
 
-@property (nonatomic, weak) id<ScanResultRelatedHeadViewDelegate> delegate;
++(float) height;
 
 @end

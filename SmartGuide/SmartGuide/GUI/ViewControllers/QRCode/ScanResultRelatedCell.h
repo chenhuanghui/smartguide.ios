@@ -10,23 +10,24 @@
 
 @class ScanCodeRelatedContain;
 
-@class MPMoviePlayerController, ScanResultRelatedCell, ScanCodeRelated;
+@class MPMoviePlayerController, ScanResultRelatedCell, ScanCodeRelated, ScanCodeResult;
 
 @protocol ScanResultRelatedCellDelegate <NSObject>
 
 -(void) scanResultRelatedCell:(ScanResultRelatedCell*) cell touchedObject:(ScanCodeRelated*) obj;
+-(void) scanResultRelatedCellTouchedMore:(ScanResultRelatedCell*) cell object:(ScanCodeRelatedContain*) object;
 
 @end
 
 @interface ScanResultRelatedCell : UITableViewCell
 {
     __weak IBOutlet UITableView *table;
-    ScanCodeRelatedContain *_relatedContain;
 }
 
--(void) loadWithRelatedContain:(ScanCodeRelatedContain*) relatedContain;
+-(void) loadWithResult:(ScanCodeResult*) result height:(float) height;
+-(void) tableDidScroll:(UITableView*) tableResult;
 
-+(float) heightWithRelated:(ScanCodeRelatedContain*) relatedContain;
++(float) heightWithResult:(ScanCodeResult*) result;
 +(NSString *)reuseIdentifier;
 
 @property (nonatomic, weak) id<ScanResultRelatedCellDelegate> delegate;

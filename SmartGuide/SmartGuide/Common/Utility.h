@@ -392,6 +392,7 @@ NSString* LAZY_STRING_INT(int i);
 -(id) firstObject;
 -(id) secondObject;//neu ko thi se chuyen ve firstObject
 -(bool) isIndexInside:(int) index;
+-(NSArray*) objectsAtRange:(NSRange) range;
 
 +(NSArray*) makeArray:(id) obj;
 

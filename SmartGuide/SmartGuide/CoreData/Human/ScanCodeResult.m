@@ -13,29 +13,50 @@
 {
     ScanCodeResult *obj=[ScanCodeResult insert];
     
-    obj.type=@(SCAN_CODE_RESULT_TYPE_IDENTIFYING);
     obj.code=code;
+    obj.decodeType=@(SCAN_CODE_DECODE_TYPE_IDENTIFYING);
+    obj.relatedStatus=@(SCAN_CODE_RELATED_STATUS_QUERYING);
     
     return obj;
 }
 
--(enum SCAN_CODE_RESULT_TYPE)enumType
+-(enum SCAN_CODE_DECODE_TYPE)enumDecodeType
 {
-    switch ((enum SCAN_CODE_RESULT_TYPE)self.type.integerValue) {
-        case SCAN_CODE_RESULT_TYPE_ERROR:
-            return SCAN_CODE_RESULT_TYPE_ERROR;
+    switch ((enum SCAN_CODE_DECODE_TYPE)self.decodeType.integerValue) {
+        case SCAN_CODE_DECODE_TYPE_ERROR:
+            return SCAN_CODE_DECODE_TYPE_ERROR;
             
-        case SCAN_CODE_RESULT_TYPE_INFORY:
-            return SCAN_CODE_RESULT_TYPE_INFORY;
+        case SCAN_CODE_DECODE_TYPE_INFORY:
+            return SCAN_CODE_DECODE_TYPE_INFORY;
             
-        case SCAN_CODE_RESULT_TYPE_NON_INFORY:
-            return SCAN_CODE_RESULT_TYPE_NON_INFORY;
+        case SCAN_CODE_DECODE_TYPE_NON_INFORY:
+            return SCAN_CODE_DECODE_TYPE_NON_INFORY;
             
-        case SCAN_CODE_RESULT_TYPE_IDENTIFYING:
-            return SCAN_CODE_RESULT_TYPE_IDENTIFYING;
+        case SCAN_CODE_DECODE_TYPE_IDENTIFYING:
+            return SCAN_CODE_DECODE_TYPE_IDENTIFYING;
+            
+        case SCAN_CODE_DECODE_TYPE_UNKNOW:
+            return SCAN_CODE_DECODE_TYPE_UNKNOW;
+            
     }
     
-    return SCAN_CODE_RESULT_TYPE_IDENTIFYING;
+    return SCAN_CODE_DECODE_TYPE_UNKNOW;
+}
+
+-(enum SCAN_CODE_RELATED_STATUS)enumRelatedStatus
+{
+    switch ((enum SCAN_CODE_RELATED_STATUS)self.relatedStatus.integerValue) {
+        case SCAN_CODE_RELATED_STATUS_UNKNOW:
+            return SCAN_CODE_RELATED_STATUS_UNKNOW;
+            
+        case SCAN_CODE_RELATED_STATUS_QUERYING:
+            return SCAN_CODE_RELATED_STATUS_QUERYING;
+            
+        case SCAN_CODE_RELATED_STATUS_DONE:
+            return SCAN_CODE_RELATED_STATUS_DONE;
+    }
+    
+    return SCAN_CODE_RELATED_STATUS_UNKNOW;
 }
 
 -(NSArray *)relatedContainObjects
