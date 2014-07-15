@@ -34,7 +34,7 @@ enum SCAN_RESULT_SECTION_TYPE
     SCAN_RESULT_SECTION_TYPE_RELATED=1,
 };
 
-@interface ScanResultViewController ()<UITableViewDataSource,UITableViewDelegate,ASIOperationPostDelegate, ScanResultInforyCellDelegate,ScanResultRelatedCellDelegate>
+@interface ScanResultViewController ()<UITableViewDataSource,UITableViewDelegate,ASIOperationPostDelegate, ScanResultInforyCellDelegate,ScanResultRelatedCellDelegate, ScanResultDisconnectCellDelegate>
 {
     OperationQRCodeDecode *_opeQRCodeDecode;
     OperationQRCodeGetAllRelated *_opeQRCodeGetAllRelated;
@@ -60,6 +60,8 @@ enum SCAN_RESULT_SECTION_TYPE
 {
     self=[super initWithNibName:@"ScanResultViewController" bundle:nil];
     
+    _code=[code copy];
+    
     _scanResult=[ScanCodeResult resultWithCode:code];
     
     if(_scanResult)
@@ -68,7 +70,6 @@ enum SCAN_RESULT_SECTION_TYPE
         [[DataManager shareInstance] save];
     }
     
-    _code=[code copy];
     [self createScanResultWithCode:code];
     
     return self;
@@ -88,12 +89,7 @@ enum SCAN_RESULT_SECTION_TYPE
     
     if(_scanResult.managedObjectContext==nil)
     {
-        [self createScanResultWithCode:_code];
-        
-        [self requestDecode];
-        [self requestRelaties];
-        
-        [self showLoading];
+        [self.delegate scanResultControllerTouchedBack:self];
     }
     else
     {
@@ -238,7 +234,7 @@ enum SCAN_RESULT_SECTION_TYPE
                     return [ScanResultNonInforyCell height];
                     
                 case SCAN_CODE_DECODE_TYPE_IDENTIFYING:
-                    return 97;
+                    return [LoadingMoreCell height];
                     
                 case SCAN_CODE_DECODE_TYPE_UNKNOW:
                     return 0;
@@ -255,6 +251,7 @@ enum SCAN_RESULT_SECTION_TYPE
                     return [ScanResultRelatedCell heightWithResult:_scanResult];
                     
                 case SCAN_CODE_RELATED_STATUS_UNKNOW:
+                case SCAN_CODE_RELATED_STATUS_ERROR:
                     return 0;
             }
         }
@@ -269,7 +266,13 @@ enum SCAN_RESULT_SECTION_TYPE
         case SCAN_RESULT_SECTION_TYPE_DECODE:
             switch (_scanResult.enumDecodeType) {
                 case SCAN_CODE_DECODE_TYPE_ERROR:
-                    return [tableView scanResultDisconnectCell];
+                {
+                    ScanResultDisconnectCell *cell=[tableView scanResultDisconnectCell];
+                    cell.delegate=self;
+                    
+                    return cell;
+                }
+                    break;
                     
                 case SCAN_CODE_DECODE_TYPE_INFORY:
                 {
@@ -299,6 +302,7 @@ enum SCAN_RESULT_SECTION_TYPE
                     return [tableView loadingMoreCell];
                     
                 case SCAN_CODE_RELATED_STATUS_UNKNOW:
+                case SCAN_CODE_RELATED_STATUS_ERROR:
                     return [UITableViewCell new];
                     
                 case SCAN_CODE_RELATED_STATUS_DONE:
@@ -362,6 +366,11 @@ enum SCAN_RESULT_SECTION_TYPE
     [self.delegate scanResultController:self touchedAction:action];
 }
 
+-(void)scanResultDisconnectCellTouchedTry:(ScanResultDisconnectCell *)cell
+{
+    [self.delegate scanResultControllerTouchedBack:self];
+}
+
 -(MPMoviePlayerController *)scanResultInforyCellRequestMoviePlayer:(ScanResultInforyCell *)cell
 {
     if(!_player)
@@ -384,7 +393,7 @@ enum SCAN_RESULT_SECTION_TYPE
     if([operation isKindOfClass:[OperationQRCodeDecode class]])
     {
         [self removeLoading];
-        
+
         _scanResult.decodeType=@(SCAN_CODE_DECODE_TYPE_INFORY);
         
         [_scanResult removeAllDecode];
@@ -406,7 +415,8 @@ enum SCAN_RESULT_SECTION_TYPE
         _scanResult.relatedStatus=@(SCAN_CODE_RELATED_STATUS_DONE);
         [_scanResult addRelatedContain:[NSSet setWithArray:_opeQRCodeGetAllRelated.relatedContains]];
         
-        [table reloadData];
+        if(_scanResult.enumDecodeType!=SCAN_CODE_DECODE_TYPE_IDENTIFYING)
+            [table reloadData];
         
         _opeQRCodeGetAllRelated=nil;
     }
@@ -419,7 +429,7 @@ enum SCAN_RESULT_SECTION_TYPE
         [self removeLoading];
         
         _scanResult.decodeType=@(SCAN_CODE_DECODE_TYPE_ERROR);
-        [_scanResult removeAllRelatedContain];
+        [_scanResult removeAllDecode];
         
         [[DataManager shareInstance] save];
         
@@ -432,7 +442,7 @@ enum SCAN_RESULT_SECTION_TYPE
         [_scanResult removeAllRelatedContain];
         [[DataManager shareInstance] save];
         
-        _scanResult.relatedStatus=@(SCAN_CODE_RELATED_STATUS_UNKNOW);
+        _scanResult.relatedStatus=@(SCAN_CODE_RELATED_STATUS_ERROR);
         
         [[DataManager shareInstance] save];
         

@@ -15,7 +15,7 @@
 #import "ScanResultRelatedMoreCell.h"
 #import "ScanResultObjectHeaderView.h"
 
-@interface ScanResultRelatedCell()<UITableViewDataSource,UITableViewDelegate>
+@interface ScanResultRelatedCell()<UITableViewDataSource,UITableViewDelegate, ScanResultObjectCellDelegate>
 {
     __weak ScanCodeResult *_result;
 }
@@ -103,6 +103,7 @@
     
     ScanResultObjectCell *cell=[tableView scanResultObjectCell];
     
+    cell.delegate=self;
     [cell loadWithRelated:objContain.relatiesObjects[indexPath.row]];
     
     return cell;
@@ -114,13 +115,16 @@
     
     if([cell isKindOfClass:[ScanResultObjectCell class]])
     {
-        ScanResultObjectCell *objCell=(ScanResultObjectCell*)cell;
-        [self.delegate scanResultRelatedCell:self touchedObject:objCell.obj];
     }
     else if([cell isKindOfClass:[ScanResultRelatedMoreCell class]])
     {
         [self.delegate scanResultRelatedCellTouchedMore:self object:_result.relatedContainObjects[indexPath.section]];
     }
+}
+
+-(void)scanResultObjectCellTouched:(ScanResultObjectCell *)cell
+{
+    [self.delegate scanResultRelatedCell:self touchedObject:cell.obj];
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section

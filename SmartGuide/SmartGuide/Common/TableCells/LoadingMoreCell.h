@@ -15,6 +15,7 @@
 
 -(void) showLoading;
 
++(float) height;
 +(NSString *)reuseIdentifier;
 
 @end

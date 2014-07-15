@@ -26,6 +26,11 @@
     [imgv startAnimating];
 }
 
++(float)height
+{
+    return 60;
+}
+
 +(NSString *)reuseIdentifier
 {
     return @"LoadingMoreCell";

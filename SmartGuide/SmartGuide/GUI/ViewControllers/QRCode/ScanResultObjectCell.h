@@ -8,7 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-@class ScanCodeRelated;
+@class ScanCodeRelated, ScanResultObjectCell;
+
+@protocol ScanResultObjectCellDelegate <NSObject>
+
+-(void) scanResultObjectCellTouched:(ScanResultObjectCell*) cell;
+
+@end
 
 @interface ScanResultObjectCell : UITableViewCell
 {
@@ -24,6 +30,8 @@
 
 +(NSString *)reuseIdentifier;
 +(float) heightWithRelated:(ScanCodeRelated*) obj;
+
+@property (nonatomic, weak) id<ScanResultObjectCellDelegate> delegate;
 
 @end
 

@@ -49,7 +49,7 @@
                 contain.type=@(QRCODE_RELATED_TYPE_SHOPS);
                 contain.order=@(countContain++);
                 contain.canLoadMore=@(shops.count>=5);
-                contain.currentPage=@(0);
+                contain.page=@(0);
                 
                 int count=0;
                 for(NSDictionary *shop in shops)
@@ -71,7 +71,7 @@
                 contain.type=@(QRCODE_RELATED_TYPE_PROMOTIONS);
                 contain.order=@(countContain++);
                 contain.canLoadMore=@(promotions.count>=5);
-                contain.currentPage=@(0);
+                contain.page=@(0);
                 
                 int count=0;
                 for(NSDictionary *promotion in promotions)
@@ -93,7 +93,7 @@
                 contain.type=@(QRCODE_RELATED_TYPE_PLACELISTS);
                 contain.order=@(countContain++);
                 contain.canLoadMore=@(places.count>=5);
-                contain.currentPage=@(0);
+                contain.page=@(0);
                 
                 int count=0;
                 for(NSDictionary *place in places)

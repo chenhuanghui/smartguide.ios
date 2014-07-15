@@ -7,9 +7,9 @@
 #define ScanCodeRelatedContain_ClassName @"ScanCodeRelatedContain"
 
 #define ScanCodeRelatedContain_CanLoadMore @"canLoadMore"
-#define ScanCodeRelatedContain_CurrentPage @"currentPage"
 #define ScanCodeRelatedContain_IsLoadingMore @"isLoadingMore"
 #define ScanCodeRelatedContain_Order @"order"
+#define ScanCodeRelatedContain_Page @"page"
 #define ScanCodeRelatedContain_Type @"type"
 
 @class ScanCodeRelatedContain;
@@ -28,9 +28,9 @@
 
 
 @property (nonatomic, retain) NSNumber* canLoadMore;
-@property (nonatomic, retain) NSNumber* currentPage;
 @property (nonatomic, retain) NSNumber* isLoadingMore;
 @property (nonatomic, retain) NSNumber* order;
+@property (nonatomic, retain) NSNumber* page;
 @property (nonatomic, retain) NSNumber* type;
 
 #pragma mark Fetched property

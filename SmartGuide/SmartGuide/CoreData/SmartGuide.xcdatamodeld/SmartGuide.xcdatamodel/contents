@@ -83,9 +83,9 @@
     </entity>
     <entity name="ScanCodeRelatedContain" representedClassName="ScanCodeRelatedContain" syncable="YES">
         <attribute name="canLoadMore" optional="YES" attributeType="Boolean" syncable="YES"/>
-        <attribute name="currentPage" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="isLoadingMore" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="order" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="page" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="type" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <relationship name="relaties" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ScanCodeRelated" inverseName="relatedContain" inverseEntity="ScanCodeRelated" syncable="YES"/>
         <relationship name="result" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ScanCodeResult" inverseName="relatedContain" inverseEntity="ScanCodeResult" syncable="YES"/>

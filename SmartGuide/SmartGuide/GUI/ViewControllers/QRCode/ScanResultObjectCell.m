@@ -119,6 +119,19 @@
     return MAX(94, height);
 }
 
+-(IBAction)btnTouchUpInside:(id)sender
+{
+    [self.delegate scanResultObjectCellTouched:self];
+}
+
+-(void)awakeFromNib
+{
+    [super awakeFromNib];
+    
+    [imgvLogo.layer setBorderWidth:1];
+    [imgvLogo.layer setBorderColor:[[UIColor darkGrayColor] colorWithAlphaComponent:0.5f].CGColor];
+}
+
 @end
 
 @implementation UITableView(ScanResultObjectCell)

@@ -54,6 +54,9 @@
             
         case SCAN_CODE_RELATED_STATUS_DONE:
             return SCAN_CODE_RELATED_STATUS_DONE;
+            
+        case SCAN_CODE_RELATED_STATUS_ERROR:
+            return SCAN_CODE_RELATED_STATUS_ERROR;
     }
     
     return SCAN_CODE_RELATED_STATUS_UNKNOW;
@@ -62,11 +65,6 @@
 -(NSArray *)relatedContainObjects
 {
     return [[super relatedContainObjects] sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:ScanCodeRelated_Order ascending:true]]];
-}
-
--(ScanCodeRelatedContain *)relatedContaintWithIndex:(int)index
-{
-    return [[[[super relatedContain] filteredSetUsingPredicate:[NSPredicate predicateWithFormat:@"%K==%i",ScanCodeRelated_Order, index]] allObjects] firstObject];
 }
 
 -(NSArray *)decodeObjects

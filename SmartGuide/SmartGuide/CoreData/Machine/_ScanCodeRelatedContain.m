@@ -101,19 +101,6 @@
 	[self didChangeValueForKey:@"canLoadMore"];
 }
 
-- (NSNumber*)currentPage {
-	[self willAccessValueForKey:@"currentPage"];
-	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"currentPage"];
-	[self didAccessValueForKey:@"currentPage"];
-	return result;
-}
-
-- (void)setCurrentPage:(NSNumber*)value {
-	[self willChangeValueForKey:@"currentPage"];
-	[self setPrimitiveValue:value forKey:@"currentPage"];
-	[self didChangeValueForKey:@"currentPage"];
-}
-
 - (NSNumber*)isLoadingMore {
 	[self willAccessValueForKey:@"isLoadingMore"];
 	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"isLoadingMore"];
@@ -138,6 +125,19 @@
 	[self willChangeValueForKey:@"order"];
 	[self setPrimitiveValue:value forKey:@"order"];
 	[self didChangeValueForKey:@"order"];
+}
+
+- (NSNumber*)page {
+	[self willAccessValueForKey:@"page"];
+	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"page"];
+	[self didAccessValueForKey:@"page"];
+	return result;
+}
+
+- (void)setPage:(NSNumber*)value {
+	[self willChangeValueForKey:@"page"];
+	[self setPrimitiveValue:value forKey:@"page"];
+	[self didChangeValueForKey:@"page"];
 }
 
 - (NSNumber*)type {

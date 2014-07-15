@@ -245,6 +245,11 @@
 
 -(void)scanResultController:(ScanResultViewController *)controller touchedRelated:(ScanCodeRelated *)related
 {
+    [self showScanCodeRelated:related];
+}
+
+-(void) showScanCodeRelated:(ScanCodeRelated*) related
+{
     switch (related.enumType) {
         case SCANCODE_RELATED_TYPE_PLACELISTS:
             [self showShopListWithIDPlace:related.idPlacelist.integerValue];
@@ -324,6 +329,11 @@
 -(void)scanResultRelatedControllerTouchedBack:(ScanResultRelatedViewController *)controller
 {
     [_navi popViewControllerAnimated:true];
+}
+
+-(void)scanResultRelatedController:(ScanResultRelatedViewController *)controller touchedRelatedObject:(ScanCodeRelated *)obj
+{
+    [self showScanCodeRelated:obj];
 }
 
 -(void) showUserPromotion
