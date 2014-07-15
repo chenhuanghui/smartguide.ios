@@ -148,6 +148,9 @@
 
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
+    AudioServicesPlayAlertSound(kSystemSoundID_Vibrate);
+    AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+    
     id <NSFastEnumeration> syms = [info objectForKey: ZBarReaderControllerResults];
     ZBarSymbol *sym;
     for(sym in syms) {
@@ -169,7 +172,7 @@
 -(IBAction) btnMakeCodeTouchUpInside:(id) sender
 {
 #if DEBUG
-#define QRCODE_TEST @"e649f7f9806b67623335e43a8d82ecb7"
+#define QRCODE_TEST @"test1"
     [self.delegate scanCodeViewController:self scannedText:QRCODE_TEST];
 #endif
 }

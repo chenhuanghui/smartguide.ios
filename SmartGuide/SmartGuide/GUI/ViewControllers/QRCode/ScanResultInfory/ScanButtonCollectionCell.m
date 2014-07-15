@@ -15,7 +15,7 @@
 {
     _action=action;
     
-    float textWidth=action.actionTitleWidth.floatValue+30;
+    float textWidth=action.actionTitleWidth.floatValue+60;
     
     btn.frame=CGRectMake((self.l_v_w-textWidth)/2, btn.l_v_y, textWidth, btn.l_v_h);
     [btn setTitle:action.actionTitle forState:UIControlStateNormal];
@@ -44,7 +44,7 @@
     if(action.actionTitleWidth.floatValue==-1)
         action.actionTitleWidth=@([action.actionTitle sizeWithFont:FONT_SIZE_REGULAR(12) constrainedToSize:CGSizeMake(MAXFLOAT, 47) lineBreakMode:NSLineBreakByWordWrapping].width);
     
-    return action.actionTitleWidth.floatValue+30;
+    return action.actionTitleWidth.floatValue+60;
 }
 
 @end

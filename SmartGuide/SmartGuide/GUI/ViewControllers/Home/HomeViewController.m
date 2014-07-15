@@ -568,7 +568,6 @@
                 
                 return cell;
             }
-                break;
                 
             case USER_HOME_TYPE_UNKNOW:
                 DLOG_DEBUG(@"USER_HOME_TYPE_UNKNOW cellForRowAtIndexPath");

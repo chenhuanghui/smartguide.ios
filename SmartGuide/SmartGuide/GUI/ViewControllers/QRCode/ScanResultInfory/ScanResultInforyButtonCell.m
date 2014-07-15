@@ -24,12 +24,13 @@
     if(decode.actionObjects.count==1)
     {
         float textWidth=[ScanButtonCollectionCell widthWithAction:decode.actionObjects[0]];
-        
-        collection.contentInset=UIEdgeInsetsMake(0, (collection.l_v_w-textWidth)/2, 0, 0);
+        [collection l_v_setX:(self.l_v_w-textWidth)/2];
+        collection.contentInset=UIEdgeInsetsZero;
     }
     else
     {
-        collection.contentInset=UIEdgeInsetsZero;
+        [collection l_v_setX:0];
+        collection.contentInset=UIEdgeInsetsMake(0, 10, 0, 10);
     }
     
     [collection reloadData];

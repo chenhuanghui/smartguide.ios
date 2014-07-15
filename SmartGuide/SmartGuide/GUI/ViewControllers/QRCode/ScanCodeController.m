@@ -242,7 +242,7 @@
 
 -(void)scanResultControllerTouchedBack:(ScanResultViewController *)controller
 {
-    [_navi popViewControllerAnimated:true];
+    [self.delegate scanCodeControllerTouchedClose:self];
 }
 
 -(void)scanResultController:(ScanResultViewController *)controller touchedRelated:(ScanCodeRelated *)related
