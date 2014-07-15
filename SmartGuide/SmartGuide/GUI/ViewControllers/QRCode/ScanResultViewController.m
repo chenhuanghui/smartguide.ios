@@ -156,6 +156,7 @@ enum SCAN_RESULT_SECTION_TYPE
 -(void) showLoading
 {
     [self.view showLoading];
+    self.view.loadingView.backgroundView.backgroundColor=[UIColor clearColor];
 }
 
 -(void) removeLoading
