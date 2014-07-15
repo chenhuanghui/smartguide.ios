@@ -44,3 +44,9 @@ enum FACEBOOK_PERMISSION_TYPE {
 -(void) clean;
 
 @end
+
+@interface FacebookManager(Share)
+
+-(void) shareLink:(NSURL*) url;
+
+@end

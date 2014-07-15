@@ -9,6 +9,7 @@
 #define ScanCodeDecode_Image @"image"
 #define ScanCodeDecode_ImageHeight @"imageHeight"
 #define ScanCodeDecode_ImageWidth @"imageWidth"
+#define ScanCodeDecode_LinkShare @"linkShare"
 #define ScanCodeDecode_Order @"order"
 #define ScanCodeDecode_Text @"text"
 #define ScanCodeDecode_TextHeight @"textHeight"
@@ -36,6 +37,7 @@
 @property (nonatomic, retain) NSString* image;
 @property (nonatomic, retain) NSNumber* imageHeight;
 @property (nonatomic, retain) NSNumber* imageWidth;
+@property (nonatomic, retain) NSString* linkShare;
 @property (nonatomic, retain) NSNumber* order;
 @property (nonatomic, retain) NSString* text;
 @property (nonatomic, retain) NSNumber* textHeight;

@@ -127,6 +127,19 @@
 	[self didChangeValueForKey:@"imageWidth"];
 }
 
+- (NSString*)linkShare {
+	[self willAccessValueForKey:@"linkShare"];
+	NSString* result = (NSString*)[self primitiveValueForKey:@"linkShare"];
+	[self didAccessValueForKey:@"linkShare"];
+	return result;
+}
+
+- (void)setLinkShare:(NSString*)value {
+	[self willChangeValueForKey:@"linkShare"];
+	[self setPrimitiveValue:value forKey:@"linkShare"];
+	[self didChangeValueForKey:@"linkShare"];
+}
+
 - (NSNumber*)order {
 	[self willAccessValueForKey:@"order"];
 	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"order"];

@@ -49,6 +49,7 @@
         <attribute name="image" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="imageHeight" optional="YES" attributeType="Float" defaultValueString="-1" syncable="YES"/>
         <attribute name="imageWidth" optional="YES" attributeType="Float" defaultValueString="-1" syncable="YES"/>
+        <attribute name="linkShare" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="order" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="text" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="textHeight" optional="YES" attributeType="Float" defaultValueString="-1" syncable="YES"/>
@@ -363,10 +364,10 @@
         <element name="KM2Voucher" positionX="0" positionY="0" width="128" height="150"/>
         <element name="Placelist" positionX="0" positionY="0" width="128" height="210"/>
         <element name="PromotionNews" positionX="0" positionY="0" width="128" height="225"/>
-        <element name="ScanCodeDecode" positionX="27" positionY="162" width="128" height="238"/>
+        <element name="ScanCodeDecode" positionX="27" positionY="162" width="128" height="255"/>
         <element name="ScanCodeRelated" positionX="36" positionY="171" width="128" height="328"/>
         <element name="ScanCodeRelatedContain" positionX="45" positionY="180" width="128" height="150"/>
-        <element name="ScanCodeResult" positionX="18" positionY="153" width="128" height="120"/>
+        <element name="ScanCodeResult" positionX="18" positionY="153" width="128" height="118"/>
         <element name="Shop" positionX="0" positionY="0" width="128" height="540"/>
         <element name="ShopGallery" positionX="0" positionY="0" width="128" height="150"/>
         <element name="ShopKM1" positionX="0" positionY="0" width="128" height="180"/>

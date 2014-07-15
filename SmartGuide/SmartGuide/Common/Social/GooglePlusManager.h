@@ -14,6 +14,16 @@
 
 +(GooglePlusManager*) shareInstance;
 
+-(GPPSignIn*) gppSignIn;
+
 @property (nonatomic, strong) GTMOAuth2Authentication *authentication;
+
+@end
+
+@interface GooglePlusManager(Share)<GPPSignInDelegate,GPPShareDelegate>
+
+@property (nonatomic, strong, readwrite) NSURL *urlToShare;
+
+-(void) shareLink:(NSURL*) url;
 
 @end

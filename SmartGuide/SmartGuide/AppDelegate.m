@@ -42,9 +42,7 @@
     
     CGRect rect=[[UIScreen mainScreen] bounds];
     self.window = [[UIWindow alloc] initWithFrame:rect];
-//    self.window.rootViewController=[[ScanResultViewController alloc] initWithCode:@""];
-//    [self.window makeKeyAndVisible];
-//    return true;
+
     [[GUIManager shareInstance] startupWithWindow:self.window];
     
     return YES;

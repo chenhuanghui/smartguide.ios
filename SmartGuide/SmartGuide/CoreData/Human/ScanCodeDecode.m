@@ -66,6 +66,12 @@
             [obj addActionObject:action];
         }
     }
+    else if([dict[@"linkToShare"] hasData])
+    {
+        obj.type=@(SCANCODE_DECODE_TYPE_SHARE);
+        
+        obj.linkShare=[NSString makeString:dict[@"linkToShare"]];
+    }
     else
     {
         obj.type=@(SCANCODE_DECODE_TYPE_UNKNOW);
@@ -97,6 +103,9 @@
             
         case SCANCODE_DECODE_TYPE_SMALLTEXT:
             return SCANCODE_DECODE_TYPE_SMALLTEXT;
+            
+        case SCANCODE_DECODE_TYPE_SHARE:
+            return SCANCODE_DECODE_TYPE_SHARE;
     }
     
     return SCANCODE_DECODE_TYPE_UNKNOW;

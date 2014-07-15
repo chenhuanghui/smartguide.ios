@@ -252,7 +252,10 @@ static NotificationManager *_notificationManager=nil;
 
 -(void)registerRemoteNotificaion
 {
+#if TARGET_IPHONE_SIMULATOR
+#else
     [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge |UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
+#endif
 }
 
 @end

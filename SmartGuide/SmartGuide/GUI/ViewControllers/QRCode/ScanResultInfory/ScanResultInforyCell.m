@@ -14,6 +14,7 @@
 #import "ScanResultInforyImageCell.h"
 #import "ScanResultInforyVideoCell.h"
 #import "ScanResultInforyButtonCell.h"
+#import "ScanResultInforyShareCell.h"
 
 @interface ScanResultInforyCell()<UITableViewDataSource, UITableViewDelegate,ScanResultInforyVideoCellDelegate, ScanResultInforyButtonCellDelegate>
 
@@ -61,6 +62,10 @@
             
         case SCANCODE_DECODE_TYPE_VIDEO:
             return [ScanResultInforyVideoCell heightWithDecode:decode];
+            
+        case SCANCODE_DECODE_TYPE_SHARE:
+            return [ScanResultInforyShareCell height];
+            
             
         case SCANCODE_DECODE_TYPE_UNKNOW:
             return 0;
@@ -131,6 +136,14 @@
             return cell;
         }
             
+        case SCANCODE_DECODE_TYPE_SHARE:
+        {
+            ScanResultInforyShareCell *cell=[tableView scanResultInforyShareCell];
+            [cell loadWithLink:decode.linkShare];
+            
+            return cell;
+        }
+            
         case SCANCODE_DECODE_TYPE_UNKNOW:
             return [UITableViewCell new];
     }
@@ -186,6 +199,9 @@
                 height+=[ScanResultInforyVideoCell heightWithDecode:decode];
                 break;
                 
+            case SCANCODE_DECODE_TYPE_SHARE:
+                height+=[ScanResultInforyShareCell height];
+                
             case SCANCODE_DECODE_TYPE_UNKNOW:
                 break;
         }
@@ -204,6 +220,7 @@
     [table registerScanResultInforyImageCell];
     [table registerScanResultInforyVideoCell];
     [table registerScanResultInforyButtonCell];
+    [table registerScanResultInforyShareCell];
 }
 
 @end

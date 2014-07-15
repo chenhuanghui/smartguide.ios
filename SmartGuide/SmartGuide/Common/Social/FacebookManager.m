@@ -9,6 +9,7 @@
 #import "FacebookManager.h"
 #import "Constant.h"
 #import "DataManager.h"
+#import "AlertView.h"
 
 static FacebookManager *_facebookManager=nil;
 @implementation FacebookManager
@@ -253,6 +254,27 @@ static FacebookManager *_facebookManager=nil;
     if([[FBSession activeSession] isOpen])
     {
         [[FBSession activeSession] closeAndClearTokenInformation];
+    }
+}
+
+@end
+
+@implementation FacebookManager(Share)
+
+-(void)shareLink:(NSURL *)url
+{
+    if(url)
+    {
+        [FBDialogs presentShareDialogWithLink:url handler:^(FBAppCall *call, NSDictionary *results, NSError *error) {
+            if(error)
+            {
+                [AlertView showAlertOKWithTitle:@"Thông báo" withMessage:[error description] onOK:nil];
+            }
+            else
+            {
+                
+            }
+        }];
     }
 }
 
