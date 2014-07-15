@@ -6,7 +6,9 @@
 
 #define UserHome_ClassName @"UserHome"
 
+#define UserHome_IdPlacelist @"idPlacelist"
 #define UserHome_IdPost @"idPost"
+#define UserHome_IdShops @"idShops"
 #define UserHome_ImageHeight @"imageHeight"
 #define UserHome_ImageWidth @"imageWidth"
 #define UserHome_SortOrder @"sortOrder"
@@ -32,7 +34,9 @@
 -(void) markDeleted;
 
 
+@property (nonatomic, retain) NSNumber* idPlacelist;
 @property (nonatomic, retain) NSNumber* idPost;
+@property (nonatomic, retain) NSString* idShops;
 @property (nonatomic, retain) NSNumber* imageHeight;
 @property (nonatomic, retain) NSNumber* imageWidth;
 @property (nonatomic, retain) NSNumber* sortOrder;

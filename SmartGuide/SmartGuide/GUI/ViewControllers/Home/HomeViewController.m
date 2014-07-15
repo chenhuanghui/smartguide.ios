@@ -24,7 +24,7 @@
 
 #define HOME_TEXT_FIELD_SEARCH_MIN_Y 8.f
 
-@interface HomeViewController ()<homeListDelegate,homeInfoCellDelegate,TextFieldRefreshDelegate,UITextFieldDelegate,ASIOperationPostDelegate,UITableViewDataSource,UITableViewDelegate,ScanCodeControllerDelegate>
+@interface HomeViewController ()<homeListDelegate,homeInfoCellDelegate,TextFieldRefreshDelegate,UITextFieldDelegate,ASIOperationPostDelegate,UITableViewDataSource,UITableViewDelegate,ScanCodeControllerDelegate, HomeImagesType9CellDelegate>
 {
     ASIOperationUserHome *_operationUserHome;
 }
@@ -114,7 +114,10 @@
     y+=txtRefresh.l_v_h;
     y+=4;//align
     
-    tableFeed.contentInset=UIEdgeInsetsMake(y, 0, 0, 0);
+    UIEdgeInsets contentInset=tableFeed.contentInset;
+    contentInset.top=y;
+    tableFeed.contentInset=contentInset;
+    tableFeed.scrollIndicatorInsets=contentInset;
     tableFeed.delegate=self;
     
     _scrollDistanceHeight=txtRefresh.l_v_y-HOME_TEXT_FIELD_SEARCH_MIN_Y;
@@ -560,6 +563,7 @@
             {
                 HomeImagesType9Cell *cell=[tableFeed dequeueReusableCellWithIdentifier:[HomeImagesType9Cell reuseIdentifier]];
                 
+                cell.delegate=self;
                 [cell loadWithHome9:home];
                 
                 return cell;
@@ -717,6 +721,17 @@
     {
         [txtRefresh markTableDidEndScroll:tableFeed];
         [self.navigationController pushViewController:[UserNotificationController new] animated:true];
+    }
+}
+
+-(void)homeImagesType9Cell:(HomeImagesType9Cell *)cell touchedHome:(UserHome *)home
+{
+    if(home.enumType==USER_HOME_TYPE_9)
+    {
+        if([home.idShops hasData])
+            [self.delegate homeControllerTouched:self idShops:home.idShops];
+        else if([home.idPlacelist hasData])
+            [self.delegate homeControllerTouched:self idPlacelist:home.idPlacelist.integerValue];
     }
 }
 

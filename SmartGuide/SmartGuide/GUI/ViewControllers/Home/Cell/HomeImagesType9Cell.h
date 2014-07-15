@@ -7,8 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "UserHome.h"
-#import "PageControl.h"
+
+@class HomeImagesType9Cell, UserHome, PageControl, PageControlNext;
+
+@protocol HomeImagesType9CellDelegate <NSObject>
+
+-(void) homeImagesType9Cell:(HomeImagesType9Cell*) cell touchedHome:(UserHome*) home;
+
+@end
 
 @interface HomeImagesType9Cell : UITableViewCell
 {
@@ -19,5 +25,7 @@
 
 -(void) loadWithHome9:(UserHome*) home;
 +(NSString *)reuseIdentifier;
+
+@property (nonatomic, weak) id<HomeImagesType9CellDelegate> delegate;
 
 @end

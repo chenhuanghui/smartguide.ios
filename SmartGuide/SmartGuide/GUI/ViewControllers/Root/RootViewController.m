@@ -283,6 +283,16 @@
     [self presentShopUserWithIDShop:idShop];
 }
 
+-(void)homeControllerTouched:(HomeViewController *)controller idPlacelist:(int)idPlacelist
+{
+    [self showShopListWithIDPlace:idPlacelist];
+}
+
+-(void)homeControllerTouched:(HomeViewController *)controller idShops:(NSString *)idShops
+{
+    [self showShopListWithIDShops:idShops];
+}
+
 #pragma mark SearchViewController
 
 #pragma mark SettingViewController

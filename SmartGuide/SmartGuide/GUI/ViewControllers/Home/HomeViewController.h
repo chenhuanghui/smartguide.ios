@@ -17,6 +17,8 @@
 -(void) homeControllerTouchedHome1:(HomeViewController*) contorller home1:(UserHome1*) home1;
 -(void) homeControllerTouchedPlacelist:(HomeViewController*) controller home3:(UserHome3*) home3;
 -(void) homeControllerTouchedHome8:(HomeViewController*) controller home8:(UserHome8*) home8;
+-(void) homeControllerTouched:(HomeViewController*) controller idShops:(NSString*) idShops;
+-(void) homeControllerTouched:(HomeViewController*) controller idPlacelist:(int) idPlacelist;
 -(void) homeControllerTouchedIDShop:(HomeViewController*) controller idShop:(int) idShop;
 
 @end

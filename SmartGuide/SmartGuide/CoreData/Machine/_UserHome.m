@@ -110,6 +110,19 @@
 
 
 
+- (NSNumber*)idPlacelist {
+	[self willAccessValueForKey:@"idPlacelist"];
+	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"idPlacelist"];
+	[self didAccessValueForKey:@"idPlacelist"];
+	return result;
+}
+
+- (void)setIdPlacelist:(NSNumber*)value {
+	[self willChangeValueForKey:@"idPlacelist"];
+	[self setPrimitiveValue:value forKey:@"idPlacelist"];
+	[self didChangeValueForKey:@"idPlacelist"];
+}
+
 - (NSNumber*)idPost {
 	[self willAccessValueForKey:@"idPost"];
 	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"idPost"];
@@ -121,6 +134,19 @@
 	[self willChangeValueForKey:@"idPost"];
 	[self setPrimitiveValue:value forKey:@"idPost"];
 	[self didChangeValueForKey:@"idPost"];
+}
+
+- (NSString*)idShops {
+	[self willAccessValueForKey:@"idShops"];
+	NSString* result = (NSString*)[self primitiveValueForKey:@"idShops"];
+	[self didAccessValueForKey:@"idShops"];
+	return result;
+}
+
+- (void)setIdShops:(NSString*)value {
+	[self willChangeValueForKey:@"idShops"];
+	[self setPrimitiveValue:value forKey:@"idShops"];
+	[self didChangeValueForKey:@"idShops"];
 }
 
 - (NSNumber*)imageHeight {

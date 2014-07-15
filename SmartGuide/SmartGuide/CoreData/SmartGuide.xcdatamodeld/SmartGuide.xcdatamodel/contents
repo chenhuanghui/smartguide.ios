@@ -218,7 +218,9 @@
         <attribute name="userLng" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
     </entity>
     <entity name="UserHome" representedClassName="UserHome" syncable="YES">
+        <attribute name="idPlacelist" optional="YES" attributeType="Integer 32" syncable="YES"/>
         <attribute name="idPost" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="idShops" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="imageHeight" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <attribute name="imageWidth" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <attribute name="sortOrder" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
@@ -377,7 +379,7 @@
         <element name="ShopUserGallery" positionX="0" positionY="0" width="128" height="165"/>
         <element name="User" positionX="0" positionY="0" width="128" height="240"/>
         <element name="UserGalleryUpload" positionX="0" positionY="0" width="128" height="165"/>
-        <element name="UserHome" positionX="0" positionY="0" width="128" height="225"/>
+        <element name="UserHome" positionX="0" positionY="0" width="128" height="255"/>
         <element name="UserHome1" positionX="0" positionY="0" width="128" height="105"/>
         <element name="UserHome2" positionX="0" positionY="0" width="128" height="90"/>
         <element name="UserHome3" positionX="0" positionY="0" width="128" height="150"/>

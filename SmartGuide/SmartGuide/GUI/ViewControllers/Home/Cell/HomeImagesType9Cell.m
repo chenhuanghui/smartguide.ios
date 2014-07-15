@@ -9,6 +9,8 @@
 #import "HomeImagesType9Cell.h"
 #import "Utility.h"
 #import "HomeImageType9Cell.h"
+#import "UserHome.h"
+#import "PageControl.h"
 
 @interface HomeImagesType9Cell()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout>
 
@@ -57,6 +59,11 @@
     [cell loadWithURL:img.image size:CGSizeMake(collectionView.l_v_w, _home.imageHeight.floatValue)];
     
     return cell;
+}
+
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    [self.delegate homeImagesType9Cell:self touchedHome:_home];
 }
 
 -(void)awakeFromNib

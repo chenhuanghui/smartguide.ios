@@ -24,6 +24,7 @@ enum USER_HOME_TYPE {
 
 +(UserHome*) makeWithDictionary:(NSDictionary*) dict;
 
+-(bool) isHome9Header;
 -(enum USER_HOME_TYPE) enumType;
 
 @property (nonatomic, assign) CGSize home9Size;

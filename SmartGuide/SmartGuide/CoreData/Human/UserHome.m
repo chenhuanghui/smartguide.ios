@@ -15,7 +15,7 @@
     
     NSArray *imgs=dict[@"images"];
 
-    if(![imgs isNullData])
+    if([imgs hasData])
     {
         int count=0;
         for(NSString* img in imgs)
@@ -32,6 +32,10 @@
     {
         float frameWidthLayoutHome9=296;
         home.home9Size=CGSizeMake(frameWidthLayoutHome9, MAX(0,frameWidthLayoutHome9*home.imageHeight.floatValue/home.imageWidth.floatValue));
+        if([dict[@"idShops"] hasData])
+            home.idShops=[NSString makeString:dict[@"idShops"]];
+        else if([dict[@"idPlacelist"] hasData])
+            home.idPlacelist=[NSNumber makeNumber:dict[@"idPlacelist"]];
     }
     
     return home;
@@ -39,7 +43,7 @@
 
 -(enum USER_HOME_TYPE)enumType
 {
-    switch (self.type.integerValue) {
+    switch ((enum USER_HOME_TYPE)self.type.integerValue) {
         case USER_HOME_TYPE_1:
             return USER_HOME_TYPE_1;
             
@@ -61,9 +65,11 @@
         case USER_HOME_TYPE_9:
             return USER_HOME_TYPE_9;
             
-        default:
+        case USER_HOME_TYPE_UNKNOW:
             return USER_HOME_TYPE_UNKNOW;
     }
+    
+    return USER_HOME_TYPE_UNKNOW;
 }
 
 -(NSArray *)home2Objects
@@ -104,6 +110,11 @@
         return [array sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:UserHomeImage_SortOrder ascending:true]]];
     
     return [NSArray array];
+}
+
+-(bool)isHome9Header
+{
+    return [self enumType]==USER_HOME_TYPE_9 && ([self.idShops hasData] || [self.idPlacelist hasData]);
 }
 
 @end
