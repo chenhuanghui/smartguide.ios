@@ -158,7 +158,11 @@
 
 -(void)scanCodeViewController:(ScanCodeViewController *)controller scannedText:(NSString *)text
 {
-    if([text containsString:QRCODE_DOMAIN_INFORY])
+    if([text containsString:@"?infory=true"])
+    {
+        [self showScanCodeResultWithCode:text];
+    }
+    else if([text containsString:QRCODE_DOMAIN_INFORY])
     {
         NSURL *url=[NSURL URLWithString:text];
         if([text containsString:QRCODE_INFORY_SHOPS])
@@ -215,9 +219,7 @@
     }
     else
     {
-        NSDataDetector *dataDetector=[NSDataDetector dataDetectorWithTypes:NSTextCheckingTypeLink error:nil];
-        
-        if([dataDetector numberOfMatchesInString:text options:0 range:NSMakeRange(0, text.length)]!=0)
+        if([text startsWithStrings:@"http:\\", @"https:\\", @"www.", nil])
         {
             [self.delegate scanCodeController:self scannedURL:URL(text)];
         }

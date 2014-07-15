@@ -224,6 +224,7 @@ NSString* LAZY_STRING_INT(int i);
 -(NSInteger) indexOf:(NSString*)substring from:(NSInteger)starts;
 -(NSString*) trim;
 -(BOOL) startsWith:(NSString*)s;
+-(BOOL) startsWithStrings:(NSString*) s, ...;
 -(BOOL) containsString:(NSString*)aString;
 -(NSString*) urlEncode;
 -(NSString*) sha1;

@@ -1080,6 +1080,26 @@ NSString* LAZY_STRING_INT(int i)
 	return [s isEqualToString:[self substringFrom:0 to:[s length]]];
 }
 
+-(BOOL)startsWithStrings:(NSString *)s, ...
+{
+    va_list list;
+    va_start(list, s);
+    
+    for(NSString *str = s;str;str = va_arg(list, NSString*))
+    {
+        if([self startsWith:str])
+        {
+            va_end(list);
+            
+            return true;
+        }
+    }
+    
+    va_end(list);
+    
+    return false;
+}
+
 - (BOOL)containsString:(NSString *)aString
 {
 	NSRange range = [[self lowercaseString] rangeOfString:[aString lowercaseString]];
