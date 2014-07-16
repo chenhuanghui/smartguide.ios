@@ -172,8 +172,8 @@
 -(IBAction) btnMakeCodeTouchUpInside:(id) sender
 {
 #if DEBUG
-#define QRCODE_TEST @"test1"
-    [self.delegate scanCodeViewController:self scannedText:QRCODE_TEST];
+    NSString *codeTest=@"test1";
+    [self.delegate scanCodeViewController:self scannedText:codeTest];
 #endif
 }
 

@@ -25,6 +25,7 @@
     [videoView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     videoView.hidden=true;
     _decode=decode;
+    imgvPlay.hidden=false;
     [imgv loadScanVideoThumbnailWithURL:decode.videoThumbnail];
 }
 
@@ -39,6 +40,7 @@
     [player setContentURL:URL(_decode.video)];
     
     videoView.hidden=false;
+    imgvPlay.hidden=true;
     [videoView addSubview:player.view];
     
     [player play];
@@ -54,7 +56,7 @@
     if(CGSizeEqualToSize(decode.videoSize,CGSizeZero))
         decode.videoSize=makeSizeProportional(320, CGSizeMake(decode.videoWidth.floatValue, decode.videoHeight.floatValue));
     
-    return decode.videoSize.height+6;
+    return decode.videoSize.height+20;
 }
 
 @end

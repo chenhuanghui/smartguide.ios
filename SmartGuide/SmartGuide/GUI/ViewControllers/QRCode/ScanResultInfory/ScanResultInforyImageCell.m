@@ -29,7 +29,7 @@
         decode.imageSize=makeSizeProportional(320, CGSizeMake(decode.imageWidth.floatValue, decode.imageHeight.floatValue));
     }
     
-    return decode.imageSize.height+6;
+    return decode.imageSize.height+20;
 }
 
 @end

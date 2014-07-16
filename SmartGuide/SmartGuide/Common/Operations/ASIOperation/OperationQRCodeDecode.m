@@ -44,7 +44,7 @@
             [self.decodes addObject:obj];
         }
     }
-
+    
     [[DataManager shareInstance] save];
 }
 

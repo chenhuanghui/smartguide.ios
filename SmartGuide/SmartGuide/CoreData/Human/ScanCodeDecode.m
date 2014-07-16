@@ -41,7 +41,7 @@
         obj.imageWidth=[NSNumber makeNumber:image[@"width"]];
         obj.imageHeight=[NSNumber makeNumber:image[@"height"]];
     }
-    else if([dict[@"image"] hasData])
+    else if([dict[@"video"] hasData])
     {
         NSDictionary *video=dict[@"video"];
         obj.type=@(SCANCODE_DECODE_TYPE_VIDEO);

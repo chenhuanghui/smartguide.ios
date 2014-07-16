@@ -20,18 +20,8 @@
 -(void)loadWithDecode:(ScanCodeDecode *)decode
 {
     _decode=decode;
-    
-    if(decode.actionObjects.count==1)
-    {
-        float textWidth=[ScanButtonCollectionCell widthWithAction:decode.actionObjects[0]];
-        [collection l_v_setX:(self.l_v_w-textWidth)/2];
-        collection.contentInset=UIEdgeInsetsZero;
-    }
-    else
-    {
-        [collection l_v_setX:0];
-        collection.contentInset=UIEdgeInsetsMake(0, 10, 0, 10);
-    }
+
+    collection.contentInset=UIEdgeInsetsMake(0, 10, 0, 10);
     
     [collection reloadData];
 }
@@ -48,7 +38,7 @@
 
 -(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    return CGSizeMake([ScanButtonCollectionCell widthWithAction:_decode.actionObjects[indexPath.row]], 47);
+    return CGSizeMake((collectionView.l_v_w-collectionView.contentInset.left-collectionView.contentInset.right)/_decode.actionObjects.count, collectionView.l_v_h);
 }
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath

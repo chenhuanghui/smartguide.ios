@@ -886,6 +886,8 @@
 		A95B1B011965A6EC006E9B27 /* ScanResultInforyVideoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A95B1AF11965A6EC006E9B27 /* ScanResultInforyVideoCell.xib */; };
 		A95F722619762BEC001E2881 /* OperationStaticMap.m in Sources */ = {isa = PBXBuildFile; fileRef = A95F722519762BEC001E2881 /* OperationStaticMap.m */; };
 		A95F7229197631D1001E2881 /* HTTPOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = A95F7228197631D1001E2881 /* HTTPOperation.m */; };
+		A95F726D1976427E001E2881 /* bg_viewer_buttongrey.png in Resources */ = {isa = PBXBuildFile; fileRef = A95F726B1976427E001E2881 /* bg_viewer_buttongrey.png */; };
+		A95F726E1976427E001E2881 /* bg_viewer_buttongrey@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A95F726C1976427E001E2881 /* bg_viewer_buttongrey@2x.png */; };
 		A9601BF019178E2500E8CDEE /* NotificationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A9601BEF19178E2500E8CDEE /* NotificationManager.m */; };
 		A960365419431FCC00469F35 /* icon_29.png in Resources */ = {isa = PBXBuildFile; fileRef = A960364C19431FCC00469F35 /* icon_29.png */; };
 		A960365519431FCC00469F35 /* icon_40.png in Resources */ = {isa = PBXBuildFile; fileRef = A960364D19431FCC00469F35 /* icon_40.png */; };
@@ -2243,6 +2245,8 @@
 		A95F722519762BEC001E2881 /* OperationStaticMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OperationStaticMap.m; sourceTree = "<group>"; };
 		A95F7227197631D1001E2881 /* HTTPOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPOperation.h; sourceTree = "<group>"; };
 		A95F7228197631D1001E2881 /* HTTPOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPOperation.m; sourceTree = "<group>"; };
+		A95F726B1976427E001E2881 /* bg_viewer_buttongrey.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_viewer_buttongrey.png; sourceTree = "<group>"; };
+		A95F726C1976427E001E2881 /* bg_viewer_buttongrey@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg_viewer_buttongrey@2x.png"; sourceTree = "<group>"; };
 		A9601BEE19178E2500E8CDEE /* NotificationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationManager.h; sourceTree = "<group>"; };
 		A9601BEF19178E2500E8CDEE /* NotificationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationManager.m; sourceTree = "<group>"; };
 		A960364C19431FCC00469F35 /* icon_29.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_29.png; sourceTree = "<group>"; };
@@ -3859,6 +3863,8 @@
 		A98198BE178D44FB0009FCB6 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				A95F726B1976427E001E2881 /* bg_viewer_buttongrey.png */,
+				A95F726C1976427E001E2881 /* bg_viewer_buttongrey@2x.png */,
 				A9BF149E1963C1D200D30EAA /* Temp */,
 				A960362119431DAF00469F35 /* SoSmart */,
 				A959E95B1974ECDD00129AB8 /* fb.png */,
@@ -5010,6 +5016,7 @@
 				9ACAED661872B10E0025B027 /* icon_flaggray_clock@2x.png in Resources */,
 				9A06F98718852299005C0377 /* button_create_placelist.png in Resources */,
 				9A7AC1F718D190B50043316D /* SearchViewController.xib in Resources */,
+				A95F726E1976427E001E2881 /* bg_viewer_buttongrey@2x.png in Resources */,
 				9A3986BA185B6DF4006C0961 /* button_arrow_navigation.png in Resources */,
 				9A27BBF818D18BAD00E3EAC2 /* RegisterInfoStep1ViewController.xib in Resources */,
 				9A7E5550183C710C006D1798 /* button_getgifft@2x.png in Resources */,
@@ -5478,6 +5485,7 @@
 				9ACFAE7618621D10006131DC /* frame_takephoto.png in Resources */,
 				9A7AC21B18D191550043316D /* SearchShopCell.xib in Resources */,
 				A9BDD0D518FBFA26006C6CA6 /* icon_refresh_new.png in Resources */,
+				A95F726D1976427E001E2881 /* bg_viewer_buttongrey.png in Resources */,
 				9A2F8D091855BB9A0024AE1A /* bg_price_left@2x.png in Resources */,
 				9A96DC0C1886421E00AD0EEC /* line_detail_placelist@2x.png in Resources */,
 				A9BD83EA18ED40BD000375BD /* button_config.png in Resources */,

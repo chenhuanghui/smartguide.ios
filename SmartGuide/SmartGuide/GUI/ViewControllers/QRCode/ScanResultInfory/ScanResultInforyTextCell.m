@@ -34,7 +34,7 @@
         decode.textHeight=@([decode.textAttribute boundingRectWithSize:CGSizeMake(260, MAXFLOAT) options:NSStringDrawingUsesFontLeading|NSStringDrawingUsesLineFragmentOrigin context:nil].size.height);
     }
     
-    return decode.textHeight.floatValue+6;
+    return decode.textHeight.floatValue+20;
 }
 
 @end

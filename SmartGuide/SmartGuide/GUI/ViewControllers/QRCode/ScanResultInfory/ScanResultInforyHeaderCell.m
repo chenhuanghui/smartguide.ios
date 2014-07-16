@@ -33,7 +33,7 @@
     
     if(decode.textHeight.floatValue==-1)
     {
-        decode.textHeight=@([decode.textAttribute boundingRectWithSize:CGSizeMake(320, MAXFLOAT) options:NSStringDrawingUsesFontLeading|NSStringDrawingUsesLineFragmentOrigin context:nil].size.height);
+        decode.textHeight=@([decode.textAttribute boundingRectWithSize:CGSizeMake(214, MAXFLOAT) options:NSStringDrawingUsesFontLeading|NSStringDrawingUsesLineFragmentOrigin context:nil].size.height);
     }
     
     return decode.textHeight.floatValue+20;

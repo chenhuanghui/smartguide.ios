@@ -21,6 +21,7 @@
     __weak IBOutlet UIImageView *imgv;
     __weak IBOutlet UIButton *btn;
     __weak IBOutlet UIView *videoView;
+    __weak IBOutlet UIImageView *imgvPlay;
     
     __weak ScanCodeDecode *_decode;
 }

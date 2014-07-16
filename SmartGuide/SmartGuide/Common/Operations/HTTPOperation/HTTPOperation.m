@@ -46,4 +46,9 @@
     [self cancel];
 }
 
+-(void)onCompletedWithResponseObject:(id)responseObject error:(NSError *)error
+{
+    
+}
+
 @end
