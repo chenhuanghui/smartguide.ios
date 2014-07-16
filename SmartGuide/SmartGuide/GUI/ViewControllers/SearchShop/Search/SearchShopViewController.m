@@ -167,6 +167,8 @@
                 
                 //        rect.size.height-=4;
                 
+                rect.origin.x=25.f/2;
+                rect.size.width=295;
                 SearchShopBGView *bg=[[SearchShopBGView alloc] initWithFrame:rect];
                 
                 [table insertSubview:bg atIndex:0];
@@ -183,6 +185,8 @@
                     rect.origin.y+=[table rectForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]].size.height;
                     rect.size.height-=[table rectForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]].size.height;
                     
+                    rect.origin.x=25.f/2;
+                    rect.size.width=295;
                     SearchShopBGView *bg=[[SearchShopBGView alloc] initWithFrame:rect];
                     
                     [table insertSubview:bg atIndex:0];
@@ -197,6 +201,8 @@
         {
             rect=[table rectForSection:1];
 
+            rect.origin.x=25.f/2;
+            rect.size.width=295;
             SearchShopBGView *bg=[[SearchShopBGView alloc] initWithFrame:rect];
             
             [table insertSubview:bg atIndex:0];

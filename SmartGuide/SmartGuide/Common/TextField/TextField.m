@@ -336,7 +336,7 @@
         self.text=_text;
 }
 
-#define LOG_TEXTFIELD_REFRESH 1
+#define LOG_TEXTFIELD_REFRESH 0
 
 -(void)tableWillBeginDragging:(UITableView *)table
 {
