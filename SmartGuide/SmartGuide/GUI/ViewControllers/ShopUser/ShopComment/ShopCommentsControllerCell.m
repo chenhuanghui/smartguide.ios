@@ -72,13 +72,18 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    int count=0;
     switch ([ShopManager shareInstanceWithShop:_shop].sortComments) {
         case SORT_SHOP_COMMENT_TIME:
-            return [ShopManager shareInstanceWithShop:_shop].timeComments.count+([ShopManager shareInstanceWithShop:_shop].canLoadMoreCommentTime?1:0);
+            count=[ShopManager shareInstanceWithShop:_shop].timeComments.count+([ShopManager shareInstanceWithShop:_shop].canLoadMoreCommentTime?1:0);
             
         case SORT_SHOP_COMMENT_TOP_AGREED:
-            return [ShopManager shareInstanceWithShop:_shop].topAgreedComments.count+([ShopManager shareInstanceWithShop:_shop].canLoadMoreCommentTopAgreed?1:0);
+            count=[ShopManager shareInstanceWithShop:_shop].topAgreedComments.count+([ShopManager shareInstanceWithShop:_shop].canLoadMoreCommentTopAgreed?1:0);
     }
+    
+    imgvFirstComment.hidden=count>0;
+    
+    return count;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

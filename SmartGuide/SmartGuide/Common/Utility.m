@@ -1087,7 +1087,7 @@ NSString* LAZY_STRING_INT(int i)
     
     for(NSString *str = s;str;str = va_arg(list, NSString*))
     {
-        if([self startsWith:str])
+        if([[self lowercaseString] startsWith:[str lowercaseString]])
         {
             va_end(list);
             

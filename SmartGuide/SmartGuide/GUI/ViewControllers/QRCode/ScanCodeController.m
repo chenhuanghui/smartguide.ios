@@ -219,7 +219,7 @@
     }
     else
     {
-        if([text startsWithStrings:@"http:\\", @"https:\\", @"www.", nil])
+        if([text startsWithStrings:@"http://", @"https://", @"www.", nil])
         {
             [self.delegate scanCodeController:self scannedURL:URL(text)];
         }

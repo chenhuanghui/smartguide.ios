@@ -31,6 +31,11 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
+    if([UIScreen mainScreen].bounds.size.height==568.f)
+        imgvBackground.image=[UIImage imageNamed:@"Default-568h.png"];
+    else
+        imgvBackground.image=[UIImage imageNamed:@"Default.png"];
+    
     [SGData shareInstance].fScreen=[WelcomeViewController screenCode];
     
     NSMutableDictionary *dict=[NSMutableDictionary dictionary];
@@ -47,9 +52,12 @@
     return SCREEN_CODE_WELCOME;
 }
 
--(void)viewDidAppear:(BOOL)animated
+-(void)viewWillAppear:(BOOL)animated
 {
-    [super viewDidAppear:animated];
+    [super viewWillAppear:animated];
+    
+    [imgvBackground l_v_setY:-UIStatusBarHeight()];
+    [imgvBackground l_v_setS:UIScreenSize()];
 }
 
 - (void)didReceiveMemoryWarning

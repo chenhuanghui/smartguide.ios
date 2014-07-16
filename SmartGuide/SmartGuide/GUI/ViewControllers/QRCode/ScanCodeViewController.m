@@ -59,6 +59,10 @@
     _zbarReaderController.readerDelegate=self;
     _zbarReaderController.supportedOrientationsMask=ZBarOrientationMaskAll;
     _zbarReaderController.videoQuality=UIImagePickerControllerQualityTypeHigh;
+
+    [_zbarReaderController.view l_v_setS:cameraView.l_v_s];
+    
+    [self makeReaderSize:_zbarReaderController.view size:cameraView.l_v_s];
     
     [_zbarReaderController.readerView.device lockForConfiguration:nil];
     
@@ -69,21 +73,25 @@
     
     [_zbarReaderController.scanner setSymbology:ZBAR_I25|ZBAR_QRCODE config: ZBAR_CFG_ENABLE to:0];
     
-    [_zbarReaderController.view l_v_setS:cameraView.l_v_s];
-    
-    _zbarReaderController.view.autoresizingMask=UIViewAutoresizingAll();
-    for(UIView *subview in _zbarReaderController.view.subviews)
-    {
-        [subview l_v_setS:cameraView.l_v_s];
-        _zbarReaderController.view.autoresizingMask=UIViewAutoresizingAll();
-    }
-    
     [self showCamera];
     
     [self makeTorchStatus];
     
     [device addObserver:self forKeyPath:@"torchAvailable" options:NSKeyValueObservingOptionNew context:nil];
     [device addObserver:self forKeyPath:@"torchMode" options:NSKeyValueObservingOptionNew context:nil];
+}
+
+-(void) makeReaderSize:(UIView*) view size:(CGSize) size
+{
+    if(view.l_v_y!=0)
+        view.hidden=true;
+    
+    view.backgroundColor=[UIColor clearColor];
+    
+    for(UIView *v in view.subviews)
+    {
+        [self makeReaderSize:v size:size];
+    }
 }
 
 -(void) makeTorchStatus

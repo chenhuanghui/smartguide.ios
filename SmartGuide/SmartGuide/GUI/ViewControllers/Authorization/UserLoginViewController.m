@@ -192,7 +192,7 @@
         
         OperationGetActionCode *ope=(OperationGetActionCode*) operation;
         
-        if(ope.isSuccess)
+        if(ope.isSuccess.boolValue)
         {
             [self switchToActivationModeWithPhone:ope.phone];
         }

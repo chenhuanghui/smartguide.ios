@@ -37,8 +37,6 @@ static NSString * const kClientId = @"790158294934-p5pnscmrt4avj698ncvhp14fit0f4
 
 #define TEXTFIELD_SEARCH_PLACEHOLDER_TEXT @"Tìm kiếm địa điểm"
 
-#define BUILD_SOSMART 1
-
 #define SERVER_API [[SGData shareInstance] serverAPI]
 #define SERVER_IP [[SGData shareInstance] serverIP]
 

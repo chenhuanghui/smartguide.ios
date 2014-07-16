@@ -241,6 +241,11 @@ static char ImageViewDefaultBackgroundKey;
     [self loadImageWithDefaultLoadingAndBackground:url];
 }
 
+-(void)loadImageHome9WithURL:(NSString *)url
+{
+    [self loadImageWithDefaultLoading:url];
+}
+
 -(void) loadShopLogoPromotionHome:(NSString*) url
 {
     [self loadImageWithDefaultLoadingAndBackground:[NSURL URLWithString:url]];

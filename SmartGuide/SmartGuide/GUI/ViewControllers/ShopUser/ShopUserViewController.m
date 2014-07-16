@@ -214,6 +214,7 @@ enum SHOP_USER_CELL_TYPE
         if(_shop.enumDataMode!=SHOP_DATA_FULL)
         {
             [table showLoadingBelowIndexPath:makeIndexPath(0, 0)];
+            table.scrollEnabled=false;
         }
     }
 }
@@ -222,6 +223,7 @@ enum SHOP_USER_CELL_TYPE
 {
     [self.view removeLoading];
     [table removeLoading];
+    table.scrollEnabled=true;
 }
 
 -(void) requestShopUser

@@ -56,18 +56,10 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-#if BUILD_SOSMART
-    
     if([UIScreen mainScreen].bounds.size.height==568.f)
-        imgv.image=[UIImage imageNamed:@"bg_5sosmart.png"];
+        imgv.image=[UIImage imageNamed:@"Default-568h.png"];
     else
-        imgv.image=[UIImage imageNamed:@"bg_sosmart.png"];
-#else
-    if([UIScreen mainScreen].bounds.size.height==568.f)
-        imgv.image=[UIImage imageNamed:@"lauchR4.png"];
-    else
-        imgv.image=[UIImage imageNamed:@"lauch.png"];
-#endif
+        imgv.image=[UIImage imageNamed:@"Default.png"];
     
     _viewDidLoad=true;
     

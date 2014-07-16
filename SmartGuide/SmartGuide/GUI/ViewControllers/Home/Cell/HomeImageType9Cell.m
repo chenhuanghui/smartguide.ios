@@ -14,7 +14,7 @@
 
 -(void)loadWithURL:(NSString *)url size:(CGSize)size
 {
-    [imgv loadImageHomeWithURL:url];
+    [imgv loadImageHome9WithURL:url];
 }
 
 +(NSString *)reuseIdentifier

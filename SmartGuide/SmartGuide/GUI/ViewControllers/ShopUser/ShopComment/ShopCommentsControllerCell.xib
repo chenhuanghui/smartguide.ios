@@ -130,6 +130,10 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
+                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Comment.png" id="9LN-X9-6qN">
+                                <rect key="frame" x="56" y="141" width="207" height="91"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </view>
@@ -146,6 +150,7 @@
                 <outlet property="containComments" destination="CEn-uQ-C3I" id="jvb-Dw-gU5"/>
                 <outlet property="containView" destination="31Q-DP-0qh" id="aRt-dC-iIn"/>
                 <outlet property="imgvAvatar" destination="NRw-wE-4MB" id="2kr-2Y-Roa"/>
+                <outlet property="imgvFirstComment" destination="9LN-X9-6qN" id="m3m-Ln-AoF"/>
                 <outlet property="table" destination="BSm-TN-SA8" id="DaF-8U-Hdi"/>
                 <outlet property="touchView" destination="hqN-HG-Ite" id="Dm9-wE-O3k"/>
                 <outlet property="txt" destination="VMv-3j-xix" id="lqd-oD-jEE"/>
@@ -154,6 +159,7 @@
         </tableViewCell>
     </objects>
     <resources>
+        <image name="Comment.png" width="207" height="91"/>
         <image name="bg_blur_comment.png" width="272" height="70"/>
         <image name="bg_typecomment_bottom.png" width="253" height="7"/>
         <image name="bg_typecomment_head.png" width="253" height="57"/>

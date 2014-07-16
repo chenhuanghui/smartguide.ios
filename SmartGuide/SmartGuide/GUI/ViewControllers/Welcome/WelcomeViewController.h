@@ -23,6 +23,7 @@
     __weak IBOutlet UIButton *btnTry;
     __weak IBOutlet UIButton *btnLogin;
     __weak IBOutlet UIButton *btnDk;
+    __weak IBOutlet UIImageView *imgvBackground;
 }
 
 @property (nonatomic, assign) id<WelcomeControllerDelegate> delegate;
