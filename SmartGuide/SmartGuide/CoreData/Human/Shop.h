@@ -22,7 +22,6 @@ enum SHOP_DATA_MODE {
 
 @interface Shop : _Shop<MKAnnotation>
 {
-    CLLocationCoordinate2D _dragCoord;
 }
 
 +(Shop*) shopWithIDShop:(int) idShop;
@@ -41,5 +40,6 @@ enum SHOP_DATA_MODE {
 @property (nonatomic, strong) NSNumber *addressHeightForShopInfo;
 @property (nonatomic, strong) NSNumber *addressHeightforShopDetailInfo;
 @property (nonatomic, strong) NSNumber *kmNewsHeight;
+@property (nonatomic, strong) UIImage *shopStaticMapImage;
 
 @end

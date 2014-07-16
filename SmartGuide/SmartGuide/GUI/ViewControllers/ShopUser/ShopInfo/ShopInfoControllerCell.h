@@ -22,6 +22,7 @@
     __weak IBOutlet UILabel *lblAddress;
     __weak IBOutlet UIButton *btnTel;
     __weak IBOutlet UIImageView *line;
+    __weak IBOutlet UIImageView *imgvMap;
     
     __weak Shop *_shop;
 }

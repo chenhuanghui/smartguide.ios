@@ -884,6 +884,8 @@
 		A95B1AFF1965A6EC006E9B27 /* ScanResultInforyTitleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A95B1AEE1965A6EC006E9B27 /* ScanResultInforyTitleCell.xib */; };
 		A95B1B001965A6EC006E9B27 /* ScanResultInforyVideoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A95B1AF01965A6EC006E9B27 /* ScanResultInforyVideoCell.m */; };
 		A95B1B011965A6EC006E9B27 /* ScanResultInforyVideoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A95B1AF11965A6EC006E9B27 /* ScanResultInforyVideoCell.xib */; };
+		A95F722619762BEC001E2881 /* OperationStaticMap.m in Sources */ = {isa = PBXBuildFile; fileRef = A95F722519762BEC001E2881 /* OperationStaticMap.m */; };
+		A95F7229197631D1001E2881 /* HTTPOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = A95F7228197631D1001E2881 /* HTTPOperation.m */; };
 		A9601BF019178E2500E8CDEE /* NotificationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A9601BEF19178E2500E8CDEE /* NotificationManager.m */; };
 		A960365419431FCC00469F35 /* icon_29.png in Resources */ = {isa = PBXBuildFile; fileRef = A960364C19431FCC00469F35 /* icon_29.png */; };
 		A960365519431FCC00469F35 /* icon_40.png in Resources */ = {isa = PBXBuildFile; fileRef = A960364D19431FCC00469F35 /* icon_40.png */; };
@@ -2237,6 +2239,10 @@
 		A95B1AEF1965A6EC006E9B27 /* ScanResultInforyVideoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScanResultInforyVideoCell.h; sourceTree = "<group>"; };
 		A95B1AF01965A6EC006E9B27 /* ScanResultInforyVideoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScanResultInforyVideoCell.m; sourceTree = "<group>"; };
 		A95B1AF11965A6EC006E9B27 /* ScanResultInforyVideoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScanResultInforyVideoCell.xib; sourceTree = "<group>"; };
+		A95F722419762BEC001E2881 /* OperationStaticMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OperationStaticMap.h; sourceTree = "<group>"; };
+		A95F722519762BEC001E2881 /* OperationStaticMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OperationStaticMap.m; sourceTree = "<group>"; };
+		A95F7227197631D1001E2881 /* HTTPOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPOperation.h; sourceTree = "<group>"; };
+		A95F7228197631D1001E2881 /* HTTPOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPOperation.m; sourceTree = "<group>"; };
 		A9601BEE19178E2500E8CDEE /* NotificationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationManager.h; sourceTree = "<group>"; };
 		A9601BEF19178E2500E8CDEE /* NotificationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationManager.m; sourceTree = "<group>"; };
 		A960364C19431FCC00469F35 /* icon_29.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_29.png; sourceTree = "<group>"; };
@@ -3644,6 +3650,17 @@
 			path = ScanResultInfory;
 			sourceTree = "<group>";
 		};
+		A95F722319762BBA001E2881 /* HTTPOperation */ = {
+			isa = PBXGroup;
+			children = (
+				A95F7227197631D1001E2881 /* HTTPOperation.h */,
+				A95F7228197631D1001E2881 /* HTTPOperation.m */,
+				A95F722419762BEC001E2881 /* OperationStaticMap.h */,
+				A95F722519762BEC001E2881 /* OperationStaticMap.m */,
+			);
+			path = HTTPOperation;
+			sourceTree = "<group>";
+		};
 		A960362119431DAF00469F35 /* SoSmart */ = {
 			isa = PBXGroup;
 			children = (
@@ -3664,6 +3681,7 @@
 		A960BD1F1793FE7400F7F928 /* Operations */ = {
 			isa = PBXGroup;
 			children = (
+				A95F722319762BBA001E2881 /* HTTPOperation */,
 				9A9ED307187D09890081A16E /* Social */,
 				A922662F17A1133B00BCFF7E /* ASIOperation */,
 				A925478717AE3BF000AD0BA9 /* Operations */,
@@ -5811,6 +5829,7 @@
 				9ACA42F5186D3BF3008D89BC /* _UserHome8.m in Sources */,
 				A9EB14851952D79C00191767 /* ShopDetailInfoType4Cell.m in Sources */,
 				9ADCD96118D19C3F004CB67E /* SDWebImagePrefetcher.m in Sources */,
+				A95F7229197631D1001E2881 /* HTTPOperation.m in Sources */,
 				A90E2D321936E7BD001B6A20 /* _UserNotificationAction.m in Sources */,
 				A95B1AF81965A6EC006E9B27 /* ScanResultInforyHeaderCell.m in Sources */,
 				9ACF7A8918698E3700B0BC78 /* UserHome1.m in Sources */,
@@ -6024,6 +6043,7 @@
 				9A27BC0618D18BAD00E3EAC2 /* HomeBGCell.m in Sources */,
 				A95B1AF61965A6EC006E9B27 /* ScanResultInforyCell.m in Sources */,
 				9ADCD94C18D19C3F004CB67E /* UIColor+Tools.m in Sources */,
+				A95F722619762BEC001E2881 /* OperationStaticMap.m in Sources */,
 				9ADCD93C18D19C3F004CB67E /* AFHTTPRequestOperationManager.m in Sources */,
 				9ACA42F8186D3BFB008D89BC /* UserHome8.m in Sources */,
 				9A27BBEC18D18BAD00E3EAC2 /* GUIManager.m in Sources */,

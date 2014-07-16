@@ -8,6 +8,14 @@
 
 #import "ShopInfoControllerCell.h"
 #import "Utility.h"
+#import "OperationStaticMap.h"
+
+@interface ShopInfoControllerCell()<HTTPOperation>
+{
+    OperationStaticMap *_opeStaticMap;
+}
+
+@end
 
 @implementation ShopInfoControllerCell
 
@@ -15,11 +23,45 @@
 {
     _shop=shop;
     
+    if(shop.shopStaticMapImage)
+        imgvMap.image=shop.shopStaticMapImage;
+    else
+        [self requestStaticMap];
+    
     lblAddress.text=shop.address;
     
     [btnTel setTitle:[@"  " stringByAppendingString:shop.displayTel] forState:UIControlStateNormal];
     
     line.hidden=(_shop.km1!=nil || _shop.km2!=nil || _shop.promotionNew!=nil);
+}
+
+-(void) requestStaticMap
+{
+    if(_opeStaticMap)
+        return;
+    
+    _opeStaticMap=[[OperationStaticMap alloc] initWithSize:imgvMap.l_v_s markerSizeType:MARKER_SIZE_TYPE_SMALL markerColorType:MARKER_COLOR_TYPE_RED markerLocation:_shop.coordinate];
+    [_opeStaticMap startWithDelegate:self];
+}
+
+-(void)HTTPOperationFinished:(HTTPOperation *)operation error:(NSError *)error
+{
+    if(_opeStaticMap.image)
+    {
+        _shop.shopStaticMapImage=_opeStaticMap.image;
+        imgvMap.image=_shop.shopStaticMapImage;
+    }
+    
+    _opeStaticMap=nil;
+}
+
+-(void)dealloc
+{
+    if(_opeStaticMap)
+    {
+        [_opeStaticMap cleanDelegateAndCancel];
+        _opeStaticMap=nil;
+    }
 }
 
 +(NSString *)reuseIdentifier

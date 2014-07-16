@@ -186,7 +186,8 @@ static FacebookManager *_facebookManager=nil;
                 return;
             }
             
-            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_FACEBOOK_LOGIN_FAILED object:error];
+            if(error)
+                [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_FACEBOOK_LOGIN_FAILED object:error];
         }];
     }
 }

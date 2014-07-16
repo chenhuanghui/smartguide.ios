@@ -3,7 +3,7 @@
 #import "Constant.h"
 
 @implementation Shop
-@synthesize descHeight,shopNameHeight,addressHeightforShopDetailInfo,addressHeightForShopInfo,kmNewsHeight;
+@synthesize descHeight,shopNameHeight,addressHeightforShopDetailInfo,addressHeightForShopInfo,kmNewsHeight, shopStaticMapImage;
 
 -(id)initWithEntity:(NSEntityDescription *)entity insertIntoManagedObjectContext:(NSManagedObjectContext *)context
 {
@@ -16,8 +16,6 @@
     self.shopNameHeight=@(-1);
     self.addressHeightForShopInfo=@(-1);
     self.addressHeightforShopDetailInfo=@(-1);
-    
-    _dragCoord=CLLocationCoordinate2DMake(-1, -1);
     
     return self;
 }
@@ -43,9 +41,6 @@
 
 -(CLLocationCoordinate2D)coordinate
 {
-    if(isVailCLLocationCoordinate2D(_dragCoord))
-        return _dragCoord;
-    
     return CLLocationCoordinate2DMake(self.shopLat.doubleValue, self.shopLng.doubleValue);
 }
 
@@ -280,7 +275,11 @@
 
 -(void)setCoordinate:(CLLocationCoordinate2D)newCoordinate
 {
-    _dragCoord=newCoordinate;
+    self.shopLat=@(newCoordinate.latitude);
+    self.shopLng=@(newCoordinate.longitude);
+    
+    if(self.hasChanges)
+        [self save];
 }
 
 -(enum SHOP_DATA_MODE)enumDataMode
