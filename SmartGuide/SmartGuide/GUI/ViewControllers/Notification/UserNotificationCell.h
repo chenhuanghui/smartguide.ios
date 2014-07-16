@@ -28,6 +28,7 @@
     __weak IBOutlet UIButton *btnRemove;
     __weak IBOutlet UIView *displayContentView;
     __weak IBOutlet UIView *lineView;
+    __weak IBOutlet UIView *markUnreadView;
 
     __weak UserNotification* _obj;
     bool _isAddedObserver;

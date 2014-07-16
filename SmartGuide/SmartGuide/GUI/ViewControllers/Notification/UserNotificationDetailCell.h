@@ -46,6 +46,7 @@ enum USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE
     __weak IBOutlet UIView *movideBGView;
     __weak IBOutlet UIView *avatarMaskView;
     __weak IBOutlet UITableView *tableButtons;
+    __weak IBOutlet UIView *markUnreadView;
     
     __weak UserNotificationContent *_obj;
     NSArray *_actions;

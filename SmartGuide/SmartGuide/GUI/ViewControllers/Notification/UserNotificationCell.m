@@ -35,12 +35,14 @@
     {
         displayContentView.backgroundColor=[UIColor whiteColor];
         lineView.backgroundColor=COLOR255(61, 165, 254, 255);
+        markUnreadView.hidden=false;
     }
     else
     {
         [lblContent setTextColor:[UIColor grayColor]];
         displayContentView.backgroundColor=COLOR255(205, 205, 205, 255);
         lineView.backgroundColor=COLOR255(146, 146, 146, 255);
+        markUnreadView.hidden=true;
     }
     
     scroll.contentOffset=CGPointZero;

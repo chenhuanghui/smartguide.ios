@@ -53,6 +53,8 @@
         lblTitle.textColor=[UIColor blackColor];
         avatarMaskView.hidden=true;
         lblTime.textColor=[UIColor blackColor];
+        
+        markUnreadView.hidden=true;
     }
     else
     {
@@ -61,12 +63,14 @@
             avatarMaskView.hidden=false;
             lblTitle.textColor=[UIColor blackColor];
             lblTime.textColor=[UIColor blackColor];
+            markUnreadView.hidden=false;
         }
         else
         {
             avatarMaskView.hidden=true;
             lblTitle.textColor=[UIColor grayColor];
             lblTime.textColor=[UIColor grayColor];
+            markUnreadView.hidden=true;
         }
     }
     
