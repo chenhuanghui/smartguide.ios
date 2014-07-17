@@ -123,7 +123,7 @@
                             <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="14"/>
                             <inset key="contentEdgeInsets" minX="20" minY="0.0" maxX="0.0" maxY="0.0"/>
                             <inset key="titleEdgeInsets" minX="9" minY="0.0" maxX="0.0" maxY="0.0"/>
-                            <state key="normal" title="Sự kiện" image="icon_promotion_navigation.png" backgroundImage="bg_button_navigation.png">
+                            <state key="normal" title="Ưu đãi" image="icon_promotion_navigation.png" backgroundImage="bg_button_navigation.png">
                                 <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>

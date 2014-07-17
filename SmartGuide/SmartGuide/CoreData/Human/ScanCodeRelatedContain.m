@@ -42,7 +42,7 @@
             return @"";
             
         case QRCODE_RELATED_TYPE_PROMOTIONS:
-            return @"Sự kiện";
+            return @"Ưu đãi";
             
         case QRCODE_RELATED_TYPE_PLACELISTS:
             return @"Danh sách";
