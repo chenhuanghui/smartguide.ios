@@ -14,6 +14,10 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="63"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="line_comment.png" id="P6C-zz-Jb6">
+                        <rect key="frame" x="10" y="0.0" width="300" height="1"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    </imageView>
                     <view contentMode="scaleToFill" id="o0b-sj-n6b">
                         <rect key="frame" x="0.0" y="10" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
@@ -64,5 +68,6 @@
     <resources>
         <image name="fb.png" width="38" height="38"/>
         <image name="googleplus.png" width="38" height="38"/>
+        <image name="line_comment.png" width="273" height="1"/>
     </resources>
 </document>

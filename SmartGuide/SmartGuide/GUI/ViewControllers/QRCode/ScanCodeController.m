@@ -156,8 +156,15 @@
     }];
 }
 
--(void)scanCodeViewController:(ScanCodeViewController *)controller scannedText:(NSString *)text
+-(void)scanCodeViewController:(ScanCodeViewController *)controller scannedText:(NSString *)text codeType:(enum SCANCODE_CODE_TYPE)codeType
 {
+    if(codeType==SCANCODE_CODE_TYPE_BARCODE)
+    {
+        NSString *url=[NSString stringWithFormat:@"http://shp.li/barcode/ean_13/%@/?t=v&partner=scan",text];
+        [self.delegate scanCodeController:self scannedURL:URL(url)];
+        return;
+    }
+    
     if([text containsString:@"?infory=true"])
     {
         [self showScanCodeResultWithCode:text];

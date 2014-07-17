@@ -47,7 +47,7 @@
 +(float)widthWithAction:(UserNotificationAction *)action
 {
     if(action.actionTitleWidth.floatValue==-1)
-        action.actionTitleWidth=@([action.actionTitle sizeWithFont:FONT_SIZE_REGULAR(12) constrainedToSize:CGSizeMake(MAXFLOAT, 47) lineBreakMode:NSLineBreakByWordWrapping].width);
+        action.actionTitleWidth=@([action.actionTitle sizeWithFont:FONT_SIZE_MEDIUM(14) constrainedToSize:CGSizeMake(MAXFLOAT, 47) lineBreakMode:NSLineBreakByWordWrapping].width);
     
     return action.actionTitleWidth.floatValue+60;
 }

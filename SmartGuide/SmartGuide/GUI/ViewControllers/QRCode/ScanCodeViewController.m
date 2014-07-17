@@ -48,6 +48,8 @@
 
 -(void)viewWillAppearOnce
 {
+    [cameraView l_v_setS:UIScreenSize()];
+    
     AVCaptureDevice *device=_zbarReaderController.readerView.device;
     
     btnTorch.enabled=device.torchAvailable;
@@ -59,7 +61,7 @@
     _zbarReaderController.readerDelegate=self;
     _zbarReaderController.supportedOrientationsMask=ZBarOrientationMaskAll;
     _zbarReaderController.videoQuality=UIImagePickerControllerQualityTypeHigh;
-
+    
     [_zbarReaderController.view l_v_setS:cameraView.l_v_s];
     
     [self makeReaderSize:_zbarReaderController.view size:cameraView.l_v_s];
@@ -174,14 +176,21 @@
     [_zbarReaderController.readerView flushCache];
     [_zbarReaderController.readerView stop];
     
-    [self.delegate scanCodeViewController:self scannedText:data];
+    enum SCANCODE_CODE_TYPE codeType=SCANCODE_CODE_TYPE_QRCODE;
+    
+    if(sym.type==ZBAR_EAN13)
+    {
+        codeType=SCANCODE_CODE_TYPE_BARCODE;
+    }
+    
+    [self.delegate scanCodeViewController:self scannedText:data codeType:codeType];
 }
 
 -(IBAction) btnMakeCodeTouchUpInside:(id) sender
 {
 #if DEBUG
     NSString *codeTest=@"test1";
-    [self.delegate scanCodeViewController:self scannedText:codeTest];
+    [self.delegate scanCodeViewController:self scannedText:codeTest codeType:SCANCODE_CODE_TYPE_BARCODE];
 #endif
 }
 

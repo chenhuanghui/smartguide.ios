@@ -8,11 +8,17 @@
 
 #import "SGViewController.h"
 
+enum SCANCODE_CODE_TYPE
+{
+    SCANCODE_CODE_TYPE_QRCODE=0,
+    SCANCODE_CODE_TYPE_BARCODE=1,
+};
+
 @class ScanCodeViewController;
 
 @protocol ScanCodeViewControllerDelegate <SGViewControllerDelegate>
 
--(void) scanCodeViewController:(ScanCodeViewController*) controller scannedText:(NSString*) text;
+-(void) scanCodeViewController:(ScanCodeViewController*) controller scannedText:(NSString*) text codeType:(enum SCANCODE_CODE_TYPE) codeType;
 
 @end
 

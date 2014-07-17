@@ -2218,7 +2218,7 @@
 		A95B1AE71965A6EC006E9B27 /* ScanResultInforyImageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScanResultInforyImageCell.m; sourceTree = "<group>"; };
 		A95B1AE81965A6EC006E9B27 /* ScanResultInforyImageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScanResultInforyImageCell.xib; sourceTree = "<group>"; };
 		A95B1AE91965A6EC006E9B27 /* ScanResultInforyTextCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScanResultInforyTextCell.h; sourceTree = "<group>"; };
-		A95B1AEA1965A6EC006E9B27 /* ScanResultInforyTextCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScanResultInforyTextCell.m; sourceTree = "<group>"; };
+		A95B1AEA1965A6EC006E9B27 /* ScanResultInforyTextCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScanResultInforyTextCell.m; sourceTree = "<group>"; tabWidth = 4; usesTabs = 0; wrapsLines = 1; };
 		A95B1AEB1965A6EC006E9B27 /* ScanResultInforyTextCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScanResultInforyTextCell.xib; sourceTree = "<group>"; };
 		A95B1AEC1965A6EC006E9B27 /* ScanResultInforyTitleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScanResultInforyTitleCell.h; sourceTree = "<group>"; };
 		A95B1AED1965A6EC006E9B27 /* ScanResultInforyTitleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScanResultInforyTitleCell.m; sourceTree = "<group>"; };
