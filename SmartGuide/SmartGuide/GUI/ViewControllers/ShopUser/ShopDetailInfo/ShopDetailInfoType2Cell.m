@@ -72,7 +72,7 @@
 
 +(float)heightWithInfo2:(Info2 *)info2
 {
-    return 59;
+    return 59-22;
     float height=0;
     
     switch (info2.contentType) {
