@@ -140,7 +140,7 @@
 
 -(float)alphaForPresentView
 {
-    return 0.9f;
+    return 0.95f;
 }
 
 -(void)galleryFullTouchedBack:(GalleryFullViewController *)controller

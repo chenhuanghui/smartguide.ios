@@ -125,6 +125,6 @@
         <image name="icon_promotion.png" width="16" height="16"/>
         <image name="line_blur_status.png" width="290" height="3"/>
         <image name="line_promotion.png" width="273" height="5"/>
-        <image name="play_icon.png" width="64" height="64"/>
+        <image name="play_icon.png" width="75" height="75"/>
     </resources>
 </document>

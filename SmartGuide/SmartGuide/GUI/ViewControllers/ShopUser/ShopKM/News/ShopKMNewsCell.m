@@ -47,7 +47,7 @@
     [lblTitle l_v_setY:20+topHeight];
     [lblTitle l_v_setH:news.titleHeight.floatValue];
     
-    [lblContent l_v_setY:lblTitle.l_v_y+lblTitle.l_v_h+20];
+    [lblContent l_v_setY:lblTitle.l_v_y+lblTitle.l_v_h+10];
     [lblContent l_v_setH:news.contentHeight.floatValue];
 }
 
