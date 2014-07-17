@@ -190,6 +190,21 @@
     return obj;
 }
 
+-(enum INFO2_CONTENT_TYPE)contentType
+{
+    if([self.content startsWithStrings:@"http://", @"https://", @"www.", nil])
+    {
+        if([self.content containsString:@"facebook.com"])
+        {
+            return INFO2_CONTENT_TYPE_URL_FACEBOOK;
+        }
+        
+        return INFO2_CONTENT_TYPE_URL;
+    }
+    
+    return INFO2_CONTENT_TYPE_TEXT;
+}
+
 @end
 
 @implementation Info3

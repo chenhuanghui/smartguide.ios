@@ -456,7 +456,7 @@
 
 -(void)shopDetailInfoType2TouchedURL:(ShopDetailInfoType2Cell *)cell url:(NSURL *)url
 {
-    [self showWebViewWithURL:url onCompleted:nil];
+    [self.delegate shopDetailInfoControllerTouchedURL:self url:url];
 }
 
 -(void)shopDetailInfoDescCellTouchedReadLess:(ShopDetailInfoDescCell *)cell
@@ -485,6 +485,8 @@
     {
         rect=[table rectForSection:i];
         rect.size.height-=SHOP_DETAIL_INFO_TABLE_EMPTY_CELL_HEIGHT;
+        rect.size.width=300;
+        rect.origin.x=5;
         
         ShopDetailBGView *bg=[[ShopDetailBGView alloc] initWithFrame:rect];
         

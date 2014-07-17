@@ -41,8 +41,10 @@
     float height=50;
     
     if(info4.contentHeight.floatValue==-1)
-        info4.contentHeight=@([info4.content sizeWithFont:FONT_SIZE_NORMAL(12) constrainedToSize:CGSizeMake(274, MAXFLOAT) lineBreakMode:NSLineBreakByTruncatingTail].height);
+        info4.contentHeight=@([info4.content sizeWithFont:FONT_SIZE_NORMAL(12) constrainedToSize:CGSizeMake(274, MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping].height);
 
+    height+=info4.contentHeight.floatValue;
+    
     return height;
 }
 

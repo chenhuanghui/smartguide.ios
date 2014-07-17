@@ -15,28 +15,30 @@
 {
     _info=info2;
     lblLeft.text=info2.title;
-    
-    bool isURL=[info2.content containsString:@"http"];
-    btnURL.userInteractionEnabled=isURL;
-    
-    btnURL.titleLabel.numberOfLines=0;
-    
-    if(isURL)
-    {
-        NSMutableParagraphStyle *paraStyle=[NSMutableParagraphStyle new];
-        paraStyle.alignment=NSTextAlignmentCenter;
-        
-        NSAttributedString *attStr=[[NSAttributedString alloc] initWithString:info2.content attributes:@{
-                                                                                                         NSFontAttributeName:FONT_SIZE_NORMAL(12)
-                                                                                                         , NSUnderlineStyleAttributeName:@(true)
-                                                                                                         , NSForegroundColorAttributeName:[UIColor blueColor]
-                                                                                                         , NSParagraphStyleAttributeName:paraStyle}];
-        [btnURL setAttributedTitle:attStr forState:UIControlStateNormal];
-    }
-    else
-    {
-        [btnURL setTitle:info2.content forState:UIControlStateNormal];
-        [btnURL setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+
+    switch (info2.contentType) {
+        case INFO2_CONTENT_TYPE_TEXT:
+            [btnURL setTitle:info2.content forState:UIControlStateNormal];
+            [btnURL setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+            [btnURL setImage:nil forState:UIControlStateNormal];
+            btnURL.userInteractionEnabled=false;
+            btnURL.titleLabel.numberOfLines=0;
+            break;
+            
+        case INFO2_CONTENT_TYPE_URL:
+        case INFO2_CONTENT_TYPE_URL_FACEBOOK:
+            btnURL.titleLabel.numberOfLines=1;
+            btnURL.userInteractionEnabled=true;
+            
+            UIImage *img=[UIImage imageNamed:@"golink.png"];
+            
+            if(info2.contentType==INFO2_CONTENT_TYPE_URL_FACEBOOK)
+                img=[UIImage imageNamed:@"gofacebook.png"];
+            
+            [btnURL setTitle:@"" forState:UIControlStateNormal];
+            [btnURL setImage:img forState:UIControlStateNormal];
+            
+            break;
     }
 }
 
@@ -70,11 +72,22 @@
 
 +(float)heightWithInfo2:(Info2 *)info2
 {
+    return 59;
     float height=0;
     
-    if(info2.contentHeight.floatValue==-1)
-        info2.contentHeight=@([info2.content sizeWithFont:FONT_SIZE_NORMAL(12) constrainedToSize:CGSizeMake(170, MAXFLOAT) lineBreakMode:NSLineBreakByTruncatingTail].height);
-    
+    switch (info2.contentType) {
+        case INFO2_CONTENT_TYPE_TEXT:
+            if(info2.contentHeight.floatValue==-1)
+                info2.contentHeight=@([info2.content sizeWithFont:FONT_SIZE_NORMAL(12) constrainedToSize:CGSizeMake(137, MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping].height);
+            break;
+            
+        case INFO2_CONTENT_TYPE_URL:
+        case INFO2_CONTENT_TYPE_URL_FACEBOOK:
+            if(info2.contentHeight.floatValue==-1)
+                info2.contentHeight=@(30);
+            break;
+    }
+
     height+=info2.contentHeight.floatValue;
     
     return MAX(37, height);

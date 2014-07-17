@@ -53,9 +53,18 @@ enum DETAIL_INFO_IS_TICKED {
 
 @end
 
+enum INFO2_CONTENT_TYPE
+{
+    INFO2_CONTENT_TYPE_TEXT=0,
+    INFO2_CONTENT_TYPE_URL=1,
+    INFO2_CONTENT_TYPE_URL_FACEBOOK=2,
+};
+
 @interface Info2 : NSObject
 
 +(Info2*) infoWithDictionary:(NSDictionary*) dict;
+
+-(enum INFO2_CONTENT_TYPE) contentType;
 
 @property (nonatomic, strong) NSString *title;
 @property (nonatomic, strong) NSString *content;

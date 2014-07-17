@@ -180,6 +180,11 @@
     [_navi setRootViewController:vc animate:true];
 }
 
+-(void)shopUserViewControllerTouchedURL:(ShopUserViewController *)controller url:(NSURL *)url
+{
+    [self showWebViewWithURL:url onCompleted:nil];
+}
+
 -(bool)allowDragToNavigation
 {
     if([_navi.visibleViewController isKindOfClass:[GalleryFullViewController class]])

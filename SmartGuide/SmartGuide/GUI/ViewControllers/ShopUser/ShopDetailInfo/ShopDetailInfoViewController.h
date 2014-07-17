@@ -13,6 +13,7 @@
 @protocol ShopDetailInfoControllerDelegate <SGViewControllerDelegate>
 
 -(void) shopDetailInfoControllerTouchedShop:(ShopDetailInfoViewController*) controller idShop:(int) idShop;
+-(void) shopDetailInfoControllerTouchedURL:(ShopDetailInfoViewController*) controller url:(NSURL*) url;
 
 @end
 

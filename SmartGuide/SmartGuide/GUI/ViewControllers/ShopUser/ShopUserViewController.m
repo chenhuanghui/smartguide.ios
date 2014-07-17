@@ -585,6 +585,11 @@ enum SHOP_USER_CELL_TYPE
     [self.delegate shopUserViewControllerTouchedIDShop:self idShop:idShop];
 }
 
+-(void)shopDetailInfoControllerTouchedURL:(ShopDetailInfoViewController *)controller url:(NSURL *)url
+{
+    [self.delegate shopUserViewControllerTouchedURL:self url:url];
+}
+
 -(void)dealloc
 {
     [ShopManager clean:_shop];
