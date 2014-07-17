@@ -49,6 +49,23 @@
     }
 }
 
+-(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
+{
+    [webView showLoading];
+    
+    return true;
+}
+
+-(void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
+{
+    [webView removeLoading];
+}
+
+-(void)webViewDidFinishLoad:(UIWebView *)webView
+{
+    [webView removeLoading];
+}
+
 @end
 
 @implementation UIViewController(WebView)

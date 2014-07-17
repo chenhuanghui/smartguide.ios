@@ -37,6 +37,9 @@
 
 -(void) requestStaticMap
 {
+    if(!isVailCLLocationCoordinate2D(_shop.coordinate))
+        return;
+    
     if(_opeStaticMap)
         return;
     

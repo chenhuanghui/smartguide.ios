@@ -165,16 +165,21 @@
         return;
     }
     
-    if([text containsString:@"?infory=true"])
+    if([text containsString:@"?infory=true"]
+       || [text containsString:@"&infory=true"])
     {
         [self showScanCodeResultWithCode:text];
     }
-    else if([text containsString:QRCODE_DOMAIN_INFORY])
+    else if([text startsWithStrings:
+             [@"http://" stringByAppendingString:QRCODE_DOMAIN_INFORY]
+             , [@"www." stringByAppendingString:QRCODE_DOMAIN_INFORY]
+             , QRCODE_DOMAIN_INFORY
+             , nil])
     {
         NSURL *url=[NSURL URLWithString:text];
         if([text containsString:QRCODE_INFORY_SHOPS])
         {
-            NSString *idShops=[url query];
+            NSString *idShops=[[[url query] componentsSeparatedByString:@"&"] firstObject];
             if(idShops.length>0)
             {
                 NSArray *array=[idShops componentsSeparatedByString:@"="];
@@ -228,6 +233,9 @@
     {
         if([text startsWithStrings:@"http://", @"https://", @"www.", nil])
         {
+            if([text startsWith:@"www."])
+                text=[@"http://" stringByAppendingString:text];
+            
             [self.delegate scanCodeController:self scannedURL:URL(text)];
         }
         else

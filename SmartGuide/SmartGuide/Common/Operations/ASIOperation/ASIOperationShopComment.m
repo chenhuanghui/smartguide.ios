@@ -62,6 +62,7 @@
                 
             case SORT_SHOP_COMMENT_TIME:
                 [shop addTimeCommentsObject:cmt];
+                break;
         }
         
         [comments addObject:cmt];

@@ -76,9 +76,11 @@
     switch ([ShopManager shareInstanceWithShop:_shop].sortComments) {
         case SORT_SHOP_COMMENT_TIME:
             count=[ShopManager shareInstanceWithShop:_shop].timeComments.count+([ShopManager shareInstanceWithShop:_shop].canLoadMoreCommentTime?1:0);
+            break;
             
         case SORT_SHOP_COMMENT_TOP_AGREED:
             count=[ShopManager shareInstanceWithShop:_shop].topAgreedComments.count+([ShopManager shareInstanceWithShop:_shop].canLoadMoreCommentTopAgreed?1:0);
+            break;
     }
     
     imgvFirstComment.hidden=count>0;
