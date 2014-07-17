@@ -177,7 +177,7 @@
 -(void)shopUserViewControllerTouchedIDShop:(ShopUserViewController *)controller idShop:(int)idShop
 {
     ShopUserViewController *vc=[self shopUserViewControllerWithIDShop:idShop];
-    [_navi setRootViewController:vc animate:true];
+    [_navi pushViewController:vc animated:true];
 }
 
 -(void)shopUserViewControllerTouchedURL:(ShopUserViewController *)controller url:(NSURL *)url

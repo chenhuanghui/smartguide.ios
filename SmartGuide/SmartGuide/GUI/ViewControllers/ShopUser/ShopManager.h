@@ -15,6 +15,7 @@
 #define NOTIFICATION_COMMENTS_FINISHED_TOP_AGREED @"commentsFinishedTopAgreed"
 #define NOTIFICATION_COMMENTS_FINISHED_TIME @"commentsFinishedTime"
 #define NOTIFICATION_COMMENTS_FINISHED_NEW_COMMENT @"commentsFinishedNewComment"
+#define NOTIFICATION_SHOP_MANAGER_CLEAN @"shopManagerClean"
 
 @class UserGalleryUpload;
 

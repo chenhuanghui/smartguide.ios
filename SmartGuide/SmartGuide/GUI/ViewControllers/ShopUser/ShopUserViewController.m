@@ -103,6 +103,8 @@ enum SHOP_USER_CELL_TYPE
         case SHOP_DATA_SHOP_LIST:
             break;
     }
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveNotification:) name:NOTIFICATION_SHOP_MANAGER_CLEAN object:nil];
 }
 
 -(void) reloadData
@@ -182,6 +184,14 @@ enum SHOP_USER_CELL_TYPE
         
         [shopComments clearInput];
         [self reloadVisibleItems];
+    }
+    else if([notification.name isEqualToString:NOTIFICATION_SHOP_MANAGER_CLEAN])
+    {
+        if([notification.object integerValue]==_shop.idShop.integerValue)
+        {
+            [self.view showLoading];
+            [self requestShopUser];
+        }
     }
 }
 
@@ -592,6 +602,7 @@ enum SHOP_USER_CELL_TYPE
 
 -(void)dealloc
 {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:NOTIFICATION_SHOP_MANAGER_CLEAN object:nil];
     [ShopManager clean:_shop];
     table.delegate=nil;
 }

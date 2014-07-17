@@ -58,6 +58,7 @@ NSMutableArray * _shopManagers=nil;
     
     if(obj.shop.idShop.integerValue==shop.idShop.integerValue)
     {
+        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_SHOP_MANAGER_CLEAN object:obj.shop.idShop];
         [_shopManagers removeObject:obj];
     }
 }
