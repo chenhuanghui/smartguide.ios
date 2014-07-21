@@ -2821,3 +2821,29 @@ static const NSString *KEY_HIT_TEST_EDGE_INSETS = @"HitTestEdgeInsets";
 }
 
 @end
+
+@implementation UITableView(ReloadAnimation)
+
+-(void)beginUpdatesAnimationWithDuration:(float)duration
+{
+    [UIView beginAnimations:@"UITableView+ReloadAnimation" context:nil];
+    [UIView setAnimationDuration:duration];
+    [CATransaction begin];
+    [self beginUpdates];
+}
+
+-(void) performUpdateWithAction:(void (^)())action completion:(void (^)())completed
+{
+    [CATransaction setCompletionBlock:completed];
+    
+    action();
+}
+
+-(void)endUpdatesAnimation
+{
+    [self endUpdates];
+    [CATransaction commit];
+    [UIView commitAnimations];
+}
+
+@end

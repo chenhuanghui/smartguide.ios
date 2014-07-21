@@ -468,3 +468,11 @@ NSString* LAZY_STRING_INT(int i);
 +(NSMutableParagraphStyle*) paraStyleWithTextAlign:(NSTextAlignment) textAlign;
 
 @end
+
+@interface UITableView(ReloadAnimation)
+
+-(void) beginUpdatesAnimationWithDuration:(float) duration;
+-(void) performUpdateWithAction:(void(^)()) action completion:(void(^)()) completed;
+-(void) endUpdatesAnimation;
+
+@end
