@@ -187,7 +187,7 @@ enum SHOP_USER_CELL_TYPE
     }
     else if([notification.name isEqualToString:NOTIFICATION_SHOP_MANAGER_CLEAN])
     {
-        if([notification.object integerValue]==_shop.idShop.integerValue)
+        if([notification.object integerValue]==_idShop)
         {
             [self.view showLoading];
             [self requestShopUser];
