@@ -7,15 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "InfoTypeBGView.h"
-#import "ASIOperationShopDetailInfo.h"
+#import "Constant.h"
 
-@interface ShopDetailInfoType3Cell : UITableViewCell
+@class Info3;
+
+@interface ShopDetailInfoType3Cell : UITableViewCell<TableViewCellDynamicHeight>
 {
     __weak IBOutlet UIImageView *imgv;
     __weak IBOutlet UILabel *lblTitle;
     __weak IBOutlet UILabel *lblContent;
     __weak IBOutlet UIImageView *line;
+    __weak IBOutlet UIView *textView;
     __weak Info3 *_info;
 }
 
@@ -24,6 +26,12 @@
 -(void)setCellPos:(enum CELL_POSITION)cellPos;
 
 +(NSString *)reuseIdentifier;
-+(float) heightWithInfo3:(Info3*) info3;
+
+@end
+
+@interface UITableView(ShopDetailInfoType3Cell)
+
+-(void) registerShopDetailInfoType3Cell;
+-(ShopDetailInfoType3Cell*) shopDetailInfoType3Cell;
 
 @end

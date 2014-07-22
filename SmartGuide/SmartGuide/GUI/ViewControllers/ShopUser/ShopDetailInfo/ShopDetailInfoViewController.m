@@ -70,7 +70,7 @@
     [table registerNib:[UINib nibWithNibName:[ShopDetailInfoEmptyCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[ShopDetailInfoEmptyCell reuseIdentifier]];
     [table registerNib:[UINib nibWithNibName:[ShopDetailInfoType1Cell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[ShopDetailInfoType1Cell reuseIdentifier]];
     [table registerNib:[UINib nibWithNibName:[ShopDetailInfoType2Cell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[ShopDetailInfoType2Cell reuseIdentifier]];
-    [table registerNib:[UINib nibWithNibName:[ShopDetailInfoType3Cell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[ShopDetailInfoType3Cell reuseIdentifier]];
+    [table registerShopDetailInfoType3Cell];
     [table registerNib:[UINib nibWithNibName:[ShopDetailInfoType4Cell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[ShopDetailInfoType4Cell reuseIdentifier]];
     [table registerShopDetailInfoDescCell];
     
@@ -291,7 +291,14 @@
                     return [ShopDetailInfoType2Cell heightWithInfo2:obj.items[indexPath.row]];
                     
                 case DETAIL_INFO_TYPE_3:
-                    return [ShopDetailInfoType3Cell heightWithInfo3:obj.items[indexPath.row]];
+                {
+                    ShopDetailInfoType3Cell *cell=[tableView shopDetailInfoType3Cell];
+                    
+                    [cell loadWithInfo3:obj.items[indexPath.row]];
+                    [cell layoutSubviews];
+                    
+                    return [cell suggestHeight];
+                }
                     
                 case DETAIL_INFO_TYPE_4:
                     return [ShopDetailInfoType4Cell heightWithInfo4:obj.items[indexPath.row]];
@@ -464,7 +471,7 @@
         {
             Info3 *item=obj.items[indexPath.row];
             
-            ShopDetailInfoType3Cell *cell=[table dequeueReusableCellWithIdentifier:[ShopDetailInfoType3Cell reuseIdentifier]];
+            ShopDetailInfoType3Cell *cell=[table shopDetailInfoType3Cell];
             
             [cell loadWithInfo3:item];
             

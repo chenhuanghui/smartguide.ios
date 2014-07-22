@@ -104,8 +104,6 @@
     {
         suggestHeight=btn.l_v_y+btn.l_v_h;
     }
-    
-//    suggestHeight+=25;
 }
 
 - (IBAction)btnReadTouchUpInside:(id)sender {
