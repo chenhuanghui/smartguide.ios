@@ -23,5 +23,6 @@
 @property (nonatomic, assign) float maxY;
 @property (nonatomic, assign) CGRect originFrame;
 @property (nonatomic, assign) float offsetY;
+@property (nonatomic, assign) int section;
 
 @end

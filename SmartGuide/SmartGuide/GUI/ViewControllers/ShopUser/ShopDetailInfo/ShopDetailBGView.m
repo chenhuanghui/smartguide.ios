@@ -16,6 +16,7 @@
     
     self.contentMode=UIViewContentModeRedraw;
     self.backgroundColor=[UIColor clearColor];
+    self.hidden=true;
     
     return self;
 }

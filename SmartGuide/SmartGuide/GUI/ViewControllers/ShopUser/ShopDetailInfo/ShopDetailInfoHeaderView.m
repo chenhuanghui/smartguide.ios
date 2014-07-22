@@ -36,7 +36,7 @@
     return @"ShopDetailInfoHeaderView";
 }
 
--(void)setFrame:(CGRect)frame
+-(void)setFrame1:(CGRect)frame
 {
     if(frame.origin.y<self.originFrame.origin.y+self.offsetY)
         frame.origin.y=self.originFrame.origin.y;

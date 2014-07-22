@@ -45,7 +45,7 @@
     
     suggestHeight=lblFullAddress.l_v_y+lblFullAddress.l_v_h;
     
-    suggestHeight+=25;
+    suggestHeight+=20;// align top button back
 }
 
 +(NSString *)reuseIdentifier

@@ -35,7 +35,6 @@ enum SHOP_DATA_MODE {
 -(enum SHOP_TYPE) enumShopType;
 -(enum SHOP_DATA_MODE) enumDataMode;
 
-@property (nonatomic, strong) NSNumber *descHeight;
 @property (nonatomic, strong) NSNumber *addressHeightForShopInfo;
 @property (nonatomic, strong) NSNumber *kmNewsHeight;
 @property (nonatomic, strong) UIImage *shopStaticMapImage;

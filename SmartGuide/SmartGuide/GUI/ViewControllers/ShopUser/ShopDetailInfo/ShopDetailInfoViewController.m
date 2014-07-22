@@ -72,7 +72,7 @@
     [table registerNib:[UINib nibWithNibName:[ShopDetailInfoType2Cell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[ShopDetailInfoType2Cell reuseIdentifier]];
     [table registerNib:[UINib nibWithNibName:[ShopDetailInfoType3Cell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[ShopDetailInfoType3Cell reuseIdentifier]];
     [table registerNib:[UINib nibWithNibName:[ShopDetailInfoType4Cell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[ShopDetailInfoType4Cell reuseIdentifier]];
-    [table registerNib:[UINib nibWithNibName:[ShopDetailInfoDescCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[ShopDetailInfoDescCell reuseIdentifier]];
+    [table registerShopDetailInfoDescCell];
     
     _infos=[NSMutableArray new];
     _didLoadShopDetail=false;
@@ -132,7 +132,15 @@
             return;
         
         _descMode=_descMode==SHOP_DETAIL_INFO_DESCRIPTION_NORMAL?SHOP_DETAIL_INFO_DESCRIPTION_FULL:SHOP_DETAIL_INFO_DESCRIPTION_NORMAL;
-        [self reloadData];
+        
+        [tableView beginUpdates];
+        [descCell loadWithShop:_shop mode:_descMode];
+        [descCell markedAnimation];
+        [tableView endUpdates];
+        
+        [self reloadHeaderView];
+        
+        [tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:true];
     }
 }
 
@@ -204,13 +212,13 @@
             return 1;
             
         case 1: //desc
-            return 2;
+            return 1;
             
         default:
         {
             InfoTypeObject *obj=_infos[section-2];
 
-            return obj.items.count+1;
+            return obj.items.count;
         }
     }
 }
@@ -257,7 +265,14 @@
             
         case 1:
             if(indexPath.row==0)
-                return [ShopDetailInfoDescCell heightWithShop:_shop withMode:_descMode];
+            {
+                ShopDetailInfoDescCell *cell=[tableView shopDetailInfoDescCell];
+                
+                [cell loadWithShop:_shop mode:_descMode];
+                [cell layoutSubviews];
+                
+                return [cell suggestHeight];
+            }
             else
                 return SHOP_DETAIL_INFO_TABLE_EMPTY_CELL_HEIGHT;
             
@@ -281,11 +296,13 @@
                 case DETAIL_INFO_TYPE_4:
                     return [ShopDetailInfoType4Cell heightWithInfo4:obj.items[indexPath.row]];
                     
-                default:
+                case DETAIL_INFO_TYPE_UNKNOW:
                     return 0;
             }
         }
     }
+    
+    return 0;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -304,7 +321,7 @@
         {
             if(indexPath.row==0)
             {
-                ShopDetailInfoDescCell *cell=[tableView dequeueReusableCellWithIdentifier:[ShopDetailInfoDescCell reuseIdentifier]];
+                ShopDetailInfoDescCell *cell=[tableView shopDetailInfoDescCell];
                 cell.delegate=self;
                 
                 [cell loadWithShop:_shop mode:_descMode];
@@ -331,6 +348,22 @@
     }
 }
 
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    if(section==tableView.numberOfSections-1)
+        return 0;
+    
+    return 25;
+}
+
+-(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    UIView *v=[UIView new];
+    v.backgroundColor=[UIColor clearColor];
+    return v;
+}
+
+
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     switch (section) {
@@ -349,11 +382,15 @@
             CGRect rect=[table rectForSection:section];
             ShopDetailInfoHeaderView *headerView=[[ShopDetailInfoHeaderView alloc] initWithTitle:title];
             
+            headerView.section=section;
             headerView.originFrame=rect;
             rect.size.height-=(SHOP_DETAIL_INFO_TABLE_EMPTY_CELL_HEIGHT+[ShopDetailInfoHeaderView height]-2);
             
             headerView.maxY=rect.origin.y+rect.size.height;
             headerView.offsetY=tableView.contentInset.top;
+            
+            if(section==1)
+                DLOG_DEBUG(@"header %f",rect.size.height);
 
             return headerView;
         }
@@ -520,6 +557,26 @@
     {
         [view removeFromSuperview];
         [self clearBGView];
+    }
+}
+
+-(void) reloadHeaderView
+{
+    for(ShopDetailInfoHeaderView *header in table.subviews)
+    {
+        if(![header isKindOfClass:[ShopDetailInfoHeaderView class]])
+            continue;
+        
+        CGRect rect=[table rectForSection:header.section];
+        
+        header.originFrame=rect;
+        rect.size.height-=(SHOP_DETAIL_INFO_TABLE_EMPTY_CELL_HEIGHT+[ShopDetailInfoHeaderView height]-2);
+        
+        header.maxY=rect.origin.y+rect.size.height;
+        header.offsetY=table.contentInset.top;
+        
+        if(header.section==1)
+            DLOG_DEBUG(@"header %f",rect.size.height);
     }
 }
 

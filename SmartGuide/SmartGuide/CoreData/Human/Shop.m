@@ -3,7 +3,7 @@
 #import "Constant.h"
 
 @implementation Shop
-@synthesize descHeight,addressHeightForShopInfo,kmNewsHeight, shopStaticMapImage;
+@synthesize addressHeightForShopInfo,kmNewsHeight, shopStaticMapImage;
 
 -(id)initWithEntity:(NSEntityDescription *)entity insertIntoManagedObjectContext:(NSManagedObjectContext *)context
 {
@@ -12,7 +12,6 @@
     self.shopLat=[NSNumber numberWithDouble:-1];
     self.shopLng=[NSNumber numberWithDouble:-1];
     self.kmNewsHeight=@(-1);
-    self.descHeight=@(-1);
     self.addressHeightForShopInfo=@(-1);
     
     return self;
