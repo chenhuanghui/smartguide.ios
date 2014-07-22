@@ -36,6 +36,7 @@ enum SHOP_DETAIL_INFO_DESCRIPTION_MODE {
 }
 
 -(void) loadWithShop:(Shop*) shop mode:(enum SHOP_DETAIL_INFO_DESCRIPTION_MODE) mode;
+-(void) animationWithMode:(enum SHOP_DETAIL_INFO_DESCRIPTION_MODE) mode duration:(float) duration;
 -(bool) canReadMore;
 -(void) markedAnimation;
 

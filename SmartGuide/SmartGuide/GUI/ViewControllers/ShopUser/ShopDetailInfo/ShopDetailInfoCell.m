@@ -32,6 +32,9 @@
     
     suggestHeight=0;
     
+    [lblShopName l_v_setW:272];
+    [lblFullAddress l_v_setW:272];
+    
     lblShopName.text=_shop.shopName;
     [lblShopName sizeToFit];
     

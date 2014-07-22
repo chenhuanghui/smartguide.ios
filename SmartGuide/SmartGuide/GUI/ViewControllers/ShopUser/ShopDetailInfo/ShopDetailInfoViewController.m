@@ -23,8 +23,6 @@
 #import "ImageManager.h"
 #import "WebViewController.h"
 
-#define SHOP_DETAIL_INFO_TABLE_EMPTY_CELL_HEIGHT 23.f
-
 @interface ShopDetailInfoViewController ()<ShopDetailInfoDescCellDelegate,UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate,ASIOperationPostDelegate,ShopDetailInfoType2Delegate>
 {
     ASIOperationShopDetailInfo *_operation;
@@ -52,6 +50,8 @@
         [_operation clearDelegatesAndCancel];
         _operation=nil;
     }
+    
+    table.delegate=nil;
 }
 
 -(void) storeRect
@@ -87,9 +87,12 @@
         [imgvCover loadShopCoverWithURL:gallery.cover];
     }
     
-    [self reloadData];
-    
     [self showLoading];
+}
+
+-(void)viewWillAppearOnce
+{
+    [self reloadData];
 }
 
 -(void) requestShopDetailInfo
@@ -133,12 +136,17 @@
         
         _descMode=_descMode==SHOP_DETAIL_INFO_DESCRIPTION_NORMAL?SHOP_DETAIL_INFO_DESCRIPTION_FULL:SHOP_DETAIL_INFO_DESCRIPTION_NORMAL;
         
-        [tableView beginUpdates];
         [descCell loadWithShop:_shop mode:_descMode];
         [descCell markedAnimation];
+        
+        [tableView beginUpdates];
         [tableView endUpdates];
         
-        [self reloadHeaderView];
+        [descCell animationWithMode:_descMode duration:DURATION_DEFAULT];
+        
+        [UIView animateWithDuration:DURATION_DEFAULT animations:^{
+            [self reloadBGViews];
+        }];
         
         [tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:true];
     }
@@ -182,6 +190,8 @@
             
             [coverView l_v_setY:y];
         }
+        
+        scrollBG.contentOffset=table.contentOffset;
     }
 }
 
@@ -273,15 +283,10 @@
                 
                 return [cell suggestHeight];
             }
-            else
-                return SHOP_DETAIL_INFO_TABLE_EMPTY_CELL_HEIGHT;
             
         default:
         {
             InfoTypeObject *obj=_infos[indexPath.section-2];
-            
-            if(indexPath.row==obj.items.count)
-                return SHOP_DETAIL_INFO_TABLE_EMPTY_CELL_HEIGHT;
             
             switch (obj.enumType) {
                 case DETAIL_INFO_TYPE_1:
@@ -386,19 +391,9 @@
             else
                 title=[_infos[section-2] header];
             
-            CGRect rect=[table rectForSection:section];
             ShopDetailInfoHeaderView *headerView=[[ShopDetailInfoHeaderView alloc] initWithTitle:title];
-            
             headerView.section=section;
-            headerView.originFrame=rect;
-            rect.size.height-=(SHOP_DETAIL_INFO_TABLE_EMPTY_CELL_HEIGHT+[ShopDetailInfoHeaderView height]-2);
             
-            headerView.maxY=rect.origin.y+rect.size.height;
-            headerView.offsetY=tableView.contentInset.top;
-            
-            if(section==1)
-                DLOG_DEBUG(@"header %f",rect.size.height);
-
             return headerView;
         }
     }
@@ -527,64 +522,58 @@
     [self reloadData];
 }
 
+-(void) syncScroll
+{
+    scrollBG.contentOffset=table.contentOffset;
+}
+
 -(void) reloadData
 {
     [table reloadData];
+    
+    [self syncScroll];
     
     [self clearBGView];
     
     int sectionCount=[table numberOfSections];
     
-    CGRect rect=CGRectZero;
-    
     for(int i=1;i<sectionCount;i++)
     {
-        rect=[table rectForSection:i];
-        rect.size.height-=SHOP_DETAIL_INFO_TABLE_EMPTY_CELL_HEIGHT;
-        rect.size.width=300;
-        rect.origin.x=5;
+        ShopDetailBGView *bg=[[ShopDetailBGView alloc] initWithFrame:[self rectForBackgroundView:i]];
         
-        ShopDetailBGView *bg=[[ShopDetailBGView alloc] initWithFrame:rect];
+        bg.section=i;
         
-        [table insertSubview:bg atIndex:0];
+        [scrollBG addSubview:bg];
     }
+}
+
+-(void) reloadBGViews
+{
+    for(ShopDetailBGView *bg in scrollBG.subviews)
+    {
+        bg.frame=[self rectForBackgroundView:bg.section];
+    }
+}
+
+-(CGRect) rectForBackgroundView:(int) section
+{
+    float headerHeight=[table rectForHeaderInSection:section].size.height;
+    
+    if(headerHeight>0)
+        headerHeight-=43-38;
+    
+    CGRect rect=[table rectForSection:section];
+    rect.size.width=300;
+    rect.size.height-=[table rectForFooterInSection:section].size.height+headerHeight;
+    rect.origin.y+=headerHeight;
+    rect.origin.x=10;
+    
+    return rect;
 }
 
 -(void) clearBGView
 {
-    UIView *view=nil;
-    
-    for(view in table.subviews)
-    {
-        if([view isKindOfClass:[ShopDetailBGView class]])
-            break;
-    }
-    
-    if([view isKindOfClass:[ShopDetailBGView class]])
-    {
-        [view removeFromSuperview];
-        [self clearBGView];
-    }
-}
-
--(void) reloadHeaderView
-{
-    for(ShopDetailInfoHeaderView *header in table.subviews)
-    {
-        if(![header isKindOfClass:[ShopDetailInfoHeaderView class]])
-            continue;
-        
-        CGRect rect=[table rectForSection:header.section];
-        
-        header.originFrame=rect;
-        rect.size.height-=(SHOP_DETAIL_INFO_TABLE_EMPTY_CELL_HEIGHT+[ShopDetailInfoHeaderView height]-2);
-        
-        header.maxY=rect.origin.y+rect.size.height;
-        header.offsetY=table.contentInset.top;
-        
-        if(header.section==1)
-            DLOG_DEBUG(@"header %f",rect.size.height);
-    }
+    [scrollBG.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
 }
 
 @end

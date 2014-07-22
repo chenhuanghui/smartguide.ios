@@ -7,6 +7,7 @@
 //
 
 #import "ShopDetailBGView.h"
+#import "Utility.h"
 
 @implementation ShopDetailBGView
 
@@ -14,30 +15,33 @@
 {
     self=[super initWithFrame:frame];
     
-    self.contentMode=UIViewContentModeRedraw;
     self.backgroundColor=[UIColor clearColor];
-    self.hidden=true;
+    
+    UIView *view=[[UIView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height-5)];
+    view.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"bg_detail_info_mid.png"]];
+    view.userInteractionEnabled=false;
+    view.autoresizingMask=UIViewAutoresizingNone;
+    
+    [self addSubview:view];
+    
+    UIImageView *imgv=[[UIImageView alloc] initWithFrame:CGRectMake(0, frame.size.height-5, frame.size.width, 5)];
+    imgv.image=[UIImage imageNamed:@"bg_detail_info_bottom.png"];
+    imgv.autoresizingMask=UIViewAutoresizingNone;
+    
+    [self addSubview:imgv];
     
     return self;
 }
 
--(void)drawRect:(CGRect)rect
+-(void)setFrame:(CGRect)frame
 {
-    if(!imgMid)
+    [super setFrame:frame];
+    
+    if(self.subviews.count>1)
     {
-        imgTop=[UIImage imageNamed:@"bg_detail_placelist_header.png"];
-        imgMid=[UIImage imageNamed:@"bg_detail_info_mid.png"];
-        imgBottom=[UIImage imageNamed:@"bg_detail_info_bottom.png"];
+        [self.subviews[0] l_v_setH:frame.size.height-5];
+        [self.subviews[1] l_v_setY:frame.size.height-5];
     }
-    
-    [imgTop drawInRect:CGRectMake(0, 0, imgTop.size.width, imgTop.size.height)];
-    [imgBottom drawAtPoint:CGPointMake(0, rect.size.height-imgTop.size.height)];
-    
-    rect.origin.y=imgTop.size.height;
-    rect.origin.x=0;
-    rect.size.height-=(imgTop.size.height+imgBottom.size.height-1);
-    
-    [imgMid drawAsPatternInRect:rect];
 }
 
 @end

@@ -19,6 +19,7 @@
 {
     _shop=shop;
     _mode=mode;
+    _markedAnimation=false;
 }
 
 -(void)markedAnimation
@@ -26,39 +27,86 @@
     _markedAnimation=true;
 }
 
+-(void)animationWithMode:(enum SHOP_DETAIL_INFO_DESCRIPTION_MODE)mode duration:(float)duration
+{
+    switch (mode) {
+        case SHOP_DETAIL_INFO_DESCRIPTION_NORMAL:
+        {
+            lbl.numberOfLines=3;
+            [lbl l_v_setW:274];
+            [lbl sizeToFit];
+            
+            float height=lbl.l_v_h;
+            
+            lbl.numberOfLines=0;
+            [lbl l_v_setW:274];
+            [lbl sizeToFit];
+            
+            [UIView animateWithDuration:duration animations:^{
+                [lblView l_v_setH:height];
+                blur.alpha=1;
+                [blur l_v_setY:lblView.l_v_y+lblView.l_v_h-blur.l_v_h];
+                [btn l_v_setY:lblView.l_v_y+lblView.l_v_h];
+                
+            } completion:^(BOOL finished) {
+                lbl.numberOfLines=3;
+                [lbl l_v_setW:274];
+                [lbl sizeToFit];
+                [btn setTitle:@"Xem thêm" forState:UIControlStateNormal];
+            }];
+        }
+            break;
+            
+        case SHOP_DETAIL_INFO_DESCRIPTION_FULL:
+            lbl.numberOfLines=0;
+            [lbl l_v_setW:274];
+            [lbl sizeToFit];
+            
+            [UIView animateWithDuration:duration animations:^{
+                [lblView l_v_setH:lbl.l_v_h];
+                [btn l_v_setY:lbl.l_v_y+lbl.l_v_h];
+                [blur l_v_setY:lblView.l_v_y+lblView.l_v_h-blur.l_v_h];
+                blur.alpha=0;
+            } completion:^(BOOL finished) {
+                [btn setTitle:@"Rút gọn" forState:UIControlStateNormal];
+            }];
+            break;
+    }
+}
+
 -(void)layoutSubviews
 {
     [super layoutSubviews];
+    
+    if(_markedAnimation)
+        return;
     
     NSDictionary *attr=@{NSFontAttributeName:lbl.font
                          , NSParagraphStyleAttributeName:[NSMutableParagraphStyle paraStyleWithTextAlign:NSTextAlignmentJustified]};
     lbl.attributedText=[[NSAttributedString alloc] initWithString:_shop.desc attributes:attr];
     
+    [lbl l_v_setW:274];
+    
     switch (_mode) {
         case SHOP_DETAIL_INFO_DESCRIPTION_FULL:
             lbl.numberOfLines=0;
             
-            [UIView setAnimationsEnabled:false];
             [lbl sizeToFit];
-            [UIView setAnimationsEnabled:true];
             
             btn.hidden=false;
             [btn setTitle:@"Rút gọn" forState:UIControlStateNormal];
-            blur.hidden=true;
+            blur.alpha=0;
             
             break;
             
         case SHOP_DETAIL_INFO_DESCRIPTION_NORMAL:
             lbl.numberOfLines=0;
-            [UIView setAnimationsEnabled:false];
             [lbl sizeToFit];
-            [UIView setAnimationsEnabled:true];
             float maxHeight=lbl.l_v_h;
             
             lbl.numberOfLines=3;
-            [UIView setAnimationsEnabled:false];
+            [lbl l_v_setW:274];
             [lbl sizeToFit];
-            [UIView setAnimationsEnabled:true];
             
             float height=lbl.l_v_h;
             
@@ -68,12 +116,12 @@
             if(maxHeight<=height)
             {
                 btn.hidden=true;
-                blur.hidden=true;
+                blur.alpha=0;
             }
             else
             {
                 btn.hidden=false;
-                blur.hidden=false;
+                blur.alpha=1;
             }
             
             break;
@@ -82,14 +130,14 @@
     if(_markedAnimation)
     {
         [UIView animateWithDuration:DURATION_DEFAULT animations:^{
-            [lblView l_v_setS:lbl.l_v_s];
+            [lblView l_v_setH:lbl.l_v_h];
             [blur l_v_setY:lbl.l_v_y+lbl.l_v_h-blur.l_v_h];
             [btn l_v_setY:lbl.l_v_y+lbl.l_v_h];
         }];
     }
     else
     {
-        [lblView l_v_setS:lbl.l_v_s];
+        [lblView l_v_setH:lbl.l_v_h];
         [blur l_v_setY:lbl.l_v_y+lbl.l_v_h-blur.l_v_h];
         [btn l_v_setY:lbl.l_v_y+lbl.l_v_h];
     }
