@@ -66,7 +66,7 @@
     
     [self storeRect];
     
-    [table registerNib:[UINib nibWithNibName:[ShopDetailInfoCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[ShopDetailInfoCell reuseIdentifier]];
+    [table registerShopDetailInfoCell];
     [table registerNib:[UINib nibWithNibName:[ShopDetailInfoEmptyCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[ShopDetailInfoEmptyCell reuseIdentifier]];
     [table registerNib:[UINib nibWithNibName:[ShopDetailInfoType1Cell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[ShopDetailInfoType1Cell reuseIdentifier]];
     [table registerNib:[UINib nibWithNibName:[ShopDetailInfoType2Cell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[ShopDetailInfoType2Cell reuseIdentifier]];
@@ -77,12 +77,8 @@
     _infos=[NSMutableArray new];
     _didLoadShopDetail=false;
     _descMode=SHOP_DETAIL_INFO_DESCRIPTION_NORMAL;
-    
-    _operation=[[ASIOperationShopDetailInfo alloc] initWithIDShop:_shop.idShop.integerValue userLat:userLat() userLng:userLng()];
-    _operation.delegate=self;
-    _operation.fScreen=SCREEN_CODE_SHOP_USER;
-    
-    [_operation addToQueue];
+
+    [self requestShopDetailInfo];
     
     if(_shop.shopGalleriesObjects.count>0)
     {
@@ -94,6 +90,15 @@
     [self reloadData];
     
     [self showLoading];
+}
+
+-(void) requestShopDetailInfo
+{
+    _operation=[[ASIOperationShopDetailInfo alloc] initWithIDShop:_shop.idShop.integerValue userLat:userLat() userLng:userLng()];
+    _operation.delegate=self;
+    _operation.fScreen=SCREEN_CODE_SHOP_USER;
+    
+    [_operation addToQueue];
 }
 
 -(void) showLoading
@@ -241,7 +246,14 @@
 {
     switch (indexPath.section) {
         case 0:
-            return [ShopDetailInfoCell heightWithShop:_shop];
+        {
+            ShopDetailInfoCell *cell=[tableView shopDetailInfoCell];
+            
+            [cell loadWithShop:_shop];
+            [cell layoutSubviews];
+            
+            return [cell suggestHeight];
+        }
             
         case 1:
             if(indexPath.row==0)
@@ -281,7 +293,7 @@
     switch (indexPath.section) {
         case 0:
         {
-            ShopDetailInfoCell *cell=[table dequeueReusableCellWithIdentifier:[ShopDetailInfoCell reuseIdentifier]];
+            ShopDetailInfoCell *cell=[table shopDetailInfoCell];
             
             [cell loadWithShop:_shop];
             
@@ -492,13 +504,6 @@
         
         [table insertSubview:bg atIndex:0];
     }
-}
-
--(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    for(UIView *bg in tableView.subviews)
-        if([bg isKindOfClass:[ShopDetailBGView class]])
-            [tableView sendSubviewToBack:bg];
 }
 
 -(void) clearBGView
