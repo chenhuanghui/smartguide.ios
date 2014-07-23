@@ -221,7 +221,11 @@
     {
         if(_placeList)
         {
-            return [ShopListPlaceCell heightWithContent:_placeList.desc];
+            ShopListPlaceCell *cell=[tableView shopListPlaceCell];
+            [cell loadWithPlace:_placeList];
+            [cell layoutSubviews];
+            
+            return cell.suggestHeight;
         }
     }
     

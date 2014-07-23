@@ -7,27 +7,32 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Placelist.h"
-#import "LabelTopText.h"
-#import "FTCoreTextView.h"
-#import "UserHome3.h"
+#import "Constant.h"
 
-@interface ShopListPlaceCell : UITableViewCell
+@class Placelist, UserHome3;
+
+@interface ShopListPlaceCell : UITableViewCell<TableViewCellDynamicHeight>
 {
     __weak IBOutlet UIImageView *imgvIcon;
     __weak IBOutlet UILabel *lblTitle;
-    __weak IBOutlet FTCoreTextView *lblAuthorName;
+    __weak IBOutlet UILabel *lblAuthorName;
     __weak IBOutlet UILabel *lblNumOfView;
-    __weak IBOutlet LabelTopText *lblContent;
+    __weak IBOutlet UILabel *lblContent;
     __weak IBOutlet UIImageView *imgvAuthorAvatar;
     
+    __weak Placelist *_obj;
 }
 
 -(void) loadWithPlace:(Placelist*) place;
--(void) loadWithUserHome3:(UserHome3*) home;
 
 +(NSString *)reuseIdentifier;
-+(float) heightWithContent:(NSString*) content;
-+(float) titleHeight;
++(float)titleHeight;
+
+@end
+
+@interface UITableView(ShopListPlaceCell)
+
+-(void) registerShopListPlaceCell;
+-(ShopListPlaceCell*) shopListPlaceCell;
 
 @end

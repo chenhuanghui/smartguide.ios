@@ -8,37 +8,51 @@
 
 #import "ShopListPlaceCell.h"
 #import "ImageManager.h"
+#import "Placelist.h"
+#import "UserHome3.h"
 
 @implementation ShopListPlaceCell
+@synthesize suggestHeight;
 
 -(void)loadWithPlace:(Placelist *)place
 {
+    _obj=place;
+    [self layoutIfNeeded];
+}
+
+-(void)layoutSubviews
+{
+    [super layoutSubviews];
+    
+    Placelist *place=_obj;
+    
     lblTitle.text=place.title;
     lblContent.text=place.desc;
     [imgvAuthorAvatar loadCommentAvatarWithURL:place.authorAvatar size:CGSizeMake(40, 40)];
     lblNumOfView.text=[NSString stringWithFormat:@"%@ lượt xem", place.numOfView];
     
-    [lblAuthorName setText:[NSString stringWithFormat:@"<text>by <author>%@</author></text>",place.authorName]];
-}
-
--(void)loadWithUserHome3:(UserHome3 *)home
-{
-    lblTitle.text=home.place.title;
-    lblContent.text=home.content;
-    [imgvAuthorAvatar loadCommentAvatarWithURL:home.place.authorAvatar size:CGSizeMake(40, 40)];
-    lblNumOfView.text=[NSString stringWithFormat:@"%@ lượt xem", home.place.numOfView];
+    NSMutableAttributedString *attStr=[NSMutableAttributedString new];
     
-    [lblAuthorName setText:[NSString stringWithFormat:@"<text>by <author>%@</author></text>",home.place.authorName]];
-}
-
-+(float)heightWithContent:(NSString *)content
-{
-    float height=[content sizeWithFont:[UIFont fontWithName:@"Avenir-Roman" size:13] constrainedToSize:CGSizeMake(249, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height+10;
+    [attStr appendAttributedString:[[NSAttributedString alloc] initWithString:@"by " attributes:@{NSFontAttributeName:FONT_SIZE_ITALIC(12),NSForegroundColorAttributeName:[UIColor grayColor]}]];
     
-    if(height>45)
-        height=45;
+    [attStr appendAttributedString:[[NSAttributedString alloc] initWithString:place.authorName attributes:@{NSFontAttributeName:FONT_SIZE_BOLD(12),NSForegroundColorAttributeName:[UIColor redColor]}]];
     
-    return MAX(80,height+44);
+    lblAuthorName.attributedText=attStr;
+    
+    lblContent.frame=CGRectMake(31, 29, 176, 0);
+    [lblContent sizeToFit];
+    [lblContent l_v_setW:176];
+    
+    lblAuthorName.frame=CGRectMake(215, 47, 105, 0);
+    [lblAuthorName sizeToFit];
+    [lblAuthorName l_v_setW:105];
+    
+    [lblNumOfView l_v_setY:lblAuthorName.l_v_y+lblAuthorName.l_v_h];
+    
+    suggestHeight=MAX(lblContent.l_v_y+lblContent.l_v_h,lblNumOfView.l_v_y+lblNumOfView.l_v_h);
+    suggestHeight+=5;
+    
+    suggestHeight=MAX(90,suggestHeight);
 }
 
 +(NSString *)reuseIdentifier
@@ -46,32 +60,23 @@
     return @"ShopListPlaceCell";
 }
 
--(void)awakeFromNib
-{
-    [super awakeFromNib];
-    
-    NSMutableArray *array=[NSMutableArray array];
-    
-    FTCoreTextStyle *style=[FTCoreTextStyle styleWithName:@"text"];
-    style.textAlignment=FTCoreTextAlignementCenter;
-    style.color=[UIColor grayColor];
-    style.font=[UIFont fontWithName:@"Avenir-Oblique" size:12];
-    
-    [array addObject:[style copy]];
-    
-    style=[FTCoreTextStyle styleWithName:@"author"];
-    style.textAlignment=FTCoreTextAlignementCenter;
-    style.color=[UIColor redColor];
-    style.font=[UIFont fontWithName:@"Avenir-Heavy" size:12];
-    
-    [array addObject:[style copy]];
-    
-    [lblAuthorName addStyles:array];
-}
-
 +(float)titleHeight
 {
     return 40;
+}
+
+@end
+
+@implementation UITableView(ShopListPlaceCell)
+
+-(void)registerShopListPlaceCell
+{
+    [self registerNib:[UINib nibWithNibName:[ShopListPlaceCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[ShopListPlaceCell reuseIdentifier]];
+}
+
+-(ShopListPlaceCell *)shopListPlaceCell
+{
+    return [self dequeueReusableCellWithIdentifier:[ShopListPlaceCell reuseIdentifier]];
 }
 
 @end
