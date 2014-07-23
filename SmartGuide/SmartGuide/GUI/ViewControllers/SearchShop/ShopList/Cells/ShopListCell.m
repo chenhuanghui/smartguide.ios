@@ -12,16 +12,23 @@
 #import "GUIManager.h"
 #import "ImageManager.h"
 #import "Placelist.h"
+#import "LabelTopText.h"
+#import "ShopList.h"
+#import "ASIOperationLoveShop.h"
+#import "ShopListViewController.h"
 
 #define SHOP_LIST_CELL_BUTTON_TAG_ADD 0
 #define SHOP_LIST_CELL_BUTTON_TAG_REMOVE 1
 
-@interface ShopListCell()<ASIOperationPostDelegate>
+@interface ShopListCell()<ASIOperationPostDelegate, UIScrollViewDelegate>
+{
+    ASIOperationLoveShop *_operationLove;
+}
 
 @end
 
 @implementation ShopListCell
-@synthesize delegate;
+@synthesize delegate, suggestHeight;
 
 +(float)addressHeight
 {
@@ -31,23 +38,57 @@
 -(void)loadWithShopList:(ShopList *)shopList
 {
     _shop=shopList;
-    [imgvType setImage:[[ImageManager sharedInstance] shopImageTypeWithType:shopList.shop.enumShopType]];
+    [self layoutIfNeeded];
+}
 
+-(void)layoutSubviews
+{
+    [super layoutSubviews];
+    
+    imgvType.image=[[ImageManager sharedInstance] shopImageTypeWithType:_shop.shop.enumShopType];
+    
     [self makeScrollSize];
     
     imgvHeartAni.hidden=true;
     imgvHeartAni.transform=CGAffineTransformMakeScale(1, 1);
     
-    lblName.text=shopList.shopName;
-    lblAddress.text=shopList.address;
-    lblContent.text=shopList.desc;
+    lblName.text=_shop.shopName;
+    lblAddress.text=_shop.address;
+    
     [btnNumOfView setTitle:[NSString stringWithFormat:@"%@ lượt xem",[_shop numOfView]] forState:UIControlStateNormal];
     [btnNumOfLove setTitle:[NSString stringWithFormat:@"%@ lượt thích",[_shop numOfLove]] forState:UIControlStateNormal];
     [btnNumOfComment setTitle:[NSString stringWithFormat:@"%@ nhận xét",[_shop numOfComment]] forState:UIControlStateNormal];
-    lblKM.text=[NSString stringWithFormat:@"Cách bạn %@",shopList.distance];
-    btnLove.alpha=shopList.enumLoveStatus==LOVE_STATUS_LOVED?1:0.3f;
-
+    
+    lblKM.text=[NSString stringWithFormat:@"Cách bạn %@",_shop.distance];
+    btnLove.alpha=_shop.enumLoveStatus==LOVE_STATUS_LOVED?1:0.3f;
+    
     [self makeButtonType];
+    
+    lblName.frame=CGRectMake(30, 5, 270, 0);
+    [lblName sizeToFit];
+    [lblName l_v_setW:270];
+    
+    lblAddress.frame=CGRectMake(51, lblName.l_v_y+lblName.l_v_h, 249, 0);
+    [lblAddress sizeToFit];
+    [lblAddress l_v_setW:249];
+    
+    lblKM.frame=CGRectMake(51, lblAddress.l_v_y+lblAddress.l_v_h, 249, 0);
+    [lblKM sizeToFit];
+    [lblKM l_v_setW:249];
+    
+    NSAttributedString *attStr=[[NSAttributedString alloc] initWithString:_shop.desc attributes:@{NSFontAttributeName:lblContent.font
+                                                                                                  , NSParagraphStyleAttributeName:[NSMutableParagraphStyle paraStyleWithTextAlign:NSTextAlignmentJustified]}];
+    
+    lblContent.attributedText=attStr;
+    lblContent.frame=CGRectMake(51, lblKM.l_v_y+lblKM.l_v_h, 249, 0);
+    [lblContent sizeToFit];
+    
+    [scroll l_v_setH:lblContent.l_v_y+lblContent.l_v_h];
+    
+    [summaryView l_v_setY:scroll.l_v_y+scroll.l_v_h+5];
+    [imgvLineBot l_v_setY:summaryView.l_v_y+summaryView.l_v_h+10];
+    
+    suggestHeight=imgvLineBot.l_v_y+imgvLineBot.l_v_h;
 }
 
 -(void) addObserver
@@ -120,27 +161,6 @@
 +(NSString *)reuseIdentifier
 {
     return @"ShopListCell";
-}
-
-+(float)heightWithShopList:(ShopList*) shop
-{
-    if(shop.desc.length==0)
-        return 0;
-    
-    float height=115;
-    
-    if(shop.descHeight==0)
-        shop.descHeight=[shop.desc sizeWithFont:[UIFont fontWithName:@"Avenir-Roman" size:13] constrainedToSize:CGSizeMake(249, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height;
-    
-    if(shop.descHeight<36)
-        height+=shop.descHeight;
-    else
-        height+=36;
-    
-    if(height>151)
-        height=151;
-    
-    return height;
 }
 
 -(void) love_unlove
@@ -280,7 +300,6 @@
     tap.numberOfTouchesRequired=1;
     
     [scroll addGestureRecognizer:tap];
-    
     [scroll.panGestureRecognizer requireGestureRecognizerToFail:tap];
 }
 
@@ -363,10 +382,9 @@
     scroll.contentInset=UIEdgeInsetsZero;
 }
 
--(void)tableDidScroll
+-(void)tableDidScroll:(UITableView *)table
 {
-    float offsetX=MAX(0,scroll.l_co_x-fabsf(self.table.offsetY/2));
-    [scroll l_co_setX:offsetX];
+    [scroll l_co_setX:0 animate:true];
 }
 
 @end
@@ -384,7 +402,7 @@
 {
     if(gestureRecognizer==self.panGestureRecognizer)
     {
-        if([self.cell.controller isZoomedMap])
+        if(![self.cell.delegate shopListCellCanSlide:self.cell])
             return false;
         
         CGPoint velocity=[self.panGestureRecognizer velocityInView:self.panGestureRecognizer.view];
@@ -393,6 +411,20 @@
     }
     
     return true;
+}
+
+@end
+
+@implementation UITableView(ShopListCell)
+
+-(void)registerShopListCell
+{
+    [self registerNib:[UINib nibWithNibName:[ShopListCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[ShopListCell reuseIdentifier]];
+}
+
+-(ShopListCell *)shopListCell
+{
+    return [self dequeueReusableCellWithIdentifier:[ShopListCell reuseIdentifier]];
 }
 
 @end

@@ -113,7 +113,7 @@
         for(ShopListCell *cell in tableList.visibleCells)
         {
             if([cell isKindOfClass:[ShopListCell class]])
-                [cell tableDidScroll];
+                [cell tableDidScroll:tableList];
         }
         
         if(scrollerView)
@@ -228,7 +228,11 @@
     if(_canLoadMore && indexPath.row==_shopsList.count)
         return 88;
     
-    return [ShopListCell heightWithShopList:_shopsList[indexPath.row]];
+    ShopListCell *cell=[tableView shopListCell];
+    [cell loadWithShopList:_shopsList[indexPath.row]];
+    [cell layoutSubviews];
+    
+    return cell.suggestHeight;
 }
 
 -(void) loadMore
@@ -256,9 +260,6 @@
     cell.delegate=self;
     
     [cell loadWithShopList:shop];
-    cell.table=tableList;
-    cell.indexPath=indexPath;
-    cell.controller=self;
     
     return cell;
 }
@@ -386,13 +387,18 @@
     [self.sgNavigationController pushViewController:vc animated:true];
 }
 
+-(bool)shopListCellCanSlide:(ShopListCell *)cell
+{
+    return !_isZoomedMap;
+}
+
 -(void)shopListCellTouchedRemove:(ShopListCell *)cell shop:(ShopList *)shop
 {
     [cell closeLove];
     
     [self showLoading];
     
-    _indexPathWillRemove=cell.indexPath;
+    _indexPathWillRemove=[tableList indexPathForCell:cell];
     
     _operationRemoveShopPlacelist=[[ASIOperationRemoveShopPlacelist alloc] initWithIDPlacelist:_placeList.idPlacelist.integerValue idShops:[NSString stringWithFormat:@"%i",shop.idShop.integerValue] userLat:userLat() userLng:userLng()];
     _operationRemoveShopPlacelist.delegate=self;
