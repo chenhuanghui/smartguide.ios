@@ -3,7 +3,6 @@
 #import "ImageManager.h"
 
 @implementation ShopList
-@synthesize shopNameHeight,addressHeight,shopNameSize,shopTypeSize,descHeight;
 
 +(ShopList *)shopListWithIDShop:(int)idShop
 {
