@@ -10,31 +10,34 @@
 #import "ScanCodeDecode.h"
 
 @implementation ScanResultInforyTitleCell
+@synthesize suggestHeight;
 
 -(void)loadWithDecode:(ScanCodeDecode *)decode
 {
-    lbl.attributedText=decode.textAttribute;
+    _decode=decode;
+    [self layoutIfNeeded];
+}
+
+-(void)layoutSubviews
+{
+    [super layoutSubviews];
+    
+    if(!_decode.textAttribute)
+    {
+        _decode.textAttribute=[[NSAttributedString alloc] initWithString:_decode.text attributes:@{NSFontAttributeName:FONT_SIZE_REGULAR(13)
+                                                                                                 , NSParagraphStyleAttributeName:[NSMutableParagraphStyle paraStyleWithTextAlign:NSTextAlignmentJustified]}];
+    }
+    
+    lbl.frame=CGRectMake(25, 10, 270, 0);
+    lbl.attributedText=_decode.textAttribute;
+    [lbl sizeToFit];
+    
+    suggestHeight=lbl.l_v_y+lbl.l_v_h+10;
 }
 
 +(NSString *)reuseIdentifier
 {
     return @"ScanResultInforyTitleCell";
-}
-
-+(float)heightWithDecode:(ScanCodeDecode *)decode
-{
-    if(!decode.textAttribute)
-    {
-        decode.textAttribute=[[NSAttributedString alloc] initWithString:decode.text attributes:@{NSFontAttributeName:FONT_SIZE_REGULAR(13)
-                                                                                                 , NSParagraphStyleAttributeName:[NSMutableParagraphStyle paraStyleWithTextAlign:NSTextAlignmentJustified]}];
-    }
-    
-    if(decode.textHeight.floatValue==-1)
-    {
-        decode.textHeight=@([decode.textAttribute boundingRectWithSize:CGSizeMake(270, MAXFLOAT) options:NSStringDrawingUsesFontLeading|NSStringDrawingUsesLineFragmentOrigin context:nil].size.height);
-    }
-    
-    return decode.textHeight.floatValue+20;
 }
 
 @end

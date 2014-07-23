@@ -7,18 +7,20 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Constant.h"
 
 @class ScanCodeDecode;
 
-@interface ScanResultInforyTextCell : UITableViewCell
+@interface ScanResultInforyTextCell : UITableViewCell<TableViewCellDynamicHeight>
 {
     __weak IBOutlet UILabel *lbl;
+    
+    __weak ScanCodeDecode *_decode;
 }
 
 -(void) loadWithDecode:(ScanCodeDecode*) obj;
 
 +(NSString *)reuseIdentifier;
-+(float) heightWithDecode:(ScanCodeDecode*) obj;
 
 @end
 

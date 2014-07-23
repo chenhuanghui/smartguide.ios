@@ -190,7 +190,7 @@
 {
 #if DEBUG
     NSString *codeTest=@"test1";
-    [self.delegate scanCodeViewController:self scannedText:codeTest codeType:SCANCODE_CODE_TYPE_BARCODE];
+    [self.delegate scanCodeViewController:self scannedText:codeTest codeType:SCANCODE_CODE_TYPE_QRCODE];
 #endif
 }
 

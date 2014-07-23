@@ -229,7 +229,13 @@ enum SCAN_RESULT_SECTION_TYPE
                     return [ScanResultDisconnectCell height];
                     
                 case SCAN_CODE_DECODE_TYPE_INFORY:
-                    return [ScanResultInforyCell heightWithDecode:_scanResult.decodeObjects];
+                {
+                    ScanResultInforyCell *cell=[tableView scanResultInforyCell];
+                    [cell loadWithDecode:_scanResult.decodeObjects];
+                    [cell layoutSubviews];
+                    
+                    return cell.suggestHeight;
+                }
                     
                 case SCAN_CODE_DECODE_TYPE_NON_INFORY:
                     return [ScanResultNonInforyCell height];

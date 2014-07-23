@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Constant.h"
 
 @class ScanCodeDecode, ScanResultInforyVideoCell, MPMoviePlayerController;
 
@@ -16,7 +17,7 @@
 
 @end
 
-@interface ScanResultInforyVideoCell : UITableViewCell
+@interface ScanResultInforyVideoCell : UITableViewCell<TableViewCellDynamicHeight>
 {
     __weak IBOutlet UIImageView *imgv;
     __weak IBOutlet UIButton *btn;
@@ -28,7 +29,6 @@
 
 -(void) loadWithDecode:(ScanCodeDecode*) decode;
 +(NSString *)reuseIdentifier;
-+(float) heightWithDecode:(ScanCodeDecode*) decode;
 
 @property (nonatomic, weak) id<ScanResultInforyVideoCellDelegate> delegate;
 

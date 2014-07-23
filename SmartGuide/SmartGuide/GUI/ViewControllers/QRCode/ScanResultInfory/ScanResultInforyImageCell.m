@@ -11,10 +11,12 @@
 #import "ImageManager.h"
 
 @implementation ScanResultInforyImageCell
+@synthesize suggestHeight;
 
 -(void)loadWithDecode:(ScanCodeDecode *)decode
 {
-    [imgv loadScanImageWithURL:decode.image];
+    _decode=decode;
+    [self layoutIfNeeded];
 }
 
 +(NSString *)reuseIdentifier
@@ -22,14 +24,19 @@
     return @"ScanResultInforyImageCell";
 }
 
-+(float)heightWithDecode:(ScanCodeDecode *)decode
+-(void)layoutSubviews
 {
-    if(CGSizeEqualToSize(decode.imageSize, CGSizeZero))
+    [super layoutSubviews];
+    
+    if(CGSizeEqualToSize(_decode.imageSize, CGSizeZero))
     {
-        decode.imageSize=makeSizeProportional(320, CGSizeMake(decode.imageWidth.floatValue, decode.imageHeight.floatValue));
+        _decode.imageSize=makeSizeProportional(320, CGSizeMake(_decode.imageWidth.floatValue, _decode.imageHeight.floatValue));
     }
     
-    return decode.imageSize.height+20;
+    [imgv l_v_setH:_decode.imageSize.height];
+    [imgv loadScanImageWithURL:_decode.image];
+    
+    suggestHeight=imgv.l_v_y+imgv.l_v_h+10;
 }
 
 @end

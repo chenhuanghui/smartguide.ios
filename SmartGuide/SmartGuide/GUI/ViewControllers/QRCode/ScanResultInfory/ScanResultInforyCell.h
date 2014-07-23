@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Constant.h"
 
 @class MPMoviePlayerController, ScanResultInforyCell, UserNotificationAction;
 
@@ -17,7 +18,7 @@
 
 @end
 
-@interface ScanResultInforyCell : UITableViewCell
+@interface ScanResultInforyCell : UITableViewCell<TableViewCellDynamicHeight>
 {
     __weak IBOutlet UITableView *table;
     NSArray *_items;
@@ -25,7 +26,6 @@
 
 -(void) loadWithDecode:(NSArray*) array;
 +(NSString *)reuseIdentifier;
-+(float) heightWithDecode:(NSArray*) array;
 
 @property (nonatomic, weak) id<ScanResultInforyCellDelegate> delegate;
 
