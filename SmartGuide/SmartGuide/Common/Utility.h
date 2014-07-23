@@ -308,6 +308,7 @@ NSString* LAZY_STRING_INT(int i);
 -(NSString*) makeParamsHTTPGET;
 -(NSData*) json;
 -(NSString*) jsonString;
++(NSDictionary*) makeDictionary:(id) obj;
 
 @end
 @interface NSURLRequest(Utility)

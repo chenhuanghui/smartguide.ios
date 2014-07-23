@@ -38,7 +38,7 @@
         
         UserNotification *obj=[UserNotification makeWithDictionary:dict];
 
-        NSDictionary *dictContent=dict[@"newestMessage"];
+        NSDictionary *dictContent=[NSDictionary makeDictionary:dict[@"newestMessage"]];
         UserNotificationContent *objContent=[UserNotificationContent makeWithDictionary:dictContent];
         objContent.page=@(0);
         objContent.sortOrder=@(0);
@@ -48,7 +48,8 @@
         [self.userNotifications addObject:obj];
     }
     
-    [[DataManager shareInstance] save];
+    if(self.userNotifications.count>0)
+        [[DataManager shareInstance] save];
 }
 
 @end

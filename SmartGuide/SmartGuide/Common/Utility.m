@@ -1577,6 +1577,20 @@ NSString* LAZY_STRING_INT(int i)
     return @"";
 }
 
++(NSDictionary *)makeDictionary:(id)obj
+{
+    if(obj==nil)
+        return @{};
+    
+    if(obj==[NSNull null])
+        return @{};
+    
+    if([obj isKindOfClass:[NSDictionary class]])
+        return obj;
+    
+    return @{};
+}
+
 @end
 
 @implementation NSURLRequest(Utility)

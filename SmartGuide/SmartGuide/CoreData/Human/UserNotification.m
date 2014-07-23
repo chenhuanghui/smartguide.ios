@@ -2,13 +2,12 @@
 #import "UserNotificationContent.h"
 
 @implementation UserNotification
-@synthesize displayContentHeight,displayContentAttribute;
+@synthesize displayContentAttribute;
 
 -(id)initWithEntity:(NSEntityDescription *)entity insertIntoManagedObjectContext:(NSManagedObjectContext *)context
 {
     self=[super initWithEntity:entity insertIntoManagedObjectContext:context];
     
-    self.displayContentHeight=@(-1);
     self.displayContentAttribute=nil;
     
     return self;

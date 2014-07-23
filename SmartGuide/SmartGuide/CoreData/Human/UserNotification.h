@@ -16,7 +16,6 @@
 -(enum NOTIFICATION_STATUS) enumStatus;
 -(NSString*) displayCount;
 
-@property (nonatomic, strong) NSNumber *displayContentHeight;
 @property (nonatomic, strong) NSMutableAttributedString *displayContentAttribute;
 
 @end

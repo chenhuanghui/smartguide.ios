@@ -62,7 +62,6 @@
     {
         int i=0;
         
-        
         for(NSDictionary *dict in actions)
         {
             UserNotificationAction *action=[UserNotificationAction makeWithAction:dict];
@@ -77,16 +76,15 @@
 
 -(enum NOTIFICATION_STATUS)enumStatus
 {
-    switch (self.status.intValue) {
+    switch ((enum NOTIFICATION_STATUS) self.status.intValue) {
         case NOTIFICATION_STATUS_READ:
             return NOTIFICATION_STATUS_READ;
             
         case NOTIFICATION_STATUS_UNREAD:
             return NOTIFICATION_STATUS_UNREAD;
-            
-        default:
-            return NOTIFICATION_STATUS_READ;
     }
+    
+    return NOTIFICATION_STATUS_READ;
 }
 
 -(NSArray *)actionTitles

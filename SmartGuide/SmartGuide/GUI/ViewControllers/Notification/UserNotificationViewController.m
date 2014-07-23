@@ -53,7 +53,7 @@
     
     _displayType=USER_NOTIFICATION_DISPLAY_ALL;
     
-    [table registerNib:[UINib nibWithNibName:[UserNotificationCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[UserNotificationCell reuseIdentifier]];
+    [table registerUserNotificationCell];
     [table registerLoadingMoreCell];
     
     _userNotification=[NSMutableArray new];
@@ -75,8 +75,6 @@
     
     [table l_v_addY:-[RefreshingView height]];
     [table l_v_addH:[RefreshingView height]];
-    
-    [self requestNotificationCount:true];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -216,14 +214,6 @@
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 2;
-    switch (_displayType) {
-        case USER_NOTIFICATION_DISPLAY_ALL:
-            return _isHasReadNotification?2:1;
-            
-        case USER_NOTIFICATION_DISPLAY_READ:
-        case USER_NOTIFICATION_DISPLAY_UNREAD:
-            return 1;
-    }
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -241,6 +231,45 @@
         default:
             return 0;
     }
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if(_canLoadMore)
+    {
+        if(_isHasReadNotification)
+        {
+            if(indexPath.section==NOTIFICATION_STATUS_READ && indexPath.row==[self userNotificationRead].count)
+                return 77;
+        }
+        else
+        {
+            if(indexPath.row==[self userNotificationUnread].count)
+                return 77;
+        }
+    }
+    
+    switch ((enum NOTIFICATION_STATUS) indexPath.section) {
+        case NOTIFICATION_STATUS_UNREAD:
+        {
+            UserNotificationCell *cell=[tableView userNotificationCell];
+            [cell loadWithUserNotification:[self userNotificationUnread][indexPath.row]];
+            [cell layoutSubviews];
+            
+            return cell.suggestHeight;
+        }
+            
+        case NOTIFICATION_STATUS_READ:
+        {
+            UserNotificationCell *cell=[tableView userNotificationCell];
+            [cell loadWithUserNotification:[self userNotificationRead][indexPath.row]];
+            [cell layoutSubviews];
+            
+            return cell.suggestHeight;
+        }
+    }
+    
+    return 0;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -277,7 +306,7 @@
         }
     }
     
-    UserNotificationCell *cell=(UserNotificationCell*)[tableView dequeueReusableCellWithIdentifier:[UserNotificationCell reuseIdentifier]];
+    UserNotificationCell *cell=[tableView userNotificationCell];
     cell.delegate=self;
     
     switch (indexPath.section) {
@@ -433,36 +462,6 @@
 +(NSString *)screenCode
 {
     return @"S006";
-}
-
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if(_canLoadMore)
-    {
-        if(_isHasReadNotification)
-        {
-            if(indexPath.section==NOTIFICATION_STATUS_READ && indexPath.row==[self userNotificationRead].count)
-                return 77;
-        }
-        else
-        {
-            if(indexPath.row==[self userNotificationUnread].count)
-                return 77;
-        }
-    }
-    
-    switch (indexPath.section) {
-        case NOTIFICATION_STATUS_UNREAD:
-            return [UserNotificationCell heightWithUserNotification:[self userNotificationUnread][indexPath.row]];
-            
-        case NOTIFICATION_STATUS_READ:
-            return [UserNotificationCell heightWithUserNotification:[self userNotificationRead][indexPath.row]];
-            
-        default:
-            return 0;
-    }
-    
-    return 0;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section

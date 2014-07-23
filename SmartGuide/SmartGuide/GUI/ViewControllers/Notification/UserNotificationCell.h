@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Constant.h"
 
 @class UserNotificationCell,ScrollUserNotification,UserNotificationAction, UserNotification, TokenView;
 
@@ -17,7 +18,7 @@
 
 @end
 
-@interface UserNotificationCell : UITableViewCell
+@interface UserNotificationCell : UITableViewCell<TableViewCellDynamicHeight>
 {
     __weak IBOutlet ScrollUserNotification *scroll;
     __weak IBOutlet UIView *leftView;
@@ -42,12 +43,18 @@
 -(void) removeObserver;
 
 +(NSString *)reuseIdentifier;
-+(float) heightWithUserNotification:(UserNotification*) obj;
 
 @property (nonatomic, weak) id<UserNotificationCellDelegate> delegate;
 
 @end
 
 @interface ScrollUserNotification : UIScrollView
+
+@end
+
+@interface UITableView(UserNotificationCell)
+
+-(void) registerUserNotificationCell;
+-(UserNotificationCell*) userNotificationCell;
 
 @end
