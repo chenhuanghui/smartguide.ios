@@ -7,8 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "UserNotificationContent.h"
-#import <MediaPlayer/MediaPlayer.h>
+#import "Constant.h"
 
 enum USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE
 {
@@ -16,7 +15,7 @@ enum USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE
     USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE_FULL=1,
 };
 
-@class UserNotificationDetailCell,ScrollNotificationContent;
+@class UserNotificationDetailCell,ScrollNotificationContent, MPMoviePlayerController, UserNotificationAction, UserNotificationContent;
 
 @protocol UserNotificationDetailCellDelegate <NSObject>
 
@@ -28,7 +27,7 @@ enum USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE
 
 @end
 
-@interface UserNotificationDetailCell : UITableViewCell
+@interface UserNotificationDetailCell : UITableViewCell<TableViewCellDynamicHeight>
 {
     __weak IBOutlet UILabel *lblTime;
     __weak IBOutlet UILabel *lblTitle;
@@ -50,20 +49,27 @@ enum USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE
     
     __weak UserNotificationContent *_obj;
     NSArray *_actions;
-    enum USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE _displayType;
+    bool _markedAnimation;
 }
 
--(void) loadWithUserNotificationDetail:(UserNotificationContent*) obj displayType:(enum USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE) displayType cellHeight:(float) cellHeight;
+-(void) loadWithUserNotificationDetail:(UserNotificationContent*) obj;
 -(UserNotificationContent*) userNotificationDetail;
--(enum USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE) displayType;
+-(void) markAnimation;
+-(void) animationWith:(enum USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE) displayTYpe;
 
 +(NSString *)reuseIdentifier;
-+(float) heightWithUserNotificationDetail:(UserNotificationContent*) obj displayType:(enum USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE) displayType;
 
 @property (nonatomic, weak) id<UserNotificationDetailCellDelegate> delegate;
 
 @end
 
 @interface ScrollNotificationContent : UIScrollView
+
+@end
+
+@interface UITableView(UserNotificationDetailCell)
+
+-(void) registerUserNotificationDetailCell;
+-(UserNotificationDetailCell*) userNotificationDetailCell;
 
 @end

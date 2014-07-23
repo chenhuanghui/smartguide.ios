@@ -24,17 +24,20 @@
     return self;
 }
 
--(void)onCompletedWithJSON:(NSArray *)json
+-(void)onFinishLoading
 {
     self.notifications=[NSMutableArray new];
     self.sender=@"";
-    
-    if([json isNullData])
+}
+
+-(void)onCompletedWithJSON:(NSArray *)json
+{
+    if(![json hasData])
         return;
 
-    NSDictionary *data=json[0];
+    NSDictionary *data=[NSDictionary makeDictionary:json[0]];
     
-    self.sender=[NSString stringWithStringDefault:data[@"sender"]];
+    self.sender=[NSString makeString:data[@"sender"]];
     UserNotification *noti=[UserNotification userNotificationWithIDSender:[self.keyValue[@"idSender"] integerValue]];
     NSNumber *page=self.keyValue[PAGE];
     

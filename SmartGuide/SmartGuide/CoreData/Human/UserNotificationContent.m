@@ -62,7 +62,6 @@
     {
         int i=0;
         
-        
         for(NSDictionary *dict in actions)
         {
             UserNotificationAction *action=[UserNotificationAction makeWithAction:dict];

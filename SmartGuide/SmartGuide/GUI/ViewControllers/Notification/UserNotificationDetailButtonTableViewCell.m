@@ -37,19 +37,6 @@
 +(float)heightWithAction:(UserNotificationAction *)action
 {
     return 37;
-    if(action.actionTitle.length==0)
-        return 0;
-    
-    if(action.actionTitleHeight.floatValue==-1)
-    {
-        float height=[action.actionTitle sizeWithFont:FONT_SIZE_NORMAL(12) constrainedToSize:CGSizeMake(292, MAXFLOAT) lineBreakMode:NSLineBreakByTruncatingTail].height;
-        
-        height=MAX(30,height);
-        
-        action.actionTitleHeight=@(height);
-    }
-    
-    return action.actionTitleHeight.floatValue;
 }
 
 @end

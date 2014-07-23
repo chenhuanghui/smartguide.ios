@@ -20,6 +20,7 @@
 #import "AppDelegate.h"
 #import "EmptyDataView.h"
 #import "WebViewController.h"
+#import <MediaPlayer/MediaPlayer.h>
 
 @interface UserNotificationDetailViewController ()<UITableViewDataSource,UITableViewDelegate,ASIOperationPostDelegate,UserNotificationDetailCellDelegate>
 {
@@ -70,7 +71,7 @@
     else
         _userNotificationContents=[NSMutableArray new];
     
-    [table registerNib:[UINib nibWithNibName:[UserNotificationDetailCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[UserNotificationDetailCell reuseIdentifier]];
+    [table registerUserNotificationDetailCell];
     [table registerLoadingMoreCell];
     
     [self requestNotification];
@@ -266,12 +267,17 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if(indexPath.row==_userNotificationContents.count)
+    if(_canLoadMore && indexPath.row==_userNotificationContents.count)
+    {
         return 80;
+    }
     
     UserNotificationContent *obj=_userNotificationContents[indexPath.row];
+    UserNotificationDetailCell *cell=[tableView userNotificationDetailCell];
+    [cell loadWithUserNotificationDetail:obj];
+    [cell layoutSubviews];
     
-    return [UserNotificationDetailCell heightWithUserNotificationDetail:_userNotificationContents[indexPath.row] displayType:obj.enumDisplayType];
+    return cell.suggestHeight;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -292,10 +298,9 @@
     }
     
     UserNotificationContent *obj=_userNotificationContents[indexPath.row];
-    UserNotificationDetailCell *cell=[tableView dequeueReusableCellWithIdentifier:[UserNotificationDetailCell reuseIdentifier]];
+    UserNotificationDetailCell *cell=[tableView userNotificationDetailCell];
     
-    [cell loadWithUserNotificationDetail:obj displayType:obj.enumDisplayType cellHeight:[tableView rectForRowAtIndexPath:indexPath].size.height];
-    
+    [cell loadWithUserNotificationDetail:obj];
     cell.delegate=self;
     
     return cell;
@@ -460,40 +465,16 @@
             
             [[DataManager shareInstance] save];
             
-            [table reloadRowsAtIndexPaths:arrIdx withRowAnimation:UITableViewRowAnimationAutomatic];
+            [table beginUpdates];
+            [table endUpdates];
+            
+            [table scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:true];
         }
             break;
             
         case USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE_FULL:
             break;
     }
-    
-    if(![table isCellCompletionVisibility:indexPath])
-    {
-        [table scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionMiddle animated:true];
-    }
-}
-
-
-/*
--(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if([cell isKindOfClass:[UserNotificationDetailCell class]])
-    {
-        UserNotificationDetailCell *dCell=(UserNotificationDetailCell*)cell;
-        
-        if(dCell.userNotificationDetail.enumStatus==NOTIFICATION_STATUS_UNREAD
-           && dCell.userNotificationDetail.enumDisplayType==USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE_FULL)
-        {
-            [self markReadNotification:dCell.userNotificationDetail];
-        }
-    }
-}
- */
-
--(void)tableView:(UITableView *)tableView didEndDisplayingCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-
 }
 
 -(void)processRemoteNotification:(RemoteNotification *)obj

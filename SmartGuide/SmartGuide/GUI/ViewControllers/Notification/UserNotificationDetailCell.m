@@ -10,113 +10,248 @@
 #import "ImageManager.h"
 #import "DataManager.h"
 #import "UserNotificationDetailButtonTableViewCell.h"
+#import "UserNotificationContent.h"
+#import <MediaPlayer/MediaPlayer.h>
+#import "UserNotificationDetailViewController.h"
 
 @interface UserNotificationDetailCell()<UIScrollViewDelegate,UIGestureRecognizerDelegate,UserNotificationDetailButtonTableViewCellDelegate,UITableViewDataSource,UITableViewDelegate>
 
 @end
 
 @implementation UserNotificationDetailCell
+@synthesize suggestHeight;
 
--(void)loadWithUserNotificationDetail:(UserNotificationContent *)obj displayType:(enum USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE)displayType cellHeight:(float)cellHeight
+-(void)loadWithUserNotificationDetail:(UserNotificationContent *)obj
 {
     _obj=obj;
-    _displayType=displayType;
-    _actions=obj.actionsObjects;
-    
-    lblTime.text=obj.time;
-    lblTitle.attributedText=obj.titleAttribute;
-    lblContent.attributedText=obj.contentAttribute;
-    [imgvIcon loadShopLogoWithURL:obj.logo];
-    
-    float topHeight=0;
-    float topY=30;
-    
-    if(displayType==USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE_FULL)
+    _markedAnimation=false;
+    [self layoutIfNeeded];
+}
+
+-(void)markAnimation
+{
+    _markedAnimation=true;
+}
+
+-(void) calculatorHeights
+{
+    if(!_obj.titleAttribute)
     {
-        if(obj.video.length>0)
-        {
-            imgvVideoThumbnail.hidden=false;
-            movideBGView.hidden=false;
-            topHeight=obj.videoHeightForNoti.floatValue;
-            
-            [videoContain l_v_setH:topHeight];
-            [imgvVideoThumbnail loadVideoThumbnailWithURL:obj.videoThumbnail];
-        }
-        else if(obj.image.length>0)
-        {
-            topHeight=obj.imageHeightForNoti.floatValue;
-            
-            [imgvImage loadUserNotificationContentWithURL:obj.image];
-            [imgvImage l_v_setH:topHeight];
-        }
+        NSMutableDictionary *dict=[NSMutableDictionary dictionary];
+        [dict setObject:FONT_SIZE_BOLD(14) forKey:NSFontAttributeName];
+        [dict setObject:[UIColor darkTextColor] forKey:NSForegroundColorAttributeName];
         
-        lblTitle.textColor=[UIColor blackColor];
-        avatarMaskView.hidden=true;
-        lblTime.textColor=[UIColor blackColor];
+        NSMutableParagraphStyle *paraStyle=[NSMutableParagraphStyle new];
+        paraStyle.alignment=NSTextAlignmentJustified;
         
-        markUnreadView.hidden=true;
+        [dict setObject:paraStyle forKey:NSParagraphStyleAttributeName];
+        _obj.titleAttribute=[[NSAttributedString alloc] initWithString:_obj.title attributes:dict];
     }
-    else
+    
+    if(!_obj.contentAttribute)
     {
-        if(obj.highlightUnread.boolValue)
-        {
-            avatarMaskView.hidden=false;
-            lblTitle.textColor=[UIColor blackColor];
-            lblTime.textColor=[UIColor blackColor];
-            markUnreadView.hidden=false;
-        }
+        NSMutableDictionary *dict=[NSMutableDictionary dictionary];
+        [dict setObject:FONT_SIZE_NORMAL(13) forKey:NSFontAttributeName];
+        [dict setObject:[UIColor darkTextColor] forKey:NSForegroundColorAttributeName];
+        
+        NSMutableParagraphStyle *paraStyle=[NSMutableParagraphStyle new];
+        paraStyle.alignment=NSTextAlignmentJustified;
+        [dict setObject:paraStyle forKey:NSParagraphStyleAttributeName];
+        
+        _obj.contentAttribute=[[NSAttributedString alloc] initWithString:_obj.content attributes:dict];
+    }
+    
+    if(_obj.actionsHeight.floatValue==-1)
+    {
+        float actionsHeight=0;
+        
+        for(UserNotificationAction *action in _obj.actionsObjects)
+            actionsHeight+=[UserNotificationDetailButtonTableViewCell heightWithAction:action];
+        
+        _obj.actionsHeight=@(actionsHeight);
+    }
+    
+    if(_obj.imageHeightForNoti.floatValue==-1)
+    {
+        if(_obj.image.length==0)
+            _obj.imageHeightForNoti=@(0);
         else
         {
-            avatarMaskView.hidden=true;
-            lblTitle.textColor=[UIColor grayColor];
-            lblTime.textColor=[UIColor grayColor];
-            markUnreadView.hidden=true;
+            float imageWidth=274;
+            _obj.imageHeightForNoti=@(MAX(0, imageWidth*_obj.imageHeight.floatValue/_obj.imageWidth.floatValue));
         }
     }
     
-    if(displayType==USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE_FULL)
-        displayView.backgroundColor=[UIColor whiteColor];
-    else
-        displayView.backgroundColor=obj.highlightUnread.boolValue?[UIColor whiteColor]:COLOR255(205, 205, 205, 255);
+    if(_obj.videoHeightForNoti.floatValue==-1)
+    {
+        if(_obj.video.length==0)
+            _obj.videoHeightForNoti=@(0);
+        else
+        {
+            float videoWidth=274;
+            _obj.videoHeightForNoti=@(MAX(0, videoWidth*_obj.videoHeight.floatValue/_obj.videoWidth.floatValue));
+        }
+    }
+}
+
+-(void)animationWith:(enum USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE)displayTYpe
+{
+    _markedAnimation=false;
+}
+
+-(void)layoutSubviews
+{
+    [super layoutSubviews];
     
-    if(topHeight>0)
-        topHeight+=5;
+    [self calculatorHeights];
     
-    if(displayType==USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE_TITLE)
-        topY-=5;
+    if(_markedAnimation)
+        return;
     
-    [lblTitle l_v_setY:topY+topHeight];
-    [lblTitle l_v_setH:obj.titleHeight.floatValue];
-    
-    [lblContent l_v_setY:lblTitle.l_v_y+lblTitle.l_v_h+5];
-    [lblContent l_v_setH:obj.contentHeight.floatValue];
-    
-    [tableButtons l_v_setY:lblContent.l_v_y+lblContent.l_v_h+5];
-    [tableButtons l_v_setH:obj.actionsHeight.floatValue];
-    tableButtons.hidden=displayType==USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE_TITLE;
-    
-    lblContent.hidden=displayType==USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE_TITLE;
-    imgvImage.hidden=displayType==USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE_TITLE;
-    videoContain.hidden=displayType==USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE_TITLE;
-    
-    btnLogo.userInteractionEnabled=obj.idShopLogo!=nil;
+    btnLogo.userInteractionEnabled=_obj.idShopLogo!=nil;
+    [imgvIcon loadShopLogoWithURL:_obj.logo];
     
     scroll.contentOffset=CGPointZero;
     scroll.contentSize=CGSizeMake(leftView.l_v_w+rightView.l_v_w, 0);
     
     //Chỉ user có tài khoản mới được phép remove notification
     scroll.scrollEnabled=currentUser().enumDataMode==USER_DATA_FULL;
-    [tableButtons reloadData];
+    
+    switch (_obj.enumDisplayType) {
+            
+        case USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE_TITLE:
+            lblTime.frame=CGRectMake(55, 6, 257, 0);
+            lblTime.text=_obj.time;
+            
+            [lblTime sizeToFit];
+            
+            lblTitle.frame=CGRectMake(19, lblTime.l_v_y+lblTime.l_v_h+5, 274, 0);
+            lblTitle.attributedText=_obj.titleAttribute;
+            
+            [lblTitle sizeToFit];
+            
+            imgvImage.hidden=true;
+            videoContain.hidden=true;
+            lblContent.hidden=true;
+            tableButtons.dataSource=nil;
+            tableButtons.delegate=nil;
+            tableButtons.hidden=true;
+            
+            if(_obj.enumStatus==NOTIFICATION_STATUS_UNREAD && _obj.highlightUnread.boolValue)
+            {
+                markUnreadView.hidden=false;
+                avatarMaskView.hidden=false;
+                displayView.backgroundColor=[UIColor whiteColor];
+                lblTime.textColor=[UIColor blackColor];
+                lblTitle.textColor=[UIColor blackColor];
+            }
+            else
+            {
+                markUnreadView.hidden=true;
+                avatarMaskView.hidden=true;
+                displayView.backgroundColor=COLOR255(205, 205, 205, 255);
+                lblTitle.textColor=[UIColor grayColor];
+                lblTime.textColor=[UIColor grayColor];
+            }
+            
+            suggestHeight=lblTitle.l_v_y+lblTitle.l_v_h+5;
+            
+            break;
+            
+        case USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE_FULL:
+            
+            displayView.backgroundColor=[UIColor whiteColor];
+            
+            lblTime.frame=CGRectMake(55, 6, 257, 0);
+            lblTime.text=_obj.time;
+            
+            [lblTime sizeToFit];
+            
+            float topHeight=0;
+            float topY=lblTime.l_v_y+lblTime.l_v_h+5;
+            
+            bool hasVideo=false;
+            if(_obj.video.length>0 && _obj.videoHeightForNoti.floatValue>0)
+            {
+                hasVideo=true;
+                topHeight=_obj.videoHeightForNoti.floatValue;
+                [videoContain l_v_setH:_obj.videoHeightForNoti.floatValue];
+                [imgvVideoThumbnail loadVideoThumbnailWithURL:_obj.videoThumbnail];
+                
+                imgvVideoThumbnail.hidden=false;
+                movideBGView.hidden=false;
+                videoContain.hidden=false;
+            }
+            else
+            {
+                videoContain.hidden=true;
+            }
+            
+            if(!hasVideo && _obj.image.length>0 && _obj.imageHeightForNoti.floatValue>0)
+            {
+                topHeight=_obj.imageHeightForNoti.floatValue;
+                [imgvImage l_v_setH:_obj.imageHeightForNoti.floatValue];
+                [imgvImage loadUserNotificationContentWithURL:_obj.image];
+                
+                imgvImage.hidden=false;
+            }
+            else
+            {
+                imgvImage.hidden=true;
+            }
+            
+            if(topHeight>0)
+                topY+=topHeight+5;
+            
+            lblTitle.frame=CGRectMake(19, topY, 274, 0);
+            lblTitle.attributedText=_obj.titleAttribute;
+            
+            [lblTitle sizeToFit];
+            
+            lblContent.hidden=false;
+            lblContent.frame=CGRectMake(19, lblTitle.l_v_y+lblTitle.l_v_h+5, 274, 0);
+            lblContent.attributedText=_obj.contentAttribute;
+            
+            [lblContent sizeToFit];
+            
+            lblTime.textColor=[UIColor blackColor];
+            lblTitle.textColor=[UIColor blackColor];
+            markUnreadView.hidden=true;
+            avatarMaskView.hidden=true;
+            
+            _actions=_obj.actionsObjects;
+            
+            if(_actions.count>0)
+            {
+                tableButtons.hidden=false;
+                tableButtons.frame=CGRectMake(0, lblContent.l_v_y+lblContent.l_v_h+5, 312, _obj.actionsHeight.floatValue);
+                tableButtons.delegate=self;
+                tableButtons.dataSource=self;
+                [tableButtons reloadData];
+                
+                suggestHeight=tableButtons.l_v_y+tableButtons.l_v_h;
+            }
+            else
+            {
+                tableButtons.hidden=true;
+                tableButtons.delegate=nil;
+                tableButtons.dataSource=nil;
+                [tableButtons reloadData];
+                
+                suggestHeight=lblContent.l_v_y+lblContent.l_v_h;
+            }
+
+            break;
+    }
+    
+    suggestHeight+=displayView.l_v_y;
+    
+    suggestHeight=MAX(58,suggestHeight);
 }
 
 -(void)userNotificationDetailButtonTableViewCellTouchedAction:(UserNotificationDetailButtonTableViewCell *)cell
 {
     [self.delegate userNotificationDetailCellTouchedAction:self action:cell.action];
-}
-
--(enum USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE)displayType
-{
-    return _displayType;
 }
 
 -(UserNotificationContent *)userNotificationDetail
@@ -167,103 +302,6 @@
 +(NSString *)reuseIdentifier
 {
     return @"UserNotificationDetailCell";
-}
-
-+(float)heightWithUserNotificationDetail:(UserNotificationContent *)obj displayType:(enum USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE)displayType
-{
-    float height=53;
-    
-    if(!obj.titleAttribute)
-    {
-        NSMutableDictionary *dict=[NSMutableDictionary dictionary];
-        [dict setObject:FONT_SIZE_BOLD(14) forKey:NSFontAttributeName];
-        [dict setObject:[UIColor darkTextColor] forKey:NSForegroundColorAttributeName];
-        
-        NSMutableParagraphStyle *paraStyle=[NSMutableParagraphStyle new];
-        paraStyle.alignment=NSTextAlignmentJustified;
-        
-        [dict setObject:paraStyle forKey:NSParagraphStyleAttributeName];
-        obj.titleAttribute=[[NSAttributedString alloc] initWithString:obj.title attributes:dict];
-    }
-    
-    if(obj.titleHeight.floatValue==-1)
-    {
-        CGRect rect=[obj.titleAttribute boundingRectWithSize:CGSizeMake(274, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading context:nil];
-        obj.titleHeight=@(rect.size.height);
-    }
-    
-    if(!obj.contentAttribute)
-    {
-        NSMutableDictionary *dict=[NSMutableDictionary dictionary];
-        [dict setObject:FONT_SIZE_NORMAL(13) forKey:NSFontAttributeName];
-        [dict setObject:[UIColor darkTextColor] forKey:NSForegroundColorAttributeName];
-        
-        NSMutableParagraphStyle *paraStyle=[NSMutableParagraphStyle new];
-        paraStyle.alignment=NSTextAlignmentJustified;
-        [dict setObject:paraStyle forKey:NSParagraphStyleAttributeName];
-        
-        obj.contentAttribute=[[NSAttributedString alloc] initWithString:obj.content attributes:dict];
-    }
-    
-    if(obj.contentHeight.floatValue==-1)
-    {
-        obj.contentHeight=@([obj.content sizeWithFont:FONT_SIZE_NORMAL(13) constrainedToSize:CGSizeMake(274, MAXFLOAT) lineBreakMode:NSLineBreakByTruncatingTail].height);
-    }
-    
-    if(obj.actionsHeight.floatValue==-1)
-    {
-        float actionsHeight=0;
-        
-        for(UserNotificationAction *action in obj.actionsObjects)
-            actionsHeight+=[UserNotificationDetailButtonTableViewCell heightWithAction:action];
-        
-        obj.actionsHeight=@(actionsHeight);
-    }
-    
-    if(obj.imageHeightForNoti.floatValue==-1)
-    {
-        if(obj.image.length==0)
-            obj.imageHeightForNoti=@(0);
-        else
-        {
-            float imageWidth=274;
-            obj.imageHeightForNoti=@(MAX(0, imageWidth*obj.imageHeight.floatValue/obj.imageWidth.floatValue));
-        }
-    }
-    
-    if(obj.videoHeightForNoti.floatValue==-1)
-    {
-        if(obj.video.length==0)
-            obj.videoHeightForNoti=@(0);
-        else
-        {
-            float videoWidth=274;
-            obj.videoHeightForNoti=@(MAX(0, videoWidth*obj.videoHeight.floatValue/obj.videoWidth.floatValue));
-        }
-    }
-    
-    switch (displayType) {
-        case USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE_FULL:
-            
-            if(obj.video.length>0 && obj.videoHeightForNoti.floatValue>0)
-                height+=obj.videoHeightForNoti.floatValue+5;
-            else if(obj.image.length>0 && obj.imageHeightForNoti.floatValue>0)
-                height+=obj.imageHeightForNoti.floatValue+5;
-            
-            height+=obj.titleHeight.floatValue+5;
-            height+=obj.contentHeight.floatValue+5;
-            
-            if(obj.actionsHeight.floatValue>0)
-                height+=obj.actionsHeight.floatValue;
-            
-            break;
-            
-        case USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE_TITLE:
-            height+=obj.titleHeight.floatValue;
-            break;
-    }
-    
-    return height;
 }
 
 - (IBAction)btnLogoTouchUpInside:(id)sender {
@@ -354,6 +392,20 @@
     contentOffset.x=MAX(0,contentOffset.x);
     
     [super setContentOffset:contentOffset];
+}
+
+@end
+
+@implementation UITableView(UserNotificationDetailCell)
+
+-(void)registerUserNotificationDetailCell
+{
+    [self registerNib:[UINib nibWithNibName:[UserNotificationDetailCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[UserNotificationDetailCell reuseIdentifier]];
+}
+
+-(UserNotificationDetailCell *)userNotificationDetailCell
+{
+    return [self dequeueReusableCellWithIdentifier:[UserNotificationDetailCell reuseIdentifier]];
 }
 
 @end
