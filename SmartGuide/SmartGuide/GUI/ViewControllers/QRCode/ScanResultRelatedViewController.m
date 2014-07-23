@@ -78,7 +78,11 @@
     if(_relatedContain.canLoadMore.boolValue && indexPath.row==_relatedContain.relatiesObjects.count)
         return [LoadingMoreCell height];
     
-    return [ScanResultObjectCell heightWithRelated:_relatedContain.relatiesObjects[indexPath.row]];
+    ScanResultObjectCell *cell=[tableView scanResultObjectCell];
+    [cell loadWithRelated:_relatedContain.relatiesObjects[indexPath.row]];
+    [cell layoutSubviews];
+    
+    return cell.suggestHeight;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath

@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Constant.h"
 
 @class ScanCodeRelated, ScanResultObjectCell;
 
@@ -16,7 +17,7 @@
 
 @end
 
-@interface ScanResultObjectCell : UITableViewCell
+@interface ScanResultObjectCell : UITableViewCell<TableViewCellDynamicHeight>
 {
     __weak IBOutlet UIImageView *imgvLogo;
     __weak IBOutlet UILabel *lblTitle;
@@ -29,7 +30,6 @@
 -(ScanCodeRelated*) obj;
 
 +(NSString *)reuseIdentifier;
-+(float) heightWithRelated:(ScanCodeRelated*) obj;
 
 @property (nonatomic, weak) id<ScanResultObjectCellDelegate> delegate;
 

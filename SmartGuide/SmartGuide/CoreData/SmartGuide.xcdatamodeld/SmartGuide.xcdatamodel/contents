@@ -52,7 +52,6 @@
         <attribute name="linkShare" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="order" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="text" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="textHeight" optional="YES" attributeType="Float" defaultValueString="-1" syncable="YES"/>
         <attribute name="type" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="video" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="videoHeight" optional="YES" attributeType="Float" defaultValueString="-1" syncable="YES"/>
@@ -64,7 +63,6 @@
     <entity name="ScanCodeRelated" representedClassName="ScanCodeRelated" syncable="YES">
         <attribute name="authorAvatar" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="desc" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="descHeight" optional="YES" attributeType="Float" defaultValueString="-1" syncable="YES"/>
         <attribute name="distance" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="idPlacelist" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="idShop" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
@@ -73,11 +71,8 @@
         <attribute name="order" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="page" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="placelistName" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="placelistNameHeight" optional="YES" attributeType="Float" defaultValueString="-1" syncable="YES"/>
-        <attribute name="promotioNameHeight" optional="YES" attributeType="Float" defaultValueString="-1" syncable="YES"/>
         <attribute name="promotionName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="shopName" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="shopNameHeight" optional="YES" attributeType="Float" defaultValueString="-1" syncable="YES"/>
         <attribute name="time" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="type" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <relationship name="relatedContain" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ScanCodeRelatedContain" inverseName="relaties" inverseEntity="ScanCodeRelatedContain" syncable="YES"/>
@@ -366,8 +361,8 @@
         <element name="KM2Voucher" positionX="0" positionY="0" width="128" height="150"/>
         <element name="Placelist" positionX="0" positionY="0" width="128" height="210"/>
         <element name="PromotionNews" positionX="0" positionY="0" width="128" height="225"/>
-        <element name="ScanCodeDecode" positionX="27" positionY="162" width="128" height="255"/>
-        <element name="ScanCodeRelated" positionX="36" positionY="171" width="128" height="328"/>
+        <element name="ScanCodeDecode" positionX="27" positionY="162" width="128" height="240"/>
+        <element name="ScanCodeRelated" positionX="36" positionY="171" width="128" height="270"/>
         <element name="ScanCodeRelatedContain" positionX="45" positionY="180" width="128" height="150"/>
         <element name="ScanCodeResult" positionX="18" positionY="153" width="128" height="118"/>
         <element name="Shop" positionX="0" positionY="0" width="128" height="540"/>

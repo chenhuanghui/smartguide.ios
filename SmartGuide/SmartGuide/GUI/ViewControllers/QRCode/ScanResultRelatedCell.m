@@ -16,22 +16,30 @@
 #import "ScanResultObjectHeaderView.h"
 
 @interface ScanResultRelatedCell()<UITableViewDataSource,UITableViewDelegate, ScanResultObjectCellDelegate>
-{
-    __weak ScanCodeResult *_result;
-}
 
 @end
 
 @implementation ScanResultRelatedCell
+@synthesize suggestHeight;
 
 -(void)loadWithResult:(ScanCodeResult *)result height:(float)height
 {
     _result=result;
+    _tableHeight=height;
     
-    [table l_v_setH:height];
+    [self layoutIfNeeded];
+}
+
+-(void)layoutSubviews
+{
+    [super layoutSubviews];
+    
+    [table l_v_setH:_tableHeight];
     [table reloadData];
     table.userInteractionEnabled=true;
     table.scrollEnabled=false;
+    
+    suggestHeight=table.contentSize.height;
 }
 
 -(void)tableDidScroll:(UITableView *)tableResult
@@ -86,8 +94,11 @@
         return [ScanResultRelatedMoreCell height];
     
     ScanCodeRelated *obj=objContain.relatiesObjects[indexPath.row];
+    ScanResultObjectCell *cell=[tableView scanResultObjectCell];
+    [cell loadWithRelated:obj];
+    [cell layoutSubviews];
     
-    return [ScanResultObjectCell heightWithRelated:obj];
+    return cell.suggestHeight;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -160,25 +171,6 @@
     
     [table registerScanResultObjectCell];
     [table registerScanResultRelatedMoreCell];
-}
-
-+(float)heightWithResult:(ScanCodeResult *)result
-{
-    float height=0;
-    
-    for(ScanCodeRelatedContain *objContain in result.relatedContainObjects)
-    {
-        NSArray *array=[objContain.relatiesObjects objectsAtRange:NSMakeRange(0, 5)];
-        for(ScanCodeRelated *obj in array)
-        {
-            height+=[ScanResultObjectCell heightWithRelated:obj];
-        }
-    }
-    
-    height+=result.relatedContainObjects.count*[ScanResultRelatedMoreCell height];
-    height+=result.relatedContainObjects.count*[ScanResultObjectHeaderView height];
-    
-    return height;
 }
 
 +(NSString *)reuseIdentifier

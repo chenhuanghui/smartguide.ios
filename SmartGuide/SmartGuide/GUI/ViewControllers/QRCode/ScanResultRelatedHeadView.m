@@ -21,7 +21,7 @@
 
 +(float)height
 {
-    return 39;
+    return 29;
 }
 
 @end
