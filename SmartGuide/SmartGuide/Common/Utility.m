@@ -2816,6 +2816,7 @@ static const NSString *KEY_HIT_TEST_EDGE_INSETS = @"HitTestEdgeInsets";
     NSMutableParagraphStyle *obj=[NSMutableParagraphStyle new];
     
     obj.alignment=textAlign;
+    obj.lineBreakMode=NSLineBreakByTruncatingTail;
     
     return obj;
 }

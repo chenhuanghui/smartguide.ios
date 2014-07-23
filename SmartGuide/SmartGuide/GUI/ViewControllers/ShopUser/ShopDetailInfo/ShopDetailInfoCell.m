@@ -9,19 +9,46 @@
 #import "ShopDetailInfoCell.h"
 #import "Utility.h"
 #import "ImageManager.h"
+#import "Shop.h"
+
+@interface ShopDetailInfoCell()
+{
+    __weak Shop *_shop;
+}
+
+@end
 
 @implementation ShopDetailInfoCell
+@synthesize suggestHeight;
 
 -(void)loadWithShop:(Shop *)shop
 {
-    lblShopName.text=shop.shopName;
-    [btnShopType setTitle:shop.shopTypeDisplay forState:UIControlStateNormal];
-    [btnShopType setImage:[[ImageManager sharedInstance] shopImageTypeWithType:shop.enumShopType] forState:UIControlStateNormal];
-    lblFullAddress.text=shop.address;
+    _shop=shop;
+}
+
+-(void)layoutSubviews
+{
+    [super layoutSubviews];
     
-    [line l_v_setY:44+shop.shopNameHeight.floatValue];
-    [btnShopType l_v_setY:19+shop.shopNameHeight.floatValue];
-    [lblFullAddress l_v_setY:55+shop.shopNameHeight.floatValue];
+    suggestHeight=0;
+    
+    [lblShopName l_v_setW:272];
+    [lblFullAddress l_v_setW:272];
+    
+    lblShopName.text=_shop.shopName;
+    [lblShopName sizeToFit];
+    
+    [btnShopType setTitle:_shop.shopTypeDisplay forState:UIControlStateNormal];
+    [btnShopType setImage:[[ImageManager sharedInstance] shopImageTypeWithType:_shop.enumShopType] forState:UIControlStateNormal];
+    
+    [btnShopType l_v_setY:19+lblShopName.l_v_h];
+    [line l_v_setY:44+lblShopName.l_v_h];
+    [lblFullAddress l_v_setY:55+lblShopName.l_v_h];
+    [lblFullAddress sizeToFit];
+    
+    suggestHeight=lblFullAddress.l_v_y+lblFullAddress.l_v_h;
+    
+    suggestHeight+=20;// align top button back
 }
 
 +(NSString *)reuseIdentifier
@@ -29,21 +56,18 @@
     return @"ShopDetailInfoCell";
 }
 
-+(float)heightWithShop:(Shop *)shop
+@end
+
+@implementation UITableView(ShopDetailInfoCell)
+
+-(void)registerShopDetailInfoCell
 {
-    float height=75;
-    
-    if(shop.shopNameHeight.floatValue==-1)
-        shop.shopNameHeight=@([shop.shopName sizeWithFont:FONT_SIZE_BOLD(14) constrainedToSize:CGSizeMake(272, MAXFLOAT) lineBreakMode:NSLineBreakByTruncatingTail].height);
-    
-    height+=shop.shopNameHeight.floatValue;
-    
-    if(shop.addressHeightforShopDetailInfo.floatValue==-1)
-        shop.addressHeightforShopDetailInfo=@([shop.address sizeWithFont:FONT_SIZE_NORMAL(12) constrainedToSize:CGSizeMake(272, MAXFLOAT) lineBreakMode:NSLineBreakByTruncatingTail].height);
-    
-    height+=shop.addressHeightforShopDetailInfo.floatValue;
-    
-    return height;
+    [self registerNib:[UINib nibWithNibName:[ShopDetailInfoCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[ShopDetailInfoCell reuseIdentifier]];
+}
+
+-(ShopDetailInfoCell *)shopDetailInfoCell
+{
+    return [self dequeueReusableCellWithIdentifier:[ShopDetailInfoCell reuseIdentifier]];
 }
 
 @end

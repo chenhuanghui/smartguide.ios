@@ -401,3 +401,9 @@ enum QRCODE_RELATED_TYPE
     QRCODE_RELATED_TYPE_PROMOTIONS=2,
     QRCODE_RELATED_TYPE_PLACELISTS=3,
 };
+
+@protocol TableViewCellDynamicHeight <NSObject>
+
+@property (nonatomic,readonly) float suggestHeight;
+
+@end

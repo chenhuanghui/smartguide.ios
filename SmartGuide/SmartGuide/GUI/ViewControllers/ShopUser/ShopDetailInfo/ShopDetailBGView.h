@@ -10,9 +10,8 @@
 
 @interface ShopDetailBGView : UIView
 {
-    UIImage *imgMid;
-    UIImage *imgTop;
-    UIImage *imgBottom;
 }
+
+@property (nonatomic, assign) int section;
 
 @end

@@ -15,13 +15,8 @@
 
 -(ShopDetailInfoHeaderView*) initWithTitle:(NSString*) title;
 
--(void) setTitle:(NSString*) title;
-
 +(float) height;
-+(NSString *)reuseIdentifier;
 
-@property (nonatomic, assign) float maxY;
-@property (nonatomic, assign) CGRect originFrame;
-@property (nonatomic, assign) float offsetY;
+@property (nonatomic, assign) int section;
 
 @end

@@ -8,20 +8,44 @@
 
 #import "ShopDetailInfoType3Cell.h"
 #import "ImageManager.h"
+#import "InfoTypeBGView.h"
+#import "ASIOperationShopDetailInfo.h"
 
 @implementation ShopDetailInfoType3Cell
+@synthesize suggestHeight;
 
 -(void)loadWithInfo3:(Info3 *)info3
 {
     _info=info3;
     [imgv loadImageInfo3WithURL:info3.image];
-    lblTitle.text=info3.title;
-    lblContent.text=info3.content;
+}
+
+-(void)layoutSubviews
+{
+    [super layoutSubviews];
     
-    [lblTitle l_v_setH:info3.titleHeight.floatValue];
- 
-    [lblContent l_v_setY:lblTitle.l_v_y+lblTitle.l_v_h];
-    [lblContent l_v_setH:info3.contentHeight.floatValue];
+    lblTitle.text=_info.title;
+    lblContent.text=_info.content;
+    
+    [lblTitle l_v_setS:CGSizeMake(191, 0)];
+    [lblContent l_v_setS:CGSizeMake(191, 0)];
+    
+    [lblTitle sizeToFit];
+    [lblContent sizeToFit];
+    
+    float padding=5;
+    
+    [lblContent l_v_setY:lblTitle.l_v_y+lblTitle.l_v_h+padding];
+    [lblContent l_v_addH:5];
+    
+    suggestHeight=lblContent.l_v_y+lblContent.l_v_h;
+    
+    float textViewHeight=66;
+    suggestHeight=MAX(textViewHeight,suggestHeight);
+    [textView l_v_setH:suggestHeight];
+    
+    //align bot line
+    suggestHeight+=8;
 }
 
 -(Info3 *)info
@@ -49,32 +73,18 @@
     return @"ShopDetailInfoType3Cell";
 }
 
-+(float) heightWithInfo3:(Info3 *)info3
+@end
+
+@implementation UITableView(ShopDetailInfoType3Cell)
+
+-(void)registerShopDetailInfoType3Cell
 {
-    float height=86;
-    
-    if(info3.titleHeight.floatValue==-1)
-    {
-        if([info3.title stringByTrimmingWhiteSpace].length==0)
-            info3.titleHeight=@(0);
-        else
-            info3.titleHeight=@([info3.title sizeWithFont:FONT_SIZE_BOLD(14) constrainedToSize:CGSizeMake(191, MAXFLOAT) lineBreakMode:NSLineBreakByTruncatingTail].height);
-    }
-    
-    if(info3.contentHeight.floatValue==-1)
-    {
-        if([info3.content stringByTrimmingWhiteSpace].length==0)
-            info3.contentHeight=@(0);
-        else
-            info3.contentHeight=@([info3.content sizeWithFont:FONT_SIZE_NORMAL(12) constrainedToSize:CGSizeMake(191, MAXFLOAT) lineBreakMode:NSLineBreakByTruncatingTail].height);
-    }
-    
-    if(info3.titleHeight.floatValue+info3.contentHeight.floatValue>66)
-    {
-        height+=(info3.titleHeight.floatValue+info3.contentHeight.floatValue)-66;
-    }
-    
-    return MAX(86, height);
+    [self registerNib:[UINib nibWithNibName:[ShopDetailInfoType3Cell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[ShopDetailInfoType3Cell reuseIdentifier]];
+}
+
+-(ShopDetailInfoType3Cell *)shopDetailInfoType3Cell
+{
+    return [self dequeueReusableCellWithIdentifier:[ShopDetailInfoType3Cell reuseIdentifier]];
 }
 
 @end

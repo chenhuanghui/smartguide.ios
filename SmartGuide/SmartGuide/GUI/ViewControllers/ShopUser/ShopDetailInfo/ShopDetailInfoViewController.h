@@ -23,6 +23,7 @@
     __weak IBOutlet UIImageView *imgvBgCover;
     __weak IBOutlet UIView *coverView;
     __weak IBOutlet UITableView *table;
+    __weak IBOutlet UIScrollView *scrollBG;
     
     CGRect _coverFrame;
     

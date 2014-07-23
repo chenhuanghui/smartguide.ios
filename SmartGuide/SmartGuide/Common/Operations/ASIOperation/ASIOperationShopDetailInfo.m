@@ -35,48 +35,45 @@
     {
         InfoTypeObject *info=[InfoTypeObject infoWithDictionary:dict];
         
-        if(info.type!=DETAIL_INFO_TYPE_UNKNOW)
-        {
-            NSArray *items=dict[@"items"];
-            
-            if([items isNullData])
-                continue;
-            
-            switch (info.enumType) {
-                case DETAIL_INFO_TYPE_1:
-                    for(NSDictionary *item in items)
-                    {
-                        [info.items addObject:[Info1 infoWithDictionary:item]];
-                    }
-                    break;
-                    
-                case DETAIL_INFO_TYPE_2:
-                    for(NSDictionary *item in items)
-                    {
-                        [info.items addObject:[Info2 infoWithDictionary:item]];
-                    }
-                    break;
-                    
-                case DETAIL_INFO_TYPE_3:
-                    for(NSDictionary *item in items)
-                    {
-                        [info.items addObject:[Info3 infoWithDictionary:item]];
-                    }
-                    break;
-                    
-                case DETAIL_INFO_TYPE_4:
-                    for(NSDictionary *item in items)
-                    {
-                        [info.items addObject:[Info4 infoWithDictionary:item]];
-                    }
-                    break;
-                    
-                case DETAIL_INFO_TYPE_UNKNOW:
-                    continue;
-            }
-            
-            [self.infos addObject:info];
+        NSArray *items=dict[@"items"];
+        
+        if([items isNullData])
+            continue;
+        
+        switch (info.enumType) {
+            case DETAIL_INFO_TYPE_1:
+                for(NSDictionary *item in items)
+                {
+                    [info.items addObject:[Info1 infoWithDictionary:item]];
+                }
+                break;
+                
+            case DETAIL_INFO_TYPE_2:
+                for(NSDictionary *item in items)
+                {
+                    [info.items addObject:[Info2 infoWithDictionary:item]];
+                }
+                break;
+                
+            case DETAIL_INFO_TYPE_3:
+                for(NSDictionary *item in items)
+                {
+                    [info.items addObject:[Info3 infoWithDictionary:item]];
+                }
+                break;
+                
+            case DETAIL_INFO_TYPE_4:
+                for(NSDictionary *item in items)
+                {
+                    [info.items addObject:[Info4 infoWithDictionary:item]];
+                }
+                break;
+                
+            case DETAIL_INFO_TYPE_UNKNOW:
+                break;
         }
+        
+        [self.infos addObject:info];
     }
 }
 
@@ -97,7 +94,7 @@
 
 -(enum DETAIL_INFO_TYPE)enumType
 {
-    switch (self.type.integerValue) {
+    switch ((enum DETAIL_INFO_TYPE)self.type.integerValue) {
         case DETAIL_INFO_TYPE_1:
             return DETAIL_INFO_TYPE_1;
             

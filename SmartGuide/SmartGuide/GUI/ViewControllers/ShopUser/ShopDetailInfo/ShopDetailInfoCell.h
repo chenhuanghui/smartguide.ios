@@ -7,24 +7,27 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Shop.h"
-#import "ShopList.h"
-#import "LabelTopText.h"
-#import "InfoTypeBGView.h"
+#import "Constant.h"
 
-@class ShopDetailInfoCell;
+@class ShopDetailInfoCell, Shop;
 
-@interface ShopDetailInfoCell : UITableViewCell
+@interface ShopDetailInfoCell : UITableViewCell<TableViewCellDynamicHeight>
 {
     __weak IBOutlet UILabel *lblShopName;
     __weak IBOutlet UIButton *btnShopType;
-    __weak IBOutlet LabelTopText *lblFullAddress;
+    __weak IBOutlet UILabel *lblFullAddress;
     __weak IBOutlet UIImageView *line;
 }
 
 -(void) loadWithShop:(Shop*) shop;
 
 +(NSString *)reuseIdentifier;
-+(float)heightWithShop:(Shop*) shop;
+
+@end
+
+@interface UITableView(ShopDetailInfoCell)
+
+-(void) registerShopDetailInfoCell;
+-(ShopDetailInfoCell*) shopDetailInfoCell;
 
 @end

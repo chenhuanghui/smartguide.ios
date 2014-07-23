@@ -7,51 +7,48 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ShopDetailInfoViewController">
             <connections>
-                <outlet property="coverView" destination="L2A-r5-imc" id="YoT-Xm-g6p"/>
+                <outlet property="coverView" destination="L2A-r5-imc" id="Jjt-kz-cie"/>
                 <outlet property="imgvBgCover" destination="zLh-Gz-Zrg" id="qEC-Ne-zRs"/>
                 <outlet property="imgvCover" destination="xYf-ag-n8k" id="Fug-YU-sd3"/>
+                <outlet property="scrollBG" destination="7rY-t7-Y6B" id="ROj-Qt-Pbu"/>
                 <outlet property="table" destination="OST-Jf-nB9" id="Kyn-V2-qJ8"/>
                 <outlet property="view" destination="1" id="3"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="1">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="431"/>
+            <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" id="L2A-r5-imc" userLabel="cover">
-                    <rect key="frame" x="0.0" y="-75" width="320" height="203"/>
+                    <rect key="frame" x="0.0" y="-75" width="320" height="252"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" alpha="0.25" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="xYf-ag-n8k" userLabel="cover">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="203"/>
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="252"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         </imageView>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_detailcover.png" id="zLh-Gz-Zrg">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="203"/>
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="252"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         </imageView>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
+                <scrollView autoresizesSubviews="NO" userInteractionEnabled="NO" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" id="7rY-t7-Y6B">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                </scrollView>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" delaysContentTouches="NO" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="OST-Jf-nB9">
-                    <rect key="frame" x="10" y="0.0" width="310" height="431"/>
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    <inset key="contentInset" minX="0.0" minY="20" maxX="0.0" maxY="0.0"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="PWg-rj-mVK"/>
                         <outlet property="delegate" destination="-1" id="oyC-5m-K4C"/>
                     </connections>
                 </tableView>
-                <view hidden="YES" contentMode="scaleToFill" id="a6K-wR-8wo" customClass="TouchView">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="431"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    <connections>
-                        <outlet property="receiveView" destination="OST-Jf-nB9" id="rVu-8H-Ghm"/>
-                    </connections>
-                </view>
             </subviews>
             <color key="backgroundColor" red="0.92156862745098034" green="0.92156862745098034" blue="0.92156862745098034" alpha="1" colorSpace="calibratedRGB"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>

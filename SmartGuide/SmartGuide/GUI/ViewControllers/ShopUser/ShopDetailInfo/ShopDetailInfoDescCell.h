@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Constant.h"
 
 enum SHOP_DETAIL_INFO_DESCRIPTION_MODE {
     SHOP_DETAIL_INFO_DESCRIPTION_NORMAL = 0,
@@ -22,21 +23,32 @@ enum SHOP_DETAIL_INFO_DESCRIPTION_MODE {
 
 @end
 
-@interface ShopDetailInfoDescCell : UITableViewCell
+@interface ShopDetailInfoDescCell : UITableViewCell<TableViewCellDynamicHeight>
 {
     __weak IBOutlet UILabel *lbl;
+    __weak IBOutlet UIView *lblView;
     __weak IBOutlet UIButton *btn;
     __weak IBOutlet UIImageView *blur;
     
     enum SHOP_DETAIL_INFO_DESCRIPTION_MODE _mode;
+    __weak Shop *_shop;
+    bool _markedAnimation;
 }
 
 -(void) loadWithShop:(Shop*) shop mode:(enum SHOP_DETAIL_INFO_DESCRIPTION_MODE) mode;
+-(void) animationWithMode:(enum SHOP_DETAIL_INFO_DESCRIPTION_MODE) mode duration:(float) duration;
 -(bool) canReadMore;
+-(void) markedAnimation;
 
-+(float) heightWithShop:(Shop*) shop withMode:(enum SHOP_DETAIL_INFO_DESCRIPTION_MODE) mode;
 +(NSString *)reuseIdentifier;
 
 @property (nonatomic, weak) id<ShopDetailInfoDescCellDelegate> delegate;
+
+@end
+
+@interface UITableView(ShopDetailInfoDescCell)
+
+-(void) registerShopDetailInfoDescCell;
+-(ShopDetailInfoDescCell*) shopDetailInfoDescCell;
 
 @end
