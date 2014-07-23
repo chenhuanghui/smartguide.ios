@@ -49,13 +49,10 @@ enum USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE
     
     __weak UserNotificationContent *_obj;
     NSArray *_actions;
-    bool _markedAnimation;
 }
 
 -(void) loadWithUserNotificationDetail:(UserNotificationContent*) obj;
 -(UserNotificationContent*) userNotificationDetail;
--(void) markAnimation;
--(void) animationWith:(enum USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE) displayTYpe;
 
 +(NSString *)reuseIdentifier;
 

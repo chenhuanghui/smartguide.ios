@@ -468,7 +468,10 @@
             [table beginUpdates];
             [table endUpdates];
             
-            [table scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:true];
+            CGRect rect=[table rectForRowAtIndexPath:indexPath];
+            [table setContentOffset:rect.origin animated:true];
+            
+//            [table scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:true];
         }
             break;
             

@@ -24,13 +24,7 @@
 -(void)loadWithUserNotificationDetail:(UserNotificationContent *)obj
 {
     _obj=obj;
-    _markedAnimation=false;
     [self layoutIfNeeded];
-}
-
--(void)markAnimation
-{
-    _markedAnimation=true;
 }
 
 -(void) calculatorHeights
@@ -94,22 +88,16 @@
     }
 }
 
--(void)animationWith:(enum USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE)displayTYpe
-{
-    _markedAnimation=false;
-}
-
 -(void)layoutSubviews
 {
     [super layoutSubviews];
     
     [self calculatorHeights];
     
-    if(_markedAnimation)
-        return;
-    
     btnLogo.userInteractionEnabled=_obj.idShopLogo!=nil;
     [imgvIcon loadShopLogoWithURL:_obj.logo];
+    
+    [UIView setAnimationsEnabled:false];
     
     scroll.contentOffset=CGPointZero;
     scroll.contentSize=CGSizeMake(leftView.l_v_w+rightView.l_v_w, 0);
@@ -243,6 +231,8 @@
 
             break;
     }
+    
+    [UIView setAnimationsEnabled:true];
     
     suggestHeight+=displayView.l_v_y;
     
