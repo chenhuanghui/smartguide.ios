@@ -28,6 +28,11 @@
 
 @implementation SDWebImageManager
 
+-(NSMutableArray *)failedURLs
+{
+    return [NSMutableArray new];
+}
+
 + (id)sharedManager {
     static dispatch_once_t once;
     static id instance;
