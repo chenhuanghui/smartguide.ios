@@ -192,17 +192,7 @@ static char ImageViewDefaultBackgroundKey;
     [self loadImageWithDefaultLoading:url];
 }
 
--(void) loadShopGalleryWithURL:(NSString*) url
-{
-    [self loadImageWithDefaultLoading:url];
-}
-
 -(void)loadGalleryFullWithURL:(NSString *)url
-{
-    [self loadImageWithDefaultLoading:url];
-}
-
--(void) loadShopUserGalleryWithURL:(NSString*) url
 {
     [self loadImageWithDefaultLoading:url];
 }
@@ -216,7 +206,7 @@ static char ImageViewDefaultBackgroundKey;
 
 -(void)loadPlaceAuthorAvatarWithURL:(NSString *)url
 {
-    [self setImageWithURL:[NSURL URLWithString:url]];
+    [self loadImageWithDefaultLoading:url];
 }
 
 -(void)loadShopCoverWithURL:(NSString *)url
@@ -253,7 +243,7 @@ static char ImageViewDefaultBackgroundKey;
 
 -(void)loadShopLogoPromotionHome:(NSString *)url completed:(SDWebImageCompletedBlock)completedBlock
 {
-    [self setImageWithURL:URL(url) completed:completedBlock];
+    [self loadImageWithDefaultLoading:url onCompleted:completedBlock];
 }
 
 -(void)loadImageHomeListWithURL:(NSString *)url
@@ -261,37 +251,21 @@ static char ImageViewDefaultBackgroundKey;
     [self loadImageWithDefaultLoadingAndBackground:url];
 }
 
--(void)loadImageHomeListWithURL:(NSString *)url completed:(SDWebImageCompletedBlock)completedBlock
-{
-    [self setImageWithURL:[NSURL URLWithString:url] placeholderImage:nil options:IPHONE_IMAGE_DOWNLOAD_OPTIONS completed:completedBlock];
-}
-
 -(void)loadImagePromotionNewsWithURL:(NSString *)url size:(CGSize)size
 {
-    __weak UIImageView *wSelf=self;
-    
-    [self setImageWithURL:URL(url) onDownload:^{
-        if(wSelf)
-            [wSelf showLoadingImageSmall];
-    } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
-        if(wSelf)
-            [wSelf stopLoadingImageSmall];
-    } resize:^UIImage *(UIImage *downloadImage) {
-        if(wSelf)
-            return resizeProportionalImage(downloadImage, size);
-        
-        return nil;
+    [self loadImageWithDefaultLoading:url resize:^UIImage *(UIImage *downloadImage) {
+        return resizeProportionalImage(downloadImage, size);
     } willSize:size];
 }
 
 -(void)loadAvatarWithURL:(NSString *)url
 {
-    [self setImageWithURL:[NSURL URLWithString:url]];
+    [self loadImageWithDefaultLoading:url];
 }
 
 -(void)loadAvatarWithURL:(NSString *)url completed:(SDWebImageCompletedBlock)completedBlock
 {
-    [self setImageWithURL:[NSURL URLWithString:url] completed:completedBlock];
+    [self loadImageWithDefaultLoading:url onCompleted:completedBlock];
 }
 
 -(void)loadShopUserGalleryThumbnailWithURL:(NSString *)url size:(CGSize)size
@@ -306,11 +280,6 @@ static char ImageViewDefaultBackgroundKey;
     [self loadImageWithDefaultLoadingAndBackground:url];
 }
 
--(void) loadHome7CoverWithURL:(NSString*) url
-{
-    [self loadImageWithDefaultLoading:url];
-}
-
 -(void) loadUserPromotionCoverWithURL:(NSString*) url
 {
     [self loadImageWithDefaultLoadingAndBackground:url];
@@ -318,28 +287,18 @@ static char ImageViewDefaultBackgroundKey;
 
 -(void)loadUserNotificationContentWithURL:(NSString *)url
 {
-    [self setImageWithURL:URL(url)];
+    [self loadImageWithDefaultLoading:url];
 }
 
 -(void)loadVideoThumbnailWithURL:(NSString *)url
 {
-    [self setImageWithURL:URL(url)];
+    [self loadImageWithDefaultLoading:url];
 }
 
 -(void)loadGalleryThumbnailWithURL:(NSString *)url resize:(CGSize)size
 {
-    __weak UIImageView *wSelf=self;
-    
     [self loadImageWithDefaultLoading:url resize:^UIImage *(UIImage *downloadImage) {
-        
-        DLogDebug(^NSString *{
-            return [NSString stringWithFormat:@"resize gallery thumbnail %@ %@",url,NSStringFromCGSize(size)];
-        });
-        
-        if(wSelf)
-            return resizeProportionalImage(downloadImage, size);
-        
-        return nil;
+        return resizeProportionalImage(downloadImage, size);
     } willSize:size];
 }
 
@@ -451,7 +410,7 @@ static char ImageViewDefaultBackgroundKey;
     }];
 }
 
--(void) loadImageWithDefaultLoading:(NSString*) url
+-(void) loadImageWithDefaultLoading:(NSString*) url onCompleted:(SDWebImageCompletedBlock) completed
 {
     __weak UIImageView *wSelf=self;
     
@@ -460,8 +419,18 @@ static char ImageViewDefaultBackgroundKey;
             [wSelf showLoadingImageSmall];
     } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
         if(wSelf)
+        {
             [wSelf stopLoadingImageSmall];
+            
+            if(completed)
+                completed(image,error,cacheType);
+        }
     }];
+}
+
+-(void) loadImageWithDefaultLoading:(NSString*) url
+{
+    [self loadImageWithDefaultLoading:url onCompleted:nil];
 }
 
 -(void) loadImageWithDefaultLoadingAndBackground:(NSString*) url
