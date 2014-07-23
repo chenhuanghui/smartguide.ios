@@ -142,7 +142,7 @@
                 lblTime.textColor=[UIColor grayColor];
             }
             
-            suggestHeight=lblTitle.l_v_y+lblTitle.l_v_h+5;
+            suggestHeight=lblTitle.l_v_y+lblTitle.l_v_h+10;
             
             break;
             
