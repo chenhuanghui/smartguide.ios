@@ -12,7 +12,6 @@
 #define ScanCodeDecode_LinkShare @"linkShare"
 #define ScanCodeDecode_Order @"order"
 #define ScanCodeDecode_Text @"text"
-#define ScanCodeDecode_TextHeight @"textHeight"
 #define ScanCodeDecode_Type @"type"
 #define ScanCodeDecode_Video @"video"
 #define ScanCodeDecode_VideoHeight @"videoHeight"
@@ -40,7 +39,6 @@
 @property (nonatomic, retain) NSString* linkShare;
 @property (nonatomic, retain) NSNumber* order;
 @property (nonatomic, retain) NSString* text;
-@property (nonatomic, retain) NSNumber* textHeight;
 @property (nonatomic, retain) NSNumber* type;
 @property (nonatomic, retain) NSString* video;
 @property (nonatomic, retain) NSNumber* videoHeight;

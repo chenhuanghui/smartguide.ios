@@ -12,31 +12,35 @@
 #import "Utility.h"
 
 @implementation ScanResultInforyHeaderCell
+@synthesize suggestHeight;
 
 -(void)loadWithDecode:(ScanCodeDecode *)decode
 {
-    lbl.attributedText=decode.textAttribute;
+    _decode=decode;
+    [self layoutIfNeeded];
+}
+
+-(void)layoutSubviews
+{
+    [super layoutSubviews];
+    
+    if(!_decode.textAttribute)
+    {
+        _decode.textAttribute=[[NSAttributedString alloc] initWithString:_decode.text attributes:@{NSFontAttributeName:lbl.font
+                                                                                                 , NSParagraphStyleAttributeName:[NSMutableParagraphStyle paraStyleWithTextAlign:NSTextAlignmentCenter]}];
+    }
+    
+    lbl.frame=CGRectMake(54, 10, 220, 0);
+    lbl.attributedText=_decode.textAttribute;
+    
+    [lbl sizeToFit];
+    
+    suggestHeight=lbl.l_v_y+lbl.l_v_h+10;
 }
 
 +(NSString *)reuseIdentifier
 {
     return @"ScanResultInforyHeaderCell";
-}
-
-+(float)heightWithDecode:(ScanCodeDecode *)decode
-{
-    if(!decode.textAttribute)
-    {
-        decode.textAttribute=[[NSAttributedString alloc] initWithString:decode.text attributes:@{NSFontAttributeName:FONT_SIZE_MEDIUM(22)
-                                                                                                 , NSParagraphStyleAttributeName:[NSMutableParagraphStyle paraStyleWithTextAlign:NSTextAlignmentCenter]}];
-    }
-    
-    if(decode.textHeight.floatValue==-1)
-    {
-        decode.textHeight=@([decode.textAttribute boundingRectWithSize:CGSizeMake(214, MAXFLOAT) options:NSStringDrawingUsesFontLeading|NSStringDrawingUsesLineFragmentOrigin context:nil].size.height);
-    }
-    
-    return decode.textHeight.floatValue+20;
 }
 
 @end

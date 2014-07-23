@@ -166,19 +166,6 @@
 	[self didChangeValueForKey:@"text"];
 }
 
-- (NSNumber*)textHeight {
-	[self willAccessValueForKey:@"textHeight"];
-	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"textHeight"];
-	[self didAccessValueForKey:@"textHeight"];
-	return result;
-}
-
-- (void)setTextHeight:(NSNumber*)value {
-	[self willChangeValueForKey:@"textHeight"];
-	[self setPrimitiveValue:value forKey:@"textHeight"];
-	[self didChangeValueForKey:@"textHeight"];
-}
-
 - (NSNumber*)type {
 	[self willAccessValueForKey:@"type"];
 	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"type"];

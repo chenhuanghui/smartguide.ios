@@ -94,6 +94,7 @@ enum SCAN_RESULT_SECTION_TYPE
     else
     {
         [table reloadData];
+        [table killScroll];
     }
 }
 
@@ -229,7 +230,13 @@ enum SCAN_RESULT_SECTION_TYPE
                     return [ScanResultDisconnectCell height];
                     
                 case SCAN_CODE_DECODE_TYPE_INFORY:
-                    return [ScanResultInforyCell heightWithDecode:_scanResult.decodeObjects];
+                {
+                    ScanResultInforyCell *cell=[tableView scanResultInforyCell];
+                    [cell loadWithDecode:_scanResult.decodeObjects];
+                    [cell layoutSubviews];
+                    
+                    return cell.suggestHeight;
+                }
                     
                 case SCAN_CODE_DECODE_TYPE_NON_INFORY:
                     return [ScanResultNonInforyCell height];
@@ -249,7 +256,13 @@ enum SCAN_RESULT_SECTION_TYPE
                     return 97;
                     
                 case SCAN_CODE_RELATED_STATUS_DONE:
-                    return [ScanResultRelatedCell heightWithResult:_scanResult];
+                {
+                    ScanResultRelatedCell *cell=[tableView scanResultRelatedCell];
+                    [cell loadWithResult:_scanResult height:tableView.l_v_h];
+                    [cell layoutSubviews];
+                    
+                    return cell.suggestHeight;
+                }
                     
                 case SCAN_CODE_RELATED_STATUS_UNKNOW:
                 case SCAN_CODE_RELATED_STATUS_ERROR:
@@ -311,7 +324,7 @@ enum SCAN_RESULT_SECTION_TYPE
                     ScanResultRelatedCell *cell=[tableView scanResultRelatedCell];
                     cell.delegate=self;
                     
-                    float height=[ScanResultRelatedCell heightWithResult:_scanResult];
+                    float height=[tableView rectForRowAtIndexPath:indexPath].size.height;
                     height=MIN(height,tableView.l_v_h);
                     
                     [cell loadWithResult:_scanResult height:height];

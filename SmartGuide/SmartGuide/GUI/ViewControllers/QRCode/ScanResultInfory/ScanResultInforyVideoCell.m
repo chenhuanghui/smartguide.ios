@@ -19,14 +19,34 @@
 @end
 
 @implementation ScanResultInforyVideoCell
+@synthesize suggestHeight;
 
 -(void)loadWithDecode:(ScanCodeDecode *)decode
 {
+    _decode=decode;
+    [self layoutIfNeeded];
+    [videoView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+}
+
+-(void)layoutSubviews
+{
+    [super layoutSubviews];
+    
+    if(CGSizeEqualToSize(_decode.videoSize,CGSizeZero))
+        _decode.videoSize=makeSizeProportional(320, CGSizeMake(_decode.videoWidth.floatValue, _decode.videoHeight.floatValue));
+
     [videoView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     videoView.hidden=true;
-    _decode=decode;
     imgvPlay.hidden=false;
-    [imgv loadScanVideoThumbnailWithURL:decode.videoThumbnail];
+    
+    [imgv l_v_setH:_decode.videoSize.height];
+    [btn l_v_setH:_decode.videoSize.height];
+    [videoView l_v_setH:_decode.videoSize.height];
+    [imgvPlay l_v_setH:_decode.videoSize.height];
+    
+    [imgv loadScanVideoThumbnailWithURL:_decode.videoThumbnail];
+    
+    suggestHeight=imgv.l_v_h+imgv.l_v_y+10;
 }
 
 -(IBAction)btnTouchUpInside:(id)sender
@@ -49,14 +69,6 @@
 +(NSString *)reuseIdentifier
 {
     return @"ScanResultInforyVideoCell";
-}
-
-+(float)heightWithDecode:(ScanCodeDecode *)decode
-{
-    if(CGSizeEqualToSize(decode.videoSize,CGSizeZero))
-        decode.videoSize=makeSizeProportional(320, CGSizeMake(decode.videoWidth.floatValue, decode.videoHeight.floatValue));
-    
-    return decode.videoSize.height+20;
 }
 
 @end

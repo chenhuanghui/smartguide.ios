@@ -110,19 +110,6 @@
 	[self didChangeValueForKey:@"desc"];
 }
 
-- (NSNumber*)descHeight {
-	[self willAccessValueForKey:@"descHeight"];
-	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"descHeight"];
-	[self didAccessValueForKey:@"descHeight"];
-	return result;
-}
-
-- (void)setDescHeight:(NSNumber*)value {
-	[self willChangeValueForKey:@"descHeight"];
-	[self setPrimitiveValue:value forKey:@"descHeight"];
-	[self didChangeValueForKey:@"descHeight"];
-}
-
 - (NSString*)distance {
 	[self willAccessValueForKey:@"distance"];
 	NSString* result = (NSString*)[self primitiveValueForKey:@"distance"];
@@ -227,32 +214,6 @@
 	[self didChangeValueForKey:@"placelistName"];
 }
 
-- (NSNumber*)placelistNameHeight {
-	[self willAccessValueForKey:@"placelistNameHeight"];
-	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"placelistNameHeight"];
-	[self didAccessValueForKey:@"placelistNameHeight"];
-	return result;
-}
-
-- (void)setPlacelistNameHeight:(NSNumber*)value {
-	[self willChangeValueForKey:@"placelistNameHeight"];
-	[self setPrimitiveValue:value forKey:@"placelistNameHeight"];
-	[self didChangeValueForKey:@"placelistNameHeight"];
-}
-
-- (NSNumber*)promotioNameHeight {
-	[self willAccessValueForKey:@"promotioNameHeight"];
-	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"promotioNameHeight"];
-	[self didAccessValueForKey:@"promotioNameHeight"];
-	return result;
-}
-
-- (void)setPromotioNameHeight:(NSNumber*)value {
-	[self willChangeValueForKey:@"promotioNameHeight"];
-	[self setPrimitiveValue:value forKey:@"promotioNameHeight"];
-	[self didChangeValueForKey:@"promotioNameHeight"];
-}
-
 - (NSString*)promotionName {
 	[self willAccessValueForKey:@"promotionName"];
 	NSString* result = (NSString*)[self primitiveValueForKey:@"promotionName"];
@@ -277,19 +238,6 @@
 	[self willChangeValueForKey:@"shopName"];
 	[self setPrimitiveValue:value forKey:@"shopName"];
 	[self didChangeValueForKey:@"shopName"];
-}
-
-- (NSNumber*)shopNameHeight {
-	[self willAccessValueForKey:@"shopNameHeight"];
-	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"shopNameHeight"];
-	[self didAccessValueForKey:@"shopNameHeight"];
-	return result;
-}
-
-- (void)setShopNameHeight:(NSNumber*)value {
-	[self willChangeValueForKey:@"shopNameHeight"];
-	[self setPrimitiveValue:value forKey:@"shopNameHeight"];
-	[self didChangeValueForKey:@"shopNameHeight"];
 }
 
 - (NSString*)time {

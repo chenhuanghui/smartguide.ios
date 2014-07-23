@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Constant.h"
 
 @class ScanCodeRelatedContain;
 
@@ -19,15 +20,16 @@
 
 @end
 
-@interface ScanResultRelatedCell : UITableViewCell
+@interface ScanResultRelatedCell : UITableViewCell<TableViewCellDynamicHeight>
 {
     __weak IBOutlet UITableView *table;
+    __weak ScanCodeResult *_result;
+    float _tableHeight;
 }
 
 -(void) loadWithResult:(ScanCodeResult*) result height:(float) height;
 -(void) tableDidScroll:(UITableView*) tableResult;
 
-+(float) heightWithResult:(ScanCodeResult*) result;
 +(NSString *)reuseIdentifier;
 
 @property (nonatomic, weak) id<ScanResultRelatedCellDelegate> delegate;

@@ -21,13 +21,25 @@
 @end
 
 @implementation ScanResultInforyCell
+@synthesize suggestHeight;
 
 -(void)loadWithDecode:(NSArray *) array
 {
     _items=array;
+    [self layoutIfNeeded];
+}
+
+-(void)layoutSubviews
+{
+    [super layoutSubviews];
     
+    table.dataSource=self;
+    table.delegate=self;
     [table reloadData];
     table.scrollEnabled=false;
+    
+    [table l_v_setH:table.contentSize.height];
+    suggestHeight=table.contentSize.height;
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -49,19 +61,49 @@
             return [ScanResultInforyButtonCell heightWithDecode:decode];
             
         case SCANCODE_DECODE_TYPE_HEADER:
-            return [ScanResultInforyHeaderCell heightWithDecode:decode];
+        {
+            ScanResultInforyHeaderCell *cell=[tableView scanResultInforyHeaderCell];
+            [cell loadWithDecode:decode];
+            [cell layoutSubviews];
+            
+            return cell.suggestHeight;
+        }
             
         case SCANCODE_DECODE_TYPE_IMAGE:
-            return [ScanResultInforyImageCell heightWithDecode:decode];
+        {
+            ScanResultInforyImageCell *cell=[tableView scanResultInforyImageCell];
+            [cell loadWithDecode:decode];
+            [cell layoutSubviews];
+            
+            return cell.suggestHeight;
+        }
             
         case SCANCODE_DECODE_TYPE_SMALLTEXT:
-            return [ScanResultInforyTextCell heightWithDecode:decode];
+        {
+            ScanResultInforyTextCell *cell=[tableView scanResultInforyTextCell];
+            [cell loadWithDecode:decode];
+            [cell layoutSubviews];
+            
+            return cell.suggestHeight;
+        }
             
         case SCANCODE_DECODE_TYPE_BIGTEXT:
-            return [ScanResultInforyTitleCell heightWithDecode:decode];
+        {
+            ScanResultInforyTitleCell *cell=[tableView scanResultInforyTitleCell];
+            [cell loadWithDecode:decode];
+            [cell layoutSubviews];
+            
+            return cell.suggestHeight;
+        }
             
         case SCANCODE_DECODE_TYPE_VIDEO:
-            return [ScanResultInforyVideoCell heightWithDecode:decode];
+        {
+            ScanResultInforyVideoCell *cell=[tableView scanResultInforyVideoCell];
+            [cell loadWithDecode:decode];
+            [cell layoutSubviews];
+            
+            return cell.suggestHeight;
+        }
             
         case SCANCODE_DECODE_TYPE_SHARE:
             return [ScanResultInforyShareCell height];
@@ -164,50 +206,6 @@
 +(NSString *)reuseIdentifier
 {
     return @"ScanResultInforyCell";
-}
-
-+(float)heightWithDecode:(NSArray *) array
-{
-    if(![array hasData])
-        return 0;
-    
-    float height=0;
-    for(ScanCodeDecode *decode in array)
-    {
-        switch (decode.enumType) {
-            case SCANCODE_DECODE_TYPE_BUTTONS:
-                height+=[ScanResultInforyButtonCell heightWithDecode:decode];
-                break;
-                
-            case SCANCODE_DECODE_TYPE_HEADER:
-                height+=[ScanResultInforyHeaderCell heightWithDecode:decode];
-                break;
-                
-            case SCANCODE_DECODE_TYPE_IMAGE:
-                height+=[ScanResultInforyImageCell heightWithDecode:decode];
-                break;
-                
-            case SCANCODE_DECODE_TYPE_SMALLTEXT:
-                height+=[ScanResultInforyTextCell heightWithDecode:decode];
-                break;
-                
-            case SCANCODE_DECODE_TYPE_BIGTEXT:
-                height+=[ScanResultInforyTitleCell heightWithDecode:decode];
-                break;
-                
-            case SCANCODE_DECODE_TYPE_VIDEO:
-                height+=[ScanResultInforyVideoCell heightWithDecode:decode];
-                break;
-                
-            case SCANCODE_DECODE_TYPE_SHARE:
-                height+=[ScanResultInforyShareCell height];
-                
-            case SCANCODE_DECODE_TYPE_UNKNOW:
-                break;
-        }
-    }
-    
-    return height;
 }
 
 -(void)awakeFromNib
