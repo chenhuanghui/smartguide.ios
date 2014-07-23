@@ -147,8 +147,20 @@
         [UIView animateWithDuration:DURATION_DEFAULT animations:^{
             [self reloadBGViews];
         }];
+ 
+        CGRect rect=descCell.frame;
         
-        [tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:true];
+        if(_descMode==SHOP_DETAIL_INFO_DESCRIPTION_FULL)
+            [tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:true];
+        else
+        {
+            if(tableView.contentOffset.y<rect.origin.y)
+                [tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:true];
+            else
+            {
+                [tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:true];
+            }
+        }
     }
 }
 
@@ -230,33 +242,6 @@
 
             return obj.items.count;
         }
-    }
-}
-
--(void)detailInfoCellTouchedMore:(ShopDetailInfoCell *)cell
-{
-    _descMode=(_descMode==SHOP_DETAIL_INFO_DESCRIPTION_NORMAL?SHOP_DETAIL_INFO_DESCRIPTION_FULL:SHOP_DETAIL_INFO_DESCRIPTION_NORMAL);
-    
-    switch (_descMode) {
-        case SHOP_DETAIL_INFO_DESCRIPTION_NORMAL:
-            if(_didLoadShopDetail)
-            {
-                NSIndexPath *indexPath=[NSIndexPath indexPathForRow:0 inSection:0];
-                [table reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-                
-                indexPath=[NSIndexPath indexPathForRow:0 inSection:1];
-                [table scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:true];
-            }
-            else
-            {
-                NSIndexPath *indexPath=[NSIndexPath indexPathForRow:0 inSection:0];
-                [table reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-            }
-            break;
-            
-        case SHOP_DETAIL_INFO_DESCRIPTION_FULL:
-            [table reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
-            break;
     }
 }
 
@@ -393,6 +378,8 @@
             
             ShopDetailInfoHeaderView *headerView=[[ShopDetailInfoHeaderView alloc] initWithTitle:title];
             headerView.section=section;
+            
+            headerView.frame=[tableView rectForHeaderInSection:section];
             
             return headerView;
         }
