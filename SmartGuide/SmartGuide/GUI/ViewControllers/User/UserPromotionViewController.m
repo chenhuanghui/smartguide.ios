@@ -302,7 +302,11 @@
     if(_canLoadingMore && indexPath.row==_userPromotions.count)
         return 80;
     
-    return [HomeInfoCell heightWithUserPromotion:_userPromotions[indexPath.row]];
+    HomeInfoCell *cell=[tableView homeInfoCell];
+    [cell loadWithUserPromotion:_userPromotions[indexPath.row]];
+    [cell layoutSubviews];
+    
+    return cell.suggestHeight;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath

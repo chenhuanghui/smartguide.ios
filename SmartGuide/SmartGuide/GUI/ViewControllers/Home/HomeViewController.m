@@ -468,7 +468,13 @@
                 return [HomeListCell heightWithHome:home];
                 
             case USER_HOME_TYPE_6:
-                return [HomeInfoCell heightWithHome6:home.home6];
+            {
+                HomeInfoCell *cell=[tableView homeInfoCell];
+                [cell loadWithHome6:home.home6];
+                [cell layoutSubviews];
+                
+                return cell.suggestHeight;
+            }
                 
             case USER_HOME_TYPE_8:
                 return [HomePromotionCell heightWithHome8:home.home8];

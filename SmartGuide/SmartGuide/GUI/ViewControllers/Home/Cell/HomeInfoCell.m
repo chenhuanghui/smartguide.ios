@@ -9,64 +9,121 @@
 #import "HomeInfoCell.h"
 #import "ImageManager.h"
 #import "Utility.h"
+#import "UserHome6.h"
+#import "UserPromotion.h"
 
 @implementation HomeInfoCell
-@synthesize delegate;
+@synthesize delegate, suggestHeight;
 
 -(void)loadWithHome6:(UserHome6 *)home
 {
     _obj=home;
     
-    [imgvLogo loadImageHomeWithURL:home.logo];
-    [btnName setTitle:home.shopName forState:UIControlStateNormal];
-    lblDate.text=home.date;
-    lblTitle.text=home.title;
-//    lblContent.text=home.content;
-    
-    NSMutableParagraphStyle *paraStyle=[NSMutableParagraphStyle new];
-    paraStyle.alignment=NSTextAlignmentJustified;
-    lblContent.attributedText=[[NSAttributedString alloc] initWithString:home.content attributes:@{NSParagraphStyleAttributeName:paraStyle}];
-    
-    lblGoTo.text=home.gotoshop;
-    
-    [self makeButtonSize];
-
-    [imgvCover l_v_setH:home.homeSize.height];
-    [btnCover l_v_setH:home.homeSize.height];
-    [lblTitle l_v_setY:imgvCover.l_v_y+imgvCover.l_v_h+5];
-    [lblTitle l_v_setH:home.titleHeight];
-    
-    [lblContent l_v_setY:lblTitle.l_v_y+lblTitle.l_v_h+5];
-    [lblContent l_v_setH:home.contentHeight];
-    
-    [imgvCover loadHome6CoverWithURL:home.cover];
+    [self layoutIfNeeded];
 }
 
 -(void)loadWithUserPromotion:(UserPromotion *)obj
 {
     _obj=obj;
     
-    [imgvLogo loadShopLogoPromotionHome:obj.logo];
-    [btnName setTitle:obj.brandName forState:UIControlStateNormal];
-    lblDate.text=obj.date;
-    lblTitle.text=obj.title;
-    NSMutableParagraphStyle *paraStyle=[NSMutableParagraphStyle new];
-    paraStyle.alignment=NSTextAlignmentJustified;
-    lblContent.attributedText=[[NSAttributedString alloc] initWithString:obj.desc attributes:@{NSParagraphStyleAttributeName:paraStyle}];
-    
-    lblGoTo.text=obj.goTo;
-    
-    [self makeButtonSize];
-    
-    [imgvCover l_v_setH:obj.homeSize.height];
-    [btnCover l_v_setH:obj.homeSize.height];
-    [lblTitle l_v_setY:imgvCover.l_v_y+imgvCover.l_v_h+5];
-    [lblTitle l_v_setH:obj.titleHeight];
+    [self layoutIfNeeded];
+}
 
-    [lblContent l_v_setY:lblTitle.l_v_y+lblTitle.l_v_h+5];
-    [lblContent l_v_setH:obj.contentHeight];
+-(void)layoutSubviews
+{
+    [super layoutSubviews];
+    
+    if([_obj isKindOfClass:[UserHome6 class]])
+    {
+        UserHome6 *home=_obj;
+        
+        if(!home.contentAttribute)
+        {
+            home.contentAttribute=[[NSAttributedString alloc] initWithString:home.content attributes:@{NSFontAttributeName:btnName.titleLabel.font
+                                                                                                       , NSParagraphStyleAttributeName:[NSMutableParagraphStyle paraStyleWithTextAlign:NSTextAlignmentJustified]}];
+        }
+        
+        [imgvLogo loadImageHomeWithURL:home.logo];
+        [btnName setTitle:home.shopName forState:UIControlStateNormal];
+        lblDate.text=home.date;
+        lblTitle.text=home.title;
+        lblContent.attributedText=home.contentAttribute;
+        lblGoTo.text=home.gotoshop;
+        
+        if(CGSizeEqualToSize(home.homeSize, CGSizeZero))
+            home.homeSize=CGSizeMake(imgvCover.l_v_w, MAX(0,imgvCover.l_v_w*home.coverHeight.floatValue/home.coverWidth.floatValue));
+        
+        [imgvCover l_v_setH:home.homeSize.height];
+        [imgvCover loadHome6CoverWithURL:home.cover];
+    }
+    else if([_obj isKindOfClass:[UserPromotion class]])
+    {
+        UserPromotion *obj=_obj;
+        
+        if(!obj.contentAttribute)
+        {
+            obj.contentAttribute=[[NSAttributedString alloc] initWithString:obj.desc attributes:@{NSFontAttributeName:btnName.titleLabel.font
+                                                                                                  , NSParagraphStyleAttributeName:[NSMutableParagraphStyle paraStyleWithTextAlign:NSTextAlignmentJustified]}];
+        }
+        
+        [imgvLogo loadShopLogoPromotionHome:obj.logo];
+        [btnName setTitle:obj.brandName forState:UIControlStateNormal];
+        lblDate.text=obj.date;
+        lblTitle.text=obj.title;
+        lblContent.attributedText=obj.contentAttribute;
+        lblGoTo.text=obj.goTo;
+        
+        if(CGSizeEqualToSize(obj.homeSize, CGSizeZero))
+            obj.homeSize=CGSizeMake(imgvCover.l_v_w, MAX(0,imgvCover.l_v_w*obj.coverHeight.floatValue/obj.coverWidth.floatValue));
+        
+        [imgvCover l_v_setH:obj.homeSize.height];
+        [imgvCover loadUserPromotionCoverWithURL:obj.cover];
+    }
+    
+    btnName.frame=CGRectMake(56, 10, 238, 0);
+    [btnName sizeToFitTitle];
+    
+    lblDate.frame=CGRectMake(56, btnName.l_v_y+btnName.l_v_h+5, 238, 0);
+    [lblDate sizeToFit];
+    [lblDate l_v_setW:238];
+    
+    btnCover.frame=imgvCover.frame;
+    
+    float y=btnCover.l_v_y+btnCover.l_v_h;
+    
+    if(btnCover.l_v_h>0)
+        y+=12;
+    
+    lblTitle.frame=CGRectMake(16, y, 275, 0);
+    [lblTitle sizeToFit];
+    
+    y=lblTitle.l_v_y+lblTitle.l_v_h;
+    
+    if(lblTitle.l_v_h>0)
+        y+=5;
+    
+    lblContent.frame=CGRectMake(26, y, 265, 0);
+    [lblContent sizeToFit];
+    
+    y=lblContent.l_v_y+lblContent.l_v_h;
+    
+    if(lblContent.l_v_h>0)
+        y+=20;
+    
+    [lblGoTo l_v_setY:y];
+    [btnGoTo l_v_setY:y];
 
-    [imgvCover loadUserPromotionCoverWithURL:obj.cover];
+    lblGoTo.hidden=lblGoTo.text.length==0;
+    btnGoTo.hidden=lblGoTo.hidden;
+    
+    UIView *botView=nil;
+    
+    if(btnGoTo.hidden)
+        botView=lblContent;
+    else
+        botView=btnGoTo;
+    
+    suggestHeight=botView.l_v_y+botView.l_v_h+40;
 }
 
 -(IBAction) btnCoverTouchRepear:(id) sender event:(UIEvent*) event
@@ -74,55 +131,6 @@
     UITouch *touch=[[event allTouches] anyObject];
     if(touch.tapCount==2)
         [self btnGoToTouchUpInside:btnGoTo];
-}
-
--(void) makeButtonSize
-{
-    return;
-    float width=[[btnGoTo titleForState:UIControlStateNormal] sizeWithFont:btnGoTo.titleLabel.font constrainedToSize:CGSizeMake(295, 44) lineBreakMode:btnGoTo.titleLabel.lineBreakMode].width+50;
-    
-    [btnGoTo l_v_setW:width];
-    [btnGoTo l_c_setX:self.l_v_w/2];
-}
-
-+(float)heightWithHome6:(UserHome6 *)home
-{
-    float height=154;
-    
-    if(home.titleHeight==-1)
-        home.titleHeight=[home.title sizeWithFont:[UIFont fontWithName:@"Georgia-Bold" size:14] constrainedToSize:CGSizeMake(275, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height+5;
-    
-    home.titleHeight=MAX(0,home.titleHeight);
-    
-    height+=home.titleHeight;
-    
-    if(home.contentHeight==-1)
-        home.contentHeight=[home.content sizeWithFont:[UIFont fontWithName:@"Avenir-Roman" size:13] constrainedToSize:CGSizeMake(265, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height+5;
-    
-    height+=home.contentHeight;
-    height+=home.homeSize.height;
-    
-    return height;
-}
-
-+(float) heightWithUserPromotion:(UserPromotion *)obj
-{
-    float height=154;
-    
-    if(obj.titleHeight==-1)
-        obj.titleHeight=[obj.title sizeWithFont:[UIFont fontWithName:@"Georgia-Bold" size:14] constrainedToSize:CGSizeMake(275, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height+5;
-    
-    obj.titleHeight=MAX(0,obj.titleHeight);
-    
-    height+=obj.titleHeight;
-    
-    if(obj.contentHeight==-1)
-        obj.contentHeight=[obj.desc sizeWithFont:[UIFont fontWithName:@"Avenir-Roman" size:13] constrainedToSize:CGSizeMake(265, 9999) lineBreakMode:NSLineBreakByTruncatingTail].height+5;
-    
-    height+=obj.contentHeight;
-    height+=obj.homeSize.height;
-    
-    return height;
 }
 
 +(NSString *)reuseIdentifier
@@ -162,6 +170,20 @@
     [imgMid drawAsPatternInRect:CGRectMake(imgLeft.size.width, 0, rect.size.width-imgLeft.size.width-imgRight.size.width, rect.size.height)];
     [imgRight drawAtPoint:CGPointMake(rect.size.width-imgRight.size.width, 0)];
     [imgIcon drawAtPoint:CGPointMake(rect.size.width-imgRight.size.width-imgIcon.size.width/2, (rect.size.height-imgIcon.size.height)/2)];
+}
+
+@end
+
+@implementation UITableView(HomeInfoCell)
+
+-(void)registerHomeInfoCell
+{
+    [self registerNib:[UINib nibWithNibName:[HomeInfoCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[HomeInfoCell reuseIdentifier]];
+}
+
+-(HomeInfoCell *)homeInfoCell
+{
+    return [self dequeueReusableCellWithIdentifier:[HomeInfoCell reuseIdentifier]];
 }
 
 @end

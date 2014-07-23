@@ -15,8 +15,7 @@ enum USER_PROMOTION_TYPE {
 +(UserPromotion*) makeWithDictionary:(NSDictionary*) dict;
 -(enum USER_PROMOTION_TYPE) promotionType;
 
-@property (nonatomic, assign) float titleHeight;
-@property (nonatomic, assign) float contentHeight;
 @property (nonatomic, assign) CGSize homeSize;
+@property (nonatomic, strong) NSAttributedString *contentAttribute;
 
 @end

@@ -2,14 +2,13 @@
 #import "Utility.h"
 
 @implementation UserHome6
-@synthesize contentHeight,titleHeight,homeSize;
+@synthesize homeSize,contentAttribute;
 
 -(id)initWithEntity:(NSEntityDescription *)entity insertIntoManagedObjectContext:(NSManagedObjectContext *)context
 {
     self=[super initWithEntity:entity insertIntoManagedObjectContext:context];
-    
-    contentHeight=-1;
-    titleHeight=-1;
+
+    self.homeSize=CGSizeZero;
     
     return self;
 }
@@ -40,10 +39,6 @@
     home.coverHeight=[NSNumber numberWithObject:dict[@"coverHeight"]];
     home.coverWidth=[NSNumber numberWithObject:dict[@"coverWidth"]];
     
-    float fixWidth=296;
-    
-    home.homeSize=CGSizeMake(fixWidth, MAX(0,fixWidth*home.coverHeight.floatValue/home.coverWidth.floatValue));
-    
     return home;
 }
 
@@ -71,22 +66,6 @@
 -(NSString *)logo
 {
     return self.shop.logo;
-}
-
--(float)titleHeight
-{
-    if(self.title.length==0)
-        return 0;
-    
-    return titleHeight;
-}
-
--(float)contentHeight
-{
-    if(self.content.length==0)
-        return 0;
-    
-    return contentHeight;
 }
 
 @end

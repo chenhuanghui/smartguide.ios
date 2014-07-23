@@ -2297,6 +2297,13 @@ static const NSString *KEY_HIT_TEST_EDGE_INSETS = @"HitTestEdgeInsets";
     [self setImage:highlightImage forState:UIControlStateHighlighted|UIControlStateSelected];
 }
 
+-(void) sizeToFitTitle
+{
+    self.titleLabel.numberOfLines=0;
+    [self.titleLabel sizeToFit];
+    [self l_v_setS:self.titleLabel.l_v_s];
+}
+
 @end
 
 @implementation UITextView(Utility)

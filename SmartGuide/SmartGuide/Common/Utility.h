@@ -359,6 +359,7 @@ NSString* LAZY_STRING_INT(int i);
 @interface UIButton (Utility)
 
 -(void) setDefaultImage:(UIImage*) defaultImage highlightImage:(UIImage*) highlightImage;
+-(void) sizeToFitTitle;
 
 @property(nonatomic, assign) UIEdgeInsets hitTestEdgeInsets;
 

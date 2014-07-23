@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "UserHome6.h"
-#import "UserPromotion.h"
+#import "Constant.h"
+
+@class UserHome6, UserPromotion;
 
 @protocol homeInfoCellDelegate <NSObject>
 
@@ -16,7 +17,7 @@
 
 @end
 
-@interface HomeInfoCell : UITableViewCell
+@interface HomeInfoCell : UITableViewCell<TableViewCellDynamicHeight>
 {
     __weak IBOutlet UIImageView *imgvLogo;
     __weak IBOutlet UIButton *btnName;
@@ -34,8 +35,6 @@
 -(void) loadWithHome6:(UserHome6*) home;
 -(void) loadWithUserPromotion:(UserPromotion*) obj;
 
-+(float) heightWithHome6:(UserHome6*) home;
-+(float) heightWithUserPromotion:(UserPromotion*) obj;
 +(NSString *)reuseIdentifier;
 
 @property (nonatomic, weak) id<homeInfoCellDelegate> delegate;
@@ -49,5 +48,12 @@
     UIImage *imgRight;
     UIImage *imgIcon;
 }
+
+@end
+
+@interface UITableView(HomeInfoCell)
+
+-(void) registerHomeInfoCell;
+-(HomeInfoCell*) homeInfoCell;
 
 @end
