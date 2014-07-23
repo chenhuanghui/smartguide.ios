@@ -16,22 +16,45 @@
 @end
 
 @implementation UserNotificationCell
+@synthesize suggestHeight;
 
 -(void)loadWithUserNotification:(UserNotification *)obj
 {
     _obj=obj;
+}
+
+-(void)layoutSubviews
+{
+    [super layoutSubviews];
     
-    lblContent.attributedText=obj.displayContentAttribute;
+    if(!_obj.displayContentAttribute)
+    {
+        _obj.displayContentAttribute=[NSMutableAttributedString new];
+        
+        NSAttributedString *attStr=[[NSAttributedString alloc] initWithString:[_obj.sender stringByAppendingString:@" "]
+                                                                   attributes:@{
+                                                                                NSFontAttributeName:FONT_SIZE_BOLD(13)
+                                                                                , NSForegroundColorAttributeName:[UIColor darkTextColor]}];
+        [_obj.displayContentAttribute appendAttributedString:attStr];
+        
+        attStr=[[NSAttributedString alloc] initWithString:_obj.content
+                                               attributes:@{
+                                                            NSFontAttributeName:FONT_SIZE_NORMAL(13)
+                                                            , NSForegroundColorAttributeName:[UIColor darkTextColor]}];
+        
+        [_obj.displayContentAttribute appendAttributedString:attStr];
+    }
     
-    NSMutableParagraphStyle *paraStyle=[NSMutableParagraphStyle new];
-    paraStyle.alignment=NSTextAlignmentLeft;
+    lblContent.attributedText=_obj.displayContentAttribute;
+    lblContent.numberOfLines=2;
+    lblContent.frame=CGRectMake(20, 17, 264, 0);
     
-    lblTime.text=obj.time;
-    lblNumber.text=obj.displayCount;
+    [lblContent sizeToFit];
     
-    [lblContent l_v_setH:obj.displayContentHeight.floatValue];
+    lblTime.text=_obj.time;
+    lblNumber.text=_obj.displayCount;
     
-    if(obj.enumStatus==NOTIFICATION_STATUS_UNREAD && obj.highlightUnread.boolValue)
+    if(_obj.enumStatus==NOTIFICATION_STATUS_UNREAD && _obj.highlightUnread.boolValue)
     {
         displayContentView.backgroundColor=[UIColor whiteColor];
         lineView.backgroundColor=COLOR255(61, 165, 254, 255);
@@ -50,6 +73,8 @@
     
     //Chỉ user có tài khoản mới được phép remove notification
     scroll.scrollEnabled=currentUser().enumDataMode==USER_DATA_FULL;
+    
+    suggestHeight=lblContent.l_v_h+56;
 }
 
 -(void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset
@@ -76,46 +101,6 @@
 +(NSString *)reuseIdentifier
 {
     return @"UserNotificationCell";
-}
-
-+(float)heightWithUserNotification:(UserNotification *)obj
-{
-    float height=56;
-    
-    if(!obj.displayContentAttribute)
-    {
-        obj.displayContentAttribute=[NSMutableAttributedString new];
-        
-        NSAttributedString *attStr=[[NSAttributedString alloc] initWithString:[obj.sender stringByAppendingString:@" "]
-                                                                   attributes:@{
-                                                                                NSFontAttributeName:FONT_SIZE_BOLD(13)
-                                                                                , NSForegroundColorAttributeName:[UIColor darkTextColor]}];
-        [obj.displayContentAttribute appendAttributedString:attStr];
-        
-        attStr=[[NSAttributedString alloc] initWithString:obj.content
-                                               attributes:@{
-                                                            NSFontAttributeName:FONT_SIZE_NORMAL(13)
-                                                            , NSForegroundColorAttributeName:[UIColor darkTextColor]}];
-        
-        [obj.displayContentAttribute appendAttributedString:attStr];
-    }
-    
-    if(obj.displayContentHeight.floatValue==-1)
-    {
-        CGRect rect=[obj.displayContentAttribute boundingRectWithSize:CGSizeMake(264, MAXFLOAT) options:(NSStringDrawingUsesLineFragmentOrigin) context:nil];
-        rect.size.height+=10;
-        
-        if(rect.size.height<36)
-            rect.size.height=21;
-        else
-            rect.size.height=50;
-        
-        obj.displayContentHeight=@(rect.size.height);
-    }
-    
-    height+=obj.displayContentHeight.floatValue;
-    
-    return height;
 }
 
 - (IBAction)btnRemoveTouchUpInside:(id)sender {
@@ -199,6 +184,20 @@
     contentOffset.x=MAX(0,contentOffset.x);
     
     [super setContentOffset:contentOffset];
+}
+
+@end
+
+@implementation UITableView(UserNotificationCell)
+
+-(void)registerUserNotificationCell
+{
+    [self registerNib:[UINib nibWithNibName:[UserNotificationCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[UserNotificationCell reuseIdentifier]];
+}
+
+-(UserNotificationCell *)userNotificationCell
+{
+    return [self dequeueReusableCellWithIdentifier:[UserNotificationCell reuseIdentifier]];
 }
 
 @end
