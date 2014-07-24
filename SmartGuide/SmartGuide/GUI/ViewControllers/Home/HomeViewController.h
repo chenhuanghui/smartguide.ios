@@ -56,7 +56,7 @@
     bool _isRegisterNotificationUserNotice;
 }
 
-@property (nonatomic, assign) id<HomeControllerDelegate> delegate;
+@property (nonatomic, weak) id<HomeControllerDelegate> delegate;
 
 @end
 

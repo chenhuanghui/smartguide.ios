@@ -10,14 +10,10 @@
 
 @class RemoteNotificationView;
 
-@class NavigationViewController,ScrollViewRoot,SGNavigationController, Shop;
+@class NavigationViewController,SGNavigationController, Shop;
 
 @interface RootViewController : SGViewController
-{   
-    __weak IBOutlet ScrollViewRoot *scrollContent;
-    __weak IBOutlet UIView *leftView;
-    UITapGestureRecognizer *tapGes;
-    bool _isAnimatingSetting;
+{
     __weak IBOutlet UIButton *btnBuildMode;
     __weak IBOutlet UIButton *btnNoti;
     
@@ -43,17 +39,7 @@
 -(void) showTerms;
 
 @property (weak, nonatomic) IBOutlet UIView *containView;
-@property (weak, nonatomic) IBOutlet UIView *contentView;
 @property (nonatomic, strong) SGNavigationController *contentNavigation;
-
-@property (nonatomic, readonly, assign) CGRect containFrame;
-@property (nonatomic, readonly, assign) CGRect contentFrame;
 @property (nonatomic, strong) NavigationViewController *settingController;
-
-@end
-
-@interface ScrollViewRoot : UIScrollView
-
-@property (nonatomic, weak) RootViewController *root;
 
 @end

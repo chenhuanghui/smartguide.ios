@@ -20,8 +20,6 @@
 @interface LoadingScreenViewController : SGViewController
 {
     __weak IBOutlet UIImageView *imgv;
-    
-    bool _viewDidLoad;
 }
 
 @property (nonatomic, weak) id<SGLoadingScreenDelegate> delegate;

@@ -26,6 +26,6 @@
     __weak IBOutlet UIImageView *imgvBackground;
 }
 
-@property (nonatomic, assign) id<WelcomeControllerDelegate> delegate;
+@property (nonatomic, weak) id<WelcomeControllerDelegate> delegate;
 
 @end
