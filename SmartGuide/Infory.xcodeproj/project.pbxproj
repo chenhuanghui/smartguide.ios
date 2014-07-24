@@ -923,6 +923,7 @@
 		A9819870178D2FDF0009FCB6 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A981986F178D2FDF0009FCB6 /* QuartzCore.framework */; };
 		A9819872178D2FE40009FCB6 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9819871178D2FE40009FCB6 /* MapKit.framework */; };
 		A98198B7178D3FB30009FCB6 /* Utility.m in Sources */ = {isa = PBXBuildFile; fileRef = A98198B6178D3FB30009FCB6 /* Utility.m */; };
+		A98736551980C86200364378 /* RevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A98736541980C86200364378 /* RevealViewController.m */; };
 		A98E620B19766942004D02F3 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = A98E620919766942004D02F3 /* Default.png */; };
 		A98E620C19766942004D02F3 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A98E620A19766942004D02F3 /* Default@2x.png */; };
 		A98E6210197669D2004D02F3 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A98E620E197669D2004D02F3 /* Default-568h@2x.png */; };
@@ -2291,6 +2292,8 @@
 		A98198B5178D3FB30009FCB6 /* Utility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utility.h; sourceTree = "<group>"; };
 		A98198B6178D3FB30009FCB6 /* Utility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utility.m; sourceTree = "<group>"; };
 		A98198D7178D5EDC0009FCB6 /* Constant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constant.h; sourceTree = "<group>"; };
+		A98736531980C86200364378 /* RevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RevealViewController.h; sourceTree = "<group>"; };
+		A98736541980C86200364378 /* RevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RevealViewController.m; sourceTree = "<group>"; };
 		A98E620919766942004D02F3 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		A98E620A19766942004D02F3 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		A98E620E197669D2004D02F3 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
@@ -2845,6 +2848,8 @@
 				9A27BB0018D18BAD00E3EAC2 /* RootViewController.h */,
 				9A27BB0118D18BAD00E3EAC2 /* RootViewController.m */,
 				9A27BB0218D18BAD00E3EAC2 /* RootViewController.xib */,
+				A98736531980C86200364378 /* RevealViewController.h */,
+				A98736541980C86200364378 /* RevealViewController.m */,
 			);
 			path = Root;
 			sourceTree = "<group>";
@@ -5785,6 +5790,7 @@
 				9ACA42F5186D3BF3008D89BC /* _UserHome8.m in Sources */,
 				A9EB14851952D79C00191767 /* ShopDetailInfoType4Cell.m in Sources */,
 				9ADCD96118D19C3F004CB67E /* SDWebImagePrefetcher.m in Sources */,
+				A98736551980C86200364378 /* RevealViewController.m in Sources */,
 				A95F7229197631D1001E2881 /* HTTPOperation.m in Sources */,
 				A90E2D321936E7BD001B6A20 /* _UserNotificationAction.m in Sources */,
 				A95B1AF81965A6EC006E9B27 /* ScanResultInforyHeaderCell.m in Sources */,

@@ -24,15 +24,16 @@
 #import "ShopUserController.h"
 #import "TokenManager.h"
 #import "ScanCodeController.h"
+#import "RevealViewController.h"
 
-@interface RootViewController ()<NavigationControllerDelegate,UIScrollViewDelegate,HomeControllerDelegate,UserPromotionDelegate,SGUserSettingControllerDelegate,WebViewDelegate,ShopUserControllerDelegate,UIGestureRecognizerDelegate,RemoteNotificationDelegate, ScanCodeControllerDelegate>
+@interface RootViewController ()<NavigationControllerDelegate,UIScrollViewDelegate,HomeControllerDelegate,UserPromotionDelegate,SGUserSettingControllerDelegate,WebViewDelegate,ShopUserControllerDelegate,UIGestureRecognizerDelegate,RemoteNotificationDelegate, ScanCodeControllerDelegate, RevealControllerDelegate>
 {
+    __weak RevealViewController *revealControlelr;
 }
 
 @end
 
 @implementation RootViewController
-@synthesize containFrame,contentFrame;
 
 -(RootViewController *)init
 {
@@ -49,7 +50,6 @@
     
     HomeViewController *home=[HomeViewController new];
     home.delegate=self;
-    scrollContent.root=self;
     
     [array addObject:home];
     
@@ -95,39 +95,27 @@
     btnNoti.hidden=false;
 #endif
     
-    scrollContent.scrollsToTop=false;
-    
-    self.contentNavigation.view.autoresizingMask=UIViewAutoresizingAll();
-    [self.contentView addSubview:self.contentNavigation.view];
-    [self.contentNavigation.view l_v_setS:self.contentView.l_v_s];
-    
     self.containView.layer.masksToBounds=true;
-    self.contentView.layer.masksToBounds=true;
     
     self.settingController=[NavigationViewController new];
     self.settingController.delegate=self;
     
-    [leftView addSubview:self.settingController.view];
+    RevealViewController *rev=[[RevealViewController alloc] initWithFrontController:self.contentNavigation rearController:self.settingController];
+    rev.delegate=self;
     
-    scrollContent.contentSize=CGSizeMake(UIApplicationSize().width*2, UIApplicationSize().height);
-    [scrollContent l_co_setX:UIApplicationSize().width];
+    [self addChildViewController:rev];
     
-    [scrollContent.panGestureRecognizer addTarget:self action:@selector(panGes:)];
-    
-    UITapGestureRecognizer *tap=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)];
-    tap.numberOfTapsRequired=1;
-    tap.numberOfTouchesRequired=1;
-    tap.cancelsTouchesInView=false;
-    scrollContent.panGestureRecognizer.cancelsTouchesInView=false;
-    
-    tap.delegate=self;
-    
-    [scrollContent.panGestureRecognizer requireGestureRecognizerToFail:tap];
-    [self.view addGestureRecognizer:tap];
-    
-    tapGes=tap;
+    revealControlelr=rev;
     
     [[NotificationManager shareInstance] requestNotificationCount];
+}
+
+-(void)viewWillAppearOnce
+{
+    [self.containView addSubview:revealControlelr.view];
+    [revealControlelr.view l_v_setS:self.containView.l_v_s];
+    
+    [revealControlelr showFrontController:false];
 }
 
 -(NSArray *)registerNotifications
@@ -152,86 +140,20 @@
     }
 }
 
--(void) panGes:(UIPanGestureRecognizer*) pan
-{
-    switch (pan.state) {
-        case UIGestureRecognizerStateBegan:
-            [self.settingController loadData];
-            break;
-            
-        default:
-            break;
-    }
-}
-
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     if([KeyboardUtility shareInstance].isKeyboardVisible)
         [self.view endEditing:true];
-    
-    float settingWidth=274.f;
-    float x=UIScreenSize().width-scrollView.l_co_x;
-    
-    [leftView l_v_setX:scrollView.l_co_x-settingWidth/2+(UIScreenSize().width-scrollView.l_co_x)/2];
-    
-    if(x<settingWidth/3)
-        leftView.alpha=0.3f;
-    else
-        leftView.alpha=MAX(0.3f,(x-settingWidth/3)/(settingWidth-settingWidth/3));
-    
-    [self endScroll];
 }
 
 -(void)showSettingController
 {
-    [self.settingController loadData];
-    
-    _isAnimatingSetting=true;
-    
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [scrollContent setContentOffset:CGPointZero animated:true];
-        scrollContent.userInteractionEnabled=false;
-    });
-}
-
--(void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
-{
-    if(_isAnimatingSetting)
-    {
-        scrollContent.userInteractionEnabled=true;
-        _isAnimatingSetting=false;
-    }
+    [revealControlelr showRearController:true];
 }
 
 -(void) hideSettingController
 {
-    _isAnimatingSetting=true;
-    
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        _isAnimatingSetting=scrollContent.l_co_x!=UIScreenSize().width;
-        [scrollContent setContentOffset:CGPointMake(UIScreenSize().width, 0) animated:true];
-        scrollContent.userInteractionEnabled=scrollContent.l_co_x==UIScreenSize().width;
-    });
-}
-
--(void) endScroll
-{
-    if(scrollContent.l_co_x<UIScreenSize().width)
-    {
-        self.contentView.userInteractionEnabled=false;
-        leftView.userInteractionEnabled=true;
-    }
-    else
-    {
-        self.contentView.userInteractionEnabled=true;
-        leftView.userInteractionEnabled=false;
-    }
-}
-
--(void)storeRect
-{
-    containFrame=self.containView.frame;
-    contentFrame=self.contentView.frame;
+    [revealControlelr showFrontController:true];
 }
 
 - (void)didReceiveMemoryWarning
@@ -243,6 +165,13 @@
 -(void)dealloc
 {
     self.contentNavigation=nil;
+}
+
+#pragma mark RevealViewController delegate
+
+-(void)revealControllerWillDisplayRearView:(RevealViewController *)controlelr
+{
+    [self.settingController loadData];
 }
 
 #pragma mark HomeViewController delegate
@@ -472,30 +401,6 @@
     return vc;
 }
 
-#pragma mark UIGestureDelegate
-
--(BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
-{
-    if(gestureRecognizer==tapGes)
-    {
-        if(scrollContent.currentPage==0)
-        {
-            CGPoint pnt=[tapGes locationInView:self.view];
-            
-            return pnt.x>274.f;
-        }
-        
-        return false;
-    }
-    
-    return true;
-}
-
--(void) tap:(UITapGestureRecognizer*) tap
-{
-    [self hideSettingController];
-}
-
 -(void)showShopListWithIDPlace:(int)idPlacelist
 {
     SearchViewController *vc=[[SearchViewController alloc] initWithIDPlace:idPlacelist];
@@ -617,7 +522,7 @@
     notiView.hidden=true;
     notiView.delegate=self;
     
-    [self.contentView addSubview:notiView];
+    [self.containView addSubview:notiView];
     
     remoteNotiView=notiView;
     [remoteNotiView setRemoteNotification:obj];
@@ -713,53 +618,6 @@
     {
         if(![vc allowDragToNavigation])
             return false;
-    }
-    
-    return true;
-}
-
-@end
-
-@interface ScrollViewRoot()<UIGestureRecognizerDelegate>
-
-@end
-
-@implementation ScrollViewRoot
-
--(void)awakeFromNib
-{
-    [super awakeFromNib];
-    
-    self.panGestureRecognizer.delegate=self;
-}
-
--(void)setContentOffset:(CGPoint)contentOffset
-{
-    if(self.currentPage==1)
-    {
-        if(![self.root allowDragToNavigation])
-        {
-            contentOffset.x=UIApplicationSize().width;
-        }
-    }
-    
-    if(contentOffset.x<UIScreenSize().width-274)
-        contentOffset.x=UIScreenSize().width-274;
-    
-    [super setContentOffset:contentOffset];
-}
-
--(BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
-{
-    if(gestureRecognizer==self.panGestureRecognizer)
-    {
-        if(self.currentPage==1)
-        {
-            CGPoint pnt=[self.panGestureRecognizer locationInView:self];
-            pnt.x-=UIScreenSize().width;
-            
-            return pnt.x<80;
-        }
     }
     
     return true;

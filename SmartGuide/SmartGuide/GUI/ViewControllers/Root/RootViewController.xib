@@ -10,9 +10,6 @@
                 <outlet property="btnBuildMode" destination="D6z-e1-UO6" id="saJ-7q-fUI"/>
                 <outlet property="btnNoti" destination="ppP-wD-eLs" id="sWl-pd-hgb"/>
                 <outlet property="containView" destination="clU-Nc-up4" id="pz2-XN-V9B"/>
-                <outlet property="contentView" destination="RQU-48-iTN" id="LzY-Oz-Za0"/>
-                <outlet property="leftView" destination="C1G-2n-zEl" id="aoR-19-5lQ"/>
-                <outlet property="scrollContent" destination="L4b-Ry-4aM" id="7yP-tI-2R8"/>
                 <outlet property="view" destination="1" id="3"/>
             </connections>
         </placeholder>
@@ -24,33 +21,6 @@
                 <view contentMode="scaleToFill" id="clU-Nc-up4" userLabel="contain">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                    <subviews>
-                        <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" bouncesZoom="NO" id="L4b-Ry-4aM" customClass="ScrollViewRoot">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                            <subviews>
-                                <view contentMode="scaleToFill" id="C1G-2n-zEl" userLabel="Setting">
-                                    <rect key="frame" x="320" y="0.0" width="320" height="480"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                </view>
-                                <view contentMode="scaleToFill" id="RQU-48-iTN" userLabel="Content Navigation">
-                                    <rect key="frame" x="320" y="0.0" width="320" height="480"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                </view>
-                            </subviews>
-                            <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
-                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                    <integer key="value" value="2"/>
-                                </userDefinedRuntimeAttribute>
-                            </userDefinedRuntimeAttributes>
-                            <connections>
-                                <outlet property="delegate" destination="-1" id="2HB-sV-ObX"/>
-                            </connections>
-                        </scrollView>
-                    </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
                 <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="D6z-e1-UO6">
