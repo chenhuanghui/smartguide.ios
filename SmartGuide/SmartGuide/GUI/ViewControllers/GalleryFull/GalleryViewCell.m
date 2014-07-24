@@ -14,7 +14,7 @@
 
 -(void)loadWithImage:(UIImage *)image highlighted:(bool)isHighlighted
 {
-    [imgv stopLoadingImageSmall];
+    [imgv removeLoadingImageSmall];
     imgv.image=image;
     imgvFrame.highlighted=isHighlighted;
 }

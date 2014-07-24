@@ -14,36 +14,23 @@ static char operationArrayKey;
 
 @implementation UIImageView (WebCache)
 
--(void)setImageWithURL:(NSURL *)url onDownload:(void (^)())onDownload completed:(SDWebImageCompletedBlock)completedBlock
-{
-    [self setImageWithURL:url onDownload:onDownload completed:completedBlock resize:nil willSize:CGSizeZero];
-}
-
--(void)setImageWithURL:(NSURL *)url onDownload:(void (^)())onDownload completed:(SDWebImageCompletedBlock)completedBlock resize:(UIImage *(^)(UIImage *))resizeMethod willSize:(CGSize) willSize
+- (void) setImageWithURL:(NSURL*) url
+                                    options:(SDWebImageOptions)options
+                                      start:(void(^)(bool isFromWeb)) onStarted// bắt đầu download hoặc query disk->resize
+                                    process:(SDWebImageDownloaderProgressBlock) progressBlock
+                                     resize:(UIImage*(^)(UIImage* image)) resizeMethod willSize:(CGSize) willSize
+                                  completed:(SDWebImageCompletedBlock) completed
 {
     [self cancelCurrentImageLoad];
-    
     self.image=nil;
+
+    id <SDWebImageOperation> operation = [[SDWebImageManager sharedManager] downloadWithURL:url options:options start:onStarted process:progressBlock resize:resizeMethod willSize:willSize completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished) {
+        
+        if(completed)
+            completed(image,error,cacheType);
+    }];
     
-    if (url) {
-        __weak UIImageView *wself = self;
-        
-        id <SDWebImageOperation> operation = [[SDWebImageManager sharedManager] downloadWithURL:url options:0 download:onDownload progress:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished) {
-            if (!wself) return;
-            dispatch_main_sync_safe(^{
-                if (!wself) return;
-                if (image) {
-                    wself.image = image;
-                    [wself setNeedsLayout];
-                }
-                if (completedBlock && finished) {
-                    completedBlock(image, error, cacheType);
-                }
-            });
-        } willSize:willSize resize:resizeMethod];
-        
-        objc_setAssociatedObject(self, &operationKey, operation, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-    }
+    objc_setAssociatedObject(self, &operationKey, operation, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 - (void)setImageWithURL:(NSURL *)url {

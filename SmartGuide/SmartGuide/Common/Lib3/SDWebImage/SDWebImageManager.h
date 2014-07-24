@@ -187,13 +187,20 @@ SDWebImageManager *manager = [SDWebImageManager sharedManager];
                                    progress:(SDWebImageDownloaderProgressBlock)progressBlock
                                   completed:(SDWebImageCompletedWithFinishedBlock)completedBlock;
 
+- (id <SDWebImageOperation>)downloadWithURL:(NSURL*) url
+                                    options:(SDWebImageOptions)options
+                                      start:(void(^)(bool isFromWeb)) onStarted// bắt đầu download hoặc query disk->resize
+                                    process:(SDWebImageDownloaderProgressBlock) progressBlock
+                                     resize:(UIImage*(^)(UIImage* image)) resizeMethod willSize:(CGSize) willSize
+                                  completed:(SDWebImageCompletedWithFinishedBlock) completed;
+
+
 - (id <SDWebImageOperation>)downloadWithURL:(NSURL *)url
                                     options:(SDWebImageOptions)options
                                    download:(void(^)()) onDownload
-                                   progress:(SDWebImageDownloaderProgressBlock)progressBlock
-                                  completed:(SDWebImageCompletedWithFinishedBlock)completedBlock
                                    willSize:(CGSize) willSize
-                                     resize:(UIImage*(^)(UIImage *downloadImage)) resizeMethod;
+                                     resize:(UIImage*(^)(UIImage *downloadImage)) resizeMethod
+                                  completed:(SDWebImageCompletedWithFinishedBlock)completedBlock;
 
 /**
  * Cancel all current opreations
