@@ -16,7 +16,7 @@
 @end
 
 @implementation NavigationViewController
-@synthesize delegate,slideView;
+@synthesize delegate;
 
 - (id)init
 {
@@ -119,6 +119,11 @@
         
         webviewController.view.frame=rect;
     }];
+}
+
+-(float)displayViewWidth
+{
+    return containtView.l_v_w;
 }
 
 @end

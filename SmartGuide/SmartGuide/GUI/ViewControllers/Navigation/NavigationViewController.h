@@ -38,8 +38,8 @@
 }
 
 -(void) loadData;
+-(float) displayViewWidth;
 
-@property (nonatomic, assign) id<NavigationControllerDelegate> delegate;
-@property (nonatomic, assign) UIView *slideView;
+@property (nonatomic, weak) id<NavigationControllerDelegate> delegate;
 
 @end

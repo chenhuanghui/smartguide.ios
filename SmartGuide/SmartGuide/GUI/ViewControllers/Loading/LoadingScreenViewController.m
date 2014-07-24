@@ -15,8 +15,11 @@
 {
     OperationNotifications *_notification;
     ASIOperationUserProfile *_operationUserProfile;
-    bool _finishedRequestNotification;
+    
     NotificationObject *_notifiObject;
+    bool _viewDidLoad;
+    bool _finishedEmergencyNotification;
+    bool _finishedUserProfile;
 }
 
 @end
@@ -35,6 +38,16 @@
 {
     [super loadView];
     
+    _viewDidLoad=false;
+    _finishedEmergencyNotification=false;
+    _finishedUserProfile=false;
+
+    [self requestEmergencyNotification];
+    [self requestUserProfile];
+}
+
+-(void) requestEmergencyNotification
+{
     NSString *version=[NSString stringWithFormat:@"ios%@_%@",[UIDevice currentDevice].systemVersion,SMARTUIDE_VERSION];
     
     _notification=[[OperationNotifications alloc] initVersion:version];
@@ -63,22 +76,19 @@
     
     _viewDidLoad=true;
     
-    [self finishRequestNotification];
+    [self finishLoadingScreen];
 }
 
--(void) finishRequestNotification
+-(void)viewWillAppearOnce
 {
-    if(_viewDidLoad && _finishedRequestNotification)
+    [self.view showLoading];
+}
+
+-(void) finishLoadingScreen
+{
+    if(_viewDidLoad && _finishedEmergencyNotification && _finishedUserProfile)
     {
-        if(_notifiObject)
-        {
-            [self processNotification:_notifiObject];
-        }
-        else
-        {
-            [self.view showLoading];
-            [self requestUserProfile];
-        }
+        [self.delegate SGLoadingFinished:self];
     }
 }
 
@@ -86,20 +96,18 @@
 {
     if([operation isKindOfClass:[ASIOperationUserProfile class]])
     {
-        [self.view removeLoading];
-        [self.delegate SGLoadingFinished:self];
-        
+        _finishedUserProfile=true;
         _operationUserProfile=nil;
+        
+        [self finishLoadingScreen];
     }
     else if([operation isKindOfClass:[OperationNotifications class]])
     {
-        _finishedRequestNotification=true;
         OperationNotifications *ope=(OperationNotifications*)operation;
         
         _notifiObject=ope.object;
         
-        [self finishRequestNotification];
-        
+        [self processNotification:_notifiObject];
         _notification=nil;
     }
 }
@@ -116,6 +124,8 @@
             delayInSeconds=0;
         }
         
+        _operationUserProfile=nil;
+        
         dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
         dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
             [self requestUserProfile];
@@ -123,10 +133,10 @@
     }
     else if([operation isKindOfClass:[OperationNotifications class]])
     {
-        _finishedRequestNotification=true;
-        [self finishRequestNotification];
-        
+        _finishedEmergencyNotification=true;
         _notification=nil;
+        
+        [self finishLoadingScreen];
     }
 }
 
@@ -165,12 +175,18 @@
             else
                 msg=[NSString stringWithFormat:@"%@\n%@",msg,item.content];
         }
-        
-        [self requestUserProfile];
-        
+
         if([msg stringByRemoveString:@" ",@"\n",nil].length>0)
         {
-            [AlertView showAlertOKWithTitle:nil withMessage:msg onOK:nil];
+            [AlertView showAlertOKWithTitle:nil withMessage:msg onOK:^{
+                _finishedEmergencyNotification=true;
+                [self finishLoadingScreen];
+            }];
+        }
+        else
+        {
+            _finishedEmergencyNotification=true;
+            [self finishLoadingScreen];
         }
     }
     else if(notiObj.notificationType==3)
@@ -181,8 +197,8 @@
     }
     else
     {
-        [self.view showLoading];
-        [self requestUserProfile];
+        _finishedEmergencyNotification=true;
+        [self finishLoadingScreen];
     }
 }
 

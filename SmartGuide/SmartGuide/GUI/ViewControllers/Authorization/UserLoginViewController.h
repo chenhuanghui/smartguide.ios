@@ -33,7 +33,7 @@
     float _keyboardHeight;
 }
 
-@property (nonatomic, assign) id<UserLoginDelegate> delegate;
+@property (nonatomic, weak) id<UserLoginDelegate> delegate;
 @property (nonatomic, weak) AuthorizationViewController *authorizationController;
 
 @end
