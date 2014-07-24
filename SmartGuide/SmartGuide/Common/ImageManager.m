@@ -189,138 +189,141 @@ static char ImageViewDefaultBackgroundKey;
 
 -(void) loadShopLogoWithURL:(NSString*) url
 {
-    [self loadImageWithDefaultLoading:url];
+    [self loadImageWithURL:url];
 }
 
 -(void)loadGalleryFullWithURL:(NSString *)url
 {
-    [self loadImageWithDefaultLoading:url];
+    [self loadImageWithURL:url];
 }
 
 -(void) loadCommentAvatarWithURL:(NSString*) url size:(CGSize)size
 {
-    [self loadImageWithDefaultLoading:url resize:^UIImage *(UIImage *downloadImage) {
+    [self loadImageWithURL:url resize:^UIImage *(UIImage *downloadImage) {
         return resizeProportionalImage(downloadImage, size);
     } willSize:size];
 }
 
 -(void)loadPlaceAuthorAvatarWithURL:(NSString *)url
 {
-    [self loadImageWithDefaultLoading:url];
+    [self loadImageWithURL:url];
 }
 
 -(void)loadShopCoverWithURL:(NSString *)url
 {
-    [self loadImageWithDefaultLoading:url];
+    [self loadImageWithURL:url];
 }
 
 -(void)loadShopCoverWithURL:(NSString *)url resize:(CGSize)size
 {
-    [self loadImageWithDefaultLoadingAndBackground:url resize:^UIImage *(UIImage *downloadImage) {
+    [self loadImageWithURL:url resize:^UIImage *(UIImage *downloadImage) {
         return resizeProportionalImage(downloadImage, size);
     } willSize:size];
 }
 
 -(void)loadImageInfo3WithURL:(NSString *)url
 {
-    [self loadImageWithDefaultLoading:url];
+    [self loadImageWithURL:url];
 }
 
 -(void)loadImageHomeWithURL:(NSString *)url
 {
-    [self loadImageWithDefaultLoadingAndBackground:url];
+    [self loadImageWithURL:url];
 }
 
 -(void)loadImageHome9WithURL:(NSString *)url
 {
-    [self loadImageWithDefaultLoading:url];
+    [self loadImageWithURL:url];
 }
 
 -(void) loadShopLogoPromotionHome:(NSString*) url
 {
-    [self loadImageWithDefaultLoadingAndBackground:[NSURL URLWithString:url]];
+    [self loadImageWithURL:url];
 }
 
 -(void)loadShopLogoPromotionHome:(NSString *)url completed:(SDWebImageCompletedBlock)completedBlock
 {
-    [self loadImageWithDefaultLoading:url onCompleted:completedBlock];
+    [self loadImageWithURL:url onCompleted:completedBlock];
 }
 
 -(void)loadImageHomeListWithURL:(NSString *)url
 {
-    [self loadImageWithDefaultLoadingAndBackground:url];
+    [self loadImageWithURL:url];
 }
 
 -(void)loadImagePromotionNewsWithURL:(NSString *)url size:(CGSize)size
 {
-    [self loadImageWithDefaultLoading:url resize:^UIImage *(UIImage *downloadImage) {
+    [self loadImageWithURL:url resize:^UIImage *(UIImage *downloadImage) {
         return resizeProportionalImage(downloadImage, size);
     } willSize:size];
 }
 
 -(void)loadAvatarWithURL:(NSString *)url
 {
-    [self loadImageWithDefaultLoading:url];
+    [self loadImageWithURL:url];
 }
 
 -(void)loadAvatarWithURL:(NSString *)url completed:(SDWebImageCompletedBlock)completedBlock
 {
-    [self loadImageWithDefaultLoading:url onCompleted:completedBlock];
+    [self loadImageWithURL:url onCompleted:completedBlock];
 }
 
 -(void)loadShopUserGalleryThumbnailWithURL:(NSString *)url size:(CGSize)size
 {
-    [self loadImageWithDefaultLoading:url resize:^UIImage *(UIImage *downloadImage) {
+    [self loadImageWithURL:url resize:^UIImage *(UIImage *downloadImage) {
         return resizeProportionalImage(downloadImage, size);
     } willSize:size];
 }
 
 -(void) loadHome6CoverWithURL:(NSString*) url
 {
-    [self loadImageWithDefaultLoadingAndBackground:url];
+    [self loadImageWithURL:url];
 }
 
 -(void) loadUserPromotionCoverWithURL:(NSString*) url
 {
-    [self loadImageWithDefaultLoadingAndBackground:url];
+    [self loadImageWithURL:url];
 }
 
 -(void)loadUserNotificationContentWithURL:(NSString *)url
 {
-    [self loadImageWithDefaultLoading:url];
+    [self loadImageWithURL:url];
 }
 
 -(void)loadVideoThumbnailWithURL:(NSString *)url
 {
-    [self loadImageWithDefaultLoading:url];
+    [self loadImageWithURL:url];
 }
 
 -(void)loadGalleryThumbnailWithURL:(NSString *)url resize:(CGSize)size
 {
-    [self loadImageWithDefaultLoading:url resize:^UIImage *(UIImage *downloadImage) {
+    [self loadImageWithURL:url resize:^UIImage *(UIImage *downloadImage) {
         return resizeProportionalImage(downloadImage, size);
     } willSize:size];
 }
 
 -(void) loadScanImageWithURL:(NSString*) url
 {
-    [self loadImageWithDefaultLoading:url];
+    [self loadImageWithURL:url];
 }
 
 -(void) loadScanVideoThumbnailWithURL:(NSString*) url
 {
-    [self loadImageWithDefaultLoading:url];
+    [self loadImageWithURL:url];
 }
 
 -(void) loadScanRelatedImageWithURL:(NSString*) url
 {
-    [self loadImageWithDefaultLoading:url];
+    [self loadImageWithURL:url];
 }
 
 -(void) showLoadingImageSmall
 {
     if(self.loadingSmall)
+    {
+        [self.loadingSmall startAnimating];
         return;
+    }
     
     CGRect rect=self.frame;
     rect.origin=CGPointZero;
@@ -344,7 +347,7 @@ static char ImageViewDefaultBackgroundKey;
     self.loadingSmall=imgv;
 }
 
--(void) stopLoadingImageSmall
+-(void) removeLoadingImageSmall
 {
     if(self.loadingSmall)
     {
@@ -396,6 +399,68 @@ static char ImageViewDefaultBackgroundKey;
         }];
     }
 }
+
+-(void) loadImageWithURL:(NSString*) url
+{
+    [self loadImageWithURL:url onCompleted:nil resize:nil willSize:CGSizeZero];
+}
+
+-(void) loadImageWithURL:(NSString*) url onCompleted:(SDWebImageCompletedBlock) completedBlock
+{
+    [self loadImageWithURL:url onCompleted:completedBlock resize:nil willSize:CGSizeZero];
+}
+
+-(void) loadImageWithURL:(NSString*) url resize:(UIImage*(^)(UIImage* image)) resizeMethod willSize:(CGSize) willSize
+{
+    [self loadImageWithURL:url onCompleted:nil resize:resizeMethod willSize:willSize];
+}
+
+-(void) loadImageWithURL:(NSString*) url onCompleted:(SDWebImageCompletedBlock) completedBlock resize:(UIImage*(^)(UIImage* image)) resizeMethod willSize:(CGSize) willSize
+{
+    if(url.length==0)
+    {
+        self.image=nil;
+        [self showDefaultBackground];
+        return;
+    }
+    
+    __weak UIImageView *wSelf=self;
+    __block bool isCompleted=false;
+    
+    [self removeDefaultBackground];
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        if(wSelf && !isCompleted)
+        {
+            [wSelf showLoadingImageSmall];
+        }
+    });
+    
+    [self setImageWithURL:URL(url) options:0 start:^(bool isFromWeb) {
+        if(wSelf && (isFromWeb || !CGSizeEqualToSize(willSize, CGSizeZero)))
+            [wSelf showLoadingImageSmall];
+    } process:nil resize:resizeMethod willSize:willSize completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
+        isCompleted=true;
+        
+        if(wSelf)
+        {
+            wSelf.image=image;
+            [wSelf layoutIfNeeded];
+            
+            if(image)
+                [wSelf removeLoadingImageSmall];
+            else if(error)
+                [wSelf showDefaultBackground];
+            else // opearation cancelled
+                [wSelf showLoadingImageSmall];
+            
+            if(completedBlock)
+                completedBlock(image,error,cacheType);
+        }
+    }];
+}
+
+/*
 
 -(void) loadImageWithDefaultBackground:(NSString*) url
 {
@@ -529,6 +594,8 @@ static char ImageViewDefaultBackgroundKey;
         return nil;
     } willSize:willSize];
 }
+ 
+ */
 
 @end
 

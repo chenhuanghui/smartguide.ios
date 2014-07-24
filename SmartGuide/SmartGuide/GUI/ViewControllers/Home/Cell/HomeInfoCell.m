@@ -39,7 +39,7 @@
         
         if(!home.contentAttribute)
         {
-            home.contentAttribute=[[NSAttributedString alloc] initWithString:home.content attributes:@{NSFontAttributeName:btnName.titleLabel.font
+            home.contentAttribute=[[NSAttributedString alloc] initWithString:home.content attributes:@{NSFontAttributeName:lblContent.font
                                                                                                        , NSParagraphStyleAttributeName:[NSMutableParagraphStyle paraStyleWithTextAlign:NSTextAlignmentJustified]}];
         }
         
@@ -62,7 +62,7 @@
         
         if(!obj.contentAttribute)
         {
-            obj.contentAttribute=[[NSAttributedString alloc] initWithString:obj.desc attributes:@{NSFontAttributeName:btnName.titleLabel.font
+            obj.contentAttribute=[[NSAttributedString alloc] initWithString:obj.desc attributes:@{NSFontAttributeName:lblContent.font
                                                                                                   , NSParagraphStyleAttributeName:[NSMutableParagraphStyle paraStyleWithTextAlign:NSTextAlignmentJustified]}];
         }
         

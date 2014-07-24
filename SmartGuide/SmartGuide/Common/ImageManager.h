@@ -31,6 +31,10 @@
 
 @end
 
+@interface UIImageView(ImageDownloader)
+
+@end
+
 @interface UIImageView(ImageManager)
 
 -(void) loadAvatarWithURL:(NSString*) url;
@@ -59,7 +63,7 @@
 -(void) loadScanRelatedImageWithURL:(NSString*) url;
 
 -(void) showLoadingImageSmall;
--(void) stopLoadingImageSmall;
+-(void) removeLoadingImageSmall;
 -(void) showDefaultBackground;
 -(void) removeDefaultBackground;
 

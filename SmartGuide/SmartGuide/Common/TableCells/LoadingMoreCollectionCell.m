@@ -18,7 +18,7 @@
     if(self.superview)
         [self.imgv showLoadingImageSmall];
     else
-        [self.imgv stopLoadingImageSmall];
+        [self.imgv removeLoadingImageSmall];
 }
 
 -(void)showLoading

@@ -44,8 +44,12 @@
  */
 @interface UIImageView (WebCache)
 
--(void) setImageWithURL:(NSURL*) url onDownload:(void(^)()) onDownload completed:(SDWebImageCompletedBlock)completedBlock;
--(void) setImageWithURL:(NSURL*) url onDownload:(void(^)()) onDownload completed:(SDWebImageCompletedBlock)completedBlock resize:(UIImage*(^)(UIImage *downloadImage)) resizeMethod willSize:(CGSize) willSize;
+- (void)setImageWithURL:(NSURL*) url
+                options:(SDWebImageOptions)options
+                  start:(void(^)(bool isFromWeb)) onStarted// bắt đầu download hoặc query disk->resize
+                process:(SDWebImageDownloaderProgressBlock) progressBlock
+                 resize:(UIImage*(^)(UIImage* image)) resizeMethod willSize:(CGSize) willSize
+              completed:(SDWebImageCompletedBlock) completed;
 
 /**
  * Set the imageView `image` with an `url`.
