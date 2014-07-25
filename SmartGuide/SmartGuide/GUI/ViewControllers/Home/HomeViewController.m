@@ -417,6 +417,7 @@
         HomeHeaderView *header=[HomeHeaderView new];
         header.section=section;
         header.originalFrame=[tableFeed rectForHeaderInSection:section];
+        header.sectionFrame=[tableFeed rectForSection:section];
         
         return header;
     }

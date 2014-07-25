@@ -11,11 +11,13 @@
 @interface HomeHeaderView : UIView
 {
     __weak IBOutlet UIImageView *imgv;
+    __weak IBOutlet UIView *imgvShadow;
 }
 
 +(float) height;
 
 @property (nonatomic, assign) int section;
 @property (nonatomic, assign) CGRect originalFrame;
+@property (nonatomic, assign) CGRect sectionFrame;
 
 @end

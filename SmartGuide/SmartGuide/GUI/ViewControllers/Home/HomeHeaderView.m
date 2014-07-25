@@ -7,6 +7,8 @@
 //
 
 #import "HomeHeaderView.h"
+#import "Utility.h"
+#import <QuartzCore/QuartzCore.h>
 
 @implementation HomeHeaderView
 
@@ -19,42 +21,63 @@
     return self;
 }
 
+-(void)awakeFromNib
+{
+    [super awakeFromNib];
+    
+    imgv.layer.cornerRadius=34.f;
+    imgv.layer.masksToBounds=true;
+    
+    [imgvShadow effectCornerRadius:34.f shadow:1.5f];
+    imgvShadow.layer.shadowOpacity=0.8f;
+//    imgvShadow.layer.shadowOffset=CGSizeMake(0, 0.5f);
+}
+
 +(float)height
 {
     return 95;
 }
 
--(void)setFrame1:(CGRect)frame
+-(void)setFrame:(CGRect)frame
 {
-    
-    if(_section==0)
+    if(_section!=0)
     {
-        NSLog(@"frame %@ origin %@ diffY %f",NSStringFromCGRect(frame), NSStringFromCGRect(_originalFrame),frame.origin.y-_originalFrame.origin.y);
+        [super setFrame:frame];
+        return;
     }
     
     float diffY=frame.origin.y-_originalFrame.origin.y;
-    float dis=95.f-38;
+    float dis=95.f-59.f;
+    
+    //align với vùng transparent top của bg_title_placelist.png
+    dis+=8;
     
     if(diffY>dis)
     {
         diffY=dis;
-//        imgv.transform=CGAffineTransformMakeScale(0, 0);
+        imgvShadow.transform=CGAffineTransformMakeScale(0, 0);
     }
     else
     {
-//        float scale=1.f-(diffY/dis);
-//        imgv.layer.transform=CATransform3DMakeScale(scale, scale, -1);
-//        
-//        if(scale<1)
-//            imgv.center=CGPointMake(imgv.center.x, 69.f/2);
-//        else
-//            imgv.center=CGPointMake(imgv.center.x, 69.f/2);
-////        imgv.transform=CGAffineTransformMakeScale(scale, scale);
-//        
-//        NSLog(@"scale %f %f %f %f %f %f",scale,imgv.frame.origin.x,imgv.frame.origin.y,imgv.frame.size.height,imgv.center.x,imgv.center.y);
+        float scale=1.f-(diffY/dis);
+        imgvShadow.layer.transform=CATransform3DMakeScale(scale, scale, -1);
+        
+        if(scale<1)
+            imgvShadow.center=CGPointMake(imgvShadow.center.x, 34.f+((1.f-scale)*34.f)/2);
     }
     
-    frame.origin.y-=diffY;
+    NSLog(@"%f %f %f",frame.origin.y,_sectionFrame.origin.y,_sectionFrame.size.height);
+    
+    if(frame.origin.y-(_sectionFrame.size.height-[HomeHeaderView height]-diffY)>=0)
+    {
+        frame.origin.y-=95.f-59.f+8;
+    }
+    else
+    {
+        frame.origin.y-=diffY;
+    }
+    
+    NSLog(@"last %f",frame.origin.y);
     
     [super setFrame:frame];
 }

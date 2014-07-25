@@ -1348,7 +1348,6 @@ NSString* LAZY_STRING_INT(int i)
     self.layer.shadowOpacity=1;
     self.layer.shadowRadius=radius;
     self.layer.shadowOffset=CGSizeMake(0, 0);
-    self.layer.shouldRasterize=true;
     self.layer.shadowPath=CGPathCreateRoundRect(self.bounds, corner);
 }
 
