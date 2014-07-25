@@ -207,12 +207,14 @@
 {
     if(scrollView==scroll)
     {
-        DLOG_DEBUG(@"scroll %f %f %f %f",scrollView.contentOffset.y,scrollView.contentInset.top,tableFeed.l_v_y,tableFeed.contentOffset.y);
+//        DLOG_DEBUG(@"scroll %f %f %f %f",scrollView.contentOffset.y,scrollView.contentInset.top,tableFeed.l_v_y,tableFeed.contentOffset.y);
+
+        float paddingY=44;
         
-        if(scroll.contentOffset.y>_scrollDistanceHeight)
+        if(scroll.contentOffset.y>paddingY)
         {
-            [tableFeed l_v_setY:scroll.contentOffset.y+(_tableFrame.origin.y-_scrollDistanceHeight)];
-            [tableFeed l_co_setY:scroll.contentOffset.y-_scrollDistanceHeight];
+            [tableFeed l_v_setY:scroll.contentOffset.y+_tableFrame.origin.y-paddingY];
+            [tableFeed l_co_setY:scroll.contentOffset.y-paddingY];
         }
         else
         {
@@ -413,6 +415,8 @@
     else
     {
         HomeHeaderView *header=[HomeHeaderView new];
+        header.section=section;
+        header.originalFrame=[tableFeed rectForHeaderInSection:section];
         
         return header;
     }
@@ -608,6 +612,7 @@
         [[DataManager shareInstance] save];
         
         _canLoadMore=ope.homes.count>=10;
+        _canLoadMore=false;
         _isLoadingMore=false;
         _page++;
         

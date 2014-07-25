@@ -9,7 +9,13 @@
 #import <UIKit/UIKit.h>
 
 @interface HomeHeaderView : UIView
+{
+    __weak IBOutlet UIImageView *imgv;
+}
 
 +(float) height;
+
+@property (nonatomic, assign) int section;
+@property (nonatomic, assign) CGRect originalFrame;
 
 @end

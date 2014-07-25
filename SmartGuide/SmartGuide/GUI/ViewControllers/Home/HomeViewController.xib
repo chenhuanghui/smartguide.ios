@@ -45,7 +45,6 @@
                             </connections>
                         </tableView>
                     </subviews>
-                    <inset key="scrollIndicatorInsets" minX="0.0" minY="54" maxX="0.0" maxY="30"/>
                     <connections>
                         <outlet property="delegate" destination="-1" id="LAp-vv-MkR"/>
                     </connections>
