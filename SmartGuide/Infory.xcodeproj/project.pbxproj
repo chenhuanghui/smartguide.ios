@@ -731,13 +731,11 @@
 		9ACF7A5F186988D200B0BC78 /* ASIOperationUserHome.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ACF7A5E186988D200B0BC78 /* ASIOperationUserHome.m */; };
 		9ACF7A8818698E3700B0BC78 /* UserHome.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ACF7A7918698E3700B0BC78 /* UserHome.m */; };
 		9ACF7A8918698E3700B0BC78 /* UserHome1.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ACF7A7B18698E3700B0BC78 /* UserHome1.m */; };
-		9ACF7A8A18698E3700B0BC78 /* UserHome2.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ACF7A7D18698E3700B0BC78 /* UserHome2.m */; };
 		9ACF7A8B18698E3700B0BC78 /* UserHome3.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ACF7A7F18698E3700B0BC78 /* UserHome3.m */; };
 		9ACF7A8C18698E3700B0BC78 /* UserHome4.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ACF7A8118698E3700B0BC78 /* UserHome4.m */; };
 		9ACF7A8E18698E3700B0BC78 /* UserHome6.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ACF7A8518698E3700B0BC78 /* UserHome6.m */; };
 		9ACF7AA018698E4100B0BC78 /* _UserHome.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ACF7A9118698E4000B0BC78 /* _UserHome.m */; };
 		9ACF7AA118698E4100B0BC78 /* _UserHome1.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ACF7A9318698E4000B0BC78 /* _UserHome1.m */; };
-		9ACF7AA218698E4100B0BC78 /* _UserHome2.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ACF7A9518698E4000B0BC78 /* _UserHome2.m */; };
 		9ACF7AA318698E4100B0BC78 /* _UserHome3.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ACF7A9718698E4000B0BC78 /* _UserHome3.m */; };
 		9ACF7AA418698E4100B0BC78 /* _UserHome4.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ACF7A9918698E4100B0BC78 /* _UserHome4.m */; };
 		9ACF7AA618698E4100B0BC78 /* _UserHome6.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ACF7A9D18698E4100B0BC78 /* _UserHome6.m */; };
@@ -1960,8 +1958,6 @@
 		9ACF7A7918698E3700B0BC78 /* UserHome.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserHome.m; sourceTree = "<group>"; };
 		9ACF7A7A18698E3700B0BC78 /* UserHome1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserHome1.h; sourceTree = "<group>"; };
 		9ACF7A7B18698E3700B0BC78 /* UserHome1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserHome1.m; sourceTree = "<group>"; };
-		9ACF7A7C18698E3700B0BC78 /* UserHome2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserHome2.h; sourceTree = "<group>"; };
-		9ACF7A7D18698E3700B0BC78 /* UserHome2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserHome2.m; sourceTree = "<group>"; };
 		9ACF7A7E18698E3700B0BC78 /* UserHome3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserHome3.h; sourceTree = "<group>"; };
 		9ACF7A7F18698E3700B0BC78 /* UserHome3.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserHome3.m; sourceTree = "<group>"; };
 		9ACF7A8018698E3700B0BC78 /* UserHome4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserHome4.h; sourceTree = "<group>"; };
@@ -1972,8 +1968,6 @@
 		9ACF7A9118698E4000B0BC78 /* _UserHome.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _UserHome.m; sourceTree = "<group>"; };
 		9ACF7A9218698E4000B0BC78 /* _UserHome1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _UserHome1.h; sourceTree = "<group>"; };
 		9ACF7A9318698E4000B0BC78 /* _UserHome1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _UserHome1.m; sourceTree = "<group>"; };
-		9ACF7A9418698E4000B0BC78 /* _UserHome2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _UserHome2.h; sourceTree = "<group>"; };
-		9ACF7A9518698E4000B0BC78 /* _UserHome2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _UserHome2.m; sourceTree = "<group>"; };
 		9ACF7A9618698E4000B0BC78 /* _UserHome3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _UserHome3.h; sourceTree = "<group>"; };
 		9ACF7A9718698E4000B0BC78 /* _UserHome3.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _UserHome3.m; sourceTree = "<group>"; };
 		9ACF7A9818698E4000B0BC78 /* _UserHome4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _UserHome4.h; sourceTree = "<group>"; };
@@ -3394,8 +3388,6 @@
 				9ACF7A7918698E3700B0BC78 /* UserHome.m */,
 				9ACF7A7A18698E3700B0BC78 /* UserHome1.h */,
 				9ACF7A7B18698E3700B0BC78 /* UserHome1.m */,
-				9ACF7A7C18698E3700B0BC78 /* UserHome2.h */,
-				9ACF7A7D18698E3700B0BC78 /* UserHome2.m */,
 				9ACF7A7E18698E3700B0BC78 /* UserHome3.h */,
 				9ACF7A7F18698E3700B0BC78 /* UserHome3.m */,
 				9ACF7A8018698E3700B0BC78 /* UserHome4.h */,
@@ -3461,8 +3453,6 @@
 				9ACF7A9118698E4000B0BC78 /* _UserHome.m */,
 				9ACF7A9218698E4000B0BC78 /* _UserHome1.h */,
 				9ACF7A9318698E4000B0BC78 /* _UserHome1.m */,
-				9ACF7A9418698E4000B0BC78 /* _UserHome2.h */,
-				9ACF7A9518698E4000B0BC78 /* _UserHome2.m */,
 				9ACF7A9618698E4000B0BC78 /* _UserHome3.h */,
 				9ACF7A9718698E4000B0BC78 /* _UserHome3.m */,
 				9ACF7A9818698E4000B0BC78 /* _UserHome4.h */,
@@ -5936,7 +5926,6 @@
 				9ACF7AA118698E4100B0BC78 /* _UserHome1.m in Sources */,
 				A939215419652F0E0091E804 /* _ScanCodeResult.m in Sources */,
 				9ADCD93F18D19C3F004CB67E /* AFSecurityPolicy.m in Sources */,
-				9ACF7A8A18698E3700B0BC78 /* UserHome2.m in Sources */,
 				9ADCD96318D19C3F004CB67E /* UIImage+GIF.m in Sources */,
 				9A7AC19118D1907B0043316D /* PlacelistBGView.m in Sources */,
 				A9EB14A41952D79C00191767 /* ShopUserGalleryCell.m in Sources */,
@@ -6001,7 +5990,6 @@
 				9A693CB2186D484300114597 /* UserHomeImage.m in Sources */,
 				A9A45D6E19610E5E00119430 /* UserNotificationController.m in Sources */,
 				A9EB146B1952D79C00191767 /* ShopCameraPostViewController.m in Sources */,
-				9ACF7AA218698E4100B0BC78 /* _UserHome2.m in Sources */,
 				9A27BC0618D18BAD00E3EAC2 /* HomeBGCell.m in Sources */,
 				A95B1AF61965A6EC006E9B27 /* ScanResultInforyCell.m in Sources */,
 				9ADCD94C18D19C3F004CB67E /* UIColor+Tools.m in Sources */,

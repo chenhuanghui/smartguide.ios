@@ -44,7 +44,7 @@
 
 -(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    return CGSizeMake(collectionView.l_v_w, _home.home9Size.height);
+    return CGSizeMake(collectionView.l_v_w, [HomeImagesType9Cell heightWithHome:_home]);
 }
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -79,6 +79,11 @@
 +(NSString *)reuseIdentifier
 {
     return @"HomeImagesType9Cell";
+}
+
++(float)heightWithHome:(UserHome *)home
+{
+    return makeSizeProportional(294, CGSizeMake(home.imageWidth.floatValue, home.imageHeight.floatValue)).height;
 }
 
 @end

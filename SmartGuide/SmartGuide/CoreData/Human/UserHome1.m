@@ -7,9 +7,9 @@
 {
     UserHome1 *home=[UserHome1 insert];
     
-    home.logo=[NSString stringWithStringDefault:dict[@"logo"]];
-    home.content=[NSString stringWithStringDefault:dict[@"content"]];
-    home.shopList=[NSString stringWithStringDefault:dict[@"shopList"]];
+    home.logo=[NSString makeString:dict[@"logo"]];
+    home.content=[NSString makeString:dict[@"content"]];
+    home.shopList=[NSString makeString:dict[@"shopList"]];
     
     return home;
 }

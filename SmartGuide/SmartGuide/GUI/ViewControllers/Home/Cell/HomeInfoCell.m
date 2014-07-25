@@ -50,10 +50,8 @@
         lblContent.attributedText=home.contentAttribute;
         lblGoTo.text=home.gotoshop;
         
-        if(CGSizeEqualToSize(home.homeSize, CGSizeZero))
-            home.homeSize=CGSizeMake(imgvCover.l_v_w, MAX(0,imgvCover.l_v_w*home.coverHeight.floatValue/home.coverWidth.floatValue));
+        [imgvCover l_v_setH:makeSizeProportional(imgvCover.l_v_w, CGSizeMake(home.coverWidth.floatValue, home.coverHeight.floatValue)).height];
         
-        [imgvCover l_v_setH:home.homeSize.height];
         [imgvCover loadHome6CoverWithURL:home.cover];
     }
     else if([_obj isKindOfClass:[UserPromotion class]])

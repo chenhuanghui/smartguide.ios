@@ -12,6 +12,7 @@
 #define UserHome6_CoverWidth @"coverWidth"
 #define UserHome6_Date @"date"
 #define UserHome6_Gotoshop @"gotoshop"
+#define UserHome6_IdShop @"idShop"
 #define UserHome6_ShopName @"shopName"
 #define UserHome6_Title @"title"
 
@@ -36,6 +37,7 @@
 @property (nonatomic, retain) NSNumber* coverWidth;
 @property (nonatomic, retain) NSString* date;
 @property (nonatomic, retain) NSString* gotoshop;
+@property (nonatomic, retain) NSNumber* idShop;
 @property (nonatomic, retain) NSString* shopName;
 @property (nonatomic, retain) NSString* title;
 

@@ -480,7 +480,7 @@
                 return [HomePromotionCell heightWithHome8:home.home8];
                 
             case USER_HOME_TYPE_9:
-                return home.home9Size.height+15;
+                return [HomeImagesType9Cell heightWithHome:home]+15;
                 
             case USER_HOME_TYPE_UNKNOW:
                 DLOG_DEBUG(@"USER_HOME_TYPE_UNKNOW heightForRowAtIndexPath");
@@ -522,7 +522,7 @@
             {
                 HomeImagesCell *cell=[tableView dequeueReusableCellWithIdentifier:[HomeImagesCell reuseIdentifier]];
                 
-                [cell loadWithImages:[home.home2Objects valueForKeyPath:UserHome2_Image]];
+                [cell loadWithImages:[home.imagesObjects valueForKeyPath:UserHomeImage_Image]];
                 
                 return cell;
             }

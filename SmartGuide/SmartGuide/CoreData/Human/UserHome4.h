@@ -8,6 +8,5 @@
 +(UserHome4*) makeWithDictionary:(NSDictionary*) dict;
 
 -(NSString*) numOfView;
--(NSNumber*) idShop;
 
 @end

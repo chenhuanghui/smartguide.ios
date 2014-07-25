@@ -102,6 +102,19 @@
 	[self didChangeValueForKey:@"content"];
 }
 
+- (NSNumber*)idShop {
+	[self willAccessValueForKey:@"idShop"];
+	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"idShop"];
+	[self didAccessValueForKey:@"idShop"];
+	return result;
+}
+
+- (void)setIdShop:(NSNumber*)value {
+	[self willChangeValueForKey:@"idShop"];
+	[self setPrimitiveValue:value forKey:@"idShop"];
+	[self didChangeValueForKey:@"idShop"];
+}
+
 - (NSString*)shopName {
 	[self willAccessValueForKey:@"shopName"];
 	NSString* result = (NSString*)[self primitiveValueForKey:@"shopName"];
