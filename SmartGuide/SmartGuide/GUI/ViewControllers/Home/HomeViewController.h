@@ -35,8 +35,9 @@
     __weak IBOutlet UIButton *btnNumOfNotification;
     __weak IBOutlet UIButton *btnNotification;
     __weak IBOutlet UIImageView *imgvLogo;
+    __weak IBOutlet UIScrollView *scroll;
     
-    NSMutableArray *_homes;
+    NSMutableArray *_homeSections;
     NSMutableArray *_homesAPI;
     
     int _page;
@@ -49,6 +50,7 @@
     CGRect _buttonScanSmallFrame;
     CGRect _textFieldFrame;
     CGRect _logoFrame;
+    CGRect _tableFrame;
     
     float _scrollDistanceHeight;
     bool _isTouchedTextField;

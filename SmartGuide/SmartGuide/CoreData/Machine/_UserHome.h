@@ -21,6 +21,8 @@
 @class UserHome4;
 @class UserHome6;
 @class UserHome8;
+@class UserHomeSection;
+@class UserHomeSection;
 @class UserHomeImage;
 
 @interface _UserHome : NSManagedObject
@@ -74,6 +76,12 @@
 
 #pragma mark Home8
 @property (nonatomic, retain) UserHome8* home8;
+
+#pragma mark HomeHeader
+@property (nonatomic, retain) UserHomeSection* homeHeader;
+
+#pragma mark HomeSection
+@property (nonatomic, retain) UserHomeSection* homeSection;
 
 #pragma mark Images
 - (NSSet*) images;

@@ -10,6 +10,8 @@
 #import "UserHome4.h"
 #import "UserHome6.h"
 #import "UserHome8.h"
+#import "UserHomeSection.h"
+#import "UserHomeSection.h"
 #import "UserHomeImage.h"
 
 
@@ -31,6 +33,14 @@
 
 
 @dynamic home8;
+
+
+
+@dynamic homeHeader;
+
+
+
+@dynamic homeSection;
 
 
 
@@ -369,6 +379,22 @@
 	[self willAccessValueForKey:@"home8"];
 	UserHome8 *result = [self primitiveValueForKey:@"home8"];
 	[self didAccessValueForKey:@"home8"];
+	return result;
+}
+
+#pragma mark HomeHeader
+- (UserHomeSection*)homeHeader {
+	[self willAccessValueForKey:@"homeHeader"];
+	UserHomeSection *result = [self primitiveValueForKey:@"homeHeader"];
+	[self didAccessValueForKey:@"homeHeader"];
+	return result;
+}
+
+#pragma mark HomeSection
+- (UserHomeSection*)homeSection {
+	[self willAccessValueForKey:@"homeSection"];
+	UserHomeSection *result = [self primitiveValueForKey:@"homeSection"];
+	[self didAccessValueForKey:@"homeSection"];
 	return result;
 }
 

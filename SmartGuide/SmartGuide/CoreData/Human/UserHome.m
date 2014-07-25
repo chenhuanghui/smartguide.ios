@@ -97,9 +97,20 @@
     return [NSArray array];
 }
 
+#if DEBUG
+
+-(bool)isHome9Header
+{
+    return [self enumType]==USER_HOME_TYPE_9;
+}
+
+#else
+
 -(bool)isHome9Header
 {
     return [self enumType]==USER_HOME_TYPE_9 && ([self.idShops hasData] || [self.idPlacelist hasData]);
 }
+
+#endif
 
 @end
