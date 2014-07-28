@@ -100,6 +100,7 @@
     [self revealView].delegate=self;
     
     UITapGestureRecognizer *tap=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGes:)];
+    tap.cancelsTouchesInView=false;
     
     [self.view addGestureRecognizer:tap];
     [[self revealView].panGestureRecognizer requireGestureRecognizerToFail:tap];

@@ -127,6 +127,8 @@
 -(void) reloadData
 {
     [table reloadData];
+    scroll.contentSize=table.contentSize;
+    scroll.contentInset=table.contentInset;
     
     if(bg1)
     {
@@ -171,7 +173,7 @@
                 rect.size.width=295;
                 SearchShopBGView *bg=[[SearchShopBGView alloc] initWithFrame:rect];
                 
-                [table insertSubview:bg atIndex:0];
+                [scroll addSubview:bg];
                 
                 bg1=bg;
             }
@@ -189,7 +191,7 @@
                     rect.size.width=295;
                     SearchShopBGView *bg=[[SearchShopBGView alloc] initWithFrame:rect];
                     
-                    [table insertSubview:bg atIndex:0];
+                    [scroll addSubview:bg];
                     
                     bg2=bg;
                 }
@@ -205,7 +207,7 @@
             rect.size.width=295;
             SearchShopBGView *bg=[[SearchShopBGView alloc] initWithFrame:rect];
             
-            [table insertSubview:bg atIndex:0];
+            [scroll addSubview:bg];
             
             bg1=bg;
 
@@ -505,14 +507,6 @@
     return [UIView new];
 }
 
--(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if(bg1)
-        [tableView sendSubviewToBack:bg1];
-    if(bg2)
-        [tableView sendSubviewToBack:bg2];
-}
-
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [self.view endEditing:true];
@@ -565,6 +559,7 @@
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     [txt resignFirstResponder];
+    scroll.contentOffset=scrollView.contentOffset;
 }
 
 -(BOOL)textFieldShouldBeginEditing:(UITextField *)textField

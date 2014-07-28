@@ -11,6 +11,7 @@
                 <outlet property="btn" destination="tak-ih-g6j" id="rg2-68-5jW"/>
                 <outlet property="btnCity" destination="LNN-sM-Zih" id="ag4-j2-4um"/>
                 <outlet property="btnSearch" destination="3F7-pU-cxZ" id="OvN-yG-pDz"/>
+                <outlet property="scroll" destination="XZO-ve-dbb" id="Lts-Wc-hOn"/>
                 <outlet property="table" destination="Raa-Jl-y5M" id="q8K-qg-yy5"/>
                 <outlet property="txt" destination="U8H-kV-yHe" id="Ckw-fA-Yoy"/>
                 <outlet property="view" destination="1" id="3"/>
@@ -26,7 +27,12 @@
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <color key="backgroundColor" red="0.92156862745098034" green="0.92156862745098034" blue="0.92156862745098034" alpha="1" colorSpace="deviceRGB"/>
                 </view>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Raa-Jl-y5M">
+                <scrollView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" id="XZO-ve-dbb">
+                    <rect key="frame" x="0.0" y="84" width="320" height="396"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                </scrollView>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" delaysContentTouches="NO" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Raa-Jl-y5M">
                     <rect key="frame" x="0.0" y="84" width="320" height="396"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -35,14 +41,6 @@
                         <outlet property="delegate" destination="-1" id="0Xg-Di-vgi"/>
                     </connections>
                 </tableView>
-                <view contentMode="scaleToFill" id="w0E-6B-EKF" customClass="TouchView">
-                    <rect key="frame" x="0.0" y="84" width="320" height="396"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    <connections>
-                        <outlet property="receiveView" destination="Raa-Jl-y5M" id="g3g-3W-fID"/>
-                    </connections>
-                </view>
                 <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="3F7-pU-cxZ">
                     <rect key="frame" x="13" y="84" width="295" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>

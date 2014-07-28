@@ -30,10 +30,11 @@ enum SEARCH_SHOP_VIEW_MODE {
     __weak IBOutlet UITableView *table;
     __weak IBOutlet UITextField *txt;
     __weak IBOutlet UIButton *btn;
-    __weak IBOutlet UIView *topView;
     __weak IBOutlet UIButton *btnSearch;
     __weak IBOutlet UIButton *btnCity;
     __weak IBOutlet UIView *bgCity;
+    __weak IBOutlet UIScrollView *scroll;
+    
     int _idCity;
     
     NSString *_keyword;

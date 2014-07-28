@@ -10,11 +10,11 @@
         <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="SearchShopCell" rowHeight="36" id="hqG-1S-sWi" customClass="SearchShopCell">
             <rect key="frame" x="0.0" y="0.0" width="320" height="36"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="center" tableViewCell="hqG-1S-sWi" id="bBf-iQ-dNK">
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hqG-1S-sWi" id="bBf-iQ-dNK">
                 <rect key="frame" x="0.0" y="0.0" width="320" height="35"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view clipsSubviews="YES" contentMode="scaleToFill" id="lFK-qD-aEK">
+                    <view clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" id="lFK-qD-aEK">
                         <rect key="frame" x="13" y="0.0" width="295" height="36"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" heightSizable="YES"/>
                         <subviews>
