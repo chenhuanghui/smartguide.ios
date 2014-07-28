@@ -418,6 +418,7 @@
         header.section=section;
         header.originalFrame=[tableFeed rectForHeaderInSection:section];
         header.sectionFrame=[tableFeed rectForSection:section];
+        header.table=tableView;
         
         return header;
     }
@@ -613,7 +614,6 @@
         [[DataManager shareInstance] save];
         
         _canLoadMore=ope.homes.count>=10;
-        _canLoadMore=false;
         _isLoadingMore=false;
         _page++;
         

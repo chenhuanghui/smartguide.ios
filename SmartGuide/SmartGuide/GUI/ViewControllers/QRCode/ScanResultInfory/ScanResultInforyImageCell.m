@@ -16,7 +16,7 @@
 -(void)loadWithDecode:(ScanCodeDecode *)decode
 {
     _decode=decode;
-    [self layoutIfNeeded];
+    [self setNeedsLayout];
 }
 
 +(NSString *)reuseIdentifier

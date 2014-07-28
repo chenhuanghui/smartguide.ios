@@ -15,7 +15,7 @@
 -(void)loadWithDecode:(ScanCodeDecode *)obj
 {
     _decode=obj;
-    [self layoutIfNeeded];
+    [self setNeedsLayout];
 }
 
 -(void)layoutSubviews

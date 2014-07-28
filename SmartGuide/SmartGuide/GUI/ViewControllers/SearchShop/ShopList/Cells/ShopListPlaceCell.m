@@ -17,7 +17,7 @@
 -(void)loadWithPlace:(Placelist *)place
 {
     _obj=place;
-    [self layoutIfNeeded];
+    [self setNeedsLayout];
 }
 
 -(void)layoutSubviews

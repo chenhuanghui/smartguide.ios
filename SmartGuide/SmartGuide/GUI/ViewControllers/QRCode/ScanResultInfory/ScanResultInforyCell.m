@@ -26,7 +26,7 @@
 -(void)loadWithDecode:(NSArray *) array
 {
     _items=array;
-    [self layoutIfNeeded];
+    [self setNeedsLayout];
 }
 
 -(void)layoutSubviews

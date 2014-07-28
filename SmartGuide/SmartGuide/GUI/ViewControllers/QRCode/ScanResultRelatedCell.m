@@ -27,7 +27,7 @@
     _result=result;
     _tableHeight=height;
     
-    [self layoutIfNeeded];
+    [self setNeedsLayout];
 }
 
 -(void)layoutSubviews

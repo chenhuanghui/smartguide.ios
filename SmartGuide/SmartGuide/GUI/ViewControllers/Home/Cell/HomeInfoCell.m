@@ -19,14 +19,14 @@
 {
     _obj=home;
     
-    [self layoutIfNeeded];
+    [self setNeedsLayout];
 }
 
 -(void)loadWithUserPromotion:(UserPromotion *)obj
 {
     _obj=obj;
     
-    [self layoutIfNeeded];
+    [self setNeedsLayout];
 }
 
 -(void)layoutSubviews

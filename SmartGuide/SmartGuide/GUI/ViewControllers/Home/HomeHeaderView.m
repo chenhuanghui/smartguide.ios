@@ -28,9 +28,9 @@
     imgv.layer.cornerRadius=34.f;
     imgv.layer.masksToBounds=true;
     
-    [imgvShadow effectCornerRadius:34.f shadow:1.5f];
-    imgvShadow.layer.shadowOpacity=0.8f;
-//    imgvShadow.layer.shadowOffset=CGSizeMake(0, 0.5f);
+    [imgvShadow effectCornerRadius:34.f shadow:1.f];
+    imgvShadow.layer.shadowOpacity=0.5f;
+    //    imgvShadow.layer.shadowOffset=CGSizeMake(0, 0.5f);
 }
 
 +(float)height
@@ -40,22 +40,24 @@
 
 -(void)setFrame:(CGRect)frame
 {
-    if(_section!=0)
-    {
-        [super setFrame:frame];
-        return;
-    }
-    
+    float headerHeight=[HomeHeaderView height];
     float diffY=frame.origin.y-_originalFrame.origin.y;
-    float dis=95.f-59.f;
+    float dis=headerHeight-59.f;
     
     //align với vùng transparent top của bg_title_placelist.png
-    dis+=8;
+    dis+=7;
     
     if(diffY>dis)
     {
-        diffY=dis;
         imgvShadow.transform=CGAffineTransformMakeScale(0, 0);
+        
+        if(frame.origin.y==_sectionFrame.origin.y+_sectionFrame.size.height-headerHeight)
+        {
+            float offsetY=self.table.contentOffset.y-frame.origin.y;
+            frame.origin.y+=MIN(dis, offsetY);
+        }
+
+        frame.origin.y-=dis;
     }
     else
     {
@@ -64,20 +66,9 @@
         
         if(scale<1)
             imgvShadow.center=CGPointMake(imgvShadow.center.x, 34.f+((1.f-scale)*34.f)/2);
-    }
-    
-    NSLog(@"%f %f %f",frame.origin.y,_sectionFrame.origin.y,_sectionFrame.size.height);
-    
-    if(frame.origin.y-(_sectionFrame.size.height-[HomeHeaderView height]-diffY)>=0)
-    {
-        frame.origin.y-=95.f-59.f+8;
-    }
-    else
-    {
+        
         frame.origin.y-=diffY;
     }
-    
-    NSLog(@"last %f",frame.origin.y);
     
     [super setFrame:frame];
 }

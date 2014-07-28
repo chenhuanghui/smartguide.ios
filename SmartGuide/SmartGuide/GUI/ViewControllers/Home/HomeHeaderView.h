@@ -19,5 +19,6 @@
 @property (nonatomic, assign) int section;
 @property (nonatomic, assign) CGRect originalFrame;
 @property (nonatomic, assign) CGRect sectionFrame;
+@property (nonatomic, weak) UITableView *table;
 
 @end
