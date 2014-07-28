@@ -6,11 +6,12 @@
 
 #import "DataManager.h"
 #import "UserHome1.h"
-#import "UserHome2.h"
 #import "UserHome3.h"
 #import "UserHome4.h"
 #import "UserHome6.h"
 #import "UserHome8.h"
+#import "UserHomeSection.h"
+#import "UserHomeSection.h"
 #import "UserHomeImage.h"
 
 
@@ -27,14 +28,19 @@
 
 
 
-
-
-
 @dynamic home6;
 
 
 
 @dynamic home8;
+
+
+
+@dynamic homeHeader;
+
+
+
+@dynamic homeSection;
 
 
 
@@ -175,6 +181,19 @@
 	[self didChangeValueForKey:@"imageWidth"];
 }
 
+- (NSNumber*)page {
+	[self willAccessValueForKey:@"page"];
+	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"page"];
+	[self didAccessValueForKey:@"page"];
+	return result;
+}
+
+- (void)setPage:(NSNumber*)value {
+	[self willChangeValueForKey:@"page"];
+	[self setPrimitiveValue:value forKey:@"page"];
+	[self didChangeValueForKey:@"page"];
+}
+
 - (NSNumber*)sortOrder {
 	[self willAccessValueForKey:@"sortOrder"];
 	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"sortOrder"];
@@ -186,6 +205,19 @@
 	[self willChangeValueForKey:@"sortOrder"];
 	[self setPrimitiveValue:value forKey:@"sortOrder"];
 	[self didChangeValueForKey:@"sortOrder"];
+}
+
+- (NSString*)title {
+	[self willAccessValueForKey:@"title"];
+	NSString* result = (NSString*)[self primitiveValueForKey:@"title"];
+	[self didAccessValueForKey:@"title"];
+	return result;
+}
+
+- (void)setTitle:(NSString*)value {
+	[self willChangeValueForKey:@"title"];
+	[self setPrimitiveValue:value forKey:@"title"];
+	[self didChangeValueForKey:@"title"];
 }
 
 - (NSNumber*)type {
@@ -208,74 +240,6 @@
 	[self willAccessValueForKey:@"home1"];
 	UserHome1 *result = [self primitiveValueForKey:@"home1"];
 	[self didAccessValueForKey:@"home1"];
-	return result;
-}
-
-#pragma mark Home2
-- (NSSet*)home2 {
-	[self willAccessValueForKey:@"home2"];
-	NSSet *result = [self primitiveValueForKey:@"home2"];
-	[self didAccessValueForKey:@"home2"];
-	return result;
-}
-
--(NSArray*) home2Objects
-{
-    NSSet *set=[self home2];
-    if(set)
-        return [set allObjects];
-    
-    return [NSArray array];
-}
-
-- (void)setHome2:(NSSet*)value {
-	[self willChangeValueForKey:@"home2" withSetMutation:NSKeyValueSetSetMutation usingObjects:value];
-	[[self primitiveValueForKey:@"home2"] setSet:value];
-	[self didChangeValueForKey:@"home2" withSetMutation:NSKeyValueSetSetMutation usingObjects:value];
-}
-
-- (void)addHome2:(NSSet*)value {
-	[self willChangeValueForKey:@"home2" withSetMutation:NSKeyValueUnionSetMutation usingObjects:value];
-	[[self primitiveValueForKey:@"home2"] unionSet:value];
-	[self didChangeValueForKey:@"home2" withSetMutation:NSKeyValueUnionSetMutation usingObjects:value];
-}
-
--(void)removeHome2:(NSSet*)value {
-
-    for(NSManagedObject *obj in value.allObjects)
-        [self.managedObjectContext deleteObject:obj];
-
-	[self willChangeValueForKey:@"home2" withSetMutation:NSKeyValueMinusSetMutation usingObjects:value];
-	[[self primitiveValueForKey:@"home2"] minusSet:value];
-	[self didChangeValueForKey:@"home2" withSetMutation:NSKeyValueMinusSetMutation usingObjects:value];
-}
-	
-- (void)addHome2Object:(UserHome2*)value {
-	NSSet *changedObjects = [[NSSet alloc] initWithObjects:&value count:1];
-	[self willChangeValueForKey:@"home2" withSetMutation:NSKeyValueUnionSetMutation usingObjects:changedObjects];
-	[[self primitiveValueForKey:@"home2"] addObject:value];
-	[self didChangeValueForKey:@"home2" withSetMutation:NSKeyValueUnionSetMutation usingObjects:changedObjects];
-}
-
-- (void)removeHome2Object:(UserHome2*)value {
-
-    [self.managedObjectContext deleteObject:value];
-
-	NSSet *changedObjects = [[NSSet alloc] initWithObjects:&value count:1];
-	[self willChangeValueForKey:@"home2" withSetMutation:NSKeyValueMinusSetMutation usingObjects:changedObjects];
-	[[self primitiveValueForKey:@"home2"] removeObject:value];
-	[self didChangeValueForKey:@"home2" withSetMutation:NSKeyValueMinusSetMutation usingObjects:changedObjects];
-}
-
-- (void) removeAllHome2
-{
-    [self removeHome2:self.home2];
-}
-
-- (NSMutableSet*)home2Set {
-	[self willAccessValueForKey:@"home2"];
-	NSMutableSet *result = [self mutableSetValueForKey:@"home2"];
-	[self didAccessValueForKey:@"home2"];
 	return result;
 }
 
@@ -428,6 +392,22 @@
 	[self willAccessValueForKey:@"home8"];
 	UserHome8 *result = [self primitiveValueForKey:@"home8"];
 	[self didAccessValueForKey:@"home8"];
+	return result;
+}
+
+#pragma mark HomeHeader
+- (UserHomeSection*)homeHeader {
+	[self willAccessValueForKey:@"homeHeader"];
+	UserHomeSection *result = [self primitiveValueForKey:@"homeHeader"];
+	[self didAccessValueForKey:@"homeHeader"];
+	return result;
+}
+
+#pragma mark HomeSection
+- (UserHomeSection*)homeSection {
+	[self willAccessValueForKey:@"homeSection"];
+	UserHomeSection *result = [self primitiveValueForKey:@"homeSection"];
+	[self didAccessValueForKey:@"homeSection"];
 	return result;
 }
 

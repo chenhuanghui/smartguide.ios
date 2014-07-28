@@ -38,7 +38,7 @@
 -(void)loadWithShopList:(ShopList *)shopList
 {
     _shop=shopList;
-    [self layoutIfNeeded];
+    [self setNeedsLayout];
 }
 
 -(void)layoutSubviews

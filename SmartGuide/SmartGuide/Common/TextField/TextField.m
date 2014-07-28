@@ -228,7 +228,7 @@
     }];
 }
 
--(void)tableDidScroll:(UITableView *)table
+-(void)tableDidScroll:(UIScrollView *)table
 {
     if(refreshState==TEXTFIELD_REFRESH_STATE_REFRESHING
        || refreshState==TEXTFIELD_REFRESH_STATE_DONE)
@@ -338,7 +338,7 @@
 
 #define LOG_TEXTFIELD_REFRESH 0
 
--(void)tableWillBeginDragging:(UITableView *)table
+-(void)tableWillBeginDragging:(UIScrollView *)table
 {
 #if LOG_TEXTFIELD_REFRESH
     DLOG_DEBUG(@"tableWillBeginDragging");
@@ -347,7 +347,7 @@
     _isUserDragging=true;
 }
 
--(void)tableDidEndDecelerating:(UITableView *)table
+-(void)tableDidEndDecelerating:(UIScrollView *)table
 {
 #if LOG_TEXTFIELD_REFRESH
     DLOG_DEBUG(@"tableDidEndDecelerating");
@@ -359,7 +359,7 @@
         [self callRefreshFinished:table];
 }
 
--(void)tableDidEndDragging:(UITableView *)table willDecelerate:(BOOL)decelerate
+-(void)tableDidEndDragging:(UIScrollView *)table willDecelerate:(BOOL)decelerate
 {
 #if LOG_TEXTFIELD_REFRESH
     DLOG_DEBUG(@"tableDidEndDragging %i %i %i %i", decelerate, [table isDecelerating], [table isTracking], [table isDragging]);
@@ -374,7 +374,7 @@
     }
 }
 
--(void)markTableDidEndScroll:(UITableView *)table
+-(void)markTableDidEndScroll:(UIScrollView *)table
 {
     _isUserDragging=false;
     
@@ -391,7 +391,7 @@
     [midView l_v_setW:MAX(0,frame.size.width-imgvLeft.l_v_w-imgvRight.l_v_w)];
 }
 
--(void)markRefreshDone:(UITableView *)table
+-(void)markRefreshDone:(UIScrollView *)table
 {
     _isMarkRefreshDone=true;
     refreshState=TEXTFIELD_REFRESH_STATE_DONE;
@@ -406,7 +406,7 @@
     [self callRefreshFinished:table];
 }
 
--(void) callRefreshFinished:(UITableView*) table
+-(void) callRefreshFinished:(UIScrollView*) table
 {
     if(_isMarkRefreshDone && !_isUserDragging)
     {

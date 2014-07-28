@@ -7,10 +7,8 @@
 
 +(UserHome6*) makeWithDictionary:(NSDictionary*) dict;
 
--(NSNumber *)idShop;
 -(NSString *)logo;
 
-@property (nonatomic, assign) CGSize homeSize;
 @property (nonatomic, strong) NSAttributedString *contentAttribute;
 
 @end

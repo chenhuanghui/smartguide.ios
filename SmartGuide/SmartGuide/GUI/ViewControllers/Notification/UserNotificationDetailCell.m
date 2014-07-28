@@ -24,7 +24,7 @@
 -(void)loadWithUserNotificationDetail:(UserNotificationContent *)obj
 {
     _obj=obj;
-    [self layoutIfNeeded];
+    [self setNeedsLayout];
 }
 
 -(void) calculatorHeights

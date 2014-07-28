@@ -21,6 +21,8 @@
 #import "HomeImagesType9Cell.h"
 #import "TextField.h"
 #import "ScanCodeController.h"
+#import "UserHomeSection.h"
+#import "HomeHeaderView.h"
 
 #define HOME_TEXT_FIELD_SEARCH_MIN_Y 8.f
 
@@ -49,6 +51,7 @@
     _blurBottomFrame=blurBottom.frame;
     _buttonScanBigFrame=btnScanBig.frame;
     _buttonScanSmallFrame=btnScanSmall.frame;
+    _tableFrame=tableFeed.frame;
 }
 
 -(void)viewDidAppear:(BOOL)animated
@@ -73,9 +76,9 @@
     // Do any additional setup after loading the view from its nib.
     
 #if DEBUG
-//    UITapGestureRecognizer *tap=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapTest:)];
-//    [self.view makeAlphaView];
-//    [self.view.alphaView addGestureRecognizer:tap];
+    //    UITapGestureRecognizer *tap=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapTest:)];
+    //    [self.view makeAlphaView];
+    //    [self.view.alphaView addGestureRecognizer:tap];
 #endif
     
     tableFeed.scrollsToTop=true;
@@ -95,9 +98,8 @@
     [tableFeed registerLoadingMoreCell];
     
     _page=-1;
-    _homes=[NSMutableArray array];
     _isLoadingMore=false;
-    _canLoadMore=true;
+    _canLoadMore=false;
     
     [self requestNewFeed];
     
@@ -114,10 +116,11 @@
     y+=txtRefresh.l_v_h;
     y+=4;//align
     
-    UIEdgeInsets contentInset=tableFeed.contentInset;
-    contentInset.top=y;
-    tableFeed.contentInset=contentInset;
-    tableFeed.scrollIndicatorInsets=contentInset;
+    //    UIEdgeInsets contentInset=tableFeed.contentInset;
+    //    contentInset.top=y;
+    //    tableFeed.contentInset=contentInset;
+    //    tableFeed.scrollIndicatorInsets=contentInset;
+    [tableFeed l_v_setY:y];
     tableFeed.delegate=self;
     
     _scrollDistanceHeight=txtRefresh.l_v_y-HOME_TEXT_FIELD_SEARCH_MIN_Y;
@@ -125,21 +128,31 @@
     [self displayNotification];
 }
 
+-(void) reloadTable
+{
+    [tableFeed reloadData];
+    scroll.contentSize=tableFeed.contentSize;
+}
+
 -(void)textFieldRefreshFinished:(TextField *)txt
 {
-    _homes=[[NSMutableArray alloc] initWithArray:_homesAPI];
-    _homesAPI=nil;
+    _homeSections=nil;
+    
+    [self addData:_homesAPI];
+    
     _isLoadingMore=false;
-    _canLoadMore=_homes.count>=10;
+    _canLoadMore=_homesAPI.count>=10;
     _page++;
     
-    [UIView animateWithDuration:DURATION_DEFAULT animations:^{
+    _homesAPI=nil;
+    
+    [UIView animateWithDuration:DURATION_DEFAULT delay:0 options:UIViewAnimationOptionBeginFromCurrentState|UIViewAnimationOptionCurveLinear animations:^{
+        scroll.contentOffset=CGPointZero;
         tableFeed.alpha=1;
+        [self scrollViewDidScroll:scroll];
+    } completion:^(BOOL finished) {
+        [self reloadTable];
     }];
-    
-    [tableFeed reloadData];
-    
-    [tableFeed setContentOffset:CGPointMake(0, -48) animated:true];
 }
 
 -(void)textFieldNeedRefresh:(TextField *)txt
@@ -194,9 +207,41 @@
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    if(scrollView==tableFeed)
+    if(scrollView==scroll)
     {
-        if(tableFeed.l_co_y+tableFeed.contentInset.top>100)
+        //        DLOG_DEBUG(@"scroll %f %f %f %f",scrollView.contentOffset.y,scrollView.contentInset.top,tableFeed.l_v_y,tableFeed.contentOffset.y);
+        
+        float paddingY=44;
+        
+        if(scroll.contentOffset.y>paddingY)
+        {
+            [tableFeed l_v_setY:scroll.contentOffset.y+_tableFrame.origin.y-paddingY];
+            [tableFeed l_co_setY:scroll.contentOffset.y-paddingY];
+        }
+        else
+        {
+            [tableFeed l_v_setY:_tableFrame.origin.y];
+            [tableFeed l_co_setY:0];
+        }
+        
+        [txtRefresh tableDidScroll:scroll];
+        
+        if(CGRectIsEmpty(_logoFrame))
+            _logoFrame=imgvLogo.frame;
+        
+        float y=scroll.offsetYWithInsetTop;
+        float perY=y/_scrollDistanceHeight;
+        
+        float logoY=_logoFrame.origin.y-y/4;
+        logoY=MIN(_logoFrame.origin.y,logoY);
+        
+        [imgvLogo l_v_setY:logoY];
+        imgvLogo.alpha=1-perY*2.f;
+        float scaleLogo=MAX(0.1f,1-perY);
+        scaleLogo=MIN(1.2f,scaleLogo);
+        imgvLogo.transform=CGAffineTransformMakeScale(scaleLogo, scaleLogo);
+        
+        if(scroll.l_co_y+scroll.contentInset.top>100)
         {
             [UIView animateWithDuration:0.3f animations:^{
                 [qrView l_v_setY:_qrFrame.origin.y+QRCODE_BIG_HEIGHT-QRCODE_SMALL_HEIGHT];
@@ -227,38 +272,22 @@
             }];
         }
         
-        [txtRefresh tableDidScroll:tableFeed];
-        
-        if(CGRectIsEmpty(_logoFrame))
-            _logoFrame=imgvLogo.frame;
-        
-        float y=tableFeed.offsetYWithInsetTop;
-        float perY=y/_scrollDistanceHeight;
-        
-        float logoY=_logoFrame.origin.y-y/4;
-        logoY=MIN(_logoFrame.origin.y,logoY);
-        
-        [imgvLogo l_v_setY:logoY];
-        imgvLogo.alpha=1-perY*2.f;
-        float scaleLogo=MAX(0.1f,1-perY);
-        scaleLogo=MIN(1.2f,scaleLogo);
-        imgvLogo.transform=CGAffineTransformMakeScale(scaleLogo, scaleLogo);
     }
 }
 
 -(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
-    [txtRefresh tableDidEndDecelerating:tableFeed];
+    [txtRefresh tableDidEndDecelerating:scroll];
 }
 
 -(void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
-    [txtRefresh tableDidEndDragging:tableFeed willDecelerate:decelerate];
+    [txtRefresh tableDidEndDragging:scroll willDecelerate:decelerate];
 }
 
 -(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
-    [txtRefresh tableWillBeginDragging:tableFeed];
+    [txtRefresh tableWillBeginDragging:scroll];
 }
 
 -(void) receiveUserNotice:(NSNotification*) notification
@@ -306,18 +335,6 @@
     displayLoadingView.userInteractionEnabled=false;
 }
 
--(void) resetData
-{
-    [self showLoading];
-    
-    _page=-1;
-    _homes=[NSMutableArray array];
-    _isLoadingMore=false;
-    _canLoadMore=true;
-    
-    [self requestNewFeed];
-}
-
 -(void) userLocationChanged:(NSNotification*) notification
 {
     [[LocationManager shareInstance] stopTrackingLcoation];
@@ -348,6 +365,278 @@
     [self requestNewFeed];
 }
 
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return _homeSections.count;
+}
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    UserHomeSection *homeSection=_homeSections[section];
+    
+    // Check section cuối cùng mới loadmore
+    if(_canLoadMore && section==_homeSections.count-1)
+    {
+        return homeSection.homeObjects.count+1;
+    }
+    
+    // Nếu return 0 thì sẽ mất header->vì có thể header là item cuối cùng trong list từ server
+    return MAX(homeSection.homeObjects.count, 1);
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    UserHomeSection *homeSection=_homeSections[section];
+    
+    if(!homeSection.home9)
+        return 0;
+    else
+        return [HomeHeaderView height];
+}
+
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UserHomeSection *homeSection=_homeSections[section];
+    
+    if(!homeSection.home9)
+        return [UIView new];
+    else
+    {
+        HomeHeaderView *header=[HomeHeaderView new];
+        header.section=section;
+        header.originalFrame=[tableFeed rectForHeaderInSection:section];
+        header.sectionFrame=[tableFeed rectForSection:section];
+        header.table=tableView;
+        
+        [header loadWithHomeSection:homeSection];
+        
+        UITapGestureRecognizer *tapGes=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapHeader:)];
+        [header addGestureRecognizer:tapGes];
+        
+        return header;
+    }
+}
+
+-(void) tapHeader:(UITapGestureRecognizer*) tap
+{
+    HomeHeaderView *header=(HomeHeaderView*)[tap view];
+    
+    if([header isKindOfClass:[HomeHeaderView class]])
+    {
+        [self userSelectedSection:_homeSections[header.section]];
+    }
+}
+
+-(void) userSelectedSection:(UserHomeSection*) homeSection
+{
+    if(homeSection.home9)
+    {
+        if([homeSection.home9.idPlacelist hasData])
+            [self.delegate homeControllerTouched:self idPlacelist:homeSection.home9.idPlacelist.integerValue];
+        else if([homeSection.home9.idShops hasData])
+            [self.delegate homeControllerTouched:self idShops:homeSection.home9.idShops];
+    }
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UserHomeSection *homeSection=_homeSections[indexPath.section];
+    
+    if(_canLoadMore
+       && indexPath.section==_homeSections.count-1 // chỉ section cuối cùng mới support load more
+       && indexPath.row==homeSection.homeObjects.count)
+    {
+        return [LoadingMoreCell height];
+    }
+    
+    if(homeSection.homeObjects.count==0)
+        return 0;
+    
+    UserHome *home=homeSection.homeObjects[indexPath.row];
+    
+    switch (home.enumType) {
+        case USER_HOME_TYPE_1:
+            return [HomePromotionCell heightWithHome1:home.home1];
+            
+        case USER_HOME_TYPE_2:
+            return [HomeImagesCell height];
+            
+        case USER_HOME_TYPE_3:
+        case USER_HOME_TYPE_4:
+            return [HomeListCell heightWithHome:home];
+            
+        case USER_HOME_TYPE_6:
+        {
+            HomeInfoCell *cell=[tableView homeInfoCell];
+            [cell loadWithHome6:home.home6];
+            [cell layoutSubviews];
+            
+            return cell.suggestHeight;
+        }
+            
+        case USER_HOME_TYPE_8:
+            return [HomePromotionCell heightWithHome8:home.home8];
+            
+        case USER_HOME_TYPE_9:
+            return [HomeImagesType9Cell heightWithHome:home]+15;
+            
+        case USER_HOME_TYPE_UNKNOW:
+            DLOG_DEBUG(@"USER_HOME_TYPE_UNKNOW heightForRowAtIndexPath");
+            return 0;
+    }
+}
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UserHomeSection *homeSection=_homeSections[indexPath.section];
+    
+    if(_canLoadMore && indexPath.section==_homeSections.count-1 && indexPath.row==homeSection.homeObjects.count)
+    {
+        if(!_isLoadingMore)
+        {
+            _isLoadingMore=true;
+            [self requestNewFeed];
+        }
+        
+        return [tableView loadingMoreCell];
+    }
+    
+    if(homeSection.homeObjects.count==0)
+        return [UITableViewCell new];
+    
+    UserHome *home=homeSection.homeObjects[indexPath.row];
+    
+    switch (home.enumType) {
+        case USER_HOME_TYPE_1:
+        {
+            HomePromotionCell *cell=[tableView dequeueReusableCellWithIdentifier:[HomePromotionCell reuseIdentifier]];
+            
+            [cell loadWithHome1:home.home1];
+            
+            return cell;
+        }
+            
+        case USER_HOME_TYPE_2:
+        {
+            HomeImagesCell *cell=[tableView dequeueReusableCellWithIdentifier:[HomeImagesCell reuseIdentifier]];
+            
+            [cell loadWithImages:[home.imagesObjects valueForKeyPath:UserHomeImage_Image]];
+            
+            return cell;
+        }
+            
+        case USER_HOME_TYPE_3:
+        {
+            HomeListCell *cell=[tableView dequeueReusableCellWithIdentifier:[HomeListCell reuseIdentifier]];
+            cell.delegate=self;
+            
+            [cell loadWithHome3:home];
+            
+            return cell;
+        }
+        case USER_HOME_TYPE_4:
+        {
+            HomeListCell *cell=[tableView dequeueReusableCellWithIdentifier:[HomeListCell reuseIdentifier]];
+            cell.delegate=self;
+            
+            [cell loadWithHome4:home];
+            
+            return cell;
+        }
+            
+        case USER_HOME_TYPE_6:
+        {
+            HomeInfoCell *cell=[tableView dequeueReusableCellWithIdentifier:[HomeInfoCell reuseIdentifier]];
+            cell.delegate=self;
+            
+            [cell loadWithHome6:home.home6];
+            
+            return cell;
+        }
+            
+        case USER_HOME_TYPE_8:
+        {
+            HomePromotionCell *cell=[tableView dequeueReusableCellWithIdentifier:[HomePromotionCell reuseIdentifier]];
+            
+            [cell loadWithHome8:home.home8];
+            
+            return cell;
+        }
+            
+        case USER_HOME_TYPE_9:
+        {
+            HomeImagesType9Cell *cell=[tableFeed dequeueReusableCellWithIdentifier:[HomeImagesType9Cell reuseIdentifier]];
+            
+            cell.delegate=self;
+            [cell loadWithHome9:home];
+            
+            return cell;
+        }
+            
+        case USER_HOME_TYPE_UNKNOW:
+            DLOG_DEBUG(@"USER_HOME_TYPE_UNKNOW cellForRowAtIndexPath");
+            break;
+    }
+    
+    return [UITableViewCell new];
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UserHomeSection *homeSection=_homeSections[indexPath.section];
+    UserHome *home=homeSection.homeObjects[indexPath.row];
+    switch (home.enumType) {
+        case USER_HOME_TYPE_1:
+        {
+            // Nếu shop list chỉ có 1 idShop
+            if(home.home1.shopList.length>0 && ![home.home1.shopList isContainString:@","])
+            {
+                [self requestShopUserWithIDShop:home.home1.idShop.integerValue idPost:home.idPost.integerValue];
+                return;
+            }
+            
+            [SGData shareInstance].fScreen=[HomeViewController screenCode];
+            [[SGData shareInstance].fData setObject:home.idPost forKey:@"idPost"];
+            [self.delegate homeControllerTouched:self idShops:home.home1.shopList];
+        }
+            break;
+            
+        case USER_HOME_TYPE_2:
+        {
+            //Nothing do
+        }
+            break;
+            
+        case USER_HOME_TYPE_3:
+        {
+            // using  homeListTouched
+        }
+            break;
+            
+        case USER_HOME_TYPE_4:
+        {
+            // using homeListTouched
+        }
+            break;
+            
+        case USER_HOME_TYPE_6:
+        {
+            // using homeInfoCellTouchedGoTo
+        }
+            break;
+            
+        case USER_HOME_TYPE_8:
+            [self.delegate homeControllerTouched:self shop:home.home8.shop];
+            break;
+            
+        case USER_HOME_TYPE_9:
+            break;
+            
+        case USER_HOME_TYPE_UNKNOW:
+            break;
+    }
+}
+
 -(void)ASIOperaionPostFinished:(ASIOperationPost *)operation
 {
     if([operation isKindOfClass:[ASIOperationUserHome class]])
@@ -360,20 +649,58 @@
         
         if(txtRefresh.refreshState==TEXTFIELD_REFRESH_STATE_REFRESHING)
         {
-            _homesAPI=[[NSMutableArray alloc] initWithArray:ope.homes];
-            [txtRefresh markRefreshDone:tableFeed];
+            _homesAPI=ope.homes;
+            [txtRefresh markRefreshDone:scroll];
         }
         else if(txtRefresh.refreshState==TEXTFIELD_REFRESH_STATE_NORMAL)
         {
-            [_homes addObjectsFromArray:ope.homes];
+            [self addData:ope.homes];
+            
             _canLoadMore=ope.homes.count>=10;
             _isLoadingMore=false;
             _page++;
             
-            [tableFeed reloadData];
+            [self reloadTable];
         }
         
         _operationUserHome=nil;
+    }
+}
+
+-(void) addData:(NSArray*) homes
+{
+    if(![_homeSections hasData])
+    {
+        _homeSections=[NSMutableArray new];
+    }
+    
+    UserHomeSection *homeSection=nil;
+    
+    int countSection=_homeSections.count;
+    for(UserHome *home in homes)
+    {
+        if(home.isHome9Header)
+        {
+            homeSection=[UserHomeSection insert];
+            homeSection.home9=home;
+            homeSection.sortOrder=@(countSection++);
+            
+            [_homeSections addObject:homeSection];
+        }
+        else
+        {
+            homeSection=[_homeSections lastObject];
+            
+            if(!homeSection)
+            {
+                homeSection=[UserHomeSection insert];
+                homeSection.sortOrder=@(countSection++);
+                
+                [_homeSections addObject:homeSection];
+            }
+            
+            [homeSection addHomeObject:home];
+        }
     }
 }
 
@@ -409,7 +736,7 @@
         [tableFeed l_co_setY:-48 animate:true];
     }
     else
-        [self.delegate homeControllerTouchedTextField:self];
+        [self.delegate homeControllerTouchedSearch:self];
     
     return false;
 }
@@ -420,7 +747,7 @@
     {
         _isTouchedTextField=false;
         tableFeed.userInteractionEnabled=true;
-        [self.delegate homeControllerTouchedTextField:self];
+        [self.delegate homeControllerTouchedSearch:self];
     }
 }
 
@@ -428,218 +755,6 @@
 {
     [SGData shareInstance].fScreen=[HomeViewController screenCode];
     [self.delegate homeControllerTouchedNavigation:self];
-}
-
--(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    if(tableView==tableFeed)
-        return _homes.count==0?0:1;
-    
-    return 0;
-}
-
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    if(tableView==tableFeed)
-        return _homes.count+(_canLoadMore?1:0);
-    
-    return 0;
-}
-
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if(tableView==tableFeed)
-    {
-        if(_canLoadMore && indexPath.row==_homes.count)
-        {
-            return 80;
-        }
-        
-        UserHome *home=_homes[indexPath.row];
-        switch (home.enumType) {
-            case USER_HOME_TYPE_1:
-                return [HomePromotionCell heightWithHome1:home.home1];
-                
-            case USER_HOME_TYPE_2:
-                return [HomeImagesCell height];
-                
-            case USER_HOME_TYPE_3:
-            case USER_HOME_TYPE_4:
-                return [HomeListCell heightWithHome:home];
-                
-            case USER_HOME_TYPE_6:
-            {
-                HomeInfoCell *cell=[tableView homeInfoCell];
-                [cell loadWithHome6:home.home6];
-                [cell layoutSubviews];
-                
-                return cell.suggestHeight;
-            }
-                
-            case USER_HOME_TYPE_8:
-                return [HomePromotionCell heightWithHome8:home.home8];
-                
-            case USER_HOME_TYPE_9:
-                return home.home9Size.height+15;
-                
-            case USER_HOME_TYPE_UNKNOW:
-                DLOG_DEBUG(@"USER_HOME_TYPE_UNKNOW heightForRowAtIndexPath");
-                return 0;
-        }
-    }
-    
-    return 0;
-}
-
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if(tableView==tableFeed)
-    {
-        if(_canLoadMore && indexPath.row==_homes.count)
-        {
-            if(!_isLoadingMore)
-            {
-                _isLoadingMore=true;
-                [self requestNewFeed];
-            }
-            
-            return [tableView loadingMoreCell];
-        }
-        
-        UserHome *home=_homes[indexPath.row];
-        
-        switch (home.enumType) {
-            case USER_HOME_TYPE_1:
-            {
-                HomePromotionCell *cell=[tableView dequeueReusableCellWithIdentifier:[HomePromotionCell reuseIdentifier]];
-                
-                [cell loadWithHome1:home.home1];
-                
-                return cell;
-            }
-                
-            case USER_HOME_TYPE_2:
-            {
-                HomeImagesCell *cell=[tableView dequeueReusableCellWithIdentifier:[HomeImagesCell reuseIdentifier]];
-                
-                [cell loadWithImages:[home.home2Objects valueForKeyPath:UserHome2_Image]];
-                
-                return cell;
-            }
-                
-            case USER_HOME_TYPE_3:
-            {
-                HomeListCell *cell=[tableView dequeueReusableCellWithIdentifier:[HomeListCell reuseIdentifier]];
-                cell.delegate=self;
-                
-                [cell loadWithHome3:home];
-                
-                return cell;
-            }
-            case USER_HOME_TYPE_4:
-            {
-                HomeListCell *cell=[tableView dequeueReusableCellWithIdentifier:[HomeListCell reuseIdentifier]];
-                cell.delegate=self;
-                
-                [cell loadWithHome4:home];
-                
-                return cell;
-            }
-                
-            case USER_HOME_TYPE_6:
-            {
-                HomeInfoCell *cell=[tableView dequeueReusableCellWithIdentifier:[HomeInfoCell reuseIdentifier]];
-                cell.delegate=self;
-                
-                [cell loadWithHome6:home.home6];
-                
-                return cell;
-            }
-                
-            case USER_HOME_TYPE_8:
-            {
-                HomePromotionCell *cell=[tableView dequeueReusableCellWithIdentifier:[HomePromotionCell reuseIdentifier]];
-                
-                [cell loadWithHome8:home.home8];
-                
-                return cell;
-            }
-                
-            case USER_HOME_TYPE_9:
-            {
-                HomeImagesType9Cell *cell=[tableFeed dequeueReusableCellWithIdentifier:[HomeImagesType9Cell reuseIdentifier]];
-                
-                cell.delegate=self;
-                [cell loadWithHome9:home];
-                
-                return cell;
-            }
-                
-            case USER_HOME_TYPE_UNKNOW:
-                DLOG_DEBUG(@"USER_HOME_TYPE_UNKNOW cellForRowAtIndexPath");
-                break;
-        }
-    }
-    
-    return [UITableViewCell new];
-}
-
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if(tableView==tableFeed)
-    {
-        UserHome *home=_homes[indexPath.row];
-        switch (home.enumType) {
-            case USER_HOME_TYPE_1:
-            {
-                // Nếu shop list chỉ có 1 idShop
-                if(home.home1.shopList.length>0 && ![home.home1.shopList isContainString:@","])
-                {
-                    [self requestShopUserWithIDShop:home.home1.idShop.integerValue idPost:home.idPost.integerValue];
-                    return;
-                }
-                
-                [SGData shareInstance].fScreen=[HomeViewController screenCode];
-                [[SGData shareInstance].fData setObject:home.idPost forKey:@"idPost"];
-                [self.delegate homeControllerTouchedHome1:self home1:home.home1];
-            }
-                break;
-                
-            case USER_HOME_TYPE_2:
-            {
-                //Nothing do
-            }
-                break;
-                
-            case USER_HOME_TYPE_3:
-            {
-                // using  homeListTouched
-            }
-                break;
-                
-            case USER_HOME_TYPE_4:
-            {
-                // using homeListTouched
-            }
-                break;
-                
-            case USER_HOME_TYPE_6:
-            {
-                // using homeInfoCellTouchedGoTo
-            }
-                break;
-                
-            case USER_HOME_TYPE_8:
-                [self.delegate homeControllerTouchedHome8:self home8:home.home8];
-                break;
-                
-            case USER_HOME_TYPE_9:
-                break;
-                
-            case USER_HOME_TYPE_UNKNOW:
-                break;
-        }
-    }
 }
 
 -(void)homeListTouched:(HomeListCell *)cell
@@ -652,7 +767,7 @@
             [SGData shareInstance].fScreen=[HomeViewController screenCode];
             [[SGData shareInstance].fData setObject:home3.home.idPost forKey:@"idPost"];
             
-            [self.delegate homeControllerTouchedPlacelist:self home3:cell.currentHome];
+            [self.delegate homeControllerTouched:self placeList:home3.place];
         }
         else if([cell.currentHome isKindOfClass:[UserHome4 class]])
         {
@@ -677,7 +792,7 @@
     [SGData shareInstance].fScreen=[HomeViewController screenCode];
     [[SGData shareInstance].fData setObject:@(idPost) forKey:@"idPost"];
     
-    [self.delegate homeControllerTouchedIDShop:self idShop:idShop];
+    [self.delegate homeControllerTouched:self idShop:idShop];
 }
 
 - (IBAction)btnShowQRCodeTouchUpInside:(id)sender {
@@ -717,14 +832,14 @@
         [[GUIManager shareInstance] showLoginDialogWithMessage:localizeLoginRequire() onOK:^{
             [SGData shareInstance].fScreen=[HomeViewController screenCode];
         } onCancelled:nil onLogined:^(bool isLogined)
-        {
-            if(isLogined)
-                [self.navigationController pushViewController:[UserNotificationController new] animated:true];
-        }];
+         {
+             if(isLogined)
+                 [self.navigationController pushViewController:[UserNotificationController new] animated:true];
+         }];
     }
     else
     {
-        [txtRefresh markTableDidEndScroll:tableFeed];
+        [txtRefresh markTableDidEndScroll:scroll];
         [self.navigationController pushViewController:[UserNotificationController new] animated:true];
     }
 }

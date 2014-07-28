@@ -1,6 +1,5 @@
 #import "_UserHome.h"
 #import "UserHome1.h"
-#import "UserHome2.h"
 #import "UserHome3.h"
 #import "UserHome4.h"
 #import "UserHome6.h"
@@ -24,9 +23,11 @@ enum USER_HOME_TYPE {
 
 +(UserHome*) makeWithDictionary:(NSDictionary*) dict;
 
+-(NSArray*) makeHomeImage:(NSArray*) images;
+
 -(bool) isHome9Header;
 -(enum USER_HOME_TYPE) enumType;
 
-@property (nonatomic, assign) CGSize home9Size;
+-(NSString*) image;
 
 @end

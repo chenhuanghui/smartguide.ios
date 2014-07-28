@@ -22,16 +22,22 @@
     return self;
 }
 
--(void)onCompletedWithJSON:(NSArray *)json
+-(void)onFinishLoading
 {
     homes=[NSMutableArray array];
-    
-    if([json isNullData])
+}
+
+-(void)onCompletedWithJSON:(NSArray *)json
+{
+    if(![json hasData])
         return;
     
+    int count=0;
     for(NSDictionary *dict in json)
     {
         UserHome *home=[UserHome makeWithDictionary:dict];
+        home.page=self.keyValue[@"page"];
+        home.sortOrder=@(count++);
         
         switch (home.enumType) {
             case USER_HOME_TYPE_1:
@@ -40,20 +46,7 @@
                 
             case USER_HOME_TYPE_2:
             {
-                NSArray *array=dict[@"images"];
-                
-                if([array isNullData])
-                    continue;
-                
-                int sort=0;
-                for(NSString *image in array)
-                {
-                    UserHome2 *home2=[UserHome2 insert];
-                    home2.image=image;
-                    home2.sortOrder=@(sort++);
-                    
-                    [home addHome2Object:home2];
-                }
+                [home makeHomeImage:dict[@"images"]];
             }
                 break;
                 
@@ -61,17 +54,19 @@
             {
                 NSArray *array=dict[@"placelists"];
                 
-                if([array isNullData])
-                    continue;
-                
-                int sort=0;
-                for(NSDictionary *place in array)
+                if([array hasData])
                 {
-                    UserHome3 *home3=[UserHome3 makeWithDictionary:place];
-                    home3.sortOrder=@(sort++);
-                    
-                    [home addHome3Object:home3];
+                    int sort=0;
+                    for(NSDictionary *place in array)
+                    {
+                        UserHome3 *home3=[UserHome3 makeWithDictionary:place];
+                        home3.sortOrder=@(sort++);
+                        
+                        [home addHome3Object:home3];
+                    }
                 }
+                
+                [home makeHomeImage:dict[@"images"]];
             }
                 break;
                 
@@ -79,17 +74,19 @@
             {
                 NSArray *array=dict[@"shops"];
                 
-                if([array isNullData])
-                    continue;
-                
-                int sort=0;
-                for(NSDictionary *shop in array)
+                if([array hasData])
                 {
-                    UserHome4 *home4=[UserHome4 makeWithDictionary:shop];
-                    home4.sortOrder=@(sort++);
-                    
-                    [home addHome4Object:home4];
+                    int sort=0;
+                    for(NSDictionary *shop in array)
+                    {
+                        UserHome4 *home4=[UserHome4 makeWithDictionary:shop];
+                        home4.sortOrder=@(sort++);
+                        
+                        [home addHome4Object:home4];
+                    }
                 }
+                
+                [home makeHomeImage:dict[@"images"]];
             }
                 break;
                 
@@ -102,6 +99,24 @@
                 break;
                 
             case USER_HOME_TYPE_9:
+
+                if([dict[@"image"] hasData])
+                {
+                    [home makeHomeImage:@[dict[@"image"]]];
+                }
+                else
+                {
+                    [home makeHomeImage:dict[@"images"]];
+                }
+
+                home.imageHeight=[NSNumber makeNumber:dict[@"imageHeight"]];
+                home.imageWidth=[NSNumber makeNumber:dict[@"imageWidth"]];
+                home.title=[NSString makeString:dict[@"title"]];
+
+                if([dict[@"idPlacelist"] hasData])
+                    home.idPlacelist=[NSNumber makeNumber:dict[@"idPlacelist"]];
+                else if([dict[@"idShops"] hasData])
+                    home.idShops=[NSString makeString:dict[@"idShops"]];
                 // Xử lý trong [UserHome makeWithDictionary]
                 break;
                 
@@ -112,7 +127,8 @@
         [homes addObject:home];
     }
     
-    [[DataManager shareInstance] save];
+    if(homes.count>0)
+        [[DataManager shareInstance] save];
 }
 
 @end

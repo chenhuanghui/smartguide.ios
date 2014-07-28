@@ -7,21 +7,20 @@
 {
     UserHome4 *home=[UserHome4 insert];
     
-    int idShop=[[NSNumber numberWithObject:dict[@"idShop"]] integerValue];
-    
-    home.shop=[Shop shopWithIDShop:idShop];
+    home.idShop=[NSNumber makeNumber:dict[@"idShop"]];
+    home.shop=[Shop shopWithIDShop:home.idShop.integerValue];
     
     if(!home.shop)
     {
         home.shop=[Shop insert];
-        home.shop.idShop=@(idShop);
+        home.shop.idShop=home.idShop;
         home.shop.dataMode=@(SHOP_DATA_HOME_4);
     }
     
-    home.shop.numOfView=[NSString stringWithStringDefault:dict[@"numOfView"]];
-    home.shopName=[NSString stringWithStringDefault:dict[@"shopName"]];
-    home.content=[NSString stringWithStringDefault:dict[@"content"]];
-    home.cover=[NSString stringWithStringDefault:dict[@"cover"]];
+    home.shop.numOfView=[NSString makeString:dict[@"numOfView"]];
+    home.shopName=[NSString makeString:dict[@"shopName"]];
+    home.content=[NSString makeString:dict[@"content"]];
+    home.cover=[NSString makeString:dict[@"cover"]];
     
     return home;
 }
@@ -29,11 +28,6 @@
 -(NSString *)numOfView
 {
     return self.shop.numOfView;
-}
-
--(NSNumber *)idShop
-{
-    return self.shop.idShop;
 }
 
 @end

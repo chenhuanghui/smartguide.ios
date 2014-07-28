@@ -25,6 +25,7 @@
 
 -(void) loadWithHome9:(UserHome*) home;
 +(NSString *)reuseIdentifier;
++(float) heightWithHome:(UserHome*) home;
 
 @property (nonatomic, weak) id<HomeImagesType9CellDelegate> delegate;
 

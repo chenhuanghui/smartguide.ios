@@ -11,16 +11,19 @@
 #define UserHome_IdShops @"idShops"
 #define UserHome_ImageHeight @"imageHeight"
 #define UserHome_ImageWidth @"imageWidth"
+#define UserHome_Page @"page"
 #define UserHome_SortOrder @"sortOrder"
+#define UserHome_Title @"title"
 #define UserHome_Type @"type"
 
 @class UserHome;
 @class UserHome1;
-@class UserHome2;
 @class UserHome3;
 @class UserHome4;
 @class UserHome6;
 @class UserHome8;
+@class UserHomeSection;
+@class UserHomeSection;
 @class UserHomeImage;
 
 @interface _UserHome : NSManagedObject
@@ -39,7 +42,9 @@
 @property (nonatomic, retain) NSString* idShops;
 @property (nonatomic, retain) NSNumber* imageHeight;
 @property (nonatomic, retain) NSNumber* imageWidth;
+@property (nonatomic, retain) NSNumber* page;
 @property (nonatomic, retain) NSNumber* sortOrder;
+@property (nonatomic, retain) NSString* title;
 @property (nonatomic, retain) NSNumber* type;
 
 #pragma mark Fetched property
@@ -49,15 +54,6 @@
 
 #pragma mark Home1
 @property (nonatomic, retain) UserHome1* home1;
-
-#pragma mark Home2
-- (NSSet*) home2;
-- (NSArray*) home2Objects;
-- (void) addHome2:(NSSet*)value;
-- (void) removeHome2:(NSSet*)value;
-- (void) addHome2Object:(UserHome2*)value;
-- (void) removeHome2Object:(UserHome2*)value;
-- (void) removeAllHome2;
 
 #pragma mark Home3
 - (NSSet*) home3;
@@ -82,6 +78,12 @@
 
 #pragma mark Home8
 @property (nonatomic, retain) UserHome8* home8;
+
+#pragma mark HomeHeader
+@property (nonatomic, retain) UserHomeSection* homeHeader;
+
+#pragma mark HomeSection
+@property (nonatomic, retain) UserHomeSection* homeSection;
 
 #pragma mark Images
 - (NSSet*) images;

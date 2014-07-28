@@ -2,7 +2,6 @@
 #import "Utility.h"
 
 @implementation UserHome
-@synthesize home9Size;
 
 +(UserHome *)makeWithDictionary:(NSDictionary *)dict
 {
@@ -10,35 +9,31 @@
     
     home.type=[NSNumber numberWithObject:dict[@"type"]];
     home.idPost=[NSNumber numberWithObject:dict[@"idPost"]];
-    home.imageWidth=[NSNumber numberWithObject:dict[@"imageWidth"]];
-    home.imageHeight=[NSNumber numberWithObject:dict[@"imageHeight"]];
-    
-    NSArray *imgs=dict[@"images"];
-
-    if([imgs hasData])
-    {
-        int count=0;
-        for(NSString* img in imgs)
-        {
-            UserHomeImage *obj=[UserHomeImage insert];
-            obj.image=[NSString stringWithStringDefault:img];
-            obj.sortOrder=@(count++);
-            
-            [home addImagesObject:obj];
-        }
-    }
-    
-    if(home.enumType==USER_HOME_TYPE_9)
-    {
-        float frameWidthLayoutHome9=296;
-        home.home9Size=CGSizeMake(frameWidthLayoutHome9, MAX(0,frameWidthLayoutHome9*home.imageHeight.floatValue/home.imageWidth.floatValue));
-        if([dict[@"idShops"] hasData])
-            home.idShops=[NSString makeString:dict[@"idShops"]];
-        else if([dict[@"idPlacelist"] hasData])
-            home.idPlacelist=[NSNumber makeNumber:dict[@"idPlacelist"]];
-    }
     
     return home;
+}
+
+-(NSArray *)makeHomeImage:(NSArray *)images
+{
+    if([images hasData])
+    {
+        int sort=0;
+        
+        NSMutableArray *array=[NSMutableArray array];
+        for(NSString *image in images)
+        {
+            UserHomeImage *obj=[UserHomeImage insert];
+            obj.image=[NSString makeString:image];
+            obj.sortOrder=@(sort++);
+            
+            [self addImagesObject:obj];
+            [array addObject:obj];
+        }
+        
+        return array;
+    }
+    
+    return @[];
 }
 
 -(enum USER_HOME_TYPE)enumType
@@ -58,7 +53,7 @@
             
         case USER_HOME_TYPE_6:
             return USER_HOME_TYPE_6;
-        
+            
         case USER_HOME_TYPE_8:
             return USER_HOME_TYPE_8;
             
@@ -70,16 +65,6 @@
     }
     
     return USER_HOME_TYPE_UNKNOW;
-}
-
--(NSArray *)home2Objects
-{
-    NSArray *array=[super home2Objects];
-    
-    if(array.count>0)
-        return [array sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:UserHome2_SortOrder ascending:true]]];
-    
-    return [NSArray array];
 }
 
 -(NSArray *)home3Objects
@@ -112,9 +97,47 @@
     return [NSArray array];
 }
 
+#if DEBUG
+
+-(bool)isHome9Header
+{
+    return [self enumType]==USER_HOME_TYPE_9;
+}
+
+-(NSString *)title
+{
+    return @"Cà phê đọc sách học bài Cà phê đọc sách học bài Cà phê đọc sách học bài Cà phê đọc sách học bài";
+}
+
+-(NSString *)image
+{
+    return @"https://lh5.googleusercontent.com/-v2A9-gc2DSQ/AAAAAAAAAAI/AAAAAAAAAAA/Q3DfBN6LCoY/photo.jpg";
+}
+
+-(NSNumber *)idPlacelist
+{
+    return @(1);
+}
+
+#else
+
 -(bool)isHome9Header
 {
     return [self enumType]==USER_HOME_TYPE_9 && ([self.idShops hasData] || [self.idPlacelist hasData]);
 }
+
+-(NSString *)image
+{
+    if(self.imagesObjects.count>0)
+    {
+        UserHomeImage *img=[self.imagesObjects firstObject];
+        
+        return img.image;
+    }
+    
+    return @"";
+}
+
+#endif
 
 @end

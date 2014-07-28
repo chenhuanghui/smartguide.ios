@@ -8,18 +8,17 @@
 
 #import "SGViewController.h"
 
-@class HomeViewController,TableHome, UserHome1, UserHome3, UserHome8, HomeTextField;
+@class HomeViewController,TableHome, UserHome1, UserHome3, UserHome8, HomeTextField, Placelist, Shop;
 
 @protocol HomeControllerDelegate <SGViewControllerDelegate>
 
--(void) homeControllerTouchedTextField:(HomeViewController*) controller;
+-(void) homeControllerTouchedSearch:(HomeViewController*) controller;
 -(void) homeControllerTouchedNavigation:(HomeViewController*) controller;
--(void) homeControllerTouchedHome1:(HomeViewController*) contorller home1:(UserHome1*) home1;
--(void) homeControllerTouchedPlacelist:(HomeViewController*) controller home3:(UserHome3*) home3;
--(void) homeControllerTouchedHome8:(HomeViewController*) controller home8:(UserHome8*) home8;
+-(void) homeControllerTouched:(HomeViewController*) controller placeList:(Placelist*) placelist;
+-(void) homeControllerTouched:(HomeViewController*) controller shop:(Shop*) shop;
 -(void) homeControllerTouched:(HomeViewController*) controller idShops:(NSString*) idShops;
 -(void) homeControllerTouched:(HomeViewController*) controller idPlacelist:(int) idPlacelist;
--(void) homeControllerTouchedIDShop:(HomeViewController*) controller idShop:(int) idShop;
+-(void) homeControllerTouched:(HomeViewController*) controller idShop:(int) idShop;
 
 @end
 
@@ -35,8 +34,9 @@
     __weak IBOutlet UIButton *btnNumOfNotification;
     __weak IBOutlet UIButton *btnNotification;
     __weak IBOutlet UIImageView *imgvLogo;
+    __weak IBOutlet UIScrollView *scroll;
     
-    NSMutableArray *_homes;
+    NSMutableArray *_homeSections;
     NSMutableArray *_homesAPI;
     
     int _page;
@@ -49,6 +49,7 @@
     CGRect _buttonScanSmallFrame;
     CGRect _textFieldFrame;
     CGRect _logoFrame;
+    CGRect _tableFrame;
     
     float _scrollDistanceHeight;
     bool _isTouchedTextField;

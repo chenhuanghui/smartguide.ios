@@ -81,12 +81,12 @@ enum TEXTFIELD_REFRESH_STATE
     NSString *_text;
 }
 
--(void) tableDidScroll:(UITableView*) table;
--(void) tableDidEndDecelerating:(UITableView*) table;
--(void) tableDidEndDragging:(UITableView*) table willDecelerate:(BOOL) decelerate;
--(void) tableWillBeginDragging:(UITableView*) table;
--(void) markTableDidEndScroll:(UITableView*) table;
--(void) markRefreshDone:(UITableView*) table;
+-(void) tableDidScroll:(UIScrollView*) table;
+-(void) tableDidEndDecelerating:(UIScrollView*) table;
+-(void) tableDidEndDragging:(UIScrollView*) table willDecelerate:(BOOL) decelerate;
+-(void) tableWillBeginDragging:(UIScrollView*) table;
+-(void) markTableDidEndScroll:(UIScrollView*) table;
+-(void) markRefreshDone:(UIScrollView*) table;
 
 @property (nonatomic, readonly) enum TEXTFIELD_REFRESH_STATE refreshState;
 @property (nonatomic, weak) id<TextFieldRefreshDelegate> delegate;

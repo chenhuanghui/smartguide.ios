@@ -53,6 +53,7 @@
 -(void) loadImageHomeListWithURL:(NSString*) url;
 -(void) loadImageHome9WithURL:(NSString *)url;
 -(void) loadImagePromotionNewsWithURL:(NSString*) url size:(CGSize) size;
+-(void) loadHomeHeaderWithURL:(NSString*) url;
 -(void) loadHome6CoverWithURL:(NSString*) url;
 -(void) loadUserPromotionCoverWithURL:(NSString*) url;
 -(void) loadUserNotificationContentWithURL:(NSString*) url;

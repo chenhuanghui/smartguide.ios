@@ -22,6 +22,7 @@
     
     [self.keyValue setObject:version forKey:@"version"];
     [self.keyValue setObject:[TokenManager shareInstance].accessToken forKey:@"accessToken"];
+    [self.keyValue setObject:[[UIDevice currentDevice] platformRawString] forKey:@"deviceInfo"];
     
     return self;
 }

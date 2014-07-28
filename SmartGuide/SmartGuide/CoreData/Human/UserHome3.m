@@ -10,10 +10,10 @@
     
     home.place=[Placelist makeWithDictionary:dict];
     
-    home.title=[NSString stringWithStringDefault:dict[@"title"]];
-    home.content=[NSString stringWithStringDefault:dict[@"content"]];
-    home.cover=[NSString stringWithStringDefault:dict[@"cover"]];
-    home.numOfShop=[NSString stringWithStringDefault:dict[@"numOfShop"]];
+    home.title=[NSString makeString:dict[@"title"]];
+    home.content=[NSString makeString:dict[@"content"]];
+    home.cover=[NSString makeString:dict[@"cover"]];
+    home.numOfShop=[NSString makeString:dict[@"numOfShop"]];
     
     return home;
 }

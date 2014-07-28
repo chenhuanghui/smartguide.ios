@@ -22,7 +22,7 @@
 {
     _related=obj;
     
-    [self layoutIfNeeded];
+    [self setNeedsLayout];
 }
 
 -(void)layoutSubviews
