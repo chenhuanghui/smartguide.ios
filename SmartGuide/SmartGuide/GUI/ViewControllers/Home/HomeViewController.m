@@ -153,6 +153,9 @@
         [UIView animateWithDuration:DURATION_DEFAULT delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
             tableFeed.alpha=0.1f;
         } completion:^(BOOL finished) {
+            
+            [tableFeed reloadData];
+            
             [UIView animateWithDuration:DURATION_DEFAULT delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
                 tableFeed.alpha=1;
             } completion:nil];
