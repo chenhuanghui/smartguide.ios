@@ -8,12 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
+@class UserHomeSection;
+
 @interface HomeHeaderView : UIView
 {
     __weak IBOutlet UIImageView *imgv;
     __weak IBOutlet UIView *imgvShadow;
+    __weak IBOutlet UILabel *lblTitle;
 }
 
+-(void) loadWithHomeSection:(UserHomeSection*) homeSection;
 +(float) height;
 
 @property (nonatomic, assign) int section;

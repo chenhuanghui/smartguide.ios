@@ -104,6 +104,16 @@
     return [self enumType]==USER_HOME_TYPE_9;
 }
 
+-(NSString *)title
+{
+    return @"Cà phê đọc sách học bài";
+}
+
+-(NSString *)image
+{
+    return @"https://lh5.googleusercontent.com/-v2A9-gc2DSQ/AAAAAAAAAAI/AAAAAAAAAAA/Q3DfBN6LCoY/photo.jpg";
+}
+
 #else
 
 -(bool)isHome9Header

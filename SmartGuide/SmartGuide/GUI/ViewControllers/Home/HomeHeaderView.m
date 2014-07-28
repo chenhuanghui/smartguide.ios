@@ -8,7 +8,9 @@
 
 #import "HomeHeaderView.h"
 #import "Utility.h"
-#import <QuartzCore/QuartzCore.h>
+#import "UserHomeSection.h"
+#import "UserHome.h"
+#import "ImageManager.h"
 
 @implementation HomeHeaderView
 
@@ -31,6 +33,12 @@
     [imgvShadow effectCornerRadius:34.f shadow:1.f];
     imgvShadow.layer.shadowOpacity=0.5f;
     //    imgvShadow.layer.shadowOffset=CGSizeMake(0, 0.5f);
+}
+
+-(void)loadWithHomeSection:(UserHomeSection *)homeSection
+{
+    lblTitle.text=homeSection.home9.title;
+    [imgv loadImageHome9WithURL:homeSection.home9.image];
 }
 
 +(float)height

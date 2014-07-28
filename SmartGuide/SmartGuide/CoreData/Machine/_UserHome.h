@@ -9,10 +9,12 @@
 #define UserHome_IdPlacelist @"idPlacelist"
 #define UserHome_IdPost @"idPost"
 #define UserHome_IdShops @"idShops"
+#define UserHome_Image @"image"
 #define UserHome_ImageHeight @"imageHeight"
 #define UserHome_ImageWidth @"imageWidth"
 #define UserHome_Page @"page"
 #define UserHome_SortOrder @"sortOrder"
+#define UserHome_Title @"title"
 #define UserHome_Type @"type"
 
 @class UserHome;
@@ -39,10 +41,12 @@
 @property (nonatomic, retain) NSNumber* idPlacelist;
 @property (nonatomic, retain) NSNumber* idPost;
 @property (nonatomic, retain) NSString* idShops;
+@property (nonatomic, retain) NSString* image;
 @property (nonatomic, retain) NSNumber* imageHeight;
 @property (nonatomic, retain) NSNumber* imageWidth;
 @property (nonatomic, retain) NSNumber* page;
 @property (nonatomic, retain) NSNumber* sortOrder;
+@property (nonatomic, retain) NSString* title;
 @property (nonatomic, retain) NSNumber* type;
 
 #pragma mark Fetched property

@@ -188,26 +188,26 @@
     [self showSettingController];
 }
 
--(void)homeControllerTouchedPlacelist:(HomeViewController *)controller home3:(UserHome3 *)home3
+-(void)homeControllerTouched:(HomeViewController *)controller placeList:(Placelist *)placelist
 {
-    SearchViewController *vc=[[SearchViewController alloc] initWithPlace:home3.place];
+    SearchViewController *vc=[[SearchViewController alloc] initWithPlace:placelist];
     
     [self showSearchController:vc];
 }
 
--(void)homeControllerTouchedTextField:(HomeViewController *)controller
+-(void)homeControllerTouchedSearch:(HomeViewController *)controller
 {
     SearchViewController *vc=[SearchViewController new];
     
     [self showSearchController:vc];
 }
 
--(void)homeControllerTouchedHome8:(HomeViewController *)controller home8:(UserHome8 *)home8
+-(void)homeControllerTouched:(HomeViewController *)controller shop:(Shop *) shop
 {
-    [self presentShopUserWithShop:home8.shop];
+    [self presentShopUserWithShop:shop];
 }
 
--(void)homeControllerTouchedIDShop:(HomeViewController *)controller idShop:(int)idShop
+-(void)homeControllerTouched:(HomeViewController *)controller idShop:(int)idShop
 {
     [self presentShopUserWithIDShop:idShop];
 }

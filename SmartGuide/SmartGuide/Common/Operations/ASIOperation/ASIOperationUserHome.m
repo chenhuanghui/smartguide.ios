@@ -103,6 +103,8 @@
                 [home makeHomeImage:dict[@"images"]];
                 home.imageHeight=[NSNumber makeNumber:dict[@"imageHeight"]];
                 home.imageWidth=[NSNumber makeNumber:dict[@"imageWidth"]];
+                home.title=[NSString makeString:dict[@"title"]];
+                home.image=[NSString makeString:dict[@"image"]];
                 
                 if([dict[@"idPlacelist"] hasData])
                     home.idPlacelist=[NSNumber makeNumber:dict[@"idPlacelist"]];
