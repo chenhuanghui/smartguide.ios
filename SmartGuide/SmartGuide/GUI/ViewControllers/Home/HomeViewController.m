@@ -435,8 +435,6 @@
             [self.delegate homeControllerTouched:self idPlacelist:homeSection.home9.idPlacelist.integerValue];
         else if([homeSection.home9.idShops hasData])
             [self.delegate homeControllerTouched:self idShops:homeSection.home9.idShops];
-        
-        NSLog(@"userSelectedSection %@",homeSection);
     }
 }
 
