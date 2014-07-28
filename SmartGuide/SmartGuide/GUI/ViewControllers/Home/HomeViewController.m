@@ -148,10 +148,15 @@
     
     [UIView animateWithDuration:DURATION_DEFAULT delay:0 options:UIViewAnimationOptionBeginFromCurrentState|UIViewAnimationOptionCurveLinear animations:^{
         scroll.contentOffset=CGPointZero;
-        tableFeed.alpha=1;
         [self scrollViewDidScroll:scroll];
     } completion:^(BOOL finished) {
-        [self reloadTable];
+        [UIView animateWithDuration:DURATION_DEFAULT delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
+            tableFeed.alpha=0.1f;
+        } completion:^(BOOL finished) {
+            [UIView animateWithDuration:DURATION_DEFAULT delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
+                tableFeed.alpha=1;
+            } completion:nil];
+        }];
     }];
 }
 
@@ -166,10 +171,6 @@
     _page=-1;
     
     [self requestNewFeed];
-    
-    [UIView animateWithDuration:DURATION_DEFAULT animations:^{
-        tableFeed.alpha=0.1f;
-    }];
 }
 
 -(NSArray *)registerNotifications
