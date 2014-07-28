@@ -28,4 +28,6 @@ enum USER_HOME_TYPE {
 -(bool) isHome9Header;
 -(enum USER_HOME_TYPE) enumType;
 
+-(NSString*) image;
+
 @end

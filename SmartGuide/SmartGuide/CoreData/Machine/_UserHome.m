@@ -155,19 +155,6 @@
 	[self didChangeValueForKey:@"idShops"];
 }
 
-- (NSString*)image {
-	[self willAccessValueForKey:@"image"];
-	NSString* result = (NSString*)[self primitiveValueForKey:@"image"];
-	[self didAccessValueForKey:@"image"];
-	return result;
-}
-
-- (void)setImage:(NSString*)value {
-	[self willChangeValueForKey:@"image"];
-	[self setPrimitiveValue:value forKey:@"image"];
-	[self didChangeValueForKey:@"image"];
-}
-
 - (NSNumber*)imageHeight {
 	[self willAccessValueForKey:@"imageHeight"];
 	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"imageHeight"];

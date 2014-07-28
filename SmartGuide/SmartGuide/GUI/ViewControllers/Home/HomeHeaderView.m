@@ -27,18 +27,17 @@
 {
     [super awakeFromNib];
     
-    imgv.layer.cornerRadius=34.f;
+    imgv.layer.cornerRadius=32.f;
     imgv.layer.masksToBounds=true;
     
-    [imgvShadow effectCornerRadius:34.f shadow:1.f];
-    imgvShadow.layer.shadowOpacity=0.5f;
-    //    imgvShadow.layer.shadowOffset=CGSizeMake(0, 0.5f);
+    [imgvShadow effectCornerRadius:34.f shadow:2.f];
+    imgvShadow.layer.shadowOpacity=1.f;
 }
 
 -(void)loadWithHomeSection:(UserHomeSection *)homeSection
 {
     lblTitle.text=homeSection.home9.title;
-    [imgv loadImageHome9WithURL:homeSection.home9.image];
+    [imgv loadHomeHeaderWithURL:homeSection.home9.image];
 }
 
 +(float)height
@@ -72,8 +71,11 @@
         float scale=1.f-(diffY/dis);
         imgvShadow.layer.transform=CATransform3DMakeScale(scale, scale, -1);
         
+        float centerY=36;
         if(scale<1)
-            imgvShadow.center=CGPointMake(imgvShadow.center.x, 34.f+((1.f-scale)*34.f)/2);
+            imgvShadow.center=CGPointMake(imgvShadow.center.x, centerY+((1.f-scale)*centerY)/2);
+        else
+            imgvShadow.center=CGPointMake(imgvShadow.center.x, centerY);
         
         frame.origin.y-=diffY;
     }

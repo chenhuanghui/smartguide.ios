@@ -106,7 +106,7 @@
 
 -(NSString *)title
 {
-    return @"Cà phê đọc sách học bài";
+    return @"Cà phê đọc sách học bài Cà phê đọc sách học bài Cà phê đọc sách học bài Cà phê đọc sách học bài";
 }
 
 -(NSString *)image
@@ -114,11 +114,28 @@
     return @"https://lh5.googleusercontent.com/-v2A9-gc2DSQ/AAAAAAAAAAI/AAAAAAAAAAA/Q3DfBN6LCoY/photo.jpg";
 }
 
+-(NSNumber *)idPlacelist
+{
+    return @(1);
+}
+
 #else
 
 -(bool)isHome9Header
 {
     return [self enumType]==USER_HOME_TYPE_9 && ([self.idShops hasData] || [self.idPlacelist hasData]);
+}
+
+-(NSString *)image
+{
+    if(self.imagesObjects.count>0)
+    {
+        UserHomeImage *img=[self.imagesObjects firstObject];
+        
+        return img.image;
+    }
+    
+    return @"";
 }
 
 #endif

@@ -20,11 +20,11 @@
                             <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                         </imageView>
                         <view contentMode="scaleToFill" id="bm0-nh-DUh">
-                            <rect key="frame" x="126" y="2" width="68" height="68"/>
+                            <rect key="frame" x="128" y="4" width="64" height="64"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="iQ5-0K-68Q">
-                                    <rect key="frame" x="0.0" y="0.0" width="68" height="68"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="64" height="64"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 </imageView>
                             </subviews>
@@ -40,7 +40,7 @@
                             <fontDescription key="fontDescription" name="AvenirNext-DemiBoldItalic" family="Avenir Next" pointSize="11"/>
                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
-                            <color key="shadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="shadowColor" white="0.0" alpha="0.20000000000000001" colorSpace="calibratedWhite"/>
                             <size key="shadowOffset" width="0.0" height="1"/>
                         </label>
                     </subviews>

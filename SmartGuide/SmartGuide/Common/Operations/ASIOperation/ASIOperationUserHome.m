@@ -99,13 +99,20 @@
                 break;
                 
             case USER_HOME_TYPE_9:
-                
-                [home makeHomeImage:dict[@"images"]];
+
+                if([dict[@"image"] hasData])
+                {
+                    [home makeHomeImage:@[dict[@"image"]]];
+                }
+                else
+                {
+                    [home makeHomeImage:dict[@"images"]];
+                }
+
                 home.imageHeight=[NSNumber makeNumber:dict[@"imageHeight"]];
                 home.imageWidth=[NSNumber makeNumber:dict[@"imageWidth"]];
                 home.title=[NSString makeString:dict[@"title"]];
-                home.image=[NSString makeString:dict[@"image"]];
-                
+
                 if([dict[@"idPlacelist"] hasData])
                     home.idPlacelist=[NSNumber makeNumber:dict[@"idPlacelist"]];
                 else if([dict[@"idShops"] hasData])

@@ -236,6 +236,11 @@ static char ImageViewDefaultBackgroundKey;
     [self loadImageWithURL:url];
 }
 
+-(void) loadHomeHeaderWithURL:(NSString *)url
+{
+    [self loadImageWithURL:url allowDefaultBackground:true];
+}
+
 -(void) loadShopLogoPromotionHome:(NSString*) url
 {
     [self loadImageWithURL:url];
@@ -402,20 +407,25 @@ static char ImageViewDefaultBackgroundKey;
 
 -(void) loadImageWithURL:(NSString*) url
 {
-    [self loadImageWithURL:url onCompleted:nil resize:nil willSize:CGSizeZero];
+    [self loadImageWithURL:url allowDefaultBackground:false];
+}
+
+-(void) loadImageWithURL:(NSString*) url allowDefaultBackground:(bool) allowDefaultBackground
+{
+    [self loadImageWithURL:url onCompleted:nil resize:nil willSize:CGSizeZero allowDefaultBackground:allowDefaultBackground];
 }
 
 -(void) loadImageWithURL:(NSString*) url onCompleted:(SDWebImageCompletedBlock) completedBlock
 {
-    [self loadImageWithURL:url onCompleted:completedBlock resize:nil willSize:CGSizeZero];
+    [self loadImageWithURL:url onCompleted:completedBlock resize:nil willSize:CGSizeZero allowDefaultBackground:false];
 }
 
 -(void) loadImageWithURL:(NSString*) url resize:(UIImage*(^)(UIImage* image)) resizeMethod willSize:(CGSize) willSize
 {
-    [self loadImageWithURL:url onCompleted:nil resize:resizeMethod willSize:willSize];
+    [self loadImageWithURL:url onCompleted:nil resize:resizeMethod willSize:willSize allowDefaultBackground:false];
 }
 
--(void) loadImageWithURL:(NSString*) url onCompleted:(SDWebImageCompletedBlock) completedBlock resize:(UIImage*(^)(UIImage* image)) resizeMethod willSize:(CGSize) willSize
+-(void) loadImageWithURL:(NSString*) url onCompleted:(SDWebImageCompletedBlock) completedBlock resize:(UIImage*(^)(UIImage* image)) resizeMethod willSize:(CGSize) willSize allowDefaultBackground:(bool) allowDefaultBackground
 {
     if(url.length==0)
     {
@@ -427,7 +437,10 @@ static char ImageViewDefaultBackgroundKey;
     __weak UIImageView *wSelf=self;
     __block bool isCompleted=false;
     
-    [self removeDefaultBackground];
+    if(!allowDefaultBackground)
+        [self removeDefaultBackground];
+    else
+        [self showDefaultBackground];
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         if(wSelf && !isCompleted)
@@ -448,11 +461,20 @@ static char ImageViewDefaultBackgroundKey;
             [wSelf layoutIfNeeded];
             
             if(image)
+            {
                 [wSelf removeLoadingImageSmall];
+                [wSelf removeDefaultBackground];
+            }
             else if(error)
+            {
+                [wSelf removeLoadingImageSmall];
                 [wSelf showDefaultBackground];
+            }
             else // opearation cancelled
+            {
+                [wSelf removeDefaultBackground];
                 [wSelf showLoadingImageSmall];
+            }
             
             if(completedBlock)
                 completedBlock(image,error,cacheType);
