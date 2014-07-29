@@ -1133,6 +1133,7 @@
 		A9F8D4841942BA8100174E90 /* play_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = A9F8D4821942BA8100174E90 /* play_icon.png */; };
 		A9F8D4851942BA8100174E90 /* play_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A9F8D4831942BA8100174E90 /* play_icon@2x.png */; };
 		A9FCC9AE198745ED0088F9A4 /* GradientLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = A9FCC9AD198745ED0088F9A4 /* GradientLayer.m */; };
+		A9FCCA351987AF820088F9A4 /* LinearPartitionGallery.m in Sources */ = {isa = PBXBuildFile; fileRef = A9FCCA341987AF820088F9A4 /* LinearPartitionGallery.m */; };
 		B9874444187D537D004FC17B /* GoogleOpenSource.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AB6CF4A187C499400B8DEA2 /* GoogleOpenSource.framework */; };
 		B9874445187D537E004FC17B /* GooglePlus.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AB6CF4C187C49A100B8DEA2 /* GooglePlus.framework */; };
 /* End PBXBuildFile section */
@@ -2602,6 +2603,8 @@
 		A9F8D4831942BA8100174E90 /* play_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "play_icon@2x.png"; sourceTree = "<group>"; };
 		A9FCC9AC198745ED0088F9A4 /* GradientLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GradientLayer.h; sourceTree = "<group>"; };
 		A9FCC9AD198745ED0088F9A4 /* GradientLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GradientLayer.m; sourceTree = "<group>"; };
+		A9FCCA331987AF820088F9A4 /* LinearPartitionGallery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LinearPartitionGallery.h; sourceTree = "<group>"; };
+		A9FCCA341987AF820088F9A4 /* LinearPartitionGallery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LinearPartitionGallery.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -3794,6 +3797,7 @@
 		A98198B4178D3FA70009FCB6 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				A9FCCA321987AF820088F9A4 /* LinearPartitionGallery */,
 				A9FCC9AB198745DB0088F9A4 /* GradientLayer */,
 				A9BF13D01963C0C800D30EAA /* PeekTitleView */,
 				A9D8576C194A0B8700BABD0B /* BasicAnimation */,
@@ -4858,6 +4862,15 @@
 			path = GradientLayer;
 			sourceTree = "<group>";
 		};
+		A9FCCA321987AF820088F9A4 /* LinearPartitionGallery */ = {
+			isa = PBXGroup;
+			children = (
+				A9FCCA331987AF820088F9A4 /* LinearPartitionGallery.h */,
+				A9FCCA341987AF820088F9A4 /* LinearPartitionGallery.m */,
+			);
+			path = LinearPartitionGallery;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -5861,6 +5874,7 @@
 				A9309CBE19821E1900E16257 /* _UserHomeSection.m in Sources */,
 				9ADCD95E18D19C3F004CB67E /* SDWebImageDownloader.m in Sources */,
 				A939214A19652F060091E804 /* ScanCodeRelated.m in Sources */,
+				A9FCCA351987AF820088F9A4 /* LinearPartitionGallery.m in Sources */,
 				A9A98159193C6BFC00B8512E /* JSTokenField.m in Sources */,
 				A9EB146F1952D79C00191767 /* ShopCameraViewController.m in Sources */,
 				9ADCD96918D19C3F004CB67E /* TPKeyboardAvoidingTableView.m in Sources */,
