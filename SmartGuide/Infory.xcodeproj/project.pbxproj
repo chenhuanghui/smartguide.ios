@@ -1132,6 +1132,7 @@
 		A9EF13CE193583A60062A9BF /* TableTemplateData.m in Sources */ = {isa = PBXBuildFile; fileRef = A9EF13CD193583A60062A9BF /* TableTemplateData.m */; };
 		A9F8D4841942BA8100174E90 /* play_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = A9F8D4821942BA8100174E90 /* play_icon.png */; };
 		A9F8D4851942BA8100174E90 /* play_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A9F8D4831942BA8100174E90 /* play_icon@2x.png */; };
+		A9FCC9AE198745ED0088F9A4 /* GradientLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = A9FCC9AD198745ED0088F9A4 /* GradientLayer.m */; };
 		B9874444187D537D004FC17B /* GoogleOpenSource.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AB6CF4A187C499400B8DEA2 /* GoogleOpenSource.framework */; };
 		B9874445187D537E004FC17B /* GooglePlus.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AB6CF4C187C49A100B8DEA2 /* GooglePlus.framework */; };
 /* End PBXBuildFile section */
@@ -2599,6 +2600,8 @@
 		A9EF13CD193583A60062A9BF /* TableTemplateData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableTemplateData.m; sourceTree = "<group>"; };
 		A9F8D4821942BA8100174E90 /* play_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = play_icon.png; sourceTree = "<group>"; };
 		A9F8D4831942BA8100174E90 /* play_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "play_icon@2x.png"; sourceTree = "<group>"; };
+		A9FCC9AC198745ED0088F9A4 /* GradientLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GradientLayer.h; sourceTree = "<group>"; };
+		A9FCC9AD198745ED0088F9A4 /* GradientLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GradientLayer.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -3791,6 +3794,7 @@
 		A98198B4178D3FA70009FCB6 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				A9FCC9AB198745DB0088F9A4 /* GradientLayer */,
 				A9BF13D01963C0C800D30EAA /* PeekTitleView */,
 				A9D8576C194A0B8700BABD0B /* BasicAnimation */,
 				A9BCA3DE194201E200C93F5D /* MoviePlayerThumbnail */,
@@ -4843,6 +4847,15 @@
 				A9EF13CD193583A60062A9BF /* TableTemplateData.m */,
 			);
 			path = TemplateData;
+			sourceTree = "<group>";
+		};
+		A9FCC9AB198745DB0088F9A4 /* GradientLayer */ = {
+			isa = PBXGroup;
+			children = (
+				A9FCC9AC198745ED0088F9A4 /* GradientLayer.h */,
+				A9FCC9AD198745ED0088F9A4 /* GradientLayer.m */,
+			);
+			path = GradientLayer;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -5993,6 +6006,7 @@
 				9ACE90821875CE8C008FEA7E /* PromotionNews.m in Sources */,
 				A9EB14811952D79C00191767 /* ShopDetailInfoType2Cell.m in Sources */,
 				A925508717B74BAC0096C411 /* OperationRouterMap.m in Sources */,
+				A9FCC9AE198745ED0088F9A4 /* GradientLayer.m in Sources */,
 				A9EB14891952D79C00191767 /* ShopGalleryCell.m in Sources */,
 				9A1E234A18B1CA790077F503 /* _UserPromotion.m in Sources */,
 				A9EF13CE193583A60062A9BF /* TableTemplateData.m in Sources */,
