@@ -373,7 +373,8 @@ enum SHOP_DETAIL_INFO_SECTION_TYPE
             
             [table beginUpdatesAnimationWithDuration:0.15f];
             
-            [table setContentOffset:rect.origin animated:false];
+            if(table.contentOffset.y-rect.origin.y>0)
+                [table setContentOffset:rect.origin animated:false];
             
             [table endUpdatesAnimation];
         }
