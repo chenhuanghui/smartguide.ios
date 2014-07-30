@@ -2832,6 +2832,27 @@ static const NSString *KEY_HIT_TEST_EDGE_INSETS = @"HitTestEdgeInsets";
     return self.loadingView;
 }
 
+-(UITableViewCell *)emptyCell
+{
+#if DEBUG
+    return nil;
+#endif
+    
+    return [UITableViewCell new];
+}
+
+-(enum CELL_POSITION)getCellPosition:(NSIndexPath *)indexPath
+{
+    enum CELL_POSITION cellPos=CELL_POSITION_MIDDLE;
+    
+    if(indexPath.row==0)
+        cellPos=CELL_POSITION_TOP;
+    else if(indexPath.row==[self numberOfRowsInSection:indexPath.section]-1)
+        cellPos=CELL_POSITION_BOTTOM;
+    
+    return cellPos;
+}
+
 @end
 
 @implementation NSMutableParagraphStyle(Utility)

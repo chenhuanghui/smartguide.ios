@@ -10,7 +10,6 @@
                 <outlet property="coverView" destination="L2A-r5-imc" id="Jjt-kz-cie"/>
                 <outlet property="imgvBgCover" destination="zLh-Gz-Zrg" id="qEC-Ne-zRs"/>
                 <outlet property="imgvCover" destination="xYf-ag-n8k" id="Fug-YU-sd3"/>
-                <outlet property="scrollBG" destination="7rY-t7-Y6B" id="ROj-Qt-Pbu"/>
                 <outlet property="table" destination="OST-Jf-nB9" id="Kyn-V2-qJ8"/>
                 <outlet property="view" destination="1" id="3"/>
             </connections>
@@ -35,11 +34,6 @@
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
-                <scrollView autoresizesSubviews="NO" userInteractionEnabled="NO" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" id="7rY-t7-Y6B">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                </scrollView>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" delaysContentTouches="NO" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="OST-Jf-nB9">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

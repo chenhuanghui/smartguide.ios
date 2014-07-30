@@ -9,11 +9,7 @@
 #import "ShopDetailInfoViewController.h"
 #import "GUIManager.h"
 #import "ShopDetailInfoCell.h"
-#import "ShopDetailInfoEmptyCell.h"
-#import "ShopDetailInfoType1Cell.h"
-#import "ShopDetailInfoType2Cell.h"
-#import "ShopDetailInfoType3Cell.h"
-#import "ShopDetailInfoType4Cell.h"
+#import "ShopDetailInfoBlockCell.h"
 #import "ShopDetailInfoHeaderView.h"
 #import "ShopDetailInfoDescCell.h"
 #import "ASIOperationShopDetailInfo.h"
@@ -23,7 +19,14 @@
 #import "ImageManager.h"
 #import "WebViewController.h"
 
-@interface ShopDetailInfoViewController ()<ShopDetailInfoDescCellDelegate,UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate,ASIOperationPostDelegate,ShopDetailInfoType2Delegate>
+enum SHOP_DETAIL_INFO_SECTION_TYPE
+{
+    SHOP_DETAIL_INFO_SECTION_TYPE_INFO=0,
+    SHOP_DETAIL_INFO_SECTION_TYPE_DESC=1,
+    SHOP_DETAIL_INFO_SECTION_TYPE_BLOCK=2,
+};
+
+@interface ShopDetailInfoViewController ()<ShopDetailInfoDescCellDelegate,UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate,ASIOperationPostDelegate>
 {
     ASIOperationShopDetailInfo *_operation;
     enum SHOP_DETAIL_INFO_DESCRIPTION_MODE _descMode;
@@ -67,17 +70,13 @@
     [self storeRect];
     
     [table registerShopDetailInfoCell];
-    [table registerNib:[UINib nibWithNibName:[ShopDetailInfoEmptyCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[ShopDetailInfoEmptyCell reuseIdentifier]];
-    [table registerNib:[UINib nibWithNibName:[ShopDetailInfoType1Cell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[ShopDetailInfoType1Cell reuseIdentifier]];
-    [table registerNib:[UINib nibWithNibName:[ShopDetailInfoType2Cell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[ShopDetailInfoType2Cell reuseIdentifier]];
-    [table registerShopDetailInfoType3Cell];
-    [table registerNib:[UINib nibWithNibName:[ShopDetailInfoType4Cell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[ShopDetailInfoType4Cell reuseIdentifier]];
+    [table registerShopDetailInfoBlockCell];
     [table registerShopDetailInfoDescCell];
     
     _infos=[NSMutableArray new];
     _didLoadShopDetail=false;
     _descMode=SHOP_DETAIL_INFO_DESCRIPTION_NORMAL;
-
+    
     [self requestShopDetailInfo];
     
     if(_shop.shopGalleriesObjects.count>0)
@@ -112,56 +111,6 @@
 -(void) removeLoading
 {
     
-}
-
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    UITableViewCell *cell=[tableView cellForRowAtIndexPath:indexPath];
-    
-    if([cell isKindOfClass:[ShopDetailInfoType3Cell class]])
-    {
-        ShopDetailInfoType3Cell *infoCell=(ShopDetailInfoType3Cell*)cell;
-
-        if(infoCell.info.idShop.integerValue!=0)
-        {
-            [self.delegate shopDetailInfoControllerTouchedShop:self idShop:infoCell.info.idShop.integerValue];
-        }
-    }
-    else if([cell isKindOfClass:[ShopDetailInfoDescCell class]])
-    {
-        ShopDetailInfoDescCell *descCell=(ShopDetailInfoDescCell*) cell;
-        
-        if(!descCell.canReadMore)
-            return;
-        
-        _descMode=_descMode==SHOP_DETAIL_INFO_DESCRIPTION_NORMAL?SHOP_DETAIL_INFO_DESCRIPTION_FULL:SHOP_DETAIL_INFO_DESCRIPTION_NORMAL;
-        
-        [descCell loadWithShop:_shop mode:_descMode];
-        [descCell markedAnimation];
-        
-        [tableView beginUpdates];
-        [tableView endUpdates];
-        
-        [descCell animationWithMode:_descMode duration:DURATION_DEFAULT];
-        
-        [UIView animateWithDuration:DURATION_DEFAULT animations:^{
-            [self reloadBGViews];
-        }];
- 
-        CGRect rect=descCell.frame;
-        
-        if(_descMode==SHOP_DETAIL_INFO_DESCRIPTION_FULL)
-            [tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:true];
-        else
-        {
-            if(tableView.contentOffset.y<rect.origin.y)
-                [tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:true];
-            else
-            {
-                [tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:true];
-            }
-        }
-    }
 }
 
 -(void)ASIOperaionPostFinished:(ASIOperationPost *)operation
@@ -202,8 +151,6 @@
             
             [coverView l_v_setY:y];
         }
-        
-        scrollBG.contentOffset=table.contentOffset;
     }
 }
 
@@ -229,26 +176,24 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    switch (section) {
-        case 0: //address
+    switch ((enum SHOP_DETAIL_INFO_SECTION_TYPE) section) {
+        case SHOP_DETAIL_INFO_SECTION_TYPE_INFO: //address
             return 1;
             
-        case 1: //desc
+        case SHOP_DETAIL_INFO_SECTION_TYPE_DESC: //desc
             return 1;
             
-        default:
-        {
-            InfoTypeObject *obj=_infos[section-2];
-
-            return obj.items.count;
-        }
+        case SHOP_DETAIL_INFO_SECTION_TYPE_BLOCK:
+            return 1;
     }
+    
+    return 0;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    switch (indexPath.section) {
-        case 0:
+    switch ((enum SHOP_DETAIL_INFO_SECTION_TYPE) indexPath.section) {
+        case SHOP_DETAIL_INFO_SECTION_TYPE_INFO:
         {
             ShopDetailInfoCell *cell=[tableView shopDetailInfoCell];
             
@@ -258,44 +203,24 @@
             return [cell suggestHeight];
         }
             
-        case 1:
-            if(indexPath.row==0)
-            {
+        case SHOP_DETAIL_INFO_SECTION_TYPE_DESC:
+        {
                 ShopDetailInfoDescCell *cell=[tableView shopDetailInfoDescCell];
                 
                 [cell loadWithShop:_shop mode:_descMode];
                 [cell layoutSubviews];
                 
                 return [cell suggestHeight];
-            }
+        }
             
-        default:
+        case SHOP_DETAIL_INFO_SECTION_TYPE_BLOCK:
         {
-            InfoTypeObject *obj=_infos[indexPath.section-2];
+            ShopDetailInfoBlockCell *cell=[tableView shopDetailInfoBlockCell];
             
-            switch (obj.enumType) {
-                case DETAIL_INFO_TYPE_1:
-                    return [ShopDetailInfoType1Cell heightWithInfo1:obj.items[indexPath.row]];
-                    
-                case DETAIL_INFO_TYPE_2:
-                    return [ShopDetailInfoType2Cell heightWithInfo2:obj.items[indexPath.row]];
-                    
-                case DETAIL_INFO_TYPE_3:
-                {
-                    ShopDetailInfoType3Cell *cell=[tableView shopDetailInfoType3Cell];
-                    
-                    [cell loadWithInfo3:obj.items[indexPath.row]];
-                    [cell layoutSubviews];
-                    
-                    return [cell suggestHeight];
-                }
-                    
-                case DETAIL_INFO_TYPE_4:
-                    return [ShopDetailInfoType4Cell heightWithInfo4:obj.items[indexPath.row]];
-                    
-                case DETAIL_INFO_TYPE_UNKNOW:
-                    return 0;
-            }
+            [cell loadWithInfoObject:_infos[indexPath.section-2]];
+            [cell layoutSubviews];
+            
+            return [cell suggestHeight];
         }
     }
     
@@ -304,8 +229,8 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    switch (indexPath.section) {
-        case 0:
+    switch ((enum SHOP_DETAIL_INFO_SECTION_TYPE)indexPath.section) {
+        case SHOP_DETAIL_INFO_SECTION_TYPE_INFO:
         {
             ShopDetailInfoCell *cell=[table shopDetailInfoCell];
             
@@ -314,31 +239,35 @@
             return cell;
         }
             
-        case 1:
+        case SHOP_DETAIL_INFO_SECTION_TYPE_DESC:
         {
-            if(indexPath.row==0)
-            {
-                ShopDetailInfoDescCell *cell=[tableView shopDetailInfoDescCell];
-                cell.delegate=self;
-                
-                [cell loadWithShop:_shop mode:_descMode];
-                
-                return cell;
-            }
-            else
-                return [self emptyCell];
+            ShopDetailInfoDescCell *cell=[tableView shopDetailInfoDescCell];
+            cell.delegate=self;
+            
+            [cell loadWithShop:_shop mode:_descMode];
+            
+            return cell;
         }
             
-        default:
-            return [self cellWithIndexPath:indexPath];
+        case SHOP_DETAIL_INFO_SECTION_TYPE_BLOCK:
+        {
+            ShopDetailInfoBlockCell *cell=[tableView shopDetailInfoBlockCell];
+            [cell loadWithInfoObject:_infos[indexPath.section-2]];
+
+            return cell;
+        }
     }
+    
+    return [tableView emptyCell];
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    switch (section) {
-        case 0:
+    switch ((enum SHOP_DETAIL_INFO_SECTION_TYPE) section) {
+        case SHOP_DETAIL_INFO_SECTION_TYPE_INFO:
             return 0;
+        case SHOP_DETAIL_INFO_SECTION_TYPE_DESC:
+            return [ShopDetailInfoHeaderView height];
             
         default:
             return [ShopDetailInfoHeaderView height];
@@ -348,7 +277,7 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
     if(section==tableView.numberOfSections-1)
-        return 0;
+        return 5;
     
     return 25;
 }
@@ -386,181 +315,23 @@
     }
 }
 
--(UITableViewCell*) emptyCell
-{
-    UITableViewCell *emptyCell=[table dequeueReusableCellWithIdentifier:@"emptyCell"];
-    
-    if(!emptyCell)
-    {
-        emptyCell=[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"emptyCell"];
-        emptyCell.backgroundColor=[UIColor clearColor];
-        emptyCell.contentView.backgroundColor=[UIColor clearColor];
-        emptyCell.backgroundView.backgroundColor=[UIColor clearColor];
-        emptyCell.selectionStyle=UITableViewCellSelectionStyleNone;
-    }
-    
-    return emptyCell;
-}
-
--(UITableViewCell*) cellWithIndexPath:(NSIndexPath*) indexPath
-{
-    InfoTypeObject *obj=_infos[indexPath.section-2];
-    
-    if(indexPath.row==obj.items.count)
-    {
-        return [self emptyCell];
-    }
-    
-    switch (obj.enumType) {
-        case DETAIL_INFO_TYPE_1:
-        {
-            Info1 *item=obj.items[indexPath.row];
-            
-            ShopDetailInfoType1Cell *cell=[table dequeueReusableCellWithIdentifier:[ShopDetailInfoType1Cell reuseIdentifier]];
-            
-            [cell loadWithInfo1:item];
-            
-            if(indexPath.row==obj.items.count-1)
-                [cell setCellPos:CELL_POSITION_BOTTOM];
-            else if(indexPath.row==0)
-                [cell setCellPos:CELL_POSITION_TOP];
-            else
-                [cell setCellPos:CELL_POSITION_MIDDLE];
-            
-            return cell;
-        }
-            
-        case DETAIL_INFO_TYPE_2:
-        {
-            Info2 *item=obj.items[indexPath.row];
-            
-            ShopDetailInfoType2Cell *cell=[table dequeueReusableCellWithIdentifier:[ShopDetailInfoType2Cell reuseIdentifier]];
-            
-            cell.delegate=self;
-            [cell loadWithInfo2:item];
-            
-            if(indexPath.row==obj.items.count-1)
-                [cell setCellPos:CELL_POSITION_BOTTOM];
-            else if(indexPath.row==0)
-                [cell setCellPos:CELL_POSITION_TOP];
-            else
-                [cell setCellPos:CELL_POSITION_MIDDLE];
-            
-            return cell;
-        }
-            
-        case DETAIL_INFO_TYPE_3:
-        {
-            Info3 *item=obj.items[indexPath.row];
-            
-            ShopDetailInfoType3Cell *cell=[table shopDetailInfoType3Cell];
-            
-            [cell loadWithInfo3:item];
-            
-            if(indexPath.row==obj.items.count-1)
-                [cell setCellPos:CELL_POSITION_BOTTOM];
-            else if(indexPath.row==0)
-                [cell setCellPos:CELL_POSITION_TOP];
-            else
-                [cell setCellPos:CELL_POSITION_MIDDLE];
-            
-            return cell;
-        }
-            
-        case DETAIL_INFO_TYPE_4:
-        {
-            Info4 *item=obj.items[indexPath.row];
-            
-            ShopDetailInfoType4Cell *cell=[table dequeueReusableCellWithIdentifier:[ShopDetailInfoType4Cell reuseIdentifier]];
-            
-            [cell loadWithInfo4:item];
-            
-            if(indexPath.row==obj.items.count-1)
-                [cell setCellPos:CELL_POSITION_BOTTOM];
-            else if(indexPath.row==0)
-                [cell setCellPos:CELL_POSITION_TOP];
-            else
-                [cell setCellPos:CELL_POSITION_MIDDLE];
-            
-            return cell;
-        }
-            
-        case DETAIL_INFO_TYPE_UNKNOW:
-            break;
-    }
-    
-    return [UITableViewCell new];
-}
-
--(void)shopDetailInfoType2TouchedURL:(ShopDetailInfoType2Cell *)cell url:(NSURL *)url
-{
-    [self.delegate shopDetailInfoControllerTouchedURL:self url:url];
-}
-
 -(void)shopDetailInfoDescCellTouchedReadLess:(ShopDetailInfoDescCell *)cell
 {
     _descMode=SHOP_DETAIL_INFO_DESCRIPTION_NORMAL;
-    [self reloadData];
+    [table beginUpdates];
+    [table endUpdates];
 }
 
 -(void)shopDetailInfoDescCellTouchedReadMore:(ShopDetailInfoDescCell *)cell
 {
     _descMode=SHOP_DETAIL_INFO_DESCRIPTION_FULL;
-    [self reloadData];
-}
-
--(void) syncScroll
-{
-    scrollBG.contentOffset=table.contentOffset;
+    [table beginUpdates];
+    [table endUpdates];
 }
 
 -(void) reloadData
 {
     [table reloadData];
-    
-    [self syncScroll];
-    
-    [self clearBGView];
-    
-    int sectionCount=[table numberOfSections];
-    
-    for(int i=1;i<sectionCount;i++)
-    {
-        ShopDetailBGView *bg=[[ShopDetailBGView alloc] initWithFrame:[self rectForBackgroundView:i]];
-        
-        bg.section=i;
-        
-        [scrollBG addSubview:bg];
-    }
-}
-
--(void) reloadBGViews
-{
-    for(ShopDetailBGView *bg in scrollBG.subviews)
-    {
-        bg.frame=[self rectForBackgroundView:bg.section];
-    }
-}
-
--(CGRect) rectForBackgroundView:(int) section
-{
-    float headerHeight=[table rectForHeaderInSection:section].size.height;
-    
-    if(headerHeight>0)
-        headerHeight-=43-38;
-    
-    CGRect rect=[table rectForSection:section];
-    rect.size.width=300;
-    rect.size.height-=[table rectForFooterInSection:section].size.height+headerHeight;
-    rect.origin.y+=headerHeight;
-    rect.origin.x=10;
-    
-    return rect;
-}
-
--(void) clearBGView
-{
-    [scrollBG.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
 }
 
 @end

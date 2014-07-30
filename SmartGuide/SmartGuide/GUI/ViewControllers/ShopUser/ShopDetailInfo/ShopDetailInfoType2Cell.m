@@ -94,3 +94,17 @@
 }
 
 @end
+
+@implementation UITableView(ShopDetailInfoType2Cell)
+
+-(void)registerShopDetailInfoType2Cell
+{
+    [self registerNib:[UINib nibWithNibName:[ShopDetailInfoType2Cell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[ShopDetailInfoType2Cell reuseIdentifier]];
+}
+
+-(ShopDetailInfoType2Cell *)shopDetailInfoType2Cell
+{
+    return [self dequeueReusableCellWithIdentifier:[ShopDetailInfoType2Cell reuseIdentifier]];
+}
+
+@end

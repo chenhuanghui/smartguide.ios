@@ -14,6 +14,11 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="24"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
+                    <view contentMode="scaleToFill" id="1RL-23-t2j" customClass="ShopDetailBGView">
+                        <rect key="frame" x="10" y="0.0" width="300" height="25"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
                     <view autoresizesSubviews="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" id="MVO-K4-UCB">
                         <rect key="frame" x="23" y="0.0" width="274" height="0.0"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>

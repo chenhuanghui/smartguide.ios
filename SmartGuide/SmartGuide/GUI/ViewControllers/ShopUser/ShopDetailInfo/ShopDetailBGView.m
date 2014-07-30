@@ -17,6 +17,26 @@
     
     self.backgroundColor=[UIColor clearColor];
     
+    [self addControl];
+    
+    return self;
+}
+
+-(void)awakeFromNib
+{
+    [super awakeFromNib];
+    
+    self.backgroundColor=[UIColor clearColor];
+    [self addControl];
+}
+
+-(void) addControl
+{
+    if(self.subviews.count>0)
+        return;
+    
+    CGRect frame=self.frame;
+    
     UIView *view=[[UIView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height-5)];
     view.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"bg_detail_info_mid.png"]];
     view.userInteractionEnabled=false;
@@ -29,8 +49,6 @@
     imgv.autoresizingMask=UIViewAutoresizingNone;
     
     [self addSubview:imgv];
-    
-    return self;
 }
 
 -(void)setFrame:(CGRect)frame

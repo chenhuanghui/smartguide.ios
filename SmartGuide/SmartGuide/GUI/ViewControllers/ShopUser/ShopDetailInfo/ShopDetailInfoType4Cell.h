@@ -26,3 +26,10 @@
 +(NSString *)reuseIdentifier;
 
 @end
+
+@interface UITableView(ShopDetailInfoType4Cell)
+
+-(void) registerShopDetailInfoType4Cell;
+-(ShopDetailInfoType4Cell*) shopDetailInfoType4Cell;
+
+@end

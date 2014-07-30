@@ -36,3 +36,10 @@
 @property (nonatomic, weak) id<ShopDetailInfoType2Delegate> delegate;
 
 @end
+
+@interface UITableView(ShopDetailInfoType2Cell)
+
+-(void) registerShopDetailInfoType2Cell;
+-(ShopDetailInfoType2Cell*) shopDetailInfoType2Cell;
+
+@end

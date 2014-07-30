@@ -25,3 +25,10 @@
 +(float) heightWithInfo1:(Info1*) info1;
 
 @end
+
+@interface UITableView(ShopDetailInfoType1Cell)
+
+-(void) registerShopDetailInfoType1Cell;
+-(ShopDetailInfoType1Cell*) shopDetailInfoType1Cell;
+
+@end

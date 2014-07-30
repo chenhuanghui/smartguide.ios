@@ -465,6 +465,9 @@ NSSortDescriptor *sortDesc(NSString *key, BOOL ascending);
 -(UIView*) showLoadingBelowSection:(int) section;
 -(UIView*) showLoadingBelowIndexPath:(NSIndexPath*) indexPath;
 
+-(UITableViewCell*) emptyCell;
+-(enum CELL_POSITION) getCellPosition:(NSIndexPath*) indexPath;
+
 @end
 
 @interface NSMutableParagraphStyle(Utility)
