@@ -349,9 +349,9 @@
     return @"Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh";
 }
 
--(NSString *)desc1
+-(NSString *)desc
 {
-    return @"Lorem ipsum dolor sit amet, consectetuer adipiscing  ";
+    return [NSString stringWithFormat:@"%@ %@ %@",[super desc], [super desc], [super desc]];
 }
 #endif
 

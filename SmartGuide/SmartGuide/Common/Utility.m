@@ -2834,11 +2834,21 @@ static const NSString *KEY_HIT_TEST_EDGE_INSETS = @"HitTestEdgeInsets";
 
 -(UITableViewCell *)emptyCell
 {
-#if DEBUG
-    return nil;
-#endif
+    DLOG_DEBUG(@"emptyCell");
     
-    return [UITableViewCell new];
+    UITableViewCell *cell=[self dequeueReusableCellWithIdentifier:@"emptyCell"];
+    
+    if(!cell)
+    {
+        cell=[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"emptyCell"];
+        cell.backgroundColor=[UIColor clearColor];
+        cell.contentView.backgroundColor=[UIColor clearColor];
+        cell.selectionStyle=UITableViewCellSelectionStyleNone;
+        cell.userInteractionEnabled=false;
+        cell.contentView.userInteractionEnabled=false;
+    }
+    
+    return cell;
 }
 
 -(enum CELL_POSITION)getCellPosition:(NSIndexPath *)indexPath
@@ -2883,7 +2893,8 @@ static const NSString *KEY_HIT_TEST_EDGE_INSETS = @"HitTestEdgeInsets";
 {
     [CATransaction setCompletionBlock:completed];
     
-    action();
+    if(action)
+        action();
 }
 
 -(void)endUpdatesAnimation
@@ -2891,6 +2902,18 @@ static const NSString *KEY_HIT_TEST_EDGE_INSETS = @"HitTestEdgeInsets";
     [self endUpdates];
     [CATransaction commit];
     [UIView commitAnimations];
+}
+
+@end
+
+@implementation UILabel(Utility)
+
+-(void)sizeToFitDisableAnimation
+{
+    bool isAnimationEnabled=[UIView areAnimationsEnabled];
+    [UIView setAnimationsEnabled:false];
+    [self sizeToFit];
+    [UIView setAnimationsEnabled:isAnimationEnabled];
 }
 
 @end

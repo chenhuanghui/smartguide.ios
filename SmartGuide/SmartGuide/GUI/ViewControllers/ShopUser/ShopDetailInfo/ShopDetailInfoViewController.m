@@ -181,10 +181,13 @@ enum SHOP_DETAIL_INFO_SECTION_TYPE
             return 1;
             
         case SHOP_DETAIL_INFO_SECTION_TYPE_DESC: //desc
-            return 1;
+            return 2;
             
-        case SHOP_DETAIL_INFO_SECTION_TYPE_BLOCK:
-            return 1;
+        default:
+            if(section==[table numberOfSections]-1)
+                return 1;
+            
+            return 2;
     }
     
     return 0;
@@ -205,22 +208,32 @@ enum SHOP_DETAIL_INFO_SECTION_TYPE
             
         case SHOP_DETAIL_INFO_SECTION_TYPE_DESC:
         {
+            if(indexPath.row==0)
+            {
                 ShopDetailInfoDescCell *cell=[tableView shopDetailInfoDescCell];
                 
                 [cell loadWithShop:_shop mode:_descMode];
                 [cell layoutSubviews];
                 
                 return [cell suggestHeight];
+            }
+            
+            return 25.f;
         }
             
-        case SHOP_DETAIL_INFO_SECTION_TYPE_BLOCK:
+        default:
         {
-            ShopDetailInfoBlockCell *cell=[tableView shopDetailInfoBlockCell];
+            if(indexPath.row==0)
+            {
+                ShopDetailInfoBlockCell *cell=[tableView shopDetailInfoBlockCell];
+                
+                [cell loadWithInfoObject:_infos[indexPath.section-2]];
+                [cell layoutSubviews];
+                
+                return [cell suggestHeight];
+            }
             
-            [cell loadWithInfoObject:_infos[indexPath.section-2]];
-            [cell layoutSubviews];
-            
-            return [cell suggestHeight];
+            return 25;
         }
     }
     
@@ -241,20 +254,30 @@ enum SHOP_DETAIL_INFO_SECTION_TYPE
             
         case SHOP_DETAIL_INFO_SECTION_TYPE_DESC:
         {
-            ShopDetailInfoDescCell *cell=[tableView shopDetailInfoDescCell];
-            cell.delegate=self;
+            if(indexPath.row==0)
+            {
+                ShopDetailInfoDescCell *cell=[tableView shopDetailInfoDescCell];
+                cell.delegate=self;
+                
+                [cell loadWithShop:_shop mode:_descMode];
+                
+                return cell;
+            }
             
-            [cell loadWithShop:_shop mode:_descMode];
-            
-            return cell;
+            return [tableView emptyCell];
         }
             
-        case SHOP_DETAIL_INFO_SECTION_TYPE_BLOCK:
+        default:
         {
-            ShopDetailInfoBlockCell *cell=[tableView shopDetailInfoBlockCell];
-            [cell loadWithInfoObject:_infos[indexPath.section-2]];
-
-            return cell;
+            if(indexPath.row==0)
+            {
+                ShopDetailInfoBlockCell *cell=[tableView shopDetailInfoBlockCell];
+                [cell loadWithInfoObject:_infos[indexPath.section-2]];
+                
+                return cell;
+            }
+            
+            return [table emptyCell];
         }
     }
     
@@ -273,22 +296,6 @@ enum SHOP_DETAIL_INFO_SECTION_TYPE
             return [ShopDetailInfoHeaderView height];
     }
 }
-
--(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
-{
-    if(section==tableView.numberOfSections-1)
-        return 5;
-    
-    return 25;
-}
-
--(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
-{
-    UIView *v=[UIView new];
-    v.backgroundColor=[UIColor clearColor];
-    return v;
-}
-
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
@@ -318,15 +325,26 @@ enum SHOP_DETAIL_INFO_SECTION_TYPE
 -(void)shopDetailInfoDescCellTouchedReadLess:(ShopDetailInfoDescCell *)cell
 {
     _descMode=SHOP_DETAIL_INFO_DESCRIPTION_NORMAL;
-    [table beginUpdates];
-    [table endUpdates];
+    
+    NSIndexPath *idx=[table indexPathForCell:cell];
+    CGRect rect=[table rectForSection:idx.section];
+    [cell switchToMode:_descMode duration:0.15f];
+    
+    [table beginUpdatesAnimationWithDuration:0.15f];
+    
+    [table setContentOffset:rect.origin animated:false];
+    
+    [table endUpdatesAnimation];
 }
 
 -(void)shopDetailInfoDescCellTouchedReadMore:(ShopDetailInfoDescCell *)cell
 {
     _descMode=SHOP_DETAIL_INFO_DESCRIPTION_FULL;
-    [table beginUpdates];
-    [table endUpdates];
+    
+    [cell switchToMode:_descMode duration:0.15f];
+    
+    [table beginUpdatesAnimationWithDuration:0.15f];
+    [table endUpdatesAnimation];
 }
 
 -(void) reloadData

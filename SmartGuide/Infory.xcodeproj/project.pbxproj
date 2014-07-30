@@ -862,6 +862,7 @@
 		A93F20611797CF7600622D75 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A93F20601797CF7600622D75 /* AddressBook.framework */; };
 		A94EACC91988AD1C00CE59C4 /* ShopDetailInfoBlockCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A94EACC71988AD1C00CE59C4 /* ShopDetailInfoBlockCell.m */; };
 		A94EACCA1988AD1C00CE59C4 /* ShopDetailInfoBlockCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A94EACC81988AD1C00CE59C4 /* ShopDetailInfoBlockCell.xib */; };
+		A94EACCE1988D89A00CE59C4 /* LabelSimple.m in Sources */ = {isa = PBXBuildFile; fileRef = A94EACCD1988D89A00CE59C4 /* LabelSimple.m */; };
 		A9501E2A197686BD00A2E66E /* Comment.png in Resources */ = {isa = PBXBuildFile; fileRef = A9501E28197686BD00A2E66E /* Comment.png */; };
 		A9501E2B197686BD00A2E66E /* Comment@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A9501E29197686BD00A2E66E /* Comment@2x.png */; };
 		A959E9591974EA5F00129AB8 /* ScanResultInforyShareCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A959E9571974EA5F00129AB8 /* ScanResultInforyShareCell.m */; };
@@ -2212,6 +2213,8 @@
 		A94EACC61988AD1C00CE59C4 /* ShopDetailInfoBlockCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopDetailInfoBlockCell.h; sourceTree = "<group>"; };
 		A94EACC71988AD1C00CE59C4 /* ShopDetailInfoBlockCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopDetailInfoBlockCell.m; sourceTree = "<group>"; };
 		A94EACC81988AD1C00CE59C4 /* ShopDetailInfoBlockCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShopDetailInfoBlockCell.xib; sourceTree = "<group>"; };
+		A94EACCC1988D89A00CE59C4 /* LabelSimple.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LabelSimple.h; sourceTree = "<group>"; };
+		A94EACCD1988D89A00CE59C4 /* LabelSimple.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LabelSimple.m; sourceTree = "<group>"; };
 		A9501E28197686BD00A2E66E /* Comment.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Comment.png; sourceTree = "<group>"; };
 		A9501E29197686BD00A2E66E /* Comment@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Comment@2x.png"; sourceTree = "<group>"; };
 		A959E9561974EA5F00129AB8 /* ScanResultInforyShareCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScanResultInforyShareCell.h; sourceTree = "<group>"; };
@@ -3629,6 +3632,15 @@
 			path = Operations;
 			sourceTree = "<group>";
 		};
+		A94EACCB1988D88E00CE59C4 /* LabelSimple */ = {
+			isa = PBXGroup;
+			children = (
+				A94EACCC1988D89A00CE59C4 /* LabelSimple.h */,
+				A94EACCD1988D89A00CE59C4 /* LabelSimple.m */,
+			);
+			path = LabelSimple;
+			sourceTree = "<group>";
+		};
 		A95B1AD91965A6EC006E9B27 /* ScanResultInfory */ = {
 			isa = PBXGroup;
 			children = (
@@ -3797,6 +3809,7 @@
 		A98198B4178D3FA70009FCB6 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				A94EACCB1988D88E00CE59C4 /* LabelSimple */,
 				A9FCCA321987AF820088F9A4 /* LinearPartitionGallery */,
 				A9FCC9AB198745DB0088F9A4 /* GradientLayer */,
 				A9BF13D01963C0C800D30EAA /* PeekTitleView */,
@@ -5826,6 +5839,7 @@
 				9ACA8BFD1876ABE00018C8E3 /* OperationSearchAutocomplete.m in Sources */,
 				9ACF7A8B18698E3700B0BC78 /* UserHome3.m in Sources */,
 				A9CFD3681797FCE60035E448 /* User.m in Sources */,
+				A94EACCE1988D89A00CE59C4 /* LabelSimple.m in Sources */,
 				A9EB148B1952D79C00191767 /* ShopGalleryControllerCell.m in Sources */,
 				9ACE90851875CE92008FEA7E /* _PromotionNews.m in Sources */,
 				A9CFD36B1797FCEC0035E448 /* _User.m in Sources */,

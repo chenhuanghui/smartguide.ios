@@ -32,13 +32,12 @@ enum SHOP_DETAIL_INFO_DESCRIPTION_MODE {
     
     enum SHOP_DETAIL_INFO_DESCRIPTION_MODE _mode;
     __weak Shop *_shop;
-    bool _markedAnimation;
+    bool _isAnimation;
 }
 
 -(void) loadWithShop:(Shop*) shop mode:(enum SHOP_DETAIL_INFO_DESCRIPTION_MODE) mode;
--(void) animationWithMode:(enum SHOP_DETAIL_INFO_DESCRIPTION_MODE) mode duration:(float) duration;
 -(bool) canReadMore;
--(void) markedAnimation;
+-(void) switchToMode:(enum SHOP_DETAIL_INFO_DESCRIPTION_MODE) mode duration:(float) duration;
 
 +(NSString *)reuseIdentifier;
 

@@ -19,57 +19,59 @@
 {
     _shop=shop;
     _mode=mode;
-    _markedAnimation=false;
+    _isAnimation=false;
+    
+    [self setNeedsLayout];
 }
 
--(void)markedAnimation
+-(void)switchToMode:(enum SHOP_DETAIL_INFO_DESCRIPTION_MODE)mode duration:(float) duration
 {
-    _markedAnimation=true;
-}
-
--(void)animationWithMode:(enum SHOP_DETAIL_INFO_DESCRIPTION_MODE)mode duration:(float)duration
-{
-    switch (mode) {
-        case SHOP_DETAIL_INFO_DESCRIPTION_NORMAL:
-        {
-            lbl.numberOfLines=3;
-            [lbl l_v_setW:274];
-            [lbl sizeToFit];
-            
-            float height=lbl.l_v_h;
-            
-            lbl.numberOfLines=0;
-            [lbl l_v_setW:274];
-            [lbl sizeToFit];
-            
-            [UIView animateWithDuration:duration animations:^{
-                [lblView l_v_setH:height];
-                blur.alpha=1;
-                [blur l_v_setY:lblView.l_v_y+lblView.l_v_h-blur.l_v_h];
-                [btn l_v_setY:lblView.l_v_y+lblView.l_v_h];
-                
-            } completion:^(BOOL finished) {
-                lbl.numberOfLines=3;
-                [lbl l_v_setW:274];
-                [lbl sizeToFit];
-                [btn setTitle:@"Xem thêm" forState:UIControlStateNormal];
-            }];
-        }
-            break;
-            
+    _mode=mode;
+    _isAnimation=true;
+    
+    [lbl l_v_setW:274];
+    
+    switch (_mode) {
         case SHOP_DETAIL_INFO_DESCRIPTION_FULL:
+        {
             lbl.numberOfLines=0;
-            [lbl l_v_setW:274];
             [lbl sizeToFit];
             
             [UIView animateWithDuration:duration animations:^{
                 [lblView l_v_setH:lbl.l_v_h];
                 [btn l_v_setY:lbl.l_v_y+lbl.l_v_h];
-                [blur l_v_setY:lblView.l_v_y+lblView.l_v_h-blur.l_v_h];
                 blur.alpha=0;
+                [blur l_v_setY:lbl.l_v_y+lbl.l_v_h-blur.l_v_h];
             } completion:^(BOOL finished) {
-                [btn setTitle:@"Rút gọn" forState:UIControlStateNormal];
+                _isAnimation=false;
             }];
+        }
+            break;
+            
+        case SHOP_DETAIL_INFO_DESCRIPTION_NORMAL:
+        {
+            lbl.numberOfLines=3;
+            [lbl sizeToFit];
+            
+            float labelHeight=lbl.l_v_h;
+            
+            lbl.numberOfLines=0;
+            [lbl l_v_setW:274];
+            [lbl sizeToFit];
+            
+            [UIView animateWithDuration:duration animations:^{
+                [lblView l_v_setH:labelHeight];
+                [btn l_v_setY:lblView.l_v_y+lblView.l_v_h];
+                blur.alpha=1;
+                [blur l_v_setY:lblView.l_v_y+lblView.l_v_h-blur.l_v_h];
+            } completion:^(BOOL finished) {
+                [lbl l_v_setW:274];
+                lbl.numberOfLines=3;
+                [lbl sizeToFit];
+                
+                _isAnimation=false;
+            }];
+        }
             break;
     }
 }
@@ -78,7 +80,7 @@
 {
     [super layoutSubviews];
     
-    if(_markedAnimation)
+    if(_isAnimation)
         return;
     
     NSDictionary *attr=@{NSFontAttributeName:lbl.font
@@ -127,22 +129,9 @@
             break;
     }
     
-    if(_markedAnimation)
-    {
-        [UIView animateWithDuration:DURATION_DEFAULT animations:^{
-            [lblView l_v_setH:lbl.l_v_h];
-            [blur l_v_setY:lbl.l_v_y+lbl.l_v_h-blur.l_v_h];
-            [btn l_v_setY:lbl.l_v_y+lbl.l_v_h];
-        }];
-    }
-    else
-    {
-        [lblView l_v_setH:lbl.l_v_h];
-        [blur l_v_setY:lbl.l_v_y+lbl.l_v_h-blur.l_v_h];
-        [btn l_v_setY:lbl.l_v_y+lbl.l_v_h];
-    }
-    
-    _markedAnimation=false;
+    [lblView l_v_setH:lbl.l_v_h];
+    [blur l_v_setY:lbl.l_v_y+lbl.l_v_h-blur.l_v_h];
+    [btn l_v_setY:lbl.l_v_y+lbl.l_v_h];
     
     if(btn.hidden)
     {

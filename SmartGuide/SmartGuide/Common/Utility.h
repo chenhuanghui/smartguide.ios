@@ -483,3 +483,9 @@ NSSortDescriptor *sortDesc(NSString *key, BOOL ascending);
 -(void) endUpdatesAnimation;
 
 @end
+
+@interface UILabel(Utility)
+
+-(void)sizeToFitDisableAnimation;
+
+@end
