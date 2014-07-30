@@ -223,10 +223,12 @@
 {
     Info3 *obj=[Info3 new];
     
-    obj.image=[NSString stringWithStringDefault:dict[@"image"]];
-    obj.title=[NSString stringWithStringDefault:dict[@"title"]];
-    obj.content=[NSString stringWithStringDefault:dict[@"content"]];
-    obj.idShop=[NSNumber numberWithObject:dict[@"idShop"]];
+    obj.image=[NSString makeString:dict[@"image"]];
+    obj.title=[NSString makeString:dict[@"title"]];
+    obj.content=[NSString makeString:dict[@"content"]];
+    
+    if([dict[@"idShop"] hasData])
+        obj.idShop=[NSNumber makeNumber:dict[@"idShop"]];
     
     return obj;
 }

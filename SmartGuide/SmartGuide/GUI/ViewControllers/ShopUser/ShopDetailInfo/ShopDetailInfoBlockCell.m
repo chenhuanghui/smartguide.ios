@@ -97,6 +97,7 @@
             
             [cell loadWithInfo2:info];
             [cell setCellPos:[tableView getCellPosition:indexPath]];
+            cell.delegate=self;
             
             return cell;
         }
@@ -128,9 +129,22 @@
     return [UITableViewCell new];
 }
 
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *selectedCell=[tableView cellForRowAtIndexPath:indexPath];
+    
+    if([selectedCell isKindOfClass:[ShopDetailInfoType3Cell class]])
+    {
+        ShopDetailInfoType3Cell *cell=(id)selectedCell;
+        
+        if([cell.info.idShop hasData])
+            [self.delegate shopDetailInfoBlockCell:self touchedIDShop:cell.info.idShop.integerValue];
+    }
+}
+
 -(void)shopDetailInfoType2TouchedURL:(ShopDetailInfoType2Cell *)cell url:(NSURL *)url
 {
-//    [self.delegate shopDetailInfoControllerTouchedURL:self url:url];
+    [self.delegate shopDetailInfoBlockCell:self touchedURL:url];
 }
 
 +(NSString *)reuseIdentifier

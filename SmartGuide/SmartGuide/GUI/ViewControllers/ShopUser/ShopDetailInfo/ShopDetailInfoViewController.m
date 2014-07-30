@@ -26,7 +26,7 @@ enum SHOP_DETAIL_INFO_SECTION_TYPE
     SHOP_DETAIL_INFO_SECTION_TYPE_BLOCK=2,
 };
 
-@interface ShopDetailInfoViewController ()<ShopDetailInfoDescCellDelegate,UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate,ASIOperationPostDelegate>
+@interface ShopDetailInfoViewController ()<ShopDetailInfoDescCellDelegate,UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate,ASIOperationPostDelegate, ShopDetailInfoBlockCellDelegate>
 {
     ASIOperationShopDetailInfo *_operation;
     enum SHOP_DETAIL_INFO_DESCRIPTION_MODE _descMode;
@@ -273,6 +273,7 @@ enum SHOP_DETAIL_INFO_SECTION_TYPE
             {
                 ShopDetailInfoBlockCell *cell=[tableView shopDetailInfoBlockCell];
                 [cell loadWithInfoObject:_infos[indexPath.section-2]];
+                cell.delegate=self;
                 
                 return cell;
             }
@@ -322,29 +323,72 @@ enum SHOP_DETAIL_INFO_SECTION_TYPE
     }
 }
 
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *selectedCell=[tableView cellForRowAtIndexPath:indexPath];
+    
+    if([selectedCell isKindOfClass:[ShopDetailInfoDescCell class]])
+    {
+        switch (_descMode) {
+            case SHOP_DETAIL_INFO_DESCRIPTION_FULL:
+                [self switchToMode:SHOP_DETAIL_INFO_DESCRIPTION_NORMAL cell:(id)selectedCell];
+                break;
+                
+            case SHOP_DETAIL_INFO_DESCRIPTION_NORMAL:
+                [self switchToMode:SHOP_DETAIL_INFO_DESCRIPTION_FULL cell:(id)selectedCell];
+                break;
+        }
+    }
+}
+
 -(void)shopDetailInfoDescCellTouchedReadLess:(ShopDetailInfoDescCell *)cell
 {
-    _descMode=SHOP_DETAIL_INFO_DESCRIPTION_NORMAL;
-    
-    NSIndexPath *idx=[table indexPathForCell:cell];
-    CGRect rect=[table rectForSection:idx.section];
-    [cell switchToMode:_descMode duration:0.15f];
-    
-    [table beginUpdatesAnimationWithDuration:0.15f];
-    
-    [table setContentOffset:rect.origin animated:false];
-    
-    [table endUpdatesAnimation];
+    [self switchToMode:SHOP_DETAIL_INFO_DESCRIPTION_NORMAL cell:cell];
 }
 
 -(void)shopDetailInfoDescCellTouchedReadMore:(ShopDetailInfoDescCell *)cell
 {
-    _descMode=SHOP_DETAIL_INFO_DESCRIPTION_FULL;
+    [self switchToMode:SHOP_DETAIL_INFO_DESCRIPTION_FULL cell:cell];
+}
+
+-(void) switchToMode:(enum SHOP_DETAIL_INFO_DESCRIPTION_MODE) mode cell:(ShopDetailInfoDescCell*) cell
+{
+    _descMode=mode;
     
-    [cell switchToMode:_descMode duration:0.15f];
-    
-    [table beginUpdatesAnimationWithDuration:0.15f];
-    [table endUpdatesAnimation];
+    switch (mode) {
+        case SHOP_DETAIL_INFO_DESCRIPTION_FULL:
+        {
+            [cell switchToMode:_descMode duration:0.15f];
+            
+            [table beginUpdatesAnimationWithDuration:0.15f];
+            [table endUpdatesAnimation];
+        }
+            break;
+            
+        case SHOP_DETAIL_INFO_DESCRIPTION_NORMAL:
+        {
+            NSIndexPath *idx=[table indexPathForCell:cell];
+            CGRect rect=[table rectForSection:idx.section];
+            [cell switchToMode:_descMode duration:0.15f];
+            
+            [table beginUpdatesAnimationWithDuration:0.15f];
+            
+            [table setContentOffset:rect.origin animated:false];
+            
+            [table endUpdatesAnimation];
+        }
+            break;
+    }
+}
+
+-(void)shopDetailInfoBlockCell:(ShopDetailInfoBlockCell *)cell touchedIDShop:(int)idShop
+{
+    [self.delegate shopDetailInfoControllerTouchedShop:self idShop:idShop];
+}
+
+-(void)shopDetailInfoBlockCell:(ShopDetailInfoBlockCell *)cell touchedURL:(NSURL *)url
+{
+    [self.delegate shopDetailInfoControllerTouchedURL:self url:url];
 }
 
 -(void) reloadData

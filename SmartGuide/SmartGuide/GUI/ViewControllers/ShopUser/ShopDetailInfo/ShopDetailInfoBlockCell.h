@@ -9,7 +9,14 @@
 #import <UIKit/UIKit.h>
 #import "Constant.h"
 
-@class InfoTypeObject;
+@class InfoTypeObject, ShopDetailInfoBlockCell;
+
+@protocol ShopDetailInfoBlockCellDelegate <NSObject>
+
+-(void) shopDetailInfoBlockCell:(ShopDetailInfoBlockCell*) cell touchedURL:(NSURL*) url;
+-(void) shopDetailInfoBlockCell:(ShopDetailInfoBlockCell*) cell touchedIDShop:(int) idShop;
+
+@end
 
 @interface ShopDetailInfoBlockCell : UITableViewCell<TableViewCellDynamicHeight>
 {
@@ -21,6 +28,8 @@
 -(void) loadWithInfoObject:(InfoTypeObject*) obj;
 
 +(NSString *)reuseIdentifier;
+
+@property (nonatomic, weak) id<ShopDetailInfoBlockCellDelegate> delegate;
 
 @end
 
