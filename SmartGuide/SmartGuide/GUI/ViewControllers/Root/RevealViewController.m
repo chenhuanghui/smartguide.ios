@@ -161,6 +161,8 @@
         self.pagingEnabled=true;
         self.bounces=false;
         self.panGestureRecognizer.delegate=self;
+        self.showsHorizontalScrollIndicator=false;
+        self.showsVerticalScrollIndicator=false;
     }
     return self;
 }
