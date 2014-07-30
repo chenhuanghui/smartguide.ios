@@ -131,7 +131,7 @@
 -(void) reloadTable
 {
     [tableFeed reloadData];
-    scroll.contentSize=tableFeed.contentSize;
+    scroll.contentSize=CGSizeMake(tableFeed.contentSize.width, tableFeed.contentSize.height+tableFeed.l_v_y+(QRCODE_BIG_HEIGHT-QRCODE_SMALL_HEIGHT));
 }
 
 -(void)textFieldRefreshFinished:(TextField *)txt
@@ -154,7 +154,7 @@
             tableFeed.alpha=0.1f;
         } completion:^(BOOL finished) {
             
-            [tableFeed reloadData];
+            [self reloadTable];
             
             [UIView animateWithDuration:DURATION_DEFAULT delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
                 tableFeed.alpha=1;
