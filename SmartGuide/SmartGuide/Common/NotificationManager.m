@@ -182,7 +182,7 @@ static NotificationManager *_notificationManager=nil;
         if(!obj.isFromBG.boolValue)
             [self.remoteNotifications addObject:obj];
         
-        self.totalNotification=[NSNumber numberWithObject:obj.badge];
+        self.totalNotification=[NSNumber makeNumber:obj.badge];
         [UIApplication sharedApplication].applicationIconBadgeNumber=self.totalNotification.integerValue;
         
         [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_RECEIVED_REMOTE_NOTIFICATION object:obj];
@@ -266,22 +266,22 @@ static NotificationManager *_notificationManager=nil;
 {
     RemoteNotification *obj=[RemoteNotification new];
     
-    obj.message=[NSString stringWithStringDefault:dict[@"message"]];
+    obj.message=[NSString makeString:dict[@"message"]];
     
     if(obj.message.length==0)
-        obj.message=[NSString stringWithStringDefault:dict[@"alert"]];
+        obj.message=[NSString makeString:dict[@"alert"]];
     
-    obj.badge=[NSString stringWithStringDefault:dict[@"badge"]];
+    obj.badge=[NSString makeString:dict[@"badge"]];
     
     if(dict[@"idNotification"])
-        obj.idNotification=[NSNumber numberWithObject:dict[@"idNotification"]];
+        obj.idNotification=[NSNumber makeNumber:dict[@"idNotification"]];
     
     if(dict[@"idSender"])
-        obj.idSender=[NSNumber numberWithObject:dict[@"idSender"]];
+        obj.idSender=[NSNumber makeNumber:dict[@"idSender"]];
     
     obj.timer=@(0);
     if(dict[@"timer"])
-        obj.timer=[NSNumber numberWithObject:dict[@"timer"]];
+        obj.timer=[NSNumber makeNumber:dict[@"timer"]];
     
     return obj;
 }

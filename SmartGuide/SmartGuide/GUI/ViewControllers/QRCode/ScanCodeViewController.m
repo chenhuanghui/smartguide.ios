@@ -167,7 +167,7 @@
         break;
     }
     
-    NSString *data=[NSString stringWithStringDefault:sym.data];
+    NSString *data=[NSString makeString:sym.data];
     
     if(data.length==0)
         return;

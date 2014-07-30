@@ -7,8 +7,8 @@
 {
     UserHome *home=[UserHome insert];
     
-    home.type=[NSNumber numberWithObject:dict[@"type"]];
-    home.idPost=[NSNumber numberWithObject:dict[@"idPost"]];
+    home.type=[NSNumber makeNumber:dict[@"type"]];
+    home.idPost=[NSNumber makeNumber:dict[@"idPost"]];
     
     return home;
 }

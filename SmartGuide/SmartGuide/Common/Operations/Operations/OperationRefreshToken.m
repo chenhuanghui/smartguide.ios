@@ -27,9 +27,9 @@
 {
     NSDictionary *dict=[json objectAtIndex:0];
     
-    accessToken=[NSString stringWithStringDefault:dict[@"access_token"]];
-    expiresIn=[NSString stringWithStringDefault:dict[@"expires_in"]];
-    refreshToken=[NSString stringWithStringDefault:dict[@"refresh_token"]];
+    accessToken=[NSString makeString:dict[@"access_token"]];
+    expiresIn=[NSString makeString:dict[@"expires_in"]];
+    refreshToken=[NSString makeString:dict[@"refresh_token"]];
 }
 
 -(bool)handleTokenError:(NSDictionary *)json

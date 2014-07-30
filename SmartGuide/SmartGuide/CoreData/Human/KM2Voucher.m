@@ -19,11 +19,11 @@
 {
     KM2Voucher *voucher=[KM2Voucher insert];
     
-    voucher.type=[NSString stringWithStringDefault:dict[@"type"]];
-    voucher.name=[NSString stringWithStringDefault:dict[@"name"]];
-    voucher.condition=[NSString stringWithStringDefault:dict[@"condition"]];
-    voucher.highlightKeywords=[NSString stringWithStringDefault:dict[@"highlightKeywords"]];
-    voucher.isAfford=[NSNumber numberWithObject:dict[@"isAfford"]];
+    voucher.type=[NSString makeString:dict[@"type"]];
+    voucher.name=[NSString makeString:dict[@"name"]];
+    voucher.condition=[NSString makeString:dict[@"condition"]];
+    voucher.highlightKeywords=[NSString makeString:dict[@"highlightKeywords"]];
+    voucher.isAfford=[NSNumber makeNumber:dict[@"isAfford"]];
     
     return voucher;
 }

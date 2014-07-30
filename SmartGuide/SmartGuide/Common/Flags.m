@@ -51,7 +51,7 @@
 
 +(NSString *)accessToken
 {
-    return [NSString stringWithStringDefault:[[NSUserDefaults standardUserDefaults] objectForKey:FLAG_ACCESS_TOKEN]];
+    return [NSString makeString:[[NSUserDefaults standardUserDefaults] objectForKey:FLAG_ACCESS_TOKEN]];
 }
 
 +(void)setRefreshToken:(NSString *)refreshToken
@@ -62,7 +62,7 @@
 
 +(NSString *)refreshToken
 {
-    return [NSString stringWithStringDefault:[[NSUserDefaults standardUserDefaults] objectForKey:FLAG_REFRESH_TOKEN]];
+    return [NSString makeString:[[NSUserDefaults standardUserDefaults] objectForKey:FLAG_REFRESH_TOKEN]];
 }
 
 +(void)setActiveCode:(NSString *)activeCode
@@ -73,7 +73,7 @@
 
 +(NSString *)activeCode
 {
-    return [NSString stringWithStringDefault:[[NSUserDefaults standardUserDefaults] objectForKey:FLAG_ACTIVE_CODE]];
+    return [NSString makeString:[[NSUserDefaults standardUserDefaults] objectForKey:FLAG_ACTIVE_CODE]];
 }
 
 +(void)removeToken
@@ -92,12 +92,12 @@
 
 +(NSString *)facebookToken
 {
-    return [NSString stringWithStringDefault:[[NSUserDefaults standardUserDefaults] objectForKey:FLAG_FACEBOOK_TOKEN]];
+    return [NSString makeString:[[NSUserDefaults standardUserDefaults] objectForKey:FLAG_FACEBOOK_TOKEN]];
 }
 
 +(NSString*)lastPhoneUser
 {
-    return [NSString stringWithStringDefault:[[NSUserDefaults standardUserDefaults] objectForKey:FLAG_LAST_PHONE_USER]];
+    return [NSString makeString:[[NSUserDefaults standardUserDefaults] objectForKey:FLAG_LAST_PHONE_USER]];
 }
 
 +(void)setLastPhoneUser:(NSString *)phoneUser
@@ -129,7 +129,7 @@
 
 +(NSString *)keywordSearch
 {
-    return [NSString stringWithStringDefault:[[NSUserDefaults standardUserDefaults] objectForKey:FLAG_LAST_KEYWORD_SEARCH]];
+    return [NSString makeString:[[NSUserDefaults standardUserDefaults] objectForKey:FLAG_LAST_KEYWORD_SEARCH]];
 }
 
 +(void)setKeywordSearch:(NSString *)key

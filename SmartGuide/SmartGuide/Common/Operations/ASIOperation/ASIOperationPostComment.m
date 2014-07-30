@@ -48,13 +48,13 @@
 
     NSDictionary *dict=json[0];
     
-    self.status=[NSNumber numberWithObject:dict[@"status"]];
-    self.message=[NSString stringWithStringDefault:dict[@"message"]];
+    self.status=[NSNumber makeNumber:dict[@"status"]];
+    self.message=[NSString makeString:dict[@"message"]];
     
     if(self.status.integerValue==1)
     {
-        self.idComment=[NSNumber numberWithObject:dict[@"idComment"]];
-        self.time=[NSString stringWithStringDefault:dict[@"time"]];
+        self.idComment=[NSNumber makeNumber:dict[@"idComment"]];
+        self.time=[NSString makeString:dict[@"time"]];
         
         int idShop=[self.keyValue[IDSHOP] integerValue];
         Shop *shop=[Shop shopWithIDShop:idShop];
@@ -65,7 +65,7 @@
         self.userComment=[ShopUserComment insert];
 
         self.userComment.idComment=self.idComment;
-        self.userComment.username=[NSString stringWithStringDefault:[DataManager shareInstance].currentUser.name];
+        self.userComment.username=[NSString makeString:[DataManager shareInstance].currentUser.name];
         self.userComment.comment=self.keyValue[@"comment"];
         self.userComment.avatar=[DataManager shareInstance].currentUser.avatar;
         self.userComment.numOfAgree=@"0";

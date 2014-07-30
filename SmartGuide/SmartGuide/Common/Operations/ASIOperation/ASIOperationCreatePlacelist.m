@@ -33,8 +33,8 @@
         return;
     
     NSDictionary *dict=json[0];
-    status=[[NSNumber numberWithObject:dict[@"status"]] integerValue];
-    message=[NSString stringWithStringDefault:dict[@"message"]];
+    status=[[NSNumber makeNumber:dict[@"status"]] integerValue];
+    message=[NSString makeString:dict[@"message"]];
     
     if(status==1)
     {

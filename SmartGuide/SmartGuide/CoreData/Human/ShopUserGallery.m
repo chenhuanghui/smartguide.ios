@@ -7,12 +7,12 @@
 {
     ShopUserGallery *obj=[ShopUserGallery insert];
     
-    obj.username=[NSString stringWithStringDefault:data[@"username"]];
-    obj.thumbnail=[NSString stringWithStringDefault:data[@"thumbnail"]];
-    obj.image=[NSString stringWithStringDefault:data[@"image"]];
-    obj.desc=[NSString stringWithStringDefault:data[@"description"]];
-    obj.time=[NSString stringWithStringDefault:data[@"time"]];
-    obj.idGallery=[NSNumber numberWithObject:data[@"idUserGallery"]];
+    obj.username=[NSString makeString:data[@"username"]];
+    obj.thumbnail=[NSString makeString:data[@"thumbnail"]];
+    obj.image=[NSString makeString:data[@"image"]];
+    obj.desc=[NSString makeString:data[@"description"]];
+    obj.time=[NSString makeString:data[@"time"]];
+    obj.idGallery=[NSNumber makeNumber:data[@"idUserGallery"]];
     
     return obj;
 }

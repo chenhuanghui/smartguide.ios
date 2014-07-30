@@ -34,8 +34,8 @@
         return;
     
     NSDictionary *dict=json[0];
-    self.status=[[NSNumber numberWithObject:dict[STATUS]] integerValue];
-    self.message=[NSString stringWithStringDefault:dict[MESSAGE]];
+    self.status=[[NSNumber makeNumber:dict[STATUS]] integerValue];
+    self.message=[NSString makeString:dict[MESSAGE]];
     
     if(self.status==1)
     {
@@ -46,7 +46,7 @@
             [[DataManager shareInstance].managedObjectContext deleteObject:shop];
             [[DataManager shareInstance] save];
         }
-        self.numOfShop=[NSString stringWithStringDefault:dict[@"numOfShop"]];
+        self.numOfShop=[NSString makeString:dict[@"numOfShop"]];
     }
 }
 

@@ -40,7 +40,7 @@
     
     NSDictionary *dict=json[0];
     
-    isSuccess=[[NSNumber numberWithObject:dict[@"status"]] boolValue];
+    isSuccess=[[NSNumber makeNumber:dict[@"status"]] boolValue];
     if(isSuccess)
     {
         [User markDeleteAllObjects];
@@ -51,8 +51,8 @@
         
         [[DataManager shareInstance] save];
         
-        [TokenManager shareInstance].accessToken=[NSString stringWithStringDefault:dict[@"accessToken"]];
-        [TokenManager shareInstance].refreshToken=[NSString stringWithStringDefault:dict[@"refreshToken"]];
+        [TokenManager shareInstance].accessToken=[NSString makeString:dict[@"accessToken"]];
+        [TokenManager shareInstance].refreshToken=[NSString makeString:dict[@"refreshToken"]];
         [TokenManager shareInstance].phone=phone;
         [TokenManager shareInstance].activeCode=activeCode;
     }

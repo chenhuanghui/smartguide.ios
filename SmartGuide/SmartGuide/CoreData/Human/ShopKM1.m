@@ -7,13 +7,13 @@
 +(ShopKM1 *)makeWithJSON:(NSDictionary *)data
 {
     ShopKM1 *obj=[ShopKM1 insert];
-    obj.text=[NSString stringWithStringDefault:data[@"text"]];
-    obj.duration=[NSString stringWithStringDefault:data[@"duration"]];
-    obj.money=[NSString stringWithStringDefault:data[@"money"]];
-    obj.sgp=[NSString stringWithStringDefault:data[@"sgp"]];
-    obj.sp=[NSString stringWithStringDefault:data[@"sp"]];
-    obj.p=[NSString stringWithStringDefault:data[@"p"]];
-    obj.hasSGP=[NSNumber numberWithObject:data[@"hasSGP"]];
+    obj.text=[NSString makeString:data[@"text"]];
+    obj.duration=[NSString makeString:data[@"duration"]];
+    obj.money=[NSString makeString:data[@"money"]];
+    obj.sgp=[NSString makeString:data[@"sgp"]];
+    obj.sp=[NSString makeString:data[@"sp"]];
+    obj.p=[NSString makeString:data[@"p"]];
+    obj.hasSGP=[NSNumber makeNumber:data[@"hasSGP"]];
     
     NSArray *voucher=data[@"voucherList"];
     

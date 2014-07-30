@@ -63,7 +63,7 @@
     self=[super initWithNibName:@"SearchViewController" bundle:nil];
     
     _viewMode=SEARCH_VIEW_MODE_SHOP_LIST;
-    _idShops=[NSString stringWithStringDefault:idShops];
+    _idShops=[NSString makeString:idShops];
     
     return self;
 }

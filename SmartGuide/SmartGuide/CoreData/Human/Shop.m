@@ -43,7 +43,7 @@
 
 +(Shop *)makeShopWithDictionary:(NSDictionary *)dict
 {
-    int idShop=[[NSNumber numberWithObject:dict[@"idShop"]] integerValue];
+    int idShop=[[NSNumber makeNumber:dict[@"idShop"]] integerValue];
     
     Shop *shop=[Shop shopWithIDShop:idShop];
     
@@ -62,24 +62,24 @@
     
     shop.dataMode=@(SHOP_DATA_FULL);
     
-    shop.shopName=[NSString stringWithStringDefault:dict[@"shopName"]];
-    shop.shopType=[NSNumber numberWithObject:dict[@"shopType"]];
-    shop.shopTypeDisplay=[NSString stringWithStringDefault:dict[@"shopTypeDisplay"]];
-    shop.shopLat=[NSNumber numberWithObject:dict[@"shopLat"]];
-    shop.shopLng=[NSNumber numberWithObject:dict[@"shopLng"]];
-    shop.logo=[NSString stringWithStringDefault:dict[@"logo"]];
-    shop.loveStatus=[NSNumber numberWithObject:dict[@"loveStatus"]];
-    shop.numOfLove=[NSString stringWithStringDefault:dict[@"numOfLove"]];
-    shop.totalLove=[NSNumber numberWithObject:dict[@"totalLove"]];
-    shop.numOfView=[NSString stringWithStringDefault:dict[@"numOfView"]];
-    shop.numOfComment=[NSString stringWithStringDefault:dict[@"numOfComment"]];
-    shop.totalComment=[NSNumber numberWithObject:dict[@"totalComment"]];
-    shop.address=[NSString stringWithStringDefault:dict[@"address"]];
-    shop.city=[NSString stringWithStringDefault:dict[@"city"]];
-    shop.tel=[NSString stringWithStringDefault:dict[@"tel"]];
-    shop.displayTel=[NSString stringWithStringDefault:dict[@"displayTel"]];
-    shop.desc=[NSString stringWithStringDefault:dict[@"description"]];
-    shop.promotionType=[NSNumber numberWithObject:dict[@"promotionType"]];
+    shop.shopName=[NSString makeString:dict[@"shopName"]];
+    shop.shopType=[NSNumber makeNumber:dict[@"shopType"]];
+    shop.shopTypeDisplay=[NSString makeString:dict[@"shopTypeDisplay"]];
+    shop.shopLat=[NSNumber makeNumber:dict[@"shopLat"]];
+    shop.shopLng=[NSNumber makeNumber:dict[@"shopLng"]];
+    shop.logo=[NSString makeString:dict[@"logo"]];
+    shop.loveStatus=[NSNumber makeNumber:dict[@"loveStatus"]];
+    shop.numOfLove=[NSString makeString:dict[@"numOfLove"]];
+    shop.totalLove=[NSNumber makeNumber:dict[@"totalLove"]];
+    shop.numOfView=[NSString makeString:dict[@"numOfView"]];
+    shop.numOfComment=[NSString makeString:dict[@"numOfComment"]];
+    shop.totalComment=[NSNumber makeNumber:dict[@"totalComment"]];
+    shop.address=[NSString makeString:dict[@"address"]];
+    shop.city=[NSString makeString:dict[@"city"]];
+    shop.tel=[NSString makeString:dict[@"tel"]];
+    shop.displayTel=[NSString makeString:dict[@"displayTel"]];
+    shop.desc=[NSString makeString:dict[@"description"]];
+    shop.promotionType=[NSNumber makeNumber:dict[@"promotionType"]];
     
     NSArray *array=dict[@"shopGallery"];
     

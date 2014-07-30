@@ -20,7 +20,7 @@
 
 +(ShopUserComment *)makeWithJSON:(NSDictionary *)data
 {
-    int idComment=[[NSNumber numberWithObject:data[@"idComment"]] integerValue];
+    int idComment=[[NSNumber makeNumber:data[@"idComment"]] integerValue];
     ShopUserComment *obj=[ShopUserComment commentWithIDComment:idComment];
     
     if(!obj)
@@ -29,13 +29,13 @@
         obj.idComment=@(idComment);
     }
     
-    obj.username=[NSString stringWithStringDefault:data[@"username"]];
-    obj.comment=[NSString stringWithStringDefault:data[@"comment"]];
-    obj.avatar=[NSString stringWithStringDefault:data[@"avatar"]];
+    obj.username=[NSString makeString:data[@"username"]];
+    obj.comment=[NSString makeString:data[@"comment"]];
+    obj.avatar=[NSString makeString:data[@"avatar"]];
     obj.numOfAgree=[NSString stringWithString:data[@"numOfAgree"]];
-    obj.totalAgree=[NSNumber numberWithObject:data[@"totalAgree"]];
-    obj.time=[NSString stringWithStringDefault:data[@"time"]];
-    obj.agreeStatus=[NSNumber numberWithObject:data[@"agreeStatus"]];
+    obj.totalAgree=[NSNumber makeNumber:data[@"totalAgree"]];
+    obj.time=[NSString makeString:data[@"time"]];
+    obj.agreeStatus=[NSNumber makeNumber:data[@"agreeStatus"]];
     
     return obj;
 }

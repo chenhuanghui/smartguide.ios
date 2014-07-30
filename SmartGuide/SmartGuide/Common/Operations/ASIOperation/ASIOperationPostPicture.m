@@ -29,8 +29,8 @@
         return;
     
     NSDictionary *dict=json[0];
-    status=[[NSNumber numberWithObject:dict[STATUS]] integerValue];
-    self.message=[NSString stringWithStringDefault:dict[MESSAGE]];
+    status=[[NSNumber makeNumber:dict[STATUS]] integerValue];
+    self.message=[NSString makeString:dict[MESSAGE]];
     self.desc=[self.keyValue[DESCRIPTION] copy];
 }
 

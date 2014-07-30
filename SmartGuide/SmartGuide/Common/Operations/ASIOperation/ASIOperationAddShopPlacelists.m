@@ -34,8 +34,8 @@
     
     NSDictionary *dict=json[0];
     
-    status=[[NSNumber numberWithObject:dict[@"status"]] integerValue];
-    message=[NSString stringWithStringDefault:dict[@"message"]];
+    status=[[NSNumber makeNumber:dict[@"status"]] integerValue];
+    message=[NSString makeString:dict[@"message"]];
     
     if(status==1)
     {
@@ -45,14 +45,14 @@
         {
             for(NSDictionary *place in array)
             {
-                int idPlace=[[NSNumber numberWithObject:place[@"idPlacelist"]] integerValue];
+                int idPlace=[[NSNumber makeNumber:place[@"idPlacelist"]] integerValue];
                 
                 UserPlacelist *placelist=[UserPlacelist userPlacelistWithIDPlacelist:idPlace];
                 
                 if(placelist)
                 {
-                    placelist.numOfShop=[NSString stringWithStringDefault:dict[@"numOfShop"]];
-                    placelist.idShops=[NSString stringWithStringDefault:dict[@"idShops"]];
+                    placelist.numOfShop=[NSString makeString:dict[@"numOfShop"]];
+                    placelist.idShops=[NSString makeString:dict[@"idShops"]];
                     
                     [placelits addObject:placelist];
                 }

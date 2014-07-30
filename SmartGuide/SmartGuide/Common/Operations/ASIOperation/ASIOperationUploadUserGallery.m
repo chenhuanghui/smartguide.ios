@@ -29,8 +29,8 @@
         return;
     
     NSDictionary *dict=json[0];
-    self.status=[NSNumber numberWithObject:dict[STATUS]];
-    self.idUserGallery=[NSNumber numberWithObject:dict[@"idUserGallery"]];
+    self.status=[NSNumber makeNumber:dict[STATUS]];
+    self.idUserGallery=[NSNumber makeNumber:dict[@"idUserGallery"]];
 }
 
 @end

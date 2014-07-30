@@ -36,12 +36,12 @@
     
     self.object=[NotificationObject new];
     
-    self.object.notificationType=[[NSNumber numberWithObject:dict[@"notification_type"]] integerValue];
+    self.object.notificationType=[[NSNumber makeNumber:dict[@"notification_type"]] integerValue];
     
     if(self.object.notificationType==1)
     {
-        self.object.content=[NSString stringWithStringDefault:dict[@"content"]];
-        self.object.link=[NSString stringWithStringDefault:dict[@"link"]];
+        self.object.content=[NSString makeString:dict[@"content"]];
+        self.object.link=[NSString makeString:dict[@"link"]];
     }
     else if(self.object.notificationType==2)
     {
@@ -53,8 +53,8 @@
             {
                 NotificationItem *item=[NotificationItem new];
                 
-                item.idNotification=[[NSNumber numberWithObject:dictNoti[@"notify_id"]] integerValue];
-                item.content=[NSString stringWithStringDefault:dictNoti[@"content"]];
+                item.idNotification=[[NSNumber makeNumber:dictNoti[@"notify_id"]] integerValue];
+                item.content=[NSString makeString:dictNoti[@"content"]];
                 
                 [self.object.notificationList addObject:item];
             }
@@ -62,7 +62,7 @@
     }
     else if(self.object.notificationType==3)
     {
-        self.object.content=[NSString stringWithStringDefault:dict[@"content"]];
+        self.object.content=[NSString makeString:dict[@"content"]];
     }
 }
 
@@ -92,10 +92,10 @@
 {
     NotificationObject *obj=[[NotificationObject alloc] init];
     
-    obj.content=[NSString stringWithStringDefault:self.content];
+    obj.content=[NSString makeString:self.content];
     obj.notificationList=[self.notificationList copy];
     obj.notificationType=self.notificationType;
-    obj.link=[NSString stringWithStringDefault:self.link];
+    obj.link=[NSString makeString:self.link];
     
     return obj;
 }
@@ -124,7 +124,7 @@
 {
     NotificationItem *item=[[NotificationItem alloc] init];
     
-    item.content=[NSString stringWithStringDefault:self.content];
+    item.content=[NSString makeString:self.content];
     item.idNotification=self.idNotification;
     
     return item;

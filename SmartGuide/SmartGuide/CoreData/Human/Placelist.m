@@ -11,7 +11,7 @@
 
 +(Placelist *)makeWithDictionary:(NSDictionary *)dict
 {
-    int idPlace=[[NSNumber numberWithObject:dict[@"idPlacelist"]] integerValue];
+    int idPlace=[[NSNumber makeNumber:dict[@"idPlacelist"]] integerValue];
     Placelist *obj = [Placelist placeListWithID:idPlace];
     
     if(!obj)
@@ -20,14 +20,14 @@
         obj.idPlacelist=@(idPlace);
     }
     
-    obj.title=[NSString stringWithStringDefault:dict[@"title"]];
-    obj.desc=[NSString stringWithStringDefault:dict[@"description"]];
-    obj.image=[NSString stringWithStringDefault:dict[@"image"]];
-    obj.numOfView=[NSString stringWithStringDefault:dict[@"numOfView"]];
-    obj.loveStatus=[NSNumber numberWithObject:dict[@"loveStatus"]];
-    obj.authorName=[NSString stringWithStringDefault:dict[@"authorName"]];
-    obj.authorAvatar=[NSString stringWithStringDefault:dict[@"authorAvatar"]];
-    obj.idAuthor=[NSNumber numberWithObject:dict[@"idAuthor"]];
+    obj.title=[NSString makeString:dict[@"title"]];
+    obj.desc=[NSString makeString:dict[@"description"]];
+    obj.image=[NSString makeString:dict[@"image"]];
+    obj.numOfView=[NSString makeString:dict[@"numOfView"]];
+    obj.loveStatus=[NSNumber makeNumber:dict[@"loveStatus"]];
+    obj.authorName=[NSString makeString:dict[@"authorName"]];
+    obj.authorAvatar=[NSString makeString:dict[@"authorAvatar"]];
+    obj.idAuthor=[NSNumber makeNumber:dict[@"idAuthor"]];
     
     return obj;
 }

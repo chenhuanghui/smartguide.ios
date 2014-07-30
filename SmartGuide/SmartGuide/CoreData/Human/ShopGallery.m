@@ -7,10 +7,10 @@
 {
     ShopGallery *obj=[ShopGallery insert];
     
-    obj.cover=[NSString stringWithStringDefault:data[@"cover"]];
-    obj.image=[NSString stringWithStringDefault:data[@"image"]];
-    obj.imageWidth=[NSNumber numberWithObject:data[@"imageWidth"]];
-    obj.imageHeight=[NSNumber numberWithObject:data[@"imageHeight"]];
+    obj.cover=[NSString makeString:data[@"cover"]];
+    obj.image=[NSString makeString:data[@"image"]];
+    obj.imageWidth=[NSNumber makeNumber:data[@"imageWidth"]];
+    obj.imageHeight=[NSNumber makeNumber:data[@"imageHeight"]];
     
     return obj;
 }

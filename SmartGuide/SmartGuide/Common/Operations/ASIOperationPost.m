@@ -236,7 +236,7 @@ static NSMutableArray *_asioperations=nil;
 {
     if(json.count>0)
     {
-        NSString *key=[NSString stringWithStringDefault:[json valueForKey:@"error"]];
+        NSString *key=[NSString makeString:[json valueForKey:@"error"]];
         if(key.length>0)
         {
             if([key isEqualToString:@"invalid_grant"])

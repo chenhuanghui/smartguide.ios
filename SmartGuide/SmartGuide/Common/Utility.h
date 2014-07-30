@@ -210,7 +210,6 @@ NSSortDescriptor *sortDesc(NSString *key, BOOL ascending);
 -(NSString*) deleteCharacterAtIndex:(NSUInteger) index;
 -(NSString*) deleteStringAtRange:(NSRange) range;
 
-+(NSString*)stringWithStringDefault:(NSString *)string;
 +(NSString*) makeString:(id) obj;
 -(NSString*) stringByTrimmingWhiteSpace;
 -(bool) isContainString:(NSString*) string;
@@ -405,7 +404,6 @@ NSSortDescriptor *sortDesc(NSString *key, BOOL ascending);
 
 @interface NSNumber(Utility)
 
-+(id) numberWithObject:(id) obj;
 +(NSNumber*) makeNumber:(id) obj;
 
 @end

@@ -16,8 +16,8 @@
 +(UserNotificationAction *)makeWithAction:(NSDictionary *)action
 {
     UserNotificationAction *obj=[UserNotificationAction insert];
-    obj.actionTitle=[NSString stringWithStringDefault:action[@"actionTitle"]];
-    obj.actionType=[NSNumber numberWithObject:action[@"actionType"]];
+    obj.actionTitle=[NSString makeString:action[@"actionTitle"]];
+    obj.actionType=[NSNumber makeNumber:action[@"actionType"]];
     
     switch (obj.enumActionType) {
         case NOTIFICATION_ACTION_TYPE_UNKNOW:
@@ -25,27 +25,27 @@
             break;
             
         case NOTIFICATION_ACTION_TYPE_CALL_API:
-            obj.url=[NSString stringWithStringDefault:action[@"url"]];
-            obj.method=[NSNumber numberWithObject:action[@"method"]];
-            obj.params=[NSString stringWithStringDefault:action[@"params"]];
+            obj.url=[NSString makeString:action[@"url"]];
+            obj.method=[NSNumber makeNumber:action[@"method"]];
+            obj.params=[NSString makeString:action[@"params"]];
             break;
             
         case NOTIFICATION_ACTION_TYPE_SHOP_USER:
-            obj.idShop=[NSNumber numberWithObject:action[@"idShop"]];
+            obj.idShop=[NSNumber makeNumber:action[@"idShop"]];
             break;
             
         case NOTIFICATION_ACTION_TYPE_SHOP_LIST:
             if(action[@"idPlacelist"])
-                obj.idPlacelist=[NSNumber numberWithObject:action[@"idPlacelist"]];
+                obj.idPlacelist=[NSNumber makeNumber:action[@"idPlacelist"]];
             else
             {
-                NSString *str=[NSString stringWithStringDefault:action[@"keywords"]];
+                NSString *str=[NSString makeString:action[@"keywords"]];
                 
                 if(str.length>0)
                     obj.keywords=str;
                 else
                 {
-                    str=[NSString stringWithStringDefault:action[@"idShops"]];
+                    str=[NSString makeString:action[@"idShops"]];
                     
                     if(str.length>0)
                         obj.idShops=str;
@@ -54,7 +54,7 @@
             break;
             
         case NOTIFICATION_ACTION_TYPE_POPUP_URL:
-            obj.url=[NSString stringWithStringDefault:action[@"url"]];
+            obj.url=[NSString makeString:action[@"url"]];
             break;
             
         case NOTIFICATION_ACTION_TYPE_USER_SETTING:

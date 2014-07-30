@@ -64,7 +64,7 @@
 {
     self=[super initWithNibName:@"ShopListViewController" bundle:nil];
     
-    _keyword=[NSString stringWithStringDefault:keyword];
+    _keyword=[NSString makeString:keyword];
     _viewMode=SHOP_LIST_VIEW_LIST;
     
     return self;
@@ -84,7 +84,7 @@
 {
     self=[super initWithNibName:@"ShopListViewController" bundle:nil];
     
-    _idShops=[NSString stringWithStringDefault:idShops];
+    _idShops=[NSString makeString:idShops];
     _viewMode=SHOP_LIST_VIEW_SHOP_LIST;
     
     return self;

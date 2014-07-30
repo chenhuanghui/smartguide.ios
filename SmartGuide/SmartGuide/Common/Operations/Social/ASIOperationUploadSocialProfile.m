@@ -35,8 +35,8 @@
     
     NSDictionary *dict=json[0];
     
-    self.status=[NSNumber numberWithObject:dict[@"status"]];
-    self.message=[NSString stringWithStringDefault:dict[@"message"]];
+    self.status=[NSNumber makeNumber:dict[@"status"]];
+    self.message=[NSString makeString:dict[@"message"]];
     
     if(self.status.integerValue==1)
     {
@@ -46,7 +46,7 @@
         [DataManager shareInstance].currentUser=user;
     }
     else
-        self.errorCode=[NSNumber numberWithObject:dict[@"errorCode"]];
+        self.errorCode=[NSNumber makeNumber:dict[@"errorCode"]];
 }
 
 @end

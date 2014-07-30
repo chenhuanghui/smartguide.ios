@@ -22,9 +22,9 @@
 {
     if([array hasData] && array.count==3)
     {
-        self.numberUnread=[NSNumber numberWithObject:array[0]];
-        self.numberRead=[NSNumber numberWithObject:array[1]];
-        self.numberAll=[NSNumber numberWithObject:array[2]];
+        self.numberUnread=[NSNumber makeNumber:array[0]];
+        self.numberRead=[NSNumber makeNumber:array[1]];
+        self.numberAll=[NSNumber makeNumber:array[2]];
     }
     else
     {
@@ -38,9 +38,9 @@
 {
     if([array hasData] && array.count==3)
     {
-        self.totalUnread=[NSString stringWithStringDefault:array[0]];
-        self.totalRead=[NSString stringWithStringDefault:array[1]];
-        self.totalAll=[NSString stringWithStringDefault:array[2]];
+        self.totalUnread=[NSString makeString:array[0]];
+        self.totalRead=[NSString makeString:array[1]];
+        self.totalAll=[NSString makeString:array[2]];
     }
     else
     {
@@ -54,8 +54,8 @@
 {
     UserNotification *obj=[UserNotification insert];
 
-    obj.idSender=[NSNumber numberWithObject:data[@"idSender"]];
-    obj.sender=[NSString stringWithStringDefault:data[@"sender"]];
+    obj.idSender=[NSNumber makeNumber:data[@"idSender"]];
+    obj.sender=[NSString makeString:data[@"sender"]];
     
     NSDictionary *dictCount=data[@"count"];
     
@@ -70,7 +70,7 @@
         [obj updateTotals:array];
     }
     
-    obj.status=[NSNumber numberWithObject:data[@"status"]];
+    obj.status=[NSNumber makeNumber:data[@"status"]];
     
     if(obj.enumStatus==NOTIFICATION_STATUS_UNREAD)
         obj.highlightUnread=@(true);

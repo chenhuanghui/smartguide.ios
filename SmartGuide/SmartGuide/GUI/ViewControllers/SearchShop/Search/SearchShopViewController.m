@@ -43,7 +43,7 @@
     if (self) {
         // Custom initialization
         
-        _keyword=[NSString stringWithStringDefault:keyword];
+        _keyword=[NSString makeString:keyword];
     }
     return self;
 }

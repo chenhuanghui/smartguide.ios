@@ -21,23 +21,23 @@
 {
     PromotionNews *obj = [PromotionNews insert];
     
-    obj.duration=[NSString stringWithStringDefault:dict[@"duration"]];
-    obj.title=[NSString stringWithStringDefault:dict[@"title"]];
-    obj.content=[NSString stringWithStringDefault:dict[@"content"]];
+    obj.duration=[NSString makeString:dict[@"duration"]];
+    obj.title=[NSString makeString:dict[@"title"]];
+    obj.content=[NSString makeString:dict[@"content"]];
     
     if([dict[@"image"] isHasString])
     {
-        obj.image=[NSString stringWithStringDefault:dict[@"image"]];
-        obj.imageWidth=[NSNumber numberWithObject:dict[@"imageWidth"]];
-        obj.imageHeight=[NSNumber numberWithObject:dict[@"imageHeight"]];
+        obj.image=[NSString makeString:dict[@"image"]];
+        obj.imageWidth=[NSNumber makeNumber:dict[@"imageWidth"]];
+        obj.imageHeight=[NSNumber makeNumber:dict[@"imageHeight"]];
     }
     
     if([dict[@"video"] isHasString])
     {
-        obj.video=[NSString stringWithStringDefault:dict[@"video"]];
-        obj.videoWidth=[NSNumber numberWithObject:dict[@"videoWidth"]];
-        obj.videoHeight=[NSNumber numberWithObject:dict[@"videoHeight"]];
-        obj.videoThumbnail=[NSString stringWithStringDefault:dict[@"videoThumbnail"]];
+        obj.video=[NSString makeString:dict[@"video"]];
+        obj.videoWidth=[NSNumber makeNumber:dict[@"videoWidth"]];
+        obj.videoHeight=[NSNumber makeNumber:dict[@"videoHeight"]];
+        obj.videoThumbnail=[NSString makeString:dict[@"videoThumbnail"]];
     }
     
     return obj;

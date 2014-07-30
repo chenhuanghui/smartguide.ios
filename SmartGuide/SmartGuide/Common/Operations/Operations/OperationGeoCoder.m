@@ -53,7 +53,7 @@
 //        if(![item isKindOfClass:[NSDictionary class]])
 //            continue;
 //        
-//        NSString *addressFormatted=[NSString stringWithStringDefault:item[@"formatted_address"]];
+//        NSString *addressFormatted=[NSString makeString:item[@"formatted_address"]];
 //        
 //        if(addressFormatted.length>0)
 //            [address addObject:addressFormatted];

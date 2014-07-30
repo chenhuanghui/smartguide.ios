@@ -21,7 +21,7 @@
 
 +(User *)makeWithDictionary:(NSDictionary *)dict
 {
-    int idUser=[[NSNumber numberWithObject:dict[@"idUser"]] integerValue];
+    int idUser=[[NSNumber makeNumber:dict[@"idUser"]] integerValue];
     User *user=[User userWithIDUser:idUser];
     if(!user)
     {
@@ -29,14 +29,14 @@
         user.idUser=@(idUser);
     }
     
-    user.name=[NSString stringWithStringDefault:dict[@"name"]];
-    user.gender=[NSNumber numberWithObject:dict[@"gender"]];
-    user.cover=[NSString stringWithStringDefault:dict[@"cover"]];
-    user.avatar=[NSString stringWithStringDefault:dict[@"avatar"]];
-    user.phone=[NSString stringWithStringDefault:dict[@"phone"]];
-    user.socialType=[NSNumber numberWithObject:dict[@"socialType"]];
-    user.birthday=[NSString stringWithStringDefault:dict[@"dob"]];
-    user.idCity=[NSNumber numberWithObject:dict[@"idCity"]];
+    user.name=[NSString makeString:dict[@"name"]];
+    user.gender=[NSNumber makeNumber:dict[@"gender"]];
+    user.cover=[NSString makeString:dict[@"cover"]];
+    user.avatar=[NSString makeString:dict[@"avatar"]];
+    user.phone=[NSString makeString:dict[@"phone"]];
+    user.socialType=[NSNumber makeNumber:dict[@"socialType"]];
+    user.birthday=[NSString makeString:dict[@"dob"]];
+    user.idCity=[NSNumber makeNumber:dict[@"idCity"]];
     
     if(user.idCity.integerValue==0)
         user.idCity=@(IDCITY_HCM());

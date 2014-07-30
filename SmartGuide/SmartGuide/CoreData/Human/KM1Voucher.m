@@ -16,10 +16,10 @@
 +(KM1Voucher *)makeWithJSON:(NSDictionary *)data
 {
     KM1Voucher *obj=[KM1Voucher insert];
-    obj.type=[NSString stringWithStringDefault:data[@"type"]];
-    obj.name=[NSString stringWithStringDefault:data[@"name"]];
-    obj.sgp=[NSString stringWithStringDefault:data[@"sgp"]];
-    obj.isAfford=[NSNumber numberWithObject:data[@"isAfford"]];
+    obj.type=[NSString makeString:data[@"type"]];
+    obj.name=[NSString makeString:data[@"name"]];
+    obj.sgp=[NSString makeString:data[@"sgp"]];
+    obj.isAfford=[NSNumber makeNumber:data[@"isAfford"]];
     
     return obj;
 }

@@ -232,7 +232,7 @@ NSString *CITY_NAME(int idCity)
         obj=dict[@"id"];
         
         if(obj && [obj integerValue]==idCity)
-            return [NSString stringWithStringDefault:dict[@"name"]];
+            return [NSString makeString:dict[@"name"]];
     }
     
     return @"";
@@ -989,20 +989,6 @@ NSSortDescriptor *sortDesc(NSString *key, BOOL ascending)
     return self;
 }
 
-+(NSString*)stringWithStringDefault:(NSString *)string
-{
-    if((id)string==[NSNull null])
-        return @"";
-    
-    if([string isKindOfClass:[NSNumber class]])
-        string=[NSString stringWithFormat:@"%@",string];
-    
-    if(string && string.length>0)
-        return [NSString stringWithString:string];
-    
-    return @"";
-}
-
 +(NSString *)makeString:(id)obj
 {
     if(obj==nil)
@@ -1030,7 +1016,7 @@ NSSortDescriptor *sortDesc(NSString *key, BOOL ascending)
 
 -(NSString *)stringByReplacingByString:(NSString *)aString withParams:(NSString *)first, ...
 {
-    NSString *source=[NSString stringWithStringDefault:self];
+    NSString *source=[NSString makeString:self];
     va_list list;
     va_start(list, first);
     
@@ -1520,22 +1506,22 @@ NSSortDescriptor *sortDesc(NSString *key, BOOL ascending)
 
 -(int)integerForKey:(NSString *)key
 {
-    return [[NSNumber numberWithObject:[self objectForKey:key]] integerValue];
+    return [[NSNumber makeNumber:[self objectForKey:key]] integerValue];
 }
 
 -(double)doubleForKey:(NSString *)key
 {
-    return [[NSNumber numberWithObject:[self objectForKey:key]] doubleValue];
+    return [[NSNumber makeNumber:[self objectForKey:key]] doubleValue];
 }
 
 -(float)floatForKey:(NSString *)key
 {
-    return [[NSNumber numberWithObject:[self objectForKey:key]] floatValue];
+    return [[NSNumber makeNumber:[self objectForKey:key]] floatValue];
 }
 
 -(bool)boolForKey:(NSString *)key
 {
-    return [[NSNumber numberWithObject:[self objectForKey:key]] boolValue];
+    return [[NSNumber makeNumber:[self objectForKey:key]] boolValue];
 }
 
 -(NSString *)makeParamsHTTPGET
@@ -2487,25 +2473,6 @@ static const NSString *KEY_HIT_TEST_EDGE_INSETS = @"HitTestEdgeInsets";
 @end
 
 @implementation NSNumber(Utility)
-
-+(id)numberWithObject:(id)obj
-{
-    if(obj==[NSNull null] || [obj isKindOfClass:[NSNull class]] || !obj)
-    {
-        return @(0);
-    }
-    
-    if([obj isKindOfClass:[NSString class]])
-    {
-        NSNumberFormatter * f = [[NSNumberFormatter alloc] init];
-        [f setNumberStyle:NSNumberFormatterDecimalStyle];
-        
-        return [f numberFromString:obj];
-        
-    }
-    
-    return obj;
-}
 
 +(NSNumber *)makeNumber:(id)obj
 {

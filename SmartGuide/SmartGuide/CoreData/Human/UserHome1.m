@@ -24,13 +24,13 @@
             
             for(int i=0;i<array.count;i++)
             {
-                [array replaceObjectAtIndex:i withObject:[NSNumber numberWithObject:array[i]]];
+                [array replaceObjectAtIndex:i withObject:[NSNumber makeNumber:array[i]]];
             }
             
             return array;
         }
         else
-            return @[[NSNumber numberWithObject:self.shopList]];
+            return @[[NSNumber makeNumber:self.shopList]];
     }
     
     return [NSArray array];

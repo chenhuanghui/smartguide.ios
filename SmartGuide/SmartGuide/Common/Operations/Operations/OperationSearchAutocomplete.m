@@ -34,7 +34,7 @@
 
 -(NSString *)keyword
 {
-    return [NSString stringWithStringDefault:self.storeData[@"key"]];
+    return [NSString makeString:self.storeData[@"key"]];
 }
 
 -(void)onFailed:(NSError *)error
@@ -73,7 +73,7 @@
         if([kvp isNullData])
             continue;
         
-        NSString *type=[NSString stringWithStringDefault:hit[@"_type"]];
+        NSString *type=[NSString makeString:hit[@"_type"]];
         
         if([type isEqualToString:@"placelist"])
         {
@@ -82,7 +82,7 @@
             if([array isNullData])
                 continue;
             
-            int idPlacelist=[[NSNumber numberWithObject:array[0]] integerValue];
+            int idPlacelist=[[NSNumber makeNumber:array[0]] integerValue];
             
             AutocompletePlacelist *place=[AutocompletePlacelist new];
             place.idPlacelist=@(idPlacelist);
@@ -92,7 +92,7 @@
             if([array isNullData])
                 continue;
             
-            place.content=[NSString stringWithStringDefault:array[0]];
+            place.content=[NSString makeString:array[0]];
             
             [self.placelists addObject:place];
             
@@ -106,7 +106,7 @@
             if([highlightArray isNullData])
                 continue;
             
-            place.highlight=[NSString stringWithStringDefault:highlightArray[0]];
+            place.highlight=[NSString makeString:highlightArray[0]];
         }
         else if([type isEqualToString:@"shop"])
         {
@@ -115,7 +115,7 @@
             if([array isNullData])
                 continue;
             
-            int idShop=[[NSNumber numberWithObject:array[0]] integerValue];
+            int idShop=[[NSNumber makeNumber:array[0]] integerValue];
             
             AutocompleteShop *shop=[AutocompleteShop new];
             shop.idShop=@(idShop);
@@ -125,13 +125,13 @@
             if([array isNullData])
                 continue;
             
-            shop.content=[NSString stringWithStringDefault:array[0]];
+            shop.content=[NSString makeString:array[0]];
             
             array=kvp[@"hasPromotion"];
             
             shop.hasPromotion=@(false);
             if(![array isNullData])
-                shop.hasPromotion=@([[NSNumber numberWithObject:array[0]] boolValue]);
+                shop.hasPromotion=@([[NSNumber makeNumber:array[0]] boolValue]);
             
             [self.shops addObject:shop];
             
@@ -145,7 +145,7 @@
             if([highlightArray isNullData])
                 continue;
             
-            shop.highlight=[NSString stringWithStringDefault:highlightArray[0]];
+            shop.highlight=[NSString makeString:highlightArray[0]];
         }
     }
 }

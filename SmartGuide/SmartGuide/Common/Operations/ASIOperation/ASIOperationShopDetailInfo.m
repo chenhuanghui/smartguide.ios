@@ -118,8 +118,8 @@
 {
     InfoTypeObject *obj = [InfoTypeObject new];
     
-    obj.header=[NSString stringWithStringDefault:dict[@"header"]];
-    obj.type=[NSNumber numberWithObject:dict[@"type"]];
+    obj.header=[NSString makeString:dict[@"header"]];
+    obj.type=[NSNumber makeNumber:dict[@"type"]];
     
     return obj;
 }
@@ -156,8 +156,8 @@
 {
     Info1 *obj=[Info1 new];
     
-    obj.ticked=[NSNumber numberWithObject:dict[@"isTicked"]];
-    obj.content=[NSString stringWithStringDefault:dict[@"content"]];
+    obj.ticked=[NSNumber makeNumber:dict[@"isTicked"]];
+    obj.content=[NSString makeString:dict[@"content"]];
     
     return obj;
 }
@@ -181,8 +181,8 @@
 {
     Info2 *obj=[Info2 new];
     
-    obj.title=[NSString stringWithStringDefault:dict[@"title"]];
-    obj.content=[NSString stringWithStringDefault:dict[@"content"]];
+    obj.title=[NSString makeString:dict[@"title"]];
+    obj.content=[NSString makeString:dict[@"content"]];
     
     return obj;
 }
@@ -254,9 +254,9 @@
 {
     Info4 *obj=[Info4 new];
     
-    obj.date=[NSString stringWithStringDefault:dict[@"date"]];
-    obj.title=[NSString stringWithStringDefault:dict[@"title"]];
-    obj.content=[NSString stringWithStringDefault:dict[@"content"]];
+    obj.date=[NSString makeString:dict[@"date"]];
+    obj.title=[NSString makeString:dict[@"title"]];
+    obj.content=[NSString makeString:dict[@"content"]];
     
     return obj;
 }

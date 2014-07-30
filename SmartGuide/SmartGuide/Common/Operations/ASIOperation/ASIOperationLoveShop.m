@@ -29,13 +29,13 @@
         return;
     
     NSDictionary *dict=json[0];
-    status=[[NSNumber numberWithObject:dict[@"status"]] integerValue];
-    message=[NSString stringWithStringDefault:dict[@"message"]];
+    status=[[NSNumber makeNumber:dict[@"status"]] integerValue];
+    message=[NSString makeString:dict[@"message"]];
     
     if(status==1)
     {
-        int loveS=[[NSNumber numberWithObject:dict[@"loveStatus"]] integerValue];
-        numOfLove=[NSString stringWithStringDefault:dict[@"numOfLove"]];
+        int loveS=[[NSNumber makeNumber:dict[@"loveStatus"]] integerValue];
+        numOfLove=[NSString makeString:dict[@"numOfLove"]];
         
         switch (loveS) {
             case 0:
@@ -57,7 +57,7 @@
         if(shop)
         {
             shop.numOfLove=numOfLove;
-            shop.totalLove=[NSNumber numberWithObject:dict[@"totalLove"]];
+            shop.totalLove=[NSNumber makeNumber:dict[@"totalLove"]];
             shop.loveStatus=@(loveS);
             
             [[DataManager shareInstance] save];

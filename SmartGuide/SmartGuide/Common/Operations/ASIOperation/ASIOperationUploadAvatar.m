@@ -29,11 +29,11 @@
         return;
     
     NSDictionary *dict=json[0];
-    status=[[NSNumber numberWithObject:dict[STATUS]] integerValue];
+    status=[[NSNumber makeNumber:dict[STATUS]] integerValue];
     
     if(status==1)
     {
-        self.avatar=[NSString stringWithStringDefault:dict[@"avatar"]];
+        self.avatar=[NSString makeString:dict[@"avatar"]];
     }
 }
 

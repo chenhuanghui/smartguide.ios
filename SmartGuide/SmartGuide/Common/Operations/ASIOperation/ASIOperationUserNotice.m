@@ -29,7 +29,7 @@
     
     NSDictionary *dict=json[0];
     
-    self.notifce=[NSString stringWithStringDefault:dict[@"notice"]];
+    self.notifce=[NSString makeString:dict[@"notice"]];
 }
 
 @end

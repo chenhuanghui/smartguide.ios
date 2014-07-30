@@ -11,7 +11,7 @@
 
 +(UserPlacelist *)makeWithDictionary:(NSDictionary *)dict
 {
-    int idPlacelist=[[NSNumber numberWithObject:dict[@"idPlacelist"]] integerValue];
+    int idPlacelist=[[NSNumber makeNumber:dict[@"idPlacelist"]] integerValue];
     
     UserPlacelist *obj = [UserPlacelist userPlacelistWithIDPlacelist:idPlacelist];
     
@@ -22,9 +22,9 @@
         obj.isTicked=@(false);
     }
     
-    obj.name=[NSString stringWithStringDefault:dict[@"name"]];
-    obj.numOfShop=[NSString stringWithStringDefault:dict[@"numOfShop"]];
-    obj.idShops=[NSString stringWithStringDefault:dict[@"idShops"]];
+    obj.name=[NSString makeString:dict[@"name"]];
+    obj.numOfShop=[NSString makeString:dict[@"numOfShop"]];
+    obj.idShops=[NSString makeString:dict[@"idShops"]];
     
     return obj;
 }

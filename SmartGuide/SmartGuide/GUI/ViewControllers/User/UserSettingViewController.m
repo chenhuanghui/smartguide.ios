@@ -458,7 +458,7 @@
         }];
     }
     
-    _selectedAvatar=[NSString stringWithStringDefault:avatar];
+    _selectedAvatar=[NSString makeString:avatar];
     _avatars=[[controller avatars] copy];
     
     [self popNavi];

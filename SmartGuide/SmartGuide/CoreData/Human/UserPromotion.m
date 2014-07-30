@@ -17,33 +17,33 @@
 {
     UserPromotion *obj=[UserPromotion insert];
     
-    obj.logo=[NSString stringWithStringDefault:dict[@"logo"]];
-    obj.brandName=[NSString stringWithStringDefault:dict[@"brandName"]];
-    obj.title=[NSString stringWithStringDefault:dict[@"title"]];
-    obj.desc=[NSString stringWithStringDefault:dict[@"description"]];
-    obj.date=[NSString stringWithStringDefault:dict[@"date"]];
-    obj.cover=[NSString stringWithStringDefault:dict[@"cover"]];
-    obj.goTo=[NSString stringWithStringDefault:dict[@"goTo"]];
-    obj.type=[NSNumber numberWithObject:dict[@"type"]];
-    obj.coverHeight=[NSNumber numberWithObject:dict[@"coverHeight"]];
-    obj.coverWidth=[NSNumber numberWithObject:dict[@"coverWidth"]];
+    obj.logo=[NSString makeString:dict[@"logo"]];
+    obj.brandName=[NSString makeString:dict[@"brandName"]];
+    obj.title=[NSString makeString:dict[@"title"]];
+    obj.desc=[NSString makeString:dict[@"description"]];
+    obj.date=[NSString makeString:dict[@"date"]];
+    obj.cover=[NSString makeString:dict[@"cover"]];
+    obj.goTo=[NSString makeString:dict[@"goTo"]];
+    obj.type=[NSNumber makeNumber:dict[@"type"]];
+    obj.coverHeight=[NSNumber makeNumber:dict[@"coverHeight"]];
+    obj.coverWidth=[NSNumber makeNumber:dict[@"coverWidth"]];
     
     switch (obj.promotionType) {
         case USER_PROMOTION_BRAND:
-            obj.idShops=[NSString stringWithStringDefault:dict[@"idShops"]];
+            obj.idShops=[NSString makeString:dict[@"idShops"]];
             break;
             
         case USER_PROMOTION_SHOP:
-            obj.idShop=[NSNumber numberWithObject:dict[@"idShop"]];
+            obj.idShop=[NSNumber makeNumber:dict[@"idShop"]];
             break;
             
         case USER_PROMOTION_STORE:
-            obj.idStore=[NSNumber numberWithObject:dict[@"idStore"]];
+            obj.idStore=[NSNumber makeNumber:dict[@"idStore"]];
             break;
             
         case USER_PROMOTION_ITEM_STORE:
-            obj.idStore=[NSNumber numberWithObject:dict[@"idStore"]];
-            obj.idItem=[NSNumber numberWithObject:dict[@"idItem"]];
+            obj.idStore=[NSNumber makeNumber:dict[@"idStore"]];
+            obj.idItem=[NSNumber makeNumber:dict[@"idItem"]];
             break;
             
         case USER_PROMOTION_UNKNOW:

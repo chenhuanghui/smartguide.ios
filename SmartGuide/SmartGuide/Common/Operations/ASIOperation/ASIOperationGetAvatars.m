@@ -29,7 +29,7 @@
     
     for(NSString *str in json)
     {
-        [avatars addObject:[NSString stringWithStringDefault:str]];
+        [avatars addObject:[NSString makeString:str]];
     }
 }
 

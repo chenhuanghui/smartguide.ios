@@ -42,7 +42,7 @@
     if([json isNullData])
         return;
     
-    status=[[NSNumber numberWithObject:json[0][@"status"]] integerValue];
+    status=[[NSNumber makeNumber:json[0][@"status"]] integerValue];
 }
 
 @end

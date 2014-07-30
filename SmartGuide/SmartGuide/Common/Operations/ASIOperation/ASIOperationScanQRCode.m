@@ -30,7 +30,7 @@
         return;
     
     NSDictionary *dict=json[0];
-    status=[[NSNumber numberWithObject:dict[@"status"]] integerValue];
+    status=[[NSNumber makeNumber:dict[@"status"]] integerValue];
     
     switch (status) {
         case 0:
@@ -88,7 +88,7 @@
 +(ScanQRCodeResult0 *)makeWithDictionary:(NSDictionary *)dict
 {
     ScanQRCodeResult0 *obj=[ScanQRCodeResult0 new];
-    obj.message=[NSString stringWithStringDefault:dict[@"message"]];
+    obj.message=[NSString makeString:dict[@"message"]];
     
     return obj;
 }
@@ -101,9 +101,9 @@
 +(ScanQRCodeResult1 *)makeWithDictionary:(NSDictionary *)dict
 {
     ScanQRCodeResult1 *obj=[ScanQRCodeResult1 new];
-    obj.message=[NSString stringWithStringDefault:dict[@"message"]];
-    obj.idShop=[[NSNumber numberWithObject:dict[@"idShop"]] integerValue];
-    obj.shopName=[NSString stringWithStringDefault:dict[@"shopName"]];
+    obj.message=[NSString makeString:dict[@"message"]];
+    obj.idShop=[[NSNumber makeNumber:dict[@"idShop"]] integerValue];
+    obj.shopName=[NSString makeString:dict[@"shopName"]];
     
     return obj;
 }
@@ -115,11 +115,11 @@
 +(ScanQRCodeResult2 *)makeWithDictionary:(NSDictionary *)dict
 {
     ScanQRCodeResult2 *obj=[ScanQRCodeResult2 new];
-    obj.message=[NSString stringWithStringDefault:dict[@"message"]];
-    obj.shopName=[NSString stringWithStringDefault:dict[@"shopName"]];
-    obj.idShop=[[NSNumber numberWithObject:dict[@"idShop"]] integerValue];
-    obj.sgp=[NSString stringWithStringDefault:dict[@"sgp"]];
-    obj.totalSGP=[NSString stringWithStringDefault:dict[@"totalSGP"]];
+    obj.message=[NSString makeString:dict[@"message"]];
+    obj.shopName=[NSString makeString:dict[@"shopName"]];
+    obj.idShop=[[NSNumber makeNumber:dict[@"idShop"]] integerValue];
+    obj.sgp=[NSString makeString:dict[@"sgp"]];
+    obj.totalSGP=[NSString makeString:dict[@"totalSGP"]];
     
     return obj;
 }
@@ -132,13 +132,13 @@
 +(ScanQRCodeResult3 *)makeWithDictionary:(NSDictionary *)dict
 {
     ScanQRCodeResult3 *obj=[ScanQRCodeResult3 new];
-    obj.message=[NSString stringWithStringDefault:dict[@"message"]];
-    obj.totalSGP=[NSString stringWithStringDefault:dict[@"totalSGP"]];
-    obj.sgp=[NSString stringWithStringDefault:dict[@"sgp"]];
-    obj.giftName=[NSString stringWithStringDefault:dict[@"giftName"]];
-    obj.type=[NSString stringWithStringDefault:dict[@"type"]];
-    obj.idShop=[[NSNumber numberWithObject:dict[@"idShop"]] integerValue];
-    obj.shopName=[NSString stringWithStringDefault:dict[@"shopName"]];
+    obj.message=[NSString makeString:dict[@"message"]];
+    obj.totalSGP=[NSString makeString:dict[@"totalSGP"]];
+    obj.sgp=[NSString makeString:dict[@"sgp"]];
+    obj.giftName=[NSString makeString:dict[@"giftName"]];
+    obj.type=[NSString makeString:dict[@"type"]];
+    obj.idShop=[[NSNumber makeNumber:dict[@"idShop"]] integerValue];
+    obj.shopName=[NSString makeString:dict[@"shopName"]];
     
     return obj;
 }
@@ -151,11 +151,11 @@
 +(ScanQRCodeResult4 *)makeWithDictionary:(NSDictionary *)dict
 {
     ScanQRCodeResult4 *obj=[ScanQRCodeResult4 new];
-    obj.message=[NSString stringWithStringDefault:dict[@"message"]];
-    obj.type=[NSString stringWithStringDefault:dict[@"type"]];
-    obj.voucherName=[NSString stringWithStringDefault:dict[@"voucherName"]];
-    obj.idShop=[[NSNumber numberWithObject:dict[@"idShop"]] integerValue];
-    obj.shopName=[NSString stringWithStringDefault:dict[@"shopName"]];
+    obj.message=[NSString makeString:dict[@"message"]];
+    obj.type=[NSString makeString:dict[@"type"]];
+    obj.voucherName=[NSString makeString:dict[@"voucherName"]];
+    obj.idShop=[[NSNumber makeNumber:dict[@"idShop"]] integerValue];
+    obj.shopName=[NSString makeString:dict[@"shopName"]];
     
     
     return obj;

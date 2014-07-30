@@ -31,8 +31,8 @@
         return;
     
     NSDictionary *dict=json[0];
-    self.isSuccess=[NSNumber numberWithObject:dict[@"result"]];
-    self.message=[NSString stringWithStringDefault:dict[@"message"]];
+    self.isSuccess=[NSNumber makeNumber:dict[@"result"]];
+    self.message=[NSString makeString:dict[@"message"]];
 }
 
 -(NSString *)phone

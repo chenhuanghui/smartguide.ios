@@ -30,12 +30,12 @@
         return;
     
     NSDictionary *dict=json[0];
-    status=[[NSNumber numberWithObject:dict[@"status"]] integerValue];
-    message=[NSString stringWithStringDefault:dict[@"message"]];
+    status=[[NSNumber makeNumber:dict[@"status"]] integerValue];
+    message=[NSString makeString:dict[@"message"]];
     
     if(status==1)
     {
-        int as=[[NSNumber numberWithObject:dict[@"agreeStatus"]] integerValue];
+        int as=[[NSNumber makeNumber:dict[@"agreeStatus"]] integerValue];
         
         switch (as) {
             case 0:
@@ -50,7 +50,7 @@
                 break;
         }
         
-        numOfAgree=[NSString stringWithStringDefault:dict[@"numOfAgree"]];
+        numOfAgree=[NSString makeString:dict[@"numOfAgree"]];
         
         int idCmt=[self.keyValue[@"idComment"] integerValue];
         ShopUserComment *cmt=[ShopUserComment commentWithIDComment:idCmt];
@@ -59,7 +59,7 @@
         {
             cmt.agreeStatus=@(as);
             cmt.numOfAgree=numOfAgree;
-            cmt.totalAgree=[NSNumber numberWithObject:dict[@"totalAgree"]];
+            cmt.totalAgree=[NSNumber makeNumber:dict[@"totalAgree"]];
             
             [[DataManager shareInstance] save];
         }

@@ -11,7 +11,7 @@
 
 +(ShopList *)makeWithDictionary:(NSDictionary *)dict
 {
-    int idShop=[[NSNumber numberWithObject:dict[@"idShop"]] integerValue];
+    int idShop=[[NSNumber makeNumber:dict[@"idShop"]] integerValue];
 
     ShopList *obj=[ShopList shopListWithIDShop:idShop];
     
@@ -27,33 +27,33 @@
     {
         obj.shop=[Shop insert];
         obj.shop.idShop=@(idShop);
-        obj.shop.shopName=[NSString stringWithStringDefault:dict[@"shopName"]];
+        obj.shop.shopName=[NSString makeString:dict[@"shopName"]];
         obj.shop.dataMode=@(SHOP_DATA_SHOP_LIST);
     }
     
-    obj.distance=[NSString stringWithStringDefault:dict[@"distance"]];
-    obj.desc=[NSString stringWithStringDefault:dict[@"description"]];
-    obj.shopName=[NSString stringWithStringDefault:dict[@"shopName"]];
+    obj.distance=[NSString makeString:dict[@"distance"]];
+    obj.desc=[NSString makeString:dict[@"description"]];
+    obj.shopName=[NSString makeString:dict[@"shopName"]];
     
-    obj.shop.promotionType=[NSNumber numberWithObject:dict[@"promotionType"]];
-    obj.shop.shopType=[NSNumber numberWithObject:dict[@"shopType"]];
-    obj.shop.shopTypeDisplay=[NSString stringWithStringDefault:dict[@"shopTypeDisplay"]];
-    obj.shop.shopName=[NSString stringWithStringDefault:dict[@"shopName"]];
-    obj.shop.address=[NSString stringWithStringDefault:dict[@"address"]];
-    obj.shop.shopLat=[NSNumber numberWithObject:dict[@"shopLat"]];
-    obj.shop.shopLng=[NSNumber numberWithObject:dict[@"shopLng"]];
-    obj.shop.loveStatus=[NSNumber numberWithObject:dict[@"loveStatus"]];
-    obj.shop.numOfLove=[NSString stringWithStringDefault:dict[@"numOfLove"]];
-    obj.shop.numOfView=[NSString stringWithStringDefault:dict[@"numOfView"]];
-    obj.shop.logo=[NSString stringWithStringDefault:dict[@"logo"]];
-    obj.shop.numOfComment=[NSString stringWithStringDefault:dict[@"numOfComment"]];
+    obj.shop.promotionType=[NSNumber makeNumber:dict[@"promotionType"]];
+    obj.shop.shopType=[NSNumber makeNumber:dict[@"shopType"]];
+    obj.shop.shopTypeDisplay=[NSString makeString:dict[@"shopTypeDisplay"]];
+    obj.shop.shopName=[NSString makeString:dict[@"shopName"]];
+    obj.shop.address=[NSString makeString:dict[@"address"]];
+    obj.shop.shopLat=[NSNumber makeNumber:dict[@"shopLat"]];
+    obj.shop.shopLng=[NSNumber makeNumber:dict[@"shopLng"]];
+    obj.shop.loveStatus=[NSNumber makeNumber:dict[@"loveStatus"]];
+    obj.shop.numOfLove=[NSString makeString:dict[@"numOfLove"]];
+    obj.shop.numOfView=[NSString makeString:dict[@"numOfView"]];
+    obj.shop.logo=[NSString makeString:dict[@"logo"]];
+    obj.shop.numOfComment=[NSString makeString:dict[@"numOfComment"]];
     
     NSDictionary *dictShopGallery=dict[@"shopGallery"];
     
     if(![dictShopGallery isNullData])
     {
-        obj.shop.shopGalleryCover=[NSString stringWithStringDefault:dictShopGallery[@"cover"]];
-        obj.shop.shopGalleryImage=[NSString stringWithStringDefault:dictShopGallery[@"image"]];
+        obj.shop.shopGalleryCover=[NSString makeString:dictShopGallery[@"cover"]];
+        obj.shop.shopGalleryImage=[NSString makeString:dictShopGallery[@"image"]];
     }
     
     return obj;

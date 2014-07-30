@@ -27,34 +27,34 @@
 {
     UserNotificationContent *obj=[UserNotificationContent insert];
     
-    obj.sender=[NSString stringWithStringDefault:data[@"sender"]];
-    obj.idMessage=[NSNumber numberWithObject:data[@"idMessage"]];
-    obj.logo=[NSString stringWithStringDefault:data[@"logo"]];
+    obj.sender=[NSString makeString:data[@"sender"]];
+    obj.idMessage=[NSNumber makeNumber:data[@"idMessage"]];
+    obj.logo=[NSString makeString:data[@"logo"]];
     
     if(data[@"idShop"])
-        obj.idShopLogo=[NSNumber numberWithObject:data[@"idShop"]];
+        obj.idShopLogo=[NSNumber makeNumber:data[@"idShop"]];
     
-    obj.time=[NSString stringWithStringDefault:data[@"time"]];
-    obj.title=[NSString stringWithStringDefault:data[@"title"]];
-    obj.content=[NSString stringWithStringDefault:data[@"content"]];
-    obj.status=[NSNumber numberWithObject:data[@"status"]];
+    obj.time=[NSString makeString:data[@"time"]];
+    obj.title=[NSString makeString:data[@"title"]];
+    obj.content=[NSString makeString:data[@"content"]];
+    obj.status=[NSNumber makeNumber:data[@"status"]];
     
     if(obj.enumStatus==NOTIFICATION_STATUS_UNREAD)
         obj.highlightUnread=@(true);
     
     if([data[@"image"] hasData])
     {
-        obj.image=[NSString stringWithStringDefault:data[@"image"]];
-        obj.imageWidth=[NSNumber numberWithObject:data[@"imageWidth"]];
-        obj.imageHeight=[NSNumber numberWithObject:data[@"imageHeight"]];
+        obj.image=[NSString makeString:data[@"image"]];
+        obj.imageWidth=[NSNumber makeNumber:data[@"imageWidth"]];
+        obj.imageHeight=[NSNumber makeNumber:data[@"imageHeight"]];
     }
     
     if([data[@"video"] hasData])
     {
-        obj.video=[NSString stringWithStringDefault:data[@"video"]];
-        obj.videoWidth=[NSNumber numberWithObject:data[@"videoWidth"]];
-        obj.videoHeight=[NSNumber numberWithObject:data[@"videoHeight"]];
-        obj.videoThumbnail=[NSString stringWithStringDefault:data[@"videoThumbnail"]];
+        obj.video=[NSString makeString:data[@"video"]];
+        obj.videoWidth=[NSNumber makeNumber:data[@"videoWidth"]];
+        obj.videoHeight=[NSNumber makeNumber:data[@"videoHeight"]];
+        obj.videoThumbnail=[NSString makeString:data[@"videoThumbnail"]];
     }
     
     NSArray *actions=data[@"buttons"];
