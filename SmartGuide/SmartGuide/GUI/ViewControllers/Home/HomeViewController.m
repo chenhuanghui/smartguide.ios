@@ -276,6 +276,24 @@
             }];
         }
         
+        /*
+        NSMutableArray *headers=[tableFeed.subviews mutableCopy];
+        
+        for(int i=headers.count-1;i>=0;i--)
+        {
+            UIView *header=headers[i];
+            
+            if(![header isKindOfClass:[HomeHeaderView class]])
+                [headers removeObject:header];
+        }
+        
+        [headers sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"section" ascending:true]]];
+        
+        for(HomeHeaderView *header in headers)
+        {
+            [tableFeed bringSubviewToFront:header];
+        }
+        */
     }
 }
 
@@ -408,10 +426,7 @@
     {
         HomeHeaderView *header=[HomeHeaderView new];
         header.section=section;
-        header.originalFrame=[tableFeed rectForHeaderInSection:section];
-        header.sectionFrame=[tableFeed rectForSection:section];
-        header.table=tableView;
-        
+
         [header loadWithHomeSection:homeSection];
         
         UITapGestureRecognizer *tapGes=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapHeader:)];
@@ -879,9 +894,40 @@
 
 @implementation TableHome
 
--(void)setUserInteractionEnabled:(BOOL)userInteractionEnabled
+-(void)addSubview:(UIView *)view
 {
-    [super setUserInteractionEnabled:userInteractionEnabled];
+    if([view isKindOfClass:[HomeHeaderView class]])
+    {
+        HomeHeaderView *header=(id)view;
+        HomeHeaderView *headerView;
+        
+        int maxSection=header.section;
+        
+        for(headerView in self.subviews)
+        {
+            if(![headerView isKindOfClass:[HomeHeaderView class]])
+                continue;
+            
+            if(headerView.section>maxSection)
+            {
+                maxSection=headerView.section;
+                break;
+            }
+        }
+        
+        if(maxSection>header.section)
+        {
+            [self insertSubview:view belowSubview:headerView];
+        }
+        else
+        {
+            [super addSubview:view];
+        }
+        
+        return;
+    }
+    
+    [super addSubview:view];
 }
 
 @end

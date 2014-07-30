@@ -100,14 +100,7 @@
                 
             case USER_HOME_TYPE_9:
 
-                if([dict[@"image"] hasData])
-                {
-                    [home makeHomeImage:@[dict[@"image"]]];
-                }
-                else
-                {
-                    [home makeHomeImage:dict[@"images"]];
-                }
+                [home makeHomeImage:dict[@"images"]];
 
                 home.imageHeight=[NSNumber makeNumber:dict[@"imageHeight"]];
                 home.imageWidth=[NSNumber makeNumber:dict[@"imageWidth"]];
@@ -117,7 +110,7 @@
                     home.idPlacelist=[NSNumber makeNumber:dict[@"idPlacelist"]];
                 else if([dict[@"idShops"] hasData])
                     home.idShops=[NSString makeString:dict[@"idShops"]];
-                // Xử lý trong [UserHome makeWithDictionary]
+
                 break;
                 
             case USER_HOME_TYPE_UNKNOW:

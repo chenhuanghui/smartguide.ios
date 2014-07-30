@@ -12,8 +12,6 @@
 
 @interface HomeHeaderView : UIView
 {
-    __weak IBOutlet UIImageView *imgv;
-    __weak IBOutlet UIView *imgvShadow;
     __weak IBOutlet UILabel *lblTitle;
 }
 
@@ -21,8 +19,5 @@
 +(float) height;
 
 @property (nonatomic, assign) int section;
-@property (nonatomic, assign) CGRect originalFrame;
-@property (nonatomic, assign) CGRect sectionFrame;
-@property (nonatomic, weak) UITableView *table;
 
 @end

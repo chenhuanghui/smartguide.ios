@@ -104,19 +104,9 @@
     return [self enumType]==USER_HOME_TYPE_9;
 }
 
--(NSString *)title
+-(NSString *)title1
 {
     return @"Cà phê đọc sách học bài Cà phê đọc sách học bài Cà phê đọc sách học bài Cà phê đọc sách học bài";
-}
-
--(NSString *)image
-{
-    return @"https://lh5.googleusercontent.com/-v2A9-gc2DSQ/AAAAAAAAAAI/AAAAAAAAAAA/Q3DfBN6LCoY/photo.jpg";
-}
-
--(NSNumber *)idPlacelist
-{
-    return @(1);
 }
 
 #else
