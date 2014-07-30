@@ -272,6 +272,11 @@ NSString* LAZY_STRING_INT(int i)
     return [NSString stringWithFormat:@"%i",i];
 }
 
+NSSortDescriptor *sortDesc(NSString *key, BOOL ascending)
+{
+    return [NSSortDescriptor sortDescriptorWithKey:key ascending:ascending];
+}
+
 @implementation Utility
 
 +(CGRect) centerPinWithFrameAnnotation:(CGRect) rectAnn framePin:(CGRect) rectPin

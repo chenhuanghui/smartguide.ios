@@ -78,6 +78,8 @@ UIColor* COLOR255(float r, float g, float b, float a);
 
 NSString* LAZY_STRING_INT(int i);
 
+NSSortDescriptor *sortDesc(NSString *key, BOOL ascending);
+
 @interface Utility : NSObject
 
 +(CGRect) centerPinWithFrameAnnotation:(CGRect) rectAnn framePin:(CGRect) rectPin;

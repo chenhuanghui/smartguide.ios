@@ -721,6 +721,8 @@
             [homeSection addHomeObject:home];
         }
     }
+    
+    [[DataManager shareInstance] save];
 }
 
 -(void)ASIOperaionPostFailed:(ASIOperationPost *)operation

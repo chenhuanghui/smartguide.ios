@@ -97,37 +97,10 @@
     return [NSArray array];
 }
 
-#if DEBUG
-
 -(bool)isHome9Header
 {
-    return [self enumType]==USER_HOME_TYPE_9;
+    return [self enumType]==USER_HOME_TYPE_9 && ([self.idShops hasData] || [self.idPlacelist hasData] || [self.title hasData]);
 }
 
--(NSString *)title1
-{
-    return @"Cà phê đọc sách học bài Cà phê đọc sách học bài Cà phê đọc sách học bài Cà phê đọc sách học bài";
-}
-
-#else
-
--(bool)isHome9Header
-{
-    return [self enumType]==USER_HOME_TYPE_9 && ([self.idShops hasData] || [self.idPlacelist hasData]);
-}
-
--(NSString *)image
-{
-    if(self.imagesObjects.count>0)
-    {
-        UserHomeImage *img=[self.imagesObjects firstObject];
-        
-        return img.image;
-    }
-    
-    return @"";
-}
-
-#endif
 
 @end
