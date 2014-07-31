@@ -2822,10 +2822,10 @@ static const NSString *KEY_HIT_TEST_EDGE_INSETS = @"HitTestEdgeInsets";
 {
     enum CELL_POSITION cellPos=CELL_POSITION_MIDDLE;
     
-    if(indexPath.row==0)
-        cellPos=CELL_POSITION_TOP;
-    else if(indexPath.row==[self numberOfRowsInSection:indexPath.section]-1)
+    if(indexPath.row==[self numberOfRowsInSection:indexPath.section]-1)
         cellPos=CELL_POSITION_BOTTOM;
+    else if(indexPath.row==0)
+        cellPos=CELL_POSITION_TOP;
     
     return cellPos;
 }
