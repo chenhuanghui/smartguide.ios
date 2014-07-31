@@ -86,7 +86,7 @@
         self.thread = [NSThread currentThread];
     }
 
-    DLOG_DEBUG(@"%@ download start",self.connection.currentRequest.URL);
+    DLOG_DOWNLOAD(@"%@ download start",self.connection.currentRequest.URL);
     
     [self.connection start];
 
@@ -336,7 +336,7 @@
 - (void)connectionDidFinishLoading:(NSURLConnection *)aConnection {
     CFRunLoopStop(CFRunLoopGetCurrent());
     
-    DLOG_DEBUG(@"%@ download finished %i",self.connection.currentRequest.URL, self.imageData.length);
+    DLOG_DOWNLOAD(@"%@ download finished %i",self.connection.currentRequest.URL, self.imageData.length);
     
     self.connection = nil;
 
@@ -382,7 +382,7 @@
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
     
-    DLOG_DEBUG(@"%@ download error %@",self.connection.currentRequest.URL, error);
+    DLOG_DOWNLOAD(@"%@ download error %@",self.connection.currentRequest.URL, error);
     
     CFRunLoopStop(CFRunLoopGetCurrent());
     [[NSNotificationCenter defaultCenter] postNotificationName:SDWebImageDownloadStopNotification object:nil];
