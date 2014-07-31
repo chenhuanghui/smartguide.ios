@@ -60,6 +60,8 @@
     
     [cell showLoading];
     
+    DLOG_DEBUG(@"loadingMoreCell");
+    
     return cell;
 }
 

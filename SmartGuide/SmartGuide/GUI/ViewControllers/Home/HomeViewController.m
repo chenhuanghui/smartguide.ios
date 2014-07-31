@@ -131,7 +131,8 @@
 -(void) reloadTable
 {
     [tableFeed reloadData];
-    scroll.contentSize=CGSizeMake(tableFeed.contentSize.width, tableFeed.contentSize.height+tableFeed.l_v_y+(QRCODE_BIG_HEIGHT-QRCODE_SMALL_HEIGHT));
+    scroll.contentSize=CGSizeMake(tableFeed.contentSize.width, tableFeed.contentSize.height+_tableFrame.origin.y+(QRCODE_BIG_HEIGHT-QRCODE_SMALL_HEIGHT));
+    scroll.scrollIndicatorInsets=UIEdgeInsetsMake(_tableFrame.origin.y, 0, QRCODE_BIG_HEIGHT-QRCODE_SMALL_HEIGHT, 0);
 }
 
 -(void)textFieldRefreshFinished:(TextField *)txt
@@ -213,8 +214,6 @@
 {
     if(scrollView==scroll)
     {
-        //        DLOG_DEBUG(@"scroll %f %f %f %f",scrollView.contentOffset.y,scrollView.contentInset.top,tableFeed.l_v_y,tableFeed.contentOffset.y);
-        
         float paddingY=44;
         
         if(scroll.contentOffset.y>paddingY)
@@ -678,6 +677,11 @@
             _canLoadMore=ope.homes.count>=10;
             _isLoadingMore=false;
             _page++;
+            
+#if DEBUG
+            if(_page>=10)
+                _canLoadMore=false;
+#endif
             
             [self reloadTable];
         }
