@@ -24,7 +24,7 @@ enum SHOP_COMMENT_MODE
 
 @end
 
-@interface ShopCommentsControllerCell : UITableViewCell
+@interface ShopCommentsControllerCell : UITableViewCell<TableViewCellDynamicHeight>
 {
     __weak IBOutlet UITableView *table;
     __weak IBOutlet UIView *touchView;
@@ -42,6 +42,7 @@ enum SHOP_COMMENT_MODE
     __weak IBOutlet UIImageView *imgvFirstComment;
     bool _isAnimating;
     __weak Shop* _shop;
+    float _maxHeight;
     bool _isEditing;
 }
 
@@ -49,7 +50,7 @@ enum SHOP_COMMENT_MODE
 -(void) tableDidScroll:(UITableView*) tableUser;
 
 +(NSString *)reuseIdentifier;
-+(float) heightWithShop:(Shop*) shop sort:(enum SORT_SHOP_COMMENT) sort;
+//+(float) heightWithShop:(Shop*) shop sort:(enum SORT_SHOP_COMMENT) sort;
 +(float) tableY;
 -(void) focus;
 -(void) clearInput;

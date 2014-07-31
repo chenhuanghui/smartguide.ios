@@ -465,12 +465,14 @@ NSSortDescriptor *sortDesc(NSString *key, BOOL ascending);
 
 -(UITableViewCell*) emptyCell;
 -(enum CELL_POSITION) getCellPosition:(NSIndexPath*) indexPath;
+-(enum CELL_POSITION) getCellPosition:(NSIndexPath*) indexPath numberOfRowInSection:(NSUInteger) numberOfRow;
 
 @end
 
 @interface NSMutableParagraphStyle(Utility)
 
 +(NSMutableParagraphStyle*) paraStyleWithTextAlign:(NSTextAlignment) textAlign;
++(NSMutableParagraphStyle*) paraStyleJustified;
 
 @end
 

@@ -2820,9 +2820,14 @@ static const NSString *KEY_HIT_TEST_EDGE_INSETS = @"HitTestEdgeInsets";
 
 -(enum CELL_POSITION)getCellPosition:(NSIndexPath *)indexPath
 {
+    return [self getCellPosition:indexPath numberOfRowInSection:[self numberOfRowsInSection:indexPath.section]];
+}
+
+-(enum CELL_POSITION)getCellPosition:(NSIndexPath *)indexPath numberOfRowInSection:(NSUInteger)numberOfRow
+{
     enum CELL_POSITION cellPos=CELL_POSITION_MIDDLE;
     
-    if(indexPath.row==[self numberOfRowsInSection:indexPath.section]-1)
+    if(indexPath.row==numberOfRow-1)
         cellPos=CELL_POSITION_BOTTOM;
     else if(indexPath.row==0)
         cellPos=CELL_POSITION_TOP;
@@ -2842,6 +2847,11 @@ static const NSString *KEY_HIT_TEST_EDGE_INSETS = @"HitTestEdgeInsets";
     obj.lineBreakMode=NSLineBreakByTruncatingTail;
     
     return obj;
+}
+
++(NSMutableParagraphStyle *)paraStyleJustified
+{
+    return [NSMutableParagraphStyle paraStyleWithTextAlign:NSTextAlignmentJustified];
 }
 
 @end

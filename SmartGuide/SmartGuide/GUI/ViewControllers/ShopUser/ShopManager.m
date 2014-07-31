@@ -90,11 +90,11 @@ NSMutableArray * _shopManagers=nil;
     _pageGalleryUser=0;
     
     self.topAgreedComments=[_shop.topCommentsObjects mutableCopy];
-    canLoadMoreCommentTime=self.topAgreedComments.count==10;
+    canLoadMoreCommentTopAgreed=self.topAgreedComments.count==10;
     isLoadingMoreCommentTopAgreed=false;
     _pageCommentsTopAgreed=0;
     
-    canLoadMoreCommentTopAgreed=false;
+    canLoadMoreCommentTime=false;
     isLoadingMoreCommentTime=false;
     _pageCommentsTime=-1;
     

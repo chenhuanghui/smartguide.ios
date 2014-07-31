@@ -25,19 +25,61 @@
 @end
 
 @implementation ShopUserCommentCell
+@synthesize suggestHeight;
 
--(void)loadWithComment:(ShopUserComment *)comment
+-(void)loadWithComment:(ShopUserComment *)comment cellPos:(enum CELL_POSITION) cellPost
 {
     _comment=comment;
+    _cellPos=cellPost;
+    [self setNeedsLayout];
+}
+
+-(void)layoutSubviews
+{
+    self.contentView.frame=(CGRect){CGPointZero,self.frame.size};
     
-    [imgvAvatar loadCommentAvatarWithURL:comment.avatar size:CGSizeMake(44, 44)];
+    switch (_cellPos) {
+        case CELL_POSITION_TOP:
+        case CELL_POSITION_MIDDLE:
+            lineBot.hidden=false;
+            break;
+            
+        case CELL_POSITION_BOTTOM:
+            lineBot.hidden=true;
+            break;
+    }
     
-    lblUsername.text=comment.username;
-    lblTime.text=comment.time;
-    lblComment.text=comment.comment;
-    [lblComment l_v_setH:comment.commentHeight.floatValue+22];
+    lblUsername.text=_comment.username;
+    lblUsername.frame=CGRectMake(57, 6, 236, 0);
+    [lblUsername sizeToFit];
+    
+    lblComment.attributedText=[[NSAttributedString alloc] initWithString:_comment.comment attributes:@{NSFontAttributeName:lblComment.font
+                                                                                                       , NSParagraphStyleAttributeName:[NSMutableParagraphStyle paraStyleJustified]}];
+    lblComment.frame=CGRectMake(57, lblUsername.l_v_y+lblUsername.l_v_h+5, 236, 0);
+    [lblComment sizeToFit];
+    
+    lblTime.text=_comment.time;
+    lblTime.frame=CGRectMake(57, lblComment.l_v_y+lblComment.l_v_h+5, 206, 0);
+    
+    [lblTime sizeToFit];
+    
+    [lblTime l_v_setW:206];
+    
+    lblNumOfAgree.frame=lblTime.frame;
+    
+    [imgvAvatar loadCommentAvatarWithURL:_comment.avatar size:CGSizeMake(44, 44)];
     
     [self makeButtonAgree];
+    
+    [btnAgree l_v_setY:lblNumOfAgree.l_v_y-btnAgree.l_v_h/2+7];
+    
+    if(lineBot.hidden)
+        suggestHeight=lblTime.l_v_y+lblTime.l_v_h+5;
+    else
+    {
+        [lineBot l_v_setY:lblTime.l_v_y+lblTime.l_v_h+5];
+        suggestHeight=lineBot.l_v_y+lineBot.l_v_h;
+    }
 }
 
 -(void) makeButtonAgree
@@ -56,26 +98,6 @@
         lblNumOfAgree.text=@"";
     else
         lblNumOfAgree.text=[NSString stringWithFormat:@"%@ lượt",_comment.numOfAgree];
-}
-
--(void)setCellPosition:(enum CELL_POSITION)cellPos
-{
-    switch (cellPos) {
-        case CELL_POSITION_TOP:
-            lineBot.hidden=false;
-            lineTop.hidden=true;
-            break;
-            
-        case CELL_POSITION_MIDDLE:
-            lineBot.hidden=false;
-            lineTop.hidden=true;
-            break;
-            
-        case CELL_POSITION_BOTTOM:
-            lineBot.hidden=true;
-            lineTop.hidden=true;
-            break;
-    }
 }
 
 +(NSString *)reuseIdentifier
@@ -159,7 +181,7 @@
 {
     if([operation isKindOfClass:[ASIOperationAgreeComment class]])
     {
-        [self loadWithComment:_comment];
+        [self loadWithComment:_comment cellPos:_cellPos];
         
         _operationAgree=nil;
     }

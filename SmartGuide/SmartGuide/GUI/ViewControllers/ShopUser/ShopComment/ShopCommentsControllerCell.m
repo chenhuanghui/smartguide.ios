@@ -29,16 +29,31 @@
 @end
 
 @implementation ShopCommentsControllerCell
+@synthesize suggestHeight;
 
 -(void)loadWithShop:(Shop *)shop maxHeight:(float)height
 {
     _shop=shop;
+    _maxHeight=height;
+    
+    [self setNeedsLayout];
+}
+
+-(void)layoutSubviews
+{
+    [super layoutSubviews];
+    
     [btnSort setTitle:localizeSortComment([ShopManager shareInstanceWithShop:_shop].sortComments) forState:UIControlStateNormal];
     
-    [containComments l_v_setH:height];
+    [containComments l_v_setH:_maxHeight];
+    
+    table.dataSource=self;
+    table.delegate=self;
     [table reloadData];
     
     [imgvAvatar loadAvatarWithURL:userAvatar()];
+    
+    suggestHeight=containComments.l_v_y+table.contentSize.height+61;
 }
 
 -(void)reloadData
@@ -107,7 +122,11 @@
     if(canLoadMore && indexPath.row==comments.count)
         return 80;
     
-    return [ShopUserCommentCell heightWithComment:comments[indexPath.row]];
+    ShopUserCommentCell *cell=[tableView shopUserCommentCell];
+    [cell loadWithComment:comments[indexPath.row] cellPos:[tableView getCellPosition:indexPath numberOfRowInSection:comments.count]];
+    [cell layoutSubviews];
+    
+    return [cell suggestHeight];
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -140,14 +159,7 @@
     }
     
     ShopUserCommentCell *cell=[tableView shopUserCommentCell];
-    [cell loadWithComment:comments[indexPath.row]];
-    
-    if(indexPath.row==0)
-        [cell setCellPosition:CELL_POSITION_TOP];
-    else if(indexPath.row==[tableView numberOfRowsInSection:indexPath.section]-1)
-        [cell setCellPosition:CELL_POSITION_BOTTOM];
-    else
-        [cell setCellPosition:CELL_POSITION_MIDDLE];
+    [cell loadWithComment:comments[indexPath.row] cellPos:[tableView getCellPosition:indexPath]];
     
     return cell;
 }
@@ -157,19 +169,19 @@
     return @"ShopCommentsControllerCell";
 }
 
-+(float)heightWithShop:(Shop *)shop sort:(enum SORT_SHOP_COMMENT)sort
-{
-    float height=141;
-    
-    NSArray *comments=[[ShopManager shareInstanceWithShop:shop] commentWithSort:sort];
-    
-    for(ShopUserComment *comment in comments)
-    {
-        height+=[ShopUserCommentCell heightWithComment:comment];
-    }
-    
-    return height;
-}
+//+(float)heightWithShop:(Shop *)shop sort:(enum SORT_SHOP_COMMENT)sort
+//{
+//    float height=141;
+//    
+//    NSArray *comments=[[ShopManager shareInstanceWithShop:shop] commentWithSort:sort];
+//    
+//    for(ShopUserComment *comment in comments)
+//    {
+//        height+=[ShopUserCommentCell heightWithComment:comment];
+//    }
+//    
+//    return height;
+//}
 
 -(void)awakeFromNib
 {

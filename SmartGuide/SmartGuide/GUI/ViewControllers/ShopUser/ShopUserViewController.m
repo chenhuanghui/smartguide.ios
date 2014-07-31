@@ -44,6 +44,7 @@ enum SHOP_USER_CELL_TYPE
     ASIOperationShopUser *_opeShopUser;
     
     NSMutableArray *_cacheCells;
+    float _commentsHeight;
 }
 
 @end
@@ -340,11 +341,19 @@ enum SHOP_USER_CELL_TYPE
             return [ShopUserGalleryControllerCell height];
             
         case SHOP_USER_CELL_TYPE_SHOP_COMMENT:
-            return [ShopCommentsControllerCell heightWithShop:_shop sort:[ShopManager shareInstanceWithShop:_shop].sortComments];
+        {
+            ShopCommentsControllerCell *cell=[table shopCommentsControllerCell];
+            [cell loadWithShop:_shop maxHeight:MAX(self.l_v_h,table.l_v_h)];
+            [cell layoutSubviews];
+            
+            _commentsHeight=[cell suggestHeight];
+            
+            return [cell suggestHeight];
+        }
             
         case SHOP_USER_CELL_TYPE_EMPTY_FILL:
         {
-            float cmtHeight=[ShopCommentsControllerCell heightWithShop:_shop sort:[ShopManager shareInstanceWithShop:_shop].sortComments];
+            float cmtHeight=_commentsHeight;
             
             if(cmtHeight>tableView.l_v_h+tableView.l_v_y)
                 return 0;

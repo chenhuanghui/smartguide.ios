@@ -11,10 +11,9 @@
 
 @class ShopUserComment,ButtonAgree;
 
-@interface ShopUserCommentCell : UITableViewCell
+@interface ShopUserCommentCell : UITableViewCell<TableViewCellDynamicHeight>
 {
     __weak IBOutlet UIImageView *lineBot;
-    __weak IBOutlet UIImageView *lineTop;
     __weak IBOutlet UIImageView *imgvAvatar;
     __weak IBOutlet UILabel *lblUsername;
     __weak IBOutlet UILabel *lblComment;
@@ -23,13 +22,12 @@
     __weak IBOutlet UIButton *btnAgree;
     
     __weak ShopUserComment *_comment;
+    enum CELL_POSITION _cellPos;
 }
 
--(void) loadWithComment:(ShopUserComment*) comment;
--(void) setCellPosition:(enum CELL_POSITION) cellPos;
+-(void) loadWithComment:(ShopUserComment*) comment cellPos:(enum CELL_POSITION) cellPos;
 
 +(NSString *)reuseIdentifier;
-+(float) heightWithComment:(ShopUserComment*) comment;
 
 @end
 
