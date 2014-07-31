@@ -99,7 +99,7 @@
 
 -(bool)isHome9Header
 {
-    return [self enumType]==USER_HOME_TYPE_9 && ([self.idShops hasData] || [self.idPlacelist hasData] || [self.title hasData]);
+    return [self enumType]==USER_HOME_TYPE_9 && [self.title hasData];
 }
 
 
