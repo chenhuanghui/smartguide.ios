@@ -678,11 +678,6 @@
             _isLoadingMore=false;
             _page++;
             
-#if DEBUG
-            if(_page>=10)
-                _canLoadMore=false;
-#endif
-            
             [self reloadTable];
         }
         
