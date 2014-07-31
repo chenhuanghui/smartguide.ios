@@ -25,6 +25,11 @@
 #define SU_USER_COMMENT_CELL_BOTTOM_EDIT_Y 120.f
 
 @interface ShopCommentsControllerCell()<UITableViewDataSource,UITableViewDelegate,UIActionSheetDelegate,HPGrowingTextViewDelegate>
+{
+    NSArray *_comments;
+    bool _canLoadMore;
+    bool _isLoadingMore;
+}
 
 @end
 
@@ -39,17 +44,40 @@
     [self setNeedsLayout];
 }
 
+-(void) makeData
+{
+    switch ([ShopManager shareInstanceWithShop:_shop].sortComments) {
+        case SORT_SHOP_COMMENT_TIME:
+            _comments=[[ShopManager shareInstanceWithShop:_shop].timeComments copy];
+            _canLoadMore=[ShopManager shareInstanceWithShop:_shop].canLoadMoreCommentTime;
+            _isLoadingMore=[ShopManager shareInstanceWithShop:_shop].isLoadingMoreCommentTime;
+            break;
+            
+        case SORT_SHOP_COMMENT_TOP_AGREED:
+            _comments=[[ShopManager shareInstanceWithShop:_shop].topAgreedComments copy];
+            _canLoadMore=[ShopManager shareInstanceWithShop:_shop].canLoadMoreCommentTopAgreed;
+            _isLoadingMore=[ShopManager shareInstanceWithShop:_shop].isLoadingMoreCommentTopAgreed;
+            break;
+    }
+}
+
 -(void)layoutSubviews
 {
+    [UIView setAnimationsEnabled:false];
+    
     [super layoutSubviews];
     
     [btnSort setTitle:localizeSortComment([ShopManager shareInstanceWithShop:_shop].sortComments) forState:UIControlStateNormal];
     
     [containComments l_v_setH:_maxHeight];
     
+    [self makeData];
+    
     table.dataSource=self;
     table.delegate=self;
     [table reloadData];
+    
+    [UIView setAnimationsEnabled:true];
     
     [imgvAvatar loadAvatarWithURL:userAvatar()];
     
@@ -87,17 +115,7 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    int count=0;
-    switch ([ShopManager shareInstanceWithShop:_shop].sortComments) {
-        case SORT_SHOP_COMMENT_TIME:
-            count=[ShopManager shareInstanceWithShop:_shop].timeComments.count+([ShopManager shareInstanceWithShop:_shop].canLoadMoreCommentTime?1:0);
-            break;
-            
-        case SORT_SHOP_COMMENT_TOP_AGREED:
-            count=[ShopManager shareInstanceWithShop:_shop].topAgreedComments.count+([ShopManager shareInstanceWithShop:_shop].canLoadMoreCommentTopAgreed?1:0);
-            break;
-    }
-    
+    int count=_comments.count+(_canLoadMore?1:0);
     imgvFirstComment.hidden=count>0;
     
     return count;
@@ -105,19 +123,8 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSArray *comments=@[];
-    bool canLoadMore=false;
-    switch ([ShopManager shareInstanceWithShop:_shop].sortComments) {
-        case SORT_SHOP_COMMENT_TIME:
-            comments=[ShopManager shareInstanceWithShop:_shop].timeComments;
-            canLoadMore=[ShopManager shareInstanceWithShop:_shop].canLoadMoreCommentTime;
-            break;
-            
-        case SORT_SHOP_COMMENT_TOP_AGREED:
-            comments=[ShopManager shareInstanceWithShop:_shop].topAgreedComments;
-            canLoadMore=[ShopManager shareInstanceWithShop:_shop].canLoadMoreCommentTopAgreed;
-            break;
-    }
+    NSArray *comments=_comments;
+    bool canLoadMore=_canLoadMore;
     
     if(canLoadMore && indexPath.row==comments.count)
         return 80;
@@ -131,28 +138,16 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSArray *comments=@[];
-    bool canLoadMore=false;
-    bool isLoadingMore=true;
-    switch ([ShopManager shareInstanceWithShop:_shop].sortComments) {
-        case SORT_SHOP_COMMENT_TIME:
-            comments=[ShopManager shareInstanceWithShop:_shop].timeComments;
-            canLoadMore=[ShopManager shareInstanceWithShop:_shop].canLoadMoreCommentTime;
-            isLoadingMore=[ShopManager shareInstanceWithShop:_shop].isLoadingMoreCommentTime;
-            break;
-            
-        case SORT_SHOP_COMMENT_TOP_AGREED:
-            comments=[ShopManager shareInstanceWithShop:_shop].topAgreedComments;
-            canLoadMore=[ShopManager shareInstanceWithShop:_shop].canLoadMoreCommentTopAgreed;
-            isLoadingMore=[ShopManager shareInstanceWithShop:_shop].isLoadingMoreCommentTopAgreed;
-            break;
-    }
+    NSArray *comments=_comments;
+    bool canLoadMore=_canLoadMore;
+    bool isLoadingMore=_isLoadingMore;
     
     if(canLoadMore && indexPath.row==comments.count)
     {
         if(!isLoadingMore)
         {
             [[ShopManager shareInstanceWithShop:_shop] requestComments];
+            _isLoadingMore=true;
         }
 
         return [table loadingMoreCell];

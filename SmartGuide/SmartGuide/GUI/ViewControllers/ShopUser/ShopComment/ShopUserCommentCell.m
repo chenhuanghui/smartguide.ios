@@ -36,6 +36,8 @@
 
 -(void)layoutSubviews
 {
+    [UIView setAnimationsEnabled:false];
+    
     self.contentView.frame=(CGRect){CGPointZero,self.frame.size};
     
     switch (_cellPos) {
@@ -80,6 +82,8 @@
         [lineBot l_v_setY:lblTime.l_v_y+lblTime.l_v_h+5];
         suggestHeight=lineBot.l_v_y+lineBot.l_v_h;
     }
+    
+    [UIView setAnimationsEnabled:true];
 }
 
 -(void) makeButtonAgree

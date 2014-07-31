@@ -66,6 +66,10 @@ enum SHOP_USER_CELL_TYPE
     self=[super initWithNibName:@"ShopUserViewController" bundle:nil];
     
     _idShop=idShop;
+    
+//#if DEBUG
+//    _idShop=21520;
+//#endif
 
     _shop=[Shop makeWithIDShop:_idShop];
     if([_shop hasChanges])
@@ -106,6 +110,8 @@ enum SHOP_USER_CELL_TYPE
     }
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveNotification:) name:NOTIFICATION_SHOP_MANAGER_CLEAN object:nil];
+    
+    table.scrollIndicatorInsets=UIEdgeInsetsMake(100, 0, 0, 0);
 }
 
 -(void) reloadData
@@ -170,12 +176,14 @@ enum SHOP_USER_CELL_TYPE
         [self.view removeLoading];
         
         [shopComments clearInput];
-        [self reloadVisibleItems];
         
         if(shopComments)
         {
-            NSIndexPath *idx=[table indexPathForCell:shopComments];
-            [self scrollToItemAtIndexPath:idx];
+//            NSIndexPath *idx=[table indexPathForCell:shopComments];
+            
+            [shopComments loadWithShop:_shop maxHeight:MAX(self.l_v_h,table.l_v_h)];
+            [table beginUpdates];
+            [table endUpdates];
         }
     }
     else if([notification.name isEqualToString:NOTIFICATION_COMMENTS_FINISHED_NEW_COMMENT])

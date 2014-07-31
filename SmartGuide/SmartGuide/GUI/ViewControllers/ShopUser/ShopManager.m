@@ -189,9 +189,6 @@ NSMutableArray * _shopManagers=nil;
 {
     if(_sortComments!=sortType)
     {
-        self.timeComments=[NSMutableArray new];
-        self.topAgreedComments=[NSMutableArray new];
-        
         canLoadMoreCommentTime=false;
         canLoadMoreCommentTopAgreed=false;
         isLoadingMoreCommentTime=false;
@@ -281,12 +278,15 @@ NSMutableArray * _shopManagers=nil;
         {
             ASIOperationShopComment *ope=(ASIOperationShopComment*) operation;
             
+            if(_pageCommentsTime==-1)
+                self.timeComments=[NSMutableArray new];
+            
             [self.timeComments addObjectsFromArray:(ope.comments?:@[])];
             canLoadMoreCommentTime=ope.comments.count==10;
             isLoadingMoreCommentTime=false;
             _pageCommentsTime++;
             
-            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_COMMENTS_FINISHED_TIME object:nil];
+            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_COMMENTS_FINISHED_TIME object:@(_pageCommentsTime)];
             
             _operationTimeComment=nil;
         }
@@ -294,12 +294,15 @@ NSMutableArray * _shopManagers=nil;
         {
             ASIOperationShopComment *ope=(ASIOperationShopComment*) operation;
             
+            if(_pageCommentsTopAgreed==-1)
+                self.topAgreedComments=[NSMutableArray new];
+            
             [self.topAgreedComments addObjectsFromArray:(ope.comments?:@[])];
             canLoadMoreCommentTopAgreed=ope.comments.count==10;
             isLoadingMoreCommentTopAgreed=false;
             _pageCommentsTopAgreed++;
             
-            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_COMMENTS_FINISHED_TOP_AGREED object:nil];
+            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_COMMENTS_FINISHED_TOP_AGREED object:@(_pageCommentsTopAgreed)];
             
             _operationTopAgreedComment=nil;
         }
