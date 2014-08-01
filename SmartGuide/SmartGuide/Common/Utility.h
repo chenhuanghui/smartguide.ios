@@ -40,8 +40,6 @@
 
 NSString* NSStringFromCoordinate(CLLocationCoordinate2D coordinate);
 CGPathRef CGPathCreateRoundRect( const CGRect r, const CGFloat cornerRadius );
-NSString* NSStringFromColor(UIColor* color);
-CGRect CGRectWithOrigin(CGRect rect, CGPoint pnt);
 bool isVailCLLocationCoordinate2D(CLLocationCoordinate2D location);
 void makePhoneCall(NSString* phone);
 int random_int(int from, int to);
@@ -51,7 +49,8 @@ CGSize UIApplicationSize();
 float UIStatusBarHeight();
 NSURL* URL(NSString* url);
 NSIndexPath *makeIndexPath(int row, int section);
-CGSize makeSizeProportional(float width, CGSize size);
+CGSize CGSizeResizeToWidth(float width, CGSize size);
+CGSize CGSizeResizeToHeight(float width, CGSize size);
 
 NSUInteger UIViewAutoresizingAll();
 NSUInteger UIViewAutoresizingDefault();
@@ -283,19 +282,6 @@ NSSortDescriptor *sortDesc(NSString *key, BOOL ascending);
 -(CGPoint)convertPoint:(CGPoint)point untilView:(UIView *)view;
 
 -(UIImage*) captureView;
-
-@end
-
-@interface UIAlertView(Utility)
-
--(void) setEnableOKButton:(bool) isEnabled;
--(void) fireButtonWithTitle:(NSString*) title;
--(UILabel*) lblTitle;
--(UILabel*) lblMessage;
--(UIButton*) buttonWithTitle:(NSString*) title;
--(UIImageView*) backgroundView;
--(void) setBackground:(UIColor*) color;
--(void) setMessageTextColor:(UIColor*) color;
 
 @end
 

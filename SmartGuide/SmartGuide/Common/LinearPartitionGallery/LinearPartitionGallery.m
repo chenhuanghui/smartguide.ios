@@ -7,14 +7,9 @@
 //
 
 #import "LinearPartitionGallery.h"
+#import "Utility.h"
 
 @implementation LinearPartitionLayout
-
-CGSize CGSizeResizeToHeight(CGSize size, CGFloat height) {
-    size.width *= height / size.height;
-    size.height = height;
-    return size;
-}
 
 -(int) totalItemCount
 {
@@ -52,7 +47,7 @@ CGSize CGSizeResizeToHeight(CGSize size, CGFloat height) {
             indexPath=[NSIndexPath indexPathForItem:i inSection:s];
             
             CGSize size=[self.delegate linearPartition:self sizeAtIndexPath:indexPath];
-            CGSize newSize=CGSizeResizeToHeight(size, ideal_height);
+            CGSize newSize=CGSizeResizeToHeight(ideal_height, size);
             newFrames[count]=(CGRect){CGPointZero, newSize};
             seq[count]=newSize.width;
             total_width+=seq[count];

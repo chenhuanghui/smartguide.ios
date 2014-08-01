@@ -22,7 +22,7 @@
 
 @end
 
-@interface NavigationViewController : SGViewController<UIGestureRecognizerDelegate,LeftControllerCallback>
+@interface NavigationViewController : SGViewController<UIGestureRecognizerDelegate>
 {
     __weak IBOutlet UIButton *btnPromotion;
     __weak IBOutlet UIView *containtView;

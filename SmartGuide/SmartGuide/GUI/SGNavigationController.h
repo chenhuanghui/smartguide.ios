@@ -22,15 +22,6 @@ CATransition* transitionPushFromTop();
 CATransition* transitionPushFromLeft();
 CATransition* transitionPushFromRight();
 
-@class SGLeftViewController, SGRightViewController;
-
-@protocol LeftControllerCallback <NSObject>
-
-@optional
--(void) hideLeftSlideController:(SGLeftViewController*) leftSlideController withPreviousController:(UIViewController*) previousController callbackCompleted:(void(^)()) callbackCompleted;
-
-@end
-
 @protocol SGNavigationControllerDelegate <UINavigationControllerDelegate>
 
 @end
@@ -65,27 +56,6 @@ CATransition* transitionPushFromRight();
 -(void) makeRootViewController:(UIViewController*) viewController;
 -(void) removeViewController:(UIViewController*) viewController;
 
--(void) showLeftSlideViewController:(UIViewController<LeftControllerCallback>*) viewController animate:(bool) animated;
--(void) removeLeftSlideViewController;
--(void) showRightSlideViewController:(UIViewController*) viewController animate:(bool) animated;
--(void) removeRightSlideViewController:(UIViewController*) viewController;
-
-@property (nonatomic, weak, readonly) SGLeftViewController *leftSlideController;
-@property (nonatomic, weak, readonly) SGRightViewController *rightSlideController;
-@property (nonatomic, weak, readonly) UIViewController *previousViewController;
-@property (nonatomic, assign) bool isAllowDragBackPreviouseView;
-@property (nonatomic, weak) UIPanGestureRecognizer *panPrevious;
-@property (nonatomic, weak) UILabel *lblTitle;
 @property (nonatomic, weak) id<SGNavigationControllerDelegate> navigationDelegate;
-
-@end
-
-@interface SGLeftViewController : SGViewController
-
-@property (nonatomic, weak) UIViewController<LeftControllerCallback> *childController;
-
-@end
-
-@interface SGRightViewController : SGViewController
 
 @end

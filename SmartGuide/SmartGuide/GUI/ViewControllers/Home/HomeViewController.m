@@ -75,12 +75,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-#if DEBUG
-    //    UITapGestureRecognizer *tap=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapTest:)];
-    //    [self.view makeAlphaView];
-    //    [self.view.alphaView addGestureRecognizer:tap];
-#endif
-    
     tableFeed.scrollsToTop=true;
     
     txtRefresh.text=TEXTFIELD_SEARCH_PLACEHOLDER_TEXT;

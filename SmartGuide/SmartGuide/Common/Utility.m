@@ -21,23 +21,6 @@ NSString* NSStringFromCoordinate(CLLocationCoordinate2D coordinate)
     return [NSString stringWithFormat:@"coordinate latitude %f longitude %f",coordinate.latitude,coordinate.longitude];
 }
 
-NSString* NSStringFromColor(UIColor* color)
-{
-    if(color)
-    {
-        float r,g,b,a;
-        [color getRed:&r green:&g blue:&b alpha:&a];
-        return [NSString stringWithFormat:@"color %f %f %f %f",r,g,b,a];
-    }
-    return @"";
-}
-
-CGRect CGRectWithOrigin(CGRect rect, CGPoint pnt)
-{
-    rect.origin=pnt;
-    return rect;
-}
-
 CGPathRef CGPathCreateRoundRect( const CGRect r, const CGFloat cornerRadius )
 {
     CGMutablePathRef p = CGPathCreateMutable() ;
@@ -110,12 +93,18 @@ NSIndexPath *makeIndexPath(int row, int section)
     return [NSIndexPath indexPathForRow:row inSection:section];
 }
 
-CGSize makeSizeProportional(float width, CGSize size)
+CGSize CGSizeResizeToWidth(float width, CGSize size)
 {
     if(size.width==0)
         return CGSizeZero;
     
     return CGSizeMake(width, MAX(0, width*size.height/size.width));
+}
+
+CGSize CGSizeResizeToHeight(float height, CGSize size) {
+    size.width *= height / size.height;
+    size.height = height;
+    return size;
 }
 
 NSString *documentPath()
@@ -1384,120 +1373,6 @@ NSSortDescriptor *sortDesc(NSString *key, BOOL ascending)
 -(NSString *)description
 {
     return [NSString stringWithFormat:@"MKUserLocation %@",NSStringFromCoordinate(self.coordinate)];
-}
-
-@end
-
-@implementation UIAlertView(Utility)
-
--(void)setEnableOKButton:(bool)isEnabled
-{
-    for(id obj in self.subviews)
-    {
-        if([obj isKindOfClass:[UIButton class]])
-        {
-            UIButton *btn = obj;
-            
-            int buttonIndex=0;
-            
-            if([btn.titleLabel.text isEqualToString:[self buttonTitleAtIndex:buttonIndex]])
-            {
-                btn.enabled=isEnabled;
-            }
-            else
-                btn.enabled=true;
-        }
-    }
-}
-
--(UILabel *)lblTitle
-{
-    for(id obj in self.subviews)
-    {
-        if([obj isKindOfClass:[UILabel class]])
-        {
-            UILabel *lbl = obj;
-            if([lbl.text isEqualToString:self.title])
-                return lbl;
-        }
-    }
-    
-    return nil;
-}
-
--(UILabel *)lblMessage
-{
-    for(id obj in self.subviews)
-    {
-        if([obj isKindOfClass:[UILabel class]])
-        {
-            UILabel *lbl = obj;
-            if([lbl.text isEqualToString:self.message])
-                return lbl;
-        }
-    }
-    
-    return nil;
-}
-
--(UIButton *)buttonWithTitle:(NSString *)title
-{
-    for(id obj in self.subviews)
-    {
-        if([obj isKindOfClass:[UIButton class]])
-        {
-            UIButton *btn = obj;
-            if([btn.titleLabel.text isEqualToString:title])
-                return btn;
-        }
-    }
-    
-    return nil;
-}
-
--(void)fireButtonWithTitle:(NSString *)title
-{
-    UIButton *btn = [self buttonWithTitle:title];
-    
-    if(btn)
-        [btn sendActionsForControlEvents:UIControlEventTouchUpInside];
-    else
-        DLOG_DEBUG(@"btn %@ not found",title);
-}
-
--(UIImageView *)backgroundView
-{
-    for(id obj in self.subviews)
-    {
-        if([obj isKindOfClass:[UIImageView class]])
-        {
-            return obj;
-        }
-    }
-    
-    return nil;
-}
-
--(void)setBackground:(UIColor *)color
-{
-    //    UIImage *img=[UIImage imageNamed:@"navigationbar background.png"];
-    //    img=[img stretchableImageWithLeftCapWidth:16 topCapHeight:16];
-    //
-    //    UIGraphicsBeginImageContext([self backgroundView].frame.size);
-    //    [img drawInRect:CGRectMake(0, 0, [self backgroundView].frame.size.width, [self backgroundView].frame.size.height)];
-    //    img=UIGraphicsGetImageFromCurrentImageContext();
-    //    UIGraphicsEndImageContext();
-    //
-    //    [[self backgroundView].layer setContents:[img CGImage]];
-    //    [self backgroundView].layer.masksToBounds=true;
-    //    [self backgroundView].layer.cornerRadius=16;
-}
-
--(void)setMessageTextColor:(UIColor *)color
-{
-    UILabel *lbl=[self lblMessage];
-    if(lbl)
-        [lbl setTextColor:color];
 }
 
 @end

@@ -33,7 +33,7 @@
     [super layoutSubviews];
     
     if(CGSizeEqualToSize(_decode.videoSize,CGSizeZero))
-        _decode.videoSize=makeSizeProportional(320, CGSizeMake(_decode.videoWidth.floatValue, _decode.videoHeight.floatValue));
+        _decode.videoSize=CGSizeResizeToWidth(320, CGSizeMake(_decode.videoWidth.floatValue, _decode.videoHeight.floatValue));
 
     [videoView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     videoView.hidden=true;

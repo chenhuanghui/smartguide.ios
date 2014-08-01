@@ -50,7 +50,7 @@
         lblContent.attributedText=home.contentAttribute;
         lblGoTo.text=home.gotoshop;
         
-        [imgvCover l_v_setH:makeSizeProportional(imgvCover.l_v_w, CGSizeMake(home.coverWidth.floatValue, home.coverHeight.floatValue)).height];
+        [imgvCover l_v_setH:CGSizeResizeToWidth(imgvCover.l_v_w, CGSizeMake(home.coverWidth.floatValue, home.coverHeight.floatValue)).height];
         
         [imgvCover loadHome6CoverWithURL:home.cover];
     }

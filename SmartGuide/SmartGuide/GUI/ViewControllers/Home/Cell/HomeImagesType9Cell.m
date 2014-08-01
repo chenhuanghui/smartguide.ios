@@ -83,7 +83,7 @@
 
 +(float)heightWithHome:(UserHome *)home
 {
-    return makeSizeProportional(294, CGSizeMake(home.imageWidth.floatValue, home.imageHeight.floatValue)).height;
+    return CGSizeResizeToWidth(294, CGSizeMake(home.imageWidth.floatValue, home.imageHeight.floatValue)).height;
 }
 
 @end

@@ -30,7 +30,7 @@
     
     if(CGSizeEqualToSize(_decode.imageSize, CGSizeZero))
     {
-        _decode.imageSize=makeSizeProportional(320, CGSizeMake(_decode.imageWidth.floatValue, _decode.imageHeight.floatValue));
+        _decode.imageSize=CGSizeResizeToWidth(320, CGSizeMake(_decode.imageWidth.floatValue, _decode.imageHeight.floatValue));
     }
     
     [imgv l_v_setH:_decode.imageSize.height];
