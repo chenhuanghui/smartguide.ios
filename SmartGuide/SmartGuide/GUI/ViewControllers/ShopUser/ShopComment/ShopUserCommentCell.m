@@ -76,6 +76,8 @@
     [lblTime l_v_setW:206];
     
     lblNumOfAgree.frame=lblTime.frame;
+    float align=20;
+    [lblNumOfAgree l_v_setW:lblNumOfAgree.l_v_w-align];
     
     if(!isCalculatingSuggestHeight)
         [imgvAvatar loadCommentAvatarWithURL:_comment.avatar size:CGSizeMake(44, 44)];

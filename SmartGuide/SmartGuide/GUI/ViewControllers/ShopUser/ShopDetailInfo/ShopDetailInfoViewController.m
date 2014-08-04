@@ -355,12 +355,14 @@ enum SHOP_DETAIL_INFO_SECTION_TYPE
 {
     _descMode=mode;
     
+    float duration=0.3f;
+    
     switch (mode) {
         case SHOP_DETAIL_INFO_DESCRIPTION_FULL:
         {
-            [cell switchToMode:_descMode duration:0.15f];
+            [cell switchToMode:_descMode duration:duration];
             
-            [table beginUpdatesAnimationWithDuration:0.15f];
+            [table beginUpdatesAnimationWithDuration:duration];
             [table endUpdatesAnimation];
         }
             break;
@@ -369,9 +371,9 @@ enum SHOP_DETAIL_INFO_SECTION_TYPE
         {
             NSIndexPath *idx=[table indexPathForCell:cell];
             CGRect rect=[table rectForSection:idx.section];
-            [cell switchToMode:_descMode duration:0.15f];
+            [cell switchToMode:_descMode duration:duration];
             
-            [table beginUpdatesAnimationWithDuration:0.15f];
+            [table beginUpdatesAnimationWithDuration:duration];
             
             if(table.contentOffset.y-rect.origin.y>0)
                 [table setContentOffset:rect.origin animated:false];
