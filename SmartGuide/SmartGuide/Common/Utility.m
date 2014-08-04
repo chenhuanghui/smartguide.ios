@@ -2659,7 +2659,7 @@ static const NSString *KEY_HIT_TEST_EDGE_INSETS = @"HitTestEdgeInsets";
     return self.loadingView;
 }
 
--(UIView *)showLoadingBelowIndexPath:(NSIndexPath *)indexPath
+-(UIView*) showLoadingBelowIndexPath:(NSIndexPath*) indexPath
 {
     CGRect rect=[self rectForRowAtIndexPath:indexPath];
     rect.origin.y+=rect.size.height;
@@ -2670,6 +2670,22 @@ static const NSString *KEY_HIT_TEST_EDGE_INSETS = @"HitTestEdgeInsets";
         rect.size.height=0;
     
     [self showLoadingInsideFrame:rect];
+    
+    return self.loadingView;
+}
+
+-(UIView *)showLoadingBelowIndexPath:(NSIndexPath *)indexPath alpha:(float)alpha
+{
+    CGRect rect=[self rectForRowAtIndexPath:indexPath];
+    rect.origin.y+=rect.size.height;
+    
+    if(MAX(self.l_v_h, self.l_cs_h)>rect.size.height)
+        rect.size.height=MAX(self.l_v_h,self.l_cs_h)-rect.size.height+1;
+    else
+        rect.size.height=0;
+    
+    [self showLoadingInsideFrame:rect];
+    self.loadingView.backgroundView.alpha=alpha;
     
     return self.loadingView;
 }

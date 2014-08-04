@@ -23,9 +23,11 @@
 @property (nonatomic, readwrite,weak) LoadingView *loadingView;
 
 -(void) showLoading;
+-(void) showLoadingWithAlpha:(float) alpha;
 -(void) removeLoading;
 -(void) removeLoading:(bool) animate;
 -(void) showLoadingInsideFrame:(CGRect) rect;
+-(void) showLoadingInsideFrame:(CGRect) rect alpha:(float) alpha;
 -(void) cleanLoadingBackground;
 
 @end

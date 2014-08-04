@@ -448,6 +448,7 @@ NSSortDescriptor *sortDesc(NSString *key, BOOL ascending);
 -(bool) isCellCompletionVisibility:(NSIndexPath *) indexPath;
 -(UIView*) showLoadingBelowSection:(int) section;
 -(UIView*) showLoadingBelowIndexPath:(NSIndexPath*) indexPath;
+-(UIView*) showLoadingBelowIndexPath:(NSIndexPath*) indexPath alpha:(float) alpha;
 
 -(UITableViewCell*) emptyCell;
 -(enum CELL_POSITION) getCellPosition:(NSIndexPath*) indexPath;

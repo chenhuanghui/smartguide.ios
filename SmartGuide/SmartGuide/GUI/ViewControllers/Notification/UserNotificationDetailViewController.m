@@ -135,10 +135,10 @@
 -(void) showLoading
 {
     if([table numberOfRowsInSection:0]==0)
-        [table showLoading];
+        [table showLoadingWithAlpha:0];
     else
     {
-        [table showLoadingBelowIndexPath:makeIndexPath(0, 0)];
+        [table showLoadingBelowIndexPath:makeIndexPath(0, 0) alpha:0];
     }
 }
 

@@ -109,6 +109,12 @@ static char loadingViewKey;
     }];
 }
 
+-(void)showLoadingWithAlpha:(float)alpha
+{
+    [self showLoading];
+    self.loadingView.backgroundView.alpha=0;
+}
+
 -(void) removeLoading:(bool) animate
 {
     UIView *view=nil;
@@ -150,6 +156,12 @@ static char loadingViewKey;
 {
     [self showLoading];
     self.loadingView.frame=rect;
+}
+
+-(void)showLoadingInsideFrame:(CGRect)rect alpha:(float)alpha
+{
+    [self showLoadingInsideFrame:rect];
+    self.loadingView.backgroundView.alpha=alpha;
 }
 
 -(void)cleanLoadingBackground
