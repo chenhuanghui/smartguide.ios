@@ -40,6 +40,9 @@
     
     [lbl sizeToFit];
     
+    if(lbl.l_v_w<220)
+        [lbl l_v_setW:220];
+    
     suggestHeight=lbl.l_v_y+lbl.l_v_h+10;
 }
 

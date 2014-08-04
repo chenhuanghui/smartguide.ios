@@ -215,7 +215,7 @@ enum SCAN_RESULT_SECTION_TYPE
             break;
             
         case SCAN_RESULT_SECTION_TYPE_RELATED:
-            return 1;
+            return MIN(1,_scanResult.relatedContainObjects.count);
     }
     
     return 0;
@@ -350,7 +350,7 @@ enum SCAN_RESULT_SECTION_TYPE
             if(_scanResult.enumRelatedStatus==SCAN_CODE_RELATED_STATUS_UNKNOW)
                 return 0;
             
-            return [ScanResultRelatedHeadView height];
+            return _scanResult.relatedContainObjects.count==0?0:[ScanResultRelatedHeadView height];
     }
 }
 
