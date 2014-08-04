@@ -82,8 +82,6 @@
     txtRefresh.minimumWidth=38;
     txtRefresh.minimumY=8;
     
-    [tableFeed l_v_addH:QRCODE_BIG_HEIGHT-QRCODE_SMALL_HEIGHT];
-    
     [tableFeed registerNib:[UINib nibWithNibName:[HomePromotionCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[HomePromotionCell reuseIdentifier]];
     [tableFeed registerNib:[UINib nibWithNibName:[HomeImagesCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[HomeImagesCell reuseIdentifier]];
     [tableFeed registerNib:[UINib nibWithNibName:[HomeListCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[HomeListCell reuseIdentifier]];
@@ -114,7 +112,8 @@
     //    contentInset.top=y;
     //    tableFeed.contentInset=contentInset;
     //    tableFeed.scrollIndicatorInsets=contentInset;
-    [tableFeed l_v_setY:y];
+    //    [tableFeed l_v_setY:y];
+    tableFeed.contentInset=UIEdgeInsetsMake(y, 0, QRCODE_BIG_HEIGHT-QRCODE_SMALL_HEIGHT, 0);
     tableFeed.delegate=self;
     
     _scrollDistanceHeight=txtRefresh.l_v_y-HOME_TEXT_FIELD_SEARCH_MIN_Y;
@@ -125,8 +124,6 @@
 -(void) reloadTable
 {
     [tableFeed reloadData];
-    scroll.contentSize=CGSizeMake(tableFeed.contentSize.width, tableFeed.contentSize.height+_tableFrame.origin.y+(QRCODE_BIG_HEIGHT-QRCODE_SMALL_HEIGHT));
-    scroll.scrollIndicatorInsets=UIEdgeInsetsMake(_tableFrame.origin.y, 0, QRCODE_BIG_HEIGHT-QRCODE_SMALL_HEIGHT, 0);
 }
 
 -(void)textFieldRefreshFinished:(TextField *)txt
@@ -142,8 +139,8 @@
     _homesAPI=nil;
     
     [UIView animateWithDuration:DURATION_DEFAULT delay:0 options:UIViewAnimationOptionBeginFromCurrentState|UIViewAnimationOptionCurveLinear animations:^{
-        scroll.contentOffset=CGPointZero;
-        [self scrollViewDidScroll:scroll];
+        tableFeed.contentOffset=CGPointMake(0, -tableFeed.contentInset.top);
+        [self scrollViewDidScroll:tableFeed];
     } completion:^(BOOL finished) {
         [UIView animateWithDuration:DURATION_DEFAULT delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
             tableFeed.alpha=0.1f;
@@ -206,103 +203,68 @@
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    if(scrollView==scroll)
+    [txtRefresh tableDidScroll:tableFeed];
+    
+    if(CGRectIsEmpty(_logoFrame))
+        _logoFrame=imgvLogo.frame;
+    
+    float y=tableFeed.contentOffset.y+tableFeed.contentInset.top;
+    float perY=y/_scrollDistanceHeight;
+    
+    float logoY=_logoFrame.origin.y-y/4;
+    logoY=MIN(_logoFrame.origin.y,logoY);
+    
+    [imgvLogo l_v_setY:logoY];
+    imgvLogo.alpha=1-perY*2.f;
+    float scaleLogo=MAX(0.1f,1-perY);
+    scaleLogo=MIN(1.2f,scaleLogo);
+    imgvLogo.transform=CGAffineTransformMakeScale(scaleLogo, scaleLogo);
+    
+    if(tableFeed.l_co_y+tableFeed.contentInset.top>100)
     {
-        float paddingY=44;
-        
-        if(scroll.contentOffset.y>paddingY)
-        {
-            [tableFeed l_v_setY:scroll.contentOffset.y+_tableFrame.origin.y-paddingY];
-            [tableFeed l_co_setY:scroll.contentOffset.y-paddingY];
-        }
-        else
-        {
-            [tableFeed l_v_setY:_tableFrame.origin.y];
-            [tableFeed l_co_setY:0];
-        }
-        
-        [txtRefresh tableDidScroll:scroll];
-        
-        if(CGRectIsEmpty(_logoFrame))
-            _logoFrame=imgvLogo.frame;
-        
-        float y=scroll.offsetYWithInsetTop;
-        float perY=y/_scrollDistanceHeight;
-        
-        float logoY=_logoFrame.origin.y-y/4;
-        logoY=MIN(_logoFrame.origin.y,logoY);
-        
-        [imgvLogo l_v_setY:logoY];
-        imgvLogo.alpha=1-perY*2.f;
-        float scaleLogo=MAX(0.1f,1-perY);
-        scaleLogo=MIN(1.2f,scaleLogo);
-        imgvLogo.transform=CGAffineTransformMakeScale(scaleLogo, scaleLogo);
-        
-        if(scroll.l_co_y+scroll.contentInset.top>100)
-        {
-            [UIView animateWithDuration:0.3f animations:^{
-                [qrView l_v_setY:_qrFrame.origin.y+QRCODE_BIG_HEIGHT-QRCODE_SMALL_HEIGHT];
-                [blurBottom l_v_setY:_blurBottomFrame.origin.y+QRCODE_BIG_HEIGHT-QRCODE_SMALL_HEIGHT];
-                
-                btnScanSmall.alpha=1;
-                btnScanBig.alpha=0;
-                btnScanBig.frame= _buttonScanSmallFrame;
-                btnScanSmall.frame=_buttonScanBigFrame;
-            } completion:^(BOOL finished) {
-                btnScanBig.userInteractionEnabled=false;
-                btnScanSmall.userInteractionEnabled=true;
-            }];
-        }
-        else
-        {
-            [UIView animateWithDuration:0.3f animations:^{
-                [qrView l_v_setY:_qrFrame.origin.y];
-                [blurBottom l_v_setY:_blurBottomFrame.origin.y];
-                
-                btnScanBig.alpha=1;
-                btnScanSmall.alpha=0;
-                btnScanBig.frame=_buttonScanBigFrame;
-                btnScanSmall.frame=_buttonScanSmallFrame;
-            } completion:^(BOOL finished) {
-                btnScanBig.userInteractionEnabled=true;
-                btnScanSmall.userInteractionEnabled=false;
-            }];
-        }
-        
-        /*
-        NSMutableArray *headers=[tableFeed.subviews mutableCopy];
-        
-        for(int i=headers.count-1;i>=0;i--)
-        {
-            UIView *header=headers[i];
+        [UIView animateWithDuration:0.3f animations:^{
+            [qrView l_v_setY:_qrFrame.origin.y+QRCODE_BIG_HEIGHT-QRCODE_SMALL_HEIGHT];
+            [blurBottom l_v_setY:_blurBottomFrame.origin.y+QRCODE_BIG_HEIGHT-QRCODE_SMALL_HEIGHT];
             
-            if(![header isKindOfClass:[HomeHeaderView class]])
-                [headers removeObject:header];
-        }
-        
-        [headers sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"section" ascending:true]]];
-        
-        for(HomeHeaderView *header in headers)
-        {
-            [tableFeed bringSubviewToFront:header];
-        }
-        */
+            btnScanSmall.alpha=1;
+            btnScanBig.alpha=0;
+            btnScanBig.frame= _buttonScanSmallFrame;
+            btnScanSmall.frame=_buttonScanBigFrame;
+        } completion:^(BOOL finished) {
+            btnScanBig.userInteractionEnabled=false;
+            btnScanSmall.userInteractionEnabled=true;
+        }];
+    }
+    else
+    {
+        [UIView animateWithDuration:0.3f animations:^{
+            [qrView l_v_setY:_qrFrame.origin.y];
+            [blurBottom l_v_setY:_blurBottomFrame.origin.y];
+            
+            btnScanBig.alpha=1;
+            btnScanSmall.alpha=0;
+            btnScanBig.frame=_buttonScanBigFrame;
+            btnScanSmall.frame=_buttonScanSmallFrame;
+        } completion:^(BOOL finished) {
+            btnScanBig.userInteractionEnabled=true;
+            btnScanSmall.userInteractionEnabled=false;
+        }];
     }
 }
 
 -(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
-    [txtRefresh tableDidEndDecelerating:scroll];
+    [txtRefresh tableDidEndDecelerating:tableFeed];
 }
 
 -(void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
-    [txtRefresh tableDidEndDragging:scroll willDecelerate:decelerate];
+    [txtRefresh tableDidEndDragging:tableFeed willDecelerate:decelerate];
 }
 
 -(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
-    [txtRefresh tableWillBeginDragging:scroll];
+    [txtRefresh tableWillBeginDragging:tableFeed];
 }
 
 -(void) receiveUserNotice:(NSNotification*) notification
@@ -419,7 +381,9 @@
     {
         HomeHeaderView *header=[HomeHeaderView new];
         header.section=section;
-
+        header.table=tableFeed;
+        header.alignY=48;
+        
         [header loadWithHomeSection:homeSection];
         
         UITapGestureRecognizer *tapGes=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapHeader:)];
@@ -662,7 +626,7 @@
         if(txtRefresh.refreshState==TEXTFIELD_REFRESH_STATE_REFRESHING)
         {
             _homesAPI=ope.homes;
-            [txtRefresh markRefreshDone:scroll];
+            [txtRefresh markRefreshDone:tableFeed];
         }
         else if(txtRefresh.refreshState==TEXTFIELD_REFRESH_STATE_NORMAL)
         {
@@ -853,7 +817,7 @@
     }
     else
     {
-        [txtRefresh markTableDidEndScroll:scroll];
+        [txtRefresh markTableDidEndScroll:tableFeed];
         [self.navigationController pushViewController:[UserNotificationController new] animated:true];
     }
 }

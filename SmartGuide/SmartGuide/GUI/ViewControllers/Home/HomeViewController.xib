@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="5056" systemVersion="13D65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="5056" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
         <deployment defaultVersion="1536" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
@@ -15,7 +15,6 @@
                 <outlet property="displayLoadingView" destination="Qvy-Tv-IgG" id="0IJ-xq-EXi"/>
                 <outlet property="imgvLogo" destination="APP-Vg-vTa" id="ZMa-Bj-Wt5"/>
                 <outlet property="qrView" destination="MVN-kQ-te1" id="X6K-xY-xc6"/>
-                <outlet property="scroll" destination="H4A-3V-aRV" id="xJ9-1h-2aB"/>
                 <outlet property="tableFeed" destination="Ney-Bf-iDE" id="RhK-f1-eD4"/>
                 <outlet property="txtRefresh" destination="Zxr-rq-3wh" id="IcX-lj-Rmu"/>
                 <outlet property="view" destination="1" id="hDg-cN-Qkj"/>
@@ -31,24 +30,15 @@
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
-                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" id="H4A-3V-aRV">
+                <tableView clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" delaysContentTouches="NO" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Ney-Bf-iDE" customClass="TableHome">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                    <subviews>
-                        <tableView clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Ney-Bf-iDE" customClass="TableHome">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="430"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                            <connections>
-                                <outlet property="dataSource" destination="-1" id="P0R-JT-9Eu"/>
-                                <outlet property="delegate" destination="-1" id="zAG-3c-5qO"/>
-                            </connections>
-                        </tableView>
-                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <connections>
-                        <outlet property="delegate" destination="-1" id="LAp-vv-MkR"/>
+                        <outlet property="dataSource" destination="-1" id="P0R-JT-9Eu"/>
+                        <outlet property="delegate" destination="-1" id="zAG-3c-5qO"/>
                     </connections>
-                </scrollView>
+                </tableView>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="blur_top_home.png" id="YXQ-JM-K9Z">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="58"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>

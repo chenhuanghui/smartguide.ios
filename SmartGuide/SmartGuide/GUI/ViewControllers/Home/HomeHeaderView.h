@@ -13,11 +13,14 @@
 @interface HomeHeaderView : UIView
 {
     __weak IBOutlet UILabel *lblTitle;
+    __weak IBOutlet UIImageView *imgvBlur;
 }
 
 -(void) loadWithHomeSection:(UserHomeSection*) homeSection;
 +(float) height;
 
 @property (nonatomic, assign) int section;
+@property (nonatomic, weak) UITableView *table;
+@property (nonatomic, assign) float alignY;
 
 @end

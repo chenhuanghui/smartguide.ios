@@ -34,7 +34,6 @@
     __weak IBOutlet UIButton *btnNumOfNotification;
     __weak IBOutlet UIButton *btnNotification;
     __weak IBOutlet UIImageView *imgvLogo;
-    __weak IBOutlet UIScrollView *scroll;
     
     NSMutableArray *_homeSections;
     NSMutableArray *_homesAPI;
