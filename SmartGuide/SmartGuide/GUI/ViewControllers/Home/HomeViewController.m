@@ -109,6 +109,7 @@
     y+=4;//align
     
     tableFeed.contentInset=UIEdgeInsetsMake(y, 0, QRCODE_BIG_HEIGHT-QRCODE_SMALL_HEIGHT, 0);
+    tableFeed.scrollIndicatorInsets=UIEdgeInsetsMake(54, 0, tableFeed.contentInset.bottom, 0);
     tableFeed.delegate=self;
     
     _scrollDistanceHeight=txtRefresh.l_v_y-HOME_TEXT_FIELD_SEARCH_MIN_Y;
