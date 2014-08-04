@@ -25,13 +25,21 @@
 @end
 
 @implementation ShopUserCommentCell
-@synthesize suggestHeight;
+@synthesize suggestHeight,isCalculatingSuggestHeight;
 
 -(void)loadWithComment:(ShopUserComment *)comment cellPos:(enum CELL_POSITION) cellPost
 {
     _comment=comment;
     _cellPos=cellPost;
+    isCalculatingSuggestHeight=false;
     [self setNeedsLayout];
+}
+
+-(void)calculatingSuggestHeight
+{
+    isCalculatingSuggestHeight=true;
+    [self layoutSubviews];
+    isCalculatingSuggestHeight=false;
 }
 
 -(void)layoutSubviews
@@ -69,7 +77,8 @@
     
     lblNumOfAgree.frame=lblTime.frame;
     
-    [imgvAvatar loadCommentAvatarWithURL:_comment.avatar size:CGSizeMake(44, 44)];
+    if(!isCalculatingSuggestHeight)
+        [imgvAvatar loadCommentAvatarWithURL:_comment.avatar size:CGSizeMake(44, 44)];
     
     [self makeButtonAgree];
     

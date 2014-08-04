@@ -304,7 +304,7 @@
     
     HomeInfoCell *cell=[tableView homeInfoCell];
     [cell loadWithUserPromotion:_userPromotions[indexPath.row]];
-    [cell layoutSubviews];
+    [cell calculatingSuggestHeight];
     
     return cell.suggestHeight;
 }

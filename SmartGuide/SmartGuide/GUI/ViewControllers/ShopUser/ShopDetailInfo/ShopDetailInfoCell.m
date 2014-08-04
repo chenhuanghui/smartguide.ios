@@ -19,11 +19,16 @@
 @end
 
 @implementation ShopDetailInfoCell
-@synthesize suggestHeight;
+@synthesize suggestHeight,isCalculatingSuggestHeight;
 
 -(void)loadWithShop:(Shop *)shop
 {
     _shop=shop;
+}
+
+-(void)calculatingSuggestHeight
+{
+    [self layoutSubviews];
 }
 
 -(void)layoutSubviews

@@ -21,12 +21,20 @@
 @end
 
 @implementation ScanResultInforyCell
-@synthesize suggestHeight;
+@synthesize suggestHeight, isCalculatingSuggestHeight;
 
 -(void)loadWithDecode:(NSArray *) array
 {
     _items=array;
+    isCalculatingSuggestHeight=false;
     [self setNeedsLayout];
+}
+
+-(void)calculatingSuggestHeight
+{
+    isCalculatingSuggestHeight=true;
+    [self layoutSubviews];
+    isCalculatingSuggestHeight=false;
 }
 
 -(void)layoutSubviews
@@ -64,7 +72,7 @@
         {
             ScanResultInforyHeaderCell *cell=[tableView scanResultInforyHeaderCell];
             [cell loadWithDecode:decode];
-            [cell layoutSubviews];
+            [cell calculatingSuggestHeight];
             
             return cell.suggestHeight;
         }
@@ -73,7 +81,7 @@
         {
             ScanResultInforyImageCell *cell=[tableView scanResultInforyImageCell];
             [cell loadWithDecode:decode];
-            [cell layoutSubviews];
+            [cell calculatingSuggestHeight];
             
             return cell.suggestHeight;
         }
@@ -82,7 +90,7 @@
         {
             ScanResultInforyTextCell *cell=[tableView scanResultInforyTextCell];
             [cell loadWithDecode:decode];
-            [cell layoutSubviews];
+            [cell calculatingSuggestHeight];
             
             return cell.suggestHeight;
         }
@@ -91,7 +99,7 @@
         {
             ScanResultInforyTitleCell *cell=[tableView scanResultInforyTitleCell];
             [cell loadWithDecode:decode];
-            [cell layoutSubviews];
+            [cell calculatingSuggestHeight];
             
             return cell.suggestHeight;
         }
@@ -100,7 +108,7 @@
         {
             ScanResultInforyVideoCell *cell=[tableView scanResultInforyVideoCell];
             [cell loadWithDecode:decode];
-            [cell layoutSubviews];
+            [cell calculatingSuggestHeight];
             
             return cell.suggestHeight;
         }

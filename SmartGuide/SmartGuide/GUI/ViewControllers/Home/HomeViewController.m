@@ -108,11 +108,6 @@
     y+=txtRefresh.l_v_h;
     y+=4;//align
     
-    //    UIEdgeInsets contentInset=tableFeed.contentInset;
-    //    contentInset.top=y;
-    //    tableFeed.contentInset=contentInset;
-    //    tableFeed.scrollIndicatorInsets=contentInset;
-    //    [tableFeed l_v_setY:y];
     tableFeed.contentInset=UIEdgeInsetsMake(y, 0, QRCODE_BIG_HEIGHT-QRCODE_SMALL_HEIGHT, 0);
     tableFeed.delegate=self;
     
@@ -445,7 +440,7 @@
         {
             HomeInfoCell *cell=[tableView homeInfoCell];
             [cell loadWithHome6:home.home6];
-            [cell layoutSubviews];
+            [cell calculatingSuggestHeight];
             
             return cell.suggestHeight;
         }

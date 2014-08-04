@@ -19,11 +19,12 @@
 @end
 
 @implementation UserNotificationDetailCell
-@synthesize suggestHeight;
+@synthesize suggestHeight, isCalculatingSuggestHeight;
 
 -(void)loadWithUserNotificationDetail:(UserNotificationContent *)obj
 {
     _obj=obj;
+    isCalculatingSuggestHeight=false;
     [self setNeedsLayout];
 }
 
@@ -88,6 +89,13 @@
     }
 }
 
+-(void)calculatingSuggestHeight
+{
+    isCalculatingSuggestHeight=true;
+    [self layoutSubviews];
+    isCalculatingSuggestHeight=false;
+}
+
 -(void)layoutSubviews
 {
     [super layoutSubviews];
@@ -95,7 +103,8 @@
     [self calculatorHeights];
     
     btnLogo.userInteractionEnabled=_obj.idShopLogo!=nil;
-    [imgvIcon loadShopLogoWithURL:_obj.logo];
+    if(!isCalculatingSuggestHeight)
+        [imgvIcon loadShopLogoWithURL:_obj.logo];
     
     [UIView setAnimationsEnabled:false];
     
@@ -164,7 +173,9 @@
                 hasVideo=true;
                 topHeight=_obj.videoHeightForNoti.floatValue;
                 [videoContain l_v_setH:_obj.videoHeightForNoti.floatValue];
-                [imgvVideoThumbnail loadVideoThumbnailWithURL:_obj.videoThumbnail];
+                
+                if(!isCalculatingSuggestHeight)
+                    [imgvVideoThumbnail loadVideoThumbnailWithURL:_obj.videoThumbnail];
                 
                 imgvVideoThumbnail.hidden=false;
                 movideBGView.hidden=false;
@@ -179,7 +190,9 @@
             {
                 topHeight=_obj.imageHeightForNoti.floatValue;
                 [imgvImage l_v_setH:_obj.imageHeightForNoti.floatValue];
-                [imgvImage loadUserNotificationContentWithURL:_obj.image];
+                
+                if(!isCalculatingSuggestHeight)
+                    [imgvImage loadUserNotificationContentWithURL:_obj.image];
                 
                 imgvImage.hidden=false;
             }

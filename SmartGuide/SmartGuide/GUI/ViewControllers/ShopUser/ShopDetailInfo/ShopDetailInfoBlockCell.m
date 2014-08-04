@@ -18,12 +18,17 @@
 @end
 
 @implementation ShopDetailInfoBlockCell
-@synthesize suggestHeight;
+@synthesize suggestHeight, isCalculatingSuggestHeight;
 
 -(void)loadWithInfoObject:(InfoTypeObject *)obj
 {
     _obj=obj;
     [self setNeedsLayout];
+}
+
+-(void)calculatingSuggestHeight
+{
+    [self layoutSubviews];
 }
 
 -(void)layoutSubviews
@@ -62,7 +67,7 @@
         {
             ShopDetailInfoType3Cell *cell=[tableView shopDetailInfoType3Cell];
             [cell loadWithInfo3:item];
-            [cell layoutSubviews];
+            [cell calculatingSuggestHeight];
             
             return [cell suggestHeight];
         }

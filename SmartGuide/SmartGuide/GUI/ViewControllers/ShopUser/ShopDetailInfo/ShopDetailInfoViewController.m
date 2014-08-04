@@ -201,7 +201,7 @@ enum SHOP_DETAIL_INFO_SECTION_TYPE
             ShopDetailInfoCell *cell=[tableView shopDetailInfoCell];
             
             [cell loadWithShop:_shop];
-            [cell layoutSubviews];
+            [cell calculatingSuggestHeight];
             
             return [cell suggestHeight];
         }
@@ -213,7 +213,7 @@ enum SHOP_DETAIL_INFO_SECTION_TYPE
                 ShopDetailInfoDescCell *cell=[tableView shopDetailInfoDescCell];
                 
                 [cell loadWithShop:_shop mode:_descMode];
-                [cell layoutSubviews];
+                [cell calculatingSuggestHeight];
                 
                 return [cell suggestHeight];
             }
@@ -228,7 +228,7 @@ enum SHOP_DETAIL_INFO_SECTION_TYPE
                 ShopDetailInfoBlockCell *cell=[tableView shopDetailInfoBlockCell];
                 
                 [cell loadWithInfoObject:_infos[indexPath.section-2]];
-                [cell layoutSubviews];
+                [cell calculatingSuggestHeight];
                 
                 return [cell suggestHeight];
             }

@@ -28,7 +28,7 @@
 @end
 
 @implementation ShopListCell
-@synthesize delegate, suggestHeight;
+@synthesize delegate, suggestHeight,isCalculatingSuggestHeight;
 
 +(float)addressHeight
 {
@@ -39,6 +39,11 @@
 {
     _shop=shopList;
     [self setNeedsLayout];
+}
+
+-(void)calculatingSuggestHeight
+{
+    [self layoutSubviews];
 }
 
 -(void)layoutSubviews

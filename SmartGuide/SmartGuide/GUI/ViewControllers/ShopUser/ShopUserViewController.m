@@ -352,7 +352,7 @@ enum SHOP_USER_CELL_TYPE
         {
             ShopCommentsControllerCell *cell=[table shopCommentsControllerCell];
             [cell loadWithShop:_shop maxHeight:MAX(self.l_v_h,table.l_v_h)];
-            [cell layoutSubviews];
+            [cell calculatingSuggestHeight];
             
             _commentsHeight=[cell suggestHeight];
             

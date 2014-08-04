@@ -13,15 +13,23 @@
 #define SHOP_DETAIL_INFO_DESC_HEIGHT_MAX_NORMAL 80.f
 
 @implementation ShopDetailInfoDescCell
-@synthesize delegate, suggestHeight;
+@synthesize delegate, suggestHeight,isCalculatingSuggestHeight;
 
 -(void)loadWithShop:(Shop *)shop mode:(enum SHOP_DETAIL_INFO_DESCRIPTION_MODE)mode
 {
     _shop=shop;
     _mode=mode;
     _isAnimation=false;
+    isCalculatingSuggestHeight=false;
     
     [self setNeedsLayout];
+}
+
+-(void)calculatingSuggestHeight
+{
+    isCalculatingSuggestHeight=true;
+    [self layoutSubviews];
+    isCalculatingSuggestHeight=false;
 }
 
 -(void)switchToMode:(enum SHOP_DETAIL_INFO_DESCRIPTION_MODE)mode duration:(float) duration

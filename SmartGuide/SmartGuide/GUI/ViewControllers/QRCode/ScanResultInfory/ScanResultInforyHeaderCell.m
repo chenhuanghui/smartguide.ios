@@ -12,12 +12,17 @@
 #import "Utility.h"
 
 @implementation ScanResultInforyHeaderCell
-@synthesize suggestHeight;
+@synthesize suggestHeight,isCalculatingSuggestHeight;
 
 -(void)loadWithDecode:(ScanCodeDecode *)decode
 {
     _decode=decode;
     [self setNeedsLayout];
+}
+
+-(void)calculatingSuggestHeight
+{
+    [self layoutSubviews];
 }
 
 -(void)layoutSubviews

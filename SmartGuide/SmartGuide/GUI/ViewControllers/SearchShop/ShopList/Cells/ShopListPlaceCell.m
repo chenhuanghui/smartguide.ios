@@ -12,12 +12,22 @@
 #import "UserHome3.h"
 
 @implementation ShopListPlaceCell
-@synthesize suggestHeight;
+@synthesize suggestHeight, isCalculatingSuggestHeight;
 
 -(void)loadWithPlace:(Placelist *)place
 {
     _obj=place;
+    isCalculatingSuggestHeight=false;
     [self setNeedsLayout];
+}
+
+-(void)calculatingSuggestHeight
+{
+    isCalculatingSuggestHeight=true;
+    
+    [self layoutSubviews];
+    
+    isCalculatingSuggestHeight=false;
 }
 
 -(void)layoutSubviews
@@ -28,7 +38,8 @@
     
     lblTitle.text=place.title;
     lblContent.text=place.desc;
-    [imgvAuthorAvatar loadCommentAvatarWithURL:place.authorAvatar size:CGSizeMake(40, 40)];
+    if(!self.isCalculatingSuggestHeight)
+        [imgvAuthorAvatar loadCommentAvatarWithURL:place.authorAvatar size:CGSizeMake(40, 40)];
     lblNumOfView.text=[NSString stringWithFormat:@"%@ lượt xem", place.numOfView];
     
     NSMutableAttributedString *attStr=[NSMutableAttributedString new];

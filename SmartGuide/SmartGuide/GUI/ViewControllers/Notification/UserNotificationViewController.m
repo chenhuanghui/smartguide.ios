@@ -254,7 +254,7 @@
         {
             UserNotificationCell *cell=[tableView userNotificationCell];
             [cell loadWithUserNotification:[self userNotificationUnread][indexPath.row]];
-            [cell layoutSubviews];
+            [cell calculatingSuggestHeight];
             
             return cell.suggestHeight;
         }
@@ -263,7 +263,7 @@
         {
             UserNotificationCell *cell=[tableView userNotificationCell];
             [cell loadWithUserNotification:[self userNotificationRead][indexPath.row]];
-            [cell layoutSubviews];
+            [cell calculatingSuggestHeight];
             
             return cell.suggestHeight;
         }

@@ -19,11 +19,19 @@
 @end
 
 @implementation ScanResultInforyVideoCell
-@synthesize suggestHeight;
+@synthesize suggestHeight,isCalculatingSuggestHeight;
+
+-(void)calculatingSuggestHeight
+{
+    isCalculatingSuggestHeight=true;
+    [self layoutSubviews];
+    isCalculatingSuggestHeight=false;
+}
 
 -(void)loadWithDecode:(ScanCodeDecode *)decode
 {
     _decode=decode;
+    isCalculatingSuggestHeight=false;
     [self setNeedsLayout];
     [videoView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
 }
@@ -44,7 +52,8 @@
     [videoView l_v_setH:_decode.videoSize.height];
     [imgvPlay l_v_setH:_decode.videoSize.height];
     
-    [imgv loadScanVideoThumbnailWithURL:_decode.videoThumbnail];
+    if(!isCalculatingSuggestHeight)
+        [imgv loadScanVideoThumbnailWithURL:_decode.videoThumbnail];
     
     suggestHeight=imgv.l_v_h+imgv.l_v_y+10;
 }

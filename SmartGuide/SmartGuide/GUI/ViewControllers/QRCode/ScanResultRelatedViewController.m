@@ -80,7 +80,7 @@
     
     ScanResultObjectCell *cell=[tableView scanResultObjectCell];
     [cell loadWithRelated:_relatedContain.relatiesObjects[indexPath.row]];
-    [cell layoutSubviews];
+    [cell calculatingSuggestHeight];
     
     return cell.suggestHeight;
 }

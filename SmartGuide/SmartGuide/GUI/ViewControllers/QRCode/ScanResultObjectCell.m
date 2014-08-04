@@ -11,7 +11,14 @@
 #import "ImageManager.h"
 
 @implementation ScanResultObjectCell
-@synthesize suggestHeight;
+@synthesize suggestHeight,isCalculatingSuggestHeight;
+
+-(void)calculatingSuggestHeight
+{
+    isCalculatingSuggestHeight=true;
+    [self layoutSubviews];
+    isCalculatingSuggestHeight=false;
+}
 
 -(ScanCodeRelated *)obj
 {
@@ -21,6 +28,7 @@
 -(void) loadWithRelated:(ScanCodeRelated *)obj
 {
     _related=obj;
+    isCalculatingSuggestHeight=false;
     
     [self setNeedsLayout];
 }
@@ -32,7 +40,9 @@
     switch (_related.enumType) {
         case SCANCODE_RELATED_TYPE_PLACELISTS:
             
-            [imgvLogo loadScanRelatedImageWithURL:_related.authorAvatar];
+            if(!isCalculatingSuggestHeight)
+                [imgvLogo loadScanRelatedImageWithURL:_related.authorAvatar];
+            
             lblTitle.text=_related.placelistName;
             lblContent.text=_related.desc;
             
@@ -40,7 +50,9 @@
             
         case SCANCODE_RELATED_TYPE_PROMOTIONS:
             
-            [imgvLogo loadScanRelatedImageWithURL:_related.logo];
+            if(!isCalculatingSuggestHeight)
+                [imgvLogo loadScanRelatedImageWithURL:_related.logo];
+            
             lblTitle.text=_related.promotionName;
             lblContent.text=_related.desc;
             
@@ -48,7 +60,9 @@
             
         case SCANCODE_RELATED_TYPE_SHOPS:
             
-            [imgvLogo loadScanRelatedImageWithURL:_related.logo];
+            if(!isCalculatingSuggestHeight)
+                [imgvLogo loadScanRelatedImageWithURL:_related.logo];
+            
             lblTitle.text=_related.shopName;
             lblContent.text=_related.desc;
             

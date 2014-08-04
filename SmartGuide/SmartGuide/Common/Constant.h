@@ -404,6 +404,8 @@ enum QRCODE_RELATED_TYPE
 
 @protocol TableViewCellDynamicHeight <NSObject>
 
-@property (nonatomic,readonly) float suggestHeight;
+-(void) calculatingSuggestHeight;
+@property (nonatomic, readonly) float suggestHeight;
+@property (nonatomic, readonly) bool isCalculatingSuggestHeight;
 
 @end

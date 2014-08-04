@@ -20,14 +20,22 @@
 @end
 
 @implementation ScanResultRelatedCell
-@synthesize suggestHeight;
+@synthesize suggestHeight,isCalculatingSuggestHeight;
 
 -(void)loadWithResult:(ScanCodeResult *)result height:(float)height
 {
     _result=result;
     _tableHeight=height;
+    isCalculatingSuggestHeight=false;
     
     [self setNeedsLayout];
+}
+
+-(void)calculatingSuggestHeight
+{
+    isCalculatingSuggestHeight=true;
+    [self layoutSubviews];
+    isCalculatingSuggestHeight=false;
 }
 
 -(void)layoutSubviews
@@ -96,7 +104,7 @@
     ScanCodeRelated *obj=objContain.relatiesObjects[indexPath.row];
     ScanResultObjectCell *cell=[tableView scanResultObjectCell];
     [cell loadWithRelated:obj];
-    [cell layoutSubviews];
+    [cell calculatingSuggestHeight];
     
     return cell.suggestHeight;
 }

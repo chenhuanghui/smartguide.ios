@@ -275,7 +275,7 @@
     UserNotificationContent *obj=_userNotificationContents[indexPath.row];
     UserNotificationDetailCell *cell=[tableView userNotificationDetailCell];
     [cell loadWithUserNotificationDetail:obj];
-    [cell layoutSubviews];
+    [cell calculatingSuggestHeight];
     
     return cell.suggestHeight;
 }

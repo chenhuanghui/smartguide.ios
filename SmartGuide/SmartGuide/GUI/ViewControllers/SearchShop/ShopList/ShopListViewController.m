@@ -223,7 +223,7 @@
         {
             ShopListPlaceCell *cell=[tableView shopListPlaceCell];
             [cell loadWithPlace:_placeList];
-            [cell layoutSubviews];
+            [cell calculatingSuggestHeight];
             
             return cell.suggestHeight;
         }
@@ -234,7 +234,7 @@
     
     ShopListCell *cell=[tableView shopListCell];
     [cell loadWithShopList:_shopsList[indexPath.row]];
-    [cell layoutSubviews];
+    [cell calculatingSuggestHeight];
     
     return cell.suggestHeight;
 }

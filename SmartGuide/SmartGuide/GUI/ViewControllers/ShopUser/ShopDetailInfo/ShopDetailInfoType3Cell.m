@@ -12,12 +12,22 @@
 #import "ASIOperationShopDetailInfo.h"
 
 @implementation ShopDetailInfoType3Cell
-@synthesize suggestHeight;
+@synthesize suggestHeight,isCalculatingSuggestHeight;
 
 -(void)loadWithInfo3:(Info3 *)info3
 {
     _info=info3;
     [imgv loadImageInfo3WithURL:info3.image];
+    isCalculatingSuggestHeight=false;
+    
+    [self setNeedsLayout];
+}
+
+-(void)calculatingSuggestHeight
+{
+    isCalculatingSuggestHeight=true;
+    [self layoutSubviews];
+    isCalculatingSuggestHeight=false;
 }
 
 -(void)layoutSubviews
@@ -26,6 +36,8 @@
     
     lblTitle.text=_info.title;
     lblContent.text=_info.content;
+    if(!isCalculatingSuggestHeight)
+        [imgv loadImageInfo3WithURL:_info.image];
     
     [lblTitle l_v_setS:CGSizeMake(191, 0)];
     [lblContent l_v_setS:CGSizeMake(191, 0)];

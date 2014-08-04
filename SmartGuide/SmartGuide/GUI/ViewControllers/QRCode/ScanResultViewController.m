@@ -233,7 +233,7 @@ enum SCAN_RESULT_SECTION_TYPE
                 {
                     ScanResultInforyCell *cell=[tableView scanResultInforyCell];
                     [cell loadWithDecode:_scanResult.decodeObjects];
-                    [cell layoutSubviews];
+                    [cell calculatingSuggestHeight];
                     
                     return cell.suggestHeight;
                 }
@@ -259,7 +259,7 @@ enum SCAN_RESULT_SECTION_TYPE
                 {
                     ScanResultRelatedCell *cell=[tableView scanResultRelatedCell];
                     [cell loadWithResult:_scanResult height:tableView.l_v_h];
-                    [cell layoutSubviews];
+                    [cell calculatingSuggestHeight];
                     
                     return cell.suggestHeight;
                 }

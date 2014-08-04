@@ -10,12 +10,20 @@
 #import "ScanCodeDecode.h"
 
 @implementation ScanResultInforyTitleCell
-@synthesize suggestHeight;
+@synthesize suggestHeight, isCalculatingSuggestHeight;
 
 -(void)loadWithDecode:(ScanCodeDecode *)decode
 {
     _decode=decode;
+    isCalculatingSuggestHeight=false;
     [self setNeedsLayout];
+}
+
+-(void)calculatingSuggestHeight
+{
+    isCalculatingSuggestHeight=true;
+    [self layoutSubviews];
+    isCalculatingSuggestHeight=false;
 }
 
 -(void)layoutSubviews

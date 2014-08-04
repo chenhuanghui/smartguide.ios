@@ -34,7 +34,7 @@
 @end
 
 @implementation ShopCommentsControllerCell
-@synthesize suggestHeight;
+@synthesize suggestHeight, isCalculatingSuggestHeight;
 
 -(void)loadWithShop:(Shop *)shop maxHeight:(float)height
 {
@@ -59,6 +59,11 @@
             _isLoadingMore=[ShopManager shareInstanceWithShop:_shop].isLoadingMoreCommentTopAgreed;
             break;
     }
+}
+
+-(void)calculatingSuggestHeight
+{
+    [self layoutSubviews];
 }
 
 -(void)layoutSubviews
@@ -131,7 +136,7 @@
     
     ShopUserCommentCell *cell=[tableView shopUserCommentCell];
     [cell loadWithComment:comments[indexPath.row] cellPos:[tableView getCellPosition:indexPath numberOfRowInSection:comments.count]];
-    [cell layoutSubviews];
+    [cell calculatingSuggestHeight];
     
     return [cell suggestHeight];
 }

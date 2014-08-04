@@ -13,11 +13,12 @@
 #import "UserPromotion.h"
 
 @implementation HomeInfoCell
-@synthesize delegate, suggestHeight;
+@synthesize delegate, suggestHeight,isCalculatingSuggestHeight;
 
 -(void)loadWithHome6:(UserHome6 *)home
 {
     _obj=home;
+    isCalculatingSuggestHeight=false;
     
     [self setNeedsLayout];
 }
@@ -25,8 +26,16 @@
 -(void)loadWithUserPromotion:(UserPromotion *)obj
 {
     _obj=obj;
+    isCalculatingSuggestHeight=false;
     
     [self setNeedsLayout];
+}
+
+-(void)calculatingSuggestHeight
+{
+    isCalculatingSuggestHeight=true;
+    [self layoutSubviews];
+    isCalculatingSuggestHeight=false;
 }
 
 -(void)layoutSubviews
@@ -43,7 +52,9 @@
                                                                                                        , NSParagraphStyleAttributeName:[NSMutableParagraphStyle paraStyleWithTextAlign:NSTextAlignmentJustified]}];
         }
         
-        [imgvLogo loadImageHomeWithURL:home.logo];
+        if(!isCalculatingSuggestHeight)
+            [imgvLogo loadImageHomeWithURL:home.logo];
+        
         [btnName setTitle:home.shopName forState:UIControlStateNormal];
         lblDate.text=home.date;
         lblTitle.text=home.title;
@@ -52,7 +63,8 @@
         
         [imgvCover l_v_setH:CGSizeResizeToWidth(imgvCover.l_v_w, CGSizeMake(home.coverWidth.floatValue, home.coverHeight.floatValue)).height];
         
-        [imgvCover loadHome6CoverWithURL:home.cover];
+        if(!isCalculatingSuggestHeight)
+            [imgvCover loadHome6CoverWithURL:home.cover];
     }
     else if([_obj isKindOfClass:[UserPromotion class]])
     {
@@ -64,7 +76,9 @@
                                                                                                   , NSParagraphStyleAttributeName:[NSMutableParagraphStyle paraStyleWithTextAlign:NSTextAlignmentJustified]}];
         }
         
-        [imgvLogo loadShopLogoPromotionHome:obj.logo];
+        if(!isCalculatingSuggestHeight)
+            [imgvLogo loadShopLogoPromotionHome:obj.logo];
+        
         [btnName setTitle:obj.brandName forState:UIControlStateNormal];
         lblDate.text=obj.date;
         lblTitle.text=obj.title;
@@ -75,7 +89,9 @@
             obj.homeSize=CGSizeMake(imgvCover.l_v_w, MAX(0,imgvCover.l_v_w*obj.coverHeight.floatValue/obj.coverWidth.floatValue));
         
         [imgvCover l_v_setH:obj.homeSize.height];
-        [imgvCover loadUserPromotionCoverWithURL:obj.cover];
+        
+        if(!isCalculatingSuggestHeight)
+            [imgvCover loadUserPromotionCoverWithURL:obj.cover];
     }
     
     btnName.frame=CGRectMake(56, 10, 238, 0);
