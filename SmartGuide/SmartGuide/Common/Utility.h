@@ -78,6 +78,7 @@ UIColor* COLOR255(float r, float g, float b, float a);
 NSString* LAZY_STRING_INT(int i);
 
 NSSortDescriptor *sortDesc(NSString *key, BOOL ascending);
+NSString *macAddress();
 
 @interface Utility : NSObject
 

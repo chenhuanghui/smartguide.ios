@@ -15,8 +15,10 @@
 {
     self=[super initRouterWithMethod:OPERATION_METHOD_TYPE_GET url:SERVER_IP_MAKE(@"user/updateDeviceInfo")];
     
+    [self.keyValue setObject:UUID() forKey:@"deviceId"];
     [self.keyValue setObject:[[UIDevice currentDevice] platformRawString] forKey:@"deviceInfo"];
-    [self.keyValue setObject:@"iOS" forKey:@"os"];
+    [self.keyValue setObject:macAddress() forKey:@"macAddress"];
+    [self.keyValue setObject:@(0) forKey:@"os"];
     [self.keyValue setObject:[UIDevice currentDevice].systemVersion forKey:@"osVersion"];
     [self.keyValue setObject:SMARTUIDE_VERSION forKey:@"appVersion"];
     

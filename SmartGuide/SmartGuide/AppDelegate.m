@@ -56,6 +56,8 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userLogout:) name:NOTIFICATION_USER_LOGOUT object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userLogin:) name:NOTIFICATION_USER_LOGIN object:nil];
     
+    [self callUpdateNotification];
+    
     return YES;
 }
 

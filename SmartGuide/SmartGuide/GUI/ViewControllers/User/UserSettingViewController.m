@@ -69,7 +69,7 @@
 {
     [imgvAvatar loadUserAvatar:currentUser() onCompleted:^(UIImage *avatar, UIImage *avatarBlurr) {
         if(avatarBlurr)
-            [imgvBGAvatar setImage:avatar];
+            [imgvBGAvatar setImage:avatarBlurr];
     }];
     
     [txtName setText:currentUser().name];

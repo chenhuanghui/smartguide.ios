@@ -105,7 +105,7 @@
     
     NSAttributedString *att=[[NSAttributedString alloc] initWithString:@"Mã xác thực sẽ gởi đến "
                                                             attributes:@{
-                                                                         NSFontAttributeName:[UIFont fontWithName:@"Avenir-Roman" size:13],
+                                                                         NSFontAttributeName:[UIFont fontWithName:FONT_NAME_REGULAR size:13],
                                                                          NSForegroundColorAttributeName:[UIColor darkTextColor],
                                                                          NSParagraphStyleAttributeName:paraStyle}];
     
@@ -113,7 +113,7 @@
     
     att=[[NSAttributedString alloc] initWithString:[@"+" stringByAppendingString:phone]
                                         attributes:@{
-                                                     NSFontAttributeName:[UIFont fontWithName:@"Avenir-Roman" size:13],
+                                                     NSFontAttributeName:[UIFont fontWithName:FONT_NAME_REGULAR size:13],
                                                      NSForegroundColorAttributeName:[UIColor darkTextColor],
                                                      NSUnderlineStyleAttributeName:@(true),
                                                      NSParagraphStyleAttributeName:paraStyle}];
@@ -263,6 +263,24 @@
         NSString *phone=txtPhone.text;
         NSString *inputPhone=[phone copy];
         phone=[@"84" stringByAppendingString:phone];
+        
+        if(![phone startsWithStrings:@"849", @"841",nil])
+        {
+            [AlertView showAlertOKWithTitle:nil withMessage:@"Số điện thoại không hợp lệ" onOK:nil];
+            return;
+        }
+        
+        if([phone startsWith:@"849"] && phone.length!=11)
+        {
+            [AlertView showAlertOKWithTitle:nil withMessage:@"Số điện thoại không hợp lệ" onOK:nil];
+            return;
+        }
+        
+        if([phone startsWith:@"841"] && phone.length!=12)
+        {
+            [AlertView showAlertOKWithTitle:nil withMessage:@"Số điện thoại không hợp lệ" onOK:nil];
+            return;
+        }
         
         [AlertView showWithTitle:[@"(+84) " stringByAppendingString:inputPhone] withMessage:@"Mã xác thực Infory sẽ được gửi đến số điện thoại trên qua tin nhắn. Chọn Đồng ý để tiếp tục hoặc huỷ để thay đổi số điện thoại" withLeftTitle:@"Huỷ" withRightTitle:@"Đồng ý" onOK:^{
             [txtPhone becomeFirstResponder];

@@ -155,7 +155,7 @@
     }
     
     [lblView l_v_setH:lbl.l_v_h];
-    [blur l_v_setY:lbl.l_v_y+lbl.l_v_h-blur.l_v_h];
+    [blur l_v_setY:lblView.l_v_y+lblView.l_v_h-blur.l_v_h];
     [btn l_v_setY:lbl.l_v_y+lbl.l_v_h];
     
     if(btn.hidden)

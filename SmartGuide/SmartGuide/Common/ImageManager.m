@@ -214,9 +214,11 @@ static char ImageViewDefaultBackgroundKey;
     [self loadImageWithURL:url];
 }
 
--(void)loadShopCoverWithURL:(NSString *)url onCompleted:(SDWebImageCompletedBlock)completedBlock
+-(void)loadShopCoverWithURL:(NSString *)url onCompleted:(SDWebImageCompletedBlock)completedBlock size:(CGSize)size
 {
-    [self loadImageWithURL:url onCompleted:completedBlock];
+    [self loadImageWithURL:url onCompleted:completedBlock resize:^UIImage *(UIImage *image) {
+        return resizeProportionalImage(image, size);
+    } willSize:size allowDefaultBackground:false];
 }
 
 -(void)loadShopCoverWithURL:(NSString *)url resize:(CGSize)size

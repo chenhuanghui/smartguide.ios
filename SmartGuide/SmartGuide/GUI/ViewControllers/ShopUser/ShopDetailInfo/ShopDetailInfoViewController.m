@@ -79,20 +79,20 @@ enum SHOP_DETAIL_INFO_SECTION_TYPE
     
     [self requestShopDetailInfo];
     
+    [self showLoading];
+}
+
+-(void)viewWillAppearOnce
+{
     if(_shop.shopGalleriesObjects.count>0)
     {
         ShopGallery *gallery=_shop.shopGalleriesObjects[0];
         
         [imgvCover loadShopCoverWithURL:gallery.cover onCompleted:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
             imgvCover.alpha=0.25f;
-        }];
+        } size:imgvCover.l_v_s];
     }
     
-    [self showLoading];
-}
-
--(void)viewWillAppearOnce
-{
     [self reloadData];
 }
 
@@ -367,6 +367,9 @@ enum SHOP_DETAIL_INFO_SECTION_TYPE
 
 -(void) switchToMode:(enum SHOP_DETAIL_INFO_DESCRIPTION_MODE) mode cell:(ShopDetailInfoDescCell*) cell
 {
+    if(![cell canReadMore])
+        return;
+    
     _descMode=mode;
     
     float duration=0.3f;

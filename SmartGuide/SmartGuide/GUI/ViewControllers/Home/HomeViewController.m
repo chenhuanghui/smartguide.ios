@@ -218,22 +218,40 @@
     
     if(tableFeed.l_co_y+tableFeed.contentInset.top>100)
     {
-        [UIView animateWithDuration:0.3f animations:^{
-            [qrView l_v_setY:_qrFrame.origin.y+QRCODE_BIG_HEIGHT-QRCODE_SMALL_HEIGHT];
-            [blurBottom l_v_setY:_blurBottomFrame.origin.y+QRCODE_BIG_HEIGHT-QRCODE_SMALL_HEIGHT];
-            
-            btnScanSmall.alpha=1;
-            btnScanBig.alpha=0;
-            btnScanBig.frame= _buttonScanSmallFrame;
-            btnScanSmall.frame=_buttonScanBigFrame;
-        } completion:^(BOOL finished) {
-            btnScanBig.userInteractionEnabled=false;
-            btnScanSmall.userInteractionEnabled=true;
-        }];
+        if(tableFeed.velocityY>=0)
+        {
+            [UIView animateWithDuration:0.3f delay:0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
+                [qrView l_v_setY:_qrFrame.origin.y+QRCODE_BIG_HEIGHT-QRCODE_SMALL_HEIGHT];
+                [blurBottom l_v_setY:_blurBottomFrame.origin.y+QRCODE_BIG_HEIGHT-QRCODE_SMALL_HEIGHT];
+                
+                btnScanSmall.alpha=1;
+                btnScanBig.alpha=0;
+                btnScanBig.frame= _buttonScanSmallFrame;
+                btnScanSmall.frame=_buttonScanBigFrame;
+            } completion:^(BOOL finished) {
+                btnScanBig.userInteractionEnabled=false;
+                btnScanSmall.userInteractionEnabled=true;
+            }];
+        }
+        else
+        {
+            [UIView animateWithDuration:0.3f delay:0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
+                [qrView l_v_setY:_qrFrame.origin.y];
+                [blurBottom l_v_setY:_blurBottomFrame.origin.y];
+                
+                btnScanBig.alpha=1;
+                btnScanSmall.alpha=0;
+                btnScanBig.frame=_buttonScanBigFrame;
+                btnScanSmall.frame=_buttonScanSmallFrame;
+            } completion:^(BOOL finished) {
+                btnScanBig.userInteractionEnabled=true;
+                btnScanSmall.userInteractionEnabled=false;
+            }];
+        }
     }
     else
     {
-        [UIView animateWithDuration:0.3f animations:^{
+        [UIView animateWithDuration:0.3f delay:0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
             [qrView l_v_setY:_qrFrame.origin.y];
             [blurBottom l_v_setY:_blurBottomFrame.origin.y];
             
@@ -848,6 +866,13 @@
 @end
 
 @implementation TableHome
+
+-(void)setContentOffset:(CGPoint)contentOffset
+{
+    _velocityY=contentOffset.y-self.contentOffset.y;
+    
+    [super setContentOffset:contentOffset];
+}
 
 -(void)addSubview:(UIView *)view
 {

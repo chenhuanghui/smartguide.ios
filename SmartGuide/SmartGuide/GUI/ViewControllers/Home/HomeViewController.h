@@ -64,6 +64,8 @@
 {
 }
 
+@property (nonatomic, readonly) float velocityY;
+
 @end
 
 @interface HomeBGView : UIView

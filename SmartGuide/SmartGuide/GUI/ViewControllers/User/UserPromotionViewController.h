@@ -61,4 +61,6 @@
 {
 }
 
+@property (nonatomic, readonly) float velocityY;
+
 @end
