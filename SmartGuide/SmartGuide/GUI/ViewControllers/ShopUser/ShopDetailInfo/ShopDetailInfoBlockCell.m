@@ -37,9 +37,31 @@
     
     table.dataSource=self;
     table.delegate=self;
+    [table l_v_setH:self.tableDetail.l_v_h];
     [table reloadData];
     
     suggestHeight=table.contentSize.height;
+}
+
+-(void)tableDidScroll:(UITableView *)tableDetail
+{
+    NSIndexPath *idx=[tableDetail indexPathForCell:self];
+    CGRect headerRect=[tableDetail rectForHeaderInSection:idx.section];
+    CGRect rect=[tableDetail rectForRowAtIndexPath:idx];
+    
+    float y=tableDetail.contentOffset.y+headerRect.size.height;
+    
+    if(y>rect.origin.y)
+    {
+        float diff=y-rect.origin.y;
+        [table l_v_setY:diff];
+        [table l_co_setY:diff];
+    }
+    else
+    {
+        [table l_v_setY:0];
+        [table l_co_setY:0];
+    }
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView

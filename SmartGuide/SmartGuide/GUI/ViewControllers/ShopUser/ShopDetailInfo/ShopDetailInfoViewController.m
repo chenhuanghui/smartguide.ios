@@ -151,6 +151,16 @@ enum SHOP_DETAIL_INFO_SECTION_TYPE
             
             [coverView l_v_setY:y];
         }
+        
+        for(UITableViewCell *cell in table.visibleCells)
+        {
+            if([cell isKindOfClass:[ShopDetailInfoBlockCell class]])
+            {
+                ShopDetailInfoBlockCell *blockCell=(id)cell;
+                
+                [blockCell tableDidScroll:table];
+            }
+        }
     }
 }
 
@@ -227,6 +237,7 @@ enum SHOP_DETAIL_INFO_SECTION_TYPE
             {
                 ShopDetailInfoBlockCell *cell=[tableView shopDetailInfoBlockCell];
                 
+                cell.tableDetail=tableView;
                 [cell loadWithInfoObject:_infos[indexPath.section-2]];
                 [cell calculatingSuggestHeight];
                 
@@ -272,6 +283,7 @@ enum SHOP_DETAIL_INFO_SECTION_TYPE
             if(indexPath.row==0)
             {
                 ShopDetailInfoBlockCell *cell=[tableView shopDetailInfoBlockCell];
+                cell.tableDetail=tableView;
                 [cell loadWithInfoObject:_infos[indexPath.section-2]];
                 cell.delegate=self;
                 

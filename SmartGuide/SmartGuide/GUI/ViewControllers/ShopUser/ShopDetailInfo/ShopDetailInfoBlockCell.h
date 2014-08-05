@@ -26,10 +26,12 @@
 }
 
 -(void) loadWithInfoObject:(InfoTypeObject*) obj;
+-(void) tableDidScroll:(UITableView*) tableDetail;
 
 +(NSString *)reuseIdentifier;
 
 @property (nonatomic, weak) id<ShopDetailInfoBlockCellDelegate> delegate;
+@property (nonatomic, weak) UITableView *tableDetail;
 
 @end
 
