@@ -43,6 +43,9 @@
     lblShopName.text=_shop.shopName;
     [lblShopName sizeToFit];
     
+    if(lblShopName.l_v_h<=20 && lblShopName.l_v_w<272)
+        [lblShopName l_v_setW:272];
+    
     [btnShopType setTitle:_shop.shopTypeDisplay forState:UIControlStateNormal];
     [btnShopType setImage:[[ImageManager sharedInstance] shopImageTypeWithType:_shop.enumShopType] forState:UIControlStateNormal];
     

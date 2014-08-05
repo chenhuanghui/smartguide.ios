@@ -45,6 +45,7 @@
 -(void) loadCommentAvatarWithURL:(NSString*) url size:(CGSize) size;
 -(void) loadPlaceAuthorAvatarWithURL:(NSString*) url;
 -(void) loadShopCoverWithURL:(NSString*) url;
+-(void) loadShopCoverWithURL:(NSString*) url onCompleted:(SDWebImageCompletedBlock) completedBlock;
 -(void) loadShopCoverWithURL:(NSString*) url resize:(CGSize) size;
 -(void) loadImageInfo3WithURL:(NSString*) url;
 -(void) loadShopLogoPromotionHome:(NSString*) url completed:(SDWebImageCompletedBlock) completedBlock;

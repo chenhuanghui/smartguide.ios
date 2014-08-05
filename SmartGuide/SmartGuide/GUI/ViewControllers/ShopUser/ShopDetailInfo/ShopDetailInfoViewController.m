@@ -83,7 +83,9 @@ enum SHOP_DETAIL_INFO_SECTION_TYPE
     {
         ShopGallery *gallery=_shop.shopGalleriesObjects[0];
         
-        [imgvCover loadShopCoverWithURL:gallery.cover];
+        [imgvCover loadShopCoverWithURL:gallery.cover onCompleted:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
+            imgvCover.alpha=0.25f;
+        }];
     }
     
     [self showLoading];

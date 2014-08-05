@@ -214,6 +214,11 @@ static char ImageViewDefaultBackgroundKey;
     [self loadImageWithURL:url];
 }
 
+-(void)loadShopCoverWithURL:(NSString *)url onCompleted:(SDWebImageCompletedBlock)completedBlock
+{
+    [self loadImageWithURL:url onCompleted:completedBlock];
+}
+
 -(void)loadShopCoverWithURL:(NSString *)url resize:(CGSize)size
 {
     [self loadImageWithURL:url resize:^UIImage *(UIImage *downloadImage) {
