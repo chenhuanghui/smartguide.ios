@@ -820,6 +820,7 @@
 		9AFE5A4B18C5AE0300E8EF53 /* pattern_image@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9AFE5A4918C5AE0300E8EF53 /* pattern_image@2x.jpg */; };
 		A90E2D321936E7BD001B6A20 /* _UserNotificationAction.m in Sources */ = {isa = PBXBuildFile; fileRef = A90E2D311936E7BD001B6A20 /* _UserNotificationAction.m */; };
 		A90E2D351936E7C2001B6A20 /* UserNotificationAction.m in Sources */ = {isa = PBXBuildFile; fileRef = A90E2D341936E7C2001B6A20 /* UserNotificationAction.m */; };
+		A912C34B1990C29D00390166 /* OperationUpdateDeviceInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = A912C34A1990C29D00390166 /* OperationUpdateDeviceInfo.m */; };
 		A91A675B1797F65000BEB8C5 /* DataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A91A67491797F65000BEB8C5 /* DataManager.m */; };
 		A91A675C1797F65000BEB8C5 /* human.h.motemplate in Resources */ = {isa = PBXBuildFile; fileRef = A91A674B1797F65000BEB8C5 /* human.h.motemplate */; };
 		A91A675D1797F65000BEB8C5 /* human.m.motemplate in Resources */ = {isa = PBXBuildFile; fileRef = A91A674C1797F65000BEB8C5 /* human.m.motemplate */; };
@@ -2142,6 +2143,8 @@
 		A90E2D311936E7BD001B6A20 /* _UserNotificationAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _UserNotificationAction.m; sourceTree = "<group>"; };
 		A90E2D331936E7C2001B6A20 /* UserNotificationAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserNotificationAction.h; sourceTree = "<group>"; };
 		A90E2D341936E7C2001B6A20 /* UserNotificationAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserNotificationAction.m; sourceTree = "<group>"; };
+		A912C3491990C29D00390166 /* OperationUpdateDeviceInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OperationUpdateDeviceInfo.h; sourceTree = "<group>"; };
+		A912C34A1990C29D00390166 /* OperationUpdateDeviceInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OperationUpdateDeviceInfo.m; sourceTree = "<group>"; };
 		A91A67481797F65000BEB8C5 /* DataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataManager.h; sourceTree = "<group>"; };
 		A91A67491797F65000BEB8C5 /* DataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataManager.m; sourceTree = "<group>"; };
 		A91A674B1797F65000BEB8C5 /* human.h.motemplate */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = human.h.motemplate; sourceTree = "<group>"; };
@@ -3607,6 +3610,8 @@
 				A9E0F5D21962CBB9005ABAA0 /* OperationQRCodeGetRelated.m */,
 				A97C549E1973D26500A5C205 /* OperationQRCodeGetAllRelated.h */,
 				A97C549F1973D26500A5C205 /* OperationQRCodeGetAllRelated.m */,
+				A912C3491990C29D00390166 /* OperationUpdateDeviceInfo.h */,
+				A912C34A1990C29D00390166 /* OperationUpdateDeviceInfo.m */,
 			);
 			path = ASIOperation;
 			sourceTree = "<group>";
@@ -5791,6 +5796,7 @@
 				9A29574918C23FB7004C8FD5 /* _UserGalleryUpload.m in Sources */,
 				A9A505A9178E8B8400F27E18 /* AlertView.m in Sources */,
 				9A7AC22E18D191740043316D /* ShopListPlaceCell.m in Sources */,
+				A912C34B1990C29D00390166 /* OperationUpdateDeviceInfo.m in Sources */,
 				A9D53CE018ED6DE900C0B5F3 /* UserNotificationContent.m in Sources */,
 				9ADCD96518D19C3F004CB67E /* UIImage+WebP.m in Sources */,
 				9A29574018C23D8C004C8FD5 /* ASIOperationPostPicture.m in Sources */,
@@ -6140,7 +6146,7 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Tran Huy (EBC7LYRN6Y)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Tran Huy (49BNYKS8B6)";
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -6166,7 +6172,7 @@
 					"\"$(SRCROOT)\"",
 				);
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "B52EEB8B-FA4C-460F-8432-60CA24635F17";
+				PROVISIONING_PROFILE = "AD1666E1-5F74-4724-9078-CE245E68D0DF";
 				SDKROOT = iphoneos;
 				USER_HEADER_SEARCH_PATHS = "";
 			};
@@ -6185,7 +6191,7 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Tran Huy (EBC7LYRN6Y)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Tran Huy (49BNYKS8B6)";
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -6205,7 +6211,7 @@
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				PROVISIONING_PROFILE = "B52EEB8B-FA4C-460F-8432-60CA24635F17";
+				PROVISIONING_PROFILE = "AD1666E1-5F74-4724-9078-CE245E68D0DF";
 				SDKROOT = iphoneos;
 				USER_HEADER_SEARCH_PATHS = "";
 				VALIDATE_PRODUCT = YES;

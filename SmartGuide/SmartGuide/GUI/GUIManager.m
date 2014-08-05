@@ -70,6 +70,7 @@ static GUIManager *_shareInstance=nil;
     if([operation isKindOfClass:[ASIOperationUserProfile class]])
     {
         [self.mainWindow removeLoading];
+        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_USER_LOGOUT object:nil];
         [self showFirstController];
         _opeUserProfile=nil;
     }

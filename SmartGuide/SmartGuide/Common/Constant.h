@@ -127,8 +127,6 @@ static NSString * const kClientId = @"790158294934-p5pnscmrt4avj698ncvhp14fit0f4
 #define UIIMAGE_SHOP_PIN [UIImage imageNamed:@"pin.png"]
 #define UIIMAGE_USER_PIN [UIImage imageNamed:@"icon_pin.png"]
 
-#define NOTIFICATION_LOGIN @"UserLogin"
-#define NOTIFICATION_LOGOUT @"UserLogout"
 #define NOTIFICATION_LOCATION_AUTHORIZE_CHANGED @"LocationAuthorizeChanged"
 #define NOTIFICATION_LOCATION_CITY_AVAILABLE @"UserCityAvailable"
 #define NOTIFICATION_LOCATION_AVAILABLE @"UserLocationAvailable"

@@ -16,6 +16,14 @@
 #import "SDWebImageManager.h"
 #import "NotificationManager.h"
 #import "ScanResultViewController.h"
+#import "OperationUpdateDeviceInfo.h"
+
+@interface AppDelegate()<ASIOperationPostDelegate>
+{
+    OperationUpdateDeviceInfo *_opeUpdateDeviceInfo;
+}
+
+@end
 
 @implementation AppDelegate
 
@@ -45,7 +53,52 @@
 
     [[GUIManager shareInstance] startupWithWindow:self.window];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userLogout:) name:NOTIFICATION_USER_LOGOUT object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userLogin:) name:NOTIFICATION_USER_LOGIN object:nil];
+    
     return YES;
+}
+
+-(void) userLogin:(NSNotification*) notification
+{
+    [self callUpdateNotification];
+}
+
+-(void) userLogout:(NSNotification*) notification
+{
+    [self callUpdateNotification];
+}
+
+-(void) callUpdateNotification
+{
+    if(_opeUpdateDeviceInfo)
+    {
+        [_opeUpdateDeviceInfo clearDelegatesAndCancel];
+        _opeUpdateDeviceInfo=nil;
+    }
+    
+    _opeUpdateDeviceInfo=[[OperationUpdateDeviceInfo alloc] initUpdateDeviceInfo];
+    _opeUpdateDeviceInfo.delegate=self;
+    
+    [_opeUpdateDeviceInfo addToQueue];
+}
+
+#pragma mark ASIOperation Delegate
+
+-(void)ASIOperaionPostFinished:(ASIOperationPost *)operation
+{
+    if([operation isKindOfClass:[OperationUpdateDeviceInfo class]])
+    {
+        _opeUpdateDeviceInfo=nil;
+    }
+}
+
+-(void)ASIOperaionPostFailed:(ASIOperationPost *)operation
+{
+    if([operation isKindOfClass:[OperationUpdateDeviceInfo class]])
+    {
+        _opeUpdateDeviceInfo=nil;
+    }
 }
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken

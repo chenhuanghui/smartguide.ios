@@ -52,6 +52,8 @@
                 [blur l_v_setY:lbl.l_v_y+lbl.l_v_h-blur.l_v_h];
             } completion:^(BOOL finished) {
                 _isAnimation=false;
+                
+                [self makeButtonTitle];
             }];
         }
             break;
@@ -78,8 +80,23 @@
                 [lbl sizeToFit];
                 
                 _isAnimation=false;
+                
+                [self makeButtonTitle];
             }];
         }
+            break;
+    }
+}
+
+-(void) makeButtonTitle
+{
+    switch (_mode) {
+        case SHOP_DETAIL_INFO_DESCRIPTION_FULL:
+            [btn setTitle:@"Rút gọn" forState:UIControlStateNormal];
+            break;
+            
+        case SHOP_DETAIL_INFO_DESCRIPTION_NORMAL:
+            [btn setTitle:@"Xem thêm" forState:UIControlStateNormal];
             break;
     }
 }
@@ -104,7 +121,7 @@
             [lbl sizeToFit];
             
             btn.hidden=false;
-            [btn setTitle:@"Rút gọn" forState:UIControlStateNormal];
+            [self makeButtonTitle];
             blur.alpha=0;
             
             break;
@@ -120,7 +137,7 @@
             
             float height=lbl.l_v_h;
             
-            [btn setTitle:@"Xem thêm" forState:UIControlStateNormal];
+            [self makeButtonTitle];
             
             //Chiều cao của text khi full <= chiều cao khi bình thường->không hiển thị read more
             if(maxHeight<=height)
