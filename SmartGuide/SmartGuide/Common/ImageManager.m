@@ -449,6 +449,9 @@ static char ImageViewDefaultBackgroundKey;
         }
     });
     
+    wSelf.image=nil;
+    wSelf.alpha=1;
+    
     [self setImageWithURL:URL(url) options:0 start:^(bool isFromWeb) {
         if(wSelf && (isFromWeb || !CGSizeEqualToSize(willSize, CGSizeZero)))
             [wSelf showLoadingImageSmall];
@@ -457,13 +460,20 @@ static char ImageViewDefaultBackgroundKey;
         
         if(wSelf)
         {
-            wSelf.image=image;
-            [wSelf layoutIfNeeded];
+            wSelf.image=nil;
+            wSelf.alpha=1;
             
             if(image)
             {
                 [wSelf removeLoadingImageSmall];
                 [wSelf removeDefaultBackground];
+                
+                wSelf.alpha=0;
+                wSelf.image=image;
+                
+                [UIView animateWithDuration:0.3f animations:^{
+                    wSelf.alpha=1;
+                }];
             }
             else if(error)
             {
@@ -481,143 +491,6 @@ static char ImageViewDefaultBackgroundKey;
         }
     }];
 }
-
-/*
-
--(void) loadImageWithDefaultBackground:(NSString*) url
-{
-    __weak UIImageView *wSelf=self;
-    
-    [self setImageWithURL:URL(url) onDownload:^{
-        if(wSelf)
-            [wSelf showDefaultBackground];
-    } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
-        if(wSelf && image)
-            [wSelf removeDefaultBackground];
-    }];
-}
-
--(void) loadImageWithDefaultLoading:(NSString*) url onCompleted:(SDWebImageCompletedBlock) completed
-{
-    __weak UIImageView *wSelf=self;
-    
-    [self setImageWithURL:URL(url) onDownload:^{
-        if(wSelf)
-            [wSelf showLoadingImageSmall];
-    } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
-        if(wSelf)
-        {
-            [wSelf stopLoadingImageSmall];
-            
-            if(completed)
-                completed(image,error,cacheType);
-        }
-    }];
-}
-
--(void) loadImageWithDefaultLoading:(NSString*) url
-{
-    [self loadImageWithDefaultLoading:url onCompleted:nil];
-}
-
--(void) loadImageWithDefaultLoadingAndBackground:(NSString*) url
-{
-    __weak UIImageView *wSelf=self;
-    
-    [self setImageWithURL:URL(url) onDownload:^{
-        if(wSelf)
-        {
-            [wSelf showDefaultBackground];
-            [wSelf showLoadingImageSmall];
-        }
-    } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
-        if(wSelf)
-        {
-            [wSelf stopLoadingImageSmall];
-            
-            if(image)
-                [wSelf removeDefaultBackground];
-            else
-                [wSelf showDefaultBackground];
-        }
-    }];
-}
-
--(void) loadImageWithDefaultLoading:(NSString*) url resize:(UIImage*(^)(UIImage *downloadImage)) resize willSize:(CGSize) willSize
-{
-    __weak UIImageView *wSelf=self;
-    
-    [self setImageWithURL:URL(url) onDownload:^{
-        if(wSelf)
-            [wSelf showLoadingImageSmall];
-    } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
-        if(wSelf)
-            [wSelf stopLoadingImageSmall];
-    } resize:^UIImage *(UIImage *downloadImage) {
-        if(wSelf && resize)
-            return resize(downloadImage);
-        
-        return nil;
-    } willSize:willSize];
-}
-
--(void) loadImageWithDefaultBackground:(NSString*) url resize:(UIImage*(^)(UIImage *downloadImage)) resize willSize:(CGSize) willSize
-{
-    __weak UIImageView *wSelf=self;
-    
-    [self setImageWithURL:URL(url) onDownload:^{
-        if(wSelf)
-        {
-            [wSelf showDefaultBackground];
-            [wSelf showLoadingImageSmall];
-        }
-    } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
-        if(wSelf)
-        {
-            [wSelf stopLoadingImageSmall];
-            
-            if(image)
-                [wSelf removeDefaultBackground];
-            else
-                [wSelf showDefaultBackground];
-        }
-    } resize:^UIImage *(UIImage *downloadImage) {
-        if(wSelf && resize)
-            return resize(downloadImage);
-        
-        return nil;
-    } willSize:willSize];
-}
-
--(void) loadImageWithDefaultLoadingAndBackground:(NSString*) url resize:(UIImage*(^)(UIImage *downloadImage)) resize willSize:(CGSize) willSize
-{
-    __weak UIImageView *wSelf=self;
-    
-    [self setImageWithURL:URL(url) onDownload:^{
-        if(wSelf)
-        {
-            [wSelf showDefaultBackground];
-            [wSelf showLoadingImageSmall];
-        }
-    } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
-        if(wSelf)
-        {
-            [wSelf stopLoadingImageSmall];
-            
-            if(image)
-                [wSelf removeDefaultBackground];
-            else
-                [wSelf showDefaultBackground];
-        }
-    } resize:^UIImage *(UIImage *downloadImage) {
-        if(wSelf && resize)
-            return resize(downloadImage);
-        
-        return nil;
-    } willSize:willSize];
-}
- 
- */
 
 @end
 
