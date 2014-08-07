@@ -35,22 +35,6 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "SmartGuide/GUI/ViewControllers/QRCode/ScanResultInfory/ScanResultInforyShareCell.m"
-            timestampString = "429097664.495973"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "27"
-            endingLineNumber = "27"
-            landmarkName = "-btnGPTouchUpInside:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "SmartGuide/GUI/ViewControllers/Root/RevealViewController.m"
             timestampString = "429098243.193208"
             startingColumnNumber = "9223372036854775807"
@@ -74,22 +58,6 @@
             startingLineNumber = "230"
             endingLineNumber = "230"
             landmarkName = "-layoutSubviews"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "SmartGuide/GUI/ViewControllers/QRCode/ScanResultInfory/ScanResultInforyShareCell.m"
-            timestampString = "429098698.109425"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "22"
-            endingLineNumber = "22"
-            landmarkName = "-btnFBTouchUpInside:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

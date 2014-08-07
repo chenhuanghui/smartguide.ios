@@ -350,8 +350,6 @@ NSString *macAddress();
 -(void) setDefaultImage:(UIImage*) defaultImage highlightImage:(UIImage*) highlightImage;
 -(void) sizeToFitTitle;
 
-@property(nonatomic, assign) UIEdgeInsets hitTestEdgeInsets;
-
 @end
 
 @interface UITextView(Utility)
