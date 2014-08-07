@@ -25,7 +25,6 @@
 {
     __weak IBOutlet UITableView *table;
     __weak IBOutlet UIButton *btnBack;
-    __weak IBOutlet UILabel *lblTitle;
 }
 
 -(ScanResultViewController*) initWithCode:(NSString*) code;

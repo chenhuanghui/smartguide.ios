@@ -49,6 +49,7 @@ CGSize UIApplicationSize();
 float UIStatusBarHeight();
 NSURL* URL(NSString* url);
 NSIndexPath *makeIndexPath(int row, int section);
+CGSize CGSizeReduceToWidth(float width, CGSize size);
 CGSize CGSizeResizeToWidth(float width, CGSize size);
 CGSize CGSizeResizeToHeight(float width, CGSize size);
 
@@ -348,8 +349,6 @@ NSString *macAddress();
 
 -(void) setDefaultImage:(UIImage*) defaultImage highlightImage:(UIImage*) highlightImage;
 -(void) sizeToFitTitle;
-
-@property(nonatomic, assign) UIEdgeInsets hitTestEdgeInsets;
 
 @end
 
