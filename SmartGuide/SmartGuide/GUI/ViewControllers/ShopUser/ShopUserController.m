@@ -18,6 +18,7 @@
 #import "WebViewController.h"
 #import "Constant.h"
 #import "ScanCodeController.h"
+#import "NotFound404ViewController.h"
 
 @interface ShopUserController ()<SGNavigationControllerDelegate,ShopUserViewControllerDelegate,GalleryFullControllerDelegate,WebViewDelegate,ScanCodeControllerDelegate>
 
@@ -47,6 +48,7 @@
 {
     ShopUserViewController *vc=[[ShopUserViewController alloc] initWithShopUser:shop];
     vc.delegate=self;
+    vc.shopController=self;
     
     _navi=[[SGNavigationController alloc] initWithRootViewController:vc];
     _navi.navigationDelegate=self;
@@ -56,6 +58,7 @@
 {
     ShopUserViewController *vc=[[ShopUserViewController alloc] initWithIDShop:idShop];
     vc.delegate=self;
+    vc.shopController=self;
     
     _navi=[[SGNavigationController alloc] initWithRootViewController:vc];
     _navi.navigationDelegate=self;
@@ -65,6 +68,7 @@
 {
     ShopUserViewController *vc=[[ShopUserViewController alloc] initWithIDShop:idShop];
     vc.delegate=self;
+    vc.shopController=self;
     
     return vc;
 }
@@ -73,6 +77,7 @@
 {
     ShopUserViewController *vc=[[ShopUserViewController alloc] initWithShopUser:shop];
     vc.delegate=self;
+    vc.shopController=self;
     
     return vc;
 }
@@ -89,6 +94,7 @@
 -(void) showShopWithIDShop:(int) idShop
 {
     ShopUserViewController *vc=[[ShopUserViewController alloc] initWithIDShop:idShop];
+    vc.shopController=self;
     
     [self showShopUserViewController:vc];
 }
@@ -96,12 +102,21 @@
 -(void) showShopUserViewController:(ShopUserViewController*) controller
 {
     controller.delegate=self;
+    controller.shopController=self;
     
     [_navi pushViewController:controller animated:true];
 }
 
 - (IBAction)btnBackTouchUpInside:(id)sender
 {
+    if([_navi.visibleViewController isKindOfClass:[NotFound404ViewController class]])
+    {
+        [_navi popViewControllerAnimated:true];
+
+        [self btnBackTouchUpInside:btnBack];
+        return;
+    }
+    
     if(_navi.viewControllers.count>1)
     {
         for(SGViewController *vc in _navi.viewControllers)
@@ -178,6 +193,11 @@
 {
     ShopUserViewController *vc=[self shopUserViewControllerWithIDShop:idShop];
     [_navi pushViewController:vc animated:true];
+}
+
+-(void)shopUserViewController404Error:(ShopUserViewController *)controller
+{
+    [controller show404];
 }
 
 -(void)shopUserViewControllerTouchedURL:(ShopUserViewController *)controller url:(NSURL *)url

@@ -11,6 +11,7 @@
 #import "SearchShopViewController.h"
 #import "GUIManager.h"
 #import "WebViewController.h"
+#import "NotFound404ViewController.h"
 
 @interface SearchViewController ()<SearchShopControllerDelegate,ShopListControllerDelegate>
 
@@ -297,6 +298,11 @@
 -(void) showShopListController:(ShopListViewController*) controller
 {
     [self showShopListController:controller onCompleted:nil];
+}
+
+-(void)shopListController404Error:(ShopListViewController *)controller
+{
+    
 }
 
 -(void)shopListControllerTouchedTextField:(ShopListViewController *)controller

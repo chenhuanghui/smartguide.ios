@@ -915,6 +915,10 @@
 		A9790FF219648E3100719E27 /* bg_viewer_button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A9790FF019648E3100719E27 /* bg_viewer_button@2x.png */; };
 		A97A751C19495ABE00C0CD28 /* GalleryViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A97A751A19495ABE00C0CD28 /* GalleryViewCell.m */; };
 		A97A751D19495ABE00C0CD28 /* GalleryViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A97A751B19495ABE00C0CD28 /* GalleryViewCell.xib */; };
+		A97AA61519938BB4005B0FCE /* icon_fail.png in Resources */ = {isa = PBXBuildFile; fileRef = A97AA61319938BB4005B0FCE /* icon_fail.png */; };
+		A97AA61619938BB4005B0FCE /* icon_fail@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A97AA61419938BB4005B0FCE /* icon_fail@2x.png */; };
+		A97AA61B19938FE0005B0FCE /* NotFound404ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A97AA61919938FE0005B0FCE /* NotFound404ViewController.m */; };
+		A97AA61C19938FE0005B0FCE /* NotFound404ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A97AA61A19938FE0005B0FCE /* NotFound404ViewController.xib */; };
 		A97C255C19627ECC00AD5344 /* SGViewController+PresentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A97C255B19627ECC00AD5344 /* SGViewController+PresentViewController.m */; };
 		A97C255F19627F8100AD5344 /* SGViewController+DialogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A97C255E19627F8100AD5344 /* SGViewController+DialogViewController.m */; };
 		A97C549C1973CFF800A5C205 /* ScanResultRelatedMoreCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A97C549A1973CFF800A5C205 /* ScanResultRelatedMoreCell.m */; };
@@ -2286,6 +2290,11 @@
 		A97A751919495ABE00C0CD28 /* GalleryViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GalleryViewCell.h; sourceTree = "<group>"; };
 		A97A751A19495ABE00C0CD28 /* GalleryViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GalleryViewCell.m; sourceTree = "<group>"; };
 		A97A751B19495ABE00C0CD28 /* GalleryViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GalleryViewCell.xib; sourceTree = "<group>"; };
+		A97AA61319938BB4005B0FCE /* icon_fail.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_fail.png; sourceTree = "<group>"; };
+		A97AA61419938BB4005B0FCE /* icon_fail@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_fail@2x.png"; sourceTree = "<group>"; };
+		A97AA61819938FE0005B0FCE /* NotFound404ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotFound404ViewController.h; sourceTree = "<group>"; };
+		A97AA61919938FE0005B0FCE /* NotFound404ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotFound404ViewController.m; sourceTree = "<group>"; };
+		A97AA61A19938FE0005B0FCE /* NotFound404ViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NotFound404ViewController.xib; sourceTree = "<group>"; };
 		A97C255A19627ECC00AD5344 /* SGViewController+PresentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SGViewController+PresentViewController.h"; sourceTree = "<group>"; };
 		A97C255B19627ECC00AD5344 /* SGViewController+PresentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SGViewController+PresentViewController.m"; sourceTree = "<group>"; };
 		A97C255D19627F8100AD5344 /* SGViewController+DialogViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SGViewController+DialogViewController.h"; sourceTree = "<group>"; };
@@ -2704,6 +2713,7 @@
 		9A27BAA418D18BAD00E3EAC2 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				A97AA61719938FE0005B0FCE /* NotFound404ViewController */,
 				A9EB14021952D79C00191767 /* ShopUser */,
 				A9BABB43192C4C0000C417F3 /* City */,
 				A9941C8A1904D7570055582A /* Webview */,
@@ -3713,6 +3723,16 @@
 			path = Operations;
 			sourceTree = "<group>";
 		};
+		A97AA61719938FE0005B0FCE /* NotFound404ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				A97AA61819938FE0005B0FCE /* NotFound404ViewController.h */,
+				A97AA61919938FE0005B0FCE /* NotFound404ViewController.m */,
+				A97AA61A19938FE0005B0FCE /* NotFound404ViewController.xib */,
+			);
+			path = NotFound404ViewController;
+			sourceTree = "<group>";
+		};
 		A9819845178D02520009FCB6 = {
 			isa = PBXGroup;
 			children = (
@@ -3883,6 +3903,8 @@
 		A98198BE178D44FB0009FCB6 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				A97AA61319938BB4005B0FCE /* icon_fail.png */,
+				A97AA61419938BB4005B0FCE /* icon_fail@2x.png */,
 				A9309C731982185A00E16257 /* bg_blur_title_placelist.png */,
 				A9309C741982185A00E16257 /* bg_blur_title_placelist@2x.png */,
 				A9309C751982185A00E16257 /* bg_title_placelist.png */,
@@ -5290,6 +5312,7 @@
 				9AC979FE186C273B00E5432D /* pic_placelist.png in Resources */,
 				9A98C8FB188E83A30067EAD3 /* button_loading_big_12.png in Resources */,
 				9A998A93188E47B400F59840 /* button_back_10@2x.png in Resources */,
+				A97AA61619938BB4005B0FCE /* icon_fail@2x.png in Resources */,
 				9AC42EB818C4790000EBE5F4 /* button_update.png in Resources */,
 				A9BDD0D018FBEE64006C6CA6 /* icon_refresh.png in Resources */,
 				9A98C91F188E83A30067EAD3 /* button_loading_big_09@2x.png in Resources */,
@@ -5570,6 +5593,7 @@
 				9ACBE8E1185A0A8C0004474F /* button_love_release_right.png in Resources */,
 				9A889BE6187AC73D00602CBB /* button_next_login.png in Resources */,
 				9A616D031843BE5000201642 /* background_ads.png in Resources */,
+				A97AA61519938BB4005B0FCE /* icon_fail.png in Resources */,
 				9A27BC0A18D18BAD00E3EAC2 /* HomeImagesCell.xib in Resources */,
 				A959E95A1974EA5F00129AB8 /* ScanResultInforyShareCell.xib in Resources */,
 				A9E725A818ED9AA8007FA91A /* bg_number_notice@2x.png in Resources */,
@@ -5733,6 +5757,7 @@
 				9AA90B6C1850EF0F002F40FF /* bg_typecomment_head.png in Resources */,
 				A9BD06061935A746005840CA /* button_lastaccount_login@2x.png in Resources */,
 				9A75E7741847509400A4C3A0 /* bgslide_mid@2x.png in Resources */,
+				A97AA61C19938FE0005B0FCE /* NotFound404ViewController.xib in Resources */,
 				9A7A2F6A18C4959800A3881B /* icon_entertaiment@2x.png in Resources */,
 				9ACBE8E4185A0A8C0004474F /* button_love@2x.png in Resources */,
 				9AC979F9186C273B00E5432D /* button_green_right_home@2x.png in Resources */,
@@ -5989,6 +6014,7 @@
 				A9A98163193C835400B8512E /* OperationNotificationAction.m in Sources */,
 				A9DCA90817AABCB200C56854 /* ShopUserComment.m in Sources */,
 				A9DCA90B17AABCBB00C56854 /* _ShopUserComment.m in Sources */,
+				A97AA61B19938FE0005B0FCE /* NotFound404ViewController.m in Sources */,
 				9A27BCAC18D18BAD00E3EAC2 /* UserPromotionViewController.m in Sources */,
 				A9BFE86118E96819008C542E /* ASIOperationUserNotificationMarkRead.m in Sources */,
 				9ADCD93E18D19C3F004CB67E /* AFNetworkReachabilityManager.m in Sources */,

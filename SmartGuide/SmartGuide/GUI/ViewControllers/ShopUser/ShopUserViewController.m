@@ -23,6 +23,7 @@
 #import "KeyboardUtility.h"
 #import "ShopCameraViewController.h"
 #import "ShopUserController.h"
+#import "NotFound404ViewController.h"
 
 enum SHOP_USER_CELL_TYPE
 {
@@ -278,6 +279,8 @@ enum SHOP_USER_CELL_TYPE
     if([operation isKindOfClass:[ASIOperationShopUser class]])
     {
         _opeShopUser=nil;
+        
+        [self.delegate shopUserViewController404Error:self];
     }
 }
 

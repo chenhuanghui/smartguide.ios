@@ -19,6 +19,7 @@
 -(void) shopUserViewControllerPresentGallery:(ShopUserViewController*) controller galleryController:(GalleryFullViewController*) galleryController;
 -(void) shopUserViewControllerTouchedIDShop:(ShopUserViewController*) controller idShop:(int) idShop;
 -(void) shopUserViewControllerTouchedURL:(ShopUserViewController*) controller url:(NSURL*) url;
+-(void) shopUserViewController404Error:(ShopUserViewController*) controller;
 
 @optional
 -(void) shopUserViewControllerTouchedDetail:(ShopUserViewController*) controller;
@@ -40,6 +41,7 @@
 -(Shop*) shop;
 
 @property (nonatomic, weak) id<ShopUserViewControllerDelegate> delegate;
+@property (nonatomic, weak) ShopUserController *shopController;
 
 @end
 
