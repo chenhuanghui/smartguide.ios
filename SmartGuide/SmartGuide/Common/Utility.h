@@ -49,6 +49,7 @@ CGSize UIApplicationSize();
 float UIStatusBarHeight();
 NSURL* URL(NSString* url);
 NSIndexPath *makeIndexPath(int row, int section);
+CGSize CGSizeReduceToWidth(float width, CGSize size);
 CGSize CGSizeResizeToWidth(float width, CGSize size);
 CGSize CGSizeResizeToHeight(float width, CGSize size);
 

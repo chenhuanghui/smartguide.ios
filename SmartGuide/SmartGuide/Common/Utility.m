@@ -105,6 +105,16 @@ CGSize CGSizeResizeToWidth(float width, CGSize size)
     return CGSizeMake(width, MAX(0, width*size.height/size.width));
 }
 
+CGSize CGSizeReduceToWidth(float width, CGSize size)
+{
+    if(size.width==0)
+        return CGSizeZero;
+    else if(size.width<width)
+        return size;
+    
+    return CGSizeMake(width, MAX(0, width*size.height/size.width));
+}
+
 CGSize CGSizeResizeToHeight(float height, CGSize size) {
     size.width *= height / size.height;
     size.height = height;
