@@ -49,7 +49,7 @@
     if(action.actionTitleWidth.floatValue==-1)
         action.actionTitleWidth=@([action.actionTitle sizeWithFont:FONT_SIZE_MEDIUM(14) constrainedToSize:CGSizeMake(MAXFLOAT, 47) lineBreakMode:NSLineBreakByWordWrapping].width);
     
-    return action.actionTitleWidth.floatValue+60;
+    return MIN(action.actionTitleWidth.floatValue+60, 320.f-60-23*2);
 }
 
 @end

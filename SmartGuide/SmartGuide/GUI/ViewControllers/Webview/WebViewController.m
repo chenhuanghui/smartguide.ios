@@ -30,6 +30,13 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
 
+    NSString *url=[NSString makeString:_url.absoluteString];
+    
+    if([url startsWith:@"www."])
+        url=[@"http://" stringByAppendingString:url];
+    
+    _url=URL(url);
+    
     NSURLRequest *request=[NSURLRequest requestWithURL:_url];
     [self.webview loadRequest:request];
 }
