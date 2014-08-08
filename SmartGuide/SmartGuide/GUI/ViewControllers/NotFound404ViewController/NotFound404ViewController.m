@@ -7,6 +7,8 @@
 //
 
 #import "NotFound404ViewController.h"
+#import "GUIManager.h"
+#import "SGNavigationController.h"
 
 @interface NotFound404ViewController ()
 
@@ -38,24 +40,6 @@
 -(IBAction) btnBackTouchupInside:(id)sender
 {
     [self.delegate notFound404ControllerTouchedBack:self];
-}
-
-@end
-
-@implementation SGViewController(NotFound404ViewController)
-
--(void)show404
-{
-    NotFound404ViewController *vc=[NotFound404ViewController new];
-    vc.delegate=self;
-    
-    [self.navigationController pushViewController:vc animated:true];
-}
-
--(void)notFound404ControllerTouchedBack:(NotFound404ViewController *)controller
-{
-    [self.navigationController popViewControllerAnimated:false];
-    [self.navigationController popViewControllerAnimated:true];
 }
 
 @end

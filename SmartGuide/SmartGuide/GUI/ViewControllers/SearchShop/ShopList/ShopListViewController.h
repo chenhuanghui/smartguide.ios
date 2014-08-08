@@ -64,7 +64,7 @@ enum SHOP_LIST_VIEW_MODE {
     int _idPlacelist;
     int _idBranch;
     
-    NSUInteger _page;
+    int _page;
     enum SORT_LIST _sort;
     bool _canLoadMore;
     bool _isZoomedRegionMap;

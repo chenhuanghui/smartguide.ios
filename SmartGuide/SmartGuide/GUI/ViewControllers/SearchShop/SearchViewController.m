@@ -13,7 +13,7 @@
 #import "WebViewController.h"
 #import "NotFound404ViewController.h"
 
-@interface SearchViewController ()<SearchShopControllerDelegate,ShopListControllerDelegate>
+@interface SearchViewController ()<SearchShopControllerDelegate,ShopListControllerDelegate,UINavigationControllerDelegate, SGNavigationControllerDelegate>
 
 @end
 
@@ -185,6 +185,7 @@
     }
     
     searchNavi=[[SGNavigationController alloc] initWithRootViewController:root];
+    searchNavi.navigationDelegate=self;
 }
 
 - (void)viewDidLoad
@@ -302,7 +303,11 @@
 
 -(void)shopListController404Error:(ShopListViewController *)controller
 {
-    
+    [[GUIManager shareInstance] show404:^{
+        [self shopListControllerTouchedBack:controller];
+    } onBack:^{
+        
+    }];
 }
 
 -(void)shopListControllerTouchedTextField:(ShopListViewController *)controller

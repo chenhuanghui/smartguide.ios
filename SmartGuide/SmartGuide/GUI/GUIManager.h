@@ -25,6 +25,7 @@
 
 -(void) showLoginDialogWithMessage:(NSString*) message onOK:(void(^)()) onOK onCancelled:(void(^)()) onCancelled onLogined:(void(^)(bool isLogined)) onLogin;
 -(void) showLoginControll:(void(^)(bool isLogin)) onLogin;
+-(void) show404:(void(^)()) onShow onBack:(void(^)()) onBack;
 
 @property (nonatomic, readonly) UIWindow *mainWindow;
 @property (nonatomic, strong, readonly) SGNavigationController *rootNavigation;

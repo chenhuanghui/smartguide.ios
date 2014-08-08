@@ -197,7 +197,11 @@
 
 -(void)shopUserViewController404Error:(ShopUserViewController *)controller
 {
-    [controller show404];
+    [[GUIManager shareInstance] show404:^{
+        [self btnBackTouchUpInside:btnBack];
+    } onBack:^{
+        
+    }];
 }
 
 -(void)shopUserViewControllerTouchedURL:(ShopUserViewController *)controller url:(NSURL *)url

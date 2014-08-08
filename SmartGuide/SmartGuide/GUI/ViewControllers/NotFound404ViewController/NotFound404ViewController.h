@@ -22,9 +22,3 @@
 @property (nonatomic, weak) id<NotFound404ViewControllerDelegate> delegate;
 
 @end
-
-@interface SGViewController(NotFound404ViewController)<NotFound404ViewControllerDelegate>
-
--(void) show404;
-
-@end

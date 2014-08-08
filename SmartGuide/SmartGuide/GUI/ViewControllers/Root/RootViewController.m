@@ -25,6 +25,7 @@
 #import "TokenManager.h"
 #import "ScanCodeController.h"
 #import "RevealViewController.h"
+#import "NotFound404ViewController.h"
 
 @interface RootViewController ()<NavigationControllerDelegate,UIScrollViewDelegate,HomeControllerDelegate,UserPromotionDelegate,SGUserSettingControllerDelegate,WebViewDelegate,ShopUserControllerDelegate,UIGestureRecognizerDelegate,RemoteNotificationDelegate, ScanCodeControllerDelegate, RevealControllerDelegate>
 {

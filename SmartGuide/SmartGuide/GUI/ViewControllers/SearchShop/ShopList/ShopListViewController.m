@@ -1016,6 +1016,11 @@
         
         _operationRemoveShopPlacelist=nil;
     }
+    
+    if(_page==-1)
+    {
+        [self.delegate shopListController404Error:self];
+    }
 }
 
 -(void) showLoading
