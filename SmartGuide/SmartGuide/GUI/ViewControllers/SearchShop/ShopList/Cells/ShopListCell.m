@@ -66,6 +66,10 @@
     
     lblKM.text=[NSString stringWithFormat:@"Cách bạn %@",_shop.distance];
     btnLove.alpha=_shop.enumLoveStatus==LOVE_STATUS_LOVED?1:0.3f;
+    [btnLove l_v_setY:20];
+    [btnLove l_v_setH:50];
+    [btnAddRemove l_v_setY:rightView.l_v_h-btnAddRemove.l_v_h/2];
+    imgvLineRight.frame=CGRectMake(0, 18, 1, rightView.l_v_h);
     
     [self makeButtonType];
     
@@ -387,9 +391,12 @@
     scroll.contentInset=UIEdgeInsetsZero;
 }
 
--(void)tableDidScroll:(UITableView *)table
+-(void)tableDidScroll:(TableShopList *)table
 {
-    [scroll l_co_setX:0 animate:true];
+    if(scroll.l_co_x>0)
+        [scroll l_co_addX:-fabsf(table.offsetY)];
+    else
+        [scroll l_co_setX:0];
 }
 
 @end

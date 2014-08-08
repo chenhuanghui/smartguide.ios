@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="5056" systemVersion="13D65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="5056" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
         <deployment defaultVersion="1536" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
@@ -16,7 +16,7 @@
                 <subviews>
                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" bouncesZoom="NO" id="aNH-VV-Cjy" customClass="ScrollListCell">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="107"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" id="O7G-u4-lmx">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="82"/>
@@ -159,6 +159,7 @@
                 <outlet property="btnNumOfView" destination="1Yd-5u-GAS" id="djP-Ai-ORH"/>
                 <outlet property="imgvHeartAni" destination="LUY-PN-bxm" id="TOO-CJ-nF2"/>
                 <outlet property="imgvLineBot" destination="URW-SO-Vyc" id="kqk-My-fEf"/>
+                <outlet property="imgvLineRight" destination="fzV-nC-CaE" id="q1r-RX-fAp"/>
                 <outlet property="imgvType" destination="wXV-Aq-Cvh" id="PrD-js-PJ6"/>
                 <outlet property="lblAddress" destination="gE6-Xf-BT1" id="JrA-2y-eTe"/>
                 <outlet property="lblContent" destination="I3C-dX-3bR" id="eXo-GN-Ksv"/>

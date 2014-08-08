@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Constant.h"
 
-@class ScrollListCell,ShopListCell, ShopList;
+@class ScrollListCell,ShopListCell, ShopList, TableShopList;
 
 @protocol ShopListCellDelegate <NSObject>
 
@@ -40,6 +40,7 @@
     __weak IBOutlet UILabel *lblKM;
     __weak IBOutlet UIView *summaryView;
     __weak IBOutlet UIView *imgvLineBot;
+    __weak IBOutlet UIImageView *imgvLineRight;
     
     __weak ShopList *_shop;
     bool _didAddedObserver;
@@ -52,7 +53,7 @@
 +(float) addressHeight;
 -(void) closeLove;
 
--(void) tableDidScroll:(UITableView*) table;
+-(void) tableDidScroll:(TableShopList*) table;
 
 -(void) addObserver;
 -(void) removeObserver;
