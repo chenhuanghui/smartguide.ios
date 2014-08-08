@@ -133,7 +133,10 @@
     }
     else
     {
-        [self.navigationController popViewControllerAnimated:true];
+        if([self.delegate respondsToSelector:@selector(shopUserControllerTouchedBack:)])
+            [self.delegate shopUserControllerTouchedBack:self];
+        else
+            [self.navigationController popViewControllerAnimated:true];
     }
 }
 

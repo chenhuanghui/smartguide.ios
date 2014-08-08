@@ -12,7 +12,8 @@
 
 @protocol ShopUserControllerDelegate <SGViewControllerDelegate>
 
--(void) shopUserControllerTouchedClose:(ShopUserController*) controller;
+@optional
+-(void) shopUserControllerTouchedBack:(ShopUserController*) controller;
 
 @end
 

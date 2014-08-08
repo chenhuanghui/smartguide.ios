@@ -55,7 +55,7 @@
     
     _viewMode=SEARCH_VIEW_MODE_IDPLACE;
     _idPlacelist=idPlace;
-
+    
     return self;
 }
 
@@ -321,7 +321,12 @@
 -(void)shopListControllerTouchedBack:(ShopListViewController *)controller
 {
     if(searchNavi.viewControllers.count==1)
-        [self.navigationController popViewControllerAnimated:true];
+    {
+        if([self.delegate respondsToSelector:@selector(searchControllerTouchedBack:)])
+            [self.delegate searchControllerTouchedBack:self];
+        else
+            [self.navigationController popViewControllerAnimated:true];
+    }
     else
     {
         int idx=[searchNavi.viewControllers indexOfObject:controller];

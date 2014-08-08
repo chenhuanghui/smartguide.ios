@@ -22,7 +22,7 @@
 #import "ScanCodeRelated.h"
 #import "ScanResultRelatedViewController.h"
 
-@interface ScanCodeController ()<ScanCodeViewControllerDelegate, ScanResultControllerDelegate,SGUserSettingControllerDelegate,WebViewDelegate,ShopUserControllerDelegate,SGNavigationControllerDelegate, ScanResultRelatedControllerDelegate>
+@interface ScanCodeController ()<ScanCodeViewControllerDelegate, ScanResultControllerDelegate,SGUserSettingControllerDelegate,WebViewDelegate,ShopUserControllerDelegate,SGNavigationControllerDelegate, ScanResultRelatedControllerDelegate, SearchControllerDelegate>
 
 @end
 
@@ -172,7 +172,7 @@
     }
     else if([text startsWithStrings:
              [@"http://" stringByAppendingString:QRCODE_DOMAIN_INFORY]
-             , [@"www." stringByAppendingString:QRCODE_DOMAIN_INFORY]
+//             , [@"www." stringByAppendingString:QRCODE_DOMAIN_INFORY]
              , QRCODE_DOMAIN_INFORY
              , nil])
     {
@@ -211,10 +211,17 @@
         }
         else if([text containsString:QRCODE_INFORY_CODE])
         {
-            NSString *hash=[url lastPathComponent];
+            NSString *startString=[@"http://" stringByAppendingString:QRCODE_INFORY_CODE];
+            if([text startsWith:startString])
+                text=[text substringFromIndex:MIN([text indexOf:startString from:0]+1,text.length)];
+            else
+            {
+                startString=QRCODE_INFORY_CODE;
+                text=[text substringFromIndex:MIN([text indexOf:startString from:0]+1,text.length)];
+            }
             
             [self animationHideScan];
-            [self showScanCodeResultWithCode:hash];
+            [self showScanCodeResultWithCode:text];
         }
         else if([text containsString:QRCODE_INFORY_BRANCH])
         {
@@ -375,6 +382,14 @@
     [_navi popToRootViewControllerAnimated:true];
 }
 
+-(void)shopUserControllerTouchedBack:(ShopUserController *)controller
+{
+    if(_navi.viewControllers.count==2)
+        [self.delegate scanCodeControllerTouchedClose:self];
+    else
+        [_navi popViewControllerAnimated:true];
+}
+
 -(void) showUserSetting
 {
     if(currentUser().enumDataMode==USER_DATA_TRY)
@@ -436,6 +451,14 @@
     controller.delegate=self;
     
     [_navi pushViewController:controller animated:true];
+}
+
+-(void)searchControllerTouchedBack:(SearchViewController *)controller
+{
+    if(_navi.viewControllers.count==2)
+        [self.delegate scanCodeControllerTouchedClose:self];
+    else
+        [_navi popViewControllerAnimated:true];
 }
 
 -(void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated

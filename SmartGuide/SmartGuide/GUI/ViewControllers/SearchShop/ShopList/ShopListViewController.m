@@ -1019,7 +1019,11 @@
     
     if(_page==-1)
     {
-        [self.delegate shopListController404Error:self];
+        [self removeLoading];
+        _shopsList=[NSMutableArray array];
+        _placeList=nil;
+        _isNeedAnimationChangeTable=false;
+        [self animationTableReload];
     }
 }
 

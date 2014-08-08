@@ -37,11 +37,6 @@
     [super setFrame:frame];
 }
 
--(UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event
-{
-    return [super hitTest:point withEvent:event];
-}
-
 +(float)height
 {
     return 33;

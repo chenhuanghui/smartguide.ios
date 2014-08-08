@@ -27,7 +27,7 @@
 #import "RevealViewController.h"
 #import "NotFound404ViewController.h"
 
-@interface RootViewController ()<NavigationControllerDelegate,UIScrollViewDelegate,HomeControllerDelegate,UserPromotionDelegate,SGUserSettingControllerDelegate,WebViewDelegate,ShopUserControllerDelegate,UIGestureRecognizerDelegate,RemoteNotificationDelegate, ScanCodeControllerDelegate, RevealControllerDelegate>
+@interface RootViewController ()<NavigationControllerDelegate,UIScrollViewDelegate,HomeControllerDelegate,UserPromotionDelegate,SGUserSettingControllerDelegate,WebViewDelegate,ShopUserControllerDelegate,UIGestureRecognizerDelegate,RemoteNotificationDelegate, ScanCodeControllerDelegate, RevealControllerDelegate, SearchControllerDelegate>
 {
     __weak RevealViewController *revealControlelr;
 }
@@ -315,7 +315,7 @@
 
 #pragma mark ShopUserViewController
 
--(void)shopUserControllerTouchedClose:(ShopUserController *)controller
+-(void)shopUserControllerTouchedBack:(ShopUserController *)controller
 {
     [self dismissShopUser];
 }
@@ -327,6 +327,11 @@
     controller.delegate=self;
     
     [self.contentNavigation pushViewController:controller animated:true];
+}
+
+-(void)searchControllerTouchedBack:(SearchViewController *)controller
+{
+    [self.contentNavigation popViewControllerAnimated:true];
 }
 
 -(void) startUpload

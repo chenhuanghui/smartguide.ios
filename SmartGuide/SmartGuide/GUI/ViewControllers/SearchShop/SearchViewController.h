@@ -28,6 +28,12 @@ enum SEARCH_VIEW_MODE {
 
 @end
 
+@protocol SearchControllerDelegate <SGViewControllerDelegate>
+
+-(void) searchControllerTouchedBack:(SearchViewController*) controller;
+
+@end
+
 @interface SearchViewController : SGViewController
 {
     __strong SGNavigationController *searchNavi;
@@ -48,5 +54,7 @@ enum SEARCH_VIEW_MODE {
 -(SearchViewController*) initWithIDShops:(NSString*) idShops;
 -(SearchViewController*) initWithKeywordShopList:(NSString*) keyword;
 -(SearchViewController*) initWithIDBranch:(int) idBranch;
+
+@property (nonatomic, weak) id<SearchControllerDelegate> delegate;
 
 @end
