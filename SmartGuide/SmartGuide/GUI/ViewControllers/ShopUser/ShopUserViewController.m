@@ -24,6 +24,7 @@
 #import "ShopCameraViewController.h"
 #import "ShopUserController.h"
 #import "NotFound404ViewController.h"
+#import "ShopUser404ControllerCell.h"
 
 enum SHOP_USER_CELL_TYPE
 {
@@ -239,6 +240,22 @@ enum SHOP_USER_CELL_TYPE
     }
 }
 
+-(void) show404View
+{
+    NSIndexPath *indexPath=makeIndexPath(0, 0);
+    CGRect rect=[table rectForRowAtIndexPath:indexPath];
+    rect.origin.y+=rect.size.height;
+    
+    if(MAX(table.l_v_h, table.l_cs_h)>rect.size.height)
+        rect.size.height=MAX(table.l_v_h,table.l_cs_h)-rect.size.height+1;
+    else
+        rect.size.height=0;
+    
+    ShopUser404ControllerView *view404=[ShopUser404ControllerView new];
+    [view404 l_v_setY:rect.origin.y];
+    [table addSubview:view404];
+}
+
 -(void) removeLoading
 {
     [self.view removeLoading];
@@ -280,7 +297,9 @@ enum SHOP_USER_CELL_TYPE
     {
         _opeShopUser=nil;
         
-        [self.delegate shopUserViewController404Error:self];
+        table.userInteractionEnabled=false;
+        [self removeLoading];
+        [self show404View];
     }
 }
 

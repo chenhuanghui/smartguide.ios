@@ -173,7 +173,7 @@
     else if([text startsWithStrings:
              [@"http://" stringByAppendingString:QRCODE_DOMAIN_INFORY]
 //             , [@"www." stringByAppendingString:QRCODE_DOMAIN_INFORY]
-             , QRCODE_DOMAIN_INFORY
+//             , QRCODE_DOMAIN_INFORY
              , nil])
     {
         NSURL *url=[NSURL URLWithString:text];

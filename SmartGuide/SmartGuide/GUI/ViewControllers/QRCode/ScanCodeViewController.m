@@ -189,7 +189,7 @@
 -(IBAction) btnMakeCodeTouchUpInside:(id) sender
 {
 #if DEBUG
-    NSString *codeTest=@"SmallText";
+    NSString *codeTest=@"page.infory.vn/shop/271";
     [self.delegate scanCodeViewController:self scannedText:codeTest codeType:SCANCODE_CODE_TYPE_QRCODE];
 #endif
 }
