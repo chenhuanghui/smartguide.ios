@@ -14,7 +14,7 @@ enum SCANCODE_CODE_TYPE
     SCANCODE_CODE_TYPE_BARCODE=1,
 };
 
-@class ScanCodeViewController;
+@class ScanCodeViewController, TPKeyboardAvoidingScrollView;
 
 @protocol ScanCodeViewControllerDelegate <SGViewControllerDelegate>
 
@@ -24,6 +24,8 @@ enum SCANCODE_CODE_TYPE
 
 @interface ScanCodeViewController : SGViewController
 {
+    __weak IBOutlet TPKeyboardAvoidingScrollView *scroll;
+    __weak IBOutlet UITextField *txtCode;
     __weak IBOutlet UIButton *btnTorch;
     __weak IBOutlet UILabel *lblTorch;
     __weak IBOutlet UIView *cameraView;

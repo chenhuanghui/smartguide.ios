@@ -12,7 +12,4 @@
 - (void)contentSizeToFit;
 - (BOOL)focusNextTextField;
 - (void)scrollToActiveTextField;
-
-@property (nonatomic, weak) IBOutlet UIView* exceptView;
-
 @end

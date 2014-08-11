@@ -10,8 +10,10 @@
 #import "ZBarReaderViewController.h"
 #import "ZBarReaderView.h"
 #import <AVFoundation/AVFoundation.h>
+#import "TPKeyboardAvoidingScrollView.h"
+#import "UIScrollView+TPKeyboardAvoidingAdditions.h"
 
-@interface ScanCodeViewController ()<ZBarReaderDelegate>
+@interface ScanCodeViewController ()<ZBarReaderDelegate, UITextFieldDelegate>
 {
     __strong ZBarReaderViewController *_zbarReaderController;
 }
@@ -46,8 +48,28 @@
 #endif
 }
 
+-(NSArray *)registerNotifications
+{
+    return @[UIKeyboardWillShowNotification, UIKeyboardWillHideNotification];
+}
+
+-(void)receiveNotification:(NSNotification *)notification
+{
+    if([notification.name isEqualToString:UIKeyboardWillHideNotification])
+    {
+        scroll.keyboardAvoidingState.priorContentSize=self.view.frame.size;
+        scroll.keyboardAvoidingState.priorInset=UIEdgeInsetsZero;
+        scroll.keyboardAvoidingState.priorScrollIndicatorInsets=UIEdgeInsetsZero;
+        
+        scroll.contentSize=scroll.frame.size;
+        scroll.contentInset=UIEdgeInsetsZero;
+    }
+}
+
 -(void)viewWillAppearOnce
 {
+    txtCode.keyboardType=UIKeyboardTypeNumbersAndPunctuation;
+    
     [cameraView l_v_setS:UIScreenSize()];
     
     AVCaptureDevice *device=_zbarReaderController.readerView.device;
@@ -217,6 +239,15 @@
     
     _zbarReaderController.readerDelegate=self;
     [_zbarReaderController.readerView start];
+}
+
+-(BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [self.view endEditing:true];
+    
+    [self.delegate scanCodeViewController:self scannedText:textField.text codeType:SCANCODE_CODE_TYPE_QRCODE];
+    
+    return true;
 }
 
 @end
