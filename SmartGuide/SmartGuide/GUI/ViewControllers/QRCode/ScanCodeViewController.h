@@ -29,7 +29,6 @@ enum SCANCODE_CODE_TYPE
     __weak IBOutlet UIButton *btnTorch;
     __weak IBOutlet UILabel *lblTorch;
     __weak IBOutlet UIView *cameraView;
-    __weak IBOutlet UIButton *btnMakeCode;
 }
 
 @property (nonatomic, weak) id<ScanCodeViewControllerDelegate> delegate;

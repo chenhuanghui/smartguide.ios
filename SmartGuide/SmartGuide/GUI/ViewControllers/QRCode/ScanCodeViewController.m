@@ -42,10 +42,6 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    
-#if DEBUG
-    btnMakeCode.hidden=false;
-#endif
 }
 
 -(NSArray *)registerNotifications
@@ -206,14 +202,6 @@
     }
     
     [self.delegate scanCodeViewController:self scannedText:data codeType:codeType];
-}
-
--(IBAction) btnMakeCodeTouchUpInside:(id) sender
-{
-#if DEBUG
-    NSString *codeTest=@"page.infory.vn/shop/271";
-    [self.delegate scanCodeViewController:self scannedText:codeTest codeType:SCANCODE_CODE_TYPE_QRCODE];
-#endif
 }
 
 -(void)dealloc
