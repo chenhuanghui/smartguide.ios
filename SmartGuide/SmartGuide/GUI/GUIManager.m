@@ -14,11 +14,10 @@
 #import "DataManager.h"
 #import "LocationManager.h"
 #import "ASIOperationUserProfile.h"
-#import "NotFound404ViewController.h"
 
 static GUIManager *_shareInstance=nil;
 
-@interface GUIManager()<WelcomeControllerDelegate,SGLoadingScreenDelegate,AuthorizationDelegate,UINavigationControllerDelegate,UIGestureRecognizerDelegate,ASIOperationPostDelegate,WebViewDelegate, NotFound404ViewControllerDelegate>
+@interface GUIManager()<WelcomeControllerDelegate,SGLoadingScreenDelegate,AuthorizationDelegate,UINavigationControllerDelegate,UIGestureRecognizerDelegate,ASIOperationPostDelegate,WebViewDelegate>
 {
     ASIOperationUserProfile *_opeUserProfile;
     void(^_onBack404)();
@@ -344,32 +343,6 @@ static GUIManager *_shareInstance=nil;
 -(void)webviewTouchedBack:(WebViewController *)controller
 {
     [self.rootNavigation dismissSGViewControllerAnimated:true completion:nil];
-}
-
--(void)show404:(void (^)())onShow onBack:(void (^)())onBack
-{
-    NotFound404ViewController *vc=[NotFound404ViewController new];
-    vc.delegate=self;
-    
-    if(onBack)
-        _onBack404=[onBack copy];
-    
-    [self.rootNavigation pushViewController:vc onCompleted:^{
-        if(onShow)
-            onShow();
-    }];
-}
-
--(void)notFound404ControllerTouchedBack:(NotFound404ViewController *)controller
-{
-    if(self.rootNavigation.visibleViewController==controller)
-        [self.rootNavigation popViewControllerAnimated:true];
-    
-    if(_onBack404)
-    {
-        _onBack404();
-        _onBack404=nil;
-    }
 }
 
 @end

@@ -23,7 +23,6 @@ enum SHOP_LIST_VIEW_MODE {
 
 -(void) shopListControllerTouchedBack:(ShopListViewController*) controller;
 -(void) shopListControllerTouchedTextField:(ShopListViewController*) controller;
--(void) shopListController404Error:(ShopListViewController*) controller;
 
 @end
 

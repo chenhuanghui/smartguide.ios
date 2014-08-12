@@ -17,7 +17,6 @@
 #import "WebViewController.h"
 #import "Constant.h"
 #import "ScanCodeController.h"
-#import "NotFound404ViewController.h"
 
 @interface ShopUserController ()<SGNavigationControllerDelegate,ShopUserViewControllerDelegate,GalleryFullControllerDelegate,WebViewDelegate,ScanCodeControllerDelegate>
 
@@ -108,14 +107,6 @@
 
 - (IBAction)btnBackTouchUpInside:(id)sender
 {
-    if([_navi.visibleViewController isKindOfClass:[NotFound404ViewController class]])
-    {
-        [_navi popViewControllerAnimated:true];
-
-        [self btnBackTouchUpInside:btnBack];
-        return;
-    }
-    
     if(_navi.viewControllers.count>1)
     {
         for(SGViewController *vc in _navi.viewControllers)
@@ -195,15 +186,6 @@
 {
     ShopUserViewController *vc=[self shopUserViewControllerWithIDShop:idShop];
     [_navi pushViewController:vc animated:true];
-}
-
--(void)shopUserViewController404Error:(ShopUserViewController *)controller
-{
-    [[GUIManager shareInstance] show404:^{
-        [self btnBackTouchUpInside:btnBack];
-    } onBack:^{
-        
-    }];
 }
 
 -(void)shopUserViewControllerTouchedURL:(ShopUserViewController *)controller url:(NSURL *)url

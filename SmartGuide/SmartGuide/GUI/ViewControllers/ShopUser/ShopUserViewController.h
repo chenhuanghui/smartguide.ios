@@ -19,7 +19,6 @@
 -(void) shopUserViewControllerPresentGallery:(ShopUserViewController*) controller galleryController:(GalleryFullViewController*) galleryController;
 -(void) shopUserViewControllerTouchedIDShop:(ShopUserViewController*) controller idShop:(int) idShop;
 -(void) shopUserViewControllerTouchedURL:(ShopUserViewController*) controller url:(NSURL*) url;
--(void) shopUserViewController404Error:(ShopUserViewController*) controller;
 
 @optional
 -(void) shopUserViewControllerTouchedDetail:(ShopUserViewController*) controller;
