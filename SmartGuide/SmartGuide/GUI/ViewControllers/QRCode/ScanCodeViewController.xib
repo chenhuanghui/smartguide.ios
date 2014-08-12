@@ -9,6 +9,7 @@
             <connections>
                 <outlet property="btnTorch" destination="meD-5e-4iR" id="dBf-GI-XkV"/>
                 <outlet property="cameraView" destination="1bf-TO-wTl" id="Sty-dQ-ide"/>
+                <outlet property="coverCamera" destination="vRG-A8-ltL" id="H2B-a1-hD1"/>
                 <outlet property="lblTorch" destination="XNq-kI-NED" id="YyO-jQ-1Qe"/>
                 <outlet property="scroll" destination="j2e-Nl-CLK" id="Jzf-sH-oYD"/>
                 <outlet property="txtCode" destination="7QZ-Xd-8KR" id="McX-fr-5I7"/>
@@ -25,15 +26,20 @@
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
-                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" keyboardDismissMode="onDrag" id="j2e-Nl-CLK" customClass="TPKeyboardAvoidingScrollView">
+                <view clipsSubviews="YES" contentMode="scaleToFill" id="1bf-TO-wTl">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                </view>
+                <view userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" id="vRG-A8-ltL" userLabel="coverCamera">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.80000000000000004" colorSpace="calibratedWhite"/>
+                </view>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" keyboardDismissMode="interactive" id="j2e-Nl-CLK">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <subviews>
-                        <view clipsSubviews="YES" contentMode="scaleToFill" id="1bf-TO-wTl">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                        </view>
                         <view contentMode="scaleToFill" id="2Ub-LA-wbC">
                             <rect key="frame" x="0.0" y="56" width="320" height="368"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
@@ -66,7 +72,7 @@
                             <rect key="frame" x="10" y="368" width="300" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                         </imageView>
-                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Hoặc nhập mã xác nhận" textAlignment="center" minimumFontSize="17" id="7QZ-Xd-8KR">
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="hoặc Nhập mã xác nhận" textAlignment="center" minimumFontSize="17" id="7QZ-Xd-8KR" customClass="TextFieldNormal">
                             <rect key="frame" x="15" y="368" width="290" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>

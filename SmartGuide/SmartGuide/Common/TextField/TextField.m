@@ -9,6 +9,37 @@
 #import "TextField.h"
 #import "Utility.h"
 
+@implementation TextFieldNormal
+
+-(void) applyPlaceHolderStyle
+{
+    if(self.placeHolderColor && self.placeholder.length>0)
+    {
+        self.attributedPlaceholder=[[NSAttributedString alloc] initWithString:self.placeholder attributes:@{NSFontAttributeName:self.font
+                                                                                                            , NSForegroundColorAttributeName:self.placeHolderColor}];
+    }
+    else
+    {
+        self.attributedPlaceholder=nil;
+    }
+}
+
+-(void)setPlaceholder:(NSString *)placeholder
+{
+    [super setPlaceholder:placeholder];
+    
+    [self applyPlaceHolderStyle];
+}
+
+-(void)setPlaceHolderColor:(UIColor *)placeHolderColor
+{
+    _placeHolderColor=placeHolderColor;
+    
+    [self applyPlaceHolderStyle];
+}
+
+@end
+
 @implementation TextField
 @synthesize leftViewType, rightViewType;
 

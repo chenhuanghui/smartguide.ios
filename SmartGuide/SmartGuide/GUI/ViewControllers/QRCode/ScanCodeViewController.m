@@ -12,10 +12,13 @@
 #import <AVFoundation/AVFoundation.h>
 #import "TPKeyboardAvoidingScrollView.h"
 #import "UIScrollView+TPKeyboardAvoidingAdditions.h"
+#import "KeyboardUtility.h"
+#import "TextField.h"
 
-@interface ScanCodeViewController ()<ZBarReaderDelegate, UITextFieldDelegate>
+@interface ScanCodeViewController ()<ZBarReaderDelegate, UITextFieldDelegate,UIScrollViewDelegate>
 {
     __strong ZBarReaderViewController *_zbarReaderController;
+    __weak UITapGestureRecognizer *_tapScroll;
 }
 
 @end
@@ -42,6 +45,8 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    txtCode.placeHolderColor=[UIColor darkGrayColor];
 }
 
 -(NSArray *)registerNotifications
@@ -49,21 +54,56 @@
     return @[UIKeyboardWillShowNotification, UIKeyboardWillHideNotification];
 }
 
+-(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    [self.view endEditing:true];
+}
+
+-(void) tapScroll:(UITapGestureRecognizer*) tap
+{
+    [self.view endEditing:true];
+}
+
 -(void)receiveNotification:(NSNotification *)notification
 {
-    if([notification.name isEqualToString:UIKeyboardWillHideNotification])
+    if([notification.name isEqualToString:UIKeyboardWillShowNotification])
     {
-        scroll.keyboardAvoidingState.priorContentSize=self.view.frame.size;
-        scroll.keyboardAvoidingState.priorInset=UIEdgeInsetsZero;
-        scroll.keyboardAvoidingState.priorScrollIndicatorInsets=UIEdgeInsetsZero;
+        float duration=[notification.userInfo[UIKeyboardAnimationDurationUserInfoKey] floatValue];
+        float height=[notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue].size.height;
+        _zbarReaderController.readerDelegate=nil;
         
-        scroll.contentSize=scroll.frame.size;
-        scroll.contentInset=UIEdgeInsetsZero;
+        [UIView animateWithDuration:duration animations:^{
+            coverCamera.alpha=1;
+            scroll.contentOffset=CGPointMake(0, height);
+            scroll.contentInset=UIEdgeInsetsMake(0, 0, height, 0);
+        }];
+        
+        UITapGestureRecognizer *tap=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapScroll:)];
+        tap.cancelsTouchesInView=false;
+        tap.delaysTouchesEnded=false;
+        
+        [scroll.panGestureRecognizer requireGestureRecognizerToFail:tap];
+        
+        [scroll addGestureRecognizer:tap];
+        
+        _tapScroll=tap;
+    }
+    else if([notification.name isEqualToString:UIKeyboardWillHideNotification])
+    {
+        float duration=[notification.userInfo[UIKeyboardAnimationDurationUserInfoKey] floatValue];
+        
+        _zbarReaderController.readerDelegate=self;
+        
+        [UIView animateWithDuration:duration animations:^{
+            coverCamera.alpha=0;
+            scroll.contentInset=UIEdgeInsetsZero;
+        }];
     }
 }
 
 -(void)viewWillAppearOnce
 {
+    scroll.contentSize=scroll.frame.size;
     txtCode.keyboardType=UIKeyboardTypeNumbersAndPunctuation;
     
     [cameraView l_v_setS:UIScreenSize()];
@@ -225,12 +265,22 @@
 {
     [super viewWillAppear:animated];
     
-    _zbarReaderController.readerDelegate=self;
+    if([KeyboardUtility shareInstance].isKeyboardVisible)
+    {
+        _zbarReaderController.readerDelegate=nil;
+        [txtCode becomeFirstResponder];
+    }
+    else
+    {
+        _zbarReaderController.readerDelegate=self;
+    }
+    
     [_zbarReaderController.readerView start];
 }
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField
 {
+    _zbarReaderController.readerDelegate=nil;
     [self.view endEditing:true];
     
     [self.delegate scanCodeViewController:self scannedText:textField.text codeType:SCANCODE_CODE_TYPE_QRCODE];

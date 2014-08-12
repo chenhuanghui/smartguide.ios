@@ -34,6 +34,12 @@ enum TEXTFIELD_REFRESH_STATE
     TEXTFIELD_REFRESH_STATE_DONE=2
 };
 
+@interface TextFieldNormal : UITextField
+
+@property (nonatomic, strong) UIColor *placeHolderColor;
+
+@end
+
 @class TextField;
 
 @protocol TextFieldDelegate <UITextFieldDelegate>
@@ -44,7 +50,7 @@ enum TEXTFIELD_REFRESH_STATE
 
 @end
 
-@interface TextField : UITextField
+@interface TextField : TextFieldNormal
 
 @property (nonatomic, assign) enum TEXTFIELD_DISPLAY_TYPE displayType;
 @property (nonatomic, assign) enum TEXTFIELD_LEFTVIEW_TYPE leftViewType;
