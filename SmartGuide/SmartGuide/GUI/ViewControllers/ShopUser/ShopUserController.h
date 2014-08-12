@@ -8,7 +8,7 @@
 
 #import "SGViewController.h"
 
-@class ShopUserController, ButtonBackShopUser,TouchView, ShopUserViewController, Shop;
+@class ShopUserController, TouchView, ShopUserViewController, Shop;
 
 @protocol ShopUserControllerDelegate <SGViewControllerDelegate>
 
