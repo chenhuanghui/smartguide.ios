@@ -206,7 +206,7 @@
                     btnScanSmall.alpha=1;
                     btnScanBig.alpha=0;
                     btnScanBig.frame=_buttonScanSmallFrame;
-                    btnScanSmall.frame=_buttonScanBigFrame;
+                    btnScanSmall.frame=CGRectMake(_buttonScanBigFrame.origin.x, _buttonScanBigFrame.origin.y-3, _buttonScanBigFrame.size.width, _buttonScanBigFrame.size.height);
                 } completion:^(BOOL finished) {
                     btnScanBig.userInteractionEnabled=false;
                     btnScanSmall.userInteractionEnabled=true;

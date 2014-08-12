@@ -1129,7 +1129,7 @@
     [qrCodeView l_v_setY:_qrFrame.origin.y+QRCODE_BIG_HEIGHT-QRCODE_SMALL_HEIGHT];
     
     btnScanSmall.alpha=1;
-    btnScanSmall.frame=_buttonScanBigFrame;
+    btnScanSmall.frame=CGRectMake(_buttonScanBigFrame.origin.x, _buttonScanBigFrame.origin.y-3, _buttonScanBigFrame.size.width, _buttonScanBigFrame.size.height);
     
     btnScanBig.alpha=0;
     btnScanBig.frame=_buttonScanSmallFrame;
