@@ -57,7 +57,7 @@
                     centerY=0;
                 
                 diff=offsetY+self.alignY-rect.origin.y-rect.size.height;
-                diff+=3;
+                diff+=8;
                 
                 if(diff>0)
                     frame.origin.y+=diff;

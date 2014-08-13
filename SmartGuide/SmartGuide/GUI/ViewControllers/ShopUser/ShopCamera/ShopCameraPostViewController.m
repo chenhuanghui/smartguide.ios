@@ -36,7 +36,7 @@
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
         _img=[_img scaleProportionalToSize:CGSizeMake(102, 102)];
         [imgvPhoto setImage:_img];
-        [imgvBG setImage:[_img blur]];
+//        [imgvBG setImage:[_img blur]];
     });
 
     [imgvPhoto setImage:_img];

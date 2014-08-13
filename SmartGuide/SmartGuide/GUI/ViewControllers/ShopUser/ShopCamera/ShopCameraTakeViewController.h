@@ -24,5 +24,6 @@
 }
 
 @property (nonatomic, weak) id<ShopCameraTakeDelegate> delegate;
+@property (nonatomic, assign) UIImagePickerControllerCameraFlashMode flashMode;
 
 @end

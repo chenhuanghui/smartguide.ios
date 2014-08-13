@@ -50,6 +50,12 @@
 {
     [super layoutSubviews];
     
+    if(!_shop.managedObjectContext)
+    {
+        suggestHeight=0;
+        return;
+    }
+    
     imgvType.image=[[ImageManager sharedInstance] shopImageTypeWithType:_shop.shop.enumShopType];
     
     [self makeScrollSize];
@@ -66,9 +72,10 @@
     
     lblKM.text=[NSString stringWithFormat:@"Cách bạn %@",_shop.distance];
     btnLove.alpha=_shop.enumLoveStatus==LOVE_STATUS_LOVED?1:0.3f;
-    [btnLove l_v_setY:20];
-    [btnLove l_v_setH:50];
-    [btnAddRemove l_v_setY:rightView.l_v_h-btnAddRemove.l_v_h/2];
+    [btnLove l_v_setY:0];
+    [btnLove l_v_setH:rightView.l_v_h/2];
+    [btnAddRemove l_v_setY:rightView.l_v_h/2];
+    [btnAddRemove l_v_setH:rightView.l_v_h/2];
     imgvLineRight.frame=CGRectMake(0, 18, 1, rightView.l_v_h);
     
     [self makeButtonType];

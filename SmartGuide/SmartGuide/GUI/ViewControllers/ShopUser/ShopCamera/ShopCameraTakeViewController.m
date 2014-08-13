@@ -43,6 +43,8 @@
     picker.navigationBarHidden=true;
     picker.toolbarHidden=true;
     
+    _flashMode=picker.cameraFlashMode;
+    
     [picker l_v_setS:cameraView.l_v_s];
     [cameraView addSubview:picker.view];
     picker.view.autoresizingMask=UIViewAutoresizingAll();
@@ -60,7 +62,7 @@
 -(void) makeFlashStatus
 {
 #if !TARGET_IPHONE_SIMULATOR
-    switch (camera.cameraFlashMode) {
+    switch (_flashMode) {
         case UIImagePickerControllerCameraFlashModeAuto:
             lblFlashStatus.text=@"Auto";
             break;
@@ -107,19 +109,21 @@
 
 - (IBAction)btnFlashTouchUpInside:(id)sender {
     
-    switch (camera.cameraFlashMode) {
+    switch (_flashMode) {
         case UIImagePickerControllerCameraFlashModeOn:
-            camera.cameraFlashMode=UIImagePickerControllerCameraFlashModeOff;
+            _flashMode=UIImagePickerControllerCameraFlashModeOff;
             break;
             
         case UIImagePickerControllerCameraFlashModeOff:
-            camera.cameraFlashMode=UIImagePickerControllerCameraFlashModeAuto;
+            _flashMode=UIImagePickerControllerCameraFlashModeAuto;
             break;
             
         case UIImagePickerControllerCameraFlashModeAuto:
-            camera.cameraFlashMode=UIImagePickerControllerCameraFlashModeOn;
+            _flashMode=UIImagePickerControllerCameraFlashModeOn;
             break;
     }
+    
+    camera.cameraFlashMode=_flashMode;
     
     [self makeFlashStatus];
 }
