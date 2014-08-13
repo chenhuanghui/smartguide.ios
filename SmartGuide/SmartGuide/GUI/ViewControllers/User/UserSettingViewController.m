@@ -39,8 +39,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    [self loadData];
-
     _avatars=[NSMutableArray new];
     
     NSMutableDictionary *dict=[NSMutableDictionary dictionary];
@@ -59,6 +57,8 @@
 
 -(void)viewWillAppearOnce
 {
+    [self loadData];
+    
     if(self.isNavigationButton)
         [btnSetting setImage:[UIImage imageNamed:@"button_navigation.png"] forState:UIControlStateNormal];
     else
@@ -88,9 +88,9 @@
     btnFB.hidden=currentUser().enumSocialType!=SOCIAL_NONE;
     btnGP.hidden=currentUser().enumSocialType!=SOCIAL_NONE;
     
-    [scroll contentSizeToFit];
-    
     [btnTerms l_v_setY:btnTerms.superview.l_v_h-btnTerms.l_v_h];
+    
+    [scroll contentSizeToFit];
 }
 
 -(bool) validateAllowEdit

@@ -86,5 +86,11 @@
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(TPKeyboardAvoiding_assignTextDelegateForViewsBeneathView:) object:self];
     [self performSelector:@selector(TPKeyboardAvoiding_assignTextDelegateForViewsBeneathView:) withObject:self afterDelay:0.1];
 }
+-(void)setExceptView:(UIView *)exceptView
+{
+    _exceptView=exceptView;
+    
+    [self.keyboardAvoidingState.exceptViews addObject:exceptView];
+}
 
 @end

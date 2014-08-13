@@ -28,7 +28,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    picker=[[UIImagePickerController alloc] init];
+    UIImagePickerController *picker=[[UIImagePickerController alloc] init];
     picker.delegate=self;
 
 #if TARGET_IPHONE_SIMULATOR
@@ -60,7 +60,7 @@
 -(void) makeFlashStatus
 {
 #if !TARGET_IPHONE_SIMULATOR
-    switch (picker.cameraFlashMode) {
+    switch (camera.cameraFlashMode) {
         case UIImagePickerControllerCameraFlashModeAuto:
             lblFlashStatus.text=@"Auto";
             break;

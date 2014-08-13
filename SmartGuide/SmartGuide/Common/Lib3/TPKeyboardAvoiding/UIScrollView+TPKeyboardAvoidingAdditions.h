@@ -14,6 +14,7 @@
 @property (nonatomic, assign) BOOL         keyboardVisible;
 @property (nonatomic, assign) CGRect       keyboardRect;
 @property (nonatomic, assign) CGSize       priorContentSize;
+@property (nonatomic, strong) NSMutableArray *exceptViews;
 @end
 
 @interface UIScrollView (TPKeyboardAvoidingAdditions)

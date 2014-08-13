@@ -10,8 +10,8 @@
 #import "TPKeyboardAvoidingScrollView.h"
 #import <objc/runtime.h>
 
-static const CGFloat kCalculatedContentPadding = 10;
-static const CGFloat kMinimumScrollOffsetPadding = 20;
+static const CGFloat kCalculatedContentPadding = 0;
+static const CGFloat kMinimumScrollOffsetPadding = 0;
 
 static const int kStateKey;
 
@@ -208,7 +208,11 @@ static const int kStateKey;
     self.showsHorizontalScrollIndicator = NO;
     
     CGRect rect = CGRectZero;
-    for ( UIView *view in self.subviews ) {
+    for ( UIView *view in self.subviews )
+    {
+        if([self.keyboardAvoidingState.exceptViews containsObject:view] || view.hidden)
+            continue;
+        
         rect = CGRectUnion(rect, view.frame);
     }
     rect.size.height += kCalculatedContentPadding;
@@ -281,4 +285,14 @@ static const int kStateKey;
 
 
 @implementation TPKeyboardAvoidingState
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        self.exceptViews=[NSMutableArray array];
+    }
+    return self;
+}
+
 @end

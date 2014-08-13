@@ -18,8 +18,7 @@
 
 @interface ShopCameraTakeViewController : SGViewController<UINavigationControllerDelegate,UIImagePickerControllerDelegate>
 {
-    __weak UIImagePickerController *camera;
-    UIImagePickerController *picker;
+    UIImagePickerController *camera;
     __weak IBOutlet UILabel *lblFlashStatus;
     __weak IBOutlet UIView *cameraView;
 }
