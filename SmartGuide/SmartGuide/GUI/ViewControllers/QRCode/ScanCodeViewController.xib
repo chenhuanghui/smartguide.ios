@@ -72,7 +72,7 @@
                             <rect key="frame" x="10" y="368" width="300" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                         </imageView>
-                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="hoặc Nhập mã xác nhận" textAlignment="center" minimumFontSize="17" id="7QZ-Xd-8KR" customClass="TextFieldNormal">
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Nhập code" textAlignment="center" minimumFontSize="17" id="7QZ-Xd-8KR" customClass="TextFieldNormal">
                             <rect key="frame" x="15" y="368" width="290" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
