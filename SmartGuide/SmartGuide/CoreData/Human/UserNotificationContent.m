@@ -1,7 +1,7 @@
 #import "UserNotificationContent.h"
 
 @implementation UserNotificationContent
-@synthesize titleHeight,contentHeight,titleAttribute,contentAttribute,actionsHeight,imageHeightForNoti,videoHeightForNoti,videoPlaytime;
+@synthesize titleHeight,contentHeight,titleAttribute,contentAttribute,actionsHeight,imageHeightForNoti,videoHeightForNoti,videoPlaytime, titleFrame, titleFrameFull, timeFrame, contentFrame;
 
 -(id)initWithEntity:(NSEntityDescription *)entity insertIntoManagedObjectContext:(NSManagedObjectContext *)context
 {

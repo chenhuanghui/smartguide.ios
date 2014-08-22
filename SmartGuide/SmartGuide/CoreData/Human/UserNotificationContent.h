@@ -21,5 +21,9 @@
 @property (nonatomic, strong) NSNumber *imageHeightForNoti;
 @property (nonatomic, strong) NSNumber *videoHeightForNoti;
 @property (nonatomic, strong) NSNumber *videoPlaytime;
+@property (nonatomic, assign) CGRect timeFrame;
+@property (nonatomic, assign) CGRect titleFrame;
+@property (nonatomic, assign) CGRect titleFrameFull;
+@property (nonatomic, assign) CGRect contentFrame;
 
 @end

@@ -25,7 +25,6 @@
 {
     _obj=obj;
     isCalculatingSuggestHeight=false;
-    [self setNeedsLayout];
 }
 
 -(void) calculatorHeights
@@ -117,15 +116,28 @@
     switch (_obj.enumDisplayType) {
             
         case USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE_TITLE:
-            lblTime.frame=CGRectMake(55, 6, 257, 0);
+            
             lblTime.text=_obj.time;
             
-            [lblTime sizeToFit];
+            if(CGRectEqualToRect(_obj.timeFrame, CGRectZero))
+            {
+                lblTime.frame=CGRectMake(55, 6, 257, 0);
+                [lblTime sizeToFit];
+                _obj.timeFrame=lblTime.frame;
+            }
+            else
+                lblTime.frame=_obj.timeFrame;
             
-            lblTitle.frame=CGRectMake(19, lblTime.l_v_y+lblTime.l_v_h+5, 274, 0);
             lblTitle.attributedText=_obj.titleAttribute;
             
-            [lblTitle sizeToFit];
+            if(CGRectEqualToRect(_obj.titleFrame, CGRectZero))
+            {
+                lblTitle.frame=CGRectMake(19, lblTime.l_v_y+lblTime.l_v_h+5, 274, 0);
+                [lblTitle sizeToFit];
+                _obj.titleFrame=lblTitle.frame;
+            }
+            else
+                lblTitle.frame=_obj.titleFrame;
             
             imgvImage.hidden=true;
             videoContain.hidden=true;
@@ -136,8 +148,8 @@
             
             if(_obj.enumStatus==NOTIFICATION_STATUS_UNREAD && _obj.highlightUnread.boolValue)
             {
-                markUnreadView.hidden=false;
-                avatarMaskView.hidden=false;
+                markUnreadView.hidden=true;
+                avatarMaskView.hidden=true;
                 displayView.backgroundColor=[UIColor whiteColor];
                 lblTime.textColor=[UIColor blackColor];
                 lblTitle.textColor=[UIColor blackColor];
@@ -159,10 +171,15 @@
             
             displayView.backgroundColor=[UIColor whiteColor];
             
-            lblTime.frame=CGRectMake(55, 6, 257, 0);
             lblTime.text=_obj.time;
-            
-            [lblTime sizeToFit];
+            if(CGRectEqualToRect(_obj.timeFrame, CGRectZero))
+            {
+                lblTime.frame=CGRectMake(55, 6, 257, 0);
+                [lblTime sizeToFit];
+                _obj.timeFrame=lblTitle.frame;
+            }
+            else
+                lblTitle.frame=_obj.timeFrame;
             
             float topHeight=0;
             float topY=lblTime.l_v_y+lblTime.l_v_h+5;
@@ -204,16 +221,28 @@
             if(topHeight>0)
                 topY+=topHeight+5;
             
-            lblTitle.frame=CGRectMake(19, topY, 274, 0);
             lblTitle.attributedText=_obj.titleAttribute;
-            
-            [lblTitle sizeToFit];
+            if(CGRectEqualToRect(_obj.titleFrameFull, CGRectZero))
+            {
+                lblTitle.frame=CGRectMake(19, topY, 274, 0);
+                [lblTitle sizeToFit];
+                _obj.titleFrameFull=lblTitle.frame;
+            }
+            else
+                lblTitle.frame=_obj.titleFrameFull;
             
             lblContent.hidden=false;
-            lblContent.frame=CGRectMake(19, lblTitle.l_v_y+lblTitle.l_v_h+5, 274, 0);
+            
             lblContent.attributedText=_obj.contentAttribute;
             
-            [lblContent sizeToFit];
+            if(CGRectEqualToRect(_obj.contentFrame, CGRectZero))
+            {
+                lblContent.frame=CGRectMake(19, lblTitle.l_v_y+lblTitle.l_v_h+5, 274, 0);
+                [lblContent sizeToFit];
+                _obj.contentFrame=lblContent.frame;
+            }
+            else
+                lblContent.frame=_obj.contentFrame;
             
             lblTime.textColor=[UIColor blackColor];
             lblTitle.textColor=[UIColor blackColor];
@@ -399,6 +428,8 @@
 
 @end
 
+#import <objc/runtime.h>
+static char UserNotificationDetailCellKey;
 @implementation UITableView(UserNotificationDetailCell)
 
 -(void)registerUserNotificationDetailCell
@@ -409,6 +440,18 @@
 -(UserNotificationDetailCell *)userNotificationDetailCell
 {
     return [self dequeueReusableCellWithIdentifier:[UserNotificationDetailCell reuseIdentifier]];
+}
+
+-(UserNotificationDetailCell *)userNotificationDetailPrototypeCell
+{
+    id obj=objc_getAssociatedObject(self, &UserNotificationDetailCellKey);
+    if(!obj)
+    {
+        obj=[self userNotificationDetailCell];
+        objc_setAssociatedObject(self, &UserNotificationDetailCellKey, obj, OBJC_ASSOCIATION_RETAIN);
+    }
+    
+    return obj;
 }
 
 @end

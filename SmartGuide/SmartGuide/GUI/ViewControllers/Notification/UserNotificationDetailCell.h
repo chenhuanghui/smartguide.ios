@@ -68,5 +68,6 @@ enum USER_NOTIFICATION_DETAIL_CELL_DISPLAY_TYPE
 
 -(void) registerUserNotificationDetailCell;
 -(UserNotificationDetailCell*) userNotificationDetailCell;
+-(UserNotificationDetailCell*) userNotificationDetailPrototypeCell;
 
 @end

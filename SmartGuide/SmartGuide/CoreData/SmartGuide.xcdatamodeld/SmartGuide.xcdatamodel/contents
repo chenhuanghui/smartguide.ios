@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="5064" systemVersion="13D65" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="5064" systemVersion="13E28" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="KM1Voucher" representedClassName="KM1Voucher" syncable="YES">
         <attribute name="idVoucher" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="isAfford" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
@@ -390,7 +390,7 @@
         <element name="UserHomeSection" positionX="27" positionY="153" width="128" height="88"/>
         <element name="UserNotification" positionX="9" positionY="153" width="128" height="208"/>
         <element name="UserNotificationAction" positionX="18" positionY="153" width="128" height="253"/>
-        <element name="UserNotificationContent" positionX="9" positionY="153" width="128" height="373"/>
+        <element name="UserNotificationContent" positionX="9" positionY="153" width="128" height="30"/>
         <element name="UserPlacelist" positionX="0" positionY="0" width="128" height="120"/>
         <element name="UserPromotion" positionX="0" positionY="0" width="128" height="270"/>
     </elements>
