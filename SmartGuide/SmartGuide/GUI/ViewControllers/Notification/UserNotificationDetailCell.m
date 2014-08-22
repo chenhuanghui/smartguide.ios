@@ -239,7 +239,7 @@
                 tableButtons.dataSource=nil;
                 [tableButtons reloadData];
                 
-                suggestHeight=lblContent.l_v_y+lblContent.l_v_h;
+                suggestHeight=lblContent.l_v_y+lblContent.l_v_h+10;
             }
 
             break;

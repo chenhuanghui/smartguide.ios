@@ -15,7 +15,9 @@
 #define DURATION_RESET_SMS 30
 
 #if DEBUG
-#define USING_MY_PHONE 1
+#define USING_PHONE 1
+#define USE_PHONE @"84934934701"
+#define USE_ACTIVITION_CODE @"5745"
 #endif
 
 @interface UserLoginViewController ()<ASIOperationPostDelegate,UITextFieldDelegate>
@@ -83,8 +85,8 @@
     
     [lblBottom addStyle:style];
     
-#if DEBUG && USING_MY_PHONE
-    [self switchToActivationModeWithPhone:@"841225372227"];
+#if DEBUG && USING_PHONE
+    [self switchToActivationModeWithPhone:USE_PHONE];
 #endif
 }
 
@@ -128,11 +130,11 @@
     _countdown=21;
     [self setCountdown];
     
-#if DEBUG && USING_MY_PHONE
+#if DEBUG && USING_PHONE
     if([SGData shareInstance].buildMode.integerValue==0)
         txtPhone.text=@"8915";
     else
-        txtPhone.text=@"0670";
+        txtPhone.text=USE_ACTIVITION_CODE;
 #endif
 }
 

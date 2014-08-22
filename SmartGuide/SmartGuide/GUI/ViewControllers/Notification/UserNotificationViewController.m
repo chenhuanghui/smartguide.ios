@@ -640,8 +640,10 @@
         [titleAttStr appendAttributedString:[[NSAttributedString alloc] initWithString:@"( " attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:11]
                                                                                                          , NSForegroundColorAttributeName:[UIColor whiteColor]
                                                                                                          , NSBaselineOffsetAttributeName:@(2)}]];
-        
-        NSString *displayTotal=[NSString stringWithFormat:@"%@/%@",_totalNotificationUnread,_totalNotificationAll];
+
+        NSString *unread=[NSNumberFormatter numberFromNSNumber:@(_numberNotificationUnread)];
+        NSString *all=[NSNumberFormatter numberFromNSNumber:@(_numberNotificationAll)];
+        NSString *displayTotal=[NSString stringWithFormat:@"%@/%@",unread,all];
         [titleAttStr appendAttributedString:[[NSAttributedString alloc] initWithString:displayTotal attributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:13]
                                                                                                                  , NSForegroundColorAttributeName:[UIColor whiteColor]
                                                                                                                  , NSBaselineOffsetAttributeName:@(1.4f)}]];

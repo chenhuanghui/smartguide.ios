@@ -190,7 +190,7 @@
 #else
     
     NSString *numNoti=[NotificationManager shareInstance].numOfNotification;
-    
+
     [btnNumOfNotification setTitle:numNoti forState:UIControlStateNormal];
     btnNumOfNotification.hidden=numNoti.length==0 || [NotificationManager shareInstance].totalNotification.integerValue==0;
     
