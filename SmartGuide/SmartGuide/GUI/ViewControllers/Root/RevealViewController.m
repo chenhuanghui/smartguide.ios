@@ -50,11 +50,13 @@
 
 -(void)showFrontController:(bool)animate
 {
+    [[self revealView] killScroll];
     [[self revealView] showFrontView:animate];
 }
 
 -(void)showRearController:(bool)animate
 {
+    [[self revealView] killScroll];
     [[self revealView] showRearView:animate];
 }
 
