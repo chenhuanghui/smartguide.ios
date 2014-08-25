@@ -10,12 +10,17 @@
 
 @class RemoteNotificationView;
 
-@class NavigationViewController,SGNavigationController, Shop;
+@class NavigationViewController,SGNavigationController, Shop, TabbarButton;
 
 @interface RootViewController : SGViewController
 {
     __weak IBOutlet UIButton *btnBuildMode;
     __weak IBOutlet UIButton *btnNoti;
+    __weak IBOutlet TabbarButton *btnTabHome;
+    __weak IBOutlet TabbarButton *btnTabSearch;
+    __weak IBOutlet TabbarButton *btnTabScan;
+    __weak IBOutlet TabbarButton *btnTabInbox;
+    __weak IBOutlet TabbarButton *btnTabUser;
 
     __weak RemoteNotificationView *remoteNotiView;
 }

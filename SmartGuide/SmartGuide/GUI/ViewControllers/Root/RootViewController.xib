@@ -9,6 +9,11 @@
             <connections>
                 <outlet property="btnBuildMode" destination="D6z-e1-UO6" id="saJ-7q-fUI"/>
                 <outlet property="btnNoti" destination="ppP-wD-eLs" id="sWl-pd-hgb"/>
+                <outlet property="btnTabHome" destination="zxN-Yy-hPZ" id="EDJ-Di-loh"/>
+                <outlet property="btnTabInbox" destination="Fih-rn-4p7" id="sZP-6G-qEm"/>
+                <outlet property="btnTabScan" destination="Nu9-Ls-bqe" id="lzG-Vd-ghy"/>
+                <outlet property="btnTabSearch" destination="wT0-xL-KUG" id="cKQ-LF-053"/>
+                <outlet property="btnTabUser" destination="alw-UD-gl9" id="dFg-TZ-pDq"/>
                 <outlet property="containView" destination="clU-Nc-up4" id="pz2-XN-V9B"/>
                 <outlet property="view" destination="1" id="3"/>
             </connections>
@@ -52,8 +57,45 @@
                 <view contentMode="scaleToFill" id="Xld-XN-ioU" customClass="TabbarView">
                     <rect key="frame" x="0.0" y="425" width="320" height="55"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="zxN-Yy-hPZ" customClass="TabbarButton">
+                            <rect key="frame" x="0.0" y="0.0" width="64" height="55"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="wT0-xL-KUG" customClass="TabbarButton">
+                            <rect key="frame" x="64" y="0.0" width="64" height="55"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Fih-rn-4p7" customClass="TabbarButton">
+                            <rect key="frame" x="192" y="0.0" width="64" height="55"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="alw-UD-gl9" customClass="TabbarButton">
+                            <rect key="frame" x="256" y="0.0" width="64" height="55"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                        </button>
+                    </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                 </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Nu9-Ls-bqe" customClass="TabbarButton">
+                    <rect key="frame" x="128" y="415" width="64" height="65"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                    <state key="normal">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                </button>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>

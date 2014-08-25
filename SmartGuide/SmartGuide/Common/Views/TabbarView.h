@@ -10,7 +10,6 @@
 
 @interface TabbarView : UIView
 
-@property (nonatomic, weak) IBOutlet UIImageView *imgvBackground;
-@property (nonatomic, weak) IBOutlet UIView *menuView;
+@property (nonatomic, weak, readonly) UIImageView *imgvBackground;
 
 @end

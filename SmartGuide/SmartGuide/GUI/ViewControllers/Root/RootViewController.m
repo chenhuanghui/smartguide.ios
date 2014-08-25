@@ -26,6 +26,7 @@
 #import "ScanCodeController.h"
 #import "RevealViewController.h"
 #import "TabsController.h"
+#import "TabbarButton.h"
 
 @interface RootViewController ()<NavigationControllerDelegate,UIScrollViewDelegate,HomeControllerDelegate,UserPromotionDelegate,SGUserSettingControllerDelegate,WebViewDelegate,ShopUserControllerDelegate,UIGestureRecognizerDelegate,RemoteNotificationDelegate, ScanCodeControllerDelegate, RevealControllerDelegate, SearchControllerDelegate>
 {
@@ -55,6 +56,12 @@
 -(void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    btnTabHome.tabbarButtonType=TABBAR_BUTTON_TYPE_HOME;
+    btnTabSearch.tabbarButtonType=TABBAR_BUTTON_TYPE_SEARCH;
+    btnTabScan.tabbarButtonType=TABBAR_BUTTON_TYPE_SCAN;
+    btnTabInbox.tabbarButtonType=TABBAR_BUTTON_TYPE_INBOX;
+    btnTabUser.tabbarButtonType=TABBAR_BUTTON_TYPE_USER;
     
     [_containView addSubview:self.tabsController.view];
 }
