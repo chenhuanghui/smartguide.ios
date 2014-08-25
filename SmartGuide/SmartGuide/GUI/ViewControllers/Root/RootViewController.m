@@ -27,6 +27,11 @@
 #import "RevealViewController.h"
 #import "TabsController.h"
 #import "TabbarButton.h"
+#import "TabHomeViewController.h"
+#import "TabSearchViewController.h"
+#import "TabScanViewController.h"
+#import "TabInboxViewController.h"
+#import "TabUserViewController.h"
 
 @interface RootViewController ()<NavigationControllerDelegate,UIScrollViewDelegate,HomeControllerDelegate,UserPromotionDelegate,SGUserSettingControllerDelegate,WebViewDelegate,ShopUserControllerDelegate,UIGestureRecognizerDelegate,RemoteNotificationDelegate, ScanCodeControllerDelegate, RevealControllerDelegate, SearchControllerDelegate>
 {
@@ -73,22 +78,32 @@
 
 - (IBAction)btnHomeTouchUpInside:(id)sender {
     [self setSelectedButton:sender];
+    
+    [_tabsController setSelectedViewController:_tabsController.tabHome];
 }
 
 - (IBAction)btnSearchTouchUpInside:(id)sender {
     [self setSelectedButton:sender];
+    
+    [_tabsController setSelectedViewController:_tabsController.tabSearch];
 }
 
 - (IBAction)btnScanTouchUpInside:(id)sender {
     [self setSelectedButton:sender];
+    
+    _tabsController.selectedViewController=_tabsController.tabScan;
 }
 
 - (IBAction)btnInboxTouchUpInside:(id)sender {
     [self setSelectedButton:sender];
+    
+    _tabsController.selectedViewController=_tabsController.tabInbox;
 }
 
 - (IBAction)btnUserTouchUpInside:(id)sender {
     [self setSelectedButton:sender];
+    
+    _tabsController.selectedViewController=_tabsController.tabUser;
 }
 
 -(void) setSelectedButton:(UIButton*) btnSelected

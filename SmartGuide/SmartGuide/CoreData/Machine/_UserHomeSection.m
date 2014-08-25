@@ -184,12 +184,7 @@
 
 -(void) revert
 {
-    [[[DataManager shareInstance] managedObjectContext] refreshObject:self mergeChanges:false];
-}
-
--(void) save
-{
-    [[DataManager shareInstance] save];
+    [self.managedObjectContext refreshObject:self mergeChanges:false];
 }
 
 -(BOOL) hasChanges

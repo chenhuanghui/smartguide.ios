@@ -51,6 +51,5 @@
 #pragma mark Utility
 
 -(void) revert;
--(void) save;
 
 @end

@@ -11,6 +11,7 @@
 #import "TabInboxViewController.h"
 #import "TabSearchViewController.h"
 #import "TabUserViewController.h"
+#import "TabScanViewController.h"
 
 @interface TabsController ()
 
@@ -33,15 +34,17 @@
     
     TabHomeViewController *tabHome=[TabHomeViewController new];
     TabSearchViewController *tabSearch=[TabSearchViewController new];
+    TabScanViewController *tabScan=[TabScanViewController new];
     TabInboxViewController *tabInbox=[TabInboxViewController new];
     TabUserViewController *tabUser=[TabUserViewController new];
     
     _tabHome=tabHome;
     _tabSearch=tabSearch;
+    _tabScan=tabScan;
     _tabInbox=tabInbox;
     _tabUser=tabUser;
     
-    self.viewControllers=@[tabHome, tabSearch, tabInbox, tabUser];
+    self.viewControllers=@[tabHome, tabSearch, tabScan, tabInbox, tabUser];
 }
 
 - (void)viewDidLoad

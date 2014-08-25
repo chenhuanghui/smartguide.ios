@@ -270,15 +270,6 @@
     return self.shopName;
 }
 
--(void)setCoordinate:(CLLocationCoordinate2D)newCoordinate
-{
-    self.shopLat=@(newCoordinate.latitude);
-    self.shopLng=@(newCoordinate.longitude);
-    
-    if(self.hasChanges)
-        [self save];
-}
-
 -(enum SHOP_DATA_MODE)enumDataMode
 {
     switch ((enum SHOP_DATA_MODE)self.dataMode.integerValue) {
