@@ -166,6 +166,20 @@ NSString *macAddress();
 
 @interface UIView(lazy_method)
 
+@property (nonatomic, assign, readwrite) CGPoint O;
+@property (nonatomic, assign, readwrite) float OX;
+@property (nonatomic, assign, readwrite) float OY;
+@property (nonatomic, assign, readwrite) CGSize S;
+@property (nonatomic, assign, readwrite) float SW;
+@property (nonatomic, assign, readwrite) float SH;
+@property (nonatomic, assign, readwrite) CGPoint C;
+@property (nonatomic, assign, readwrite) float CX;
+@property (nonatomic, assign, readwrite) float CY;
+
+//view calculator
+-(float) xw; // frame.origin.x+frame.size.width
+-(float) yh; // frame.origin.y+frame.size.height
+
 //view x,y
 -(CGPoint) l_v_o;
 -(float) l_v_x;

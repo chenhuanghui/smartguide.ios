@@ -25,11 +25,14 @@
 #import "TokenManager.h"
 #import "ScanCodeController.h"
 #import "RevealViewController.h"
+#import "TabsController.h"
 
 @interface RootViewController ()<NavigationControllerDelegate,UIScrollViewDelegate,HomeControllerDelegate,UserPromotionDelegate,SGUserSettingControllerDelegate,WebViewDelegate,ShopUserControllerDelegate,UIGestureRecognizerDelegate,RemoteNotificationDelegate, ScanCodeControllerDelegate, RevealControllerDelegate, SearchControllerDelegate>
 {
     __weak RevealViewController *revealControlelr;
 }
+
+@property (nonatomic, strong) TabsController *tabsController;
 
 @end
 
@@ -46,7 +49,19 @@
 {
     [super loadView];
     
+    self.tabsController=[TabsController new];
+}
+
+-(void)viewDidLoad
+{
+    [super viewDidLoad];
     
+    [_containView addSubview:self.tabsController.view];
+}
+
+-(void)viewWillAppearOnce
+{
+    self.tabsController.view.S=self.containView.S;
 }
 
 -(void)loadView1

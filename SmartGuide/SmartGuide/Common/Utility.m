@@ -763,6 +763,106 @@ NSString *macAddress()
 
 @implementation UIView(lazy_method)
 
+-(CGPoint)O
+{
+    return self.frame.origin;
+}
+
+-(void)setO:(CGPoint)O
+{
+    self.frame=CGRectMake(O.x, O.y, self.frame.size.width, self.frame.size.height);
+}
+
+-(float)OX
+{
+    return self.frame.origin.x;
+}
+
+-(void)setOX:(float)OX
+{
+    self.frame=CGRectMake(OX, self.frame.origin.y, self.frame.size.width, self.frame.size.height);
+}
+
+-(float)OY
+{
+    return self.frame.origin.y;
+}
+
+-(void)setOY:(float)oy
+{
+    self.frame=CGRectMake(self.frame.origin.x, oy, self.frame.size.width, self.frame.size.height);
+}
+
+-(CGSize)S
+{
+    return self.frame.size;
+}
+
+-(void)setS:(CGSize)S
+{
+    self.frame=CGRectMake(self.frame.origin.x, self.frame.origin.y, S.width, S.height);
+}
+
+-(float)SW
+{
+    return self.frame.size.width;
+}
+
+-(void)setSW:(float)SW
+{
+    self.frame=CGRectMake(self.frame.origin.x, self.frame.origin.y, SW, self.frame.size.height);
+}
+
+-(float)SH
+{
+    return self.frame.size.height;
+}
+
+-(void)setSH:(float)SH
+{
+    self.frame=self.frame=CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width, SH);
+}
+
+-(CGPoint)C
+{
+    return self.center;
+}
+
+-(void)setC:(CGPoint)C
+{
+    self.center=C;
+}
+
+-(float)CX
+{
+    return self.center.x;
+}
+
+-(void)setCX:(float)CX
+{
+    self.center=CGPointMake(CX, self.center.y);
+}
+
+-(float)CY
+{
+    return self.center.y;
+}
+
+-(void)setCY:(float)CY
+{
+    self.center=CGPointMake(self.center.x, CY);
+}
+
+-(float)xw
+{
+    return self.frame.origin.x+self.frame.size.width;
+}
+
+-(float)yh
+{
+    return self.frame.origin.y+self.frame.size.height;
+}
+
 //view x,y
 -(CGPoint) l_v_o
 {

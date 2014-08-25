@@ -7,6 +7,10 @@
 //
 
 #import "TabsController.h"
+#import "TabHomeViewController.h"
+#import "TabInboxViewController.h"
+#import "TabSearchViewController.h"
+#import "TabUserViewController.h"
 
 @interface TabsController ()
 
@@ -14,13 +18,30 @@
 
 @implementation TabsController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (instancetype)init
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    self = [super init];
     if (self) {
-        // Custom initialization
+        self.tabBar.hidden=true;
     }
     return self;
+}
+
+-(void)loadView
+{
+    [super loadView];
+    
+    TabHomeViewController *tabHome=[TabHomeViewController new];
+    TabSearchViewController *tabSearch=[TabSearchViewController new];
+    TabInboxViewController *tabInbox=[TabInboxViewController new];
+    TabUserViewController *tabUser=[TabUserViewController new];
+    
+    _tabHome=tabHome;
+    _tabSearch=tabSearch;
+    _tabInbox=tabInbox;
+    _tabUser=tabUser;
+    
+    self.viewControllers=@[tabHome, tabSearch, tabInbox, tabUser];
 }
 
 - (void)viewDidLoad
