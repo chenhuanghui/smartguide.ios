@@ -16,7 +16,7 @@
 {
     __weak IBOutlet UIButton *btnBuildMode;
     __weak IBOutlet UIButton *btnNoti;
-    
+
     __weak RemoteNotificationView *remoteNotiView;
 }
 
@@ -41,5 +41,6 @@
 @property (weak, nonatomic) IBOutlet UIView *containView;
 @property (nonatomic, strong) SGNavigationController *contentNavigation;
 @property (nonatomic, strong) NavigationViewController *settingController;
+@property (nonatomic, strong) UITabBarController *tabbarController;
 
 @end

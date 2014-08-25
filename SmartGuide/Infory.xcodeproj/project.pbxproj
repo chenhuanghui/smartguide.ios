@@ -766,6 +766,18 @@
 		A965D1771977773E003F3CB6 /* gofacebook@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A965D1731977773E003F3CB6 /* gofacebook@2x.png */; };
 		A965D1781977773E003F3CB6 /* golink.png in Resources */ = {isa = PBXBuildFile; fileRef = A965D1741977773E003F3CB6 /* golink.png */; };
 		A965D1791977773E003F3CB6 /* golink@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A965D1751977773E003F3CB6 /* golink@2x.png */; };
+		A9685FDF19AAEA3600945BEA /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9685FDE19AAEA3600945BEA /* ViewController.m */; };
+		A9685FE219AAEA4F00945BEA /* NavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9685FE119AAEA4F00945BEA /* NavigationController.m */; };
+		A9685FE519AAEA5F00945BEA /* TabbarController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9685FE419AAEA5F00945BEA /* TabbarController.m */; };
+		A9685FE919AAEC1E00945BEA /* TabHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9685FE719AAEC1E00945BEA /* TabHomeViewController.m */; };
+		A9685FEA19AAEC1E00945BEA /* TabHomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9685FE819AAEC1E00945BEA /* TabHomeViewController.xib */; };
+		A9685FEE19AAEC2F00945BEA /* TabInboxViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9685FEC19AAEC2F00945BEA /* TabInboxViewController.m */; };
+		A9685FEF19AAEC2F00945BEA /* TabInboxViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9685FED19AAEC2F00945BEA /* TabInboxViewController.xib */; };
+		A9685FF319AAEC3A00945BEA /* TabSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9685FF119AAEC3A00945BEA /* TabSearchViewController.m */; };
+		A9685FF419AAEC3B00945BEA /* TabSearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9685FF219AAEC3A00945BEA /* TabSearchViewController.xib */; };
+		A9685FF819AAEC4600945BEA /* TabUserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9685FF619AAEC4600945BEA /* TabUserViewController.m */; };
+		A9685FF919AAEC4600945BEA /* TabUserViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9685FF719AAEC4600945BEA /* TabUserViewController.xib */; };
+		A9685FFC19AAEC6B00945BEA /* TabsController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9685FFB19AAEC6B00945BEA /* TabsController.m */; };
 		A96A1D96195802200099E1B0 /* ShopDetailBGView.m in Sources */ = {isa = PBXBuildFile; fileRef = A96A1D95195802200099E1B0 /* ShopDetailBGView.m */; };
 		A971296018EA794B0065EAA7 /* UserNotificationDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A971295E18EA794B0065EAA7 /* UserNotificationDetailCell.m */; };
 		A971296118EA794B0065EAA7 /* UserNotificationDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A971295F18EA794B0065EAA7 /* UserNotificationDetailCell.xib */; };
@@ -1987,6 +1999,26 @@
 		A965D1731977773E003F3CB6 /* gofacebook@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gofacebook@2x.png"; sourceTree = "<group>"; };
 		A965D1741977773E003F3CB6 /* golink.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = golink.png; sourceTree = "<group>"; };
 		A965D1751977773E003F3CB6 /* golink@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "golink@2x.png"; sourceTree = "<group>"; };
+		A9685FDD19AAEA3600945BEA /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		A9685FDE19AAEA3600945BEA /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		A9685FE019AAEA4F00945BEA /* NavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationController.h; sourceTree = "<group>"; };
+		A9685FE119AAEA4F00945BEA /* NavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationController.m; sourceTree = "<group>"; };
+		A9685FE319AAEA5F00945BEA /* TabbarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabbarController.h; sourceTree = "<group>"; };
+		A9685FE419AAEA5F00945BEA /* TabbarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabbarController.m; sourceTree = "<group>"; };
+		A9685FE619AAEC1E00945BEA /* TabHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabHomeViewController.h; sourceTree = "<group>"; };
+		A9685FE719AAEC1E00945BEA /* TabHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabHomeViewController.m; sourceTree = "<group>"; };
+		A9685FE819AAEC1E00945BEA /* TabHomeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TabHomeViewController.xib; sourceTree = "<group>"; };
+		A9685FEB19AAEC2F00945BEA /* TabInboxViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabInboxViewController.h; sourceTree = "<group>"; };
+		A9685FEC19AAEC2F00945BEA /* TabInboxViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabInboxViewController.m; sourceTree = "<group>"; };
+		A9685FED19AAEC2F00945BEA /* TabInboxViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TabInboxViewController.xib; sourceTree = "<group>"; };
+		A9685FF019AAEC3A00945BEA /* TabSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabSearchViewController.h; sourceTree = "<group>"; };
+		A9685FF119AAEC3A00945BEA /* TabSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabSearchViewController.m; sourceTree = "<group>"; };
+		A9685FF219AAEC3A00945BEA /* TabSearchViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TabSearchViewController.xib; sourceTree = "<group>"; };
+		A9685FF519AAEC4600945BEA /* TabUserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabUserViewController.h; sourceTree = "<group>"; };
+		A9685FF619AAEC4600945BEA /* TabUserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabUserViewController.m; sourceTree = "<group>"; };
+		A9685FF719AAEC4600945BEA /* TabUserViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TabUserViewController.xib; sourceTree = "<group>"; };
+		A9685FFA19AAEC6B00945BEA /* TabsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabsController.h; sourceTree = "<group>"; };
+		A9685FFB19AAEC6B00945BEA /* TabsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabsController.m; sourceTree = "<group>"; };
 		A96A1D94195802200099E1B0 /* ShopDetailBGView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopDetailBGView.h; sourceTree = "<group>"; };
 		A96A1D95195802200099E1B0 /* ShopDetailBGView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopDetailBGView.m; sourceTree = "<group>"; };
 		A971295D18EA794B0065EAA7 /* UserNotificationDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserNotificationDetailCell.h; sourceTree = "<group>"; };
@@ -2409,6 +2441,7 @@
 		9A27BAA418D18BAD00E3EAC2 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				A9685FD819AAEA0D00945BEA /* Tabs */,
 				A9EB14021952D79C00191767 /* ShopUser */,
 				A9BABB43192C4C0000C417F3 /* City */,
 				A9941C8A1904D7570055582A /* Webview */,
@@ -3389,6 +3422,66 @@
 			path = Operations;
 			sourceTree = "<group>";
 		};
+		A9685FD719AAE80100945BEA /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		A9685FD819AAEA0D00945BEA /* Tabs */ = {
+			isa = PBXGroup;
+			children = (
+				A9685FD919AAEA0D00945BEA /* TabHome */,
+				A9685FDA19AAEA0D00945BEA /* TabInbox */,
+				A9685FDB19AAEA0D00945BEA /* TabSearch */,
+				A9685FDC19AAEA0D00945BEA /* TabUser */,
+				A9685FFA19AAEC6B00945BEA /* TabsController.h */,
+				A9685FFB19AAEC6B00945BEA /* TabsController.m */,
+			);
+			path = Tabs;
+			sourceTree = "<group>";
+		};
+		A9685FD919AAEA0D00945BEA /* TabHome */ = {
+			isa = PBXGroup;
+			children = (
+				A9685FE619AAEC1E00945BEA /* TabHomeViewController.h */,
+				A9685FE719AAEC1E00945BEA /* TabHomeViewController.m */,
+				A9685FE819AAEC1E00945BEA /* TabHomeViewController.xib */,
+			);
+			path = TabHome;
+			sourceTree = "<group>";
+		};
+		A9685FDA19AAEA0D00945BEA /* TabInbox */ = {
+			isa = PBXGroup;
+			children = (
+				A9685FEB19AAEC2F00945BEA /* TabInboxViewController.h */,
+				A9685FEC19AAEC2F00945BEA /* TabInboxViewController.m */,
+				A9685FED19AAEC2F00945BEA /* TabInboxViewController.xib */,
+			);
+			path = TabInbox;
+			sourceTree = "<group>";
+		};
+		A9685FDB19AAEA0D00945BEA /* TabSearch */ = {
+			isa = PBXGroup;
+			children = (
+				A9685FF019AAEC3A00945BEA /* TabSearchViewController.h */,
+				A9685FF119AAEC3A00945BEA /* TabSearchViewController.m */,
+				A9685FF219AAEC3A00945BEA /* TabSearchViewController.xib */,
+			);
+			path = TabSearch;
+			sourceTree = "<group>";
+		};
+		A9685FDC19AAEA0D00945BEA /* TabUser */ = {
+			isa = PBXGroup;
+			children = (
+				A9685FF519AAEC4600945BEA /* TabUserViewController.h */,
+				A9685FF619AAEC4600945BEA /* TabUserViewController.m */,
+				A9685FF719AAEC4600945BEA /* TabUserViewController.xib */,
+			);
+			path = TabUser;
+			sourceTree = "<group>";
+		};
 		A9819845178D02520009FCB6 = {
 			isa = PBXGroup;
 			children = (
@@ -3485,6 +3578,12 @@
 				9A27BA9F18D18BAD00E3EAC2 /* SGNavigationController.m */,
 				9A27BAA018D18BAD00E3EAC2 /* SGViewController.h */,
 				9A27BAA118D18BAD00E3EAC2 /* SGViewController.m */,
+				A9685FDD19AAEA3600945BEA /* ViewController.h */,
+				A9685FDE19AAEA3600945BEA /* ViewController.m */,
+				A9685FE019AAEA4F00945BEA /* NavigationController.h */,
+				A9685FE119AAEA4F00945BEA /* NavigationController.m */,
+				A9685FE319AAEA5F00945BEA /* TabbarController.h */,
+				A9685FE419AAEA5F00945BEA /* TabbarController.m */,
 				A97C255A19627ECC00AD5344 /* SGViewController+PresentViewController.h */,
 				A97C255B19627ECC00AD5344 /* SGViewController+PresentViewController.m */,
 				A97C255D19627F8100AD5344 /* SGViewController+DialogViewController.h */,
@@ -3497,6 +3596,7 @@
 		A98198B4178D3FA70009FCB6 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				A9685FD719AAE80100945BEA /* Views */,
 				A9FCCA321987AF820088F9A4 /* LinearPartitionGallery */,
 				A9FCC9AB198745DB0088F9A4 /* GradientLayer */,
 				A9BF13D01963C0C800D30EAA /* PeekTitleView */,
@@ -4949,6 +5049,7 @@
 				9A66893E184DC6F2006A9EB2 /* line_detail@2x.png in Resources */,
 				A95B1AFB1965A6EC006E9B27 /* ScanResultInforyImageCell.xib in Resources */,
 				A9790FF219648E3100719E27 /* bg_viewer_button@2x.png in Resources */,
+				A9685FEF19AAEC2F00945BEA /* TabInboxViewController.xib in Resources */,
 				9A912A52188FBADF00BBD66C /* frame_map_mid.png in Resources */,
 				9ACBE8DB185A0A8C0004474F /* button_love_hover.png in Resources */,
 				9A211EC318B52ADD00EBCCD9 /* icon_viewlistscroll@2x.png in Resources */,
@@ -4960,6 +5061,7 @@
 				9A7AC21B18D191550043316D /* SearchShopCell.xib in Resources */,
 				A95F726D1976427E001E2881 /* bg_viewer_buttongrey.png in Resources */,
 				9A96DC0C1886421E00AD0EEC /* line_detail_placelist@2x.png in Resources */,
+				A9685FEA19AAEC1E00945BEA /* TabHomeViewController.xib in Resources */,
 				A9BD83EA18ED40BD000375BD /* button_config.png in Resources */,
 				9A98C90A188E83A30067EAD3 /* button_loading_small_08.png in Resources */,
 				9A5DC480183DBB940051375A /* background_shadow.png in Resources */,
@@ -5091,6 +5193,7 @@
 				9A7A2F6118C4959800A3881B /* icon_healness.png in Resources */,
 				9AC42EB918C4790000EBE5F4 /* button_update@2x.png in Resources */,
 				9A7E5560183C7A4D006D1798 /* icon_address@2x.png in Resources */,
+				A9685FF419AAEC3B00945BEA /* TabSearchViewController.xib in Resources */,
 				9AC5380618684490009A000B /* bg_detail_info_mid.png in Resources */,
 				9AA90B741850EF0F002F40FF /* frame_avauser.png in Resources */,
 				9A4E4B711887E60700E4A1D2 /* line_promotion@2x.png in Resources */,
@@ -5099,6 +5202,7 @@
 				A9EB14A11952D79C00191767 /* ShopUserController.xib in Resources */,
 				9A7E5563183C7C05006D1798 /* icon_call.png in Resources */,
 				A9D84CE018FE90C300654438 /* icon_refresh_done.png in Resources */,
+				A9685FF919AAEC4600945BEA /* TabUserViewController.xib in Resources */,
 				9A2939391844803A00FD49E2 /* icon_distance.png in Resources */,
 				9AA026D1183674CF0087B2DA /* icon_heartscroll.png in Resources */,
 				9A3DE85C18B30B88006F473A /* button_logout.png in Resources */,
@@ -5223,12 +5327,14 @@
 				9A88C2B818DC497F00B4E20A /* LoadingMoreCollectionCell.m in Sources */,
 				9A7AC22A18D191740043316D /* ShopListCell.m in Sources */,
 				A9200B081929D96E00F46B8D /* RemoteNotificationView.m in Sources */,
+				A9685FFC19AAEC6B00945BEA /* TabsController.m in Sources */,
 				9AF94E7718A9DE21002529BE /* KeyboardUtility.m in Sources */,
 				9A27BC0418D18BAD00E3EAC2 /* GalleryViewController.m in Sources */,
 				A9BF9489178FB87E00EF7E5F /* LocationManager.m in Sources */,
 				9AEE705018C2EB8200E8DDC9 /* ASIOperationUploadAvatar.m in Sources */,
 				A9E71DA6178FD2B200D7467E /* LocalizationManager.m in Sources */,
 				9A27BBFF18D18BAD00E3EAC2 /* GalleryFullCell.m in Sources */,
+				A9685FEE19AAEC2F00945BEA /* TabInboxViewController.m in Sources */,
 				9ADCD94318D19C3F004CB67E /* AFURLSessionManager.m in Sources */,
 				9A7AC1AD18D1907B0043316D /* ShopListViewController.m in Sources */,
 				9ACF7A5F186988D200B0BC78 /* ASIOperationUserHome.m in Sources */,
@@ -5289,6 +5395,7 @@
 				9AC74E581860C0F70033EB61 /* ASIOperationPlacelistGetList.m in Sources */,
 				9ADCD95C18D19C3F004CB67E /* SDWebImageCompat.m in Sources */,
 				9A7AC23C18D192250043316D /* ShopPinView.m in Sources */,
+				A9685FE919AAEC1E00945BEA /* TabHomeViewController.m in Sources */,
 				9A32F4311843486F00704D26 /* AlphaView.m in Sources */,
 				9A7AC24718D192490043316D /* PlacelistCreateCell.m in Sources */,
 				9A27BCAF18D18BAD00E3EAC2 /* WelcomeViewController.m in Sources */,
@@ -5338,6 +5445,7 @@
 				A9BF14AD1963C5FD00D30EAA /* ScanResultRelatedCell.m in Sources */,
 				9A7AC1F618D190B50043316D /* SearchViewController.m in Sources */,
 				9A9433681885A91400066DC3 /* ASIOperationCreatePlacelist.m in Sources */,
+				A9685FF319AAEC3A00945BEA /* TabSearchViewController.m in Sources */,
 				A921B02F17A8B68200DC6D4D /* ASIOperationShopUser.m in Sources */,
 				A9E35F89190F9008008498E5 /* UserNoticeObject.m in Sources */,
 				A939215D19656C120091E804 /* ScanCodeRelatedContain.m in Sources */,
@@ -5364,11 +5472,13 @@
 				9A27BBF918D18BAD00E3EAC2 /* RegisterInfoStep2ViewController.m in Sources */,
 				9A27BC1B18D18BAD00E3EAC2 /* LoadingScreenViewController.m in Sources */,
 				9ACF7A8818698E3700B0BC78 /* UserHome.m in Sources */,
+				A9685FE519AAEA5F00945BEA /* TabbarController.m in Sources */,
 				A91CE6AE17A93B8B00D29E87 /* ASIOperationShopComment.m in Sources */,
 				A91CE6B117A93B9B00D29E87 /* ASIOperationPostComment.m in Sources */,
 				9A7AC21A18D191550043316D /* SearchShopCell.m in Sources */,
 				9A27BBEE18D18BAD00E3EAC2 /* SGNavigationController.m in Sources */,
 				A91CE6BF17A93F6500D29E87 /* ShopGallery.m in Sources */,
+				A9685FDF19AAEA3600945BEA /* ViewController.m in Sources */,
 				A91CE6C017A93F6500D29E87 /* ShopUserGallery.m in Sources */,
 				9A29392118445DA000FD49E2 /* KM1Voucher.m in Sources */,
 				A9BFE85818E96323008C542E /* ASIOperationUserNotificationNewest.m in Sources */,
@@ -5400,6 +5510,7 @@
 				A9EB148F1952D79C00191767 /* ShopKM1Cell.m in Sources */,
 				A9BF14A71963C45300D30EAA /* ScanResultRelatedHeadView.m in Sources */,
 				A9EB14711952D79C00191767 /* UserUploadGalleryManager.m in Sources */,
+				A9685FE219AAEA4F00945BEA /* NavigationController.m in Sources */,
 				A992579F18E96F3A00D0993A /* UserNotificationCell.m in Sources */,
 				9AC74E551860BE230033EB61 /* _Placelist.m in Sources */,
 				9A24781418B739B100BAAA7D /* EmptyDataView.m in Sources */,
@@ -5408,6 +5519,7 @@
 				A9BF13E31963C18900D30EAA /* ScanResultNonInforyCell.m in Sources */,
 				9ADCD95518D19C3F004CB67E /* UIView+GMGridViewAdditions.m in Sources */,
 				9A27BC0D18D18BAD00E3EAC2 /* HomeImageType9Cell.m in Sources */,
+				A9685FF819AAEC4600945BEA /* TabUserViewController.m in Sources */,
 				9A27BBF718D18BAD00E3EAC2 /* RegisterInfoStep1ViewController.m in Sources */,
 				9ACF7AA118698E4100B0BC78 /* _UserHome1.m in Sources */,
 				A939215419652F0E0091E804 /* _ScanCodeResult.m in Sources */,

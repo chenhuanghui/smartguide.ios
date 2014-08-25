@@ -46,6 +46,13 @@
 {
     [super loadView];
     
+    
+}
+
+-(void)loadView1
+{
+    [super loadView];
+    
     NSMutableArray *array=[NSMutableArray array];
     
     HomeViewController *home=[HomeViewController new];
@@ -83,7 +90,7 @@
         self.contentNavigation=[[SGNavigationController alloc] initWithViewControllers:array];
 }
 
-- (void)viewDidLoad
+- (void)viewDidLoad1
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
@@ -110,7 +117,7 @@
     [[NotificationManager shareInstance] requestNotificationCount];
 }
 
--(void)viewWillAppearOnce
+-(void)viewWillAppearOnce1
 {
     [self.containView addSubview:revealControlelr.view];
     [revealControlelr.view l_v_setS:self.containView.l_v_s];
