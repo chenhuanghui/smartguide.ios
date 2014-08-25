@@ -346,6 +346,20 @@
 		A94EC81419AB242E00942ED6 /* _HomeImages.m in Sources */ = {isa = PBXBuildFile; fileRef = A94EC80D19AB242E00942ED6 /* _HomeImages.m */; };
 		A94EC81519AB242E00942ED6 /* _HomeShop.m in Sources */ = {isa = PBXBuildFile; fileRef = A94EC80F19AB242E00942ED6 /* _HomeShop.m */; };
 		A94EC81619AB242E00942ED6 /* _ShopInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = A94EC81119AB242E00942ED6 /* _ShopInfo.m */; };
+		A94EC81919AB2B0800942ED6 /* OperationEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = A94EC81819AB2B0800942ED6 /* OperationEvent.m */; };
+		A94EC81F19AB2CF700942ED6 /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = A94EC81E19AB2CF700942ED6 /* Event.m */; };
+		A94EC82219AB2CFC00942ED6 /* _Event.m in Sources */ = {isa = PBXBuildFile; fileRef = A94EC82119AB2CFC00942ED6 /* _Event.m */; };
+		A94EC82519AB30DF00942ED6 /* NavigationView.m in Sources */ = {isa = PBXBuildFile; fileRef = A94EC82419AB30DF00942ED6 /* NavigationView.m */; };
+		A94EC82819AB325900942ED6 /* ButtonCityLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = A94EC82719AB325900942ED6 /* ButtonCityLocation.m */; };
+		A94EC82B19AB369F00942ED6 /* HomeDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A94EC82A19AB369F00942ED6 /* HomeDataManager.m */; };
+		A94EC82F19AB37AA00942ED6 /* ObserverObject.m in Sources */ = {isa = PBXBuildFile; fileRef = A94EC82E19AB37AA00942ED6 /* ObserverObject.m */; };
+		A94EC83219AB3C7800942ED6 /* EventDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A94EC83119AB3C7800942ED6 /* EventDataManager.m */; };
+		A94EC83619AB3EBE00942ED6 /* TabHomeShopCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A94EC83419AB3EBE00942ED6 /* TabHomeShopCell.m */; };
+		A94EC83719AB3EBE00942ED6 /* TabHomeShopCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A94EC83519AB3EBE00942ED6 /* TabHomeShopCell.xib */; };
+		A94EC83B19AB3ED400942ED6 /* TabHomeImagesCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A94EC83919AB3ED400942ED6 /* TabHomeImagesCell.m */; };
+		A94EC84519AB512900942ED6 /* ImagesTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A94EC84419AB512900942ED6 /* ImagesTableCell.m */; };
+		A94EC84719AB514200942ED6 /* ImagesTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A94EC84619AB514200942ED6 /* ImagesTableCell.xib */; };
+		A94EC84F19AB527700942ED6 /* ImageCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A94EC84E19AB527700942ED6 /* ImageCollectionCell.m */; };
 		A959E9591974EA5F00129AB8 /* ScanResultInforyShareCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A959E9571974EA5F00129AB8 /* ScanResultInforyShareCell.m */; };
 		A959E95A1974EA5F00129AB8 /* ScanResultInforyShareCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A959E9581974EA5F00129AB8 /* ScanResultInforyShareCell.xib */; };
 		A95B1AF21965A6EC006E9B27 /* ScanButtonCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A95B1ADB1965A6EC006E9B27 /* ScanButtonCollectionCell.m */; };
@@ -1646,6 +1660,32 @@
 		A94EC80F19AB242E00942ED6 /* _HomeShop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _HomeShop.m; sourceTree = "<group>"; };
 		A94EC81019AB242E00942ED6 /* _ShopInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _ShopInfo.h; sourceTree = "<group>"; };
 		A94EC81119AB242E00942ED6 /* _ShopInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _ShopInfo.m; sourceTree = "<group>"; };
+		A94EC81719AB2B0800942ED6 /* OperationEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OperationEvent.h; sourceTree = "<group>"; };
+		A94EC81819AB2B0800942ED6 /* OperationEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OperationEvent.m; sourceTree = "<group>"; };
+		A94EC81D19AB2CF700942ED6 /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
+		A94EC81E19AB2CF700942ED6 /* Event.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Event.m; sourceTree = "<group>"; };
+		A94EC82019AB2CFC00942ED6 /* _Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _Event.h; sourceTree = "<group>"; };
+		A94EC82119AB2CFC00942ED6 /* _Event.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _Event.m; sourceTree = "<group>"; };
+		A94EC82319AB30DF00942ED6 /* NavigationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationView.h; sourceTree = "<group>"; };
+		A94EC82419AB30DF00942ED6 /* NavigationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationView.m; sourceTree = "<group>"; };
+		A94EC82619AB325900942ED6 /* ButtonCityLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ButtonCityLocation.h; sourceTree = "<group>"; };
+		A94EC82719AB325900942ED6 /* ButtonCityLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ButtonCityLocation.m; sourceTree = "<group>"; };
+		A94EC82919AB369F00942ED6 /* HomeDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeDataManager.h; sourceTree = "<group>"; };
+		A94EC82A19AB369F00942ED6 /* HomeDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeDataManager.m; sourceTree = "<group>"; };
+		A94EC82D19AB37AA00942ED6 /* ObserverObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObserverObject.h; sourceTree = "<group>"; };
+		A94EC82E19AB37AA00942ED6 /* ObserverObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ObserverObject.m; sourceTree = "<group>"; };
+		A94EC83019AB3C7800942ED6 /* EventDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventDataManager.h; sourceTree = "<group>"; };
+		A94EC83119AB3C7800942ED6 /* EventDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventDataManager.m; sourceTree = "<group>"; };
+		A94EC83319AB3EBE00942ED6 /* TabHomeShopCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabHomeShopCell.h; sourceTree = "<group>"; };
+		A94EC83419AB3EBE00942ED6 /* TabHomeShopCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabHomeShopCell.m; sourceTree = "<group>"; };
+		A94EC83519AB3EBE00942ED6 /* TabHomeShopCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TabHomeShopCell.xib; sourceTree = "<group>"; };
+		A94EC83819AB3ED400942ED6 /* TabHomeImagesCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabHomeImagesCell.h; sourceTree = "<group>"; };
+		A94EC83919AB3ED400942ED6 /* TabHomeImagesCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabHomeImagesCell.m; sourceTree = "<group>"; };
+		A94EC84319AB512900942ED6 /* ImagesTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImagesTableCell.h; sourceTree = "<group>"; };
+		A94EC84419AB512900942ED6 /* ImagesTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImagesTableCell.m; sourceTree = "<group>"; };
+		A94EC84619AB514200942ED6 /* ImagesTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImagesTableCell.xib; sourceTree = "<group>"; };
+		A94EC84D19AB527700942ED6 /* ImageCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageCollectionCell.h; sourceTree = "<group>"; };
+		A94EC84E19AB527700942ED6 /* ImageCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageCollectionCell.m; sourceTree = "<group>"; };
 		A959E9561974EA5F00129AB8 /* ScanResultInforyShareCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScanResultInforyShareCell.h; sourceTree = "<group>"; };
 		A959E9571974EA5F00129AB8 /* ScanResultInforyShareCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScanResultInforyShareCell.m; sourceTree = "<group>"; };
 		A959E9581974EA5F00129AB8 /* ScanResultInforyShareCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScanResultInforyShareCell.xib; sourceTree = "<group>"; };
@@ -3269,16 +3309,18 @@
 		A91A674A1797F65000BEB8C5 /* Human */ = {
 			isa = PBXGroup;
 			children = (
+				A94EC81D19AB2CF700942ED6 /* Event.h */,
+				A94EC81E19AB2CF700942ED6 /* Event.m */,
+				A94EC7FB19AB242700942ED6 /* ShopInfo.h */,
 				A94EC7F919AB242700942ED6 /* ShopInfo.m */,
 				A94EC7FA19AB242700942ED6 /* HomeImage.h */,
-				A94EC7FB19AB242700942ED6 /* ShopInfo.h */,
 				A94EC7FC19AB242700942ED6 /* HomeImage.m */,
-				A94EC7FD19AB242700942ED6 /* HomeImages.m */,
 				A94EC7FE19AB242700942ED6 /* HomeImages.h */,
+				A94EC7FD19AB242700942ED6 /* HomeImages.m */,
 				A94EC7FF19AB242700942ED6 /* HomeShop.h */,
 				A94EC80019AB242700942ED6 /* HomeShop.m */,
-				A94EC80119AB242700942ED6 /* Home.m */,
 				A94EC80219AB242700942ED6 /* Home.h */,
+				A94EC80119AB242700942ED6 /* Home.m */,
 				A9309CB919821E1300E16257 /* UserHomeSection.h */,
 				A9309CBA19821E1300E16257 /* UserHomeSection.m */,
 				A939215B19656C120091E804 /* ScanCodeRelatedContain.h */,
@@ -3346,6 +3388,8 @@
 		A91A674D1797F65000BEB8C5 /* Machine */ = {
 			isa = PBXGroup;
 			children = (
+				A94EC82019AB2CFC00942ED6 /* _Event.h */,
+				A94EC82119AB2CFC00942ED6 /* _Event.m */,
 				A94EC80819AB242E00942ED6 /* _Home.h */,
 				A94EC80919AB242E00942ED6 /* _Home.m */,
 				A94EC80A19AB242E00942ED6 /* _HomeImage.h */,
@@ -3532,6 +3576,8 @@
 				A9A98162193C835400B8512E /* OperationNotificationAction.m */,
 				A94EC7E419AB21F000942ED6 /* OperationHome.h */,
 				A94EC7E519AB21F000942ED6 /* OperationHome.m */,
+				A94EC81719AB2B0800942ED6 /* OperationEvent.h */,
+				A94EC81819AB2B0800942ED6 /* OperationEvent.m */,
 			);
 			path = Operations;
 			sourceTree = "<group>";
@@ -3566,6 +3612,43 @@
 				A94EC7E119AB19B300942ED6 /* TabScanViewController.xib */,
 			);
 			path = TabScan;
+			sourceTree = "<group>";
+		};
+		A94EC82C19AB379900942ED6 /* Objects */ = {
+			isa = PBXGroup;
+			children = (
+				A94EC82D19AB37AA00942ED6 /* ObserverObject.h */,
+				A94EC82E19AB37AA00942ED6 /* ObserverObject.m */,
+			);
+			path = Objects;
+			sourceTree = "<group>";
+		};
+		A94EC83D19AB4D0400942ED6 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				A94EC83E19AB4D0400942ED6 /* CollectionView */,
+				A94EC83F19AB4D0400942ED6 /* TableView */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		A94EC83E19AB4D0400942ED6 /* CollectionView */ = {
+			isa = PBXGroup;
+			children = (
+				A94EC84D19AB527700942ED6 /* ImageCollectionCell.h */,
+				A94EC84E19AB527700942ED6 /* ImageCollectionCell.m */,
+			);
+			path = CollectionView;
+			sourceTree = "<group>";
+		};
+		A94EC83F19AB4D0400942ED6 /* TableView */ = {
+			isa = PBXGroup;
+			children = (
+				A94EC84319AB512900942ED6 /* ImagesTableCell.h */,
+				A94EC84419AB512900942ED6 /* ImagesTableCell.m */,
+				A94EC84619AB514200942ED6 /* ImagesTableCell.xib */,
+			);
+			path = TableView;
 			sourceTree = "<group>";
 		};
 		A95B1AD91965A6EC006E9B27 /* ScanResultInfory */ = {
@@ -3637,6 +3720,10 @@
 				A968600519AAF15B00945BEA /* TabbarButton.m */,
 				A968600719AAF17A00945BEA /* Label.h */,
 				A968600819AAF17A00945BEA /* Label.m */,
+				A94EC82319AB30DF00942ED6 /* NavigationView.h */,
+				A94EC82419AB30DF00942ED6 /* NavigationView.m */,
+				A94EC82619AB325900942ED6 /* ButtonCityLocation.h */,
+				A94EC82719AB325900942ED6 /* ButtonCityLocation.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -3661,6 +3748,15 @@
 				A9685FE619AAEC1E00945BEA /* TabHomeViewController.h */,
 				A9685FE719AAEC1E00945BEA /* TabHomeViewController.m */,
 				A9685FE819AAEC1E00945BEA /* TabHomeViewController.xib */,
+				A94EC83319AB3EBE00942ED6 /* TabHomeShopCell.h */,
+				A94EC83419AB3EBE00942ED6 /* TabHomeShopCell.m */,
+				A94EC83519AB3EBE00942ED6 /* TabHomeShopCell.xib */,
+				A94EC83819AB3ED400942ED6 /* TabHomeImagesCell.h */,
+				A94EC83919AB3ED400942ED6 /* TabHomeImagesCell.m */,
+				A94EC82919AB369F00942ED6 /* HomeDataManager.h */,
+				A94EC82A19AB369F00942ED6 /* HomeDataManager.m */,
+				A94EC83019AB3C7800942ED6 /* EventDataManager.h */,
+				A94EC83119AB3C7800942ED6 /* EventDataManager.m */,
 			);
 			path = TabHome;
 			sourceTree = "<group>";
@@ -4376,6 +4472,8 @@
 		A98198B4178D3FA70009FCB6 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				A94EC83D19AB4D0400942ED6 /* Cells */,
+				A94EC82C19AB379900942ED6 /* Objects */,
 				A9685FD719AAE80100945BEA /* Views */,
 				A9FCCA321987AF820088F9A4 /* LinearPartitionGallery */,
 				A9FCC9AB198745DB0088F9A4 /* GradientLayer */,
@@ -5070,6 +5168,7 @@
 				A96863A419AAF3FB00945BEA /* icon_promotion_navigation.png in Resources */,
 				A968634719AAF3FA00945BEA /* frame_photohighlight_gallery.png in Resources */,
 				A93A216C19AAF87E00CE0367 /* button_explore_active@2x.png in Resources */,
+				A94EC84719AB514200942ED6 /* ImagesTableCell.xib in Resources */,
 				A968632D19AAF3FA00945BEA /* frame_ava_photo.png in Resources */,
 				A968621D19AAF3FA00945BEA /* bg_blur_detail_info@2x.png in Resources */,
 				A968622E19AAF3FA00945BEA /* bg_detail_info_bottom.png in Resources */,
@@ -5563,6 +5662,7 @@
 				A968626519AAF3FA00945BEA /* bgsort_left@2x.png in Resources */,
 				A96863F219AAF3FB00945BEA /* line_shopdetail.png in Resources */,
 				A968625919AAF3FA00945BEA /* bg_viewer_button@2x.png in Resources */,
+				A94EC83719AB3EBE00942ED6 /* TabHomeShopCell.xib in Resources */,
 				A93A216A19AAF87E00CE0367 /* button_expand@2x.png in Resources */,
 				A968638119AAF3FA00945BEA /* icon_flaggray_clock@2x.png in Resources */,
 				A96863BE19AAF3FB00945BEA /* icon_store_navigation.png in Resources */,
@@ -5600,6 +5700,7 @@
 				9ACF7A8E18698E3700B0BC78 /* UserHome6.m in Sources */,
 				A98198B7178D3FB30009FCB6 /* Utility.m in Sources */,
 				A9B44AC5195D13CA001E0F08 /* DLog.m in Sources */,
+				A94EC82519AB30DF00942ED6 /* NavigationView.m in Sources */,
 				A9E35F83190F8417008498E5 /* ASIOperationNotificationCount.m in Sources */,
 				9A7AC21E18D191550043316D /* SearchShopPlacelistCell.m in Sources */,
 				9ACF7AA318698E4100B0BC78 /* _UserHome3.m in Sources */,
@@ -5631,6 +5732,7 @@
 				9AC66F86186447B300890F80 /* ASIOperationAgreeComment.m in Sources */,
 				A9E0F5C71962A3C3005ABAA0 /* ScanCodeViewController.m in Sources */,
 				9A94336518859B6600066DC3 /* TextView.m in Sources */,
+				A94EC83619AB3EBE00942ED6 /* TabHomeShopCell.m in Sources */,
 				9ADCD95A18D19C3F004CB67E /* NSData+GIF.m in Sources */,
 				9A06F99918854243005C0377 /* _UserPlacelist.m in Sources */,
 				9A29391B18445D9900FD49E2 /* _KM1Voucher.m in Sources */,
@@ -5713,6 +5815,7 @@
 				A9685FE919AAEC1E00945BEA /* TabHomeViewController.m in Sources */,
 				9A32F4311843486F00704D26 /* AlphaView.m in Sources */,
 				A968600919AAF17A00945BEA /* Label.m in Sources */,
+				A94EC83219AB3C7800942ED6 /* EventDataManager.m in Sources */,
 				9A7AC24718D192490043316D /* PlacelistCreateCell.m in Sources */,
 				9A27BCAF18D18BAD00E3EAC2 /* WelcomeViewController.m in Sources */,
 				A9EB148D1952D79C00191767 /* ShopInfoControllerCell.m in Sources */,
@@ -5786,6 +5889,7 @@
 				9A32F479184348C100704D26 /* PageControl.m in Sources */,
 				A9BABB4C192C4E9100C417F3 /* TextField.m in Sources */,
 				A985AFA819949135000282D2 /* ShopUser404ControllerCell.m in Sources */,
+				A94EC82F19AB37AA00942ED6 /* ObserverObject.m in Sources */,
 				9AFC69D117F2C0F500177476 /* OperationNotifications.m in Sources */,
 				A939214B19652F060091E804 /* ScanCodeResult.m in Sources */,
 				9A27BBF918D18BAD00E3EAC2 /* RegisterInfoStep2ViewController.m in Sources */,
@@ -5805,12 +5909,15 @@
 				A91CE6C517A93F6E00D29E87 /* _ShopGallery.m in Sources */,
 				A99257B118E97BD400D0993A /* UserNotification.m in Sources */,
 				A9BF13D41963C0C800D30EAA /* PeekTitleView.m in Sources */,
+				A94EC84F19AB527700942ED6 /* ImageCollectionCell.m in Sources */,
 				9A06F990188540DF005C0377 /* ASIOperationUserPlacelist.m in Sources */,
 				9A27BC0B18D18BAD00E3EAC2 /* HomeImagesType9Cell.m in Sources */,
 				A91CE6C617A93F6E00D29E87 /* _ShopUserGallery.m in Sources */,
 				A9E0F5D01962BE3A005ABAA0 /* OperationQRCodeDecode.m in Sources */,
 				A9EB14791952D79C00191767 /* ShopDetailInfoDescCell.m in Sources */,
 				A9A98163193C835400B8512E /* OperationNotificationAction.m in Sources */,
+				A94EC82819AB325900942ED6 /* ButtonCityLocation.m in Sources */,
+				A94EC82219AB2CFC00942ED6 /* _Event.m in Sources */,
 				A9DCA90817AABCB200C56854 /* ShopUserComment.m in Sources */,
 				A9DCA90B17AABCBB00C56854 /* _ShopUserComment.m in Sources */,
 				9A27BCAC18D18BAD00E3EAC2 /* UserPromotionViewController.m in Sources */,
@@ -5819,6 +5926,7 @@
 				9A9ED312187D09B20081A16E /* ASIOperationUploadSocialProfile.m in Sources */,
 				9A54B64218D2FAB40065C89F /* NSData+ImageContentType.m in Sources */,
 				A9E94926195481D3005DC465 /* UserNotificationDetailButtonTableViewCell.m in Sources */,
+				A94EC84519AB512900942ED6 /* ImagesTableCell.m in Sources */,
 				A959E9591974EA5F00129AB8 /* ScanResultInforyShareCell.m in Sources */,
 				A9790FE9196488C500719E27 /* ScanResultObjectCell.m in Sources */,
 				A9E35F86190F8EB3008498E5 /* ASIOperationUserNotice.m in Sources */,
@@ -5859,10 +5967,12 @@
 				A9BFE86B18E96972008C542E /* UserNotificationDetailViewController.m in Sources */,
 				9ADCD96818D19C3F004CB67E /* TPKeyboardAvoidingScrollView.m in Sources */,
 				A9EB149E1952D79C00191767 /* ShopMapViewController.m in Sources */,
+				A94EC81919AB2B0800942ED6 /* OperationEvent.m in Sources */,
 				A9E0F5CC1962A58E005ABAA0 /* ScanResultViewController.m in Sources */,
 				A9AC694A18EEC28F006279FE /* ImageView.m in Sources */,
 				A925E3CF17B089EB00806617 /* TokenManager.m in Sources */,
 				A925E3DC17B09B9400806617 /* ASIOperationUploadUserGallery.m in Sources */,
+				A94EC83B19AB3ED400942ED6 /* TabHomeImagesCell.m in Sources */,
 				A94EC81319AB242E00942ED6 /* _HomeImage.m in Sources */,
 				A939214919652F060091E804 /* ScanCodeDecode.m in Sources */,
 				9ACF7AA018698E4100B0BC78 /* _UserHome.m in Sources */,
@@ -5905,6 +6015,7 @@
 				A97C255F19627F8100AD5344 /* SGViewController+DialogViewController.m in Sources */,
 				A9D70F7E191743BF007FA43A /* ASIOperationUpdateTokenUUID.m in Sources */,
 				A95B1AFC1965A6EC006E9B27 /* ScanResultInforyTextCell.m in Sources */,
+				A94EC81F19AB2CF700942ED6 /* Event.m in Sources */,
 				9ADCD94F18D19C3F004CB67E /* FTCoreTextView.m in Sources */,
 				9ADCD93B18D19C3F004CB67E /* AFHTTPRequestOperation.m in Sources */,
 				9ADCD94018D19C3F004CB67E /* AFURLConnectionOperation.m in Sources */,
@@ -5927,6 +6038,7 @@
 				9A46B6B617F0B1D100410408 /* ASIOperationGetAvatars.m in Sources */,
 				A968600619AAF15B00945BEA /* TabbarButton.m in Sources */,
 				A9EB14A21952D79C00191767 /* ShopUserViewController.m in Sources */,
+				A94EC82B19AB369F00942ED6 /* HomeDataManager.m in Sources */,
 				A95B1AFE1965A6EC006E9B27 /* ScanResultInforyTitleCell.m in Sources */,
 				9A27BC0F18D18BAD00E3EAC2 /* HomeInfoCell.m in Sources */,
 				9A27BC1518D18BAD00E3EAC2 /* HomeListObjectCell.m in Sources */,

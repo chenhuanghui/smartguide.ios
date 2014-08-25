@@ -12,6 +12,9 @@
 #import "Flurry.h"
 #import "Constant.h"
 
+NSNumber* NMIN(NSNumber* num1,...);
+NSNumber* NMAX(NSNumber* num1,...);
+
 #define IS_IPHONE_4 ([UIScreen mainScreen].bounds.size.height==480)
 #define IS_IPHONE_5 ([UIScreen mainScreen].bounds.size.height==568)
 #define IPHONE_5_HEIGHT 568.f
@@ -38,6 +41,7 @@
 #define SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
 #define CLLocationCoordinateInvail CLLocationCoordinate2DMake(-1, -1)
 
+NSParagraphStyle *paragraphStyleJustified();
 NSString* NSStringFromCoordinate(CLLocationCoordinate2D coordinate);
 CGPathRef CGPathCreateRoundRect( const CGRect r, const CGFloat cornerRadius );
 bool isVailCLLocationCoordinate2D(CLLocationCoordinate2D location);

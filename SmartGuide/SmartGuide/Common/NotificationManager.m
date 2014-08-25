@@ -209,8 +209,6 @@ static NotificationManager *_notificationManager=nil;
 
 -(void)receiveLaunchNotification:(NSDictionary *)launchOptions
 {
-    [[NotificationManager shareInstance] removeAllNotification];
-    
     if(!launchOptions)
         return;
     

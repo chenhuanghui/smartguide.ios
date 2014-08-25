@@ -4,4 +4,6 @@
 {
 }
 
++(HomeImages*) makeWithData:(NSDictionary*) dict;
+
 @end

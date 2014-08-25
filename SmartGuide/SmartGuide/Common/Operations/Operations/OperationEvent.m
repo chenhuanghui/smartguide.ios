@@ -1,19 +1,19 @@
 //
-//  OperationHome.m
+//  OperationEvent.m
 //  Infory
 //
 //  Created by XXX on 8/25/14.
 //  Copyright (c) 2014 Redbase. All rights reserved.
 //
 
-#import "OperationHome.h"
-#import "Home.h"
+#import "OperationEvent.h"
+#import "Event.h"
 
-@implementation OperationHome
+@implementation OperationEvent
 
--(OperationHome *)initWithPage:(int)page userLat:(double)userLat userLng:(double)userLng
+-(OperationEvent *)initWithPage:(int)page userLat:(double)userLat userLng:(double)userLng
 {
-    self=[super initPOSTWithURL:SERVER_API_URL_MAKE(API_USER_HOME)];
+    self=[super initPOSTWithURL:SERVER_API_URL_MAKE(API_USER_PROMOTION)];
     
     [self.keyValue setObject:@(page) forKey:PAGE];
     [self.keyValue setObject:@(userLat) forKey:USER_LATITUDE];
@@ -24,7 +24,7 @@
 
 -(void)onFinishLoading
 {
-    self.homes=[NSMutableArray new];
+    self.events=[NSMutableArray new];
 }
 
 -(void)onCompletedWithJSON:(NSArray *)json
@@ -34,12 +34,12 @@
     
     for(NSDictionary *dict in json)
     {
-        Home *home=[Home makeHomeWithData:dict];
+        Event *obj=[Event makeWithData:dict];
         
-        [self.homes addObject:home];
+        [self.events addObject:obj];
     }
     
-    if(self.homes.count>0)
+    if(self.events.count>0)
         [[DataManager shareInstance] save];
 }
 

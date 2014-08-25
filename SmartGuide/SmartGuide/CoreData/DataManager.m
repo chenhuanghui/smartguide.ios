@@ -75,19 +75,12 @@ static DataManager *_dataManager=nil;
     return self;
 }
 
--(void)clean
-{
-    [UserHome markDeleteAllObjects];
-    [UserPromotion markDeleteAllObjects];
-    [UserNotification markDeleteAllObjects];
-}
-
 -(void) loadDatabase
 {
-    NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"SmartGuide" withExtension:@"mom"];
+    NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"Infory" withExtension:@"mom"];
     if(!modelURL)
     {
-        modelURL = [[NSBundle mainBundle] URLForResource:@"SmartGuide" withExtension:@"momd"];
+        modelURL = [[NSBundle mainBundle] URLForResource:@"Infory" withExtension:@"momd"];
     }
     
     self.managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
@@ -114,7 +107,7 @@ static DataManager *_dataManager=nil;
 -(NSURL*) storeURL
 {
     NSURL *url=[[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
-    url=[url URLByAppendingPathComponent:@"SmartGuide.sqlite"];
+    url=[url URLByAppendingPathComponent:@"Infory.sqlite"];
     
     return url;
 }

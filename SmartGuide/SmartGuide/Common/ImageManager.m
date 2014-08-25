@@ -187,6 +187,11 @@ static char ImageViewDefaultBackgroundKey;
     objc_setAssociatedObject(self, &ImageViewLoadingSmallKey, loadingSmall_, OBJC_ASSOCIATION_ASSIGN);
 }
 
+-(void)defaultLoadImageWithURL:(NSString *)url
+{
+    [self loadImageWithURL:url];
+}
+
 -(void) loadShopLogoWithURL:(NSString*) url
 {
     [self loadImageWithURL:url];

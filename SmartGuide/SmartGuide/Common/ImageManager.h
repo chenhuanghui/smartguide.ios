@@ -37,6 +37,7 @@
 
 @interface UIImageView(ImageManager)
 
+-(void) defaultLoadImageWithURL:(NSString*) url;
 -(void) loadAvatarWithURL:(NSString*) url;
 -(void) loadAvatarWithURL:(NSString*) url completed:(SDWebImageCompletedBlock) completedBlock;
 -(void) loadShopLogoWithURL:(NSString*) url;

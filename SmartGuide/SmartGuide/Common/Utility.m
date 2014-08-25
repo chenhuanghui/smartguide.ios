@@ -20,6 +20,54 @@
 #include <net/if.h>
 #include <net/if_dl.h>
 
+NSNumber* NMIN(NSNumber* num1,...)
+{
+    NSNumber *min=[num1 copy];
+    
+    va_list list;
+    
+    va_start(list, num1);
+    
+    for(NSNumber* num=num1; num; num=va_arg(list, NSNumber*))
+    {
+        if(num.floatValue<min.floatValue)
+            min=[num copy];
+    }
+    
+    va_end(list);
+    
+    return min;
+}
+
+NSNumber* NMAX(NSNumber* num1,...)
+{
+    NSNumber *max=[num1 copy];
+    
+    va_list list;
+    
+    va_start(list, num1);
+    
+    for(NSNumber* num=num1; num; num=va_arg(list, NSNumber*))
+    {
+        if(num.floatValue>max.floatValue)
+            max=[num copy];
+    }
+    
+    va_end(list);
+    
+    return max;
+}
+
+NSParagraphStyle *paragraphStyleJustified()
+{
+    NSMutableParagraphStyle *paraStyle=[NSMutableParagraphStyle new];
+    
+    paraStyle.alignment=NSTextAlignmentJustified;
+    paraStyle.lineBreakMode=NSLineBreakByTruncatingTail;
+    
+    return paraStyle;
+}
+
 NSString* NSStringFromCoordinate(CLLocationCoordinate2D coordinate)
 {
     return [NSString stringWithFormat:@"coordinate latitude %f longitude %f",coordinate.latitude,coordinate.longitude];

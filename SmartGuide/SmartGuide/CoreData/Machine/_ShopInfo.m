@@ -84,6 +84,19 @@
 
 
 
+- (NSNumber*)dataType {
+	[self willAccessValueForKey:@"dataType"];
+	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"dataType"];
+	[self didAccessValueForKey:@"dataType"];
+	return result;
+}
+
+- (void)setDataType:(NSNumber*)value {
+	[self willChangeValueForKey:@"dataType"];
+	[self setPrimitiveValue:value forKey:@"dataType"];
+	[self didChangeValueForKey:@"dataType"];
+}
+
 - (NSNumber*)idShop {
 	[self willAccessValueForKey:@"idShop"];
 	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"idShop"];

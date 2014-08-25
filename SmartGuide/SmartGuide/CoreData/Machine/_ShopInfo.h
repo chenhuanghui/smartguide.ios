@@ -6,6 +6,7 @@
 
 #define ShopInfo_ClassName @"ShopInfo"
 
+#define ShopInfo_DataType @"dataType"
 #define ShopInfo_IdShop @"idShop"
 #define ShopInfo_Logo @"logo"
 #define ShopInfo_Name @"name"
@@ -26,6 +27,7 @@
 -(void) markDeleted;
 
 
+@property (nonatomic, retain) NSNumber* dataType;
 @property (nonatomic, retain) NSNumber* idShop;
 @property (nonatomic, retain) NSString* logo;
 @property (nonatomic, retain) NSString* name;

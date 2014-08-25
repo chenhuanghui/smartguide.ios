@@ -118,7 +118,6 @@ static GUIManager *_shareInstance=nil;
         mainWindow.backgroundColor=[UIColor whiteColor];
     
     [[TokenManager shareInstance] checkToken];
-    [[DataManager shareInstance] clean];
     
     LoadingScreenViewController *loading=[[LoadingScreenViewController alloc] init];
     loading.delegate=self;

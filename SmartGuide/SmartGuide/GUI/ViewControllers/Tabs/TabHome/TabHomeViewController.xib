@@ -7,6 +7,13 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TabHomeViewController">
             <connections>
+                <outlet property="btnExpand" destination="OIh-xD-fjJ" id="Wtp-FO-9ci"/>
+                <outlet property="btnMap" destination="HR7-pt-sTJ" id="Kqa-nM-1GD"/>
+                <outlet property="btnUserCity" destination="uj4-q6-ALq" id="9GN-at-cSs"/>
+                <outlet property="cityView" destination="eul-zB-i1k" id="f84-qT-R6W"/>
+                <outlet property="lblTitle" destination="dQ6-et-KHN" id="pZr-pg-R4F"/>
+                <outlet property="table" destination="9B4-wS-AQz" id="Ank-U8-aJN"/>
+                <outlet property="titleView" destination="OsD-MA-JpL" id="tIa-bm-UDn"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -15,10 +22,57 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Home.png" id="Wox-3O-6Pe">
-                    <rect key="frame" x="0.0" y="-20" width="320" height="568"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                </imageView>
+                <view contentMode="scaleToFill" id="eul-zB-i1k">
+                    <rect key="frame" x="0.0" y="55" width="320" height="44"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="uj4-q6-ALq" customClass="ButtonUserCityLocation">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                </view>
+                <view contentMode="scaleToFill" id="OsD-MA-JpL" customClass="NavigationView">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="55"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
+                    <subviews>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo.png" id="qK7-A7-bAz">
+                            <rect key="frame" x="0.0" y="0.0" width="74" height="57"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        </imageView>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="OIh-xD-fjJ">
+                            <rect key="frame" x="124" y="36" width="72" height="22"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" image="button_expand.png">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="HR7-pt-sTJ">
+                            <rect key="frame" x="265" y="0.0" width="55" height="55"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" image="icon_map.png">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                        </button>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Khám phá" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="dQ6-et-KHN" customClass="NavigationTitleLabel">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="55"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                </view>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" delaysContentTouches="NO" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="9B4-wS-AQz">
+                    <rect key="frame" x="0.0" y="99" width="320" height="469"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                </tableView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
@@ -26,6 +80,8 @@
         </view>
     </objects>
     <resources>
-        <image name="Home.png" width="640" height="1136"/>
+        <image name="button_expand.png" width="12" height="7"/>
+        <image name="icon_map.png" width="44" height="44"/>
+        <image name="logo.png" width="74" height="57"/>
     </resources>
 </document>
