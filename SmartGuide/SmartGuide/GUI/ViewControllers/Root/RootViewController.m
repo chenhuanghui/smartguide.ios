@@ -71,6 +71,37 @@
     self.tabsController.view.S=self.containView.S;
 }
 
+- (IBAction)btnHomeTouchUpInside:(id)sender {
+    [self setSelectedButton:sender];
+}
+
+- (IBAction)btnSearchTouchUpInside:(id)sender {
+    [self setSelectedButton:sender];
+}
+
+- (IBAction)btnScanTouchUpInside:(id)sender {
+    [self setSelectedButton:sender];
+}
+
+- (IBAction)btnInboxTouchUpInside:(id)sender {
+    [self setSelectedButton:sender];
+}
+
+- (IBAction)btnUserTouchUpInside:(id)sender {
+    [self setSelectedButton:sender];
+}
+
+-(void) setSelectedButton:(UIButton*) btnSelected
+{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        btnTabHome.selected=btnTabHome==btnSelected;
+        btnTabScan.selected=btnTabScan==btnSelected;
+        btnTabSearch.selected=btnTabSearch==btnSelected;
+        btnTabInbox.selected=btnTabInbox==btnSelected;
+        btnTabUser.selected=btnTabUser==btnSelected;
+    });
+}
+
 -(void)loadView1
 {
     [super loadView];
