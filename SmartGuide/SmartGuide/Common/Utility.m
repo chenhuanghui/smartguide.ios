@@ -740,6 +740,56 @@ NSString *macAddress()
 
 @implementation UIScrollView(lazy_method)
 
+-(float)CSW
+{
+    return self.contentSize.width;
+}
+
+-(void)setCSW:(float)CSW
+{
+    self.contentSize=CGSizeMake(CSW, self.contentSize.height);
+}
+
+-(float)CSH
+{
+    return self.contentSize.height;
+}
+
+-(void)setCSH:(float)CSH
+{
+    self.contentSize=CGSizeMake(self.contentSize.width, CSH);
+}
+
+-(float)COX
+{
+    return self.contentOffset.x;
+}
+
+-(void)setCOX:(float)COX
+{
+    self.contentOffset=CGPointMake(COX, self.contentOffset.y);
+}
+
+-(void)setCOX:(float)COX animate:(bool)animate
+{
+    [self setContentOffset:CGPointMake(COX, self.contentOffset.y) animated:animate];
+}
+
+-(float)COY
+{
+    return self.contentOffset.y;
+}
+
+-(void)setCOY:(float)COY
+{
+    self.contentOffset=CGPointMake(self.contentOffset.x, COY);
+}
+
+-(void)setCOY:(float)COY animate:(bool)animate
+{
+    [self setContentOffset:CGPointMake(self.contentOffset.x, COY) animated:animate];
+}
+
 -(float) l_cs_h
 {
     return self.contentSize.height;

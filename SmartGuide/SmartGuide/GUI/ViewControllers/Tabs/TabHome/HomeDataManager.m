@@ -128,7 +128,8 @@
         _opeHome=nil;
     }
     
-    _opeHome=[[OperationHome alloc] initWithPage:0 userLat:userLat() userLng:userLng()];
+    self.page=0;
+    _opeHome=[[OperationHome alloc] initWithPage:self.page userLat:userLat() userLng:userLng()];
     _opeHome.delegate=self;
     
     [_opeHome addToQueue];
@@ -147,6 +148,7 @@
     self.canLoadMore=ope.homes.count>=self.pageSize;
     _loadingMore=false;
     _refreshing=false;
+    self.page++;
     
     [self callbackFinished];
     _opeHome=nil;
@@ -171,5 +173,7 @@
         _opeHome=nil;
     }
 }
+
+
 
 @end

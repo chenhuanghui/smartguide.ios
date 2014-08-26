@@ -9,6 +9,7 @@
             <connections>
                 <outlet property="btnExpand" destination="OIh-xD-fjJ" id="Wtp-FO-9ci"/>
                 <outlet property="btnMap" destination="HR7-pt-sTJ" id="Kqa-nM-1GD"/>
+                <outlet property="btnTab" destination="RZx-4R-8gU" id="5ZU-Rg-flh"/>
                 <outlet property="btnUserCity" destination="uj4-q6-ALq" id="9GN-at-cSs"/>
                 <outlet property="cityView" destination="eul-zB-i1k" id="f84-qT-R6W"/>
                 <outlet property="lblTitle" destination="dQ6-et-KHN" id="pZr-pg-R4F"/>
@@ -32,6 +33,9 @@
                             <state key="normal">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
+                            <connections>
+                                <action selector="btnUserCityTouchUpInside:" destination="-1" eventType="touchUpInside" id="SV0-aD-oZa"/>
+                            </connections>
                         </button>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -40,6 +44,24 @@
                     <rect key="frame" x="0.0" y="0.0" width="320" height="55"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
                     <subviews>
+                        <view clipsSubviews="YES" contentMode="scaleToFill" id="VJI-Lw-oT5">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="55"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="RZx-4R-8gU">
+                                    <rect key="frame" x="0.0" y="55" width="320" height="44"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <state key="normal">
+                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="btnTabTouchUpInside:" destination="-1" eventType="touchUpInside" id="jcW-tD-0up"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        </view>
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo.png" id="qK7-A7-bAz">
                             <rect key="frame" x="0.0" y="0.0" width="74" height="57"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -50,6 +72,9 @@
                             <state key="normal" image="button_expand.png">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
+                            <connections>
+                                <action selector="btnExpandTouchUpInside:" destination="-1" eventType="touchUpInside" id="ji3-0U-dmg"/>
+                            </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="HR7-pt-sTJ">
                             <rect key="frame" x="265" y="0.0" width="55" height="55"/>
@@ -57,6 +82,9 @@
                             <state key="normal" image="icon_map.png">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
+                            <connections>
+                                <action selector="btnMapTouchUpInside:" destination="-1" eventType="touchUpInside" id="XnD-iJ-5dE"/>
+                            </connections>
                         </button>
                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Khám phá" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="dQ6-et-KHN" customClass="NavigationTitleLabel">
                             <rect key="frame" x="0.0" y="0.0" width="320" height="55"/>
@@ -68,7 +96,7 @@
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" delaysContentTouches="NO" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="9B4-wS-AQz">
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" delaysContentTouches="NO" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="9B4-wS-AQz" customClass="TableAPI">
                     <rect key="frame" x="0.0" y="99" width="320" height="469"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>

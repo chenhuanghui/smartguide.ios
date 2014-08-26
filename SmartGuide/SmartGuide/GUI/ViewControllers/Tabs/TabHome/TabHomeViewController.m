@@ -14,6 +14,8 @@
 #import "HomeImages.h"
 #import "TabHomeImagesCell.h"
 #import "TabHomeShopCell.h"
+#import "NavigationView.h"
+#import "TableTemplates.h"
 
 enum TABHOME_MODE
 {
@@ -21,7 +23,9 @@ enum TABHOME_MODE
     TABHOME_MODE_EVENT=1,
 };
 
-@interface TabHomeViewController ()<UITableViewDataSource, UITableViewDelegate, HomeDataDelegate, EventDataDelegate>
+@interface TabHomeViewController ()<TableAPIDataSource, UITableViewDelegate, HomeDataDelegate, EventDataDelegate, TabHomeShopCellDelegate>
+{
+}
 
 @property (nonatomic, assign) enum TABHOME_MODE mode;
 @property (nonatomic, strong) HomeDataManager *homeManager;
@@ -36,10 +40,17 @@ enum TABHOME_MODE
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
+    self.mode=TABHOME_MODE_HOME;
+    
+    btnTab.titleLabel.font=lblTitle.font;
+    [btnTab setTitleColor:lblTitle.textColor forState:UIControlStateNormal];
+    
+    [self makeTitleWithMode:self.mode];
+    
+    table.canRefresh=false;
+    
     [table registerTabHomeImagesCell];
     [table registerTabHomeShopCell];
-    
-    self.mode=TABHOME_MODE_HOME;
     
     self.homeManager=[HomeDataManager manager];
     [self.homeManager addObserver:self];
@@ -52,10 +63,24 @@ enum TABHOME_MODE
     [self.homeManager requestData];
 }
 
+-(void)tableLoadMore:(TableAPI *)table
+{
+    switch (_mode) {
+        case TABHOME_MODE_HOME:
+            [_homeManager loadMore];
+            break;
+            
+        case TABHOME_MODE_EVENT:
+            [_eventManager loadMore];
+            break;
+    }
+}
+
 -(void)homeDataFinished:(HomeDataManager *)dataManager
 {
     [table removeLoading];
     
+    table.canLoadMore=dataManager.canLoadMore;
     [table reloadData];
 }
 
@@ -67,6 +92,7 @@ enum TABHOME_MODE
 {
     [table removeLoading];
     
+    table.canLoadMore=dataManager.canLoadMore;
     [table reloadData];
 }
 
@@ -75,9 +101,44 @@ enum TABHOME_MODE
     
 }
 
+-(void) makeTitleWithMode:(enum TABHOME_MODE) mode
+{
+    switch (mode) {
+        case TABHOME_MODE_HOME:
+            lblTitle.text=@"Khám phá";
+            [btnTab setTitle:@"Sự kiện" forState:UIControlStateNormal];
+            break;
+            
+        case TABHOME_MODE_EVENT:
+            lblTitle.text=@"Sự kiện";
+            [btnTab setTitle:@"Khám phá" forState:UIControlStateNormal];
+            break;
+    }
+}
+
 -(void) switchToMode:(enum TABHOME_MODE) mode
 {
-    self.mode=mode;
+    self.view.userInteractionEnabled=false;
+    [self animationTitleView];
+    [table showLoading];
+    [self makeTitleWithMode:mode];
+    
+    [table setContentOffset:CGPointZero animated:true completion:^{
+        self.view.userInteractionEnabled=true;
+        
+        self.mode=mode;
+        
+        
+        switch (_mode) {
+            case TABHOME_MODE_HOME:
+                [self.homeManager refreshData];
+                break;
+                
+            case TABHOME_MODE_EVENT:
+                [self.eventManager refreshData];
+                break;
+        }
+    }];
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -153,8 +214,10 @@ enum TABHOME_MODE
                 case HOME_TYPE_SHOP:
                 {
                     TabHomeShopCell *cell=[tableView tabHomeShopCell];
+                    cell.delegate=self;
                     
                     [cell loadWithHomeShop:obj.homeShop];
+                    
                     
                     return cell;
                 }
@@ -178,10 +241,43 @@ enum TABHOME_MODE
     return tableView.emptyCell;
 }
 
-- (void)didReceiveMemoryWarning
+-(void)tabHomeShopCellTouchedCover:(TabHomeShopCell *)cell
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    
+}
+
+- (IBAction)btnUserCityTouchUpInside:(id)sender {
+}
+
+- (IBAction)btnTabTouchUpInside:(id)sender {
+    [self switchToMode:(_mode==TABHOME_MODE_HOME ? TABHOME_MODE_EVENT : TABHOME_MODE_HOME)];
+}
+
+- (IBAction)btnExpandTouchUpInside:(id)sender {
+    [self animationTitleView];
+}
+
+-(void) animationTitleView
+{
+    if(titleView.SH==55)
+    {
+        [UIView animateWithDuration:0.3f delay:0 options:UIViewAnimationOptionBeginFromCurrentState|UIViewAnimationOptionAllowUserInteraction animations:^{
+            titleView.SH=99;
+        } completion:^(BOOL finished) {
+            
+        }];
+    }
+    else
+    {
+        [UIView animateWithDuration:0.3f delay:0 options:UIViewAnimationOptionBeginFromCurrentState|UIViewAnimationOptionAllowUserInteraction animations:^{
+            titleView.SH=55;
+        } completion:^(BOOL finished) {
+            
+        }];
+    }
+}
+
+- (IBAction)btnMapTouchUpInside:(id)sender {
 }
 
 @end

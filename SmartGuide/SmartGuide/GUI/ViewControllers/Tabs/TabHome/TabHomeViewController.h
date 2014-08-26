@@ -8,7 +8,7 @@
 
 #import "ViewController.h"
 
-@class NavigationView, NavigationTitleLabel, ButtonUserCityLocation;
+@class NavigationView, NavigationTitleLabel, ButtonUserCityLocation, TableAPI;
 
 @interface TabHomeViewController : ViewController
 {
@@ -18,7 +18,8 @@
     __weak IBOutlet NavigationTitleLabel *lblTitle;
     __weak IBOutlet ButtonUserCityLocation *btnUserCity;
     __weak IBOutlet UIView *cityView;
-    __weak IBOutlet UITableView *table;
+    __weak IBOutlet TableAPI *table;
+    __weak IBOutlet UIButton *btnTab;
 }
 
 @end

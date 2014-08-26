@@ -128,7 +128,8 @@
         _opeEvent=nil;
     }
     
-    _opeEvent=[[OperationEvent alloc] initWithPage:0 userLat:userLat() userLng:userLng()];
+    self.page=0;
+    _opeEvent=[[OperationEvent alloc] initWithPage:self.page userLat:userLat() userLng:userLng()];
     _opeEvent.delegate=self;
     
     [_opeEvent addToQueue];
@@ -147,6 +148,7 @@
     self.canLoadMore=ope.events.count>=self.pageSize;
     _loadingMore=false;
     _refreshing=false;
+    self.page++;
     
     [self callbackFinished];
     _opeEvent=nil;

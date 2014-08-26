@@ -146,6 +146,14 @@ NSString *macAddress();
 
 @interface UIScrollView(lazy_method)
 
+@property (nonatomic, assign, readwrite) float CSW; // contentSize.width
+@property (nonatomic, assign, readwrite) float CSH; // contentSize.height
+@property (nonatomic, assign, readwrite) float COX; // contentOffset.x
+@property (nonatomic, assign, readwrite) float COY; // contentOffset.y
+
+-(void) setCOX:(float)COX animate:(bool) animate;
+-(void) setCOY:(float)COY animate:(bool) animate;
+
 //contentSize
 -(float) l_cs_h;
 -(float) l_cs_w;

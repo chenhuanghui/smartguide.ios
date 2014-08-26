@@ -40,4 +40,9 @@
     return obj;
 }
 
+-(NSArray *)imagesObjects
+{
+    return [[super imagesObjects] sortedArrayUsingDescriptors:@[sortDesc(HomeImage_SortOrder, true)]];
+}
+
 @end

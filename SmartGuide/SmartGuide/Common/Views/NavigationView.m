@@ -8,6 +8,7 @@
 
 #import "NavigationView.h"
 #import "Constant.h"
+#import "Utility.h"
 
 @implementation NavigationView
 
@@ -23,10 +24,11 @@
     self.frame=CGRectMake(0, 0, [UIScreen mainScreen].applicationFrame.size.width, 55);
     self.autoresizingMask=UIViewAutoresizingNone;
     self.backgroundColor=[UIColor clearColor];
-    self.autoresizesSubviews=false;
+    self.autoresizesSubviews=true;
     self.clipsToBounds=false;
     
     UIImageView *imgv=[[UIImageView alloc] initWithFrame:CGRectMake(-5, -6, 330, self.frame.size.height+10)];
+    imgv.autoresizingMask=UIViewAutoresizingDefault();
     
     imgv.image=[[UIImage imageNamed:@"bg_nav.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5)];
     imgv.transform=CGAffineTransformMakeScale(1, 1.02f);
@@ -44,7 +46,9 @@
     [super layoutSubviews];
     
     if(_imgvBackground)
+    {
         [self sendSubviewToBack:_imgvBackground];
+    }
 }
 
 @end
