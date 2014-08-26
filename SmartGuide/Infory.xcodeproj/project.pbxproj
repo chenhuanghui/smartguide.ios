@@ -383,6 +383,9 @@
 		A960B03D19AC4EFC007714B6 /* TableTemplates.m in Sources */ = {isa = PBXBuildFile; fileRef = A960B03C19AC4EFC007714B6 /* TableTemplates.m */; };
 		A960B04319AC5C8C007714B6 /* LoadMoreView.m in Sources */ = {isa = PBXBuildFile; fileRef = A960B04219AC5C8C007714B6 /* LoadMoreView.m */; };
 		A960B08D19AC6D1E007714B6 /* RefreshTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = A960B08C19AC6D1E007714B6 /* RefreshTableView.m */; };
+		A960B09219AC7810007714B6 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A960B09019AC7810007714B6 /* MapViewController.m */; };
+		A960B09319AC7810007714B6 /* MapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A960B09119AC7810007714B6 /* MapViewController.xib */; };
+		A960B09619AC82C4007714B6 /* MapCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A960B09519AC82C4007714B6 /* MapCollectionCell.m */; };
 		A961416C17A02E8800D30375 /* Flags.m in Sources */ = {isa = PBXBuildFile; fileRef = A961416B17A02E8800D30375 /* Flags.m */; };
 		A9685FDF19AAEA3600945BEA /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9685FDE19AAEA3600945BEA /* ViewController.m */; };
 		A9685FE219AAEA4F00945BEA /* NavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9685FE119AAEA4F00945BEA /* NavigationController.m */; };
@@ -1726,6 +1729,11 @@
 		A960B04219AC5C8C007714B6 /* LoadMoreView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoadMoreView.m; sourceTree = "<group>"; };
 		A960B08B19AC6D1E007714B6 /* RefreshTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RefreshTableView.h; sourceTree = "<group>"; };
 		A960B08C19AC6D1E007714B6 /* RefreshTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RefreshTableView.m; sourceTree = "<group>"; };
+		A960B08F19AC7810007714B6 /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
+		A960B09019AC7810007714B6 /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
+		A960B09119AC7810007714B6 /* MapViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MapViewController.xib; sourceTree = "<group>"; };
+		A960B09419AC82C4007714B6 /* MapCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapCollectionCell.h; sourceTree = "<group>"; };
+		A960B09519AC82C4007714B6 /* MapCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapCollectionCell.m; sourceTree = "<group>"; };
 		A961416A17A02E8800D30375 /* Flags.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flags.h; sourceTree = "<group>"; };
 		A961416B17A02E8800D30375 /* Flags.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Flags.m; sourceTree = "<group>"; };
 		A9685FDD19AAEA3600945BEA /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
@@ -2639,6 +2647,7 @@
 		9A27BAA418D18BAD00E3EAC2 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				A960B08E19AC77F1007714B6 /* Map */,
 				A9685FD819AAEA0D00945BEA /* Tabs */,
 				A9EB14021952D79C00191767 /* ShopUser */,
 				A9BABB43192C4C0000C417F3 /* City */,
@@ -3713,6 +3722,18 @@
 				A960B04219AC5C8C007714B6 /* LoadMoreView.m */,
 			);
 			path = Templates;
+			sourceTree = "<group>";
+		};
+		A960B08E19AC77F1007714B6 /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				A960B08F19AC7810007714B6 /* MapViewController.h */,
+				A960B09019AC7810007714B6 /* MapViewController.m */,
+				A960B09119AC7810007714B6 /* MapViewController.xib */,
+				A960B09419AC82C4007714B6 /* MapCollectionCell.h */,
+				A960B09519AC82C4007714B6 /* MapCollectionCell.m */,
+			);
+			path = Map;
 			sourceTree = "<group>";
 		};
 		A960BD1F1793FE7400F7F928 /* Operations */ = {
@@ -5485,6 +5506,7 @@
 				A96862E319AAF3FA00945BEA /* button_loading_small_04@2x.png in Resources */,
 				A968638819AAF3FB00945BEA /* icon_heartscroll.png in Resources */,
 				A96863BF19AAF3FB00945BEA /* icon_store_navigation@2x.png in Resources */,
+				A960B09319AC7810007714B6 /* MapViewController.xib in Resources */,
 				A968627919AAF3FA00945BEA /* button_addphoto@2x.png in Resources */,
 				A968624C19AAF3FA00945BEA /* bg_textbox_login.png in Resources */,
 				A93A217219AAF87E00CE0367 /* button_notification_active@2x.png in Resources */,
@@ -5952,6 +5974,7 @@
 				A9790FE9196488C500719E27 /* ScanResultObjectCell.m in Sources */,
 				A9E35F86190F8EB3008498E5 /* ASIOperationUserNotice.m in Sources */,
 				9A9ED306187D06D00081A16E /* GooglePlusManager.m in Sources */,
+				A960B09619AC82C4007714B6 /* MapCollectionCell.m in Sources */,
 				9ADCD95D18D19C3F004CB67E /* SDWebImageDecoder.m in Sources */,
 				A9941C8E1904D7570055582A /* WebViewController.m in Sources */,
 				A925479617AE3C2A00AD0BA9 /* OperationGetActionCode.m in Sources */,
@@ -6040,6 +6063,7 @@
 				A94EC81F19AB2CF700942ED6 /* Event.m in Sources */,
 				9ADCD94F18D19C3F004CB67E /* FTCoreTextView.m in Sources */,
 				9ADCD93B18D19C3F004CB67E /* AFHTTPRequestOperation.m in Sources */,
+				A960B09219AC7810007714B6 /* MapViewController.m in Sources */,
 				9ADCD94018D19C3F004CB67E /* AFURLConnectionOperation.m in Sources */,
 				A94EC80319AB242700942ED6 /* ShopInfo.m in Sources */,
 				A97C54DE1973DBC100A5C205 /* ScanResultObjectHeaderView.m in Sources */,

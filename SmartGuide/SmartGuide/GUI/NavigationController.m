@@ -23,6 +23,13 @@
     return self;
 }
 
+-(void)loadView
+{
+    [super loadView];
+    
+    self.navigationBarHidden=true;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];

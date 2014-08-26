@@ -16,6 +16,7 @@
 #import "TabHomeShopCell.h"
 #import "NavigationView.h"
 #import "TableTemplates.h"
+#import "MapViewController.h"
 
 enum TABHOME_MODE
 {
@@ -278,6 +279,8 @@ enum TABHOME_MODE
 }
 
 - (IBAction)btnMapTouchUpInside:(id)sender {
+    MapViewController *vc=[MapViewController new];
+    [self.navigationController pushViewController:vc animated:true];
 }
 
 @end
