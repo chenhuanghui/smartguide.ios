@@ -20,11 +20,15 @@
 -(void)loadWithEvent:(Event *)obj
 {
     _obj=obj;
+    
+    [self loadImage];
 }
 
 -(void) loadWithHomeShop:(HomeShop *)obj
 {
     _obj=obj;
+    
+    [self loadImage];
 }
 
 -(float)calculateHeight:(id)obj
@@ -229,7 +233,6 @@
     self.imgvBG.frame=CGRectMake(4, 0, 312, self.SH-15);
     
     [self calculateHeight:_obj];
-    [self loadImage];
 }
 
 -(void) loadImage

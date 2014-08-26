@@ -2897,6 +2897,10 @@ CGFloat radiansToDegrees(CGFloat radians) {return radians * 180/M_PI;};
         cell.selectionStyle=UITableViewCellSelectionStyleNone;
         cell.userInteractionEnabled=false;
         cell.contentView.userInteractionEnabled=false;
+        cell.autoresizesSubviews=false;
+        cell.contentView.autoresizesSubviews=false;
+        cell.clipsToBounds=false;
+        cell.contentView.clipsToBounds=false;
     }
     
     return cell;

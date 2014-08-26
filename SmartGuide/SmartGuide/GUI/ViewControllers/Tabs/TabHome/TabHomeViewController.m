@@ -9,6 +9,11 @@
 #import "TabHomeViewController.h"
 #import "HomeDataManager.h"
 #import "EventDataManager.h"
+#import "Home.h"
+#import "Event.h"
+#import "HomeImages.h"
+#import "TabHomeImagesCell.h"
+#import "TabHomeShopCell.h"
 
 enum TABHOME_MODE
 {
@@ -31,6 +36,9 @@ enum TABHOME_MODE
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
+    [table registerTabHomeImagesCell];
+    [table registerTabHomeShopCell];
+    
     self.mode=TABHOME_MODE_HOME;
     
     self.homeManager=[HomeDataManager manager];
@@ -38,21 +46,28 @@ enum TABHOME_MODE
     
     self.eventManager=[EventDataManager manager];
     [self.eventManager addObserver:self];
+    
+    [table showLoading];
+    
+    [self.homeManager requestData];
 }
 
 -(void)homeDataFinished:(HomeDataManager *)dataManager
 {
+    [table removeLoading];
     
+    [table reloadData];
 }
 
 -(void)homeDataFailed:(HomeDataManager *)dataManager
 {
-    
 }
 
 -(void)eventDataFinished:(EventDataManager *)dataManager
 {
+    [table removeLoading];
     
+    [table reloadData];
 }
 
 -(void)eventDataFailed:(EventDataManager *)dataManager
@@ -89,12 +104,78 @@ enum TABHOME_MODE
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    switch (_mode) {
+        case TABHOME_MODE_HOME:
+        {
+            Home *obj=_homeManager.homes[indexPath.row];
+            
+            switch (obj.enumType) {
+                    
+                case HOME_TYPE_IMAGES:
+                    return [TabHomeImagesCell heightWithHomeImages:obj.homeImage width:tableView.SW];
+                    
+                case HOME_TYPE_SHOP:
+                    return [tableView.tabHomeShopPrototypeCell calculateHeight:obj.homeShop];
+                    
+                case HOME_TYPE_UNKNOW:
+                    return 0;
+            }
+        }
+            
+        case TABHOME_MODE_EVENT:
+        {
+            Event *obj=_eventManager.events[indexPath.row];
+            
+            return [tableView.tabHomeShopPrototypeCell calculateHeight:obj];
+        }
+    }
+    
     return 0;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return nil;
+    switch (_mode) {
+        case TABHOME_MODE_HOME:
+        {
+            Home *obj=_homeManager.homes[indexPath.row];
+            
+            switch (obj.enumType) {
+                case HOME_TYPE_IMAGES:
+                {
+                    TabHomeImagesCell *cell=[tableView tabHomeImagesCell];
+                    
+                    [cell loadWithHomeImages:obj.homeImage];
+                    
+                    return cell;
+                }
+                    
+                case HOME_TYPE_SHOP:
+                {
+                    TabHomeShopCell *cell=[tableView tabHomeShopCell];
+                    
+                    [cell loadWithHomeShop:obj.homeShop];
+                    
+                    return cell;
+                }
+                    
+                case HOME_TYPE_UNKNOW:
+                    return tableView.emptyCell;
+            }
+        }
+            
+        case TABHOME_MODE_EVENT:
+        {
+            Event *obj=_eventManager.events[indexPath.row];
+            TabHomeShopCell *cell=[tableView tabHomeShopCell];
+            
+            [cell loadWithEvent:obj];
+            
+            return cell;
+        }
+    }
+    
+    return tableView.emptyCell;
 }
 
 - (void)didReceiveMemoryWarning

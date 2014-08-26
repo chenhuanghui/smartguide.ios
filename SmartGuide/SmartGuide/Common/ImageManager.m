@@ -442,25 +442,20 @@ static char ImageViewDefaultBackgroundKey;
     if(url.length==0)
     {
         self.image=nil;
-        [self showDefaultBackground];
+        
+        if(allowDefaultBackground)
+            [self showDefaultBackground];
+        
         return;
     }
     
     __weak UIImageView *wSelf=self;
-    __block bool isCompleted=false;
     
     if(!allowDefaultBackground)
         [self removeDefaultBackground];
     else
         [self showDefaultBackground];
-    
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        if(wSelf && !isCompleted)
-        {
-            [wSelf showLoadingImageSmall];
-        }
-    });
-    
+
     wSelf.image=nil;
     wSelf.alpha=1;
     
@@ -468,7 +463,6 @@ static char ImageViewDefaultBackgroundKey;
         if(wSelf && (isFromWeb || !CGSizeEqualToSize(willSize, CGSizeZero)))
             [wSelf showLoadingImageSmall];
     } process:nil resize:resizeMethod willSize:willSize completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
-        isCompleted=true;
         
         if(wSelf)
         {

@@ -11,6 +11,37 @@
 
 @implementation ImagesTableCell
 
+-(id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+{
+    self=[super initWithStyle:style reuseIdentifier:reuseIdentifier];
+    
+    self.backgroundColor=[UIColor clearColor];
+    self.contentView.backgroundColor=[UIColor clearColor];
+    self.clipsToBounds=false;
+    self.contentView.clipsToBounds=true;
+    self.autoresizesSubviews=true;
+    self.contentView.autoresizesSubviews=false;
+    
+    CGRect rect=self.frame;
+    rect.origin=CGPointZero;
+    
+    UICollectionView *collView=[[UICollectionView alloc] initWithFrame:rect collectionViewLayout:[UICollectionViewFlowLayout new]];
+    collView.dataSource=self;
+    collView.delegate=self;
+    collView.backgroundColor=[UIColor clearColor];
+    
+    collView.collectionViewFlowLayout.scrollDirection=UICollectionViewScrollDirectionHorizontal;
+    collView.collectionViewFlowLayout.minimumInteritemSpacing=0;
+    collView.collectionViewFlowLayout.minimumLineSpacing=0;
+    collView.collectionViewFlowLayout.itemSize=CGSizeZero;
+    
+    [self.contentView addSubview:collView];
+    
+    _collView=collView;
+    
+    return self;
+}
+
 -(void)layoutSubviews
 {
     [super layoutSubviews];
@@ -40,7 +71,7 @@
 
 +(NSString *)reuseIdentifier
 {
-    return @"ImagesCollectionCell";
+    return @"ImagesTableCell";
 }
 
 @end
@@ -49,7 +80,7 @@
 
 -(void)registerImagesTableCell
 {
-    [self registerNib:[UINib nibWithNibName:[ImagesTableCell reuseIdentifier] bundle:nil] forCellReuseIdentifier:[ImagesTableCell reuseIdentifier]];
+    [self registerClass:[ImagesTableCell class] forCellReuseIdentifier:[ImagesTableCell reuseIdentifier]];
 }
 
 -(ImagesTableCell *)imagesTableCell

@@ -161,4 +161,15 @@
     _opeEvent=nil;
 }
 
+- (void)dealloc
+{
+    [self.observers removeAllObjects];
+    
+    if(_opeEvent)
+    {
+        [_opeEvent clearDelegatesAndCancel];
+        _opeEvent=nil;
+    }
+}
+
 @end

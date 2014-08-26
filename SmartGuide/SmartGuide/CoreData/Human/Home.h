@@ -2,9 +2,9 @@
 
 enum HOME_TYPE
 {
-    HOME_TYPE_UNKNOW=0,
-    HOME_TYPE_SHOP=1,
-    HOME_TYPE_IMAGES=2,
+    HOME_TYPE_UNKNOW=-1,
+    HOME_TYPE_SHOP=6,
+    HOME_TYPE_IMAGES=9,
 };
 
 @interface Home : _Home 

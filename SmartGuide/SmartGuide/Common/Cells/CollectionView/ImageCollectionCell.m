@@ -35,4 +35,23 @@
     _imgv.S=self.S;
 }
 
++(NSString *)reuseIdentifier
+{
+    return @"ImageCollectionCell";
+}
+
+@end
+
+@implementation UICollectionView(ImageCollectionCell)
+
+-(void)registerImageCollectionCell
+{
+    [self registerClass:[ImageCollectionCell class] forCellWithReuseIdentifier:[ImageCollectionCell reuseIdentifier]];
+}
+
+-(ImageCollectionCell *)imageCollectionCell:(NSIndexPath *)idx
+{
+    return [self dequeueReusableCellWithReuseIdentifier:[ImageCollectionCell reuseIdentifier] forIndexPath:idx];
+}
+
 @end

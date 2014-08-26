@@ -19,6 +19,7 @@
 -(void) loadWithHomeImages:(HomeImages*) obj;
 
 +(NSString *)reuseIdentifier;
++(float) heightWithHomeImages:(HomeImages*) obj width:(float) width;
 
 @end
 

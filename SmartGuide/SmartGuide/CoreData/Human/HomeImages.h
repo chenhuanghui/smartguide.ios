@@ -6,4 +6,6 @@
 
 +(HomeImages*) makeWithData:(NSDictionary*) dict;
 
+@property (nonatomic, assign) CGSize homeImageSize;
+
 @end

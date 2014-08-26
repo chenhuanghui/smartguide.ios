@@ -10,6 +10,8 @@
 
 @interface ImageCollectionCell : UICollectionViewCell
 
++(NSString *)reuseIdentifier;
+
 @property (nonatomic, weak, readonly) UIImageView *imgv;
 
 @end

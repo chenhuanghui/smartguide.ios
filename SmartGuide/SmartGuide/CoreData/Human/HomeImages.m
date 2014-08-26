@@ -2,6 +2,16 @@
 #import "HomeImage.h"
 
 @implementation HomeImages
+@synthesize homeImageSize;
+
+-(id)initWithEntity:(NSEntityDescription *)entity insertIntoManagedObjectContext:(NSManagedObjectContext *)context
+{
+    self=[super initWithEntity:entity insertIntoManagedObjectContext:context];
+    
+    self.homeImageSize=CGSizeZero;
+    
+    return self;
+}
 
 +(HomeImages *)makeWithData:(NSDictionary *)dict
 {
