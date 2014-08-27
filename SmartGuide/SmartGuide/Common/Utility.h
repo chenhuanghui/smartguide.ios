@@ -258,6 +258,8 @@ NSString *macAddress();
 -(NSString*) sha1;
 -(NSString*) ASIString;
 -(NSDictionary*) jsonDictionary;
+-(NSString*) stringByRemoveTag:(NSString*) tag;
+-(NSString*) stringByTag:(NSString*) tag;
 
 @end
 

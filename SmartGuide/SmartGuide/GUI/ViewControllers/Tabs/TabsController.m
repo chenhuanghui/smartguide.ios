@@ -45,11 +45,11 @@
     NavigationController *nav4=[[NavigationController alloc] initWithRootViewController:tabInbox];
     NavigationController *nav5=[[NavigationController alloc] initWithRootViewController:tabUser];
     
-    _tabHome=tabHome;
-    _tabSearch=tabSearch;
-    _tabScan=tabScan;
-    _tabInbox=tabInbox;
-    _tabUser=tabUser;
+    _tabHome=nav1;
+    _tabSearch=nav2;
+    _tabScan=nav3;
+    _tabInbox=nav4;
+    _tabUser=nav5;
     
     self.viewControllers=@[nav1, nav2, nav3, nav4, nav5];
 }

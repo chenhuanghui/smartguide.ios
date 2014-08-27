@@ -32,6 +32,7 @@
 #import "TabScanViewController.h"
 #import "TabInboxViewController.h"
 #import "TabUserViewController.h"
+#import "NavigationController.h"
 
 @interface RootViewController ()<NavigationControllerDelegate,UIScrollViewDelegate,HomeControllerDelegate,UserPromotionDelegate,SGUserSettingControllerDelegate,WebViewDelegate,ShopUserControllerDelegate,UIGestureRecognizerDelegate,RemoteNotificationDelegate, ScanCodeControllerDelegate, RevealControllerDelegate, SearchControllerDelegate>
 {

@@ -37,6 +37,12 @@
     return [NSString makeString:self.storeData[@"key"]];
 }
 
+-(void)onFinishLoading
+{
+    self.shops=[NSMutableArray new];
+    self.placelists=[NSMutableArray new];
+}
+
 -(void)onFailed:(NSError *)error
 {
     self.shops=[NSMutableArray new];
@@ -50,19 +56,19 @@
     self.placelists=[NSMutableArray new];
     self.highlightTag=@"em";
     
-    if([json isNullData])
+    if(![json hasData])
         return;
     
     NSDictionary *dict=json[0];
     
     dict=dict[@"hits"];
     
-    if([dict isNullData])
+    if(![dict hasData])
         return;
     
     NSArray *hits=dict[@"hits"];
     
-    if([hits isNullData])
+    if(![hits hasData])
         return;
     
     NSArray *array=nil;
@@ -70,7 +76,7 @@
     {
         NSDictionary *kvp=hit[@"fields"];
         
-        if([kvp isNullData])
+        if(![kvp hasData])
             continue;
         
         NSString *type=[NSString makeString:hit[@"_type"]];
@@ -79,7 +85,7 @@
         {
             array=kvp[@"id"];
             
-            if([array isNullData])
+            if(![array hasData])
                 continue;
             
             int idPlacelist=[[NSNumber makeNumber:array[0]] integerValue];
@@ -89,7 +95,7 @@
             
             array=kvp[@"name"];
             
-            if([array isNullData])
+            if(![array hasData])
                 continue;
             
             place.content=[NSString makeString:array[0]];
@@ -98,21 +104,22 @@
             
             kvp=hit[@"highlight"];
             
-            if([kvp isNullData])
+            if(![kvp hasData])
                 continue;
             
             NSArray *highlightArray=kvp[@"name_auto_complete"];
             
-            if([highlightArray isNullData])
+            if(![highlightArray hasData])
                 continue;
             
-            place.highlight=[NSString makeString:highlightArray[0]];
+            place.highlight=[[NSString makeString:highlightArray[0]] stringByTag:@"em"];
+            place.content=[place.content stringByReplacingOccurrencesOfString:place.highlight withString:@""];
         }
         else if([type isEqualToString:@"shop"])
         {
             array=kvp[@"id"];
             
-            if([array isNullData])
+            if(![array hasData])
                 continue;
             
             int idShop=[[NSNumber makeNumber:array[0]] integerValue];
@@ -122,7 +129,7 @@
             
             array=kvp[@"shop_name"];
             
-            if([array isNullData])
+            if(![array hasData])
                 continue;
             
             shop.content=[NSString makeString:array[0]];
@@ -130,22 +137,23 @@
             array=kvp[@"hasPromotion"];
             
             shop.hasPromotion=@(false);
-            if(![array isNullData])
+            if([array hasData])
                 shop.hasPromotion=@([[NSNumber makeNumber:array[0]] boolValue]);
             
             [self.shops addObject:shop];
             
             kvp=hit[@"highlight"];
             
-            if([kvp isNullData])
+            if(![kvp hasData])
                 continue;
             
             NSArray *highlightArray=kvp[@"shop_name_auto_complete"];
             
-            if([highlightArray isNullData])
+            if(![highlightArray hasData])
                 continue;
             
-            shop.highlight=[NSString makeString:highlightArray[0]];
+            shop.highlight=[[NSString makeString:highlightArray[0]] stringByTag:@"em"];
+            shop.content=[shop.content stringByReplacingOccurrencesOfString:shop.highlight withString:@""];
         }
     }
 }
@@ -153,31 +161,31 @@
 @end
 
 @implementation AutocompletePlacelist
-@synthesize idPlacelist,content,highlight;
 
 - (id)init
 {
     self = [super init];
     if (self) {
-        idPlacelist=0;
-        content=@"";
-        highlight=@"";
+        self.idPlacelist=0;
+        self.content=@"";
+        self.highlight=@"";
     }
     return self;
 }
 
+
+
 @end
 
 @implementation AutocompleteShop
-@synthesize idShop,content,highlight;
 
 - (id)init
 {
     self = [super init];
     if (self) {
-        idShop=0;
-        content=@"";
-        highlight=@"";
+        self.idShop=0;
+        self.content=@"";
+        self.highlight=@"";
     }
     return self;
 }

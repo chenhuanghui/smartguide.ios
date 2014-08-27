@@ -45,6 +45,17 @@
         <relationship name="home" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Home" inverseName="homeShop" inverseEntity="Home" syncable="YES"/>
         <relationship name="shop" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ShopInfo" inverseName="home" inverseEntity="ShopInfo" syncable="YES"/>
     </entity>
+    <entity name="SearchPlacelist" representedClassName="SearchPlacelist" syncable="YES">
+        <attribute name="authorAvatar" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="authorName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="desc" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="idAuthor" optional="YES" attributeType="Integer 32" syncable="YES"/>
+        <attribute name="idPlacelist" optional="YES" attributeType="Integer 32" syncable="YES"/>
+        <attribute name="image" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="loveStatus" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="numOfView" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <entity name="ShopInfo" representedClassName="ShopInfo" syncable="YES">
         <attribute name="dataType" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="idShop" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
@@ -77,5 +88,6 @@
         <element name="HomeShop" positionX="-36" positionY="9" width="128" height="178"/>
         <element name="ShopInfo" positionX="-18" positionY="27" width="128" height="148"/>
         <element name="User" positionX="27" positionY="126" width="128" height="240"/>
+        <element name="SearchPlacelist" positionX="-18" positionY="135" width="128" height="180"/>
     </elements>
 </model>

@@ -1023,6 +1023,13 @@
 		A9D53CE018ED6DE900C0B5F3 /* UserNotificationContent.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D53CDF18ED6DE900C0B5F3 /* UserNotificationContent.m */; };
 		A9D70F7E191743BF007FA43A /* ASIOperationUpdateTokenUUID.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D70F7D191743BF007FA43A /* ASIOperationUpdateTokenUUID.m */; };
 		A9D8576F194A0BB400BABD0B /* BasicAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D8576E194A0BB400BABD0B /* BasicAnimation.m */; };
+		A9D9026F19ADD32D00BFCCA5 /* TabSearchTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D9026D19ADD32D00BFCCA5 /* TabSearchTableCell.m */; };
+		A9D9027019ADD32D00BFCCA5 /* TabSearchTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9D9026E19ADD32D00BFCCA5 /* TabSearchTableCell.xib */; };
+		A9D9027319ADD61500BFCCA5 /* OperationPlacelist.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D9027219ADD61400BFCCA5 /* OperationPlacelist.m */; };
+		A9D9027919ADD87000BFCCA5 /* SearchPlacelist.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D9027819ADD87000BFCCA5 /* SearchPlacelist.m */; };
+		A9D9027C19ADD87700BFCCA5 /* _SearchPlacelist.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D9027B19ADD87700BFCCA5 /* _SearchPlacelist.m */; };
+		A9D9028019ADDA1B00BFCCA5 /* TabSearchPlacelistTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D9027E19ADDA1B00BFCCA5 /* TabSearchPlacelistTableCell.m */; };
+		A9D9028119ADDA1B00BFCCA5 /* TabSearchPlacelistTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9D9027F19ADDA1B00BFCCA5 /* TabSearchPlacelistTableCell.xib */; };
 		A9DCA90817AABCB200C56854 /* ShopUserComment.m in Sources */ = {isa = PBXBuildFile; fileRef = A9DCA90717AABCB200C56854 /* ShopUserComment.m */; };
 		A9DCA90B17AABCBB00C56854 /* _ShopUserComment.m in Sources */ = {isa = PBXBuildFile; fileRef = A9DCA90A17AABCBB00C56854 /* _ShopUserComment.m */; };
 		A9E0F5C71962A3C3005ABAA0 /* ScanCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E0F5C51962A3C3005ABAA0 /* ScanCodeViewController.m */; };
@@ -2445,6 +2452,18 @@
 		A9D70F7D191743BF007FA43A /* ASIOperationUpdateTokenUUID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIOperationUpdateTokenUUID.m; sourceTree = "<group>"; };
 		A9D8576D194A0BB400BABD0B /* BasicAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BasicAnimation.h; sourceTree = "<group>"; };
 		A9D8576E194A0BB400BABD0B /* BasicAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BasicAnimation.m; sourceTree = "<group>"; };
+		A9D9026C19ADD32D00BFCCA5 /* TabSearchTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabSearchTableCell.h; sourceTree = "<group>"; };
+		A9D9026D19ADD32D00BFCCA5 /* TabSearchTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabSearchTableCell.m; sourceTree = "<group>"; };
+		A9D9026E19ADD32D00BFCCA5 /* TabSearchTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TabSearchTableCell.xib; sourceTree = "<group>"; };
+		A9D9027119ADD61400BFCCA5 /* OperationPlacelist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OperationPlacelist.h; sourceTree = "<group>"; };
+		A9D9027219ADD61400BFCCA5 /* OperationPlacelist.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OperationPlacelist.m; sourceTree = "<group>"; };
+		A9D9027719ADD87000BFCCA5 /* SearchPlacelist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchPlacelist.h; sourceTree = "<group>"; };
+		A9D9027819ADD87000BFCCA5 /* SearchPlacelist.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchPlacelist.m; sourceTree = "<group>"; };
+		A9D9027A19ADD87700BFCCA5 /* _SearchPlacelist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _SearchPlacelist.h; sourceTree = "<group>"; };
+		A9D9027B19ADD87700BFCCA5 /* _SearchPlacelist.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _SearchPlacelist.m; sourceTree = "<group>"; };
+		A9D9027D19ADDA1B00BFCCA5 /* TabSearchPlacelistTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabSearchPlacelistTableCell.h; sourceTree = "<group>"; };
+		A9D9027E19ADDA1B00BFCCA5 /* TabSearchPlacelistTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabSearchPlacelistTableCell.m; sourceTree = "<group>"; };
+		A9D9027F19ADDA1B00BFCCA5 /* TabSearchPlacelistTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TabSearchPlacelistTableCell.xib; sourceTree = "<group>"; };
 		A9DCA90617AABCB200C56854 /* ShopUserComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopUserComment.h; sourceTree = "<group>"; };
 		A9DCA90717AABCB200C56854 /* ShopUserComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopUserComment.m; sourceTree = "<group>"; };
 		A9DCA90917AABCBA00C56854 /* _ShopUserComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _ShopUserComment.h; sourceTree = "<group>"; };
@@ -3333,6 +3352,8 @@
 		A91A674A1797F65000BEB8C5 /* Human */ = {
 			isa = PBXGroup;
 			children = (
+				A9D9027719ADD87000BFCCA5 /* SearchPlacelist.h */,
+				A9D9027819ADD87000BFCCA5 /* SearchPlacelist.m */,
 				A94EC81D19AB2CF700942ED6 /* Event.h */,
 				A94EC81E19AB2CF700942ED6 /* Event.m */,
 				A94EC7FB19AB242700942ED6 /* ShopInfo.h */,
@@ -3412,6 +3433,8 @@
 		A91A674D1797F65000BEB8C5 /* Machine */ = {
 			isa = PBXGroup;
 			children = (
+				A9D9027A19ADD87700BFCCA5 /* _SearchPlacelist.h */,
+				A9D9027B19ADD87700BFCCA5 /* _SearchPlacelist.m */,
 				A94EC82019AB2CFC00942ED6 /* _Event.h */,
 				A94EC82119AB2CFC00942ED6 /* _Event.m */,
 				A94EC80819AB242E00942ED6 /* _Home.h */,
@@ -3602,6 +3625,8 @@
 				A94EC7E519AB21F000942ED6 /* OperationHome.m */,
 				A94EC81719AB2B0800942ED6 /* OperationEvent.h */,
 				A94EC81819AB2B0800942ED6 /* OperationEvent.m */,
+				A9D9027119ADD61400BFCCA5 /* OperationPlacelist.h */,
+				A9D9027219ADD61400BFCCA5 /* OperationPlacelist.m */,
 			);
 			path = Operations;
 			sourceTree = "<group>";
@@ -3825,6 +3850,12 @@
 				A9685FF019AAEC3A00945BEA /* TabSearchViewController.h */,
 				A9685FF119AAEC3A00945BEA /* TabSearchViewController.m */,
 				A9685FF219AAEC3A00945BEA /* TabSearchViewController.xib */,
+				A9D9026C19ADD32D00BFCCA5 /* TabSearchTableCell.h */,
+				A9D9026D19ADD32D00BFCCA5 /* TabSearchTableCell.m */,
+				A9D9026E19ADD32D00BFCCA5 /* TabSearchTableCell.xib */,
+				A9D9027D19ADDA1B00BFCCA5 /* TabSearchPlacelistTableCell.h */,
+				A9D9027E19ADDA1B00BFCCA5 /* TabSearchPlacelistTableCell.m */,
+				A9D9027F19ADDA1B00BFCCA5 /* TabSearchPlacelistTableCell.xib */,
 			);
 			path = TabSearch;
 			sourceTree = "<group>";
@@ -5271,6 +5302,7 @@
 				A968640119AAF3FB00945BEA /* map@2x.png in Resources */,
 				9A27BC0E18D18BAD00E3EAC2 /* HomeImageType9Cell.xib in Resources */,
 				9A27BBFC18D18BAD00E3EAC2 /* RegisterViewController.xib in Resources */,
+				A9D9028119ADDA1B00BFCCA5 /* TabSearchPlacelistTableCell.xib in Resources */,
 				A93A217D19AAF87E00CE0367 /* icon_map.png in Resources */,
 				A96862E219AAF3FA00945BEA /* button_loading_small_04.png in Resources */,
 				A93A216F19AAF87E00CE0367 /* button_interaction.png in Resources */,
@@ -5330,6 +5362,7 @@
 				A93A217C19AAF87E00CE0367 /* button_user@2x.png in Resources */,
 				A96863C619AAF3FB00945BEA /* icon_typesgp.png in Resources */,
 				A968632C19AAF3FA00945BEA /* frame_ava_login@2x.png in Resources */,
+				A9D9027019ADD32D00BFCCA5 /* TabSearchTableCell.xib in Resources */,
 				A968623F19AAF3FA00945BEA /* bg_mid_search@2x.png in Resources */,
 				A96862EF19AAF3FA00945BEA /* button_loading_small_10@2x.png in Resources */,
 				A96862C219AAF3FA00945BEA /* button_loading_big_03.png in Resources */,
@@ -5802,6 +5835,7 @@
 				9AF94E7718A9DE21002529BE /* KeyboardUtility.m in Sources */,
 				A94EC80519AB242700942ED6 /* HomeImages.m in Sources */,
 				9A27BC0418D18BAD00E3EAC2 /* GalleryViewController.m in Sources */,
+				A9D9027919ADD87000BFCCA5 /* SearchPlacelist.m in Sources */,
 				A9BF9489178FB87E00EF7E5F /* LocationManager.m in Sources */,
 				9AEE705018C2EB8200E8DDC9 /* ASIOperationUploadAvatar.m in Sources */,
 				A9E71DA6178FD2B200D7467E /* LocalizationManager.m in Sources */,
@@ -5860,6 +5894,7 @@
 				9ACF7A8918698E3700B0BC78 /* UserHome1.m in Sources */,
 				9A94116C187B20C200863DFA /* TouchView.m in Sources */,
 				9AEE41CA187C05F00000D515 /* ASIOperationUpdateUserProfile.m in Sources */,
+				A9D9028019ADDA1B00BFCCA5 /* TabSearchPlacelistTableCell.m in Sources */,
 				9ACE90971875D17E008FEA7E /* _ShopKM2.m in Sources */,
 				9A693CAF186D483C00114597 /* _UserHomeImage.m in Sources */,
 				9ACAED751872B1740025B027 /* ButtonLove.m in Sources */,
@@ -6014,6 +6049,7 @@
 				A939215419652F0E0091E804 /* _ScanCodeResult.m in Sources */,
 				9ADCD93F18D19C3F004CB67E /* AFSecurityPolicy.m in Sources */,
 				9ADCD96318D19C3F004CB67E /* UIImage+GIF.m in Sources */,
+				A9D9027C19ADD87700BFCCA5 /* _SearchPlacelist.m in Sources */,
 				A94EC81619AB242E00942ED6 /* _ShopInfo.m in Sources */,
 				9A7AC19118D1907B0043316D /* PlacelistBGView.m in Sources */,
 				A9EB14A41952D79C00191767 /* ShopUserGalleryCell.m in Sources */,
@@ -6031,6 +6067,7 @@
 				A94EC81919AB2B0800942ED6 /* OperationEvent.m in Sources */,
 				A9E0F5CC1962A58E005ABAA0 /* ScanResultViewController.m in Sources */,
 				A9AC694A18EEC28F006279FE /* ImageView.m in Sources */,
+				A9D9026F19ADD32D00BFCCA5 /* TabSearchTableCell.m in Sources */,
 				A925E3CF17B089EB00806617 /* TokenManager.m in Sources */,
 				A925E3DC17B09B9400806617 /* ASIOperationUploadUserGallery.m in Sources */,
 				A94EC83B19AB3ED400942ED6 /* TabHomeImagesCell.m in Sources */,
@@ -6091,6 +6128,7 @@
 				9ADCD94C18D19C3F004CB67E /* UIColor+Tools.m in Sources */,
 				A95F722619762BEC001E2881 /* OperationStaticMap.m in Sources */,
 				9ADCD93C18D19C3F004CB67E /* AFHTTPRequestOperationManager.m in Sources */,
+				A9D9027319ADD61500BFCCA5 /* OperationPlacelist.m in Sources */,
 				9ACA42F8186D3BFB008D89BC /* UserHome8.m in Sources */,
 				9A27BBEC18D18BAD00E3EAC2 /* GUIManager.m in Sources */,
 				9ACEC6711866CF6F00E4C5C1 /* ASIOperationShopDetailInfo.m in Sources */,

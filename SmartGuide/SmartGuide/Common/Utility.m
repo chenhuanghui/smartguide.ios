@@ -1401,6 +1401,28 @@ NSString *macAddress()
     return dict;
 }
 
+-(NSString *)stringByRemoveTag:(NSString *)tag
+{
+    NSUInteger sIndex=[self indexOf:[NSString stringWithFormat:@"<%@>", tag] from:0];
+    NSUInteger eIndex=[self indexOf:[NSString stringWithFormat:@"</%@>", tag] from:sIndex];
+    
+    if(sIndex==NSNotFound || eIndex==NSNotFound)
+        return self;
+    
+    return [self stringByReplacingCharactersInRange:NSMakeRange(sIndex, eIndex-sIndex) withString:@""];
+}
+
+-(NSString *)stringByTag:(NSString *)tag
+{
+    NSRange sIndex=[self rangeOfString:[NSString stringWithFormat:@"<%@>", tag]];
+    NSRange eIndex=[self rangeOfString:[NSString stringWithFormat:@"</%@>", tag]];
+    
+    if(sIndex.length==0 || eIndex.length==0)
+        return @"";
+    
+    return [self substringWithRange:NSMakeRange(sIndex.location+sIndex.length, eIndex.location-sIndex.location-sIndex.length)];
+}
+
 @end
 
 @interface TrackerObjectScrollView : NSObject

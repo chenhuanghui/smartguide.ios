@@ -8,14 +8,14 @@
 
 #import "TabbarController.h"
 
-@class TabHomeViewController, TabInboxViewController, TabSearchViewController, TabUserViewController, TabScanViewController;
+@class TabHomeViewController, TabInboxViewController, TabSearchViewController, TabUserViewController, TabScanViewController, NavigationController;
 
 @interface TabsController : TabbarController
 
-@property (nonatomic, weak, readonly) TabHomeViewController *tabHome;
-@property (nonatomic, weak, readonly) TabSearchViewController *tabSearch;
-@property (nonatomic, weak, readonly) TabScanViewController *tabScan;
-@property (nonatomic, weak, readonly) TabInboxViewController *tabInbox;
-@property (nonatomic, weak, readonly) TabUserViewController *tabUser;
+@property (nonatomic, weak, readonly) NavigationController *tabHome;
+@property (nonatomic, weak, readonly) NavigationController *tabSearch;
+@property (nonatomic, weak, readonly) NavigationController *tabScan;
+@property (nonatomic, weak, readonly) NavigationController *tabInbox;
+@property (nonatomic, weak, readonly) NavigationController *tabUser;
 
 @end

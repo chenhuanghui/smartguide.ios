@@ -192,6 +192,13 @@ static char ImageViewDefaultBackgroundKey;
     [self loadImageWithURL:url];
 }
 
+-(void)defaultLoadImageWithURL:(NSString *)url resize:(CGSize)size
+{
+    [self loadImageWithURL:url resize:^UIImage *(UIImage *image) {
+        return resizeProportionalImage(image, size);
+    } willSize:size];
+}
+
 -(void) loadShopLogoWithURL:(NSString*) url
 {
     [self loadImageWithURL:url];

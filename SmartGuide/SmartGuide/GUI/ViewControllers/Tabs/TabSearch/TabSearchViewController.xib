@@ -7,6 +7,13 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TabSearchViewController">
             <connections>
+                <outlet property="btnCancel" destination="mFl-VB-xOw" id="WSd-c9-wnM"/>
+                <outlet property="btnCity" destination="7Mi-3Z-Oxu" id="iPy-GN-mQb"/>
+                <outlet property="btnKeyword" destination="zIW-lx-0yC" id="oVo-37-Qhk"/>
+                <outlet property="keywordView" destination="PlF-8n-2D8" id="e8x-13-HPW"/>
+                <outlet property="table" destination="mG6-86-5T9" id="kCN-ag-tfB"/>
+                <outlet property="titleView" destination="A4q-E5-S3W" id="77w-n5-sui"/>
+                <outlet property="txt" destination="fni-HI-gLF" id="lFL-sf-t8p"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -15,17 +22,63 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Search Type.png" id="rwe-dC-SAB">
-                    <rect key="frame" x="0.0" y="-20" width="320" height="568"/>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="mG6-86-5T9" customClass="TableAPI">
+                    <rect key="frame" x="0.0" y="99" width="320" height="469"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="FR6-g2-2yg"/>
+                        <outlet property="delegate" destination="-1" id="zDR-R0-zV2"/>
+                    </connections>
+                </tableView>
+                <view contentMode="scaleToFill" id="PlF-8n-2D8">
+                    <rect key="frame" x="0.0" y="55" width="320" height="44"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                </imageView>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="zIW-lx-0yC">
+                            <rect key="frame" x="0.0" y="0.0" width="203" height="44"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" title="Button">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="7Mi-3Z-Oxu">
+                            <rect key="frame" x="203" y="0.0" width="117" height="44"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" title="Button">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                </view>
+                <view contentMode="scaleToFill" id="A4q-E5-S3W" customClass="NavigationView">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="55"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="fni-HI-gLF">
+                            <rect key="frame" x="5" y="0.0" width="260" height="55"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="14"/>
+                            <textInputTraits key="textInputTraits"/>
+                            <connections>
+                                <outlet property="delegate" destination="-1" id="3LB-f1-nrT"/>
+                            </connections>
+                        </textField>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="mFl-VB-xOw">
+                            <rect key="frame" x="265" y="0.0" width="55" height="55"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" title="Button">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
         </view>
     </objects>
-    <resources>
-        <image name="Search Type.png" width="640" height="1136"/>
-    </resources>
 </document>
