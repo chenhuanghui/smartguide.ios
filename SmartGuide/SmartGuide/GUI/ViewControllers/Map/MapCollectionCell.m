@@ -9,6 +9,7 @@
 #import "MapCollectionCell.h"
 #import "Label.h"
 #import "Utility.h"
+#import "ImageManager.h"
 
 @implementation MapCollectionCell
 
@@ -37,6 +38,7 @@
     lbl.font=FONT_SIZE_NORMAL(14);
     lbl.numberOfLines=0;
     lbl.textColor=[UIColor redColor];
+    lbl.lineBreakMode=NSLineBreakByTruncatingTail;
     
     [_scroll addSubview:lbl];
     _lblTitle=lbl;
@@ -45,12 +47,14 @@
     lbl.font=FONT_SIZE_NORMAL(12);
     lbl.numberOfLines=3;
     lbl.textColor=[UIColor darkTextColor];
+    lbl.lineBreakMode=NSLineBreakByTruncatingTail;
     
     [_scroll addSubview:lbl];
     _lblContent=lbl;
     
     imgv=[UIImageView new];
     imgv.image=[UIImage imageNamed:@"line_content.png"];
+    imgv.S=CGSizeMake(_scroll.SW, 3);
     
     [_scroll addSubview:imgv];
     _imgvLine=imgv;
@@ -66,6 +70,7 @@
     lbl.font=FONT_SIZE_NORMAL(14);
     lbl.numberOfLines=1;
     lbl.textColor=[UIColor darkTextColor];
+    lbl.lineBreakMode=NSLineBreakByTruncatingTail;
     
     [_scroll addSubview:lbl];
     _lblName=lbl;
@@ -74,13 +79,14 @@
     lbl.font=FONT_SIZE_NORMAL(12);
     lbl.numberOfLines=2;
     lbl.textColor=[UIColor darkTextColor];
+    lbl.lineBreakMode=NSLineBreakByTruncatingTail;
     
     [_scroll addSubview:lbl];
     _lblDesc=lbl;
     
     UIButton *btn=[UIButton buttonWithType:UIButtonTypeCustom];
+    btn.SW=20;
     [btn setImage:[UIImage imageNamed:@"button_arrow_navigation.png"] forState:UIControlStateNormal];
-    
     [btn addTarget:self action:@selector(btnArrowTouchUpInside:) forControlEvents:UIControlEventTouchUpInside];
     
     [_scroll addSubview:btn];
@@ -98,16 +104,18 @@
 {
     _obj=obj;
     [self loadImage];
+    
+    [self setNeedsLayout];
 }
 
 -(void)layoutSubviews
 {
     [super layoutSubviews];
     
-    _imgvBG.frame=CGRectMake(4, 0, 312, self.SH-15);
+    _imgvBG.frame=CGRectMake(4, 0, 312, self.SH+10);
     _scroll.frame=CGRectMake(5, 0, 310, self.SH);
     
-    _lblTitle.frame=CGRectMake(10, 0, _scroll.SW-20, 0);
+    _lblTitle.frame=CGRectMake(10, 15, _scroll.SW-20, 0);
     _lblTitle.text=[_obj mapTitle];
     
     [_lblTitle defautSizeToFit];
@@ -115,7 +123,7 @@
     float y=_lblTitle.yh;
     
     if(_lblTitle.SH>0)
-        y+=15;
+        y+=5;
     
     _lblContent.frame=CGRectMake(10, y, _scroll.SW-20, 0);
     _lblContent.attributedText=[[NSAttributedString alloc] initWithString:[_obj mapContent]
@@ -129,7 +137,8 @@
     _imgvLogo.O=CGPointMake(15, _imgvLine.yh+15);
     
     _lblName.text=[_obj mapName];
-    _lblName.frame=CGRectMake(_imgvLogo.xw+15, _imgvLine.yh+15, _scroll.SW-_imgvLogo.xw+15-10, 0);
+    _lblName.OX=_imgvLogo.xw+15;
+    _lblName.frame=CGRectMake(_lblName.OX, _imgvLine.yh+15, _scroll.SW-_lblName.OX-_btnArrow.SW-10, 0);
     
     [_lblName defautSizeToFit];
     
@@ -139,18 +148,22 @@
         y+=5;
     
     _lblDesc.text=[_obj mapDesc];
-    _lblDesc.frame=CGRectMake(_lblName.OX, y, _scroll.SW-_imgvLogo.xw+15-10, 0);
+    _lblDesc.OX=_imgvLogo.xw+15;
+    _lblDesc.frame=CGRectMake(_lblDesc.OX, y, _scroll.SW-_lblDesc.OX-_btnArrow.SW-10, 0);
     
     [_lblDesc defautSizeToFit];
     
-    _btnArrow.frame=CGRectMake(_scroll.SW-20, _imgvLogo.OY, 10, NMAX(@(_imgvLogo.SH),@(_lblDesc.yh-_lblName.OY),nil).floatValue);
+    _btnArrow.frame=CGRectMake(_scroll.SW-_btnArrow.SW*2, _imgvLogo.OY, _btnArrow.SW, NMAX(@(_imgvLogo.SH),@(_lblDesc.yh-_lblName.OY),nil).floatValue);
     
     _scroll.contentSize=CGSizeMake(_scroll.SW, MAX(_scroll.SH, _btnArrow.yh));
 }
 
 -(void) loadImage
 {
-    
+    if(_obj)
+    {
+        [_imgvLogo defaultLoadImageWithURL:[_obj mapLogo]];
+    }
 }
 
 -(float)calculatorHeightWithObject:(id<MapObject>)obj

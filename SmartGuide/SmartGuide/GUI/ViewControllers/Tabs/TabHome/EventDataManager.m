@@ -9,6 +9,7 @@
 #import "EventDataManager.h"
 #import "OperationEvent.h"
 #import "ObserverObject.h"
+#import "Event.h"
 
 @interface EventDataManager()<ASIOperationPostDelegate>
 {
@@ -164,6 +165,24 @@
 }
 
 - (void)dealloc
+{
+    DLOG_DEBUG(@"dealloc %@", CLASS_NAME);
+    
+    [self.observers removeAllObjects];
+    
+    if(_opeEvent)
+    {
+        [_opeEvent clearDelegatesAndCancel];
+        _opeEvent=nil;
+    }
+}
+
+-(NSArray *)eventsMap
+{
+    return [self.events filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"%K==%i",Event_Type, EVENT_TYPE_SHOP]];
+}
+
+-(void)close
 {
     [self.observers removeAllObjects];
     

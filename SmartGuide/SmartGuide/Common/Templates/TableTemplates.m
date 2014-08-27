@@ -13,40 +13,11 @@
 
 @interface TableView()
 {
-    void(^_onCompletedScrollToOffset)();
-    CGPoint _trackOffset;
 }
 
 @end
 
 @implementation TableView
-
--(void)setContentOffset:(CGPoint)contentOffset animated:(BOOL)animated completion:(void (^)())onCompleted
-{
-    if(CGPointEqualToPoint(contentOffset, self.contentOffset))
-        onCompleted();
-    else
-    {
-        _trackOffset=contentOffset;
-        _onCompletedScrollToOffset=[onCompleted copy];
-        [self addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:nil];
-        
-        [self setContentOffset:contentOffset animated:animated];
-    }
-}
-
--(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
-{
-    if(_onCompletedScrollToOffset)
-    {
-        if(CGPointEqualToPoint(self.contentOffset, _trackOffset))
-        {
-            _onCompletedScrollToOffset();
-            _onCompletedScrollToOffset=nil;
-            [self removeObserver:self forKeyPath:@"contentOffset"];
-        }
-    }
-}
 
 @end
 

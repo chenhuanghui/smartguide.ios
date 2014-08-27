@@ -10,5 +10,10 @@
 #import "LoadingView.h"
 
 @interface ViewController : UIViewController
+{
+    bool _viewWillAppear;
+}
+
+-(void) viewWillAppearOnce;
 
 @end

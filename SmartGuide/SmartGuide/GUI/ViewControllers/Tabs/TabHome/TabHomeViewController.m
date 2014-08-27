@@ -17,6 +17,8 @@
 #import "NavigationView.h"
 #import "TableTemplates.h"
 #import "MapViewController.h"
+#import "HomeShop.h"
+#import "ShopInfo.h"
 
 enum TABHOME_MODE
 {
@@ -24,13 +26,22 @@ enum TABHOME_MODE
     TABHOME_MODE_EVENT=1,
 };
 
-@interface TabHomeViewController ()<TableAPIDataSource, UITableViewDelegate, HomeDataDelegate, EventDataDelegate, TabHomeShopCellDelegate>
+@interface HomeShop(MapObject)<MapObject>
+
+@end
+
+@interface Event(MapObject)<MapObject>
+
+@end
+
+@interface TabHomeViewController ()<TableAPIDataSource, UITableViewDelegate, HomeDataDelegate, EventDataDelegate, TabHomeShopCellDelegate, MapControllerDataSource>
 {
 }
 
 @property (nonatomic, assign) enum TABHOME_MODE mode;
 @property (nonatomic, strong) HomeDataManager *homeManager;
 @property (nonatomic, strong) EventDataManager *eventManager;
+@property (nonatomic, weak) MapViewController *mapControlelr;
 
 @end
 
@@ -83,6 +94,9 @@ enum TABHOME_MODE
     
     table.canLoadMore=dataManager.canLoadMore;
     [table reloadData];
+    
+    if(self.mapControlelr)
+        [self.mapControlelr markFinishedLoadMore:dataManager.canLoadMore];
 }
 
 -(void)homeDataFailed:(HomeDataManager *)dataManager
@@ -95,6 +109,9 @@ enum TABHOME_MODE
     
     table.canLoadMore=dataManager.canLoadMore;
     [table reloadData];
+    
+    if(self.mapControlelr)
+        [self.mapControlelr markFinishedLoadMore:dataManager.canLoadMore];
 }
 
 -(void)eventDataFailed:(EventDataManager *)dataManager
@@ -129,16 +146,30 @@ enum TABHOME_MODE
         
         self.mode=mode;
         
-        
         switch (_mode) {
             case TABHOME_MODE_HOME:
+                
                 [self.homeManager refreshData];
+                
+                [self.eventManager close];
+                self.eventManager=[EventDataManager new];
+                [self.eventManager addObserver:self];
+                
                 break;
                 
             case TABHOME_MODE_EVENT:
+                
                 [self.eventManager refreshData];
+                
+                [self.homeManager close];
+                self.homeManager=[HomeDataManager new];
+                [self.homeManager addObserver:self];
+                
                 break;
         }
+        
+        table.canLoadMore=false;
+        [table reloadData];
     }];
 }
 
@@ -279,8 +310,144 @@ enum TABHOME_MODE
 }
 
 - (IBAction)btnMapTouchUpInside:(id)sender {
-    MapViewController *vc=[MapViewController new];
+    MapViewController *vc=[[MapViewController alloc] initWithDisplayMode:MAP_DISPLAY_MODE_OBJECT];
+    vc.dataSource=self;
+    vc.canLoadMore=true;
+    vc.dataMode=_mode==TABHOME_MODE_EVENT?MAP_DATA_MODE_EVENT:MAP_DATA_MODE_HOME;
+    
+    self.mapControlelr=vc;
+    
     [self.navigationController pushViewController:vc animated:true];
+}
+
+-(NSUInteger)numberOfObjectMapController:(MapViewController *)controller
+{
+    switch (controller.dataMode) {
+        case MAP_DATA_MODE_HOME:
+            return _homeManager.homesMap.count;
+            
+        case MAP_DATA_MODE_EVENT:
+            return _eventManager.eventsMap.count;
+            
+        default:
+            return 0;
+    }
+}
+
+-(id<MapObject>)mapController:(MapViewController *)controller objectAtIndex:(NSUInteger)index
+{
+    switch (controller.dataMode) {
+        case MAP_DATA_MODE_HOME:
+        {
+            Home *home=_homeManager.homesMap[index];
+            
+            return home.homeShop;
+        }
+            
+        case MAP_DATA_MODE_EVENT:
+        {
+            Event *obj=_eventManager.eventsMap[index];
+            
+            return obj;
+        }
+            
+        default:
+            return nil;
+    }
+}
+
+-(void)mapControllerLoadMore:(MapViewController *)controller
+{
+    switch (controller.dataMode) {
+        case MAP_DATA_MODE_HOME:
+            [_homeManager loadMore];
+            break;
+            
+        case MAP_DATA_MODE_EVENT:
+            [_eventManager loadMore];
+            break;
+            
+        default:
+            break;
+    }
+}
+
+-(void)mapController:(MapViewController *)controller switchToDataMode:(enum MAP_DATA_MODE)mode
+{
+    controller.canLoadMore=false;
+}
+
+@end
+
+@implementation HomeShop(MapObject)
+
+-(NSString *)mapContent
+{
+    return [NSString makeString:self.content];
+}
+
+-(NSString *)mapDesc
+{
+    return [NSString makeString:self.date];
+}
+
+-(NSString *)mapLogo
+{
+    return [NSString makeString:self.shop.logo];
+}
+
+-(NSString *)mapName
+{
+    return [NSString makeString:self.shop.name];
+}
+
+-(NSString *)mapTitle
+{
+    return [NSString makeString:self.title];
+}
+
+-(CLLocationCoordinate2D)coordinate
+{
+    return CLLocationCoordinate2DMake(self.shop.shopLat.doubleValue, self.shop.shopLng.doubleValue);
+}
+
+-(NSString *)title
+{
+    return [NSString makeString:self.shop.name];
+}
+
+@end
+
+@implementation Event(MapObject)
+
+-(NSString *)mapContent
+{
+    return [NSString makeString:self.desc];
+}
+
+-(NSString *)mapDesc
+{
+    return [NSString makeString:self.date];
+}
+
+-(NSString *)mapLogo
+{
+    return [NSString makeString:self.logo];
+}
+
+-(NSString *)mapName
+{
+    return [NSString makeString:self.brandName];
+}
+
+-(NSString *)mapTitle
+{
+    return [NSString makeString:self.title];
+}
+
+-(CLLocationCoordinate2D)coordinate
+{
+    return CLLocationCoordinate2DMake(self.shopLat.doubleValue, self.shopLng.doubleValue);
 }
 
 @end

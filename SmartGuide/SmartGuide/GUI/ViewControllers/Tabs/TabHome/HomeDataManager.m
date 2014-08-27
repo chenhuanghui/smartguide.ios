@@ -9,6 +9,7 @@
 #import "HomeDataManager.h"
 #import "OperationHome.h"
 #import "ObserverObject.h"
+#import "Home.h"
 
 @interface HomeDataManager()<ASIOperationPostDelegate>
 {
@@ -165,6 +166,8 @@
 
 -(void)dealloc
 {
+    DLOG_DEBUG(@"dealloc %@", CLASS_NAME);
+    
     [self.observers removeAllObjects];
     
     if(_opeHome)
@@ -174,6 +177,20 @@
     }
 }
 
+-(NSArray *)homesMap
+{
+    return [self.homes filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"%K==%i",Home_Type, HOME_TYPE_SHOP]];
+}
 
+-(void)close
+{
+    [self.observers removeAllObjects];
+    
+    if(_opeHome)
+    {
+        [_opeHome clearDelegatesAndCancel];
+        _opeHome=nil;
+    }
+}
 
 @end

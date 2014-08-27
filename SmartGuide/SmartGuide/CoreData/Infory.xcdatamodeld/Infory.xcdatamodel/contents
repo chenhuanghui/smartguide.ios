@@ -70,12 +70,12 @@
         <attribute name="socialType" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
     </entity>
     <elements>
-        <element name="HomeImages" positionX="-63" positionY="-18" width="128" height="133"/>
+        <element name="Event" positionX="-18" positionY="135" width="128" height="253"/>
+        <element name="Home" positionX="0" positionY="45" width="128" height="88"/>
         <element name="HomeImage" positionX="-54" positionY="-9" width="128" height="88"/>
+        <element name="HomeImages" positionX="-63" positionY="-18" width="128" height="133"/>
         <element name="HomeShop" positionX="-36" positionY="9" width="128" height="178"/>
         <element name="ShopInfo" positionX="-18" positionY="27" width="128" height="148"/>
-        <element name="Home" positionX="0" positionY="45" width="128" height="88"/>
         <element name="User" positionX="27" positionY="126" width="128" height="240"/>
-        <element name="Event" positionX="-18" positionY="135" width="128" height="253"/>
     </elements>
 </model>

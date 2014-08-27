@@ -10,8 +10,6 @@
 
 @interface TableView : UITableView
 
--(void)setContentOffset:(CGPoint)contentOffset animated:(BOOL)animated completion:(void(^)()) onCompleted;
-
 @end
 
 @class TableAPI;

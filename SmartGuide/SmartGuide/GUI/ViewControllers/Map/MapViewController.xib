@@ -34,7 +34,7 @@
                     </connections>
                 </mapView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="u6F-ok-V9L">
-                    <rect key="frame" x="15" y="114" width="290" height="30"/>
+                    <rect key="frame" x="15" y="114" width="290" height="44"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <state key="normal" title="Tìm kiếm">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -55,7 +55,7 @@
                     </collectionViewFlowLayout>
                     <cells/>
                     <connections>
-                        <outlet property="dataSource" destination="-1" id="LIX-gT-Zjb"/>
+                        <outlet property="dataSource" destination="-1" id="YLr-w9-D8C"/>
                         <outlet property="delegate" destination="-1" id="YfJ-Od-vZa"/>
                     </connections>
                 </collectionView>

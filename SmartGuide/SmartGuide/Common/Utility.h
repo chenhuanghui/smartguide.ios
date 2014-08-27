@@ -276,6 +276,8 @@ NSString *macAddress();
 -(float) makeZoomScaleWithSize:(CGSize) size;
 -(void) killScroll;
 
+-(void) setContentOffset:(CGPoint)contentOffset animated:(BOOL)animated completion:(void(^)()) onCompleted;
+
 @end
 
 @interface NSDate(Utility)
@@ -500,5 +502,18 @@ NSString *macAddress();
 @interface UILabel(Utility)
 
 -(void)sizeToFitDisableAnimation;
+
+@end
+
+@interface MKMapView(Utility)
+
+- (MKCoordinateSpan)coordinateSpanWithMapView:(MKMapView *)mapView
+                             centerCoordinate:(CLLocationCoordinate2D)centerCoordinate
+                                 andZoomLevel:(NSUInteger)zoomLevel;
+- (void)setCenterCoordinate:(CLLocationCoordinate2D)centerCoordinate
+                  zoomLevel:(NSUInteger)zoomLevel
+                   animated:(BOOL)animated;
+-(void) zoomToFitCoordinates:(NSArray*) coordinates zoomLevel:(NSUInteger) zoomLevel animate:(BOOL) animate;
+-(void) zoomToFitAnnotations:(NSArray*) annotations zoomLevel:(NSUInteger) zoomLevel animate:(BOOL) animate;
 
 @end

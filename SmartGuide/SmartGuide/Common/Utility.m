@@ -1403,6 +1403,38 @@ NSString *macAddress()
 
 @end
 
+@interface TrackerObjectScrollView : NSObject
+{
+    void(^_onCompleted)();
+}
+
+-(void) setCompletion:(void(^)()) onCompleted;
+
+@property (nonatomic, assign) CGPoint offset;
+
+@end
+
+@implementation TrackerObjectScrollView
+
+-(void)setCompletion:(void (^)())onCompleted
+{
+    _onCompleted=[onCompleted copy];
+}
+
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    UIScrollView *scroll=object;
+    
+    if(CGPointEqualToPoint(scroll.contentOffset, _offset))
+    {
+        _onCompleted();
+        _onCompleted=nil;
+    }
+}
+
+@end
+
+static char TrackerObjectScrollViewKey;
 @implementation UIScrollView(Utility)
 
 -(UIImageView *)scrollBar
@@ -1497,7 +1529,54 @@ NSString *macAddress()
     self.scrollEnabled = YES;
 }
 
+-(TrackerObjectScrollView*) trackerObject
+{
+    return objc_getAssociatedObject(self, &TrackerObjectScrollViewKey);
+}
+
+-(void) setTrackerObject:(TrackerObjectScrollView*) trackerObject
+{
+    objc_setAssociatedObject(self, &TrackerObjectScrollViewKey, trackerObject, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+-(void)setContentOffset:(CGPoint)contentOffset animated:(BOOL)animated completion:(void (^)())onCompleted
+{
+    if(CGPointEqualToPoint(contentOffset, self.contentOffset))
+    {
+        onCompleted();
+        return;
+    }
+    
+    if([self trackerObject])
+        return;
+    
+    __weak UIScrollView *wSelf=self;
+    
+    TrackerObjectScrollView *obj=[TrackerObjectScrollView new];
+    [obj setCompletion:^{
+        
+        if(wSelf)
+        {
+            wSelf.userInteractionEnabled=true;
+            [wSelf removeObserver:[wSelf trackerObject] forKeyPath:@"contentOffset"];
+            [wSelf setTrackerObject:nil];
+            
+            onCompleted();
+        }
+    }];
+    
+    [self addObserver:obj forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:nil];
+    
+    [self setTrackerObject:obj];
+    
+    self.userInteractionEnabled=false;
+    
+    [self setContentOffset:contentOffset animated:animated];
+}
+
 @end
+
+
 
 @implementation NSData(Utility)
 
@@ -3029,6 +3108,147 @@ CGFloat radiansToDegrees(CGFloat radians) {return radians * 180/M_PI;};
     [UIView setAnimationsEnabled:false];
     [self sizeToFit];
     [UIView setAnimationsEnabled:isAnimationEnabled];
+}
+
+@end
+
+@implementation MKMapView(Utility)
+
+#define MERCATOR_OFFSET 268435456
+#define MERCATOR_RADIUS 85445659.44705395
+
+#pragma mark -
+#pragma mark Map conversion methods
+
+- (double)longitudeToPixelSpaceX:(double)longitude
+{
+    return round(MERCATOR_OFFSET + MERCATOR_RADIUS * longitude * M_PI / 180.0);
+}
+
+- (double)latitudeToPixelSpaceY:(double)latitude
+{
+    return round(MERCATOR_OFFSET - MERCATOR_RADIUS * logf((1 + sinf(latitude * M_PI / 180.0)) / (1 - sinf(latitude * M_PI / 180.0))) / 2.0);
+}
+
+- (double)pixelSpaceXToLongitude:(double)pixelX
+{
+    return ((round(pixelX) - MERCATOR_OFFSET) / MERCATOR_RADIUS) * 180.0 / M_PI;
+}
+
+- (double)pixelSpaceYToLatitude:(double)pixelY
+{
+    return (M_PI / 2.0 - 2.0 * atan(exp((round(pixelY) - MERCATOR_OFFSET) / MERCATOR_RADIUS))) * 180.0 / M_PI;
+}
+
+#pragma mark -
+#pragma mark Helper methods
+
+- (MKCoordinateSpan)coordinateSpanWithMapView:(MKMapView *)mapView
+                             centerCoordinate:(CLLocationCoordinate2D)centerCoordinate
+                                 andZoomLevel:(NSUInteger)zoomLevel
+{
+    // convert center coordiate to pixel space
+    double centerPixelX = [self longitudeToPixelSpaceX:centerCoordinate.longitude];
+    double centerPixelY = [self latitudeToPixelSpaceY:centerCoordinate.latitude];
+    
+    // determine the scale value from the zoom level
+    NSInteger zoomExponent = 20 - zoomLevel;
+    double zoomScale = pow(2, zoomExponent);
+    
+    // scale the map’s size in pixel space
+    CGSize mapSizeInPixels = mapView.bounds.size;
+    double scaledMapWidth = mapSizeInPixels.width * zoomScale;
+    double scaledMapHeight = mapSizeInPixels.height * zoomScale;
+    
+    // figure out the position of the top-left pixel
+    double topLeftPixelX = centerPixelX - (scaledMapWidth / 2);
+    double topLeftPixelY = centerPixelY - (scaledMapHeight / 2);
+    
+    // find delta between left and right longitudes
+    CLLocationDegrees minLng = [self pixelSpaceXToLongitude:topLeftPixelX];
+    CLLocationDegrees maxLng = [self pixelSpaceXToLongitude:topLeftPixelX + scaledMapWidth];
+    CLLocationDegrees longitudeDelta = maxLng - minLng;
+    
+    // find delta between top and bottom latitudes
+    CLLocationDegrees minLat = [self pixelSpaceYToLatitude:topLeftPixelY];
+    CLLocationDegrees maxLat = [self pixelSpaceYToLatitude:topLeftPixelY + scaledMapHeight];
+    CLLocationDegrees latitudeDelta = -1 * (maxLat - minLat);
+    
+    // create and return the lat/lng span
+    MKCoordinateSpan span = MKCoordinateSpanMake(latitudeDelta, longitudeDelta);
+    return span;
+}
+
+#pragma mark -
+#pragma mark Public methods
+
+- (void)setCenterCoordinate:(CLLocationCoordinate2D)centerCoordinate
+                  zoomLevel:(NSUInteger)zoomLevel
+                   animated:(BOOL)animated
+{
+    // clamp large numbers to 28
+    zoomLevel = MIN(zoomLevel, 28);
+    
+    // use the zoom level to compute the region
+    MKCoordinateSpan span = [self coordinateSpanWithMapView:self centerCoordinate:centerCoordinate andZoomLevel:zoomLevel];
+    MKCoordinateRegion region = MKCoordinateRegionMake(centerCoordinate, span);
+    
+    // set the region like normal
+    [self setRegion:region animated:animated];
+}
+
+-(void)zoomToFitCoordinates:(NSArray *)array zoomLevel:(NSUInteger)zoomLevel animate:(BOOL)animate
+{
+    if(array.count==0)
+        return;
+    
+    CLLocationDegrees maxLat = -90.0f;
+	CLLocationDegrees maxLon = -180.0f;
+	CLLocationDegrees minLat = 90.0f;
+	CLLocationDegrees minLon = 180.0f;
+    
+    for(NSValue *value in array)
+    {
+        CLLocationCoordinate2D coordinate=[value MKCoordinateValue];
+        
+        CLLocationCoordinate2D currentLocation=coordinate;
+        if(currentLocation.latitude>maxLat)
+            maxLat=currentLocation.latitude;
+        if(currentLocation.latitude<minLat)
+            minLat=currentLocation.latitude;
+        if(currentLocation.longitude>maxLon)
+            maxLon=currentLocation.longitude;
+        if(currentLocation.longitude<minLon)
+            minLon=currentLocation.longitude;
+    }
+    
+	MKCoordinateRegion region;
+    //    CLLocationCoordinate2D location=CLLocationCoordinate2DMake((maxLat + minLat) / 2, (maxLon + minLon) / 2);
+	region.center.latitude     = (maxLat + minLat) / 2;
+	region.center.longitude    = (maxLon + minLon) / 2;
+	region.span.latitudeDelta  = maxLat - minLat;
+	region.span.longitudeDelta = maxLon - minLon;
+    
+    MKCoordinateSpan span=[self coordinateSpanWithMapView:self centerCoordinate:region.center andZoomLevel:zoomLevel];
+    double miles = (span.latitudeDelta+span.longitudeDelta)/2 * 0.000621371f;
+    double scalingFactor = ABS( (cos(2 * M_PI * region.center.latitude / 360.0) ));
+    
+    region.span=MKCoordinateSpanMake(miles/69, miles/(scalingFactor*69));
+    
+	[self setRegion:region animated:animate];
+}
+
+-(void)zoomToFitAnnotations:(NSArray *)annotations zoomLevel:(NSUInteger)zoomLevel animate:(BOOL)animate
+{
+    if(annotations.count==0)
+        return;
+    
+    NSMutableArray *array=[NSMutableArray array];
+    
+    for(id<MKAnnotation> ann in annotations)
+        [array addObject:[NSValue valueWithMKCoordinate:[ann coordinate]]];
+    
+    [self zoomToFitCoordinates:array zoomLevel:zoomLevel animate:animate];
 }
 
 @end

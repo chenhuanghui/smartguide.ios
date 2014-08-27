@@ -21,12 +21,14 @@
 
 +(HomeDataManager*) manager;
 
+-(void) close;
 -(void) requestData;
 -(void) loadMore;
 -(void) refreshData;
 
 -(void) addObserver:(id<HomeDataDelegate>) obj;
 
+-(NSArray*) homesMap;
 @property (nonatomic, strong) NSMutableArray *homes;
 @property (nonatomic, strong) NSMutableArray *observers;
 @property (nonatomic, assign) int page;

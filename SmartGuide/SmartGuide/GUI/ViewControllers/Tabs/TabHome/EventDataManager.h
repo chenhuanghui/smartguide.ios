@@ -21,12 +21,15 @@
 
 +(EventDataManager*) manager;
 
+-(void) close;
+
 -(void) requestData;
 -(void) loadMore;
 -(void) refreshData;
 
 -(void) addObserver:(id<EventDataDelegate>) obj;
 
+-(NSArray*) eventsMap;
 @property (nonatomic, strong) NSMutableArray *events;
 @property (nonatomic, strong) NSMutableArray *observers;
 @property (nonatomic, assign) int page;
