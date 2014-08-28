@@ -8,15 +8,22 @@
 
 #import <Foundation/Foundation.h>
 
+@class CityObject;
+
 @interface CityManager : NSObject
 
 +(CityManager*) shareInstance;
 
+-(NSArray*) filterCityWithCityName:(NSString*) cityName;
+
 -(void) load;
+-(void) loadCompletion:(void(^)()) onCompleted;
 -(void) clean;
+-(CityObject*) cityByID:(NSNumber*) idCity;
 
 @property (nonatomic, strong) NSMutableArray *cities;
 @property (nonatomic, readwrite) NSNumber *idCitySearch;
+@property (nonatomic, readonly) bool isLoaded;
 
 @end
 

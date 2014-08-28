@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@class SearchPlacelist, AutocompletePlacelist, AutocompleteShop, FTCoreTextView;
+@class SearchPlacelist, AutocompletePlacelist, AutocompleteShop, FTCoreTextView, CityObject;
 
 @interface TabSearchTableCell : UITableViewCell
 {
@@ -22,6 +22,7 @@
 -(void) loadWithPlacelist:(SearchPlacelist*) obj;
 -(void) loadWithAutoCompletePlacelist:(AutocompletePlacelist*) obj;
 -(void) loadWithAutoCompleteShop:(AutocompleteShop*) obj;
+-(void) loadWithCityObject:(CityObject*) obj;
 
 -(id) object;
 

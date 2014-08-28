@@ -10,6 +10,7 @@
 #import "OperationSearchAutocomplete.h"
 #import "SearchPlacelist.h"
 #import "FTCoreTextView.h"
+#import "CityManager.h"
 
 @implementation TabSearchTableCell
 
@@ -43,6 +44,13 @@
         [lblText setText:[obj.highlight stringByAppendingTagName:@"text"]];
     else
         [lblText setText:[obj.content stringByAppendingTagName:@"text"]];
+}
+
+-(void)loadWithCityObject:(CityObject *)obj
+{
+    _obj=obj;
+    
+    [lblText setText:[obj.name stringByAppendingTagName:@"text"]];
 }
 
 +(NSString *)reuseIdentifier

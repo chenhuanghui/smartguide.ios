@@ -45,14 +45,37 @@ static CityManager *_cityManager=nil;
             return [[obj1 name] localizedStandardCompare:[obj2 name]];
         }];
         
-        CityObject *obj=[self.cities filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"idCity==140"]][0];
-        
+        CityObject *obj=[self.cities filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"idCity==1"]][0];
         [self.cities removeObject:obj];
         [self.cities insertObject:obj atIndex:0];
-        
-        obj=[self.cities filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"idCity==1"]][0];
-        [self.cities removeObject:obj];
-        [self.cities insertObject:obj atIndex:0];
+    }
+    
+    _isLoaded=true;
+}
+
+-(void)loadCompletion:(void (^)())onCompleted
+{
+    if([NSThread isMainThread])
+    {
+        [self performSelectorInBackground:@selector(loadCompletion:) withObject:onCompleted];
+        return;
+    }
+    
+    [self load];
+    onCompleted();
+}
+
+-(NSArray *)filterCityWithCityName:(NSString *)cityName
+{
+    
+    if(cityName.length==0)
+        return [CityManager shareInstance].cities;
+    else
+    {
+        NSString *key=[cityName copy];
+        key=[key lowercaseString];
+        key=[key ASIString];
+        return [[CityManager shareInstance].cities filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"nameACI contains[cd] %@",key]];
     }
 }
 
@@ -61,6 +84,16 @@ static CityManager *_cityManager=nil;
     _cityManager=nil;
     [self.cities removeAllObjects];
     self.cities=nil;
+}
+
+-(CityObject *)cityByID:(NSNumber *)idCity
+{
+    NSArray *array=[self.cities filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"idCity==%@",idCity]];
+    
+    if(array.count>0)
+        return array[0];
+    
+    return nil;
 }
 
 -(void)setIdCitySearch:(NSNumber *)idCitySearch_

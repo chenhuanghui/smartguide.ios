@@ -19,6 +19,8 @@
     __weak IBOutlet UIButton *btnKeyword;
     __weak IBOutlet UIButton *btnCity;
     __weak IBOutlet TableAPI *table;
+    __weak IBOutlet UITableView *tableCity;
+    __weak IBOutlet UIView *cityView;
 }
 
 @end
