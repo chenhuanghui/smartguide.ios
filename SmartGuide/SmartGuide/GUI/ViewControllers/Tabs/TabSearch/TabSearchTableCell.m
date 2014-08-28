@@ -9,6 +9,7 @@
 #import "TabSearchTableCell.h"
 #import "OperationSearchAutocomplete.h"
 #import "SearchPlacelist.h"
+#import "FTCoreTextView.h"
 
 @implementation TabSearchTableCell
 
@@ -21,45 +22,55 @@
 {
     _obj=obj;
     
-    lbl.textColor=[UIColor darkTextColor];
-    lbl.text=obj.title;
+    [lblText setText:[obj.title stringByAppendingTagName:@"text"]];
 }
 
 -(void)loadWithAutoCompleteShop:(AutocompleteShop *)obj
 {
     _obj=obj;
     
-    NSMutableAttributedString *attStr=[NSMutableAttributedString new];
-    
-    [attStr appendAttributedString:[[NSAttributedString alloc] initWithString:obj.highlight
-                                                                   attributes:@{NSFontAttributeName:lbl.font
-                                                                                , NSForegroundColorAttributeName:[UIColor blackColor]}]];
-    [attStr appendAttributedString:[[NSAttributedString alloc] initWithString:obj.content
-                                                                   attributes:@{NSFontAttributeName:lbl.font
-                                                                                , NSForegroundColorAttributeName:[UIColor darkTextColor]}]];
-    
-    lbl.attributedText=attStr;
+    if(obj.highlight.length>0)
+        [lblText setText:[obj.highlight stringByAppendingTagName:@"text"]];
+    else
+        [lblText setText:[obj.content stringByAppendingTagName:@"text"]];
 }
 
 -(void)loadWithAutoCompletePlacelist:(AutocompletePlacelist *)obj
 {
     _obj=obj;
     
-    NSMutableAttributedString *attStr=[NSMutableAttributedString new];
-    
-    [attStr appendAttributedString:[[NSAttributedString alloc] initWithString:obj.highlight
-                                                                   attributes:@{NSFontAttributeName:lbl.font
-                                                                                , NSForegroundColorAttributeName:[UIColor blackColor]}]];
-    [attStr appendAttributedString:[[NSAttributedString alloc] initWithString:obj.content
-                                                                   attributes:@{NSFontAttributeName:lbl.font
-                                                                                , NSForegroundColorAttributeName:[UIColor darkTextColor]}]];
-    
-    lbl.attributedText=attStr;
+    if(obj.highlight.length>0)
+        [lblText setText:[obj.highlight stringByAppendingTagName:@"text"]];
+    else
+        [lblText setText:[obj.content stringByAppendingTagName:@"text"]];
 }
 
 +(NSString *)reuseIdentifier
 {
     return @"TabSearchTableCell";
+}
+
+-(void)awakeFromNib
+{
+    [super awakeFromNib];
+    
+    UIEdgeInsets paraInset=UIEdgeInsetsMake(14, 0, 0, 0);
+    
+    FTCoreTextStyle *style=[FTCoreTextStyle styleWithName:@"text"];
+    style.font=FONT_SIZE_NORMAL(13);
+    style.color=[UIColor color255WithRed:135 green:135 blue:135 alpha:255];
+    style.textAlignment=FTCoreTextAlignementLeft;
+    style.paragraphInset=paraInset;
+    
+    [lblText addStyle:style];
+    
+    style=[FTCoreTextStyle styleWithName:@"em"];
+    style.font=FONT_SIZE_NORMAL(13);
+    style.color=[UIColor colorWithRed:0.357 green:0.357 blue:0.357 alpha:1];
+    style.textAlignment=FTCoreTextAlignementLeft;
+//    style.paragraphInset=paraInset;
+    
+    [lblText addStyle:style];
 }
 
 +(float)height

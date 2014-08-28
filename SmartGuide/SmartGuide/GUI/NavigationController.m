@@ -14,15 +14,6 @@
 
 @implementation NavigationController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 -(void)loadView
 {
     [super loadView];
@@ -36,21 +27,33 @@
     // Do any additional setup after loading the view.
 }
 
-- (void)didReceiveMemoryWarning
+-(void)setRootViewController:(UIViewController *)controller
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    [self pushViewController:controller animated:true completion:^{
+        self.viewControllers=@[controller];
+    }];
 }
 
-/*
-#pragma mark - Navigation
+@end
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+@implementation NavigationController(PushBlock)
+
+-(void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated completion:(void (^)())onCompleted
 {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    if(animated)
+    {
+        [CATransaction begin];
+        [CATransaction setCompletionBlock:onCompleted];
+    }
+    
+    [self pushViewController:viewController animated:animated];
+    
+    if(animated)
+    {
+        [CATransaction commit];
+    }
+    else
+        onCompleted();
 }
-*/
 
 @end

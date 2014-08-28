@@ -13,6 +13,7 @@
 #import "TabSearchTableCell.h"
 #import "TabSearchPlacelistTableCell.h"
 #import "TableTemplates.h"
+#import "TabSearchHeaderSectionView.h"
 
 @interface AutoCompletedObject : NSObject
 
@@ -82,9 +83,12 @@
     
     if(self.keyword.length==0)
     {
+        table.canLoadMore=_canLoadMorePlacelist;
         [table reloadData];
         return;
     }
+    
+    table.canLoadMore=false;
     
     if([_autoCompleted objectForKey:text])
         [table reloadData];
@@ -150,6 +154,36 @@
     }
     
     return _placelists.count;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    if(self.keyword.length>0)
+    {
+        if(section==1 && self.obj.placelist.count>0)
+        {
+            return [TabSearchHeaderSectionView height];
+        }
+    }
+    
+    return 0;
+}
+
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    if(self.keyword.length>0)
+    {
+        if(section==1 && self.obj.placelist.count>0)
+        {
+            TabSearchHeaderSectionView *view=[[TabSearchHeaderSectionView alloc] initWithFrame:CGRectMake(0, 0, tableView.SW, [TabSearchHeaderSectionView height])];
+            
+            view.lbl.text=@"Địa điểm";
+            
+            return view;
+        }
+    }
+    
+    return [UIView new];
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

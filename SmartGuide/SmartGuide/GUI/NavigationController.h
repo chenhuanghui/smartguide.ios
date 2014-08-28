@@ -10,4 +10,12 @@
 
 @interface NavigationController : UINavigationController
 
+-(void) setRootViewController:(UIViewController*) controller;
+
+@end
+
+@interface NavigationController(PushBlock)
+
+-(void) pushViewController:(UIViewController *)viewController animated:(BOOL)animated completion:(void(^)()) onCompleted;
+
 @end

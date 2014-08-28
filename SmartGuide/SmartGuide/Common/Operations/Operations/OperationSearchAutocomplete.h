@@ -19,19 +19,22 @@
 
 @end
 
-@interface AutocompletePlacelist : NSObject
+@interface AutoCompleteObject : NSObject
 
-@property (nonatomic, strong) NSNumber *idPlacelist;
 @property (nonatomic, strong) NSString *content;
 @property (nonatomic, strong) NSString *highlight;
 
 @end
 
-@interface AutocompleteShop : NSObject
+@interface AutocompletePlacelist : AutoCompleteObject
+
+@property (nonatomic, strong) NSNumber *idPlacelist;
+
+@end
+
+@interface AutocompleteShop : AutoCompleteObject
 
 @property (nonatomic, strong) NSNumber *idShop;
-@property (nonatomic, strong) NSString *content;
-@property (nonatomic, strong) NSString *highlight;
 @property (nonatomic, strong) NSNumber *hasPromotion;
 
 @end

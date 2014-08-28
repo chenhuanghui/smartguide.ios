@@ -8,13 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-@class SearchPlacelist, AutocompletePlacelist, AutocompleteShop;
+@class SearchPlacelist, AutocompletePlacelist, AutocompleteShop, FTCoreTextView;
 
 @interface TabSearchTableCell : UITableViewCell
 {
     __weak IBOutlet UIView *line;
-    __weak IBOutlet UILabel *lbl;
     __weak IBOutlet UIImageView *imgvArrow;
+    __weak IBOutlet FTCoreTextView *lblText;
     
     __weak id _obj;
 }

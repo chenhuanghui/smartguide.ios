@@ -112,8 +112,7 @@
             if(![highlightArray hasData])
                 continue;
             
-            place.highlight=[[NSString makeString:highlightArray[0]] stringByTag:@"em"];
-            place.content=[place.content stringByReplacingOccurrencesOfString:place.highlight withString:@""];
+            place.highlight=[NSString makeString:highlightArray[0]];
         }
         else if([type isEqualToString:@"shop"])
         {
@@ -152,10 +151,23 @@
             if(![highlightArray hasData])
                 continue;
             
-            shop.highlight=[[NSString makeString:highlightArray[0]] stringByTag:@"em"];
-            shop.content=[shop.content stringByReplacingOccurrencesOfString:shop.highlight withString:@""];
+            shop.highlight=[NSString makeString:highlightArray[0]];
         }
     }
+}
+
+@end
+
+@implementation AutoCompleteObject
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        self.content=@"";
+        self.highlight=@"";
+    }
+    return self;
 }
 
 @end
@@ -167,8 +179,6 @@
     self = [super init];
     if (self) {
         self.idPlacelist=0;
-        self.content=@"";
-        self.highlight=@"";
     }
     return self;
 }
@@ -184,8 +194,6 @@
     self = [super init];
     if (self) {
         self.idShop=0;
-        self.content=@"";
-        self.highlight=@"";
     }
     return self;
 }
