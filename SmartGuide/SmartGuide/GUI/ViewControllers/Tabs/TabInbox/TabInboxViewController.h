@@ -8,6 +8,13 @@
 
 #import "ViewController.h"
 
+@class NavigationView, NavigationTitleLabel, TableAPI;
+
 @interface TabInboxViewController : ViewController
+{
+    __weak IBOutlet NavigationView *titileView;
+    __weak IBOutlet NavigationTitleLabel *lblTitle;
+    __weak IBOutlet TableAPI *table;
+}
 
 @end

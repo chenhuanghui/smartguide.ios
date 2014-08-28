@@ -45,6 +45,54 @@
         <relationship name="home" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Home" inverseName="homeShop" inverseEntity="Home" syncable="YES"/>
         <relationship name="shop" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ShopInfo" inverseName="home" inverseEntity="ShopInfo" syncable="YES"/>
     </entity>
+    <entity name="MessageAction" representedClassName="MessageAction" syncable="YES">
+        <attribute name="actionTitle" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="actionType" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="idPlacelist" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="idShop" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="idShops" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="keywords" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="method" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="params" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sortOrder" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="url" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="message" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MessageList" inverseName="actions" inverseEntity="MessageList" syncable="YES"/>
+    </entity>
+    <entity name="MessageList" representedClassName="MessageList" syncable="YES">
+        <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="highlightUnread" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="idMessage" optional="YES" attributeType="Integer 32" syncable="YES"/>
+        <attribute name="idShop" optional="YES" attributeType="Integer 32" syncable="YES"/>
+        <attribute name="image" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="imageHeight" optional="YES" attributeType="Float" syncable="YES"/>
+        <attribute name="imageWidth" optional="YES" attributeType="Float" syncable="YES"/>
+        <attribute name="logo" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="messageSender" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="status" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="time" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="video" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="videoHeight" optional="YES" attributeType="Float" syncable="YES"/>
+        <attribute name="videoThumbnail" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="videoWidth" optional="YES" attributeType="Float" syncable="YES"/>
+        <relationship name="actions" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="MessageAction" inverseName="message" inverseEntity="MessageAction" syncable="YES"/>
+        <relationship name="sender" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MessageSender" inverseName="messages" inverseEntity="MessageSender" syncable="YES"/>
+    </entity>
+    <entity name="MessageSender" representedClassName="MessageSender" syncable="YES">
+        <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="countAll" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="countRead" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="countUnread" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="highlightUnread" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="idMessageNewest" optional="YES" attributeType="Integer 32" syncable="YES"/>
+        <attribute name="idSender" optional="YES" attributeType="Integer 32" syncable="YES"/>
+        <attribute name="numAll" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="numRead" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="numUnread" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sender" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="status" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <relationship name="messages" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="MessageList" inverseName="sender" inverseEntity="MessageList" syncable="YES"/>
+    </entity>
     <entity name="SearchPlacelist" representedClassName="SearchPlacelist" syncable="YES">
         <attribute name="authorAvatar" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="authorName" optional="YES" attributeType="String" syncable="YES"/>
@@ -86,8 +134,11 @@
         <element name="HomeImage" positionX="-54" positionY="-9" width="128" height="88"/>
         <element name="HomeImages" positionX="-63" positionY="-18" width="128" height="133"/>
         <element name="HomeShop" positionX="-36" positionY="9" width="128" height="178"/>
+        <element name="SearchPlacelist" positionX="-18" positionY="135" width="128" height="180"/>
         <element name="ShopInfo" positionX="-18" positionY="27" width="128" height="148"/>
         <element name="User" positionX="27" positionY="126" width="128" height="240"/>
-        <element name="SearchPlacelist" positionX="-18" positionY="135" width="128" height="180"/>
+        <element name="MessageSender" positionX="-18" positionY="135" width="128" height="238"/>
+        <element name="MessageList" positionX="-9" positionY="144" width="128" height="313"/>
+        <element name="MessageAction" positionX="0" positionY="153" width="128" height="208"/>
     </elements>
 </model>

@@ -17,7 +17,7 @@
 #if DEBUG
 #define USING_PHONE 1
 #define USE_PHONE @"84934934701"
-#define USE_ACTIVITION_CODE @"5745"
+#define USE_ACTIVITION_CODE @"3066"
 #endif
 
 @interface UserLoginViewController ()<ASIOperationPostDelegate,UITextFieldDelegate>

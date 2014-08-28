@@ -34,6 +34,7 @@ static SGData *_sgData=nil;
         
 #if DEBUG
         self.buildMode=@([[NSUserDefaults standardUserDefaults] integerForKey:@"buildMode"]);
+        self.buildMode=@(1);
 #else
         self.buildMode=@(1);
 #endif
