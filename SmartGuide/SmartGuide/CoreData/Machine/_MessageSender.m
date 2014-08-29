@@ -6,9 +6,14 @@
 
 #import "DataManager.h"
 #import "MessageList.h"
+#import "MessageList.h"
 
 
 @implementation _MessageSender
+
+
+@dynamic messageNewest;
+
 
 
 
@@ -148,19 +153,6 @@
 	[self didChangeValueForKey:@"highlightUnread"];
 }
 
-- (NSNumber*)idMessageNewest {
-	[self willAccessValueForKey:@"idMessageNewest"];
-	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"idMessageNewest"];
-	[self didAccessValueForKey:@"idMessageNewest"];
-	return result;
-}
-
-- (void)setIdMessageNewest:(NSNumber*)value {
-	[self willChangeValueForKey:@"idMessageNewest"];
-	[self setPrimitiveValue:value forKey:@"idMessageNewest"];
-	[self didChangeValueForKey:@"idMessageNewest"];
-}
-
 - (NSNumber*)idSender {
 	[self willAccessValueForKey:@"idSender"];
 	NSNumber* result = (NSNumber*)[self primitiveValueForKey:@"idSender"];
@@ -241,6 +233,14 @@
 
 #pragma mark Relationships
     
+#pragma mark MessageNewest
+- (MessageList*)messageNewest {
+	[self willAccessValueForKey:@"messageNewest"];
+	MessageList *result = [self primitiveValueForKey:@"messageNewest"];
+	[self didAccessValueForKey:@"messageNewest"];
+	return result;
+}
+
 #pragma mark Messages
 - (NSSet*)messages {
 	[self willAccessValueForKey:@"messages"];

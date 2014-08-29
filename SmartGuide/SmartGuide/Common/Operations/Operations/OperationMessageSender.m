@@ -44,10 +44,8 @@
         {
             MessageList *msg=[MessageList makeWithData:newestMessage];
             
-            obj.idMessageNewest=msg.idMessage;
             obj.content=msg.content;
-            
-            [obj addMessagesObject:msg];
+            obj.messageNewest=msg;
         }
         else
             obj.content=@"";

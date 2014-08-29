@@ -76,6 +76,7 @@
         <attribute name="videoThumbnail" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="videoWidth" optional="YES" attributeType="Float" syncable="YES"/>
         <relationship name="actions" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="MessageAction" inverseName="message" inverseEntity="MessageAction" syncable="YES"/>
+        <relationship name="firstMessage" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MessageSender" inverseName="messageNewest" inverseEntity="MessageSender" syncable="YES"/>
         <relationship name="sender" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MessageSender" inverseName="messages" inverseEntity="MessageSender" syncable="YES"/>
     </entity>
     <entity name="MessageSender" representedClassName="MessageSender" syncable="YES">
@@ -84,13 +85,13 @@
         <attribute name="countRead" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="countUnread" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="highlightUnread" optional="YES" attributeType="Boolean" syncable="YES"/>
-        <attribute name="idMessageNewest" optional="YES" attributeType="Integer 32" syncable="YES"/>
         <attribute name="idSender" optional="YES" attributeType="Integer 32" syncable="YES"/>
         <attribute name="numAll" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="numRead" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="numUnread" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="sender" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="status" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <relationship name="messageNewest" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="MessageList" inverseName="firstMessage" inverseEntity="MessageList" syncable="YES"/>
         <relationship name="messages" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="MessageList" inverseName="sender" inverseEntity="MessageList" syncable="YES"/>
     </entity>
     <entity name="SearchPlacelist" representedClassName="SearchPlacelist" syncable="YES">
@@ -134,11 +135,11 @@
         <element name="HomeImage" positionX="-54" positionY="-9" width="128" height="88"/>
         <element name="HomeImages" positionX="-63" positionY="-18" width="128" height="133"/>
         <element name="HomeShop" positionX="-36" positionY="9" width="128" height="178"/>
+        <element name="MessageAction" positionX="0" positionY="153" width="128" height="208"/>
+        <element name="MessageList" positionX="-9" positionY="144" width="128" height="328"/>
+        <element name="MessageSender" positionX="-18" positionY="135" width="128" height="238"/>
         <element name="SearchPlacelist" positionX="-18" positionY="135" width="128" height="180"/>
         <element name="ShopInfo" positionX="-18" positionY="27" width="128" height="148"/>
         <element name="User" positionX="27" positionY="126" width="128" height="240"/>
-        <element name="MessageSender" positionX="-18" positionY="135" width="128" height="238"/>
-        <element name="MessageList" positionX="-9" positionY="144" width="128" height="313"/>
-        <element name="MessageAction" positionX="0" positionY="153" width="128" height="208"/>
     </elements>
 </model>

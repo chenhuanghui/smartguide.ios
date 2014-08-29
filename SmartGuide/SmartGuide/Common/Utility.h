@@ -41,6 +41,7 @@ NSNumber* NMAX(NSNumber* num1,...);
 #define SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
 #define CLLocationCoordinateInvail CLLocationCoordinate2DMake(-1, -1)
 
+UIEdgeInsets UIEdgeInsetsMax(UIEdgeInsets edgeInsets1, UIEdgeInsets edgeInsets2);
 NSParagraphStyle *paragraphStyleJustified();
 NSString* NSStringFromCoordinate(CLLocationCoordinate2D coordinate);
 CGPathRef CGPathCreateRoundRect( const CGRect r, const CGFloat cornerRadius );
@@ -449,6 +450,8 @@ NSString *macAddress();
 -(bool) isNullData;
 -(bool) hasData;
 -(bool) isHasString;
+
+@property (nonatomic, strong, readwrite) id tagObject;
 
 @end
 

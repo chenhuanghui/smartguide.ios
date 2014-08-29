@@ -20,6 +20,11 @@
 #include <net/if.h>
 #include <net/if_dl.h>
 
+UIEdgeInsets UIEdgeInsetsMax(UIEdgeInsets edgeInsets1, UIEdgeInsets edgeInsets2)
+{
+    return UIEdgeInsetsMake(MAX(edgeInsets1.top, edgeInsets2.top), MAX(edgeInsets1.left, edgeInsets2.left), MAX(edgeInsets1.bottom, edgeInsets2.bottom), MAX(edgeInsets1.right, edgeInsets2.right));
+}
+
 NSNumber* NMIN(NSNumber* num1,...)
 {
     NSNumber *min=[num1 copy];
@@ -2806,6 +2811,7 @@ CGFloat radiansToDegrees(CGFloat radians) {return radians * 180/M_PI;};
 
 @end
 
+static char TagObjectKey;
 @implementation NSObject(Utility)
 
 -(bool)hasData
@@ -2877,6 +2883,16 @@ CGFloat radiansToDegrees(CGFloat radians) {return radians * 180/M_PI;};
     }
     
     return false;
+}
+
+-(id)tagObject
+{
+    return objc_getAssociatedObject(self, &TagObjectKey);
+}
+
+-(void)setTagObject:(id)tagObject
+{
+    objc_setAssociatedObject(self, &TagObjectKey, tagObject, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 @end

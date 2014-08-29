@@ -12,6 +12,7 @@
 #import "MessageSender.h"
 #import "TabInboxSectionView.h"
 #import "TableTemplates.h"
+#import "TabInboxListViewController.h"
 
 enum INBOX_SECTION_TYPE
 {
@@ -133,6 +134,17 @@ enum INBOX_SECTION_TYPE
         [cell loadWithMessageSender:_messageRead[indexPath.row]];
     
     return cell;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    TabInboxTableCell *cell=(id)[tableView cellForRowAtIndexPath:indexPath];
+    MessageSender *sender=cell.object;
+    
+    TabInboxListViewController *vc=[[TabInboxListViewController alloc] initWithSender:sender];
+    vc.delegate=self;
+    
+    [self.navigationController pushViewController:vc animated:true];
 }
 
 #pragma mark ASIOperation Delegate

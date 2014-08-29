@@ -28,4 +28,5 @@
 @property (nonatomic, assign) bool canRefresh;
 @property (nonatomic, weak) id<TableAPIDataSource> dataSource;
 
+@property (nonatomic, assign) UIEdgeInsets contentEdgeInsets;
 @end

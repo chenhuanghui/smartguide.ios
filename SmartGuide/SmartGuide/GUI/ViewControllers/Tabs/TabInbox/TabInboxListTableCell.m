@@ -10,6 +10,9 @@
 #import "Label.h"
 #import "MessageList.h"
 #import "MessageAction.h"
+#import "ImageManager.h"
+
+#define TabInboxListTableCell_ButtonHeight 45
 
 @implementation TabInboxListTableCell
 
@@ -17,6 +20,13 @@
 {
     _obj=obj;
     _displayType=displayType;
+    
+    [imgvLogo defaultLoadImageWithURL:_obj.logo];
+    
+    if(_obj.video.length>0)
+        [imgvImage defaultLoadImageWithURL:_obj.videoThumbnail];
+    else if(_obj.image.length>0)
+        [imgvImage defaultLoadImageWithURL:_obj.image];
     
     [self setNeedsLayout];
 }
@@ -52,7 +62,12 @@
     switch (displayType) {
         case TAB_INBOX_LIST_TABLE_CELL_DISPLAY_TYPE_SMALL:
         {
-            displayView.frame=CGRectMake(5, 15, 310, 0);
+            line.hidden=false;
+            lblContent.hidden=true;
+            imgvImage.hidden=true;
+            buttonsView.hidden=true;
+            
+            displayView.frame=CGRectMake(5, 0, 310, 0);
             
             line.frame=CGRectMake(0, imgvLogo.yh+5, displayView.SW, 1);
             
@@ -69,15 +84,20 @@
             else
                 lblTitle.frame=obj.titleRectSmall;
             
-            displayView.SH=lblTitle.yh+5;
-            imgvBG.frame=CGRectMake(4, displayView.OY, 312, displayView.SH);
+            displayView.SH=lblTitle.yh+10;
+            imgvBG.frame=CGRectMake(4, displayView.OY, 312, displayView.SH+5);
             
-            return imgvBG.yh+imgvBG.OY;
+            return imgvBG.yh+15;
         }
             
         case TAB_INBOX_LIST_TABLE_CELL_DISPLAY_TYPE_FULL:
         {
-            displayView.frame=CGRectMake(5, 15, 310, 0);
+            displayView.frame=CGRectMake(5, 0, 310, 0);
+            
+            line.hidden=true;
+            lblContent.hidden=false;
+            imgvImage.hidden=false;
+            buttonsView.hidden=false;
             
             if(obj.video.length>0)
             {
@@ -87,7 +107,7 @@
             else if(obj.image.length>0)
             {
                 imgvImage.O=CGPointMake(0, imgvLogo.yh+10);
-                imgvImage.S=CGSizeResizeToWidth(displayView.SW, CGSizeMake(obj.imageWidth.floatValue, obj.videoHeight.floatValue));
+                imgvImage.S=CGSizeResizeToWidth(displayView.SW, CGSizeMake(obj.imageWidth.floatValue, obj.imageHeight.floatValue));
             }
             else
             {
@@ -138,7 +158,7 @@
             {
                 buttonsView.O=CGPointMake(0, lblContent.yh+15);
                 
-                float buttonHeight=90+5;
+                float buttonHeight=TabInboxListTableCell_ButtonHeight+5;
                 buttonsView.S=CGSizeMake(displayView.SW, buttonHeight*obj.actionsObjects.count+15);
             }
             else
@@ -146,15 +166,15 @@
                 buttonsView.O=CGPointMake(0, lblContent.yh);
                 buttonsView.S=CGSizeZero;
             }
-
+            
             if(buttonsView.SH>0)
                 displayView.SH=buttonsView.yh;
             else
                 displayView.SH=buttonsView.yh+5;
-
-            imgvBG.frame=CGRectMake(4, displayView.OY, 312, displayView.SH);
             
-            return imgvBG.yh+imgvBG.OY;
+            imgvBG.frame=CGRectMake(4, displayView.OY, 312, displayView.SH+5);
+            
+            return imgvBG.yh+15;
         }
     }
 }
@@ -165,27 +185,57 @@
         return;
     
     [super layoutSubviews];
+    
     [self calculatorHeight:_obj displayType:_displayType];
     
     [buttonsView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     
-    float y=0;
-    Label *sampleLabel=[Label new];
-    sampleLabel.font=FONT_SIZE_NORMAL(14);
-    sampleLabel.numberOfLines=1;
-    
-    for(MessageAction *obj in _obj.actionsObjects)
+    if(_displayType==TAB_INBOX_LIST_TABLE_CELL_DISPLAY_TYPE_FULL)
     {
-        UIButton *btn=[UIButton buttonWithType:UIButtonTypeCustom];
-        [btn setTitle:obj.actionTitle forState:UIControlStateNormal];
-    
-        sampleLabel.text=obj.actionTitle;
-        [sampleLabel defautSizeToFit];
+        float y=0;
+        Label *sampleLabel=[Label new];
+        sampleLabel.font=FONT_SIZE_NORMAL(14);
+        sampleLabel.numberOfLines=1;
         
-//        btn.O=CGPointMake((buttonsView.SW-sampleLabel.SW)/2, <#CGFloat y#>)
-        
-        [buttonsView addSubview:btn];
+        for(MessageAction *obj in _obj.actionsObjects)
+        {
+            UIButton *btn=[UIButton buttonWithType:UIButtonTypeCustom];
+            btn.titleLabel.font=sampleLabel.font;
+            [btn setTitle:obj.actionTitle forState:UIControlStateNormal];
+            btn.backgroundColor=[UIColor redColor];
+            
+            sampleLabel.S=CGSizeMake(buttonsView.SW, TabInboxListTableCell_ButtonHeight);
+            sampleLabel.text=obj.actionTitle;
+            [sampleLabel defautSizeToFit];
+            
+            float width=30;
+            
+            if(sampleLabel.SW+width*2<buttonsView.SW)
+                btn.S=CGSizeMake(sampleLabel.SW+width*2, TabInboxListTableCell_ButtonHeight);
+            
+            btn.O=CGPointMake((buttonsView.SW-btn.SW)/2, y);
+            
+            y+=TabInboxListTableCell_ButtonHeight+5;
+            
+            btn.tagObject=obj;
+            
+            [btn addTarget:self action:@selector(btnActionTouchUpInside:) forControlEvents:UIControlEventTouchUpInside];
+            
+            [buttonsView addSubview:btn];
+        }
     }
+}
+
+-(void)awakeFromNib
+{
+    [super awakeFromNib];
+    
+    imgvBG.image=[[UIImage imageNamed:@"bg_white.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(10, 10, 10, 10)];
+}
+
+-(void) btnActionTouchUpInside:(id) sender
+{
+    
 }
 
 +(NSString *)reuseIdentifier

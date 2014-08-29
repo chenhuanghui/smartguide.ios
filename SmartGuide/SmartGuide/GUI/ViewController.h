@@ -9,11 +9,17 @@
 #import <UIKit/UIKit.h>
 #import "LoadingView.h"
 
-@interface ViewController : UIViewController
+@protocol ViewControllerDelegate <NSObject>
+
+@end
+
+@interface ViewController : UIViewController<ViewControllerDelegate>
 {
     bool _viewWillAppear;
 }
 
 -(void) viewWillAppearOnce;
+
+@property (nonatomic, weak) id<ViewControllerDelegate> delegate;
 
 @end

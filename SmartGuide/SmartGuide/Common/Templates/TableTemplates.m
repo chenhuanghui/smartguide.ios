@@ -37,13 +37,16 @@
     
     _loadingMore=false;
     float height=80;
-    
+
     if(_canLoadMore)
     {
         if(!self.loadMoreView)
         {
             [UIView animateWithDuration:0.15f animations:^{
-                self.contentInset=UIEdgeInsetsMake(0, 0, height, 0);
+                UIEdgeInsets insets=UIEdgeInsetsMake(0, 0, height, 0);
+                insets=UIEdgeInsetsMax(insets, self.contentEdgeInsets);
+                
+                self.contentInset=insets;
             }];
         }
         
@@ -54,7 +57,10 @@
         if(self.loadMoreView)
         {
             [UIView animateWithDuration:0.15f animations:^{
-                self.contentInset=UIEdgeInsetsZero;
+                UIEdgeInsets insets=UIEdgeInsetsZero;
+                insets=UIEdgeInsetsMax(insets, self.contentEdgeInsets);
+                
+                self.contentInset=insets;
             }];
             [self removeLoadMore];
         }
@@ -97,6 +103,13 @@
     {
         
     }
+}
+
+-(void)setContentEdgeInsets:(UIEdgeInsets)contentEdgeInsets
+{
+    _contentEdgeInsets=contentEdgeInsets;
+    
+    self.contentInset=contentEdgeInsets;
 }
 
 @end

@@ -26,6 +26,7 @@
 @class MessageList;
 @class MessageAction;
 @class MessageSender;
+@class MessageSender;
 
 @interface _MessageList : NSManagedObject
 
@@ -68,6 +69,9 @@
 - (void) addActionsObject:(MessageAction*)value;
 - (void) removeActionsObject:(MessageAction*)value;
 - (void) removeAllActions;
+
+#pragma mark FirstMessage
+@property (nonatomic, retain) MessageSender* firstMessage;
 
 #pragma mark Sender
 @property (nonatomic, retain) MessageSender* sender;

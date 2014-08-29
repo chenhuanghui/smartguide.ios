@@ -26,6 +26,8 @@
 
 #define REFRESH_TOKEN_ERROR_CODE 1000
 
+#define OperationRelease(__ope) if(__ope){[__ope clearDelegatesAndCancel]; __ope=nil; }
+
 @class ASIOperationPost;
 
 enum OPERATION_METHOD_TYPE

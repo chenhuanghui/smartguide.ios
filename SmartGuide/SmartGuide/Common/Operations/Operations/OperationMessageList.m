@@ -33,9 +33,13 @@
     if(![json hasData])
         return;
     
-    for(NSDictionary *dict in json)
+    NSDictionary *data=json[0];
+    NSString *sender=[NSString makeString:data[@"sender"]];
+    
+    for(NSDictionary *dict in data[@"messages"])
     {
         MessageList *obj=[MessageList makeWithData:dict];
+        obj.messageSender=sender;
         
         [self.messages addObject:obj];
     }

@@ -11,7 +11,6 @@
 #define MessageSender_CountRead @"countRead"
 #define MessageSender_CountUnread @"countUnread"
 #define MessageSender_HighlightUnread @"highlightUnread"
-#define MessageSender_IdMessageNewest @"idMessageNewest"
 #define MessageSender_IdSender @"idSender"
 #define MessageSender_NumAll @"numAll"
 #define MessageSender_NumRead @"numRead"
@@ -20,6 +19,7 @@
 #define MessageSender_Status @"status"
 
 @class MessageSender;
+@class MessageList;
 @class MessageList;
 
 @interface _MessageSender : NSManagedObject
@@ -38,7 +38,6 @@
 @property (nonatomic, retain) NSNumber* countRead;
 @property (nonatomic, retain) NSNumber* countUnread;
 @property (nonatomic, retain) NSNumber* highlightUnread;
-@property (nonatomic, retain) NSNumber* idMessageNewest;
 @property (nonatomic, retain) NSNumber* idSender;
 @property (nonatomic, retain) NSString* numAll;
 @property (nonatomic, retain) NSString* numRead;
@@ -50,6 +49,9 @@
 
     
 #pragma mark Relationships
+
+#pragma mark MessageNewest
+@property (nonatomic, retain) MessageList* messageNewest;
 
 #pragma mark Messages
 - (NSSet*) messages;

@@ -7,11 +7,16 @@
 #import "DataManager.h"
 #import "MessageAction.h"
 #import "MessageSender.h"
+#import "MessageSender.h"
 
 
 @implementation _MessageList
 
 
+
+
+
+@dynamic firstMessage;
 
 
 
@@ -363,6 +368,14 @@
 	[self willAccessValueForKey:@"actions"];
 	NSMutableSet *result = [self mutableSetValueForKey:@"actions"];
 	[self didAccessValueForKey:@"actions"];
+	return result;
+}
+
+#pragma mark FirstMessage
+- (MessageSender*)firstMessage {
+	[self willAccessValueForKey:@"firstMessage"];
+	MessageSender *result = [self primitiveValueForKey:@"firstMessage"];
+	[self didAccessValueForKey:@"firstMessage"];
 	return result;
 }
 

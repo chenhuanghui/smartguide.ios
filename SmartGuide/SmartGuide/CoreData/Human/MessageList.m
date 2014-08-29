@@ -8,7 +8,6 @@
 {
     MessageList *obj=[MessageList insert];
     
-    obj.messageSender=[NSString makeString:data[@"sender"]];
     obj.idMessage=[NSNumber makeNumber:data[@"idMessage"]];
     obj.logo=[NSString makeString:data[@"logo"]];
     
