@@ -7,6 +7,8 @@
 //
 
 #import "TabUserViewController.h"
+#import "ImageManager.h"
+#import "DataManager.h"
 
 @interface TabUserViewController ()
 
@@ -27,6 +29,11 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    [imgvAvatar defaultLoadImageWithURL:currentUser().avatar];
+    imgvAvatar.layer.borderColor=[UIColor lightGrayColor].CGColor;
+    imgvAvatar.layer.borderWidth=8;
+    lblName.text=currentUser().name;
 }
 
 - (void)didReceiveMemoryWarning
