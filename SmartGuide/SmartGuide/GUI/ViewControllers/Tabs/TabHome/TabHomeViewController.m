@@ -19,6 +19,7 @@
 #import "MapViewController.h"
 #import "HomeShop.h"
 #import "ShopInfo.h"
+#import "ShopViewController.h"
 
 enum TABHOME_MODE
 {
@@ -271,6 +272,22 @@ enum TABHOME_MODE
     }
     
     return tableView.emptyCell;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    TabHomeShopCell *cell=(id)[tableView cellForRowAtIndexPath:indexPath];
+    
+    if([cell isKindOfClass:[TabHomeShopCell class]])
+    {
+        if([cell.object isKindOfClass:[HomeShop class]])
+        {
+            HomeShop *obj=cell.object;
+            ShopViewController *vc=[[ShopViewController alloc] initWithIDShop:obj.shop.idShop.integerValue];
+            
+            [self.navigationController pushViewController:vc animated:true];
+        }
+    }
 }
 
 -(void)tabHomeShopCellTouchedCover:(TabHomeShopCell *)cell

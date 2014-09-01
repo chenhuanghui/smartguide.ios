@@ -19,14 +19,14 @@
 
 -(void)loadWithEvent:(Event *)obj
 {
-    _obj=obj;
+    _object=obj;
     
     [self loadImage];
 }
 
 -(void) loadWithHomeShop:(HomeShop *)obj
 {
-    _obj=obj;
+    _object=obj;
     
     [self loadImage];
 }
@@ -232,20 +232,20 @@
     [self.displayView cornerRadiusWithRounding:UIRectCornerTopLeft|UIRectCornerTopRight cornerRad:CGSizeMake(4, 4)];
     self.imgvBG.frame=CGRectMake(4, 0, 312, self.SH-15);
     
-    [self calculateHeight:_obj];
+    [self calculateHeight:_object];
 }
 
 -(void) loadImage
 {
-    if([_obj isKindOfClass:[HomeShop class]])
+    if([_object isKindOfClass:[HomeShop class]])
     {
-        HomeShop *obj=_obj;
+        HomeShop *obj=_object;
         [_imgvAvatar defaultLoadImageWithURL:obj.shop.logo];
         [_imgvCover defaultLoadImageWithURL:obj.cover];
     }
-    else if([_obj isKindOfClass:[Event class]])
+    else if([_object isKindOfClass:[Event class]])
     {
-        Event *obj=_obj;
+        Event *obj=_object;
         [_imgvAvatar defaultLoadImageWithURL:obj.logo];
         [_imgvCover defaultLoadImageWithURL:obj.cover];
     }

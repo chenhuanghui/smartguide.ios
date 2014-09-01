@@ -15,6 +15,11 @@
     return @"ShopRelatedTableCell";
 }
 
++(float)height
+{
+    return 160;
+}
+
 @end
 
 @implementation UITableView(ShopRelatedTableCell)

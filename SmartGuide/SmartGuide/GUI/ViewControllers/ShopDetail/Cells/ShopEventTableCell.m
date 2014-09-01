@@ -15,6 +15,11 @@
     return @"ShopEventTableCell";
 }
 
++(float)height
+{
+    return 294;
+}
+
 @end
 
 @implementation UITableView(ShopEventTableCell)

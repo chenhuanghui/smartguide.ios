@@ -15,8 +15,15 @@
     return @"ShopDescTableCell";
 }
 
++(float)height
+{
+    return 195;
+}
+
 @end
 
+#import <objc/runtime.h>
+static char ShopDescTablePrototypeCell;
 @implementation UITableView(ShopDescTableCell)
 
 -(void) registerShopDescTableCell
@@ -26,7 +33,26 @@
 
 -(ShopDescTableCell*) shopDescTableCell
 {
-    return [self dequeueReusableCellWithIdentifier:[ShopDescTableCell reuseIdentifier]];
+    ShopDescTableCell *cell=[self dequeueReusableCellWithIdentifier:[ShopDescTableCell reuseIdentifier]];
+    
+    cell.isPrototypeCell=false;
+    
+    return cell;
+}
+
+-(ShopDescTableCell *)shopDescTablePrototypeCell
+{
+    ShopDescTableCell *cell=objc_getAssociatedObject(self, &ShopDescTablePrototypeCell);
+    
+    if(!cell)
+    {
+        cell=[self shopDescTableCell];
+        objc_setAssociatedObject(cell, &ShopDescTablePrototypeCell, cell, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    }
+    
+    cell.isPrototypeCell=true;
+    
+    return cell;
 }
 
 @end

@@ -11,6 +11,7 @@
 @interface ShopRelatedTableCell : UITableViewCell
 
 +(NSString *)reuseIdentifier;
++(float) height;
 
 @end
 

@@ -11,6 +11,7 @@
 @interface ShopUserGalleryTableCell : UITableViewCell
 
 +(NSString *)reuseIdentifier;
++(float) height;
 
 @end
 

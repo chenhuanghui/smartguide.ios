@@ -1148,6 +1148,7 @@
 		A9EB14A61952D79C00191767 /* ShopUserGalleryControllerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A9EB14691952D79C00191767 /* ShopUserGalleryControllerCell.m */; };
 		A9EB14A71952D79C00191767 /* ShopUserGalleryControllerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9EB146A1952D79C00191767 /* ShopUserGalleryControllerCell.xib */; };
 		A9EB14AD1952DA4500191767 /* ShopManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A9EB14AC1952DA4500191767 /* ShopManager.m */; };
+		A9F7E39519B4656D00905E64 /* PageControlView.m in Sources */ = {isa = PBXBuildFile; fileRef = A9F7E39419B4656D00905E64 /* PageControlView.m */; };
 		A9FC9A6E19A7291D0000C07B /* TableCells.m in Sources */ = {isa = PBXBuildFile; fileRef = A9FC9A6D19A7291D0000C07B /* TableCells.m */; };
 		A9FCC9AE198745ED0088F9A4 /* GradientLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = A9FCC9AD198745ED0088F9A4 /* GradientLayer.m */; };
 		A9FCCA351987AF820088F9A4 /* LinearPartitionGallery.m in Sources */ = {isa = PBXBuildFile; fileRef = A9FCCA341987AF820088F9A4 /* LinearPartitionGallery.m */; };
@@ -2700,6 +2701,8 @@
 		A9EB146A1952D79C00191767 /* ShopUserGalleryControllerCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShopUserGalleryControllerCell.xib; sourceTree = "<group>"; };
 		A9EB14AB1952DA4500191767 /* ShopManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopManager.h; sourceTree = "<group>"; };
 		A9EB14AC1952DA4500191767 /* ShopManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopManager.m; sourceTree = "<group>"; };
+		A9F7E39319B4656D00905E64 /* PageControlView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PageControlView.h; sourceTree = "<group>"; };
+		A9F7E39419B4656D00905E64 /* PageControlView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PageControlView.m; sourceTree = "<group>"; };
 		A9FC9A6C19A7291D0000C07B /* TableCells.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableCells.h; sourceTree = "<group>"; };
 		A9FC9A6D19A7291D0000C07B /* TableCells.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableCells.m; sourceTree = "<group>"; };
 		A9FCC9AC198745ED0088F9A4 /* GradientLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GradientLayer.h; sourceTree = "<group>"; };
@@ -3992,6 +3995,8 @@
 				A94EC82419AB30DF00942ED6 /* NavigationView.m */,
 				A94EC82619AB325900942ED6 /* ButtonCityLocation.h */,
 				A94EC82719AB325900942ED6 /* ButtonCityLocation.m */,
+				A9F7E39319B4656D00905E64 /* PageControlView.h */,
+				A9F7E39419B4656D00905E64 /* PageControlView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -6026,6 +6031,7 @@
 				9A7AC22E18D191740043316D /* ShopListPlaceCell.m in Sources */,
 				A912C34B1990C29D00390166 /* OperationUpdateDeviceInfo.m in Sources */,
 				A9D53CE018ED6DE900C0B5F3 /* UserNotificationContent.m in Sources */,
+				A9F7E39519B4656D00905E64 /* PageControlView.m in Sources */,
 				A945B7BE19AF25DE00C6C238 /* OperationMessageList.m in Sources */,
 				9ADCD96518D19C3F004CB67E /* UIImage+WebP.m in Sources */,
 				9A29574018C23D8C004C8FD5 /* ASIOperationPostPicture.m in Sources */,

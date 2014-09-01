@@ -19,6 +19,9 @@
     [super loadView];
     
     self.navigationBarHidden=true;
+    
+    if([self respondsToSelector:@selector(setAutomaticallyAdjustsScrollViewInsets:)])
+        self.automaticallyAdjustsScrollViewInsets=false;
 }
 
 - (void)viewDidLoad
@@ -32,6 +35,11 @@
     [self pushViewController:controller animated:true completion:^{
         self.viewControllers=@[controller];
     }];
+}
+
+-(UIStatusBarStyle)preferredStatusBarStyle
+{
+    return UIStatusBarStyleLightContent;
 }
 
 @end

@@ -4,4 +4,6 @@
 {
 }
 
++(ShopInfoEvent*) makeWithData:(NSDictionary*) dict;
+
 @end

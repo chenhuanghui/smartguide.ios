@@ -18,7 +18,6 @@
 
 @interface TabHomeShopCell : UITableViewCell
 {
-    id _obj;
 }
 
 -(void) loadWithHomeShop:(HomeShop*) obj;
@@ -39,6 +38,7 @@
 @property (nonatomic, weak) IBOutlet UIImageView *imgvBG;
 @property (nonatomic, assign) bool isPrototypeCell;
 @property (nonatomic, weak) id<TabHomeShopCellDelegate> delegate;
+@property (nonatomic, weak) id object;
 
 @end
 

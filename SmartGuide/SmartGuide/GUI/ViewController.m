@@ -27,6 +27,9 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    if([self respondsToSelector:@selector(setAutomaticallyAdjustsScrollViewInsets:)])
+        self.automaticallyAdjustsScrollViewInsets=false;
 }
 
 - (void)didReceiveMemoryWarning
@@ -62,5 +65,10 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+-(UIStatusBarStyle)preferredStatusBarStyle
+{
+    return UIStatusBarStyleLightContent;
+}
 
 @end

@@ -112,10 +112,7 @@ static GUIManager *_shareInstance=nil;
 -(void)startupWithWindow:(UIWindow *)window
 {
     mainWindow=window;
-    if(NSFoundationVersionNumber>NSFoundationVersionNumber_iOS_6_1)
-        mainWindow.backgroundColor=[UIColor blackColor];
-    else
-        mainWindow.backgroundColor=[UIColor whiteColor];
+    mainWindow.backgroundColor=[UIColor whiteColor];
     
     [[TokenManager shareInstance] checkToken];
     

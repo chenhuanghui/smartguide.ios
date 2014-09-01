@@ -8,9 +8,20 @@
 
 #import <UIKit/UIKit.h>
 
+@class Label;
+
 @interface ShopDescTableCell : UITableViewCell
+{
+    __weak IBOutlet Label *lblThongTin;
+    __weak IBOutlet Label *lblDesc;
+    __weak IBOutlet UIView *line;
+    
+}
 
 +(NSString *)reuseIdentifier;
++(float) height;
+
+@property (nonatomic, assign) bool isPrototypeCell;
 
 @end
 
@@ -18,5 +29,6 @@
 
 -(void) registerShopDescTableCell;
 -(ShopDescTableCell*) shopDescTableCell;
+-(ShopDescTableCell*) shopDescTablePrototypeCell;
 
 @end

@@ -15,6 +15,11 @@
     return @"ShopContactTableCell";
 }
 
++(float)height
+{
+    return 108;
+}
+
 @end
 
 @implementation UITableView(ShopContactTableCell)

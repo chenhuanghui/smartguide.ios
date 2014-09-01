@@ -15,6 +15,11 @@
     return @"ShopUserGalleryTableCell";
 }
 
++(float)height
+{
+    return 127;
+}
+
 @end
 
 @implementation UITableView(ShopUserGalleryTableCell)

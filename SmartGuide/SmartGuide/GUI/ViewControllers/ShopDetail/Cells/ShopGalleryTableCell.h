@@ -8,9 +8,20 @@
 
 #import <UIKit/UIKit.h>
 
+@class PageControlView;
+
 @interface ShopGalleryTableCell : UITableViewCell
+{
+    __weak IBOutlet UICollectionView *collView;
+    __weak IBOutlet PageControlView *pageControl;
+}
+
+-(void) loadWithGalleries:(NSArray*) galleries;
 
 +(NSString *)reuseIdentifier;
++(float) height;
+
+@property (nonatomic, strong) NSArray *galleries;
 
 @end
 

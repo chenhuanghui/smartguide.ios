@@ -88,13 +88,25 @@
 - (void) removeAllEvents;
 
 #pragma mark Galleries
-@property (nonatomic, retain) ShopInfoGallery* galleries;
+- (NSSet*) galleries;
+- (NSArray*) galleriesObjects;
+- (void) addGalleries:(NSSet*)value;
+- (void) removeGalleries:(NSSet*)value;
+- (void) addGalleriesObject:(ShopInfoGallery*)value;
+- (void) removeGalleriesObject:(ShopInfoGallery*)value;
+- (void) removeAllGalleries;
 
 #pragma mark Home
 @property (nonatomic, retain) HomeShop* home;
 
 #pragma mark UserGalleries
-@property (nonatomic, retain) ShopInfoUserGallery* userGalleries;
+- (NSSet*) userGalleries;
+- (NSArray*) userGalleriesObjects;
+- (void) addUserGalleries:(NSSet*)value;
+- (void) removeUserGalleries:(NSSet*)value;
+- (void) addUserGalleriesObject:(ShopInfoUserGallery*)value;
+- (void) removeUserGalleriesObject:(ShopInfoUserGallery*)value;
+- (void) removeAllUserGalleries;
 
 
 

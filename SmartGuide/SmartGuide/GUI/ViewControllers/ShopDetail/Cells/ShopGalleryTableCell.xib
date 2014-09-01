@@ -14,15 +14,48 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="239"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Page Down 3.png" id="m3Z-td-guc">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="1490"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    </imageView>
+                    <view userInteractionEnabled="NO" alpha="0.10000000000000001" contentMode="scaleToFill" id="zw5-tU-g0G">
+                        <rect key="frame" x="0.0" y="225" width="320" height="5"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <view userInteractionEnabled="NO" alpha="0.29999999999999999" contentMode="scaleToFill" id="tRc-0H-dy2">
+                        <rect key="frame" x="0.0" y="230" width="320" height="5"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <view userInteractionEnabled="NO" alpha="0.5" contentMode="scaleToFill" id="4al-bt-u2C">
+                        <rect key="frame" x="0.0" y="235" width="320" height="5"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" delaysContentTouches="NO" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="none" id="HuI-zM-WVB">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="240"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="XKY-MK-TFy">
+                            <size key="itemSize" width="0.0" height="0.0"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                        <cells/>
+                        <connections>
+                            <outlet property="dataSource" destination="KGk-i7-Jjw" id="OJm-gy-Wtz"/>
+                            <outlet property="delegate" destination="KGk-i7-Jjw" id="4rg-sb-lcZ"/>
+                        </connections>
+                    </collectionView>
+                    <view contentMode="scaleToFill" id="7Wz-gF-eXK" customClass="PageControlView">
+                        <rect key="frame" x="125" y="10" width="70" height="20"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </view>
                 </subviews>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="collView" destination="HuI-zM-WVB" id="gxS-g5-l3E"/>
+                <outlet property="pageControl" destination="7Wz-gF-eXK" id="5ks-9t-vSK"/>
+            </connections>
         </tableViewCell>
     </objects>
-    <resources>
-        <image name="Page Down 3.png" width="640" height="2980"/>
-    </resources>
 </document>

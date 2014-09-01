@@ -127,9 +127,9 @@
         <attribute name="totalLove" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <relationship name="comments" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ShopInfoComment" inverseName="shop" inverseEntity="ShopInfoComment" syncable="YES"/>
         <relationship name="events" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ShopInfoEvent" inverseName="shop" inverseEntity="ShopInfoEvent" syncable="YES"/>
-        <relationship name="galleries" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="ShopInfoGallery" inverseName="shop" inverseEntity="ShopInfoGallery" syncable="YES"/>
+        <relationship name="galleries" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ShopInfoGallery" inverseName="shop" inverseEntity="ShopInfoGallery" syncable="YES"/>
         <relationship name="home" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="HomeShop" inverseName="shop" inverseEntity="HomeShop" syncable="YES"/>
-        <relationship name="userGalleries" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="ShopInfoUserGallery" inverseName="shop" inverseEntity="ShopInfoUserGallery" syncable="YES"/>
+        <relationship name="userGalleries" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ShopInfoUserGallery" inverseName="shop" inverseEntity="ShopInfoUserGallery" syncable="YES"/>
     </entity>
     <entity name="ShopInfoComment" representedClassName="ShopInfoComment" syncable="YES">
         <attribute name="agreeStatus" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
@@ -199,7 +199,7 @@
         <element name="MessageList" positionX="-9" positionY="144" width="128" height="328"/>
         <element name="MessageSender" positionX="-18" positionY="135" width="128" height="238"/>
         <element name="SearchPlacelist" positionX="-18" positionY="135" width="128" height="180"/>
-        <element name="ShopInfo" positionX="-18" positionY="27" width="128" height="403"/>
+        <element name="ShopInfo" positionX="-18" positionY="27" width="128" height="405"/>
         <element name="ShopInfoComment" positionX="0" positionY="153" width="128" height="178"/>
         <element name="ShopInfoEvent" positionX="9" positionY="162" width="128" height="208"/>
         <element name="ShopInfoGallery" positionX="-18" positionY="135" width="128" height="163"/>

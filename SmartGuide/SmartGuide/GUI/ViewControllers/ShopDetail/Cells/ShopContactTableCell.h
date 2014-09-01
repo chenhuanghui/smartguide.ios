@@ -11,6 +11,7 @@
 @interface ShopContactTableCell : UITableViewCell
 
 +(NSString *)reuseIdentifier;
++(float) height;
 
 @end
 

@@ -4,4 +4,6 @@
 {
 }
 
++(ShopInfoGallery*) makeWithData:(NSDictionary*) data;
+
 @end

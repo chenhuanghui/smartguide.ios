@@ -11,6 +11,7 @@
 @interface ShopEventTableCell : UITableViewCell
 
 +(NSString *)reuseIdentifier;
++(float) height;
 
 @end
 

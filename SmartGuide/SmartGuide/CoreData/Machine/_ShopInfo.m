@@ -21,7 +21,6 @@
 
 
 
-@dynamic galleries;
 
 
 
@@ -29,7 +28,6 @@
 
 
 
-@dynamic userGalleries;
 
 
 
@@ -488,9 +486,69 @@
 }
 
 #pragma mark Galleries
-- (ShopInfoGallery*)galleries {
+- (NSSet*)galleries {
 	[self willAccessValueForKey:@"galleries"];
-	ShopInfoGallery *result = [self primitiveValueForKey:@"galleries"];
+	NSSet *result = [self primitiveValueForKey:@"galleries"];
+	[self didAccessValueForKey:@"galleries"];
+	return result;
+}
+
+-(NSArray*) galleriesObjects
+{
+    NSSet *set=[self galleries];
+    if(set)
+        return [set allObjects];
+    
+    return [NSArray array];
+}
+
+- (void)setGalleries:(NSSet*)value {
+	[self willChangeValueForKey:@"galleries" withSetMutation:NSKeyValueSetSetMutation usingObjects:value];
+	[[self primitiveValueForKey:@"galleries"] setSet:value];
+	[self didChangeValueForKey:@"galleries" withSetMutation:NSKeyValueSetSetMutation usingObjects:value];
+}
+
+- (void)addGalleries:(NSSet*)value {
+	[self willChangeValueForKey:@"galleries" withSetMutation:NSKeyValueUnionSetMutation usingObjects:value];
+	[[self primitiveValueForKey:@"galleries"] unionSet:value];
+	[self didChangeValueForKey:@"galleries" withSetMutation:NSKeyValueUnionSetMutation usingObjects:value];
+}
+
+-(void)removeGalleries:(NSSet*)value {
+
+    for(NSManagedObject *obj in value.allObjects)
+        [self.managedObjectContext deleteObject:obj];
+
+	[self willChangeValueForKey:@"galleries" withSetMutation:NSKeyValueMinusSetMutation usingObjects:value];
+	[[self primitiveValueForKey:@"galleries"] minusSet:value];
+	[self didChangeValueForKey:@"galleries" withSetMutation:NSKeyValueMinusSetMutation usingObjects:value];
+}
+	
+- (void)addGalleriesObject:(ShopInfoGallery*)value {
+	NSSet *changedObjects = [[NSSet alloc] initWithObjects:&value count:1];
+	[self willChangeValueForKey:@"galleries" withSetMutation:NSKeyValueUnionSetMutation usingObjects:changedObjects];
+	[[self primitiveValueForKey:@"galleries"] addObject:value];
+	[self didChangeValueForKey:@"galleries" withSetMutation:NSKeyValueUnionSetMutation usingObjects:changedObjects];
+}
+
+- (void)removeGalleriesObject:(ShopInfoGallery*)value {
+
+    [self.managedObjectContext deleteObject:value];
+
+	NSSet *changedObjects = [[NSSet alloc] initWithObjects:&value count:1];
+	[self willChangeValueForKey:@"galleries" withSetMutation:NSKeyValueMinusSetMutation usingObjects:changedObjects];
+	[[self primitiveValueForKey:@"galleries"] removeObject:value];
+	[self didChangeValueForKey:@"galleries" withSetMutation:NSKeyValueMinusSetMutation usingObjects:changedObjects];
+}
+
+- (void) removeAllGalleries
+{
+    [self removeGalleries:self.galleries];
+}
+
+- (NSMutableSet*)galleriesSet {
+	[self willAccessValueForKey:@"galleries"];
+	NSMutableSet *result = [self mutableSetValueForKey:@"galleries"];
 	[self didAccessValueForKey:@"galleries"];
 	return result;
 }
@@ -504,9 +562,69 @@
 }
 
 #pragma mark UserGalleries
-- (ShopInfoUserGallery*)userGalleries {
+- (NSSet*)userGalleries {
 	[self willAccessValueForKey:@"userGalleries"];
-	ShopInfoUserGallery *result = [self primitiveValueForKey:@"userGalleries"];
+	NSSet *result = [self primitiveValueForKey:@"userGalleries"];
+	[self didAccessValueForKey:@"userGalleries"];
+	return result;
+}
+
+-(NSArray*) userGalleriesObjects
+{
+    NSSet *set=[self userGalleries];
+    if(set)
+        return [set allObjects];
+    
+    return [NSArray array];
+}
+
+- (void)setUserGalleries:(NSSet*)value {
+	[self willChangeValueForKey:@"userGalleries" withSetMutation:NSKeyValueSetSetMutation usingObjects:value];
+	[[self primitiveValueForKey:@"userGalleries"] setSet:value];
+	[self didChangeValueForKey:@"userGalleries" withSetMutation:NSKeyValueSetSetMutation usingObjects:value];
+}
+
+- (void)addUserGalleries:(NSSet*)value {
+	[self willChangeValueForKey:@"userGalleries" withSetMutation:NSKeyValueUnionSetMutation usingObjects:value];
+	[[self primitiveValueForKey:@"userGalleries"] unionSet:value];
+	[self didChangeValueForKey:@"userGalleries" withSetMutation:NSKeyValueUnionSetMutation usingObjects:value];
+}
+
+-(void)removeUserGalleries:(NSSet*)value {
+
+    for(NSManagedObject *obj in value.allObjects)
+        [self.managedObjectContext deleteObject:obj];
+
+	[self willChangeValueForKey:@"userGalleries" withSetMutation:NSKeyValueMinusSetMutation usingObjects:value];
+	[[self primitiveValueForKey:@"userGalleries"] minusSet:value];
+	[self didChangeValueForKey:@"userGalleries" withSetMutation:NSKeyValueMinusSetMutation usingObjects:value];
+}
+	
+- (void)addUserGalleriesObject:(ShopInfoUserGallery*)value {
+	NSSet *changedObjects = [[NSSet alloc] initWithObjects:&value count:1];
+	[self willChangeValueForKey:@"userGalleries" withSetMutation:NSKeyValueUnionSetMutation usingObjects:changedObjects];
+	[[self primitiveValueForKey:@"userGalleries"] addObject:value];
+	[self didChangeValueForKey:@"userGalleries" withSetMutation:NSKeyValueUnionSetMutation usingObjects:changedObjects];
+}
+
+- (void)removeUserGalleriesObject:(ShopInfoUserGallery*)value {
+
+    [self.managedObjectContext deleteObject:value];
+
+	NSSet *changedObjects = [[NSSet alloc] initWithObjects:&value count:1];
+	[self willChangeValueForKey:@"userGalleries" withSetMutation:NSKeyValueMinusSetMutation usingObjects:changedObjects];
+	[[self primitiveValueForKey:@"userGalleries"] removeObject:value];
+	[self didChangeValueForKey:@"userGalleries" withSetMutation:NSKeyValueMinusSetMutation usingObjects:changedObjects];
+}
+
+- (void) removeAllUserGalleries
+{
+    [self removeUserGalleries:self.userGalleries];
+}
+
+- (NSMutableSet*)userGalleriesSet {
+	[self willAccessValueForKey:@"userGalleries"];
+	NSMutableSet *result = [self mutableSetValueForKey:@"userGalleries"];
 	[self didAccessValueForKey:@"userGalleries"];
 	return result;
 }
