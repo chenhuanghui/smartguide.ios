@@ -27,7 +27,7 @@
     {
         float x=imgvLogo.xw+imgvLogo.OX;
         lblName.frame=CGRectMake(x, imgvLogo.OY, self.SW-x-10, 0);
-        [lblName sizeToFit];
+        [lblName defautSizeToFit];
         
         obj.nameRect=lblName.frame;
     }
@@ -39,7 +39,7 @@
     if(CGRectIsEmpty(obj.shopTypeRect))
     {
         lblType.frame=CGRectMake(lblName.OX, lblName.yh+5, lblName.SW, 0);
-        [lblType sizeToFit];
+        [lblType defautSizeToFit];
         
         obj.shopTypeRect=lblType.frame;
     }

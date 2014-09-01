@@ -18,5 +18,7 @@ enum SHOPINFO_DATA_TYPE
 
 @property (nonatomic, assign) CGRect nameRect;
 @property (nonatomic, assign) CGRect shopTypeRect;
+@property (nonatomic, assign) CGRect descRect;
+@property (nonatomic, assign) CGRect addressRect;
 
 @end

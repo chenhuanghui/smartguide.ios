@@ -8,10 +8,23 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ShopAddressTableCell : UITableViewCell
+@class Label, ShopInfo;
 
+@interface ShopAddressTableCell : UITableViewCell
+{
+    __weak IBOutlet Label *lblDiaChi;
+    __weak IBOutlet Label *lblKM;
+    __weak IBOutlet Label *lblAddress;
+    __weak IBOutlet UIButton *btn;
+    __weak IBOutlet UIView *line;
+}
+
+-(float) calculatorHeight:(ShopInfo*) obj;
 +(NSString *)reuseIdentifier;
 +(float) height;
+
+@property (nonatomic, assign) bool isPrototypeCell;
+@property (nonatomic, weak) ShopInfo *object;
 
 @end
 
@@ -19,5 +32,6 @@
 
 -(void) registerShopAddressTableCell;
 -(ShopAddressTableCell*) shopAddressTableCell;
+-(ShopAddressTableCell*) shopAddressTablePrototypeCell;
 
 @end

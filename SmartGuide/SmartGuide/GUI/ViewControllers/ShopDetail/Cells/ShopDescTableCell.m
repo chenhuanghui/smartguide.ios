@@ -7,8 +7,34 @@
 //
 
 #import "ShopDescTableCell.h"
+#import "ShopInfo.h"
+#import "Label.h"
+#import "Utility.h"
 
 @implementation ShopDescTableCell
+
+-(float)calculatorHeight:(ShopInfo *)obj
+{
+    lblThongTin.frame=CGRectMake(10, 10, self.SW, 0);
+    [lblThongTin defautSizeToFit];
+    
+    lblDesc.text=obj.desc;
+    
+    if(CGRectIsEmpty(obj.descRect))
+    {
+        float x=10;
+        lblDesc.frame=CGRectMake(x, lblThongTin.yh+5, self.SW-x*2, 0);
+        [lblDesc defautSizeToFit];
+        
+        obj.descRect=lblDesc.frame;
+    }
+    else
+        lblDesc.frame=obj.descRect;
+    
+    line.frame=CGRectMake(0, lblDesc.yh+5, self.SW, 2);
+    
+    return line.yh;
+}
 
 +(NSString *)reuseIdentifier
 {

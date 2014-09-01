@@ -8,20 +8,21 @@
 
 #import <UIKit/UIKit.h>
 
-@class Label;
+@class Label, ShopInfo;
 
 @interface ShopDescTableCell : UITableViewCell
 {
     __weak IBOutlet Label *lblThongTin;
     __weak IBOutlet Label *lblDesc;
     __weak IBOutlet UIView *line;
-    
 }
 
+-(float) calculatorHeight:(ShopInfo*) obj;
 +(NSString *)reuseIdentifier;
 +(float) height;
 
 @property (nonatomic, assign) bool isPrototypeCell;
+@property (nonatomic, weak, readonly) ShopInfo *object;
 
 @end
 

@@ -2,7 +2,7 @@
 #import "ShopInfoGallery.h"
 
 @implementation ShopInfo
-@synthesize nameRect, shopTypeRect;
+@synthesize nameRect, shopTypeRect, descRect, addressRect;
 
 +(ShopInfo *)shopWithIDShop:(NSNumber *)idShop
 {
