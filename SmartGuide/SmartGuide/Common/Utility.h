@@ -43,6 +43,7 @@ NSNumber* NMAX(NSNumber* num1,...);
 
 UIEdgeInsets UIEdgeInsetsMax(UIEdgeInsets edgeInsets1, UIEdgeInsets edgeInsets2);
 NSParagraphStyle *paragraphStyleJustified();
+NSAttributedString *attributedStringJustified(NSString* text, UIFont *font);
 NSString* NSStringFromCoordinate(CLLocationCoordinate2D coordinate);
 CGPathRef CGPathCreateRoundRect( const CGRect r, const CGFloat cornerRadius );
 bool isVailCLLocationCoordinate2D(CLLocationCoordinate2D location);

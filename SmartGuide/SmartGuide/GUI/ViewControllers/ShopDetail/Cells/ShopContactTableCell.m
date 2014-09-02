@@ -7,8 +7,22 @@
 //
 
 #import "ShopContactTableCell.h"
+#import "ShopInfo.h"
 
 @implementation ShopContactTableCell
+
+-(void)loadWithShopInfo:(ShopInfo *)obj
+{
+    _obj=obj;
+}
+
+-(void)layoutSubviews
+{
+    [super layoutSubviews];
+    
+    lblMail.text=@"";
+    lblPhone.text=_obj.telDisplay;
+}
 
 +(NSString *)reuseIdentifier
 {

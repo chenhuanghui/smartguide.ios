@@ -10,8 +10,16 @@
 #import "Label.h"
 #import "ShopInfo.h"
 #import "Utility.h"
+#import "Button.h"
 
 @implementation ShopAddressTableCell
+
+-(void)loadWithShopInfo:(ShopInfo *)obj
+{
+    _object=obj;
+    
+    [self setNeedsLayout];
+}
 
 -(float)calculatorHeight:(ShopInfo *)obj
 {
@@ -35,6 +43,20 @@
     line.frame=CGRectMake(0, btn.yh+20, self.SW, 2);
     
     return line.yh;
+}
+
+-(void)layoutSubviews
+{
+    [super layoutSubviews];
+    
+    [self calculatorHeight:_object];
+}
+
+-(void)awakeFromNib
+{
+    [super awakeFromNib];
+    
+    btn.layoutType=BUTTON_LAYOUT_TYPE_RED_BORDER;
 }
 
 +(NSString *)reuseIdentifier

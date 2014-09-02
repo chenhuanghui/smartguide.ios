@@ -8,12 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@class PageControlView;
+@class PageControlShopGallery;
 
 @interface ShopGalleryTableCell : UITableViewCell
 {
     __weak IBOutlet UICollectionView *collView;
-    __weak IBOutlet PageControlView *pageControl;
+    __weak IBOutlet PageControlShopGallery *pageControl;
 }
 
 -(void) loadWithGalleries:(NSArray*) galleries;

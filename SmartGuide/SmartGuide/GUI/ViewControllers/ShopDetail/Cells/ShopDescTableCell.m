@@ -13,12 +13,20 @@
 
 @implementation ShopDescTableCell
 
+-(void)loadWithShopInfo:(ShopInfo *)obj
+{
+    _object=obj;
+    
+    [self setNeedsLayout];
+}
+
 -(float)calculatorHeight:(ShopInfo *)obj
 {
     lblThongTin.frame=CGRectMake(10, 10, self.SW, 0);
     [lblThongTin defautSizeToFit];
     
-    lblDesc.text=obj.desc;
+    lblDesc.attributedText=[[NSAttributedString alloc] initWithString:obj.desc attributes:@{NSFontAttributeName:lblDesc.font
+                                                                                            , NSParagraphStyleAttributeName:paragraphStyleJustified()}];
     
     if(CGRectIsEmpty(obj.descRect))
     {
@@ -34,6 +42,16 @@
     line.frame=CGRectMake(0, lblDesc.yh+5, self.SW, 2);
     
     return line.yh;
+}
+
+-(void)layoutSubviews
+{
+    if(_isPrototypeCell)
+        return;
+    
+    [super layoutSubviews];
+    
+    [self calculatorHeight:_object];
 }
 
 +(NSString *)reuseIdentifier

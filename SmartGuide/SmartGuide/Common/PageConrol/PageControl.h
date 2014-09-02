@@ -12,6 +12,10 @@
 
 @interface PageControl : UIView
 
+-(void) initComponents;
+-(void) drawDotCurrentPage:(CGContextRef) context atPoint:(CGPoint) pnt;
+-(void) drawDotOtherPage:(CGContextRef) context atPoint:(CGPoint) pnt;
+
 // Set these to control the PageControl.
 @property (nonatomic) NSInteger currentPage;
 @property (nonatomic) NSInteger numberOfPages;
@@ -23,7 +27,10 @@
 // Optional delegate for callbacks when user taps a page dot.
 @property (nonatomic, weak) NSObject<PageControlDelegate> *delegate;
 
--(void) scrollViewDidScroll:(UIScrollView*) scrollView isHorizontal:(bool) isHorizontal;
+@property (nonatomic, weak) UIScrollView *scroll;
+@property (nonatomic, assign) UICollectionViewScrollDirection scrollDirection;
+@property (nonatomic, assign) float kDotDiameter;
+@property (nonatomic, assign) float kDotSpacer;
 
 @end
 
@@ -45,5 +52,11 @@
 }
 
 @property (nonatomic, weak) NSObject<PageControlNextDelegate> *delegate;
+
+@end
+
+@interface PageControlShopGallery : PageControl
+
+@property (nonatomic, assign) float lineWidth;
 
 @end

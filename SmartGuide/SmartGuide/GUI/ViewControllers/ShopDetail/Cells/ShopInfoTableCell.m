@@ -10,12 +10,16 @@
 #import "Label.h"
 #import "ShopInfo.h"
 #import "Utility.h"
+#import "ImageManager.h"
 
 @implementation ShopInfoTableCell
 
 -(void)loadWithShop:(ShopInfo *)obj
 {
     _obj=obj;
+    
+    [imgvLogo defaultLoadImageWithURL:_obj.logo];
+    
     [self setNeedsLayout];
 }
 
@@ -25,8 +29,8 @@
     
     if(CGRectIsEmpty(obj.nameRect))
     {
-        float x=imgvLogo.xw+imgvLogo.OX;
-        lblName.frame=CGRectMake(x, imgvLogo.OY, self.SW-x-10, 0);
+        float x=imageBorder.xw+imageBorder.OX;
+        lblName.frame=CGRectMake(x, imageBorder.OY, self.SW-x-10, 0);
         [lblName defautSizeToFit];
         
         obj.nameRect=lblName.frame;
@@ -46,9 +50,30 @@
     else
         lblType.frame=obj.shopTypeRect;
     
-    line.O=CGPointMake(0, imgvLogo.yh+imgvLogo.OY);
+    line.O=CGPointMake(0, imageBorder.yh+imageBorder.OY);
     
     return line.yh;
+}
+
+-(void)layoutSubviews
+{
+    if(_isPrototypeCell)
+        return;
+    
+    [super layoutSubviews];
+    [self calculatorHeight:_obj];
+}
+
+-(void)awakeFromNib
+{
+    [super awakeFromNib];
+    
+    imgvLogo.layer.masksToBounds=true;
+    imgvLogo.layer.cornerRadius=8;
+    imageBorder.backgroundColor=[UIColor clearColor];
+    imageBorder.layer.borderWidth=3;
+    imageBorder.layer.borderColor=[UIColor whiteColor].CGColor;
+    imageBorder.layer.cornerRadius=imgvLogo.layer.cornerRadius;
 }
 
 +(NSString *)reuseIdentifier

@@ -8,17 +8,18 @@
 
 #import <UIKit/UIKit.h>
 
-@class Label, ShopInfo;
+@class Label, ShopInfo, Button;
 
 @interface ShopAddressTableCell : UITableViewCell
 {
     __weak IBOutlet Label *lblDiaChi;
     __weak IBOutlet Label *lblKM;
     __weak IBOutlet Label *lblAddress;
-    __weak IBOutlet UIButton *btn;
+    __weak IBOutlet Button *btn;
     __weak IBOutlet UIView *line;
 }
 
+-(void) loadWithShopInfo:(ShopInfo*) obj;
 -(float) calculatorHeight:(ShopInfo*) obj;
 +(NSString *)reuseIdentifier;
 +(float) height;

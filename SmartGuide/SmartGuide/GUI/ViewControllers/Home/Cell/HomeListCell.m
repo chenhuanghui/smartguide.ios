@@ -228,7 +228,7 @@
                 [cell tableDidScroll];
         }
         
-        [pageControl scrollViewDidScroll:scrollView isHorizontal:true];
+//        [pageControl scrollViewDidScroll:scrollView isHorizontal:true];
     }
 }
 

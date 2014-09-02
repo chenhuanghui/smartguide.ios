@@ -29,6 +29,13 @@ enum SHOP_CONTROLLER_CELL_TYPE
     SHOP_CONTROLLER_CELL_TYPE_SHOP_RELATED=7,
 };
 
+@interface ShopCell : NSObject
+
+@property (nonatomic, assign) enum SHOP_CONTROLLER_CELL_TYPE cellType;
+@property (nonatomic, strong) id object;
+
+@end
+
 @interface ShopViewController ()<UITableViewDataSource, UITableViewDelegate, ASIOperationPostDelegate>
 {
     OperationShopUser *_opeShopUser;
@@ -39,6 +46,8 @@ enum SHOP_CONTROLLER_CELL_TYPE
 @property (nonatomic, strong) NSMutableArray *userGalleries;
 @property (nonatomic, strong) NSMutableArray *comments;
 @property (nonatomic, strong) NSMutableArray *events;
+@property (nonatomic, strong) ShopInfo *shop;
+@property (nonatomic, strong) NSMutableArray *cells;
 
 @end
 
@@ -51,7 +60,7 @@ enum SHOP_CONTROLLER_CELL_TYPE
     _idShop=idShop;
     
 #if DEBUG
-    _idShop=39352;
+    _idShop=39488;
 #endif
     
     return self;
@@ -61,6 +70,8 @@ enum SHOP_CONTROLLER_CELL_TYPE
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    self.cells=[NSMutableArray new];
     
     [table registerShopGalleryTableCell];
     [table registerShopInfoTableCell];
@@ -94,16 +105,64 @@ enum SHOP_CONTROLLER_CELL_TYPE
         
         OperationShopUser *ope=(id)operation;
         
+        self.shop=ope.shop;
         self.shopGalleries=ope.shopGalleries;
+        self.events=ope.shopEvents;
         
-        [table beginUpdates];
+        [self.cells removeAllObjects];
         
-        NSMutableArray *idx=[NSMutableArray array];
+        ShopCell *obj=[ShopCell new];
+        obj.cellType=SHOP_CONTROLLER_CELL_TYPE_SHOP_GALLERY;
+        obj.object=self.shop;
         
-        [idx addObject:makeIndexPath(SHOP_CONTROLLER_CELL_TYPE_SHOP_GALLERY, 0)];
-        [table reloadRowsAtIndexPaths:idx withRowAnimation:UITableViewRowAnimationNone];
+        [self.cells addObject:obj];
         
-        [table endUpdates];
+        obj=[ShopCell new];
+        obj.cellType=SHOP_CONTROLLER_CELL_TYPE_SHOP_INFO;
+        obj.object=self.shop;
+        
+        [self.cells addObject:obj];
+        
+        obj=[ShopCell new];
+        obj.cellType=SHOP_CONTROLLER_CELL_TYPE_SHOP_DESC;
+        obj.object=self.shop;
+        
+        [self.cells addObject:obj];
+        
+        obj=[ShopCell new];
+        obj.cellType=SHOP_CONTROLLER_CELL_TYPE_SHOP_ADDRESS;
+        obj.object=self.shop;
+        
+        [self.cells addObject:obj];
+        
+        obj=[ShopCell new];
+        obj.cellType=SHOP_CONTROLLER_CELL_TYPE_SHOP_CONTACT;
+        obj.object=self.shop;
+        
+        [self.cells addObject:obj];
+        
+        for(ShopInfoEvent *event in self.events)
+        {
+            obj=[ShopCell new];
+            obj.cellType=SHOP_CONTROLLER_CELL_TYPE_SHOP_EVENT;
+            obj.object=event;
+            
+            [self.cells addObject:obj];
+        }
+        
+        obj=[ShopCell new];
+        obj.cellType=SHOP_CONTROLLER_CELL_TYPE_SHOP_USER_GALLERY;
+        obj.object=self.shop;
+        
+        [self.cells addObject:obj];
+        
+        obj=[ShopCell new];
+        obj.cellType=SHOP_CONTROLLER_CELL_TYPE_SHOP_RELATED;
+        obj.object=self.shop;
+        
+        [self.cells addObject:obj];
+
+        [table reloadData];
     }
 }
 
@@ -116,34 +175,39 @@ enum SHOP_CONTROLLER_CELL_TYPE
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
+    return MIN(_cells.count, 1);
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 8;
+    return _cells.count;
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+-(float) cellHeightAtIndexPath:(NSIndexPath*) idx
 {
-    switch ((enum SHOP_CONTROLLER_CELL_TYPE)indexPath.row) {
+    if(_cells.count<idx.row)
+        return 0;
+    
+    ShopCell *obj=_cells[idx.row];
+    
+    switch (obj.cellType) {
         case SHOP_CONTROLLER_CELL_TYPE_SHOP_ADDRESS:
-            return [ShopAddressTableCell height];
+            return [[table shopAddressTablePrototypeCell] calculatorHeight:obj.object];
             
         case SHOP_CONTROLLER_CELL_TYPE_SHOP_CONTACT:
             return [ShopContactTableCell height];
             
         case SHOP_CONTROLLER_CELL_TYPE_SHOP_DESC:
-            return [ShopDescTableCell height];
+            return [[table shopDescTablePrototypeCell] calculatorHeight:obj.object];
             
         case SHOP_CONTROLLER_CELL_TYPE_SHOP_EVENT:
-            return [ShopEventTableCell height];
+            return [[table shopEventTablePrototypeCell] calculatorHeight:obj.object];
             
         case SHOP_CONTROLLER_CELL_TYPE_SHOP_GALLERY:
             return [ShopGalleryTableCell height];
             
         case SHOP_CONTROLLER_CELL_TYPE_SHOP_INFO:
-            return [ShopInfoTableCell height];
+            return [[table ShopInfoTablePrototypeCell] calculatorHeight:obj.object];
             
         case SHOP_CONTROLLER_CELL_TYPE_SHOP_RELATED:
             return [ShopRelatedTableCell height];
@@ -153,21 +217,36 @@ enum SHOP_CONTROLLER_CELL_TYPE
     }
 }
 
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    switch ((enum SHOP_CONTROLLER_CELL_TYPE)indexPath.row) {
+    return [self cellHeightAtIndexPath:indexPath];
+}
+
+-(UITableViewCell*) cellForRowAtIndexPath:(NSIndexPath*) idx
+{
+    if(_cells.count<idx.row)
+        return [table emptyCell];
+    
+    ShopCell *obj=[_cells objectAtIndex:idx.row];
+    switch (obj.cellType) {
         case SHOP_CONTROLLER_CELL_TYPE_SHOP_USER_GALLERY:
-            return [tableView shopUserGalleryTableCell];
+            return [table shopUserGalleryTableCell];
             
         case SHOP_CONTROLLER_CELL_TYPE_SHOP_RELATED:
-            return [tableView shopRelatedTableCell];
+            return [table shopRelatedTableCell];
             
         case SHOP_CONTROLLER_CELL_TYPE_SHOP_INFO:
-            return [tableView shopInfoTableCell];
+        {
+            ShopInfoTableCell *cell=[table shopInfoTableCell];
+            
+            [cell loadWithShop:obj.object];
+            
+            return cell;
+        }
             
         case SHOP_CONTROLLER_CELL_TYPE_SHOP_GALLERY:
         {
-            ShopGalleryTableCell *cell=[tableView shopGalleryTableCell];
+            ShopGalleryTableCell *cell=[table shopGalleryTableCell];
             
             [cell loadWithGalleries:_shopGalleries];
             
@@ -175,17 +254,46 @@ enum SHOP_CONTROLLER_CELL_TYPE
         }
             
         case SHOP_CONTROLLER_CELL_TYPE_SHOP_EVENT:
-            return [tableView shopEventTableCell];
+        {
+            ShopEventTableCell *cell=[table shopEventTableCell];
+            
+            [cell loadWithEvent:obj.object];
+            
+            return cell;
+        }
             
         case SHOP_CONTROLLER_CELL_TYPE_SHOP_DESC:
-            return [tableView shopDescTableCell];
+        {
+            ShopDescTableCell *cell=[table shopDescTableCell];
+            
+            [cell loadWithShopInfo:obj.object];
+            
+            return cell;
+        }
             
         case SHOP_CONTROLLER_CELL_TYPE_SHOP_CONTACT:
-            return [tableView shopContactTableCell];
+        {
+            ShopContactTableCell *cell=[table shopContactTableCell];
+            
+            [cell loadWithShopInfo:obj.object];
+            
+            return cell;
+        }
             
         case SHOP_CONTROLLER_CELL_TYPE_SHOP_ADDRESS:
-            return [tableView shopAddressTableCell];
+        {
+            ShopAddressTableCell *cell=[table shopAddressTableCell];
+            
+            [cell loadWithShopInfo:obj.object];
+            
+            return cell;
+        }
     }
+}
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return [self cellForRowAtIndexPath:indexPath];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -211,5 +319,11 @@ enum SHOP_CONTROLLER_CELL_TYPE
 {
     [super setContentInset:contentInset];
 }
+
+@end
+
+@implementation ShopCell
+
+
 
 @end

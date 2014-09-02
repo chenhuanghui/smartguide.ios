@@ -8,10 +8,19 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ShopContactTableCell : UITableViewCell
+@class ShopInfo;
 
+@interface ShopContactTableCell : UITableViewCell
+{
+    __weak IBOutlet UILabel *lblPhone;
+    __weak IBOutlet UILabel *lblMail;
+}
+
+-(void) loadWithShopInfo:(ShopInfo*) obj;
 +(NSString *)reuseIdentifier;
 +(float) height;
+
+@property (nonatomic, weak) ShopInfo *obj;
 
 @end
 

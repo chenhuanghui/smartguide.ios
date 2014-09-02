@@ -15,6 +15,7 @@
     __weak IBOutlet Label *lblName;
     __weak IBOutlet Label *lblType;
     __weak IBOutlet UIImageView *imgvLogo;
+    __weak IBOutlet UIView *imageBorder;
     __weak IBOutlet UIView *line;
 }
 

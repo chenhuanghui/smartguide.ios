@@ -1,6 +1,7 @@
 #import "ShopInfoEvent.h"
 
 @implementation ShopInfoEvent
+@synthesize titleRect, contentRect;
 
 +(ShopInfoEvent *)makeWithData:(NSDictionary *)dict
 {

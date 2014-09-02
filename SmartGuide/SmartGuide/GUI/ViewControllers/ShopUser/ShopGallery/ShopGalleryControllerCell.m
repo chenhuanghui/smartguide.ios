@@ -83,7 +83,7 @@
 {
     if(scrollView==collection)
     {
-        [pageControl scrollViewDidScroll:scrollView isHorizontal:false];
+//        [pageControl scrollViewDidScroll:scrollView isHorizontal:false];
         
         for(ShopGalleryCell *cell in collection.visibleCells)
         {

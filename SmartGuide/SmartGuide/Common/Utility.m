@@ -73,6 +73,12 @@ NSParagraphStyle *paragraphStyleJustified()
     return paraStyle;
 }
 
+NSAttributedString *attributedStringJustified(NSString* text, UIFont *font)
+{
+    return [[NSAttributedString alloc] initWithString:text attributes:@{NSFontAttributeName:font
+                                                                        , NSParagraphStyleAttributeName:paragraphStyleJustified()}];
+}
+
 NSString* NSStringFromCoordinate(CLLocationCoordinate2D coordinate)
 {
     return [NSString stringWithFormat:@"coordinate latitude %f longitude %f",coordinate.latitude,coordinate.longitude];

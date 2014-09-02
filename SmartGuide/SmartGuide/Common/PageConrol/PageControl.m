@@ -9,10 +9,6 @@
 #import "PageControl.h"
 #import "Utility.h"
 
-// Tweak these or make them dynamic.
-#define kDotDiameter 7.0
-#define kDotSpacer 7.0
-
 @implementation PageControl
 
 @synthesize dotColorCurrentPage;
@@ -23,6 +19,9 @@
 
 - (void)setCurrentPage:(NSInteger)page
 {
+    if(currentPage==page)
+        return;
+    
     currentPage = MIN(MAX(0, page), self.numberOfPages-1);
     [self setNeedsDisplay];
 }
@@ -40,8 +39,7 @@
     {
         // Default colors.
         self.backgroundColor = [UIColor clearColor];
-        self.dotColorCurrentPage = [UIColor blackColor];
-        self.dotColorOtherPage = [UIColor lightGrayColor];
+        [self initComponents];
     }
     return self;
 }
@@ -50,10 +48,17 @@
 {
     if (self = [super initWithCoder:aDecoder])
     {
-        self.dotColorCurrentPage = [UIColor blackColor];
-        self.dotColorOtherPage = [UIColor lightGrayColor];
+        [self initComponents];
     }
     return self;
+}
+
+-(void) initComponents
+{
+    self.dotColorCurrentPage = [UIColor blackColor];
+    self.dotColorOtherPage = [UIColor lightGrayColor];
+    self.kDotDiameter=7.f;
+    self.kDotSpacer=7.0f;
 }
 
 - (void)drawRect:(CGRect)rect
@@ -62,25 +67,39 @@
     CGContextSetAllowsAntialiasing(context, true);
     
     CGRect currentBounds = self.bounds;
-    CGFloat dotsWidth = self.numberOfPages*kDotDiameter + MAX(0, self.numberOfPages-1)*kDotSpacer;
+    CGFloat dotsWidth = self.numberOfPages*_kDotDiameter + MAX(0, self.numberOfPages-1)*_kDotSpacer;
     CGFloat x = CGRectGetMidX(currentBounds)-dotsWidth/2;
-    CGFloat y = CGRectGetMidY(currentBounds)-kDotDiameter/2;
+    CGFloat y = CGRectGetMidY(currentBounds)-_kDotDiameter/2;
     for (int i=0; i<self.numberOfPages; i++)
     {
-        CGRect circleRect = CGRectMake(x, y, kDotDiameter, kDotDiameter);
+        
         if (i == self.currentPage)
         {
-            CGContextSetFillColorWithColor(context, self.dotColorCurrentPage.CGColor);
+            [self drawDotCurrentPage:context atPoint:CGPointMake(x, y)];
         }
         else
         {
-            CGContextSetFillColorWithColor(context, self.dotColorOtherPage.CGColor);
+            [self drawDotOtherPage:context atPoint:CGPointMake(x, y)];
         }
-        CGContextFillEllipseInRect(context, circleRect);
-        x += kDotDiameter + kDotSpacer;
+        
+        
+        x += _kDotDiameter + _kDotSpacer;
     }
 }
 
+-(void)drawDotCurrentPage:(CGContextRef)context atPoint:(CGPoint)pnt
+{
+    CGRect circleRect = CGRectMake(pnt.x, pnt.y, _kDotDiameter, _kDotDiameter);
+    CGContextSetFillColorWithColor(context, self.dotColorCurrentPage.CGColor);
+    CGContextFillEllipseInRect(context, circleRect);
+}
+
+-(void)drawDotOtherPage:(CGContextRef)context atPoint:(CGPoint)pnt
+{
+    CGRect circleRect = CGRectMake(pnt.x, pnt.y, _kDotDiameter, _kDotDiameter);
+    CGContextSetFillColorWithColor(context, self.dotColorOtherPage.CGColor);
+    CGContextFillEllipseInRect(context, circleRect);
+}
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
@@ -88,8 +107,8 @@
     
     CGPoint touchPoint = [[[event touchesForView:self] anyObject] locationInView:self];
     
-    CGFloat dotSpanX = self.numberOfPages*(kDotDiameter + kDotSpacer);
-    CGFloat dotSpanY = kDotDiameter + kDotSpacer;
+    CGFloat dotSpanX = self.numberOfPages*(_kDotDiameter + _kDotSpacer);
+    CGFloat dotSpanY = _kDotDiameter + _kDotSpacer;
     
     CGRect currentBounds = self.bounds;
     CGFloat x = touchPoint.x + dotSpanX/2 - CGRectGetMidX(currentBounds);
@@ -97,7 +116,7 @@
     
     if ((x<0) || (x>dotSpanX) || (y<0) || (y>dotSpanY)) return;
     
-    int page=floor(x/(kDotDiameter+kDotSpacer));
+    int page=floor(x/(_kDotDiameter+_kDotSpacer));
     
     if(self.currentPage!=page)
     {
@@ -109,12 +128,44 @@
     }
 }
 
--(void)scrollViewDidScroll:(UIScrollView *)scrollView isHorizontal:(bool)isHorizontal
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView scrollDirection:(UICollectionViewScrollDirection) direction
 {
-    if(isHorizontal)
-        self.currentPage=[scrollView currentPageForHoriTable];
+    if(direction==UICollectionViewScrollDirectionHorizontal)
+        self.currentPage=scrollView.contentOffset.x/scrollView.frame.size.width;
     else
         self.currentPage=[scrollView currentPage];
+}
+
+-(void)setScroll:(UIScrollView *)scroll
+{
+    if(_scroll)
+        [_scroll removeObserver:self forKeyPath:@"contentOffset"];
+    
+    _scroll=scroll;
+    
+    if(_scroll)
+    {
+        [_scroll addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:nil];
+        [self scrollViewDidScroll:scroll scrollDirection:_scrollDirection];
+    }
+}
+
+-(void)dealloc
+{
+    self.scroll=nil;
+}
+
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    [self scrollViewDidScroll:object scrollDirection:_scrollDirection];
+}
+
+-(void)setScrollDirection:(UICollectionViewScrollDirection)scrollDirection
+{
+    _scrollDirection=scrollDirection;
+    
+    if(_scroll)
+        [self scrollViewDidScroll:_scroll scrollDirection:scrollDirection];
 }
 
 @end
@@ -132,24 +183,24 @@
         numOfPage=5;
     
     CGRect currentBounds = self.bounds;
-    CGFloat dotsWidth = numOfPage*kDotDiameter + MAX(0, numOfPage-1)*kDotSpacer;
+    CGFloat dotsWidth = numOfPage*self.kDotDiameter + MAX(0, numOfPage-1)*self.kDotSpacer;
     CGFloat x = CGRectGetMidX(currentBounds)-dotsWidth/2;
-    CGFloat y = CGRectGetMidY(currentBounds)-kDotDiameter/2;
+    CGFloat y = CGRectGetMidY(currentBounds)-self.kDotDiameter/2;
     
     if(self.numberOfPages>5)
     {
-        rect=CGRectMake(x, y, kDotDiameter, kDotDiameter);
+        rect=CGRectMake(x, y, self.kDotDiameter, self.kDotDiameter);
         
         if(self.currentPage>=4)
             [self drawLeftArrow:rect];
         else
             [self drawPage:context rect:rect page:0];
         
-        rect.origin.x += kDotDiameter + kDotSpacer;
+        rect.origin.x += self.kDotDiameter + self.kDotSpacer;
         [self drawPage:context rect:rect page:1];
-        rect.origin.x += kDotDiameter + kDotSpacer;
+        rect.origin.x += self.kDotDiameter + self.kDotSpacer;
         [self drawPage:context rect:rect page:2];
-        rect.origin.x += kDotDiameter + kDotSpacer;
+        rect.origin.x += self.kDotDiameter + self.kDotSpacer;
         
         if(self.currentPage==self.numberOfPages-1)
             [self drawOtherPage:context rect:rect];
@@ -158,7 +209,7 @@
         else
             [self drawPage:context rect:rect page:3];
         
-        rect.origin.x += kDotDiameter + kDotSpacer;
+        rect.origin.x += self.kDotDiameter + self.kDotSpacer;
         
         if(self.currentPage==self.numberOfPages-1)
             [self drawCurrentPage:context rect:rect];
@@ -170,7 +221,7 @@
     
     for (int i=0; i<numOfPage; i++)
     {
-        CGRect circleRect = CGRectMake(x, y, kDotDiameter, kDotDiameter);
+        CGRect circleRect = CGRectMake(x, y, self.kDotDiameter, self.kDotDiameter);
         
         if (i == self.currentPage)
         {
@@ -181,7 +232,7 @@
             CGContextSetFillColorWithColor(context, self.dotColorOtherPage.CGColor);
         }
         CGContextFillEllipseInRect(context, circleRect);
-        x += kDotDiameter + kDotSpacer;
+        x += self.kDotDiameter + self.kDotSpacer;
     }
 }
 
@@ -237,8 +288,8 @@
     
     int numOfPage=self.numberOfPages>0?self.numberOfPages+1:0;
     
-    CGFloat dotSpanX = numOfPage*(kDotDiameter + kDotSpacer);
-    CGFloat dotSpanY = kDotDiameter + kDotSpacer;
+    CGFloat dotSpanX = numOfPage*(self.kDotDiameter + self.kDotSpacer);
+    CGFloat dotSpanY = self.kDotDiameter + self.kDotSpacer;
     
     CGRect currentBounds = self.bounds;
     CGFloat x = touchPoint.x + dotSpanX/2 - CGRectGetMidX(currentBounds);
@@ -246,7 +297,7 @@
     
     if ((x<0) || (x>dotSpanX) || (y<0) || (y>dotSpanY)) return;
     
-    int page=floor(x/(kDotDiameter+kDotSpacer));
+    int page=floor(x/(self.kDotDiameter+self.kDotSpacer));
     
     if(page==numOfPage-1)
     {
@@ -262,6 +313,29 @@
             [self.delegate pageControlPageDidChange:self];
         }
     }
+}
+
+@end
+
+@implementation PageControlShopGallery
+
+-(void)drawDotOtherPage:(CGContextRef)context atPoint:(CGPoint)pnt
+{
+    CGContextSetFillColorWithColor(context, [UIColor whiteColor].CGColor);
+    CGContextFillEllipseInRect(context, CGRectMake(pnt.x, pnt.y, self.kDotDiameter, self.kDotDiameter));
+}
+
+-(void)drawDotCurrentPage:(CGContextRef)context atPoint:(CGPoint)pnt
+{
+    CGContextSetStrokeColorWithColor(context, [UIColor whiteColor].CGColor);
+    CGContextSetLineWidth(context, _lineWidth);
+    CGContextStrokeEllipseInRect(context, CGRectMake(pnt.x-_lineWidth, pnt.y-_lineWidth, self.kDotDiameter+_lineWidth*2, self.kDotDiameter+_lineWidth*2));
+}
+
+-(void)initComponents
+{
+    [super initComponents];
+    _lineWidth=3;
 }
 
 @end

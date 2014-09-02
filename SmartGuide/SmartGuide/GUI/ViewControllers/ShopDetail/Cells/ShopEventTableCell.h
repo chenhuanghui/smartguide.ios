@@ -8,10 +8,25 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ShopEventTableCell : UITableViewCell
+@class ShopInfoEvent, Label, Button;
 
+@interface ShopEventTableCell : UITableViewCell
+{
+    __weak IBOutlet Label *lblDuration;
+    __weak IBOutlet Label *lblTitle;
+    __weak IBOutlet Label *lblContent;
+    __weak IBOutlet Button *btn;
+    __weak IBOutlet UIImageView *imgvImage;
+    __weak IBOutlet UIView *line;
+}
+
+-(void) loadWithEvent:(ShopInfoEvent*) obj;
+-(float) calculatorHeight:(ShopInfoEvent*) obj;
 +(NSString *)reuseIdentifier;
 +(float) height;
+
+@property (nonatomic, weak, readonly) ShopInfoEvent *object;
+@property (nonatomic, assign) bool isPrototypeCell;
 
 @end
 
@@ -19,5 +34,6 @@
 
 -(void) registerShopEventTableCell;
 -(ShopEventTableCell*) shopEventTableCell;
+-(ShopEventTableCell*) shopEventTablePrototypeCell;
 
 @end

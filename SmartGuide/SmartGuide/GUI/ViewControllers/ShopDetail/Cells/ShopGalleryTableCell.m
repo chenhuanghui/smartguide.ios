@@ -11,7 +11,7 @@
 #import "Utility.h"
 #import "ShopInfoGallery.h"
 #import "ImageManager.h"
-#import "PageControlView.h"
+#import "PageControl.h"
 
 @interface ShopGalleryTableCell()<UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
 
@@ -22,11 +22,9 @@
 -(void)loadWithGalleries:(NSArray *)galleries
 {
     self.galleries=galleries;
+    pageControl.numberOfPages=galleries.count;
     pageControl.scroll=collView;
     pageControl.scrollDirection=UICollectionViewScrollDirectionHorizontal;
-    pageControl.numberOfPages=galleries.count;
-    pageControl.collView.collectionViewFlowLayout.minimumInteritemSpacing=5;
-    pageControl.collView.collectionViewFlowLayout.minimumLineSpacing=0;
     
     [collView reloadData];
 }

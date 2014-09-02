@@ -17,6 +17,7 @@
     __weak IBOutlet UIView *line;
 }
 
+-(void) loadWithShopInfo:(ShopInfo*) obj;
 -(float) calculatorHeight:(ShopInfo*) obj;
 +(NSString *)reuseIdentifier;
 +(float) height;

@@ -29,7 +29,7 @@
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    [page scrollViewDidScroll:scrollView isHorizontal:false];
+//    [page scrollViewDidScroll:scrollView isHorizontal:false];
 }
 
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
