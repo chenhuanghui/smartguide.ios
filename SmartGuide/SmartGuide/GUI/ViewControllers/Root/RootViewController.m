@@ -34,12 +34,13 @@
 #import "TabUserViewController.h"
 #import "NavigationController.h"
 
-@interface RootViewController ()<NavigationControllerDelegate,UIScrollViewDelegate,HomeControllerDelegate,UserPromotionDelegate,SGUserSettingControllerDelegate,WebViewDelegate,ShopUserControllerDelegate,UIGestureRecognizerDelegate,RemoteNotificationDelegate, ScanCodeControllerDelegate, RevealControllerDelegate, SearchControllerDelegate>
+@interface RootViewController ()<NavigationControllerDelegate,UIScrollViewDelegate,HomeControllerDelegate,UserPromotionDelegate,SGUserSettingControllerDelegate,WebViewDelegate,ShopUserControllerDelegate,UIGestureRecognizerDelegate,RemoteNotificationDelegate, ScanCodeControllerDelegate, RevealControllerDelegate, SearchControllerDelegate, TabScanControllerDelegate>
 {
     __weak RevealViewController *revealControlelr;
 }
 
 @property (nonatomic, strong) TabsController *tabsController;
+@property (nonatomic, strong) TabScanViewController *scanController;
 
 @end
 
@@ -92,7 +93,15 @@
 - (IBAction)btnScanTouchUpInside:(id)sender {
     [self setSelectedButton:sender];
     
-    _tabsController.selectedViewController=_tabsController.tabScan;
+    self.scanController=[[TabScanViewController alloc] initWithDelegate:self];
+    [self.view addSubview:self.scanController.view];
+    self.scanController.view.S=self.view.S;
+}
+
+-(void)tabScanControllerTouchedClose:(TabScanViewController *)controller
+{
+    [self.scanController.view removeFromSuperview];
+    self.scanController=nil;
 }
 
 - (IBAction)btnInboxTouchUpInside:(id)sender {

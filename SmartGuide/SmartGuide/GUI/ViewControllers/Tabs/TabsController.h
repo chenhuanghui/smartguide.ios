@@ -14,7 +14,7 @@
 
 @property (nonatomic, weak, readonly) NavigationController *tabHome;
 @property (nonatomic, weak, readonly) NavigationController *tabSearch;
-@property (nonatomic, weak, readonly) NavigationController *tabScan;
+//@property (nonatomic, weak, readonly) NavigationController *tabScan;
 @property (nonatomic, weak, readonly) NavigationController *tabInbox;
 @property (nonatomic, weak, readonly) NavigationController *tabUser;
 

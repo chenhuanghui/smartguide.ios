@@ -35,23 +35,23 @@
     
     TabHomeViewController *tabHome=[TabHomeViewController new];
     TabSearchViewController *tabSearch=[TabSearchViewController new];
-    TabScanViewController *tabScan=[TabScanViewController new];
+//    TabScanViewController *tabScan=[TabScanViewController new];
     TabInboxViewController *tabInbox=[TabInboxViewController new];
     TabUserViewController *tabUser=[TabUserViewController new];
     
     NavigationController *nav1=[[NavigationController alloc] initWithRootViewController:tabHome];
     NavigationController *nav2=[[NavigationController alloc] initWithRootViewController:tabSearch];
-    NavigationController *nav3=[[NavigationController alloc] initWithRootViewController:tabScan];
+//    NavigationController *nav3=[[NavigationController alloc] initWithRootViewController:tabScan];
     NavigationController *nav4=[[NavigationController alloc] initWithRootViewController:tabInbox];
     NavigationController *nav5=[[NavigationController alloc] initWithRootViewController:tabUser];
     
     _tabHome=nav1;
     _tabSearch=nav2;
-    _tabScan=nav3;
+//    _tabScan=nav3;
     _tabInbox=nav4;
     _tabUser=nav5;
     
-    self.viewControllers=@[nav1, nav2, nav3, nav4, nav5];
+    self.viewControllers=@[nav1, nav2, nav4, nav5];
 }
 
 - (void)viewDidLoad
