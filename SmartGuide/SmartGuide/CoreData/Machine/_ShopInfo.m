@@ -9,6 +9,7 @@
 #import "ShopInfoEvent.h"
 #import "ShopInfoGallery.h"
 #import "HomeShop.h"
+#import "ShopInfoList.h"
 #import "ShopInfoUserGallery.h"
 
 
@@ -25,6 +26,10 @@
 
 
 @dynamic home;
+
+
+
+@dynamic shopList;
 
 
 
@@ -558,6 +563,14 @@
 	[self willAccessValueForKey:@"home"];
 	HomeShop *result = [self primitiveValueForKey:@"home"];
 	[self didAccessValueForKey:@"home"];
+	return result;
+}
+
+#pragma mark ShopList
+- (ShopInfoList*)shopList {
+	[self willAccessValueForKey:@"shopList"];
+	ShopInfoList *result = [self primitiveValueForKey:@"shopList"];
+	[self didAccessValueForKey:@"shopList"];
 	return result;
 }
 

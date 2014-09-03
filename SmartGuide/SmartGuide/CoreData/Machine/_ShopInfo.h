@@ -31,6 +31,7 @@
 @class ShopInfoEvent;
 @class ShopInfoGallery;
 @class HomeShop;
+@class ShopInfoList;
 @class ShopInfoUserGallery;
 
 @interface _ShopInfo : NSManagedObject
@@ -98,6 +99,9 @@
 
 #pragma mark Home
 @property (nonatomic, retain) HomeShop* home;
+
+#pragma mark ShopList
+@property (nonatomic, retain) ShopInfoList* shopList;
 
 #pragma mark UserGalleries
 - (NSSet*) userGalleries;

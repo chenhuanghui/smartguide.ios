@@ -79,6 +79,8 @@
 //    style.paragraphInset=paraInset;
     
     [lblText addStyle:style];
+    
+    lblText.userInteractionEnabled=false;
 }
 
 +(float)height

@@ -12,6 +12,7 @@
 #import "Home.h"
 #import "Event.h"
 #import "HomeImages.h"
+#import "HomeImage.h"
 #import "TabHomeImagesCell.h"
 #import "TabHomeShopCell.h"
 #import "NavigationView.h"
@@ -20,6 +21,7 @@
 #import "HomeShop.h"
 #import "ShopInfo.h"
 #import "ShopViewController.h"
+#import "ListShopViewController.h"
 
 enum TABHOME_MODE
 {
@@ -35,7 +37,7 @@ enum TABHOME_MODE
 
 @end
 
-@interface TabHomeViewController ()<TableAPIDataSource, UITableViewDelegate, HomeDataDelegate, EventDataDelegate, TabHomeShopCellDelegate, MapControllerDataSource>
+@interface TabHomeViewController ()<TableAPIDataSource, UITableViewDelegate, HomeDataDelegate, EventDataDelegate, TabHomeShopCellDelegate, MapControllerDataSource, TabHomeImagesCellDelegate>
 {
 }
 
@@ -239,6 +241,7 @@ enum TABHOME_MODE
                 {
                     TabHomeImagesCell *cell=[tableView tabHomeImagesCell];
                     
+                    cell.delegate=self;
                     [cell loadWithHomeImages:obj.homeImage];
                     
                     return cell;
@@ -276,10 +279,11 @@ enum TABHOME_MODE
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    TabHomeShopCell *cell=(id)[tableView cellForRowAtIndexPath:indexPath];
+    UITableViewCell *selectedCell=[tableView cellForRowAtIndexPath:indexPath];
     
-    if([cell isKindOfClass:[TabHomeShopCell class]])
+    if([selectedCell isKindOfClass:[TabHomeShopCell class]])
     {
+        TabHomeShopCell *cell=(id)selectedCell;
         if([cell.object isKindOfClass:[HomeShop class]])
         {
             HomeShop *obj=cell.object;
@@ -287,6 +291,32 @@ enum TABHOME_MODE
             
             [self.navigationController pushViewController:vc animated:true];
         }
+        else if([cell.object isKindOfClass:[Event class]])
+        {
+            Event *obj=cell.object;
+            
+            if(obj.idShops.length>0)
+            {
+                ListShopViewController *vc=[[ListShopViewController alloc] initWithIDShops:obj.idShops];
+                [self.navigationController pushViewController:vc animated:true];
+            }
+        }
+    }
+}
+
+-(void)tabHomeImagesCell:(TabHomeImagesCell *)cell selectedImage:(HomeImage *)obj
+{
+    if(_mode==TABHOME_MODE_HOME)
+    {
+        ListShopViewController *vc=nil;
+        
+        if(obj.images.idShops.length>0)
+            vc=[[ListShopViewController alloc] initWithIDShops:obj.images.idShops];
+        else if(obj.images.idPlacelist)
+            vc=[[ListShopViewController alloc] initWithIDPlacelist:obj.images.idPlacelist.integerValue];
+        
+        if(vc)
+            [self.navigationController pushViewController:vc animated:true];
     }
 }
 

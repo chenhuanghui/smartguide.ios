@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@class Label, HomeShop, Event, TabHomeShopCell;
+@class Label, HomeShop, Event, TabHomeShopCell, ShopInfoList;
 
 @protocol TabHomeShopCellDelegate <NSObject>
 
@@ -22,6 +22,7 @@
 
 -(void) loadWithHomeShop:(HomeShop*) obj;
 -(void) loadWithEvent:(Event*) obj;
+-(void) loadWithShopInfoList:(ShopInfoList*) obj;
 -(float) calculateHeight:(id) obj;
 
 +(NSString *)reuseIdentifier;

@@ -47,6 +47,11 @@
     return cell;
 }
 
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    [self.delegate tabHomeImagesCell:self selectedImage:_obj.imagesObjects[indexPath.item]];
+}
+
 +(NSString *)reuseIdentifier
 {
     return @"TabHomeImagesCell";

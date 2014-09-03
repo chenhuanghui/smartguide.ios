@@ -245,6 +245,16 @@
 		A90E2D321936E7BD001B6A20 /* _UserNotificationAction.m in Sources */ = {isa = PBXBuildFile; fileRef = A90E2D311936E7BD001B6A20 /* _UserNotificationAction.m */; };
 		A90E2D351936E7C2001B6A20 /* UserNotificationAction.m in Sources */ = {isa = PBXBuildFile; fileRef = A90E2D341936E7C2001B6A20 /* UserNotificationAction.m */; };
 		A912C34B1990C29D00390166 /* OperationUpdateDeviceInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = A912C34A1990C29D00390166 /* OperationUpdateDeviceInfo.m */; };
+		A91430FD19B6C2AA0026C732 /* ShopInfoList.m in Sources */ = {isa = PBXBuildFile; fileRef = A91430FC19B6C2AA0026C732 /* ShopInfoList.m */; };
+		A914310019B6C2B10026C732 /* _ShopInfoList.m in Sources */ = {isa = PBXBuildFile; fileRef = A91430FF19B6C2B10026C732 /* _ShopInfoList.m */; };
+		A914310319B6C2E20026C732 /* OperationShopList.m in Sources */ = {isa = PBXBuildFile; fileRef = A914310219B6C2E20026C732 /* OperationShopList.m */; };
+		A914310719B6C5580026C732 /* ListShopPlacelistTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A914310519B6C5580026C732 /* ListShopPlacelistTableCell.m */; };
+		A914310819B6C5580026C732 /* ListShopPlacelistTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A914310619B6C5580026C732 /* ListShopPlacelistTableCell.xib */; };
+		A914310E19B6C71A0026C732 /* Place.m in Sources */ = {isa = PBXBuildFile; fileRef = A914310D19B6C71A0026C732 /* Place.m */; };
+		A914311119B6C7200026C732 /* _Place.m in Sources */ = {isa = PBXBuildFile; fileRef = A914311019B6C7200026C732 /* _Place.m */; };
+		A914311419B6C7810026C732 /* OperationPlacelistDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = A914311319B6C7810026C732 /* OperationPlacelistDetail.m */; };
+		A914311719B6C8D00026C732 /* OperationPlacelistGet.m in Sources */ = {isa = PBXBuildFile; fileRef = A914311619B6C8D00026C732 /* OperationPlacelistGet.m */; };
+		A914311A19B6C9A80026C732 /* OperationSearchShop.m in Sources */ = {isa = PBXBuildFile; fileRef = A914311919B6C9A80026C732 /* OperationSearchShop.m */; };
 		A91A675B1797F65000BEB8C5 /* DataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A91A67491797F65000BEB8C5 /* DataManager.m */; };
 		A91A675C1797F65000BEB8C5 /* human.h.motemplate in Resources */ = {isa = PBXBuildFile; fileRef = A91A674B1797F65000BEB8C5 /* human.h.motemplate */; };
 		A91A675D1797F65000BEB8C5 /* human.m.motemplate in Resources */ = {isa = PBXBuildFile; fileRef = A91A674C1797F65000BEB8C5 /* human.m.motemplate */; };
@@ -396,6 +406,8 @@
 		A95B1B2A19ADABC00077FA46 /* button_orange@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A95B1B2619ADABC00077FA46 /* button_orange@2x.png */; };
 		A95B1B2B19ADABC00077FA46 /* icon_pin.png in Resources */ = {isa = PBXBuildFile; fileRef = A95B1B2719ADABC00077FA46 /* icon_pin.png */; };
 		A95B1B2C19ADABC00077FA46 /* icon_pin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A95B1B2819ADABC00077FA46 /* icon_pin@2x.png */; };
+		A95C28DA19B6BD1D003071A2 /* ListShopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A95C28D819B6BD1D003071A2 /* ListShopViewController.m */; };
+		A95C28DB19B6BD1D003071A2 /* ListShopViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A95C28D919B6BD1D003071A2 /* ListShopViewController.xib */; };
 		A95F722619762BEC001E2881 /* OperationStaticMap.m in Sources */ = {isa = PBXBuildFile; fileRef = A95F722519762BEC001E2881 /* OperationStaticMap.m */; };
 		A95F7229197631D1001E2881 /* HTTPOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = A95F7228197631D1001E2881 /* HTTPOperation.m */; };
 		A95F99FC19B0705200B211D2 /* ShopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A95F99FA19B0705200B211D2 /* ShopViewController.m */; };
@@ -1578,6 +1590,25 @@
 		A90E2D341936E7C2001B6A20 /* UserNotificationAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserNotificationAction.m; sourceTree = "<group>"; };
 		A912C3491990C29D00390166 /* OperationUpdateDeviceInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OperationUpdateDeviceInfo.h; sourceTree = "<group>"; };
 		A912C34A1990C29D00390166 /* OperationUpdateDeviceInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OperationUpdateDeviceInfo.m; sourceTree = "<group>"; };
+		A91430FB19B6C2AA0026C732 /* ShopInfoList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopInfoList.h; sourceTree = "<group>"; };
+		A91430FC19B6C2AA0026C732 /* ShopInfoList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopInfoList.m; sourceTree = "<group>"; };
+		A91430FE19B6C2B10026C732 /* _ShopInfoList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _ShopInfoList.h; sourceTree = "<group>"; };
+		A91430FF19B6C2B10026C732 /* _ShopInfoList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _ShopInfoList.m; sourceTree = "<group>"; };
+		A914310119B6C2E20026C732 /* OperationShopList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OperationShopList.h; sourceTree = "<group>"; };
+		A914310219B6C2E20026C732 /* OperationShopList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OperationShopList.m; sourceTree = "<group>"; };
+		A914310419B6C5580026C732 /* ListShopPlacelistTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListShopPlacelistTableCell.h; sourceTree = "<group>"; };
+		A914310519B6C5580026C732 /* ListShopPlacelistTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListShopPlacelistTableCell.m; sourceTree = "<group>"; };
+		A914310619B6C5580026C732 /* ListShopPlacelistTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ListShopPlacelistTableCell.xib; sourceTree = "<group>"; };
+		A914310C19B6C71A0026C732 /* Place.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Place.h; sourceTree = "<group>"; };
+		A914310D19B6C71A0026C732 /* Place.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Place.m; sourceTree = "<group>"; };
+		A914310F19B6C7200026C732 /* _Place.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _Place.h; sourceTree = "<group>"; };
+		A914311019B6C7200026C732 /* _Place.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _Place.m; sourceTree = "<group>"; };
+		A914311219B6C7810026C732 /* OperationPlacelistDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OperationPlacelistDetail.h; sourceTree = "<group>"; };
+		A914311319B6C7810026C732 /* OperationPlacelistDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OperationPlacelistDetail.m; sourceTree = "<group>"; };
+		A914311519B6C8D00026C732 /* OperationPlacelistGet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OperationPlacelistGet.h; sourceTree = "<group>"; };
+		A914311619B6C8D00026C732 /* OperationPlacelistGet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OperationPlacelistGet.m; sourceTree = "<group>"; };
+		A914311819B6C9A80026C732 /* OperationSearchShop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OperationSearchShop.h; sourceTree = "<group>"; };
+		A914311919B6C9A80026C732 /* OperationSearchShop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OperationSearchShop.m; sourceTree = "<group>"; };
 		A91A67481797F65000BEB8C5 /* DataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataManager.h; sourceTree = "<group>"; };
 		A91A67491797F65000BEB8C5 /* DataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataManager.m; sourceTree = "<group>"; };
 		A91A674B1797F65000BEB8C5 /* human.h.motemplate */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = human.h.motemplate; sourceTree = "<group>"; };
@@ -1804,6 +1835,9 @@
 		A95B1B2619ADABC00077FA46 /* button_orange@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_orange@2x.png"; sourceTree = "<group>"; };
 		A95B1B2719ADABC00077FA46 /* icon_pin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_pin.png; sourceTree = "<group>"; };
 		A95B1B2819ADABC00077FA46 /* icon_pin@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_pin@2x.png"; sourceTree = "<group>"; };
+		A95C28D719B6BD1D003071A2 /* ListShopViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListShopViewController.h; sourceTree = "<group>"; };
+		A95C28D819B6BD1D003071A2 /* ListShopViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListShopViewController.m; sourceTree = "<group>"; };
+		A95C28D919B6BD1D003071A2 /* ListShopViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ListShopViewController.xib; sourceTree = "<group>"; };
 		A95F722419762BEC001E2881 /* OperationStaticMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OperationStaticMap.h; sourceTree = "<group>"; };
 		A95F722519762BEC001E2881 /* OperationStaticMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OperationStaticMap.m; sourceTree = "<group>"; };
 		A95F7227197631D1001E2881 /* HTTPOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPOperation.h; sourceTree = "<group>"; };
@@ -2795,6 +2829,7 @@
 		9A27BAA418D18BAD00E3EAC2 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				A95C28D619B6BD0D003071A2 /* ListShop */,
 				A95F99F819B0704400B211D2 /* ShopDetail */,
 				A960B08E19AC77F1007714B6 /* Map */,
 				A9685FD819AAEA0D00945BEA /* Tabs */,
@@ -3474,6 +3509,10 @@
 		A91A674A1797F65000BEB8C5 /* Human */ = {
 			isa = PBXGroup;
 			children = (
+				A914310C19B6C71A0026C732 /* Place.h */,
+				A914310D19B6C71A0026C732 /* Place.m */,
+				A91430FB19B6C2AA0026C732 /* ShopInfoList.h */,
+				A91430FC19B6C2AA0026C732 /* ShopInfoList.m */,
 				A991230C19B08F2600C5FDBE /* ShopInfoComment.h */,
 				A991230D19B08F2600C5FDBE /* ShopInfoComment.m */,
 				A991230E19B08F2600C5FDBE /* ShopInfoEvent.h */,
@@ -3569,6 +3608,10 @@
 		A91A674D1797F65000BEB8C5 /* Machine */ = {
 			isa = PBXGroup;
 			children = (
+				A914310F19B6C7200026C732 /* _Place.h */,
+				A914311019B6C7200026C732 /* _Place.m */,
+				A91430FE19B6C2B10026C732 /* _ShopInfoList.h */,
+				A91430FF19B6C2B10026C732 /* _ShopInfoList.m */,
 				A991231819B08F2C00C5FDBE /* _ShopInfoComment.h */,
 				A991231919B08F2C00C5FDBE /* _ShopInfoComment.m */,
 				A991231A19B08F2C00C5FDBE /* _ShopInfoEvent.h */,
@@ -3783,6 +3826,14 @@
 				A945B7BD19AF25DE00C6C238 /* OperationMessageList.m */,
 				A95F9A6D19B0897200B211D2 /* OperationShopUser.h */,
 				A95F9A6E19B0897200B211D2 /* OperationShopUser.m */,
+				A914310119B6C2E20026C732 /* OperationShopList.h */,
+				A914310219B6C2E20026C732 /* OperationShopList.m */,
+				A914311219B6C7810026C732 /* OperationPlacelistDetail.h */,
+				A914311319B6C7810026C732 /* OperationPlacelistDetail.m */,
+				A914311519B6C8D00026C732 /* OperationPlacelistGet.h */,
+				A914311619B6C8D00026C732 /* OperationPlacelistGet.m */,
+				A914311819B6C9A80026C732 /* OperationSearchShop.h */,
+				A914311919B6C9A80026C732 /* OperationSearchShop.m */,
 			);
 			path = Operations;
 			sourceTree = "<group>";
@@ -3887,6 +3938,19 @@
 				A959E9581974EA5F00129AB8 /* ScanResultInforyShareCell.xib */,
 			);
 			path = ScanResultInfory;
+			sourceTree = "<group>";
+		};
+		A95C28D619B6BD0D003071A2 /* ListShop */ = {
+			isa = PBXGroup;
+			children = (
+				A95C28D719B6BD1D003071A2 /* ListShopViewController.h */,
+				A95C28D819B6BD1D003071A2 /* ListShopViewController.m */,
+				A95C28D919B6BD1D003071A2 /* ListShopViewController.xib */,
+				A914310419B6C5580026C732 /* ListShopPlacelistTableCell.h */,
+				A914310519B6C5580026C732 /* ListShopPlacelistTableCell.m */,
+				A914310619B6C5580026C732 /* ListShopPlacelistTableCell.xib */,
+			);
+			path = ListShop;
 			sourceTree = "<group>";
 		};
 		A95F722319762BBA001E2881 /* HTTPOperation */ = {
@@ -5693,6 +5757,7 @@
 				9A7AC24818D192490043316D /* PlacelistCreateCell.xib in Resources */,
 				A968630A19AAF3FA00945BEA /* button_navigation.png in Resources */,
 				A968628819AAF3FA00945BEA /* button_backarrow.png in Resources */,
+				A95C28DB19B6BD1D003071A2 /* ListShopViewController.xib in Resources */,
 				A96862D019AAF3FA00945BEA /* button_loading_big_10.png in Resources */,
 				A96862AE19AAF3FA00945BEA /* button_green_left_home.png in Resources */,
 				A968623E19AAF3FA00945BEA /* bg_mid_search.png in Resources */,
@@ -5791,6 +5856,7 @@
 				A9685FEA19AAEC1E00945BEA /* TabHomeViewController.xib in Resources */,
 				A968633219AAF3FA00945BEA /* frame_avashop_home@2x.png in Resources */,
 				A968636D19AAF3FA00945BEA /* icon_dottitle@2x.png in Resources */,
+				A914310819B6C5580026C732 /* ListShopPlacelistTableCell.xib in Resources */,
 				A968628519AAF3FA00945BEA /* button_arrow_navigation@2x.png in Resources */,
 				A96863AB19AAF3FB00945BEA /* icon_refresh@2x.png in Resources */,
 				A96863AD19AAF3FB00945BEA /* icon_refresh_blue@2x.png in Resources */,
@@ -6044,6 +6110,7 @@
 				A945B7CB19AF32E700C6C238 /* TabInboxSectionView.m in Sources */,
 				9ADCD96218D19C3F004CB67E /* UIButton+WebCache.m in Sources */,
 				A939215319652F0E0091E804 /* _ScanCodeRelated.m in Sources */,
+				A914310719B6C5580026C732 /* ListShopPlacelistTableCell.m in Sources */,
 				A94EC7E219AB19B300942ED6 /* TabScanViewController.m in Sources */,
 				A97C549C1973CFF800A5C205 /* ScanResultRelatedMoreCell.m in Sources */,
 				A90E2D351936E7C2001B6A20 /* UserNotificationAction.m in Sources */,
@@ -6144,10 +6211,12 @@
 				9AC74E581860C0F70033EB61 /* ASIOperationPlacelistGetList.m in Sources */,
 				A945B7AC19AF20FA00C6C238 /* MessageList.m in Sources */,
 				9ADCD95C18D19C3F004CB67E /* SDWebImageCompat.m in Sources */,
+				A914310019B6C2B10026C732 /* _ShopInfoList.m in Sources */,
 				9A7AC23C18D192250043316D /* ShopPinView.m in Sources */,
 				A9685FE919AAEC1E00945BEA /* TabHomeViewController.m in Sources */,
 				9A32F4311843486F00704D26 /* AlphaView.m in Sources */,
 				A968600919AAF17A00945BEA /* Label.m in Sources */,
+				A914311719B6C8D00026C732 /* OperationPlacelistGet.m in Sources */,
 				A94EC83219AB3C7800942ED6 /* EventDataManager.m in Sources */,
 				9A7AC24718D192490043316D /* PlacelistCreateCell.m in Sources */,
 				9A27BCAF18D18BAD00E3EAC2 /* WelcomeViewController.m in Sources */,
@@ -6178,6 +6247,7 @@
 				9A889BC0187ABA7500602CBB /* ASIOperationUserCheck.m in Sources */,
 				9A96DC0F1886562600AD0EEC /* ASIOperationAddShopPlacelists.m in Sources */,
 				A94EC80419AB242700942ED6 /* HomeImage.m in Sources */,
+				A914311419B6C7810026C732 /* OperationPlacelistDetail.m in Sources */,
 				A991231419B08F2600C5FDBE /* ShopInfoComment.m in Sources */,
 				9ADCD94D18D19C3F004CB67E /* UIView+Layout.m in Sources */,
 				A970607719B5888F0065B8C5 /* Button.m in Sources */,
@@ -6296,6 +6366,7 @@
 				A9685FF819AAEC4600945BEA /* TabUserViewController.m in Sources */,
 				9A27BBF718D18BAD00E3EAC2 /* RegisterInfoStep1ViewController.m in Sources */,
 				9ACF7AA118698E4100B0BC78 /* _UserHome1.m in Sources */,
+				A95C28DA19B6BD1D003071A2 /* ListShopViewController.m in Sources */,
 				A939215419652F0E0091E804 /* _ScanCodeResult.m in Sources */,
 				9ADCD93F18D19C3F004CB67E /* AFSecurityPolicy.m in Sources */,
 				9ADCD96318D19C3F004CB67E /* UIImage+GIF.m in Sources */,
@@ -6318,6 +6389,7 @@
 				A9E0F5CC1962A58E005ABAA0 /* ScanResultViewController.m in Sources */,
 				A9AC694A18EEC28F006279FE /* ImageView.m in Sources */,
 				A9D9026F19ADD32D00BFCCA5 /* TabSearchTableCell.m in Sources */,
+				A914310E19B6C71A0026C732 /* Place.m in Sources */,
 				A925E3CF17B089EB00806617 /* TokenManager.m in Sources */,
 				A925E3DC17B09B9400806617 /* ASIOperationUploadUserGallery.m in Sources */,
 				A94EC83B19AB3ED400942ED6 /* TabHomeImagesCell.m in Sources */,
@@ -6343,6 +6415,7 @@
 				A9BF13D91963C11600D30EAA /* ScanResultDisconnectCell.m in Sources */,
 				9A24781918B74A4100BAAA7D /* LoadingMoreCell.m in Sources */,
 				A939215A19656C0C0091E804 /* _ScanCodeRelatedContain.m in Sources */,
+				A914311A19B6C9A80026C732 /* OperationSearchShop.m in Sources */,
 				9A27BC0918D18BAD00E3EAC2 /* HomeImagesCell.m in Sources */,
 				A94EC7E919AB22CF00942ED6 /* Infory.xcdatamodeld in Sources */,
 				9A7AC20E18D191250043316D /* SearchShopViewController.m in Sources */,
@@ -6362,6 +6435,7 @@
 				A95B1B001965A6EC006E9B27 /* ScanResultInforyVideoCell.m in Sources */,
 				A97C255C19627ECC00AD5344 /* SGViewController+PresentViewController.m in Sources */,
 				9ADCD95618D19C3F004CB67E /* HPGrowingTextView.m in Sources */,
+				A914311119B6C7200026C732 /* _Place.m in Sources */,
 				A97C255F19627F8100AD5344 /* SGViewController+DialogViewController.m in Sources */,
 				A9D70F7E191743BF007FA43A /* ASIOperationUpdateTokenUUID.m in Sources */,
 				A95B1AFC1965A6EC006E9B27 /* ScanResultInforyTextCell.m in Sources */,
@@ -6376,6 +6450,7 @@
 				A97C54DE1973DBC100A5C205 /* ScanResultObjectHeaderView.m in Sources */,
 				A945B7B319AF210000C6C238 /* _MessageAction.m in Sources */,
 				A991232019B08F2D00C5FDBE /* _ShopInfoComment.m in Sources */,
+				A91430FD19B6C2AA0026C732 /* ShopInfoList.m in Sources */,
 				9A693CB2186D484300114597 /* UserHomeImage.m in Sources */,
 				A9A45D6E19610E5E00119430 /* UserNotificationController.m in Sources */,
 				A9EB146B1952D79C00191767 /* ShopCameraPostViewController.m in Sources */,
@@ -6388,6 +6463,7 @@
 				9ACA42F8186D3BFB008D89BC /* UserHome8.m in Sources */,
 				A945B7C719AF2ADD00C6C238 /* TabInboxTableCell.m in Sources */,
 				9A27BBEC18D18BAD00E3EAC2 /* GUIManager.m in Sources */,
+				A914310319B6C2E20026C732 /* OperationShopList.m in Sources */,
 				9ACEC6711866CF6F00E4C5C1 /* ASIOperationShopDetailInfo.m in Sources */,
 				9A7E55B2183CEB88006D1798 /* ImageManager.m in Sources */,
 				9A7AC24B18D192490043316D /* PlaceListInfoCell.m in Sources */,

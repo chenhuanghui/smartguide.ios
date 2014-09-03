@@ -19,10 +19,18 @@
             break;
             
         case BUTTON_LAYOUT_TYPE_RED_BORDER:
+            
             self.layer.cornerRadius=4;
             self.layer.masksToBounds=true;
             self.layer.borderColor=[self titleColorForState:UIControlStateNormal].CGColor;
             self.layer.borderWidth=2;
+            
+            break;
+            
+        case BUTTON_LAYOUT_TYPE_BACK:
+            
+            [self setImage:[UIImage imageNamed:@"button_backarrow"] forState:UIControlStateNormal];
+            
             break;
     }
 }

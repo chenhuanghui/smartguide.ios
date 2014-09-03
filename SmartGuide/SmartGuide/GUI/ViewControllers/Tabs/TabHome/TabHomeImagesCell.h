@@ -9,7 +9,13 @@
 #import <UIKit/UIKit.h>
 #import "ImagesTableCell.h"
 
-@class HomeImages;
+@class HomeImages, HomeImage, TabHomeImagesCell;
+
+@protocol TabHomeImagesCellDelegate <NSObject>
+
+-(void) tabHomeImagesCell:(TabHomeImagesCell*) cell selectedImage:(HomeImage*) obj;
+
+@end
 
 @interface TabHomeImagesCell : ImagesTableCell
 {
@@ -20,6 +26,8 @@
 
 +(NSString *)reuseIdentifier;
 +(float) heightWithHomeImages:(HomeImages*) obj width:(float) width;
+
+@property (nonatomic, weak) id<TabHomeImagesCellDelegate> delegate;
 
 @end
 

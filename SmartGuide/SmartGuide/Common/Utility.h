@@ -41,6 +41,7 @@ NSNumber* NMAX(NSNumber* num1,...);
 #define SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
 #define CLLocationCoordinateInvail CLLocationCoordinate2DMake(-1, -1)
 
+bool CGRectIsZero(CGRect rect);
 UIEdgeInsets UIEdgeInsetsMax(UIEdgeInsets edgeInsets1, UIEdgeInsets edgeInsets2);
 NSParagraphStyle *paragraphStyleJustified();
 NSAttributedString *attributedStringJustified(NSString* text, UIFont *font);

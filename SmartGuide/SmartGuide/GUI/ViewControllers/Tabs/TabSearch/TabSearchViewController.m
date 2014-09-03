@@ -15,6 +15,7 @@
 #import "TableTemplates.h"
 #import "TabSearchHeaderSectionView.h"
 #import "CityManager.h"
+#import "ListShopViewController.h"
 
 enum SEARCH_DISPLAY_MODE
 {
@@ -325,6 +326,24 @@ enum SEARCH_DISPLAY_MODE
     }
 }
 
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *selectedCell=[tableView cellForRowAtIndexPath:indexPath];
+    
+    if([selectedCell isKindOfClass:[TabSearchTableCell class]])
+    {
+        TabSearchTableCell *cell=(id)selectedCell;
+        id obj=cell.object;
+        
+        if([obj isKindOfClass:[AutocompletePlacelist class]])
+        {
+            AutocompletePlacelist *place=obj;
+            ListShopViewController *vc=[[ListShopViewController alloc] initWithIDPlacelist:place.idPlacelist.integerValue];
+            [self.navigationController pushViewController:vc animated:true];
+        }
+    }
+}
+
 #pragma mark ASIOperation Delegate
 
 -(void)ASIOperaionPostFinished:(ASIOperationPost *)operation
@@ -412,6 +431,14 @@ enum SEARCH_DISPLAY_MODE
         txt.text=self.keywordSearch;
         [txt sendActionsForControlEvents:UIControlEventEditingChanged];
     }];
+}
+
+-(BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    ListShopViewController *vc=[[ListShopViewController alloc] initWithKeyword:textField.text];
+    [self.navigationController pushViewController:vc animated:true];
+    
+    return true;
 }
 
 @end

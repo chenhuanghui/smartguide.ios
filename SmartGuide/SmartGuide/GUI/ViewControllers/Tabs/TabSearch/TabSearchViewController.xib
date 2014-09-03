@@ -91,7 +91,7 @@
                             <rect key="frame" x="5" y="0.0" width="260" height="55"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="14"/>
-                            <textInputTraits key="textInputTraits"/>
+                            <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="search"/>
                             <connections>
                                 <outlet property="delegate" destination="-1" id="3LB-f1-nrT"/>
                             </connections>

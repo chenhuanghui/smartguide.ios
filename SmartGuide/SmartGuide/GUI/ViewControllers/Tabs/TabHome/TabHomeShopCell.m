@@ -14,6 +14,7 @@
 #import "Constant.h"
 #import "Label.h"
 #import "ShopInfo.h"
+#import "ShopInfoList.h"
 
 @implementation TabHomeShopCell
 
@@ -22,6 +23,7 @@
     _object=obj;
     
     [self loadImage];
+    [self setNeedsLayout];
 }
 
 -(void) loadWithHomeShop:(HomeShop *)obj
@@ -29,6 +31,15 @@
     _object=obj;
     
     [self loadImage];
+    [self setNeedsLayout];
+}
+
+-(void)loadWithShopInfoList:(ShopInfoList *)obj
+{
+    _object=obj;
+    
+    [self loadImage];
+    [self setNeedsLayout];
 }
 
 -(float)calculateHeight:(id)obj
@@ -50,7 +61,7 @@
         
         self.lblTitle.text=home.title;
         
-        if(CGRectEqualToRect(home.titleRect, CGRectZero))
+        if(CGRectIsZero(home.titleRect))
         {
             self.lblTitle.frame=CGRectMake(10, y, _displayView.SW-20, 0);
             [self.lblTitle defautSizeToFit];
@@ -71,7 +82,7 @@
                                                                        attributes:@{NSFontAttributeName:self.lblContent.font
                                                                                     , NSParagraphStyleAttributeName:paragraphStyleJustified()}];
         
-        if(CGRectEqualToRect(home.contentRect, CGRectZero))
+        if(CGRectIsZero(home.contentRect))
         {
             self.lblContent.frame=CGRectMake(10, y, _displayView.SW-20, 0);
             [self.lblContent defautSizeToFit];
@@ -89,7 +100,7 @@
         
         _lblName.text=home.shop.name;
         
-        if(CGRectEqualToRect(home.nameRect, CGRectZero))
+        if(CGRectIsZero(home.nameRect))
         {
             _lblName.frame=CGRectMake(_imgvAvatar.xw+15, _imgvLine.yh+15, 210, 0);
             [_lblName defautSizeToFit];
@@ -108,7 +119,7 @@
         
         _lblDesc.text=home.date;
         
-        if(CGRectEqualToRect(home.descRect, CGRectZero))
+        if(CGRectIsZero(home.descRect))
         {
             _lblDesc.frame=CGRectMake(_imgvAvatar.xw+15, y, 210, 0);
             [_lblDesc defautSizeToFit];
@@ -141,7 +152,7 @@
         
         self.lblTitle.text=home.title;
         
-        if(CGRectEqualToRect(home.titleRect, CGRectZero))
+        if(CGRectIsZero(home.titleRect))
         {
             self.lblTitle.frame=CGRectMake(10, y, _displayView.SW-20, 0);
             [self.lblTitle defautSizeToFit];
@@ -162,7 +173,7 @@
                                                                        attributes:@{NSFontAttributeName:self.lblContent.font
                                                                                     , NSParagraphStyleAttributeName:paragraphStyleJustified()}];
         
-        if(CGRectEqualToRect(home.contentRect, CGRectZero))
+        if(CGRectIsZero(home.contentRect))
         {
             self.lblContent.frame=CGRectMake(10, y, _displayView.SW-20, 0);
             [self.lblContent defautSizeToFit];
@@ -180,7 +191,7 @@
         
         _lblName.text=home.brandName;
         
-        if(CGRectEqualToRect(home.nameRect, CGRectZero))
+        if(CGRectIsZero(home.nameRect))
         {
             _lblName.frame=CGRectMake(_imgvAvatar.xw+15, _imgvLine.yh+15, 210, 0);
             [_lblName defautSizeToFit];
@@ -199,7 +210,7 @@
         
         _lblDesc.text=home.date;
         
-        if(CGRectEqualToRect(home.descRect, CGRectZero))
+        if(CGRectIsZero(home.descRect))
         {
             _lblDesc.frame=CGRectMake(_imgvAvatar.xw+15, y, 210, 0);
             [_lblDesc defautSizeToFit];
@@ -215,7 +226,86 @@
         
         return _imgvArrow.yh+30;
     }
-    
+    else if([obj isKindOfClass:[ShopInfoList class]])
+    {
+        ShopInfoList *home=obj;
+        float y=0;
+        
+        if([home.cover hasData])
+        {
+            self.imgvCover.S=CGSizeMake(310, 155);
+            y=self.imgvCover.SH+15;
+        }
+        else
+        {
+            self.imgvCover.S=CGSizeZero;
+        }
+        
+        self.lblTitle.text=@"";
+        self.lblTitle.frame=CGRectMake(10, y, _displayView.SW-20, 0);
+        
+        y+=_lblTitle.SH;
+        
+        if(_lblTitle.SH>0)
+            y+=15;
+        
+        self.lblContent.attributedText=[[NSAttributedString alloc] initWithString:home.desc
+                                                                       attributes:@{NSFontAttributeName:self.lblContent.font
+                                                                                    , NSParagraphStyleAttributeName:paragraphStyleJustified()}];
+        
+        if(CGRectIsZero(home.descRect))
+        {
+            self.lblContent.frame=CGRectMake(10, y, _displayView.SW-20, 0);
+            [self.lblContent defautSizeToFit];
+            
+            home.descRect=self.lblContent.frame;
+        }
+        else
+        {
+            self.lblContent.frame=home.descRect;
+        }
+        
+        [_imgvLine setOY:_lblContent.yh+15];
+        
+        [_imgvAvatar setO:CGPointMake(15, _imgvLine.yh+15)];
+        
+        _lblName.text=home.name;
+        
+        if(CGRectIsZero(home.nameRect))
+        {
+            _lblName.frame=CGRectMake(_imgvAvatar.xw+15, _imgvLine.yh+15, 210, 0);
+            [_lblName defautSizeToFit];
+            
+            home.nameRect=_lblName.frame;
+        }
+        else
+        {
+            _lblName.frame=home.nameRect;
+        }
+        
+        y=_lblName.yh;
+        
+        if(_lblName.SH>0)
+            y+=5;
+        
+        _lblDesc.text=home.address;
+        
+        if(CGRectIsZero(home.addressRect))
+        {
+            _lblDesc.frame=CGRectMake(_imgvAvatar.xw+15, y, 210, 0);
+            [_lblDesc defautSizeToFit];
+            
+            home.addressRect=_lblDesc.frame;
+        }
+        else
+        {
+            _lblDesc.frame=home.addressRect;
+        }
+        
+        _imgvArrow.frame=CGRectMake(_displayView.SW-20, _imgvAvatar.OY, 10, NMAX(@(_imgvAvatar.SH),@(_lblDesc.yh-_lblName.OY),nil).floatValue);
+        
+        return _imgvArrow.yh+30;
+    }
     
     
     return 0;
@@ -249,6 +339,13 @@
         [_imgvAvatar defaultLoadImageWithURL:obj.logo];
         [_imgvCover defaultLoadImageWithURL:obj.cover];
     }
+    else if([_object isKindOfClass:[ShopInfoList class]])
+    {
+        ShopInfoList *obj=_object;
+        
+        [_imgvAvatar defaultLoadImageWithURL:obj.logo];
+        [_imgvCover defaultLoadImageWithURL:obj.image];
+    }
 }
 
 -(void) tapCover:(UITapGestureRecognizer*) ta
@@ -259,6 +356,9 @@
 -(void)awakeFromNib
 {
     [super awakeFromNib];
+    
+    if(_isPrototypeCell)
+        return;
     
     self.imgvBG.image=[[UIImage imageNamed:@"bg_white.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(10, 10, 10, 10)];
     
