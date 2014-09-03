@@ -36,6 +36,14 @@ static ImageManager *_imageManager=nil;
 @implementation ImageManager
 @synthesize shopGallery,shopLogos,shopUserGallery,commentAvatar,storeLogo,imageScaleCrop;
 
++(void)load
+{
+#if DEBUG
+//    [[SDWebImageManager sharedManager].imageCache clearDisk];
+//    [[SDWebImageManager sharedManager].imageCache clearMemory];
+#endif
+}
+
 +(ImageManager*) sharedInstance
 {
     

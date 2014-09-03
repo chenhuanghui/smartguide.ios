@@ -51,8 +51,10 @@
     ImageCollectionCell *cell=[collView imageCollectionCell:indexPath];
     ShopInfoGallery *obj=_galleries[indexPath.item];
     
-    cell.imgv.contentMode=UIViewContentModeScaleAspectFit;
+    cell.imgv.contentMode=UIViewContentModeScaleAspectFill;
     [cell.imgv defaultLoadImageWithURL:obj.cover];
+    cell.collView=collectionView;
+    cell.clipsToBounds=true;
     
     return cell;
 }

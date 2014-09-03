@@ -13,6 +13,7 @@
 +(NSString *)reuseIdentifier;
 
 @property (nonatomic, weak, readonly) UIImageView *imgv;
+@property (nonatomic, weak) UICollectionView *collView;
 
 @end
 

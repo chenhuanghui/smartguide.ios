@@ -35,6 +35,36 @@
     _imgv.S=self.S;
 }
 
+-(void)setCollView:(UICollectionView *)collView
+{
+    if(_collView)
+        [_collView removeObserver:self forKeyPath:@"contentOffset"];
+    
+    _collView=collView;
+    
+    if(_collView)
+        [_collView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:nil];
+}
+
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    if(_collView.collectionViewFlowLayout.scrollDirection==UICollectionViewScrollDirectionHorizontal)
+    {
+        NSIndexPath *idx=[_collView indexPathForCell:self];
+        
+        if(!idx)
+            return;
+        
+        CGRect rect=[_collView rectForItemAtIndexPath:idx];
+        _imgv.OX=-(rect.origin.x-_collView.COX)/2;
+    }
+}
+
+-(void)dealloc
+{
+    self.collView=nil;
+}
+
 +(NSString *)reuseIdentifier
 {
     return @"ImageCollectionCell";
