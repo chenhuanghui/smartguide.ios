@@ -104,6 +104,11 @@
     self.scanController=nil;
 }
 
+-(void)tabScanController:(TabScanViewController *)controller scannedText:(NSString *)text type:(enum SCAN_CODE_TYPE)codeType
+{
+    
+}
+
 - (IBAction)btnInboxTouchUpInside:(id)sender {
     [self setSelectedButton:sender];
     

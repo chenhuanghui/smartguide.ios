@@ -1804,6 +1804,7 @@
 		A94EC84419AB512900942ED6 /* ImagesTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImagesTableCell.m; sourceTree = "<group>"; };
 		A94EC84D19AB527700942ED6 /* ImageCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageCollectionCell.h; sourceTree = "<group>"; };
 		A94EC84E19AB527700942ED6 /* ImageCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageCollectionCell.m; sourceTree = "<group>"; };
+		A94FFBAA19B80C72003790AF /* Protocols.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Protocols.h; sourceTree = "<group>"; };
 		A959E9561974EA5F00129AB8 /* ScanResultInforyShareCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScanResultInforyShareCell.h; sourceTree = "<group>"; };
 		A959E9571974EA5F00129AB8 /* ScanResultInforyShareCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScanResultInforyShareCell.m; sourceTree = "<group>"; };
 		A959E9581974EA5F00129AB8 /* ScanResultInforyShareCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScanResultInforyShareCell.xib; sourceTree = "<group>"; };
@@ -4873,6 +4874,7 @@
 				A9B44AC4195D13CA001E0F08 /* DLog.m */,
 				A98198D7178D5EDC0009FCB6 /* Constant.h */,
 				A945B7B619AF214800C6C238 /* Enums.h */,
+				A94FFBAA19B80C72003790AF /* Protocols.h */,
 				A961416A17A02E8800D30375 /* Flags.h */,
 				A961416B17A02E8800D30375 /* Flags.m */,
 				9A7E55B0183CEB88006D1798 /* ImageManager.h */,
