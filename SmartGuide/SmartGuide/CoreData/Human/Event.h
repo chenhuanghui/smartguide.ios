@@ -1,4 +1,5 @@
 #import "_Event.h"
+#import "Protocols.h"
 
 enum EVENT_TYPE
 {
@@ -19,5 +20,9 @@ enum EVENT_TYPE
 @property (nonatomic, assign) CGRect contentRect;
 @property (nonatomic, assign) CGRect nameRect;
 @property (nonatomic, assign) CGRect descRect;
+
+@end
+
+@interface Event(MapObject)<MapObject>
 
 @end

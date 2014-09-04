@@ -76,6 +76,7 @@ static char LoadMoreViewKey;
     if(self.loadMoreView)
     {
         self.loadMoreView.frame=rect;
+        [self.loadMoreView stopAnimating];
         [self.loadMoreView startAnimating];
         return;
     }

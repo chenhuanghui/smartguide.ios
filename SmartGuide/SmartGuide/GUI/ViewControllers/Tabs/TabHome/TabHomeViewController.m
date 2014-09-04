@@ -22,6 +22,7 @@
 #import "ShopInfo.h"
 #import "ShopViewController.h"
 #import "ListShopViewController.h"
+#import "DataAPI.h"
 
 enum TABHOME_MODE
 {
@@ -29,22 +30,12 @@ enum TABHOME_MODE
     TABHOME_MODE_EVENT=1,
 };
 
-@interface HomeShop(MapObject)<MapObject>
-
-@end
-
-@interface Event(MapObject)<MapObject>
-
-@end
-
-@interface TabHomeViewController ()<TableAPIDataSource, UITableViewDelegate, HomeDataDelegate, EventDataDelegate, TabHomeShopCellDelegate, MapControllerDataSource, TabHomeImagesCellDelegate>
+@interface TabHomeViewController ()<TableAPIDataSource, UITableViewDelegate, TabHomeShopCellDelegate, TabHomeImagesCellDelegate, DataAPIDelegate>
 {
 }
 
 @property (nonatomic, assign) enum TABHOME_MODE mode;
-@property (nonatomic, strong) HomeDataManager *homeManager;
-@property (nonatomic, strong) EventDataManager *eventManager;
-@property (nonatomic, weak) MapViewController *mapControlelr;
+@property (nonatomic, strong) DataAPI *dataAPI;
 
 @end
 
@@ -67,57 +58,28 @@ enum TABHOME_MODE
     [table registerTabHomeImagesCell];
     [table registerTabHomeShopCell];
     
-    self.homeManager=[HomeDataManager manager];
-    [self.homeManager addObserver:self];
-    
-    self.eventManager=[EventDataManager manager];
-    [self.eventManager addObserver:self];
+    self.dataAPI=[HomeDataAPI manager];
+    [self.dataAPI addObserver:self];
     
     [table showLoading];
     
-    [self.homeManager requestData];
+    [self.dataAPI requestData];
 }
 
 -(void)tableLoadMore:(TableAPI *)table
 {
-    switch (_mode) {
-        case TABHOME_MODE_HOME:
-            [_homeManager loadMore];
-            break;
-            
-        case TABHOME_MODE_EVENT:
-            [_eventManager loadMore];
-            break;
-    }
+    [self.dataAPI loadMore];
 }
 
--(void)homeDataFinished:(HomeDataManager *)dataManager
+-(void)dataAPIFinished:(DataAPI *)dataAPI
 {
     [table removeLoading];
     
-    table.canLoadMore=dataManager.canLoadMore;
+    table.canLoadMore=dataAPI.canLoadMore;
     [table reloadData];
-    
-    if(self.mapControlelr)
-        [self.mapControlelr markFinishedLoadMore:dataManager.canLoadMore];
 }
 
--(void)homeDataFailed:(HomeDataManager *)dataManager
-{
-}
-
--(void)eventDataFinished:(EventDataManager *)dataManager
-{
-    [table removeLoading];
-    
-    table.canLoadMore=dataManager.canLoadMore;
-    [table reloadData];
-    
-    if(self.mapControlelr)
-        [self.mapControlelr markFinishedLoadMore:dataManager.canLoadMore];
-}
-
--(void)eventDataFailed:(EventDataManager *)dataManager
+-(void)dataAPIFailed:(DataAPI *)dataAPI
 {
     
 }
@@ -152,21 +114,23 @@ enum TABHOME_MODE
         switch (_mode) {
             case TABHOME_MODE_HOME:
                 
-                [self.homeManager refreshData];
+                [self.dataAPI cancelAllRequest];
+                self.dataAPI=nil;
                 
-                [self.eventManager close];
-                self.eventManager=[EventDataManager new];
-                [self.eventManager addObserver:self];
+                self.dataAPI=[HomeDataAPI manager];
+                [self.dataAPI addObserver:self];
+                [self.dataAPI requestData];
                 
                 break;
                 
             case TABHOME_MODE_EVENT:
                 
-                [self.eventManager refreshData];
+                [self.dataAPI cancelAllRequest];
+                self.dataAPI=nil;
                 
-                [self.homeManager close];
-                self.homeManager=[HomeDataManager new];
-                [self.homeManager addObserver:self];
+                self.dataAPI=[EventDataAPI manager];
+                [self.dataAPI addObserver:self];
+                [self.dataAPI requestData];
                 
                 break;
         }
@@ -178,24 +142,12 @@ enum TABHOME_MODE
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    switch (_mode) {
-        case TABHOME_MODE_HOME:
-            return MIN(_homeManager.homes.count,1);
-            
-        case TABHOME_MODE_EVENT:
-            return MIN(_eventManager.events.count,1);
-    }
+    return MIN(_dataAPI.objects.count, 1);
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    switch (_mode) {
-        case TABHOME_MODE_HOME:
-            return _homeManager.homes.count;
-            
-        case TABHOME_MODE_EVENT:
-            return _eventManager.events.count;
-    }
+    return _dataAPI.objects.count;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -203,7 +155,7 @@ enum TABHOME_MODE
     switch (_mode) {
         case TABHOME_MODE_HOME:
         {
-            Home *obj=_homeManager.homes[indexPath.row];
+            Home *obj=_dataAPI.objects[indexPath.row];
             
             switch (obj.enumType) {
                     
@@ -220,7 +172,7 @@ enum TABHOME_MODE
             
         case TABHOME_MODE_EVENT:
         {
-            Event *obj=_eventManager.events[indexPath.row];
+            Event *obj=_dataAPI.objects[indexPath.row];
             
             return [tableView.tabHomeShopPrototypeCell calculateHeight:obj];
         }
@@ -234,7 +186,7 @@ enum TABHOME_MODE
     switch (_mode) {
         case TABHOME_MODE_HOME:
         {
-            Home *obj=_homeManager.homes[indexPath.row];
+            Home *obj=_dataAPI.objects[indexPath.row];
             
             switch (obj.enumType) {
                 case HOME_TYPE_IMAGES:
@@ -265,7 +217,7 @@ enum TABHOME_MODE
             
         case TABHOME_MODE_EVENT:
         {
-            Event *obj=_eventManager.events[indexPath.row];
+            Event *obj=_dataAPI.objects[indexPath.row];
             TabHomeShopCell *cell=[tableView tabHomeShopCell];
             
             [cell loadWithEvent:obj];
@@ -357,144 +309,20 @@ enum TABHOME_MODE
 }
 
 - (IBAction)btnMapTouchUpInside:(id)sender {
-    MapViewController *vc=[[MapViewController alloc] initWithDisplayMode:MAP_DISPLAY_MODE_OBJECT];
-    vc.dataSource=self;
-    vc.canLoadMore=true;
-    vc.dataMode=_mode==TABHOME_MODE_EVENT?MAP_DATA_MODE_EVENT:MAP_DATA_MODE_HOME;
     
-    self.mapControlelr=vc;
+    MapViewController *vc=nil;
+    
+    switch (_mode) {
+        case TABHOME_MODE_HOME:
+            vc=[[MapViewController alloc] initHomeMapWithDisplayMode:MAP_DISPLAY_MODE_OBJECT];
+            break;
+            
+        case TABHOME_MODE_EVENT:
+            vc=[[MapViewController alloc] initEventMapWithDisplayMode:MAP_DISPLAY_MODE_OBJECT];
+            break;
+    }
     
     [self.navigationController pushViewController:vc animated:true];
-}
-
--(NSUInteger)numberOfObjectMapController:(MapViewController *)controller
-{
-    switch (controller.dataMode) {
-        case MAP_DATA_MODE_HOME:
-            return _homeManager.homesMap.count;
-            
-        case MAP_DATA_MODE_EVENT:
-            return _eventManager.eventsMap.count;
-            
-        default:
-            return 0;
-    }
-}
-
--(id<MapObject>)mapController:(MapViewController *)controller objectAtIndex:(NSUInteger)index
-{
-    switch (controller.dataMode) {
-        case MAP_DATA_MODE_HOME:
-        {
-            Home *home=_homeManager.homesMap[index];
-            
-            return home.homeShop;
-        }
-            
-        case MAP_DATA_MODE_EVENT:
-        {
-            Event *obj=_eventManager.eventsMap[index];
-            
-            return obj;
-        }
-            
-        default:
-            return nil;
-    }
-}
-
--(void)mapControllerLoadMore:(MapViewController *)controller
-{
-    switch (controller.dataMode) {
-        case MAP_DATA_MODE_HOME:
-            [_homeManager loadMore];
-            break;
-            
-        case MAP_DATA_MODE_EVENT:
-            [_eventManager loadMore];
-            break;
-            
-        default:
-            break;
-    }
-}
-
--(void)mapController:(MapViewController *)controller switchToDataMode:(enum MAP_DATA_MODE)mode
-{
-    controller.canLoadMore=false;
-}
-
-@end
-
-@implementation HomeShop(MapObject)
-
--(NSString *)mapContent
-{
-    return [NSString makeString:self.content];
-}
-
--(NSString *)mapDesc
-{
-    return [NSString makeString:self.date];
-}
-
--(NSString *)mapLogo
-{
-    return [NSString makeString:self.shop.logo];
-}
-
--(NSString *)mapName
-{
-    return [NSString makeString:self.shop.name];
-}
-
--(NSString *)mapTitle
-{
-    return [NSString makeString:self.title];
-}
-
--(CLLocationCoordinate2D)coordinate
-{
-    return CLLocationCoordinate2DMake(self.shop.shopLat.doubleValue, self.shop.shopLng.doubleValue);
-}
-
--(NSString *)title
-{
-    return [NSString makeString:self.shop.name];
-}
-
-@end
-
-@implementation Event(MapObject)
-
--(NSString *)mapContent
-{
-    return [NSString makeString:self.desc];
-}
-
--(NSString *)mapDesc
-{
-    return [NSString makeString:self.date];
-}
-
--(NSString *)mapLogo
-{
-    return [NSString makeString:self.logo];
-}
-
--(NSString *)mapName
-{
-    return [NSString makeString:self.brandName];
-}
-
--(NSString *)mapTitle
-{
-    return [NSString makeString:self.title];
-}
-
--(CLLocationCoordinate2D)coordinate
-{
-    return CLLocationCoordinate2DMake(self.shopLat.doubleValue, self.shopLng.doubleValue);
 }
 
 @end

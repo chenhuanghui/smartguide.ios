@@ -65,3 +65,37 @@
 }
 
 @end
+
+@implementation Event(MapObject)
+
+-(NSString *)mapContent
+{
+    return [NSString makeString:self.desc];
+}
+
+-(NSString *)mapDesc
+{
+    return [NSString makeString:self.date];
+}
+
+-(NSString *)mapLogo
+{
+    return [NSString makeString:self.logo];
+}
+
+-(NSString *)mapName
+{
+    return [NSString makeString:self.brandName];
+}
+
+-(NSString *)mapTitle
+{
+    return [NSString makeString:self.title];
+}
+
+-(CLLocationCoordinate2D)coordinate
+{
+    return CLLocationCoordinate2DMake(self.shopLat.doubleValue, self.shopLng.doubleValue);
+}
+
+@end

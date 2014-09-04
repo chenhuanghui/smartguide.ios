@@ -9,6 +9,9 @@
 #import "ViewController.h"
 #import <CoreLocation/CoreLocation.h>
 #import <MapKit/MapKit.h>
+#import "Protocols.h"
+
+@class DataAPI;
 
 enum MAP_DATA_MODE
 {
@@ -26,24 +29,12 @@ enum MAP_DISPLAY_MODE
 
 @class MapViewController;
 
-@protocol MapObject<NSObject, MKAnnotation>
-
--(NSString*) mapTitle;
--(NSString*) mapContent;
--(NSString*) mapLogo;
--(NSString*) mapName;
--(NSString*) mapDesc;
-
-@optional
--(NSString*) mapPinLogo;
-
-@end
-
 @protocol MapControllerDataSource <NSObject>
 
 -(NSUInteger) numberOfObjectMapController:(MapViewController*) controller;
 -(id<MapObject>) mapController:(MapViewController*) controller objectAtIndex:(NSUInteger) index;
 -(void) mapController:(MapViewController*) controller switchToDataMode:(enum MAP_DATA_MODE) mode;
+-(void) mapControllerRequestData:(MapViewController*) controller;
 
 @optional
 -(void) mapControllerLoadMore:(MapViewController*) controller;
@@ -57,6 +48,7 @@ enum MAP_DISPLAY_MODE
 -(MapViewController*) initWithDisplayMode:(enum MAP_DISPLAY_MODE) displayMode;
 
 -(void) markFinishedLoadMore:(bool) canLoadMore;
+-(void) markFinishedLoadData:(bool) canLoadMore;
 
 - (IBAction)btnLocationTouchUpInside:(id)sender;
 - (IBAction)btnTabTouchUpInside:(id)sender;
@@ -80,5 +72,23 @@ enum MAP_DISPLAY_MODE
 @property (nonatomic, weak) id<MapControllerDataSource> dataSource;
 @property (nonatomic, assign) enum MAP_DISPLAY_MODE displayMode;
 @property (nonatomic, assign) enum MAP_DATA_MODE dataMode;
+
+@end
+
+@interface MapViewController(DataAPI)
+
+@property (nonatomic, strong, readwrite) DataAPI *dataAPI;
+
+@end
+
+@interface MapViewController(Home)
+
+-(MapViewController*) initHomeMapWithDisplayMode:(enum MAP_DISPLAY_MODE)displayMode;
+
+@end
+
+@interface MapViewController(Event)
+
+-(MapViewController*) initEventMapWithDisplayMode:(enum MAP_DISPLAY_MODE) displayMode;
 
 @end

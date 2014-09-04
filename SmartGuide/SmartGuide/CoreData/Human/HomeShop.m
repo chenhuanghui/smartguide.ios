@@ -45,3 +45,42 @@
 }
 
 @end
+
+@implementation HomeShop(MapObject)
+
+-(NSString *)mapContent
+{
+    return [NSString makeString:self.content];
+}
+
+-(NSString *)mapDesc
+{
+    return [NSString makeString:self.date];
+}
+
+-(NSString *)mapLogo
+{
+    return [NSString makeString:self.shop.logo];
+}
+
+-(NSString *)mapName
+{
+    return [NSString makeString:self.shop.name];
+}
+
+-(NSString *)mapTitle
+{
+    return [NSString makeString:self.title];
+}
+
+-(CLLocationCoordinate2D)coordinate
+{
+    return CLLocationCoordinate2DMake(self.shop.shopLat.doubleValue, self.shop.shopLng.doubleValue);
+}
+
+-(NSString *)title
+{
+    return [NSString makeString:self.shop.name];
+}
+
+@end

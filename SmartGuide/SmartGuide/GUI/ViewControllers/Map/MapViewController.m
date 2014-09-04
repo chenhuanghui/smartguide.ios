@@ -21,6 +21,7 @@
 {
     bool _loadingMore;
     bool _loadedMap;
+    bool _willZoomToFirstObject;
 }
 
 @end
@@ -54,9 +55,15 @@
     [_btnLocation setBackgroundImage:img forState:UIControlStateNormal];
     
     if(self.dataSource)
+    {
+        [self.dataSource mapControllerRequestData:self];
         [self reloadData];
+        [self.view showLoading];
+    }
     
     [self makeTitleWithMode:self.dataMode];
+    
+    _willZoomToFirstObject=true;
 }
 
 -(void)setDataMode:(enum MAP_DATA_MODE)dataMode
@@ -66,29 +73,16 @@
     [self makeTitleWithMode:dataMode];
 }
 
--(void)mapViewDidFinishLoadingMap:(MKMapView *)mapView
+-(void) zoomToMapObject:(id<MapObject>) obj
 {
-    if(_loadedMap)
-        return;
+    CLLocationCoordinate2D coord=[self coordInMap:[obj coordinate]];
     
-    _loadedMap=true;
-    switch (_displayMode) {
-        case MAP_DISPLAY_MODE_OBJECT:
-        {
-            if(_map.annotations.count>0)
-            {
-                id<MapObject> obj=_map.annotations[0];
-                CLLocationCoordinate2D coord=[self coordInMap:[obj coordinate]];
-                
-                [_map setCenterCoordinate:coord zoomLevel:MAP_ZOOM_LEVEL animated:false];
-            }
-        }
-            break;
-            
-        case MAP_DISPLAY_MODE_MAP:
-            [_map zoomToFitAnnotations:_map.annotations zoomLevel:MAP_ZOOM_LEVEL animate:false];
-            break;
-    }
+    [_map setCenterCoordinate:coord zoomLevel:MAP_ZOOM_LEVEL animated:false];
+}
+
+-(void) zoomFitCoordinates
+{
+    [_map zoomToFitAnnotations:_map.annotations zoomLevel:MAP_ZOOM_LEVEL animate:false];
 }
 
 -(CLLocationCoordinate2D) coordInMap:(CLLocationCoordinate2D) coord
@@ -98,17 +92,33 @@
     return coord;
 }
 
--(void)setDataSource:(id<MapControllerDataSource>)dataSource
+-(void)markFinishedLoadData:(bool)canLoadMore
 {
-    _dataSource=dataSource;
-    
+    [self.view removeLoading];
+    _canLoadMore=canLoadMore;
     [self reloadData];
+}
+
+-(void) showLoadMore
+{
+    int count=[self.dataSource numberOfObjectMapController:self];
+    
+    _collView.contentInset=UIEdgeInsetsMake(0, 0, 0, _collView.SW);
+    
+    [_collView showLoadMoreInRect:CGRectMake(count*_collView.SW, 0, _collView.SW, _collView.SH)];
+}
+
+-(void) removeLoadMore
+{
+    _collView.contentInset=UIEdgeInsetsZero;
+    
+    [_collView removeLoadMore];
 }
 
 -(void)markFinishedLoadMore:(bool)canLoadMore
 {
-    [_collView reloadData];
-    
+    [self.view removeLoading];
+
     int count=[self.dataSource numberOfObjectMapController:self];
     int i=0;
     while (i<count) {
@@ -125,16 +135,14 @@
     
     if(self.canLoadMore)
     {
-        _collView.contentInset=UIEdgeInsetsMake(0, 0, 0, _collView.SW);
-        
-        [_collView showLoadMoreInRect:CGRectMake(count*_collView.SW, 0, _collView.SW, _collView.SH)];
+        [self showLoadMore];
     }
     else
     {
-        _collView.contentInset=UIEdgeInsetsZero;
-        
-        [_collView removeLoadMore];
+        [self removeLoadMore];
     }
+    
+    [_collView reloadData];
 }
 
 -(void) reloadData
@@ -151,20 +159,22 @@
         
         [_map addAnnotation:obj];
         
+        if(_willZoomToFirstObject)
+        {
+            _willZoomToFirstObject=false;
+            [self zoomToMapObject:obj];
+        }
+        
         i++;
     }
     
     if(self.canLoadMore)
     {
-        _collView.contentInset=UIEdgeInsetsMake(0, 0, 0, _collView.SW);
-        
-        [_collView showLoadMoreInRect:CGRectMake(count*_collView.SW, 0, _collView.SW, _collView.SH)];
+        [self showLoadMore];
     }
     else
     {
-        _collView.contentInset=UIEdgeInsetsZero;
-        
-        [_collView removeLoadMore];
+        [self removeLoadMore];
     }
 }
 
@@ -279,7 +289,17 @@
 }
 
 - (IBAction)btnTabTouchUpInside:(id)sender {
-    
+    switch (_dataMode) {
+        case MAP_DATA_MODE_EVENT:
+            [self swithToDataMode:MAP_DATA_MODE_HOME];
+            break;
+            
+        case MAP_DATA_MODE_HOME:
+            [self swithToDataMode:MAP_DATA_MODE_EVENT];
+            
+        case MAP_DATA_MODE_SEARCH:
+            break;
+    }
 }
 
 - (IBAction)btnBackTouchUpInside:(id)sender {
@@ -414,12 +434,156 @@
         [_collView showLoading];
         
         [_collView setContentOffset:CGPointZero animated:true completion:^{
-            
+
+            _willZoomToFirstObject=true;
             _dataMode=mode;
+            [self animationTitleView];
             [self.dataSource mapController:self switchToDataMode:mode];
             [self reloadData];
         }];
     }
+}
+
+@end
+
+#import <objc/runtime.h>
+#import "DataAPI.h"
+#import "Home.h"
+#import "HomeShop.h"
+#import "Event.h"
+
+@interface MapViewController(DataAPIDelegate)<DataAPIDelegate, MapControllerDataSource>
+
+@end
+
+static char MapDataAPIKey;
+@implementation MapViewController(DataAPI)
+
+-(DataAPI *)dataAPI
+{
+    return objc_getAssociatedObject(self, &MapDataAPIKey);
+}
+
+-(void)setDataAPI:(DataAPI *)dataAPI
+{
+    objc_setAssociatedObject(self, &MapDataAPIKey, dataAPI, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+-(NSUInteger)numberOfObjectMapController:(MapViewController *)controller
+{
+    if([self.dataAPI isKindOfClass:[HomeDataAPI class]])
+        return ((HomeDataAPI*)self.dataAPI).objectsMap.count;
+    else if([self.dataAPI isKindOfClass:[EventDataAPI class]])
+        return ((EventDataAPI*)self.dataAPI).objectsMap.count;
+    
+    return 0;
+}
+
+-(void)mapControllerRequestData:(MapViewController *)controller
+{
+    [self.dataAPI requestData];
+}
+
+-(void)mapControllerLoadMore:(MapViewController *)controller
+{
+    [self.dataAPI loadMore];
+}
+
+-(id<MapObject>)mapController:(MapViewController *)controller objectAtIndex:(NSUInteger)index
+{
+    if([self.dataAPI isKindOfClass:[HomeDataAPI class]])
+    {
+        return ((HomeDataAPI*)self.dataAPI).objectsMap[index];
+    }
+    else if([self.dataAPI isKindOfClass:[EventDataAPI class]])
+    {
+        return ((EventDataAPI*)self.dataAPI).objectsMap[index];
+    }
+    
+    return nil;
+}
+
+-(void)mapController:(MapViewController *)controller switchToDataMode:(enum MAP_DATA_MODE)mode
+{
+    switch (mode) {
+        case MAP_DATA_MODE_EVENT:
+            
+            [self.dataAPI cancelAllRequest];
+            self.dataAPI=nil;
+            
+            self.dataAPI=[EventDataAPI manager];
+            [self.dataAPI addObserver:self];
+            [self.dataAPI requestData];
+            
+            break;
+            
+        case MAP_DATA_MODE_HOME:
+            
+            [self.dataAPI cancelAllRequest];
+            self.dataAPI=nil;
+            
+            self.dataAPI=[HomeDataAPI manager];
+            [self.dataAPI addObserver:self];
+            [self.dataAPI requestData];
+            
+            break;
+            
+        case MAP_DATA_MODE_SEARCH:
+            
+            [self.dataAPI cancelAllRequest];
+            self.dataAPI=nil;
+            
+            break;
+    }
+    
+    self.dataSource=self;
+}
+
+-(void)dataAPIFinished:(DataAPI *)dataAPI
+{
+    if(dataAPI.page==1)
+        [self markFinishedLoadData:dataAPI.canLoadMore];
+    else
+        [self markFinishedLoadMore:dataAPI.canLoadMore];
+}
+
+-(void)dataAPIFailed:(DataAPI *)dataAPI
+{
+    
+}
+
+@end
+
+@implementation MapViewController(Home)
+
+-(MapViewController *)initHomeMapWithDisplayMode:(enum MAP_DISPLAY_MODE)displayMode
+{
+    self=[[MapViewController alloc] initWithDisplayMode:displayMode];
+
+    self.dataAPI=[HomeDataAPI manager];
+    [self.dataAPI addObserver:self];
+ 
+    self.dataMode=MAP_DATA_MODE_HOME;
+    self.dataSource=self;
+    
+    return self;
+}
+
+@end
+
+@implementation MapViewController(Event)
+
+-(MapViewController *)initEventMapWithDisplayMode:(enum MAP_DISPLAY_MODE)displayMode
+{
+    self=[[MapViewController alloc] initWithDisplayMode:displayMode];
+    
+    self.dataAPI=[EventDataAPI manager];
+    [self.dataAPI addObserver:self];
+    
+    self.dataMode=MAP_DATA_MODE_EVENT;
+    self.dataSource=self;
+    
+    return self;
 }
 
 @end
