@@ -81,6 +81,17 @@
     return 240;
 }
 
+-(void)dealloc
+{
+    for(ImageCollectionCell *cell in collView.visibleCells)
+    {
+        if([cell isKindOfClass:[ImageCollectionCell class]])
+            cell.collView=nil;
+    }
+    
+    pageControl.scroll=nil;
+}
+
 @end
 
 @implementation UITableView(ShopGalleryTableCell)
