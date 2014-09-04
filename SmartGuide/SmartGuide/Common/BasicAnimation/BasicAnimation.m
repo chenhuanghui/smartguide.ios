@@ -8,6 +8,20 @@
 
 #import "BasicAnimation.h"
 
+BasicAnimation* basicTransitionPush(CGPoint fromPosition, CGPoint toPosition, float duration)
+{
+    BasicAnimation *obj=[BasicAnimation animationWithKeyPath:@"position"];
+    
+    obj.fromValue=[NSValue valueWithCGPoint:fromPosition];
+    obj.toValue=[NSValue valueWithCGPoint:toPosition];
+    obj.duration=duration;
+    obj.timingFunction=[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    obj.fillMode=kCAFillModeForwards;
+    obj.removedOnCompletion=true;
+    
+    return obj;
+}
+
 @implementation BasicAnimation
 
 -(void)addToLayer:(CALayer *)layer onStart:(void (^)(BasicAnimation * bsAnimation))onStart onStop:(void (^)(BasicAnimation *bsAnimation, bool finished))onStop
@@ -19,6 +33,8 @@
         _onStop=[onStop copy];
     
     self.delegate=self;
+    
+    [layer setValue:self.toValue forKeyPath:self.keyPath];
     [layer addAnimation:self forKey:self.keyPath];
 }
 

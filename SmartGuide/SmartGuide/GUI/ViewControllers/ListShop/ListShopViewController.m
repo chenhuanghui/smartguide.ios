@@ -23,6 +23,7 @@ enum LIST_SHOP_DATA_TYPE
     LIST_SHOP_DATA_TYPE_KEYWORD=0,
     LIST_SHOP_DATA_TYPE_PLACE=1,
     LIST_SHOP_DATA_TYPE_IDSHOPS=2,
+    LIST_SHOP_DATA_TYPE_IDBRAND=3,
 };
 
 @interface ListShopViewController ()<ASIOperationPostDelegate, TableAPIDataSource, UITableViewDelegate>
@@ -75,6 +76,16 @@ enum LIST_SHOP_DATA_TYPE
     return self;
 }
 
+-(ListShopViewController *)initWithIDBrand:(int)idBrand
+{
+    self=[super init];
+    
+    _idBrand=idBrand;
+    _dataType=LIST_SHOP_DATA_TYPE_IDBRAND;
+    
+    return self;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -97,6 +108,14 @@ enum LIST_SHOP_DATA_TYPE
             
             lblTitle.text=@"";
             [self requestIDShops];
+            [table showLoading];
+            
+            break;
+            
+        case LIST_SHOP_DATA_TYPE_IDBRAND:
+            
+            lblTitle.text=@"";
+            [self requestBrand];
             [table showLoading];
             
             break;
@@ -151,6 +170,14 @@ enum LIST_SHOP_DATA_TYPE
     [_opeShopList addToQueue];
 }
 
+-(void) requestBrand
+{
+    _opeShopList=[[OperationShopList alloc] initWithIDShops:nil idBrand:_idBrand userLat:userLat() userLng:userLng() page:_page sort:SHOP_LIST_SORT_TYPE_DEFAULT];
+    _opeShopList.delegate=self;
+    
+    [_opeShopList addToQueue];
+}
+
 #pragma mark UITableView DataSource
 
 -(void)tableLoadMore:(TableAPI *)tableAPI
@@ -172,6 +199,10 @@ enum LIST_SHOP_DATA_TYPE
         case LIST_SHOP_DATA_TYPE_IDSHOPS:
             [self requestIDShops];
             break;
+            
+        case LIST_SHOP_DATA_TYPE_IDBRAND:
+            [self requestBrand];
+            break;
     }
 }
 
@@ -190,6 +221,9 @@ enum LIST_SHOP_DATA_TYPE
             
         case LIST_SHOP_DATA_TYPE_IDSHOPS:
             return MIN(_shops.count, 1);
+            
+        case LIST_SHOP_DATA_TYPE_IDBRAND:
+            return MIN(_shops.count, 1);
     }
 }
 
@@ -207,6 +241,9 @@ enum LIST_SHOP_DATA_TYPE
             
         case LIST_SHOP_DATA_TYPE_IDSHOPS:
             return _shops.count;
+            
+        case LIST_SHOP_DATA_TYPE_IDBRAND:
+            return _shops.count;
     }
 }
 
@@ -223,6 +260,9 @@ enum LIST_SHOP_DATA_TYPE
                 return [[tableView tabHomeShopPrototypeCell] calculateHeight:_shops[indexPath.row]];
             
         case LIST_SHOP_DATA_TYPE_IDSHOPS:
+            return [[tableView tabHomeShopPrototypeCell] calculateHeight:_shops[indexPath.row]];
+            
+        case LIST_SHOP_DATA_TYPE_IDBRAND:
             return [[tableView tabHomeShopPrototypeCell] calculateHeight:_shops[indexPath.row]];
     }
 }
@@ -260,6 +300,15 @@ enum LIST_SHOP_DATA_TYPE
         }
             
         case LIST_SHOP_DATA_TYPE_IDSHOPS:
+        {
+            TabHomeShopCell *cell=[tableView tabHomeShopCell];
+            
+            [cell loadWithShopInfoList:_shops[indexPath.row]];
+            
+            return cell;
+        }
+            
+        case LIST_SHOP_DATA_TYPE_IDBRAND:
         {
             TabHomeShopCell *cell=[tableView tabHomeShopCell];
             

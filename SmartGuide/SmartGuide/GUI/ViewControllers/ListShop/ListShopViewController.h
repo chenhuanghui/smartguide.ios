@@ -21,9 +21,11 @@
 -(ListShopViewController*) initWithIDPlacelist:(int) idPlacelist;
 -(ListShopViewController*) initWithIDShops:(NSString*) idShops;
 -(ListShopViewController*) initWithKeyword:(NSString*) keyword;
+-(ListShopViewController*) initWithIDBrand:(int) idBrand;
 
 @property (nonatomic, assign, readonly) int idPlacelist;
 @property (nonatomic, strong, readonly) NSString *idShops;
 @property (nonatomic, strong, readonly) NSString *keyword;
+@property (nonatomic, assign, readonly) int idBrand;
 
 @end

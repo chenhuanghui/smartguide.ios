@@ -8,6 +8,10 @@
 
 #import <QuartzCore/QuartzCore.h>
 
+@class BasicAnimation;
+
+BasicAnimation* basicTransitionPush(CGPoint fromPosition, CGPoint toPosition, float duration);
+
 @interface BasicAnimation : CABasicAnimation
 {
     void(^_onStop)(BasicAnimation* bsAnimation, bool isFinished);

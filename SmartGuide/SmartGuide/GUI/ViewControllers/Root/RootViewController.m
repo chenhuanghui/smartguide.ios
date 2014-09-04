@@ -33,14 +33,14 @@
 #import "TabInboxViewController.h"
 #import "TabUserViewController.h"
 #import "NavigationController.h"
+#import "ScanResultViewController.h"
 
-@interface RootViewController ()<NavigationControllerDelegate,UIScrollViewDelegate,HomeControllerDelegate,UserPromotionDelegate,SGUserSettingControllerDelegate,WebViewDelegate,ShopUserControllerDelegate,UIGestureRecognizerDelegate,RemoteNotificationDelegate, ScanCodeControllerDelegate, RevealControllerDelegate, SearchControllerDelegate, TabScanControllerDelegate>
+@interface RootViewController ()<NavigationControllerDelegate,UIScrollViewDelegate,HomeControllerDelegate,UserPromotionDelegate,SGUserSettingControllerDelegate,WebViewDelegate,ShopUserControllerDelegate,UIGestureRecognizerDelegate,RemoteNotificationDelegate, ScanCodeControllerDelegate, RevealControllerDelegate, SearchControllerDelegate>
 {
     __weak RevealViewController *revealControlelr;
 }
 
 @property (nonatomic, strong) TabsController *tabsController;
-@property (nonatomic, strong) TabScanViewController *scanController;
 
 @end
 
@@ -93,20 +93,7 @@
 - (IBAction)btnScanTouchUpInside:(id)sender {
     [self setSelectedButton:sender];
     
-    self.scanController=[[TabScanViewController alloc] initWithDelegate:self];
-    [self.view addSubview:self.scanController.view];
-    self.scanController.view.S=self.view.S;
-}
-
--(void)tabScanControllerTouchedClose:(TabScanViewController *)controller
-{
-    [self.scanController.view removeFromSuperview];
-    self.scanController=nil;
-}
-
--(void)tabScanController:(TabScanViewController *)controller scannedText:(NSString *)text type:(enum SCAN_CODE_TYPE)codeType
-{
-    
+    [self showScanController];
 }
 
 - (IBAction)btnInboxTouchUpInside:(id)sender {
@@ -716,6 +703,191 @@
     }
     
     return true;
+}
+
+@end
+
+#import <objc/runtime.h>
+#import "ListShopViewController.h"
+#import "ShopViewController.h"
+
+@interface RootViewController(ScanControllerDelegate)<TabScanControllerDelegate>
+
+@end
+
+static char ScanControllerKey;
+@implementation RootViewController(ScanController)
+
+-(TabScanViewController*) scanController
+{
+    return objc_getAssociatedObject(self, &ScanControllerKey);
+}
+
+-(void)setScanController:(TabScanViewController *)scanController
+{
+    objc_setAssociatedObject(self, &ScanControllerKey, scanController, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+-(void)showScanController
+{
+    TabScanViewController *vc=[[TabScanViewController alloc] initWithDelegate:self];
+    
+    [self presentViewController:vc animation:basicTransitionPush(CGPointMake(self.view.SW/2, self.view.SH*1.5f)
+                                                                 , CGPointMake(self.view.SW/2, self.view.SH/2+10), DURATION_PRESENT_VIEW_CONTROLLER) completion:nil];
+    
+    [self setScanController:vc];
+}
+
+-(void)removeScanController:(bool)animate
+{
+    if([self scanController])
+    {
+        [self dismissViewControllerAnimation:basicTransitionPush(CGPointMake(self.view.SW/2, self.view.SH/2+10)
+                                                                 , CGPointMake(self.view.SW/2, self.view.SH*1.5f+10), animate?DURATION_PRESENT_VIEW_CONTROLLER:0) completion:nil];
+        [self setScanController:nil];
+    }
+}
+
+-(void)tabScanControllerTouchedClose:(TabScanViewController *)controller
+{
+    [self removeScanController:true];
+}
+
+-(void) showScanCodeResultWithCode:(NSString*) code
+{
+    ScanResultViewController *vc=[[ScanResultViewController alloc] initWithCode:code];
+    
+    [self.tabsController.selectedTab pushViewController:vc animated:true];
+}
+
+-(void)tabScanController:(TabScanViewController *)controller scannedText:(NSString *)text type:(enum SCAN_CODE_TYPE)codeType
+{
+    if(codeType==SCAN_CODE_TYPE_BARCODE)
+    {
+        NSString *url=[NSString stringWithFormat:@"http://shp.li/barcode/ean_13/%@/?t=v&partner=scan",text];
+
+        [self showWebViewWithURL:URL(url) onCompleted:^(WebViewController *webviewController) {
+            [self removeScanController:false];
+        }];
+    }
+    
+    if([text containsString:@"?infory=true"]
+       || [text containsString:@"&infory=true"])
+    {
+        [self removeScanController:true];
+        [self showScanCodeResultWithCode:text];
+    }
+    else if([text startsWithStrings:
+             [@"http://" stringByAppendingString:QRCODE_DOMAIN_INFORY]
+             //             , [@"www." stringByAppendingString:QRCODE_DOMAIN_INFORY]
+             //             , QRCODE_DOMAIN_INFORY
+             , nil])
+    {
+        NSURL *url=[NSURL URLWithString:text];
+        if([text containsString:QRCODE_INFORY_SHOPS])
+        {
+            NSString *idShops=[[[url query] componentsSeparatedByString:@"&"] firstObject];
+            if(idShops.length>0)
+            {
+                NSArray *array=[idShops componentsSeparatedByString:@"="];
+                if(array.count>1)
+                {
+                    idShops=array[1];
+                    
+                    [self removeScanController:true];
+                    [self showShopInfoListWithIDShops:idShops];
+                    return;
+                }
+            }
+            
+            [self removeScanController:true];
+            [self showScanCodeResultWithCode:text];
+        }
+        else if([text containsString:QRCODE_INFORY_SHOP])
+        {
+            int idShop=[[url lastPathComponent] integerValue];
+            
+            [self removeScanController:true];
+            [self showShopControllerWithIDShop:idShop];
+        }
+        else if([text containsString:QRCODE_INFORY_PLACELIST])
+        {
+            int idPlacelist=[[url lastPathComponent] integerValue];
+            
+            [self removeScanController:true];
+            [self showShopInfoListWithIDPlace:idPlacelist];
+        }
+        else if([text containsString:QRCODE_INFORY_CODE])
+        {
+            NSString *startString=[@"http://" stringByAppendingString:QRCODE_INFORY_CODE];
+            if([text startsWith:startString])
+                text=[text substringFromIndex:MIN([text indexOf:startString from:0]+1,text.length)];
+            else
+            {
+                startString=QRCODE_INFORY_CODE;
+                text=[text substringFromIndex:MIN([text indexOf:startString from:0]+1,text.length)];
+            }
+            
+            [self removeScanController:true];
+            [self showScanCodeResultWithCode:text];
+        }
+        else if([text containsString:QRCODE_INFORY_BRANCH])
+        {
+            int idBranch=[[url lastPathComponent] integerValue];
+            
+            [self removeScanController:true];
+            [self showShopInfoListWithIDBrand:idBranch];
+        }
+        else
+        {
+            [self removeScanController:true];
+            [self showScanCodeResultWithCode:text];
+        }
+    }
+    else
+    {
+        if([text startsWithStrings:@"http://", @"https://", @"www.", nil])
+        {
+            if([text startsWith:@"www."])
+                text=[@"http://" stringByAppendingString:text];
+            
+            [self showWebViewWithURL:URL(text) onCompleted:^(WebViewController *webviewController) {
+                [self removeScanController:false];
+            }];
+        }
+        else
+        {
+            [self removeScanController:true];
+            [self showScanCodeResultWithCode:text];
+        }
+    }
+}
+
+-(void) showShopInfoListWithIDBrand:(int) idBrand
+{
+    ListShopViewController *vc=[[ListShopViewController alloc] initWithIDBrand:idBrand];
+    
+    [self.tabsController.selectedTab pushViewController:vc animated:true];
+}
+
+-(void) showShopInfoListWithIDPlace:(int) idPlace
+{
+    ListShopViewController *vc=[[ListShopViewController alloc] initWithIDPlacelist:idPlace];
+    
+    [self.tabsController.selectedTab pushViewController:vc animated:true];
+}
+
+-(void) showShopInfoListWithIDShops:(NSString*) idShops
+{
+    ListShopViewController *vc=[[ListShopViewController alloc] initWithIDShops:idShops];
+    
+    [self.tabsController.selectedTab pushViewController:vc animated:true];
+}
+
+-(void) showShopControllerWithIDShop:(int) idShop
+{
+    ShopViewController *vc=[[ShopViewController alloc] initWithIDShop:idShop];
+    [self.tabsController.selectedTab pushViewController:vc animated:true];
 }
 
 @end

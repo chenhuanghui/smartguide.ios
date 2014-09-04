@@ -72,3 +72,49 @@
 }
 
 @end
+
+#import <objc/runtime.h>
+
+static char PresentViewControllerKey;
+@implementation ViewController(PresentViewController)
+
+-(UIViewController *)presentViewController
+{
+    return objc_getAssociatedObject(self, &PresentViewControllerKey);
+}
+
+-(void)setPresentViewController:(UIViewController *)presentViewController
+{
+    objc_setAssociatedObject(self, &PresentViewControllerKey, presentViewController, OBJC_ASSOCIATION_ASSIGN);
+}
+
+-(void)presentViewController:(UIViewController *)viewControllerToPresent animation:(BasicAnimation *)animation completion:(void (^)(void))completion
+{
+    [self addChildViewController:viewControllerToPresent];
+    [self.view addSubview:viewControllerToPresent.view];
+    
+    [animation addToLayer:viewControllerToPresent.view.layer onStart:nil onStop:^(BasicAnimation *bsAnimation, bool isFinished) {
+        if(completion)
+            completion();
+    }];
+    
+    self.presentViewController=viewControllerToPresent;
+}
+
+-(void)dismissViewControllerAnimation:(BasicAnimation *)animation completion:(void (^)(void))completion
+{
+    if(self.presentViewController)
+    {
+        [animation addToLayer:self.presentViewController.view.layer onStart:nil onStop:^(BasicAnimation *bsAnimation, bool isFinished) {
+            if(completion)
+                completion();
+            
+            [self.presentViewController.view removeFromSuperview];
+            [self.presentViewController removeFromParentViewController];
+            
+            self.presentViewController=nil;
+        }];
+    }
+}
+
+@end

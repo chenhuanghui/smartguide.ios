@@ -12,6 +12,8 @@
 
 @interface TabsController : TabbarController
 
+-(NavigationController*) selectedTab;
+
 @property (nonatomic, weak, readonly) NavigationController *tabHome;
 @property (nonatomic, weak, readonly) NavigationController *tabSearch;
 //@property (nonatomic, weak, readonly) NavigationController *tabScan;

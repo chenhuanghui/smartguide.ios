@@ -6,13 +6,13 @@
 //  Copyright (c) 2014 Redbase. All rights reserved.
 //
 
-#import "SGViewController.h"
+#import "ViewController.h"
 
 #define NOTIFICATION_SCAN_RELATED_REQUEST_LOADMORE @"scanRelatedRequestLoadMore"
 
 @class ScanResultViewController, UserNotificationAction, ScanCodeRelated, ScanCodeRelatedContain;
 
-@protocol ScanResultControllerDelegate <SGViewControllerDelegate>
+@protocol ScanResultControllerDelegate <ViewControllerDelegate>
 
 -(void) scanResultControllerTouchedBack:(ScanResultViewController*) controller;
 -(void) scanResultController:(ScanResultViewController*) controller touchedAction:(UserNotificationAction*) action;
@@ -21,7 +21,7 @@
 
 @end
 
-@interface ScanResultViewController : SGViewController
+@interface ScanResultViewController : ViewController
 {
     __weak IBOutlet UITableView *table;
     __weak IBOutlet UIButton *btnBack;
