@@ -5,7 +5,7 @@
 #import "ScanCodeDecode.h"
 
 #import "DataManager.h"
-#import "UserNotificationAction.h"
+#import "MessageAction.h"
 #import "ScanCodeResult.h"
 
 
@@ -272,14 +272,14 @@
 	[self didChangeValueForKey:@"action" withSetMutation:NSKeyValueMinusSetMutation usingObjects:value];
 }
 	
-- (void)addActionObject:(UserNotificationAction*)value {
+- (void)addActionObject:(MessageAction*)value {
 	NSSet *changedObjects = [[NSSet alloc] initWithObjects:&value count:1];
 	[self willChangeValueForKey:@"action" withSetMutation:NSKeyValueUnionSetMutation usingObjects:changedObjects];
 	[[self primitiveValueForKey:@"action"] addObject:value];
 	[self didChangeValueForKey:@"action" withSetMutation:NSKeyValueUnionSetMutation usingObjects:changedObjects];
 }
 
-- (void)removeActionObject:(UserNotificationAction*)value {
+- (void)removeActionObject:(MessageAction*)value {
 
     [self.managedObjectContext deleteObject:value];
 

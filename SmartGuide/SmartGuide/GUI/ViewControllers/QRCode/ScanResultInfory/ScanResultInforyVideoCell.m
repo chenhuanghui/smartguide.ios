@@ -19,43 +19,41 @@
 @end
 
 @implementation ScanResultInforyVideoCell
-@synthesize suggestHeight,isCalculatingSuggestHeight;
-
--(void)calculatingSuggestHeight
-{
-    isCalculatingSuggestHeight=true;
-    [self layoutSubviews];
-    isCalculatingSuggestHeight=false;
-}
 
 -(void)loadWithDecode:(ScanCodeDecode *)decode
 {
-    _decode=decode;
-    isCalculatingSuggestHeight=false;
+    _object=decode;
+    
+    [imgv defaultLoadImageWithURL:_object.videoThumbnail];
+    
     [self setNeedsLayout];
-    [videoView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+}
+
+-(float)calculatorHeight:(ScanCodeDecode *)object
+{
+    if(CGSizeIsZero(object.videoSize))
+        object.videoSize=CGSizeResizeToWidth(UIApplicationSize().width, CGSizeMake(object.videoWidth.floatValue, object.videoHeight.floatValue));
+    
+    imgv.frame=CGRectMake(0, 10, self.SW, object.videoSize.height);
+    btn.frame=CGRectMake(0, 10, self.SW, object.videoSize.height);
+    videoView.frame=CGRectMake(0, 10, self.SW, object.videoSize.height);
+    imgvPlay.frame=CGRectMake(0, 10, self.SW, object.videoSize.height);
+    
+    return imgv.yh+imgv.OY;
 }
 
 -(void)layoutSubviews
 {
-    [super layoutSubviews];
+    if(_isPrototypeCell)
+        return;
     
-    if(CGSizeEqualToSize(_decode.videoSize,CGSizeZero))
-        _decode.videoSize=CGSizeResizeToWidth(320, CGSizeMake(_decode.videoWidth.floatValue, _decode.videoHeight.floatValue));
+    [super layoutSubviews];
 
     [videoView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     videoView.hidden=true;
     imgvPlay.hidden=false;
     
-    [imgv l_v_setH:_decode.videoSize.height];
-    [btn l_v_setH:_decode.videoSize.height];
-    [videoView l_v_setH:_decode.videoSize.height];
-    [imgvPlay l_v_setH:_decode.videoSize.height];
-    
-    if(!isCalculatingSuggestHeight)
-        [imgv loadScanVideoThumbnailWithURL:_decode.videoThumbnail];
-    
-    suggestHeight=imgv.l_v_h+imgv.l_v_y+10;
+    [self calculatorHeight:_object];
 }
 
 -(IBAction)btnTouchUpInside:(id)sender
@@ -66,7 +64,7 @@
     
     [player.view l_v_setO:CGPointZero];
     [player.view l_v_setS:videoView.l_v_s];
-    [player setContentURL:URL(_decode.video)];
+    [player setContentURL:URL(_object.video)];
     
     videoView.hidden=false;
     imgvPlay.hidden=true;
@@ -82,6 +80,8 @@
 
 @end
 
+#import <objc/runtime.h>
+static char ScanResultInforyVideoPrototypeCellKey;
 @implementation UITableView(ScanResultInforyVideoCell)
 
 -(void)registerScanResultInforyVideoCell
@@ -91,7 +91,26 @@
 
 -(ScanResultInforyVideoCell *)scanResultInforyVideoCell
 {
-    return [self dequeueReusableCellWithIdentifier:[ScanResultInforyVideoCell reuseIdentifier]];
+    ScanResultInforyVideoCell *obj=[self dequeueReusableCellWithIdentifier:[ScanResultInforyVideoCell reuseIdentifier]];
+    
+    obj.isPrototypeCell=false;
+    
+    return obj;
+}
+
+-(ScanResultInforyVideoCell *)scanResultInforyVideoPrototypeCell
+{
+    ScanResultInforyVideoCell *obj=objc_getAssociatedObject(self, &ScanResultInforyVideoPrototypeCellKey);
+    
+    if(!obj)
+    {
+        obj=[self scanResultInforyVideoCell];
+        objc_setAssociatedObject(self, &ScanResultInforyVideoPrototypeCellKey, obj, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    }
+    
+    obj.isPrototypeCell=true;
+    
+    return obj;
 }
 
 @end

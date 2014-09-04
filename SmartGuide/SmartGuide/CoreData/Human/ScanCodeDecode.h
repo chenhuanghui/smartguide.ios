@@ -22,6 +22,6 @@ enum SCANCODE_DECODE_TYPE
 
 @property (nonatomic, assign) CGSize imageSize;
 @property (nonatomic, assign) CGSize videoSize;
-@property (nonatomic, strong) NSAttributedString *textAttribute;
+@property (nonatomic, assign) CGRect textRect;
 
 @end

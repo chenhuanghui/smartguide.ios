@@ -9,80 +9,182 @@
 #import "ScanResultObjectCell.h"
 #import "ScanCodeRelated.h"
 #import "ImageManager.h"
+#import "Label.h"
+#import "Utility.h"
 
 @implementation ScanResultObjectCell
-@synthesize suggestHeight,isCalculatingSuggestHeight;
-
--(void)calculatingSuggestHeight
-{
-    isCalculatingSuggestHeight=true;
-    [self layoutSubviews];
-    isCalculatingSuggestHeight=false;
-}
-
--(ScanCodeRelated *)obj
-{
-    return _related;
-}
 
 -(void) loadWithRelated:(ScanCodeRelated *)obj
 {
-    _related=obj;
-    isCalculatingSuggestHeight=false;
+    _object=obj;
+    
+    switch (_object.enumType) {
+        case SCANCODE_RELATED_TYPE_PLACELISTS:
+            [imgvLogo defaultLoadImageWithURL:_object.authorAvatar];
+            break;
+            
+        case SCANCODE_RELATED_TYPE_PROMOTIONS:
+            [imgvLogo defaultLoadImageWithURL:_object.logo];
+            break;
+            
+        case SCANCODE_RELATED_TYPE_SHOPS:
+            [imgvLogo defaultLoadImageWithURL:_object.logo];
+            break;
+            
+        case SCANCODE_RELATED_TYPE_UNKNOW:
+            break;
+    }
     
     [self setNeedsLayout];
 }
 
--(void)layoutSubviews
+-(float)calculatorHeight:(ScanCodeRelated *)obj
 {
-    [super layoutSubviews];
-    
-    switch (_related.enumType) {
+    switch (obj.enumType) {
         case SCANCODE_RELATED_TYPE_PLACELISTS:
             
-            if(!isCalculatingSuggestHeight)
-                [imgvLogo loadScanRelatedImageWithURL:_related.authorAvatar];
+            imgvLogo.O=CGPointMake(12, 12);
+            lblTitle.text=obj.placelistName;
             
-            lblTitle.text=_related.placelistName;
-            lblContent.text=_related.desc;
+            if(CGRectIsZero(obj.nameRect))
+            {
+                float x=imgvLogo.xw+5;
+                lblTitle.frame=CGRectMake(x, imgvLogo.OY, self.SW-x*2-10, 0);
+                [lblTitle defautSizeToFit];
+                
+                obj.nameRect=lblTitle.frame;
+            }
+            else
+                lblTitle.frame=obj.nameRect;
             
-            break;
+            lblContent.text=obj.desc;
+            
+            float y=lblTitle.yh;
+            
+            if(lblTitle.yh>0)
+                y+=5;
+            
+            if(CGRectIsZero(obj.descRect))
+            {
+                lblContent.frame=CGRectMake(lblTitle.OX, y, self.SW-lblTitle.OX*2-10, 0);
+                [lblContent defautSizeToFit];
+                
+                obj.descRect=lblContent.frame;
+            }
+            else
+                lblContent.frame=obj.descRect;
+            
+            if(lblContent.yh>imgvLogo.yh)
+            {
+                imgvLogo.OY+=(lblContent.yh-imgvLogo.yh)/2;
+            }
+            
+            line.frame=CGRectMake(10, imgvLogo.yh+5, self.SW-20, 1);
+            imgvArrow.frame=CGRectMake(303, 0, 11, line.yh);
+            
+            return line.yh;
             
         case SCANCODE_RELATED_TYPE_PROMOTIONS:
+        {
+            imgvLogo.O=CGPointMake(12, 12);
+            lblTitle.text=obj.promotionName;
             
-            if(!isCalculatingSuggestHeight)
-                [imgvLogo loadScanRelatedImageWithURL:_related.logo];
+            if(CGRectIsZero(obj.nameRect))
+            {
+                float x=imgvLogo.xw+5;
+                lblTitle.frame=CGRectMake(x, imgvLogo.OY, self.SW-x*2-10, 0);
+                [lblTitle defautSizeToFit];
+                
+                obj.nameRect=lblTitle.frame;
+            }
+            else
+                lblTitle.frame=obj.nameRect;
             
-            lblTitle.text=_related.promotionName;
-            lblContent.text=_related.desc;
+            lblContent.text=obj.desc;
             
-            break;
+            float y=lblTitle.yh;
             
-        case SCANCODE_RELATED_TYPE_SHOPS:
+            if(lblTitle.yh>0)
+                y+=5;
             
-            if(!isCalculatingSuggestHeight)
-                [imgvLogo loadScanRelatedImageWithURL:_related.logo];
+            if(CGRectIsZero(obj.descRect))
+            {
+                lblContent.frame=CGRectMake(lblTitle.OX, y, self.SW-lblTitle.OX*2-10, 0);
+                [lblContent defautSizeToFit];
+                
+                obj.descRect=lblContent.frame;
+            }
+            else
+                lblContent.frame=obj.descRect;
             
-            lblTitle.text=_related.shopName;
-            lblContent.text=_related.desc;
+            if(lblContent.yh>imgvLogo.yh)
+            {
+                imgvLogo.OY+=(lblContent.yh-imgvLogo.yh)/2;
+            }
             
-            break;
+            line.frame=CGRectMake(10, imgvLogo.yh+5, self.SW-20, 1);
+            imgvArrow.frame=CGRectMake(303, 0, 11, line.yh);
+            
+            return line.yh;
+        }
+            
+            case SCANCODE_RELATED_TYPE_SHOPS:
+        {
+            imgvLogo.O=CGPointMake(12, 12);
+            lblTitle.text=obj.shopName;
+            
+            if(CGRectIsZero(obj.nameRect))
+            {
+                float x=imgvLogo.xw+5;
+                lblTitle.frame=CGRectMake(x, imgvLogo.OY, self.SW-x*2-10, 0);
+                [lblTitle defautSizeToFit];
+                
+                obj.nameRect=lblTitle.frame;
+            }
+            else
+                lblTitle.frame=obj.nameRect;
+            
+            lblContent.text=obj.desc;
+            
+            float y=lblTitle.yh;
+            
+            if(lblTitle.yh>0)
+                y+=5;
+            
+            if(CGRectIsZero(obj.descRect))
+            {
+                lblContent.frame=CGRectMake(lblTitle.OX, y, self.SW-lblTitle.OX*2-10, 0);
+                [lblContent defautSizeToFit];
+                
+                obj.descRect=lblContent.frame;
+            }
+            else
+                lblContent.frame=obj.descRect;
+            
+            if(lblContent.yh>imgvLogo.yh)
+            {
+                imgvLogo.OY+=(lblContent.yh-imgvLogo.yh)/2;
+            }
+            
+            line.frame=CGRectMake(10, imgvLogo.yh+5, self.SW-20, 1);
+            imgvArrow.frame=CGRectMake(303, 0, 11, line.yh);
+            
+            return line.yh;
+        }
             
         case SCANCODE_RELATED_TYPE_UNKNOW:
-            suggestHeight=0;
-            lblTitle.text=@"";
-            lblContent.text=@"";
-            imgvLogo.image=nil;
-            return;
+            return 0;
     }
+}
+
+-(void)layoutSubviews
+{
+    if(_isPrototypeCell)
+        return;
     
-    lblTitle.frame=CGRectMake(94, 18, 206, 0);
-    [lblTitle sizeToFit];
+    [super layoutSubviews];
     
-    lblContent.frame=CGRectMake(94, lblTitle.l_v_y+lblTitle.l_v_h+5, 206, 0);
-    [lblContent sizeToFit];
-    
-    suggestHeight=MAX(94,lblContent.l_v_y+lblContent.l_v_h+5);
+    [self calculatorHeight:_object];
 }
 
 +(NSString *)reuseIdentifier
@@ -90,21 +192,18 @@
     return @"ScanResultObjectCell";
 }
 
--(IBAction)btnTouchUpInside:(id)sender
-{
-    [self.delegate scanResultObjectCellTouched:self];
-}
-
 -(void)awakeFromNib
 {
     [super awakeFromNib];
-    
+
     [imgvLogo.layer setBorderWidth:1];
     [imgvLogo.layer setBorderColor:[[UIColor darkGrayColor] colorWithAlphaComponent:0.5f].CGColor];
 }
 
 @end
 
+#import <objc/runtime.h>
+static char ScanResultObjectPrototypeCell;
 @implementation UITableView(ScanResultObjectCell)
 
 -(void)registerScanResultObjectCell
@@ -114,7 +213,26 @@
 
 -(ScanResultObjectCell *)scanResultObjectCell
 {
-    return [self dequeueReusableCellWithIdentifier:[ScanResultObjectCell reuseIdentifier]];
+    ScanResultObjectCell *cell=[self dequeueReusableCellWithIdentifier:[ScanResultObjectCell reuseIdentifier]];
+    
+    cell.isPrototypeCell=false;
+    
+    return cell;
+}
+
+-(ScanResultObjectCell *)scanResultObjectPrototypeCell
+{
+    ScanResultObjectCell *obj=objc_getAssociatedObject(self, &ScanResultObjectPrototypeCell);
+    
+    if(!obj)
+    {
+        obj=[self scanResultObjectCell];
+        objc_setAssociatedObject(self, &ScanResultObjectPrototypeCell, obj, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    }
+    
+    obj.isPrototypeCell=true;
+    
+    return obj;
 }
 
 @end

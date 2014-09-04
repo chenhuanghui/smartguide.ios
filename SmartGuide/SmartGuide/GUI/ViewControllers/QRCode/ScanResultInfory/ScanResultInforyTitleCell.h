@@ -9,16 +9,20 @@
 #import <UIKit/UIKit.h>
 #import "Constant.h"
 
-@class ScanCodeDecode;
+@class ScanCodeDecode, Label;
 
-@interface ScanResultInforyTitleCell : UITableViewCell<TableViewCellDynamicHeight>
+@interface ScanResultInforyTitleCell : UITableViewCell
 {
-    __weak IBOutlet UILabel *lbl;
-    __weak ScanCodeDecode *_decode;
+    __weak IBOutlet Label *lbl;
 }
 
 -(void) loadWithDecode:(ScanCodeDecode*) decode;
+-(float) calculatorHeight:(ScanCodeDecode*) object;
+
 +(NSString *)reuseIdentifier;
+
+@property (nonatomic, weak, readonly) ScanCodeDecode *object;
+@property (nonatomic, assign) bool isPrototypeCell;
 
 @end
 
@@ -26,5 +30,6 @@
 
 -(void) registerScanResultInforyTitleCell;
 -(ScanResultInforyTitleCell*) scanResultInforyTitleCell;
+-(ScanResultInforyTitleCell*) scanResultInforyTitlePrototypeCell;
 
 @end

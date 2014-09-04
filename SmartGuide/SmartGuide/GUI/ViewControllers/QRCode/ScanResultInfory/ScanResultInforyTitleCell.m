@@ -8,39 +8,42 @@
 
 #import "ScanResultInforyTitleCell.h"
 #import "ScanCodeDecode.h"
+#import "Label.h"
+#import "Utility.h"
 
 @implementation ScanResultInforyTitleCell
-@synthesize suggestHeight, isCalculatingSuggestHeight;
 
 -(void)loadWithDecode:(ScanCodeDecode *)decode
 {
-    _decode=decode;
-    isCalculatingSuggestHeight=false;
+    _object=decode;
     [self setNeedsLayout];
 }
 
--(void)calculatingSuggestHeight
+-(float)calculatorHeight:(ScanCodeDecode *)object
 {
-    isCalculatingSuggestHeight=true;
-    [self layoutSubviews];
-    isCalculatingSuggestHeight=false;
+    lbl.attributedText=attributedStringJustified(object.text, lbl.font);
+    
+    if(CGRectIsZero(object.textRect))
+    {
+        lbl.frame=CGRectMake(25, 10, self.SW-25*2, 0);
+        [lbl defautSizeToFit];
+        
+        object.textRect=lbl.frame;
+    }
+    else
+        lbl.frame=object.textRect;
+    
+    return lbl.yh+lbl.OY;
 }
 
 -(void)layoutSubviews
 {
+    if(_isPrototypeCell)
+        return;
+    
     [super layoutSubviews];
     
-    if(!_decode.textAttribute)
-    {
-        _decode.textAttribute=[[NSAttributedString alloc] initWithString:_decode.text attributes:@{NSFontAttributeName:FONT_SIZE_REGULAR(13)
-                                                                                                 , NSParagraphStyleAttributeName:[NSMutableParagraphStyle paraStyleWithTextAlign:NSTextAlignmentJustified]}];
-    }
-    
-    lbl.frame=CGRectMake(25, 10, 270, 0);
-    lbl.attributedText=_decode.textAttribute;
-    [lbl sizeToFit];
-    
-    suggestHeight=lbl.l_v_y+lbl.l_v_h+10;
+    [self calculatorHeight:_object];
 }
 
 +(NSString *)reuseIdentifier
@@ -50,6 +53,8 @@
 
 @end
 
+#import <objc/runtime.h>
+static char ScanResultInforyTitlePrototypeCell;
 @implementation UITableView(ScanResultInforyTitleCell)
 
 -(void)registerScanResultInforyTitleCell
@@ -59,7 +64,26 @@
 
 -(ScanResultInforyTitleCell *)scanResultInforyTitleCell
 {
-    return [self dequeueReusableCellWithIdentifier:[ScanResultInforyTitleCell reuseIdentifier]];
+    ScanResultInforyTitleCell *cell=[self dequeueReusableCellWithIdentifier:[ScanResultInforyTitleCell reuseIdentifier]];
+    
+    cell.isPrototypeCell=false;
+    
+    return cell;
+}
+
+-(ScanResultInforyTitleCell *)scanResultInforyTitlePrototypeCell
+{
+    ScanResultInforyTitleCell *obj=objc_getAssociatedObject(self, &ScanResultInforyTitlePrototypeCell);
+    
+    if(!obj)
+    {
+        obj=[self scanResultInforyTitleCell];
+        objc_setAssociatedObject(self, &ScanResultInforyTitlePrototypeCell, obj, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    }
+    
+    obj.isPrototypeCell=true;
+    
+    return obj;
 }
 
 @end

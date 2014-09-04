@@ -10,41 +10,48 @@
 #import "ScanCodeDecode.h"
 #import "Constant.h"
 #import "Utility.h"
+#import "Label.h"
 
 @implementation ScanResultInforyHeaderCell
-@synthesize suggestHeight,isCalculatingSuggestHeight;
 
 -(void)loadWithDecode:(ScanCodeDecode *)decode
 {
-    _decode=decode;
+    _object=decode;
+    
     [self setNeedsLayout];
 }
 
--(void)calculatingSuggestHeight
+-(float)calculatorHeight:(ScanCodeDecode *)object
 {
-    [self layoutSubviews];
+    lbl.attributedText=[[NSAttributedString alloc] initWithString:object.text
+                                                       attributes:@{NSFontAttributeName:lbl.font
+                                                                    , NSParagraphStyleAttributeName:[NSMutableParagraphStyle paraStyleWithTextAlign:NSTextAlignmentCenter]}];
+    
+    if(CGRectIsZero(object.textRect))
+    {
+        lbl.frame=CGRectMake(55, 10, self.SW-110, 0);
+        [lbl defautSizeToFit];
+        
+        if(lbl.SW<self.SW-110)
+            lbl.SW=self.SW-110;
+        
+        object.textRect=lbl.frame;
+    }
+    else
+        lbl.frame=object.textRect;
+    
+    return lbl.yh+lbl.OY;
 }
 
 -(void)layoutSubviews
 {
+    if(_isPrototypeCell)
+        return;
+    
     [super layoutSubviews];
-    
-    if(!_decode.textAttribute)
-    {
-        _decode.textAttribute=[[NSAttributedString alloc] initWithString:_decode.text attributes:@{NSFontAttributeName:lbl.font
-                                                                                                 , NSParagraphStyleAttributeName:[NSMutableParagraphStyle paraStyleWithTextAlign:NSTextAlignmentCenter]}];
-    }
-    
-    lbl.frame=CGRectMake(54, 10, 220, 0);
-    lbl.attributedText=_decode.textAttribute;
-    
-    [lbl sizeToFit];
-    
-    if(lbl.l_v_w<220)
-        [lbl l_v_setW:220];
-    
-    suggestHeight=lbl.l_v_y+lbl.l_v_h+10;
+    [self calculatorHeight:_object];
 }
+
 
 +(NSString *)reuseIdentifier
 {
@@ -53,6 +60,8 @@
 
 @end
 
+#import <objc/runtime.h>
+static char ScanResultInforyHeaderPrototypeCellKey;
 @implementation UITableView(ScanResultInforyHeaderCell)
 
 -(void)registerScanResultInforyHeaderCell
@@ -62,7 +71,26 @@
 
 -(ScanResultInforyHeaderCell *)scanResultInforyHeaderCell
 {
-    return [self dequeueReusableCellWithIdentifier:[ScanResultInforyHeaderCell reuseIdentifier]];
+    ScanResultInforyHeaderCell *cell=[self dequeueReusableCellWithIdentifier:[ScanResultInforyHeaderCell reuseIdentifier]];
+    
+    cell.isPrototypeCell=false;
+    
+    return cell;
+}
+
+-(ScanResultInforyHeaderCell*) scanResultInforyHeaderPrototypeCell
+{
+    ScanResultInforyHeaderCell *obj=objc_getAssociatedObject(self, &ScanResultInforyHeaderPrototypeCellKey);
+    
+    if(!obj)
+    {
+        obj=[self scanResultInforyHeaderCell];
+        objc_setAssociatedObject(self, &ScanResultInforyHeaderPrototypeCellKey, obj, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    }
+    
+    obj.isPrototypeCell=true;
+    
+    return obj;
 }
 
 @end

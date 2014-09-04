@@ -77,12 +77,14 @@
 {
     if(_relatedContain.canLoadMore.boolValue && indexPath.row==_relatedContain.relatiesObjects.count)
         return [LoadingMoreCell height];
-    
-    ScanResultObjectCell *cell=[tableView scanResultObjectCell];
-    [cell loadWithRelated:_relatedContain.relatiesObjects[indexPath.row]];
-    [cell calculatingSuggestHeight];
-    
-    return cell.suggestHeight;
+
+#warning here
+    return 0;
+//    ScanResultObjectCell *cell=[tableView scanResultObjectCell];
+//    [cell loadWithRelated:_relatedContain.relatiesObjects[indexPath.row]];
+//    [cell calculatingSuggestHeight];
+//    
+//    return cell.suggestHeight;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -117,7 +119,7 @@
 
 -(void)scanResultObjectCellTouched:(ScanResultObjectCell *)cell
 {
-    [self.delegate scanResultRelatedController:self touchedRelatedObject:cell.obj];
+//    [self.delegate scanResultRelatedController:self touchedRelatedObject:cell.obj];
 }
 
 -(IBAction) btnBackTouchUpInside:(id)sender

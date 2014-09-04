@@ -42,6 +42,7 @@ NSNumber* NMAX(NSNumber* num1,...);
 #define CLLocationCoordinateInvail CLLocationCoordinate2DMake(-1, -1)
 
 bool CGRectIsZero(CGRect rect);
+bool CGSizeIsZero(CGSize size);
 UIEdgeInsets UIEdgeInsetsMax(UIEdgeInsets edgeInsets1, UIEdgeInsets edgeInsets2);
 NSParagraphStyle *paragraphStyleJustified();
 NSAttributedString *attributedStringJustified(NSString* text, UIFont *font);

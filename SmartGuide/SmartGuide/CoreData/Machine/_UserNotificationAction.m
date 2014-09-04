@@ -5,15 +5,10 @@
 #import "UserNotificationAction.h"
 
 #import "DataManager.h"
-#import "ScanCodeDecode.h"
 #import "UserNotificationContent.h"
 
 
 @implementation _UserNotificationAction
-
-
-@dynamic decode;
-
 
 
 @dynamic userNotificationContent;
@@ -247,14 +242,6 @@
 
 #pragma mark Relationships
     
-#pragma mark Decode
-- (ScanCodeDecode*)decode {
-	[self willAccessValueForKey:@"decode"];
-	ScanCodeDecode *result = [self primitiveValueForKey:@"decode"];
-	[self didAccessValueForKey:@"decode"];
-	return result;
-}
-
 #pragma mark UserNotificationContent
 - (UserNotificationContent*)userNotificationContent {
 	[self willAccessValueForKey:@"userNotificationContent"];

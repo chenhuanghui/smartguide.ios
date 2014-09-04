@@ -20,7 +20,6 @@
 #define UserNotificationAction_Url @"url"
 
 @class UserNotificationAction;
-@class ScanCodeDecode;
 @class UserNotificationContent;
 
 @interface _UserNotificationAction : NSManagedObject
@@ -51,9 +50,6 @@
 
     
 #pragma mark Relationships
-
-#pragma mark Decode
-@property (nonatomic, retain) ScanCodeDecode* decode;
 
 #pragma mark UserNotificationContent
 @property (nonatomic, retain) UserNotificationContent* userNotificationContent;

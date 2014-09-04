@@ -26,6 +26,7 @@
 -(void) loadWithDecode:(ScanCodeDecode*) decode;
 +(NSString *)reuseIdentifier;
 +(float) heightWithDecode:(ScanCodeDecode*) decode;
++(float) height;
 
 @property (nonatomic, weak) id<ScanResultInforyButtonCellDelegate> delegate;
 

@@ -11,14 +11,17 @@
 
 @class ScanCodeDecode;
 
-@interface ScanResultInforyImageCell : UITableViewCell<TableViewCellDynamicHeight>
+@interface ScanResultInforyImageCell : UITableViewCell
 {
     __weak IBOutlet UIImageView *imgv;
-    __weak ScanCodeDecode *_decode;
 }
 
 -(void) loadWithDecode:(ScanCodeDecode*) decode;
+-(float) calculatorHeight:(ScanCodeDecode*) object;
 +(NSString *)reuseIdentifier;
+
+@property (nonatomic, weak, readonly) ScanCodeDecode *object;
+@property (nonatomic, assign) bool isPrototypeCell;
 
 @end
 
@@ -26,5 +29,6 @@
 
 -(void) registerScanResultInforyImageCell;
 -(ScanResultInforyImageCell*) scanResultInforyImageCell;
+-(ScanResultInforyImageCell*) scanResultInforyImagePrototypeCell;
 
 @end

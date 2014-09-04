@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Constant.h"
 
-@class ScanCodeRelated, ScanResultObjectCell;
+@class ScanCodeRelated, ScanResultObjectCell, Label;
 
 @protocol ScanResultObjectCellDelegate <NSObject>
 
@@ -17,21 +17,22 @@
 
 @end
 
-@interface ScanResultObjectCell : UITableViewCell<TableViewCellDynamicHeight>
+@interface ScanResultObjectCell : UITableViewCell
 {
     __weak IBOutlet UIImageView *imgvLogo;
-    __weak IBOutlet UILabel *lblTitle;
-    __weak IBOutlet UILabel *lblContent;
-    
-    __weak ScanCodeRelated *_related;
+    __weak IBOutlet Label *lblTitle;
+    __weak IBOutlet Label *lblContent;
+    __weak IBOutlet UIView *line;
+    __weak IBOutlet UIImageView *imgvArrow;
 }
 
 -(void) loadWithRelated:(ScanCodeRelated*) obj;
--(ScanCodeRelated*) obj;
-
+-(float) calculatorHeight:(ScanCodeRelated*) obj;
 +(NSString *)reuseIdentifier;
 
 @property (nonatomic, weak) id<ScanResultObjectCellDelegate> delegate;
+@property (nonatomic, weak, readonly) ScanCodeRelated *object;
+@property (nonatomic, assign) bool isPrototypeCell;
 
 @end
 
@@ -39,5 +40,6 @@
 
 -(void) registerScanResultObjectCell;
 -(ScanResultObjectCell*) scanResultObjectCell;
+-(ScanResultObjectCell*) scanResultObjectPrototypeCell;
 
 @end

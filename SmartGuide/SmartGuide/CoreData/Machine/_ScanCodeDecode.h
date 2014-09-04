@@ -19,7 +19,7 @@
 #define ScanCodeDecode_VideoWidth @"videoWidth"
 
 @class ScanCodeDecode;
-@class UserNotificationAction;
+@class MessageAction;
 @class ScanCodeResult;
 
 @interface _ScanCodeDecode : NSManagedObject
@@ -55,8 +55,8 @@
 - (NSArray*) actionObjects;
 - (void) addAction:(NSSet*)value;
 - (void) removeAction:(NSSet*)value;
-- (void) addActionObject:(UserNotificationAction*)value;
-- (void) removeActionObject:(UserNotificationAction*)value;
+- (void) addActionObject:(MessageAction*)value;
+- (void) removeActionObject:(MessageAction*)value;
 - (void) removeAllAction;
 
 #pragma mark Result

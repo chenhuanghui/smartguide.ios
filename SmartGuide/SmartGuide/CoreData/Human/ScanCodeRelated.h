@@ -18,4 +18,7 @@ enum SCANCODE_RELATED_TYPE
 
 -(enum SCANCODE_RELATED_TYPE) enumType;
 
+@property (nonatomic, assign) CGRect nameRect;
+@property (nonatomic, assign) CGRect descRect;
+
 @end

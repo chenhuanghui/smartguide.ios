@@ -9,22 +9,36 @@
 #import "ScanResultInforyImageCell.h"
 #import "ScanCodeDecode.h"
 #import "ImageManager.h"
+#import "Utility.h"
 
 @implementation ScanResultInforyImageCell
-@synthesize suggestHeight, isCalculatingSuggestHeight;
 
 -(void)loadWithDecode:(ScanCodeDecode *)decode
 {
-    _decode=decode;
-    isCalculatingSuggestHeight=false;
+    _object=decode;
+    
+    [imgv defaultLoadImageWithURL:_object.image];
+    
     [self setNeedsLayout];
 }
 
--(void)calculatingSuggestHeight
+-(float)calculatorHeight:(ScanCodeDecode *)object
 {
-    isCalculatingSuggestHeight=true;
-    [self layoutSubviews];
-    isCalculatingSuggestHeight=false;
+    if(CGSizeIsZero(object.imageSize))
+    {
+        object.imageSize=CGSizeReduceToWidth(320, CGSizeMake(object.imageWidth.floatValue, object.imageHeight.floatValue));
+        
+        if(object.imageSize.width<UIApplicationSize().width)
+            imgv.SW=object.imageSize.width;
+        else
+            imgv.SW=UIApplicationSize().width;
+    }
+    
+    imgv.SH=object.imageSize.height;
+    
+    imgv.O=CGPointMake(self.SW/2-imgv.SW/2, 10);
+    
+    return imgv.yh+imgv.OY;
 }
 
 +(NSString *)reuseIdentifier
@@ -34,31 +48,18 @@
 
 -(void)layoutSubviews
 {
+    if(_isPrototypeCell)
+        return;
+    
     [super layoutSubviews];
     
-    if(CGSizeEqualToSize(_decode.imageSize, CGSizeZero))
-    {
-        _decode.imageSize=CGSizeReduceToWidth(320, CGSizeMake(_decode.imageWidth.floatValue, _decode.imageHeight.floatValue));
-    }
-    
-    if(_decode.imageSize.width<320)
-        [imgv l_v_setW:_decode.imageSize.width];
-    else
-        [imgv l_v_setW:320];
-    
-    
-    [imgv l_v_setH:_decode.imageSize.height];
-    
-    [imgv l_v_setX:self.l_v_w/2-imgv.l_v_w/2];
-    
-    if(!isCalculatingSuggestHeight)
-        [imgv loadScanImageWithURL:_decode.image];
-    
-    suggestHeight=imgv.l_v_y+imgv.l_v_h+10;
+    [self calculatorHeight:_object];
 }
 
 @end
 
+#import <objc/runtime.h>
+static char ScanResultInforyImagePrototypeCell;
 @implementation UITableView(ScanResultInforyImageCell)
 
 -(void)registerScanResultInforyImageCell
@@ -68,7 +69,26 @@
 
 -(ScanResultInforyImageCell *)scanResultInforyImageCell
 {
-    return [self dequeueReusableCellWithIdentifier:[ScanResultInforyImageCell reuseIdentifier]];
+    ScanResultInforyImageCell *obj=[self dequeueReusableCellWithIdentifier:[ScanResultInforyImageCell reuseIdentifier]];
+    
+    obj.isPrototypeCell=false;
+    
+    return obj;
+}
+
+-(ScanResultInforyImageCell *)scanResultInforyImagePrototypeCell
+{
+    ScanResultInforyImageCell *obj=objc_getAssociatedObject(self, &ScanResultInforyImagePrototypeCell);
+    
+    if(!obj)
+    {
+        obj=[self scanResultInforyImageCell];
+        objc_setAssociatedObject(self, &ScanResultInforyImagePrototypeCell, obj, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    }
+    
+    obj.isPrototypeCell=true;
+    
+    return obj;
 }
 
 @end

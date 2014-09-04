@@ -25,6 +25,11 @@ bool CGRectIsZero(CGRect rect)
     return CGRectEqualToRect(rect, CGRectZero);
 }
 
+bool CGSizeIsZero(CGSize size)
+{
+    return CGSizeEqualToSize(size, CGSizeZero);
+}
+
 UIEdgeInsets UIEdgeInsetsMax(UIEdgeInsets edgeInsets1, UIEdgeInsets edgeInsets2)
 {
     return UIEdgeInsetsMake(MAX(edgeInsets1.top, edgeInsets2.top), MAX(edgeInsets1.left, edgeInsets2.left), MAX(edgeInsets1.bottom, edgeInsets2.bottom), MAX(edgeInsets1.right, edgeInsets2.right));

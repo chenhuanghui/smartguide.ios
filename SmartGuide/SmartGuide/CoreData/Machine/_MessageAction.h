@@ -8,6 +8,7 @@
 
 #define MessageAction_ActionTitle @"actionTitle"
 #define MessageAction_ActionType @"actionType"
+#define MessageAction_Color @"color"
 #define MessageAction_IdPlacelist @"idPlacelist"
 #define MessageAction_IdShop @"idShop"
 #define MessageAction_IdShops @"idShops"
@@ -18,6 +19,7 @@
 #define MessageAction_Url @"url"
 
 @class MessageAction;
+@class ScanCodeDecode;
 @class MessageList;
 
 @interface _MessageAction : NSManagedObject
@@ -33,6 +35,7 @@
 
 @property (nonatomic, retain) NSString* actionTitle;
 @property (nonatomic, retain) NSNumber* actionType;
+@property (nonatomic, retain) NSNumber* color;
 @property (nonatomic, retain) NSNumber* idPlacelist;
 @property (nonatomic, retain) NSNumber* idShop;
 @property (nonatomic, retain) NSString* idShops;
@@ -46,6 +49,9 @@
 
     
 #pragma mark Relationships
+
+#pragma mark Decode
+@property (nonatomic, retain) ScanCodeDecode* decode;
 
 #pragma mark Message
 @property (nonatomic, retain) MessageList* message;

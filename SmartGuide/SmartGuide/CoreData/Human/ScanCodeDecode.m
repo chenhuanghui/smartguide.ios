@@ -1,18 +1,8 @@
 #import "ScanCodeDecode.h"
-#import "UserNotificationAction.h"
+#import "MessageAction.h"
 
 @implementation ScanCodeDecode
-@synthesize imageSize,videoSize,textAttribute;
-
--(id)initWithEntity:(NSEntityDescription *)entity insertIntoManagedObjectContext:(NSManagedObjectContext *)context
-{
-    self=[super initWithEntity:entity insertIntoManagedObjectContext:context];
-    
-    self.imageSize=CGSizeZero;
-    self.videoSize=CGSizeZero;
-    
-    return self;
-}
+@synthesize imageSize,videoSize,textRect;
 
 +(ScanCodeDecode *)makeWithDictionary:(NSDictionary *)dict
 {
@@ -59,7 +49,7 @@
         int count=0;
         for(NSDictionary *button in buttons)
         {
-            UserNotificationAction *action=[UserNotificationAction makeWithAction:button];
+            MessageAction *action=[MessageAction makeWithData:button];
             action.color=[NSNumber makeNumber:button[@"color"]];
             action.sortOrder=@(count++);
             
@@ -113,7 +103,7 @@
 
 -(NSArray *)actionObjects
 {
-    return [[super actionObjects] sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:UserNotificationAction_SortOrder ascending:true]]];
+    return [[super actionObjects] sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:MessageAction_SortOrder ascending:true]]];
 }
 
 @end

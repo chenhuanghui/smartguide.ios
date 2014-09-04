@@ -78,6 +78,11 @@
     return 47+20;
 }
 
++(float)height
+{
+    return 47+20;
+}
+
 @end
 
 @implementation UITableView(ScanResultInforyButtonCell)

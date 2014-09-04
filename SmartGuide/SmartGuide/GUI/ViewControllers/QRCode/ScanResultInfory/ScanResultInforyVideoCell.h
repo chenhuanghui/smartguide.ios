@@ -17,20 +17,21 @@
 
 @end
 
-@interface ScanResultInforyVideoCell : UITableViewCell<TableViewCellDynamicHeight>
+@interface ScanResultInforyVideoCell : UITableViewCell
 {
     __weak IBOutlet UIImageView *imgv;
     __weak IBOutlet UIButton *btn;
     __weak IBOutlet UIView *videoView;
     __weak IBOutlet UIImageView *imgvPlay;
-    
-    __weak ScanCodeDecode *_decode;
 }
 
 -(void) loadWithDecode:(ScanCodeDecode*) decode;
+-(float) calculatorHeight:(ScanCodeDecode*) object;
 +(NSString *)reuseIdentifier;
 
 @property (nonatomic, weak) id<ScanResultInforyVideoCellDelegate> delegate;
+@property (nonatomic, weak, readonly) ScanCodeDecode *object;
+@property (nonatomic, assign) bool isPrototypeCell;
 
 @end
 
@@ -38,5 +39,6 @@
 
 -(void) registerScanResultInforyVideoCell;
 -(ScanResultInforyVideoCell*) scanResultInforyVideoCell;
+-(ScanResultInforyVideoCell*) scanResultInforyVideoPrototypeCell;
 
 @end
