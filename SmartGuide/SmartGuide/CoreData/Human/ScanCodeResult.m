@@ -14,7 +14,7 @@
     ScanCodeResult *obj=[ScanCodeResult insert];
     
     obj.code=code;
-    obj.decodeType=@(SCAN_CODE_DECODE_TYPE_IDENTIFYING);
+    obj.decodeType=@(SCAN_CODE_DECODE_TYPE_QUERYING);
     obj.relatedStatus=@(SCAN_CODE_RELATED_STATUS_QUERYING);
     
     return obj;
@@ -32,8 +32,8 @@
         case SCAN_CODE_DECODE_TYPE_NON_INFORY:
             return SCAN_CODE_DECODE_TYPE_NON_INFORY;
             
-        case SCAN_CODE_DECODE_TYPE_IDENTIFYING:
-            return SCAN_CODE_DECODE_TYPE_IDENTIFYING;
+        case SCAN_CODE_DECODE_TYPE_QUERYING:
+            return SCAN_CODE_DECODE_TYPE_QUERYING;
             
         case SCAN_CODE_DECODE_TYPE_UNKNOW:
             return SCAN_CODE_DECODE_TYPE_UNKNOW;

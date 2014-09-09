@@ -24,7 +24,6 @@
 #import "GUIManager.h"
 #import "SearchViewController.h"
 #import "ScanResultRelatedHeadView.h"
-#import "ScanResultObjectHeaderView.h"
 #import "ScanResultInforyHeaderCell.h"
 #import "ScanResultInforyTitleCell.h"
 #import "ScanResultInforyTextCell.h"
@@ -32,7 +31,7 @@
 #import "ScanResultInforyVideoCell.h"
 #import "ScanResultInforyButtonCell.h"
 #import "ScanResultInforyShareCell.h"
-#import "ScanResultObjectCell.h"
+#import "ScanResultRelated/ScanResultRelatedCell.h"
 
 enum SCAN_RESULT_SECTION_TYPE
 {
@@ -50,7 +49,6 @@ enum SCAN_RESULT_CELL_TYPE
     SCAN_RESULT_CELL_TYPE_TITLE=4,
     SCAN_RESULT_CELL_TYPE_VIDEO=5,
     SCAN_RESULT_CELL_TYPE_SHARE=6,
-    SCAN_RESULT_CELL_TYPE_RELATED=7,
 };
 
 @interface ScanResultCell : NSObject
@@ -80,7 +78,7 @@ enum SCAN_RESULT_CELL_TYPE
 }
 
 @property (nonatomic, strong) NSMutableArray *decodeCells;
-@property (nonatomic, strong) NSMutableArray *relatedCells;
+@property (nonatomic, strong) NSMutableArray *relatedSections;
 
 @end
 
@@ -92,14 +90,6 @@ enum SCAN_RESULT_CELL_TYPE
     
     _code=[code copy];
     
-    _scanResult=[ScanCodeResult resultWithCode:code];
-    
-    if(_scanResult)
-    {
-        [_scanResult markDeleted];
-        [[DataManager shareInstance] save];
-    }
-    
     [self createScanResultWithCode:code];
     
     return self;
@@ -108,8 +98,9 @@ enum SCAN_RESULT_CELL_TYPE
 -(void) createScanResultWithCode:(NSString*) code
 {
     _scanResult=[ScanCodeResult makeWithCode:code];
-    _scanResult.decodeType=@(SCAN_CODE_DECODE_TYPE_UNKNOW);
-    _scanResult.relatedStatus=@(SCAN_CODE_RELATED_STATUS_UNKNOW);
+    _scanResult.decodeType=@(SCAN_CODE_DECODE_TYPE_QUERYING);
+    _scanResult.relatedStatus=@(SCAN_CODE_RELATED_STATUS_QUERYING);
+    
     [[DataManager shareInstance] save];
 }
 
@@ -133,9 +124,11 @@ enum SCAN_RESULT_CELL_TYPE
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
+    self.decodeCells=[NSMutableArray new];
+    self.relatedSections=[NSMutableArray new];
+    
     [table registerScanResultDisconnectCell];
     [table registerScanResultNonInforyCell];
-    [table registerLoadingMoreCell];
     [table registerScanResultInforyHeaderCell];
     [table registerScanResultInforyTitleCell];
     [table registerScanResultInforyTextCell];
@@ -143,7 +136,8 @@ enum SCAN_RESULT_CELL_TYPE
     [table registerScanResultInforyVideoCell];
     [table registerScanResultInforyButtonCell];
     [table registerScanResultInforyShareCell];
-    [table registerScanResultObjectCell];
+    [table registerScanResultRelatedCell];
+    [table loadingMoreCell];
     
     if(currentUser().enumDataMode==USER_DATA_FULL)
     {
@@ -219,224 +213,225 @@ enum SCAN_RESULT_CELL_TYPE
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1+_scanResult.relatedContainObjects.count;
+    int count=0;
+    
+    // decode
+    count++;
+    
+    // related
+    count+=MIN(_relatedSections.count, 1);
+    
+    return count;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if(section==SCAN_RESULT_SECTION_TYPE_DECODE)
-    {
-        switch (_scanResult.enumDecodeType) {
-            case SCAN_CODE_DECODE_TYPE_ERROR:
-            case SCAN_CODE_DECODE_TYPE_NON_INFORY:
-            case SCAN_CODE_DECODE_TYPE_IDENTIFYING:
-                return 1;
-                
-            case SCAN_CODE_DECODE_TYPE_INFORY:
-                return _scanResult.decodeObjects.count;
-                
-            case SCAN_CODE_DECODE_TYPE_UNKNOW:
-                return 0;
-        }
+    switch ((enum SCAN_RESULT_SECTION_TYPE) section) {
+        case SCAN_RESULT_SECTION_TYPE_DECODE:
+            
+            switch (_scanResult.enumDecodeType) {
+                case SCAN_CODE_DECODE_TYPE_ERROR:
+                case SCAN_CODE_DECODE_TYPE_NON_INFORY:
+                case SCAN_CODE_DECODE_TYPE_QUERYING:
+                    return 1;
+                    
+                case SCAN_CODE_DECODE_TYPE_INFORY:
+                    return _decodeCells.count;
+                    
+                case SCAN_CODE_DECODE_TYPE_UNKNOW:
+                    return 0;
+            }
+            
+            break;
+            
+        case SCAN_RESULT_SECTION_TYPE_RELATED:
+            return 1;
     }
-    else
-    {
-        return [_scanResult.relatedContainObjects[section] relatiesObjects].count;
-    }
-    
-    return 0;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if(indexPath.section==SCAN_RESULT_SECTION_TYPE_DECODE)
-    {
-        switch (_scanResult.enumDecodeType) {
-            case SCAN_CODE_DECODE_TYPE_ERROR:
-                return [ScanResultDisconnectCell height];
-                
-            case SCAN_CODE_DECODE_TYPE_NON_INFORY:
-                return [ScanResultNonInforyCell height];
-                
-            case SCAN_CODE_DECODE_TYPE_IDENTIFYING:
-                return [LoadingMoreCell height];
-                
-            case SCAN_CODE_DECODE_TYPE_UNKNOW:
-                return 0;
-                
-            case SCAN_CODE_DECODE_TYPE_INFORY:
-            {
-                ScanResultCell *obj=_decodeCells[indexPath.row];
-                
-                switch (obj.cellType) {
-                    case SCAN_RESULT_CELL_TYPE_BUTTON:
-                        return [ScanResultInforyButtonCell height];
-                        
-                    case SCAN_RESULT_CELL_TYPE_HEADER:
-                        return [[tableView scanResultInforyHeaderPrototypeCell] calculatorHeight:obj.object];
-                        
-                    case SCAN_RESULT_CELL_TYPE_IMAGE:
-                        return [[tableView scanResultInforyImagePrototypeCell] calculatorHeight:obj.object];
-                        
-                    case SCAN_RESULT_CELL_TYPE_SHARE:
-                        return [ScanResultInforyShareCell height];
-                        
-                    case SCAN_RESULT_CELL_TYPE_TEXT:
-                        return [[tableView scanResultInforyTextPrototypeCell] calculatorHeight:obj.object];
-                        
-                    case SCAN_RESULT_CELL_TYPE_TITLE:
-                        return [[tableView scanResultInforyTitlePrototypeCell] calculatorHeight:obj.object];
-                        
-                    case SCAN_RESULT_CELL_TYPE_VIDEO:
-                        return [[tableView scanResultInforyVideoPrototypeCell] calculatorHeight:obj.object];
-                        
-                    default:
-                        return 0;
+    switch ((enum SCAN_RESULT_SECTION_TYPE) indexPath.section) {
+        case SCAN_RESULT_SECTION_TYPE_DECODE:
+        {
+            switch (_scanResult.enumDecodeType) {
+                case SCAN_CODE_DECODE_TYPE_ERROR:
+                    return [ScanResultDisconnectCell height];
+                    
+                case SCAN_CODE_DECODE_TYPE_NON_INFORY:
+                    return [ScanResultNonInforyCell height];
+                    
+                case SCAN_CODE_DECODE_TYPE_QUERYING:
+                    return [LoadingMoreCell height];
+                    
+                case SCAN_CODE_DECODE_TYPE_UNKNOW:
+                    return 0;
+                    
+                case SCAN_CODE_DECODE_TYPE_INFORY:
+                {
+                    ScanResultCell *obj=_decodeCells[indexPath.row];
+                    
+                    switch (obj.cellType) {
+                        case SCAN_RESULT_CELL_TYPE_BUTTON:
+                            return [ScanResultInforyButtonCell height];
+                            
+                        case SCAN_RESULT_CELL_TYPE_HEADER:
+                            return [[tableView scanResultInforyHeaderPrototypeCell] calculatorHeight:obj.object];
+                            
+                        case SCAN_RESULT_CELL_TYPE_IMAGE:
+                            return [[tableView scanResultInforyImagePrototypeCell] calculatorHeight:obj.object];
+                            
+                        case SCAN_RESULT_CELL_TYPE_SHARE:
+                            return [ScanResultInforyShareCell height];
+                            
+                        case SCAN_RESULT_CELL_TYPE_TEXT:
+                            return [[tableView scanResultInforyTextPrototypeCell] calculatorHeight:obj.object];
+                            
+                        case SCAN_RESULT_CELL_TYPE_TITLE:
+                            return [[tableView scanResultInforyTitlePrototypeCell] calculatorHeight:obj.object];
+                            
+                        case SCAN_RESULT_CELL_TYPE_VIDEO:
+                            return [[tableView scanResultInforyVideoPrototypeCell] calculatorHeight:obj.object];
+                            
+                        default:
+                            return 0;
+                    }
                 }
             }
         }
-    }
-    else
-    {
-        ScanResultCell *cell=_relatedCells[indexPath.row];
-        
-        switch (cell.cellType) {
-            case SCAN_RESULT_CELL_TYPE_RELATED:
-            {
-                return [tableView.scanResultObjectCell calculatorHeight:cell.object];
+            break;
+
+        case SCAN_RESULT_SECTION_TYPE_RELATED:
+            switch (_scanResult.enumRelatedStatus) {
+                case SCAN_CODE_RELATED_STATUS_QUERYING:
+                    return 80;
+                    
+                case SCAN_CODE_RELATED_STATUS_DONE:
+                    return [[tableView scanResultRelatedPrototypeCell] calculatorHeight:_relatedSections];
+                    
+                case SCAN_CODE_RELATED_STATUS_ERROR:
+                case SCAN_CODE_RELATED_STATUS_UNKNOW:
+                    return 0;
             }
-                
-            default:
-                return 0;
-        }
     }
-    
-    return 0;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if(indexPath.section==SCAN_RESULT_SECTION_TYPE_DECODE)
-    {
-        switch (_scanResult.enumDecodeType) {
-            case SCAN_CODE_DECODE_TYPE_ERROR:
-            {
-                ScanResultDisconnectCell *cell=[tableView scanResultDisconnectCell];
-                cell.delegate=self;
-                
-                return cell;
-            }
-                break;
-                
-            case SCAN_CODE_DECODE_TYPE_NON_INFORY:
-                return [tableView scanResultNonInforyCell];
-                
-            case SCAN_CODE_DECODE_TYPE_IDENTIFYING:
-                return [tableView loadingMoreCell];
-                
-            case SCAN_CODE_DECODE_TYPE_UNKNOW:
-                return [UITableViewCell new];
-                
-            case SCAN_CODE_DECODE_TYPE_INFORY:
-            {
-                ScanResultCell *obj=_decodeCells[indexPath.row];
-                
-                switch (obj.cellType) {
-                    case SCAN_RESULT_CELL_TYPE_BUTTON:
-                    {
-                        ScanResultInforyButtonCell *cell=[tableView scanResultInforyButtonCell];
-                        
-                        [cell loadWithDecode:obj.object];
-                        
-                        return cell;
+    switch ((enum SCAN_RESULT_SECTION_TYPE) indexPath.section) {
+        case SCAN_RESULT_SECTION_TYPE_DECODE:
+        {
+            switch (_scanResult.enumDecodeType) {
+                case SCAN_CODE_DECODE_TYPE_ERROR:
+                {
+                    ScanResultDisconnectCell *cell=[tableView scanResultDisconnectCell];
+                    cell.delegate=self;
+                    
+                    return cell;
+                }
+                    
+                case SCAN_CODE_DECODE_TYPE_NON_INFORY:
+                    return [tableView scanResultNonInforyCell];
+                    
+                case SCAN_CODE_DECODE_TYPE_QUERYING:
+                    return [tableView loadingMoreCell];
+                    
+                case SCAN_CODE_DECODE_TYPE_UNKNOW:
+                    return [UITableViewCell new];
+                    
+                case SCAN_CODE_DECODE_TYPE_INFORY:
+                {
+                    ScanResultCell *obj=_decodeCells[indexPath.row];
+                    
+                    switch (obj.cellType) {
+                        case SCAN_RESULT_CELL_TYPE_BUTTON:
+                        {
+                            ScanResultInforyButtonCell *cell=[tableView scanResultInforyButtonCell];
+                            
+                            [cell loadWithDecode:obj.object];
+                            
+                            return cell;
+                        }
+                            
+                        case SCAN_RESULT_CELL_TYPE_HEADER:
+                        {
+                            ScanResultInforyHeaderCell *cell=[tableView scanResultInforyHeaderCell];
+                            
+                            [cell loadWithDecode:obj.object];
+                            
+                            return cell;
+                        }
+                            
+                        case SCAN_RESULT_CELL_TYPE_IMAGE:
+                        {
+                            ScanResultInforyImageCell *cell=[tableView scanResultInforyImageCell];
+                            
+                            [cell loadWithDecode:obj.object];
+                            
+                            return cell;
+                        }
+                            
+                        case SCAN_RESULT_CELL_TYPE_SHARE:
+                        {
+                            ScanResultInforyShareCell *cell=[tableView scanResultInforyShareCell];
+                            
+                            [cell loadWithLink:obj.object];
+                            
+                            return cell;
+                        }
+                            
+                        case SCAN_RESULT_CELL_TYPE_TEXT:
+                        {
+                            ScanResultInforyTextCell *cell=[tableView scanResultInforyTextCell];
+                            
+                            [cell loadWithDecode:obj.object];
+                            
+                            return cell;
+                        }
+                            
+                        case SCAN_RESULT_CELL_TYPE_TITLE:
+                        {
+                            ScanResultInforyTitleCell *cell=[tableView scanResultInforyTitleCell];
+                            
+                            [cell loadWithDecode:obj.object];
+                            
+                            return cell;
+                        }
+                            
+                        case SCAN_RESULT_CELL_TYPE_VIDEO:
+                        {
+                            ScanResultInforyVideoCell *cell=[tableView scanResultInforyVideoCell];
+                            
+                            [cell loadWithDecode:obj.object];
+                            
+                            return cell;
+                        }
+                            
+                        default:
+                            return [tableView emptyCell];
                     }
-                        
-                    case SCAN_RESULT_CELL_TYPE_HEADER:
-                    {
-                        ScanResultInforyHeaderCell *cell=[tableView scanResultInforyHeaderCell];
-                        
-                        [cell loadWithDecode:obj.object];
-                        
-                        return cell;
-                    }
-                        
-                    case SCAN_RESULT_CELL_TYPE_IMAGE:
-                    {
-                        ScanResultInforyImageCell *cell=[tableView scanResultInforyImageCell];
-                        
-                        [cell loadWithDecode:obj.object];
-                        
-                        return cell;
-                    }
-                        
-                    case SCAN_RESULT_CELL_TYPE_SHARE:
-                    {
-                        ScanResultInforyShareCell *cell=[tableView scanResultInforyShareCell];
-                        
-                        [cell loadWithLink:obj.object];
-                        
-                        return cell;
-                    }
-                        
-                    case SCAN_RESULT_CELL_TYPE_TEXT:
-                    {
-                        ScanResultInforyTextCell *cell=[tableView scanResultInforyTextCell];
-                        
-                        [cell loadWithDecode:obj.object];
-                        
-                        return cell;
-                    }
-                        
-                    case SCAN_RESULT_CELL_TYPE_TITLE:
-                    {
-                        ScanResultInforyTitleCell *cell=[tableView scanResultInforyTitleCell];
-                        
-                        [cell loadWithDecode:obj.object];
-                        
-                        return cell;
-                    }
-                        
-                    case SCAN_RESULT_CELL_TYPE_VIDEO:
-                    {
-                        ScanResultInforyVideoCell *cell=[tableView scanResultInforyVideoCell];
-                        
-                        [cell loadWithDecode:obj.object];
-                        
-                        return cell;
-                    }
-                        
-                    default:
-                        return [tableView emptyCell];
                 }
             }
         }
-    }
-    else
-    {
-        switch (_scanResult.enumRelatedStatus) {
-            case SCAN_CODE_RELATED_STATUS_QUERYING:
-                return [tableView loadingMoreCell];
-                
-            case SCAN_CODE_RELATED_STATUS_UNKNOW:
-            case SCAN_CODE_RELATED_STATUS_ERROR:
-                return [UITableViewCell new];
-                
-            case SCAN_CODE_RELATED_STATUS_DONE:
-            {
-                ScanResultCell *obj=_relatedCells[indexPath.row];
-                
-                switch (obj.cellType) {
-                    case SCAN_RESULT_CELL_TYPE_RELATED:
-                    {
-                        ScanResultObjectCell *cell=[tableView scanResultObjectCell];
-                        
-                        [cell loadWithRelated:obj.object];
-                        
-                        return cell;
-                    }
-                        
-                    default:
-                        return [tableView emptyCell];
+
+        case SCAN_RESULT_SECTION_TYPE_RELATED:
+        {
+            switch (_scanResult.enumRelatedStatus) {
+                case SCAN_CODE_RELATED_STATUS_QUERYING:
+                    return [tableView loadingMoreCell];
+                    
+                case SCAN_CODE_RELATED_STATUS_UNKNOW:
+                case SCAN_CODE_RELATED_STATUS_ERROR:
+                    return [table emptyCell];
+                    
+                case SCAN_CODE_RELATED_STATUS_DONE:
+                {
+                    ScanResultRelatedCell *cell=[tableView scanResultRelatedCell];
+                    
+                    [cell loadWithRelatedContain:_relatedSections];
+                    cell.tableParent=tableView;
+                    
+                    return cell;
                 }
             }
         }
@@ -449,11 +444,12 @@ enum SCAN_RESULT_CELL_TYPE
         case SCAN_RESULT_SECTION_TYPE_DECODE:
             return 0;
             
-        default:
-            if(_scanResult.enumRelatedStatus==SCAN_CODE_RELATED_STATUS_UNKNOW)
+        case SCAN_RESULT_SECTION_TYPE_RELATED:
+            if(_scanResult.enumRelatedStatus==SCAN_CODE_RELATED_STATUS_UNKNOW
+               || _scanResult.enumRelatedStatus==SCAN_CODE_RELATED_STATUS_ERROR)
                 return 0;
             
-            return _scanResult.relatedContainObjects.count==0?0:[ScanResultRelatedHeadView height];
+            return [ScanResultRelatedHeadView height];
     }
 }
 
@@ -463,7 +459,7 @@ enum SCAN_RESULT_CELL_TYPE
         case SCAN_RESULT_SECTION_TYPE_DECODE:
             return [UIView new];
             
-        default:
+        case SCAN_RESULT_SECTION_TYPE_RELATED:
             return [ScanResultRelatedHeadView new];
     }
 }
@@ -500,12 +496,52 @@ enum SCAN_RESULT_CELL_TYPE
     {
         [self removeLoading];
         
+        OperationQRCodeDecode *ope=(id)operation;
+        
         _scanResult.decodeType=@(SCAN_CODE_DECODE_TYPE_INFORY);
+        [_scanResult addDecode:[NSSet setWithArray:ope.decodes]];
         
-        [_scanResult removeAllDecode];
-        [[DataManager shareInstance] save];
-        
-        [_scanResult addDecode:[NSSet setWithArray:_opeQRCodeDecode.decodes]];
+        for(ScanCodeDecode *obj in ope.decodes)
+        {
+            ScanResultCell *cell=[ScanResultCell new];
+            
+            switch (obj.enumType) {
+                case SCANCODE_DECODE_TYPE_BIGTEXT:
+                    cell.cellType=SCAN_RESULT_CELL_TYPE_HEADER;
+                    break;
+                    
+                case SCANCODE_DECODE_TYPE_BUTTONS:
+                    cell.cellType=SCAN_RESULT_CELL_TYPE_BUTTON;
+                    break;
+                    
+                case SCANCODE_DECODE_TYPE_HEADER:
+                    cell.cellType=SCAN_RESULT_CELL_TYPE_TITLE;
+                    
+                case SCANCODE_DECODE_TYPE_IMAGE:
+                    cell.cellType=SCAN_RESULT_CELL_TYPE_IMAGE;
+                    break;
+                    
+                case SCANCODE_DECODE_TYPE_SHARE:
+                    cell.cellType=SCAN_RESULT_CELL_TYPE_SHARE;
+                    break;
+                    
+                case SCANCODE_DECODE_TYPE_SMALLTEXT:
+                    cell.cellType=SCAN_RESULT_CELL_TYPE_TEXT;
+                    break;
+                    
+                case SCANCODE_DECODE_TYPE_VIDEO:
+                    cell.cellType=SCAN_RESULT_CELL_TYPE_VIDEO;
+                    break;
+                    
+                case SCANCODE_DECODE_TYPE_UNKNOW:
+                    cell.cellType=SCAN_RESULT_CELL_TYPE_UNKNOW;
+                    break;
+            }
+            
+            cell.object=obj;
+            
+            [_decodeCells addObject:obj];
+        }
         
         [[DataManager shareInstance] save];
         
@@ -515,13 +551,16 @@ enum SCAN_RESULT_CELL_TYPE
     }
     else if([operation isKindOfClass:[OperationQRCodeGetAllRelated class]])
     {
-        [_scanResult removeAllRelatedContain];
-        [[DataManager shareInstance] save];
+        OperationQRCodeGetAllRelated *ope=(id)operation;
         
         _scanResult.relatedStatus=@(SCAN_CODE_RELATED_STATUS_DONE);
-        [_scanResult addRelatedContain:[NSSet setWithArray:_opeQRCodeGetAllRelated.relatedContains]];
+        [_scanResult addRelatedContain:[NSSet setWithArray:ope.relatedContains]];
         
-        if(_scanResult.enumDecodeType!=SCAN_CODE_DECODE_TYPE_IDENTIFYING)
+        [_relatedSections addObjectsFromArray:ope.relatedContains];
+        
+        [[DataManager shareInstance] save];
+        
+        if(_scanResult.enumDecodeType!=SCAN_CODE_DECODE_TYPE_QUERYING)
             [table reloadData];
         
         _opeQRCodeGetAllRelated=nil;
@@ -588,20 +627,20 @@ enum SCAN_RESULT_CELL_TYPE
 
 -(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    UITouch *touch=[touches anyObject];
-    UIView *hitTestView=[table hitTest:[touch locationInView:table] withEvent:event];
-    
-    // Fix khi table scroll vượt qua header section view thì không thể detect touch - không biết lý do tại sao
-    // Touch nhận được lúc này lại là controller view
-    if(hitTestView)
-    {
-        if([hitTestView isKindOfClass:[ScanResultObjectHeaderView class]])
-        {
-            ScanResultObjectHeaderView *headerView=(ScanResultObjectHeaderView*)hitTestView;
-            
-            [self.delegate scanResultController:self touchedMore:headerView.object];
-        }
-    }
+//    UITouch *touch=[touches anyObject];
+//    UIView *hitTestView=[table hitTest:[touch locationInView:table] withEvent:event];
+//    
+//    // Fix khi table scroll vượt qua header section view thì không thể detect touch - không biết lý do tại sao
+//    // Touch nhận được lúc này lại là controller view
+//    if(hitTestView)
+//    {
+//        if([hitTestView isKindOfClass:[ScanResultObjectHeaderView class]])
+//        {
+//            ScanResultObjectHeaderView *headerView=(ScanResultObjectHeaderView*)hitTestView;
+//            
+//            [self.delegate scanResultController:self touchedMore:headerView.object];
+//        }
+//    }
 }
 
 @end

@@ -9,6 +9,17 @@
 #import <UIKit/UIKit.h>
 #import "Constant.h"
 
+@protocol ScanResultObjectData <NSObject>
+
+-(NSString*) name;
+-(NSString*) content;
+-(NSString*) logo;
+
+@property (nonatomic, assign) CGRect nameRect;
+@property (nonatomic, assign) CGRect contentRect;
+
+@end
+
 @class ScanCodeRelated, ScanResultObjectCell, Label;
 
 @protocol ScanResultObjectCellDelegate <NSObject>
@@ -26,12 +37,12 @@
     __weak IBOutlet UIImageView *imgvArrow;
 }
 
--(void) loadWithRelated:(ScanCodeRelated*) obj;
--(float) calculatorHeight:(ScanCodeRelated*) obj;
+-(void) loadWithRelated:(id<ScanResultObjectData>) obj;
+-(float) calculatorHeight:(id<ScanResultObjectData>) obj;
 +(NSString *)reuseIdentifier;
 
 @property (nonatomic, weak) id<ScanResultObjectCellDelegate> delegate;
-@property (nonatomic, weak, readonly) ScanCodeRelated *object;
+@property (nonatomic, weak, readonly) id<ScanResultObjectData> object;
 @property (nonatomic, assign) bool isPrototypeCell;
 
 @end
