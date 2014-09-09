@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@class UserNotificationAction, ScanButtonCollectionCell;
+@class MessageAction, ScanButtonCollectionCell;
 
 @protocol ScanButtonCollectionCellDelegate <NSObject>
 
@@ -19,13 +19,13 @@
 @interface ScanButtonCollectionCell : UICollectionViewCell
 {
     __weak IBOutlet UIButton *btn;
-    __weak UserNotificationAction *_action;
+    __weak MessageAction *_action;
 }
 
--(void) loadWithAction:(UserNotificationAction*) action;
--(UserNotificationAction*) action;
+-(void) loadWithAction:(MessageAction*) action;
+-(MessageAction*) action;
 +(NSString *)reuseIdentifier;
-+(float) widthWithAction:(UserNotificationAction*) action;
++(float) widthWithAction:(MessageAction*) action;
 
 @property (nonatomic, weak) id<ScanButtonCollectionCellDelegate> delegate;
 

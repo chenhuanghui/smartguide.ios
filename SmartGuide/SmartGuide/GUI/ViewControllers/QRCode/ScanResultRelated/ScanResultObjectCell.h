@@ -15,8 +15,8 @@
 -(NSString*) content;
 -(NSString*) logo;
 
-@property (nonatomic, assign) CGRect nameRect;
-@property (nonatomic, assign) CGRect contentRect;
+@property (nonatomic, assign, readwrite) CGRect nameRect;
+@property (nonatomic, assign, readwrite) CGRect contentRect;
 
 @end
 
@@ -52,5 +52,11 @@
 -(void) registerScanResultObjectCell;
 -(ScanResultObjectCell*) scanResultObjectCell;
 -(ScanResultObjectCell*) scanResultObjectPrototypeCell;
+
+@end
+
+#import "ScanCodeRelated.h"
+
+@interface ScanCodeRelated(ScanResultObjectCell)<ScanResultObjectData>
 
 @end

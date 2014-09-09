@@ -9,4 +9,6 @@
 
 -(enum MESSAGE_ACTION_TYPE) enumActionType;
 
+@property (nonatomic, assign) float actionTitleWidth;
+
 @end

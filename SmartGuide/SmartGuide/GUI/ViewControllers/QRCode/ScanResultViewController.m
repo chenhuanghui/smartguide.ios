@@ -137,7 +137,7 @@ enum SCAN_RESULT_CELL_TYPE
     [table registerScanResultInforyButtonCell];
     [table registerScanResultInforyShareCell];
     [table registerScanResultRelatedCell];
-    [table loadingMoreCell];
+    [table registerLoadingMoreCell];
     
     if(currentUser().enumDataMode==USER_DATA_FULL)
     {
@@ -245,7 +245,7 @@ enum SCAN_RESULT_CELL_TYPE
             break;
             
         case SCAN_RESULT_SECTION_TYPE_RELATED:
-            return 1;
+            return MIN(_relatedSections.count, 1);
     }
 }
 
@@ -375,7 +375,7 @@ enum SCAN_RESULT_CELL_TYPE
                         {
                             ScanResultInforyShareCell *cell=[tableView scanResultInforyShareCell];
                             
-                            [cell loadWithLink:obj.object];
+                            [cell loadWithLink:[obj.object linkShare]];
                             
                             return cell;
                         }
@@ -540,7 +540,7 @@ enum SCAN_RESULT_CELL_TYPE
             
             cell.object=obj;
             
-            [_decodeCells addObject:obj];
+            [_decodeCells addObject:cell];
         }
         
         [[DataManager shareInstance] save];

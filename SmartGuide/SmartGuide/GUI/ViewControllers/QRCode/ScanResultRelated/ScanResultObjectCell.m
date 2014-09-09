@@ -126,3 +126,61 @@ static char ScanResultObjectPrototypeCell;
 }
 
 @end
+
+#import <objc/runtime.h>
+
+static char ScanCodeRelatedContentRectKey;
+static char ScanCodeRelatedNameRectKey;
+@implementation ScanCodeRelated(ScanResultObjectCell)
+
+-(CGRect)contentRect
+{
+    return [objc_getAssociatedObject(self, &ScanCodeRelatedContentRectKey) CGRectValue];
+}
+
+-(void)setContentRect:(CGRect)contentRect
+{
+    objc_setAssociatedObject(self, &ScanCodeRelatedContentRectKey, [NSValue valueWithCGRect:contentRect], OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+-(CGRect)nameRect
+{
+    return [objc_getAssociatedObject(self, &ScanCodeRelatedNameRectKey) CGRectValue];
+}
+
+-(void)setNameRect:(CGRect)nameRect
+{
+    objc_setAssociatedObject(self, &ScanCodeRelatedNameRectKey, [NSValue valueWithCGRect:nameRect], OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+-(NSString *)name
+{
+    switch (self.enumType) {
+        case SCANCODE_RELATED_TYPE_PLACELISTS:
+            return self.placelistName;
+            
+        case SCANCODE_RELATED_TYPE_PROMOTIONS:
+            return self.promotionName;
+            
+        case SCANCODE_RELATED_TYPE_SHOPS:
+            return self.shopName;
+            
+        case SCANCODE_RELATED_TYPE_UNKNOW:
+            return @"";
+    }
+}
+
+-(NSString *)content
+{
+    switch (self.enumType) {
+        case SCANCODE_RELATED_TYPE_PLACELISTS:
+        case SCANCODE_RELATED_TYPE_PROMOTIONS:
+        case SCANCODE_RELATED_TYPE_SHOPS:
+            return self.desc;
+            
+        case SCANCODE_RELATED_TYPE_UNKNOW:
+            return @"";
+    }
+}
+
+@end

@@ -10,12 +10,49 @@
 #import "Utility.h"
 #import "ScanResultObjectCell.h"
 #import "ScanResultObjectHeaderView.h"
+#import "ScanCodeRelatedContain.h"
 
 @interface ScanResultRelatedCell()<UITableViewDataSource, UITableViewDelegate>
 
 @end
 
 @implementation ScanResultRelatedCell
+
+-(void)setTableParent:(UITableView *)tableParent
+{
+    if(_tableParent)
+        [_tableParent removeObserver:self forKeyPath:@"contentOffset"];
+    
+    _tableParent=tableParent;
+    
+    if(_tableParent)
+        [_tableParent addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:nil];
+}
+
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    NSIndexPath *idx=[self.tableParent indexPathForCell:self];
+    
+    if(!idx)
+        return;
+    
+    CGRect rect=[self.tableParent rectForRowAtIndexPath:idx];
+    float height=[self.tableParent rectForHeaderInSection:idx.section].size.height;
+ 
+    float y=self.tableParent.contentOffset.y+height-rect.origin.y;
+    if(y>0)
+    {
+        self.table.OY=y;
+        self.table.COY=y;
+    }
+    else
+    {
+        self.table.OY=0;
+        self.table.COY=0;
+    }
+    
+    NSLog(@"%f %f %f",rect.origin.y, rect.size.height, self.tableParent.contentOffset.y+height);
+}
 
 -(void)loadWithRelatedContain:(NSArray *)objs
 {
@@ -55,12 +92,26 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [_objs[section] count];
+    return [[_objs[section] relatiesObjects] count];
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return [ScanResultObjectHeaderView height];
+}
+
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    ScanResultObjectHeaderView *view=[ScanResultObjectHeaderView new];
+    
+    [view loadWithObject:_objs[section]];
+    
+    return view;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    id obj=[_objs[indexPath.section] objectAtIndex:indexPath.row];
+    id obj=[[_objs[indexPath.section] relatiesObjects] objectAtIndex:indexPath.row];
     
     return [[tableView scanResultObjectPrototypeCell] calculatorHeight:obj];
 }
@@ -68,7 +119,7 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     ScanResultObjectCell *cell=[tableView scanResultObjectCell];
-    id obj=[_objs[indexPath.section] objectAtIndex:indexPath.row];
+    id obj=[[_objs[indexPath.section] relatiesObjects] objectAtIndex:indexPath.row];
     
     [cell loadWithRelated:obj];
     

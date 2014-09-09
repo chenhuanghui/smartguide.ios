@@ -2,6 +2,7 @@
 #import "Enums.h"
 
 @implementation MessageAction
+@synthesize actionTitleWidth;
 
 +(MessageAction *)makeWithData:(NSDictionary *)action
 {

@@ -7,11 +7,11 @@
 //
 
 #import "ScanButtonCollectionCell.h"
-#import "UserNotificationAction.h"
+#import "MessageAction.h"
 
 @implementation ScanButtonCollectionCell
 
--(void)loadWithAction:(UserNotificationAction *)action
+-(void)loadWithAction:(MessageAction *)action
 {
     _action=action;
 
@@ -29,7 +29,7 @@
     [btn setBackgroundImage:img forState:UIControlStateNormal];
 }
 
--(UserNotificationAction *)action
+-(MessageAction *)action
 {
     return _action;
 }
@@ -44,12 +44,12 @@
     return @"ScanButtonCollectionCell";
 }
 
-+(float)widthWithAction:(UserNotificationAction *)action
++(float)widthWithAction:(MessageAction *)action
 {
-    if(action.actionTitleWidth.floatValue==-1)
-        action.actionTitleWidth=@([action.actionTitle sizeWithFont:FONT_SIZE_MEDIUM(14) constrainedToSize:CGSizeMake(MAXFLOAT, 47) lineBreakMode:NSLineBreakByWordWrapping].width);
+    if(action.actionTitleWidth==-1)
+        action.actionTitleWidth=[action.actionTitle sizeWithFont:FONT_SIZE_MEDIUM(14) constrainedToSize:CGSizeMake(MAXFLOAT, 47) lineBreakMode:NSLineBreakByWordWrapping].width;
     
-    return MIN(action.actionTitleWidth.floatValue+60, 320.f-60-23*2);
+    return MIN(action.actionTitleWidth+60, 320.f-60-23*2);
 }
 
 @end

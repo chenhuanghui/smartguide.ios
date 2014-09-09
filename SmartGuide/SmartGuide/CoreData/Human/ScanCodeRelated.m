@@ -1,7 +1,6 @@
 #import "ScanCodeRelated.h"
 
 @implementation ScanCodeRelated
-@synthesize descRect, nameRect;
 
 +(ScanCodeRelated *)makeWithShopDictionary:(NSDictionary *)dict
 {
