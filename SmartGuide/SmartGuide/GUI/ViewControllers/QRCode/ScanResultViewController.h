@@ -14,7 +14,6 @@
 
 @protocol ScanResultControllerDelegate <ViewControllerDelegate>
 
--(void) scanResultControllerTouchedBack:(ScanResultViewController*) controller;
 -(void) scanResultController:(ScanResultViewController*) controller touchedAction:(UserNotificationAction*) action;
 -(void) scanResultController:(ScanResultViewController*) controller touchedRelated:(ScanCodeRelated*) related;
 -(void) scanResultController:(ScanResultViewController*) controller touchedMore:(ScanCodeRelatedContain*) object;

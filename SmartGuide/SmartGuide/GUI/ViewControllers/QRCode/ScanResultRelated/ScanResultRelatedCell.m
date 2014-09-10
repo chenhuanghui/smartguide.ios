@@ -18,42 +18,6 @@
 
 @implementation ScanResultRelatedCell
 
--(void)setTableParent:(UITableView *)tableParent
-{
-    if(_tableParent)
-        [_tableParent removeObserver:self forKeyPath:@"contentOffset"];
-    
-    _tableParent=tableParent;
-    
-    if(_tableParent)
-        [_tableParent addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:nil];
-}
-
--(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
-{
-    NSIndexPath *idx=[self.tableParent indexPathForCell:self];
-    
-    if(!idx)
-        return;
-    
-    CGRect rect=[self.tableParent rectForRowAtIndexPath:idx];
-    float height=[self.tableParent rectForHeaderInSection:idx.section].size.height;
- 
-    float y=self.tableParent.contentOffset.y+height-rect.origin.y;
-    if(y>0)
-    {
-        self.table.OY=y;
-        self.table.COY=y;
-    }
-    else
-    {
-        self.table.OY=0;
-        self.table.COY=0;
-    }
-    
-    NSLog(@"%f %f %f",rect.origin.y, rect.size.height, self.tableParent.contentOffset.y+height);
-}
-
 -(void)loadWithRelatedContain:(NSArray *)objs
 {
     _objs=objs;
@@ -106,6 +70,9 @@
     
     [view loadWithObject:_objs[section]];
     
+    UITapGestureRecognizer *tap=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapHeader:)];
+    [view addGestureRecognizer:tap];
+    
     return view;
 }
 
@@ -124,6 +91,11 @@
     [cell loadWithRelated:obj];
     
     return cell;
+}
+
+-(void) tapHeader:(UITapGestureRecognizer*) tap
+{
+    
 }
 
 -(void)awakeFromNib

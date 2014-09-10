@@ -19,7 +19,6 @@
 
 @property (nonatomic, assign) bool isPrototypeCell;
 @property (nonatomic, weak, readonly) NSArray *objs;
-@property (nonatomic, weak) UITableView *tableParent;
 
 @end
 

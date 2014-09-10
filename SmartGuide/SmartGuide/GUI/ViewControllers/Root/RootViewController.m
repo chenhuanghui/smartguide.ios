@@ -35,7 +35,7 @@
 #import "NavigationController.h"
 #import "ScanResultViewController.h"
 
-@interface RootViewController ()<NavigationControllerDelegate,UIScrollViewDelegate,HomeControllerDelegate,UserPromotionDelegate,SGUserSettingControllerDelegate,WebViewDelegate,ShopUserControllerDelegate,UIGestureRecognizerDelegate,RemoteNotificationDelegate, ScanCodeControllerDelegate, RevealControllerDelegate, SearchControllerDelegate>
+@interface RootViewController ()<NavigationControllerDelegate,UIScrollViewDelegate,HomeControllerDelegate,UserPromotionDelegate,SGUserSettingControllerDelegate,WebViewDelegate,ShopUserControllerDelegate,UIGestureRecognizerDelegate,RemoteNotificationDelegate, ScanCodeControllerDelegate, RevealControllerDelegate, SearchControllerDelegate, ScanResultControllerDelegate>
 {
     __weak RevealViewController *revealControlelr;
 }
@@ -756,7 +756,7 @@ static char ScanControllerKey;
 -(void) showScanCodeResultWithCode:(NSString*) code
 {
     ScanResultViewController *vc=[[ScanResultViewController alloc] initWithCode:code];
-    
+
     [self.tabsController.selectedTab pushViewController:vc animated:true];
 }
 

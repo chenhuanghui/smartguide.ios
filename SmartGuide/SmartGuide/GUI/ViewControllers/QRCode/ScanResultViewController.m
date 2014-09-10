@@ -110,7 +110,7 @@ enum SCAN_RESULT_CELL_TYPE
     
     if(_scanResult.managedObjectContext==nil)
     {
-        [self.delegate scanResultControllerTouchedBack:self];
+        [self.navigationController popViewControllerAnimated:true];
     }
     else
     {
@@ -150,7 +150,7 @@ enum SCAN_RESULT_CELL_TYPE
     {
         [[GUIManager shareInstance] showLoginDialogWithMessage:localizeLoginRequire() onOK:nil onCancelled:^
          {
-             [self.delegate scanResultControllerTouchedBack:self];
+             [self.navigationController popViewControllerAnimated:true];
          } onLogined:^(bool isLogined) {
              if(isLogined)
              {
@@ -470,7 +470,7 @@ enum SCAN_RESULT_CELL_TYPE
 
 -(void)scanResultDisconnectCellTouchedTry:(ScanResultDisconnectCell *)cell
 {
-    [self.delegate scanResultControllerTouchedBack:self];
+    [self.navigationController popViewControllerAnimated:true];
 }
 //
 //-(MPMoviePlayerController *)scanResultInforyCellRequestMoviePlayer:(ScanResultInforyCell *)cell
@@ -485,7 +485,7 @@ enum SCAN_RESULT_CELL_TYPE
 //}
 //
 - (IBAction)btnBackTouchUpInside:(id)sender {
-    [self.delegate scanResultControllerTouchedBack:self];
+    [self.navigationController popViewControllerAnimated:true];
 }
 
 #pragma mark ASIOperation Delegate

@@ -11,5 +11,6 @@
 @interface TableTableCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UITableView *table;
+@property (nonatomic, weak) UITableView *tableParent;
 
 @end
